@@ -40,7 +40,6 @@ export default Route.extend({
 
 		reviewAndGetMoreImages() {
 			const model = this.modelFor('imageReview');
-
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
@@ -53,23 +52,15 @@ export default Route.extend({
 			}).then(this.refresh.bind(this));
 		},
 
-		getFlaggedOnly() {
+		getAllWithStatus(status) {
 			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.endSession(model.contractId);
+			if (!Ember.isNone(model.contractId)) {
+				ImageReviewModel.endSession(model.contractId);
+			}
 
-			this.set('status', 'FLAGGED');
-			this.refresh();
-		},
-
-		getRejectedOnly() {
-			const model = this.modelFor('imageReview');
-			window.scrollTo(0, 0);
-
-			ImageReviewModel.endSession(model.contractId);
-
-			this.set('status', 'REJECTED');
+			this.set('status', status);
 			this.refresh();
 		},
 

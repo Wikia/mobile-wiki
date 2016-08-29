@@ -7,9 +7,14 @@ export default DiscussionStandaloneEditor.extend({
 	isGuidelinesEditor: true,
 	isReply: false,
 	openGraph: null,
+	shouldShowCategoryPicker: false,
 	showsOpenGraphCard: false,
 
 	layoutName: 'components/discussion-standalone-editor',
+
+	editTextDisabled: Ember.computed('isEdit', 'guidelines.permissions.canEdit', function () {
+		return this.get('isEdit') && !this.get('guidelines.permissions.canEdit');
+	}),
 
 	// first time it is triggered by the 'guidelines' property, and later by the 'isActive' property
 	targetObjectObserver: Ember.observer('guidelines', function () {

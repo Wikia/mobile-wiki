@@ -17,9 +17,11 @@
 
 <div class="site-body-discussion post-list-view discussion-user-list">
 	{{discussion-hero-unit
-		userName=model.userName
 		contributors=model.contributors
+		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
+		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
+		userName=model.userName
 	}}
 	<div class="desktop-hidden post-list-header-content">
 		{{discussion-post-list-header

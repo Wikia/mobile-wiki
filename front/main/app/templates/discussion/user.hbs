@@ -4,12 +4,15 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
 		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		gotoGuidelines=(action 'gotoGuidelines')
+		hasTitle=true
 		isActive=editEditorState.isOpen
 		isEdit=true
 		isLoading=editEditorState.isLoading
@@ -18,13 +21,16 @@
 {{/modal-dialog}}
 
 {{#discussion-user-entities-list-layout
+	attributes=model.index.attributes.data
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
 	smartBannerVisible=smartBannerVisible
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-user-list-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
 		loadPage=(action 'loadPage')
@@ -34,7 +40,6 @@
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')

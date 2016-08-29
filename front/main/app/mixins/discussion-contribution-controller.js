@@ -166,14 +166,14 @@ export default Ember.Mixin.create({
 		}
 	},
 
-	createPost(entityData) {
+	createPost(entityData, params) {
 		const editorType = 'contributeEditor',
 			editorState = this.getEditorState(editorType);
 
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').current.createPost(entityData).catch((err) => {
+		this.get('model').current.createPost(entityData, params.newCategoryId).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);
@@ -247,23 +247,24 @@ export default Ember.Mixin.create({
 		 * @param {Object} entityData
 		 * @returns {void}
 		 */
-		createPost(entityData) {
-			this.createPost(entityData);
+		createPost(entityData, params) {
+			this.createPost(entityData, params.newCategoryId);
 		},
 
 		/**
 		 * Bubbles up to Route
 		 * @param {Object} entityData
+		 * @param {Object} params
 		 * @returns {void}
 		 */
-		editPost(entityData) {
+		editPost(entityData, params) {
 			const editorType = 'editEditor',
 				editorState = this.getEditorState(editorType);
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').current.editPost(entityData).catch((err) => {
+			this.get('model').current.editPost(entityData, params).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);
@@ -320,7 +321,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('discussion.model').attributes.saveAttribute('guidelines', text).then(() => {
+			this.get('discussion.model').attributes.saveTextAttribute('guidelines', text).then(() => {
 				track(trackActions.GuidelinesEditSave);
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
@@ -328,5 +329,23 @@ export default Ember.Mixin.create({
 				editorState.set('isLoading', false);
 			});
 		},
-	}
+
+		/**
+		 * This uploads the new community badge image
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
+		 */
+		uploadCommunityBadge(image) {
+			return this.get('discussion.model').attributes.saveImageAttribute('badgeImage', image);
+		},
+
+		/**
+		 * This uploads the new discussions header image
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
+		 */
+		uploadDiscussionsHeader(image) {
+			return this.get('discussion.model').attributes.saveImageAttribute('heroImage', image);
+		},
+	},
 });

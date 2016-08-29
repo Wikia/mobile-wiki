@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 				options = {
 					width: imageSize,
 					height: imageSize,
-					mode: Thumbnailer.mode.scaleToWidth
+					mode: Thumbnailer.mode.fixedAspectRatioDown
 				};
 
 			return Thumbnailer.getThumbURL(this.get('model.fullSizeImageUrl'), options);

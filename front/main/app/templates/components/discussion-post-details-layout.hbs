@@ -5,7 +5,6 @@
 		hasBackButton=true
 		hasFilters=false
 		hasNewPostButton=false
-		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
 	}}
 {{/ember-wormhole}}
@@ -21,7 +20,10 @@
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
-			{{community-badge}}
+			{{discussion-community-badge
+				badgeImage=attributes.badgeImage
+				uploadMethod=(action this.attrs.uploadCommunityBadge)
+			}}
 			{{discussion-side-button
 				route='discussion'
 			}}

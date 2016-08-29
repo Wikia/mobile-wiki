@@ -8,8 +8,8 @@
 		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
 		setEditorActive=(action this.attrs.setEditorActive)
-		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
+		updateCategories=(action this.attrs.updateCategories)
 	}}
 {{/ember-wormhole}}
 {{discussion-dialog
@@ -23,17 +23,25 @@
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors
+		editingPossible=true
+		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
+		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
-			{{community-badge}}
-			{{#if showCategories}}
-				{{#if categories}}
+			{{discussion-community-badge
+				badgeImage=attributes.badgeImage
+				editingPossible=true
+				uploadMethod=(action this.attrs.uploadCommunityBadge)
+			}}
+			{{#if categoriesInRail}}
+				{{#if canShowCategories}}
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
 						updateCategories=(action this.attrs.updateCategories)
+						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						visibleCategoriesCount=10
 					}}
 				{{/if}}

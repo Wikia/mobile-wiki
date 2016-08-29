@@ -302,7 +302,7 @@ class Ads {
 
 			if (Ads.previousDetectionResults.pageFair.exists) {
 				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-			} else {
+			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
 				this.pageFairDetectionModule.initDetection(adsContext);
 			}
 
@@ -348,7 +348,7 @@ class Ads {
 	/**
 	 * Adds ad slot
 	 *
-	 * @param {string} name - name of the slot
+	 * @param {string} name - ad slot name
 	 * @returns {number} index of the inserted slot
 	 */
 	addSlot(name) {

@@ -69,7 +69,7 @@ export default Ember.Mixin.create({
 
 		if (adsContext) {
 			uaDimensions[3] = Ember.get(adsContext, 'targeting.wikiVertical');
-			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'yes' : 'no';
+			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'Yes' : 'No';
 		}
 
 		uaDimensions[25] = ns;

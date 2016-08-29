@@ -1,5 +1,7 @@
 {{#if responsive.isMobile}}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonMobile'
 		create=(action 'createPost')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
@@ -18,6 +20,8 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -39,24 +43,30 @@
 	}}
 		{{discussion-guidelines
 			guidelinesText=model.index.attributes.data.guidelines.value
+			uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 		}}
 	{{/modal-dialog}}
 {{/if}}
 {{#discussion-entities-list-layout
+	addCategory=(route-action 'addCategory')
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
-	categories=model.index.categories.data
+	categories=model.index.categories.categories
+	categoriesInRail=true
 	model=model.current.data
+	updateCategories=(route-action 'updateCategories')
+	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
-	showCategories=showCategories
-	updateCategories=(action 'updateCategories')
+	uploadCommunityBadge=(action 'uploadCommunityBadge')
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
 	}}
 	{{discussion-forum-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		editorState=editorState
@@ -72,7 +82,6 @@
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		unlockPost=(action 'unlockPost')
