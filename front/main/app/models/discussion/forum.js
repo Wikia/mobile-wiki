@@ -6,6 +6,7 @@ import DiscussionContributionModelMixin from '../../mixins/discussion-contributi
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
+import DiscussionUserBlockDetails from './domain/user-block-details';
 import request from 'ember-ajax/request';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
@@ -57,8 +58,10 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				canModerate: Ember.getWithDefault(entities, 'firstObject.userData.permissions.canModerate', false),
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
+				isRequesterBlocked: Boolean(apiData.isRequesterBlocked),
 				pageNum: 0,
 				postCount: parseInt(apiData.threadCount, 10),
+				userBlockDetails: DiscussionUserBlockDetails.create(apiData.userBlockDetails)
 			});
 
 			this.set('pivotId', pivotId);

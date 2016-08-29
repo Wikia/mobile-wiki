@@ -3,6 +3,7 @@ import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
 import OpenGraph from './open-graph';
+import DiscussionUserBlockDetails from './user-block-details';
 
 const DiscussionPost = DiscussionEntity.extend({
 	canModerate: null,
@@ -43,6 +44,7 @@ DiscussionPost.reopenClass({
 				threadId: postData.threadId,
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
+				userBlockDetails: DiscussionUserBlockDetails.create(postData.userBlockDetails)
 			}),
 			userData = Ember.get(postData, '_embedded.userData.0'),
 			openGraphData = Ember.get(postData, '_embedded.openGraph.0');
@@ -83,6 +85,7 @@ DiscussionPost.reopenClass({
 				threadId: threadData.id,
 				title: threadData.title,
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
+				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
 			}),
 			userData = Ember.get(threadData, '_embedded.userData.0'),
 			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
