@@ -67,7 +67,7 @@ export default Ember.Mixin.create({
 	getUserBlockDetails(discussionEntity) {
 		if (discussionEntity && discussionEntity.get('isRequesterBlocked')) {
 			return discussionEntity.get('userBlockDetails');
-		} else if (this.get('model.current.data.isRequesterBlocked')){
+		} else if (this.get('model.current.data.isRequesterBlocked')) {
 			return this.get('model.current.data.userBlockDetails');
 		}
 
