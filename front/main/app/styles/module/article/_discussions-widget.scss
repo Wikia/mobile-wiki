@@ -1,10 +1,10 @@
 
-$discussions-widget-heading-background: #f6f6f6;
-
 .widget-discussions {
+	margin: 0 -$article-horizontal-padding;
+
 	.heading-wrapper {
 		svg {
-			fill: blue;
+			fill: $discussions-widget-linkcolor;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
@@ -22,7 +22,7 @@ $discussions-widget-heading-background: #f6f6f6;
 	}
 
 	.heading-viewall {
-		color: blue;
+		color: $discussions-widget-linkcolor;
 		margin-left: auto;
 		padding-right: 14px;
 	}
@@ -31,6 +31,4 @@ $discussions-widget-heading-background: #f6f6f6;
 		padding-top: 20px;
 		position: relative;
 	}
-
-	margin: 0 -$article-horizontal-padding;
 }

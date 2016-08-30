@@ -7,10 +7,21 @@ import DiscussionContributionModelMixin from '../mixins/discussion-contribution-
 export default Ember.Component.extend(
   DiscussionContributionModelMixin,
 	{
+		classNameBindings: ['forumWrapper', 'discussion', 'forum'],
 		classNames: ['widget-discussions'],
-		layoutName: 'components/widget-discussions',
 		data: null,
+		discussion: true,
+		forumWrapper: true,
+		forum: true,
 		upvotingInProgress: {},
+
+		title: Ember.computed('title', () => {
+			return i18n.t('main.discussions-header-title', {ns: 'discussion'});
+		}),
+
+		viewAllPosts: Ember.computed('title', () => {
+			return i18n.t('main.all-discussions-link-mobile', {ns: 'discussion'});
+		}),
 
 		/**
 		 * @returns {void}
@@ -18,13 +29,9 @@ export default Ember.Component.extend(
 		didInsertElement() {
 			const posts = DiscussionForumModel.find(Mercury.wiki.id, [], this.get('show'));
 
-			$('.widget-discussions').addClass('forum-wrapper discussion forum');
-
 			posts.then((result) => {
 				const entities = result.data.entities.slice(0, this.get('itemCount'));
 				this.set('posts', entities);
-				this.set('title', i18n.t('main.discussions-header-title', {ns: 'discussion'}));
-				this.set('view-all', i18n.t('main.all-discussions-link-mobile', {ns: 'discussion'}));
 			});
 		},
 
