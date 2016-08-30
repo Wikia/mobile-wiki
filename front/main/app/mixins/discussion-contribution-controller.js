@@ -74,6 +74,19 @@ export default Ember.Mixin.create({
 		return null;
 	},
 
+	getUserProfileAnchor(username) {
+		if (!username) {
+			return '';
+		}
+
+		const profileUrl = M.buildUrl({
+			namespace: 'User',
+			title: username,
+		});
+
+		return `<a href=${profileUrl}>${username}</a>`;
+	},
+
 	/**
 	 * Set editor active state
 	 *
@@ -124,7 +137,7 @@ export default Ember.Mixin.create({
 		this.openDialog({
 			header: i18n.t('editor.post-error-user-blocked-title', {ns: 'discussion'}),
 			message: i18n.t('editor.post-error-user-blocked-text', {
-				blockerUsername: userBlockDetails.get('blockedBy'),
+				blockerUsername: this.getUserProfileAnchor(userBlockDetails.get('blockedBy')),
 				blockExpiry: new Date(Number(userBlockDetails.get('blockExpiry'))).toLocaleString(),
 				blockReason: userBlockDetails.get('blockReason'),
 				ns: 'discussion',
