@@ -27,9 +27,15 @@
 		upvote=(action 'upvote')
 	}}
 {{else}}
-	{{loading-spinner
-		active=true
-		radius=32
-		strokeWidth=2
-	}}
+	{{#if isLoading}}
+		{{loading-spinner
+			active=true
+			radius=32
+			strokeWidth=2
+		}}
+	{{else}}
+		{{discussion-empty-forum-message
+			setEditorActive=(action 'setEditorActive')
+		}}
+	{{/if}}
 {{/each}}

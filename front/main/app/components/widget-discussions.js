@@ -13,13 +13,14 @@ export default Ember.Component.extend(
 		discussion: true,
 		forumWrapper: true,
 		forum: true,
+		isLoading: true,
 		upvotingInProgress: {},
 
 		title: Ember.computed('title', () => {
 			return i18n.t('main.discussions-header-title', {ns: 'discussion'});
 		}),
 
-		viewAllPosts: Ember.computed('title', () => {
+		viewAllPosts: Ember.computed('viewAllPosts', () => {
 			return i18n.t('main.all-discussions-link-mobile', {ns: 'discussion'});
 		}),
 
@@ -27,11 +28,18 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			const posts = DiscussionForumModel.find(Mercury.wiki.id, [], this.get('show'));
+			const category = this.get('category'),
+				posts = DiscussionForumModel.find(
+					Mercury.wiki.id,
+					category ? [category] : [],
+					this.get('show')
+				);
 
 			posts.then((result) => {
-				const entities = result.data.entities.slice(0, this.get('itemCount'));
-				this.set('posts', entities);
+				this.setProperties({
+					posts: result.data.entities.slice(0, this.get('itemCount')),
+					isLoading: false,
+				});
 			});
 		},
 
