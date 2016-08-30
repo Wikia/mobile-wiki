@@ -153,10 +153,8 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	openDialog(openDialogParams) {
-		const displayParams = {};
-
-		Object.assign(
-			displayParams,
+		const displayParams = Object.assign(
+			{},
 			{name: 'modal-dialog-posting-not-allowed'},
 			openDialogParams,
 		);
