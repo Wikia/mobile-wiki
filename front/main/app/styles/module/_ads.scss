@@ -83,6 +83,35 @@
 	border: 0;
 }
 
+#InvisibleHighImpactWrapper.floor-adhesion {
+	bottom: 0;
+	position: fixed;
+
+	.background, div.label {
+		display: none;
+	}
+
+	a.close {
+		background-color: #000;
+		border-radius: 100%;
+		border: 2px solid white;
+		float: right;
+		height: 40px;
+		padding: 5px;
+		position: relative;
+		text-align: center;
+		top: 20px;
+		width: 40px;
+		z-index: 1;
+
+		svg {
+			display: inline-block;
+			margin: auto;
+			vertical-align: middle;
+		}
+	}
+}
+
 .invisible-high-impact-wrapper.interstitial {
 	align-items: center;
 	display: flex;
