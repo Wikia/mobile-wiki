@@ -166,7 +166,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 * @param {Ember.Array} categories
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	updateCategories(categories, callback) {
+	updateCategories(categories) {
 		const leftCategories = categories.rejectBy('moveTo'),
 			deleteCategoriesPromises = this.findCategoriesToDeleteAndMove(categories)
 				.map(category => this.deleteCategory(category));
