@@ -38,9 +38,9 @@ export default DiscussionBaseRoute.extend(
 
 				validCategories = discussionModel.categories.get('categories')
 					.filter(category => validCategories.indexOf(category.id) !== -1)
-					.map(category => category.id)
+					.map(category => category.id);
 
-				if (0 == validCategories.length || queryParams.catId.length !== validCategories.length) {
+				if (validCategories.length === 0 || queryParams.catId.length !== validCategories.length) {
 					modifiedTransition = this.transitionTo({
 						queryParams: {
 							catId: validCategories,

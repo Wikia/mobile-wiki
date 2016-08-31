@@ -124,10 +124,6 @@ export default Ember.Component.extend(ResponsiveMixin,
 							Ember.run.later(this, () => this.get('validatePostsOnForum')(), timeout + 500);
 						}
 					})
-					.then(() => {
-						"use strict";
-
-					})
 					.catch(() => {
 						this.set('errorMessage', i18n.t('main.categories-edit-general-error', {ns: 'discussion'}));
 					})
