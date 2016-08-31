@@ -5,8 +5,7 @@ import ResponsiveMixin from '../mixins/responsive';
 
 export default Ember.Component.extend(ResponsiveMixin,
 	{
-		classNames: ['discussion-categories-edit'],
-		classNameBindings: ['isModalVisible::highlight-overlay-content'],
+		classNames: ['discussion-categories-edit', 'highlight-overlay-content'],
 
 		currentUser: Ember.inject.service(),
 
