@@ -214,11 +214,7 @@ export default Ember.Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
-				let adsHighImpact = this.get('adsHighImpact');
-
-				$script.ready(M.prop('adsUrl'), () => {
-					adsHighImpact.loadFloor();
-				});
+				this.get('adsHighImpact').loadFloorAdhesionWhenPossible();
 
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({

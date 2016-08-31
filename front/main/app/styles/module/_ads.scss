@@ -84,6 +84,9 @@
 }
 
 #InvisibleHighImpactWrapper.floor-adhesion {
+	$floorAdhesionBackgroundColor: #000;
+	$closeButtonHeight: 40px;
+
 	bottom: 0;
 	position: fixed;
 
@@ -92,20 +95,19 @@
 	}
 
 	a.close {
-		background-color: #000;
+		background-color: $floorAdhesionBackgroundColor;
 		border-radius: 100%;
 		border: 2px solid white;
 		float: right;
-		height: 40px;
+		height: $closeButtonHeight;
 		padding: 5px;
 		position: relative;
 		text-align: center;
-		top: 20px;
-		width: 40px;
+		top: $closeButtonHeight / 2;
+		width: $closeButtonHeight;
 		z-index: 1;
 
 		svg {
-			display: inline-block;
 			margin: auto;
 			vertical-align: middle;
 		}
