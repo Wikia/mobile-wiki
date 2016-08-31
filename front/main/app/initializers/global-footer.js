@@ -7,26 +7,24 @@ const {$, getWithDefault} = Ember;
  * @returns {void}
  */
 export function initialize() {
-	$('.wds-global-footer a').on('mousedown touchstart', function (event) {
-		if (event.type === 'touchstart' || event.type === 'mousedown' && event.which === 1) {
-			const trackingLabel = this.getAttribute('data-tracking-label');
+	$('.wds-global-footer a').click(function () {
+		const trackingLabel = this.getAttribute('data-tracking-label');
 
-			if (trackingLabel) {
-				track({
-					action: trackActions.click,
-					category: 'footer',
-					label: trackingLabel
-				});
-			}
+		if (trackingLabel) {
+			track({
+				action: trackActions.click,
+				category: 'footer',
+				label: trackingLabel
+			});
+		}
 
-			if (this.getAttribute('id') === 'global-footer-full-site-link') {
-				const defaultSkin = getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+		if (this.getAttribute('id') === 'global-footer-full-site-link') {
+			const defaultSkin = getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
-				$.cookie('useskin', defaultSkin, {
-					domain: M.prop('cookieDomain'),
-					path: '/'
-				});
-			}
+			$.cookie('useskin', defaultSkin, {
+				domain: M.prop('cookieDomain'),
+				path: '/'
+			});
 		}
 	});
 }
