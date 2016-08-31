@@ -27,26 +27,48 @@ export default DiscussionBaseRoute.extend(
 		canModerate: null,
 		discussionSort: inject.service(),
 
+		beforeModel(transition) {
+			const queryParams = transition.queryParams,
+				discussionModel = this.modelFor('discussion');
+
+			let modifiedTransition = null;
+
+			if (queryParams.catId && queryParams.catId.length !== 0) {
+				let validCategories = queryParams.catId;
+
+				validCategories = discussionModel.categories.get('categories')
+					.filter(category => validCategories.indexOf(category.id) !== -1)
+					.map(category => category.id)
+
+				if (0 == validCategories.length || queryParams.catId.length !== validCategories.length) {
+					modifiedTransition = this.transitionTo({
+						queryParams: {
+							catId: validCategories,
+							sort: this.get('discussionSort.sortBy')}});
+				}
+			}
+
+			if (!modifiedTransition) {
+				this.transitionToPreviouslySelectedFilters(discussionModel.categories, queryParams);
+			}
+
+		},
+
 		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.hash} may return null if previously selected filters are applied
 		 */
 		model(params) {
-			const discussionSort = this.get('discussionSort'),
-				discussionModel = this.modelFor('discussion');
+			const discussionSort = this.get('discussionSort');
 
-			const transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
+			discussionSort.setOnlyReported(false);
 
-			if (!transition) {
-				discussionSort.setOnlyReported(false);
-
-				if (params.sort) {
-					discussionSort.setSortBy(params.sort);
-					return this.updateDiscussionModel(params);
-				} else {
-					discussionSort.setSortBy('trending');
-					this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
-				}
+			if (params.sort) {
+				discussionSort.setSortBy(params.sort);
+				return this.updateDiscussionModel(params);
+			} else {
+				discussionSort.setSortBy('trending');
+				this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
 			}
 		},
 
@@ -163,6 +185,10 @@ export default DiscussionBaseRoute.extend(
 
 			updateCategories(categories) {
 				return this.modelFor(this.get('routeName')).index.categories.updateCategories(categories);
+			},
+
+			validatePostsOnForum() {
+				this.refresh();
 			},
 
 			/**

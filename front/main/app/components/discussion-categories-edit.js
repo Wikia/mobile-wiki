@@ -96,7 +96,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			submit() {
 				const localCategories = this.get('localCategories'),
-					emptyCategories = localCategories.rejectBy('displayedName');
+					emptyCategories = localCategories.rejectBy('displayedName'),
+					timeout = 2000;
 
 				this.set('errorMessage', null);
 				localCategories.setEach('error', null);
@@ -117,7 +118,15 @@ export default Ember.Component.extend(ResponsiveMixin,
 						Ember.run.later(this, () => {
 							this.set('showSuccess', false);
 							this.sendAction('setEditMode', false);
-						}, 2000);
+						}, timeout);
+
+						if (localCategories.some(category => Boolean(category.get('moveTo')))) {
+							Ember.run.later(this, () => this.get('validatePostsOnForum')(), timeout + 500);
+						}
+					})
+					.then(() => {
+						"use strict";
+
 					})
 					.catch(() => {
 						this.set('errorMessage', i18n.t('main.categories-edit-general-error', {ns: 'discussion'}));
