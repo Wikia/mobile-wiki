@@ -105,21 +105,12 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	},
 
 	deleteCategory(category) {
-		// request body will change
-		// return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
-		// 	data: JSON.stringify({
-		// 		name: category.get('displayedName'),
-		// 	}),
-		// 	method: 'DELETE',
-		// }).then(() => {
-		// 	const categories = this.get('categories'),
-		// 		categoryIndex = categories
-		// 			.indexOf(categories.find((cat) => cat.get('id') === category.get('id')));
-        //
-		// 	if (categoryIndex !== -1) {
-		// 		categories.removeAt(categoryIndex);
-		// 	}
-		// });
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
+			data: JSON.stringify({
+				moveChildrenTo: category.get('moveTo'),
+			}),
+			method: 'DELETE',
+		});
 	},
 
 	reorderCategories(categories) {
@@ -175,27 +166,25 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 * @param {Ember.Array} categories
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	updateCategories(categories) {
-		const deletedCategoriesPromisesList = this.findCategoriesToDeleteAndMove(categories).map((category) => {
-			return this.deleteCategory(category);
-		});
+	updateCategories(categories, callback) {
+		const leftCategories = categories.rejectBy('moveTo'),
+			deleteCategoriesPromises = this.findCategoriesToDeleteAndMove(categories)
+				.map(category => this.deleteCategory(category));
 
-		return Ember.RSVP.all(deletedCategoriesPromisesList)
+		return Ember.RSVP.all(deleteCategoriesPromises)
 			.then(() => {
-				const newCategoriesPromisesList = categories.rejectBy('id').map((category) => {
-					return this.addCategory(category);
-				});
+				const addCategoriesPromises = leftCategories
+					.rejectBy('id')
+					.map(category => this.addCategory(category));
 
-				return Ember.RSVP.all(newCategoriesPromisesList);
+				return Ember.RSVP.all(addCategoriesPromises);
 			})
 			.then(() => {
-				const renamedCategoriesPromisesList = categories.filter((category) => {
-						return category.get('displayedName') !== category.get('name') && category.get('id');
-					}).map((category) => {
-						return this.renameCategory(category);
-					}),
-					reorderingPromise = this.reorderCategories(categories),
-					parallelActionsPromisesList = renamedCategoriesPromisesList;
+				const renameCategoriesPromises = leftCategories
+						.filter(category => category.get('displayedName') !== category.get('name') && category.get('id'))
+						.map(category => this.renameCategory(category)),
+					reorderingPromise = this.reorderCategories(leftCategories),
+					parallelActionsPromisesList = renameCategoriesPromises;
 
 				parallelActionsPromisesList.pushObject(reorderingPromise);
 
