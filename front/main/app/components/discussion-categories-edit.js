@@ -119,7 +119,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 							this.set('showSuccess', false);
 							this.sendAction('setEditMode', false);
 							if (localCategories.some(category => Boolean(category.get('moveTo')))) {
-								this.get('validatePostsOnForum')()
+								this.get('validatePostsOnForum')();
 							}
 						}, timeout);
 					})
