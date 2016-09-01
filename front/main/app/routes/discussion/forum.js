@@ -36,25 +36,12 @@ export default DiscussionBaseRoute.extend(
 				discussionModel = this.modelFor('discussion'),
 				discussionSort = this.get('discussionSort');
 
-			let modifiedTransition = null;
-
-			if (!Ember.isEmpty(queryParams.catId)) {
-				let validCategories = queryParams.catId;
-
-				validCategories = this.validateCategories(discussionModel.categories, queryParams);
-
-				if (queryParams.catId.length !== validCategories.length) {
-					modifiedTransition = this.transitionTo({
-						queryParams: {
-							catId: validCategories,
-							sort: queryParams.sort
-						}
-					});
-				}
-			}
+			let modifiedTransition
+				= this.transitionToValidCategoryFilters(discussionModel.categories, queryParams);
 
 			if (!modifiedTransition) {
-				modifiedTransition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, queryParams);
+				modifiedTransition
+					= this.transitionToPreviouslySelectedFilters(discussionModel.categories, queryParams);
 			}
 
 			if (!modifiedTransition && !queryParams.sort) {
@@ -86,6 +73,34 @@ export default DiscussionBaseRoute.extend(
 				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
 				index: discussionModel
 			});
+		},
+
+		/**
+		 * Validate selected categories. If categories in query param contain at least one wrong category,
+		 * remove it and transition to proper url
+		 * @param {object} categories
+		 * @param {object} params
+		 * @returns {EmberStates.Transition} may return null when categories in query params are valid
+		 */
+		transitionToValidCategoryFilters(categories, params) {
+			let transition = null;
+
+			if (!Ember.isEmpty(params.catId)) {
+				let validCategories = params.catId;
+
+				validCategories = this.validateCategories(categories, params);
+
+				if (params.catId.length !== validCategories.length) {
+					transition = this.transitionTo({
+						queryParams: {
+							catId: validCategories,
+							sort: params.sort
+						}
+					});
+				}
+			}
+
+			return transition;
 		},
 
 		/**
