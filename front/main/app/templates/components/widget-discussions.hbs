@@ -1,12 +1,13 @@
 {{#if posts}}
-	<div class="heading-wrapper">
-		<div class="heading">
-			{{title}}
-		</div>
+	<h1 class="heading-wrapper">
+		<h2 class="heading">
+			{{{i18n 'main.discussions-header-title' ns='discussion'}}}
+		</h2>
 		{{#link-to 'discussion' class='heading-viewall'}}
-			{{viewAllPosts}}{{svg 'arrow-right-long'}}
+			{{{i18n 'main.all-discussions-link-mobile' ns='discussion'}}}
+			{{svg 'arrow-right-long'}}
 		{{/link-to}}
-	</div>
+	</h1>
 {{/if}}
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail

@@ -2,8 +2,10 @@ import Ember from 'ember';
 
 import DiscussionForumModel from '../models/discussion/forum';
 import WidgetDiscussionsModel from '../models/widget-discussions';
+import InViewportMixin from 'ember-in-viewport';
 
 export default Ember.Component.extend(
+	InViewportMixin,
 	{
 		classNames: ['widget-discussions'],
 		classNameBindings: ['forumWrapper', 'discussion', 'forum'],
@@ -14,22 +16,14 @@ export default Ember.Component.extend(
 		data: null,
 		isLoading: true,
 
-		model: Ember.computed('model', () => {
+		model: Ember.computed(() => {
 			return WidgetDiscussionsModel.create();
-		}),
-
-		title: Ember.computed('title', () => {
-			return i18n.t('main.discussions-header-title', {ns: 'discussion'});
-		}),
-
-		viewAllPosts: Ember.computed('viewAllPosts', () => {
-			return i18n.t('main.all-discussions-link-mobile', {ns: 'discussion'});
 		}),
 
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
+		didEnterViewport() {
 			const category = this.get('category'),
 				posts = DiscussionForumModel.find(
 					Mercury.wiki.id,

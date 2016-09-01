@@ -2,27 +2,29 @@
 .widget-discussions {
 	margin: 0 -$article-horizontal-padding;
 
-	.heading-wrapper {
+	h1 {
 		svg {
-			fill: $discussions-widget-linkcolor;
+			fill: $discussion-widget-linkcolor;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
 		}
 
 		align-items: center;
+		background-color: $discussion-widget-heading-background;
 		display: flex;
-		background-color: $discussions-widget-heading-background;
 		height: 70px;
+		font-size: 12px;
+		padding-top: 0;
 	}
 
-	.heading {
+	h2 {
 		font-size: 27px;
-		padding-left: 18px;
+		padding: 18px 0 0 18px;
 	}
 
 	.heading-viewall {
-		color: $discussions-widget-linkcolor;
+		color: $discussion-widget-linkcolor;
 		margin-left: auto;
 		padding-right: 14px;
 	}
