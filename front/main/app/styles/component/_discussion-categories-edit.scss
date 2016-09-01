@@ -169,7 +169,7 @@ $success-icon-size: 80px;
 
 	.icon {
 		&.lock {
-			margin: 5px 7px 4px 0;
+			margin: 5px 10px 4px 0;
 		}
 
 		&.report {
@@ -276,8 +276,8 @@ $success-icon-size: 80px;
 		.discussion-categories-input,
 		.discussion-categories-input:focus {
 			font-size: $type-base;
-			margin-left: 14px;
-			margin-right: 14px;
+			margin-left: 18px;
+			margin-right: 18px;
 			padding: 17px 42px 10px 0;
 
 			&[disabled] {
@@ -305,7 +305,7 @@ $success-icon-size: 80px;
 
 		.icon.lock {
 			position: absolute;
-			left: 14px;
+			left: 18px;
 			margin-top: 16px;
 		}
 
