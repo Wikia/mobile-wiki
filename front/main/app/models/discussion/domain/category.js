@@ -4,7 +4,7 @@ const DiscussionCategory = Ember.Object.extend({
 	description: null,
 	displayOrder: null,
 	id: null,
-	// indicates to which category this category should be moved before deletion
+	// indicates to which category posts from this category should be moved before deletion
 	moveTo: null,
 	name: null,
 	selected: false
