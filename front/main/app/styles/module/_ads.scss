@@ -145,6 +145,7 @@
 
 //show the loading spinner on top of ad in interstitial
 .stop-scrolling {
+	overflow: hidden;
 	.loading-overlay {
 		z-index: $z-modal-dialog + 1;
 		background: none;
