@@ -147,7 +147,10 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
+				const model = this.modelFor(this.get('routeName')),
+					selectedCategories = model.index.categories.get('selectedCategoryIds');
+
+				model.current.loadPage(pageNum, selectedCategories, this.get('discussionSort.sortBy'));
 			},
 
 			updateCategoriesSelection(updatedCategories) {
