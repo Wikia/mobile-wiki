@@ -123,7 +123,7 @@ export default Route.extend(
 				}
 
 				if (info.article) {
-					this.get('adsHighImpact').reload();
+					this.get('adsHighImpact').loadInterstitial();
 
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
