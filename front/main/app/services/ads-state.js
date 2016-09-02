@@ -15,7 +15,7 @@ export default Ember.Service.extend({
 
 	runWhenScriptLoaded(cb, ctx) {
 		if (this.get('adsUrl')) {
-			$script.ready(this.get('adsUrl'), function() {
+			$script.ready(this.get('adsUrl'), () => {
 				cb.apply(ctx);
 			});
 		}
