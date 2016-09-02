@@ -7,20 +7,23 @@ export default Ember.Mixin.create({
 			editEntity = this.get('editEntity'),
 			isActive = this.get('isActive');
 
-		if (!isActive) {
+		if (!isActive || !categories) {
 			this.set('category', null);
 			return;
 		}
 
 		if (this.get('isEdit') && editEntity) {
 			this.set('category', categories.findBy('id', this.get('editEntity.categoryId')));
-			return;
-		}
-
-		if (categories && categories.length === 1) {
+		} else if (categories.length === 1) {
 			this.set('category', categories.get(0));
 		} else {
-			this.set('category', null);
+			const selectedCategories = this.get('categories').filterBy('selected', true);
+
+			if (selectedCategories.length === 1) {
+				this.set('category', selectedCategories.get(0));
+			} else {
+				this.set('category', null);
+			}
 		}
 	}),
 
