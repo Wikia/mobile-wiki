@@ -11,8 +11,8 @@ export default Ember.Service.extend({
 		Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileFloorAdhesionCountries'),
 
 	isProperGeo(param) {
-		const fun = Ember.get(Wikia, 'geo.isProperGeo');
-		return typeof fun === 'function' && fun(param);
+		const isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+		return typeof isProperGeo === 'function' && isProperGeo(param);
 	},
 
 	isInvisibleHighImpactEnabled() {

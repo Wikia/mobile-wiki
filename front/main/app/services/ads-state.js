@@ -13,10 +13,10 @@ export default Ember.Service.extend({
 		return M.prop('adsUrl');
 	}),
 
-	runWhenScriptLoaded(cb, ctx) {
+	runWhenScriptLoaded(callback, context) {
 		if (this.get('adsUrl')) {
 			$script.ready(this.get('adsUrl'), () => {
-				cb.apply(ctx);
+				callback.apply(context);
 			});
 		}
 	}
