@@ -19,11 +19,7 @@ export default Ember.Mixin.create({
 		} else {
 			const selectedCategories = this.get('categories').filterBy('selected', true);
 
-			if (selectedCategories.length === 1) {
-				this.set('category', selectedCategories.get(0));
-			} else {
-				this.set('category', null);
-			}
+			this.set('category', selectedCategories.length === 1 ? selectedCategories.get(0) : null);
 		}
 	}),
 
