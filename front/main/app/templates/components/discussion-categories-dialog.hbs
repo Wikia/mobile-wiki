@@ -1,0 +1,34 @@
+{{#if isVisible}}
+	<div class="discussion-dialog">
+		{{#modal-dialog
+			isVisible=isVisible
+			onOverlayClose=(action 'onCancel')
+		}}
+			<h3>{{header}}</h3>
+			<section class="modal-dialog-content">
+				{{message}}
+				<div class="categories-pills">
+					{{#each categories as |category|}}
+						{{#if category.id}}
+							{{#unless (equal categoryToDelete.id category.id)}}
+								{{#unless category.moveTo}}
+									{{discussion-category-pill
+										category=category
+										class=(if (equal category.id selectedCategory.id) 'is-active active-element-background-color')
+										onCategoryPicked=(action 'onCategoryPicked')
+									}}
+								{{/unless}}
+							{{/unless}}
+						{{/if}}
+					{{/each}}
+				</div>
+			</section>
+			<footer>
+				<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{cancelButtonText}}</button>
+				<button class="active-element-theme-color confirm-button" disabled={{approveButtonDisabled}} {{action 'onApprove'}}>
+					{{approveButtonText}}
+				</button>
+			</footer>
+		{{/modal-dialog}}
+	</div>
+{{/if}}

@@ -28,6 +28,10 @@ export default DiscussionBaseController.extend(
 				this.get('target').send('updateCategories', categories);
 			},
 
+			validatePostsOnForum() {
+				this.get('target').send('validatePostsOnForum');
+			},
+
 			/**
 			 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
 			 * @returns {void}

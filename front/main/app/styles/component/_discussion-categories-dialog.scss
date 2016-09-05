@@ -1,0 +1,17 @@
+.discussion-categories-dialog {
+
+	h3 {
+		margin: 0;
+		padding: 24px 0 0 24px;
+	}
+
+	.categories-pills {
+		margin-top: 13px;
+
+		.category-pill {
+			&.is-active {
+				color: $discussion-category-pill-hover-color;
+			}
+		}
+	}
+}

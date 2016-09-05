@@ -5,9 +5,15 @@ import ResponsiveMixin from '../mixins/responsive';
 
 export default Ember.Component.extend(ResponsiveMixin,
 	{
-		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
-		maxCategoriesCount: 10,
+		classNames: ['discussion-categories-edit', 'highlight-overlay-content'],
+
+		currentUser: Ember.inject.service(),
+
+		canDeleteCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canDeleteCategories'),
+		errorMessage: null,
 		isLoading: false,
+		isModalVisible: false,
+		maxCategoriesCount: 10,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
@@ -28,7 +34,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 			}));
 		}),
 
-		errorMessage: null,
+		onModalCancel() {
+			this.setProperties({
+				categoryToDelete: null,
+				isModalVisible: false
+			});
+		},
 
 		actions: {
 			/**
@@ -50,13 +61,31 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			/**
-			 * Delete a category
+			 * Delete a category.
 			 *
 			 * @param {DiscussionCategory} category category to delete
+			 */
+			deleteCategory(category) {
+				if (document.activeElement) {
+					document.activeElement.blur();
+				}
+
+				this.setProperties({
+					categoryToDelete: category,
+					isModalVisible: true
+				});
+
+				track(trackActions.DeleteCategoryModalOpen);
+			},
+
+			/**
+			 * Delete a local category (category that was not yet saved).
+			 *
+			 * @param {DiscussionCategory} category local category to delete
 			 *
 			 * @returns {void}
 			 */
-			deleteCategory(category) {
+			deleteLocalCategory(category) {
 				this.get('localCategories').removeObject(category);
 			},
 
@@ -67,7 +96,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			submit() {
 				const localCategories = this.get('localCategories'),
-					emptyCategories = localCategories.rejectBy('displayedName');
+					emptyCategories = localCategories.rejectBy('displayedName'),
+					timeout = 2000;
 
 				this.set('errorMessage', null);
 				localCategories.setEach('error', null);
@@ -88,7 +118,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 						Ember.run.later(this, () => {
 							this.set('showSuccess', false);
 							this.sendAction('setEditMode', false);
-						}, 2000);
+							if (localCategories.some(category => Boolean(category.get('moveTo')))) {
+								this.get('validatePostsOnForum')();
+							}
+						}, timeout);
 					})
 					.catch(() => {
 						this.set('errorMessage', i18n.t('main.categories-edit-general-error', {ns: 'discussion'}));
