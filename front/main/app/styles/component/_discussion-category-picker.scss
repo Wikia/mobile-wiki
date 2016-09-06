@@ -10,10 +10,6 @@
 		min-width: 54px;
 		padding: 11px 12px;
 		text-align: center;
-
-		&:hover {
-			color: $discussion-category-pill-hover-color;
-		}
 	}
 
 	.discussion-category-picker {
@@ -95,5 +91,15 @@
 .discussion-standalone-editor {
 	.discussion-category-picker-button {
 		margin: 12px 0 0 15px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussions {
+		.category-pill {
+			&:hover {
+				color: $discussion-category-pill-hover-color;
+			}
+		}
 	}
 }

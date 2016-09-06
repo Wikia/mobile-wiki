@@ -107,17 +107,9 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	deleteCategory(category) {
 		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
 			data: JSON.stringify({
-				name: category.get('displayedName'),
+				moveChildrenTo: category.get('moveTo'),
 			}),
 			method: 'DELETE',
-		}).then(() => {
-			const categories = this.get('categories'),
-				categoryIndex = categories
-					.indexOf(categories.find((cat) => cat.get('id') === category.get('id')));
-
-			if (categoryIndex !== -1) {
-				categories.removeAt(categoryIndex);
-			}
 		});
 	},
 
@@ -143,12 +135,27 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
-	getDeletedCategories(categories) {
-		const leftCategoryIds = categories.mapBy('id');
+	findCategoriesToDeleteAndMove(categories) {
+		const categoriesToDelete = categories.filterBy('moveTo');
 
-		return this.get('categories').filter((category) => {
-			return leftCategoryIds.indexOf(category.get('id')) === -1;
-		});
+		categoriesToDelete.forEach(category => this.resolveMoveToCategory(category, categories));
+		return categoriesToDelete;
+	},
+
+	/**
+	 * Checks and resolves if category might be moved to category defined in 'moveTo' property.
+	 * If not searches for first category that will not be deleted.
+	 *
+	 * @param category category having moveTo property
+	 * @param categories all categories
+	 */
+	resolveMoveToCategory(category, categories) {
+		let movedCategory = categories.findBy('id', category.get('moveTo'));
+
+		while (movedCategory) {
+			category.set('moveTo', movedCategory.get('id'));
+			movedCategory = categories.findBy('id', movedCategory.get('moveTo'));
+		}
 	},
 
 	/**
@@ -160,26 +167,24 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	updateCategories(categories) {
-		const deletedCategoriesPromisesList = this.getDeletedCategories(categories).map((category) => {
-			return this.deleteCategory(category);
-		});
+		const leftCategories = categories.rejectBy('moveTo'),
+			deleteCategoriesPromises = this.findCategoriesToDeleteAndMove(categories)
+				.map(category => this.deleteCategory(category));
 
-		return Ember.RSVP.all(deletedCategoriesPromisesList)
+		return Ember.RSVP.all(deleteCategoriesPromises)
 			.then(() => {
-				const newCategoriesPromisesList = categories.rejectBy('id').map((category) => {
-					return this.addCategory(category);
-				});
+				const addCategoriesPromises = leftCategories
+					.rejectBy('id')
+					.map(category => this.addCategory(category));
 
-				return Ember.RSVP.all(newCategoriesPromisesList);
+				return Ember.RSVP.all(addCategoriesPromises);
 			})
 			.then(() => {
-				const renamedCategoriesPromisesList = categories.filter((category) => {
-						return category.get('displayedName') !== category.get('name') && category.get('id');
-					}).map((category) => {
-						return this.renameCategory(category);
-					}),
-					reorderingPromise = this.reorderCategories(categories),
-					parallelActionsPromisesList = renamedCategoriesPromisesList;
+				const renameCategoriesPromises = leftCategories
+						.filter(category => category.get('displayedName') !== category.get('name') && category.get('id'))
+						.map(category => this.renameCategory(category)),
+					reorderingPromise = this.reorderCategories(leftCategories),
+					parallelActionsPromisesList = renameCategoriesPromises;
 
 				parallelActionsPromisesList.pushObject(reorderingPromise);
 
