@@ -23,6 +23,7 @@ export default Ember.Route.extend(
 		ns: Ember.computed.alias('curatedMainPageData.ns'),
 		adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
 		description: Ember.computed.alias('curatedMainPageData.description'),
+		adsState: Ember.inject.service(),
 
 		/**
 		 * @param {Ember.model} model
@@ -207,6 +208,7 @@ export default Ember.Route.extend(
 				// notify a property change on soon to be stale model for observers (like
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
+				this.get('adsState').destroyInContentAds();
 			},
 
 			/**

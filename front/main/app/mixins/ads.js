@@ -40,6 +40,7 @@ export default Ember.Mixin.create({
 		}
 	},
 	adViews: [],
+	adsState: Ember.inject.service(),
 
 	/**
 	 * @param {string} adSlotName
@@ -72,6 +73,7 @@ export default Ember.Mixin.create({
 
 		componentElement.didInsertElement();
 		componentElement.onElementManualInsert();
+		this.get('adsState').pushInContentAd(adSlotName);
 	},
 
 	/**

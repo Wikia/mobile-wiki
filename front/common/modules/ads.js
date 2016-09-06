@@ -35,11 +35,11 @@ import load from '../utils/load';
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
- * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
  * @property {Krux} krux
  * @property {Object} currentAdsContext
+ * @property {Object} googleTag
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
  */
@@ -65,6 +65,7 @@ class Ads {
 				dimension: 7
 			}
 		};
+		this.googleTag = {};
 	}
 
 	/**
@@ -96,31 +97,31 @@ class Ads {
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
-					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.provider.gpt.helper',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
-					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
 					pageFairDetectionModule,
 					sourcePointDetectionModule,
+					gptHelper,
 					krux) => {
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adContextModule = adContextModule;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
-					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.krux = krux;
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
+					this.googleTag = gptHelper.getGoogleTag();
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -294,6 +295,11 @@ class Ads {
 				onContextLoadCallback();
 			}
 
+			//TODO get rid of this hack
+			if (typeof this.googleTag.newPageView === 'function') {
+				this.googleTag.newPageView();
+			}
+
 			if (Ads.previousDetectionResults.sourcePoint.exists) {
 				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
 			} else {
@@ -309,7 +315,7 @@ class Ads {
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
 			}
-			this.adLogicPageViewCounterModule.increment();
+
 			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
 	}
@@ -365,6 +371,10 @@ class Ads {
 		this.adSlots = $.grep(this.adSlots, (slot) => {
 			return slot[0] && slot[0] === name;
 		}, true);
+	}
+
+	destroySlots(slots) {
+		this.googleTag.destroySlots(slots);
 	}
 
 	removeAllSlots() {
