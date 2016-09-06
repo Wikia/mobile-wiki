@@ -14,3 +14,11 @@ button[type='submit'][disabled] {
 	color: $disabled-button-text-color;
 	opacity: 0.5;
 }
+
+
+.form-submit[type='submit'],
+.form-submit[type='submit'][disabled] {
+	background-color: $form-submit-background-color;
+	border-color: $form-submit-background-color;
+	color: $form-submit-color;
+}
