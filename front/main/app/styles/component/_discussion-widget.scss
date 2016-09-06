@@ -17,12 +17,12 @@ $article-negative-padding: -$article-horizontal-padding;
 		display: flex;
 		height: 70px;
 		font-size: 12px;
-		padding-top: 0 !important;
+		padding-top: 0;
 	}
 
 	.heading {
 		font-size: 27px;
-		padding: 18px 0 0 18px  !important;
+		padding: 18px 0 0 18px;
 	}
 
 	.heading-viewall {
@@ -37,6 +37,6 @@ $article-negative-padding: -$article-horizontal-padding;
 	}
 
 	.post-title {
-		padding-top: 0 !important;
+		padding-top: 0;
 	}
 }
