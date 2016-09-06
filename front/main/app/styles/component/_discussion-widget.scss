@@ -4,7 +4,7 @@ $article-negative-padding: -$article-horizontal-padding;
 .widget-discussions {
 	margin: 0 $article-negative-padding;
 
-	h1 {
+	.heading-wrapper {
 		svg {
 			fill: $discussion-widget-linkcolor;
 			height: 16px;
@@ -17,12 +17,12 @@ $article-negative-padding: -$article-horizontal-padding;
 		display: flex;
 		height: 70px;
 		font-size: 12px;
-		padding-top: 0;
+		padding-top: 0 !important;
 	}
 
-	h2 {
+	.heading {
 		font-size: 27px;
-		padding: 18px 0 0 18px;
+		padding: 18px 0 0 18px  !important;
 	}
 
 	.heading-viewall {
@@ -34,5 +34,9 @@ $article-negative-padding: -$article-horizontal-padding;
 	.loading-overlay {
 		padding-top: 20px;
 		position: relative;
+	}
+
+	.post-title {
+		padding-top: 0 !important;
 	}
 }
