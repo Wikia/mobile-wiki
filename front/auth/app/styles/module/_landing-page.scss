@@ -43,7 +43,7 @@
 .signup-provider-facebook.disabled,
 .signup-provider-facebook:hover,
 .signup-provider-facebook:visited {
-	background-color: #38528a;
+	background-color: $button-color-facebook;
 	border: none;
 	margin-bottom: 15px;
 	opacity: 1;
