@@ -66,8 +66,8 @@ export default Ember.Mixin.create(
 				}
 
 				const queryParams = {
+					catId: Ember.isEmpty(catId) ? null : catId,
 					sort: sortBy,
-					catId
 				};
 
 				return this.transitionTo(targetRoute, {queryParams});
