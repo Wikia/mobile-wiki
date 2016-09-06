@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"Editar encabezado",
     "edit-hero-unit-hint-text":"Dimensiones de la imagen: 1240x200<br>jpg, gif or png. Límite de 10mb",
     "image-save-failed":"Error al guardar. Por favor inténtalo de nuevo.",
-    "upload-image-button-text":"Subir imagen"
+    "upload-image-button-text":"Subir imagen",
+    "category-select-tooltip-text":"Selecciona"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",
     "post-error-anon-cant-post":"¡Regístrate para unirte a la discusión!",
     "post-error-not-authorized":"No puedes publicar porque tu cuenta ha sido bloqueada.",
+    "post-error-user-blocked-title":"Tu nombre de usuario o dirección IP ha sido bloqueado",
+    "post-error-user-blocked-text":"El bloqueo fue hecho por __blockerUsername__\/Wikia personal.<br>Expira: __blockExpiry__ <br>Razón: __blockReason__",
     "post-error-general-error":"Fallo en la discusión, por favor inténtalo de nuevo.",
     "reply-error-general-error":"Fallo en la respuesta, por favor inténtalo de nuevo.",
     "save-error-general-error":"Error al guardar, por favor inténtalo de nuevo.",

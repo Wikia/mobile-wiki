@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"Modifica intestazione",
     "edit-hero-unit-hint-text":"Dimensioni immagine: 1240x200<br>jpg, gif o png. Massimo 10mb",
     "image-save-failed":"Salvataggio non riuscito, riprovare.",
-    "upload-image-button-text":"Carica immagine"
+    "upload-image-button-text":"Carica immagine",
+    "category-select-tooltip-text":"Seleziona"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
     "post-error-anon-cant-post":"Iscriviti per prendere parte alla discussione!",
     "post-error-not-authorized":"Non è possibile postare perché l'account è bloccato.",
+    "post-error-user-blocked-title":"Il tuo nome utente o l'indirizzo IP è stato bloccato",
+    "post-error-user-blocked-text":"Il blocco è stato effettuato da __blockerUsername__\/personale Wikia. <br>Scadenza del blocco: __blockExpiry__ <br>Motivo fornito: __blockReason__",
     "post-error-general-error":"Post non riuscito, riprovare.",
     "reply-error-general-error":"Risposta non riuscita, riprovare.",
     "save-error-general-error":"Salvataggio non riuscito, riprovare.",

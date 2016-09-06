@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"Edytuj nagłówek",
     "edit-hero-unit-hint-text":"Wymiary obrazu: 1240x200<br>jpg, gif lub png. Limit 10mb",
     "image-save-failed":"Nie udało się zapisać, spróbuj ponownie.",
-    "upload-image-button-text":"Prześlij obraz"
+    "upload-image-button-text":"Prześlij obraz",
+    "category-select-tooltip-text":"Select"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
     "post-error-anon-cant-post":"Zaloguj się, aby dołączyć do dyskusji!",
     "post-error-not-authorized":"Nie możesz publikować, ponieważ twoje konto zostało zablokowane.",
+    "post-error-user-blocked-title":"Your username or IP address has been blocked",
+    "post-error-user-blocked-text":"The block was made by __blockerUsername__\/Wikia Staff.<br>Expiration of block: __blockExpiry__<br>Reason given: __blockReason__",
     "post-error-general-error":"Publikacja posta nie powiodła się, spróbuj ponownie.",
     "reply-error-general-error":"Publikacja odpowiedzi nie powiodła się, spróbuj ponownie.",
     "save-error-general-error":"Nie udało się zapisać, spróbuj ponownie.",

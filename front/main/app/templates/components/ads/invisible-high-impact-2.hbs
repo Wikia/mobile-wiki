@@ -1,11 +1,12 @@
 {{#unless noAds}}
 	<div id="InvisibleHighImpactWrapper" class="hidden invisible-high-impact-wrapper">
 		<div class="background"></div>
-		<a class="close">
-			{{svg 'close' role='img' class='icon close-button'}}
-		</a>
-		<div class="label">Advertisement</div>
-
+		<div class="top-bar">
+			<a class="close">
+				{{svg 'close' role='img' class='icon close-button'}}
+			</a>
+			<div class="label">{{i18n 'app.advertisement-label'}}</div>
+		</div>
 		<div id="{{name}}" class="ad-slot hidden {{nameLowerCase}}"></div>
 	</div>
 {{/unless}}

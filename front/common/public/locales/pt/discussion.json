@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"Editar cabeçalho",
     "edit-hero-unit-hint-text":"Dimensões da imagem: 1240x200<br>jpg, gif ou png. Limite de 10mb",
     "image-save-failed":"Falha ao salvar. Por favor, tente novamente.",
-    "upload-image-button-text":"Carregar imagem"
+    "upload-image-button-text":"Carregar imagem",
+    "category-select-tooltip-text":"Selecionar"
   },
   "editor":{
     "post-failed-error":"O post falhou.",
     "post-error-anon-cant-post":"Iniciar sessão para participar da discussão!",
     "post-error-not-authorized":"Você não pode postar porque sua conta foi bloqueada.",
+    "post-error-user-blocked-title":"Seu nome de usuário ou endereço IP foi bloqueado",
+    "post-error-user-blocked-text":"O bloco foi feito por __blockerUsername__\/staff da Wikia.<br>O bloqueio expira: __blockExpiry__ <br>razão dada: __blockReason__",
     "post-error-general-error":"O post falhou, por favor, tente novamente.",
     "reply-error-general-error":"A resposta falhou, por favor, tente novamente.",
     "save-error-general-error":"Falha ao salvar, por favor, tente novamente.",

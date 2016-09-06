@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"編輯頁眉",
     "edit-hero-unit-hint-text":"圖像尺寸︰ 1240×200<br>jpg、gif或png。限制10mb",
     "image-save-failed":"保存失敗，請再試一次。",
-    "upload-image-button-text":"上傳圖片"
+    "upload-image-button-text":"上傳圖片",
+    "category-select-tooltip-text":"選擇"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
     "post-error-anon-cant-post":"登入進行討論！",
     "post-error-not-authorized":"您不能發文，因為您的帳戶已被封禁。",
+    "post-error-user-blocked-title":"您的用戶名或IP位址已被封禁",
+    "post-error-user-blocked-text":"__blockerUsername__或Wikia員工進行了此次封禁。<br>封禁結束日期: __blockExpiry__<br>封禁原因: __blockReason__",
     "post-error-general-error":"文章發佈失敗，請再試一次。",
     "reply-error-general-error":"回覆失敗，請再試一次。",
     "save-error-general-error":"保存失敗，請再試一次。",

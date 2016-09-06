@@ -123,12 +123,15 @@
     "edit-hero-unit-button-text":"编辑页眉",
     "edit-hero-unit-hint-text":"图像尺寸︰1240x200<br>jpg, gif或者png. 限定10mb",
     "image-save-failed":"保存失败，请再试一次。",
-    "upload-image-button-text":"上传图片"
+    "upload-image-button-text":"上传图片",
+    "category-select-tooltip-text":"选择"
   },
   "editor":{
     "post-failed-error":"发布失败",
     "post-error-anon-cant-post":"登录加入讨论!",
     "post-error-not-authorized":"您不能发帖因为您的帐户已被封禁。",
+    "post-error-user-blocked-title":"您的用户名或IP地址已被封禁。",
+    "post-error-user-blocked-text":"__blockerUsername__或Wikia员工进行了此次封禁。<br>封禁结束日期: __blockExpiry__<br>封禁理由: __blockReason__",
     "post-error-general-error":"帖子发布失败，请再试一次。",
     "reply-error-general-error":"回复失败，请再试一次。",
     "save-error-general-error":"保存失败，请再试一次。",
