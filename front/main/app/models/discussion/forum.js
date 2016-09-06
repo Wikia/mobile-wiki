@@ -19,17 +19,19 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 1, sortBy = 'trending') {
+		loadPage(pageNum = 1, categories = [], sortBy = 'trending') {
 			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
+					forumId: categories,
 					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
-				}
+				},
+				traditional: true,
 			}).then((data) => {
 				const newEntities = Ember.get(data, '_embedded.threads').map(
 					(newThread) => DiscussionPost.createFromThreadData(newThread)
