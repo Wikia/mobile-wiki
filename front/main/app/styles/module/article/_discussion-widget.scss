@@ -1,6 +1,8 @@
 
+$article-negative-padding: -$article-horizontal-padding;
+
 .widget-discussions {
-	margin: 0 -$article-horizontal-padding;
+	margin: 0 $article-negative-padding;
 
 	h1 {
 		svg {
