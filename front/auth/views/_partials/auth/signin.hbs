@@ -2,6 +2,17 @@
 	<form id="{{formId}}" action="{{heliosLoginURL}}" method="POST" data-heliosFacebookConnectURL="{{heliosFacebookConnectURL}}">
 {{else}}
 	<form id="{{formId}}" action="{{heliosLoginURL}}" method="POST">
+	{{#if hasFacebookButton}}
+		<a class="button signup-provider-facebook" href="#" data-helios-facebook-uri="{{{heliosFacebookURL}}}">
+			<span>{{i18n 'auth:common.connect-with-facebook'}}</span>
+		</a>
+
+		<div class="auth-divider">
+			<span class="horizontal-line"></span>
+			<span class="auth-or-message">{{i18n "auth:common.auth-or-message"}}</span>
+			<span class="horizontal-line"></span>
+		</div>
+	{{/if}}
 {{/if}}
 	<div class="input-container">
 		<input type="text" name="username" id="loginUsername" required />
