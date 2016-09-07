@@ -1,3 +1,3 @@
-import DiscussionBaseRoute from './base';
+import DiscussionErrorRoute from './error';
 
-export default DiscussionBaseRoute.extend({});
+export default DiscussionErrorRoute.extend({});
