@@ -16,6 +16,8 @@ Sometimes it helps to just remove all dependencies and install them from the beg
 npm run clean-deep
 npm run setup
 ```
+EACCESS / Permission Errors on Devbox
+The easiest (not the fastest) way to fix permissions is to remove `/usr/wikia/mercury` and run `sudo chef-client`
 
 ### Errors while running `npm install`
 #### libsass
