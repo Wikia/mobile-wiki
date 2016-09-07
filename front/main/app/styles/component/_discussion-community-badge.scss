@@ -15,6 +15,17 @@ $badge-image-tools-width: 210px;
 				width: $badge-image-dimensions-big;
 			}
 		}
+
+		.community-badge-image-default {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+
+			.badge-image-display {
+				height: 76px;
+				width: 76px;
+			}
+		}
 	}
 }
 
@@ -28,6 +39,18 @@ $badge-image-tools-width: 210px;
 			.badge-image-display {
 				height: $badge-image-dimensions-small;
 				width: $badge-image-dimensions-small;
+			}
+		}
+
+		.community-badge-image-default {
+			align-items: center;
+			display: flex;
+			height: $badge-image-dimensions-small;
+			justify-content: center;
+
+			.badge-image-display {
+				height: 50px;
+				width: 50px;
 			}
 		}
 

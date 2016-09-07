@@ -54,6 +54,10 @@ $discussion-hero-unit-minimized-height: 25px;
 		width: 100%;
 	}
 
+	.discussion-hero-unit-default {
+		background-color: $discussion-discussions-header-background-color;
+	}
+
 	.discussion-edit-approve-wrapper {
 		left: 0;
 		margin: auto;

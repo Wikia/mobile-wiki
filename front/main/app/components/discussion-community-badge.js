@@ -21,12 +21,15 @@ export default Ember.Component.extend(
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		currentUser: Ember.inject.service(),
 
+		hasDefaultImage: false,
+
 		wikiImageUrl: Ember.computed('badgeImage.value', function () {
 			let imageUrl = this.get('badgeImage.value');
 
 			if (Ember.isEmpty(imageUrl)) {
 				// get wiki image
-				imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
+				imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/fandom-heart.svg');
+				this.set('hasDefaultImage', true);
 			}
 
 			return imageUrl;

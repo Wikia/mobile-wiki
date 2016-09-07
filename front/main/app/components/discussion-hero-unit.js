@@ -67,14 +67,16 @@ export default Ember.Component.extend(
 
 			if (!this.get('imageBackground') && isShown) {
 				if (Ember.isEmpty(this.get('heroImage.value'))) {
-					const imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
+					const imageUrl
+						= Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/fandom-heart.svg');
 
 					this.set('imageBackground',
 						new Ember.Handlebars.SafeString(`background: #000 url(${imageUrl}) center no-repeat;`));
+					this.set('contentClassNames', 'discussion-hero-unit-default');
 				} else {
 					this.setImageBackground(this.get('heroImage.value'));
+					this.set('contentClassNames', 'background-alpha-theme-color');
 				}
-				this.set('contentClassNames', 'background-alpha-theme-color');
 			}
 		})
 	});
