@@ -1,7 +1,7 @@
 import DiscussionBaseRoute from './base';
 
 export default DiscussionBaseRoute.extend({
-	setupController: function(controller, error) {
+	setupController(controller, error) {
 		const discussionModel = this.modelFor('discussion');
 
 		this._super(...arguments);

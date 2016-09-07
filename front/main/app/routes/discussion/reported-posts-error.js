@@ -1,10 +1,3 @@
-import DiscussionBaseRoute from './base';
+import DiscussionErrorRoute from './error';
 
-export default DiscussionBaseRoute.extend({
-	setupController: function(controller, error) {
-		const discussionModel = this.modelFor('discussion');
-
-		this._super(...arguments);
-		error.index = discussionModel;
-	}
-});
+export default DiscussionErrorRoute.extend({});
