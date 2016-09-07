@@ -78,11 +78,10 @@ DiscussionSiteAttributesModel.reopenClass({
 
 			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
+				resolve(attributesInstance);
 			}).catch((err) => {
 				attributesInstance.setErrorProperty(err);
 			});
-
-			resolve(attributesInstance);
 		});
 	}
 });
