@@ -21,9 +21,13 @@ $badge-image-tools-width: 210px;
 			display: flex;
 			justify-content: center;
 
-			.badge-image-display {
+			.badge-image-display-original {
 				height: 76px;
 				width: 76px;
+			}
+
+			.discussion-edit-approve-wrapper {
+				margin-top: 64px;
 			}
 		}
 	}

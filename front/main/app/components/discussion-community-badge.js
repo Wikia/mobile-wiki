@@ -30,6 +30,8 @@ export default Ember.Component.extend(
 				// get wiki image
 				imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/fandom-heart.svg');
 				this.set('hasDefaultImage', true);
+			} else {
+				this.set('hasDefaultImage', false);
 			}
 
 			return imageUrl;
