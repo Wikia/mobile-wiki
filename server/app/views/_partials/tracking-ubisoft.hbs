@@ -1,21 +1,21 @@
 <!-- Begin Ubisoft Tag -->
 <script type="text/javascript">
-    (function () {
-        var ubisoftTracking = M.prop('tracking.ubisoft');
+	(function () {
+		var ubisoftTracking = M.prop('tracking.ubisoft');
 
-        function initializeUbisoftTracking(url) {
-            var a = Math.random() * 10000000000000,
-                    scriptElementWikia = document.createElement("script");
+		function initializeUbisoftTracking(url) {
+			var a = Math.random() * 10000000000000,
+					scriptElementWikia = document.createElement("script");
 
-            scriptElementWikia.id = "Wikia_container";
-            scriptElementWikia.type = "text/javascript";
-            scriptElementWikia.src = url + "?rand=" + a;
-            document.body.appendChild(scriptElementWikia);
-        }
+			scriptElementWikia.id = "Wikia_container";
+			scriptElementWikia.type = "text/javascript";
+			scriptElementWikia.src = url + "?rand=" + a;
+			document.body.appendChild(scriptElementWikia);
+		}
 
-        if (ubisoftTracking.enabled && ubisoftTracking.url) {
-            initializeUbisoftTracking(ubisoftTracking.url);
-        }
-    })();
+		if (ubisoftTracking.enabled && ubisoftTracking.url) {
+			initializeUbisoftTracking(ubisoftTracking.url);
+		}
+	})();
 </script>
 <!-- End Ubisoft Tag -->
