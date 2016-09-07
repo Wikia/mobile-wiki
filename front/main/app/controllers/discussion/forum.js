@@ -10,7 +10,7 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		catId: [],
+		catId: null,
 		areGuidelinesVisible: false,
 
 		actions: {
