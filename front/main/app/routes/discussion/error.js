@@ -5,6 +5,6 @@ export default DiscussionBaseRoute.extend({
 		const discussionModel = this.modelFor('discussion');
 
 		this._super(...arguments);
-		error.index = discussionModel;
+		error.set('index', discussionModel);
 	}
 });
