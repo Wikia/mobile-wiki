@@ -38,8 +38,8 @@
       "entries": [
         {
           "image": "/images/categories/games/slide1.jpg",
-          "url": "http://ja.overwatch.wikia.com/",
-          "text": "Overwatch",
+          "url": "http://ja.gamer.wikia.com/",
+          "text": "ゲーム大会＆プレイヤーまとめ",
           "english": false
         },
         {
@@ -56,8 +56,8 @@
         },
         {
           "image": "/images/categories/games/slide4.jpg",
-          "url": "http://ja.halo.wikia.com/",
-          "text": "Halo",
+          "url": "http://ja.nomanssky.wikia.com/",
+          "text": "ノーマンズスカイ",
           "english": false
         }
       ]
@@ -110,8 +110,8 @@
         },
         {
           "image": "/images/categories/anime/slide3.jpg",
-          "url": "http://ja.onepiece.wikia.com/",
-          "text": "ONEPIECE",
+          "url": "http://ja.haikyuu.wikia.com/",
+          "text": "ハイキュー!!",
           "english": false
         },
         {
@@ -146,8 +146,8 @@
         },
         {
           "image": "/images/categories/lifestyle/slide4.jpg",
-          "url": "http://ja.asakusa.wikia.com/",
-          "text": "浅草",
+          "url": "http://ja.yushima.wikia.com/",
+          "text": "湯島",
           "english": false
         }
       ]
