@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 	badges: {
 		'badge:helper': {
 			icon: 'badge-helper',
-			tooltip: 'Helpers'
+			tooltip: 'Fandom Helper'
 		},
 		'badge:staff': {
 			icon: 'badge-fandom-staff',
