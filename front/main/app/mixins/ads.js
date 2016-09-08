@@ -162,6 +162,7 @@ export default Ember.Mixin.create({
 				articleBodyHeight > adsData.moreInContentAds.minPageLength,
 
 			$globalFooter = $('.wds-global-footer');
+		this.set('adViews', []);
 
 		if ($pi.length) {
 			// inject top mobileTopLeaderBoard below infobox
@@ -204,6 +205,7 @@ export default Ember.Mixin.create({
 			showInContent = $curatedContent.length > 0,
 			showPreFooter = $trendingArticles.length,
 			$globalFooter = $('.wds-global-footer');
+		this.set('adViews', []);
 
 		if (showInContent) {
 			this.appendAd(this.adsData.mobileInContent, 'after', $curatedContent);
