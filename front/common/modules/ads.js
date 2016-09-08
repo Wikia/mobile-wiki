@@ -65,7 +65,9 @@ class Ads {
 				dimension: 7
 			}
 		};
-		this.googleTag = {};
+		this.googleTag = {
+			destroySlots: () => {}
+		};
 	}
 
 	/**
@@ -295,7 +297,7 @@ class Ads {
 				onContextLoadCallback();
 			}
 
-			//TODO get rid of this hack
+			// TODO get rid of this hack
 			if (typeof this.googleTag.newPageView === 'function') {
 				this.googleTag.newPageView();
 			}
@@ -375,7 +377,7 @@ class Ads {
 		this.googleTag.destroySlots([name]);
 	}
 
-	removeAllSlots() {
+	resetSlots() {
 		this.adSlots = [];
 		this.googleTag.destroySlots();
 	}

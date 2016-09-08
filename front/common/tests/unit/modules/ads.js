@@ -38,8 +38,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.trackKruxPageView = sinon.stub();
 
 		origRequire = window.require;
-		window.require = function (modules, callback) {
-			callback();
+		window.require = function (modules) {
 		};
 
 		instance.init(testAdsUrl);
@@ -47,7 +46,6 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		window.require = origRequire;
 
 		assert.ok(loadStub.calledWith(testAdsUrl));
-		assert.ok(reloadWhenReadyStub.calledOnce);
 	});
 
 	QUnit.test('Reload ads works', function (assert) {
@@ -56,10 +54,10 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 			},
 			setContextSpy = sinon.spy(),
 			runSpy = sinon.spy(),
-			incrementSpy = sinon.spy(),
 			initDetectionSpy = sinon.spy(),
 			pageFairInitDetectionSpy = sinon.spy(),
 			startOnLoadQueue = sinon.spy(),
+			destroySlotsSpy = sinon.spy(),
 			instance = Ads.getInstance();
 
 		instance.adContextModule = {
@@ -80,8 +78,8 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.adConfigMobile = {
 			test: 2
 		};
-		instance.adLogicPageViewCounterModule = {
-			increment: incrementSpy
+		instance.googleTag = {
+			destroySlots: destroySlotsSpy
 		};
 		instance.adSlots = [
 			['slot1']
@@ -90,19 +88,23 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 
 		instance.reload(testContext);
 		assert.ok(setContextSpy.calledWith(testContext));
-		assert.ok(incrementSpy.calledOnce);
 		assert.ok(initDetectionSpy.calledOnce);
 		assert.ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
 		instance.adContextModule = undefined;
 		instance.adEngineRunnerModule = undefined;
 		instance.adConfigMobile = undefined;
-		instance.adLogicPageViewCounterModule = undefined;
 		instance.adMercuryListenerModule = undefined;
 		instance.adSlots = [];
+		instance.googleTag = {};
 	});
 
 	QUnit.test('Add/remove slots works', function (assert) {
-		var instance = Ads.getInstance();
+		var instance = Ads.getInstance(),
+			destroySlotsSpy = sinon.spy();
+
+		instance.googleTag = {
+			destroySlots: destroySlotsSpy
+		};
 
 		instance.addSlot('foo');
 		instance.addSlot('bar');

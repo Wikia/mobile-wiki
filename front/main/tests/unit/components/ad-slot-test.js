@@ -6,8 +6,8 @@ const adsStub = Ember.Service.extend({});
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	unit: true,
 	beforeEach() {
-		this.register('service:ads-state', adsStub);
-		this.inject.service('ads-state', {as: 'ads'});
+		this.register('service:ads', adsStub);
+		this.inject.service('ads', {as: 'ads'});
 	}
 });
 

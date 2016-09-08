@@ -30,18 +30,9 @@ export default Ember.Service.extend({
 		const inContentAds = this.get('inContentAds');
 
 		Object.keys(inContentAds).forEach((slotName) => {
-			this.destroySlot(inContentAds[slotName], slotName);
+			inContentAds[slotName].destroyElement();
 		});
 
 		this.set('inContentAds', {});
-	},
-
-	destroySlot(adComponent, slotName) {
-		Ember.Logger.info('Will destroy ad:', slotName);
-
-		// adComponent.$().remove HAS TO be called after remove slot method from ads module
-		this.get('module').removeSlot(slotName);
-		adComponent.$().remove();
-		adComponent.destroyElement();
 	}
 });

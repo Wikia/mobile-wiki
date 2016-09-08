@@ -76,6 +76,15 @@ export default Component.extend(
 					() => {}
 				);
 			}
+		},
+
+		willDestroyElement() {
+			const name = this.get('name');
+
+			Logger.info('Will destroy ad:', name);
+			// adComponent.$().remove HAS TO be called after remove slot method from ads module
+			this.get('ads.module').removeSlot(this.get('name'));
+			this.$().remove();
 		}
 	}
 );
