@@ -49,9 +49,10 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		setImageBackground(imageUrl) {
-			this.set('imageBackground',
-				new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`));
-			this.set('contentClassNames', 'background-alpha-theme-color');
+			this.setProperties({
+				contentClassNames: 'background-alpha-theme-color',
+				imageBackground: new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`)
+			});
 		},
 
 		/**
