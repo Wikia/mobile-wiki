@@ -18,6 +18,7 @@ export default Ember.Route.extend(
 		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
+		adsHighImpact: Ember.inject.service(),
 		currentUser: Ember.inject.service(),
 		curatedMainPageData: Ember.inject.service(),
 		ns: Ember.computed.alias('curatedMainPageData.ns'),
@@ -215,6 +216,8 @@ export default Ember.Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
+				this.get('adsHighImpact').loadFloorAdhesionWhenPossible();
+
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.article-redirect-empty-target'),
