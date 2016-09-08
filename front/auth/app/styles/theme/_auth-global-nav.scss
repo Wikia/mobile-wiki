@@ -1,4 +1,4 @@
-$wikia-logo-icon-width: 71px;
+$fandom-logo-icon-width: 123px;
 
 .global-nav {
 	background-color: $color-white;
@@ -10,11 +10,14 @@ $wikia-logo-icon-width: 71px;
 
 a {
 	&.main-page {
-		background-image: url("/front/common/symbols/wikia-logo.svg");
+		background-image: url("/front/common/symbols/fandom-logo-auth.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100%;
 		display: block;
 		height: $global-nav-height;
 		margin-left: 13px;
-		width: $wikia-logo-icon-width;
+		width: $fandom-logo-icon-width;
 
 		span {
 			display: none;
