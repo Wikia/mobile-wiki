@@ -25,6 +25,10 @@
 		<link data-server-head-tags-static rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
+	{{#if canPrerender}}
+		<meta name="fragment" content="!">
+	{{/if}}
+
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
