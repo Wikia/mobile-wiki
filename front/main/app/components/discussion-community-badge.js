@@ -5,7 +5,6 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	DiscussionEditImage,
 	{
-		classNameBindings: ['hasDefaultImage:community-badge-image-default'],
 		classNames: ['community-badge', 'draggable-dropzone'],
 		defaultImageUrl: '/front/common/symbols/fandom-heart.svg',
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],

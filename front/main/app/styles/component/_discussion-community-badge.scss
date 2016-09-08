@@ -3,6 +3,12 @@ $badge-image-dimensions-big: 125px;
 $badge-image-frame-dimensions-big: $badge-image-dimensions-big + 4px;
 $badge-image-tools-width: 210px;
 
+%center-community-badge-image {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
 .post-list-view {
 	.community-badge {
 		margin-top: -62px;
@@ -19,9 +25,7 @@ $badge-image-tools-width: 210px;
 		}
 
 		.community-badge-image-default {
-			align-items: center;
-			display: flex;
-			justify-content: center;
+			@extend %center-community-badge-image;
 
 			.badge-image-display-original {
 				height: 76px;
@@ -49,10 +53,8 @@ $badge-image-tools-width: 210px;
 		}
 
 		.community-badge-image-default {
-			align-items: center;
-			display: flex;
+			@extend %center-community-badge-image;
 			height: $badge-image-dimensions-small;
-			justify-content: center;
 
 			.badge-image-display {
 				height: 50px;
