@@ -26,9 +26,16 @@
 		flex-grow: 1;
 		flex-shrink: 1;
 		height: 1px;
+		max-width: 80px;
 	}
 
 	.auth-or-message {
-
+		padding: 10px;
 	}
+}
+
+.auth-section-header {
+	font-size: $type-base;
+	display: flex;
+	justify-content: center;
 }
