@@ -1,4 +1,4 @@
-<div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}} {{if hasDefaultImage 'community-badge-image-default'}}">
+<div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
 	<img class="badge-image-display badge-image-display-original {{unless isImagePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
 	{{#if canEdit}}
