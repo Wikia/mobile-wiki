@@ -1,13 +1,13 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const adsStateStub = Ember.Service.extend({});
+const adsStub = Ember.Service.extend({});
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	unit: true,
 	beforeEach() {
-		this.register('service:ads-state', adsStateStub);
-		this.inject.service('ads-state', {as: 'adsState'});
+		this.register('service:ads-state', adsStub);
+		this.inject.service('ads-state', {as: 'ads'});
 	}
 });
 
@@ -129,7 +129,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 	testCases.forEach((testCase) => {
 		const component = this.subject();
 
-		this.adsState.set('noAds', testCase.noAds);
+		this.ads.set('noAds', testCase.noAds);
 
 		component.setProperties(testCase.properties);
 		component.onElementManualInsert();

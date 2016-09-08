@@ -40,7 +40,7 @@ export default Ember.Mixin.create({
 		}
 	},
 	adViews: [],
-	adsState: Ember.inject.service(),
+	ads: Ember.inject.service(),
 
 	/**
 	 * @param {string} adSlotName
@@ -71,21 +71,8 @@ export default Ember.Mixin.create({
 
 		this.adViews.push(componentElement);
 
-		componentElement.didInsertElement();
-		componentElement.onElementManualInsert();
-		this.get('adsState').pushInContentAd(adSlotName);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	clearAdViews() {
-		let adView = this.adViews.pop();
-
-		while (adView) {
-			adView.destroyElement();
-			adView = this.adViews.pop();
-		}
+		componentElement.trigger('didInsertElement');
+		this.get('ads').pushInContentAd(adSlotName, componentElement);
 	},
 
 	/**
@@ -176,8 +163,6 @@ export default Ember.Mixin.create({
 
 			$globalFooter = $('.wds-global-footer');
 
-		this.clearAdViews();
-
 		if ($pi.length) {
 			// inject top mobileTopLeaderBoard below infobox
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
@@ -219,8 +204,6 @@ export default Ember.Mixin.create({
 			showInContent = $curatedContent.length > 0,
 			showPreFooter = $trendingArticles.length,
 			$globalFooter = $('.wds-global-footer');
-
-		this.clearAdViews();
 
 		if (showInContent) {
 			this.appendAd(this.adsData.mobileInContent, 'after', $curatedContent);

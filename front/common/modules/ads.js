@@ -371,14 +371,13 @@ class Ads {
 		this.adSlots = $.grep(this.adSlots, (slot) => {
 			return slot[0] && slot[0] === name;
 		}, true);
-	}
 
-	destroySlots(slots) {
-		this.googleTag.destroySlots(slots);
+		this.googleTag.destroySlots([name]);
 	}
 
 	removeAllSlots() {
 		this.adSlots = [];
+		this.googleTag.destroySlots();
 	}
 
 	/**
