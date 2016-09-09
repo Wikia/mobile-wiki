@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
+import ResponsiveMixin from '../mixins/responsive';
 
 const {Component, computed, getWithDefault, Logger, $} = Ember;
 
@@ -25,7 +26,7 @@ const {Component, computed, getWithDefault, Logger, $} = Ember;
  * @property {string} tagName
  */
 
-export default Component.extend({
+export default Component.extend(ResponsiveMixin, {
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 	scrollLocation: null,

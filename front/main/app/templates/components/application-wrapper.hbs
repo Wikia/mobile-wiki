@@ -1,19 +1,20 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-{{!--
-	{{site-head
-		smartBannerVisible=smartBannerVisible
-		toggleDrawer=this.attrs.toggleDrawer
-		themeBar=themeBar
-		wikiaHomepage=wikiaHomepage
-		drawerContent=activeDrawerContent
-		drawerVisible=drawerVisible
-		setDrawerContent=(action 'setDrawerContent')
-		isSearchPage=isSearchPage
-	}}
---}}
-	{{global-navigation}}
+	{{#if responsive.isMobile}}
+		{{site-head
+			smartBannerVisible=smartBannerVisible
+			toggleDrawer=this.attrs.toggleDrawer
+			themeBar=themeBar
+			wikiaHomepage=wikiaHomepage
+			drawerContent=activeDrawerContent
+			drawerVisible=drawerVisible
+			setDrawerContent=(action 'setDrawerContent')
+			isSearchPage=isSearchPage
+		}}
+	{{else}}
+		{{global-navigation}}
+	{{/if}}
 
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
