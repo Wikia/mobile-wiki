@@ -26,6 +26,10 @@ export default Ember.Component.extend(
 			return Ember.isEqual(this.get('wikiImageUrl'), this.get('defaultImageUrl'));
 		}),
 
+		showDefaultBackground: Ember.computed('hasDefaultImage', 'isImagePreviewMode', function () {
+			return this.get('hasDefaultImage') && !this.get('isImagePreviewMode');
+		}),
+
 		wikiImageUrl: Ember.computed('badgeImage.value', function () {
 			return this.get('badgeImage.value') || this.get('defaultImageUrl');
 		}),
