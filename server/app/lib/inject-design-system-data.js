@@ -35,7 +35,7 @@ export default function injectDesignSystemData({data, request, showFooter = fals
 		}
 	}
 
-	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId, language}).getDesignSystemData()
+	return new MediaWiki.DesignSystemRequest({request, corporatePageUrl, wikiId, language}).getDesignSystemData()
 		.then((designSystemData) => {
 			data.globalFooter = designSystemData['global-footer'];
 			data.globalNavigation = designSystemData['global-navigation'];

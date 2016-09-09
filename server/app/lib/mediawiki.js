@@ -259,6 +259,7 @@ export class DesignSystemRequest extends BaseRequest {
 		this.corporatePageUrl = params.corporatePageUrl;
 		this.wikiId = params.wikiId;
 		this.language = params.language;
+		this.request = params.request;
 	}
 
 	getUrl() {
@@ -267,6 +268,10 @@ export class DesignSystemRequest extends BaseRequest {
 
 	getDesignSystemData() {
 		const url = this.getUrl();
+
+		this.headers = {
+			Cookie: `access_token=${this.request.state.access_token}`
+		};
 
 		return this
 			.fetch(url, this.corporatePageUrl)
