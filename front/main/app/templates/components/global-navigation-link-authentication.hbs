@@ -1,0 +1,9 @@
+{{#if model.subtitle}}
+	<div class="wds-global-navigation__account-menu-dropdown-caption">{{i18n model.subtitle.key ns='design-system'}}</div>
+{{/if}}
+<a href="{{model.href}}"
+   rel="nofollow"
+   id="{{model.title.key}}"
+   class="{{linkClasses}}">
+	{{i18n model.title.key ns='design-system'}}
+</a>

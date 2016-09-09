@@ -1,0 +1,12 @@
+<div class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle">
+	{{svg model.header.image class='wds-icon wds-icon-small wds-icon'}}
+	<span class="wds-global-navigation__account-menu-caption">{{i18n model.header.title.key ns='design-system'}}</span>
+	{{svg 'wds-icons-dropdown-tiny' class='wds-icon wds-icon-tiny wds-dropdown__toggle-chevron'}}
+</div>
+<div class="wds-dropdown__content wds-global-navigation__dropdown-content wds-is-right-aligned">
+	<ul class="wds-list wds-has-lines-between">
+		{{#each model.links as |link|}}
+			<li>{{global-navigation-link-authentication model=link}}</li>
+		{{/each}}
+	</ul>
+</div>
