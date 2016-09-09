@@ -43,7 +43,7 @@ export default DiscussionBaseRoute.extend(
 			}
 
 			const updatedQueryParams = {
-				categories: this.getCategoriesFromQueryString(queryParams.catId),
+				catId: this.getCategoriesFromQueryString(queryParams.catId),
 				sort: queryParams.sort
 			};
 
