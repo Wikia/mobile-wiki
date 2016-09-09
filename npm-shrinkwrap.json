@@ -2953,9 +2953,9 @@
       }
     },
     "design-system-i18n": {
-      "version": "0.3.3",
-      "from": "git://github.com/wikia/design-system-i18n.git#a15c2fe73ef2f0279a47e563cc480af27338d469",
-      "resolved": "git://github.com/wikia/design-system-i18n.git#a15c2fe73ef2f0279a47e563cc480af27338d469"
+      "version": "0.4.0",
+      "from": "git://github.com/wikia/design-system-i18n.git#3ca870b7c0bc616f75606da61bf39fff1bb1dc35",
+      "resolved": "git://github.com/wikia/design-system-i18n.git#3ca870b7c0bc616f75606da61bf39fff1bb1dc35"
     },
     "ember-template-compiler": {
       "version": "1.9.0-alpha"

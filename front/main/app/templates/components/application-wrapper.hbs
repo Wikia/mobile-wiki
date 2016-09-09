@@ -1,6 +1,7 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
+{{!--
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
@@ -11,6 +12,8 @@
 		setDrawerContent=(action 'setDrawerContent')
 		isSearchPage=isSearchPage
 	}}
+--}}
+	{{global-navigation}}
 
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
