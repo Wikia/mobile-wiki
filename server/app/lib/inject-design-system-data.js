@@ -21,7 +21,7 @@ function getContentLanguage(wikiVariables) {
  * @param {boolean} [showFullSiteLink=false]
  * @returns {Promise}
  */
-export default function injectGlobalFooterData({data, request, showFooter = false, showFullSiteLink = false}) {
+export default function injectDesignSystemData({data, request, showFooter = false, showFullSiteLink = false}) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
 		language = getContentLanguage(data.wikiVariables),
@@ -35,15 +35,17 @@ export default function injectGlobalFooterData({data, request, showFooter = fals
 		}
 	}
 
-	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId, language}).getFooter()
-		.then((globalFooterData) => {
-			data.globalFooter = globalFooterData;
+	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId, language}).getDesignSystemData()
+		.then((designSystemData) => {
+			data.globalFooter = designSystemData['global-footer'];
+			data.globalNavigation = designSystemData['global-navigation'];
+
 			return data;
 		})
 		.catch((error) => {
 			const errorMessage = (error instanceof Buffer) ? error.toString('utf-8') : error;
 
-			Logger.error('Global Footer API request error:', errorMessage);
+			Logger.error('Design System API request error:', errorMessage);
 			return data;
 		});
 }

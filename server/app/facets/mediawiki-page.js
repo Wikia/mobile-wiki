@@ -26,7 +26,7 @@ import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
-import injectGlobalFooterData from '../lib/inject-global-footer-data';
+import injectDesignSystemData from '../lib/inject-design-system-data';
 
 const cachingTimes = {
 	enabled: true,
@@ -177,7 +177,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 *
 		 */
 		.then((data) => {
-			return injectGlobalFooterData({
+			return injectDesignSystemData({
 				data,
 				request,
 				showFooter: true,
@@ -222,7 +222,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
 
-			return injectGlobalFooterData({
+			return injectDesignSystemData({
 				data,
 				request,
 				showFooter: true,

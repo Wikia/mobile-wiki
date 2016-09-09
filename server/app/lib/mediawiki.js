@@ -261,20 +261,20 @@ export class DesignSystemRequest extends BaseRequest {
 		this.language = params.language;
 	}
 
-	getUrl(element) {
-		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/${element}`;
+	getUrl() {
+		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/`;
 	}
 
-	getFooter() {
-		const url = this.getUrl('global-footer');
+	getDesignSystemData() {
+		const url = this.getUrl();
 
 		return this
 			.fetch(url, this.corporatePageUrl)
-			.then((footerData) => {
-				if (footerData) {
-					return footerData;
+			.then((designSystemData) => {
+				if (designSystemData) {
+					return designSystemData;
 				} else {
-					throw new Error('No footer data returned from API');
+					throw new Error('No data returned from API');
 				}
 			});
 	}

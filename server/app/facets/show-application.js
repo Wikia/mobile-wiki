@@ -12,7 +12,7 @@ import {
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
-import injectGlobalFooterData from '../lib/inject-global-footer-data';
+import injectGlobalFooterData from '../lib/inject-design-system-data';
 
 /**
  * @typedef {Object} CommunityAppConfig

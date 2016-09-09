@@ -165,6 +165,7 @@ export function getBaseResult(request, data) {
 		canonicalUrl: wikiVariables.basePath,
 		documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
 		gaUserIdHash: gaUserIdHash(userId),
+		globalNavigationData: data.globalNavigation,
 		isRtl: isRtl(wikiVariables),
 		// clone object to avoid overriding real localSettings for future requests
 		localSettings: getLocalSettings(),

@@ -9,7 +9,7 @@ import prepareCuratedContentData from './operations/prepare-curated-content-data
 import showServerErrorPage from './operations/show-server-error-page';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
-import injectGlobalFooterData from '../lib/inject-global-footer-data';
+import injectGlobalFooterData from '../lib/inject-design-system-data';
 
 const cachingTimes = {
 	enabled: true,
