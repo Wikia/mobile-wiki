@@ -1,6 +1,6 @@
-import {Component, Object} from 'ember';
+import Ember from 'ember';
 
-export default Component.extend({
+export default Ember.Component.extend({
 	classNames: ['wds-global-navigation'],
-	model: Object.create(M.prop('globalNavigationData'))
+	model: Ember.Object.create(M.prop('globalNavigationData'))
 });
