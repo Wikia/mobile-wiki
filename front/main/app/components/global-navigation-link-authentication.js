@@ -1,18 +1,16 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const {Component, computed} = Ember;
+
+export default Component.extend({
 	tagName: '',
-	linkClasses: Ember.computed('model.title.key', function () {
-		const messageKey = this.get('model.title.key');
+	linkClasses: computed('model.title.key', function () {
+		const classMap = {
+			'global-navigation-anon-sign-in': 'wds-button wds-is-full-width',
+			'global-navigation-anon-register': 'wds-button wds-is-full-width wds-is-secondary',
+			'global-navigation-user-sign-out': 'wds-global-navigation__dropdown-link'
+		};
 
-		if (messageKey === 'global-navigation-anon-sign-in') {
-			return 'wds-button wds-is-full-width';
-		} else if (messageKey === 'global-navigation-anon-register') {
-			return 'wds-button wds-is-full-width wds-is-secondary';
-		} else if (messageKey === 'global-navigation-user-sign-out') {
-			return 'wds-global-navigation__dropdown-link';
-		}
-
-		return '';
+		return classMap[this.get('model.title.key')] || '';
 	})
 });

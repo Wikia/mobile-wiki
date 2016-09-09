@@ -1,15 +1,16 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-	tagName: 'div',
+const {Component, computed} = Ember;
+
+export default Component.extend({
 	classNames: ['wds-dropdown'],
 	classNameBindings: ['menuType'],
 
-	extraDropdownClasses: Ember.computed('dropdownRightAligned', function () {
+	extraDropdownClasses: computed('dropdownRightAligned', function () {
 		return this.get('dropdownRightAligned') ? 'wds-is-right-aligned' : '';
 	}),
-	showAvatar: Ember.computed.equal('model.header.type', 'avatar'),
-	menuType: Ember.computed('type', function () {
+	showAvatar: computed.equal('model.header.type', 'avatar'),
+	menuType: computed('type', function () {
 		return `wds-global-navigation__${this.get('type')}`;
 	})
 });

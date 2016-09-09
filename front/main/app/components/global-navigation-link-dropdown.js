@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const {Component, computed} = Ember;
+
+export default Component.extend({
 	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['wds-global-navigation__dropdown-link'],
 
-	href: Ember.computed.oneWay('model.href')
+	href: computed.oneWay('model.href')
 });
