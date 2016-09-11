@@ -43,12 +43,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	width: 100%;
 	z-index: $z-site-head;
 
-	.site-head-icon-nav {
-		order: 1;
-	}
-
 	.site-head-icon-search {
-		order: 3;
 		width: $icon-button-size;
 	}
 
@@ -58,14 +53,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		// beneath it.
 		height: $site-head-content-height;
 		margin: auto;
-		order: 2;
 		overflow: hidden;
+	}
 
-		svg {
-			// keep it same as .icon.wikia-logo
-			height: rem-calc(48);
-			width: 5rem;
-		}
+	.fandom-logo {
+		height: 3rem;
+		width: 9rem;
 	}
 
 	.site-head-icon {
