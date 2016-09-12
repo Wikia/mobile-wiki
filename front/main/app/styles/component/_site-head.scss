@@ -22,6 +22,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
 .site-head {
+	align-items: center;
 	background-color: $white;
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $vapor;
@@ -29,6 +30,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
@@ -48,12 +50,10 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 
 	.site-logo {
-		align-items: center;
-		display: flex;
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: $site-head-content-height;
+		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
 		margin: 0 auto;
 	}
