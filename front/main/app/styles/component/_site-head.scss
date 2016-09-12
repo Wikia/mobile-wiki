@@ -22,6 +22,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
 .site-head {
+	align-items: center;
 	background-color: $white;
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $vapor;
@@ -29,6 +30,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
@@ -43,12 +45,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	width: 100%;
 	z-index: $z-site-head;
 
-	.site-head-icon-nav {
-		order: 1;
-	}
-
 	.site-head-icon-search {
-		order: 3;
 		width: $icon-button-size;
 	}
 
@@ -56,22 +53,26 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: $site-head-content-height;
-		margin: auto;
-		order: 2;
-		overflow: hidden;
+		height: 1.6rem;
+		//this is needed to center logo before app starts and we have just 'stub' of site head
+		margin: 0 auto;
+	}
 
-		svg {
-			// keep it same as .icon.wikia-logo
-			height: rem-calc(48);
-			width: 5rem;
-		}
+	.fandom-logo {
+		height: 26px;
+		width: 100%;
 	}
 
 	.site-head-icon {
 		position: relative;
+
 		.icon-button-icon {
 			fill: $color-blue-dark;
+		}
+
+		&-search,
+		&-nav {
+			flex: 0 0 48px;
 		}
 
 		&:hover {
@@ -89,14 +90,6 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
-.bfaa-template .site-head-headroom-top .site-head {
-	position: static;
-}
-
-.no-scroll .bfaa-template .site-head {
-	position: fixed;
-}
-
 .side-nav-toggle {
 	display: inline-block;
 	float: left;
@@ -108,5 +101,22 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+//Styles for BFAA
+.no-scroll {
+	.bfaa-template {
+		.site-head {
+			position: fixed;
+		}
+	}
+}
+
+.bfaa-template {
+	.site-head-headroom-top {
+		.site-head {
+			position: static;
+		}
 	}
 }
