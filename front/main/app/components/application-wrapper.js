@@ -45,6 +45,8 @@ export default Component.extend(ResponsiveMixin, {
 		return `${vertical}-vertical`;
 	}),
 
+	newNav: M.prop('globalNavigation'),
+
 	/**
 	 * @returns {void}
 	 */
