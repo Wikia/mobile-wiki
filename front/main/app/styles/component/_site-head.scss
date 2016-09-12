@@ -89,14 +89,6 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
-.bfaa-template .site-head-headroom-top .site-head {
-	position: static;
-}
-
-.no-scroll .bfaa-template .site-head {
-	position: fixed;
-}
-
 .side-nav-toggle {
 	display: inline-block;
 	float: left;
@@ -108,5 +100,22 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+//Styles for BFAA
+.no-scroll {
+	.bfaa-template {
+		.site-head {
+			position: fixed;
+		}
+	}
+}
+
+.bfaa-template {
+	.site-head-headroom-top {
+		.site-head {
+			position: static;
+		}
 	}
 }
