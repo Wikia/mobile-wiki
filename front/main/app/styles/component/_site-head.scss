@@ -61,9 +61,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		width: 100%;
 	}
 
+	.site-head-icon-search, .site-head-icon-nav {
+		flex: 0 0 48px;
+	}
+
 	.site-head-icon {
 		position: relative;
-		flex: 0 0 48px;
 
 		.icon-button-icon {
 			fill: $color-blue-dark;
