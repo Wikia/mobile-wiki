@@ -29,6 +29,7 @@ export default function prepareCuratedContentData(request, data) {
 	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 
 	result.globalFooter = data.globalFooter;
+	result.globalNavigation = data.globalNavigation;
 	result.bodyClassName = data.bodyClassName;
 
 	return result;

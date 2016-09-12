@@ -140,6 +140,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	}
 
 	result.globalFooter = data.globalFooter;
+	result.globalNavigation = data.globalNavigation;
 	result.bodyClassName = data.bodyClassName;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
