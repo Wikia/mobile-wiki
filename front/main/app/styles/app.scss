@@ -22,8 +22,3 @@
 
 // Load Design System
 @import '../../bower_components/design-system/dist/styles';
-
-// Temporary solution that will prove that DS is included.
-body.is-design-system-enabled {
-  color: $color-light-c8 !important;
-}
