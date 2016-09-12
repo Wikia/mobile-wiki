@@ -1,14 +1,20 @@
 <div class="wds-global-navigation__content-bar">
-	<a href="http://fandom.wikia.com" class="wds-global-navigation__logo wds-global-navigation__logo-wikia">
-		{{svg model.logo.header.image class='wds-global-navigation__logo-wikia-icon'}}
-		<span class="wds-global-navigation__logo-wikia-caption">{{i18n model.logo.header.subtitle.key ns='design-system'}}</span>
-	</a>
+	{{#unless model.logo.header.subtitle}}
+		<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo">
+			{{svg model.logo.header.image class='wds-global-navigation__logo-fandom'}}
+		</a>
+	{{else}}
+		<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo wds-global-navigation__logo-wikia">
+			{{svg model.logo.header.image class='wds-global-navigation__logo-wikia-icon'}}
+			<span class="wds-global-navigation__logo-wikia-caption">{{i18n model.logo.header.subtitle.key ns='design-system'}}</span>
+		</a>
+	{{/unless}}
 	{{#if model.fandom_overview}}
 		{{#each model.fandom_overview.links as |link|}}
-			{{global-navigation-link-branded model=link}}
+			{{design-system/global-navigation-link-branded model=link}}
 		{{/each}}
 	{{/if}}
-	{{global-navigation-links model=model.wikis type='wikis-menu'}}
+	{{design-system/global-navigation-links model=model.wikis type='wikis-menu'}}
 	<form class="wds-global-navigation__search" action="{{model.search.module.results.url}}">
 		<div class="wds-global-navigation__search-input-wrapper">
 			<label class="wds-global-navigation__search-label">
@@ -19,16 +25,16 @@
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small wds-global-navigation__search-close-icon'}}
 			</button>
 		</div>
-		<button class="wds-button wds-global-navigation__search-submit">
+		<button class="wds-button wds-global-navigation__search-submit" type="submit">
 			{{svg 'wds-icons-arrow' class='wds-icon wds-icon-small wds-global-navigation__search-submit-icon'}}
 		</button>
 	</form>
 	{{#if model.user}}
-		{{global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
+		{{design-system/global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
 	{{else if model.anon}}
-		{{global-navigation-account-navigation model=model.anon}}
+		{{design-system/global-navigation-account-navigation model=model.anon}}
 	{{/if}}
-	<div class="wds-global-navigation__start-a-wiki ">
+	<div class="wds-global-navigation__start-a-wiki">
 		<a href="{{model.create_wiki.header.href}}" class="wds-button wds-is-squished wds-is-secondary">
 			<span class="wds-global-navigation__start-a-wiki-caption">{{i18n model.create_wiki.header.title.key ns='design-system'}}</span>
 			{{svg 'wds-icons-plus' class='wds-global-navigation__start-a-wiki-icon wds-icon'}}
