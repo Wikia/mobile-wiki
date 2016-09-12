@@ -12,7 +12,7 @@ import {
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
-import injectGlobalFooterData from '../lib/inject-design-system-data';
+import injectDesignSystemData from '../lib/inject-design-system-data';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -96,7 +96,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * @returns {MediaWikiPageData}
 		 *
 		 */
-		.then((templateData) => injectGlobalFooterData({
+		.then((templateData) => injectDesignSystemData({
 			data: templateData,
 			request,
 			showFooter: showGlobalFooter
