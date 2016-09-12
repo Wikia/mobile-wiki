@@ -18,28 +18,7 @@ export default Ember.Mixin.create({
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
-
-		moreInContentAds: {
-			// Disable the extra in content ads:
-			enabled: false,
-
-			// Only launch the ads on pages longer than:
-			minPageLength: 5000,
-
-			// Don't put ads too close to each other. Desired distance between ads + one ad height:
-			minOffsetDiffBetweenAds: 1800,
-
-			// Ad height + vertical margin:
-			adHeight: 280,
-
-			// Inject at max this many extra slots:
-			maxSlots: 3,
-
-			// ... and name them:
-			slotNamePrefix: 'MOBILE_IN_CONTENT_EXTRA_'
-		}
 	},
-	adViews: [],
 	ads: Ember.inject.service(),
 
 	/**
@@ -69,79 +48,8 @@ export default Ember.Mixin.create({
 			componentElement.$().insertBefore(element);
 		}
 
-		this.adViews.push(componentElement);
-
 		componentElement.trigger('didInsertElement');
 		this.get('ads').pushInContentAd(adSlotName, componentElement);
-	},
-
-	/**
-	 * Inject MOBILE_IN_CONTENT_EXTRA_* ads on selected wikis
-	 *
-	 * @returns {void}
-	 */
-	injectMoreInContentAds() {
-		const config = this.adsData.moreInContentAds,
-			minDistanceBetweenAds = config.minOffsetDiffBetweenAds,
-			expectedAdHeight = config.adHeight,
-			slotNamePrefix = config.slotNamePrefix,
-			maxSlots = config.maxSlots,
-
-			// Sorted list of top positions of ads:
-			adPositions = [].concat(
-				// MOBILE_TOP_LEADERBOARD:
-				[0],
-				// in content ads:
-				this.adViews.map((adView) => adView.$().offset().top)
-			),
-
-			// Sorted list of top positions of headers:
-			$headers = $('.article-content').find('> h2, > h3'),
-			headerPositions = $headers.map(function () {
-				return $(this).offset().top;
-			}).get(),
-
-			goodHeaders = [],
-
-			headerLen = headerPositions.length,
-			adLen = adPositions.length;
-
-		let i = 0,
-			adIndex = 0,
-			adsToInject = 0;
-
-		// Find headers to inject ads before
-		while (i < headerLen && adIndex < adLen && adsToInject < maxSlots) {
-			const prevAdPosition = adPositions[adIndex],
-				nextAdPosition = adPositions[adIndex + 1],
-				headerPosition = headerPositions[i];
-
-			if (headerPosition < prevAdPosition + minDistanceBetweenAds) {
-				// Header too close to previous ad
-				i += 1;
-			} else if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
-				// Header is located in the safe spot between previous and next ad
-				goodHeaders.push($headers.eq(i));
-				adsToInject += 1;
-
-				// Use the current header position as the current ad position
-				// Subtract the ad height to make the calculations work for the next headers
-				adPositions[adIndex] = headerPosition - expectedAdHeight;
-			} else {
-				// We need to find a header that's below the next ad, thus:
-				adIndex += 1;
-			}
-		}
-
-		// Inject the ads now
-		for (i = 0; i < adsToInject; i += 1) {
-			Ember.Logger.info(`Injecting an extra in content ad before ${goodHeaders[i].attr('id')}`);
-			this.appendAd(slotNamePrefix + (i + 1), 'before', goodHeaders[i]);
-		}
-
-		if (!adsToInject) {
-			Ember.Logger.info('The page is long, but no extra in content ads were injected');
-		}
 	},
 
 	/**
@@ -158,10 +66,8 @@ export default Ember.Mixin.create({
 
 			showInContent = firstSectionTop > adsData.minZerothSectionLength,
 			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
-			showMoreInContentAds = adsData.moreInContentAds.enabled &&
-				articleBodyHeight > adsData.moreInContentAds.minPageLength,
-
 			$globalFooter = $('.wds-global-footer');
+
 		this.set('adViews', []);
 
 		if ($pi.length) {
@@ -178,12 +84,6 @@ export default Ember.Mixin.create({
 
 		if (showPreFooter) {
 			this.appendAd(adsData.mobilePreFooter, 'after', $articleBody);
-		}
-
-		if (showMoreInContentAds) {
-			this.injectMoreInContentAds();
-		} else if (adsData.moreInContentAds.enabled) {
-			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
 
 		if ($globalFooter.length) {
