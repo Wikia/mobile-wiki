@@ -1,11 +1,13 @@
-{{#ember-wormhole to="site-head-sub-header"}}
-	{{discussion-header
-		canDeleteAll=model.canDeleteAll
-		deleteAllPosts=deleteAllPosts
-		hasBackButton=true
-		smartBannerVisible=smartBannerVisible
-	}}
-{{/ember-wormhole}}
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{discussion-header
+			canDeleteAll=model.canDeleteAll
+			deleteAllPosts=deleteAllPosts
+			hasBackButton=true
+			smartBannerVisible=smartBannerVisible
+		}}
+	{{/ember-wormhole}}
+{{/if}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback
