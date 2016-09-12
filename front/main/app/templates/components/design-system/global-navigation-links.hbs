@@ -12,9 +12,9 @@
 			{{#each model.links as |link|}}
 				<li>
 					{{#if (equal link.type 'link-authentication')}}
-						{{global-navigation-link-authentication model=link}}
+						{{design-system/global-navigation-link-authentication model=link}}
 					{{else}}
-						{{global-navigation-link-dropdown model=link}}
+						{{design-system/global-navigation-link-dropdown model=link}}
 					{{/if}}
 				</li>
 			{{/each}}
@@ -22,6 +22,6 @@
 	</div>
 {{else}}
 	{{#each model.links as |link|}}
-		{{global-navigation-link model=link}}
+		{{design-system/global-navigation-link model=link}}
 	{{/each}}
 {{/if}}

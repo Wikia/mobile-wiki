@@ -11,10 +11,10 @@
 	{{/unless}}
 	{{#if model.fandom_overview}}
 		{{#each model.fandom_overview.links as |link|}}
-			{{global-navigation-link-branded model=link}}
+			{{design-system/global-navigation-link-branded model=link}}
 		{{/each}}
 	{{/if}}
-	{{global-navigation-links model=model.wikis type='wikis-menu'}}
+	{{design-system/global-navigation-links model=model.wikis type='wikis-menu'}}
 	<form class="wds-global-navigation__search" action="{{model.search.module.results.url}}">
 		<div class="wds-global-navigation__search-input-wrapper">
 			<label class="wds-global-navigation__search-label">
@@ -30,9 +30,9 @@
 		</button>
 	</form>
 	{{#if model.user}}
-		{{global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
+		{{design-system/global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
 	{{else if model.anon}}
-		{{global-navigation-account-navigation model=model.anon}}
+		{{design-system/global-navigation-account-navigation model=model.anon}}
 	{{/if}}
 	<div class="wds-global-navigation__start-a-wiki">
 		<a href="{{model.create_wiki.header.href}}" class="wds-button wds-is-squished wds-is-secondary">
