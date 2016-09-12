@@ -51,18 +51,23 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
+		align-items: center;
+		display: flex;
 		height: $site-head-content-height;
 		margin: auto;
 		overflow: hidden;
+
 	}
 
 	.fandom-logo {
-		height: 3rem;
-		width: 9rem;
+		height: 26px;
+		width: 100%;
 	}
 
 	.site-head-icon {
 		position: relative;
+		flex: 0 0 48px;
+
 		.icon-button-icon {
 			fill: $color-blue-dark;
 		}
