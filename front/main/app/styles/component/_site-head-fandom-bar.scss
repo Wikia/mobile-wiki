@@ -19,6 +19,7 @@ $home-of-fandom-letter-spacing: 0.5px;
 	top: $site-head-height;
 	transition: transform .5s;
 	width: 100%;
+	will-change: transform;
 	z-index: $z-6;
 
 	.fandom-bar-logo {
