@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Ads from 'common/modules/ads';
 
 export default Ember.Service.extend({
 	name: 'INVISIBLE_HIGH_IMPACT_2',
@@ -34,6 +35,6 @@ export default Ember.Service.extend({
 	},
 
 	loadFloorAdhesionWhenPossible() {
-		this.get('adsState').runWhenScriptLoaded(this.loadFloorAdhesion, this);
+		Ads.getInstance().onReady(this.loadFloorAdhesion, this);
 	}
 });
