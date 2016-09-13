@@ -66,6 +66,10 @@ class Ads {
 			}
 		};
 		this.adLogicPageViewCounterModule = null;
+		this.googleTagModule = {
+			destroySlots: () => {
+			}
+		};
 	}
 
 	/**
@@ -380,7 +384,6 @@ class Ads {
 
 	resetSlots() {
 		this.adSlots = [];
-		this.googleTagModule.destroySlots();
 	}
 
 	/**

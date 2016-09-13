@@ -38,7 +38,8 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.trackKruxPageView = sinon.stub();
 
 		origRequire = window.require;
-		window.require = function (modules) {
+		window.require = function (modules, callback) {
+			callback();
 		};
 
 		instance.init(testAdsUrl);
@@ -46,6 +47,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		window.require = origRequire;
 
 		assert.ok(loadStub.calledWith(testAdsUrl));
+		assert.ok(reloadWhenReadyStub.calledOnce);
 	});
 
 	QUnit.test('Reload ads works', function (assert) {
@@ -57,7 +59,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 			initDetectionSpy = sinon.spy(),
 			pageFairInitDetectionSpy = sinon.spy(),
 			startOnLoadQueue = sinon.spy(),
-			destroySlotsSpy = sinon.spy(),
+			onPageChangeSpy = sinon.spy(),
 			instance = Ads.getInstance();
 
 		instance.adContextModule = {
@@ -73,13 +75,11 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 			initDetection: pageFairInitDetectionSpy
 		};
 		instance.adMercuryListenerModule = {
-			startOnLoadQueue: startOnLoadQueue
+			startOnLoadQueue: startOnLoadQueue,
+			onPageChange: onPageChangeSpy
 		};
 		instance.adConfigMobile = {
 			test: 2
-		};
-		instance.googleTagModule = {
-			destroySlots: destroySlotsSpy
 		};
 		instance.adSlots = [
 			['slot1']
@@ -89,11 +89,13 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.reload(testContext);
 		assert.ok(setContextSpy.calledWith(testContext));
 		assert.ok(initDetectionSpy.calledOnce);
+		assert.ok(onPageChangeSpy.calledOnce);
 		assert.ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
 		instance.adContextModule = undefined;
 		instance.adEngineRunnerModule = undefined;
 		instance.adConfigMobile = undefined;
 		instance.adMercuryListenerModule = undefined;
+		instance.adLogicPageViewCounterModule = undefined;
 		instance.adSlots = [];
 		instance.googleTagModule = {};
 	});
@@ -111,7 +113,9 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		assert.equal(instance.adSlots.length, 2);
 		instance.removeSlot('foo');
 		assert.equal(instance.adSlots.length, 1);
+		assert.ok(destroySlotsSpy.calledWith(['foo']));
 		instance.removeSlot('bar');
+		assert.ok(destroySlotsSpy.calledWith(['bar']));
 		assert.equal(instance.adSlots.length, 0);
 		instance.reload(null);
 	});
