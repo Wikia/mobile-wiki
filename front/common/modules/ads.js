@@ -65,9 +65,7 @@ class Ads {
 				dimension: 7
 			}
 		};
-		this.googleTagModule = {
-			destroySlots: () => {}
-		};
+		this.adLogicPageViewCounterModule = null;
 	}
 
 	/**
@@ -99,6 +97,7 @@ class Ads {
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
+					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
@@ -107,6 +106,7 @@ class Ads {
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
+					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
 					pageFairDetectionModule,
@@ -124,6 +124,7 @@ class Ads {
 					this.addDetectionListeners();
 					this.reloadWhenReady();
 					this.googleTagModule = googleTagModule;
+					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -297,11 +298,6 @@ class Ads {
 				onContextLoadCallback();
 			}
 
-			// TODO get rid of this hack
-			if (typeof this.googleTagModule.newPageView === 'function') {
-				this.googleTagModule.newPageView();
-			}
-
 			if (Ads.previousDetectionResults.sourcePoint.exists) {
 				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
 			} else {
@@ -317,6 +313,11 @@ class Ads {
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
 			}
+
+			this.adMercuryListenerModule.onPageChange(() => {
+				this.adLogicPageViewCounterModule.increment();
+				this.googleTagModule.updateCorrelator();
+			});
 
 			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
