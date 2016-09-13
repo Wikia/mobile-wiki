@@ -3,11 +3,12 @@ import Ember from 'ember';
 const {Component, computed} = Ember;
 
 export default Component.extend({
-	classNames: ['wds-dropdown'],
-	classNameBindings: ['menuType'],
+	tagName: '',
 
-	showAvatar: computed.equal('model.header.type', 'avatar'),
-	menuType: computed('type', function () {
-		return `wds-global-navigation__${this.get('type')}`;
-	})
+	dropdownClassNames: computed(function () {
+		const menuTypeClass = `wds-global-navigation__${this.get('type')}`;
+
+		return `wds-dropdown ${menuTypeClass}`;
+	}),
+	showAvatar: computed.equal('model.header.type', 'avatar')
 });
