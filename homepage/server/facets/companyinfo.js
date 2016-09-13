@@ -8,7 +8,7 @@ var util = require('../util');
 
 function companyInfo(request, reply) {
 	var data = {
-		title: 'Wikia Japan'
+		title: '会社概要'
 	};
 
 	util.renderWithGlobalData(request, reply, data, 'companyinfo');
