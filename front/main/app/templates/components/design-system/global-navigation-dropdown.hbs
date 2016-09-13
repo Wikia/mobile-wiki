@@ -1,6 +1,6 @@
 {{#design-system/wds-dropdown additionalClassNames=additionalClassNames as |dropdown|}}
 	{{#dropdown.toggle
-		additionalClassNames="wds-global-navigation__dropdown-toggle"
+		additionalClassNames='wds-global-navigation__dropdown-toggle'
 		title=(if showAvatar model.header.username.value)
 	}}
 		{{#if showAvatar}}
@@ -10,7 +10,7 @@
 		{{/if}}
 	{{/dropdown.toggle}}
 	{{#dropdown.content
-		additionalClassNames="wds-global-navigation__dropdown-content"
+		additionalClassNames='wds-global-navigation__dropdown-content'
 		dropdownRightAligned=dropdownRightAligned
 	}}
 		<ul class="wds-list wds-is-linked">
