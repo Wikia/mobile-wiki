@@ -65,7 +65,7 @@ class Ads {
 				dimension: 7
 			}
 		};
-		this.googleTag = {
+		this.googleTagModule = {
 			destroySlots: () => {}
 		};
 	}
@@ -103,7 +103,7 @@ class Ads {
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.sourcePointDetection',
-					'ext.wikia.adEngine.provider.gpt.helper',
+					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
@@ -111,7 +111,7 @@ class Ads {
 					adMercuryListener,
 					pageFairDetectionModule,
 					sourcePointDetectionModule,
-					gptHelper,
+					googleTagModule,
 					krux) => {
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adContextModule = adContextModule;
@@ -123,7 +123,7 @@ class Ads {
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-					this.googleTag = gptHelper.getGoogleTag();
+					this.googleTagModule = googleTagModule;
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -298,8 +298,8 @@ class Ads {
 			}
 
 			// TODO get rid of this hack
-			if (typeof this.googleTag.newPageView === 'function') {
-				this.googleTag.newPageView();
+			if (typeof this.googleTagModule.newPageView === 'function') {
+				this.googleTagModule.newPageView();
 			}
 
 			if (Ads.previousDetectionResults.sourcePoint.exists) {
@@ -374,12 +374,12 @@ class Ads {
 			return slot[0] && slot[0] === name;
 		}, true);
 
-		this.googleTag.destroySlots([name]);
+		this.googleTagModule.destroySlots([name]);
 	}
 
 	resetSlots() {
 		this.adSlots = [];
-		this.googleTag.destroySlots();
+		this.googleTagModule.destroySlots();
 	}
 
 	/**

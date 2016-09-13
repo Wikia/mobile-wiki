@@ -78,7 +78,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.adConfigMobile = {
 			test: 2
 		};
-		instance.googleTag = {
+		instance.googleTagModule = {
 			destroySlots: destroySlotsSpy
 		};
 		instance.adSlots = [
@@ -95,14 +95,14 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance.adConfigMobile = undefined;
 		instance.adMercuryListenerModule = undefined;
 		instance.adSlots = [];
-		instance.googleTag = {};
+		instance.googleTagModule = {};
 	});
 
 	QUnit.test('Add/remove slots works', function (assert) {
 		var instance = Ads.getInstance(),
 			destroySlotsSpy = sinon.spy();
 
-		instance.googleTag = {
+		instance.googleTagModule = {
 			destroySlots: destroySlotsSpy
 		};
 
