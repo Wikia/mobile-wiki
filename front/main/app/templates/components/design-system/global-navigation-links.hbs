@@ -1,7 +1,7 @@
 {{#if model.header}}
 	{{#rl-dropdown-container class="dropdown"}}
 		{{!-- TODO handle title={{model.header.username.value}} --}}
-		{{#rl-dropdown-toggle class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle"}}
+		{{#rl-dropdown-toggle tagName="div" class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle"}}
 			{{#if showAvatar}}
 				<img class="wds-avatar wds-is-circle" src="{{model.header.url}}" alt="{{model.header.username.value}}" />
 			{{else}}
