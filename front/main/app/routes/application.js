@@ -31,6 +31,14 @@ export default Route.extend(
 
 		actions: {
 			/**
+			 * @param {boolean} state
+			 * @returns {void}
+			 */
+			triggerDiscussionCategoriesEditModeStateChange(state) {
+				this.controller.set('isGlobalNavigationPositionFixed', state);
+			},
+
+			/**
 			 * @returns {void}
 			 */
 			loading() {

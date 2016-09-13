@@ -35,6 +35,7 @@ export default Ember.Controller.extend(
 		lightboxModel: null,
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
+		isGlobalNavigationPositionFixed: false,
 
 		// Controls the appearance of the share-header component
 		enableShareHeader: false,
