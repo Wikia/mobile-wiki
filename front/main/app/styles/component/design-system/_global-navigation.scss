@@ -2,6 +2,12 @@
 // If you look for Global Navigation styles go here:
 // https://github.com/Wikia/design-system/blob/master/components/_global-navigation.scss
 
+@import '../../../../bower_components/design-system/base/colors';
+
 .wds-global-navigation {
 	box-sizing: content-box;
+
+	.dark-theme & label {
+		color: $color-dark-blue-gray;
+	}
 }
