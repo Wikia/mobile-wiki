@@ -40,3 +40,7 @@ $article-negative-padding: -$article-horizontal-padding;
 		padding-top: 0;
 	}
 }
+
+.widget-discussions-error {
+	color: $discussion-widget-errorcolor;
+}
