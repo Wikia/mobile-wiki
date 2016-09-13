@@ -1,5 +1,5 @@
 {{#if model.header}}
-	{{#rl-dropdown-container class=dropdownClassNames}}
+	{{#rl-dropdown-container class=dropdownContainerClassNames}}
 		{{!-- TODO handle title={{model.header.username.value}} --}}
 		{{#rl-dropdown-toggle tagName="div" class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle"}}
 			{{#if showAvatar}}
@@ -9,8 +9,7 @@
 			{{/if}}
 			{{svg 'wds-icons-dropdown-tiny' class='wds-icon wds-icon-tiny wds-dropdown__toggle-chevron'}}
 		{{/rl-dropdown-toggle}}
-		{{!-- TODO handle 'wds-is-right-aligned' --}}
-		{{#rl-dropdown class="wds-dropdown__content wds-global-navigation__dropdown-content" closeOnChildClick="a"}}
+		{{#rl-dropdown class=dropdownClassNames closeOnChildClick="a"}}
 			<ul class="wds-list wds-is-linked">
 				{{#each model.links as |link|}}
 					<li>
