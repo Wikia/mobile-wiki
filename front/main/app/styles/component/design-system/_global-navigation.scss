@@ -1,0 +1,9 @@
+.wds-global-navigation-wrapper {
+	height: 55px;
+}
+
+.wds-global-navigation {
+	position: fixed;
+	width: 100%;
+	z-index: $z-side-nav;
+}
