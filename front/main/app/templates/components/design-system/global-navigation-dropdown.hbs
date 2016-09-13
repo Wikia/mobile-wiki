@@ -1,4 +1,4 @@
-<div class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle rl-dropdown-toggle" title="{{if showAvatar model.header.username.value}}" {{action 'toggleDropdown'}}>
+<div class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle" title="{{if showAvatar model.header.username.value}}" {{action 'toggleDropdown'}}>
 	{{#if showAvatar}}
 		<img class="wds-avatar wds-is-circle" src="{{model.header.url}}" alt="{{model.header.username.value}}" />
 	{{else}}
@@ -6,7 +6,7 @@
 	{{/if}}
 	{{svg 'wds-icons-dropdown-tiny' class='wds-icon wds-icon-tiny wds-dropdown__toggle-chevron'}}
 </div>
-<div class="wds-dropdown__content wds-global-navigation__dropdown-content rl-dropdown {{if dropdownRightAligned 'wds-is-right-aligned'}}">
+<div class="wds-dropdown__content wds-global-navigation__dropdown-content {{if dropdownRightAligned 'wds-is-right-aligned'}}">
 	<ul class="wds-list wds-is-linked">
 		{{#each model.links as |link|}}
 			<li>

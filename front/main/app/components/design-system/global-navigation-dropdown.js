@@ -6,6 +6,9 @@ const {Component, computed} = Ember;
 export default Component.extend(DropdownComponentMixin, {
 	classNames: ['wds-dropdown'],
 	classNameBindings: ['menuType', 'isActiveClass'],
+	dropdownToggleSelector: '.wds-dropdown__toggle',
+	dropdownSelector: '.wds-dropdown__content',
+	closingEventNamespace: 'wds-dropdown',
 
 	showAvatar: computed.equal('model.header.type', 'avatar'),
 	menuType: computed('type', function () {
