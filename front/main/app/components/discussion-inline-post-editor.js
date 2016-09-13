@@ -6,7 +6,7 @@ export default DiscussionInlineEditor.extend(
 	{
 		containerSelector: '.discussion-inline-editor-floating-container',
 		floatingContainerTop: Ember.computed('globalNavigationHeight', 'isSticky', function () {
-			return !this.get('isSticky') ? 0 : this.get('globalNavigationHeight');
+			return this.get('isSticky') ? this.get('globalNavigationHeight') : 0;
 		}),
 
 		/**
