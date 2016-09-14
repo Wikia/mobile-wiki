@@ -17,6 +17,6 @@
 	&.global-navigation-fixed {
 		position: fixed;
 		width: 100%;
-		z-index: $z-side-nav;
+		z-index: $z-global-navigation;
 	}
 }
