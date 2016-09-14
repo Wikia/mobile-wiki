@@ -14,7 +14,7 @@
 		color: $color-dark-blue-gray;
 	}
 
-	&.global-navigation-fixed {
+	&.is-fixed {
 		position: fixed;
 		width: 100%;
 		z-index: $z-global-navigation;
