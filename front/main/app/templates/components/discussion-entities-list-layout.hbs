@@ -10,6 +10,7 @@
 		setEditorActive=(action this.attrs.setEditorActive)
 		smartBannerVisible=smartBannerVisible
 		updateCategories=(action this.attrs.updateCategories)
+		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
 	}}
 {{/ember-wormhole}}
 {{discussion-dialog
@@ -42,6 +43,7 @@
 						inputIdPrefix='rail'
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+						validatePostsOnForum=(action this.attrs.validatePostsOnForum)
 						visibleCategoriesCount=10
 					}}
 				{{/if}}

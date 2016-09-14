@@ -22,6 +22,10 @@ $success-icon-size: 80px;
 					display: block;
 				}
 
+				.action-local-delete {
+					display: none;
+				}
+
 				.action-delete {
 					display: none;
 				}
@@ -43,6 +47,12 @@ $success-icon-size: 80px;
 				height: 16px;
 				width: 7px;
 			}
+
+			.trash {
+				fill: $discussion-deleted-mark-color;
+				height: 18px;
+				width: 18px;
+			}
 		}
 
 		.discussion-categories-input:focus + .draggable {
@@ -50,6 +60,10 @@ $success-icon-size: 80px;
 
 			.action-move {
 				display: none;
+			}
+
+			.action-local-delete {
+				display: block;
 			}
 
 			.action-delete {
@@ -87,6 +101,10 @@ $success-icon-size: 80px;
 
 				.action-move {
 					display: block;
+				}
+
+				.action-local-delete {
+					display: none;
 				}
 
 				.action-delete {
@@ -151,7 +169,7 @@ $success-icon-size: 80px;
 
 	.icon {
 		&.lock {
-			margin: 5px 7px 4px 0;
+			margin: 5px 10px 4px 0;
 		}
 
 		&.report {
@@ -212,6 +230,15 @@ $success-icon-size: 80px;
 		line-height: 44px;
 		margin: 0;
 	}
+
+	.icon-close {
+		width: 35px;
+	}
+
+	.icon-submit {
+		height: 35px;
+		width: 35px;
+	}
 }
 
 .loading-overlay.categories-loading-overlay {
@@ -249,8 +276,8 @@ $success-icon-size: 80px;
 		.discussion-categories-input,
 		.discussion-categories-input:focus {
 			font-size: $type-base;
-			margin-left: 14px;
-			margin-right: 14px;
+			margin-left: 18px;
+			margin-right: 18px;
 			padding: 17px 42px 10px 0;
 
 			&[disabled] {
@@ -278,7 +305,7 @@ $success-icon-size: 80px;
 
 		.icon.lock {
 			position: absolute;
-			left: 14px;
+			left: 18px;
 			margin-top: 16px;
 		}
 

@@ -43,7 +43,6 @@
 	}}
 		{{discussion-guidelines
 			guidelinesText=model.index.attributes.data.guidelines.value
-			uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 		}}
 	{{/modal-dialog}}
 {{/if}}
@@ -54,12 +53,13 @@
 	categories=model.index.categories.categories
 	categoriesInRail=true
 	model=model.current.data
-	updateCategories=(route-action 'updateCategories')
-	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
+	updateCategories=(route-action 'updateCategories')
+	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	uploadCommunityBadge=(action 'uploadCommunityBadge')
 	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
+	validatePostsOnForum=(action 'validatePostsOnForum')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')

@@ -10,7 +10,7 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		catId: [],
+		catId: null,
 		areGuidelinesVisible: false,
 
 		actions: {
@@ -26,6 +26,10 @@ export default DiscussionBaseController.extend(
 
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
+			},
+
+			validatePostsOnForum() {
+				this.get('target').send('validatePostsOnForum');
 			},
 
 			/**

@@ -28,26 +28,104 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: inject.service(),
 
 		/**
+		 * @param {object} transition
+		 * @returns {void}
+		 */
+		beforeModel(transition) {
+			const queryParams = transition.queryParams,
+				discussionModel = this.modelFor('discussion'),
+				discussionSort = this.get('discussionSort');
+
+			let modifiedTransition = null;
+
+			if (Ember.typeOf(queryParams.catId) === 'array') {
+				modifiedTransition = this.transitionToCommaSplittedCategories(queryParams);
+			}
+
+			const updatedQueryParams = {
+				catId: this.getCategoriesFromQueryString(queryParams.catId),
+				sort: queryParams.sort
+			};
+
+			if (!modifiedTransition) {
+				modifiedTransition
+					= this.transitionToValidCategoryFilters(discussionModel.categories, updatedQueryParams);
+			}
+
+			if (!modifiedTransition) {
+				modifiedTransition
+					= this.transitionToPreviouslySelectedFilters(discussionModel.categories, updatedQueryParams);
+			}
+
+			if (!modifiedTransition && !queryParams.sort) {
+				this.transitionTo({
+					queryParams: {
+						sort: 'trending'
+					}
+				});
+			}
+
+			discussionSort.setOnlyReported(false);
+			discussionSort.setSortBy(queryParams.sort);
+		},
+
+		/**
 		 * @param {object} params
-		 * @returns {Ember.RSVP.hash} may return null if previously selected filters are applied
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
-			const discussionSort = this.get('discussionSort'),
-				discussionModel = this.modelFor('discussion');
+			const discussionModel = this.modelFor('discussion'),
+				catId = this.getCategoriesFromQueryString(params.catId);
 
-			const transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
+			discussionModel.categories.setSelectedCategories(catId);
 
-			if (!transition) {
-				discussionSort.setOnlyReported(false);
+			return Ember.RSVP.hash({
+				current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy')),
+				index: discussionModel
+			});
+		},
 
-				if (params.sort) {
-					discussionSort.setSortBy(params.sort);
-					return this.updateDiscussionModel(params);
-				} else {
-					discussionSort.setSortBy('trending');
-					this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
+		getCategoriesFromQueryString(catQuery) {
+			return catQuery ? catQuery.split(',') : [];
+		},
+
+		transitionToCommaSplittedCategories(params) {
+			return this.transitionTo({queryParams: {
+				catId: this.getCommaSplittedCategories(params.catId),
+				sort: params.sort
+			}});
+		},
+
+		getCommaSplittedCategories(catId) {
+			return catId && catId.length ? catId.join(',') : null;
+		},
+
+		/**
+		 * Validate selected categories. If categories in query param contain at least one wrong category,
+		 * remove it and transition to proper url
+		 * @param {object} categories
+		 * @param {object} params
+		 * @returns {EmberStates.Transition} may return null when categories in query params are valid
+		 */
+		transitionToValidCategoryFilters(categories, params) {
+			let transition = null;
+
+			if (!Ember.isEmpty(params.catId)) {
+				let validCategories = params.catId;
+
+				validCategories = this.validateCategories(categories, params);
+
+				if (params.catId.length !== validCategories.length) {
+					transition = this.transitionTo({
+						queryParams: {
+							catId: validCategories,
+							sort: params.sort
+						}
+					});
 				}
 			}
+
+			return transition;
 		},
 
 		/**
@@ -64,11 +142,12 @@ export default DiscussionBaseRoute.extend(
 
 				const transitionParams =
 					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
-
 				// check if object because of situation when user had previously stored "null" (string) value
 				// for transitionParams
-				if (params.catId && params.catId.length === 0
-					&& Ember.typeOf(transitionParams) === 'object' && transitionParams.catId.length > 0) {
+				if (Ember.isEmpty(params.catId) && Ember.typeOf(transitionParams) === 'object'
+					&& !Ember.isEmpty(transitionParams.catId)) {
+					transitionParams.catId = transitionParams.catId.join(',');
+
 					transition = this.transitionTo({
 						queryParams: transitionParams
 					});
@@ -90,34 +169,21 @@ export default DiscussionBaseRoute.extend(
 		validateAndUpdateStoredParams(categories, params) {
 			this.updateStoredQueryParams(storedParams => {
 				if (storedParams.catId) {
-					storedParams.catId = categories.get('categories')
-						.filter(category => storedParams.catId.indexOf(category.id) !== -1)
-						.map(category => category.id);
+					storedParams.catId = this.validateCategories(categories, storedParams);
 				}
+
 				if (params.sort) {
 					storedParams.sort = params.sort;
 				}
+
 				return storedParams;
 			});
 		},
 
-		/**
-		 * @param {object} params
-		 * @returns {Ember.RSVP.hash}
-		 */
-		updateDiscussionModel(params) {
-			const discussionModel = this.modelFor('discussion');
-
-			if (params.catId) {
-				discussionModel.categories.setSelectedCategories(
-					params.catId instanceof Array ? params.catId : [params.catId]
-				);
-			}
-
-			return Ember.RSVP.hash({
-				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
-				index: discussionModel
-			});
+		validateCategories(categories, queryParams) {
+			return categories.get('categories')
+				.filter(category => queryParams.catId.indexOf(category.id) !== -1)
+				.map(category => category.id);
 		},
 
 		/**
@@ -147,7 +213,10 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
+				const model = this.modelFor(this.get('routeName')),
+					selectedCategories = model.index.categories.get('selectedCategoryIds');
+
+				model.current.loadPage(pageNum, selectedCategories, this.get('discussionSort.sortBy'));
 			},
 
 			updateCategoriesSelection(updatedCategories) {
@@ -155,14 +224,20 @@ export default DiscussionBaseRoute.extend(
 
 				this.refreshStoredCategories(catId);
 
-				this.transitionTo({queryParams: {
-					catId,
-					sort: this.get('discussionSort.sortBy')
-				}});
+				this.transitionTo({
+					queryParams: {
+						catId: Ember.isEmpty(catId) ? null : catId,
+						sort: this.get('discussionSort.sortBy')
+					}
+				});
 			},
 
 			updateCategories(categories) {
 				return this.modelFor(this.get('routeName')).index.categories.updateCategories(categories);
+			},
+
+			validatePostsOnForum() {
+				this.refresh();
 			},
 
 			/**

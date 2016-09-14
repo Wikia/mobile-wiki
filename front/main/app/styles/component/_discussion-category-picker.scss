@@ -10,10 +10,6 @@
 		min-width: 54px;
 		padding: 11px 12px;
 		text-align: center;
-
-		&:hover {
-			color: $discussion-category-pill-hover-color;
-		}
 	}
 
 	.discussion-category-select-tooltip-wrapper {
@@ -126,9 +122,20 @@
 	}
 }
 
+
 .discussion-inline-editor {
 	.discussion-category-select-tooltip-wrapper {
 		left: 90px;
 		top: -12px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussions {
+		.category-pill {
+			&:hover {
+				color: $discussion-category-pill-hover-color;
+			}
+		}
 	}
 }

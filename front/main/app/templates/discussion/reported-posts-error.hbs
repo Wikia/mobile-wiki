@@ -1,5 +1,6 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
+	attributes=model.index.attributes.data
 	hasContentError=true
 	model=model.current.data
 	updateCategoriesSelection=(action 'updateCategoriesSelection')
@@ -8,6 +9,7 @@
 	updateCategories=(action 'updateCategories')
 	uploadCommunityBadge=(action 'uploadCommunityBadge')
 	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
+	validatePostsOnForum=(action 'validatePostsOnForum')
 }}
 	{{#if model.error.isNotFound}}
 		{{discussion-reported-not-found-error}}
