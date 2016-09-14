@@ -5,7 +5,7 @@ const {Component} = Ember;
 
 export default Component.extend(DropdownComponentMixin, {
 	classNames: ['wds-dropdown'],
-	classNameBindings: ['dropdownExpanded:wds-is-active', 'additionalClassNames'],
+	classNameBindings: ['dropdownExpanded:wds-is-active'],
 	dropdownToggleSelector: '.wds-dropdown__toggle',
 	dropdownSelector: '.wds-dropdown__content',
 	closingEventNamespace: 'wds-dropdown'

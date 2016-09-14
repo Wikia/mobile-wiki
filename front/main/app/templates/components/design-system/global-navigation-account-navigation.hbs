@@ -1,10 +1,10 @@
-{{#design-system/wds-dropdown additionalClassNames=additionalClassNames as |dropdown|}}
-	{{#dropdown.toggle additionalClassNames='wds-global-navigation__dropdown-toggle'}}
+{{#design-system/wds-dropdown class='wds-global-navigation__account-menu' as |dropdown|}}
+	{{#dropdown.toggle class='wds-global-navigation__dropdown-toggle'}}
 		{{svg model.header.image class='wds-icon wds-icon-small'}}
 		<span class="wds-global-navigation__account-menu-caption">{{i18n model.header.title.key ns='design-system'}}</span>
 	{{/dropdown.toggle}}
 	{{#dropdown.content
-		additionalClassNames='wds-global-navigation__dropdown-content'
+		class='wds-global-navigation__dropdown-content'
 		dropdownRightAligned=true
 	}}
 		<ul class="wds-list wds-has-lines-between">
