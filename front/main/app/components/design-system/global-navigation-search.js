@@ -32,8 +32,10 @@ export default Component.extend({
 		},
 
 		closeSearch() {
-			this.set('searchIsActive', false);
-			this.set('query', '');
+			this.setProperties({
+				searchIsActive: false,
+				query: ''
+			});
 			this.sendAction('deactivateSearch');
 		}
 	}
