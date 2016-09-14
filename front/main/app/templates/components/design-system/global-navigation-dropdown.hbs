@@ -16,11 +16,13 @@
 		<ul class="wds-list wds-is-linked">
 			{{#each model.links as |link|}}
 				<li>
-					{{#if (equal link.type 'link-authentication')}}
-						{{design-system.global-navigation-link-authentication model=link}}
-					{{else}}
-						{{design-system.global-navigation-link-dropdown model=link}}
-					{{/if}}
+					{{component
+						(if (equal link.type 'link-authentication')
+							'design-system.global-navigation-link-authentication'
+							'design-system.global-navigation-link-dropdown'
+						)
+						model=link
+					}}
 				</li>
 			{{/each}}
 		</ul>
