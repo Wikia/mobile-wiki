@@ -1,7 +1,7 @@
 {{#if model.header}}
-	{{design-system/global-navigation-dropdown model=model type=type dropdownRightAligned=dropdownRightAligned}}
+	{{design-system.global-navigation-dropdown model=model type=type dropdownRightAligned=dropdownRightAligned}}
 {{else}}
 	{{#each model.links as |link|}}
-		{{design-system/global-navigation-link model=link}}
+		{{design-system.global-navigation-link model=link}}
 	{{/each}}
 {{/if}}
