@@ -1,13 +1,14 @@
 <div class="wds-global-navigation__search-input-wrapper">
 	<label class="wds-global-navigation__search-label">
 		{{svg 'wds-icons-magnifying-glass' class='wds-icon wds-icon-small wds-global-navigation__search-label-icon'}}
-		{{input
+		{{one-way-input
+			value=query
 			class='wds-global-navigation__search-input'
 			name=model.results.param-name
 			placeholder=searchPlaceholder
-			focus-in=(action 'focusSearch')
 			type='search'
-			value=query
+			update=(action (mut query))
+			focusIn=(action 'focusSearch')
 		}}
 	</label>
 	<button class="wds-button wds-is-text wds-global-navigation__search-close" type="reset" {{action 'closeSearch'}}>
