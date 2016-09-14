@@ -178,7 +178,7 @@ export default Ember.Component.extend(
 				Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 
 				this.set('isEditMode', shouldEnable);
-				this.triggerDiscussionCategoriesEditModeStateChange(shouldEnable);
+				this.get('triggerDiscussionCategoriesEditModeStateChange')(shouldEnable);
 
 				track(trackActions.EditCategoriesButtonTapped);
 			},
