@@ -35,7 +35,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			triggerDiscussionCategoriesEditModeStateChange(state) {
-				this.controller.set('isGlobalNavigationPositionFixed', state);
+				this.controller.set('isGlobalNavigationPositionFixed', !state);
 			},
 
 			/**

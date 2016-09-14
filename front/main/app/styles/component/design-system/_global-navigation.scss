@@ -1,7 +1,6 @@
 // These are overrides for Mercury only
 // If you look for Global Navigation styles go here:
 // https://github.com/Wikia/design-system/blob/master/components/_global-navigation.scss
-
 @import '../../../../bower_components/design-system/base/colors';
 
 .wds-global-navigation-wrapper {
@@ -10,11 +9,14 @@
 
 .wds-global-navigation {
 	box-sizing: content-box;
-	position: fixed;
-	width: 100%;
-	z-index: $z-side-nav;
 
 	.dark-theme & label {
 		color: $color-dark-blue-gray;
+	}
+
+	&.global-navigation-fixed {
+		position: fixed;
+		width: 100%;
+		z-index: $z-side-nav;
 	}
 }
