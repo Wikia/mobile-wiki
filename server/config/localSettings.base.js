@@ -193,6 +193,9 @@ const localSettings = {
 	staticAssets: {
 		baseAPIPath: 'static-assets'
 	},
+	userPermissions: {
+		baseAPIPath: 'user-permissions'
+	},
 	whoAmIService: {
 		path: '/whoami',
 		timeout: 3000

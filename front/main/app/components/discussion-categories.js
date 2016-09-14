@@ -6,9 +6,16 @@ export default Ember.Component.extend(
 	DiscussionCollapsableMixin,
 	{
 		canShowMore: false,
+		classNameBindings: ['isEditMode'],
 		collapsed: false,
 		disabled: false,
 		visibleCategoriesCount: null,
+
+		isEditMode: false,
+
+		currentUser: Ember.inject.service(),
+
+		canEditCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
 
 		init() {
 			this._super();
@@ -21,10 +28,6 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		isAllCategoriesSelected: Ember.computed('categories.@each.selected', function () {
-			return this.get('categories').isEvery('selected', false);
-		}),
-
 		/**
 		 * We're decorating categories coming from model to break the two-way data binding and ensure
 		 * that changes to the 'selected' and 'collapsed' properties are not leaking outside
@@ -32,7 +35,7 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {Ember.Array}
 		 */
-		localCategories: Ember.computed('categories.@each.selected', function () {
+		localCategories: Ember.computed('categories', 'categories.@each.selected', function () {
 			const categories = this.get('categories'),
 				localCategories = new Ember.A();
 
@@ -51,7 +54,9 @@ export default Ember.Component.extend(
 			return localCategories;
 		}),
 
-		allCategorySelected: Ember.computed.oneWay('isAllCategoriesSelected'),
+		allCategorySelected: Ember.computed('localCategories', 'localCategories.@each.selected', function () {
+			return this.get('localCategories').isEvery('selected', false);
+		}),
 
 		categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
 			return `${this.get('inputIdPrefix')}-discussion-category-`;
@@ -65,22 +70,6 @@ export default Ember.Component.extend(
 		 */
 		trackCategory(isAllCategories) {
 			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
-		},
-
-		/**
-		 * @param {Ember.Array} localCategories
-		 *
-		 * @returns {void}
-		 */
-		setAllCategorySelected(localCategories) {
-			const isNothingSelected = localCategories.isEvery('selected', false),
-				allCategorySelected = this.get('allCategorySelected');
-
-			if (!allCategorySelected && isNothingSelected) {
-				this.set('allCategorySelected', true);
-			} else if (allCategorySelected && !isNothingSelected) {
-				this.set('allCategorySelected', false);
-			}
 		},
 
 		collapseCategoriesAboveLimit(localCategories) {
@@ -141,10 +130,9 @@ export default Ember.Component.extend(
 				track(trackActions.CategoriesResetTapped);
 				this.set('collapsed', false);
 				localCategories.setEach('selected', false);
-				this.setAllCategorySelected(localCategories);
 				this.collapseCategoriesAboveLimit(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -160,9 +148,8 @@ export default Ember.Component.extend(
 				}
 
 				localCategories.setEach('selected', false);
-				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -177,10 +164,23 @@ export default Ember.Component.extend(
 
 				localCategory.set('selected', !localCategory.get('selected'));
 
-				this.setAllCategorySelected(localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
+			},
 
-				this.sendAction('updateCategories', localCategories);
-			}
+			/**
+			 * Enables/disables categories edit mode
+			 *
+			 * @param {boolean} shouldEnable edit mode state
+			 *
+			 * @returns {void}
+			 */
+			setEditMode(shouldEnable) {
+				Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
+
+				this.set('isEditMode', shouldEnable);
+
+				track(trackActions.EditCategoriesButtonTapped);
+			},
 		}
 	}
 );

@@ -19,12 +19,14 @@
 		<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
 			&bull; {{time-ago post.creationTimestamp}}
 		</span>
-		<div class="discussion-more-options" id="post-options-{{post.threadId}}">
-			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
-		</div>
 
-		{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
-			{{discussion-more-options
+		{{#unless hideMoreOptions}}
+			<div class="discussion-more-options" id="post-options-{{post.threadId}}">
+				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+			</div>
+
+			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
+				{{discussion-more-options
 				delete=(action this.attrs.delete)
 				deleteMessage=(i18n 'main.delete-post' ns='discussion')
 				editMessage=(i18n 'main.edit-post' ns='discussion')
@@ -40,8 +42,10 @@
 				undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
 				unlock=(action this.attrs.unlock)
 				unlockMessage=(i18n 'main.unlock-post' ns='discussion')
-			}}
-		{{/pop-over}}
+				}}
+			{{/pop-over}}
+		{{/unless}}
+
 	</div>
 	{{#if isDetailsView}}
 		<div class="discussion-content">
@@ -65,10 +69,10 @@
 		}}
 	{{/if}}
 	<div class="row post-bottom-row">
-		{{#if showCategories}}
-			{{#if post.categoryName}}
+		{{#if canShowCategories}}
+			{{#if categoryName}}
 				<span class="post-category-name">
-					{{i18n 'main.in-category-label' ns='discussion' categoryName=post.categoryName}}
+					{{i18n 'main.in-category-label' ns='discussion' categoryName=categoryName}}
 				</span>
 			{{/if}}
 		{{/if}}

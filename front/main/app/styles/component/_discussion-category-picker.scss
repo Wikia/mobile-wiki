@@ -1,0 +1,105 @@
+.discussions {
+	.category-pill {
+		background: $discussion-category-pill-background-color;
+		border-radius: 18px;
+		color: $discussion-category-pill-color;
+		display: inline-block;
+		font-size: 12px;
+		line-height: 12px;
+		margin: 6px 1px;
+		min-width: 54px;
+		padding: 11px 12px;
+		text-align: center;
+	}
+
+	.discussion-category-picker {
+		width: 320px;
+
+		.pop-over-compass {
+			//So that popover's compass overlays CTA
+			margin-top: -8px;
+		}
+
+		.pop-over-container {
+			padding: 12px 15px 15px;
+		}
+	}
+
+	.discussion-category-picker-button {
+		background: $discussion-category-picker-button-background-color;
+		border-radius: 100px;
+		color: $discussion-category-picker-button-color;
+		display: inline-block;
+		font-size: 12px;
+		line-height: 12px;
+		padding: 8px 12px;
+		margin: 15px 0 4px;
+
+		&.hidden {
+			display: none;
+		}
+
+		&.disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
+		svg {
+			fill: $discussion-category-picker-button-color;
+			height: 14px;
+			width: 14px;
+		}
+
+		.pencil {
+			margin-left: 6px;
+		}
+
+		.plus {
+			margin-right: 6px;
+		}
+	}
+
+	.discussion-category-picker-button-wrapper {
+		align-items: flex-end;
+		display: flex;
+	}
+
+	.discussion-category-picker-content-wrapper {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		width: 100%;
+	}
+
+	.discussion-category-picker-required-message {
+		color: $discussion-category-picker-button-background-color;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: .15px;
+		margin-left: 4px;
+		margin-bottom: 8px;
+		text-transform: uppercase;
+	}
+
+	.discussion-standalone-editor {
+		.discussion-category-picker-required-message {
+			margin-bottom: 3px;
+		}
+	}
+}
+
+.discussion-standalone-editor {
+	.discussion-category-picker-button {
+		margin: 12px 0 0 15px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussions {
+		.category-pill {
+			&:hover {
+				color: $discussion-category-pill-hover-color;
+			}
+		}
+	}
+}

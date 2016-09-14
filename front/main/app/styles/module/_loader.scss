@@ -43,6 +43,7 @@ $duration: 1s;
 	margin: -33px 0 0 -33px;
 	position: absolute;
 	top: 50%;
+	transform: translateZ(0);
 
 	&.block {
 		display: block;

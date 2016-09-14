@@ -1,8 +1,10 @@
 {{#discussion-user-entities-list-layout
+	attributes=model.index.attributes.data
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
 	smartBannerVisible=smartBannerVisible
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-error
 		error=model.error

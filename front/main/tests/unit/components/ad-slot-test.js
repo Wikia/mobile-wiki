@@ -1,8 +1,14 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
+const adsStateStub = Ember.Service.extend({});
+
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
-	unit: true
+	unit: true,
+	beforeEach() {
+		this.register('service:ads-state', adsStateStub);
+		this.inject.service('ads-state', {as: 'adsState'});
+	}
 });
 
 test('Name lower case', function (assert) {
@@ -105,55 +111,25 @@ test('behaves correctly depending on noAds value', function (assert) {
 			properties: {
 				isAboveTheFold: true,
 				name: 'Test ad 2',
-				noAds: ''
 			},
-			expectedLength: 2,
-			message: 'Element added to slot because of noAds property value set to an empty string'
+			noAds: true,
+			expectedLength: 1,
+			message: 'Element not added to slot because of noAds property value set to true'
 		}, {
 			properties: {
 				isAboveTheFold: true,
 				name: 'Test ad 3',
-				noAds: '0'
 			},
-			expectedLength: 3,
-			message: 'Element added to slot because of noAds property value set to \'0\''
-		}, {
-			properties: {
-				isAboveTheFold: true,
-				name: 'Test ad 4',
-				noAds: 'false'
-			},
-			expectedLength: 3,
-			message: 'Element not added to slot because of noAds property value set to \'false\''
-		}, {
-			properties: {
-				isAboveTheFold: true,
-				name: 'Test ad 5',
-				noAds: 'whatever'
-			},
-			expectedLength: 3,
-			message: 'Element not added to slot because of noAds property value set to \'whatever\''
-		}, {
-			properties: {
-				isAboveTheFold: true,
-				name: 'Test ad 6',
-				noAds: '1'
-			},
-			expectedLength: 3,
-			message: 'Element not added to slot because of noAds property value set to \'1\''
-		}, {
-			properties: {
-				isAboveTheFold: true,
-				name: 'Test ad 7',
-				noAds: 'true'
-			},
-			expectedLength: 3,
-			message: 'Element not added to slot because of noAds property value set to \'true\''
+			noAds: false,
+			expectedLength: 2,
+			message: 'Element added to slot because of noAds property value set to false'
 		}
 	];
 
 	testCases.forEach((testCase) => {
 		const component = this.subject();
+
+		this.adsState.set('noAds', testCase.noAds);
 
 		component.setProperties(testCase.properties);
 		component.onElementManualInsert();

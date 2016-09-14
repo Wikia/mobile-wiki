@@ -1,13 +1,34 @@
-.image-review-list {
-	li {
-		float: left;
-		list-style: none;
-		margin: 0.5em;
-		height: 300px;
+.image-review-content {
+	margin: 0 auto;
+	width: 90%;
+}
+
+
+.image-review-text {
+	padding: 1em;
+	display: block;
+
+	p {
+		margin: 0.5em 0;
+	}
+}
+
+.image-review-image-container {
+	padding: 5px;
+	img {
+		min-width: 250px;
+		min-height: 250px;
 	}
 }
 
 .image-review-button-group {
+	text-align: center;
+	button {
+		margin: 5px 0 auto 0;
+		padding: 0;
+		width: 30%;
+	}
+
 	button:hover {
 		/* turn off button hover style */
 		background-color: #0a5fa3;
@@ -19,6 +40,11 @@
 }
 
 .image-review-item {
+	list-style: none;
+	margin: 0.5em;
+	display: inline-block;
+	height: 300px;
+
 	.rejected {
 		background-color: #ff3300;
 	}
@@ -27,12 +53,21 @@
 	}
 }
 
-.image-review-action-buttons {
-	clear: both;
+.image-review-list {
+	margin: 0 auto;
 	display: block;
+	text-align: center;
+}
+
+.image-review-action-buttons {
+	padding: 1em;
 }
 
 .image-review-modal-dialog {
+	display: block;
+	margin: 0 auto;
+	position: relative;
+
 	.image-review-modal-history {
 		td {
 			padding: 5px;

@@ -1,15 +1,30 @@
-{{discussion-categories-list
-	allCategorySelected=allCategorySelected
-	categoriesInputIdPrefix=categoriesInputIdPrefix
-	collapsed=collapsed
-	disabled=disabled
-	localCategories=localCategories
-	selectAllCategory=(action 'selectAllCategory')
-	onCategoryClick=(action 'onCategoryClick')
-	reset=(action 'reset')
-	collapsableToggle=(action 'collapsableToggle')
-	toggleButtonLabel=toggleButtonLabel
-	toggleButtonVisible=toggleButtonVisible
-	toggleMore=(action 'toggleMore')
-	visibleCategoriesCount=visibleCategoriesCount
-}}
+{{#if isEditMode}}
+	{{discussion-categories-edit
+		categories=categories
+		setEditMode=(action 'setEditMode')
+		updateCategories=(action this.attrs.updateCategories)
+		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+	}}
+
+	{{wikia-ui-components/highlight-overlay
+		isVisible=isEditMode
+	}}
+{{else}}
+	{{discussion-categories-list
+		allCategorySelected=allCategorySelected
+		canEditCategories=canEditCategories
+		categoriesInputIdPrefix=categoriesInputIdPrefix
+		collapsableToggle=(action 'collapsableToggle')
+		collapsed=collapsed
+		disabled=disabled
+		localCategories=localCategories
+		onCategoryClick=(action 'onCategoryClick')
+		reset=(action 'reset')
+		selectAllCategory=(action 'selectAllCategory')
+		setEditMode=(action 'setEditMode')
+		toggleButtonLabel=toggleButtonLabel
+		toggleButtonVisible=toggleButtonVisible
+		toggleMore=(action 'toggleMore')
+		visibleCategoriesCount=visibleCategoriesCount
+	}}
+{{/if}}

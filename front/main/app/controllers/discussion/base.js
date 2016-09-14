@@ -5,7 +5,6 @@ export default Ember.Controller.extend(
 		application: Ember.inject.controller(),
 
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
-		showCategories: false,
 
 		actions: {
 			/**
@@ -21,6 +20,13 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			applyFilters() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			updateCategoriesSelection() {},
 
 			/**
 			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
@@ -48,6 +54,27 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			updateCategories() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			validatePostsOnForum() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			uploadCommunityBadge() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			uploadDiscussionsHeader() {}
 		}
 	}
 );

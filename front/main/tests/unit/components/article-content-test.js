@@ -8,7 +8,9 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'component:potential-member-page-experiment',
-		'service:currentUser'
+		'service:currentUser',
+		'service:adsState',
+		'service:adsHighImpact'
 	]
 });
 

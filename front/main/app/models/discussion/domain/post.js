@@ -30,6 +30,8 @@ DiscussionPost.reopenClass({
 	createFromPostListData(postData) {
 		const post = DiscussionPost.create({
 				categoryName: postData.forumName,
+				// A hack to compensate for API sometimes returning numbers and sometimes strings
+				categoryId: String(postData.forumId),
 				createdBy: DiscussionContributor.create(postData.createdBy),
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
@@ -68,6 +70,8 @@ DiscussionPost.reopenClass({
 	createFromThreadData(threadData) {
 		const post = DiscussionPost.create({
 				categoryName: threadData.forumName,
+				// A hack to compensate for API sometimes returning numbers and sometimes strings
+				categoryId: String(threadData.forumId),
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,

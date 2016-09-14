@@ -1,12 +1,18 @@
 import Ember from 'ember';
+import {trackActions} from '../utils/discussion-tracker';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
+import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
+	DiscussionEditorConfiguration,
+	DiscussionEditorCategoryPicker,
 	{
 		attributeBindings: ['style'],
+		categoryTrackingAction: trackActions.PostCategoryAdded,
 		classNames: ['discussion-inline-editor'],
 		classNameBindings: ['isSticky', 'isActive'],
 		tagName: 'form',
@@ -49,7 +55,7 @@ export default DiscussionMultipleInputsEditor.extend(
 						newDiscussionEntityData.openGraph = this.get('openGraph');
 					}
 
-					this.get('create')(newDiscussionEntityData);
+					this.get('create')(newDiscussionEntityData, {newCategoryId: this.get('category.id')});
 				}
 			}
 		}

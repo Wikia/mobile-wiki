@@ -1,10 +1,15 @@
 import Ember from 'ember';
+import {trackActions} from '../utils/discussion-tracker';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
+import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
+	DiscussionEditorConfiguration,
+	DiscussionEditorCategoryPicker,
 	{
 		classNames: ['discussion-standalone-editor'],
 
@@ -14,10 +19,20 @@ export default DiscussionMultipleInputsEditor.extend(
 
 		isEdit: false,
 		isReply: Ember.computed.bool('editEntity.isReply'),
+
 		editorType: Ember.computed('isEdit', function () {
 			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 		}),
+
 		editEntity: null,
+
+		categoryTrackingAction: Ember.computed('isEdit', function () {
+			return this.get('isEdit') ? trackActions.PostCategoryEdited : trackActions.PostCategoryAdded;
+		}),
+
+		editTextDisabled: Ember.computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
+			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
+		}),
 
 		pageYOffsetCache: 0,
 		responsive: Ember.inject.service(),
@@ -92,7 +107,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						body: this.get('content'),
 						title: this.get('title')
 					};
-					let actionName;
+					let actionName,
+						editedEntity;
 
 					if (this.get('showsOpenGraphCard')) {
 						discussionEntityData.openGraph = this.get('openGraph');
@@ -104,6 +120,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						discussionEntityData.siteId = Mercury.wiki.id;
 					} else {
 						const editEntity = this.get('editEntity');
+
+						editedEntity = editEntity;
 						discussionEntityData.id = editEntity.get('id');
 
 						if (editEntity.get('isReply')) {
@@ -114,7 +132,13 @@ export default DiscussionMultipleInputsEditor.extend(
 						}
 					}
 
-					this.sendAction(actionName, discussionEntityData);
+					const params = {
+						editedEntity,
+						newCategoryId: this.get('category.id'),
+						newCategoryName: this.get('category.name'),
+					};
+
+					this.sendAction(actionName, discussionEntityData, params);
 				}
 			},
 		}

@@ -1,10 +1,21 @@
+$badge-image-dimensions-small: 79px;
+$badge-image-dimensions-big: 125px;
+$badge-image-frame-dimensions-big: $badge-image-dimensions-big + 4px;
+$badge-image-tools-width: 210px;
+
 .post-list-view {
 	.community-badge {
 		margin-top: -62px;
 
-		img {
-			width: 125px;
-			background-color: $discussion-community-badge-background-color;
+		.community-badge-image {
+			height: $badge-image-frame-dimensions-big;
+			width: $badge-image-frame-dimensions-big;
+
+			.badge-image-display {
+				height: $badge-image-dimensions-big;
+				max-width: $badge-image-dimensions-big;
+				width: $badge-image-dimensions-big;
+			}
 		}
 	}
 }
@@ -13,29 +24,107 @@
 	.community-badge {
 		margin-top: -12px;
 
-		img {
-			background-color: $discussion-community-badge-background-color;
-			width: 79px;
+		.community-badge-image {
+			width: $badge-image-dimensions-small;
+
+			.badge-image-display {
+				height: $badge-image-dimensions-small;
+				width: $badge-image-dimensions-small;
+			}
 		}
 
-		p {
+		h2 {
 			font-size: $type-smaller;
 		}
 	}
 }
 
 .community-badge {
-	img {
+	.community-badge-image {
+		background-color: $discussion-community-badge-background-color;
 		border: 2px solid $discussion-community-badge-border;
-		-webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
-		-moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		position: relative;
+
+		.is-edit-mode {
+			cursor: pointer;
+		}
+
+		.badge-image-display {
+			display: none;
+
+			&.is-visible {
+				display: inline-block;
+			}
+		}
+
+		.is-loading {
+			background-color: $discussion-edit-image-transparent-layer-light-color;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
 	}
 
-	p {
+	h2 {
 		color: $discussion-community-badge-title-color;
 		font-size: 1.5rem;
+		font-weight: $font-weight-normal;
 		line-height: 1.25;
+		margin: 16px 0;
+	}
+
+	&.is-error-message {
+		h2 {
+			margin-top: 80px;
+		}
+	}
+
+	.image-edit-mode {
+		padding: 8px 5px;
+		position: absolute;
+
+		.upload-image-button {
+			margin-bottom: 10px;
+		}
+	}
+
+	.error-message-container {
+		left: 50%;
+		margin: 10px 0 10px -40px;
+		width: $badge-image-tools-width + 40px;
+	}
+
+	.discussion-edit-approve-wrapper {
+		left: 50%;
+		margin-left: -$badge-image-tools-width / 2;
+		margin-top: 2px;
+		width: $badge-image-tools-width;
+	}
+
+	&.draggable-dropzone {
+		.drop-catch-layer,
+		.drag-and-drop {
+			left: 0;
+			position: absolute;
+			top: 0;
+		}
+
+		.drag-and-drop {
+			display: none;
+
+			svg {
+				height: 45px;
+				width: 45px;
+			}
+		}
+
+		&.drag-activated {
+			.drag-and-drop {
+				display: flex;
+			}
+		}
 	}
 }

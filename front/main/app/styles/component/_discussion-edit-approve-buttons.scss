@@ -1,0 +1,28 @@
+.discussion-edit-approve-wrapper {
+	border-top: 1px solid $discussion-rail-separator-color;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	width: 100%;
+
+	.discussion-edit-approve-content {
+		box-shadow: 0 2px 6px 0 rgba($discussion-edit-approve-content-color, 0.3);
+		display: inline-flex;
+		justify-content: center;
+
+		button {
+			background-color: $discussion-edit-approve-content-color;
+			border-color: $discussion-edit-approve-content-border-color;
+			height: 50px;
+			margin: 0;
+			padding: 0;
+			width: 80px;
+		}
+	}
+
+	.icon-submit {
+		fill: $discussion-submit-icon-color;
+		height: 35px;
+		width: 35px;
+	}
+}

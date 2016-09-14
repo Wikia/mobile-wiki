@@ -4,25 +4,32 @@ import DiscussionForumActionsControllerMixin from '../../mixins/discussion-forum
 import ResponsiveMixin from '../../mixins/responsive';
 import DiscussionBaseController from './base';
 
-
 export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		catId: [],
+		catId: null,
 		areGuidelinesVisible: false,
 
 		actions: {
-			createPost(entityData) {
+			updateCategoriesSelection(categories) {
+				this.get('target').send('updateCategoriesSelection', categories);
+			},
+
+			createPost(entityData, forumId) {
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
-					this.createPost(entityData);
+					this.createPost(entityData, forumId);
 				});
 			},
 
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
+			},
+
+			validatePostsOnForum() {
+				this.get('target').send('validatePostsOnForum');
 			},
 
 			/**

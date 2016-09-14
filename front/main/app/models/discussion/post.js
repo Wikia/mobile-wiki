@@ -84,27 +84,16 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		},
 
 		/**
-		 * Edit a post in discussion service
-		 * @param {object} postData
-		 * @returns {Ember.RSVP.Promise}
+		 * @param {DiscussionPost} editedPost
+		 *
+		 * @returns {void}
 		 */
-		editPost(postData) {
-			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
-				method: 'POST',
-				data: JSON.stringify(postData),
-			}).then((thread) => {
-				// make sure replies are still in place after replacing thread object.
-				const replies = this.get('data.replies'),
-					editedThread = DiscussionPost.createFromThreadData(thread);
+		updateData(editedPost) {
+			const replies = this.get('data.replies');
 
-				editedThread.set('replies', replies);
+			this.get('data').setProperties(editedPost);
 
-				this.get('data').setProperties(editedThread);
-
-				track(trackActions.PostEditSave);
-
-				return editedThread;
-			});
+			editedPost.set('replies', replies);
 		},
 
 		/**

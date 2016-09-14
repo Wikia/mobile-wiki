@@ -27,6 +27,7 @@ export default Route.extend(
 		},
 
 		adsState: Ember.inject.service(),
+		adsHighImpact: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -122,6 +123,8 @@ export default Route.extend(
 				}
 
 				if (info.article) {
+					this.get('adsHighImpact').loadInterstitial();
+
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**

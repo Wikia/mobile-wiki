@@ -19,6 +19,12 @@
 @import 'discussion-standalone-page';
 @import 'discussion-guidelines';
 @import 'discussion-categories';
+@import 'discussion-categories-dialog';
+@import 'discussion-categories-edit';
+@import 'discussion-category-picker';
+@import 'discussion-edit-approve-buttons';
+@import 'discussion-edit-image';
+@import 'discussion-edit-image-button';
 @import 'discussion-header';
 @import 'discussion-filters';
 @import 'discussion-collapsable';
@@ -40,6 +46,7 @@
 @import 'discussion-side-button';
 @import 'discussion-user-avatar-badge';
 @import 'discussion-welcome';
+@import 'discussion-widget';
 @import 'context-links';
 @import 'pop-over';
 @import 'image-review';
@@ -67,8 +74,9 @@
 
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
-@import 'wikia-ui-components/fancy-check-box';
 @import 'wikia-ui-components/error-info';
+@import 'wikia-ui-components/fancy-check-box';
+@import 'wikia-ui-components/highlight-overlay';
 @import 'wikia-ui-components/icon-button';
 @import 'wikia-ui-components/on-hover-tooltip';
 @import 'wikia-ui-components/sub-header';

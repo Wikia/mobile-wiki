@@ -22,12 +22,11 @@
 	{{/if}}
 {{/ab-test}}
 <section class="article-body">
-	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
+	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
 	{{article-content
 		adsContext=model.adsContext
 		content=model.content
 		media=model.media
-		noAds=noAds
 		openLightbox=(action 'openLightbox')
 		contributionEnabled=contributionEnabled
 		uploadFeatureEnabled=uploadFeatureEnabled
