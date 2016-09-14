@@ -4,9 +4,9 @@ export default Ember.Controller.extend(
 	{
 		application: Ember.inject.controller(),
 
-		stickEditorToGlobalNav: Ember.computed.oneWay('application.isGlobalNavigationPositionFixed'),
-
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+
+		stickEditorToGlobalNav: Ember.computed.oneWay('application.isGlobalNavigationPositionFixed'),
 
 		actions: {
 			/**
