@@ -9,11 +9,11 @@ export default Component.extend({
 	searchIsActive: false,
 
 	actions: {
-		searchActivate() {
+		activateSearch() {
 			this.set('searchIsActive', true);
 		},
 
-		searchDeactivate() {
+		deactivateSearch() {
 			this.set('searchIsActive', false);
 		}
 	}

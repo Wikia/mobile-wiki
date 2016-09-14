@@ -7,8 +7,10 @@ export default Component.extend({
 	classNames: ['wds-global-navigation__search'],
 	attributeBindings: ['action'],
 	searchIsActive: false,
+	query: '',
 
 	action: computed.oneWay('model.results.url'),
+	submitDisabled: computed.empty('query'),
 	searchPlaceholder: computed('searchIsActive', function () {
 		if (this.get('searchIsActive')) {
 			return i18n.t(
@@ -26,12 +28,12 @@ export default Component.extend({
 	actions: {
 		focusSearch() {
 			this.set('searchIsActive', true);
-			this.sendAction('searchActivate');
+			this.sendAction('activateSearch');
 		},
 
 		closeSearch() {
 			this.set('searchIsActive', false);
-			this.sendAction('searchDeactivate');
+			this.sendAction('deactivateSearch');
 		}
 	}
 });

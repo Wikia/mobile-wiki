@@ -15,7 +15,7 @@
 		{{/each}}
 	{{/if}}
 	{{design-system/global-navigation-links model=model.wikis type='wikis-menu'}}
-	{{design-system/global-navigation-search model=model.search.module searchActivate='searchActivate' searchDeactivate='searchDeactivate'}}
+	{{design-system/global-navigation-search model=model.search.module activateSearch='activateSearch' deactivateSearch='deactivateSearch'}}
 	{{#if model.user}}
 		{{design-system/global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
 	{{else if model.anon}}
