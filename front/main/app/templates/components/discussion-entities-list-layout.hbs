@@ -36,6 +36,7 @@
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
 				editingPossible=true
+				triggerDiscussionCommunityBadgeEditImageStateChange=(route-action 'triggerDiscussionCommunityBadgeEditImageStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if categoriesInRail}}

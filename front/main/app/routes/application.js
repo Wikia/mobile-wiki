@@ -29,13 +29,29 @@ export default Route.extend(
 		adsState: Ember.inject.service(),
 		adsHighImpact: Ember.inject.service(),
 
+		/**
+		 * @param {boolean} state
+		 * @returns {void}
+		 */
+		setGlobalNavigationPositionFixedState(state) {
+			this.controller.set('isGlobalNavigationPositionFixed', state);
+		},
+
 		actions: {
 			/**
 			 * @param {boolean} state
 			 * @returns {void}
 			 */
 			triggerDiscussionCategoriesEditModeStateChange(state) {
-				this.controller.set('isGlobalNavigationPositionFixed', !state);
+				this.setGlobalNavigationPositionFixedState(!state);
+			},
+
+			/**
+			 * @param {boolean} state
+			 * @returns {void}
+			 */
+			triggerDiscussionCommunityBadgeEditImageStateChange(state) {
+				this.setGlobalNavigationPositionFixedState(!state);
 			},
 
 			/**
