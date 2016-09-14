@@ -1,4 +1,4 @@
-<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}}">
+<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}} {{if searchIsActive 'wds-search-is-active'}}">
 	<div class="wds-global-navigation__content-bar">
 		{{#unless model.logo.header.subtitle}}
 			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo">
