@@ -87,18 +87,34 @@ $closeButtonHeight: 40px;
 }
 
 .invisible-high-impact-wrapper {
+	align-items: center;
+	display: flex;
+	justify-content: center;
 	position: fixed;
+	width: 100%;
 	z-index: $z-modal-dialog;
 
 	.close {
 		cursor: pointer;
+	}
 
+	.invisible-high-impact-2 iframe {
+		display: block;
+		margin: 0 auto;
+		position: relative;
 	}
 
 	&.floor-adhesion {
 		bottom: 0;
 
-		.background, .label {
+		.background {
+			background: rgba(0, 0, 0, .9);
+			height: 100%;
+			position: absolute;
+			width: 100%;
+		}
+
+		.label {
 			display: none;
 		}
 
@@ -113,26 +129,17 @@ $closeButtonHeight: 40px;
 			width: $closeButtonHeight;
 			position: absolute;
 			right: 0;
+			//This is needed to make sure that close button is always displayed above ad
+			z-index: $z-modal-dialog;
 		}
 	}
 
 	&.interstitial {
-		align-items: center;
-		display: flex;
 		height: 100%;
-		justify-content: center;
 		left: 0;
 		margin: 0;
 		padding: 0;
 		top: 0;
-		width: 100%;
-
-
-		.invisible-high-impact-2 iframe {
-			display: block;
-			margin: 0 auto;
-			position: relative;
-		}
 
 		.background {
 			background: rgba(0, 0, 0, .9);
