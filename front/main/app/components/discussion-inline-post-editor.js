@@ -5,13 +5,19 @@ export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
 	{
 		containerSelector: '.discussion-inline-editor-floating-container',
+		floatingContainerTop: Ember.computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
+			function () {
+				return this.get('isSticky') && this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0;
+			}
+		),
 
 		/**
 		 * Indicates if the scroll position reached a point where editor should start sticking
 		 * @returns {boolean}
 		 */
 		isStickyBreakpointHeight() {
-			return window.pageYOffset >= this.get('offsetTop') - this.get('siteHeadHeight');
+			return window.pageYOffset >= this.get('offsetTop') -
+				(this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0);
 		},
 
 		/**
@@ -22,7 +28,7 @@ export default DiscussionInlineEditor.extend(
 			this.setProperties({
 				isSticky: false,
 				offsetTop: this.$().offset().top,
-				siteHeadHeight: Ember.$('.site-head').outerHeight(true),
+				globalNavigationHeight: Ember.$('#globalNavigation').outerHeight(true),
 			});
 
 			Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
