@@ -114,7 +114,7 @@ export default Ember.Mixin.create(
 				resetFileInput: true,
 				errorMessage: null,
 			});
-			this.get('triggerDiscussionCommunityBadgeEditImageStateChange')(shouldEnable);
+			this.get('triggerDiscussionEditImageStateChange')(shouldEnable);
 
 			if (!shouldEnable) {
 				this.setProperties({

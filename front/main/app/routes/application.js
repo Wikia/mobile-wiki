@@ -50,7 +50,7 @@ export default Route.extend(
 			 * @param {boolean} state
 			 * @returns {void}
 			 */
-			triggerDiscussionCommunityBadgeEditImageStateChange(state) {
+			triggerDiscussionEditImageStateChange(state) {
 				this.setGlobalNavigationPositionFixedState(!state);
 			},
 

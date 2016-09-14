@@ -29,6 +29,7 @@
 		editingPossible=true
 		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
+		triggerDiscussionEditImageStateChange=(route-action 'triggerDiscussionEditImageStateChange')
 		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}
 	<div class="discussion-page row">
@@ -36,7 +37,7 @@
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
 				editingPossible=true
-				triggerDiscussionCommunityBadgeEditImageStateChange=(route-action 'triggerDiscussionCommunityBadgeEditImageStateChange')
+				triggerDiscussionEditImageStateChange=(route-action 'triggerDiscussionEditImageStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if categoriesInRail}}
