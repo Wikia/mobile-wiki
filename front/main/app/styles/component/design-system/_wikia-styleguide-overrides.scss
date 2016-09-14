@@ -1,0 +1,14 @@
+.wds-button {
+	height: auto;
+	margin-bottom: 0;
+
+	&:disabled {
+		background-color: $color-link;
+		border-color: $color-link;
+		color: $color-white;
+	}
+
+	&:hover {
+		color: $color-white;
+	}
+}

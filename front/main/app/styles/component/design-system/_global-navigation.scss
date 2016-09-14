@@ -10,4 +10,15 @@
 	.dark-theme & label {
 		color: $color-dark-blue-gray;
 	}
+
+	&__search-input[type="search"] {
+		border: 0;
+		height: auto;
+		margin-bottom: 0;
+
+		&:focus {
+			background: transparent;
+			box-shadow: none;
+		}
+	}
 }
