@@ -15,6 +15,7 @@ export default Ember.Component.extend(
 
 		data: null,
 		isLoading: true,
+		canShowCategories: true,
 
 		model: Ember.computed(() => {
 			return WidgetDiscussionsModel.create();
