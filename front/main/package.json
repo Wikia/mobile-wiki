@@ -69,10 +69,5 @@
     "moment": "2.11.2",
     "moment-timezone": "0.5.0",
     "ui-responsive": "0.3.5"
-  },
-  "ember-addon": {
-    "paths": [
-      "lib/remove"
-    ]
   }
 }
