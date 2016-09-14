@@ -34,7 +34,7 @@ export default Route.extend(
 			 * @param {boolean} state
 			 * @returns {void}
 			 */
-			triggerDiscussionHighlightOverlayStateChange(state) {
+			triggerHighlightOverlayStateChange(state) {
 				this.controller.set('isGlobalNavigationPositionFixed', !state);
 			},
 

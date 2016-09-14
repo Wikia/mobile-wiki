@@ -114,7 +114,7 @@ export default Ember.Mixin.create(
 				resetFileInput: true,
 				errorMessage: null,
 			});
-			this.get('triggerDiscussionHighlightOverlayStateChange')(shouldEnable);
+			this.get('triggerHighlightOverlayStateChange')(shouldEnable);
 
 			if (!shouldEnable) {
 				this.setProperties({

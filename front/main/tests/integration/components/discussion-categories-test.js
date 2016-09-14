@@ -136,13 +136,13 @@ test('should enable edit mode', function (assert) {
 		categories: getCategories(20),
 		updateCategories: Ember.K,
 		validatePostsOnForum: Ember.K,
-		triggerDiscussionHighlightOverlayStateChange: discussionCategoriesEditModeStateChangeSpy
+		triggerHighlightOverlayStateChange: discussionCategoriesEditModeStateChangeSpy
 	});
 
 	this.render(hbs
 		`{{discussion-categories
 			categories=categories
-			triggerDiscussionHighlightOverlayStateChange=(action triggerDiscussionHighlightOverlayStateChange)
+			triggerHighlightOverlayStateChange=(action triggerHighlightOverlayStateChange)
 			updateCategories=(action updateCategories)
 			validatePostsOnForum=(action validatePostsOnForum)
 			canEditCategories=true}}`

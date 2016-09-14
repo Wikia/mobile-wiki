@@ -29,7 +29,7 @@
 		editingPossible=true
 		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
-		triggerDiscussionHighlightOverlayStateChange=(route-action 'triggerDiscussionHighlightOverlayStateChange')
+		triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}
 	<div class="discussion-page row">
@@ -37,7 +37,7 @@
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
 				editingPossible=true
-				triggerDiscussionHighlightOverlayStateChange=(route-action 'triggerDiscussionHighlightOverlayStateChange')
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if categoriesInRail}}
@@ -45,7 +45,7 @@
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
-						triggerDiscussionHighlightOverlayStateChange=(route-action 'triggerDiscussionHighlightOverlayStateChange')
+						triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						validatePostsOnForum=(action this.attrs.validatePostsOnForum)
