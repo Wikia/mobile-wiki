@@ -1,27 +1,7 @@
 {{#if model.header}}
-	<div class="wds-dropdown__toggle wds-global-navigation__dropdown-toggle" title="{{if showAvatar model.header.username.value}}">
-		{{#if showAvatar}}
-			<img class="wds-avatar wds-is-circle" src="{{model.header.url}}" alt="{{model.header.username.value}}" />
-		{{else}}
-			<span>{{i18n model.header.title.key ns='design-system'}}</span>
-		{{/if}}
-		{{svg 'wds-icons-dropdown-tiny' class='wds-icon wds-icon-tiny wds-dropdown__toggle-chevron'}}
-	</div>
-	<div class="wds-dropdown__content wds-global-navigation__dropdown-content {{if dropdownRightAligned 'wds-is-right-aligned'}}">
-		<ul class="wds-list wds-is-linked">
-			{{#each model.links as |link|}}
-				<li>
-					{{#if (equal link.type 'link-authentication')}}
-						{{design-system/global-navigation-link-authentication model=link}}
-					{{else}}
-						{{design-system/global-navigation-link-dropdown model=link}}
-					{{/if}}
-				</li>
-			{{/each}}
-		</ul>
-	</div>
+	{{design-system.global-navigation-dropdown model=model type=type dropdownRightAligned=dropdownRightAligned}}
 {{else}}
 	{{#each model.links as |link|}}
-		{{design-system/global-navigation-link model=link}}
+		{{design-system.global-navigation-link model=link}}
 	{{/each}}
 {{/if}}
