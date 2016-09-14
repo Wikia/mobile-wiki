@@ -1,6 +1,7 @@
 // DO NOT CHANGE:
 // load order of files below is intentional
 @import '../../bower_components/wikia-style-guide/src/scss/main';
+@import '../../bower_components/design-system/dist/styles';
 @import 'embedded-svgs';
 @import 'settings';
 @import 'foundation-imports';
@@ -19,6 +20,3 @@
 @import '../auth/app/styles/base/input';
 @import '../auth/app/styles/module/forms';
 @import '../auth/app/styles/module/form-icons';
-
-// Load Design System
-@import '../../bower_components/design-system/dist/styles';
