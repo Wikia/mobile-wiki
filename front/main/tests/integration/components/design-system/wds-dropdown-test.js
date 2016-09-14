@@ -5,9 +5,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 const dropdownSelector = '.wds-dropdown',
 	toggleSelector = '.wds-dropdown__toggle',
 	contentSelector = '.wds-dropdown__content',
-	toggleSvg = '<svg class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron">' +
-		'<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wds-icons-dropdown-tiny"></use>' +
-		'</svg>';
+	toggleSvgPattern = '<svg class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron">.*<\/svg>';
 
 moduleForComponent('design-system.wds-dropdown', 'Integration | Component | wds-dropdown', {
 	integration: true,
@@ -25,7 +23,12 @@ test('yields toggle and content', function (assert) {
 		{{/design-system.wds-dropdown}}
 	`);
 
-	assert.equal(this.$(toggleSelector).html().trim(), `Toggle\n${toggleSvg}`, 'Toggle is rendered');
+	assert.ok(
+		new RegExp(`Toggle\n${toggleSvgPattern}`).test(
+			this.$(toggleSelector).html().trim()
+		),
+		'Toggle is rendered'
+	);
 	assert.equal(this.$(contentSelector).html().trim(), 'Content', 'Content is rendered');
 });
 
