@@ -35,6 +35,6 @@ export default Ember.Service.extend({
 	},
 
 	loadFloorAdhesionWhenPossible() {
-		Ads.getInstance().onReady(this.loadFloorAdhesion, this);
+		this.get('ads').onReady(this.loadFloorAdhesion, this);
 	}
 });
