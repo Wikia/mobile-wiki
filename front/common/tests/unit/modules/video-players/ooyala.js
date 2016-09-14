@@ -18,11 +18,15 @@ QUnit.module('mercury/modules/video-players/ooyala', function (hooks) {
 
 	hooks.beforeEach(function () {
 		var loadStub = sinon.stub().callsArg(1),
+			adsExports = {},
 			baseExports = {},
 			exports = {};
 
+		require.entries['common/modules/ads'].callback(adsExports, loadStub);
 		require.entries['common/modules/video-players/base'].callback(baseExports, loadStub);
-		require.entries['common/modules/video-players/ooyala'].callback(exports, baseExports.default);
+		require.entries['common/modules/video-players/ooyala'].callback(
+			exports, adsExports.default, baseExports.default
+		);
 
 		OoyalaPlayer = exports.default;
 	});
