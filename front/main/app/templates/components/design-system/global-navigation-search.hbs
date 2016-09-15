@@ -11,8 +11,8 @@
 			update=(action 'queryChanged')
 			focusIn=(action 'focusSearch')
 			keyEvents=(hash
-				40=(action 'onKeyDown')
 				38=(action 'onKeyUp')
+				40=(action 'onKeyDown')
 			)
 		}}
 	</label>
@@ -22,8 +22,8 @@
 	<div class="wds-dropdown__content wds-global-navigation__search-suggestions">
 		<ul class="wds-list wds-has-ellipsis wds-is-linked">
 			{{#each suggestions as |suggestion index|}}
-				<li class="{{if (equal index selectedSuggestion) 'wds-is-selected'}}">
-					<a href="{{suggestion.uri}}" class="wds-global-navigation__dropdown-link" {{action 'searchSuggestionClick' suggestion preventDefault=false}}>
+				<li class="{{if (equal index selectedSuggestionIndex) 'wds-is-selected'}}">
+					<a href="{{suggestion.uri}}" class="wds-global-navigation__dropdown-link" {{action 'suggestionClick' suggestion preventDefault=false}}>
 						{{{suggestion.text}}}
 					</a>
 				</li>

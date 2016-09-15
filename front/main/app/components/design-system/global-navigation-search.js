@@ -8,8 +8,9 @@ const {Component, computed, inject, run, $} = Ember;
 /**
  * @typedef SearchSuggestionItem
  * @type {Object}
- * @property {string} uri
+ * @property {string} text
  * @property {string} title
+ * @property {string} uri
  */
 
 export default Component.extend({
@@ -37,7 +38,7 @@ export default Component.extend({
 	 * @member {SearchSuggestionItem[]}
 	 */
 	suggestions: [],
-	selectedSuggestion: -1,
+	selectedSuggestionIndex: -1,
 	queryMinimalLength: 3,
 	query: '',
 
@@ -63,11 +64,21 @@ export default Component.extend({
 	didInsertElement() {
 		Ember.$(document).bind('click.global-navigation-search-suggestions', {
 			component: this
-		}, this.onClickOutsideSuggestions);
+		}, this.onClickOutsideSearch);
 	},
 
 	willDestroyElement() {
-		Ember.$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSuggestions);
+		Ember.$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSearch);
+	},
+
+	submit(event) {
+		const selectedSuggestionIndex = this.get('selectedSuggestionIndex');
+
+		if (selectedSuggestionIndex > -1) {
+			this.onSuggestionEnterKey(selectedSuggestionIndex, event);
+		}
+
+		this.setSearchSuggestionItems();
 	},
 
 	actions: {
@@ -93,18 +104,18 @@ export default Component.extend({
 		onKeyDown() {
 			const numSuggestions = this.get('suggestions.length');
 
-			if (numSuggestions && this.get('selectedSuggestion') < numSuggestions - 1) {
-				this.incrementProperty('selectedSuggestion');
+			if (numSuggestions && this.get('selectedSuggestionIndex') < numSuggestions - 1) {
+				this.incrementProperty('selectedSuggestionIndex');
 			}
 		},
 
 		onKeyUp() {
-			if (this.get('suggestions.length') && this.get('selectedSuggestion') > -1) {
-				this.decrementProperty('selectedSuggestion');
+			if (this.get('suggestions.length') && this.get('selectedSuggestionIndex') > -1) {
+				this.decrementProperty('selectedSuggestionIndex');
 			}
 		},
 
-		searchSuggestionClick(suggestion) {
+		suggestionClick(suggestion) {
 			this.set('query', suggestion.title);
 		}
 	},
@@ -122,7 +133,7 @@ export default Component.extend({
 
 		this.setProperties({
 			suggestions: [],
-			selectedSuggestion: -1
+			selectedSuggestionIndex: -1
 		});
 
 		// If the query string is empty or shorter than the minimal length, return to leave the view blank
@@ -156,6 +167,7 @@ export default Component.extend({
 						encodeURIComponent(suggestion.replace(/ /g, '_')).replace(encodeURIComponent('/'), '/');
 
 				return {
+					title: suggestion,
 					text,
 					uri
 				};
@@ -329,7 +341,22 @@ export default Component.extend({
 		return this.get('cachedResults')[query];
 	},
 
-	onClickOutsideSuggestions(event) {
+	/**
+	 * Called when the form is submitted and a suggestion is selected
+	 * Prevents the submit and goes to suggested article instead
+	 *
+	 * @param {number} selectedSuggestionIndex
+	 * @param {Event} event
+	 */
+	onSuggestionEnterKey(selectedSuggestionIndex, event) {
+		const selectedSuggestion = this.get('suggestions')[selectedSuggestionIndex];
+
+		this.set('query', selectedSuggestion.title);
+		event.preventDefault();
+		window.location.href = selectedSuggestion.uri;
+	},
+
+	onClickOutsideSearch(event) {
 		const component = event.data.component,
 			$target = Ember.$(event.target);
 
