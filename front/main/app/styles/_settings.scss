@@ -65,7 +65,8 @@ $discussion-post-actions-border-color: #e6e6e6;
 $discussion-error-color: #ed1c24;
 $discussion-submit-icon-color: #5ba200;
 $discussion-widget-heading-background: #f6f6f6;
-$discussion-widget-linkcolor: #00f;
+$discussion-widget-error-color: #f00;
+$discussion-widget-link-color: #00f;
 
 $discussion-rail-title-color: #333;
 
@@ -156,6 +157,7 @@ $discussion-categories-edit-border-bottom-color: #ccc;
 $discussion-move-icon-color: #333;
 $discussion-category-picker-button-background-color: #ccc;
 $discussion-category-picker-button-color: #fff;
+$discussion-category-picker-tooltip-color: #fff;
 $discussion-category-pill-color: #666;
 $discussion-category-pill-hover-color: #fff;
 

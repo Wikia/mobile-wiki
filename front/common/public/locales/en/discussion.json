@@ -130,7 +130,8 @@
     "image-save-failed": "Save failed. Please try again.",
     "upload-image-button-text": "Upload image",
     "category-picker-button-text": "Add Category",
-    "category-picker-required-message": "required"
+    "category-picker-required-message": "required",
+    "category-select-tooltip-text": "Select"
   },
   "editor": {
     "post-failed-error": "Post failed.",
