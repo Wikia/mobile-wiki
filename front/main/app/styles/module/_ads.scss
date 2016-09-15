@@ -106,10 +106,14 @@ $closeButtonHeight: 40px;
 
 	&.floor-adhesion {
 		bottom: 0;
+		// needed for Safari 9 - it doesn't position elements from the left by default
+		left: 0;
 
 		.background {
 			background: rgba(0, 0, 0, .8);
 			height: 100%;
+			// needed for Safari 9 - it doesn't position elements from the left by default
+			left: 0;
 			position: absolute;
 			width: 100%;
 		}
