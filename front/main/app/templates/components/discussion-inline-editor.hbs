@@ -1,4 +1,4 @@
-<div class="discussion-inline-editor-floating-container" style="top: {{floatingContainerTop}}px">
+<div class="discussion-inline-editor-floating-container" {{{floatingContainerStyleAttribute}}}>
 	{{#if shouldShowCategoryPicker}}
 		{{#pop-over for=categoryPickerButtonId on='click' flow='downCentered' class='discussion-category-picker'}}
 			{{discussion-category-picker

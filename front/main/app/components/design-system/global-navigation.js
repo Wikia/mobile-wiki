@@ -3,6 +3,7 @@ import Headroom from '../../mixins/headroom';
 
 export default Ember.Component.extend(Headroom, {
 	classNames: ['wds-global-navigation-wrapper'],
+	headroomEnabled: Ember.computed.bool('model.user'),
 	model: Ember.Object.create(M.prop('globalNavigation')),
 
 	headroomPinnedObserver: Ember.observer('pinned', function () {
@@ -10,8 +11,6 @@ export default Ember.Component.extend(Headroom, {
 	}),
 
 	didInsertElement() {
-		if (this.get('model.user')) {
-			this.initHeadroom({}, this.$().outerHeight(true));
-		}
+		this.initHeadroom({}, this.$().outerHeight(true));
 	}
 });
