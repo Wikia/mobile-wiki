@@ -20,7 +20,8 @@ test('sanitizes sections', (assert) => {
 	}), {
 		label: 'Title',
 		imageUrl: 'http://vignette/image.jpg',
-		type: 'section'
+		type: 'section',
+		url: '/main/section/Title'
 	});
 });
 
@@ -34,6 +35,7 @@ test('sanitizes categories', (assert) => {
 		label: 'Title',
 		imageUrl: 'http://vignette/image.jpg',
 		type: 'category',
+		url: '/main/category/CategoryName',
 		categoryName: 'CategoryName'
 	});
 
@@ -46,6 +48,7 @@ test('sanitizes categories', (assert) => {
 		label: 'Title',
 		imageUrl: 'http://vignette/image.jpg',
 		type: 'category',
+		url: '/main/category/CategoryName',
 		categoryName: 'CategoryName'
 	});
 });
