@@ -54,7 +54,10 @@ test('sends actions up', function (assert) {
 
 test('placeholder changes', function (assert) {
 	const activateSearch = Ember.K,
-		deactivateSearch = Ember.K;
+		deactivateSearch = Ember.K,
+		i18nStub = sinon.stub(window.i18n, 't');
+
+	i18nStub.returnsArg(0);
 
 	this.set('model', model);
 
