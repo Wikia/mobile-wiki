@@ -1,0 +1,46 @@
+
+$article-negative-padding: -$article-horizontal-padding;
+
+.widget-discussions {
+	margin: 0 $article-negative-padding;
+
+	.heading-wrapper {
+		svg {
+			fill: $discussion-widget-link-color;
+			height: 16px;
+			vertical-align: middle;
+			width: 11px;
+		}
+
+		align-items: center;
+		background-color: $discussion-widget-heading-background;
+		display: flex;
+		height: 70px;
+		font-size: 12px;
+		padding-top: 0;
+	}
+
+	.heading {
+		font-size: 27px;
+		padding: 18px 0 0 18px;
+	}
+
+	.heading-viewall {
+		color: $discussion-widget-link-color;
+		margin-left: auto;
+		padding-right: 14px;
+	}
+
+	.loading-overlay {
+		padding-top: 20px;
+		position: relative;
+	}
+
+	.post-title {
+		padding-top: 0;
+	}
+}
+
+.widget-discussions-error {
+	color: $discussion-widget-error-color;
+}

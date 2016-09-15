@@ -71,18 +71,20 @@ DiscussionSiteAttributesModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId) {
-		return new Ember.RSVP.Promise((resolve) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			const attributesInstance = DiscussionSiteAttributesModel.create();
 
 			attributesInstance.set('wikiId', wikiId);
 
 			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
+
+				resolve(attributesInstance);
 			}).catch((err) => {
 				attributesInstance.setErrorProperty(err);
-			});
 
-			resolve(attributesInstance);
+				reject(attributesInstance);
+			});
 		});
 	}
 });
