@@ -59,7 +59,10 @@ export default Component.extend({
 		},
 
 		closeSearch() {
-			this.set('searchIsActive', false);
+			this.setProperties({
+				query: '',
+				searchIsActive: false
+			});
 			this.setSearchSuggestionItems();
 			this.sendAction('deactivateSearch');
 		},
