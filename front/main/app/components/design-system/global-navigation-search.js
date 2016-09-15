@@ -64,6 +64,11 @@ export default Component.extend({
 			this.sendAction('deactivateSearch');
 		},
 
+		queryChanged(query) {
+			this.set('query', query);
+			this.updateSuggestions(query);
+		},
+
 		enter(query) {
 			this.$('.wds-global-navigation__search-input').blur();
 			this.set('searchRequestInProgress', true);
@@ -72,19 +77,20 @@ export default Component.extend({
 		},
 
 		searchSuggestionClick(suggestion) {
-			// TODO
+			this.set('query', suggestion.title);
 		}
 	},
 
 	/**
 	 * Wrapper for search suggestions performing, that also checks the cache
+	 *
+	 * @param {string} query
 	 */
-	updateSuggestions: observer('query', function () {
+	updateSuggestions(query) {
 		// disable suggestions
 		if (!this.get('suggestionsEnabled')) {
 			return;
 		}
-		const query = this.get('query');
 
 		this.setProperties({
 			suggestions: [],
@@ -104,7 +110,7 @@ export default Component.extend({
 			this.set('isLoadingResultsSuggestions', true);
 			run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 		}
-	}),
+	},
 
 	/**
 	 * @param {SearchSuggestionItem[]} [suggestions = []]

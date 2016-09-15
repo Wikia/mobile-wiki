@@ -8,7 +8,7 @@
 			placeholder=searchPlaceholder
 			type='search'
 			autocomplete='off'
-			update=(action (mut query))
+			update=(action 'queryChanged')
 			focusIn=(action 'focusSearch')
 		}}
 	</label>
