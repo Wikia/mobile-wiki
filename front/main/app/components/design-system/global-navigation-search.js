@@ -24,13 +24,11 @@ export default Component.extend({
 	 * we know not to perform another request.
 	 */
 	requestsInProgress: {},
-	searchRequestInProgress: false,
 	/**
 	 * This is what's currently displayed in the search results
 	 * @member {SearchSuggestionItem[]}
 	 */
 	suggestions: [],
-	suggestionsEnabled: true,
 	selectedSuggestion: -1,
 	queryMinimalLength: 3,
 	query: '',
@@ -38,6 +36,7 @@ export default Component.extend({
 	action: computed.oneWay('model.results.url'),
 	ajax: inject.service(),
 	hasSuggestions: computed.notEmpty('suggestions'),
+	suggestionsEnabled: computed.notEmpty('model.suggestions'),
 	emptyQuery: computed.empty('query'),
 	searchPlaceholder: computed('searchIsActive', function () {
 		if (this.get('searchIsActive')) {
@@ -98,13 +97,6 @@ export default Component.extend({
 			}
 		},
 
-		enter(query) {
-			this.$('.wds-global-navigation__search-input').blur();
-			this.set('searchRequestInProgress', true);
-			this.setSearchSuggestionItems();
-			this.goToSearchResults(query);
-		},
-
 		searchSuggestionClick(suggestion) {
 			this.set('query', suggestion.title);
 		}
@@ -123,7 +115,6 @@ export default Component.extend({
 
 		this.setProperties({
 			suggestions: [],
-			searchRequestInProgress: false,
 			selectedSuggestion: -1
 		});
 
@@ -218,10 +209,8 @@ export default Component.extend({
 			 * request B, but request A takes a long time while request B returns quickly,
 			 * then we don't want request A to dump its info into the window after B has
 			 * already inserted the relevant information.
-			 * Also, we don't want to show the suggestion results after a real search
-			 * will be finished, what will happen if search request is still in progress.
 			 */
-			if (!this.get('searchRequestInProgress') && query === this.get('query')) {
+			if (query === this.get('query')) {
 				this.setSearchSuggestionItems(data.items);
 			}
 
@@ -338,11 +327,6 @@ export default Component.extend({
 	 */
 	getCachedResult(query) {
 		return this.get('cachedResults')[query];
-	},
-
-	goToSearchResults(query) {
-		// TODO
-		window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
 	},
 
 	onClickOutsideSuggestions(event) {
