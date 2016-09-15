@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-const {Component, computed} = Ember;
+const {Component, Object: EmberObj} = Ember;
 
 export default Component.extend({
 	classNames: ['wds-global-navigation-wrapper'],
-	model: Ember.Object.create(M.prop('globalNavigation')),
+	model: EmberObj.create(M.prop('globalNavigation')),
 	searchIsActive: false,
 
 	actions: {

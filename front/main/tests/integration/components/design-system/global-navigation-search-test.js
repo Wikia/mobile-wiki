@@ -38,7 +38,7 @@ test('sends actions up', function (assert) {
 	this.on('deactivateSearch', deactivateSearch);
 
 	this.render(hbs`
-		{{design-system/global-navigation-search
+		{{design-system.global-navigation-search
 			model=model
 			activateSearch=(action 'activateSearch')
 			deactivateSearch=(action 'deactivateSearch')
@@ -62,7 +62,7 @@ test('placeholder changes', function (assert) {
 	this.on('deactivateSearch', deactivateSearch);
 
 	this.render(hbs`
-		{{design-system/global-navigation-search
+		{{design-system.global-navigation-search
 			model=model
 			activateSearch=(action 'activateSearch')
 			deactivateSearch=(action 'deactivateSearch')
@@ -96,7 +96,7 @@ test('clears input on close button', function (assert) {
 	this.set('model', model);
 
 	this.render(hbs`
-		{{design-system/global-navigation-search
+		{{design-system.global-navigation-search
 			model=model
 		}}
 	`);
