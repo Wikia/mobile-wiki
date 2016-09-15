@@ -6,6 +6,7 @@ export default Ember.Component.extend(Headroom, {
 	classNames: ['wds-global-navigation-wrapper'],
 	headroomEnabled: Ember.computed.bool('model.user'),
 	model: Ember.Object.create(M.prop('globalNavigation')),
+	searchIsActive: false,
 	shouldHide: Ember.computed.not('activeDropdownCount'),
 
 	headroomPinnedObserver: Ember.observer('pinned', function () {
@@ -33,5 +34,15 @@ export default Ember.Component.extend(Headroom, {
 				this.decrementProperty('activeDropdownCount');
 			}
 		},
+
+		activateSearch() {
+			this.set('searchIsActive', true);
+			this.incrementProperty('activeDropdownCount');
+		},
+
+		deactivateSearch() {
+			this.set('searchIsActive', false);
+			this.decrementProperty('activeDropdownCount');
+		}
 	}
 });

@@ -15,6 +15,18 @@
 		color: $color-dark-blue-gray;
 	}
 
+	&__search-input[type="search"] {
+		border: 0;
+		height: auto;
+		margin-bottom: 0;
+		padding: 3px 4px;
+
+		&:focus {
+			background: transparent;
+			box-shadow: none;
+		}
+	}
+
 	&.is-fixed {
 		position: fixed;
 		width: 100%;
