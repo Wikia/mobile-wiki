@@ -336,7 +336,7 @@ export default Component.extend({
 		if (
 			component.hasSuggestions &&
 			$target.closest('html').length &&
-			!$target.closest('.wds-global-navigation__search-suggestions').length
+			!$target.closest('.wds-global-navigation__search').length
 		) {
 			component.setSearchSuggestionItems();
 		}
