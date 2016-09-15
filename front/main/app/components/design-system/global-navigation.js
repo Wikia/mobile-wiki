@@ -7,8 +7,7 @@ export default Ember.Component.extend(Headroom, {
 
 	didInsertElement() {
 		if (this.get('model.user')) {
-			console.log('headroom');
-			this.initHeadroom();
+			this.initHeadroom({}, this.$().outerHeight(true));
 		}
 	}
 });
