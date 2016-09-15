@@ -1,4 +1,4 @@
-<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}}">
+<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}} {{if searchIsActive 'wds-search-is-active'}}">
 	<div class="wds-global-navigation__content-bar">
 		{{#unless model.logo.header.subtitle}}
 			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo">
@@ -16,20 +16,7 @@
 			{{/each}}
 		{{/if}}
 		{{design-system.global-navigation-links model=model.wikis type='wikis-menu'}}
-		<form class="wds-global-navigation__search" action="{{model.search.module.results.url}}">
-			<div class="wds-global-navigation__search-input-wrapper">
-				<label class="wds-global-navigation__search-label">
-					{{svg 'wds-icons-magnifying-glass' class='wds-icon wds-icon-small wds-global-navigation__search-label-icon'}}
-					<input class="wds-global-navigation__search-input" name="{{model.search.module.results.param-name}}" placeholder="{{i18n model.search.module.placeholder-inactive.key ns='design-system'}}"/>
-				</label>
-				<button class="wds-button wds-is-text wds-global-navigation__search-close" type="reset">
-					{{svg 'wds-icons-cross' class='wds-icon wds-icon-small wds-global-navigation__search-close-icon'}}
-				</button>
-			</div>
-			<button class="wds-button wds-global-navigation__search-submit" type="submit">
-				{{svg 'wds-icons-arrow' class='wds-icon wds-icon-small wds-global-navigation__search-submit-icon'}}
-			</button>
-		</form>
+		{{design-system.global-navigation-search model=model.search.module activateSearch='activateSearch' deactivateSearch='deactivateSearch'}}
 		{{#if model.user}}
 			{{design-system.global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
 		{{else if model.anon}}

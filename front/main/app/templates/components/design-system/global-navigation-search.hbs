@@ -1,0 +1,20 @@
+<div class="wds-global-navigation__search-input-wrapper">
+	<label class="wds-global-navigation__search-label">
+		{{svg 'wds-icons-magnifying-glass' class='wds-icon wds-icon-small wds-global-navigation__search-label-icon'}}
+		{{one-way-input
+			value=query
+			class='wds-global-navigation__search-input'
+			name=model.results.param-name
+			placeholder=searchPlaceholder
+			type='search'
+			update=(action (mut query))
+			focusIn=(action 'focusSearch')
+		}}
+	</label>
+	<button class="wds-button wds-is-text wds-global-navigation__search-close" type="reset" {{action 'closeSearch' preventDefault=false}}>
+		{{svg 'wds-icons-cross' class='wds-icon wds-icon-small wds-global-navigation__search-close-icon'}}
+	</button>
+</div>
+<button class="wds-button wds-global-navigation__search-submit" type="submit" disabled={{submitDisabled}}>
+	{{svg 'wds-icons-arrow' class='wds-icon wds-icon-small wds-global-navigation__search-submit-icon'}}
+</button>
