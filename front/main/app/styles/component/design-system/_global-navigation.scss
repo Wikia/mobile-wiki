@@ -25,6 +25,7 @@
 		}
 
 		.headroom.un-pinned & {
+			box-shadow: none;
 			transform: translateY(-100%);
 		}
 	}

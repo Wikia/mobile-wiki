@@ -5,13 +5,11 @@ export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
 	{
 		containerSelector: '.discussion-inline-editor-floating-container',
-		floatingContainerStyleAttribute: Ember.computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
+		floatingContainerStyleContent: Ember.computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
 			function () {
 				const topValue = this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0;
 
-				debugger;
-
-				return this.get('isSticky') ? `style="top: ${topValue}px"` : '';
+				return this.get('isSticky') ? `top: ${topValue}px` : '';
 			}
 		),
 
