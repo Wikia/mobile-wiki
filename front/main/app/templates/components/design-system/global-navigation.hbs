@@ -11,11 +11,9 @@
 			</a>
 		{{/unless}}
 		<div class="wds-global-navigation__links-and-search">
-			{{#if model.fandom_overview}}
-				{{#each model.fandom_overview.links as |link|}}
-					{{design-system.global-navigation-link-branded model=link}}
-				{{/each}}
-			{{/if}}
+			{{#each model.fandom_overview.links as |link|}}
+				{{design-system.global-navigation-link-branded model=link}}
+			{{/each}}
 			{{design-system.global-navigation-links model=model.wikis type='wikis-menu'}}
 			{{design-system.global-navigation-search model=model.search.module activateSearch='activateSearch' deactivateSearch='deactivateSearch'}}
 		</div>
