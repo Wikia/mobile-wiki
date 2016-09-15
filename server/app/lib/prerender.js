@@ -1,4 +1,3 @@
-// TODO: Also make the tiles in the sections actual proper <a href> links and make those sections index,follow
 // TODO: On the plugin level: know whether the requested page is a main page
 // TODO: On the plugin level: if prerender response is not 200, fall back to rendering the page in a normal way
 
