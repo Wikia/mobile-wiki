@@ -1,8 +1,16 @@
 import Ember from 'ember';
 import wrapMeHelper from '../../helpers/wrap-me';
 import {escapeRegex} from 'common/utils/string';
+import {addQueryParams} from '../../utils/url';
 
 const {Component, computed, inject, run, $} = Ember;
+
+/**
+ * @typedef SearchSuggestionItem
+ * @type {Object}
+ * @property {string} uri
+ * @property {string} title
+ */
 
 export default Component.extend({
 	tagName: 'form',
@@ -133,29 +141,25 @@ export default Component.extend({
 	},
 
 	/**
-	 * @param {SearchSuggestionItem[]} [suggestions = []]
+	 * @param {string[]} [rawSuggestions = []]
 	 * @returns {void}
 	 */
-	setSearchSuggestionItems(suggestions = []) {
+	setSearchSuggestionItems(rawSuggestions = []) {
 		const query = this.get('query'),
 			highlightRegexp = new RegExp(`(${escapeRegex(query)})`, 'ig'),
 			highlighted = wrapMeHelper.compute(['$1'], {
 				tagName: 'strong'
-			});
+			}),
+			suggestions = rawSuggestions.map((suggestion) => {
+				const text = suggestion.replace(highlightRegexp, highlighted),
+					uri = Mercury.wiki.articlePath +
+						encodeURIComponent(suggestion.replace(/ /g, '_')).replace(encodeURIComponent('/'), '/');
 
-		suggestions.forEach(
-			/**
-			 * @param {SearchSuggestionItem} suggestion
-			 * @param {number} index
-			 * @param {SearchSuggestionItem[]} suggestionsArr
-			 * @returns {void}
-			 */
-			(suggestion, index, suggestionsArr) => {
-				suggestionsArr[index].uri = Mercury.wiki.articlePath +
-					encodeURIComponent(suggestion.title.replace(/ /g, '_')).replace(encodeURIComponent('/'), '/');
-				suggestionsArr[index].text = suggestion.title.replace(highlightRegexp, highlighted);
-			}
-		);
+				return {
+					text,
+					uri
+				};
+			});
 
 		this.setProperties({
 			suggestions,
@@ -169,15 +173,12 @@ export default Component.extend({
 	 * @param {string} query - search string
 	 * @returns {string}
 	 */
-	getSearchURI(query) {
-		return M.buildUrl({
-			path: '/wikia.php',
-			query: {
-				controller: 'MercuryApi',
-				method: 'getSearchSuggestions',
-				query
-			}
-		});
+	getSearchSuggestionsUrl(query) {
+		const params = {};
+
+		params[this.get('model.suggestions.param-name')] = query;
+
+		return addQueryParams(this.get('model.suggestions.url'), params);
 	},
 
 	/**
@@ -187,7 +188,7 @@ export default Component.extend({
 	 */
 	searchWithoutDebounce() {
 		const query = this.get('query'),
-			uri = this.getSearchURI(query);
+			uri = this.getSearchSuggestionsUrl(query);
 
 		/**
 		 * This was queued to run before the user has finished typing, and when they
@@ -210,10 +211,10 @@ export default Component.extend({
 			 * already inserted the relevant information.
 			 */
 			if (query === this.get('query')) {
-				this.setSearchSuggestionItems(data.items);
+				this.setSearchSuggestionItems(data.suggestions);
 			}
 
-			this.cacheResult(query, data.items);
+			this.cacheResult(query, data.suggestions);
 		}).catch(() => {
 			// When we get a 404, it means there were no results
 			if (query === this.get('query')) {
