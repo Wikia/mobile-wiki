@@ -93,6 +93,8 @@ test('placeholder changes', function (assert) {
 		model['placeholder-inactive'].key,
 		'input has inactive placeholder'
 	);
+
+	i18nStub.restore();
 });
 
 test('clears input on close button', function (assert) {
