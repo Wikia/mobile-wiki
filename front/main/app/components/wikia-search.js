@@ -160,7 +160,7 @@ export default Component.extend(
 		 */
 		setSearchSuggestionItems(suggestions = []) {
 			const phrase = this.get('phrase'),
-				highlightRegexp = new RegExp('(' + escapeRegex(phrase) + ')', 'ig'),
+				highlightRegexp = new RegExp(`(${escapeRegex(phrase)})`, 'ig'),
 				highlighted = wrapMeHelper.compute(['$1'], {
 					className: 'wikia-search__suggestion-highlighted'
 				});
