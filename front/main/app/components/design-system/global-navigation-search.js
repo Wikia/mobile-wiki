@@ -17,6 +17,7 @@ export default Component.extend({
 	tagName: 'form',
 	classNames: ['wds-global-navigation__search'],
 	attributeBindings: ['action'],
+
 	searchIsActive: false,
 	// key: query string, value: Array<SearchSuggestionItem>
 	cachedResults: {},
@@ -128,7 +129,7 @@ export default Component.extend({
 	updateSuggestions(query) {
 		// disable suggestions
 		if (!this.get('suggestionsEnabled')) {
-			return;
+			return false;
 		}
 
 		this.setProperties({
