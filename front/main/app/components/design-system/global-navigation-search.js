@@ -52,6 +52,16 @@ export default Component.extend({
 		return i18n.t(this.get('model.placeholder-inactive.key'), {ns: 'design-system'});
 	}),
 
+	didInsertElement() {
+		Ember.$(document).bind('click.global-navigation-search-suggestions', {
+			component: this
+		}, this.onClickOutsideSuggestions);
+	},
+
+	willDestroyElement() {
+		Ember.$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSuggestions);
+	},
+
 	actions: {
 		focusSearch() {
 			this.set('searchIsActive', true);
@@ -316,5 +326,18 @@ export default Component.extend({
 	goToSearchResults(query) {
 		// TODO
 		window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
+	},
+
+	onClickOutsideSuggestions(event) {
+		const component = event.data.component,
+			$target = Ember.$(event.target);
+
+		if (
+			component.hasSuggestions &&
+			$target.closest('html').length &&
+			!$target.closest('.wds-global-navigation__search-suggestions').length
+		) {
+			component.setSearchSuggestionItems();
+		}
 	}
 });
