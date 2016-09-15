@@ -82,18 +82,17 @@ export default Component.extend({
 			this.updateSuggestions(query);
 		},
 
-		keyPress(event) {
-			const numSuggestions = this.get('suggestions.length'),
-				currentSelection = this.get('selectedSuggestion');
+		onKeyDown() {
+			const numSuggestions = this.get('suggestions.length');
 
-			if (!numSuggestions) {
-				return;
+			if (numSuggestions && this.get('selectedSuggestion') < numSuggestions - 1) {
+				this.incrementProperty('selectedSuggestion');
 			}
+		},
 
-			if (event.keyCode === 40 && currentSelection < numSuggestions - 1) {
-				this.set('selectedSuggestion', currentSelection + 1);
-			} else if (event.keyCode === 38 && currentSelection > -1) {
-				this.set('selectedSuggestion', currentSelection - 1);
+		onKeyUp() {
+			if (this.get('suggestions.length') && this.get('selectedSuggestion') > -1) {
+				this.decrementProperty('selectedSuggestion');
 			}
 		},
 

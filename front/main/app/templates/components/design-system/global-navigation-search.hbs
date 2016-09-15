@@ -10,7 +10,10 @@
 			autocomplete='off'
 			update=(action 'queryChanged')
 			focusIn=(action 'focusSearch')
-			keyUp=(action 'keyPress')
+			keyEvents=(hash
+				40=(action 'onKeyDown')
+				38=(action 'onKeyUp')
+			)
 		}}
 	</label>
 	<button class="wds-button wds-is-text wds-global-navigation__search-close" type="reset" {{action 'closeSearch' preventDefault=false}}>
