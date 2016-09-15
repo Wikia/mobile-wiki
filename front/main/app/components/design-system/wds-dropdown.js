@@ -8,5 +8,5 @@ export default Component.extend(DropdownComponentMixin, {
 	classNameBindings: ['dropdownExpanded:wds-is-active'],
 	dropdownToggleSelector: '.wds-dropdown__toggle',
 	dropdownSelector: '.wds-dropdown__content',
-	closingEventNamespace: 'wds-dropdown'
+	closingEventNamespace: 'wds-dropdown',
 });

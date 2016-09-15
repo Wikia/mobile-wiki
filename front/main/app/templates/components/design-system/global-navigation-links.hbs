@@ -1,5 +1,11 @@
 {{#if model.header}}
-	{{design-system.global-navigation-dropdown model=model type=type dropdownRightAligned=dropdownRightAligned}}
+	{{design-system.global-navigation-dropdown
+		dropdownRightAligned=dropdownRightAligned
+		model=model
+		dropdownOpened=this.attrs.dropdownOpened
+		dropdownClosed=this.attrs.dropdownClosed
+		type=type
+	}}
 {{else}}
 	{{#each model.links as |link|}}
 		{{design-system.global-navigation-link model=link}}
