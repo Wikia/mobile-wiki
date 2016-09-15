@@ -19,7 +19,6 @@ export default Ember.Component.extend(Headroom, {
 		} else {
 			this.get('triggerHeadroomStateChange')(pinned);
 		}
-
 	}),
 
 	didInsertElement() {
