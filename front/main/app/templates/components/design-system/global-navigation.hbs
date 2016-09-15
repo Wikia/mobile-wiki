@@ -17,8 +17,7 @@
 		{{/if}}
 		{{design-system.global-navigation-links
 			model=model.wikis
-			dropdownOpened=(action 'dropdownOpened')
-			dropdownClosed=(action 'dropdownClosed')
+			triggerDropdownChangeState=(action 'triggerDropdownChangeState')
 			type='wikis-menu'
 		}}
 		<form class="wds-global-navigation__search" action="{{model.search.module.results.url}}">
@@ -40,14 +39,12 @@
 				dropdownRightAligned=true
 				model=model.user
 				type='user-menu'
-				dropdownOpened=(action 'dropdownOpened')
-				dropdownClosed=(action 'dropdownClosed')
+				triggerDropdownChangeState=(action 'triggerDropdownChangeState')
 			}}
 		{{else if model.anon}}
 			{{design-system.global-navigation-account-navigation
 				model=model.anon
-				dropdownOpened=(action 'dropdownOpened')
-				dropdownClosed=(action 'dropdownClosed')
+				triggerDropdownChangeState=(action 'triggerDropdownChangeState')
 			}}
 		{{/if}}
 		<div class="wds-global-navigation__start-a-wiki">

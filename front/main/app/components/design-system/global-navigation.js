@@ -2,10 +2,11 @@ import Ember from 'ember';
 import Headroom from '../../mixins/headroom';
 
 export default Ember.Component.extend(Headroom, {
+	activeDropdownCount: 0,
 	classNames: ['wds-global-navigation-wrapper'],
 	headroomEnabled: Ember.computed.bool('model.user'),
 	model: Ember.Object.create(M.prop('globalNavigation')),
-	shouldHide: true,
+	shouldHide: Ember.computed.not('activeDropdownCount'),
 
 	headroomPinnedObserver: Ember.observer('pinned', function () {
 		const pinned = this.get('pinned');
@@ -26,14 +27,12 @@ export default Ember.Component.extend(Headroom, {
 	},
 
 	actions: {
-		dropdownOpened() {
-			console.log('open');
-			this.set('shouldHide', false);
-		},
-
-		dropdownClosed() {
-			console.log('hide');
-			this.set('shouldHide', true);
+		triggerDropdownChangeState(isActiveState) {
+			if (isActiveState) {
+				this.incrementProperty('activeDropdownCount');
+			} else {
+				this.decrementProperty('activeDropdownCount');
+			}
 		},
 	}
 });
