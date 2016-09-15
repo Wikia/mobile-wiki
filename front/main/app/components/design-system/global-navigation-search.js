@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import wrapMeHelper from '../../helpers/wrap-me';
+import {escapeRegex} from 'common/utils/string';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -111,8 +112,8 @@ export default Component.extend({
 	 */
 	setSearchSuggestionItems(suggestions = []) {
 		const query = this.get('query'),
-			highlightRegexp = new RegExp(query, 'ig'),
-			highlighted = wrapMeHelper.compute([query], {
+			highlightRegexp = new RegExp('(' + escapeRegex(query) + ')', 'ig'),
+			highlighted = wrapMeHelper.compute(['$1'], {
 				className: 'wikia-search__suggestion-highlighted'
 			});
 
