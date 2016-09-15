@@ -36,6 +36,11 @@ export default Ember.Controller.extend(
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
 		isGlobalNavigationPositionFixed: true,
+		isGlobalNavigationHeadroomPinned: true,
+		isGlobalNavigationVisible: Ember.computed.and(
+			'isGlobalNavigationPositionFixed',
+			'isGlobalNavigationHeadroomPinned'
+		),
 
 		// Controls the appearance of the share-header component
 		enableShareHeader: false,

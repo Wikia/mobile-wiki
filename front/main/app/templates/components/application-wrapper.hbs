@@ -13,7 +13,10 @@
 			isSearchPage=isSearchPage
 		}}
 	{{else}}
-		{{design-system/global-navigation isGlobalNavigationPositionFixed=isGlobalNavigationPositionFixed}}
+		{{design-system/global-navigation
+			isGlobalNavigationPositionFixed=isGlobalNavigationPositionFixed
+			triggerHeadroomStateChange=(route-action 'triggerHeadroomStateChange')
+		}}
 	{{/if}}
 
 	{{#wikia-drawer

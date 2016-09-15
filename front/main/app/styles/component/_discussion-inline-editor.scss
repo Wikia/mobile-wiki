@@ -52,7 +52,9 @@ $success-icon-size: 80px;
 			border-top: 0;
 			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 			position: fixed;
+			transition: top 200ms;
 			width: $sticky-editor-width;
+			will-change: top;
 			z-index: $z-discussion-sticky-editor;
 		}
 	}
