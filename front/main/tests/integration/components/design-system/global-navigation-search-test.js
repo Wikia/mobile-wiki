@@ -2,11 +2,8 @@ import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const searchSelector = '.wds-global-navigation__search',
-	labelSelector = '.wds-global-navigation__search-label',
-	inputSelector = '.wds-global-navigation__search-input',
+const inputSelector = '.wds-global-navigation__search-input',
 	closeButtonSelector = '.wds-global-navigation__search-close',
-	submitButtonSelector = '.wds-global-navigation__search-submit',
 	model = {
 		type: 'search',
 		results: {
@@ -55,6 +52,46 @@ test('sends actions up', function (assert) {
 	assert.ok(deactivateSearch.calledOnce, 'deactivateSearch action sent');
 });
 
+test('placeholder changes', function (assert) {
+	const activateSearch = Ember.K,
+		deactivateSearch = Ember.K;
+
+	this.set('model', model);
+
+	this.on('activateSearch', activateSearch);
+	this.on('deactivateSearch', deactivateSearch);
+
+	this.render(hbs`
+		{{design-system/global-navigation-search
+			model=model
+			activateSearch=(action 'activateSearch')
+			deactivateSearch=(action 'deactivateSearch')
+		}}
+	`);
+
+	assert.equal(
+		this.$(inputSelector).attr('placeholder'),
+		model['placeholder-inactive'].key,
+		'input has inactive placeholder'
+	);
+
+	this.$(inputSelector).trigger('focusin');
+
+	assert.equal(
+		this.$(inputSelector).attr('placeholder'),
+		model['placeholder-active'].key,
+		'input has active placeholder'
+	);
+
+	this.$(closeButtonSelector).click();
+
+	assert.equal(
+		this.$(inputSelector).attr('placeholder'),
+		model['placeholder-inactive'].key,
+		'input has inactive placeholder'
+	);
+});
+
 test('clears input on close button', function (assert) {
 	this.set('model', model);
 
@@ -68,6 +105,5 @@ test('clears input on close button', function (assert) {
 	this.$(inputSelector).trigger('keyup');
 	this.$(closeButtonSelector).trigger('click');
 
-	// TODO this fails because Ember first runs the line below and only later the closeSearch action is triggered
 	assert.equal(this.$(inputSelector).val(), '', 'input value is cleared');
 });
