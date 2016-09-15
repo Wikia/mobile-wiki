@@ -59,6 +59,7 @@ export default Component.extend({
 
 		closeSearch() {
 			this.set('searchIsActive', false);
+			this.setSearchSuggestionItems();
 			this.sendAction('deactivateSearch');
 		},
 
@@ -69,7 +70,7 @@ export default Component.extend({
 			this.goToSearchResults(query);
 		},
 
-		searchSuggestionClick() {
+		searchSuggestionClick(suggestion) {
 			// TODO
 		}
 	},
@@ -123,8 +124,9 @@ export default Component.extend({
 			 * @returns {void}
 			 */
 			(suggestion, index, suggestionsArr) => {
-				suggestionsArr[index].uri = encodeURIComponent(suggestion.title);
-				suggestion.text = suggestion.title.replace(highlightRegexp, highlighted);
+				suggestionsArr[index].uri = Mercury.wiki.articlePath +
+					encodeURIComponent(suggestion.title.replace(/ /g, '_')).replace(encodeURIComponent('/'), '/');
+				suggestionsArr[index].text = suggestion.title.replace(highlightRegexp, highlighted);
 			}
 		);
 

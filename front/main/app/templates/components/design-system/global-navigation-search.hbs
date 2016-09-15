@@ -19,7 +19,7 @@
 		<ul class="wds-list wds-has-ellipsis wds-is-linked">
 			{{#each suggestions as |suggestion|}}
 				<li>
-					<a href="/{{suggestion.uri}}" class="wds-global-navigation__dropdown-link external" {{action 'searchSuggestionClick'}}>
+					<a href="{{suggestion.uri}}" class="wds-global-navigation__dropdown-link" {{action 'searchSuggestionClick' suggestion preventDefault=false}}>
 						{{{suggestion.text}}}
 					</a>
 				</li>
