@@ -5,8 +5,7 @@ const {Component, computed, observer, inject, run, $} = Ember;
 
 export default Component.extend({
 	tagName: 'form',
-	classNames: ['wds-dropdown', 'wds-global-navigation__search'],
-	classNameBindings: ['hasSuggestions:wds-is-active'],
+	classNames: ['wds-global-navigation__search'],
 	attributeBindings: ['action'],
 	searchIsActive: false,
 	// key: query string, value: Array<SearchSuggestionItem>
