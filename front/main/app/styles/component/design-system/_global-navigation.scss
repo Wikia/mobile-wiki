@@ -30,4 +30,10 @@
 		width: 100%;
 		z-index: $z-global-navigation;
 	}
+
+	&__search-suggestions {
+		.wds-is-selected a {
+			color: $color-link;
+		}
+	}
 }

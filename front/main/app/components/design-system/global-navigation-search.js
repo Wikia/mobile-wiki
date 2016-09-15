@@ -31,6 +31,7 @@ export default Component.extend({
 	 */
 	suggestions: [],
 	suggestionsEnabled: true,
+	selectedSuggestion: -1,
 	queryMinimalLength: 3,
 	query: '',
 
@@ -82,6 +83,21 @@ export default Component.extend({
 			this.updateSuggestions(query);
 		},
 
+		keyPress(event) {
+			const numSuggestions = this.get('suggestions.length'),
+				currentSelection = this.get('selectedSuggestion');
+
+			if (!numSuggestions) {
+				return;
+			}
+
+			if (event.keyCode === 40 && currentSelection < numSuggestions - 1) {
+				this.set('selectedSuggestion', currentSelection + 1);
+			} else if (event.keyCode === 38 && currentSelection > -1) {
+				this.set('selectedSuggestion', currentSelection - 1);
+			}
+		},
+
 		enter(query) {
 			this.$('.wds-global-navigation__search-input').blur();
 			this.set('searchRequestInProgress', true);
@@ -107,7 +123,8 @@ export default Component.extend({
 
 		this.setProperties({
 			suggestions: [],
-			searchRequestInProgress: false
+			searchRequestInProgress: false,
+			selectedSuggestion: -1
 		});
 
 		// If the query string is empty or shorter than the minimal length, return to leave the view blank

@@ -10,6 +10,7 @@
 			autocomplete='off'
 			update=(action 'queryChanged')
 			focusIn=(action 'focusSearch')
+			keyUp=(action 'keyPress')
 		}}
 	</label>
 	<button class="wds-button wds-is-text wds-global-navigation__search-close" type="reset" {{action 'closeSearch' preventDefault=false}}>
@@ -17,8 +18,8 @@
 	</button>
 	<div class="wds-dropdown__content wds-global-navigation__search-suggestions">
 		<ul class="wds-list wds-has-ellipsis wds-is-linked">
-			{{#each suggestions as |suggestion|}}
-				<li>
+			{{#each suggestions as |suggestion index|}}
+				<li class="{{if (equal index selectedSuggestion) 'wds-is-selected'}}">
 					<a href="{{suggestion.uri}}" class="wds-global-navigation__dropdown-link" {{action 'searchSuggestionClick' suggestion preventDefault=false}}>
 						{{{suggestion.text}}}
 					</a>
