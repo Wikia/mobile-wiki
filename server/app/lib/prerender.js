@@ -4,65 +4,65 @@
 import localSettings from '../../config/localSettings';
 
 const botUserAgentsRegExp = new RegExp([
-        // google, yahoo, bing
-        // understand the _escaped_fragment_ mechanism so we detect them by it
-        'baiduspider',
-        'facebookexternalhit',
-        'twitterbot',
-        'rogerbot',
-        'linkedinbot',
-        'embedly',
-        'quora link preview',
-        'showyoubot',
-        'outbrain',
-        'pinterest',
-        'developers.google.com/\+/web/snippet'
-    ].join('|'), 'i'),
-    urlsToPrerenderRegExp = new RegExp([
-        '^bleach\.[^/]*/wiki/Bleach_Wiki',
-        '^bleach\.[^/]*/main/',
-        '^dc\.[^/]*/wiki/DC_Comics_Database',
-        '^dc\.[^/]*/main/',
-        '^onepiece\.[^/]*/wiki/Main_Page',
-        '^onepiece\.[^/]*/main/',
-    ].join('|'));
+		// google, yahoo, bing
+		// understand the _escaped_fragment_ mechanism so we detect them by it
+		'baiduspider',
+		'facebookexternalhit',
+		'twitterbot',
+		'rogerbot',
+		'linkedinbot',
+		'embedly',
+		'quora link preview',
+		'showyoubot',
+		'outbrain',
+		'pinterest',
+		'developers.google.com/\+/web/snippet'
+	].join('|'), 'i'),
+	urlsToPrerenderRegExp = new RegExp([
+		'^bleach\.[^/]*/wiki/Bleach_Wiki',
+		'^bleach\.[^/]*/main/',
+		'^dc\.[^/]*/wiki/DC_Comics_Database',
+		'^dc\.[^/]*/main/',
+		'^onepiece\.[^/]*/wiki/Main_Page',
+		'^onepiece\.[^/]*/main/',
+	].join('|'));
 
 function shouldPrerender(req) {
-    const userAgent = req.headers['user-agent'] || '',
-        bufferAgent = req.headers['x-bufferbot'] || '',
-        requestingEscapedFragment = (req.url.query._escaped_fragment_ !== undefined),
-        knownBot = (userAgent.search(botUserAgentsRegExp) !== -1);
+	const userAgent = req.headers['user-agent'] || '',
+		bufferAgent = req.headers['x-bufferbot'] || '',
+		requestingEscapedFragment = (req.url.query._escaped_fragment_ !== undefined),
+		knownBot = (userAgent.search(botUserAgentsRegExp) !== -1);
 
-    if (!requestingEscapedFragment && !knownBot && !bufferAgent) {
-        return false;
-    }
+	if (!requestingEscapedFragment && !knownBot && !bufferAgent) {
+		return false;
+	}
 
-    return canPrerender(req);
+	return canPrerender(req);
 }
 
 function updateRequestedUrl(url) {
-    // Direct prerender.io to production if initiated from dev environments
-    url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
-    url = url.replace(new RegExp('\.[a-z]*\.wikia-dev\.com\/'), 'wikia.com/');
-    return url + '?useskin=mercury';
+	// Direct prerender.io to production if initiated from dev environments
+	url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
+	url = url.replace(new RegExp('\.[a-z]*\.wikia-dev\.com\/'), 'wikia.com/');
+	return url + '?useskin=mercury';
 }
 
 function canPrerender(req) {
-    const host = req.headers.host.toLowerCase(),
-        path = req.url.pathname,
-        isGet = req.method.toLowerCase() === 'get',
-        url = host + path,
-        urlMatches = url.match(urlsToPrerenderRegExp);
+	const host = req.headers.host.toLowerCase(),
+		path = req.url.pathname,
+		isGet = req.method.toLowerCase() === 'get',
+		url = host + path,
+		urlMatches = url.match(urlsToPrerenderRegExp);
 
-    return !!(urlMatches && isGet && localSettings.prerender.token);
+	return !!(urlMatches && isGet && localSettings.prerender.token);
 }
 
 module.exports = {
-    canPrerender: canPrerender,
-    prerenderOptions: {
-        shouldPrerender: shouldPrerender,
-        updateRequestedUrl: updateRequestedUrl,
-        token: localSettings.prerender.token
-    },
-    prerenderPlugin: require('hapi-prerender')
+	canPrerender: canPrerender,
+	prerenderOptions: {
+		shouldPrerender: shouldPrerender,
+		updateRequestedUrl: updateRequestedUrl,
+		token: localSettings.prerender.token
+	},
+	prerenderPlugin: require('hapi-prerender')
 };
