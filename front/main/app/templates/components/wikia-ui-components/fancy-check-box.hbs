@@ -1,11 +1,10 @@
 <span class="fancy-checkbox-span {{if isChecked 'active-element-background-color'}} {{if disabled 'disabled'}}">
-	{{one-way-input
+	{{one-way-checkbox
 		checked=isChecked
 		class='fancy-checkbox'
 		click=onClick
 		id=inputId
 		name=inputId
-		type='checkbox'
 	}}
 	{{#if isChecked}}
 		{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
