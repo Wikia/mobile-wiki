@@ -16,12 +16,12 @@ export default Component.extend(Headroom, {
 	},
 
 	actions: {
-		onDropdownChangeState(isActiveState) {
-			if (isActiveState) {
-				this.incrementProperty('activeDropdownCount');
-			} else {
-				this.decrementProperty('activeDropdownCount');
-			}
+		onDropdownClose() {
+			this.decrementProperty('activeDropdownCount');
+		},
+
+		onDropdownOpen() {
+			this.incrementProperty('activeDropdownCount');
 		},
 
 		onHeadroomPin() {
