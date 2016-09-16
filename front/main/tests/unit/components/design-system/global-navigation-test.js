@@ -291,7 +291,8 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 			'suggestion 2!',
 			'sug GES %^&*^%&>?<tion>',
 			'no query inside',
-			'sug sug suggestions sug sug'
+			'sug sug suggestions sug sug',
+			'SuGgEstion'
 		],
 		suggestionsAfterProcessing = [
 			{
@@ -322,6 +323,11 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				'<strong>sug</strong>',
 				title: 'sug sug suggestions sug sug',
 				uri: '/wiki/sug_sug_suggestions_sug_sug'
+			},
+			{
+				text: '<strong>SuG</strong>gEstion',
+				title: 'SuGgEstion',
+				uri: '/wiki/SuGgEstion'
 			}
 		];
 
