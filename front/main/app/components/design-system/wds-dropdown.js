@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import DropdownComponentMixin from 'ember-rl-dropdown/mixins/rl-dropdown-component';
 
-const {Component, observer} = Ember;
+const {Component} = Ember;
 
 export default Component.extend(DropdownComponentMixin, {
 	classNames: ['wds-dropdown'],

@@ -1,13 +1,15 @@
 import Ember from 'ember';
 import Headroom from '../../mixins/headroom';
 
-export default Ember.Component.extend(Headroom, {
+const {Component, Object, computed} = Ember;
+
+export default Component.extend(Headroom, {
 	activeDropdownCount: 0,
 	classNames: ['wds-global-navigation-wrapper'],
-	headroomEnabled: Ember.computed.bool('model.user'),
-	model: Ember.Object.create(M.prop('globalNavigation')),
+	headroomEnabled: computed.bool('model.user'),
+	model: Object.create(M.prop('globalNavigation')),
 	searchIsActive: false,
-	shouldHide: Ember.computed.not('activeDropdownCount'),
+	shouldHide: computed.not('activeDropdownCount'),
 
 	didInsertElement() {
 		this.initHeadroom({}, this.$().outerHeight(true));
