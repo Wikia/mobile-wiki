@@ -103,9 +103,7 @@ export default Component.extend({
 		},
 
 		onKeyDown() {
-			const numSuggestions = this.get('suggestions.length');
-
-			if (numSuggestions && this.get('selectedSuggestionIndex') < numSuggestions - 1) {
+			if (this.get('selectedSuggestionIndex') < this.get('suggestions.length') - 1) {
 				this.incrementProperty('selectedSuggestionIndex');
 			}
 		},
