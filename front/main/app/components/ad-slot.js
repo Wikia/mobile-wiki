@@ -22,7 +22,7 @@ export default Component.extend(
 		}),
 
 		onElementManualInsert: Ember.on('didInsertElement', function () {
-			const ads = Ads.getInstance(),
+			const ads = this.get('ads.module'),
 				name = this.get('name');
 
 			if (this.get('disableManualInsert')) {
@@ -59,7 +59,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const ads = Ads.getInstance(),
+			const ads = this.get('ads.module'),
 				name = this.get('name');
 
 			if (this.get('noAds')) {

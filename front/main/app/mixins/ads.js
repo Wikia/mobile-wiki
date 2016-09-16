@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Ads from 'common/modules/ads';
 
 export default Ember.Mixin.create({
 	adsData: {
@@ -122,6 +121,6 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setupAdsContext(adsContext) {
-		Ads.getInstance().reload(adsContext);
+		this.get('ads.module').reload(adsContext);
 	}
 });

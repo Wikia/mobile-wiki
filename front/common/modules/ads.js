@@ -66,10 +66,7 @@ class Ads {
 			}
 		};
 		this.adLogicPageViewCounterModule = null;
-		this.googleTagModule = {
-			destroySlots: () => {
-			}
-		};
+		this.googleTagModule = null;
 	}
 
 	/**
@@ -105,8 +102,8 @@ class Ads {
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
-					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
+					'ext.wikia.adEngine.sourcePointDetection',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
@@ -114,8 +111,8 @@ class Ads {
 					adConfigMobile,
 					adMercuryListener,
 					pageFairDetectionModule,
-					sourcePointDetectionModule,
 					googleTagModule,
+					sourcePointDetectionModule,
 					krux) => {
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adContextModule = adContextModule;
@@ -380,10 +377,6 @@ class Ads {
 		}, true);
 
 		this.googleTagModule.destroySlots([name]);
-	}
-
-	resetSlots() {
-		this.adSlots = [];
 	}
 
 	/**
