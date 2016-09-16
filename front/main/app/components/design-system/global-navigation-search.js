@@ -3,7 +3,7 @@ import wrapMeHelper from '../../helpers/wrap-me';
 import {escapeRegex} from 'common/utils/string';
 import {addQueryParams} from '../../utils/url';
 
-const {Component, computed, inject, run, $} = Ember;
+const {Component, computed, Handlebars, inject, run, $} = Ember;
 
 /**
  * @typedef SearchSuggestionItem
@@ -63,13 +63,13 @@ export default Component.extend({
 	}),
 
 	didInsertElement() {
-		Ember.$(document).bind('click.global-navigation-search-suggestions', {
+		$(document).bind('click.global-navigation-search-suggestions', {
 			component: this
 		}, this.onClickOutsideSearch);
 	},
 
 	willDestroyElement() {
-		Ember.$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSearch);
+		$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSearch);
 	},
 
 	submit(event) {
@@ -116,8 +116,8 @@ export default Component.extend({
 			}
 		},
 
-		suggestionClick(suggestion) {
-			this.set('query', suggestion.title);
+		suggestionClick({title}) {
+			this.set('query', title);
 		}
 	},
 
@@ -158,12 +158,12 @@ export default Component.extend({
 	 */
 	setSearchSuggestionItems(rawSuggestions = []) {
 		const query = this.get('query'),
-			highlightRegexp = new RegExp(`(${escapeRegex(query)})`, 'ig'),
+			highlightRegexp = new RegExp(`(${escapeRegex(Handlebars.Utils.escapeExpression(query))})`, 'ig'),
 			highlighted = wrapMeHelper.compute(['$1'], {
 				tagName: 'strong'
 			}),
 			suggestions = rawSuggestions.map((suggestion) => {
-				const text = suggestion.replace(highlightRegexp, highlighted),
+				const text = Handlebars.Utils.escapeExpression(suggestion).replace(highlightRegexp, highlighted),
 					uri = Mercury.wiki.articlePath +
 						encodeURIComponent(suggestion.replace(/ /g, '_')).replace(encodeURIComponent('/'), '/');
 
@@ -359,7 +359,7 @@ export default Component.extend({
 
 	onClickOutsideSearch(event) {
 		const component = event.data.component,
-			$target = Ember.$(event.target);
+			$target = $(event.target);
 
 		if (
 			component.hasSuggestions &&

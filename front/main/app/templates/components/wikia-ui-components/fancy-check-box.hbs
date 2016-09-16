@@ -6,8 +6,6 @@
 		id=inputId
 		name=inputId
 	}}
-	{{#if isChecked}}
-		{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
-	{{/if}}
+	{{svg 'checkbox-checkmark' class=(concat 'icon ' (unless isChecked 'hidden')) viewBox="0 0 20 14"}}
 </span>
 {{label}}

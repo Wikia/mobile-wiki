@@ -36,8 +36,10 @@ test('close search', function (assert) {
 	const component = this.subject(),
 		setSearchSuggestionItems = sinon.stub(component, 'setSearchSuggestionItems');
 
-	component.set('searchIsActive', true);
-	component.set('query', 'test');
+	component.setProperties({
+		searchIsActive: true,
+		query: 'test'
+	});
 	component.send('closeSearch');
 
 	assert.equal(component.get('searchIsActive'), false, 'search close sets searchIsActive to false');
@@ -59,26 +61,34 @@ test('query changed', function (assert) {
 test('key down', function (assert) {
 	const component = this.subject();
 
-	component.set('suggestions', []);
-	component.set('selectedSuggestionIndex', -1);
+	component.setProperties({
+		suggestions: [],
+		selectedSuggestionIndex: -1
+	});
 	component.send('onKeyDown');
 
 	assert.equal(component.get('selectedSuggestionIndex'), -1, 'key down with no suggestions');
 
-	component.set('suggestions', [0]);
-	component.set('selectedSuggestionIndex', -1);
+	component.setProperties({
+		suggestions: [0],
+		selectedSuggestionIndex: -1
+	});
 	component.send('onKeyDown');
 
 	assert.equal(component.get('selectedSuggestionIndex'), 0, 'key down with a suggestion');
 
-	component.set('suggestions', [0]);
-	component.set('selectedSuggestionIndex', 0);
+	component.setProperties({
+		suggestions: [0],
+		selectedSuggestionIndex: 0
+	});
 	component.send('onKeyDown');
 
 	assert.equal(component.get('selectedSuggestionIndex'), 0, 'key down on the last suggestion');
 
-	component.set('suggestions', [0, 1]);
-	component.set('selectedSuggestionIndex', 0);
+	component.setProperties({
+		suggestions: [0, 1],
+		selectedSuggestionIndex: 0
+	});
 	component.send('onKeyDown');
 
 	assert.equal(component.get('selectedSuggestionIndex'), 1, 'key down with multiple suggestions');
@@ -87,26 +97,34 @@ test('key down', function (assert) {
 test('key up', function (assert) {
 	const component = this.subject();
 
-	component.set('suggestions', []);
-	component.set('selectedSuggestionIndex', -1);
+	component.setProperties({
+		suggestions: [],
+		selectedSuggestionIndex: -1
+	});
 	component.send('onKeyUp');
 
 	assert.equal(component.get('selectedSuggestionIndex'), -1, 'key up with no suggestions');
 
-	component.set('suggestions', [0]);
-	component.set('selectedSuggestionIndex', -1);
+	component.setProperties({
+		suggestions: [0],
+		selectedSuggestionIndex: -1
+	});
 	component.send('onKeyUp');
 
 	assert.equal(component.get('selectedSuggestionIndex'), -1, 'key up with no suggestion selected yet');
 
-	component.set('suggestions', [0]);
-	component.set('selectedSuggestionIndex', 0);
+	component.setProperties({
+		suggestions: [0],
+		selectedSuggestionIndex: 0
+	});
 	component.send('onKeyUp');
 
 	assert.equal(component.get('selectedSuggestionIndex'), -1, 'key up on the first suggestion');
 
-	component.set('suggestions', [0, 1]);
-	component.set('selectedSuggestionIndex', 1);
+	component.setProperties({
+		suggestions: [0, 1],
+		selectedSuggestionIndex: 1
+	});
 	component.send('onKeyUp');
 
 	assert.equal(component.get('selectedSuggestionIndex'), 0, 'key up with multiple suggestions');
@@ -138,9 +156,11 @@ test('updateSuggestions', function (assert) {
 
 	assert.equal(component.updateSuggestions(), false, 'quit early if suggestions are disabled');
 
-	component.set('suggestionsEnabled', true);
-	component.set('suggestions', ['foo', 'bar']);
-	component.set('selectedSuggestionIndex', 1);
+	component.setProperties({
+		suggestionsEnabled: true,
+		suggestions: ['foo', 'bar'],
+		selectedSuggestionIndex: 1
+	});
 	component.updateSuggestions('a');
 
 	assert.deepEqual(component.get('suggestions'), [], 'reset suggestions on new query');
@@ -253,8 +273,9 @@ test('eviction tests', function (assert) {
 test('setSearchSuggestionItems - set suggestions to be empty', function (assert) {
 	const component = this.subject();
 
-	component.set('isLoadingResultsSuggestions', true);
-	component.set('suggestions', ['test']);
+	component.setProperties({
+		isLoadingResultsSuggestions: true,
+		suggestions: ['test']
 
 	component.setSearchSuggestionItems();
 
@@ -283,7 +304,7 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				uri: '/wiki/suggestion_2!'
 			},
 			{
-				text: '<strong>sug</strong> GES %^&*^%&>?<tion>',
+				text: '<strong>sug</strong> GES %^&amp;*^%&amp;&gt;?&lt;tion&gt;',
 				title: 'sug GES %^&*^%&>?<tion>',
 				uri: '/wiki/sug_GES_%25%5E%26*%5E%25%26%3E%3F%3Ction%3E'
 			},
