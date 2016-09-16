@@ -145,6 +145,7 @@ class Ads {
 	 */
 	buildVastUrl() {
 		if (!this.vastBuilder) {
+			console.warn('Can not build VAST url.');
 			return '';
 		}
 

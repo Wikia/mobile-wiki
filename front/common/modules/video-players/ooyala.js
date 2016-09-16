@@ -41,19 +41,14 @@ export default class OoyalaPlayer extends BasePlayer {
 		Ads.getInstance().onReady(function () {
 			const vastUrl = Ads.getInstance().buildVastUrl();
 
-			this.params = $.extend(this.params, {
-				onCreate: (...args) => {
-					return this.onCreate.apply(this, args);
-				}
-			});
+			this.params.onCreate = (...args) => {
+				return this.onCreate.apply(this, args);
+			};
 
 			if (!this.params.noAds) {
-				this.params = $.extend(this.params, {
-					'google-ima-ads-manager': {
-						adTagUrl: vastUrl,
-						showInAdControlBar: true
-					}
-				});
+				this.params['google-ima-ads-manager'] = {
+					adTagUrl: vastUrl
+				};
 			}
 
 			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
