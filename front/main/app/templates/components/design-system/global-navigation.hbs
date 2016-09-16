@@ -17,7 +17,7 @@
 		{{/if}}
 		{{design-system.global-navigation-links
 			model=model.wikis
-			triggerDropdownChangeState=(action 'triggerDropdownChangeState')
+			onDropdownChangeState=(action 'onDropdownChangeState')
 			type='wikis-menu'
 		}}
 		{{design-system.global-navigation-search
@@ -30,12 +30,12 @@
 				dropdownRightAligned=true
 				model=model.user
 				type='user-menu'
-				triggerDropdownChangeState=(action 'triggerDropdownChangeState')
+				onDropdownChangeState=(action 'onDropdownChangeState')
 			}}
 		{{else if model.anon}}
 			{{design-system.global-navigation-account-navigation
 				model=model.anon
-				triggerDropdownChangeState=(action 'triggerDropdownChangeState')
+				onDropdownChangeState=(action 'onDropdownChangeState')
 			}}
 		{{/if}}
 		<div class="wds-global-navigation__start-a-wiki">
