@@ -9,19 +9,6 @@ export default Ember.Component.extend(Headroom, {
 	searchIsActive: false,
 	shouldHide: Ember.computed.not('activeDropdownCount'),
 
-	headroomPinnedObserver: Ember.observer('pinned', function () {
-		const pinned = this.get('pinned');
-
-		if (!pinned && !this.get('shouldHide')) {
-			const headroom = this.get('headroom');
-
-			this.$(headroom.elem).addClass(headroom.classes.pinned).removeClass(headroom.classes.unpinned);
-			this.set('pinned', true);
-		} else {
-			this.get('triggerHeadroomStateChange')(pinned);
-		}
-	}),
-
 	didInsertElement() {
 		this.initHeadroom({}, this.$().outerHeight(true));
 	},
@@ -32,6 +19,22 @@ export default Ember.Component.extend(Headroom, {
 				this.incrementProperty('activeDropdownCount');
 			} else {
 				this.decrementProperty('activeDropdownCount');
+			}
+		},
+
+		onHeadroomPin() {
+			if (this.get('shouldHide')) {
+				this.get('triggerHeadroomStateChange')(true);
+			}
+		},
+
+		onHeadroomUnpin() {
+			if (this.get('shouldHide')) {
+				this.get('triggerHeadroomStateChange')(false);
+			} else {
+				const headroom = this.get('headroom');
+
+				this.$(headroom.elem).addClass(headroom.classes.pinned).removeClass(headroom.classes.unpinned);
 			}
 		},
 
