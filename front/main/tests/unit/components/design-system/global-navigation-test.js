@@ -276,6 +276,7 @@ test('setSearchSuggestionItems - set suggestions to be empty', function (assert)
 	component.setProperties({
 		isLoadingResultsSuggestions: true,
 		suggestions: ['test']
+	});
 
 	component.setSearchSuggestionItems();
 
