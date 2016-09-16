@@ -27,7 +27,7 @@ export default Ember.Component.extend(Headroom, {
 	},
 
 	actions: {
-		triggerDropdownChangeState(isActiveState) {
+		onDropdownChangeState(isActiveState) {
 			if (isActiveState) {
 				this.incrementProperty('activeDropdownCount');
 			} else {
