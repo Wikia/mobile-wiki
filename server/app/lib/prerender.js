@@ -27,6 +27,16 @@ const botUserAgentsRegExp = new RegExp([
 		'^onepiece\.[^/]*/main/',
 	].join('|'));
 
+function canPrerender(req) {
+	const host = req.headers.host.toLowerCase(),
+		path = req.url.pathname,
+		isGet = req.method.toLowerCase() === 'get',
+		url = host + path,
+		urlMatches = url.match(urlsToPrerenderRegExp);
+
+	return !!(urlMatches && isGet && localSettings.prerender.token);
+}
+
 function shouldPrerender(req) {
 	const userAgent = req.headers['user-agent'] || '',
 		bufferAgent = req.headers['x-bufferbot'] || '',
@@ -44,24 +54,14 @@ function updateRequestedUrl(url) {
 	// Direct prerender.io to production if initiated from dev environments
 	url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
 	url = url.replace(new RegExp('\.[a-z]*\.wikia-dev\.com\/'), 'wikia.com/');
-	return url + '?useskin=mercury';
-}
-
-function canPrerender(req) {
-	const host = req.headers.host.toLowerCase(),
-		path = req.url.pathname,
-		isGet = req.method.toLowerCase() === 'get',
-		url = host + path,
-		urlMatches = url.match(urlsToPrerenderRegExp);
-
-	return !!(urlMatches && isGet && localSettings.prerender.token);
+	return `$(url)?useskin=mercury`;
 }
 
 module.exports = {
-	canPrerender: canPrerender,
+	canPrerender,
 	prerenderOptions: {
-		shouldPrerender: shouldPrerender,
-		updateRequestedUrl: updateRequestedUrl,
+		shouldPrerender,
+		updateRequestedUrl,
 		token: localSettings.prerender.token
 	},
 	prerenderPlugin: require('hapi-prerender')
