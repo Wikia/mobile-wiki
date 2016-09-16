@@ -63,13 +63,13 @@ export default Component.extend({
 	}),
 
 	didInsertElement() {
-		$(document).bind('click.global-navigation-search-suggestions', {
-			component: this
-		}, this.onClickOutsideSearch);
+		$(document).on('click.global-navigation-search-suggestions', (event) => {
+			this.onClickOutsideSearch(event);
+		});
 	},
 
 	willDestroyElement() {
-		$(document).unbind('click.global-navigation-search-suggestions', this.onClickOutsideSearch);
+		$(document).off('click.global-navigation-search-suggestions');
 	},
 
 	submit(event) {
@@ -356,15 +356,14 @@ export default Component.extend({
 	},
 
 	onClickOutsideSearch(event) {
-		const component = event.data.component,
-			$target = $(event.target);
+		const $target = $(event.target);
 
 		if (
-			component.hasSuggestions &&
+			this.hasSuggestions &&
 			$target.closest('html').length &&
 			!$target.closest('.wds-global-navigation__search').length
 		) {
-			component.setSearchSuggestionItems();
+			this.setSearchSuggestionItems();
 		}
 	}
 });
