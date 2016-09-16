@@ -2,9 +2,10 @@ QUnit.module('mercury/modules/video-players/ooyala', function (hooks) {
 	var createPlayerSpy,
 		OoyalaPlayer,
 		getInstance = function (params) {
-			params = params || {};
+			var instance;
 
-			var instance = new OoyalaPlayer('ooyala', {
+			params = params || {};
+			instance = new OoyalaPlayer('ooyala', {
 				videoId: 666,
 				jsFile: ['foo'],
 				playerId: 'testId',
@@ -41,7 +42,7 @@ QUnit.module('mercury/modules/video-players/ooyala', function (hooks) {
 				buildVastUrl: function () {
 					return 'http://vast.url';
 				}
-			}
+			};
 		};
 
 		require.entries['common/modules/video-players/base'].callback(baseExports, loadStub);
