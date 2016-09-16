@@ -72,10 +72,26 @@ export default Component.extend({
 		$(document).off('click.global-navigation-search-suggestions');
 	},
 
+	/**
+	 * We hijack submit event to handle those cases:
+	 * - when user types query and presses enter open SRP
+	 * - when user types query, selects suggestion using arrow keys and presses enter open suggested page
+	 * - when user types query, selects suggestion using arrow keys and clicks on submit button open SRP
+	 *
+	 * The cleanest solution would be to handle the enter keypress on input
+	 * and then decide if we should prevent default behaviour (if suggestion is selected)
+	 * or not (if no suggestion is selected). Unfortunately one-way-input
+	 * doesn't pass the original event so we can't prevent the form submit from happening.
+	 *
+	 * We hijack click on the submit button and trigger the submit event with `true` as a param instead of the event.
+	 * This is the only way to know that we should open SRP even when a suggestion is selected.
+	 *
+	 * @param {Event|Boolean} event
+	 */
 	submit(event) {
 		const selectedSuggestionIndex = this.get('selectedSuggestionIndex');
 
-		if (selectedSuggestionIndex > -1) {
+		if (event !== true && selectedSuggestionIndex > -1) {
 			this.onSuggestionEnterKey(selectedSuggestionIndex, event);
 		}
 
@@ -112,6 +128,13 @@ export default Component.extend({
 			if (this.get('suggestions.length') && this.get('selectedSuggestionIndex') > -1) {
 				this.decrementProperty('selectedSuggestionIndex');
 			}
+		},
+
+		/**
+		 * See the description for the submit event to know why this is needed
+		 */
+		submitClick() {
+			this.$().trigger('submit', true);
 		},
 
 		suggestionClick({title}) {
@@ -185,11 +208,9 @@ export default Component.extend({
 	 * @returns {string}
 	 */
 	getSearchSuggestionsUrl(query) {
-		const params = {};
-
-		params[this.get('model.suggestions.param-name')] = query;
-
-		return addQueryParams(this.get('model.suggestions.url'), params);
+		return addQueryParams(this.get('model.suggestions.url'), {
+			[this.get('model.suggestions.param-name')]: query
+		});
 	},
 
 	/**
