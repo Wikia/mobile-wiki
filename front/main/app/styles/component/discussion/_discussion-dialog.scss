@@ -27,17 +27,18 @@ $discussion-dialog-content-line-height: 24px;
 		}
 
 		footer {
+			align-items: center;
 			border-top: 1px solid $discussion-dialog-separator-color;
 			display: flex;
-			height: 60px;
 			justify-content: flex-end;
-			padding: 6px;
+			padding: 10px 6px;
 
 			button {
 				background-color: $discussion-dialog-background-color;
 				border: none;
 				font-weight: $font-weight-bold;
-				height: 48px;
+				margin: 0;
+				height: 100%;
 
 				&:hover {
 					background-color: $discussion-dialog-button-hover-background-color;

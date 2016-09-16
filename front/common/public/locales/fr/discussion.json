@@ -131,7 +131,7 @@
     "post-error-anon-cant-post":"Connectez-vous pour rejoindre la discussion !",
     "post-error-not-authorized":"Publication impossible car votre compte a été bloqué.",
     "post-error-user-blocked-title":"Votre nom d’utilisateur ou adresse IP a été bloqué",
-    "post-error-user-blocked-text":"Le blocage a été effectué par __blockerUsername__\/Staff de Wikia. <br>Expiration du blocage : __blockExpiry__<br>Raison donnée : __blockReason__",
+    "post-error-user-blocked-text":"Le blocage a été effectué par __blockerUsername__<br>Expiration du blocage : __blockExpiry__<br>Raison donnée : __blockReason__",
     "post-error-general-error":"Échec de la publication. Veuillez réessayer.",
     "reply-error-general-error":"Échec de la réponse. Veuillez réessayer.",
     "save-error-general-error":"Échec de l'enregistrement. Veuillez réessayer.",
