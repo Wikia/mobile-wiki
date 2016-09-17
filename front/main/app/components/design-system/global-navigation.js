@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import Headroom from '../../mixins/headroom';
 
-const {Component, Object, computed} = Ember;
+const {Component, Object: EmberObject, computed} = Ember;
 
 export default Component.extend(Headroom, {
-	activeDropdownCount: 0,
 	classNames: ['wds-global-navigation-wrapper'],
+	model: EmberObject.create(M.prop('globalNavigation')),
+	activeDropdownCount: 0,
 	headroomEnabled: computed.bool('model.user'),
-	model: Object.create(M.prop('globalNavigation')),
 	searchIsActive: false,
 	shouldHide: computed.not('activeDropdownCount'),
 
@@ -26,16 +26,17 @@ export default Component.extend(Headroom, {
 
 		onHeadroomPin() {
 			if (this.get('shouldHide')) {
-				this.get('triggerHeadroomStateChange')(true);
+				this.get('triggerGlobalNavigationHeadroomStateChange')(true);
 			}
 		},
 
 		onHeadroomUnpin() {
 			if (this.get('shouldHide')) {
-				this.get('triggerHeadroomStateChange')(false);
+				this.get('triggerGlobalNavigationHeadroomStateChange')(false);
 			} else {
 				const headroom = this.get('headroom');
 
+				// While dropdowns are opened we don't want to hide global navigation, that is why we disable headroom
 				this.$(headroom.elem).addClass(headroom.classes.pinned).removeClass(headroom.classes.unpinned);
 			}
 		},

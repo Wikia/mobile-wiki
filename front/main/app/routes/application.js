@@ -41,8 +41,8 @@ export default Route.extend(
 			 * @param {boolean} state
 			 * @returns {void}
 			 */
-			triggerHeadroomStateChange(state) {
-				this.controller.set('isGlobalNavigationHeadroomPinned', state);
+			triggerGlobalNavigationHeadroomStateChange(state) {
+				this.controller.set('isGlobalNavigationHeadroomPinnedOrDisabled', state);
 			},
 
 			/**
