@@ -4,6 +4,7 @@
     "embertest": true
   },
   "globals": {
+    "mockService": true,
     "resetAds": true
   },
   "parserOptions": {
