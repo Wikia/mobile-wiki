@@ -10,22 +10,22 @@
 				<span class="wds-global-navigation__logo-wikia-caption">{{i18n model.logo.header.subtitle.key ns='design-system'}}</span>
 			</a>
 		{{/unless}}
-		{{#if model.fandom_overview}}
+		<div class="wds-global-navigation__links-and-search">
 			{{#each model.fandom_overview.links as |link|}}
 				{{design-system.global-navigation-link-branded model=link}}
 			{{/each}}
-		{{/if}}
-		{{design-system.global-navigation-links
-			model=model.wikis
-			type='wikis-menu'
-			onClose=(action 'onDropdownClose')
-			onOpen=(action 'onDropdownOpen')
-		}}
-		{{design-system.global-navigation-search
-			model=model.search.module
-			activateSearch='activateSearch'
-			deactivateSearch='deactivateSearch'
-		}}
+            {{design-system.global-navigation-links
+                model=model.wikis
+                type='wikis-menu'
+                onClose=(action 'onDropdownClose')
+                onOpen=(action 'onDropdownOpen')
+            }}
+            {{design-system.global-navigation-search
+                model=model.search.module
+                activateSearch='activateSearch'
+                deactivateSearch='deactivateSearch'
+            }}
+		</div>
 		{{#if model.user}}
 			{{design-system.global-navigation-links
 				dropdownRightAligned=true
@@ -48,5 +48,4 @@
 			</a>
 		</div>
 	</div>
-
 </div>
