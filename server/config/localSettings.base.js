@@ -181,6 +181,9 @@ const localSettings = {
 	discussions: {
 		baseAPIPath: 'discussion'
 	},
+	openGraph: {
+		baseAPIPath: 'opengraph'
+	},
 	siteAttribute: {
 		baseAPIPath: 'site-attribute'
 	},
