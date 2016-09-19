@@ -59,7 +59,7 @@
     "ember-one-way-input": "0.4.0",
     "ember-pop-over": "kvas-damian/ember-pop-over#a2a7cbd895698915dacf224596d05c590d219362",
     "ember-resolver": "2.0.3",
-    "ember-rl-dropdown": "RSSchermer/ember-rl-dropdown.git#ac9a1a775b97694e282ef83d476b866339bca1c8",
+    "ember-rl-dropdown": "0.8.0",
     "ember-route-action-helper": "0.3.1",
     "ember-sinon": "0.3.0",
     "ember-sortable": "1.8.0",

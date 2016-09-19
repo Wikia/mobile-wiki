@@ -11611,9 +11611,7 @@
       }
     },
     "ember-rl-dropdown": {
-      "version": "0.7.1",
-      "from": "git://github.com/RSSchermer/ember-rl-dropdown.git#ac9a1a775b97694e282ef83d476b866339bca1c8",
-      "resolved": "git://github.com/RSSchermer/ember-rl-dropdown.git#ac9a1a775b97694e282ef83d476b866339bca1c8"
+      "version": "0.8.0"
     },
     "ember-route-action-helper": {
       "version": "0.3.1"
