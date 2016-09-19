@@ -9,7 +9,6 @@ import {activate as variantTestingActivate} from 'common/utils/variant-testing';
 
 const {
 	$,
-	getWithDefault,
 	Logger,
 	Route,
 	TargetActionSupport,
@@ -36,6 +35,14 @@ export default Route.extend(
 			 */
 			triggerHighlightOverlayStateChange(state) {
 				this.controller.set('isGlobalNavigationPositionFixed', !state);
+			},
+
+			/**
+			 * @param {boolean} state
+			 * @returns {void}
+			 */
+			triggerGlobalNavigationHeadroomStateChange(state) {
+				this.controller.set('isGlobalNavigationHeadroomPinnedOrDisabled', state);
 			},
 
 			/**

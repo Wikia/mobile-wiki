@@ -14,13 +14,32 @@
 			{{#each model.fandom_overview.links as |link|}}
 				{{design-system.global-navigation-link-branded model=link}}
 			{{/each}}
-			{{design-system.global-navigation-links model=model.wikis type='wikis-menu'}}
-			{{design-system.global-navigation-search model=model.search.module activateSearch='activateSearch' deactivateSearch='deactivateSearch'}}
+			{{design-system.global-navigation-links
+				model=model.wikis
+				type='wikis-menu'
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
+			{{design-system.global-navigation-search
+				model=model.search.module
+				activateSearch='activateSearch'
+				deactivateSearch='deactivateSearch'
+			}}
 		</div>
 		{{#if model.user}}
-			{{design-system.global-navigation-links model=model.user type='user-menu' dropdownRightAligned=true}}
+			{{design-system.global-navigation-links
+				dropdownRightAligned=true
+				model=model.user
+				type='user-menu'
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
 		{{else if model.anon}}
-			{{design-system.global-navigation-account-navigation model=model.anon}}
+			{{design-system.global-navigation-account-navigation
+				model=model.anon
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
 		{{/if}}
 		<div class="wds-global-navigation__start-a-wiki">
 			<a href="{{model.create_wiki.header.href}}" class="wds-button wds-is-squished wds-is-secondary">
