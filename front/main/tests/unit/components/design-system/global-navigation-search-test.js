@@ -1,5 +1,8 @@
+import Ember from 'ember';
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
+
+const {$} = Ember;
 
 moduleForComponent('design-system.global-navigation-search', 'Unit | Component | global-navigation-search', {
 	unit: true
@@ -8,19 +11,43 @@ moduleForComponent('design-system.global-navigation-search', 'Unit | Component |
 test('submit event', function (assert) {
 	const component = this.subject(),
 		onSuggestionEnterKey = sinon.stub(component, 'onSuggestionEnterKey'),
-		setSearchSuggestionItems = sinon.stub(component, 'setSearchSuggestionItems');
+		setSearchSuggestionItems = sinon.stub(component, 'setSearchSuggestionItems'),
+		event = $.Event('submit'),
+		buttonClickEvent = $.Event('submit', {
+			buttonClick: true
+		}),
+		eventPreventDefault = sinon.stub(event, 'preventDefault');
 
+	component.set('query', '');
+	component.trigger('submit', event);
+	assert.ok(eventPreventDefault.calledOnce, 'prevent submit with empty query');
+	assert.notOk(onSuggestionEnterKey.called, 'do not call onSuggestionEnterKey when query is empty');
+	assert.notOk(setSearchSuggestionItems.called, 'do not call setSearchSuggestionItems when query is empty');
+	eventPreventDefault.reset();
+	onSuggestionEnterKey.reset();
+	setSearchSuggestionItems.reset();
+
+	component.set('query', 'test');
 	component.set('selectedSuggestionIndex', -1);
-	component.trigger('submit');
-
+	component.trigger('submit', event);
 	assert.notOk(onSuggestionEnterKey.called, 'do not trigger onSuggestionEnterKey when no suggestion is selected');
 	assert.ok(setSearchSuggestionItems.calledOnce, 'clear suggestions when no suggestion selected');
+	onSuggestionEnterKey.reset();
+	setSearchSuggestionItems.reset();
 
 	component.set('selectedSuggestionIndex', 1);
-	component.trigger('submit');
+	component.trigger('submit', buttonClickEvent);
+	assert.notOk(
+		onSuggestionEnterKey.called,
+		'do not trigger onSuggestionEnterKey when suggestion is selected and submit button is clicked'
+	);
+	onSuggestionEnterKey.reset();
+	setSearchSuggestionItems.reset();
 
+	component.set('selectedSuggestionIndex', 1);
+	component.trigger('submit', event);
 	assert.ok(onSuggestionEnterKey.calledOnce, 'trigger onSuggestionEnterKey when suggestion is selected');
-	assert.ok(setSearchSuggestionItems.calledTwice, 'clear suggestions when suggestion is selected');
+	assert.ok(setSearchSuggestionItems.calledOnce, 'clear suggestions when suggestion is selected');
 });
 
 test('focus search', function (assert) {
