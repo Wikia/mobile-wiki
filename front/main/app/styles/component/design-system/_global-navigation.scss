@@ -41,4 +41,10 @@
 			transform: translateY(-100%);
 		}
 	}
+
+	&__search-suggestions {
+		.wds-is-selected a {
+			color: $color-link;
+		}
+	}
 }

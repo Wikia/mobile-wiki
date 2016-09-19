@@ -3,6 +3,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
+import {escapeRegex} from 'common/utils/string';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -159,8 +160,8 @@ export default Component.extend(
 		 */
 		setSearchSuggestionItems(suggestions = []) {
 			const phrase = this.get('phrase'),
-				highlightRegexp = new RegExp(phrase, 'ig'),
-				highlighted = wrapMeHelper.compute([phrase], {
+				highlightRegexp = new RegExp(`(${escapeRegex(phrase)})`, 'ig'),
+				highlighted = wrapMeHelper.compute(['$1'], {
 					className: 'wikia-search__suggestion-highlighted'
 				});
 

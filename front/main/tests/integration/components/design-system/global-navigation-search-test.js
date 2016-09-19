@@ -54,7 +54,10 @@ test('sends actions up', function (assert) {
 
 test('placeholder changes', function (assert) {
 	const activateSearch = Ember.K,
-		deactivateSearch = Ember.K;
+		deactivateSearch = Ember.K,
+		i18nStub = sinon.stub(window.i18n, 't');
+
+	i18nStub.returnsArg(0);
 
 	this.set('model', model);
 
@@ -90,6 +93,8 @@ test('placeholder changes', function (assert) {
 		model['placeholder-inactive'].key,
 		'input has inactive placeholder'
 	);
+
+	i18nStub.restore();
 });
 
 test('clears input on close button', function (assert) {

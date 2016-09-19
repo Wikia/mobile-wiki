@@ -78,4 +78,26 @@ QUnit.module('mercury/utils/string', function () {
 			assert.equal(string.getLastUrlFromText(testCase.blockOfText), testCase.expected);
 		});
 	});
+
+	QUnit.test('escaping regex', function (assert) {
+		var string = require('common/utils/string'),
+			testCases = [
+				{
+					text: 'test',
+					escaped: 'test'
+				},
+				{
+					text: 'test (bracket)',
+					escaped: 'test \\(bracket\\)'
+				},
+				{
+					text: 'test ({bracket})? - .+* \\ / [$]',
+					escaped: 'test \\(\\{bracket\\}\\)\\? \\- \\.\\+\\* \\\\ \\/ \\[\\$\\]'
+				}
+			];
+
+		testCases.forEach(function (testCase) {
+			assert.equal(string.escapeRegex(testCase.text), testCase.escaped);
+		});
+	});
 });
