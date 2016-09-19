@@ -14,17 +14,17 @@
 			{{#each model.fandom_overview.links as |link|}}
 				{{design-system.global-navigation-link-branded model=link}}
 			{{/each}}
-            {{design-system.global-navigation-links
-                model=model.wikis
-                type='wikis-menu'
-                onClose=(action 'onDropdownClose')
-                onOpen=(action 'onDropdownOpen')
-            }}
-            {{design-system.global-navigation-search
-                model=model.search.module
-                activateSearch='activateSearch'
-                deactivateSearch='deactivateSearch'
-            }}
+			{{design-system.global-navigation-links
+				model=model.wikis
+				type='wikis-menu'
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
+			{{design-system.global-navigation-search
+				model=model.search.module
+				activateSearch='activateSearch'
+				deactivateSearch='deactivateSearch'
+			}}
 		</div>
 		{{#if model.user}}
 			{{design-system.global-navigation-links
