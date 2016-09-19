@@ -30,7 +30,7 @@
 			{{/each}}
 		</ul>
 	</div>
-	<button class="wds-button wds-global-navigation__search-submit" type="submit" {{action 'submitClick'}} disabled={{emptyQuery}}>
+	<button class="wds-button wds-global-navigation__search-submit" type="button" {{action 'submitClick'}} disabled={{isEmptyQuery}}>
 		{{svg 'wds-icons-arrow' class='wds-icon wds-icon-small wds-global-navigation__search-submit-icon'}}
 	</button>
 </div>

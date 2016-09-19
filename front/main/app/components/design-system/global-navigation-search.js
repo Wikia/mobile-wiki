@@ -47,7 +47,7 @@ export default Component.extend({
 	ajax: inject.service(),
 	hasSuggestions: computed.notEmpty('suggestions'),
 	suggestionsEnabled: computed.notEmpty('model.suggestions'),
-	emptyQuery: computed.empty('query'),
+	isEmptyQuery: computed.empty('query'),
 	searchPlaceholder: computed('searchIsActive', function () {
 		if (this.get('searchIsActive')) {
 			return i18n.t(
@@ -86,12 +86,18 @@ export default Component.extend({
 	 * We hijack click on the submit button and trigger the submit event with `true` as a param instead of the event.
 	 * This is the only way to know that we should open SRP even when a suggestion is selected.
 	 *
-	 * @param {Event|Boolean} event
+	 * @param {Event|jQuery.Event} event
 	 */
 	submit(event) {
 		const selectedSuggestionIndex = this.get('selectedSuggestionIndex');
 
-		if (event !== true && selectedSuggestionIndex > -1) {
+		// We don't use type="submit" button so we have to disable submit manually
+		if (this.get('isEmptyQuery')) {
+			event.preventDefault();
+			return;
+		}
+
+		if (event.buttonClick !== true && selectedSuggestionIndex > -1) {
 			this.onSuggestionEnterKey(selectedSuggestionIndex, event);
 		}
 
@@ -131,10 +137,13 @@ export default Component.extend({
 		},
 
 		/**
-		 * See the description for the submit event to know why this is needed
+		 * We don't use type="submit" button to prevent browser from triggering click on enter keypress
+		 * See the description for the submit event for more details
 		 */
 		submitClick() {
-			this.$().trigger('submit', true);
+			this.$().trigger($.Event('submit', {
+				buttonClick: true
+			}));
 		},
 
 		suggestionClick({title}) {
