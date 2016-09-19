@@ -14,6 +14,9 @@ export default Ember.Route.extend({
 		if (!transitionParams || Ember.typeOf(transitionParams) !== 'object') {
 			transitionParams = {sort: 'trending'};
 		}
+		if (Ember.isEmpty(transitionParams.catId)) {
+			transitionParams.catId = null;
+		}
 		this.transitionTo('discussion.forum', {queryParams: transitionParams});
 	},
 });

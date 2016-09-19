@@ -1,0 +1,44 @@
+{{#if posts}}
+	<h1 class="heading-wrapper">
+		<h2 class="heading">
+			{{{i18n 'main.discussions-header-title' ns='discussion'}}}
+		</h2>
+		{{#link-to 'discussion' class='heading-viewall'}}
+			{{{i18n 'main.all-discussions-link-mobile' ns='discussion'}}}
+			{{svg 'arrow-right-long'}}
+		{{/link-to}}
+	</h1>
+{{/if}}
+{{#each posts as |entity|}}
+	{{discussion-post-card-detail
+		author=entity.createdBy
+		categories=categories
+		canShowCategories=canShowCategories
+		categoryName=entity.categoryName
+		delete=(action 'delete')
+		hideMoreOptions=true
+		lock=(action 'lock')
+		openEditEditor=(action 'openEditEditor')
+		post=entity
+		reply=(action 'reply')
+		replyCount=entity.repliesCount
+		report=(action 'report')
+		setEditorActive=(action 'setEditorActive')
+		share=(action 'share')
+		undelete=(action 'undelete')
+		unlock=(action 'unlock')
+		upvote=(action 'upvote')
+	}}
+{{else}}
+	{{#if isLoading}}
+		{{loading-spinner
+			active=true
+			radius=32
+			strokeWidth=2
+		}}
+	{{else}}
+		{{discussion-empty-forum-message
+			setEditorActive=(action 'setEditorActive')
+		}}
+	{{/if}}
+{{/each}}
