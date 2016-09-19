@@ -36,7 +36,12 @@ export default Component.extend(Headroom, {
 			} else {
 				const headroom = this.get('headroom');
 
-				// While dropdowns are opened we don't want to hide global navigation, that is why we disable headroom
+				/**
+				 * While dropdowns are opened we don't want to hide the global navigation.
+				 * headroom.destroy() is not a viable option because headroom.init()
+				 * has a few optimizations that make it an asynchronous method.
+				 * We want the interactions to be in sync so instead we revert classes changed by the Headroom.
+				 */
 				this.$(headroom.elem).addClass(headroom.classes.pinned).removeClass(headroom.classes.unpinned);
 			}
 		},
