@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
-	discussionSort: Ember.inject.service(),
-	onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
+const {computed, Mixin, inject: {service}} = Ember;
+
+export default Mixin.create({
+	discussionSort: service(),
+	onlyReported: computed.oneWay('discussionSort.onlyReported'),
 	showApplyButton: false,
-	sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
+	sortBy: computed.oneWay('discussionSort.sortBy'),
 
 	actions: {
 		/**
