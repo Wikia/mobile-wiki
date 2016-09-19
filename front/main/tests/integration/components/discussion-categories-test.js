@@ -136,6 +136,8 @@ test('should enable edit mode', function (assert) {
 		categories: getCategories(20),
 		updateCategories: Ember.K,
 		validatePostsOnForum: Ember.K,
+		onCategoryClick: Ember.K,
+		selectAllCategory: Ember.K,
 		triggerHighlightOverlayStateChange: discussionCategoriesEditModeStateChangeSpy
 	});
 
@@ -145,7 +147,9 @@ test('should enable edit mode', function (assert) {
 			triggerHighlightOverlayStateChange=(action triggerHighlightOverlayStateChange)
 			updateCategories=(action updateCategories)
 			validatePostsOnForum=(action validatePostsOnForum)
-			canEditCategories=true}}`
+			canEditCategories=true
+			onCategoryClick=(action onCategoryClick)
+			selectAllCategory=(action selectAllCategory)}}`
 	);
 
 	this.$('.discussion-categories-edit-link').click();
