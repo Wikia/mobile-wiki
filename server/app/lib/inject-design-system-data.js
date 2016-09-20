@@ -37,9 +37,12 @@ export default function injectDesignSystemData({data, request, showFooter = fals
 
 	return new MediaWiki.DesignSystemRequest({request, corporatePageUrl, wikiId, language}).getDesignSystemData()
 		.then((designSystemData) => {
+			const globalNavigation = designSystemData['global-navigation'],
+				fandomLogoImage = 'wds-company-logo-fandom-powered-by-wikia';
+
 			data.globalFooter = designSystemData['global-footer'];
-			data.globalNavigation = designSystemData['global-navigation'];
-			data.useFandomLogoInNav = designSystemData['global-navigation'].logo.header.image === 'wds-company-logo-fandom-powered-by-wikia';
+			data.globalNavigation = globalNavigation;
+			data.useFandomLogoInNav = globalNavigation.logo.header.image === fandomLogoImage;
 
 			return data;
 		})
