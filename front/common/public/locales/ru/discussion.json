@@ -124,14 +124,14 @@
     "edit-hero-unit-hint-text":"Размер изображения: 1240 x 200<br>jpg, gif или png. Максимум 10 Мб.",
     "image-save-failed":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "upload-image-button-text":"Загрузить изображение",
-    "category-select-tooltip-text":"Select"
+    "category-select-tooltip-text":"Выбрать"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",
     "post-error-anon-cant-post":"Войдите в систему, чтобы присоединиться к обсуждению.",
     "post-error-not-authorized":"Вы не можете создавать записи, так как ваш аккаунт был заблокирован.",
-    "post-error-user-blocked-title":"Your username or IP address has been blocked",
-    "post-error-user-blocked-text":"The block was made by __blockerUsername__\/Wikia Staff.<br>Expiration of block: __blockExpiry__<br>Reason given: __blockReason__",
+    "post-error-user-blocked-title":"Ваш аккаунт или IP-адрес был заблокирован",
+    "post-error-user-blocked-text":"Заблокировал(а): __blockerUsername__.<br>Срок окончания:__blockExpiry__<br>Причина: __blockReason__",
     "post-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "reply-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "save-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
