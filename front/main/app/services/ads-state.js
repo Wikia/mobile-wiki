@@ -7,17 +7,9 @@ export default Ember.Service.extend({
 	siteHeadOffset: 0,
 	noAdsQueryParam: '',
 	noAds: Ember.computed('noAdsQueryParam', function () {
-		return this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0';
+		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') || !!M.prop('userId');
 	}),
 	adsUrl: Ember.computed(() => {
 		return M.prop('adsUrl');
-	}),
-
-	runWhenScriptLoaded(callback, context) {
-		if (this.get('adsUrl')) {
-			$script.ready(this.get('adsUrl'), () => {
-				callback.apply(context);
-			});
-		}
-	}
+	})
 });
