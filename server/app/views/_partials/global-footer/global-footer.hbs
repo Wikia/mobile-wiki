@@ -1,4 +1,4 @@
-<footer class="wds-global-footer {{#if model.international_header}}wds-is-international{{else}}wds-is-en{{/if}}">
+<footer class="wds-global-footer{{#unless model.header}}{{#if model.international_header}} wds-is-international{{else}} wds-is-en{{/if}}{{/unless}}">
 	{{#if model.international_header}}
 		<div class="wds-global-footer__header-wrapper">
 			<h2 class="wds-global-footer__header">
