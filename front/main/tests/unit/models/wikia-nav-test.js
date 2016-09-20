@@ -6,17 +6,39 @@ moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
 	unit: true
 });
 
+const hubsLinksMock = [{
+		title: {
+			key: 'global-navigation-fandom-overview-link-vertical-games'
+		},
+		href: 'http://fandom.wikia.com/games',
+		brand: 'games'
+	}],
+	exploreWikiaMock = {
+		header: {
+			title: {
+				key: 'global-navigation-wikis-header'
+			}
+		},
+		links: [{
+			title: {
+				key: 'global-navigation-wikis-explore'
+			},
+			href: 'http://fandom.wikia.com/explore',
+			trackingLabel: 'global-navigation-wikis-explore'
+		}]
+	},
+	exploreWikiaLabelMock = 'global-navigation-wikis-header';
+
 test('test zero state with values from api', (assert) => {
 	const cases = [
 		{
 			mock: {
 				hubsLinks: [],
 				localLinks: [],
-				exploreWikiaLinks: [],
+				exploreWikia: [],
 				exploreWikiaLabel: '',
 				discussionsEnabled: false,
-				wikiName: '',
-				wikiLang: ''
+				wikiName: ''
 			},
 			expected: [
 				{
@@ -37,29 +59,26 @@ test('test zero state with values from api', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}
-				],
+				exploreWikia: exploreWikiaMock,
 				discussionsEnabled: false,
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			expected: [
 				{
-					className: 'nav-menu--external nav-menu--tests',
-					href: 'http://test.com/hub',
-					name: 'Hub test',
-					trackLabel: 'open-hub-tests',
+					className: 'nav-menu--external nav-menu--games',
+					href: 'http://fandom.wikia.com/games',
+					name: 'global-navigation-fandom-overview-link-vertical-games',
+					trackLabel: 'open-hub-global-navigation-fandom-overview-link-vertical-games',
 					type: 'nav-menu-external'
 				},
 				{
 					className: 'nav-menu--explore',
 					index: 0,
-					name: 'Explore menu',
-					trackLabel: 'open-explore-wikia',
+					name: 'global-navigation-wikis-header',
+					trackLabel: 'open-global-navigation-wikis-header',
 					type: 'nav-menu-root'
 				},
 				{
@@ -94,29 +113,26 @@ test('test zero state with values from api', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}
-				],
+				exploreWikia: exploreWikiaMock,
 				discussionsEnabled: true,
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			expected: [
 				{
-					className: 'nav-menu--external nav-menu--tests',
-					href: 'http://test.com/hub',
-					name: 'Hub test',
-					trackLabel: 'open-hub-tests',
+					className: 'nav-menu--external nav-menu--games',
+					href: 'http://fandom.wikia.com/games',
+					name: 'global-navigation-fandom-overview-link-vertical-games',
+					trackLabel: 'open-hub-global-navigation-fandom-overview-link-vertical-games',
 					type: 'nav-menu-external'
 				},
 				{
 					className: 'nav-menu--explore',
 					index: 0,
-					name: 'Explore menu',
-					trackLabel: 'open-explore-wikia',
+					name: 'global-navigation-wikis-header',
+					trackLabel: 'open-global-navigation-wikis-header',
 					type: 'nav-menu-root'
 				},
 				{
@@ -158,19 +174,18 @@ test('test zero state with values from api', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: [],
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikiaLinks: [{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}],
-				exploreWikiaLabel: 'Explore menu',
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
 				discussionsEnabled: false,
-				wikiName: 'Test',
-				wikiLang: 'pl'
+				wikiName: 'Test'
 			},
 			expected: [
 				{
 					index: 0,
-					name: 'Explore menu',
-					trackLabel: 'open-explore-wikia',
+					name: 'global-navigation-wikis-header',
+					trackLabel: 'open-global-navigation-wikis-header',
 					type: 'nav-menu-root',
 					className: 'nav-menu--explore'
 				},
@@ -202,7 +217,62 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-item'
 				}
 			],
-			message: 'Hubs hidden for non english'
+			message: 'Hubs hidden when not returned from DS API'
+		},
+		{
+			mock: {
+				hubsLinks: [],
+				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				exploreWikia: {
+					links: [{
+						title: {
+							key: 'global-navigation-wikis-explore'
+						},
+						href: 'http://fandom.wikia.com/explore',
+						trackingLabel: 'global-navigation-wikis-explore'
+					}]
+				},
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				discussionsEnabled: false,
+				wikiName: 'Test'
+			},
+			expected: [
+				{
+					className: 'nav-menu--external',
+					href: 'http://fandom.wikia.com/explore',
+					name: 'global-navigation-wikis-explore',
+					trackLabel: 'open-global-navigation-wikis-explore',
+					type: 'nav-menu-external'
+				},
+				{
+					name: 'app.explore-wiki',
+					type: 'nav-menu-header',
+					route: 'wiki-page',
+					href: ''
+				},
+				{
+					route: 'recent-wiki-activity',
+					name: 'main.title',
+					trackCategory: 'recent-wiki-activity',
+					trackLabel: 'local-nav',
+					type: 'nav-menu-item'
+				},
+				{
+					href: 'Test_1',
+					index: 1,
+					route: 'wiki-page',
+					name: 'Test 1',
+					trackLabel: 'local-nav-open-link-index-1',
+					type: 'nav-menu-item'
+				},
+				{
+					actionId: 'onRandomPageClick',
+					name: 'app.random-page-label',
+					trackLabel: 'random-page',
+					type: 'nav-menu-item'
+				}
+			],
+			message: 'Show the first link when there is no header for wikis section'
 		}
 	];
 
@@ -223,21 +293,18 @@ test('test local sub nav transitions', (assert) => {
 	const cases = [
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [0],
 			expected: [
 				{
-					href: 'http://test.com/explore',
-					name: 'Explore test',
-					trackLabel: 'open-exp-test-1',
+					href: 'http://fandom.wikia.com/explore',
+					name: 'global-navigation-wikis-explore',
+					trackLabel: 'open-global-navigation-wikis-explore',
 					type: 'nav-menu-external'
 				}
 			],
@@ -245,16 +312,13 @@ test('test local sub nav transitions', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1],
 			expected: [
@@ -279,7 +343,7 @@ test('test local sub nav transitions', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{
 					text: 'Test 1', href: '/wiki/Test_1', children: [
 						{text: 'Test 2', href: '/wiki/Test_2', children: [
@@ -289,12 +353,9 @@ test('test local sub nav transitions', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1, 1],
 			expected: [
@@ -319,6 +380,10 @@ test('test local sub nav transitions', (assert) => {
 		}
 	];
 
+	const i18nStub = sinon.stub(window.i18n, 't');
+
+	i18nStub.returnsArg(0);
+
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
@@ -327,22 +392,21 @@ test('test local sub nav transitions', (assert) => {
 		});
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
+
+	i18nStub.restore();
 });
 
 test('Header value', (assert) => {
 	const cases = [
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1],
 			expected: 'Test 1',
@@ -350,19 +414,16 @@ test('Header value', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [],
-			expected: 'Explore menu',
+			expected: 'global-navigation-wikis-header',
 			message: 'Show parent text'
 		}
 	];
@@ -382,16 +443,13 @@ test('Parent value', (assert) => {
 	const cases = [
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [10],
 			expected: {},
@@ -399,16 +457,13 @@ test('Parent value', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [],
 			expected: {},
@@ -416,7 +471,7 @@ test('Parent value', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{
 					text: 'Test 1', href: '/wiki/Test_1', children: [
 						{text: 'Test 2', href: '/wiki/Test_2', children: [
@@ -426,12 +481,9 @@ test('Parent value', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1],
 			expected: {
@@ -447,7 +499,7 @@ test('Parent value', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{
 					text: 'Test 1', href: '/wiki/Test_1', children: [
 						{text: 'Test 2', href: '/wiki/Test_2', children: [
@@ -457,12 +509,9 @@ test('Parent value', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1, 1],
 			expected: {
@@ -477,7 +526,7 @@ test('Parent value', (assert) => {
 		},
 		{
 			mock: {
-				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				hubsLinks: hubsLinksMock,
 				localLinks: [{
 					text: 'Test 1', href: '/wiki/Test_1', children: [
 						{text: 'Test 2', href: '/wiki/Test_2', children: [
@@ -490,12 +539,9 @@ test('Parent value', (assert) => {
 						{text: 'Test 5', href: '/wiki/Test_5'}
 					]
 				}],
-				exploreWikiaLinks: [
-					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
-				],
-				exploreWikiaLabel: 'Explore menu',
-				wikiName: 'Test',
-				wikiLang: 'en'
+				exploreWikia: exploreWikiaMock,
+				exploreWikiaLabel: exploreWikiaLabelMock,
+				wikiName: 'Test'
 			},
 			path: [1, 1, 1],
 			expected: {

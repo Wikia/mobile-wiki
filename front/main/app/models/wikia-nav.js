@@ -5,10 +5,10 @@ const {Object, A, Logger, computed, get} = Ember;
 export default Object.extend({
 	dsGlobalNavigation: M.prop('globalNavigation'),
 	hubsLinks: computed(function () {
-		return this.getWithDefault('dsGlobalNavigation.fandom_overview.links', []);
+		return this.get('dsGlobalNavigation.fandom_overview.links');
 	}),
-	exploreWikiaLinks: computed(function () {
-		return this.getWithDefault('dsGlobalNavigation.wikis.links', []);
+	exploreWikia: computed(function () {
+		return this.get('dsGlobalNavigation.wikis');
 	}),
 	exploreWikiaLabel: computed(function () {
 		return i18n.t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
@@ -79,9 +79,12 @@ export default Object.extend({
 			];
 		}),
 
-	exploreItems: computed('inExploreNav', 'exploreWikiaLinks', function () {
+	exploreItems: computed('inExploreNav', 'exploreWikia', function () {
+		const wikis = this.get('exploreWikia');
+
 		return this.get('inExploreNav') &&
-			this.get('exploreWikiaLinks').map((item) => {
+			get(wikis, 'links.length') &&
+			get(wikis, 'links').map((item) => {
 				return {
 					type: 'nav-menu-external',
 					href: item.href,
@@ -95,6 +98,7 @@ export default Object.extend({
 
 	globalItems: computed('inRoot', 'hubsLinks', function () {
 		return this.get('inRoot') &&
+			this.get('hubsLinks.length') &&
 			this.get('hubsLinks').map((item) => {
 				return {
 					type: 'nav-menu-external',
@@ -108,17 +112,15 @@ export default Object.extend({
 			}) || [];
 	}),
 
-	exploreSubMenuItem: computed('inRoot', 'exploreWikiaLinks', function () {
-		const wikis = this.get('dsGlobalNavigation.wikis');
+	exploreSubMenuItem: computed('inRoot', 'exploreWikia', function () {
+		const wikis = this.get('exploreWikia');
 
-		if (this.get('inRoot') && this.get('exploreWikiaLinks.length')) {
-			const index = 0;
-
+		if (this.get('inRoot') && get(wikis, 'links.length')) {
 			if (wikis.header) {
 				return [{
 					type: 'nav-menu-root',
 					className: 'nav-menu--explore',
-					index,
+					index: 0,
 					name: this.get('exploreWikiaLabel'),
 					trackLabel: `open-${wikis.header.title.key}`
 				}];
@@ -130,7 +132,6 @@ export default Object.extend({
 					type: 'nav-menu-external',
 					className: 'nav-menu--external',
 					href: firstLink.href,
-					index,
 					name: i18n.t(messageKey, {
 						ns: 'design-system'
 					}),
