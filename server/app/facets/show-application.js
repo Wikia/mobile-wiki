@@ -106,7 +106,6 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * @returns {void}
 		 */
 		.then((templateData) => {
-			templateData.newNav = templateData.globalNavigation.logo.header.image == 'wds-company-logo-fandom-powered-by-wikia'
 			outputResponse(request, reply, templateData);
 		})
 		/**

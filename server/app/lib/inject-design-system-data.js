@@ -39,6 +39,7 @@ export default function injectDesignSystemData({data, request, showFooter = fals
 		.then((designSystemData) => {
 			data.globalFooter = designSystemData['global-footer'];
 			data.globalNavigation = designSystemData['global-navigation'];
+			data.useFandomLogoInNav = designSystemData['global-navigation'].logo.header.image === 'wds-company-logo-fandom-powered-by-wikia';
 
 			return data;
 		})

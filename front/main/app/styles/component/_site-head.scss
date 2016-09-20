@@ -57,7 +57,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
 		margin: 0 auto;
 
-		&.old-logo {
+		&.wikia-site-logo {
 			height: $site-head-content-height;
 			margin: auto;
 			overflow: hidden;

@@ -11,9 +11,9 @@
 			icon=navIcon
 			iconSize=24
 		}}
-		<div class="site-logo {{unless newNav 'old-logo'}}">
+		<div class="site-logo {{unless useFandomLogoInNav 'wikia-site-logo'}}">
 			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
-				{{#if newNav}}
+				{{#if useFandomLogoInNav}}
 					{{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
 				{{else}}
 					{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
@@ -34,6 +34,6 @@
 {{site-head-fandom-bar
 	wikiaHomepage=wikiaHomepage
 	isSearchPage=isSearchPage
-	newNav=newNav
+	useFandomLogoInNav=useFandomLogoInNav
 }}
 <div id="site-head-sub-header"></div>

@@ -45,7 +45,7 @@ export default Component.extend(ResponsiveMixin, {
 		return `${vertical}-vertical`;
 	}),
 
-	newNav: M.prop('globalNavigation'),
+	useFandomLogoInNav: M.prop('globalNavigation.logo.header.image') === 'wds-company-logo-fandom-powered-by-wikia',
 
 	/**
 	 * @returns {void}
