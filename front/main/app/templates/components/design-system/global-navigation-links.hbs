@@ -8,6 +8,9 @@
 	}}
 {{else}}
 	{{#each model.links as |link|}}
-		{{design-system.global-navigation-link model=link}}
+		{{design-system.global-navigation-link
+			model=link
+			trackClick=this.attrs.trackClick
+		}}
 	{{/each}}
 {{/if}}

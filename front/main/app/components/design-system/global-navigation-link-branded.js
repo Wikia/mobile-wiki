@@ -11,5 +11,9 @@ export default Component.extend({
 	href: computed.oneWay('model.href'),
 	linkClassName: computed('model.brand', function () {
 		return `wds-is-${this.get('model.brand')}`;
-	})
+	}),
+
+	click: function() {
+		this.sendAction('trackClick', this.get('model.title.key'));
+	}
 });

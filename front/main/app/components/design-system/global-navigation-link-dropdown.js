@@ -7,5 +7,9 @@ export default Component.extend({
 	attributeBindings: ['href'],
 	classNames: ['wds-global-navigation__dropdown-link'],
 
-	href: computed.oneWay('model.href')
+	href: computed.oneWay('model.href'),
+
+	click: function() {
+		this.sendAction('trackClick', this.get('model.title.key'));
+	}
 });

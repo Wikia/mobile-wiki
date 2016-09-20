@@ -46,6 +46,10 @@ export default Component.extend(Headroom, {
 			}
 		},
 
+		trackClick(label) {
+			console.log(label);
+		},
+
 		activateSearch() {
 			this.set('searchIsActive', true);
 			this.incrementProperty('activeDropdownCount');
