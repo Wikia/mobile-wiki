@@ -114,18 +114,18 @@ class Ads {
 					googleTagModule,
 					sourcePointDetectionModule,
 					krux) => {
-					this.adEngineRunnerModule = adEngineRunnerModule;
-					this.adContextModule = adContextModule;
-					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
-					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.adContextModule = adContextModule;
+					this.adEngineRunnerModule = adEngineRunnerModule;
+					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
-					this.krux = krux;
+					this.googleTagModule = googleTagModule;
 					this.isLoaded = true;
+					this.krux = krux;
+					this.sourcePointDetectionModule = sourcePointDetectionModule;
+					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-					this.googleTagModule = googleTagModule;
-					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
