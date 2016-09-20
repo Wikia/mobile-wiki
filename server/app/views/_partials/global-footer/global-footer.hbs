@@ -6,6 +6,12 @@
 				<span class="wds-global-footer__home-of-fandom">{{i18n model.international_header.header.subtitle.key ns='design-system'}}</span>
 			</h2>
 		</div>
+	{{else if model.header}}
+		<h2 class="wds-global-footer__header">
+			<a href="{{model.header.href}}" data-tracking-label="{{model.header.title.key}}">
+				{{> svg class='wds-global-footer__header-logo' image=model.header.image}}
+			</a>
+		</h2>
 	{{/if}}
 	<div class="wds-global-footer__main">
 		{{#if model.fandom.header}}
