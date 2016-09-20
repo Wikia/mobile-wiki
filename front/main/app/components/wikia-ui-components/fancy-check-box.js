@@ -4,20 +4,13 @@ import checkBox from './check-box';
  * Fancy-check-box component usage:
  *
  * @example
- * {{wikia-ui-components/fancy-check-box
+ * {{wikia-ui-components.fancy-check-box
  *      inputId='isCollapsible'
- *      label='Collapse section'
+ *      label='collapse section'
  *      isChecked=true
- *      onClick=click
+ *      update=update
  * }}
  */
 export default checkBox.extend({
 	classNames: ['fancy-checkbox-label'],
-
-	/**
-	 * Click event that will be passed to underlying checkbox input.
-	 *
-	 * @public
-	 */
-	onClick: null
 });

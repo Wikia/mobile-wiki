@@ -6,6 +6,8 @@ export default Ember.Controller.extend(
 
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
 
+		stickEditorToGlobalNav: Ember.computed.oneWay('application.isGlobalNavigationVisible'),
+
 		actions: {
 			/**
 			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller

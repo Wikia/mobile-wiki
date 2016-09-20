@@ -14,7 +14,10 @@
 			newNav=false
 		}}
 	{{else}}
-		{{design-system/global-navigation}}
+		{{design-system.global-navigation
+			isGlobalNavigationPositionFixed=isGlobalNavigationPositionFixed
+			triggerGlobalNavigationHeadroomStateChange=(route-action 'triggerGlobalNavigationHeadroomStateChange')
+		}}
 	{{/if}}
 
 	{{#wikia-drawer
@@ -37,8 +40,8 @@
 	{{/wikia-drawer}}
 
 	{{smart-banner-android
-        isVisible=smartBannerVisible
-        toggleVisibility=attrs.toggleSmartBanner
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
 	}}
 	{{#if noMargins}}
 		{{outlet}}
