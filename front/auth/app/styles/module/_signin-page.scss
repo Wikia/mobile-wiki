@@ -14,3 +14,29 @@
 		margin-bottom: 6px;
 	}
 }
+
+.auth-divider {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	.horizontal-line {
+		background-color: $auth-divider-line-color;
+		flex-grow: 1;
+		flex-shrink: 1;
+		height: 1px;
+		max-width: 80px;
+	}
+
+	.auth-or-message {
+		padding: 10px;
+	}
+}
+
+.auth-section-header {
+	display: flex;
+	font-size: $type-base;
+	justify-content: center;
+	margin-bottom: 10px;
+}
