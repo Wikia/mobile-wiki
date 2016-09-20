@@ -35,7 +35,6 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		instance = Ads.getInstance();
 
 		instance.reloadWhenReady = reloadWhenReadyStub;
-		instance.trackKruxPageView = sinon.stub();
 
 		origRequire = window.require;
 		window.require = function (modules, callback) {

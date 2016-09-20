@@ -333,6 +333,7 @@ class Ads {
 		this.reload(this.currentAdsContext, () => {
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
+			this.adLogicPageViewCounterModule.increment();
 		});
 	}
 
