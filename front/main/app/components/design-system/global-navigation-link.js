@@ -7,6 +7,8 @@ export default Component.extend({
 	attributeBindings: ['href'],
 	classNames: ['wds-global-navigation__link'],
 
+	href: computed.oneWay('model.href'),
+
 	trackClick: Ember.K,
 
 	click() {
