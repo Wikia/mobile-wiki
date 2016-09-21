@@ -51,7 +51,7 @@ export default Component.extend(Headroom, {
 			track({
 				action: trackActions.click,
 				category: 'navigation',
-				label: label
+				label
 			});
 		},
 
