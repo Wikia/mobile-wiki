@@ -124,14 +124,14 @@
     "edit-hero-unit-hint-text":"Bildabmessungen: 1240 x 200 <br>Jpg, Gif oder Png. 10MB Limit",
     "image-save-failed":"Speichern war nicht möglich, bitte versuche es noch einmal.",
     "upload-image-button-text":"Bild hochladen",
-    "category-select-tooltip-text":"Select"
+    "category-select-tooltip-text":"Wähle"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
     "post-error-anon-cant-post":"Melde dich an, um an der Diskussion teilzunehmen!",
     "post-error-not-authorized":"Du kannst keinen Beitrag schreiben, da dein Konto gesperrt wurde.",
-    "post-error-user-blocked-title":"Your username or IP address has been blocked",
-    "post-error-user-blocked-text":"The block was made by __blockerUsername__\/Wikia Staff.<br>Expiration of block: __blockExpiry__<br>Reason given: __blockReason__",
+    "post-error-user-blocked-title":"Dein Benutzername oder deine IP-Adresse wurde gesperrt",
+    "post-error-user-blocked-text":"Diese Sperre wurde von __blockerUsername__ gemacht.<br>Gesperrt bis: __blockExpiry__<br>Grund für die Sperre: __blockReason__",
     "post-error-general-error":"Der Beitrag konnte nicht erstellt werden, bitte versuche es noch einmal.",
     "reply-error-general-error":"Die Antwort konnte nicht erstellt werden, bitte versuche es noch einmal.",
     "save-error-general-error":"Speichern war nicht möglich, bitte versuche es noch einmal.",
