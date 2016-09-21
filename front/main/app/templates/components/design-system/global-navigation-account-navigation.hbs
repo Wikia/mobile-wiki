@@ -14,7 +14,12 @@
 	}}
 		<ul class="wds-list wds-has-lines-between">
 			{{#each model.links as |link|}}
-				<li>{{design-system.global-navigation-link-authentication model=link}}</li>
+				<li>
+					{{design-system.global-navigation-link-authentication
+						model=link
+						trackClick=this.attrs.trackClick
+					}}
+				</li>
 			{{/each}}
 		</ul>
 	{{/dropdown.content}}

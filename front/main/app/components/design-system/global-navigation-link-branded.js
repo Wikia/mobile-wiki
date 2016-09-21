@@ -11,5 +11,10 @@ export default Component.extend({
 	href: computed.oneWay('model.href'),
 	linkClassName: computed('model.brand', function () {
 		return `wds-is-${this.get('model.brand')}`;
-	})
+	}),
+	trackClick: Ember.K,
+
+	click() {
+		this.get('trackClick')(this.get('model.title.key'));
+	}
 });
