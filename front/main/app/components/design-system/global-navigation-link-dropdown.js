@@ -8,8 +8,9 @@ export default Component.extend({
 	classNames: ['wds-global-navigation__dropdown-link'],
 
 	href: computed.oneWay('model.href'),
+	trackClick: Ember.K,
 
-	click: function() {
-		this.sendAction('trackClick', this.get('model.title.key'));
+	click() {
+		this.get('trackClick')(this.get('model.title.key'));
 	}
 });

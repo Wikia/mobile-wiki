@@ -7,7 +7,9 @@ export default Component.extend({
 	attributeBindings: ['href'],
 	classNames: ['wds-global-navigation__link'],
 
-	click: function() {
-		this.sendAction('trackClick', this.get('model.title.key'));
+	trackClick: Ember.K,
+
+	click() {
+		this.get('trackClick')(this.get('model.title.key'));
 	}
 });

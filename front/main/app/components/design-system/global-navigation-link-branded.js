@@ -12,8 +12,9 @@ export default Component.extend({
 	linkClassName: computed('model.brand', function () {
 		return `wds-is-${this.get('model.brand')}`;
 	}),
+	trackClick: Ember.K,
 
-	click: function() {
-		this.sendAction('trackClick', this.get('model.title.key'));
+	click() {
+		this.get('trackClick')(this.get('model.title.key'));
 	}
 });
