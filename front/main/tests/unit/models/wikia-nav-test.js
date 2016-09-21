@@ -13,7 +13,7 @@ const hubsLinksMock = [{
 		href: 'http://fandom.wikia.com/games',
 		brand: 'games'
 	}],
-	exploreWikiaMock = {
+	exploreWikisMock = {
 		header: {
 			title: {
 				key: 'global-navigation-wikis-header'
@@ -27,7 +27,7 @@ const hubsLinksMock = [{
 			trackingLabel: 'global-navigation-wikis-explore'
 		}]
 	},
-	exploreWikiaLabelMock = 'global-navigation-wikis-header';
+	exploreWikisLabelMock = 'global-navigation-wikis-header';
 
 test('test zero state with values from api', (assert) => {
 	const cases = [
@@ -35,8 +35,8 @@ test('test zero state with values from api', (assert) => {
 			mock: {
 				hubsLinks: [],
 				localLinks: [],
-				exploreWikia: [],
-				exploreWikiaLabel: '',
+				exploreWikis: [],
+				exploreWikisLabel: '',
 				discussionsEnabled: false,
 				wikiName: ''
 			},
@@ -61,9 +61,9 @@ test('test zero state with values from api', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikia: exploreWikiaMock,
+				exploreWikis: exploreWikisMock,
 				discussionsEnabled: false,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			expected: [
@@ -115,9 +115,9 @@ test('test zero state with values from api', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikia: exploreWikiaMock,
+				exploreWikis: exploreWikisMock,
 				discussionsEnabled: true,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			expected: [
@@ -176,8 +176,8 @@ test('test zero state with values from api', (assert) => {
 			mock: {
 				hubsLinks: [],
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				discussionsEnabled: false,
 				wikiName: 'Test'
 			},
@@ -223,7 +223,7 @@ test('test zero state with values from api', (assert) => {
 			mock: {
 				hubsLinks: [],
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikia: {
+				exploreWikis: {
 					links: [{
 						title: {
 							key: 'global-navigation-wikis-explore'
@@ -232,7 +232,7 @@ test('test zero state with values from api', (assert) => {
 						trackingLabel: 'global-navigation-wikis-explore'
 					}]
 				},
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				discussionsEnabled: false,
 				wikiName: 'Test'
 			},
@@ -295,8 +295,8 @@ test('test local sub nav transitions', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [0],
@@ -316,8 +316,8 @@ test('test local sub nav transitions', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1],
@@ -353,8 +353,8 @@ test('test local sub nav transitions', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1, 1],
@@ -404,8 +404,8 @@ test('Header value', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1],
@@ -418,8 +418,8 @@ test('Header value', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [],
@@ -447,8 +447,8 @@ test('Parent value', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [10],
@@ -461,8 +461,8 @@ test('Parent value', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
 					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
 				]}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [],
@@ -481,8 +481,8 @@ test('Parent value', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1],
@@ -509,8 +509,8 @@ test('Parent value', (assert) => {
 						{text: 'Test 3', href: '/wiki/Test_3'}
 					]
 				}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1, 1],
@@ -539,8 +539,8 @@ test('Parent value', (assert) => {
 						{text: 'Test 5', href: '/wiki/Test_5'}
 					]
 				}],
-				exploreWikia: exploreWikiaMock,
-				exploreWikiaLabel: exploreWikiaLabelMock,
+				exploreWikis: exploreWikisMock,
+				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
 			},
 			path: [1, 1, 1],

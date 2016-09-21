@@ -7,10 +7,10 @@ export default Object.extend({
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
 	}),
-	exploreWikia: computed(function () {
+	exploreWikis: computed(function () {
 		return this.get('dsGlobalNavigation.wikis');
 	}),
-	exploreWikiaLabel: computed(function () {
+	exploreWikisLabel: computed(function () {
 		return i18n.t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
 			ns: 'design-system'
 		});
@@ -50,7 +50,7 @@ export default Object.extend({
 
 	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
 
-	header: computed.or('currentLocalNav.text', 'exploreWikiaLabel'),
+	header: computed.or('currentLocalNav.text', 'exploreWikisLabel'),
 
 	inExploreNav: computed('state.[]', function () {
 		const state = this.get('state');
@@ -79,8 +79,8 @@ export default Object.extend({
 			];
 		}),
 
-	exploreItems: computed('inExploreNav', 'exploreWikia', function () {
-		const wikis = this.get('exploreWikia');
+	exploreItems: computed('inExploreNav', 'exploreWikis', function () {
+		const wikis = this.get('exploreWikis');
 
 		return this.get('inExploreNav') &&
 			get(wikis, 'links.length') &&
@@ -112,8 +112,8 @@ export default Object.extend({
 			}) || [];
 	}),
 
-	exploreSubMenuItem: computed('inRoot', 'exploreWikia', function () {
-		const wikis = this.get('exploreWikia');
+	exploreSubMenuItem: computed('inRoot', 'exploreWikis', function () {
+		const wikis = this.get('exploreWikis');
 
 		if (this.get('inRoot') && get(wikis, 'links.length')) {
 			if (wikis.header) {
@@ -121,7 +121,7 @@ export default Object.extend({
 					type: 'nav-menu-root',
 					className: 'nav-menu--explore',
 					index: 0,
-					name: this.get('exploreWikiaLabel'),
+					name: this.get('exploreWikisLabel'),
 					trackLabel: `open-${wikis.header.title.key}`
 				}];
 			} else {
