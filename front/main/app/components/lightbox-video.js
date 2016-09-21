@@ -34,7 +34,7 @@ export default Ember.Component.extend(
 		 * @returns VideoLoader
 		 */
 		videoLoader: Ember.computed('model.embed', function () {
-			this.set('model.embed.jsParams.noAds', this.get('adsState.noAds'));
+			this.set('model.embed.noAds', this.get('adsState.noAds'));
 
 			return new VideoLoader(this.get('model.embed'));
 		}),
