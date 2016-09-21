@@ -2,6 +2,7 @@ import Ember from 'ember';
 import wrapMeHelper from '../../helpers/wrap-me';
 import {escapeRegex} from 'common/utils/string';
 import {addQueryParams} from '../../utils/url';
+import {track, trackActions} from 'common/utils/track';
 
 const {Component, computed, Handlebars, inject, run, $} = Ember;
 
@@ -98,7 +99,14 @@ export default Component.extend({
 		}
 
 		if (event.buttonClick !== true && selectedSuggestionIndex > -1) {
+			this.trackSuggestionUse();
 			this.onSuggestionEnterKey(selectedSuggestionIndex, event);
+		} else {
+			track({
+				action: trackActions.submit,
+				category: 'navigation',
+				label: 'global-navigation-search-submit'
+			});
 		}
 
 		this.setSearchSuggestionItems();
@@ -147,6 +155,7 @@ export default Component.extend({
 		},
 
 		suggestionClick({title}) {
+			this.trackSuggestionUse();
 			this.set('query', title);
 		}
 	},
@@ -395,5 +404,13 @@ export default Component.extend({
 		) {
 			this.setSearchSuggestionItems();
 		}
+	},
+
+	trackSuggestionUse() {
+		track({
+			action: trackActions.click,
+			category: 'navigation',
+			label: 'global-navigation-search-suggestion'
+		});
 	}
 });
