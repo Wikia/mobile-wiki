@@ -24,8 +24,8 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 .site-head {
 	align-items: center;
 	background-color: $white;
-	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $vapor;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
 	flex-direction: row;
@@ -72,7 +72,6 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 	.fandom-logo {
 		height: 26px;
-		width: 100%;
 	}
 
 	.site-head-icon {
@@ -113,6 +112,42 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+// Styles for desktop nav placeholder rendered server-side
+$desktop-logo-width: 117px;
+$desktop-logo-padding-left: 8px;
+
+@media #{$breakpoint-l-up} {
+	.site-head {
+		.site-logo {
+			margin: 0 auto;
+			padding-left: $desktop-logo-padding-left;
+			padding-right: 1004px - $desktop-logo-width - $desktop-logo-padding-left;
+		}
+
+		.fandom-logo {
+			// the same color as in wds-logo-fandom-powered-by-wikia.svg
+			fill: #39414D;
+			height: 23px;
+		}
+	}
+}
+
+@media #{$breakpoint-xl-up} {
+	.site-head {
+		.site-logo {
+			padding-right: 1064px - $desktop-logo-width - $desktop-logo-padding-left;
+		}
+	}
+}
+
+@media #{$breakpoint-xxl-up} {
+	.site-head {
+		.site-logo {
+			padding-right: 1238px - $desktop-logo-width - $desktop-logo-padding-left;
+		}
 	}
 }
 
