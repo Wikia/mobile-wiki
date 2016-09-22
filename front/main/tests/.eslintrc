@@ -3,9 +3,6 @@
     "node": true,
     "embertest": true
   },
-  "globals": {
-    "resetAds": true
-  },
   "parserOptions": {
     "sourceType": "module"
   }

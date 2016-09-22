@@ -1,32 +1,40 @@
 import Ember from 'ember';
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import {moduleFor, test} from 'ember-qunit';
 import AdsMixin from 'main/mixins/ads';
-import Ads from 'common/modules/ads';
+import sinon from 'sinon';
 
-module('Unit | Mixin | ads', () => {
-	test('setup ads context', (assert) => {
-		const context = {
-				a: 1
-			},
-			mixin = Ember.Object.extend(AdsMixin).create(),
-			original = Ads.getInstance;
-
-		let gotContext = false;
-
-		Ads.getInstance = function () {
-			return {
-				reload(context) {
-					gotContext = context;
-				}
-			};
-		};
-
-		mixin.setupAdsContext(context);
-		Ads.getInstance = original;
-
-		assert.equal(gotContext, context, 'Set the ads context');
-	});
+const adsStub = Ember.Service.extend({
+	module: {
+		reload: () => {}
+	}
 });
 
+moduleFor('mixin:ads', 'Unit | Mixin | ads', {
+	unit: true,
 
+	beforeEach() {
+		this.register('service:ads', adsStub);
+		this.inject.service('ads', {as: 'ads'});
+	},
+
+	subject() {
+		const AdsObject = Ember.Object.extend(AdsMixin);
+
+		this.register('test-container:ads-object', AdsObject);
+
+		return Ember.getOwner(this).lookup('test-container:ads-object');
+	}
+});
+
+test('setup ads context', function (assert) {
+	const context = {
+			a: 1
+		},
+		mixin = this.subject(),
+		reloadSpy = sinon.spy(mixin.get('ads.module'), 'reload');
+
+
+	mixin.setupAdsContext(context);
+
+	assert.ok(reloadSpy.calledWith(context), 'Set the ads context');
+});
