@@ -24,8 +24,8 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 .site-head {
 	align-items: center;
 	background-color: $white;
-	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $vapor;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
 	flex-direction: row;
@@ -56,11 +56,25 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
 		margin: 0 auto;
+
+		&.wikia-site-logo {
+			height: $site-head-content-height;
+			margin: auto;
+			overflow: hidden;
+		}
+	}
+
+	.wikia-logo {
+		// the same color as in wds-company-logo-wikia.svg
+		fill: #092344;
+		height: 48px;
+		width: 72px;
 	}
 
 	.fandom-logo {
+		// the same color as in wds-company-logo-fandom-powered-by-wikia.svg
+		fill: #39414D;
 		height: 26px;
-		width: 100%;
 	}
 
 	.site-head-icon {
@@ -101,6 +115,48 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+// Styles for desktop nav placeholder rendered server-side
+$desktop-logo-fandom-width: 117px;
+$desktop-logo-wikia-width: 90px;
+$desktop-logo-padding-left: 8px;
+
+@media #{$breakpoint-xl-up} {
+	.site-head {
+		padding: 0;
+
+		.site-logo {
+			margin: 0 auto;
+			padding-left: $desktop-logo-padding-left;
+			padding-right: 1064px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1064px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
+		}
+
+		.wikia-logo {
+			height: 46px;
+			width: $desktop-logo-wikia-width;
+		}
+
+		.fandom-logo {
+			height: 23px;
+		}
+	}
+}
+
+@media #{$breakpoint-xxl-up} {
+	.site-head {
+		.site-logo {
+			padding-right: 1238px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1238px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
+		}
 	}
 }
 

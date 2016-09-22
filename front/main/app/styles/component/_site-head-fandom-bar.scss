@@ -22,6 +22,22 @@ $home-of-fandom-letter-spacing: 0.5px;
 	will-change: transform;
 	z-index: $z-6;
 
+	//Styles for old tagline
+	color: $color-blue-gray-dark;
+	font: {
+		size: $head-fandom-bar-font-size;
+		weight: bold;
+	}
+	letter-spacing: $home-of-fandom-letter-spacing;
+	text: {
+		align: center;
+		transform: uppercase;
+	}
+	a {
+		color: $color-blue-gray-dark;
+	}
+	//end
+
 	.fandom-bar-logo {
 		height: 20px;
 		width: 130px;

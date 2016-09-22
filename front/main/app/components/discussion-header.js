@@ -17,9 +17,6 @@ export default Ember.Component.extend(
 		canDeleteAll: false,
 
 		classNames: ['discussion-header-wrapper'],
-		classNameBindings: ['isFandomBarHidden:discussion-header-margin'],
-
-		isFandomBarHidden: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') !== 'en'),
 
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', function () {

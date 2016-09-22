@@ -1,9 +1,24 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
-const {computed, Component} = Ember;
+const {computed, Component, get} = Ember;
 
 export default Component.extend({
 	classNames: ['site-head-fandom-bar-wrapper'],
-	isVisible: computed.not('isSearchPage')
+	homeOfFandomLabel: get(Mercury, 'wiki.navigation2016.fandomLabel'),
+	isVisible: computed.not('isSearchPage'),
+	useFandomLogoInNav: true,
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		homeOfFandomClick() {
+			track({
+				action: trackActions.click,
+				category: 'site-head',
+				label: 'open-home-of-fandom'
+			});
+		}
+	}
 });
