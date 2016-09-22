@@ -1,3 +1,4 @@
+import Ads from '../ads';
 import BasePlayer from './base';
 import {trackActions} from '../../utils/track';
 
@@ -26,12 +27,6 @@ export default class OoyalaPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	setupPlayer() {
-		this.params = $.extend(this.params, {
-			onCreate: (...args) => {
-				return this.onCreate.apply(this, args);
-			}
-		});
-
 		if (!window.OO) {
 			this.loadPlayer();
 		} else {
@@ -43,7 +38,21 @@ export default class OoyalaPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
-		window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+		Ads.getInstance().onReady(function () {
+			const vastUrl = Ads.getInstance().buildVastUrl();
+
+			this.params.onCreate = (...args) => {
+				return this.onCreate.apply(this, args);
+			};
+
+			if (!this.params.noAds) {
+				this.params['google-ima-ads-manager'] = {
+					adTagUrl: vastUrl
+				};
+			}
+
+			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+		}, this);
 	}
 
 	/**
