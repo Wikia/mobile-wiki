@@ -8,6 +8,7 @@ export default Ember.Mixin.create({
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
+	firstPageLoaded: false,
 
 	/**
 	 * @param {string} sortBy

@@ -16,6 +16,7 @@ export default Ember.Mixin.create(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
+				this.set('page', pageNum + 1);
 				this.get('target').send('loadPage', pageNum);
 			},
 

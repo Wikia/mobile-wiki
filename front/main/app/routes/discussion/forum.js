@@ -23,7 +23,7 @@ export default DiscussionBaseRoute.extend(
 				refreshModel: true
 			},
 			page: {
-				refreshModel: true
+				refreshModel: false
 			}
 		},
 
@@ -47,7 +47,8 @@ export default DiscussionBaseRoute.extend(
 
 			const updatedQueryParams = {
 				catId: this.getCategoriesFromQueryString(queryParams.catId),
-				sort: queryParams.sort
+				sort: queryParams.sort,
+				page: queryParams.page
 			};
 
 			if (!modifiedTransition) {
@@ -83,7 +84,8 @@ export default DiscussionBaseRoute.extend(
 			discussionModel.categories.setSelectedCategories(catId);
 
 			return Ember.RSVP.hash({
-				current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy')),
+				current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy'),
+					params.page),
 				index: discussionModel
 			});
 		},
@@ -122,6 +124,7 @@ export default DiscussionBaseRoute.extend(
 					transition = this.transitionTo({
 						queryParams: {
 							catId: validCategories,
+							page: params.page,
 							sort: params.sort
 						}
 					});
@@ -241,6 +244,12 @@ export default DiscussionBaseRoute.extend(
 
 			validatePostsOnForum() {
 				this.refresh();
+			},
+
+			goToPage(page = 1) {
+				this.transitionTo({queryParams: {
+					page
+				}})
 			},
 
 			/**

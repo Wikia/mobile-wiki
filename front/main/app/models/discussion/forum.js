@@ -13,11 +13,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	DiscussionContributionModelMixin,
 	{
-		firstPageLoaded: 1,
-		lastPageLoaded: 1,
-
-		loadPreviousPage(categories, sortBy)
-
 		/**
 		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
@@ -80,12 +75,13 @@ DiscussionForumModel.reopenClass({
 	 * @param {string} [sortBy='trending']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, categories = [], sortBy = 'trending') {
+	find(wikiId, categories = [], sortBy = 'trending', page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const forumInstance = DiscussionForumModel.create({
 					wikiId
 				}),
 				requestData = {
+					page,
 					forumId: categories instanceof Array ? categories : [categories],
 					limit: forumInstance.get('postsLimit'),
 					viewableOnly: false
@@ -100,6 +96,7 @@ DiscussionForumModel.reopenClass({
 				traditional: true,
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
+				forumInstance.set('firstPageLoaded', page === 1);
 
 				resolve(forumInstance);
 

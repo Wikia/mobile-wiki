@@ -18,6 +18,10 @@ export default Ember.Mixin.create(
 			}
 		}),
 
+		shouldShowTopButton: Ember.computed('pageNum', function () {
+			return this.get('pageNum') !== 1;
+		}),
+
 		/**
 		 * @returns {void}
 		 */

@@ -14,13 +14,15 @@
 {{discussion-welcome
 	gotoGuidelines=(action this.attrs.gotoGuidelines)
 }}
-{{discussion-wrapper-load-more
-	hasMore=hasMore
-	isLoading=isLoading
-	loadNextPage=(action 'loadNextPage')
-	previous=true
-	showLoadMoreButton=true
-}}
+{{#unless firstPageLoaded}}
+	{{discussion-wrapper-load-more
+		hasMore=hasMore
+		isLoading=isLoading
+		loadNextPage=(action 'loadNextPage')
+		previous=true
+		showLoadMoreButton=true
+	}}
+{{/unless}}
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
