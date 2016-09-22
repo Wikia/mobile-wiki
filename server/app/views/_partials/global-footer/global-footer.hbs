@@ -1,4 +1,4 @@
-<footer class="wds-global-footer {{#if model.international_header}}wds-is-international{{else}}wds-is-en{{/if}}">
+<footer class="wds-global-footer{{#unless model.header}}{{#if model.international_header}} wds-is-international{{else}} wds-is-en{{/if}}{{/unless}}">
 	{{#if model.international_header}}
 		<div class="wds-global-footer__header-wrapper">
 			<h2 class="wds-global-footer__header">
@@ -6,6 +6,12 @@
 				<span class="wds-global-footer__home-of-fandom">{{i18n model.international_header.header.subtitle.key ns='design-system'}}</span>
 			</h2>
 		</div>
+	{{else if model.header}}
+		<h2 class="wds-global-footer__header">
+			<a href="{{model.header.href}}" data-tracking-label="{{model.header.title.key}}" title="{{i18n model.header.title.key ns='design-system'}}">
+				{{> svg class='wds-global-footer__header-logo' image=model.header.image}}
+			</a>
+		</h2>
 	{{/if}}
 	<div class="wds-global-footer__main">
 		{{#if model.fandom.header}}

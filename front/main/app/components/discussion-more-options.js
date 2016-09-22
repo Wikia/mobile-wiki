@@ -12,7 +12,12 @@ export default Ember.Component.extend({
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
-	canEdit: Ember.computed.or('post.userData.permissions.canEdit', 'post.userData.permissions.canMove'),
+	canEdit: Ember.computed('post.userData.permissions.canEdit', 'post.userData.permissions.canMove',
+		'post.isRequesterBlocked', function () {
+			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove')) &&
+				!this.get('post.isRequesterBlocked');
+		}
+	),
 
 	canUndelete: Ember.computed.and('post.isDeleted', 'post.userData.permissions.canUndelete'),
 

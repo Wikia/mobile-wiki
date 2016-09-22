@@ -87,6 +87,10 @@
       },
       "nielsen": {
         "enabled": false
+      },
+      "ubisoft": {
+        "enabled": false,
+        "url": ""
       }
     },
     "wikiCategories": [],

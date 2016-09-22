@@ -12,6 +12,33 @@
 		text-align: center;
 	}
 
+	.discussion-category-select-tooltip-wrapper {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		left: 44px;
+		position: absolute;
+		top: 22px;
+		z-index: $z-1;
+
+		.arrow-down {
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
+			border-top-style: solid;
+			border-top-width: 6px;
+			height: 0;
+			width: 0;
+		}
+	}
+
+	.discussion-category-select-tooltip {
+		border-radius: 2px;
+		color: $discussion-category-picker-tooltip-color;
+		font-size: 12px;
+		padding: 2px 11px;
+	}
+
 	.discussion-category-picker {
 		width: 320px;
 
@@ -33,6 +60,7 @@
 		font-size: 12px;
 		line-height: 12px;
 		padding: 8px 12px;
+		position: relative;
 		margin: 15px 0 4px;
 
 		&.hidden {
@@ -91,6 +119,14 @@
 .discussion-standalone-editor {
 	.discussion-category-picker-button {
 		margin: 12px 0 0 15px;
+	}
+}
+
+
+.discussion-inline-editor {
+	.discussion-category-select-tooltip-wrapper {
+		left: 90px;
+		top: -12px;
 	}
 }
 

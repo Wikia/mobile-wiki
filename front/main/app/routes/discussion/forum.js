@@ -142,13 +142,12 @@ export default DiscussionBaseRoute.extend(
 
 				const transitionParams =
 					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
-
-				transitionParams.catId = transitionParams.catId.join(',');
-
 				// check if object because of situation when user had previously stored "null" (string) value
 				// for transitionParams
 				if (Ember.isEmpty(params.catId) && Ember.typeOf(transitionParams) === 'object'
 					&& !Ember.isEmpty(transitionParams.catId)) {
+					transitionParams.catId = transitionParams.catId.join(',');
+
 					transition = this.transitionTo({
 						queryParams: transitionParams
 					});

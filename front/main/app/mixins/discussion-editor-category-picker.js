@@ -36,8 +36,7 @@ export default Ember.Mixin.create({
 	}),
 
 	shouldShowCategoryPicker: Ember.computed('isActivePostEditor', 'hasOneCategory', 'category', function () {
-		return !this.get('hasOneCategory') && this.get('isActivePostEditor') && !this.get('cannotEditCategory')
-			&& this.get('category') !== undefined;
+		return !this.get('hasOneCategory') && this.get('isActivePostEditor') && !this.get('cannotEditCategory');
 	}),
 
 	categoryPickerDisabled: Ember.computed('isEdit', 'currentUser.permissions', function () {
