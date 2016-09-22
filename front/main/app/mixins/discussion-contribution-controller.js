@@ -197,16 +197,73 @@ export default Ember.Mixin.create({
 
 	createPost(entityData, params) {
 		const editorType = 'contributeEditor',
-			editorState = this.getEditorState(editorType);
+			editorState = this.getEditorState(editorType),
+			catId = params.newCategoryId;
 
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').current.createPost(entityData, params.newCategoryId).catch((err) => {
+		this.get('model').current.createPost(entityData, catId).then(() => {
+			Ember.run.later(this, () => {
+				this.selectCategoryIfNotSelected(catId);
+			}, 2000);
+		}).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);
 		});
+	},
+
+	/**
+	 * @private
+	 *
+	 * Checks if category with given id is selected, if not category is selected and threads are refreshed.
+	 *
+	 * @param {number} catId - category id
+	 *
+	 * @returns {void}
+	 */
+	selectCategoryIfNotSelected(catId) {
+		let localCategories = this.get('model.index.categories.categories')
+				.map(category => {
+					return Ember.Object.create({
+						category,
+						id: category.id,
+						selected: category.selected
+					});
+				}),
+			selectedCategories = localCategories.filterBy('selected', true);
+
+		if (!this.allIsSelected(selectedCategories) && this.categoryIsNotSelected(selectedCategories, catId)) {
+			localCategories.findBy('id', catId).set('selected', true);
+
+			this.get('target').send('updateCategoriesSelection', localCategories);
+		}
+	},
+
+	/**
+	 * @private
+	 *
+	 * Checks if at least one category is selected, if not it assumes that 'All' in categories filter is selected
+	 *
+	 * @param {Ember.Array} selectedCategories
+	 *
+	 * @returns {boolean}
+	 */
+	allIsSelected(selectedCategories) {
+		return Ember.isEmpty(selectedCategories);
+	},
+
+	/**
+	 * @private
+	 *
+	 * @param {Ember.Array} selectedCategories
+	 * @param {number} categoryId
+	 *
+	 * @returns {boolean}
+	 */
+	categoryIsNotSelected(selectedCategories, categoryId) {
+		return Ember.isEmpty(selectedCategories.filterBy('id', categoryId));
 	},
 
 	actions: {
