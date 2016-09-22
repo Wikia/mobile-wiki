@@ -16,6 +16,7 @@
 }}
 {{#unless firstPageLoaded}}
 	{{discussion-wrapper-load-more
+		goToPage=(action 'goToPage')
 		hasMore=hasMore
 		isLoading=isLoading
 		loadNextPage=(action 'loadNextPage')
@@ -45,6 +46,7 @@
 	}}
 {{/each}}
 {{discussion-wrapper-load-more
+	goToPage=(action 'goToPage')
 	hasMore=hasMore
 	isLoading=isLoading
 	loadNextPage=(action 'loadNextPage')

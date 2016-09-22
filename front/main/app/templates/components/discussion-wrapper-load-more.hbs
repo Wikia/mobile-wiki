@@ -11,12 +11,14 @@
 		</div>
 	{{/if}}
 	{{#if showLoadMoreButton}}
-		<div class="load-more-button active-element-theme-color active-element-border-theme-color" {{action this.attrs.loadNextPage}}>
-			{{#if previous}}
+		{{#if previous}}
+			<div class="load-more-button active-element-theme-color active-element-border-theme-color top-list-button'}}" {{action this.attrs.goToPage 1}}>
 				{{i18n 'main.load-previous-posts-button' ns='discussion'}}
-			{{else}}
+			</div>
+		{{else}}
+			<div class="load-more-button active-element-theme-color active-element-border-theme-color" {{action this.attrs.loadNextPage}}>
 				{{i18n 'main.load-more-posts-button' ns='discussion'}}
-			{{/if}}
-		</div>
+			</div>
+		{{/if}}
 	{{/if}}
 {{/if}}

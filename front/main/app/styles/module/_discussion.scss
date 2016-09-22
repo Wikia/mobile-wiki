@@ -571,6 +571,10 @@ body.discussions {
 		margin: 30px 15px 0;
 		text-align: center;
 		text-transform: uppercase;
+
+		&.top-list-button {
+			margin: 0 15px 30px;
+		}
 	}
 
 	.load-older {

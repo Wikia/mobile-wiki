@@ -21,6 +21,15 @@ export default Ember.Mixin.create(
 			},
 
 			/**
+			 * @param {number} pageNum
+			 *
+			 * @returns {void}
+			 */
+			goToPage(pageNum) {
+				this.get('target').send('goToPage', pageNum);
+			},
+
+			/**
 			 * @param {string} sortBy
 			 *
 			 * @returns {void}
