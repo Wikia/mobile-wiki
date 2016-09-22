@@ -16,6 +16,11 @@ Sometimes it helps to just remove all dependencies and install them from the beg
 npm run clean-deep
 npm run setup
 ```
+#### EACCESS / Permission Errors on Devbox
+The easiest way to fix permissions is to remove `/usr/wikia/mercury` and run `sudo chef-client` which clones the repo and sets permissions from scratch. See [chef recipe](https://github.com/Wikia/chef-repo/blob/master/cookbooks/mercury/recipes/dev.rb) for more details on what it does.
+
+#### Run commands individually
+For example, if `npm run dev` is failing, you can look at package.json under `scripts` and see that the command consists of individual smaller commands. Run `rm -rf www/*`, then `gulp build-common`, etc. That way you'll be able to see which script is actually failing and start debugging from there. 
 
 ### Errors while running `npm install`
 #### libsass

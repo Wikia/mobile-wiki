@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Headroom from '../../mixins/headroom';
+import {track, trackActions} from 'common/utils/track';
 
 const {Component, Object: EmberObject, computed} = Ember;
 
@@ -44,6 +45,14 @@ export default Component.extend(Headroom, {
 				 */
 				this.$(headroom.elem).addClass(headroom.classes.pinned).removeClass(headroom.classes.unpinned);
 			}
+		},
+
+		trackClick(label) {
+			track({
+				action: trackActions.click,
+				category: 'navigation',
+				label
+			});
 		},
 
 		activateSearch() {

@@ -181,6 +181,9 @@ const localSettings = {
 	discussions: {
 		baseAPIPath: 'discussion'
 	},
+	openGraph: {
+		baseAPIPath: 'opengraph'
+	},
 	siteAttribute: {
 		baseAPIPath: 'site-attribute'
 	},
@@ -262,6 +265,10 @@ const localSettings = {
 		},
 		krux: {
 			mobileId: 'JTKzTN3f'
+		},
+		ubisoft: {
+			enabled: false,
+			url: ''
 		}
 	},
 	verticalColors: {

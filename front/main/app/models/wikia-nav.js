@@ -3,13 +3,21 @@ import Ember from 'ember';
 const {Object, A, Logger, computed, get} = Ember;
 
 export default Object.extend({
-	hubsLinks: get(Mercury, 'wiki.navigation2016.hubsLinks'),
+	dsGlobalNavigation: M.prop('globalNavigation'),
+	hubsLinks: computed(function () {
+		return this.get('dsGlobalNavigation.fandom_overview.links');
+	}),
+	exploreWikis: computed(function () {
+		return this.get('dsGlobalNavigation.wikis');
+	}),
+	exploreWikisLabel: computed(function () {
+		return i18n.t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
+			ns: 'design-system'
+		});
+	}),
 	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
-	exploreWikiaLinks: get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
-	exploreWikiaLabel: get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
 	wikiName: get(Mercury, 'wiki.siteName'),
-	wikiLang: get(Mercury, 'wiki.language.content'),
 
 	/**
 	 * Iteratively traverse local navigation tree to find out root node
@@ -42,7 +50,7 @@ export default Object.extend({
 
 	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
 
-	header: computed.or('currentLocalNav.text', 'exploreWikiaLabel'),
+	header: computed.or('currentLocalNav.text', 'exploreWikisLabel'),
 
 	inExploreNav: computed('state.[]', function () {
 		const state = this.get('state');
@@ -71,42 +79,68 @@ export default Object.extend({
 			];
 		}),
 
-	exploreItems: computed('inExploreNav', 'exploreWikiaLinks', function () {
+	exploreItems: computed('inExploreNav', 'exploreWikis', function () {
+		const wikis = this.get('exploreWikis');
+
 		return this.get('inExploreNav') &&
-			this.get('exploreWikiaLinks').map((item) => {
+			get(wikis, 'links.length') &&
+			get(wikis, 'links').map((item) => {
 				return {
 					type: 'nav-menu-external',
 					href: item.href,
-					name: item.textEscaped,
-					trackLabel: `open-${item.trackingLabel}`
+					name: i18n.t(item.title.key, {
+						ns: 'design-system'
+					}),
+					trackLabel: `open-${item.title.key}`
 				};
 			}) || [];
 	}),
 
-	globalItems: computed('inRoot', 'wikiLang', 'hubsLinks', function () {
+	globalItems: computed('inRoot', 'hubsLinks', function () {
 		return this.get('inRoot') &&
-			this.get('wikiLang') === 'en' &&
+			this.get('hubsLinks.length') &&
 			this.get('hubsLinks').map((item) => {
 				return {
 					type: 'nav-menu-external',
-					className: `nav-menu--external nav-menu--${item.specialAttr}`,
+					className: `nav-menu--external nav-menu--${item.brand}`,
 					href: item.href,
-					name: item.textEscaped,
-					trackLabel: `open-hub-${item.specialAttr}`
+					name: i18n.t(item.title.key, {
+						ns: 'design-system'
+					}),
+					trackLabel: `open-hub-${item.title.key}`
 				};
 			}) || [];
 	}),
 
-	exploreSubMenuItem: computed('inRoot', 'exploreWikiaLinks', function () {
-		return this.get('inRoot') &&
-			this.get('exploreWikiaLinks.length') &&
-			[{
-				type: 'nav-menu-root',
-				className: 'nav-menu--explore',
-				index: 0,
-				name: this.get('exploreWikiaLabel'),
-				trackLabel: 'open-explore-wikia'
-			}] || [];
+	exploreSubMenuItem: computed('inRoot', 'exploreWikis', function () {
+		const wikis = this.get('exploreWikis');
+
+		if (this.get('inRoot') && get(wikis, 'links.length')) {
+			if (wikis.header) {
+				return [{
+					type: 'nav-menu-root',
+					className: 'nav-menu--explore',
+					index: 0,
+					name: this.get('exploreWikisLabel'),
+					trackLabel: `open-${wikis.header.title.key}`
+				}];
+			} else {
+				const firstLink = wikis.links[0],
+					messageKey = firstLink.title.key;
+
+				return [{
+					type: 'nav-menu-external',
+					className: 'nav-menu--external',
+					href: firstLink.href,
+					name: i18n.t(messageKey, {
+						ns: 'design-system'
+					}),
+					trackLabel: `open-${messageKey}`
+				}];
+			}
+		}
+
+		return [];
 	}),
 
 	localNavHeaderItem: computed('inRoot', 'wikiName', function () {

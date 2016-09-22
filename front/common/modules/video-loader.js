@@ -40,7 +40,8 @@ export default class VideoLoader {
 				size: {
 					height: this.data.height,
 					width: this.data.width
-				}
+				},
+				noAds: this.data.noAds
 			});
 
 		this.player = VideoLoader.createPlayer(playerClass, provider, params);

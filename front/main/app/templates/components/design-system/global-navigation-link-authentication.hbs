@@ -4,6 +4,7 @@
 <a href="{{href}}"
    rel="nofollow"
    id="{{model.title.key}}"
-   class="{{linkClasses}}">
+   class="{{linkClasses}}"
+	{{action this.attrs.trackClick model.title.key preventDefault=false}}>
 	{{i18n model.title.key ns='design-system'}}
 </a>

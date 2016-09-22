@@ -263,7 +263,10 @@ export class DesignSystemRequest extends BaseRequest {
 	}
 
 	getUrl() {
-		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/`;
+		// mediawikiDomain is icache address
+		const apiDomain = localSettings.mediawikiDomain || this.corporatePageUrl;
+
+		return `http://${apiDomain}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/`;
 	}
 
 	getDesignSystemData() {
