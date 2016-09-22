@@ -13,6 +13,11 @@ import load from '../utils/load';
  */
 
 /**
+ * @typedef {Object} VastBuilder
+ * @property {Function} build
+ */
+
+/**
  * @typedef {Object} AdLogicPageViewCounterModule
  * @property {Function} get
  * @property {Function} increment
@@ -37,6 +42,7 @@ import load from '../utils/load';
  * @property {*} adConfigMobile
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
+ * @property {VastBuilder} vastBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {Object} googleTag
@@ -104,6 +110,7 @@ class Ads {
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.video.vastBuilder',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
@@ -113,6 +120,7 @@ class Ads {
 					pageFairDetectionModule,
 					googleTagModule,
 					sourcePointDetectionModule,
+					vastBuilder,
 					krux) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
@@ -120,6 +128,8 @@ class Ads {
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
+					this.vastBuilder = vastBuilder;
+					this.krux = krux;
 					this.isLoaded = true;
 					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
@@ -132,6 +142,20 @@ class Ads {
 			}
 			/* eslint-enable max-params */
 		});
+	}
+
+	/**
+	 * Build VAST url for video players
+	 *
+	 * @returns {string}
+	 */
+	buildVastUrl() {
+		if (!this.vastBuilder) {
+			console.warn('Can not build VAST url.');
+			return '';
+		}
+
+		return this.vastBuilder.build();
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
@@ -401,6 +425,21 @@ class Ads {
 			window.removeEventListener('wikia.not_uap', callback);
 		});
 		this.noUapCallbacks = [];
+	}
+
+	/**
+	 * Execute when ads package is ready to use
+	 *
+	 * @param {function} callback
+	 * @param {object} context
+	 */
+	onReady(callback, context) {
+		const url = M.prop('adsUrl');
+		if (url) {
+			$script.ready(url, () => {
+				callback.apply(context);
+			});
+		}
 	}
 
 	/**

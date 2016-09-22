@@ -13,6 +13,8 @@ export default Ember.Component.extend(
 		classNameBindings: ['provider'],
 		wrapperClass: '.video-player-wrapper',
 
+		adsState: Ember.inject.service(),
+
 		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
 			if (this.get('videoLoader')) {
 				this.get('videoLoader').onResize();
@@ -32,6 +34,8 @@ export default Ember.Component.extend(
 		 * @returns VideoLoader
 		 */
 		videoLoader: Ember.computed('model.embed', function () {
+			this.set('model.embed.noAds', this.get('adsState.noAds'));
+
 			return new VideoLoader(this.get('model.embed'));
 		}),
 

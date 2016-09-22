@@ -229,9 +229,9 @@ export default Route.extend(
 			const adsModule = this.get('ads.module'),
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
+			if (this.get('ads.adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsModule.init(M.prop('adsUrl'));
+				adsModule.init(this.get('ads.adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
