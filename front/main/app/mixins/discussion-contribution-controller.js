@@ -232,9 +232,9 @@ export default Ember.Mixin.create({
 						selected: category.selected
 					});
 				}),
-			selectedCategories = localCategories.filterBy('selected', true);
+			selectedCategoryIds = this.get('model.index.categories.selectedCategoryIds');
 
-		if (!this.allIsSelected(selectedCategories) && this.categoryIsNotSelected(selectedCategories, catId)) {
+		if (!this.allIsSelected(selectedCategoryIds) && this.categoryIsNotSelected(selectedCategoryIds, catId)) {
 			localCategories.findBy('id', catId).set('selected', true);
 
 			this.get('target').send('updateCategoriesSelection', localCategories);
@@ -246,12 +246,12 @@ export default Ember.Mixin.create({
 	 *
 	 * Checks if at least one category is selected, if not it assumes that 'All' in categories filter is selected
 	 *
-	 * @param {Ember.Array} selectedCategories
+	 * @param {string[]} selectedCategoryIds
 	 *
 	 * @returns {boolean}
 	 */
-	allIsSelected(selectedCategories) {
-		return Ember.isEmpty(selectedCategories);
+	allIsSelected(selectedCategoryIds) {
+		return selectedCategoryIds.length === 0;
 	},
 
 	/**
@@ -262,8 +262,8 @@ export default Ember.Mixin.create({
 	 *
 	 * @returns {boolean}
 	 */
-	categoryIsNotSelected(selectedCategories, categoryId) {
-		return Ember.isEmpty(selectedCategories.filterBy('id', categoryId));
+	categoryIsNotSelected(selectedCategoryIds, categoryId) {
+		return selectedCategoryIds.indexOf(categoryId) === -1;
 	},
 
 	actions: {
