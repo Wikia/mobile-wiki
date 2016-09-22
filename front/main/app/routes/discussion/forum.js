@@ -21,6 +21,9 @@ export default DiscussionBaseRoute.extend(
 			},
 			sort: {
 				refreshModel: true
+			},
+			page: {
+				refreshModel: true
 			}
 		},
 

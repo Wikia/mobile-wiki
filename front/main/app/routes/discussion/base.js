@@ -2,6 +2,7 @@ import Ember from 'ember';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import {trackPageView} from 'common/utils/track';
 import HeadTagsDynamicMixin from '../../mixins/head-tags-dynamic';
+import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default Ember.Route.extend(
 	DiscussionLayoutMixin,
@@ -45,6 +46,9 @@ export default Ember.Route.extend(
 				this.controllerFor('application').set('noMargins', true);
 
 				trackPageView();
+				debugger;
+				//Separate pageview tracking for Discussions
+				track(trackActions.PageView);
 
 				return true;
 			},

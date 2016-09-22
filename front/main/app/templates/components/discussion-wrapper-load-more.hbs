@@ -12,7 +12,11 @@
 	{{/if}}
 	{{#if showLoadMoreButton}}
 		<div class="load-more-button active-element-theme-color active-element-border-theme-color" {{action this.attrs.loadNextPage}}>
-			{{i18n 'main.load-more-posts-button' ns='discussion'}}
+			{{#if previous}}
+				{{i18n 'main.load-previous-posts-button' ns='discussion'}}
+			{{else}}
+				{{i18n 'main.load-more-posts-button' ns='discussion'}}
+			{{/if}}
 		</div>
 	{{/if}}
 {{/if}}

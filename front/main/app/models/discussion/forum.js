@@ -13,6 +13,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	DiscussionContributionModelMixin,
 	{
+		firstPageLoaded: 1,
+		lastPageLoaded: 1,
+
+		loadPreviousPage(categories, sortBy)
+
 		/**
 		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
