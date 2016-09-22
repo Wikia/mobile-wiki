@@ -61,16 +61,19 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 			height: $site-head-content-height;
 			margin: auto;
 			overflow: hidden;
-
-			svg {
-				// keep it same as .icon.wikia-logo
-				height: rem-calc(48);
-				width: 5rem;
-			}
 		}
 	}
 
+	.wikia-logo {
+		// the same color as in wds-company-logo-wikia.svg
+		fill: #092344;
+		height: 48px;
+		width: 72px;
+	}
+
 	.fandom-logo {
+		// the same color as in wds-company-logo-fandom-powered-by-wikia.svg
+		fill: #39414D;
 		height: 26px;
 	}
 
@@ -116,29 +119,31 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
 // Styles for desktop nav placeholder rendered server-side
-$desktop-logo-width: 117px;
+$desktop-logo-fandom-width: 117px;
+$desktop-logo-wikia-width: 90px;
 $desktop-logo-padding-left: 8px;
-
-@media #{$breakpoint-l-up} {
-	.site-head {
-		.site-logo {
-			margin: 0 auto;
-			padding-left: $desktop-logo-padding-left;
-			padding-right: 1004px - $desktop-logo-width - $desktop-logo-padding-left;
-		}
-
-		.fandom-logo {
-			// the same color as in wds-logo-fandom-powered-by-wikia.svg
-			fill: #39414D;
-			height: 23px;
-		}
-	}
-}
 
 @media #{$breakpoint-xl-up} {
 	.site-head {
+		padding: 0;
+
 		.site-logo {
-			padding-right: 1064px - $desktop-logo-width - $desktop-logo-padding-left;
+			margin: 0 auto;
+			padding-left: $desktop-logo-padding-left;
+			padding-right: 1064px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1064px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
+		}
+
+		.wikia-logo {
+			height: 46px;
+			width: $desktop-logo-wikia-width;
+		}
+
+		.fandom-logo {
+			height: 23px;
 		}
 	}
 }
@@ -146,7 +151,11 @@ $desktop-logo-padding-left: 8px;
 @media #{$breakpoint-xxl-up} {
 	.site-head {
 		.site-logo {
-			padding-right: 1238px - $desktop-logo-width - $desktop-logo-padding-left;
+			padding-right: 1238px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1238px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
 		}
 	}
 }
