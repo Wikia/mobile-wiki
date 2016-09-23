@@ -132,6 +132,11 @@ export default Component.extend({
 			this.updateSuggestions(query);
 		},
 
+		onKeyEscape() {
+			$('.wds-global-navigation__search-input').blur();
+			this.send('closeSearch');
+		},
+
 		onKeyDown() {
 			if (this.get('selectedSuggestionIndex') < this.get('suggestions.length') - 1) {
 				this.incrementProperty('selectedSuggestionIndex');
