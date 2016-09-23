@@ -25,7 +25,7 @@ export default Route.extend(
 			}
 		},
 
-		adsState: Ember.inject.service(),
+		ads: Ember.inject.service(),
 		adsHighImpact: Ember.inject.service(),
 
 		actions: {
@@ -64,7 +64,7 @@ export default Route.extend(
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
-				this.get('adsState.module').onTransition();
+				this.get('ads.module').onTransition();
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -241,12 +241,12 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const adsModule = this.get('adsState.module'),
+			const adsModule = this.get('ads.module'),
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
+			if (this.get('ads.adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsModule.init(M.prop('adsUrl'));
+				adsModule.init(this.get('ads.adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -271,7 +271,7 @@ export default Route.extend(
 				};
 
 				adsModule.setSiteHeadOffset = (offset) => {
-					this.set('adsState.siteHeadOffset', offset);
+					this.set('ads.siteHeadOffset', offset);
 				};
 			}
 		},

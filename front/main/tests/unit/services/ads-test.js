@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import {moduleFor, test} from 'ember-qunit';
 
-moduleFor('service:ads-state', 'Unit | Service | ads state', {
+moduleFor('service:ads', 'Unit | Service | ads', {
 	unit: true
 });
 
