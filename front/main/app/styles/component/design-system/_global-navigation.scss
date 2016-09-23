@@ -1,0 +1,50 @@
+// These are overrides for Mercury only
+// If you look for Global Navigation styles go here:
+// https://github.com/Wikia/design-system/blob/master/components/_global-navigation.scss
+
+.wds-global-navigation-wrapper {
+	height: $wds-global-navigation-outer-height;
+}
+
+.wds-global-navigation {
+	box-sizing: content-box;
+	transition: transform 200ms linear;
+	will-change: transform;
+
+	.dark-theme & label {
+		color: $color-dark-blue-gray;
+	}
+
+	&__search-input[type="search"] {
+		border: 0;
+		height: auto;
+		margin-bottom: 0;
+		padding: 3px 4px;
+
+		&:focus {
+			background: transparent;
+			box-shadow: none;
+		}
+	}
+
+	&.is-fixed {
+		position: fixed;
+		width: 100%;
+		z-index: $z-global-navigation;
+
+		.headroom.pinned & {
+			transform: translateY(0);
+		}
+
+		.headroom.un-pinned & {
+			box-shadow: none;
+			transform: translateY(-100%);
+		}
+	}
+
+	&__search-suggestions {
+		.wds-is-selected a {
+			color: $color-link;
+		}
+	}
+}

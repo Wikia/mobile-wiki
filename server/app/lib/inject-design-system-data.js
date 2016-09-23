@@ -21,7 +21,7 @@ function getContentLanguage(wikiVariables) {
  * @param {boolean} [showFullSiteLink=false]
  * @returns {Promise}
  */
-export default function injectGlobalFooterData({data, request, showFooter = false, showFullSiteLink = false}) {
+export default function injectDesignSystemData({data, request, showFooter = false, showFullSiteLink = false}) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
 		language = getContentLanguage(data.wikiVariables),
@@ -35,15 +35,21 @@ export default function injectGlobalFooterData({data, request, showFooter = fals
 		}
 	}
 
-	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId, language}).getFooter()
-		.then((globalFooterData) => {
-			data.globalFooter = globalFooterData;
+	return new MediaWiki.DesignSystemRequest({request, corporatePageUrl, wikiId, language}).getDesignSystemData()
+		.then((designSystemData) => {
+			const globalNavigation = designSystemData['global-navigation'],
+				fandomLogoImage = 'wds-company-logo-fandom-powered-by-wikia';
+
+			data.globalFooter = designSystemData['global-footer'];
+			data.globalNavigation = globalNavigation;
+			data.useFandomLogoInNav = globalNavigation.logo.header.image === fandomLogoImage;
+
 			return data;
 		})
 		.catch((error) => {
 			const errorMessage = (error instanceof Buffer) ? error.toString('utf-8') : error;
 
-			Logger.error('Global Footer API request error:', errorMessage);
+			Logger.error('Design System API request error:', errorMessage);
 			return data;
 		});
 }

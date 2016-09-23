@@ -5,6 +5,7 @@
 				categories=categories
 				disabled=onlyReported
 				inputIdPrefix='filters'
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 				updateCategories=(action this.attrs.updateCategories)
 				updateCategoriesSelection=(action 'updateCategoriesSelection')
 				validatePostsOnForum=(action this.attrs.validatePostsOnForum)
@@ -30,11 +31,12 @@
 			{{#if canModerate}}
 				<fieldset class="discussion-fieldset moderation-fieldset">
 					<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-					{{wikia-ui-components/fancy-check-box
+					{{wikia-ui-components.fancy-check-box
+						inputId='discussion-filters-moderation'
 						class='moderation-checkbox-label'
 						isChecked=onlyReported
 						label=(i18n 'main.reported-content-filter-text' ns='discussion')
-						onClick=(action 'toggleReported')
+						update=(action 'toggleReported')
 					}}
 				</fieldset>
 			{{/if}}

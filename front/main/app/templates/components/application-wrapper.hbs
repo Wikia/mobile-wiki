@@ -1,20 +1,26 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{site-head
-		smartBannerVisible=smartBannerVisible
-		toggleDrawer=this.attrs.toggleDrawer
-		themeBar=themeBar
-		wikiaHomepage=wikiaHomepage
-		drawerContent=activeDrawerContent
-		drawerVisible=drawerVisible
-		setDrawerContent=(action 'setDrawerContent')
-		isSearchPage=isSearchPage
-	}}
+	{{#if responsive.isMobile}}
+		{{site-head
+			smartBannerVisible=smartBannerVisible
+			toggleDrawer=this.attrs.toggleDrawer
+			themeBar=themeBar
+			drawerContent=activeDrawerContent
+			drawerVisible=drawerVisible
+			setDrawerContent=(action 'setDrawerContent')
+			isSearchPage=isSearchPage
+			useFandomLogoInNav=useFandomLogoInNav
+		}}
+	{{else}}
+		{{design-system.global-navigation
+			isGlobalNavigationPositionFixed=isGlobalNavigationPositionFixed
+			triggerGlobalNavigationHeadroomStateChange=(route-action 'triggerGlobalNavigationHeadroomStateChange')
+		}}
+	{{/if}}
 
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
-		wikiaHomepage=wikiaHomepage
 	}}
 		{{#if activeDrawerContent}}
 			{{component
@@ -32,8 +38,8 @@
 	{{/wikia-drawer}}
 
 	{{smart-banner-android
-        isVisible=smartBannerVisible
-        toggleVisibility=attrs.toggleSmartBanner
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
 	}}
 	{{#if noMargins}}
 		{{outlet}}

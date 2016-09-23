@@ -88,6 +88,7 @@ export function createLogger(loggerConfig) {
 	}
 
 	return bunyan.createLogger({
+		appname: 'mercury',
 		name: 'mercury',
 		streams
 	});

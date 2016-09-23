@@ -259,22 +259,30 @@ export class DesignSystemRequest extends BaseRequest {
 		this.corporatePageUrl = params.corporatePageUrl;
 		this.wikiId = params.wikiId;
 		this.language = params.language;
+		this.request = params.request;
 	}
 
-	getUrl(element) {
-		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/${element}`;
+	getUrl() {
+		// mediawikiDomain is icache address
+		const apiDomain = localSettings.mediawikiDomain || this.corporatePageUrl;
+
+		return `http://${apiDomain}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/`;
 	}
 
-	getFooter() {
-		const url = this.getUrl('global-footer');
+	getDesignSystemData() {
+		const url = this.getUrl();
+
+		this.headers = {
+			Cookie: `access_token=${this.request.state.access_token}`
+		};
 
 		return this
 			.fetch(url, this.corporatePageUrl)
-			.then((footerData) => {
-				if (footerData) {
-					return footerData;
+			.then((designSystemData) => {
+				if (designSystemData) {
+					return designSystemData;
 				} else {
-					throw new Error('No footer data returned from API');
+					throw new Error('No data returned from API');
 				}
 			});
 	}
