@@ -13,7 +13,7 @@ export default Component.extend(
 		themeBar: false,
 		closeIcon: 'close',
 
-		adsState: Ember.inject.service(),
+		ads: Ember.inject.service(),
 
 		headroomOptions: {
 			classes: {
@@ -33,7 +33,7 @@ export default Component.extend(
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 		}),
 
-		offset: computed.readOnly('adsState.siteHeadOffset'),
+		offset: computed.readOnly('ads.siteHeadOffset'),
 
 		actions: {
 			/**

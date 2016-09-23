@@ -1,13 +1,15 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const adsStateStub = Ember.Service.extend({});
+const adsStub = Ember.Service.extend({
+	module: require('common/modules/ads').default.getInstance()
+});
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	unit: true,
 	beforeEach() {
-		this.register('service:ads-state', adsStateStub);
-		this.inject.service('ads-state', {as: 'adsState'});
+		this.register('service:ads', adsStub);
+		this.inject.service('ads', {as: 'ads'});
 	}
 });
 
@@ -105,7 +107,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 				isAboveTheFold: true,
 				name: 'Test ad 1'
 			},
-			expectedLength: 1,
+			expectedResult: true,
 			message: 'Element added to slot because no noAds property was passed'
 		}, {
 			properties: {
@@ -113,7 +115,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 				name: 'Test ad 2',
 			},
 			noAds: true,
-			expectedLength: 1,
+			expectedResult: false,
 			message: 'Element not added to slot because of noAds property value set to true'
 		}, {
 			properties: {
@@ -121,23 +123,27 @@ test('behaves correctly depending on noAds value', function (assert) {
 				name: 'Test ad 3',
 			},
 			noAds: false,
-			expectedLength: 2,
+			expectedResult: true,
 			message: 'Element added to slot because of noAds property value set to false'
 		}
 	];
 
 	testCases.forEach((testCase) => {
-		const component = this.subject();
+		const component = this.subject(),
+			addSlotSpy = sinon.spy(component.get('ads.module'), 'addSlot');
 
-		this.adsState.set('noAds', testCase.noAds);
+		this.ads.set('noAds', testCase.noAds);
 
 		component.setProperties(testCase.properties);
 		component.onElementManualInsert();
 		component.didEnterViewport();
+
 		assert.equal(
-			require('common/modules/ads').default.getInstance().adSlots.length,
-			testCase.expectedLength,
+			addSlotSpy.called,
+			testCase.expectedResult,
 			testCase.message
 		);
+
+		component.get('ads.module').addSlot.restore();
 	});
 });
