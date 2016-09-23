@@ -11848,7 +11848,9 @@
       }
     },
     "ember-rl-dropdown": {
-      "version": "0.8.0"
+      "version": "0.8.0",
+      "from": "git://github.com/wikia/ember-rl-dropdown.git#e42ac16ec4abc039aef3bf93f36b4f0b553ae656",
+      "resolved": "git://github.com/wikia/ember-rl-dropdown.git#e42ac16ec4abc039aef3bf93f36b4f0b553ae656"
     },
     "ember-route-action-helper": {
       "version": "0.3.1"
