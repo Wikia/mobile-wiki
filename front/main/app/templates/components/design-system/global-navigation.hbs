@@ -1,0 +1,57 @@
+<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}} {{if searchIsActive 'wds-search-is-active'}}">
+	<div class="wds-global-navigation__content-bar">
+		{{#unless model.logo.header.subtitle}}
+			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo" {{action 'trackClick' 'global-navigation-logo' preventDefault=false}}>
+				{{svg model.logo.header.image class='wds-global-navigation__logo-fandom'}}
+			</a>
+		{{else}}
+			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo wds-global-navigation__logo-wikia" {{action 'trackClick' 'global-navigation-logo' preventDefault=false}}>
+				{{svg model.logo.header.image class='wds-global-navigation__logo-wikia-icon'}}
+				<span class="wds-global-navigation__logo-wikia-caption">{{i18n model.logo.header.subtitle.key ns='design-system'}}</span>
+			</a>
+		{{/unless}}
+		<div class="wds-global-navigation__links-and-search">
+			{{#each model.fandom_overview.links as |link|}}
+				{{design-system.global-navigation-link-branded
+					model=link
+					trackClick=(action 'trackClick')
+				}}
+			{{/each}}
+			{{design-system.global-navigation-links
+				model=model.wikis
+				trackClick=(action 'trackClick')
+				type='wikis-menu'
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
+			{{design-system.global-navigation-search
+				model=model.search.module
+				activateSearch='activateSearch'
+				deactivateSearch='deactivateSearch'
+			}}
+		</div>
+		{{#if model.user}}
+			{{design-system.global-navigation-links
+				dropdownRightAligned=true
+				model=model.user
+				trackClick=(action 'trackClick')
+				type='user-menu'
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
+		{{else if model.anon}}
+			{{design-system.global-navigation-account-navigation
+				model=model.anon
+				trackClick=(action 'trackClick')
+				onClose=(action 'onDropdownClose')
+				onOpen=(action 'onDropdownOpen')
+			}}
+		{{/if}}
+		<div class="wds-global-navigation__start-a-wiki">
+			<a href="{{model.create_wiki.header.href}}" class="wds-button wds-is-squished wds-is-secondary" {{action 'trackClick' model.create_wiki.header.title.key preventDefault=false}}>
+				<span class="wds-global-navigation__start-a-wiki-caption">{{i18n model.create_wiki.header.title.key ns='design-system'}}</span>
+				{{svg 'wds-icons-plus' class='wds-global-navigation__start-a-wiki-icon wds-icon'}}
+			</a>
+		</div>
+	</div>
+</div>

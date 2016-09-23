@@ -3,6 +3,9 @@
     "node": true,
     "embertest": true
   },
+  "globals": {
+    "mockService": true
+  },
   "parserOptions": {
     "sourceType": "module"
   }

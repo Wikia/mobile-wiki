@@ -43,3 +43,11 @@ export function getLastUrlFromText(text) {
 
 	return urls.pop();
 }
+
+/**
+ * @param  {string} text
+ * @return {string}
+ */
+export function escapeRegex(text) {
+	return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}

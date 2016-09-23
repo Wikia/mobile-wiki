@@ -1,16 +1,18 @@
-{{#ember-wormhole to="site-head-sub-header"}}
-	{{discussion-header
-		backToDiscussionsLinkTitle=''
-		canDeleteAll=false
-		deleteAllPosts=(action this.attrs.deleteAllPosts)
-		hasBackButton=true
-		hasFilters=false
-		hasNewPostButton=false
-		hasSiteName=true
-		siteName=pageTitle
-		smartBannerVisible=smartBannerVisible
-	}}
-{{/ember-wormhole}}
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{discussion-header
+			backToDiscussionsLinkTitle=''
+			canDeleteAll=false
+			deleteAllPosts=(action this.attrs.deleteAllPosts)
+			hasBackButton=true
+			hasFilters=false
+			hasNewPostButton=false
+			hasSiteName=true
+			siteName=pageTitle
+			smartBannerVisible=smartBannerVisible
+		}}
+	{{/ember-wormhole}}
+{{/if}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback

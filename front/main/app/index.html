@@ -63,13 +63,7 @@
 --}}
 <div id="ember-container" class="ember-container">
 	<div id="preload">
-		<div class="site-head-wrapper">
-			<nav class="site-head">
-				<div class="site-logo">
-					{{content-for 'wikia-logo'}}
-				</div>
-			</nav>
-		</div>
+		{{> site-head}}
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 			{{{content}}}
 		</div>

@@ -1,13 +1,15 @@
-{{#ember-wormhole to="site-head-sub-header"}}
-	{{discussion-header
-		canDeleteAll=false
-		deleteAllPosts=(action this.attrs.deleteAllPosts)
-		hasBackButton=true
-		hasFilters=false
-		hasNewPostButton=false
-		smartBannerVisible=smartBannerVisible
-	}}
-{{/ember-wormhole}}
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{discussion-header
+			canDeleteAll=false
+			deleteAllPosts=(action this.attrs.deleteAllPosts)
+			hasBackButton=true
+			hasFilters=false
+			hasNewPostButton=false
+			smartBannerVisible=smartBannerVisible
+		}}
+	{{/ember-wormhole}}
+{{/if}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback
@@ -22,6 +24,7 @@
 		<div class="rail large-2 columns">
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{discussion-side-button
