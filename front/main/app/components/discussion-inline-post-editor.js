@@ -10,9 +10,10 @@ export default DiscussionInlineEditor.extend(
 		containerSelector: '.discussion-inline-editor-floating-container',
 		floatingContainerStyleContent: computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
 			function () {
-				const topValue = this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0;
+				const topValue = this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0,
+					style = this.get('isSticky') ? `top: ${topValue}px` : '';
 
-				return this.get('isSticky') ? String.htmlSafe(`top: ${topValue}px`) : '';
+				return String.htmlSafe(style);
 			}
 		),
 
