@@ -145,7 +145,8 @@ CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.image_url,
-				type: 'section'
+				type: 'section',
+				url: `/main/section/${rawData.title}`
 			};
 		} else if (rawData.type === 'category') {
 			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
@@ -168,6 +169,7 @@ CuratedContentModel.reopenClass({
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
+				url: `/main/category/${categoryName}`,
 				categoryName
 			};
 		} else {

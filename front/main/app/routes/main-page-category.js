@@ -31,7 +31,6 @@ export default Route.extend(
 		 */
 		setDynamicHeadTags(model) {
 			this._super(model, {
-				robots: 'noindex,follow',
 				documentTitle: model.get('title'),
 				description: this.get('mainPageDescription')
 			});
