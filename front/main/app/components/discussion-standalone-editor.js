@@ -111,7 +111,9 @@ export default DiscussionMultipleInputsEditor.extend(
 						editedEntity;
 
 					if (this.get('showsOpenGraphCard')) {
-						discussionEntityData.openGraph = this.get('openGraph');
+						discussionEntityData.openGraph = {
+							uri: this.get('openGraph.href')
+						};
 					}
 
 					if (!this.get('isEdit')) {
