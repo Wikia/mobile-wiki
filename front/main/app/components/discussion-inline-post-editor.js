@@ -1,15 +1,19 @@
+import Ember from 'ember';
 import DiscussionStickyComponentMixin from '../mixins/discussion-sticky-component';
 import DiscussionInlineEditor from './discussion-inline-editor';
+
+const {$, computed, String} = Ember;
 
 export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
 	{
 		containerSelector: '.discussion-inline-editor-floating-container',
-		floatingContainerStyleContent: Ember.computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
+		floatingContainerStyleContent: computed('globalNavigationHeight', 'isSticky', 'stickToGlobalNav',
 			function () {
-				const topValue = this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0;
+				const topValue = this.get('stickToGlobalNav') ? this.get('globalNavigationHeight') : 0,
+					style = this.get('isSticky') ? `top: ${topValue}px` : '';
 
-				return this.get('isSticky') ? `top: ${topValue}px` : '';
+				return String.htmlSafe(style);
 			}
 		),
 
@@ -30,10 +34,10 @@ export default DiscussionInlineEditor.extend(
 			this.setProperties({
 				isSticky: false,
 				offsetTop: this.$().offset().top,
-				globalNavigationHeight: Ember.$('#globalNavigation').outerHeight(true),
+				globalNavigationHeight: $('#globalNavigation').outerHeight(true),
 			});
 
-			Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
+			$(window).on('scroll.editor', this.onScroll.bind(this));
 		},
 	}
 );
