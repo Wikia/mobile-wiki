@@ -143,7 +143,7 @@ export function getWikiDomainName(localSettings, hostName = '') {
  */
 export function getWikiaSubdomain(host) {
 	return host.replace(
-		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+		/^(?:(?:verify|preview|stable|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
 		'$1'
 	);
 }
