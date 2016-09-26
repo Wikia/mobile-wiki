@@ -61,6 +61,22 @@ QUnit.test('getWikiName', function (assert) {
 			description: 'Works for preview sub-domains with language'
 		},
 		{
+			host: 'stable.poznan.wikia.com',
+			localSettings: {
+				environment: global.Environment.Stable
+			},
+			expected: 'stable.poznan.wikia.com',
+			description: 'Works for stable sub-domains'
+		},
+		{
+			host: 'stable.bg.poznan.wikia.com',
+			localSettings: {
+				environment: global.Environment.Stable
+			},
+			expected: 'stable.bg.poznan.wikia.com',
+			description: 'Works for stable sub-domains with language'
+		},
+		{
 			host: 'sandbox-test.poznan.wikia.com',
 			localSettings: {
 				host: 'sandbox-test',
