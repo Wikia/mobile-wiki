@@ -52,7 +52,7 @@
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-export-application-global": "1.0.5",
     "ember-getowner-polyfill": "1.0.0",
-    "ember-in-viewport": "pauloslund/ember-in-viewport.git#347251dc727956c95d1f9f6b8c7c64c7da11cd34",
+    "ember-in-viewport": "2.0.4",
     "ember-load-initializers": "0.5.1",
     "ember-new-relic": "0.3.0",
     "ember-onbeforeunload": "0.2.0",
