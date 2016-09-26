@@ -228,6 +228,10 @@ QUnit.test('getEnvironment', function (assert) {
 			expected: global.Environment.Preview
 		},
 		{
+			environment: 'stable',
+			expected: global.Environment.Stable
+		},
+		{
 			environment: 'sandbox',
 			expected: global.Environment.Sandbox
 		},
