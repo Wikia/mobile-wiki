@@ -153,6 +153,16 @@ QUnit.test('getWikiaSubdomain', function (assert) {
 			description: 'Works for preview sub-domains with language'
 		},
 		{
+			host: 'stable.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for stable sub-domains'
+		},
+		{
+			host: 'stable.bg.muppet.wikia.com',
+			expected: 'bg.muppet',
+			description: 'Works for stable sub-domains with language'
+		},
+		{
 			host: 'sandbox-test.chess.wikia.com',
 			expected: 'chess',
 			description: 'Works for sandbox sub-domains'
