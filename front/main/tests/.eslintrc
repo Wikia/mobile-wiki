@@ -4,7 +4,7 @@
     "embertest": true
   },
   "globals": {
-    "resetAds": true
+    "mockService": true
   },
   "parserOptions": {
     "sourceType": "module"

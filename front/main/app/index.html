@@ -25,6 +25,10 @@
 		<link data-server-head-tags-static rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
+	{{#if canPrerender}}
+		<meta name="fragment" content="!">
+	{{/if}}
+
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
@@ -63,13 +67,7 @@
 --}}
 <div id="ember-container" class="ember-container">
 	<div id="preload">
-		<div class="site-head-wrapper">
-			<nav class="site-head">
-				<div class="site-logo">
-					{{content-for 'wikia-logo'}}
-				</div>
-			</nav>
-		</div>
+		{{> site-head}}
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 			{{{content}}}
 		</div>

@@ -1,6 +1,7 @@
 <script>
 	M.prop('initialPageView', true, true);
 	M.prop('gaUrl', '{{server.gaUrl}}');
+	M.prop('globalNavigation', {{{json globalNavigation}}});
 	M.prop('optimizelyScript', '{{server.optimizelyScript}}');
 	M.prop('qualarooScript', '{{server.qualarooScript}}');
 	M.prop('environment', '{{server.environment}}');
@@ -17,7 +18,6 @@
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 	M.prop('discussionBaseRoute', {{{json localSettings.discussions.baseAPIPath}}});
-	M.prop('openGraphBaseRoute', {{{json localSettings.openGraph.baseAPIPath}}});
 	M.prop('siteAttributeBaseRoute', {{{json localSettings.siteAttribute.baseAPIPath}}});
 	M.prop('imageReviewBaseRoute', {{{json localSettings.imageReview.baseAPIPath}}});
 	M.prop('staticAssetsBaseRoute', {{{json localSettings.staticAssets.baseAPIPath}}});

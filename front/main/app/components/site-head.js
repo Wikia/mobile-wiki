@@ -13,7 +13,7 @@ export default Component.extend(
 		themeBar: false,
 		closeIcon: 'close',
 
-		adsState: Ember.inject.service(),
+		ads: Ember.inject.service(),
 
 		headroomOptions: {
 			classes: {
@@ -25,6 +25,8 @@ export default Component.extend(
 			}
 		},
 
+		wikiaHomepage: M.prop('globalNavigation.logo.header.href') || 'http://fandom.wikia.com',
+
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
 		}),
@@ -33,7 +35,7 @@ export default Component.extend(
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 		}),
 
-		offset: computed.readOnly('adsState.siteHeadOffset'),
+		offset: computed.readOnly('ads.siteHeadOffset'),
 
 		actions: {
 			/**

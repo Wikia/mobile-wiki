@@ -40,12 +40,12 @@ import load from '../utils/load';
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
- * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
  * @property {VastBuilder} vastBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
+ * @property {Object} googleTag
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
  */
@@ -71,6 +71,8 @@ class Ads {
 				dimension: 7
 			}
 		};
+		this.adLogicPageViewCounterModule = null;
+		this.googleTagModule = null;
 	}
 
 	/**
@@ -106,6 +108,7 @@ class Ads {
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
+					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastBuilder',
 					'wikia.krux'
@@ -115,19 +118,22 @@ class Ads {
 					adConfigMobile,
 					adMercuryListener,
 					pageFairDetectionModule,
+					googleTagModule,
 					sourcePointDetectionModule,
 					vastBuilder,
 					krux) => {
-					this.adEngineRunnerModule = adEngineRunnerModule;
-					this.adContextModule = adContextModule;
-					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
+					this.adContextModule = adContextModule;
+					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
-					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adMercuryListenerModule = adMercuryListener;
+					this.googleTagModule = googleTagModule;
 					this.vastBuilder = vastBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
+					this.krux = krux;
+					this.sourcePointDetectionModule = sourcePointDetectionModule;
+					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
 				});
@@ -332,7 +338,12 @@ class Ads {
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
 			}
-			this.adLogicPageViewCounterModule.increment();
+
+			this.adMercuryListenerModule.onPageChange(() => {
+				this.adLogicPageViewCounterModule.increment();
+				this.googleTagModule.updateCorrelator();
+			});
+
 			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
 	}
@@ -346,6 +357,7 @@ class Ads {
 		this.reload(this.currentAdsContext, () => {
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
+			this.adLogicPageViewCounterModule.increment();
 		});
 	}
 
@@ -388,10 +400,8 @@ class Ads {
 		this.adSlots = $.grep(this.adSlots, (slot) => {
 			return slot[0] && slot[0] === name;
 		}, true);
-	}
 
-	removeAllSlots() {
-		this.adSlots = [];
+		this.googleTagModule.destroySlots([name]);
 	}
 
 	/**
