@@ -54,7 +54,7 @@ export default Ember.Component.extend(
 		})),
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean}
 		 */
 		click() {
 			const itemType = this.get('type');
@@ -67,6 +67,7 @@ export default Ember.Component.extend(
 
 			if (itemType && itemType === 'section' || itemType === 'category') {
 				this.sendAction('openCuratedContentItem', this.get('model'));
+				return false;
 			}
 		},
 

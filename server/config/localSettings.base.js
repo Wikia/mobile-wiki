@@ -66,6 +66,7 @@ import deepExtend from 'deep-extend';
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
  * @property {number} port
+ * @property {PrerenderLocalSettings} prerender
  * @property {number} proxyMaxRedirects
  * @property {QualarooLocalSettings} [qualaroo]
  * @property {string} [qualaroo]
@@ -100,6 +101,11 @@ import deepExtend from 'deep-extend';
  * @property {boolean} enabled
  * @property {string} scriptPath
  * @property {string} account
+ */
+
+/**
+ * @typedef {Object} PrerenderLocalSettings
+ * @property {string} token
  */
 
 /**
@@ -223,6 +229,9 @@ const localSettings = {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
 	port: process.env.PORT || 8000,
+	prerender: {
+		token: process.env.PRERENDER_TOKEN
+	},
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {

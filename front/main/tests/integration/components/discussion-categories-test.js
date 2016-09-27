@@ -128,3 +128,32 @@ test('should "Reset" return initial categories state', function (assert) {
 	assert.equal(this.$('li').length, 11);
 	assert.notOk(this.$('.discussion-categories').hasClass('collapsed'));
 });
+
+test('should enable edit mode', function (assert) {
+	const discussionCategoriesEditModeStateChangeSpy = sinon.spy();
+
+	this.setProperties({
+		categories: getCategories(20),
+		updateCategories: Ember.K,
+		validatePostsOnForum: Ember.K,
+		onCategoryClick: Ember.K,
+		selectAllCategory: Ember.K,
+		triggerHighlightOverlayStateChange: discussionCategoriesEditModeStateChangeSpy
+	});
+
+	this.render(hbs
+		`{{discussion-categories
+			categories=categories
+			triggerHighlightOverlayStateChange=(action triggerHighlightOverlayStateChange)
+			updateCategories=(action updateCategories)
+			validatePostsOnForum=(action validatePostsOnForum)
+			canEditCategories=true
+			onCategoryClick=(action onCategoryClick)
+			selectAllCategory=(action selectAllCategory)}}`
+	);
+
+	this.$('.discussion-categories-edit-link').click();
+
+	assert.ok(discussionCategoriesEditModeStateChangeSpy.calledOnce);
+	assert.ok(this.$('.discussion-categories-edit').length);
+});

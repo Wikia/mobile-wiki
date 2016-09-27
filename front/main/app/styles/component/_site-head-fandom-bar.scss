@@ -12,29 +12,39 @@ $home-of-fandom-letter-spacing: 0.5px;
 .site-head-fandom-bar {
 	background-color: $white;
 	border-bottom: 1px solid $color-blue-gray-light;
+	display: flex;
+	height: $site-head-fandom-bar-height;
+	justify-content: center;
+	position: fixed;
+	top: $site-head-height;
+	transition: transform .5s;
+	width: 100%;
+	will-change: transform;
+	z-index: $z-6;
+
+	//Styles for old tagline
 	color: $color-blue-gray-dark;
 	font: {
 		size: $head-fandom-bar-font-size;
 		weight: bold;
 	}
-	height: $site-head-fandom-bar-height;
 	letter-spacing: $home-of-fandom-letter-spacing;
-	position: fixed;
 	text: {
 		align: center;
 		transform: uppercase;
 	}
-	transition: transform .5s;
-	top: $site-head-height;
-	width: 100%;
-	z-index: $z-6;
-
 	a {
 		color: $color-blue-gray-dark;
 	}
+	//end
+
+	.fandom-bar-logo {
+		height: 20px;
+		width: 130px;
+	}
 }
 
-.site-head-headroom-top .site-head-fandom-bar {
+.bfaa-template .site-head-headroom-top .site-head-fandom-bar {
 	position: static;
 }
 

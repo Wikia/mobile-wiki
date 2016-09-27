@@ -53,7 +53,7 @@ module.exports = function (environment) {
 	}
 
 	if (environment === 'production') {
-		ENV.newRelic.applicationId = '4539016';
+		// ENV.newRelic.applicationId = '4539016';
 	}
 
 	return ENV;

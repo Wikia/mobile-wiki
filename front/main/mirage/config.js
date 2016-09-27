@@ -2,6 +2,8 @@
  * @returns {void}
  */
 export default function () {
+	this.passthrough('/write-blanket-coverage');
+
 	// We have /front/main/assets prefix hardcoded in route and testem use /assets
 	// This is a quick (hopefully temporary) fix
 	this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});

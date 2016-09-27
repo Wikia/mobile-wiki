@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Mixin, computed, $, observer, run} = Ember;
+const {Mixin, String, computed, $, observer, run} = Ember;
 
 export default Mixin.create({
 	attributeBindings: ['style'],
@@ -12,7 +12,7 @@ export default Mixin.create({
 
 	isSticky: false,
 
-	onIsActive: Ember.observer('isActive', function () {
+	onIsActive: observer('isActive', function () {
 		this.toggleStickyState();
 	}),
 
@@ -22,9 +22,11 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	style: computed('isSticky', function () {
-		return this.get('isSticky') ?
+		const style = this.get('isSticky') ?
 			`height: ${this.$(this.get('containerSelector')).outerHeight(true)}px` :
 			null;
+
+		return String.htmlSafe(style);
 	}),
 
 	didInsertElement() {

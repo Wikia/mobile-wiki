@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
 
+/**
+ * Displays dialog modal window on Discussions
+ * Message is unescaped to be able to render html content
+ */
 export default Ember.Component.extend(LoginLinkMixin, {
 	classNames: ['discussion-dialog'],
 	classNameBindings: ['isVisible', 'additionalClass'],

@@ -61,6 +61,22 @@ QUnit.test('getWikiName', function (assert) {
 			description: 'Works for preview sub-domains with language'
 		},
 		{
+			host: 'stable.poznan.wikia.com',
+			localSettings: {
+				environment: global.Environment.Stable
+			},
+			expected: 'stable.poznan.wikia.com',
+			description: 'Works for stable sub-domains'
+		},
+		{
+			host: 'stable.bg.poznan.wikia.com',
+			localSettings: {
+				environment: global.Environment.Stable
+			},
+			expected: 'stable.bg.poznan.wikia.com',
+			description: 'Works for stable sub-domains with language'
+		},
+		{
 			host: 'sandbox-test.poznan.wikia.com',
 			localSettings: {
 				host: 'sandbox-test',
@@ -137,6 +153,16 @@ QUnit.test('getWikiaSubdomain', function (assert) {
 			description: 'Works for preview sub-domains with language'
 		},
 		{
+			host: 'stable.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for stable sub-domains'
+		},
+		{
+			host: 'stable.bg.muppet.wikia.com',
+			expected: 'bg.muppet',
+			description: 'Works for stable sub-domains with language'
+		},
+		{
 			host: 'sandbox-test.chess.wikia.com',
 			expected: 'chess',
 			description: 'Works for sandbox sub-domains'
@@ -200,6 +226,10 @@ QUnit.test('getEnvironment', function (assert) {
 		{
 			environment: 'preview',
 			expected: global.Environment.Preview
+		},
+		{
+			environment: 'stable',
+			expected: global.Environment.Stable
 		},
 		{
 			environment: 'sandbox',

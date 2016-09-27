@@ -4,6 +4,12 @@ export default Ember.Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
+	cachedProperties: {
+		smartBannerVisible: null,
+		offset: null,
+		headroomOptions: null
+	},
+
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
 	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
@@ -12,13 +18,6 @@ export default Ember.Mixin.create({
 	 * and only once - without cache'ing smartBannerVisibleObserver is fiering for each component
 	 * it's included in - at the time of writing this it's TWO TIMES
 	 */
-
-	cachedProperties: {
-		smartBannerVisible: null,
-		offset: null,
-		headroomOptions: null
-	},
-
 	smartBannerVisibleObserver: Ember.on('willInsertElement',
 		Ember.observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
 			const headroom = this.get('headroom'),
@@ -46,6 +45,11 @@ export default Ember.Mixin.create({
 		})
 	),
 
+	actions: {
+		onHeadroomPin: Ember.K,
+		onHeadroomUnpin: Ember.K
+	},
+
 	/**
 	 * @param {*} headroomOptions
 	 * @param {number} offset
@@ -68,11 +72,13 @@ export default Ember.Mixin.create({
 			onPin: () => {
 				if (!this.get('isDestroyed')) {
 					this.set('pinned', true);
+					this.send('onHeadroomPin');
 				}
 			},
 			onUnpin: () => {
 				if (!this.get('isDestroyed')) {
 					this.set('pinned', false);
+					this.send('onHeadroomUnpin');
 				}
 			}
 		};
