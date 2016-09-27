@@ -51,9 +51,10 @@ function shouldPrerender(req) {
 }
 
 function updateRequestedUrl(url) {
-	// Direct prerender.io to production if initiated from dev environments
+	// Direct prerender.io to production if initiated from dev or sandbox environments
 	url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
 	url = url.replace(new RegExp('\.[a-z]*\.wikia-dev\.com\/'), 'wikia.com/');
+	url = url.replace(new RegExp('^http://sandbox-[^.]*.'), 'http://');
 	return `${url}?useskin=mercury`;
 }
 
