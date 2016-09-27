@@ -8,7 +8,7 @@ var util = require('../util');
 
 function beginners(request, reply) {
 	var data = {
-			title: 'Wikia Japan'
+			title: '初めての方へ〜ウィキアガイド'
 	};
 
 	util.renderWithGlobalData(request, reply, data, 'beginners');
