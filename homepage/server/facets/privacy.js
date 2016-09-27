@@ -8,7 +8,7 @@ var util = require('../util');
 
 function privacy(request, reply) {
 	var data = {
-		title: 'Wikia Japan'
+		title: ''
 	};
 
 	util.renderWithGlobalData(request, reply, data, 'privacy');
