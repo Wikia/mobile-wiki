@@ -38,16 +38,7 @@ function canPrerender(req) {
 }
 
 function shouldPrerender(req) {
-	const userAgent = req.headers['user-agent'] || '',
-		bufferAgent = req.headers['x-bufferbot'] || '',
-		requestingEscapedFragment = (req.url.query._escaped_fragment_ !== undefined),
-		knownBot = (userAgent.search(botUserAgentsRegExp) !== -1);
-
-	if (!requestingEscapedFragment && !knownBot && !bufferAgent) {
-		return false;
-	}
-
-	return canPrerender(req);
+	return req.url.query._escaped_fragment_ !== undefined && canPrerender(req);
 }
 
 function updateRequestedUrl(url) {
