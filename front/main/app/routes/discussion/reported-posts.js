@@ -16,7 +16,7 @@ export default DiscussionBaseRoute.extend(
 		/**
 		 * @returns {Ember.RSVP.hash}
 		 */
-		model() {
+		model(params) {
 			const discussionSort = this.get('discussionSort'),
 				indexModel = this.modelFor('discussion');
 
@@ -24,7 +24,7 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setSortBy('latest');
 
 			return Ember.RSVP.hash({
-				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, params.page),
 				index: indexModel
 			});
 		},

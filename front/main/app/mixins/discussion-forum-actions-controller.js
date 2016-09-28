@@ -2,6 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create(
 	{
+		queryParams: ['page'],
+
+		page: 1,
+
+		pageUpdater: Ember.observer('model.current.data.pageNum', function () {
+			this.set('page', this.get('model.current.data.pageNum') + 1);
+		}),
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -11,22 +19,21 @@ export default Ember.Mixin.create(
 			},
 
 			/**
-			 * @param {number} pageNum
+			 * @param {number} page
 			 *
 			 * @returns {void}
 			 */
-			loadPage(pageNum) {
-				this.set('page', pageNum + 1);
-				this.get('target').send('loadPage', pageNum);
+			loadPage(page) {
+				this.get('target').send('loadPage', page);
 			},
 
 			/**
-			 * @param {number} pageNum
+			 * @param {number} page
 			 *
 			 * @returns {void}
 			 */
-			goToPage(pageNum) {
-				this.get('target').send('goToPage', pageNum);
+			goToPage(page = 1) {
+				this.get('target').send('goToPage', page);
 			},
 
 			/**

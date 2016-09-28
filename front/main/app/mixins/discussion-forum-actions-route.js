@@ -3,6 +3,11 @@ import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create(
 	{
+		queryParams: {
+			catId: {
+				refreshModel: true
+			},
+		},
 		/**
 		 * When no category is selected, previous categories, present in local
 		 * storage are removed to enable transition to route without categories.
@@ -14,6 +19,10 @@ export default Ember.Mixin.create(
 				params.catId = catId;
 				return params;
 			});
+		},
+
+		isProperPageParam(pageParam) {
+			return Number(pageParam) > 0;
 		},
 
 		/**
@@ -71,6 +80,17 @@ export default Ember.Mixin.create(
 				};
 
 				return this.transitionTo(targetRoute, {queryParams});
+			},
+
+			goToPage(page = 1) {
+				this.transitionTo({queryParams: {
+					page
+				}});
+
+				// There is a need to refresh the route since change of the "page" query params itself
+				// is not refreshing the model (so that it can be dynamically added to querystring during
+				// browsing the post list pages
+				this.refresh();
 			},
 
 			/**

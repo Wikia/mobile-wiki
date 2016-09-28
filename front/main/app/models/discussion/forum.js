@@ -19,13 +19,12 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 1, categories = [], sortBy = 'trending') {
-			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
 					forumId: categories,
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: pageNum,
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
@@ -34,9 +33,9 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			}).then((data) => {
 				const newEntities = Ember.get(data, '_embedded.threads').map(
 					(newThread) => DiscussionPost.createFromThreadData(newThread)
-				);
+				);this.incrementProperty('data.pageNum');
 
-				this.incrementProperty('pageNum');
+
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
 
@@ -81,7 +80,7 @@ DiscussionForumModel.reopenClass({
 					wikiId
 				}),
 				requestData = {
-					page,
+					page: page - 1,
 					forumId: categories instanceof Array ? categories : [categories],
 					limit: forumInstance.get('postsLimit'),
 					viewableOnly: false
@@ -96,7 +95,13 @@ DiscussionForumModel.reopenClass({
 				traditional: true,
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
-				forumInstance.set('firstPageLoaded', page === 1);
+
+				if (page === 1) {
+					forumInstance.set('firstPageLoaded', true);
+				} else {
+					//API numerates pages from 0, UI from 1
+					forumInstance.set('data.pageNum', page - 1);
+				}
 
 				resolve(forumInstance);
 

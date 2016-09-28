@@ -45,6 +45,11 @@ export default DiscussionBaseRoute.extend(
 				modifiedTransition = this.transitionToCommaSplittedCategories(queryParams);
 			}
 
+			if (!this.isProperPageParam(queryParams.page)) {
+				queryParams.page = 1;
+				this.refresh();
+			}
+
 			const updatedQueryParams = {
 				catId: this.getCategoriesFromQueryString(queryParams.catId),
 				sort: queryParams.sort,
@@ -244,12 +249,6 @@ export default DiscussionBaseRoute.extend(
 
 			validatePostsOnForum() {
 				this.refresh();
-			},
-
-			goToPage(page = 1) {
-				this.transitionTo({queryParams: {
-					page
-				}})
 			},
 
 			/**

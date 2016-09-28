@@ -67,7 +67,7 @@ DiscussionReportedPostsModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId) {
+	find(wikiId, page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId
@@ -75,12 +75,14 @@ DiscussionReportedPostsModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 				data: {
+					page,
 					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true,
 					viewableOnly: false,
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
+				reportedPostsInstance.set('firstPageLoaded', page === 1);
 
 				resolve(reportedPostsInstance);
 

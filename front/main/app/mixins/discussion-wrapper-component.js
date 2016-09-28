@@ -6,9 +6,8 @@ export default Ember.Mixin.create(
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		isLoading: false,
 		loadOnScrollEnabled: false,
-		pageNum: 0,
+		page: 0,
 		postsDisplayed: 0,
-		showLoadMoreButton: true,
 		totalPosts: 0,
 
 		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
@@ -18,10 +17,11 @@ export default Ember.Mixin.create(
 			}
 		}),
 
-		shouldShowTopButton: Ember.computed('pageNum', function () {
-			return this.get('pageNum') !== 1;
+		showToTheTopButton: Ember.computed('firstPageLoaded', function () {
+			return !this.get('firstPageLoaded');
 		}),
 
+		showLoadMoreButton: Ember.computed.alias('hasMore'),
 		/**
 		 * @returns {void}
 		 */
@@ -31,8 +31,8 @@ export default Ember.Mixin.create(
 			}
 		},
 
-		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
-			return this.get('totalPosts') > this.get('postsDisplayed');
+		hasMore: Ember.computed('totalPosts', function () {
+			return this.get('totalPosts') > this.getWithDefault('page', 1)  * 20;
 		}),
 
 		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
@@ -58,9 +58,9 @@ export default Ember.Mixin.create(
 
 		loadNextPage() {
 			this.set('isLoading', true);
-			this.incrementProperty('pageNum');
+			this.incrementProperty('page');
 
-			this.sendAction('loadPage', this.get('pageNum'));
+			this.sendAction('loadPage', this.get('page'));
 		},
 
 		/**

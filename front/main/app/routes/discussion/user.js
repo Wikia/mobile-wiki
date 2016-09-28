@@ -21,7 +21,7 @@ export default DiscussionBaseRoute.extend(
 			this.set('userId', params.userId);
 
 			return Ember.RSVP.hash({
-				current: DiscussionUserModel.find(Mercury.wiki.id, params.userId),
+				current: DiscussionUserModel.find(Mercury.wiki.id, params.userId, params.page),
 				index: indexModel
 			});
 		},

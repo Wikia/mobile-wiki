@@ -71,7 +71,7 @@ DiscussionUserModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, userId) {
+	find(wikiId, userId, page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const userInstance = DiscussionUserModel.create({
 				wikiId,
@@ -80,12 +80,14 @@ DiscussionUserModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
 				data: {
+					page,
 					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
 					viewableOnly: false
 				}
 			}).then((data) => {
 				userInstance.setNormalizedData(data);
+				userInstance.set('firstPageLoaded', page === 1);
 
 				resolve(userInstance);
 

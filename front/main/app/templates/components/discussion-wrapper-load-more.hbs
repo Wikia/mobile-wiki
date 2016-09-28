@@ -1,5 +1,5 @@
 {{#if hasMore}}
-	{{#if isLoading }}
+	{{#if isLoading}}
 		{{loading-spinner
 			active=true
 			overlay=false
@@ -10,9 +10,9 @@
 			{{i18n 'main.loading-more-posts' ns='discussion'}}
 		</div>
 	{{/if}}
-	{{#if showLoadMoreButton}}
+	{{#if showButton}}
 		{{#if previous}}
-			<div class="load-more-button active-element-theme-color active-element-border-theme-color top-list-button'}}" {{action this.attrs.goToPage 1}}>
+			<div class="load-more-button active-element-theme-color active-element-border-theme-color top-list-button" {{action this.attrs.goToPage 1}}>
 				{{i18n 'main.load-previous-posts-button' ns='discussion'}}
 			</div>
 		{{else}}
