@@ -11468,9 +11468,7 @@
       "version": "1.0.0"
     },
     "ember-in-viewport": {
-      "version": "2.0.4",
-      "from": "git://github.com/pauloslund/ember-in-viewport.git#347251dc727956c95d1f9f6b8c7c64c7da11cd34",
-      "resolved": "git://github.com/pauloslund/ember-in-viewport.git#347251dc727956c95d1f9f6b8c7c64c7da11cd34"
+      "version": "2.0.7"
     },
     "ember-load-initializers": {
       "version": "0.5.1"
