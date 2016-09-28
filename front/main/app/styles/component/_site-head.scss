@@ -125,9 +125,11 @@ $desktop-logo-padding-left: 8px;
 
 @media #{$breakpoint-xl-up} {
 	.site-head {
+		height: $site-head-content-height;
 		padding: 0;
 
 		.site-logo {
+			height: 100%;
 			margin: 0 auto;
 			padding-left: $desktop-logo-padding-left;
 			padding-right: 1064px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
@@ -143,7 +145,10 @@ $desktop-logo-padding-left: 8px;
 		}
 
 		.fandom-logo {
-			height: 23.54px;
+			height: $site-head-content-height;
+			width: 122px;
+			padding-bottom: 4px;
+			padding-left: 3px;
 		}
 	}
 }
