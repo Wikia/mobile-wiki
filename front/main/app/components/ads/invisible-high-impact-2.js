@@ -11,5 +11,16 @@ export default Component.extend({
 
 	nameLowerCase: computed('name', function () {
 		return Ember.String.dasherize(this.get('name').toLowerCase());
-	})
+	}),
+
+	didInsertElement() {
+		this.set('adsHighImpact.component', this);
+	},
+
+	willDestroyElement() {
+		if (this.get('adsHighImpact').isFloorAdhesionEnabled()) {
+			this.get('ads.module').removeSlot(this.get('name'));
+			this.$().remove();
+		}
+	}
 });
