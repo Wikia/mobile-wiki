@@ -46,7 +46,7 @@ export default Ember.Route.extend(
 				this.controllerFor('application').set('noMargins', true);
 
 				trackPageView();
-				//Separate pageview tracking for Discussions
+				// Separate pageview tracking for Discussions
 				track(trackActions.PageView);
 
 				return true;

@@ -86,7 +86,7 @@ DiscussionReportedPostsModel.reopenClass({
 				if (page === 1) {
 					reportedPostsInstance.set('firstPageLoaded', true);
 				} else {
-					//API numerates pages from 0, UI from 1
+					// API numerates pages from 0, UI from 1
 					reportedPostsInstance.set('data.pageNum', page - 1);
 				}
 

@@ -32,7 +32,7 @@ export default Ember.Mixin.create(
 		},
 
 		hasMore: Ember.computed('totalPosts', 'page', function () {
-			return this.get('totalPosts') > this.getWithDefault('page', 1)  * 20;
+			return this.get('totalPosts') > this.getWithDefault('page', 1) * 20;
 		}),
 
 		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {

@@ -91,7 +91,7 @@ DiscussionUserModel.reopenClass({
 				if (page === 1) {
 					userInstance.set('firstPageLoaded', true);
 				} else {
-					//API numerates pages from 0, UI from 1
+					// API numerates pages from 0, UI from 1
 					userInstance.set('data.pageNum', page - 1);
 				}
 

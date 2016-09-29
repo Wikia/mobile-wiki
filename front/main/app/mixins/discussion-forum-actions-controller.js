@@ -33,7 +33,7 @@ export default Ember.Mixin.create(
 			 * @returns {void}
 			 */
 			goToPage(page = 1) {
-				this.get('target').send('goToPage', page);
+				this.get('target').send('goToPage', page - 1);
 			},
 
 			/**
