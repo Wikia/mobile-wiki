@@ -368,8 +368,8 @@
       "image": "wds-company-logo-fandom-powered-by-wikia-two-lines",
       "href": "#",
       "title": {
-        "type": "translatable-text",
-        "key": "global-footer-fandom-header"
+        "type": "text",
+        "value": "test"
       },
       "tracking_label": "logo"
     }
