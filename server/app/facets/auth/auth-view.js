@@ -171,12 +171,14 @@ export function view(template, context, request, reply) {
 export function getDefaultContext(request) {
 	const viewType = getViewType(request),
 		isModal = request.query.modal === '1',
-		reactivateAccountUrl = resolve(getRedirectUrl(request), '/Special:CloseMyAccount/reactivate'),
+		redirectUrl = getRedirectUrl(request),
+		reactivateAccountUrl = resolve(redirectUrl, '/Special:CloseMyAccount/reactivate'),
 		pageParams = {
 			cookieDomain: localSettings.authCookieDomain,
 			enableSocialLogger: localSettings.clickstream.social.enable,
 			isModal,
 			reactivateAccountUrl,
+			redirectUrl,
 			preferenceServiceUrl: getUserPreferencesUrl('/'),
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
