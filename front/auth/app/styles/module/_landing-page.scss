@@ -22,28 +22,35 @@
 }
 
 .register-message {
+	align-items: flex-start;
 	display: flex;
 	flex: 1;
 	height: 100%;
 	justify-content: center;
 
 	p {
-		font-size: $type-largest;
-		line-height: 1.25;
+		border-bottom: 1px solid $register-message-callout-bottom-border-color;
+		font-size: $type-base;
+		line-height: $line-height-min;
 		margin: 0;
+		padding-bottom: 10px;
+		width: 150px;
 	}
+}
 
-	img {
-		height: auto;
-		width: 90px;
-	}
+.register-message-callout {
+	align-items: flex-end;
+}
+
+.register-message-logo {
+	padding-top: 30px;
 }
 
 .signup-provider-facebook,
 .signup-provider-facebook.disabled,
 .signup-provider-facebook:hover,
 .signup-provider-facebook:visited {
-	background-color: #38528a;
+	background-color: $button-color-facebook;
 	border: none;
 	margin-bottom: 15px;
 	opacity: 1;

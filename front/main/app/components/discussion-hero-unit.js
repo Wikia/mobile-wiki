@@ -49,8 +49,10 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		setImageBackground(imageUrl) {
-			this.set('imageBackground',
-				new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`));
+			this.setProperties({
+				contentClassNames: 'background-alpha-theme-color',
+				imageBackground: new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`)
+			});
 		},
 
 		/**
@@ -67,14 +69,10 @@ export default Ember.Component.extend(
 
 			if (!this.get('imageBackground') && isShown) {
 				if (Ember.isEmpty(this.get('heroImage.value'))) {
-					const imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
-
-					this.set('imageBackground',
-						new Ember.Handlebars.SafeString(`background: #000 url(${imageUrl}) center no-repeat;`));
+					this.set('contentClassNames', 'background-theme-color');
 				} else {
 					this.setImageBackground(this.get('heroImage.value'));
 				}
-				this.set('contentClassNames', 'background-alpha-theme-color');
 			}
 		})
 	});

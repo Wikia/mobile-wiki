@@ -273,6 +273,8 @@ export default Route.extend(
 				adsModule.setSiteHeadOffset = (offset) => {
 					this.set('ads.siteHeadOffset', offset);
 				};
+
+				this.get('adsHighImpact').loadFloorAdhesionWhenPossible();
 			}
 		},
 	}
