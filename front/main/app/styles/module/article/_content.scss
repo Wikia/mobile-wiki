@@ -20,37 +20,4 @@
 			margin-bottom: 0;
 		}
 	}
-
-	.collapsible-section-header {
-		border-bottom: 1px solid $gainsboro;
-		margin-bottom: .7rem;
-		padding-bottom: .7rem;
-		padding-left: 1.4rem;
-		position: relative;
-
-		.contribution-container {
-			display: none;
-		}
-
-		.section-header-label {
-			padding-top: 10px;
-		}
-
-		.chevron {
-			position: absolute;
-			height: 41px; // The height that the contribution icon takes up
-			top: 50%;
-			left: 0;
-		}
-
-		&.open {
-			.chevron {
-				transform: scaleY(-1);
-			}
-
-			.contribution-container {
-				display: block;
-			}
-		}
-	}
 }
