@@ -43,7 +43,7 @@
 			}}
 		{{/if}}
 		<div class="wds-global-navigation__start-a-wiki">
-			<a href="{{model.create_wiki.header.href}}" class="wds-global-navigation__start-a-wiki-button wds-button wds-is-squished wds-is-secondary" {{action 'trackClick' model.create_wiki.header.title.key preventDefault=false}}>
+			<a href="{{model.create_wiki.header.href}}" class="wds-global-navigation__start-a-wiki-button wds-button wds-is-squished wds-is-secondary" {{action 'trackClick' model.create_wiki.header.tracking_label preventDefault=false}}>
 				<span class="wds-global-navigation__start-a-wiki-caption">{{i18n model.create_wiki.header.title.key ns='design-system'}}</span>
 				{{svg 'wds-icons-plus' class='wds-global-navigation__start-a-wiki-icon wds-icon'}}
 			</a>
