@@ -9,7 +9,6 @@ export default Ember.Mixin.create({
 
 
 	isAnon: Ember.computed.not('currentUser.isAuthenticated'),
-	isUserBlocked: false,
 
 	editorState: null,
 	editEditorState: null,
@@ -61,13 +60,41 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * If discussionEntity exists, return it's own flag, if not - fall back to main model flag
+	 * @param discussionEntity
+	 * @returns {Ember.Object}
+	 */
+	getUserBlockDetails(discussionEntity) {
+		if (discussionEntity && discussionEntity.get('isRequesterBlocked')) {
+			return discussionEntity.get('userBlockDetails');
+		} else if (this.get('model.current.data.isRequesterBlocked')) {
+			return this.get('model.current.data.userBlockDetails');
+		}
+
+		return null;
+	},
+
+	getUserProfileAnchor(username) {
+		if (!username) {
+			return '';
+		}
+
+		const profileUrl = M.buildUrl({
+			namespace: 'User',
+			title: username,
+		});
+
+		return `<a href=${profileUrl}>${username}</a>`;
+	},
+
+	/**
 	 * Set editor active state
 	 *
 	 * @param {string} editorType editor type, available types see: getEditorState
 	 *
 	 * @returns {void}
 	 */
-	activateEditor(editorType) {
+	activateEditor(editorType, discussionEntity) {
 		const editorState = this.getEditorState(editorType);
 
 		if (editorState.get('isOpen')) {
@@ -77,8 +104,12 @@ export default Ember.Mixin.create({
 		if (this.get('isAnon')) {
 			this.rejectAnon();
 			return;
-		} else if (this.get('isUserBlocked')) {
-			this.rejectBlockedUser();
+		}
+
+		const userBlockDetails = this.getUserBlockDetails(discussionEntity);
+
+		if (userBlockDetails) {
+			this.rejectBlockedUser(userBlockDetails);
 			return;
 		}
 
@@ -93,27 +124,42 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	rejectAnon() {
-		this.openDialog('editor.post-error-anon-cant-post');
+		this.openDialog({
+			message: i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}),
+		});
 	},
 
 	/**
 	 * Renders a message to display to a blocked user
 	 * @returns {void}
 	 */
-	rejectBlockedUser() {
-		this.openDialog('editor.post-error-not-authorized');
+	rejectBlockedUser(userBlockDetails) {
+		this.openDialog({
+			header: i18n.t('editor.post-error-user-blocked-title', {ns: 'discussion'}),
+			message: i18n.t('editor.post-error-user-blocked-text', {
+				blockerUsername: this.getUserProfileAnchor(userBlockDetails.get('blockedBy')),
+				blockExpiry: new Date(Number(userBlockDetails.get('blockExpiry'))).toLocaleString(),
+				blockReason: userBlockDetails.get('blockReason'),
+				ns: 'discussion',
+			}),
+		});
 	},
 
 	/**
 	 * Opens a modal dialog with translated message
-	 * @param {string} message
+	 * @param {Object} openDialogParams params for display modal method [see: modalDialog::display]
+	 * @param {string} openDialogParams.message text for dialog modal body message
+	 * @param {string} [openDialogParams.header] text for dialog modal title
 	 * @returns {void}
 	 */
-	openDialog(message) {
-		this.get('modalDialog').display({
-			message: i18n.t(message, {ns: 'discussion'}),
-			name: 'modal-dialog-posting-not-allowed',
-		});
+	openDialog(openDialogParams) {
+		const displayParams = Object.assign(
+			{},
+			{name: 'modal-dialog-posting-not-allowed'},
+			openDialogParams,
+		);
+
+		this.get('modalDialog').display(displayParams);
 	},
 
 	/**
@@ -151,16 +197,73 @@ export default Ember.Mixin.create({
 
 	createPost(entityData, params) {
 		const editorType = 'contributeEditor',
-			editorState = this.getEditorState(editorType);
+			editorState = this.getEditorState(editorType),
+			catId = params.newCategoryId;
 
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').current.createPost(entityData, params.newCategoryId).catch((err) => {
+		this.get('model').current.createPost(entityData, catId).then(() => {
+			Ember.run.later(this, () => {
+				this.selectCategoryIfNotSelected(catId);
+			}, 2000);
+		}).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);
 		});
+	},
+
+	/**
+	 * @private
+	 *
+	 * Checks if category with given id is selected, if not category is selected and threads are refreshed.
+	 *
+	 * @param {number} catId - category id
+	 *
+	 * @returns {void}
+	 */
+	selectCategoryIfNotSelected(catId) {
+		let localCategories = this.get('model.index.categories.categories')
+				.map(category => {
+					return Ember.Object.create({
+						category,
+						id: category.id,
+						selected: category.selected
+					});
+				}),
+			selectedCategoryIds = this.get('model.index.categories.selectedCategoryIds');
+
+		if (!this.allIsSelected(selectedCategoryIds) && this.categoryIsNotSelected(selectedCategoryIds, catId)) {
+			localCategories.findBy('id', catId).set('selected', true);
+
+			this.get('target').send('updateCategoriesSelection', localCategories);
+		}
+	},
+
+	/**
+	 * @private
+	 *
+	 * Checks if at least one category is selected, if not it assumes that 'All' in categories filter is selected
+	 *
+	 * @param {string[]} selectedCategoryIds
+	 *
+	 * @returns {boolean}
+	 */
+	allIsSelected(selectedCategoryIds) {
+		return selectedCategoryIds.length === 0;
+	},
+
+	/**
+	 * @private
+	 *
+	 * @param {Ember.Array} selectedCategories
+	 * @param {number} categoryId
+	 *
+	 * @returns {boolean}
+	 */
+	categoryIsNotSelected(selectedCategoryIds, categoryId) {
+		return selectedCategoryIds.indexOf(categoryId) === -1;
 	},
 
 	actions: {
@@ -169,12 +272,13 @@ export default Ember.Mixin.create({
 		 *
 		 * @param {string} editorType editor type, available types see: getEditorState
 		 * @param {boolean} active desired state of editor
+		 * @param {Ember.Object} discussionEntity if it's an edit
 		 *
 		 * @returns {void}
 		 */
-		setEditorActive(editorType, active) {
+		setEditorActive(editorType, active, discussionEntity) {
 			if (active === true) {
-				this.activateEditor(editorType);
+				this.activateEditor(editorType, discussionEntity);
 			} else {
 				this.getEditorState(editorType).setProperties({
 					errorMessage: null,
@@ -193,7 +297,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		openEditEditor(discussionEntity) {
-			this.send('setEditorActive', 'editEditor', true);
+			this.send('setEditorActive', 'editEditor', true, discussionEntity);
 			Ember.run.scheduleOnce('afterRender', this, function () {
 				// set editor content after render so textarea autoresize can correctly calculate height
 				this.set('editEditorState.discussionEntity', discussionEntity);

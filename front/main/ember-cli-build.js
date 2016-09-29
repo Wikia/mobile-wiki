@@ -1,9 +1,36 @@
 /* global module */
 /* eslint-env es5, node */
-/* eslint prefer-template: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
+/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
-	Funnel = require('broccoli-funnel');
+	Funnel = require('broccoli-funnel'),
+	stew = require('broccoli-stew');
+
+/**
+ * We override Ember's private method to remove files from the final build
+ * which are added by addons but not used by us
+ *
+ * HEADS UP!
+ * If you update ember-cli and something breaks,
+ * the first thing you should try is to comment this out
+ */
+EmberApp.prototype.addonTreesFor = function (type) {
+	return this.project.addons.map(function (addon) {
+		if (addon.treeFor) {
+			var tree = addon.treeFor(type);
+
+			if (tree) {
+				// uncomment to see the files available to be filtered out
+				// tree = stew.log(tree, {output: 'tree'});
+				tree = stew.rm(tree,
+					'**/components/rl-dropdown*.{js,hbs}'
+				);
+			}
+
+			return tree;
+		}
+	}).filter(Boolean);
+};
 
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {

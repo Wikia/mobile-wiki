@@ -87,6 +87,10 @@
       },
       "nielsen": {
         "enabled": false
+      },
+      "ubisoft": {
+        "enabled": false,
+        "url": ""
       }
     },
     "wikiCategories": [],
@@ -115,17 +119,17 @@
         }
       ],
       "exploreWikia": {
-        "text": "Explore Wikia",
-        "textEscaped": "Explore Wikia",
-        "href": "http:\/\/www.wikia.com\/explore",
-        "trackingLabel": "explore-wikia"
+        "text": "Wikis",
+        "textEscaped": "Wikis",
+        "href": "#",
+        "trackingLabel": "wikis"
       },
       "exploreWikiaMenu": [
         {
-          "text": "Trending Wikias",
-          "textEscaped": "Trending Wikias",
-          "href": "http:\/\/www.wikia.com\/WAM",
-          "trackingLabel": "top-communities"
+          "text": "Explore Wikis",
+          "textEscaped": "Explore Wikis",
+          "href": "http:\/\/www.wikia.com\/explore",
+          "trackingLabel": "explore-wikis"
         },
         {
           "text": "Community Central",
@@ -134,10 +138,10 @@
           "trackingLabel": "community-central"
         },
         {
-          "text": "Top Communities",
-          "textEscaped": "Top Communities",
-          "href": "http:\/\/www.wikia.com\/explore",
-          "trackingLabel": "explore-wikia"
+          "text": "Fandom University",
+          "textEscaped": "Fandom University",
+          "href": "http:\/\/community.wikia.com\/wiki\/Wikia_University",
+          "trackingLabel": "fandom-university"
         }
       ],
       "localNav": [
@@ -391,8 +395,7 @@
             }
           ]
         }
-      ],
-      "fandomLabel": "The Home of Fandom"
+      ]
     },
     "vertical": "movies",
     "basePath": "http:\/\/starwars.wikia.com",

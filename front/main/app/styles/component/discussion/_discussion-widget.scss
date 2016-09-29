@@ -6,7 +6,7 @@ $article-negative-padding: -$article-horizontal-padding;
 
 	.heading-wrapper {
 		svg {
-			fill: $discussion-widget-linkcolor;
+			fill: $discussion-widget-link-color;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
@@ -26,7 +26,7 @@ $article-negative-padding: -$article-horizontal-padding;
 	}
 
 	.heading-viewall {
-		color: $discussion-widget-linkcolor;
+		color: $discussion-widget-link-color;
 		margin-left: auto;
 		padding-right: 14px;
 	}
@@ -39,4 +39,8 @@ $article-negative-padding: -$article-horizontal-padding;
 	.post-title {
 		padding-top: 0;
 	}
+}
+
+.widget-discussions-error {
+	color: $discussion-widget-error-color;
 }

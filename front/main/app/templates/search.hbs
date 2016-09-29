@@ -1,11 +1,13 @@
-{{#ember-wormhole to="site-head-sub-header"}}
-	{{wikia-search
-		onEnterHandler=(action 'onSearchEnter')
-		query=inputPhrase
-		focusInput=false
-		suggestionsEnabled=false
-	}}
-{{/ember-wormhole}}
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{wikia-search
+			onEnterHandler=(action 'onSearchEnter')
+			query=inputPhrase
+			focusInput=false
+			suggestionsEnabled=false
+		}}
+	{{/ember-wormhole}}
+{{/if}}
 {{loading-spinner
 	active=model.loading
 	radius=38

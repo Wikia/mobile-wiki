@@ -1,0 +1,36 @@
+{{#design-system.wds-dropdown
+	class=additionalClassNames
+	onClose=this.attrs.onClose
+	onOpen=this.attrs.onOpen
+	as |dropdown|
+}}
+	{{#dropdown.toggle
+		class='wds-global-navigation__dropdown-toggle'
+		title=(if showAvatar model.header.username.value)
+	}}
+		{{#if showAvatar}}
+			<img class="wds-avatar wds-is-circle" src="{{model.header.url}}" alt="{{model.header.username.value}}" />
+		{{else}}
+			<span>{{i18n model.header.title.key ns='design-system'}}</span>
+		{{/if}}
+	{{/dropdown.toggle}}
+	{{#dropdown.content
+		class='wds-global-navigation__dropdown-content'
+		dropdownRightAligned=dropdownRightAligned
+	}}
+		<ul class="wds-list wds-is-linked">
+			{{#each model.links as |link|}}
+				<li>
+					{{component
+						(if (equal link.type 'link-authentication')
+							'design-system.global-navigation-link-authentication'
+							'design-system.global-navigation-link-dropdown'
+						)
+						model=link
+						trackClick=this.attrs.trackClick
+					}}
+				</li>
+			{{/each}}
+		</ul>
+	{{/dropdown.content}}
+{{/design-system.wds-dropdown}}

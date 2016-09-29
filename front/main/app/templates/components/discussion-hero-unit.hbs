@@ -1,4 +1,4 @@
-<div class="discussion-hero-unit-image {{if isEditMode 'highlight-overlay-content'}}" style="{{imageBackground}}">
+<div class="discussion-hero-unit-image {{if isEditMode 'highlight-overlay-content'}}" style={{imageBackground}}>
 	{{#unless isEditMode}}
 		<div class="discussion-hero-unit-fade">
 			<div class="discussion-hero-unit-content {{contentClassNames}}">
@@ -75,7 +75,7 @@
 		{{else}}
 			{{discussion-edit-image-button
 				click=(action 'enableEditMode')
-				label='main.edit-hero-unit-button-text'
+				label='main.edit-guidelines'
 			}}
 		{{/if}}
 	{{/if}}

@@ -1,10 +1,11 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
+import sinon from 'sinon';
 
 moduleForAcceptance('Acceptance | Curated Main Page', {
-	afterEach() {
-		resetAds();
-	}
+	beforeEach() {
+		sinon.stub(require('common/modules/ads').default.getInstance(), 'removeSlot');
+	},
 });
 
 test('Open Curated Main Page then open Section and finally open Category', (assert) => {

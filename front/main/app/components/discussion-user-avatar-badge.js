@@ -25,8 +25,8 @@ export default Ember.Component.extend({
 			tooltip: 'Community Admin'
 		},
 		'badge:threadmoderator': {
-			icon: 'badge-discussion-moderator',
-			tooltip: 'Discussion Moderator'
+			icon: 'badge-discussions-moderator',
+			tooltip: 'Discussions Moderator'
 		},
 		'badge:vstf': {
 			icon: 'badge-vstf',

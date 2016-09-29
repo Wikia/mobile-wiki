@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
-import './reset-ads';
+import './mock-service';
 
 export default function startApp(attrs) {
 	let application,
