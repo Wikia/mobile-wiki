@@ -18,8 +18,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 1) {
-			this.set('data.pageNum', pageNum);
-
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
@@ -30,6 +28,8 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
+				this.incrementProperty('data.pageNum');
 
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
@@ -80,14 +80,20 @@ DiscussionUserModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
 				data: {
-					page,
+					page: page - 1,
 					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
 					viewableOnly: false
 				}
 			}).then((data) => {
 				userInstance.setNormalizedData(data);
-				userInstance.set('firstPageLoaded', page === 1);
+
+				if (page === 1) {
+					userInstance.set('firstPageLoaded', true);
+				} else {
+					//API numerates pages from 0, UI from 1
+					userInstance.set('data.pageNum', page - 1);
+				}
 
 				resolve(userInstance);
 

@@ -33,8 +33,9 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			}).then((data) => {
 				const newEntities = Ember.get(data, '_embedded.threads').map(
 					(newThread) => DiscussionPost.createFromThreadData(newThread)
-				);this.incrementProperty('data.pageNum');
+				);
 
+				this.incrementProperty('data.pageNum');
 
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
