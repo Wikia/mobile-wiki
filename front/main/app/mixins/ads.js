@@ -19,6 +19,7 @@ export default Ember.Mixin.create({
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 	},
 	ads: Ember.inject.service(),
+	adsHighImpact: Ember.inject.service(),
 
 	/**
 	 * @param {string} adSlotName
@@ -62,6 +63,10 @@ export default Ember.Mixin.create({
 			adsData = this.get('adsData'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
+			highImpactComponent = this.get('container').lookup('component:ads/invisible-high-impact-2', {
+				singleton: false
+			}),
+			highImpactComponentElement = this.createChildView(highImpactComponent).createElement(),
 
 			showInContent = firstSectionTop > adsData.minZerothSectionLength,
 			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
@@ -86,6 +91,9 @@ export default Ember.Mixin.create({
 		if ($globalFooter.length) {
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
+
+		// inject invisible high impact
+		this.get('adsHighImpact').load(highImpactComponentElement);
 	},
 
 	/**
