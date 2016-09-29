@@ -1,0 +1,63 @@
+.edit-image-button {
+	background-color: $discussion-edit-image-button-background-color;
+	color: $discussion-edit-image-button-text-color;
+	cursor: pointer;
+	display: none;
+	font-size: 10px;
+	height: auto;
+	letter-spacing: 0.5px;
+	line-height: 15px;
+	min-height: 30px;
+	opacity: 0.9;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	top: 0;
+
+	.icon-camera {
+		height: 24px;
+		position: absolute;
+		right: 4px;
+		top: 2px;
+		width: 24px;
+	}
+}
+
+.discussion-hero-unit {
+	position: relative;
+
+	.edit-image-button {
+		margin: 8px 6px 0 0;
+		padding: 7px 40px 7px 12px;
+		right: 0;
+	}
+}
+
+.community-badge {
+	.edit-image-button {
+		left: 0;
+		padding: 7px 32px 7px 4px;
+		width: 100%;
+	}
+
+	&:not(.is-edit-mode) {
+		.community-badge-image:hover {
+			.edit-image-button {
+				display: block;
+			}
+		}
+	}
+
+	.label-container {
+		float: right;
+		padding-right: 6px;
+	}
+}
+
+.discussion-hero-unit {
+	&:hover {
+		.edit-image-button {
+			display: block;
+		}
+	}
+}

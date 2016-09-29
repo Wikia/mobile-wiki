@@ -1,18 +1,20 @@
-{{#ember-wormhole to="site-head-sub-header"}}
-	{{discussion-header
-		applyFilters=(action this.attrs.applyFilters)
-		canModerate=model.canModerate
-		categories=categories
-		hasContentError=hasContentError
-		hasFilters=true
-		hasNewPostButton=hasNewPostButton
-		hasSiteName=true
-		setEditorActive=(action this.attrs.setEditorActive)
-		smartBannerVisible=smartBannerVisible
-		updateCategories=(action this.attrs.updateCategories)
-		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
-	}}
-{{/ember-wormhole}}
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{discussion-header
+			applyFilters=(action this.attrs.applyFilters)
+			canModerate=model.canModerate
+			categories=categories
+			hasContentError=hasContentError
+			hasFilters=true
+			hasNewPostButton=hasNewPostButton
+			hasSiteName=true
+			setEditorActive=(action this.attrs.setEditorActive)
+			smartBannerVisible=smartBannerVisible
+			updateCategories=(action this.attrs.updateCategories)
+			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+		}}
+	{{/ember-wormhole}}
+{{/if}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback
@@ -27,6 +29,7 @@
 		editingPossible=true
 		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
+		triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}
 	<div class="discussion-page row">
@@ -34,6 +37,7 @@
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
 				editingPossible=true
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if categoriesInRail}}
@@ -41,6 +45,7 @@
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
+						triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						validatePostsOnForum=(action this.attrs.validatePostsOnForum)

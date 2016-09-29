@@ -9,7 +9,7 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:article-table-of-contents',
 		'component:potential-member-page-experiment',
 		'service:currentUser',
-		'service:adsState',
+		'service:ads',
 		'service:adsHighImpact'
 	]
 });

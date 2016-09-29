@@ -138,6 +138,8 @@
     "post-failed-error": "Post failed.",
     "post-error-anon-cant-post": "Sign in to join the discussion!",
     "post-error-not-authorized": "You cannot post because your account has been blocked.",
+    "post-error-user-blocked-title": "Your username or IP address has been blocked",
+    "post-error-user-blocked-text": "The block was made by __blockerUsername__.<br>Expiration of block: __blockExpiry__<br>Reason given: __blockReason__",
     "post-error-general-error": "Post failed, please try again.",
     "reply-error-general-error": "Reply failed, please try again.",
     "save-error-general-error": "Save failed, please try again.",

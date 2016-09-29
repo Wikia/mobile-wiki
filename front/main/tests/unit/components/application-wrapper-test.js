@@ -21,7 +21,11 @@ test('shouldHandleClick returns correct value', function (assert) {
 	];
 
 	testCases.forEach((testCase) => {
-		const component = this.subject();
+		const component = this.subject({
+			responsive: {
+				setBreakpoints: Ember.K
+			}
+		});
 
 		assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
 	});

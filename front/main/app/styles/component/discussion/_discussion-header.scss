@@ -1,0 +1,147 @@
+$discussion-header-color-text: #fff;
+// header width has to be limited to fit with the buttons on the right side of header
+$discussion-header-mobile-max-width: 205px;
+$site-header-height: 50px;
+
+.discussion-header-wrapper {
+	height: $discussion-header-height;
+
+	@media #{$desktop-range} {
+		display: none;
+	}
+
+	&.discussion-headroom-un-pinned .discussion-header {
+		margin-top: 16px;
+	}
+}
+
+.discussion-header {
+	color: $discussion-header-color-text;
+	height: $discussion-header-height;
+	margin-top: $site-head-with-fandom-bar-height;
+	max-width: inherit;
+	padding-left: 15px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-6; // drop-downs from under the top-bar component (which is $z-7)
+
+	.side-button-wrapper {
+		float: left;
+		height: 100%;
+	}
+
+	h1 {
+		color: $discussion-header-color-text;
+		float: left;
+		font-size: $type-smaller;
+		line-height: $discussion-header-height;
+		margin: 0;
+		max-width: $discussion-header-mobile-max-width;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.icon {
+		fill: $discussion-back-button-color;
+
+		&.filter-default {
+			height: 20px;
+			margin-right: 13px;
+			vertical-align: middle;
+			width: 23px;
+		}
+		&.filter-applied {
+			display: none;
+			height: 10px;
+			position: absolute;
+			right: 4px;
+			top: 4px;
+			vertical-align: top;
+			width: 10px;
+		}
+		&.dropdown {
+			height: 4px;
+			margin-left: 5px;
+			vertical-align: middle;
+			width: 7px;
+		}
+	}
+
+	.overlay {
+		@include perfect-square(100%);
+		cursor: default;
+		left: 0;
+		position: fixed;
+		top: 0;
+		z-index: $z-side-nav-overlay;
+	}
+
+	.sort {
+		cursor: pointer;
+		float: right;
+		font-size: $type-smallest;
+		line-height: $discussion-header-height;
+		position: relative;
+		right: 0;
+		text-align: right;
+		top: 0;
+
+	}
+
+	.applied {
+		.filter-applied {
+			display: inline;
+		}
+	}
+
+	.new-post {
+		float: right;
+		height: 50px;
+		width: 56px;
+	}
+
+	.back-button {
+		color: $discussion-back-button-color;
+		float: left;
+
+		&:hover,
+		&:focus {
+			color: $discussion-back-button-color;
+		}
+	}
+
+	.delete-all {
+		float: right;
+		padding-right: 15px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-header {
+		.header {
+			display: none;
+		}
+	}
+}
+
+.discussions {
+	.side-nav-drawer {
+		@media #{$desktop-range} {
+			width: 25%;
+			max-width: 350px;
+		}
+	}
+
+	.site-head {
+		max-width: 100%;
+	}
+
+	.discussion-headroom-not-top,
+	.discussion-headroom-top {
+		.discussion-header {
+			transition: transform .5s, margin .5s;
+		}
+	}
+}

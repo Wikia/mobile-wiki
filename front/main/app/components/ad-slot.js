@@ -11,8 +11,8 @@ export default Component.extend(
 		classNameBindings: ['nameLowerCase', 'noAds'],
 		// This component is created dynamically, and this won't work without it
 		layoutName: 'components/ad-slot',
-		adsState: Ember.inject.service(),
-		noAds: Ember.computed.readOnly('adsState.noAds'),
+		ads: Ember.inject.service(),
+		noAds: Ember.computed.readOnly('ads.noAds'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
@@ -22,7 +22,7 @@ export default Component.extend(
 		}),
 
 		onElementManualInsert: Ember.on('didInsertElement', function () {
-			const ads = Ads.getInstance(),
+			const ads = this.get('ads.module'),
 				name = this.get('name');
 
 			if (this.get('disableManualInsert')) {
@@ -59,7 +59,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const ads = Ads.getInstance(),
+			const ads = this.get('ads.module'),
 				name = this.get('name');
 
 			if (this.get('noAds')) {
@@ -78,15 +78,13 @@ export default Component.extend(
 			}
 		},
 
-		/**
-		 * @returns {void}
-		 */
 		willDestroyElement() {
 			const name = this.get('name');
 
-			Ads.getInstance().removeSlot(name);
-			this.$().remove();
 			Logger.info('Will destroy ad:', name);
+			// adComponent.$().remove HAS TO be called after remove slot method from ads module
+			this.get('ads.module').removeSlot(this.get('name'));
+			this.$().remove();
 		}
 	}
 );

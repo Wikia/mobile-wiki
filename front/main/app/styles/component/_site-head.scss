@@ -22,13 +22,15 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
 .site-head {
+	align-items: center;
 	background-color: $white;
-	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $vapor;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
@@ -43,12 +45,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	width: 100%;
 	z-index: $z-site-head;
 
-	.site-head-icon-nav {
-		order: 1;
-	}
-
 	.site-head-icon-search {
-		order: 3;
 		width: $icon-button-size;
 	}
 
@@ -56,22 +53,40 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: $site-head-content-height;
-		margin: auto;
-		order: 2;
-		overflow: hidden;
+		height: 1.6rem;
+		//this is needed to center logo before app starts and we have just 'stub' of site head
+		margin: 0 auto;
 
-		svg {
-			// keep it same as .icon.wikia-logo
-			height: rem-calc(48);
-			width: 5rem;
+		&.wikia-site-logo {
+			height: $site-head-content-height;
+			margin: auto;
+			overflow: hidden;
 		}
+	}
+
+	.wikia-logo {
+		// the same color as in wds-company-logo-wikia.svg
+		fill: #092344;
+		height: 48px;
+		width: 72px;
+	}
+
+	.fandom-logo {
+		// the same color as in wds-company-logo-fandom-powered-by-wikia.svg
+		fill: #39414D;
+		height: 26px;
 	}
 
 	.site-head-icon {
 		position: relative;
+
 		.icon-button-icon {
 			fill: $color-blue-dark;
+		}
+
+		&-search,
+		&-nav {
+			flex: 0 0 48px;
 		}
 
 		&:hover {
@@ -89,14 +104,6 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
-.bfaa-template .site-head-headroom-top .site-head {
-	position: static;
-}
-
-.no-scroll .bfaa-template .site-head {
-	position: fixed;
-}
-
 .side-nav-toggle {
 	display: inline-block;
 	float: left;
@@ -108,5 +115,69 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+// Styles for desktop nav placeholder rendered server-side
+$desktop-logo-fandom-width: 117px;
+$desktop-logo-wikia-width: 90px;
+$desktop-logo-padding-left: 8px;
+
+@media #{$breakpoint-xl-up} {
+	.site-head {
+		height: $site-head-content-height;
+		padding: 0;
+
+		.site-logo {
+			height: 100%;
+			margin: 0 auto;
+			padding-left: $desktop-logo-padding-left;
+			padding-right: 1064px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1064px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
+		}
+
+		.wikia-logo {
+			height: 46px;
+			width: $desktop-logo-wikia-width;
+		}
+
+		.fandom-logo {
+			height: $site-head-content-height;
+			width: 122px;
+			padding-bottom: 4px;
+			padding-left: 3px;
+		}
+	}
+}
+
+@media #{$breakpoint-xxl-up} {
+	.site-head {
+		.site-logo {
+			padding-right: 1238px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
+
+			&.wikia-site-logo {
+				padding-right: 1238px - $desktop-logo-wikia-width - $desktop-logo-padding-left;
+			}
+		}
+	}
+}
+
+//Styles for BFAA
+.no-scroll {
+	.bfaa-template {
+		.site-head {
+			position: fixed;
+		}
+	}
+}
+
+.bfaa-template {
+	.site-head-headroom-top {
+		.site-head {
+			position: static;
+		}
 	}
 }

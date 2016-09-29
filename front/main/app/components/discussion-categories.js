@@ -178,6 +178,7 @@ export default Ember.Component.extend(
 				Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 
 				this.set('isEditMode', shouldEnable);
+				this.get('triggerHighlightOverlayStateChange')(shouldEnable);
 
 				track(trackActions.EditCategoriesButtonTapped);
 			},

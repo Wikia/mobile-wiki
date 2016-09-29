@@ -14,19 +14,19 @@ export default Ember.Component.extend({
 	badges: {
 		'badge:helper': {
 			icon: 'badge-helper',
-			tooltip: 'Helpers'
+			tooltip: 'Fandom Helper'
 		},
 		'badge:staff': {
-			icon: 'badge-wikia-staff',
-			tooltip: 'Wikia Staff'
+			icon: 'badge-fandom-staff',
+			tooltip: 'Fandom Staff'
 		},
 		'badge:sysop': {
 			icon: 'badge-admin',
 			tooltip: 'Community Admin'
 		},
 		'badge:threadmoderator': {
-			icon: 'badge-discussion-moderator',
-			tooltip: 'Discussion Moderator'
+			icon: 'badge-discussions-moderator',
+			tooltip: 'Discussions Moderator'
 		},
 		'badge:vstf': {
 			icon: 'badge-vstf',

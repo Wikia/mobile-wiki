@@ -8,7 +8,7 @@ var util = require('../util');
 
 function login(request, reply) {
 	var data = {
-		title: 'Wikia Japan'
+		title: ''
 	};
 
 	util.renderWithGlobalData(request, reply, data, 'signin');
