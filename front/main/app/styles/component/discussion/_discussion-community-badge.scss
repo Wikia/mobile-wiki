@@ -3,6 +3,13 @@ $badge-image-dimensions-big: 125px;
 $badge-image-frame-dimensions-big: $badge-image-dimensions-big + 4px;
 $badge-image-tools-width: 210px;
 
+%center-and-color-community-badge-image {
+	align-items: center;
+	background-color: #656e78;
+	display: flex;
+	justify-content: center;
+}
+
 .post-list-view {
 	.community-badge {
 		margin-top: -62px;
@@ -15,6 +22,19 @@ $badge-image-tools-width: 210px;
 				height: $badge-image-dimensions-big;
 				max-width: $badge-image-dimensions-big;
 				width: $badge-image-dimensions-big;
+			}
+
+			&.community-badge-image-default {
+				@extend %center-and-color-community-badge-image;
+
+				.badge-image-display-original {
+					height: 76px;
+					width: 76px;
+				}
+
+				.discussion-edit-approve-wrapper {
+					margin-top: 64px;
+				}
 			}
 		}
 	}
@@ -30,6 +50,16 @@ $badge-image-tools-width: 210px;
 			.badge-image-display {
 				height: $badge-image-dimensions-small;
 				width: $badge-image-dimensions-small;
+			}
+
+			&.community-badge-image-default {
+				@extend %center-and-color-community-badge-image;
+				height: $badge-image-dimensions-small;
+
+				.badge-image-display {
+					height: 50px;
+					width: 50px;
+				}
 			}
 		}
 
