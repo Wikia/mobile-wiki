@@ -20,7 +20,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
@@ -83,12 +83,7 @@ DiscussionReportedPostsModel.reopenClass({
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
 
-				if (page === 1) {
-					reportedPostsInstance.set('firstPageLoaded', true);
-				} else {
-					// API numerates pages from 0, UI from 1
-					reportedPostsInstance.set('data.pageNum', page - 1);
-				}
+				reportedPostsInstance.setStartPageNumber(page);
 
 				resolve(reportedPostsInstance);
 

@@ -25,4 +25,14 @@ export default Ember.Mixin.create({
 				return '';
 		}
 	},
+
+	setStartPageNumber(page) {
+		debugger;
+		if (page === 1) {
+			this.set('firstPageLoaded', true);
+		} else {
+			// API numerates pages from 0, UI from 1
+			this.set('data.pageNum', page - 1);
+		}
+	}
 });

@@ -4,7 +4,7 @@ import localStorageConnector from '../utils/local-storage-connector';
 export default Ember.Mixin.create(
 	{
 		queryParams: {
-			catId: {
+			page: {
 				refreshModel: true
 			},
 		},

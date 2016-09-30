@@ -19,13 +19,12 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 1, categories = [], sortBy = 'trending') {
-
+		loadPage(page = 1, categories = [], sortBy = 'trending') {
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
 					forumId: categories,
 					limit: this.get('loadMoreLimit'),
-					page: pageNum,
+					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
@@ -100,12 +99,7 @@ DiscussionForumModel.reopenClass({
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
 
-				if (page === 1) {
-					forumInstance.set('firstPageLoaded', true);
-				} else {
-					// API numerates pages from 0, UI from 1
-					forumInstance.set('data.pageNum', page - 1);
-				}
+				forumInstance.setStartPageNumber(page);
 
 				resolve(forumInstance);
 

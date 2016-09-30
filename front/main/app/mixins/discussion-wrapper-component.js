@@ -6,7 +6,7 @@ export default Ember.Mixin.create(
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		isLoading: false,
 		loadOnScrollEnabled: false,
-		page: 0,
+		page: 1,
 		postsDisplayed: 0,
 		totalPosts: 0,
 
