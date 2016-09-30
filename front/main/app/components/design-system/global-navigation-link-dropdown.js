@@ -11,6 +11,6 @@ export default Component.extend({
 	trackClick: Ember.K,
 
 	click() {
-		this.get('trackClick')(this.get('model.title.key'));
+		this.get('trackClick')(this.get('model.tracking_label'));
 	}
 });
