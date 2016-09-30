@@ -15,7 +15,8 @@
             "type": "translatable-text",
             "key": "global-footer-company-overview-link-about"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "company-overview.about"
         },
         {
           "type": "link-text",
@@ -23,7 +24,8 @@
             "type": "translatable-text",
             "key": "global-footer-company-overview-link-careers"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "company-overview.careers"
         },
         {
           "type": "link-text",
@@ -31,7 +33,8 @@
             "type": "translatable-text",
             "key": "global-footer-company-overview-link-press"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "company-overview.press"
         },
         {
           "type": "link-text",
@@ -39,15 +42,17 @@
             "type": "translatable-text",
             "key": "global-footer-company-overview-link-contact"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "company-overview.contact"
         },
         {
           "type": "link-text",
           "title": {
             "type": "translatable-text",
-            "key": "global-footer-company-overview-link-wikia-gives-back"
+            "key": "global-footer-company-overview-link-wikia-org"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "company-overview.wikia-org"
         }
       ]
     },
@@ -59,7 +64,8 @@
             "type": "translatable-text",
             "key": "global-footer-site-overview-link-terms-of-use"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "site-overview.terms-of-use"
         },
         {
           "type": "link-text",
@@ -67,7 +73,8 @@
             "type": "translatable-text",
             "key": "global-footer-site-overview-link-privacy-policy"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "site-overview.privacy-policy"
         },
         {
           "type": "link-text",
@@ -75,7 +82,8 @@
             "type": "translatable-text",
             "key": "global-footer-site-overview-link-global-sitemap"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "site-overview.global-sitemap"
         },
         {
           "type": "link-text",
@@ -83,7 +91,8 @@
             "type": "translatable-text",
             "key": "global-footer-site-overview-link-local-sitemap"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "site-overview.local-sitemap"
         }
       ]
     },
@@ -99,7 +108,8 @@
             "type": "translatable-text",
             "key": "global-footer-create-wiki-link-start-wikia"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "start-a-wiki"
         }
       ]
     },
@@ -123,7 +133,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-apps-link-app-store"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community-apps.app-store"
         },
         {
           "type": "link-image",
@@ -132,7 +143,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-apps-link-google-play"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community-apps.google-play"
         }
       ]
     },
@@ -151,7 +163,8 @@
             "type": "translatable-text",
             "key": "global-footer-advertise-link-media-kit"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "advertise.media-kit"
         },
         {
           "type": "link-text",
@@ -159,7 +172,8 @@
             "type": "translatable-text",
             "key": "global-footer-advertise-link-contact"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "advertise.contact"
         }
       ]
     },
@@ -182,7 +196,8 @@
               "type": "text",
               "value": "CC-BY-SA"
             },
-            "href": "#"
+            "href": "#",
+            "tracking_label": "license"
           }
         }
       }
@@ -196,7 +211,8 @@
             "type": "translatable-text",
             "key": "global-footer-fandom-overview-link-vertical-games"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "fandom-overview.games"
         },
         {
           "type": "link-branded",
@@ -205,7 +221,8 @@
             "type": "translatable-text",
             "key": "global-footer-fandom-overview-link-vertical-movies"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "fandom-overview.movies"
         },
         {
           "type": "link-branded",
@@ -214,7 +231,8 @@
             "type": "translatable-text",
             "key": "global-footer-fandom-overview-link-vertical-tv"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "fandom-overview.tv"
         },
         {
           "type": "link-branded",
@@ -223,7 +241,8 @@
             "type": "translatable-text",
             "key": "global-footer-fandom-overview-link-fan-communities"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "fandom-overview.explore-wikis"
         }
       ]
     },
@@ -243,7 +262,8 @@
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-facebook"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "follow-us.facebook"
         },
         {
           "type": "link-image",
@@ -252,7 +272,8 @@
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-twitter"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "follow-us.twitter"
         },
         {
           "type": "link-image",
@@ -261,7 +282,8 @@
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-reddit"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "follow-us.reddit"
         },
         {
           "type": "link-image",
@@ -270,7 +292,8 @@
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-youtube"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "follow-us.youtube"
         },
         {
           "type": "link-image",
@@ -279,7 +302,8 @@
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-instagram"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "follow-us.instagram"
         }
       ]
     },
@@ -298,7 +322,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-link-community-central"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community.community-central"
         },
         {
           "type": "link-text",
@@ -306,7 +331,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-link-support"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community.support"
         },
         {
           "type": "link-text",
@@ -314,7 +340,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-link-fan-contributor-program"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community.fan-contributor"
         },
         {
           "type": "link-text",
@@ -322,7 +349,8 @@
             "type": "translatable-text",
             "key": "global-footer-community-link-wam-score"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community.wam"
         },
         {
           "type": "link-text",
@@ -330,30 +358,20 @@
             "type": "translatable-text",
             "key": "global-footer-community-link-help"
           },
-          "href": "#"
+          "href": "#",
+          "tracking_label": "community.help"
         }
       ]
     },
-    "fandom": {
-      "header": {
-        "type": "link-image",
-        "image": "wds-company-logo-fandom",
-        "href": "#",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-header"
-        }
-      }
-    },
-    "wikia": {
-      "header": {
-        "type": "line-image",
-        "image": "wds-company-logo-wikia",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-wikia-header"
-        }
-      }
+    "header": {
+      "type": "link-image",
+      "image": "wds-company-logo-fandom-powered-by-wikia-two-lines",
+      "href": "#",
+      "title": {
+        "type": "text",
+        "value": "test"
+      },
+      "tracking_label": "logo"
     }
   }
 }
