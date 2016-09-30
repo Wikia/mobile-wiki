@@ -1,15 +1,10 @@
 <div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}} {{if searchIsActive 'wds-search-is-active'}}">
 	<div class="wds-global-navigation__content-bar">
-		{{#unless model.logo.header.subtitle}}
-			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo" {{action 'trackClick' 'global-navigation-logo' preventDefault=false}}>
+		{{#if model.logo.header}}
+			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo" {{action 'trackClick' model.logo.header.tracking_label preventDefault=false}}>
 				{{svg model.logo.header.image class='wds-global-navigation__logo-fandom'}}
 			</a>
-		{{else}}
-			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo wds-global-navigation__logo-wikia" {{action 'trackClick' 'global-navigation-logo' preventDefault=false}}>
-				{{svg model.logo.header.image class='wds-global-navigation__logo-wikia-icon'}}
-				<span class="wds-global-navigation__logo-wikia-caption">{{i18n model.logo.header.subtitle.key ns='design-system'}}</span>
-			</a>
-		{{/unless}}
+		{{/if}}
 		<div class="wds-global-navigation__links-and-search">
 			{{#each model.fandom_overview.links as |link|}}
 				{{design-system.global-navigation-link-branded
@@ -48,7 +43,7 @@
 			}}
 		{{/if}}
 		<div class="wds-global-navigation__start-a-wiki">
-			<a href="{{model.create_wiki.header.href}}" class="wds-global-navigation__start-a-wiki-button wds-button wds-is-squished wds-is-secondary" {{action 'trackClick' model.create_wiki.header.title.key preventDefault=false}}>
+			<a href="{{model.create_wiki.header.href}}" class="wds-global-navigation__start-a-wiki-button wds-button wds-is-squished wds-is-secondary" {{action 'trackClick' model.create_wiki.header.tracking_label preventDefault=false}}>
 				<span class="wds-global-navigation__start-a-wiki-caption">{{i18n model.create_wiki.header.title.key ns='design-system'}}</span>
 				{{svg 'wds-icons-plus' class='wds-global-navigation__start-a-wiki-icon wds-icon'}}
 			</a>
