@@ -42,7 +42,6 @@ module.exports = function (defaults) {
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
 			$script: 'bower_components/script.js/dist/script.js',
-			'wikia-logo': '../common/public/symbols/wikia-logo.svg'
 		},
 		sassOptions: {
 			includePaths: [
