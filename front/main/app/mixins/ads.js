@@ -52,6 +52,15 @@ export default Ember.Mixin.create({
 		this.get('ads').pushInContentAd(adSlotName, componentElement);
 	},
 
+	appendHighImpactAd() {
+		const highImpactComponent = this.get('container').lookup('component:ads/invisible-high-impact-2', {
+				singleton: false
+			}),
+			highImpactComponentElement = this.createChildView(highImpactComponent).createElement();
+
+		this.get('adsHighImpact').load(highImpactComponentElement);
+	},
+
 	/**
 	 * @returns {void}
 	 */
@@ -63,10 +72,6 @@ export default Ember.Mixin.create({
 			adsData = this.get('adsData'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
-			highImpactComponent = this.get('container').lookup('component:ads/invisible-high-impact-2', {
-				singleton: false
-			}),
-			highImpactComponentElement = this.createChildView(highImpactComponent).createElement(),
 
 			showInContent = firstSectionTop > adsData.minZerothSectionLength,
 			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
@@ -92,8 +97,7 @@ export default Ember.Mixin.create({
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 
-		// inject invisible high impact
-		this.get('adsHighImpact').load(highImpactComponentElement);
+		this.appendHighImpactAd();
 	},
 
 	/**
@@ -122,6 +126,8 @@ export default Ember.Mixin.create({
 		if ($globalFooter.length) {
 			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
+
+		this.appendHighImpactAd();
 	},
 
 	/**
