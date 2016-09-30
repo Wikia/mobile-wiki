@@ -28,7 +28,7 @@ function afterModel(route, model) {
 		adsContext: model.get('adsContext'),
 		isRoot: true,
 		ns: model.get('ns'),
-		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 	});
 
 	route.setProperties({
