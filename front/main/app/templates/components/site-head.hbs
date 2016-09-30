@@ -11,13 +11,9 @@
 			icon=navIcon
 			iconSize=24
 		}}
-		<div class="site-logo {{unless useFandomLogoInNav 'wikia-site-logo'}}">
+		<div class="site-logo">
 			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
-				{{#if useFandomLogoInNav}}
-					{{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
-				{{else}}
-					{{svg 'wds-company-logo-wikia' role='img' class='wikia-logo'}}
-				{{/if}}
+				{{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
 			</a>
 		</div>
 		<div class="site-head-icon-search">
@@ -34,6 +30,5 @@
 {{site-head-fandom-bar
 	wikiaHomepage=wikiaHomepage
 	isSearchPage=isSearchPage
-	useFandomLogoInNav=useFandomLogoInNav
 }}
 <div id="site-head-sub-header"></div>

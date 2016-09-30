@@ -105,7 +105,7 @@ export default Component.extend({
 			track({
 				action: trackActions.submit,
 				category: 'navigation',
-				label: 'global-navigation-search-submit'
+				label: this.get('model.results.tracking_label')
 			});
 		}
 
@@ -415,7 +415,7 @@ export default Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'navigation',
-			label: 'global-navigation-search-suggestion'
+			label: this.get('model.suggestions.tracking_label')
 		});
 	}
 });
