@@ -6,6 +6,6 @@ export default Ember.Controller.extend({
 	}),
 
 	siteName: Ember.computed(() => {
-		return Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by  Wikia');
+		return Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia');
 	})
 });
