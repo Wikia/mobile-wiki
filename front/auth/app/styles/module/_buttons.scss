@@ -1,5 +1,6 @@
 button,
 a.button {
+	font-size: 0.75rem;
 	font-weight: bold;
 	height: auto;
 	margin-bottom: 1rem;
@@ -12,4 +13,12 @@ button[type='submit'][disabled] {
 	border-color: $button-color;
 	color: $disabled-button-text-color;
 	opacity: 0.5;
+}
+
+
+.form-submit[type='submit'],
+.form-submit[type='submit'][disabled] {
+	background-color: $form-submit-background-color;
+	border-color: $form-submit-background-color;
+	color: $form-submit-color;
 }

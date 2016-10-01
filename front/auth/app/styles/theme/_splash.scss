@@ -1,13 +1,8 @@
 .splash {
 	background-color: $splash-background-color;
-	background-image: url('/front/common/images/faniverse-background.png');
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: cover;
-
-	&.join-page {
-		background-image: url('/front/common/images/faniverse-bg-544.png');
-	}
 }
 
 .splash-top {
@@ -20,15 +15,8 @@
 
 .join-page {
 	.footer-callout-emphasis {
+		color: $link-emphasis-color;
 		font-weight: bold;
 		text-decoration: underline;
-	}
-}
-
-@media(min-width: 550px) {
-	.splash {
-		&.join-page {
-			background-image: url('/front/common/images/faniverse-bg-768.png');
-		}
 	}
 }

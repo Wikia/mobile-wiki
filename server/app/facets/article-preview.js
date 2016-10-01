@@ -36,7 +36,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 		mediaWikiNamespace: 0,
 		articleContent: article.content,
 		wikiVariables,
-		htmlTitle: 'Article preview - Wikia',
+		htmlTitle: 'Article preview | Fandom powered by Wikia',
 		// required in server-data.hbs
 		userId: 0,
 		server: {

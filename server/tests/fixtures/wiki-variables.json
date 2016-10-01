@@ -417,10 +417,10 @@
     "image": "http:\/\/vignette4.wikia.nocookie.net\/wikiaglobal\/images\/6\/66\/Wikia-Visualization-Main%2Cstarwars.png\/revision\/latest\/scale-to-width-down\/500?cb=20120828154207&format=jpg",
     "specialRobotPolicy": null,
     "htmlTitle": {
-      "separator": " - ",
+      "separator": " | ",
       "parts": [
         "Wookieepedia",
-        "Wikia"
+        "Fandom powered by Wikia"
       ]
     }
   }

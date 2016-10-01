@@ -9,10 +9,15 @@ export default Ember.Service.extend({
 		Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileTransitionInterstitialCountries'),
 	floorAdhesionCountries:
 		Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileFloorAdhesionCountries'),
+	component: null,
 
 	isProperGeo(param) {
 		const isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
 		return typeof isProperGeo === 'function' && isProperGeo(param);
+	},
+
+	isFloorAdhesionEnabled() {
+		return this.isInvisibleHighImpactEnabled() && this.isProperGeo(this.floorAdhesionCountries);
 	},
 
 	isInvisibleHighImpactEnabled() {
@@ -20,16 +25,15 @@ export default Ember.Service.extend({
 	},
 
 	loadInterstitial() {
-		if (this.isInvisibleHighImpactEnabled()
-			&& this.isProperGeo(this.interstitialOnTransitionCountries)
-		) {
+		if (this.get('isInvisibleHighImpactEnabled') && this.isProperGeo(this.interstitialOnTransitionCountries)) {
 			this.get('adsModule').pushSlotToQueue(this.get('name'));
 		}
 	},
 
 	loadFloorAdhesion() {
-		if (this.isInvisibleHighImpactEnabled() && this.isProperGeo(this.floorAdhesionCountries)) {
+		if (this.isFloorAdhesionEnabled()) {
 			this.get('adsModule').addSlot(this.get('name'));
+			this.get('ads').pushInContentAd(this.get('name'), this.get('component'));
 		}
 	},
 

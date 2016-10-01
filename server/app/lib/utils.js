@@ -22,6 +22,7 @@ const Environment = {
 		Prod: 'prod',
 		Verify: 'verify',
 		Preview: 'preview',
+		Stable: 'stable',
 		Sandbox: 'sandbox',
 		Dev: 'dev',
 		Testing: 'testing'
@@ -41,6 +42,7 @@ export function getEnvironment(environment, fallbackEnvironment = Environment.De
 		prod: Environment.Prod,
 		verify: Environment.Verify,
 		preview: Environment.Preview,
+		stable: Environment.Stable,
 		sandbox: Environment.Sandbox,
 		dev: Environment.Dev,
 		testing: Environment.Testing
@@ -141,7 +143,7 @@ export function getWikiDomainName(localSettings, hostName = '') {
  */
 export function getWikiaSubdomain(host) {
 	return host.replace(
-		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+		/^(?:(?:verify|preview|stable|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
 		'$1'
 	);
 }
