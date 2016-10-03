@@ -153,7 +153,6 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 		 * @param {*} payload
 		 * @returns {void}
 		 */
-
 		Wreck.get(url, {
 			redirects,
 			headers,
