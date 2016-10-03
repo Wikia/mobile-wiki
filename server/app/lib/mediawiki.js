@@ -160,7 +160,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			timeout: localSettings.backendRequestTimeout,
 			json: true,
 			beforeRedirect,
-			redirected: (statusCode, location, req) => {
+			redirected: (statusCode, location) => {
 				redirectedUrl = location;
 			}
 		}, (err, response, payload) => {

@@ -4,8 +4,7 @@ var Lab = require('lab'),
 	lab = exports.lab = Lab.script(),
 	describe = lab.experiment,
 	it = lab.it,
-	before = lab.before,
-	after = lab.after,
+	beforeEach = lab.beforeEach,
 	afterEach = lab.afterEach,
 	expect = code.expect,
 	clone = require('../utils/clone'),
@@ -25,7 +24,7 @@ describe('curated-content', function () {
 		},
 		wreckGetStub = sinon.stub();
 
-	before(function (done) {
+	beforeEach(function (done) {
 		mediawiki.__Rewire__('Wreck', {
 			get: wreckGetStub
 		});
@@ -34,14 +33,9 @@ describe('curated-content', function () {
 
 	afterEach(function (done) {
 		wreckGetStub.reset();
-		done();
-	});
-
-	after(function (done) {
 		mediawiki.__ResetDependency__('Wreck');
 		done();
 	});
-
 	it('renders application when all server requests succeed', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
@@ -80,16 +74,26 @@ describe('curated-content', function () {
 	);
 
 	it('redirects to community wikia when requested wiki does not exist', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, 'not a valid wikia');
+		mediawiki.__Rewire__('Wreck', {
+			get: function(url, options, callback) {
+				if (url.indexOf('getWikiVariables') > -1) {
+					options.redirected(null, 'http://google.com/');
+
+					callback(null, {statusCode: 200}, 'not a valid wikia');
+				} else {
+					callback(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
+				}
+			}
+		});
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(302);
 			expect(response.headers.location).to.equal(
-				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
+				'http://google.com/'
 			);
 			done();
 		});
+
 	});
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
