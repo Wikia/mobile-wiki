@@ -58,7 +58,7 @@ describe('application', function () {
 
 	it('redirects to community wikia when requested wiki does not exist', function (done) {
 		mediawiki.__Rewire__('Wreck', {
-			get: function(url, options, callback) {
+			get: function (url, options, callback) {
 				if (url.indexOf('getWikiVariables') > -1) {
 					options.redirected(null, 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia');
 
