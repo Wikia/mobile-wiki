@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
-import {getGroup, inGroup} from 'common/modules/abtest';
+import {getGroup} from 'common/modules/abtest';
 
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
@@ -27,13 +27,12 @@ export default Ember.Component.extend(
 		displayTitle: null,
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
-			let content = this.get('content');
+			const content = this.get('content');
 
 			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (!Ember.isBlank(content)) {
-					content = this.injectSections(content);
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -51,7 +50,6 @@ export default Ember.Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.injectPotentialMemberPageExperimentComponent();
-					this.bindHeaderClicks();
 					this.injectPlacementTest();
 				} else {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
@@ -243,22 +241,6 @@ export default Ember.Component.extend(
 			}
 
 			return {name, attrs, element};
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		bindHeaderClicks() {
-			if (!this.$('.collapsible-section-header').length) {
-				return;
-			}
-
-			this.$('.collapsible-section-header').click(function () {
-				const $header = $(this);
-
-				$header.toggleClass('open');
-				$header.next('.collapsible-section-body').toggleClass('hidden');
-			});
 		},
 
 		/**
@@ -649,57 +631,6 @@ export default Ember.Component.extend(
 						return view;
 					});
 			}
-		},
-
-		/**
-		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
-		 *
-		 * @param {string} content
-		 * @returns {documentFragment}
-		 */
-		injectSections(content) {
-			if (!inGroup('RECIRCULATION_MERCURY_COLLAPSE', 'YES')) {
-				return content;
-			}
-
-			const $fragment = $(document.createDocumentFragment()),
-				nodes = this.getContentNodes(content);
-
-			let $root = $fragment;
-
-			for (let i = 0; i < nodes.length; i++) {
-				const $node = $(nodes[i]);
-
-				if ($node.is('h2')) {
-					const $currentSection = $('<section class="collapsible-section-body hidden">'),
-						$sectionHeader = $node.clone(true).addClass('collapsible-section-header'),
-						svg = '<svg viewBox="0 0 12 7" class="icon chevron"><use xlink:href="#chevron"></use></svg>';
-
-					$sectionHeader.prepend(svg);
-
-					$fragment.append($sectionHeader);
-					$fragment.append($currentSection);
-
-					$root = $currentSection;
-				} else {
-					$root.append($node.clone(true));
-				}
-			}
-
-			return $fragment;
-		},
-
-		/**
-		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
-		 *
-		 * @param {string} content
-		 * @returns {array}
-		 */
-		getContentNodes(content) {
-			const article = document.createElement('div');
-
-			article.innerHTML = content;
-			return article.childNodes;
 		},
 	}
 );

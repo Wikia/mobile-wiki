@@ -20,7 +20,7 @@ export default function showDiscussions(request, reply) {
 			return reply('Not Found').code(404);
 		}
 
-		context.documentTitle = `Discussions - ${variables.siteName} - Wikia`;
+		context.documentTitle = `Discussions | ${variables.siteName} | Fandom powered by Wikia`;
 		context.showSpinner = true;
 
 		showApplication(request, reply, wikiVariables, context, true);
