@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
 	init() {
 		this.setProperties({
 			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
-			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 		});
 	},
 

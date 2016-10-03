@@ -14,7 +14,7 @@ export default Controller.extend(
 			this._super(...arguments);
 			this.setProperties({
 				mainPageTitle: get(Mercury, 'wiki.mainPageTitle'),
-				siteName: getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+				siteName: getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 			});
 		},
 

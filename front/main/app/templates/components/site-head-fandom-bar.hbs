@@ -1,11 +1,5 @@
 <div class="site-head-fandom-bar">
-	{{#if useFandomLogoInNav}}
-		<a href="{{wikiaHomepage}}">
-			{{svg 'wds-company-logo-powered-by-wikia' role='img' class='fandom-bar-logo'}}
-		</a>
-	{{else}}
-		<a {{action 'homeOfFandomClick' preventDefault=false}} href="{{wikiaHomepage}}">
-			{{homeOfFandomLabel}}
-		</a>
-	{{/if}}
+	<a href="{{wikiaHomepage}}">
+		{{svg 'wds-company-logo-powered-by-wikia' role='img' class='fandom-bar-logo'}}
+	</a>
 </div>

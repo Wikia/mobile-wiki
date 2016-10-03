@@ -22,7 +22,7 @@ test('set head tags for correct model', function (assert) {
 		expectedHeadTags = {
 			canonical: 'http://muppet.wikia.com/wiki/Kermit',
 			description: 'Article about Kermit',
-			documentTitle: 'Kermit The Frog - Muppet Wiki - Wikia',
+			documentTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
 			appleItunesApp: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit',
 			robots: 'index,follow'
 		};
