@@ -373,13 +373,8 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload, redirectedUrl}) => {
-				if (payload) {
-					return Promise.resolve(payload);
-				} else {
-					// If we got status 200 but not the expected format we handle it as a redirect
-					throw new NonJsonApiResponseError(redirectedUrl);
-				}
+			.then(({payload}) => {
+				return Promise.resolve(payload);
 			});
 	}
 
@@ -397,13 +392,8 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload, redirectedUrl}) => {
-				if (payload) {
-					return Promise.resolve(payload);
-				} else {
-					// If we got status 200 but not the expected format we handle it as a redirect
-					throw new NonJsonApiResponseError(redirectedUrl);
-				}
+			.then(({payload}) => {
+				return Promise.resolve(payload);
 			});
 	}
 
@@ -435,13 +425,8 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload, redirectedUrl}) => {
-				if (payload) {
-					return Promise.resolve(payload);
-				} else {
-					// If we got status 200 but not the expected format we handle it as a redirect
-					throw new NonJsonApiResponseError(redirectedUrl);
-				}
+			.then(({payload}) => {
+				return Promise.resolve(payload);
 			});
 	}
 }
