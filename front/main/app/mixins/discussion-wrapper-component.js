@@ -7,7 +7,7 @@ export default Ember.Mixin.create(
 		isLoading: false,
 		loadOnScrollEnabled: false,
 		page: 1,
-		postsDisplayed: 0,
+		posts: 0,
 		totalPosts: 0,
 
 		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
@@ -35,7 +35,7 @@ export default Ember.Mixin.create(
 			return this.get('totalPosts') > this.getWithDefault('page', 1) * 20;
 		}),
 
-		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
+		loadingPageResolveObserver: Ember.observer('posts', 'minorError', function () {
 			this.set('isLoading', false);
 		}),
 
