@@ -1,6 +1,6 @@
 {
   "errors":{
-    "email_already_exists":"該電子信箱已經在wikia上註冊了",
+    "email_already_exists":"該電子信箱已經在Fandom上註冊了",
     "email_invalid":"電子郵件無效",
     "registration_error":"我們現在暫時無法完成你的註冊",
     "username_already_exists":"用戶名已經被使用",
@@ -10,8 +10,8 @@
     "username_illegal_characters":"用戶名只能由同一文字體系的字母和數字組成，並且必須至少有一個字母或文字。",
     "password_exceeds_max_length":"密碼不能超過50個字元",
     "password_equal_name":"用戶名和密碼不匹配",
-    "user_already_linked":"這個Wikia帳戶已經連接到Facebook",
-    "fb_account_already_linked":"這個Facebook帳戶已經連接到另一個Wikia帳戶",
+    "user_already_linked":"這個Fandom帳戶已經連接到Facebook",
+    "fb_account_already_linked":"這個Facebook帳戶已經連接到另一個Fandom帳戶",
     "birthdate_invalid":"出生日期無效",
     "wrong-credentials":"我們無法辨識這些登入資料。請再試一次或註冊一個新帳戶。",
     "server-error":"處理你的請求時出錯。請稍後再試。"
