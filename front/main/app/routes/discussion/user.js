@@ -3,11 +3,13 @@ import DiscussionContributionRouteMixin from '../../mixins/discussion-contributi
 import DiscussionUserModel from '../../models/discussion/user';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
+import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionModalDialogMixin,
+	DiscussionForumActionsRouteMixin,
 	{
 		userId: null,
 
