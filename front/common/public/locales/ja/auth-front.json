@@ -1,6 +1,6 @@
 {
   "errors":{
-    "email_already_exists":"このメールアドレスはウィキアに登録済みです",
+    "email_already_exists":"このメールアドレスはFandomに登録済みです",
     "email_invalid":"メールアドレスが無効です",
     "registration_error":"現在、登録を完了できません",
     "username_already_exists":"このユーザー名はすでに使用されています",
@@ -10,8 +10,8 @@
     "username_illegal_characters":"ユーザー名に含めることができるのは、同一体系のアルファベットの文字と数字のみです。また、文字を1つ以上含める必要があります",
     "password_exceeds_max_length":"パスワードは50文字以下でご指定ください",
     "password_equal_name":"パスワードとユーザー名を同じにすることはできません",
-    "user_already_linked":"このウィキアアカウントはすでにFacebookにコネクトされています",
-    "fb_account_already_linked":"このFacebookアカウントはすでに別のウィキアアカウントにコネクトされています",
+    "user_already_linked":"このFandomアカウントはすでにFacebookにコネクトされています",
+    "fb_account_already_linked":"このFacebookアカウントはすでに別のFandomアカウントにコネクトされています",
     "birthdate_invalid":"生年月日が無効な日付です",
     "wrong-credentials":"入力されたログイン情報を認識できません。もう一度お試しになるか、新しいアカウントをご登録ください。",
     "server-error":"リクエストの処理中にエラーが発生しました。しばらくしてから、もう一度お試しください。"

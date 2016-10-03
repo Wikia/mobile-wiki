@@ -42,8 +42,6 @@ export default function injectDesignSystemData({data, request, showFooter = fals
 
 			data.globalFooter = designSystemData['global-footer'];
 			data.globalNavigation = globalNavigation;
-			data.useFandomLogoInNav = globalNavigation.logo.header.image === fandomLogoImage;
-
 			return data;
 		})
 		.catch((error) => {
