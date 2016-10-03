@@ -27,7 +27,6 @@ export default Ember.Mixin.create({
 	},
 
 	setStartPageNumber(page) {
-		debugger;
 		if (page === 1) {
 			this.set('firstPageLoaded', true);
 		} else {
