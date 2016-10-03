@@ -1,7 +1,7 @@
 import Logger from '../lib/logger';
 import {CuratedMainPageRequestHelper} from '../lib/curated-main-page';
 import {
-	MainPageDataRequestError, RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
+	MainPageDataRequestError, RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
 } from '../lib/custom-errors';
 import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded, setI18nLang} from '../lib/utils';
 import localSettings from '../../config/localSettings';
@@ -109,8 +109,8 @@ export default function showCuratedContent(request, reply) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(WikiVariablesNotValidWikiError, () => {
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		.catch(NonJsonApiResponseError, (err) => {
+			reply.redirect(err.url);
 		})
 		/**
 		 * @returns {void}

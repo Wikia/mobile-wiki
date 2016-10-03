@@ -8,7 +8,7 @@ import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/hashing';
 import {
-	RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
+	RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
@@ -119,8 +119,8 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * If request for Wiki Variables succeeds, but wiki does not exist
 		 * @returns {void}
 		 */
-		.catch(WikiVariablesNotValidWikiError, () => {
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		.catch(NonJsonApiResponseError, (err) => {
+			reply.redirect(err.url);
 		})
 		/**
 		 * @returns {void}

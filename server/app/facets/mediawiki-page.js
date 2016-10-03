@@ -2,7 +2,7 @@ import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as
 import {
 	PageRequestError,
 	RedirectedToCanonicalHost,
-	WikiVariablesNotValidWikiError,
+	NonJsonApiResponseError,
 	WikiVariablesRequestError
 } from '../lib/custom-errors';
 import Logger from '../lib/logger';
@@ -68,8 +68,8 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 		 * If request for Wiki Variables succeeds, but wiki does not exist
 		 * @returns {void}
 		 */
-		.catch(WikiVariablesNotValidWikiError, () => {
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		.catch(NonJsonApiResponseError, (err) => {
+			reply.redirect(err.url);
 		})
 		/**
 		 * @param {*} error
@@ -206,8 +206,8 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * If request for Wiki Variables succeeds, but wiki does not exist
 		 * @returns {void}
 		 */
-		.catch(WikiVariablesNotValidWikiError, () => {
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		.catch(NonJsonApiResponseError, (err) => {
+			reply.redirect(err.url);
 		})
 		/**
 		 * If request for Wiki Variables succeeds, but request for Page Details fails

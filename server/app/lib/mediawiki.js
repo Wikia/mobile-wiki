@@ -6,17 +6,7 @@ import Logger from './logger';
 import Wreck from 'wreck';
 import Promise from 'bluebird';
 import Url from 'url';
-import {WikiVariablesNotValidWikiError, WikiVariablesRequestError} from './custom-errors';
-
-/**
- * @typedef {Object} CallbackParams
- * @property {Function} resolve
- * @property {Function} reject
- * @property {Object} err
- * @property {*} payload
- * @property {Object} response
- * @property {string} url
- */
+import {NonJsonApiResponseError, WikiVariablesRequestError} from './custom-errors';
 
 /**
  * Create request URL
@@ -70,13 +60,18 @@ export function sanitizeRejectData(payload, response) {
 
 /**
  * Handle request response
+ * @param {Function} resolve
+ * @param {Function} reject
+ * @param {Object} err
+ * @param {*} payload
+ * @param {Object} response
+ * @param {string} url
+ * @param {string} host
+ * @param {string} redirectedUrl
  *
- * @param {CallbackParams} params
  * @returns {void}
  */
-function requestCallback(params) {
-	const {resolve, reject, err, payload, response, url, host} = params;
-
+function requestCallback({resolve, reject, err, payload, response, url, host, redirectedUrl}) {
 	if (err) {
 		Logger.error({
 			url,
@@ -91,7 +86,10 @@ function requestCallback(params) {
 			}
 		});
 	} else if (response.statusCode === 200) {
-		resolve(payload);
+		resolve({
+			payload,
+			redirectedUrl
+		});
 	} else {
 		// Don't flood logs with 404s
 		if (response.statusCode !== 404) {
@@ -147,18 +145,24 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 	 * @returns {void}
 	 */
 	return new Promise((resolve, reject) => {
+		let redirectedUrl;
+
 		/**
 		 * @param {*} err
 		 * @param {*} response
 		 * @param {*} payload
 		 * @returns {void}
 		 */
+
 		Wreck.get(url, {
 			redirects,
 			headers,
 			timeout: localSettings.backendRequestTimeout,
 			json: true,
-			beforeRedirect
+			beforeRedirect,
+			redirected: (statusCode, location, req) => {
+				redirectedUrl = location;
+			}
 		}, (err, response, payload) => {
 			return requestCallback({
 				resolve,
@@ -167,7 +171,8 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 				payload,
 				response,
 				url,
-				host
+				host,
+				redirectedUrl
 			});
 		});
 	});
@@ -196,13 +201,21 @@ export function post(url, formData, host = '', headers = {}) {
 	 * @returns {void}
 	 */
 	return new Promise((resolve, reject) => {
+		let redirectedUrl;
+
 		/**
 		 * @param {*} err
 		 * @param {*} response
 		 * @param {*} payload
 		 * @returns {void}
 		 */
-		Wreck.request('POST', url, {payload: formData, headers}, (err, response) => {
+		Wreck.request('POST', url, {
+			payload: formData,
+			headers,
+			redirected: (statusCode, location, req) => {
+				redirectedUrl = location;
+			}
+		}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
 				return requestCallback({
 					resolve,
@@ -210,7 +223,9 @@ export function post(url, formData, host = '', headers = {}) {
 					err,
 					payload: body.toString(),
 					response,
-					url
+					url,
+					host,
+					redirectedUrl
 				});
 			});
 		});
@@ -278,9 +293,9 @@ export class DesignSystemRequest extends BaseRequest {
 
 		return this
 			.fetch(url, this.corporatePageUrl)
-			.then((designSystemData) => {
-				if (designSystemData) {
-					return designSystemData;
+			.then(({payload}) => {
+				if (payload) {
+					return payload;
 				} else {
 					throw new Error('No data returned from API');
 				}
@@ -308,15 +323,15 @@ export class WikiRequest extends BaseRequest {
 		return this
 			.fetch(url)
 			/**
-			 * @param {*} wikiVariables
+			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then((wikiVariables) => {
-				if (wikiVariables.data) {
-					return Promise.resolve(wikiVariables.data);
+			.then(({payload, redirectedUrl}) => {
+				if (payload.data) {
+					return Promise.resolve(payload.data);
 				} else {
-					// If we got status 200 but not the expected format we handle it as a redirect to "Not valid wiki"
-					throw new WikiVariablesNotValidWikiError();
+					// If we got status 200 but not the expected format we handle it as a redirect
+					throw new NonJsonApiResponseError(redirectedUrl);
 				}
 			}, () => {
 				throw new WikiVariablesRequestError();
@@ -353,7 +368,19 @@ export class PageRequest extends BaseRequest {
 			urlParams.sections = sections;
 		}
 
-		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams));
+		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams))
+			/**
+			 * @param {payload, redirectedUrl}
+			 * @returns {Promise}
+			 */
+			.then(({payload, redirectedUrl}) => {
+				if (payload) {
+					return Promise.resolve(payload);
+				} else {
+					// If we got status 200 but not the expected format we handle it as a redirect
+					throw new NonJsonApiResponseError(redirectedUrl);
+				}
+			});
 	}
 
 	/*
@@ -365,7 +392,19 @@ export class PageRequest extends BaseRequest {
 			method: 'getMainPageDetailsAndAdsContext'
 		});
 
-		return this.fetch(url);
+		return this.fetch(url)
+			/**
+			 * @param {payload, redirectedUrl}
+			 * @returns {Promise}
+			 */
+			.then(({payload, redirectedUrl}) => {
+				if (payload) {
+					return Promise.resolve(payload);
+				} else {
+					// If we got status 200 but not the expected format we handle it as a redirect
+					throw new NonJsonApiResponseError(redirectedUrl);
+				}
+			});
 	}
 
 	/**
@@ -391,6 +430,18 @@ export class PageRequest extends BaseRequest {
 			params.CKmarkup = CKmarkup;
 		}
 
-		return this.post(url, Url.format({query: params}).substr(1));
+		return this.post(url, Url.format({query: params}).substr(1))
+			/**
+			 * @param {payload, redirectedUrl}
+			 * @returns {Promise}
+			 */
+			.then(({payload, redirectedUrl}) => {
+				if (payload) {
+					return Promise.resolve(payload);
+				} else {
+					// If we got status 200 but not the expected format we handle it as a redirect
+					throw new NonJsonApiResponseError(redirectedUrl);
+				}
+			});
 	}
 }
