@@ -67,11 +67,11 @@ export function sanitizeRejectData(payload, response) {
  * @param {Object} response
  * @param {string} url
  * @param {string} host
- * @param {string} redirectLocation
+ * @param {string} [redirectLocation=null]
  *
  * @returns {void}
  */
-function requestCallback({resolve, reject, err, payload, response, url, host, redirectLocation}) {
+function requestCallback({resolve, reject, err, payload, response, url, host, redirectLocation = null}) {
 	if (err) {
 		Logger.error({
 			url,
@@ -200,8 +200,6 @@ export function post(url, formData, host = '', headers = {}) {
 	 * @returns {void}
 	 */
 	return new Promise((resolve, reject) => {
-		let redirectLocation;
-
 		/**
 		 * @param {*} err
 		 * @param {*} response
@@ -210,10 +208,7 @@ export function post(url, formData, host = '', headers = {}) {
 		 */
 		Wreck.request('POST', url, {
 			payload: formData,
-			headers,
-			redirected: (statusCode, location, req) => {
-				redirectLocation = location;
-			}
+			headers
 		}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
 				return requestCallback({
@@ -223,8 +218,7 @@ export function post(url, formData, host = '', headers = {}) {
 					payload: body.toString(),
 					response,
 					url,
-					host,
-					redirectLocation
+					host
 				});
 			});
 		});
