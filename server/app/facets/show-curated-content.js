@@ -110,7 +110,7 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {void}
 		 */
 		.catch(NonJsonApiResponseError, (err) => {
-			reply.redirect(err.url);
+			reply.redirect(err.redirectLocation);
 		})
 		/**
 		 * @returns {void}

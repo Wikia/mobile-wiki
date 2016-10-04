@@ -67,9 +67,9 @@ export class NonJsonApiResponseError {
 	/**
 	 * @returns {void}
 	 */
-	constructor(url) {
+	constructor(redirectLocation) {
 		Error.apply(this, arguments);
-		this.url = url;
+		this.redirectLocation = redirectLocation;
 	}
 }
 

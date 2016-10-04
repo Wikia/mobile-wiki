@@ -69,7 +69,7 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 		 * @returns {void}
 		 */
 		.catch(NonJsonApiResponseError, (err) => {
-			reply.redirect(err.url);
+			reply.redirect(err.redirectLocation);
 		})
 		/**
 		 * @param {*} error
@@ -207,7 +207,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.catch(NonJsonApiResponseError, (err) => {
-			reply.redirect(err.url);
+			reply.redirect(err.redirectLocation);
 		})
 		/**
 		 * If request for Wiki Variables succeeds, but request for Page Details fails
