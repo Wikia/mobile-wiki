@@ -372,9 +372,7 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload}) => {
-				return Promise.resolve(payload);
-			});
+			.then(({payload}) => payload);
 	}
 
 	/*
@@ -391,9 +389,7 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload}) => {
-				return Promise.resolve(payload);
-			});
+			.then(({payload}) => payload);
 	}
 
 	/**
@@ -424,8 +420,6 @@ export class PageRequest extends BaseRequest {
 			 * @param {payload, redirectedUrl}
 			 * @returns {Promise}
 			 */
-			.then(({payload}) => {
-				return Promise.resolve(payload);
-			});
+			.then(({payload}) => payload);
 	}
 }
