@@ -73,7 +73,7 @@ describe('curated-content', function () {
 		}
 	);
 
-	it('redirects to community wikia when requested wiki does not exist', function (done) {
+	it('redirects when requested wiki is redirected', function (done) {
 		mediawiki.__Rewire__('Wreck', {
 			get: function (url, options, callback) {
 				if (url.indexOf('getWikiVariables') > -1) {

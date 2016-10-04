@@ -67,11 +67,11 @@ export function sanitizeRejectData(payload, response) {
  * @param {Object} response
  * @param {string} url
  * @param {string} host
- * @param {string} redirectedUrl
+ * @param {string} redirectLocation
  *
  * @returns {void}
  */
-function requestCallback({resolve, reject, err, payload, response, url, host, redirectedUrl}) {
+function requestCallback({resolve, reject, err, payload, response, url, host, redirectLocation}) {
 	if (err) {
 		Logger.error({
 			url,
@@ -88,7 +88,7 @@ function requestCallback({resolve, reject, err, payload, response, url, host, re
 	} else if (response.statusCode === 200) {
 		resolve({
 			payload,
-			redirectedUrl
+			redirectLocation
 		});
 	} else {
 		// Don't flood logs with 404s
@@ -145,7 +145,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 	 * @returns {void}
 	 */
 	return new Promise((resolve, reject) => {
-		let redirectedUrl;
+		let redirectLocation;
 
 		/**
 		 * @param {*} err
@@ -160,7 +160,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect,
 			redirected: (statusCode, location) => {
-				redirectedUrl = location;
+				redirectLocation = location;
 			}
 		}, (err, response, payload) => {
 			return requestCallback({
@@ -171,7 +171,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 				response,
 				url,
 				host,
-				redirectedUrl
+				redirectLocation
 			});
 		});
 	});
@@ -200,7 +200,7 @@ export function post(url, formData, host = '', headers = {}) {
 	 * @returns {void}
 	 */
 	return new Promise((resolve, reject) => {
-		let redirectedUrl;
+		let redirectLocation;
 
 		/**
 		 * @param {*} err
@@ -212,7 +212,7 @@ export function post(url, formData, host = '', headers = {}) {
 			payload: formData,
 			headers,
 			redirected: (statusCode, location, req) => {
-				redirectedUrl = location;
+				redirectLocation = location;
 			}
 		}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
@@ -224,7 +224,7 @@ export function post(url, formData, host = '', headers = {}) {
 					response,
 					url,
 					host,
-					redirectedUrl
+					redirectLocation
 				});
 			});
 		});
@@ -322,15 +322,15 @@ export class WikiRequest extends BaseRequest {
 		return this
 			.fetch(url)
 			/**
-			 * @param {payload, redirectedUrl}
+			 * @param {payload, redirectLocation}
 			 * @returns {Promise}
 			 */
-			.then(({payload, redirectedUrl}) => {
+			.then(({payload, redirectLocation}) => {
 				if (payload.data) {
 					return Promise.resolve(payload.data);
 				} else {
 					// If we got status 200 but not the expected format we handle it as a redirect
-					throw new NonJsonApiResponseError(redirectedUrl);
+					throw new NonJsonApiResponseError(redirectLocation);
 				}
 			}, () => {
 				throw new WikiVariablesRequestError();
@@ -369,7 +369,7 @@ export class PageRequest extends BaseRequest {
 
 		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams))
 			/**
-			 * @param {payload, redirectedUrl}
+			 * @param {payload, redirectLocation}
 			 * @returns {Promise}
 			 */
 			.then(({payload}) => payload);
@@ -386,7 +386,7 @@ export class PageRequest extends BaseRequest {
 
 		return this.fetch(url)
 			/**
-			 * @param {payload, redirectedUrl}
+			 * @param {payload, redirectLocation}
 			 * @returns {Promise}
 			 */
 			.then(({payload}) => payload);
@@ -417,7 +417,7 @@ export class PageRequest extends BaseRequest {
 
 		return this.post(url, Url.format({query: params}).substr(1))
 			/**
-			 * @param {payload, redirectedUrl}
+			 * @param {payload, redirectLocation}
 			 * @returns {Promise}
 			 */
 			.then(({payload}) => payload);
