@@ -4,12 +4,12 @@
 import localSettings from '../../config/localSettings';
 
 const urlsToPrerenderRegExp = new RegExp([
-	'^bleach\.[^/]*/wiki/Bleach_Wiki',
-	'^bleach\.[^/]*/main/',
-	'^dc\.[^/]*/wiki/DC_Comics_Database',
-	'^dc\.[^/]*/main/',
-	'^onepiece\.[^/]*/wiki/Main_Page',
-	'^onepiece\.[^/]*/main/',
+	'^bleach\.[^/]+/wiki/Bleach_Wiki',
+	'^bleach\.[^/]+/main/',
+	'^dc\.[^/]+/wiki/DC_Comics_Database',
+	'^dc\.[^/]+/main/',
+	'^onepiece\.[^/]+/wiki/Main_Page',
+	'^onepiece\.[^/]+/main/',
 ].join('|'));
 
 function canPrerender(req) {
@@ -34,7 +34,7 @@ function updateRequestedUrl(url) {
 	}
 	url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
 	url = url.replace(new RegExp('\.[a-z]+\.wikia-dev\.com/'), '.wikia.com/');
-	url = url.replace(new RegExp('^http://sandbox-[^.]*.'), 'http://');
+	url = url.replace(new RegExp('^http://sandbox-[^.]+.'), 'http://');
 
 	return `${url}${useskin}`;
 }

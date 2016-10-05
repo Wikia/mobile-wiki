@@ -1,41 +1,38 @@
 QUnit.module('lib/prerender');
 
 QUnit.test('updateRequestedUrl', function (assert) {
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://muppet.wikia.com/wiki/Miss_Piggy'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
-		'adds ?useskin=mercury'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
-		'does not add ?useskin=mercury if already present'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury',
-		'adds &useskin=mercury if some query params present'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl(
-			'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury'
-		),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury',
-		'does not add &useskin=mercury if already present'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://sandbox-s3.muppet.wikia.com/wiki/Miss_Piggy'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
-		'removes sandbox-* part and adds ?useskin=mercury'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://muppet.rychu.wikia-dev.com/wiki/Miss_Piggy'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
-		'redirect wikia-dev to production and adds ?useskin=mercury'
-	);
-	assert.equal(
-		global.prerenderOptions.updateRequestedUrl('http://muppet.127.0.0.1.xip.io:7000/wiki/Miss_Piggy'),
-		'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
-		'redirect xip.io to production and adds ?useskin=mercury'
-	);
+	const testCases = [
+		{
+			in: 'http://muppet.wikia.com/wiki/Miss_Piggy',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'
+		},
+		{
+			in: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'
+		},
+		{
+			in: 'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury'
+		},
+		{
+			in: 'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?some=query&params=present&useskin=mercury'
+		},
+		{
+			in: 'http://sandbox-s3.muppet.wikia.com/wiki/Miss_Piggy',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'
+		},
+		{
+			in: 'http://muppet.rychu.wikia-dev.com/wiki/Miss_Piggy',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'
+		},
+		{
+			in: 'http://muppet.127.0.0.1.xip.io:7000/wiki/Miss_Piggy',
+			out: 'http://muppet.wikia.com/wiki/Miss_Piggy?useskin=mercury'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		assert.equal(global.prerenderOptions.updateRequestedUrl(testCase.in), testCase.out);
+	});
 });
