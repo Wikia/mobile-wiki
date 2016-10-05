@@ -25,7 +25,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const categoryIds = this.get('categoryIds'),
+			const categoryIds = this.getWithDefault('categoryIds', []),
 				posts = DiscussionForumModel.find(
 					Mercury.wiki.id,
 					categoryIds,
