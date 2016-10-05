@@ -61,15 +61,16 @@ export class WikiVariablesRequestError {
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
 
 /**
- * @class WikiVariablesNotValidWikiError
+ * @class NonJsonApiResponseError
  */
-export class WikiVariablesNotValidWikiError {
+export class NonJsonApiResponseError {
 	/**
 	 * @returns {void}
 	 */
-	constructor() {
+	constructor(redirectLocation) {
 		Error.apply(this, arguments);
+		this.redirectLocation = redirectLocation;
 	}
 }
 
-WikiVariablesNotValidWikiError.prototype = Object.create(Error.prototype);
+NonJsonApiResponseError.prototype = Object.create(Error.prototype);
