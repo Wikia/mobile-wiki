@@ -37,6 +37,7 @@ export default DiscussionInlineEditor.extend(
 				globalNavigationHeight: $('#globalNavigation').outerHeight(true),
 			});
 
+			// this listener will be removed in DiscussionStickyComponentMixin
 			$(window).on('scroll.editor', this.onScroll.bind(this));
 		},
 	}
