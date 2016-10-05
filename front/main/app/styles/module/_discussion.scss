@@ -573,7 +573,17 @@ body.discussions {
 		text-transform: uppercase;
 
 		&.top-list-button {
-			margin: 0 0 15px;
+			background-color: $discussion-top-list-button-color;
+			border: none;
+			margin: 15px;
+
+			svg {
+				height: 14px;
+				margin-top: 0;
+				transform: rotate(90deg);
+				vertical-align: text-top;
+				width: 14px;
+			}
 		}
 	}
 
