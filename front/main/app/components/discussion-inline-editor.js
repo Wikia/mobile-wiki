@@ -60,6 +60,9 @@ export default DiscussionMultipleInputsEditor.extend(
 
 					this.get('create')(newDiscussionEntityData, {newCategoryId: this.get('category.id')});
 				}
+			},
+			setEditorActive(editorType, active) {
+				this.sendAction('setEditorActive', editorType, active);
 			}
 		}
 	}
