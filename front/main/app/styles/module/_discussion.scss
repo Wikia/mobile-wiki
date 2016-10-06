@@ -581,9 +581,10 @@ body.discussions {
 			svg {
 				fill: $discussion-top-list-arrow-color;
 				height: 12px;
+				margin-right: 2px;
 				margin-top: 0;
 				transform: rotate(180deg);
-				vertical-align: text-top;
+				vertical-align: middle;
 				width: 12px;
 			}
 		}
