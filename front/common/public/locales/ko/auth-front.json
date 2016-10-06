@@ -1,6 +1,6 @@
 {
   "errors":{
-    "email_already_exists":"Email is already registered on Wikia",
+    "email_already_exists":"Email is already registered on Fandom",
     "email_invalid":"Email is not valid",
     "registration_error":"We cannot complete your registration at this time",
     "username_already_exists":"Username is taken",
@@ -10,8 +10,8 @@
     "username_illegal_characters":"Username can contain only letters and numbers from one alphabet and must include one letter",
     "password_exceeds_max_length":"Password cannot exceed 50 characters",
     "password_equal_name":"Password and username cannot match",
-    "user_already_linked":"This Wikia account is already connected to Facebook",
-    "fb_account_already_linked":"This Facebook account is already connected to another Wikia user account",
+    "user_already_linked":"This Fandom account is already connected to Facebook",
+    "fb_account_already_linked":"This Facebook account is already connected to another Fandom user account",
     "birthdate_invalid":"Birthdate isn't a valid date",
     "wrong-credentials":"We don't recognize these credentials. Try again or register a new account.",
     "server-error":"There was an error processing your request. Please try again later."
