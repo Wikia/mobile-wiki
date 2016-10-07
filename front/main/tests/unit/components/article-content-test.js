@@ -5,6 +5,7 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 	unit: true,
 	needs: [
 		'component:ad-slot',
+		'component:ads/invisible-high-impact-2',
 		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'component:potential-member-page-experiment',

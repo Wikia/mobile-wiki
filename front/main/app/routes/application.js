@@ -138,8 +138,6 @@ export default Route.extend(
 				}
 
 				if (info.article) {
-					this.get('adsHighImpact').loadInterstitial();
-
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
@@ -273,8 +271,6 @@ export default Route.extend(
 				adsModule.setSiteHeadOffset = (offset) => {
 					this.set('ads.siteHeadOffset', offset);
 				};
-
-				this.get('adsHighImpact').loadFloorAdhesionWhenPossible();
 			}
 		},
 	}
