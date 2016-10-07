@@ -76,6 +76,14 @@ body.dark-theme {
 	}
 
 	.discussion {
+		.load-more-button {
+			&.top-list-button {
+				background-color: $dark-discussion-top-list-button-color;
+				svg {
+					fill: $dark-discussion-top-list-arrow-color;
+				}
+			}
+		}
 		.avatar {
 			img {
 				border-color: $dark-discussion-avatar-border-color;
