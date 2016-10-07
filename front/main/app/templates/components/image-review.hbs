@@ -20,7 +20,12 @@
 			</p>
 			<p>
 				{{i18n 'main.images-to-review-count' ns='image-review'}}
-				<strong>{{model.imagesToReviewCount}}</strong>
+				{{#if model.imagesToReviewCount}}
+					<strong>{{model.imagesToReviewCount}}</strong>
+				{{else}}
+					{{i18n 'main.waiting-for-count' ns= 'image-review'}}
+				{{/if}}
+
 			</p>
 		</div>
 		<ul class="image-review-list">
