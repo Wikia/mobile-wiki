@@ -19,6 +19,7 @@ export default Ember.Mixin.create({
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 	},
 	ads: Ember.inject.service(),
+	adsHighImpact: Ember.inject.service(),
 
 	/**
 	 * @param {string} adSlotName
@@ -49,6 +50,15 @@ export default Ember.Mixin.create({
 
 		componentElement.trigger('didInsertElement');
 		this.get('ads').pushInContentAd(adSlotName, componentElement);
+	},
+
+	appendHighImpactAd() {
+		const highImpactComponent = this.get('container').lookup('component:ads/invisible-high-impact-2', {
+				singleton: false
+			}),
+			highImpactComponentElement = this.createChildView(highImpactComponent).createElement();
+
+		this.get('adsHighImpact').load(highImpactComponentElement);
 	},
 
 	/**
@@ -86,6 +96,8 @@ export default Ember.Mixin.create({
 		if ($globalFooter.length) {
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
+
+		this.appendHighImpactAd();
 	},
 
 	/**
@@ -114,6 +126,8 @@ export default Ember.Mixin.create({
 		if ($globalFooter.length) {
 			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
+
+		this.appendHighImpactAd();
 	},
 
 	/**
