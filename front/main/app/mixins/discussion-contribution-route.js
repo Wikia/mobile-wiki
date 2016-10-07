@@ -14,8 +14,10 @@ export default Ember.Mixin.create({
 			});
 		},
 
-		willTransition() {
+		willTransition(...args) {
+			this._super(...args);
 			this.controllerFor(this.get('routeName')).setDefaultStates();
+			return true;
 		},
 	}
 });
