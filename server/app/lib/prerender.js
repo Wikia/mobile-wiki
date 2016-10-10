@@ -3,29 +3,14 @@
 
 import localSettings from '../../config/localSettings';
 
-const botUserAgentsRegExp = new RegExp([
-		// google, yahoo, bing
-		// understand the _escaped_fragment_ mechanism so we detect them by it
-		'baiduspider',
-		'facebookexternalhit',
-		'twitterbot',
-		'rogerbot',
-		'linkedinbot',
-		'embedly',
-		'quora link preview',
-		'showyoubot',
-		'outbrain',
-		'pinterest',
-		'developers.google.com/\+/web/snippet'
-	].join('|'), 'i'),
-	urlsToPrerenderRegExp = new RegExp([
-		'^bleach\.[^/]*/wiki/Bleach_Wiki',
-		'^bleach\.[^/]*/main/',
-		'^dc\.[^/]*/wiki/DC_Comics_Database',
-		'^dc\.[^/]*/main/',
-		'^onepiece\.[^/]*/wiki/Main_Page',
-		'^onepiece\.[^/]*/main/',
-	].join('|'));
+const urlsToPrerenderRegExp = new RegExp([
+	'^bleach\.[^/]+/wiki/Bleach_Wiki',
+	'^bleach\.[^/]+/main/',
+	'^dc\.[^/]+/wiki/DC_Comics_Database',
+	'^dc\.[^/]+/main/',
+	'^onepiece\.[^/]+/wiki/Main_Page',
+	'^onepiece\.[^/]+/main/',
+].join('|'));
 
 function canPrerender(req) {
 	const host = req.headers.host.toLowerCase(),
@@ -38,23 +23,20 @@ function canPrerender(req) {
 }
 
 function shouldPrerender(req) {
-	const userAgent = req.headers['user-agent'] || '',
-		bufferAgent = req.headers['x-bufferbot'] || '',
-		requestingEscapedFragment = (req.url.query._escaped_fragment_ !== undefined),
-		knownBot = (userAgent.search(botUserAgentsRegExp) !== -1);
-
-	if (!requestingEscapedFragment && !knownBot && !bufferAgent) {
-		return false;
-	}
-
-	return canPrerender(req);
+	return req.url.query._escaped_fragment_ !== undefined && canPrerender(req);
 }
 
 function updateRequestedUrl(url) {
-	// Direct prerender.io to production if initiated from dev environments
+	// Direct prerender.io to production if initiated from dev or sandbox environments
+	let useskin = '';
+	if (url.search('[?&]useskin=mercury') === -1) {
+		useskin = `${url.indexOf('?') > -1 ? '&' : '?'}useskin=mercury`;
+	}
 	url = url.replace('.127.0.0.1.xip.io:7000/', '.wikia.com/');
-	url = url.replace(new RegExp('\.[a-z]*\.wikia-dev\.com\/'), 'wikia.com/');
-	return `$(url)?useskin=mercury`;
+	url = url.replace(new RegExp('\.[a-z]+\.wikia-dev\.com/'), '.wikia.com/');
+	url = url.replace(new RegExp('^http://sandbox-[^.]+.'), 'http://');
+
+	return `${url}${useskin}`;
 }
 
 module.exports = {
