@@ -1,6 +1,6 @@
 <script>
 	if (window.opener && window.opener !== window) {
-		window.parent.postMessage({isUserAuthorized: true}, '{{pageParams.parentOrigin}}');
+		window.opener.postMessage({isUserAuthorized: true}, '{{pageParams.parentOrigin}}');
 	} else {
 		window.location.href = '{{pageParams.redirectUrl}}';
 	}
