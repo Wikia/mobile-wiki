@@ -36,13 +36,26 @@ export default Ember.Mixin.create(
 				// check if object because of situation when user had previously stored "null" (string) value
 				// for params
 				if (Ember.typeOf(params) === 'object') {
-					params = transform(params);
-					localStorageConnector.setItem(
-						'discussionForumPreviousQueryParams', JSON.stringify(params));
+					this.storeQueryParams(transform(params));
 				} else {
 					localStorageConnector.removeItem('discussionForumPreviousQueryParams');
 				}
 			}
+		},
+
+		/**
+		 * Stores query parameters in local storage.
+		 *
+		 * @param {Object} params - query parameters
+		 */
+		storeQueryParams(params) {
+			const queryParams = Object.assign({}, params);
+
+			if (queryParams.page) {
+				queryParams.page = undefined;
+			}
+			localStorageConnector.setItem(
+				'discussionForumPreviousQueryParams', JSON.stringify(queryParams));
 		},
 
 		actions: {

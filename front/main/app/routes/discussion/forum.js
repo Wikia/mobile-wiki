@@ -164,8 +164,7 @@ export default DiscussionBaseRoute.extend(
 					});
 				}
 			} else {
-				localStorageConnector.setItem(
-					'discussionForumPreviousQueryParams', JSON.stringify(params));
+				this.storeQueryParams(params);
 			}
 
 			return transition;
