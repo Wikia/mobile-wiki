@@ -53,10 +53,10 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 					 * @returns {void}
 					 */
 					.then((response) => {
-						const content = response._embedded.firstPost[0].rawContent;
+						const content = response.payload._embedded.firstPost[0].rawContent;
 
-						openGraphData.title = response.title ?
-							response.title :
+						openGraphData.title = response.payload.title ?
+							response.payload.title :
 							i18n.t('main.share-default-title', {siteName: wikiVars.siteName, ns: 'discussion'});
 						// Keep description to 175 characters or less
 						openGraphData.description = content.substr(0, 175);

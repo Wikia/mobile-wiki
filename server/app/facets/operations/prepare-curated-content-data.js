@@ -1,4 +1,5 @@
 import {getBaseResult, getCuratedMainPageTitle, getOpenGraphData} from './page-data-helper';
+import {canPrerender} from '../../lib/prerender';
 
 /**
  * Handles category or section response for Curated Main Page from API
@@ -31,6 +32,7 @@ export default function prepareCuratedContentData(request, data) {
 	result.globalFooter = data.globalFooter;
 	result.globalNavigation = data.globalNavigation;
 	result.bodyClassName = data.bodyClassName;
+	result.canPrerender = canPrerender(request);
 
 	return result;
 }
