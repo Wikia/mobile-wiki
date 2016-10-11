@@ -91,6 +91,14 @@ export default DiscussionBaseRoute.extend(
 			loadNewerReplies() {
 				this.modelFor(this.get('routeName')).current.loadNextPage();
 			},
+
+			/**
+			 * Refreshes the model
+			 * @returns {void}
+			 */
+			refresh() {
+				this.refresh();
+			}
 		}
 	}
 );
