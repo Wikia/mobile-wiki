@@ -23,6 +23,7 @@ export default Ember.Mixin.create(
 		isLoadingMode: false,
 		isImagePreviewMode: false,
 		newImageUrl: null,
+		onPasteListener: null,
 		resetFileInput: false,
 		// components using this mixin should override this default settings to enable tracking
 		trackedActions: {
@@ -35,12 +36,6 @@ export default Ember.Mixin.create(
 			SaveFailure: ''
 		},
 		uploadedFile: null,
-
-		didInsertElement() {
-			this._super(...arguments);
-
-			this.$().on('paste', this.onPaste.bind(this));
-		},
 
 		dragLeave(event) {
 			event.preventDefault();
@@ -109,6 +104,11 @@ export default Ember.Mixin.create(
 		setEditMode(shouldEnable) {
 			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 
+			if (shouldEnable) {
+				this.onPasteListener = this.onPaste.bind(this);
+				this.$(window).on('paste', this.onPasteListener);
+			}
+
 			this.setProperties({
 				isEditMode: shouldEnable,
 				resetFileInput: true,
@@ -123,6 +123,8 @@ export default Ember.Mixin.create(
 					newImageUrl: null,
 					uploadedFile: null,
 				});
+
+				this.$(window).off('paste', this.onPasteListener);
 			}
 		},
 
