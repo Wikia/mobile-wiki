@@ -370,7 +370,9 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').current.createReply(entityData).catch((err) => {
+			this.get('model').current.createReply(entityData).then(() => {
+				this.get('target').send('refresh');
+			}).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.reply-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);
