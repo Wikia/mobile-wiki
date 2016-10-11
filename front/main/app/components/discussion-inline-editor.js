@@ -28,6 +28,10 @@ export default DiscussionMultipleInputsEditor.extend(
 			return !this.get('isReply');
 		}),
 
+		isReadonly: Ember.computed('isActive', function () {
+			return !this.get('isActive') ? 'readonly' : undefined;
+		}),
+
 		/**
 		 * Returns true if textarea is the only textarea in editor and should appear as first/only one in
 		 * collapsed inline editor.
