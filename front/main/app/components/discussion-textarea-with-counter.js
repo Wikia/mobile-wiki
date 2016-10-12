@@ -22,6 +22,10 @@ export default Ember.Component.extend({
 
 	isCollapsed: Ember.computed.not('isActive'),
 
+	isReadonly: Ember.computed('isActive', function () {
+		return !this.get('isActive') ? 'readonly' : undefined;
+	}),
+
 	dynamicPlaceholder: Ember.computed('isCollapsed', 'placeholder', 'collapsedPlaceholder', function () {
 		return this.get('isCollapsed') ? this.get('collapsedPlaceholder') : this.get('placeholder');
 	}),
