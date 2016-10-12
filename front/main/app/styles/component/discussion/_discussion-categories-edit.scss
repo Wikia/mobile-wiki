@@ -33,7 +33,7 @@ $success-icon-size: 80px;
 		}
 
 		.draggable {
-			align-items: center;
+			align-items: flex-start;
 			cursor: pointer;
 			display: none;
 			height: 100%;
@@ -125,6 +125,10 @@ $success-icon-size: 80px;
 
 	input[type=text] {
 		border-bottom-color: $discussion-categories-edit-border-bottom-color;
+
+		&::-ms-clear {
+			display: none;
+		}
 	}
 
 	.discussion-categories-input,
@@ -168,6 +172,8 @@ $success-icon-size: 80px;
 	}
 
 	.icon {
+		margin-bottom: 5px;
+
 		&.lock {
 			margin: 5px 10px 4px 0;
 		}
@@ -182,6 +188,7 @@ $success-icon-size: 80px;
 
 		&.close {
 			height: 20px;
+			margin-left: 3px;
 			width: 20px;
 		}
 
