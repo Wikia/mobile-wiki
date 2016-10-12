@@ -125,6 +125,10 @@ $success-icon-size: 80px;
 
 	input[type=text] {
 		border-bottom-color: $discussion-categories-edit-border-bottom-color;
+
+		&::-ms-clear {
+			display: none;
+		}
 	}
 
 	.discussion-categories-input,
