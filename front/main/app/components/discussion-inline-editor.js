@@ -55,11 +55,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						siteId: Mercury.wiki.id,
 						title: this.get('title')
 					};
-
 					if (this.get('showsOpenGraphCard')) {
-						newDiscussionEntityData.openGraph = {
-							uri: this.get('openGraph.href')
-						};
+						newDiscussionEntityData.openGraph = this.get('openGraph');
 					}
 
 					this.get('create')(newDiscussionEntityData, {newCategoryId: this.get('category.id')});
