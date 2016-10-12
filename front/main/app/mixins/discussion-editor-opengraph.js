@@ -23,11 +23,7 @@ export default Ember.Mixin.create({
 	onContentChange: Ember.observer('content', function () {
 		this.handleTyping();
 
-		let length = 0;
-		if (this.get('content') !== null) {
-			length = this.get('content').length;
-		}
-
+		const length = this.getWithDefault('content.length', 0);
 		this.set('contentLength', length);
 	}),
 

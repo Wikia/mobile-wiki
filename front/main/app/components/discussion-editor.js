@@ -58,8 +58,7 @@ export default Ember.Component.extend(
 
 		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
 			'isReply', 'category', 'isGuidelinesEditor', function () {
-				return this.get('content') === null ||
-					this.get('content').length === 0 ||
+				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
 					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
