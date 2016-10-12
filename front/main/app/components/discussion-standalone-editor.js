@@ -41,7 +41,7 @@ export default DiscussionMultipleInputsEditor.extend(
 			this.focusOnNearestTextarea(event);
 		},
 
-		toogleActiveState(isActive) {
+		toggleActiveState(isActive) {
 			this._super();
 
 			if (isActive) {

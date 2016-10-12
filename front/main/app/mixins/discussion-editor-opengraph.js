@@ -23,7 +23,12 @@ export default Ember.Mixin.create({
 	onContentChange: Ember.observer('content', function () {
 		this.handleTyping();
 
-		this.set('contentLength', this.get('content').length);
+		let length = 0;
+		if (this.get('content') !== null) {
+			length = this.get('content').length;
+		}
+
+		this.set('contentLength', length);
 	}),
 
 	/**
@@ -77,8 +82,12 @@ export default Ember.Mixin.create({
 			return;
 		}
 
-		const value = this.get('content'),
-			lastChar = value.charCodeAt(textarea.selectionEnd - 1),
+		const value = this.get('content');
+		if (value === null) {
+			return;
+		}
+
+		const lastChar = value.charCodeAt(textarea.selectionEnd - 1),
 			allowedChars = [10, 13, 32];
 
 		if (allowedChars.indexOf(lastChar) === -1 || value.length <= this.get('contentLength')) {
