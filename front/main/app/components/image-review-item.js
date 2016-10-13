@@ -22,5 +22,5 @@ export default Ember.Component.extend({
 
 	isRejected: Ember.computed.equal('model.status', 'rejected'),
 
-	isFlagged: Ember.computed.equal('model.status', 'flagged')
+	isQuestionable: Ember.computed.equal('model.status', 'questionable')
 });
