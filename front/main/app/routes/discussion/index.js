@@ -7,7 +7,8 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel() {
-		let transitionParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
+		let params = localStorageConnector.getItem('discussionForumPreviousQueryParams'),
+			transitionParams = params ? JSON.parse(params) : null;
 
 		// check if object because of situation when user had previously stored "null" (string) value
 		// for transitionParams
