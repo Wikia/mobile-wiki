@@ -28,6 +28,10 @@ export default DiscussionMultipleInputsEditor.extend(
 			return !this.get('isReply');
 		}),
 
+		isReadonly: Ember.computed('isActive', function () {
+			return !this.get('isActive') ? 'readonly' : undefined;
+		}),
+
 		/**
 		 * Returns true if textarea is the only textarea in editor and should appear as first/only one in
 		 * collapsed inline editor.
@@ -51,11 +55,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						siteId: Mercury.wiki.id,
 						title: this.get('title')
 					};
-
 					if (this.get('showsOpenGraphCard')) {
-						newDiscussionEntityData.openGraph = {
-							uri: this.get('openGraph.href')
-						};
+						newDiscussionEntityData.openGraph = this.get('openGraph');
 					}
 
 					this.get('create')(newDiscussionEntityData, {newCategoryId: this.get('category.id')});
