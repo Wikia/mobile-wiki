@@ -11831,8 +11831,8 @@
     },
     "ember-pop-over": {
       "version": "0.1.31",
-      "from": "git://github.com/kvas-damian/ember-pop-over.git#a2a7cbd895698915dacf224596d05c590d219362",
-      "resolved": "git://github.com/kvas-damian/ember-pop-over.git#a2a7cbd895698915dacf224596d05c590d219362"
+      "from": "git://github.com/kvas-damian/ember-pop-over.git#8a18db6eb47e430f2dea389a914c5efafd2d2170",
+      "resolved": "git://github.com/kvas-damian/ember-pop-over.git#8a18db6eb47e430f2dea389a914c5efafd2d2170"
     },
     "ember-resolver": {
       "version": "2.0.3",
