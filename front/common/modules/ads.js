@@ -322,36 +322,41 @@ class Ads {
 		// We need a copy of adSlots as adEngineModule.run destroys it
 		this.slotsQueue = this.getSlots();
 
-		if (this.isLoaded && adsContext) {
-			this.adContextModule.setContext(adsContext);
-			if (typeof onContextLoadCallback === 'function') {
-				onContextLoadCallback();
-			}
-
-			if (Ads.previousDetectionResults.sourcePoint.exists) {
-				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
-			} else {
-				this.sourcePointDetectionModule.initDetection();
-			}
-
-			if (Ads.previousDetectionResults.pageFair.exists) {
-				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
-				this.pageFairDetectionModule.initDetection(adsContext);
-			}
-
-			if (adsContext.opts) {
-				delayEnabled = Boolean(adsContext.opts.delayEngine);
-			}
-
+		if (this.isLoaded) {
 			this.adMercuryListenerModule.onPageChange(() => {
 				this.adLogicPageViewCounterModule.increment();
 				this.googleTagModule.updateCorrelator();
 				this.mercuryPV = this.mercuryPV + 1;
 				this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			});
+			if (adsContext) {
+				this.adContextModule.setContext(adsContext);
+				if (typeof onContextLoadCallback === 'function') {
+					onContextLoadCallback();
+				}
 
-			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+				if (Ads.previousDetectionResults.sourcePoint.exists) {
+					this.trackBlocking(
+						'sourcePoint',
+						this.GASettings.sourcePoint,
+						Ads.previousDetectionResults.sourcePoint.value
+					);
+				} else {
+					this.sourcePointDetectionModule.initDetection();
+				}
+
+				if (Ads.previousDetectionResults.pageFair.exists) {
+					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
+				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
+					this.pageFairDetectionModule.initDetection(adsContext);
+				}
+
+				if (adsContext.opts) {
+					delayEnabled = Boolean(adsContext.opts.delayEngine);
+				}
+
+				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+			}
 		}
 	}
 
