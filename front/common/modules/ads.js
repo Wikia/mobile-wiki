@@ -72,7 +72,9 @@ class Ads {
 			}
 		};
 		this.adLogicPageViewCounterModule = null;
+		this.adLogicPageParams = null;
 		this.googleTagModule = null;
+		this.mercuryPV = 1;
 	}
 
 	/**
@@ -104,6 +106,7 @@ class Ads {
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
+					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
@@ -114,6 +117,7 @@ class Ads {
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
+					adLogicPageParams,
 					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
@@ -134,6 +138,7 @@ class Ads {
 					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.adLogicPageParams = adLogicPageParams;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
 				});
@@ -342,6 +347,8 @@ class Ads {
 			this.adMercuryListenerModule.onPageChange(() => {
 				this.adLogicPageViewCounterModule.increment();
 				this.googleTagModule.updateCorrelator();
+				this.mercuryPV = this.mercuryPV + 1;
+				this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			});
 
 			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
@@ -357,6 +364,7 @@ class Ads {
 		this.reload(this.currentAdsContext, () => {
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
+			this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			this.adLogicPageViewCounterModule.increment();
 		});
 	}
