@@ -198,10 +198,10 @@ export default class SignupForm {
 						challengeStartTime,
 						challengeEndTime;
 
-					challengeStartTime = performance.now();
+					challengeStartTime = window.performance.now();
 					currentChallengeValue = challengeResponse.challenge +
 						ProofOfWork.proof(challengeResponse.challenge, challengeResponse.bits).counter;
-					challengeEndTime = performance.now();
+					challengeEndTime = window.performance.now();
 
 					this.authLogger.info({
 						message: 'Proof of Work challenge solving time',
