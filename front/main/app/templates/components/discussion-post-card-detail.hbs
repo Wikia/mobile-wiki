@@ -57,9 +57,11 @@
 	{{else}}
 		<div class="discussion-content">
 			{{#if post.title}}
-				<h2 class="post-title">{{#link-to 'discussion.post' post.threadId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
+				<h2 class="post-title">
+					<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link">{{post.title}}</a>
+				</h2>
 			{{/if}}
-			{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
+			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
 	{{/if}}
 	{{#if post.openGraph}}
