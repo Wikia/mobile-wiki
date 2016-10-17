@@ -32,15 +32,11 @@
 			}}
 			{{#unless hasContentError}}
 				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-				{{#if model.repliesCount}}
-					{{discussion-contributors
+				{{discussion-contributors
 						users=model.contributors.users
 						maxContributorDisplayCount=7
 						totalContributorCount=model.contributors.count
-					}}
-				{{else}}
-					<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
-				{{/if}}
+				}}
 			{{/unless}}
 		</div>
 		<div class="discussion post small-12 large-8 columns">
