@@ -37,9 +37,9 @@
 	var testElement = document.getElementsByClassName('render-time-test')[0],
 			transitionEnd = whichTransitionEnd();
 
-	if (transitionEnd && performance && typeof performance.now === 'function') {
+	if (transitionEnd && window.performance && typeof window.performance.now === 'function') {
 		testElement.addEventListener(transitionEnd, function () {
-			M.prop('firstRenderTime', performance.now());
+			M.prop('firstRenderTime', window.performance.now());
 		});
 
 		// Transition isn't triggered without setTimeout because of browser optimizations
