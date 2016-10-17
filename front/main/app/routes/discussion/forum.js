@@ -95,15 +95,31 @@ export default DiscussionBaseRoute.extend(
 			});
 		},
 
+		afterModel(model, transition) {
+			this._super(...arguments);
+
+			if (model) {
+				const numberOfPosts = model.current.getWithDefault('data.entities.length', 0),
+					queryParams = transition.queryParams;
+
+				if (numberOfPosts === 0) {
+					queryParams.page = 1;
+					this.refresh();
+				}
+			}
+		},
+
 		getCategoriesFromQueryString(catQuery) {
 			return catQuery ? catQuery.split(',') : [];
 		},
 
 		transitionToCommaSplittedCategories(params) {
-			return this.transitionTo({queryParams: {
-				catId: this.getCommaSplittedCategories(params.catId),
-				sort: params.sort
-			}});
+			return this.transitionTo({
+				queryParams: {
+					catId: this.getCommaSplittedCategories(params.catId),
+					sort: params.sort
+				}
+			});
 		},
 
 		getCommaSplittedCategories(catId) {
