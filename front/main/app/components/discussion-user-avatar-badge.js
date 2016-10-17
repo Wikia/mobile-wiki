@@ -14,23 +14,23 @@ export default Ember.Component.extend({
 	badges: {
 		'badge:helper': {
 			icon: 'badge-helper',
-			tooltip: 'Fandom Helper'
+			tooltip: i18n.t('main.user-avatar-badge-helper-tooltip', {ns: 'discussion'})
 		},
 		'badge:staff': {
 			icon: 'badge-fandom-staff',
-			tooltip: 'Fandom Staff'
+			tooltip: i18n.t('main.user-avatar-badge-staff-tooltip', {ns: 'discussion'})
 		},
 		'badge:sysop': {
 			icon: 'badge-admin',
-			tooltip: 'Community Admin'
+			tooltip: i18n.t('main.user-avatar-badge-admin-tooltip', {ns: 'discussion'})
 		},
 		'badge:threadmoderator': {
 			icon: 'badge-discussions-moderator',
-			tooltip: 'Discussions Moderator'
+			tooltip: i18n.t('main.user-avatar-badge-moderator-tooltip', {ns: 'discussion'})
 		},
 		'badge:vstf': {
 			icon: 'badge-vstf',
-			tooltip: 'VSTF'
+			tooltip: i18n.t('main.user-avatar-badge-vstf-tooltip', {ns: 'discussion'})
 		}
 	},
 

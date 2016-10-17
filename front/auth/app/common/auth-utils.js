@@ -31,10 +31,10 @@ export default class AuthUtils {
 
 				window.location.reload();
 			},
-			preferencesRequestStartTime = performance.now();
+			preferencesRequestStartTime = window.performance.now();
 
 		xhr.onload = () => {
-			const preferencesRequestEndTime = performance.now();
+			const preferencesRequestEndTime = window.performance.now();
 
 			authLogger.info({
 				message: 'Check if account is scheduled to be closed XHR time',
