@@ -31,8 +31,9 @@ export default Route.extend(
 		 */
 		setDynamicHeadTags(model) {
 			this._super(model, {
-				documentTitle: model.get('title'),
-				description: this.get('mainPageDescription')
+				canonical: `/wiki/Category:${model.get('title')}`,
+				description: this.get('mainPageDescription'),
+				documentTitle: model.get('title')
 			});
 		},
 
