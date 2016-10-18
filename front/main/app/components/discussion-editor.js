@@ -38,10 +38,10 @@ export default Ember.Component.extend(
 		wasStartTracked: false,
 
 		onIsActive: Ember.observer('isActive', function () {
-			this.toogleActiveState(this.get('isActive'));
+			this.toggleActiveState(this.get('isActive'));
 		}),
 
-		toogleActiveState(isActive) {
+		toggleActiveState(isActive) {
 			if (isActive) {
 				track(this.get('startTrackingAction'));
 				this.$('textarea:first').focus();
@@ -58,7 +58,7 @@ export default Ember.Component.extend(
 
 		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
 			'isReply', 'category', 'isGuidelinesEditor', function () {
-				return this.get('content').length === 0 ||
+				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
 					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
@@ -87,7 +87,7 @@ export default Ember.Component.extend(
 		actions: {
 			close() {
 				track(this.get('closeTrackingAction'));
-				this.toogleActiveState(false);
+				this.toggleActiveState(false);
 			},
 
 			focusTextarea() {
