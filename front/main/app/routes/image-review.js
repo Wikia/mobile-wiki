@@ -14,15 +14,14 @@ export default Route.extend({
 		return ImageReviewModel.startSession(this.get('status'));
 	},
 
-	afterModel() {
+	afterModel(model) {
+		model.setImagesCount(this.get('status'));
 		this.controllerFor('application').set('isLoading', false);
-
 	},
 
 	actions: {
 		error(error) {
 			Logger.error('image-review route error', error);
-
 			let errorMessage = i18n.t('main.error-other', {ns: 'image-review'});
 
 			if (error.status === 401) {

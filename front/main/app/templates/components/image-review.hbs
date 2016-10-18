@@ -20,7 +20,12 @@
 			</p>
 			<p>
 				{{i18n 'main.images-to-review-count' ns='image-review'}}
-				<strong>{{model.imagesToReviewCount}}</strong>
+				{{#if model.imagesToReviewCount}}
+					<strong>{{model.imagesToReviewCount}}</strong>
+				{{else}}
+					{{i18n 'main.waiting-for-count' ns= 'image-review'}}
+				{{/if}}
+
 			</p>
 		</div>
 		<ul class="image-review-list">
@@ -37,11 +42,6 @@
 	{{/if}}
 
 	<div class="image-review-action-buttons">
-		{{#if model.images }}
-			<button {{action this.attrs.reviewAndGetMoreImages}}>
-				{{i18n 'main.review-and-get-more' ns='image-review'}}
-			</button>
-		{{/if}}
 		{{#if model.userCanAuditReviews}}
 			<button {{action this.attrs.getAllWithStatus 'UNREVIEWED'}}>
 				{{i18n 'main.get-unreviewed' ns='image-review'}}
@@ -51,6 +51,11 @@
 			</button>
 			<button {{action this.attrs.getAllWithStatus 'REJECTED'}}>
 				{{i18n 'main.get-rejected' ns='image-review'}}
+			</button>
+		{{/if}}
+		{{#if model.images }}
+			<button class="image-review-get-more-button" {{action this.attrs.reviewAndGetMoreImages}}>
+				{{i18n 'main.review-and-get-more' ns='image-review'}}
 			</button>
 		{{/if}}
 	</div>

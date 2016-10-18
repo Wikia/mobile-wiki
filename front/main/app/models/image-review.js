@@ -3,7 +3,15 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
-	showSubHeader: true
+	showSubHeader: true,
+
+	setImagesCount(status) {
+		request(M.getImageReviewServiceUrl('/monitoring', {
+			status
+		})).then((promise) => {
+			this.set('imagesToReviewCount', promise.countByStatus);
+		});
+	}
 });
 
 ImageReviewModel.reopenClass({
@@ -20,7 +28,7 @@ ImageReviewModel.reopenClass({
 			if (jqXHR.status === 204) {
 				return ImageReviewModel.createEmptyModelWithPermission(status);
 			} else {
-				return ImageReviewModel.getImagesAndCount(payload.id, status);
+				return ImageReviewModel.getImagesAndPermission(payload.id, status);
 			}
 		});
 	},
@@ -56,7 +64,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId, imagesToReviewCount, userInfo, status) {
+	sanitize(rawData, contractId, userInfo, status) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -75,7 +83,6 @@ ImageReviewModel.reopenClass({
 		return ImageReviewModel.create({
 			images,
 			contractId,
-			imagesToReviewCount,
 			userCanAuditReviews: userInfo,
 			status
 		});
@@ -97,27 +104,18 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	getImagesToReviewCount(status) {
-		return request(M.getImageReviewServiceUrl('/monitoring', {
-			status
-		})).catch(() => {
-			throw new Error(i18n.t('app.image-review-error-invalid-data'));
-		});
-	},
 
-	getImagesAndCount(contractId, status) {
+	getImagesAndPermission(contractId, status) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
-			ImageReviewModel.getImagesToReviewCount(status),
 			ImageReviewModel.getUserAuditReviewPermission()
 		];
 
 		return Ember.RSVP.allSettled(promises)
-			.then(([getImagesPromise, getImagesToReviewCountPromise, getUserAuditReviewPermissionPromise]) => {
+			.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
 				return ImageReviewModel
 					.sanitize(getImagesPromise.value.data,
 						getImagesPromise.value.contractId,
-						getImagesToReviewCountPromise.value.countByStatus,
 						getUserAuditReviewPermissionPromise.value,
 						status);
 			});
