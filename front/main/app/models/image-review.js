@@ -8,7 +8,7 @@ const ImageReviewModel = Ember.Object.extend({
 	setImagesCount(status) {
 		request(M.getImageReviewServiceUrl('/monitoring', {
 			status
-		})).then(promise => {
+		})).then((promise) => {
 			this.set('imagesToReviewCount', promise.countByStatus);
 		});
 	}
