@@ -66,6 +66,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 
 			categories.pushObject(newCategory);
 			category.set('id', newCategory.get('id'));
+			category.set('name', newCategory.get('name'));
 
 			this.set('categories', categories.sortBy('displayOrder'));
 		});
