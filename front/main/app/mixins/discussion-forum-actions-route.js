@@ -5,7 +5,7 @@ export default Ember.Mixin.create(
 	{
 		queryParams: {
 			page: {
-				refreshModel: true
+				refreshModel: false
 			},
 		},
 		/**
