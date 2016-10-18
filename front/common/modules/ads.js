@@ -13,7 +13,7 @@ import load from '../utils/load';
  */
 
 /**
- * @typedef {Object} VastBuilder
+ * @typedef {Object} VastUrlBuilder
  * @property {Function} build
  */
 
@@ -42,7 +42,7 @@ import load from '../utils/load';
  * @property {*} adConfigMobile
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
- * @property {VastBuilder} vastBuilder
+ * @property {VastUrlBuilder} vastUrlBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {Object} googleTag
@@ -110,7 +110,7 @@ class Ads {
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.sourcePointDetection',
-					'ext.wikia.adEngine.video.vastBuilder',
+					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
@@ -120,7 +120,7 @@ class Ads {
 					pageFairDetectionModule,
 					googleTagModule,
 					sourcePointDetectionModule,
-					vastBuilder,
+					vastUrlBuilder,
 					krux) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
@@ -128,7 +128,7 @@ class Ads {
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
-					this.vastBuilder = vastBuilder;
+					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
 					this.krux = krux;
@@ -147,15 +147,18 @@ class Ads {
 	/**
 	 * Build VAST url for video players
 	 *
+	 * @param {number} aspectRatio
+	 * @param {Object} slotParams
+	 *
 	 * @returns {string}
 	 */
-	buildVastUrl() {
-		if (!this.vastBuilder) {
+	buildVastUrl(aspectRatio, slotParams) {
+		if (!this.vastUrlBuilder) {
 			console.warn('Can not build VAST url.');
 			return '';
 		}
 
-		return this.vastBuilder.build();
+		return this.vastUrlBuilder.build(aspectRatio, slotParams);
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
