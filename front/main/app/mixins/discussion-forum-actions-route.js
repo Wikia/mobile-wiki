@@ -21,8 +21,40 @@ export default Ember.Mixin.create(
 			});
 		},
 
+		/**
+		 * @private
+		 *
+		 * @param pageParam
+		 */
 		isProperPageParam(pageParam) {
 			return Number(pageParam) > 0;
+		},
+
+		/**
+		 * Moves to first page if on given page there are no posts
+		 *
+		 * @param model
+		 * @param queryParams
+		 */
+		goToFirstPageIfNoPosts(model, queryParams) {
+			if (model && Number(queryParams.page) !== 1) {
+				const numberOfPosts = model.current.getWithDefault('data.entities.length', 0);
+
+				if (numberOfPosts === 0) {
+					this.moveToFirstPage(queryParams);
+				}
+			}
+		},
+
+
+		/**
+		 * @private
+		 *
+		 * @param queryParams
+		 */
+		moveToFirstPage(queryParams) {
+			queryParams.page = 1;
+			this.refresh();
 		},
 
 		/**

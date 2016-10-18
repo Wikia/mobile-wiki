@@ -37,6 +37,12 @@ export default DiscussionBaseRoute.extend(
 			});
 		},
 
+		afterModel(model, transition) {
+			this._super(...arguments);
+
+			this.goToFirstPageIfNoPosts(model, transition.queryParams);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum

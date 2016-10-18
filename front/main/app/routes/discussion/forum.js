@@ -98,16 +98,7 @@ export default DiscussionBaseRoute.extend(
 		afterModel(model, transition) {
 			this._super(...arguments);
 
-			const queryParams = transition.queryParams;
-
-			if (model && Number(queryParams.page) !== 1) {
-				const numberOfPosts = model.current.getWithDefault('data.entities.length', 0);
-
-				if (numberOfPosts === 0) {
-					queryParams.page = 1;
-					this.refresh();
-				}
-			}
+			this.goToFirstPageIfNoPosts(model, transition.queryParams);
 		},
 
 		getCategoriesFromQueryString(catQuery) {
