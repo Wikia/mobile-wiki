@@ -1,5 +1,5 @@
 <ul class="row post-actions">
-	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'is-active fill-icon-color'}}" {{action 'upvote' post}}>
+	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" {{action 'upvote' post}}>
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'main.upvote-label' ns='discussion'}}
 	</li>
