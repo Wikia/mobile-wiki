@@ -1,57 +1,24 @@
-{{#if responsive.isMobile}}
-	{{discussion-standalone-editor
-		categories=model.index.categories.categories
-		categoryPickerButtonId='categoryPickerButtonMobile'
-		create=(action 'createPost')
-		errorMessage=editorState.errorMessage
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		gotoGuidelines=(action 'gotoGuidelines')
-		hasTitle=true
-		isActive=editorState.isOpen
-		isLoading=editorState.isLoading
-		isVisible=editorState.isOpen
-		setEditorActive=(action 'setEditorActive')
-	}}
-{{/if}}
-
-{{#modal-dialog
-	class='is-bare is-desktop-centered discussion-editor-dialog'
-	closeOnOverlayClick=false
-	isVisible=editEditorState.isOpen
-}}
-	{{discussion-standalone-editor
-		categories=model.index.categories.categories
-		categoryPickerButtonId='categoryPickerButtonEdit'
-		editEntity=editEditorState.discussionEntity
-		editPost=(action 'editPost')
-		editReply=(action 'editReply')
-		errorMessage=editEditorState.errorMessage
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		gotoGuidelines=(action 'gotoGuidelines')
-		hasTitle=true
-		isActive=editEditorState.isOpen
-		isEdit=true
-		isLoading=editEditorState.isLoading
-		setEditorActive=(action 'setEditorActive')
-	}}
-{{/modal-dialog}}
-{{#if areGuidelinesVisible}}
-	{{#modal-dialog
-		class='is-bare is-desktop-centered discussion-guidelines'
-		closeOnOverlayClick=true
-		isVisible=areGuidelinesVisible
-	}}
-		{{discussion-guidelines
-			guidelinesText=model.index.attributes.data.guidelines.value
-		}}
-	{{/modal-dialog}}
-{{/if}}
-{{#discussion-entities-list-layout
+{{discussion-feed
+	categories=model.index.categories.categories
+	createPost=(action 'createPost')
+	deletePost=(action 'deletePost')
+	editPost=(action 'editPost')
+	editReply=(action 'editReply')
+	editorState=editorState
+	editEditorState=editEditorState
+	firstPageLoaded=model.current.firstPageLoaded
+	gotoGuidelines=(action 'gotoGuidelines')
+	goToPage=(action 'goToPage')
+	loadPage=(action 'loadPage')
+	lockPost=(action 'lockPost')
+	openEditEditor=(action 'openEditEditor')
+	setEditorActive=(action 'setEditorActive')
+	undeletePost=(action 'undeletePost')
+	unlockPost=(action 'unlockPost')
+	upvote=(action 'upvote')
 	addCategory=(route-action 'addCategory')
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
-	categories=model.index.categories.categories
-	categoriesInRail=true
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
@@ -60,34 +27,12 @@
 	uploadCommunityBadge=(action 'uploadCommunityBadge')
 	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 	validatePostsOnForum=(action 'validatePostsOnForum')
+	approve=(action 'approve')
+	report=(action 'report')
+	page=page
+	posts=model.current.data.entities
+	postsDisplayed=model.current.data.entities.length
+	totalPosts=model.current.data.postCount
+	guidelinesText=model.index.attributes.data.guidelines.value
+	setSortBy=(action 'setSortBy')
 }}
-	{{discussion-sort
-		setSortBy=(action 'setSortBy')
-	}}
-	{{discussion-forum-wrapper
-		approve=(action 'approve')
-		categories=model.index.categories.categories
-		createPost=(action 'createPost')
-		deletePost=(action 'deletePost')
-		editorState=editorState
-		editPost=(action 'editPost')
-		firstPageLoaded=model.current.firstPageLoaded
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		gotoGuidelines=(action 'gotoGuidelines')
-		goToPage=(action 'goToPage')
-		loadPage=(action 'loadPage')
-		lockPost=(action 'lockPost')
-		minorError=model.current.data.minorError
-		openEditEditor=(action 'openEditEditor')
-		page=page
-		posts=model.current.data.entities
-		postsDisplayed=model.current.data.entities.length
-		report=(action 'report')
-		setEditorActive=(action 'setEditorActive')
-		stickEditorToGlobalNav=stickEditorToGlobalNav
-		totalPosts=model.current.data.postCount
-		undeletePost=(action 'undeletePost')
-		unlockPost=(action 'unlockPost')
-		upvote=(action 'upvote')
-	}}
-{{/discussion-entities-list-layout}}

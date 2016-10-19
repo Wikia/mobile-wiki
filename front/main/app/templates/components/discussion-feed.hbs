@@ -1,0 +1,83 @@
+{{#if responsive.isMobile}}
+	{{discussion-standalone-editor
+			categories=categories
+			categoryPickerButtonId='categoryPickerButtonMobile'
+			create=(action this.attrs.createPost)
+			errorMessage=editorState.errorMessage
+			generateOpenGraph=(route-action 'generateOpenGraph')
+			gotoGuidelines=(action this.attrs.gotoGuidelines)
+			hasTitle=true
+			isActive=editorState.isOpen
+			isLoading=editorState.isLoading
+			isVisible=editorState.isOpen
+			setEditorActive=(action this.attrs.setEditorActive)
+	}}
+{{/if}}
+{{#modal-dialog
+		class='is-bare is-desktop-centered discussion-editor-dialog'
+		closeOnOverlayClick=false
+		isVisible=editEditorState.isOpen
+}}
+	{{discussion-standalone-editor
+			categories=categories
+			categoryPickerButtonId='categoryPickerButtonEdit'
+			editEntity=editEditorState.discussionEntity
+			editPost=(action this.attrs.editPost)
+			editReply=(action this.attrs.editReply)
+			errorMessage=editEditorState.errorMessage
+			generateOpenGraph=(route-action 'generateOpenGraph')
+			gotoGuidelines=(action this.attrs.gotoGuidelines)
+			hasTitle=true
+			isActive=editEditorState.isOpen
+			isEdit=true
+			isLoading=editEditorState.isLoading
+			setEditorActive=(action this.attrs.setEditorActive)
+	}}
+{{/modal-dialog}}
+
+{{#discussion-entities-list-layout
+		addCategory=(route-action 'addCategory')
+		applyFilters=(action this.attrs.applyFilters)
+		attributes=attributes
+		categories=categories
+		categoriesInRail=true
+		model=model
+		openGuidelines=(action this.attrs.openGuidelines)
+		setEditorActive=(action this.attrs.setEditorActive)
+		updateCategories=(route-action 'updateCategories')
+		updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+		uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
+		uploadDiscussionsHeader=(action this.attrs.uploadDiscussionsHeader)
+		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+}}
+	{{discussion-sort
+			setSortBy=(action this.attrs.setSortBy)
+	}}
+
+	{{discussion-forum-wrapper
+			approve=(action this.attrs.approve)
+			categories=categories
+			createPost=(action this.attrs.createPost)
+			deletePost=(action this.attrs.deletePost)
+			editorState=editorState
+			editPost=(action this.attrs.editPost)
+			firstPageLoaded=firstPageLoaded
+			generateOpenGraph=(route-action 'generateOpenGraph')
+			gotoGuidelines=(action this.attrs.gotoGuidelines)
+			goToPage=(action this.attrs.goToPage)
+			loadPage=(action this.attrs.loadPage)
+			lockPost=(action this.attrs.lockPost)
+			minorError=minorError
+			openEditEditor=(action this.attrs.openEditEditor)
+			page=page
+			posts=posts
+			postsDisplayed=postsDisplayed
+			report=(action this.attrs.report)
+			setEditorActive=(action this.attrs.setEditorActive)
+			stickEditorToGlobalNav=stickEditorToGlobalNav
+			totalPosts=totalPosts
+			undeletePost=(action this.attrs.undeletePost)
+			unlockPost=(action this.attrs.unlockPost)
+			upvote=(action this.attrs.upvote)
+	}}
+{{/discussion-entities-list-layout}}
