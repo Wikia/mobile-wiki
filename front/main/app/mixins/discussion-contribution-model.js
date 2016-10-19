@@ -169,15 +169,15 @@ export default Ember.Mixin.create({
 
 	/**
 	 *
-	 * @param {object} currentUser
+	 * @param {object} user
 	 * @param {*} entity
 	 * @returns {void}
 	 */
-	follow(currentUser, entity) {
+	follow(user, entity) {
 		const id = entity.get('id');
 		if (!this.followingInProgress[id]) {
 			this.followingInProgress[id] = true;
-			this.commenceFollow(currentUser, entity).finally(() => {
+			this.commenceFollow(user, entity).finally(() => {
 				this.followingInProgress[id] = undefined;
 			});
 		}
@@ -186,12 +186,12 @@ export default Ember.Mixin.create({
 	/**
 	 * @private
 	 *
-	 * @param {object} currentUser
+	 * @param {object} user
 	 * @param {*} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	commenceFollow(currentUser, entity) {
-		const endpoint = `/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`,
+	commenceFollow(user, entity) {
+		const endpoint = `/followers/${user.get('userId')}/items/${entity.get('id')}/type/post`,
 			isFollowing = entity.get('isFollowing'),
 			method = isFollowing ? 'delete' : 'put';
 
