@@ -168,6 +168,45 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 *
+	 * @param {object} user
+	 * @param {*} entity
+	 * @returns {void}
+	 */
+	follow(user, entity) {
+		const id = entity.get('id');
+		if (!this.followingInProgress[id]) {
+			this.followingInProgress[id] = true;
+			this.commenceFollow(user, entity).finally(() => {
+				this.followingInProgress[id] = undefined;
+			});
+		}
+	},
+
+	/**
+	 * @private
+	 *
+	 * @param {object} user
+	 * @param {*} entity
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	commenceFollow(user, entity) {
+		const endpoint = `/followers/${user.get('userId')}/items/${entity.get('id')}/type/post`,
+			isFollowing = entity.get('isFollowing'),
+			method = isFollowing ? 'delete' : 'put';
+
+		entity.set('isFollowing', !isFollowing);
+
+		return request(M.getFollowingServiceUrl(endpoint), {
+			method
+		}).then((data) => {
+			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
+		}).catch(() => {
+			entity.set('isFollowing', isFollowing);
+		});
+	},
+
+	/**
 	 * Generate Open Graph data in the service
 	 *
 	 * @param {string} uri

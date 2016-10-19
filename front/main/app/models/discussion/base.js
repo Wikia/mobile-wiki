@@ -7,6 +7,7 @@ export default Ember.Object.extend({
 	},
 	errorClass: 'discussion-error-page',
 	data: null,
+	followingInProgress: {},
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
 	 * 404 on infinite scroll, when unable to load non-existing pages
