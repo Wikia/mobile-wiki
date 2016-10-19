@@ -191,12 +191,13 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	commenceFollow(currentUser, entity) {
-		const isFollowing = entity.get('isFollowing'),
+		const endpoint = `/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`,
+			isFollowing = entity.get('isFollowing'),
 			method = isFollowing ? 'delete' : 'put';
 
 		entity.set('isFollowing', !isFollowing);
 
-		return request(M.getFollowingServiceUrl(`/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`), {
+		return request(M.getFollowingServiceUrl(endpoint), {
 			method
 		}).then((data) => {
 			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
