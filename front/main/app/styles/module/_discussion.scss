@@ -704,6 +704,17 @@ body.discussions {
 	}
 }
 
+.post-details-view {
+	.post-actions {
+		position: relative;
+
+		.discussion-tooltip-wrapper {
+			right: 19px;
+			top: -33px;
+		}
+	}
+}
+
 @media #{$desktop-range} {
 	.discussion {
 		background-color: transparent;
@@ -836,6 +847,20 @@ body.discussions {
 					font-size: $type-smaller;
 					line-height: $post-content-line-height;
 					margin: 5px 0 8px;
+				}
+			}
+		}
+
+		.post-actions {
+			position: relative;
+
+			.discussion-tooltip-wrapper {
+				align-items: flex-end;
+				right: 19px;
+				top: -33px;
+
+				.arrow {
+					margin-right: 36px;
 				}
 			}
 		}
