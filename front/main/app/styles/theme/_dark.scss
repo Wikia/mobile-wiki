@@ -541,20 +541,11 @@ body.dark-theme {
 			}
 		}
 
-		.discussion-sort {
+		.discussion-forum-tabs {
 			li {
 				&.not-active {
 					border-bottom-color: $dark-discussion-sort-color;
 					color: $dark-discussion-sort-color;
-				}
-			}
-
-			&.no-trending {
-				li {
-					&.sort-trending {
-						border-bottom-color: $dark-discussion-sort-inactive-color;
-						color: $dark-discussion-sort-inactive-color;
-					}
 				}
 			}
 		}
