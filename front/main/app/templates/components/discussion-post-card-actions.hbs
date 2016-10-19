@@ -1,5 +1,5 @@
 <ul class="row post-actions">
-	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted is-active fill-icon-color'}}" {{action 'upvote' post}}>
+	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'is-active fill-icon-color'}}" {{action 'upvote' post}}>
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'main.upvote-label' ns='discussion'}}
 	</li>
@@ -16,7 +16,7 @@
 			</a>
 		{{/if}}
 	</li>
-	<li class="small-4 large-4 follow-area {{if post.isFollowing 'is-following is-active fill-icon-color'}}" {{action 'follow' post}}>
+	<li class="small-4 large-4 follow-area {{if post.isFollowing 'is-active fill-icon-color'}}" {{action 'follow' post}}>
 		{{discussion-tooltip
 			text=(i18n 'main.follow-tooltip-mobile' ns='discussion')
 			desktopText=(i18n 'main.follow-tooltip' ns='discussion')
