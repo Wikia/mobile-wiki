@@ -141,7 +141,7 @@ if (typeof window.M === 'undefined') {
 	 */
 	M.getFollowingServiceUrl = function (path = '') {
 		return `https://${M.prop('servicesDomain')}/${M.prop('followingBaseRoute')}${path}`;
-	},
+	};
 
 	/**
 	 * @param {string} [path='']
