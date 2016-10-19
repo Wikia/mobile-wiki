@@ -14,6 +14,10 @@ export default Ember.Component.extend(
 				}
 
 				track(trackActions.ReplyButtonTapped);
+			},
+
+			follow(post) {
+				this.get('follow')(post);
 			}
 		},
 	}

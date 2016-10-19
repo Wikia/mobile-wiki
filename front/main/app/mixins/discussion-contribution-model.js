@@ -167,6 +167,30 @@ export default Ember.Mixin.create({
 		});
 	},
 
+
+	/**
+	 *
+	 * @param {*} entity
+	 * @returns {void}
+	 */
+	follow(entity) {
+		console.info('follow');
+		const isFollowing = entity.get('userData.following'),
+			method = isFollowing ? 'delete' : 'put';
+
+		entity.set('userData.following', !isFollowing);
+
+		request(M.getFollowingServiceUrl(`followers/{userId}/items/{itemId}/type/{type}`), {
+			method
+		}).then((data) => {
+
+		}).catch(() => {
+			entity.set('userData.following', isFollowing);
+		}).finally(() => {
+
+		});
+	},
+
 	/**
 	 * Generate Open Graph data in the service
 	 *
