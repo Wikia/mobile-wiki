@@ -261,7 +261,6 @@ body.discussions {
 			font-size: $type-min;
 			font-weight: $font-weight-medium;
 			height: 33px;
-			justify-content: center;
 			line-height: 33px;
 			text-align: center;
 
@@ -275,6 +274,20 @@ body.discussions {
 					width: 24px;
 				}
 			}
+		}
+
+		.upvote-area {
+			justify-content: flex-start;
+			margin-left: 12px;
+		}
+
+		.replies-area {
+			justify-content: center;
+		}
+
+		.follow-area {
+			justify-content: flex-end;
+			margin-right: 12px;
 		}
 	}
 
@@ -764,6 +777,18 @@ body.discussions {
 			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
+			}
+		}
+
+		.post-actions {
+			.upvote-area {
+				justify-content: center;
+				margin-left: 0;
+			}
+
+			.follow-area {
+				justify-content: center;
+				margin-right: 0;
 			}
 		}
 
