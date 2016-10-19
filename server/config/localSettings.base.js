@@ -187,6 +187,9 @@ const localSettings = {
 	discussions: {
 		baseAPIPath: 'discussion'
 	},
+	following: {
+		baseAPIPath: 'following'
+	},
 	openGraph: {
 		baseAPIPath: 'opengraph'
 	},

@@ -9,6 +9,8 @@ const trackActions = {
 	ReplyEditSave: 'ReplyEditSave',
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
+	FollowPost: 'FollowPost',
+	UnfollowPost: 'UnfollowPost',
 	LatestPostTapped: 'LatestPostTapped',
 	TrendingPostTapped: 'TrendingPostTapped',
 	PostShare: 'PostShare',

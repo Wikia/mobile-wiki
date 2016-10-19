@@ -1,9 +1,9 @@
 <ul class="row post-actions">
-	<li class='small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}' {{action 'upvote' post}}>
+	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'is-active fill-icon-color'}}" {{action 'upvote' post}}>
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'main.upvote-label' ns='discussion'}}
 	</li>
-	<li class='small-4 large-4 replies replies-area' {{action 'reply'}}>
+	<li class="small-4 large-4 replies replies-area" {{action 'reply'}}>
 		{{#if isDetailsView}}
 			<div>
 				{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
@@ -16,15 +16,8 @@
 			</a>
 		{{/if}}
 	</li>
-	<li class="small-4 large-4 share">
-		{{#unless isDeleted }}
-			{{discussion-share
-				entryPointLabel=(i18n 'main.share-label' ns='discussion')
-				header=(i18n 'main.share-header' ns='discussion')
-				sharedUrl=sharedUrl
-				showLabelOnMobile=true
-				uniqueIdentifier=post.threadId
-			}}
-		{{/unless}}
+	<li class="small-4 large-4 follow-area {{if post.isFollowing 'is-active fill-icon-color'}}" {{action 'follow' post}}>
+		{{svg 'follow-small' viewBox='0 0 24 24' class='icon follow'}}
+		{{i18n 'main.follow-label' ns='discussion'}}
 	</li>
 </ul>

@@ -330,6 +330,16 @@ export default Ember.Mixin.create({
 		},
 
 		/**
+		 * Follows discussion entity
+		 *
+		 * @param post
+		 * @returns {void}
+		 */
+		follow(post) {
+			this.get('model').current.follow(this.get('currentUser'), post);
+		},
+
+		/**
 		 * Bubbles up to Route
 		 * @param {Object} entityData
 		 * @returns {void}
