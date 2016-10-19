@@ -336,7 +336,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		follow(post) {
-			this.get('model').current.follow(post);
+			this.get('model').current.follow(this.get('currentUser'), post);
 		},
 
 		/**

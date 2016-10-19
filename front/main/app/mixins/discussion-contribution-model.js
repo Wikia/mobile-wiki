@@ -170,22 +170,22 @@ export default Ember.Mixin.create({
 
 	/**
 	 *
+	 * @param {object} currentUser
 	 * @param {*} entity
 	 * @returns {void}
 	 */
-	follow(entity) {
-		console.info('follow');
-		const isFollowing = entity.get('userData.following'),
+	follow(currentUser, entity) {
+		const isFollowing = entity.get('isFollowing'),
 			method = isFollowing ? 'delete' : 'put';
 
-		entity.set('userData.following', !isFollowing);
+		entity.set('isFollowing', !isFollowing);
 
-		request(M.getFollowingServiceUrl(`followers/{userId}/items/{itemId}/type/{type}`), {
+		request(M.getFollowingServiceUrl(`/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`), {
 			method
 		}).then((data) => {
 			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
 		}).catch(() => {
-			entity.set('userData.following', isFollowing);
+			entity.set('isFollowing', isFollowing);
 		}).finally(() => {
 
 		});
