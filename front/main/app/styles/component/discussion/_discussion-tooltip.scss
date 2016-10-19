@@ -3,9 +3,13 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		position: absolute;
+		z-index: $z-1;
 
 		.discussion-tooltip {
 			border-radius: 2px;
+			color: $discussion-tooltip-color;
+			font-size: 12px;
 			padding: 2px 11px;
 		}
 

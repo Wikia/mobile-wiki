@@ -13,14 +13,9 @@
 	}
 
 	.discussion-category-select-tooltip-wrapper {
-		left: 44px;
-		position: absolute;
-		top: 22px;
-		z-index: $z-1;
-
-		.discussion-tooltip {
-			color: $discussion-category-picker-tooltip-color;
-			font-size: 12px;
+		.discussion-tooltip-wrapper {
+			left: 44px;
+			top: 22px;
 		}
 	}
 
@@ -110,8 +105,10 @@
 
 .discussion-inline-editor {
 	.discussion-category-select-tooltip-wrapper {
-		left: 90px;
-		top: -12px;
+		.discussion-tooltip-wrapper {
+			left: 90px;
+			top: -12px;
+		}
 	}
 }
 
