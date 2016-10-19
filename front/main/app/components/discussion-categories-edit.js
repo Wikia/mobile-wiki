@@ -151,16 +151,6 @@ export default Ember.Component.extend(ResponsiveMixin,
 						.findBy('id', category.get('id'))
 						.set('displayOrder', index + 1);
 				});
-
-				// let reorderedCategories = newCategories;
-				//
-				// if (oldCategories.length != newCategories.length) {
-				// 	let difference = oldCategories.reject(c => newCategories.includes(c));
-				//
-				// 	reorderedCategories = newCategories.slice(0).push(...difference);
-				// }
-				//
-				// this.set('localCategories', reorderedCategories);
 			},
 		}
 	}
