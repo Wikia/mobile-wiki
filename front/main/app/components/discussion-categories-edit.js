@@ -21,7 +21,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			return this.get('localCategories.length') >= this.get('maxCategoriesCount');
 		}),
 
-		localCategories: Ember.computed('categories.@each', function () {
+		localCategories: Ember.computed('categories.@each', 'categories.@each.displayOrder', function () {
 			return Ember.A(this.get('categories').map((category) => {
 				const localCategory = Ember.Object.create(category);
 
@@ -31,7 +31,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 				});
 
 				return localCategory;
-			}));
+			}).sortBy('displayOrder'));
 		}),
 
 		onModalCancel() {
@@ -71,7 +71,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 				}
 
 				this.setProperties({
-					categoryToDelete: category,
+					categoryToDelete: this.get('categories').findBy('id', category.get('id')),
 					isModalVisible: true
 				});
 
@@ -146,7 +146,21 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 * @returns {void}
 			 */
 			onReorderElements(oldCategories, newCategories) {
-				this.set('localCategories', newCategories);
+				newCategories.forEach((category, index) => {
+					this.get('categories')
+						.findBy('id', category.get('id'))
+						.set('displayOrder', index + 1);
+				});
+
+				// let reorderedCategories = newCategories;
+				//
+				// if (oldCategories.length != newCategories.length) {
+				// 	let difference = oldCategories.reject(c => newCategories.includes(c));
+				//
+				// 	reorderedCategories = newCategories.slice(0).push(...difference);
+				// }
+				//
+				// this.set('localCategories', reorderedCategories);
 			},
 		}
 	}
