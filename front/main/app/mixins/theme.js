@@ -117,6 +117,7 @@ export default Ember.Mixin.create({
 			.discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
 		styles += `.discussions .active-element-disabled-theme-color {color: ${activeElementDisabledColor};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .is-active.fill-icon-color .icon {fill: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
