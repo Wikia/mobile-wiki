@@ -167,7 +167,6 @@ export default Ember.Mixin.create({
 		});
 	},
 
-
 	/**
 	 *
 	 * @param {object} currentUser
@@ -175,19 +174,34 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	follow(currentUser, entity) {
+		const id = entity.get('id');
+		if (!this.followingInProgress[id]) {
+			this.followingInProgress[id] = true;
+			this.commenceFollow(currentUser, entity).finally(() => {
+				this.followingInProgress[id] = undefined;
+			});
+		}
+	},
+
+	/**
+	 * @private
+	 *
+	 * @param {object} currentUser
+	 * @param {*} entity
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	commenceFollow(currentUser, entity) {
 		const isFollowing = entity.get('isFollowing'),
 			method = isFollowing ? 'delete' : 'put';
 
 		entity.set('isFollowing', !isFollowing);
 
-		request(M.getFollowingServiceUrl(`/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`), {
+		return request(M.getFollowingServiceUrl(`/followers/${currentUser.get('userId')}/items/${entity.get('id')}/type/post`), {
 			method
 		}).then((data) => {
 			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
 		}).catch(() => {
 			entity.set('isFollowing', isFollowing);
-		}).finally(() => {
-
 		});
 	},
 
