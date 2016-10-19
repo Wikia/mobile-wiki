@@ -183,7 +183,7 @@ export default Ember.Mixin.create({
 		request(M.getFollowingServiceUrl(`followers/{userId}/items/{itemId}/type/{type}`), {
 			method
 		}).then((data) => {
-
+			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
 		}).catch(() => {
 			entity.set('userData.following', isFollowing);
 		}).finally(() => {
