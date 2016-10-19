@@ -1,4 +1,8 @@
 <div class="discussion-tooltip active-element-background-color">
-	{{text}}
+	{{#if responsive.isMobile}}
+		{{mobileTooltipText}}
+	{{else}}
+		{{desktopTooltipText}}
+	{{/if}}
 </div>
 <div class="arrow arrow-down active-element-border-theme-color"></div>
