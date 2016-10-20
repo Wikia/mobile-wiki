@@ -714,10 +714,7 @@ body.discussions {
 	.post-actions {
 		position: relative;
 
-		.discussion-tooltip-wrapper {
-			right: 19px;
-			top: -33px;
-		}
+
 	}
 }
 
@@ -859,16 +856,6 @@ body.discussions {
 
 		.post-actions {
 			position: relative;
-
-			.discussion-tooltip-wrapper {
-				align-items: flex-end;
-				right: 19px;
-				top: -33px;
-
-				.arrow {
-					margin-right: 36px;
-				}
-			}
 		}
 	}
 
