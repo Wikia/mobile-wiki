@@ -710,6 +710,12 @@ body.discussions {
 	}
 }
 
+.post-details-view {
+	.post-actions {
+		position: relative;
+	}
+}
+
 @media #{$desktop-range} {
 	.discussion {
 		background-color: transparent;
