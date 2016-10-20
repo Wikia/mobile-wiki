@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
 import ResponsiveMixin from '../mixins/responsive';
+import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
 	ResponsiveMixin,
+	ViewportMixin,
 	{
 		arrowOffset: 3,
 		arrowStyle: '',
@@ -23,7 +25,7 @@ export default Ember.Component.extend(
 		init() {
 			this._super(...arguments);
 			this.populateTooltipTexts();
-			this.attachObserver();
+			this.attachObservers();
 		},
 
 		/**
@@ -41,9 +43,10 @@ export default Ember.Component.extend(
 		/**
 		 * @private
 		 */
-		attachObserver() {
+		attachObservers() {
 			if (this.get('showOnce') && !this.get('wasSeen')) {
 				this.addObserver('seen', this.onSeenChange);
+				this.addObserver('viewportDimensions.width', this.onViewportChange);
 			}
 		},
 
@@ -53,9 +56,26 @@ export default Ember.Component.extend(
 		onSeenChange: function () {
 			if (this.get('seen')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
-				this.toggleProperty('wasSeen', true);
-				this.removeObserver('seen', this.onSeenChange);
+				this.set('wasSeen', true);
+				this.removeObservers();
 			}
+		},
+
+		/**
+		 * @private
+		 */
+		removeObservers() {
+			this.removeObserver('seen', this.onSeenChange);
+			this.removeObserver('viewportDimensions.width', this.onViewportChange);
+		},
+
+		/**
+		 * @private
+		 */
+		onViewportChange: function () {
+			Ember.run.schedule('afterRender', this, function () {
+				this.computeTooltipPosition();
+			})
 		},
 
 		didInsertElement() {
@@ -78,17 +98,19 @@ export default Ember.Component.extend(
 					elementOffset = pointingToElement.offset(),
 					elementWidth = pointingToElement.width();
 
-				let left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
+				let arrowLeftMargin = 0,
+					left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
 					top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
 
 				if (this.tooltipWillStickOutOfViewport(left + width)) {
-					let leftInViewport = window.innerWidth - width - this.get('rightOffset'),
-						arrowLeftMargin = (left - leftInViewport) * 2;
-					this.set('arrowStyle', Ember.String.htmlSafe(`margin-left: ${arrowLeftMargin}px;`));
+					let leftInViewport = window.innerWidth - width - this.get('rightOffset');
+
+					arrowLeftMargin = (left - leftInViewport) * 2;
 					left = leftInViewport;
 				}
 
 				this.set('style', Ember.String.htmlSafe(`top: ${top}px; left: ${left}px;`));
+				this.set('arrowStyle', Ember.String.htmlSafe(`margin-left: ${arrowLeftMargin}px;`));
 			}
 		},
 
