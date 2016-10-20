@@ -40,7 +40,7 @@ export default Ember.Component.extend(
 		textOnDesktop: '',
 		textOnMobile: '',
 
-		//position
+		// position
 		arrowMarginLeft: 0,
 		left: 0,
 		top: 0,
@@ -154,7 +154,7 @@ export default Ember.Component.extend(
 			return String.htmlSafe(`top: ${this.get('top')}px; left: ${this.get('left')}px;`);
 		}),
 
-		arrowStyle: Ember.computed('arrowMarginLeft', function() {
+		arrowStyle: Ember.computed('arrowMarginLeft', function () {
 			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
 		}),
 
