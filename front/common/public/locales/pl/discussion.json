@@ -29,6 +29,7 @@
     "sort-by-trending":"Popularne",
     "loading-more-posts":"Ładuję więcej postów",
     "load-more-posts-button":"Załaduj więcej",
+    "load-previous-posts-button":"Do góry",
     "number-of-posts":"__numberOfPosts__ posty\/ów",
     "connection-error":"Nie można uzyskać połączenia, spróbuj ponownie.",
     "not-found-error":"Ojej, wygląda na to, że ta strona nie istnieje!",
