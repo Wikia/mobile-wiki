@@ -101,6 +101,7 @@ export default Ember.Component.extend(
 		},
 
 		didInsertElement() {
+			this._super(...arguments);
 			Ember.run.schedule('afterRender', this, function () {
 				this.computeTooltipPosition();
 			});
