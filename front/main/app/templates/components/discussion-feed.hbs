@@ -49,6 +49,7 @@
 		uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
 		uploadDiscussionsHeader=(action this.attrs.uploadDiscussionsHeader)
 		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+		isFilterDisabled=isFollewedPostsView
 }}
 	{{discussion-forum-tabs}}
 
@@ -78,5 +79,6 @@
 			undeletePost=(action this.attrs.undeletePost)
 			unlockPost=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)
+			isFollewedPostsView=isFollewedPostsView
 	}}
 {{/discussion-entities-list-layout}}

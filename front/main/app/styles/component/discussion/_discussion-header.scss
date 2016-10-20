@@ -88,6 +88,12 @@ $site-header-height: 50px;
 		text-align: right;
 		top: 0;
 
+		&.disabled {
+			cursor: default;
+			.filter-default {
+				opacity: 0.5;
+			}
+		}
 	}
 
 	.applied {
@@ -95,7 +101,6 @@ $site-header-height: 50px;
 			display: inline;
 		}
 	}
-
 	.new-post {
 		float: right;
 		height: 50px;
