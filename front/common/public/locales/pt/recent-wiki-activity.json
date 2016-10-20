@@ -10,7 +10,7 @@
     "rollback-failure":"Não foi possível reverter a página devido às edições intermediárias conflitantes.",
     "rollback-success":"Reversão de __pageTitle__concluída com sucesso!",
     "summary":"Resumo:",
-    "title":"Atividade recente da wikia",
+    "title":"Atividade recente da wiki",
     "undo-failure":"Não foi possível desfazer a edição devido às edições intermediárias conflitantes.",
     "undo-label":"Desfazer",
     "undo-success":"Edição de __pageTitle__desfeita com sucesso!",
