@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['discussion-tooltip-wrapper'],
 		localStorageId: null,
-		show: null,
+		show: false,
 		showOnce: true,
 		text: '',
 		textOnDesktop: '',
@@ -52,7 +52,7 @@ export default Ember.Component.extend(
 		},
 
 		isVisible: Ember.computed('show', 'showOnce', 'wasSeen', function () {
-			return this.get('show') && (this.get('showOnce') ? !this.get('wasSeen') : true);
+			return Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
 		}),
 
 		wasSeen: Ember.computed('localStorageId', function() {
