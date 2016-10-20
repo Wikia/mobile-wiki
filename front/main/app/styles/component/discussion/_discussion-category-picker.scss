@@ -13,7 +13,7 @@
 	}
 
 	.discussion-category-select-tooltip-wrapper {
-		.discussion-tooltip-wrapper {
+		&.discussion-tooltip-wrapper {
 			left: 44px;
 			top: 22px;
 			z-index: $z-1;
@@ -106,7 +106,7 @@
 
 .discussion-inline-editor {
 	.discussion-category-select-tooltip-wrapper {
-		.discussion-tooltip-wrapper {
+		&.discussion-tooltip-wrapper {
 			left: 90px;
 			top: -12px;
 		}
