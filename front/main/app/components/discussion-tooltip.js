@@ -2,6 +2,7 @@ import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
 import ResponsiveMixin from '../mixins/responsive';
 import ViewportMixin from '../mixins/viewport';
+const {String} = Ember;
 
 export default Ember.Component.extend(
 	ResponsiveMixin,
@@ -11,7 +12,6 @@ export default Ember.Component.extend(
 		 * Arrow vertical offset from 'pointingTo' element
 		 */
 		arrowOffset: 3,
-		arrowStyle: '',
 		attributeBindings: ['style'],
 		classNames: ['discussion-tooltip-wrapper'],
 		localStorageId: null,
@@ -33,13 +33,17 @@ export default Ember.Component.extend(
 		 * (when some action changing seen property occurred)
 		 */
 		showOnce: true,
-		style: '',
 		/**
 		 * Default text, used by both desktop and mobile
 		 */
 		text: '',
 		textOnDesktop: '',
 		textOnMobile: '',
+
+		//position
+		arrowMarginLeft: 0,
+		left: 0,
+		top: 0,
 
 		/**
 		 * @private
@@ -121,19 +125,20 @@ export default Ember.Component.extend(
 					elementOffset = pointingToElement.offset(),
 					elementWidth = pointingToElement.width();
 
-				let arrowLeftMargin = 0,
+				let arrowMarginLeft = 0,
 					left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
 					top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
 
 				if (this.tooltipWillStickOutFromViewport(left + width)) {
 					let leftInViewport = window.innerWidth - width - this.get('rightOffset');
 
-					arrowLeftMargin = (left - leftInViewport) * 2;
+					arrowMarginLeft = (left - leftInViewport) * 2;
 					left = leftInViewport;
 				}
 
-				this.set('style', Ember.String.htmlSafe(`top: ${top}px; left: ${left}px;`));
-				this.set('arrowStyle', Ember.String.htmlSafe(`margin-left: ${arrowLeftMargin}px;`));
+				this.set('top', top);
+				this.set('left', left);
+				this.set('arrowMarginLeft', arrowMarginLeft);
 			}
 		},
 
@@ -144,6 +149,14 @@ export default Ember.Component.extend(
 		tooltipWillStickOutFromViewport(elementRightCorner) {
 			return window.innerWidth < elementRightCorner;
 		},
+
+		style: Ember.computed('top', 'left', function () {
+			return String.htmlSafe(`top: ${this.get('top')}px; left: ${this.get('left')}px;`);
+		}),
+
+		arrowStyle: Ember.computed('arrowMarginLeft', function() {
+			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
+		}),
 
 		isVisible: Ember.computed('show', 'showOnce', 'wasSeen', function () {
 			return Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
