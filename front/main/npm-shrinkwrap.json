@@ -4135,11 +4135,11 @@
                     "lodash.padright": {
                       "version": "3.1.1"
                     },
-                    "lodash._basetostring": {
-                      "version": "3.0.1"
-                    },
                     "lodash._createpadding": {
                       "version": "3.6.1"
+                    },
+                    "lodash._basetostring": {
+                      "version": "3.0.1"
                     },
                     "lodash.repeat": {
                       "version": "3.2.0",
@@ -11466,6 +11466,14 @@
     },
     "ember-getowner-polyfill": {
       "version": "1.0.0"
+    },
+    "ember-href-to": {
+      "version": "1.9.0",
+      "dependencies": {
+        "ember-getowner-polyfill": {
+          "version": "1.0.1"
+        }
+      }
     },
     "ember-in-viewport": {
       "version": "2.0.4",
