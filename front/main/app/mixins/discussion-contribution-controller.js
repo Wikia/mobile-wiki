@@ -336,7 +336,12 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		follow(post) {
-			this.get('model').current.follow(this.get('currentUser'), post);
+			if (this.get('isAnon')) {
+				track(trackActions.FollowPostByAnon);
+				this.rejectAnon();
+			} else {
+				this.get('model').current.follow(this.get('currentUser'), post);
+			}
 		},
 
 		/**
