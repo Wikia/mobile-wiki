@@ -543,6 +543,12 @@ body.discussions {
 		}
 	}
 
+	.has-upvoted {
+		.icon {
+			fill: $upvote-icon-activated-color;
+		}
+	}
+
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
