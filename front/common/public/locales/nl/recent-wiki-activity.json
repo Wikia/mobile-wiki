@@ -1,12 +1,12 @@
 {
   "main":{
-    "edited":"edited",
-    "dont-show-again":"Don't show me this again",
-    "error":"Sorry, something went wrong. Please try again.",
+    "edited":"bewerkt",
+    "dont-show-again":"Niet opnieuw tonen",
+    "error":"Sorry, er ging iets mis. Probeer het nog eens.",
     "intro-now-on-mobile":"Now on mobile",
-    "intro-see-more-recent-edits":"See more recent edits",
-    "intro-see-the-edit":"See the edit",
-    "new":"New!",
+    "intro-see-more-recent-edits":"Meer recente bewerkingen bekijken",
+    "intro-see-the-edit":"Bewerking bekijken",
+    "new":"Nieuw!",
     "rollback-failure":"The page could not be rolled back due to conflicting intermediate edits.",
     "rollback-success":"Successfully rolled back the page __pageTitle__!",
     "summary":"Summary:",
@@ -14,7 +14,7 @@
     "undo-failure":"The edit could not be undone due to conflicting intermediate edits.",
     "undo-label":"Undo",
     "undo-success":"Successfully undid edit to page __pageTitle__!",
-    "nice-work-button-label":"Nice work!"
+    "nice-work-button-label":"Netjes!"
   },
   "diff":{
     "after":"After",
