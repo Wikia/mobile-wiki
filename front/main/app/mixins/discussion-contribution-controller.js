@@ -337,6 +337,7 @@ export default Ember.Mixin.create({
 		 */
 		follow(post) {
 			if (this.get('isAnon')) {
+				track(trackActions.FollowPostByAnon);
 				this.rejectAnon();
 			} else {
 				this.get('model').current.follow(this.get('currentUser'), post);
