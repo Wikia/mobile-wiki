@@ -7,21 +7,43 @@ export default Ember.Component.extend(
 	ResponsiveMixin,
 	ViewportMixin,
 	{
+		/**
+		 * Arrow vertical offset from 'pointingTo' element
+		 */
 		arrowOffset: 3,
 		arrowStyle: '',
 		attributeBindings: ['style'],
 		classNames: ['discussion-tooltip-wrapper'],
 		localStorageId: null,
+		/**
+		 * Css selector for parent element (that has position: relative).
+		 */
 		parent: '',
+		/**
+		 * Css selector for element that this tooltip will pointing to
+		 */
 		pointingTo: '',
+		/**
+		 * Offset for right side, when tooltip would stick out from viewport
+		 */
 		rightOffset: 2,
 		show: false,
+		/**
+		 * Controls whether tooltip should appear once, and never again
+		 * (when some action changing seen property occurred)
+		 */
 		showOnce: true,
-		style: null,
+		style: '',
+		/**
+		 * Default text, used by both desktop and mobile
+		 */
 		text: '',
 		textOnDesktop: '',
 		textOnMobile: '',
 
+		/**
+		 * @private
+		 */
 		init() {
 			this._super(...arguments);
 			this.populateTooltipTexts();
@@ -53,7 +75,7 @@ export default Ember.Component.extend(
 		/**
 		 * @private
 		 */
-		onSeenChange: function () {
+		onSeenChange() {
 			if (this.get('seen')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
 				this.set('wasSeen', true);
@@ -72,10 +94,10 @@ export default Ember.Component.extend(
 		/**
 		 * @private
 		 */
-		onViewportChange: function () {
+		onViewportChange() {
 			Ember.run.schedule('afterRender', this, function () {
 				this.computeTooltipPosition();
-			})
+			});
 		},
 
 		didInsertElement() {
@@ -102,7 +124,7 @@ export default Ember.Component.extend(
 					left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
 					top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
 
-				if (this.tooltipWillStickOutOfViewport(left + width)) {
+				if (this.tooltipWillStickOutFromViewport(left + width)) {
 					let leftInViewport = window.innerWidth - width - this.get('rightOffset');
 
 					arrowLeftMargin = (left - leftInViewport) * 2;
@@ -118,8 +140,8 @@ export default Ember.Component.extend(
 		 * @private
 		 * @returns {boolean}
 		 */
-		tooltipWillStickOutOfViewport(elemntRightCorner) {
-			return window.innerWidth < elemntRightCorner;
+		tooltipWillStickOutFromViewport(elementRightCorner) {
+			return window.innerWidth < elementRightCorner;
 		},
 
 		isVisible: Ember.computed('show', 'showOnce', 'wasSeen', function () {
