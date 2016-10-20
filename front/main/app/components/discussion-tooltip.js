@@ -99,6 +99,13 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		onViewportChange() {
+			this.computePositionAfterRender();
+		},
+
+		/**
+		 * @private
+		 */
+		computePositionAfterRender() {
 			Ember.run.schedule('afterRender', this, function () {
 				this.computeTooltipPosition();
 			});
@@ -106,9 +113,7 @@ export default Ember.Component.extend(
 
 		didInsertElement() {
 			this._super(...arguments);
-			Ember.run.schedule('afterRender', this, function () {
-				this.computeTooltipPosition();
-			});
+			this.computePositionAfterRender();
 		},
 
 		/**
