@@ -6,6 +6,7 @@ export default Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNameBindings: ['isDetailsView:sideSpaced'],
+		followingTooltipSeen: false,
 
 		actions: {
 			reply() {
@@ -18,6 +19,7 @@ export default Ember.Component.extend(
 
 			follow(post) {
 				this.get('follow')(post);
+				this.set('followingTooltipSeen', true);
 			}
 		},
 	}
