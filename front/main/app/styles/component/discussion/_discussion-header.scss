@@ -33,6 +33,7 @@ $site-header-height: 50px;
 
 	h1 {
 		color: $discussion-header-color-text;
+		cursor: unset;
 		float: left;
 		font-size: $type-smaller;
 		line-height: $discussion-header-height;

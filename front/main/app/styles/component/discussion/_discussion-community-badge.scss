@@ -28,6 +28,7 @@ $badge-image-tools-width: 210px;
 				@extend %center-and-color-community-badge-image;
 
 				.badge-image-display-original {
+					cursor: unset;
 					height: 76px;
 					width: 76px;
 				}
@@ -36,6 +37,10 @@ $badge-image-tools-width: 210px;
 					margin-top: 64px;
 				}
 			}
+		}
+
+		h2 {
+			cursor: unset;
 		}
 	}
 }
