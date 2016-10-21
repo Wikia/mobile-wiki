@@ -29,6 +29,7 @@
     "sort-by-trending":"Tendências",
     "loading-more-posts":"Carregando mais posts",
     "load-more-posts-button":"Carregar mais",
+    "load-previous-posts-button":"Voltar ao topo",
     "number-of-posts":"__numberOfPosts__ posts",
     "connection-error":"Não é possível conectar, por favor, tente novamente.",
     "not-found-error":"Opa, parece que esta página não existe!",
