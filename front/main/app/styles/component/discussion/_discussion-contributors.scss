@@ -4,6 +4,10 @@ $discussion-contributors-border-width: 2px;
 .discussion-contributors {
 	display: inline-block;
 
+	.event-wrapper {
+		display: inline-block;
+	}
+
 	.user-avatar {
 		display: inline-block;
 	}

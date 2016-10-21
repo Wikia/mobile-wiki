@@ -76,11 +76,13 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		clickDiscussionsHeaderText() {
-			track(trackActions.DiscussionsHeaderTextClicked);
-		},
+		actions: {
+			clickDiscussionsHeaderText() {
+				track(trackActions.DiscussionsHeaderTextClicked);
+			},
 
-		clickDiscussionsHeaderPostcount() {
-			track(trackActions.DiscussionsHeaderPostcountClicked);
+			clickDiscussionsHeaderPostcount() {
+				track(trackActions.DiscussionsHeaderPostcountClicked);
+			}
 		}
 	});

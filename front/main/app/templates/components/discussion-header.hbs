@@ -8,7 +8,7 @@
 		}}
 	{{/if}}
 	{{#if hasSiteName}}
-		<h1>{{siteName}}</h1>
+		<h1 {{action 'clickMobileHeaderWikiName' preventDefault=false}}>{{siteName}}</h1>
 	{{/if}}
 	{{#unless hasContentError}}
 		{{#if hasNewPostButton}}

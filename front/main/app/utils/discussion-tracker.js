@@ -82,6 +82,7 @@ const trackActions = {
 	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
 	DiscussionsHeaderAvatarClicked: 'DiscussionsHeaderAvatarClicked',
 	SideButtonClicked: 'SideButtonClicked',
+	MobileHeaderWikiNameClicked: 'MobileHeaderWikiNameClicked',
 };
 
 /**

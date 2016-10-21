@@ -18,7 +18,9 @@ export default Ember.Component.extend({
 		return this.get('totalContributorCount') - this.get('latestContributors.length');
 	}),
 
-	clickDiscussionsHeaderAvatar() {
-		track(trackActions.DiscussionsHeaderAvatarClicked);
+	actions: {
+		clickDiscussionsHeaderAvatar() {
+			track(trackActions.DiscussionsHeaderAvatarClicked);
+		}
 	}
 });
