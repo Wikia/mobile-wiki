@@ -5,8 +5,12 @@ const {computed, Component, get} = Ember;
 
 export default Component.extend({
 	classNames: ['site-head-fandom-bar-wrapper'],
+
 	homeOfFandomLabel: get(Mercury, 'wiki.navigation2016.fandomLabel'),
 	isVisible: computed.not('isSearchPage'),
+	displayPartnerLogo: computed(() => {
+		return get(Mercury, 'wiki.language.content') === 'de';
+	}),
 
 	actions: {
 		/**
