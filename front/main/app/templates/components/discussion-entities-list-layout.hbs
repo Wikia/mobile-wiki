@@ -46,7 +46,7 @@
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
-						disabled=isFilterDisabled
+						disabled=isCategoryFilterDisabled
 						triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
@@ -55,7 +55,7 @@
 					}}
 				{{/if}}
 			{{/if}}
-			{{#if model.canModerate}}
+			{{#if canShowReportedPostsFilter}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
 				}}

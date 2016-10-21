@@ -6,12 +6,14 @@ export default Ember.Component.extend({
 	tagName: 'ul',
 	routing: Ember.inject.service('-routing'),
 
-	allTabActive: Ember.computed(function() {
-		return this.get('routing.currentRouteName') === 'discussion.forum';
-	}),
+	allTabActive: Ember.computed.equal('routing.currentRouteName', 'discussion.forum'),
 
-	followTabActive: Ember.computed(function() {
-		return this.get('routing.currentRouteName') === 'discussion.follow';
-	}),
-	
+	followTabActive: Ember.computed.equal('routing.currentRouteName', 'discussion.follow'),
+
+	actions: {
+		trackFollowedPostsClick: function () {
+			track(trackActions.FollowedPostTapped);
+		}
+	}
+
 });

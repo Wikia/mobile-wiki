@@ -14,14 +14,14 @@ export default DiscussionBaseController.extend(
 		queryParams: ['sort', 'catId'],
 
 		actions: {
+			updateCategoriesSelection(categories) {
+				this.get('target').send('updateCategoriesSelection', categories);
+			},
+
 			createPost(entityData, forumId) {
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
 					this.createPost(entityData, forumId);
 				});
-			},
-
-			updateCategoriesSelection(categories) {
-				this.get('target').send('updateCategoriesSelection', categories);
 			},
 		}
 	},
