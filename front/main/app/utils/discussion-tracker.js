@@ -75,7 +75,7 @@ const trackActions = {
 	DiscussionsHeaderSaveFailure: 'DiscussionsHeaderSaveFailure',
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
-
+	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
 };
 
 /**
