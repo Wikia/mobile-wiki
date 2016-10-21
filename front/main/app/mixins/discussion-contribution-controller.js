@@ -446,5 +446,13 @@ export default Ember.Mixin.create({
 		uploadDiscussionsHeader(image) {
 			return this.get('discussion.model').attributes.saveImageAttribute('heroImage', image);
 		},
+
+		updateCategories(categories) {
+			this.get('target').send('updateCategories', categories);
+		},
+
+		validatePostsOnForum() {
+			this.get('target').send('validatePostsOnForum');
+		}
 	},
 });

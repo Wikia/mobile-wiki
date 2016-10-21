@@ -75,7 +75,7 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			validatePostsOnForum() {
-				// fixme
+				this.refresh();
 			},
 
 			/**
