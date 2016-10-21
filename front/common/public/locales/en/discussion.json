@@ -92,6 +92,7 @@
     "reply-label": "Reply",
     "share-header": "Share Post",
     "share-label": "Share",
+    "follow-error-anon-cant-follow": "Sign in to start following the discussion!",
     "follow-label": "Follow",
     "follow-tooltip": "Tap to add to your following list",
     "follow-tooltip-desktop": "Click to add to your following list",
