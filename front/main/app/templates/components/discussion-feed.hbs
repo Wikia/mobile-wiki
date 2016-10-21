@@ -39,8 +39,10 @@
 		addCategory=(route-action 'addCategory')
 		applyFilters=(action this.attrs.applyFilters)
 		attributes=attributes
+		canShowReportedPostsFilter=canShowReportedPostsFilter
 		categories=categories
 		categoriesInRail=true
+		isCategoryFilterDisabled=isFollewedPostsView
 		model=model
 		openGuidelines=(action this.attrs.openGuidelines)
 		setEditorActive=(action this.attrs.setEditorActive)
@@ -49,8 +51,6 @@
 		uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
 		uploadDiscussionsHeader=(action this.attrs.uploadDiscussionsHeader)
 		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
-		isCategoryFilterDisabled=isFollewedPostsView
-		canShowReportedPostsFilter=canShowReportedPostsFilter
 }}
 	{{discussion-forum-tabs}}
 
@@ -66,9 +66,10 @@
 			generateOpenGraph=(route-action 'generateOpenGraph')
 			gotoGuidelines=(action this.attrs.gotoGuidelines)
 			goToPage=(action this.attrs.goToPage)
+			isFollewedPostsView=isFollewedPostsView
 			loadPage=(action this.attrs.loadPage)
 			lockPost=(action this.attrs.lockPost)
-			minorError=minorError
+			minorError=model.minorError
 			openEditEditor=(action this.attrs.openEditEditor)
 			page=page
 			posts=model.entities
@@ -76,10 +77,9 @@
 			report=(action this.attrs.report)
 			setEditorActive=(action this.attrs.setEditorActive)
 			stickEditorToGlobalNav=stickEditorToGlobalNav
-			totalPosts=totalPosts
+			totalPosts=model.postCount
 			undeletePost=(action this.attrs.undeletePost)
 			unlockPost=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)
-			isFollewedPostsView=isFollewedPostsView
 	}}
 {{/discussion-entities-list-layout}}
