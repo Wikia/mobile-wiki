@@ -32,7 +32,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			clickMobileHeaderWikiName() {
-				track(trackActions.MobileHeaderWikiNameClicked);
+				track(trackActions.MobileHeaderCommunityNameClicked);
 			}
 		}
 	}
