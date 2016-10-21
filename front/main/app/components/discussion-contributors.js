@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['discussion-contributors'],
@@ -15,5 +16,9 @@ export default Ember.Component.extend({
 
 	additionalContributorCount: Ember.computed('latestContributors', 'totalContributorCount', function () {
 		return this.get('totalContributorCount') - this.get('latestContributors.length');
-	})
+	}),
+
+	clickDiscussionsHeaderAvatar() {
+		track(trackActions.DiscussionsHeaderAvatarClicked);
+	}
 });

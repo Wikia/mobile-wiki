@@ -82,9 +82,5 @@ export default Ember.Component.extend(
 
 		clickDiscussionsHeaderPostcount() {
 			track(trackActions.DiscussionsHeaderPostcountClicked);
-		},
-
-		clickDiscussionsHeaderAvatar() {
-			track(trackActions.DiscussionsHeaderAvatarClicked);
 		}
 	});
