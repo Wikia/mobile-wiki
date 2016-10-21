@@ -81,7 +81,7 @@ const trackActions = {
 	DiscussionsHeaderTextClicked: 'DiscussionsHeaderTextClicked',
 	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
 	DiscussionsHeaderAvatarClicked: 'DiscussionsHeaderAvatarClicked',
-	AllDiscussionsLinkClicked: 'AllDiscussionsLinkClicked',
+	SideButtonClicked: 'SideButtonClicked',
 };
 
 /**

@@ -27,11 +27,9 @@
 				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
-			<div {{action "clickAllDiscussions"}}>
-				{{discussion-side-button
-					route='discussion'
-				}}
-			</div>
+			{{discussion-side-button
+				route='discussion'
+			}}
 			{{#unless hasContentError}}
 				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
 				{{discussion-contributors
