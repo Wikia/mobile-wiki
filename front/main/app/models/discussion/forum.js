@@ -19,14 +19,12 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 1, categories = [], sortBy = 'trending') {
-			this.set('data.pageNum', pageNum);
-
+		loadPage(page = 1, categories = [], sortBy = 'trending') {
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
 					forumId: categories,
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
@@ -37,7 +35,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					(newThread) => DiscussionPost.createFromThreadData(newThread)
 				);
 
-				this.incrementProperty('pageNum');
+				this.incrementProperty('data.pageNum');
+
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
 
@@ -78,12 +77,13 @@ DiscussionForumModel.reopenClass({
 	 * @param {string} [sortBy='trending']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, categories = [], sortBy = 'trending') {
+	find(wikiId, categories = [], sortBy = 'trending', page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const forumInstance = DiscussionForumModel.create({
 					wikiId
 				}),
 				requestData = {
+					page: page - 1,
 					forumId: categories instanceof Array ? categories : [categories],
 					limit: forumInstance.get('postsLimit'),
 					viewableOnly: false
@@ -98,6 +98,8 @@ DiscussionForumModel.reopenClass({
 				traditional: true,
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
+
+				forumInstance.setStartPageNumber(page);
 
 				resolve(forumInstance);
 
