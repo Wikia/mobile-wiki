@@ -42,6 +42,13 @@ $home-of-fandom-letter-spacing: 0.5px;
 		height: 20px;
 		width: 130px;
 	}
+
+	&__partner-logo {
+		align-items: center;
+		display: flex;
+		position: absolute;
+		right: 0;
+	}
 }
 
 .bfaa-template .site-head-headroom-top .site-head-fandom-bar {
