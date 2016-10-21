@@ -51,7 +51,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			clickWikiName() {
-				track(trackActions.WikiNameClicked);
+				track(trackActions.CommunityNameClicked);
 			},
 
 			clickCommunityBadge() {

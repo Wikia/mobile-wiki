@@ -76,7 +76,7 @@ const trackActions = {
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
 	CommunityBadgeClicked: 'CommunityBadgeClicked',
-	WikiNameClicked: 'WikiNameClicked',
+	CommunityNameClicked: 'CommunityNameClicked',
 	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
 	DiscussionsHeaderTextClicked: 'DiscussionsHeaderTextClicked',
 	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
