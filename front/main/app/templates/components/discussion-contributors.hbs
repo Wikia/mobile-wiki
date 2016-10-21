@@ -1,11 +1,13 @@
 {{#each latestContributors as |contributor|}}
-	{{user-avatar
-		avatarUrl=contributor.avatarUrl
-		badgePermission=contributor.badgePermission
-		username=contributor.name
-	}}
+	<div {{action 'clickDiscussionsHeaderAvatar' preventDefault=false}}>
+		{{user-avatar
+			avatarUrl=contributor.avatarUrl
+			badgePermission=contributor.badgePermission
+			username=contributor.name
+		}}
+	</div>
 {{else}}
-    <span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
+	<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
 {{/each}}
 {{#if additionalContributorCount}}
 	<div class="discussion-contributors-more">+{{numeral additionalContributorCount '0a'}}</div>

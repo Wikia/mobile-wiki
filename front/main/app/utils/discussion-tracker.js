@@ -76,6 +76,9 @@ const trackActions = {
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
 	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
+	DiscussionsHeaderTextClicked: 'DiscussionsHeaderTextClicked',
+	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
+	DiscussionsHeaderAvatarClicked: 'DiscussionsHeaderAvatarClicked',
 };
 
 /**
