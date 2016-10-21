@@ -24,17 +24,3 @@ test('sets proper url for the image', function (asset) {
 		`http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`
 	);
 });
-
-test('computes style properly', function (asset) {
-	const viewportWidth = 400,
-		// Viewport minus 20 and then by half
-		imageWidth = 190,
-		// 16:9 ratio
-		imageHeight = 106,
-		componentMock = this.subject();
-
-	componentMock.set('viewportDimensions.width', viewportWidth);
-	componentMock.updateImageSize();
-	asset.equal(componentMock.get('style').toString(), `width: ${imageWidth}px;`);
-	asset.equal(componentMock.get('imageStyle').toString(), `height: ${imageHeight}px;`);
-});
