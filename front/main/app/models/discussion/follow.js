@@ -19,6 +19,7 @@ const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(user) {
+			// fixme URL after backend ready
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
 					userId: user.get('userId'),
@@ -49,9 +50,9 @@ const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 		 * @returns {void}
 		 */
 		setNormalizedData(apiData) {
-			const posts = [],//Ember.getWithDefault(apiData, '_embedded.threads', []),
+			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
 				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
-				entities = [];//DiscussionEntities.createFromThreadsData(posts);
+				entities = DiscussionEntities.createFromThreadsData(posts);
 
 			this.get('data').setProperties({
 				canModerate: Ember.getWithDefault(entities, 'firstObject.userData.permissions.canModerate', false),
@@ -59,7 +60,7 @@ const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 				entities,
 				isRequesterBlocked: Boolean(apiData.isRequesterBlocked),
 				pageNum: 0,
-				postCount: 0,//parseInt(apiData.threadCount, 10),
+				postCount: parseInt(apiData.threadCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(apiData.userBlockDetails)
 			});
 
@@ -87,6 +88,7 @@ DiscussionFollowedPostsModel.reopenClass({
 					viewableOnly: false
 				};
 
+			// fixme URL after backend ready
 			request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
 				data: requestData,
 				traditional: true,
