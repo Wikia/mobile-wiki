@@ -46,7 +46,10 @@ export default Ember.Component.extend({
 				categoryToDelete = this.get('categoryToDelete');
 
 			if (selectedCategory && categoryToDelete) {
-				categoryToDelete.set('moveTo', selectedCategory.get('id'));
+				categoryToDelete.setProperties({
+					displayOrder: null,
+					moveTo: selectedCategory.get('id')
+				});
 			}
 
 			this.resetModalState();

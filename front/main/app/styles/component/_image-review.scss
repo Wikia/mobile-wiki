@@ -48,7 +48,8 @@
 	.rejected {
 		background-color: #ff3300;
 	}
-	.flagged {
+
+	.questionable {
 		background-color: #a49b00;
 	}
 }
@@ -61,6 +62,10 @@
 
 .image-review-action-buttons {
 	padding: 1em;
+}
+
+.image-review-get-more-button {
+	float: right;
 }
 
 .image-review-modal-dialog {

@@ -7,7 +7,6 @@ export default Component.extend({
 	classNames: ['site-head-fandom-bar-wrapper'],
 	homeOfFandomLabel: get(Mercury, 'wiki.navigation2016.fandomLabel'),
 	isVisible: computed.not('isSearchPage'),
-	useFandomLogoInNav: true,
 
 	actions: {
 		/**

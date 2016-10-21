@@ -72,7 +72,9 @@ class Ads {
 			}
 		};
 		this.adLogicPageViewCounterModule = null;
+		this.adLogicPageParams = null;
 		this.googleTagModule = null;
+		this.mercuryPV = 1;
 	}
 
 	/**
@@ -104,6 +106,7 @@ class Ads {
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
+					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
@@ -114,6 +117,7 @@ class Ads {
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
+					adLogicPageParams,
 					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
@@ -134,6 +138,7 @@ class Ads {
 					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.adLogicPageParams = adLogicPageParams;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
 				});
@@ -317,34 +322,41 @@ class Ads {
 		// We need a copy of adSlots as adEngineModule.run destroys it
 		this.slotsQueue = this.getSlots();
 
-		if (this.isLoaded && adsContext) {
-			this.adContextModule.setContext(adsContext);
-			if (typeof onContextLoadCallback === 'function') {
-				onContextLoadCallback();
-			}
-
-			if (Ads.previousDetectionResults.sourcePoint.exists) {
-				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
-			} else {
-				this.sourcePointDetectionModule.initDetection();
-			}
-
-			if (Ads.previousDetectionResults.pageFair.exists) {
-				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
-				this.pageFairDetectionModule.initDetection(adsContext);
-			}
-
-			if (adsContext.opts) {
-				delayEnabled = Boolean(adsContext.opts.delayEngine);
-			}
-
+		if (this.isLoaded) {
 			this.adMercuryListenerModule.onPageChange(() => {
 				this.adLogicPageViewCounterModule.increment();
 				this.googleTagModule.updateCorrelator();
+				this.mercuryPV = this.mercuryPV + 1;
+				this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			});
+			if (adsContext) {
+				this.adContextModule.setContext(adsContext);
+				if (typeof onContextLoadCallback === 'function') {
+					onContextLoadCallback();
+				}
 
-			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+				if (Ads.previousDetectionResults.sourcePoint.exists) {
+					this.trackBlocking(
+						'sourcePoint',
+						this.GASettings.sourcePoint,
+						Ads.previousDetectionResults.sourcePoint.value
+					);
+				} else {
+					this.sourcePointDetectionModule.initDetection();
+				}
+
+				if (Ads.previousDetectionResults.pageFair.exists) {
+					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
+				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
+					this.pageFairDetectionModule.initDetection(adsContext);
+				}
+
+				if (adsContext.opts) {
+					delayEnabled = Boolean(adsContext.opts.delayEngine);
+				}
+
+				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+			}
 		}
 	}
 
@@ -357,6 +369,7 @@ class Ads {
 		this.reload(this.currentAdsContext, () => {
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
+			this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			this.adLogicPageViewCounterModule.increment();
 		});
 	}

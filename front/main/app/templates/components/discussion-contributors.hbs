@@ -4,6 +4,8 @@
 		badgePermission=contributor.badgePermission
 		username=contributor.name
 	}}
+{{else}}
+    <span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
 {{/each}}
 {{#if additionalContributorCount}}
 	<div class="discussion-contributors-more">+{{numeral additionalContributorCount '0a'}}</div>
