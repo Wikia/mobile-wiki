@@ -257,14 +257,6 @@ export default DiscussionBaseRoute.extend(
 			validatePostsOnForum() {
 				this.refresh();
 			},
-
-			/**
-			 * Transition to Guidelines
-			 * @returns {void}
-			 */
-			gotoGuidelines() {
-				this.transitionTo('discussion.guidelines');
-			},
 		}
 	}
 );

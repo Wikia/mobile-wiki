@@ -19,7 +19,10 @@ export default Ember.Component.extend(
 		classNames: ['discussion-header-wrapper'],
 
 		discussionSort: Ember.inject.service(),
-		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', function () {
+		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', 'isFilterDisabled', function () {
+			if(this.get('isFilterDisabled')) {
+				return false;
+			}
 			return this.get('discussionSort.sortTypes.0.active') === false ||
 				!this.get('categories').isEvery('selected', false) ||
 				this.get('discussionSort.onlyReported', true);
