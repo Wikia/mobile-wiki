@@ -47,6 +47,16 @@ export default Ember.Component.extend(
 			} else {
 				return this.get('wikiName');
 			}
-		})
+		}),
+
+		actions: {
+			clickWikiName() {
+				track(trackActions.WikiNameClicked);
+			},
+
+			clickCommunityBadge() {
+				track(trackActions.CommunityBadgeClicked);
+			}
+		}
 	}
 );

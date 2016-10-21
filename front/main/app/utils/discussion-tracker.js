@@ -75,6 +75,8 @@ const trackActions = {
 	DiscussionsHeaderSaveFailure: 'DiscussionsHeaderSaveFailure',
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
+	CommunityBadgeClicked: 'CommunityBadgeClicked',
+	WikiNameClicked: 'WikiNameClicked',
 	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
 	DiscussionsHeaderTextClicked: 'DiscussionsHeaderTextClicked',
 	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
