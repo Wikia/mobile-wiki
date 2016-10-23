@@ -4,12 +4,13 @@
 		display: flex;
 		flex-direction: column;
 		left: 0;
+		line-height: 14px;
 		position: absolute;
 
 		.discussion-tooltip {
 			border-radius: 2px;
 			font-size: 12px;
-			padding: 2px 11px;
+			padding: 10px 12px;
 		}
 
 		.arrow-down {
