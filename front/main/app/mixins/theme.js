@@ -60,11 +60,12 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Changes discussion header color if HSL Luminance is above 0.7
+	 * Changes discussions white color if HSL Luminance is above 0.7.
+	 * Used in discussions header and tooltip label color.
 	 * @param {Object} color
 	 * @returns {string}
 	 */
-	getHeaderColor(color) {
+	computeTextColorBasedOnLuminace(color) {
 		const defaultColor = '#ffffff',
 			luminanceThreshold = 0.7,
 			fallbackColor = '#1a1a1a';
@@ -79,8 +80,8 @@ export default Ember.Mixin.create({
 		const styleId = 'discussionInlineStyles';
 		let activeElementHoverColor,
 			activeElementDisabledColor,
-			discussionHeaderColor,
-			heroImageRgbColor,
+			luminanceAwareTextColor,
+			themeButtonsColor,
 			inlineStyles,
 			styles = '';
 
@@ -94,17 +95,18 @@ export default Ember.Mixin.create({
 			return;
 		}
 
-		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
+		themeButtonsColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
 		activeElementHoverColor = tinycolor(this.get('themeColors.color-links')).darken(20);
 		activeElementDisabledColor = tinycolor(this.get('themeColors.color-links')).setAlpha(0.5);
-		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
+		luminanceAwareTextColor = this.computeTextColorBasedOnLuminace(themeButtonsColor);
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
+		styles += `.discussions .background-alpha-theme-color {background-color: ${themeButtonsColor.toRgbString()};}`;
 		styles += '.discussions .discussion-hero-unit .discussion-hero-unit-content h1,' +
 			'.discussions .discussion-hero-unit .discussion-hero-unit-content p,' +
-			`.discussion-header h1 {color: ${discussionHeaderColor};}`;
+			`.discussion-header h1 {color: ${luminanceAwareTextColor};}`;
+		styles += `.discussions .discussion-tooltip {color: ${luminanceAwareTextColor};}`
 		styles += `.discussion a, .discussion .url, .discussions .header-text-theme-color,
 			.discussion-standalone-editor a {color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-background-color {background-color: ${
