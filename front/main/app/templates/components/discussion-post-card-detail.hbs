@@ -25,8 +25,7 @@
 				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 			</div>
 
-			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip'
-			            class='more-options-pop-over'}}
+			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
 				{{discussion-more-options
 						delete=(action this.attrs.delete)
 						deleteMessage=(i18n 'main.delete-post' ns='discussion')
