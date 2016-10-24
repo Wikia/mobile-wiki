@@ -33,10 +33,12 @@
 		categories=model.index.categories.categories
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
+		firstPageLoaded=model.current.firstPageLoaded
+		goToPage=(action 'goToPage')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.current.data.minorError
-		pageNum=model.current.data.pageNum
+		page=page
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')

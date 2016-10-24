@@ -15,6 +15,15 @@
 {{discussion-welcome
 	gotoGuidelines=(action this.attrs.gotoGuidelines)
 }}
+{{#if showToTheTopButton}}
+	{{discussion-wrapper-load-more
+		goToPage=(action this.attrs.goToPage)
+		hasMore=true
+		loadNextPage=(action 'loadNextPage')
+		previous=true
+		showButton=true
+	}}
+{{/if}}
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
@@ -36,9 +45,12 @@
 		setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/each}}
-{{discussion-wrapper-load-more
-	hasMore=hasMore
-	isLoading=isLoading
-	loadNextPage=(action 'loadNextPage')
-	showLoadMoreButton=true
-}}
+{{#if showLoadMoreButton}}
+	{{discussion-wrapper-load-more
+		goToPage=(action this.attrs.goToPage)
+		hasMore=hasMore
+		isLoading=isLoading
+		loadNextPage=(action 'loadNextPage')
+		showButton=true
+	}}
+{{/if}}

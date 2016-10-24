@@ -8,6 +8,7 @@ export default Ember.Mixin.create({
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
+	firstPageLoaded: false,
 
 	/**
 	 * @param {string} sortBy
@@ -24,4 +25,13 @@ export default Ember.Mixin.create({
 				return '';
 		}
 	},
+
+	setStartPageNumber(page) {
+		if (page === 1) {
+			this.set('firstPageLoaded', true);
+		} else {
+			// API numerates pages from 0, UI from 1
+			this.set('data.pageNum', page - 1);
+		}
+	}
 });

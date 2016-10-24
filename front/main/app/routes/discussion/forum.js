@@ -21,6 +21,9 @@ export default DiscussionBaseRoute.extend(
 			},
 			sort: {
 				refreshModel: true
+			},
+			page: {
+				refreshModel: false
 			}
 		},
 
@@ -42,9 +45,15 @@ export default DiscussionBaseRoute.extend(
 				modifiedTransition = this.transitionToCommaSplittedCategories(queryParams);
 			}
 
+			if (!this.isProperPageParam(queryParams.page)) {
+				queryParams.page = 1;
+				this.refresh();
+			}
+
 			const updatedQueryParams = {
 				catId: this.getCategoriesFromQueryString(queryParams.catId),
-				sort: queryParams.sort
+				sort: queryParams.sort,
+				page: queryParams.page
 			};
 
 			if (!modifiedTransition) {
@@ -80,9 +89,16 @@ export default DiscussionBaseRoute.extend(
 			discussionModel.categories.setSelectedCategories(catId);
 
 			return Ember.RSVP.hash({
-				current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy')),
+				current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy'),
+					params.page),
 				index: discussionModel
 			});
+		},
+
+		afterModel(model, transition) {
+			this._super(...arguments);
+
+			this.goToFirstPageIfNoPosts(model, transition.queryParams);
 		},
 
 		getCategoriesFromQueryString(catQuery) {
@@ -90,10 +106,12 @@ export default DiscussionBaseRoute.extend(
 		},
 
 		transitionToCommaSplittedCategories(params) {
-			return this.transitionTo({queryParams: {
-				catId: this.getCommaSplittedCategories(params.catId),
-				sort: params.sort
-			}});
+			return this.transitionTo({
+				queryParams: {
+					catId: this.getCommaSplittedCategories(params.catId),
+					sort: params.sort
+				}
+			});
 		},
 
 		getCommaSplittedCategories(catId) {
@@ -119,6 +137,7 @@ export default DiscussionBaseRoute.extend(
 					transition = this.transitionTo({
 						queryParams: {
 							catId: validCategories,
+							page: params.page,
 							sort: params.sort
 						}
 					});
@@ -153,8 +172,7 @@ export default DiscussionBaseRoute.extend(
 					});
 				}
 			} else {
-				localStorageConnector.setItem(
-					'discussionForumPreviousQueryParams', JSON.stringify(params));
+				this.storeQueryParams(params);
 			}
 
 			return transition;
