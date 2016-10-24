@@ -73,9 +73,11 @@ body.discussions {
 
 	&.eye {
 		height: 12px;
+		margin-right: 2px;
 		width: 16px;
 	}
 
+	&.share,
 	&.report,
 	&.lock,
 	&.unlock {
