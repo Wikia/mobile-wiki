@@ -370,9 +370,9 @@ class Ads {
 	 */
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext, () => {
+			this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
-			this.adLogicPageParams.add('mercuryPV', this.mercuryPV);
 			this.adLogicPageViewCounterModule.increment();
 		});
 	}
