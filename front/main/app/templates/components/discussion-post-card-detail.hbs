@@ -2,19 +2,19 @@
 	<div id="post-{{post.id}}">
 		{{#if showTopNote}}
 			{{discussion-post-card-top-note
-				approve=(action this.attrs.approve)
-				canShowModButtons=isDetailsView
-				delete=(action this.attrs.delete)
-				isReported=isReported
-				post=post
-				threadCreatorName=post.threadCreatedBy.name
+					approve=(action this.attrs.approve)
+					canShowModButtons=isDetailsView
+					delete=(action this.attrs.delete)
+					isReported=isReported
+					post=post
+					threadCreatorName=post.threadCreatedBy.name
 			}}
 		{{/if}}
 		{{user-avatar
-			avatarUrl=author.avatarUrl
-			badgePermission=author.badgePermission
-			displayProfileName=true
-			username=author.name
+				avatarUrl=author.avatarUrl
+				badgePermission=author.badgePermission
+				displayProfileName=true
+				username=author.name
 		}}
 		<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
 			&bull; {{time-ago post.creationTimestamp}}
@@ -25,23 +25,24 @@
 				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 			</div>
 
-			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
+			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip'
+			            class='more-options-pop-over'}}
 				{{discussion-more-options
-				delete=(action this.attrs.delete)
-				deleteMessage=(i18n 'main.delete-post' ns='discussion')
-				editMessage=(i18n 'main.edit-post' ns='discussion')
-				isLockable=true
-				lock=(action this.attrs.lock)
-				lockMessage=(i18n 'main.lock-post' ns='discussion')
-				post=post
-				report=(action this.attrs.report)
-				reportMessage=(i18n 'main.report-post' ns='discussion')
-				openEditEditor=(action this.attrs.openEditEditor)
-				setEditorActive=(action this.attrs.setEditorActive)
-				undelete=(action this.attrs.undelete)
-				undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
-				unlock=(action this.attrs.unlock)
-				unlockMessage=(i18n 'main.unlock-post' ns='discussion')
+						delete=(action this.attrs.delete)
+						deleteMessage=(i18n 'main.delete-post' ns='discussion')
+						editMessage=(i18n 'main.edit-post' ns='discussion')
+						isLockable=true
+						lock=(action this.attrs.lock)
+						lockMessage=(i18n 'main.lock-post' ns='discussion')
+						post=post
+						report=(action this.attrs.report)
+						reportMessage=(i18n 'main.report-post' ns='discussion')
+						openEditEditor=(action this.attrs.openEditEditor)
+						setEditorActive=(action this.attrs.setEditorActive)
+						undelete=(action this.attrs.undelete)
+						undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
+						unlock=(action this.attrs.unlock)
+						unlockMessage=(i18n 'main.unlock-post' ns='discussion')
 				}}
 			{{/pop-over}}
 		{{/unless}}
@@ -61,13 +62,14 @@
 					<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link">{{post.title}}</a>
 				</h2>
 			{{/if}}
-			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
+			<a href="{{href-to 'discussion.post' post.threadId}}"
+			   class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
 	{{/if}}
 	{{#if post.openGraph}}
 		{{discussion-open-graph
-			openGraphData=post.openGraph
-			isListView=true
+				openGraphData=post.openGraph
+				isListView=true
 		}}
 	{{/if}}
 	<div class="row post-bottom-row">
@@ -91,25 +93,25 @@
 	</div>
 </div>
 {{discussion-post-card-actions
-	entryPointLabel=(i18n 'main.share-label' ns='discussion')
-	follow=(action this.attrs.follow)
-	header=(i18n 'main.share-header' ns='discussion')
-	isDeleted=isDeleted
-	isDetailsView=isDetailsView
-	post=post
-	replyCount=replyCount
-	setEditorActive=(action this.attrs.setEditorActive)
-	sharedUrl=sharedUrl
-	showFollowingTooltip=showFollowingTooltip
-	showLabelOnMobile=true
-	threadId=post.threadId
-	uniqueIdentifier=post.threadId
-	upvote=(action this.attrs.upvote)
+		entryPointLabel=(i18n 'main.share-label' ns='discussion')
+		follow=(action this.attrs.follow)
+		header=(i18n 'main.share-header' ns='discussion')
+		isDeleted=isDeleted
+		isDetailsView=isDetailsView
+		post=post
+		replyCount=replyCount
+		setEditorActive=(action this.attrs.setEditorActive)
+		sharedUrl=sharedUrl
+		showFollowingTooltip=showFollowingTooltip
+		showLabelOnMobile=true
+		threadId=post.threadId
+		uniqueIdentifier=post.threadId
+		upvote=(action this.attrs.upvote)
 }}
 {{#if post.isLoading}}
 	{{loading-spinner
-		active=post.isLoading
-		radius=32
-		strokeWidth=2
+			active=post.isLoading
+			radius=32
+			strokeWidth=2
 	}}
 {{/if}}
