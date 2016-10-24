@@ -11,5 +11,13 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 
 		hasNewPostButton: true,
+
+		actions: {
+			setSortBy(sortBy) {
+				if(this.get('setSortBy')) {
+					this.get('setSortBy')(sortBy);
+				}
+			}
+		}
 	}
 );

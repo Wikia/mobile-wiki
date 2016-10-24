@@ -1,0 +1,61 @@
+.discussion-sort {
+	ul {
+		margin-left: 0;
+
+		li {
+			list-style: none;
+			clear: left;
+			color: $discussion-filters-color;
+			width: 100%;
+
+			label {
+				margin-left: 0;
+
+				.radio-fancy {
+					border: 1px solid $fancy-check-box-border;
+					border-radius: 50%;
+					float: left;
+					height: 14px;
+					width: 14px;
+					margin: 2px 9px 0 0;
+
+					.inside {
+						background-color: inherit;
+						border: 2px solid $discussion-filters-bullet-active-border;
+						border-radius: 50%;
+						display: none;
+						height: 12px;
+						width: 12px;
+					}
+
+					&.active {
+						border-color: transparent;
+
+						.inside {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.no-trending {
+		li {
+			&.sort-trending {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+		}
+	}
+
+	.bullet {
+		display: none;
+	}
+
+	[disabled] {
+		.sort-options {
+			opacity: 0.5;
+		}
+	}
+}

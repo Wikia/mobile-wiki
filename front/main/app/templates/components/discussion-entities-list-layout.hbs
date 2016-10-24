@@ -60,6 +60,7 @@
 					applyFilters=(action this.attrs.applyFilters)
 				}}
 			{{/if}}
+			{{discussion-sort setSortBy=(action 'setSortBy') disabled=isSortingDisabled}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}
