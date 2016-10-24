@@ -43,6 +43,16 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
+		/**
+		 * @param {Object} post
+		 *
+		 * @returns {void}
+		 */
+		delete(post) {
+			this.get('delete')(post);
+			this.get('popover').deactivate();
+		},
+
 		edit(post) {
 			this.sendAction('openEditEditor', post);
 
@@ -65,19 +75,9 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		unlock(post) {
-			this.get('unlock')(post);
-			track(trackActions.PostUnlock);
-			this.get('popover').deactivate();
-		},
-
-		/**
-		 * @param {Object} post
-		 *
-		 * @returns {void}
-		 */
-		delete(post) {
-			this.get('delete')(post);
+		report(post) {
+			this.get('report')(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 
@@ -96,9 +96,9 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		report(post) {
-			this.get('report')(post);
-			track(trackActions.Report);
+		unlock(post) {
+			this.get('unlock')(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 	}
