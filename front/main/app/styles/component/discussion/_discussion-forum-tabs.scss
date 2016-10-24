@@ -11,10 +11,11 @@
 		border-bottom: 4px solid;
 		cursor: pointer;
 		float: left;
-		font-size: $type-base;
+		font-size: $type-smallest;
 		font-weight: $font-weight-bold;
 		height: 50px;
 		line-height: 50px;
+		text-transform: uppercase;
 		width: 50%;
 
 		&.not-active {
@@ -26,7 +27,7 @@
 
 @media #{$mobile-range} {
 	.discussion-forum-tabs {
-		width: 100%;
 		margin-top: 0;
+		width: 100%;
 	}
 }

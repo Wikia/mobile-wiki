@@ -54,7 +54,7 @@
 }}
 	{{discussion-forum-tabs}}
 
-	{{discussion-forum-wrapper
+	{{#discussion-forum-wrapper
 			approve=(action this.attrs.approve)
 			categories=categories
 			createPost=(action this.attrs.createPost)
@@ -66,7 +66,6 @@
 			generateOpenGraph=(route-action 'generateOpenGraph')
 			gotoGuidelines=(action this.attrs.gotoGuidelines)
 			goToPage=(action this.attrs.goToPage)
-			isFollewedPostsView=isFollewedPostsView
 			loadPage=(action this.attrs.loadPage)
 			lockPost=(action this.attrs.lockPost)
 			minorError=model.minorError
@@ -82,4 +81,6 @@
 			unlockPost=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)
 	}}
+		{{yield}}
+	{{/discussion-forum-wrapper}}
 {{/discussion-entities-list-layout}}

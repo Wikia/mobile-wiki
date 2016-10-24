@@ -21,7 +21,6 @@ export default DiscussionBaseRoute.extend(
 			}
 		},
 
-		canModerate: null,
 		currentUser: inject.service(),
 
 		/**
@@ -54,14 +53,6 @@ export default DiscussionBaseRoute.extend(
 			this._super(...arguments);
 
 			this.goToFirstPageIfNoPosts(model, transition.queryParams);
-		},
-
-		serializeQueryParam(value, urlKey, defaultValueType) {
-			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
-		},
-
-		deserializeQueryParam(value, urlKey, defaultValueType) {
-			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
 		actions: {

@@ -21,12 +21,10 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected',
 			'isFilterDisabled', function () {
-				if (this.get('isFilterDisabled')) {
-					return false;
-				}
-				return this.get('discussionSort.sortTypes.0.active') === false ||
+				return this.get('isFilterDisabled') &&
+					(this.get('discussionSort.sortTypes.0.active') === false ||
 					!this.get('categories').isEvery('selected', false) ||
-					this.get('discussionSort.onlyReported', true);
+					this.get('discussionSort.onlyReported', true));
 			}
 		),
 

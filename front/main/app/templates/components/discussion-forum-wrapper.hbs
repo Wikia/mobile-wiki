@@ -42,13 +42,7 @@
 		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
-	{{#if isFollewedPostsView }}
-		{{discussion-no-followed-posts}}
-	{{else}}
-		{{discussion-empty-forum-message
-				setEditorActive=(action this.attrs.setEditorActive)
-		}}
-	{{/if}}
+	{{yield}}
 {{/each}}
 {{#if showLoadMoreButton}}
 	{{discussion-wrapper-load-more

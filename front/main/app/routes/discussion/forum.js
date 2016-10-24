@@ -27,7 +27,6 @@ export default DiscussionBaseRoute.extend(
 			}
 		},
 
-		canModerate: null,
 		discussionSort: inject.service(),
 
 		/**
