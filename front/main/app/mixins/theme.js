@@ -81,7 +81,7 @@ export default Ember.Mixin.create({
 		let activeElementHoverColor,
 			activeElementDisabledColor,
 			discussionHeaderColor,
-			themeButtonsColor,
+			heroImageRgbColor,
 			tooltipLabelColor,
 			inlineStyles,
 			styles = '';
@@ -96,15 +96,15 @@ export default Ember.Mixin.create({
 			return;
 		}
 
-		themeButtonsColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
+		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
 		activeElementHoverColor = tinycolor(this.get('themeColors.color-links')).darken(20);
 		activeElementDisabledColor = tinycolor(this.get('themeColors.color-links')).setAlpha(0.5);
-		discussionHeaderColor = this.computeTextColorBasedOnLuminace(themeButtonsColor);
+		discussionHeaderColor = this.computeTextColorBasedOnLuminace(heroImageRgbColor);
 		tooltipLabelColor = this.computeTextColorBasedOnLuminace(tinycolor(this.get('themeColors.color-links')));
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += `.discussions .background-alpha-theme-color {background-color: ${themeButtonsColor.toRgbString()};}`;
+		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
 		styles += '.discussions .discussion-hero-unit .discussion-hero-unit-content h1,' +
 			'.discussions .discussion-hero-unit .discussion-hero-unit-content p,' +
 			`.discussion-header h1 {color: ${discussionHeaderColor};}`;
