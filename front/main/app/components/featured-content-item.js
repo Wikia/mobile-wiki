@@ -21,21 +21,6 @@ export default Ember.Component.extend(
 				this.get('model.image_url'),
 				this.get(`model.image_crop.${this.get('aspectRatioName')}`)
 			);
-		}),
-
-		viewportObserver: Ember.on('init', Ember.observer('viewportDimensions.width', function () {
-			this.updateContainerHeight();
-		})),
-
-		/**
-		 * Keep the 16:9 ratio
-		 *
-		 * @returns {void}
-		 */
-		updateContainerHeight() {
-			const containerHeight = String(Math.round((this.get('viewportDimensions.width') / 16) * 9));
-
-			this.set('style', new Ember.Handlebars.SafeString(`height: ${containerHeight}px;`));
-		},
+		})
 	}
 );
