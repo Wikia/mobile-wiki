@@ -4,6 +4,12 @@
 		{{i18n 'main.all-posts-by-username' userName=post.createdBy.name ns='discussion'}}
 	{{/link-to}}
 </li>
+<li>
+	<a class="share-link">
+		{{svg 'share' viewBox='0 0 18 18' class='icon'}}
+		{{i18n 'main.share-header' ns='discussion'}}
+	</a>
+</li>
 {{#if canEdit}}
 	<li>
 		<a class="edit-link" {{action 'edit' post}}>
