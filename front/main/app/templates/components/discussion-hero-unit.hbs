@@ -9,9 +9,9 @@
 						userName=userName
 					}}
 				{{else}}
-					<h1 {{action 'clickDiscussionsHeaderText' preventDefault=false}}>{{headerTitle}}</h1>
+					<h1 {{action 'clickDiscussionsHeaderText'}}>{{headerTitle}}</h1>
 					{{#if numberOfPosts}}
-						<p {{action 'clickDiscussionsHeaderPostcount' preventDefault=false}}>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
+						<p {{action 'clickDiscussionsHeaderPostcount'}}>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
 					{{/if}}
 					{{#if contributors}}
 						{{discussion-contributors
