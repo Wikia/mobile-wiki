@@ -19,7 +19,6 @@
 		<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
 			&bull; {{time-ago post.creationTimestamp}}
 		</span>
-
 		{{#unless hideMoreOptions}}
 			<div class="discussion-more-options" id="post-options-{{post.threadId}}">
 				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
@@ -31,6 +30,7 @@
 						deleteMessage=(i18n 'main.delete-post' ns='discussion')
 						editMessage=(i18n 'main.edit-post' ns='discussion')
 						isLockable=true
+						isShareable=true
 						lock=(action this.attrs.lock)
 						lockMessage=(i18n 'main.lock-post' ns='discussion')
 						post=post
@@ -61,8 +61,7 @@
 					<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link">{{post.title}}</a>
 				</h2>
 			{{/if}}
-			<a href="{{href-to 'discussion.post' post.threadId}}"
-			   class="post-details-link clamp">{{{parsedContent}}}</a>
+			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
 	{{/if}}
 	{{#if post.openGraph}}
