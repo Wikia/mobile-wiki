@@ -1,0 +1,24 @@
+@mixin radio-fancy($size) {
+	border: 1px solid $fancy-check-box-border;
+	border-radius: 50%;
+	float: left;
+	width: $size;
+	height: $size;
+
+	.inside {
+		background-color: inherit;
+		border: 3px solid $discussion-filters-bullet-active-border;
+		border-radius: 50%;
+		display: none;
+		height: $size - 2px;
+		width: $size - 2px;
+	}
+
+	&.active {
+		border-color: transparent;
+
+		.inside {
+			display: block;
+		}
+	}
+}

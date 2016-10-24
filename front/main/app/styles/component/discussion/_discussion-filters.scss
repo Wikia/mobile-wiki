@@ -137,29 +137,8 @@ $legend-font-size: 16px;
 			}
 
 			.radio-fancy {
-				border: 1px solid $fancy-check-box-border;
-				border-radius: 50%;
-				float: left;
-				height: 18px;
+				@include radio-fancy(18px);
 				margin: 15px 6px 0 0;
-				width: 18px;
-
-				.inside {
-					background-color: inherit;
-					border: 3px solid $discussion-filters-bullet-active-border;
-					border-radius: 50%;
-					display: none;
-					height: 16px;
-					width: 16px;
-				}
-
-				&.active {
-					border-color: transparent;
-
-					.inside {
-						display: block;
-					}
-				}
 			}
 
 			.bullet {
