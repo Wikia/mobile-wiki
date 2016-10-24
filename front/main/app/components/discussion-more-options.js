@@ -81,6 +81,11 @@ export default Ember.Component.extend({
 			this.get('popover').deactivate();
 		},
 
+		share(post) {
+			this.get('showShareModal')();
+			this.get('popover').deactivate();
+		},
+
 		/**
 		 * @param {Object} post
 		 *

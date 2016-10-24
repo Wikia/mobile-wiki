@@ -1,0 +1,15 @@
+	<div class="discussion-dialog">
+		{{#modal-dialog
+				isVisible=true
+		}}
+			<h3>{{header}}</h3>
+			<section class="modal-dialog-content">
+				{{share-feature
+						sharedUrl=attrs.sharedUrl
+						enableDiscussionTracker=true
+				}}
+			</section>
+			<footer>
+			</footer>
+		{{/modal-dialog}}
+	</div>

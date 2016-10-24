@@ -38,6 +38,7 @@
 						reportMessage=(i18n 'main.report-post' ns='discussion')
 						openEditEditor=(action this.attrs.openEditEditor)
 						setEditorActive=(action this.attrs.setEditorActive)
+						showShareModal=(action 'showShareModal')
 						undelete=(action this.attrs.undelete)
 						undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
 						unlock=(action this.attrs.unlock)
@@ -90,6 +91,9 @@
 		</span>
 	</div>
 </div>
+{{discussion-share-modal
+	isVisible=shareModalVisible
+}}
 {{discussion-post-card-actions
 		entryPointLabel=(i18n 'main.share-label' ns='discussion')
 		follow=(action this.attrs.follow)

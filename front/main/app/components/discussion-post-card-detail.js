@@ -13,6 +13,8 @@ export default DiscussionPostCardBaseComponent.extend(
 
 		routing: Ember.inject.service('-routing'),
 
+		shareModalVisible: false,
+
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
@@ -28,5 +30,11 @@ export default DiscussionPostCardBaseComponent.extend(
 
 			return category ? category.get('name') : null;
 		}),
+
+		actions: {
+			showShareModal() {
+				this.set('shareModalVisible', true);
+			}
+		}
 	}
 );
