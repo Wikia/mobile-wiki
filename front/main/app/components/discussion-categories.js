@@ -19,9 +19,9 @@ export default Ember.Component.extend(
 
 		init() {
 			this._super();
-			var localCategories = this.get('localCategories');
+			let localCategories = this.get('localCategories');
 			this.collapseCategoriesAboveLimit(localCategories);
-			if(this.get('disabled')) {
+			if (this.get('disabled')) {
 				localCategories.setEach('selected', false);
 			}
 		},
