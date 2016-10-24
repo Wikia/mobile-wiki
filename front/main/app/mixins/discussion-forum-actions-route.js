@@ -3,6 +3,11 @@ import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create(
 	{
+		queryParams: {
+			page: {
+				refreshModel: false
+			},
+		},
 		/**
 		 * When no category is selected, previous categories, present in local
 		 * storage are removed to enable transition to route without categories.
@@ -17,6 +22,42 @@ export default Ember.Mixin.create(
 		},
 
 		/**
+		 * @private
+		 *
+		 * @param pageParam
+		 */
+		isProperPageParam(pageParam) {
+			return Number(pageParam) > 0;
+		},
+
+		/**
+		 * Moves to first page if on given page there are no posts
+		 *
+		 * @param model
+		 * @param queryParams
+		 */
+		goToFirstPageIfNoPosts(model, queryParams) {
+			if (model && Number(queryParams.page) !== 1) {
+				const numberOfPosts = model.current.getWithDefault('data.entities.length', 0);
+
+				if (numberOfPosts === 0) {
+					this.moveToFirstPage(queryParams);
+				}
+			}
+		},
+
+
+		/**
+		 * @private
+		 *
+		 * @param queryParams
+		 */
+		moveToFirstPage(queryParams) {
+			queryParams.page = 1;
+			this.refresh();
+		},
+
+		/**
 		 * @param {function} transform - function transforming query parameters, should return received query parameters
 		 */
 		updateStoredQueryParams(transform) {
@@ -27,13 +68,26 @@ export default Ember.Mixin.create(
 				// check if object because of situation when user had previously stored "null" (string) value
 				// for params
 				if (Ember.typeOf(params) === 'object') {
-					params = transform(params);
-					localStorageConnector.setItem(
-						'discussionForumPreviousQueryParams', JSON.stringify(params));
+					this.storeQueryParams(transform(params));
 				} else {
 					localStorageConnector.removeItem('discussionForumPreviousQueryParams');
 				}
 			}
+		},
+
+		/**
+		 * Stores query parameters in local storage.
+		 *
+		 * @param {Object} params - query parameters
+		 */
+		storeQueryParams(params) {
+			const queryParams = Object.assign({}, params);
+
+			if (queryParams.page) {
+				queryParams.page = undefined;
+			}
+			localStorageConnector.setItem(
+				'discussionForumPreviousQueryParams', JSON.stringify(queryParams));
 		},
 
 		actions: {
@@ -71,6 +125,17 @@ export default Ember.Mixin.create(
 				};
 
 				return this.transitionTo(targetRoute, {queryParams});
+			},
+
+			goToPage(page = 1) {
+				this.transitionTo({queryParams: {
+					page
+				}});
+
+				// There is a need to refresh the route since change of the "page" query params itself
+				// is not refreshing the model (so that it can be dynamically added to querystring during
+				// browsing the post list pages
+				this.refresh();
 			},
 
 			/**
