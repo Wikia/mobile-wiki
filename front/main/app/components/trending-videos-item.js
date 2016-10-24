@@ -11,7 +11,6 @@ export default Ember.Component.extend(
 		attributeBindings: ['href'],
 		thumbnailer: Thumbnailer,
 		cropMode: Thumbnailer.mode.topCrop,
-		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		imageStyle: null,
 		video: null,
 		imageWidth: 250,
@@ -32,13 +31,9 @@ export default Ember.Component.extend(
 			if (videoUrl) {
 				return this.thumbnailer.getThumbURL(videoUrl, options);
 			} else {
-				return this.emptyGif;
+				return undefined;
 			}
 		}),
-
-		viewportObserver: Ember.on('init', Ember.observer('viewportDimensions.width', function () {
-			this.updateImageSize();
-		})),
 
 		/**
 		 * @returns {boolean}
@@ -53,14 +48,5 @@ export default Ember.Component.extend(
 
 			return false;
 		},
-
-		/**
-		 * @returns {void}
-		 */
-		updateImageSize() {
-			const imageHeightString = String(Math.floor((this.get('viewportDimensions.width') - 10) * 9 / 16));
-
-			this.set('imageStyle', new Ember.Handlebars.SafeString(`height: ${imageHeightString}px;`));
-		}
 	}
 );
