@@ -34,7 +34,6 @@
 			setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/modal-dialog}}
-
 {{#discussion-entities-list-layout
 		addCategory=(route-action 'addCategory')
 		applyFilters=(action this.attrs.applyFilters)
@@ -42,7 +41,7 @@
 		canShowReportedPostsFilter=canShowReportedPostsFilter
 		categories=categories
 		categoriesInRail=true
-		isCategoryFilterDisabled=isFollewedPostsView
+		isCategoryFilterDisabled=isFollowedPostsView
 		isSortingDisabled=isFollowedPostsView
 		model=model
 		openGuidelines=(action this.attrs.openGuidelines)
@@ -68,7 +67,7 @@
 			generateOpenGraph=(route-action 'generateOpenGraph')
 			gotoGuidelines=(action this.attrs.gotoGuidelines)
 			goToPage=(action this.attrs.goToPage)
-			isFollewedPostsView=isFollewedPostsView
+			isFollowedPostsView=isFollowedPostsView
 			loadPage=(action this.attrs.loadPage)
 			lockPost=(action this.attrs.lockPost)
 			minorError=model.minorError
