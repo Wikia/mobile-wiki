@@ -1,6 +1,10 @@
 <figure>
 	<div class="item-image" style={{imageStyle}}>
-		<img src="{{currentlyRenderedImageUrl}}" alt="{{title}}" />
+		{{#if currentlyRenderedImageUrl}}
+			<img src="{{currentlyRenderedImageUrl}}" alt="{{title}}" />
+		{{else}}
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7" alt="{{title}}" style="width: 56%" />
+		{{/if}}
 	</div>
 	<figcaption class="item-figcaption">{{title}}</figcaption>
 </figure>

@@ -13,10 +13,19 @@ export default DiscussionBaseRoute.extend(
 	{
 		discussionSort: Ember.inject.service(),
 
+		beforeModel(transition) {
+			const page = transition.queryParams.page;
+
+			if (!this.isProperPageParam(page)) {
+				transition.queryParams.page = 1;
+				this.refresh();
+			}
+		},
+
 		/**
 		 * @returns {Ember.RSVP.hash}
 		 */
-		model() {
+		model(params) {
 			const discussionSort = this.get('discussionSort'),
 				indexModel = this.modelFor('discussion');
 
@@ -24,9 +33,15 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setSortBy('latest');
 
 			return Ember.RSVP.hash({
-				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, params.page),
 				index: indexModel
 			});
+		},
+
+		afterModel(model, transition) {
+			this._super(...arguments);
+
+			this.goToFirstPageIfNoPosts(model, transition.queryParams);
 		},
 
 		actions: {

@@ -23,14 +23,3 @@ test('computes thumb url properly', function (assert) {
 	});
 	assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
 });
-
-test('computes image style properly', function (assert) {
-	const viewportWidth = 400,
-		// Viewport width minus 10 and then calculate 16:9 ratio
-		imageHeight = 219,
-		componentMock = this.subject();
-
-	componentMock.set('viewportDimensions.width', viewportWidth);
-	componentMock.updateImageSize();
-	assert.equal(componentMock.get('imageStyle').toString(), `height: ${imageHeight}px;`);
-});
