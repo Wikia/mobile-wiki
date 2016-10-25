@@ -30,14 +30,3 @@ test('returns correct icon name', function (assert) {
 	componentMock.set('type', 'whatever');
 	assert.equal(componentMock.get('icon'), 'namespace-article');
 });
-
-test('computes image style properly', function (assert) {
-	const viewportWidth = 400,
-		// Viewport minus 20 and then by half
-		imageSize = 190,
-		componentMock = this.subject();
-
-	componentMock.set('viewportDimensions.width', viewportWidth);
-	componentMock.updateImageSize();
-	assert.equal(componentMock.get('style').toString(), `height: ${imageSize}px; width: ${imageSize}px;`);
-});

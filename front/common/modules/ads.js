@@ -13,7 +13,7 @@ import load from '../utils/load';
  */
 
 /**
- * @typedef {Object} VastBuilder
+ * @typedef {Object} VastUrlBuilder
  * @property {Function} build
  */
 
@@ -42,7 +42,7 @@ import load from '../utils/load';
  * @property {*} adConfigMobile
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
- * @property {VastBuilder} vastBuilder
+ * @property {VastUrlBuilder} vastUrlBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {Object} googleTag
@@ -72,7 +72,9 @@ class Ads {
 			}
 		};
 		this.adLogicPageViewCounterModule = null;
+		this.adLogicPageParams = null;
 		this.googleTagModule = null;
+		this.mercuryPV = 1;
 	}
 
 	/**
@@ -104,23 +106,25 @@ class Ads {
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
+					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.sourcePointDetection',
-					'ext.wikia.adEngine.video.vastBuilder',
+					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
 				], (adContextModule,
 					adEngineRunnerModule,
+					adLogicPageParams,
 					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
 					sourcePointDetectionModule,
-					vastBuilder,
+					vastUrlBuilder,
 					krux) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
@@ -128,12 +132,13 @@ class Ads {
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
-					this.vastBuilder = vastBuilder;
+					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
 					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.adLogicPageParams = adLogicPageParams;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
 				});
@@ -147,15 +152,18 @@ class Ads {
 	/**
 	 * Build VAST url for video players
 	 *
+	 * @param {number} aspectRatio
+	 * @param {Object} slotParams
+	 *
 	 * @returns {string}
 	 */
-	buildVastUrl() {
-		if (!this.vastBuilder) {
+	buildVastUrl(aspectRatio, slotParams) {
+		if (!this.vastUrlBuilder) {
 			console.warn('Can not build VAST url.');
 			return '';
 		}
 
-		return this.vastBuilder.build();
+		return this.vastUrlBuilder.build(aspectRatio, slotParams);
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
@@ -317,34 +325,41 @@ class Ads {
 		// We need a copy of adSlots as adEngineModule.run destroys it
 		this.slotsQueue = this.getSlots();
 
-		if (this.isLoaded && adsContext) {
-			this.adContextModule.setContext(adsContext);
-			if (typeof onContextLoadCallback === 'function') {
-				onContextLoadCallback();
-			}
-
-			if (Ads.previousDetectionResults.sourcePoint.exists) {
-				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
-			} else {
-				this.sourcePointDetectionModule.initDetection();
-			}
-
-			if (Ads.previousDetectionResults.pageFair.exists) {
-				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
-				this.pageFairDetectionModule.initDetection(adsContext);
-			}
-
-			if (adsContext.opts) {
-				delayEnabled = Boolean(adsContext.opts.delayEngine);
-			}
-
+		if (this.isLoaded) {
 			this.adMercuryListenerModule.onPageChange(() => {
 				this.adLogicPageViewCounterModule.increment();
 				this.googleTagModule.updateCorrelator();
+				this.mercuryPV = this.mercuryPV + 1;
+				this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 			});
+			if (adsContext) {
+				this.adContextModule.setContext(adsContext);
+				if (typeof onContextLoadCallback === 'function') {
+					onContextLoadCallback();
+				}
 
-			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+				if (Ads.previousDetectionResults.sourcePoint.exists) {
+					this.trackBlocking(
+						'sourcePoint',
+						this.GASettings.sourcePoint,
+						Ads.previousDetectionResults.sourcePoint.value
+					);
+				} else {
+					this.sourcePointDetectionModule.initDetection();
+				}
+
+				if (Ads.previousDetectionResults.pageFair.exists) {
+					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
+				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
+					this.pageFairDetectionModule.initDetection(adsContext);
+				}
+
+				if (adsContext.opts) {
+					delayEnabled = Boolean(adsContext.opts.delayEngine);
+				}
+
+				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+			}
 		}
 	}
 
@@ -355,6 +370,7 @@ class Ads {
 	 */
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext, () => {
+			this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
 			this.adLogicPageViewCounterModule.increment();

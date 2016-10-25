@@ -39,7 +39,12 @@ export default class OoyalaPlayer extends BasePlayer {
 	 */
 	createPlayer() {
 		Ads.getInstance().onReady(function () {
-			const vastUrl = Ads.getInstance().buildVastUrl();
+			const size = this.params.size || {},
+				vastUrl = Ads.getInstance().buildVastUrl(size.width / size.height, {
+					passback: 'ooyala',
+					pos: 'ooyala',
+					src: 'gpt'
+				});
 
 			this.params.onCreate = (...args) => {
 				return this.onCreate.apply(this, args);

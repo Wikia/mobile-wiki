@@ -28,6 +28,7 @@
     "history-status": "Status",
     "history-undefined": "Not available",
     "history-no-history": "No history",
-    "not-provided": "not provided"
+    "not-provided": "not provided",
+    "waiting-for-count": "waiting for count"
   }
 }

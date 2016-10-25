@@ -16,19 +16,19 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0) {
-			this.set('data.pageNum', pageNum);
-
+		loadPage(pageNum = 1) {
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
+				this.incrementProperty('data.pageNum');
 
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
@@ -67,7 +67,7 @@ DiscussionReportedPostsModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId) {
+	find(wikiId, page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId
@@ -75,12 +75,15 @@ DiscussionReportedPostsModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 				data: {
+					page: page - 1,
 					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true,
 					viewableOnly: false,
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
+
+				reportedPostsInstance.setStartPageNumber(page);
 
 				resolve(reportedPostsInstance);
 

@@ -4,10 +4,17 @@
 		{{i18n 'main.upvote-label' ns='discussion'}}
 	</li>
 	<li class='small-4 large-4 replies replies-area' {{action 'reply'}}>
-		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a') disabled=isDetailsView}}
-			{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
-			{{i18n 'main.reply-label' ns='discussion'}}
-		{{/link-to}}
+		{{#if isDetailsView}}
+			<div>
+				{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
+				{{i18n 'main.reply-label' ns='discussion'}}
+			</div>
+		{{else}}
+			<a href="{{href-to 'discussion.post' threadId}}">
+				{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
+				{{i18n 'main.reply-label' ns='discussion'}}
+			</a>
+		{{/if}}
 	</li>
 	<li class="small-4 large-4 share">
 		{{#unless isDeleted }}

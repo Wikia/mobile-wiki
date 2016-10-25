@@ -29,6 +29,7 @@
     "sort-by-trending":"Trends",
     "loading-more-posts":"Mehr Beiträge laden",
     "load-more-posts-button":"Mehr anzeigen",
+    "load-previous-posts-button":"Zum Seitenanfang",
     "number-of-posts":"__numberOfPosts__ Beiträge",
     "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
     "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",

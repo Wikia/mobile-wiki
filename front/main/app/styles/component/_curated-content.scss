@@ -27,6 +27,7 @@ $grid-icon-size: 22px;
 		line-height: initial;
 		margin: $image-spacing 0;
 		vertical-align: top;
+		width: calc(50% - 5px);
 	}
 
 	.item-figure {
@@ -137,5 +138,11 @@ $grid-icon-size: 22px;
 		display: block;
 		margin: 0 auto;
 		width: 80%;
+	}
+}
+
+@media #{$desktop-range} {
+	.curated-content .curated-content-item {
+		width: calc(33.33% - 5px);
 	}
 }

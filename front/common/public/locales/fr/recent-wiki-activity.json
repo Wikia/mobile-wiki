@@ -10,7 +10,7 @@
     "rollback-failure":"Révocation impossible en raison d'un conflit entre des modifications intermédiaires.",
     "rollback-success":"La page __pageTitle__ a été révoquée avec succès !",
     "summary":"Résumé :",
-    "title":"Activité récente du wikia",
+    "title":"Activité récente du wiki",
     "undo-failure":"Impossible d'annuler la modification en raison d'un conflit entre des modifications intermédiaires.",
     "undo-label":"Annuler",
     "undo-success":"La modification de la page __pageTitle__ a été annulée avec succès !",
