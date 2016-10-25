@@ -1,11 +1,11 @@
 {{#each latestContributors as |contributor|}}
-	<div class="event-wrapper" {{action 'clickDiscussionsHeaderAvatar' preventDefault=false}}>
+	{{#track-click action='clickDiscussionsHeaderAvatar'}}
 		{{user-avatar
 			avatarUrl=contributor.avatarUrl
 			badgePermission=contributor.badgePermission
 			username=contributor.name
 		}}
-	</div>
+	{{/track-click}}
 {{else}}
 	<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
 {{/each}}
