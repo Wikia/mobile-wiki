@@ -1,0 +1,16 @@
+.discussion-dialog {
+	&.discussion-share-dialog {
+		.modal-dialog {
+			h3 {
+				font-size: $type-smaller;
+				margin-bottom: 0;
+				margin-top: 27px;
+				text-align: center;
+			}
+		}
+
+		.share-feature {
+			text-align: center;
+		}
+	}
+}
