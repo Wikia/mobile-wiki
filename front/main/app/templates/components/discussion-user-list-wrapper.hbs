@@ -1,3 +1,12 @@
+{{#if showToTheTopButton}}
+	{{discussion-wrapper-load-more
+		goToPage=(action this.attrs.goToPage)
+		hasMore=true
+		loadNextPage=(action 'loadNextPage')
+		previous=true
+		showButton=true
+	}}
+{{/if}}
 {{#each posts as |entity|}}
 	{{#if entity.isReply }}
 		{{discussion-post-card-reply
@@ -37,9 +46,12 @@
 {{else}}
 	{{discussion-not-found-error}}
 {{/each}}
-{{discussion-wrapper-load-more
-	hasMore=hasMore
-	isLoading=isLoading
-	loadNextPage=(action 'loadNextPage')
-	showLoadMoreButton=true
-}}
+{{#if showLoadMoreButton}}
+	{{discussion-wrapper-load-more
+		goToPage=(action this.attrs.goToPage)
+		hasMore=hasMore
+		isLoading=isLoading
+		loadNextPage=(action 'loadNextPage')
+		showButton=true
+	}}
+{{/if}}

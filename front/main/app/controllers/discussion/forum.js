@@ -12,6 +12,7 @@ export default DiscussionBaseController.extend(
 	{
 		catId: null,
 		areGuidelinesVisible: false,
+		queryParams: ['sort', 'catId'],
 
 		actions: {
 			updateCategoriesSelection(categories) {

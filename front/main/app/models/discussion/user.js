@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
+import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
@@ -8,6 +9,7 @@ import request from 'ember-ajax/request';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
+	DiscussionForumActionsModelMixin,
 	DiscussionContributionModelMixin,
 	{
 		userId: null,
@@ -18,18 +20,18 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 1) {
-			this.set('data.pageNum', pageNum);
-
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
 					viewableOnly: false
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
+				this.incrementProperty('data.pageNum');
 
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
@@ -71,7 +73,7 @@ DiscussionUserModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, userId) {
+	find(wikiId, userId, page = 1) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const userInstance = DiscussionUserModel.create({
 				wikiId,
@@ -80,12 +82,15 @@ DiscussionUserModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
 				data: {
+					page: page - 1,
 					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
 					viewableOnly: false
 				}
 			}).then((data) => {
 				userInstance.setNormalizedData(data);
+
+				userInstance.setStartPageNumber(page);
 
 				resolve(userInstance);
 

@@ -49,10 +49,6 @@ export default Ember.Component.extend(
 			return `namespace-${iconType}`;
 		}),
 
-		viewportObserver: Ember.on('init', Ember.observer('viewportDimensions.width', function () {
-			this.updateImageSize();
-		})),
-
 		/**
 		 * @returns {boolean}
 		 */
@@ -69,15 +65,6 @@ export default Ember.Component.extend(
 				this.sendAction('openCuratedContentItem', this.get('model'));
 				return false;
 			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		updateImageSize() {
-			const imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));
-
-			this.set('style', new Ember.Handlebars.SafeString(`height: ${imageSize}px; width: ${imageSize}px;`));
 		}
 	}
 );
