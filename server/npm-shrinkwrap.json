@@ -342,7 +342,7 @@
     },
     "hapi-i18next": {
       "version": "2.3.0",
-      "from": "git://github.com/Wikia/hapi-i18next.git#4b0c396feb9df003717820fd0d43559bc53df491",
+      "from": "../../../../tmp/npm-5830-bf16f792/git-cache-e7a3908e3718/4b0c396feb9df003717820fd0d43559bc53df491",
       "resolved": "git://github.com/Wikia/hapi-i18next.git#4b0c396feb9df003717820fd0d43559bc53df491",
       "dependencies": {
         "accept-language-parser": {
@@ -2026,7 +2026,7 @@
     },
     "hapi-prerender": {
       "version": "1.0.1",
-      "from": "git://github.com/wikia/hapi-prerender.git#cf7a910c35e0cce7eec0f1413d221edf27080b06",
+      "from": "../../../../tmp/npm-5830-bf16f792/git-cache-ae62fbcf294b/cf7a910c35e0cce7eec0f1413d221edf27080b06",
       "resolved": "git://github.com/wikia/hapi-prerender.git#cf7a910c35e0cce7eec0f1413d221edf27080b06",
       "dependencies": {
         "hoek": {

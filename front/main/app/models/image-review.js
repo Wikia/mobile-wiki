@@ -3,6 +3,7 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 import ImageReviewSummaryModel from '../models/image-review-summary'
 
+const {Logger} = Ember;
 
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true,
