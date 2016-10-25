@@ -10,7 +10,9 @@ export default Ember.Component.extend(
 		 * Arrow vertical offset from 'pointingTo' element
 		 */
 		arrowOffset: 3,
+		arrowDirection: 'down',
 		attributeBindings: ['style'],
+		classNameBindings: ['arrowDirection'],
 		classNames: ['discussion-tooltip-wrapper'],
 		localStorageId: null,
 		/**
@@ -107,27 +109,48 @@ export default Ember.Component.extend(
 		 */
 		computeTooltipPosition() {
 			if (this.get('isVisible')) {
-				const width = this.$().width(),
-					parentOffset = this.$().parents(this.get('parent')).offset(),
-					pointingToElement = this.$().parent().find(this.get('pointingTo')),
-					elementOffset = pointingToElement.offset(),
-					elementWidth = pointingToElement.width();
+				const direction = this.get('arrowDirection');
+				if (direction === 'down') {
+					this.computeTooltipPositionWithArrowDown();
+				} else if (direction === 'right') {
+					const height = this.$().height(),
+						width = this.$().width(),
+						parentOffset = this.$().parents(this.get('parent')).offset(),
+						pointingToElement = this.$().parent().find(this.get('pointingTo')),
+						elementOffset = pointingToElement.offset(),
+						elementHeight = pointingToElement.height();
 
-				let arrowMarginLeft = 0,
-					left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
-					top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
+					let top = elementOffset.top - parentOffset.top + (elementHeight / 2) - (height / 2),
+						left = elementOffset.left -parentOffset.left - width - this.get('arrowOffset');
 
-				if (this.tooltipWillStickOutFromViewport(left + width)) {
-					let leftInViewport = window.innerWidth - width - this.get('rightOffset');
-
-					arrowMarginLeft = (left - leftInViewport) * 2;
-					left = leftInViewport;
+					this.set('top', top);
+					this.set('left', left);
+					this.set('arrowMarginLeft', 0);
 				}
-
-				this.set('top', top);
-				this.set('left', left);
-				this.set('arrowMarginLeft', arrowMarginLeft);
 			}
+		},
+
+		computeTooltipPositionWithArrowDown() {
+			const width = this.$().width(),
+				parentOffset = this.$().parents(this.get('parent')).offset(),
+				pointingToElement = this.$().parent().find(this.get('pointingTo')),
+				elementOffset = pointingToElement.offset(),
+				elementWidth = pointingToElement.width();
+
+			let arrowMarginLeft = 0,
+				left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
+				top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
+
+			if (this.tooltipWillStickOutFromViewport(left + width)) {
+				let leftInViewport = window.innerWidth - width - this.get('rightOffset');
+
+				arrowMarginLeft = (left - leftInViewport) * 2;
+				left = leftInViewport;
+			}
+
+			this.set('top', top);
+			this.set('left', left);
+			this.set('arrowMarginLeft', arrowMarginLeft);
 		},
 
 		/**

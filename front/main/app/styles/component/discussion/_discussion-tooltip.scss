@@ -2,10 +2,17 @@
 	.discussion-tooltip-wrapper {
 		align-items: center;
 		display: flex;
-		flex-direction: column;
 		left: 0;
 		line-height: 14px;
 		position: absolute;
+
+		&.down {
+			flex-direction: column;
+		}
+
+		&.right {
+			flex-direction: row;
+		}
 
 		.discussion-tooltip {
 			border-radius: 2px;
@@ -18,6 +25,16 @@
 			border-right: 4px solid transparent;
 			border-top-style: solid;
 			border-top-width: 6px;
+			height: 0;
+			margin: 0;
+			width: 0;
+		}
+
+		.arrow-right {
+			border-top: 4px solid transparent;
+			border-bottom: 4px solid transparent;
+			border-left-style: solid;
+			border-left-width: 6px;
 			height: 0;
 			margin: 0;
 			width: 0;
