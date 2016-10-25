@@ -14,8 +14,7 @@ export default Ember.Component.extend({
 
 	canEdit: Ember.computed('post.userData.permissions.canEdit', 'post.userData.permissions.canMove',
 		'post.isRequesterBlocked', function () {
-			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove')) &&
-				!this.get('post.isRequesterBlocked');
+			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove')) && !this.get('post.isRequesterBlocked');
 		}
 	),
 
@@ -23,19 +22,24 @@ export default Ember.Component.extend({
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', 'post.isDeleted', function () {
-		return !this.get('post.userData.hasReported') &&
-			this.get('currentUser.isAuthenticated') &&
-			!this.get('post.isDeleted');
-	}),
 
 	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
 		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
 
+	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', 'post.isDeleted', function () {
+		return !this.get('post.userData.hasReported') &&
+			this.get('currentUser.isAuthenticated') && !this.get('post.isDeleted');
+	}),
+
+	canShare: Ember.computed('isShareable', 'post.isDeleted', function() {
+		return this.get('isShareable') && !this.get('post.isDeleted');
+	}),
+
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
 
-	showShareDialog() {},
+	showShareDialog() {
+	},
 
 	/**
 	 * @returns {void}
