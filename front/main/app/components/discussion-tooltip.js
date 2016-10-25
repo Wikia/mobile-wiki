@@ -34,6 +34,11 @@ export default Ember.Component.extend(
 		 */
 		showOnce: true,
 		/**
+		 * Controls whether tooltip should show once in whole application.
+		 * Even if there are multiple instances of this tooltip defined, if one will show, other will be invisible.
+		 */
+		showOnceInApplication: false,
+		/**
 		 * Default text, used by both desktop and mobile
 		 */
 		text: '',
@@ -169,8 +174,12 @@ export default Ember.Component.extend(
 			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
 		}),
 
-		isVisible: Ember.computed('show', 'showOnce', 'wasSeen', function () {
-			return Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
+		isVisible: Ember.computed('show', 'wasSeen', function () {
+			const visible = Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
+			if (visible && this.get('showOnceInApplication')) {
+				localStorageConnector.setItem(this.get('localStorageId'), true);
+			}
+			return visible;
 		}),
 
 		wasSeen: Ember.computed('localStorageId', function () {
