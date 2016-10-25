@@ -34,6 +34,7 @@
 			setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/modal-dialog}}
+
 {{#discussion-entities-list-layout
 		addCategory=(route-action 'addCategory')
 		applyFilters=(action this.attrs.applyFilters)
@@ -55,7 +56,7 @@
 }}
 	{{discussion-forum-tabs}}
 
-	{{discussion-forum-wrapper
+	{{#discussion-forum-wrapper
 			approve=(action this.attrs.approve)
 			categories=categories
 			createPost=(action this.attrs.createPost)
@@ -83,4 +84,6 @@
 			unlockPost=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)
 	}}
+		{{yield}}
+	{{/discussion-forum-wrapper}}
 {{/discussion-entities-list-layout}}
