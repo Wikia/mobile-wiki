@@ -1,16 +1,56 @@
+$social-networks: (
+		facebook: #4760a5,
+		google: #dd4b39,
+		line: #00c300,
+		meneame: #ff6400,
+		nk: #4077a7,
+		odnoklassniki: #f96900,
+		reddit: #5f99cf,
+		tumblr: #34465d,
+		twitter: #87c0fa,
+		vkontakte: #587ca3,
+		wykop: #fb803f,
+		weibo: #ff8140
+);
+
 .discussion-dialog {
 	&.discussion-share-dialog {
 		.modal-dialog {
+			max-width: 280px;
+
 			h3 {
 				font-size: $type-smaller;
 				margin-bottom: 0;
-				margin-top: 27px;
+				margin-top: 25px;
 				text-align: center;
 			}
 		}
 
-		.share-feature {
-			text-align: center;
+		.modal-dialog-content {
+			align-content: center;
+			display: flex;
+			justify-content: space-between;
+
+			.social {
+				background-image: none;
+				text-align: center;
+				height: 45px;
+				width: 45px;
+
+				@each $social-network, $colour in $social-networks {
+					&.#{$social-network} {
+						background-color: $colour;
+					}
+				}
+
+				.icon {
+					fill: white;
+					height: 20px;
+					margin-left: 0;
+					margin-top: 12.5px;
+					width: 20px;
+				}
+			}
 		}
 	}
 }

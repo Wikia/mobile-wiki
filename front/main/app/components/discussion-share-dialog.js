@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import ShareFeatureComponent from './share-feature';
 import {track, trackActions} from '../utils/discussion-tracker';
 
-export default Ember.Component.extend({
+export default ShareFeatureComponent.extend({
 
 	classNames: ['discussion-dialog', 'discussion-share-dialog'],
 
