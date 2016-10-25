@@ -2,7 +2,7 @@
 	<div class="wds-global-navigation__content-bar">
 		{{#if model.logo.header}}
 			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo" {{action 'trackClick' model.logo.header.tracking_label preventDefault=false}}>
-				{{svg model.logo.header.image class='wds-global-navigation__logo-fandom'}}
+				{{svg model.logo.header.image-data.name class='wds-global-navigation__logo-fandom'}}
 			</a>
 		{{/if}}
 		<div class="wds-global-navigation__links-and-search">
@@ -49,4 +49,11 @@
 			</a>
 		</div>
 	</div>
+	{{#if model.partner_slot}}
+		<div class="wds-global-navigation__partner-slot">
+			<a href="{{model.partner_slot.href}}" class="wds-global-navigation__partner-slot-link" {{action 'trackClick' model.partner_slot.tracking_label preventDefault=false}}>
+				<img src="{{model.partner_slot.image-data.url}}" class="wds-global-navigation__partner-slot-image" alt="{{model.partner_slot.title.value}}"/>
+			</a>
+		</div>
+	{{/if}}
 </div>
