@@ -523,7 +523,7 @@
     },
     "babel-plugin-rename-define": {
       "version": "2.0.0",
-      "from": "../../../tmp/npm-1100-5676b324/git-cache-824d60d9e4e1/a10099a7c15d8df4c4957bc3b3391b2ad5cde84e",
+      "from": "git://github.com/wikia/babel-plugin-rename-define.git#a10099a7c15d8df4c4957bc3b3391b2ad5cde84e",
       "resolved": "git://github.com/wikia/babel-plugin-rename-define.git#a10099a7c15d8df4c4957bc3b3391b2ad5cde84e"
     },
     "babel-plugin-rewire": {
@@ -2954,7 +2954,7 @@
     },
     "design-system-i18n": {
       "version": "0.6.2",
-      "from": "../../../tmp/npm-1100-5676b324/git-cache-9a59c971f515/8da617846639703c34e15b6089ab247f6ab7112e",
+      "from": "git://github.com/wikia/design-system-i18n.git#8da617846639703c34e15b6089ab247f6ab7112e",
       "resolved": "git://github.com/wikia/design-system-i18n.git#8da617846639703c34e15b6089ab247f6ab7112e"
     },
     "ember-template-compiler": {
@@ -12465,7 +12465,7 @@
           "dependencies": {
             "esprima": {
               "version": "1.1.0-dev-harmony",
-              "from": "../../../tmp/npm-1100-5676b324/git-cache-5c328d593302/a65a3eb93b9a5dce9a1184ca2d1bd0b184c6b8fd",
+              "from": "git://github.com/ariya/esprima.git#a65a3eb93b9a5dce9a1184ca2d1bd0b184c6b8fd",
               "resolved": "git://github.com/ariya/esprima.git#a65a3eb93b9a5dce9a1184ca2d1bd0b184c6b8fd"
             },
             "escodegen": {
