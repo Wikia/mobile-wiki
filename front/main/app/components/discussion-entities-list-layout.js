@@ -17,7 +17,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			setSortBy(sortBy) {
-				if(this.get('setSortBy')) {
+				if (this.get('setSortBy')) {
 					this.get('setSortBy')(sortBy);
 				}
 			}

@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['noTrending'],
 		discussionSort: Ember.inject.service(),
 		sortBy: Ember.computed('discussionSort.sortBy', function () {
-			if(this.get('disabled')) {
+			if (this.get('disabled')) {
 				return;
 			}
 			return this.get('discussionSort.sortBy');
