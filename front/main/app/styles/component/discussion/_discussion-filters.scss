@@ -178,10 +178,10 @@ $legend-font-size: 16px;
 		margin-top: 6px;
 	}
 
-	.discussion-fieldset:not(.discussion-fieldset-without-bottom-decoration) {
-		border-bottom: 1px solid $discussion-filters-border;
-		margin-bottom: 30px;
-		padding-bottom: 20px;
+	.moderation-filter-top-decoration {
+		border-top: 1px solid $discussion-filters-border;
+		padding-top: 30px;
+		margin-top: 20px;
 	}
 }
 
