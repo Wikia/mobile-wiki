@@ -13,9 +13,15 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
-		&:hover {
+		&:hover:enabled {
 			background-color: $discussion-category-hover-background;
 		}
+	}
+}
+
+[disabled] {
+	.discussion-categories-list {
+		opacity: 0.5;
 	}
 }
 

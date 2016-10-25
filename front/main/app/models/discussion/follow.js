@@ -6,63 +6,57 @@ import DiscussionForumModelMixin from '../../mixins/discussion-forum-model';
 import DiscussionForumModelStaticMixin from '../../mixins/discussion-forum-model-static';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 
-const DiscussionForumModel = DiscussionBaseModel.extend(
+const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	DiscussionForumModelMixin,
 	DiscussionContributionModelMixin,
 	{
 		/**
-		 * @param {number} [pageNum=0]
-		 * @param {string} [sortBy='trending']
+		 * @param {object} user
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(page = 1, categories = [], sortBy = 'trending') {
+		loadPage(user) {
+			// fixme URL after backend ready
 			const requestUrl = M.getDiscussionServiceUrl(`/${this.wikiId}/threads`),
 				requestData = {
-					forumId: categories,
+					userId: user.get('userId'),
 					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
-					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
 				};
 			return this.loadThreadPage(requestUrl, requestData);
-
 		},
-
 	}
 );
 
-DiscussionForumModel.reopenClass(
+DiscussionFollowedPostsModel.reopenClass(
 	DiscussionForumModelStaticMixin,
 	{
 		/**
 		 * @param {number} wikiId
-		 * @param {array|string} [categories=[]]
-		 * @param {string} [sortBy='trending']
+		 * @param {object} user
+		 * @param {number} page
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		find(wikiId, categories = [], sortBy = 'trending', page = 1) {
-			const forumInstance = DiscussionForumModel.create({
-					wikiId,
+		find(wikiId, user, page = 1) {
+			const followedPostsInstance = DiscussionFollowedPostsModel.create({
+					wikiId
 				}),
+				// fixme URL after backend ready
 				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads`),
 				requestData = {
+					userId: user.get('userId'),
 					page: page - 1,
-					forumId: categories instanceof Array ? categories : [categories],
-					limit: forumInstance.get('postsLimit'),
+					limit: followedPostsInstance.get('postsLimit'),
 					viewableOnly: false
 				};
+			followedPostsInstance.setStartPageNumber(page);
 
-			if (sortBy) {
-				requestData.sortKey = forumInstance.getSortKey(sortBy);
-			}
-			forumInstance.setStartPageNumber(page);
-
-			return this.findThreads(forumInstance, requestUrl, requestData);
-		},
+			return this.findThreads(followedPostsInstance, requestUrl, requestData);
+		}
 	}
 );
 
-export default DiscussionForumModel;
+export default DiscussionFollowedPostsModel;

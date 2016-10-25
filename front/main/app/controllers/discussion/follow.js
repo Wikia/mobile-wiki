@@ -10,18 +10,9 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		catId: null,
-		queryParams: ['sort', 'catId'],
-
 		actions: {
-			updateCategoriesSelection(categories) {
-				this.get('target').send('updateCategoriesSelection', categories);
-			},
-
 			createPost(entityData, forumId) {
-				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
-					this.createPost(entityData, forumId);
-				});
+				this.createPost(entityData, forumId);
 			},
 		}
 	},

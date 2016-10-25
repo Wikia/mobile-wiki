@@ -1,0 +1,28 @@
+.no-followed-posts {
+
+	color: #666;
+	margin: 30px auto;
+	text-align: center;
+	width: 272px;
+
+	.header {
+		color: #333;
+		font-weight: $font-weight-bold;
+	}
+
+	.follow-xl-icon {
+		fill: #999;
+		height: 42px;
+		margin-bottom: 20px;
+		width: 32px;
+	}
+
+	.find-posts-button {
+		@extend %discussion-large-button;
+		display: block;
+		margin: 24px auto 0;
+		width: 187px;
+	}
+
+
+}

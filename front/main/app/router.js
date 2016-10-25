@@ -88,6 +88,8 @@ Router.map(function () {
 			path: '/f'
 		});
 
+		this.route('follow');
+
 		this.route('reported-posts', {
 			path: '/reported'
 		});

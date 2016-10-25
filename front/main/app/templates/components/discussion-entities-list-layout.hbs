@@ -12,6 +12,7 @@
 			smartBannerVisible=smartBannerVisible
 			updateCategories=(action this.attrs.updateCategories)
 			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+			isFilterDisabled=isFilterDisabled
 		}}
 	{{/ember-wormhole}}
 {{/if}}
@@ -45,6 +46,7 @@
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
+						disabled=isCategoryFilterDisabled
 						triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
@@ -53,7 +55,7 @@
 					}}
 				{{/if}}
 			{{/if}}
-			{{#if model.canModerate}}
+			{{#if canShowReportedPostsFilter}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
 				}}

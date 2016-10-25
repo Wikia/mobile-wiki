@@ -14,6 +14,7 @@
 		follow=(action 'follow')
 		gotoGuidelines=(action 'gotoGuidelines')
 		goToPage=(action 'goToPage')
+		isFollewedPostsView=true
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		model=model.current.data
@@ -33,7 +34,5 @@
 		upvote=(action 'upvote')
 		validatePostsOnForum=(action 'validatePostsOnForum')
 }}
-	{{discussion-empty-forum-message
-			setEditorActive=(action 'setEditorActive')
-	}}
+	{{discussion-no-followed-posts}}
 {{/discussion-feed}}

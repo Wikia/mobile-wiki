@@ -42,9 +42,7 @@
 		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
-	{{discussion-empty-forum-message
-		setEditorActive=(action this.attrs.setEditorActive)
-	}}
+	{{yield}}
 {{/each}}
 {{#if showLoadMoreButton}}
 	{{discussion-wrapper-load-more

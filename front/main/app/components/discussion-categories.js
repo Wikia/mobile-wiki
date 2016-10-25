@@ -19,7 +19,11 @@ export default Ember.Component.extend(
 
 		init() {
 			this._super();
-			this.collapseCategoriesAboveLimit(this.get('localCategories'));
+			let localCategories = this.get('localCategories');
+			this.collapseCategoriesAboveLimit(localCategories);
+			if (this.get('disabled')) {
+				localCategories.setEach('selected', false);
+			}
 		},
 
 		disabledObserver: Ember.observer('disabled', function () {
