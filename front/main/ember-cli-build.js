@@ -145,7 +145,7 @@ module.exports = function (defaults) {
 			destDir: 'assets/vendor/numeral'
 		}),
 		designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
-			destDir: 'assets/design-system-icons.svg'
+			destDir: 'assets/design-system.svg'
 		});
 
 	return app.toTree([
