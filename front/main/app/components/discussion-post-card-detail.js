@@ -13,7 +13,7 @@ export default DiscussionPostCardBaseComponent.extend(
 
 		routing: Ember.inject.service('-routing'),
 
-		shareModalVisible: false,
+		shareDialogVisible: false,
 
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
@@ -32,8 +32,8 @@ export default DiscussionPostCardBaseComponent.extend(
 		}),
 
 		actions: {
-			showShareModal() {
-				this.set('shareModalVisible', true);
+			showShareDialog() {
+				this.set('shareDialogVisible', true);
 			}
 		}
 	}

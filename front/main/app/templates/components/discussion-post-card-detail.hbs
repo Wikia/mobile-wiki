@@ -38,7 +38,7 @@
 						reportMessage=(i18n 'main.report-post' ns='discussion')
 						openEditEditor=(action this.attrs.openEditEditor)
 						setEditorActive=(action this.attrs.setEditorActive)
-						showShareModal=(action 'showShareModal')
+						showShareDialog=(action 'showShareDialog')
 						undelete=(action this.attrs.undelete)
 						undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
 						unlock=(action this.attrs.unlock)
@@ -91,8 +91,9 @@
 		</span>
 	</div>
 </div>
-{{discussion-share-modal
-	isVisible=shareModalVisible
+{{discussion-share-dialog
+	sharedUrl=sharedUrl
+	show=shareDialogVisible
 }}
 {{discussion-post-card-actions
 		entryPointLabel=(i18n 'main.share-label' ns='discussion')
@@ -103,7 +104,6 @@
 		post=post
 		replyCount=replyCount
 		setEditorActive=(action this.attrs.setEditorActive)
-		sharedUrl=sharedUrl
 		showFollowingTooltip=showFollowingTooltip
 		showLabelOnMobile=true
 		threadId=post.threadId

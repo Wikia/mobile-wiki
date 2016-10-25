@@ -35,6 +35,8 @@ export default Ember.Component.extend({
 
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
 
+	showShareDialog() {},
+
 	/**
 	 * @returns {void}
 	 */
@@ -82,7 +84,7 @@ export default Ember.Component.extend({
 		},
 
 		share(post) {
-			this.get('showShareModal')();
+			this.get('showShareDialog')();
 			this.get('popover').deactivate();
 		},
 

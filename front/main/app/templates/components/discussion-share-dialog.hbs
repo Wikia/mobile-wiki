@@ -1,0 +1,12 @@
+{{#modal-dialog
+		isVisible=show
+		onOverlayClose=(action 'onCancel')
+}}
+	<h3>{{i18n 'main.share-header' ns='discussion'}}</h3>
+	<section class="modal-dialog-content">
+		{{share-feature
+				sharedUrl=sharedUrl
+				enableDiscussionTracker=true
+		}}
+	</section>
+{{/modal-dialog}}
