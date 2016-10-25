@@ -273,12 +273,17 @@ body.discussions {
 					height: 24px;
 					width: 24px;
 				}
+				&.follow {
+					height: 16px;
+					width: 16px;
+					margin-right: 3px;
+				}
 			}
 		}
 
 		.upvote-area {
 			justify-content: flex-start;
-			margin-left: 12px;
+			margin-left: 9px;
 		}
 
 		.replies-area {
@@ -543,6 +548,12 @@ body.discussions {
 		}
 	}
 
+	.has-upvoted {
+		.icon {
+			fill: $upvote-icon-activated-color;
+		}
+	}
+
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
@@ -694,6 +705,12 @@ body.discussions {
 			line-height: $line-height-small;
 			margin: 7px 0 12px;
 		}
+	}
+}
+
+.post-details-view {
+	.post-actions {
+		position: relative;
 	}
 }
 
@@ -872,8 +889,8 @@ body.discussions {
 		}
 
 		.side-spaced {
-			padding-left: 18px;
-			padding-right: 18px;
+			padding-left: 12px;
+			padding-right: 12px;
 		}
 	}
 }

@@ -29,6 +29,7 @@
     "sort-by-trending":"Популярные",
     "loading-more-posts":"Загрузка сообщений",
     "load-more-posts-button":"Загрузить ещё",
+    "load-previous-posts-button":"Наверх",
     "number-of-posts":"__numberOfPosts__ записей",
     "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
     "not-found-error":"Страницы не существует.",

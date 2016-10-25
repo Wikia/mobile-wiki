@@ -102,7 +102,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (this.get('isAnon')) {
-			this.rejectAnon();
+			this.rejectPostingAnon();
 			return;
 		}
 
@@ -120,10 +120,20 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Renders a message to display to an anon
+	 * Renders a message to display to an anon trying to follow a post
 	 * @returns {void}
 	 */
-	rejectAnon() {
+	rejectFollowingAnon() {
+		this.openDialog({
+			message: i18n.t('main.follow-error-anon-cant-follow', {ns: 'discussion'}),
+		});
+	},
+
+	/**
+	 * Renders a message to display to an anon trying to send a post
+	 * @returns {void}
+	 */
+	rejectPostingAnon() {
 		this.openDialog({
 			message: i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}),
 		});
@@ -336,7 +346,12 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		follow(post) {
-			this.get('model').current.follow(this.get('currentUser'), post);
+			if (this.get('isAnon')) {
+				track(trackActions.FollowPostByAnon);
+				this.rejectFollowingAnon();
+			} else {
+				this.get('model').current.follow(this.get('currentUser'), post);
+			}
 		},
 
 		/**

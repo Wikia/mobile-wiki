@@ -29,6 +29,7 @@
     "sort-by-trending":"熱門瀏覽",
     "loading-more-posts":"載入更多文章\n",
     "load-more-posts-button":"加載更多",
+    "load-previous-posts-button":"回到頂部",
     "number-of-posts":"__numberOfPosts__篇文章",
     "connection-error":"不能連接，請再試一次。",
     "not-found-error":"很抱歉，此頁面似乎不存在！",

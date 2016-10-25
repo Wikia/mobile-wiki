@@ -21,6 +21,7 @@ $label-color-valid: $color-blue-gray-dark;
 $link-color: $color-blue-light;
 $upvote-icon-stroke-color: $color-white;
 $upvote-icon-back-color: $color-white;
+$upvote-icon-activated-color: #e3bd00;
 $pop-over-background-color: $color-white;
 
 $fancy-check-box-border: #999;
@@ -158,9 +159,10 @@ $discussion-categories-edit-border-bottom-color: #ccc;
 $discussion-move-icon-color: #333;
 $discussion-category-picker-button-background-color: #ccc;
 $discussion-category-picker-button-color: #fff;
-$discussion-category-picker-tooltip-color: #fff;
 $discussion-category-pill-color: #666;
 $discussion-category-pill-hover-color: #fff;
+
+$discussion-tooltip-color: #fff;
 
 $discussion-edit-image-button-text-color: #fff;
 $discussion-edit-image-button-background-color: #333;
@@ -193,6 +195,7 @@ $dark-label-color-inactive: $label-color-inactive;
 $dark-label-color-valid: $label-color-valid;
 $dark-link-color: $link-color;
 $dark-upvote-icon-back-color: #262626;
+$dark-upvote-icon-activated-color: #e3bd00;
 $dark-discussion-bg-color: #262626;
 $dark-discussion-avatar-border-color: #666;
 $dark-discussion-content-color: $iron;

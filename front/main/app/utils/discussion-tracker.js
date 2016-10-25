@@ -10,6 +10,7 @@ const trackActions = {
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
 	FollowPost: 'FollowPost',
+	FollowPostByAnon: 'FollowPostByAnon',
 	UnfollowPost: 'UnfollowPost',
 	LatestPostTapped: 'LatestPostTapped',
 	TrendingPostTapped: 'TrendingPostTapped',
