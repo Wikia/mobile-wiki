@@ -26,7 +26,7 @@ export default Ember.Component.extend(
 		/**
 		 * Offset for right side, when tooltip would stick out from viewport
 		 */
-		rightOffset: 2,
+		rightOffset: 3,
 		show: false,
 		/**
 		 * Controls whether tooltip should appear once, and never again

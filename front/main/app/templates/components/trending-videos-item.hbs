@@ -1,6 +1,10 @@
 <figure>
 	<div class="item-image" style={{imageStyle}}>
-		<img src="{{thumbUrl}}" alt="{{video.title}}" />
+		{{#if thumbUrl}}
+			<img src="{{thumbUrl}}" alt="{{video.title}}" />
+		{{else}}
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7" alt="{{video.title}}" />
+		{{/if}}
 		{{#if video.duration}}<div class="item-duration">{{duration video.duration}}</div>{{/if}}
 	</div>
 	<figcaption class="item-figcaption">{{video.title}}</figcaption>
