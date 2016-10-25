@@ -5,8 +5,7 @@ export default Ember.Component.extend({
 	classNames: ['discussion-category-select-tooltip-wrapper', 'discussion-tooltip-wrapper'],
 	layoutName: 'components/discussion-tooltip',
 
-	textOnMobile: i18n.t('main.category-select-tooltip-text', {ns: 'discussion'}),
-	textOnDesktop: i18n.t('main.category-select-tooltip-text', {ns: 'discussion'}),
+	text: i18n.t('main.category-select-tooltip-text', {ns: 'discussion'}),
 
 	wasSeen: Boolean(localStorageConnector.getItem('discussionCategorySelectTooltipSeen')),
 

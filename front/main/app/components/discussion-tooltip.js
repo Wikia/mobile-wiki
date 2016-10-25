@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
-import ResponsiveMixin from '../mixins/responsive';
 import ViewportMixin from '../mixins/viewport';
 const {String} = Ember;
 
 export default Ember.Component.extend(
-	ResponsiveMixin,
 	ViewportMixin,
 	{
 		/**
@@ -37,8 +35,6 @@ export default Ember.Component.extend(
 		 * Default text, used by both desktop and mobile
 		 */
 		text: '',
-		textOnDesktop: '',
-		textOnMobile: '',
 
 		// position
 		arrowMarginLeft: 0,
@@ -50,20 +46,7 @@ export default Ember.Component.extend(
 		 */
 		init() {
 			this._super(...arguments);
-			this.populateTooltipTexts();
 			this.attachObservers();
-		},
-
-		/**
-		 * @private
-		 */
-		populateTooltipTexts() {
-			const text = this.get('text'),
-				textOnDesktop = this.get('textOnDesktop'),
-				textOnMobile = this.get('textOnMobile');
-
-			this.set('textOnDesktop', Boolean(textOnDesktop) ? textOnDesktop : text);
-			this.set('textOnMobile', Boolean(textOnMobile) ? textOnMobile : text);
 		},
 
 		/**
