@@ -2,6 +2,9 @@
 		isVisible=show
 		onOverlayClose=(action 'onCancel')
 }}
+	<a {{action 'onCancel'}}>
+		{{svg 'close' class='icon-close'}}
+	</a>
 	<h3>{{i18n 'main.share-header' ns='discussion'}}</h3>
 	<section class="modal-dialog-content">
 		{{#each currentSocialNetworks as |currentSocialNetwork|}}

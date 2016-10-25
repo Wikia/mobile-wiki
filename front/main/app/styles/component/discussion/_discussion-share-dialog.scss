@@ -20,9 +20,21 @@ $social-networks: (
 		h3 {
 			font-size: $type-smaller;
 			margin-bottom: 0;
-			margin-top: 25px;
 			text-align: center;
 		}
+
+		.modal-dialog-content {
+			padding-top: 10px;
+		}
+	}
+
+	.icon-close {
+		display: block;
+		fill: $discussion-actions-color;
+		height: 13px;
+		margin-left: 8px;
+		margin-top: 8px;
+		width: 13px;
 	}
 
 	.modal-dialog-content {
