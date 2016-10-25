@@ -2,16 +2,14 @@ import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import DiscussionForumModelMixin from '../../mixins/discussion-forum-model';
+import DiscussionForumModelStaticMixin from '../../mixins/discussion-forum-model-static';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
-import DiscussionContributors from './domain/contributors';
-import DiscussionEntities from './domain/entities';
-import DiscussionPost from './domain/post';
-import DiscussionUserBlockDetails from './domain/user-block-details';
-import request from 'ember-ajax/request';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionForumModelMixin,
 	DiscussionContributionModelMixin,
 	{
 		/**
@@ -20,68 +18,36 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(page = 1, categories = [], sortBy = 'trending') {
-			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
-				data: {
+			const requestUrl = M.getDiscussionServiceUrl(`/${this.wikiId}/threads`),
+				requestData = {
 					forumId: categories,
 					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
-				},
-				traditional: true,
-			}).then((data) => {
-				const newEntities = Ember.get(data, '_embedded.threads').map(
-					(newThread) => DiscussionPost.createFromThreadData(newThread)
-				);
+				};
+			return this.loadThreadPage(requestUrl, requestData);
 
-				this.incrementProperty('data.pageNum');
-
-				this.get('data.entities').pushObjects(newEntities);
-				this.reportedDetailsSetUp(newEntities);
-
-			}).catch((err) => {
-				this.handleLoadMoreError(err);
-			});
 		},
 
-		/**
-		 * @param {object} apiData
-		 *
-		 * @returns {void}
-		 */
-		setNormalizedData(apiData) {
-			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
-				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
-				entities = DiscussionEntities.createFromThreadsData(posts);
-
-			this.get('data').setProperties({
-				canModerate: Ember.getWithDefault(entities, 'firstObject.userData.permissions.canModerate', false),
-				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
-				entities,
-				isRequesterBlocked: Boolean(apiData.isRequesterBlocked),
-				pageNum: 0,
-				postCount: parseInt(apiData.threadCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(apiData.userBlockDetails)
-			});
-
-			this.set('pivotId', pivotId);
-		}
 	}
 );
 
-DiscussionForumModel.reopenClass({
-	/**
-	 * @param {number} wikiId
-	 * @param {array|string} [categories=[]]
-	 * @param {string} [sortBy='trending']
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	find(wikiId, categories = [], sortBy = 'trending', page = 1) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
+DiscussionForumModel.reopenClass(
+	DiscussionForumModelStaticMixin,
+	{
+		/**
+		 * @param {number} wikiId
+		 * @param {array|string} [categories=[]]
+		 * @param {string} [sortBy='trending']
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		find(wikiId, categories = [], sortBy = 'trending', page = 1) {
 			const forumInstance = DiscussionForumModel.create({
-					wikiId
+					wikiId,
 				}),
+				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads`),
 				requestData = {
 					page: page - 1,
 					forumId: categories instanceof Array ? categories : [categories],
@@ -92,25 +58,11 @@ DiscussionForumModel.reopenClass({
 			if (sortBy) {
 				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
+			forumInstance.setStartPageNumber(page);
 
-			request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
-				data: requestData,
-				traditional: true,
-			}).then((data) => {
-				forumInstance.setNormalizedData(data);
-
-				forumInstance.setStartPageNumber(page);
-
-				resolve(forumInstance);
-
-				forumInstance.reportedDetailsSetUp(forumInstance.get('data.entities'));
-			}).catch((err) => {
-				forumInstance.setErrorProperty(err);
-
-				reject(forumInstance);
-			});
-		});
+			return this.findThreads(forumInstance, requestUrl, requestData);
+		},
 	}
-});
+);
 
 export default DiscussionForumModel;
