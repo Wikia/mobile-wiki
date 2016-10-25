@@ -45,10 +45,16 @@ $home-of-fandom-letter-spacing: 0.5px;
 
 	&__partner-logo {
 		align-items: center;
+		align-self: center;
 		display: flex;
-		height: 100%;
+		padding: 3px;
 		position: absolute;
-		right: 0;
+		right: 10px;
+	}
+
+	&__partner-logo-img {
+		max-height: 17px;
+		max-width: 43px;
 	}
 }
 

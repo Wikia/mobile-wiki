@@ -8,20 +8,16 @@ export default Component.extend({
 
 	homeOfFandomLabel: get(Mercury, 'wiki.navigation2016.fandomLabel'),
 	isVisible: computed.not('isSearchPage'),
-	displayPartnerLogo: computed(() => {
-		return get(Mercury, 'wiki.language.content') === 'de';
-	}),
+	partnerSlot: M.prop('globalNavigation.partner_slot'),
+
 
 	actions: {
-		/**
-		 * @returns {void}
-		 */
-		homeOfFandomClick() {
+		trackClick(label) {
 			track({
 				action: trackActions.click,
 				category: 'site-head',
-				label: 'open-home-of-fandom'
+				label
 			});
-		}
+		},
 	}
 });
