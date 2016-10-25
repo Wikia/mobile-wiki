@@ -43,6 +43,8 @@
 			upvote=(action this.attrs.upvote)
 		}}
 	{{/if}}
+{{else}}
+	{{discussion-reported-not-found-error}}
 {{/each}}
 {{#if showLoadMoreButton}}
 	{{discussion-wrapper-load-more

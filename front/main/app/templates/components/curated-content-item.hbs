@@ -2,6 +2,8 @@
 	<div class="item-image" style={{style}}>
 		{{#if model.imageUrl}}
 			<img src='{{thumbUrl}}' alt='{{model.label}}'/>
+		{{else}}
+			<img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7' alt='{{model.label}}' />
 		{{/if}}
 	</div>
 	<figcaption class="item-figcaption">
