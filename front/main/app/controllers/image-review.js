@@ -17,6 +17,10 @@ export default Ember.Controller.extend({
 
 		openMainPage() {
 			this.get('target').send('openMainPage');
+		},
+
+		toggleSummary() {
+			this.get('target').send('toggleSummary')
 		}
 	}
 });

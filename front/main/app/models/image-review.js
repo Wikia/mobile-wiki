@@ -1,15 +1,24 @@
 import Ember from 'ember';
 import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
+import ImageReviewSummaryModel from '../models/image-review-summary'
+
 
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true,
+	isSummaryVisible: true,
 
 	setImagesCount(status) {
 		request(M.getImageReviewServiceUrl('/monitoring', {
 			status
 		})).then((promise) => {
 			this.set('imagesToReviewCount', promise.countByStatus);
+		});
+	},
+
+	setSummaryModel() {
+		ImageReviewSummaryModel.createModelWithRequest().then((data) => {
+			this.set('summaryModel', data.data);
 		});
 	}
 });
@@ -41,20 +50,20 @@ ImageReviewModel.reopenClass({
 
 	getImages(contractId) {
 		return request(M.getImageReviewServiceUrl(`/contract/${contractId}/image`, {}))
-			.then((data) => {
-				if (Ember.isArray(data)) {
-					return {data, contractId};
-				} else {
-					throw new Error(i18n.t('app.image-review-error-invalid-data'));
-				}
-			});
+		.then((data) => {
+			if (Ember.isArray(data)) {
+				return {data, contractId};
+			} else {
+				throw new Error(i18n.t('app.image-review-error-invalid-data'));
+			}
+		});
 	},
 
 	reviewImage(contractId, imageId, flag) {
 		return request(
-			M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`), {
-				method: 'PUT',
-			});
+				M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`), {
+					method: 'PUT',
+				});
 	},
 
 	// Temporary endpoint for adding images
@@ -104,7 +113,6 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-
 	getImagesAndPermission(contractId, status) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
@@ -112,13 +120,13 @@ ImageReviewModel.reopenClass({
 		];
 
 		return Ember.RSVP.allSettled(promises)
-			.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
-				return ImageReviewModel
-					.sanitize(getImagesPromise.value.data,
-						getImagesPromise.value.contractId,
-						getUserAuditReviewPermissionPromise.value,
-						status);
-			});
+		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
+			return ImageReviewModel
+			.sanitize(getImagesPromise.value.data,
+					getImagesPromise.value.contractId,
+					getUserAuditReviewPermissionPromise.value,
+					status);
+		});
 	},
 
 	getUserAuditReviewPermission() {
@@ -131,8 +139,10 @@ ImageReviewModel.reopenClass({
 
 	createEmptyModelWithPermission(status) {
 		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
-			ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
-	}
+				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
+	},
+
+
 });
 
 export default ImageReviewModel;

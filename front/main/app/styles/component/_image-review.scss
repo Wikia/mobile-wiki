@@ -13,6 +13,10 @@
 	}
 }
 
+.image-review-summary-dialog {
+	margin: 0.5em 0;
+}
+
 .image-review-image-container {
 	padding: 5px;
 	img {
@@ -73,14 +77,14 @@
 	margin: 0 auto;
 	position: relative;
 
-	.image-review-modal-history {
-		td {
-			padding: 5px;
-			border: 1px solid;
-		}
-	}
-
 	p {
 		margin: 8px;
+	}
+}
+
+.image-review-modal-history {
+	td {
+		padding: 5px;
+		border: 1px solid;
 	}
 }

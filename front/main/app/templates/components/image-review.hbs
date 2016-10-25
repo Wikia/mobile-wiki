@@ -9,7 +9,16 @@
 		</div>
 	</header>
 {{/if}}
+
 <div class="image-review-content">
+	{{#if model.userCanAuditReviews}}
+		<div class="image-review-summary-dialog">
+			<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Open Summary</button>
+			{{#if model.summaryModel}}
+				{{image-review-summary data=model.summaryModel}}
+			{{/if}}
+		</div>
+	{{/if}}
 	{{#if model.images}}
 		<div class="image-review-text">
 			<p>{{i18n 'main.description' ns='image-review'}}</p>

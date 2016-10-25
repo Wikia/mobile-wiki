@@ -1,0 +1,35 @@
+<table class="image-review-modal-history">
+	<tr>
+		<td>Total Reviewed</td>
+		<td>Average Per User</td>
+		{{#each data.reviewsCountPerStatus as |countStatus|}}
+			<td>{{countStatus.status}}</td>
+		{{/each}}
+	</tr>
+	<tr>
+		<td>{{data.totalReviewed}}</td>
+		<td>{{data.avgPerUser}}</td>
+		{{#each data.reviewsCountPerStatus as |countPerStatus|}}
+			<td>{{countPerStatus.count}}</td>
+		{{/each}}
+	</tr>
+</table>
+<br>
+<table class="image-review-modal-history">
+	<tr>
+		<td>User name</td>
+		<td>Distance to avg</td>
+		{{#each data.reviewsCountPerStatus as |countStatus|}}
+			<td>{{countStatus.status}}</td>
+		{{/each}}
+	</tr>
+	{{#each data.userStatistics as |user|}}
+		<tr>
+			<td>{{user.userName}}</td>
+			<td>{{user.distanceToAvg}}</td>
+			{{#each user.reviewsCountPerStatus as |countPerStatus|}}
+				<td>{{countPerStatus.count}}</td>
+			{{/each}}
+		</tr>
+	{{/each}}
+</table>

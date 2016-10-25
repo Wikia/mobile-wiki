@@ -67,6 +67,10 @@ export default Route.extend({
 			this.transitionTo('wiki-page', '');
 		},
 
+		toggleSummary() {
+			this.modelFor('image-review').setSummaryModel();
+		},
+
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
 			if (this.controller.get('fullscreen') === 'true') {
