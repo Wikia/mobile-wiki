@@ -51,7 +51,7 @@
 		{{/unless}}
 	{{/if}}
 </div>
-<h2 {{action 'clickCommunityName'}}>{{displayedWikiName}}</h2>
+<h2>{{#event-wrapper action='clickCommunityName'}}{{displayedWikiName}}{{/event-wrapper}}</h2>
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode
 }}

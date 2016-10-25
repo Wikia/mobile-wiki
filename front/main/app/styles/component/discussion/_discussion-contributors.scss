@@ -4,13 +4,9 @@ $discussion-contributors-border-width: 2px;
 .discussion-contributors {
 	display: inline-block;
 
-	.event-wrapper {
-		display: inline-block;
-		cursor: unset;
-	}
-
 	.user-avatar {
 		display: inline-block;
+		margin: 0 2px;
 	}
 
 	.avatar {
