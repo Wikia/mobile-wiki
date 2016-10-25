@@ -128,7 +128,10 @@
       "links": [
         {
           "type": "link-image",
-          "image": "wds-company-store-appstore",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-company-store-appstore"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-community-apps-link-app-store"
@@ -138,7 +141,10 @@
         },
         {
           "type": "link-image",
-          "image": "wds-company-store-googleplay",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-company-store-googleplay"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-community-apps-link-google-play"
@@ -257,7 +263,10 @@
       "links": [
         {
           "type": "link-image",
-          "image": "wds-icons-facebook",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-icons-facebook"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-facebook"
@@ -267,7 +276,10 @@
         },
         {
           "type": "link-image",
-          "image": "wds-icons-twitter",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-icons-twitter"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-twitter"
@@ -277,7 +289,10 @@
         },
         {
           "type": "link-image",
-          "image": "wds-icons-reddit",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-icons-reddit"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-reddit"
@@ -287,7 +302,10 @@
         },
         {
           "type": "link-image",
-          "image": "wds-icons-youtube",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-icons-youtube"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-youtube"
@@ -297,7 +315,10 @@
         },
         {
           "type": "link-image",
-          "image": "wds-icons-instagram",
+          "image-data": {
+            "type": "wds-svg",
+            "name": "wds-icons-instagram"
+          },
           "title": {
             "type": "translatable-text",
             "key": "global-footer-follow-us-link-instagram"
@@ -365,7 +386,10 @@
     },
     "header": {
       "type": "link-image",
-      "image": "wds-company-logo-fandom-powered-by-wikia-two-lines",
+      "image-data": {
+        "type": "wds-svg",
+        "name": "wds-company-logo-fandom-powered-by-wikia-two-lines"
+      },
       "href": "#",
       "title": {
         "type": "text",
