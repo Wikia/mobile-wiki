@@ -1,5 +1,5 @@
 {{#each latestContributors as |contributor|}}
-	<div class="event-wrapper" {{action 'clickDiscussionsHeaderAvatar'}}>
+	<div class="event-wrapper" {{action 'clickDiscussionsHeaderAvatar' preventDefault=false}}>
 		{{user-avatar
 			avatarUrl=contributor.avatarUrl
 			badgePermission=contributor.badgePermission
