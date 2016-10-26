@@ -13,6 +13,8 @@ export default Ember.Mixin.create({
 	editorState: null,
 	editEditorState: null,
 	guidelinesEditorState: null,
+	postCreatedAtLeastOnce: false,
+	shareTooltipSeen: false,
 
 	setEditorState: Ember.on('init', function () {
 		this.setDefaultStates();
@@ -222,6 +224,14 @@ export default Ember.Mixin.create({
 		}).finally(() => {
 			editorState.set('isLoading', false);
 		});
+	},
+
+	hideShareTooltip() {
+		if (this.get('postCreatedAtLeastOnce')) {
+			this.set('shareTooltipSeen', true);
+		} else {
+			this.toggleProperty('postCreatedAtLeastOnce');
+		}
 	},
 
 	/**
