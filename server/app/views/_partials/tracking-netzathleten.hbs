@@ -1,0 +1,26 @@
+<!-- Begin NetzAthleten Tag -->
+<script type="text/javascript">
+	(function () {
+		var allowedCountries = [],
+			externalsEnabled = !M.prop('queryParams.noexternals'),
+			geo = M.prop('geo.country'),
+			naTracking = M.prop('tracking.netzathleten');
+
+		function initializeNetzAthletenTracking(url) {
+			var scriptElementWikia = document.createElement("script");
+
+			scriptElementWikia.id = "Wikia_container";
+			scriptElementWikia.type = "text/javascript";
+			scriptElementWikia.src = url;
+			document.head.appendChild(scriptElementWikia);
+		}
+
+		if (externalsEnabled && naTracking.enabled && naTracking.url && window.Wikia) {
+            allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
+            if (allowedCountries.indexOf(geo) >= 0 || allowedCountries.indexOf('XX') >= 0) {
+                initializeNetzAthletenTracking(naTracking.url);
+			}
+		}
+	})();
+</script>
+<!-- End NetzAthleten Tag -->

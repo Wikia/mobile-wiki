@@ -75,7 +75,20 @@ export const Comscore = {
 				url: trackingConfig.ubisoft.url
 			};
 		}
-	};
+	},
+	NetzAthleten = {
+		/**
+		 * @param {object} tracking
+		 * @param {object} trackingConfig
+		 * @returns {void}
+		 */
+		handleResponse(tracking, trackingConfig) {
+			tracking.netzathleten = {
+				enabled: !!trackingConfig.netzathleten.enabled,
+				url: trackingConfig.netzathleten.url
+			};
+		}
+	};	
 
 /**
  * @param {*} result
@@ -101,6 +114,8 @@ export function handleResponse(result, request) {
 	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 	Ubisoft.handleResponse(tracking, trackingConfig);
+	NetzAthleten.handleResponse(tracking, trackingConfig);
+	
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;

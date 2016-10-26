@@ -278,6 +278,10 @@ const localSettings = {
 		ubisoft: {
 			enabled: false,
 			url: ''
+		},
+		netzathleten: {
+			enabled: false,
+			url: ''
 		}
 	},
 	verticalColors: {
