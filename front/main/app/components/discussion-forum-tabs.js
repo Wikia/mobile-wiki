@@ -10,10 +10,4 @@ export default Ember.Component.extend({
 
 	followTabActive: Ember.computed.equal('routing.currentRouteName', 'discussion.follow'),
 
-	actions: {
-		trackFollowedPostsClick() {
-			track(trackActions.FollowedPostTapped);
-		}
-	}
-
 });

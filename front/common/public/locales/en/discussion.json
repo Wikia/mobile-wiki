@@ -93,6 +93,7 @@
     "share-header": "Share Post",
     "share-label": "Share",
     "follow-error-anon-cant-follow": "Sign in to start following the discussion!",
+    "follow-error-anon-cant-see-followed-posts": "Sign in to see your followed posts.",
     "follow-label": "Follow",
     "follow-tooltip": "Add to your following list",
     "reported-not-found-error": "There are no reported posts or replies.",

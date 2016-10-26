@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	dialogMessage: Ember.computed.alias('modalDialog.message'),
 	dialogHeaderText: Ember.computed.alias('modalDialog.header'),
 	isConfirm: Ember.computed.alias('modalDialog.isConfirm'),
+	signInRedirectUrl: Ember.computed.alias('modalDialog.signInRedirectUrl'),
 	modalDialog: Ember.inject.service(),
 	shouldShowDialogMessage: Ember.computed.alias('modalDialog.isDisplayed'),
 

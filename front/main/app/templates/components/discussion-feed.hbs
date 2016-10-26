@@ -54,7 +54,7 @@
 		uploadDiscussionsHeader=(action this.attrs.uploadDiscussionsHeader)
 		validatePostsOnForum=(action this.attrs.validatePostsOnForum)
 }}
-	{{discussion-forum-tabs}}
+	{{discussion-forum-tabs goToFollowedPosts=(action this.attrs.goToFollowedPosts)}}
 
 	{{#discussion-forum-wrapper
 			approve=(action this.attrs.approve)

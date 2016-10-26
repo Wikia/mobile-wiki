@@ -15,6 +15,7 @@ const trackActions = {
 	LatestPostTapped: 'LatestPostTapped',
 	TrendingPostTapped: 'TrendingPostTapped',
 	FollowedPostTapped: 'FollowedPostTapped',
+	FollowedPostTappedByAnon: 'FollowedPostTappedByAnon',
 	PostShare: 'PostShare',
 	PostClose: 'PostClose',
 	PostEditClose: 'PostEditClose',

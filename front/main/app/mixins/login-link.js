@@ -7,7 +7,7 @@ export default Ember.Mixin.create(LanguagesMixin, {
 	 * and adding a language code to the querystring
 	 * @returns {void}
 	 */
-	goToLogin() {
+	goToLogin(redirectUrl) {
 		track({
 			trackingMethod: 'ga',
 			action: trackActions.click,
@@ -15,8 +15,10 @@ export default Ember.Mixin.create(LanguagesMixin, {
 			label: 'join-link',
 		});
 
+		let url = redirectUrl ? redirectUrl : window.location.href;
+
 		window.location.href = `/join?redirect=` +
-			`${encodeURIComponent(window.location.href)}` +
+			`${encodeURIComponent(url)}` +
 			`${this.getUselangParam()}`;
 	},
 
