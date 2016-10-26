@@ -15,7 +15,7 @@ export default Ember.Mixin.create(LanguagesMixin, {
 			label: 'join-link',
 		});
 
-		const url = redirectUrl ? redirectUrl : window.location.href;
+		const url = redirectUrl || window.location.href;
 
 		window.location.href = `/join?redirect=` +
 			`${encodeURIComponent(url)}` +
