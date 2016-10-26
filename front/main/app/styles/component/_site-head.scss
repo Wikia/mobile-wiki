@@ -58,11 +58,15 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		margin: 0 auto;
 	}
 
+	.fandom-logo,
+	.wikia-org-logo {
+		height: 26px;
+		width: 132px;
+	}
+
 	.fandom-logo {
 		// the same color as in wds-company-logo-fandom-powered-by-wikia.svg
 		fill: #39414D;
-		height: 26px;
-		width: 132px;
 	}
 
 	.site-head-icon {
@@ -112,7 +116,6 @@ $desktop-logo-padding-left: 8px;
 
 @media #{$breakpoint-xl-up} {
 	.site-head {
-		height: $site-head-content-height;
 		padding: 0;
 
 		.site-logo {
@@ -127,6 +130,12 @@ $desktop-logo-padding-left: 8px;
 			padding-bottom: 4px;
 			padding-left: 3px;
 			width: 122px;
+		}
+
+		.wikia-org-logo {
+			height: 100%;
+			margin-left: -12px;
+			width: 105px;
 		}
 	}
 }
