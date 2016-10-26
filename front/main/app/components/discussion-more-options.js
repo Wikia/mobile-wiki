@@ -14,7 +14,8 @@ export default Ember.Component.extend({
 
 	canEdit: Ember.computed('post.userData.permissions.canEdit', 'post.userData.permissions.canMove',
 		'post.isRequesterBlocked', function () {
-			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove')) && !this.get('post.isRequesterBlocked');
+			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove'))
+				&& !this.get('post.isRequesterBlocked');
 		}
 	),
 
@@ -32,7 +33,7 @@ export default Ember.Component.extend({
 			this.get('currentUser.isAuthenticated') && !this.get('post.isDeleted');
 	}),
 
-	canShare: Ember.computed('isShareable', 'post.isDeleted', function() {
+	canShare: Ember.computed('isShareable', 'post.isDeleted', function () {
 		return this.get('isShareable') && !this.get('post.isDeleted');
 	}),
 
