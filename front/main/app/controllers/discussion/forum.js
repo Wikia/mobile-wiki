@@ -10,8 +10,10 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		catId: null,
 		areGuidelinesVisible: false,
+		catId: null,
+		postCreatedAtLeastOnce: false,
+		shareTooltipSeen: false,
 		queryParams: ['sort', 'catId'],
 
 		actions: {
@@ -20,6 +22,12 @@ export default DiscussionBaseController.extend(
 			},
 
 			createPost(entityData, forumId) {
+				if (this.get('postCreatedAtLeastOnce')) {
+					this.set('shareTooltipSeen', true);
+				} else {
+					this.toggleProperty('postCreatedAtLeastOnce');
+				}
+
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
 					this.createPost(entityData, forumId);
 				});
