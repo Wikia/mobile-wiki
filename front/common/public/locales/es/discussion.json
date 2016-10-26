@@ -1,6 +1,6 @@
 {
   "landing-page":{
-    "to-the-wiki-title":"a la wikia",
+    "to-the-wiki-title":"al wiki",
     "page-main-header":"Las discusiones de __applicationName__ más calientes con los mejores fans.",
     "download-the-app-header":"¡Descarga la aplicación a únete ahora!",
     "google-play-button-alt":"Consiguelo en Google Play",
@@ -29,7 +29,7 @@
     "sort-by-trending":"Tendencias",
     "loading-more-posts":"Cargando más discusiones",
     "load-more-posts-button":"Cargar más",
-    "load-previous-posts-button":"To the top",
+    "load-previous-posts-button":"Al principio",
     "number-of-posts":"__numberOfPosts__ discusiones",
     "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
     "not-found-error":"¡Uh oh, parece que esta página no existe!",

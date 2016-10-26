@@ -29,6 +29,7 @@ $discussion-hero-unit-minimized-height: 25px;
 
 	.discussion-contributors {
 		.discussion-contributors-more {
+			cursor: unset;
 			font-size: $type-min;
 			height: $discussion-hero-unit-avatar-dimension;
 			padding-top: 5px;
@@ -52,6 +53,10 @@ $discussion-hero-unit-minimized-height: 25px;
 		padding-bottom: 33px;
 		padding-top: 37px;
 		width: 100%;
+
+		h1, p {
+			cursor: unset;
+		}
 	}
 
 	.discussion-edit-approve-wrapper {

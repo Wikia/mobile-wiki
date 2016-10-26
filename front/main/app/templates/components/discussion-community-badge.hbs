@@ -1,6 +1,6 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}} {{if showDefaultBackground 'community-badge-image-default'}}">
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
-	<img class="badge-image-display badge-image-display-original {{unless isImagePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
+	<img class="badge-image-display badge-image-display-original {{unless isImagePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}" {{action 'clickCommunityBadge'}}>
 	{{#if canEdit}}
 		<div class="drag-and-drop">
 			{{svg 'drag-n-drop' role='img'}}
@@ -51,7 +51,7 @@
 		{{/unless}}
 	{{/if}}
 </div>
-<h2>{{displayedWikiName}}</h2>
+<h2>{{#track-click action='clickCommunityName'}}{{displayedWikiName}}{{/track-click}}</h2>
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode
 }}
