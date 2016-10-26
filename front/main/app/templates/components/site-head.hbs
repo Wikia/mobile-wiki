@@ -13,7 +13,7 @@
 		}}
 		<div class="site-logo">
 			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
-				{{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
+				{{svg svgName role='img' class='fandom-logo'}}
 			</a>
 		</div>
 		<div class="site-head-icon-search">
@@ -27,8 +27,9 @@
 		</div>
 	</nav>
 </div>
-{{site-head-fandom-bar
-	wikiaHomepage=wikiaHomepage
-	isSearchPage=isSearchPage
-}}
+{{#if displayFandomBar}}
+	{{site-head-fandom-bar
+		wikiaHomepage=wikiaHomepage
+	}}
+{{/if}}
 <div id="site-head-sub-header"></div>
