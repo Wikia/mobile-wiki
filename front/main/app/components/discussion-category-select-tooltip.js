@@ -2,6 +2,7 @@ import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Component.extend({
+	arrowDirection: 'down',
 	classNames: ['discussion-category-select-tooltip-wrapper', 'discussion-tooltip-wrapper'],
 	layoutName: 'components/discussion-tooltip',
 
