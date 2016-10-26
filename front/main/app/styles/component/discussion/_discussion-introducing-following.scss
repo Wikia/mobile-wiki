@@ -1,19 +1,19 @@
 .introducing-following {
 
-	.header {
+	header {
 		align-items: center;
 		display: flex;
 		height: 84px;
 		justify-content: center;
 
-		.follow-white {
-			fill: #fff;
+		.follow-icon {
+			fill: $discussion-introducing-following-icon-color;
 			height: 42px;
 			width: 32px
 		}
 	}
 
-	.content {
+	section {
 		font-size: $type-smallest;
 		line-height: 20px;
 		margin: 30px auto;
@@ -35,9 +35,6 @@
 }
 
 .introducing-following-modal {
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
 	justify-content: center;
 	left: 0;
 	right: 0;
