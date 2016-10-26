@@ -37,3 +37,14 @@
 			setEditorActive=(action 'setEditorActive')
 	}}
 {{/discussion-feed}}
+{{#modal-dialog
+		class='introducing-following-modal'
+		closeOnOverlayClick=true
+		isVisible=introducingFollowingWasNotSeen
+		as |close|
+}}
+	{{discussion-introducing-following
+			close=(action close)
+			introducingFollowingSeenId=introducingFollowingSeenId
+	}}
+{{/modal-dialog}}
