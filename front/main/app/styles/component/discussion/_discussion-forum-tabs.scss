@@ -1,0 +1,33 @@
+.discussion-forum-tabs {
+	background-color: transparent;
+	box-shadow: none;
+	list-style-type: none;
+	margin: 17px auto 10px;
+	padding: 0;
+	text-align: center;
+	width: $discussion-page-width;
+
+	li {
+		border-bottom: 4px solid;
+		cursor: pointer;
+		float: left;
+		font-size: $type-smallest;
+		font-weight: $font-weight-bold;
+		height: 50px;
+		line-height: 50px;
+		text-transform: uppercase;
+		width: 50%;
+
+		&.not-active {
+			border-bottom-color: $discussion-tab-color;
+			color: $discussion-tab-color;
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	.discussion-forum-tabs {
+		margin-top: 0;
+		width: 100%;
+	}
+}

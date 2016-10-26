@@ -23,6 +23,7 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
+	canShowReportedPostsFilter=model.current.data.canModerate
 	categories=model.index.categories.categories
 	hasNewPostButton=false
 	model=model.current.data
@@ -34,9 +35,7 @@
 	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 	validatePostsOnForum=(action 'validatePostsOnForum')
 }}
-	{{discussion-sort
-		setSortBy=(action 'setSortBy')
-	}}
+
 	{{discussion-reported-posts-wrapper
 		approve=(action 'approve')
 		categories=model.index.categories.categories

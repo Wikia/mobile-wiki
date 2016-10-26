@@ -6,8 +6,7 @@ export default Ember.Component.extend(
 	DiscussionReportedFilterMixin,
 	DiscussionCollapsableMixin,
 	{
-		tagName: 'fieldset',
-		classNames: ['discussion-fieldset', 'moderation-fieldset'],
+		classNameBindings: ['topDecoration:moderation-filter-top-decoration'],
 
 		onCollapseChanged(collapsed) {
 			track(collapsed ? trackActions.ReportedFilterUncollapsed : trackActions.ReportedFilterCollapsed);

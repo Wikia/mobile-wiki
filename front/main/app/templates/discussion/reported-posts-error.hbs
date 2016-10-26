@@ -1,6 +1,7 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
+	canShowReportedPostsFilter=model.current.data.canModerate
 	hasContentError=true
 	model=model.current.data
 	updateCategoriesSelection=(action 'updateCategoriesSelection')

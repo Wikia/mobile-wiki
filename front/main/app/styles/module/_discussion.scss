@@ -588,15 +588,8 @@ body.discussions {
 	}
 
 	.load-more-button {
-		border-style: solid;
-		border-width: 1px;
-		font-size: $type-min;
-		font-weight: $font-weight-bold;
-		letter-spacing: 0.3px;
-		line-height: 50px;
+		@extend %discussion-large-button;
 		margin: 30px 15px 0;
-		text-align: center;
-		text-transform: uppercase;
 
 		&.top-list-button {
 			background-color: $discussion-top-list-button-color;

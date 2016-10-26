@@ -113,6 +113,7 @@
     "categories-delete-category-approve": "Delete & Move",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
+    "sort-by-header": "Sort By",
     "in-category-label": "in __categoryName__",
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
@@ -134,7 +135,12 @@
     "edit-hero-unit-hint-text": "Image Dimensions: 1240x200<br>jpg, gif or png. 10mb limit",
     "image-save-failed": "Save failed. Please try again.",
     "upload-image-button-text": "Upload image",
-    "category-select-tooltip-text": "Select"
+    "category-select-tooltip-text": "Select",
+    "tab-all": "All",
+    "tab-following": "Following",
+    "no-followed-posts-header": "Welcome to your Following tab!",
+    "no-followed-posts-text": "Here you can see all the posts you’re interested in by hiting the “Follow” button at the bottom of each post.",
+    "find-posts-to-follow": "Find posts to follow"
   },
   "editor": {
     "post-failed-error": "Post failed.",

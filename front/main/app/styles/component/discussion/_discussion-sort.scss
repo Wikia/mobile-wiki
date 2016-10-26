@@ -1,35 +1,42 @@
 .discussion-sort {
-	background-color: transparent;
-	box-shadow: none;
-	list-style-type: none;
-	margin: 17px auto 10px;
-	padding: 0;
-	text-align: center;
-	width: $discussion-page-width;
+	.sort-options {
+		margin-left: 0;
 
-	li {
-		border-bottom: 4px solid;
-		cursor: pointer;
-		float: left;
-		font-size: $type-base;
-		font-weight: $font-weight-bold;
-		height: 50px;
-		line-height: 50px;
-		width: 50%;
+		.sort-option {
+			clear: left;
+			color: $discussion-filters-color;
+			list-style: none;
+			width: 100%;
 
-		&.not-active {
-			border-bottom-color: $discussion-sort-color;
-			color: $discussion-sort-color;
+			.sort-option-label {
+				display: flex;
+				flex-direction: row;
+				margin-left: 0;
+
+				.radio-fancy {
+					@include discussion-radio-fancy(14px);
+					margin: 2px 9px 0 0;
+				}
+			}
 		}
 	}
 
 	&.no-trending {
 		li {
 			&.sort-trending {
-				border-bottom-color: $discussion-sort-inactive-color;
-				color: $discussion-sort-inactive-color;
+				opacity: 0.5;
 				pointer-events: none;
 			}
+		}
+	}
+
+	.bullet {
+		display: none;
+	}
+
+	[disabled] {
+		.sort-options {
+			opacity: 0.5;
 		}
 	}
 }
