@@ -31,7 +31,7 @@
 					text=(i18n 'main.share-tooltip' ns='discussion')
 					visibleOnce=true
 			}}
-			<div class="discussion-more-options" id="post-options-{{post.threadId}}">
+			<div class="discussion-more-options" id="post-options-{{post.threadId}}" {{action 'hideShareTooltip'}}>
 				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 			</div>
 			{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}

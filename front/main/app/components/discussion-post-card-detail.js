@@ -32,6 +32,10 @@ export default DiscussionPostCardBaseComponent.extend(
 		}),
 
 		actions: {
+			hideShareTooltip() {
+				this.set('shareTooltipSeen', true);
+			},
+
 			showShareDialog() {
 				this.set('shareDialogVisible', true);
 			}
