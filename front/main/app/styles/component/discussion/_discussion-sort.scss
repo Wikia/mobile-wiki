@@ -1,0 +1,42 @@
+.discussion-sort {
+	.sort-options {
+		margin-left: 0;
+
+		.sort-option {
+			clear: left;
+			color: $discussion-filters-color;
+			list-style: none;
+			width: 100%;
+
+			.sort-option-label {
+				display: flex;
+				flex-direction: row;
+				margin-left: 0;
+
+				.radio-fancy {
+					@include discussion-radio-fancy(14px);
+					margin: 2px 9px 0 0;
+				}
+			}
+		}
+	}
+
+	&.no-trending {
+		li {
+			&.sort-trending {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+		}
+	}
+
+	.bullet {
+		display: none;
+	}
+
+	[disabled] {
+		.sort-options {
+			opacity: 0.5;
+		}
+	}
+}

@@ -118,7 +118,6 @@ $legend-font-size: 16px;
 		li {
 			border-bottom: 1px solid $discussion-filters-border;
 			list-style: none;
-			clear: left;
 			color: $discussion-filters-color;
 			height: $sort-label-height;
 			width: 100%;
@@ -129,7 +128,8 @@ $legend-font-size: 16px;
 
 			label {
 				color: $discussion-filters-color;
-				display: block;
+				display: flex;
+				flex-direction: row;
 				font-size: $type-smallest;
 				font-weight: normal;
 				line-height: $sort-label-height - 2px;
@@ -137,29 +137,8 @@ $legend-font-size: 16px;
 			}
 
 			.radio-fancy {
-				border: 1px solid $fancy-check-box-border;
-				border-radius: 50%;
-				float: left;
-				height: 18px;
+				@include discussion-radio-fancy(18px);
 				margin: 15px 6px 0 0;
-				width: 18px;
-
-				.inside {
-					background-color: inherit;
-					border: 3px solid $discussion-filters-bullet-active-border;
-					border-radius: 50%;
-					display: none;
-					height: 16px;
-					width: 16px;
-				}
-
-				&.active {
-					border-color: transparent;
-
-					.inside {
-						display: block;
-					}
-				}
 			}
 
 			.bullet {
@@ -199,10 +178,10 @@ $legend-font-size: 16px;
 		margin-top: 6px;
 	}
 
-	.discussion-fieldset:not(.discussion-fieldset-without-bottom-decoration) {
-		border-bottom: 1px solid $discussion-filters-border;
-		margin-bottom: 30px;
-		padding-bottom: 20px;
+	.moderation-filter-top-decoration {
+		border-top: 1px solid $discussion-filters-border;
+		padding-top: 30px;
+		margin-top: 20px;
 	}
 }
 

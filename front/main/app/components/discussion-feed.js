@@ -4,8 +4,8 @@ import ResponsiveMixin from '../mixins/responsive';
 export default Ember.Component.extend(
 	ResponsiveMixin,
 	{
-		canShowReportedPostsFilter: Ember.computed('isFollewedPostsView', 'model.canModerate', function () {
-			return !this.get('isFollewedPostsView') && this.get('model.canModerate');
+		canShowReportedPostsFilter: Ember.computed('isFollowedPostsView', 'model.canModerate', function () {
+			return !this.get('isFollowedPostsView') && this.get('model.canModerate');
 		}),
 
 	}

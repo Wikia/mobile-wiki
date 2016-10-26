@@ -58,8 +58,13 @@
 			{{#if canShowReportedPostsFilter}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
+					topDecoration=reportedFilterTopDecoration
 				}}
 			{{/if}}
+			{{discussion-sort
+					setSortBy=(action 'setSortBy')
+					disabled=isSortingDisabled
+			}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}
