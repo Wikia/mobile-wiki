@@ -5,19 +5,19 @@ const {computed, Component, get} = Ember;
 
 export default Component.extend({
 	classNames: ['site-head-fandom-bar-wrapper'],
+
 	homeOfFandomLabel: get(Mercury, 'wiki.navigation2016.fandomLabel'),
 	isVisible: computed.not('isSearchPage'),
+	partnerSlot: M.prop('globalNavigation.partner_slot'),
+
 
 	actions: {
-		/**
-		 * @returns {void}
-		 */
-		homeOfFandomClick() {
+		trackClick(label) {
 			track({
 				action: trackActions.click,
 				category: 'site-head',
-				label: 'open-home-of-fandom'
+				label
 			});
-		}
+		},
 	}
 });
