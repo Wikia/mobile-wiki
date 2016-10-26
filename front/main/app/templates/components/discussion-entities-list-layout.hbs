@@ -61,7 +61,10 @@
 					topDecoration=reportedFilterTopDecoration
 				}}
 			{{/if}}
-			{{discussion-sort setSortBy=(action 'setSortBy') disabled=isSortingDisabled}}
+			{{discussion-sort
+					setSortBy=(action 'setSortBy')
+					disabled=isSortingDisabled
+			}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}

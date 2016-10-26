@@ -118,7 +118,6 @@ $legend-font-size: 16px;
 		li {
 			border-bottom: 1px solid $discussion-filters-border;
 			list-style: none;
-			clear: left;
 			color: $discussion-filters-color;
 			height: $sort-label-height;
 			width: 100%;
@@ -129,7 +128,8 @@ $legend-font-size: 16px;
 
 			label {
 				color: $discussion-filters-color;
-				display: block;
+				display: flex;
+				flex-direction: row;
 				font-size: $type-smallest;
 				font-weight: normal;
 				line-height: $sort-label-height - 2px;
@@ -137,7 +137,7 @@ $legend-font-size: 16px;
 			}
 
 			.radio-fancy {
-				@include radio-fancy(18px);
+				@include discussion-radio-fancy(18px);
 				margin: 15px 6px 0 0;
 			}
 

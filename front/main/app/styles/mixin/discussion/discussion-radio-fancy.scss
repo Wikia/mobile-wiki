@@ -1,7 +1,6 @@
-@mixin radio-fancy($size) {
+@mixin discussion-radio-fancy($size) {
 	border: 1px solid $fancy-check-box-border;
 	border-radius: 50%;
-	float: left;
 	height: $size;
 	width: $size;
 

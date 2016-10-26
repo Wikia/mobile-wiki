@@ -7,10 +7,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['noTrending'],
 		discussionSort: Ember.inject.service(),
 		sortBy: Ember.computed('discussionSort.sortBy', function () {
-			if (this.get('disabled')) {
-				return;
-			}
-			return this.get('discussionSort.sortBy');
+			return !this.get('disabled') && this.get('discussionSort.sortBy');
 		}),
 
 		noTrending: Ember.computed.oneWay('discussionSort.onlyReported'),
@@ -29,9 +26,8 @@ export default Ember.Component.extend(
 					} else if (sortBy === 'trending') {
 						track(trackActions.TrendingPostTapped);
 					}
+					this.get('setSortBy')(sortBy);
 				}
-
-				this.get('setSortBy')(sortBy);
 			}
 		}
 	}

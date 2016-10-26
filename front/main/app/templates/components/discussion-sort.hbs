@@ -4,9 +4,9 @@
 <fieldset class="discussion-fieldset sortby-fieldset" disabled={{disabled}}>
 	<ul class="sort-options">
 		{{#each discussionSort.sortTypes as |sortType|}}
-			<li class="sort-{{sortType.name}}">
-				<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button" class="bullet" id="sort-button-{{sortType.messageKey}}">
-				<label for="sort-button-{{sortType.messageKey}}">
+			<li class="sort-option sort-{{sortType.name}}">
+				<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button-{{sortType.messageKey}}" class="bullet" id="sort-button-{{sortType.messageKey}}">
+				<label class="sort-option-label" for="sort-button-{{sortType.messageKey}}">
 					<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
 					{{i18n sortType.messageKey ns='discussion'}}
 				</label>
