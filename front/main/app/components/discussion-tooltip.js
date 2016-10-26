@@ -42,6 +42,10 @@ export default Ember.Component.extend(
 		 * Default text, used by both desktop and mobile
 		 */
 		text: '',
+		/**
+		 * Controls whether tooltip should appear only once when isVisible changes to true and never again.
+		 */
+		visibleOnce: false,
 
 		// position
 		arrowMarginLeft: 0,
@@ -100,7 +104,7 @@ export default Ember.Component.extend(
 			});
 		},
 
-		didInsertElement() {
+		didRender() {
 			this._super(...arguments);
 			this.computePositionAfterRender();
 		},
@@ -122,16 +126,19 @@ export default Ember.Component.extend(
 			}
 		},
 
+		/**
+		 * @private
+		 */
 		computeTooltipPositionWithArrowDown() {
 			const width = this.$().width(),
-				parentOffset = this.$().parents(this.get('parent')).offset(),
-				pointingToElement = this.$().parent().find(this.get('pointingTo')),
+				parentOffset = this.parentOffset(),
+				pointingToElement = this.pointingToElement(),
 				elementOffset = pointingToElement.offset(),
 				elementWidth = pointingToElement.width();
 
 			let arrowMarginLeft = 0,
-				left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
-				top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
+				top = elementOffset.top - parentOffset.top - this.$().height() - this.get('arrowOffset'),
+				left = elementOffset.left - parentOffset.left - (width / 2) + (elementWidth / 2);
 
 			if (this.tooltipWillStickOutFromViewport(left + width)) {
 				let leftInViewport = window.innerWidth - width - this.get('rightOffset');
@@ -145,20 +152,20 @@ export default Ember.Component.extend(
 			this.set('arrowMarginLeft', arrowMarginLeft);
 		},
 
-		computeTooltipPositionWithArrowRight() {
-			const height = this.$().height(),
-				width = this.$().width(),
-				parentOffset = this.$().parents(this.get('parent')).offset(),
-				pointingToElement = this.$().parent().find(this.get('pointingTo')),
-				elementOffset = pointingToElement.offset(),
-				elementHeight = pointingToElement.height();
+		/**
+		 * @private
+		 * @returns {offset}
+		 */
+		parentOffset() {
+			return this.$().parents(this.get('parent')).offset();
+		},
 
-			let top = elementOffset.top - parentOffset.top + (elementHeight / 2) - (height / 2),
-				left = elementOffset.left - parentOffset.left - width - this.get('arrowOffset');
-
-			this.set('top', top);
-			this.set('left', left);
-			this.set('arrowMarginLeft', 0);
+		/**
+		 * @private
+		 * @returns {element}
+		 */
+		pointingToElement() {
+			return this.$().parent().find(this.get('pointingTo'));
 		},
 
 		/**
@@ -167,6 +174,25 @@ export default Ember.Component.extend(
 		 */
 		tooltipWillStickOutFromViewport(elementRightCorner) {
 			return window.innerWidth < elementRightCorner;
+		},
+
+		/**
+		 * @private
+		 */
+		computeTooltipPositionWithArrowRight() {
+			const height = this.$().height(),
+				width = this.$().width(),
+				parentOffset = this.parentOffset(),
+				pointingToElement = this.pointingToElement(),
+				elementOffset = pointingToElement.offset(),
+				elementHeight = pointingToElement.height();
+
+			let top = elementOffset.top - parentOffset.top - (height / 2) + (elementHeight / 2),
+				left = elementOffset.left - parentOffset.left - width - this.get('arrowOffset');
+
+			this.set('top', top);
+			this.set('left', left);
+			this.set('arrowMarginLeft', 0);
 		},
 
 		style: Ember.computed('top', 'left', function () {
@@ -178,10 +204,14 @@ export default Ember.Component.extend(
 		}),
 
 		isVisible: Ember.computed('show', 'seen', 'wasSeen', function () {
-			return Boolean(this.get('show')) && (this.get('showOnce') ? (!this.get('seen') && !this.get('wasSeen')) : true);
+			const visible = Boolean(this.get('show')) && (this.get('showOnce') ? this.wasNotAlreadySeen() : true);
+			if (visible && this.get('visibleOnce')) {
+				localStorageConnector.setItem(this.get('localStorageId'), true);
+			}
+			return visible;
 		}),
 
-		wasAlreadySeen() {
+		wasNotAlreadySeen() {
 			return !this.get('seen') && !this.get('wasSeen');
 		},
 

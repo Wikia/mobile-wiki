@@ -1,5 +1,5 @@
 <div class="side-spaced">
-	<div id="post-{{post.id}}">
+	<div id="post-{{post.id}}" class="post-header">
 		{{#if showTopNote}}
 			{{discussion-post-card-top-note
 					approve=(action this.attrs.approve)
@@ -29,6 +29,7 @@
 					show=post.isNew
 					showOnceInApplication=true
 					text=(i18n 'main.share-tooltip' ns='discussion')
+					visibleOnce=true
 			}}
 			<div class="discussion-more-options" id="post-options-{{post.threadId}}">
 				{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
@@ -71,8 +72,7 @@
 					<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link">{{post.title}}</a>
 				</h2>
 			{{/if}}
-			<a href="{{href-to 'discussion.post' post.threadId}}"
-			   class="post-details-link clamp">{{{parsedContent}}}</a>
+			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
 	{{/if}}
 	{{#if post.openGraph}}
