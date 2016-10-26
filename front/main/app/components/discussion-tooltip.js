@@ -72,7 +72,6 @@ export default Ember.Component.extend(
 		onSeenChange() {
 			if (this.get('seen')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
-				this.set('wasSeen', true);
 				this.removeObservers();
 			}
 		},
@@ -118,19 +117,7 @@ export default Ember.Component.extend(
 				if (direction === 'down') {
 					this.computeTooltipPositionWithArrowDown();
 				} else if (direction === 'right') {
-					const height = this.$().height(),
-						width = this.$().width(),
-						parentOffset = this.$().parents(this.get('parent')).offset(),
-						pointingToElement = this.$().parent().find(this.get('pointingTo')),
-						elementOffset = pointingToElement.offset(),
-						elementHeight = pointingToElement.height();
-
-					let top = elementOffset.top - parentOffset.top + (elementHeight / 2) - (height / 2),
-						left = elementOffset.left -parentOffset.left - width - this.get('arrowOffset');
-
-					this.set('top', top);
-					this.set('left', left);
-					this.set('arrowMarginLeft', 0);
+					this.computeTooltipPositionWithArrowRight();
 				}
 			}
 		},
@@ -158,6 +145,22 @@ export default Ember.Component.extend(
 			this.set('arrowMarginLeft', arrowMarginLeft);
 		},
 
+		computeTooltipPositionWithArrowRight() {
+			const height = this.$().height(),
+				width = this.$().width(),
+				parentOffset = this.$().parents(this.get('parent')).offset(),
+				pointingToElement = this.$().parent().find(this.get('pointingTo')),
+				elementOffset = pointingToElement.offset(),
+				elementHeight = pointingToElement.height();
+
+			let top = elementOffset.top - parentOffset.top + (elementHeight / 2) - (height / 2),
+				left = elementOffset.left - parentOffset.left - width - this.get('arrowOffset');
+
+			this.set('top', top);
+			this.set('left', left);
+			this.set('arrowMarginLeft', 0);
+		},
+
 		/**
 		 * @private
 		 * @returns {boolean}
@@ -174,13 +177,13 @@ export default Ember.Component.extend(
 			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
 		}),
 
-		isVisible: Ember.computed('show', 'wasSeen', function () {
-			const visible = Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
-			if (visible && this.get('showOnceInApplication')) {
-				localStorageConnector.setItem(this.get('localStorageId'), true);
-			}
-			return visible;
+		isVisible: Ember.computed('show', 'seen', 'wasSeen', function () {
+			return Boolean(this.get('show')) && (this.get('showOnce') ? (!this.get('seen') && !this.get('wasSeen')) : true);
 		}),
+
+		wasAlreadySeen() {
+			return !this.get('seen') && !this.get('wasSeen');
+		},
 
 		wasSeen: Ember.computed('localStorageId', function () {
 			return Boolean(localStorageConnector.getItem(this.get('localStorageId')));
