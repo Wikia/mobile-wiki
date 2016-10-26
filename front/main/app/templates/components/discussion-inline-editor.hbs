@@ -90,11 +90,13 @@
 		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 	</div>
 
-	{{loading-spinner
+	{{#if isLoading}}
+		{{loading-spinner
 			active=isLoading
 			radius=32
 			strokeWidth=2
-	}}
+		}}
+	{{/if}}
 
 	{{#if showSuccess}}
 		<div class="loading-overlay">
