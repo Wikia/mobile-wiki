@@ -1,6 +1,6 @@
 {{#modal-dialog
 		isVisible=show
-		onOverlayClose=(action 'onCancel')
+		closeOnOverlayClick=true
 }}
 	<a {{action 'onCancel'}}>
 		{{svg 'close' class='icon-close'}}
