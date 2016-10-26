@@ -8,8 +8,6 @@ export default Ember.Component.extend({
 
 	text: i18n.t('main.category-select-tooltip-text', {ns: 'discussion'}),
 
-	wasSeen: Boolean(localStorageConnector.getItem('discussionCategorySelectTooltipSeen')),
-
 	isVisible: Ember.computed('wasSeen', 'shouldShowCategoryPicker', 'isEdit', 'isActive', 'showOverlayMessage',
 		function () {
 			return !this.get('wasSeen') && this.get('shouldShowCategoryPicker') &&
@@ -23,4 +21,9 @@ export default Ember.Component.extend({
 			localStorageConnector.setItem('discussionCategorySelectTooltipSeen', true);
 		}
 	}),
+
+	willRender() {
+		this._super(...arguments);
+		this.set('wasSeen', Boolean(localStorageConnector.getItem('discussionCategorySelectTooltipSeen')));
+	}
 });
