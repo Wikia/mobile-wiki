@@ -483,7 +483,7 @@ export default Ember.Mixin.create({
 		},
 
 		goToFollowedPosts() {
-			if (!this.get('currentUser.isAuthenticated')) {
+			if (this.get('isAnon')) {
 				track(trackActions.FollowedPostTappedByAnon);
 				this.rejectFollowedPostsAnon();
 				return;
