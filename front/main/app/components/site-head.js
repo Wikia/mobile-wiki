@@ -28,13 +28,10 @@ export default Component.extend(
 		wikiaHomepage: M.prop('globalNavigation.logo.header.href') || 'http://fandom.wikia.com',
 
 		displayFandomBar: computed(() => {
-			// return M.prop('globalNavigation.logo-small-tagline') ? true : false;
-			return M.prop('globalNavigation.logo') ? true : false;
+			return M.prop('globalNavigation.logo-small-tagline') ? true : false;
 		}),
 
-		// svgName: M.prop('globalNavigation.logo-small.header.image-data.name'),
-		// svgName: 'wds-company-logo-fandom',
-		svgName: 'wds-company-logo-wikia-org',
+		svgName: M.prop('globalNavigation.logo-small.header.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
