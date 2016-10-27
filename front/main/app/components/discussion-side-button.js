@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	/**
@@ -54,5 +55,11 @@ export default Ember.Component.extend({
 
 	discussionSortBy: Ember.computed('addSortByQueryParam', function () {
 		return this.get('addSortByQueryParam') ? this.get('discussionSort.sortBy') : null;
-	})
+	}),
+
+	actions: {
+		clickSideButton() {
+			track(trackActions.SideButtonClicked);
+		}
+	}
 });
