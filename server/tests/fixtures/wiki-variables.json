@@ -91,6 +91,10 @@
       "ubisoft": {
         "enabled": false,
         "url": ""
+      },
+      "netzathleten": {
+        "enabled": false,
+        "url": ""
       }
     },
     "wikiCategories": [],
