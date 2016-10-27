@@ -37,6 +37,10 @@
 	[disabled] {
 		.sort-options {
 			opacity: 0.5;
+
+			label {
+				pointer-events: none;
+			}
 		}
 	}
 }

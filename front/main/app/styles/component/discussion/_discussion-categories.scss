@@ -13,19 +13,28 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
-		&:hover:enabled {
+		&:hover {
 			background-color: $discussion-category-hover-background;
 		}
 	}
 }
 
-[disabled] {
-	.discussion-categories-list {
-		opacity: 0.5;
-	}
-}
 
 .discussion-categories {
+	&[disabled] {
+		.discussion-categories-list {
+			opacity: 0.5;
+
+			label {
+				pointer-events: none;
+
+				&:hover {
+					background-color: transparent;
+				}
+			}
+		}
+	}
+
 	button {
 		background-color: transparent;
 		font-size: 10px;
