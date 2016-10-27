@@ -2,7 +2,7 @@
 	{{#if model.header}}
 		<h2 class="wds-global-footer__header">
 			<a href="{{model.header.href}}" data-tracking-label="{{model.header.tracking_label}}" title="{{model.header.title.value}}">
-				{{> svg class='wds-global-footer__header-logo' image=model.header.image}}
+				{{> svg class='wds-global-footer__header-logo' image=model.header.image-data.name}}
 			</a>
 		</h2>
 	{{/if}}

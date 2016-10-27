@@ -66,6 +66,8 @@ const trackActions = {
 	EditCommunityBadgeEscapeKeyHit: 'EditCommunityBadgeEscapeKeyHit',
 	CommunityBadgeSave: 'CommunityBadgeSave',
 	CommunityBadgeSaveFailure: 'CommunityBadgeSaveFailure',
+	CommunityBadgeClicked: 'CommunityBadgeClicked',
+	CommunityNameClicked: 'CommunityNameClicked',
 	EditDiscussionsHeaderButtonTapped: 'EditDiscussionsHeaderButtonTapped',
 	EditDiscussionsHeaderFileDropped: 'EditDiscussionsHeaderFileDropped',
 	EditDiscussionsHeaderFilePasted: 'EditDiscussionsHeaderFilePasted',
@@ -73,8 +75,14 @@ const trackActions = {
 	EditDiscussionsHeaderEscapeKeyHit: 'EditDiscussionsHeaderEscapeKeyHit',
 	DiscussionsHeaderSave: 'DiscussionsHeaderSave',
 	DiscussionsHeaderSaveFailure: 'DiscussionsHeaderSaveFailure',
+	DiscussionsHeaderTextClicked: 'DiscussionsHeaderTextClicked',
+	DiscussionsHeaderPostcountClicked: 'DiscussionsHeaderPostcountClicked',
+	DiscussionsHeaderAvatarClicked: 'DiscussionsHeaderAvatarClicked',
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
+	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
+	SideButtonClicked: 'SideButtonClicked',
+	MobileHeaderCommunityNameClicked: 'MobileHeaderCommunityNameClicked',
 	PageView: 'PageView'
 };
 
