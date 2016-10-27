@@ -101,10 +101,18 @@
 		</span>
 	</div>
 </div>
-{{discussion-share-dialog
-		sharedUrl=sharedUrl
-		show=shareDialogVisible
+{{#modal-dialog
+		class='discussion-dialog discussion-share-dialog'
+		closeOnOverlayClick=true
+		isVisible=shareDialogVisible
+		as |close|
 }}
+	{{discussion-share-dialog
+			sharedUrl=sharedUrl
+			show=shareDialogVisible
+			close=(action close)
+	}}
+{{/modal-dialog}}
 {{discussion-post-card-actions
 		entryPointLabel=(i18n 'main.share-label' ns='discussion')
 		follow=(action this.attrs.follow)

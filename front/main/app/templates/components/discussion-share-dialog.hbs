@@ -1,8 +1,5 @@
-{{#modal-dialog
-		isVisible=show
-		closeOnOverlayClick=true
-}}
-	<a {{action 'onCancel'}}>
+{{#if show}}
+	<a {{action close}}>
 		{{svg 'close' class='icon-close'}}
 	</a>
 	<h3>{{i18n 'main.share-header' ns='discussion'}}</h3>
@@ -15,4 +12,4 @@
 			</a>
 		{{/each}}
 	</section>
-{{/modal-dialog}}
+{{/if}}
