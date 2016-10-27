@@ -27,8 +27,8 @@ export default Component.extend(
 
 		wikiaHomepage: M.prop('globalNavigation.logo.header.href') || 'http://fandom.wikia.com',
 
-		displayFandomBar: computed(() => {
-			return M.prop('globalNavigation.logo-small-tagline') ? true : false;
+		displayFandomBar: computed('isSearchPage', function () {
+			return Boolean(M.prop('globalNavigation.logo-small-tagline')) && !this.get('isSearchPage');
 		}),
 
 		svgName: M.prop('globalNavigation.logo-small.header.image-data.name'),
