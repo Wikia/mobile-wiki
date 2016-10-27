@@ -2,10 +2,8 @@
 // If you look for Global Navigation styles go here:
 // https://github.com/Wikia/design-system/blob/master/components/_global-navigation.scss
 
-$wds-global-navigation-outer-height: $nav-height + $border-top-width;
-
 .wds-global-navigation-wrapper {
-	height: $wds-global-navigation-outer-height;
+	height: $wds-global-navigation-height;
 }
 
 .wds-global-navigation {
