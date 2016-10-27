@@ -14,10 +14,10 @@
 	{{#if model.userCanAuditReviews}}
 		<div class="image-review-summary-dialog">
 			<label class="image-review-date-input">
-				From: {{pikaday-input theme="image-review-date-picker" onSelection=(action 'setStartDate')}}
+				From: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setStartDate)}}
 			</label>
 			<label class="image-review-date-input">
-				To: {{pikaday-input theme="image-review-date-picker" onSelection=(action 'setEndDate')}}
+				To: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setEndDate)}}
 			</label>
 			<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Show statistics</button>
 			{{#if model.summaryModel}}

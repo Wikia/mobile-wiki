@@ -71,6 +71,14 @@ export default Route.extend({
 			this.modelFor('image-review').setSummaryModel();
 		},
 
+		setStartDate(startDate) {
+			this.modelFor('image-review').set('startDate', startDate);
+		},
+
+		setEndDate(endDate) {
+			this.modelFor('image-review').set('endDate', endDate);
+		},
+
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
 			if (this.controller.get('fullscreen') === 'true') {

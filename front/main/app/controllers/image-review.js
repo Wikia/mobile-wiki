@@ -20,7 +20,15 @@ export default Ember.Controller.extend({
 		},
 
 		toggleSummary() {
-			this.get('target').send('toggleSummary')
+			this.get('target').send('toggleSummary');
+		},
+
+		setStartDate(startDate) {
+			this.get('target').send('setStartDate', startDate);
+		},
+
+		setEndDate(endDate) {
+			this.get('target').send('setEndDate', endDate);
 		}
 	}
 });

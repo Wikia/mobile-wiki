@@ -1,9 +1,8 @@
 import Ember from 'ember';
+import moment from 'moment';
 import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 import ImageReviewSummaryModel from '../models/image-review-summary'
-
-const {Logger} = Ember;
 
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true,
@@ -18,9 +17,12 @@ const ImageReviewModel = Ember.Object.extend({
 	},
 
 	setSummaryModel() {
-		ImageReviewSummaryModel.createModelWithRequest().then((data) => {
-			this.set('summaryModel', data.data);
-		});
+		if (!Ember.isEmpty(this.startDate) || !Ember.isEmpty(this.endDate)) {
+			ImageReviewSummaryModel.createModelWithRequest(moment(this.startDate).format(), moment(this.endDate).format())
+			.then((data) => {
+				this.set('summaryModel', data.data);
+			});
+		}
 	}
 });
 
