@@ -22,7 +22,7 @@
 	</a>
 {{/if}}
 {{#if displayWikiaHomeLink}}
-	<a href="/" class="wikia-home-link active-element-theme-color" {{action 'clickWikiaHomeLink' on='mouseDown' preventDefault=false}}>
+	<a href="{{wikiHomeLink}}" class="wikia-home-link active-element-theme-color" {{action 'clickWikiaHomeLink' on='mouseDown' preventDefault=false}}>
 		{{svg 'home-small' role='img' class='icon wikia-home'}}
 		<span>{{wikiHomeLinkText}}</span>
 	</a>
