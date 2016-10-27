@@ -1,0 +1,47 @@
+.introducing-following {
+
+	header {
+		align-items: center;
+		display: flex;
+		height: 84px;
+		justify-content: center;
+
+		.follow-icon {
+			fill: $discussion-introducing-following-icon-color;
+			height: 42px;
+			width: 32px
+		}
+	}
+
+	section {
+		font-size: $type-smallest;
+		line-height: 20px;
+		margin: 30px auto;
+		padding: 0 34px;
+		text-align: center;
+
+		h6 {
+			margin-bottom: 4px;
+		}
+	}
+
+
+	.find-posts-button {
+		@extend %discussion-large-button;
+		display: block;
+		margin: 24px auto 0;
+		max-width: 187px;
+	}
+}
+
+.introducing-following-modal {
+	justify-content: center;
+	left: 0;
+	right: 0;
+	padding: 20px;
+
+	.modal-dialog {
+		max-width: 360px;
+		padding: 0;
+	}
+}
