@@ -88,7 +88,7 @@ export const Comscore = {
 				url: trackingConfig.netzathleten.url
 			};
 		}
-	};	
+	};
 
 /**
  * @param {*} result
@@ -115,7 +115,6 @@ export function handleResponse(result, request) {
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 	Ubisoft.handleResponse(tracking, trackingConfig);
 	NetzAthleten.handleResponse(tracking, trackingConfig);
-	
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
