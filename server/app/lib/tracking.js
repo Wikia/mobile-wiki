@@ -86,7 +86,7 @@ export const Comscore = {
 			tracking.netzathleten = {
 				enabled: !!trackingConfig.netzathleten.enabled,
 				url: trackingConfig.netzathleten.url,
-				isMainPage: isMainPage
+				isMainPage
 			};
 		}
 	};
