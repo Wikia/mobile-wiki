@@ -13,7 +13,6 @@
 			scriptElementWikia.type = "text/javascript";
 			scriptElementWikia.src = url;
             scriptElementWikia.addEventListener("load", function(){
-				console.log("naMedia homesite", isMainPage);
                 window.naMediaAd.setValue("homesite", isMainPage);
             });
 			document.head.appendChild(scriptElementWikia);
