@@ -12,16 +12,16 @@
 			scriptElementWikia.id = "Wikia_container";
 			scriptElementWikia.type = "text/javascript";
 			scriptElementWikia.src = url;
-            scriptElementWikia.addEventListener("load", function(){
-                window.naMediaAd.setValue("homesite", isMainPage);
-            });
+			scriptElementWikia.addEventListener("load", function(){
+				window.naMediaAd.setValue("homesite", isMainPage);
+			});
 			document.head.appendChild(scriptElementWikia);
 		}
 
 		if (externalsEnabled && naTracking.enabled && naTracking.url && window.Wikia) {
-            allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
-            if (allowedCountries.indexOf(geo) >= 0 || allowedCountries.indexOf('XX') >= 0) {
-                initializeNetzAthletenTracking(naTracking.url, naTracking.isMainPage);
+			allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
+			if (allowedCountries.indexOf(geo) >= 0 || allowedCountries.indexOf('XX') >= 0) {
+				initializeNetzAthletenTracking(naTracking.url, naTracking.isMainPage);
 			}
 		}
 	})();
