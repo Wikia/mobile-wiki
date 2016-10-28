@@ -1,8 +1,10 @@
 <div id="globalNavigation" class="wds-global-navigation{{if isGlobalNavigationPositionFixed ' is-fixed'}}{{if searchIsActive ' wds-search-is-active'}}{{unless model.fandom_overview ' wds-search-is-always-visible'}}">
 	<div class="wds-global-navigation__content-bar">
-		<a href="{{model.logo.module.main.href}}" class="wds-global-navigation__logo wds-is-{{model.logo.module.main.image}}"  {{action 'trackClick' model.logo.header.tracking_label preventDefault=false}}>
-			{{svg model.logo.module.main.image-data.name class='wds-global-navigation__logo-main'}}
-			{{svg model.logo.module.tagline.image-data.name class='wds-global-navigation__logo-tagline'}}
+		<a href="{{model.logo.module.main.href}}" class="wds-global-navigation__logo"  {{action 'trackClick' model.logo.module.main.tracking_label preventDefault=false}}>
+			{{svg model.logo.module.main.image-data.name class=(concat 'wds-global-navigation__logo-image wds-is-' model.logo.module.main.image-data.name)}}
+			{{#if model.logo.module.tagline}}
+				{{svg model.logo.module.tagline.image-data.name class=(concat 'wds-global-navigation__logo-image wds-is-' model.logo.module.tagline.image-data.name)}}
+			{{/if}}
 		</a>
 		<div class="wds-global-navigation__links-and-search">
 			{{#each model.fandom_overview.links as |link|}}
