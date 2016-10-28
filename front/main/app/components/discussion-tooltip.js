@@ -51,6 +51,11 @@ export default Ember.Component.extend(
 		arrowMarginLeft: 0,
 		left: 0,
 		top: 0,
+		/**
+		 * Value used to preserve width when view port changes
+		 * @private
+		 */
+		width: null,
 
 		/**
 		 * @private
@@ -106,6 +111,11 @@ export default Ember.Component.extend(
 
 		didRender() {
 			this._super(...arguments);
+
+			if (null === this.get('width')) {
+				this.set('width', this.$().width());
+			}
+
 			this.computePositionAfterRender();
 		},
 
@@ -130,7 +140,7 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		computeTooltipPositionWithArrowDown() {
-			const width = this.$().width(),
+			const width = this.get('width'),
 				parentOffset = this.parentOffset(),
 				pointingToElement = this.pointingToElement(),
 				elementOffset = pointingToElement.offset(),
@@ -181,7 +191,7 @@ export default Ember.Component.extend(
 		 */
 		computeTooltipPositionWithArrowRight() {
 			const height = this.$().height(),
-				width = this.$().width(),
+				width = this.get('width'),
 				parentOffset = this.parentOffset(),
 				pointingToElement = this.pointingToElement(),
 				elementOffset = pointingToElement.offset(),
