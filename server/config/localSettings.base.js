@@ -281,7 +281,8 @@ const localSettings = {
 		},
 		netzathleten: {
 			enabled: false,
-			url: ''
+			url: '',
+			isMainPage: false
 		}
 	},
 	verticalColors: {

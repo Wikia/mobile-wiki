@@ -82,10 +82,11 @@ export const Comscore = {
 		 * @param {object} trackingConfig
 		 * @returns {void}
 		 */
-		handleResponse(tracking, trackingConfig) {
+		handleResponse(tracking, trackingConfig, isMainPage) {
 			tracking.netzathleten = {
 				enabled: !!trackingConfig.netzathleten.enabled,
-				url: trackingConfig.netzathleten.url
+				url: trackingConfig.netzathleten.url,
+				isMainPage: isMainPage
 			};
 		}
 	};
@@ -114,7 +115,7 @@ export function handleResponse(result, request) {
 	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 	Ubisoft.handleResponse(tracking, trackingConfig);
-	NetzAthleten.handleResponse(tracking, trackingConfig);
+	NetzAthleten.handleResponse(tracking, trackingConfig, result.isMainPage);
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;

@@ -6,19 +6,23 @@
 			geo = M.prop('geo.country'),
 			naTracking = M.prop('tracking.netzathleten');
 
-		function initializeNetzAthletenTracking(url) {
+		function initializeNetzAthletenTracking(url, isMainPage) {
 			var scriptElementWikia = document.createElement("script");
 
 			scriptElementWikia.id = "Wikia_container";
 			scriptElementWikia.type = "text/javascript";
 			scriptElementWikia.src = url;
+            scriptElementWikia.addEventListener("load", function(){
+				console.log("naMedia homesite", isMainPage);
+                window.naMediaAd.setValue("homesite", isMainPage);
+            });
 			document.head.appendChild(scriptElementWikia);
 		}
 
 		if (externalsEnabled && naTracking.enabled && naTracking.url && window.Wikia) {
             allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
             if (allowedCountries.indexOf(geo) >= 0 || allowedCountries.indexOf('XX') >= 0) {
-                initializeNetzAthletenTracking(naTracking.url);
+                initializeNetzAthletenTracking(naTracking.url, naTracking.isMainPage);
 			}
 		}
 	})();
