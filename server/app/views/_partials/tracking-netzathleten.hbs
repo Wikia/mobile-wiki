@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	(function () {
 		var allowedCountries = [],
-			externalsEnabled = !M.prop('queryParams.noexternals'),
+			externalsEnabled = !M.prop('queryParams.noexternals') && !M.prop('userId'),
 			geo = M.prop('geo.country'),
 			naTracking = M.prop('tracking.netzathleten');
 
