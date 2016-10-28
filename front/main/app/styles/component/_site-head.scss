@@ -114,7 +114,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 $desktop-logo-fandom-width: 117px;
 $desktop-logo-padding-left: 8px;
 
-@media #{$breakpoint-xl-up} {
+@media #{$wds-breakpoint-xl-up} {
 	.site-head {
 		padding: 0;
 
@@ -140,7 +140,7 @@ $desktop-logo-padding-left: 8px;
 	}
 }
 
-@media #{$breakpoint-xxl-up} {
+@media #{$wds-breakpoint-xxl-up} {
 	.site-head {
 		.site-logo {
 			padding-right: 1238px - $desktop-logo-fandom-width - $desktop-logo-padding-left;
