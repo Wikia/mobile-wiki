@@ -50,6 +50,8 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	wikiHomeLink: window.location.origin,
+
 	actions: {
 
 		/**
