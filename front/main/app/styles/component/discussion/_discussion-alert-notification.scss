@@ -1,6 +1,6 @@
 .discussions {
 	.alert-notifications {
-		z-index: $z-1;
+		z-index: $z-8;
 
 		.discussions-action-failed {
 			background-color: $discussion-alert-notification-background-color;
@@ -9,17 +9,10 @@
 			font-size: $type-smallest;
 			font-weight: $font-weight-bold;
 			margin: 0 auto;
+			max-width: 1176px;
 			padding-bottom: 9px;
 			padding-top: 9px;
 			text-align: center;
-		}
-	}
-}
-
-@media #{$desktop-range} {
-	.discussions-action-failed {
-		&.alert-notification {
-			max-width: 1176px;
 		}
 	}
 }
