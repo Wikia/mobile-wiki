@@ -23,11 +23,10 @@
 			{{discussion-tooltip
 					arrowDirection='right'
 					localStorageId='discussionShareTooltipSeen'
-					parent='.post-detail'
 					pointingTo='svg.icon.more-icon'
 					seen=shareTooltipSeen
-					show=post.isNew
-					showOnceInApplication=true
+					shouldShow=post.isNew
+					shouldShowOnceInApplication=true
 					text=(i18n 'main.share-tooltip' ns='discussion')
 					visibleOnce=true
 			}}
