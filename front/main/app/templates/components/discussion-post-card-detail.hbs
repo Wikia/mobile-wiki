@@ -43,10 +43,10 @@
 						isShareable=true
 						lock=(action this.attrs.lock)
 						lockMessage=(i18n 'main.lock-post' ns='discussion')
+						openEditEditor=(action this.attrs.openEditEditor)
 						post=post
 						report=(action this.attrs.report)
 						reportMessage=(i18n 'main.report-post' ns='discussion')
-						openEditEditor=(action this.attrs.openEditEditor)
 						setEditorActive=(action this.attrs.setEditorActive)
 						showShareDialog=(action 'showShareDialog')
 						undelete=(action this.attrs.undelete)
@@ -77,8 +77,8 @@
 	{{/if}}
 	{{#if post.openGraph}}
 		{{discussion-open-graph
-				openGraphData=post.openGraph
 				isListView=true
+				openGraphData=post.openGraph
 		}}
 	{{/if}}
 	<div class="row post-bottom-row">
@@ -108,9 +108,9 @@
 		as |close|
 }}
 	{{discussion-share-dialog
+			close=(action close)
 			sharedUrl=sharedUrl
 			show=shareDialogVisible
-			close=(action close)
 	}}
 {{/modal-dialog}}
 {{discussion-post-card-actions
