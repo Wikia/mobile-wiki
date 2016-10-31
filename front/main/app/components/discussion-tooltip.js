@@ -128,6 +128,7 @@ export default Ember.Component.extend(
 		computeTooltipPosition() {
 			if (this.get('isVisible')) {
 				const direction = this.get('arrowDirection');
+
 				if (direction === 'down') {
 					this.computeTooltipPositionWithArrowDown();
 				} else if (direction === 'right') {
@@ -157,9 +158,11 @@ export default Ember.Component.extend(
 				left = leftInViewport;
 			}
 
-			this.set('top', top);
-			this.set('left', left);
-			this.set('arrowMarginLeft', arrowMarginLeft);
+			this.setProperties({
+				top,
+				left,
+				arrowMarginLeft
+			});
 		},
 
 		/**
@@ -200,9 +203,11 @@ export default Ember.Component.extend(
 			let top = elementOffset.top - parentOffset.top - (height / 2) + (elementHeight / 2),
 				left = elementOffset.left - parentOffset.left - width - this.get('arrowOffset');
 
-			this.set('top', top);
-			this.set('left', left);
-			this.set('arrowMarginLeft', 0);
+			this.setProperties({
+				top,
+				left,
+				arrowMarginLeft: 0
+			});
 		},
 
 		style: Ember.computed('top', 'left', function () {
@@ -215,6 +220,7 @@ export default Ember.Component.extend(
 
 		isVisible: Ember.computed('show', 'seen', 'wasSeen', function () {
 			const visible = Boolean(this.get('show')) && (this.get('showOnce') ? this.wasNotAlreadySeen() : true);
+
 			if (visible && this.get('visibleOnce')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
 			}
