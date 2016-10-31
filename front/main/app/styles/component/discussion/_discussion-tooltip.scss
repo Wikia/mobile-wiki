@@ -2,13 +2,10 @@
 	.discussion-tooltip-wrapper {
 		align-items: center;
 		display: flex;
+		flex-direction: column;
 		left: 0;
 		line-height: 14px;
 		position: absolute;
-
-		&.down {
-			flex-direction: column;
-		}
 
 		&.right {
 			flex-direction: row;
@@ -28,10 +25,10 @@
 		}
 
 		.arrow-right {
-			border-top: 4px solid transparent;
 			border-bottom: 4px solid transparent;
 			border-left-style: solid;
 			border-left-width: 6px;
+			border-top: 4px solid transparent;
 		}
 
 		.arrow {

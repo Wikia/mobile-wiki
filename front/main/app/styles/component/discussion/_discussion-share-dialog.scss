@@ -1,4 +1,4 @@
-$share-icon-fill-colour: #fff;
+$share-icon-fill-color: #fff;
 
 $social-networks: (
 		facebook: #4760a5,
@@ -50,25 +50,25 @@ $social-networks: (
 
 		.social {
 			background-image: none;
-			text-align: center;
 			height: 45px;
+			text-align: center;
 			width: 45px;
 
-			@each $social-network, $colour in $social-networks {
+			@each $social-network, $color in $social-networks {
 				&.#{$social-network} {
-					background-color: $colour;
+					background-color: $color;
 
 					&:hover {
-						background-color: mix(black, $colour, 20%);
+						background-color: mix(black, $color, 20%);
 					}
 				}
 			}
 
 			.icon {
-				fill: $share-icon-fill-colour;
+				fill: $share-icon-fill-color;
 				height: 20px;
 				margin-left: 0;
-				margin-top: 12.5px;
+				margin-top: 12px;
 				width: 20px;
 			}
 		}
