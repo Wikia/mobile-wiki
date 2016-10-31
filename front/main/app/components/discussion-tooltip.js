@@ -112,7 +112,7 @@ export default Ember.Component.extend(
 		didRender() {
 			this._super(...arguments);
 
-			if (null === this.get('width')) {
+			if (this.get('width') === null) {
 				this.set('width', this.$().width());
 			}
 
