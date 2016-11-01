@@ -1,0 +1,18 @@
+.discussions {
+	.alert-notifications {
+		z-index: $z-8;
+
+		.discussions-action-failed {
+			background-color: $discussion-alert-notification-background-color;
+			border: 0;
+			color: $discussion-alert-notification-text-color;
+			font-size: $type-smallest;
+			font-weight: $font-weight-bold;
+			margin: 0 auto;
+			max-width: 1176px;
+			padding-bottom: 9px;
+			padding-top: 9px;
+			text-align: center;
+		}
+	}
+}

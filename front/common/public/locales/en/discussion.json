@@ -12,6 +12,7 @@
     "share-your-knowledge-text": "Share your favorite discussions with your social networks to bring more fans into the fold."
   },
   "main": {
+    "action-general-error": "Action failed, please try again.",
     "discussions-header-title": "Discussions",
     "pagination-post-show-more": "View Older Replies",
     "pagination-post-show-newer-replies": "View Newer Replies",
