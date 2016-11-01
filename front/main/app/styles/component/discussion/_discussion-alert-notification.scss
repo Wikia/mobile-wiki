@@ -10,7 +10,7 @@
 			font-size: $type-smallest;
 			font-weight: $font-weight-bold;
 			margin: 0 auto;
-			max-width: 1176px;
+			max-width: 1021px;
 			padding-bottom: 9px;
 			padding-top: 9px;
 			text-align: center;
@@ -25,6 +25,16 @@
 				&:hover {
 					opacity: 0.5;
 				}
+			}
+		}
+	}
+}
+
+@media #{$xxlarge-up} {
+	.discussions {
+		.alert-notifications {
+			.discussions-action-failed {
+				max-width: 1176px
 			}
 		}
 	}

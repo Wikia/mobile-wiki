@@ -207,7 +207,7 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 			this.addAlert({
 				message: i18n.t('main.action-general-error', {ns: 'discussion'}),
 				type: 'discussions-action-failed',
-				expiry: 3000
+				expiry: 30000000
 			});
 		});
 	},
