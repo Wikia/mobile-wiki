@@ -6,11 +6,11 @@ const {String} = Ember;
 export default Ember.Component.extend(
 	ViewportMixin,
 	{
+		arrowDirection: 'down',
 		/**
 		 * Arrow vertical offset from 'pointingTo' element
 		 */
 		arrowOffset: 3,
-		arrowDirection: 'down',
 		attributeBindings: ['style'],
 		classNameBindings: ['arrowDirection'],
 		classNames: ['discussion-tooltip-wrapper'],
@@ -32,7 +32,7 @@ export default Ember.Component.extend(
 		 * Property controlling whether tooltip was seen or not. Do not set 'wasSeen' property which is computed
 		 * based on local storage property.
 		 */
-		seen: false,
+		seenInCurrentSession: false,
 		shouldShow: false,
 		/**
 		 * Controls whether tooltip should appear once, and never again
@@ -76,7 +76,7 @@ export default Ember.Component.extend(
 		 */
 		attachObservers() {
 			if (this.get('shouldShowOnce') && !this.get('wasSeen')) {
-				this.addObserver('seen', this.onSeenChange);
+				this.addObserver('seenInCurrentSession', this.onSeenChange);
 				this.addObserver('viewportDimensions.width', this.onViewportChange);
 			}
 		},
@@ -85,7 +85,7 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		onSeenChange() {
-			if (this.get('seen')) {
+			if (this.get('seenInCurrentSession')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
 				this.removeObservers();
 			}
@@ -95,7 +95,7 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		removeObservers() {
-			this.removeObserver('seen', this.onSeenChange);
+			this.removeObserver('seenInCurrentSession', this.onSeenChange);
 			this.removeObserver('viewportDimensions.width', this.onViewportChange);
 		},
 
@@ -224,7 +224,7 @@ export default Ember.Component.extend(
 			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
 		}),
 
-		isVisible: Ember.computed('shouldShow', 'seen', 'wasSeen', function () {
+		isVisible: Ember.computed('shouldShow', 'seenInCurrentSession', 'wasSeen', function () {
 			const visible = Boolean(this.get('shouldShow')) && (this.get('shouldShowOnce') ? this.wasNotAlreadySeen() : true);
 
 			if (visible && this.get('visibleOnce')) {
@@ -234,7 +234,7 @@ export default Ember.Component.extend(
 		}),
 
 		wasNotAlreadySeen() {
-			return !this.get('seen') && !this.get('wasSeen');
+			return !this.get('seenInCurrentSession') && !this.get('wasSeen');
 		},
 
 		/**

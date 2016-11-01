@@ -5,10 +5,8 @@
 	<h3>{{i18n 'main.share-header' ns='discussion'}}</h3>
 	<section class="modal-dialog-content">
 		{{#each currentSocialNetworks as |currentSocialNetwork|}}
-			<a {{action 'share' currentSocialNetwork}} href="#">
-				<div class="social {{currentSocialNetwork}}">
-					{{svg (concat 'wds-icons-' currentSocialNetwork) class='icon'}}
-				</div>
+			<a {{action 'share' currentSocialNetwork}} href="#" class="social {{currentSocialNetwork}}">
+				{{svg (concat 'wds-icons-' currentSocialNetwork) class='icon'}}
 			</a>
 		{{/each}}
 	</section>

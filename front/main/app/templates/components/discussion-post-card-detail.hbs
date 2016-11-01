@@ -24,7 +24,7 @@
 					arrowDirection='right'
 					localStorageId='discussionShareTooltipSeen'
 					pointingTo='svg.icon.more-icon'
-					seen=shareTooltipSeen
+					seenInCurrentSession=shareTooltipSeen
 					shouldShow=post.isNew
 					shouldShowOnceInApplication=true
 					text=(i18n 'main.share-tooltip' ns='discussion')
@@ -108,6 +108,7 @@
 }}
 	{{discussion-share-dialog
 			close=(action close)
+			enableDiscussionTracker=true
 			sharedUrl=sharedUrl
 			show=shareDialogVisible
 	}}

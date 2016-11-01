@@ -86,9 +86,14 @@ export default Ember.Component.extend({
 		},
 
 		share(post) {
-			if (this.get('showShareDialog')) {
-				this.get('showShareDialog')();
+			const showShareDialog = this.get('showShareDialog');
+
+			track(trackActions.PostShare);
+
+			if (showShareDialog) {
+				showShareDialog();
 			}
+
 			this.get('popover').deactivate();
 		},
 
