@@ -6,17 +6,20 @@ const {String} = Ember;
 export default Ember.Component.extend(
 	ViewportMixin,
 	{
+		arrowDirection: 'down',
 		/**
 		 * Arrow vertical offset from 'pointingTo' element
 		 */
 		arrowOffset: 3,
 		attributeBindings: ['style'],
+		classNameBindings: ['arrowDirection'],
 		classNames: ['discussion-tooltip-wrapper'],
 		localStorageId: null,
 		/**
 		 * Css selector for parent element (that has position: relative).
+		 * If not set jQuery's offsetParent() method will be used.
 		 */
-		parent: '',
+		parent: null,
 		/**
 		 * Css selector for element that this tooltip will pointing to
 		 */
@@ -25,21 +28,40 @@ export default Ember.Component.extend(
 		 * Offset for right side, when tooltip would stick out from viewport
 		 */
 		rightOffset: 3,
-		show: false,
+		/**
+		 * Property controlling whether tooltip was seen or not. Do not set 'wasSeen' property which is computed
+		 * based on local storage property.
+		 */
+		seenInCurrentSession: false,
+		shouldShow: false,
 		/**
 		 * Controls whether tooltip should appear once, and never again
 		 * (when some action changing seen property occurred)
 		 */
-		showOnce: true,
+		shouldShowOnce: true,
+		/**
+		 * Controls whether tooltip should show once in whole application.
+		 * Even if there are multiple instances of this tooltip defined, if one will show, other will be invisible.
+		 */
+		shouldShowOnceInApplication: false,
 		/**
 		 * Default text, used by both desktop and mobile
 		 */
 		text: '',
+		/**
+		 * Controls whether tooltip should appear only once when isVisible changes to true and never again.
+		 */
+		visibleOnce: false,
 
 		// position
 		arrowMarginLeft: 0,
 		left: 0,
 		top: 0,
+		/**
+		 * Value used to preserve width when view port changes
+		 * @private
+		 */
+		width: null,
 
 		/**
 		 * @private
@@ -53,8 +75,8 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		attachObservers() {
-			if (this.get('showOnce') && !this.get('wasSeen')) {
-				this.addObserver('seen', this.onSeenChange);
+			if (this.get('shouldShowOnce') && !this.get('wasSeen')) {
+				this.addObserver('seenInCurrentSession', this.onSeenChange);
 				this.addObserver('viewportDimensions.width', this.onViewportChange);
 			}
 		},
@@ -63,9 +85,8 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		onSeenChange() {
-			if (this.get('seen')) {
+			if (this.get('seenInCurrentSession')) {
 				localStorageConnector.setItem(this.get('localStorageId'), true);
-				this.set('wasSeen', true);
 				this.removeObservers();
 			}
 		},
@@ -74,7 +95,7 @@ export default Ember.Component.extend(
 		 * @private
 		 */
 		removeObservers() {
-			this.removeObserver('seen', this.onSeenChange);
+			this.removeObserver('seenInCurrentSession', this.onSeenChange);
 			this.removeObserver('viewportDimensions.width', this.onViewportChange);
 		},
 
@@ -94,8 +115,13 @@ export default Ember.Component.extend(
 			});
 		},
 
-		didInsertElement() {
+		didRender() {
 			this._super(...arguments);
+
+			if (this.get('width') === null) {
+				this.set('width', this.$().width());
+			}
+
 			this.computePositionAfterRender();
 		},
 
@@ -107,27 +133,58 @@ export default Ember.Component.extend(
 		 */
 		computeTooltipPosition() {
 			if (this.get('isVisible')) {
-				const width = this.$().width(),
-					parentOffset = this.$().parents(this.get('parent')).offset(),
-					pointingToElement = this.$().parent().find(this.get('pointingTo')),
-					elementOffset = pointingToElement.offset(),
-					elementWidth = pointingToElement.width();
+				const direction = this.get('arrowDirection');
 
-				let arrowMarginLeft = 0,
-					left = (elementOffset.left - parentOffset.left) - (width / 2) + (elementWidth / 2),
-					top = (elementOffset.top - parentOffset.top) - this.$().height() - this.get('arrowOffset');
-
-				if (this.tooltipWillStickOutFromViewport(left + width)) {
-					let leftInViewport = window.innerWidth - width - this.get('rightOffset');
-
-					arrowMarginLeft = (left - leftInViewport) * 2;
-					left = leftInViewport;
+				if (direction === 'down') {
+					this.computeTooltipPositionWithArrowDown();
+				} else if (direction === 'right') {
+					this.computeTooltipPositionWithArrowRight();
 				}
-
-				this.set('top', top);
-				this.set('left', left);
-				this.set('arrowMarginLeft', arrowMarginLeft);
 			}
+		},
+
+		/**
+		 * @private
+		 */
+		computeTooltipPositionWithArrowDown() {
+			const width = this.get('width'),
+				parentOffset = this.offsetParent().offset(),
+				pointingToElement = this.pointingToElement(),
+				elementOffset = pointingToElement.offset(),
+				elementWidth = pointingToElement.width();
+
+			let arrowMarginLeft = 0,
+				top = elementOffset.top - parentOffset.top - this.$().height() - this.get('arrowOffset'),
+				left = elementOffset.left - parentOffset.left - (width / 2) + (elementWidth / 2);
+
+			if (this.tooltipWillStickOutFromViewport(left + width)) {
+				let leftInViewport = window.innerWidth - width - this.get('rightOffset');
+
+				arrowMarginLeft = (left - leftInViewport) * 2;
+				left = leftInViewport;
+			}
+
+			this.setProperties({
+				top,
+				left,
+				arrowMarginLeft
+			});
+		},
+
+		/**
+		 * @private
+		 * @returns {offset}
+		 */
+		offsetParent() {
+			return this.get('parent') ? this.$().parents(this.get('parent')) : this.$().offsetParent();
+		},
+
+		/**
+		 * @private
+		 * @returns {element}
+		 */
+		pointingToElement() {
+			return this.offsetParent().find(this.get('pointingTo'));
 		},
 
 		/**
@@ -138,6 +195,27 @@ export default Ember.Component.extend(
 			return window.innerWidth < elementRightCorner;
 		},
 
+		/**
+		 * @private
+		 */
+		computeTooltipPositionWithArrowRight() {
+			const height = this.$().height(),
+				width = this.get('width'),
+				parentOffset = this.offsetParent().offset(),
+				pointingToElement = this.pointingToElement(),
+				elementOffset = pointingToElement.offset(),
+				elementHeight = pointingToElement.height();
+
+			let top = elementOffset.top - parentOffset.top - (height / 2) + (elementHeight / 2),
+				left = elementOffset.left - parentOffset.left - width - this.get('arrowOffset');
+
+			this.setProperties({
+				top,
+				left,
+				arrowMarginLeft: 0
+			});
+		},
+
 		style: Ember.computed('top', 'left', function () {
 			return String.htmlSafe(`top: ${this.get('top')}px; left: ${this.get('left')}px;`);
 		}),
@@ -146,10 +224,23 @@ export default Ember.Component.extend(
 			return String.htmlSafe(`margin-left: ${this.get('arrowMarginLeft')}px;`);
 		}),
 
-		isVisible: Ember.computed('show', 'showOnce', 'wasSeen', function () {
-			return Boolean(this.get('show')) && (this.get('showOnce') ? !this.get('wasSeen') : true);
+		isVisible: Ember.computed('shouldShow', 'seenInCurrentSession', 'wasSeen', function () {
+			const visible = Boolean(this.get('shouldShow')) && (this.get('shouldShowOnce') ? this.wasNotAlreadySeen() : true);
+
+			if (visible && this.get('visibleOnce')) {
+				localStorageConnector.setItem(this.get('localStorageId'), true);
+			}
+			return visible;
 		}),
 
+		wasNotAlreadySeen() {
+			return !this.get('seenInCurrentSession') && !this.get('wasSeen');
+		},
+
+		/**
+		 * Checks if tooltip was already seen using local storage.
+		 * @returns {boolean}
+		 */
 		wasSeen: Ember.computed('localStorageId', function () {
 			return Boolean(localStorageConnector.getItem(this.get('localStorageId')));
 		})

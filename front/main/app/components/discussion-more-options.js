@@ -14,8 +14,8 @@ export default Ember.Component.extend({
 
 	canEdit: Ember.computed('post.userData.permissions.canEdit', 'post.userData.permissions.canMove',
 		'post.isRequesterBlocked', function () {
-			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove')) &&
-				!this.get('post.isRequesterBlocked');
+			return (this.get('post.userData.permissions.canEdit') || this.get('post.userData.permissions.canMove'))
+				&& !this.get('post.isRequesterBlocked');
 		}
 	),
 
@@ -23,14 +23,18 @@ export default Ember.Component.extend({
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', 'post.isDeleted', function () {
-		return !this.get('post.userData.hasReported') &&
-			this.get('currentUser.isAuthenticated') &&
-			!this.get('post.isDeleted');
-	}),
 
 	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
 		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
+	}),
+
+	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', 'post.isDeleted', function () {
+		return !this.get('post.userData.hasReported') &&
+			this.get('currentUser.isAuthenticated') && !this.get('post.isDeleted');
+	}),
+
+	canShare: Ember.computed('isShareable', 'post.isDeleted', function () {
+		return this.get('isShareable') && !this.get('post.isDeleted');
 	}),
 
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
@@ -43,6 +47,16 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
+		/**
+		 * @param {Object} post
+		 *
+		 * @returns {void}
+		 */
+		delete(post) {
+			this.get('delete')(post);
+			this.get('popover').deactivate();
+		},
+
 		edit(post) {
 			this.sendAction('openEditEditor', post);
 
@@ -65,19 +79,21 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		unlock(post) {
-			this.get('unlock')(post);
-			track(trackActions.PostUnlock);
+		report(post) {
+			this.get('report')(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 
-		/**
-		 * @param {Object} post
-		 *
-		 * @returns {void}
-		 */
-		delete(post) {
-			this.get('delete')(post);
+		share(post) {
+			const showShareDialog = this.get('showShareDialog');
+
+			track(trackActions.PostShare);
+
+			if (showShareDialog) {
+				showShareDialog();
+			}
+
 			this.get('popover').deactivate();
 		},
 
@@ -96,9 +112,9 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		report(post) {
-			this.get('report')(post);
-			track(trackActions.Report);
+		unlock(post) {
+			this.get('unlock')(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 	}

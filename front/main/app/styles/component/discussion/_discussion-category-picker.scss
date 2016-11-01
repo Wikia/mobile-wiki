@@ -13,6 +13,8 @@
 	}
 
 	.discussion-category-select-tooltip-wrapper {
+		flex-direction: column;
+
 		&.discussion-tooltip-wrapper {
 			left: 44px;
 			top: 16px;

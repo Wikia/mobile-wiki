@@ -12,6 +12,7 @@ export default DiscussionBaseController.extend(
 	DiscussionIntroducingFollowingMixin,
 	ResponsiveMixin,
 	{
+		areGuidelinesVisible: false,
 		catId: null,
 		queryParams: ['sort', 'catId'],
 
@@ -21,10 +22,12 @@ export default DiscussionBaseController.extend(
 			},
 
 			createPost(entityData, forumId) {
+				this.hideShareTooltip();
+
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
 					this.createPost(entityData, forumId);
 				});
-			},
+			}
 		}
-	},
+	}
 );
