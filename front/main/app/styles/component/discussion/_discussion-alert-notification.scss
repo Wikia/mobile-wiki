@@ -1,6 +1,6 @@
 .discussions {
 	.alert-notifications {
-		z-index: $z-8;
+		z-index: $z-discussion-editor; // must appear at the top of reply editor
 
 		.discussions-action-failed {
 			background-color: $discussion-alert-notification-background-color;
