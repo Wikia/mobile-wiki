@@ -2,6 +2,8 @@
 
 	header {
 		align-items: center;
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
 		display: flex;
 		height: 84px;
 		justify-content: center;
@@ -14,10 +16,11 @@
 	}
 
 	section {
+		color: $discussion-introducing-following-text-color;
 		font-size: $type-smallest;
 		line-height: 20px;
-		margin: 30px auto;
-		padding: 0 34px;
+		margin: 24px auto;
+		padding: 0 24px;
 		text-align: center;
 
 		h6 {
@@ -29,6 +32,7 @@
 	.find-posts-button {
 		@extend %discussion-large-button;
 		display: block;
+		line-height: 44px;
 		margin: 24px auto 0;
 		max-width: 187px;
 	}
@@ -41,6 +45,7 @@
 	padding: 20px;
 
 	.modal-dialog {
+		border-radius: 2px;
 		max-width: 360px;
 		padding: 0;
 	}
