@@ -1,13 +1,13 @@
 <li>
 	{{#link-to 'discussion.user' post.createdBy.id}}
-		{{svg 'empty-eye' viewBox='0 0 16 12' class='icon eye'}}
+		{{svg 'wds-icons-eye-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 		{{i18n 'main.all-posts-by-username' userName=post.createdBy.name ns='discussion'}}
 	{{/link-to}}
 </li>
 {{#if canShare}}
 	<li>
 		<a class="share-link" {{action 'share' post}} >
-			{{svg 'share' viewBox='0 0 18 18' class='icon share'}}
+			{{svg 'wds-icons-share-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 			{{i18n 'main.share-header' ns='discussion'}}
 		</a>
 	</li>
@@ -15,7 +15,7 @@
 {{#if canEdit}}
 	<li>
 		<a class="edit-link" {{action 'edit' post}}>
-			{{svg 'pencil' viewBox='0 0 18 18' class='icon edit'}}
+			{{svg 'wds-icons-pencil-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 			{{editMessage}}
 		</a>
 	</li>
@@ -23,7 +23,7 @@
 {{#if canReport}}
 	<li>
 		<a class="report-link" {{action 'report' post}}>
-			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
+			{{svg 'wds-icons-alert-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 			{{reportMessage}}
 		</a>
 	</li>
@@ -31,7 +31,7 @@
 {{#if canLock}}
 	<li>
 		<a class="report-link" {{action 'lock' post}}>
-			{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
+			{{svg 'wds-icons-lock-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 			{{lockMessage}}
 		</a>
 	</li>
@@ -39,7 +39,7 @@
 {{#if canUnlock}}
 	<li>
 		<a class="report-link" {{action 'unlock' post}}>
-			{{svg 'unlock' viewBox='0 0 18 18' class='icon unlock'}}
+			{{svg 'wds-icons-unlock-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 			{{unlockMessage}}
 		</a>
 	</li>
@@ -48,13 +48,13 @@
 	<li>
 		{{#if canUndelete}}
 			<a class="undelete-link" {{action 'undelete' post}}>
-				{{svg 'undelete' viewBox='0 0 16 19' class='icon undelete'}}
+				{{svg 'wds-icons-trash-open-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 				<span>{{undeleteMessage}}</span>
 			</a>
 		{{/if}}
 		{{#if canDelete}}
 			<a class="delete-link" {{action 'delete' post}}>
-				{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+				{{svg 'wds-icons-trash-small' viewBox='0 0 18 18' class='wds-icon-small'}}
 				<span>{{deleteMessage}}</span>
 			</a>
 		{{/if}}
