@@ -27,8 +27,6 @@ ImageReviewModel.reopenClass({
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
 				return ImageReviewModel.createEmptyModelWithPermission(status);
-			} else if (jqXHR.status === 404) {
-				return ImageReviewModel.createEmptyModelWithPermission(status);
 			} else {
 				return ImageReviewModel.getImagesAndPermission(payload.id, status);
 			}
