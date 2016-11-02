@@ -27,7 +27,7 @@ ImageReviewModel.reopenClass({
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
 				return ImageReviewModel.createEmptyModelWithPermission(status);
-			} else if (jqXHR.status == 404) {
+			} else if (jqXHR.status === 404) {
 				return ImageReviewModel.createEmptyModelWithPermission(status);
 			} else {
 				return ImageReviewModel.getImagesAndPermission(payload.id, status);
@@ -70,18 +70,18 @@ ImageReviewModel.reopenClass({
 	},
 
 	reviewImages(images, batchId) {
-			const imageList = images.map((item) => {
-				return {
-					imageId: item.imageId,
-					imageStatus:item.status.toUpperCase()
-				};
-			});
+		const imageList = images.map((item) => {
+			return {
+				imageId: item.imageId,
+				imageStatus: item.status.toUpperCase()
+			};
+		});
 
-			return request(M.getImageReviewServiceUrl(`/batch/${batchId}/`), {
-				method: 'POST',
-				dataType: 'text', //this is a dirty workaround
-				data: JSON.stringify({images: imageList})
-			});
+		return request(M.getImageReviewServiceUrl(`/batch/${batchId}/`), {
+			method: 'POST',
+			dataType: 'text', // this is a dirty workaround
+			data: JSON.stringify({images: imageList})
+		});
 	},
 
 	getImagesAndPermission(batchId, status) {

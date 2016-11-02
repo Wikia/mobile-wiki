@@ -110,12 +110,12 @@ Router.map(function () {
 	});
 
 
-	this.route('image-review', function() {
+	this.route('image-review', function () {
 		this.route('index', {
 			path: '/'
 		});
 		this.route('summary', {
-			path:'/summary'
+			path: '/summary'
 		});
 	});
 

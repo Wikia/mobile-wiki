@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import moment from 'moment';
 
 
 const ImageReviewSummaryModel = Ember.Object.extend({
