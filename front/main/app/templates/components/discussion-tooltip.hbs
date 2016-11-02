@@ -1,4 +1,6 @@
-<div class="discussion-tooltip active-element-background-color">
-	{{text}}
-</div>
-<div class="arrow arrow-down active-element-border-theme-color" style={{arrowStyle}}></div>
+{{#if isVisible}}
+	<div class="discussion-tooltip active-element-background-color">
+		{{text}}
+	</div>
+	<div class="arrow arrow-{{arrowDirection}} active-element-border-theme-color" style={{arrowStyle}}></div>
+{{/if}}

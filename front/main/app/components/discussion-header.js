@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	HeadroomMixin,
@@ -31,5 +32,11 @@ export default Ember.Component.extend(
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
+
+		actions: {
+			clickMobileHeaderWikiName() {
+				track(trackActions.MobileHeaderCommunityNameClicked);
+			}
+		}
 	}
 );

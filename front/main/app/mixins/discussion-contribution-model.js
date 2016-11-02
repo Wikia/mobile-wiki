@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import {track, trackActions} from '../utils/discussion-tracker';
+import AlertNotificationsMixin from './alert-notifications';
 import DiscussionPost from '../models/discussion/domain/post';
 import DiscussionReply from '../models/discussion/domain/reply';
 import OpenGraph from '../models/discussion/domain/open-graph';
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(AlertNotificationsMixin, {
 	/**
 	 * Create new post in Discussion Service
 	 * @param {Object} postData
@@ -203,6 +204,11 @@ export default Ember.Mixin.create({
 			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
 		}).catch(() => {
 			entity.set('isFollowing', isFollowing);
+			this.addAlert({
+				message: i18n.t('main.action-general-error', {ns: 'discussion'}),
+				type: 'discussions-action-failed',
+				expiry: 3000
+			});
 		});
 	},
 

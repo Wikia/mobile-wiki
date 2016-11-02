@@ -1,5 +1,8 @@
+import Ember from 'ember';
 import DiscussionStickyComponentMixin from '../mixins/discussion-sticky-component';
 import DiscussionInlineEditor from './discussion-inline-editor';
+
+const {$, observer, run} = Ember;
 
 export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
@@ -7,8 +10,8 @@ export default DiscussionInlineEditor.extend(
 		classNames: ['discussion-inline-reply-editor'],
 		containerSelector: '.discussion-inline-editor-floating-container',
 
-		onIsActiveReply: Ember.observer('isActive', function () {
-			Ember.run.scheduleOnce('afterRender', this, function () {
+		onIsActiveReply: observer('isActive', function () {
+			run.scheduleOnce('afterRender', this, function () {
 				this.toggleStickyState();
 			});
 		}),
@@ -17,7 +20,11 @@ export default DiscussionInlineEditor.extend(
 		 * @returns {void}
 		 */
 		scrollAfterEntityAdded() {
-			Ember.$('html, body').animate({scrollTop: window.document.body.scrollHeight});
+			// Scroll to the end of the page while keeping the Global Footer below the fold
+			const scrollTop = window.document.body.scrollHeight -
+				(window.innerHeight + $('.wds-global-footer').outerHeight(true));
+
+			$('html, body').animate({scrollTop});
 		},
 	}
 );

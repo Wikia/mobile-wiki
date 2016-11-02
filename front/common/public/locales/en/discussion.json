@@ -12,6 +12,7 @@
     "share-your-knowledge-text": "Share your favorite discussions with your social networks to bring more fans into the fold."
   },
   "main": {
+    "action-general-error": "Action failed, please try again.",
     "discussions-header-title": "Discussions",
     "pagination-post-show-more": "View Older Replies",
     "pagination-post-show-newer-replies": "View Newer Replies",
@@ -92,10 +93,14 @@
     "reply-label": "Reply",
     "share-header": "Share Post",
     "share-label": "Share",
+    "share-tooltip": "Share your new post here",
     "follow-error-anon-cant-follow": "Sign in to start following the discussion!",
     "follow-error-anon-cant-see-followed-posts": "Sign in to see your followed posts.",
     "follow-label": "Follow",
     "follow-tooltip": "Add to your following list",
+    "follow-introducing-header": "Introducing Following!",
+    "follow-introducing-text": "Stay connected to the discussions that matter most to you. Follow a discussion to receive notifications of new activity and never miss out on the conversation, again.",
+    "follow-introducing-button-label": "OK, got it",
     "reported-not-found-error": "There are no reported posts or replies.",
     "categories-header": "Categories",
     "categories-edit-label": "Edit",

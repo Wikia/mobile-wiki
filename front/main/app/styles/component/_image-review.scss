@@ -3,7 +3,6 @@
 	width: 90%;
 }
 
-
 .image-review-text {
 	padding: 1em;
 	display: block;
@@ -12,6 +11,12 @@
 		margin: 0.5em 0;
 	}
 }
+
+.image-review-summary-dialog {
+	margin: 0.5em 0;
+	padding-left: 2em;
+}
+
 
 .image-review-image-container {
 	padding: 5px;
@@ -23,10 +28,13 @@
 
 .image-review-button-group {
 	text-align: center;
+	margin-left: 0;
+	width: 100%;
+
 	button {
-		margin: 5px 0 auto 0;
+		margin: 5px 0 0 0;
 		padding: 0;
-		width: 30%;
+		width: 27%;
 	}
 
 	button:hover {
@@ -36,6 +44,11 @@
 
 	.highlighted {
 		background-color: #092140;
+	}
+
+	.button-link {
+		display: inline-block;
+		width: 10%;
 	}
 }
 
@@ -73,14 +86,174 @@
 	margin: 0 auto;
 	position: relative;
 
-	.image-review-modal-history {
-		td {
-			padding: 5px;
-			border: 1px solid;
+	p {
+		margin: 8px;
+	}
+}
+
+.image-review-modal-history {
+	td {
+		padding: 5px;
+		border: 1px solid;
+	}
+}
+
+
+.image-review-date-input {
+	display: inline-block;
+	width: auto;
+	border-bottom: 1px solid #C5CED9;
+
+	input[type="text"],
+	input[type="text"]:focus {
+		display: inline-block;
+		width: 100px;
+		margin: 0;
+		border-bottom-style: hidden;
+		transition: none;
+		box-shadow: none;
+		text-align: end;
+		padding-right: 1em;
+		font-weight: bold;
+	}
+}
+
+.image-review-date-picker.pika-single {
+	z-index: 9999;
+	display: block;
+	position: relative;
+	color: black;
+	background: white;
+
+	&.is-hidden {
+		display: none;
+	}
+
+	&.is-bound {
+		position: absolute;
+		box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .5);
+	}
+}
+
+.image-review-date-picker {
+	.pika-lendar {
+		float: left;
+		width: 240px;
+		margin: 8px;
+	}
+
+	.pika-title {
+		position: relative;
+		text-align: center;
+
+		select {
+			cursor: pointer;
+			position: absolute;
+			z-index: 9998;
+			margin: 0;
+			left: 0;
+			top: 5px;
+			color: black;
+			filter: alpha(opacity=0);
+			opacity: 0;
 		}
 	}
 
-	p {
-		margin: 8px;
+	.pika-label {
+		display: inline-block;
+		*display: inline;
+		position: relative;
+		z-index: 9999;
+		overflow: hidden;
+		margin: 0;
+		padding: 5px 3px;
+		font-size: 14px;
+		line-height: 20px;
+		font-weight: bold;
+	}
+
+	.pika-prev,
+	.pika-next {
+		display: block;
+		cursor: pointer;
+		position: relative;
+		outline: none;
+		border: 0;
+		padding: 0;
+		width: 20px;
+		height: 30px;
+		text-indent: 20px;
+		white-space: nowrap;
+		overflow: hidden;
+		background: transparent no-repeat center center;
+		background-size: 75% 75%;
+		opacity: .5;
+		*position: absolute;
+		*top: 0;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.pika-prev,
+	.is-rtl .pika-next {
+		float: left;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
+		*left: 0;
+	}
+
+	.pika-next,
+	.is-rtl .pika-prev {
+		float: right;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
+		*right: 0;
+	}
+
+	.pika-select {
+		display: inline-block;
+	}
+
+	.pika-table {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		border: 0;
+
+		th,
+		td {
+			width: 100%/7;
+			padding: 0;
+		}
+
+		th {
+			color: #999;
+			font-size: 12px;
+			line-height: 25px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		abbr {
+			border-bottom: none;
+		}
+	}
+
+	.pika-button {
+		cursor: pointer;
+		display: block;
+		box-sizing: border-box;
+		outline: none;
+		margin: 0;
+		width: 100%;
+		padding: 5px;
+		font-size: 12px;
+		line-height: 15px;
+		text-align: center;
+
+		&:hover {
+			color: white;
+			background: #1520a3;
+		}
 	}
 }

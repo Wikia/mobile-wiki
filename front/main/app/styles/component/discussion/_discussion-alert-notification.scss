@@ -1,0 +1,43 @@
+.discussions {
+	.alert-notifications {
+		bottom: 6px;
+		z-index: $z-discussion-editor; // must appear at the top of reply editor
+
+		.discussions-action-failed {
+			background-color: $discussion-alert-notification-background-color;
+			border: 0;
+			color: $discussion-alert-notification-text-color;
+			font-size: $type-smallest;
+			font-weight: $font-weight-bold;
+			margin: 0 auto;
+			max-width: 1021px;
+			padding-bottom: 9px;
+			padding-top: 9px;
+			text-align: center;
+			width: calc(100% - 12px);
+
+			.close {
+				color: $discussion-alert-notification-text-color;
+				left: 0.25rem;
+				opacity: 1;
+				right: initial;
+
+				&:focus,
+				&:hover {
+					opacity: 0.5;
+				}
+			}
+		}
+	}
+}
+
+@media #{$xxlarge-up} {
+	.discussions {
+		.alert-notifications {
+			.discussions-action-failed {
+				max-width: 1176px;
+				width: 100%;
+			}
+		}
+	}
+}

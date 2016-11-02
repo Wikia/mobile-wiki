@@ -11,7 +11,6 @@ $post-title-line-height: 1.5rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
-$post-details-post-vertical-padding: 12px;
 $post-details-post-width: 560px;
 $post-details-reply-upvote-margin-left: 10px;
 $post-details-reply-upvote-width: 12px;
@@ -73,9 +72,11 @@ body.discussions {
 
 	&.eye {
 		height: 12px;
+		margin-right: 2px;
 		width: 16px;
 	}
 
+	&.share,
 	&.report,
 	&.lock,
 	&.unlock {
@@ -354,7 +355,9 @@ body.discussions {
 		position: relative;
 
 		&.show-top-note {
-			padding-top: 0;
+			.post-header {
+				padding-top: 0;
+			}
 		}
 
 		&.is-new {
@@ -556,7 +559,11 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		padding: 12px 0 0;
+		padding: 0;
+
+		.post-header {
+			padding-top: 12px;
+		}
 
 		.timestamp {
 			font-size: $type-smallest;
@@ -728,10 +735,16 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				padding: 20px 0 0;
+				padding: 0;
+
+				.post-header {
+					padding-top: 20px;
+				}
 
 				&.show-top-note {
-					padding-top: 0;
+					.post-header {
+						padding-top: 0;
+					}
 				}
 			}
 		}
@@ -746,16 +759,13 @@ body.discussions {
 				background-color: transparent;
 				border-bottom: 1px solid $discussion-reply-border-color;
 				margin: auto;
-				padding: {
-					bottom: 0;
-					left: 0;
-					right: 0;
-					top: $post-details-post-vertical-padding;
-				}
+				padding: 0;
 				width: $post-details-outer-width;
 
 				&.show-top-note {
-					padding-top: 0;
+					.post-header {
+						padding-top: 0;
+					}
 				}
 
 				.side-spaced {

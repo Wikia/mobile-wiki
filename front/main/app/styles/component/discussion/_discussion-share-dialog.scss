@@ -1,0 +1,64 @@
+.discussion-share-dialog {
+	justify-content: center;
+	left: 0;
+
+	.modal-dialog {
+		max-width: 280px;
+
+		h3 {
+			font-size: $type-smaller;
+			margin-bottom: 0;
+			text-align: center;
+		}
+
+		.modal-dialog-content {
+			align-content: center;
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 34px;
+			padding-top: 10px;
+		}
+	}
+
+	.icon-close-active-area {
+		display: block;
+		height: 24px;
+		margin-left: 3px;
+		margin-top: 3px;
+		text-align: center;
+		width: 24px;
+
+		.icon-close {
+			fill: $discussion-actions-color;
+			height: 8px;
+			width: 8px;
+		}
+	}
+
+	.modal-dialog-content {
+		.social {
+			background-image: none;
+			height: 45px;
+			text-align: center;
+			width: 45px;
+
+			@each $social-network, $color in $discussion-social-networks {
+				&.#{$social-network} {
+					background-color: $color;
+
+					&:hover {
+						background-color: mix(black, $color, 20%);
+					}
+				}
+			}
+
+			.icon {
+				fill: $discussion-share-icon-fill-color;
+				height: 20px;
+				margin-left: 0;
+				margin-top: 12px;
+				width: 20px;
+			}
+		}
+	}
+}
