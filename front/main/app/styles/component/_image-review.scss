@@ -14,7 +14,9 @@
 
 .image-review-summary-dialog {
 	margin: 0.5em 0;
+	padding-left: 2em;
 }
+
 
 .image-review-image-container {
 	padding: 5px;
@@ -88,9 +90,24 @@
 	}
 }
 
+
 .image-review-date-input {
 	display: inline-block;
-	width: 30%;
+	width: auto;
+	border-bottom: 1px solid #C5CED9;
+
+	input[type="text"],
+	input[type="text"]:focus {
+		display: inline-block;
+		width: 100px;
+		margin: 0;
+		border-bottom-style: hidden;
+		transition: none;
+		box-shadow: none;
+		text-align: end;
+		padding-right: 1em;
+		font-weight: bold;
+	}
 }
 
 .image-review-date-picker.pika-single {

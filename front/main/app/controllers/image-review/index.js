@@ -19,16 +19,8 @@ export default Ember.Controller.extend({
 			this.get('target').send('openMainPage');
 		},
 
-		toggleSummary() {
-			this.get('target').send('toggleSummary');
-		},
-
-		setStartDate(startDate) {
-			this.get('target').send('setStartDate', startDate);
-		},
-
-		setEndDate(endDate) {
-			this.get('target').send('setEndDate', endDate);
+		openSummary() {
+			this.get('target').send('openSummary');
 		}
 	}
 });

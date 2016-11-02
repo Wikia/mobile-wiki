@@ -167,6 +167,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/image-review/summary',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/diff/{revisions*}',
 			handler: showApplication,
 			config: {

@@ -1,6 +1,11 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
 		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		{{#if model.userCanAuditReviews}}
+			<button {{action this.attrs.openSummary}} class="sub-head--done">
+				Show summary
+			</button>
+		{{/if}}
 		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
 			{{i18n 'main.review-and-get-more' ns='image-review'}}
 		</button>
@@ -11,20 +16,6 @@
 {{/if}}
 
 <div class="image-review-content">
-	{{#if model.userCanAuditReviews}}
-		<div class="image-review-summary-dialog">
-			<label class="image-review-date-input">
-				From: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setStartDate)}}
-			</label>
-			<label class="image-review-date-input">
-				To: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setEndDate)}}
-			</label>
-			<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Show statistics</button>
-			{{#if model.summaryModel}}
-				{{image-review-summary data=model.summaryModel}}
-			{{/if}}
-		</div>
-	{{/if}}
 	{{#if model.images}}
 		<div class="image-review-text">
 			<p>{{i18n 'main.description' ns='image-review'}}</p>
