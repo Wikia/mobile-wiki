@@ -23,6 +23,10 @@ export default Ember.Route.extend(
 			this._super(model, data);
 		},
 
+		trackDiscussionsPageView(params = {}) {
+			track(trackActions.PageView, params);
+		},
+
 		actions: {
 			/**
 			 * Transition to Guidelines
@@ -45,9 +49,11 @@ export default Ember.Route.extend(
 			didTransition() {
 				this.controllerFor('application').set('noMargins', true);
 
+				//Standard Mercury pageview tracking
 				trackPageView();
+
 				// Separate pageview tracking for Discussions
-				track(trackActions.PageView);
+				this.trackDiscussionsPageView();
 
 				return true;
 			},
