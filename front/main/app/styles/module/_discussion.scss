@@ -672,7 +672,6 @@ body.discussions {
 		.clamp {
 			@include clamp(3);
 
-
 			a {
 				color: $discussion-content-color;
 			}
@@ -862,6 +861,14 @@ body.discussions {
 		.side-spaced {
 			padding-left: 18px;
 			padding-right: 18px;
+		}
+	}
+}
+
+@media #{$large-desktop-range} {
+	.discussion {
+		&.forum {
+			width: $discussion-large-page-width;
 		}
 	}
 }
