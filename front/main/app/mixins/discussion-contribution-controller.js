@@ -136,7 +136,8 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	rejectFollowedPostsAnon() {
-		const redirectUrl = `${window.location.origin} ${this.get('target.router').generate('discussion.follow')}`;
+		const redirectUrl = `${window.location.origin}${this.get('target.router').generate('discussion.follow')}`;
+
 		this.openDialog({
 			message: i18n.t('main.follow-error-anon-cant-see-followed-posts', {ns: 'discussion'}),
 			redirectUrl
