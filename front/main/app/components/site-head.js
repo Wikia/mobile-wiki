@@ -25,7 +25,13 @@ export default Component.extend(
 			}
 		},
 
-		wikiaHomepage: M.prop('globalNavigation.logo.header.href') || 'http://fandom.wikia.com',
+		wikiaHomepage: M.prop('globalNavigation.logo.module.main.href') || 'http://fandom.wikia.com',
+
+		displayFandomBar: computed('isSearchPage', function () {
+			return Boolean(M.prop('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
+		}),
+
+		svgName: M.prop('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';

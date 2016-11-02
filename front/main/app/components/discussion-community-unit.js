@@ -50,6 +50,8 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	wikiHomeLink: window.location.origin,
+
 	actions: {
 
 		/**
@@ -59,5 +61,9 @@ export default Ember.Component.extend({
 		openGuidelines() {
 			track(trackActions.GuidelinesLinkTapped);
 		},
+
+		clickWikiaHomeLink() {
+			track(trackActions.WikiHomeLinkClicked);
+		}
 	}
 });

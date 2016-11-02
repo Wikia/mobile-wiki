@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import imageReviewItemModel from '../models/image-review-item';
+import ImageReviewItemModel from '../models/image-review-item';
 
 export default Ember.Component.extend({
 	classNames: ['image-review'],
@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 
 	actions: {
 		showModal(popupModel) {
-			imageReviewItemModel.getImageContext(popupModel.imageId).then((data) => {
+			ImageReviewItemModel.getImageContext(popupModel.imageId).then((data) => {
 				popupModel.data = data;
 				popupModel.isContextProvided = Boolean(data.context);
 				popupModel.isContextLink = new RegExp('(http|https)?:\/\/[^\s]+').test(data.context);

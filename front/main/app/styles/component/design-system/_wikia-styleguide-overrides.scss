@@ -3,13 +3,13 @@
 	margin-bottom: 0;
 
 	&:disabled {
-		background-color: $color-link;
-		border-color: $color-link;
-		color: $color-white;
+		background-color: $wds-color-link;
+		border-color: $wds-color-link;
+		color: $wds-color-white;
 	}
 
 	&:focus,
 	&:hover {
-		color: $color-white;
+		color: $wds-color-white;
 	}
 }

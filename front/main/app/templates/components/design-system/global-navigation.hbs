@@ -1,10 +1,11 @@
-<div id="globalNavigation" class="wds-global-navigation {{if isGlobalNavigationPositionFixed 'is-fixed'}} {{if searchIsActive 'wds-search-is-active'}}">
+<div id="globalNavigation" class="wds-global-navigation{{if isGlobalNavigationPositionFixed ' is-fixed'}}{{if searchIsActive ' wds-search-is-active'}}{{unless model.fandom_overview ' wds-search-is-always-visible'}}">
 	<div class="wds-global-navigation__content-bar">
-		{{#if model.logo.header}}
-			<a href="{{model.logo.header.href}}" class="wds-global-navigation__logo" {{action 'trackClick' model.logo.header.tracking_label preventDefault=false}}>
-				{{svg model.logo.header.image class='wds-global-navigation__logo-fandom'}}
-			</a>
-		{{/if}}
+		<a href="{{model.logo.module.main.href}}" class="wds-global-navigation__logo"  {{action 'trackClick' model.logo.module.main.tracking_label preventDefault=false}}>
+			{{svg model.logo.module.main.image-data.name class=(concat 'wds-global-navigation__logo-image wds-is-' model.logo.module.main.image-data.name)}}
+			{{#if model.logo.module.tagline}}
+				{{svg model.logo.module.tagline.image-data.name class=(concat 'wds-global-navigation__logo-image wds-is-' model.logo.module.tagline.image-data.name)}}
+			{{/if}}
+		</a>
 		<div class="wds-global-navigation__links-and-search">
 			{{#each model.fandom_overview.links as |link|}}
 				{{design-system.global-navigation-link-branded
@@ -49,4 +50,11 @@
 			</a>
 		</div>
 	</div>
+	{{#if model.partner_slot}}
+		<div class="wds-global-navigation__partner-slot">
+			<a href="{{model.partner_slot.href}}" class="wds-global-navigation__partner-slot-link" {{action 'trackClick' model.partner_slot.tracking_label preventDefault=false}}>
+				<img src="{{model.partner_slot.image-data.url}}" class="wds-global-navigation__partner-slot-image" alt="{{model.partner_slot.title.value}}"/>
+			</a>
+		</div>
+	{{/if}}
 </div>

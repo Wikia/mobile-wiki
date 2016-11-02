@@ -74,5 +74,15 @@ export default Ember.Component.extend(
 					this.setImageBackground(this.get('heroImage.value'));
 				}
 			}
-		})
+		}),
+
+		actions: {
+			clickDiscussionsHeaderText() {
+				track(trackActions.DiscussionsHeaderTextClicked);
+			},
+
+			clickDiscussionsHeaderPostcount() {
+				track(trackActions.DiscussionsHeaderPostcountClicked);
+			}
+		}
 	});
