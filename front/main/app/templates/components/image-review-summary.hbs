@@ -11,11 +11,15 @@
 	<div class="image-review-summary-dialog">
 		<label class="image-review-date-input">
 			From:
-			{{pikaday-input value=model.now theme="image-review-date-picker" onSelection=(action this.attrs.setStartDate)}}📅
+			{{pikaday-input value=model.startDate
+				theme="image-review-date-picker"
+				onSelection=(action this.attrs.setStartDate)}}📅
 		</label>
 		<label class="image-review-date-input">
 			To:
-			{{pikaday-input value=model.now theme="image-review-date-picker" onSelection=(action this.attrs.setEndDate)}}📅
+			{{pikaday-input value=model.endDate
+				theme="image-review-date-picker"
+				onSelection=(action this.attrs.setEndDate)}}📅
 		</label>
 		<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Show statistics</button>
 		<button {{action this.attrs.downloadCSV}}>Download as CSV</button>

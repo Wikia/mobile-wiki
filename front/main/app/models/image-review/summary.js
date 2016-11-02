@@ -40,7 +40,8 @@ ImageReviewSummaryModel.reopenClass({
 		}).then((payload) => {
 			return ImageReviewSummaryModel.create({
 				userCanAuditReviews: payload.userAllowedToAuditReviews,
-				now: new Date()
+				startDate: new Date(),
+				endDate: new Date()
 			});
 		});
 	}
