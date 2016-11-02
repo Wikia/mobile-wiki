@@ -70,13 +70,6 @@ body.discussions {
 		width: 16px;
 	}
 
-	&.eye {
-		height: 12px;
-		margin-right: 2px;
-		width: 16px;
-	}
-
-	&.share,
 	&.report,
 	&.lock,
 	&.unlock {
@@ -545,8 +538,9 @@ body.discussions {
 			padding: 13px 0;
 		}
 
-		span {
-			margin-left: 2px;
+		svg {
+			fill: $discussion-actions-color;
+			margin-right: 3px;
 			vertical-align: middle;
 		}
 	}
