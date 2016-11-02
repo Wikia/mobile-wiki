@@ -33,12 +33,6 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	endSession(batchId) {
-		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}), {
-			method: 'DELETE',
-		});
-	},
-
 	getImages(batchId) {
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
 	},

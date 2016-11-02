@@ -85,9 +85,10 @@ export default Route.extend({
 		},
 
 		willTransition(transition) {
-			const isStayingOnEditor = transition.targetName.indexOf('image-review.summary') > -1;
+			const isStayingInReview = transition.targetName.indexOf('image-review') > -1;
+			Logger.error(isStayingInReview);
 
-			if (!isStayingOnEditor) {
+			if (!isStayingInReview) {
 				transition.then(() => {
 					this.controllerFor('application').set('fullPage', false);
 				});
