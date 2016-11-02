@@ -109,7 +109,15 @@ Router.map(function () {
 		});
 	});
 
-	this.route('image-review');
+
+	this.route('image-review', function () {
+		this.route('index', {
+			path: '/'
+		});
+		this.route('summary', {
+			path: '/summary'
+		});
+	});
 
 	this.route('recent-wiki-activity');
 

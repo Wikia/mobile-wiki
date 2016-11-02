@@ -3,7 +3,7 @@
 // https://github.com/Wikia/design-system/blob/master/components/_global-navigation.scss
 
 .wds-global-navigation-wrapper {
-	height: $wds-global-navigation-outer-height;
+	height: $wds-global-navigation-height;
 }
 
 .wds-global-navigation {
@@ -12,7 +12,7 @@
 	will-change: transform;
 
 	.dark-theme & label {
-		color: $color-dark-blue-gray;
+		color: $wds-color-dark-blue-gray;
 	}
 
 	&__search-input[type="search"] {
@@ -44,7 +44,7 @@
 
 	&__search-suggestions {
 		.wds-is-selected a {
-			color: $color-link;
+			color: $wds-color-link;
 		}
 	}
 }
