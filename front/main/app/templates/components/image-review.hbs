@@ -1,6 +1,11 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
 		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		{{#if model.userCanAuditReviews}}
+			<button {{action this.attrs.openSummary}} class="sub-head--done">
+				Show summary
+			</button>
+		{{/if}}
 		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
 			{{i18n 'main.review-and-get-more' ns='image-review'}}
 		</button>
@@ -9,6 +14,7 @@
 		</div>
 	</header>
 {{/if}}
+
 <div class="image-review-content">
 	{{#if model.images}}
 		<div class="image-review-text">
