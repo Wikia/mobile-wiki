@@ -7,6 +7,7 @@ $desktop-content-font-size: $type-base;
 $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
+$large-desktop-content-font-size: $type-smaller;
 $post-title-line-height: 1.5rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
@@ -869,6 +870,26 @@ body.discussions {
 	.discussion {
 		&.forum {
 			width: $discussion-large-page-width;
+		}
+
+		.post-title {
+			font-size: $type-small;
+		}
+
+		.discussion-content {
+			font-size: $large-desktop-content-font-size;
+		}
+
+		.post-bottom-row {
+			font-size: $type-smallest;
+			padding-top: 6px;
+		}
+
+		.post-actions {
+			a,
+			li {
+				font-size: $type-smallest;
+			}
 		}
 	}
 }
