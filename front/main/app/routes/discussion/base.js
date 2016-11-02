@@ -49,7 +49,7 @@ export default Ember.Route.extend(
 			didTransition() {
 				this.controllerFor('application').set('noMargins', true);
 
-				//Standard Mercury pageview tracking
+				// Standard Mercury pageview tracking
 				trackPageView();
 
 				// Separate pageview tracking for Discussions
