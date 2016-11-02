@@ -17,6 +17,10 @@ export default Route.extend({
 			this.modelFor('image-review.summary').setSummaryModel();
 		},
 
+		downloadCSV() {
+			this.modelFor('image-review.summary').downloadCSV();
+		},
+
 		setStartDate(startDate) {
 			this.modelFor('image-review.summary').set('startDate', startDate);
 		},

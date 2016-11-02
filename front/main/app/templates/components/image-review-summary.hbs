@@ -16,6 +16,7 @@
 			To: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setEndDate)}}📅
 		</label>
 		<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Show statistics</button>
+		<button {{action this.attrs.downloadCSV}}>Download as CSV</button>
 		{{#if model.summaryModel}}
 			<table class="image-review-modal-history">
 				<tr>

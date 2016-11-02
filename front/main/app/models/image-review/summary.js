@@ -18,6 +18,18 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.summary = payload;
 			});
 		}
+	},
+
+	downloadCSV() {
+		if (!Ember.isEmpty(this.startDate) || !Ember.isEmpty(this.endDate)) {
+			request(M.getImageReviewServiceUrl('/statistics/csv', {
+				startDate: moment(this.startDate).format('YYYY-MM-DD'),
+				endDate: moment(this.endDate).format('YYYY-MM-DD')
+			}), {
+				method: 'GET',
+				dataType: 'text/csv'
+			})
+		}
 	}
 });
 
