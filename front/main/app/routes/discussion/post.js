@@ -3,8 +3,6 @@ import DiscussionPostModel from '../../models/discussion/post';
 import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
-import {trackPageView} from 'common/utils/track';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionContributionRouteMixin,
