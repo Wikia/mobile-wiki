@@ -19,14 +19,11 @@ export default Ember.Component.extend(
 		classNames: ['discussion-header-wrapper'],
 
 		discussionSort: Ember.inject.service(),
-		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected',
-			'isFilterDisabled', function () {
-				return this.get('isFilterDisabled') &&
-					(this.get('discussionSort.sortTypes.0.active') === false ||
-					!this.get('categories').isEvery('selected', false) ||
-					this.get('discussionSort.onlyReported', true));
-			}
-		),
+		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', function () {
+			return this.get('discussionSort.sortTypes.0.active') === false ||
+				!this.get('categories').isEvery('selected', false) ||
+				this.get('discussionSort.onlyReported', true);
+		}),
 
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');

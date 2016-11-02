@@ -12,7 +12,9 @@
 			smartBannerVisible=smartBannerVisible
 			updateCategories=(action this.attrs.updateCategories)
 			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
-			isFilterDisabled=isFilterDisabled
+			isSortingDisabled=isSortingDisabled
+			isCategoryFilterDisabled=isCategoryFilterDisabled
+			showReportedFilter=canShowReportedPostsFilter
 		}}
 	{{/ember-wormhole}}
 {{/if}}
@@ -62,6 +64,7 @@
 				}}
 			{{/if}}
 			{{discussion-sort
+					sortBy=sortBy
 					setSortBy=(action 'setSortBy')
 					disabled=isSortingDisabled
 			}}

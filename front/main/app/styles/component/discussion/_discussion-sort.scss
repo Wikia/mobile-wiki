@@ -44,3 +44,52 @@
 		}
 	}
 }
+
+@media #{$mobile-range} {
+	.discussion-sort {
+		.discussion-filter-header {
+			margin-bottom: 0;
+			font-size: 1rem;
+			font-weight: 700;
+			line-height: $line-height-min;
+			border-bottom: none;
+
+		}
+
+		.discussion-fieldset {
+			margin-top: 0;
+		}
+
+		.sort-options {
+			.sort-option {
+				border-bottom: 1px solid #ccc;
+				list-style: none;
+				clear: left;
+				color: #333;
+				height: 48px;
+				width: 100%;
+
+				.sort-option-label {
+					padding-top: 15px;
+					line-height: 24px;
+
+					.radio-fancy {
+						height: 18px;
+						width: 18px;
+
+						.inside {
+							height: 16px;
+							width: 16px;
+						}
+					}
+				}
+
+				&.sort-latest {
+					border-bottom: none;
+				}
+			}
+		}
+
+
+	}
+}
