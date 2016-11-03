@@ -599,6 +599,20 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-sort {
+		.sort-options {
+			.sort-option {
+				.sort-option-label {
+					.radio-fancy {
+						.inside {
+							border-color: $dark-body-background;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.standalone-page-view {
 		.standalone-content {
 			border-color: $dark-discussion-standalone-content-border-color;

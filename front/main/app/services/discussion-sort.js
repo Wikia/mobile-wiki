@@ -12,14 +12,14 @@ export default Ember.Service.extend({
 
 	sortTypes: [
 		Ember.Object.create({
-			active: true,
-			name: 'trending',
-			messageKey: 'main.sort-by-trending'
-		}),
-		Ember.Object.create({
 			active: false,
 			name: 'latest',
 			messageKey: 'main.sort-by-latest'
+		}),
+		Ember.Object.create({
+			active: true,
+			name: 'trending',
+			messageKey: 'main.sort-by-trending'
 		})
 	],
 

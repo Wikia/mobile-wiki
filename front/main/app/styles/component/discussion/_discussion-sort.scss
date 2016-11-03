@@ -80,11 +80,12 @@
 						.inside {
 							height: 16px;
 							width: 16px;
+							border-color: $discussion-filters-bullet-active-border;
 						}
 					}
 				}
 
-				&.sort-latest {
+				&.sort-trending {
 					border-bottom: none;
 				}
 			}
