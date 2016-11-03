@@ -150,7 +150,7 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		params = $.extend(context, params);
+		params = $.extend({}, context, params);
 		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }
