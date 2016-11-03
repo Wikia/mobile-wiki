@@ -914,6 +914,10 @@ body.discussions {
 					line-height: $line-height-small;
 				}
 			}
+
+			.load-older {
+				width: $discussion-large-post-details-content-width + 40px;
+			}
 		}
 
 		.post-bottom-row {
