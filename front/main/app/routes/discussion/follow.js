@@ -28,6 +28,11 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {void}
 		 */
 		beforeModel(transition) {
+			if (!this.get('currentUser.isAuthenticated')) {
+				this.transitionTo('discussion.forum');
+				return;
+			}
+
 			const queryParams = transition.queryParams;
 
 			if (!this.isProperPageParam(queryParams.page)) {

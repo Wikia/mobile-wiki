@@ -132,6 +132,19 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * Renders a message to display to an anon trying to view followed posts
+	 * @returns {void}
+	 */
+	rejectFollowedPostsAnon() {
+		const redirectUrl = `${window.location.origin}${this.get('target.router').generate('discussion.follow')}`;
+
+		this.openDialog({
+			message: i18n.t('main.follow-error-anon-cant-see-followed-posts', {ns: 'discussion'}),
+			redirectUrl
+		});
+	},
+
+	/**
 	 * Renders a message to display to an anon trying to send a post
 	 * @returns {void}
 	 */
@@ -478,6 +491,16 @@ export default Ember.Mixin.create({
 
 		validatePostsOnForum() {
 			this.get('target').send('validatePostsOnForum');
-		}
+		},
+
+		goToFollowedPosts() {
+			if (this.get('isAnon')) {
+				track(trackActions.FollowingTabTappedByAnon);
+				this.rejectFollowedPostsAnon();
+			} else {
+				track(trackActions.FollowingTabTapped);
+				this.get('target').transitionTo('discussion.follow');
+			}
+		},
 	},
 });

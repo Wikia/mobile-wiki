@@ -95,6 +95,7 @@
     "share-label": "Share",
     "share-tooltip": "Share your new post here",
     "follow-error-anon-cant-follow": "Sign in to start following the discussion!",
+    "follow-error-anon-cant-see-followed-posts": "Sign in to see your followed posts.",
     "follow-label": "Follow",
     "follow-tooltip": "Add to your following list",
     "follow-introducing-header": "Introducing Following!",

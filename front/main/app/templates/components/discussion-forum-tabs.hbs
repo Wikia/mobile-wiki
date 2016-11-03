@@ -4,10 +4,7 @@
 		tagName='li'
 		class=(if allTabActive 'active-element-theme-color active-element-border-theme-color' 'not-active')
 }}
-{{link-to
-		(i18n 'main.tab-following' ns='discussion')
-		'discussion.follow'
-		tagName='li'
-		class=(if followTabActive 'active-element-theme-color active-element-border-theme-color' 'not-active')
-		click=(action 'trackFollowedPostsClick')
-}}
+<li class="{{if followTabActive 'active-element-theme-color active-element-border-theme-color' 'not-active'}}"
+	{{action this.attrs.goToFollowedPosts}}>
+	{{i18n 'main.tab-following' ns='discussion'}}
+</li>

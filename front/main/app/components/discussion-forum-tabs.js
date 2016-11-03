@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['discussion-forum-tabs', 'clearfix'],
@@ -9,11 +8,5 @@ export default Ember.Component.extend({
 	allTabActive: Ember.computed.equal('routing.currentRouteName', 'discussion.forum'),
 
 	followTabActive: Ember.computed.equal('routing.currentRouteName', 'discussion.follow'),
-
-	actions: {
-		trackFollowedPostsClick() {
-			track(trackActions.FollowedPostTapped);
-		}
-	}
 
 });
