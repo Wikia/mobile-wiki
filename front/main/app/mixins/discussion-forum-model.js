@@ -31,8 +31,9 @@ export default Ember.Mixin.create(
 		 *
 		 * @returns {void}
 		 */
-		setNormalizedData(apiData) {
-			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
+		setNormalizedData(apiData, zero) {
+			//TODO all zero usages should be removed before release, it's just for design review
+			const posts = zero ? [] : Ember.getWithDefault(apiData, '_embedded.threads', []),
 				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts);
 
@@ -42,7 +43,7 @@ export default Ember.Mixin.create(
 				entities,
 				isRequesterBlocked: Boolean(apiData.isRequesterBlocked),
 				pageNum: 0,
-				postCount: parseInt(apiData.threadCount, 10),
+				postCount: zero ? 0 : parseInt(apiData.threadCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(apiData.userBlockDetails)
 			});
 

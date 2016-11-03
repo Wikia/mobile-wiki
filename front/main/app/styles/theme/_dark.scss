@@ -236,6 +236,18 @@ body.dark-theme {
 		.empty-forum-message {
 			border-color: $dark-discussion-empty-forum-message-border-color;
 		}
+
+		.no-followed-posts {
+			color: $dark-discussion-no-followed-posts-color;
+
+			.header {
+				color: $dark-discussion-no-followed-posts-color;
+			}
+
+			.follow-xl-icon {
+				fill: $dark-discussion-no-followed-posts-color;
+			}
+		}
 	}
 
 	.discussion-community-unit {

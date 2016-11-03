@@ -18,7 +18,9 @@ export default DiscussionBaseRoute.extend(
 		queryParams: {
 			page: {
 				refreshModel: false
-			}
+			},
+			// TODO it's just for design review. should be deleted before release
+			zero: null
 		},
 
 		currentUser: inject.service(),
@@ -44,7 +46,8 @@ export default DiscussionBaseRoute.extend(
 			const discussionModel = this.modelFor('discussion');
 
 			return Ember.RSVP.hash({
-				current: DiscussionFollowedPostsModel.find(Mercury.wiki.id, this.get('currentUser'), params.page),
+				//TODO zero param is just for design review, remove it before release
+				current: DiscussionFollowedPostsModel.find(Mercury.wiki.id, this.get('currentUser'), params.page, params.zero),
 				index: discussionModel
 			});
 		},

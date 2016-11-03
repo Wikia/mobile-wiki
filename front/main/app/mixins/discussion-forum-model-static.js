@@ -3,13 +3,14 @@ import request from 'ember-ajax/request';
 
 export default Ember.Mixin.create(
 	{
-		findThreads(modelInstance, requestUrl, requestData) {
+		//TODO zero variable is just for design review, remove it before release
+		findThreads(modelInstance, requestUrl, requestData, zero) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				request(requestUrl, {
 					data: requestData,
 					traditional: true,
 				}).then((data) => {
-					modelInstance.setNormalizedData(data);
+					modelInstance.setNormalizedData(data, zero);
 
 					resolve(modelInstance);
 
