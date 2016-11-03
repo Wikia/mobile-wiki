@@ -872,6 +872,14 @@ body.discussions {
 }
 
 @media #{$large-desktop-range} {
+	.extra-large-2 {
+		width: 20%;
+	}
+
+	.extra-large-6 {
+		width: 60%;
+	}
+
 	.discussion {
 		&.forum {
 			width: $discussion-large-page-width;
