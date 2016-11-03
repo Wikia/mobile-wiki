@@ -26,7 +26,7 @@ export default Ember.Mixin.create(
 		 *
 		 * @param pageParam
 		 */
-		isProperPageParam(pageParam) {
+		isProperPageParam(pageParam = 1) {
 			return Number(pageParam) > 0;
 		},
 
