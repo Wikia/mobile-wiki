@@ -495,10 +495,10 @@ export default Ember.Mixin.create({
 
 		goToFollowedPosts() {
 			if (this.get('isAnon')) {
-				track(trackActions.FollowedPostTappedByAnon);
+				track(trackActions.FollowingTabTappedByAnon);
 				this.rejectFollowedPostsAnon();
 			} else {
-				track(trackActions.FollowedPostTapped);
+				track(trackActions.FollowingTabTapped);
 				this.get('target').transitionTo('discussion.follow');
 			}
 		},
