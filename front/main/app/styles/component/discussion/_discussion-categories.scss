@@ -21,7 +21,7 @@
 
 
 .discussion-categories {
-	&[disabled] {
+	&:disabled {
 		.discussion-categories-list {
 			opacity: 0.5;
 
