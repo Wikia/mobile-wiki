@@ -299,7 +299,11 @@
 
 @media #{$large-desktop-range} {
 	.discussions {
-		.post-detail {
+		.og-container {
+			max-width: 607px;
+		}
+
+		.post-details-view {
 			.og-container {
 				max-width: $discussion-large-post-details-content-width;
 			}
