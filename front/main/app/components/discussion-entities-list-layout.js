@@ -12,7 +12,11 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 
 		sortBy: Ember.computed('discussionSort.sortBy', 'isSortingDisabled', function () {
-			return !this.get('isSortingDisabled') && this.get('discussionSort.sortBy');
+			if (this.get('isSortingDisabled')) {
+				return null;
+			} else {
+				return this.get('discussionSort.sortBy');
+			}
 		}),
 
 		hasNewPostButton: true,
