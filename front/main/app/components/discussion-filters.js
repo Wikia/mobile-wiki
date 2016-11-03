@@ -16,6 +16,8 @@ export default Ember.Component.extend(
 		showApplyButton: false,
 		showSortSection: false,
 
+		canShowReportedFilter: Ember.computed.and('showReportedFilter', 'canModerate'),
+
 		/**
 		 * @returns {boolean}
 		 */

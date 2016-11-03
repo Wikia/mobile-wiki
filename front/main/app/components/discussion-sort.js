@@ -6,6 +6,7 @@ export default Ember.Component.extend(
 		classNames: ['discussion-sort'],
 		classNameBindings: ['noTrending'],
 		discussionSort: Ember.inject.service(),
+		sortBy: null,
 
 		noTrending: Ember.computed.oneWay('discussionSort.onlyReported'),
 
