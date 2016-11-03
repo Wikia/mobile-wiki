@@ -296,3 +296,13 @@
 		}
 	}
 }
+
+@media #{$large-desktop-range} {
+	.discussions {
+		.post-detail {
+			.og-container {
+				max-width: $discussion-large-post-details-content-width;
+			}
+		}
+	}
+}
