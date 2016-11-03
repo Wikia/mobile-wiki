@@ -9,6 +9,8 @@ $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
 $large-desktop-content-font-size: $type-smaller;
 $large-desktop-post-details-font-size: rem-calc(28);
+$large-desktop-post-details-reply-font-size: rem-calc(16);
+$large-desktop-post-details-reply-line-height: rem-calc(24);
 $post-title-line-height: 1.5rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
@@ -908,6 +910,26 @@ body.discussions {
 
 		.discussion-reply {
 			padding: $horizontal-padding;
+
+			.discussion-content {
+				font-size: $large-desktop-post-details-reply-font-size;
+				line-height: $large-desktop-post-details-reply-line-height;
+			}
+
+			.upvotes {
+				small {
+					font-size: $type-smallest;
+					margin-right: 1px;
+					margin-top: 3px;
+				}
+			}
+		}
+
+		.icon {
+			&.upvote-reply {
+				height: 14px;
+				width: 14px;
+			}
 		}
 	}
 }
