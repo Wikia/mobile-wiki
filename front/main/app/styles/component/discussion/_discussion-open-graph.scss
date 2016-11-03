@@ -315,6 +315,15 @@
 					}
 				}
 			}
+
+			.post-reply {
+				.large-image-card-desktop {
+					&.og-container {
+						margin-left: 22px;
+						width: 582px;
+					}
+				}
+			}
 		}
 	}
 }
