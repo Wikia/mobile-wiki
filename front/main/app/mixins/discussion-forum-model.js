@@ -32,7 +32,7 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		setNormalizedData(apiData, zero) {
-			//TODO all zero usages should be removed before release, it's just for design review
+			// TODO all zero usages should be removed before release, it's just for design review
 			const posts = zero ? [] : Ember.getWithDefault(apiData, '_embedded.threads', []),
 				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts);

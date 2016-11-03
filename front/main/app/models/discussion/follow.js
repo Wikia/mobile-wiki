@@ -41,7 +41,7 @@ DiscussionFollowedPostsModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		find(wikiId, user, page = 1, zero) {
-			//TODO zero variable is just for design review, remove it before release
+			// TODO zero variable is just for design review, remove it before release
 			const followedPostsInstance = DiscussionFollowedPostsModel.create({
 					wikiId
 				}),
