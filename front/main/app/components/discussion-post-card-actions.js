@@ -9,6 +9,15 @@ export default Ember.Component.extend(
 		classNameBindings: ['isDetailsView:sideSpaced'],
 		followingLocalStorageSeenId: 'discussionFollowingTooltipSeen',
 		followingTooltipSeen: false,
+		showFollowingTooltip: false,
+
+		shouldShowFollowingTooltip: Ember.computed('showFollowingTooltip', 'post.isDeleted', function () {
+			return this.get('showFollowingTooltip') && !this.get('post.isDeleted');
+		}),
+
+		canFollow() {
+			return !this.get('post.isDeleted');
+		},
 
 		actions: {
 			reply() {
@@ -20,9 +29,11 @@ export default Ember.Component.extend(
 			},
 
 			follow(post) {
-				this.get('follow')(post);
-				this.set('followingTooltipSeen', true);
-				localStorageConnector.setItem(this.get('followingLocalStorageSeenId'), true);
+				if (this.canFollow()) {
+					this.get('follow')(post);
+					this.set('followingTooltipSeen', true);
+					localStorageConnector.setItem(this.get('followingLocalStorageSeenId'), true);
+				}
 			}
 		},
 	}
