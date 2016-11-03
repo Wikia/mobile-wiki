@@ -8,6 +8,7 @@ $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
 $large-desktop-content-font-size: $type-smaller;
+$large-desktop-post-details-font-size: rem-calc(28);
 $post-title-line-height: 1.5rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
@@ -689,7 +690,7 @@ body.discussions {
 	}
 
 	&.post {
-		.post-detail .post-title {
+		.post-title {
 			font-size: $type-small;
 			line-height: $line-height-small;
 			margin: 7px 0 12px;
@@ -880,6 +881,19 @@ body.discussions {
 			font-size: $large-desktop-content-font-size;
 		}
 
+		&.post {
+			.post-title {
+				font-size: $large-desktop-post-details-font-size;
+			}
+
+			.post-detail {
+				.discussion-content {
+					font-size: $type-smaller;
+					line-height: $line-height-small;
+				}
+			}
+		}
+
 		.post-bottom-row {
 			font-size: $type-smallest;
 			padding-top: 6px;
@@ -890,6 +904,10 @@ body.discussions {
 			li {
 				font-size: $type-smallest;
 			}
+		}
+
+		.discussion-reply {
+			padding: $horizontal-padding;
 		}
 	}
 }
