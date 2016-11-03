@@ -11837,6 +11837,9 @@
         }
       }
     },
+    "ember-pikaday": {
+      "version": "2.1.0"
+    },
     "ember-pop-over": {
       "version": "0.1.31",
       "from": "git://github.com/kvas-damian/ember-pop-over.git#8a18db6eb47e430f2dea389a914c5efafd2d2170",

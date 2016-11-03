@@ -17,6 +17,10 @@ export default Ember.Controller.extend({
 
 		openMainPage() {
 			this.get('target').send('openMainPage');
+		},
+
+		openSummary() {
+			this.get('target').send('openSummary');
 		}
 	}
 });
