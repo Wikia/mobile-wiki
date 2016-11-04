@@ -65,6 +65,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(userId, avatarSize) {
+
 		return request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'UserApi',
