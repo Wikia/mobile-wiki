@@ -59,6 +59,8 @@ UserModel.reopenClass({
 		});
 	},
 
+	invalidateCache(){},
+
 	/**
 	 * @param {number} userId
 	 * @param {number} avatarSize
