@@ -73,7 +73,7 @@ export default Route.extend({
 		},
 
 		openSummary() {
-			this.transitionTo('image-review.summary', '');
+			this.transitionTo('image-review.summary');
 		},
 
 		didTransition() {
