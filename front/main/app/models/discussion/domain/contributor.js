@@ -26,6 +26,7 @@ DiscussionContributor.reopenClass({
 	 */
 	create(data) {
 		let result = null;
+
 		if (data) {
 			result = this._super({
 				avatarUrl: data.avatarUrl,
