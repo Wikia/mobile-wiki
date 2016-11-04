@@ -198,6 +198,14 @@ body.discussions {
 		padding-right: 30px;
 	}
 
+	.post-edited-by-row {
+		color: $discussion-actions-color;
+		font-size: $type-smallest;
+		font-style: italic;
+		line-height: rem-calc(14);
+		margin-bottom: 15px;
+	}
+
 	.post-bottom-row {
 		color: $discussion-actions-color;
 		display: flex;
@@ -671,7 +679,6 @@ body.discussions {
 	&.forum {
 		.clamp {
 			@include clamp(3);
-
 
 			a {
 				color: $discussion-content-color;

@@ -16,6 +16,14 @@ export default DiscussionPostCardBaseComponent.extend(
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
+		lastEditedBy: Ember.computed('post.userData.permissions.canModerate', function () {
+			const userName = this.getWithDefault('post.lastEditedBy.name', '');
+
+			return this.get('post.userData.permissions.canModerate')
+				? i18n.t('main.last-edited-by', {userName, ns: 'discussion'})
+				: i18n.t('main.last-edited-by-administrators', {ns: 'discussion'});
+		}),
+
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {
 			const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
