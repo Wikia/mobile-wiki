@@ -1,6 +1,6 @@
 $editor-toolbar-height: 40px;
 $sticky-editor-width: 529px;
-$post-lare-sticky-editor-width: $discussion-large-post-details-content-width + 48px;
+$post-large-sticky-editor-width: $discussion-large-post-details-content-width + 48px;
 $reply-large-sticky-editor-width: $discussion-large-post-details-content-width + 40px;
 $success-icon-size: 80px;
 
@@ -234,7 +234,7 @@ $success-icon-size: 80px;
 	.discussion-inline-editor {
 		&.is-sticky {
 			.discussion-inline-editor-floating-container {
-				width: $post-lare-sticky-editor-width;
+				width: $post-large-sticky-editor-width;
 			}
 		}
 	}
