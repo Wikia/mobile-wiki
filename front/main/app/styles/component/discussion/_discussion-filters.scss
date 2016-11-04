@@ -14,6 +14,7 @@ $legend-font-size: 16px;
 
 .discussion-filter-header {
 	border-bottom: 1px solid $discussion-rail-separator-color;
+	color: $discussion-filters-color;
 	font-size: $type-smaller;
 	font-weight: normal;
 	margin-bottom: 12px;

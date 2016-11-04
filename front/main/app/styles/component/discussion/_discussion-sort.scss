@@ -44,13 +44,16 @@
 
 @media #{$mobile-range} {
 	.discussion-sort {
+		margin-bottom: .75rem;
+		margin-top: .75rem;
+
 		.discussion-filter-header {
 			border-bottom: none;
+			color: $discussion-filters-color;
 			font-size: $type-base;
 			font-weight: $font-weight-bold;
 			line-height: $line-height-min;
 			margin-bottom: 0;
-
 		}
 
 		.discussion-fieldset {
