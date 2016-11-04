@@ -28,7 +28,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 			}), {
 				method: 'GET',
 				dataType: 'text/csv'
-			})
+			});
 		}
 	}
 });

@@ -33,6 +33,37 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
+	createEmptyModelWithPermission(status) {
+		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
+				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
+	},
+
+	getImagesAndPermission(batchId, status) {
+		const promises = [
+			ImageReviewModel.getImages(batchId),
+			ImageReviewModel.getUserAuditReviewPermission()
+		];
+
+		return Ember.RSVP.allSettled(promises)
+		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
+			return ImageReviewModel
+			.sanitize(
+					getImagesPromise.value.imageList,
+					getImagesPromise.value.batchId,
+					getUserAuditReviewPermissionPromise.value,
+					status
+			);
+		});
+	},
+
+	getUserAuditReviewPermission() {
+		return request(M.getImageReviewServiceUrl('/info', {}), {
+			method: 'GET',
+		}).then((payload) => {
+			return payload.userAllowedToAuditReviews;
+		});
+	},
+
 	getImages(batchId) {
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
 	},
@@ -74,37 +105,6 @@ ImageReviewModel.reopenClass({
 			dataType: 'text', // this is a dirty workaround
 			data: JSON.stringify({images: imageList})
 		});
-	},
-
-	getImagesAndPermission(batchId, status) {
-		const promises = [
-			ImageReviewModel.getImages(batchId),
-			ImageReviewModel.getUserAuditReviewPermission()
-		];
-
-		return Ember.RSVP.allSettled(promises)
-		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
-			return ImageReviewModel
-			.sanitize(
-					getImagesPromise.value.imageList,
-					getImagesPromise.value.batchId,
-					getUserAuditReviewPermissionPromise.value,
-					status
-			);
-		});
-	},
-
-	getUserAuditReviewPermission() {
-		return request(M.getImageReviewServiceUrl('/info', {}), {
-			method: 'GET',
-		}).then((payload) => {
-			return payload.userAllowedToAuditReviews;
-		});
-	},
-
-	createEmptyModelWithPermission(status) {
-		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
-				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
 	},
 
 

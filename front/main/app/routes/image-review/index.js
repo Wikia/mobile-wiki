@@ -33,20 +33,6 @@ export default Route.extend({
 			return false;
 		},
 
-		reviewAndGetMoreImages() {
-			const model = this.modelFor('image-review.index');
-			this.controllerFor('application').set('isLoading', true);
-			window.scrollTo(0, 0);
-
-			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {}, (data) => {
-				this.controllerFor('application').addAlert({
-					message: data,
-					type: 'warning',
-					persistent: false
-				});
-			}).then(this.refresh.bind(this));
-		},
-
 		getAllWithStatus(status) {
 			const model = this.modelFor('image-review.index');
 			window.scrollTo(0, 0);
@@ -59,12 +45,35 @@ export default Route.extend({
 			this.refresh();
 		},
 
+		changeItemModel(id, status) {
+			this.modelFor('imageReview.index').images.forEach((item) => {
+				if (item.imageId === id) {
+					item.set('status', status);
+				}
+			});
+		},
+
+		reviewAndGetMoreImages() {
+			const model = this.modelFor('image-review.index');
+			this.controllerFor('application').set('isLoading', true);
+			window.scrollTo(0, 0);
+
+			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {
+			}, (data) => {
+				this.controllerFor('application').addAlert({
+					message: data,
+					type: 'warning',
+					persistent: false
+				});
+			}).then(this.refresh.bind(this));
+		},
+
 		openMainPage() {
-			this.transitionTo('wiki-page', '');
+			this.transitionTo('wiki-page');
 		},
 
 		openSummary() {
-			this.transitionTo('image-review.summary');
+			this.transitionTo('image-review.summary', '');
 		},
 
 		didTransition() {
@@ -76,22 +85,9 @@ export default Route.extend({
 			}
 		},
 
-		changeItemModel(id, status) {
-			this.modelFor('imageReview.index').images.forEach((item) => {
-				if (item.imageId === id) {
-					item.set('status', status);
-				}
-			});
-		},
-
 		willTransition(transition) {
-			const isStayingInReview = transition.targetName.indexOf('image-review') > -1;
-			Logger.error(isStayingInReview);
-
-			if (!isStayingInReview) {
-				transition.then(() => {
-					this.controllerFor('application').set('fullPage', false);
-				});
+			if (transition.targetName.indexOf('image-review') === -1) {
+				this.controllerFor('application').set('fullPage', false);
 			}
 
 			return true;
