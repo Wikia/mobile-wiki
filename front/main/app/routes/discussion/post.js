@@ -75,6 +75,12 @@ export default DiscussionBaseRoute.extend(
 			);
 		},
 
+		trackDiscussionsPageView() {
+			this._super({
+				dis_thread_id: this.modelFor(this.get('routeName')).current.threadId
+			});
+		},
+
 		actions: {
 			/**
 			 * Load more replies
