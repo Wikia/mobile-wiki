@@ -241,11 +241,11 @@ body.dark-theme {
 			color: $dark-discussion-no-followed-posts-color;
 
 			.header {
-				color: $dark-discussion-no-followed-posts-color;
+				color: $dark-discussion-no-followed-posts-header-color;
 			}
 
 			.follow-xl-icon {
-				fill: $dark-discussion-no-followed-posts-color;
+				fill: $dark-discussion-no-followed-posts-header-color;
 			}
 		}
 	}
