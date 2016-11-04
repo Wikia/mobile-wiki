@@ -40,7 +40,8 @@ DiscussionFollowedPostsModel.reopenClass(
 		 * @param {number} page
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		find(wikiId, user, page = 1) {
+		find(wikiId, user, page = 1, zero) {
+			// TODO zero variable is just for design review, remove it before release
 			const followedPostsInstance = DiscussionFollowedPostsModel.create({
 					wikiId
 				}),
@@ -54,7 +55,7 @@ DiscussionFollowedPostsModel.reopenClass(
 				};
 			followedPostsInstance.setStartPageNumber(page);
 
-			return this.findThreads(followedPostsInstance, requestUrl, requestData);
+			return this.findThreads(followedPostsInstance, requestUrl, requestData, zero);
 		}
 	}
 );

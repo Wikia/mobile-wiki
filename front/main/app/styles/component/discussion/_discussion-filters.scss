@@ -84,12 +84,6 @@ $legend-font-size: 16px;
 		&:disabled {
 			pointer-events: none;
 
-			.sort-trending {
-				label {
-					color: $discussion-filter-inactive-color;
-				}
-			}
-
 			&.discussion-categories {
 				label {
 					color: $discussion-filter-inactive-color;

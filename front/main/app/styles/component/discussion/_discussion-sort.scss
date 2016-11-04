@@ -34,9 +34,60 @@
 		display: none;
 	}
 
-	[disabled] {
+	:disabled {
 		.sort-options {
 			opacity: 0.5;
+			pointer-events: none;
 		}
+	}
+}
+
+@media #{$mobile-range} {
+	.discussion-sort {
+		.discussion-filter-header {
+			border-bottom: none;
+			font-size: $type-base;
+			font-weight: $font-weight-bold;
+			line-height: $line-height-min;
+			margin-bottom: 0;
+
+		}
+
+		.discussion-fieldset {
+			margin-top: 0;
+		}
+
+		.sort-options {
+			.sort-option {
+				border-bottom: 1px solid $discussion-filters-border;
+				clear: left;
+				color: $discussion-filters-color;
+				height: 48px;
+				list-style: none;
+				width: 100%;
+
+				.sort-option-label {
+					line-height: 24px;
+					padding-top: 15px;
+
+					.radio-fancy {
+						height: 18px;
+						width: 18px;
+
+						.inside {
+							border-color: $discussion-filters-bullet-active-border;
+							height: 16px;
+							width: 16px;
+						}
+					}
+				}
+
+				&.sort-trending {
+					border-bottom: none;
+				}
+			}
+		}
+
+
 	}
 }

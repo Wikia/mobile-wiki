@@ -11,6 +11,14 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
+		sortBy: Ember.computed('discussionSort.sortBy', 'isSortingDisabled', function () {
+			if (this.get('isSortingDisabled')) {
+				return null;
+			} else {
+				return this.get('discussionSort.sortBy');
+			}
+		}),
+
 		hasNewPostButton: true,
 
 		reportedFilterTopDecoration: Ember.computed.and('categoriesInRail', 'canShowCategories'),
