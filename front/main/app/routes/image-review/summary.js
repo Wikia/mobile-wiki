@@ -22,11 +22,11 @@ export default Route.extend({
 		},
 
 		setStartDate(startDate) {
-			this.modelFor('image-review.summary').set('startDate', startDate);
+			this.modelFor('image-review.summary').setStartDate(startDate);
 		},
 
 		setEndDate(endDate) {
-			this.modelFor('image-review.summary').set('endDate', endDate);
+			this.modelFor('image-review.summary').setEndDate(endDate);
 		},
 
 		openImageReview() {
