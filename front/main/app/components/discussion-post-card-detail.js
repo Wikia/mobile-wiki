@@ -16,8 +16,8 @@ export default DiscussionPostCardBaseComponent.extend(
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
-		showLastEditedByMessage: Ember.computed('post.lastEditedBy', function() {
-			return this.get('post.lastEditedBy')
+		showLastEditedByMessage: Ember.computed('post.lastEditedBy', function () {
+			return Boolean(this.get('post.lastEditedBy'))
 				&& this.get('post.createdBy.id') !== this.get('post.lastEditedBy.id');
 		}),
 
