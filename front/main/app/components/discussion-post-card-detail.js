@@ -16,7 +16,12 @@ export default DiscussionPostCardBaseComponent.extend(
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
-		lastEditedBy: Ember.computed('post.userData.permissions.canModerate', function () {
+		showLastEditedByMessage: Ember.computed('post.lastEditedBy', function() {
+			return this.get('post.lastEditedBy')
+				&& this.get('post.createdBy.id') !== this.get('post.lastEditedBy.id');
+		}),
+
+		lastEditedByMessage: Ember.computed('post.userData.permissions.canModerate', function () {
 			const userName = this.getWithDefault('post.lastEditedBy.name', '');
 
 			return this.get('post.userData.permissions.canModerate')
