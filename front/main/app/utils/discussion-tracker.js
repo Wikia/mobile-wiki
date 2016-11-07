@@ -97,25 +97,27 @@ function getGACategory() {
 
 /**
  * @param {string} action
+ * @param {string} params
  *
  * @returns {Object}
  */
-function getGAContext(action) {
-	return {
+function getTrackingContext(action, params) {
+	return $.extend({
 		action,
 		category: getGACategory(),
 		label: window.location.origin
-	};
+	}, params);
 }
 
 /**
  * @param {string} action
+ * @param {object} params
  *
  * @returns {void}
  */
-export function track(action) {
+export function track(action, params) {
 	mercuryTrack(
-		getGAContext(action)
+		getTrackingContext(action, params),
 	);
 }
 

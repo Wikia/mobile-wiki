@@ -116,7 +116,7 @@ function setupLogging(server) {
 			text: err.message,
 			url: url.format(request.url),
 			referrer: request.info.referrer
-		}, 'Internal server error');
+		}, 'Hapi internal server error');
 	});
 	/**
 	 * Request events generated internally by the framework (multiple events per request).
@@ -127,17 +127,36 @@ function setupLogging(server) {
 	 * @returns {void}
 	 */
 	server.on('request-internal', (request, event, tags) => {
-		// We exclude implementation tag because it would catch the same error as request-error
-		// but without message explaining what exactly happened
-		if (tags.error && !tags.implementation) {
-			Logger.error({
-				wiki: request.headers.host,
-				url: url.format(request.url),
-				referrer: request.info.referrer,
-				eventData: event.data,
-				eventTags: tags
-			}, 'Internal error');
+		const eventData = event.data || {};
+
+		// We ignore a set of events which are not actionable
+		// See http://hapijs.com/api/9.5.1#request-logs for the list of tags
+		if (
+			!tags.error ||
+			// Caught on request-error event with additional info
+			(tags.error && tags.implementation) ||
+			// Request closed prematurely
+			(tags.error && tags.request && tags.closed) ||
+			// Connection closed prematurely
+			(tags.error && tags.response && tags.aborted) ||
+			// Request included invalid cookies
+			(tags.error && tags.state && !tags.response) ||
+			// 404 response
+			(tags.error && tags.handler && eventData.output && eventData.output.statusCode === 404)
+		) {
+			return;
 		}
+
+		const errorMessage = eventData.message || eventData.error ||
+			(eventData.output && eventData.output.payload && eventData.output.payload.message);
+
+		Logger.error({
+			wiki: request.headers.host,
+			url: url.format(request.url),
+			referrer: request.info.referrer,
+			eventTags: tags,
+			eventData
+		}, `Hapi internal error - ${errorMessage}`);
 	});
 
 	/**
