@@ -33,12 +33,29 @@ export default Route.extend({
 			return false;
 		},
 
+		getAllWithStatus(status) {
+			const model = this.modelFor('image-review.index');
+			window.scrollTo(0, 0);
+
+			this.set('status', status);
+			this.refresh();
+		},
+
+		changeItemModel(id, status) {
+			this.modelFor('imageReview.index').images.forEach((item) => {
+				if (item.imageId === id) {
+					item.set('status', status);
+				}
+			});
+		},
+
 		reviewAndGetMoreImages() {
 			const model = this.modelFor('image-review.index');
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {}, (data) => {
+			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {
+			}, (data) => {
 				this.controllerFor('application').addAlert({
 					message: data,
 					type: 'warning',
@@ -47,20 +64,8 @@ export default Route.extend({
 			}).then(this.refresh.bind(this));
 		},
 
-		getAllWithStatus(status) {
-			const model = this.modelFor('image-review.index');
-			window.scrollTo(0, 0);
-
-			if (!Ember.isNone(model.batchId)) {
-				ImageReviewModel.endSession(model.batchId);
-			}
-
-			this.set('status', status);
-			this.refresh();
-		},
-
 		openMainPage() {
-			this.transitionTo('wiki-page', '');
+			this.transitionTo('wiki-page');
 		},
 
 		openSummary() {
@@ -76,21 +81,9 @@ export default Route.extend({
 			}
 		},
 
-		changeItemModel(id, status) {
-			this.modelFor('imageReview.index').images.forEach((item) => {
-				if (item.imageId === id) {
-					item.set('status', status);
-				}
-			});
-		},
-
 		willTransition(transition) {
-			const isStayingOnEditor = transition.targetName.indexOf('image-review.summary') > -1;
-
-			if (!isStayingOnEditor) {
-				transition.then(() => {
-					this.controllerFor('application').set('fullPage', false);
-				});
+			if (transition.targetName.indexOf('image-review') === -1) {
+				this.controllerFor('application').set('fullPage', false);
 			}
 
 			return true;

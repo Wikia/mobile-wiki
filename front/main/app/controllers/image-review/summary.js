@@ -6,6 +6,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('toggleSummary');
 		},
 
+		downloadCSV() {
+			this.get('target').send('downloadCSV');
+		},
+
 		setStartDate(startDate) {
 			this.get('target').send('setStartDate', startDate);
 		},
