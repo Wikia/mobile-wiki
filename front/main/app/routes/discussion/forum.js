@@ -68,7 +68,7 @@ export default DiscussionBaseRoute.extend(
 			if (!modifiedTransition && !queryParams.sort) {
 				this.transitionTo({
 					queryParams: {
-						sort: 'trending'
+						sort: discussionSort.get('defaultSort')
 					}
 				});
 			}

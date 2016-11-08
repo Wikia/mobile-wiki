@@ -3,6 +3,9 @@ import Ember from 'ember';
 import localStorageConnector from '../../utils/local-storage-connector';
 
 export default Ember.Route.extend({
+
+	discussionSort: Ember.inject.service(),
+
 	/**
 	 * @returns {void}
 	 */
@@ -13,7 +16,7 @@ export default Ember.Route.extend({
 		// check if object because of situation when user had previously stored "null" (string) value
 		// for transitionParams
 		if (!transitionParams || Ember.typeOf(transitionParams) !== 'object') {
-			transitionParams = {sort: 'trending'};
+			transitionParams = {sort: this.get('discussionSort.defaultSort')};
 		}
 		if (Ember.isEmpty(transitionParams.catId)) {
 			transitionParams.catId = null;
