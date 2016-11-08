@@ -3,8 +3,6 @@ import moment from 'moment';
 import request from 'ember-ajax/request';
 import ImageReviewItemModel from '../image-review-item';
 
-const {Logger} = Ember;
-
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
 	history: null,
@@ -33,8 +31,6 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${imageId}`),
 					data
 				});
-			}, () => {
-				Logger.error('cannot find image');
 			});
 		}
 	},
