@@ -27,17 +27,40 @@ ImageReviewModel.reopenClass({
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
 				return ImageReviewModel.createEmptyModelWithPermission(status);
-			} else if (jqXHR.status === 404) {
-				return ImageReviewModel.createEmptyModelWithPermission(status);
 			} else {
 				return ImageReviewModel.getImagesAndPermission(payload.id, status);
 			}
 		});
 	},
 
-	endSession(batchId) {
-		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}), {
-			method: 'DELETE',
+	createEmptyModelWithPermission(status) {
+		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
+				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
+	},
+
+	getImagesAndPermission(batchId, status) {
+		const promises = [
+			ImageReviewModel.getImages(batchId),
+			ImageReviewModel.getUserAuditReviewPermission()
+		];
+
+		return Ember.RSVP.allSettled(promises)
+		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
+			return ImageReviewModel
+			.sanitize(
+					getImagesPromise.value.imageList,
+					getImagesPromise.value.batchId,
+					getUserAuditReviewPermissionPromise.value,
+					status
+			);
+		});
+	},
+
+	getUserAuditReviewPermission() {
+		return request(M.getImageReviewServiceUrl('/info', {}), {
+			method: 'GET',
+		}).then((payload) => {
+			return payload.userAllowedToAuditReviews;
 		});
 	},
 
@@ -82,37 +105,6 @@ ImageReviewModel.reopenClass({
 			dataType: 'text', // this is a dirty workaround
 			data: JSON.stringify({images: imageList})
 		});
-	},
-
-	getImagesAndPermission(batchId, status) {
-		const promises = [
-			ImageReviewModel.getImages(batchId),
-			ImageReviewModel.getUserAuditReviewPermission()
-		];
-
-		return Ember.RSVP.allSettled(promises)
-		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
-			return ImageReviewModel
-			.sanitize(
-					getImagesPromise.value.imageList,
-					getImagesPromise.value.batchId,
-					getUserAuditReviewPermissionPromise.value,
-					status
-			);
-		});
-	},
-
-	getUserAuditReviewPermission() {
-		return request(M.getImageReviewServiceUrl('/info', {}), {
-			method: 'GET',
-		}).then((payload) => {
-			return payload.userAllowedToAuditReviews;
-		});
-	},
-
-	createEmptyModelWithPermission(status) {
-		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
-				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
 	},
 
 
