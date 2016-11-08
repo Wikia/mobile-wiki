@@ -20,19 +20,19 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 	},
 
 	setStartDate(startDate) {
-		this.startDate = moment(startDate).format('YYYY-MM-DD');
-		this.csvLink = M.getImageReviewServiceUrl('/statistics/csv', {
+		this.set('startDate', moment(startDate).format('YYYY-MM-DD'));
+		this.set('csvLink', M.getImageReviewServiceUrl('/statistics/csv', {
 			startDate: this.startDate,
 			endDate: this.endDate
-		});
+		}));
 	},
 
 	setEndDate(endDate) {
-		this.endDate = moment(endDate).format('YYYY-MM-DD');
-		this.csvLink = M.getImageReviewServiceUrl('/statistics/csv', {
+		this.set('endDate', moment(endDate).format('YYYY-MM-DD'));
+		this.set('csvLink', M.getImageReviewServiceUrl('/statistics/csv', {
 			startDate: this.startDate,
 			endDate: this.endDate
-		});
+		}));
 	}
 });
 
