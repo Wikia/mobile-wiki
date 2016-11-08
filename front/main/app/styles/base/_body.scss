@@ -1,8 +1,8 @@
 html {
 	touch-action: manipulation;
 }
-
 body {
+	font-family: $wds-font-family;
 	overflow-y: scroll;
 	word-wrap: break-word;
 }
