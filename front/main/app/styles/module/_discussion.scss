@@ -200,10 +200,10 @@ body.discussions {
 
 	.post-edited-by-row {
 		color: $discussion-actions-color;
-		font-size: $type-smallest;
+		font-size: rem-calc(12);
 		font-style: italic;
-		line-height: rem-calc(14);
-		margin-bottom: 15px;
+		line-height: rem-calc(12);
+		margin-bottom: 6px;
 	}
 
 	.post-bottom-row {
@@ -731,6 +731,12 @@ body.discussions {
 			line-height: $desktop-content-line-height;
 		}
 
+		.post-edited-by-row {
+			font-size: $type-smallest;
+			line-height: rem-calc(14);
+			margin-bottom: 13px;
+		}
+
 		&.post {
 			.post-detail {
 				background-color: transparent;
@@ -820,6 +826,8 @@ body.discussions {
 			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 
 			.discussion-content {
+				margin-bottom: 0;
+
 				.post-title {
 					font-size: $type-smaller;
 					line-height: $post-content-line-height;
