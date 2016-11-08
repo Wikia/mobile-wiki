@@ -7,10 +7,10 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 	showSubHeader: true,
 
 	setSummaryModel() {
-		if (!Ember.isEmpty(this.startDate) || !Ember.isEmpty(this.endDate)) {
+		if (!Ember.isEmpty(this.get('startDate')) || !Ember.isEmpty(this.get('endDate'))) {
 			request(M.getImageReviewServiceUrl('/statistics', {
-				startDate: this.startDate,
-				endDate: this.endDate
+				startDate: this.get('startDate'),
+				endDate: this.get('endDate')
 			}), {
 				method: 'GET'
 			}).then((payload) => {
@@ -22,16 +22,16 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 	setStartDate(startDate) {
 		this.set('startDate', moment(startDate).format('YYYY-MM-DD'));
 		this.set('csvLink', M.getImageReviewServiceUrl('/statistics/csv', {
-			startDate: this.startDate,
-			endDate: this.endDate
+			startDate: this.get('startDate'),
+			endDate: this.get('endDate')
 		}));
 	},
 
 	setEndDate(endDate) {
 		this.set('endDate', moment(endDate).format('YYYY-MM-DD'));
 		this.set('csvLink', M.getImageReviewServiceUrl('/statistics/csv', {
-			startDate: this.startDate,
-			endDate: this.endDate
+			startDate: this.get('startDate'),
+			endDate: this.get('endDate')
 		}));
 	}
 });
