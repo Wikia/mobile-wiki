@@ -37,10 +37,6 @@ export default Route.extend({
 			const model = this.modelFor('image-review.index');
 			window.scrollTo(0, 0);
 
-			if (!Ember.isNone(model.batchId)) {
-				ImageReviewModel.endSession(model.batchId);
-			}
-
 			this.set('status', status);
 			this.refresh();
 		},
