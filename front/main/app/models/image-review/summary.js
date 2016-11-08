@@ -25,10 +25,12 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 	},
 
 	setHistoryModel() {
-		if (!Ember.isEmpty(this.imageId)) {
-			ImageReviewItemModel.getImageContext(this.imageId).then((data)=> {
+		const imageId = this.get('imageId');
+
+		if (!Ember.isEmpty(imageId)) {
+			ImageReviewItemModel.getImageContext(imageId).then((data)=> {
 				this.set('history', {
-					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${this.imageId}`),
+					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${imageId}`),
 					data
 				});
 			}, () => {
