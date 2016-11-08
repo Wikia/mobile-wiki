@@ -18,7 +18,7 @@ export default DiscussionPostCardBaseComponent.extend(
 
 		showLastEditedByMessage: Ember.computed(
 			'post.lastEditedBy', 'post.lastEditedBy.id', 'post.createdBy.id', function () {
-				return Boolean(this.get('post.lastEditedBy'))
+				return this.get('showLastEditedBy') && Boolean(this.get('post.lastEditedBy'))
 					&& this.get('post.createdBy.id') !== this.get('post.lastEditedBy.id');
 			}),
 
