@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import moment from 'moment';
 import request from 'ember-ajax/request';
-import ImageReviewItemModel from '../image-review-item';
+import ImageReviewItemModel from './image-review-item';
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
@@ -26,7 +26,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 		const imageId = this.get('imageId');
 
 		if (!Ember.isEmpty(imageId)) {
-			ImageReviewItemModel.getImageContext(imageId).then((data)=> {
+			ImageReviewItemModel.getImageContext(imageId).then((data) => {
 				this.set('history', {
 					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${imageId}`),
 					data
