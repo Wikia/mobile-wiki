@@ -10,25 +10,34 @@
 {{#if model.userCanAuditReviews}}
 	<div class="image-review-summary-dialog">
 		<label class="image-review-date-input">
-			From: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setStartDate)}}📅
+			From:
+			{{pikaday-input value=model.startDate
+			theme="image-review-date-picker"
+			onSelection=(action this.attrs.setStartDate)}}📅
 		</label>
 		<label class="image-review-date-input">
-			To: {{pikaday-input theme="image-review-date-picker" onSelection=(action this.attrs.setEndDate)}}📅
+			To:
+			{{pikaday-input value=model.endDate
+			theme="image-review-date-picker"
+			onSelection=(action this.attrs.setEndDate)}}📅
 		</label>
 		<button {{action this.attrs.toggleSummary}} class="image-review-toggle-summary-button">Show statistics</button>
-		{{#if model.summaryModel}}
+		<a href={{model.csvLink}} download>
+			<button>Download CSV</button>
+		</a>
+		{{#if model.summary}}
 			<table class="image-review-modal-history">
 				<tr>
 					<td>Total Reviewed</td>
 					<td>Average Per User</td>
-					{{#each data.reviewsCountPerStatus as |countStatus|}}
+					{{#each model.summary.reviewsCountPerStatus as |countStatus|}}
 						<td>{{countStatus.status}}</td>
 					{{/each}}
 				</tr>
 				<tr>
-					<td>{{data.totalReviewed}}</td>
-					<td>{{data.avgPerUser}}</td>
-					{{#each data.reviewsCountPerStatus as |countPerStatus|}}
+					<td>{{model.summary.totalReviewed}}</td>
+					<td>{{model.summary.avgPerUser}}</td>
+					{{#each model.summary.reviewsCountPerStatus as |countPerStatus|}}
 						<td>{{countPerStatus.count}}</td>
 					{{/each}}
 				</tr>
@@ -38,11 +47,11 @@
 				<tr>
 					<td>User name</td>
 					<td>Distance to avg</td>
-					{{#each data.reviewsCountPerStatus as |countStatus|}}
+					{{#each model.summary.reviewsCountPerStatus as |countStatus|}}
 						<td>{{countStatus.status}}</td>
 					{{/each}}
 				</tr>
-				{{#each data.userStatistics as |user|}}
+				{{#each model.summary.userStatistics as |user|}}
 					<tr>
 						<td>{{user.userName}}</td>
 						<td>{{user.distanceToAvg}}</td>
