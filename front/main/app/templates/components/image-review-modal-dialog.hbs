@@ -1,16 +1,8 @@
 <img src="{{thumbnailModel.fullSizeImageUrl}}"/>
 <p>
-	{{#if thumbnailModel.isContextProvided}}
-		{{#if thumbnailModel.isContextLink}}
-			<a href="{{thumbnailModel.data.context}}" target="_blank">
-				{{i18n 'main.image-context' ns='image-review'}}
-			</a>
-		{{else}}
-			{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.data.context}}
-		{{/if}}
-	{{else}}
-		{{i18n 'main.image-context-not-provided' ns='image-review'}}
-	{{/if}}
+	<a href="{{thumbnailModel.data.context}}" target="_blank">
+		{{i18n 'main.image-context' ns='image-review'}}
+	</a>
 </p>
 <p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.data.originalFilename}}</p>
 <p>

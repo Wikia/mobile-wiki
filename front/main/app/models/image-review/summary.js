@@ -1,9 +1,14 @@
 import Ember from 'ember';
 import moment from 'moment';
 import request from 'ember-ajax/request';
+import ImageReviewItemModel from '../image-review-item';
+
+const {Logger} = Ember;
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
+	history: null,
+	imageId: null,
 	showSubHeader: true,
 
 	setSummaryModel() {
@@ -15,6 +20,19 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				method: 'GET'
 			}).then((payload) => {
 				this.set('summary', payload);
+			});
+		}
+	},
+
+	setHistoryModel() {
+		if (!Ember.isEmpty(this.imageId)) {
+			ImageReviewItemModel.getImageContext(this.imageId).then((data)=> {
+				this.set('history', {
+					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${this.imageId}`),
+					data
+				});
+			}, () => {
+				Logger.error('cannot find image');
 			});
 		}
 	},
