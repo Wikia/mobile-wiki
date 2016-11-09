@@ -52,3 +52,19 @@
 		}
 	}
 }
+
+@media #{$large-desktop-range} {
+	.guidelines-page {
+		margin-left: 33px;
+		margin-right: 33px;
+
+		.wiki-name {
+			font-size: $large-desktop-post-details-font-size;
+		}
+
+		.guidelines-text {
+			font-size: $type-smaller;
+			line-height: $line-height-small;
+		}
+	}
+}
