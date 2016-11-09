@@ -54,9 +54,20 @@
 }
 
 @media #{$large-desktop-range} {
+	.standalone-page-view {
+		.rail {
+			width: 12.5%;
+		}
+
+		.standalone-content {
+			width: 75%;
+		}
+	}
+
 	.guidelines-page {
-		margin-left: 33px;
-		margin-right: 33px;
+		margin-left: 60px;
+		margin-right: 60px;
+		margin-top: 50px;
 
 		.wiki-name {
 			font-size: $large-desktop-post-details-font-size;
