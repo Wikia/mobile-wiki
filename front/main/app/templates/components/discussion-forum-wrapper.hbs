@@ -32,13 +32,13 @@
 }}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
-		author=author
+		author=entity.createdBy
 		categories=categories
 		delete=(action this.attrs.deletePost)
 		lock=(action this.attrs.lockPost)
 		openEditEditor=(action this.attrs.openEditEditor)
 		post=entity
-		replyCount=repliesCount
+		replyCount=entity.repliesCount
 		report=(action this.attrs.report)
 		setEditorActive=(action this.attrs.setEditorActive)
 		undelete=(action this.attrs.undeletePost)
