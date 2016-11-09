@@ -1,16 +1,22 @@
-{{#if responsive.isMobile }}
-	{{! rendering only posts that user see (posts which are not in the viewport are not rendered) }}
-	{{#vertical-collection
-		content=posts
-		defaultHeight=20
-		alwaysRemeasure=true
-		containerSelector="body"
-		as |entity index|
-	}}
-		{{yield entity}}
-	{{/vertical-collection}}
+{{#if posts.length}}
+	{{#if responsive.isMobile }}
+		{{! rendering only posts that user see (posts which are not in the viewport are not rendered) }}
+		{{#vertical-collection
+			content=posts
+			defaultHeight=20
+			alwaysRemeasure=true
+			containerSelector="body"
+			as |entity index|
+		}}
+			{{yield entity}}
+		{{/vertical-collection}}
+	{{else}}
+		{{#each posts as |entity|}}
+			{{yield entity}}
+		{{/each}}
+	{{/if}}
 {{else}}
-	{{#each posts as |entity|}}
-		{{yield entity}}
-	{{/each}}
+	{{discussion-empty-forum-message
+			setEditorActive=(action this.attrs.setEditorActive)
+	}}
 {{/if}}

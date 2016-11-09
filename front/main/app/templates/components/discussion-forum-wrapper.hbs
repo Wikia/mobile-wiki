@@ -25,32 +25,28 @@
 	}}
 {{/if}}
 
-{{#if posts.length}}
-	{{#discussion-post-list
-			posts=posts
-			as |entity|
-	}}
-		{{discussion-post-card-detail
-			approve=(action this.attrs.approve)
-			author=author
-			categories=categories
-			delete=(action this.attrs.deletePost)
-			lock=(action this.attrs.lockPost)
-			openEditEditor=(action this.attrs.openEditEditor)
-			post=entity
-			replyCount=repliesCount
-			report=(action this.attrs.report)
-			setEditorActive=(action this.attrs.setEditorActive)
-			undelete=(action this.attrs.undeletePost)
-			unlock=(action this.attrs.unlockPost)
-			upvote=(action this.attrs.upvote)
-		}}
-	{{/discussion-post-list}}
-{{else}}
-	{{discussion-empty-forum-message
+
+{{#discussion-post-list
+		posts=posts
+		as |entity|
+}}
+	{{discussion-post-card-detail
+		approve=(action this.attrs.approve)
+		author=author
+		categories=categories
+		delete=(action this.attrs.deletePost)
+		lock=(action this.attrs.lockPost)
+		openEditEditor=(action this.attrs.openEditEditor)
+		post=entity
+		replyCount=repliesCount
+		report=(action this.attrs.report)
 		setEditorActive=(action this.attrs.setEditorActive)
+		undelete=(action this.attrs.undeletePost)
+		unlock=(action this.attrs.unlockPost)
+		upvote=(action this.attrs.upvote)
 	}}
-{{/if}}
+{{/discussion-post-list}}
+
 
 {{#if showLoadMoreButton}}
 	{{discussion-wrapper-load-more
