@@ -67,8 +67,8 @@
 	<div class="image-review-summary-dialog">
 		{{input value=model.imageId class="image-review-summary-input"}}
 		<button {{action this.attrs.toggleHistory}}>Show history</button>
-		{{#if model.history}}
-			{{image-review-modal-dialog thumbnailModel=model.history class='image-review-modal-dialog'}}
+		{{#if model.imageDetails}}
+			{{image-review-image-details thumbnailModel=model.imageDetails class='image-review-image-details'}}
 		{{/if}}
 	</div>
 {{/if}}

@@ -5,7 +5,7 @@ import ImageReviewItemModel from './image-review-item';
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
-	history: null,
+	imageDetails: null,
 	imageId: null,
 	showSubHeader: true,
 
@@ -26,11 +26,17 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 		const imageId = this.get('imageId');
 
 		if (!Ember.isEmpty(imageId)) {
+			this.set('imageDetails', {});
+
+			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
+				this.set('imageDetails.history', data);
+			});
+
 			ImageReviewItemModel.getImageContext(imageId).then((data) => {
-				this.set('history', {
-					fullSizeImageUrl: M.getStaticAssetsServiceUrl(`/image/${imageId}`),
-					data
-				});
+				this.set('imageDetails.fullSizeImageUrl', M.getStaticAssetsServiceUrl(`/image/${imageId}`));
+				this.set('imageDetails.originalFilename', data.originalFilename);
+				this.set('imageDetails.size', data.size);
+				this.set('imageDetails.dimensions', data.dimensions);
 			});
 		}
 	},
