@@ -27,6 +27,8 @@
     "sort-by-apply":"Applica",
     "sort-by-latest":"Più recenti",
     "sort-by-trending":"In tendenza",
+    "last-edited-by":"(modificato da __userName__)",
+    "last-edited-by-administrators":"(modificato dagli amministratori)",
     "loading-more-posts":"Caricamento in corso di altri post",
     "load-more-posts-button":"Carica di più",
     "load-previous-posts-button":"Torna in cima",
