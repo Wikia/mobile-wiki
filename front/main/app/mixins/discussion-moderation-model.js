@@ -11,7 +11,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deletePost(post) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/delete`), {
 			method: 'PUT'
 		}).then(() => {
 			post.setProperties({
@@ -49,7 +49,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeletePost(post) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/undelete`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
 			post.set('isDeleted', false);
@@ -64,7 +64,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteReply(reply) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.get('id')}/delete`), {
 			method: 'PUT'
 		}).then(() => {
 			reply.setProperties({
@@ -82,7 +82,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeleteReply(reply) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.get('id')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
 			reply.set('isDeleted', false);
@@ -97,7 +97,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approve(entity) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report/valid`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.get('id')}/report/valid`), {
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT'
@@ -114,7 +114,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	report(entity) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.get('id')}/report`), {
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT'
@@ -191,7 +191,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	lockPost(post) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/lock`), {
 			dataType: 'text',
 			method: 'PUT'
 		}).then(() => {
@@ -207,7 +207,7 @@ export default Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	unlockPost(post) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/lock`), {
 			dataType: 'text',
 			method: 'DELETE'
 		}).then(() => {
