@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"在社交網路上分享您最喜愛的話題，讓更多的粉絲參與其中。"
   },
   "main":{
+    "action-general-error":"操作失敗，請再試一次。",
     "discussions-header-title":"討論版",
     "pagination-post-show-more":"查看過往回覆",
     "pagination-post-show-newer-replies":"查看最新回覆",
@@ -94,6 +95,14 @@
     "reply-label":"回覆",
     "share-header":"分享話題",
     "share-label":"分享",
+    "share-tooltip":"分享您的文章",
+    "follow-error-anon-cant-follow":"登入開始關注討論！",
+    "follow-error-anon-cant-see-followed-posts":"登入查看妳所關注的文章。",
+    "follow-label":"關注",
+    "follow-tooltip":"添加到您所關注的清單中",
+    "follow-introducing-header":"查看最新的「關注」功能！",
+    "follow-introducing-text":"對你而言最重要的就是時常查看討論區的內容。關注文章，接收活動通知，不要錯過任何一次討論。",
+    "follow-introducing-button-label":"好的，知道了",
     "reported-not-found-error":"暫時沒有被舉報的文章或回覆。",
     "categories-header":"分類",
     "categories-edit-label":"編輯",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"圖像尺寸︰ 1240×200<br>jpg、gif或png。限制10mb",
     "image-save-failed":"保存失敗，請再試一次。",
     "upload-image-button-text":"上傳圖片",
-    "category-select-tooltip-text":"選擇"
+    "category-select-tooltip-text":"選擇",
+    "tab-all":"所有",
+    "tab-following":"關注中",
+    "no-followed-posts-header":"歡迎使用「關注」標籤。",
+    "no-followed-posts-text":"按任何文章底部的「關注」按鈕對你感興趣的話題進行關注。你可以在這裡查看全部關注的文章，如有任何新的活動，你都會收到我們的通知。",
+    "find-posts-to-follow":"查找需要關注的文章"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
