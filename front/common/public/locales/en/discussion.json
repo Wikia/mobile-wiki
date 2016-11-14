@@ -27,6 +27,8 @@
     "sort-by-apply": "Apply",
     "sort-by-latest": "Latest",
     "sort-by-trending": "Trending",
+    "last-edited-by": "(edited by __userName__)",
+    "last-edited-by-administrators": "(edited by administrators)",
     "loading-more-posts": "Loading more posts",
     "load-more-posts-button": "Load More",
     "load-previous-posts-button": "To the top",

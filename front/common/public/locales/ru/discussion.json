@@ -27,6 +27,8 @@
     "sort-by-apply":"Применить",
     "sort-by-latest":"Последние",
     "sort-by-trending":"Популярные",
+    "last-edited-by":"(отредактировал(а): __userName__)",
+    "last-edited-by-administrators":"(отредактировано администраторами)",
     "loading-more-posts":"Загрузка сообщений",
     "load-more-posts-button":"Загрузить ещё",
     "load-previous-posts-button":"Наверх",

@@ -25,13 +25,18 @@ DiscussionContributor.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(data) {
-		return this._super({
-			avatarUrl: data.avatarUrl,
-			badgePermission: data.badgePermission,
-			id: data.id,
-			name: data.name,
-			profileUrl: DiscussionContributor.getProfileUrl(data.name)
-		});
+		let result = null;
+
+		if (data) {
+			result = this._super({
+				avatarUrl: data.avatarUrl,
+				badgePermission: data.badgePermission,
+				id: data.id,
+				name: data.name,
+				profileUrl: DiscussionContributor.getProfileUrl(data.name)
+			});
+		}
+		return result;
 	},
 });
 

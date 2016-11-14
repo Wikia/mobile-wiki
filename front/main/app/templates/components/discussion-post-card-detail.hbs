@@ -70,6 +70,11 @@
 			isListView=true
 		}}
 	{{/if}}
+	{{#if showLastEditedByMessage}}
+		<div class="row post-edited-by-row">
+			{{lastEditedByMessage}}
+		</div>
+	{{/if}}
 	<div class="row post-bottom-row">
 		{{#if canShowCategories}}
 			{{#if categoryName}}

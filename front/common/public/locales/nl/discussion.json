@@ -27,6 +27,8 @@
     "sort-by-apply":"Toepassen",
     "sort-by-latest":"Nieuwste",
     "sort-by-trending":"Trending",
+    "last-edited-by":"(edited by __userName__)",
+    "last-edited-by-administrators":"(edited by administrators)",
     "loading-more-posts":"Meer berichten aan het laden",
     "load-more-posts-button":"Meer laden",
     "load-previous-posts-button":"To the top",
