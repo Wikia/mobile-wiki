@@ -225,6 +225,18 @@ export default DiscussionBaseRoute.extend(
 			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
+		/**
+		 * Ensures that canonical link from all post list variations always links to /d/f?sort=latest
+		 * @param {Object} model - DiscussionForumModel instance
+		 * @param {Object} [data={}]
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model, data = {}) {
+			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}?sort=latest`;
+
+			this._super(model, data);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
