@@ -72,7 +72,7 @@ export default Ember.Mixin.create({
 			closeTrackingAction: trackActions.ReplyEditClose,
 			contentTrackingAction: trackActions.ReplyEditContent,
 			editorLabelKey: 'editor.reply-edit-editor-label',
-			messagePlaceholderKey: 'editor.post-editor-placeholder-text',
+			messagePlaceholderKey: 'editor.reply-editor-placeholder-text',
 			startTrackingAction: trackActions.ReplyEdit,
 			submitMessageKey: 'editor.reply-edit-action-button-label',
 		},
