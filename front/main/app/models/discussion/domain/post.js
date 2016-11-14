@@ -1,24 +1,26 @@
 import Ember from 'ember';
 import DiscussionEntity from './entity';
+import DiscussionContentImages from './content-images';
 import DiscussionContributor from './contributor';
+import DiscussionUserBlockDetails from './user-block-details';
 import DiscussionUserData from './user-data';
 import OpenGraph from './open-graph';
-import DiscussionUserBlockDetails from './user-block-details';
 
-const DiscussionPost = DiscussionEntity.extend({
-	canModerate: null,
-	categoryName: null,
-	contributors: null,
-	forumId: null,
-	isNextLink: null,
-	isPreviousPage: null,
-	pageNum: null,
-	permalinkedReplyId: null,
-	pivotId: null,
-	replies: null,
-	repliesCount: null,
-	repliesLimit: 10
-});
+const {get} = Ember,
+	DiscussionPost = DiscussionEntity.extend({
+		canModerate: null,
+		categoryName: null,
+		contributors: null,
+		forumId: null,
+		isNextLink: null,
+		isPreviousPage: null,
+		pageNum: null,
+		permalinkedReplyId: null,
+		pivotId: null,
+		replies: null,
+		repliesCount: null,
+		repliesLimit: 10
+	});
 
 DiscussionPost.reopenClass({
 	/**
@@ -37,19 +39,19 @@ DiscussionPost.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isLocked: !Ember.get(postData, '_embedded.thread.0.isEditable'),
+				isLocked: !get(postData, '_embedded.thread.0.isEditable'),
 				isNew: postData.isNew,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
 				rawContent: postData.rawContent,
-				repliesCount: parseInt(Ember.get(postData, '_embedded.thread.0.postCount'), 10),
+				repliesCount: parseInt(get(postData, '_embedded.thread.0.postCount'), 10),
 				threadId: postData.threadId,
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(postData.userBlockDetails)
 			}),
-			userData = Ember.get(postData, '_embedded.userData.0'),
-			openGraphData = Ember.get(postData, '_embedded.openGraph.0');
+			userData = get(postData, '_embedded.userData.0'),
+			openGraphData = get(postData, '_embedded.openGraph.0');
 
 		if (openGraphData) {
 			post.set('openGraph', OpenGraph.create(openGraphData));
@@ -89,17 +91,18 @@ DiscussionPost.reopenClass({
 				threadId: threadData.id,
 				title: threadData.title,
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
+				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails),
+				contentImages: DiscussionContentImages.create(get(threadData, '_embedded.contentImages'))
 			}),
-			userData = Ember.get(threadData, '_embedded.userData.0'),
-			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
-
-		if (openGraphData) {
-			post.set('openGraph', OpenGraph.create(openGraphData));
-		}
+			userData = get(threadData, '_embedded.userData.0'),
+			openGraphData = get(threadData, '_embedded.openGraph.0');
 
 		if (userData) {
 			post.set('userData', DiscussionUserData.create(userData));
+		}
+
+		if (openGraphData) {
+			post.set('openGraph', OpenGraph.create(openGraphData));
 		}
 
 		return post;
