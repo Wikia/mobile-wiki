@@ -29,6 +29,13 @@ $fancy-check-box-disabled-border: #ccc;
 $fancy-check-box-background: #fff;
 $highlight-overlay-background-color: #f6f6f6;
 
+$large-desktop-range: $xxlarge-up;
+
+$discussion-page-width: 507px;
+$discussion-large-page-width: 667px;
+$discussion-large-post-details-content-width: 640px;
+$large-desktop-post-details-font-size: rem-calc(28);
+
 $discussion-bg-color: $color-white;
 $discussion-count-color: #999;
 $discussion-actions-color: #999;
@@ -116,7 +123,6 @@ $discussion-open-graph-domain-color: #999;
 
 $discussion-empty-forum-message-border-color: #e6e6e6;
 
-$discussion-page-width: 507px;
 $discussion-category-pill-background-color: #f6f6f6;
 
 $collapsible-menu-border-color: #d0d0d0;
