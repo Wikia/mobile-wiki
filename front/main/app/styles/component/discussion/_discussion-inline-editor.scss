@@ -1,5 +1,7 @@
 $editor-toolbar-height: 40px;
 $sticky-editor-width: 529px;
+$post-large-sticky-editor-width: $discussion-large-post-details-content-width + 48px;
+$reply-large-sticky-editor-width: $discussion-large-post-details-content-width + 40px;
 $success-icon-size: 80px;
 
 .discussion-inline-editor {
@@ -223,6 +225,30 @@ $success-icon-size: 80px;
 		&.is-active {
 			.discussion-inline-editor-content-wrapper {
 				min-height: 106px;
+			}
+		}
+	}
+}
+
+@media #{$large-desktop-range} {
+	.discussion-inline-editor {
+		&.is-sticky {
+			.discussion-inline-editor-floating-container {
+				width: $post-large-sticky-editor-width;
+			}
+		}
+	}
+
+	.post-details-view {
+		.discussion-inline-editor {
+			.discussion-inline-editor-floating-container {
+				width: $reply-large-sticky-editor-width;
+			}
+
+			&.is-sticky {
+				.discussion-inline-editor-floating-container {
+					width: $reply-large-sticky-editor-width;
+				}
 			}
 		}
 	}
