@@ -296,3 +296,34 @@
 		}
 	}
 }
+
+@media #{$large-desktop-range} {
+	.discussions {
+		.og-container {
+			max-width: 607px;
+		}
+
+		.post-details-view {
+			.og-container {
+				max-width: $discussion-large-post-details-content-width;
+			}
+
+			.post-detail {
+				.large-image-card-desktop {
+					&.og-container {
+						width: $discussion-large-post-details-content-width;
+					}
+				}
+			}
+
+			.post-reply {
+				.large-image-card-desktop {
+					&.og-container {
+						margin-left: 22px;
+						width: 582px;
+					}
+				}
+			}
+		}
+	}
+}

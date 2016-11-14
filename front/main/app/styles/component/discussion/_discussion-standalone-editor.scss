@@ -1,5 +1,6 @@
 $editor-toolbar-height: 41px;
 $modal-editor-width: 520px;
+$large-modal-editor-with: 680px;
 $success-icon-size: 80px;
 
 .discussion-standalone-editor {
@@ -157,6 +158,14 @@ $success-icon-size: 80px;
 			height: 350px;
 			margin-top: 66px;
 			max-width: $modal-editor-width;
+		}
+	}
+}
+
+@media #{$large-desktop-range} {
+	.discussion-editor-dialog {
+		.modal-dialog {
+			max-width: $large-modal-editor-with;
 		}
 	}
 }
