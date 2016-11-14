@@ -24,7 +24,13 @@
 		showButton=true
 	}}
 {{/if}}
-{{#each posts as |entity|}}
+
+
+{{#discussion-post-list
+		posts=posts
+		setEditorActive=(action this.attrs.setEditorActive)
+		as |entity|
+}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
 		author=entity.createdBy
@@ -40,11 +46,9 @@
 		unlock=(action this.attrs.unlockPost)
 		upvote=(action this.attrs.upvote)
 	}}
-{{else}}
-	{{discussion-empty-forum-message
-		setEditorActive=(action this.attrs.setEditorActive)
-	}}
-{{/each}}
+{{/discussion-post-list}}
+
+
 {{#if showLoadMoreButton}}
 	{{discussion-wrapper-load-more
 		goToPage=(action this.attrs.goToPage)
