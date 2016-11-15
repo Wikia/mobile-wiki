@@ -23,79 +23,35 @@ const {get} = Ember,
 	});
 
 DiscussionPost.reopenClass({
-	/**
-	 * Normalizes single entity from post list into a post object
-	 *
-	 * @param {object} postData
-	 *
-	 * @returns {Ember.Object}
-	 */
-	createFromPostListData(postData) {
-		const post = DiscussionPost.create({
-				categoryName: postData.forumName,
-				// A hack to compensate for API sometimes returning numbers and sometimes strings
-				categoryId: String(postData.forumId),
-				createdBy: DiscussionContributor.create(postData.createdBy),
-				creationTimestamp: postData.creationDate.epochSecond,
-				id: postData.id,
-				isDeleted: postData.isDeleted,
-				isLocked: !get(postData, '_embedded.thread.0.isEditable'),
-				isNew: postData.isNew,
-				isReported: postData.isReported,
-				isRequesterBlocked: postData.isRequesterBlocked,
-				rawContent: postData.rawContent,
-				repliesCount: parseInt(get(postData, '_embedded.thread.0.postCount'), 10),
-				threadId: postData.threadId,
-				title: postData.title,
-				upvoteCount: parseInt(postData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(postData.userBlockDetails)
-			}),
-			userData = get(postData, '_embedded.userData.0'),
-			openGraphData = get(postData, '_embedded.openGraph.0');
-
-		if (openGraphData) {
-			post.set('openGraph', OpenGraph.create(openGraphData));
-		}
-
-		if (userData) {
-			post.set('userData', DiscussionUserData.create(userData));
-		}
-
-		return post;
-	},
 
 	/**
-	 * Normalizes API thread data into a post object
+	 * @private
+	 * Create base discussion post model.
 	 *
-	 * @param {object} threadData
-	 *
-	 * @returns {Ember.Object}
+	 * @param data - object with common properties
 	 */
-	createFromThreadData(threadData) {
+	createFrom(data) {
 		const post = DiscussionPost.create({
-				categoryName: threadData.forumName,
+				categoryName: data.forumName,
 				// A hack to compensate for API sometimes returning numbers and sometimes strings
-				categoryId: String(threadData.forumId),
-				createdBy: DiscussionContributor.create(threadData.createdBy),
-				creationTimestamp: threadData.creationDate.epochSecond,
-				id: threadData.firstPostId,
-				isDeleted: threadData.isDeleted,
-				isLocked: !threadData.isEditable,
-				isNew: threadData.isNew,
-				isReported: threadData.isReported,
-				isRequesterBlocked: threadData.isRequesterBlocked,
+				categoryId: String(data.forumId),
+				createdBy: DiscussionContributor.create(data.createdBy),
+				creationTimestamp: data.creationDate.epochSecond,
+				isDeleted: data.isDeleted,
+				isNew: data.isNew,
+				isReported: data.isReported,
+				isRequesterBlocked: data.isRequesterBlocked,
+				rawContent: data.rawContent,
+				title: data.title,
+				upvoteCount: parseInt(data.upvoteCount, 10),
+				userBlockDetails: DiscussionUserBlockDetails.create(data.userBlockDetails),
+				userData: null,
 				openGraph: null,
-				permalinkedReplyId: threadData.permalinkedReplyId,
-				rawContent: threadData.rawContent,
-				repliesCount: parseInt(threadData.postCount, 10),
-				threadId: threadData.id,
-				title: threadData.title,
-				upvoteCount: parseInt(threadData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
+				contentImages: null
 			}),
-			userData = get(threadData, '_embedded.userData.0'),
-			openGraphData = get(threadData, '_embedded.openGraph.0'),
-			contentImagesData = get(threadData, '_embedded.contentImages');
+			userData = get(data, '_embedded.userData.0'),
+			openGraphData = get(data, '_embedded.openGraph.0'),
+			contentImagesData = get(data, '_embedded.contentImages');
 
 		if (userData) {
 			post.set('userData', DiscussionUserData.create(userData));
@@ -111,6 +67,47 @@ DiscussionPost.reopenClass({
 
 		return post;
 	},
+
+	/**
+	 * Normalizes single entity from post list into a post object
+	 *
+	 * @param {object} postData
+	 *
+	 * @returns {Ember.Object}
+	 */
+	createFromPostListData(postData) {
+		const post = DiscussionPost.createFrom(postData);
+
+		post.setProperties({
+			id: postData.id,
+			isLocked: !get(postData, '_embedded.thread.0.isEditable'),
+			repliesCount: parseInt(get(postData, '_embedded.thread.0.postCount'), 10),
+			threadId: postData.threadId
+		});
+
+		return post;
+	},
+
+	/**
+	 * Normalizes API thread data into a post object
+	 *
+	 * @param {object} threadData
+	 *
+	 * @returns {Ember.Object}
+	 */
+	createFromThreadData(threadData) {
+		const post = DiscussionPost.createFrom(threadData);
+
+		post.setProperties({
+			id: threadData.firstPostId,
+			isLocked: !threadData.isEditable,
+			permalinkedReplyId: threadData.permalinkedReplyId,
+			repliesCount: parseInt(threadData.postCount, 10),
+			threadId: threadData.id,
+		});
+
+		return post;
+	}
 });
 
 export default DiscussionPost;
