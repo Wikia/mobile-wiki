@@ -64,7 +64,11 @@
 			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
 	{{/if}}
-	{{#if post.openGraph}}
+	{{#if post.contentImages}}
+		{{discussion-post-images
+			images=post.contentImages.images
+		}}
+	{{else if post.openGraph}}
 		{{discussion-open-graph
 			openGraphData=post.openGraph
 			isListView=true
