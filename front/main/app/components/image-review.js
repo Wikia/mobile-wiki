@@ -14,6 +14,8 @@ export default Ember.Component.extend({
 
 			ImageReviewItemModel.getImageContext(popupModel.imageId).then((data) => {
 				this.set('thumbnailModel.fullSizeImageUrl', popupModel.fullSizeImageUrl);
+				this.set('thumbnailModel.context', popupModel.context);
+				this.set('thumbnailModel.isContextLink', popupModel.isContextLink);
 				this.set('thumbnailModel.originalFilename', data.originalFilename);
 				this.set('thumbnailModel.size', data.size);
 				this.set('thumbnailModel.dimensions', data.dimensions);

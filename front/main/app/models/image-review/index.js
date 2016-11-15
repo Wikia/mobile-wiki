@@ -80,7 +80,7 @@ ImageReviewModel.reopenClass({
 					context: image.context,
 					isContextProvided: Boolean(image.context),
 					isContextLink: new RegExp('(http|https)?:\/\/[^\s]+').test(image.context),
-					status: (status === 'rejected') ? 'rejected' : 'accepted'
+					status: status.toLowerCase() === 'rejected' ? 'rejected' : 'accepted'
 				}));
 			}
 		});
