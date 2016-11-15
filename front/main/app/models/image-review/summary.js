@@ -28,12 +28,18 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 		if (!Ember.isEmpty(imageId)) {
 			this.set('imageDetails', {});
 
+			ImageReviewItemModel.getImageInfo(imageId).then((data) => {
+				this.set('imageDetails.fullSizeImageUrl', data.imageUrl);
+				this.set('imageDetails.context', data.context);
+				this.set('imageDetails.isContextProvided', Boolean(data.context));
+				this.set('imageDetails.isContextLink', new RegExp('(http|https)?:\/\/[^\s]+').test(data.context));
+			});
+
 			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
 				this.set('imageDetails.history', data);
 			});
 
 			ImageReviewItemModel.getImageContext(imageId).then((data) => {
-				this.set('imageDetails.fullSizeImageUrl', M.getStaticAssetsServiceUrl(`/image/${imageId}`));
 				this.set('imageDetails.originalFilename', data.originalFilename);
 				this.set('imageDetails.size', data.size);
 				this.set('imageDetails.dimensions', data.dimensions);
