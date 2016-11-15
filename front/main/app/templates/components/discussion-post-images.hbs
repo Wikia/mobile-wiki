@@ -1,3 +1,5 @@
-{{#each images as |image|}}
-	<img class="post-image" src="{{image.url}}" />
+{{#each displayedImages as |image|}}
+	<a href="{{href-to 'discussion.post' threadId}}">
+		<img class="post-image" src="{{image.url}}" alt=""/>
+	</a>
 {{/each}}

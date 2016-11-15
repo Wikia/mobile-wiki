@@ -1,4 +1,13 @@
-.post-image {
-	margin-top: 9px;
-	margin-bottom: 18px;
+.post-images {
+	margin-bottom: 13px;
+
+	.post-image {
+		margin-top: 9px;
+	}
+}
+
+@media #{$desktop-range} {
+	.post-images {
+		margin-bottom: 18px;
+	}
 }

@@ -67,6 +67,8 @@
 	{{#if post.contentImages}}
 		{{discussion-post-images
 			images=post.contentImages.images
+			mode=imagesMode
+			threadId=post.threadId
 		}}
 	{{else if post.openGraph}}
 		{{discussion-open-graph
