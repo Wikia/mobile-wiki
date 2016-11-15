@@ -91,11 +91,11 @@ DiscussionPost.reopenClass({
 				threadId: threadData.id,
 				title: threadData.title,
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails),
-				contentImages: DiscussionContentImages.create(get(threadData, '_embedded.contentImages'))
+				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
 			}),
 			userData = get(threadData, '_embedded.userData.0'),
-			openGraphData = get(threadData, '_embedded.openGraph.0');
+			openGraphData = get(threadData, '_embedded.openGraph.0'),
+			contentImagesData = get(threadData, '_embedded.contentImages');
 
 		if (userData) {
 			post.set('userData', DiscussionUserData.create(userData));
@@ -103,6 +103,10 @@ DiscussionPost.reopenClass({
 
 		if (openGraphData) {
 			post.set('openGraph', OpenGraph.create(openGraphData));
+		}
+
+		if (!Ember.isEmpty(contentImagesData)) {
+			post.set('contentImages', DiscussionContentImages.create(contentImagesData));
 		}
 
 		return post;
