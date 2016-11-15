@@ -18,25 +18,22 @@ export default Component.extend({
 	 * @type {String}
 	 *
 	 * Component supports two modes:
-	 * - 'compact' - shows only first image and redirects to post details page
+	 * - 'compact' - shows only first image
 	 * - 'full' - shows all images and displays image lightbox when image is clicked
 	 */
 	mode: 'compact',
 
 	/**
-	 * @public
-	 * @type {String}
-	 *
-	 * Id used in compact mode for link generation.
-	 */
-	threadId: null,
-
-	/**
 	 * @private
 	 */
-	displayedImages: computed('showOnlyFirst', 'images', function() {
-		const images = this.get('images');
+	displayedImages: computed('showOnlyFirst', 'images', function () {
+		const images = this.get('images'),
+			noImages = A();
 
+		return Ember.isEmpty(images) ? noImages : this.computeImagesToDisplay(images);
+	}),
+
+	computeImagesToDisplay(images) {
 		return 'compact' === this.getWithDefault('mode', 'compact') ? images.slice(0, 1) : images;
-	})
+	}
 });
