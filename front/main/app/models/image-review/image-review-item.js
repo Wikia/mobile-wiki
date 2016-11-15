@@ -7,7 +7,7 @@ const ImageReviewItemModel = Ember.Object.extend({
 
 ImageReviewItemModel.reopenClass({
 	getImageInfo(imageId) {
-		return request(M.getImageReviewServiceUrl(`/imageInfo/${imageId}`))
+		return request(M.getImageReviewServiceUrl(`/imageInfo/${imageId}`));
 	},
 
 	getImageContext(imageId) {
