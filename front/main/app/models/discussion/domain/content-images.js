@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import DiscussionContentImage from './content-image';
 
-const {Object} = Ember,
-	DiscussionContentImages = Object.extend({});
+const {Object, A} = Ember,
+	DiscussionContentImages = Object.extend({
+		images: A()
+	});
 
 DiscussionContentImages.reopenClass({
 	/**
@@ -11,12 +13,16 @@ DiscussionContentImages.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(contentImagesData) {
-		return this._super(contentImagesData.map(contentImageData => {
-			DiscussionContentImage.create({
-				positon: contentImageData.position,
-				url: contentImageData.url
-			})
-		}));
+		const images = A(contentImagesData)
+			.sortBy('position')
+			.map(contentImageData => {
+				return Object.create({
+					position: contentImageData.position,
+					url: contentImageData.url
+				})
+			});
+
+		return this._super({images});
 	}
 });
 
