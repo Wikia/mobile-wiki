@@ -34,15 +34,15 @@
 		}}
 	</div>
 	<div class="discussion-page row">
-		<div class="rail large-3 columns">
+		<div class="rail large-3 extra-large-2 columns">
 			{{discussion-side-button
 				route='discussion'
 			}}
 		</div>
-		<div class="small-12 large-6 columns">
+		<div class="small-12 large-6 extra-large-6 columns">
 			{{yield}}
 		</div>
-		<div class="rail large-3 columns">
+		<div class="rail large-3 extra-large-2 columns">
 			{{#if model.canDeleteAll}}
 				<div {{action 'deleteAllPosts'}} class="side-button delete-all">
 					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
