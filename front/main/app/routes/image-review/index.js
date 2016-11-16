@@ -54,7 +54,7 @@ export default Route.extend({
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {
+			ImageReviewModel.reviewImages(model.images, model.batchId, model.userCanAuditReviews).then(() => {
 			}, (data) => {
 				this.controllerFor('application').addAlert({
 					message: data,

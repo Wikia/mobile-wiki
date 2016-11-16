@@ -93,11 +93,13 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	reviewImages(images, batchId) {
+	reviewImages(images, batchId, userCanAuditReviews) {
 		const imageList = images.map((item) => {
 			return {
 				imageId: item.imageId,
-				imageStatus: item.status.toUpperCase()
+				imageStatus: (userCanAuditReviews && item.status.toUpperCase === 'REJECTED')
+						? 'REMOVED'
+						: item.status.toUpperCase()
 			};
 		});
 
