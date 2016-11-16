@@ -1,9 +1,11 @@
-import DiscussionEntity from './entity';
+import DiscussionContentImages from './content-images';
 import DiscussionContributor from './contributor';
+import DiscussionEntity from './entity';
 import DiscussionUserData from './user-data';
 import OpenGraph from './open-graph';
 
-const DiscussionReply = DiscussionEntity.extend({
+const {get} = Ember,
+	DiscussionReply = DiscussionEntity.extend({
 	position: null,
 	threadCreatedBy: null,
 });
@@ -35,8 +37,9 @@ DiscussionReply.reopenClass({
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
 			}),
-			userData = Ember.get(postData, '_embedded.userData.0'),
-			openGraphData = Ember.get(postData, '_embedded.openGraph.0');
+			userData = get(postData, '_embedded.userData.0'),
+			openGraphData = get(postData, '_embedded.openGraph.0'),
+			contentImagesData = get(postData, '_embedded.contentImages');
 
 		if (openGraphData) {
 			reply.set('openGraph', OpenGraph.create(openGraphData));
@@ -44,6 +47,10 @@ DiscussionReply.reopenClass({
 
 		if (userData) {
 			reply.set('userData', DiscussionUserData.create(userData));
+		}
+
+		if (!Ember.isEmpty(contentImagesData)) {
+			reply.set('contentImages', DiscussionContentImages.create(contentImagesData));
 		}
 
 		return reply;
