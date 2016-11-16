@@ -37,7 +37,7 @@
 		<ul class="image-review-list">
 			{{#each model.images as |item|}}
 				<li class="image-review-item">
-					{{image-review-item model=item showModal=(action 'showModal') showRemoved=model.userCanAuditReviews
+					{{image-review-item model=item showModal=(action 'showModal') isRejectedQueue=model.isRejectedQueue
 					changeItemModel=(action (action this.attrs.changeItemModel))}}
 				</li>
 			{{/each}}
