@@ -3,6 +3,7 @@
  */
 export default function () {
 	this.passthrough('/write-blanket-coverage');
+	this.passthrough('https://localhost/**');
 
 	// We have /front/main/assets prefix hardcoded in route and testem use /assets
 	// This is a quick (hopefully temporary) fix
@@ -35,5 +36,18 @@ export default function () {
 		}
 
 		throw new Error(`Controller or method response isn't yet mocked`);
+	});
+
+	this.get('https://localhost/discussion/:siteId/threads', (schema, request) => {
+		console.log(schema.discussionThreads.first());
+		return schema.discussionThreads.first();
+	});
+
+	this.get('https://localhost/discussion/:siteId/forums', (schema, request) => {
+		return schema.discussionForums.first();
+	});
+
+	this.get('https://localhost/site-attribute/site/:siteId/attr', (schema, request) => {
+		return schema.siteAttributes.first();
 	});
 }
