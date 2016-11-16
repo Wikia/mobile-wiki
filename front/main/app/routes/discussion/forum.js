@@ -232,7 +232,12 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
-			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}?sort=latest`;
+			// We do not want to set a canonical for pages other than first
+			if (this.get('controller.page') === 1) {
+				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}?sort=latest`;
+			} else {
+				data.canonical = null;
+			}
 
 			this._super(model, data);
 		},

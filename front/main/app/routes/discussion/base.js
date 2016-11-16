@@ -18,13 +18,7 @@ export default Ember.Route.extend(
 		 */
 		setDynamicHeadTags(model, data = {}) {
 			data.documentTitle = 'Discussions';
-
-			// We do not want to set a canonical for pages other than first
-			if (this.get('controller.page') === 1) {
-				data.canonical = data.canonical || `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
-			} else {
-				data.canonical = null;
-			}
+			data.canonical = data.canonical || `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
 
 			this._super(model, data);
 		},
