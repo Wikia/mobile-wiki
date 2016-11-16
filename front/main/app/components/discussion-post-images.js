@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {A, Component, computed} = Ember;
+const {$, A, Component, computed} = Ember;
 
 export default Component.extend({
 	classNames: ['post-images'],
@@ -25,6 +25,28 @@ export default Component.extend({
 
 	/**
 	 * @private
+	 * @param event
+	 */
+	click: function (event) {
+		const body = $('body'),
+			activeClass = 'lightbox-active';
+
+		if (body.hasClass(activeClass)) {
+			body.removeClass(activeClass);
+		} else if (event.target.classList.contains('post-image')) {
+			body.addClass(activeClass);
+		}
+	},
+
+	/**
+	 * @private
+	 */
+	computeImagesToDisplay(images) {
+		return 'compact' === this.getWithDefault('mode', 'compact') ? images.slice(0, 1) : images;
+	},
+
+	/**
+	 * @private
 	 */
 	displayedImages: computed('showOnlyFirst', 'images', function () {
 		const images = this.get('images'),
@@ -33,7 +55,5 @@ export default Component.extend({
 		return Ember.isEmpty(images) ? noImages : this.computeImagesToDisplay(images);
 	}),
 
-	computeImagesToDisplay(images) {
-		return 'compact' === this.getWithDefault('mode', 'compact') ? images.slice(0, 1) : images;
-	}
+	enableLightbox: computed.equal('mode', 'full'),
 });

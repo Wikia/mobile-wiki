@@ -16,6 +16,7 @@ DiscussionContentImages.reopenClass({
 			.sortBy('position')
 			.map(contentImageData => {
 				return Object.create({
+					id: contentImageData.id,
 					position: contentImageData.position,
 					url: contentImageData.url
 				})

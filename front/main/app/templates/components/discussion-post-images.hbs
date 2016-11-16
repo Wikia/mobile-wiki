@@ -1,3 +1,13 @@
-{{#each displayedImages as |image|}}
-	<img class="post-image" src="{{image.url}}" alt=""/>
+{{#each displayedImages as |image index|}}
+	{{#if enableLightbox}}
+		<a href="#post-image-{{index}}">
+			<img class="post-image" src="{{image.url}}" alt=""/>
+		</a>
+		<a href="#_" class="lightbox" id="post-image-{{index}}">
+			<img class="post-image-lightbox" src="{{image.url}}" alt=""/>
+			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
+		</a>
+	{{else}}
+		<img class="post-image" src="{{image.url}}" alt=""/>
+	{{/if}}
 {{/each}}

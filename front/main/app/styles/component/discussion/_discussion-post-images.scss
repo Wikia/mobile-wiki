@@ -1,3 +1,5 @@
+$desktop-lightbox-close-size: 24px;
+
 .post-images {
 	margin-bottom: 13px;
 
@@ -8,10 +10,55 @@
 	.post-image {
 		margin-top: 9px;
 	}
+
+	.lightbox {
+		align-content: center;
+		background: rgba(0, 0, 0, 0.8);
+		display: none;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: $z-global-navigation + 1;
+
+		img {
+			margin: auto;
+			max-height: 90%;
+			max-width: 90%;
+		}
+
+		&:target {
+			display: flex;
+			outline: none;
+		}
+
+		.lightbox-close {
+			left: 14px;
+			fill: $wds-color-white;
+			position: absolute;
+			top: 14px;
+		}
+	}
+}
+
+.lightbox-active {
+	overflow: hidden;
 }
 
 @media #{$desktop-range} {
 	.post-images {
 		margin-bottom: 18px;
+
+		.lightbox {
+			.lightbox-close {
+				height: $desktop-lightbox-close-size;
+				left: 111px;
+				top: 78px;
+				width: $desktop-lightbox-close-size;
+			}
+		}
 	}
+
 }
