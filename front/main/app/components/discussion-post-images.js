@@ -31,10 +31,12 @@ export default Component.extend({
 		const body = $('body'),
 			activeClass = 'lightbox-active';
 
-		if (body.hasClass(activeClass)) {
-			body.removeClass(activeClass);
-		} else if (event.target.classList.contains('post-image')) {
-			body.addClass(activeClass);
+		if ('full' === this.getWithDefault('mode', 'compact')) {
+			if (body.hasClass(activeClass)) {
+				body.removeClass(activeClass);
+			} else if (event.target.classList.contains('post-image')) {
+				body.addClass(activeClass);
+			}
 		}
 	},
 
