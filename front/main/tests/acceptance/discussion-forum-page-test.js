@@ -14,6 +14,10 @@ moduleForAcceptance('Acceptance | discussion forum page', {
 });
 mockServiceUrls();
 
+/**
+ * We need to test in a single test run since there's currently a problem with running multiple test cases
+ * Tracking ticket: SOC-3565
+ */
 test('visiting /d results in a redirect + adding default sort to the url', (assert) => {
 	// https://github.com/ember-cli/ember-cli/issues/3719#issuecomment-111279593
 	visit('/');
