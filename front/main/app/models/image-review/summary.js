@@ -28,11 +28,12 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 		if (!Ember.isEmpty(imageId)) {
 			this.set('imageDetails', {});
 
+			const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 			ImageReviewItemModel.getImageInfo(imageId).then((data) => {
 				this.set('imageDetails.fullSizeImageUrl', data.imageUrl);
 				this.set('imageDetails.context', data.context);
 				this.set('imageDetails.isContextProvided', Boolean(data.context));
-				this.set('imageDetails.isContextLink', new RegExp('(http|https)?:\/\/[^\s]+').test(data.context));
+				this.set('imageDetails.isContextLink', linkRegexp.test(data.context));
 			});
 
 			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
