@@ -29,12 +29,12 @@ export default Route.extend({
 				type: 'warning',
 				persistent: true
 			});
+
 			this.transitionTo('wiki-page', '');
 			return false;
 		},
 
 		getAllWithStatus(status) {
-			const model = this.modelFor('image-review.index');
 			window.scrollTo(0, 0);
 
 			this.set('status', status);
