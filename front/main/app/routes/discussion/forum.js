@@ -247,6 +247,8 @@ export default DiscussionBaseRoute.extend(
 					selectedCategories = model.index.categories.get('selectedCategoryIds');
 
 				model.current.loadPage(pageNum, selectedCategories, this.get('discussionSort.sortBy'));
+
+				this.setDynamicHeadTags(model);
 			},
 
 			updateCategoriesSelection(updatedCategories) {
