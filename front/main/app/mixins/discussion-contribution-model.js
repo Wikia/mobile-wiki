@@ -192,18 +192,22 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	commenceFollow(user, entity) {
-		const endpoint = `/followers/${user.get('userId')}/items/${entity.get('id')}/type/post`,
-			isFollowing = entity.get('isFollowing'),
-			method = isFollowing ? 'delete' : 'put';
+		const type = 'discussion-thread',
+			endpoint = `/followers/${user.get('userId')}/type/${type}/items/${entity.get('id')}`,
+			isFollowed = entity.get('isFollowed'),
+			method = isFollowed ? 'delete' : 'put'
 
-		entity.set('isFollowing', !isFollowing);
+		entity.set('isFollowed', !isFollowed);
 
 		return request(M.getFollowingServiceUrl(endpoint), {
+			data: JSON.stringify({
+				"siteId" : Mercury.wiki.id
+			}),
 			method
 		}).then((data) => {
-			track(isFollowing ? trackActions.UnfollowPost : trackActions.FollowPost);
+			track(isFollowed ? trackActions.UnfollowPost : trackActions.FollowPost);
 		}).catch(() => {
-			entity.set('isFollowing', isFollowing);
+			entity.set('isFollowed', isFollowed);
 			this.addAlert({
 				message: i18n.t('main.action-general-error', {ns: 'discussion'}),
 				type: 'discussions-action-failed',
