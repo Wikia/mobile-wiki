@@ -14,11 +14,11 @@ DiscussionContentImages.reopenClass({
 	create(contentImagesData) {
 		const images = A(contentImagesData)
 			.sortBy('position')
-			.map(contentImageData => {
+			.map(data => {
 				return Object.create({
-					id: contentImageData.id,
-					position: contentImageData.position,
-					url: contentImageData.url
+					id: data.id,
+					position: data.position,
+					url: data.url
 				})
 			});
 

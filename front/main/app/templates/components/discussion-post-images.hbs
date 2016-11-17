@@ -1,9 +1,9 @@
 {{#each displayedImages as |image index|}}
 	{{#if enableLightbox}}
-		<a href="#post-image-{{index}}">
+		<a href="#lightbox-image-{{image.id}}">
 			<img class="post-image" src="{{image.url}}" alt=""/>
 		</a>
-		<a href="#_" class="lightbox" id="post-image-{{index}}">
+		<a href="#_" class="lightbox" id="lightbox-image-{{image.id}}">
 			<img class="post-image-lightbox" src="{{image.url}}" alt=""/>
 			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
 		</a>
