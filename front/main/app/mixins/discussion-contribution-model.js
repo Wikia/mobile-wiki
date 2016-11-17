@@ -175,7 +175,7 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 	 * @returns {void}
 	 */
 	follow(user, entity) {
-		const id = entity.get('id');
+		const id = entity.get('threadId');
 		if (!this.followingInProgress[id]) {
 			this.followingInProgress[id] = true;
 			this.commenceFollow(user, entity).finally(() => {
@@ -193,7 +193,7 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 	 */
 	commenceFollow(user, entity) {
 		const type = 'discussion-thread',
-			endpoint = `/followers/${user.get('userId')}/type/${type}/items/${entity.get('id')}`,
+			endpoint = `/followers/${user.get('userId')}/type/${type}/items/${entity.get('threadId')}`,
 			isFollowed = entity.get('isFollowed'),
 			method = isFollowed ? 'delete' : 'put'
 
