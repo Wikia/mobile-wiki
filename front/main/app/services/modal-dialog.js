@@ -28,6 +28,7 @@ export default Ember.Service.extend({
 			const params = {};
 
 			$.extend(
+				{},
 				params,
 				this.get('defaultDisplayParameters'),
 				displayParameters,
@@ -45,6 +46,7 @@ export default Ember.Service.extend({
 		const params = {};
 
 		$.extend(
+			{},
 			params,
 			this.get('defaultDisplayParameters'),
 			{isDisplayed: false},
