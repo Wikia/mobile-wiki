@@ -25,30 +25,32 @@
 	}}
 {{/if}}
 
-
-{{#discussion-post-list
-		posts=posts
-		setEditorActive=(action this.attrs.setEditorActive)
-		as |entity|
-}}
-	{{discussion-post-card-detail
-		approve=(action this.attrs.approve)
-		author=entity.createdBy
-		categories=categories
-		delete=(action this.attrs.deletePost)
-		follow=(action this.attrs.follow)
-		lock=(action this.attrs.lockPost)
-		openEditEditor=(action this.attrs.openEditEditor)
-		post=entity
-		replyCount=entity.repliesCount
-		report=(action this.attrs.report)
-		setEditorActive=(action this.attrs.setEditorActive)
-		shareTooltipSeen=shareTooltipSeen
-		undelete=(action this.attrs.undeletePost)
-		unlock=(action this.attrs.unlockPost)
-		upvote=(action this.attrs.upvote)
+{{#if posts.length}}
+	{{#discussion-post-list
+			posts=posts
+			as |entity|
 	}}
-{{/discussion-post-list}}
+		{{discussion-post-card-detail
+			approve=(action this.attrs.approve)
+			author=entity.createdBy
+			categories=categories
+			delete=(action this.attrs.deletePost)
+			follow=(action this.attrs.follow)
+			lock=(action this.attrs.lockPost)
+			openEditEditor=(action this.attrs.openEditEditor)
+			post=entity
+			replyCount=entity.repliesCount
+			report=(action this.attrs.report)
+			setEditorActive=(action this.attrs.setEditorActive)
+			shareTooltipSeen=shareTooltipSeen
+			undelete=(action this.attrs.undeletePost)
+			unlock=(action this.attrs.unlockPost)
+			upvote=(action this.attrs.upvote)
+		}}
+	{{/discussion-post-list}}
+{{else}}
+	{{yield}}
+{{/if}}
 
 
 {{#if showLoadMoreButton}}
