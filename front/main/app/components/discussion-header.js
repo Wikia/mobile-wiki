@@ -19,6 +19,10 @@ export default Ember.Component.extend(
 
 		classNames: ['discussion-header-wrapper'],
 
+		discussionMobileFilterId: Ember.computed(function () {
+			return `discussion-mobile-filter-${this.get('elementId')}`;
+		}),
+
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', function () {
 			return this.get('discussionSort.sortTypes.0.active') === false ||
@@ -34,6 +38,6 @@ export default Ember.Component.extend(
 			clickMobileHeaderWikiName() {
 				track(trackActions.MobileHeaderCommunityNameClicked);
 			}
-		}
+		},
 	}
 );

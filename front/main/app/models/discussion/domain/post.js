@@ -101,6 +101,7 @@ DiscussionPost.reopenClass({
 		post.setProperties({
 			id: threadData.firstPostId,
 			isLocked: !threadData.isEditable,
+			lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
 			permalinkedReplyId: threadData.permalinkedReplyId,
 			repliesCount: parseInt(threadData.postCount, 10),
 			threadId: threadData.id,

@@ -81,7 +81,7 @@
 	float: right;
 }
 
-.image-review-modal-dialog {
+.image-review-image-details {
 	display: block;
 	margin: 0 auto;
 	position: relative;
@@ -98,6 +98,11 @@
 	}
 }
 
+input[type="text"].image-review-summary-input {
+	width: 50%;
+	margin-right: 1em;
+	display: inline-block;
+}
 
 .image-review-date-input {
 	display: inline-block;
