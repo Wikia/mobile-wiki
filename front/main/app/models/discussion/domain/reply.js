@@ -6,9 +6,9 @@ import OpenGraph from './open-graph';
 
 const {get} = Ember,
 	DiscussionReply = DiscussionEntity.extend({
-	position: null,
-	threadCreatedBy: null,
-});
+		position: null,
+		threadCreatedBy: null,
+	});
 
 DiscussionReply.reopenClass({
 	/**

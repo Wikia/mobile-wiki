@@ -19,7 +19,7 @@ DiscussionContentImages.reopenClass({
 					id: data.id,
 					position: data.position,
 					url: data.url
-				})
+				});
 			});
 
 		return this._super({images});
