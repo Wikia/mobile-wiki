@@ -89,15 +89,19 @@ ImageReviewModel.reopenClass({
 			images,
 			batchId,
 			status,
-			userCanAuditReviews
+			userCanAuditReviews,
+			isRejectedQueue: (status === 'REJECTED')
 		});
 	},
 
-	reviewImages(images, batchId) {
+	reviewImages(images, batchId, status) {
 		const imageList = images.map((item) => {
+
 			return {
 				imageId: item.imageId,
-				imageStatus: item.status.toUpperCase()
+				imageStatus: (item.status.toUpperCase() === 'REJECTED' && status === 'REJECTED')
+						? 'REMOVED'
+						: item.status.toUpperCase()
 			};
 		});
 
