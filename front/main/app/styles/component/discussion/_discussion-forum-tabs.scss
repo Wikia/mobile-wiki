@@ -31,3 +31,9 @@
 		width: 100%;
 	}
 }
+
+@media #{$large-desktop-range} {
+	.discussion-forum-tabs {
+		width: $discussion-large-page-width;
+	}
+}
