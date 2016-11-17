@@ -77,14 +77,12 @@
 			</a>
 		{{/if}}
 	{{/if}}
-	{{#unless post.contentImages}}
-		{{#if post.openGraph}}
-			{{discussion-open-graph
-				openGraphData=post.openGraph
-				isListView=true
-			}}
-		{{/if}}
-	{{/unless}}
+	{{#if showOpenGraphCard}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+			isListView=true
+		}}
+	{{/if}}
 	{{#if showLastEditedByMessage}}
 		<div class="row post-edited-by-row">
 			{{lastEditedByMessage}}

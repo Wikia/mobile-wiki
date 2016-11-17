@@ -16,6 +16,10 @@ export default DiscussionPostCardBaseComponent.extend(
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
+		showOpenGraphCard: Ember.computed('post.contentImages', 'post.openGraph', function() {
+			return Ember.isEmpty(this.get('post.contentImages')) && Boolean(this.get('post.openGraph'));
+		}),
+
 		showLastEditedByMessage: Ember.computed(
 			'post.lastEditedBy', 'post.lastEditedBy.id', 'post.createdBy.id', function () {
 				return this.get('showLastEditedBy') && Boolean(this.get('post.lastEditedBy'))

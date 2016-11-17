@@ -28,7 +28,7 @@ export default Component.extend({
 	 * @private
 	 */
 	computeImagesToDisplay(images) {
-		return this.getWithDefault('mode', 'compact') === 'compact' ? images.slice(0, 1) : images;
+		return this.get('mode') === 'compact' ? images.slice(0, 1) : images;
 	},
 
 	/**
