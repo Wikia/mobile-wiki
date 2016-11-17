@@ -1,0 +1,11 @@
+<a {{action 'open'}}>
+	<img class="lightbox-image" src="{{url}}" alt=""/>
+</a>
+{{#if active}}
+	<a {{action 'close'}} class="lightbox-overlay">
+		<img class="lightbox-image-on-overlay" src="{{url}}" alt=""/>
+		<a {{action 'closeUsingButton'}}>
+			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
+		</a>
+	</a>
+{{/if}}
