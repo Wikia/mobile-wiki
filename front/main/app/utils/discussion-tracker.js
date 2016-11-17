@@ -83,7 +83,10 @@ const trackActions = {
 	WikiHomeLinkClicked: 'WikiHomeLinkClicked',
 	SideButtonClicked: 'SideButtonClicked',
 	MobileHeaderCommunityNameClicked: 'MobileHeaderCommunityNameClicked',
-	PageView: 'PageView'
+	PageView: 'PageView',
+	PostLightboxOpen: 'PostLightboxOpen',
+	PostLightboxOverlayClose: 'PostLightboxOverlayClose',
+	PostLightboxButtonClose: 'PostLightboxButtonClose'
 };
 
 /**

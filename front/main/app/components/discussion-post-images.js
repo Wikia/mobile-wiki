@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 const {$, A, Component, computed} = Ember;
 
@@ -25,23 +26,6 @@ export default Component.extend({
 
 	/**
 	 * @private
-	 * @param event
-	 */
-	click: function (event) {
-		const body = $('body'),
-			activeClass = 'lightbox-active';
-
-		if ('full' === this.getWithDefault('mode', 'compact')) {
-			if (body.hasClass(activeClass)) {
-				body.removeClass(activeClass);
-			} else if (event.target.classList.contains('post-image')) {
-				body.addClass(activeClass);
-			}
-		}
-	},
-
-	/**
-	 * @private
 	 */
 	computeImagesToDisplay(images) {
 		return 'compact' === this.getWithDefault('mode', 'compact') ? images.slice(0, 1) : images;
@@ -58,4 +42,18 @@ export default Component.extend({
 	}),
 
 	enableLightbox: computed.equal('mode', 'full'),
+
+	actions: {
+		onLightboxClose() {
+			track(trackActions.PostLightboxOverlayClose);
+		},
+
+		onLightboxCloseUsingButton() {
+			track(trackActions.PostLightboxButtonClose);
+		},
+
+		onLightboxOpen() {
+			track(trackActions.PostLightboxOpen);
+		}
+	}
 });

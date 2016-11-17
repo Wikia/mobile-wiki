@@ -1,12 +1,11 @@
-{{#each displayedImages as |image index|}}
+{{#each displayedImages as |image|}}
 	{{#if enableLightbox}}
-		<a href="#lightbox-image-{{image.id}}">
-			<img class="post-image" src="{{image.url}}" alt=""/>
-		</a>
-		<a href="#_" class="lightbox" id="lightbox-image-{{image.id}}">
-			<img class="post-image-lightbox" src="{{image.url}}" alt=""/>
-			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
-		</a>
+		{{discussion-lightbox
+				url=image.url
+				onClose=(action 'onLightboxClose')
+				onButtonClose=(action 'onLightboxCloseUsingButton')
+				onOpen=(action 'onLightboxOpen')
+		}}
 	{{else}}
 		<img class="post-image" src="{{image.url}}" alt=""/>
 	{{/if}}
