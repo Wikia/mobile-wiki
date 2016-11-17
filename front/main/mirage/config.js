@@ -39,7 +39,6 @@ export default function () {
 	});
 
 	this.get('https://localhost/discussion/:siteId/threads', (schema, request) => {
-		console.log(schema.discussionThreads.first());
 		return schema.discussionThreads.first();
 	});
 

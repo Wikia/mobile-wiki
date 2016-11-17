@@ -1,3 +1,5 @@
+/* eslint-disable quote-props, quotes, max-len */
+
 export default {
 	"_links": {
 		"self": {
@@ -65,3 +67,5 @@ export default {
 		]
 	}
 };
+/* eslint-enable quote-props, quotes, max-len */
+/* eslint-enable quote-props, quotes, max-len */
