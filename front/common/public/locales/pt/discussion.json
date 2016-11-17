@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Compartilhe suas discussões favoritas com suas redes sociais para atrair mais fãs."
   },
   "main":{
+    "action-general-error":"A ação falhou, por favor, tente novamente.",
     "discussions-header-title":"Discussões",
     "pagination-post-show-more":"Visualizar respostas mais antigas",
     "pagination-post-show-newer-replies":"Visualizar respostas mais recentes",
@@ -94,6 +95,14 @@
     "reply-label":"Responder",
     "share-header":"Compartilhar post",
     "share-label":"Compartilhar",
+    "share-tooltip":"Compartilhe seu novo post aqui",
+    "follow-error-anon-cant-follow":"Iniciar sessão para começar a seguir a discussão!",
+    "follow-error-anon-cant-see-followed-posts":"Iniciar sessão para ver seus posts seguidos.",
+    "follow-label":"Seguir",
+    "follow-tooltip":"Adicionar a sua lista de seguidos",
+    "follow-introducing-header":"Apresentando Seguindo!",
+    "follow-introducing-text":"Fique ligado nas discussões que mais importam para você. Acompanhe uma discussão para receber notificações de novas atividades e nunca perder a conversa outra vez.",
+    "follow-introducing-button-label":"OK, entendido",
     "reported-not-found-error":"Não há posts ou respostas denunciados.",
     "categories-header":"Categorias",
     "categories-edit-label":"Editar",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Dimensões da imagem: 1240x200<br>jpg, gif ou png. Limite de 10mb",
     "image-save-failed":"Falha ao salvar. Por favor, tente novamente.",
     "upload-image-button-text":"Carregar imagem",
-    "category-select-tooltip-text":"Selecionar"
+    "category-select-tooltip-text":"Selecionar",
+    "tab-all":"Todos",
+    "tab-following":"Seguindo",
+    "no-followed-posts-header":"Bem-vindo a listagem dos posts que você segue.",
+    "no-followed-posts-text":"Clique no ícone \"Seguir\" na parte inferior de qualquer post para preencher sua lista com as discussões que mais importam para você. Vamos colocá-las aqui e notificá-lo sobre novas atividades.",
+    "find-posts-to-follow":"Encontrar posts para seguir"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

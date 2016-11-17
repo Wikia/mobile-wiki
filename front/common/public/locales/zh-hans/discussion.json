@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"在社交网络上分享您最喜爱的话题，让更多的粉丝参与其中。"
   },
   "main":{
+    "action-general-error":"操作失败，请再试一次。",
     "discussions-header-title":"讨论版",
     "pagination-post-show-more":"查看以往回复",
     "pagination-post-show-newer-replies":"查看最新回复",
@@ -94,6 +95,14 @@
     "reply-label":"回复",
     "share-header":"分享话题",
     "share-label":"分享",
+    "share-tooltip":"在这里分享您发布的帖子",
+    "follow-error-anon-cant-follow":"登入开始关注讨论！",
+    "follow-error-anon-cant-see-followed-posts":"登入查看你关注的帖子。",
+    "follow-label":"关注",
+    "follow-tooltip":"添加到关注列表",
+    "follow-introducing-header":"查看最新的“关注”功能！",
+    "follow-introducing-text":"你可以时常查看讨论区的内容。关注帖子，接收活动通知，不要错过任何一次讨论。",
+    "follow-introducing-button-label":"好的，知道了",
     "reported-not-found-error":"暂时没有被举报的帖子或者回复。",
     "categories-header":"分类",
     "categories-edit-label":"编辑",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"图像尺寸︰1240x200<br>jpg, gif或者png. 限定10mb",
     "image-save-failed":"保存失败，请再试一次。",
     "upload-image-button-text":"上传图片",
-    "category-select-tooltip-text":"选择"
+    "category-select-tooltip-text":"选择",
+    "tab-all":"所有",
+    "tab-following":"关注中",
+    "no-followed-posts-header":"欢迎使用关注标签。",
+    "no-followed-posts-text":"点击帖子底部的“关注”按钮关注你感兴趣的话题。你可以在这里查看全部关注的帖子。如有任何新的活动，你都会收到系统通知。",
+    "find-posts-to-follow":"查找需要关注的帖子"
   },
   "editor":{
     "post-failed-error":"发布失败",

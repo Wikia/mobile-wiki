@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
   },
   "main":{
+    "action-general-error":"実行できませんでした。再度お試しください。",
     "discussions-header-title":"トーク",
     "pagination-post-show-more":"古い返信を表示",
     "pagination-post-show-newer-replies":"新しい返信を表示",
@@ -94,6 +95,14 @@
     "reply-label":"返信",
     "share-header":"投稿を共有する",
     "share-label":"共有",
+    "share-tooltip":"新しい投稿を共有する",
+    "follow-error-anon-cant-follow":"フォローするにはログインしてください。",
+    "follow-error-anon-cant-see-followed-posts":"フォローされている投稿を見るにはログインしてください。",
+    "follow-label":"フォロー",
+    "follow-tooltip":"フォローリストに追加",
+    "follow-introducing-header":"フォロー機能のご紹介",
+    "follow-introducing-text":"関心のあるトークをフォローすると、新しいアクティビティがあるたびに通知を受け取ることができます。もう会話を見逃すこともありません。",
+    "follow-introducing-button-label":"了解。",
     "reported-not-found-error":"報告された投稿や返信はありません 。",
     "categories-header":"カテゴリ",
     "categories-edit-label":"編集",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"画像のサイズ: 1240 × 200 <br>jpg、gif または png の 10 MB の制限",
     "image-save-failed":"保存できませんでした。もう一度試してみてください。",
     "upload-image-button-text":"画像をアップロード",
-    "category-select-tooltip-text":"選択"
+    "category-select-tooltip-text":"選択",
+    "tab-all":"すべて",
+    "tab-following":"フォローのみ表示",
+    "no-followed-posts-header":"「フォロー中」のタブへようこそ。",
+    "no-followed-posts-text":"投稿の一番下にある「フォロー」のアイコンをクリックすると、関心のあるトークのリストに追加できます。トークのリストはここに表示され、新しいアクティビティがあったときに通知が送信されます。",
+    "find-posts-to-follow":"フォローする投稿を見つける"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

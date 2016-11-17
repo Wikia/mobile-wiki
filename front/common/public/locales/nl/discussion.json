@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
   },
   "main":{
+    "action-general-error":"Action failed, please try again.",
     "discussions-header-title":"Discussies",
     "pagination-post-show-more":"Oudere antwoorden weergeven",
     "pagination-post-show-newer-replies":"Nieuwere antwoorden weergeven",
@@ -94,6 +95,14 @@
     "reply-label":"Reply",
     "share-header":"Share Post",
     "share-label":"Share",
+    "share-tooltip":"Share your new post here",
+    "follow-error-anon-cant-follow":"Sign in to start following the discussion!",
+    "follow-error-anon-cant-see-followed-posts":"Sign in to see your followed posts.",
+    "follow-label":"Follow",
+    "follow-tooltip":"Add to your following list",
+    "follow-introducing-header":"Introducing Following!",
+    "follow-introducing-text":"Stay connected to the discussions that matter most to you. Follow a discussion to receive notifications of new activity and never miss out on the conversation, again.",
+    "follow-introducing-button-label":"OK, got it",
     "reported-not-found-error":"There are no reported posts or replies.",
     "categories-header":"Categories",
     "categories-edit-label":"Edit",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Image Dimensions: 1240x200<br>jpg, gif or png. 10mb limit",
     "image-save-failed":"Save failed. Please try again.",
     "upload-image-button-text":"Upload image",
-    "category-select-tooltip-text":"Select"
+    "category-select-tooltip-text":"Select",
+    "tab-all":"All",
+    "tab-following":"Following",
+    "no-followed-posts-header":"Welcome to your Following tab.",
+    "no-followed-posts-text":"Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
+    "find-posts-to-follow":"Find posts to follow"
   },
   "editor":{
     "post-failed-error":"Post failed.",

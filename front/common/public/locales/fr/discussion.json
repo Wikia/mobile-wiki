@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Partagez vos discussions préférées avec vos réseaux sociaux afin d'attirer encore plus de fans."
   },
   "main":{
+    "action-general-error":"Échec de l'action. Veuillez réessayer.",
     "discussions-header-title":"Discussions",
     "pagination-post-show-more":"Réponses plus anciennes",
     "pagination-post-show-newer-replies":"Réponses plus récentes",
@@ -94,6 +95,14 @@
     "reply-label":"Répondre",
     "share-header":"Partagez la publication",
     "share-label":"Partager",
+    "share-tooltip":"Partager votre nouvelle publication ici",
+    "follow-error-anon-cant-follow":"Connectez-vous pour commencer à suivre la discussion !",
+    "follow-error-anon-cant-see-followed-posts":"Connectez-vous pour voir vos publications suivies.",
+    "follow-label":"Suivre",
+    "follow-tooltip":"Ajouter à ce que vous suivez",
+    "follow-introducing-header":"Présentation de l'onglet Suivies",
+    "follow-introducing-text":"Suivez les discussions qui vous tiennent le plus à cœur afin d'être notifié de toute nouvelle activité et de ne jamais rien manquer de la conversation.",
+    "follow-introducing-button-label":"OK",
     "reported-not-found-error":"Aucune publication ou réponse n'a été signalée.",
     "categories-header":"Catégories",
     "categories-edit-label":"Modifier",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Dimensions de l’image : 1240 x 200<br>jpg, gif ou png. 10 Mo maximum",
     "image-save-failed":"Échec de l'enregistrement. Veuillez réessayer.",
     "upload-image-button-text":"Importer une image",
-    "category-select-tooltip-text":"Sélectionner"
+    "category-select-tooltip-text":"Sélectionner",
+    "tab-all":"Toutes",
+    "tab-following":"Suivies",
+    "no-followed-posts-header":"Bienvenue dans l'onglet Suivies !",
+    "no-followed-posts-text":"Appuyez sur l'icône \"Suivre\" disponible en bas de chaque publication pour ajouter à la liste les discussions qui vous tiennent le plus à cœur. Nous les inclurons ici et vous informerons de toute nouvelle activité.",
+    "find-posts-to-follow":"Rechercher des publications à suivre"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

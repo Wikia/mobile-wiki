@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Делитесь интересными обсуждениями со своими друзьями по интересу и создавайте сообщество для общения."
   },
   "main":{
+    "action-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "discussions-header-title":"Обсуждения",
     "pagination-post-show-more":"Просмотр предыдущих ответов",
     "pagination-post-show-newer-replies":"Просмотр новых ответов",
@@ -94,6 +95,14 @@
     "reply-label":"Комментировать",
     "share-header":"Поделиться записью",
     "share-label":"Поделиться",
+    "share-tooltip":"Поделиться своим новым сообщением здесь",
+    "follow-error-anon-cant-follow":"Войдите в систему, чтобы подписаться на обсуждение.",
+    "follow-error-anon-cant-see-followed-posts":"Войдите в систему, чтобы увидеть отслеживаемые сообщения.",
+    "follow-label":"Отслеживать",
+    "follow-tooltip":"Подписаться",
+    "follow-introducing-header":"Новая функция отслеживания!",
+    "follow-introducing-text":"Отслеживайте интересующие вас обсуждения. Получайте оповещения о любых изменениях в обсуждении и будьте всегда в курсе происходящего.",
+    "follow-introducing-button-label":"ОК",
     "reported-not-found-error":"Требующих проверки сообщений или ответов нет.",
     "categories-header":"Категории",
     "categories-edit-label":"Править",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Размер изображения: 1240 x 200<br>jpg, gif или png. Максимум 10 Мб.",
     "image-save-failed":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "upload-image-button-text":"Загрузить изображение",
-    "category-select-tooltip-text":"Выбрать"
+    "category-select-tooltip-text":"Выбрать",
+    "tab-all":"Все",
+    "tab-following":"Отслеживаемые",
+    "no-followed-posts-header":"Добро пожаловать на страницу отслеживания.",
+    "no-followed-posts-text":"Чтобы подписаться на интересующее вас обсуждение, нажмите на значок «Отслеживать» в нижней части окна сообщения. Мы разместим его здесь и будем оповещать вас о любой новой активности в этом обсуждении.",
+    "find-posts-to-follow":"Поиск сообщений для подписки"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Comparte tus discusiones favoritas con tus redes sociales para traer a más fans a la discusión."
   },
   "main":{
+    "action-general-error":"Fallo en la acción, por favor inténtalo de nuevo.",
     "discussions-header-title":"Discusiones",
     "pagination-post-show-more":"Ver respuestas más antiguas",
     "pagination-post-show-newer-replies":"Ver respuestas más antiguas",
@@ -94,6 +95,14 @@
     "reply-label":"Responder",
     "share-header":"Comparte",
     "share-label":"Compartir",
+    "share-tooltip":"Comparte tu discusión aquí",
+    "follow-error-anon-cant-follow":"¡Regístrate para seguir la discusión!",
+    "follow-error-anon-cant-see-followed-posts":"Regístrate para ver la discusiones que has seguido.",
+    "follow-label":"Seguir",
+    "follow-tooltip":"Añadir a la lista de seguidos",
+    "follow-introducing-header":"¡Presentando seguimiento!",
+    "follow-introducing-text":"Mantente conectado a las discusiones que más te interesan. Sigue una discusión para recibir notificaciones sobre nueva actividad y nunca te pierdas la conversación.",
+    "follow-introducing-button-label":"Entendido",
     "reported-not-found-error":"No hay discusiones ni respuestas reportadas.",
     "categories-header":"Categorías",
     "categories-edit-label":"Editar",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Dimensiones de la imagen: 1240x200<br>jpg, gif or png. Límite de 10mb",
     "image-save-failed":"Error al guardar. Por favor inténtalo de nuevo.",
     "upload-image-button-text":"Subir imagen",
-    "category-select-tooltip-text":"Selecciona"
+    "category-select-tooltip-text":"Selecciona",
+    "tab-all":"Todas",
+    "tab-following":"Siguiendo",
+    "no-followed-posts-header":"Bienvenido a tu viñeta de seguimiento.",
+    "no-followed-posts-text":"Toca el ícono \"Seguir\" en la parte de abajo de cada discusión para llenar tu lista con discusiones que más te interesan. Las pondremos aquí y te notificaremos sobre nueva actividad.",
+    "find-posts-to-follow":"Busca discusiones a seguir"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",
