@@ -27,7 +27,7 @@ export default Ember.Service.extend({
 		if (!this.get('isDisplayed') && displayParameters.message !== this.get('message')) {
 			const params = {};
 
-			Object.assign(
+			$.extend(
 				params,
 				this.get('defaultDisplayParameters'),
 				displayParameters,
@@ -44,7 +44,7 @@ export default Ember.Service.extend({
 	close() {
 		const params = {};
 
-		Object.assign(
+		$.extend(
 			params,
 			this.get('defaultDisplayParameters'),
 			{isDisplayed: false},

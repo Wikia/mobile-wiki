@@ -7,9 +7,6 @@ import startApp from 'main/tests/helpers/start-app';
 moduleForAcceptance('Acceptance | discussion forum page', {
 	beforeEach() {
 		localStorage.clear();
-	},
-
-	afterEach() {
 	}
 });
 mockServiceUrls();
@@ -18,7 +15,7 @@ mockServiceUrls();
  * We need to test in a single test run since there's currently a problem with running multiple test cases
  * Tracking ticket: SOC-3565
  */
-test('visiting /d results in a redirect + adding default sort to the url', (assert) => {
+test('visiting /d results in proper canonical url behavior', (assert) => {
 	// https://github.com/ember-cli/ember-cli/issues/3719#issuecomment-111279593
 	visit('/');
 	visit('/d');
@@ -30,6 +27,7 @@ test('visiting /d results in a redirect + adding default sort to the url', (asse
 		assert.ok(
 			canonicalHref.indexOf(suffix, canonicalHref.length - suffix.length) !== -1,
 		);
+
 		assert.equal(currentURL(), '/d/f?sort=trending');
 
 		click('.load-more-button');
