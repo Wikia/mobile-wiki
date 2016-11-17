@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const {Object, A} = Ember,
 	DiscussionContentImages = Object.extend({
-		images: A()
+		images: new A()
 	});
 
 DiscussionContentImages.reopenClass({
@@ -12,7 +12,7 @@ DiscussionContentImages.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(contentImagesData) {
-		const images = A(contentImagesData)
+		const images = new A(contentImagesData)
 			.sortBy('position')
 			.map(data => {
 				return Object.create({

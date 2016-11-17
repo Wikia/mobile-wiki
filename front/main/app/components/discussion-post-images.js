@@ -12,7 +12,7 @@ export default Component.extend({
 	 *
 	 * Array containing images objects
 	 */
-	images: A(),
+	images: new A(),
 
 	/**
 	 * @public
@@ -36,7 +36,7 @@ export default Component.extend({
 	 */
 	displayedImages: computed('showOnlyFirst', 'images', function () {
 		const images = this.get('images'),
-			noImages = A();
+			noImages = new A();
 
 		return Ember.isEmpty(images) ? noImages : this.computeImagesToDisplay(images);
 	}),
