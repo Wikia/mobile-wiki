@@ -17,6 +17,10 @@ export default Route.extend({
 			this.modelFor('image-review.summary').setSummaryModel();
 		},
 
+		toggleHistory() {
+			this.modelFor('image-review.summary').setHistoryModel();
+		},
+
 		downloadCSV() {
 			this.modelFor('image-review.summary').downloadCSV();
 		},

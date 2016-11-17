@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import moment from 'moment';
 import request from 'ember-ajax/request';
+import ImageReviewItemModel from './image-review-item';
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
+	imageDetails: null,
+	imageId: null,
 	showSubHeader: true,
 
 	setSummaryModel() {
@@ -15,6 +18,32 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				method: 'GET'
 			}).then((payload) => {
 				this.set('summary', payload);
+			});
+		}
+	},
+
+	setHistoryModel() {
+		const imageId = this.get('imageId');
+
+		if (!Ember.isEmpty(imageId)) {
+			this.set('imageDetails', {});
+
+			const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
+			ImageReviewItemModel.getImageInfo(imageId).then((data) => {
+				this.set('imageDetails.fullSizeImageUrl', data.imageUrl);
+				this.set('imageDetails.context', data.context);
+				this.set('imageDetails.isContextProvided', Boolean(data.context));
+				this.set('imageDetails.isContextLink', linkRegexp.test(data.context));
+			});
+
+			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
+				this.set('imageDetails.history', data);
+			});
+
+			ImageReviewItemModel.getImageContext(imageId).then((data) => {
+				this.set('imageDetails.originalFilename', data.originalFilename);
+				this.set('imageDetails.size', data.size);
+				this.set('imageDetails.dimensions', data.dimensions);
 			});
 		}
 	},

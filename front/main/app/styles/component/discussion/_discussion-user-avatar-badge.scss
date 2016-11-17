@@ -1,4 +1,5 @@
 $post-reply-user-avatar-badge-top: 5px;
+$large-desktop-post-reply-user-avatar-badge-top: 11px;
 $post-reply-with-label-user-avatar-badge-top: 38px;
 
 .user-avatar-badge {
@@ -122,6 +123,14 @@ $post-reply-with-label-user-avatar-badge-top: 38px;
 				bottom: 26px;
 				right: 28px;
 			}
+		}
+	}
+}
+
+@media #{$large-desktop-range} {
+	.post-reply {
+		.user-avatar-badge {
+			top: $large-desktop-post-reply-user-avatar-badge-top;
 		}
 	}
 }
