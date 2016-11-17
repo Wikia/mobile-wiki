@@ -68,18 +68,19 @@ ImageReviewModel.reopenClass({
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
 	},
 
-	sanitize(rawData, batchId, userInfo, status) {
+	sanitize(rawData, batchId, userCanAuditReviews, status) {
 		const images = [];
-
+		const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 		rawData.forEach((image) => {
 			if (['UNREVIEWED', 'QUESTIONABLE', 'REJECTED'].indexOf(image.currentStatus) !== -1) {
 				images.push(Ember.Object.create({
-					imageId: image.imageId,
-					fullSizeImageUrl: image.imageUrl,
 					batchId,
-					context: image.context || '#',
-					status: 'accepted',
-					history: image.imageHistory
+					imageId: image.imageId,
+					fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
+					context: image.context,
+					isContextProvided: Boolean(image.context),
+					isContextLink: linkRegexp.test(image.context),
+					status: status === 'REJECTED' ? 'rejected' : 'accepted'
 				}));
 			}
 		});
@@ -87,16 +88,20 @@ ImageReviewModel.reopenClass({
 		return ImageReviewModel.create({
 			images,
 			batchId,
-			userCanAuditReviews: userInfo,
-			status
+			status,
+			userCanAuditReviews,
+			isRejectedQueue: (status === 'REJECTED')
 		});
 	},
 
-	reviewImages(images, batchId) {
+	reviewImages(images, batchId, status) {
 		const imageList = images.map((item) => {
+
 			return {
 				imageId: item.imageId,
-				imageStatus: item.status.toUpperCase()
+				imageStatus: (item.status.toUpperCase() === 'REJECTED' && status === 'REJECTED')
+						? 'REMOVED'
+						: item.status.toUpperCase()
 			};
 		});
 
