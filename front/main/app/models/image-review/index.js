@@ -76,11 +76,11 @@ ImageReviewModel.reopenClass({
 				images.push(Ember.Object.create({
 					batchId,
 					imageId: image.imageId,
-					fullSizeImageUrl: image.imageUrl,
+					fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
 					context: image.context,
 					isContextProvided: Boolean(image.context),
 					isContextLink: linkRegexp.test(image.context),
-					status: status.toLowerCase() === 'rejected' ? 'rejected' : 'accepted'
+					status: status === 'REJECTED' ? 'rejected' : 'accepted'
 				}));
 			}
 		});
