@@ -1,7 +1,7 @@
 {{#each displayedImages as |image|}}
 	{{#if enableLightbox}}
 		{{discussion-lightbox
-				url=image.url
+				imageUrl=image.url
 				onClose=(action 'onLightboxClose')
 				onButtonClose=(action 'onLightboxCloseUsingButton')
 				onOpen=(action 'onLightboxOpen')

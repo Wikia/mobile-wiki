@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 const {$, Component} = Ember;
 
@@ -29,42 +29,32 @@ export default Component.extend({
 	/**
 	 * @public
 	 * @type {String}
-	 *
-	 * Image url.
 	 */
-	url: null,
-
-	/**
-	 * @private
-	 */
-	closeOverlay() {
-		this.set('active', false);
-		$('body').removeClass('lightbox-active');
-	},
+	imageUrl: null,
 
 	actions: {
 		/**
 		 * @private
 		 *
-		 * Closes overlay when clicked on overlay
+		 * Closes overlay
+		 * @param {String} origin - action origin, 'overlay' or 'button'
 		 */
-		close() {
-			if (this.get('onClose')) {
-				this.get('onClose')();
-			}
-			this.closeOverlay();
-		},
+		close(origin) {
+			const onClose = this.get('onClose'),
+				onButtonClose = this.get('onButtonClose');
 
-		/**
-		 * @private
-		 *
-		 * Closes overlay when clicked on button
-		 */
-		closeUsingButton() {
-			if (this.get('onButtonClose')) {
-				this.get('onButtonClose')();
+			if (origin === 'overlay') {
+				if (onClose) {
+					onClose();
+				}
+			} else {
+				if (onButtonClose) {
+					onButtonClose();
+				}
 			}
-			this.closeOverlay();
+
+			this.set('active', false);
+			$('body').removeClass('lightbox-active');
 		},
 
 		/**
@@ -73,8 +63,9 @@ export default Component.extend({
 		 * Adds overlay and shows image
 		 */
 		open() {
-			if (this.get('onOpen')) {
-				this.get('onOpen')();
+			const onOpen = this.get('onOpen');
+			if (onOpen) {
+				onOpen();
 			}
 			this.set('active', true);
 			$('body').addClass('lightbox-active');

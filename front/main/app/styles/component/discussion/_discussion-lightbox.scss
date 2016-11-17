@@ -1,4 +1,5 @@
 $desktop-lightbox-close-size: 24px;
+$discussion-z-lightbox: $z-global-navigation + 1;
 
 .discussions {
 	.lightbox-overlay {
@@ -12,7 +13,7 @@ $desktop-lightbox-close-size: 24px;
 		position: fixed;
 		top: 0;
 		width: 100%;
-		z-index: $z-global-navigation + 1;
+		z-index: $discussion-z-lightbox;
 
 		.lightbox-image-on-overlay {
 			margin: auto;
