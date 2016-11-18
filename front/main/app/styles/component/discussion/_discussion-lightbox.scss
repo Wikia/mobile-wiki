@@ -1,5 +1,7 @@
-$desktop-lightbox-close-size: 24px;
+$desktop-lightbox-close-size: 30px;
 $discussion-z-lightbox: $z-global-navigation + 1;
+$global-nav-container-width: 1064px;
+$xxl-up-global-nav-container-width: 1238px;
 
 .discussions {
 	.lightbox-overlay {
@@ -21,11 +23,15 @@ $discussion-z-lightbox: $z-global-navigation + 1;
 			max-width: 90%;
 		}
 
-		.lightbox-close {
-			fill: $wds-color-white;
-			left: 14px;
+		.lightbox-close-container {
 			position: absolute;
-			top: 14px;
+			width: 100%;
+
+			.lightbox-close {
+				fill: $wds-color-white;
+				margin-left: 14px;
+				margin-top: 14px;
+			}
 		}
 	}
 }
@@ -37,11 +43,24 @@ $discussion-z-lightbox: $z-global-navigation + 1;
 @media #{$desktop-range} {
 	.discussions {
 		.lightbox-overlay {
-			.lightbox-close {
-				height: $desktop-lightbox-close-size;
-				left: 111px;
-				top: 78px;
-				width: $desktop-lightbox-close-size;
+			.lightbox-close-container {
+				width: $global-nav-container-width;
+
+				.lightbox-close {
+					height: $desktop-lightbox-close-size;
+					margin-top: 78px;
+					width: $desktop-lightbox-close-size;
+				}
+			}
+		}
+	}
+}
+
+@media #{$wds-breakpoint-xxl-up} {
+	.discussions {
+		.lightbox-overlay {
+			.lightbox-close-container {
+				width: $xxl-up-global-nav-container-width;
 			}
 		}
 	}

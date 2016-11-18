@@ -4,8 +4,10 @@
 {{#if active}}
 	<div {{action 'close' 'overlay'}} class="lightbox-overlay">
 		<img class="lightbox-image-on-overlay" src="{{imageUrl}}" alt=""/>
-		<a {{action 'close' 'button'}}>
-			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
-		</a>
+		<div class="lightbox-close-container">
+			<a {{action 'close' 'button'}}>
+				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
+			</a>
+		</div>
 	</div>
 {{/if}}
