@@ -27,6 +27,8 @@
     "sort-by-apply":"保存",
     "sort-by-latest":"最新話題",
     "sort-by-trending":"熱門瀏覽",
+    "last-edited-by":"（由__userName__編輯）",
+    "last-edited-by-administrators":"（由管理員編輯）",
     "loading-more-posts":"載入更多文章\n",
     "load-more-posts-button":"加載更多",
     "load-previous-posts-button":"回到頂部",

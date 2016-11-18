@@ -29,12 +29,12 @@ export default Route.extend({
 				type: 'warning',
 				persistent: true
 			});
+
 			this.transitionTo('wiki-page', '');
 			return false;
 		},
 
 		getAllWithStatus(status) {
-			const model = this.modelFor('image-review.index');
 			window.scrollTo(0, 0);
 
 			this.set('status', status);
@@ -54,7 +54,7 @@ export default Route.extend({
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images, model.batchId).then(() => {
+			ImageReviewModel.reviewImages(model.images, model.batchId, model.status).then(() => {
 			}, (data) => {
 				this.controllerFor('application').addAlert({
 					message: data,

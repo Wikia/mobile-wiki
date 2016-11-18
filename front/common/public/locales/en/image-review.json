@@ -22,6 +22,7 @@
     "status-accepted": "OK",
     "status-questionable": "Q",
     "status-rejected": "REJ",
+    "status-removed": "DEL",
     "history-date": "Date",
     "history-action": "Action",
     "history-user": "User",

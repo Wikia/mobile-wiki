@@ -203,6 +203,14 @@ body.discussions {
 		padding-right: 30px;
 	}
 
+	.post-edited-by-row {
+		color: $discussion-actions-color;
+		font-size: rem-calc(12);
+		font-style: italic;
+		line-height: rem-calc(12);
+		margin-bottom: 6px;
+	}
+
 	.post-bottom-row {
 		color: $discussion-actions-color;
 		display: flex;
@@ -728,6 +736,12 @@ body.discussions {
 			line-height: $desktop-content-line-height;
 		}
 
+		.post-edited-by-row {
+			font-size: $type-smallest;
+			line-height: rem-calc(14);
+			margin-bottom: 13px;
+		}
+
 		&.post {
 			.post-detail {
 				background-color: transparent;
@@ -817,6 +831,8 @@ body.discussions {
 			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 
 			.discussion-content {
+				margin-bottom: 0;
+
 				.post-title {
 					font-size: $type-smaller;
 					line-height: $post-content-line-height;
@@ -946,7 +962,6 @@ body.discussions {
 			.upvotes {
 				small {
 					font-size: $type-smallest;
-					margin-right: 1px;
 					margin-top: 3px;
 				}
 			}
