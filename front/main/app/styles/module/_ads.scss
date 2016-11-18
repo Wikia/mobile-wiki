@@ -42,7 +42,7 @@ $closeButtonHeight: 40px;
 	width: 100%;
 
 	.ad-slot {
-		background: $color-black;
+		background: $wds-color-black;
 		overflow: hidden;
 		padding: 0;
 		position: relative;
@@ -132,7 +132,7 @@ $closeButtonHeight: 40px;
 		}
 
 		.close {
-			background-color: $color-black;
+			background-color: $wds-color-black;
 			border-radius: 50%;
 			border: 2px solid white;
 			height: $closeButtonHeight;
