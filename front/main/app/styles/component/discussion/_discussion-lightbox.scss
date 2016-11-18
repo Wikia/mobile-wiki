@@ -60,8 +60,8 @@ $xxl-up-global-nav-container-width: 1238px;
 
 		.lightbox-overlay {
 			.lightbox-container {
-				height: calc(100% - 120px - 60px);
-				margin: 120px auto 60px;
+				height: calc(100% - 60px - 60px);
+				margin: 60px auto 60px;
 			}
 
 			.lightbox-viewbox {
@@ -70,7 +70,7 @@ $xxl-up-global-nav-container-width: 1238px;
 				.lightbox-close {
 					position: absolute;
 					height: $desktop-lightbox-close-size;
-					margin-top: 78px;
+					margin-top: 18px;
 					width: $desktop-lightbox-close-size;
 				}
 			}
