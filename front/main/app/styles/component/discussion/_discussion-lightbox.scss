@@ -4,8 +4,12 @@ $global-nav-container-width: 1064px;
 $xxl-up-global-nav-container-width: 1238px;
 
 .discussions {
+	&.lightbox-active {
+		overflow: hidden;
+		position: fixed;
+	}
+
 	.lightbox-overlay {
-		align-content: center;
 		background: rgba(0, 0, 0, 0.9);
 		display: flex;
 		height: 100%;
@@ -17,15 +21,27 @@ $xxl-up-global-nav-container-width: 1238px;
 		width: 100%;
 		z-index: $discussion-z-lightbox;
 
-		.lightbox-image-on-overlay {
-			margin: auto;
-			max-height: 90%;
-			max-width: 90%;
+		.lightbox-container {
+			height: calc(100% - 60px);
+			margin: 0 auto 60px;
+			position: relative;
+
+			.lightbox-container-image {
+				bottom: 0;
+				left: 0;
+				margin: auto;
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
 		}
 
-		.lightbox-close-container {
+		.lightbox-viewbox {
+			height: 100%;
 			position: absolute;
-			width: 100%;
+			width: 95%;
 
 			.lightbox-close {
 				fill: $wds-color-white;
@@ -36,17 +52,23 @@ $xxl-up-global-nav-container-width: 1238px;
 	}
 }
 
-.lightbox-active {
-	overflow: hidden;
-}
-
 @media #{$desktop-range} {
 	.discussions {
+		&.lightbox-active {
+			position: relative;
+		}
+
 		.lightbox-overlay {
-			.lightbox-close-container {
+			.lightbox-container {
+				height: calc(100% - 120px - 60px);
+				margin: 120px auto 60px;
+			}
+
+			.lightbox-viewbox {
 				width: $global-nav-container-width;
 
 				.lightbox-close {
+					position: absolute;
 					height: $desktop-lightbox-close-size;
 					margin-top: 78px;
 					width: $desktop-lightbox-close-size;
@@ -59,7 +81,7 @@ $xxl-up-global-nav-container-width: 1238px;
 @media #{$wds-breakpoint-xxl-up} {
 	.discussions {
 		.lightbox-overlay {
-			.lightbox-close-container {
+			.lightbox-viewbox {
 				width: $xxl-up-global-nav-container-width;
 			}
 		}

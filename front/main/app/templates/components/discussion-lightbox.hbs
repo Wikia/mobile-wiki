@@ -3,11 +3,13 @@
 </a>
 {{#if active}}
 	<div {{action 'close' 'overlay'}} class="lightbox-overlay">
-		<img class="lightbox-image-on-overlay" src="{{imageUrl}}" alt=""/>
-		<div class="lightbox-close-container">
+		<div class="lightbox-viewbox">
 			<a {{action 'close' 'button'}}>
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
 			</a>
+			<div class="lightbox-container">
+				<img class="lightbox-container-image" src="{{imageUrl}}" alt=""/>
+			</div>
 		</div>
 	</div>
 {{/if}}
