@@ -1,6 +1,7 @@
 @import 'ads-floor';
+// Use Wikia style guide settings
+@import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
-$floorAdhesionBackgroundColor: #000;
 $closeButtonHeight: 40px;
 
 .ad-slot {
@@ -46,7 +47,7 @@ $closeButtonHeight: 40px;
 	width: 100%;
 
 	.ad-slot {
-		background: #000;
+		background: $color-black;
 		overflow: hidden;
 		padding: 0;
 		position: relative;
@@ -139,7 +140,7 @@ $closeButtonHeight: 40px;
 		}
 
 		.close {
-			background-color: $floorAdhesionBackgroundColor;
+			background-color: $color-black;
 			border-radius: 50%;
 			border: 2px solid white;
 			height: $closeButtonHeight;
