@@ -37,7 +37,7 @@
 		<ul class="image-review-list">
 			{{#each model.images as |item|}}
 				<li class="image-review-item">
-					{{image-review-item model=item showModal=(action 'showModal')
+					{{image-review-item model=item showModal=(action 'showModal') isRejectedQueue=model.isRejectedQueue
 					changeItemModel=(action (action this.attrs.changeItemModel))}}
 				</li>
 			{{/each}}
@@ -67,5 +67,5 @@
 	</div>
 </div>
 {{#modal-dialog isVisible=isModalVisible}}
-	{{image-review-modal-dialog thumbnailModel=thumbnailModel class='image-review-modal-dialog'}}
+	{{image-review-image-details thumbnailModel=thumbnailModel class='image-review-image-details'}}
 {{/modal-dialog}}

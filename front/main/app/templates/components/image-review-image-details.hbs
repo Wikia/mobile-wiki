@@ -1,30 +1,29 @@
 <img src="{{thumbnailModel.fullSizeImageUrl}}"/>
 <p>
-	{{#if thumbnailModel.isContextProvided}}
+	{{#if thumbnailModel.context}}
 		{{#if thumbnailModel.isContextLink}}
-			<a href="{{thumbnailModel.data.context}}" target="_blank">
+			<a href="{{thumbnailModel.context}}" target="_blank">
 				{{i18n 'main.image-context' ns='image-review'}}
 			</a>
 		{{else}}
-			{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.data.context}}
+			{{i18n 'main.image-context' ns='image-review'}}
 		{{/if}}
-	{{else}}
-		{{i18n 'main.image-context-not-provided' ns='image-review'}}
 	{{/if}}
+
 </p>
-<p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.data.originalFilename}}</p>
+<p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</p>
 <p>
 	{{i18n 'main.image-size' ns='image-review'}}
-	{{#if thumbnailModel.data.size}}
-		{{thumbnailModel.data.size}} {{i18n 'main.image-bytes' ns='image-review'}}
+	{{#if thumbnailModel.size}}
+		{{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}
 	{{else}}
 		{{i18n 'main.not-provided' ns='image-review'}}
 	{{/if}}
 </p>
 <p>
 	{{i18n 'main.image-dimensions' ns='image-review'}}
-	{{#if thumbnailModel.data.dimensions}}
-		{{thumbnailModel.data.dimensions}}
+	{{#if thumbnailModel.dimensions}}
+		{{thumbnailModel.dimensions}}
 	{{else}}
 		{{i18n 'main.not-provided' ns='image-review'}}
 	{{/if}}
@@ -33,14 +32,12 @@
 	<table class="image-review-modal-history">
 		<tr>
 			<td>{{i18n 'main.history-date' ns='image-review'}}</td>
-			<td>{{i18n 'main.history-action' ns='image-review'}}</td>
 			<td>{{i18n 'main.history-user' ns='image-review'}}</td>
 			<td>{{i18n 'main.history-status' ns='image-review'}}</td>
 		</tr>
 		{{#each thumbnailModel.history as |item|}}
 			<tr>
 				<td>{{item.date}}</td>
-				<td>{{item.action}}</td>
 				<td>{{item.user}}</td>
 				<td>
 					{{#if item.status}}

@@ -6,6 +6,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('toggleSummary');
 		},
 
+		toggleHistory() {
+			this.get('target').send('toggleHistory');
+		},
+
 		downloadCSV() {
 			this.get('target').send('downloadCSV');
 		},
