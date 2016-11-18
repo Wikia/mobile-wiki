@@ -26,17 +26,17 @@ export default Ember.Service.extend({
 		const queryParams = this.get('queryParams'),
 			currentPage = this.get('currentPage');
 
-		return this.buildPageUrl(queryParams, currentPage - 1);
+		if(currentPage > 1) {
+			return this.buildPageUrl(queryParams, currentPage - 1);
+		}
 	},
 
 	buildPageUrl(queryParams, page = 1) {
-		let newQueryParams, queryParamsToRemove;
+		let newQueryParams = {page}, queryParamsToRemove;
 
 		if (page === 1) {
 			newQueryParams = {};
 			queryParamsToRemove = ['page'];
-		} else {
-			newQueryParams = {page};
 		}
 
 		return this.buildUrl(queryParams, newQueryParams, queryParamsToRemove);
@@ -45,13 +45,15 @@ export default Ember.Service.extend({
 	buildQueryParamsString(queryParams, newQueryParams = {}, queryParamsToRemove = []) {
 		const params = Ember.$.extend({}, queryParams, newQueryParams),
 			paramsArray = [];
-		
+
 		queryParamsToRemove.forEach(nameToRemove => {
-			delete params[nameToRemove];
+			params[nameToRemove] = undefined;
 		});
 
 		Object.keys(params).forEach(name => {
-			paramsArray.push(`${name}=${params[name]}`);
+			if(typeof params[name] !== 'undefined') {
+				paramsArray.push(`${name}=${params[name]}`);
+			}
 		});
 
 		return paramsArray.join('&');
