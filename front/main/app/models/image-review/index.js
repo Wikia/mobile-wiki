@@ -76,11 +76,11 @@ ImageReviewModel.reopenClass({
 				images.push(Ember.Object.create({
 					batchId,
 					imageId: image.imageId,
-					fullSizeImageUrl: image.imageUrl,
+					fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
 					context: image.context,
 					isContextProvided: Boolean(image.context),
 					isContextLink: linkRegexp.test(image.context),
-					status: status.toLowerCase() === 'rejected' ? 'rejected' : 'accepted'
+					status: status === 'REJECTED' ? 'rejected' : 'accepted'
 				}));
 			}
 		});
@@ -89,15 +89,19 @@ ImageReviewModel.reopenClass({
 			images,
 			batchId,
 			status,
-			userCanAuditReviews
+			userCanAuditReviews,
+			isRejectedQueue: (status === 'REJECTED')
 		});
 	},
 
-	reviewImages(images, batchId) {
+	reviewImages(images, batchId, status) {
 		const imageList = images.map((item) => {
+
 			return {
 				imageId: item.imageId,
-				imageStatus: item.status.toUpperCase()
+				imageStatus: (item.status.toUpperCase() === 'REJECTED' && status === 'REJECTED')
+						? 'REMOVED'
+						: item.status.toUpperCase()
 			};
 		});
 
