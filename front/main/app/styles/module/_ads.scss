@@ -1,6 +1,4 @@
 @import 'ads-floor';
-// Use Wikia style guide settings
-@import '../../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
 $closeButtonHeight: 40px;
 
@@ -34,9 +32,6 @@ $closeButtonHeight: 40px;
 
 .vuap-loaded {
 	transition: padding 0.4s ease;
-	-webkit-transition: padding 0.4s ease;
-	-moz-transition: padding 0.4s ease;
-	-o-transition: padding 0.4s ease;
 }
 
 .bfaa-template .mobile-top-leaderboard {
@@ -52,9 +47,6 @@ $closeButtonHeight: 40px;
 		padding: 0;
 		position: relative;
 		transition: height 0.4s ease;
-		-moz-transition: height 0.4s ease;
-		-o-transition: height 0.4s ease;
-		-webkit-transition: height 0.4s ease;
 
 		iframe {
 			height: 100%;
