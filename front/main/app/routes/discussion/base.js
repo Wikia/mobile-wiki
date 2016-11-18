@@ -21,7 +21,7 @@ export default Ember.Route.extend(
 
 			data.documentTitle = 'Discussions';
 
-			if (data.canonical === undefined) {
+			if (shouldSetDefaultCanonical) {
 				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
 			}
 
