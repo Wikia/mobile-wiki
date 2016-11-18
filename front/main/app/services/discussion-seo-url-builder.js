@@ -5,38 +5,47 @@ export default Ember.Service.extend({
 
 	queryParams: Ember.computed.alias('routing.router.router.state.queryParams'),
 
-	firstPageUrl() {
+	currentPage: Ember.computed(function () {
+		return parseInt(this.get('queryParams').page, 10) || 1;
+	}),
+
+	getFirstPageUrl() {
 		return this.buildPageUrl(this.get('queryParams'), 1);
 	},
 
-	nextPageUrl(totalPosts) {
+	getNextPageUrl(totalPosts) {
 		const queryParams = this.get('queryParams'),
-			currentPage = parseInt(queryParams.page, 10) || 1;
+			currentPage = this.get('currentPage');
 
 		if (totalPosts > currentPage * 20) {
 			return this.buildPageUrl(queryParams, currentPage + 1);
 		}
 	},
 
-	prevPageUrl() {
+	getPrevPageUrl() {
 		const queryParams = this.get('queryParams'),
-			currentPage = parseInt(queryParams.page, 10) || 1;
+			currentPage = this.get('currentPage');
 
 		return this.buildPageUrl(queryParams, currentPage - 1);
 	},
 
 	buildPageUrl(queryParams, page = 1) {
+		let newQueryParams, queryParamsToRemove;
+
 		if (page === 1) {
-			return this.buildUrl(queryParams, {}, ['page']); // removes 'page' parameter
+			newQueryParams = {};
+			queryParamsToRemove = ['page'];
 		} else {
-			return this.buildUrl(queryParams, {page});
+			newQueryParams = {page};
 		}
+
+		return this.buildUrl(queryParams, newQueryParams, queryParamsToRemove);
 	},
 
 	buildQueryParamsString(queryParams, newQueryParams = {}, queryParamsToRemove = []) {
-		const params = Object.assign({}, queryParams, newQueryParams),
+		const params = Ember.$.extend({}, queryParams, newQueryParams),
 			paramsArray = [];
-
+		
 		queryParamsToRemove.forEach(nameToRemove => {
 			delete params[nameToRemove];
 		});
@@ -52,11 +61,7 @@ export default Ember.Service.extend({
 		const baseUrl = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`,
 			queryParamsString = this.buildQueryParamsString(queryParams, newQueryParams, queryParamsToRemove);
 
-		if (queryParamsString) {
-			return `${baseUrl}?${queryParamsString}`;
-		} else {
-			return baseUrl;
-		}
+		return queryParamsString ? `${baseUrl}?${queryParamsString}` : baseUrl;
 	},
 
 });

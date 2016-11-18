@@ -7,10 +7,10 @@ export default Ember.Mixin.create(
 		discussionSeoUrlBuilder: Ember.inject.service(),
 
 		setDynamicHeadTags(model, data = {}) {
-			const queryParams = this.get('router.router.state.queryParams');
+			const discussionSeoUrlBuilder = this.get('discussionSeoUrlBuilder');
 
-			data.next = this.get('discussionSeoUrlBuilder').nextPageUrl(model.current.get('data.postCount'));
-			data.prev = this.get('discussionSeoUrlBuilder').prevPageUrl();
+			data.next = discussionSeoUrlBuilder.getNextPageUrl(model.current.get('data.postCount'));
+			data.prev = discussionSeoUrlBuilder.getPrevPageUrl();
 
 			this._super(model, data);
 		},
