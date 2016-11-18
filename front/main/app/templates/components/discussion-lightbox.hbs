@@ -2,7 +2,7 @@
 	<img class="lightbox-image" src="{{imageUrl}}" alt=""/>
 </a>
 {{#if active}}
-	<div {{action 'close' 'overlay'}} class="lightbox-overlay">
+	<div {{action 'close' 'overlay'}} class="lightbox-overlay" tabindex="0">
 		<div class="lightbox-viewbox">
 			<a {{action 'close' 'button'}}>
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}

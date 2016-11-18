@@ -85,8 +85,9 @@ const trackActions = {
 	MobileHeaderCommunityNameClicked: 'MobileHeaderCommunityNameClicked',
 	PageView: 'PageView',
 	PostLightboxOpen: 'PostLightboxOpen',
-	PostLightboxOverlayClose: 'PostLightboxOverlayClose',
-	PostLightboxButtonClose: 'PostLightboxButtonClose'
+	PostLightboxButtonClose: 'PostLightboxButtonClose',
+	PostLightboxKeyClose: 'PostLightboxKeyClose',
+	PostLightboxOverlayClose: 'PostLightboxOverlayClose'
 };
 
 /**

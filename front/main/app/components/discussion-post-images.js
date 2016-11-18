@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/discussion-tracker';
 
-const {$, A, Component, computed} = Ember;
+const {A, Component, computed} = Ember;
 
 export default Component.extend({
 	classNames: ['post-images'],
@@ -50,6 +50,10 @@ export default Component.extend({
 
 		onLightboxCloseUsingButton() {
 			track(trackActions.PostLightboxButtonClose);
+		},
+
+		onLightboxCloseUsingKey() {
+			track(trackActions.PostLightboxKeyClose)
 		},
 
 		onLightboxOpen() {
