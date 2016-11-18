@@ -32,24 +32,41 @@ export default Component.extend({
 	 */
 	imageUrl: null,
 
+	didRender() {
+		this._super(arguments);
+		this.$().find('.lightbox-overlay').focus();
+	},
+
+	keyDown(event) {
+		// ESC press
+		if (event.keyCode === 27) {
+			this.send('close', 'key')
+		}
+	},
+
 	actions: {
 		/**
 		 * @private
 		 *
 		 * Closes overlay
-		 * @param {String} origin - action origin, 'overlay' or 'button'
+		 * @param {String} origin - action origin: 'overlay', 'button', 'key'
 		 */
 		close(origin) {
 			const onClose = this.get('onClose'),
-				onButtonClose = this.get('onButtonClose');
+				onButtonClose = this.get('onButtonClose'),
+				onKeyClose = this.get('onKeyClose');
 
 			if (origin === 'overlay') {
 				if (onClose) {
 					onClose();
 				}
-			} else {
+			} else if (origin === 'button') {
 				if (onButtonClose) {
 					onButtonClose();
+				}
+			} else {
+				if (onKeyClose) {
+					onKeyClose();
 				}
 			}
 
