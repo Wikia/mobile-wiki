@@ -22,25 +22,21 @@ $xxl-up-global-nav-container-width: 1238px;
 		z-index: $discussion-z-lightbox;
 
 		.lightbox-container {
+			align-content: center;
+			display: flex;
 			height: calc(100% - 60px);
+			justify-content: center;
 			margin: 0 auto 60px;
-			position: relative;
 
 			.lightbox-container-image {
-				bottom: 0;
-				left: 0;
 				margin: auto;
 				max-height: 100%;
 				max-width: 100%;
-				position: absolute;
-				right: 0;
-				top: 0;
 			}
 		}
 
 		.lightbox-viewbox {
 			height: 100%;
-			position: absolute;
 			width: 95%;
 
 			.lightbox-close {
