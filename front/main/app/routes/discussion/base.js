@@ -17,8 +17,13 @@ export default Ember.Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
+			const shouldSetDefaultCanonical = data.canonical === undefined;
+
 			data.documentTitle = 'Discussions';
-			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
+
+			if (shouldSetDefaultCanonical) {
+				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
+			}
 
 			this._super(model, data);
 		},
