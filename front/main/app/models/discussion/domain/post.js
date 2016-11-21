@@ -76,7 +76,9 @@ DiscussionPost.reopenClass({
 				// A hack to compensate for API sometimes returning numbers and sometimes strings
 				categoryId: String(threadData.forumId),
 				createdBy: DiscussionContributor.create(threadData.createdBy),
-				creationTimestamp: threadData.creationDate.epochSecond,
+				// We need to support both epoch object and iso string dates
+				creationTimestamp: typeof threadData.creationDate === 'string' ?
+					(new Date(threadData.creationDate)).getTime() / 1000 : threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
 				isDeleted: threadData.isDeleted,
 				isFollowed: threadData.isFollowed,
@@ -94,8 +96,12 @@ DiscussionPost.reopenClass({
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
 			}),
-			userData = Ember.get(threadData, '_embedded.userData.0'),
-			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
+			/*
+			 * if it's gotten from followed-by end-point we get userData and openGraph in plain object,
+			 * not in an array, we still need to support /threads end-point with an arrays result
+			 */
+			userData = Ember.get(threadData, '_embedded.userData.0') || Ember.get(threadData, '_embedded.userData'),
+			openGraphData = Ember.get(threadData, '_embedded.openGraph.0') || Ember.get(threadData, '_embedded.openGraph');
 
 		if (openGraphData) {
 			post.set('openGraph', OpenGraph.create(openGraphData));
