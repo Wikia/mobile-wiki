@@ -39,7 +39,8 @@ export default Ember.Mixin.create(
 			this.get('data').setProperties({
 				canModerate: Ember.getWithDefault(entities, 'firstObject.userData.permissions.canModerate', false),
 				// we need to support both one element array and single object response for contributors
-				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0') || Ember.get(apiData, '_embedded.contributors')),
+				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')
+					|| Ember.get(apiData, '_embedded.contributors')),
 				entities,
 				isRequesterBlocked: Boolean(apiData.isRequesterBlocked),
 				pageNum: 0,

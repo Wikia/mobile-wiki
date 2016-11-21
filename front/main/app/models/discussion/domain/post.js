@@ -76,9 +76,7 @@ DiscussionPost.reopenClass({
 				// A hack to compensate for API sometimes returning numbers and sometimes strings
 				categoryId: String(threadData.forumId),
 				createdBy: DiscussionContributor.create(threadData.createdBy),
-				// We need to support both epoch object and iso string dates
-				creationTimestamp: typeof threadData.creationDate === 'string' ?
-					(new Date(threadData.creationDate)).getTime() / 1000 : threadData.creationDate.epochSecond,
+				creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
 				id: threadData.firstPostId,
 				isDeleted: threadData.isDeleted,
 				isFollowed: threadData.isFollowed,
@@ -113,6 +111,15 @@ DiscussionPost.reopenClass({
 
 		return post;
 	},
+
+	/**
+	 * Gets timestamp from date that can be iso string or epoch object
+	 * @param date
+	 * @returns {number} - timestamp
+	 */
+	getThreadDataTimestamp(date) {
+		return date === 'string' ? (new Date(date)).getTime() / 1000 : date.epochSecond;
+	}
 });
 
 export default DiscussionPost;
