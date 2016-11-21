@@ -148,24 +148,20 @@ function setupLogging(server) {
 		}
 
 		const errorMessage = eventData.message || eventData.error ||
-			(eventData.output && eventData.output.payload && eventData.output.payload.message);
+			(eventData.output && eventData.output.payload && eventData.output.payload.message),
+			logPayload = {
+				wiki: request.headers.host,
+				url: url.format(request.url),
+				referrer: request.info.referrer,
+				eventTags: tags,
+				eventData
+			};
 
-		if (tags.error && tags.handler && eventData.data && eventData.data.output && eventData.data.output.statusCode === 404) {
-			Logger.info({
-				wiki: request.headers.host,
-				url: url.format(request.url),
-				referrer: request.info.referrer,
-				eventTags: tags,
-				eventData
-			}, 'Static asset not found - 404');
+		if (tags.error && tags.handler && eventData.data && eventData.data.output &&
+			eventData.data.output.statusCode === 404) {
+			Logger.info(logPayload, 'Static asset not found - 404');
 		} else {
-			Logger.error({
-				wiki: request.headers.host,
-				url: url.format(request.url),
-				referrer: request.info.referrer,
-				eventTags: tags,
-				eventData
-			}, `Hapi internal error - ${errorMessage}`);
+			Logger.error(logPayload, `Hapi internal error - ${errorMessage}`);
 		}
 
 	});
