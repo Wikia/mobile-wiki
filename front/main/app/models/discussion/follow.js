@@ -17,16 +17,8 @@ const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(user) {
-			// fixme URL after backend ready
-			const requestUrl = M.getDiscussionServiceUrl(`/${this.wikiId}/threads`),
-				requestData = {
-					userId: user.get('userId'),
-					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum') + 1,
-					pivot: this.get('pivotId'),
-					viewableOnly: false
-				};
-			return this.loadThreadPage(requestUrl, requestData);
+			const requestUrl = M.getDiscussionServiceUrl(`/${this.wikiId}/threads/followed-by/${user.get('userId')}`);
+			return this.loadThreadPage(requestUrl);
 		},
 	}
 );
@@ -44,17 +36,11 @@ DiscussionFollowedPostsModel.reopenClass(
 			const followedPostsInstance = DiscussionFollowedPostsModel.create({
 					wikiId
 				}),
-				// fixme URL after backend ready
-				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads`),
-				requestData = {
-					userId: user.get('userId'),
-					page: page - 1,
-					limit: followedPostsInstance.get('postsLimit'),
-					viewableOnly: false
-				};
+				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads/followed-by/${user.get('userId')}`);
+
 			followedPostsInstance.setStartPageNumber(page);
 
-			return this.findThreads(followedPostsInstance, requestUrl, requestData);
+			return this.findThreads(followedPostsInstance, requestUrl);
 		}
 	}
 );
