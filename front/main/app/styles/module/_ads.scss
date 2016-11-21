@@ -1,6 +1,5 @@
 @import 'ads-floor';
 
-$floorAdhesionBackgroundColor: #000;
 $closeButtonHeight: 40px;
 
 .ad-slot {
@@ -31,6 +30,10 @@ $closeButtonHeight: 40px;
 	margin: 0 -20px;
 }
 
+.vuap-loaded {
+	transition: padding 0.4s ease;
+}
+
 .bfaa-template .mobile-top-leaderboard {
 	left: 0;
 	margin: 0;
@@ -39,9 +42,11 @@ $closeButtonHeight: 40px;
 	width: 100%;
 
 	.ad-slot {
-		background: none;
+		background: #000;
+		overflow: hidden;
 		padding: 0;
 		position: relative;
+		transition: height 0.4s ease;
 
 		iframe {
 			height: 100%;
@@ -52,7 +57,7 @@ $closeButtonHeight: 40px;
 		}
 
 		video {
-			left: 0px;
+			left: 0;
 		}
 	}
 }
@@ -127,7 +132,7 @@ $closeButtonHeight: 40px;
 		}
 
 		.close {
-			background-color: $floorAdhesionBackgroundColor;
+			background-color: #000;
 			border-radius: 50%;
 			border: 2px solid white;
 			height: $closeButtonHeight;

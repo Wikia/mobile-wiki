@@ -43,6 +43,11 @@ export default DiscussionBaseRoute.extend(
 			this.goToFirstPageIfNoPosts(model, transition.queryParams);
 		},
 
+		setDynamicHeadTags(model, data = {}) {
+			data.robots = 'noindex';
+			this._super(model, data);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum

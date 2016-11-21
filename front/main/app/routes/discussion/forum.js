@@ -227,6 +227,23 @@ export default DiscussionBaseRoute.extend(
 			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
+		/**
+		 * Ensures that canonical link from all post list variations always links to /d/f?sort=latest
+		 * @param {Object} model - DiscussionForumModel instance
+		 * @param {Object} [data={}]
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model, data = {}) {
+			// We do not want to set a canonical for pages other than first
+			if (this.get('controller.page') === 1) {
+				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}?sort=latest`;
+			} else {
+				data.canonical = null;
+			}
+
+			this._super(model, data);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
@@ -237,6 +254,8 @@ export default DiscussionBaseRoute.extend(
 					selectedCategories = model.index.categories.get('selectedCategoryIds');
 
 				model.current.loadPage(pageNum, selectedCategories, this.get('discussionSort.sortBy'));
+
+				this.setDynamicHeadTags(model);
 			},
 
 			updateCategoriesSelection(updatedCategories) {
