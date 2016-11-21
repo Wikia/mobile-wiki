@@ -142,7 +142,9 @@ function setupLogging(server) {
 			// Request included invalid cookies
 			(tags.error && tags.state && !tags.response) ||
 			// 404 response
-			(tags.error && tags.handler && eventData.output && eventData.output.statusCode === 404)
+			(tags.error && tags.handler && eventData.output && eventData.output.statusCode === 404) ||
+			// 404 response for static assets
+			(tags.error && tags.handler && eventData.data.output && eventData.data.output.statusCode === 404)
 		) {
 			return;
 		}
