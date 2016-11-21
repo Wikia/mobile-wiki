@@ -48,7 +48,7 @@
     "delete-reply":"删除回复",
     "undelete-reply":"撤消删除回复",
     "all-posts-by-username":"查看由__userName__发布的所有帖子",
-    "modal-dialog-confirm":"好的",
+    "modal-dialog-confirm":"知道了",
     "modal-dialog-cancel":"取消",
     "modal-dialog-delete-all-header":"确定要删除所有帖子?",
     "modal-dialog-delete-all-message":"你确定想要删除__wikiName__上__userName__发布的所有帖子吗？请注意删除后每个帖子只能单独进行恢复，您无法大量恢复已删除的帖子。",
