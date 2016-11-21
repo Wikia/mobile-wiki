@@ -40,7 +40,7 @@ export default Component.extend({
 	keyDown(event) {
 		// ESC press
 		if (event.keyCode === 27) {
-			this.send('close', 'key')
+			this.send('close', 'key');
 		}
 	},
 

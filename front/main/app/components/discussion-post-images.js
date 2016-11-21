@@ -53,7 +53,7 @@ export default Component.extend({
 		},
 
 		onLightboxCloseUsingKey() {
-			track(trackActions.PostLightboxKeyClose)
+			track(trackActions.PostLightboxKeyClose);
 		},
 
 		onLightboxOpen() {
