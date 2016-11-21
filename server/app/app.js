@@ -142,9 +142,7 @@ function setupLogging(server) {
 			// Request included invalid cookies
 			(tags.error && tags.state && !tags.response) ||
 			// 404 response
-			(tags.error && tags.handler && eventData.output && eventData.output.statusCode === 404) ||
-			// 404 response for static assets
-			(tags.error && tags.handler && eventData.data.output && eventData.data.output.statusCode === 404)
+			(tags.error && tags.handler && eventData.output && eventData.output.statusCode === 404)
 		) {
 			return;
 		}
@@ -152,13 +150,24 @@ function setupLogging(server) {
 		const errorMessage = eventData.message || eventData.error ||
 			(eventData.output && eventData.output.payload && eventData.output.payload.message);
 
-		Logger.error({
-			wiki: request.headers.host,
-			url: url.format(request.url),
-			referrer: request.info.referrer,
-			eventTags: tags,
-			eventData
-		}, `Hapi internal error - ${errorMessage}`);
+		if (tags.error && tags.handler && eventData.data && eventData.data.output && eventData.data.output.statusCode === 404) {
+			Logger.info({
+				wiki: request.headers.host,
+				url: url.format(request.url),
+				referrer: request.info.referrer,
+				eventTags: tags,
+				eventData
+			}, 'Static asset not found - 404');
+		} else {
+			Logger.error({
+				wiki: request.headers.host,
+				url: url.format(request.url),
+				referrer: request.info.referrer,
+				eventTags: tags,
+				eventData
+			}, `Hapi internal error - ${errorMessage}`);
+		}
+
 	});
 
 	/**
