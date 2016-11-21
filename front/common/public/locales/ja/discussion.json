@@ -8,7 +8,7 @@
     "start-discussions-text":"質問を投稿したり、最新情報を共有したり、興味のあるトピックについて世界中のファンと話し合うことができます。",
     "upvote-the-best-title":"お気に入りに投票する",
     "upvote-the-best-text":"気に入った投稿を見つけたら、賛成票を入れて簡単に気持ちを伝えたり、人気のトークに影響を与えることができます。",
-    "share-your-knowledge-title":"知っていることを共有",
+    "share-your-knowledge-title":"知識を共有する",
     "share-your-knowledge-text":"ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
   },
   "main":{
@@ -48,7 +48,7 @@
     "delete-reply":"返信を削除",
     "undelete-reply":"返信を復元",
     "all-posts-by-username":"__userName__さんの投稿をすべて表示",
-    "modal-dialog-confirm":"OK",
+    "modal-dialog-confirm":"キャンセル",
     "modal-dialog-cancel":"キャンセル",
     "modal-dialog-delete-all-header":"すべての投稿を削除しますか？",
     "modal-dialog-delete-all-message":"__wikiName__に__userName__さんが追加した投稿をすべて削除してもよろしいですか？削除された投稿はまとめて復元することはできないため、復元する場合は 1 件ずつ行ってください。",
@@ -102,7 +102,7 @@
     "follow-tooltip":"フォローリストに追加",
     "follow-introducing-header":"フォロー機能のご紹介",
     "follow-introducing-text":"関心のあるトークをフォローすると、新しいアクティビティがあるたびに通知を受け取ることができます。もう会話を見逃すこともありません。",
-    "follow-introducing-button-label":"了解。",
+    "follow-introducing-button-label":"了解",
     "reported-not-found-error":"報告された投稿や返信はありません 。",
     "categories-header":"カテゴリ",
     "categories-edit-label":"編集",
