@@ -26,7 +26,7 @@ export default Ember.Service.extend({
 		const queryParams = this.get('queryParams'),
 			currentPage = this.get('currentPage');
 
-		if(currentPage > 1) {
+		if (currentPage > 1) {
 			return this.buildPageUrl(queryParams, currentPage - 1);
 		}
 	},
@@ -51,7 +51,7 @@ export default Ember.Service.extend({
 		});
 
 		Object.keys(params).forEach(name => {
-			if(typeof params[name] !== 'undefined') {
+			if (typeof params[name] !== 'undefined') {
 				paramsArray.push(`${name}=${params[name]}`);
 			}
 		});
