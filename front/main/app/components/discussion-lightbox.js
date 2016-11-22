@@ -37,6 +37,17 @@ export default Component.extend({
 	 */
 	yPosition: null,
 
+	deactiveteLightbox() {
+		this.set('active', false);
+		$('body').removeClass('lightbox-active');
+	},
+
+	didDestroyElement() {
+		this._super(arguments);
+
+		this.deactiveteLightbox();
+	},
+
 	didRender() {
 		this._super(arguments);
 		this.$().find('.lightbox-overlay').focus();
@@ -75,8 +86,7 @@ export default Component.extend({
 				}
 			}
 
-			this.set('active', false);
-			$('body').removeClass('lightbox-active');
+			this.deactiveteLightbox();
 
 			$(window).scrollTop(this.get('yPosition'));
 		},
