@@ -14,10 +14,20 @@ DiscussionUserData.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(userData) {
+		let user = userData;
+
+		/*
+		 * if it's gotten from followed-by end-point we get userData in plain object,
+		 * not in an array, we still need to support /threads end-point with an array result
+		 */
+		if (Array.isArray(userData)) {
+			user = userData[0];
+		}
+
 		return this._super({
-			hasReported: userData.hasReported,
-			hasUpvoted: userData.hasUpvoted,
-			permissions: DiscussionUserPermissions.create(userData.permissions)
+			hasReported: user.hasReported,
+			hasUpvoted: user.hasUpvoted,
+			permissions: DiscussionUserPermissions.create(user.permissions)
 		});
 	}
 });

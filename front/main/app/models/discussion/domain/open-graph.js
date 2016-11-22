@@ -20,16 +20,26 @@ OpenGraph.reopenClass({
 	 * @returns {array}
 	 */
 	create(openGraphData) {
+		let openGraph = openGraphData;
+
+		/*
+		 * if it's gotten from followed-by end-point we get openGraph in plain object,
+		 * not in an array, we still need to support /threads end-point with an array result
+		 */
+		if (Array.isArray(openGraphData)) {
+			openGraph = openGraphData[0];
+		}
+
 		return this._super({
-			description: openGraphData.description,
-			domain: extractDomainFromUrl(openGraphData.url),
-			imageHeight: openGraphData.imageHeight,
-			imageUrl: openGraphData.imageUrl,
-			imageWidth: openGraphData.imageWidth,
-			siteName: openGraphData.siteName,
-			title: openGraphData.title,
-			type: openGraphData.type,
-			url: openGraphData.url,
+			description: openGraph.description,
+			domain: extractDomainFromUrl(openGraph.url),
+			imageHeight: openGraph.imageHeight,
+			imageUrl: openGraph.imageUrl,
+			imageWidth: openGraph.imageWidth,
+			siteName: openGraph.siteName,
+			title: openGraph.title,
+			type: openGraph.type,
+			url: openGraph.url,
 		});
 	},
 });

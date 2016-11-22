@@ -94,12 +94,8 @@ DiscussionPost.reopenClass({
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
 			}),
-			/*
-			 * if it's gotten from followed-by end-point we get userData and openGraph in plain object,
-			 * not in an array, we still need to support /threads end-point with an arrays result
-			 */
-			userData = Ember.get(threadData, '_embedded.userData.0') || Ember.get(threadData, '_embedded.userData'),
-			openGraphData = Ember.get(threadData, '_embedded.openGraph.0') || Ember.get(threadData, '_embedded.openGraph');
+			userData = Ember.get(threadData, '_embedded.userData'),
+			openGraphData = Ember.get(threadData, '_embedded.openGraph');
 
 		if (openGraphData) {
 			post.set('openGraph', OpenGraph.create(openGraphData));
@@ -114,7 +110,7 @@ DiscussionPost.reopenClass({
 
 	/**
 	 * Gets timestamp from date that can be iso string or epoch object
-	 * @param date
+	 * @param {string|object} date
 	 * @returns {number} - timestamp
 	 */
 	getThreadDataTimestamp(date) {
