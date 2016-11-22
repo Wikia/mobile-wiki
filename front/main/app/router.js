@@ -109,6 +109,12 @@ Router.map(function () {
 		this.route('guidelines', {
 			path: '/g'
 		});
+
+		this.route('user-activity', {
+			path: '/ua'
+		}, function () {
+			this.route('posts');
+		});
 	});
 
 
