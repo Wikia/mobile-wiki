@@ -195,13 +195,13 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 		const type = 'discussion-thread',
 			endpoint = `/followers/${user.get('userId')}/type/${type}/items/${entity.get('threadId')}`,
 			isFollowed = entity.get('isFollowed'),
-			method = isFollowed ? 'delete' : 'put'
+			method = isFollowed ? 'delete' : 'put';
 
 		entity.set('isFollowed', !isFollowed);
 
 		return request(M.getFollowingServiceUrl(endpoint), {
 			data: JSON.stringify({
-				"siteId" : Mercury.wiki.id
+				siteId: Mercury.wiki.id
 			}),
 			method
 		}).then((data) => {

@@ -76,7 +76,7 @@ DiscussionPost.reopenClass({
 				// A hack to compensate for API sometimes returning numbers and sometimes strings
 				categoryId: String(threadData.forumId),
 				createdBy: DiscussionContributor.create(threadData.createdBy),
-				creationTimestamp: threadData.creationDate.epochSecond,
+				creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
 				id: threadData.firstPostId,
 				isDeleted: threadData.isDeleted,
 				isFollowed: threadData.isFollowed,
@@ -94,8 +94,8 @@ DiscussionPost.reopenClass({
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
 				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
 			}),
-			userData = Ember.get(threadData, '_embedded.userData.0'),
-			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
+			userData = Ember.get(threadData, '_embedded.userData'),
+			openGraphData = Ember.get(threadData, '_embedded.openGraph');
 
 		if (openGraphData) {
 			post.set('openGraph', OpenGraph.create(openGraphData));
@@ -107,6 +107,15 @@ DiscussionPost.reopenClass({
 
 		return post;
 	},
+
+	/**
+	 * Gets timestamp from date that can be iso string or epoch object
+	 * @param {string|object} date
+	 * @returns {number} - timestamp
+	 */
+	getThreadDataTimestamp(date) {
+		return typeof date === 'string' ? (new Date(date)).getTime() / 1000 : date.epochSecond;
+	}
 });
 
 export default DiscussionPost;
