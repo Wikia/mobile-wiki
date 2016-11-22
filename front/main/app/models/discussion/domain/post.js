@@ -118,7 +118,7 @@ DiscussionPost.reopenClass({
 	 * @returns {number} - timestamp
 	 */
 	getThreadDataTimestamp(date) {
-		return date === 'string' ? (new Date(date)).getTime() / 1000 : date.epochSecond;
+		return typeof date === 'string' ? (new Date(date)).getTime() / 1000 : date.epochSecond;
 	}
 });
 

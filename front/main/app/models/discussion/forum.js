@@ -27,10 +27,9 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
 				};
+
 			return this.loadThreadPage(requestUrl, requestData);
-
 		},
-
 	}
 );
 
@@ -45,7 +44,7 @@ DiscussionForumModel.reopenClass(
 		 */
 		find(wikiId, categories = [], sortBy = 'trending', page = 1) {
 			const forumInstance = DiscussionForumModel.create({
-					wikiId,
+					wikiId
 				}),
 				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads`),
 				requestData = {
@@ -58,7 +57,6 @@ DiscussionForumModel.reopenClass(
 			if (sortBy) {
 				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
-			forumInstance.setStartPageNumber(page);
 
 			return this.findThreads(forumInstance, requestUrl, requestData);
 		},
