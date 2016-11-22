@@ -1,3 +1,5 @@
+const {$} = Ember;
+
 export default Ember.Service.extend({
 	confirmButtonText: '',
 	confirmCallback: Ember.K,
@@ -25,11 +27,8 @@ export default Ember.Service.extend({
 	 */
 	display(displayParameters) {
 		if (!this.get('isDisplayed') && displayParameters.message !== this.get('message')) {
-			const params = {};
-
-			$.extend(
+			const params = $.extend(
 				{},
-				params,
 				this.get('defaultDisplayParameters'),
 				displayParameters,
 				{isDisplayed: true},
@@ -43,11 +42,8 @@ export default Ember.Service.extend({
 	 * @returns {void}
 	 */
 	close() {
-		const params = {};
-
-		$.extend(
+		const params = $.extend(
 			{},
-			params,
 			this.get('defaultDisplayParameters'),
 			{isDisplayed: false},
 		);
