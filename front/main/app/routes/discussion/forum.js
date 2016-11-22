@@ -4,6 +4,7 @@ import DiscussionContributionRouteMixin from '../../mixins/discussion-contributi
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
+import DiscussionForumHeadTagsMixin from '../../mixins/discussion-forum-head-tags';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 import localStorageConnector from '../../utils/local-storage-connector';
 
@@ -14,6 +15,7 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
+	DiscussionForumHeadTagsMixin,
 	{
 		queryParams: {
 			catId: {
