@@ -11,6 +11,8 @@ export default Ember.Mixin.create(
 				}).then((data) => {
 					modelInstance.setNormalizedData(data);
 
+					modelInstance.setStartPageNumber(requestData ? requestData.page + 1 : 1);
+
 					resolve(modelInstance);
 
 					modelInstance.reportedDetailsSetUp(modelInstance.get('data.entities'));
@@ -20,6 +22,6 @@ export default Ember.Mixin.create(
 					reject(modelInstance);
 				});
 			});
-		},
+		}
 	}
 );

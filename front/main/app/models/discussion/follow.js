@@ -29,16 +29,13 @@ DiscussionFollowedPostsModel.reopenClass(
 		/**
 		 * @param {number} wikiId
 		 * @param {object} user
-		 * @param {number} page
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		find(wikiId, user, page = 1) {
+		find(wikiId, user) {
 			const followedPostsInstance = DiscussionFollowedPostsModel.create({
 					wikiId
 				}),
 				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads/followed-by/${user.get('userId')}`);
-
-			followedPostsInstance.setStartPageNumber(page);
 
 			return this.findThreads(followedPostsInstance, requestUrl);
 		}
