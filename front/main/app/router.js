@@ -110,10 +110,14 @@ Router.map(function () {
 			path: '/g'
 		});
 
-		this.route('user-activity', {
-			path: '/ua'
+		this.route('moderator', {
+			path: 'm'
 		}, function () {
-			this.route('posts');
+			this.route('user-activity', {
+				path: '/ua'
+			}, function () {
+				this.route('posts');
+			});
 		});
 	});
 
