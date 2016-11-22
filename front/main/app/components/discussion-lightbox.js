@@ -10,6 +10,12 @@ export default Component.extend({
 
 	/**
 	 * @public
+	 * @type {String}
+	 */
+	imageUrl: null,
+
+	/**
+	 * @public
 	 * Called when closing lightbox - clicked on overlay.
 	 */
 	onClose: null,
@@ -27,10 +33,9 @@ export default Component.extend({
 	onOpen: null,
 
 	/**
-	 * @public
-	 * @type {String}
+	 * @private
 	 */
-	imageUrl: null,
+	yPosition: null,
 
 	didRender() {
 		this._super(arguments);
@@ -72,6 +77,8 @@ export default Component.extend({
 
 			this.set('active', false);
 			$('body').removeClass('lightbox-active');
+
+			$(window).scrollTop(this.get('yPosition'));
 		},
 
 		/**
@@ -81,9 +88,13 @@ export default Component.extend({
 		 */
 		open() {
 			const onOpen = this.get('onOpen');
+
 			if (onOpen) {
 				onOpen();
 			}
+
+			this.set('yPosition', $(window).scrollTop());
+
 			this.set('active', true);
 			$('body').addClass('lightbox-active');
 		}
