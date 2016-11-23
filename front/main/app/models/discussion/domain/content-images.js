@@ -17,8 +17,10 @@ DiscussionContentImages.reopenClass({
 			.map(data => {
 				return Object.create({
 					id: data.id,
+					height: data.height,
 					position: data.position,
-					url: data.url
+					url: data.url,
+					width: data.width
 				});
 			});
 
