@@ -1,5 +1,12 @@
 <a {{action 'open'}}>
-	<img class="lightbox-image" src="{{imageUrl}}" alt=""/>
+	{{discussion-post-image
+			alt='Post image'
+			class='lightbox-image'
+			imageHeight=image.height
+			url=image.url
+			imageWidth=image.width
+			widthMultiplier=widthMultiplier
+	}}
 </a>
 {{#if active}}
 	<div {{action 'close' 'overlay'}} class="lightbox-overlay" tabindex="0">
@@ -8,7 +15,7 @@
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
 			</a>
 			<div class="lightbox-container">
-				<img class="lightbox-container-image" src="{{imageUrl}}" alt=""/>
+				<img class="lightbox-container-image" src="{{image.url}}" alt=""/>
 			</div>
 		</div>
 	</div>

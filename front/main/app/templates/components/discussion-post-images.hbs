@@ -1,13 +1,20 @@
 {{#each displayedImages as |image|}}
 	{{#if enableLightbox}}
 		{{discussion-lightbox
-				imageUrl=image.url
-				onClose=(action 'onLightboxClose')
-				onButtonClose=(action 'onLightboxCloseUsingButton')
-				onKeyClose=(action 'onLightboxCloseUsingKey')
-				onOpen=(action 'onLightboxOpen')
+			image=image
+			onClose=(action 'onLightboxClose')
+			onButtonClose=(action 'onLightboxCloseUsingButton')
+			onKeyClose=(action 'onLightboxCloseUsingKey')
+			onOpen=(action 'onLightboxOpen')
+			widthMultiplier=widthMultiplier
 		}}
 	{{else}}
-		<img class="post-image" src="{{image.url}}" alt="Post image"/>
+		{{discussion-post-image
+			alt='Post image'
+			class='post-image'
+			imageHeight=image.height
+			url=image.url
+			imageWidth=image.width
+		}}
 	{{/if}}
 {{/each}}

@@ -10,9 +10,8 @@ export default Component.extend({
 
 	/**
 	 * @public
-	 * @type {String}
 	 */
-	imageUrl: null,
+	image: null,
 
 	/**
 	 * @public

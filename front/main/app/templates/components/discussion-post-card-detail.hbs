@@ -56,8 +56,9 @@
 		</div>
 		{{#if post.contentImages}}
 			{{discussion-post-images
-					images=post.contentImages.images
-					mode='full'
+				images=post.contentImages.images
+				mode='full'
+				widthMultiplier=3
 			}}
 		{{/if}}
 	{{else}}
@@ -72,7 +73,7 @@
 		{{#if post.contentImages}}
 			<a href="{{href-to 'discussion.post' post.threadId}}">
 				{{discussion-post-images
-						images=post.contentImages.images
+					images=post.contentImages.images
 				}}
 			</a>
 		{{/if}}
