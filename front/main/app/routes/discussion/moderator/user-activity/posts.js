@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseRoute from '../../base';
+import DiscussionUserActivityPostsModel from '../../../../models/discussion/moderator/user-activity-posts';
 
 const {inject} = Ember;
 
@@ -15,19 +16,12 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
-			if (!this.get('currentUser.isAuthenticated')) {
-				throw new Error('No rights');
-			}
-			// const discussionModel = this.modelFor('discussion'),
-			// 	catId = this.getCategoriesFromQueryString(params.catId);
-			//
-			// discussionModel.categories.setSelectedCategories(catId);
-			//
-			// return Ember.RSVP.hash({
-			// 	current: DiscussionForumModel.find(Mercury.wiki.id, catId, this.get('discussionSort.sortBy'),
-			// 		params.page),
-			// 	index: discussionModel
-			// });
+			const discussionModel = this.modelFor('discussion');
+
+			return Ember.RSVP.hash({
+				current: DiscussionUserActivityPostsModel.find(Mercury.wiki.id, this.get('currentUser').get('userModel')),
+				index: discussionModel
+			});
 		},
 	}
 );

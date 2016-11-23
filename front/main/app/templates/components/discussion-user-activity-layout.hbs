@@ -1,0 +1,46 @@
+{{#if responsive.isMobile}}
+	{{#ember-wormhole to="site-head-sub-header"}}
+		{{discussion-header
+			applyFilters=(action this.attrs.applyFilters)
+			canModerate=model.canModerate
+			categories=categories
+			hasContentError=hasContentError
+			hasFilters=true
+			hasNewPostButton=hasNewPostButton
+			hasSiteName=true
+			setEditorActive=(action this.attrs.setEditorActive)
+			smartBannerVisible=smartBannerVisible
+			updateCategories=(action this.attrs.updateCategories)
+			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+			isSortingDisabled=isSortingDisabled
+			isCategoryFilterDisabled=isCategoryFilterDisabled
+			showReportedFilter=canShowReportedPostsFilter
+		}}
+	{{/ember-wormhole}}
+{{/if}}
+<div class="site-body-discussion post-list-view">
+	{{discussion-hero-unit
+		contributors=model.contributors
+		editingPossible=false
+		heroImage=attributes.heroImage
+		numberOfPosts=model.postCount
+		triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
+		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
+	}}
+	<div class="discussion-page row">
+		<div class="rail left large-3 extra-large-2 columns">
+			{{discussion-community-badge
+				badgeImage=attributes.badgeImage
+				editingPossible=false
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
+				uploadMethod=(action this.attrs.uploadCommunityBadge)
+			}}
+		</div>
+		<div class="small-12 large-6 extra-large-6 columns">
+			{{yield}}
+		</div>
+		<div class="rail right large-3 extra-large-2 columns">
+
+		</div>
+	</div>
+</div>
