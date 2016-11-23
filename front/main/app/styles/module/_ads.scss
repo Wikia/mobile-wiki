@@ -2,6 +2,9 @@
 
 $closeButtonHeight: 40px;
 
+$uap-progress-bar-color: #666;
+$uap-progress-bar-current-time-color: #b7b7b7;
+
 .ad-slot {
 	text-align: center;
 
@@ -82,6 +85,30 @@ $closeButtonHeight: 40px;
 		video {
 			left: 0;
 		}
+	}
+}
+
+.ad-slot {
+	.progress-bar {
+		background: $uap-progress-bar-color;
+		bottom: 0;
+		height: 8px;
+		left: 0;
+		margin: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.current-time {
+		background: $uap-progress-bar-current-time-color;
+		height: 100%;
+		margin: 0;
+		max-width: 100%;
+		width: 0;
+		-webkit-transition: width linear;
+		-moz-transition: width linear;
+		-o-transition: width linear;
+		transition: width linear;
 	}
 }
 
