@@ -73,6 +73,8 @@ export default DiscussionBaseRoute.extend(
 					queryParams: {
 						sort: 'trending'
 					}
+				}).catch(() => {
+					// Silently fail. For more info go to: SOC-3622
 				});
 			}
 
