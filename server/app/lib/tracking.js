@@ -63,19 +63,6 @@ export const Comscore = {
 			tracking.nielsen.apid = config.apid;
 		}
 	},
-	Ubisoft = {
-		/**
-		 * @param {object} tracking
-		 * @param {object} trackingConfig
-		 * @returns {void}
-		 */
-		handleResponse(tracking, trackingConfig) {
-			tracking.ubisoft = {
-				enabled: !!trackingConfig.ubisoft.enabled,
-				url: trackingConfig.ubisoft.url
-			};
-		}
-	},
 	NetzAthleten = {
 		/**
 		 * @param {object} tracking
@@ -114,8 +101,11 @@ export function handleResponse(result, request) {
 	Comscore.handleResponse(tracking, vertical, request);
 	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
+<<<<<<< HEAD
 	Ubisoft.handleResponse(tracking, trackingConfig);
 	NetzAthleten.handleResponse(tracking, trackingConfig, result.isMainPage);
+=======
+>>>>>>> parent of a2952f0... Merge pull request #2755 from Wikia/ADEN-3731-add-ubisoft-tracking
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
