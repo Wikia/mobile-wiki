@@ -45,3 +45,31 @@
 		}
 	}
 }
+
+.discussion-user-activity-glossary {
+	h5,
+	p {
+		font-size: 14px;
+		line-height: 18px;
+		margin: 0;
+	}
+
+	h5 {
+		font-weight: bold;
+	}
+
+	p {
+		margin-bottom: 20px;
+	}
+
+	legend {
+		border-bottom: 1px solid #ccc;
+		font-size: 18px;
+		font-weight: normal;
+		padding: 10px 0;
+	}
+
+	.collapsable-container {
+		padding-top: 10px;
+	}
+}

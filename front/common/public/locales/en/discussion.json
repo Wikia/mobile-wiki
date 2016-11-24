@@ -152,7 +152,14 @@
     "active-users-toggle-option": "Active Users",
     "reports-toggle-option": "Reports",
     "moderator-actions-toggle-option": "Moderator Actions",
-    "days-count": "__numberOfDays__ days"
+    "days-count": "__numberOfDays__ days",
+    "glossary-header": "Glossary",
+    "active-users-headline": "Active Users",
+    "active-users-description": "Who has published the most posts?",
+    "reports-headline": "Reports",
+    "reports-description": "Who has reported the most content, and have those posts been deleted, approved, or not yet been processed by a moderator?",
+    "moderator-actions-headline": "Moderator Actions",
+    "moderator-actions-description": "Which moderators have been the most active by deleting, approving, and locking posts, or changing a post’s category?"
   },
   "editor": {
     "post-failed-error": "Post failed.",
