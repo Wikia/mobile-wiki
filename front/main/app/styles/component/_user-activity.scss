@@ -9,12 +9,21 @@
 
 	.time-range-toggle {
 		color: #999;
+		margin: 0 0 0 15px;
+		padding: 0 0 0 10px;
 	}
 }
 
 .user-activity-options {
 	display: flex;
+	flex-shrink: 0;
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	li {
+		display: flex;
+	}
 
 	a,
 	a:active,
