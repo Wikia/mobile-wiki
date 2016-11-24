@@ -8,7 +8,7 @@ import DiscussionForumHeadTagsMixin from '../../mixins/discussion-forum-head-tag
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 import localStorageConnector from '../../utils/local-storage-connector';
 
-const {inject} = Ember;
+const {inject, Logger} = Ember;
 
 export default DiscussionBaseRoute.extend(
 	DiscussionContributionRouteMixin,
@@ -73,6 +73,9 @@ export default DiscussionBaseRoute.extend(
 					queryParams: {
 						sort: 'trending'
 					}
+				}).catch((err) => {
+					Logger.warn('Error in transition.', err);
+					// Silently fail. For more info go to: SOC-3622
 				});
 			}
 
