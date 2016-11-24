@@ -4,6 +4,7 @@ $closeButtonHeight: 40px;
 
 $uap-progress-bar-color: #666;
 $uap-progress-bar-current-time-color: #b7b7b7;
+$player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDEuMDYgMTQxLjA2Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjtvcGFjaXR5OjAuNTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDE8L3RpdGxlPjxjaXJjbGUgY2xhc3M9ImNscy0xIiBjeD0iNzAuNTMiIGN5PSI3MC41MyIgcj0iNjUuNTMiLz48cGF0aCBkPSJNMzkuMzQsNDYuNDFsNTUuMyw1NS4zYTUsNSwwLDAsMCw3LjA3LTcuMDdsLTU1LjMtNTUuM2E1LDUsMCwwLDAtNy4wNyw3LjA3Ii8+PHBhdGggZD0iTTk0LjY1LDM5LjM0bC01NS4zLDU1LjNhNSw1LDAsMCwwLDcuMDcsNy4wN2w1NS4zLTU1LjNhNSw1LDAsMCwwLTcuMDctNy4wNyIvPjxwYXRoIGQ9Ik0xMzYuMDYsNzAuNTNoLTVhNjAuNTMsNjAuNTMsMCwxLDEtMTcuNzMtNDIuOCw2MC4zMiw2MC4zMiwwLDAsMSwxNy43Myw0Mi44aDEwQTcwLjUzLDcwLjUzLDAsMSwwLDEyMC40LDEyMC40YTcwLjMzLDcwLjMzLDAsMCwwLDIwLjY2LTQ5Ljg3WiIvPjwvc3ZnPg==';
 
 .ad-slot {
 	text-align: center;
@@ -64,19 +65,18 @@ $uap-progress-bar-current-time-color: #b7b7b7;
 		}
 
 		.overVideoLayer {
-			position: absolute;
 			cursor: pointer;
+			height: 100%;
+			position: absolute;
 			top: 0;
 			width: 100%;
-			height: 100%;
 
 			.close-ad {
+				background-image: url($player-collapse-button);
 				float: right;
-				margin: 30px 15px 0 0;
-
-				width: 30px;
 				height: 30px;
-				background-image: url('/skins/oasis/images/player/collapse_dark.svg');
+				margin: 30px 5px 0 0;
+				width: 30px;
 			}
 		}
 	}
