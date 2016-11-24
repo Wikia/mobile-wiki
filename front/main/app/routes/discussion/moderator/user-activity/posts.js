@@ -9,6 +9,7 @@ export default DiscussionBaseRoute.extend(
 		currentUser: Ember.inject.service(),
 
 		beforeModel() {
+
 		},
 
 		/**

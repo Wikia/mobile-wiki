@@ -1,17 +1,22 @@
 <ul class="user-activity-options">
-	<li>
-		{{#link-to 'discussion'}}
-			{{i18n 'main.user-activity-active-users-option' ns='discussion'}}
+	<li class="{{if options.posts.isActive 'active'}}">
+		{{#link-to 'discussion.moderator.user-activity.posts'}}
+			{{i18n 'user-activity.active-users-toggle-option' ns='discussion'}}
 		{{/link-to}}
     </li>
-    <li>
-		{{#link-to 'discussion'}}
-			{{i18n 'main.user-activity-active-users-option' ns='discussion'}}
+    <li class="{{if options.reports.isActive 'active'}}">
+		{{#link-to 'discussion.forum'}}
+			{{i18n 'user-activity.reports-toggle-option' ns='discussion'}}
 		{{/link-to}}
     </li>
-    <li>
-		{{#link-to 'discussion'}}
-			{{i18n 'main.user-activity-active-users-option' ns='discussion'}}
+    <li class="{{if options.moderatorActions.isActive 'active'}}">
+		{{#link-to 'discussion.forum'}}
+			{{i18n 'user-activity.moderator-actions-toggle-option' ns='discussion'}}
 		{{/link-to}}
     </li>
 </ul>
+
+<select class="time-range-toggle">
+    <option value="30">{{i18n 'user-activity.days-count' numberOfDays=30 ns='discussion'}}</option>
+    <option value="90">{{i18n 'user-activity.days-count' numberOfDays=90 ns='discussion'}}</option>
+</select>

@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
-	beforeModel() {
+	model() {
 		this.transitionTo('discussion.moderator.user-activity.posts');
-	},
+	}
 });

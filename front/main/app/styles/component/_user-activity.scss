@@ -1,0 +1,38 @@
+.user-activity-main-content {
+	padding-top: 37px;
+}
+
+.discussion-user-activity-toggle {
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	justify-content: space-between;
+
+	.time-range-toggle {
+		color: #999;
+	}
+}
+
+.user-activity-options {
+	display: flex;
+	list-style-type: none;
+
+	a,
+	a:active,
+	a:visited {
+		color: #999;
+		flex-grow: 0;
+		flex-shrink: 0;
+		font-size: 12px;
+		font-weight: bold;
+		letter-spacing: 0.2px;
+		line-height: 14px;
+		padding: 16px;
+		text-align: center;
+		text-transform: uppercase;
+
+		&.active {
+			border-bottom: 2px solid #006cb0;
+			color: #006cb0;
+		}
+	}
+}

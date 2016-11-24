@@ -120,7 +120,6 @@
     "categories-delete-category-approve": "Delete & Move",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
-    "sort-by-header": "Sort By",
     "in-category-label": "in __categoryName__",
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
@@ -148,6 +147,12 @@
     "no-followed-posts-header": "Welcome to your Following tab.",
     "no-followed-posts-text": "Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
     "find-posts-to-follow": "Find posts to follow"
+  },
+  "user-activity":{
+    "active-users-toggle-option": "Active Users",
+    "reports-toggle-option": "Reports",
+    "moderator-actions-toggle-option": "Moderator Actions",
+    "days-count": "__numberOfDays__ days"
   },
   "editor": {
     "post-failed-error": "Post failed.",
