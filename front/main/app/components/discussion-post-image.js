@@ -1,51 +1,80 @@
 import Ember from 'ember';
-import {track, trackActions} from '../utils/discussion-tracker';
 
-const {Component, String} = Ember;
+const {Component} = Ember;
 
 export default Component.extend({
-	attributeBindings: ['alt', 'height', 'src', 'style', 'width'],
+	/**
+	 * @private
+	 */
+	// Important !!! Please adjust those values when breakpoints change.
+	breakpoints: [420, 767, 1063, 1595],
+
+	/**
+	 * @public
+	 */
+	crop: false,
+
+	/**
+	 * @public
+	 */
 	imageHeight: 0,
+
+	/**
+	 * @public
+	 */
 	imageWidth: 0,
-	tagName: 'img',
-	widthMultiplier: 1,
 
 	/**
 	 * @private
 	 */
-	didReceiveAttrs() {
+	sources: null,
+
+	/**
+	 * @private
+	 */
+	tagName: 'picture',
+
+	/**
+	 * @public
+	 *
+	 * Accepts null or undefined, fallbacks to 1.
+	 */
+	widthMultiplier: 1,
+
+	init() {
 		this._super(...arguments);
-		// this.set('height', 500);
-		// this.set('max-height', 200);
-		// this.set('max-width', 200);
-		// this.set('width', 500);
-		// this.set('style', String.htmlSafe(`max-height: ${this.get('max-height')}px; max-width: ${this.get('max-width')}px;`));
-		// const componentWidth = parseInt(this.$().parent().css('width'), 10),
-		// 	componentHeight = componentWidth,
-		// if (Math.min(imageWidth, componentWidth) === imageWidth) {
-		//
-		// } else {
-		//
-		// }
 
-		// this.set('maxWidth', componentWidth);
-		// this.set('maxHeight', componentHeight);
-		// this.set('style', String.htmlSafe(`max-width: ${this.get('maxWidth')}px; max-height: ${this.get('maxHeight')}px;`));
-
-		// console.info(this.get('width') + ' ' + this.$().css('width'));
+		this.set('sources', []);
 	},
 
-	didInsertElement() {
+	/**
+	 * @private
+	 *
+	 * Constructs sources for picture tag. Does not create unnecessary source when image is smaller than breakpoint.
+	 * When image height is larger than image width it will scale the image according to widthMultiplier property.
+	 */
+	didReceiveAttrs() {
 		this._super(...arguments);
 
 		const imageHeight = this.get('imageHeight'),
 			imageWidth = this.get('imageWidth'),
-			maxImageHeight = imageWidth * this.get('widthMultiplier');
+			maxImageHeight = imageWidth * this.getWithDefault('widthMultiplier', 1),
+			sources = this.get('sources'),
+			src = imageHeight > maxImageHeight
+				? `${this.get('url')}/scale-to-height-down/${maxImageHeight}` : this.get('url');
 
-		if (imageHeight > maxImageHeight) {
-			this.set('url', `${this.get('url')}/scale-to-height-down/${maxImageHeight}`);
-		}
+		this.get('breakpoints').forEach(breakpoint => {
+			if (Math.max(imageWidth, imageHeight) > breakpoint) {
+				const media = `(max-width: ${breakpoint}px)`,
+					operation = imageHeight > imageWidth ? 'scale-to-height-down' : 'scale-to-width-down';
 
-		this.set('src', this.get('url'));
+				sources.push({
+					media,
+					src: `${this.get('url')}/${operation}/${breakpoint}`
+				});
+			}
+		});
+
+		this.set('src', src);
 	}
 });
