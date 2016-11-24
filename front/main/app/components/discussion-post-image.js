@@ -76,8 +76,8 @@ export default Component.extend(
 			this._super(...arguments);
 
 			this.setProperties({
-				'croppedSources': [],
-				'sources': []
+				croppedSources: [],
+				sources: []
 			});
 		},
 
