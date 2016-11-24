@@ -96,7 +96,7 @@ export default Component.extend(
 
 			if (imageWidth > componentWidth || imageHeight > componentHeight) {
 				let width =
-					this.shouldUseImageWidthWithoutScailing(imageHeight, imageWidth, componentHeight, componentWidth)
+					this.shouldUseImageWidthWithoutScaling(imageHeight, imageWidth, componentHeight, componentWidth)
 						? imageWidth : componentWidth;
 
 				croppedStyle = String.htmlSafe(`height: ${componentHeight}px; width: ${width}px; object-fit: cover;`);
@@ -171,6 +171,7 @@ export default Component.extend(
 		 * @private
 		 *
 		 * When image height is larger than image width it will scale the image according to widthMultiplier property.
+		 * Cropping is enabled only on mobile devices, that is why it does not matter for this method.
 		 */
 		generateSourceFromImageDimensions() {
 			const imageHeight = this.get('imageHeight'),
@@ -193,7 +194,7 @@ export default Component.extend(
 			this.set('src', src);
 		},
 
-		shouldUseImageWidthWithoutScailing(imageHeight, imageWidth, height, width) {
+		shouldUseImageWidthWithoutScaling(imageHeight, imageWidth, height, width) {
 			return imageHeight > height && imageWidth <= width;
 		}
 	});
