@@ -122,9 +122,6 @@ $uap-progress-bar-current-time-color: #b7b7b7;
 		margin: 0;
 		max-width: 100%;
 		width: 0;
-		-webkit-transition: width linear;
-		-moz-transition: width linear;
-		-o-transition: width linear;
 		transition: width linear;
 	}
 }
