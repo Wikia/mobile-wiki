@@ -7,7 +7,7 @@ export default Component.extend({
 	 * @private
 	 */
 	// Important !!! Please adjust those values when breakpoints change.
-	breakpoints: [420, 767, 1063, 1595],
+	breakpoints: [420, 767, 1063],
 
 	/**
 	 * @public
@@ -23,6 +23,12 @@ export default Component.extend({
 	 * @public
 	 */
 	imageWidth: 0,
+
+	/**
+	 * @private
+	 */
+	// Important !!! Please adjust those values when breakpoints change.
+	maxWidthOnBigScreen: 640,
 
 	/**
 	 * @private
@@ -56,12 +62,17 @@ export default Component.extend({
 	didReceiveAttrs() {
 		this._super(...arguments);
 
+		this.generateSourcesFromBreakpoints();
+		this.generateSourceFromImageDimensions();
+	},
+
+	/**
+	 * @private
+	 */
+	generateSourcesFromBreakpoints() {
 		const imageHeight = this.get('imageHeight'),
 			imageWidth = this.get('imageWidth'),
-			maxImageHeight = imageWidth * this.getWithDefault('widthMultiplier', 1),
-			sources = this.get('sources'),
-			src = imageHeight > maxImageHeight
-				? `${this.get('url')}/scale-to-height-down/${maxImageHeight}` : this.get('url');
+			sources = this.get('sources');
 
 		this.get('breakpoints').forEach(breakpoint => {
 			if (Math.max(imageWidth, imageHeight) > breakpoint) {
@@ -74,6 +85,28 @@ export default Component.extend({
 				});
 			}
 		});
+	},
+
+	/**
+	 * @private
+	 */
+	generateSourceFromImageDimensions() {
+		const imageHeight = this.get('imageHeight'),
+			imageWidth = this.get('imageWidth'),
+			widthMultiplier = this.getWithDefault('widthMultiplier', 1),
+			maxImageWidthOnBigScreen = this.get('maxWidthOnBigScreen'),
+			maxImageHeightOnBigScreen =
+				Math.min(maxImageWidthOnBigScreen * widthMultiplier, imageWidth * widthMultiplier);
+
+		let src = this.get('url');
+
+		if (imageWidth > maxImageWidthOnBigScreen || imageHeight > maxImageHeightOnBigScreen) {
+			if (imageWidth > imageHeight) {
+				src = `${this.get('url')}/scale-to-width-down/${maxImageWidthOnBigScreen}`;
+			} else {
+				src = `${this.get('url')}/scale-to-height-down/${maxImageHeightOnBigScreen}`;
+			}
+		}
 
 		this.set('src', src);
 	}

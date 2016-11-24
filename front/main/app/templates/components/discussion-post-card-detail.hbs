@@ -58,7 +58,7 @@
 			{{discussion-post-images
 				images=post.contentImages.images
 				mode='full'
-				widthMultiplier=imagesWidthMultiplier
+				widthMultiplier=2
 			}}
 		{{/if}}
 	{{else}}
@@ -73,7 +73,7 @@
 		{{#if post.contentImages}}
 			<a href="{{href-to 'discussion.post' post.threadId}}">
 				{{discussion-post-images
-					cropImages=cropImages
+					cropImages=responsive.isMobile
 					images=post.contentImages.images
 				}}
 			</a>

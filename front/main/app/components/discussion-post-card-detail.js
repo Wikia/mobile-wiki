@@ -20,14 +20,6 @@ export default DiscussionPostCardBaseComponent.extend(
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
-		cropImages: computed('isDetailsView', 'responsive.isMobile', function () {
-			return !this.get('isDetailsView') && this.get('responsive.isMobile');
-		}),
-
-		imagesWidthMultiplier: computed('isDetailsView', 'responsive.isMobile', function () {
-			return this.get('isDetailsView') && !this.get('responsive.isMobile') ? 3 : 1;
-		}),
-
 		showOpenGraphCard: computed('post.contentImages', 'post.openGraph', function () {
 			return Ember.isEmpty(this.get('post.contentImages')) && Boolean(this.get('post.openGraph'));
 		}),
