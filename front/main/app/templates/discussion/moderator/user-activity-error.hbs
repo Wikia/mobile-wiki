@@ -1,0 +1,13 @@
+{{log model}}
+
+{{#discussion-user-activity-layout
+		attributes=model.index.attributes.data
+		canShowReportedPostsFilter=model.current.data.canModerate
+		hasContentError=true
+		model=model.current.data
+		uploadCommunityBadge=(action 'uploadCommunityBadge')
+		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
+}}
+
+	{{discussion-user-activity-toggle}}
+{{/discussion-user-activity-layout}}

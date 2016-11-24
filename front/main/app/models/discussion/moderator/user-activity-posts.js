@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import DiscussionBaseModel from '../base';
+import DiscussionUserActivityPosts from '../domain/user-activity-posts'
+import request from 'ember-ajax/request';
 
 const DiscussionUserActivityPostsModel = DiscussionBaseModel.extend(
 	{
-		findPosts(wikiId) {
-			return '123';
-		},
+		setNormalizedData(data) {
+			this.set('data', DiscussionUserActivityPosts.create(data));
+		}
 	}
 );
 
@@ -17,7 +19,7 @@ DiscussionUserActivityPostsModel.reopenClass(
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		find(wikiId, userModel) {
+		find(wikiId, days) {
 			const userActivityPostsInstance = DiscussionUserActivityPostsModel.create({
 					wikiId,
 				}),
@@ -26,11 +28,18 @@ DiscussionUserActivityPostsModel.reopenClass(
 					viewableOnly: false
 				};
 
-			return Ember.RSVP.all([
-				userActivityPostsInstance.findPosts(wikiId),
-				userModel
-			]).then(function (data) {
+			return new Ember.RSVP.Promise((resolve, reject) => {
+				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {
+					data: {
+						days
+					}
+				}).then((data) => {
+					userActivityPostsInstance.setNormalizedData(data);
+				}).catch((err) => {
+					userActivityPostsInstance.setErrorProperty(err);
 
+					reject(userActivityPostsInstance);
+				});
 			});
 		},
 	}
