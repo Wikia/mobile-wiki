@@ -164,6 +164,7 @@
     "reported": "reported",
     "not-processed": "not processed",
     "actions": "actions"
+    "hero-unit-subtitle": "User Activity"
   },
   "editor": {
     "post-failed-error": "Post failed.",

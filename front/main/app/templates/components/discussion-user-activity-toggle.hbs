@@ -16,7 +16,16 @@
     </li>
 </ul>
 
-<select class="time-range-toggle">
-    <option value="30">{{i18n 'user-activity.days-count' numberOfDays=30 ns='discussion'}}</option>
-    <option value="90">{{i18n 'user-activity.days-count' numberOfDays=90 ns='discussion'}}</option>
-</select>
+<div class="wds-dropdown">
+    <div class="wds-dropdown__toggle">
+        <svg class="wds-icon wds-dropdown__toggle-chevron">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wds-icons-dropdown"></use>
+        </svg>
+    </div>
+    <div class="wds-dropdown__content">
+        <ul class="wds-list">
+            <li>{{i18n 'user-activity.days-count' numberOfDays=30 ns='discussion'}}</li>
+            <li>{{i18n 'user-activity.days-count' numberOfDays=90 ns='discussion'}}</li>
+        </ul>
+    </div>
+</div>

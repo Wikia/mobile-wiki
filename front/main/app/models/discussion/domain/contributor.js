@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const DiscussionContributor = Ember.Object.extend({
 	avatarUrl: null,
+	badgePermission: null,
 	id: null,
 	name: null,
 	profileUrl: null,

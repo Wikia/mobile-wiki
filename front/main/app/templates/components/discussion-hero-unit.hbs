@@ -24,6 +24,11 @@
 							users=contributors.users
 						}}
 					{{/if}}
+					{{#if showUserActivity}}
+						<p class="user-activity-subtitle">
+							{{i18n 'user-activity.hero-unit-subtitle' ns='discussion'}}
+						</p>
+					{{/if}}
 				{{/if}}
 			</div>
 		</div>

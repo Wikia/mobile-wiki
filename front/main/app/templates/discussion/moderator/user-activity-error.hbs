@@ -9,5 +9,7 @@
 		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 
-	{{discussion-user-activity-toggle}}
+	{{discussion-error
+		error=model.error
+	}}
 {{/discussion-user-activity-layout}}

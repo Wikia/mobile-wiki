@@ -29,17 +29,18 @@ DiscussionUserActivityPostsModel.reopenClass(
 				};
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {
-					data: {
-						days
-					}
-				}).then((data) => {
-					userActivityPostsInstance.setNormalizedData(data);
-				}).catch((err) => {
-					userActivityPostsInstance.setErrorProperty(err);
-
-					reject(userActivityPostsInstance);
-				});
+				// return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {
+				// 	data: {
+				// 		days
+				// 	}
+				// }).then((data) => {
+				// 	userActivityPostsInstance.setNormalizedData(data);
+				// }).catch((err) => {
+				// 	userActivityPostsInstance.setErrorProperty(err);
+				//
+				// 	reject(userActivityPostsInstance);
+				// });
+				return {users: []};
 			});
 		},
 	}
