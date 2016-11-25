@@ -93,15 +93,16 @@ export default Component.extend(
 		computeCroppedWidthAndHeight() {
 			const imageHeight = this.get('imageHeight'),
 				imageWidth = this.get('imageWidth'),
+				// it is more efficient to use .css('width') than .width()
 				componentWidth = parseInt(this.$().css('width'), 10),
 				componentHeight = Math.floor(componentWidth * 9 / 16);
 
 			let croppedStyle = null;
 
 			if (imageWidth > componentWidth || imageHeight > componentHeight) {
-				let width =
-					this.shouldUseImageWidthWithoutScaling(imageHeight, imageWidth, componentHeight, componentWidth)
-						? imageWidth : componentWidth;
+				const useImageWidthWithoutScaling = imageHeight > componentHeight && imageWidth <= componentWidth;
+
+				let width = useImageWidthWithoutScaling ? imageWidth : componentWidth;
 
 				croppedStyle = String.htmlSafe(`height: ${componentHeight}px; width: ${width}px; object-fit: cover;`);
 			}
@@ -197,9 +198,5 @@ export default Component.extend(
 			}
 
 			this.set('src', src);
-		},
-
-		shouldUseImageWidthWithoutScaling(imageHeight, imageWidth, height, width) {
-			return imageHeight > height && imageWidth <= width;
 		}
 	});

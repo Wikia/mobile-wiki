@@ -49,7 +49,8 @@ export default Component.extend({
 
 	didRender() {
 		this._super(...arguments);
-		this.$().find('.lightbox-overlay').focus();
+
+		this.$('.lightbox-overlay').focus();
 	},
 
 	keyDown(event) {

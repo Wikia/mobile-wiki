@@ -1,4 +1,4 @@
 {{#each pictureSources as |source|}}
 	<source media="{{source.media}}" srcset="{{source.src}}">
 {{/each}}
-<img alt="{{alt}}" src="{{src}}" style=(if crop croppedStyle)>
+<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
