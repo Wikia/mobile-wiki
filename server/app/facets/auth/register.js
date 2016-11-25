@@ -2,7 +2,7 @@ import BirthdateInput from './birthdate-input';
 import * as authUtils from '../../lib/auth-utils';
 import {PageRequestHelper} from '../../lib/mediawiki-page';
 import Logger from '../../lib/logger';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
@@ -51,8 +51,8 @@ function getDefaultRegistrationContext(request, i18n) {
 		wikiDomain = parse(defaultContext.exitTo).host || request.headers.host,
 		mediaWikiPageHelper = new PageRequestHelper({wikiDomain}),
 		context = deepExtend(defaultContext, {
-			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
-			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,
+			usernameMaxLength: settings.userRegistationService.usernameMaxLength,
+			passwordMaxLength: settings.userRegistationService.passwordMaxLength,
 			langCode: lang,
 			defaultBirthdate: '1970-01-01',
 			pageParams: {
@@ -101,10 +101,10 @@ function getFacebookRegistrationPage(request, reply) {
 				headerCalloutLink: 'auth:fb-register.callout-link',
 				bodyClasses: 'register-fb-page',
 				pageType: 'register-fb-page',
-				facebookAppId: localSettings.facebook.appId,
+				facebookAppId: settings.facebook.appId,
 				headerSlogan: 'auth:fb-register.facebook-registration-info',
 				pageParams: {
-					facebookAppId: localSettings.facebook.appId
+					facebookAppId: settings.facebook.appId
 				}
 			}
 		);
@@ -144,15 +144,15 @@ function getEmailRegistrationPage(request, reply) {
 			birthdateInputs: birthdateInput.getInputData(),
 			bodyClasses: 'register-page',
 			pageType: 'register-page',
-			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			usernameMaxLength: settings.helios.usernameMaxLength,
+			passwordMaxLength: settings.helios.passwordMaxLength,
 			langCode: lang,
 			pageParams: {
 				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
 				`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
 				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
 				`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
-				facebookAppId: localSettings.facebook.appId
+				facebookAppId: settings.facebook.appId
 			}
 		};
 

@@ -1,10 +1,8 @@
 /**
- * localSettings for application, used by default by dev environment
+ * settings for application, used by default by dev environment
  */
-import baseExtendSettings from './localSettings.base';
-import deepExtend from 'deep-extend';
 
-const localSettings = {
+export default {
 	loggers: {
 		console: 'debug'
 	},
@@ -30,11 +28,3 @@ const localSettings = {
 		internalUrl: 'http://dev.helios.service.consul:9500/',
 	},
 };
-
-/**
- * @param {LocalSettings} customLocalSet
- * @returns {LocalSettings}
- */
-export default function extendSettings(customLocalSet) {
-	return deepExtend(baseExtendSettings(localSettings), customLocalSet);
-}

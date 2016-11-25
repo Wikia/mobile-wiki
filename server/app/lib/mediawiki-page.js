@@ -3,7 +3,7 @@ import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
 import {PageRequestError} from './custom-errors';
 import logger from './logger';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 
 /**
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and PageRequestHelper
@@ -82,7 +82,7 @@ export class PageRequestHelper {
 
 				data = {
 					page,
-					server: createServerData(localSettings, this.params.wikiDomain),
+					server: createServerData(settings, this.params.wikiDomain),
 					wikiVariables: wikiVariablesPromise.value()
 				};
 

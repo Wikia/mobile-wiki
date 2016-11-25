@@ -1,12 +1,11 @@
 import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
-import deepExtend from 'deep-extend';
 
 /* eslint max-len:0 */
 
 /**
- * Base localSettings for application
+ * Base settings for application
  * @example
- * var localConfig = require('./config').localSettings
+ * var localConfig = require('./config').settings
  */
 
 /**
@@ -47,7 +46,7 @@ import deepExtend from 'deep-extend';
  */
 
 /**
- * @typedef {Object} LocalSettings
+ * @typedef {Object} Settings
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
  * @property {string} cdnBaseUrl
@@ -56,76 +55,76 @@ import deepExtend from 'deep-extend';
  * @property {*} [discussions]
  * @property {*} [siteAttribute]
  * @property {*} environment
- * @property {HeliosLocalSettings} helios
- * @property {WhoAmIServiceLocalSettings} whoAmIService
+ * @property {HeliosSettings} helios
+ * @property {WhoAmIServiceSettings} whoAmIService
  * @property {*} host
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
  * @property {string} gaUserSalt
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
- * @property {OptimizelyLocalSettings} [optimizely]
+ * @property {OptimizelySettings} [optimizely]
  * @property {number} port
- * @property {PrerenderLocalSettings} prerender
+ * @property {PrerenderSettings} prerender
  * @property {number} proxyMaxRedirects
- * @property {QualarooLocalSettings} [qualaroo]
+ * @property {QualarooSettings} [qualaroo]
  * @property {string} [qualaroo]
  * @property {string} redirectUrlOnNoData
  * @property {string} servicesDomain
- * @property {TrackingLocalSettings} tracking
+ * @property {TrackingSettings} tracking
  * @property {*} verticalColors
  * @property {WeppyConfig} weppy
  * @property {number} workerCount
  * @property {number} workerDisconnectTimeout
- * @property {FacebookLocalSettings} facebook
- * @property {PatternsLocalSettings} patterns
+ * @property {FacebookSettings} facebook
+ * @property {PatternsSettings} patterns
  * @property {boolean} enableDiscussions
  * @property {ClickStreamConfig} clickstream
  */
 
 /**
- * @typedef {Object} HeliosLocalSettings
+ * @typedef {Object} HeliosSettings
  * @property {string} path
  * @property {number} usernameMaxLength
  * @property {number} passwordMaxLength
  */
 
 /**
- * @typedef {Object} WhoAmIServiceLocalSettings
+ * @typedef {Object} WhoAmIServiceSettings
  * @property {string} path
  * @property {number} timeout
  */
 
 /**
- * @typedef {Object} OptimizelyLocalSettings
+ * @typedef {Object} OptimizelySettings
  * @property {boolean} enabled
  * @property {string} scriptPath
  * @property {string} account
  */
 
 /**
- * @typedef {Object} PrerenderLocalSettings
+ * @typedef {Object} PrerenderSettings
  * @property {string} token
  */
 
 /**
- * @typedef {Object} QualarooLocalSettings
+ * @typedef {Object} QualarooSettings
  * @property {boolean} enabled
  * @property {string} scriptUrl
  */
 
 /**
- * @typedef {Object} TrackingLocalSettings
+ * @typedef {Object} TrackingSettings
  * @property {GAAccountConfig} ua
  * @property {string} quantserve
- * @property {ComscoreTrackingLocalSettings} comscore
- * @property {IVW3TrackingLocalSettings} ivw3
- * @property {NielsenTrackingLocalSettings} nielsen
- * @property {KruxTrackingLocalSettings} krux
+ * @property {ComscoreTrackingSettings} comscore
+ * @property {IVW3TrackingSettings} ivw3
+ * @property {NielsenTrackingSettings} nielsen
+ * @property {KruxTrackingSettings} krux
  */
 
 /**
- * @typedef {Object} ComscoreTrackingLocalSettings
+ * @typedef {Object} ComscoreTrackingSettings
  * @property {string} keyword
  * @property {string} id
  * @property {string} c7
@@ -133,14 +132,14 @@ import deepExtend from 'deep-extend';
  */
 
 /**
- * @typedef {Object} IVW3TrackingLocalSettings
+ * @typedef {Object} IVW3TrackingSettings
  * @property {string} cmKey
  * @property {boolean} enabled
  * @property {string[]} countries
  */
 
 /**
- * @typedef {Object} NielsenTrackingLocalSettings
+ * @typedef {Object} NielsenTrackingSettings
  * @property {string} apid
  * @property {string} clientId
  * @property {string} section
@@ -148,28 +147,28 @@ import deepExtend from 'deep-extend';
  */
 
 /**
- * @typedef {Object} KruxTrackingLocalSettings
+ * @typedef {Object} KruxTrackingSettings
  * @property {string} mobileId
  */
 
 /**
- * @typedef {Object} FacebookLocalSettings
+ * @typedef {Object} FacebookSettings
  * @property {number} appId
  */
 
 /**
- * @typedef {Object} PatternsLocalSettings
+ * @typedef {Object} PatternsSettings
  * @property {RegExp} mobile
  * @property {RegExp} iPad
  */
 
-const localSettings = {
+export default {
 	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
 	domain: 'wikia.com',
-	// Targeted environment [prod|preview|verify|dev|testing]
+	// Targeted environment [prod|preview|verify|dev|testing|staging]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
 		internalUrl: 'http://prod.helios.service.consul:9500/',
@@ -347,11 +346,3 @@ const localSettings = {
 	},
 	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
 };
-
-/**
- * @param {LocalSettings} customLocalSet
- * @returns {LocalSettings}
- */
-export default function extendSettings(customLocalSet) {
-	return deepExtend(localSettings, customLocalSet);
-}
