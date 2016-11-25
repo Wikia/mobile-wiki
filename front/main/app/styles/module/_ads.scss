@@ -2,6 +2,10 @@
 
 $closeButtonHeight: 40px;
 
+$uap-progress-bar-color: #666;
+$uap-progress-bar-current-time-color: #b7b7b7;
+$player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDEuMDYgMTQxLjA2Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjtvcGFjaXR5OjAuNTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDE8L3RpdGxlPjxjaXJjbGUgY2xhc3M9ImNscy0xIiBjeD0iNzAuNTMiIGN5PSI3MC41MyIgcj0iNjUuNTMiLz48cGF0aCBkPSJNMzkuMzQsNDYuNDFsNTUuMyw1NS4zYTUsNSwwLDAsMCw3LjA3LTcuMDdsLTU1LjMtNTUuM2E1LDUsMCwwLDAtNy4wNyw3LjA3Ii8+PHBhdGggZD0iTTk0LjY1LDM5LjM0bC01NS4zLDU1LjNhNSw1LDAsMCwwLDcuMDcsNy4wN2w1NS4zLTU1LjNhNSw1LDAsMCwwLTcuMDctNy4wNyIvPjxwYXRoIGQ9Ik0xMzYuMDYsNzAuNTNoLTVhNjAuNTMsNjAuNTMsMCwxLDEtMTcuNzMtNDIuOCw2MC4zMiw2MC4zMiwwLDAsMSwxNy43Myw0Mi44aDEwQTcwLjUzLDcwLjUzLDAsMSwwLDEyMC40LDEyMC40YTcwLjMzLDcwLjMzLDAsMCwwLDIwLjY2LTQ5Ljg3WiIvPjwvc3ZnPg==';
+
 .ad-slot {
 	margin: 0;
 	padding: 0;
@@ -85,8 +89,41 @@ $closeButtonHeight: 40px;
 	}
 }
 
-.vuap-loaded {
-	transition: padding 0.4s ease;
+.ad-slot {
+	.progress-bar {
+		background: $uap-progress-bar-color;
+		bottom: 0;
+		height: 8px;
+		left: 0;
+		margin: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.current-time {
+		background: $uap-progress-bar-current-time-color;
+		height: 100%;
+		margin: 0;
+		max-width: 100%;
+		width: 0;
+		transition: width linear;
+	}
+
+	.overVideoLayer {
+		cursor: pointer;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		.close-ad {
+			background-image: url($player-collapse-button);
+			float: right;
+			height: 30px;
+			margin: 30px 5px 0 0;
+			width: 30px;
+		}
+	}
 }
 
 .no-ads {
@@ -194,6 +231,71 @@ $closeButtonHeight: 40px;
 			font-size: 17px;
 			padding: 20px 10px;
 			position: relative;
+		}
+	}
+}
+
+.bfaa-template .ima-mute-div, .bfab-template .ima-mute-div {
+	bottom: 0px;
+	height: 20%;
+	position: absolute;
+	right: 5px;
+	text-align: right;
+	width: 15%;
+
+	.speaker {
+		display: inline-block;
+		height: 30px;
+		overflow: hidden;
+		position: relative;
+		width: 30px;
+
+		span {
+			background: #000;
+			display: block;
+			height: 8px;
+			margin: 11px 0 0 2px;
+			width: 8px;
+
+			&:after {
+				border-color: transparent #000 transparent transparent;
+				border-style: solid;
+				border-width: 10px 14px 10px 15px;
+				content: '';
+				height: 0;
+				left: -13px;
+				position: absolute;
+				top: 5px;
+				width: 0;
+			}
+
+			&:before {
+				border-color: #000;
+				border-radius: 0 50px 0 0;
+				border-style: double;
+				border-width: 7px 7px 0 0;
+				content: '';
+				height: 5px;
+				left: 20px;
+				position: absolute;
+				top: 12px;
+				transform: rotate(45deg);
+				transition: all 0.2s ease-out;
+				width: 5px;
+			}
+		}
+
+		&:hover {
+			span:before {
+				transform: scale(.8) translate(-3px, 0) rotate(42deg);
+			}
+		}
+
+		&.mute {
+			span:before {
+				opacity: 0;
+				transform: scale(.5) translate(-15px, 0) rotate(36deg);
+			}
 		}
 	}
 }
