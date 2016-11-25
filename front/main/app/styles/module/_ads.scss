@@ -3,10 +3,13 @@
 $closeButtonHeight: 40px;
 
 .ad-slot {
+	margin: 0;
+	padding: 0;
 	text-align: center;
 
-	div {
-		margin: 0 auto;
+	.provider-container {
+		margin: 20px auto;
+		padding: 0;
 	}
 }
 
@@ -19,32 +22,24 @@ $closeButtonHeight: 40px;
 }
 
 .mobile-top-leaderboard .ad-slot {
-	min-height: 50px;
-	padding: 10px 0;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
-}
 
-// if mobile-top-leaderboard injected into article content - ignore articles default margins
-.article-content .mobile-top-leaderboard {
-	margin: 0 -20px;
-}
-
-.vuap-loaded {
-	transition: padding 0.4s ease;
+	.provider-container {
+		margin: 10px auto;
+	}
 }
 
 .ad-slot {
 	&.slot-animation {
 		overflow: hidden;
-		transition: max-height  0.7s ease;
+		transition: max-height 0.8s ease;
 	}
 
 	&.slot-responsive {
 		width: 100%;
 
 		.provider-container {
-			padding: 0;
 			position: relative;
 
 			iframe {
@@ -54,17 +49,12 @@ $closeButtonHeight: 40px;
 				width: 100%;
 				top: 0;
 			}
-
-			video {
-				left: 0;
-			}
 		}
 	}
 }
 
 .bfaa-template .mobile-top-leaderboard {
 	left: 0;
-	margin: 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -72,22 +62,31 @@ $closeButtonHeight: 40px;
 	.ad-slot {
 		background: #000;
 		overflow: hidden;
-		padding: 0;
 		position: relative;
 		transition: height 0.4s ease;
+
+		.provider-container {
+			margin: 0;
+		}
+
+		video {
+			left: 0;
+		}
 	}
 }
 
-.mobile-bottom-leaderboard {
-	.ad-slot {
-		padding: 10px 0;
+.bfab-template.ad-slot {
+	.provider-container {
+		margin: 0;
+	}
+
+	video {
+		left: 0;
 	}
 }
 
-.mobile-in-content,
-.mobile-prefooter {
-	margin: 10px 0;
-	padding: 10px 0;
+.vuap-loaded {
+	transition: padding 0.4s ease;
 }
 
 .no-ads {
@@ -156,6 +155,10 @@ $closeButtonHeight: 40px;
 		margin: 0;
 		padding: 0;
 		top: 0;
+
+		.provider-container {
+			margin: 0;
+		}
 
 		.background {
 			background: rgba(0, 0, 0, .9);
