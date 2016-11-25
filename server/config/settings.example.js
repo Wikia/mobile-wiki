@@ -5,7 +5,7 @@ let environmentSettings;
 
 try {
 	environmentSettings = require(`./settings.${process.env.WIKIA_ENVIRONMENT}.js`).default;
-} catch( exception ) {
+} catch (exception) {
 	environmentSettings = {};
 }
 
