@@ -2,10 +2,12 @@
  * settings for the application, used by default by staging environments
  */
 export default {
+	// CDN prefix with no trailing slash
+	cdnBaseUrl: '',
 	servicesDomain: 'services.wikia-staging.com',
 	domain: 'wikia-staging.com',
 	helios: {
-		internalUrl: 'http://staging.helios.service.consul:9500/',
+		internalUrl: 'http://staging.helios.service.sjc.consul:9500/',
 		path: '/auth',
 		timeout: 3000
 	},
