@@ -6,6 +6,7 @@ export default {
 	cdnBaseUrl: '',
 	servicesDomain: 'services.wikia-staging.com',
 	domain: 'wikia-staging.com',
+	mediawikiDomain: null,
 	helios: {
 		internalUrl: 'http://staging.helios.service.sjc.consul:9500/',
 		path: '/auth',
