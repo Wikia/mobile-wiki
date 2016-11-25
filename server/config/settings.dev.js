@@ -1,7 +1,6 @@
 /**
- * settings for application, used by default by dev environment
+ * settings for application, used by default by dev environments
  */
-
 export default {
 	loggers: {
 		console: 'debug'

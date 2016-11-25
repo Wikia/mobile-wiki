@@ -1,3 +1,6 @@
+/**
+ * settings for the application, used by default by staging environments
+ */
 export default {
 	servicesDomain: 'services.wikia-staging.com',
 	domain: 'wikia-staging.com',

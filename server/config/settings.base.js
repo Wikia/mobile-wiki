@@ -54,7 +54,7 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @property {string} domain
  * @property {*} [discussions]
  * @property {*} [siteAttribute]
- * @property {*} environment
+ * @property {*} environments
  * @property {HeliosSettings} helios
  * @property {WhoAmIServiceSettings} whoAmIService
  * @property {*} host
@@ -162,6 +162,9 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @property {RegExp} iPad
  */
 
+/**
+ * Base settings for all environments
+ */
 export default {
 	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
@@ -289,6 +292,24 @@ export default {
 		music: '#c819ad',
 		tv: '#00b7e0'
 	},
+	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
+	workerDisconnectTimeout: 3000,
+	// CDN prefix with no trailing slash
+	cdnBaseUrl: '//mercury.nocookie.net',
+	facebook: {
+		appId: 112328095453510
+	},
+	patterns: {
+		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
+		iPad: /iPad/
+	},
+	enableDiscussions: true,
+	clickstream: {
+		social: {
+			enable: true,
+			url: 'https://services.wikia.com/clickstream/events/social'
+		},
+	},
 	weppy: {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
@@ -325,24 +346,6 @@ export default {
 			// es.dragonball
 			1744
 		]
-	},
-	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
-	workerDisconnectTimeout: 3000,
-	// CDN prefix with no trailing slash
-	cdnBaseUrl: '//mercury.nocookie.net',
-	facebook: {
-		appId: 112328095453510
-	},
-	patterns: {
-		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
-		iPad: /iPad/
-	},
-	enableDiscussions: true,
-	clickstream: {
-		social: {
-			enable: true,
-			url: 'https://services.wikia.com/clickstream/events/social'
-		},
 	},
 	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
 };

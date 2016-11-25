@@ -11,14 +11,14 @@ import Promise from 'bluebird';
 /**
  * @typedef {Object} ServerData
  * @property {string} mediawikiDomain
- * @property {string} environment
+ * @property {string} environments
  * @property {string} cdnBaseURL
  * @property {string} gaUrl
  * @property {string} [optimizelyScript]
  */
 
 // Environment types
-const environment = {
+const environments = {
 		dev: 'dev',
 		preview: 'preview',
 		prod: 'prod',
@@ -30,15 +30,15 @@ const environment = {
 	},
 	wikiDomainsCache = {};
 
-export {environment};
+export {environments};
 /**
- * Get environment from string
+ * Get environments from string
  *
  * @param {string} environment Environment name
- * @param {Environment} fallbackEnvironment Fallback environment
- * @returns {Environment}
+ * @param {string} fallbackEnvironment Fallback environments
+ * @returns {string}
  */
-export function getEnvironment(environment, fallbackEnvironment = environment.dev) {
+export function getEnvironment(environment, fallbackEnvironment = environments.dev) {
 	if (environments.hasOwnProperty(environment)) {
 		return environments[environment];
 	}
@@ -66,7 +66,7 @@ export function stripDevboxDomain(host) {
  * @returns {boolean}
  */
 export function isXipHost(settings, hostName) {
-	return settings.environment === environment.dev &&
+	return settings.environment === environments.dev &&
 		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
 
@@ -75,7 +75,7 @@ export function isXipHost(settings, hostName) {
  * @returns {string}
  */
 export function getCDNBaseUrl(settings) {
-	return settings.environment === environment.prod ? settings.cdnBaseUrl : '';
+	return settings.environment === environments.prod ? settings.cdnBaseUrl : '';
 }
 
 /**
@@ -84,7 +84,7 @@ export function getCDNBaseUrl(settings) {
  * user. If x-original-host header doesn't exist check host header. When request goes through
  * Fastly host header contains original host with stripped staging env. For instance for
  * preview.muppet.wikia.com host is muppet.wikia.com. When request doesn't go through Fastly (local
- * environment) host header contains original host
+ * environments) host header contains original host
  *
  * @param {Hapi.Request} request
  * @returns {string}
@@ -125,7 +125,7 @@ export function getWikiDomainName(settings, hostName = '') {
  */
 export function getWikiaSubdomain(host) {
 	return host.replace(
-		/^(?:(?:verify|preview|stable|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev|.wikia-staging)?\.com/,
+		/^(?:(?:verify|preview|stable|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|wikia-staging|[a-z\d]+\.wikia-dev)?\.com/,
 		'$1'
 	);
 }
@@ -184,11 +184,11 @@ export function getCorporatePageUrlFromWikiDomain(settings, wikiDomain) {
 	let environmentPrefix;
 
 	switch (settings.environment) {
-		case environment.prod:
+		case environments.prod:
 			return 'www.wikia.com';
-		case environment.staging:
+		case environments.staging:
 			return 'www.wikia-staging.com';
-		case environment.dev:
+		case environments.dev:
 			return `www.${settings.devboxDomain}.wikia-dev.com`;
 		default:
 			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
@@ -242,7 +242,7 @@ export function parseQueryParams(obj, allowedKeys) {
  */
 export function createServerData(settings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = settings.environment || environment.dev,
+	const env = settings.environment || environments.dev,
 		data = {
 			mediawikiDomain: getWikiDomainName(settings, wikiDomain),
 			environment: getEnvironment(env),
@@ -269,9 +269,9 @@ export function createServerData(settings, wikiDomain = '') {
  * @returns {string}
  */
 export function getStaticAssetPath(settings, request) {
-	const env = settings.environment || environment.dev;
+	const env = settings.environment || environments.dev;
 
-	return env === environment.prod ?
+	return env === environments.prod ?
 		// The CDN path should match what's used in
 		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${settings.cdnBaseUrl}/mercury-static/` :

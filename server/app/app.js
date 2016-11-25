@@ -1,6 +1,6 @@
 import {setResponseCaching, Policy, Interval} from './lib/caching';
 import Logger from './lib/logger';
-import {environment} from './lib/utils';
+import {environments} from './lib/utils';
 import wikiaSessionScheme from './lib/wikia-session';
 import settings from '../config/settings';
 import {routes} from './routes';
@@ -26,7 +26,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 	require('newrelic');
 }
 
-const isDevbox = settings.environment === environment.dev,
+const isDevbox = settings.environment === environments.dev,
 	localesPath = path.join(__dirname, '..', '..', 'front/common/locales'),
 	server = new Server({
 		connections: {

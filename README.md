@@ -11,7 +11,7 @@ To begin your journey with Mercury all you need to do is:
 1. Use `npm run dev`
 1. Start developing
 
-For most cases you don't need to modify your `settings.js`, but if you do, read [this](#localsettings) section.
+For most cases you don't need to modify your `settings.js`, but if you do, read [this](#settings) section.
 
 If you are using Mercury on your local machine, install global dependencies by `npm run setup-for-local`.
 
