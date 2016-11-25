@@ -65,7 +65,7 @@ export default Component.extend(
 		 */
 		widthMultiplier: 1,
 
-		pictureSources: computed('crop', function() {
+		pictureSources: computed('crop', function () {
 			return this.get('crop') ? this.get('croppedSources') : this.get('sources');
 		}),
 
