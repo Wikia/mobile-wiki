@@ -117,6 +117,7 @@ Router.map(function () {
 				path: '/ua'
 			}, function () {
 				this.route('posts');
+				this.route('reports');
 			});
 		});
 	});

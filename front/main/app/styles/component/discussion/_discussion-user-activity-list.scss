@@ -1,0 +1,73 @@
+.discussion-user-activity-list {
+	overflow-x: auto;
+
+	.row {
+		color: #333;
+		display: flex;
+		height: 60px;
+
+		.user {
+			display: flex;
+			flex: 1;
+			min-width: 150px;
+
+			.user-avatar {
+				align-items: center;
+				display: flex;
+				flex: 0 0 50px;
+				justify-content: center;
+			}
+
+			.username {
+				align-items: center;
+				border-bottom: 1px solid #ccc;
+				color: #1a5eb8;
+				display: flex;
+				flex: 1;
+				min-width: 0;
+
+				a {
+					display: block;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+		}
+
+		.details {
+			align-items: center;
+			border-bottom: 1px solid #ccc;
+			display: flex;
+			flex: 1;
+			justify-content: flex-end;
+
+			.user-activity-value {
+				margin-left: 12px;
+				white-space: nowrap;
+
+				.description {
+					color: #ccc;
+					font-size: $wds-typescale-size-minus-2;
+				}
+			}
+
+			.user-activity-icon {
+				fill: #ccc;
+				position: relative;
+
+				&.checkmark {
+					height: 18px;
+					top: 3px;
+					width: 18px;
+				}
+
+				&.trash {
+					height: 16px;
+					top: 2px;
+					width: 16px;
+				}
+			}
+		}
+	}
+}

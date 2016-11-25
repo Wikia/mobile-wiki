@@ -1,0 +1,20 @@
+{{#discussion-user-activity-list items=model as |item|}}
+	{{discussion-user-activity-value
+		value=item.reported
+		description=(i18n 'user-activity.reported' ns='discussion')
+	}}
+	{{discussion-user-activity-value
+			value=item.notProcessed
+			description=(i18n 'user-activity.not-processed' ns='discussion')
+	}}
+	{{discussion-user-activity-value
+			value=item.validated
+			iconName='wds-icons-checkmark-small'
+			iconClass='wds-icon wds-icon-small checkmark'
+	}}
+	{{discussion-user-activity-value
+			value=item.deleted
+			iconName='wds-icons-trash'
+			iconClass='wds-icon wds-icon-small trash'
+	}}
+{{/discussion-user-activity-list}}

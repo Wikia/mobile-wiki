@@ -1,0 +1,18 @@
+{{#each items as |item|}}
+	<div class="row">
+		<div class="user">
+			{{user-avatar
+					avatarUrl=item.author.avatarUrl
+					badgePermission=item.author.badgePermission
+					displayProfileName=false
+					shouldWrapInHref=true
+			}}
+			<div class="username">
+				<a href="{{item.author.profileUrl}}">{{item.author.name}}</a>
+			</div>
+		</div>
+		<div class="details">
+			{{yield item}}
+		</div>
+	</div>
+{{/each}}
