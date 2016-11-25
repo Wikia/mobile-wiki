@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const {Object, A} = Ember,
 	DiscussionContentImages = Object.extend({
-		images: new A()
+		images: null
 	});
 
 DiscussionContentImages.reopenClass({

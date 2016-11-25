@@ -2,8 +2,8 @@
 	{{#if enableLightbox}}
 		{{discussion-lightbox
 			image=image
-			onClose=(action 'onLightboxClose')
 			onButtonClose=(action 'onLightboxCloseUsingButton')
+			onClose=(action 'onLightboxClose')
 			onKeyClose=(action 'onLightboxCloseUsingKey')
 			onOpen=(action 'onLightboxOpen')
 			widthMultiplier=widthMultiplier
@@ -14,8 +14,8 @@
 			class='post-image'
 			crop=cropImages
 			imageHeight=image.height
-			url=image.url
 			imageWidth=image.width
+			url=image.url
 		}}
 	{{/if}}
 {{/each}}

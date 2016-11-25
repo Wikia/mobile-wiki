@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import DiscussionPostCardBaseComponent from './discussion-post-card-base';
-import DiscussionCategoriesVisibilityMixin from '../mixins/discussion-categories-visibility';
-import ResponsiveMixin from '../mixins/responsive';
+import Ember from "ember";
+import DiscussionPostCardBaseComponent from "./discussion-post-card-base";
+import DiscussionCategoriesVisibilityMixin from "../mixins/discussion-categories-visibility";
+import ResponsiveMixin from "../mixins/responsive";
 
 const {computed} = Ember;
 

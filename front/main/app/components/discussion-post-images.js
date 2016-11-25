@@ -12,7 +12,7 @@ export default Component.extend({
 	 *
 	 * Array containing images objects
 	 */
-	images: new A(),
+	images: null,
 
 	/**
 	 * @public

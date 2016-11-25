@@ -114,6 +114,7 @@ export default Component.extend(
 		 */
 		cropImage() {
 			if (this.get('crop')) {
+				// because img style might be modified here it has to be done after rendering
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					this.computeCroppedWidthAndHeight();
 				});
