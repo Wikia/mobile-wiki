@@ -63,22 +63,6 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 		video {
 			left: 0;
 		}
-
-		.overVideoLayer {
-			cursor: pointer;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			width: 100%;
-
-			.close-ad {
-				background-image: url($player-collapse-button);
-				float: right;
-				height: 30px;
-				margin: 30px 5px 0 0;
-				width: 30px;
-			}
-		}
 	}
 }
 
@@ -123,6 +107,22 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 		max-width: 100%;
 		width: 0;
 		transition: width linear;
+	}
+
+	.overVideoLayer {
+		cursor: pointer;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		.close-ad {
+			background-image: url($player-collapse-button);
+			float: right;
+			height: 30px;
+			margin: 30px 5px 0 0;
+			width: 30px;
+		}
 	}
 }
 
