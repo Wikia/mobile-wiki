@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import DiscussionBaseRoute from '../../base';
 
-export default Ember.Route.extend({
+export default DiscussionBaseRoute.extend({
 	/**
 	 * @returns {void}
 	 */

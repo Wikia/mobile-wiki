@@ -1,8 +1,8 @@
 .discussion-user-activity-list {
 	overflow-x: auto;
+	color: #333;
 
 	.row {
-		color: #333;
 		display: flex;
 		height: 60px;
 
@@ -21,7 +21,6 @@
 			.username {
 				align-items: center;
 				border-bottom: 1px solid #ccc;
-				color: #1a5eb8;
 				display: flex;
 				flex: 1;
 				min-width: 0;

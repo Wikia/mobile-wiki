@@ -625,6 +625,18 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-user-activity-list {
+		color: $dark-discussion-content-color;
+
+		.row {
+			.user {
+				.username {
+					color: $dark-discussion-content-color;
+				}
+			}
+		}
+	}
+
 	.standalone-page-view {
 		.standalone-content {
 			border-color: $dark-discussion-standalone-content-border-color;
