@@ -34,6 +34,34 @@ $closeButtonHeight: 40px;
 	transition: padding 0.4s ease;
 }
 
+.ad-slot {
+	&.slot-animation {
+		overflow: hidden;
+		transition: max-height  0.7s ease;
+	}
+
+	&.slot-responsive {
+		width: 100%;
+
+		.provider-container {
+			padding: 0;
+			position: relative;
+
+			iframe {
+				height: 100%;
+				left: 0;
+				position: absolute;
+				width: 100%;
+				top: 0;
+			}
+
+			video {
+				left: 0;
+			}
+		}
+	}
+}
+
 .bfaa-template .mobile-top-leaderboard {
 	left: 0;
 	margin: 0;
@@ -47,41 +75,12 @@ $closeButtonHeight: 40px;
 		padding: 0;
 		position: relative;
 		transition: height 0.4s ease;
-
-		iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
-		}
-
-		video {
-			left: 0;
-		}
 	}
 }
 
 .mobile-bottom-leaderboard {
 	.ad-slot {
 		padding: 10px 0;
-	}
-
-	.bfab-template {
-		padding: 0;
-		position: relative;
-
-		iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
-		}
-
-		video {
-			left: 0;
-		}
 	}
 }
 
