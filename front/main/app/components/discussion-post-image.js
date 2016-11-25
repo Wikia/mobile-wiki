@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 
-const {Component, String, observer} = Ember;
+const {Component, computed, String, observer} = Ember;
 
 export default Component.extend(
 	ViewportMixin,
@@ -64,6 +64,10 @@ export default Component.extend(
 		 * Accepts null or undefined, fallbacks to 1.
 		 */
 		widthMultiplier: 1,
+
+		pictureSources: computed('crop', function() {
+			return this.get('crop') ? this.get('croppedSources') : this.get('sources');
+		}),
 
 		viewportChangeObserver: observer('viewportDimensions.width', function () {
 			this.cropImage();

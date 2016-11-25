@@ -1,11 +1,4 @@
-{{#if crop}}
-	{{#each croppedSources as |source|}}
-		<source media="{{source.media}}" srcset="{{source.src}}">
-	{{/each}}
-	<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
-{{else}}
-	{{#each sources as |source|}}
-		<source media="{{source.media}}" srcset="{{source.src}}">
-	{{/each}}
-	<img alt="{{alt}}" src="{{src}}">
-{{/if}}
+{{#each pictureSources as |source|}}
+	<source media="{{source.media}}" srcset="{{source.src}}">
+{{/each}}
+<img alt="{{alt}}" src="{{src}}" style=(if crop croppedStyle)>

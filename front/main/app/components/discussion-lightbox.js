@@ -42,13 +42,13 @@ export default Component.extend({
 	},
 
 	didDestroyElement() {
-		this._super(arguments);
+		this._super(...arguments);
 
 		this.deactiveteLightbox();
 	},
 
 	didRender() {
-		this._super(arguments);
+		this._super(...arguments);
 		this.$().find('.lightbox-overlay').focus();
 	},
 
@@ -87,6 +87,7 @@ export default Component.extend({
 
 			this.deactiveteLightbox();
 
+			// Returns scroll to position before opening lightbox, fix for iOS
 			$(window).scrollTop(this.get('yPosition'));
 		},
 
@@ -102,6 +103,7 @@ export default Component.extend({
 				onOpen();
 			}
 
+			// Stores scroll position before opening lightbox, fix for iOS
 			this.set('yPosition', $(window).scrollTop());
 
 			this.set('active', true);
