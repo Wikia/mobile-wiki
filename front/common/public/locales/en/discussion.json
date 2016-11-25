@@ -159,7 +159,11 @@
     "reports-headline": "Reports",
     "reports-description": "Who has reported the most content, and have those posts been deleted, approved, or not yet been processed by a moderator?",
     "moderator-actions-headline": "Moderator Actions",
-    "moderator-actions-description": "Which moderators have been the most active by deleting, approving, and locking posts, or changing a post’s category?"
+    "moderator-actions-description": "Which moderators have been the most active by deleting, approving, and locking posts, or changing a post’s category?",
+    "posts": "posts",
+    "reported": "reported",
+    "not-processed": "not processed",
+    "actions": "actions"
   },
   "editor": {
     "post-failed-error": "Post failed.",
