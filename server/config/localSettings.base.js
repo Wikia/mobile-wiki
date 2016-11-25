@@ -275,10 +275,6 @@ const localSettings = {
 		krux: {
 			mobileId: 'JTKzTN3f'
 		},
-		ubisoft: {
-			enabled: false,
-			url: ''
-		},
 		netzathleten: {
 			enabled: false,
 			url: '',
