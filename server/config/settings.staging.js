@@ -8,9 +8,8 @@ export default {
 	},
 	// auth pages aren't supported on custom domains, so this value should only be used for auth features
 	// once we phase out custom domains, we can change this to "cookieDomain" and use it for more features
-	authCookieDomain: '.wikia.com',
+	authCookieDomain: '.wikia-staging.com',
 	redirectUrlOnNoData: 'http://community.wikia-staging.com/wiki/Community_Central:Not_a_valid_Wikia',
-	cdnBaseUrl: '//mercury.nocookie.net',
 	clickstream: {
 		social: {
 			enable: true,
