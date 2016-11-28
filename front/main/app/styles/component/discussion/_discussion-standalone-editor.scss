@@ -41,6 +41,15 @@ $success-icon-size: 80px;
 		flex-grow: 1;
 		margin: 0;
 		overflow: auto;
+
+		.post-image {
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+
+		.post-image-editor-tools-wrapper {
+			display: inline-block;
+		}
 	}
 
 	.discussion-standalone-editor-title,

@@ -1,9 +1,13 @@
-<picture>
-	{{#each pictureSources as |source|}}
-		<source media="{{source.media}}" srcset="{{source.src}}">
-	{{/each}}
-	<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
-</picture>
-<a class="delete-image">
-	{{svg 'wds-icons-trash-small' class='wds-icon wds-icon-small'}}
-</a>
+<div class="post-image-editor-tools-wrapper">
+	<picture>
+		{{#each pictureSources as |source|}}
+			<source media="{{source.media}}" srcset="{{source.src}}">
+		{{/each}}
+		<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
+	</picture>
+	{{#if editorToolsVisible}}
+		<a class="delete-image">
+			{{svg 'wds-icons-trash-small' class='wds-icon wds-icon-small'}}
+		</a>
+	{{/if}}
+</div>

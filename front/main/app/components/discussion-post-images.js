@@ -28,9 +28,7 @@ export default Component.extend({
 	/**
 	 * @private
 	 */
-	computeImagesToDisplay(images) {
-		return this.get('mode') === 'compact' ? images.slice(0, 1) : images;
-	},
+	areEditorToolsVisible: computed.equal('mode', 'edit'),
 
 	/**
 	 * @private
@@ -42,7 +40,17 @@ export default Component.extend({
 		return Ember.isEmpty(images) ? noImages : this.computeImagesToDisplay(images);
 	}),
 
+	/**
+	 * @private
+	 */
 	enableLightbox: computed.equal('mode', 'full'),
+
+	/**
+	 * @private
+	 */
+	computeImagesToDisplay(images) {
+		return this.get('mode') === 'compact' ? images.slice(0, 1) : images;
+	},
 
 	actions: {
 		onLightboxClose() {

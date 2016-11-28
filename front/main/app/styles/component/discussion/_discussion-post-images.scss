@@ -1,27 +1,17 @@
 $desktop-lightbox-close-size: 24px;
 
-.discussions {
-	.post-images {
-		margin-bottom: 13px;
+.post-images {
+	margin-bottom: 13px;
 
-		.post-image,
-		.lightbox-image {
-			display: block;
-			margin-top: 9px;
-		}
-	}
-
-	.discussion-standalone-content-wrapper {
-		.post-images {
-			margin: 0 15px;
-		}
+	.post-image,
+	.lightbox-image {
+		display: block;
+		margin-top: 9px;
 	}
 }
 
 @media #{$desktop-range} {
-	.discussions {
-		.post-images {
-			margin-bottom: 18px;
-		}
+	.post-images {
+		margin-bottom: 18px;
 	}
 }

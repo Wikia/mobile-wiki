@@ -30,6 +30,11 @@ export default Component.extend(
 		/**
 		 * @public
 		 */
+		editorToolsVisible: false,
+
+		/**
+		 * @public
+		 */
 		imageHeight: 0,
 
 		/**
