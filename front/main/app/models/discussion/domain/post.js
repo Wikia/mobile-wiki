@@ -37,7 +37,7 @@ DiscussionPost.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isFollowed: postData.isFollowed,
+				isFollowed: Ember.get(postData, '_embedded.thread.0.isFollowed'),
 				isLocked: !Ember.get(postData, '_embedded.thread.0.isEditable'),
 				isNew: postData.isNew,
 				isReported: postData.isReported,
