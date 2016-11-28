@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 const {Object, A} = Ember,
 	DiscussionContentImages = Object.extend({
