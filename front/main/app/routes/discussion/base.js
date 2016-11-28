@@ -17,8 +17,13 @@ export default Ember.Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
+			const shouldSetDefaultCanonical = data.canonical === undefined;
+
 			data.documentTitle = 'Discussions';
-			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
+
+			if (shouldSetDefaultCanonical) {
+				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
+			}
 
 			this._super(model, data);
 		},
@@ -84,18 +89,21 @@ export default Ember.Route.extend(
 			/**
 			 * Handler for a rejected model (or a throw from within model)
 			 *
-			 * @param {Ember.Object} model
+			 * @param {Ember.Object} routeError
 			 * @param {Ember.Transition} transition
 			 *
 			 * @returns {boolean}
 			 */
-			error(model, transition) {
+			error(routeError, transition) {
 				this.controllerFor('application').set('noMargins', true);
 
-				// Model is the only place we can use to send the transition to the
-				// error subroute, and try to retry it from an error component
-				if (model) {
-					model.set('error.transition', transition);
+				/* If routeError is a model loading error, let it through to the
+					error subroute handlers. If not, rethrow it
+				 */
+				if (Ember.typeOf(routeError) === 'instance' && routeError.error) {
+					routeError.set('error.transition', transition);
+				} else {
+					throw routeError;
 				}
 
 				return true;

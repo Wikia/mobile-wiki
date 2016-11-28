@@ -595,6 +595,7 @@ body.discussions {
 
 	.load-more-button {
 		@extend %discussion-large-button;
+		display: block;
 		line-height: 50px;
 		padding: 0;
 		margin: 30px 15px 0;

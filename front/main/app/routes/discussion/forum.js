@@ -4,16 +4,18 @@ import DiscussionContributionRouteMixin from '../../mixins/discussion-contributi
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
+import DiscussionForumHeadTagsMixin from '../../mixins/discussion-forum-head-tags';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 import localStorageConnector from '../../utils/local-storage-connector';
 
-const {inject} = Ember;
+const {inject, Logger} = Ember;
 
 export default DiscussionBaseRoute.extend(
 	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
+	DiscussionForumHeadTagsMixin,
 	{
 		queryParams: {
 			catId: {
@@ -70,6 +72,9 @@ export default DiscussionBaseRoute.extend(
 					queryParams: {
 						sort: discussionSort.get('defaultSort')
 					}
+				}).catch((err) => {
+					Logger.warn('Error in transition.', err);
+					// Silently fail. For more info go to: SOC-3622
 				});
 			}
 
@@ -224,6 +229,23 @@ export default DiscussionBaseRoute.extend(
 			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
+		/**
+		 * Ensures that canonical link from all post list variations always links to /d/f?sort=latest
+		 * @param {Object} model - DiscussionForumModel instance
+		 * @param {Object} [data={}]
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model, data = {}) {
+			// We do not want to set a canonical for pages other than first
+			if (this.get('controller.page') === 1) {
+				data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}?sort=latest`;
+			} else {
+				data.canonical = null;
+			}
+
+			this._super(model, data);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
@@ -234,6 +256,8 @@ export default DiscussionBaseRoute.extend(
 					selectedCategories = model.index.categories.get('selectedCategoryIds');
 
 				model.current.loadPage(pageNum, selectedCategories, this.get('discussionSort.sortBy'));
+
+				this.setDynamicHeadTags(model);
 			},
 
 			updateCategoriesSelection(updatedCategories) {
