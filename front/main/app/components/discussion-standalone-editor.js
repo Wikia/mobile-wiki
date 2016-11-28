@@ -6,6 +6,8 @@ import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor'
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
+const {$, computed, inject, observer, run} = Ember;
+
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration,
@@ -13,59 +15,38 @@ export default DiscussionMultipleInputsEditor.extend(
 	{
 		classNames: ['discussion-standalone-editor'],
 
-		currentUser: Ember.inject.service(),
+		currentUser: inject.service(),
+
+		editEntity: null,
 
 		hasTitle: false,
 
 		isEdit: false,
-		isReply: Ember.computed.bool('editEntity.isReply'),
 
-		editorType: Ember.computed('isEdit', function () {
-			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
-		}),
+		isReply: computed.bool('editEntity.isReply'),
 
-		editEntity: null,
+		pageYOffsetCache: 0,
 
-		categoryTrackingAction: Ember.computed('isEdit', function () {
+		responsive: inject.service(),
+
+		categoryTrackingAction: computed('isEdit', function () {
 			return this.get('isEdit') ? trackActions.PostCategoryEdited : trackActions.PostCategoryAdded;
 		}),
 
-		editTextDisabled: Ember.computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
+		editorType: computed('isEdit', function () {
+			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
+		}),
+
+		editTextDisabled: computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
 			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
 		}),
 
-		pageYOffsetCache: 0,
-		responsive: Ember.inject.service(),
-
-		click(event) {
-			this.focusOnNearestTextarea(event);
-		},
-
-		toggleActiveState(isActive) {
-			this._super();
-
-			if (isActive) {
-				this.set('pageYOffsetCache', window.pageYOffset);
-				this.focusFirstTextareaWhenRendered();
-			}
-
-			Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
-
-			if (navigator.userAgent.indexOf('iPhone') > -1) {
-				this.$(`#${this.get('textAreaId')}`).toggleClass('no-overflow', isActive);
-			}
-
-			if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
-				if (this.get('responsive.isMobile')) {
-					window.scroll(0, this.get('pageYOffsetCache'));
-				} else {
-					Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
-				}
-			}
-		},
+		showMultipleInputs: computed('hasTitle', 'isReply', function () {
+			return this.get('hasTitle') && !this.get('isReply');
+		}),
 
 		// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
-		targetObjectObserver: Ember.observer('editEntity', function () {
+		targetObjectObserver: observer('editEntity', function () {
 			const editEntity = this.get('editEntity');
 
 			if (!editEntity) {
@@ -82,16 +63,39 @@ export default DiscussionMultipleInputsEditor.extend(
 			this.focusFirstTextareaWhenRendered();
 		}),
 
+		click(event) {
+			this.focusOnNearestTextarea(event);
+		},
+
 		focusFirstTextareaWhenRendered() {
-			Ember.run.scheduleOnce('afterRender', this, () => {
+			run.scheduleOnce('afterRender', this, () => {
 				// This needs to be triggered after Ember updates textarea content
 				this.$('textarea:first').focus().get(0).setSelectionRange(0, 0);
 			});
 		},
 
-		showMultipleInputs: Ember.computed('hasTitle', 'isReply', function () {
-			return this.get('hasTitle') && !this.get('isReply');
-		}),
+		toggleActiveState(isActive) {
+			this._super();
+
+			if (isActive) {
+				this.set('pageYOffsetCache', window.pageYOffset);
+				this.focusFirstTextareaWhenRendered();
+			}
+
+			$('html, body').toggleClass('mobile-full-screen', isActive);
+
+			if (navigator.userAgent.indexOf('iPhone') > -1) {
+				this.$(`#${this.get('textAreaId')}`).toggleClass('no-overflow', isActive);
+			}
+
+			if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
+				if (this.get('responsive.isMobile')) {
+					window.scroll(0, this.get('pageYOffsetCache'));
+				} else {
+					$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
+				}
+			}
+		},
 
 		actions: {
 			close() {
