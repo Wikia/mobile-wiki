@@ -20,6 +20,7 @@ export default Component.extend({
 	 *
 	 * Component supports two modes:
 	 * - 'compact' - shows only first image
+	 * - 'edit' - shows all images and adds trash icon
 	 * - 'full' - shows all images and displays image lightbox when image is clicked
 	 */
 	mode: 'compact',
@@ -34,7 +35,7 @@ export default Component.extend({
 	/**
 	 * @private
 	 */
-	displayedImages: computed('showOnlyFirst', 'images', function () {
+	displayedImages: computed('images', function () {
 		const images = this.get('images'),
 			noImages = new A();
 

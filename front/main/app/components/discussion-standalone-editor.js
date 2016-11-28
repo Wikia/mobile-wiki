@@ -41,6 +41,10 @@ export default DiscussionMultipleInputsEditor.extend(
 			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
 		}),
 
+		imageWidthMultiplier: computed('isReply', 'responsive.isMobile', function () {
+			return this.get('responsive.isMobile') || this.get('isReply') ? 1 : 2;
+		}),
+
 		showMultipleInputs: computed('hasTitle', 'isReply', function () {
 			return this.get('hasTitle') && !this.get('isReply');
 		}),
