@@ -11,57 +11,39 @@ import Promise from 'bluebird';
 /**
  * @typedef {Object} ServerData
  * @property {string} mediawikiDomain
- * @property {string} environment
+ * @property {string} environments
  * @property {string} cdnBaseURL
  * @property {string} gaUrl
  * @property {string} [optimizelyScript]
  */
 
 // Environment types
-const Environment = {
-		Prod: 'prod',
-		Verify: 'verify',
-		Preview: 'preview',
-		Stable: 'stable',
-		Sandbox: 'sandbox',
-		Dev: 'dev',
-		Testing: 'testing'
+const environments = {
+		dev: 'dev',
+		preview: 'preview',
+		prod: 'prod',
+		sandbox: 'sandbox',
+		stable: 'stable',
+		staging: 'staging',
+		testing: 'testing',
+		verify: 'verify',
 	},
 	wikiDomainsCache = {};
 
-export {Environment};
+export {environments};
 /**
- * Get environment from string
+ * Get environments from string
  *
  * @param {string} environment Environment name
- * @param {Environment} fallbackEnvironment Fallback environment
- * @returns {Environment}
+ * @param {string} fallbackEnvironment Fallback environments
+ * @returns {string}
  */
-export function getEnvironment(environment, fallbackEnvironment = Environment.Dev) {
-	const environments = {
-		prod: Environment.Prod,
-		verify: Environment.Verify,
-		preview: Environment.Preview,
-		stable: Environment.Stable,
-		sandbox: Environment.Sandbox,
-		dev: Environment.Dev,
-		testing: Environment.Testing
-	};
-
+export function getEnvironment(environment, fallbackEnvironment = environments.dev) {
 	if (environments.hasOwnProperty(environment)) {
 		return environments[environment];
 	}
-	return fallbackEnvironment;
-}
 
-/**
- * Get environment as string
- *
- * @param {String} environment
- * @returns {string}
- */
-export function getEnvironmentString(environment) {
-	return getEnvironment(environment).toLowerCase();
+	return fallbackEnvironment;
 }
 
 /**
@@ -79,21 +61,21 @@ export function stripDevboxDomain(host) {
 }
 
 /**
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {string} hostName
  * @returns {boolean}
  */
-export function isXipHost(localSettings, hostName) {
-	return localSettings.environment === Environment.Dev &&
+export function isXipHost(settings, hostName) {
+	return settings.environment === environments.dev &&
 		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
 
 /**
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @returns {string}
  */
-export function getCDNBaseUrl(localSettings) {
-	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
+export function getCDNBaseUrl(settings) {
+	return (settings.environment !== environments.dev) ? settings.cdnBaseUrl : '';
 }
 
 /**
@@ -102,7 +84,7 @@ export function getCDNBaseUrl(localSettings) {
  * user. If x-original-host header doesn't exist check host header. When request goes through
  * Fastly host header contains original host with stripped staging env. For instance for
  * preview.muppet.wikia.com host is muppet.wikia.com. When request doesn't go through Fastly (local
- * environment) host header contains original host
+ * environments) host header contains original host
  *
  * @param {Hapi.Request} request
  * @returns {string}
@@ -114,12 +96,12 @@ export function getHostFromRequest(request) {
 /**
  * Generate wiki host name from the request host
  *
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {string} [hostName='']
  * @returns {string}
  */
-export function getWikiDomainName(localSettings, hostName = '') {
-	if (isXipHost(localSettings, hostName)) {
+export function getWikiDomainName(settings, hostName = '') {
+	if (isXipHost(settings, hostName)) {
 		/**
 		 * Regular expression for extracting wiki name from hostName.
 		 * Wiki name is used for creating an url to devbox
@@ -129,7 +111,7 @@ export function getWikiDomainName(localSettings, hostName = '') {
 		const regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/,
 			match = hostName.match(regex);
 
-		return match ? `${match[1]}.${localSettings.devboxDomain}.wikia-dev.com` : hostName;
+		return match ? `${match[1]}.${settings.devboxDomain}.wikia-dev.com` : hostName;
 	} else {
 		return hostName;
 	}
@@ -142,8 +124,11 @@ export function getWikiDomainName(localSettings, hostName = '') {
  * @returns {string}
  */
 export function getWikiaSubdomain(host) {
-	return host.replace(
-		/^(?:(?:verify|preview|stable|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+	return host.replace(new RegExp(
+			'^(?:(?:verify|preview|stable|sandbox-[^.]+)\\.)?' +
+			'([a-z\\d.]*[a-z\d])\\.' +
+			'(?:wikia|wikia-staging|[a-z\\d]+\\.wikia-dev)?\\.com'
+		),
 		'$1'
 	);
 }
@@ -180,32 +165,34 @@ export function clearHost(host) {
 /**
  * Get cached Media Wiki domain name from the request host
  *
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {Hapi.Request} request
  * @returns {string} Host name to use for API
  */
-export function getCachedWikiDomainName(localSettings, request) {
+export function getCachedWikiDomainName(settings, request) {
 	const host = clearHost(getHostFromRequest(request)),
 		wikiDomain = wikiDomainsCache[host];
 
-	wikiDomainsCache[host] = wikiDomain ? wikiDomain : getWikiDomainName(localSettings, host);
+	wikiDomainsCache[host] = wikiDomain ? wikiDomain : getWikiDomainName(settings, host);
 
 	return wikiDomainsCache[host];
 }
 
 /**
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {string} wikiDomain
  * @returns {string}
  */
-export function getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain) {
+export function getCorporatePageUrlFromWikiDomain(settings, wikiDomain) {
 	let environmentPrefix;
 
-	switch (localSettings.environment) {
-		case Environment.Prod:
+	switch (settings.environment) {
+		case environments.prod:
 			return 'www.wikia.com';
-		case Environment.Dev:
-			return `www.${localSettings.devboxDomain}.wikia-dev.com`;
+		case environments.staging:
+			return 'www.wikia-staging.com';
+		case environments.dev:
+			return `www.${settings.devboxDomain}.wikia-dev.com`;
 		default:
 			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
 			return `${environmentPrefix}.www.wikia.com`;
@@ -252,26 +239,26 @@ export function parseQueryParams(obj, allowedKeys) {
 /**
  * Create server data
  *
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {string} [wikiDomain='']
  * @returns {ServerData}
  */
-export function createServerData(localSettings, wikiDomain = '') {
+export function createServerData(settings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = localSettings.environment || Environment.Dev,
+	const env = settings.environment || environments.dev,
 		data = {
-			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-			environment: getEnvironmentString(env),
-			cdnBaseUrl: getCDNBaseUrl(localSettings),
-			gaUrl: localSettings.tracking.ua.scriptUrl
+			mediawikiDomain: getWikiDomainName(settings, wikiDomain),
+			environment: getEnvironment(env),
+			cdnBaseUrl: getCDNBaseUrl(settings),
+			gaUrl: settings.tracking.ua.scriptUrl
 		};
 
-	if (localSettings.qualaroo.enabled) {
-		data.qualarooScript = localSettings.qualaroo.scriptUrl;
+	if (settings.qualaroo.enabled) {
+		data.qualarooScript = settings.qualaroo.scriptUrl;
 	}
 
-	if (localSettings.optimizely.enabled) {
-		data.optimizelyScript = `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
+	if (settings.optimizely.enabled) {
+		data.optimizelyScript = `${settings.optimizely.scriptPath}${settings.optimizely.account}.js`;
 	}
 
 	return data;
@@ -280,18 +267,18 @@ export function createServerData(localSettings, wikiDomain = '') {
 /**
  * Gets the domain and path for a static asset
  *
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {Hapi.Request} request
  * @returns {string}
  */
-export function getStaticAssetPath(localSettings, request) {
-	const env = localSettings.environment || Environment.Dev;
+export function getStaticAssetPath(settings, request) {
+	const env = settings.environment || environments.dev;
 
-	return env !== Environment.Dev ?
+	return env !== environments.dev ?
 		// The CDN path should match what's used in
 		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
-		`${localSettings.cdnBaseUrl}/mercury-static/` :
-		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
+		`${settings.cdnBaseUrl}/mercury-static/` :
+		`//${getCachedWikiDomainName(settings, request)}/front/`;
 }
 
 /**
@@ -299,7 +286,7 @@ export function getStaticAssetPath(localSettings, request) {
  * wikiVariables.basePath If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
  *
- * @param {LocalSettings} localSettings
+ * @param {Settings} settings
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @param {*} wikiVariables
@@ -307,10 +294,10 @@ export function getStaticAssetPath(localSettings, request) {
  *
  * @throws RedirectedToCanonicalHost
  */
-export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables) {
-	const requestedHost = getCachedWikiDomainName(localSettings, request),
+export function redirectToCanonicalHostIfNeeded(settings, request, reply, wikiVariables) {
+	const requestedHost = getCachedWikiDomainName(settings, request),
 		canonicalHost = parse(wikiVariables.basePath).hostname,
-		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request)));
+		isLocal = isXipHost(settings, clearHost(getHostFromRequest(request)));
 
 	if (!isLocal && requestedHost !== canonicalHost) {
 		let redirectLocation = wikiVariables.basePath + request.path;

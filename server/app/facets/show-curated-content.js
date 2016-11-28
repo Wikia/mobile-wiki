@@ -4,7 +4,7 @@ import {
 	MainPageDataRequestError, RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
 } from '../lib/custom-errors';
 import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded, setI18nLang} from '../lib/utils';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
@@ -57,7 +57,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  * @returns {void}
  */
 export default function showCuratedContent(request, reply) {
-	const wikiDomain = getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(settings, request),
 		params = {wikiDomain};
 
 	let mainPage,
@@ -90,7 +90,7 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {void}
 		 */
 		.then((data) => {
-			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(settings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
 		/**

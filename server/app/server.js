@@ -6,7 +6,7 @@
  */
 
 import cluster from 'cluster';
-import localSettings from '../config/localSettings';
+import settings from '../config/settings';
 import logger from './lib/logger';
 
 /**
@@ -35,7 +35,7 @@ function numWorkers() {
  */
 function forkNewWorkers() {
 	if (!isStopping) {
-		for (let i = numWorkers(); i < localSettings.workerCount; i++) {
+		for (let i = numWorkers(); i < settings.workerCount; i++) {
 			cluster.fork();
 		}
 	}
@@ -59,7 +59,7 @@ function stopWorker(worker) {
 	 */
 	const killTimer = setTimeout(() => {
 		worker.kill();
-	}, localSettings.workerDisconnectTimeout);
+	}, settings.workerDisconnectTimeout);
 
 	/**
 	 * @returns {void}

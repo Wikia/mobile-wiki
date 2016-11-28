@@ -1,5 +1,5 @@
 import Promise from 'bluebird';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import * as MW from './mediawiki';
 import {getStaticAssetPath} from './utils';
 
@@ -29,13 +29,13 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 		const regexMatch = request.params.id.match(/(\d+)$/);
 
 		if (regexMatch !== null) {
-			const apiUrl = `http://${localSettings.servicesDomain}/${localSettings.discussions.baseAPIPath}` +
+			const apiUrl = `http://${settings.servicesDomain}/${settings.discussions.baseAPIPath}` +
 				`/${wikiVars.id}/threads/${regexMatch[1]}`;
 
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
-			openGraphData.image = `http:${getStaticAssetPath(localSettings, request)}` +
+			openGraphData.image = `http:${getStaticAssetPath(settings, request)}` +
 				'common/images/wikia-mark-1200.jpg';
 			openGraphData.imageWidth = 1200;
 			openGraphData.imageHeight = 1200;
