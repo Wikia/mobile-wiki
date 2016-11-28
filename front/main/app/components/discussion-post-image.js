@@ -35,12 +35,7 @@ export default Component.extend(
 		/**
 		 * @public
 		 */
-		imageHeight: 0,
-
-		/**
-		 * @public
-		 */
-		imageWidth: 0,
+		image: null,
 
 		/**
 		 * @private
@@ -91,8 +86,8 @@ export default Component.extend(
 		 * Crops image to 16:9 ratio.
 		 */
 		computeCroppedWidthAndHeight() {
-			const imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+			const imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				// it is more efficient to use .css('width') than .width()
 				componentWidth = parseInt(this.$().css('width'), 10),
 				componentHeight = Math.floor(componentWidth * 9 / 16);
@@ -148,21 +143,21 @@ export default Component.extend(
 		 */
 		generateSourcesFromBreakpoints() {
 			const croppedSources = this.get('croppedSources'),
-				imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+				imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				sources = this.get('sources');
 
 			this.get('breakpoints').forEach(breakpoint => {
 				const media = `(max-width: ${breakpoint}px)`;
 
-				let src = this.get('url'),
-					croppedSrc = this.get('url');
+				let src = this.get('image.url'),
+					croppedSrc = this.get('image.url');
 
 				if (Math.max(imageWidth, imageHeight) > breakpoint) {
 					const operation = imageHeight > imageWidth ? 'scale-to-height-down' : 'scale-to-width-down';
 
-					src = `${this.get('url')}/${operation}/${breakpoint}`;
-					croppedSrc = `${this.get('url')}/scale-to-width-down/${breakpoint}`;
+					src = `${src}/${operation}/${breakpoint}`;
+					croppedSrc = `${croppedSrc}/scale-to-width-down/${breakpoint}`;
 				}
 
 				sources.push({media, src});
@@ -180,23 +175,29 @@ export default Component.extend(
 		 * Cropping is enabled only on mobile devices, that is why it does not matter for this method.
 		 */
 		generateSourceFromImageDimensions() {
-			const imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+			const imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				widthMultiplier = this.getWithDefault('widthMultiplier', 1),
 				maxImageWidthOnBigScreen = this.get('maxWidthOnBigScreen'),
 				maxImageHeightOnBigScreen =
 					Math.min(maxImageWidthOnBigScreen * widthMultiplier, imageWidth * widthMultiplier);
 
-			let src = this.get('url');
+			let src = this.get('image.url');
 
 			if (imageWidth > maxImageWidthOnBigScreen || imageHeight > maxImageHeightOnBigScreen) {
 				if (imageWidth > imageHeight) {
-					src = `${this.get('url')}/scale-to-width-down/${maxImageWidthOnBigScreen}`;
+					src = `${src}/scale-to-width-down/${maxImageWidthOnBigScreen}`;
 				} else {
-					src = `${this.get('url')}/scale-to-height-down/${maxImageHeightOnBigScreen}`;
+					src = `${src}/scale-to-height-down/${maxImageHeightOnBigScreen}`;
 				}
 			}
 
 			this.set('src', src);
+		},
+
+		actions: {
+			remove() {
+				this.set('image.visible', false);
+			}
 		}
 	});

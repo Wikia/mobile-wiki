@@ -20,6 +20,7 @@ DiscussionContentImages.reopenClass({
 					height: data.height,
 					position: data.position,
 					url: data.url,
+					visible: true,
 					width: data.width
 				});
 			});

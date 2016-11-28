@@ -33,7 +33,7 @@ export default Component.extend({
 	/**
 	 * @private
 	 */
-	displayedImages: computed('images', function () {
+	displayedImages: computed('images', 'images.@each.visible', function () {
 		const images = this.get('images'),
 			noImages = new A();
 
@@ -49,7 +49,9 @@ export default Component.extend({
 	 * @private
 	 */
 	computeImagesToDisplay(images) {
-		return this.get('mode') === 'compact' ? images.slice(0, 1) : images;
+		const visibleImages = images.rejectBy('visible', false);
+
+		return this.get('mode') === 'compact' ? visibleImages.slice(0, 1) : visibleImages;
 	},
 
 	actions: {

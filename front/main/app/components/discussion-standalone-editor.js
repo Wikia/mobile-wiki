@@ -6,7 +6,7 @@ import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor'
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
-const {$, computed, inject, observer, run} = Ember;
+const {$, A, computed, inject, observer, run} = Ember;
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
@@ -39,6 +39,17 @@ export default DiscussionMultipleInputsEditor.extend(
 
 		editTextDisabled: computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
 			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
+		}),
+
+		images: computed('editEntity.contentImages.images', function () {
+			const images = this.get('editEntity.contentImages.images'),
+				copy = new A();
+
+			if (!Ember.isEmpty(images)) {
+				images.forEach(image => copy.push(Ember.Object.create({...image})));
+			}
+
+			return copy;
 		}),
 
 		imageWidthMultiplier: computed('isReply', 'responsive.isMobile', function () {

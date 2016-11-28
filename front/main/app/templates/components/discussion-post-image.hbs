@@ -6,7 +6,7 @@
 		<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
 	</picture>
 	{{#if editorToolsVisible}}
-		<a class="delete-image">
+		<a class="delete-image" {{action 'remove'}}>
 			{{svg 'wds-icons-trash-small' class='wds-icon wds-icon-small'}}
 		</a>
 	{{/if}}
