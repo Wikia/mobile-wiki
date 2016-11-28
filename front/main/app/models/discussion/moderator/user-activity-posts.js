@@ -35,6 +35,7 @@ DiscussionUserActivityPostsModel.reopenClass(
 					}
 				}).then((data) => {
 					userActivityPostsInstance.setNormalizedData(data);
+					resolve(userActivityPostsInstance);
 				}).catch((err) => {
 					userActivityPostsInstance.setErrorProperty(err);
 

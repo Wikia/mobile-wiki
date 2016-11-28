@@ -36,7 +36,8 @@ module.exports = function (environment) {
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
 		ENV['ember-cli-mirage'] = {
-			enabled: false
+			// fixme remember to disable it before merging user activity branch
+			enabled: true
 		};
 	}
 

@@ -10,7 +10,7 @@ DiscussionUserActivityPosts.reopenClass({
 	create(postsData) {
 		return this._super({
 			days: postsData.days,
-			users: new Ember.Array(postsData.users.map(user => DiscussionUserActivityUser.create(user)))
+			users: new Ember.A(postsData.users.map(user => DiscussionUserActivityUser.create(user)))
 				.sortBy('rank')
 		});
 	}
