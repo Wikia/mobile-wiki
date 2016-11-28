@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionUserActivityUser from './user-activity-user';
+import DiscussionUserActivityPostsUser from './user-activity-posts-user';
 
 const DiscussionUserActivityPosts = Ember.Object.extend({
 	days: null,
@@ -10,7 +10,7 @@ DiscussionUserActivityPosts.reopenClass({
 	create(postsData) {
 		return this._super({
 			days: postsData.days,
-			users: new Ember.A(postsData.users.map(user => DiscussionUserActivityUser.create(user)))
+			users: new Ember.A(postsData.users.map(user => DiscussionUserActivityPostsUser.create(user)))
 				.sortBy('rank')
 		});
 	}

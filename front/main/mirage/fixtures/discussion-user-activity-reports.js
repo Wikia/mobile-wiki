@@ -18,9 +18,9 @@ export default {
 			"rank": 1
 		},
 		{
-			"actions": 50,
+			"actions": 150,
 			"breakdown": {
-				"queued": 20,
+				"queued": 120,
 				"verified": 20,
 				"deleted": 10
 			},
@@ -28,7 +28,7 @@ export default {
 			"userInfo": {
 				"id": "23914359",
 				"avatarUrl": "http:\/\/dev-vignette.wikia-dev.com\/043b4107-8029-42c4-aae8-6c2489c3be5f\/scale-to-width-down\/100",
-				"name": "ModUser1",
+				"name": "ModUser2",
 				"badgePermission": "badge:threadmoderator"
 			},
 			"rank": 2
@@ -44,7 +44,7 @@ export default {
 			"userInfo": {
 				"id": "23914359",
 				"avatarUrl": "http:\/\/dev-vignette.wikia-dev.com\/043b4107-8029-42c4-aae8-6c2489c3be5f\/scale-to-width-down\/100",
-				"name": "ModUser1",
+				"name": "ModUser3",
 				"badgePermission": "badge:threadmoderator"
 			},
 			"rank": 3

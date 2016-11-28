@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import DiscussionContributor from './contributor';
 
-const DiscussionUserActivityUser = Ember.Object.extend({
+const DiscussionUserActivityPostsUser = Ember.Object.extend({
 	postCount: null,
 	userInfo: null,
 	rank: null
 });
 
-DiscussionUserActivityUser.reopenClass({
+DiscussionUserActivityPostsUser.reopenClass({
 	create(postsData) {
 		return this._super({
 			postCount: postsData.postCount,
@@ -17,4 +17,4 @@ DiscussionUserActivityUser.reopenClass({
 	}
 });
 
-export default DiscussionUserActivityUser;
+export default DiscussionUserActivityPostsUser;

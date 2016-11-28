@@ -1,19 +1,19 @@
-{{#discussion-user-activity-list items=model as |item|}}
+{{#discussion-user-activity-list items=model.current.data.users as |item|}}
 	{{discussion-user-activity-value
-		value=item.reported
+		value=item.actions
 		description=(i18n 'user-activity.reported' ns='discussion')
 	}}
 	{{discussion-user-activity-value
-			value=item.notProcessed
+			value=item.breakdown.queued
 			description=(i18n 'user-activity.not-processed' ns='discussion')
 	}}
 	{{discussion-user-activity-value
-			value=item.validated
+			value=item.breakdown.verified
 			iconName='wds-icons-checkmark-small'
 			iconClass='wds-icon wds-icon-small checkmark'
 	}}
 	{{discussion-user-activity-value
-			value=item.deleted
+			value=item.breakdown.deleted
 			iconName='wds-icons-trash'
 			iconClass='wds-icon wds-icon-small trash'
 	}}
