@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 
-const {Component, computed, String, observer} = Ember;
+const {Component, computed, String, observer} = Ember,
+	SCALE_HEIGHT = 'scale-to-height-down',
+	SCALE_WIDTH = 'scale-to-width-down';
 
 export default Component.extend(
 	ViewportMixin,
@@ -154,10 +156,10 @@ export default Component.extend(
 					croppedSrc = this.get('image.url');
 
 				if (Math.max(imageWidth, imageHeight) > breakpoint) {
-					const operation = imageHeight > imageWidth ? 'scale-to-height-down' : 'scale-to-width-down';
+					const operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH;
 
 					src = `${src}/${operation}/${breakpoint}`;
-					croppedSrc = `${croppedSrc}/scale-to-width-down/${breakpoint}`;
+					croppedSrc = `${croppedSrc}/${SCALE_WIDTH}/${breakpoint}`;
 				}
 
 				sources.push({media, src});
@@ -186,9 +188,9 @@ export default Component.extend(
 
 			if (imageWidth > maxImageWidthOnBigScreen || imageHeight > maxImageHeightOnBigScreen) {
 				if (imageWidth > imageHeight) {
-					src = `${src}/scale-to-width-down/${maxImageWidthOnBigScreen}`;
+					src = `${src}/${SCALE_WIDTH}/${maxImageWidthOnBigScreen}`;
 				} else {
-					src = `${src}/scale-to-height-down/${maxImageHeightOnBigScreen}`;
+					src = `${src}/${SCALE_HEIGHT}/${maxImageHeightOnBigScreen}`;
 				}
 			}
 
