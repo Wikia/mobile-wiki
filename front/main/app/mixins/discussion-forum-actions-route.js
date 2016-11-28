@@ -81,7 +81,7 @@ export default Ember.Mixin.create(
 		 * @param {Object} params - query parameters
 		 */
 		storeQueryParams(params) {
-			const queryParams = Object.assign({}, params);
+			const queryParams = $.extend({}, params);
 
 			if (queryParams.page) {
 				queryParams.page = undefined;

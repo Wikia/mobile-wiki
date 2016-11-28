@@ -52,6 +52,8 @@ export default Ember.Mixin.create({
 				documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
 				description: data.description,
 				canonical: data.canonical,
+				next: data.next,
+				prev: data.prev,
 				appId: Ember.get(wikiVariables, 'smartBanner.appId.ios'),
 				robots: wikiVariables.specialRobotPolicy || data.robots || 'index,follow',
 				keywords: `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
