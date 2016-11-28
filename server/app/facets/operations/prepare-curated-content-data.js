@@ -15,7 +15,7 @@ export default function prepareCuratedContentData(request, data) {
 		mainPageData = data.mainPageData;
 
 	if (typeof request.query.buckySampling !== 'undefined') {
-		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+		result.settings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	if (mainPageData && mainPageData.details) {

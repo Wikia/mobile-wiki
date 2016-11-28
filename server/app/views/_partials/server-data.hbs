@@ -7,23 +7,23 @@
 	M.prop('environment', '{{server.environment}}');
 	M.prop('queryParams', {{{json queryParams}}});
 	M.prop('tracking', {{{json tracking}}});
-	M.prop('translations', {{{json (translations wikiVariables.language.content ns=localSettings.translationFiles)}}});
-	M.prop('weppyConfig', {{{json localSettings.weppy}}});
+	M.prop('translations', {{{json (translations wikiVariables.language.content ns=settings.translationFiles)}}});
+	M.prop('weppyConfig', {{{json settings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 	M.prop('userId', {{userId}});
 	M.prop('displayTitle', '{{displayTitle}}');
 	M.prop('urlTitleParam', '{{urlTitleParam}}');
 	M.prop('articleId', '{{articleId}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
-	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
-	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
-	M.prop('discussionBaseRoute', {{{json localSettings.discussions.baseAPIPath}}});
-	M.prop('openGraphBaseRoute', {{{json localSettings.openGraph.baseAPIPath}}});
-	M.prop('siteAttributeBaseRoute', {{{json localSettings.siteAttribute.baseAPIPath}}});
-	M.prop('imageReviewBaseRoute', {{{json localSettings.imageReview.baseAPIPath}}});
-	M.prop('staticAssetsBaseRoute', {{{json localSettings.staticAssets.baseAPIPath}}});
-	M.prop('userPermissionsBaseRoute', {{{json localSettings.userPermissions.baseAPIPath}}});
-	M.prop('clickstream', {{{json localSettings.clickstream}}});
+	M.prop('cookieDomain', {{{json settings.authCookieDomain}}});
+	M.prop('servicesDomain', {{{json settings.servicesDomain}}});
+	M.prop('discussionBaseRoute', {{{json settings.discussions.baseAPIPath}}});
+	M.prop('openGraphBaseRoute', {{{json settings.openGraph.baseAPIPath}}});
+	M.prop('siteAttributeBaseRoute', {{{json settings.siteAttribute.baseAPIPath}}});
+	M.prop('imageReviewBaseRoute', {{{json settings.imageReview.baseAPIPath}}});
+	M.prop('staticAssetsBaseRoute', {{{json settings.staticAssets.baseAPIPath}}});
+	M.prop('userPermissionsBaseRoute', {{{json settings.userPermissions.baseAPIPath}}});
+	M.prop('clickstream', {{{json settings.clickstream}}});
 	{{#if discussionsSplashPageConfig}}
 		M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 	{{/if}}

@@ -19,7 +19,7 @@ import {
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
@@ -192,7 +192,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.then((data) => {
-			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(settings, request, reply, data.wikiVariables);
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
@@ -219,7 +219,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 				errorCode = getStatusCode(data.page, 500);
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
-			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(settings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
@@ -257,7 +257,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
  */
 export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
-		wikiDomain = getCachedWikiDomainName(localSettings, request),
+		wikiDomain = getCachedWikiDomainName(settings, request),
 		params = {
 			wikiDomain,
 			redirect: request.query.redirect

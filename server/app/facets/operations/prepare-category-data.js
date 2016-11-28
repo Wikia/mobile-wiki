@@ -25,7 +25,7 @@ export default function prepareCategoryData(request, data) {
 	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {
-		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+		result.settings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	result.openGraph = getOpenGraphData('category', result.displayTitle, result.canonicalUrl);

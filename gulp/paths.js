@@ -70,9 +70,9 @@ module.exports = {
 	server: {
 		config: {
 			src: 'server/config/',
-			baseFile: 'localSettings.base.js',
-			exampleFile: 'localSettings.example.js',
-			runtimeFile: 'localSettings.js'
+			baseFile: 'settings.base.js',
+			exampleFile: 'settings.example.js',
+			runtimeFile: 'settings.js'
 		},
 		nodeModules: {
 			src: 'server/node_modules',
