@@ -144,7 +144,7 @@ export default Component.extend(
 		/**
 		 * @private
 		 *
-		 * Constructs sources for picture tag. Does not create unnecessary source when image is smaller than breakpoint.
+		 * Constructs sources for picture tag. Does not create unnecessary url when image is smaller than breakpoint.
 		 */
 		generateSourcesFromBreakpoints() {
 			const croppedSources = this.get('croppedSources'),

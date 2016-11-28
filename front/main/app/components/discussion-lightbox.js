@@ -36,7 +36,7 @@ export default Component.extend({
 	 */
 	yPosition: null,
 
-	deactiveteLightbox() {
+	deactivateLightbox() {
 		this.set('active', false);
 		$('body').removeClass('lightbox-active');
 	},
@@ -44,7 +44,7 @@ export default Component.extend({
 	didDestroyElement() {
 		this._super(...arguments);
 
-		this.deactiveteLightbox();
+		this.deactivateLightbox();
 	},
 
 	didRender() {
@@ -86,7 +86,7 @@ export default Component.extend({
 				}
 			}
 
-			this.deactiveteLightbox();
+			this.deactivateLightbox();
 
 			// Returns scroll to position before opening lightbox, fix for iOS
 			$(window).scrollTop(this.get('yPosition'));
