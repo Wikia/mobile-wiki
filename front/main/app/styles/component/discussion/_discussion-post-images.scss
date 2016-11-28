@@ -10,6 +10,12 @@ $desktop-lightbox-close-size: 24px;
 			margin-top: 9px;
 		}
 	}
+
+	.discussion-standalone-content-wrapper {
+		.post-images {
+			margin: 0 15px;
+		}
+	}
 }
 
 @media #{$desktop-range} {
