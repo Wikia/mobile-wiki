@@ -2,7 +2,7 @@
  * Hashing function and help
  */
 
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Crypto from 'crypto';
 
 /**
@@ -22,5 +22,5 @@ export function md5(string) {
  * @returns {string}
  */
 export function gaUserIdHash(userId) {
-	return userId > 0 ? md5(userId.toString() + localSettings.gaUserSalt) : '';
+	return userId > 0 ? md5(userId.toString() + settings.gaUserSalt) : '';
 }

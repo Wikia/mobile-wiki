@@ -1,7 +1,7 @@
 import {disableCache} from '../../lib/caching';
 import {getUserPreferencesUrl} from '../../lib/auth-utils';
 import {parse, resolve} from 'url';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 
 /**
  * @typedef {string[]} PageParams
@@ -135,8 +135,8 @@ export function validateRedirect(request, reply) {
  * @returns {string}
  */
 export function getViewType(request) {
-	const mobilePattern = localSettings.patterns.mobile,
-		ipadPattern = localSettings.patterns.iPad;
+	const mobilePattern = settings.patterns.mobile,
+		ipadPattern = settings.patterns.iPad;
 
 	if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
 		return VIEW_TYPE_MOBILE;
@@ -174,13 +174,13 @@ export function getDefaultContext(request) {
 		redirectUrl = getRedirectUrl(request),
 		reactivateAccountUrl = resolve(redirectUrl, '/Special:CloseMyAccount/reactivate'),
 		pageParams = {
-			cookieDomain: localSettings.authCookieDomain,
-			enableSocialLogger: localSettings.clickstream.social.enable,
+			cookieDomain: settings.authCookieDomain,
+			enableSocialLogger: settings.clickstream.social.enable,
 			isModal,
 			reactivateAccountUrl,
 			redirectUrl,
 			preferenceServiceUrl: getUserPreferencesUrl('/'),
-			socialLoggerUrl: localSettings.clickstream.social.url,
+			socialLoggerUrl: settings.clickstream.social.url,
 			viewType,
 		};
 
@@ -199,9 +199,9 @@ export function getDefaultContext(request) {
 		exitTo: getRedirectUrl(request),
 		mainPage: 'http://www.wikia.com',
 		language: request.server.methods.i18n.getInstance().lng(),
-		trackingConfig: localSettings.tracking,
+		trackingConfig: settings.tracking,
 		server: {
-			gaUrl: localSettings.tracking.ua.scriptUrl
+			gaUrl: settings.tracking.ua.scriptUrl
 		},
 		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
 		pageParams
