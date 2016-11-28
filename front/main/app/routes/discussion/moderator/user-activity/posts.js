@@ -13,9 +13,26 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionModel = this.modelFor('discussion');
 
+			//fixme mock data
+			const mock = Ember.Object.create({
+				days: 30,
+				users:[
+					{
+						rank: 1,
+						postCount: 999,
+						userInfo: {
+							badgePermission: '',
+							name: 'Kttest2 very long username',
+							avatarUrl: null
+						}
+					}
+				]
+			});
+
 			return Ember.RSVP.hash({
-				current: DiscussionUserActivityPostsModel.find(Mercury.wiki.id),
-				index: discussionModel
+				//current: DiscussionUserActivityPostsModel.find(Mercury.wiki.id),
+				index: discussionModel,
+				current: Ember.Object.create({data: mock})
 			});
 		},
 	}

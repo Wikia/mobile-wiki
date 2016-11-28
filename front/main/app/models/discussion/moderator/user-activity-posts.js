@@ -22,11 +22,7 @@ DiscussionUserActivityPostsModel.reopenClass(
 		find(wikiId, days) {
 			const userActivityPostsInstance = DiscussionUserActivityPostsModel.create({
 					wikiId,
-				}),
-				requestUrl = M.getDiscussionServiceUrl(`/${wikiId}/threads`),
-				requestData = {
-					viewableOnly: false
-				};
+				});
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {
