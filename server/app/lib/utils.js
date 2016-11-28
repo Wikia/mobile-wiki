@@ -75,7 +75,7 @@ export function isXipHost(settings, hostName) {
  * @returns {string}
  */
 export function getCDNBaseUrl(settings) {
-	return settings.environment === environments.prod ? settings.cdnBaseUrl : '';
+	return (settings.environment !== environments.dev) ? settings.cdnBaseUrl : '';
 }
 
 /**
@@ -274,7 +274,7 @@ export function createServerData(settings, wikiDomain = '') {
 export function getStaticAssetPath(settings, request) {
 	const env = settings.environment || environments.dev;
 
-	return env === environments.prod ?
+	return env !== environments.dev ?
 		// The CDN path should match what's used in
 		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${settings.cdnBaseUrl}/mercury-static/` :

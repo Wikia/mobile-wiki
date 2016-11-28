@@ -2,8 +2,6 @@
  * settings for the application, used by default by staging environments
  */
 export default {
-	// CDN prefix with no trailing slash
-	cdnBaseUrl: '',
 	servicesDomain: 'services.wikia-staging.com',
 	domain: 'wikia-staging.com',
 	mediawikiDomain: null,
