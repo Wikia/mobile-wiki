@@ -42,7 +42,7 @@ DiscussionContentImages.reopenClass({
 					position: image.position,
 					url: image.url,
 					width: image.width
-				}
+				};
 			});
 	}
 });
