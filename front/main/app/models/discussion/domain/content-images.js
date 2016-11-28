@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 const {Object, A} = Ember,
 	DiscussionContentImages = Object.extend({
@@ -8,7 +8,6 @@ const {Object, A} = Ember,
 DiscussionContentImages.reopenClass({
 	/**
 	 * @param {object[]} contentImagesData
-	 *
 	 * @returns {Ember.Object}
 	 */
 	create(contentImagesData) {
@@ -38,13 +37,13 @@ DiscussionContentImages.reopenClass({
 	toData(contentImages) {
 		return contentImages.filterBy('visible')
 			.map(image => {
-			return {
-				height: image.height,
-				position: image.position,
-				url: image.url,
-				width: image.width
-			}
-		})
+				return {
+					height: image.height,
+					position: image.position,
+					url: image.url,
+					width: image.width
+				}
+			});
 	}
 });
 
