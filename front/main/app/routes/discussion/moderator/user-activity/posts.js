@@ -25,6 +25,24 @@ export default DiscussionBaseRoute.extend(
 							name: 'Kttest2 very long username',
 							avatarUrl: null
 						}
+					},
+					{
+						rank: 1,
+						postCount: 999,
+						userInfo: {
+							badgePermission: '',
+							name: 'Kttest2 very long username',
+							avatarUrl: null
+						}
+					},
+					{
+						rank: 1,
+						postCount: 999,
+						userInfo: {
+							badgePermission: '',
+							name: 'Kttest2 very long username',
+							avatarUrl: null
+						}
 					}
 				]
 			});

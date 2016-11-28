@@ -1,4 +1,4 @@
-{{#discussion-user-activity-list items=model.data.users as |item|}}
+{{#discussion-user-activity-list items=model.current.data.users as |item|}}
 	{{discussion-user-activity-value
 			value=item.postCount
 			description=(i18n 'user-activity.posts' ns='discussion')
