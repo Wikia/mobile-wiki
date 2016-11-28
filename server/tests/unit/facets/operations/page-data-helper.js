@@ -79,7 +79,7 @@ QUnit.test('getQualarooScriptUrl', function (assert) {
 					noexternals: true
 				}
 			},
-			localSettings: {
+			settings: {
 				qualaroo: {}
 			},
 			expected: false,
@@ -90,7 +90,7 @@ QUnit.test('getQualarooScriptUrl', function (assert) {
 					noexternals: false
 				}
 			},
-			localSettings: {
+			settings: {
 				qualaroo: {
 					enabled: false
 				}
@@ -103,7 +103,7 @@ QUnit.test('getQualarooScriptUrl', function (assert) {
 					noexternals: false
 				}
 			},
-			localSettings: {
+			settings: {
 				qualaroo: {
 					enabled: true,
 					scriptUrl: 'http://url-to-quaraloo.com'
@@ -115,9 +115,9 @@ QUnit.test('getQualarooScriptUrl', function (assert) {
 	];
 
 	testCases.forEach(function (testCase) {
-		var localSettingsDefault = global.localSettings.default;
+		var settingsDefault = global.settings.default;
 
-		global.localSettings.default.qualaroo = testCase.localSettings.qualaroo;
+		global.settings.default.qualaroo = testCase.settings.qualaroo;
 
 		assert.equal(
 			global.getQualarooScriptUrl(testCase.request),
@@ -125,7 +125,7 @@ QUnit.test('getQualarooScriptUrl', function (assert) {
 			testCase.description
 		);
 
-		global.localSettings.default = localSettingsDefault;
+		global.settings.default = settingsDefault;
 	});
 });
 

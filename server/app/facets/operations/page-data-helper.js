@@ -1,5 +1,5 @@
 import deepExtend from 'deep-extend';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 import {gaUserIdHash} from '../../lib/hashing';
 
 /**
@@ -37,8 +37,8 @@ export function getUserId(request) {
  */
 export function getQualarooScriptUrl(request) {
 	// we don't want to load Qualaroo on noexternals
-	if (!request.query.noexternals && localSettings.qualaroo.enabled) {
-		return localSettings.qualaroo.scriptUrl;
+	if (!request.query.noexternals && settings.qualaroo.enabled) {
+		return settings.qualaroo.scriptUrl;
 	}
 
 	return false;
@@ -50,8 +50,8 @@ export function getQualarooScriptUrl(request) {
  */
 export function getOptimizelyScriptUrl(request) {
 	// we don't want to load Optimizely on noexternals
-	if (!request.query.noexternals && localSettings.optimizely.enabled) {
-		return `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
+	if (!request.query.noexternals && settings.optimizely.enabled) {
+		return `${settings.optimizely.scriptPath}${settings.optimizely.account}.js`;
 	}
 
 	return false;
@@ -93,24 +93,24 @@ export function getOpenGraphUrl(wikiVariables) {
 }
 
 /**
- * Get vertical color from localSettings
+ * Get vertical color from settings
  *
  * @param {string} vertical
  * @returns {string}
  */
 export function getVerticalColor(vertical) {
-	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
-		return localSettings.verticalColors[vertical];
+	if (settings.verticalColors.hasOwnProperty(vertical)) {
+		return settings.verticalColors[vertical];
 	}
 
 	return null;
 }
 
 /**
- * @returns {LocalSettings}
+ * @returns {Settings}
  */
-export function getLocalSettings() {
-	return deepExtend({}, localSettings);
+export function getSettings() {
+	return deepExtend({}, settings);
 }
 
 /**
@@ -166,8 +166,8 @@ export function getBaseResult(request, data) {
 		documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
 		gaUserIdHash: gaUserIdHash(userId),
 		isRtl: isRtl(wikiVariables),
-		// clone object to avoid overriding real localSettings for future requests
-		localSettings: getLocalSettings(),
+		// clone object to avoid overriding real settings for future requests
+		settings: getSettings(),
 		optimizelyScript: getOptimizelyScriptUrl(request),
 		qualarooScript: getQualarooScriptUrl(request),
 		server: data.server,

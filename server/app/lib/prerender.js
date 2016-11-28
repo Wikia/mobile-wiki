@@ -1,7 +1,7 @@
 // TODO: On the plugin level: know whether the requested page is a main page
 // TODO: On the plugin level: if prerender response is not 200, fall back to rendering the page in a normal way
 
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 
 const urlsToPrerenderRegExp = new RegExp([
 	'^bleach\.[^/]+/wiki/Bleach_Wiki',
@@ -19,7 +19,7 @@ function canPrerender(req) {
 		url = host + path,
 		urlMatches = url.match(urlsToPrerenderRegExp);
 
-	return !!(urlMatches && isGet && localSettings.prerender.token);
+	return !!(urlMatches && isGet && settings.prerender.token);
 }
 
 function shouldPrerender(req) {
@@ -44,7 +44,7 @@ module.exports = {
 	prerenderOptions: {
 		shouldPrerender,
 		updateRequestedUrl,
-		token: localSettings.prerender.token
+		token: settings.prerender.token
 	},
 	prerenderPlugin: require('hapi-prerender')
 };

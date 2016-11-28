@@ -1,4 +1,4 @@
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Logger from './logger';
 
 export const Comscore = {
@@ -17,7 +17,7 @@ export const Comscore = {
 		 */
 		getC7ParamAndValue(requestUrl, c7Value) {
 			const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
-				`${localSettings.tracking.comscore.keyword}=${c7Value}`;
+				`${settings.tracking.comscore.keyword}=${c7Value}`;
 
 			return encodeURIComponent(paramAndValue);
 		},
@@ -63,19 +63,6 @@ export const Comscore = {
 			tracking.nielsen.apid = config.apid;
 		}
 	},
-	Ubisoft = {
-		/**
-		 * @param {object} tracking
-		 * @param {object} trackingConfig
-		 * @returns {void}
-		 */
-		handleResponse(tracking, trackingConfig) {
-			tracking.ubisoft = {
-				enabled: !!trackingConfig.ubisoft.enabled,
-				url: trackingConfig.ubisoft.url
-			};
-		}
-	},
 	NetzAthleten = {
 		/**
 		 * @param {object} tracking
@@ -97,7 +84,7 @@ export const Comscore = {
  * @returns {void}
  */
 export function handleResponse(result, request) {
-	const tracking = localSettings.tracking;
+	const tracking = settings.tracking;
 
 	let dbName,
 		trackingConfig,
@@ -114,7 +101,6 @@ export function handleResponse(result, request) {
 	Comscore.handleResponse(tracking, vertical, request);
 	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
-	Ubisoft.handleResponse(tracking, trackingConfig);
 	NetzAthleten.handleResponse(tracking, trackingConfig, result.isMainPage);
 
 	// export tracking code to layout and front end code

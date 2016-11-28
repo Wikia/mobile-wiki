@@ -1,6 +1,6 @@
 import {unauthorized} from 'boom';
 import Wreck from 'wreck';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Logger from './logger';
 import {getHeliosInternalUrl} from './auth-utils';
 
@@ -63,7 +63,7 @@ export default function scheme() {
 						'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
 						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
 					},
-					timeout: localSettings.helios.timeout
+					timeout: settings.helios.timeout
 				},
 				callback
 			);
