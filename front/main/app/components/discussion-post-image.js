@@ -54,11 +54,6 @@ export default Component.extend(
 		src: null,
 
 		/**
-		 * @private
-		 */
-		tagName: 'picture',
-
-		/**
 		 * @public
 		 *
 		 * Accepts null or undefined, fallbacks to 1.
