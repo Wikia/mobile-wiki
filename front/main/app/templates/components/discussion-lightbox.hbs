@@ -13,7 +13,7 @@
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
 			</a>
 			<div class="lightbox-container">
-				<img class="lightbox-container-image" src="{{image.url}}" alt=""/>
+				<img {{action 'imageClick' bubbles=false}} class="lightbox-container-image" src="{{image.url}}" alt=""/>
 			</div>
 		</div>
 	</div>
