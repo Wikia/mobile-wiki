@@ -5,8 +5,9 @@ import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
+import DiscussionContentImages from '../models/discussion/domain/content-images';
 
-const {$, A, computed, inject, observer, run} = Ember;
+const {$, A, computed, inject, isEmpty, observer, run} = Ember;
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
@@ -45,7 +46,7 @@ export default DiscussionMultipleInputsEditor.extend(
 			const images = this.get('editEntity.contentImages.images'),
 				copy = new A();
 
-			if (!Ember.isEmpty(images)) {
+			if (!isEmpty(images)) {
 				images.forEach(image => copy.push(Ember.Object.create({...image})));
 			}
 
@@ -131,6 +132,10 @@ export default DiscussionMultipleInputsEditor.extend(
 
 					if (this.get('showsOpenGraphCard')) {
 						discussionEntityData.openGraph = this.get('openGraph');
+					}
+
+					if (!isEmpty(this.get('images'))) {
+						discussionEntityData.contentImages = DiscussionContentImages.toData(this.get('images'));
 					}
 
 					if (!this.get('isEdit')) {

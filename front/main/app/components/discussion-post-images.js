@@ -49,7 +49,7 @@ export default Component.extend({
 	 * @private
 	 */
 	computeImagesToDisplay(images) {
-		const visibleImages = images.rejectBy('visible', false);
+		const visibleImages = images.filterBy('visible');
 
 		return this.get('mode') === 'compact' ? visibleImages.slice(0, 1) : visibleImages;
 	},

@@ -26,6 +26,25 @@ DiscussionContentImages.reopenClass({
 			});
 
 		return this._super({images});
+	},
+
+	/**
+	 * Converts array of Ember.Object (images) to data representation
+	 *
+	 * @param {object[]} contentImages
+	 *
+	 * @returns object[]
+	 */
+	toData(contentImages) {
+		return contentImages.filterBy('visible')
+			.map(image => {
+			return {
+				height: image.height,
+				position: image.position,
+				url: image.url,
+				width: image.width
+			}
+		})
 	}
 });
 

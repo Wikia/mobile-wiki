@@ -49,9 +49,7 @@ DiscussionReply.reopenClass({
 			reply.set('userData', DiscussionUserData.create(userData));
 		}
 
-		if (!Ember.isEmpty(contentImagesData)) {
-			reply.set('contentImages', DiscussionContentImages.create(contentImagesData));
-		}
+		reply.set('contentImages', DiscussionContentImages.create(contentImagesData));
 
 		return reply;
 	}

@@ -61,9 +61,7 @@ DiscussionPost.reopenClass({
 			post.set('openGraph', OpenGraph.create(openGraphData));
 		}
 
-		if (!Ember.isEmpty(contentImagesData)) {
-			post.set('contentImages', DiscussionContentImages.create(contentImagesData));
-		}
+		post.set('contentImages', DiscussionContentImages.create(contentImagesData));
 
 		return post;
 	},
