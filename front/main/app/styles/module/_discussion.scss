@@ -475,10 +475,6 @@ body.discussions {
 			font-size: .75rem;
 		}
 
-		.post-images {
-			margin-left: 22px;
-		}
-
 		.upvotes {
 			float: left;
 			margin: -5px $post-details-reply-upvote-margin-left 0 0;
@@ -739,6 +735,12 @@ body.discussions {
 		.discussion-content {
 			font-size: $desktop-content-font-size;
 			line-height: $desktop-content-line-height;
+		}
+
+		.discussion-reply {
+			.post-images {
+				margin-left: 22px;
+			}
 		}
 
 		.post-edited-by-row {
