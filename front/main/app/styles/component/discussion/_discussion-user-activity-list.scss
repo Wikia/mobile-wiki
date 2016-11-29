@@ -44,11 +44,28 @@
 
 			.user-activity-value {
 				margin-left: 12px;
+				text-align: right;
 				white-space: nowrap;
 
 				.description {
 					color: #ccc;
 					font-size: $wds-typescale-size-minus-2;
+				}
+
+				&.reported {
+					width: 80px;
+				}
+
+				&.queued {
+					width: 110px;
+				}
+
+				&.verified {
+					width: 50px;
+				}
+
+				&.deleted {
+					width: 50px;
 				}
 			}
 

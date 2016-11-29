@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
 	classNames: ['user-activity-value'],
+	classNameBindings: ['class'],
 
 	computedValue: Ember.computed('value', function () {
 		const value = this.get('value');
