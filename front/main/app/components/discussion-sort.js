@@ -3,8 +3,8 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	{
-		classNames: ['discussion-sort'],
 		classNameBindings: ['noTrending'],
+		classNames: ['discussion-sort'],
 		discussionSort: Ember.inject.service(),
 		sortBy: null,
 

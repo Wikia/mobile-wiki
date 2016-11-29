@@ -1,4 +1,4 @@
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import bunyan from 'bunyan';
 
 /**
@@ -94,4 +94,4 @@ export function createLogger(loggerConfig) {
 	});
 }
 
-export default createLogger(localSettings.loggers);
+export default createLogger(settings.loggers);

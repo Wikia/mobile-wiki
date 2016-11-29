@@ -1,16 +1,18 @@
 .no-followed-posts {
-
-	color: #666;
+	color: $discussion-no-followed-posts-color;
 	margin: 30px 24px;
 	text-align: center;
 
-	.header {
-		color: #333;
+	h6 {
+		color: $discussion-no-followed-posts-header-color;
+		font-size: $type-smallest;
 		font-weight: $font-weight-bold;
+		line-height: $line-height-smallest;
+		margin: 0;
 	}
 
 	.follow-xl-icon {
-		fill: #999;
+		fill: $discussion-no-followed-posts-icon-color;
 		height: 42px;
 		margin-bottom: 8px;
 		width: 32px;
@@ -20,7 +22,7 @@
 		@extend %discussion-large-button;
 		display: block;
 		margin: 24px auto 0;
-		width: 187px;
+		width: 188px;
 	}
 
 

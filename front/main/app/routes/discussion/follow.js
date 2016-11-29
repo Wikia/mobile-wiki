@@ -15,12 +15,6 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
-		queryParams: {
-			page: {
-				refreshModel: false
-			}
-		},
-
 		currentUser: inject.service(),
 
 		/**
@@ -33,12 +27,7 @@ export default DiscussionBaseRoute.extend(
 				return;
 			}
 
-			const queryParams = transition.queryParams;
-
-			if (!this.isProperPageParam(queryParams.page)) {
-				queryParams.page = 1;
-				this.refresh();
-			}
+			this.pageParamValidation(transition);
 		},
 
 		/**

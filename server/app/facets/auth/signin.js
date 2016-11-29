@@ -1,5 +1,5 @@
 import * as authUtils from '../../lib/auth-utils';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 
@@ -34,7 +34,7 @@ function getSignInViewContext(request, redirect) {
 			submitText: 'auth:signin.submit-text',
 			formId: 'loginForm',
 			pageParams: {
-				facebookAppId: localSettings.facebook.appId
+				facebookAppId: settings.facebook.appId
 			}
 		}
 	);
@@ -62,7 +62,7 @@ function getFBSignInViewContext(request, redirect) {
 			formId: 'facebookConnectForm',
 			headerSlogan: 'auth:fb-connect.facebook-connect-info',
 			pageParams: {
-				facebookAppId: localSettings.facebook.appId
+				facebookAppId: settings.facebook.appId
 			}
 		}
 	);

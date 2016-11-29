@@ -3,7 +3,7 @@ import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
 import {MainPageDataRequestError} from '../lib/custom-errors';
 import logger from './logger';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 
 /**
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and MediaWikiPageRequestHelper
@@ -81,13 +81,13 @@ export class CuratedMainPageRequestHelper {
 					return resolve({
 						mainPageData: mainPageData.data,
 						wikiVariables: wikiVariablesPromise.value(),
-						server: createServerData(localSettings, this.params.wikiDomain)
+						server: createServerData(settings, this.params.wikiDomain)
 					});
 				} else {
 					return reject(new MainPageDataRequestError({
 						exception: mainPageDataException,
 						wikiVariables: wikiVariablesPromise.value(),
-						server: createServerData(localSettings, this.params.wikiDomain)
+						server: createServerData(settings, this.params.wikiDomain)
 					}));
 				}
 			});

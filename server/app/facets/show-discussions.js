@@ -1,6 +1,6 @@
 import {WikiRequest} from '../lib/mediawiki';
 import {getCachedWikiDomainName} from '../lib/utils';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import showApplication from './show-application';
 
 /**
@@ -11,7 +11,7 @@ import showApplication from './show-application';
  * @returns {void}
  */
 export default function showDiscussions(request, reply) {
-	const wikiDomain = getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(settings, request),
 		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables(),
 		context = {};
 

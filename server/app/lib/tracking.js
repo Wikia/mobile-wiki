@@ -1,4 +1,4 @@
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Logger from './logger';
 
 export const Comscore = {
@@ -17,7 +17,7 @@ export const Comscore = {
 		 */
 		getC7ParamAndValue(requestUrl, c7Value) {
 			const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
-				`${localSettings.tracking.comscore.keyword}=${c7Value}`;
+				`${settings.tracking.comscore.keyword}=${c7Value}`;
 
 			return encodeURIComponent(paramAndValue);
 		},
@@ -84,7 +84,7 @@ export const Comscore = {
  * @returns {void}
  */
 export function handleResponse(result, request) {
-	const tracking = localSettings.tracking;
+	const tracking = settings.tracking;
 
 	let dbName,
 		trackingConfig,

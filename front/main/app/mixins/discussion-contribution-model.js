@@ -170,12 +170,13 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 
 	/**
 	 *
-	 * @param {object} user
+	 * @param {Object} user
 	 * @param {*} entity
 	 * @returns {void}
 	 */
 	follow(user, entity) {
 		const id = entity.get('threadId');
+
 		if (!this.followingInProgress[id]) {
 			this.followingInProgress[id] = true;
 			this.commenceFollow(user, entity).finally(() => {
@@ -187,7 +188,7 @@ export default Ember.Mixin.create(AlertNotificationsMixin, {
 	/**
 	 * @private
 	 *
-	 * @param {object} user
+	 * @param {Object} user
 	 * @param {*} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */

@@ -8,13 +8,13 @@
 			hasFilters=true
 			hasNewPostButton=hasNewPostButton
 			hasSiteName=true
+			isCategoryFilterDisabled=isCategoryFilterDisabled
+			isSortingDisabled=isSortingDisabled
+			showReportedFilter=canShowReportedPostsFilter
 			setEditorActive=(action this.attrs.setEditorActive)
 			smartBannerVisible=smartBannerVisible
 			updateCategories=(action this.attrs.updateCategories)
 			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
-			isSortingDisabled=isSortingDisabled
-			isCategoryFilterDisabled=isCategoryFilterDisabled
-			showReportedFilter=canShowReportedPostsFilter
 		}}
 	{{/ember-wormhole}}
 {{/if}}
@@ -65,9 +65,9 @@
 				}}
 			{{/if}}
 			{{discussion-sort
+					disabled=isSortingDisabled
 					sortBy=sortBy
 					setSortBy=(action 'setSortBy')
-					disabled=isSortingDisabled
 			}}
 		</div>
 		<div class="small-12 large-6 extra-large-6 columns">

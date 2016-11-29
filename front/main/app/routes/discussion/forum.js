@@ -46,10 +46,7 @@ export default DiscussionBaseRoute.extend(
 				modifiedTransition = this.transitionToCommaSplittedCategories(queryParams);
 			}
 
-			if (!this.isProperPageParam(queryParams.page)) {
-				queryParams.page = 1;
-				this.refresh();
-			}
+			this.pageParamValidation(transition);
 
 			const updatedQueryParams = {
 				catId: this.getCategoriesFromQueryString(queryParams.catId),

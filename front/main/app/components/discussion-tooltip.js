@@ -119,7 +119,7 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 
 			if (this.get('width') === null) {
-				this.set('width', this.$().width());
+				this.set('width', parseInt(this.$().css('width'), 10));
 			}
 
 			this.computePositionAfterRender();
@@ -176,7 +176,9 @@ export default Ember.Component.extend(
 		 * @returns {offset}
 		 */
 		offsetParent() {
-			return this.get('parent') ? this.$().parents(this.get('parent')) : this.$().offsetParent();
+			const parent = this.get('parent');
+
+			return parent ? this.$().parents(parent) : this.$().offsetParent();
 		},
 
 		/**
