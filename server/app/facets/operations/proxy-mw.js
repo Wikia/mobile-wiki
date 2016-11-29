@@ -1,5 +1,5 @@
 import {createUrl} from '../../lib/mediawiki';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 import {getCachedWikiDomainName} from '../../lib/utils';
 
 /**
@@ -9,10 +9,10 @@ import {getCachedWikiDomainName} from '../../lib/utils';
  */
 export default function proxyMW(request, reply) {
 	const path = request.path.substr(1),
-		url = createUrl(getCachedWikiDomainName(localSettings, request), path);
+		url = createUrl(getCachedWikiDomainName(settings, request), path);
 
 	reply.proxy({
 		uri: url,
-		redirects: localSettings.proxyMaxRedirects
+		redirects: settings.proxyMaxRedirects
 	});
 }

@@ -17,8 +17,8 @@ var testrunner = require('qunit'),
 
 testrunner.setup({
 	deps: {
-		path: './www/server/config/localSettings.js',
-		namespace: 'localSettings'
+		path: './www/server/config/settings.js',
+		namespace: 'settings'
 	},
 	log: {
 		// log assertions overview
