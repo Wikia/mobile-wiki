@@ -1,16 +1,15 @@
 .no-followed-posts {
-
-	color: #666;
+	color: $discussion-no-followed-posts-color;
 	margin: 30px 24px;
 	text-align: center;
 
 	.header {
-		color: #333;
+		color: $discussion-no-followed-posts-header-color;
 		font-weight: $font-weight-bold;
 	}
 
 	.follow-xl-icon {
-		fill: #999;
+		fill: $discussion-no-followed-posts-icon-color;
 		height: 42px;
 		margin-bottom: 8px;
 		width: 32px;

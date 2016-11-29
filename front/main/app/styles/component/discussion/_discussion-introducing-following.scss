@@ -24,8 +24,8 @@
 		text-align: center;
 
 		h6 {
-			margin-bottom: 4px;
 			font-size: $type-smaller;
+			margin-bottom: 4px;
 		}
 	}
 
@@ -34,15 +34,15 @@
 		@extend %discussion-large-button;
 		display: block;
 		margin: 24px auto 0;
-		max-width: 187px;
+		max-width: 188px;
 	}
 }
 
 .introducing-following-modal {
 	justify-content: center;
 	left: 0;
-	right: 0;
 	padding: 20px;
+	right: 0;
 
 	.modal-dialog {
 		border-radius: 2px;

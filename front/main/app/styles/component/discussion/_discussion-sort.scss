@@ -1,11 +1,11 @@
 .discussion-sort {
 	.sort-options {
+		list-style: none;
 		margin-left: 0;
 
 		.sort-option {
 			clear: left;
 			color: $discussion-filters-color;
-			list-style: none;
 			width: 100%;
 
 			.sort-option-label {
@@ -61,12 +61,13 @@
 		}
 
 		.sort-options {
+			list-style: none;
+
 			.sort-option {
 				border-bottom: 1px solid $discussion-filters-border;
 				clear: left;
 				color: $discussion-filters-color;
 				height: 48px;
-				list-style: none;
 				width: 100%;
 
 				.sort-option-label {
