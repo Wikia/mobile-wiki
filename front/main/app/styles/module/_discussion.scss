@@ -737,6 +737,12 @@ body.discussions {
 			line-height: $desktop-content-line-height;
 		}
 
+		.discussion-reply {
+			.post-images {
+				margin-left: 22px;
+			}
+		}
+
 		.post-edited-by-row {
 			font-size: $type-smallest;
 			line-height: rem-calc(14);

@@ -20,6 +20,7 @@ export default Component.extend({
 	 *
 	 * Component supports two modes:
 	 * - 'compact' - shows only first image
+	 * - 'edit' - shows all images and adds trash icon
 	 * - 'full' - shows all images and displays image lightbox when image is clicked
 	 */
 	mode: 'compact',
@@ -27,21 +28,31 @@ export default Component.extend({
 	/**
 	 * @private
 	 */
-	computeImagesToDisplay(images) {
-		return this.get('mode') === 'compact' ? images.slice(0, 1) : images;
-	},
+	areEditorToolsVisible: computed.equal('mode', 'edit'),
 
 	/**
 	 * @private
 	 */
-	displayedImages: computed('showOnlyFirst', 'images', function () {
+	displayedImages: computed('images', 'images.@each.visible', function () {
 		const images = this.get('images'),
 			noImages = new A();
 
 		return Ember.isEmpty(images) ? noImages : this.computeImagesToDisplay(images);
 	}),
 
+	/**
+	 * @private
+	 */
 	enableLightbox: computed.equal('mode', 'full'),
+
+	/**
+	 * @private
+	 */
+	computeImagesToDisplay(images) {
+		const visibleImages = images.filterBy('visible');
+
+		return this.get('mode') === 'compact' ? visibleImages.slice(0, 1) : visibleImages;
+	},
 
 	actions: {
 		onLightboxClose() {

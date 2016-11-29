@@ -8,7 +8,6 @@ const {Object, A} = Ember,
 DiscussionContentImages.reopenClass({
 	/**
 	 * @param {object[]} contentImagesData
-	 *
 	 * @returns {Ember.Object}
 	 */
 	create(contentImagesData) {
@@ -20,11 +19,31 @@ DiscussionContentImages.reopenClass({
 					height: data.height,
 					position: data.position,
 					url: data.url,
+					visible: true,
 					width: data.width
 				});
 			});
 
 		return this._super({images});
+	},
+
+	/**
+	 * Converts array of Ember.Object (images) to data representation
+	 *
+	 * @param {object[]} contentImages
+	 *
+	 * @returns object[]
+	 */
+	toData(contentImages) {
+		return contentImages.filterBy('visible')
+			.map(image => {
+				return {
+					height: image.height,
+					position: image.position,
+					url: image.url,
+					width: image.width
+				};
+			});
 	}
 });
 

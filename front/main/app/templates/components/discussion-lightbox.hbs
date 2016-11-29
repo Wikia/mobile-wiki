@@ -2,9 +2,7 @@
 	{{discussion-post-image
 		alt='Post image'
 		class='lightbox-image'
-		imageHeight=image.height
-		imageWidth=image.width
-		url=image.url
+		image=image
 		widthMultiplier=widthMultiplier
 	}}
 </a>
@@ -15,7 +13,7 @@
 				{{svg 'wds-icons-cross' class='wds-icon wds-icon-small lightbox-close'}}
 			</a>
 			<div class="lightbox-container">
-				<img class="lightbox-container-image" src="{{image.url}}" alt=""/>
+				<img {{action 'imageClick' bubbles=false}} class="lightbox-container-image" src="{{image.url}}" alt=""/>
 			</div>
 		</div>
 	</div>

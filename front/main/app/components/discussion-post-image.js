@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 
-const {Component, computed, String, observer} = Ember;
+const {Component, computed, String, observer} = Ember,
+	SCALE_HEIGHT = 'scale-to-height-down',
+	SCALE_WIDTH = 'scale-to-width-down';
 
 export default Component.extend(
 	ViewportMixin,
@@ -30,12 +32,12 @@ export default Component.extend(
 		/**
 		 * @public
 		 */
-		imageHeight: 0,
+		editorToolsVisible: false,
 
 		/**
 		 * @public
 		 */
-		imageWidth: 0,
+		image: null,
 
 		/**
 		 * @private
@@ -52,11 +54,6 @@ export default Component.extend(
 		 * @private
 		 */
 		src: null,
-
-		/**
-		 * @private
-		 */
-		tagName: 'picture',
 
 		/**
 		 * @public
@@ -91,8 +88,8 @@ export default Component.extend(
 		 * Crops image to 16:9 ratio.
 		 */
 		computeCroppedWidthAndHeight() {
-			const imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+			const imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				// it is more efficient to use .css('width') than .width()
 				componentWidth = parseInt(this.$().css('width'), 10),
 				componentHeight = Math.floor(componentWidth * 9 / 16);
@@ -148,21 +145,21 @@ export default Component.extend(
 		 */
 		generateSourcesFromBreakpoints() {
 			const croppedSources = this.get('croppedSources'),
-				imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+				imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				sources = this.get('sources');
 
 			this.get('breakpoints').forEach(breakpoint => {
 				const media = `(max-width: ${breakpoint}px)`;
 
-				let src = this.get('url'),
-					croppedSrc = this.get('url');
+				let src = this.get('image.url'),
+					croppedSrc = this.get('image.url');
 
 				if (Math.max(imageWidth, imageHeight) > breakpoint) {
-					const operation = imageHeight > imageWidth ? 'scale-to-height-down' : 'scale-to-width-down';
+					const operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH;
 
-					src = `${this.get('url')}/${operation}/${breakpoint}`;
-					croppedSrc = `${this.get('url')}/scale-to-width-down/${breakpoint}`;
+					src = `${src}/${operation}/${breakpoint}`;
+					croppedSrc = `${croppedSrc}/${SCALE_WIDTH}/${breakpoint}`;
 				}
 
 				sources.push({media, src});
@@ -180,23 +177,29 @@ export default Component.extend(
 		 * Cropping is enabled only on mobile devices, that is why it does not matter for this method.
 		 */
 		generateSourceFromImageDimensions() {
-			const imageHeight = this.get('imageHeight'),
-				imageWidth = this.get('imageWidth'),
+			const imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
 				widthMultiplier = this.getWithDefault('widthMultiplier', 1),
 				maxImageWidthOnBigScreen = this.get('maxWidthOnBigScreen'),
 				maxImageHeightOnBigScreen =
 					Math.min(maxImageWidthOnBigScreen * widthMultiplier, imageWidth * widthMultiplier);
 
-			let src = this.get('url');
+			let src = this.get('image.url');
 
 			if (imageWidth > maxImageWidthOnBigScreen || imageHeight > maxImageHeightOnBigScreen) {
 				if (imageWidth > imageHeight) {
-					src = `${this.get('url')}/scale-to-width-down/${maxImageWidthOnBigScreen}`;
+					src = `${src}/${SCALE_WIDTH}/${maxImageWidthOnBigScreen}`;
 				} else {
-					src = `${this.get('url')}/scale-to-height-down/${maxImageHeightOnBigScreen}`;
+					src = `${src}/${SCALE_HEIGHT}/${maxImageHeightOnBigScreen}`;
 				}
 			}
 
 			this.set('src', src);
+		},
+
+		actions: {
+			remove() {
+				this.set('image.visible', false);
+			}
 		}
 	});

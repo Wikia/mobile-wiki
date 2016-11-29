@@ -94,6 +94,16 @@ export default Component.extend({
 
 		/**
 		 * @private
+		 * Ignore clicks on image
+		 *
+		 * @returns {boolean}
+		 */
+		imageClick() {
+			return false;
+		},
+
+		/**
+		 * @private
 		 *
 		 * Adds overlay and shows image
 		 */
