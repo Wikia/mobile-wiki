@@ -1,3 +1,11 @@
+.discussion-header {
+	.discussion-days-toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
+
 .user-activity-main-content {
 	padding-top: 37px;
 }

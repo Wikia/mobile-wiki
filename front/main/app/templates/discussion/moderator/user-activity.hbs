@@ -1,9 +1,14 @@
 {{#discussion-user-activity-layout
+		applyFilters=(action 'applyFilters')
 		attributes=model.index.attributes.data
 		canShowReportedPostsFilter=model.current.data.canModerate
 		model=model.current.data
+		setDays=(action 'setDays')
+		setEditorActive=(action 'setEditorActive')
+		updateCategories=(action 'updateCategories')
 		uploadCommunityBadge=(action 'uploadCommunityBadge')
 		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
+		validatePostsOnForum=(action 'validatePostsOnForum')
 }}
 	<div class="scrollable-horizontally user-activity">
 		{{#if responsive.isMobile}}

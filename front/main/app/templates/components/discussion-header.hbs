@@ -10,6 +10,11 @@
 	{{#if hasSiteName}}
 		<h1 {{action 'clickMobileHeaderWikiName'}}>{{siteName}}</h1>
 	{{/if}}
+	{{#if hasDaysToggle}}
+		{{discussion-days-toggle
+			setDays=(action this.attrs.setDays)
+		}}
+	{{/if}}
 	{{#unless hasContentError}}
 		{{#if hasNewPostButton}}
 			<div {{action this.attrs.setEditorActive 'contributeEditor' true}} class="new-post">

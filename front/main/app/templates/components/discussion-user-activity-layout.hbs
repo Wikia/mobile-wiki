@@ -1,20 +1,12 @@
 {{#if responsive.isMobile}}
 	{{#ember-wormhole to="site-head-sub-header"}}
 		{{discussion-header
-			applyFilters=(action this.attrs.applyFilters)
-			canModerate=model.canModerate
-			categories=categories
-			hasContentError=hasContentError
-			hasFilters=true
-			hasNewPostButton=false
-			hasSiteName=true
-			setEditorActive=(action this.attrs.setEditorActive)
+			canDeleteAll=model.canDeleteAll
+			deleteAllPosts=deleteAllPosts
+			hasBackButton=true
+			hasDaysToggle=true
+			setDays=(action this.attrs.setDays)
 			smartBannerVisible=smartBannerVisible
-			updateCategories=(action this.attrs.updateCategories)
-			validatePostsOnForum=(action this.attrs.validatePostsOnForum)
-			isSortingDisabled=isSortingDisabled
-			isCategoryFilterDisabled=isCategoryFilterDisabled
-			showReportedFilter=canShowReportedPostsFilter
 		}}
 	{{/ember-wormhole}}
 {{/if}}
