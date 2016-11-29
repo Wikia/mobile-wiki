@@ -49,15 +49,15 @@
 {{/each}}
 
 {{#unless isFollowedPostsView}}
-    {{#if showLoadMoreButton}}
-        {{discussion-wrapper-load-more
-            goToPage=(action this.attrs.goToPage)
-            hasMore=hasMore
-            isLoading=isLoading
-            loadNextPage=(action 'loadNextPage')
-            page=page
-            showButton=true
-            totalPosts=totalPosts
-        }}
-    {{/if}}
+	{{#if showLoadMoreButton}}
+		{{discussion-wrapper-load-more
+			goToPage=(action this.attrs.goToPage)
+			hasMore=hasMore
+			isLoading=isLoading
+			loadNextPage=(action 'loadNextPage')
+			page=page
+			showButton=true
+			totalPosts=totalPosts
+		}}
+	{{/if}}
 {{/unless}}
