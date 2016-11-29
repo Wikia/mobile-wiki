@@ -1,13 +1,15 @@
-<legend {{action 'collapsableToggle'}}>
-	{{i18n 'main.moderation-filters-header' ns='discussion'}}
-	{{svg 'chevron-linked' role='img' class='icon chevron'}}
-</legend>
-<div class="collapsable-container">
-	{{wikia-ui-components.fancy-check-box
-		inputId='discussion-reported-filter'
-		class='moderation-checkbox-label'
-		isChecked=onlyReported
-		label=(i18n 'main.reported-content-filter-text' ns='discussion')
-		update=(action 'toggleReported')
-	}}
-</div>
+<fieldset class="discussion-fieldset moderation-fieldset">
+	<legend {{action 'collapsableToggle'}}>
+		{{i18n 'main.moderation-filters-header' ns='discussion'}}
+		{{svg 'chevron-linked' role='img' class='icon chevron'}}
+	</legend>
+	<div class="collapsable-container">
+		{{wikia-ui-components.fancy-check-box
+				inputId='discussion-reported-filter'
+				class='moderation-checkbox-label'
+				isChecked=onlyReported
+				label=(i18n 'main.reported-content-filter-text' ns='discussion')
+				update=(action 'toggleReported')
+		}}
+	</div>
+</fieldset>

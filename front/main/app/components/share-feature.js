@@ -66,15 +66,6 @@ export default Ember.Component.extend(
 			]
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		trackOpening: Ember.on('didInsertElement', function () {
-			if (this.get('enableDiscussionTracker')) {
-				discussionTrack(discussionTrackActions.PostShare);
-			}
-		}),
-
 		computedSharedUrl: Ember.computed('title', 'sharedUrl', function () {
 			const sharedUrl = this.get('sharedUrl');
 

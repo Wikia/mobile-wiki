@@ -13,6 +13,8 @@ export default Ember.Mixin.create({
 	editorState: null,
 	editEditorState: null,
 	guidelinesEditorState: null,
+	postCreatedAtLeastOnce: false,
+	shareTooltipSeen: false,
 
 	setEditorState: Ember.on('init', function () {
 		this.setDefaultStates();
@@ -102,7 +104,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (this.get('isAnon')) {
-			this.rejectAnon();
+			this.rejectPostingAnon();
 			return;
 		}
 
@@ -120,10 +122,33 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Renders a message to display to an anon
+	 * Renders a message to display to an anon trying to follow a post
 	 * @returns {void}
 	 */
-	rejectAnon() {
+	rejectFollowingAnon() {
+		this.openDialog({
+			message: i18n.t('main.follow-error-anon-cant-follow', {ns: 'discussion'}),
+		});
+	},
+
+	/**
+	 * Renders a message to display to an anon trying to view followed posts
+	 * @returns {void}
+	 */
+	rejectFollowedPostsAnon() {
+		const redirectUrl = `${window.location.origin}${this.get('target.router').generate('discussion.follow')}`;
+
+		this.openDialog({
+			message: i18n.t('main.follow-error-anon-cant-see-followed-posts', {ns: 'discussion'}),
+			redirectUrl
+		});
+	},
+
+	/**
+	 * Renders a message to display to an anon trying to send a post
+	 * @returns {void}
+	 */
+	rejectPostingAnon() {
 		this.openDialog({
 			message: i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}),
 		});
@@ -212,6 +237,14 @@ export default Ember.Mixin.create({
 		}).finally(() => {
 			editorState.set('isLoading', false);
 		});
+	},
+
+	hideShareTooltip() {
+		if (this.get('postCreatedAtLeastOnce')) {
+			this.set('shareTooltipSeen', true);
+		} else {
+			this.toggleProperty('postCreatedAtLeastOnce');
+		}
 	},
 
 	/**
@@ -330,6 +363,21 @@ export default Ember.Mixin.create({
 		},
 
 		/**
+		 * Follows discussion entity
+		 *
+		 * @param post
+		 * @returns {void}
+		 */
+		follow(post) {
+			if (this.get('isAnon')) {
+				track(trackActions.FollowPostByAnon);
+				this.rejectFollowingAnon();
+			} else {
+				this.get('model').current.follow(this.get('currentUser'), post);
+			}
+		},
+
+		/**
 		 * Bubbles up to Route
 		 * @param {Object} entityData
 		 * @returns {void}
@@ -435,6 +483,24 @@ export default Ember.Mixin.create({
 		 */
 		uploadDiscussionsHeader(image) {
 			return this.get('discussion.model').attributes.saveImageAttribute('heroImage', image);
+		},
+
+		updateCategories(categories) {
+			this.get('target').send('updateCategories', categories);
+		},
+
+		validatePostsOnForum() {
+			this.get('target').send('validatePostsOnForum');
+		},
+
+		goToFollowedPosts() {
+			if (this.get('isAnon')) {
+				track(trackActions.FollowingTabTappedByAnon);
+				this.rejectFollowedPostsAnon();
+			} else {
+				track(trackActions.FollowingTabTapped);
+				this.get('target').transitionTo('discussion.follow');
+			}
 		},
 	},
 });

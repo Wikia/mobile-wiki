@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Podziel się swoimi ulubionym dyskusjami na sieciach społecznościowych, aby przyciągnąć więcej fanów do dyskusji."
   },
   "main":{
+    "action-general-error":"Akcja nie powiodła się, spróbuj ponownie.",
     "discussions-header-title":"Dyskusje",
     "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
     "pagination-post-show-newer-replies":"Zobacz nowsze odpowiedzi",
@@ -94,6 +95,14 @@
     "reply-label":"Odpowiedz",
     "share-header":"Udostępnij post",
     "share-label":"Udostępnij",
+    "share-tooltip":"Udostępnij swój nowy post tutaj",
+    "follow-error-anon-cant-follow":"Zaloguj się, żeby zacząć obserwować tę dyskusję!",
+    "follow-error-anon-cant-see-followed-posts":"Zaloguj się, żeby zobaczyć obserwowane posty.",
+    "follow-label":"Obserwuj",
+    "follow-tooltip":"Dodaj to listy obserwowanych",
+    "follow-introducing-header":"Przedstawiamy Obserwowane!",
+    "follow-introducing-text":"Bądź na bieżąco z dyskusjami, które najbardziej cię interesują. Obserwuj dyskusję i otrzymuj powiadomienia dotyczące aktywności, by już nigdy nie przegapić ciekawych rozmów.",
+    "follow-introducing-button-label":"OK, rozumiem",
     "reported-not-found-error":"Brak zgłoszonych postów lub odpowiedzi.",
     "categories-header":"Kategorie",
     "categories-edit-label":"Edytuj",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Wymiary obrazu: 1240x200<br>jpg, gif lub png. Limit 10mb",
     "image-save-failed":"Nie udało się zapisać, spróbuj ponownie.",
     "upload-image-button-text":"Prześlij obraz",
-    "category-select-tooltip-text":"Wybierz"
+    "category-select-tooltip-text":"Wybierz",
+    "tab-all":"Wszystkie",
+    "tab-following":"Obserwowane",
+    "no-followed-posts-header":"Witaj na karcie Obserwowane.",
+    "no-followed-posts-text":"Kliknij przycisk „Obserwuj” znajdujący się pod postem, żeby wypełnić listę dyskusjami, które najbardziej cię interesują. Umieścimy je tutaj i będziemy informować cię o aktywności w nich.",
+    "find-posts-to-follow":"Znajdź posty do obserwowania"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

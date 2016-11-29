@@ -1,93 +1,52 @@
-{{#if responsive.isMobile}}
-	{{discussion-standalone-editor
-		categories=model.index.categories.categories
-		categoryPickerButtonId='categoryPickerButtonMobile'
-		create=(action 'createPost')
-		errorMessage=editorState.errorMessage
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		gotoGuidelines=(action 'gotoGuidelines')
-		hasTitle=true
-		isActive=editorState.isOpen
-		isLoading=editorState.isLoading
-		isVisible=editorState.isOpen
-		setEditorActive=(action 'setEditorActive')
-	}}
-{{/if}}
-
-{{#modal-dialog
-	class='is-bare is-desktop-centered discussion-editor-dialog'
-	closeOnOverlayClick=false
-	isVisible=editEditorState.isOpen
-}}
-	{{discussion-standalone-editor
-		categories=model.index.categories.categories
-		categoryPickerButtonId='categoryPickerButtonEdit'
-		editEntity=editEditorState.discussionEntity
-		editPost=(action 'editPost')
-		editReply=(action 'editReply')
-		errorMessage=editEditorState.errorMessage
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		gotoGuidelines=(action 'gotoGuidelines')
-		hasTitle=true
-		isActive=editEditorState.isOpen
-		isEdit=true
-		isLoading=editEditorState.isLoading
-		setEditorActive=(action 'setEditorActive')
-	}}
-{{/modal-dialog}}
-{{#if areGuidelinesVisible}}
-	{{#modal-dialog
-		class='is-bare is-desktop-centered discussion-guidelines'
-		closeOnOverlayClick=true
-		isVisible=areGuidelinesVisible
-	}}
-		{{discussion-guidelines
-			guidelinesText=model.index.attributes.data.guidelines.value
-		}}
-	{{/modal-dialog}}
-{{/if}}
-{{#discussion-entities-list-layout
-	addCategory=(route-action 'addCategory')
-	applyFilters=(action 'applyFilters')
-	attributes=model.index.attributes.data
-	categories=model.index.categories.categories
-	categoriesInRail=true
-	model=model.current.data
-	openGuidelines=(action 'openGuidelines')
-	setEditorActive=(action 'setEditorActive')
-	updateCategories=(route-action 'updateCategories')
-	updateCategoriesSelection=(action 'updateCategoriesSelection')
-	uploadCommunityBadge=(action 'uploadCommunityBadge')
-	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
-	validatePostsOnForum=(action 'validatePostsOnForum')
-}}
-	{{discussion-sort
-		setSortBy=(action 'setSortBy')
-	}}
-	{{discussion-forum-wrapper
+{{#discussion-feed
+		addCategory=(route-action 'addCategory')
+		applyFilters=(action 'applyFilters')
 		approve=(action 'approve')
+		attributes=model.index.attributes.data
 		categories=model.index.categories.categories
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
+		editEditorState=editEditorState
 		editorState=editorState
 		editPost=(action 'editPost')
+		editReply=(action 'editReply')
 		firstPageLoaded=model.current.firstPageLoaded
-		generateOpenGraph=(route-action 'generateOpenGraph')
+		follow=(action 'follow')
+		goToFollowedPosts=(action 'goToFollowedPosts')
 		gotoGuidelines=(action 'gotoGuidelines')
 		goToPage=(action 'goToPage')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.current.data.minorError
+		model=model.current.data
 		openEditEditor=(action 'openEditEditor')
+		openGuidelines=(action 'openGuidelines')
 		page=page
-		posts=model.current.data.entities
-		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
+		setSortBy=(action 'setSortBy')
+		shareTooltipSeen=shareTooltipSeen
 		stickEditorToGlobalNav=stickEditorToGlobalNav
-		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		unlockPost=(action 'unlockPost')
+		updateCategories=(route-action 'updateCategories')
+		updateCategoriesSelection=(action 'updateCategoriesSelection')
+		uploadCommunityBadge=(action 'uploadCommunityBadge')
+		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 		upvote=(action 'upvote')
+		validatePostsOnForum=(action 'validatePostsOnForum')
+}}
+	{{discussion-empty-forum-message
+			setEditorActive=(action 'setEditorActive')
 	}}
-{{/discussion-entities-list-layout}}
+{{/discussion-feed}}
+{{#modal-dialog
+		class='introducing-following-modal'
+		closeOnOverlayClick=true
+		isVisible=introducingFollowingWasNotSeen
+		as |close|
+}}
+	{{discussion-introducing-following
+			close=(action close)
+			introducingFollowingSeenId=introducingFollowingSeenId
+	}}
+{{/modal-dialog}}

@@ -54,6 +54,8 @@ $discussion-error-page-bg-color: #f6f6f6;
 $discussion-error-bg-color: $color-white;
 $discussion-error-text-color: #999;
 $discussion-error-link-color: #333;
+$discussion-alert-notification-background-color: #ed1c24;
+$discussion-alert-notification-text-color: $color-white;
 $discussion-header-image-blend-background: $color-white;
 $discussion-load-more-color: $color-blue-gray;
 $discussion-load-older-color: #e6e6e6;
@@ -128,8 +130,8 @@ $discussion-category-pill-background-color: #f6f6f6;
 $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
 $collapsible-menu-list-link-color: $color-black;
-$discussion-sort-color: $border-color;
-$discussion-sort-inactive-color: #e6e6e6;
+$discussion-tab-color: $border-color;
+$discussion-tab-inactive-color: #e6e6e6;
 $discussion-filter-inactive-color: #ccc;
 $discussion-filters-border: #ccc;
 $discussion-filters-color: #333;
@@ -165,9 +167,10 @@ $discussion-categories-edit-border-bottom-color: #ccc;
 $discussion-move-icon-color: #333;
 $discussion-category-picker-button-background-color: #ccc;
 $discussion-category-picker-button-color: #fff;
-$discussion-category-picker-tooltip-color: #fff;
 $discussion-category-pill-color: #666;
 $discussion-category-pill-hover-color: #fff;
+
+$discussion-tooltip-color: #fff;
 
 $discussion-edit-image-button-text-color: #fff;
 $discussion-edit-image-button-background-color: #333;
@@ -181,9 +184,32 @@ $discussion-upload-image-approve-buttons-border: #ccc;
 $discussion-upload-image-error-warning-color: #f00;
 $discussion-upload-image-error-text-color: #39424D;
 
+$discussion-introducing-following-icon-color: #fff;
+$discussion-introducing-following-text-color: #333;
+
+$discussion-no-followed-posts-color: #666;
+$discussion-no-followed-posts-header-color: #333;
+$discussion-no-followed-posts-icon-color: #999;
+
 $discussion-community-unit-link-color: #999;
 $app-promotion-text-color: #999;
 
+$discussion-share-icon-fill-color: #fff;
+
+$discussion-social-networks: (
+		facebook: #4760a5,
+		google: #dd4b39,
+		line: #00c300,
+		meneame: #ff6400,
+		nk: #4077a7,
+		odnoklassniki: #f96900,
+		reddit: #5f99cf,
+		tumblr: #34465d,
+		twitter: #87c0fa,
+		vkontakte: #587ca3,
+		wykop: #fb803f,
+		weibo: #ff8140
+);
 
 $dark-highlight-overlay-background-color: #262626;
 $dark-body-background: #1a1a1a;
@@ -301,6 +327,9 @@ $dark-discussion-category-picker-button-color: #262626;
 $dark-discussion-upload-image-error-text-color: #fff;
 $dark-discussion-top-list-button-color: #333;
 $dark-discussion-top-list-arrow-color: #999;
+
+$dark-discussion-no-followed-posts-color: #ccc;
+$dark-discussion-no-followed-posts-header-color: #fff;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;
