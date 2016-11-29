@@ -8,7 +8,7 @@ import DiscussionForumHeadTagsMixin from '../../mixins/discussion-forum-head-tag
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 import localStorageConnector from '../../utils/local-storage-connector';
 
-const {inject} = Ember;
+const {inject, Logger} = Ember;
 
 export default DiscussionBaseRoute.extend(
 	DiscussionContributionRouteMixin,
@@ -29,7 +29,6 @@ export default DiscussionBaseRoute.extend(
 			}
 		},
 
-		canModerate: null,
 		discussionSort: inject.service(),
 
 		/**
@@ -47,10 +46,7 @@ export default DiscussionBaseRoute.extend(
 				modifiedTransition = this.transitionToCommaSplittedCategories(queryParams);
 			}
 
-			if (!this.isProperPageParam(queryParams.page)) {
-				queryParams.page = 1;
-				this.refresh();
-			}
+			this.pageParamValidation(transition);
 
 			const updatedQueryParams = {
 				catId: this.getCategoriesFromQueryString(queryParams.catId),
@@ -71,8 +67,11 @@ export default DiscussionBaseRoute.extend(
 			if (!modifiedTransition && !queryParams.sort) {
 				this.transitionTo({
 					queryParams: {
-						sort: 'trending'
+						sort: discussionSort.get('defaultSort')
 					}
+				}).catch((err) => {
+					Logger.warn('Error in transition.', err);
+					// Silently fail. For more info go to: SOC-3622
 				});
 			}
 
@@ -277,14 +276,6 @@ export default DiscussionBaseRoute.extend(
 
 			validatePostsOnForum() {
 				this.refresh();
-			},
-
-			/**
-			 * Transition to Guidelines
-			 * @returns {void}
-			 */
-			gotoGuidelines() {
-				this.transitionTo('discussion.guidelines');
 			},
 		}
 	}

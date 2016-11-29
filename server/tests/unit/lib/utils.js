@@ -6,97 +6,114 @@ QUnit.test('getWikiName', function (assert) {
 	var testCases = [
 		{
 			host: 'poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Prod
+			settings: {
+				environment: global.environments.prod
 			},
 			expected: 'poznan.wikia.com',
 			description: 'Works for production sub-domains'
 		},
 		{
 			host: 'example.com',
-			localSettings: {
-				environment: global.Environment.Prod
+			settings: {
+				environment: global.environments.prod
 			},
 			expected: 'example.com',
 			description: 'Custom URLs on production are passed through'
 		},
 		{
 			host: 'bg.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Prod
+			settings: {
+				environment: global.environments.prod
 			},
 			expected: 'bg.poznan.wikia.com',
 			description: 'Works for production sub-domains with language'
 		},
 		{
 			host: 'verify.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Verify
+			settings: {
+				environment: global.environments.verify
 			},
 			expected: 'verify.poznan.wikia.com',
 			description: 'Works for verify sub-domains'
 		},
 		{
 			host: 'verify.bg.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Verify
+			settings: {
+				environment: global.environments.verify
 			},
 			expected: 'verify.bg.poznan.wikia.com',
 			description: 'Works for verify sub-domains with language'
 		},
 		{
 			host: 'preview.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Preview
+			settings: {
+				environment: global.environments.preview
 			},
 			expected: 'preview.poznan.wikia.com',
 			description: 'Works for preview sub-domains'
 		},
 		{
 			host: 'preview.bg.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Preview
+			settings: {
+				environment: global.environments.preview
 			},
 			expected: 'preview.bg.poznan.wikia.com',
 			description: 'Works for preview sub-domains with language'
 		},
 		{
 			host: 'stable.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Stable
+			settings: {
+				environment: global.environments.stable
 			},
 			expected: 'stable.poznan.wikia.com',
 			description: 'Works for stable sub-domains'
 		},
 		{
 			host: 'stable.bg.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Stable
+			settings: {
+				environment: global.environments.stable
 			},
 			expected: 'stable.bg.poznan.wikia.com',
 			description: 'Works for stable sub-domains with language'
 		},
 		{
 			host: 'sandbox-test.poznan.wikia.com',
-			localSettings: {
+			settings: {
 				host: 'sandbox-test',
-				environment: global.Environment.Sandbox
+				environment: global.environments.sandbox
 			},
 			expected: 'sandbox-test.poznan.wikia.com',
 			description: 'Works for sandbox sub-domains'
 		},
 		{
 			host: 'sandbox-test.bg.poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Sandbox
+			settings: {
+				environment: global.environments.sandbox
 			},
 			expected: 'sandbox-test.bg.poznan.wikia.com',
 			description: 'Works for sandbox sub-domains with language'
 		},
 		{
+			host: 'poznan.wikia-staging.com',
+			settings: {
+				host: 'poznan.wikia-staging.com',
+				environment: global.environments.staging
+			},
+			expected: 'poznan.wikia-staging.com',
+			description: 'Works for staging domains'
+		},
+		{
+			host: 'pl.poznan.wikia-staging.com',
+			settings: {
+				environment: global.environments.staging
+			},
+			expected: 'pl.poznan.wikia-staging.com',
+			description: 'Works for staging domains with language'
+		},
+		{
 			host: 'muppet.10.10.10.145.xip.io',
-			localSettings: {
-				environment: global.Environment.Dev,
+			settings: {
+				environment: global.environments.dev,
 				devboxDomain: 'evgeniy'
 			},
 			expected: 'muppet.evgeniy.wikia-dev.com',
@@ -105,8 +122,8 @@ QUnit.test('getWikiName', function (assert) {
 		},
 		{
 			host: 'de.muppet.10.10.10.145.xip.io',
-			localSettings: {
-				environment: global.Environment.Dev,
+			settings: {
+				environment: global.environments.dev,
 				devboxDomain: 'evgeniy'
 			},
 			expected: 'de.muppet.evgeniy.wikia-dev.com',
@@ -115,7 +132,7 @@ QUnit.test('getWikiName', function (assert) {
 	];
 
 	testCases.forEach(function (testCase) {
-		assert.equal(global.getWikiDomainName(testCase.localSettings, testCase.host),
+		assert.equal(global.getWikiDomainName(testCase.settings, testCase.host),
 			testCase.expected, testCase.description);
 	});
 });
@@ -171,6 +188,16 @@ QUnit.test('getWikiaSubdomain', function (assert) {
 			host: 'sandbox-test.ja.starwars.armon.wikia-dev.com',
 			expected: 'ja.starwars',
 			description: 'Works for sandbox sub-domains with language'
+		},
+		{
+			host: 'chess.wikia-staging.com',
+			expected: 'chess',
+			description: 'Works for staging domains'
+		},
+		{
+			host: 'ja.starwars.wikia-staging.com',
+			expected: 'ja.starwars',
+			description: 'Works for staging domains with language'
 		}
 	];
 
@@ -205,6 +232,11 @@ QUnit.test('clearHost', function (assert) {
 			host: 'externaltest.muppet.wikia.com:8000',
 			expected: 'muppet.wikia.com',
 			description: 'clears the showcase ad domain alias and port'
+		},
+		{
+			host: 'muppet.wikia-staging.com:8000',
+			expected: 'muppet.wikia-staging.com',
+			description: 'clears a port from staging'
 		}
 	];
 
@@ -217,45 +249,52 @@ QUnit.test('getEnvironment', function (assert) {
 	var testCases = [
 		{
 			environment: 'prod',
-			expected: global.Environment.Prod
+			expected: global.environments.prod
 		},
 		{
 			environment: 'verify',
-			expected: global.Environment.Verify
+			expected: global.environments.verify
 		},
 		{
 			environment: 'preview',
-			expected: global.Environment.Preview
+			expected: global.environments.preview
 		},
 		{
 			environment: 'stable',
-			expected: global.Environment.Stable
+			expected: global.environments.stable
 		},
 		{
 			environment: 'sandbox',
-			expected: global.Environment.Sandbox
+			expected: global.environments.sandbox
 		},
 		{
 			environment: 'dev',
-			expected: global.Environment.Dev
+			expected: global.environments.dev
 		},
 		{
 			environment: 'testing',
-			expected: global.Environment.Testing
+			expected: global.environments.testing
 		},
 		{
-			expected: global.Environment.Dev
+			environment: 'staging',
+			expected: global.environments.staging
+		},
+		{
+			expected: global.environments.dev
 		},
 		{
 			environment: 'investing',
-			default: global.Environment.Prod,
-			expected: global.Environment.Prod
+			default: global.environments.prod,
+			expected: global.environments.prod
 		}
 	];
 
 	testCases.forEach(function (testCase) {
-		assert.equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected,
-			global.Environment[testCase.expected]);
+		assert.equal(
+			global.getEnvironment(testCase.environment, testCase.default),
+			testCase.expected,
+			testCase.expected
+		);
 	});
 });
 
@@ -287,27 +326,27 @@ QUnit.test('parseQueryParams', function (assert) {
 QUnit.test('isXipHost', function (assert) {
 	var testCases = [
 		{
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			hostName: 'muppet.127.0.0.1.xip.io',
 			expected: true
 		},
 		{
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			hostName: 'muppet.igor.wikia-dev.com',
 			expected: false
 		},
 		{
-			environment: global.Environment.Prod,
+			environment: global.environments.prod,
 			hostName: 'muppet.127.0.0.1.xip.io',
 			expected: false
 		},
 		{
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			hostName: 'muppet.xip.io',
 			expected: false
 		},
 		{
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			hostName: 'xip.io.wikia.com',
 			expected: false
 		}
@@ -335,8 +374,8 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 				wikiVariables: {
 					basePath: 'http://starwars.wikia.com'
 				},
-				localSettings: {
-					environment: global.Environment.Prod
+				settings: {
+					environment: global.environments.prod
 				},
 				expected: {
 					redirected: true,
@@ -354,8 +393,8 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 				wikiVariables: {
 					basePath: 'http://starwars.wikia.com'
 				},
-				localSettings: {
-					environment: global.Environment.Prod
+				settings: {
+					environment: global.environments.prod
 				},
 				expected: {
 					redirected: false
@@ -372,8 +411,8 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 				wikiVariables: {
 					basePath: 'http://starwars.igor.wikia-dev.com'
 				},
-				localSettings: {
-					environment: global.Environment.Dev
+				settings: {
+					environment: global.environments.dev
 				},
 				expected: {
 					redirected: false
@@ -392,8 +431,8 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 				wikiVariables: {
 					basePath: 'http://starwars.igor.wikia-dev.com'
 				},
-				localSettings: {
-					environment: global.Environment.Dev
+				settings: {
+					environment: global.environments.dev
 				},
 				expected: {
 					redirected: true,
@@ -418,7 +457,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 
 			throws(
 				function () {
-					global.redirectToCanonicalHostIfNeeded(testCase.localSettings, testCase.request,
+					global.redirectToCanonicalHostIfNeeded(testCase.settings, testCase.request,
 						reply, testCase.wikiVariables);
 				},
 				global.RedirectedToCanonicalHost,
@@ -428,7 +467,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 			reply = null;
 		} else {
 			try {
-				global.redirectToCanonicalHostIfNeeded(testCase.localSettings, testCase.request,
+				global.redirectToCanonicalHostIfNeeded(testCase.settings, testCase.request,
 					reply, testCase.wikiVariables);
 				assert.ok(true);
 			} catch (e) {
@@ -481,47 +520,47 @@ QUnit.test('getCorporatePageUrlFromWikiDomain', function (assert) {
 	var testCases = [
 		{
 			wikiDomain: 'poznan.wikia.com',
-			environment: global.Environment.Prod,
+			environment: global.environments.prod,
 			expected: 'www.wikia.com'
 		},
 		{
 			wikiDomain: 'pl.gta.wikia.com',
-			environment: global.Environment.Prod,
+			environment: global.environments.prod,
 			expected: 'www.wikia.com'
 		},
 		{
 			wikiDomain: 'www.wikia.com',
-			environment: global.Environment.Prod,
+			environment: global.environments.prod,
 			expected: 'www.wikia.com'
 		},
 		{
 			wikiDomain: 'preview.poznan.wikia.com',
-			environment: global.Environment.Preview,
+			environment: global.environments.preview,
 			expected: 'preview.www.wikia.com'
 		},
 		{
 			wikiDomain: 'preview.pl.gta.wikia.com',
-			environment: global.Environment.Preview,
+			environment: global.environments.preview,
 			expected: 'preview.www.wikia.com'
 		},
 		{
 			wikiDomain: 'poznan.hacker.wikia-dev.com',
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			expected: 'www.hacker.wikia-dev.com'
 		},
 		{
 			wikiDomain: 'pl.gta.hacker.wikia-dev.com',
-			environment: global.Environment.Dev,
+			environment: global.environments.dev,
 			expected: 'www.hacker.wikia-dev.com'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
-		const localSettings = {
+		const settings = {
 			environment: testCase.environment,
 			devboxDomain: 'hacker'
 		};
 
-		assert.equal(global.getCorporatePageUrlFromWikiDomain(localSettings, testCase.wikiDomain), testCase.expected);
+		assert.equal(global.getCorporatePageUrlFromWikiDomain(settings, testCase.wikiDomain), testCase.expected);
 	});
 });

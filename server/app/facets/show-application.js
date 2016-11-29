@@ -4,13 +4,13 @@ import * as Tracking from '../lib/tracking';
 import * as OpenGraph from '../lib/open-graph';
 import Promise from 'bluebird';
 import Logger from '../lib/logger';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/hashing';
 import {
 	RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
 } from '../lib/custom-errors';
-import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
+import {isRtl, getUserId, getSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
 import injectDesignSystemData from '../lib/inject-design-system-data';
 
@@ -58,7 +58,7 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
  * @returns {void}
  */
 export default function showApplication(request, reply, wikiVariables, context = {}, showGlobalFooter = false) {
-	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = Utils.getCachedWikiDomainName(settings, request),
 		hostName = Utils.getWikiaSubdomain(request.info.host);
 
 	if (!(wikiVariables instanceof Promise)) {
@@ -66,9 +66,9 @@ export default function showApplication(request, reply, wikiVariables, context =
 	}
 
 	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
-	context.server = Utils.createServerData(localSettings, wikiDomain);
+	context.server = Utils.createServerData(settings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
-	context.localSettings = getLocalSettings();
+	context.settings = getSettings();
 	context.userId = getUserId(request);
 	context.gaUserIdHash = gaUserIdHash(context.userId);
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
@@ -79,7 +79,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * @returns {Promise}
 		 */
 		.then((wikiVariables) => {
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+			Utils.redirectToCanonicalHostIfNeeded(settings, request, reply, wikiVariables);
 
 			context.wikiVariables = wikiVariables;
 			context.isRtl = isRtl(wikiVariables);

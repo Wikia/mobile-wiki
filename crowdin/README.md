@@ -2,7 +2,7 @@
 Localization is handled by [i18next](http://i18next.com/) JavaScript library and [CrowdIn](https://crowdin.com/) service. i18next is a part (module) of the Mercury and loads files from `front/common/public/locales` directory. CrowdIn is an external service which is responsible only for providing translations for the keys' values from the source file `front/common/public/locales/en/<namespace>.json`. Wikia has its own CrowdIn client which is already installed on your dev-box.
 
 ### Adding a new i18n file
-You may want to add a new i18n file that creates a new translations namespace. To load the file add its name of the file to the `translationFiles` property in  [localSettings.base.js](https://github.com/Wikia/mercury/blob/dev/server/config/localSettings.base.js).
+You may want to add a new i18n file that creates a new translations namespace. To load the file add its name of the file to the `translationFiles` property in  [settings.base.js](https://github.com/Wikia/mercury/blob/dev/server/config/settings.base.js).
 
 ### Uploading new keys/updating key values in the source file
 If during the development process you've added new keys to the `front/common/public/locales/en/<namespace>.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.

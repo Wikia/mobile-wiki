@@ -88,10 +88,6 @@
       "nielsen": {
         "enabled": false
       },
-      "ubisoft": {
-        "enabled": false,
-        "url": ""
-      },
       "netzathleten": {
         "enabled": false,
         "url": "",

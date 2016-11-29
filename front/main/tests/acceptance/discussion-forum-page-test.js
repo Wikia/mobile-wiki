@@ -28,7 +28,7 @@ test('visiting /d results in proper canonical url behavior', (assert) => {
 			canonicalHref.indexOf(suffix, canonicalHref.length - suffix.length) !== -1,
 		);
 
-		assert.equal(currentURL(), '/d/f?sort=trending');
+		assert.equal(currentURL(), '/d/f?sort=latest');
 
 		click('.load-more-button');
 

@@ -2,9 +2,11 @@ import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Component.extend({
-	classNames: ['discussion-category-select-tooltip-wrapper'],
+	arrowDirection: 'down',
+	classNames: ['discussion-category-select-tooltip-wrapper', 'discussion-tooltip-wrapper'],
+	layoutName: 'components/discussion-tooltip',
 
-	wasSeen: Boolean(localStorageConnector.getItem('discussionCategorySelectTooltipSeen')),
+	text: i18n.t('main.category-select-tooltip-text', {ns: 'discussion'}),
 
 	isVisible: Ember.computed('wasSeen', 'shouldShowCategoryPicker', 'isEdit', 'isActive', 'showOverlayMessage',
 		function () {
@@ -19,4 +21,9 @@ export default Ember.Component.extend({
 			localStorageConnector.setItem('discussionCategorySelectTooltipSeen', true);
 		}
 	}),
+
+	willRender() {
+		this._super(...arguments);
+		this.set('wasSeen', Boolean(localStorageConnector.getItem('discussionCategorySelectTooltipSeen')));
+	}
 });

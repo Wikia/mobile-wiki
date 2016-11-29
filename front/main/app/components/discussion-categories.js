@@ -18,8 +18,14 @@ export default Ember.Component.extend(
 		canEditCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
 
 		init() {
-			this._super();
-			this.collapseCategoriesAboveLimit(this.get('localCategories'));
+			this._super(...arguments);
+
+			let localCategories = this.get('localCategories');
+
+			this.collapseCategoriesAboveLimit(localCategories);
+			if (this.get('disabled')) {
+				localCategories.setEach('selected', false);
+			}
 		},
 
 		disabledObserver: Ember.observer('disabled', function () {
