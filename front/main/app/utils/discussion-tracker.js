@@ -34,6 +34,8 @@ const trackActions = {
 	Report: 'Report',
 	PostLock: 'PostLock',
 	PostUnlock: 'PostUnlock',
+	PostDelete: 'PostDelete',
+	PostUndelete: 'PostUndelete',
 	DeleteAllConfirmed: 'DeleteAllConfirmed',
 	DeleteAllTapped: 'DeleteAllTapped',
 	ReplyButtonTapped: 'ReplyButtonTapped',

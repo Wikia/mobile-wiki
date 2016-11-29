@@ -23,7 +23,6 @@ export default Ember.Component.extend({
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-
 	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
 		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
@@ -54,6 +53,7 @@ export default Ember.Component.extend({
 		 */
 		delete(post) {
 			this.get('delete')(post);
+			track(trackActions.PostDelete);
 			this.get('popover').deactivate();
 		},
 
@@ -104,6 +104,7 @@ export default Ember.Component.extend({
 		 */
 		undelete(post) {
 			this.get('undelete')(post);
+			track(trackActions.PostUndelete);
 			this.get('popover').deactivate();
 		},
 

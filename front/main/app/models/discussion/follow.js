@@ -13,11 +13,12 @@ const DiscussionFollowedPostsModel = DiscussionBaseModel.extend(
 	DiscussionContributionModelMixin,
 	{
 		/**
-		 * @param {object} user
+		 * @param {Object} user
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(user) {
 			const requestUrl = M.getDiscussionServiceUrl(`/${this.wikiId}/threads/followed-by/${user.get('userId')}`);
+
 			return this.loadThreadPage(requestUrl);
 		},
 	}
