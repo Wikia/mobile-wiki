@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseModel from '../base';
-import DiscussionUserActivityReports from '../domain/user-activity-reports'
+import DiscussionUserActivityReports from '../domain/user-activity-reports';
 import request from 'ember-ajax/request';
 
 const DiscussionUserActivityReportsModel = DiscussionBaseModel.extend(
@@ -21,8 +21,8 @@ DiscussionUserActivityReportsModel.reopenClass(
 		 */
 		find(wikiId, days) {
 			const userActivityReportsInstance = DiscussionUserActivityReportsModel.create({
-					wikiId,
-				});
+				wikiId,
+			});
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboard/reports`), {

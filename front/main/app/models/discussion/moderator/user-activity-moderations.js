@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseModel from '../base';
-import DiscussionUserActivityModerations from '../domain/user-activity-moderations'
+import DiscussionUserActivityModerations from '../domain/user-activity-moderations';
 import request from 'ember-ajax/request';
 
 const DiscussionUserActivityModerationsModel = DiscussionBaseModel.extend(
@@ -21,8 +21,8 @@ DiscussionUserActivityModerationsModel.reopenClass(
 		 */
 		find(wikiId, days) {
 			const userActivityModerationsInstance = DiscussionUserActivityModerationsModel.create({
-					wikiId,
-				});
+				wikiId,
+			});
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboard/moderator`), {

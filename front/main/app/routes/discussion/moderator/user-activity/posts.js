@@ -13,7 +13,7 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionModel = this.modelFor('discussion');
 
-			//fixme mock data
+			// fixme mock data
 			const mock = Ember.Object.create({
 				days: 30,
 				users:[
