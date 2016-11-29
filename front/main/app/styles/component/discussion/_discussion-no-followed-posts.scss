@@ -3,9 +3,12 @@
 	margin: 30px 24px;
 	text-align: center;
 
-	.header {
+	h6 {
 		color: $discussion-no-followed-posts-header-color;
+		font-size: 0.875rem;
 		font-weight: $font-weight-bold;
+		line-height: 1.25rem;
+		margin: 0;
 	}
 
 	.follow-xl-icon {
@@ -19,7 +22,7 @@
 		@extend %discussion-large-button;
 		display: block;
 		margin: 24px auto 0;
-		width: 187px;
+		width: 188px;
 	}
 
 
