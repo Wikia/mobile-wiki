@@ -3,15 +3,12 @@ $desktop-lightbox-close-size: 24px;
 .post-images {
 	margin-bottom: 13px;
 
-	.post-image,
-	.lightbox-image {
+	.post-image {
 		display: block;
 		margin-top: 9px;
-	}
-}
 
-@media #{$desktop-range} {
-	.post-images {
-		margin-bottom: 18px;
+		@media #{$desktop-range} {
+			margin-bottom: 18px;
+		}
 	}
 }
