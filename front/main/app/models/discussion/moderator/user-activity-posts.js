@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseModel from '../base';
-import DiscussionUserActivityPosts from '../domain/user-activity-posts'
+import DiscussionUserActivityPosts from '../domain/user-activity-posts';
 import request from 'ember-ajax/request';
 
 const DiscussionUserActivityPostsModel = DiscussionBaseModel.extend(
@@ -21,8 +21,8 @@ DiscussionUserActivityPostsModel.reopenClass(
 		 */
 		find(wikiId, days) {
 			const userActivityPostsInstance = DiscussionUserActivityPostsModel.create({
-					wikiId,
-				});
+				wikiId,
+			});
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {

@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 	iconClassNames: Ember.computed('iconClass', function () {
 		const iconClass = this.get('iconClass');
 		let classNames = 'user-activity-icon';
-		if(iconClass) {
+		if (iconClass) {
 			classNames += ` ${iconClass}`;
 		}
 		return classNames;

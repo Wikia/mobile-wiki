@@ -1,5 +1,3 @@
 import DiscussionBaseController from '../../base';
 
-export default DiscussionBaseController.extend(
-	{}
-);
+export default DiscussionBaseController.extend({});
