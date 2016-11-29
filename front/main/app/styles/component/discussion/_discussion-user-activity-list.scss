@@ -1,10 +1,10 @@
 .discussion-user-activity-list {
 	overflow-x: auto;
-	color: #333;
+	color: $discussion-user-activity-text-color;
 
 	.row {
 		display: flex;
-		height: 60px;
+		height: $discussion-user-activity-row-height;
 
 		.user {
 			display: flex;
@@ -21,7 +21,7 @@
 
 			.username {
 				align-items: center;
-				border-bottom: 1px solid #ccc;
+				border-bottom: 1px solid $discussion-user-activity-row-separator-color;
 				display: flex;
 				flex: 1;
 				min-width: 0;
@@ -37,7 +37,7 @@
 
 		.details {
 			align-items: center;
-			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid $discussion-user-activity-row-separator-color;
 			display: flex;
 			flex: 1;
 			justify-content: flex-end;
@@ -48,7 +48,7 @@
 				white-space: nowrap;
 
 				.description {
-					color: #ccc;
+					color: $discussion-user-activity-value-description-color;
 					font-size: $wds-typescale-size-minus-2;
 				}
 
@@ -70,7 +70,7 @@
 			}
 
 			.user-activity-icon {
-				fill: #ccc;
+				fill: $discussion-user-activity-icon-color;
 				position: relative;
 
 				&.checkmark {
