@@ -237,6 +237,12 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	}
 }
 
+.bfaa-template , .bfab-template {
+	.video-ima-container > iframe {
+		z-index: -1;
+	}
+}
+
 .bfaa-template .ima-mute-div, .bfab-template .ima-mute-div {
 	bottom: 0px;
 	height: 20%;
