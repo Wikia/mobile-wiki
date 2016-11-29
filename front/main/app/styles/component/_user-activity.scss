@@ -2,6 +2,51 @@
 	padding-top: 37px;
 }
 
+.scrollable-horizontally {
+	overflow-x: auto;
+}
+
+.discussion-days-toggle {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.user-activity-title {
+	color: #999;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	margin: 0 0 20px;
+	text-align: center;
+	width: 100%;
+}
+
+.user-activity {
+	.community-badge {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		margin-top: 0;
+
+		.community-badge-image {
+			height: 60px;
+			width: 60px;
+
+			&.community-badge-image-default .badge-image-display-original {
+				height: 90%;
+				width: 90%;
+			}
+		}
+
+		h2 {
+			color: #333;
+			font-size: 18px;
+			margin-bottom: 8px;
+		}
+	}
+}
+
 .discussion-user-activity-toggle {
 	border-bottom: 1px solid #ccc;
 	display: flex;
@@ -13,10 +58,21 @@
 		padding: 0 0 0 10px;
 	}
 
+	.wds-dropdown {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	.wds-dropdown__toggle {
 		display: flex;
 		font-size: 12px;
 		line-height: 16px;
+	}
+
+	.wds-icon {
+		height: 18px;
+		width: 18px;
 	}
 }
 
@@ -77,5 +133,11 @@
 
 	.collapsable-container {
 		padding-top: 10px;
+	}
+}
+
+@media #{$mobile-range} {
+	.user-activity-main-content {
+		padding-top: 18px;
 	}
 }

@@ -12,6 +12,14 @@ export default DiscussionBaseController.extend(
 			posts: {
 				isActive: false,
 			}
+		},
+
+		parentController: Ember.inject.controller('discussion.moderator.user-activity'),
+
+		actions: {
+			setDays(days) {
+				this.get('target').send('setDays', days);
+			}
 		}
 	}
 );

@@ -88,3 +88,10 @@
 		}
 	}
 }
+
+@media #{$mobile-range} {
+	.discussion-user-activity-list {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}

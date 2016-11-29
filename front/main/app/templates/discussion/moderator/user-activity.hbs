@@ -5,6 +5,19 @@
 		uploadCommunityBadge=(action 'uploadCommunityBadge')
 		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
-	{{discussion-user-activity-toggle}}
-	{{outlet}}
+	<div class="scrollable-horizontally user-activity">
+		{{#if responsive.isMobile}}
+			{{discussion-community-badge
+				badgeImage=model.index.attributes.badgeImage
+				editingPossible=true
+				triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
+				uploadMethod=(action 'uploadCommunityBadge')
+			}}
+			<p class="user-activity-title">{{i18n 'user-activity.hero-unit-subtitle' ns='discussion'}}</p>
+		{{/if}}
+		{{discussion-user-activity-toggle
+			setDays=(action 'setDays')
+		}}
+		{{outlet}}
+	</div>
 {{/discussion-user-activity-layout}}
