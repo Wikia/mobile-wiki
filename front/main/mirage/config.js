@@ -43,6 +43,7 @@ export default function () {
 			return schema.searches.first();
 		}
 
+		// fixme probably it shouldn't look like this - it just to have mirage working for backend-less development
 		if (controller === 'UserApi') {
 			return;
 		}
@@ -63,11 +64,11 @@ export default function () {
 		return schema.siteAttributes.first();
 	});
 
-	this.get('https://services-poz.wikia-dev.com/discussion/3035/leaderboards', (schema, request) => {
+	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboards', (schema, request) => {
 		return userActivityPostsFixtures;
 	});
 
-	this.get('https://services-poz.wikia-dev.com/discussion/3035/leaderboard/reports', (schema, request) => {
+	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/reports', (schema, request) => {
 		return userActivityReportsFixtures;
 	});
 }
