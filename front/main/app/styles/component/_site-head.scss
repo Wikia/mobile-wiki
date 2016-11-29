@@ -149,18 +149,18 @@ $desktop-logo-padding-left: 8px;
 }
 
 //Styles for BFAA
-.no-scroll {
-	.bfaa-template {
-		.site-head {
-			position: fixed;
-		}
-	}
-}
-
 .bfaa-template {
 	.site-head-headroom-top {
 		.site-head {
 			position: static;
+		}
+	}
+}
+
+.no-scroll {
+	.bfaa-template {
+		.site-head {
+			position: fixed;
 		}
 	}
 }
