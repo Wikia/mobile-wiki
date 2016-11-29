@@ -3,7 +3,7 @@ import {
 	getCorporatePageUrlFromWikiDomain
 } from './utils';
 import * as MediaWiki from './mediawiki';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Logger from './logger';
 
 /**
@@ -22,10 +22,10 @@ function getContentLanguage(wikiVariables) {
  * @returns {Promise}
  */
 export default function injectDesignSystemData({data, request, showFooter = false, showFullSiteLink = false}) {
-	const wikiDomain = getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(settings, request),
 		wikiId = data.wikiVariables.id,
 		language = getContentLanguage(data.wikiVariables),
-		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain);
+		corporatePageUrl = getCorporatePageUrlFromWikiDomain(settings, wikiDomain);
 
 	if (showFooter) {
 		data.bodyClassName = 'show-global-footer';
