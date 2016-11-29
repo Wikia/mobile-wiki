@@ -1,4 +1,4 @@
-export default {
+const activities = {
 	"days": 30,
 	"users": [
 		{
@@ -36,3 +36,9 @@ export default {
 		}
 	]
 };
+
+var activityUsers = activities.users;
+for(let i = 0; i < 66; i++) {
+	activities.users = activities.users.concat(activityUsers);
+}
+export default activities;

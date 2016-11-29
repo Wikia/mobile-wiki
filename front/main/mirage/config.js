@@ -1,5 +1,6 @@
 import userActivityReportsFixtures from './fixtures/discussion-user-activity-reports';
 import userActivityPostsFixtures from './fixtures/discussion-user-activity-posts';
+import userActivityModerationsFixtures from './fixtures/discussion-user-activity-moderations';
 
 /**
  * @returns {void}
@@ -70,5 +71,9 @@ export default function () {
 
 	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/reports', (schema, request) => {
 		return userActivityReportsFixtures;
+	});
+
+	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/moderator', (schema, request) => {
+		return userActivityModerationsFixtures;
 	});
 }

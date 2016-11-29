@@ -118,6 +118,7 @@ Router.map(function () {
 			}, function () {
 				this.route('posts');
 				this.route('reports');
+				this.route('moderations');
 			});
 		});
 	});
