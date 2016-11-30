@@ -47,14 +47,9 @@ export default DiscussionMultipleInputsEditor.extend(
 		}),
 
 		images: computed('editEntity.contentImages.images', function () {
-			const images = this.get('editEntity.contentImages.images'),
-				copy = new A();
+			const images = this.get('editEntity.contentImages.images');
 
-			if (!isEmpty(images)) {
-				images.forEach(image => copy.push(Ember.Object.create({...image})));
-			}
-
-			return copy;
+			return isEmpty(images) ? new A() : images.map(image => Ember.Object.create({...image}));
 		}),
 
 		imageWidthMultiplier: computed('isReply', 'responsive.isMobile', function () {
