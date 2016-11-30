@@ -1,9 +1,9 @@
 <div class="post-image-editor-tools-wrapper">
 	<picture>
-		{{#each pictureSources as |source|}}
+		{{#each displayedSources as |source|}}
 			<source media="{{source.media}}" srcset="{{source.src}}">
 		{{/each}}
-		<img alt="{{alt}}" src="{{src}}" style={{croppedStyle}}>
+		<img alt="{{alt}}" src="{{image.url}}" srcset="{{srcset}}" style={{croppedStyle}}>
 	</picture>
 	{{#if editorToolsVisible}}
 		<a class="delete-image" {{action 'remove'}}>

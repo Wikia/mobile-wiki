@@ -12,7 +12,10 @@ export default Component.extend(
 		 * @private
 		 */
 		// Important !!! Please adjust those values when breakpoints change.
-		breakpoints: [420, 767, 1063],
+		breakpoints: {
+			desktop: 640,
+			mobile: [420, 767, 1063]
+		},
 
 		/**
 		 * @public
@@ -42,18 +45,12 @@ export default Component.extend(
 		/**
 		 * @private
 		 */
-		// Important !!! Please adjust those values when breakpoints change.
-		maxWidthOnBigScreen: 640,
-
-		/**
-		 * @private
-		 */
 		sources: null,
 
 		/**
 		 * @private
 		 */
-		src: null,
+		srcset: null,
 
 		/**
 		 * @public
@@ -62,7 +59,7 @@ export default Component.extend(
 		 */
 		widthMultiplier: 1,
 
-		pictureSources: computed('crop', function () {
+		displayedSources: computed('crop', function () {
 			return this.get('crop') ? this.get('croppedSources') : this.get('sources');
 		}),
 
@@ -140,6 +137,15 @@ export default Component.extend(
 
 		/**
 		 * @private
+		 */
+		generateLink(operation, resolution, density = 1) {
+			const densitySuffix = density === 1 ? '' : ` ${density}x`;
+
+			return `${this.get('image.url')}/${operation}/${resolution}${densitySuffix}`;
+		},
+
+		/**
+		 * @private
 		 *
 		 * Constructs sources for picture tag. Does not create unnecessary url when image is smaller than breakpoint.
 		 */
@@ -149,23 +155,32 @@ export default Component.extend(
 				imageWidth = this.get('image.width'),
 				sources = this.get('sources');
 
-			this.get('breakpoints').forEach(breakpoint => {
+			this.get('breakpoints.mobile').forEach(breakpoint => {
 				const media = `(max-width: ${breakpoint}px)`;
 
-				let src = this.get('image.url'),
-					croppedSrc = this.get('image.url');
+				let src = [],
+					croppedSrc = [];
 
 				if (Math.max(imageWidth, imageHeight) > breakpoint) {
-					const operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH;
+					const operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH,
+						multiplier = 2;
 
-					src = `${src}/${operation}/${breakpoint}`;
-					croppedSrc = `${croppedSrc}/${SCALE_WIDTH}/${breakpoint}`;
+					src.push(this.generateLink(operation, breakpoint));
+					croppedSrc.push(this.generateLink(SCALE_WIDTH, breakpoint));
+
+					if (Math.max(imageWidth, imageHeight) > breakpoint * multiplier) {
+						src.push(this.generateLink(operation, breakpoint * multiplier, multiplier));
+						croppedSrc.push(this.generateLink(SCALE_WIDTH, breakpoint * multiplier, multiplier));
+					}
 				}
 
-				sources.push({media, src});
+				sources.push({
+					media,
+					src: this.joinSources(src)
+				});
 				croppedSources.push({
 					media,
-					src: croppedSrc
+					src: this.joinSources(croppedSrc)
 				});
 			});
 		},
@@ -177,24 +192,44 @@ export default Component.extend(
 		 * Cropping is enabled only on mobile devices, that is why it does not matter for this method.
 		 */
 		generateSourceFromImageDimensions() {
+			const imageWidth = this.get('image.width'),
+				widthMultiplier = this.getWithDefault('widthMultiplier', 1),
+				maxImageWidth = this.get('breakpoints.desktop'),
+				maxImageHeight = Math.min(maxImageWidth * widthMultiplier, imageWidth * widthMultiplier);
+
+			let srcset = this.generateSrcsetFragment(maxImageWidth, maxImageHeight);
+			srcset = srcset.concat(this.generateSrcsetFragment(maxImageWidth, maxImageHeight, 2));
+
+			this.set('srcset', this.joinSources(srcset));
+		},
+
+		/**
+		 * @param maxImageWidth
+		 * @param maxImageHeight
+		 * @param multiplier - used to generate for 1x, 1.5x, 2x multipliers for screens with higher density
+		 * @returns {Array}
+		 */
+		generateSrcsetFragment(maxImageWidth, maxImageHeight, multiplier = 1) {
 			const imageHeight = this.get('image.height'),
 				imageWidth = this.get('image.width'),
-				widthMultiplier = this.getWithDefault('widthMultiplier', 1),
-				maxImageWidthOnBigScreen = this.get('maxWidthOnBigScreen'),
-				maxImageHeightOnBigScreen =
-					Math.min(maxImageWidthOnBigScreen * widthMultiplier, imageWidth * widthMultiplier);
+				result = [];
 
-			let src = this.get('image.url');
-
-			if (imageWidth > maxImageWidthOnBigScreen || imageHeight > maxImageHeightOnBigScreen) {
+			if (imageWidth > maxImageWidth * multiplier || imageHeight > maxImageHeight * multiplier) {
 				if (imageWidth > imageHeight) {
-					src = `${src}/${SCALE_WIDTH}/${maxImageWidthOnBigScreen}`;
+					result.push(this.generateLink(SCALE_WIDTH, maxImageWidth * multiplier, multiplier));
 				} else {
-					src = `${src}/${SCALE_HEIGHT}/${maxImageHeightOnBigScreen}`;
+					result.push(this.generateLink(SCALE_HEIGHT, maxImageHeight * multiplier, multiplier));
 				}
 			}
 
-			this.set('src', src);
+			return result;
+		},
+
+		/**
+		 * @private
+		 */
+		joinSources(sources) {
+			return sources.length === 0 ? this.get('image.url') : sources.join(', ');
 		},
 
 		actions: {
