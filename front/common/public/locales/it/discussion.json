@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Condividi le tue discussioni preferite con i social network per allargare la tua schiera di fan."
   },
   "main":{
+    "action-general-error":"Azione non riuscita, riprova per favore.",
     "discussions-header-title":"Discussioni",
     "pagination-post-show-more":"Risposte precedenti",
     "pagination-post-show-newer-replies":"Visualizza risposte più recenti",
@@ -94,6 +95,14 @@
     "reply-label":"Rispondi",
     "share-header":"Condividi post",
     "share-label":"Condividi",
+    "share-tooltip":"Condividi il tuo nuovo post qui",
+    "follow-error-anon-cant-follow":"Accedi per iniziare a seguire la discussione!",
+    "follow-error-anon-cant-see-followed-posts":"Accedi per vedere i tuoi post seguiti.",
+    "follow-label":"Segui",
+    "follow-tooltip":"Aggiungi alla lista di ciò che segui",
+    "follow-introducing-header":"Ti presentiamo Segui!",
+    "follow-introducing-text":"Rimani connesso con le discussioni che ti interessano più. Segui una discussione per ricevere notifiche di nuove attività e non perderti mai più nulla della conversazione.",
+    "follow-introducing-button-label":"OK, ho capito",
     "reported-not-found-error":"Nessun post o risposta segnalata",
     "categories-header":"Categorie",
     "categories-edit-label":"Modifica",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Dimensioni immagine: 1240x200<br>jpg, gif o png. Massimo 10mb",
     "image-save-failed":"Salvataggio non riuscito, riprovare.",
     "upload-image-button-text":"Carica immagine",
-    "category-select-tooltip-text":"Seleziona"
+    "category-select-tooltip-text":"Seleziona",
+    "tab-all":"Tutte",
+    "tab-following":"Seguite",
+    "no-followed-posts-header":"Benvenuto nella scheda Seguite.",
+    "no-followed-posts-text":"Fai clic sull'icona \"Segui\" in basso ad ogni post per aggiungerlo alla liste delle discussioni che ti interessano di più. Le aggiungeremo qui e ti informeremo in caso di nuove attività.",
+    "find-posts-to-follow":"Trova post da seguire"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",

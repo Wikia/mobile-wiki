@@ -17,6 +17,8 @@ export default DiscussionPostCardBaseComponent.extend(
 
 		routing: Ember.inject.service('-routing'),
 
+		shareDialogVisible: false,
+
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
@@ -49,6 +51,16 @@ export default DiscussionPostCardBaseComponent.extend(
 			const category = this.get('categories').findBy('id', this.get('post.categoryId'));
 
 			return category ? category.get('name') : null;
-		})
+		}),
+
+		actions: {
+			hideShareTooltip() {
+				this.set('shareTooltipSeen', true);
+			},
+
+			showShareDialog() {
+				this.set('shareDialogVisible', true);
+			}
+		}
 	}
 );

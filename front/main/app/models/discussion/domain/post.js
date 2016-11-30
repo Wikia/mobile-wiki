@@ -36,7 +36,6 @@ DiscussionPost.reopenClass({
 				// A hack to compensate for API sometimes returning numbers and sometimes strings
 				categoryId: String(data.forumId),
 				createdBy: DiscussionContributor.create(data.createdBy),
-				creationTimestamp: data.creationDate.epochSecond,
 				isDeleted: data.isDeleted,
 				isNew: data.isNew,
 				isReported: data.isReported,
@@ -78,6 +77,8 @@ DiscussionPost.reopenClass({
 
 		post.setProperties({
 			id: postData.id,
+			creationTimestamp: postData.creationDate.epochSecond,
+			isFollowed: Ember.get(postData, '_embedded.thread.0.isFollowed'),
 			isLocked: !get(postData, '_embedded.thread.0.isEditable'),
 			repliesCount: parseInt(get(postData, '_embedded.thread.0.postCount'), 10),
 			threadId: postData.threadId
@@ -98,6 +99,8 @@ DiscussionPost.reopenClass({
 
 		post.setProperties({
 			id: threadData.firstPostId,
+			creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
+			isFollowed: threadData.isFollowed,
 			isLocked: !threadData.isEditable,
 			lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
 			permalinkedReplyId: threadData.permalinkedReplyId,
@@ -106,6 +109,15 @@ DiscussionPost.reopenClass({
 		});
 
 		return post;
+	},
+
+	/**
+	 * Gets timestamp from date that can be iso string or epoch object
+	 * @param {string|object} date
+	 * @returns {number} - timestamp
+	 */
+	getThreadDataTimestamp(date) {
+		return typeof date === 'string' ? (new Date(date)).getTime() / 1000 : date.epochSecond;
 	}
 });
 

@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import {track, trackActions} from '../utils/discussion-tracker';
+import AlertNotificationsMixin from './alert-notifications';
 import DiscussionPost from '../models/discussion/domain/post';
 import DiscussionReply from '../models/discussion/domain/reply';
 import OpenGraph from '../models/discussion/domain/open-graph';
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(AlertNotificationsMixin, {
 	/**
 	 * Create new post in Discussion Service
 	 * @param {Object} postData
@@ -164,6 +165,55 @@ export default Ember.Mixin.create({
 			entity.set('userData.hasUpvoted', hasUpvoted);
 		}).finally(() => {
 			this.upvotingInProgress[entityId] = false;
+		});
+	},
+
+	/**
+	 *
+	 * @param {Object} user
+	 * @param {*} entity
+	 * @returns {void}
+	 */
+	follow(user, entity) {
+		const id = entity.get('threadId');
+
+		if (!this.followingInProgress[id]) {
+			this.followingInProgress[id] = true;
+			this.commenceFollow(user, entity).finally(() => {
+				this.followingInProgress[id] = undefined;
+			});
+		}
+	},
+
+	/**
+	 * @private
+	 *
+	 * @param {Object} user
+	 * @param {*} entity
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	commenceFollow(user, entity) {
+		const type = 'discussion-thread',
+			endpoint = `/followers/${user.get('userId')}/type/${type}/items/${entity.get('threadId')}`,
+			isFollowed = entity.get('isFollowed'),
+			method = isFollowed ? 'delete' : 'put';
+
+		entity.set('isFollowed', !isFollowed);
+
+		return request(M.getFollowingServiceUrl(endpoint), {
+			data: JSON.stringify({
+				siteId: Mercury.wiki.id
+			}),
+			method
+		}).then((data) => {
+			track(isFollowed ? trackActions.UnfollowPost : trackActions.FollowPost);
+		}).catch(() => {
+			entity.set('isFollowed', isFollowed);
+			this.addAlert({
+				message: i18n.t('main.action-general-error', {ns: 'discussion'}),
+				type: 'discussions-action-failed',
+				expiry: 3000
+			});
 		});
 	},
 

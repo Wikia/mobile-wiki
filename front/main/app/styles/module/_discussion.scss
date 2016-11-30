@@ -16,7 +16,6 @@ $post-title-line-height: 1.5rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
-$post-details-post-vertical-padding: 12px;
 $post-details-post-width: 560px;
 $post-details-reply-upvote-margin-left: 10px;
 $post-details-reply-upvote-width: 12px;
@@ -73,11 +72,6 @@ body.discussions {
 
 	&.delete, &.undelete {
 		height: 19px;
-		width: 16px;
-	}
-
-	&.eye {
-		height: 12px;
 		width: 16px;
 	}
 
@@ -274,7 +268,6 @@ body.discussions {
 			font-size: $type-min;
 			font-weight: $font-weight-medium;
 			height: 33px;
-			justify-content: center;
 			line-height: 33px;
 			text-align: center;
 
@@ -287,7 +280,26 @@ body.discussions {
 					height: 24px;
 					width: 24px;
 				}
+				&.follow {
+					height: 16px;
+					width: 16px;
+					margin-right: 3px;
+				}
 			}
+		}
+
+		.upvote-area {
+			justify-content: flex-start;
+			margin-left: 9px;
+		}
+
+		.replies-area {
+			justify-content: center;
+		}
+
+		.follow-area {
+			justify-content: flex-end;
+			margin-right: 12px;
 		}
 	}
 
@@ -349,7 +361,9 @@ body.discussions {
 		position: relative;
 
 		&.show-top-note {
-			padding-top: 0;
+			.post-header {
+				padding-top: 0;
+			}
 		}
 
 		&.is-new {
@@ -537,8 +551,9 @@ body.discussions {
 			padding: 13px 0;
 		}
 
-		span {
-			margin-left: 2px;
+		svg {
+			fill: $discussion-actions-color;
+			margin-right: 3px;
 			vertical-align: middle;
 		}
 	}
@@ -551,7 +566,11 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		padding: 12px 0 0;
+		padding: 0;
+
+		.post-header {
+			padding-top: 12px;
+		}
 
 		.timestamp {
 			font-size: $type-smallest;
@@ -575,16 +594,11 @@ body.discussions {
 	}
 
 	.load-more-button {
-		border-style: solid;
-		border-width: 1px;
+		@extend %discussion-large-button;
 		display: block;
-		font-size: $type-min;
-		font-weight: $font-weight-bold;
-		letter-spacing: 0.3px;
 		line-height: 50px;
+		padding: 0;
 		margin: 30px 15px 0;
-		text-align: center;
-		text-transform: uppercase;
 
 		&.top-list-button {
 			background-color: $discussion-top-list-button-color;
@@ -710,6 +724,12 @@ body.discussions {
 	}
 }
 
+.post-details-view {
+	.post-actions {
+		position: relative;
+	}
+}
+
 @media #{$desktop-range} {
 	.discussion {
 		background-color: transparent;
@@ -724,10 +744,16 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				padding: 20px 0 0;
+				padding: 0;
+
+				.post-header {
+					padding-top: 20px;
+				}
 
 				&.show-top-note {
-					padding-top: 0;
+					.post-header {
+						padding-top: 0;
+					}
 				}
 			}
 		}
@@ -754,16 +780,13 @@ body.discussions {
 				background-color: transparent;
 				border-bottom: 1px solid $discussion-reply-border-color;
 				margin: auto;
-				padding: {
-					bottom: 0;
-					left: 0;
-					right: 0;
-					top: $post-details-post-vertical-padding;
-				}
+				padding: 0;
 				width: $post-details-outer-width;
 
 				&.show-top-note {
-					padding-top: 0;
+					.post-header {
+						padding-top: 0;
+					}
 				}
 
 				.side-spaced {
@@ -795,6 +818,18 @@ body.discussions {
 			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
+			}
+		}
+
+		.post-actions {
+			.upvote-area {
+				justify-content: center;
+				margin-left: 0;
+			}
+
+			.follow-area {
+				justify-content: center;
+				margin-right: 0;
 			}
 		}
 
@@ -887,8 +922,8 @@ body.discussions {
 		}
 
 		.side-spaced {
-			padding-left: 18px;
-			padding-right: 18px;
+			padding-left: 12px;
+			padding-right: 12px;
 		}
 	}
 }
@@ -900,10 +935,6 @@ body.discussions {
 
 	.extra-large-6 {
 		width: 60%;
-	}
-
-	.discussion-sort {
-		width: $discussion-large-page-width;
 	}
 
 	.discussion {

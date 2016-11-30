@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Teile deine Lieblingsdiskussionen mit deinen Sozialen Netzwerken und vergrößere damit unsere Fan-Community."
   },
   "main":{
+    "action-general-error":"Die Aktion konnte nicht ausgeführt werden, bitte versuche es noch einmal.",
     "discussions-header-title":"Diskussionen",
     "pagination-post-show-more":"Ältere Antworten anzeigen",
     "pagination-post-show-newer-replies":"Neuere Antworten anzeigen",
@@ -94,6 +95,14 @@
     "reply-label":"Antworten",
     "share-header":"Beitrag teilen",
     "share-label":"Teilen",
+    "share-tooltip":"Teile hier deinen neuen Beitrag",
+    "follow-error-anon-cant-follow":"Melde dich an, um der Diskussion zu folgen!",
+    "follow-error-anon-cant-see-followed-posts":"Melde dich an, um die Beiträge zu sehen, denen du folgst.",
+    "follow-label":"Folgen",
+    "follow-tooltip":"Zur Liste der gefolgten Beiträge hinzufügen",
+    "follow-introducing-header":"Die neue „Folgen“-Funktion!",
+    "follow-introducing-text":"Verliere die Diskussionen, die dir besonders am Herzen liegen, nicht aus den Augen. Folge einer Diskussion und du erhältst Benachrichtigungen, wenn es neue Aktivitäten gibt und verpasst so nichts mehr.",
+    "follow-introducing-button-label":"Ok, verstanden",
     "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten.",
     "categories-header":"Kategorien",
     "categories-edit-label":"Bearbeiten",
@@ -132,7 +141,12 @@
     "edit-hero-unit-hint-text":"Bildabmessungen: 1240 x 200 <br>Jpg, Gif oder Png. 10MB Limit",
     "image-save-failed":"Speichern war nicht möglich, bitte versuche es noch einmal.",
     "upload-image-button-text":"Bild hochladen",
-    "category-select-tooltip-text":"Wähle"
+    "category-select-tooltip-text":"Wähle",
+    "tab-all":"Alle",
+    "tab-following":"Verfolgt",
+    "no-followed-posts-header":"Willkommen auf dem Tab „Verfolgt“.",
+    "no-followed-posts-text":"Klicke auf das Symbol „Folgen“ am Ende eines beliebigen Beitrags, um deine Liste mit den Diskussionen zu füllen, die dir am wichtigsten sind. Wir stellen sie hier ein und geben dir Bescheid, wenn es etwas Neues gibt.",
+    "find-posts-to-follow":"Finde Beiträge, denen du folgen möchtest"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
