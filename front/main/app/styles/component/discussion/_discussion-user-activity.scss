@@ -41,7 +41,6 @@
 	border-bottom: 1px solid $discussion-user-activity-toggle-border-bottom-color;
 	display: flex;
 	justify-content: space-between;
-	overflow-x: auto;
 }
 
 .user-activity-options {
@@ -108,5 +107,9 @@
 @media #{$mobile-range} {
 	.user-activity-main-content {
 		padding-top: 18px;
+	}
+
+	.discussion-user-activity-toggle {
+		overflow-x: auto;
 	}
 }

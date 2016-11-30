@@ -25,6 +25,12 @@
 		height: 18px;
 		width: 18px;
 	}
+
+	.wds-dropdown__content {
+		min-width: 100px;
+		left: initial;
+		right: 0;
+	}
 }
 
 .discussion-header {
