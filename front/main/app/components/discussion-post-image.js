@@ -9,11 +9,13 @@ export default Component.extend(
 	ViewportMixin,
 	{
 		/**
+		 * Important !!! Please adjust those values when breakpoints change.
+		 * Desktop breakpoint is the same as middle mobile breakpoint. It would be enough to set it to 640.
+		 * However to not hold too much images in static assets, breakpoint was repeated.
 		 * @private
 		 */
-		// Important !!! Please adjust those values when breakpoints change.
 		breakpoints: {
-			desktop: 640,
+			desktop: 767,
 			mobile: [420, 767, 1063]
 		},
 
