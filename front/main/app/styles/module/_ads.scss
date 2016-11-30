@@ -250,8 +250,11 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	width: 15%;
 
 	.speaker {
+		background-color: #fff;
+		border-radius: 50%;
 		display: inline-block;
 		height: 30px;
+		opacity: 0.5;
 		overflow: hidden;
 		position: relative;
 		width: 30px;
