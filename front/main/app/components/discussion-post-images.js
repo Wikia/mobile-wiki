@@ -23,7 +23,7 @@ export default Component.extend({
 	 * @public
 	 * @type {String}
 	 *
-	 * Component supports two modes:
+	 * Component supports modes:
 	 * - 'compact' - shows only first image
 	 * - 'edit' - shows all images and adds trash icon
 	 * - 'full' - shows all images and displays image lightbox when image is clicked
