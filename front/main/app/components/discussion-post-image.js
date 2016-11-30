@@ -158,33 +158,41 @@ export default Component.extend(
 				sources = this.get('sources');
 
 			this.get('breakpoints.mobile').forEach(breakpoint => {
-				const media = `(max-width: ${breakpoint}px)`;
+				const media = `(max-width: ${breakpoint}px)`,
+					operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH,
+					multiplier = 2;
 
-				let src = [],
-					croppedSrc = [];
+				let srcs = this.generateSourceFragment(operation, breakpoint),
+					croppedSrcs = this.generateSourceFragment(SCALE_WIDTH, breakpoint);
 
-				if (Math.max(imageWidth, imageHeight) > breakpoint) {
-					const operation = imageHeight > imageWidth ? SCALE_HEIGHT : SCALE_WIDTH,
-						multiplier = 2;
-
-					src.push(this.generateLink(operation, breakpoint));
-					croppedSrc.push(this.generateLink(SCALE_WIDTH, breakpoint));
-
-					if (Math.max(imageWidth, imageHeight) > breakpoint * multiplier) {
-						src.push(this.generateLink(operation, breakpoint * multiplier, multiplier));
-						croppedSrc.push(this.generateLink(SCALE_WIDTH, breakpoint * multiplier, multiplier));
-					}
-				}
+				srcs = srcs.concat(this.generateSourceFragment(operation, breakpoint, multiplier));
+				croppedSrcs = croppedSrcs.concat(this.generateSourceFragment(SCALE_WIDTH, breakpoint, multiplier));
 
 				sources.push({
 					media,
-					src: this.joinSources(src)
+					src: this.joinSources(srcs)
 				});
 				croppedSources.push({
 					media,
-					src: this.joinSources(croppedSrc)
+					src: this.joinSources(croppedSrcs)
 				});
 			});
+		},
+
+		/**
+		 * @private
+		 * @returns {Array}
+		 */
+		generateSourceFragment(operation, breakpoint, multiplier = 1) {
+			const imageHeight = this.get('image.height'),
+				imageWidth = this.get('image.width'),
+				result = [];
+
+			if (Math.max(imageWidth, imageHeight) > breakpoint * multiplier) {
+				result.push(this.generateLink(operation, breakpoint * multiplier, multiplier));
+			}
+
+			return result;
 		},
 
 		/**
@@ -229,6 +237,7 @@ export default Component.extend(
 
 		/**
 		 * @private
+		 * @param {Array} sources
 		 */
 		joinSources(sources) {
 			return sources.length === 0 ? this.get('image.url') : sources.join(', ');
