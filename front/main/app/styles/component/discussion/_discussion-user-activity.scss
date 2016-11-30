@@ -3,7 +3,7 @@
 }
 
 .user-activity-title {
-	color: #999;
+	color: $discussion-user-activity-title-color;
 	font-size: 12px;
 	font-weight: bold;
 	line-height: 12px;
@@ -30,7 +30,7 @@
 		}
 
 		h2 {
-			color: #333;
+			color: $discussion-user-activity-community-avatar-color;
 			font-size: 18px;
 			margin-bottom: 8px;
 		}
@@ -38,7 +38,7 @@
 }
 
 .discussion-user-activity-toggle {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid $discussion-user-activity-toggle-border-bottom-color;
 	display: flex;
 	justify-content: space-between;
 	overflow-x: auto;
@@ -58,7 +58,7 @@
 	a,
 	a:active,
 	a:visited {
-		color: #999;
+		color: $discussion-user-activity-toggle-option-color;
 		flex-grow: 0;
 		flex-shrink: 0;
 		font-size: 12px;
@@ -70,8 +70,8 @@
 		text-transform: uppercase;
 
 		&.active {
-			border-bottom: 2px solid #006cb0;
-			color: #006cb0;
+			border-bottom: 2px solid $discussion-user-activity-toggle-active-option-color;
+			color: $discussion-user-activity-toggle-active-option-color;
 		}
 	}
 }
@@ -79,6 +79,7 @@
 .discussion-user-activity-glossary {
 	h5,
 	p {
+		color: $discussion-user-activity-glossary-text-color;
 		font-size: 14px;
 		line-height: 18px;
 		margin: 0;
@@ -93,7 +94,7 @@
 	}
 
 	legend {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid $discussion-user-activity-glossary-legend-color;
 		font-size: 18px;
 		font-weight: normal;
 		padding: 10px 0;
