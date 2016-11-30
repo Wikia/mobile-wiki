@@ -14,12 +14,7 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: Ember.inject.service(),
 
 		beforeModel(transition) {
-			const page = transition.queryParams.page;
-
-			if (!this.isProperPageParam(page)) {
-				transition.queryParams.page = 1;
-				this.refresh();
-			}
+			this.pageParamValidation(transition);
 		},
 
 		/**

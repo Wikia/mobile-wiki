@@ -14,12 +14,7 @@ export default DiscussionBaseRoute.extend(
 		userId: null,
 
 		beforeModel(transition) {
-			const page = transition.queryParams.page;
-
-			if (!this.isProperPageParam(page)) {
-				transition.queryParams.page = 1;
-				this.refresh();
-			}
+			this.pageParamValidation(transition);
 		},
 
 		/**

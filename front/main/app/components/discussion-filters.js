@@ -16,9 +16,7 @@ export default Ember.Component.extend(
 		showApplyButton: false,
 		showSortSection: false,
 
-		trendingDisabled: Ember.computed('onlyReported', function () {
-			return this.get('onlyReported') === true ? 'disabled' : false;
-		}),
+		canShowReportedFilter: Ember.computed.and('showReportedFilter', 'canModerate'),
 
 		/**
 		 * @returns {boolean}

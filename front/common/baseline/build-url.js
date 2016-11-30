@@ -139,6 +139,14 @@ if (typeof window.M === 'undefined') {
 	 * @param {string} [path='']
 	 * @returns {string}
 	 */
+	M.getFollowingServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('followingBaseRoute')}${path}`;
+	};
+
+	/**
+	 * @param {string} [path='']
+	 * @returns {string}
+	 */
 	M.getOpenGraphServiceUrl = function (path = '') {
 		return `https://${M.prop('servicesDomain')}/${M.prop('openGraphBaseRoute')}${path}`;
 	};
