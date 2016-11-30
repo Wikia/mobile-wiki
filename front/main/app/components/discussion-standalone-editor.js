@@ -42,6 +42,10 @@ export default DiscussionMultipleInputsEditor.extend(
 			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
 		}),
 
+		editImagePermitted: computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
+			return this.get('isEdit') && this.get('editEntity.userData.permissions.canEdit');
+		}),
+
 		images: computed('editEntity.contentImages.images', function () {
 			const images = this.get('editEntity.contentImages.images'),
 				copy = new A();

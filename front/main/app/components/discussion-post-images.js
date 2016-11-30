@@ -8,6 +8,11 @@ export default Component.extend({
 
 	/**
 	 * @public
+	 */
+	permittedToEdit: false,
+
+	/**
+	 * @public
 	 * @type {Ember.Array}
 	 *
 	 * Array containing images objects
@@ -28,7 +33,9 @@ export default Component.extend({
 	/**
 	 * @private
 	 */
-	areEditorToolsVisible: computed.equal('mode', 'edit'),
+	areEditorToolsVisible: computed('mode', 'permittedToEdit', function () {
+		return this.get('mode') === 'edit' && this.get('permittedToEdit');
+	}),
 
 	/**
 	 * @private
