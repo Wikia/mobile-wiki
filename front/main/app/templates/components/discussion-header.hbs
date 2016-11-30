@@ -24,15 +24,16 @@
 
 			{{#pop-over for=discussionMobileFilterId on='click' flow='downCentered' class='filters-popover'}}
 				{{discussion-filters
-					applyFilters=(action this.attrs.applyFilters)
-					canModerate=canModerate
-					categories=categories
-					showApplyButton=true
-					showSortSection=true
-					updateCategories=(action this.attrs.updateCategories)
-					showReportedFilter=true
-					showSortSection=true
-					validatePostsOnForum=(action this.attrs.validatePostsOnForum)
+						applyFilters=(action this.attrs.applyFilters)
+						canModerate=canModerate
+						categories=categories
+						isCategoryFilterDisabled=isCategoryFilterDisabled
+						isSortingDisabled=isSortingDisabled
+						showApplyButton=true
+						showReportedFilter=showReportedFilter
+						showSortSection=true
+						updateCategories=(action this.attrs.updateCategories)
+						validatePostsOnForum=(action this.attrs.validatePostsOnForum)
 				}}
 			{{/pop-over}}
 		{{/if}}

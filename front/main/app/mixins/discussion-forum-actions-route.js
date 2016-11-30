@@ -8,6 +8,16 @@ export default Ember.Mixin.create(
 				refreshModel: false
 			},
 		},
+
+		pageParamValidation(transition) {
+			const page = transition.queryParams.page;
+
+			if (!this.isProperPageParam(page)) {
+				transition.queryParams.page = 1;
+				this.refresh();
+			}
+		},
+
 		/**
 		 * When no category is selected, previous categories, present in local
 		 * storage are removed to enable transition to route without categories.

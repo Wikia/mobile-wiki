@@ -189,6 +189,9 @@ export default {
 	discussions: {
 		baseAPIPath: 'discussion'
 	},
+	following: {
+		baseAPIPath: 'following'
+	},
 	openGraph: {
 		baseAPIPath: 'opengraph'
 	},
