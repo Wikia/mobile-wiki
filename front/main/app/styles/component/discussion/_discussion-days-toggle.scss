@@ -1,0 +1,47 @@
+.discussion-days-toggle {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	.time-range-toggle {
+		color: #999;
+		margin: 0 0 0 15px;
+		padding: 0 0 0 10px;
+	}
+
+	.wds-dropdown {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.wds-dropdown__toggle {
+		display: flex;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.wds-icon {
+		height: 18px;
+		width: 18px;
+	}
+}
+
+.discussion-header {
+	.discussion-days-toggle {
+		float: right;
+		height: 100%;
+
+		.wds-dropdown__toggle-chevron {
+			margin-left: 0;
+			margin-right: 5px;
+		}
+
+		.wds-dropdown__content {
+			color: #666;
+			left: initial;
+			min-width: 100px;
+			right: 0;
+		}
+	}
+}

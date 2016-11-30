@@ -14,6 +14,10 @@ export default DiscussionBaseController.extend(
 			}
 		},
 
+		days: null,
+
+		queryParams: ['days'],
+
 		parentController: Ember.inject.controller('discussion.moderator.user-activity'),
 
 		actions: {

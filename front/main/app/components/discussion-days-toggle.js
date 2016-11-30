@@ -5,9 +5,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['discussion-days-toggle'],
 
-		isDropdownActive: false,
-
-		days: 30,
+		days: null,
 
 		actions: {
 			toggleDropdown() {
@@ -15,7 +13,6 @@ export default Ember.Component.extend(
 			},
 
 			setDays(days) {
-				this.set('days', days);
 				this.sendAction('setDays', days);
 				this.send('toggleDropdown');
 			}

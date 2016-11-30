@@ -2,6 +2,7 @@
 		applyFilters=(action 'applyFilters')
 		attributes=model.index.attributes.data
 		canShowReportedPostsFilter=model.current.data.canModerate
+		days=days
 		model=model.current.data
 		setDays=(action 'setDays')
 		setEditorActive=(action 'setEditorActive')
@@ -10,7 +11,7 @@
 		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 		validatePostsOnForum=(action 'validatePostsOnForum')
 }}
-	<div class="scrollable-horizontally user-activity">
+	<div class="discussion-user-activity">
 		{{#if responsive.isMobile}}
 			{{discussion-community-badge
 				badgeImage=model.index.attributes.badgeImage
@@ -21,8 +22,9 @@
 			<p class="user-activity-title">{{i18n 'user-activity.hero-unit-subtitle' ns='discussion'}}</p>
 		{{/if}}
 		{{discussion-user-activity-toggle
+			days=days
 			setDays=(action 'setDays')
 		}}
-		{{outlet}}
 	</div>
+	{{outlet}}
 {{/discussion-user-activity-layout}}

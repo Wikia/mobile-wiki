@@ -1,23 +1,5 @@
-.discussion-header {
-	.discussion-days-toggle {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-}
-
 .user-activity-main-content {
 	padding-top: 37px;
-}
-
-.scrollable-horizontally {
-	overflow-x: auto;
-}
-
-.discussion-days-toggle {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 .user-activity-title {
@@ -30,7 +12,7 @@
 	width: 100%;
 }
 
-.user-activity {
+.discussion-user-activity {
 	.community-badge {
 		align-items: center;
 		display: flex;
@@ -59,29 +41,7 @@
 	border-bottom: 1px solid #ccc;
 	display: flex;
 	justify-content: space-between;
-
-	.time-range-toggle {
-		color: #999;
-		margin: 0 0 0 15px;
-		padding: 0 0 0 10px;
-	}
-
-	.wds-dropdown {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.wds-dropdown__toggle {
-		display: flex;
-		font-size: 12px;
-		line-height: 16px;
-	}
-
-	.wds-icon {
-		height: 18px;
-		width: 18px;
-	}
+	overflow-x: auto;
 }
 
 .user-activity-options {
