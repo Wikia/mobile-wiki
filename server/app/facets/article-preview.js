@@ -1,7 +1,7 @@
 import {PageRequestHelper} from '../lib/mediawiki-page';
 import {disableCache} from '../lib/caching';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/utils';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
 
@@ -40,12 +40,12 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 		// required in server-data.hbs
 		userId: 0,
 		server: {
-			cdnBaseUrl: getCDNBaseUrl(localSettings)
+			cdnBaseUrl: getCDNBaseUrl(settings)
 		},
 		// required for UniversalAnalytics to work
-		tracking: localSettings.tracking,
-		// clone object to avoid overriding real localSettings for future requests
-		localSettings: deepExtend({}, localSettings),
+		tracking: settings.tracking,
+		// clone object to avoid overriding real settings for future requests
+		settings: deepExtend({}, settings),
 		isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl',
 		preview: true
 	};
@@ -57,7 +57,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
  * @returns {void}
  */
 export default function articlePreview(request, reply) {
-	const wikiDomain = getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(settings, request),
 		params = {
 			wikiDomain,
 			wikitext: request.payload.wikitext || '',

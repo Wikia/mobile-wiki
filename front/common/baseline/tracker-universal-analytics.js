@@ -73,7 +73,7 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Initialize an additional account or property
 	 *
-	 * @param {string} trackerName - The name of the account as specified in localSettings
+	 * @param {string} trackerName - The name of the account as specified in settings
 	 * @returns {void}
 	 */
 	function initAccount(trackerName) {

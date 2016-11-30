@@ -1,6 +1,6 @@
 import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
-import localSettings from '../../../config/localSettings';
+import settings from '../../../config/settings';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import {format} from 'url';
@@ -31,7 +31,7 @@ export default function get(request, reply) {
 			pageType: 'join-page',
 			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			pageParams: {
-				facebookAppId: localSettings.facebook.appId
+				facebookAppId: settings.facebook.appId
 			}
 		}
 	);

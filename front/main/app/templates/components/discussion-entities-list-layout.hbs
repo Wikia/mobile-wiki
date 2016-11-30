@@ -8,6 +8,9 @@
 			hasFilters=true
 			hasNewPostButton=hasNewPostButton
 			hasSiteName=true
+			isCategoryFilterDisabled=isCategoryFilterDisabled
+			isSortingDisabled=isSortingDisabled
+			showReportedFilter=canShowReportedPostsFilter
 			setEditorActive=(action this.attrs.setEditorActive)
 			smartBannerVisible=smartBannerVisible
 			updateCategories=(action this.attrs.updateCategories)
@@ -22,6 +25,7 @@
 	headerText=dialogHeaderText
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
+	redirectUrl=redirectUrl
 }}
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
@@ -45,6 +49,7 @@
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
+						disabled=isCategoryFilterDisabled
 						triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
@@ -53,11 +58,17 @@
 					}}
 				{{/if}}
 			{{/if}}
-			{{#if model.canModerate}}
+			{{#if canShowReportedPostsFilter}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
+					topDecoration=reportedFilterTopDecoration
 				}}
 			{{/if}}
+			{{discussion-sort
+					disabled=isSortingDisabled
+					sortBy=sortBy
+					setSortBy=(action 'setSortBy')
+			}}
 		</div>
 		<div class="small-12 large-6 extra-large-6 columns">
 			{{yield}}

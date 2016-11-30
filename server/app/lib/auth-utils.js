@@ -4,7 +4,7 @@
 
 import url from 'url';
 import querystring from 'querystring';
-import localSettings from '../../config/localSettings';
+import settings from '../../config/settings';
 import authLocaleSettings from '../../config/authLocaleSettings.js';
 
 /**
@@ -78,8 +78,8 @@ export function getRedirectUrlWithQueryString(route, request) {
 export function getHeliosUrl(path) {
 	return url.format({
 		protocol: 'https',
-		host: localSettings.servicesDomain,
-		pathname: localSettings.helios.path + path
+		host: settings.servicesDomain,
+		pathname: settings.helios.path + path
 	});
 }
 
@@ -90,7 +90,7 @@ export function getHeliosUrl(path) {
  * @returns {string}
  */
 export function getHeliosInternalUrl(path, query) {
-	const heliosUrlObj = url.parse(localSettings.helios.internalUrl);
+	const heliosUrlObj = url.parse(settings.helios.internalUrl);
 
 	heliosUrlObj.pathname = path;
 	heliosUrlObj.search = querystring.stringify(query);
@@ -105,8 +105,8 @@ export function getHeliosInternalUrl(path, query) {
 export function getUserRegistrationUrl(path) {
 	return url.format({
 		protocol: 'https',
-		host: localSettings.servicesDomain,
-		pathname: localSettings.userRegistationService.path + path
+		host: settings.servicesDomain,
+		pathname: settings.userRegistationService.path + path
 	});
 }
 
@@ -117,8 +117,8 @@ export function getUserRegistrationUrl(path) {
 export function getUserPreferencesUrl(path) {
 	return url.format({
 		protocol: 'https',
-		host: localSettings.servicesDomain,
-		pathname: localSettings.userPreferencesService.baseAPIPath + path
+		host: settings.servicesDomain,
+		pathname: settings.userPreferencesService.baseAPIPath + path
 	});
 }
 
@@ -128,8 +128,8 @@ export function getUserPreferencesUrl(path) {
 export function getWhoAmIUrl() {
 	return url.format({
 		protocol: 'https',
-		host: localSettings.servicesDomain,
-		pathname: localSettings.whoAmIService.path
+		host: settings.servicesDomain,
+		pathname: settings.whoAmIService.path
 	});
 }
 

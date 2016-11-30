@@ -1,41 +1,97 @@
 .discussion-sort {
-	background-color: transparent;
-	box-shadow: none;
-	list-style-type: none;
-	margin: 17px auto 10px;
-	padding: 0;
-	text-align: center;
-	width: $discussion-page-width;
+	.sort-options {
+		list-style: none;
+		margin-left: 0;
 
-	li {
-		border-bottom: 4px solid;
-		cursor: pointer;
-		float: left;
-		font-size: $type-base;
-		font-weight: $font-weight-bold;
-		height: 50px;
-		line-height: 50px;
-		width: 50%;
+		.sort-option {
+			clear: left;
+			color: $discussion-filters-color;
+			width: 100%;
 
-		&.not-active {
-			border-bottom-color: $discussion-sort-color;
-			color: $discussion-sort-color;
+			.sort-option-label {
+				display: flex;
+				flex-direction: row;
+				margin-left: 0;
+
+				.radio-fancy {
+					@include discussion-radio-fancy(14px);
+					margin: 2px 9px 0 0;
+				}
+			}
 		}
 	}
 
 	&.no-trending {
 		li {
 			&.sort-trending {
-				border-bottom-color: $discussion-sort-inactive-color;
-				color: $discussion-sort-inactive-color;
+				opacity: 0.5;
 				pointer-events: none;
 			}
 		}
 	}
+
+	.bullet {
+		display: none;
+	}
+
+	:disabled {
+		.sort-options {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	}
 }
 
-@media #{$large-desktop-range} {
-	.discussion-forum-tabs {
-		width: $discussion-large-page-width;
+@media #{$mobile-range} {
+	.discussion-sort {
+		margin-bottom: .75rem;
+		margin-top: .75rem;
+
+		.discussion-filter-header {
+			border-bottom: none;
+			color: $discussion-filters-color;
+			font-size: $type-base;
+			font-weight: $font-weight-bold;
+			line-height: $line-height-min;
+			margin-bottom: 0;
+		}
+
+		.discussion-fieldset {
+			margin-top: 0;
+		}
+
+		.sort-options {
+			list-style: none;
+
+			.sort-option {
+				border-bottom: 1px solid $discussion-filters-border;
+				clear: left;
+				color: $discussion-filters-color;
+				height: 48px;
+				width: 100%;
+
+				.sort-option-label {
+					line-height: 24px;
+					padding-top: 15px;
+
+					.radio-fancy {
+						height: 18px;
+						width: 18px;
+
+						.inside {
+							border-color: $discussion-filters-bullet-active-border;
+							height: 16px;
+							width: 16px;
+						}
+					}
+				}
+
+				&.sort-trending {
+					border-bottom: none;
+				}
+			}
+		}
+
+
 	}
 }

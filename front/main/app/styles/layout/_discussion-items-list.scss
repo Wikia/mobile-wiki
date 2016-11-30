@@ -36,6 +36,14 @@ $discussion-lists-post-margin-bottom: 10px;
 	}
 }
 
+.discussion {
+	&.forum {
+		&.discussion-reported-posts {
+			margin-top: 30px;
+		}
+	}
+}
+
 @media #{$mobile-range} {
 	.discussion-user-list,
 	.discussion-reported-posts {

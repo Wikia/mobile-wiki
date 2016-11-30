@@ -1,7 +1,7 @@
 QUnit.module('lib/hashing');
 
 QUnit.test('gaUserIdHash', function (assert) {
-	global.localSettings.default.gaUserSalt = 'foo';
+	global.settings.default.gaUserSalt = 'foo';
 
 	assert.equal(
 		global.gaUserIdHash(0),

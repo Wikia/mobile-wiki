@@ -236,6 +236,18 @@ body.dark-theme {
 		.empty-forum-message {
 			border-color: $dark-discussion-empty-forum-message-border-color;
 		}
+
+		.no-followed-posts {
+			color: $dark-discussion-no-followed-posts-color;
+
+			h6 {
+				color: $dark-discussion-no-followed-posts-header-color;
+			}
+
+			.follow-xl-icon {
+				fill: $dark-discussion-no-followed-posts-header-color;
+			}
+		}
 	}
 
 	.discussion-community-unit {
@@ -541,20 +553,11 @@ body.dark-theme {
 			}
 		}
 
-		.discussion-sort {
+		.discussion-forum-tabs {
 			li {
 				&.not-active {
 					border-bottom-color: $dark-discussion-sort-color;
 					color: $dark-discussion-sort-color;
-				}
-			}
-
-			&.no-trending {
-				li {
-					&.sort-trending {
-						border-bottom-color: $dark-discussion-sort-inactive-color;
-						color: $dark-discussion-sort-inactive-color;
-					}
 				}
 			}
 		}
@@ -605,6 +608,20 @@ body.dark-theme {
 
 		.categories-edit-info-message {
 			color: $dark-discussion-content-color;
+		}
+	}
+
+	.discussion-sort {
+		.sort-options {
+			.sort-option {
+				.sort-option-label {
+					.radio-fancy {
+						.inside {
+							border-color: $dark-body-background;
+						}
+					}
+				}
+			}
 		}
 	}
 
