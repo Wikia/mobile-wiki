@@ -5,7 +5,24 @@
 		margin-top: 9px;
 
 		@media #{$desktop-range} {
+			margin-top: 11px;
 			margin-bottom: 18px;
+		}
+	}
+}
+
+.post-details-view {
+	.post-images {
+		.post-image {
+			margin-top: 7px;
+		}
+	}
+}
+
+.post-reply {
+	.post-images {
+		.post-image {
+			margin-top: 4px;
 		}
 	}
 }
