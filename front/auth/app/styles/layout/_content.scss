@@ -31,6 +31,11 @@
 		min-width: 200px;
 		max-width: 350px;
 		width: calc(50% - 50px);
+
+		&-wide {
+			max-width: 454px;
+			width: calc(100% - 50px);
+		}
 	}
 }
 

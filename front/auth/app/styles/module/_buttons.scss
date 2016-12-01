@@ -22,3 +22,9 @@ button[type='submit'][disabled] {
 	border-color: $form-submit-background-color;
 	color: $form-submit-color;
 }
+
+.desktop-view {
+	.form-submit-wide[type='submit'] {
+		max-width: 296px;
+	}
+}
