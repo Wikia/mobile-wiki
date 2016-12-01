@@ -99,29 +99,32 @@
 
 @media #{$mobile-range} {
 	.discussion-user-activity-list {
-		padding-left: 15px;
-		padding-right: 15px;
-	}
+		padding-left: 12px;
+		padding-right: 12px;
 
-	.user-avatar {
-		figure {
-			&.avatar {
-				img, svg {
-					height: 30px;
-					width: 30px;
+		.row {
+			height: 50px;
+		}
+
+		.user-avatar {
+			figure {
+				&.avatar {
+					img, svg {
+						height: 30px;
+						width: 30px;
+					}
+				}
+			}
+
+			.user-avatar-badge {
+				left: 6px;
+				top: 6px;
+
+				svg {
+					height: 15px;
+					width: 15px;
 				}
 			}
 		}
-
-		.user-avatar-badge {
-			left: 6px;
-			top: 6px;
-
-			svg {
-				height: 15px;
-				width: 15px;
-			}
-		}
 	}
-
 }
