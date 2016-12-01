@@ -64,7 +64,7 @@
 			{{/if}}
 			{{{parsedContent}}}
 		</div>
-		{{#if post.contentImages}}
+		{{#if post.contentImages.images}}
 			{{discussion-post-images
 				images=post.contentImages.images
 				mode='full'
@@ -80,7 +80,7 @@
 			{{/if}}
 			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
-		{{#if post.contentImages}}
+		{{#if post.contentImages.images}}
 			<a href="{{href-to 'discussion.post' post.threadId}}">
 				{{discussion-post-images
 					cropImages=responsive.isMobile
