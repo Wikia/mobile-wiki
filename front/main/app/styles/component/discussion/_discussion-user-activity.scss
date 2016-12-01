@@ -1,5 +1,5 @@
 .user-activity-main-content {
-	padding-top: 37px;
+	padding-top: 22px;
 }
 
 .user-activity-title {
@@ -10,6 +10,14 @@
 	margin: 0 0 20px;
 	text-align: center;
 	width: 100%;
+}
+
+.discussion-user-activity-layout {
+	.discussion-hero-unit {
+		.discussion-hero-unit-content {
+			padding-top: 50px;
+		}
+	}
 }
 
 .discussion-user-activity {
@@ -69,8 +77,7 @@
 		text-transform: uppercase;
 
 		&.active {
-			border-bottom: 2px solid $discussion-user-activity-toggle-active-option-color;
-			color: $discussion-user-activity-toggle-active-option-color;
+			border-bottom: 2px solid;
 		}
 	}
 }
