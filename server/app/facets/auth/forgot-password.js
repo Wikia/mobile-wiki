@@ -18,7 +18,7 @@ function getSignInViewContext(request, redirect) {
 			heliosLoginURL: authUtils.getHeliosUrl('/token'),
 			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			submitText: 'auth:forgot-password.submit-text',
-			formId: 'loginForm',
+			formId: 'forgotPasswordForm',
 			pageParams: {
 				facebookAppId: settings.facebook.appId
 			}
