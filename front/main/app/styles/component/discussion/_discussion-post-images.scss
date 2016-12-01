@@ -2,10 +2,9 @@
 	margin-bottom: 13px;
 
 	.post-image {
-		margin-top: 5px;
+		margin-top: 9px;
 
 		@media #{$desktop-range} {
-			margin-top: 9px;
 			margin-bottom: 18px;
 		}
 	}

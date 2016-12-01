@@ -25,3 +25,12 @@
 		}
 	}
 }
+
+@media #{$desktop-range} {
+	.post-list-view {
+		.post-image-inner-image {
+			// Remember to change that when card width change.
+			max-height: 640px;
+		}
+	}
+}
