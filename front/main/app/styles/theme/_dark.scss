@@ -586,6 +586,16 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.discussion-days-toggle {
+		color: $dark-discussion-days-toggle-color;
+	}
+
+	.discussion-header {
+		.discussion-days-toggle {
+			color: $dark-discussion-header-days-toggle-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {

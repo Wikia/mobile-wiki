@@ -1,4 +1,5 @@
 .discussion-days-toggle {
+	color: $discussion-days-toggle-color;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -27,14 +28,17 @@
 	}
 
 	.wds-dropdown__content {
-		min-width: 100px;
+		color: $discussion-days-toggle-color;
 		left: initial;
+		min-width: 100px;
+
 		right: 0;
 	}
 }
 
 .discussion-header {
 	.discussion-days-toggle {
+		color: $discussion-header-days-toggle-color;
 		float: right;
 		height: 100%;
 
@@ -44,7 +48,7 @@
 		}
 
 		.wds-dropdown__content {
-			color: #666;
+			color: $discussion-days-toggle-color;
 			left: initial;
 			min-width: 100px;
 			right: 0;
