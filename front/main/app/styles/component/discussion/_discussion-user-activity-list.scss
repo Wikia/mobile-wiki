@@ -5,10 +5,11 @@
 	.row {
 		display: flex;
 		height: $discussion-user-activity-row-height;
+		min-width: 500px;
 
 		.user {
 			display: flex;
-			flex: 1;
+			flex: 0 1 auto;
 			min-width: 150px;
 
 			.user-avatar {
