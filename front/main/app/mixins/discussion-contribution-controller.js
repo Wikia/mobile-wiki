@@ -422,7 +422,7 @@ export default Ember.Mixin.create({
 				editorState = this.getEditorState(editorType);
 
 			this.set('showFollowingTooltip', false);
-			localStorageConnector.setItem('discussionFollowingTooltipSeen', true);
+			this.hideFollowingTooltip();
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
