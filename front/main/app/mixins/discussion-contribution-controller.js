@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {isUnauthorizedError} from 'ember-ajax/errors';
 import {track, trackActions} from '../utils/discussion-tracker';
+import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create({
 	currentUser: Ember.inject.service(),
@@ -12,6 +13,7 @@ export default Ember.Mixin.create({
 
 	editorState: null,
 	editEditorState: null,
+	showFollowingTooltip: true,
 	guidelinesEditorState: null,
 	postCreatedAtLeastOnce: false,
 	shareTooltipSeen: false,
@@ -247,6 +249,10 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	hideFollowingTooltip() {
+		localStorageConnector.setItem('discussionFollowingTooltipSeen', true);
+	},
+
 	/**
 	 * @private
 	 *
@@ -414,6 +420,9 @@ export default Ember.Mixin.create({
 		createReply(entityData) {
 			const editorType = 'contributeEditor',
 				editorState = this.getEditorState(editorType);
+
+			this.set('showFollowingTooltip', false);
+			localStorageConnector.setItem('discussionFollowingTooltipSeen', true);
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
