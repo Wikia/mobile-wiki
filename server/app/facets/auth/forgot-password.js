@@ -12,11 +12,8 @@ function getSignInViewContext(request, redirect) {
 			headerCallout: 'auth:signin.register-callout',
 			headerCalloutLink: 'auth:signin.register-now',
 			headerHref: authUtils.getRegisterUrl(request),
-			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'forgot-password-page',
-			pageType: 'signin-page',
-			heliosLoginURL: authUtils.getHeliosUrl('/token'),
-			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
+			pageType: 'forgot-password-page',
 			submitText: 'auth:forgot-password.submit-text',
 			formId: 'forgotPasswordForm',
 			pageParams: {
