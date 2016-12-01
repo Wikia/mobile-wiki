@@ -5,16 +5,32 @@ export default Ember.Component.extend(
 	{
 		classNames: ['discussion-days-toggle'],
 
+		isDropdownActive: false,
+
 		days: null,
 
+		closeDropdown() {
+			this.$(window.document).off('click', this.closeDropdown.bind(this));
+			this.set('isDropdownActive', false);
+		},
+
+		openDropdown() {
+			//Needs to run later so that it does not intercept a currently bubbling click
+			Ember.run.later(() => {
+				this.$(window.document).on('click', this.closeDropdown.bind(this));
+				this.set('isDropdownActive', true);
+			});
+		},
+
 		actions: {
-			toggleDropdown() {
-				this.set('isDropdownActive', !this.get('isDropdownActive'));
+			openDropdown() {
+				if (!this.get('isDropdownActive')) {
+					this.openDropdown()
+				}
 			},
 
 			setDays(days) {
 				this.sendAction('setDays', days);
-				this.send('toggleDropdown');
 			}
 		}
 	}
