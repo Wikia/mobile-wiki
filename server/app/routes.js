@@ -11,6 +11,7 @@ import articlePreview from './facets/article-preview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
 import registerHandler from './facets/auth/register';
+import forgotPasswordHandler from './facets/auth/forgot-password';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/show-application';
 import showCuratedContent from './facets/show-curated-content';
@@ -125,6 +126,18 @@ let routes,
 			method: 'GET',
 			path: '/register',
 			handler: registerHandler,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
+			path: '/forgotpassword',
+			handler: forgotPasswordHandler,
 			config: {
 				pre: [
 					{
