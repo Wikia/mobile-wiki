@@ -17,6 +17,14 @@
 				flex: 0 0 50px;
 				justify-content: center;
 				position: relative;
+
+				figure {
+					&.avatar {
+						img, svg {
+							border-color: $discussion-user-activity-avatar-stroke-color;
+						}
+					}
+				}
 			}
 
 			.username {
@@ -94,4 +102,26 @@
 		padding-left: 15px;
 		padding-right: 15px;
 	}
+
+	.user-avatar {
+		figure {
+			&.avatar {
+				img, svg {
+					height: 30px;
+					width: 30px;
+				}
+			}
+		}
+
+		.user-avatar-badge {
+			left: 6px;
+			top: 6px;
+
+			svg {
+				height: 15px;
+				width: 15px;
+			}
+		}
+	}
+
 }

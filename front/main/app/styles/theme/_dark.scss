@@ -558,6 +558,14 @@ body.dark-theme {
 
 		.row {
 			.user {
+				figure {
+					&.avatar {
+						img, svg {
+							border-color: $dark-discussion-user-activity-avatar-stroke-color;
+						}
+					}
+				}
+
 				.username {
 					border-bottom-color: $dark-discussion-user-activity-row-separator-color;
 				}
