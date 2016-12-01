@@ -23,6 +23,7 @@ export default DiscussionBaseController.extend(
 
 			createPost(entityData, forumId) {
 				this.hideShareTooltip();
+				this.hideFollowingTooltip();
 
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
 					this.createPost(entityData, forumId);
