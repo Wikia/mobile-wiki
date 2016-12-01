@@ -5,8 +5,17 @@
 		margin-top: 9px;
 
 		@media #{$desktop-range} {
-			margin-top: 11px;
 			margin-bottom: 18px;
+		}
+	}
+}
+
+.post-details-view {
+	.post-images {
+		.post-image {
+			@media #{$desktop-range} {
+				margin-top: 7px;
+			}
 		}
 	}
 }
