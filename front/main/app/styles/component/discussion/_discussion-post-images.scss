@@ -1,13 +1,11 @@
-$desktop-lightbox-close-size: 24px;
-
 .post-images {
 	margin-bottom: 13px;
 
 	.post-image {
-		display: block;
-		margin-top: 9px;
+		margin-top: 5px;
 
 		@media #{$desktop-range} {
+			margin-top: 9px;
 			margin-bottom: 18px;
 		}
 	}
