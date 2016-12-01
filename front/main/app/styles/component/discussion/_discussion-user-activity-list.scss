@@ -1,5 +1,4 @@
 .discussion-user-activity-list {
-	overflow-x: auto;
 	color: $discussion-user-activity-text-color;
 
 	.row {
@@ -15,8 +14,9 @@
 			.user-avatar {
 				align-items: center;
 				display: flex;
-				flex: 0 0 50px;
+				flex: 0 0 36px;
 				justify-content: center;
+				margin-right: 12px;
 				position: relative;
 
 				figure {
@@ -25,6 +25,11 @@
 							border-color: $discussion-user-activity-avatar-stroke-color;
 						}
 					}
+				}
+
+				.user-avatar-badge {
+					left: -4px;
+					top: 3px;
 				}
 			}
 
@@ -100,30 +105,35 @@
 
 @media #{$mobile-range} {
 	.discussion-user-activity-list {
+		overflow-x: auto;
 		padding-left: 12px;
 		padding-right: 12px;
 
 		.row {
 			height: 50px;
-		}
 
-		.user-avatar {
-			figure {
-				&.avatar {
-					img, svg {
-						height: 30px;
-						width: 30px;
+			.user {
+				.user-avatar {
+					flex: 0 0 30px;
+
+					figure {
+						&.avatar {
+							img, svg {
+								height: 30px;
+								width: 30px;
+							}
+						}
 					}
-				}
-			}
 
-			.user-avatar-badge {
-				left: 6px;
-				top: 6px;
+					.user-avatar-badge {
+						left: -4px;
+						top: 0;
 
-				svg {
-					height: 15px;
-					width: 15px;
+						svg {
+							height: 15px;
+							width: 15px;
+						}
+					}
 				}
 			}
 		}
