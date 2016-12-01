@@ -7,7 +7,7 @@
 	font-size: 12px;
 	font-weight: bold;
 	line-height: 12px;
-	margin: 0 0 20px;
+	margin: 0 0 10px;
 	text-align: center;
 	width: 100%;
 }
@@ -40,7 +40,7 @@
 		h2 {
 			color: $discussion-user-activity-community-avatar-color;
 			font-size: 18px;
-			margin-bottom: 8px;
+			margin-bottom: 11px;
 		}
 	}
 }
@@ -83,6 +83,11 @@
 }
 
 .discussion-user-activity-glossary {
+	fieldset {
+		padding-bottom: 7px;
+		padding-top: 10px;
+	}
+
 	h5,
 	p {
 		color: $discussion-user-activity-glossary-text-color;
