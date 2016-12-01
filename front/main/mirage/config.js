@@ -10,6 +10,7 @@ export default function () {
 	this.passthrough('https://localhost/**');
 
 	this.passthrough('https://services-poz.wikia-dev.com/**');
+	this.passthrough('https://services.wikia.com/**');
 	this.passthrough('/wikia.php');
 	this.passthrough('/api.php');
 	this.passthrough('http://speed.wikia.net/**');
@@ -74,6 +75,18 @@ export default function () {
 	});
 
 	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/moderator', (schema, request) => {
+		return userActivityModerationsFixtures;
+	});
+
+	this.get('https://services.wikia.com/discussion/:forum_id/leaderboards', (schema, request) => {
+		return userActivityPostsFixtures;
+	});
+
+	this.get('https://services.wikia.com/discussion/:forum_id/leaderboard/reports', (schema, request) => {
+		return userActivityReportsFixtures;
+	});
+
+	this.get('https://services.wikia.com/discussion/:forum_id/leaderboard/moderator', (schema, request) => {
 		return userActivityModerationsFixtures;
 	});
 }
