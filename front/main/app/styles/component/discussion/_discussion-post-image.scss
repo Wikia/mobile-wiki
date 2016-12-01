@@ -26,11 +26,45 @@
 	}
 }
 
-@media #{$desktop-range} {
-	.post-list-view {
+.post-list-view {
+	.post-detail {
 		.post-image-inner-image {
-			// Remember to change that when card width change.
-			max-height: 640px;
+			// Change those values when max width of post card changes
+			@media #{$desktop-range} {
+				max-height: 447px;
+			}
+
+			@media #{$large-desktop-range} {
+				max-height: 640px;
+			}
+		}
+	}
+
+	.post-reply {
+		.post-image-inner-image {
+			// Change those values when max width of reply card changes
+			@media #{$desktop-range} {
+				max-height: 425px;
+			}
+
+			@media #{$large-desktop-range} {
+				max-height: 585px;
+			}
+		}
+	}
+}
+
+.post-details-view {
+	.post-reply {
+		.post-image-inner-image {
+			// Change those values when max width of reply card changes
+			@media #{$desktop-range} {
+				max-height: 466px;
+			}
+
+			@media #{$large-desktop-range} {
+				max-height: 582px;
+			}
 		}
 	}
 }
