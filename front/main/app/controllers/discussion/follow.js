@@ -13,6 +13,7 @@ export default DiscussionBaseController.extend(
 		actions: {
 			createPost(entityData, forumId) {
 				this.hideShareTooltip();
+				this.hideFollowingTooltip();
 				this.createPost(entityData, forumId);
 			},
 		}

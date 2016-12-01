@@ -42,7 +42,18 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		track(trackActions.MorePostActions);
+
+		// Share tooltip should be hidden when more options are shown
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			const hideShareTooltip = this.get('hideShareTooltip');
+
+			if (hideShareTooltip) {
+				hideShareTooltip();
+			}
+		});
 	},
 
 	actions: {
