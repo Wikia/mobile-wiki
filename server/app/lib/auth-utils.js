@@ -14,8 +14,7 @@ import authLocaleSettings from '../../config/authLocaleSettings.js';
  */
 
 // @todo seems unused: wikiaSignupPathname = '/wiki/Special:UserSignup',
-const wikiaLoginPathname = '/wiki/Special:UserLogin',
-	forgotPasswordSearch = '?type=forgotPassword';
+const forgotPasswordPathname = 'forgotpassword';
 
 /**
  * @param {Hapi.Request} request
@@ -32,8 +31,7 @@ export function getRegisterUrl(request) {
 export function getForgotPasswordUrlFromRedirect(redirect) {
 	const forgotPasswordUrlObj = url.parse(redirect);
 
-	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
-	forgotPasswordUrlObj.search = forgotPasswordSearch;
+	forgotPasswordUrlObj.pathname = forgotPasswordPathname;
 	return url.format(forgotPasswordUrlObj);
 }
 
