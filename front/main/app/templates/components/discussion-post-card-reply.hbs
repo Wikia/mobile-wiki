@@ -59,10 +59,18 @@
 			{{{parsedContent}}}
 		</div>
 	{{/if}}
-	{{#if post.openGraph}}
-		{{discussion-open-graph
-			openGraphData=post.openGraph
+	{{#if post.contentImages.images}}
+		{{discussion-post-images
+			cropImages=cropImages
+			images=post.contentImages.images
+			mode=imagesDisplayMode
 		}}
+	{{else}}
+		{{#if post.openGraph}}
+			{{discussion-open-graph
+				openGraphData=post.openGraph
+			}}
+		{{/if}}
 	{{/if}}
 </div>
 {{#if post.isLoading}}

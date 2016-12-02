@@ -1,26 +1,70 @@
 import Ember from 'ember';
 import DiscussionEntity from './entity';
+import DiscussionContentImages from './content-images';
 import DiscussionContributor from './contributor';
+import DiscussionUserBlockDetails from './user-block-details';
 import DiscussionUserData from './user-data';
 import OpenGraph from './open-graph';
-import DiscussionUserBlockDetails from './user-block-details';
 
-const DiscussionPost = DiscussionEntity.extend({
-	canModerate: null,
-	categoryName: null,
-	contributors: null,
-	forumId: null,
-	isNextLink: null,
-	isPreviousPage: null,
-	pageNum: null,
-	permalinkedReplyId: null,
-	pivotId: null,
-	replies: null,
-	repliesCount: null,
-	repliesLimit: 10
-});
+const {get} = Ember,
+	DiscussionPost = DiscussionEntity.extend({
+		canModerate: null,
+		categoryName: null,
+		contributors: null,
+		forumId: null,
+		isNextLink: null,
+		isPreviousPage: null,
+		pageNum: null,
+		permalinkedReplyId: null,
+		pivotId: null,
+		replies: null,
+		repliesCount: null,
+		repliesLimit: 10
+	});
 
 DiscussionPost.reopenClass({
+
+	/**
+	 * @private
+	 * Create base discussion post model.
+	 *
+	 * @param data - object with common properties
+	 */
+	createFrom(data) {
+		const post = DiscussionPost.create({
+				categoryName: data.forumName,
+				// A hack to compensate for API sometimes returning numbers and sometimes strings
+				categoryId: String(data.forumId),
+				createdBy: DiscussionContributor.create(data.createdBy),
+				isDeleted: data.isDeleted,
+				isNew: data.isNew,
+				isReported: data.isReported,
+				isRequesterBlocked: data.isRequesterBlocked,
+				rawContent: data.rawContent,
+				title: data.title,
+				upvoteCount: parseInt(data.upvoteCount, 10),
+				userBlockDetails: DiscussionUserBlockDetails.create(data.userBlockDetails),
+				userData: null,
+				openGraph: null,
+				contentImages: null
+			}),
+			userData = get(data, '_embedded.userData.0'),
+			openGraphData = get(data, '_embedded.openGraph.0'),
+			contentImagesData = get(data, '_embedded.contentImages');
+
+		if (userData) {
+			post.set('userData', DiscussionUserData.create(userData));
+		}
+
+		if (openGraphData) {
+			post.set('openGraph', OpenGraph.create(openGraphData));
+		}
+
+		post.set('contentImages', DiscussionContentImages.create(contentImagesData));
+
+		return post;
+	},
+
 	/**
 	 * Normalizes single entity from post list into a post object
 	 *
@@ -29,36 +73,16 @@ DiscussionPost.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	createFromPostListData(postData) {
-		const post = DiscussionPost.create({
-				categoryName: postData.forumName,
-				// A hack to compensate for API sometimes returning numbers and sometimes strings
-				categoryId: String(postData.forumId),
-				createdBy: DiscussionContributor.create(postData.createdBy),
-				creationTimestamp: postData.creationDate.epochSecond,
-				id: postData.id,
-				isDeleted: postData.isDeleted,
-				isFollowed: Ember.get(postData, '_embedded.thread.0.isFollowed'),
-				isLocked: !Ember.get(postData, '_embedded.thread.0.isEditable'),
-				isNew: postData.isNew,
-				isReported: postData.isReported,
-				isRequesterBlocked: postData.isRequesterBlocked,
-				rawContent: postData.rawContent,
-				repliesCount: parseInt(Ember.get(postData, '_embedded.thread.0.postCount'), 10),
-				threadId: postData.threadId,
-				title: postData.title,
-				upvoteCount: parseInt(postData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(postData.userBlockDetails)
-			}),
-			userData = Ember.get(postData, '_embedded.userData.0'),
-			openGraphData = Ember.get(postData, '_embedded.openGraph.0');
+		const post = DiscussionPost.createFrom(postData);
 
-		if (openGraphData) {
-			post.set('openGraph', OpenGraph.create(openGraphData));
-		}
-
-		if (userData) {
-			post.set('userData', DiscussionUserData.create(userData));
-		}
+		post.setProperties({
+			id: postData.id,
+			creationTimestamp: postData.creationDate.epochSecond,
+			isFollowed: Ember.get(postData, '_embedded.thread.0.isFollowed'),
+			isLocked: !get(postData, '_embedded.thread.0.isEditable'),
+			repliesCount: parseInt(get(postData, '_embedded.thread.0.postCount'), 10),
+			threadId: postData.threadId
+		});
 
 		return post;
 	},
@@ -71,39 +95,18 @@ DiscussionPost.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	createFromThreadData(threadData) {
-		const post = DiscussionPost.create({
-				categoryName: threadData.forumName,
-				// A hack to compensate for API sometimes returning numbers and sometimes strings
-				categoryId: String(threadData.forumId),
-				createdBy: DiscussionContributor.create(threadData.createdBy),
-				creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
-				id: threadData.firstPostId,
-				isDeleted: threadData.isDeleted,
-				isFollowed: threadData.isFollowed,
-				isLocked: !threadData.isEditable,
-				isNew: threadData.isNew,
-				isReported: threadData.isReported,
-				isRequesterBlocked: threadData.isRequesterBlocked,
-				lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
-				openGraph: null,
-				permalinkedReplyId: threadData.permalinkedReplyId,
-				rawContent: threadData.rawContent,
-				repliesCount: parseInt(threadData.postCount, 10),
-				threadId: threadData.id,
-				title: threadData.title,
-				upvoteCount: parseInt(threadData.upvoteCount, 10),
-				userBlockDetails: DiscussionUserBlockDetails.create(threadData.userBlockDetails)
-			}),
-			userData = Ember.get(threadData, '_embedded.userData'),
-			openGraphData = Ember.get(threadData, '_embedded.openGraph');
+		const post = DiscussionPost.createFrom(threadData);
 
-		if (openGraphData) {
-			post.set('openGraph', OpenGraph.create(openGraphData));
-		}
-
-		if (userData) {
-			post.set('userData', DiscussionUserData.create(userData));
-		}
+		post.setProperties({
+			id: threadData.firstPostId,
+			creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
+			isFollowed: threadData.isFollowed,
+			isLocked: !threadData.isEditable,
+			lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
+			permalinkedReplyId: threadData.permalinkedReplyId,
+			repliesCount: parseInt(threadData.postCount, 10),
+			threadId: threadData.id,
+		});
 
 		return post;
 	},

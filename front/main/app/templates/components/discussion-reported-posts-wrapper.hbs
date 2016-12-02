@@ -13,7 +13,9 @@
 			approve=(action this.attrs.approve)
 			author=entity.createdBy
 			content=entity.rawContent
+			cropImages=responsive.isMobile
 			delete=(action this.attrs.deleteReply)
+			imagesDisplayMode='compact'
 			isParentDeleted=model.isDeleted
 			openEditEditor=(action this.attrs.openEditEditor)
 			post=entity

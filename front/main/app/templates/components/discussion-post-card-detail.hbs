@@ -65,6 +65,13 @@
 			{{/if}}
 			{{{parsedContent}}}
 		</div>
+		{{#if post.contentImages.images}}
+			{{discussion-post-images
+				images=post.contentImages.images
+				mode='full'
+				widthMultiplier=2
+			}}
+		{{/if}}
 	{{else}}
 		<div class="discussion-content">
 			{{#if post.title}}
@@ -74,8 +81,16 @@
 			{{/if}}
 			<a href="{{href-to 'discussion.post' post.threadId}}" class="post-details-link clamp">{{{parsedContent}}}</a>
 		</div>
+		{{#if post.contentImages.images}}
+			<a href="{{href-to 'discussion.post' post.threadId}}">
+				{{discussion-post-images
+					cropImages=responsive.isMobile
+					images=post.contentImages.images
+				}}
+			</a>
+		{{/if}}
 	{{/if}}
-	{{#if post.openGraph}}
+	{{#if showOpenGraphCard}}
 		{{discussion-open-graph
 				isListView=true
 				openGraphData=post.openGraph
