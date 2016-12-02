@@ -61,8 +61,9 @@
 	{{/if}}
 	{{#if post.contentImages.images}}
 		{{discussion-post-images
+			cropImages=cropImages
 			images=post.contentImages.images
-			mode='full'
+			mode=imagesDisplayMode
 		}}
 	{{else}}
 		{{#if post.openGraph}}
