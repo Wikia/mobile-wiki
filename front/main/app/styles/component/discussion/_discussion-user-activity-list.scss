@@ -109,12 +109,13 @@
 
 		&.reports-list {
 			.row {
+				// need to set min-width for iOS (9.x) safari issue (see screenshot in SOC-2862)
 				min-width: 500px;
 			}
 		}
 
 		.row {
-			height: 50px;
+			height: $discussion-user-activity-mobile-row-height;
 
 			.user {
 				.user-avatar {
