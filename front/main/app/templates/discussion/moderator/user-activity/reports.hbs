@@ -1,4 +1,4 @@
-{{#discussion-user-activity-list items=model.current.data.users as |item|}}
+{{#discussion-user-activity-list class='reports-list' items=model.current.data.users as |item|}}
 	{{discussion-user-activity-value
 		class='reported'
 		description=(i18n 'user-activity.reports' ns='discussion')

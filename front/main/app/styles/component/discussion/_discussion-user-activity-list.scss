@@ -107,6 +107,12 @@
 		padding-left: 12px;
 		padding-right: 12px;
 
+		&.reports-list {
+			.row {
+				min-width: 500px;
+			}
+		}
+
 		.row {
 			height: 50px;
 
