@@ -148,6 +148,24 @@
     "no-followed-posts-text":"按任何文章底部的「關注」按鈕來關注你感興趣的話題。你可以在這裡查看全部關注的文章，如有任何新的動態，你都會收到我們的通知。",
     "find-posts-to-follow":"查找要關注的文章"
   },
+  "user-activity":{
+    "active-users-toggle-option":"活躍用戶",
+    "reports-toggle-option":"回報",
+    "moderator-actions-toggle-option":"版主操作",
+    "days-count":"__numberOfDays__天",
+    "glossary-header":"用語表",
+    "active-users-headline":"活躍用戶",
+    "active-users-description":"誰發佈了最多的討論文章？",
+    "reports-headline":"回報",
+    "reports-description":"誰提報的文章最多，並且所回報的討論文章被版主刪除、批准或是等待處理？",
+    "moderator-actions-headline":"版主操作",
+    "moderator-actions-description":"哪位版主在文章刪除、批准、鎖定或者更改分類上最活躍？",
+    "hero-unit-subtitle":"用户動態",
+    "posts":"篇文章",
+    "reported":"已被提報",
+    "not-processed":"尚未處理",
+    "actions":"操作"
+  },
   "editor":{
     "post-failed-error":"發佈失敗",
     "post-error-anon-cant-post":"登入進行討論！",

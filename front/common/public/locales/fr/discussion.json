@@ -148,6 +148,24 @@
     "no-followed-posts-text":"Appuyez sur l'icône \"Suivre\" disponible en bas de chaque publication pour ajouter à la liste les discussions qui vous tiennent le plus à cœur. Nous les inclurons ici et vous informerons de toute nouvelle activité.",
     "find-posts-to-follow":"Rechercher des publications à suivre"
   },
+  "user-activity":{
+    "active-users-toggle-option":"Utilisateurs actifs",
+    "reports-toggle-option":"Contenus signalés",
+    "moderator-actions-toggle-option":"Actions de modération",
+    "days-count":"__numberOfDays__ jours",
+    "glossary-header":"Glossaire",
+    "active-users-headline":"Utilisateurs actifs",
+    "active-users-description":"Qui a effectué le plus de publications ?",
+    "reports-headline":"Contenus signalés",
+    "reports-description":"Qui a signalé le plus de contenus ? Ces publications ont-elles été supprimées, approuvées ou pas encore traitées par un modérateur ?",
+    "moderator-actions-headline":"Actions de modération",
+    "moderator-actions-description":"Quels ont été les modérateurs les plus actifs en supprimant, approuvant et verrouillant des publications ou en changeant une publication de catégorie ?",
+    "hero-unit-subtitle":"Activité des utilisateurs",
+    "posts":"publications",
+    "reported":"signalés",
+    "not-processed":"non traités",
+    "actions":"actions"
+  },
   "editor":{
     "post-failed-error":"Échec de la publication.",
     "post-error-anon-cant-post":"Connectez-vous pour rejoindre la discussion !",

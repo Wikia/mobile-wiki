@@ -148,6 +148,24 @@
     "no-followed-posts-text":"Kliknij przycisk „Obserwuj” znajdujący się pod postem, żeby wypełnić listę dyskusjami, które najbardziej cię interesują. Umieścimy je tutaj i będziemy informować cię o aktywności w nich.",
     "find-posts-to-follow":"Znajdź posty do obserwowania"
   },
+  "user-activity":{
+    "active-users-toggle-option":"Aktywni użytkownicy",
+    "reports-toggle-option":"Zgłoszenia",
+    "moderator-actions-toggle-option":"Aktywność moderatorów",
+    "days-count":"__numberOfDays__ dni",
+    "glossary-header":"Słowniczek",
+    "active-users-headline":"Aktywni użytkownicy",
+    "active-users-description":"Kto opublikował najwięcej postów?",
+    "reports-headline":"Zgłoszenia",
+    "reports-description":"Kto zgłosił najwięcej treści? Czy zgłoszone posty zostały usunięte, zatwierdzone, czy nie zostały jeszcze sprawdzone przez moderatora?",
+    "moderator-actions-headline":"Aktywność moderatorów",
+    "moderator-actions-description":"Którzy moderatorzy byli najbardziej aktywni przy usuwaniu, zatwierdzaniu i blokowaniu postów oraz przy zmianach ich kategorii?",
+    "hero-unit-subtitle":"Aktywność użytkowników",
+    "posts":"posty",
+    "reported":"zgłoszone",
+    "not-processed":"niesprawdzone",
+    "actions":"działania"
+  },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
     "post-error-anon-cant-post":"Zaloguj się, aby dołączyć do dyskusji!",
