@@ -148,6 +148,24 @@
     "no-followed-posts-text":"点击帖子底部的“关注”按钮关注你感兴趣的话题。你可以在这里查看全部关注的帖子。如有任何新的活动，你都会收到系统通知。",
     "find-posts-to-follow":"查找需要关注的帖子"
   },
+  "user-activity":{
+    "active-users-toggle-option":"活跃用户",
+    "reports-toggle-option":"报告问题",
+    "moderator-actions-toggle-option":"版主操作",
+    "days-count":"__numberOfDays__天",
+    "glossary-header":"术语表",
+    "active-users-headline":"活跃用户",
+    "active-users-description":"谁发布了最多的帖子？",
+    "reports-headline":"报告问题",
+    "reports-description":"谁报告的问题最多，并且所报告的帖子被版主删除、批准或是等待处理？",
+    "moderator-actions-headline":"版主操作",
+    "moderator-actions-description":"哪个版主表现最活跃，对帖子进行删除、批准、锁定或者更换分类？",
+    "hero-unit-subtitle":"用户活动",
+    "posts":"个帖子",
+    "reported":"已被报告",
+    "not-processed":"尚未处理",
+    "actions":"操作"
+  },
   "editor":{
     "post-failed-error":"发布失败",
     "post-error-anon-cant-post":"登录加入讨论!",
