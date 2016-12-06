@@ -15,7 +15,8 @@ button[type='submit'][disabled] {
 	opacity: 0.5;
 }
 
-
+a.button-wide,
+a.button-wide:hover,
 .form-submit[type='submit'],
 .form-submit[type='submit'][disabled] {
 	background-color: $form-submit-background-color;
@@ -24,6 +25,7 @@ button[type='submit'][disabled] {
 }
 
 .desktop-view {
+	a.button-wide,
 	.form-submit-wide[type='submit'] {
 		max-width: 296px;
 	}

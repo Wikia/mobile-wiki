@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
+		<title>{{i18n title}} | Fandom powered by Wikia</title>
+		<!-- build:css /front/auth/assets/app.css -->
+		<link rel="stylesheet" href="/front/auth/assets/app.css">
+		<!-- endbuild -->
+
+		{{! we need to load $script.js first, as new optimizely loading method depends on it }}
+		<!-- build:js /front/auth/assets/script.js -->
+		<script src="/front/auth/bower_components/script.js/dist/script.js"></script>
+		<!-- endbuild -->
+		{{> optimizely}}
+		{{> tracking-ua-init}}
+		<link rel="canonical" href="{{canonicalUrl}}" />
+	</head>
+	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
+		{{#if standalonePage}}
+			<nav class="global-nav">
+				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
+			</nav>
+		{{else}}
+			{{#unless pageParams.isModal}}
+			<a class="close" href="{{exitTo}}">
+				<!-- @include /front/common/symbols/close-big.svg -->
+			</a>
+			{{/unless}}
+		{{/if}}
+
+		<main class="page-view">
+			{{{content}}}
+		</main>
+
+		<script>
+			var translations = {{{json (translations language ns='auth-front')}}},
+					language = {{{json language}}},
+					pageParams = {{{json pageParams}}};
+		</script>
+		<!-- build:js /front/auth/assets/combined.js -->
+		<script src="/front/auth/bower_components/loader.js/loader.js"></script>
+		<script src="/front/auth/bower_components/jquery/dist/jquery.js"></script>
+		<script src="/front/auth/bower_components/i18next/i18next.min.js"></script>
+		<script src="/front/auth/bower_components/visit-source/dist/visit-source.js"></script>
+		<script src="/front/auth/bower_components/crypto-js/core.js"></script>
+		<script src="/front/auth/bower_components/crypto-js/sha1.js"></script>
+		<script src="/front/common/baseline.js"></script>
+		<script src="/front/common/common.js"></script>
+		<script src="/front/auth/assets/app.js"></script>
+		<!-- endbuild -->
+		<script>
+			M.loadDOMResource('/front/common/symbols.svg');
+			M.prop('tracking', {{{json trackingConfig}}});
+			M.prop('isGASpecialWiki', true);
+			M.prop('initialPageView', true, true);
+			M.prop('urlTitleParam', '');
+
+			require('auth/app/main').init();
+
+			// properties needed for Internal
+			M.provide('wiki', {
+				id: 80433,
+				dbName: 'wikiaglobal',
+				language: {
+					user: 'en',
+				},
+			});
+
+			// wikiId of the entrypoint if available
+			{{#if entryPointWikiId}}
+				M.provide('entryPointWikiId', {{entryPointWikiId}});
+			{{/if}}
+
+			M.tracker.Internal.trackPageView({
+				a: window.location.pathname,
+				n: '-1'
+			});
+		</script>
+		{{> tracking-quantserve}}
+		{{> tracking-comscore}}
+		{{> tracking-nielsen}}
+		{{> tracking-ua-auth}}
+		{{> tracking-ivw3}}
+	</body>
+</html>

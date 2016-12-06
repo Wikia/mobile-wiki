@@ -2,6 +2,7 @@ import BirthdateInput from './common/birthdate-input';
 import FacebookConnect from './facebook/facebook-connect';
 import FacebookLogin from './facebook/facebook-login';
 import FacebookRegistration from './facebook/facebook-registration';
+import ForgotPassword from './forgot-password/forgot-password';
 import Form from './common/form';
 import Login from './common/login';
 import SignupForm from './signup/signup-form';
@@ -51,6 +52,8 @@ export function init() {
 				new SignupForm(formElement).watch();
 			} else if (formElement.id === 'facebookRegistrationForm') {
 				new FacebookRegistration(formElement).watch();
+			} else if (formElement.id === 'forgotPasswordForm') {
+				new ForgotPassword(formElement).watch();
 			}
 		}
 

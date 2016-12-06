@@ -1,4 +1,5 @@
 import * as authUtils from '../../lib/auth-utils';
+import {disableCache} from '../../lib/caching';
 import settings from '../../../config/settings';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
@@ -8,6 +9,7 @@ function getSignInViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			title: 'auth:forgot-password.title',
+			forgotPasswordURL: '/forgotpassword',
 			headerText: 'auth:forgot-password.header',
 			headerCallout: 'auth:signin.register-callout',
 			headerCalloutLink: 'auth:signin.register-now',
@@ -23,11 +25,24 @@ function getSignInViewContext(request, redirect) {
 	);
 }
 
+function assembleView(template, context, request, reply) {
+	const response = reply.view(
+		`auth/${authView.getViewType(request)}/${template}`,
+		context,
+		{
+			layout: 'card'
+		}
+	);
+
+	disableCache(response);
+	return response;
+}
+
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
  */
-export default function get(request, reply) {
+export function get(request, reply) {
 	const redirect = authView.getRedirectUrl(request),
 		context = getSignInViewContext(request, redirect);
 
@@ -35,5 +50,13 @@ export default function get(request, reply) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
-	return authView.view('forgot-password', context, request, reply);
+	return assembleView('forgot-password', context, request, reply);
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ */
+export function post(request, reply) {
+	return reply.success();
 }
