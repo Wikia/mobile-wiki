@@ -1,9 +1,11 @@
 import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
+import Logger from '../../lib/logger';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
+import url from 'url';
 
-function getSignInViewContext(request, redirect) {
+function getForgotPasswordViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'forgot-password-page',
@@ -37,7 +39,7 @@ function assembleView(template, context, request, reply) {
  */
 export function get(request, reply) {
 	const redirect = authView.getRedirectUrl(request),
-		context = getSignInViewContext(request, redirect);
+		context = getForgotPasswordViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
@@ -51,5 +53,11 @@ export function get(request, reply) {
  * @param {*} reply
  */
 export function post(request, reply) {
-	return reply.success();
+	const username = request.payload.username;
+
+	Logger.error('Username ' + (username || 'undefined'));
+
+	return reply({
+		ok: 'it\'s ok'
+	});
 }
