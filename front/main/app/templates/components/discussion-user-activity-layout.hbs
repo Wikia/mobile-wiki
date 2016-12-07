@@ -1,7 +1,7 @@
 {{#if responsive.isMobile}}
 	{{#ember-wormhole to="site-head-sub-header"}}
 		{{discussion-header
-			canDeleteAll=model.canDeleteAll
+			canDeleteAll=false
 			deleteAllPosts=deleteAllPosts
 			days=days
 			hasBackButton=true
