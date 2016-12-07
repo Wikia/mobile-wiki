@@ -6,8 +6,5 @@ export default Ember.Component.extend(
 	{
 		classNameBindings: ['topDecoration:moderation-filter-top-decoration'],
 		classNames: ['discussion-user-activity-glossary'],
-
-		onCollapseChanged(collapsed) {
-		},
 	}
 );
