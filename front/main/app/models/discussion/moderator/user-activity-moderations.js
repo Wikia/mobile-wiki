@@ -15,8 +15,7 @@ DiscussionUserActivityModerationsModel.reopenClass(
 	{
 		/**
 		 * @param {number} wikiId
-		 * @param {array|string} [categories=[]]
-		 * @param {string} [sortBy='trending']
+		 * @param {number} days
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		find(wikiId, days) {
