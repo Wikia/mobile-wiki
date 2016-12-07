@@ -1,26 +1,19 @@
 import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
-import settings from '../../../config/settings';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
-import Logger from '../../lib/logger';
 
 function getSignInViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
-			title: 'auth:forgot-password.title',
-			forgotPasswordURL: '/forgotpassword',
+			bodyClasses: 'forgot-password-page',
+			confirmHeaderText: 'auth:confirm-forgot-password.header',
 			headerText: 'auth:forgot-password.header',
 			headerCallout: 'auth:signin.register-callout',
 			headerCalloutLink: 'auth:signin.register-now',
 			headerHref: authUtils.getRegisterUrl(request),
-			bodyClasses: 'forgot-password-page',
 			pageType: 'forgot-password-page',
-			submitText: 'auth:forgot-password.submit-text',
-			formId: 'forgotPasswordForm',
-			pageParams: {
-				facebookAppId: settings.facebook.appId
-			}
+			title: 'auth:forgot-password.title',
 		}
 	);
 }
