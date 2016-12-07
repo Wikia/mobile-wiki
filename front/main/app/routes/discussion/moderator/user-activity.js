@@ -19,7 +19,7 @@ export default Ember.Route.extend({
 		if (!this.isValidDaysValue(days)) {
 			this.transitionTo({
 				queryParams: {
-					days: this.allowedDaysValues[0]
+					days: this.get('allowedDaysValues.0')
 				}
 			})
 		}
