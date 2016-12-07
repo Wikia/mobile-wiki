@@ -7,10 +7,13 @@ $uap-progress-bar-current-time-color: #b7b7b7;
 $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDEuMDYgMTQxLjA2Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjtvcGFjaXR5OjAuNTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDE8L3RpdGxlPjxjaXJjbGUgY2xhc3M9ImNscy0xIiBjeD0iNzAuNTMiIGN5PSI3MC41MyIgcj0iNjUuNTMiLz48cGF0aCBkPSJNMzkuMzQsNDYuNDFsNTUuMyw1NS4zYTUsNSwwLDAsMCw3LjA3LTcuMDdsLTU1LjMtNTUuM2E1LDUsMCwwLDAtNy4wNyw3LjA3Ii8+PHBhdGggZD0iTTk0LjY1LDM5LjM0bC01NS4zLDU1LjNhNSw1LDAsMCwwLDcuMDcsNy4wN2w1NS4zLTU1LjNhNSw1LDAsMCwwLTcuMDctNy4wNyIvPjxwYXRoIGQ9Ik0xMzYuMDYsNzAuNTNoLTVhNjAuNTMsNjAuNTMsMCwxLDEtMTcuNzMtNDIuOCw2MC4zMiw2MC4zMiwwLDAsMSwxNy43Myw0Mi44aDEwQTcwLjUzLDcwLjUzLDAsMSwwLDEyMC40LDEyMC40YTcwLjMzLDcwLjMzLDAsMCwwLDIwLjY2LTQ5Ljg3WiIvPjwvc3ZnPg==';
 
 .ad-slot {
+	margin: 0;
+	padding: 0;
 	text-align: center;
 
-	div {
-		margin: 0 auto;
+	.provider-container {
+		margin: 20px auto;
+		padding: 0;
 	}
 }
 
@@ -23,24 +26,39 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 }
 
 .mobile-top-leaderboard .ad-slot {
-	min-height: 50px;
-	padding: 10px 0;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
+
+	.provider-container {
+		margin: 10px auto;
+	}
 }
 
-// if mobile-top-leaderboard injected into article content - ignore articles default margins
-.article-content .mobile-top-leaderboard {
-	margin: 0 -20px;
-}
+.ad-slot {
+	&.slot-animation {
+		overflow: hidden;
+		transition: max-height 0.8s ease;
+	}
 
-.vuap-loaded {
-	transition: padding 0.4s ease;
+	&.slot-responsive {
+		width: 100%;
+
+		.provider-container {
+			position: relative;
+
+			iframe {
+				height: 100%;
+				left: 0;
+				position: absolute;
+				width: 100%;
+				top: 0;
+			}
+		}
+	}
 }
 
 .bfaa-template .mobile-top-leaderboard {
 	left: 0;
-	margin: 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -48,16 +66,11 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	.ad-slot {
 		background: #000;
 		overflow: hidden;
-		padding: 0;
 		position: relative;
 		transition: height 0.4s ease;
 
-		iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
+		.provider-container {
+			margin: 0;
 		}
 
 		video {
@@ -66,26 +79,13 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	}
 }
 
-.mobile-bottom-leaderboard {
-	.ad-slot {
-		padding: 10px 0;
+.bfab-template.ad-slot {
+	.provider-container {
+		margin: 0;
 	}
 
-	.bfab-template {
-		padding: 0;
-		position: relative;
-
-		iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
-		}
-
-		video {
-			left: 0;
-		}
+	video {
+		left: 0;
 	}
 }
 
@@ -124,12 +124,6 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 			width: 30px;
 		}
 	}
-}
-
-.mobile-in-content,
-.mobile-prefooter {
-	margin: 10px 0;
-	padding: 10px 0;
 }
 
 .no-ads {
@@ -199,6 +193,10 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 		padding: 0;
 		top: 0;
 
+		.provider-container {
+			margin: 0;
+		}
+
 		.background {
 			background: rgba(0, 0, 0, .9);
 			bottom: 0;
@@ -252,8 +250,11 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	width: 15%;
 
 	.speaker {
+		background-color: #fff;
+		border-radius: 50%;
 		display: inline-block;
 		height: 30px;
+		opacity: 0.5;
 		overflow: hidden;
 		position: relative;
 		width: 30px;
