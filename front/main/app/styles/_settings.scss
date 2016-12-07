@@ -211,22 +211,22 @@ $discussion-social-networks: (
 		weibo: #ff8140
 );
 
-$discussion-user-activity-text-color: #333;
+$discussion-user-activity-text-color: $wds-color-light-c6;
 $discussion-user-activity-row-height: 60px;
 $discussion-user-activity-mobile-row-height: 50px;
-$discussion-user-activity-avatar-stroke-color: #ccc;
-$discussion-user-activity-row-separator-color: #e6e6e6;
-$discussion-user-activity-value-description-color: #999;
-$discussion-user-activity-icon-color: #ccc;
-$discussion-user-activity-title-color: #999;
-$discussion-user-activity-community-avatar-color: #333;
-$discussion-user-activity-toggle-border-bottom-color: #ccc;
-$discussion-user-activity-toggle-option-color: #999;
+$discussion-user-activity-avatar-stroke-color: $wds-color-light-c4;
+$discussion-user-activity-row-separator-color: $wds-color-light-c3;
+$discussion-user-activity-value-description-color: $wds-color-light-c5;
+$discussion-user-activity-icon-color: $wds-color-light-c4;
+$discussion-user-activity-title-color: $wds-color-light-c5;
+$discussion-user-activity-community-avatar-color: $wds-color-light-c6;
+$discussion-user-activity-toggle-border-bottom-color: $wds-color-light-c4;
+$discussion-user-activity-toggle-option-color: $wds-color-light-c5;
 $discussion-user-activity-toggle-active-option-color: #006cb0;
-$discussion-user-activity-glossary-legend-color: #ccc;
-$discussion-user-activity-glossary-text-color: #333;
-$discussion-days-toggle-color: #333;
-$discussion-header-days-toggle-color: #fff;
+$discussion-user-activity-glossary-legend-color: $wds-color-light-c4;
+$discussion-user-activity-glossary-text-color: $wds-color-light-c6;
+$discussion-days-toggle-color: $wds-color-light-c6;
+$discussion-header-days-toggle-color: $wds-color-light-c1;
 
 $dark-highlight-overlay-background-color: #262626;
 $dark-body-background: #1a1a1a;
@@ -348,19 +348,19 @@ $dark-discussion-top-list-arrow-color: #999;
 $dark-discussion-no-followed-posts-color: #ccc;
 $dark-discussion-no-followed-posts-header-color: #fff;
 
-$dark-discussion-user-activity-text-color: #ccc;
-$dark-discussion-user-activity-avatar-stroke-color: #333;
-$dark-discussion-user-activity-row-separator-color: #333;
-$dark-discussion-user-activity-value-description-color: #999;
-$dark-discussion-user-activity-icon-color: #666;
-$dark-discussion-user-activity-title-color: #999;
-$dark-discussion-user-activity-community-avatar-color: #ccc;
-$dark-discussion-user-activity-toggle-border-bottom-color: #666;
-$dark-discussion-user-activity-toggle-option-color: #999;
-$dark-discussion-user-activity-glossary-legend-color: #666;
-$dark-discussion-user-activity-glossary-text-color: #ccc;
-$dark-discussion-days-toggle-color: #ccc;
-$dark-discussion-header-days-toggle-color: #fff;
+$dark-discussion-user-activity-text-color: $wds-color-dark-c6;
+$dark-discussion-user-activity-avatar-stroke-color: $wds-color-dark-c3;
+$dark-discussion-user-activity-row-separator-color: $wds-color-dark-c3;
+$dark-discussion-user-activity-value-description-color: $wds-color-dark-c5;
+$dark-discussion-user-activity-icon-color: $wds-color-dark-c4;
+$dark-discussion-user-activity-title-color: $wds-color-dark-c5;
+$dark-discussion-user-activity-community-avatar-color: $wds-color-dark-c6;
+$dark-discussion-user-activity-toggle-border-bottom-color: $wds-color-dark-c4;
+$dark-discussion-user-activity-toggle-option-color: $wds-color-dark-c5;
+$dark-discussion-user-activity-glossary-legend-color: $wds-color-dark-c4;
+$dark-discussion-user-activity-glossary-text-color: $wds-color-dark-c6;
+$dark-discussion-days-toggle-color: $wds-color-dark-c6;
+$dark-discussion-header-days-toggle-color: $wds-color-dark-c7;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;
