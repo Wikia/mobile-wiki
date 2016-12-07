@@ -48,10 +48,8 @@
 		}
 
 		.wds-dropdown__content {
+			// needs to be set once more to override dark theme
 			color: $discussion-days-toggle-color;
-			left: initial;
-			min-width: 100px;
-			right: 0;
 		}
 	}
 }

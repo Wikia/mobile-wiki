@@ -1,13 +1,12 @@
 import Ember from 'ember';
-import DiscussionBaseModel from '../base';
+import DiscussionUserActivityBaseModel from './user-activity-base';
 import DiscussionUserActivityModerations from '../domain/user-activity-moderations';
-import request from 'ember-ajax/request';
 
-const DiscussionUserActivityModerationsModel = DiscussionBaseModel.extend(
+const DiscussionUserActivityModerationsModel = DiscussionUserActivityBaseModel.extend(
 	{
 		setNormalizedData(data) {
 			this.set('data', DiscussionUserActivityModerations.create(data));
-		}
+		},
 	}
 );
 
@@ -21,22 +20,10 @@ DiscussionUserActivityModerationsModel.reopenClass(
 		find(wikiId, days) {
 			const userActivityModerationsInstance = DiscussionUserActivityModerationsModel.create({
 				wikiId,
-			});
+			}),
+				path = `/${wikiId}/leaderboard/moderator`;
 
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboard/moderator`), {
-					data: {
-						days
-					}
-				}).then((data) => {
-					userActivityModerationsInstance.setNormalizedData(data);
-					resolve(userActivityModerationsInstance);
-				}).catch((err) => {
-					userActivityModerationsInstance.setErrorProperty(err);
-
-					reject(userActivityModerationsInstance);
-				});
-			});
+			userActivityModerationsInstance.fetchDataFromTheService(path, days);
 		},
 	}
 );

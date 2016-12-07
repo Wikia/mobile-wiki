@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import DiscussionBaseModel from '../base';
+import DiscussionUserActivityBaseModel from './user-activity-base';
 import DiscussionUserActivityPosts from '../domain/user-activity-posts';
-import request from 'ember-ajax/request';
 
-const DiscussionUserActivityPostsModel = DiscussionBaseModel.extend(
+const DiscussionUserActivityPostsModel = DiscussionUserActivityBaseModel.extend(
 	{
 		setNormalizedData(data) {
 			this.set('data', DiscussionUserActivityPosts.create(data));
@@ -21,22 +20,10 @@ DiscussionUserActivityPostsModel.reopenClass(
 		find(wikiId, days) {
 			const userActivityPostsInstance = DiscussionUserActivityPostsModel.create({
 				wikiId,
-			});
+			}),
+				path = `/${wikiId}/leaderboards`;
 
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				return request(M.getDiscussionServiceUrl(`/${wikiId}/leaderboards`), {
-					data: {
-						days
-					}
-				}).then((data) => {
-					userActivityPostsInstance.setNormalizedData(data);
-					resolve(userActivityPostsInstance);
-				}).catch((err) => {
-					userActivityPostsInstance.setErrorProperty(err);
-
-					reject(userActivityPostsInstance);
-				});
-			});
+			userActivityPostsInstance.fetchDataFromTheService(path, days);
 		},
 	}
 );
