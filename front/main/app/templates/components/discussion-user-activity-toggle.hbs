@@ -1,18 +1,18 @@
 <ul class="user-activity-options">
 	<li class="{{if options.posts.isActive 'active'}}">
-		{{#href-to 'discussion.moderator.user-activity.posts'}}
+		{{#link-to 'discussion.moderator.user-activity.posts'}}
 			{{i18n 'user-activity.active-users-toggle-option' ns='discussion'}}
-		{{/href-to}}
+		{{/link-to}}
 	</li>
 	<li class="{{if options.reports.isActive 'active'}}">
-		{{#href-to 'discussion.moderator.user-activity.reports'}}
+		{{#link-to 'discussion.moderator.user-activity.reports'}}
 			{{i18n 'user-activity.reports-toggle-option' ns='discussion'}}
-		{{/href-to}}
+		{{/link-to}}
 	</li>
 	<li class="{{if options.moderatorActions.isActive 'active'}}">
-		{{#href-to 'discussion.moderator.user-activity.moderations'}}
+		{{#link-to 'discussion.moderator.user-activity.moderations'}}
 			{{i18n 'user-activity.moderator-actions-toggle-option' ns='discussion'}}
-		{{/href-to}}
+		{{/link-to}}
 	</li>
 </ul>
 
