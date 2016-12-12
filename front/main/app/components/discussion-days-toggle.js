@@ -10,14 +10,13 @@ export default Ember.Component.extend(
 		days: null,
 
 		closeDropdown() {
-			this.$(window.document).off('click', this.closeDropdown.bind(this));
 			this.set('isDropdownActive', false);
 		},
 
 		openDropdown() {
 			//Needs to run later so that it does not intercept a currently bubbling click
 			Ember.run.later(() => {
-				this.$(window.document).on('click', this.closeDropdown.bind(this));
+				this.$(window.document).one('click', this.closeDropdown.bind(this));
 				this.set('isDropdownActive', true);
 			});
 		},
@@ -25,7 +24,7 @@ export default Ember.Component.extend(
 		actions: {
 			openDropdown() {
 				if (!this.get('isDropdownActive')) {
-					this.openDropdown()
+					this.openDropdown();
 				}
 			},
 
