@@ -148,6 +148,24 @@
     "no-followed-posts-text":"Klicke auf das Symbol „Folgen“ am Ende eines beliebigen Beitrags, um deine Liste mit den Diskussionen zu füllen, die dir am wichtigsten sind. Wir stellen sie hier ein und geben dir Bescheid, wenn es etwas Neues gibt.",
     "find-posts-to-follow":"Finde Beiträge, denen du folgen möchtest"
   },
+  "user-activity":{
+    "active-users-toggle-option":"Aktive Benutzer",
+    "reports-toggle-option":"Berichte",
+    "moderator-actions-toggle-option":"Moderationen",
+    "days-count":"__numberOfDays__ Tage",
+    "glossary-header":"Übersicht",
+    "active-users-headline":"Aktive Benutzer",
+    "active-users-description":"Wer hat die meisten Beiträge veröffentlicht?",
+    "reports-headline":"Berichte",
+    "reports-description":"Wer hat die meisten Inhalte gemeldet und wurden diese Beiträge gelöscht, genehmigt oder noch nicht von einem Moderator bearbeitet?",
+    "moderator-actions-headline":"Moderationen",
+    "moderator-actions-description":"Welche Moderatoren haben die meisten Beiträge gelöscht, genehmigt und gesperrt oder am häufigsten die Kategorie eines Beitrags geändert?",
+    "hero-unit-subtitle":"Benutzeraktivität",
+    "posts":"Beiträge",
+    "reported":"gemeldet",
+    "not-processed":"nicht bearbeitet",
+    "actions":"Aktionen"
+  },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
     "post-error-anon-cant-post":"Melde dich an, um an der Diskussion teilzunehmen!",
