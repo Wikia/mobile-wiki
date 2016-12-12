@@ -23,7 +23,7 @@ DiscussionUserActivityPostsModel.reopenClass(
 			}),
 				path = `/${wikiId}/leaderboards`;
 
-			userActivityPostsInstance.fetchDataFromTheService(path, days);
+			return userActivityPostsInstance.fetchDataFromTheService(path, days);
 		},
 	}
 );

@@ -23,7 +23,7 @@ DiscussionUserActivityReportsModel.reopenClass(
 			}),
 				path = `/${wikiId}/leaderboard/reports`;
 
-			userActivityReportsInstance.fetchDataFromTheService(path, days);
+			return userActivityReportsInstance.fetchDataFromTheService(path, days);
 		},
 	}
 );
