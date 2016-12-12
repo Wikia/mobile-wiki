@@ -15,6 +15,10 @@ button[type='submit'][disabled] {
 	opacity: 0.5;
 }
 
+a.button-wide {
+	margin-top: 1rem;
+}
+
 a.button-wide,
 a.button-wide:hover,
 .form-submit[type='submit'],
