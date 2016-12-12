@@ -14,7 +14,7 @@ export default Ember.Component.extend(
 		},
 
 		openDropdown() {
-			//Needs to run later so that it does not intercept a currently bubbling click
+			// Needs to run later so that it does not intercept a currently bubbling click
 			Ember.run.later(() => {
 				this.$(window.document).one('click', this.closeDropdown.bind(this));
 				this.set('isDropdownActive', true);

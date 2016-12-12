@@ -1,3 +1,4 @@
+/* eslint-disable quote-props, quotes, max-len */
 const activities = {
 	"days": 30,
 	"users": [
@@ -64,8 +65,8 @@ const activities = {
 	]
 };
 
-var activityUsers = activities.users;
-for(let i = 0; i < 16; i++) {
+let activityUsers = activities.users;
+for (let i = 0; i < 16; i++) {
 	activities.users = activities.users.concat(activityUsers);
 }
 export default activities;

@@ -19,8 +19,8 @@ DiscussionUserActivityReportsModel.reopenClass(
 		 */
 		find(wikiId, days) {
 			const userActivityReportsInstance = DiscussionUserActivityReportsModel.create({
-				wikiId,
-			}),
+					wikiId,
+				}),
 				path = `/${wikiId}/leaderboard/reports`;
 
 			return userActivityReportsInstance.fetchDataFromTheService(path, days);

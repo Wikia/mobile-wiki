@@ -10,7 +10,7 @@ export default Ember.Route.extend({
 	allowedDaysValues: [30, 90],
 
 	isValidDaysValue(days) {
-		return this.allowedDaysValues.indexOf(parseInt(days)) !== -1;
+		return this.allowedDaysValues.indexOf(parseInt(days, 10)) !== -1;
 	},
 
 	beforeModel(transition) {
@@ -21,7 +21,7 @@ export default Ember.Route.extend({
 				queryParams: {
 					days: this.get('allowedDaysValues.0')
 				}
-			})
+			});
 		}
 	},
 
