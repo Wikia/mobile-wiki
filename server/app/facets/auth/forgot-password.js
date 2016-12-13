@@ -3,7 +3,7 @@ import {disableCache} from '../../lib/caching';
 import Logger from '../../lib/logger';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
-import url from 'url';
+import resetPasswordFor from '../operations/reset-password';
 
 function getForgotPasswordViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
@@ -53,11 +53,21 @@ export function get(request, reply) {
  * @param {*} reply
  */
 export function post(request, reply) {
-	const username = request.payload.username;
+	const redirect = request.payload.redirect,
+		username = request.payload.username;
 
-	Logger.error('Username ' + (username || 'undefined'));
+	Logger.error({username, redirect});
 
-	return reply({
-		ok: 'it\'s ok'
-	});
+	resetPasswordFor(username, redirect)
+		.then(data => {
+			reply({
+				payload: data.payload
+			}).code(data.response.statusCode);
+		})
+		.catch(data => {
+			reply({
+				step: data.step,
+				error: data.error
+			}).code(data.response.statusCode);
+		});
 }
