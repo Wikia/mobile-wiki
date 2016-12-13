@@ -1,8 +1,8 @@
 import * as authUtils from '../../lib/auth-utils';
+import Logger from '../../lib/logger';
 import Promise from 'bluebird';
 import settings from '../../../config/settings';
 import Wreck from 'wreck';
-import Logger from '../../lib/logger';
 
 function createResetPasswordContext(userInfo, data) {
 	return {
@@ -27,6 +27,11 @@ function handleUserRegistrationResponse(data) {
 					payload: new Buffer(payload).toString('utf8')
 				});
 			} else {
+				Logger.error({
+					url: resetPassword.url,
+				},
+				'Error while resetting password.');
+
 				reject({
 					step: 'reset-password',
 					error,
@@ -70,6 +75,11 @@ function handleServiceDiscoveryResponse(data) {
 					redirect: data.redirect
 				});
 			} else {
+				Logger.error({
+					url: userDiscovery.url
+				},
+				'Error while discovering user info.');
+
 				reject({
 					step: 'user-discovery',
 					error,
@@ -98,6 +108,11 @@ function fetchHealthyUserRegistrationServices(username, redirect) {
 			if (response.statusCode === 200) {
 				resolve({response, payload, username, redirect});
 			} else {
+				Logger.error({
+					url: serviceDiscovery.url
+				},
+				'Error while discovering user registration service.');
+
 				reject({
 					step: 'service-discovery',
 					error,

@@ -1,6 +1,5 @@
 import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
-import Logger from '../../lib/logger';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import resetPasswordFor from '../operations/reset-password';
@@ -20,9 +19,9 @@ function getForgotPasswordViewContext(request, redirect) {
 	);
 }
 
-function assembleView(template, context, request, reply) {
+function assembleView(context, request, reply) {
 	const response = reply.view(
-		`auth/${authView.getViewType(request)}/${template}`,
+		`auth/${authView.getViewType(request)}/forgot-password`,
 		context,
 		{
 			layout: 'card'
@@ -45,7 +44,7 @@ export function get(request, reply) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
-	return assembleView('forgot-password', context, request, reply);
+	return assembleView(context, request, reply);
 }
 
 /**
@@ -56,15 +55,12 @@ export function post(request, reply) {
 	const redirect = request.payload.redirect,
 		username = request.payload.username;
 
-	Logger.error({username, redirect});
-
 	resetPasswordFor(username, redirect)
 		.then(data => {
 			reply({
 				payload: data.payload
-			}).code(data.response.statusCode);
-		})
-		.catch(data => {
+			}).code(200);
+		}).catch(data => {
 			reply({
 				error: data.error || 'error'
 			}).code(data.response.statusCode);
