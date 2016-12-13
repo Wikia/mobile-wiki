@@ -149,9 +149,9 @@
     "find-posts-to-follow":"Поиск сообщений для подписки"
   },
   "user-activity":{
-    "active-users-toggle-option":"Активные участники",
+    "active-users-toggle-option":"Активные<br>участники",
     "reports-toggle-option":"Нарушения",
-    "moderator-actions-toggle-option":"Действия модераторов",
+    "moderator-actions-toggle-option":"Действия<br>модераторов",
     "days-count":"__numberOfDays__ дн.",
     "glossary-header":"Глоссарий",
     "active-users-headline":"Активные участники",
@@ -162,7 +162,6 @@
     "moderator-actions-description":"Кто из модераторов проявил себя наиболее активно, удаляя, одобряя и закрывая сообщения, а также перемещая их в другие категории?",
     "hero-unit-subtitle":"Деятельность участников",
     "posts":"сообщений",
-    "reported":"сообщений о нарушениях",
     "not-processed":"не обработано",
     "actions":"действия"
   },

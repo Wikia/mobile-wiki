@@ -65,25 +65,29 @@
 				}
 
 				&.reported {
-					width: 80px;
+					width: 60px;
 				}
 
 				&.queued {
-					width: 110px;
+					width: 120px;
 				}
 
 				&.verified {
-					width: 50px;
+					width: 60px;
 				}
 
 				&.deleted {
-					width: 50px;
+					width: 60px;
 				}
 			}
 
 			.user-activity-icon {
 				fill: $discussion-user-activity-icon-color;
 				position: relative;
+
+				&.alert {
+					top: 3px;
+				}
 
 				&.checkmark {
 					height: 18px;

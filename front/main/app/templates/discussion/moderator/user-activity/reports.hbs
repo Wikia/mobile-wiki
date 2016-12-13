@@ -1,13 +1,9 @@
 {{#discussion-user-activity-list class='reports-list' items=model.current.data.users as |item|}}
 	{{discussion-user-activity-value
 		class='reported'
-		description=(i18n 'user-activity.reports' ns='discussion')
+		iconClass='wds-icon wds-icon-small alert'
+		iconName='wds-icons-alert-small'
 		value=item.actions
-	}}
-	{{discussion-user-activity-value
-		class='queued'
-		description=(i18n 'user-activity.not-processed' ns='discussion')
-		value=item.breakdown.queued
 	}}
 	{{discussion-user-activity-value
 		class='verified'
@@ -20,5 +16,10 @@
 		iconClass='trash'
 		iconName='trash-small'
 		value=item.breakdown.deleted
+	}}
+	{{discussion-user-activity-value
+		class='queued'
+		description=(i18n 'user-activity.not-processed' ns='discussion')
+		value=item.breakdown.queued
 	}}
 {{/discussion-user-activity-list}}

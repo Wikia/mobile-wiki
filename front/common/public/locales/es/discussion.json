@@ -149,9 +149,9 @@
     "find-posts-to-follow":"Busca discusiones a seguir"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuarios activos",
+    "active-users-toggle-option":"Usuarios<br>activos",
     "reports-toggle-option":"Reportes",
-    "moderator-actions-toggle-option":"Acciones del moderador",
+    "moderator-actions-toggle-option":"Acciones<br>del moderador",
     "days-count":"__numberOfDays__ días",
     "glossary-header":"Glosario",
     "active-users-headline":"Usuarios activos",
@@ -162,7 +162,6 @@
     "moderator-actions-description":"¿Qué moderadores han sido los más activos a la hora borrar, aprobar y cerrar discusiones, o cambiar la categoría de una discusión?",
     "hero-unit-subtitle":"Actividad del usuario",
     "posts":"discusiones",
-    "reported":"reportado",
     "not-processed":"no procesado",
     "actions":"acciones"
   },

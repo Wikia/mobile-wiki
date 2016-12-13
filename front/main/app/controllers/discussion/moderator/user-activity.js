@@ -20,6 +20,10 @@ export default DiscussionBaseController.extend(
 
 		parentController: Ember.inject.controller('discussion.moderator.user-activity'),
 
+		applicationController: Ember.inject.controller('application'),
+
+		currentRouteName: Ember.computed.alias('applicationController.currentRouteName'),
+
 		actions: {
 			setDays(days) {
 				this.get('target').send('setDays', days);

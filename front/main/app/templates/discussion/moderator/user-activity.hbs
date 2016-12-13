@@ -22,6 +22,7 @@
 			<p class="user-activity-title">{{i18n 'user-activity.hero-unit-subtitle' ns='discussion'}}</p>
 		{{/if}}
 		{{discussion-user-activity-toggle
+			currentRouteName=currentRouteName
 			days=days
 			setDays=(action 'setDays')
 		}}

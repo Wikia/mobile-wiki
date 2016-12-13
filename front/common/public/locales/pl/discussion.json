@@ -149,9 +149,9 @@
     "find-posts-to-follow":"Znajdź posty do obserwowania"
   },
   "user-activity":{
-    "active-users-toggle-option":"Aktywni użytkownicy",
+    "active-users-toggle-option":"Aktywni<br>użytkownicy",
     "reports-toggle-option":"Zgłoszenia",
-    "moderator-actions-toggle-option":"Aktywność moderatorów",
+    "moderator-actions-toggle-option":"Aktywność<br>moderatorów",
     "days-count":"__numberOfDays__ dni",
     "glossary-header":"Słowniczek",
     "active-users-headline":"Aktywni użytkownicy",
@@ -162,7 +162,6 @@
     "moderator-actions-description":"Którzy moderatorzy byli najbardziej aktywni przy usuwaniu, zatwierdzaniu i blokowaniu postów oraz przy zmianach ich kategorii?",
     "hero-unit-subtitle":"Aktywność użytkowników",
     "posts":"posty",
-    "reported":"zgłoszone",
     "not-processed":"niesprawdzone",
     "actions":"działania"
   },

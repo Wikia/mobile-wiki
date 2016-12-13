@@ -151,7 +151,7 @@
   "user-activity":{
     "active-users-toggle-option":"Utenti attivi",
     "reports-toggle-option":"Segnalazioni",
-    "moderator-actions-toggle-option":"Azioni di moderazione",
+    "moderator-actions-toggle-option":"Azioni<br>di moderazione",
     "days-count":"__numberOfDays__ giorni",
     "glossary-header":"Glossario",
     "active-users-headline":"Utenti attivi",
@@ -162,7 +162,6 @@
     "moderator-actions-description":"Quali moderatori sono stati i più attivi eliminando, approvando e bloccando post o modificando la categoria di un post?",
     "hero-unit-subtitle":"Attività degli utenti",
     "posts":"post",
-    "reported":"segnalato",
     "not-processed":"non esaminato",
     "actions":"azioni"
   },

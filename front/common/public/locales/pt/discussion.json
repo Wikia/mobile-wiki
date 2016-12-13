@@ -149,9 +149,9 @@
     "find-posts-to-follow":"Encontrar posts para seguir"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuários ativos",
+    "active-users-toggle-option":"Usuários<br>ativos",
     "reports-toggle-option":"Relatórios",
-    "moderator-actions-toggle-option":"Ações do moderador",
+    "moderator-actions-toggle-option":"Ações<br>do moderador",
     "days-count":"__numberOfDays__ dias",
     "glossary-header":"Glossário",
     "active-users-headline":"Usuários ativos",
@@ -162,7 +162,6 @@
     "moderator-actions-description":"Quais moderadores foram mais ativos ao excluir, aprovar e bloquear posts ou ao alterar a categoria de um post?",
     "hero-unit-subtitle":"Atividade do usuário",
     "posts":"posts",
-    "reported":"relatado",
     "not-processed":"não analisado",
     "actions":"ações"
   },

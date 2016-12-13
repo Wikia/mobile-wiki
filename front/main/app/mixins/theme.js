@@ -125,8 +125,8 @@ export default Ember.Mixin.create({
 		styles += `.discussions .is-active.fill-icon-color .icon {fill: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
-		styles += `.discussions .user-activity-options li a.active {color: ${this.get('themeColors.color-links')};
-			border-color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .user-activity-options li.active {border-color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .user-activity-options li a.active {color: ${this.get('themeColors.color-links')};}`;
 
 		styles += `.dark-theme.discussions .active-element-background-color {background-color: ${
 			this.get('themeColors.color-links')};}`;
