@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import ImageReviewItemModel from '../models/image-review/image-review-item';
 
-const {Logger} = Ember;
-
 export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isModalVisible: false,
