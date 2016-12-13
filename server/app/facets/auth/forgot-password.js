@@ -62,7 +62,8 @@ export function post(request, reply) {
 			}).code(200);
 		}).catch(data => {
 			reply({
-				error: data.error || 'error'
+				error: data.error || 'error',
+				step: data.step
 			}).code(data.response.statusCode);
 		});
 }
