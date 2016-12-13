@@ -50,6 +50,21 @@ export default class ForgotPassword {
 		this.authLogger = AuthLogger.getInstance();
 		this.tracker = new AuthTracker('forgot-password-mobile', '/forgotPassword');
 		this.urlHelper = new UrlHelper();
+		this.redirect = this.extractRedirectUrlFromQuery();
+	}
+
+	/**
+	 * @private
+	 */
+	extractRedirectUrlFromQuery() {
+		let redirect = '';
+
+		if (window.location.search) {
+			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
+			redirect = params.redirect;
+		}
+
+		return redirect;
 	}
 
 	/**
@@ -63,6 +78,7 @@ export default class ForgotPassword {
 		const button = this.form.querySelector('button'),
 			data = {
 				username: this.usernameInput.value,
+				redirect: this.redirect
 			},
 			xhr = new XMLHttpRequest();
 
@@ -79,7 +95,7 @@ export default class ForgotPassword {
 				// this.tracker.track('login-credentials-error', trackActions.error);
 				return this.displayError('errors.wrong-credentials');
 			} else if (xhr.status !== HttpCodes.OK) {
-				// this.tracker.track('login-server-error', trackActions.error);
+				this.tracker.track('forgot-password-server-error', trackActions.error);
 				// this.authLogger.xhrError(xhr);
 				return this.displayError('errors.server-error');
 			}
@@ -98,7 +114,7 @@ export default class ForgotPassword {
 		xhr.onerror = () => {
 			button.disabled = false;
 			// this.authLogger.xhrError(xhr);
-			// this.tracker.track('login-server-error', trackActions.error);
+			this.tracker.track('forgot-password-server-error', trackActions.error);
 			this.displayError('errors.server-error');
 		};
 
@@ -113,7 +129,7 @@ export default class ForgotPassword {
 	 */
 	onSuccess(response) {
 		this.tracker.track('forgot-password-success', trackActions.submit);
-		document.querySelector('.cards-container').classList.add('flipped');
+		document.querySelector('.cards-container').classList.add('dissolved');
 	}
 
 	/**
