@@ -2,6 +2,7 @@ import * as authUtils from '../../lib/auth-utils';
 import Promise from 'bluebird';
 import settings from '../../../config/settings';
 import Wreck from 'wreck';
+import Logger from '../../lib/logger';
 
 function createResetPasswordContext(userInfo, data) {
 	return {

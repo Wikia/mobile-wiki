@@ -5,26 +5,8 @@ import UrlHelper from '../common/url-helper';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 /**
- * @typedef {Object} LoginCredentials
- * @property {string} username
- * @property {string} password
- */
-
-/**
- * @typedef {Object} LoginResponse
- * @property {string} user_id
- * @property {string} access_token
- * @property {string} refresh_token
- * @property {string} token_type
- * @property {string} expires_in
- * @property {string} [error]
- * @property {string} [error_description]
- */
-
-/**
  * @typedef {Object} FormElements
  * @property {HTMLInputElement} username
- * @property {HTMLInputElement} password
  */
 
 /**
@@ -33,7 +15,6 @@ import {track as mercuryTrack, trackActions} from 'common/utils/track';
  * @property {HTMLFormElement} form
  * @property {string} redirect
  * @property {HTMLInputElement} usernameInput
- * @property {HTMLInputElement} passwordInput
  * @property {UrlHelper} urlHelper
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
@@ -91,36 +72,34 @@ export default class ForgotPassword {
 		 */
 		xhr.onload = () => {
 			button.disabled = false;
-			if (xhr.status === HttpCodes.UNAUTHORIZED) {
-				// this.tracker.track('login-credentials-error', trackActions.error);
-				return this.displayError('errors.wrong-credentials');
+
+			if (xhr.status === HttpCodes.NOT_FOUND) {
+				this.tracker.track('username-not-recognized', trackActions.error);
+				return this.displayError('errors.username-not-recognized');
+			} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
+				this.tracker.track('reset-password-email-sent', trackActions.error);
+				return this.displayError('errors.reset-password-email-sent');
 			} else if (xhr.status !== HttpCodes.OK) {
-				this.tracker.track('forgot-password-server-error', trackActions.error);
-				// this.authLogger.xhrError(xhr);
-				return this.displayError('errors.server-error');
-			}
-
-			const response = JSON.parse(xhr.responseText);
-
-			if (response.error) {
-				// Helios may return an error even if the request returns a 200
-				// this.tracker.track('login-credentials-error', trackActions.error);
-				this.displayError('errors.wrong-credentials');
+				this.onError(xhr);
 			} else {
-				this.onSuccess(response);
+				this.onSuccess(JSON.parse(xhr.responseText));
 			}
 		};
 
 		xhr.onerror = () => {
 			button.disabled = false;
-			// this.authLogger.xhrError(xhr);
-			this.tracker.track('forgot-password-server-error', trackActions.error);
-			this.displayError('errors.server-error');
+			this.oneError(xhr);
 		};
 
 		xhr.open('post', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(this.urlHelper.urlEncode(data));
+	}
+
+	onError(xhr) {
+		this.authLogger.xhrError(xhr);
+		this.tracker.track('server-error', trackActions.error);
+		this.displayError('errors.server-error');
 	}
 
 	/**
