@@ -13,7 +13,6 @@ export default Route.extend({
 	afterModel(model) {
 		model.setImagesCount(this.get('status'));
 		this.controllerFor('application').set('isLoading', false);
-		Ember.$(':focus').blur();
 	},
 
 	actions: {
