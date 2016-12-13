@@ -329,7 +329,7 @@ body.discussions {
 		font-size: $mobile-content-font-size;
 		line-height: $mobile-content-line-height;
 		margin: 5px 0;
-		padding: 4px 0;
+		padding: 4px 0 6px 0;
 
 		.post-details-link {
 			color: $discussion-content-color;
@@ -763,6 +763,12 @@ body.discussions {
 			line-height: $desktop-content-line-height;
 		}
 
+		.discussion-reply {
+			.post-images {
+				margin-left: 22px;
+			}
+		}
+
 		.post-edited-by-row {
 			font-size: $type-smallest;
 			line-height: rem-calc(14);
@@ -859,6 +865,7 @@ body.discussions {
 	.post-details-view {
 		.discussion-reply {
 			.discussion-content {
+				padding-bottom: 5px;
 				margin-left: 0;
 			}
 		}
@@ -885,6 +892,7 @@ body.discussions {
 
 		.discussion-content {
 			line-height: $post-content-line-height;
+			padding-bottom: 0;
 
 			.post-details-link {
 				line-height: $post-content-line-height;

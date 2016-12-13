@@ -148,6 +148,24 @@
     "no-followed-posts-text":"Toca el ícono \"Seguir\" en la parte de abajo de cada discusión para llenar tu lista con discusiones que más te interesan. Las pondremos aquí y te notificaremos sobre nueva actividad.",
     "find-posts-to-follow":"Busca discusiones a seguir"
   },
+  "user-activity":{
+    "active-users-toggle-option":"Usuarios activos",
+    "reports-toggle-option":"Reportes",
+    "moderator-actions-toggle-option":"Acciones del moderador",
+    "days-count":"__numberOfDays__ días",
+    "glossary-header":"Glosario",
+    "active-users-headline":"Usuarios activos",
+    "active-users-description":"¿Quién ha publicado más discusiones?",
+    "reports-headline":"Reportes",
+    "reports-description":"¿Quién ha reportado más contenido, y ha hecho que esas discusiones hayan sido borradas, aprobadas o aún no procesadas por un moderador?",
+    "moderator-actions-headline":"Acciones del moderador",
+    "moderator-actions-description":"¿Qué moderadores han sido los más activos a la hora borrar, aprobar y cerrar discusiones, o cambiar la categoría de una discusión?",
+    "hero-unit-subtitle":"Actividad del usuario",
+    "posts":"discusiones",
+    "reported":"reportado",
+    "not-processed":"no procesado",
+    "actions":"acciones"
+  },
   "editor":{
     "post-failed-error":"Fallo en discusión.",
     "post-error-anon-cant-post":"¡Regístrate para unirte a la discusión!",
