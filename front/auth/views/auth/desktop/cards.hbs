@@ -5,9 +5,11 @@
 	<div class="card first-card">
 		<header class="auth-header splash splash-top">
 			<h1>{{i18n firstCard.headerText}}</h1>
-			<a href="{{{firstCard.headerHref}}}" class="header-callout-link">
-				{{i18n firstCard.headerCallout}} <span class="header-callout-emphasis">{{i18n firstCard.headerCalloutLink}}</span>
-			</a>
+			{{#if firstCard.headerHref}}
+				<a href="{{{firstCard.headerHref}}}" class="header-callout-link">
+					{{i18n firstCard.headerCallout}} <span class="header-callout-emphasis">{{i18n firstCard.headerCalloutLink}}</span>
+				</a>
+			{{/if}}
 		</header>
 		<div class="desktop-view">
 			<section class="auth-content auth-content-wide">
