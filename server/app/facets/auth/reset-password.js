@@ -23,7 +23,8 @@ function getResetPasswordViewContext(request, redirect) {
 			secondCardPartial() {
 				return 'auth/confirm-reset-password';
 			},
-			title: 'auth:reset-password.title',
+			signInUrl: authUtils.getSignInUrl(request),
+			title: 'auth:reset-password.title'
 		}
 	);
 }

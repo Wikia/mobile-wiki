@@ -13,7 +13,6 @@ import authLocaleSettings from '../../config/authLocaleSettings.js';
  * @property {number} [status]
  */
 
-// @todo seems unused: wikiaSignupPathname = '/wiki/Special:UserSignup',
 const forgotPasswordPathname = 'forgotpassword';
 
 /**
