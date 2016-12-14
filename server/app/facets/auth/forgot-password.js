@@ -8,11 +8,15 @@ function getForgotPasswordViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'forgot-password-page',
-			confirmHeaderText: 'auth:confirm-forgot-password.header',
-			headerText: 'auth:forgot-password.header',
-			headerCallout: 'auth:signin.register-callout',
-			headerCalloutLink: 'auth:signin.register-now',
-			headerHref: authUtils.getRegisterUrl(request),
+			firstCard: {
+				headerCallout: 'auth:signin.register-callout',
+				headerCalloutLink: 'auth:signin.register-now',
+				headerHref: authUtils.getRegisterUrl(request),
+				headerText: 'auth:forgot-password.header'
+			},
+			secondCard: {
+				headerText: 'auth:confirm-forgot-password.header',
+			},
 			pageType: 'forgot-password-page',
 			title: 'auth:forgot-password.title',
 			firstCardPartial() {
