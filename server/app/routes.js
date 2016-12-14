@@ -10,8 +10,9 @@ import logoutHandler from './facets/auth/logout';
 import articlePreview from './facets/article-preview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
-import registerHandler from './facets/auth/register';
 import * as forgotPasswordHandler from './facets/auth/forgot-password';
+import registerHandler from './facets/auth/register';
+import resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/show-application';
 import showCuratedContent from './facets/show-curated-content';
@@ -150,6 +151,18 @@ let routes,
 			method: 'POST',
 			path: '/forgotpassword',
 			handler: forgotPasswordHandler.post,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
+			path: '/resetpassword',
+			handler: resetPasswordHandler,
 			config: {
 				pre: [
 					{
