@@ -1,7 +1,7 @@
 $cards-transition-length: .4s;
 $active-card-z-index: $navigation-z-index - 10;
 
-.forgot-password-page {
+.two-cards-page {
 	.auth-nav {
 		position: absolute;
 		z-index: $navigation-z-index;
@@ -23,7 +23,9 @@ $active-card-z-index: $navigation-z-index - 10;
 		}
 
 		.input-container {
-			margin-bottom: 35px;
+			&:last-of-type {
+				margin-bottom: 35px;
+			}
 		}
 	}
 

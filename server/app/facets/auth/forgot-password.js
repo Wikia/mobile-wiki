@@ -3,28 +3,30 @@ import {disableCache} from '../../lib/caching';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import resetPasswordFor from '../operations/reset-password';
+import settings from '../../../config/settings';
 
 function getForgotPasswordViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
-			bodyClasses: 'forgot-password-page',
+			bodyClasses: 'two-cards-page forgot-password-page',
 			firstCard: {
 				headerCallout: 'auth:signin.register-callout',
 				headerCalloutLink: 'auth:signin.register-now',
 				headerHref: authUtils.getRegisterUrl(request),
 				headerText: 'auth:forgot-password.header'
 			},
-			secondCard: {
-				headerText: 'auth:confirm-forgot-password.header',
-			},
-			pageType: 'forgot-password-page',
-			title: 'auth:forgot-password.title',
 			firstCardPartial() {
 				return 'auth/forgot-password';
 			},
+			pageType: 'forgot-password-page',
+			secondCard: {
+				headerText: 'auth:confirm-forgot-password.header',
+			},
 			secondCardPartial() {
 				return 'auth/forgot-password-check-email';
-			}
+			},
+			title: 'auth:forgot-password.title',
+			usernameMaxLength: settings.helios.usernameMaxLength
 		}
 	);
 }
