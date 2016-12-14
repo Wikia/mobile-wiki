@@ -129,7 +129,7 @@ export default class ForgotPassword {
 
 		errorElement.classList.add('error');
 		errorElement.innerHTML = i18n.t(messageKey);
-		this.form.appendChild(errorElement);
+		this.usernameInput.parentElement.appendChild(errorElement);
 	}
 
 	/**
