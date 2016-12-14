@@ -4,7 +4,18 @@
 		{{> auth/head}}
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
-		{{> auth/navigation}}
+		{{#if standalonePage}}
+			<nav class="global-nav">
+				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
+			</nav>
+		{{else}}
+			{{#unless pageParams.isModal}}
+				<a class="close" href="{{exitTo}}">
+					<!-- @include /front/common/symbols/close-big.svg -->
+				</a>
+			{{/unless}}
+		{{/if}}
+
 
 		<main class="page-view">
 			{{{content}}}
