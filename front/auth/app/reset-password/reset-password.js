@@ -57,45 +57,50 @@ export default class ResetPassword {
 	onSubmit(event) {
 		event.preventDefault();
 
-		// const button = this.form.querySelector('button'),
-		// 	data = {
-		// 		password: this.usernameInput.value,
-		// 		redirect: this.redirect
-		// 	},
-		// 	xhr = new XMLHttpRequest();
-		//
-		//
-		// this.clearError();
-		// button.disabled = true;
-		//
-		// /**
-		//  * @returns {void}
-		//  */
-		// xhr.onload = () => {
-		// 	button.disabled = false;
-		//
-		// 	if (xhr.status === HttpCodes.NOT_FOUND) {
-		// 		this.tracker.track('username-not-recognized', trackActions.error);
-		// 		return this.displayError('errors.username-not-recognized');
-		// 	} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
-		// 		this.tracker.track('reset-password-email-sent', trackActions.error);
-		// 		return this.displayError('errors.reset-password-email-sent');
-		// 	} else if (xhr.status !== HttpCodes.OK) {
-		// 		this.onError(xhr);
-		// 	} else {
-		// 		this.onSuccess(JSON.parse(xhr.responseText));
-		// 	}
-		// };
-		//
-		// xhr.onerror = () => {
-		// 	button.disabled = false;
-		// 	this.oneError(xhr);
-		// };
-		//
-		// xhr.open('post', this.form.action, true);
-		// xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		// xhr.send(this.urlHelper.urlEncode(data));
-		this.onSuccess();
+		const button = this.form.querySelector('button'),
+			newPasswordValue = this.newPasswordInput.value,
+			confirmNewPasswordValue = this.confirmNewPasswordInput.value,
+			data = {
+				password: newPasswordValue,
+				redirect: this.redirect
+			},
+			xhr = new XMLHttpRequest();
+
+		this.clearError();
+		button.disabled = true;
+
+		if (newPasswordValue !== confirmNewPasswordValue) {
+			this.displayError('errors.passwords_not_match');
+		} else {
+			// /**
+			//  * @returns {void}
+			//  */
+			// xhr.onload = () => {
+			// 	button.disabled = false;
+			//
+			// 	if (xhr.status === HttpCodes.NOT_FOUND) {
+			// 		this.tracker.track('username-not-recognized', trackActions.error);
+			// 		return this.displayError('errors.username-not-recognized');
+			// 	} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
+			// 		this.tracker.track('reset-password-email-sent', trackActions.error);
+			// 		return this.displayError('errors.reset-password-email-sent');
+			// 	} else if (xhr.status !== HttpCodes.OK) {
+			// 		this.onError(xhr);
+			// 	} else {
+			// 		this.onSuccess(JSON.parse(xhr.responseText));
+			// 	}
+			// };
+			//
+			// xhr.onerror = () => {
+			// 	button.disabled = false;
+			// 	this.oneError(xhr);
+			// };
+			//
+			// xhr.open('post', this.form.action, true);
+			// xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			// xhr.send(this.urlHelper.urlEncode(data));
+			this.onSuccess();
+		}
 	}
 
 	onError(xhr) {
@@ -130,7 +135,7 @@ export default class ResetPassword {
 
 		errorElement.classList.add('error');
 		errorElement.innerHTML = i18n.t(messageKey);
-		this.usernameInput.parentElement.appendChild(errorElement);
+		this.newPasswordInput.parentElement.appendChild(errorElement);
 	}
 
 	/**

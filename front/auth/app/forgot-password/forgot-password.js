@@ -67,18 +67,15 @@ export default class ForgotPassword {
 		this.clearError();
 		button.disabled = true;
 
-		/**
-		 * @returns {void}
-		 */
 		xhr.onload = () => {
 			button.disabled = false;
 
 			if (xhr.status === HttpCodes.NOT_FOUND) {
 				this.tracker.track('username-not-recognized', trackActions.error);
-				return this.displayError('errors.username-not-recognized');
+				this.displayError('errors.username-not-recognized');
 			} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
 				this.tracker.track('reset-password-email-sent', trackActions.error);
-				return this.displayError('errors.reset-password-email-sent');
+				this.displayError('errors.reset-password-email-sent');
 			} else if (xhr.status !== HttpCodes.OK) {
 				this.onError(xhr);
 			} else {

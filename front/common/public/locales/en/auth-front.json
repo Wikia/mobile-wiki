@@ -11,6 +11,7 @@
     "username-not-recognized": "Hm, we don't recognize this name. Don't forget usernames are case sensitive.",
     "password_exceeds_max_length": "Password cannot exceed 50 characters",
     "password_equal_name": "Password and username cannot match",
+    "passwords_not_match": "Passwords do not match",
     "reset-password-email-sent": "We've already sent a password reminder to this account in the last 24 hours. Please check your email.",
     "user_already_linked": "This Fandom account is already connected to Facebook",
     "fb_account_already_linked": "This Facebook account is already connected to another Fandom user account",
