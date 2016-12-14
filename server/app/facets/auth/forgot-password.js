@@ -4,6 +4,7 @@ import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import resetPasswordFor from '../operations/reset-password';
 import settings from '../../../config/settings';
+import querystring from 'querystring';
 
 function getForgotPasswordViewContext(request, redirect) {
 	return deepExtend(authView.getDefaultContext(request),
@@ -65,7 +66,7 @@ export function get(request, reply) {
  */
 export function post(request, reply) {
 	const redirect = request.payload.redirect,
-		username = request.payload.username;
+		username = querystring.escape(request.payload.username);
 
 	if (username === 'test-user') {
 		reply({
