@@ -26,7 +26,7 @@ function getForgotPasswordViewContext(request, redirect) {
 				return 'auth/forgot-password-check-email';
 			},
 			title: 'auth:forgot-password.title',
-			usernameMaxLength: settings.helios.usernameMaxLength
+			usernameMaxLength: settings.userRegistationService.usernameMaxLength
 		}
 	);
 }

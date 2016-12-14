@@ -16,7 +16,7 @@ function getResetPasswordViewContext(request, redirect) {
 				return 'auth/reset-password';
 			},
 			pageType: 'reset-password-page',
-			passwordMaxLength: settings.helios.passwordMaxLength,
+			passwordMaxLength: settings.userRegistationService.passwordMaxLength,
 			secondCard: {
 				headerText: 'auth:confirm-reset-password.header',
 			},
