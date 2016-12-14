@@ -15,6 +15,12 @@ function getForgotPasswordViewContext(request, redirect) {
 			headerHref: authUtils.getRegisterUrl(request),
 			pageType: 'forgot-password-page',
 			title: 'auth:forgot-password.title',
+			firstCardPartial() {
+				return 'auth/forgot-password';
+			},
+			secondCardPartial() {
+				return 'auth/forgot-password-check-email';
+			}
 		}
 	);
 }
