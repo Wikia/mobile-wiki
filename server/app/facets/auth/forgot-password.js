@@ -31,7 +31,7 @@ function getForgotPasswordViewContext(request, redirect) {
 
 function assembleView(context, request, reply) {
 	const response = reply.view(
-		`auth/${authView.getViewType(request)}/forgot-password`,
+		`auth/${authView.getViewType(request)}/cards`,
 		context,
 		{
 			layout: 'card'
