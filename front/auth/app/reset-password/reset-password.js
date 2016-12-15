@@ -32,21 +32,20 @@ export default class ResetPassword {
 		this.authLogger = AuthLogger.getInstance();
 		this.tracker = new AuthTracker('reset-password-mobile', '/resetPassword');
 		this.urlHelper = new UrlHelper();
-		this.redirect = this.extractRedirectUrlFromQuery();
+
+		this.extractParametersFromUrlQuery();
 	}
 
 	/**
 	 * @private
 	 */
-	extractRedirectUrlFromQuery() {
-		let redirect = '';
-
+	extractParametersFromUrlQuery() {
 		if (window.location.search) {
 			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
-			redirect = params.redirect;
+			this.redirect = params.redirect;
+			this.token = params.token;
+			this.username = params.username;
 		}
-
-		return redirect;
 	}
 
 	/**
@@ -62,7 +61,8 @@ export default class ResetPassword {
 			confirmNewPasswordValue = this.confirmNewPasswordInput.value,
 			data = {
 				password: newPasswordValue,
-				redirect: this.redirect
+				redirect: this.redirect,
+				username: this.username
 			},
 			xhr = new XMLHttpRequest();
 
@@ -72,34 +72,31 @@ export default class ResetPassword {
 		if (newPasswordValue !== confirmNewPasswordValue) {
 			this.displayError('errors.passwords_not_match');
 		} else {
-			// /**
-			//  * @returns {void}
-			//  */
-			// xhr.onload = () => {
-			// 	button.disabled = false;
-			//
-			// 	if (xhr.status === HttpCodes.NOT_FOUND) {
-			// 		this.tracker.track('username-not-recognized', trackActions.error);
-			// 		return this.displayError('errors.username-not-recognized');
-			// 	} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
-			// 		this.tracker.track('reset-password-email-sent', trackActions.error);
-			// 		return this.displayError('errors.reset-password-email-sent');
-			// 	} else if (xhr.status !== HttpCodes.OK) {
-			// 		this.onError(xhr);
-			// 	} else {
-			// 		this.onSuccess(JSON.parse(xhr.responseText));
-			// 	}
-			// };
-			//
-			// xhr.onerror = () => {
-			// 	button.disabled = false;
-			// 	this.oneError(xhr);
-			// };
-			//
-			// xhr.open('post', this.form.action, true);
-			// xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			// xhr.send(this.urlHelper.urlEncode(data));
-			this.onSuccess();
+			xhr.onload = () => {
+				button.disabled = false;
+
+				if (xhr.status === HttpCodes.BAD_REQUEST) {
+
+				} else if (xhr.status === HttpCodes.FORBIDDEN) {
+
+				} else if (xhr.status === HttpCodes.NOT_FOUND) {
+					this.tracker.track('username-not-recognized', trackActions.error);
+					return this.displayError('errors.username-not-recognized');
+				} else if (xhr.status !== HttpCodes.OK) {
+					this.onError(xhr);
+				} else {
+					this.onSuccess(JSON.parse(xhr.responseText));
+				}
+			};
+
+			xhr.onerror = () => {
+				button.disabled = false;
+				this.oneError(xhr);
+			};
+
+			xhr.open('post', this.form.action, true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.send(this.urlHelper.urlEncode(data));
 		}
 	}
 

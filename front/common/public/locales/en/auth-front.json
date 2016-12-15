@@ -4,6 +4,7 @@
     "email_invalid": "Email is not valid",
     "registration_error": "We cannot complete your registration at this time",
     "username_already_exists": "Username is taken",
+    "username_blocked": "You can't request a new password because your username has been blocked.",
     "username_unavailable": "Username is taken or has invalid characters. Username can contain letters and numbers from one alphabet and must include one letter",
     "username_ip_address": "Username must include at least one letter",
     "username_exceeds_max_length": "Username cannot exceed 50 characters",

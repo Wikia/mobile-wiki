@@ -12,7 +12,7 @@ import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
 import * as forgotPasswordHandler from './facets/auth/forgot-password';
 import registerHandler from './facets/auth/register';
-import resetPasswordHandler from './facets/auth/reset-password';
+import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/show-application';
 import showCuratedContent from './facets/show-curated-content';
@@ -162,7 +162,19 @@ let routes,
 		{
 			method: 'GET',
 			path: '/resetpassword',
-			handler: resetPasswordHandler,
+			handler: resetPasswordHandler.get,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'POST',
+			path: '/resetpassword',
+			handler: resetPasswordHandler.post,
 			config: {
 				pre: [
 					{

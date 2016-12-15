@@ -70,27 +70,95 @@ export default class ForgotPassword {
 		xhr.onload = () => {
 			button.disabled = false;
 
-			if (xhr.status === HttpCodes.NOT_FOUND) {
-				this.tracker.track('username-not-recognized', trackActions.error);
-				this.displayError('errors.username-not-recognized');
-			} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
-				this.tracker.track('reset-password-email-sent', trackActions.error);
-				this.displayError('errors.reset-password-email-sent');
-			} else if (xhr.status !== HttpCodes.OK) {
-				this.onError(xhr);
-			} else {
+			if (xhr.status === HttpCodes.OK) {
 				this.onSuccess();
+			} else {
+				this.handleErrors(xhr);
 			}
 		};
 
 		xhr.onerror = () => {
 			button.disabled = false;
-			this.oneError(xhr);
+			this.onError(xhr);
 		};
 
 		xhr.open('post', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(this.urlHelper.urlEncode(data));
+	}
+
+	handleErrors(xhr) {
+		const response = JSON.parse(xhr.responseText);
+
+		if (response.step === 'service-discovery') {
+			this.onError(xhr);
+		} else if (response.step === 'user-discovery') {
+			this.handleUserDiscoveryErrors(xhr);
+		} else if (response.step === 'reset-password') {
+			this.handleResetPasswordErrors(xhr, response);
+		} else {
+			this.onError(xhr);
+		}
+	}
+
+	handleUserDiscoveryErrors(xhr) {
+		if (xhr.status === HttpCodes.NOT_FOUND) {
+			this.onUsernameNotRecognizedError();
+		} else {
+			this.onError(xhr);
+		}
+	}
+
+	handleResetPasswordErrors(xhr, response) {
+		if (xhr.status === HttpCodes.BAD_REQUEST) {
+			if (this.hasError(response)) {
+				response.errors.map(this.toErrorHandler)
+					.filter(this.unique)
+					.forEach(errorHandler => {
+						errorHandler();
+					});
+			}
+		} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
+			this.tracker.track('reset-password-email-sent', trackActions.error);
+			this.displayError('errors.reset-password-email-sent');
+		} else {
+			this.onError(xhr);
+		}
+	}
+
+	/**
+	 * @private
+	 * @param response - error response
+	 * @returns {booelan}
+	 */
+	hasError(response) {
+		return response && response.errors && response.errors.length;
+	}
+
+	toErrorHandler(error) {
+		let errorHandler = this.onError;
+
+		if (error.description === 'user_is_blocked') {
+			errorHandler = this.onUsernameBlockedError;
+		} else if (error.description === 'user_doesnt_exist') {
+			errorHandler = this.onUsernameNotRecognizedError;
+		}
+
+		return errorHandler;
+	}
+
+	unique(value, index, array) {
+		return array.indexOf(value) === index;
+	}
+
+	onUsernameBlockedError() {
+		this.tracker.track('username_blocked', trackActions.error);
+		this.displayError('errors.username_blocked');
+	}
+
+	onUsernameNotRecognizedError() {
+		this.tracker.track('username-not-recognized', trackActions.error);
+		this.displayError('errors.username-not-recognized');
 	}
 
 	onError(xhr) {
@@ -132,11 +200,9 @@ export default class ForgotPassword {
 	 * @returns {void}
 	 */
 	clearError() {
-		const errorNode = this.form.querySelector('small.error');
-
-		if (errorNode) {
-			errorNode.parentNode.removeChild(errorNode);
-		}
+		this.form.querySelectorAll('small.error').forEach(element => {
+			element.parentNode.removeChild(element);
+		});
 	}
 }
 

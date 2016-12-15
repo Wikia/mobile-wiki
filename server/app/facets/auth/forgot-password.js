@@ -79,8 +79,17 @@ export function post(request, reply) {
 					payload: data.payload
 				}).code(200);
 			}).catch(data => {
+				const generalError = {
+						title: 'string',
+						errors: [{
+							description: 'error',
+							additional: {}}]},
+					payload = data.payload
+						? JSON.parse(data.payload)
+						: generalError;
+
 				reply({
-					error: data.error || 'error',
+					errors: payload,
 					step: data.step
 				}).code(data.response.statusCode);
 			});

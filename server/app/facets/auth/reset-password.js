@@ -2,7 +2,7 @@ import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
-import resetPasswordFor from '../operations/reset-password';
+import updatePasswordFor from '../operations/update-password-with-token';
 import settings from '../../../config/settings';
 
 function getResetPasswordViewContext(request, redirect) {
@@ -46,7 +46,7 @@ function assembleView(context, request, reply) {
  * @param {Hapi.Request} request
  * @param {*} reply
  */
-export default function get(request, reply) {
+export function get(request, reply) {
 	const redirect = authView.getRedirectUrl(request),
 		context = getResetPasswordViewContext(request, redirect);
 
@@ -55,4 +55,41 @@ export default function get(request, reply) {
 	}
 
 	return assembleView(context, request, reply);
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ */
+export function post(request, reply) {
+	const password = request.payload.password,
+		token = request.payload.token,
+		username = request.payload.username;
+
+	if (username === 'test-user') {
+		reply({
+			payload: 'ok'
+		}).code(200);
+	} else {
+		updatePasswordFor(username, password, token)
+			.then(data => {
+				reply({
+					payload: data.payload
+				}).code(200);
+			}).catch(data => {
+				const generalError = {
+						title: 'string',
+						errors: [{
+							description: 'error',
+							additional: {}}]},
+					payload = data.payload
+						? JSON.parse(data.payload)
+						: generalError;
+
+				reply({
+					errors: payload,
+					step: data.step
+				}).code(data.response.statusCode);
+			});
+	}
 }
