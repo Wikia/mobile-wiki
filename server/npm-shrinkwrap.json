@@ -2795,6 +2795,9 @@
         }
       }
     },
+    "node-esapi": {
+      "version": "0.0.1"
+    },
     "vision": {
       "version": "3.0.0",
       "dependencies": {
