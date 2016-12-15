@@ -103,7 +103,7 @@ export function getRedirectUrl(request) {
 		redirectUrl = request.query.redirect || '/',
 		redirectUrlHost = parse(redirectUrl).host;
 
-	if(!redirectUrlHost ||
+	if (!redirectUrlHost ||
 		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
 		isWhiteListedDomain(redirectUrlHost)
 	) {

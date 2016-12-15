@@ -6,6 +6,7 @@ import url from 'url';
 import querystring from 'querystring';
 import settings from '../../config/settings';
 import authLocaleSettings from '../../config/authLocaleSettings.js';
+import ESAPI from 'node-esapi';
 
 /**
  * @typedef {Object} WhoAmIResponse
@@ -31,10 +32,10 @@ export function getRegisterUrl(request) {
  */
 export function getForgotPasswordUrlFromRedirect(redirect) {
 	const forgotPasswordUrlObj = url.parse(redirect);
-
 	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
 	forgotPasswordUrlObj.search = forgotPasswordSearch;
-	return url.format(forgotPasswordUrlObj);
+	// encode URL to prevent XSS
+	return ESAPI.encoder().encodeForHTMLAttribute(url.format(forgotPasswordUrlObj));
 }
 
 /**
