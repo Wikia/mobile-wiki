@@ -6,6 +6,10 @@ export default Ember.Component.extend({
 	isModalVisible: false,
 	thumbnailModel: {},
 
+	didRender() {
+		Ember.$(':focus').blur();
+	},
+
 	actions: {
 		showModal(popupModel) {
 			ImageReviewItemModel.getImageHistory(popupModel.imageId).then((data) => {
