@@ -75,23 +75,16 @@ export default class ResetPassword {
 			xhr.onload = () => {
 				button.disabled = false;
 
-				if (xhr.status === HttpCodes.BAD_REQUEST) {
-
-				} else if (xhr.status === HttpCodes.FORBIDDEN) {
-
-				} else if (xhr.status === HttpCodes.NOT_FOUND) {
-					this.tracker.track('username-not-recognized', trackActions.error);
-					return this.displayError('errors.username-not-recognized');
-				} else if (xhr.status !== HttpCodes.OK) {
-					this.onError(xhr);
+				if (xhr.status === HttpCodes.OK) {
+					this.onSuccess();
 				} else {
-					this.onSuccess(JSON.parse(xhr.responseText));
+					this.handleErrors(xhr);
 				}
 			};
 
 			xhr.onerror = () => {
 				button.disabled = false;
-				this.oneError(xhr);
+				this.onError(xhr);
 			};
 
 			xhr.open('post', this.form.action, true);
@@ -100,10 +93,58 @@ export default class ResetPassword {
 		}
 	}
 
+	handleErrors(xhr) {
+		const response = JSON.parse(xhr.responseText);
+
+		if (response.step === 'service-discovery') {
+			this.onError(xhr);
+		} else if (response.step === 'user-discovery') {
+			this.handleUserDiscoveryErrors(xhr);
+		} else if (response.step === 'update-password') {
+			this.handleUpdatePasswordErrors(xhr, response);
+		} else {
+			this.onError(xhr);
+		}
+	}
+
+	handleUserDiscoveryErrors(xhr) {
+		if (xhr.status === HttpCodes.NOT_FOUND) {
+			this.onUsernameNotRecognizedError();
+		} else {
+			this.onError(xhr);
+		}
+	}
+
+	handleUpdatePasswordErrors(xhr, response) {
+		if (xhr.status === HttpCodes.BAD_REQUEST) {
+			if (this.hasError(response.errors)) {
+				if (response.errors[0].description === 'password-name-match') {
+					this.tracker.track('password_equal_name', trackActions.error);
+					this.displayError('errors.password_equal_name');
+				} else {
+					this.onError(xhr);
+				}
+			}
+		} else if (xhr.status === HttpCodes.FORBIDDEN) {
+			// invalid token
+		} else if (xhr.status !== HttpCodes.OK) {
+			this.onError(xhr);
+		}
+	}
+
+	hasError(response) {
+		return response && response.errors && response.errors.length;
+	}
+
 	onError(xhr) {
 		this.authLogger.xhrError(xhr);
 		this.tracker.track('server-error', trackActions.error);
 		this.displayError('errors.server-error');
+	}
+
+	onUsernameNotRecognizedError() {
+		this.tracker.track('username-not-recognized', trackActions.error);
+		this.displayError('errors.username-not-recognized');
 	}
 
 	/**

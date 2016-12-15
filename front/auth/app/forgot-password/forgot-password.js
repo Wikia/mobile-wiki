@@ -115,7 +115,7 @@ export default class ForgotPassword {
 				response.errors.map(this.toErrorHandler)
 					.filter(this.unique)
 					.forEach(errorHandler => {
-						errorHandler();
+						errorHandler(xhr);
 					});
 			}
 		} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
@@ -126,11 +126,6 @@ export default class ForgotPassword {
 		}
 	}
 
-	/**
-	 * @private
-	 * @param response - error response
-	 * @returns {booelan}
-	 */
 	hasError(response) {
 		return response && response.errors && response.errors.length;
 	}
