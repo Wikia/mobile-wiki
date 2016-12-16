@@ -16,6 +16,15 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
+	reserveNewBatch(status) {
+
+		return rawRequest(M.getImageReviewServiceUrl(`/batch`, {
+			status
+		}), {
+			method: 'POST'
+		});
+	},
+
 	startSession(status, batchId) {
 		if (batchId === 'no-more-images') {
 			return ImageReviewModel.createEmptyModelWithPermission(status);

@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ImageReviewModel from '../../models/image-review/batch-id';
-import rawRequest from 'ember-ajax/raw';
 
 const {Route, Logger} = Ember;
 
@@ -40,12 +39,7 @@ export default Route.extend({
 
 			this.controllerFor('image-review').set('status', status);
 
-			rawRequest(M.getImageReviewServiceUrl(`/batch`, {
-				status
-			}), {
-				method: 'POST'
-			}).then(({payload, jqXHR}) => {
-				// In case there are no more images, create empty model and show `No more images to review` message
+			ImageReviewModel.reserveNewBatch(status).then(({payload, jqXHR}) => {
 				if (jqXHR.status === 204) {
 					this.transitionTo('image-review.batch-id', 'no-more-images')
 				} else {
@@ -75,14 +69,7 @@ export default Route.extend({
 					persistent: false
 				});
 			}).then(() => {
-				const options = {
-					status: this.controllerFor('image-review').get('status')
-				};
-
-				rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
-					method: 'POST'
-				}).then(({payload, jqXHR}) => {
-					// In case there are no more images, create empty model and show `No more images to review` message
+				ImageReviewModel.reserveNewBatch(this.controllerFor('image-review').get('status')).then(({payload, jqXHR}) => {
 					if (jqXHR.status === 204) {
 						this.transitionTo('image-review.batch-id', 'no-more-images')
 					} else {
