@@ -79,7 +79,7 @@ ImageReviewModel.reopenClass({
 				context: image.context,
 				isContextProvided: Boolean(image.context),
 				isContextLink: linkRegexp.test(image.context),
-				status: status === 'REJECTED' ? 'rejected' : 'accepted'
+				status: ImageReviewModel.figureOutStatus(status, image.currentStatus)
 			}));
 		});
 
@@ -90,6 +90,16 @@ ImageReviewModel.reopenClass({
 			userCanAuditReviews,
 			isRejectedQueue: (status === 'REJECTED')
 		});
+	},
+
+	figureOutStatus(queueStatus, imageStatus) {
+		if (queueStatus === 'REJECTED') {
+			return 'rejected';
+		} else if (imageStatus === 'UNREVIEWED') {
+			return 'accepted';
+		} else {
+			return imageStatus.toLowerCase();
+		}
 	},
 
 	reviewImages(images, batchId, status) {
