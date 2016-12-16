@@ -9,14 +9,6 @@ import authLocaleSettings from '../../config/authLocaleSettings.js';
 import ESAPI from 'node-esapi';
 
 /**
- * @typedef {Object} WhoAmIResponse
- * @property {string} [userId]
- * @property {number} [status]
- */
-
-const forgotPasswordPathname = 'forgotpassword';
-
-/**
  * @param {Hapi.Request} request
  * @returns {string}
  */
@@ -28,11 +20,8 @@ export function getRegisterUrl(request) {
  * @param {string} redirect
  * @returns {string}
  */
-export function getForgotPasswordUrlFromRedirect(redirect) {
-	const forgotPasswordUrlObj = url.parse(redirect);
-	// encode URL to prevent XSS
-	forgotPasswordUrlObj.pathname = forgotPasswordPathname;
-	return ESAPI.encoder().encodeForHTMLAttribute(url.format(forgotPasswordUrlObj));
+export function getForgotPasswordUrl(request) {
+	return this.getRedirectUrlWithQueryString('forgotpassword', request);
 }
 
 /**

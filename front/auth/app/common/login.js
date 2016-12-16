@@ -133,14 +133,6 @@ export default class Login {
 	watch() {
 		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
-
-		// TODO remove when SOC-719 is ready
-		if (pageParams.isModal) {
-			this.form.querySelector('.forgotten-password').addEventListener('click', (event) => {
-				AuthUtils.loadUrl(event.target.href);
-				event.preventDefault();
-			});
-		}
 	}
 
 	/**

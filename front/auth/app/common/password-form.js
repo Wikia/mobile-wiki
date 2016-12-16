@@ -2,7 +2,7 @@ import AuthTracker from '../common/auth-tracker';
 import AuthLogger from '../common/auth-logger';
 import HttpCodes from '../common/http-codes';
 import UrlHelper from '../common/url-helper';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {trackActions} from 'common/utils/track';
 
 export default class PasswordForm {
 	/**

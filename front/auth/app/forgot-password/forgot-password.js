@@ -1,6 +1,6 @@
 import HttpCodes from '../common/http-codes';
 import PasswordForm from '../common/password-form';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {trackActions} from 'common/utils/track';
 
 export default class ForgotPassword extends PasswordForm {
 
