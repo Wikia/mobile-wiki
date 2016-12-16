@@ -88,7 +88,6 @@ export default class ResetPassword extends PasswordForm {
 		} else if (xhr.status === HttpCodes.FORBIDDEN) {
 			if (this.form.dataset.tokenExpiryRedirect) {
 				window.location.href = this.form.dataset.tokenExpiryRedirect;
-				// console.log(this.form.dataset.tokenExpiryRedirect);
 			}
 		} else if (xhr.status !== HttpCodes.OK) {
 			this.onError(xhr);

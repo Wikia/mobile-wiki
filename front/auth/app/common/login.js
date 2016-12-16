@@ -133,6 +133,23 @@ export default class Login {
 	watch() {
 		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
+
+		document.querySelector('.forgotten-password').addEventListener('click', event => {
+			let url = event.target.href,
+				username = (this.usernameInput.value || '').trim();
+
+			if (username.length) {
+				if (url.indexOf('?') === -1) {
+					url = `${url}?`;
+				}
+
+				url = `${url}username=${username}`;
+			}
+
+			window.location.href = url;
+
+			event.preventDefault();
+		});
 	}
 
 	/**
