@@ -5,7 +5,7 @@ import deepExtend from 'deep-extend';
 import updatePasswordFor from '../operations/update-password-with-token';
 import settings from '../../../config/settings';
 
-function getResetPasswordViewContext(request, redirect) {
+function getResetPasswordViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'two-cards-page reset-password-page',
@@ -47,8 +47,7 @@ function assembleView(context, request, reply) {
  * @param {*} reply
  */
 export function get(request, reply) {
-	const redirect = authView.getRedirectUrl(request),
-		context = getResetPasswordViewContext(request, redirect);
+	const context = getResetPasswordViewContext(request);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);

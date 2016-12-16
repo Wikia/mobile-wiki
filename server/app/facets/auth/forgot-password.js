@@ -6,7 +6,7 @@ import resetPasswordFor from '../operations/reset-password';
 import settings from '../../../config/settings';
 import querystring from 'querystring';
 
-function getForgotPasswordViewContext(request, redirect) {
+function getForgotPasswordViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'two-cards-page forgot-password-page',
@@ -50,8 +50,7 @@ function assembleView(context, request, reply) {
  * @param {*} reply
  */
 export function get(request, reply) {
-	const redirect = authView.getRedirectUrl(request),
-		context = getForgotPasswordViewContext(request, redirect);
+	const context = getForgotPasswordViewContext(request);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);

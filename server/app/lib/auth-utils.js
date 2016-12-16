@@ -6,7 +6,6 @@ import url from 'url';
 import querystring from 'querystring';
 import settings from '../../config/settings';
 import authLocaleSettings from '../../config/authLocaleSettings.js';
-import ESAPI from 'node-esapi';
 
 /**
  * @param {Hapi.Request} request
