@@ -72,17 +72,15 @@ ImageReviewModel.reopenClass({
 		const images = [];
 		const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 		rawData.forEach((image) => {
-			if (['UNREVIEWED', 'QUESTIONABLE', 'REJECTED'].indexOf(image.currentStatus) !== -1) {
-				images.push(Ember.Object.create({
-					batchId,
-					imageId: image.imageId,
-					fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
-					context: image.context,
-					isContextProvided: Boolean(image.context),
-					isContextLink: linkRegexp.test(image.context),
-					status: status === 'REJECTED' ? 'rejected' : 'accepted'
-				}));
-			}
+			images.push(Ember.Object.create({
+				batchId,
+				imageId: image.imageId,
+				fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
+				context: image.context,
+				isContextProvided: Boolean(image.context),
+				isContextLink: linkRegexp.test(image.context),
+				status: status === 'REJECTED' ? 'rejected' : 'accepted'
+			}));
 		});
 
 		return ImageReviewModel.create({
