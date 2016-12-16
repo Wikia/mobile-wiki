@@ -105,17 +105,21 @@ export default class PasswordForm {
 	}
 
 	handleErrors(xhr) {
-		const response = JSON.parse(xhr.responseText),
-			errorsHandled = this.handleCustomErrors(xhr, response);
+		try {
+			const response = JSON.parse(xhr.responseText),
+				errorsHandled = this.handleCustomErrors(xhr, response);
 
-		if (!errorsHandled) {
-			if (response.step === 'service-discovery') {
-				this.onError(xhr);
-			} else if (response.step === 'user-discovery') {
-				this.handleUserDiscoveryErrors(xhr);
-			} else {
-				this.onError(xhr);
+			if (!errorsHandled) {
+				if (response.step === 'service-discovery') {
+					this.onError(xhr);
+				} else if (response.step === 'user-discovery') {
+					this.handleUserDiscoveryErrors(xhr);
+				} else {
+					this.onError(xhr);
+				}
 			}
+		} catch (e) {
+			this.onError(xhr);
 		}
 	}
 
