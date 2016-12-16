@@ -7,9 +7,6 @@ const {Route, Logger} = Ember;
 export default Route.extend({
 
 	model(params) {
-		Logger.error(params.batchId);
-		Logger.error(this.controllerFor('image-review').get('status'));
-
 		const status = this.controllerFor('image-review').get('status');
 		return ImageReviewModel.startSession(status, params.batchId);
 	},
@@ -34,7 +31,7 @@ export default Route.extend({
 				persistent: true
 			});
 
-			// this.transitionTo('wiki-page', '');
+			this.transitionTo('wiki-page', '');
 			return false;
 		},
 
@@ -93,11 +90,6 @@ export default Route.extend({
 					}
 				});
 			});
-		},
-
-		goBackToLastBatch() {
-			const model = this.modelFor('image-review.index');
-			Logger.error(model);
 		},
 
 		openSummary() {

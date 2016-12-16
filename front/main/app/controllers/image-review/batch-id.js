@@ -15,10 +15,6 @@ export default Ember.Controller.extend({
 			this.get('target').send('changeItemModel', id, status);
 		},
 
-		goBackToLastBatch() {
-			this.get('target').send('goBackToLastBatch');
-		},
-
 		openSummary() {
 			this.get('target').send('openSummary');
 		}
