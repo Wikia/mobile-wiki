@@ -41,7 +41,7 @@ export default Route.extend({
 
 			ImageReviewModel.reserveNewBatch(status).then(({payload, jqXHR}) => {
 				if (jqXHR.status === 204) {
-					this.transitionTo('image-review.batch-id', 'no-more-images')
+					this.transitionTo('image-review.batch-id', 'no-more-images');
 				} else {
 					this.transitionTo('image-review.batch-id', payload.id);
 				}
@@ -71,7 +71,7 @@ export default Route.extend({
 			}).then(() => {
 				ImageReviewModel.reserveNewBatch(this.controllerFor('image-review').get('status')).then(({payload, jqXHR}) => {
 					if (jqXHR.status === 204) {
-						this.transitionTo('image-review.batch-id', 'no-more-images')
+						this.transitionTo('image-review.batch-id', 'no-more-images');
 					} else {
 						this.transitionTo('image-review.batch-id', payload.id);
 					}
