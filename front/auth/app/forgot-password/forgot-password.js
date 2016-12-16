@@ -1,3 +1,4 @@
+import AuthUtils from '../common/auth-utils';
 import HttpCodes from '../common/http-codes';
 import PasswordForm from '../common/password-form';
 import {trackActions} from 'common/utils/track';
@@ -94,6 +95,18 @@ export default class ForgotPassword extends PasswordForm {
 	onUsernameBlockedError() {
 		this.tracker.track('username_blocked', trackActions.error);
 		this.displayError('errors.username_blocked');
+	}
+
+	/**
+	 * @protected
+	 *
+	 * @returns {void}
+	 */
+	onInit() {
+		document.querySelector('.forgot-password-check-email-link').addEventListener('click', event => {
+			AuthUtils.loadUrl(event.target.href);
+			event.preventDefault();
+		});
 	}
 }
 

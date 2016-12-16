@@ -1,5 +1,5 @@
-import AuthTracker from '../common/auth-tracker';
 import AuthLogger from '../common/auth-logger';
+import AuthTracker from '../common/auth-tracker';
 import HttpCodes from '../common/http-codes';
 import UrlHelper from '../common/url-helper';
 import {trackActions} from 'common/utils/track';
@@ -181,6 +181,16 @@ export default class PasswordForm {
 	watch() {
 		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
+
+		this.onInit();
+	}
+
+	/**
+	 * @protected
+	 *
+	 * @returns {void}
+	 */
+	onInit() {
 	}
 
 	/**
