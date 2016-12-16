@@ -9,6 +9,7 @@ function getResetPasswordViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'two-cards-page reset-password-page',
+			expiryForgotPasswordUrl: authUtils.getExpiryForgotPasswordUrl(request),
 			firstCard: {
 				headerText: 'auth:reset-password.header'
 			},

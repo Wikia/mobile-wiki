@@ -7,7 +7,7 @@ import settings from '../../../config/settings';
 import querystring from 'querystring';
 
 function getForgotPasswordViewContext(request) {
-	return deepExtend(authView.getDefaultContext(request),
+	const context = deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'two-cards-page forgot-password-page',
 			firstCard: {
@@ -30,6 +30,12 @@ function getForgotPasswordViewContext(request) {
 			usernameMaxLength: settings.userRegistationService.usernameMaxLength
 		}
 	);
+
+	if (request.query.tokenExpired === '1') {
+		context.pageParams.tokenExpired = true;
+	}
+
+	return context;
 }
 
 function assembleView(context, request, reply) {

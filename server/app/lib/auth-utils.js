@@ -24,6 +24,17 @@ export function getForgotPasswordUrl(request) {
 }
 
 /**
+ * @param {string} redirect
+ * @returns {string}
+ */
+export function getExpiryForgotPasswordUrl(request) {
+	const forgotPasswordUrl = url.parse(this.getForgotPasswordUrl(request));
+
+	forgotPasswordUrl.search = `${forgotPasswordUrl.search}&tokenExpired=1`;
+	return forgotPasswordUrl.format();
+}
+
+/**
  * @param {Hapi.Request} request
  * @returns {string}
  */
