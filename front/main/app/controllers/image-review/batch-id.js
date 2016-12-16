@@ -15,8 +15,8 @@ export default Ember.Controller.extend({
 			this.get('target').send('changeItemModel', id, status);
 		},
 
-		openMainPage() {
-			this.get('target').send('openMainPage');
+		goBackToLastBatch() {
+			this.get('target').send('goBackToLastBatch');
 		},
 
 		openSummary() {

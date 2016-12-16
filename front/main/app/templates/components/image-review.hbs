@@ -1,6 +1,6 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
-		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		<a {{action this.attrs.goBackToLastBatch}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
 		{{#if model.userCanAuditReviews}}
 			<button {{action this.attrs.openSummary}} class="sub-head--done">
 				Show summary

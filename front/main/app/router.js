@@ -116,6 +116,11 @@ Router.map(function () {
 		this.route('index', {
 			path: '/'
 		});
+
+		this.route('batch-id', {
+			path: '/:batchId'
+		});
+
 		this.route('summary', {
 			path: '/summary'
 		});

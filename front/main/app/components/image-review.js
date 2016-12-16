@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ImageReviewItemModel from '../models/image-review/image-review-item';
+import ImageReviewItemModel from '../models/image-review/item';
 
 export default Ember.Component.extend({
 	classNames: ['image-review'],

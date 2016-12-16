@@ -16,21 +16,12 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
-	startSession(status) {
-		const options = {
-			status
-		};
-
-		return rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
-			method: 'POST'
-		}).then(({payload, jqXHR}) => {
-			// In case there are no more images, create empty model and show `No more images to review` message
-			if (jqXHR.status === 204) {
-				return ImageReviewModel.createEmptyModelWithPermission(status);
-			} else {
-				return ImageReviewModel.getImagesAndPermission(payload.id, status);
-			}
-		});
+	startSession(status, batchId) {
+		if (batchId === 'no-more-images') {
+			return ImageReviewModel.createEmptyModelWithPermission(status);
+		} else {
+			return ImageReviewModel.getImagesAndPermission(batchId, status);
+		}
 	},
 
 	createEmptyModelWithPermission(status) {
