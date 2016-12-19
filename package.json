@@ -29,10 +29,13 @@
     "shrinkwrap-main": "cd front/main && shonkwrap --dev",
     "shrinkwrap-server": "cd server && shonkwrap --dev",
     "test": "npm run build-dev && npm run test-front && npm run test-server",
+    "test-acceptance": "cd front/main && ember test --filter=acceptance",
     "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main -tp $(($TEST_PORT + 7357))",
+    "test-integration": "cd front/main && ember test --filter=integration",
     "test-server": "npm run test-server-unit && npm run test-server-acceptance",
     "test-server-unit": "gulp test-server",
     "test-server-acceptance": "gulp build-server-scripts-for-acceptance-tests && cd server && lab -v tests/acceptance/*.js",
+    "test-unit": "cd front/main && ember test --filter=unit",
     "linter": "eslint .",
     "svgo": "bash ./tasks/optimize-svg.sh"
   },
