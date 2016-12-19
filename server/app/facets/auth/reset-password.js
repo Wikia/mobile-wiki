@@ -4,6 +4,7 @@ import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import updatePasswordFor from '../operations/update-password-with-token';
 import settings from '../../../config/settings';
+import querystring from 'querystring';
 
 function getResetPasswordViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
@@ -62,9 +63,11 @@ export function get(request, reply) {
  * @param {*} reply
  */
 export function post(request, reply) {
-	const password = request.payload.password,
-		token = request.payload.token,
-		username = request.payload.username;
+	const password = querystring.escape(request.payload.password),
+		token = querystring.escape(request.payload.token),
+		username = querystring.escape(request.payload.username);
+
+	console.error(password);
 
 	if (username === 'test-user') {
 		reply({

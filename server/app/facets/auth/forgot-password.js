@@ -71,7 +71,7 @@ export function get(request, reply) {
  * @param {*} reply
  */
 export function post(request, reply) {
-	const redirect = request.payload.redirect,
+	const redirect = querystring.escape(request.payload.redirect),
 		username = querystring.escape(request.payload.username);
 
 	if (username === 'test-user') {
