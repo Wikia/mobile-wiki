@@ -183,6 +183,7 @@ export default class PasswordForm {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
 		this.onInit();
+		this.focusOnFirstInput();
 	}
 
 	/**
@@ -191,6 +192,17 @@ export default class PasswordForm {
 	 * @returns {void}
 	 */
 	onInit() {
+	}
+
+	/**
+	 * @private
+	 */
+	focusOnFirstInput() {
+		const input = this.form.elements[0];
+		if (input) {
+			input.focus();
+			input.setSelectionRange(input.value.length, input.value.length);
+		}
 	}
 
 	/**

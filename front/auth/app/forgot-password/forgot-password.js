@@ -22,13 +22,6 @@ export default class ForgotPassword extends PasswordForm {
 	 */
 	extractFieldsFromPathParameters(parameters) {
 		this.redirect = parameters.redirect;
-
-		if (parameters.username) {
-			const usernameInput = this.form.elements.username;
-
-			usernameInput.focus();
-			usernameInput.value = parameters.username;
-		}
 	}
 
 	/**

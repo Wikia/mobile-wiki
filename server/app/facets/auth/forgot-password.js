@@ -27,6 +27,7 @@ function getForgotPasswordViewContext(request) {
 				return 'auth/forgot-password-check-email';
 			},
 			title: 'auth:forgot-password.title',
+			username: request.query.username || '',
 			usernameMaxLength: settings.userRegistationService.usernameMaxLength
 		}
 	);
