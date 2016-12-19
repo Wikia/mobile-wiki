@@ -34,7 +34,7 @@ export default class ResetPassword extends PasswordForm {
 	collectDataBeforeSubmit() {
 		return {
 			password: this.form.elements.newPassword.value,
-			redirect: this.redirect,
+			token: this.token,
 			username: this.username
 		};
 	}
