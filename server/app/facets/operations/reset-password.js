@@ -10,7 +10,7 @@ function createResetPasswordContext(userInfo, redirect) {
 		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/reset_password`),
 		options: {
 			timeout: settings.helios.timeout,
-			payload: JSON.stringify({redirect})
+			payload: {redirect}
 		},
 	};
 }

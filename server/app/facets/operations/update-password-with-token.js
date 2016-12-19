@@ -10,10 +10,10 @@ function createUpdatePasswordContext(userInfo, password, token) {
 		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/password`),
 		options: {
 			timeout: settings.helios.timeout,
-			payload: JSON.stringify({
+			payload: {
 				password,
 				token
-			})
+			}
 		},
 	};
 }
@@ -30,7 +30,7 @@ function handleUserRegistrationResponse(data, password, token) {
 				});
 			} else {
 				Logger.error({
-					url: updatePassword.url,
+					url: updatePassword.url
 				},
 				'Error while resetting password.');
 
