@@ -6,7 +6,9 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	classNames: ['desktop-hidden'],
 
-	wasSeen: Boolean(localStorageConnector.getItem('discussionWelcomeMessageSeen')),
+	wasSeen: Ember.computed(() => {
+		return Boolean(localStorageConnector.getItem('discussionWelcomeMessageSeen'));
+	}),
 
 	guidelinesLink: wrapMeHelper.compute([
 		i18n.t('main.guidelines-link-title', {ns: 'discussion'})
