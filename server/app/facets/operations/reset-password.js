@@ -5,12 +5,15 @@ import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 
-function createResetPasswordContext(userInfo, redirect) {
+function createResetPasswordContext(userInfo, redirect = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/reset_password`),
 		options: {
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded'
+			},
 			timeout: settings.helios.timeout,
-			payload: {redirect}
+			payload: `redirect=${redirect}`
 		},
 	};
 }

@@ -32,7 +32,7 @@ export default class ForgotPassword extends PasswordForm {
 	collectDataBeforeSubmit() {
 		return {
 			username: this.form.elements.username.value,
-			redirect: this.redirect
+			redirect: this.redirect || ''
 		};
 	}
 

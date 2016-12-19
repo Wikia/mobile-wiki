@@ -5,15 +5,15 @@ import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 
-function createUpdatePasswordContext(userInfo, password, token) {
+function createUpdatePasswordContext(userInfo, password = '', token = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/password`),
 		options: {
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded'
+			},
 			timeout: settings.helios.timeout,
-			payload: {
-				password,
-				token
-			}
+			payload: `password=${password}&token=${token}`
 		},
 	};
 }
