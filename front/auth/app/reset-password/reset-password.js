@@ -56,45 +56,27 @@ export default class ResetPassword extends PasswordForm {
 		return passwordIsSame;
 	}
 
-
 	/**
 	 * @protected
 	 *
-	 * @param {XMLHttpRequest} xhr
-	 * @param {object} response - parsed json response
-	 *
-	 * @returns {boolean} - true if errors were handled, false otherwise
+	 * @param xhr
 	 */
-	handleCustomErrors(xhr, response) {
-		let errorsHandled = response.step === 'update-password';
+	handleErrors(xhr) {
+		try {
+			const response = JSON.parse(xhr.responseText);
 
-		if (errorsHandled) {
-			this.handleUpdatePasswordErrors(xhr, response);
-		}
-
-		return errorsHandled;
-	}
-
-	handleUpdatePasswordErrors(xhr, response) {
-		if (xhr.status === HttpCodes.BAD_REQUEST) {
-			if (this.hasError(response.errors)) {
-				if (response.errors[0].description === 'password-name-match') {
-					this.tracker.track('password_equal_name', trackActions.error);
-					this.displayError('errors.password_equal_name');
-				} else {
-					this.onError(xhr);
+			if (xhr.status === HttpCodes.FORBIDDEN) {
+				if (this.form.dataset.tokenExpiryRedirect) {
+					window.location.href = this.form.dataset.tokenExpiryRedirect;
 				}
+			} else {
+				response.errors.forEach(error => {
+					this.tracker.track(error, trackActions.error);
+					this.displayError(`errors.${error}`);
+				});
 			}
-		} else if (xhr.status === HttpCodes.FORBIDDEN) {
-			if (this.form.dataset.tokenExpiryRedirect) {
-				window.location.href = this.form.dataset.tokenExpiryRedirect;
-			}
-		} else if (xhr.status !== HttpCodes.OK) {
+		} catch (e) {
 			this.onError(xhr);
 		}
-	}
-
-	hasError(response) {
-		return response && response.errors && response.errors.length;
 	}
 }

@@ -105,35 +105,22 @@ export default class PasswordForm {
 		document.querySelector('.cards-container').classList.add('dissolved');
 	}
 
-	handleErrors(xhr) {
-		try {
-			const response = JSON.parse(xhr.responseText),
-				errorsHandled = this.handleCustomErrors(xhr, response);
-
-			if (!errorsHandled) {
-				if (response.step === 'service-discovery') {
-					this.onError(xhr);
-				} else if (response.step === 'user-discovery') {
-					this.handleUserDiscoveryErrors(xhr);
-				} else {
-					this.onError(xhr);
-				}
-			}
-		} catch (e) {
-			this.onError(xhr);
-		}
-	}
-
 	/**
 	 * @protected
 	 *
-	 * @param {XMLHttpRequest} xhr
-	 * @param {object} response - parsed json response
-	 *
-	 * @returns {boolean} - true if errors were handled, false otherwise
+	 * @param xhr
 	 */
-	handleCustomErrors(xhr, response) {
-		return false;
+	handleErrors(xhr) {
+		try {
+			const response = JSON.parse(xhr.responseText);
+
+			response.errors.forEach(error => {
+				this.tracker.track(error, trackActions.error);
+				this.displayError(`errors.${error}`);
+			});
+		} catch (e) {
+			this.onError(xhr);
+		}
 	}
 
 	/**
@@ -147,31 +134,6 @@ export default class PasswordForm {
 		this.authLogger.xhrError(xhr);
 		this.tracker.track('server-error', trackActions.error);
 		this.displayError('errors.server-error');
-	}
-
-	/**
-	 * @private
-	 *
-	 * @param {XMLHttpRequest} xhr
-	 *
-	 * @returns {void}
-	 */
-	handleUserDiscoveryErrors(xhr) {
-		if (xhr.status === HttpCodes.NOT_FOUND) {
-			this.onUsernameNotRecognizedError();
-		} else {
-			this.onError(xhr);
-		}
-	}
-
-	/**
-	 * @protected
-	 *
-	 * @returns {void}
-	 */
-	onUsernameNotRecognizedError() {
-		this.tracker.track('username-not-recognized', trackActions.error);
-		this.displayError('errors.username-not-recognized');
 	}
 
 	/**

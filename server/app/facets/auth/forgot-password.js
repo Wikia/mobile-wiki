@@ -4,6 +4,7 @@ import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import resetPasswordFor from '../operations/reset-password';
 import settings from '../../../config/settings';
+import translateError from './translate-error';
 import querystring from 'querystring';
 
 function getForgotPasswordViewContext(request) {
@@ -85,18 +86,20 @@ export function post(request, reply) {
 					payload: data.payload
 				}).code(200);
 			}).catch(data => {
-				const generalError = {
-						title: 'string',
-						errors: [{
-							description: 'error',
-							additional: {}}]},
-					payload = data.payload
-						? JSON.parse(data.payload)
-						: generalError;
+				const errors = translateError(data, (error) => {
+					let errorHandler = 'server-error';
+
+					if (error.description === 'user_is_blocked') {
+						errorHandler = 'username_blocked';
+					} else if (error.description === 'user_doesnt_exist') {
+						errorHandler = 'username-not-recognized';
+					}
+
+					return errorHandler;
+				});
 
 				reply({
-					errors: payload,
-					step: data.step
+					errors,
 				}).code(data.response.statusCode);
 			});
 	}

@@ -4,6 +4,7 @@ import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import updatePasswordFor from '../operations/update-password-with-token';
 import settings from '../../../config/settings';
+import translateError from './translate-error';
 import querystring from 'querystring';
 
 function getResetPasswordViewContext(request) {
@@ -78,18 +79,18 @@ export function post(request, reply) {
 					payload: data.payload
 				}).code(200);
 			}).catch(data => {
-				const generalError = {
-						title: 'string',
-						errors: [{
-							description: 'error',
-							additional: {}}]},
-					payload = data.payload
-						? JSON.parse(data.payload)
-						: generalError;
+				const errors = translateError(data, (error) => {
+					let errorHandler = 'server-error';
+
+					if (error.description === 'password-name-match') {
+						errorHandler = 'password_equal_name';
+					}
+
+					return errorHandler;
+				});
 
 				reply({
-					errors: payload,
-					step: data.step
+					errors,
 				}).code(data.response.statusCode);
 			});
 	}

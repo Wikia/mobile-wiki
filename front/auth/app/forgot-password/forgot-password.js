@@ -36,67 +36,6 @@ export default class ForgotPassword extends PasswordForm {
 		};
 	}
 
-
-	/**
-	 * @protected
-	 *
-	 * @param {XMLHttpRequest} xhr
-	 * @param {object} response - parsed json response
-	 *
-	 * @returns {boolean} - true if errors were handled, false otherwise
-	 */
-	handleCustomErrors(xhr, response) {
-		let errorsHandled = response.step === 'reset-password';
-
-		if (errorsHandled) {
-			this.handleResetPasswordErrors(xhr, response);
-		}
-
-		return errorsHandled;
-	}
-
-	handleResetPasswordErrors(xhr, response) {
-		if (xhr.status === HttpCodes.BAD_REQUEST) {
-			if (this.hasError(response)) {
-				response.errors.map(this.toErrorHandler)
-					.filter(this.unique)
-					.forEach(errorHandler => {
-						errorHandler(xhr);
-					});
-			}
-		} else if (xhr.status === HttpCodes.TOO_MANY_REQUESTS) {
-			this.tracker.track('reset-password-email-sent', trackActions.error);
-			this.displayError('errors.reset-password-email-sent');
-		} else {
-			this.onError(xhr);
-		}
-	}
-
-	hasError(response) {
-		return response && response.errors && response.errors.length;
-	}
-
-	toErrorHandler(error) {
-		let errorHandler = this.onError;
-
-		if (error.description === 'user_is_blocked') {
-			errorHandler = this.onUsernameBlockedError;
-		} else if (error.description === 'user_doesnt_exist') {
-			errorHandler = this.onUsernameNotRecognizedError;
-		}
-
-		return errorHandler;
-	}
-
-	unique(value, index, array) {
-		return array.indexOf(value) === index;
-	}
-
-	onUsernameBlockedError() {
-		this.tracker.track('username_blocked', trackActions.error);
-		this.displayError('errors.username_blocked');
-	}
-
 	/**
 	 * @protected
 	 *
