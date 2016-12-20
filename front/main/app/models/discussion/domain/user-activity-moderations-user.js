@@ -2,17 +2,19 @@ import Ember from 'ember';
 import DiscussionContributor from './contributor';
 
 const DiscussionUserActivityModerationsUser = Ember.Object.extend({
-	actions: null,
+	actionBreakdown: null,
 	userInfo: null,
-	rank: null
+	rank: null,
+	totalCount: 0,
 });
 
 DiscussionUserActivityModerationsUser.reopenClass({
 	create(postsData) {
 		return this._super({
-			actions: postsData.actions,
+			actionBreakdown: postsData.actions,
 			userInfo: DiscussionContributor.create(postsData.userInfo),
-			rank: postsData.rank
+			rank: postsData.rank,
+			totalCount: postsData.totalCount
 		});
 	}
 });

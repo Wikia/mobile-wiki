@@ -1,6 +1,6 @@
 {{#discussion-user-activity-list items=model.current.data.users as |item|}}
 	{{discussion-user-activity-value
 		description=(i18n 'user-activity.actions' ns='discussion')
-		value=item.actions
+		value=item.totalCount
 	}}
 {{/discussion-user-activity-list}}

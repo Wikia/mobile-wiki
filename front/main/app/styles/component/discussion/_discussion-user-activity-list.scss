@@ -103,6 +103,12 @@
 			}
 		}
 	}
+
+	.no-items {
+		font-size: $wds-typescale-size-minus-1;
+		margin: 10px 0;
+		text-align: center;
+	}
 }
 
 @media #{$mobile-range} {

@@ -3,23 +3,23 @@
 		class='reported'
 		iconClass='wds-icon wds-icon-small alert'
 		iconName='wds-icons-alert-small'
-		value=item.actions
+		value=item.totalCount
 	}}
 	{{discussion-user-activity-value
 		class='verified'
 		iconClass='wds-icon wds-icon-small checkmark'
 		iconName='wds-icons-checkmark-small'
-		value=item.breakdown.verified
+		value=item.actionBreakdown.validated
 	}}
 	{{discussion-user-activity-value
 		class='deleted'
 		iconClass='trash'
 		iconName='trash-small'
-		value=item.breakdown.deleted
+		value=item.actionBreakdown.deleted
 	}}
 	{{discussion-user-activity-value
 		class='queued'
 		description=(i18n 'user-activity.not-processed' ns='discussion')
-		value=item.breakdown.queued
+		value=item.actionBreakdown.queued
 	}}
 {{/discussion-user-activity-list}}

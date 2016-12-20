@@ -21,7 +21,7 @@ DiscussionUserActivityModerationsModel.reopenClass(
 			const userActivityModerationsInstance = DiscussionUserActivityModerationsModel.create({
 					wikiId,
 				}),
-				path = `/${wikiId}/leaderboard/moderator`;
+				path = `/${wikiId}/leaderboard/moderator-actions`;
 
 			return userActivityModerationsInstance.fetchDataFromTheService(path, days);
 		},

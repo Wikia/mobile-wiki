@@ -16,4 +16,8 @@
 			{{yield item}}
 		</div>
 	</div>
+{{else}}
+	<div class="no-items">
+		{{i18n 'user-activity.no-activity-yet' ns='discussion'}}
+	</div>
 {{/each}}
