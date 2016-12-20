@@ -100,9 +100,6 @@
     "follow-error-anon-cant-see-followed-posts":"Sign in to see your followed posts.",
     "follow-label":"Follow",
     "follow-tooltip":"Add to your following list",
-    "follow-introducing-header":"Introducing Following!",
-    "follow-introducing-text":"Stay connected to the discussions that matter most to you. Follow a discussion to receive notifications of new activity and never miss out on the conversation, again.",
-    "follow-introducing-button-label":"OK, got it",
     "reported-not-found-error":"There are no reported posts or replies.",
     "categories-header":"Categories",
     "categories-edit-label":"Edit",
@@ -160,11 +157,10 @@
     "reports-description":"Who has reported the most content, and have those posts been deleted, approved, or not yet been processed by a moderator?",
     "moderator-actions-headline":"Moderator Actions",
     "moderator-actions-description":"Which moderators have been the most active by deleting, approving, and locking posts, or changing a post’s category?",
-    "hero-unit-subtitle":"User Activity",
     "posts":"posts",
-    "reported":"reported",
     "not-processed":"not processed",
-    "actions":"actions"
+    "actions":"actions",
+    "hero-unit-subtitle":"User Activity"
   },
   "editor":{
     "post-failed-error":"Post failed.",
