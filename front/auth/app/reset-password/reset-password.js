@@ -44,7 +44,7 @@ export default class ResetPassword extends PasswordForm {
 	 *
 	 * @returns {boolean} true if input is validated, false if errors were found
 	 */
-	inputIsValid() {
+	isInputValid() {
 		const newPasswordValue = this.form.elements.newPassword.value,
 			confirmNewPasswordValue = this.form.elements.confirmNewPassword.value,
 			passwordIsSame = newPasswordValue === confirmNewPasswordValue;

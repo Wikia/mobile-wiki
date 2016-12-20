@@ -55,7 +55,7 @@ export default class PasswordForm {
 		this.clearErrors();
 		button.disabled = true;
 
-		if (this.inputIsValid()) {
+		if (this.isInputValid()) {
 			xhr.onload = () => {
 				button.disabled = false;
 
@@ -91,7 +91,7 @@ export default class PasswordForm {
 	 *
 	 * @returns {boolean} true if input is validated, false if errors were found
 	 */
-	inputIsValid() {
+	isInputValid() {
 		return true;
 	}
 

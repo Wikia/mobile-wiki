@@ -92,7 +92,8 @@ export default class Form {
 			this.togglePasswordInput(input, element);
 		} else if (element.className.match('all-passwords-toggler')) {
 			Array.from(this.inputs).filter(input => input.classList.contains('input-password'))
-				.reverse() // this way first input will be active
+			// this way first input will be active
+				.reverse()
 				.forEach(input => this.togglePasswordInput(input, element));
 		} else if (element.className.match('dice')) {
 			element.classList.toggle('on');
