@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {addQueryParams} from '../../utils/url';
 
 const {Component, computed} = Ember;
 
