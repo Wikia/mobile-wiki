@@ -67,8 +67,6 @@ export function post(request, reply) {
 		token = querystring.escape(request.payload.token),
 		username = querystring.escape(request.payload.username);
 
-	console.error(password);
-
 	if (username === 'test-user') {
 		reply({
 			payload: 'ok'

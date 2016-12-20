@@ -98,4 +98,3 @@ export default class ResetPassword extends PasswordForm {
 		return response && response.errors && response.errors.length;
 	}
 }
-

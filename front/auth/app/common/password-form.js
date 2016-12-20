@@ -25,6 +25,7 @@ export default class PasswordForm {
 	extractFieldsFromQuery() {
 		if (window.location.search) {
 			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
+
 			this.extractFieldsFromPathParameters(params);
 		}
 	}

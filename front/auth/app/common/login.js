@@ -141,6 +141,8 @@ export default class Login {
 			if (username.length) {
 				if (url.indexOf('?') === -1) {
 					url = `${url}?`;
+				} else {
+					url = `${url}&`;
 				}
 
 				url = `${url}username=${username}`;

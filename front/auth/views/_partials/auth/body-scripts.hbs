@@ -23,7 +23,7 @@
 
 	require('auth/app/main').init();
 
-	// properties needed for Internal
+	// properties needed for Internal tracking
 	M.provide('wiki', {
 		id: 80433,
 		dbName: 'wikiaglobal',
@@ -33,9 +33,9 @@
 	});
 
 	// wikiId of the entrypoint if available
-		{{#if entryPointWikiId}}
+	{{#if entryPointWikiId}}
 		M.provide('entryPointWikiId', {{entryPointWikiId}});
-		{{/if}}
+	{{/if}}
 
 	M.tracker.Internal.trackPageView({
 		a: window.location.pathname,
