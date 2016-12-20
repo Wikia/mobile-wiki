@@ -100,6 +100,9 @@
     "follow-error-anon-cant-see-followed-posts":"Accedi per vedere i tuoi post seguiti.",
     "follow-label":"Segui",
     "follow-tooltip":"Aggiungi alla lista di ciò che segui",
+    "follow-introducing-header":"Ti presentiamo Segui!",
+    "follow-introducing-text":"Rimani connesso con le discussioni che ti interessano più. Segui una discussione per ricevere notifiche di nuove attività e non perderti mai più nulla della conversazione.",
+    "follow-introducing-button-label":"OK, ho capito",
     "reported-not-found-error":"Nessun post o risposta segnalata",
     "categories-header":"Categorie",
     "categories-edit-label":"Modifica",
@@ -157,11 +160,10 @@
     "reports-description":"Chi ha segnalato il maggior numero di contenuti e tali post sono stati eliminati, approvati o non ancora esaminati da un moderatore?",
     "moderator-actions-headline":"Azioni di moderazione",
     "moderator-actions-description":"Quali moderatori sono stati i più attivi eliminando, approvando e bloccando post o modificando la categoria di un post?",
-    "hero-unit-subtitle":"Attività degli utenti",
     "posts":"post",
-    "reported":"segnalato",
     "not-processed":"non esaminato",
-    "actions":"azioni"
+    "actions":"azioni",
+    "hero-unit-subtitle":"Attività degli utenti"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
