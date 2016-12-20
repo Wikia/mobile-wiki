@@ -85,12 +85,12 @@ export default class Form {
 	onClick(event) {
 		const element = event.target;
 
-		if (element.className.match('password-toggler')) {
+		if (element.classList.contains('password-toggler')) {
 			const wrapper = element.parentElement,
 				input = wrapper.querySelector('input');
 
 			this.togglePasswordInput(input, element);
-		} else if (element.className.match('all-passwords-toggler')) {
+		} else if (element.classList.contains('all-passwords-toggler')) {
 			Array.from(this.inputs).filter(input => input.classList.contains('input-password'))
 			// this way first input will be active
 				.reverse()
