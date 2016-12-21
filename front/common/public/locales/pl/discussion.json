@@ -143,12 +143,14 @@
     "tab-following":"Obserwowane",
     "no-followed-posts-header":"Witaj na karcie Obserwowane.",
     "no-followed-posts-text":"Kliknij przycisk „Obserwuj” znajdujący się pod postem, żeby wypełnić listę dyskusjami, które najbardziej cię interesują. Umieścimy je tutaj i będziemy informować cię o aktywności w nich.",
-    "find-posts-to-follow":"Znajdź posty do obserwowania"
+    "find-posts-to-follow":"Znajdź posty do obserwowania",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
-    "active-users-toggle-option":"Aktywni użytkownicy",
+    "active-users-toggle-option":"Aktywni<br>użytkownicy",
     "reports-toggle-option":"Zgłoszenia",
-    "moderator-actions-toggle-option":"Aktywność moderatorów",
+    "moderator-actions-toggle-option":"Aktywność<br>moderatorów",
     "days-count":"__numberOfDays__ dni",
     "glossary-header":"Słowniczek",
     "active-users-headline":"Aktywni użytkownicy",

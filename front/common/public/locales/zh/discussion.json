@@ -143,7 +143,9 @@
     "tab-following":"關注中",
     "no-followed-posts-header":"歡迎使用「關注」標籤。",
     "no-followed-posts-text":"按任何文章底部的「關注」按鈕來關注你感興趣的話題。你可以在這裡查看全部關注的文章，如有任何新的動態，你都會收到我們的通知。",
-    "find-posts-to-follow":"查找要關注的文章"
+    "find-posts-to-follow":"查找要關注的文章",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
     "active-users-toggle-option":"活躍用戶",

@@ -143,12 +143,14 @@
     "tab-following":"Отслеживаемые",
     "no-followed-posts-header":"Добро пожаловать на страницу отслеживания.",
     "no-followed-posts-text":"Чтобы подписаться на интересующее вас обсуждение, нажмите на значок «Отслеживать» в нижней части окна сообщения. Мы разместим его здесь и будем оповещать вас о любой новой активности в этом обсуждении.",
-    "find-posts-to-follow":"Поиск сообщений для подписки"
+    "find-posts-to-follow":"Поиск сообщений для подписки",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
-    "active-users-toggle-option":"Активные участники",
+    "active-users-toggle-option":"Активные<br>участники",
     "reports-toggle-option":"Нарушения",
-    "moderator-actions-toggle-option":"Действия модераторов",
+    "moderator-actions-toggle-option":"Действия<br>модераторов",
     "days-count":"__numberOfDays__ дн.",
     "glossary-header":"Глоссарий",
     "active-users-headline":"Активные участники",

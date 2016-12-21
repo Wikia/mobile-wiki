@@ -143,23 +143,25 @@
     "tab-following":"フォローのみ表示",
     "no-followed-posts-header":"「フォロー中」のタブへようこそ。",
     "no-followed-posts-text":"投稿の一番下にある「フォロー」アイコンをクリックすると、該当のディスカッションを「フォロー」状態に設定できます。\nフォロー中のディスカッションで新しいアクティビティがあった際には通知が送信されます。\nフォローしているディスカッションのリストの確認はこの画面で行えます。",
-    "find-posts-to-follow":"フォローする投稿を探す"
+    "find-posts-to-follow":"フォローする投稿を探す",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
     "active-users-toggle-option":"投稿数の多いユーザー",
     "reports-toggle-option":"報告履歴",
     "moderator-actions-toggle-option":"モデレーターの活動",
-    "days-count":"__numberOfDays__ 日間",
+    "days-count":"__numberOfDays__ 日",
     "glossary-header":"用語集",
     "active-users-headline":"投稿数の多いユーザー",
     "active-users-description":"投稿数の多いユーザーが表示されます。",
     "reports-headline":"報告履歴",
     "reports-description":"ユーザーのコンテンツに関する報告件数とその内約が表示されます。\n内約は削除済み・承認済み・保留中の三種類に分類されます。",
     "moderator-actions-headline":"モデレーターの活動",
-    "moderator-actions-description":"活動的なモデレーターとその内訳が表示されます。\n内訳には記事のカテゴリ整理や削除・削除・ロックが含まれます。",
-    "posts":"回",
-    "not-processed":"件の未処理",
-    "actions":"回",
+    "moderator-actions-description":"活動的なモデレーターとその内約が表示されます。\n内約は記事のカテゴリ整理や削除・削除・ロックが含まれます。",
+    "posts":"投稿",
+    "not-processed":"未処理",
+    "actions":"活動",
     "hero-unit-subtitle":"ユーザーアクティビティ"
   },
   "editor":{

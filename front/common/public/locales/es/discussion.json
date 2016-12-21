@@ -143,12 +143,14 @@
     "tab-following":"Siguiendo",
     "no-followed-posts-header":"Bienvenido a tu viñeta de seguimiento.",
     "no-followed-posts-text":"Toca el ícono \"Seguir\" en la parte de abajo de cada discusión para llenar tu lista con discusiones que más te interesan. Las pondremos aquí y te notificaremos sobre nueva actividad.",
-    "find-posts-to-follow":"Busca discusiones a seguir"
+    "find-posts-to-follow":"Busca discusiones a seguir",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuarios activos",
+    "active-users-toggle-option":"Usuarios<br>activos",
     "reports-toggle-option":"Reportes",
-    "moderator-actions-toggle-option":"Acciones del moderador",
+    "moderator-actions-toggle-option":"Acciones<br>del moderador",
     "days-count":"__numberOfDays__ días",
     "glossary-header":"Glosario",
     "active-users-headline":"Usuarios activos",

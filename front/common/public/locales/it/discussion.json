@@ -143,12 +143,14 @@
     "tab-following":"Seguite",
     "no-followed-posts-header":"Benvenuto nella scheda Seguite.",
     "no-followed-posts-text":"Fai clic sull'icona \"Segui\" in basso ad ogni post per aggiungerlo alla liste delle discussioni che ti interessano di più. Le aggiungeremo qui e ti informeremo in caso di nuove attività.",
-    "find-posts-to-follow":"Trova post da seguire"
+    "find-posts-to-follow":"Trova post da seguire",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
     "active-users-toggle-option":"Utenti attivi",
     "reports-toggle-option":"Segnalazioni",
-    "moderator-actions-toggle-option":"Azioni di moderazione",
+    "moderator-actions-toggle-option":"Azioni<br>di moderazione",
     "days-count":"__numberOfDays__ giorni",
     "glossary-header":"Glossario",
     "active-users-headline":"Utenti attivi",

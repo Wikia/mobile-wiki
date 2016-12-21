@@ -143,7 +143,9 @@
     "tab-following":"关注中",
     "no-followed-posts-header":"欢迎使用关注标签。",
     "no-followed-posts-text":"点击帖子底部的“关注”按钮关注你感兴趣的话题。你可以在这里查看全部关注的帖子。如有任何新的活动，你都会收到系统通知。",
-    "find-posts-to-follow":"查找需要关注的帖子"
+    "find-posts-to-follow":"查找需要关注的帖子",
+    "reported-content":"Reported Content",
+    "user-activity":"User Activity"
   },
   "user-activity":{
     "active-users-toggle-option":"活跃用户",
