@@ -22,7 +22,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
-					viewableOnly: false,
+					viewableOnly: true,
 					reported: true
 				},
 			}).then((data) => {
@@ -78,7 +78,7 @@ DiscussionReportedPostsModel.reopenClass({
 					page: page - 1,
 					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true,
-					viewableOnly: false,
+					viewableOnly: true,
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
