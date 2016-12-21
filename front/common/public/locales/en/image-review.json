@@ -19,6 +19,7 @@
     "image-history": "Image history:",
     "image-upload-date": "Upload date:",
     "image-context-not-provided": "Context not provided",
+    "image-uploader-id": "Uploading user Id:",
     "status-accepted": "OK",
     "status-questionable": "Q",
     "status-rejected": "REJ",
