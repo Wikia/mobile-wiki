@@ -44,6 +44,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.originalFilename', data.originalFilename);
 				this.set('imageDetails.size', data.size);
 				this.set('imageDetails.dimensions', data.dimensions);
+				this.set('imageDetails.ownerId', data.ownerId);
 			});
 		}
 	},

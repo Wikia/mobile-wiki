@@ -20,8 +20,10 @@ export default Ember.Component.extend({
 				this.set('thumbnailModel.fullSizeImageUrl', popupModel.fullSizeImageUrl);
 				this.set('thumbnailModel.context', popupModel.context);
 				this.set('thumbnailModel.isContextLink', popupModel.isContextLink);
+				this.set('thumbnailModel.ownerLookupUrl', popupModel.ownerLookupUrl);
 				this.set('thumbnailModel.originalFilename', data.originalFilename);
 				this.set('thumbnailModel.size', data.size);
+				this.set('thumbnailModel.ownerId', data.ownerId);
 				this.set('thumbnailModel.dimensions', data.dimensions);
 				this.set('isModalVisible', true);
 			});
