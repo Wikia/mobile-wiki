@@ -4,12 +4,16 @@
     "email_invalid":"El correo electrónico no es válido",
     "registration_error":"No podemos completar tu registro en este momento",
     "username_already_exists":"El nombre de usuario ya está en uso",
+    "username_blocked":"No puedes solicitar una nueva contraseña porque tu nombre de usuario ha sido bloqueado.",
     "username_unavailable":"El nombre de usuario ya está en uso o tiene caracteres no válidos. El nombre de usuario puede contener letras y números de un alfabeto y debe incluir una letra",
     "username_ip_address":"El nombre de usuario debe incluir por lo menos una letra",
     "username_exceeds_max_length":"El nombre de usuario no puede tener más de 50 caracteres",
     "username_illegal_characters":"El nombre de usuario puede contener solo letras y números de un alfabeto y debe incluir una letra",
+    "username-not-recognized":"No reconocemos este nombre. No olvides que los nombres de usuario distinguen mayúsculas de minúsculas.",
     "password_exceeds_max_length":"La contraseña no puede tener más de 50 caracteres",
     "password_equal_name":"El nombre de usuario y la contraseña no pueden coincidir",
+    "passwords_not_match":"Las contraseñas no coinciden",
+    "reset-password-email-sent":"Ya hemos enviado un recordatorio de contraseña de esta cuenta en las últimas 24 horas. Por favor, revisa tu correo electrónico.",
     "user_already_linked":"Esta cuenta de Fandom ya está vinculada a Facebook",
     "fb_account_already_linked":"Esta cuenta de Facebook ya está vinculada a otra cuenta de usuario de Fandom",
     "birthdate_invalid":"La fecha de nacimiento no es una fecha válida",
@@ -17,6 +21,6 @@
     "server-error":"Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
   },
   "labels":{
-    "terms-of-use-and-privacy-policy-text":"Estoy de acuerdo con __termsOfUseLink__ y __privacyPolicyLink__ (requerido)"
+    "terms-of-use-and-privacy-policy-text":"Estoy de acuerdo con los __termsOfUseLink__ y la __privacyPolicyLink__ (requerido)"
   }
 }
