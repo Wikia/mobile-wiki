@@ -25,6 +25,12 @@ export default Ember.Component.extend({
 				this.set('thumbnailModel.size', data.size);
 				this.set('thumbnailModel.ownerId', data.ownerId);
 				this.set('thumbnailModel.dimensions', data.dimensions);
+				this.set('thumbnailModel.ownerLookupUrl', M.buildUrl({
+					wiki: 'community',
+					namespace: 'Special',
+					title: 'LookupUser',
+					query: {mode: 'by_id', target: data.ownerId}
+				}));
 				this.set('isModalVisible', true);
 			});
 		}

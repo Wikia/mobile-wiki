@@ -2,8 +2,6 @@ import Ember from 'ember';
 import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
-const {Logger}=Ember;
-
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true,
 
@@ -66,6 +64,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
+
 	getImages(batchId) {
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
 	},
@@ -83,14 +82,7 @@ ImageReviewModel.reopenClass({
 					isContextProvided: Boolean(image.context),
 					isContextLink: linkRegexp.test(image.context),
 					status: status === 'REJECTED' ? 'rejected' : 'accepted',
-					ownerLookupUrl: M.buildUrl({
-			        		wiki: 'community',
-				                namespace: 'Special',
-				                title: 'LookupUser',
-				                query: {mode: 'by_id', target: `$(image.ownerId)`}
-				        });
 				}));
-				Logger.error(images[images.size-1]);				
 			}
 		});
 
