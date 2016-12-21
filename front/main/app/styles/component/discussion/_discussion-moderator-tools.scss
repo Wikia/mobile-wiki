@@ -1,0 +1,36 @@
+.discussion-moderator-tools {
+	margin-top: 30px;
+	margin-bottom: 20px;
+
+	.wds-list {
+		padding: 2px 0;
+
+		.icon {
+			fill: $discussion-moderator-tools-icon-color;
+			margin-right: 7px;
+		}
+	}
+}
+
+
+@media #{$desktop-range} {
+	.discussion-moderator-tools {
+		h3 {
+			border-bottom: 1px solid $discussion-right-rail-line-color;
+			color: $discussion-rail-title-color;
+			font-size: $wds-typescale-size-minus-1;
+			font-weight: bold;
+			line-height: $line-height-smallest;
+			margin: 16px 0 13px;
+			padding-bottom: 6px;
+		}
+
+		.wds-list {
+			padding: 0;
+
+			>li {
+				padding: 8px 0;
+			}
+		}
+	}
+}

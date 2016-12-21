@@ -46,6 +46,8 @@ const trackActions = {
 	AllCategoriesTapped: 'AllCategoriesTapped',
 	CategoriesCollapsed: 'CategoriesCollapsed',
 	CategoriesUncollapsed: 'CategoriesUncollapsed',
+	ReportedPostsLinkTapped: 'ReportedPostsLinkTapped',
+	UserActivityLinkTapped: 'UserActivityLinkTapped',
 	ReportedFilterCollapsed: 'ReportedFilterCollapsed',
 	ReportedFilterUncollapsed: 'ReportedFilterUncollapsed',
 	CategoriesResetTapped: 'CategoriesResetTapped',

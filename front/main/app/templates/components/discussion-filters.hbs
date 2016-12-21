@@ -11,26 +11,20 @@
 				validatePostsOnForum=(action this.attrs.validatePostsOnForum)
 			}}
 		{{/if}}
-		{{#if canShowReportedFilter}}
-			<fieldset class="discussion-fieldset moderation-fieldset">
-				<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-				{{wikia-ui-components.fancy-check-box
-						class='moderation-checkbox-label'
-						inputId='discussion-filters-moderation'
-						isChecked=onlyReported
-						label=(i18n 'main.reported-content-filter-text' ns='discussion')
-						update=(action 'toggleReported')
-				}}
-			</fieldset>
-		{{/if}}
+
 		{{#if showSortSection}}
 			{{discussion-sort
-					disabled=isSortingDisabled
-					setSortBy=(action 'setSortBy')
-					sortBy=sortBy
+				disabled=isSortingDisabled
+				setSortBy=(action 'setSortBy')
+				sortBy=sortBy
 			}}
 
 		{{/if}}
+
+		{{#if canModerate}}
+			{{discussion-moderator-tools}}
+		{{/if}}
+
 	</div>
 	{{#if showApplyButton}}
 		<div class="filters-apply-container header-text-theme-color">

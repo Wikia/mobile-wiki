@@ -1,4 +1,4 @@
-<h3 class="discussion-filter-header">
+<h3 class="{{if responsive.isMobile 'discussion-mobile-filter-header' 'discussion-filter-header'}}">
 	{{i18n 'main.filter-posts-header' ns='discussion'}}
 	<a class="active-element-theme-color" {{action this.attrs.reset}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
 </h3>
@@ -13,8 +13,8 @@
 		{{/if}}
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
 	</legend>
-	<div class="discussion-categories-list-container collapsable-container">
-		<ul class="discussion-categories-list">
+	<div class="collapsable-container{{if responsive.isMobile ' discussion-mobile-categories-list-container' ' discussion-categories-list-container'}}">
+		<ul class="{{if responsive.isMobile 'wds-has-big-items wds-list wds-has-lines-between' 'discussion-categories-list'}}">
 			<li>
 				{{wikia-ui-components.fancy-check-box
 					inputId=(concat categoriesInputIdPrefix 'all')

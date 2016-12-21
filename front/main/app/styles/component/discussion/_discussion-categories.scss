@@ -3,6 +3,21 @@
 	max-height: 800px;
 }
 
+.discussion-mobile-categories-list-container {
+	.wds-list {
+		padding: 2px 0;
+
+		.fancy-checkbox-label {
+			font-size: $wds-typescale-size-base;
+			line-height: 1em;
+
+			.fancy-checkbox-span {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
 .discussion-categories-list {
 	list-style: none;
 	margin: 6px 0;
@@ -49,5 +64,14 @@
 		font-size: $type-min;
 		font-weight: $font-weight-normal;
 		text-transform: uppercase;
+	}
+}
+
+
+@media #{$mobile-range} {
+	.discussion-categories {
+		&.discussion-fieldset {
+			margin-top: 7px;
+		}
 	}
 }
