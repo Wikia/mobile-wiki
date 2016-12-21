@@ -2,6 +2,7 @@ import {disableCache} from '../../lib/caching';
 import {getUserPreferencesUrl} from '../../lib/auth-utils';
 import {parse, resolve} from 'url';
 import settings from '../../../config/settings';
+import ESAPI from 'node-esapi';
 
 /**
  * @typedef {string[]} PageParams
@@ -121,6 +122,7 @@ export function getRedirectUrl(request) {
 export function validateRedirect(request, reply) {
 	const queryRedirectUrl = getRedirectUrl(request);
 
+	// redirect only if redirect url domain is on whitelist
 	if (request.query.redirect && queryRedirectUrl !== request.query.redirect) {
 		request.url.query.redirect = queryRedirectUrl;
 		request.url.search = null;
@@ -171,7 +173,7 @@ export function view(template, context, request, reply) {
 export function getDefaultContext(request) {
 	const viewType = getViewType(request),
 		isModal = request.query.modal === '1',
-		redirectUrl = getRedirectUrl(request),
+		redirectUrl = ESAPI.encoder().encodeForJavaScript(getRedirectUrl(request)),
 		reactivateAccountUrl = resolve(redirectUrl, '/Special:CloseMyAccount/reactivate'),
 		pageParams = {
 			cookieDomain: settings.authCookieDomain,

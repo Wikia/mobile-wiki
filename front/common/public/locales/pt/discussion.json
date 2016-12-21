@@ -100,9 +100,6 @@
     "follow-error-anon-cant-see-followed-posts":"Iniciar sessão para ver seus posts seguidos.",
     "follow-label":"Seguir",
     "follow-tooltip":"Adicionar a sua lista de seguidos",
-    "follow-introducing-header":"Apresentando Seguindo!",
-    "follow-introducing-text":"Fique ligado nas discussões que mais importam para você. Acompanhe uma discussão para receber notificações de novas atividades e nunca perder a conversa outra vez.",
-    "follow-introducing-button-label":"OK, entendido",
     "reported-not-found-error":"Não há posts ou respostas denunciados.",
     "categories-header":"Categorias",
     "categories-edit-label":"Editar",
@@ -149,9 +146,9 @@
     "find-posts-to-follow":"Encontrar posts para seguir"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuários<br>ativos",
+    "active-users-toggle-option":"Usuários ativos",
     "reports-toggle-option":"Relatórios",
-    "moderator-actions-toggle-option":"Ações<br>do moderador",
+    "moderator-actions-toggle-option":"Ações do moderador",
     "days-count":"__numberOfDays__ dias",
     "glossary-header":"Glossário",
     "active-users-headline":"Usuários ativos",
@@ -160,10 +157,10 @@
     "reports-description":"Quem relatou mais conteúdo, e esses posts foram excluídos, aprovados ou ainda não foram analisados por um moderador?",
     "moderator-actions-headline":"Ações do moderador",
     "moderator-actions-description":"Quais moderadores foram mais ativos ao excluir, aprovar e bloquear posts ou ao alterar a categoria de um post?",
-    "hero-unit-subtitle":"Atividade do usuário",
     "posts":"posts",
     "not-processed":"não analisado",
-    "actions":"ações"
+    "actions":"ações",
+    "hero-unit-subtitle":"Atividade do usuário"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

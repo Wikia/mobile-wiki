@@ -6,6 +6,10 @@ export default Ember.Component.extend({
 	isModalVisible: false,
 	thumbnailModel: {},
 
+	didRender() {
+		Ember.$(':focus').blur();
+	},
+
 	actions: {
 		showModal(popupModel) {
 			ImageReviewItemModel.getImageHistory(popupModel.imageId).then((data) => {
@@ -19,6 +23,8 @@ export default Ember.Component.extend({
 				this.set('thumbnailModel.originalFilename', data.originalFilename);
 				this.set('thumbnailModel.size', data.size);
 				this.set('thumbnailModel.dimensions', data.dimensions);
+				this.set('thumbnailModel.ownerId', data.ownerId);
+				this.set('thumbnailModel.ownerLookupUrl', ImageReviewItemModel.getOwnerLookupUrl(data.ownerId));
 				this.set('isModalVisible', true);
 			});
 		}

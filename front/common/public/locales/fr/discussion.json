@@ -100,9 +100,6 @@
     "follow-error-anon-cant-see-followed-posts":"Connectez-vous pour voir vos publications suivies.",
     "follow-label":"Suivre",
     "follow-tooltip":"Ajouter à ce que vous suivez",
-    "follow-introducing-header":"Présentation de l'onglet Suivies",
-    "follow-introducing-text":"Suivez les discussions qui vous tiennent le plus à cœur afin d'être notifié de toute nouvelle activité et de ne jamais rien manquer de la conversation.",
-    "follow-introducing-button-label":"OK",
     "reported-not-found-error":"Aucune publication ou réponse n'a été signalée.",
     "categories-header":"Catégories",
     "categories-edit-label":"Modifier",
@@ -149,9 +146,9 @@
     "find-posts-to-follow":"Rechercher des publications à suivre"
   },
   "user-activity":{
-    "active-users-toggle-option":"Utilisateurs<br>actifs",
+    "active-users-toggle-option":"Utilisateurs actifs",
     "reports-toggle-option":"Contenus signalés",
-    "moderator-actions-toggle-option":"Actions<br>de modération",
+    "moderator-actions-toggle-option":"Actions de modération",
     "days-count":"__numberOfDays__ jours",
     "glossary-header":"Glossaire",
     "active-users-headline":"Utilisateurs actifs",
@@ -160,10 +157,10 @@
     "reports-description":"Qui a signalé le plus de contenus ? Ces publications ont-elles été supprimées, approuvées ou pas encore traitées par un modérateur ?",
     "moderator-actions-headline":"Actions de modération",
     "moderator-actions-description":"Quels ont été les modérateurs les plus actifs en supprimant, approuvant et verrouillant des publications ou en changeant une publication de catégorie ?",
-    "hero-unit-subtitle":"Activité des utilisateurs",
     "posts":"publications",
     "not-processed":"non traités",
-    "actions":"actions"
+    "actions":"actions",
+    "hero-unit-subtitle":"Activité des utilisateurs"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

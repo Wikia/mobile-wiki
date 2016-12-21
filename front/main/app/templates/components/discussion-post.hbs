@@ -11,7 +11,7 @@
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
 	setEditorActive=(action this.attrs.setEditorActive)
-	showFollowingTooltip=true
+	showFollowingTooltip=showFollowingTooltip
 	showLastEditedBy=true
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
@@ -41,7 +41,9 @@
 			approve=(action this.attrs.approve)
 			author=entity.createdBy
 			content=entity.rawContent
+			cropImages=false
 			delete=(action this.attrs.deleteReply)
+			imagesDisplayMode='full'
 			isDetailsView=true
 			isNew=entity.isNew
 			isParentDeleted=model.isDeleted
