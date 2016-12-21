@@ -16,8 +16,8 @@
 
 				.radio-fancy {
 					@include discussion-radio-fancy(14px);
-					margin: -1px 9px -1px 0;
 					height: 18px;
+					margin: -1px 9px -1px 0;
 					width: 18px;
 
 					.inside {
