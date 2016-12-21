@@ -34,6 +34,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.context', data.context);
 				this.set('imageDetails.isContextProvided', Boolean(data.context));
 				this.set('imageDetails.isContextLink', linkRegexp.test(data.context));
+				this.set('imageDetails.origin', data.origin);
 			});
 
 			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
