@@ -20,17 +20,11 @@ export default Ember.Component.extend({
 				this.set('thumbnailModel.fullSizeImageUrl', popupModel.fullSizeImageUrl);
 				this.set('thumbnailModel.context', popupModel.context);
 				this.set('thumbnailModel.isContextLink', popupModel.isContextLink);
-				this.set('thumbnailModel.ownerLookupUrl', popupModel.ownerLookupUrl);
 				this.set('thumbnailModel.originalFilename', data.originalFilename);
 				this.set('thumbnailModel.size', data.size);
-				this.set('thumbnailModel.ownerId', data.ownerId);
 				this.set('thumbnailModel.dimensions', data.dimensions);
-				this.set('thumbnailModel.ownerLookupUrl', M.buildUrl({
-					wiki: 'community',
-					namespace: 'Special',
-					title: 'LookupUser',
-					query: {mode: 'by_id', target: data.ownerId}
-				}));
+				this.set('thumbnailModel.ownerId', data.ownerId);
+				this.set('thumbnailModel.ownerLookupUrl', ImageReviewItemModel.getOwnerLookupUrl(data.ownerId));
 				this.set('isModalVisible', true);
 			});
 		}

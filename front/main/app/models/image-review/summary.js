@@ -45,12 +45,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.size', data.size);
 				this.set('imageDetails.dimensions', data.dimensions);
 				this.set('imageDetails.ownerId', data.ownerId);
-				this.set('imageDetails.ownerLookupUrl', M.buildUrl({
-					wiki: 'community',
-					namespace: 'Special',
-					title: 'LookupUser',
-					query: {mode: 'by_id', target: data.ownerId}
-				}));
+				this.set('imageDetails.ownerLookupUrl', ImageReviewItemModel.getOwnerLookupUrl(data.ownerId));
 			});
 		}
 	},

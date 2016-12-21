@@ -64,7 +64,6 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-
 	getImages(batchId) {
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
 	},
@@ -81,7 +80,7 @@ ImageReviewModel.reopenClass({
 					context: image.context,
 					isContextProvided: Boolean(image.context),
 					isContextLink: linkRegexp.test(image.context),
-					status: status === 'REJECTED' ? 'rejected' : 'accepted',
+					status: status === 'REJECTED' ? 'rejected' : 'accepted'
 				}));
 			}
 		});
