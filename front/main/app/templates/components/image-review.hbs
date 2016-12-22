@@ -16,7 +16,7 @@
 		</div>
 		{{#if model.userCanAuditReviews}}
 			<button {{action this.attrs.openSummary}} class="sub-head--done">
-				Show summary
+				{{i18n 'main.show-summary' ns='image-review'}}
 			</button>
 		{{/if}}
 		{{#if model.images}}
