@@ -482,7 +482,6 @@ body.discussions {
 			line-height: $line-height-min;
 			margin-bottom: 0;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
-			padding: 0 0 10px;
 		}
 
 		.timestamp {
@@ -765,6 +764,9 @@ body.discussions {
 
 		.discussion-reply {
 			.post-images {
+				margin-left: 22px;
+			}
+			.post-edited-by-row {
 				margin-left: 22px;
 			}
 		}
