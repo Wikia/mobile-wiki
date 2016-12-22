@@ -100,9 +100,6 @@
     "follow-error-anon-cant-see-followed-posts":"Zaloguj się, żeby zobaczyć obserwowane posty.",
     "follow-label":"Obserwuj",
     "follow-tooltip":"Dodaj to listy obserwowanych",
-    "follow-introducing-header":"Przedstawiamy Obserwowane!",
-    "follow-introducing-text":"Bądź na bieżąco z dyskusjami, które najbardziej cię interesują. Obserwuj dyskusję i otrzymuj powiadomienia dotyczące aktywności, by już nigdy nie przegapić ciekawych rozmów.",
-    "follow-introducing-button-label":"OK, rozumiem",
     "reported-not-found-error":"Brak zgłoszonych postów lub odpowiedzi.",
     "categories-header":"Kategorie",
     "categories-edit-label":"Edytuj",
@@ -160,11 +157,10 @@
     "reports-description":"Kto zgłosił najwięcej treści? Czy zgłoszone posty zostały usunięte, zatwierdzone, czy nie zostały jeszcze sprawdzone przez moderatora?",
     "moderator-actions-headline":"Aktywność moderatorów",
     "moderator-actions-description":"Którzy moderatorzy byli najbardziej aktywni przy usuwaniu, zatwierdzaniu i blokowaniu postów oraz przy zmianach ich kategorii?",
-    "hero-unit-subtitle":"Aktywność użytkowników",
     "posts":"posty",
-    "reported":"zgłoszone",
     "not-processed":"niesprawdzone",
-    "actions":"działania"
+    "actions":"działania",
+    "hero-unit-subtitle":"Aktywność użytkowników"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

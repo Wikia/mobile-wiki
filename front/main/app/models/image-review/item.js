@@ -16,6 +16,14 @@ ImageReviewItemModel.reopenClass({
 
 	getImageHistory(imageId) {
 		return request(M.getImageReviewServiceUrl(`/image/${imageId}/history`));
+	},
+	getOwnerLookupUrl(ownerId) {
+		return M.buildUrl({
+			wiki: 'community',
+			namespace: 'Special',
+			title: 'LookupUser',
+			query: {mode: 'by_id', target: ownerId}
+		});
 	}
 });
 
