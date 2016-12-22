@@ -236,7 +236,8 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 }
 
 .bfaa-template, .bfab-template {
-	.video-ima-container > iframe {
+	// TODO: remove .video-ima-container > iframe after ADEN-4362 release
+	.video-ima-container > iframe, .video-player > iframe {
 		z-index: -1;
 	}
 }
