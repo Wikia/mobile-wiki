@@ -9,7 +9,7 @@
 		{{/link-to}}
 	</li>
 	<li>
-		{{#link-to 'discussion.moderator.user-activity' class='text-link active-element-theme-color' click=(action 'openUserActivity')}}
+		{{#link-to 'discussion.moderator.user-activity' (query-params days="30") class='text-link active-element-theme-color' click=(action 'openUserActivity')}}
 			{{svg 'user-activity' role='img' class='icon user-activity'}}
 			<span>{{i18n 'main.user-activity' ns='discussion'}}</span>
 		{{/link-to}}
