@@ -1,7 +1,7 @@
 {
   "main": {
     "head": "Image Review",
-    "description": "Click on images to mark them for deletion or as questionable (for staff review). When you're done with the batch, click 'Review' below to get the next batch.",
+    "description": "Click on images to mark them as rejected or as questionable (for staff review). When you're done with the batch, click 'Review' below to get the next batch.",
     "error-no-access-permissions": "Unauthorized, you don't have permissions to see this page",
     "error-other": "Unable to load image review",
     "error-invalid-data": "Invalid data was returned from Image Review API",
@@ -24,6 +24,7 @@
     "status-questionable": "Q",
     "status-rejected": "REJ",
     "status-removed": "DEL",
+    "show-summary": "Show summary",
     "history-date": "Date",
     "history-action": "Action",
     "history-user": "User",
