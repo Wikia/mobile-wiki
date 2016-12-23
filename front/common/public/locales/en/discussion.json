@@ -145,7 +145,7 @@
     "no-followed-posts-text": "Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
     "find-posts-to-follow": "Find posts to follow",
     "reported-content": "Reported Content",
-    "user-activity": "User Activity",
+    "user-activity": "Discussions Insights",
     "moderator-tools": "Moderator Tools"
   },
   "user-activity":{
@@ -163,7 +163,7 @@
     "posts": "posts",
     "not-processed": "not processed",
     "actions": "actions",
-    "hero-unit-subtitle": "User Activity",
+    "hero-unit-subtitle": "Discussions Insights",
     "no-activity-yet": "No activity yet."
   },
   "editor": {
