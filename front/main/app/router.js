@@ -118,7 +118,7 @@ Router.map(function () {
 		});
 
 		this.route('batch-id', {
-			path: '/:batchId'
+			path: '/:queue/:batchId'
 		});
 
 		this.route('summary', {

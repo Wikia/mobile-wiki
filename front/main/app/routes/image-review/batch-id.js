@@ -6,12 +6,11 @@ const {Route, Logger} = Ember;
 export default Route.extend({
 
 	model(params) {
-		const status = this.controllerFor('image-review').get('status');
-		return ImageReviewModel.startSession(status, params.batchId);
+		return ImageReviewModel.startSession(params.queue.toUpperCase(), params.batchId);
 	},
 
 	afterModel(model) {
-		model.setImagesCount(this.controllerFor('image-review').get('status'));
+		model.setImagesCount(model.status);
 		this.controllerFor('application').set('isLoading', false);
 	},
 
@@ -37,13 +36,11 @@ export default Route.extend({
 		getAllWithStatus(status) {
 			window.scrollTo(0, 0);
 
-			this.controllerFor('image-review').set('status', status);
-
 			ImageReviewModel.reserveNewBatch(status).then(({payload, jqXHR}) => {
 				if (jqXHR.status === 204) {
-					this.transitionTo('image-review.batch-id', 'no-more-images');
+					this.transitionTo('image-review.batch-id', status.toLowerCase(), 'no-more-images');
 				} else {
-					this.transitionTo('image-review.batch-id', payload.id);
+					this.transitionTo('image-review.batch-id', status.toLowerCase(), payload.id);
 				}
 			});
 		},
@@ -69,11 +66,11 @@ export default Route.extend({
 					persistent: false
 				});
 			}).then(() => {
-				ImageReviewModel.reserveNewBatch(this.controllerFor('image-review').get('status')).then(({payload, jqXHR}) => {
+				ImageReviewModel.reserveNewBatch(model.status).then(({payload, jqXHR}) => {
 					if (jqXHR.status === 204) {
-						this.transitionTo('image-review.batch-id', 'no-more-images');
+						this.transitionTo('image-review.batch-id', model.status.toLowerCase(), 'no-more-images');
 					} else {
-						this.transitionTo('image-review.batch-id', payload.id);
+						this.transitionTo('image-review.batch-id', model.status.toLowerCase(), payload.id);
 					}
 				});
 			});
