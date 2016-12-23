@@ -13,6 +13,10 @@ module('Unit | Utility | domain', () => {
 				expected: 'wikia-dev.com',
 			},
 			{
+				hostname: 'fallout.ktatala.wikia-staging.com',
+				expected: 'wikia-staging.com',
+			},
+			{
 				hostname: 'no-dots-here',
 				expected: 'no-dots-here',
 			},
@@ -31,6 +35,10 @@ module('Unit | Utility | domain', () => {
 			{
 				url: 'http://thelastofus.james.wikia-dev.com/wiki/MakerTest',
 				expected: 'thelastofus.james.wikia-dev.com',
+			},
+			{
+				url: 'http://starwars.ktatala.wikia-staging.com/wiki/MakerTest',
+				expected: 'starwars.ktatala.wikia-staging.com',
 			},
 			{
 				url: 'witcher.wikia.com',
