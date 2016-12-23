@@ -14,7 +14,7 @@
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
 	</legend>
 	<div class="collapsable-container{{if responsive.isMobile ' discussion-mobile-categories-list-container' ' discussion-categories-list-container'}}">
-		<ul class="{{if responsive.isMobile 'wds-has-big-items wds-list wds-has-lines-between' 'discussion-categories-list'}}">
+		<ul class="discussion-categories-list{{if responsive.isMobile ' wds-has-big-items wds-list wds-has-lines-between' ' discussion-categories-list-content'}}">
 			<li>
 				{{wikia-ui-components.fancy-check-box
 					inputId=(concat categoriesInputIdPrefix 'all')
