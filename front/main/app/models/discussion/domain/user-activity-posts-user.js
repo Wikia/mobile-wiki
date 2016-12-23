@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DiscussionContributor from './contributor';
 
 const DiscussionUserActivityPostsUser = Ember.Object.extend({
-	postCount: null,
+	totalCount: null,
 	userInfo: null,
 	rank: null
 });
@@ -10,7 +10,7 @@ const DiscussionUserActivityPostsUser = Ember.Object.extend({
 DiscussionUserActivityPostsUser.reopenClass({
 	create(postsData) {
 		return this._super({
-			postCount: postsData.postCount,
+			totalCount: postsData.totalCount,
 			userInfo: DiscussionContributor.create(postsData.userInfo),
 			rank: postsData.rank
 		});
