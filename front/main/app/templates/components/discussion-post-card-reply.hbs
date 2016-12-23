@@ -72,11 +72,16 @@
 			}}
 		{{/if}}
 	{{/if}}
+	{{#if showLastEditedByMessage}}
+		<div class="row post-edited-by-row">
+			{{lastEditedByMessage}}
+		</div>
+	{{/if}}
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner
-	active=post.isLoading
-	radius=32
-	strokeWidth=2
+		active=post.isLoading
+		radius=32
+		strokeWidth=2
 	}}
 {{/if}}
