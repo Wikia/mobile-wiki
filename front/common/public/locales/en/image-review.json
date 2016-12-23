@@ -24,6 +24,7 @@
     "status-questionable": "Q",
     "status-rejected": "REJ",
     "status-removed": "DEL",
+    "show-summary": "Show summary",
     "history-date": "Date",
     "history-action": "Action",
     "history-user": "User",
