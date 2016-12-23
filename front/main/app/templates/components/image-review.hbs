@@ -10,11 +10,11 @@
 		</button>
 		<div class="sub-head--done">
 			<ul class="image-order-options">
-				<li id="image-order-newest"
+				<li id="image-order-newest-top"
 					{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
 					{{i18n 'main.image-order-newest' ns='image-review'}}
 				</li>
-				<li id="image-order-oldest"
+				<li id="image-order-oldest-top"
 					{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
 					{{i18n 'main.image-order-oldest' ns='image-review'}}
 				</li>
@@ -76,10 +76,12 @@
 					{{i18n 'main.review-and-get-more' ns='image-review'}}
 				</button>
 				<ul class="image-order-options">
-					<li {{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
+					<li id="image-order-newest-bottom"
+						{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
 						{{i18n 'main.image-order-newest' ns='image-review'}}
 					</li>
-					<li {{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
+					<li id="image-order-oldest-bottom"
+						{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
 						{{i18n 'main.image-order-oldest' ns='image-review'}}
 					</li>
 				</ul>
