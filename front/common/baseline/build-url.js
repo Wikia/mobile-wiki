@@ -55,11 +55,14 @@ if (typeof window.M === 'undefined') {
 			// (2) Production wikia.com
 			// Domain is specified here in case subdomain is actually "wiki", "com", etc.
 			host = host.replace(`${match[1]}.wikia.com`, `${wiki}.wikia.com`);
-		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-			// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
+		} else if ((match = host.match(/^(.+?)\.wikia-staging\.com($|\/|:)/)) !== null) {
+			// (3) Staging env hosted on wikia-staging.com
+			host = host.replace(`${match[1]}.wikia-staging.com`, `${wiki}.wikia-staging.com`);
+		}  else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
+			// (4) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
 			host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
 		} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
-			// (4) Environment using xip.io
+			// (5) Environment using xip.io
 			host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
 		}
 
