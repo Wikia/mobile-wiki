@@ -3,13 +3,13 @@
 </h3>
 <ul class="wds-list{{if responsive.isMobile ' wds-has-big-items wds-has-lines-between'}}">
 	<li>
-		{{#link-to 'discussion.reported-posts' class='text-link active-element-theme-color' click=(action 'openReportedContent')}}
-			{{svg 'wds-icons-alert-small' class='wds-icon wds-icon-small icon'}}
+		{{#link-to 'discussion.reported-posts' class='text-link active-element-theme-color' click=(action 'trackReportedContentTap')}}
+			{{svg 'wds-icons-alert-small' role='img' class='wds-icon wds-icon-small icon'}}
 			<span>{{i18n 'main.reported-content' ns='discussion'}}</span>
 		{{/link-to}}
 	</li>
 	<li>
-		{{#link-to 'discussion.moderator.user-activity' (query-params days="30") class='text-link active-element-theme-color' click=(action 'openUserActivity')}}
+		{{#link-to 'discussion.moderator.user-activity' (query-params days="30") class='text-link active-element-theme-color' click=(action 'trackUserActivityTap')}}
 			{{svg 'user-activity' role='img' class='icon user-activity'}}
 			<span>{{i18n 'main.user-activity' ns='discussion'}}</span>
 		{{/link-to}}

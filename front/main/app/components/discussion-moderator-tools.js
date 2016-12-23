@@ -8,11 +8,11 @@ export default Ember.Component.extend(
 		classNames: ['discussion-moderator-tools'],
 
 		actions: {
-			openReportedContent() {
+			trackReportedContentTap() {
 				track(trackActions.ReportedPostsLinkTapped);
 			},
 
-			openUserActivity() {
+			trackUserActivityTap() {
 				track(trackActions.UserActivityLinkTapped);
 			}
 		}
