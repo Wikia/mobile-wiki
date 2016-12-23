@@ -2,10 +2,10 @@ import Ember from 'ember';
 import DiscussionContributor from './contributor';
 
 const DiscussionUserActivityReportsUser = Ember.Object.extend({
-	actions: null,
-	breakdown: Ember.Object.create({
+	totalCount: 0,
+	actionBreakdown: Ember.Object.create({
 		queued: null,
-		verified: null,
+		validated: null,
 		deleted: null
 	}),
 	userInfo: null,
@@ -15,8 +15,8 @@ const DiscussionUserActivityReportsUser = Ember.Object.extend({
 DiscussionUserActivityReportsUser.reopenClass({
 	create(postsData) {
 		return this._super({
-			actions: postsData.actions,
-			breakdown: Ember.Object.create(postsData.breakdown),
+			totalCount: postsData.totalCount,
+			actionBreakdown: Ember.Object.create(postsData.actionBreakdown),
 			userInfo: DiscussionContributor.create(postsData.userInfo),
 			rank: postsData.rank
 		});

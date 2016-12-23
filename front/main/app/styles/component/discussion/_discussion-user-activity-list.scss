@@ -103,6 +103,22 @@
 			}
 		}
 	}
+
+	.no-user-activity-items {
+		color: $discussion-error-text-color;
+		font-size: $wds-typescale-size-minus-1;
+		margin: 0 auto;
+		padding: 36px 0;
+		text-align: center;
+		width: inherit;
+
+		.icon {
+			display: block;
+			height: 34px;
+			margin: 0 auto;
+			width: 40px;
+		}
+	}
 }
 
 @media #{$mobile-range} {

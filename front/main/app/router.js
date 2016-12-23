@@ -114,7 +114,7 @@ Router.map(function () {
 			path: 'm'
 		}, function () {
 			this.route('user-activity', {
-				path: '/ua'
+				path: '/insights'
 			}, function () {
 				this.route('posts');
 				this.route('reports');
