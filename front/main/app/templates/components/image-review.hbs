@@ -10,10 +10,12 @@
 		</button>
 		<div class="sub-head--done">
 			<ul class="image-order-options">
-				<li {{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
+				<li id="image-order-newest"
+					{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
 					{{i18n 'main.image-order-newest' ns='image-review'}}
 				</li>
-				<li {{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
+				<li id="image-order-oldest"
+					{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
 					{{i18n 'main.image-order-oldest' ns='image-review'}}
 				</li>
 			</ul>
