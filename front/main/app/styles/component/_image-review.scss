@@ -77,10 +77,6 @@
 	padding: 1em;
 }
 
-.image-review-get-more-button {
-	float: right;
-}
-
 .image-review-image-details {
 	display: block;
 	margin: 0 auto;
@@ -261,4 +257,49 @@ input[type="text"].image-review-summary-input {
 			background: #1520a3;
 		}
 	}
+}
+
+.image-review-get-more-buttons {
+  float: right;
+
+  .image-order-options {
+    float: right;
+  }
+}
+
+.image-order-options {
+  list-style: none;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+
+  li {
+    cursor: pointer;
+    position: relative;
+  }
+}
+
+.sub-head--done {
+  .image-order-options {
+    margin: .4em 0 0 0;
+  }
+}
+
+.image-order {
+  opacity: .4;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.image-order--selected {
+  opacity: 1;
+
+  &::before {
+    content: '•';
+    position: absolute;
+    left: -10px;
+  }
 }
