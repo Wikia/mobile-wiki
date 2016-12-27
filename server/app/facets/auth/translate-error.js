@@ -30,7 +30,15 @@ export default function translateError(data, customError) {
 			errors.push('server-error');
 		}
 	} else {
-		errors.push('server-error');
+		const payload = JSON.parse(data.payload);
+
+		if (payload.errors && payload.errors.length) {
+			payload.errors.forEach(error => {
+				errors.push(error.description.replace('_', '-'));
+			});
+		} else {
+			errors.push('server-error');
+		}
 	}
 
 	return errors;
