@@ -1,6 +1,7 @@
 $input-error-color: #ed1c24;
 $button-text-size: $type-min;
 $button-line-height: $line-height-min;
+$link-emphasis-color: #00b7e0;
 
 form {
 	small.error {
@@ -10,6 +11,10 @@ form {
 		padding-left: 0;
 		padding-right: 0;
 		text-align: left;
+
+		a {
+			color: $link-emphasis-color;
+		}
 	}
 }
 
