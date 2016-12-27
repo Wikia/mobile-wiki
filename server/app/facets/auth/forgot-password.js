@@ -8,6 +8,8 @@ import translateError from './translate-error';
 import querystring from 'querystring';
 
 function getForgotPasswordViewContext(request) {
+	const i18n = request.server.methods.i18n.getInstance();
+
 	const context = deepExtend(authView.getDefaultContext(request),
 		{
 			bodyClasses: 'two-cards-page forgot-password-page',
@@ -36,6 +38,10 @@ function getForgotPasswordViewContext(request) {
 	if (request.query.tokenExpired === '1') {
 		context.pageParams.tokenExpired = true;
 	}
+
+	context.pageParams.contactFandomLink =
+		`<a href="http://community.wikia.com/wiki/Special:Contact/account-issue" target="_blank">` +
+		`${i18n.t('auth:forgot-password.invalid-email-contact-fandom')}</a>`;
 
 	return context;
 }

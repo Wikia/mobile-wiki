@@ -1,5 +1,4 @@
 import AuthUtils from '../common/auth-utils';
-import HttpCodes from '../common/http-codes';
 import PasswordForm from '../common/password-form';
 import {trackActions} from 'common/utils/track';
 
@@ -46,6 +45,15 @@ export default class ForgotPassword extends PasswordForm {
 			AuthUtils.loadUrl(event.target.href);
 			event.preventDefault();
 		});
+	}
+
+	/**
+	 * @protected
+	 */
+	getI18nParameters() {
+		return {
+			contactFandomLink: pageParams.contactFandomLink
+		};
 	}
 }
 

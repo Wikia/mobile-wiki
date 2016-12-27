@@ -177,8 +177,15 @@ export default class PasswordForm {
 		const errorElement = document.createElement('small');
 
 		errorElement.classList.add('error');
-		errorElement.innerHTML = i18n.t(messageKey);
+		errorElement.innerHTML = i18n.t(messageKey, this.getI18nParameters());
 		this.form.elements[0].parentElement.appendChild(errorElement);
+	}
+
+	/**
+	 * @protected
+	 */
+	getI18nParameters() {
+		return {};
 	}
 
 	/**
