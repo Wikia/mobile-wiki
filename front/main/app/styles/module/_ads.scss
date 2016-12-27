@@ -126,6 +126,51 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 	}
 }
 
+.video-player {
+	position: relative;
+
+	video {
+		left: 0;
+	}
+
+	.progress-bar {
+		background: $uap-progress-bar-color;
+		bottom: 0;
+		height: 8px;
+		left: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.current-time {
+		background: $uap-progress-bar-current-time-color;
+		height: 100%;
+		margin: 0;
+		max-width: 100%;
+		width: 0;
+		transition: width linear;
+	}
+
+	.pause-overlay {
+		cursor: pointer;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+	.close-ad {
+		background-image: url($player-collapse-button);
+		cursor: pointer;
+		height: 30px;
+		margin: 10px 10px 30px 30px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 30px;
+	}
+}
+
 .no-ads {
 	height: 0;
 }
@@ -236,7 +281,8 @@ $player-collapse-button: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0
 }
 
 .bfaa-template, .bfab-template {
-	.video-ima-container > iframe {
+	// TODO: remove .video-ima-container > iframe after ADEN-4362 release
+	.video-ima-container > iframe, .video-player > iframe {
 		z-index: -1;
 	}
 }
