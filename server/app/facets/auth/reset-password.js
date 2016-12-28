@@ -2,10 +2,11 @@ import * as authUtils from '../../lib/auth-utils';
 import {disableCache} from '../../lib/caching';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
-import updatePasswordFor from '../operations/update-password-with-token';
+import querystring from 'querystring';
 import settings from '../../../config/settings';
 import translateError from './translate-error';
-import querystring from 'querystring';
+import updatePasswordFor from '../operations/update-password-with-token';
+import validateTokenFor from '../operations/validate-token';
 
 function getResetPasswordViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
@@ -45,11 +46,11 @@ function assembleView(context, request, reply) {
 	return response;
 }
 
-/**
- * @param {Hapi.Request} request
- * @param {*} reply
- */
-export function get(request, reply) {
+function isInvalidResetTokenErrorCode(code) {
+	return code === 403;
+}
+
+function showPage(request, reply) {
 	const context = getResetPasswordViewContext(request);
 
 	if (request.auth.isAuthenticated) {
@@ -57,6 +58,34 @@ export function get(request, reply) {
 	}
 
 	return assembleView(context, request, reply);
+}
+
+function validateTokenAndShowPage(request, reply) {
+	const token = querystring.escape(request.query.token),
+		username = querystring.escape(request.query.username);
+
+	if (username && token) {
+		validateTokenFor(username, token)
+			.then(data => {
+				return showPage(request, reply);
+			}).catch(data => {
+				if (isInvalidResetTokenErrorCode(data.response.statusCode)) {
+					return reply.redirect(authUtils.getExpiryForgotPasswordUrl(request)).takeover();
+				} else {
+					return showPage(request, reply);
+				}
+			});
+	} else {
+		return showPage(request, reply);
+	}
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ */
+export function get(request, reply) {
+	return validateTokenAndShowPage(request, reply);
 }
 
 /**

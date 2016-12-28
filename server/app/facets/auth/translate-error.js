@@ -1,3 +1,26 @@
+function handleUserDiscoveryErrors(statusCode, errors) {
+	if (statusCode === 404) {
+		errors.push('username-not-recognized');
+	} else {
+		errors.push('server-error');
+	}
+}
+
+function handleServerErrors(payload, errors) {
+	if (payload.errors && payload.errors.length) {
+		payload.errors.forEach(error => {
+			console.error(error.description);
+			if (error.description === 'invalid_email') {
+				errors.push('invalid-email');
+			} else {
+				errors.push('server-error');
+			}
+		});
+	} else {
+		errors.push('server-error');
+	}
+}
+
 export default function translateError(data, customError) {
 	const statusCode = data.response.statusCode,
 		step = data.step,
@@ -6,15 +29,11 @@ export default function translateError(data, customError) {
 	if (step === 'service-discovery') {
 		errors.push('server-error');
 	} else if (step === 'user-discovery') {
-		if (statusCode === 404) {
-			errors.push('username-not-recognized');
-		} else {
-			errors.push('server-error');
-		}
-	} else if (step === 'update-password') {
-		if (statusCode === 400) {
-			const payload = JSON.parse(data.payload);
+		handleUserDiscoveryErrors(statusCode, errors);
+	} else if (step === 'update-password' || step === 'reset-password') {
+		const payload = JSON.parse(data.payload);
 
+		if (statusCode === 400) {
 			if (payload.errors && payload.errors.length) {
 				payload.errors.map(error => {
 					return customError(error);
@@ -26,19 +45,13 @@ export default function translateError(data, customError) {
 			}
 		} else if (statusCode === 403) {
 			errors.push('token-expired');
+		} else if (statusCode === 429) {
+			errors.push('reset-password-email-sent');
 		} else {
-			errors.push('server-error');
+			handleServerErrors(payload, errors);
 		}
 	} else {
-		const payload = JSON.parse(data.payload);
-
-		if (payload.errors && payload.errors.length) {
-			payload.errors.forEach(error => {
-				errors.push(error.description.replace('_', '-'));
-			});
-		} else {
-			errors.push('server-error');
-		}
+		errors.push('server-error');
 	}
 
 	return errors;
