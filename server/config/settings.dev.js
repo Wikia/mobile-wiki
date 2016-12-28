@@ -6,7 +6,7 @@ export default {
 		console: 'debug'
 	},
 	authCookieDomain: '.wikia-dev.com',
-	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services-poz.wikia-dev.com' : 'services.wikia-dev.com',
+	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services.wikia-dev.pl' : 'services.wikia-dev.us',
 	facebook: {
 		appId: 881967318489580
 	},
