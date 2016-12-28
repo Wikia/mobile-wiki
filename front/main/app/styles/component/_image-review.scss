@@ -267,3 +267,48 @@ input[type="text"].image-review-summary-input {
 		}
 	}
 }
+
+.image-review-get-more-buttons {
+  float: right;
+
+  .image-order-options {
+    float: right;
+  }
+}
+
+.image-order-options {
+  list-style: none;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+
+  li {
+    cursor: pointer;
+    position: relative;
+  }
+}
+
+.sub-head--done {
+  .image-order-options {
+    margin: .4em 0 0 0;
+  }
+}
+
+.image-order {
+  opacity: .4;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.image-order--selected {
+  opacity: 1;
+
+  &::before {
+    content: '•';
+    position: absolute;
+    left: -10px;
+  }
+}

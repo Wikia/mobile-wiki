@@ -16,9 +16,10 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
-	startSession(status) {
+	startSession(status, order) {
 		const options = {
-			status
+			status,
+			order
 		};
 
 		return rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
