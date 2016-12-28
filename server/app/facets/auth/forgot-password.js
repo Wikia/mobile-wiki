@@ -1,14 +1,16 @@
+import authLocaleSettings from '../../../config/authLocaleSettings';
 import * as authUtils from '../../lib/auth-utils';
-import {disableCache} from '../../lib/caching';
 import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
+import {disableCache} from '../../lib/caching';
 import resetPasswordFor from '../operations/reset-password';
 import settings from '../../../config/settings';
 import translateError from './translate-error';
 import querystring from 'querystring';
 
 function getForgotPasswordViewContext(request) {
-	const i18n = request.server.methods.i18n.getInstance();
+	const i18n = request.server.methods.i18n.getInstance(),
+		lang = authUtils.getLanguageWithDefault(i18n);
 
 	const context = deepExtend(authView.getDefaultContext(request),
 		{
@@ -40,7 +42,7 @@ function getForgotPasswordViewContext(request) {
 	}
 
 	context.pageParams.contactFandomLink =
-		`<a href="http://community.wikia.com/wiki/Special:Contact/account-issue" target="_blank">` +
+		`<a href="${authLocaleSettings[lang].urls.contactFandomLinkUrl}" target="_blank">` +
 		`${i18n.t('auth:forgot-password.invalid-email-contact-fandom')}</a>`;
 
 	return context;
