@@ -12,9 +12,11 @@
 		setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/if}}
-{{discussion-welcome
-	gotoGuidelines=(action this.attrs.gotoGuidelines)
-}}
+{{#unless isFollowedPostsView}}
+	{{discussion-welcome
+		gotoGuidelines=(action this.attrs.gotoGuidelines)
+	}}
+{{/unless}}
 {{#if showToTheTopButton}}
 	{{discussion-wrapper-load-more
 		goToPage=(action this.attrs.goToPage)
