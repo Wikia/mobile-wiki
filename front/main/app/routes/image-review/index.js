@@ -5,7 +5,7 @@ const {Route} = Ember;
 
 export default Route.extend({
 	redirect() {
-		ImageReviewModel.reserveNewBatch('UNREVIEWED').then(({payload, jqXHR}) => {
+		ImageReviewModel.reserveNewBatch('UNREVIEWED', 'NEWEST').then(({payload, jqXHR}) => {
 			if (jqXHR.status === 204) {
 				this.transitionTo('image-review.batch-id', 'unreviewed', 'no-more-images');
 			} else {

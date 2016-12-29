@@ -22,9 +22,7 @@ ImageReviewModel.reopenClass({
 			order
 		};
 
-		return rawRequest(M.getImageReviewServiceUrl(`/batch`, {
-			status
-		}), {
+		return rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
 			method: 'POST'
 		});
 	},
