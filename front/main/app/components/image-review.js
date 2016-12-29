@@ -5,6 +5,8 @@ export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isModalVisible: false,
 	thumbnailModel: {},
+	newestImages: Ember.computed.equal('order', 'NEWEST'),
+	oldestImages: Ember.computed.equal('order', 'OLDEST'),
 
 	didRender() {
 		Ember.$(':focus').blur();

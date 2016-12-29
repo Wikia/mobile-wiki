@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import ImageReviewModel from '../../models/image-review/batch-id';
 
-
 const {Route} = Ember;
 
 export default Route.extend({
-
 	redirect() {
 		ImageReviewModel.reserveNewBatch('UNREVIEWED').then(({payload, jqXHR}) => {
 			if (jqXHR.status === 204) {
