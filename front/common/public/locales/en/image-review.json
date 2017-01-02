@@ -34,6 +34,7 @@
     "not-provided": "not provided",
     "waiting-for-count": "waiting for count",
     "image-order-newest": "get newest",
-    "image-order-oldest": "get oldest"
+    "image-order-oldest": "get oldest",
+    "image-source": "Source of images"
   }
 }
