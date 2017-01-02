@@ -5,18 +5,22 @@ export default Ember.Mixin.create({
 
 	queryParams: ['emailConfirmed'],
 
-	onInit: Ember.on('init', function () {
+	emailConfirmationObserver: Ember.observer('emailConfirmed', function () {
 		const emailConfirmedStatus = this.get('emailConfirmed');
 
 		if (emailConfirmedStatus === '1') {
 			this.addAlert({
-				message: i18n.t('', {ns: 'discussion'}),
-				type: 'alert'
+				message: i18n.t('main.email-confirmed-notification', {ns: 'discussion'}),
+				type: 'success',
+				persistent: true,
+				expiry: -1
 			});
 		} else if (emailConfirmedStatus === '0') {
 			this.addAlert({
-				message: i18n.t('', {ns: 'discussion'}),
-				type: 'error'
+				message: i18n.t('main.email-confirmation-error', {ns: 'discussion'}),
+				type: 'alert',
+				persistent: true,
+				expiry: -1
 			});
 		}
 	}),
