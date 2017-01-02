@@ -6,8 +6,8 @@ const {Route, Logger} = Ember;
 export default Route.extend({
 	status: 'UNREVIEWED',
 
-	model() {
-		return ImageReviewModel.startSession(this.get('status'));
+	model(params) {
+		return ImageReviewModel.startSession(this.get('status'), params.order);
 	},
 
 	afterModel(model) {
