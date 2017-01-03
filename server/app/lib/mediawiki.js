@@ -333,6 +333,30 @@ export class WikiRequest extends BaseRequest {
 }
 
 /**
+ * a wrapper for making API requests for info about the wiki
+ *
+ * @class WikiRequest
+ */
+export class EmailConfirmationRequest extends BaseRequest {
+	/**
+	 * Gets general wiki information
+	 *
+	 * @param {string} token
+	 *
+	 * @returns {Promise<any>}
+	 */
+	confirmEmail(token) {
+		const url = createUrl('www.wikia.com', 'wikia.php', {
+			controller: 'EmailConfirmation',
+			method: 'confirmEmail'
+		}),
+			params = {token};
+
+		return this.post(url, Url.format({query: params}).substr(1));
+	}
+}
+
+/**
  * Gets article data
  *
  * @class PageRequest
