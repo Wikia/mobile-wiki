@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 	/**
 	 * Context for the i18n.t method for localization texts used in top note area
 	 */
-	topNoteTextContext: Ember.computed('post.reportDetails.count', function () {
+	topNoteTextContext: Ember.computed('post.reportDetails.count', 'post.lastDeletedBy.name', function () {
 		return {
 			ns: 'discussion',
 			reportedByNumberUsers: wrapMeHelper.compute([
@@ -37,15 +37,20 @@ export default Ember.Component.extend({
 				className: this.get('reportDetailsEntryPointClassName'),
 			}),
 			threadCreatorName: Ember.Handlebars.Utils.escapeExpression(this.get('threadCreatorName')),
+			lastDeletedByName: this.get('post.lastDeletedBy.name') || '',
 		};
 	}),
 
 	/**
 	 * Computes text for the post-card note
 	 */
-	topNoteText: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', function () {
-		// this block prepares 'reported posts' texts for moderators (regular user should never have post.reportDetails)
-		if (this.get('isReported') && this.get('canModerate') && this.get('post.reportDetails')) {
+	topNoteText: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count',
+		'post.isDeleted', function () {
+		if (this.get('post.isDeleted') && this.get('canModerate')) {
+
+			return i18n.t('main.deleted-by', this.get('topNoteTextContext'));
+		} else if (this.get('isReported') && this.get('canModerate') && this.get('post.reportDetails')) {
+			// this block prepares 'reported posts' texts for moderators (regular user should never have post.reportDetails)
 			if (this.get('showRepliedTo')) {
 
 				// post is reported, is a reply and supposed to show reply-to info
