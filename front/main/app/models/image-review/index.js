@@ -79,6 +79,7 @@ ImageReviewModel.reopenClass({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					context: image.context,
+					source: image.source,
 					isContextProvided: Boolean(image.context),
 					isContextLink: linkRegexp.test(image.context),
 					status: status === 'REJECTED' ? 'rejected' : 'accepted'
