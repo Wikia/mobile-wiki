@@ -20,6 +20,7 @@
     "image-upload-date": "Upload date:",
     "image-context-not-provided": "Context not provided",
     "image-uploader-id": "Uploading user Id:",
+    "image-source": "Uploaded from:",
     "status-accepted": "OK",
     "status-questionable": "Q",
     "status-rejected": "REJ",
