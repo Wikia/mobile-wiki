@@ -78,7 +78,7 @@ ImageReviewSummaryModel.reopenClass({
 			method: 'GET',
 		}).then((payload) => {
 			return ImageReviewSummaryModel.create({
-                userAllowedToAuditReviews: payload.userAllowedToAuditReviews,
+				userAllowedToAuditReviews: payload.userAllowedToAuditReviews,
 				startDate,
 				endDate,
 				csvLink,
