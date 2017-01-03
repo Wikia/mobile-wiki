@@ -16,9 +16,10 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
-	startSession(status) {
+	startSession(status, order) {
 		const options = {
-			status
+			status,
+			order
 		};
 
 		return rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
@@ -76,7 +77,7 @@ ImageReviewModel.reopenClass({
 				images.push(Ember.Object.create({
 					batchId,
 					imageId: image.imageId,
-					fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
+					fullSizeImageUrl: image.imageUrl,
 					context: image.context,
 					source: image.source,
 					isContextProvided: Boolean(image.context),

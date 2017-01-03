@@ -17,12 +17,21 @@
 	padding-left: 2em;
 }
 
-
 .image-review-image-container {
 	padding: 5px;
 	img {
 		min-width: 250px;
 		min-height: 250px;
+	}
+}
+
+.image-review-image-container-rejected {
+	width:256px;
+	height:256px;
+	img {
+		object-fit: contain;
+		width:100%;
+		height:100%;
 	}
 }
 
@@ -71,10 +80,6 @@
 	margin: 0 auto;
 	display: block;
 	text-align: center;
-}
-
-.image-review-action-buttons {
-	padding: 1em;
 }
 
 .image-review-get-more-button {
@@ -261,4 +266,49 @@ input[type="text"].image-review-summary-input {
 			background: #1520a3;
 		}
 	}
+}
+
+.image-review-get-more-buttons {
+  float: right;
+
+  .image-order-options {
+    float: right;
+  }
+}
+
+.image-order-options {
+  list-style: none;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+
+  li {
+    cursor: pointer;
+    position: relative;
+  }
+}
+
+.sub-head--done {
+  .image-order-options {
+    margin: .4em 0 0 0;
+  }
+}
+
+.image-order {
+  opacity: .4;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.image-order--selected {
+  opacity: 1;
+
+  &::before {
+    content: '•';
+    position: absolute;
+    left: -10px;
+  }
 }
