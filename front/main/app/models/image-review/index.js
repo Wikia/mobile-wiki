@@ -82,7 +82,7 @@ ImageReviewModel.reopenClass({
 				imageStatus: (item.status.toUpperCase() === 'REJECTED' && status === 'REJECTED')
 					? 'REMOVED'
 					: item.status.toUpperCase()
-			}
+			};
 		});
 
 		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`), {
