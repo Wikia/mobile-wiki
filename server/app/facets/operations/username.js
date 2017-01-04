@@ -28,11 +28,24 @@ function handleServiceDiscoveryResponse(data) {
 	return new Promise((resolve, reject) => {
 		Wreck.get(userDiscovery.url, userDiscovery.options, (error, response, payload) => {
 			if (response.statusCode === 200) {
-				resolve({
-					response,
-					payload,
-					username: data.username,
-				});
+				const userInfo = JSON.parse(payload);
+
+				if (userInfo.length) {
+					resolve({
+						response,
+						payload,
+						username: data.username,
+					});
+				} else {
+					response.statusCode = 404;
+
+					reject({
+						step: 'user-discovery',
+						error: {},
+						response,
+						payload
+					});
+				}
 			} else {
 				Logger.error({
 					url: userDiscovery.url
