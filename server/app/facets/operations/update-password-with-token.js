@@ -7,7 +7,7 @@ import translateUserIdFrom from './username';
 
 function createUpdatePasswordContext(userInfo, password = '', token = '') {
 	return {
-		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/password`),
+		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/password`),
 		options: {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded'

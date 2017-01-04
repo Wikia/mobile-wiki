@@ -7,7 +7,7 @@ import translateUserIdFrom from './username';
 
 function createResetPasswordContext(userInfo, redirect = '') {
 	return {
-		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/reset_password`),
+		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/reset_password`),
 		options: {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded'

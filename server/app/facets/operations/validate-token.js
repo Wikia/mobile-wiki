@@ -7,7 +7,7 @@ import translateUserIdFrom from './username';
 
 function createValidateTokenContext(userInfo, token = '') {
 	return {
-		url: authUtils.getHeliosUrl(`/users/${userInfo.userId}/validate_password_token`),
+		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/validate_password_token`),
 		options: {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded'
