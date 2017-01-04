@@ -43,8 +43,8 @@ export default Ember.Component.extend({
 	/**
 	 * Computes text for the post-card note
 	 */
-	topNoteText: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', 'post.isDeleted',
-		'post.lastDeletedBy.name', function () {
+	topNoteText: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count',
+		'post.isDeleted', 'post.lastDeletedBy.name', function () {
 			if (this.get('post.isDeleted') && this.get('canModerate')) {
 				let username = this.get('post.lastDeletedBy.name') || '';
 				return i18n.t('main.deleted-by', {userName: username, ns: 'discussion'});
