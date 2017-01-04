@@ -283,6 +283,13 @@ server.register(plugins, (err) => {
 		clearInvalid: true,
 		domain: settings.authCookieDomain
 	});
+
+	server.state('showEmailConfirmationBanner', {
+		ttl: null,
+		isSecure: true,
+		isHttpOnly: false,
+		clearInvalid: true
+	});
 });
 
 server.auth.scheme('wikia', wikiaSessionScheme);

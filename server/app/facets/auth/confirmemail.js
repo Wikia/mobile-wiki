@@ -3,6 +3,10 @@ import settings from '../../../config/settings';
 import * as Utils from '../../lib/utils';
 
 
+function setEmailConfirmationBannerState(state, reply) {
+	reply.state('showEmailConfirmationBanner', String(state);
+}
+
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
@@ -17,9 +21,14 @@ export default function get(request, reply) {
 	new MW.EmailConfirmationRequest({wikiDomain})
 		.confirmEmail(request.query.token)
 		.then(function () {
-			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page?emailConfirmed=1');
+			setEmailConfirmationBannerState(1, reply);
+
+			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page');
+
 		})
 		.catch(function () {
-			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page?emailConfirmed=0');
+			setEmailConfirmationBannerState(2, reply);
+
+			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page');
 		});
 }
