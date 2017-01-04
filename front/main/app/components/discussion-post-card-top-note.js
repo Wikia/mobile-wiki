@@ -47,7 +47,6 @@ export default Ember.Component.extend({
 		function () {
 			if (this.get('post.isDeleted') && this.get('canModerate')) {
 				let username = this.get('post.lastDeletedBy.name') || '';
-				console.log(this.get('post'));
 				return i18n.t('main.deleted-by', {userName: username, ns: 'discussion'});
 			} else if (this.get('isReported') && this.get('canModerate') && this.get('post.reportDetails')) {
 				// this block prepares 'reported posts' texts for moderators (regular user should never have post.reportDetails)
