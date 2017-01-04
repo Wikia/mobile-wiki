@@ -1,16 +1,29 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
-		{{#if model.userCanAuditReviews}}
-			<button {{action this.attrs.openSummary}} class="sub-head--done">
-				Show summary
-			</button>
-		{{/if}}
-		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
-			{{i18n 'main.review-and-get-more' ns='image-review'}}
-		</button>
 		<div class="sub-head--title">
 			{{i18n 'main.head' ns='image-review'}}
+			{{#if model.userCanAuditReviews}}
+				<button {{action this.attrs.getAllWithStatus 'UNREVIEWED'}} class="sub-head--done">
+					{{i18n 'main.get-unreviewed' ns='image-review'}}
+				</button>
+				<button {{action this.attrs.getAllWithStatus 'QUESTIONABLE'}} class="sub-head--done">
+					{{i18n 'main.get-questionable' ns='image-review'}}
+				</button>
+				<button {{action this.attrs.getAllWithStatus 'REJECTED'}} class="sub-head--done">
+					{{i18n 'main.get-rejected' ns='image-review'}}
+				</button>
+			{{/if}}
 		</div>
+		{{#if model.userCanAuditReviews}}
+			<button {{action this.attrs.openSummary}} class="sub-head--done">
+				{{i18n 'main.show-summary' ns='image-review'}}
+			</button>
+		{{/if}}
+		{{#if model.images}}
+			<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
+				{{i18n 'main.review-and-get-more' ns='image-review'}}
+			</button>
+		{{/if}}
 	</header>
 {{/if}}
 
@@ -36,8 +49,10 @@
 		<ul class="image-review-list">
 			{{#each model.images as |item|}}
 				<li class="image-review-item">
-					{{image-review-item model=item showModal=(action 'showModal') isRejectedQueue=model.isRejectedQueue
-					changeItemModel=(action (action this.attrs.changeItemModel))}}
+					{{image-review-item model=item
+															showModal=(action 'showModal')
+															isRejectedQueue=model.isRejectedQueue
+															changeItemModel=(action (action this.attrs.changeItemModel))}}
 				</li>
 			{{/each}}
 		</ul>
@@ -46,24 +61,12 @@
 		<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
 	{{/if}}
 
-	<div class="image-review-action-buttons">
-		{{#if model.userCanAuditReviews}}
-			<button {{action this.attrs.getAllWithStatus 'UNREVIEWED'}}>
-				{{i18n 'main.get-unreviewed' ns='image-review'}}
-			</button>
-			<button {{action this.attrs.getAllWithStatus 'QUESTIONABLE'}}>
-				{{i18n 'main.get-questionable' ns='image-review'}}
-			</button>
-			<button {{action this.attrs.getAllWithStatus 'REJECTED'}}>
-				{{i18n 'main.get-rejected' ns='image-review'}}
-			</button>
-		{{/if}}
-		{{#if model.images }}
-			<button class="image-review-get-more-button" {{action this.attrs.reviewAndGetMoreImages}}>
-				{{i18n 'main.review-and-get-more' ns='image-review'}}
-			</button>
-		{{/if}}
-	</div>
+	{{#if model.images }}
+		<button class="image-review-get-more-button" {{action this.attrs.reviewAndGetMoreImages}}>
+			{{i18n 'main.review-and-get-more' ns='image-review'}}
+		</button>
+	{{/if}}
+
 </div>
 {{#modal-dialog isVisible=isModalVisible}}
 	{{image-review-image-details thumbnailModel=thumbnailModel class='image-review-image-details'}}

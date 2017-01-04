@@ -2,6 +2,7 @@
   "errors":{
     "email_already_exists":"このメールアドレスはFandomに登録済みです",
     "email_invalid":"メールアドレスが無効です",
+    "invalid-email":"It seems you have no e-mail associated with your Fandom account. Please __contactFandomLink__",
     "registration_error":"現在、登録を完了できません",
     "username_already_exists":"このユーザー名はすでに使用されています",
     "username_blocked":"ご利用のユーザー名がブロックされているため",
