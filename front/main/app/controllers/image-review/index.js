@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	queryParams: ['fullscreen', 'order'],
+	queryParams: ['fullscreen', 'order', 'source'],
 	order: 'NEWEST',
+	source: '',
 	actions: {
-		reviewAndGetMoreImages(order) {
-			this.get('target').send('reviewAndGetMoreImages', order);
+		reviewAndGetMoreImages() {
+			this.get('target').send('reviewAndGetMoreImages', this.get('order'), this.get('source'));
 		},
 
 		getAllWithStatus(status) {
