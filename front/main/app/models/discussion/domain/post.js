@@ -103,7 +103,7 @@ DiscussionPost.reopenClass({
 			creationTimestamp: DiscussionPost.getThreadDataTimestamp(threadData.creationDate),
 			isFollowed: threadData.isFollowed,
 			isLocked: !threadData.isEditable,
-			lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
+			// lastEditedBy: DiscussionContributor.create(threadData.lastEditedBy),
 			permalinkedReplyId: threadData.permalinkedReplyId,
 			repliesCount: parseInt(threadData.postCount, 10),
 			threadId: threadData.id,
