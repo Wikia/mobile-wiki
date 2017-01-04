@@ -13,9 +13,9 @@ export default Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	parsedContent: Ember.computed('content', function () {
-		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
+		let escapedContent = decodeURIComponent(Ember.Handlebars.Utils.escapeExpression(
 			this.get('content')
-		).trim();
+		)).trim();
 
 		if (this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
