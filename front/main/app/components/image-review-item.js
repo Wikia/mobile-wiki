@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 	isQuestionable: Ember.computed.equal('model.status', 'questionable'),
 
 	actions: {
-		setStatus: function(status) {
+		setStatus(status) {
 			this.set('model.status', status);
 		}
 	}
