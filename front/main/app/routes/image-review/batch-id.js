@@ -56,10 +56,6 @@ export default Route.extend({
 						persistent: false
 					});
 				});
-		},
-
-		openSummary() {
-			this.transitionTo('image-review.summary');
 		}
 	}
 });
