@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Willkommen auf dem Tab „Verfolgt“.",
     "no-followed-posts-text":"Klicke auf das Symbol „Folgen“ am Ende eines beliebigen Beitrags, um deine Liste mit den Diskussionen zu füllen, die dir am wichtigsten sind. Wir stellen sie hier ein und geben dir Bescheid, wenn es etwas Neues gibt.",
     "find-posts-to-follow":"Finde Beiträge, denen du folgen möchtest",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Gemeldete Inhalte",
+    "user-activity":"Diskussionen Insights",
+    "moderator-tools":"Moderation"
   },
   "user-activity":{
     "active-users-toggle-option":"Aktive Benutzer",
@@ -162,7 +163,8 @@
     "posts":"Beiträge",
     "not-processed":"nicht bearbeitet",
     "actions":"Aktionen",
-    "hero-unit-subtitle":"Benutzeraktivität"
+    "hero-unit-subtitle":"Diskussionen Insights",
+    "no-activity-yet":"Es gibt noch nichts anzuzeigen."
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

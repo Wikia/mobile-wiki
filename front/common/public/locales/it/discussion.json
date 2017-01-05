@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Benvenuto nella scheda Seguite.",
     "no-followed-posts-text":"Fai clic sull'icona \"Segui\" in basso ad ogni post per aggiungerlo alla liste delle discussioni che ti interessano di più. Le aggiungeremo qui e ti informeremo in caso di nuove attività.",
     "find-posts-to-follow":"Trova post da seguire",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Contenuti segnalati",
+    "user-activity":"Insights su Discussioni",
+    "moderator-tools":"Strumenti di moderazione"
   },
   "user-activity":{
     "active-users-toggle-option":"Utenti attivi",
@@ -162,7 +163,8 @@
     "posts":"post",
     "not-processed":"non esaminato",
     "actions":"azioni",
-    "hero-unit-subtitle":"Attività degli utenti"
+    "hero-unit-subtitle":"Insights su Discussioni",
+    "no-activity-yet":"Ancora nessuna attività."
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",

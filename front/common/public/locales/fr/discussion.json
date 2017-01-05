@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Bienvenue dans l'onglet Suivies !",
     "no-followed-posts-text":"Appuyez sur l'icône \"Suivre\" disponible en bas de chaque publication pour ajouter à la liste les discussions qui vous tiennent le plus à cœur. Nous les inclurons ici et vous informerons de toute nouvelle activité.",
     "find-posts-to-follow":"Rechercher des publications à suivre",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Contenu signalé",
+    "user-activity":"Activité des Discussions",
+    "moderator-tools":"Outils de modération"
   },
   "user-activity":{
     "active-users-toggle-option":"Utilisateurs<br>actifs",
@@ -162,7 +163,8 @@
     "posts":"publications",
     "not-processed":"non traités",
     "actions":"actions",
-    "hero-unit-subtitle":"Activité des utilisateurs"
+    "hero-unit-subtitle":"Activité des Discussions",
+    "no-activity-yet":"Encore aucune activité."
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

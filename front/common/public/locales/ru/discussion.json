@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Добро пожаловать на страницу отслеживания.",
     "no-followed-posts-text":"Чтобы подписаться на интересующее вас обсуждение, нажмите на значок «Отслеживать» в нижней части окна сообщения. Мы разместим его здесь и будем оповещать вас о любой новой активности в этом обсуждении.",
     "find-posts-to-follow":"Поиск сообщений для подписки",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Нарушения",
+    "user-activity":"Исследования",
+    "moderator-tools":"Панель модератора"
   },
   "user-activity":{
     "active-users-toggle-option":"Активные<br>участники",
@@ -162,7 +163,8 @@
     "posts":"сообщений",
     "not-processed":"не обработано",
     "actions":"действия",
-    "hero-unit-subtitle":"Деятельность участников"
+    "hero-unit-subtitle":"Исследования",
+    "no-activity-yet":"Нет данных."
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

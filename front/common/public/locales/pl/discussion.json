@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Witaj na karcie Obserwowane.",
     "no-followed-posts-text":"Kliknij przycisk „Obserwuj” znajdujący się pod postem, żeby wypełnić listę dyskusjami, które najbardziej cię interesują. Umieścimy je tutaj i będziemy informować cię o aktywności w nich.",
     "find-posts-to-follow":"Znajdź posty do obserwowania",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Zgłoszone treści",
+    "user-activity":"Podsumowanie Dyskusji",
+    "moderator-tools":"Narzędzia dla moderatorów"
   },
   "user-activity":{
     "active-users-toggle-option":"Aktywni<br>użytkownicy",
@@ -162,7 +163,8 @@
     "posts":"posty",
     "not-processed":"niesprawdzone",
     "actions":"działania",
-    "hero-unit-subtitle":"Aktywność użytkowników"
+    "hero-unit-subtitle":"Podusmowanie",
+    "no-activity-yet":"Jeszcze nie ma żadnej aktywności."
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

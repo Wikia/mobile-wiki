@@ -144,12 +144,13 @@
     "no-followed-posts-header":"歡迎使用「關注」標籤。",
     "no-followed-posts-text":"按任何文章底部的「關注」按鈕來關注你感興趣的話題。你可以在這裡查看全部關注的文章，如有任何新的動態，你都會收到我們的通知。",
     "find-posts-to-follow":"查找要關注的文章",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"舉報內容",
+    "user-activity":"討論版訊息",
+    "moderator-tools":"版主工具"
   },
   "user-activity":{
     "active-users-toggle-option":"活躍用戶",
-    "reports-toggle-option":"回報",
+    "reports-toggle-option":"舉報問題",
     "moderator-actions-toggle-option":"版主操作",
     "days-count":"__numberOfDays__天",
     "glossary-header":"用語表",
@@ -162,7 +163,8 @@
     "posts":"篇文章",
     "not-processed":"尚未處理",
     "actions":"操作",
-    "hero-unit-subtitle":"用户動態"
+    "hero-unit-subtitle":"討論版訊息",
+    "no-activity-yet":"無最新動態"
   },
   "editor":{
     "post-failed-error":"發佈失敗",

@@ -144,8 +144,9 @@
     "no-followed-posts-header":"Bem-vindo a listagem dos posts que você segue.",
     "no-followed-posts-text":"Clique no ícone \"Seguir\" na parte inferior de qualquer post para preencher sua lista com as discussões que mais importam para você. Vamos colocá-las aqui e notificá-lo sobre novas atividades.",
     "find-posts-to-follow":"Encontrar posts para seguir",
-    "reported-content":"Reported Content",
-    "user-activity":"User Activity"
+    "reported-content":"Conteúdo denunciado",
+    "user-activity":"Insights de Discussões",
+    "moderator-tools":"Ferramentas do Moderador"
   },
   "user-activity":{
     "active-users-toggle-option":"Usuários<br>ativos",
@@ -162,7 +163,8 @@
     "posts":"posts",
     "not-processed":"não analisado",
     "actions":"ações",
-    "hero-unit-subtitle":"Atividade do usuário"
+    "hero-unit-subtitle":"Insights de Discussões",
+    "no-activity-yet":"Nenhuma atividade ainda."
   },
   "editor":{
     "post-failed-error":"O post falhou.",
