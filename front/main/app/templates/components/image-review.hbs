@@ -1,43 +1,52 @@
-{{#if model.showSubHeader}}
-	<header class="sub-head">
-		<div class="sub-head--title">
-			{{i18n 'main.head' ns='image-review'}}
-			{{#if model.userCanAuditReviews}}
-				<button {{action this.attrs.getAllWithStatus 'UNREVIEWED'}} class="sub-head--done">
-					{{i18n 'main.get-unreviewed' ns='image-review'}}
-				</button>
-				<button {{action this.attrs.getAllWithStatus 'QUESTIONABLE'}} class="sub-head--done">
-					{{i18n 'main.get-questionable' ns='image-review'}}
-				</button>
-				<button {{action this.attrs.getAllWithStatus 'REJECTED'}} class="sub-head--done">
-					{{i18n 'main.get-rejected' ns='image-review'}}
-				</button>
-			{{/if}}
-		</div>
+<header class="sub-head">
+	<div class="sub-head--title">
+		{{i18n 'main.head' ns='image-review'}}
 		{{#if model.userCanAuditReviews}}
-			<button {{action this.attrs.openSummary}} class="sub-head--done">
-				{{i18n 'main.show-summary' ns='image-review'}}
-			</button>
+			{{#link-to 'image-review'
+					   (query-params status='UNREVIEWED' order=order)
+					   tagName='button'
+					   classNames='sub-head--done'}}
+				{{i18n 'main.get-unreviewed' ns='image-review'}}
+			{{/link-to}}
+			{{#link-to 'image-review'
+					   (query-params status='QUESTIONABLE' order=order)
+					   tagName='button'
+					   classNames='sub-head--done'}}
+				{{i18n 'main.get-questionable' ns='image-review'}}
+			{{/link-to}}
+			{{#link-to 'image-review'
+					   (query-params status='REJECTED' order=order)
+					   tagName='button'
+					   classNames='sub-head--done'}}
+				{{i18n 'main.get-rejected' ns='image-review'}}
+			{{/link-to}}
 		{{/if}}
-		{{#if model.images}}
-			<button {{action this.attrs.reviewAndGetMoreImages imageOrder}} class="sub-head--done">
-				{{i18n 'main.review-and-get-more' ns='image-review'}}
-			</button>
-			<div class="sub-head--done">
-				<ul class="image-order-options">
-					<li id="image-order-newest-top"
-						{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
-						{{i18n 'main.image-order-newest' ns='image-review'}}
-					</li>
-					<li id="image-order-oldest-top"
-						{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
-						{{i18n 'main.image-order-oldest' ns='image-review'}}
-					</li>
-				</ul>
-			</div>
-		{{/if}}
-	</header>
-{{/if}}
+	</div>
+	{{#if model.userCanAuditReviews}}
+		<button {{action this.attrs.openSummary}} class="sub-head--done">
+			{{i18n 'main.show-summary' ns='image-review'}}
+		</button>
+	{{/if}}
+	{{#if model.images}}
+		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
+			{{i18n 'main.review-and-get-more' ns='image-review'}}
+		</button>
+		<div class="sub-head--done">
+			<ul class="image-order-options">
+				<li id="image-order-newest-top"
+					{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected'
+																			   'image-order'}}>
+					{{i18n 'main.image-order-newest' ns='image-review'}}
+				</li>
+				<li id="image-order-oldest-top"
+					{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected'
+																			   'image-order'}}>
+					{{i18n 'main.image-order-oldest' ns='image-review'}}
+				</li>
+			</ul>
+		</div>
+	{{/if}}
+</header>
 
 <div class="image-review-content">
 	{{#if model.images}}
@@ -61,10 +70,9 @@
 		<ul class="image-review-list">
 			{{#each model.images as |item|}}
 				<li class="image-review-item">
-					{{image-review-item model=item
-															showModal=(action 'showModal')
-															isRejectedQueue=model.isRejectedQueue
-															changeItemModel=(action (action this.attrs.changeItemModel))}}
+					{{image-review-item model=(mut item)
+										onClick=(action 'showModal')
+										isRejectedQueue=model.isRejectedQueue}}
 				</li>
 			{{/each}}
 		</ul>
@@ -75,16 +83,18 @@
 
 	{{#if model.images }}
 		<div class="image-review-get-more-button">
-			<button {{action this.attrs.reviewAndGetMoreImages 'NEWEST'}}>
+			<button {{action this.attrs.reviewAndGetMoreImages}}>
 				{{i18n 'main.review-and-get-more' ns='image-review'}}
 			</button>
 			<ul class="image-order-options">
 				<li id="image-order-newest-bottom"
-					{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected' 'image-order'}}>
+					{{action this.attrs.changeImageOrder 'NEWEST'}} class={{if newestImages 'image-order--selected'
+																			   'image-order'}}>
 					{{i18n 'main.image-order-newest' ns='image-review'}}
 				</li>
 				<li id="image-order-oldest-bottom"
-					{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected' 'image-order'}}>
+					{{action this.attrs.changeImageOrder 'OLDEST'}} class={{if oldestImages 'image-order--selected'
+																			   'image-order'}}>
 					{{i18n 'main.image-order-oldest' ns='image-review'}}
 				</li>
 			</ul>

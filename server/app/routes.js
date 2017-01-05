@@ -159,7 +159,15 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/image-review/{queue}/{batchId*}',
+			path: '/image-review',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/image-review/batch/{batchId*}',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig

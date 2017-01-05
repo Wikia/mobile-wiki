@@ -1,19 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	queryParams: ['fullscreen', 'order'],
+	queryParams: ['status', 'order'],
+	status: 'UNREVIEWED',
 	order: 'NEWEST',
 	actions: {
-		reviewAndGetMoreImages(order) {
-			this.get('target').send('reviewAndGetMoreImages', order);
-		},
-
-		getAllWithStatus(status) {
-			this.get('target').send('getAllWithStatus', status);
-		},
-
-		changeItemModel(id, status) {
-			this.get('target').send('changeItemModel', id, status);
+		reviewAndGetMoreImages() {
+			this.get('target').send('reviewAndGetMoreImages');
 		},
 
 		openSummary() {

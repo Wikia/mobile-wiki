@@ -4,13 +4,18 @@ import ImageReviewModel from '../../models/image-review/batch-id';
 const {Route} = Ember;
 
 export default Route.extend({
-	redirect() {
-		ImageReviewModel.reserveNewBatch('UNREVIEWED', 'NEWEST').then(({payload, jqXHR}) => {
+
+	model(params) {
+		return ImageReviewModel.reserveNewBatch(params.status, params.order).then(({payload, jqXHR}) => {
 			if (jqXHR.status === 204) {
-				this.transitionTo('image-review.batch-id', 'unreviewed', 'no-more-images');
+				return 'no-more-images';
 			} else {
-				this.transitionTo('image-review.batch-id', 'unreviewed', payload.id);
+				return payload.id;
 			}
 		});
+	},
+
+	redirect(model) {
+		this.transitionTo('image-review.batch-id', model);
 	}
 });
