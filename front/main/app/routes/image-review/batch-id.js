@@ -6,7 +6,7 @@ const {Route, Logger} = Ember;
 export default Route.extend({
 
 	model(params) {
-		return ImageReviewModel.startSession(params.status, params.batchId);
+		return ImageReviewModel.getBatch(params.batchId, params.status);
 	},
 
 	afterModel(model) {
@@ -41,11 +41,12 @@ export default Route.extend({
 
 			ImageReviewModel.reviewImages(model.images, model.batchId, model.status)
 				.then(() => {
-					const {status, order} = this.controller;
+					const {status, order, source} = this.controller;
 					this.transitionTo('image-review.index', {
 						queryParams: {
 							status,
-							order
+							order,
+							source
 						}
 					});
 				}, (data) => {

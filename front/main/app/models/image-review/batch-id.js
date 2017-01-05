@@ -4,6 +4,9 @@ import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true,
+	isRejectedQueue: Ember.computed('status', function () {
+		return this.get('status') === 'REJECTED';
+	}),
 
 	setImagesCount(status) {
 		request(M.getImageReviewServiceUrl('/monitoring', {
@@ -14,84 +17,70 @@ const ImageReviewModel = Ember.Object.extend({
 	}
 });
 
+function getUserPermissions() {
+	return request(M.getImageReviewServiceUrl('/info'));
+}
+
+function getImageSources() {
+	return request(M.getImageReviewServiceUrl('/sources'))
+		.catch(() => {
+			return {
+				sources: []
+			};
+		});
+}
+
+function getBatch(batchId) {
+	if (batchId === 'no-more-images') {
+		return {
+			images: []
+		};
+	}
+	return request(M.getImageReviewServiceUrl(`/batch/${batchId}`))
+		.then(({batchId, imageList}) => {
+			const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
+			const images = imageList
+				.filter((image) =>
+				['UNREVIEWED', 'QUESTIONABLE', 'REJECTED'].indexOf(image.currentStatus) !== -1)
+				.map((image) =>
+					Ember.Object.create({
+						batchId,
+						imageId: image.imageId,
+						fullSizeImageUrl: image.imageUrl,
+						context: image.context,
+						source: image.source,
+						isContextProvided: Boolean(image.context),
+						isContextLink: linkRegexp.test(image.context),
+						status: status === 'REJECTED' ? 'rejected' : 'accepted'
+					}));
+
+			return {
+				batchId,
+				images
+			};
+		});
+}
+
 ImageReviewModel.reopenClass({
 
-	reserveNewBatch(status, order) {
-		const options = {
-			status,
-			order
-		};
-
-		return rawRequest(M.getImageReviewServiceUrl(`/batch`, options), {
-			method: 'POST'
-		});
+	reserveNewBatch(status, order, source) {
+		return rawRequest(M.getImageReviewServiceUrl('/batch', {status, order, source}), {method: 'POST'})
+			.then(({payload, jqXHR}) => {
+				if (jqXHR.status === 204) {
+					return 'no-more-images';
+				} else {
+					return payload.id;
+				}
+			});
 	},
 
-	startSession(status, batchId) {
-		if (batchId === 'no-more-images') {
-			return ImageReviewModel.createEmptyModelWithPermission(status);
-		} else {
-			return ImageReviewModel.getImagesAndPermission(batchId, status);
-		}
-	},
-
-	createEmptyModelWithPermission(status) {
-		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
-				ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
-	},
-
-	getImagesAndPermission(batchId, status) {
-		const promises = [
-			ImageReviewModel.getImages(batchId),
-			ImageReviewModel.getUserAuditReviewPermission()
-		];
-
-		return Ember.RSVP.allSettled(promises)
-		.then(([getImagesPromise, getUserAuditReviewPermissionPromise]) => {
-			return ImageReviewModel
-			.sanitize(
-					getImagesPromise.value.imageList,
-					getImagesPromise.value.batchId,
-					getUserAuditReviewPermissionPromise.value,
-					status
-			);
-		});
-	},
-
-	getUserAuditReviewPermission() {
-		return request(M.getImageReviewServiceUrl('/info', {}), {
-			method: 'GET',
-		}).then((payload) => {
-			return payload.userAllowedToAuditReviews;
-		});
-	},
-
-	getImages(batchId) {
-		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`, {}));
-	},
-
-	sanitize(rawData, batchId, userCanAuditReviews, status) {
-		const images = [];
-		const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
-		rawData.forEach((image) => {
-			images.push(Ember.Object.create({
-				batchId,
-				imageId: image.imageId,
-				fullSizeImageUrl: status === 'REJECTED' ? `${image.imageUrl}?status=REJECTED` : image.imageUrl,
-				context: image.context,
-				isContextProvided: Boolean(image.context),
-				isContextLink: linkRegexp.test(image.context),
-				status: ImageReviewModel.figureOutStatus(status, image.currentStatus)
-			}));
-		});
-
-		return ImageReviewModel.create({
-			images,
-			batchId,
-			status,
-			userCanAuditReviews,
-			isRejectedQueue: (status === 'REJECTED')
-		});
+	getBatch(batchId, status) {
+		return Ember.RSVP.all([
+			getUserPermissions(),
+			getImageSources(),
+			getBatch(batchId)
+		]).then(([permissions, sources, batch]) =>
+			ImageReviewModel.create(Ember.assign(permissions, sources, batch, {status})));
 	},
 
 	figureOutStatus(queueStatus, imageStatus) {
@@ -106,16 +95,15 @@ ImageReviewModel.reopenClass({
 
 	reviewImages(images, batchId, status) {
 		const imageList = images.map((item) => {
-
 			return {
 				imageId: item.imageId,
 				imageStatus: (item.status.toUpperCase() === 'REJECTED' && status === 'REJECTED')
-						? 'REMOVED'
-						: item.status.toUpperCase()
+					? 'REMOVED'
+					: item.status.toUpperCase()
 			};
 		});
 
-		return request(M.getImageReviewServiceUrl(`/batch/${batchId}/`), {
+		return request(M.getImageReviewServiceUrl(`/batch/${batchId}`), {
 			method: 'POST',
 			dataType: 'text', // this is a dirty workaround
 			data: JSON.stringify({images: imageList})
