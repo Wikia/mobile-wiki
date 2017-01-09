@@ -285,10 +285,10 @@ server.register(plugins, (err) => {
 	});
 
 	server.state('showEmailConfirmationBanner', {
-		ttl: null,
-		isSecure: true,
 		isHttpOnly: false,
-		clearInvalid: true
+		clearInvalid: true,
+		domain: settings.authCookieDomain,
+		ttl: new Date().getTime() + 1
 	});
 });
 

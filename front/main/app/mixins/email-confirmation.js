@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
 
 	queryParams: ['emailConfirmed'],
 
-	emailConfirmationObserver: Ember.observer('emailConfirmed', function () {
+	initEmailConfirmation: Ember.observer('emailConfirmed', function () {
 		const emailConfirmedStatus = this.get('emailConfirmed');
 
 		if (emailConfirmedStatus === '1') {
@@ -23,37 +23,5 @@ export default Ember.Mixin.create({
 				expiry: -1
 			});
 		}
-	}),
-
-	/**
-	 * @param {AlertNotification} alertData
-	 * @returns {void}
-	 */
-	addAlert(alertData) {
-		const message = alertData.message,
-			type = alertData.type || '',
-			expiry = alertData.expiry || 10000,
-			unsafe = alertData.unsafe || false,
-			callbacks = alertData.callbacks || {},
-			persistent = alertData.persistent || false;
-
-		this.get('alertNotifications').pushObject({
-			message,
-			type,
-			expiry,
-			unsafe,
-			callbacks,
-			persistent
-		});
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	clearNotifications() {
-		const notifications = this.get('alertNotifications'),
-			updatedNotifications = notifications.filter((item) => item.persistent);
-
-		this.set('alertNotifications', updatedNotifications);
-	}
+	})
 });

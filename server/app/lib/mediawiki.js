@@ -333,9 +333,7 @@ export class WikiRequest extends BaseRequest {
 }
 
 /**
- * a wrapper for making API requests for info about the wiki
- *
- * @class WikiRequest
+ * @class EmailConfirmationRequest
  */
 export class EmailConfirmationRequest extends BaseRequest {
 	/**
@@ -346,13 +344,33 @@ export class EmailConfirmationRequest extends BaseRequest {
 	 * @returns {Promise<any>}
 	 */
 	confirmEmail(token) {
-		const url = createUrl('www.wikia.com', 'wikia.php', {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'EmailConfirmation',
-			method: 'confirmEmail'
+			method: 'postEmailConfirmation'
 		}),
 			params = {token};
 
 		return this.post(url, Url.format({query: params}).substr(1));
+	}
+}
+
+/**
+ * @class UserInfoRequest
+ */
+export class UserInfoRequest extends BaseRequest {
+	/**
+	 * Gets user info based on UserId
+	 *
+	 * @returns {Promise<any>}
+	 */
+	getUserInfo(userId) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+				controller: 'UserApi',
+				method: 'getDetails',
+				ids: userId
+			});
+
+		return this.get(url);
 	}
 }
 
