@@ -36,8 +36,8 @@ export const VIEW_TYPE_MOBILE = 'mobile',
  * @returns {boolean}
  */
 export function checkDomainMatchesCurrentHost(domain, currentHost) {
-	return domain && (currentHost === domain ||
-		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1);
+	return currentHost === domain ||
+		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1;
 }
 
 /**
@@ -45,10 +45,6 @@ export function checkDomainMatchesCurrentHost(domain, currentHost) {
  * @returns {boolean}
  */
 export function isWhiteListedDomain(domain) {
-	if (!domain) {
-		return false;
-	}
-
 	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com', '.wikia-staging.com', '.wikia-dev.pl', '.wikia-dev.us'];
 
 	/**
@@ -105,17 +101,19 @@ export function getOrigin(request) {
 export function getRedirectUrl(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = parse(redirectUrl).host;
+		redirectUrlHost = parse(redirectUrl).host,
+		// Workaround for node's problems with implicit urls
+		hasImplicitProtocol = redirectUrl.substr(0,2) === '//';
 
-	if (redirectUrl === '/' ||
-		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-		isWhiteListedDomain(redirectUrlHost)
+	if (hasImplicitProtocol ||
+		(redirectUrlHost &&
+		!checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) &&
+		!isWhiteListedDomain(redirectUrlHost))
 	) {
+		return '/';
+	} else {
 		return redirectUrl;
 	}
-
-	// Not valid domain
-	return '/';
 }
 
 /**
