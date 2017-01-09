@@ -36,8 +36,8 @@ export const VIEW_TYPE_MOBILE = 'mobile',
  * @returns {boolean}
  */
 export function checkDomainMatchesCurrentHost(domain, currentHost) {
-	return currentHost === domain ||
-		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1;
+	return domain && (currentHost === domain ||
+		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1);
 }
 
 /**
@@ -45,7 +45,11 @@ export function checkDomainMatchesCurrentHost(domain, currentHost) {
  * @returns {boolean}
  */
 export function isWhiteListedDomain(domain) {
-	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com', '.wikia-staging.com'];
+	if (!domain) {
+		return false;
+	}
+
+	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com', '.wikia-staging.com', '.wikia-dev.pl', '.wikia-dev.us'];
 
 	/**
 	 * @param {string} whileListedDomain
@@ -103,7 +107,7 @@ export function getRedirectUrl(request) {
 		redirectUrl = request.query.redirect || '/',
 		redirectUrlHost = parse(redirectUrl).host;
 
-	if (!redirectUrlHost ||
+	if (redirectUrl === '/' ||
 		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
 		isWhiteListedDomain(redirectUrlHost)
 	) {
