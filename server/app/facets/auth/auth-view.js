@@ -103,7 +103,7 @@ export function getRedirectUrl(request) {
 		redirectUrl = request.query.redirect || '/',
 		redirectUrlHost = parse(redirectUrl).host,
 		// Workaround for node's problems with implicit urls
-		hasImplicitProtocol = redirectUrl.substr(0,2) === '//';
+		hasImplicitProtocol = redirectUrl.substr(0, 2) === '//';
 
 	if (hasImplicitProtocol ||
 		(redirectUrlHost &&
