@@ -13,9 +13,9 @@ export default Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	parsedContent: Ember.computed('content', function () {
-		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
+		let escapedContent = decodeURIComponent(Ember.Handlebars.Utils.escapeExpression(
 			this.get('content')
-		).trim();
+		)).trim();
 
 		if (this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
@@ -42,11 +42,10 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href
-	 * @param {Object} autolinker instance of class
 	 * @param {Object} match which should be wrapped
 	 * @returns {string}
 	 */
-	wrapInSpan(autolinker, match) {
+	wrapInSpan(match) {
 		if (match.getType() === 'url') {
 			return `<span class='url'>${match.getUrl()}</span>`;
 		}
