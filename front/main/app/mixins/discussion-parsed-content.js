@@ -47,7 +47,7 @@ export default Ember.Mixin.create({
 	 */
 	wrapInSpan(match) {
 		if (match.getType() === 'url') {
-			return `<span class='url'>${match.getUrl()}</span>`;
+			return `<span class='url'>${decodeURIComponent(match.getUrl())}</span>`;
 		}
 	}
 });
