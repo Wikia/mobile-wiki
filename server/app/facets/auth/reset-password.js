@@ -65,7 +65,7 @@ function validateTokenAndShowPage(request, reply) {
 		username = querystring.escape(request.query.username);
 
 	if (username && token) {
-		validateTokenFor(username, token)
+		validateTokenFor(username, token, request)
 			.then(data => {
 				return showPage(request, reply);
 			}).catch(data => {

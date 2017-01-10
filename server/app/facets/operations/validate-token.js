@@ -5,12 +5,14 @@ import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 
-function createValidateTokenContext(userInfo, token = '') {
+function createValidateTokenContext(userInfo, request, token = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/validate_password_token`),
 		options: {
 			headers: {
-				'Content-type': 'application/x-www-form-urlencoded'
+				'Content-type': 'application/x-www-form-urlencoded',
+				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
 			},
 			timeout: settings.helios.timeout,
 			payload: `token=${token}`
@@ -18,9 +20,9 @@ function createValidateTokenContext(userInfo, token = '') {
 	};
 }
 
-function handleUserRegistrationResponse(data, password, token) {
+function handleUserRegistrationResponse(data, request, token) {
 	const userInfo = JSON.parse(data.payload),
-		validateToken = createValidateTokenContext(userInfo, password, token);
+		validateToken = createValidateTokenContext(userInfo, request, token);
 
 	return new Promise((resolve, reject) => {
 		Wreck.post(validateToken.url, validateToken.options, (error, response, payload) => {
@@ -50,9 +52,9 @@ function handleUserRegistrationResponse(data, password, token) {
  * @param {string} redirect
  * @returns {Promise}
  */
-export default function validateTokenFor(username, token) {
+export default function validateTokenFor(username, token, request) {
 	return translateUserIdFrom(username)
 		.then(data => {
-			return handleUserRegistrationResponse(data, token);
+			return handleUserRegistrationResponse(data, token, request);
 		});
 }

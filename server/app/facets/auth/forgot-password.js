@@ -88,7 +88,7 @@ export function post(request, reply) {
 			payload: 'ok'
 		}).code(200);
 	} else {
-		resetPasswordFor(username, redirect)
+		resetPasswordFor(username, redirect, request)
 			.then(data => {
 				reply({
 					payload: data.payload

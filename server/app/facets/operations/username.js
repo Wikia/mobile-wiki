@@ -14,7 +14,9 @@ function createUserRegistrationContext(services, data) {
 		url: `http://${getUserRegistrationServiceUrlFrom(services)}/users?username=${data.username}`,
 		options: {
 			headers: {
-				'X-Wikia-Internal-Request': 1
+				'X-Wikia-Internal-Request': 1,
+				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
 			},
 			timeout: settings.userRegistationService.timeout
 		}

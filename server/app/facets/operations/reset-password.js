@@ -5,12 +5,14 @@ import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 
-function createResetPasswordContext(userInfo, redirect = '') {
+function createResetPasswordContext(userInfo, request, redirect = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/reset_password`),
 		options: {
 			headers: {
-				'Content-type': 'application/x-www-form-urlencoded'
+				'Content-type': 'application/x-www-form-urlencoded',
+				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
 			},
 			timeout: settings.helios.timeout,
 			payload: `redirect=${redirect}`
@@ -18,9 +20,9 @@ function createResetPasswordContext(userInfo, redirect = '') {
 	};
 }
 
-function handleUserRegistrationResponse(data, redirect) {
+function handleUserRegistrationResponse(data, redirect, request) {
 	const userInfo = JSON.parse(data.payload),
-		resetPassword = createResetPasswordContext(userInfo, redirect);
+		resetPassword = createResetPasswordContext(userInfo, request, redirect);
 
 	return new Promise((resolve, reject) => {
 		Wreck.post(resetPassword.url, resetPassword.options, (error, response, payload) => {
@@ -48,11 +50,12 @@ function handleUserRegistrationResponse(data, redirect) {
 /**
  * @param {string} username
  * @param {string} redirect
+ * @param {Object} request
  * @returns {Promise}
  */
-export default function resetPasswordFor(username, redirect) {
+export default function resetPasswordFor(username, redirect, request) {
 	return translateUserIdFrom(username)
 		.then(data => {
-			return handleUserRegistrationResponse(data, redirect);
+			return handleUserRegistrationResponse(data, redirect, request);
 		});
 }
