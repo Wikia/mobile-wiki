@@ -30,6 +30,14 @@ function getImageSources() {
 		});
 }
 
+function toReviewStatus(imageStatus) {
+	if (imageStatus === 'UNREVIEWED') {
+		return 'accepted';
+	} else {
+		return imageStatus.toLowerCase();
+	}
+}
+
 function getBatch(batchId) {
 	if (batchId === 'no-more-images') {
 		return {
@@ -40,8 +48,6 @@ function getBatch(batchId) {
 		.then(({batchId, imageList}) => {
 			const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 			const images = imageList
-				.filter((image) =>
-				['UNREVIEWED', 'QUESTIONABLE', 'REJECTED'].indexOf(image.currentStatus) !== -1)
 				.map((image) =>
 					Ember.Object.create({
 						batchId,
@@ -51,7 +57,7 @@ function getBatch(batchId) {
 						source: image.source,
 						isContextProvided: Boolean(image.context),
 						isContextLink: linkRegexp.test(image.context),
-						status: status === 'REJECTED' ? 'rejected' : 'accepted'
+						status: toReviewStatus(image.currentStatus)
 					}));
 
 			return {
@@ -81,16 +87,6 @@ ImageReviewModel.reopenClass({
 			getBatch(batchId)
 		]).then(([permissions, sources, batch]) =>
 			ImageReviewModel.create(Ember.assign(permissions, sources, batch, {status})));
-	},
-
-	figureOutStatus(queueStatus, imageStatus) {
-		if (queueStatus === 'REJECTED') {
-			return 'rejected';
-		} else if (imageStatus === 'UNREVIEWED') {
-			return 'accepted';
-		} else {
-			return imageStatus.toLowerCase();
-		}
 	},
 
 	reviewImages(images, batchId, status) {
