@@ -1,6 +1,14 @@
-import Ember from 'ember';
-import nl2br from 'common/utils/nl2br';
-import {truncate, shouldUseTruncationHack} from '../utils/truncate';
+import Ember from "ember";
+import nl2br from "common/utils/nl2br";
+import {truncate, shouldUseTruncationHack} from "../utils/truncate";
+
+function decodeUriSafely(uri) {
+	try {
+		return decodeURIComponent(uri);
+	} catch (err) {
+		return uri;
+	}
+}
 
 /**
  * Handles sending upvote action outside from the component.
@@ -37,7 +45,7 @@ export default Ember.Mixin.create({
 		if (!this.get('shouldActivateLinks')) {
 			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
 		} else {
-			this.set('autolinkerConfig.replaceFn', this.decodeUri)
+			this.set('autolinkerConfig.replaceFn', this.decodeInnerHtml)
 		}
 		this._super();
 	},
@@ -49,15 +57,17 @@ export default Ember.Mixin.create({
 	 */
 	wrapInSpan(match) {
 		if (match.getType() === 'url') {
-			return `<span class='url'>${decodeURIComponent(match.getUrl())}</span>`;
+			return `<span class='url'>${decodeUriSafely(match.getUrl())}</span>`;
 		}
 	},
 
-	decodeUri(match) {
+	decodeInnerHtml(match) {
 		if (match.getType() === 'url') {
 			let tag = match.buildTag();
-			tag.setInnerHtml(decodeURIComponent(tag.getInnerHtml()));
+			tag.setInnerHtml(decodeUriSafely(tag.getInnerHtml()));
 			return tag;
 		}
-	}
+	},
+
+
 });
