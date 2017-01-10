@@ -98,7 +98,6 @@ export default Mixin.create({
 	 */
 	approve(entity) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.get('id')}/report/valid`), {
-			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT'
 		}).then(() => {
@@ -115,7 +114,6 @@ export default Mixin.create({
 	 */
 	report(entity) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.get('id')}/report`), {
-			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT'
 		}).then(() => {
