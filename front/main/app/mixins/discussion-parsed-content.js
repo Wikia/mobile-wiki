@@ -36,6 +36,8 @@ export default Ember.Mixin.create({
 
 		if (!this.get('shouldActivateLinks')) {
 			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
+		} else {
+			this.set('autolinkerConfig.replaceFn', this.decodeUri)
 		}
 		this._super();
 	},
@@ -48,6 +50,14 @@ export default Ember.Mixin.create({
 	wrapInSpan(match) {
 		if (match.getType() === 'url') {
 			return `<span class='url'>${decodeURIComponent(match.getUrl())}</span>`;
+		}
+	},
+
+	decodeUri(match) {
+		if (match.getType() === 'url') {
+			let tag = match.buildTag();
+			tag.setInnerHtml(decodeURIComponent(tag.getInnerHtml()));
+			return tag;
 		}
 	}
 });
