@@ -34,6 +34,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.context', data.context);
 				this.set('imageDetails.isContextProvided', Boolean(data.context));
 				this.set('imageDetails.isContextLink', linkRegexp.test(data.context));
+				this.set('imageDetails.source', data.source);
 			});
 
 			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
@@ -44,6 +45,8 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.originalFilename', data.originalFilename);
 				this.set('imageDetails.size', data.size);
 				this.set('imageDetails.dimensions', data.dimensions);
+				this.set('imageDetails.ownerId', data.ownerId);
+				this.set('imageDetails.ownerLookupUrl', ImageReviewItemModel.getOwnerLookupUrl(data.ownerId));
 			});
 		}
 	},
@@ -75,7 +78,7 @@ ImageReviewSummaryModel.reopenClass({
 			method: 'GET',
 		}).then((payload) => {
 			return ImageReviewSummaryModel.create({
-				userCanAuditReviews: payload.userAllowedToAuditReviews,
+				userAllowedToAuditReviews: payload.userAllowedToAuditReviews,
 				startDate,
 				endDate,
 				csvLink,

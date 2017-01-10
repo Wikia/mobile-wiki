@@ -100,9 +100,6 @@
     "follow-error-anon-cant-see-followed-posts":"登入查看你关注的帖子。",
     "follow-label":"关注",
     "follow-tooltip":"添加到关注列表",
-    "follow-introducing-header":"查看最新的“关注”功能！",
-    "follow-introducing-text":"你可以时常查看讨论区的内容。关注帖子，接收活动通知，不要错过任何一次讨论。",
-    "follow-introducing-button-label":"好的，知道了",
     "reported-not-found-error":"暂时没有被举报的帖子或者回复。",
     "categories-header":"分类",
     "categories-edit-label":"编辑",
@@ -160,11 +157,10 @@
     "reports-description":"谁报告的问题最多，并且所报告的帖子被版主删除、批准或是等待处理？",
     "moderator-actions-headline":"版主操作",
     "moderator-actions-description":"哪个版主表现最活跃，对帖子进行删除、批准、锁定或者更换分类？",
-    "hero-unit-subtitle":"用户活动",
     "posts":"个帖子",
-    "reported":"已被报告",
     "not-processed":"尚未处理",
-    "actions":"操作"
+    "actions":"操作",
+    "hero-unit-subtitle":"用户活动"
   },
   "editor":{
     "post-failed-error":"发布失败",
