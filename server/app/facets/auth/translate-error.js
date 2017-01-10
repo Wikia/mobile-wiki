@@ -9,7 +9,6 @@ function handleUserDiscoveryErrors(statusCode, errors) {
 function handleServerErrors(payload, errors) {
 	if (payload.errors && payload.errors.length) {
 		payload.errors.forEach(error => {
-			console.error(error.description);
 			if (error.description === 'invalid_email') {
 				errors.push('invalid-email');
 			} else {

@@ -9,7 +9,7 @@ function getUserRegistrationServiceUrlFrom(services) {
 	return `${service.Address}:${service.Port}`;
 }
 
-function createUserRegistrationContext(services, data) {
+function createUserRegistrationContext(services, data, request) {
 	return {
 		url: `http://${getUserRegistrationServiceUrlFrom(services)}/users?username=${data.username}`,
 		options: {
@@ -23,9 +23,9 @@ function createUserRegistrationContext(services, data) {
 	};
 }
 
-function handleServiceDiscoveryResponse(data) {
+function handleServiceDiscoveryResponse(data, request) {
 	const services = JSON.parse(data.payload),
-		userDiscovery = createUserRegistrationContext(services, data);
+		userDiscovery = createUserRegistrationContext(services, data, request);
 
 	return new Promise((resolve, reject) => {
 		Wreck.get(userDiscovery.url, userDiscovery.options, (error, response, payload) => {
@@ -100,9 +100,14 @@ function fetchHealthyUserRegistrationServices(username) {
 
 /**
  * @param {string} username
+ * @param {Object} request
  * @returns {Promise}
  */
-export default function translateUserIdFrom(username) {
+export default function translateUserIdFrom(username, request) {
 	return fetchHealthyUserRegistrationServices(username)
-		.then(handleServiceDiscoveryResponse);
+		.then((data) => {
+			return new Promise((resolve, reject) => {
+				return handleServiceDiscoveryResponse(data, request);
+			});
+		});
 }
