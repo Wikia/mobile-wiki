@@ -31,19 +31,7 @@ test('Open Curated Main Page then open Section and finally open Category', (asse
 		assert.equal(
 			find('.item-caption.clamp:first').text(),
 			'Articles label',
-			'Curated Content category \'Articles label\' is visible'
-		);
-	});
-
-	click('.item-caption.clamp:first');
-
-	andThen(() => {
-		assert.equal(currentURL(), '/main/category/Articles', 'Url is correct: /main/category/Articles');
-
-		assert.equal(
-			find('.item-caption.clamp:first').text(),
-			'Green article',
-			'Curated Content category item \'Green article\' is visible'
+			'mobile category \'Articles label\' is visible'
 		);
 	});
 });
