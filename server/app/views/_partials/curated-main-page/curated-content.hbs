@@ -1,0 +1,34 @@
+<div class="curated-content mw-content">
+	<nav class="curated-content-items">
+		{{#each curatedContent as |curatedItem| }}
+			{{#if curatedItem.url}}
+				<a href="{{curatedItem.url}}" class="curated-content-item section">
+			{{else}}
+				<a href="{{curatedItem.article_local_url}}" class="curated-content-item section">
+			{{/if}}
+			<figure class="item-figure">
+				<div class="item-image">
+					{{#if curatedItem.image_url}}
+						<img src="{{curatedItem.image_url}}" alt="{{curatedItem.label}}">
+					{{else}}
+						<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7" alt="{{curatedItem.label}}">
+					{{/if}}
+				</div>
+				<figcaption class="item-figcaption">
+					<div class="item-caption-row">
+						<div class="item-caption label">
+							{{! TODO truncate 48 chars }}
+							<div class="item-caption clamp">{{curatedItem.label}}</div>
+						</div>
+						<div class="item-caption grid-icon">
+							<div class="grid-icon-container">
+								{{> svg image='category' }}
+							</div>
+						</div>
+					</div>
+				</figcaption>
+			</figure>
+		</a>
+		{{/each}}
+	</nav>
+</div>

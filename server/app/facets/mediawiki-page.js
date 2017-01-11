@@ -137,6 +137,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (isMainPage && pageData.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
+		viewName = 'curated-main-page';
 	}
 
 	result.globalFooter = data.globalFooter;
