@@ -1,6 +1,6 @@
-import Ember from "ember";
-import nl2br from "common/utils/nl2br";
-import {truncate, shouldUseTruncationHack} from "../utils/truncate";
+import Ember from 'ember';
+import nl2br from 'common/utils/nl2br';
+import {truncate, shouldUseTruncationHack} from '../utils/truncate';
 
 /**
  * Handles sending upvote action outside from the component.
@@ -38,34 +38,34 @@ export default Ember.Mixin.create({
 		this._super();
 	},
 
-	/**
-	 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href.
-	 * @param {Autolinker.match.Match} match which should be wrapped
-	 * @returns {string}
-	 */
-	wrapInSpan(match) {
-		if (match.getType() === 'url') {
-			return `<span class='url'>${decodeUriSafely(match.getUrl())}</span>`;
-		}
-		return true;  // Autolinker will perform its normal anchor tag replacement
-	},
-
-	/**
-	 * Decodes the inner HTML of the link, so that for example Cyrillic script is displayed nicely.
-	 * @param {Autolinker.match.Match} match which will be decoded.
-	 * @returns {string}
-	 */
-	decodeInnerHtml(match) {
-		if (match.getType() === 'url') {
-			let tag = match.buildTag();
-
-			tag.setInnerHtml(decodeUriSafely(tag.getInnerHtml()));
-			return tag;
-		}
-		return true;  // Autolinker will perform its normal anchor tag replacement
-	},
-
 	getReplaceFn() {
+
+		/**
+		 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href.
+		 * @param {Autolinker.match.Match} match which should be wrapped
+		 * @returns {string}
+		 */
+		function wrapInSpan(match) {
+			if (match.getType() === 'url') {
+				return `<span class='url'>${decodeUriSafely(match.getUrl())}</span>`;
+			}
+			return true;  // Autolinker will perform its normal anchor tag replacement
+		}
+
+		/**
+		 * Decodes the inner HTML of the link, so that for example Cyrillic script is displayed nicely.
+		 * @param {Autolinker.match.Match} match which will be decoded.
+		 * @returns {string}
+		 */
+		function decodeInnerHtml(match) {
+			if (match.getType() === 'url') {
+				let tag = match.buildTag();
+
+				tag.setInnerHtml(decodeUriSafely(tag.getInnerHtml()));
+				return tag;
+			}
+			return true;  // Autolinker will perform its normal anchor tag replacement
+		}
 
 		function decodeUriSafely(uri) {
 			try {
