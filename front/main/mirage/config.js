@@ -23,10 +23,6 @@ export default function () {
 			}
 		}
 
-		if (controller === 'ArticlesApi' && method === 'getList' && category === 'Articles') {
-			return schema.curatedContentCategories.first();
-		}
-
 		if (controller === 'CuratedContent' && method === 'getData') {
 			return schema.curatedContentEditorItems.first();
 		}
