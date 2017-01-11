@@ -40,6 +40,14 @@ export default Ember.Mixin.create({
 
 	getReplaceFn() {
 
+		function decodeUriSafely(uri) {
+			try {
+				return decodeURIComponent(uri);
+			} catch (err) {
+				return uri;
+			}
+		}
+
 		/**
 		 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href.
 		 * @param {Autolinker.match.Match} match which should be wrapped
@@ -65,14 +73,6 @@ export default Ember.Mixin.create({
 				return tag;
 			}
 			return true;  // Autolinker will perform its normal anchor tag replacement
-		}
-
-		function decodeUriSafely(uri) {
-			try {
-				return decodeURIComponent(uri);
-			} catch (err) {
-				return uri;
-			}
 		}
 
 		if (this.get('shouldActivateLinks')) {
