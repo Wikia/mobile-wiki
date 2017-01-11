@@ -7,7 +7,6 @@ import request from 'ember-ajax/request';
  * @property {string} imageUrl
  * @property {string} type
  * @property {string} [url]
- * @property {string} [categoryName]
  * @property {number} [ns]
  * @property {CuratedContentItemImageCrop} [imageCrop]
  */
@@ -138,7 +137,6 @@ CuratedContentModel.reopenClass({
 	 */
 	sanitizeItem(rawData) {
 		let item,
-			categoryName,
 			url;
 
 		if (rawData.type === 'section') {
@@ -152,25 +150,11 @@ CuratedContentModel.reopenClass({
 			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
 			url = rawData.url ? rawData.url : rawData.article_local_url;
 
-			// TODO (CONCF-914): article_local_url is sometimes encoded and sometimes not, to investigate
-			try {
-				categoryName = decodeURIComponent(url);
-			} catch (error) {
-				categoryName = url;
-			}
-
-			// Remove /wiki/
-			categoryName = categoryName.replace(Ember.get(Mercury, 'wiki.articlePath'), '');
-
-			// Remove Category: prefix
-			categoryName = categoryName.substr(categoryName.indexOf(':') + 1);
-
 			item = {
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
-				url: `/main/category/${categoryName}`,
-				categoryName
+				url,
 			};
 		} else {
 			item = {
