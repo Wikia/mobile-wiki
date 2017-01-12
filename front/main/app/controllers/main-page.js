@@ -21,8 +21,6 @@ export default Ember.Controller.extend({
 		openCuratedContentItem(item) {
 			if (item.type === 'section') {
 				this.transitionToRoute('mainPageSection', encodeURIComponent(item.label));
-			} else if (item.type === 'category') {
-				this.transitionToRoute('mainPageCategory', encodeURIComponent(item.categoryName));
 			} else {
 				Ember.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}
