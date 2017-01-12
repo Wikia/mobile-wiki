@@ -8,8 +8,8 @@
 			{{/if}}
 			<figure class="item-figure">
 				<div class="item-image">
-					{{#if curatedItem.image_url}}
-						<img src="{{curatedItem.image_url}}" alt="{{curatedItem.label}}">
+					{{#if curatedItem.thumb_url}}
+						<img src="{{{curatedItem.thumb_url}}}" alt="{{curatedItem.label}}">
 					{{else}}
 						<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7" alt="{{curatedItem.label}}">
 					{{/if}}
