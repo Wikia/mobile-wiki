@@ -30,6 +30,7 @@
     "sort-by-trending":"熱門瀏覽",
     "last-edited-by":"（由__userName__編輯）",
     "last-edited-by-administrators":"（由管理員編輯）",
+    "deleted-by":"由__userName__删除",
     "loading-more-posts":"載入更多文章\n",
     "load-more-posts-button":"加載更多",
     "load-previous-posts-button":"回到頂部",
@@ -145,7 +146,7 @@
     "no-followed-posts-text":"按任何文章底部的「關注」按鈕來關注你感興趣的話題。你可以在這裡查看全部關注的文章，如有任何新的動態，你都會收到我們的通知。",
     "find-posts-to-follow":"查找要關注的文章",
     "reported-content":"舉報內容",
-    "user-activity":"討論版訊息",
+    "user-activity":"討論版一覽表",
     "moderator-tools":"版主工具"
   },
   "user-activity":{
@@ -163,7 +164,7 @@
     "posts":"篇文章",
     "not-processed":"尚未處理",
     "actions":"操作",
-    "hero-unit-subtitle":"討論版訊息",
+    "hero-unit-subtitle":"討論版一覽表",
     "no-activity-yet":"無最新動態"
   },
   "editor":{

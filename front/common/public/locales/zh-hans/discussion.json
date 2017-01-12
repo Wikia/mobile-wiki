@@ -30,6 +30,7 @@
     "sort-by-trending":"热门浏览",
     "last-edited-by":"（__userName__对此内容重新编辑过）",
     "last-edited-by-administrators":"（管理员对此内容重新编辑过）",
+    "deleted-by":"由__userName__删除",
     "loading-more-posts":"下载更多帖子",
     "load-more-posts-button":"加载更多",
     "load-previous-posts-button":"回到顶部",

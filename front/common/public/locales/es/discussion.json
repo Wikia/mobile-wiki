@@ -30,6 +30,7 @@
     "sort-by-trending":"Tendencias",
     "last-edited-by":"(editado por __userName__)",
     "last-edited-by-administrators":"(editado por los administradores)",
+    "deleted-by":"Borrado por __userName__",
     "loading-more-posts":"Cargando más discusiones",
     "load-more-posts-button":"Cargar más",
     "load-previous-posts-button":"Al principio",
