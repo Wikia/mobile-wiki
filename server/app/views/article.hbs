@@ -2,9 +2,11 @@
 	{{#unless preview}}
 		{{> wiki-page-header}}
 	{{/unless}}
-	<article class="article-content" id="preloadedContent">
-		{{{articleContent}}}
-	</article>
+	{{#if articleContent}}
+		<article class="article-content" id="preloadedContent">
+			{{{articleContent}}}
+		</article>
+	{{/if}}
 </section>
 
 {{#if categorySections}}
