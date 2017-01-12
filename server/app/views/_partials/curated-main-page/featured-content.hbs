@@ -4,8 +4,7 @@
 			<img src="{{featuredArticle.image_url}}"
 				 alt="{{featuredArticle.label}}">
 			<figcaption>
-				{{! TODO truncate label to 48 chars}}
-				<div class="clamp">{{featuredArticle.label}}</div>
+				<div class="clamp">{{truncate featuredArticle.label 48}}</div>
 			</figcaption>
 		</figure>
 	</a>
