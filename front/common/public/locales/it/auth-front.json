@@ -2,7 +2,7 @@
   "errors":{
     "email_already_exists":"L'email è già registrata su Fandom",
     "email_invalid":"Indirizzo email non valido",
-    "invalid-email":"It seems you have no e-mail associated with your Fandom account. Please __contactFandomLink__",
+    "invalid-email":"Sembra che tu non disponga di un indirizzo e-mail associato al tuo account Fandom. Ti preghiamo di __contactFandomLink__",
     "registration_error":"Al momento non possiamo completare la tua iscrizione",
     "username_already_exists":"Nome utente non disponibile",
     "username_blocked":"Non puoi richiedere una nuova password in quanto il tuo nome utente è stato bloccato.",
