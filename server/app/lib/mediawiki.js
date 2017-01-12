@@ -339,38 +339,25 @@ export class EmailConfirmationRequest extends BaseRequest {
 	/**
 	 * Gets general wiki information
 	 *
-	 * @param {string} token
+	 * @param {Object} originalRequest
 	 *
 	 * @returns {Promise<any>}
 	 */
-	confirmEmail(token) {
+	confirmEmail(originalRequest) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'EmailConfirmation',
 			method: 'postEmailConfirmation'
 		}),
-			params = {token};
+			params = {token: originalRequest.query.token};
 
-		return this.post(url, Url.format({query: params}).substr(1));
-	}
-}
-
-/**
- * @class UserInfoRequest
- */
-export class UserInfoRequest extends BaseRequest {
-	/**
-	 * Gets user info based on UserId
-	 *
-	 * @returns {Promise<any>}
-	 */
-	getUserInfo(userId) {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-				controller: 'UserApi',
-				method: 'getDetails',
-				ids: userId
-			});
-
-		return this.get(url);
+		return this.post(
+			url,
+			Url.format({query: params}).substr(1),
+			'',
+			{
+				Cookie: `access_token=${originalRequest.state.access_token}`
+			}
+		);
 	}
 }
 

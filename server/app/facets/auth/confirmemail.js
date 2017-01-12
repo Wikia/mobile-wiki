@@ -10,6 +10,14 @@ function getFullRequestUrl(request) {
 		+ request.url.path;
 }
 
+function getCommunityRedirectUrl(emailConfirmed, username) {
+	const url = Utils.getWikiBaseUrlFromWikiDomain(settings, '', 'community'),
+		path = username ? `wiki/User: ${username}` : 'wiki/Main_Page';
+
+	return `http://${url}/${path}?emailConfirmed=${emailConfirmed}`
+
+}
+
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
@@ -22,16 +30,14 @@ export default function get(request, reply) {
 	const wikiDomain = Utils.getCachedWikiDomainName(settings, request),
 		userId = getUserId(request);
 
-	new MW.UserInfoRequest()
-		.getUserInfo(userId)
-		.then()
-
 	new MW.EmailConfirmationRequest({wikiDomain})
-		.confirmEmail(request.query.token)
-		.then(function () {
-			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page');
+		.confirmEmail(request)
+		.then(function (data) {
+			const username = JSON.parse(data.payload).username;
+
+			return reply.redirect(getCommunityRedirectUrl(1, username));
 		})
 		.catch(function () {
-			return reply.redirect('http://community.bkowalczyk.wikia-dev.com/wiki/Main_Page');
+			return reply.redirect(getCommunityRedirectUrl(0));
 		});
 }
