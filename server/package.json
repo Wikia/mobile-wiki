@@ -29,7 +29,7 @@
     "jsdom": "3.1.2",
     "newrelic": "1.25.1",
     "node-esapi": "0.0.1",
-    "vignette": "Wikia/vignette-js#2.1.1",
+    "vignette": "Wikia/vignette-js#2.4.0",
     "vision": "3.0.0",
     "wreck": "6.3.0"
   }
