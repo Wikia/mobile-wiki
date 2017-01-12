@@ -345,8 +345,8 @@ export class EmailConfirmationRequest extends BaseRequest {
 	 */
 	confirmEmail(originalRequest) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'EmailConfirmation',
-			method: 'postEmailConfirmation'
+				controller: 'EmailConfirmation',
+				method: 'postEmailConfirmation'
 		}),
 			params = {token: originalRequest.query.token};
 

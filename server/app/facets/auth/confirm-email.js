@@ -4,17 +4,14 @@ import * as Utils from '../../lib/utils';
 import {getUserId} from '../operations/page-data-helper';
 
 function getFullRequestUrl(request) {
-	return request.connection.info.protocol
-		+ '://'
-		+ request.info.host
-		+ request.url.path;
+	return `${request.connection.info.protocol}://${request.info.host}${request.url.path}`;
 }
 
 function getCommunityRedirectUrl(emailConfirmed, username) {
 	const url = Utils.getWikiBaseUrlFromWikiDomain(settings, '', 'community'),
 		path = username ? `wiki/User: ${username}` : 'wiki/Main_Page';
 
-	return `http://${url}/${path}?emailConfirmed=${emailConfirmed}`
+	return `http://${url}/${path}?emailConfirmed=${emailConfirmed}`;
 
 }
 
@@ -32,12 +29,12 @@ export default function get(request, reply) {
 
 	new MW.EmailConfirmationRequest({wikiDomain})
 		.confirmEmail(request)
-		.then(function (data) {
+		.then((data) => {
 			const username = JSON.parse(data.payload).username;
 
 			return reply.redirect(getCommunityRedirectUrl(1, username));
 		})
-		.catch(function () {
+		.catch(() => {
 			return reply.redirect(getCommunityRedirectUrl(0));
 		});
 }
