@@ -12,6 +12,9 @@
 		{{#if articlePage.data.mainPageData.featuredContent}}
 			{{> curated-main-page/featured-content featuredArticle=articlePage.data.mainPageData.featuredContent.[0]}}
 		{{/if}}
+		{{#if articlePage.data.mainPageData.wikiDescription}}
+			{{> curated-main-page/wiki-description description=articlePage.data.mainPageData.wikiDescription}}
+		{{/if}}
 		{{#if articlePage.data.mainPageData.curatedContent}}
 			{{> curated-main-page/curated-content curatedContent=articlePage.data.mainPageData.curatedContent}}
 		{{/if}}
