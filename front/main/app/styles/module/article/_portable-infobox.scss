@@ -329,17 +329,23 @@ $group-header-font-size: 16px;
 				padding-bottom: 0;
 			}
 
-			.pi-smart-data-value {
-				padding-left: $tabular-layout-padding;
-			}
-
 			.pi-smart-data-label,
 			.pi-smart-data-value {
 				box-sizing: border-box;
 				flex-basis: auto;
+				padding-left: $tabular-layout-padding;
+				padding-right: $tabular-layout-padding;
 
 				&:nth-child(even) {
 					background-color: $tabular-layout-stripe-background;
+				}
+
+				&:first-child {
+					padding-left: $article-horizontal-padding;
+				}
+
+				&:last-child {
+					padding-right: $article-horizontal-padding;
 				}
 			}
 		}
