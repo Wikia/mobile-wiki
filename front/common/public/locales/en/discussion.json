@@ -144,9 +144,7 @@
     "tab-following": "Following",
     "no-followed-posts-header": "Welcome to your Following tab.",
     "no-followed-posts-text": "Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
-    "find-posts-to-follow": "Find posts to follow",
-    "email-confirmed-notification": "Your email has been successfully confirmed!",
-    "email-confirmation-error": "There was an error while confirming your email"
+    "find-posts-to-follow": "Find posts to follow"
   },
   "editor": {
     "post-failed-error": "Post failed.",

@@ -1,18 +1,17 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
-import EmailConfirmationMixin from '../mixins/email-confirmation';
 import MediaModel from '../models/media';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend(
-	AlertNotificationsMixin, NoScrollMixin, EmailConfirmationMixin,
+	AlertNotificationsMixin, NoScrollMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
 		wikiPage: Ember.inject.controller(),
 		ads: Ember.inject.service(),
-		queryParams: ['file', 'map', 'emailConfirmed',
+		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
 			},

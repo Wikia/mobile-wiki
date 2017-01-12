@@ -23,9 +23,6 @@ export default Route.extend(
 			commentsPage: {
 				replace: true
 			},
-			emailConfirmed: {
-				refreshModel: false
-			}
 		},
 
 		ads: Ember.inject.service(),
