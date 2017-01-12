@@ -12,7 +12,7 @@ import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
 import registerHandler from './facets/auth/register';
 import signinHandler from './facets/auth/signin';
-import confirmEmailHandler from './facets/auth/confirmemail';
+import confirmEmailHandler from './facets/auth/confirm-email';
 import showApplication from './facets/show-application';
 import showCuratedContent from './facets/show-curated-content';
 import showRecentWikiActivity from './facets/show-recent-wiki-activity';
@@ -136,7 +136,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/confirmemail',
+			path: '/confirm-email',
 			handler: confirmEmailHandler,
 		},
 		{
