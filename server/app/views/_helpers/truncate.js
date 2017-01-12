@@ -1,3 +1,5 @@
+import Logger from '../../lib/logger';
+
 /**
  * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)
  *
@@ -16,7 +18,7 @@ module.exports = function truncate(text, maxLength = 48) {
 		lastWhiteSpacePos;
 
 	if (typeof text !== 'string') {
-		Ember.Logger.error(`Truncate Util expected string as a parameter, but ${typeof text} given:`, text);
+		Logger.error(`Truncate Util expected string as a parameter, but ${typeof text} given:`, text);
 		return null;
 	}
 
