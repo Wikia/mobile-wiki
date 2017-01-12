@@ -323,25 +323,34 @@ $group-header-font-size: 16px;
 		//infobox smart (flex) wrapped group
 		.pi-smart-group {
 			display: flex;
-			flex-wrap: wrap;
+			flex-direction: column;
 
-			.pi-item {
-				width: 100%;
+			.pi-smart-data-label {
+				padding-bottom: 0;
 			}
 
-			.pi-smart-data {
-				flex-direction: column;
-				padding-right: $tabular-layout-padding;
+			.pi-smart-data-value {
+				padding-left: $tabular-layout-padding;
+			}
 
-				&.pi-smart-even-in-row {
+			.pi-smart-data-label,
+			.pi-smart-data-value {
+				box-sizing: border-box;
+				flex-basis: auto;
+
+				&:nth-child(even) {
 					background-color: $tabular-layout-stripe-background;
 				}
-
-				.pi-data-value {
-					padding-left: 0;
-					padding-top: $tabular-layout-data-padding;
-				}
 			}
+		}
+
+		.pi-smart-group-body {
+			display: flex;
+		}
+
+		.pi-smart-group-head {
+			align-items: center;
+			display: flex;
 		}
 
 		// infobox navigation
