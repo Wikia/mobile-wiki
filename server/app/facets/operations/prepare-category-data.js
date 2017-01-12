@@ -24,6 +24,13 @@ export default function prepareCategoryData(request, data) {
 		result.description = pageData.details.description;
 	}
 
+	if (
+		pageData && pageData.nsSpecificContent && pageData.nsSpecificContent.members &&
+		pageData.nsSpecificContent.members.sections
+	) {
+		result.categorySections = pageData.nsSpecificContent.members.sections;
+	}
+
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.settings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
