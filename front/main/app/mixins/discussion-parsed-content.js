@@ -13,9 +13,9 @@ export default Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	parsedContent: Ember.computed('content', function () {
-		let escapedContent = decodeURIComponent(Ember.Handlebars.Utils.escapeExpression(
+		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
 			this.get('content')
-		)).trim();
+		).trim();
 
 		if (this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
@@ -31,23 +31,55 @@ export default Ember.Mixin.create({
 			email: false,
 			phone: false,
 			stripPrefix: false,
-			twitter: false
+			twitter: false,
+			replaceFn: this.getReplaceFn()
 		};
 
-		if (!this.get('shouldActivateLinks')) {
-			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
-		}
 		this._super();
 	},
 
-	/**
-	 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href
-	 * @param {Object} match which should be wrapped
-	 * @returns {string}
-	 */
-	wrapInSpan(match) {
-		if (match.getType() === 'url') {
-			return `<span class='url'>${match.getUrl()}</span>`;
+	getReplaceFn() {
+
+		function decodeUriSafely(uri) {
+			try {
+				return decodeURIComponent(uri);
+			} catch (err) {
+				return uri;
+			}
 		}
-	}
+
+		/**
+		 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href.
+		 * @param {Autolinker.match.Match} match which should be wrapped
+		 * @returns {string}
+		 */
+		function wrapInSpan(match) {
+			if (match.getType() === 'url') {
+				return `<span class='url'>${decodeUriSafely(match.getUrl())}</span>`;
+			}
+			return true;  // Autolinker will perform its normal anchor tag replacement
+		}
+
+		/**
+		 * Decodes the inner HTML of the link, so that for example Cyrillic script is displayed nicely.
+		 * @param {Autolinker.match.Match} match which will be decoded.
+		 * @returns {string}
+		 */
+		function decodeInnerHtml(match) {
+			if (match.getType() === 'url') {
+				let tag = match.buildTag();
+
+				tag.setInnerHtml(decodeUriSafely(tag.getInnerHtml()));
+				return tag;
+			}
+			return true;  // Autolinker will perform its normal anchor tag replacement
+		}
+
+		if (this.get('shouldActivateLinks')) {
+			return decodeInnerHtml;
+		} else {
+			return wrapInSpan;
+		}
+	},
+
 });
