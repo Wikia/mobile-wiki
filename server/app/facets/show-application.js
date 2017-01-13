@@ -28,7 +28,7 @@ import injectDesignSystemData from '../lib/inject-design-system-data';
  */
 function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
-	Utils.setI18nLang(request, context.wikiVariables).then(() => {
+	Utils.setApplicationLang(request, context.wikiVariables).then(() => {
 		reply.view('application', context);
 	});
 }

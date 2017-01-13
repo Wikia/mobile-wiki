@@ -331,12 +331,19 @@ export function redirectToOasis(request, reply) {
  * @param {object} wikiVariables
  * @returns {Promise}
  */
-export function setI18nLang(request, wikiVariables) {
+export function setApplicationLang(request, wikiVariables) {
 	const i18n = request.server.methods.i18n.getInstance();
+	const numeral = request.server.methods.numeral;
 
 	if (wikiVariables.language && wikiVariables.language.content) {
 		return new Promise((resolve) => {
-			return i18n.setLng(wikiVariables.language.content, resolve);
+			const contentLanguage = wikiVariables.language.content;
+
+			if (numeral.locales.hasOwnProperty(contentLanguage)) {
+				numeral.locale(contentLanguage);
+			}
+
+			return i18n.setLng(contentLanguage, resolve);
 		});
 	} else {
 		return Promise.resolve();

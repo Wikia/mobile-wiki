@@ -3,26 +3,25 @@
 		{{#if wikiaStats.articles}}
 			<div class="wikia-stats-item">
 				<div class="wikia-stats-label">{{i18n 'app.pages-label'}}</div>
-				<div class="wikia-stats-value">{{wikiaStats.articles}}</div>
-				{{!TODO rounde numbers to thousands}}
+				<div class="wikia-stats-value">{{numeral wikiaStats.articles '0a'}}</div>
 			</div>
 		{{/if}}
 		{{#if wikiaStats.images}}
 			<div class="wikia-stats-item">
 				<div class="wikia-stats-label">{{i18n 'app.photos-label'}}</div>
-				<div class="wikia-stats-value">{{wikiaStats.images}}</div>
+				<div class="wikia-stats-value">{{numeral wikiaStats.images '0a'}}</div>
 			</div>
 		{{/if}}
 		{{#if wikiaStats.videos}}
 			<div class="wikia-stats-item">
 				<div class="wikia-stats-label">{{i18n 'app.videos-label'}}</div>
-				<div class="wikia-stats-value">{{wikiaStats.videos}}</div>
+				<div class="wikia-stats-value">{{numeral wikiaStats.videos '0a'}}</div>
 			</div>
 		{{/if}}
 		{{#if wikiaStats.discussions}}
 			<div class="wikia-stats-item">
 				<div class="wikia-stats-label">{{i18n 'main.discussions-header-title' ns='discussion'}}</div>
-				<div class="wikia-stats-value">{{wikiaStats.discussions}}</div>
+				<div class="wikia-stats-value">{{numeral wikiaStats.discussions '0a'}}</div>
 			</div>
 		{{/if}}
 	</div>
