@@ -17,7 +17,6 @@ import vision from 'vision';
 import {prerenderPlugin, prerenderOptions} from './lib/prerender';
 
 var numeral = require('numeral');
-require('numeral/locales');
 
 /* eslint no-process-env: 0 */
 

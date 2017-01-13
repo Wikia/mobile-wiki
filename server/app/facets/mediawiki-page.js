@@ -15,7 +15,7 @@ import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
 	redirectToOasis,
-	setApplicationLang
+	setI18nLang
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
@@ -151,7 +151,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	setApplicationLang(request, result.wikiVariables).then(() => {
+	setI18nLang(request, result.wikiVariables).then(() => {
 		response = reply.view(viewName, result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

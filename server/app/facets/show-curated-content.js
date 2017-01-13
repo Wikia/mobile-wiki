@@ -3,7 +3,7 @@ import {CuratedMainPageRequestHelper} from '../lib/curated-main-page';
 import {
 	MainPageDataRequestError, RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
 } from '../lib/custom-errors';
-import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded, setApplicationLang} from '../lib/utils';
+import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded, setI18nLang} from '../lib/utils';
 import settings from '../../config/settings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
 import showServerErrorPage from './operations/show-server-error-page';
@@ -37,7 +37,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	setApplicationLang(request, result.wikiVariables).then(() => {
+	setI18nLang(request, result.wikiVariables).then(() => {
 		response = reply.view('application', result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');
