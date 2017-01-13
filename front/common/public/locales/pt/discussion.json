@@ -30,6 +30,7 @@
     "sort-by-trending":"Tendências",
     "last-edited-by":"(editado por __userName__)",
     "last-edited-by-administrators":"(editado pelos administradores)",
+    "deleted-by":"Apagado por __userName__",
     "loading-more-posts":"Carregando mais posts",
     "load-more-posts-button":"Carregar mais",
     "load-previous-posts-button":"Voltar ao topo",
@@ -120,7 +121,7 @@
     "in-category-label":"__categoryName__",
     "app-promotion-text":"Leve seu fandom com você, baixe o app hoje!",
     "app-promotion-text-details-page":"Mantenha-se atualizado em qualquer lugar. Obtenha o app agora!",
-    "wiki-home":"Página inicial do Fandom",
+    "wiki-home":"Página inicial",
     "discussion-guidelines":"Diretrizes de Discussões",
     "rename-category-length-error":"O nome da categoria deve ter menos de 20 caracteres.",
     "rename-category-auth-error":"Você não está conectado. Por favor, inicie sessão.",
@@ -143,12 +144,15 @@
     "tab-following":"Seguindo",
     "no-followed-posts-header":"Bem-vindo a listagem dos posts que você segue.",
     "no-followed-posts-text":"Clique no ícone \"Seguir\" na parte inferior de qualquer post para preencher sua lista com as discussões que mais importam para você. Vamos colocá-las aqui e notificá-lo sobre novas atividades.",
-    "find-posts-to-follow":"Encontrar posts para seguir"
+    "find-posts-to-follow":"Encontrar posts para seguir",
+    "reported-content":"Conteúdo denunciado",
+    "user-activity":"Insights de Discussões",
+    "moderator-tools":"Ferramentas do Moderador"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuários ativos",
+    "active-users-toggle-option":"Usuários<br>ativos",
     "reports-toggle-option":"Relatórios",
-    "moderator-actions-toggle-option":"Ações do moderador",
+    "moderator-actions-toggle-option":"Ações<br>do moderador",
     "days-count":"__numberOfDays__ dias",
     "glossary-header":"Glossário",
     "active-users-headline":"Usuários ativos",
@@ -160,7 +164,8 @@
     "posts":"posts",
     "not-processed":"não analisado",
     "actions":"ações",
-    "hero-unit-subtitle":"Atividade do usuário"
+    "hero-unit-subtitle":"Insights de Discussões",
+    "no-activity-yet":"Nenhuma atividade ainda."
   },
   "editor":{
     "post-failed-error":"O post falhou.",

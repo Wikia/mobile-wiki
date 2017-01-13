@@ -156,7 +156,7 @@ $success-icon-size: 80px;
 		display: flex;
 	}
 
-	.discussion-categories-list span.error {
+	.discussion-categories-list-content span.error {
 		color: $discussion-error-color;
 		margin: 0;
 		padding-left: 27px;
@@ -292,7 +292,7 @@ $success-icon-size: 80px;
 			}
 		}
 
-		.discussion-categories-list {
+		.discussion-categories-list-content {
 			.fancy-checkbox-label {
 				display: none;
 			}
