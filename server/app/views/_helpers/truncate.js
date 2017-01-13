@@ -29,7 +29,7 @@ module.exports = function truncate(text, maxLength = 48) {
 	truncatedString = text.substr(0, maxLength);
 	lastWhiteSpacePos = truncatedString.search(/\s[^\s]*$/);
 
-	if (lastWhiteSpacePos === maxLength || lastWhiteSpacePos < 0) {
+	if (lastWhiteSpacePos < 0) {
 		return truncatedString + ellipsisCharacter;
 	}
 
