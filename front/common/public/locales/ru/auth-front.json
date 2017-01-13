@@ -2,7 +2,7 @@
   "errors":{
     "email_already_exists":"Адрес электронной почты уже зарегистрирован на Фэндоме",
     "email_invalid":"Адрес электронной почты недействителен",
-    "invalid-email":"It seems you have no e-mail associated with your Fandom account. Please __contactFandomLink__",
+    "invalid-email":"Похоже, у вас нет электронной почты, связанной с вашей учётной записью на Фэндоме. Пожалуйста, __contactFandomLink__",
     "registration_error":"В данный момент невозможно завершить регистрацию",
     "username_already_exists":"Это имя пользователя уже занято",
     "username_blocked":"Вы не можете запросить новый пароль, потому что ваше имя участника заблокировано.",

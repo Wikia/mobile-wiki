@@ -34,27 +34,27 @@ export default Ember.Mixin.create({
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage');
 
-		let sectionOrCategoryName;
+		let sectionName;
 
 		// WOW!
 		// Ember's RouteRecognizer does decodeURI while processing path.
 		// We need to do it manually for titles passed using transitionTo, see the MainPageRoute.
 		try {
-			sectionOrCategoryName = decodeURIComponent(decodeURI(title));
+			sectionName = decodeURIComponent(decodeURI(title));
 		} catch (error) {
-			sectionOrCategoryName = decodeURIComponent(title);
+			sectionName = decodeURIComponent(title);
 		}
 
-		sectionOrCategoryName = normalizeToWhitespace(sectionOrCategoryName);
+		sectionName = normalizeToWhitespace(sectionName);
 
 		mainPageController.setProperties({
 			isRoot: false,
-			title: sectionOrCategoryName,
+			title: sectionName,
 			adsContext: this.get('adsContext'),
 			ns: this.get('ns')
 		});
 
-		model.set('title', sectionOrCategoryName);
+		model.set('title', sectionName);
 
 		transition.then(() => {
 			this.updateTrackingData();

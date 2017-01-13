@@ -20,6 +20,7 @@
     "image-upload-date": "Upload date:",
     "image-context-not-provided": "Context not provided",
     "image-uploader-id": "Uploading user Id:",
+    "image-source": "Uploaded from:",
     "status-accepted": "OK",
     "status-questionable": "Q",
     "status-rejected": "REJ",
@@ -32,6 +33,9 @@
     "history-undefined": "Not available",
     "history-no-history": "No history",
     "not-provided": "not provided",
-    "waiting-for-count": "waiting for count"
+    "waiting-for-count": "waiting for count",
+    "image-order-newest": "get newest",
+    "image-order-oldest": "get oldest",
+    "image-source": "Source of images"
   }
 }
