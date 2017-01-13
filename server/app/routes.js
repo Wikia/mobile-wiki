@@ -167,6 +167,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/image-review/batch/{batchId*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/image-review/summary',
 			handler: showApplication,
 			config: {
@@ -209,14 +217,6 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/section/{sectionName*}',
-			handler: showCuratedContent,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/main/category/{categoryName*}',
 			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig

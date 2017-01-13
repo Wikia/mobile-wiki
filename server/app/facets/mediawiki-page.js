@@ -120,9 +120,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
 		if (pageData.article && pageData.details) {
-			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
+		viewName = 'article';
 		result = deepExtend(result, prepareCategoryData(request, data));
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
@@ -148,6 +148,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	Tracking.handleResponse(result, request);
 
 	setI18nLang(request, result.wikiVariables).then(() => {
+		console.log(viewName);
 		response = reply.view(viewName, result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

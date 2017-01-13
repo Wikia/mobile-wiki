@@ -61,7 +61,7 @@ export default Ember.Component.extend(
 				label: `open-item-${this.get('index')}`
 			});
 
-			if (itemType && itemType === 'section' || itemType === 'category') {
+			if (itemType && itemType === 'section') {
 				this.sendAction('openCuratedContentItem', this.get('model'));
 				return false;
 			}

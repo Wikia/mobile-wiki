@@ -35,10 +35,6 @@ export default Route.extend({
 
 		openImageReview() {
 			this.transitionTo('image-review.index');
-		},
-
-		didTransition() {
-			this.controllerFor('application').set('fullPage', true);
 		}
 	}
 });

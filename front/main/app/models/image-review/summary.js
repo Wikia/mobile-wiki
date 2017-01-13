@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import moment from 'moment';
 import request from 'ember-ajax/request';
-import ImageReviewItemModel from './image-review-item';
+import ImageReviewItemModel from './item';
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
@@ -34,6 +34,7 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 				this.set('imageDetails.context', data.context);
 				this.set('imageDetails.isContextProvided', Boolean(data.context));
 				this.set('imageDetails.isContextLink', linkRegexp.test(data.context));
+				this.set('imageDetails.source', data.source);
 			});
 
 			ImageReviewItemModel.getImageHistory(imageId).then((data) => {
@@ -77,7 +78,7 @@ ImageReviewSummaryModel.reopenClass({
 			method: 'GET',
 		}).then((payload) => {
 			return ImageReviewSummaryModel.create({
-				userCanAuditReviews: payload.userAllowedToAuditReviews,
+				userAllowedToAuditReviews: payload.userAllowedToAuditReviews,
 				startDate,
 				endDate,
 				csvLink,

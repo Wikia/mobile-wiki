@@ -35,8 +35,7 @@ test('sanitizes categories', (assert) => {
 		label: 'Title',
 		imageUrl: 'http://vignette/image.jpg',
 		type: 'category',
-		url: '/main/category/CategoryName',
-		categoryName: 'CategoryName'
+		url: '/wiki/Category:CategoryName',
 	});
 
 	assert.deepEqual(curatedContentModelClass.sanitizeItem({
@@ -48,8 +47,7 @@ test('sanitizes categories', (assert) => {
 		label: 'Title',
 		imageUrl: 'http://vignette/image.jpg',
 		type: 'category',
-		url: '/main/category/CategoryName',
-		categoryName: 'CategoryName'
+		url: '/wiki/Category:CategoryName'
 	});
 });
 

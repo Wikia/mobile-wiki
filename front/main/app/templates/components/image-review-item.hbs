@@ -1,12 +1,14 @@
 <div class="image-review-image-container {{model.status}}">
-	<img src="{{thumbnailUrl}}" {{action this.attrs.showModal model}}>
+	<div class="image-review-image-container-rejected">
+		<img src="{{thumbnailUrl}}" {{action this.attrs.onClick model}}>
+	</div>
 	<form class="image-review-button-group">
 		<button class="button-group-item {{if isAccepted 'highlighted' 'inactive'}}"
-			{{action (action this.attrs.changeItemModel model.imageId 'accepted')}}>
+			{{action (action 'setStatus' 'accepted')}}>
 			{{i18n 'main.status-accepted' ns='image-review'}}
 		</button>
 		<button class="button-group-item {{if isRejected 'highlighted' 'inactive'}}"
-			{{action (action this.attrs.changeItemModel model.imageId 'rejected')}}>
+			{{action (action 'setStatus' 'rejected')}}>
 			{{#if isRejectedQueue}}
 				{{i18n 'main.status-removed' ns='image-review'}}
 			{{else}}
@@ -14,7 +16,7 @@
 			{{/if}}
 		</button>
 		<button class="button-group-item {{if isQuestionable 'highlighted' 'inactive'}}"
-			{{action (action this.attrs.changeItemModel model.imageId 'questionable')}}>
+			{{action (action 'setStatus' 'questionable')}}>
 			{{i18n 'main.status-questionable' ns='image-review'}}
 		</button>
 		<div class="button-link">

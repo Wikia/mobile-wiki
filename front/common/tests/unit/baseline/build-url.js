@@ -63,6 +63,14 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 				{
 					host: 'mercury:8000',
 					expectedOutput: 'http://mercury:8000'
+				},
+				{
+					host: 'muppet.wikia-staging.com',
+					expectedOutput: 'http://test.wikia-staging.com'
+				},
+				{
+					host: 'es.walkingdead.wikia-staging.com',
+					expectedOutput: 'http://test.wikia-staging.com'
 				}
 			];
 
