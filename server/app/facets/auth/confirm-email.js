@@ -22,10 +22,11 @@ function getCommunityRedirectUrl(emailConfirmed, username) {
  */
 export default function get(request, reply) {
 	if (!request.auth.isAuthenticated) {
-		return reply.redirect(`http://${request.info.hostname}/signin?redirect=${getFullRequestUrl(request)}`);
+		return reply.redirect(
+			`http://${request.info.hostname}/signin?redirect=${encodeURIComponent(getFullRequestUrl(request)})`
+		);
 	}
-	const wikiDomain = Utils.getCachedWikiDomainName(settings, request),
-		userId = getUserId(request);
+	const wikiDomain = Utils.getCachedWikiDomainName(settings, request);
 
 	new MW.EmailConfirmationRequest({wikiDomain})
 		.confirmEmail(request)
