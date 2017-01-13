@@ -45,7 +45,7 @@ export function checkDomainMatchesCurrentHost(domain, currentHost) {
  * @returns {boolean}
  */
 export function isWhiteListedDomain(domain) {
-	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com'];
+	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com', '.wikia-staging.com', '.wikia-dev.pl', '.wikia-dev.us'];
 
 	/**
 	 * @param {string} whileListedDomain
@@ -101,17 +101,19 @@ export function getOrigin(request) {
 export function getRedirectUrl(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = parse(redirectUrl).host;
+		redirectUrlHost = parse(redirectUrl).host,
+		// Workaround for node's problems with implicit urls
+		hasImplicitProtocol = redirectUrl.substr(0, 2) === '//';
 
-	if (!redirectUrlHost ||
-		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-		isWhiteListedDomain(redirectUrlHost)
+	if (hasImplicitProtocol ||
+		(redirectUrlHost &&
+		!checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) &&
+		!isWhiteListedDomain(redirectUrlHost))
 	) {
+		return '/';
+	} else {
 		return redirectUrl;
 	}
-
-	// Not valid domain
-	return '/';
 }
 
 /**

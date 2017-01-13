@@ -19,6 +19,7 @@ $infobox-hero-font-color: $white;
 
 // spacing
 $infobox-item-margin: 6px;
+$tabular-layout-data-padding: 12px;
 $tabular-layout-padding: 14px;
 
 // field dimensions
@@ -317,6 +318,45 @@ $group-header-font-size: 16px;
 					padding-right: $article-horizontal-padding;
 				}
 			}
+		}
+
+		// infobox smart (flex) wrapped group
+		.pi-smart-group {
+			display: flex;
+			flex-direction: column;
+
+			.pi-smart-data-label {
+				padding-bottom: 0;
+			}
+
+			.pi-smart-data-label,
+			.pi-smart-data-value {
+				box-sizing: border-box;
+				flex-basis: auto;
+				padding-left: $tabular-layout-padding;
+				padding-right: $tabular-layout-padding;
+
+				&:nth-child(even) {
+					background-color: $tabular-layout-stripe-background;
+				}
+
+				&:first-child {
+					padding-left: $article-horizontal-padding;
+				}
+
+				&:last-child {
+					padding-right: $article-horizontal-padding;
+				}
+			}
+		}
+
+		.pi-smart-group-body {
+			display: flex;
+		}
+
+		.pi-smart-group-head {
+			align-items: flex-start;
+			display: flex;
 		}
 
 		// infobox navigation

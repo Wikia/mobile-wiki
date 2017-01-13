@@ -11,6 +11,9 @@
 	{{#if featuredContent}}
 		{{featured-content model=featuredContent}}
 	{{/if}}
+	{{#if wikiDescription}}
+		{{wiki-description description=wikiDescription}}
+	{{/if}}
 	{{#if curatedContent}}
 		{{curated-content model=curatedContent openCuratedContentItem='openCuratedContentItem'}}
 	{{/if}}

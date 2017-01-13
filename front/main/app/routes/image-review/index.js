@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import ImageReviewModel from '../../models/image-review/index';
 
-const {Route, Logger} = Ember;
+const {Route, Logger, RSVP} = Ember;
 
 export default Route.extend({
 	status: 'UNREVIEWED',
 
-	model() {
-		return ImageReviewModel.startSession(this.get('status'));
+	model(params) {
+		return ImageReviewModel.startSession(this.get('status'), params.order, params.source);
 	},
 
 	afterModel(model) {

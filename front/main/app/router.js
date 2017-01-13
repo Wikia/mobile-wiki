@@ -22,10 +22,6 @@ Router.map(function () {
 		path: '/main/section/:sectionName'
 	});
 
-	this.route('mainPageCategory', {
-		path: '/main/category/:categoryName'
-	});
-
 	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {
