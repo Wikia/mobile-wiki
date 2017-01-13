@@ -1,4 +1,4 @@
-const Vignette = require('vignette');
+import Vignette from 'vignette';
 
 
 function getImageThumb(imageUrl, width, height, mode, imageCrop) {

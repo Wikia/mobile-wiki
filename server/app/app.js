@@ -15,8 +15,7 @@ import path from 'path';
 import url from 'url';
 import vision from 'vision';
 import {prerenderPlugin, prerenderOptions} from './lib/prerender';
-
-const numeral = require('numeral');
+import numeral from 'numeral';
 
 /* eslint no-process-env: 0 */
 
