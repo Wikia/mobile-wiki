@@ -106,8 +106,6 @@ function fetchHealthyUserRegistrationServices(username) {
 export default function translateUserIdFrom(username, request) {
 	return fetchHealthyUserRegistrationServices(username)
 		.then((data) => {
-			return new Promise((resolve, reject) => {
-				return handleServiceDiscoveryResponse(data, request);
-			});
+			return handleServiceDiscoveryResponse(data, request);
 		});
 }

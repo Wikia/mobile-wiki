@@ -49,12 +49,13 @@ function handleUserRegistrationResponse(data, request, token) {
 
 /**
  * @param {string} username
- * @param {string} redirect
+ * @param {string} token
+ * @param {Object} request
  * @returns {Promise}
  */
 export default function validateTokenFor(username, token, request) {
-	return translateUserIdFrom(username)
-		.then(data => {
-			return handleUserRegistrationResponse(data, token, request);
+	return translateUserIdFrom(username, request)
+		.then((data) => {
+			return handleUserRegistrationResponse(data, request, token);
 		});
 }
