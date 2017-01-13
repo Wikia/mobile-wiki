@@ -1,19 +1,17 @@
 <div class="curated-content mw-content">
 	<nav class="curated-content-items">
 		{{#each curatedContent as |curatedItem| }}
-			<a href="{{#if curatedItem.url}}{{curatedItem.url}}{{else}}{{curatedItem.article_local_url}}{{/if}}" class="curated-content-item section">
+			<a href="{{curatedItem.url}}" class="curated-content-item section">
 				<figure class="item-figure">
 					<div class="item-image">
 						<img src="{{#if curatedItem.thumb_url}}{{{curatedItem.thumb_url}}}{{else}}data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7{{/if}}"
-							 alt="{{#if curatedItem.label}}{{curatedItem.label}}{{else}}{{curatedItem.title}}{{/if}}"
+							 alt="{{curatedItem.label}}"
 						>
 					</div>
 					<figcaption class="item-figcaption">
 						<div class="item-caption-row">
 							<div class="item-caption label">
-								<div class="item-caption clamp">
-									{{#if curatedItem.label}}{{truncate curatedItem.label 48}}{{else}}{{truncate curatedItem.title 48}}{{/if}}
-								</div>
+								<div class="item-caption clamp">{{truncate curatedItem.label 48}}</div>
 							</div>
 						</div>
 					</figcaption>

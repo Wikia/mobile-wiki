@@ -44,6 +44,9 @@ export default function getCuratedMainPageThumbs(data) {
 
 	if (mainPageData && mainPageData.curatedContent) {
 		mainPageData.curatedContent.forEach((item) => {
+			item.url = item.url || item.article_local_url;
+			item.label = item.label || item.title;
+
 			if (item.image_url) {
 				item.thumb_url = getImageThumb(
 					item.image_url,
