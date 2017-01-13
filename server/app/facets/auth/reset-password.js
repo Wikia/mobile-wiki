@@ -102,7 +102,7 @@ export function post(request, reply) {
 			payload: 'ok'
 		}).code(200);
 	} else {
-		updatePasswordFor(username, password, token)
+		updatePasswordFor(username, password, token, request)
 			.then(data => {
 				reply({
 					payload: data.payload

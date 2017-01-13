@@ -54,7 +54,7 @@ function handleUserRegistrationResponse(data, redirect, request) {
  * @returns {Promise}
  */
 export default function resetPasswordFor(username, redirect, request) {
-	return translateUserIdFrom(username)
+	return translateUserIdFrom(username, request)
 		.then(data => {
 			return handleUserRegistrationResponse(data, redirect, request);
 		});
