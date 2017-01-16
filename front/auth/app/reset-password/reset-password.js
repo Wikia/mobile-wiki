@@ -10,7 +10,7 @@ export default class ResetPassword extends PasswordForm {
 	constructor(form) {
 		super(form, {
 			category: 'reset-password-mobile',
-			pageType: '/resetPassword'
+			pageType: '/reset-password'
 		});
 	}
 

@@ -137,7 +137,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/forgotpassword',
+			path: '/forgot-password',
 			handler: forgotPasswordHandler.get,
 			config: {
 				pre: [
@@ -149,7 +149,7 @@ let routes,
 		},
 		{
 			method: 'POST',
-			path: '/forgotpassword',
+			path: '/forgot-password',
 			handler: forgotPasswordHandler.post,
 			config: {
 				pre: [
@@ -161,7 +161,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/resetpassword',
+			path: '/reset-password',
 			handler: resetPasswordHandler.get,
 			config: {
 				pre: [
@@ -173,7 +173,7 @@ let routes,
 		},
 		{
 			method: 'POST',
-			path: '/resetpassword',
+			path: '/reset-password',
 			handler: resetPasswordHandler.post,
 			config: {
 				pre: [

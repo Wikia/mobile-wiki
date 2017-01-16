@@ -20,7 +20,7 @@ export function getRegisterUrl(request) {
  * @returns {string}
  */
 export function getForgotPasswordUrl(request) {
-	return this.getRedirectUrlWithQueryString('forgotpassword', request);
+	return this.getRedirectUrlWithQueryString('forgot-password', request);
 }
 
 /**

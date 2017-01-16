@@ -10,7 +10,7 @@ export default class ForgotPassword extends PasswordForm {
 	constructor(form) {
 		super(form, {
 			category: 'forgot-password-mobile',
-			pageType: '/forgotPassword'
+			pageType: '/forgot-Password'
 		});
 	}
 
