@@ -1,5 +1,5 @@
 import Vignette from 'vignette';
-
+import {getOpenGraphData, getOpenGraphUrl} from './page-data-helper';
 
 function getImageThumb(imageUrl, width, height, mode, imageCrop) {
 	const options = {
@@ -21,15 +21,13 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
 }
 
 /**
- * Get thumbs for curated main page
+ * Get thumbs and labels for curated main page modules
  *
  * @see front/main/app/mixins/curated-content-thumbnail.js
- * @param {object} data
+ * @param {object} mainPageData
  * @returns {object}
  */
-export default function getCuratedMainPageThumbs(data) {
-	const mainPageData = data.articlePage.data.mainPageData;
-
+function prepareCuratedMainPageModules(mainPageData) {
 	if (mainPageData && mainPageData.featuredContent) {
 		mainPageData.featuredContent.forEach((item) => {
 			item.thumb_url = getImageThumb(
@@ -59,5 +57,39 @@ export default function getCuratedMainPageThumbs(data) {
 		});
 	}
 
-	return data;
+	return mainPageData;
+}
+/**
+ * Prepare data for curated main pages
+ *
+ * @param {object} data
+ * @returns {object}
+ */
+export default function prepareCuratedMainPageData(data) {
+	const pageData = data.page.data,
+		wikiVariables = data.wikiVariables,
+		result = {
+			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
+			mainPageData: {
+				adsContext: pageData.adsContext
+			},
+			showSpinner: true,
+			articlePage: {
+				data: {}
+			}
+		};
+
+	if (pageData.details) {
+		if (pageData.details.description) {
+			result.description = pageData.details.description;
+		}
+
+		if (pageData.details.ns) {
+			result.mainPageData.ns = pageData.details.ns;
+		}
+	}
+
+	result.articlePage.data.mainPageData = prepareCuratedMainPageModules(pageData.mainPageData);
+
+	return result;
 }
