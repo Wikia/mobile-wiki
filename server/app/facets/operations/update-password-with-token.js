@@ -5,12 +5,14 @@ import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 
-function createUpdatePasswordContext(userInfo, password = '', token = '') {
+function createUpdatePasswordContext(userInfo, request, password = '', token = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/password`),
 		options: {
 			headers: {
-				'Content-type': 'application/x-www-form-urlencoded'
+				'Content-type': 'application/x-www-form-urlencoded',
+				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
 			},
 			timeout: settings.helios.timeout,
 			payload: `password=${password}&token=${token}`
@@ -18,9 +20,9 @@ function createUpdatePasswordContext(userInfo, password = '', token = '') {
 	};
 }
 
-function handleUserRegistrationResponse(data, password, token) {
+function handleUserRegistrationResponse(data, password, token, request) {
 	const userInfo = JSON.parse(data.payload),
-		updatePassword = createUpdatePasswordContext(userInfo, password, token);
+		updatePassword = createUpdatePasswordContext(userInfo, request, password, token);
 
 	return new Promise((resolve, reject) => {
 		Wreck.post(updatePassword.url, updatePassword.options, (error, response, payload) => {
@@ -47,12 +49,14 @@ function handleUserRegistrationResponse(data, password, token) {
 
 /**
  * @param {string} username
- * @param {string} redirect
+ * @param {string} password
+ * @param {string} token
+ * @param {Object} request
  * @returns {Promise}
  */
-export default function updatePasswordFor(username, password, token) {
-	return translateUserIdFrom(username)
+export default function updatePasswordFor(username, password, token, request) {
+	return translateUserIdFrom(username, request)
 		.then(data => {
-			return handleUserRegistrationResponse(data, password, token);
+			return handleUserRegistrationResponse(data, password, token, request);
 		});
 }

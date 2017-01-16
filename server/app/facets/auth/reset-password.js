@@ -65,7 +65,7 @@ function validateTokenAndShowPage(request, reply) {
 		username = querystring.escape(request.query.username);
 
 	if (username && token) {
-		validateTokenFor(username, token)
+		validateTokenFor(username, token, request)
 			.then(data => {
 				return showPage(request, reply);
 			}).catch(data => {
@@ -102,7 +102,7 @@ export function post(request, reply) {
 			payload: 'ok'
 		}).code(200);
 	} else {
-		updatePasswordFor(username, password, token)
+		updatePasswordFor(username, password, token, request)
 			.then(data => {
 				reply({
 					payload: data.payload
