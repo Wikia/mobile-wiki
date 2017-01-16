@@ -10,7 +10,6 @@
 			hasSiteName=true
 			isCategoryFilterDisabled=isCategoryFilterDisabled
 			isSortingDisabled=isSortingDisabled
-			showReportedFilter=canShowReportedPostsFilter
 			setEditorActive=(action this.attrs.setEditorActive)
 			smartBannerVisible=smartBannerVisible
 			updateCategories=(action this.attrs.updateCategories)
@@ -58,12 +57,6 @@
 					}}
 				{{/if}}
 			{{/if}}
-			{{#if canShowReportedPostsFilter}}
-				{{discussion-reported-filter
-					applyFilters=(action this.attrs.applyFilters)
-					topDecoration=reportedFilterTopDecoration
-				}}
-			{{/if}}
 			{{discussion-sort
 					disabled=isSortingDisabled
 					sortBy=sortBy
@@ -75,6 +68,7 @@
 		</div>
 		<div class="rail right large-3 extra-large-2 columns">
 			{{discussion-community-unit
+				canModerate=model.canModerate
 				displayGuidelinesLink=true
 				displayWikiaHomeLink=true
 				guidelines=attributes.guidelines

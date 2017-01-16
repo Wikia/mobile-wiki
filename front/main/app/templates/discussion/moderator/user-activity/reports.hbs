@@ -1,0 +1,25 @@
+{{#discussion-user-activity-list class='reports-list' items=model.current.data.users as |item|}}
+	{{discussion-user-activity-value
+		class='reported'
+		iconClass='wds-icon wds-icon-small alert'
+		iconName='wds-icons-alert-small'
+		value=item.totalCount
+	}}
+	{{discussion-user-activity-value
+		class='verified'
+		iconClass='wds-icon wds-icon-small checkmark'
+		iconName='wds-icons-checkmark-small'
+		value=item.actionBreakdown.validated
+	}}
+	{{discussion-user-activity-value
+		class='deleted'
+		iconClass='trash'
+		iconName='trash-small'
+		value=item.actionBreakdown.deleted
+	}}
+	{{discussion-user-activity-value
+		class='queued'
+		description=(i18n 'user-activity.not-processed' ns='discussion')
+		value=item.actionBreakdown.queued
+	}}
+{{/discussion-user-activity-list}}

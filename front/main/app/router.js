@@ -105,6 +105,18 @@ Router.map(function () {
 		this.route('guidelines', {
 			path: '/g'
 		});
+
+		this.route('moderator', {
+			path: 'm'
+		}, function () {
+			this.route('user-activity', {
+				path: '/insights'
+			}, function () {
+				this.route('posts');
+				this.route('reports');
+				this.route('moderations');
+			});
+		});
 	});
 
 
