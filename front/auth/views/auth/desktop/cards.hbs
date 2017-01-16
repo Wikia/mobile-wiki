@@ -1,0 +1,31 @@
+<nav class="auth-nav">
+	<a class="back" href="{{exitTo}}">{{i18n 'auth:common.to-wiki-link-text'}}</a>
+</nav>
+<div class="cards-container">
+	<div class="card first-card">
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n firstCard.headerText}}</h1>
+			{{#if firstCard.headerHref}}
+				<a href="{{{firstCard.headerHref}}}" class="header-callout-link">
+					{{i18n firstCard.headerCallout}} <span class="header-callout-emphasis">{{i18n firstCard.headerCalloutLink}}</span>
+				</a>
+			{{/if}}
+		</header>
+		<div class="desktop-view">
+			<section class="auth-content auth-content-wide">
+				{{> (firstCardPartial) }}
+			</section>
+		</div>
+	</div>
+	<div class="card second-card">
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n secondCard.headerText}}</h1>
+			<a href="" class="header-callout-link"></a>
+		</header>
+		<div class="desktop-view">
+			<section class="auth-content auth-content-wide">
+				{{> (secondCardPartial) }}
+			</section>
+		</div>
+	</div>
+</div>

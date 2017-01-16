@@ -31,7 +31,7 @@ module.exports = {
 		},
 		views: {
 			src: 'front/auth/views/' + hbsPattern,
-			index: 'front/auth/views/_layouts/auth.hbs',
+			index: 'front/auth/views/_layouts/*.hbs',
 		},
 	},
 	common: {
