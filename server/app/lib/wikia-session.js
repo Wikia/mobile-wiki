@@ -3,6 +3,7 @@ import Wreck from 'wreck';
 import settings from '../../config/settings';
 import Logger from './logger';
 import {getHeliosInternalUrl} from './auth-utils';
+import uuid from 'uuid';
 
 /**
  * @returns {Object}
@@ -61,7 +62,8 @@ export default function scheme() {
 				{
 					headers: {
 						'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
-						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
+						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress,
+						'X-Trace-Id': request.headers['x-trace-id'] || uuid.v4()
 					},
 					timeout: settings.helios.timeout
 				},

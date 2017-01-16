@@ -1,6 +1,7 @@
 import Logger from '../../lib/logger';
 import Promise from 'bluebird';
 import settings from '../../../config/settings';
+import uuid from 'uuid';
 import Wreck from 'wreck';
 
 function getUserRegistrationServiceUrlFrom(services) {
@@ -16,7 +17,8 @@ function createUserRegistrationContext(services, data, request) {
 			headers: {
 				'X-Wikia-Internal-Request': 1,
 				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
-				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
+				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress,
+				'X-Trace-Id': request.headers['x-trace-id'] || uuid.v4()
 			},
 			timeout: settings.userRegistationService.timeout
 		}
