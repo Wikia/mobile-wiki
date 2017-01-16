@@ -30,21 +30,24 @@ function getImageSources() {
 		});
 }
 
-function getBatch(status, order, source) {
-	return rawRequest(M.getImageReviewServiceUrl('/batch', {status, order, source}), {method: 'POST'})
-		.then(({payload, jqXHR}) => {
-			if (jqXHR.status === 204) {
-				return {
-					imageList: []
-				};
-			} else {
-				return request(M.getImageReviewServiceUrl(`/batch/${payload.id}`));
-			}
-		}).then(({batchId, imageList}) => {
+function toReviewStatus(imageStatus) {
+	if (imageStatus === 'UNREVIEWED') {
+		return 'accepted';
+	} else {
+		return imageStatus.toLowerCase();
+	}
+}
+
+function getBatch(batchId) {
+	if (batchId === 'no-more-images') {
+		return {
+			images: []
+		};
+	}
+	return request(M.getImageReviewServiceUrl(`/batch/${batchId}`))
+		.then(({batchId, imageList}) => {
 			const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 			const images = imageList
-				.filter((image) =>
-					['UNREVIEWED', 'QUESTIONABLE', 'REJECTED'].indexOf(image.currentStatus) !== -1)
 				.map((image) =>
 					Ember.Object.create({
 						batchId,
@@ -54,7 +57,7 @@ function getBatch(status, order, source) {
 						source: image.source,
 						isContextProvided: Boolean(image.context),
 						isContextLink: linkRegexp.test(image.context),
-						status: status === 'REJECTED' ? 'rejected' : 'accepted'
+						status: toReviewStatus(image.currentStatus)
 					}));
 
 			return {
@@ -66,11 +69,22 @@ function getBatch(status, order, source) {
 
 ImageReviewModel.reopenClass({
 
-	startSession(status, order, source) {
+	reserveNewBatch(status, order, source) {
+		return rawRequest(M.getImageReviewServiceUrl('/batch', {status, order, source}), {method: 'POST'})
+			.then(({payload, jqXHR}) => {
+				if (jqXHR.status === 204) {
+					return 'no-more-images';
+				} else {
+					return payload.id;
+				}
+			});
+	},
+
+	getBatch(batchId, status) {
 		return Ember.RSVP.all([
 			getUserPermissions(),
 			getImageSources(),
-			getBatch(status, order, source)
+			getBatch(batchId)
 		]).then(([permissions, sources, batch]) =>
 			ImageReviewModel.create(Ember.assign(permissions, sources, batch, {status})));
 	},
@@ -91,7 +105,6 @@ ImageReviewModel.reopenClass({
 			data: JSON.stringify({images: imageList})
 		});
 	},
-
 
 });
 

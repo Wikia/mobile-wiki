@@ -89,11 +89,6 @@ let routes,
 			method: 'POST',
 			path: '/article-preview',
 			handler: articlePreview
-		},
-		{
-			method: 'GET',
-			path: '/logout',
-			handler: logoutHandler
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -209,7 +204,20 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/logout',
+			handler: logoutHandler
+		},
+		{
+			method: 'GET',
 			path: '/image-review',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/image-review/batch/{batchId*}',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig

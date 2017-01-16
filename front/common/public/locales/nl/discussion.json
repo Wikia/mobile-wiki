@@ -30,6 +30,7 @@
     "sort-by-trending":"Trending",
     "last-edited-by":"(edited by __userName__)",
     "last-edited-by-administrators":"(edited by administrators)",
+    "deleted-by":"Deleted by __userName__",
     "loading-more-posts":"Meer berichten aan het laden",
     "load-more-posts-button":"Meer laden",
     "load-previous-posts-button":"To the top",
@@ -143,7 +144,10 @@
     "tab-following":"Following",
     "no-followed-posts-header":"Welcome to your Following tab.",
     "no-followed-posts-text":"Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
-    "find-posts-to-follow":"Find posts to follow"
+    "find-posts-to-follow":"Find posts to follow",
+    "reported-content":"Reported Content",
+    "user-activity":"Discussions Insights",
+    "moderator-tools":"Moderator Tools"
   },
   "user-activity":{
     "active-users-toggle-option":"Active Users",
@@ -160,7 +164,8 @@
     "posts":"posts",
     "not-processed":"not processed",
     "actions":"actions",
-    "hero-unit-subtitle":"User Activity"
+    "hero-unit-subtitle":"Discussions Insights",
+    "no-activity-yet":"No activity yet."
   },
   "editor":{
     "post-failed-error":"Post failed.",

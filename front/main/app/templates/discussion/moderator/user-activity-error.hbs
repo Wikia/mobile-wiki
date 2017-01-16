@@ -1,0 +1,12 @@
+{{#discussion-user-activity-layout
+		attributes=model.index.attributes.data
+		hasContentError=true
+		model=model.current.data
+		uploadCommunityBadge=(action 'uploadCommunityBadge')
+		uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
+}}
+
+	{{discussion-error
+		error=model.error
+	}}
+{{/discussion-user-activity-layout}}

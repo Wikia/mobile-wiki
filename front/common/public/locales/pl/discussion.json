@@ -30,6 +30,7 @@
     "sort-by-trending":"Popularne",
     "last-edited-by":"(edytowane przez __userName__)",
     "last-edited-by-administrators":"(edytowane przez administrację)",
+    "deleted-by":"Usunięty przez __userName__",
     "loading-more-posts":"Ładuję więcej postów",
     "load-more-posts-button":"Załaduj więcej",
     "load-previous-posts-button":"Do góry",
@@ -143,12 +144,15 @@
     "tab-following":"Obserwowane",
     "no-followed-posts-header":"Witaj na karcie Obserwowane.",
     "no-followed-posts-text":"Kliknij przycisk „Obserwuj” znajdujący się pod postem, żeby wypełnić listę dyskusjami, które najbardziej cię interesują. Umieścimy je tutaj i będziemy informować cię o aktywności w nich.",
-    "find-posts-to-follow":"Znajdź posty do obserwowania"
+    "find-posts-to-follow":"Znajdź posty do obserwowania",
+    "reported-content":"Zgłoszone treści",
+    "user-activity":"Podsumowanie Dyskusji",
+    "moderator-tools":"Narzędzia dla moderatorów"
   },
   "user-activity":{
-    "active-users-toggle-option":"Aktywni użytkownicy",
+    "active-users-toggle-option":"Aktywni<br>użytkownicy",
     "reports-toggle-option":"Zgłoszenia",
-    "moderator-actions-toggle-option":"Aktywność moderatorów",
+    "moderator-actions-toggle-option":"Aktywność<br>moderatorów",
     "days-count":"__numberOfDays__ dni",
     "glossary-header":"Słowniczek",
     "active-users-headline":"Aktywni użytkownicy",
@@ -160,7 +164,8 @@
     "posts":"posty",
     "not-processed":"niesprawdzone",
     "actions":"działania",
-    "hero-unit-subtitle":"Aktywność użytkowników"
+    "hero-unit-subtitle":"Podusmowanie",
+    "no-activity-yet":"Jeszcze nie ma żadnej aktywności."
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
