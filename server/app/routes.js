@@ -87,11 +87,6 @@ let routes,
 			method: 'POST',
 			path: '/article-preview',
 			handler: articlePreview
-		},
-		{
-			method: 'GET',
-			path: '/logout',
-			handler: logoutHandler
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -156,6 +151,11 @@ let routes,
 			handler(request, reply) {
 				return reply.redirect(getRedirectUrlWithQueryString('register', request));
 			}
+		},
+		{
+			method: 'GET',
+			path: '/logout',
+			handler: logoutHandler
 		},
 		{
 			method: 'GET',
