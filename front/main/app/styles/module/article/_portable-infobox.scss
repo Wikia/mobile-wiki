@@ -350,12 +350,9 @@ $group-header-font-size: 16px;
 			}
 		}
 
-		.pi-smart-group-body {
-			display: flex;
-		}
-
-		.pi-smart-group-head {
-			align-items: flex-start;
+		.pi-smart-group-head,
+		.pi-smart-group-body
+		{
 			display: flex;
 		}
 
