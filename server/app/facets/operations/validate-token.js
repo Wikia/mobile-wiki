@@ -2,7 +2,7 @@ import * as authUtils from '../../lib/auth-utils';
 import Logger from '../../lib/logger';
 import Promise from 'bluebird';
 import settings from '../../../config/settings';
-import uuid from 'uuid';
+import uuid from 'node-uuid';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
 

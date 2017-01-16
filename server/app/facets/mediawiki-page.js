@@ -22,7 +22,7 @@ import getStatusCode from './operations/get-status-code';
 import settings from '../../config/settings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
-import prepareMainPageData from './operations/prepare-main-page-data';
+import prepareCuratedMainPageData from './operations/prepare-curated-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
@@ -136,7 +136,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (isMainPage && pageData.mainPageData) {
-		result = deepExtend(result, prepareMainPageData(data));
+		result = deepExtend(result, prepareCuratedMainPageData(data));
+
+		viewName = 'curated-main-page';
 	}
 
 	result.globalFooter = data.globalFooter;

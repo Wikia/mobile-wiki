@@ -1,0 +1,12 @@
+{{! Keep the same HTML structure as in front/main/app/templates/components/featured-content.hbs }}
+<div class="featured-content mw-content">
+	<a href="{{featuredArticle.article_local_url}}" class="featured-content-item">
+		<figure>
+			<img src="{{{featuredArticle.thumb_url}}}"
+				 alt="{{featuredArticle.label}}">
+			<figcaption>
+				<div class="clamp">{{truncate featuredArticle.label 48}}</div>
+			</figcaption>
+		</figure>
+	</a>
+</div>

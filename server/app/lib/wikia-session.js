@@ -3,7 +3,7 @@ import Wreck from 'wreck';
 import settings from '../../config/settings';
 import Logger from './logger';
 import {getHeliosInternalUrl} from './auth-utils';
-import uuid from 'uuid';
+import uuid from 'node-uuid';
 
 /**
  * @returns {Object}
