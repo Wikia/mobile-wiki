@@ -6,7 +6,8 @@ const authLocaleSettings = {
 	en: {
 		urls: {
 			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
-			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy',
+			contactFandomLinkUrl: 'http://community.wikia.com/wiki/Special:Contact/account-issue'
 		},
 		date: {
 			endian: 'middle',
@@ -26,7 +27,8 @@ authLocaleSettings['de'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://de.wikia.com/Nutzungsbedingungen',
-			privacyPolicyLinkUrl: 'http://de.wikia.com/Datenschutz'
+			privacyPolicyLinkUrl: 'http://de.wikia.com/Datenschutz',
+			contactFandomLinkUrl: 'http://de.community.wikia.com/wiki/Spezial:Kontakt/account-issue'
 		},
 		date: {
 			endian: 'little',
@@ -111,7 +113,8 @@ authLocaleSettings['es'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
-			privacyPolicyLinkUrl: 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad'
+			privacyPolicyLinkUrl: 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad',
+			contactFandomLinkUrl: 'http://comunidad.wikia.com/wiki/Especial:Contactar/account-issue'
 		},
 		date: {
 			endian: 'Segundo nombre',
@@ -131,7 +134,8 @@ authLocaleSettings['es-es'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
-			privacyPolicyLinkUrl: 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad'
+			privacyPolicyLinkUrl: 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad',
+			contactFandomLinkUrl: 'http://comunidad.wikia.com/wiki/Especial:Contactar/account-issue'
 		},
 		date: {
 			endian: 'little',
@@ -168,7 +172,8 @@ authLocaleSettings['fr'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://fr.wikia.com/Conditions_d%27utilisation',
-			privacyPolicyLinkUrl: 'http://fr.wikia.com/Politique_de_confidentialit%C3%A9'
+			privacyPolicyLinkUrl: 'http://fr.wikia.com/Politique_de_confidentialit%C3%A9',
+			contactFandomLinkUrl: 'http://communaute.wikia.com/wiki/Sp%C3%A9cial:Contact/account-issue'
 		},
 		date: {
 			endian: 'little',
@@ -188,7 +193,8 @@ authLocaleSettings['it'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://it.community.wikia.com/wiki/Wiki_della_Community:Termini_di_utilizzo',
-			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy',
+			contactFandomLinkUrl: 'http://it.community.wikia.com/wiki/Speciale:Contatta'
 		},
 		date: {
 			endian: 'little',
@@ -209,7 +215,9 @@ authLocaleSettings['ja'] = deepExtend(
 		urls: {
 			termsOfUseLinkUrl: 'http://ja.wikia.com/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84',
 			privacyPolicyLinkUrl: 'http://ja.wikia.com/' +
-				'%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%BB%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC'
+				'%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%BB%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC',
+			contactFandomLinkUrl: 'http://ja.community.wikia.com/wiki/' +
+				'%E7%89%B9%E5%88%A5:%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B/account-issue'
 		},
 		date: {
 			endian: 'big',
@@ -263,7 +271,8 @@ authLocaleSettings['pl'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://pl.wikia.com/Zasady_U%C5%BCytkowania',
-			privacyPolicyLinkUrl: 'http://pl.wikia.com/Polityka_Prywatno%C5%9Bci'
+			privacyPolicyLinkUrl: 'http://pl.wikia.com/Polityka_Prywatno%C5%9Bci',
+			contactFandomLinkUrl: 'http://spolecznosc.wikia.com/wiki/Specjalna:Kontakt/account-issue'
 		},
 		date: {
 			endian: 'little',
@@ -283,7 +292,8 @@ authLocaleSettings['pt-br'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://pt-br.wikia.com/wiki/Termos_de_Uso',
-			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy',
+			contactFandomLinkUrl: 'http://comunidade.wikia.com/wiki/Especial:Contact'
 		},
 		date: {
 			endian: 'little',
@@ -303,7 +313,8 @@ authLocaleSettings['pt-pt'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://pt-br.wikia.com/wiki/Termos_de_Uso',
-			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy',
+			contactFandomLinkUrl: 'http://comunidade.wikia.com/wiki/Especial:Contact'
 		},
 		date: {
 			endian: 'middle',
@@ -329,7 +340,9 @@ authLocaleSettings['ru'] = deepExtend(
 			'_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F',
 			privacyPolicyLinkUrl: 'http://ru.community.wikia.com/wiki/' +
 			'%D0%92%D0%B8%D0%BA%D0%B8%D1%8F:%D0%9A%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%' +
-			'D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C'
+			'D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C',
+			contactFandomLinkUrl: 'http://ru.community.wikia.com/wiki/' +
+				'%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Contact/account-issue'
 		},
 		date: {
 			endian: 'little',
@@ -383,7 +396,8 @@ authLocaleSettings['zh'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://zh-tw.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE',
-			privacyPolicyLinkUrl: 'http://zh-tw.wikia.com/wiki/%E9%9A%B1%E7%A7%81%E6%AC%8A%E6%96%B9%E9%87%9D'
+			privacyPolicyLinkUrl: 'http://zh-tw.wikia.com/wiki/%E9%9A%B1%E7%A7%81%E6%AC%8A%E6%96%B9%E9%87%9D',
+			contactFandomLinkUrl: 'http://community.wikia.com/wiki/Special:Contact/account-issue?uselang=zh-tw'
 		},
 		date: {
 			endian: 'big',
@@ -403,7 +417,8 @@ authLocaleSettings['zh-hans'] = deepExtend(
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://zh.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BE',
-			privacyPolicyLinkUrl: 'http://zh.wikia.com/wiki/%E9%9A%90%E7%A7%81%E6%9D%83%E6%96%B9%E9%92%88'
+			privacyPolicyLinkUrl: 'http://zh.wikia.com/wiki/%E9%9A%90%E7%A7%81%E6%9D%83%E6%96%B9%E9%92%88',
+			contactFandomLinkUrl: 'http://zh.community.wikia.com/wiki/Special:Contact/account-issue'
 		},
 		date: {
 			endian: '中间名',

@@ -1,20 +1,25 @@
 {
   "errors":{
-    "email_already_exists":"Diese E-Mail-Adresse ist bereits bei Fandom registriert",
-    "email_invalid":"Die E-Mail-Adresse ist ungültig",
-    "registration_error":"Wir können deine Registrierung zu diesem Zeitpunkt nicht abschließen",
+    "email_already_exists":"Diese E-Mail-Adresse ist bereits bei Fandom registriert.",
+    "email_invalid":"Die E-Mail-Adresse ist ungültig.",
+    "invalid-email":"Es scheint keine E-Mail-Adresse mit deinem Fandom-Konto verbunden zu sein. __contactFandomLink__",
+    "registration_error":"Wir können deine Registrierung zu diesem Zeitpunkt nicht abschließen.",
     "username_already_exists":"Dieser Benutzername ist bereits vergeben",
+    "username_blocked":"Du kannst kein neues Passwort beantragen, weil dein Benutzername gesperrt wurde.",
     "username_unavailable":"Dieser Benutzername ist bereits vergeben oder enthält ungültige Zeichen. Ein Benutzername kann Buchstaben und Zahlen eines einzigen Alphabets enthalten und muss einen Buchstaben enthalten.",
     "username_ip_address":"Der Benutzername muss mindestens einen Buchstaben enthalten.",
     "username_exceeds_max_length":"Der Benutzername darf nicht mehr als 50 Zeichen beinhalten.",
     "username_illegal_characters":"Der Benutzername kann nur Buchstaben und Zahlen eines einzigen Alphabets enthalten und muss einen Buchstaben enthalten.",
+    "username-not-recognized":"Dieser Benutzername scheint nicht zu existieren. Beachte bei der Eingabe des Benutzernamens die Groß-\/Kleinschreibung.",
     "password_exceeds_max_length":"Das Passwort darf nicht mehr als 50 Zeichen beinhalten.",
     "password_equal_name":"Das Passwort und der Benutzername dürfen nicht übereinstimmen.",
-    "user_already_linked":"Dieses Fandom-Konto ist bereits mit Facebook verknüpft",
-    "fb_account_already_linked":"Dieses Facebook-Konto ist bereits mit dem Fandom-Konto eines anderen Benutzers verknüpft",
+    "passwords_not_match":"Passwörter stimmen nicht überein",
+    "reset-password-email-sent":"Wir haben dir in den letzten 24 Stunden bereits eine Passwort-Erinnerung geschickt. Bitte überprüfe dein E-Mail-Postfach.",
+    "user_already_linked":"Dieses Fandom-Konto ist bereits mit Facebook verknüpft.",
+    "fb_account_already_linked":"Dieses Facebook-Konto ist bereits mit dem Fandom-Konto eines anderen Benutzers verknüpft.",
     "birthdate_invalid":"Das Geburtsdatum ist kein gültiges Datum.",
     "wrong-credentials":"Diese Anmeldedaten sind uns leider nicht bekannt. Versuche es noch einmal oder richte ein neues Benutzerkonto ein.",
-    "server-error":"Bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
+    "server-error":"Bei der Bearbeitung deiner Anfrage ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
   },
   "labels":{
     "terms-of-use-and-privacy-policy-text":"Ich stimme den __termsOfUseLink__ und der __privacyPolicyLink__ zu (erforderlich)"
