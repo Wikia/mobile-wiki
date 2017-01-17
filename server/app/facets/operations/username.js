@@ -14,7 +14,9 @@ function createUserRegistrationContext(services, data, request) {
 	return {
 		url: `http://${getUserRegistrationServiceUrlFrom(services)}/users?username=${data.username}`,
 		options: {
-			headers: getInternalHeaders(request, {'X-Wikia-Internal-Request': 'mercury'}),
+			headers: getInternalHeaders(request, {
+				'X-Wikia-Internal-Request': 'mercury'
+			}),
 			timeout: settings.userRegistationService.timeout
 		}
 	};
