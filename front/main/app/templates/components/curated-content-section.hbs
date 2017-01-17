@@ -1,6 +1,9 @@
 {{! Keep the same HTML structure as in server/app/views/_partials/curated-main-page/curated-content.hbs }}
 {{#if model.items}}
-	{{#if model.label}}<h2>{{model.label}}</h2>{{/if}}
+	{{#if model.label}}
+		<button {{action closeSection}}>RIGHT ARROW</button>
+		<h2>{{model.label}}</h2>
+	{{/if}}
 	<div class="curated-content-items">
 		{{#each model.items as |item index|}}
 			{{curated-content-item

@@ -12,6 +12,10 @@ export default Ember.Component.extend({
 		openSection(item) {
 			this.set('activeLabel', item.label);
 			// TODO scroll up, maybe?
+		},
+
+		closeSection() {
+			this.set('activeLabel', null);
 		}
 	}
 });
