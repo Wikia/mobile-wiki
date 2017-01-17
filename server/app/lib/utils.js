@@ -6,7 +6,9 @@ import {applyToDefaults, escapeHtml} from 'hoek';
 import {parse} from 'url';
 import {stringify} from 'querystring';
 import {RedirectedToCanonicalHost} from './custom-errors';
+import deepExtend from 'deep-extend';
 import Promise from 'bluebird';
+import uuid from 'node-uuid';
 
 /**
  * @typedef {Object} ServerData
@@ -341,4 +343,22 @@ export function setI18nLang(request, wikiVariables) {
 	} else {
 		return Promise.resolve();
 	}
+}
+
+/**
+ * Produces Headers needed for internal debugging purposes
+ * @param {Hapi.Request} request
+ * @param {Object} customHeaders
+ * @returns {Object}
+ */
+export function getInternalHeaders(request, customHeaders = {}) {
+	return deepExtend(
+		{},
+		{
+			'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+			'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress,
+			'X-Trace-Id': request.headers['x-trace-id'] || uuid.v4()
+		},
+		customHeaders
+	);
 }
