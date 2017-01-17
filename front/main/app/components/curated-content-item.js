@@ -62,7 +62,7 @@ export default Ember.Component.extend(
 			});
 
 			if (itemType && itemType === 'section') {
-				this.sendAction('openCuratedContentItem', this.get('model'));
+				this.get('openSection')(this.get('model'));
 				return false;
 			}
 		}

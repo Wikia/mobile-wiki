@@ -18,10 +18,6 @@ Router.map(function () {
 
 	this.route('infobox-builder');
 
-	this.route('mainPageSection', {
-		path: '/main/section/:sectionName'
-	});
-
 	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {

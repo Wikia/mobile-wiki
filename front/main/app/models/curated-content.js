@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
+
+const {Object: EmberObject, isArray, isEmpty} = Ember;
 
 /**
  * @typedef {Object} CuratedContentItem
@@ -25,96 +26,13 @@ import request from 'ember-ajax/request';
  * @property {number} height
  */
 
-/**
- * @param {string} title
- * @param {string} type
- * @param {string} offset
- * @returns {string}
- */
-function getURL(title, type, offset) {
-	if (type === 'section') {
-		return M.buildUrl({
-			path: '/wikia.php',
-			query: {
-				controller: 'MercuryApi',
-				method: 'getCuratedContentSection',
-				section: decodeURIComponent(title)
-			}
-		});
-	} else if (type === 'category') {
-		const query = {
-			controller: 'ArticlesApi',
-			method: 'getList',
-			expand: 'true',
-			abstract: 0,
-			width: 300,
-			height: 300,
-			category: decodeURIComponent(title),
-			limit: 24
-		};
-
-		if (offset) {
-			query.offset = offset;
-		}
-
-		return M.buildUrl({
-			path: '/wikia.php',
-			query
-		});
-	}
-}
-
-const CuratedContentModel = Ember.Object.extend({
+const CuratedContentModel = EmberObject.extend({
 	title: null,
 	type: null,
-	items: [],
-	offset: null
+	items: []
 });
 
 CuratedContentModel.reopenClass({
-	/**
-	 * @param {string} title
-	 * @param {string} [type='section']
-	 * @param {string} [offset='']
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	find(title, type = 'section', offset = '') {
-		const modelInstance = CuratedContentModel.create({
-				title,
-				type
-			}),
-			url = getURL(title, type, offset);
-
-		return request(url)
-			.then((data) => {
-				modelInstance.setProperties({
-					items: CuratedContentModel.sanitizeItems(data.items),
-					offset: data.offset || null
-				});
-
-				return modelInstance;
-			});
-	},
-
-	/**
-	 * @param {CuratedContentModel} model
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	loadMore(model) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			// Category type is hardcoded because only Categories API supports offset.
-			const newModelPromise = CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
-
-			newModelPromise
-				.then((newModel) => {
-					model.items.pushObjects(newModel.items);
-					model.set('offset', newModel.offset);
-					resolve(model);
-				})
-				.catch(reject);
-		});
-	},
-
 	/**
 	 * @param {*} rawData
 	 * @returns {CuratedContentItem[]}
@@ -122,7 +40,7 @@ CuratedContentModel.reopenClass({
 	sanitizeItems(rawData) {
 		let sanitizedItems = [];
 
-		if (Ember.isArray(rawData)) {
+		if (isArray(rawData)) {
 			sanitizedItems = rawData.map((item) => {
 				return this.sanitizeItem(item);
 			});
@@ -136,25 +54,21 @@ CuratedContentModel.reopenClass({
 	 * @returns {CuratedContentItem}
 	 */
 	sanitizeItem(rawData) {
-		let item,
-			url;
+		let item;
 
 		if (rawData.type === 'section') {
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'section',
-				url: `/main/section/${rawData.title}`
+				items: CuratedContentModel.sanitizeItems(rawData.items)
 			};
 		} else if (rawData.type === 'category') {
-			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
-			url = rawData.url ? rawData.url : rawData.article_local_url;
-
 			item = {
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
-				url,
+				url: rawData.article_local_url,
 			};
 		} else {
 			item = {
@@ -165,7 +79,7 @@ CuratedContentModel.reopenClass({
 			};
 
 			// ArticlesApi doesn't return type for blog posts so we need to look at the namespace
-			if (Ember.isEmpty(rawData.type) && rawData.ns === 500) {
+			if (isEmpty(rawData.type) && rawData.ns === 500) {
 				item.type = 'blog';
 			}
 		}
