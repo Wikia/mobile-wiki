@@ -1,0 +1,11 @@
+<h3>{{i18n 'app.file-usages-header'}}</h3>
+<ul>
+{{#each fileUsages as |article|}}
+	<li>
+		<a href="{{article.url}}">{{article.title}}</a>
+		{{article.snippet}}
+	</li>
+{{/each}}
+</ul>
+<a href="{{seeMoreUrl}}">{{i18n 'app.file-usages-see-more-link-label'}}</a>
+
