@@ -26,7 +26,6 @@ function afterModel(route, model) {
 
 	route.controllerFor('main-page').setProperties({
 		adsContext: model.get('adsContext'),
-		isRoot: true,
 		ns: model.get('ns'),
 		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 	});
