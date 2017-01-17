@@ -1,0 +1,14 @@
+<nav class="collapsible-menu">
+	<div class="collapsed title">
+		{{i18n 'app.article-categories-list-label'}}
+	</div>
+	<ul>
+		{{#each categories as |category|}}
+			<li class="mw-content">
+				<a href="{{category.url}}" title="{{category.title}}">
+					{{category.title}}
+				</a>
+			</li>
+		{{/each}}
+	</ul>
+</nav>
