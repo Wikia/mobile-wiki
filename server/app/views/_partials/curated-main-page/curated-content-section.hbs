@@ -1,7 +1,11 @@
 {{! Keep the same HTML structure as in front/main/app/templates/components/curated-content-section.hbs }}
 <div{{#unless isVisible}} style="display: none"{{/unless}}>
 	{{#if model.items}}
-		{{#if model.label}}<h2>{{model.label}}</h2>{{/if}}
+		{{#if model.label}}
+			<div class="curated-content-section__header">
+				<h2>{{model.label}}</h2>
+			</div>
+		{{/if}}
 		<div class="curated-content-items">
 			{{#each model.items as |item|}}
 				{{> curated-main-page/curated-content-item model=item}}
