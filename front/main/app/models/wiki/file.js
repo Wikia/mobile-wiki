@@ -60,7 +60,7 @@ FileModel.reopenClass({
 		} else if (data) {
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
-				articleType: get(data, 'articleType'),
+				articleType: get(data, 'file'),
 				description: get(data, 'details.description'),
 				title: get(data, 'details.title'),
 				id: get(data, 'details.id'),
@@ -71,6 +71,7 @@ FileModel.reopenClass({
 				url: get(data, 'details.url'),
 				heroImage: {
 					url: get(data, 'details.thumbnail'),
+					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),
 					height: get(data, 'details.original_dimensions.height'),
 					itemContext: 'file',
@@ -106,7 +107,6 @@ FileModel.reopenClass({
 				pageProperties.otherLanguages = data.otherLanguages;
 			}
 
-			// TODO
 			if (data.adsContext) {
 				pageProperties.adsContext = data.adsContext;
 
@@ -115,7 +115,7 @@ FileModel.reopenClass({
 				}
 			}
 
-			// Display title is used in header in templates/category.hbs
+			// Display title is used in header
 			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
 			pageProperties.documentTitle = prefix + pageProperties.displayTitle;
 		}
