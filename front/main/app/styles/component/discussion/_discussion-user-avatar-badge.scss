@@ -28,6 +28,7 @@ $post-reply-with-label-user-avatar-badge-top: 38px;
 }
 
 .post-detail {
+    &.is-deleted,
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
