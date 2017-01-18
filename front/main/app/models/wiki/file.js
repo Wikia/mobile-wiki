@@ -19,10 +19,12 @@ const {Object, get} = Ember,
 		name: '',
 		ns: null,
 		otherLanguages: null,
-		sections: null,
 		// set when creating model instance
 		title: '',
 		url: '',
+		heroImage: null,
+		fileUsageList: null,
+		fileUsageListSeeMoreUrl: null,
 		user: null,
 		// set when creating model instance
 		wiki: null,
@@ -36,6 +38,7 @@ const {Object, get} = Ember,
 			this.media = [];
 			this.mediaUsers = [];
 			this.otherLanguages = [];
+			this.fileUsageList = [];
 		}
 	});
 
@@ -46,6 +49,7 @@ FileModel.reopenClass({
 	 * @returns {void}
 	 */
 	setFile(model, pageData) {
+		// TODO extract code that is shared between file, category and article
 		const exception = pageData.exception,
 			data = pageData.data,
 			prefix = `${Mercury.wiki.namespaces[get(data, 'ns')]}:`;
