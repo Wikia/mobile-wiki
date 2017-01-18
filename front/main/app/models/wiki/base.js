@@ -31,7 +31,7 @@ BaseModel.reopenClass({
 	setData(model, pageData) {
 		const exception = pageData.exception,
 			data = pageData.data,
-			prefix = `${Mercury.wiki.namespaces[get(data, 'ns')]}:`;
+			prefix = Mercury.wiki.namespaces[get(data, 'ns')] ? `${Mercury.wiki.namespaces[get(data, 'ns')]}:` : '';
 
 		let pageProperties, article;
 
