@@ -1,14 +1,17 @@
+$file-usage-vertical-padding: 18px;
+$file-usage-horizontal-padding: 12px;
+
 .file-usage {
 	.file-usage__header {
-		padding: 0 18px;
+		padding: 0 $file-usage-vertical-padding;
 	}
 
 	.file-usage__list {
-		padding-top: 10px;
+		padding-top: $file-usage-horizontal-padding;
 	}
 
 	.file-usage__more {
 		background-color: $vapor;
-		padding: 2px 18px 12px;
+		padding: 0 $file-usage-vertical-padding $file-usage-horizontal-padding;
 	}
 }
