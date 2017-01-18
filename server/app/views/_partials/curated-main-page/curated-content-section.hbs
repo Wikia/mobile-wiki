@@ -1,0 +1,13 @@
+{{! Keep the same HTML structure as in front/main/app/templates/components/curated-content-section.hbs }}
+<div{{#unless isVisible}} style="display: none"{{/unless}}>
+	{{#if model.items}}
+		{{#if model.label}}<h2>{{model.label}}</h2>{{/if}}
+		<div class="curated-content-items">
+			{{#each model.items as |item|}}
+				{{> curated-main-page/curated-content-item model=item}}
+			{{/each}}
+
+			{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
+		</div>
+	{{/if}}
+</div>

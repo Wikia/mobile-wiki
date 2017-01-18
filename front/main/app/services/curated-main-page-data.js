@@ -5,7 +5,7 @@ const {Service, computed} = Ember;
 export default Service.extend({
 	adsContext: computed({
 		get() {
-			return M.prop('mainPageData.adsContext');
+			return M.prop('curatedMainPageData.adsContext');
 		},
 		set(_, value) {
 			return value;
@@ -14,7 +14,7 @@ export default Service.extend({
 
 	ns: computed({
 		get() {
-			return M.prop('mainPageData.details.ns');
+			return M.prop('curatedMainPageData.details.ns');
 		},
 		set(_, value) {
 			return value;
@@ -23,22 +23,16 @@ export default Service.extend({
 
 	description: computed({
 		get() {
-			return M.prop('mainPageData.details.description');
+			return M.prop('curatedMainPageData.details.description');
 		},
 		set(_, value) {
 			return value;
 		}
 	}),
 
-	/**
-	 * mainPageData.details.id is set on sections and categories
-	 * articleId is set on MainPage
-	 * currently we need to support both cases
-	 * ideally there would be only one way to get this data
-	 */
 	id: computed({
 		get() {
-			return M.prop('mainPageData.details.id') || M.prop('articleId');
+			return M.prop('articleId');
 		},
 		set(_, value) {
 			return value;

@@ -24,12 +24,12 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
  * Get thumbs and labels for curated main page modules
  *
  * @see front/main/app/mixins/curated-content-thumbnail.js
- * @param {object} mainPageData
+ * @param {object} curatedMainPageData
  * @returns {object}
  */
-function prepareCuratedMainPageModules(mainPageData) {
-	if (mainPageData && mainPageData.featuredContent) {
-		mainPageData.featuredContent.forEach((item) => {
+function prepareCuratedMainPageModules(curatedMainPageData) {
+	if (curatedMainPageData && curatedMainPageData.featuredContent) {
+		curatedMainPageData.featuredContent.forEach((item) => {
 			item.thumb_url = getImageThumb(
 				item.image_url,
 				400,
@@ -40,24 +40,7 @@ function prepareCuratedMainPageModules(mainPageData) {
 		});
 	}
 
-	if (mainPageData && mainPageData.curatedContent) {
-		mainPageData.curatedContent.forEach((item) => {
-			item.url = item.url || item.article_local_url;
-			item.label = item.label || item.title;
-
-			if (item.image_url) {
-				item.thumb_url = getImageThumb(
-					item.image_url,
-					200,
-					200,
-					Vignette.mode.topCrop,
-					item.image_crop && item.image_crop.square
-				);
-			}
-		});
-	}
-
-	return mainPageData;
+	return curatedMainPageData;
 }
 /**
  * Prepare data for curated main pages
@@ -70,10 +53,9 @@ export default function prepareCuratedMainPageData(data) {
 		wikiVariables = data.wikiVariables,
 		result = {
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
-			mainPageData: {
+			curatedMainPageData: {
 				adsContext: pageData.adsContext
 			},
-			showSpinner: true,
 			articlePage: {
 				data: {}
 			}
@@ -85,11 +67,11 @@ export default function prepareCuratedMainPageData(data) {
 		}
 
 		if (pageData.details.ns) {
-			result.mainPageData.ns = pageData.details.ns;
+			result.curatedMainPageData.ns = pageData.details.ns;
 		}
 	}
 
-	result.articlePage.data.mainPageData = prepareCuratedMainPageModules(pageData.mainPageData);
+	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(pageData.curatedMainPageData);
 
 	return result;
 }

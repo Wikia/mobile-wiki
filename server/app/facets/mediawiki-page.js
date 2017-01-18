@@ -134,8 +134,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		return;
 	}
 
-	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (isMainPage && pageData.mainPageData) {
+	if (isMainPage && pageData.curatedMainPageData) {
 		result = deepExtend(result, prepareCuratedMainPageData(data));
 
 		viewName = 'curated-main-page';
@@ -150,7 +149,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	Tracking.handleResponse(result, request);
 
 	setI18nLang(request, result.wikiVariables).then(() => {
-		console.log(viewName);
 		response = reply.view(viewName, result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

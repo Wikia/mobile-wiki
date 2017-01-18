@@ -1,23 +1,15 @@
 {{! Keep the same HTML structure as in front/main/app/templates/components/curated-content.hbs }}
 <div class="curated-content mw-content">
-	<nav class="curated-content-items">
-		{{#each curatedContent as |curatedItem| }}
-			<a href="{{curatedItem.url}}" class="curated-content-item section">
-				<figure class="item-figure">
-					<div class="item-image">
-						<img src="{{#if curatedItem.thumb_url}}{{{curatedItem.thumb_url}}}{{else}}data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7{{/if}}"
-							 alt="{{curatedItem.label}}"
-						>
-					</div>
-					<figcaption class="item-figcaption">
-						<div class="item-caption-row">
-							<div class="item-caption label">
-								<div class="item-caption clamp">{{truncate curatedItem.label 48}}</div>
-							</div>
-						</div>
-					</figcaption>
-				</figure>
-			</a>
-		{{/each}}
-	</nav>
+	{{> curated-main-page/curated-content-section
+		isVisible=true
+		model=model
+	}}
+	{{#each model.items as |item|}}
+		{{#if (equal item.type 'section')}}
+			{{> curated-main-page/curated-content-section
+				isVisible=false
+				model=item
+			}}
+		{{/if}}
+	{{/each}}
 </div>

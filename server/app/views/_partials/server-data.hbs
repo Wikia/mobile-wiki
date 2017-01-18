@@ -39,8 +39,8 @@
 		M.prop('articleContentPreloadedInDOM', true, true);
 		M.provide('article', {{{json articlePage}}});
 	{{/if}}
-	{{#if mainPageData}}
-		M.prop('mainPageData', {{{json mainPageData}}});
+	{{#if curatedMainPageData}}
+		M.prop('curatedMainPageData', {{{json curatedMainPageData}}});
 	{{/if}}
 	{{#if exception}}
 		M.prop('exception', {{{json exception}}}, true);

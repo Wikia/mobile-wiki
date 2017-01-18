@@ -7,10 +7,10 @@ import CuratedContentModel from '../../models/curated-content';
  * @returns {Object}
  */
 function getCuratedContentModel(mainPageModel) {
-	if (mainPageModel.mainPageData.curatedContent) {
+	if (mainPageModel.curatedMainPageData.curatedContent) {
 		return CuratedContentModel.create({
 			type: 'section',
-			items: CuratedContentModel.sanitizeItems(mainPageModel.mainPageData.curatedContent)
+			items: mainPageModel.curatedMainPageData.curatedContent.items
 		});
 	}
 	return Ember.Object.create();
