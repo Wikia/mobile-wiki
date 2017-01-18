@@ -40,6 +40,7 @@
 	}}
 </section>
 {{yield}}
+{{! Keep the same server/app/views/_partials/article-footer/index.hbs }}
 <section class="article-footer">
 	{{wikia-users
 		users=model.topContributors
@@ -53,6 +54,7 @@
 		}}
 	{{/if}}
 	{{#if model.categories}}
+	{{! Keep the same server/app/views/_partials/article-footer/categories.hbs }}
 		{{#collapsible-menu
 			showMenuIcon=false
 			tLabel='app.article-categories-list-label'
