@@ -10,7 +10,9 @@ import logoutHandler from './facets/auth/logout';
 import articlePreview from './facets/article-preview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
+import * as forgotPasswordHandler from './facets/auth/forgot-password';
 import registerHandler from './facets/auth/register';
+import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
 import confirmEmailHandler from './facets/auth/confirm-email';
 import showApplication from './facets/show-application';
@@ -88,11 +90,6 @@ let routes,
 			method: 'POST',
 			path: '/article-preview',
 			handler: articlePreview
-		},
-		{
-			method: 'GET',
-			path: '/logout',
-			handler: logoutHandler
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -141,6 +138,54 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/forgot-password',
+			handler: forgotPasswordHandler.get,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'POST',
+			path: '/forgot-password',
+			handler: forgotPasswordHandler.post,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
+			path: '/reset-password',
+			handler: resetPasswordHandler.get,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'POST',
+			path: '/reset-password',
+			handler: resetPasswordHandler.post,
+			config: {
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
 			path: '/login',
 			/**
 			 * @param {Hapi.Request} request
@@ -165,7 +210,20 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/logout',
+			handler: logoutHandler
+		},
+		{
+			method: 'GET',
 			path: '/image-review',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/image-review/batch/{batchId*}',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
@@ -215,14 +273,6 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/section/{sectionName*}',
-			handler: showCuratedContent,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/main/category/{categoryName*}',
 			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig

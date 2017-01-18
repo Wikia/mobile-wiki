@@ -28,6 +28,7 @@ export default function get(request, reply) {
 	}
 	const wikiDomain = Utils.getCachedWikiDomainName(settings, request);
 
+
 	new MW.EmailConfirmationRequest({wikiDomain})
 		.confirmEmail(request)
 		.then((data) => {

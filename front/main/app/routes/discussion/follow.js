@@ -5,7 +5,6 @@ import DiscussionFollowedPostsModel from '../../models/discussion/follow';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
-import localStorageConnector from '../../utils/local-storage-connector';
 
 const {inject} = Ember;
 

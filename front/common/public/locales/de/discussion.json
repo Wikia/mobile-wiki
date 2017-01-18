@@ -30,6 +30,7 @@
     "sort-by-trending":"Trends",
     "last-edited-by":"(Von __userName__ bearbeitet)",
     "last-edited-by-administrators":"(Von Administratoren bearbeitet)",
+    "deleted-by":"Gelöscht durch __userName__",
     "loading-more-posts":"Mehr Beiträge laden",
     "load-more-posts-button":"Mehr anzeigen",
     "load-previous-posts-button":"Zum Seitenanfang",
@@ -143,7 +144,10 @@
     "tab-following":"Verfolgt",
     "no-followed-posts-header":"Willkommen auf dem Tab „Verfolgt“.",
     "no-followed-posts-text":"Klicke auf das Symbol „Folgen“ am Ende eines beliebigen Beitrags, um deine Liste mit den Diskussionen zu füllen, die dir am wichtigsten sind. Wir stellen sie hier ein und geben dir Bescheid, wenn es etwas Neues gibt.",
-    "find-posts-to-follow":"Finde Beiträge, denen du folgen möchtest"
+    "find-posts-to-follow":"Finde Beiträge, denen du folgen möchtest",
+    "reported-content":"Gemeldete Inhalte",
+    "user-activity":"Diskussionen Insights",
+    "moderator-tools":"Moderation"
   },
   "user-activity":{
     "active-users-toggle-option":"Aktive Benutzer",
@@ -154,13 +158,14 @@
     "active-users-headline":"Aktive Benutzer",
     "active-users-description":"Wer hat die meisten Beiträge veröffentlicht?",
     "reports-headline":"Meldungen",
-    "reports-description":"Wer hat die meisten Inhalte gemeldet und wurden diese Beiträge gelöscht, freigegeben oder noch nicht von einem Moderator bearbeitet?",
+    "reports-description":"Wer hat die meisten Inhalte gemeldet und wurden diese Beiträge gelöscht, genehmigt oder noch nicht von einem Moderator bearbeitet?",
     "moderator-actions-headline":"Moderationen",
-    "moderator-actions-description":"Welche Moderatoren haben die meisten Beiträge gelöscht, freigegeben, gesperrt oder am häufigsten die Kategorie eines Beitrags geändert?",
+    "moderator-actions-description":"Welche Moderatoren haben die meisten Beiträge gelöscht, genehmigt und gesperrt oder am häufigsten die Kategorie eines Beitrags geändert?",
     "posts":"Beiträge",
     "not-processed":"nicht bearbeitet",
     "actions":"Aktionen",
-    "hero-unit-subtitle":"Benutzeraktivität"
+    "hero-unit-subtitle":"Diskussionen Insights",
+    "no-activity-yet":"Es gibt noch nichts anzuzeigen."
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {addQueryParams} from '../../utils/url';
 
 const {Component, computed} = Ember;
 
@@ -14,13 +13,5 @@ export default Component.extend({
 
 		return classMap[this.get('model.title.key')] || '';
 	}),
-	href: computed('model.param-name', 'model.href', function () {
-		let url = this.get('model.href');
-
-		if (this.get('model.param-name') === 'redirect') {
-			url = addQueryParams(url, {redirect: window.location.href});
-		}
-
-		return url;
-	})
+	href: computed.alias('model.href')
 });

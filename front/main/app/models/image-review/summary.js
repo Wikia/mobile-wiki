@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import moment from 'moment';
 import request from 'ember-ajax/request';
-import ImageReviewItemModel from './image-review-item';
+import ImageReviewItemModel from './item';
 
 const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
@@ -78,7 +78,7 @@ ImageReviewSummaryModel.reopenClass({
 			method: 'GET',
 		}).then((payload) => {
 			return ImageReviewSummaryModel.create({
-				userCanAuditReviews: payload.userAllowedToAuditReviews,
+				userAllowedToAuditReviews: payload.userAllowedToAuditReviews,
 				startDate,
 				endDate,
 				csvLink,

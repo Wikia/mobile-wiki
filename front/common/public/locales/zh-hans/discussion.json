@@ -30,6 +30,7 @@
     "sort-by-trending":"热门浏览",
     "last-edited-by":"（__userName__对此内容重新编辑过）",
     "last-edited-by-administrators":"（管理员对此内容重新编辑过）",
+    "deleted-by":"由__userName__删除",
     "loading-more-posts":"下载更多帖子",
     "load-more-posts-button":"加载更多",
     "load-previous-posts-button":"回到顶部",
@@ -143,7 +144,10 @@
     "tab-following":"关注中",
     "no-followed-posts-header":"欢迎使用关注标签。",
     "no-followed-posts-text":"点击帖子底部的“关注”按钮关注你感兴趣的话题。你可以在这里查看全部关注的帖子。如有任何新的活动，你都会收到系统通知。",
-    "find-posts-to-follow":"查找需要关注的帖子"
+    "find-posts-to-follow":"查找需要关注的帖子",
+    "reported-content":"举报的内容",
+    "user-activity":"讨论版一览表",
+    "moderator-tools":"版主工具"
   },
   "user-activity":{
     "active-users-toggle-option":"活跃用户",
@@ -160,7 +164,8 @@
     "posts":"个帖子",
     "not-processed":"尚未处理",
     "actions":"操作",
-    "hero-unit-subtitle":"用户活动"
+    "hero-unit-subtitle":"讨论版一览表",
+    "no-activity-yet":"没有任何活动。"
   },
   "editor":{
     "post-failed-error":"发布失败",

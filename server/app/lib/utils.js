@@ -187,7 +187,7 @@ export function getWikiBaseUrlFromWikiDomain(settings, wikiDomain, wiki) {
 		case environments.staging:
 			return `${wiki}.wikia-staging.com`;
 		case environments.dev:
-			return `${wiki}.${settings.devboxDomain}.wikia-dev.com`;
+			return `${wiki}.${settings.devboxDomain}.wikia-dev.${settings.devDomain}`;
 		default:
 			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
 			return `${environmentPrefix}.${wiki}.wikia.com`;

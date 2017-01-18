@@ -22,7 +22,7 @@ import getStatusCode from './operations/get-status-code';
 import settings from '../../config/settings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
-import prepareMainPageData from './operations/prepare-main-page-data';
+import prepareCuratedMainPageData from './operations/prepare-curated-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
@@ -120,9 +120,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
 		if (pageData.article && pageData.details) {
-			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
+		viewName = 'article';
 		result = deepExtend(result, prepareCategoryData(request, data));
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
@@ -136,7 +136,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (isMainPage && pageData.mainPageData) {
-		result = deepExtend(result, prepareMainPageData(data));
+		result = deepExtend(result, prepareCuratedMainPageData(data));
+
+		viewName = 'curated-main-page';
 	}
 
 	result.globalFooter = data.globalFooter;
@@ -148,6 +150,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	Tracking.handleResponse(result, request);
 
 	setI18nLang(request, result.wikiVariables).then(() => {
+		console.log(viewName);
 		response = reply.view(viewName, result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

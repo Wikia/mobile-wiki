@@ -1,4 +1,35 @@
 .discussion-sort {
+	.wds-list {
+		padding: 2px 0;
+
+		.sort-option {
+			clear: left;
+			color: $discussion-filters-color;
+			width: 100%;
+
+			.sort-option-label {
+				display: flex;
+				font-size: $wds-typescale-size-base;
+				line-height: 1em;
+				margin-left: 0;
+
+				.radio-fancy {
+					@include discussion-radio-fancy(14px);
+					height: 18px;
+					margin: -1px 9px -1px 0;
+					width: 18px;
+
+					.inside {
+						border-color: $discussion-filters-bullet-active-border;
+						height: 16px;
+						width: 16px;
+					}
+				}
+			}
+		}
+	}
+
+
 	.sort-options {
 		list-style: none;
 		margin-left: 0;
@@ -10,7 +41,6 @@
 
 			.sort-option-label {
 				display: flex;
-				flex-direction: row;
 				margin-left: 0;
 
 				.radio-fancy {
@@ -44,54 +74,10 @@
 
 @media #{$mobile-range} {
 	.discussion-sort {
-		margin-bottom: .75rem;
-		margin-top: .75rem;
-
-		.discussion-filter-header {
-			border-bottom: none;
-			color: $discussion-filters-color;
-			font-size: $type-base;
-			font-weight: $font-weight-bold;
-			line-height: $line-height-min;
-			margin-bottom: 0;
-		}
+		margin-top: 20px;
 
 		.discussion-fieldset {
 			margin-top: 0;
 		}
-
-		.sort-options {
-			list-style: none;
-
-			.sort-option {
-				border-bottom: 1px solid $discussion-filters-border;
-				clear: left;
-				color: $discussion-filters-color;
-				height: 48px;
-				width: 100%;
-
-				.sort-option-label {
-					line-height: 24px;
-					padding-top: 15px;
-
-					.radio-fancy {
-						height: 18px;
-						width: 18px;
-
-						.inside {
-							border-color: $discussion-filters-bullet-active-border;
-							height: 16px;
-							width: 16px;
-						}
-					}
-				}
-
-				&.sort-trending {
-					border-bottom: none;
-				}
-			}
-		}
-
-
 	}
 }

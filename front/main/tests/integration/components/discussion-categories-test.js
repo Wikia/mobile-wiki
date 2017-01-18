@@ -121,7 +121,7 @@ test('should "Reset" return initial categories state', function (assert) {
 	this.$('legend').click();
 
 	// click reset
-	this.$('.discussion-filter-header a').click();
+	this.$('h3 a').click();
 
 	assert.ok(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
 	// 11 = 10 categories + All

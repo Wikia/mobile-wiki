@@ -30,6 +30,7 @@
     "sort-by-trending":"In tendenza",
     "last-edited-by":"(modificato da __userName__)",
     "last-edited-by-administrators":"(modificato dagli amministratori)",
+    "deleted-by":"Rimosso da __userName__",
     "loading-more-posts":"Caricamento in corso di altri post",
     "load-more-posts-button":"Carica di più",
     "load-previous-posts-button":"Torna in cima",
@@ -143,12 +144,15 @@
     "tab-following":"Seguite",
     "no-followed-posts-header":"Benvenuto nella scheda Seguite.",
     "no-followed-posts-text":"Fai clic sull'icona \"Segui\" in basso ad ogni post per aggiungerlo alla liste delle discussioni che ti interessano di più. Le aggiungeremo qui e ti informeremo in caso di nuove attività.",
-    "find-posts-to-follow":"Trova post da seguire"
+    "find-posts-to-follow":"Trova post da seguire",
+    "reported-content":"Contenuti segnalati",
+    "user-activity":"Insights su Discussioni",
+    "moderator-tools":"Strumenti di moderazione"
   },
   "user-activity":{
     "active-users-toggle-option":"Utenti attivi",
     "reports-toggle-option":"Segnalazioni",
-    "moderator-actions-toggle-option":"Azioni di moderazione",
+    "moderator-actions-toggle-option":"Azioni di<br>moderazione",
     "days-count":"__numberOfDays__ giorni",
     "glossary-header":"Glossario",
     "active-users-headline":"Utenti attivi",
@@ -160,7 +164,8 @@
     "posts":"post",
     "not-processed":"non esaminato",
     "actions":"azioni",
-    "hero-unit-subtitle":"Attività degli utenti"
+    "hero-unit-subtitle":"Insights su Discussioni",
+    "no-activity-yet":"Ancora nessuna attività."
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ImageReviewItemModel from '../models/image-review/image-review-item';
+import ImageReviewItemModel from '../models/image-review/item';
 
 export default Ember.Component.extend({
 	classNames: ['image-review'],
@@ -30,6 +30,10 @@ export default Ember.Component.extend({
 				this.set('thumbnailModel.ownerLookupUrl', ImageReviewItemModel.getOwnerLookupUrl(data.ownerId));
 				this.set('isModalVisible', true);
 			});
+		},
+
+		changeImageOrder(order) {
+			this.set('order', order);
 		}
 	}
 });

@@ -1,8 +1,8 @@
-<h3 class="discussion-filter-header">
+<h3 class="{{if responsive.isMobile 'discussion-mobile-filter-header' 'discussion-filter-header'}}">
 	{{i18n 'main.sort-by-header' ns='discussion'}}
 </h3>
 <fieldset class="discussion-fieldset sortby-fieldset" disabled={{disabled}}>
-	<ul class="sort-options">
+	<ul class="{{if responsive.isMobile 'wds-has-big-items wds-list wds-has-lines-between' 'sort-options'}}">
 		{{#each discussionSort.sortTypes as |sortType|}}
 			<li class="sort-option sort-{{sortType.name}}">
 				<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button-{{sortType.messageKey}}" class="bullet" id="sort-button-{{sortType.messageKey}}">

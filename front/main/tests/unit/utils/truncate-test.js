@@ -29,6 +29,10 @@ module('Unit | Utility | truncate', (hooks) => {
 		assert.equal(truncate('trala laaa p\tadasd\n', 16), 'trala laaa p\u2026');
 	});
 
+	test('long text, whitespace in place of truncation', (assert) => {
+		assert.equal(truncate('123456789 long text here', 10), '123456789\u2026');
+	});
+
 	test('short text, truncation after newline char', (assert) => {
 		assert.equal(truncate('123\n5678', 6), '123\u2026');
 	});

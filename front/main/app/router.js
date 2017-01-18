@@ -22,10 +22,6 @@ Router.map(function () {
 		path: '/main/section/:sectionName'
 	});
 
-	this.route('mainPageCategory', {
-		path: '/main/category/:categoryName'
-	});
-
 	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {
@@ -109,6 +105,18 @@ Router.map(function () {
 		this.route('guidelines', {
 			path: '/g'
 		});
+
+		this.route('moderator', {
+			path: 'm'
+		}, function () {
+			this.route('user-activity', {
+				path: '/insights'
+			}, function () {
+				this.route('posts');
+				this.route('reports');
+				this.route('moderations');
+			});
+		});
 	});
 
 
@@ -116,6 +124,11 @@ Router.map(function () {
 		this.route('index', {
 			path: '/'
 		});
+
+		this.route('batch-id', {
+			path: '/batch/:batchId'
+		});
+
 		this.route('summary', {
 			path: '/summary'
 		});
