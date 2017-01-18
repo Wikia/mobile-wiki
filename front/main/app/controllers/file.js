@@ -20,15 +20,6 @@ export default Controller.extend(
 
 		actions: {
 			/**
-			 * @param {number} index
-			 * @param {number} batch
-			 * @returns {*|void|Ember.RSVP.Promise}
-			 */
-			loadBatch(index, batch) {
-				return this.get('model').loadMore(index, batch);
-			},
-
-			/**
 			 * @returns {void}
 			 */
 			edit() {

@@ -3,6 +3,7 @@ import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
+import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -57,8 +58,9 @@ export default Ember.Component.extend(
 		contributionEnabled: Ember.computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
 				this.get('contributionEnabledForCommunity') &&
-				// @todo XW-1196: Enable article editing on category pages
-				this.getWithDefault('model.ns', 0) !== 14;
+				// @todo XW-1196: Enable article editing on category and file pages
+				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.CATEGORY &&
+				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.FILE;
 		}),
 
 		/**
