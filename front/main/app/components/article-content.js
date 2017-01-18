@@ -25,6 +25,7 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
+		displayEmptyArticleInfo: true,
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
@@ -51,10 +52,11 @@ export default Ember.Component.extend(
 					this.handleJumpLink();
 					this.injectPotentialMemberPageExperimentComponent();
 					this.injectPlacementTest();
-				} else {
+				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
+				this.injectHeroImage();
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
@@ -373,6 +375,20 @@ export default Ember.Component.extend(
 			} else {
 				// Eventually insert at the end of article
 				this.$().append($componentElement);
+			}
+		},
+
+		injectHeroImage() {
+			const heroImage = this.get('heroImage');
+
+			if (heroImage) {
+				const component = this.createComponentInstance('article-media-thumbnail');
+				let $componentElement;
+
+				component.setProperties(heroImage);
+
+				$componentElement = this.createChildView(component).createElement().$();
+				$componentElement.prependTo(this.$());
 			}
 		},
 

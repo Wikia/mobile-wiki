@@ -33,7 +33,6 @@ export default Ember.Route.extend(
 		 */
 		getHandler(model) {
 			const currentNamespace = model.ns;
-			console.log(model, currentNamespace);
 
 			if (model.isCuratedMainPage) {
 				return CuratedMainPageHandler;

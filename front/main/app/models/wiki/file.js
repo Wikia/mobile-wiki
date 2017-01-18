@@ -19,10 +19,12 @@ const {Object, get} = Ember,
 		name: '',
 		ns: null,
 		otherLanguages: null,
-		sections: null,
 		// set when creating model instance
 		title: '',
 		url: '',
+		heroImage: null,
+		fileUsageList: null,
+		fileUsageListSeeMoreUrl: null,
 		user: null,
 		// set when creating model instance
 		wiki: null,
@@ -36,6 +38,7 @@ const {Object, get} = Ember,
 			this.media = [];
 			this.mediaUsers = [];
 			this.otherLanguages = [];
+			this.fileUsageList = [];
 		}
 	});
 
@@ -46,6 +49,7 @@ FileModel.reopenClass({
 	 * @returns {void}
 	 */
 	setFile(model, pageData) {
+		// TODO extract code that is shared between file, category and article
 		const exception = pageData.exception,
 			data = pageData.data,
 			prefix = `${Mercury.wiki.namespaces[get(data, 'ns')]}:`;
@@ -60,7 +64,7 @@ FileModel.reopenClass({
 		} else if (data) {
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
-				articleType: get(data, 'articleType'),
+				articleType: get(data, 'file'),
 				description: get(data, 'details.description'),
 				title: get(data, 'details.title'),
 				id: get(data, 'details.id'),
@@ -68,7 +72,16 @@ FileModel.reopenClass({
 				ns: get(data, 'ns'),
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList').map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				url: get(data, 'details.url')
+				url: get(data, 'details.url'),
+				heroImage: {
+					url: get(data, 'details.thumbnail'),
+					title: get(data, 'details.title'),
+					width: get(data, 'details.original_dimensions.width'),
+					height: get(data, 'details.original_dimensions.height'),
+					itemContext: 'file',
+					type: get(data, 'details.type'),
+					shouldBeLoaded: true
+				}
 			};
 
 			// Article related Data - if Article exists
@@ -98,7 +111,6 @@ FileModel.reopenClass({
 				pageProperties.otherLanguages = data.otherLanguages;
 			}
 
-			// TODO
 			if (data.adsContext) {
 				pageProperties.adsContext = data.adsContext;
 
@@ -107,12 +119,10 @@ FileModel.reopenClass({
 				}
 			}
 
-			// Display title is used in header in templates/category.hbs
+			// Display title is used in header
 			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
 			pageProperties.documentTitle = prefix + pageProperties.displayTitle;
 		}
-
-		console.log(pageProperties);
 
 		model.setProperties(pageProperties);
 	},

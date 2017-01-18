@@ -115,7 +115,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	result.urlTitleParam = request.params.title;
 
 	// Main pages can live in namespaces which are not marked as content
-	if (isContentNamespace || isMainPage) {
+	if (isContentNamespace || isMainPage || ns === MediaWikiNamespace.FILE) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
@@ -124,10 +124,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		}
 		viewName = 'article';
 		result = deepExtend(result, prepareCategoryData(request, data));
-	}else if (ns === MediaWikiNamespace.FILE) {
-		// TODO make it once
-		result = deepExtend(result, prepareArticleData(request, data));
-		viewName = 'article';
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
 		// This method sets all the data required to start the app
