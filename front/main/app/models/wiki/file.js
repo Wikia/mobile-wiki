@@ -68,7 +68,15 @@ FileModel.reopenClass({
 				ns: get(data, 'ns'),
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList'),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				url: get(data, 'details.url')
+				url: get(data, 'details.url'),
+				heroImage: {
+					url: get(data, 'details.thumbnail'),
+					width: get(data, 'details.original_dimensions.width'),
+					height: get(data, 'details.original_dimensions.height'),
+					itemContext: 'file',
+					type: get(data, 'details.type'),
+					shouldBeLoaded: true
+				}
 			};
 
 			// Article related Data - if Article exists
@@ -111,8 +119,6 @@ FileModel.reopenClass({
 			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
 			pageProperties.documentTitle = prefix + pageProperties.displayTitle;
 		}
-
-		console.log(pageProperties);
 
 		model.setProperties(pageProperties);
 	},

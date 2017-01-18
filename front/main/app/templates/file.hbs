@@ -1,10 +1,8 @@
 {{ad-slot isAboveTheFold=true name='INVISIBLE_HIGH_IMPACT'}}
 
 <div id="wikiContainer" class="wiki-container">
-	{{#if model.hasArticle}}
-		{{#article-wrapper
+	{{#article-wrapper
 		commentsPage=commentsPage
-		mainPageTitle=mainPageTitle
 		model=model
 		showComments=false
 		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
@@ -14,21 +12,13 @@
 		edit='edit'
 		openLightbox='openLightbox'
 		toggleDrawer='toggleDrawer'
-		}}
-			{{#if model.fileUsageList}}
-				{{file-usage-list
-					fileUsages=model.fileUsageList
-					seeMoreUrl=model.fileUsageListSeeMoreUrl
-				}}
-			{{/if}}
-		{{/article-wrapper}}
-	{{else}}
-		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=(i18n 'app.file-page-subtitle')}}
+		displayEmptyArticleInfo=false
+	}}
 		{{#if model.fileUsageList}}
 			{{file-usage-list
-			fileUsages=model.fileUsageList
-			seeMoreUrl=model.fileUsageListSeeMoreUrl
+				fileUsages=model.fileUsageList
+				seeMoreUrl=model.fileUsageListSeeMoreUrl
 			}}
 		{{/if}}
-	{{/if}}
+	{{/article-wrapper}}
 </div>

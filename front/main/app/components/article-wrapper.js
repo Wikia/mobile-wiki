@@ -20,6 +20,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
+		displayEmptyArticleInfo: true,
 		hammerOptions: {
 			touchAction: 'auto',
 			cssProps: {
