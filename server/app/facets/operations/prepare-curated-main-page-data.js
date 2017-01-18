@@ -27,17 +27,45 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
  * @param {object} curatedMainPageData
  * @returns {object}
  */
-function prepareCuratedMainPageModules(curatedMainPageData) {
-	if (curatedMainPageData && curatedMainPageData.featuredContent) {
-		curatedMainPageData.featuredContent.forEach((item) => {
-			item.thumb_url = getImageThumb(
-				item.image_url,
-				400,
-				400 / 16 * 9,
-				Vignette.mode.zoomCrop,
-				item.image_crop && item.image_crop.landscape
-			);
-		});
+function prepareCuratedMainPageModules(curatedMainPageData, fallbackData) {
+	if (curatedMainPageData) {
+		if (curatedMainPageData.featuredContent) {
+			curatedMainPageData.featuredContent.forEach((item) => {
+				item.imageUrl = getImageThumb(
+					item.imageUrl,
+					400,
+					400 / 16 * 9,
+					Vignette.mode.zoomCrop,
+					item.imageCrop && item.imageCrop.landscape
+				);
+			});
+		}
+
+		if (curatedMainPageData.curatedContent && curatedMainPageData.curatedContent.items) {
+			curatedMainPageData.curatedContent.items.forEach((item) => {
+				if (item.imageUrl) {
+					item.imageUrl = getImageThumb(
+						item.imageUrl,
+						200,
+						200,
+						Vignette.mode.topCrop,
+						item.imageCrop && item.imageCrop.square
+					);
+				}
+			});
+		}
+
+		// FIXME temporary solution for the time when the client is out of sync from the API
+		// remove in XW-2628
+		if (
+			!curatedMainPageData.trendingArticles ||
+			!curatedMainPageData.trendingVideos ||
+			!curatedMainPageData.wikiaStats
+		) {
+			curatedMainPageData.trendingArticles = fallbackData.trendingArticles;
+			curatedMainPageData.trendingVideos = fallbackData.trendingVideos;
+			curatedMainPageData.wikiaStats = fallbackData.wikiaStats;
+		}
 	}
 
 	return curatedMainPageData;
@@ -58,17 +86,14 @@ export default function prepareCuratedMainPageData(data) {
 			}
 		};
 
-	if (pageData.details) {
-		if (pageData.details.description) {
-			result.description = pageData.details.description;
-		}
-
-		if (pageData.details.ns) {
-			result.curatedMainPageData.ns = pageData.details.ns;
-		}
+	if (pageData.details && pageData.details.description) {
+		result.description = pageData.details.description;
 	}
 
-	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(pageData.curatedMainPageData);
+	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(
+		pageData.curatedMainPageData,
+		pageData.mainPageData
+	);
 
 	return result;
 }
