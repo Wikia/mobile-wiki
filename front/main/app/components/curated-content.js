@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const navHeight = Ember.$('.site-head').outerHeight(),
+			const navHeight = Ember.$('.site-head').outerHeight() + Ember.$('.site-head-fandom-bar').outerHeight(),
 				scrollTop = this.$().offset().top - navHeight;
 
 			this.set('activeLabel', item.label);

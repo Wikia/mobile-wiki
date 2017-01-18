@@ -20,11 +20,28 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
 	return Vignette.getThumbURL(imageUrl, options);
 }
 
+function setThumbsForCuratedContent(item) {
+	if (item.imageUrl) {
+		item.imageUrl = getImageThumb(
+			item.imageUrl,
+			200,
+			200,
+			Vignette.mode.topCrop,
+			item.imageCrop && item.imageCrop.square
+		);
+	}
+
+	if (item.items) {
+		item.items.forEach(setThumbsForCuratedContent);
+	}
+}
+
 /**
  * Get thumbs and labels for curated main page modules
  *
  * @see front/main/app/mixins/curated-content-thumbnail.js
  * @param {object} curatedMainPageData
+ * @param {object} fallbackData FIXME by removing
  * @returns {object}
  */
 function prepareCuratedMainPageModules(curatedMainPageData, fallbackData) {
@@ -42,17 +59,7 @@ function prepareCuratedMainPageModules(curatedMainPageData, fallbackData) {
 		}
 
 		if (curatedMainPageData.curatedContent && curatedMainPageData.curatedContent.items) {
-			curatedMainPageData.curatedContent.items.forEach((item) => {
-				if (item.imageUrl) {
-					item.imageUrl = getImageThumb(
-						item.imageUrl,
-						200,
-						200,
-						Vignette.mode.topCrop,
-						item.imageCrop && item.imageCrop.square
-					);
-				}
-			});
+			curatedMainPageData.curatedContent.items.forEach(setThumbsForCuratedContent);
 		}
 
 		// FIXME temporary solution for the time when the client is out of sync from the API

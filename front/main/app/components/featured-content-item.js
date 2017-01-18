@@ -10,17 +10,20 @@ export default Ember.Component.extend(
 		tagName: 'a',
 		attributeBindings: ['href', 'style'],
 		classNames: ['featured-content-item'],
-		style: null,
-		href: Ember.computed.oneWay('model.article_local_url'),
+		href: Ember.computed.oneWay('model.url'),
 
 		aspectRatio: 16 / 9,
 		imageWidth: 400,
 		cropMode: Thumbnailer.mode.zoomCrop,
 		thumbUrl: Ember.computed('model', function () {
-			return this.generateThumbUrl(
-				this.get('model.image_url'),
-				this.get(`model.image_crop.${this.get('aspectRatioName')}`)
-			);
+			if (this.get('model.imageUrl')) {
+				return this.generateThumbUrl(
+					this.get('model.imageUrl'),
+					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+				);
+			} else {
+				return this.get('emptyGif');
+			}
 		})
 	}
 );
