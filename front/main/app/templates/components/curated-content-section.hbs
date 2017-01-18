@@ -1,7 +1,7 @@
 {{! Keep the same HTML structure as in server/app/views/_partials/curated-main-page/curated-content.hbs }}
 {{#if model.items}}
 	{{#if model.label}}
-		<button {{action closeSection}}>RIGHT ARROW</button>
+		<a href="#" class="curated-content-items__back"{{action closeSection}}>{{svg 'wds-icons-arrow' viewBox='0 0 20 16' role='img' class='icon'}} Back</a>
 		<h2>{{model.label}}</h2>
 	{{/if}}
 	<div class="curated-content-items">

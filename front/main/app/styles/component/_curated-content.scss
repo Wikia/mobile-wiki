@@ -22,6 +22,11 @@ $grid-icon-size: 22px;
 		}
 	}
 
+	.curated-content-items__back {
+		color: inherit;
+		font-style: italic;
+	}
+
 	.curated-content-item {
 		display: inline-block;
 		line-height: initial;
