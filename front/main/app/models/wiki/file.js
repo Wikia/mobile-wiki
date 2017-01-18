@@ -66,6 +66,7 @@ FileModel.reopenClass({
 				id: get(data, 'details.id'),
 				name: get(data, 'details.title'),
 				ns: get(data, 'ns'),
+				// TODO: adapt to correct format
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList'),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				url: get(data, 'details.url')

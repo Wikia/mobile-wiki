@@ -1,14 +1,6 @@
 .file-usage {
 	.file-usage__list {
 		padding-top: 10px;
-
-		.file-usage__article {
-			@include link-interactions-color(inherit);
-		}
-
-		.file-usage__article:last-child {
-			margin-bottom: 0;
-		}
 	}
 
 	.file-usage__more {

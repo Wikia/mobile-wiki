@@ -8,30 +8,14 @@ $search-vertical-padding: 12px;
 	background-color: $vapor;
 }
 
-.search-results__list .wikia-card {
-	@include link-interactions-color(inherit);
+.search-results__list .searchmatch {
+	font-weight: bold;
 }
 
 .search-results__total {
 	font-size: $search-total-font-size;
 	line-height: $search-total-line-height;
 	padding: $search-vertical-padding $search-horizontal-padding;
-}
-
-.search-results__item {
-	font-size: $type-smallest;
-	line-height: $line-height-min;
-	padding: $search-vertical-padding $search-horizontal-padding;
-
-	.search-results__title {
-		color: $link-color;
-		font-weight: bold;
-		margin-bottom: $search-title-margin;
-	}
-}
-
-.search-results__snippet .searchmatch {
-	font-weight: bold;
 }
 
 .search-results__load-more-wrapper.wikia-button-wrapper {

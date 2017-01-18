@@ -22,21 +22,12 @@
 				query=(wrap-me model.query tagName='strong')
 			}}}
 		</div>
-		{{#wikia-ui-components/wikia-card-list
-			classNames="search-results__list"}}
-			{{#each model.items as |item|}}
-				{{#wikia-ui-components/wikia-card}}
-					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="search-result" }}
-						<div class="search-results__item">
-							<div class="search-results__title">
-								{{item.title}}
-							</div>
-							<div class="search-results__snippet">{{{item.snippet}}}</div>
-						</div>
-					{{/link-to}}
-				{{/wikia-ui-components/wikia-card}}
-			{{/each}}
-		{{/wikia-ui-components/wikia-card-list}}
+		{{wikia-ui-components/wikia-card-list
+			classNames="search-results__list"
+			items=model.items
+			trackingCategory="search-page"
+			trackingLabel="search-result"
+		}}
 	{{else if notFoundError}}
 		{{#wikia-ui-components/error-info}}
 			{{wikia-search-error-not-found

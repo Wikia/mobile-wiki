@@ -1,1 +1,8 @@
-{{yield}}
+{{#link-to 'wiki-page' item.href trackingCategory=trackingCategory trackingLabel=trackingLabel}}
+	<div class="wikia-card__item">
+		<div class="wikia-card__title">
+			{{item.title}}
+		</div>
+		<div class="wikia-card__snippet">{{{item.snippet}}}</div>
+	</div>
+{{/link-to}}

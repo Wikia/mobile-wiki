@@ -1,1 +1,7 @@
-{{yield}}
+{{#each items as |item|}}
+	{{wikia-ui-components/wikia-card
+		item=item
+		trackingCategory=trackingCategory
+		trackingLabel=trackingLabel
+	}}
+{{/each}}
