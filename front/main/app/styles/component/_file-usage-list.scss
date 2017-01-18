@@ -13,5 +13,6 @@ $file-usage-horizontal-padding: 12px;
 	.file-usage__more {
 		background-color: $vapor;
 		padding: 0 $file-usage-vertical-padding $file-usage-horizontal-padding;
+		text-align: center;
 	}
 }

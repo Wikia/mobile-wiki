@@ -108,6 +108,8 @@
     "edit-success": "Successfully edited page __pageTitle__!",
     "explore-wiki": "Explore __wikiName__",
     "image-review-error-invalid-data": "Invalid data was returned from Image Review API",
+    "file-page-usages-header": "Appears on these pages",
+    "file-page-usages-see-more-link-label": "See full list",
     "footer-link-feedback": "Feedback",
     "footer-link-full-site": "Full site",
     "footer-link-licensing": "Licensing",
