@@ -10,8 +10,11 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
+			const navHeight = Ember.$('.site-head').outerHeight(),
+				scrollTop = this.$().offset().top - navHeight;
+
 			this.set('activeLabel', item.label);
-			// TODO scroll up, maybe?
+			$('html, body').animate({scrollTop});
 		},
 
 		closeSection() {
