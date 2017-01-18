@@ -119,7 +119,7 @@ FileModel.reopenClass({
 
 	prepareFileUsageItem(item) {
 		return {
-			href: get(item, 'titleDBkey'),
+			href: encodeURIComponent(get(item, 'titleDBkey')),
 			title: get(item, 'titleText'),
 			snippet: get(item, 'snippet')
 		};
