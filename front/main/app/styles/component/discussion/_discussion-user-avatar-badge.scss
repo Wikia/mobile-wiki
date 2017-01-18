@@ -41,7 +41,7 @@ $post-reply-with-label-user-avatar-badge-top: 38px;
 	.user-avatar-badge {
 		left: 32px;
 	}
-
+	&.is-deleted,
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
@@ -96,6 +96,7 @@ $post-reply-with-label-user-avatar-badge-top: 38px;
 				top: $post-reply-user-avatar-badge-top;
 			}
 
+		    &.is-deleted,
 			&.is-locked,
 			&.is-reported {
 				.user-avatar-badge {
