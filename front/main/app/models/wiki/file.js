@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import BaseModel from './base'
+import BaseModel from './base';
 import {normalizeToWhitespace} from 'common/utils/string';
 
 const {get, computed} = Ember,

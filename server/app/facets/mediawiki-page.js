@@ -150,7 +150,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	Tracking.handleResponse(result, request);
 
 	setI18nLang(request, result.wikiVariables).then(() => {
-		console.log(viewName);
 		response = reply.view(viewName, result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');
