@@ -22,11 +22,6 @@ $grid-icon-size: 22px;
 		}
 	}
 
-	.curated-content-items__back {
-		color: inherit;
-		font-style: italic;
-	}
-
 	.curated-content-item {
 		display: inline-block;
 		line-height: initial;
@@ -103,33 +98,17 @@ $grid-icon-size: 22px;
 		}
 	}
 
-	.section-top {
-		margin-bottom: 10px;
-		position: relative;
-		text-align: center;
+	.curated-content-section__header {
+		padding: 0 18px;
 	}
 
-	.section-title {
-		font-size: $type-smaller;
-		font-weight: bold;
-		line-height: $top-nav-line-height;
-		overflow: hidden;
-		padding: 0 $back-button-with-padding-size;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 100%;
-	}
+	.curated-content-section__back {
+		color: inherit;
+		font-style: italic;
 
-	.section-navigation {
-		height: $back-button-with-padding-size;
-		left: -$back-button-padding;
-		margin-left: 10px;
-		padding: $back-button-padding;
-		position: absolute;
-		top: -$back-button-padding;
-		transform: rotate(90deg);
-		white-space: nowrap;
-		width: $back-button-with-padding-size;
+		svg {
+			margin-bottom: 3px;
+		}
 	}
 
 	//Ember by default adds div when certain action is bound to an element

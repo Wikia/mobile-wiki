@@ -1,15 +1,20 @@
 {{! Keep the same HTML structure as in server/app/views/_partials/curated-main-page/curated-content.hbs }}
 {{#if model.items}}
 	{{#if model.label}}
-		<a href="#" class="curated-content-items__back"{{action closeSection}}>{{svg 'wds-icons-arrow' viewBox='0 0 20 16' role='img' class='icon'}} Back</a>
-		<h2>{{model.label}}</h2>
+		<div class="curated-content-section__header">
+			<a href="#" class="curated-content-section__back"{{action closeSection}}>
+				{{svg 'wds-icons-arrow' viewBox='0 0 20 16' role='img' class='icon'}}
+				{{i18n 'app.navigation-back-label'}}
+			</a>
+			<h2>{{model.label}}</h2>
+		</div>
 	{{/if}}
 	<div class="curated-content-items">
 		{{#each model.items as |item index|}}
 			{{curated-content-item
-				index=index
-				model=item
-				openSection=attrs.openSection
+					index=index
+					model=item
+					openSection=attrs.openSection
 			}}
 		{{/each}}
 
