@@ -84,7 +84,7 @@ export default Object.extend({
 					return {
 						title: item.title,
 						snippet: item.snippet,
-						href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
+						prefixedTitle: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
 					};
 				})
 			],

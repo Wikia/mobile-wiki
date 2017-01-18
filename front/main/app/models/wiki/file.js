@@ -129,9 +129,9 @@ FileModel.reopenClass({
 
 	prepareFileUsageItem(item) {
 		return {
-			href: encodeURIComponent(get(item, 'titleDBkey')),
 			title: get(item, 'titleText'),
-			snippet: get(item, 'snippet')
+			snippet: get(item, 'snippet'),
+			prefixedTitle: get(item, 'url').replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
 		};
 	}
 });
