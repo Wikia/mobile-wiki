@@ -29,8 +29,7 @@ FileModel.reopenClass({
 				articleType: get(data, 'file'),
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList'),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				// TODO cast to bool
-				hasArticle: get(data, 'article.content.length'),
+				hasArticle: get(data, 'article.content.length') > 0,
 				heroImage: {
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),
