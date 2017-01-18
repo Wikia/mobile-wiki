@@ -53,9 +53,6 @@ export default function prepareCuratedMainPageData(data) {
 		wikiVariables = data.wikiVariables,
 		result = {
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
-			curatedMainPageData: {
-				adsContext: pageData.adsContext
-			},
 			articlePage: {
 				data: {}
 			}
