@@ -8,12 +8,8 @@ $search-vertical-padding: 12px;
 	background-color: $vapor;
 }
 
-.search-results__list {
-	.wikia-card {
-		@include link-interactions-color(inherit);
-	}
-
-	margin: 0;
+.search-results__list .wikia-card {
+	@include link-interactions-color(inherit);
 }
 
 .search-results__total {
@@ -44,6 +40,6 @@ $search-vertical-padding: 12px;
 }
 
 .search-result-page .site-head-headroom-un-pinned .site-head {
-  // removing site-head bottom shadow
-  box-shadow: none;
+	// removing site-head bottom shadow
+	box-shadow: none;
 }

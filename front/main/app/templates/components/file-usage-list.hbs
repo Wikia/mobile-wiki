@@ -1,11 +1,20 @@
 <h3>{{i18n 'app.file-usages-header'}}</h3>
-<ul>
-{{#each fileUsages as |article|}}
-	<li>
-		<a href="{{article.url}}">{{article.title}}</a>
-		{{article.snippet}}
-	</li>
-{{/each}}
-</ul>
-<a href="{{seeMoreUrl}}">{{i18n 'app.file-usages-see-more-link-label'}}</a>
-
+{{#wikia-ui-components/wikia-card-list
+classNames="file-usage__list"}}
+	{{#each fileUsages as |article|}}
+		{{#wikia-ui-components/wikia-card
+			classNames="file-usage__article"}}
+			{{#link-to 'wiki-page' article.href trackingCategory="file-page" trackingLabel="file-usage-article" }}
+				<div class="search-results__item">
+					<div class="search-results__title">
+						{{article.title}}
+					</div>
+					<div class="search-results__snippet">{{{article.snippet}}}</div>
+				</div>
+			{{/link-to}}
+		{{/wikia-ui-components/wikia-card}}
+	{{/each}}
+{{/wikia-ui-components/wikia-card-list}}
+<div class="file-usage__more">
+	<a href="{{seeMoreUrl}}">{{i18n 'app.file-usages-see-more-link-label'}}</a>
+</div>

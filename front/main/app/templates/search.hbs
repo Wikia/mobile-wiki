@@ -22,7 +22,8 @@
 				query=(wrap-me model.query tagName='strong')
 			}}}
 		</div>
-		<ul class="search-results__list">
+		{{#wikia-ui-components/wikia-card-list
+			classNames="search-results__list"}}
 			{{#each model.items as |item|}}
 				{{#wikia-ui-components/wikia-card}}
 					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="search-result" }}
@@ -35,7 +36,7 @@
 					{{/link-to}}
 				{{/wikia-ui-components/wikia-card}}
 			{{/each}}
-		</ul>
+		{{/wikia-ui-components/wikia-card-list}}
 	{{else if notFoundError}}
 		{{#wikia-ui-components/error-info}}
 			{{wikia-search-error-not-found

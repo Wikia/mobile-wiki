@@ -1,0 +1,9 @@
+.wikia-card-list {
+	background-color: $vapor;
+	margin: 0;
+	padding-bottom: 10px;
+
+	.wikia-card:last-child {
+		margin-bottom: 0;
+	}
+}
