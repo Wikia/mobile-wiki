@@ -23,7 +23,7 @@ function getCommunityRedirectUrl(emailConfirmed, username) {
 export default function get(request, reply) {
 	if (!request.auth.isAuthenticated) {
 		return reply.redirect(
-			`http://${request.info.hostname}/signin?redirect=${encodeURIComponent(getFullRequestUrl(request)})`
+			`http://${request.info.hostname}/signin?redirect=${encodeURIComponent(getFullRequestUrl(request))}`
 		);
 	}
 	const wikiDomain = Utils.getCachedWikiDomainName(settings, request);
