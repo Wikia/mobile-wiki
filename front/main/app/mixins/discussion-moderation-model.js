@@ -13,10 +13,11 @@ export default Mixin.create({
 	deletePost(post) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/delete`), {
 			method: 'PUT'
-		}).then(() => {
+		}).then((response) => {
 			post.setProperties({
 				isDeleted: true,
-				isReported: false
+				isReported: false,
+				lastDeletedBy: response.lastDeletedBy,
 			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
@@ -66,10 +67,11 @@ export default Mixin.create({
 	deleteReply(reply) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.get('id')}/delete`), {
 			method: 'PUT'
-		}).then(() => {
+		}).then((response) => {
 			reply.setProperties({
 				isDeleted: true,
-				isReported: false
+				isReported: false,
+				lastDeletedBy: response.lastDeletedBy,
 			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');

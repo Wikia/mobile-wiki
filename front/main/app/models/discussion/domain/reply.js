@@ -30,6 +30,7 @@ DiscussionReply.reopenClass({
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
 				lastEditedBy: DiscussionContributor.create(postData.lastEditedBy),
+				lastDeletedBy: DiscussionContributor.create(postData.lastDeletedBy),
 				openGraph: null,
 				position: postData.position,
 				rawContent: postData.rawContent,
