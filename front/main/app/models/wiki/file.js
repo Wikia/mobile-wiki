@@ -66,8 +66,7 @@ FileModel.reopenClass({
 				id: get(data, 'details.id'),
 				name: get(data, 'details.title'),
 				ns: get(data, 'ns'),
-				// TODO: adapt to correct format
-				fileUsageList: get(data, 'nsSpecificContent.fileUsageList'),
+				fileUsageList: get(data, 'nsSpecificContent.fileUsageList').map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				url: get(data, 'details.url')
 			};
@@ -117,6 +116,14 @@ FileModel.reopenClass({
 
 		model.setProperties(pageProperties);
 	},
+
+	prepareFileUsageItem(item) {
+		return {
+			href: get(item, 'titleDBkey'),
+			title: get(item, 'titleText'),
+			snippet: get(item, 'snippet')
+		};
+	}
 });
 
 export default FileModel;

@@ -1,10 +1,14 @@
 .file-usage {
+	.file-usage__header {
+		padding: 0 18px;
+	}
+
 	.file-usage__list {
 		padding-top: 10px;
 	}
 
 	.file-usage__more {
 		background-color: $vapor;
-		padding-bottom: 10px;
+		padding: 2px 18px 12px;
 	}
 }
