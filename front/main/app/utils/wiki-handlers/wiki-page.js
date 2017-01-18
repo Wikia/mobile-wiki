@@ -42,17 +42,17 @@ export function getModelForNamespace(data, params) {
 	// Main pages can live in namespaces which are not marked as content
 	if (isContentNamespace(currentNamespace) || data.data.isMainPage) {
 		model = ArticleModel.create(params);
-		ArticleModel.setArticle(model, data);
+		ArticleModel.setData(model, data);
 
 		return model;
 	} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
 		model = CategoryModel.create(params);
-		CategoryModel.setCategory(model, data);
+		CategoryModel.setData(model, data);
 
 		return model;
 	} else if (currentNamespace === MediawikiNamespace.FILE) {
 		model = FileModel.create(params);
-		FileModel.setFile(model, data);
+		FileModel.setData(model, data);
 
 		return model;
 	} else {
