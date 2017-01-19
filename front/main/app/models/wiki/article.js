@@ -47,33 +47,15 @@ ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @returns {*}
-	 */
-	getPreloadedData() {
-		const article = Mercury.article;
-
-		M.prop('articleContentPreloadedInDOM', false, true);
-
-		if (article.data && article.data.article) {
-			// On the first page load the article content is available only in HTML
-			article.data.article.content = $('#preloadedContent').html();
-		}
-
-		Mercury.article = null;
-
-		return article;
-	},
-
-	/**
 	 * @param {ArticleModel} model
-	 * @param {*} [source=this.getPreloadedData()]
+	 * @param {*} pageData
 	 * @returns {void}
 	 */
-	setData(model, source = this.getPreloadedData()) {
+	setData(model, pageData) {
 		this._super(...arguments);
 
-		const exception = source.exception,
-			data = source.data;
+		const exception = pageData && pageData.exception,
+			data = pageData && pageData.data;
 
 		let articleProperties = {},
 			details;

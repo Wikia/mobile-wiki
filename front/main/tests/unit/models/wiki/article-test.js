@@ -8,20 +8,20 @@ const articleExample = {
 					timestamp: 123
 				},
 				comments: 123,
-				id: 123,
-				ns: 'namespace'
+				id: 123
 			},
 			article: {
 				content: 'TestContent',
 				categories: 'test',
 				users: 'test'
 			},
+			ns: 'namespace',
 			relatedPages: ['anItem', 'anotherItem'],
 			userDetails: ['someItem', 'yetOneMore']
 		}
 	},
-	articleModelClass = require('main/models/wiki/article').default;
-
+	articleModelClass = require('main/models/wiki/article').default,
+	originalMercury = Ember.$.extend(true, {}, window.Mercury);
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model
@@ -36,8 +36,8 @@ function verifyArticle(model, article, assert) {
 
 	assert.equal(
 		model.get('ns'),
-		articleData.details.ns,
-		`expected namespace=${articleData.details.ns}, got ${model.get('type')}`
+		articleData.ns,
+		`expected namespace=${articleData.details.ns}, got ${model.get('ns')}`
 	);
 
 	assert.equal(
@@ -115,16 +115,16 @@ test('getPreloadedData', (assert, undef) => {
 	assert.deepEqual(M.article, undef, 'Mercury.article is deleted');
 });
 
-test('setArticle with preloaded data', function (assert) {
+test('setData with preloaded data', function (assert) {
 	const model = this.subject();
 
-	articleModelClass.setArticle(model);
+	articleModelClass.setData(model, articleModelClass.getPreloadedData());
 	verifyArticle(model, articleExample, assert);
 });
 
-test('setArticle with parametrized data', function (assert) {
+test('setData with parametrized data', function (assert) {
 	const model = this.subject();
 
-	articleModelClass.setArticle(model, articleExample);
+	articleModelClass.setData(model, articleExample);
 	verifyArticle(model, articleExample, assert);
 });

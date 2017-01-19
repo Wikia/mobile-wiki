@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../../models/wiki/article';
+import BaseModel from '../../models/wiki/base';
 import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
@@ -70,7 +71,7 @@ export default function getPageModel(params) {
 
 	if (M.prop('articleContentPreloadedInDOM')) {
 		// This happens also for categories with article
-		const preloadedData = ArticleModel.getPreloadedData();
+		const preloadedData = BaseModel.getPreloadedData();
 		model = getModelForNamespace(preloadedData, params);
 
 		return Ember.RSVP.resolve(model);
