@@ -21,8 +21,7 @@ export default Route.extend({
 
 		reviewUserImages() {
 			const images = this.controller.get('model.images');
-			const batchId = this.controller.get('model.batchId');
-			UserImagesModel.reviewUserImages(images, batchId).then(() => {
+			UserImagesModel.reviewUserImages(images).then(() => {
 				this.refresh();
 			}, (data) => {
 				this.controllerFor('application').addAlert({
