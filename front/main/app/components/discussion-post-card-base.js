@@ -19,9 +19,9 @@ export default Component.extend(
 		shouldActivateLinks: Ember.computed.alias('isDetailsView'),
 		shouldTruncateContent: Ember.computed.not('isDetailsView'),
 
-		showTopNote: computed('isDeleted', 'isReported', 'post.isLocked', function () {
-			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo') ||
-				this.get('post.isLocked');
+		showTopNote: computed('isDeleted', 'isReported', 'isLocked', 'showRepliedTo', function () {
+			return this.get('isReported') || this.get('showRepliedTo') ||
+				this.get('isLocked') || this.get('isDeleted');
 		}),
 
 		showLastEditedByMessage: computed(
