@@ -59,6 +59,10 @@ module('Unit | Utility | url', (hooks) => {
 		assert.equal(extractEncodedTitle('http://test.wikia.com/wiki/Test'), 'Test');
 	});
 
+	test('url with no wiki', (assert) => {
+		assert.equal(extractEncodedTitle('http://test.wikia.com/Test'), 'Test');
+	});
+
 	test('full url with many wikis', (assert) => {
 		assert.equal(extractEncodedTitle(
 			'http://test.wikia.com/wiki/Wiki/wiki/wiki/wiki'),

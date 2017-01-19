@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import {normalizeToWhitespace} from 'common/utils/string';
-import {extractEncodedTitle} from '../../utils/url';
+import {extractEncodedTitle} from 'main/utils/url';
 
 const {get, computed} = Ember,
 	FileModel = BaseModel.extend({
