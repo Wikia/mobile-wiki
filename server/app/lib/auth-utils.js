@@ -6,17 +6,6 @@ import url from 'url';
 import querystring from 'querystring';
 import settings from '../../config/settings';
 import authLocaleSettings from '../../config/authLocaleSettings.js';
-import ESAPI from 'node-esapi';
-
-/**
- * @typedef {Object} WhoAmIResponse
- * @property {string} [userId]
- * @property {number} [status]
- */
-
-// @todo seems unused: wikiaSignupPathname = '/wiki/Special:UserSignup',
-const wikiaLoginPathname = '/wiki/Special:UserLogin',
-	forgotPasswordSearch = '?type=forgotPassword';
 
 /**
  * @param {Hapi.Request} request
@@ -30,12 +19,19 @@ export function getRegisterUrl(request) {
  * @param {string} redirect
  * @returns {string}
  */
-export function getForgotPasswordUrlFromRedirect(redirect) {
-	const forgotPasswordUrlObj = url.parse(redirect);
-	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
-	forgotPasswordUrlObj.search = forgotPasswordSearch;
-	// encode URL to prevent XSS
-	return ESAPI.encoder().encodeForHTMLAttribute(url.format(forgotPasswordUrlObj));
+export function getForgotPasswordUrl(request) {
+	return this.getRedirectUrlWithQueryString('forgot-password', request);
+}
+
+/**
+ * @param {string} redirect
+ * @returns {string}
+ */
+export function getExpiryForgotPasswordUrl(request) {
+	const forgotPasswordUrl = url.parse(this.getForgotPasswordUrl(request));
+
+	forgotPasswordUrl.search = `${forgotPasswordUrl.search}&tokenExpired=1`;
+	return forgotPasswordUrl.format();
 }
 
 /**

@@ -15,10 +15,22 @@ button[type='submit'][disabled] {
 	opacity: 0.5;
 }
 
+a.button-wide {
+	margin-top: 1rem;
+}
 
+a.button-wide,
+a.button-wide:hover,
 .form-submit[type='submit'],
 .form-submit[type='submit'][disabled] {
 	background-color: $form-submit-background-color;
 	border-color: $form-submit-background-color;
 	color: $form-submit-color;
+}
+
+.desktop-view {
+	a.button-wide,
+	.form-submit-wide {
+		max-width: 296px;
+	}
 }

@@ -170,6 +170,10 @@ export default {
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
+	consul: {
+		internalUrl: 'http://localhost:8500/v1/health/service',
+		timeout: 3000
+	},
 	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing|staging]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
@@ -181,7 +185,8 @@ export default {
 	userRegistationService: {
 		path: '/user-registration',
 		usernameMaxLength: 50,
-		passwordMaxLength: 50
+		passwordMaxLength: 50,
+		timeout: 3000
 	},
 	userPreferencesService: {
 		baseAPIPath: 'user-preference'

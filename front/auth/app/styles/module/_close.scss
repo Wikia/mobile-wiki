@@ -9,6 +9,7 @@
 	left: 0;
 	top: 0;
 	width: 15px;
+	z-index: $navigation-z-index;
 
 	> svg {
 		height: 15px;

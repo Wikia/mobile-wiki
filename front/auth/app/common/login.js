@@ -134,13 +134,24 @@ export default class Login {
 		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-		// TODO remove when SOC-719 is ready
-		if (pageParams.isModal) {
-			this.form.querySelector('.forgotten-password').addEventListener('click', (event) => {
-				AuthUtils.loadUrl(event.target.href);
-				event.preventDefault();
-			});
-		}
+		document.querySelector('.forgotten-password').addEventListener('click', event => {
+			let url = event.target.href,
+				username = (this.usernameInput.value || '').trim();
+
+			if (username.length) {
+				if (url.indexOf('?') === -1) {
+					url = `${url}?`;
+				} else {
+					url = `${url}&`;
+				}
+
+				url = `${url}username=${username}`;
+			}
+
+			window.location.href = url;
+
+			event.preventDefault();
+		});
 	}
 
 	/**

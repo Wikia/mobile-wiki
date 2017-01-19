@@ -30,6 +30,7 @@
     "sort-by-trending":"Tendances",
     "last-edited-by":"(modifiée par __userName__)",
     "last-edited-by-administrators":"(modifiée par les administrateurs)",
+    "deleted-by":"Supprimée par __userName__",
     "loading-more-posts":"Chargement d'autres publications",
     "load-more-posts-button":"Plus de publications",
     "load-previous-posts-button":"Revenir au début",
@@ -143,24 +144,28 @@
     "tab-following":"Suivies",
     "no-followed-posts-header":"Bienvenue dans l'onglet Suivies !",
     "no-followed-posts-text":"Appuyez sur l'icône \"Suivre\" disponible en bas de chaque publication pour ajouter à la liste les discussions qui vous tiennent le plus à cœur. Nous les inclurons ici et vous informerons de toute nouvelle activité.",
-    "find-posts-to-follow":"Rechercher des publications à suivre"
+    "find-posts-to-follow":"Rechercher des publications à suivre",
+    "reported-content":"Contenu signalé",
+    "user-activity":"Statistiques",
+    "moderator-tools":"Outils de modération"
   },
   "user-activity":{
-    "active-users-toggle-option":"Utilisateurs actifs",
+    "active-users-toggle-option":"Utilisateurs<br>actifs",
     "reports-toggle-option":"Contenus signalés",
-    "moderator-actions-toggle-option":"Actions de modération",
+    "moderator-actions-toggle-option":"Actions<br>de modération",
     "days-count":"__numberOfDays__ jours",
     "glossary-header":"Glossaire",
     "active-users-headline":"Utilisateurs actifs",
     "active-users-description":"Qui a effectué le plus de publications ?",
     "reports-headline":"Contenus signalés",
-    "reports-description":"Qui a signalé le plus de contenus ? Ces publications ont-elles été supprimées, approuvées ou pas encore traitées par un modérateur ?",
+    "reports-description":"Qui a signalé le plus de contenu ? Ces publications ont-elles été supprimées, approuvées ou pas encore été traitées par un modérateur ?",
     "moderator-actions-headline":"Actions de modération",
     "moderator-actions-description":"Quels ont été les modérateurs les plus actifs en supprimant, approuvant et verrouillant des publications ou en changeant une publication de catégorie ?",
     "posts":"publications",
     "not-processed":"non traités",
     "actions":"actions",
-    "hero-unit-subtitle":"Activité des utilisateurs"
+    "hero-unit-subtitle":"Statistiques",
+    "no-activity-yet":"Encore aucune activité."
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

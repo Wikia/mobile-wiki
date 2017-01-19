@@ -1,4 +1,5 @@
 // file order is intended here - put new entries at the bottom
+@import '../wikia-variables';
 @import 'site-head';
 @import 'share-header';
 @import 'share-feature';
@@ -8,6 +9,7 @@
 @import 'lightbox-media';
 @import 'lightbox-map';
 @import 'featured-content';
+@import 'wiki-description';
 @import 'alert-notifications';
 @import 'curated-content';
 @import 'curated-content-editor';

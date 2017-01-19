@@ -30,6 +30,7 @@
     "sort-by-trending":"Tendencias",
     "last-edited-by":"(editado por __userName__)",
     "last-edited-by-administrators":"(editado por los administradores)",
+    "deleted-by":"Borrado por __userName__",
     "loading-more-posts":"Cargando más discusiones",
     "load-more-posts-button":"Cargar más",
     "load-previous-posts-button":"Al principio",
@@ -143,12 +144,15 @@
     "tab-following":"Siguiendo",
     "no-followed-posts-header":"Bienvenido a tu viñeta de seguimiento.",
     "no-followed-posts-text":"Toca el ícono \"Seguir\" en la parte de abajo de cada discusión para llenar tu lista con discusiones que más te interesan. Las pondremos aquí y te notificaremos sobre nueva actividad.",
-    "find-posts-to-follow":"Busca discusiones a seguir"
+    "find-posts-to-follow":"Busca discusiones a seguir",
+    "reported-content":"Contenido reportado",
+    "user-activity":"Estadísticas",
+    "moderator-tools":"Herramientas del moderador"
   },
   "user-activity":{
-    "active-users-toggle-option":"Usuarios activos",
+    "active-users-toggle-option":"Usuarios<br>activos",
     "reports-toggle-option":"Reportes",
-    "moderator-actions-toggle-option":"Acciones del moderador",
+    "moderator-actions-toggle-option":"Acciones<br>del moderador",
     "days-count":"__numberOfDays__ días",
     "glossary-header":"Glosario",
     "active-users-headline":"Usuarios activos",
@@ -160,7 +164,8 @@
     "posts":"discusiones",
     "not-processed":"no procesado",
     "actions":"acciones",
-    "hero-unit-subtitle":"Actividad del usuario"
+    "hero-unit-subtitle":"Estadísticas",
+    "no-activity-yet":"No hay actividad."
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

@@ -118,7 +118,6 @@
     "categories-delete-category-approve": "Delete & Move",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
-    "sort-by-header": "Sort By",
     "in-category-label": "in __categoryName__",
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
@@ -145,7 +144,28 @@
     "tab-following": "Following",
     "no-followed-posts-header": "Welcome to your Following tab.",
     "no-followed-posts-text": "Hit the “Follow” icon at the bottom of any post to fill your list with discussions that matter most to you. We’ll put them here and notify you of new activity.",
-    "find-posts-to-follow": "Find posts to follow"
+    "find-posts-to-follow": "Find posts to follow",
+    "reported-content": "Reported Content",
+    "user-activity": "Discussions Insights",
+    "moderator-tools": "Moderator Tools"
+  },
+  "user-activity":{
+    "active-users-toggle-option": "Active Users",
+    "reports-toggle-option": "Reports",
+    "moderator-actions-toggle-option": "Moderator Actions",
+    "days-count": "__numberOfDays__ days",
+    "glossary-header": "Glossary",
+    "active-users-headline": "Active Users",
+    "active-users-description": "Who has published the most posts?",
+    "reports-headline": "Reports",
+    "reports-description": "Who has reported the most content, and have those posts been deleted, approved, or not yet been processed by a moderator?",
+    "moderator-actions-headline": "Moderator Actions",
+    "moderator-actions-description": "Which moderators have been the most active by deleting, approving, and locking posts, or changing a post’s category?",
+    "posts": "posts",
+    "not-processed": "not processed",
+    "actions": "actions",
+    "hero-unit-subtitle": "Discussions Insights",
+    "no-activity-yet": "No activity yet."
   },
   "editor": {
     "post-failed-error": "Post failed.",

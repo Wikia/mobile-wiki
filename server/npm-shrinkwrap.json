@@ -2798,6 +2798,14 @@
     "node-esapi": {
       "version": "0.0.1"
     },
+    "numeral": {
+      "version": "2.0.4"
+    },
+    "vignette": {
+      "version": "2.4.0",
+      "from": "git://github.com/Wikia/vignette-js#2.4.0",
+      "resolved": "git://github.com/Wikia/vignette-js#efdc8d7b1ff27649c846ea18ae1c91f9c6ac06fb"
+    },
     "vision": {
       "version": "3.0.0",
       "dependencies": {

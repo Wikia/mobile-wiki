@@ -16,7 +16,7 @@ $legend-font-size: 16px;
 	border-bottom: 1px solid $discussion-rail-separator-color;
 	color: $discussion-filters-color;
 	font-size: $type-smaller;
-	font-weight: normal;
+	font-weight: bold;
 	margin-bottom: 12px;
 
 	a {
@@ -26,7 +26,24 @@ $legend-font-size: 16px;
 	}
 
 	.rail & {
+		font-weight: normal;
 		margin-top: 24px;
+	}
+}
+
+.discussion-mobile-filter-header {
+	border-bottom: 1px solid $discussion-filters-border;
+	color: $discussion-filters-color;
+	font-size: $wds-typescale-size-base;
+	font-weight: bold;
+	margin-bottom: 0;
+	padding-bottom: 4px;
+
+	a {
+		float: right;
+		font-size: $type-min;
+		font-weight: normal;
+		text-transform: uppercase;
 	}
 }
 
@@ -72,7 +89,8 @@ $legend-font-size: 16px;
 		color: $discussion-filters-color;
 		font-size: $legend-font-size;
 		font-weight: bold;
-		line-height: $line-height-smallest;
+		line-height: 1em;
+		padding-top: 5px;
 	}
 
 	.discussion-categories {

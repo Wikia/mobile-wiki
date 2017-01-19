@@ -15,10 +15,9 @@ import deepExtend from 'deep-extend';
 
 /**
  * @param {Hapi.Request} request
- * @param {string} redirect
  * @returns {SignInViewContext}
  */
-function getSignInViewContext(request, redirect) {
+function getSignInViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			title: 'auth:signin.signin-title',
@@ -26,7 +25,7 @@ function getSignInViewContext(request, redirect) {
 			headerCallout: 'auth:signin.register-callout',
 			headerCalloutLink: 'auth:signin.register-now',
 			headerHref: authUtils.getRegisterUrl(request),
-			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			forgotPasswordHref: authUtils.getForgotPasswordUrl(request),
 			bodyClasses: 'signin-page',
 			pageType: 'signin-page',
 			heliosLoginURL: authUtils.getHeliosUrl('/token'),
@@ -42,10 +41,9 @@ function getSignInViewContext(request, redirect) {
 
 /**
  * @param {Hapi.Request} request
- * @param {string} redirect
  * @returns {SignInViewContext}
  */
-function getFBSignInViewContext(request, redirect) {
+function getFBSignInViewContext(request) {
 	return deepExtend(authView.getDefaultContext(request),
 		{
 			title: 'auth:common.connect-with-facebook',
@@ -53,7 +51,7 @@ function getFBSignInViewContext(request, redirect) {
 			headerCallout: 'auth:signin.register-callout',
 			headerCalloutLink: 'auth:signin.register-now',
 			headerHref: authUtils.getRegisterUrl(request),
-			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			forgotPasswordHref: authUtils.getForgotPasswordUrl(request),
 			bodyClasses: 'fb-connect-page',
 			pageType: 'fb-connect-page',
 			heliosLoginURL: authUtils.getHeliosUrl('/token'),
@@ -74,8 +72,7 @@ function getFBSignInViewContext(request, redirect) {
  * @returns {Hapi.Response}
  */
 function getSignInPage(request, reply) {
-	const redirect = authView.getRedirectUrl(request),
-		context = getSignInViewContext(request, redirect);
+	const context = getSignInViewContext(request);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
@@ -90,8 +87,7 @@ function getSignInPage(request, reply) {
  * @returns {Hapi.Response}
  */
 function getFacebookSignInPage(request, reply) {
-	const redirect = authView.getRedirectUrl(request),
-		context = getFBSignInViewContext(request, redirect);
+	const context = getFBSignInViewContext(request);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
