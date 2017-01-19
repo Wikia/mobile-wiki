@@ -30,12 +30,6 @@ function afterModel(route, model) {
 		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 	});
 
-	route.setProperties({
-		ns: model.get('ns'),
-		adsContext: model.get('adsContext'),
-		description: model.get('description')
-	});
-
 	return model;
 }
 

@@ -20,7 +20,7 @@ moduleForComponent('main-page', 'Unit | Component | main page', {
 	}
 });
 
-test('reacts on curated content change', function (asset) {
+test('injects ads', function (asset) {
 	const adsContext = {
 			valid: true
 		},
@@ -36,7 +36,7 @@ test('reacts on curated content change', function (asset) {
 			setupAdsContext: setupAdsContextSpy
 		});
 
-	component.didRender();
+	component.didInsertElement();
 
 	asset.ok(injectMainPageAdsSpy.calledOnce);
 	asset.ok(setupAdsContextSpy.calledOnce);
