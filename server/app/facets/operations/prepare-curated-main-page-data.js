@@ -41,10 +41,9 @@ function setThumbsForCuratedContent(item) {
  *
  * @see front/main/app/mixins/curated-content-thumbnail.js
  * @param {object} curatedMainPageData
- * @param {object} fallbackData FIXME by removing
  * @returns {object}
  */
-function prepareCuratedMainPageModules(curatedMainPageData, fallbackData) {
+function prepareCuratedMainPageModules(curatedMainPageData) {
 	if (curatedMainPageData) {
 		if (curatedMainPageData.featuredContent) {
 			curatedMainPageData.featuredContent.forEach((item) => {
@@ -60,18 +59,6 @@ function prepareCuratedMainPageModules(curatedMainPageData, fallbackData) {
 
 		if (curatedMainPageData.curatedContent && curatedMainPageData.curatedContent.items) {
 			curatedMainPageData.curatedContent.items.forEach(setThumbsForCuratedContent);
-		}
-
-		// FIXME temporary solution for the time when the client is out of sync from the API
-		// remove in XW-2628
-		if (
-			!curatedMainPageData.trendingArticles ||
-			!curatedMainPageData.trendingVideos ||
-			!curatedMainPageData.wikiaStats
-		) {
-			curatedMainPageData.trendingArticles = fallbackData.trendingArticles;
-			curatedMainPageData.trendingVideos = fallbackData.trendingVideos;
-			curatedMainPageData.wikiaStats = fallbackData.wikiaStats;
 		}
 	}
 
@@ -90,17 +77,15 @@ export default function prepareCuratedMainPageData(data) {
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
 			articlePage: {
 				data: {}
-			}
+			},
+			showSpinner: true
 		};
 
 	if (pageData.details && pageData.details.description) {
 		result.description = pageData.details.description;
 	}
 
-	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(
-		pageData.curatedMainPageData,
-		pageData.mainPageData
-	);
+	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(pageData.curatedMainPageData);
 
 	return result;
 }
