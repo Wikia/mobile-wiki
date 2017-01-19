@@ -28,7 +28,7 @@ UserImagesModel.reopenClass({
 					isContextLink: linkRegexp.test(img.context),
 					status: coppaStatus(img.currentStatus)
 				}));
-				return UserImagesModel.create({images, username})
+				return UserImagesModel.create({images, username});
 			});
 	},
 

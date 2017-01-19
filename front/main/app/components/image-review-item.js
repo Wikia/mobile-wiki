@@ -34,13 +34,13 @@ export default Ember.Component.extend({
 
 	isQuestionable: Ember.computed.equal('model.status', 'QUESTIONABLE'),
 
-	statusClass: Ember.computed('model.status', function() {
+	statusClass: Ember.computed('model.status', function () {
 		return (this.get('model.status') || '').toLowerCase();
 	}),
 
-	deleteOnReject: Ember.computed('isRejectedQueue', 'isCoppa', function() {
+	deleteOnReject: Ember.computed('isRejectedQueue', 'isCoppa', function () {
 		return this.get('isRejectedQueue') || this.get('isCoppa');
- 	}),
+	}),
 
 	actions: {
 		setStatus(status) {

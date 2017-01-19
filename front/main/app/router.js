@@ -140,7 +140,7 @@ Router.map(function () {
 
 			this.route('user-images', {
 				path: '/:username'
-			})
+			});
 		});
 	});
 
