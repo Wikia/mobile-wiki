@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import {isNotFoundError, isBadRequestError, isForbiddenError} from 'ember-ajax/errors';
+import {extractEncodedTitle} from '../utils/url';
 
 const {Object, computed, A, Logger} = Ember;
 
@@ -84,7 +85,7 @@ export default Object.extend({
 					return {
 						title: item.title,
 						snippet: item.snippet,
-						prefixedTitle: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
+						prefixedTitle: extractEncodedTitle(item.url)
 					};
 				})
 			],

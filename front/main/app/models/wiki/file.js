@@ -2,6 +2,7 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 import request from 'ember-ajax/request';
+import {extractEncodedTitle} from '../../utils/url';
 
 const {Object, get} = Ember,
 	FileModel = Object.extend({
@@ -131,7 +132,7 @@ FileModel.reopenClass({
 		return {
 			title: get(item, 'titleText'),
 			snippet: get(item, 'snippet'),
-			prefixedTitle: get(item, 'url').replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
+			prefixedTitle: extractEncodedTitle(get(item, 'url'))
 		};
 	}
 });
