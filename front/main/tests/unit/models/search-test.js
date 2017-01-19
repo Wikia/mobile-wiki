@@ -38,17 +38,17 @@ test('test state update', (assert) => {
 			},
 			expected: [
 				{
-					href: 'Test',
+					prefixedTitle: 'Test',
 					snippet: '<div>html</div>test',
 					title: 'test'
 				},
 				{
-					href: 'Test/1',
+					prefixedTitle: 'Test/1',
 					snippet: '<div>html</div>test',
 					title: 'test sub dir'
 				},
 				{
-					href: 'test_2',
+					prefixedTitle: 'test_2',
 					snippet: '<div>html</div>test',
 					title: 'test not canonical'
 				}
@@ -140,7 +140,7 @@ test('update state with load more results', (assert) => {
 	});
 	assert.deepEqual(search.items, [
 		{
-			href: 'Test',
+			prefixedTitle: 'Test',
 			snippet: '<div>html</div>test',
 			title: '1'
 		}
@@ -164,17 +164,17 @@ test('update state with load more results', (assert) => {
 	});
 	assert.deepEqual(search.items, [
 		{
-			href: 'Test',
+			prefixedTitle: 'Test',
 			snippet: '<div>html</div>test',
 			title: '1'
 		},
 		{
-			href: 'Test/1',
+			prefixedTitle: 'Test/1',
 			snippet: '<div>html</div>test',
 			title: '2'
 		},
 		{
-			href: 'Test_2',
+			prefixedTitle: 'Test_2',
 			snippet: '<div>html</div>test',
 			title: '3'
 		}

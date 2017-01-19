@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['file-usage']
+	classNames: ['wikia-card'],
+	tagName: 'li'
 });

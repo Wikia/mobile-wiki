@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import {normalizeToWhitespace} from 'common/utils/string';
+import {extractEncodedTitle} from 'main/utils/url';
 
 const {get, computed} = Ember,
 	FileModel = BaseModel.extend({
@@ -27,7 +28,7 @@ FileModel.reopenClass({
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
 				articleType: get(data, 'file'),
-				fileUsageList: get(data, 'nsSpecificContent.fileUsageList'),
+				fileUsageList: get(data, 'nsSpecificContent.fileUsageList').map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				hasArticle: get(data, 'article.content.length') > 0,
 				heroImage: {
@@ -44,6 +45,14 @@ FileModel.reopenClass({
 
 		model.setProperties(pageProperties);
 	},
+
+	prepareFileUsageItem(item) {
+		return {
+			title: get(item, 'titleText'),
+			snippet: get(item, 'snippet'),
+			prefixedTitle: extractEncodedTitle(get(item, 'url'))
+		};
+	}
 });
 
 export default FileModel;
