@@ -11,7 +11,7 @@ export default {
 						'ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg\/revision\/latest' +
 						'?cb=20150706160548',
 						type: 'section',
-						'items': [
+						items: [
 							{
 								label: 'Articles label',
 								imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
