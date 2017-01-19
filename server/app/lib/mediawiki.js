@@ -350,7 +350,7 @@ export class EmailConfirmationRequest extends BaseRequest {
 			}),
 			params = {token: originalRequest.query.token};
 
-		return this.post(
+		return post(
 			url,
 			Url.format({query: params}).substr(1),
 			'',
