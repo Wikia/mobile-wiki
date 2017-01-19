@@ -7,7 +7,6 @@ const ImageReviewSummaryModel = Ember.Object.extend({
 	summary: null,
 	imageDetails: null,
 	imageId: null,
-	showSubHeader: true,
 
 	setSummaryModel() {
 		if (!Ember.isEmpty(this.get('startDate')) || !Ember.isEmpty(this.get('endDate'))) {

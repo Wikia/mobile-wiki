@@ -7,6 +7,8 @@ export default Ember.Component.extend({
 	thumbnailModel: {},
 	newestImages: Ember.computed.equal('order', 'NEWEST'),
 	oldestImages: Ember.computed.equal('order', 'OLDEST'),
+	isCoppa: false,
+	username: '',
 
 	didRender() {
 		Ember.$(':focus').blur();
