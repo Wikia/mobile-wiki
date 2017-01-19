@@ -16,14 +16,16 @@ export default Ember.Component.extend(
 		imageWidth: 400,
 		cropMode: Thumbnailer.mode.zoomCrop,
 		thumbUrl: Ember.computed('model', function () {
-			if (this.get('model.imageUrl')) {
+			const imageUrl = this.get('model.imageUrl');
+
+			if (imageUrl) {
 				return this.generateThumbUrl(
-					this.get('model.imageUrl'),
+					imageUrl,
 					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
 				);
-			} else {
-				return this.get('emptyGif');
 			}
+
+			return this.get('emptyGif');
 		})
 	}
 );

@@ -21,8 +21,10 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
 }
 
 function setThumbsForCuratedContent(item) {
+	const newItem = item;
+
 	if (item.imageUrl) {
-		item.imageUrl = getImageThumb(
+		newItem.imageUrl = getImageThumb(
 			item.imageUrl,
 			200,
 			200,
@@ -32,8 +34,10 @@ function setThumbsForCuratedContent(item) {
 	}
 
 	if (item.items) {
-		item.items.forEach(setThumbsForCuratedContent);
+		newItem.items = item.items.map(setThumbsForCuratedContent);
 	}
+
+	return newItem;
 }
 
 /**
@@ -45,20 +49,27 @@ function setThumbsForCuratedContent(item) {
  */
 function prepareCuratedMainPageModules(curatedMainPageData) {
 	if (curatedMainPageData) {
-		if (curatedMainPageData.featuredContent) {
-			curatedMainPageData.featuredContent.forEach((item) => {
-				item.imageUrl = getImageThumb(
+		const featuredContent = curatedMainPageData.featuredContent,
+			curatedContent = curatedMainPageData.curatedContent;
+
+		if (featuredContent) {
+			curatedMainPageData.featuredContent = featuredContent.map((item) => {
+				const newItem = item;
+
+				newItem.imageUrl = getImageThumb(
 					item.imageUrl,
 					400,
 					400 / 16 * 9,
 					Vignette.mode.zoomCrop,
 					item.imageCrop && item.imageCrop.landscape
 				);
+
+				return newItem;
 			});
 		}
 
-		if (curatedMainPageData.curatedContent && curatedMainPageData.curatedContent.items) {
-			curatedMainPageData.curatedContent.items.forEach(setThumbsForCuratedContent);
+		if (curatedContent && curatedContent.items) {
+			curatedContent.items = curatedContent.items.map(setThumbsForCuratedContent);
 		}
 	}
 
