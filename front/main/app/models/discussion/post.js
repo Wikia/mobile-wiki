@@ -199,7 +199,8 @@ DiscussionPostModel.reopenClass({
 					responseGroup: 'full',
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
-					viewableOnly: false
+					viewableOnly: false,
+					format: 'html',
 				}
 			}).then((data) => {
 				if (replyId) {

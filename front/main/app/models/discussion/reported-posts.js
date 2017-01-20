@@ -23,7 +23,8 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					viewableOnly: true,
-					reported: true
+					reported: true,
+					format: 'html',
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
@@ -79,6 +80,7 @@ DiscussionReportedPostsModel.reopenClass({
 					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true,
 					viewableOnly: true,
+					format: 'html',
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);

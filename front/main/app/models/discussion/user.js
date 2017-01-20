@@ -26,7 +26,8 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
-					viewableOnly: false
+					viewableOnly: false,
+					format: 'html',
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
@@ -85,7 +86,8 @@ DiscussionUserModel.reopenClass({
 					page: page - 1,
 					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
-					viewableOnly: false
+					viewableOnly: false,
+					format: 'html',
 				}
 			}).then((data) => {
 				userInstance.setNormalizedData(data);

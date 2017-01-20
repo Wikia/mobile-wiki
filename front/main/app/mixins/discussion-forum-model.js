@@ -9,7 +9,7 @@ export default Ember.Mixin.create(
 	{
 		loadThreadPage(requestUrl, requestData) {
 			return request(requestUrl, {
-				data: requestData,
+				data: this.addFormat(requestData),
 				traditional: true,
 			}).then((data) => {
 				const newEntities = Ember.get(data, '_embedded.threads').map(
@@ -49,6 +49,16 @@ export default Ember.Mixin.create(
 			});
 
 			this.set('pivotId', pivotId);
+		},
+
+		/**
+		 * @private
+		 */
+		addFormat(requestData) {
+			let data = requestData || {};
+
+			data.format = 'html';
+			return data;
 		}
 	}
 );
