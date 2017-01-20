@@ -1,9 +1,37 @@
+$card-margin: 10px;
+$card-title-margin: 4px;
+$card-horizontal-padding: 18px;
+$card-vertical-padding: 12px;
+
 .wikia-card-list {
 	background-color: $vapor;
 	margin: 0;
-	padding-bottom: 10px;
+	padding-bottom: $card-margin;
 
-	.wikia-card:last-child {
-		margin-bottom: 0;
+	.wikia-card {
+		@include link-interactions-color(inherit);
+
+		background: white;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+		display: block;
+		margin-bottom: $card-margin;
+		width: 100%;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&__item {
+			display: block;
+			font-size: $type-smallest;
+			line-height: $line-height-min;
+			padding: $card-vertical-padding $card-horizontal-padding;
+		}
+
+		&__title {
+			color: $link-color;
+			font-weight: bold;
+			margin-bottom: $card-title-margin;
+		}
 	}
 }
