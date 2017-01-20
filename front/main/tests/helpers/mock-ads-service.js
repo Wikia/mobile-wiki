@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Test.registerHelper('mockAdsService', function () {
+export default Ember.Test.registerHelper('mockAdsService', () => {
 	mockService(Ember.Service.extend({
 		module: {
 			addSlot: Ember.K,
