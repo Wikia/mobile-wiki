@@ -3,13 +3,15 @@ import DiscussionContributors from '../models/discussion/domain/contributors';
 import DiscussionEntities from '../models/discussion/domain/entities';
 import DiscussionUserBlockDetails from '../models/discussion/domain/user-block-details';
 import DiscussionPost from '../models/discussion/domain/post';
+import ContentFormatMixin from './discussion-content-format-static';
 import request from 'ember-ajax/request';
 
 export default Ember.Mixin.create(
+	ContentFormatMixin,
 	{
 		loadThreadPage(requestUrl, requestData) {
 			return request(requestUrl, {
-				data: this.addFormat(requestData),
+				data: this.getRequestDataWithFormat(requestData),
 				traditional: true,
 			}).then((data) => {
 				const newEntities = Ember.get(data, '_embedded.threads').map(
@@ -50,15 +52,5 @@ export default Ember.Mixin.create(
 
 			this.set('pivotId', pivotId);
 		},
-
-		/**
-		 * @private
-		 */
-		addFormat(requestData) {
-			let data = requestData || {};
-
-			data.format = 'html';
-			return data;
-		}
 	}
 );
