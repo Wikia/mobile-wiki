@@ -3,7 +3,8 @@ $file-usage-horizontal-padding: 12px;
 
 .file-usage {
 	.file-usage__header {
-		padding: 0 $file-usage-vertical-padding;
+		font-weight: bold;
+		padding: $file-usage-horizontal-padding $file-usage-vertical-padding;
 	}
 
 	.file-usage__list {
