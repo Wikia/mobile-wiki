@@ -61,7 +61,7 @@ export default Ember.Component.extend(
 				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					this.failsPostConstraints()
+					this.failsPostConstraints();
 			}
 		),
 
