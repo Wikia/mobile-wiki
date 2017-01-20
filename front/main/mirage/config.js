@@ -1,6 +1,7 @@
 import userActivityReportsFixtures from './fixtures/discussion-user-activity-reports';
 import userActivityPostsFixtures from './fixtures/discussion-user-activity-posts';
 import userActivityModerationsFixtures from './fixtures/discussion-user-activity-moderations';
+import filePageFixture from './fixtures/file-page';
 
 /**
  * @returns {void}
@@ -26,6 +27,10 @@ export default function () {
 			if (method === 'getPage' && title === 'Mercury_CC_Wikia') {
 				// Curated Main Page Data
 				return schema.curatedContents.first();
+			}
+
+			if (method === 'getPage' && title === 'File:Example.jpg') {
+				return filePageFixture;
 			}
 
 			if (method === 'getCuratedContentSection' && section === 'Categories') {
