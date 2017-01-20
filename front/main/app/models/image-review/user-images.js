@@ -13,10 +13,17 @@ function coppaStatus(status) {
 	return status;
 }
 
+function capitalize(str) {
+	if (str) {
+		return str.charAt(0).toUpperCase() + str.substring(1);
+	}
+	return str;
+}
+
 UserImagesModel.reopenClass({
 
 	imagesFor(username) {
-		return request(M.getImageReviewServiceUrl(`/user/${username}/images`))
+		return request(M.getImageReviewServiceUrl(`/user/${capitalize(username)}/images`))
 			.then((payload) => {
 				const linkRegexp = new RegExp('(http|https)?:\/\/[^\s]+');
 				const images = payload.images.map((img) => Ember.Object.create({
