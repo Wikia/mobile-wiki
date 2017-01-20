@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
+import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 import {extractEncodedTitle} from 'main/utils/url';
 
@@ -28,8 +29,12 @@ FileModel.reopenClass({
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
 				articleType: get(data, 'file'),
-				fileUsageList: get(data, 'nsSpecificContent.fileUsageList').map(this.prepareFileUsageItem),
+				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
+					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
+				fileMedia: MediaModel.create({
+					media: get(data, 'nsSpecificContent.media')
+				}),
 				hasArticle: get(data, 'article.content.length') > 0,
 				heroImage: {
 					// TODO check if this is the right image
@@ -39,7 +44,8 @@ FileModel.reopenClass({
 					height: get(data, 'details.original_dimensions.height'),
 					itemContext: 'file',
 					type: get(data, 'details.type'),
-					shouldBeLoaded: true
+					shouldBeLoaded: true,
+					fileRef: 0
 				}
 			};
 		}

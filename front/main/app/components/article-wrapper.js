@@ -42,7 +42,8 @@ export default Ember.Component.extend(
 		 */
 		contributionEnabledForCommunity: Ember.computed(() => {
 			if (Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false)) {
-				// When disableMobileSectionEditor is set to true, no contribution tools should show up
+				// When disableMobileSectionEditor is set to true, no contribution tools should
+				// show up
 				return false;
 			}
 
@@ -206,16 +207,10 @@ export default Ember.Component.extend(
 		handleMedia(target) {
 			const $target = $(target),
 				galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-				$mediaElement = $target.closest('[data-ref]'),
-				mediaRef = $mediaElement.data('ref');
+				fileRef = $target.closest('[data-file-ref]').data('file-ref'),
+				mediaRef = $target.closest('[data-ref]').data('ref');
 
-			let media;
-
-			if (mediaRef >= 0) {
-				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
-
-				media = this.get('model.media');
-
+			if (fileRef >= 0 || mediaRef >= 0) {
 				track({
 					action: trackActions.click,
 					category: 'media',
@@ -223,8 +218,8 @@ export default Ember.Component.extend(
 				});
 
 				this.sendAction('openLightbox', 'media', {
-					media,
-					mediaRef,
+					media: fileRef >= 0 ? this.get('model.fileMedia') : this.get('model.media'),
+					mediaRef: fileRef >= 0 ? fileRef : mediaRef,
 					galleryRef
 				});
 			} else {
