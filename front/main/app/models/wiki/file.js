@@ -31,7 +31,7 @@ FileModel.reopenClass({
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList').map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				hasArticle: get(data, 'article.content.length') > 0,
-				heroImage: {
+				fileImage: {
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),
