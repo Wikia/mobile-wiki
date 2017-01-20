@@ -2,16 +2,16 @@ $file-usage-vertical-padding: 18px;
 $file-usage-horizontal-padding: 12px;
 
 .file-usage {
-	.file-usage__header {
+	&__header {
 		font-weight: bold;
 		padding: $file-usage-horizontal-padding $file-usage-vertical-padding;
 	}
 
-	.file-usage__list {
+	&__list {
 		padding-top: $file-usage-horizontal-padding;
 	}
 
-	.file-usage__more {
+	&__more {
 		background-color: $vapor;
 		padding: 0 $file-usage-vertical-padding $file-usage-horizontal-padding;
 		text-align: center;
