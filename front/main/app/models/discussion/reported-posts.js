@@ -76,13 +76,12 @@ DiscussionReportedPostsModel.reopenClass({
 			});
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
-				data: {
+				data: this.getRequestDataWithFormat({
 					page: page - 1,
 					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true,
 					viewableOnly: true,
-					format: 'html',
-				}
+				})
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
 
