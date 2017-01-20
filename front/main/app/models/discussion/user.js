@@ -84,7 +84,7 @@ DiscussionUserModel.reopenClass({
 			});
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
-				data: this.getRequestDataWithFormat({
+				data: userInstance.getRequestDataWithFormat({
 					page: page - 1,
 					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',

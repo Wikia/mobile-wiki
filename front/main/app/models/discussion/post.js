@@ -195,7 +195,7 @@ DiscussionPostModel.reopenClass({
 				urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
 			request(M.getDiscussionServiceUrl(urlPath), {
-				data: this.getRequestDataWithFormat({
+				data: postInstance.getRequestDataWithFormat({
 					limit: postInstance.get('repliesLimit'),
 					responseGroup: 'full',
 					sortDirection: 'descending',
