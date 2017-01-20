@@ -4,16 +4,16 @@
 		{{!TODO handle video player XW-2605}}
 		{{!TODO files without thumbnails}}
 	{{#article-wrapper
-		model=model
-		showComments=false
-		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
-		siteName=siteName
 		addPhoto='addPhoto'
 		articleRendered='articleRendered'
-		edit='edit'
-		openLightbox='openLightbox'
-		toggleDrawer='toggleDrawer'
 		displayEmptyArticleInfo=false
+		edit='edit'
+		model=model
+		openLightbox='openLightbox'
+		showComments=false
+		siteName=siteName
+		toggleDrawer='toggleDrawer'
+		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
 	}}
 		{{#if model.fileUsageList}}
 			<nav class="file-usage">
