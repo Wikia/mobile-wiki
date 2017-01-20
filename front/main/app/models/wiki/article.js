@@ -47,15 +47,13 @@ ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @param {ArticleModel} model
-	 * @param {*} pageData
+	 * @param {Model} model
+	 * @param {Object} exception
+	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, pageData) {
+	setData(model, {exception, data}) {
 		this._super(...arguments);
-
-		const exception = pageData && pageData.exception,
-			data = pageData && pageData.data;
 
 		let articleProperties = {},
 			details;

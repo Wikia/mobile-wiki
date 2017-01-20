@@ -13,7 +13,7 @@ const {get} = Ember,
 
 FileModel.reopenClass({
 	/**
-	 * @param {CategoryModel} model
+	 * @param {Model} model
 	 * @param {Object} exception
 	 * @param {Object} data
 	 * @returns {void}
