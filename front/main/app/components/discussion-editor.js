@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import {track} from '../utils/discussion-tracker';
-import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
-import DiscussionEditorOverlayMessage from '../mixins/discussion-editor-overlay-message';
+import Ember from "ember";
+import {track} from "../utils/discussion-tracker";
+import DiscussionEditorConfiguration from "../mixins/discussion-editor-configuration";
+import DiscussionEditorOverlayMessage from "../mixins/discussion-editor-overlay-message";
 
 export default Ember.Component.extend(
 	DiscussionEditorConfiguration,
@@ -56,12 +56,13 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
+		submitDisabled: Ember.computed('content', 'title', 'currentUser.isAuthenticated', 'showOverlayMessage',
 			'isReply', 'category', 'isGuidelinesEditor', function () {
 				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
+					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor')) ||
+					(!this.get('isReply') && this.getWithDefault('title.length', 0) === 0);
 			}
 		),
 
