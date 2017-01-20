@@ -4,6 +4,11 @@ import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
 moduleForAcceptance('Acceptance | file page');
 
 test('visiting File Page', (assert) => {
+	const originalImage = window.Image;
+
+	window.Image = sinon.stub();
+	mockAdsService();
+
 	visit('/');
 	visit('/wiki/File:Example.jpg');
 
@@ -22,6 +27,6 @@ test('visiting File Page', (assert) => {
 
 		assert.equal(find('.file-usage__list .wikia-card').length, 1, 'Appears on had right number of items');
 
-
+		window.Image = originalImage;
 	});
 });
