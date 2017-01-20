@@ -49,8 +49,7 @@ function setThumbsForCuratedContent(item) {
  */
 function prepareCuratedMainPageModules(curatedMainPageData) {
 	if (curatedMainPageData) {
-		const featuredContent = curatedMainPageData.featuredContent,
-			curatedContent = curatedMainPageData.curatedContent;
+		const {curatedContent, featuredContent} = curatedMainPageData;
 
 		if (featuredContent) {
 			curatedMainPageData.featuredContent = featuredContent.map((item) => {
