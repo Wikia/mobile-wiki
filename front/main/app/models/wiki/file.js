@@ -32,7 +32,6 @@ FileModel.reopenClass({
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				hasArticle: get(data, 'article.content.length') > 0,
 				heroImage: {
-					// TODO check if this is the right image
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),

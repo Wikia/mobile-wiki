@@ -55,7 +55,6 @@ export default Ember.Component.extend(
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
-				this.injectHeroImage();
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
@@ -345,20 +344,6 @@ export default Ember.Component.extend(
 			}
 
 			componentElement.trigger('didInsertElement');
-		},
-
-		injectHeroImage() {
-			const heroImage = this.get('heroImage');
-
-			if (heroImage) {
-				const component = this.createComponentInstance('article-media-thumbnail');
-				let $componentElement;
-
-				component.setProperties(heroImage);
-
-				$componentElement = this.createChildView(component).createElement().$();
-				$componentElement.prependTo(this.$());
-			}
 		},
 
 		/**

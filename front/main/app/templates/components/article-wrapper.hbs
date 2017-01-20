@@ -16,6 +16,17 @@
 {{/if}}
 <section class="article-body">
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
+	{{#if model.heroImage}}
+		{{article-media-thumbnail
+			height=model.heroImage.height
+			itemContext=model.heroImage.itemContext
+			shouldBeLoaded=model.heroImage.shouldBeLoaded
+			title=model.heroImage.title
+			type=model.heroImage.type
+			url=model.heroImage.url
+			width=model.heroImage.width
+		}}
+	{{/if}}
 	{{article-content
 		adsContext=model.adsContext
 		content=model.content
