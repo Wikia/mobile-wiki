@@ -46,6 +46,7 @@
 	}}
 </section>
 {{yield}}
+{{! Keep the same server/app/views/_partials/article-footer/index.hbs }}
 <section class="article-footer">
 	{{wikia-users
 		classes='contributors'
@@ -59,6 +60,7 @@
 		}}
 	{{/if}}
 	{{#if model.categories}}
+	{{! Keep the same server/app/views/_partials/article-footer/categories.hbs }}
 		{{#collapsible-menu
 			observe=model.displayTitle
 			ordered=false

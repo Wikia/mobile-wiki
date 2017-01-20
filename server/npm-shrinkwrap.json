@@ -2798,6 +2798,9 @@
     "node-esapi": {
       "version": "0.0.1"
     },
+    "node-uuid": {
+      "version": "1.4.7"
+    },
     "numeral": {
       "version": "2.0.4"
     },
