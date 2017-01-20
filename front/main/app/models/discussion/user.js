@@ -72,6 +72,7 @@ DiscussionUserModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} userId
+	 * @param {number} [page = 1]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
