@@ -1,7 +1,7 @@
-import Ember from "ember";
-import {track} from "../utils/discussion-tracker";
-import DiscussionEditorConfiguration from "../mixins/discussion-editor-configuration";
-import DiscussionEditorOverlayMessage from "../mixins/discussion-editor-overlay-message";
+import Ember from 'ember';
+import {track} from '../utils/discussion-tracker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
+import DiscussionEditorOverlayMessage from '../mixins/discussion-editor-overlay-message';
 
 export default Ember.Component.extend(
 	DiscussionEditorConfiguration,
@@ -61,10 +61,21 @@ export default Ember.Component.extend(
 				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor')) ||
-					(!this.get('isReply') && this.getWithDefault('title.length', 0) === 0);
+					this.failsPostConstraints()
 			}
 		),
+
+		/**
+		 * @private
+		 * @return boolean
+		 */
+		failsPostConstraints() {
+			if (!this.get('isReply') && !this.get('isGuidelinesEditor')) { // is a post
+				return !this.get('category.id') || // does not have a category
+					this.getWithDefault('title.length', 0) === 0; // does not have a title
+			}
+			return false;
+		},
 
 		afterSuccess() {
 			this.setProperties({
