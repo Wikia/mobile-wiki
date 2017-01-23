@@ -1,21 +1,4 @@
 /**
- * @class MainPageDataRequestError
- * @param {*} data
- */
-export class MainPageDataRequestError {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-
-MainPageDataRequestError.prototype = Object.create(Error.prototype);
-
-/**
  * @class PageRequestError
  * @param {*} data
  */

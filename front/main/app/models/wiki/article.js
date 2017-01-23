@@ -26,7 +26,7 @@ const ArticleModel = Ember.Object.extend({
 	comments: 0,
 	description: '',
 	isMainPage: false,
-	mainPageData: null,
+	curatedMainPageData: null,
 	media: [],
 	mediaUsers: [],
 	otherLanguages: [],
@@ -167,8 +167,8 @@ ArticleModel.reopenClass({
 
 			articleProperties.isMainPage = data.isMainPage || false;
 
-			if (data.mainPageData) {
-				articleProperties.mainPageData = data.mainPageData;
+			if (data.curatedMainPageData) {
+				articleProperties.curatedMainPageData = data.curatedMainPageData;
 				articleProperties.isCuratedMainPage = true;
 			}
 
