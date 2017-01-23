@@ -50,7 +50,6 @@ CategoryModel.reopenClass({
 			// Category Basic Data
 			// This data should always be set - no matter if category has an article or not
 			pageProperties = {
-				hasArticle: get(data, 'article.content.length') > 0,
 				sections: get(data, 'nsSpecificContent.members.sections')
 			};
 		}

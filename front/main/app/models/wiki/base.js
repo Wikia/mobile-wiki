@@ -67,6 +67,7 @@ BaseModel.reopenClass({
 				ns: get(data, 'ns'),
 				url: get(data, 'details.url'),
 				categories: get(data, 'categories'),
+				hasArticle: get(data, 'article.content.length') > 0,
 			};
 
 			// Article related Data - if Article exists
