@@ -78,7 +78,7 @@ BaseModel.reopenClass({
 					user: get(data, 'details.revision.user_id')
 				});
 
-				if (article.content.length > 0) {
+				if (article.content && article.content.length > 0) {
 					pageProperties = $.extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
