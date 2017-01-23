@@ -24,9 +24,11 @@
 					trackingCategory="file-page"
 					trackingLabel="file-usage-article"
 				}}
-				<div class="file-usage__more">
-					<a href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'app.file-page-usages-see-more-link-label'}}</a>
-				</div>
+				{{#if model.fileUsageListSeeMoreUrl}}
+					<div class="file-usage__more">
+						<a href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'app.file-page-usages-see-more-link-label'}}</a>
+					</div>
+				{{/if}}
 			</nav>
 		{{/if}}
 	{{/article-wrapper}}
