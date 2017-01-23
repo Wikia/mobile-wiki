@@ -2,32 +2,69 @@ export default {
 	data: {
 		isMainPage: true,
 		ns: 0,
-		mainPageData: {
-			curatedContent: [{
-				title: 'Categories',
-				image_id: 2164,
-				image_url: 'http:\/\/vignette2.wikia.nocookie.net\/mercurycc\/images\/3\/3e\/Burton-jane-ginger' +
-					'-domestic-kitten-felis-catus-rolling-on-back-playing.jpg\/revision\/latest?cb=20150706160548',
-				type: 'section'
-			}, {
-				title: 'Category:Templates',
-				label: 'Templates label',
-				image_id: 2166,
-				article_id: 1766,
-				type: 'category',
-				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/' +
-					'5a\/Red.jpg\/revision\/latest?cb=20150708092401',
-				article_local_url: '\/wiki\/Category:Templates'
-			}, {
-				title: 'Category:Broken',
-				label: 'Broken',
-				image_id: 2205,
-				article_id: 0,
-				type: 'category',
-				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/57\/' +
-					'UC39.jpg\/revision\/latest?cb=20150715133441',
-				article_local_url: '\/wiki\/Category:Broken'
-			}],
+		curatedMainPageData: {
+			curatedContent: {
+				items: [
+					{
+						label: 'Categories',
+						imageUrl: 'http:\/\/vignette2.wikia.nocookie.net\/mercurycc\/images\/3\/3e\/Burton-jane-' +
+						'ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg\/revision\/latest' +
+						'?cb=20150706160548',
+						type: 'section',
+						items: [
+							{
+								label: 'Articles label',
+								imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
+								'\/revision\/latest?cb=20150708092401',
+								type: 'category',
+								url: '\/wiki\/Category:Articles',
+								imageCrop: null
+							},
+							{
+								label: 'Blogs label',
+								imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
+								'\/revision\/latest?cb=20150708092401',
+								type: 'category',
+								url: '\/wiki\/Category:Blog_posts',
+								imageCrop: null
+							},
+							{
+								label: 'Photos label',
+								imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
+								'\/revision\/latest?cb=20150708092401',
+								type: 'category',
+								url: '\/wiki\/Category:Images',
+								imageCrop: null
+							},
+							{
+								label: 'Videos label',
+								imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
+								'\/revision\/latest?cb=20150708092401',
+								type: 'category',
+								url: '\/wiki\/Category:Videos',
+								imageCrop: null
+							}
+						],
+						imageCrop: null
+					},
+					{
+						label: 'Templates label',
+						imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg' +
+						'\/revision\/latest?cb=20150708092401',
+						type: 'category',
+						url: '\/wiki\/Category:Templates',
+						imageCrop: null
+					},
+					{
+						label: 'Broken',
+						imageUrl: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/57\/UC39.jpg' +
+						'\/revision\/latest?cb=20150715133441',
+						type: 'category',
+						url: '\/wiki\/Category:Broken',
+						imageCrop: null
+					}
+				]
+			},
 			wikiaStats: {
 				edits: 910,
 				articles: 13,

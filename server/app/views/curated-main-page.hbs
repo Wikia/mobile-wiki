@@ -6,17 +6,17 @@
 			</h1>
 		</div>
 
-		{{#if articlePage.data.mainPageData.wikiaStats}}
-			{{> curated-main-page/stats wikiaStats=articlePage.data.mainPageData.wikiaStats}}
+		{{#if articlePage.data.curatedMainPageData.wikiaStats}}
+			{{> curated-main-page/stats wikiaStats=articlePage.data.curatedMainPageData.wikiaStats}}
 		{{/if}}
-		{{#if articlePage.data.mainPageData.featuredContent}}
-			{{> curated-main-page/featured-content featuredArticle=articlePage.data.mainPageData.featuredContent.[0]}}
+		{{#if articlePage.data.curatedMainPageData.featuredContent}}
+			{{> curated-main-page/featured-content featuredArticle=articlePage.data.curatedMainPageData.featuredContent.[0]}}
 		{{/if}}
-		{{#if articlePage.data.mainPageData.wikiDescription}}
-			{{> curated-main-page/wiki-description description=articlePage.data.mainPageData.wikiDescription}}
+		{{#if articlePage.data.curatedMainPageData.wikiDescription}}
+			{{> curated-main-page/wiki-description description=articlePage.data.curatedMainPageData.wikiDescription}}
 		{{/if}}
-		{{#if articlePage.data.mainPageData.curatedContent}}
-			{{> curated-main-page/curated-content curatedContent=articlePage.data.mainPageData.curatedContent}}
+		{{#if articlePage.data.curatedMainPageData.curatedContent}}
+			{{> curated-main-page/curated-content model=articlePage.data.curatedMainPageData.curatedContent}}
 		{{/if}}
 	</div>
 </section>

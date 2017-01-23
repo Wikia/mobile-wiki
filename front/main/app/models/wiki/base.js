@@ -58,7 +58,7 @@ BaseModel.reopenClass({
 				exception
 			};
 		} else if (data) {
-			// This data should always be set - no matter if file has an article or not
+			// This data should always be set
 			pageProperties = {
 				articleType: get(data, 'articleType'),
 				description: get(data, 'details.description'),
@@ -67,6 +67,7 @@ BaseModel.reopenClass({
 				ns: get(data, 'ns'),
 				url: get(data, 'details.url'),
 				categories: get(data, 'categories'),
+				hasArticle: get(data, 'article.content.length') > 0,
 			};
 
 			// Article related Data - if Article exists
@@ -78,7 +79,7 @@ BaseModel.reopenClass({
 					user: get(data, 'details.revision.user_id')
 				});
 
-				if (article.content.length > 0) {
+				if (article.content && article.content.length > 0) {
 					pageProperties = $.extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,

@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import {normalizeToWhitespace} from 'common/utils/string';
 import request from 'ember-ajax/request';
 
 const ArticleModel = BaseModel.extend({
@@ -8,7 +7,7 @@ const ArticleModel = BaseModel.extend({
 	comments: 0,
 	isCuratedMainPage: false,
 	isMainPage: false,
-	mainPageData: null,
+	curatedMainPageData: null,
 	user: null
 });
 
@@ -88,8 +87,8 @@ ArticleModel.reopenClass({
 
 			articleProperties.isMainPage = data.isMainPage || false;
 
-			if (data.mainPageData) {
-				articleProperties.mainPageData = data.mainPageData;
+			if (data.curatedMainPageData) {
+				articleProperties.curatedMainPageData = data.curatedMainPageData;
 				articleProperties.isCuratedMainPage = true;
 			}
 

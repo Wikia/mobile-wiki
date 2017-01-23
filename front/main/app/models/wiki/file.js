@@ -26,22 +26,19 @@ FileModel.reopenClass({
 		if (!exception && data) {
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
-				articleType: get(data, 'file'),
+				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				fileMedia: MediaModel.create({
 					media: get(data, 'nsSpecificContent.media')
 				}),
-				hasArticle: get(data, 'article.content.length') > 0,
 				fileImage: {
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),
 					height: get(data, 'details.original_dimensions.height'),
-					itemContext: 'file',
 					type: get(data, 'details.type'),
-					shouldBeLoaded: true,
 					fileRef: 0
 				}
 			};

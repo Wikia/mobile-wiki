@@ -93,12 +93,7 @@
 			</p>
 			<p>
 				{{i18n 'main.images-to-review-count' ns='image-review'}}
-				{{#if model.imagesToReviewCount}}
-					<strong>{{model.imagesToReviewCount}}</strong>
-				{{else}}
-					{{i18n 'main.waiting-for-count' ns= 'image-review'}}
-				{{/if}}
-
+				<strong>{{model.imagesToReviewCount}}</strong>
 			</p>
 			<div class="image-review-sources">
 				{{i18n 'main.image-source' ns='image-review'}}:

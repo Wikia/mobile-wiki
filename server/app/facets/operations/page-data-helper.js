@@ -132,27 +132,6 @@ export function getDefaultTitle(request, pageData) {
 
 /**
  * @param {Hapi.Request} request
- * @param {Object} wikiVariables
- * @returns {String} title
- */
-export function getCuratedMainPageTitle(request, wikiVariables) {
-	/**
-	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
-	 * See the MainPageRoute for more details.
-	 */
-	if (request.url.pathname.indexOf('section') > -1) {
-		return decodeURIComponent(decodeURI(request.url.pathname.replace('\/main\/section\/', '')))
-			.replace(/%20/g, ' ').replace(/_/g, ' ');
-	} else if (request.url.pathname.indexOf('category') > -1) {
-		return decodeURIComponent(decodeURI(request.url.pathname.replace('\/main\/category\/', '')))
-			.replace(/%20/g, ' ').replace(/_/g, ' ');
-	} else {
-		return wikiVariables.mainPageTitle.replace(/_/g, ' ');
-	}
-}
-
-/**
- * @param {Hapi.Request} request
  * @param {MediaWikiPageData|CuratedContentPageData} data
  * @returns {object}
  */

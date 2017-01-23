@@ -10,9 +10,9 @@ const articleExample = {
 				comments: 123,
 				id: 123
 			},
+			categories: 'test',
 			article: {
 				content: 'TestContent',
-				categories: 'test',
 				users: 'test'
 			},
 			ns: 'namespace',
@@ -78,8 +78,8 @@ function verifyArticle(model, article, assert) {
 
 	assert.deepEqual(
 		model.get('categories'),
-		articleData.article.categories,
-		`expected categories=${articleData.article.categories}, got ${model.get('categories')}`
+		articleData.categories,
+		`expected categories=${articleData.categories}, got ${model.get('categories')}`
 	);
 
 	assert.deepEqual(
