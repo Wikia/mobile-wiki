@@ -58,7 +58,7 @@ BaseModel.reopenClass({
 				exception
 			};
 		} else if (data) {
-			// This data should always be set - no matter if file has an article or not
+			// This data should always be set
 			pageProperties = {
 				articleType: get(data, 'articleType'),
 				description: get(data, 'details.description'),

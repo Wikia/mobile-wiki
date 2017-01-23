@@ -34,9 +34,7 @@ FileModel.reopenClass({
 					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),
 					height: get(data, 'details.original_dimensions.height'),
-					itemContext: 'file',
 					type: get(data, 'details.type'),
-					shouldBeLoaded: true
 				}
 			};
 		}
