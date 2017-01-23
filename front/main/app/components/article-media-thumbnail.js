@@ -9,7 +9,6 @@ export default Ember.Component.extend(
 	MediaThumbnailUtilsMixin,
 	ViewportMixin,
 	{
-		attributeBindings: ['data-ref', 'data-gallery-ref', 'data-file-ref'],
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
 		tagName: 'figure',
@@ -31,11 +30,6 @@ export default Ember.Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
-		// Needed for lightbox, should be refactored
-		'data-ref': Ember.computed.readOnly('ref'),
-		'data-gallery-ref': Ember.computed.readOnly('galleryRef'),
-		'data-file-ref': Ember.computed.readOnly('fileRef'),
-
 		/**
 		 * Check if image width is smaller than article container
 		 */
@@ -48,6 +42,10 @@ export default Ember.Component.extend(
 		showTitle: Ember.computed('type', function () {
 			return this.get('type') === 'video' && this.get('title');
 		}),
+
+		click() {
+			this.get('openLightbox')();
+		},
 
 		/**
 		* @returns {{mode: string, height: number, width: number}}

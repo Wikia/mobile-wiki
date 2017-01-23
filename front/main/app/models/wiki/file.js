@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import MediaModel from '../media';
-import {normalizeToWhitespace} from 'common/utils/string';
 import {extractEncodedTitle} from 'main/utils/url';
 
 const {get} = Ember,
@@ -30,9 +29,13 @@ FileModel.reopenClass({
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				fileMedia: MediaModel.create({
-					media: get(data, 'nsSpecificContent.media')
-				}),
+				fileMedia: {
+					media: MediaModel.create({
+						media: get(data, 'nsSpecificContent.media')
+					}),
+					mediaRef: 0,
+					galleryRef: 0
+				},
 				fileImage: {
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),

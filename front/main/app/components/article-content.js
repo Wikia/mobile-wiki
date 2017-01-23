@@ -88,15 +88,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			/**
-			 * @param {string} lightboxType
-			 * @param {*} lightboxData
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxData) {
-				this.get('openLightbox')(lightboxType, lightboxData);
-			},
-
-			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
 			 * @returns {void}
@@ -208,32 +199,41 @@ export default Ember.Component.extend(
 		 * @returns {{name: string, attrs: Object, element: Object}}
 		 */
 		getAttributesForMedia({name, attrs, element}) {
-			const media = this.get('media.media');
+			const mediaModel = this.get('media'),
+				mediaArray = this.get('media.media');
 
-			if (attrs.ref >= 0 && media && media[attrs.ref]) {
+			if (attrs.ref >= 0 && mediaArray && mediaArray[attrs.ref]) {
 				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
 					attrs = this.handleAttrsContext(
-						Ember.$.extend(attrs, media[attrs.ref])
+						Ember.$.extend(attrs, mediaArray[attrs.ref], {
+							openLightbox: function (mediaRef, mediaModel) {
+								this.get('openLightbox')('media', {
+									media: mediaModel,
+									mediaRef,
+									galleryRef: 0
+								});
+							}.bind(this, attrs.ref, mediaModel)
+						})
 					);
 				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
 					attrs = Ember.$.extend(attrs, {
-						items: media[attrs.ref]
+						items: mediaArray[attrs.ref]
 					});
 				}
 			} else if (name === 'article-media-map-thumbnail') {
 				attrs = Ember.$.extend(attrs, {
 					openLightbox: this.get('openLightbox')
 				});
-			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
+			} else if (name === 'portable-infobox-image-collection' && attrs.refs && mediaArray) {
 				const getMediaItemsForCollection = (ref) => Ember.$.extend({
 						// We will push new item to media so use its length as index of new gallery element
-						ref: media.length
-					}, media[ref]),
+						ref: mediaArray.length
+					}, mediaArray[ref]),
 					collectionItems = attrs.refs.map(getMediaItemsForCollection);
 
 				// Add new gallery to media object
 				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
-				media.push(collectionItems);
+				mediaArray.push(collectionItems);
 
 				attrs = Ember.$.extend(attrs, {
 					items: collectionItems

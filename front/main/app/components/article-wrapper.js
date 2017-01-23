@@ -135,6 +135,12 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType, lightboxData) {
+				track({
+					action: trackActions.click,
+					category: 'media',
+					label: 'open'
+				});
+
 				this.sendAction('openLightbox', lightboxType, lightboxData);
 			},
 
@@ -158,73 +164,5 @@ export default Ember.Component.extend(
 				this.sendAction('articleRendered');
 			});
 		},
-
-		/**
-		 * Handle clicks on media and bubble up to Application if anything else was clicked
-		 *
-		 * @param {MouseEvent} event
-		 * @returns {boolean}
-		 */
-		click(event) {
-			const $anchor = Ember.$(event.target).closest('a');
-
-			let target;
-
-			// Here, we want to handle media only, no links
-			if ($anchor.length === 0) {
-				target = event.target;
-
-				if (this.shouldHandleMedia(target, target.tagName.toLowerCase())) {
-					this.handleMedia(target);
-					event.preventDefault();
-
-					// Don't bubble up
-					return false;
-				}
-			}
-
-			// Bubble up to ApplicationView#click
-			return true;
-		},
-
-		/**
-		 * Returns true if handleMedia() should be executed
-		 *
-		 * @param {EventTarget} target
-		 * @param {string} tagName clicked tag name
-		 * @returns {boolean}
-		 */
-		shouldHandleMedia(target, tagName) {
-			return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
-		},
-
-		/**
-		 * Opens media lightbox for given target
-		 *
-		 * @param {HTMLElement} target
-		 * @returns {void}
-		 */
-		handleMedia(target) {
-			const $target = $(target),
-				galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-				fileRef = $target.closest('[data-file-ref]').data('file-ref'),
-				mediaRef = $target.closest('[data-ref]').data('ref');
-
-			if (fileRef >= 0 || mediaRef >= 0) {
-				track({
-					action: trackActions.click,
-					category: 'media',
-					label: 'open'
-				});
-
-				this.sendAction('openLightbox', 'media', {
-					media: fileRef >= 0 ? this.get('model.fileMedia') : this.get('model.media'),
-					mediaRef: fileRef >= 0 ? fileRef : mediaRef,
-					galleryRef
-				});
-			} else {
-				Ember.Logger.debug('Missing ref on', target);
-			}
-		}
 	}
 );
