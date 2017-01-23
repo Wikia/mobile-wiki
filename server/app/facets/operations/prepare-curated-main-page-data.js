@@ -20,44 +20,59 @@ function getImageThumb(imageUrl, width, height, mode, imageCrop) {
 	return Vignette.getThumbURL(imageUrl, options);
 }
 
+function setThumbsForCuratedContent(item) {
+	const newItem = item;
+
+	if (item.imageUrl) {
+		newItem.imageUrl = getImageThumb(
+			item.imageUrl,
+			200,
+			200,
+			Vignette.mode.topCrop,
+			item.imageCrop && item.imageCrop.square
+		);
+	}
+
+	if (item.items) {
+		newItem.items = item.items.map(setThumbsForCuratedContent);
+	}
+
+	return newItem;
+}
+
 /**
  * Get thumbs and labels for curated main page modules
  *
  * @see front/main/app/mixins/curated-content-thumbnail.js
- * @param {object} mainPageData
+ * @param {object} curatedMainPageData
  * @returns {object}
  */
-function prepareCuratedMainPageModules(mainPageData) {
-	if (mainPageData && mainPageData.featuredContent) {
-		mainPageData.featuredContent.forEach((item) => {
-			item.thumb_url = getImageThumb(
-				item.image_url,
-				400,
-				400 / 16 * 9,
-				Vignette.mode.zoomCrop,
-				item.image_crop && item.image_crop.landscape
-			);
-		});
-	}
+function prepareCuratedMainPageModules(curatedMainPageData) {
+	if (curatedMainPageData) {
+		const {curatedContent, featuredContent} = curatedMainPageData;
 
-	if (mainPageData && mainPageData.curatedContent) {
-		mainPageData.curatedContent.forEach((item) => {
-			item.url = item.url || item.article_local_url;
-			item.label = item.label || item.title;
+		if (featuredContent) {
+			curatedMainPageData.featuredContent = featuredContent.map((item) => {
+				const newItem = item;
 
-			if (item.image_url) {
-				item.thumb_url = getImageThumb(
-					item.image_url,
-					200,
-					200,
-					Vignette.mode.topCrop,
-					item.image_crop && item.image_crop.square
+				newItem.imageUrl = getImageThumb(
+					item.imageUrl,
+					400,
+					400 / 16 * 9,
+					Vignette.mode.zoomCrop,
+					item.imageCrop && item.imageCrop.landscape
 				);
-			}
-		});
+
+				return newItem;
+			});
+		}
+
+		if (curatedContent && curatedContent.items) {
+			curatedContent.items = curatedContent.items.map(setThumbsForCuratedContent);
+		}
 	}
 
-	return mainPageData;
+	return curatedMainPageData;
 }
 /**
  * Prepare data for curated main pages
@@ -70,26 +85,17 @@ export default function prepareCuratedMainPageData(data) {
 		wikiVariables = data.wikiVariables,
 		result = {
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
-			mainPageData: {
-				adsContext: pageData.adsContext
-			},
-			showSpinner: true,
 			articlePage: {
 				data: {}
-			}
+			},
+			showSpinner: true
 		};
 
-	if (pageData.details) {
-		if (pageData.details.description) {
-			result.description = pageData.details.description;
-		}
-
-		if (pageData.details.ns) {
-			result.mainPageData.ns = pageData.details.ns;
-		}
+	if (pageData.details && pageData.details.description) {
+		result.description = pageData.details.description;
 	}
 
-	result.articlePage.data.mainPageData = prepareCuratedMainPageModules(pageData.mainPageData);
+	result.articlePage.data.curatedMainPageData = prepareCuratedMainPageModules(pageData.curatedMainPageData);
 
 	return result;
 }

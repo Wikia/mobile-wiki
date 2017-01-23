@@ -1,16 +1,16 @@
 {{! Keep the same HTML structure as in server/app/views/_partials/curated-main-page/curated-content.hbs }}
-{{#if model.items}}
-	<nav class='curated-content-items'>
-		{{#each model.items as |item index|}}
-			{{curated-content-item index=index openCuratedContentItem=openCuratedContentItem model=item}}
-		{{/each}}
-
-	{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
-	</nav>
-	{{#if model.offset}}
-		<button class="load-more-items" {{action 'loadMore'}}>
-			{{i18n 'app.curated-content-load-more-items'}}
-		</button>
+{{curated-content-section
+	model=model
+	isVisible=(equal activeLabel null)
+	openSection=(action 'openSection')
+}}
+{{#each model.items as |item|}}
+	{{#if (equal item.type 'section')}}
+		{{curated-content-section
+			isVisible=(equal activeLabel item.label)
+			model=item
+			openSection=(action 'openSection')
+			closeSection=(action 'closeSection')
+		}}
 	{{/if}}
-{{/if}}
-{{loading-spinner active=isLoading}}
+{{/each}}

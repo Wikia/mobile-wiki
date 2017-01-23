@@ -2,123 +2,125 @@
   "data": {
     "isMainPage": true,
     "ns": 0,
-    "mainPageData": {
-      "curatedContent": [
-        {
-          "title": "Films",
-          "image_id": 352461,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/4\/40\/Dioxis.jpg\/revision\/latest?cb=20111001152223",
-          "type": "section"
-        },
-        {
-          "title": "Television",
-          "image_id": 424058,
-          "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/9\/94\/Rebels-logo-big.png\/revision\/latest?cb=20140821141027",
-          "type": "section"
-        },
-        {
-          "title": "Novels",
-          "image_id": 450176,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/c\/c2\/Heir_to_the_Jedi.jpg\/revision\/latest?cb=20140425200555",
-          "type": "section"
-        },
-        {
-          "title": "Video Games",
-          "image_id": 477464,
-          "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/8\/8c\/Star_Wars_Revenge_of_the_Sith_videogame_Clone_Heavy_Duty_Commandos.jpg\/revision\/latest?cb=20150114235531",
-          "type": "section"
-        },
-        {
-          "title": "Comics",
-          "image_id": 275873,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/4\/4d\/Act_on_Instinct.png\/revision\/latest?cb=20091001052446",
-          "type": "section"
-        },
-        {
-          "title": "Reference Books",
-          "image_id": 22779,
-          "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/8\/8d\/Essentialguidetoalienspecies.jpg\/revision\/latest?cb=20081031133121",
-          "type": "section"
-        },
-        {
-          "title": "Magazines",
-          "image_id": 193275,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/c\/c5\/Backstab_1.jpg\/revision\/latest?cb=20080301235230",
-          "type": "section"
-        },
-        {
-          "title": "Soundtracks",
-          "image_id": 445594,
-          "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/4\/4c\/TCE_OST.png\/revision\/latest?cb=20140311215257",
-          "type": "section"
-        },
-        {
-          "title": "Characters",
-          "image_id": 431195,
-          "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/4\/48\/Han_Solo_SWG_TNsR.jpg\/revision\/latest?cb=20131004103455",
-          "type": "section"
-        },
-        {
-          "title": "Battles",
-          "image_id": 246818,
-          "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/d\/df\/B2_lineup.jpg\/revision\/latest?cb=20111224211527",
-          "type": "section"
-        },
-        {
-          "title": "Conflicts",
-          "image_id": 423508,
-          "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/1\/10\/Homing_Spider_Droid.png\/revision\/latest?cb=20130719124736",
-          "type": "section"
-        },
-        {
-          "title": "Creatures",
-          "image_id": 333647,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/6\/66\/Starkiller_v_Gorog.png\/revision\/latest?cb=20130903121445",
-          "type": "section"
-        },
-        {
-          "title": "Governments",
-          "image_id": 383735,
-          "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/f\/f0\/Bespin_Government_Center.jpg\/revision\/latest?cb=20120621000941",
-          "type": "section"
-        },
-        {
-          "title": "Locations",
-          "image_id": 399280,
-          "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/b\/bf\/Bastion.png\/revision\/latest?cb=20121113012121",
-          "type": "section"
-        },
-        {
-          "title": "Organizations",
-          "image_id": 399280,
-          "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/b\/bf\/Bastion.png\/revision\/latest?cb=20121113012121",
-          "type": "section"
-        },
-        {
-          "title": "Starships",
-          "image_id": 163382,
-          "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/0\/0b\/Naboo_Royal.png\/revision\/latest?cb=20070704235859",
-          "type": "section"
-        },
-        {
-          "title": "Technology",
-          "image_id": 394120,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/5\/59\/Skytop_Aqualish_tech.png\/revision\/latest?cb=20120921020455",
-          "type": "section"
-        },
-        {
-          "title": "Vehicles",
-          "image_id": 89801,
-          "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/0\/0a\/Corvette_negvv.jpg\/revision\/latest?cb=20080121210117",
-          "type": "section"
-        },
-        {
-          "title": "Weapons",
-          "image_id": 403359,
-          "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/0\/03\/Palpatine_saber_clash.png\/revision\/latest?cb=20130418043903",
-          "type": "section"
-        }
-      ],
+    "curatedMainPageData": {
+      "curatedContent": {
+        "items": [
+          {
+            "title": "Films",
+            "image_id": 352461,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/4\/40\/Dioxis.jpg\/revision\/latest?cb=20111001152223",
+            "type": "section"
+          },
+          {
+            "title": "Television",
+            "image_id": 424058,
+            "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/9\/94\/Rebels-logo-big.png\/revision\/latest?cb=20140821141027",
+            "type": "section"
+          },
+          {
+            "title": "Novels",
+            "image_id": 450176,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/c\/c2\/Heir_to_the_Jedi.jpg\/revision\/latest?cb=20140425200555",
+            "type": "section"
+          },
+          {
+            "title": "Video Games",
+            "image_id": 477464,
+            "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/8\/8c\/Star_Wars_Revenge_of_the_Sith_videogame_Clone_Heavy_Duty_Commandos.jpg\/revision\/latest?cb=20150114235531",
+            "type": "section"
+          },
+          {
+            "title": "Comics",
+            "image_id": 275873,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/4\/4d\/Act_on_Instinct.png\/revision\/latest?cb=20091001052446",
+            "type": "section"
+          },
+          {
+            "title": "Reference Books",
+            "image_id": 22779,
+            "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/8\/8d\/Essentialguidetoalienspecies.jpg\/revision\/latest?cb=20081031133121",
+            "type": "section"
+          },
+          {
+            "title": "Magazines",
+            "image_id": 193275,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/c\/c5\/Backstab_1.jpg\/revision\/latest?cb=20080301235230",
+            "type": "section"
+          },
+          {
+            "title": "Soundtracks",
+            "image_id": 445594,
+            "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/4\/4c\/TCE_OST.png\/revision\/latest?cb=20140311215257",
+            "type": "section"
+          },
+          {
+            "title": "Characters",
+            "image_id": 431195,
+            "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/4\/48\/Han_Solo_SWG_TNsR.jpg\/revision\/latest?cb=20131004103455",
+            "type": "section"
+          },
+          {
+            "title": "Battles",
+            "image_id": 246818,
+            "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/d\/df\/B2_lineup.jpg\/revision\/latest?cb=20111224211527",
+            "type": "section"
+          },
+          {
+            "title": "Conflicts",
+            "image_id": 423508,
+            "image_url": "http:\/\/vignette1.wikia.nocookie.net\/starwars\/images\/1\/10\/Homing_Spider_Droid.png\/revision\/latest?cb=20130719124736",
+            "type": "section"
+          },
+          {
+            "title": "Creatures",
+            "image_id": 333647,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/6\/66\/Starkiller_v_Gorog.png\/revision\/latest?cb=20130903121445",
+            "type": "section"
+          },
+          {
+            "title": "Governments",
+            "image_id": 383735,
+            "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/f\/f0\/Bespin_Government_Center.jpg\/revision\/latest?cb=20120621000941",
+            "type": "section"
+          },
+          {
+            "title": "Locations",
+            "image_id": 399280,
+            "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/b\/bf\/Bastion.png\/revision\/latest?cb=20121113012121",
+            "type": "section"
+          },
+          {
+            "title": "Organizations",
+            "image_id": 399280,
+            "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/b\/bf\/Bastion.png\/revision\/latest?cb=20121113012121",
+            "type": "section"
+          },
+          {
+            "title": "Starships",
+            "image_id": 163382,
+            "image_url": "http:\/\/vignette4.wikia.nocookie.net\/starwars\/images\/0\/0b\/Naboo_Royal.png\/revision\/latest?cb=20070704235859",
+            "type": "section"
+          },
+          {
+            "title": "Technology",
+            "image_id": 394120,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/5\/59\/Skytop_Aqualish_tech.png\/revision\/latest?cb=20120921020455",
+            "type": "section"
+          },
+          {
+            "title": "Vehicles",
+            "image_id": 89801,
+            "image_url": "http:\/\/vignette2.wikia.nocookie.net\/starwars\/images\/0\/0a\/Corvette_negvv.jpg\/revision\/latest?cb=20080121210117",
+            "type": "section"
+          },
+          {
+            "title": "Weapons",
+            "image_id": 403359,
+            "image_url": "http:\/\/vignette3.wikia.nocookie.net\/starwars\/images\/0\/03\/Palpatine_saber_clash.png\/revision\/latest?cb=20130418043903",
+            "type": "section"
+          }
+        ]
+      },
       "featuredContent": [
         {
           "title": "Star_Wars:_Episode_VII_The_Force_Awakens",

@@ -3,7 +3,9 @@ import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | Curated Main Page');
 
-test('Open Curated Main Page then open Section and finally open Category', (assert) => {
+test('Open section on Curated Main Page', (assert) => {
+	const firstVisibleItemSelector = '.curated-content-items:visible .item-caption.clamp:first';
+
 	mockAdsService();
 
 	// https://github.com/ember-cli/ember-cli/issues/3719#issuecomment-111279593
@@ -12,23 +14,25 @@ test('Open Curated Main Page then open Section and finally open Category', (asse
 
 	andThen(() => {
 		assert.equal(currentURL(), '/wiki/Mercury_CC_Wikia', 'Url is correct: /wiki/Mercury_CC_Wikia');
-
 		assert.equal(
-			find('.item-caption.clamp:first').text(),
+			find(firstVisibleItemSelector).text(),
 			'Categories',
-			'Curated Content section \'Categories\' is visible'
+			'Section \'Categories\' is visible'
 		);
+
+		click(firstVisibleItemSelector);
 	});
 
-	click('.item-caption.clamp:first');
-
 	andThen(() => {
-		assert.equal(currentURL(), '/main/section/Categories', 'Url is correct: /main/section/Categories');
-
 		assert.equal(
-			find('.item-caption.clamp:first').text(),
+			find(firstVisibleItemSelector).text(),
 			'Articles label',
-			'mobile category \'Articles label\' is visible'
+			'Section was opened and its first item has correct label'
+		);
+		assert.equal(
+			find(firstVisibleItemSelector).closest('a').attr('href'),
+			'/wiki/Category:Articles',
+			'Section was opened and its first item is a link to a category page'
 		);
 	});
 });

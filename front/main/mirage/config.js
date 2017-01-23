@@ -21,7 +21,7 @@ export default function () {
 	this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
 
 	this.get('/wikia.php', (schema, request) => {
-		const {controller, method, title, section, category} = request.queryParams;
+		const {controller, method, title} = request.queryParams;
 
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'Mercury_CC_Wikia') {
@@ -31,10 +31,6 @@ export default function () {
 
 			if (method === 'getPage' && title === 'File:Example.jpg') {
 				return filePageFixture;
-			}
-
-			if (method === 'getCuratedContentSection' && section === 'Categories') {
-				return schema.curatedContentSections.first();
 			}
 		}
 

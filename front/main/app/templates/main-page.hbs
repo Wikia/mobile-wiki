@@ -1,19 +1,17 @@
 {{ad-slot isAboveTheFold=true name='INVISIBLE_HIGH_IMPACT'}}
 {{ad-slot isAboveTheFold=true name='MOBILE_TOP_LEADERBOARD'}}
 {{main-page
-	isRoot=isRoot
 	title=title
 	mainPageTitle=mainPageTitle
 	siteName=siteName
-	adsContext=adsContext
-	ns=ns
+	adsContext=model.adsContext
+	ns=model.ns
 	articleType=model.articleType
-	wikiaStats=model.mainPageData.wikiaStats
-	featuredContent=model.mainPageData.featuredContent
+	wikiaStats=model.curatedMainPageData.wikiaStats
+	featuredContent=model.curatedMainPageData.featuredContent
 	curatedContent=model.curatedContent
-	trendingArticles=model.mainPageData.trendingArticles
-	trendingVideos=model.mainPageData.trendingVideos
-	wikiDescription=model.mainPageData.wikiDescription
+	trendingArticles=model.curatedMainPageData.trendingArticles
+	trendingVideos=model.curatedMainPageData.trendingVideos
+	wikiDescription=model.curatedMainPageData.wikiDescription
 	openLightbox='openLightbox'
-	openCuratedContentItem='openCuratedContentItem'
 }}

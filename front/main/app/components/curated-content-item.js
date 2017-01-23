@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 		attributeBindings: ['href'],
 		classNames: ['curated-content-item'],
 		classNameBindings: ['type'],
-		style: null,
+		openSection: Ember.K,
 		href: Ember.computed.oneWay('model.url'),
 		type: Ember.computed.oneWay('model.type'),
 
@@ -62,7 +62,7 @@ export default Ember.Component.extend(
 			});
 
 			if (itemType && itemType === 'section') {
-				this.sendAction('openCuratedContentItem', this.get('model'));
+				this.get('openSection')(this.get('model'));
 				return false;
 			}
 		}
