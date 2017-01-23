@@ -66,6 +66,7 @@ BaseModel.reopenClass({
 				id: get(data, 'details.id'),
 				ns: get(data, 'ns'),
 				url: get(data, 'details.url'),
+				categories: get(data, 'categories'),
 			};
 
 			// Article related Data - if Article exists
@@ -84,7 +85,6 @@ BaseModel.reopenClass({
 						media: MediaModel.create({
 							media: article.media
 						}),
-						categories: article.categories,
 						redirectEmptyTarget: data.redirectEmptyTarget,
 					});
 				}
