@@ -6,11 +6,10 @@ const {Route, Logger} = Ember;
 export default Route.extend({
 
 	model(params) {
-		return ImageReviewModel.getBatch(params.batchId, params.status);
+		return ImageReviewModel.getBatch(params.batchId, params.status, params.source);
 	},
 
 	afterModel(model) {
-		model.setImagesCount(model.status);
 		this.controllerFor('application').set('isLoading', false);
 		this.controllerFor('application').set('fullPage', true);
 	},
