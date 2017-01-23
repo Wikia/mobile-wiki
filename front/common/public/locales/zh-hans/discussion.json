@@ -181,7 +181,7 @@
     "post-action-button-label":"发布",
     "post-edit-action-button-label":"保存",
     "post-editor-collapsed-label":"发起一个新讨论...",
-    "post-editor-title-label":"标题",
+    "post-editor-title-label":"标题 （可选填）",
     "post-editor-title-placeholder-text":"新讨论的标题...",
     "post-editor-description-label":"描述",
     "post-editor-description-placeholder-text":"你发起的新讨论是有关什么的？",

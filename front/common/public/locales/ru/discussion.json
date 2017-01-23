@@ -181,7 +181,7 @@
     "post-action-button-label":"Опубликовать",
     "post-edit-action-button-label":"Сохранить",
     "post-editor-collapsed-label":"Начать новое обсуждение...",
-    "post-editor-title-label":"Заголовок",
+    "post-editor-title-label":"Заголовок (необязательно)",
     "post-editor-title-placeholder-text":"Заголовок нового обсуждения...",
     "post-editor-description-label":"Описание",
     "post-editor-description-placeholder-text":"О чём ваше новое обсуждение?",
