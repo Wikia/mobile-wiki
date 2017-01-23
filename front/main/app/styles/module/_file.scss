@@ -1,19 +1,22 @@
-$file-usage-vertical-padding: 18px;
-$file-usage-horizontal-padding: 12px;
+$file-usage-large-padding: 18px;
+$file-usage-medium-padding: 12px;
+$file-usage-small-padding: 8px;
 
 .file-usage {
+	background-color: $vapor;
+	padding-bottom: $file-usage-small-padding;
+
 	&__header {
 		font-weight: bold;
-		padding: $file-usage-horizontal-padding $file-usage-vertical-padding;
+		padding: $file-usage-large-padding $file-usage-large-padding 0;
 	}
 
 	&__list {
-		padding-top: $file-usage-horizontal-padding;
+		padding-top: $file-usage-medium-padding;
 	}
 
 	&__more {
-		background-color: $vapor;
-		padding: 0 $file-usage-vertical-padding $file-usage-horizontal-padding;
+		padding: 0 $file-usage-large-padding 2px;
 		text-align: center;
 	}
 }
