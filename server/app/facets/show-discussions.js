@@ -1,8 +1,9 @@
-import {WikiRequest} from "../lib/mediawiki";
-import {getCachedWikiDomainName} from "../lib/utils";
-import settings from "../../config/settings";
-import showApplication from "./show-application";
+import {WikiRequest} from '../lib/mediawiki';
+import {getCachedWikiDomainName} from '../lib/utils';
+import settings from '../../config/settings';
+import showApplication from './show-application';
 import showServerErrorPage from './operations/show-server-error-page';
+import Logger from '../lib/logger';
 import {
 	NonJsonApiResponseError,
 	WikiVariablesRequestError
