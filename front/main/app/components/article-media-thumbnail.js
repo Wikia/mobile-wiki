@@ -14,6 +14,8 @@ export default Ember.Component.extend(
 		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
 		tagName: 'figure',
 
+		layoutName: 'components/article-media-thumbnail',
+
 		smallImageSize: {
 			height: 64,
 			width: 64
