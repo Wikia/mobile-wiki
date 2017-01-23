@@ -232,6 +232,22 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/image-review/coppa',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/image-review/coppa/{username*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/diff/{revisions*}',
 			handler: showApplication,
 			config: {

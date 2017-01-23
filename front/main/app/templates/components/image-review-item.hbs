@@ -1,24 +1,26 @@
-<div class="image-review-image-container {{model.status}}">
+<div class="image-review-image-container {{statusClass}}">
 	<div class="image-review-image-container-rejected">
 		<img src="{{thumbnailUrl}}" {{action this.attrs.onClick model}}>
 	</div>
 	<form class="image-review-button-group">
 		<button class="button-group-item {{if isAccepted 'highlighted' 'inactive'}}"
-			{{action (action 'setStatus' 'accepted')}}>
+			{{action (action 'setStatus' 'ACCEPTED')}}>
 			{{i18n 'main.status-accepted' ns='image-review'}}
 		</button>
 		<button class="button-group-item {{if isRejected 'highlighted' 'inactive'}}"
-			{{action (action 'setStatus' 'rejected')}}>
-			{{#if isRejectedQueue}}
+			{{action (action 'setStatus' 'REJECTED')}}>
+			{{#if deleteOnReject}}
 				{{i18n 'main.status-removed' ns='image-review'}}
 			{{else}}
 				{{i18n 'main.status-rejected' ns='image-review'}}
 			{{/if}}
 		</button>
-		<button class="button-group-item {{if isQuestionable 'highlighted' 'inactive'}}"
-			{{action (action 'setStatus' 'questionable')}}>
-			{{i18n 'main.status-questionable' ns='image-review'}}
-		</button>
+		{{#unless isCoppa}}
+			<button class="button-group-item {{if isQuestionable 'highlighted' 'inactive'}}"
+				{{action (action 'setStatus' 'QUESTIONABLE')}}>
+				{{i18n 'main.status-questionable' ns='image-review'}}
+			</button>
+		{{/unless}}
 		<div class="button-link">
 			<a href="{{model.context}}" target="_blank">🔗</a>
 		</div>

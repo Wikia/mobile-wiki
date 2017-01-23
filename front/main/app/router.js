@@ -128,6 +128,16 @@ Router.map(function () {
 		this.route('summary', {
 			path: '/summary'
 		});
+
+		this.route('coppa', function () {
+			this.route('index', {
+				path: '/'
+			});
+
+			this.route('user-images', {
+				path: '/:username'
+			});
+		});
 	});
 
 	this.route('recent-wiki-activity');

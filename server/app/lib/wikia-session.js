@@ -3,6 +3,7 @@ import Wreck from 'wreck';
 import settings from '../../config/settings';
 import Logger from './logger';
 import {getHeliosInternalUrl} from './auth-utils';
+import {getInternalHeaders} from '../lib/utils';
 
 /**
  * @returns {Object}
@@ -59,10 +60,7 @@ export default function scheme() {
 					code: accessToken
 				}),
 				{
-					headers: {
-						'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
-						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
-					},
+					headers: getInternalHeaders(request),
 					timeout: settings.helios.timeout
 				},
 				callback

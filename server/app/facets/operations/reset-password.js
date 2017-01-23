@@ -4,16 +4,15 @@ import Promise from 'bluebird';
 import settings from '../../../config/settings';
 import Wreck from 'wreck';
 import translateUserIdFrom from './username';
+import {getInternalHeaders} from '../../lib/utils';
 
 function createResetPasswordContext(userInfo, request, redirect = '') {
 	return {
 		url: authUtils.getHeliosUrl(`/users/${userInfo[0].userId}/reset_password`),
 		options: {
-			headers: {
+			headers: getInternalHeaders(request, {
 				'Content-type': 'application/x-www-form-urlencoded',
-				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
-				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
-			},
+			}),
 			timeout: settings.helios.timeout,
 			payload: `redirect=${redirect}`
 		},
