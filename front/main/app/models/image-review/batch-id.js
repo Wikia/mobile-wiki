@@ -3,7 +3,6 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
-	showSubHeader: true,
 	isRejectedQueue: Ember.computed('status', function () {
 		return this.get('status') === 'REJECTED';
 	}),
@@ -32,10 +31,9 @@ function getImageSources() {
 
 function toReviewStatus(imageStatus) {
 	if (imageStatus === 'UNREVIEWED') {
-		return 'accepted';
-	} else {
-		return imageStatus.toLowerCase();
+		return 'ACCEPTED';
 	}
+	return imageStatus;
 }
 
 function getBatch(batchId) {
@@ -50,7 +48,6 @@ function getBatch(batchId) {
 			const images = imageList
 				.map((image) =>
 					Ember.Object.create({
-						batchId,
 						imageId: image.imageId,
 						fullSizeImageUrl: image.imageUrl,
 						context: image.context,

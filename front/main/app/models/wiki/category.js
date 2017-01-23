@@ -36,15 +36,13 @@ const {get} = Ember,
 
 CategoryModel.reopenClass({
 	/**
-	 * @param {CategoryModel} model
-	 * @param {Object} pageData
+	 * @param {Model} model
+	 * @param {Object} exception
+	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, pageData) {
+	setData(model, {exception, data}) {
 		this._super(...arguments);
-
-		const exception = pageData.exception,
-			data = pageData.data;
 
 		let pageProperties;
 

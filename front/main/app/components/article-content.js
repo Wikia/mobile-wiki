@@ -50,13 +50,11 @@ export default Ember.Component.extend(
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
-					this.injectPotentialMemberPageExperimentComponent();
 					this.injectPlacementTest();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
-				this.injectHeroImage();
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
@@ -346,50 +344,6 @@ export default Ember.Component.extend(
 			}
 
 			componentElement.trigger('didInsertElement');
-		},
-
-		/**
-		 * Inject Potential Member Page experiment into article content
-		 * @returns {void}
-		 */
-		injectPotentialMemberPageExperimentComponent() {
-			const experimentComponent = this.createComponentInstance('potential-member-page-experiment'),
-				headers = this.$('h2[section]');
-			let $componentElement,
-				$firstHeader;
-
-			experimentComponent.set('experimentGroup', 'IN_ARTICLE');
-			$componentElement = this.createChildView(experimentComponent).createElement().$();
-
-			// Check if there are headers in content
-			if (headers.length >= 2) {
-				$firstHeader = headers.eq(0);
-
-				if ($firstHeader.prevAll('p').length) {
-					// Insert before first header if it's not first node in the content
-					$componentElement.insertBefore($firstHeader);
-				} else {
-					// Otherwise insert before second header
-					$componentElement.insertBefore(headers.eq(1));
-				}
-			} else {
-				// Eventually insert at the end of article
-				this.$().append($componentElement);
-			}
-		},
-
-		injectHeroImage() {
-			const heroImage = this.get('heroImage');
-
-			if (heroImage) {
-				const component = this.createComponentInstance('article-media-thumbnail');
-				let $componentElement;
-
-				component.setProperties(heroImage);
-
-				$componentElement = this.createChildView(component).createElement().$();
-				$componentElement.prependTo(this.$());
-			}
 		},
 
 		/**

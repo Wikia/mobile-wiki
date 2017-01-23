@@ -28,6 +28,7 @@
     "inert": "3.2.0",
     "jsdom": "3.1.2",
     "newrelic": "1.25.1",
+    "node-uuid": "1.4.7",
     "node-esapi": "0.0.1",
     "numeral": "2.0.4",
     "vignette": "Wikia/vignette-js#2.4.0",

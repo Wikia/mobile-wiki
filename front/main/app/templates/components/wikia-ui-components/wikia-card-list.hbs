@@ -1,7 +1,10 @@
 {{#each items as |item|}}
-	{{wikia-ui-components/wikia-card
-		item=item
-		trackingCategory=trackingCategory
-		trackingLabel=trackingLabel
-	}}
+	<li class="wikia-card">
+		{{#link-to 'wiki-page' item.prefixedTitle trackingCategory=trackingCategory trackingLabel=trackingLabel classNames="wikia-card__item"}}
+			<div class="wikia-card__title">
+				{{item.title}}
+			</div>
+			<div class="wikia-card__snippet">{{{item.snippet}}}</div>
+		{{/link-to}}
+	</li>
 {{/each}}

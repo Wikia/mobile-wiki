@@ -20,5 +20,5 @@ export function addQueryParams(url, params = {}) {
 }
 
 export function extractEncodedTitle(url) {
-	return !!url ? url.replace(/^(http:\/\/[^\/]+)?(\/wiki)?\//, '') : '';
+	return url ? url.replace(/^(http:\/\/[^\/]+)?(\/wiki)?\//, '') : '';
 }

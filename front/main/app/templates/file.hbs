@@ -4,22 +4,30 @@
 		{{!TODO handle video player XW-2605}}
 		{{!TODO files without thumbnails}}
 	{{#article-wrapper
-		model=model
-		showComments=false
-		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
-		siteName=siteName
-		addPhoto='addPhoto'
 		articleRendered='articleRendered'
-		edit='edit'
-		openLightbox='openLightbox'
-		toggleDrawer='toggleDrawer'
 		displayEmptyArticleInfo=false
+		model=model
+		openLightbox='openLightbox'
+		showComments=false
+		siteName=siteName
+		toggleDrawer='toggleDrawer'
+		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
 	}}
 		{{#if model.fileUsageList}}
-			{{file-usage-list
-				fileUsages=model.fileUsageList
-				seeMoreUrl=model.fileUsageListSeeMoreUrl
-			}}
+			<nav class="file-usage">
+				<div class="file-usage__header">{{i18n 'app.file-page-usages-header'}}</div>
+				{{wikia-ui-components/wikia-card-list
+					classNames="file-usage__list"
+					items=model.fileUsageList
+					trackingCategory="file-page"
+					trackingLabel="file-usage-article"
+				}}
+				{{#if model.fileUsageListSeeMoreUrl}}
+					<div class="file-usage__more">
+						<a href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'app.file-page-usages-see-more-link-label'}}</a>
+					</div>
+				{{/if}}
+			</nav>
 		{{/if}}
 	{{/article-wrapper}}
 </div>

@@ -13,9 +13,10 @@ export default {
 					titleDBkey: 'Jim_Henson:_A_Man_and_His_Frog',
 					titleText: 'Jim Henson: A Man and His Frog',
 					articleId: 122215,
-					imageUrl: 'http://vignette.wikia-dev.pl/muppet/images/3/3e/Kermit_wall_RD.jpg/revision/latest/window-crop/width/200/x-offset/0/y-offset/30/window-width/400/window-height/200?cb=20100721185415',
+					imageUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					url: 'http://muppet.damian.wikia-dev.pl/wiki/Jim_Henson:_A_Man_and_His_Frog',
-					snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;ellipsis&gt;'
+					snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;' +
+					'ellipsis&gt;'
 				}
 			],
 			fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg'
@@ -34,7 +35,7 @@ export default {
 			comments: 0,
 			type: 'image',
 			abstract: '',
-			thumbnail: 'http://vignette.wikia-dev.pl/muppet/images/d/dd/Kermit.jpg/revision/latest/window-crop/width/200/x-offset/0/y-offset/0/window-width/300/window-height/300?cb=20100721185056',
+			thumbnail: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			original_dimensions: {
 				width: '300',
 				height: '400'

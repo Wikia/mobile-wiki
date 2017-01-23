@@ -2,8 +2,8 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
-const {Object, get} = Ember,
-	BaseModel = Object.extend({
+const {Object: EmberObject, get} = Ember,
+	BaseModel = EmberObject.extend({
 		adsContext: null,
 		basePath: null,
 		categories: [],
@@ -42,14 +42,13 @@ BaseModel.reopenClass({
 	},
 
 	/**
-	 * @param {CategoryModel} model
-	 * @param {Object} pageData
+	 * @param {Model} model
+	 * @param {Object} exception
+	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, pageData) {
-		const exception = pageData && pageData.exception,
-			data = pageData && pageData.data,
-			prefix = Mercury.wiki.namespaces[get(data, 'ns')] ? `${Mercury.wiki.namespaces[get(data, 'ns')]}:` : '';
+	setData(model, {exception, data}) {
+		const prefix = Mercury.wiki.namespaces[get(data, 'ns')] ? `${Mercury.wiki.namespaces[get(data, 'ns')]}:` : '';
 
 		let pageProperties, article;
 
@@ -67,6 +66,7 @@ BaseModel.reopenClass({
 				id: get(data, 'details.id'),
 				ns: get(data, 'ns'),
 				url: get(data, 'details.url'),
+				categories: get(data, 'categories'),
 			};
 
 			// Article related Data - if Article exists
@@ -85,7 +85,6 @@ BaseModel.reopenClass({
 						media: MediaModel.create({
 							media: article.media
 						}),
-						categories: article.categories,
 						redirectEmptyTarget: data.redirectEmptyTarget,
 					});
 				}

@@ -20,7 +20,7 @@ export default {
 				"lastEditedAt": null,
 				"lastEditedBy": null,
 				"name": "badgeImage",
-				"value": "http://static.wikia.nocookie.net/96830da3-f59f-43b6-af95-3a90348b867d"
+				"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 			},
 			{
 				"_links": {
@@ -48,7 +48,7 @@ export default {
 				"lastEditedAt": null,
 				"lastEditedBy": null,
 				"name": "heroImage",
-				"value": "http://static.wikia.nocookie.net/6d3f0246-beda-4d33-8742-92873c7838df"
+				"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 			},
 			{
 				"_links": {

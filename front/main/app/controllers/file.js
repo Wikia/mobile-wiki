@@ -22,20 +22,6 @@ export default Controller.extend(
 			/**
 			 * @returns {void}
 			 */
-			edit() {
-				this.get('article').send('edit', ...arguments);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			addPhoto() {
-				this.get('article').send('addPhoto', ...arguments);
-			},
-
-			/**
-			 * @returns {void}
-			 */
 			articleRendered() {
 				this.get('article').send('articleRendered', ...arguments);
 			}
