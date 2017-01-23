@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
-	ArticleContentMixin,
+	ViewportMixin,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
 		maxZoom: 5,
@@ -144,7 +144,7 @@ export default Ember.Component.extend(
 			},
 		}),
 
-		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
+		articleContentWidthObserver: Ember.observer('viewportDimensions.width', function () {
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');

@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
-	ArticleContentMixin,
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
+	ViewportMixin,
 	{
 		attributeBindings: ['data-ref', 'data-gallery-ref'],
 		classNames: ['article-media-thumbnail'],
@@ -37,7 +37,7 @@ export default Ember.Component.extend(
 		 * Check if image width is smaller than article container
 		 */
 		isSmall: Ember.computed('width', 'height', function () {
-			return this.get('width') <= this.get('articleContent.width');
+			return this.get('width') <= this.get('viewportDimensions.width');
 		}),
 
 		hasFigcaption: Ember.computed.or('caption', 'showTitle'),
@@ -61,7 +61,7 @@ export default Ember.Component.extend(
 				width = originalWidth;
 				height = originalHeight;
 			} else {
-				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('articleContent.width'));
+				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('viewportDimensions.width'));
 				height = this.get('forcedHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
