@@ -17,12 +17,14 @@ export default function showDiscussions(request, reply) {
 
 	wikiVariables.then((variables) => {
 		if (!variables.enableDiscussions) {
-			return reply('Not Found').code(404);
+			return reply('Not Foundxx').code(404);
 		}
 
 		context.documentTitle = `Discussions | ${variables.siteName} | Fandom powered by Wikia`;
 		context.showSpinner = true;
 
 		showApplication(request, reply, wikiVariables, context, true);
+	}).catch(() => {
+		return reply('Not Foundx').code(404);
 	});
 }
