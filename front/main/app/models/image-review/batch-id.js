@@ -83,8 +83,10 @@ ImageReviewModel.reopenClass({
 			getBatch(batchId),
 			getImageCount(status, source)
 		]).then(([permissions, sources, batch, imagesCount]) => {
-			return ImageReviewModel.create(Ember.assign(permissions, sources, batch, {status}, {imagesToReviewCount: imagesCount.countByStatus}));
-		})
+			return ImageReviewModel.create(
+				Ember.assign(permissions, sources, batch, {status}, {imagesToReviewCount: imagesCount.countByStatus})
+			);
+		});
 	},
 
 	reviewImages(images, batchId, status) {
