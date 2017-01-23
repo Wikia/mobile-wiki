@@ -1,6 +1,6 @@
 {
   "landing-page":{
-    "to-the-wiki-title":"voltar para o Fandom",
+    "to-the-wiki-title":"voltar para a comunidade",
     "page-main-header":"As melhores discussões com os maiores fãs sobre __applicationName__.",
     "download-the-app-header":"Baixe o app para participar agora!",
     "google-play-button-alt":"Obter no Google Play",
@@ -160,7 +160,7 @@
     "reports-headline":"Relatórios",
     "reports-description":"Quem relatou mais conteúdo, e esses posts foram excluídos, aprovados ou ainda não foram analisados por um moderador?",
     "moderator-actions-headline":"Ações do moderador",
-    "moderator-actions-description":"Quais moderadores foram mais ativos ao excluir, aprovar e bloquear posts ou ao alterar a categoria de um post?",
+    "moderator-actions-description":"Quais moderadores foram mais ativos ao excluir, aprovar, editar e encerrar posts ou ao alterar a categoria de um post?",
     "posts":"posts",
     "not-processed":"não analisado",
     "actions":"ações",
@@ -181,7 +181,7 @@
     "post-action-button-label":"Postar",
     "post-edit-action-button-label":"Salvar",
     "post-editor-collapsed-label":"Comece uma nova discussão...",
-    "post-editor-title-label":"Título (opcional)",
+    "post-editor-title-label":"Título",
     "post-editor-title-placeholder-text":"Título da nova discussão...",
     "post-editor-description-label":"Descrição",
     "post-editor-description-placeholder-text":"Sobre o que é a sua nova discussão?",
