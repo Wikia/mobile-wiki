@@ -25,7 +25,7 @@ FileModel.reopenClass({
 		if (!exception && data) {
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
-				articleType: get(data, 'file'),
+				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
