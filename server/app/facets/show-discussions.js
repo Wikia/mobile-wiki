@@ -4,10 +4,7 @@ import settings from '../../config/settings';
 import showApplication from './show-application';
 import showServerErrorPage from './operations/show-server-error-page';
 import Logger from '../lib/logger';
-import {
-	NonJsonApiResponseError,
-	WikiVariablesRequestError
-} from '../lib/custom-errors';
+import {NonJsonApiResponseError, WikiVariablesRequestError} from '../lib/custom-errors';
 
 /**
  * Renders discussions page
