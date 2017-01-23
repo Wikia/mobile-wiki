@@ -369,23 +369,6 @@ export class PageRequest extends BaseRequest {
 			.then(({payload}) => payload);
 	}
 
-	/*
-	 * @returns {Promise}
-	 */
-	mainPageDetailsAndAdsContext() {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getMainPageDetailsAndAdsContext'
-		});
-
-		return this.fetch(url)
-			/**
-			 * @param {payload, redirectLocation}
-			 * @returns {Promise}
-			 */
-			.then(({payload}) => payload);
-	}
-
 	/**
 	 * prepare POST request body before sending to API
 	 * Encode all params to be able to retrieve correct

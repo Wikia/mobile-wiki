@@ -65,7 +65,7 @@ describe('wiki-page', function () {
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
 			expect(response.payload).to.include(
-				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":0,"mainPageData":{"curatedContent"'
+				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":0,"curatedMainPageData":{"curatedContent"'
 			);
 			done();
 		});
@@ -258,7 +258,7 @@ describe('wiki-page', function () {
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
 			expect(response.payload).to.include(
-				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":999,"mainPageData":{"curatedContent"'
+				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":999,"curatedMainPageData":{"curatedContent"'
 			);
 			done();
 		});
