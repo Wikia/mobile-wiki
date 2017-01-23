@@ -5,8 +5,8 @@ const {Route, Logger} = Ember;
 
 export default Route.extend({
 
-	model(params) {
-		return ImageReviewModel.getBatch(params.batchId, params.status, params.source);
+	model({batchId, status, source}) {
+		return ImageReviewModel.getBatch(batchId, status, source);
 	},
 
 	afterModel(model) {
