@@ -39,3 +39,8 @@ export function isContentNamespace(ns, contentNamespaces = []) {
 			(contentNamespace) => parseInt(contentNamespace, 10) === ns
 		));
 }
+
+export const namespaceSubtitleMessageKeys = {
+	[namespace.FILE]: 'app.file-page-subtitle',
+	[namespace.CATEGORY]: 'app.category-page-subtitle'
+};
