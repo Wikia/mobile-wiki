@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
+import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
-
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
+
+const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
 /**
  * HTMLElement
@@ -13,7 +15,7 @@ import TopLinksModel from '../models/top-links';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-export default Ember.Component.extend(
+export default Component.extend(
 	AdsMixin,
 	{
 		tagName: 'article',
@@ -27,20 +29,23 @@ export default Ember.Component.extend(
 		displayTitle: null,
 		displayEmptyArticleInfo: true,
 
-		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
+		articleContentObserver: on('init', observer('content', function () {
 			const content = this.get('content');
 
 			this.destroyChildComponents();
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				if (!Ember.isBlank(content)) {
+			run.scheduleOnce('afterRender', this, () => {
+				if (!isBlank(content)) {
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
 					this.renderedComponents = queryPlaceholders(this.$())
-						.map(this.getAttributesForMedia, this)
+						.map(getAttributesForMedia, {
+							media: this.get('media'),
+							openLightbox: this.get('openLightbox')
+						})
 						.map(this.renderComponent);
 
 					this.loadIcons();
@@ -74,7 +79,7 @@ export default Ember.Component.extend(
 		},
 
 		click(event) {
-			const $anchor = Ember.$(event.target).closest('a'),
+			const $anchor = $(event.target).closest('a'),
 				label = this.getTrackingEventLabel($anchor);
 
 			if (label) {
@@ -87,15 +92,6 @@ export default Ember.Component.extend(
 		},
 
 		actions: {
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} lightboxData
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxData) {
-				this.get('openLightbox')(lightboxType, lightboxData);
-			},
-
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
@@ -170,77 +166,6 @@ export default Ember.Component.extend(
 			}
 
 			return '';
-		},
-
-		/**
-		 * @param {{context: string, type: string}} attrs
-		 * @returns {Object}
-		 */
-		handleAttrsContext(attrs) {
-			/**
-			 * Ember has its own context attribute, that is why we have to use different attribute name
-			 */
-			if (attrs.context) {
-				/**
-				 * We don't want to show titles below videos in infoboxes.
-				 * This check is just a hack.
-				 * Perfectly this should be handled somewhere inside infobox-related logic.
-				 * For now this solution is enough
-				 * - it works the same way as on wikis without SEO friendly images.
-				 * It works on wikis without SEO friendly images because there was a bug
-				 * - video was treated as an image and we don't show titles below images.
-				 */
-				if (attrs.context === 'infobox' && attrs.type === 'video') {
-					attrs.showTitle = false;
-				}
-
-				attrs.mediaContext = attrs.context;
-				delete attrs.context;
-			}
-
-			return attrs;
-		},
-
-		/**
-		 * @param {string} name
-		 * @param {Object} attrs
-		 * @param {Object} element
-		 * @returns {{name: string, attrs: Object, element: Object}}
-		 */
-		getAttributesForMedia({name, attrs, element}) {
-			const media = this.get('media.media');
-
-			if (attrs.ref >= 0 && media && media[attrs.ref]) {
-				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-					attrs = this.handleAttrsContext(
-						Ember.$.extend(attrs, media[attrs.ref])
-					);
-				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
-					attrs = Ember.$.extend(attrs, {
-						items: media[attrs.ref]
-					});
-				}
-			} else if (name === 'article-media-map-thumbnail') {
-				attrs = Ember.$.extend(attrs, {
-					openLightbox: this.get('openLightbox')
-				});
-			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
-				const getMediaItemsForCollection = (ref) => Ember.$.extend({
-						// We will push new item to media so use its length as index of new gallery element
-						ref: media.length
-					}, media[ref]),
-					collectionItems = attrs.refs.map(getMediaItemsForCollection);
-
-				// Add new gallery to media object
-				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
-				media.push(collectionItems);
-
-				attrs = Ember.$.extend(attrs, {
-					items: collectionItems
-				});
-			}
-
-			return {name, attrs, element};
 		},
 
 		/**
@@ -438,7 +363,7 @@ export default Ember.Component.extend(
 					componentName = 'widget-flite';
 					break;
 				default:
-					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
+					Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
 
@@ -528,7 +453,7 @@ export default Ember.Component.extend(
 
 			group = group || getGroup(experimentName);
 
-			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
+			if (get(Mercury, 'wiki.language.content') !== 'en') {
 				return;
 			}
 
@@ -558,7 +483,7 @@ export default Ember.Component.extend(
 						article: this,
 						style: 'landscape'
 					});
-					location = Ember.$('.article-footer');
+					location = $('.article-footer');
 					break;
 				case 'FANDOM_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
@@ -572,7 +497,7 @@ export default Ember.Component.extend(
 				case 'CONTROL':
 					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
-					location = Ember.$('.article-footer');
+					location = $('.article-footer');
 					externalLink = true;
 					break;
 				default:

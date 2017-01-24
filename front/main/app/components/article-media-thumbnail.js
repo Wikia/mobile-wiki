@@ -9,7 +9,6 @@ export default Ember.Component.extend(
 	MediaThumbnailUtilsMixin,
 	ViewportMixin,
 	{
-		attributeBindings: ['data-ref', 'data-gallery-ref'],
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
 		tagName: 'figure',
@@ -31,10 +30,6 @@ export default Ember.Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
-		// Needed for lightbox, should be refactored
-		'data-ref': Ember.computed.readOnly('ref'),
-		'data-gallery-ref': Ember.computed.readOnly('galleryRef'),
-
 		/**
 		 * Check if image width is smaller than article container
 		 */
@@ -47,6 +42,15 @@ export default Ember.Component.extend(
 		showTitle: Ember.computed('type', function () {
 			return this.get('type') === 'video' && this.get('title');
 		}),
+
+		click(event) {
+			// Don't open lightbox when image is linked or caption was clicked
+			if (!this.get('link') && !$(event.target).closest('figcaption').length) {
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+				// it can also be overriden when this component is rendered from a template instead of JS
+				this.get('openLightbox')(this.get('ref'));
+			}
+		},
 
 		/**
 		* @returns {{mode: string, height: number, width: number}}

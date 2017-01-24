@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import {normalizeToWhitespace} from 'common/utils/string';
+import MediaModel from '../media';
 import {extractEncodedTitle} from 'main/utils/url';
 
 const {get} = Ember,
@@ -23,18 +23,19 @@ FileModel.reopenClass({
 		let pageProperties;
 
 		if (!exception && data) {
+			const media = get(data, 'nsSpecificContent.media');
+
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
 				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				fileImage: {
-					url: get(data, 'details.thumbnail'),
-					title: get(data, 'details.title'),
-					width: get(data, 'details.original_dimensions.width'),
-					height: get(data, 'details.original_dimensions.height'),
-					type: get(data, 'details.type'),
+				fileImage: media,
+				fileMedia: {
+					// This is for lightbox only
+					media: MediaModel.create({media}),
+					mediaRef: 0
 				}
 			};
 		}
