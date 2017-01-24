@@ -43,8 +43,9 @@ export default Ember.Component.extend(
 			return this.get('type') === 'video' && this.get('title');
 		}),
 
-		actions: {
-			openLightbox() {
+		click(event) {
+			// Don't open lightbox when image is linked or caption was clicked
+			if (!this.get('link') && !$(event.target).closest('figcaption').length) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				// it can also be overriden when this component is rendered from a template instead of JS
 				this.get('openLightbox')(this.get('ref'));
