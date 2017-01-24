@@ -44,7 +44,9 @@ export default Ember.Component.extend(
 		}),
 
 		click() {
-			this.get('openLightbox')();
+			// openLightbox is set in getAttributesForMedia() inside components/article-content.js
+			// it can also be overriden when this component is rendered from a template instead of JS
+			this.get('openLightbox')(this.get('ref'));
 		},
 
 		/**

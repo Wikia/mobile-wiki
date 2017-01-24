@@ -3,9 +3,10 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
-
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
+
+const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
 /**
  * HTMLElement
@@ -13,7 +14,7 @@ import TopLinksModel from '../models/top-links';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-export default Ember.Component.extend(
+export default Component.extend(
 	AdsMixin,
 	{
 		tagName: 'article',
@@ -27,13 +28,13 @@ export default Ember.Component.extend(
 		displayTitle: null,
 		displayEmptyArticleInfo: true,
 
-		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
+		articleContentObserver: on('init', observer('content', function () {
 			const content = this.get('content');
 
 			this.destroyChildComponents();
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				if (!Ember.isBlank(content)) {
+			run.scheduleOnce('afterRender', this, () => {
+				if (!isBlank(content)) {
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -74,7 +75,7 @@ export default Ember.Component.extend(
 		},
 
 		click(event) {
-			const $anchor = Ember.$(event.target).closest('a'),
+			const $anchor = $(event.target).closest('a'),
 				label = this.getTrackingEventLabel($anchor);
 
 			if (label) {
@@ -167,7 +168,7 @@ export default Ember.Component.extend(
 		 * @param {{context: string, type: string}} attrs
 		 * @returns {Object}
 		 */
-		handleAttrsContext(attrs) {
+		fixPortableInfoboxAttrs(attrs) {
 			/**
 			 * Ember has its own context attribute, that is why we have to use different attribute name
 			 */
@@ -200,32 +201,41 @@ export default Ember.Component.extend(
 		 */
 		getAttributesForMedia({name, attrs, element}) {
 			const mediaModel = this.get('media'),
-				mediaArray = this.get('media.media');
+				mediaArray = get(mediaModel, 'media');
 
 			if (attrs.ref >= 0 && mediaArray && mediaArray[attrs.ref]) {
 				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-					attrs = this.handleAttrsContext(
-						Ember.$.extend(attrs, mediaArray[attrs.ref], {
-							openLightbox: function (mediaRef, mediaModel) {
-								this.get('openLightbox')('media', {
-									media: mediaModel,
-									mediaRef,
-									galleryRef: 0
-								});
-							}.bind(this, attrs.ref, mediaModel)
-						})
-					);
+					attrs = $.extend(attrs, mediaArray[attrs.ref], {
+						openLightbox: (mediaRef) => {
+							this.get('openLightbox')('media', {
+								media: mediaModel,
+								mediaRef,
+								galleryRef: 0
+							});
+						}
+					});
 				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
-					attrs = Ember.$.extend(attrs, {
-						items: mediaArray[attrs.ref]
+					attrs = $.extend(attrs, {
+						items: mediaArray[attrs.ref],
+						openLightbox: (mediaRef, galleryRef) => {
+							this.get('openLightbox')('media', {
+								media: mediaModel,
+								mediaRef,
+								galleryRef
+							});
+						}
 					});
 				}
+
+				if (name === 'portable-infobox-hero-image') {
+					attrs = this.fixPortableInfoboxAttrs(attrs);
+				}
 			} else if (name === 'article-media-map-thumbnail') {
-				attrs = Ember.$.extend(attrs, {
+				attrs = $.extend(attrs, {
 					openLightbox: this.get('openLightbox')
 				});
 			} else if (name === 'portable-infobox-image-collection' && attrs.refs && mediaArray) {
-				const getMediaItemsForCollection = (ref) => Ember.$.extend({
+				const getMediaItemsForCollection = (ref) => $.extend({
 						// We will push new item to media so use its length as index of new gallery element
 						ref: mediaArray.length
 					}, mediaArray[ref]),
@@ -235,7 +245,7 @@ export default Ember.Component.extend(
 				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
 				mediaArray.push(collectionItems);
 
-				attrs = Ember.$.extend(attrs, {
+				attrs = $.extend(attrs, {
 					items: collectionItems
 				});
 			}
@@ -438,7 +448,7 @@ export default Ember.Component.extend(
 					componentName = 'widget-flite';
 					break;
 				default:
-					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
+					Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
 
@@ -528,7 +538,7 @@ export default Ember.Component.extend(
 
 			group = group || getGroup(experimentName);
 
-			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
+			if (get(Mercury, 'wiki.language.content') !== 'en') {
 				return;
 			}
 
@@ -558,7 +568,7 @@ export default Ember.Component.extend(
 						article: this,
 						style: 'landscape'
 					});
-					location = Ember.$('.article-footer');
+					location = $('.article-footer');
 					break;
 				case 'FANDOM_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
@@ -572,7 +582,7 @@ export default Ember.Component.extend(
 				case 'CONTROL':
 					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
-					location = Ember.$('.article-footer');
+					location = $('.article-footer');
 					externalLink = true;
 					break;
 				default:
