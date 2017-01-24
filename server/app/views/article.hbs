@@ -16,8 +16,8 @@
 	}}
 {{/if}}
 
-{{#if articlePage.data.nsSpecificContent.categorySections}}
-	{{> category-sections categorySections=articlePage.data.nsSpecificContent.categorySections}}
+{{#if articlePage.data.nsSpecificContent.members.sections}}
+	{{> category-sections categorySections=articlePage.data.nsSpecificContent.members.sections}}
 {{/if}}
 
-{{> article-footer/index model=articlePage.data.article}}
+{{> article-footer/index model=articlePage.data}}
