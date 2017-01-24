@@ -61,6 +61,10 @@ export default Ember.Component.extend(
 		}),
 
 		actions: {
+			openLightbox(galleryRef) {
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+				this.get('openLightbox')(this.get('currentImage.ref'), galleryRef);
+			},
 			/**
 			 * @param {Number} direction - 1 for next or -1 for previous
 			 * @returns {void}

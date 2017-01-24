@@ -20,12 +20,12 @@
 		{{article-media-thumbnail
 			height=model.fileImage.height
 			itemContext='file'
+			openLightbox=(action 'openLightbox' 'media' model.fileMedia)
 			shouldBeLoaded=true
 			title=model.fileImage.title
 			type=model.fileImage.type
 			url=model.fileImage.url
 			width=model.fileImage.width
-			openLightbox=(action 'openLightbox' 'media' model.fileMedia)
 		}}
 	{{/if}}
 	{{article-content

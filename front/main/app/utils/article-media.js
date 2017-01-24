@@ -84,7 +84,14 @@ export function getAttributesForMedia({name, attrs, element}) {
 		mediaArray.push(collectionItems);
 
 		attrs = $.extend(attrs, {
-			items: collectionItems
+			items: collectionItems,
+			openLightbox: (mediaRef, galleryRef) => {
+				this.openLightbox('media', {
+					media: mediaModel,
+					mediaRef,
+					galleryRef
+				});
+			}
 		});
 	}
 
