@@ -20,6 +20,7 @@ export default Component.extend(
 		classNameBindings: ['isSecondary:wds-is-secondary', 'isText:wds-is-text'],
 		isSecondary: false,
 		isText: false,
+		onClick: Ember.K,
 
 		/**
 		 * Handles click event on button - calls proper action if passed
@@ -29,13 +30,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		click(event) {
-			const onClick = this.get('onClick');
-
 			this.trackClick();
-
-			if (onClick) {
-				onClick(event);
-			}
+			this.get('onClick')(event);
 		},
 
 		trackClick() {
