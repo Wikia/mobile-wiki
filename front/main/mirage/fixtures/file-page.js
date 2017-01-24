@@ -19,7 +19,16 @@ export default {
 					'ellipsis&gt;'
 				}
 			],
-			fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg'
+			fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg',
+			media: {
+				type: 'image',
+				url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+				fileUrl: 'http://muppet.igor.wikia-dev.pl/wiki/File:Kerm.jpg',
+				title: 'Kerm.jpg',
+				user: 'Scarecroe',
+				width: 250,
+				height: 123
+			}
 		},
 		details: {
 			id: 122203,
