@@ -9,6 +9,27 @@
 	{{/if}}
 </section>
 
+{{#if fileUsageList}}
+	<nav class="file-usage">
+		<div class="file-usage__header">{{i18n 'app.file-page-usages-header'}}</div>
+		<ul class="wikia-card-list file-usage__list">
+			{{#each fileUsageList as |item|}}
+				<li class="wikia-card">
+					<a href="{{item.url}}" class="wikia-card__item">
+						<div class="wikia-card__title">{{item.titleText}}</div>
+						<div class="wikia-card__snippet">{{item.snippet}}</div>
+					</a>
+				</li>
+			{{/each}}
+		</ul>
+		{{#if fileUsageListSeeMoreUrl}}
+			<div class="file-usage__more">
+				<a class="wds-button wds-is-text" href="{{fileUsageListSeeMoreUrl}}">{{i18n 'app.file-page-usages-see-more-link-label'}}</a>
+			</div>
+		{{/if}}
+	</nav>
+{{/if}}
+
 {{#if categorySections}}
 	{{> category-sections}}
 {{/if}}

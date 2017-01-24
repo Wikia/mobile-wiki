@@ -24,6 +24,7 @@ import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareCuratedMainPageData from './operations/prepare-curated-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
+import prepareFileData from './operations/prepare-file-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
 import injectDesignSystemData from '../lib/inject-design-system-data';
@@ -118,6 +119,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	if (isContentNamespace || isMainPage || ns === MediaWikiNamespace.FILE) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
+		// TODO refactor
+		result = deepExtend(result, prepareFileData(request, data));
+		console.log(result);
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
 		if (pageData.article && pageData.details) {
 			result = deepExtend(result, prepareArticleData(request, data));
