@@ -32,12 +32,12 @@ export default Mixin.create({
 	deleteAllPosts(posts) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts.get('0.createdBy.id')}/posts/delete`), {
 			method: 'PUT'
-		}).then(() => {
+		}).then((response) => {
 			posts.forEach((post) => {
 				post.setProperties({
 					isDeleted: true,
 					isReported: false,
-					lastDeletedBy: posts.get('0.createdBy.id'),
+					lastDeletedBy: response.deletedBy,
 				});
 			});
 		}).catch(() => {
