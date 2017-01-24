@@ -16,16 +16,16 @@
 {{/if}}
 <section class="article-body">
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
-	{{#if model.fileImage}}
+	{{#if model.fileThumbnail}}
 		{{article-media-thumbnail
-			height=model.fileImage.height
+			height=model.fileThumbnail.height
 			itemContext='file'
 			openLightbox=(action 'openLightbox' 'media' model.fileMedia)
 			shouldBeLoaded=true
-			title=model.fileImage.title
-			type=model.fileImage.type
-			url=model.fileImage.url
-			width=model.fileImage.width
+			title=model.fileThumbnail.title
+			type=model.fileThumbnail.type
+			url=model.fileThumbnail.url
+			width=model.fileThumbnail.width
 		}}
 	{{/if}}
 	{{article-content
