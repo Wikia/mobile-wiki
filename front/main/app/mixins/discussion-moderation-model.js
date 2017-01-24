@@ -36,7 +36,8 @@ export default Mixin.create({
 			posts.forEach((post) => {
 				post.setProperties({
 					isDeleted: true,
-					isReported: false
+					isReported: false,
+					lastDeletedBy: posts.get('0.createdBy.id'),
 				});
 			});
 		}).catch(() => {
