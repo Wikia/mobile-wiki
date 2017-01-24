@@ -39,7 +39,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			openLightbox(galleryRef) {
-				// openLightbox is set in getAttributesForMedia() inside components/article-content.js
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				this.get('openLightbox')(this.get('ref'), galleryRef);
 			},
 			showMore() {
