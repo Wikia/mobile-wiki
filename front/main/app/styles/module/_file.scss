@@ -1,6 +1,6 @@
 $file-large-padding: 18px;
 $file-medium-padding: 12px;
-$file-small-padding: 8px;
+$file-usage-bottom-padding: 30px;
 
 .file-image,
 .file-video {
@@ -9,9 +9,10 @@ $file-small-padding: 8px;
 
 .file-usage {
 	background-color: $vapor;
-	padding-bottom: $file-small-padding;
+	padding-bottom: $file-usage-bottom-padding;
 
 	&__header {
+		font-size: $wds-typescale-size-plus-1;
 		font-weight: bold;
 		padding: $file-large-padding $file-large-padding 0;
 	}
@@ -21,7 +22,6 @@ $file-small-padding: 8px;
 	}
 
 	&__more {
-		padding: 0 $file-large-padding 2px;
 		text-align: center;
 	}
 }
