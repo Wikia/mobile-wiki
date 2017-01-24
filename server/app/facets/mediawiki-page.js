@@ -20,8 +20,7 @@ import {
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
 import settings from '../../config/settings';
-import prepareArticleData from './operations/prepare-article-data';
-import prepareCategoryData from './operations/prepare-category-data';
+import prepareWikiPageData from './operations/prepare-wiki-page-data';
 import prepareCuratedMainPageData from './operations/prepare-curated-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
@@ -115,15 +114,10 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	result.urlTitleParam = request.params.title;
 
 	// Main pages can live in namespaces which are not marked as content
-	if (isContentNamespace || isMainPage || ns === MediaWikiNamespace.FILE) {
+	if (isContentNamespace || isMainPage || ns === MediaWikiNamespace.FILE || ns === MediaWikiNamespace.CATEGORY) {
 		viewName = 'article';
-		result = deepExtend(result, prepareArticleData(request, data));
-	} else if (ns === MediaWikiNamespace.CATEGORY) {
-		if (pageData.article && pageData.details) {
-			result = deepExtend(result, prepareArticleData(request, data));
-		}
-		viewName = 'article';
-		result = deepExtend(result, prepareCategoryData(request, data));
+
+		result = deepExtend(result, prepareWikiPageData(request, data));
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
 		// This method sets all the data required to start the app
