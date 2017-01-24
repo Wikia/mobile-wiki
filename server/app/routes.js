@@ -15,7 +15,6 @@ import registerHandler from './facets/auth/register';
 import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/show-application';
-import showCuratedContent from './facets/show-curated-content';
 import showRecentWikiActivity from './facets/show-recent-wiki-activity';
 
 /**
@@ -276,14 +275,6 @@ let routes,
 			// We don't care if there is a dynamic segment, Ember router handles that
 			path: '/main/edit/{ignore*}',
 			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/main/section/{sectionName*}',
-			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
