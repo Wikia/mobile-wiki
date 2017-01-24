@@ -1,6 +1,5 @@
 import {parseQueryParams} from '../../lib/utils';
 import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
-import {canPrerender} from '../../lib/prerender';
 
 /**
  * Prepares article data to be rendered
@@ -54,7 +53,6 @@ export default function prepareArticleData(request, data) {
 	}
 
 	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, pageData);
-	result.canPrerender = canPrerender(request);
 
 	return result;
 }

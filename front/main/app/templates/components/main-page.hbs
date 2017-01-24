@@ -1,7 +1,6 @@
 <div id="wikiContainer" class="wiki-container">
 	{{wikia-ui-components/wiki-page-header-curated-main-page
 		showButtons=curatedContentToolButtonVisible
-		isRoot=isRoot
 		title=title
 	}}
 	{{#if wikiaStats}}
@@ -15,7 +14,7 @@
 		{{wiki-description description=wikiDescription}}
 	{{/if}}
 	{{#if curatedContent}}
-		{{curated-content model=curatedContent openCuratedContentItem='openCuratedContentItem'}}
+		{{curated-content model=curatedContent}}
 	{{/if}}
 	{{#if trendingArticles}}
 		{{trending-articles model=trendingArticles}}
