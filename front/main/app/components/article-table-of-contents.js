@@ -28,6 +28,7 @@ export default Ember.Component.extend(
 				}
 			}).toArray();
 
+			this.set('isVisible', headers.length > 0);
 			this.set('headers', headers);
 		},
 
