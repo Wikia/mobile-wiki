@@ -2,8 +2,8 @@
  * wds-button reusable component usage:
  *
  * @example
- * {{wikia-ui-components/wds
- *      onClick=(action='clickHandler')
+ * {{wikia-ui-components/wds-button
+ *      onClick=(action 'clickHandler')
  *      trackLabel='load-more'
  * }}
  */
