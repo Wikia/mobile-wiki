@@ -10,7 +10,8 @@
 	{{else}}
 		<img src="{{thumbnailUrl}}"
 			height="{{if forcedHeight forcedHeight height}}"
-			width="{{if forcedWidth forcedWidth width}}">
+			width="{{if forcedWidth forcedWidth width}}"
+			{{action 'openLightbox'}}>
 	{{/if}}
 </div>
 
