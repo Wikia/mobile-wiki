@@ -23,25 +23,19 @@ FileModel.reopenClass({
 		let pageProperties;
 
 		if (!exception && data) {
+			const media = get(data, 'nsSpecificContent.media');
+
 			// This data should always be set - no matter if file has an article or not
 			pageProperties = {
 				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
+				fileImage: media,
 				fileMedia: {
 					// This is for lightbox only
-					media: MediaModel.create({
-						media: get(data, 'nsSpecificContent.media')
-					}),
+					media: MediaModel.create({media}),
 					mediaRef: 0
-				},
-				fileImage: {
-					url: get(data, 'details.thumbnail'),
-					title: get(data, 'details.title'),
-					width: get(data, 'details.original_dimensions.width'),
-					height: get(data, 'details.original_dimensions.height'),
-					type: get(data, 'details.type')
 				}
 			};
 		}
