@@ -2,6 +2,10 @@
 	{{#unless preview}}
 		{{> wiki-page-header}}
 	{{/unless}}
+	{{#if articlePage.data.nsSpecificContent.media}}
+		{{> main-thumbnail media=articlePage.data.nsSpecificContent.media}}
+	{{/if}}
+
 	{{#if articleContent}}
 		<article class="article-content" id="preloadedContent">
 			{{{articleContent}}}
