@@ -22,7 +22,7 @@ export default class ResetPassword extends PasswordForm {
 	extractFieldsFromPathParameters(parameters) {
 		this.redirect = parameters.redirect;
 		this.token = parameters.token;
-		this.username = parameters.username;
+		this.username = parameters.username.replace(/\+/g, ' ');
 	}
 
 
