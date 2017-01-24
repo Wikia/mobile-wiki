@@ -2,6 +2,9 @@ import {WikiRequest} from '../lib/mediawiki';
 import {getCachedWikiDomainName} from '../lib/utils';
 import settings from '../../config/settings';
 import showApplication from './show-application';
+import showServerErrorPage from './operations/show-server-error-page';
+import Logger from '../lib/logger';
+import {NonJsonApiResponseError, WikiVariablesRequestError} from '../lib/custom-errors';
 
 /**
  * Renders discussions page
@@ -24,5 +27,27 @@ export default function showDiscussions(request, reply) {
 		context.showSpinner = true;
 
 		showApplication(request, reply, wikiVariables, context, true);
+	})
+	/**
+	 * If request for Wiki Variables fails
+	 * @returns {void}
+	 */
+	.catch(WikiVariablesRequestError, () => {
+		showServerErrorPage(reply);
+	})
+	/**
+	 * If request for Wiki Variables succeeds, but wiki does not exist
+	 * @returns {void}
+	 */
+	.catch(NonJsonApiResponseError, (err) => {
+		reply.redirect(err.redirectLocation);
+	})
+	/**
+	 * @param {*} error
+	 * @returns {void}
+	 */
+	.catch((error) => {
+		Logger.fatal(error, 'Unhandled error, code issue');
+		showServerErrorPage(reply);
 	});
 }
