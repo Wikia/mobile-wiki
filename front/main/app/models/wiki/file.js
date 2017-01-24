@@ -30,19 +30,18 @@ FileModel.reopenClass({
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				fileMedia: {
+					// This is for lightbox only
 					media: MediaModel.create({
 						media: get(data, 'nsSpecificContent.media')
 					}),
-					mediaRef: 0,
-					galleryRef: 0
+					mediaRef: 0
 				},
 				fileImage: {
 					url: get(data, 'details.thumbnail'),
 					title: get(data, 'details.title'),
 					width: get(data, 'details.original_dimensions.width'),
 					height: get(data, 'details.original_dimensions.height'),
-					type: get(data, 'details.type'),
-					fileRef: 0
+					type: get(data, 'details.type')
 				}
 			};
 		}
