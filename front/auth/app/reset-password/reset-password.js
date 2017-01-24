@@ -22,9 +22,9 @@ export default class ResetPassword extends PasswordForm {
 	extractFieldsFromPathParameters(parameters) {
 		this.redirect = parameters.redirect;
 		this.token = parameters.token;
+		// App encodes spaces using + character and it's not decoded using decodeUriComponent
 		this.username = parameters.username.replace(/\+/g, ' ');
 	}
-
 
 	/**
 	 * @protected
