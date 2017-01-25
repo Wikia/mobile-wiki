@@ -14,6 +14,12 @@
 			openLightbox='openLightbox'
 			toggleDrawer='toggleDrawer'
 		}}
+			{{#if model.trendingArticles}}
+				{{trending-articles
+					header=(i18n 'app.category-page-trending-articles')
+					model=model.trendingArticles
+				}}
+			{{/if}}
 			{{category-sections
 				adsContext=model.adsContext
 				sections=model.sections

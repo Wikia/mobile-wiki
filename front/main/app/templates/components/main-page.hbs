@@ -17,7 +17,10 @@
 		{{curated-content model=curatedContent}}
 	{{/if}}
 	{{#if trendingArticles}}
-		{{trending-articles model=trendingArticles}}
+		{{trending-articles
+			header=(i18n 'app.trending-label')
+			model=trendingArticles
+		}}
 	{{/if}}
 	{{#if trendingVideos}}
 		{{trending-videos model=trendingVideos openLightbox='openLightbox'}}

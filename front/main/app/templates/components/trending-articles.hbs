@@ -1,4 +1,4 @@
-<h2>{{i18n 'app.trending-label'}}</h2>
+<h2>{{header}}</h2>
 {{#each model as |article index|}}
 	{{trending-articles-item title=article.title index=index url=article.url imageUrl=article.thumbnail}}
 {{/each}}

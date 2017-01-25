@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import {normalizeToWhitespace} from 'common/utils/string';
 import request from 'ember-ajax/request';
 
 const {get} = Ember,
 	CategoryModel = BaseModel.extend({
 		hasArticle: false,
 		sections: null,
+		trendingArticles: null,
 
 		/**
 		 * @param {number} index
@@ -50,7 +50,8 @@ CategoryModel.reopenClass({
 			// Category Basic Data
 			// This data should always be set - no matter if category has an article or not
 			pageProperties = {
-				sections: get(data, 'nsSpecificContent.members.sections')
+				sections: get(data, 'nsSpecificContent.members.sections'),
+				trendingArticles: get(data, 'nsSpecificContent.trendingArticles')
 			};
 		}
 
