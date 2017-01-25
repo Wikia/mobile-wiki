@@ -5,9 +5,7 @@ export default Ember.Component.extend({
 	classNames: ['user-activity-value'],
 
 	displayedValue: Ember.computed('value', function () {
-		const value = this.get('value');
-
-		return value <= 999 ? value.toString() : '999+';
+		return this.get('value');
 	}),
 
 	iconClassNames: Ember.computed('iconClass', function () {
