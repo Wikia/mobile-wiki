@@ -81,7 +81,7 @@ function requestCallback({resolve, reject, err, payload, response, url, host, re
 		reject({
 			exception: {
 				message: 'Invalid response',
-				code: err.output.statusCode,
+				code: err.statusCode,
 				details: err
 			}
 		});
