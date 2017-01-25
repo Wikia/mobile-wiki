@@ -25,7 +25,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					page: this.get('data.pageNum') + 1,
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
-					viewableOnly: false
+					viewableOnly: false,
 				};
 
 			return this.loadThreadPage(requestUrl, requestData);
@@ -51,7 +51,7 @@ DiscussionForumModel.reopenClass(
 					page: page - 1,
 					forumId: categories instanceof Array ? categories : [categories],
 					limit: forumInstance.get('postsLimit'),
-					viewableOnly: false
+					viewableOnly: false,
 				};
 
 			if (sortBy) {
