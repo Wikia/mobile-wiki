@@ -1,11 +1,9 @@
 import Ember from 'ember';
-import AdsMixin from '../mixins/ads';
 import {track, trackActions} from 'common/utils/track';
 
 const {Component} = Ember;
 
 export default Component.extend(
-	AdsMixin,
 	{
 		classNames: ['category-section'],
 		classNameBindings: ['loadingBatch'],
