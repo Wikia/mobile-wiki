@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import ContentFormatMix from './discussion-content-format-static';
 
 export default Ember.Mixin.create(
+	ContentFormatMix,
 	{
 		findThreads(modelInstance, requestUrl, requestData) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				request(requestUrl, {
-					data: requestData,
+					data: this.getRequestDataWithFormat(requestData),
 					traditional: true,
 				}).then((data) => {
 					modelInstance.setNormalizedData(data);
@@ -22,6 +24,6 @@ export default Ember.Mixin.create(
 					reject(modelInstance);
 				});
 			});
-		}
+		},
 	}
 );

@@ -160,7 +160,7 @@
     "reports-headline":"回報",
     "reports-description":"誰提報的文章最多，並且所回報的討論文章被版主刪除、批准或是等待處理？",
     "moderator-actions-headline":"版主操作",
-    "moderator-actions-description":"哪位版主在文章刪除、批准、鎖定或者更改分類上最活躍？",
+    "moderator-actions-description":"哪位版主在文章刪除、批准、編輯、鎖定或者更改分類上最活躍？",
     "posts":"篇文章",
     "not-processed":"尚未處理",
     "actions":"操作",
