@@ -1,17 +1,18 @@
 import * as MW from '../../lib/mediawiki';
 import settings from '../../../config/settings';
 import * as Utils from '../../lib/utils';
-import {getUserId} from '../operations/page-data-helper';
 
 function getFullRequestUrl(request) {
 	return `${request.connection.info.protocol}://${request.info.host}${request.url.path}`;
 }
 
-function getCommunityRedirectUrl(emailConfirmed, username) {
-	const url = Utils.getWikiBaseUrlFromWikiDomain(settings, '', 'community'),
-		path = username ? `wiki/User: ${username}` : 'wiki/Main_Page';
+function getCommunityRedirectUrl(emailConfirmed, wikiDomain, username) {
+	const path = username ? `wiki/User: ${username}` : 'wiki/Main_Page',
+		wikiDomainSegments = wikiDomain.split('.');
 
-	return `http://${url}/${path}?emailConfirmed=${emailConfirmed}`;
+	wikiDomainSegments[wikiDomainSegments.length - 4] = 'community';
+
+	return `http://${wikiDomainSegments.join('.')}/${path}?emailConfirmed=${emailConfirmed}`;
 
 }
 
@@ -33,9 +34,9 @@ export default function get(request, reply) {
 		.then((data) => {
 			const username = JSON.parse(data.payload).username;
 
-			return reply.redirect(getCommunityRedirectUrl(1, username));
+			return reply.redirect(getCommunityRedirectUrl(1, wikiDomain, username));
 		})
 		.catch(() => {
-			return reply.redirect(getCommunityRedirectUrl(0));
+			return reply.redirect(getCommunityRedirectUrl(0, wikiDomain));
 		});
 }
