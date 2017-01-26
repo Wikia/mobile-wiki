@@ -10,7 +10,13 @@ function getCommunityRedirectUrl(emailConfirmed, wikiDomain, username) {
 	const path = username ? `wiki/User: ${username}` : 'wiki/Main_Page',
 		wikiDomainSegments = wikiDomain.split('.');
 
-	wikiDomainSegments[wikiDomainSegments.length - 4] = 'community';
+	let communityNameIndex = 3;
+
+	if (settings.environment === 'dev') {
+		communityNameIndex = 4
+	}
+
+	wikiDomainSegments[wikiDomainSegments.length - communityNameIndex] = 'community';
 
 	return `http://${wikiDomainSegments.join('.')}/${path}?emailConfirmed=${emailConfirmed}`;
 
