@@ -17,6 +17,25 @@ export default Ember.Component.extend({
 		}
 
 		return classNames;
-	})
+	}),
+
+	/**
+	 * @private
+	 */
+	hoovering: false,
+
+	showTooltip: Ember.computed('value', 'hoovering', function () {
+		return this.get('hoovering') && this.get('value') >= 5;
+	}),
+
+	mouseEnter: function () {
+		this.set('hoovering', true);
+		return true;
+	},
+
+	mouseLeave: function () {
+		this.set('hoovering', false);
+		return true;
+	},
 
 });

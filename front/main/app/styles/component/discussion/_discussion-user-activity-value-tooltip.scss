@@ -1,0 +1,15 @@
+$background-color: transparentize($oil, 0.2);
+$border-radius: 2px;
+$text-color: white;
+$side-padding: 6px;
+$z-index: 100;
+
+.discussion-user-activity-value-tooltip {
+	background-color: $background-color;
+	border-radius: $border-radius;
+	color: $text-color;
+	display: block;
+	font-size: $small-font-size;
+	z-index: $z-index;
+  	padding: $side-padding;
+}
