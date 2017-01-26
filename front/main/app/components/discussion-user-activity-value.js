@@ -25,7 +25,7 @@ export default Ember.Component.extend({
 	hoovering: false,
 
 	showTooltip: Ember.computed('value', 'hoovering', function () {
-		return this.get('hoovering') && this.get('value') >= 5;
+		return this.get('hoovering') && this.get('value') >= 1000;
 	}),
 
 	mouseEnter: function () {
