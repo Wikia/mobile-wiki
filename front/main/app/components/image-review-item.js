@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 
 	thumbnailUrl: Ember.computed('model.fullSizeImageUrl', function () {
 		if (this.get('model.fullSizeImageUrl')) {
-			if (this.get('model.status') === 'rejected') {
+			if (this.get('model.status') === 'REJECTED') {
 				return this.get('model.fullSizeImageUrl');
 			} else {
 				const urlParts = this.get('model.fullSizeImageUrl').split('?');
@@ -28,11 +28,19 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	isAccepted: Ember.computed.equal('model.status', 'accepted'),
+	isAccepted: Ember.computed.equal('model.status', 'ACCEPTED'),
 
-	isRejected: Ember.computed.equal('model.status', 'rejected'),
+	isRejected: Ember.computed.equal('model.status', 'REJECTED'),
 
-	isQuestionable: Ember.computed.equal('model.status', 'questionable'),
+	isQuestionable: Ember.computed.equal('model.status', 'QUESTIONABLE'),
+
+	statusClass: Ember.computed('model.status', function () {
+		return (this.get('model.status') || '').toLowerCase();
+	}),
+
+	deleteOnReject: Ember.computed('isRejectedQueue', 'isCoppa', function () {
+		return this.get('isRejectedQueue') || this.get('isCoppa');
+	}),
 
 	actions: {
 		setStatus(status) {

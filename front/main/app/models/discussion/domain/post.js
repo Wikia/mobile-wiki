@@ -37,6 +37,7 @@ DiscussionPost.reopenClass({
 				categoryId: String(data.forumId),
 				createdBy: DiscussionContributor.create(data.createdBy),
 				isDeleted: data.isDeleted,
+				lastDeletedBy: DiscussionContributor.create(data.lastDeletedBy),
 				isNew: data.isNew,
 				isReported: data.isReported,
 				isRequesterBlocked: data.isRequesterBlocked,

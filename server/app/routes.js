@@ -16,7 +16,6 @@ import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
 import confirmEmailHandler from './facets/auth/confirm-email';
 import showApplication from './facets/show-application';
-import showCuratedContent from './facets/show-curated-content';
 import showRecentWikiActivity from './facets/show-recent-wiki-activity';
 
 /**
@@ -239,6 +238,22 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/image-review/coppa',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/image-review/coppa/{username*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/diff/{revisions*}',
 			handler: showApplication,
 			config: {
@@ -266,14 +281,6 @@ let routes,
 			// We don't care if there is a dynamic segment, Ember router handles that
 			path: '/main/edit/{ignore*}',
 			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/main/section/{sectionName*}',
-			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}

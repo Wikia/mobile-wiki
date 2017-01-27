@@ -81,7 +81,7 @@ function requestCallback({resolve, reject, err, payload, response, url, host, re
 		reject({
 			exception: {
 				message: 'Invalid response',
-				code: err.output.statusCode,
+				code: err.statusCode,
 				details: err
 			}
 		});
@@ -391,23 +391,6 @@ export class PageRequest extends BaseRequest {
 		}
 
 		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams))
-			/**
-			 * @param {payload, redirectLocation}
-			 * @returns {Promise}
-			 */
-			.then(({payload}) => payload);
-	}
-
-	/*
-	 * @returns {Promise}
-	 */
-	mainPageDetailsAndAdsContext() {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getMainPageDetailsAndAdsContext'
-		});
-
-		return this.fetch(url)
 			/**
 			 * @param {payload, redirectLocation}
 			 * @returns {Promise}

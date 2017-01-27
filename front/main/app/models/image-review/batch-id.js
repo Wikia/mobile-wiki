@@ -3,19 +3,17 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
-	showSubHeader: true,
 	isRejectedQueue: Ember.computed('status', function () {
 		return this.get('status') === 'REJECTED';
-	}),
-
-	setImagesCount(status) {
-		request(M.getImageReviewServiceUrl('/monitoring', {
-			status
-		})).then((promise) => {
-			this.set('imagesToReviewCount', promise.countByStatus);
-		});
-	}
+	})
 });
+
+
+function getImageCount(status, source) {
+	return request(M.getImageReviewServiceUrl('/monitoring', {
+		status, source
+	}));
+}
 
 function getUserPermissions() {
 	return request(M.getImageReviewServiceUrl('/info'));
@@ -32,10 +30,9 @@ function getImageSources() {
 
 function toReviewStatus(imageStatus) {
 	if (imageStatus === 'UNREVIEWED') {
-		return 'accepted';
-	} else {
-		return imageStatus.toLowerCase();
+		return 'ACCEPTED';
 	}
+	return imageStatus;
 }
 
 function getBatch(batchId) {
@@ -50,7 +47,6 @@ function getBatch(batchId) {
 			const images = imageList
 				.map((image) =>
 					Ember.Object.create({
-						batchId,
 						imageId: image.imageId,
 						fullSizeImageUrl: image.imageUrl,
 						context: image.context,
@@ -80,13 +76,17 @@ ImageReviewModel.reopenClass({
 			});
 	},
 
-	getBatch(batchId, status) {
+	getBatch(batchId, status, source) {
 		return Ember.RSVP.all([
 			getUserPermissions(),
 			getImageSources(),
-			getBatch(batchId)
-		]).then(([permissions, sources, batch]) =>
-			ImageReviewModel.create(Ember.assign(permissions, sources, batch, {status})));
+			getBatch(batchId),
+			getImageCount(status, source)
+		]).then(([permissions, sources, batch, imagesCount]) => {
+			return ImageReviewModel.create(
+				Ember.assign(permissions, sources, batch, {status}, {imagesToReviewCount: imagesCount.filteredCount})
+			);
+		});
 	},
 
 	reviewImages(images, batchId, status) {

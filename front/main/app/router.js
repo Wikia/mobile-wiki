@@ -18,10 +18,6 @@ Router.map(function () {
 
 	this.route('infobox-builder');
 
-	this.route('mainPageSection', {
-		path: '/main/section/:sectionName'
-	});
-
 	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {
@@ -131,6 +127,16 @@ Router.map(function () {
 
 		this.route('summary', {
 			path: '/summary'
+		});
+
+		this.route('coppa', function () {
+			this.route('index', {
+				path: '/'
+			});
+
+			this.route('user-images', {
+				path: '/:username'
+			});
 		});
 	});
 

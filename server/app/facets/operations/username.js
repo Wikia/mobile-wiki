@@ -1,6 +1,7 @@
 import Logger from '../../lib/logger';
 import Promise from 'bluebird';
 import settings from '../../../config/settings';
+import {getInternalHeaders} from '../../lib/utils';
 import Wreck from 'wreck';
 
 function getUserRegistrationServiceUrlFrom(services) {
@@ -13,11 +14,9 @@ function createUserRegistrationContext(services, data, request) {
 	return {
 		url: `http://${getUserRegistrationServiceUrlFrom(services)}/users?username=${data.username}`,
 		options: {
-			headers: {
-				'X-Wikia-Internal-Request': 1,
-				'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
-				'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
-			},
+			headers: getInternalHeaders(request, {
+				'X-Wikia-Internal-Request': 'mercury'
+			}),
 			timeout: settings.userRegistationService.timeout
 		}
 	};

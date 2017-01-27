@@ -33,7 +33,7 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didRender() {
+		didInsertElement() {
 			this._super(...arguments);
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));

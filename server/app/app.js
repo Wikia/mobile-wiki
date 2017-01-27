@@ -14,7 +14,6 @@ import inert from 'inert';
 import path from 'path';
 import url from 'url';
 import vision from 'vision';
-import {prerenderPlugin, prerenderOptions} from './lib/prerender';
 import numeral from 'numeral';
 
 /* eslint no-process-env: 0 */
@@ -242,10 +241,6 @@ plugins = [
 	},
 	{
 		register: vision
-	},
-	{
-		register: prerenderPlugin,
-		options: prerenderOptions
 	}
 ];
 

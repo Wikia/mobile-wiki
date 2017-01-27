@@ -20,10 +20,6 @@ export default Ember.Route.extend(
 		wikiHandler: null,
 		adsHighImpact: Ember.inject.service(),
 		currentUser: Ember.inject.service(),
-		curatedMainPageData: Ember.inject.service(),
-		ns: Ember.computed.alias('curatedMainPageData.ns'),
-		adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
-		description: Ember.computed.alias('curatedMainPageData.description'),
 		ads: Ember.inject.service(),
 
 		/**
