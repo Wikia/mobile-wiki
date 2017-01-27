@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
+import FileHandler from '../utils/wiki-handlers/file';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
@@ -35,6 +36,8 @@ export default Ember.Route.extend(
 				return ArticleHandler;
 			} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
 				return CategoryHandler;
+			} else if (currentNamespace === mediawikiNamespace.FILE) {
+				return FileHandler;
 			} else {
 				Ember.Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;

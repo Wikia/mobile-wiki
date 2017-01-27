@@ -3,6 +3,7 @@ import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
+import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -20,6 +21,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
+		displayEmptyArticleInfo: true,
 		hammerOptions: {
 			touchAction: 'auto',
 			cssProps: {
@@ -40,7 +42,8 @@ export default Ember.Component.extend(
 		 */
 		contributionEnabledForCommunity: Ember.computed(() => {
 			if (Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false)) {
-				// When disableMobileSectionEditor is set to true, no contribution tools should show up
+				// When disableMobileSectionEditor is set to true, no contribution tools should
+				// show up
 				return false;
 			}
 
@@ -56,8 +59,9 @@ export default Ember.Component.extend(
 		contributionEnabled: Ember.computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
 				this.get('contributionEnabledForCommunity') &&
-				// @todo XW-1196: Enable article editing on category pages
-				this.getWithDefault('model.ns', 0) !== 14;
+				// @todo XW-1196: Enable article editing on category and file pages
+				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.CATEGORY &&
+				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.FILE;
 		}),
 
 		/**
@@ -131,6 +135,12 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType, lightboxData) {
+				track({
+					action: trackActions.click,
+					category: 'media',
+					label: 'open'
+				});
+
 				this.sendAction('openLightbox', lightboxType, lightboxData);
 			},
 
@@ -154,79 +164,5 @@ export default Ember.Component.extend(
 				this.sendAction('articleRendered');
 			});
 		},
-
-		/**
-		 * Handle clicks on media and bubble up to Application if anything else was clicked
-		 *
-		 * @param {MouseEvent} event
-		 * @returns {boolean}
-		 */
-		click(event) {
-			const $anchor = Ember.$(event.target).closest('a');
-
-			let target;
-
-			// Here, we want to handle media only, no links
-			if ($anchor.length === 0) {
-				target = event.target;
-
-				if (this.shouldHandleMedia(target, target.tagName.toLowerCase())) {
-					this.handleMedia(target);
-					event.preventDefault();
-
-					// Don't bubble up
-					return false;
-				}
-			}
-
-			// Bubble up to ApplicationView#click
-			return true;
-		},
-
-		/**
-		 * Returns true if handleMedia() should be executed
-		 *
-		 * @param {EventTarget} target
-		 * @param {string} tagName clicked tag name
-		 * @returns {boolean}
-		 */
-		shouldHandleMedia(target, tagName) {
-			return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
-		},
-
-		/**
-		 * Opens media lightbox for given target
-		 *
-		 * @param {HTMLElement} target
-		 * @returns {void}
-		 */
-		handleMedia(target) {
-			const $target = $(target),
-				galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-				$mediaElement = $target.closest('[data-ref]'),
-				mediaRef = $mediaElement.data('ref');
-
-			let media;
-
-			if (mediaRef >= 0) {
-				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
-
-				media = this.get('model.media');
-
-				track({
-					action: trackActions.click,
-					category: 'media',
-					label: 'open'
-				});
-
-				this.sendAction('openLightbox', 'media', {
-					media,
-					mediaRef,
-					galleryRef
-				});
-			} else {
-				Ember.Logger.debug('Missing ref on', target);
-			}
-		}
 	}
 );

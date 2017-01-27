@@ -8,7 +8,6 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:ads/invisible-high-impact-2',
 		'component:portable-infobox',
 		'component:article-table-of-contents',
-		'component:potential-member-page-experiment',
 		'service:currentUser',
 		'service:ads',
 		'service:adsHighImpact'
