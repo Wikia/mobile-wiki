@@ -28,16 +28,15 @@ import Ember from 'ember';
  * @returns {string}
  */
 export default Ember.Helper.helper((params) => {
-	const number = params[0];
-	const digits = params[1];
-
-	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
+		number = params[0],
+		digits = params[1];
 
 	for (let i = units.length - 1; i >= 0; i--) {
 		const decimal = Math.pow(1000, i + 1);
 
 		if (number <= -decimal || number >= decimal) {
-			return +(number / decimal).toFixed(digits) + units[i];
+			return (Number(number / decimal)).toFixed(digits) + units[i];
 		}
 	}
 

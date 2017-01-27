@@ -5,11 +5,11 @@
 			targetAttachment='top center'
 			class='discussion-user-activity-value-tooltip'
 	}}
-		<div>{{displayedValue}}</div>
+		<div>{{value}}</div>
 	{{/ember-tether}}
 {{/if}}
 
-{{shorten-large-number displayedValue 1}}
+{{shorten-large-number value 1}}
 {{#if description}}
 	<span class="description">{{description}}</span>
 {{/if}}
