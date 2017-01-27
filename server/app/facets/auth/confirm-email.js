@@ -19,7 +19,6 @@ function getCommunityRedirectUrl(emailConfirmed, wikiDomain, username) {
 	wikiDomainSegments[wikiDomainSegments.length - communityNameIndex] = 'community';
 
 	return `http://${wikiDomainSegments.join('.')}/${path}?emailConfirmed=${emailConfirmed}`;
-
 }
 
 /**
