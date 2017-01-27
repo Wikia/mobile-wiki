@@ -2,11 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-	/**
-	 * @private
-	 */
-	hoovering: false,
-
 	classNames: ['user-activity-value'],
 
 	displayedValue: Ember.computed('value', function () {
@@ -24,16 +19,23 @@ export default Ember.Component.extend({
 		return classNames;
 	}),
 
+	// showing and hiding the tooltip
+
+	/**
+	 * @private
+	 */
+	hoovering: false,
+
 	showTooltip: Ember.computed('value', 'hoovering', function () {
 		return this.get('hoovering') && this.get('value') >= 1000;
 	}),
 
-	mouseEnter: function () {
+	mouseEnter() {
 		this.set('hoovering', true);
 		return true;
 	},
 
-	mouseLeave: function () {
+	mouseLeave () {
 		this.set('hoovering', false);
 		return true;
 	},
