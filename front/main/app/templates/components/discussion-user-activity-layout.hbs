@@ -13,11 +13,9 @@
 {{/if}}
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
-		contributors=model.contributors
 		editingPossible=false
 		heroImage=attributes.heroImage
-		numberOfPosts=model.postCount
-		showUserActivity=true
+		showUserActivity=false
 		triggerHighlightOverlayStateChange=(route-action 'triggerHighlightOverlayStateChange')
 		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}

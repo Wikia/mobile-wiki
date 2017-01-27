@@ -31,9 +31,14 @@
 			height: 60px;
 			width: 60px;
 
-			&.community-badge-image-default .badge-image-display-original {
+			&.community-badge-image-default {
 				height: 90%;
 				width: 90%;
+			}
+
+			.badge-image-display-original {
+				height: 60px;
+				width: 60px;
 			}
 		}
 
