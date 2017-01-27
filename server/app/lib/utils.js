@@ -180,25 +180,30 @@ export function getCachedWikiDomainName(settings, request) {
 	return wikiDomainsCache[host];
 }
 
+export function getWikiBaseUrlFromWikiDomain(settings, wikiDomain, wiki) {
+	let environmentPrefix;
+
+	switch (settings.environment) {
+		case environments.prod:
+			return `${wiki}.wikia.com`;
+		case environments.staging:
+			return `${wiki}.wikia-staging.com`;
+		case environments.dev:
+			return `${wiki}.${settings.devboxDomain}.wikia-dev.${settings.devDomain}`;
+		default:
+			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
+			return `${environmentPrefix}.${wiki}.wikia.com`;
+	}
+}
+
+
 /**
  * @param {Settings} settings
  * @param {string} wikiDomain
  * @returns {string}
  */
 export function getCorporatePageUrlFromWikiDomain(settings, wikiDomain) {
-	let environmentPrefix;
-
-	switch (settings.environment) {
-		case environments.prod:
-			return 'www.wikia.com';
-		case environments.staging:
-			return 'www.wikia-staging.com';
-		case environments.dev:
-			return `www.${settings.devboxDomain}.wikia-dev.com`;
-		default:
-			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
-			return `${environmentPrefix}.www.wikia.com`;
-	}
+	return getWikiBaseUrlFromWikiDomain(settings, wikiDomain, 'www');
 }
 
 /**

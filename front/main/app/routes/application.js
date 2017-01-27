@@ -22,7 +22,7 @@ export default Route.extend(
 		queryParams: {
 			commentsPage: {
 				replace: true
-			}
+			},
 		},
 
 		ads: Ember.inject.service(),

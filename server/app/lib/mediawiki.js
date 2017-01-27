@@ -333,6 +333,35 @@ export class WikiRequest extends BaseRequest {
 }
 
 /**
+ * @class EmailConfirmationRequest
+ */
+export class EmailConfirmationRequest extends BaseRequest {
+	/**
+	 * Gets general wiki information
+	 *
+	 * @param {Object} originalRequest
+	 *
+	 * @returns {Promise<any>}
+	 */
+	confirmEmail(originalRequest) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+				controller: 'EmailConfirmation',
+				method: 'postEmailConfirmation'
+			}),
+			params = {token: originalRequest.query.token};
+
+		return post(
+			url,
+			Url.format({query: params}).substr(1),
+			'',
+			{
+				Cookie: `access_token=${originalRequest.state.access_token}`
+			}
+		);
+	}
+}
+
+/**
  * Gets article data
  *
  * @class PageRequest
