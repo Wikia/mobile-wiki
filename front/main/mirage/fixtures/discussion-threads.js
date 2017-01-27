@@ -329,7 +329,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "5275700",
-					"avatarUrl": "http://static.wikia.nocookie.net/4c42c177-bd3f-4675-8443-61c033302755/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "BertH",
 					"badgePermission": "badge:staff"
 				},
@@ -392,7 +392,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "5705591",
-					"avatarUrl": "http://static.wikia.nocookie.net/24166edc-005b-4876-986a-ea414a986d09/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Kvas damian",
 					"badgePermission": "badge:staff"
 				},
@@ -413,7 +413,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "5275700",
-					"avatarUrl": "http://static.wikia.nocookie.net/4c42c177-bd3f-4675-8443-61c033302755/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "BertH",
 					"badgePermission": "badge:staff"
 				},
@@ -461,7 +461,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "5705591",
-					"avatarUrl": "http://static.wikia.nocookie.net/24166edc-005b-4876-986a-ea414a986d09/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Kvas damian",
 					"badgePermission": "badge:staff"
 				},
@@ -482,7 +482,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "5275700",
-					"avatarUrl": "http://static.wikia.nocookie.net/4c42c177-bd3f-4675-8443-61c033302755/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "BertH",
 					"badgePermission": "badge:staff"
 				},
@@ -530,7 +530,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "5705591",
-					"avatarUrl": "http://static.wikia.nocookie.net/24166edc-005b-4876-986a-ea414a986d09/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Kvas damian",
 					"badgePermission": "badge:staff"
 				},
@@ -593,7 +593,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "5705591",
-					"avatarUrl": "http://static.wikia.nocookie.net/24166edc-005b-4876-986a-ea414a986d09/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Kvas damian",
 					"badgePermission": "badge:staff"
 				},
@@ -782,7 +782,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "29809561",
-					"avatarUrl": "http://images.wikia.com/messaging/images/e/e8/Avatar2.jpg",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Flejks",
 					"badgePermission": "badge:sysop"
 				},
@@ -803,7 +803,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "28763136",
-					"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "JurasJuras",
 					"badgePermission": "badge:staff"
 				},
@@ -851,7 +851,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "26904628",
-					"avatarUrl": "http://images.wikia.com/messaging/images/7/76/Avatar5.jpg",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Artest3",
 					"badgePermission": ""
 				},
@@ -872,7 +872,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "24877993",
-					"avatarUrl": "http://static.wikia.nocookie.net/633d0138-3f1b-4285-be08-8e219c4b2b08/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Armon.rabiyan",
 					"badgePermission": "badge:staff"
 				},
@@ -941,7 +941,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "27936084",
-					"avatarUrl": "http://static.wikia.nocookie.net/ca0994af-eddb-4326-8775-1fec13dad112/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Sochel",
 					"badgePermission": "badge:helper"
 				},
@@ -1010,7 +1010,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "27936084",
-					"avatarUrl": "http://static.wikia.nocookie.net/ca0994af-eddb-4326-8775-1fec13dad112/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Sochel",
 					"badgePermission": "badge:helper"
 				},
@@ -1079,7 +1079,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "28763136",
-					"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "JurasJuras",
 					"badgePermission": "badge:staff"
 				},
@@ -1196,7 +1196,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "28763136",
-					"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "JurasJuras",
 					"badgePermission": "badge:staff"
 				},
@@ -1265,7 +1265,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "28763136",
-					"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "JurasJuras",
 					"badgePermission": "badge:staff"
 				},
@@ -1466,7 +1466,7 @@ export default {
 				},
 				"createdBy": {
 					"id": "26904628",
-					"avatarUrl": "http://images.wikia.com/messaging/images/7/76/Avatar5.jpg",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "Artest3",
 					"badgePermission": ""
 				},
@@ -1624,7 +1624,7 @@ export default {
 							"description": "I'm joined in this Factorio Multiplayer series by Colonelwill, MadZuri, FPS_Holland, Xeteth, MojoD, and Kaydeethree. We are using the Earth Map Scenario and ...",
 							"id": "2874065278461806291",
 							"imageHeight": 720,
-							"imageUrl": "http://static.wikia.nocookie.net/d8fec421-7956-4e10-ae43-f0d364a12244",
+							"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 							"imageWidth": 1280,
 							"siteId": "1362703",
 							"siteName": "YouTube",
@@ -1669,7 +1669,7 @@ export default {
 				"isViewable": true,
 				"lastEditedBy": {
 					"id": "28763136",
-					"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+					"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 					"name": "JurasJuras",
 					"badgePermission": "badge:staff"
 				},
@@ -1716,7 +1716,7 @@ export default {
 				"userInfo": [
 					{
 						"id": "5705591",
-						"avatarUrl": "http://static.wikia.nocookie.net/24166edc-005b-4876-986a-ea414a986d09/scale-to-width-down/100",
+						"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 						"name": "Kvas damian",
 						"badgePermission": "badge:staff"
 					},
@@ -1728,13 +1728,13 @@ export default {
 					},
 					{
 						"id": "26904628",
-						"avatarUrl": "http://images.wikia.com/messaging/images/7/76/Avatar5.jpg",
+						"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 						"name": "Artest3",
 						"badgePermission": ""
 					},
 					{
 						"id": "29809561",
-						"avatarUrl": "http://images.wikia.com/messaging/images/e/e8/Avatar2.jpg",
+						"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 						"name": "Flejks",
 						"badgePermission": "badge:sysop"
 					},
@@ -1758,7 +1758,7 @@ export default {
 					},
 					{
 						"id": "28763136",
-						"avatarUrl": "http://static.wikia.nocookie.net/416593bd-ae83-4886-a1ac-7384eb83ef93/scale-to-width-down/100",
+						"avatarUrl": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
 						"name": "JurasJuras",
 						"badgePermission": "badge:staff"
 					},

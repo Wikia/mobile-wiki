@@ -1,5 +1,6 @@
 import {parseQueryParams} from '../../lib/utils';
 import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
+import {namespaceSubtitleMessageKeys} from '../../lib/mediawiki-namespace';
 
 /**
  * Prepares article data to be rendered
@@ -8,13 +9,19 @@ import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-help
  * @param {MediaWikiPageData} data
  * @returns {object}
  */
-export default function prepareArticleData(request, data) {
+export default function prepareWikiPageData(request, data) {
 	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
+		prefix = data.wikiVariables.namespaces[pageData.ns] ? `${data.wikiVariables.namespaces[pageData.ns]}:` : '',
 		separator = data.wikiVariables.htmlTitle.separator,
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);
+
+	result.subtitle = namespaceSubtitleMessageKeys[pageData.ns] ?
+		request.server.methods.i18n.getInstance().t(namespaceSubtitleMessageKeys[pageData.ns]) :
+		null;
+
 	result.articlePage = data.page;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 
@@ -45,7 +52,7 @@ export default function prepareArticleData(request, data) {
 	 * This is necessary to avoid having duplicated title on CMP
 	 */
 	if (!result.isMainPage) {
-		result.documentTitle = result.displayTitle + separator + result.documentTitle;
+		result.documentTitle = prefix + result.displayTitle + separator + result.documentTitle;
 	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {
