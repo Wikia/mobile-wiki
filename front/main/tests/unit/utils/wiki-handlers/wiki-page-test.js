@@ -7,27 +7,34 @@ import sinon from 'sinon';
 module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 	const articleModel = require('main/models/wiki/article').default,
 		categoryModel = require('main/models/wiki/category').default,
+		fileModel = require('main/models/wiki/file').default,
 		mediawikiNamespace = require('main/utils/mediawiki-namespace').default;
 
 	let articleCreateStub,
-		articleSetArticleStub,
+		articleSetDataStub,
 		categoryCreateStub,
-		categorySetCategoryStub,
+		categorySetDataStub,
+		fileCreateStub,
+		fileSetDataStub,
 		isContentNamespaceStub;
 
 	hooks.beforeEach(() => {
 		articleCreateStub = sinon.stub(articleModel, 'create');
-		articleSetArticleStub = sinon.stub(articleModel, 'setArticle');
+		articleSetDataStub = sinon.stub(articleModel, 'setData');
 		categoryCreateStub = sinon.stub(categoryModel, 'create');
-		categorySetCategoryStub = sinon.stub(categoryModel, 'setCategory');
+		categorySetDataStub = sinon.stub(categoryModel, 'setData');
+		fileCreateStub = sinon.stub(fileModel, 'create');
+		fileSetDataStub = sinon.stub(fileModel, 'setData');
 		isContentNamespaceStub = sinon.stub(mediawikiNamespace, 'isContentNamespace');
 	});
 
 	hooks.afterEach(() => {
 		articleCreateStub.restore();
-		articleSetArticleStub.restore();
+		articleSetDataStub.restore();
 		categoryCreateStub.restore();
-		categorySetCategoryStub.restore();
+		categorySetDataStub.restore();
+		fileCreateStub.restore();
+		fileSetDataStub.restore();
 		isContentNamespaceStub.restore();
 	});
 
@@ -49,7 +56,7 @@ module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 
 		assert.deepEqual(getModelForNamespace(data, params), expected, 'model returned');
 		assert.ok(articleCreateStub.calledWith(params), 'model created');
-		assert.ok(articleSetArticleStub.calledWith(expected, data), 'model filled with data');
+		assert.ok(articleSetDataStub.calledWith(expected, data), 'model filled with data');
 	});
 
 	test('getModelForNamespace - main page in non-content namespace', (assert) => {
@@ -71,7 +78,7 @@ module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 
 		assert.deepEqual(getModelForNamespace(data, params), expected, 'model returned');
 		assert.ok(articleCreateStub.calledWith(params), 'model created');
-		assert.ok(articleSetArticleStub.calledWith(expected, data), 'model filled with data');
+		assert.ok(articleSetDataStub.calledWith(expected, data), 'model filled with data');
 	});
 
 	test('getModelForNamespace - category', (assert) => {
@@ -92,7 +99,28 @@ module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 
 		assert.deepEqual(getModelForNamespace(data, params), expected, 'model returned');
 		assert.ok(categoryCreateStub.calledWith(params), 'model created');
-		assert.ok(categorySetCategoryStub.calledWith(expected, data), 'model filled with data');
+		assert.ok(categorySetDataStub.calledWith(expected, data), 'model filled with data');
+	});
+
+	test('getModelForNamespace - file', (assert) => {
+		const data = {
+				data: {
+					ns: 6
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = {
+				file: true
+			};
+
+		fileCreateStub.returns(expected);
+		isContentNamespaceStub.returns(false);
+
+		assert.deepEqual(getModelForNamespace(data, params), expected, 'model returned');
+		assert.ok(fileCreateStub.calledWith(params), 'model created');
+		assert.ok(fileSetDataStub.calledWith(expected, data), 'model filled with data');
 	});
 
 	test('getModelForNamespace - unsupported namespace', (assert) => {

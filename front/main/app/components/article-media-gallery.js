@@ -6,9 +6,6 @@ export default Ember.Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['article-media-gallery'],
-		attributeBindings: ['data-ref'],
-
-		'data-ref': Ember.computed.oneWay('ref'),
 
 		imageSize: 195,
 		cropMode: Thumbnailer.mode.topCrop,
@@ -46,6 +43,13 @@ export default Ember.Component.extend(
 		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
+		},
+
+		actions: {
+			openLightbox(galleryRef) {
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+				this.get('openLightbox')(this.get('ref'), galleryRef);
+			}
 		},
 
 		/**

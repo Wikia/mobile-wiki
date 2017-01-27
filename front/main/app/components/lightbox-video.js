@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
 import VideoLoader from 'common/modules/video-loader';
 
 /**
@@ -7,7 +7,7 @@ import VideoLoader from 'common/modules/video-loader';
  * to handle displaying video
  */
 export default Ember.Component.extend(
-	ArticleContentMixin,
+	ViewportMixin,
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
@@ -15,7 +15,7 @@ export default Ember.Component.extend(
 
 		adsState: Ember.inject.service(),
 
-		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
+		articleContentWidthObserver: Ember.observer('viewportDimensions.width', function () {
 			if (this.get('videoLoader')) {
 				this.get('videoLoader').onResize();
 			}

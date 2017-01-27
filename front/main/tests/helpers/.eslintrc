@@ -1,4 +1,0 @@
-{
-  //This folder consists of mainly files that are comming from Ember CLI
-  "extends": "eslint:recommended"
-}

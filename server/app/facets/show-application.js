@@ -65,7 +65,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
 	}
 
-	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
+	// @todo These transforms could be better abstracted, as such, this is a lot like prepareWikiPageData
 	context.server = Utils.createServerData(settings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.settings = getSettings();

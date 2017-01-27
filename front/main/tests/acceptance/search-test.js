@@ -32,7 +32,7 @@ test('visiting /search', (assert) => {
 			);
 
 			assert.equal(
-				find('.search-results__title').first().text().trim(),
+				find('.search-results__list .wikia-card__title').first().text().trim(),
 				'Result 1',
 				'First title is correctly displayed'
 			);

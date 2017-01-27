@@ -2,6 +2,10 @@
 	{{#unless preview}}
 		{{> wiki-page-header}}
 	{{/unless}}
+	{{#if articlePage.data.nsSpecificContent.media}}
+		{{> file-thumbnail media=articlePage.data.nsSpecificContent.media}}
+	{{/if}}
+
 	{{#if articleContent}}
 		<article class="article-content" id="preloadedContent">
 			{{{articleContent}}}
@@ -9,8 +13,15 @@
 	{{/if}}
 </section>
 
-{{#if categorySections}}
-	{{> category-sections}}
+{{#if articlePage.data.nsSpecificContent.fileUsageList}}
+	{{> file-usage-list
+		fileUsageList=articlePage.data.nsSpecificContent.fileUsageList
+		fileUsageListSeeMoreUrl=articlePage.data.nsSpecificContent.fileUsageListSeeMoreUrl
+	}}
 {{/if}}
 
-{{> article-footer/index model=articlePage.data.article}}
+{{#if articlePage.data.nsSpecificContent.members.sections}}
+	{{> category-sections categorySections=articlePage.data.nsSpecificContent.members.sections}}
+{{/if}}
+
+{{> article-footer/index model=articlePage.data}}
