@@ -15,8 +15,6 @@ export default Ember.Component.extend({
 		return classNames;
 	}),
 
-	// showing and hiding the tooltip
-
 	showTooltip: false,
 
 	/**
