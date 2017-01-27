@@ -13,7 +13,7 @@ function getCommunityRedirectUrl(emailConfirmed, wikiDomain, username) {
 	let communityNameIndex = 3;
 
 	if (settings.environment === 'dev') {
-		communityNameIndex = 4
+		communityNameIndex = 4;
 	}
 
 	wikiDomainSegments[wikiDomainSegments.length - communityNameIndex] = 'community';
