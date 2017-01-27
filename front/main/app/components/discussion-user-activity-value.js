@@ -2,6 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+	/**
+	 * @private
+	 */
+	hoovering: false,
+
 	classNames: ['user-activity-value'],
 
 	displayedValue: Ember.computed('value', function () {
@@ -18,11 +23,6 @@ export default Ember.Component.extend({
 
 		return classNames;
 	}),
-
-	/**
-	 * @private
-	 */
-	hoovering: false,
 
 	showTooltip: Ember.computed('value', 'hoovering', function () {
 		return this.get('hoovering') && this.get('value') >= 1000;
