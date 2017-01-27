@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
-import VisibilityStateManager from '../utils/visibility-state-manager';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -24,7 +23,6 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex);
 
 			track({

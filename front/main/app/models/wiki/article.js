@@ -1,41 +1,14 @@
 import Ember from 'ember';
-import MediaModel from '../media';
-import {normalizeToWhitespace} from 'common/utils/string';
+import BaseModel from './base';
 import request from 'ember-ajax/request';
 
-/**
- * @typedef {Object} ArticleModelUrlParams
- * @property {string} title
- * @property {string} [redirect]
- */
-
-/**
- * @typedef {Object} ArticleModelFindParams
- * @property {string} basePath
- * @property {string} wiki
- * @property {string} title
- * @property {string} [redirect]
- */
-
-const ArticleModel = Ember.Object.extend({
+const ArticleModel = BaseModel.extend({
 	content: null,
-	basePath: null,
-	categories: [],
-	displayTitle: null,
-	documentTitle: '',
 	comments: 0,
-	description: '',
+	isCuratedMainPage: false,
 	isMainPage: false,
 	curatedMainPageData: null,
-	media: [],
-	mediaUsers: [],
-	otherLanguages: [],
-	title: null,
-	url: null,
-	user: null,
-	users: [],
-	wiki: null,
-	isCuratedMainPage: false
+	user: null
 });
 
 ArticleModel.reopenClass({
@@ -73,70 +46,29 @@ ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @returns {*}
-	 */
-	getPreloadedData() {
-		const article = Mercury.article;
-
-		M.prop('articleContentPreloadedInDOM', false, true);
-
-		if (article.data && article.data.article) {
-			// On the first page load the article content is available only in HTML
-			article.data.article.content = $('#preloadedContent').html();
-		}
-
-		Mercury.article = null;
-
-		return article;
-	},
-
-	/**
-	 * @param {ArticleModel} model
-	 * @param {*} [source=this.getPreloadedData()]
+	 * @param {Model} model
+	 * @param {Object} exception
+	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setArticle(model, source = this.getPreloadedData()) {
-		const exception = source.exception,
-			data = source.data;
+	setData(model, {exception, data}) {
+		this._super(...arguments);
 
 		let articleProperties = {},
-			details,
-			article;
+			details;
 
-		if (exception) {
-			articleProperties = {
-				displayTitle: normalizeToWhitespace(model.title),
-				exception
-			};
-		} else if (data) {
+		if (!exception && data) {
 			if (data.details) {
 				details = data.details;
 
 				articleProperties = {
-					ns: details.ns,
-					title: details.title,
 					comments: details.comments,
-					id: details.id,
-					user: details.revision.user_id,
-					url: details.url,
-					description: details.description
+					user: details.revision.user_id
 				};
 			}
 
 			if (data.article) {
-				article = data.article;
-
-				articleProperties = $.extend(articleProperties, {
-					content: article.content,
-					displayTitle: article.displayTitle,
-					mediaUsers: article.users,
-					type: article.type,
-					media: MediaModel.create({
-						media: article.media
-					}),
-					categories: article.categories,
-					redirectEmptyTarget: data.redirectEmptyTarget || false
-				});
+				articleProperties.content = data.article.content;
 			}
 
 			if (data.relatedPages) {
@@ -146,18 +78,6 @@ ArticleModel.reopenClass({
 				 * to handle this and never return malformed structures.
 				 */
 				articleProperties.relatedPages = data.relatedPages;
-			}
-
-			if (data.otherLanguages) {
-				articleProperties.otherLanguages = data.otherLanguages;
-			}
-
-			if (data.adsContext) {
-				articleProperties.adsContext = data.adsContext;
-
-				if (articleProperties.adsContext.targeting) {
-					articleProperties.adsContext.targeting.mercuryPageCategories = articleProperties.categories;
-				}
 			}
 
 			if (data.topContributors) {
@@ -172,15 +92,12 @@ ArticleModel.reopenClass({
 				articleProperties.isCuratedMainPage = true;
 			}
 
-			// @todo this will be cleaned up in XW-1053
-			articleProperties.articleType = articleProperties.type || data.articleType;
-
-			/**
-			 * For main pages, title is wiki name, so we don't want to have duplicated text in documentTitle
-			 */
-			articleProperties.documentTitle = articleProperties.isMainPage ?
-				'' :
-				articleProperties.displayTitle || articleProperties.title;
+			if (articleProperties.isMainPage) {
+				/**
+				 * For main pages, title is wiki name, so we don't want to have duplicated text in documentTitle
+				 */
+				articleProperties.documentTitle = '';
+			}
 		}
 
 		model.setProperties(articleProperties);

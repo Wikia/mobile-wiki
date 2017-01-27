@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import VisibilityStateManager from '../visibility-state-manager';
 
 /**
  * @param {Ember.Route} route
@@ -9,7 +8,6 @@ import VisibilityStateManager from '../visibility-state-manager';
  */
 function afterModel(route, model) {
 	route.controllerFor('application').set('currentTitle', model.get('title'));
-	VisibilityStateManager.reset();
 
 	// Reset query parameters
 	model.set('commentsPage', null);
