@@ -1,5 +1,5 @@
 {{! Keep the same HTML structure as in front/main/app/templates/components/curated-content-section.hbs }}
-<div{{#unless isVisible}} style="display: none"{{/unless}}>
+<div class="curated-content-section{{#unless isVisible}} hidden{{/unless}}">
 	{{#if model.items}}
 		{{#if model.label}}
 			<div class="curated-content-section__header">
