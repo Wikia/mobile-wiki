@@ -3,5 +3,6 @@ import Ember from 'ember';
 const {Component} = Ember;
 
 export default Component.extend({
-	classNames: ['category-sections'],
+	classNames: ['curated-content-section'],
+	classNameBindings: ['shouldBeVisible::hidden']
 });

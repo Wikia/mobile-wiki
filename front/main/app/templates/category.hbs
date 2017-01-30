@@ -1,39 +1,29 @@
 {{ad-slot isAboveTheFold=true name='INVISIBLE_HIGH_IMPACT'}}
 
 <div id="wikiContainer" class="wiki-container">
-	{{#if model.hasArticle}}
-		{{#article-wrapper
-			mainPageTitle=mainPageTitle
-			model=model
-			showComments=false
-			wikiPageHeaderSubtitle=(i18n 'app.category-page-subtitle')
-			siteName=siteName
-			addPhoto='addPhoto'
-			articleRendered='articleRendered'
-			edit='edit'
-			openLightbox='openLightbox'
-			toggleDrawer='toggleDrawer'
-		}}
-			{{#if model.trendingArticles}}
-				{{trending-articles
-					header=(i18n 'app.category-page-trending-articles')
-					model=model.trendingArticles
-				}}
-			{{/if}}
-			{{category-sections
-				adsContext=model.adsContext
-				sections=model.sections
-				setupAds=false
-				loadBatch=(action 'loadBatch')
+	{{#article-wrapper
+		addPhoto='addPhoto'
+		articleRendered='articleRendered'
+		displayEmptyArticleInfo=false
+		edit='edit'
+		mainPageTitle=mainPageTitle
+		model=model
+		openLightbox='openLightbox'
+		showComments=false
+		siteName=siteName
+		toggleDrawer='toggleDrawer'
+		wikiPageHeaderSubtitle=(i18n 'app.category-page-subtitle')
+	}}
+		{{#if model.trendingArticles}}
+			{{trending-articles
+				header=(i18n 'app.category-page-trending-articles')
+				model=model.trendingArticles
 			}}
-		{{/article-wrapper}}
-	{{else}}
-		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
+		{{/if}}
 		{{category-sections
 			adsContext=model.adsContext
 			sections=model.sections
-			setupAds=true
 			loadBatch=(action 'loadBatch')
 		}}
-	{{/if}}
+	{{/article-wrapper}}
 </div>

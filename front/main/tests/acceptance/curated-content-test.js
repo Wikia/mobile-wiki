@@ -4,7 +4,8 @@ import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
 moduleForAcceptance('Acceptance | Curated Main Page');
 
 test('Open section on Curated Main Page', (assert) => {
-	const firstVisibleItemSelector = '.curated-content-items:visible .item-caption.clamp:first';
+	const firstVisibleItemSelector =
+		'.curated-content-section:not(.hidden) .curated-content-items .item-caption.clamp:first';
 
 	mockAdsService();
 
