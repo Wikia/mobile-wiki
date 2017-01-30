@@ -108,7 +108,8 @@ figcaption {
 
 .gallery-video::after,
 .article-video::before,
-.comment-video::before {
+.comment-video::before,
+.file-video::before {
 	background: {
 		image: $media-play-svg;
 		position: 10px 10px;
@@ -127,7 +128,8 @@ figcaption {
 	z-index: 1;
 }
 
-.article-video {
+.article-video,
+.file-video {
 	position: relative;
 
 	&::after {

@@ -14,6 +14,7 @@ import * as forgotPasswordHandler from './facets/auth/forgot-password';
 import registerHandler from './facets/auth/register';
 import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
+import confirmEmailHandler from './facets/auth/confirm-email';
 import showApplication from './facets/show-application';
 import showRecentWikiActivity from './facets/show-recent-wiki-activity';
 
@@ -128,6 +129,11 @@ let routes,
 					}
 				]
 			}
+		},
+		{
+			method: 'GET',
+			path: '/confirm-email',
+			handler: confirmEmailHandler,
 		},
 		{
 			method: 'GET',

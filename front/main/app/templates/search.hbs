@@ -22,20 +22,12 @@
 				query=(wrap-me model.query tagName='strong')
 			}}}
 		</div>
-		<ul class="search-results__list">
-			{{#each model.items as |item|}}
-				{{#wikia-ui-components/wikia-card}}
-					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="search-result" }}
-						<div class="search-results__item">
-							<div class="search-results__title">
-								{{item.title}}
-							</div>
-							<div class="search-results__snippet">{{{item.snippet}}}</div>
-						</div>
-					{{/link-to}}
-				{{/wikia-ui-components/wikia-card}}
-			{{/each}}
-		</ul>
+		{{wikia-ui-components/wikia-card-list
+			classNames="search-results__list"
+			items=model.items
+			trackingCategory="search-page"
+			trackingLabel="search-result"
+		}}
 	{{else if notFoundError}}
 		{{#wikia-ui-components/error-info}}
 			{{wikia-search-error-not-found
@@ -46,10 +38,12 @@
 	{{/if}}
 </div>
 {{#if model.canLoadMore}}
-	{{wikia-ui-components/wikia-button
-		text=(i18n 'main.load-more-results' ns='search')
-		onButtonClick=(action 'onLoadMore')
-		trackLabel='search-load-more'
-		class='search-results__load-more-wrapper'
-	}}
+	<div class="search-results__load-more-wrapper">
+		{{wikia-ui-components/wds-button
+			text=(i18n 'main.load-more-results' ns='search')
+			onClick=(action 'onLoadMore')
+			trackLabel='search-load-more'
+			isText=true
+		}}
+	</div>
 {{/if}}

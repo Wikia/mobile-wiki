@@ -38,7 +38,12 @@
 						ios: 1234
 					}
 				},
-				id: 1234
+				id: 1234,
+				namespaces: {
+					0: '',
+					6: 'File',
+					14: 'Category'
+				}
 			}
 		};
 
@@ -47,6 +52,8 @@
 		window.trackComscorePageView = function() {};
 		window.trackIVW3PageView = function() {};
 		window.Wikia = {};
+		M.tracker.Internal.track = function () {};
+		M.tracker.Internal.trackPageView = function () {};
 
 		M.prop('environment', 'test', true);
 	</script>

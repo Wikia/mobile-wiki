@@ -5,6 +5,7 @@ export default {
 	loggers: {
 		console: 'debug'
 	},
+	devDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'pl' : 'us',
 	authCookieDomain: (process.env.WIKIA_DATACENTER === 'poz') ? '.wikia-dev.pl' : '.wikia-dev.us',
 	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services.wikia-dev.pl' : 'services.wikia-dev.us',
 	facebook: {

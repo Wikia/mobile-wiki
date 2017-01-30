@@ -1,15 +1,13 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
-import sinon from 'sinon';
 
-moduleForAcceptance('Acceptance | Curated Main Page', {
-	beforeEach() {
-		sinon.stub(require('common/modules/ads').default.getInstance(), 'removeSlot');
-	},
-});
+moduleForAcceptance('Acceptance | Curated Main Page');
 
 test('Open section on Curated Main Page', (assert) => {
-	const firstVisibleItemSelector = '.curated-content-items:visible .item-caption.clamp:first';
+	const firstVisibleItemSelector =
+		'.curated-content-section:not(.hidden) .curated-content-items .item-caption.clamp:first';
+
+	mockAdsService();
 
 	// https://github.com/ember-cli/ember-cli/issues/3719#issuecomment-111279593
 	visit('/');
