@@ -37,8 +37,10 @@ export default Mixin.create({
 				post.setProperties({
 					isDeleted: true,
 					isReported: false,
-					lastDeletedBy: response.deletedBy,
 				});
+				if (post.lastDeletedBy == null) {
+					post.set('lastDeletedBy', response.deletedBy);
+				}
 			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
@@ -54,7 +56,10 @@ export default Mixin.create({
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
-			post.set('isDeleted', false);
+			post.setProperties({
+				isDeleted: false,
+				lastDeletedBy: null
+			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
@@ -88,7 +93,10 @@ export default Mixin.create({
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.get('id')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
-			reply.set('isDeleted', false);
+			reply.setProperties({
+				isDeleted: false,
+				lastDeletedBy: null
+			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
