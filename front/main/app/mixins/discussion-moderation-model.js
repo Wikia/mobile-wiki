@@ -32,12 +32,15 @@ export default Mixin.create({
 	deleteAllPosts(posts) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts.get('0.createdBy.id')}/posts/delete`), {
 			method: 'PUT'
-		}).then(() => {
+		}).then((response) => {
 			posts.forEach((post) => {
 				post.setProperties({
 					isDeleted: true,
-					isReported: false
+					isReported: false,
 				});
+				if (post.lastDeletedBy == null) {
+					post.set('lastDeletedBy', response.deletedBy);
+				}
 			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
@@ -53,7 +56,10 @@ export default Mixin.create({
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.get('threadId')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
-			post.set('isDeleted', false);
+			post.setProperties({
+				isDeleted: false,
+				lastDeletedBy: null
+			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
@@ -87,7 +93,10 @@ export default Mixin.create({
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.get('id')}/undelete`), {
 			method: 'PUT'
 		}).then(() => {
-			reply.set('isDeleted', false);
+			reply.setProperties({
+				isDeleted: false,
+				lastDeletedBy: null
+			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
