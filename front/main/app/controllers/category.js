@@ -51,7 +51,9 @@ export default Controller.extend(
 							// TODO figure out how to remove the param instead of going to ?page=1
 							this.transitionToRoute({
 								queryParams: {page}
-							})
+							});
+
+							this.get('target').send('updateDynamicHeadTags');
 						});
 				}
 

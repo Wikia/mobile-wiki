@@ -25,10 +25,6 @@
 		<link data-server-head-tags-static rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
-	{{#if canPrerender}}
-		<meta name="fragment" content="!">
-	{{/if}}
-
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
@@ -41,6 +37,12 @@
 	{{> smart-banner-ios}}
 
 	<link data-server-head-tags-dynamic rel="canonical" href="{{canonicalUrl}}">
+	{{#if nextPageUrl}}
+		<link data-server-head-tags-dynamic rel="next" href="{{{nextPageUrl}}}">
+	{{/if}}
+	{{#if prevPageUrl}}
+		<link data-server-head-tags-dynamic rel="prev" href="{{{prevPageUrl}}}">
+	{{/if}}
 
 	{{> nirvana }}
 	<script src="/front/main/assets/vendor/jquery/jquery.min.js"></script>
