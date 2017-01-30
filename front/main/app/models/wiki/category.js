@@ -6,6 +6,9 @@ const {get} = Ember,
 	CategoryModel = BaseModel.extend({
 		hasArticle: false,
 		categoryMembersGrouped: null,
+		nextPage: null,
+		pages: null,
+		prevPage: null,
 		// TODO Remove after XW-2583 is released
 		sections: null,
 		trendingArticles: null,
@@ -34,6 +37,42 @@ const {get} = Ember,
 
 					return this;
 				});
+		},
+
+		/**
+		 * @param {number} page 1 is next, -1 is previous
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		loadPage(page) {
+			const url = M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getCategoryMembers',
+					title: this.get('title'),
+					categoryMembersPage: page,
+					format: 'json'
+				}
+			});
+
+			return request(url)
+				.then((response) => {
+					if (response.data.members) {
+						this.setProperties({
+							categoryMembersGrouped: response.data.members,
+							nextPage: response.data.nextPage,
+							prevPage: response.data.prevPage
+						});
+					}
+				});
+		},
+
+		/**
+		 * @param direction 1 is next, -1 is previous
+		 * @returns {number}
+		 */
+		getPageByDirection(direction) {
+			return direction === 1 ? this.get('nextPage') : this.get('prevPage');
 		}
 	});
 
@@ -54,6 +93,9 @@ CategoryModel.reopenClass({
 			// This data should always be set - no matter if category has an article or not
 			pageProperties = {
 				categoryMembersGrouped: get(data, 'nsSpecificContent.membersGrouped'),
+				nextPage: get(data, 'nsSpecificContent.nextPage'),
+				pages: get(data, 'nsSpecificContent.pages'),
+				prevPage: get(data, 'nsSpecificContent.prevPage'),
 				// TODO Remove after XW-2583 is released
 				sections: get(data, 'nsSpecificContent.members.sections'),
 				trendingArticles: get(data, 'nsSpecificContent.trendingArticles')

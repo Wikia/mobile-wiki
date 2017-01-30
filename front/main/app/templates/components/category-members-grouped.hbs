@@ -1,4 +1,17 @@
-{{#each-in model as |firstLetter members|}}
+{{#if prevPage}}
+	<div class="category-navigation">
+		{{loading-spinner
+			active=true
+			overlay=false
+			radius=16
+			strokeWidth=2
+		}}
+		<button class="category-navigation__button" {{action 'loadPage' -1}}>
+			{{i18n 'app.category-page-load-previous'}}
+		</button>
+	</div>
+{{/if}}
+{{#each-in membersGrouped as |firstLetter members|}}
 	<div class="category-members-group">
 		<h3>{{firstLetter}}</h3>
 		<ul class="mw-content">
@@ -12,3 +25,16 @@
 {{else}}
 	<div>{{i18n 'app.category-page-no-members'}}</div>
 {{/each-in}}
+{{#if nextPage}}
+	<div class="category-navigation">
+		{{loading-spinner
+			active=true
+			overlay=false
+			radius=16
+			strokeWidth=2
+		}}
+		<button class="category-navigation__button" {{action 'loadPage' 1}}>
+			{{i18n 'app.category-page-load-more'}}
+		</button>
+	</div>
+{{/if}}

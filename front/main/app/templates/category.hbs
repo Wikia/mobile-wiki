@@ -21,7 +21,12 @@
 			}}
 		{{/if}}
 		{{#if model.categoryMembersGrouped}}
-			{{category-members-grouped model=model.categoryMembersGrouped}}
+			{{category-members-grouped
+				loadPage=(action 'loadPage')
+				membersGrouped=model.categoryMembersGrouped
+				nextPage=model.nextPage
+				prevPage=model.prevPage
+			}}
 		{{else}}
 		{{! TODO Remove after XW-2583 is released }}
 			{{category-sections

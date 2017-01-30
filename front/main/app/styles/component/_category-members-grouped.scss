@@ -11,7 +11,7 @@
 		top: auto;
 	}
 
-	&.loading-batch {
+	&.is-loading {
 		.category-navigation__button {
 			display: none;
 			pointer-events: none;

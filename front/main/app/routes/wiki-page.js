@@ -23,8 +23,15 @@ export default Ember.Route.extend(
 		currentUser: Ember.inject.service(),
 		ads: Ember.inject.service(),
 
+		queryParams: {
+			page: {
+				// See controllers/category#actions.loadPage
+				refreshModel: false
+			}
+		},
+
 		/**
-		 * @param {Ember.model} model
+		 * @param {Ember.Object} model
 		 * @returns {Object} handler for current namespace
 		 */
 		getHandler(model) {
@@ -104,7 +111,7 @@ export default Ember.Route.extend(
 
 					this.set('wikiHandler', handler);
 
-					handler.afterModel(this, model);
+					handler.afterModel(this, ...arguments);
 				} else {
 					transition.abort();
 					window.location.assign(M.buildUrl({
