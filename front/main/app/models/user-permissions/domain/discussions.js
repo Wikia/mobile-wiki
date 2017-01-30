@@ -6,7 +6,8 @@ const permissionsMap = {
 	canDeleteCategories: 'forums:delete',
 	canEditCategories: 'forums:edit',
 	canReorderCategories: 'forums:displayorder',
-	canChangePostCategory: 'threads:move'
+	canChangePostCategory: 'threads:move',
+	canUseModeratorTools: 'moderatorTools:use',
 };
 
 const DiscussionUserPermissions = Ember.Object.extend({
@@ -14,7 +15,8 @@ const DiscussionUserPermissions = Ember.Object.extend({
 	canCreateCategories: false,
 	canEditCategories: false,
 	canReorderCategories: false,
-	canChangePostCategory: false
+	canChangePostCategory: false,
+	canUseModeratorTools: false,
 });
 
 DiscussionUserPermissions.reopenClass({
