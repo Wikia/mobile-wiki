@@ -1,0 +1,14 @@
+{{#each-in model as |firstLetter members|}}
+	<div class="category-members-group">
+		<h3>{{firstLetter}}</h3>
+		<ul class="mw-content">
+			{{#each members as |category|}}
+				<li>
+					<a href="{{category.url}}">{{category.title}}</a>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+{{else}}
+	<div>{{i18n 'app.category-page-no-members'}}</div>
+{{/each-in}}

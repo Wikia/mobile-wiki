@@ -1,0 +1,34 @@
+.category-members-grouped {
+	padding: 1.5rem $article-horizontal-padding;
+}
+
+.category-members-grouped {
+	.spinner {
+		display: none;
+		left: auto;
+		margin: 0;
+		position: static;
+		top: auto;
+	}
+
+	&.loading-batch {
+		.category-navigation__button {
+			display: none;
+			pointer-events: none;
+		}
+
+		.spinner {
+			display: inline;
+		}
+	}
+}
+
+.category-navigation {
+	text-align: center;
+	padding-bottom: 1.125rem;
+	position: relative;
+}
+
+.category-navigation__button {
+	margin: 0;
+}

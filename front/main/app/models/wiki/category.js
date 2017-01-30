@@ -5,10 +5,13 @@ import request from 'ember-ajax/request';
 const {get} = Ember,
 	CategoryModel = BaseModel.extend({
 		hasArticle: false,
+		categoryMembersGrouped: null,
+		// TODO Remove after XW-2583 is released
 		sections: null,
 		trendingArticles: null,
 
 		/**
+		 * TODO Remove after XW-2583 is released
 		 * @param {number} index
 		 * @param {number} batchToLoad
 		 * @returns {JQueryDeferred|JQueryPromise<T>}
@@ -50,6 +53,8 @@ CategoryModel.reopenClass({
 			// Category Basic Data
 			// This data should always be set - no matter if category has an article or not
 			pageProperties = {
+				categoryMembersGrouped: get(data, 'nsSpecificContent.membersGrouped'),
+				// TODO Remove after XW-2583 is released
 				sections: get(data, 'nsSpecificContent.members.sections'),
 				trendingArticles: get(data, 'nsSpecificContent.trendingArticles')
 			};
@@ -61,6 +66,7 @@ CategoryModel.reopenClass({
 	/**
 	 * Get url for batch of category members for given index.
 	 * Index represents the letter members start from.
+	 * TODO Remove after XW-2583 is released
 	 *
 	 * @param {string} categoryName
 	 * @param {string} index

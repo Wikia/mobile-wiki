@@ -268,6 +268,11 @@ export default function mediaWikiPageHandler(request, reply) {
 		allowCache = false;
 	}
 
+	// `page` is an external param but in MercuryApi we use `categoryMembersPage`
+	if (request.query.page) {
+		params.categoryMembersPage = request.query.page;
+	}
+
 	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (path === '/' || path === '/wiki') {

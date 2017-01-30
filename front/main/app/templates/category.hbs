@@ -20,10 +20,15 @@
 				model=model.trendingArticles
 			}}
 		{{/if}}
-		{{category-sections
-			adsContext=model.adsContext
-			sections=model.sections
-			loadBatch=(action 'loadBatch')
-		}}
+		{{#if model.categoryMembersGrouped}}
+			{{category-members-grouped model=model.categoryMembersGrouped}}
+		{{else}}
+		{{! TODO Remove after XW-2583 is released }}
+			{{category-sections
+				adsContext=model.adsContext
+				sections=model.sections
+				loadBatch=(action 'loadBatch')
+			}}
+		{{/if}}
 	{{/article-wrapper}}
 </div>
