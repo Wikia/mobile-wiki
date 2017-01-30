@@ -40,7 +40,7 @@ const {get} = Ember,
 		},
 
 		/**
-		 * @param {number} page 1 is next, -1 is previous
+		 * @param {number} page
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(page) {
@@ -61,18 +61,12 @@ const {get} = Ember,
 						this.setProperties({
 							categoryMembersGrouped: response.data.members,
 							nextPage: response.data.nextPage,
-							prevPage: response.data.prevPage
+							nextPageUrl: response.data.nextPageUrl,
+							prevPage: response.data.prevPage,
+							prevPageUrl: response.data.prevPageUrl
 						});
 					}
 				});
-		},
-
-		/**
-		 * @param direction 1 is next, -1 is previous
-		 * @returns {number}
-		 */
-		getPageByDirection(direction) {
-			return direction === 1 ? this.get('nextPage') : this.get('prevPage');
 		}
 	});
 
@@ -94,8 +88,9 @@ CategoryModel.reopenClass({
 			pageProperties = {
 				categoryMembersGrouped: get(data, 'nsSpecificContent.membersGrouped'),
 				nextPage: get(data, 'nsSpecificContent.nextPage'),
-				pages: get(data, 'nsSpecificContent.pages'),
+				nextPageUrl: get(data, 'nsSpecificContent.nextPageUrl'),
 				prevPage: get(data, 'nsSpecificContent.prevPage'),
+				prevPageUrl: get(data, 'nsSpecificContent.prevPageUrl'),
 				// TODO Remove after XW-2583 is released
 				sections: get(data, 'nsSpecificContent.members.sections'),
 				trendingArticles: get(data, 'nsSpecificContent.trendingArticles')

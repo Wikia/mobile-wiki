@@ -1,5 +1,12 @@
 <div class="category-members-grouped">
-	{{#each model as |members firstLetter|}}
+	{{#if model.prevPageUrl}}
+		<div class="category-navigation">
+			<a href="{{model.prevPageUrl}}" class="wds-button category-navigation__button">
+				{{i18n 'app.category-page-load-previous'}}
+			</a>
+		</div>
+	{{/if}}
+	{{#each model.membersGrouped as |members firstLetter|}}
 		<div class="category-members-group">
 			<h3>{{firstLetter}}</h3>
 			<ul class="mw-content">
@@ -11,4 +18,11 @@
 			</ul>
 		</div>
 	{{/each}}
+	{{#if model.nextPageUrl}}
+		<div class="category-navigation">
+			<a href="{{model.nextPageUrl}}" class="wds-button category-navigation__button">
+				{{i18n 'app.category-page-load-more'}}
+			</a>
+		</div>
+	{{/if}}
 </div>
