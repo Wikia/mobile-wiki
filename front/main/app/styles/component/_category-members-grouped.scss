@@ -1,6 +1,16 @@
 .category-members-grouped {
 	padding: 1.5rem $article-horizontal-padding;
 
+	h3 {
+		border-bottom: solid 1px $color-gray-faint;
+		margin-bottom: 0;
+		padding-bottom: 0.7rem;
+	}
+
+	.subcategory {
+		margin-left: -1.5rem;
+	}
+
 	.spinner {
 		display: none;
 		left: auto;
