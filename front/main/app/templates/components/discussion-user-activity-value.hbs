@@ -1,4 +1,15 @@
-{{displayedValue}}
+{{#if showTooltip }}
+	{{#ember-tether
+			attachment='bottom center'
+			class='discussion-user-activity-value-tooltip'
+			target=(concat '#' elementId)
+			targetAttachment='top center'
+	}}
+		<div>{{value}}</div>
+	{{/ember-tether}}
+{{/if}}
+
+{{shorten-large-number value 1}}
 {{#if description}}
 	<span class="description">{{description}}</span>
 {{/if}}
