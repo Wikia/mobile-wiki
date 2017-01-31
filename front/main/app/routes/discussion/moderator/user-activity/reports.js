@@ -13,12 +13,10 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {*}
 		 */
 		model(params) {
-			const discussionModel = this.modelFor('discussion'),
-				parentParams = this.paramsFor('discussion.moderator.user-activity');
+			const parentParams = this.paramsFor('discussion.moderator.user-activity');
 
 			return Ember.RSVP.hash({
 				current: DiscussionUserActivityReportsModel.find(Mercury.wiki.id, parentParams.days),
-				index: discussionModel
 			});
 		},
 	}
