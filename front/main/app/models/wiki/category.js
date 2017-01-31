@@ -59,7 +59,7 @@ const {get} = Ember,
 				.then((response) => {
 					if (response.data.members) {
 						this.setProperties({
-							categoryMembersGrouped: response.data.members,
+							categoryMembersGrouped: response.data.membersGrouped,
 							nextPage: response.data.nextPage,
 							nextPageUrl: response.data.nextPageUrl,
 							prevPage: response.data.prevPage,
