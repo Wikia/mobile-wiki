@@ -1,9 +1,9 @@
 {{#if showTooltip }}
 	{{#ember-tether
-			target=(concat '#' elementId)
 			attachment='bottom center'
-			targetAttachment='top center'
 			class='discussion-user-activity-value-tooltip'
+			target=(concat '#' elementId)
+			targetAttachment='top center'
 	}}
 		<div>{{value}}</div>
 	{{/ember-tether}}
