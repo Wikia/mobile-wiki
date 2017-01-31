@@ -57,7 +57,7 @@ const {get} = Ember,
 
 			return request(url)
 				.then((response) => {
-					if (response.data.members) {
+					if (response.data.membersGrouped) {
 						this.setProperties({
 							categoryMembersGrouped: response.data.membersGrouped,
 							nextPage: response.data.nextPage,
