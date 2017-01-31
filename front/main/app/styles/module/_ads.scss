@@ -110,23 +110,6 @@ $player-button-sound-off: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfNF9jb3B
 		width: 0;
 		transition: width linear;
 	}
-
-	.overVideoLayer {
-		// TODO: REMOVE ME
-		cursor: pointer;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		width: 100%;
-
-		.close-ad {
-			background-image: url($player-button-collapse);
-			float: right;
-			height: 30px;
-			margin: 5px 5px 0 0;
-			width: 30px;
-		}
-	}
 }
 
 .video-player {
