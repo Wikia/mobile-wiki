@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Component} = Ember;
+const {Component, $} = Ember;
 
 export default Component.extend({
 	classNames: ['category-members-grouped'],
@@ -15,6 +15,12 @@ export default Component.extend({
 			this.set('isLoading', true);
 
 			this.get('loadPage')(direction)
+				.then(() => {
+					const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
+						scrollTop = this.$().offset().top - navHeight;
+
+					$('html, body').animate({scrollTop});
+				})
 				.catch(() => {
 					// TODO handle the error nicely
 				})
