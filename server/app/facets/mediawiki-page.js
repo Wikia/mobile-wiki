@@ -273,9 +273,11 @@ export default function mediaWikiPageHandler(request, reply) {
 		allowCache = false;
 	}
 
-	// `page` is an external param but in MercuryApi we use `categoryMembersPage`
 	if (request.query.page) {
+		// `page` is an external SEO friendly param but in MercuryApi we use `categoryMembersPage`
 		params.categoryMembersPage = request.query.page;
+		// TODO remove when icache supports surrogate keys and we can purge the category pages
+		allowCache = false;
 	}
 
 	mediaWikiPageHelper = new PageRequestHelper(params);
