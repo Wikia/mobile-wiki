@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 
-const {Component, $} = Ember;
+const {Component, $, run} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -22,7 +22,9 @@ export default Component.extend(
 						const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
 							scrollTop = this.$().offset().top - navHeight;
 
-						$('html, body').animate({scrollTop});
+						run.scheduleOnce('afterRender', this, () => {
+							$('html, body').animate({scrollTop});
+						});
 					})
 					.catch(() => {
 						this.addAlert({

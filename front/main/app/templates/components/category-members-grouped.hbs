@@ -13,20 +13,13 @@
 	</div>
 {{/if}}
 {{#each-in membersGrouped as |firstLetter members|}}
-	<div class="category-members-group">
+	<div>
 		<h3>{{firstLetter}}</h3>
-		<ul class="mw-content wds-has-big-items wds-list">
+		<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content">
 			{{#each members as |category|}}
-				{{#if category.isCategory}}
-					<li class="subcategory">
-						{{svg 'wds-icons-pages-small' role='img' class='wds-icon-small'}}
-						<a href="{{category.url}}">{{category.title}}</a>
-					</li>
-				{{else}}
-					<li>
-						<a href="{{category.url}}">{{category.title}}</a>
-					</li>
-				{{/if}}
+				<li class="{{if category.isCategory 'category-members-grouped__subcategory'}}">
+					<a href="{{category.url}}">{{category.title}}</a>
+				</li>
 			{{/each}}
 		</ul>
 	</div>

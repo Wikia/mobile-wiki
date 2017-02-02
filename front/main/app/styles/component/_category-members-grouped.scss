@@ -11,12 +11,21 @@
 		margin-left: .4rem;
 	}
 
-	.subcategory {
-		margin-left: -1.4rem;
+	&__list {
+		position: relative;
 	}
 
-	.wds-icon-small {
-		vertical-align: middle;
+	&__subcategory {
+		$icon-size: 18px;
+
+		&::before {
+			background-image: $wds-icons-pages-small-svg;
+			content: '';
+			left: -4px;
+			height: $icon-size;
+			position: absolute;
+			width: $icon-size;
+		}
 	}
 
 	.spinner {
@@ -43,8 +52,8 @@
 	text-align: center;
 	padding-bottom: 1.125rem;
 	position: relative;
-}
 
-.category-navigation__button {
-	margin: 0;
+	&__button {
+		margin: 0;
+	}
 }

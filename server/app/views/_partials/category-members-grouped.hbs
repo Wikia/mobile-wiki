@@ -8,11 +8,11 @@
 		</div>
 	{{/if}}
 	{{#each model.membersGrouped as |members firstLetter|}}
-		<div class="category-members-group">
+		<div>
 			<h3>{{firstLetter}}</h3>
-			<ul class="mw-content wds-has-big-items wds-list">
+			<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content">
 				{{#each members as |category|}}
-					<li>
+					<li{{#if category.isCategory}} class="category-members-grouped__subcategory"{{/if}}>
 						<a href="{{category.url}}">{{category.title}}</a>
 					</li>
 				{{/each}}
