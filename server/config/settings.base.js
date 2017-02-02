@@ -355,5 +355,5 @@ export default {
 			1744
 		]
 	},
-	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
+	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'search']
 };
