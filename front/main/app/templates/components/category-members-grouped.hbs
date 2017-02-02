@@ -7,7 +7,7 @@
 			radius=16
 			strokeWidth=2
 		}}
-		<a href="{{prevPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__prev" {{action 'loadPage' prevPage}}>
+		<a href="{{prevPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__prev" {{action 'loadPage' prevPage 'previous'}}>
 			{{i18n 'app.category-page-load-previous'}}
 		</a>
 	</div>
@@ -18,7 +18,7 @@
 		<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content">
 			{{#each members as |category|}}
 				<li class="{{if category.isCategory 'category-members-grouped__subcategory'}}">
-					<a href="{{category.url}}">{{category.title}}</a>
+					<a href="{{category.url}}" {{action 'trackClick' 'category-page' 'open-link'}}>{{category.title}}</a>
 				</li>
 			{{/each}}
 		</ul>
@@ -34,7 +34,7 @@
 			radius=16
 			strokeWidth=2
 		}}
-		<a href="{{nextPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__next" {{action 'loadPage' nextPage}}>
+		<a href="{{nextPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__next" {{action 'loadPage' nextPage 'next'}}>
 			{{i18n 'app.category-page-load-more'}}
 		</a>
 	</div>

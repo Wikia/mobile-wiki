@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
+import {track, trackActions} from 'common/utils/track';
 
 const {Component, $, run} = Ember;
 
@@ -12,12 +13,19 @@ export default Component.extend(
 
 		actions: {
 			/**
-			 * @param {number} direction 1 is next, -1 is previous
+			 * @param {number} page
+			 * @param {string} label
 			 */
-			loadPage(direction) {
+			loadPage(page, label) {
 				this.set('isLoading', true);
 
-				this.get('loadPage')(direction)
+				track({
+					action: trackActions.click,
+					category: 'category-page',
+					label: `load-${label}`
+				});
+
+				this.get('loadPage')(page)
 					.then(() => {
 						const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
 							scrollTop = this.$().offset().top - navHeight;
@@ -35,6 +43,18 @@ export default Component.extend(
 					.finally(() => {
 						this.set('isLoading', false);
 					});
+			},
+
+			/**
+			 * @param {string} category
+			 * @param {string} label
+			 */
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
+				});
 			}
 		}
 	}
