@@ -57,7 +57,7 @@ export default Controller.extend(
 						});
 				}
 
-				return RSVP.Promise.reject();
+				return RSVP.Promise.reject('Page was not provided');
 			}
 		}
 	}

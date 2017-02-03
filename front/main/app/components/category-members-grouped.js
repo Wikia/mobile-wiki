@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from 'common/utils/track';
 
-const {Component, $, run} = Ember;
+const {Component, Logger, $, run} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -34,11 +34,13 @@ export default Component.extend(
 							$('html, body').animate({scrollTop});
 						});
 					})
-					.catch(() => {
+					.catch((error) => {
 						this.addAlert({
 							message: i18n.t('app.category-page-load-error'),
 							type: 'alert'
 						});
+
+						Logger.error(error);
 					})
 					.finally(() => {
 						this.set('isLoading', false);

@@ -2,10 +2,10 @@ import Ember from 'ember';
 import BaseModel from './base';
 import request from 'ember-ajax/request';
 
-const {get} = Ember,
+const {get, isEmpty} = Ember,
 	CategoryModel = BaseModel.extend({
 		hasArticle: false,
-		categoryMembersGrouped: null,
+		membersGrouped: null,
 		nextPage: null,
 		pages: null,
 		prevPage: null,
@@ -57,14 +57,14 @@ const {get} = Ember,
 
 			return request(url)
 				.then((response) => {
-					if (response.data.membersGrouped) {
-						this.setProperties({
-							categoryMembersGrouped: response.data.membersGrouped,
-							nextPage: response.data.nextPage,
-							nextPageUrl: response.data.nextPageUrl,
-							prevPage: response.data.prevPage,
-							prevPageUrl: response.data.prevPageUrl
-						});
+					const data = response.data;
+
+					if (isEmpty(data)) {
+						throw new Error('Unexpected response from server');
+					}
+
+					if (data.membersGrouped) {
+						this.setProperties(data);
 					}
 				});
 		}
@@ -80,24 +80,9 @@ CategoryModel.reopenClass({
 	setData(model, {exception, data}) {
 		this._super(...arguments);
 
-		let pageProperties;
-
-		if (!exception && data) {
-			// Category Basic Data
-			// This data should always be set - no matter if category has an article or not
-			pageProperties = {
-				categoryMembersGrouped: get(data, 'nsSpecificContent.membersGrouped'),
-				nextPage: get(data, 'nsSpecificContent.nextPage'),
-				nextPageUrl: get(data, 'nsSpecificContent.nextPageUrl'),
-				prevPage: get(data, 'nsSpecificContent.prevPage'),
-				prevPageUrl: get(data, 'nsSpecificContent.prevPageUrl'),
-				// TODO Remove after XW-2583 is released
-				sections: get(data, 'nsSpecificContent.members.sections'),
-				trendingArticles: get(data, 'nsSpecificContent.trendingArticles')
-			};
+		if (!exception && data && data.nsSpecificContent) {
+			model.setProperties(data.nsSpecificContent);
 		}
-
-		model.setProperties(pageProperties);
 	},
 
 	/**

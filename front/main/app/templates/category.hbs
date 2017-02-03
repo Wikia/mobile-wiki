@@ -20,10 +20,10 @@
 				model=model.trendingArticles
 			}}
 		{{/if}}
-		{{#if model.categoryMembersGrouped}}
+		{{#if model.membersGrouped}}
 			{{category-members-grouped
 				loadPage=(action 'loadPage')
-				membersGrouped=model.categoryMembersGrouped
+				membersGrouped=model.membersGrouped
 				nextPage=model.nextPage
 				nextPageUrl=model.nextPageUrl
 				prevPage=model.prevPage
