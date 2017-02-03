@@ -1,5 +1,5 @@
 import {parseQueryParams} from '../../lib/utils';
-import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
+import {getDisplayTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
 import {namespaceSubtitleMessageKeys} from '../../lib/mediawiki-namespace';
 
 /**
@@ -12,11 +12,10 @@ import {namespaceSubtitleMessageKeys} from '../../lib/mediawiki-namespace';
 export default function prepareWikiPageData(request, data) {
 	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
-		prefix = data.wikiVariables.namespaces[pageData.ns] ? `${data.wikiVariables.namespaces[pageData.ns]}:` : '',
 		separator = data.wikiVariables.htmlTitle.separator,
 		result = getBaseResult(request, data);
 
-	result.displayTitle = getDefaultTitle(request, pageData);
+	result.displayTitle = getDisplayTitle(request, pageData);
 
 	result.subtitle = namespaceSubtitleMessageKeys[pageData.ns] ?
 		request.server.methods.i18n.getInstance().t(namespaceSubtitleMessageKeys[pageData.ns]) :
@@ -48,12 +47,9 @@ export default function prepareWikiPageData(request, data) {
 		}
 	}
 
-	/**
-	 * This is necessary to avoid having duplicated title on CMP
-	 */
-	if (!result.isMainPage) {
-		result.documentTitle = prefix + result.displayTitle + separator + result.documentTitle;
-	}
+	result.htmlTitle = (pageData && pageData.htmlTitle) ?
+		pageData.htmlTitle + separator + result.wikiHtmlTitle :
+		result.wikiHtmlTitle;
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.settings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
