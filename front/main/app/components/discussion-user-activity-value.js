@@ -4,12 +4,6 @@ export default Ember.Component.extend({
 
 	classNames: ['user-activity-value'],
 
-	displayedValue: Ember.computed('value', function () {
-		const value = this.get('value');
-
-		return value <= 999 ? value.toString() : '999+';
-	}),
-
 	iconClassNames: Ember.computed('iconClass', function () {
 		const iconClass = this.get('iconClass');
 		let classNames = 'user-activity-icon';
@@ -19,6 +13,25 @@ export default Ember.Component.extend({
 		}
 
 		return classNames;
-	})
+	}),
+
+	showTooltip: false,
+
+	/**
+	 * @private
+	 */
+	valueHasBeenShortened() {
+		return this.get('value') >= 1000;
+	},
+
+	mouseEnter() {
+		this.set('showTooltip', this.valueHasBeenShortened());
+		return true;
+	},
+
+	mouseLeave() {
+		this.set('showTooltip', false);
+		return true;
+	},
 
 });
