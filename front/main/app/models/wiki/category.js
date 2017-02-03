@@ -56,16 +56,12 @@ const {get, isEmpty} = Ember,
 			});
 
 			return request(url)
-				.then((response) => {
-					const data = response.data;
-
-					if (isEmpty(data)) {
+				.then(({data}) => {
+					if (isEmpty(data) || isEmpty(data.membersGrouped)) {
 						throw new Error('Unexpected response from server');
 					}
 
-					if (data.membersGrouped) {
-						this.setProperties(data);
-					}
+					this.setProperties(data);
 				});
 		}
 	});
