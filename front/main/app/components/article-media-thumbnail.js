@@ -44,8 +44,8 @@ export default Ember.Component.extend(
 		}),
 
 		click(event) {
-			// Don't open lightbox when image is linked or caption was clicked
-			if (!this.get('link') && !$(event.target).closest('figcaption').length) {
+			// Don't open lightbox when image is linked by user or caption was clicked
+			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				// it can also be overriden when this component is rendered from a template instead of JS
 				this.get('openLightbox')(this.get('ref'));
