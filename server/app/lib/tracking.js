@@ -21,12 +21,14 @@ export const Comscore = {
 		 * @returns {void}
 		 */
 		handleResponse(tracking, config, request) {
-			tracking.comscore.c7 = Comscore.getC7ParamAndValue(
-				`http://${request.headers.host}/${request.url.path}`,
-				config.c7Value
-			);
+			if (config.c7Value) {
+				tracking.comscore.c7 = Comscore.getC7ParamAndValue(
+					`http://${request.headers.host}/${request.url.path}`,
+					config.c7Value
+				);
 
-			tracking.comscore.c7Value = config.c7Value;
+				tracking.comscore.c7Value = config.c7Value;
+			}
 		}
 	},
 	IVW3 = {
