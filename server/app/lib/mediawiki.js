@@ -353,7 +353,7 @@ export class EmailConfirmationRequest extends BaseRequest {
 		return post(
 			url,
 			Url.format({query: params}).substr(1),
-			'',
+			this.wikiDomain,
 			{
 				Cookie: `access_token=${originalRequest.state.access_token}`
 			}
