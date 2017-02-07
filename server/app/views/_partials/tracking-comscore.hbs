@@ -10,8 +10,9 @@
 		}
 
 		window.trackComscorePageView = function () {
-			if (externalsAllowed) {
-				var comscore = M.prop('tracking.comscore');
+			var comscore = M.prop('tracking.comscore');
+
+			if (externalsAllowed && comscore.c7Value) {
 
 				window._comscore.push({
 					c1: '2',
