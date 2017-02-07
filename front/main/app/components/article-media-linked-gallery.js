@@ -14,9 +14,9 @@ export default Ember.Component.extend(
 		}),
 
 		sortedItems: Ember.computed.sort('sanitizedItems', (a, b) => {
-			if (a.link && typeof b.link === 'undefined') {
+			if (a.isLinkedByUser && !b.isLinkedByUser) {
 				return 1;
-			} else if (b.link && typeof a.link === 'undefined') {
+			} else if (b.isLinkedByUser && !a.isLinkedByUser) {
 				return -1;
 			}
 
