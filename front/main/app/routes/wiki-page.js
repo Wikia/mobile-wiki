@@ -128,7 +128,7 @@ export default Ember.Route.extend(
 			const pageUrl = model.get('url'),
 				pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 				data = {
-					documentTitle: model.get('documentTitle'),
+					htmlTitle: model.get('htmlTitle'),
 					description: model.get('description'),
 					robots: 'index,follow',
 					canonical: pageFullUrl

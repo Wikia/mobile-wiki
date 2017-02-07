@@ -52,6 +52,9 @@ describe('wiki-page', function () {
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Yoda | Wookieepedia | Fandom powered by Wikia</title>'
+			);
 			expect(response.payload).to.include('<p>This is a test</p>');
 			done();
 		});
@@ -64,6 +67,9 @@ describe('wiki-page', function () {
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Wookieepedia | Fandom powered by Wikia</title>'
+			);
 			expect(response.payload).to.include(
 				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":0,"curatedMainPageData":{"curatedContent"'
 			);
@@ -156,7 +162,9 @@ describe('wiki-page', function () {
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(404);
-
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Yoda | Wookieepedia | Fandom powered by Wikia</title>'
+			);
 			// Ember displays 404 page based on that
 			expect(response.payload).to.include('M.prop(\'exception\', {"code":404}, true);');
 			done();
@@ -170,7 +178,9 @@ describe('wiki-page', function () {
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
-
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Yoda | Wookieepedia | Fandom powered by Wikia</title>'
+			);
 			// Ember displays error page with reload button based on that
 			expect(response.payload).to.include('M.prop(\'exception\', {"code":503}, true);');
 			done();
@@ -224,9 +234,10 @@ describe('wiki-page', function () {
 			articleWithCustomNamespace = clone(article),
 			wikiVariablesWithCustomNamespace = clone(wikiVariables);
 
-		requestParamsWithCustomNamespace.url = '/wiki/Portal:Whatever';
-		articleWithCustomNamespace.data.ns = 112;
-		wikiVariablesWithCustomNamespace.data.contentNamespaces = [0, 112];
+		requestParamsWithCustomNamespace.url = '/wiki/Bracket:Whatever';
+		articleWithCustomNamespace.data.ns = 114;
+		articleWithCustomNamespace.data.htmlTitle = 'Bracket:Whatever';
+		wikiVariablesWithCustomNamespace.data.contentNamespaces = [0, 114];
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, articleWithCustomNamespace);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariablesWithCustomNamespace);
@@ -235,12 +246,17 @@ describe('wiki-page', function () {
 		server.inject(requestParamsWithCustomNamespace, function (response) {
 			expect(response.statusCode).to.equal(200);
 
+			console.log(response.payload);
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Bracket:Whatever | Wookieepedia | Fandom powered by Wikia</title>'
+			);
+
 			// required for internal tracking
-			expect(response.payload).to.include('M.prop(\'mediaWikiNamespace\', \'112\')');
+			expect(response.payload).to.include('M.prop(\'mediaWikiNamespace\', \'114\')');
 
 			// required for preload to work
 			expect(response.payload).to.include('M.prop(\'articleContentPreloadedInDOM\', true, true)');
-			expect(response.payload).to.include('M.provide(\'article\', {"data":{"isMainPage":false,"ns":112');
+			expect(response.payload).to.include('M.provide(\'article\', {"data":{"isMainPage":false,"ns":114');
 			expect(response.payload).to.include('<p>This is a test</p>');
 			done();
 		});
@@ -257,6 +273,9 @@ describe('wiki-page', function () {
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
+			expect(response.payload).to.include(
+				'<title data-server-head-tags-dynamic>Wookieepedia | Fandom powered by Wikia</title>'
+			);
 			expect(response.payload).to.include(
 				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":999,"curatedMainPageData":{"curatedContent"'
 			);
