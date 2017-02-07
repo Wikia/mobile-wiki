@@ -19,11 +19,13 @@ export default function showDiscussions(request, reply) {
 		context = {};
 
 	wikiVariables.then((variables) => {
+		const wikiHtmlTitle = variables.htmlTitle;
+
 		if (!variables.enableDiscussions) {
 			return reply('Not Found').code(404);
 		}
 
-		context.documentTitle = `Discussions | ${variables.siteName} | Fandom powered by Wikia`;
+		context.htmlTitle = `Discussions${wikiHtmlTitle.separator}${wikiHtmlTitle.parts.join(wikiHtmlTitle.separator)}`;
 		context.showSpinner = true;
 
 		showApplication(request, reply, wikiVariables, context, true);

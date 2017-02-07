@@ -18,7 +18,7 @@ export function md5(string) {
 /**
  * Get gaUserIdHash for user
  *
- * @param {integer} userId
+ * @param {number} userId
  * @returns {string}
  */
 export function gaUserIdHash(userId) {
