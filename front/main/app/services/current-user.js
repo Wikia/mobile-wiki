@@ -25,7 +25,6 @@ export default Ember.Service.extend({
 	ajax: Ember.inject.service(),
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
-	isBlocked: false,
 	language: Ember.getWithDefault(Mercury, 'wiki.language.content', 'en'),
 
 	userId: Ember.computed(() => {

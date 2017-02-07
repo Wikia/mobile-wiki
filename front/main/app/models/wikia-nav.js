@@ -66,14 +66,13 @@ export default Object.extend({
 
 	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
-		'discussionItem', 'recentActivityItem', 'localItems', 'randomPageItem', function () {
+		'discussionItem', 'localItems', 'randomPageItem', function () {
 			return [
 				...this.get('exploreItems'),
 				...this.get('globalItems'),
 				...this.get('exploreSubMenuItem'),
 				...this.get('localNavHeaderItem'),
 				...this.get('discussionItem'),
-				...this.get('recentActivityItem'),
 				...this.get('localItems'),
 				...this.get('randomPageItem')
 			];
@@ -163,17 +162,6 @@ export default Object.extend({
 				route: 'discussion',
 				name: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 				trackCategory: 'discussion',
-				trackLabel: 'local-nav'
-			}] || [];
-	}),
-
-	recentActivityItem: computed('inRoot', function () {
-		return this.get('inRoot') &&
-			[{
-				type: 'nav-menu-item',
-				route: 'recent-wiki-activity',
-				name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
-				trackCategory: 'recent-wiki-activity',
 				trackLabel: 'local-nav'
 			}] || [];
 	}),
