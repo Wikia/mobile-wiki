@@ -5,7 +5,7 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
 		displayTitle: 'Kermit The Frog',
-		documentTitle: 'Kermit The Frog'
+		htmlTitle: 'Kermit The Frog'
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
@@ -22,7 +22,7 @@ test('set head tags for correct model', function (assert) {
 		expectedHeadTags = {
 			canonical: 'http://muppet.wikia.com/wiki/Kermit',
 			description: 'Article about Kermit',
-			documentTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
+			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
 			appleItunesApp: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit',
 			robots: 'index,follow'
 		};
@@ -42,7 +42,7 @@ test('set head tags for correct model', function (assert) {
 	assert.equal(headData.description, expectedHeadTags.description);
 	assert.equal(headData.appleItunesApp, expectedHeadTags.appleItunesApp);
 	assert.equal(headData.robots, expectedHeadTags.robots);
-	assert.equal(headData.documentTitle, expectedHeadTags.documentTitle);
+	assert.equal(headData.htmlTitle, expectedHeadTags.htmlTitle);
 });
 
 test('set head tags without apple-itunes-app when appId is not set', function (assert) {

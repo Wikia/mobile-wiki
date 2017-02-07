@@ -47,9 +47,10 @@ export default Ember.Mixin.create({
 	 */
 	setDynamicHeadTags(model, data = {}) {
 		const wikiVariables = Ember.get(Mercury, 'wiki'),
-			htmlTitle = wikiVariables.htmlTitle,
+			htmlTitleSettings = wikiVariables.htmlTitle,
+			wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator),
 			headData = {
-				documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
+				htmlTitle: wikiHtmlTitle,
 				description: data.description,
 				canonical: data.canonical,
 				next: data.next,
@@ -60,9 +61,9 @@ export default Ember.Mixin.create({
 				appleItunesApp: ''
 			};
 
-		if (data.documentTitle) {
-			headData.documentTitle = data.documentTitle + htmlTitle.separator + headData.documentTitle;
-			headData.keywords += `,${data.documentTitle}`;
+		if (data.htmlTitle) {
+			headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
+			headData.keywords += `,${data.htmlTitle}`;
 		}
 
 		if (headData.appId) {

@@ -91,13 +91,6 @@ ArticleModel.reopenClass({
 				articleProperties.curatedMainPageData = data.curatedMainPageData;
 				articleProperties.isCuratedMainPage = true;
 			}
-
-			if (articleProperties.isMainPage) {
-				/**
-				 * For main pages, title is wiki name, so we don't want to have duplicated text in documentTitle
-				 */
-				articleProperties.documentTitle = '';
-			}
 		}
 
 		model.setProperties(articleProperties);
