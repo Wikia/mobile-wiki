@@ -24,6 +24,10 @@ function getURL(params) {
 		query.redirect = params.redirect;
 	}
 
+	if (params.page) {
+		query.categoryMembersPage = params.page;
+	}
+
 	return M.buildUrl({
 		path: '/wikia.php',
 		query

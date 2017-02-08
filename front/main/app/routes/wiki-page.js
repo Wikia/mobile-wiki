@@ -84,11 +84,17 @@ export default Route.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return getPageModel({
+			const modelParams = {
 				basePath: Mercury.wiki.basePath,
 				title: params.title,
 				wiki: this.controllerFor('application').get('domain')
-			});
+			};
+
+			if (params.page) {
+				modelParams.page = params.page;
+			}
+
+			return getPageModel(modelParams);
 		},
 
 		/**
