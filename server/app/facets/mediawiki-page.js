@@ -21,6 +21,7 @@ import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
 import settings from '../../config/settings';
 import prepareWikiPageData from './operations/prepare-wiki-page-data';
+import prepareCategoryPageData from './operations/prepare-category-page-data';
 import prepareCuratedMainPageData from './operations/prepare-curated-main-page-data';
 import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
@@ -118,6 +119,10 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		viewName = 'article';
 
 		result = deepExtend(result, prepareWikiPageData(request, data));
+
+		if (ns === MediaWikiNamespace.CATEGORY) {
+			result = deepExtend(result, prepareCategoryPageData(data));
+		}
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
 		// This method sets all the data required to start the app
@@ -265,6 +270,13 @@ export default function mediaWikiPageHandler(request, reply) {
 		params.headers = {
 			Cookie: `wikicities_session=${request.state.wikicities_session}`
 		};
+		allowCache = false;
+	}
+
+	if (request.query.page) {
+		// `page` is an external SEO friendly param but in MercuryApi we use `categoryMembersPage`
+		params.categoryMembersPage = request.query.page;
+		// TODO remove when icache supports surrogate keys and we can purge the category pages
 		allowCache = false;
 	}
 

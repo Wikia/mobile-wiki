@@ -372,10 +372,10 @@ export class PageRequest extends BaseRequest {
 	 *
 	 * @param {string} title
 	 * @param {string} redirect
-	 * @param {string} [sections]
+	 * @param {string} [categoryMembersPage]
 	 * @returns {Promise}
 	 */
-	page(title, redirect, sections) {
+	page(title, redirect, categoryMembersPage) {
 		const urlParams = {
 			controller: 'MercuryApi',
 			method: 'getPage',
@@ -386,8 +386,8 @@ export class PageRequest extends BaseRequest {
 			urlParams.redirect = redirect;
 		}
 
-		if (sections) {
-			urlParams.sections = sections;
+		if (categoryMembersPage) {
+			urlParams.categoryMembersPage = categoryMembersPage;
 		}
 
 		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams))

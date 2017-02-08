@@ -1,14 +1,20 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import {normalizeToWhitespace} from 'common/utils/string';
 import request from 'ember-ajax/request';
 
-const {get} = Ember,
+const {get, isEmpty} = Ember,
 	CategoryModel = BaseModel.extend({
 		hasArticle: false,
+		membersGrouped: null,
+		nextPage: null,
+		pages: null,
+		prevPage: null,
+		// TODO Remove after XW-2583 is released
 		sections: null,
+		trendingArticles: null,
 
 		/**
+		 * TODO Remove after XW-2583 is released
 		 * @param {number} index
 		 * @param {number} batchToLoad
 		 * @returns {JQueryDeferred|JQueryPromise<T>}
@@ -31,6 +37,32 @@ const {get} = Ember,
 
 					return this;
 				});
+		},
+
+		/**
+		 * @param {number} page
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		loadPage(page) {
+			const url = M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getCategoryMembers',
+					title: this.get('title'),
+					categoryMembersPage: page,
+					format: 'json'
+				}
+			});
+
+			return request(url)
+				.then(({data}) => {
+					if (isEmpty(data) || isEmpty(data.membersGrouped)) {
+						throw new Error('Unexpected response from server');
+					}
+
+					this.setProperties(data);
+				});
 		}
 	});
 
@@ -44,22 +76,15 @@ CategoryModel.reopenClass({
 	setData(model, {exception, data}) {
 		this._super(...arguments);
 
-		let pageProperties;
-
-		if (!exception && data) {
-			// Category Basic Data
-			// This data should always be set - no matter if category has an article or not
-			pageProperties = {
-				sections: get(data, 'nsSpecificContent.members.sections')
-			};
+		if (!exception && data && data.nsSpecificContent) {
+			model.setProperties(data.nsSpecificContent);
 		}
-
-		model.setProperties(pageProperties);
 	},
 
 	/**
 	 * Get url for batch of category members for given index.
 	 * Index represents the letter members start from.
+	 * TODO Remove after XW-2583 is released
 	 *
 	 * @param {string} categoryName
 	 * @param {string} index
