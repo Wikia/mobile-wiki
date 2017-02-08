@@ -138,7 +138,7 @@ export default Route.extend(
 				pageUrl = model.get('url'),
 				pageFullUrl = `${get(Mercury, 'wiki.basePath')}${pageUrl}`,
 				data = {
-					documentTitle: model.get('documentTitle'),
+					htmlTitle: model.get('htmlTitle'),
 					description: model.get('description'),
 					robots: 'index,follow',
 					canonical: pageFullUrl

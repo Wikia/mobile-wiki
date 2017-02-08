@@ -118,7 +118,7 @@ export function getSettings() {
  * @param {Object} pageData
  * @returns {String}
  */
-export function getDefaultTitle(request, pageData) {
+export function getDisplayTitle(request, pageData) {
 	if (pageData) {
 		if (pageData.article && pageData.article.displayTitle) {
 			return pageData.article.displayTitle;
@@ -132,17 +132,17 @@ export function getDefaultTitle(request, pageData) {
 
 /**
  * @param {Hapi.Request} request
- * @param {MediaWikiPageData|CuratedContentPageData} data
+ * @param {MediaWikiPageData} data
  * @returns {object}
  */
 export function getBaseResult(request, data) {
 	const wikiVariables = data.wikiVariables,
-		htmlTitle = wikiVariables.htmlTitle,
+		htmlTitleSettings = wikiVariables.htmlTitle,
 		userId = getUserId(request);
 
 	return {
 		canonicalUrl: wikiVariables.basePath,
-		documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
+		wikiHtmlTitle: htmlTitleSettings.parts.join(htmlTitleSettings.separator),
 		gaUserIdHash: gaUserIdHash(userId),
 		isRtl: isRtl(wikiVariables),
 		// clone object to avoid overriding real settings for future requests

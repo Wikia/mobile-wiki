@@ -9,7 +9,7 @@ const {Object: EmberObject, get} = Ember,
 		categories: [],
 		description: '',
 		displayTitle: null,
-		documentTitle: '',
+		htmlTitle: '',
 		id: null,
 		media: [],
 		mediaUsers: [],
@@ -48,26 +48,28 @@ BaseModel.reopenClass({
 	 * @returns {void}
 	 */
 	setData(model, {exception, data}) {
-		const prefix = Mercury.wiki.namespaces[get(data, 'ns')] ? `${Mercury.wiki.namespaces[get(data, 'ns')]}:` : '';
-
 		let pageProperties, article;
 
 		if (exception) {
+			const normalizedTitle = normalizeToWhitespace(model.title);
+
 			pageProperties = {
-				displayTitle: normalizeToWhitespace(model.title),
+				displayTitle: normalizedTitle,
+				htmlTitle: normalizedTitle,
 				exception
 			};
 		} else if (data) {
 			// This data should always be set
 			pageProperties = {
 				articleType: get(data, 'articleType'),
+				categories: get(data, 'categories'),
 				description: get(data, 'details.description'),
-				title: get(data, 'details.title'),
+				hasArticle: get(data, 'article.content.length') > 0,
+				htmlTitle: get(data, 'htmlTitle'),
 				id: get(data, 'details.id'),
 				ns: get(data, 'ns'),
+				title: get(data, 'details.title'),
 				url: get(data, 'details.url'),
-				categories: get(data, 'categories'),
-				hasArticle: get(data, 'article.content.length') > 0,
 			};
 
 			// Article related Data - if Article exists
@@ -105,7 +107,6 @@ BaseModel.reopenClass({
 
 			// Display title is used in header
 			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
-			pageProperties.documentTitle = prefix + pageProperties.displayTitle;
 		}
 
 		model.setProperties(pageProperties);
