@@ -1,9 +1,0 @@
-<header class="sub-head">
-	<div class="sub-head--title sub-head--text-only">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
-</header>
-
-<div id="recent-changes">
-	{{#each model.recentChanges as |change|}}
-		{{recent-change model=change id=change.id rc=rc revisionId=change.revid showError=showError}}
-	{{/each}}
-</div>

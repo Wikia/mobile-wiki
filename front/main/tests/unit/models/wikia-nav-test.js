@@ -42,13 +42,6 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					type: 'nav-menu-item',
-					route: 'recent-wiki-activity',
-					name: 'main.title',
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav'
-				},
-				{
 					actionId: 'onRandomPageClick',
 					name: 'app.random-page-label',
 					trackLabel: 'random-page',
@@ -86,13 +79,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
-				},
-				{
-					route: 'recent-wiki-activity',
-					name: 'main.title',
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav',
-					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
@@ -149,13 +135,6 @@ test('test zero state with values from api', (assert) => {
 					trackLabel: 'local-nav'
 				},
 				{
-					route: 'recent-wiki-activity',
-					name: 'main.title',
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav',
-					type: 'nav-menu-item'
-				},
-				{
 					href: 'Test_1',
 					index: 1,
 					route: 'wiki-page',
@@ -194,13 +173,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
-				},
-				{
-					route: 'recent-wiki-activity',
-					name: 'main.title',
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav',
-					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
@@ -249,13 +221,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
-				},
-				{
-					route: 'recent-wiki-activity',
-					name: 'main.title',
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav',
-					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
