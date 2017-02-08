@@ -1,5 +1,5 @@
 .category-sections {
-	padding: 1.5rem 1.125rem;
+	padding: 1.5rem $article-horizontal-padding;
 }
 
 .category-section {
@@ -27,8 +27,4 @@
 	text-align: center;
 	padding-bottom: 1.125rem;
 	position: relative;
-}
-
-.category-navigation__button {
-	margin: 0;
 }

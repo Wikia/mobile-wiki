@@ -11,7 +11,9 @@ import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-export default Ember.Route.extend(
+const {Logger, Route, $, inject, get} = Ember;
+
+export default Route.extend(
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
 	RouteWithBodyClassNameMixin,
@@ -19,12 +21,19 @@ export default Ember.Route.extend(
 		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
-		adsHighImpact: Ember.inject.service(),
-		currentUser: Ember.inject.service(),
-		ads: Ember.inject.service(),
+		adsHighImpact: inject.service(),
+		currentUser: inject.service(),
+		ads: inject.service(),
+
+		queryParams: {
+			page: {
+				// See controllers/category#actions.loadPage
+				refreshModel: false
+			}
+		},
 
 		/**
-		 * @param {Ember.model} model
+		 * @param {Ember.Object} model
 		 * @returns {Object} handler for current namespace
 		 */
 		getHandler(model) {
@@ -39,7 +48,7 @@ export default Ember.Route.extend(
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
 			} else {
-				Ember.Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
 			}
 		},
@@ -66,7 +75,7 @@ export default Ember.Route.extend(
 
 			// if title is empty, we want to redirect to main page
 			if (!title.length) {
-				this.transitionTo('wiki-page', Ember.get(Mercury, 'wiki.mainPageTitle'));
+				this.transitionTo('wiki-page', get(Mercury, 'wiki.mainPageTitle'));
 			}
 		},
 
@@ -104,18 +113,18 @@ export default Ember.Route.extend(
 
 					this.set('wikiHandler', handler);
 
-					handler.afterModel(this, model);
+					handler.afterModel(this, ...arguments);
 				} else {
 					transition.abort();
 					window.location.assign(M.buildUrl({
-						wikiPage: Ember.get(transition, 'params.wiki-page.title'),
+						wikiPage: get(transition, 'params.wiki-page.title'),
 						query: {
 							useskin: 'oasis'
 						}
 					}));
 				}
 			} else {
-				Ember.Logger.warn('Unsupported page');
+				Logger.warn('Unsupported page');
 			}
 		},
 
@@ -125,8 +134,9 @@ export default Ember.Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model) {
-			const pageUrl = model.get('url'),
-				pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
+			const handler = this.get('wikiHandler'),
+				pageUrl = model.get('url'),
+				pageFullUrl = `${get(Mercury, 'wiki.basePath')}${pageUrl}`,
 				data = {
 					htmlTitle: model.get('htmlTitle'),
 					description: model.get('description'),
@@ -136,6 +146,10 @@ export default Ember.Route.extend(
 
 			if (pageUrl) {
 				data.appArgument = pageFullUrl;
+			}
+
+			if (handler && typeof handler.getDynamicHeadTags === 'function') {
+				$.extend(data, handler.getDynamicHeadTags(model));
 			}
 
 			this._super(model, data);
@@ -223,6 +237,14 @@ export default Ember.Route.extend(
 				}
 
 				return true;
+			},
+
+			/**
+			 * When we load another page for category members, we don't reload the route's model
+			 * Because of that, we need to trigger the head tags update manually
+			 */
+			updateDynamicHeadTags() {
+				this.setDynamicHeadTags(this.get('controller.model'));
 			}
 		}
 	});

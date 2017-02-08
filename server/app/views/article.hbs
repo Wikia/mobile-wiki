@@ -20,7 +20,10 @@
 	}}
 {{/if}}
 
-{{#if articlePage.data.nsSpecificContent.members.sections}}
+{{#if articlePage.data.nsSpecificContent.membersGrouped}}
+	{{> category-members-grouped model=articlePage.data.nsSpecificContent}}
+{{else if articlePage.data.nsSpecificContent.members.sections}}
+{{! TODO Remove after XW-2583 is released }}
 	{{> category-sections categorySections=articlePage.data.nsSpecificContent.members.sections}}
 {{/if}}
 
