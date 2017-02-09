@@ -19,6 +19,7 @@
 	{{#if model.fileThumbnail}}
 		{{article-media-thumbnail
 			height=model.fileThumbnail.height
+			href=model.fileThumbnail.url
 			itemContext='file'
 			openLightbox=(action 'openLightbox' 'media' model.fileMedia)
 			shouldBeLoaded=true
