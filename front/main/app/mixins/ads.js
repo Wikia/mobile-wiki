@@ -59,6 +59,8 @@ export default Ember.Mixin.create({
 			highImpactComponentElement = this.createChildView(highImpactComponent).createElement();
 
 		this.get('adsHighImpact').load(highImpactComponentElement);
+
+		this.appendAd('INVISIBLE_HIGH_IMPACT', 'after', $('#wikiContainer'));
 	},
 
 	/**
