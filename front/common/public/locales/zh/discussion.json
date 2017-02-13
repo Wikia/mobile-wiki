@@ -181,7 +181,7 @@
     "post-action-button-label":"發佈",
     "post-edit-action-button-label":"保存",
     "post-editor-collapsed-label":"開始一個新討論",
-    "post-editor-title-label":"標題 （可選填）",
+    "post-editor-title-label":"標題（必填）",
     "post-editor-title-placeholder-text":"新討論的標題...",
     "post-editor-description-label":"描述",
     "post-editor-description-placeholder-text":"你發起的新討論是關於什麼的？",
