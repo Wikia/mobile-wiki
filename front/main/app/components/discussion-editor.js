@@ -56,14 +56,26 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
+		submitDisabled: Ember.computed('content', 'title', 'currentUser.isAuthenticated', 'showOverlayMessage',
 			'isReply', 'category', 'isGuidelinesEditor', function () {
 				return this.getWithDefault('content.length', 0) === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
+					this.failsPostConstraints();
 			}
 		),
+
+		/**
+		 * @private
+		 * @return boolean
+		 */
+		failsPostConstraints() {
+			if (!this.get('isReply') && !this.get('isGuidelinesEditor')) { // is a post
+				return !this.get('category.id') || // does not have a category
+					this.getWithDefault('title.length', 0) === 0; // does not have a title
+			}
+			return false;
+		},
 
 		afterSuccess() {
 			this.setProperties({

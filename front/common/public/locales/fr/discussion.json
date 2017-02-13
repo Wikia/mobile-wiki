@@ -181,7 +181,7 @@
     "post-action-button-label":"Publier",
     "post-edit-action-button-label":"Enregistrer",
     "post-editor-collapsed-label":"Lancer une discussion...",
-    "post-editor-title-label":"Titre (facultatif)",
+    "post-editor-title-label":"Titre (requis)",
     "post-editor-title-placeholder-text":"Titre de la nouvelle discussion...",
     "post-editor-description-label":"Description",
     "post-editor-description-placeholder-text":"De quoi parle votre nouvelle discussion ?",
