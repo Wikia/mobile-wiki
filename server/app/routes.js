@@ -14,8 +14,8 @@ import * as forgotPasswordHandler from './facets/auth/forgot-password';
 import registerHandler from './facets/auth/register';
 import * as resetPasswordHandler from './facets/auth/reset-password';
 import signinHandler from './facets/auth/signin';
+import confirmEmailHandler from './facets/auth/confirm-email';
 import showApplication from './facets/show-application';
-import showRecentWikiActivity from './facets/show-recent-wiki-activity';
 
 /**
  * @typedef {Object} RouteDefinition
@@ -128,6 +128,11 @@ let routes,
 					}
 				]
 			}
+		},
+		{
+			method: 'GET',
+			path: '/confirm-email',
+			handler: confirmEmailHandler,
 		},
 		{
 			method: 'GET',
@@ -248,14 +253,6 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/diff/{revisions*}',
-			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
 			// Catch invalid paths and redirect to the main page
 			path: '/main/{invalid}',
 			/**
@@ -284,15 +281,6 @@ let routes,
 			// We don't care if there is a dynamic segment, Ember router handles that
 			path: '/infobox-builder/{ignore*}',
 			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/recent-wiki-activity',
-			handler: showRecentWikiActivity,
-
 			config: {
 				cache: routeCacheConfig
 			}

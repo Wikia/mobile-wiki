@@ -39,7 +39,7 @@ export class PageRequestHelper {
 	getFull() {
 		const requests = [
 			new MediaWiki.PageRequest(this.params)
-				.page(this.params.title, this.params.redirect, this.params.sections),
+				.page(this.params.title, this.params.redirect, this.params.categoryMembersPage),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
 			}).wikiVariables()

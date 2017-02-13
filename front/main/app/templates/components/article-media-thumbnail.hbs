@@ -1,17 +1,14 @@
+{{! Keep the same HTML structure as in server/app/views/_partials/file-thumbnail.hbs }}
 {{! This wrapper is required so the chevron is positioned correctly }}
 <div class="article-media-thumbnail-image-wrapper">
-	{{#if link}}
-		<a href="{{link}}">
-			<img src="{{thumbnailUrl}}"
-				height="{{if forcedHeight forcedHeight height}}"
-				width="{{if forcedWidth forcedWidth width}}">
-			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
-		</a>
-	{{else}}
+	<a href="{{href}}">
 		<img src="{{thumbnailUrl}}"
 			height="{{if forcedHeight forcedHeight height}}"
 			width="{{if forcedWidth forcedWidth width}}">
-	{{/if}}
+		{{#if isLinkedByUser}}
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+		{{/if}}
+	</a>
 </div>
 
 {{! Allow custom captions }}

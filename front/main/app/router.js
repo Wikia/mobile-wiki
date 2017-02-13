@@ -57,10 +57,6 @@ Router.map(function () {
 		});
 	});
 
-	this.route('articleDiff', {
-		path: '/diff/:oldId/:newId'
-	});
-
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
@@ -139,8 +135,6 @@ Router.map(function () {
 			});
 		});
 	});
-
-	this.route('recent-wiki-activity');
 
 	// Route to catch all badly formed URLs
 	this.route('notFound', {

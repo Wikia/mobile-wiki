@@ -1,18 +1,19 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
-	ArticleContentMixin,
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
+	ViewportMixin,
 	{
-		attributeBindings: ['data-ref', 'data-gallery-ref'],
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
 		tagName: 'figure',
+
+		layoutName: 'components/article-media-thumbnail',
 
 		smallImageSize: {
 			height: 64,
@@ -29,15 +30,11 @@ export default Ember.Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
-		// Needed for lightbox, should be refactored
-		'data-ref': Ember.computed.readOnly('ref'),
-		'data-gallery-ref': Ember.computed.readOnly('galleryRef'),
-
 		/**
 		 * Check if image width is smaller than article container
 		 */
 		isSmall: Ember.computed('width', 'height', function () {
-			return this.get('width') <= this.get('articleContent.width');
+			return this.get('width') <= this.get('viewportDimensions.width');
 		}),
 
 		hasFigcaption: Ember.computed.or('caption', 'showTitle'),
@@ -45,6 +42,17 @@ export default Ember.Component.extend(
 		showTitle: Ember.computed('type', function () {
 			return this.get('type') === 'video' && this.get('title');
 		}),
+
+		click(event) {
+			// Don't open lightbox when image is linked by user or caption was clicked
+			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length) {
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+				// it can also be overriden when this component is rendered from a template instead of JS
+				this.get('openLightbox')(this.get('ref'));
+
+				return false;
+			}
+		},
 
 		/**
 		* @returns {{mode: string, height: number, width: number}}
@@ -61,7 +69,7 @@ export default Ember.Component.extend(
 				width = originalWidth;
 				height = originalHeight;
 			} else {
-				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('articleContent.width'));
+				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('viewportDimensions.width'));
 				height = this.get('forcedHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}

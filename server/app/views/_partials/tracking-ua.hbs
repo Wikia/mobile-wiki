@@ -4,7 +4,7 @@
 		$script.ready(['optimizely'], function() {
 			/**
 			 * If urlTitleParam is empty - for non-wiki-page pages
-			 * (eg. discussion, recent wiki activity) - we're sending
+			 * (eg. discussion) - we're sending
 			 * empty string that is handled by MercuryAPI.
 			 */
 			$.getJSON(M.buildUrl({path: '/wikia.php'}), {

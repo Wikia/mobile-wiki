@@ -59,6 +59,8 @@ export default Ember.Mixin.create({
 			highImpactComponentElement = this.createChildView(highImpactComponent).createElement();
 
 		this.get('adsHighImpact').load(highImpactComponentElement);
+
+		this.appendAd('INVISIBLE_HIGH_IMPACT', 'after', $('#wikiContainer'));
 	},
 
 	/**
@@ -67,6 +69,7 @@ export default Ember.Mixin.create({
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
+			$articleFooter = $('.article-footer'),
 			$pi = $('.portable-infobox'),
 			$pageHeader = $('.wiki-page-header'),
 			adsData = this.get('adsData'),
@@ -90,7 +93,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (showPreFooter) {
-			this.appendAd(adsData.mobilePreFooter, 'after', $articleBody);
+			this.appendAd(adsData.mobilePreFooter, 'before', $articleFooter);
 		}
 
 		if ($globalFooter.length) {

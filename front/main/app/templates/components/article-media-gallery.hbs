@@ -1,12 +1,13 @@
 {{#each itemsToRender as |item|}}
 	{{article-media-thumbnail
-		url=item.url
-		ref=ref
-		galleryRef=item.galleryRef
-		itemContext='gallery'
-		type=item.type
-		forcedWidth=imageSize
-		forcedHeight=imageSize
 		cropMode=cropMode
+		forcedHeight=imageSize
+		forcedWidth=imageSize
+		href=item.href
+		isLinkedByUser=false
+		itemContext='gallery'
+		openLightbox=(action 'openLightbox' item.galleryRef)
+		type=item.type
+		url=item.url
 	}}
 {{/each}}

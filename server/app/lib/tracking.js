@@ -3,14 +3,6 @@ import Logger from './logger';
 
 export const Comscore = {
 		/**
-		 * @param {string} vertical
-		 * @returns {*}
-		 */
-		getC7Value(vertical) {
-			return `wikiacsid_${vertical.toLowerCase()}`;
-		},
-
-		/**
 		 * @param {string} requestUrl
 		 * @param {string} c7Value
 		 * @returns {string}
@@ -24,17 +16,19 @@ export const Comscore = {
 
 		/**
 		 * @param {*} tracking
-		 * @param {string} vertical
+		 * @param {object} config
 		 * @param {Hapi.Request} request
 		 * @returns {void}
 		 */
-		handleResponse(tracking, vertical, request) {
-			tracking.comscore.c7 = Comscore.getC7ParamAndValue(
-				`http://${request.headers.host}/${request.url.path}`,
-				Comscore.getC7Value(vertical)
-			);
+		handleResponse(tracking, config, request) {
+			if (config.c7Value) {
+				tracking.comscore.c7 = Comscore.getC7ParamAndValue(
+					`http://${request.headers.host}/${request.url.path}`,
+					config.c7Value
+				);
 
-			tracking.comscore.c7Value = Comscore.getC7Value(vertical);
+				tracking.comscore.c7Value = config.c7Value;
+			}
 		}
 	},
 	IVW3 = {
@@ -67,6 +61,7 @@ export const Comscore = {
 		/**
 		 * @param {object} tracking
 		 * @param {object} trackingConfig
+		 * @param {bool} isMainPage
 		 * @returns {void}
 		 */
 		handleResponse(tracking, trackingConfig, isMainPage) {
@@ -98,7 +93,7 @@ export function handleResponse(result, request) {
 	}
 	vertical = trackingConfig.vertical || '';
 
-	Comscore.handleResponse(tracking, vertical, request);
+	Comscore.handleResponse(tracking, trackingConfig.comscore || {}, request);
 	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 	NetzAthleten.handleResponse(tracking, trackingConfig, result.isMainPage);

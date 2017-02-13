@@ -4,9 +4,6 @@ import Thumbnailer from 'common/modules/thumbnailer';
 export default Ember.Component.extend(
 	{
 		classNames: ['article-media-linked-gallery'],
-		attributeBindings: ['data-ref'],
-
-		'data-ref': Ember.computed.oneWay('ref'),
 
 		imageSize: 195,
 		cropMode: Thumbnailer.mode.topCrop,
@@ -17,9 +14,9 @@ export default Ember.Component.extend(
 		}),
 
 		sortedItems: Ember.computed.sort('sanitizedItems', (a, b) => {
-			if (a.link && typeof b.link === 'undefined') {
+			if (a.isLinkedByUser && !b.isLinkedByUser) {
 				return 1;
-			} else if (b.link && typeof a.link === 'undefined') {
+			} else if (b.isLinkedByUser && !a.isLinkedByUser) {
 				return -1;
 			}
 
@@ -41,6 +38,10 @@ export default Ember.Component.extend(
 		}),
 
 		actions: {
+			openLightbox(galleryRef) {
+				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+				this.get('openLightbox')(this.get('ref'), galleryRef);
+			},
 			showMore() {
 				this.set('numberOfItemsRendered', this.get('items.length'));
 			}

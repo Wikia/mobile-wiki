@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ArticleModel from '../../models/wiki/article';
+import BaseModel from '../../models/wiki/base';
 import CategoryModel from '../../models/wiki/category';
+import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import request from 'ember-ajax/request';
 
@@ -22,6 +24,10 @@ function getURL(params) {
 		query.redirect = params.redirect;
 	}
 
+	if (params.page) {
+		query.categoryMembersPage = params.page;
+	}
+
 	return M.buildUrl({
 		path: '/wikia.php',
 		query
@@ -41,12 +47,17 @@ export function getModelForNamespace(data, params) {
 	// Main pages can live in namespaces which are not marked as content
 	if (isContentNamespace(currentNamespace) || data.data.isMainPage) {
 		model = ArticleModel.create(params);
-		ArticleModel.setArticle(model, data);
+		ArticleModel.setData(model, data);
 
 		return model;
 	} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
 		model = CategoryModel.create(params);
-		CategoryModel.setCategory(model, data);
+		CategoryModel.setData(model, data);
+
+		return model;
+	} else if (currentNamespace === MediawikiNamespace.FILE) {
+		model = FileModel.create(params);
+		FileModel.setData(model, data);
 
 		return model;
 	} else {
@@ -62,11 +73,8 @@ export function getModelForNamespace(data, params) {
 export default function getPageModel(params) {
 	let model;
 
-
 	if (M.prop('articleContentPreloadedInDOM')) {
-		// This happens also for categories with article
-		const preloadedData = ArticleModel.getPreloadedData();
-
+		const preloadedData = BaseModel.getPreloadedData();
 		model = getModelForNamespace(preloadedData, params);
 
 		return Ember.RSVP.resolve(model);

@@ -1,14 +1,19 @@
 import ArticleHandler from './article';
 
-/**
- * afterModel hook
- *
- * @param {Ember.Route} route
- * @param {Ember.Object} model
- * @returns {void}
- */
-function afterModel(route, model) {
-	ArticleHandler.afterModel(route, model);
+function getDynamicHeadTags(model) {
+	const nextPageUrl = model.get('nextPageUrl'),
+		prevPageUrl = model.get('prevPageUrl'),
+		data = {};
+
+	if (nextPageUrl) {
+		data.next = nextPageUrl;
+	}
+
+	if (prevPageUrl) {
+		data.prev = prevPageUrl;
+	}
+
+	return data;
 }
 
 /**
@@ -19,5 +24,6 @@ export default {
 	viewName: 'category',
 	controllerName: 'category',
 	// hooks
-	afterModel
+	afterModel: ArticleHandler.afterModel,
+	getDynamicHeadTags
 };

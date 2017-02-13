@@ -54,47 +54,6 @@ moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
 	}
 });
 
-test('shouldHandleMedia returns correct value', function (assert) {
-	const testCases = [
-		{
-			tagName: 'img',
-			target: {},
-			expected: true
-		},
-		{
-			tagName: 'figure',
-			target: {},
-			expected: true
-		},
-		{
-			tagName: 'picture',
-			target: {},
-			expected: false
-		},
-		{
-			tagName: 'picture',
-			target: '<picture><a></a></picture>',
-			expected: false
-		},
-		{
-			tagName: 'figure',
-			target: '<figure><a href="http://www.wikia.com">Wikia</a></figure>',
-			expected: false
-		},
-		{
-			tagName: 'figure',
-			target: '<figure><figcaption><a href="http://www.wikia.com">Wikia</a></figcaption></figure>',
-			expected: true
-		}
-	];
-
-	testCases.forEach((testCase) => {
-		const component = this.subject();
-
-		assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
-	});
-});
-
 test('contribution disabled on main page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: true,

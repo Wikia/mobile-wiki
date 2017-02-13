@@ -47,7 +47,6 @@ UserModel.reopenClass({
 
 			if (userInfo) {
 				UserModel.setUserLanguage(modelInstance, userInfo);
-				UserModel.setBlockedStatus(modelInstance, userInfo);
 				UserModel.setUserRights(modelInstance, userInfo);
 			}
 
@@ -180,19 +179,6 @@ UserModel.reopenClass({
 			});
 
 			model.set('rights', rights);
-		}
-	},
-
-	/**
-	 * @param {Ember.Object} model
-	 * @param {QueryUserInfoResponse} query
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
-	 */
-	setBlockedStatus(model, {query}) {
-		const blockId = query.userinfo.blockid;
-
-		if (blockId) {
-			model.set('isBlocked', true);
 		}
 	},
 });

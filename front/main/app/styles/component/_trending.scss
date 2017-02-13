@@ -1,16 +1,13 @@
-$image-spacing: 5px;
-
 .trending {
 	margin: 2rem 0 0;
-	padding: 0 $image-spacing;
+	padding: 0 $article-horizontal-padding / 3;
 	line-height: 0;
 
 	h2 {
-		color: $color-blue-light;
 		font-size: $type-smaller;
 		line-height: $line-height-smaller;
 		margin: .5rem 0;
-		padding: 0 .5rem;
+		padding: 0 $article-horizontal-padding / 3;
 		text-align: left;
 		text-transform: uppercase;
 	}

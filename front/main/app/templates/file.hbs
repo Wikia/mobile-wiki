@@ -1,0 +1,32 @@
+<div id="wikiContainer" class="wiki-container">
+		{{!TODO handle video player XW-2605}}
+		{{!TODO files without thumbnails}}
+	{{#article-wrapper
+		articleRendered='articleRendered'
+		displayEmptyArticleInfo=false
+		model=model
+		openLightbox='openLightbox'
+		showComments=false
+		siteName=siteName
+		toggleDrawer='toggleDrawer'
+		wikiPageHeaderSubtitle=(i18n 'app.file-page-subtitle')
+	}}
+		{{#if model.fileUsageList}}
+		{{! Keep the same HTML structure as in server/app/views/_partials/file-usage-list.hbs }}
+			<nav class="file-usage">
+				<div class="file-usage__header">{{i18n 'app.file-page-usages-header'}}</div>
+				{{wikia-ui-components/wikia-card-list
+					classNames="file-usage__list"
+					items=model.fileUsageList
+					trackingCategory="file-page"
+					trackingLabel="file-usage-article"
+				}}
+				{{#if model.fileUsageListSeeMoreUrl}}
+					<div class="file-usage__more">
+						<a class="wds-button wds-is-text" href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'app.file-page-usages-see-more-link-label'}}</a>
+					</div>
+				{{/if}}
+			</nav>
+		{{/if}}
+	{{/article-wrapper}}
+</div>
