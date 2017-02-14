@@ -54,14 +54,6 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/main',
 					outputFile: '/assets/main.svg'
 				},
-				{
-					sourceDirs: 'app/symbols/discussions',
-					outputFile: '/assets/discussions.svg'
-				},
-				{
-					sourceDirs: 'app/symbols/infobox-builder',
-					outputFile: '/assets/infobox-builder.svg'
-				},
 				// This duplicates build-common-symbols task but we still want to do it
 				// as there is no easy way to use external rev-manifest.json in here
 				{
@@ -73,8 +65,7 @@ module.exports = function (defaults) {
 		outputPaths: {
 			app: {
 				css: {
-					app: 'assets/app.css',
-					'app-dark-theme': 'assets/app-dark-theme.css'
+					app: 'assets/app.css'
 				},
 				html: 'ember-main.hbs',
 			}
@@ -130,16 +121,9 @@ module.exports = function (defaults) {
 	}
 
 	// Assets which are lazy loaded
-	var cropperAssets = new Funnel(app.bowerDirectory + '/cropper/dist', {
-			include: ['*.min.*'],
-			destDir: 'assets/vendor/cropper'
-		}),
-		jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
+	var jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
 			include: ['*.min.*'],
 			destDir: 'assets/vendor/jquery'
-		}),
-		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
-			destDir: 'assets/vendor/ponto'
 		}),
 		numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
 			destDir: 'assets/vendor/numeral'
@@ -150,8 +134,6 @@ module.exports = function (defaults) {
 
 	return app.toTree([
 		jQueryAssets,
-		cropperAssets,
-		pontoAssets,
 		numeralAssets,
 		designSystemAssets
 	]);

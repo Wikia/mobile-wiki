@@ -7,30 +7,6 @@ source_lang = en
 type = KEYVALUEJSON
 file_filter = front/locales/<lang>/main.json
 
-[mercury.discussionjson]
-source_file = front/locales/en/discussion.json
-source_lang = en
-type = KEYVALUEJSON
-file_filter = front/locales/<lang>/discussion.json
-
-[mercury.authjson]
-source_file = front/locales/en/auth.json
-source_lang = en
-type = KEYVALUEJSON
-file_filter = front/locales/<lang>/auth.json
-
-[mercury.auth-frontjson]
-source_file = front/locales/en/auth-front.json
-source_lang = en
-type = KEYVALUEJSON
-file_filter = front/locales/<lang>/auth-front.json
-
-[mercury.infobox-builderjson]
-source_file = front/locales/en/infobox-builder.json
-source_lang = en
-type = KEYVALUEJSON
-file_filter = front/locales/<lang>/infobox-builder.json
-
 [mercury.searchjson]
 source_file = front/locales/en/search.json
 source_lang = en

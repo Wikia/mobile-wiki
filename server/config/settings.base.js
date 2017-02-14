@@ -182,29 +182,14 @@ export default {
 		path: '/auth',
 		timeout: 3000
 	},
-	userRegistationService: {
-		path: '/user-registration',
-		usernameMaxLength: 50,
-		passwordMaxLength: 50,
-		timeout: 3000
-	},
 	userPreferencesService: {
 		baseAPIPath: 'user-preference'
-	},
-	discussions: {
-		baseAPIPath: 'discussion'
-	},
-	following: {
-		baseAPIPath: 'following'
 	},
 	openGraph: {
 		baseAPIPath: 'opengraph'
 	},
 	siteAttribute: {
 		baseAPIPath: 'site-attribute'
-	},
-	imageReview: {
-		baseAPIPath: 'image-review'
 	},
 	staticAssets: {
 		baseAPIPath: 'static-assets'

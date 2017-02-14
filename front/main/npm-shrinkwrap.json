@@ -11837,9 +11837,6 @@
         }
       }
     },
-    "ember-pikaday": {
-      "version": "2.1.0"
-    },
     "ember-pop-over": {
       "version": "0.1.31",
       "from": "git://github.com/kvas-damian/ember-pop-over.git#558602bd23c93105f65e882627c60a3149b695e4",
@@ -11869,40 +11866,8 @@
     "ember-sinon": {
       "version": "0.3.0"
     },
-    "ember-sortable": {
-      "version": "1.8.0",
-      "dependencies": {
-        "ember-new-computed": {
-          "version": "1.0.3"
-        }
-      }
-    },
     "ember-wormhole": {
       "version": "0.4.0"
-    },
-    "liquid-fire": {
-      "version": "0.23.0",
-      "dependencies": {
-        "ember-cli-version-checker": {
-          "version": "1.1.6",
-          "dependencies": {
-            "semver": {
-              "version": "4.3.6"
-            }
-          }
-        },
-        "match-media": {
-          "version": "0.2.0"
-        },
-        "velocity-animate": {
-          "version": "1.2.3",
-          "dependencies": {
-            "jquery": {
-              "version": "3.0.0"
-            }
-          }
-        }
-      }
     },
     "loader.js": {
       "version": "4.0.1"

@@ -42,9 +42,6 @@ export default Ember.Controller.extend(
 			'isGlobalNavigationHeadroomPinnedOrDisabled'
 		),
 
-		// Controls the appearance of the share-header component
-		enableShareHeader: false,
-
 		isSearchPage: Ember.computed.equal('currentRouteName', 'search'),
 
 		/**
