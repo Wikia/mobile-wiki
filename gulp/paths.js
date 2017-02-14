@@ -12,28 +12,6 @@ module.exports = {
 	baseFullFront: path.resolve(outputFront),
 	jsPattern: jsPattern,
 
-	auth: {
-		scripts: {
-			base: './front/auth',
-			src: 'front/auth/app/' + jsPattern,
-			dest: outputFront + '/auth/assets'
-		},
-		styles: {
-			src: 'front/auth/app/styles',
-			dest: outputFront + '/auth/assets',
-			partials: '_*.scss',
-			compile: '*.scss',
-			watch: 'front/auth/app/styles/**/*.scss'
-		},
-		vendor: {
-			src: 'front/auth/bower_components/**/*',
-			dest: outputFront + '/auth/bower_components'
-		},
-		views: {
-			src: 'front/auth/views/' + hbsPattern,
-			index: 'front/auth/views/_layouts/*.hbs',
-		},
-	},
 	common: {
 		src: 'front/common',
 		dest: outputFront + '/common',
@@ -88,9 +66,6 @@ module.exports = {
 		views: {
 			src: 'server/app/views/' + hbsPattern,
 			dest: outputServer + '/app/views',
-			auth: {
-				src: outputFront + '/auth/views/' + hbsPattern
-			},
 			main: {
 				/**
 				 * when server watch starts 'main' folder is not there yet

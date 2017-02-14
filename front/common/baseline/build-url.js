@@ -134,56 +134,6 @@ if (typeof window.M === 'undefined') {
 	 * @param {string} [path='']
 	 * @returns {string}
 	 */
-	M.getDiscussionServiceUrl = function (path = '') {
-		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @returns {string}
-	 */
-	M.getFollowingServiceUrl = function (path = '') {
-		return `https://${M.prop('servicesDomain')}/${M.prop('followingBaseRoute')}${path}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @returns {string}
-	 */
-	M.getOpenGraphServiceUrl = function (path = '') {
-		return `https://${M.prop('servicesDomain')}/${M.prop('openGraphBaseRoute')}${path}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @returns {string}
-	 */
-	M.getAttributeServiceUrl = function (path = '') {
-		return `https://${M.prop('servicesDomain')}/${M.prop('siteAttributeBaseRoute')}${path}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @param {Object} [query={}]
-	 * @returns {string}
-	 */
-	M.getImageReviewServiceUrl = function (path = '', query = {}) {
-		return `https://${M.prop('servicesDomain')}/${M.prop('imageReviewBaseRoute')}${path}${getQueryString(query)}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @param {Object} [query={}]
-	 * @returns {string}
-	 */
-	M.getStaticAssetsServiceUrl = function (path = '', query = {}) {
-		return `https://${M.prop('servicesDomain')}/${M.prop('staticAssetsBaseRoute')}${path}${getQueryString(query)}`;
-	};
-
-	/**
-	 * @param {string} [path='']
-	 * @returns {string}
-	 */
 	M.getUserPermissionsServiceUrl = function (path = '') {
 		return `https://${M.prop('servicesDomain')}/${M.prop('userPermissionsBaseRoute')}${path}`;
 	};
