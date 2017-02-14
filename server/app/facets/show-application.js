@@ -5,7 +5,6 @@ import * as OpenGraph from '../lib/open-graph';
 import Promise from 'bluebird';
 import Logger from '../lib/logger';
 import settings from '../../config/settings';
-import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/hashing';
 import {
 	RedirectedToCanonicalHost, NonJsonApiResponseError, WikiVariablesRequestError
@@ -34,22 +33,6 @@ function outputResponse(request, reply, context) {
 }
 
 /**
- * @param {string} hostName
- * @returns {CommunityAppConfig}
- */
-function getDistilledDiscussionsSplashPageConfig(hostName) {
-	const mainConfig = discussionsSplashPageConfig[hostName];
-
-	if (mainConfig) {
-		return {
-			androidAppLink: mainConfig.androidAppLink,
-			iosAppLink: mainConfig.iosAppLink
-		};
-	}
-	return {};
-}
-
-/**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @param {Promise} wikiVariables
@@ -58,8 +41,7 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
  * @returns {void}
  */
 export default function showApplication(request, reply, wikiVariables, context = {}, showGlobalFooter = false) {
-	const wikiDomain = Utils.getCachedWikiDomainName(settings, request),
-		hostName = Utils.getWikiaSubdomain(request.info.host);
+	const wikiDomain = Utils.getCachedWikiDomainName(settings, request);
 
 	if (!(wikiVariables instanceof Promise)) {
 		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
@@ -71,7 +53,6 @@ export default function showApplication(request, reply, wikiVariables, context =
 	context.settings = getSettings();
 	context.userId = getUserId(request);
 	context.gaUserIdHash = gaUserIdHash(context.userId);
-	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables
 		/**
