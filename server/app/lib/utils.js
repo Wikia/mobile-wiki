@@ -285,7 +285,7 @@ export function getStaticAssetPath(settings, request) {
 		// The CDN path should match what's used in
 		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${settings.cdnBaseUrl}/mercury-static/` :
-		`//${getCachedWikiDomainName(settings, request)}/front/`;
+		`//${getCachedWikiDomainName(settings, request)}/mobile-wiki/`;
 }
 
 /**

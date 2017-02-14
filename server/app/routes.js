@@ -53,12 +53,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/front/{path*}',
-			handler: assetsHandler
-		},
-		{
-			method: 'GET',
-			path: '/public/{path*}',
+			path: '/mobile-wiki/{path*}',
 			handler: assetsHandler
 		},
 		{

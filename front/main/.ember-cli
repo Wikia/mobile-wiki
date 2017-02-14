@@ -6,5 +6,5 @@
     Setting `disableAnalytics` to true will prevent any data from being sent.
   */
   "disableAnalytics": false,
-  "output-path": "../../www/front/main/"
+  "output-path": "../../www/mobile-wiki/main/"
 }

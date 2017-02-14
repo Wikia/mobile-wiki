@@ -1,6 +1,6 @@
 var path = require('path'),
 	output = 'www',
-	outputFront = output + '/front',
+	outputFront = output + '/mobile-wiki',
 	outputServer = output + '/server',
 	hbsPattern = '**/*.hbs',
 	jsPattern = '**/*.js';
