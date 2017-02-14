@@ -17,17 +17,7 @@
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json settings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json settings.servicesDomain}}});
-	M.prop('discussionBaseRoute', {{{json settings.discussions.baseAPIPath}}});
-	M.prop('followingBaseRoute', {{{json settings.following.baseAPIPath}}});
-	M.prop('openGraphBaseRoute', {{{json settings.openGraph.baseAPIPath}}});
-	M.prop('siteAttributeBaseRoute', {{{json settings.siteAttribute.baseAPIPath}}});
-	M.prop('imageReviewBaseRoute', {{{json settings.imageReview.baseAPIPath}}});
-	M.prop('staticAssetsBaseRoute', {{{json settings.staticAssets.baseAPIPath}}});
 	M.prop('userPermissionsBaseRoute', {{{json settings.userPermissions.baseAPIPath}}});
-	M.prop('clickstream', {{{json settings.clickstream}}});
-	{{#if discussionsSplashPageConfig}}
-		M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
-	{{/if}}
 	M.provide('ads.slots', []);
 	M.provide('wiki', {{{json wikiVariables}}});
 	{{#if server.mediawikiDomain}}
