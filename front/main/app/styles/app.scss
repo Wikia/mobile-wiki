@@ -15,8 +15,3 @@
 @import 'theme/index';
 @import 'component/index';
 @import 'module/index';
-
-// temporary solution while these inputs are not a part of the Style Guide
-@import '../auth/app/styles/base/input';
-@import '../auth/app/styles/module/forms';
-@import '../auth/app/styles/module/form-icons';
