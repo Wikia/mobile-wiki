@@ -72,8 +72,7 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
+			replaceExtensions: ['html', 'css', 'js', 'hbs']
 		},
 		derequire: {
 			patterns: [
