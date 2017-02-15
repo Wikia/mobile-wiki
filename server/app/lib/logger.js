@@ -88,8 +88,8 @@ export function createLogger(loggerConfig) {
 	}
 
 	return bunyan.createLogger({
-		appname: 'mercury',
-		name: 'mercury',
+		appname: 'mobile-wiki',
+		name: 'mobile-wiki',
 		streams
 	});
 }
