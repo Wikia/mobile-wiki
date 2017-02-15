@@ -20,7 +20,7 @@ module.exports = function (language = 'en', opts = {}) {
 
 	namespace.forEach((ns) => {
 		[language, fallbackLanguage, defaultLanguage].some((lang) => {
-			const translationPath = `../../../../front/common/locales/${lang}/${ns}.json`;
+			const translationPath = `../../../../mobile-wiki/common/locales/${lang}/${ns}.json`;
 
 			foundLanguage = lang;
 

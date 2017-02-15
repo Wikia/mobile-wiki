@@ -73,19 +73,10 @@ gulp.task('build-server-views-main', function () {
 });
 
 /*
- * Copy views from front/auth/views/ to www/server/app/views/
- */
-gulp.task('build-server-views-auth', function () {
-	return gulp.src(paths.views.auth.src)
-		.pipe(gulp.dest(paths.views.dest));
-});
-
-/*
  * Copy view files
  */
 gulp.task('build-server-views', [
-	'build-server-views-main',
-	'build-server-views-auth'
+	'build-server-views-main'
 ], function () {
 	return gulp.src(paths.views.src)
 		.pipe(gulp.dest(paths.views.dest));
@@ -103,10 +94,6 @@ gulp.task('build-server', [
 gulp.task('watch-server', function () {
 	watch(paths.views.main.src, function () {
 		gulp.start('build-server-views-main');
-	}).on('error', exitOnError);
-
-	watch(paths.views.auth.src, function () {
-		gulp.start('build-server-views-auth');
 	}).on('error', exitOnError);
 
 	watch(paths.views.src, function () {

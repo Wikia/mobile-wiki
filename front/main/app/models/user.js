@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import DiscussionUserPermissions from './user-permissions/domain/discussions';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -19,7 +18,6 @@ import DiscussionUserPermissions from './user-permissions/domain/discussions';
 const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
-	permissions: null,
 	powerUserTypes: null,
 	rights: null,
 });
@@ -39,8 +37,7 @@ UserModel.reopenClass({
 		return Ember.RSVP.all([
 			this.loadDetails(userId, avatarSize),
 			this.loadUserInfo(userId),
-			this.loadUserPermissions(userId)
-		]).then(([userDetails, userInfo, userPermissions]) => {
+		]).then(([userDetails, userInfo]) => {
 			if (userDetails) {
 				modelInstance.setProperties(UserModel.sanitizeDetails(userDetails));
 			}
@@ -48,10 +45,6 @@ UserModel.reopenClass({
 			if (userInfo) {
 				UserModel.setUserLanguage(modelInstance, userInfo);
 				UserModel.setUserRights(modelInstance, userInfo);
-			}
-
-			if (userPermissions[0]) {
-				UserModel.setNormalizedPermissions(modelInstance, userPermissions[0].permissions);
 			}
 
 			return modelInstance;
@@ -97,20 +90,6 @@ UserModel.reopenClass({
 	},
 
 	/**
-	 * @param {number} userId
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	loadUserPermissions(userId) {
-		const url = M.getUserPermissionsServiceUrl(`/permissions/wiki/${Mercury.wiki.id}/scope/discussions/bulkUsers`);
-
-		return request(url, {
-			data: {
-				uid: userId
-			},
-		});
-	},
-
-	/**
 	 * @param {*} userData
 	 * @returns {UserProperties}
 	 */
@@ -129,25 +108,6 @@ UserModel.reopenClass({
 		}
 
 		return data;
-	},
-
-	/**
-	 * @param {Ember.Object} model
-	 * @param {Object} permissionsData
-	 * @returns {void}
-	 */
-	setNormalizedPermissions(model, permissionsData) {
-		if (!permissionsData) {
-			return;
-		}
-
-		const permissions = Ember.Object.create();
-
-		if (permissionsData.discussions) {
-			permissions.set('discussions', DiscussionUserPermissions.create(permissionsData.discussions));
-		}
-
-		model.set('permissions', permissions);
 	},
 
 	/**

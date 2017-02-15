@@ -27,7 +27,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 }
 
 const isDevbox = settings.environment === environments.dev,
-	localesPath = path.join(__dirname, '..', '..', 'front/common/locales'),
+	localesPath = path.join(__dirname, '..', '..', 'mobile-wiki/common/locales'),
 	server = new Server({
 		connections: {
 			router: {

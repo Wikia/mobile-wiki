@@ -2130,9 +2130,6 @@
         }
       }
     },
-    "ember-autoresize": {
-      "version": "0.5.16"
-    },
     "ember-cli": {
       "version": "2.5.1",
       "dependencies": {
@@ -11467,14 +11464,6 @@
     "ember-getowner-polyfill": {
       "version": "1.0.0"
     },
-    "ember-href-to": {
-      "version": "1.9.0",
-      "dependencies": {
-        "ember-getowner-polyfill": {
-          "version": "1.0.1"
-        }
-      }
-    },
     "ember-in-viewport": {
       "version": "2.0.4",
       "from": "git://github.com/pauloslund/ember-in-viewport.git#347251dc727956c95d1f9f6b8c7c64c7da11cd34",
@@ -11485,9 +11474,6 @@
     },
     "ember-new-relic": {
       "version": "0.3.0"
-    },
-    "ember-onbeforeunload": {
-      "version": "0.2.0"
     },
     "ember-one-way-controls": {
       "version": "1.1.1",
@@ -11836,11 +11822,6 @@
           "version": "1.4.0"
         }
       }
-    },
-    "ember-pop-over": {
-      "version": "0.1.31",
-      "from": "git://github.com/kvas-damian/ember-pop-over.git#558602bd23c93105f65e882627c60a3149b695e4",
-      "resolved": "git://github.com/kvas-damian/ember-pop-over.git#558602bd23c93105f65e882627c60a3149b695e4"
     },
     "ember-resolver": {
       "version": "2.0.3",

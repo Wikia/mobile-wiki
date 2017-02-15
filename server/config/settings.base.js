@@ -35,25 +35,12 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  */
 
 /**
- * @typedef {Object} ClickStreamConfig
- * @property {ClickStreamConfigItem} auth
- */
-
-/**
- * @typedef {Object} ClickStreamConfigItem
- * @property {boolean} enable
- * @property {string} url
- */
-
-/**
  * @typedef {Object} Settings
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
  * @property {string} cdnBaseUrl
  * @property {string} [devboxDomain]
  * @property {string} domain
- * @property {*} [discussions]
- * @property {*} [siteAttribute]
  * @property {*} environments
  * @property {HeliosSettings} helios
  * @property {WhoAmIServiceSettings} whoAmIService
@@ -65,7 +52,6 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @property {number} maxRequestsPerChild
  * @property {OptimizelySettings} [optimizely]
  * @property {number} port
- * @property {PrerenderSettings} prerender
  * @property {number} proxyMaxRedirects
  * @property {QualarooSettings} [qualaroo]
  * @property {string} [qualaroo]
@@ -78,8 +64,6 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @property {number} workerDisconnectTimeout
  * @property {FacebookSettings} facebook
  * @property {PatternsSettings} patterns
- * @property {boolean} enableDiscussions
- * @property {ClickStreamConfig} clickstream
  */
 
 /**
@@ -100,11 +84,6 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @property {boolean} enabled
  * @property {string} scriptPath
  * @property {string} account
- */
-
-/**
- * @typedef {Object} PrerenderSettings
- * @property {string} token
  */
 
 /**
@@ -182,21 +161,6 @@ export default {
 		path: '/auth',
 		timeout: 3000
 	},
-	userPreferencesService: {
-		baseAPIPath: 'user-preference'
-	},
-	openGraph: {
-		baseAPIPath: 'opengraph'
-	},
-	siteAttribute: {
-		baseAPIPath: 'site-attribute'
-	},
-	staticAssets: {
-		baseAPIPath: 'static-assets'
-	},
-	userPermissions: {
-		baseAPIPath: 'user-permissions'
-	},
 	whoAmIService: {
 		path: '/whoami',
 		timeout: 3000
@@ -226,10 +190,7 @@ export default {
 		enabled: true,
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
-	port: process.env.PORT || 8000,
-	prerender: {
-		token: process.env.PRERENDER_TOKEN
-	},
+	port: process.env.PORT || 8001,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
@@ -296,18 +257,11 @@ export default {
 		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 		iPad: /iPad/
 	},
-	enableDiscussions: true,
-	clickstream: {
-		social: {
-			enable: true,
-			url: 'https://services.wikia.com/clickstream/events/social'
-		},
-	},
 	weppy: {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
-	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'search']
+	translationFiles: ['main', 'design-system', 'search']
 };

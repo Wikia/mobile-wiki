@@ -17,7 +17,7 @@ export default {
 	qualaroo: {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
-	port: 7000,
+	port: 7001,
 	clickstream: {
 		social: {
 			enable: true,

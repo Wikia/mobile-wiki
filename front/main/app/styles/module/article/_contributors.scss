@@ -6,17 +6,22 @@
 	background-color: #F2F3F3;
 
 	ul {
-		@include block-grid(
-			$per-row: 5,
-			$spacing: rem-calc(5)
-		);
+		display: block;
 		padding: 0;
 		margin: 0;
 
 		li {
-			// Overrides the bottom padding that block-grid adds
-			padding-bottom: 0;
+			display: block;
+			float: left;
+			height: auto;
+			list-style: none;
+			padding: 0 0.15625rem;
 			margin: 0;
+			width: 20%;
+
+			&:nth-of-type(5n+1) {
+				clear: both;
+			}
 
 			img {
 				@include perfect-square(rem-calc(44));
