@@ -2130,9 +2130,6 @@
         }
       }
     },
-    "ember-autoresize": {
-      "version": "0.5.16"
-    },
     "ember-cli": {
       "version": "2.5.1",
       "dependencies": {
