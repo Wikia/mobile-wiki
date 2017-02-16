@@ -26,7 +26,7 @@
     "shrinkwrap-main": "cd front/main && shonkwrap --dev",
     "shrinkwrap-server": "cd server && shonkwrap --dev",
     "test": "npm run build-dev && npm run test-front && npm run test-server",
-    "test-front": "gulp test-common && cd front/main && ember test --path ../../www/front/main -tp $(($TEST_PORT + 7357))",
+    "test-front": "gulp test-common && cd front/main && ember test --path ../../www/mobile-wiki/main -tp $(($TEST_PORT + 7357))",
     "test-front-acceptance": "cd front/main && ember test --filter=acceptance",
     "test-front-integration": "cd front/main && ember test --filter=integration",
     "test-front-unit": "cd front/main && ember test --filter=unit",
