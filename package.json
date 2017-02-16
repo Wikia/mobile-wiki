@@ -1,5 +1,5 @@
 {
-  "name": "Mobile Wiki",
+  "name": "mobile-wiki",
   "description": "Wikia Web Application",
   "main": "www/server/app/server.js",
   "scripts": {
