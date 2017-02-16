@@ -246,7 +246,6 @@ describe('wiki-page', function () {
 		server.inject(requestParamsWithCustomNamespace, function (response) {
 			expect(response.statusCode).to.equal(200);
 
-			console.log(response.payload);
 			expect(response.payload).to.include(
 				'<title data-server-head-tags-dynamic>Bracket:Whatever | Wookieepedia | Fandom powered by Wikia</title>'
 			);

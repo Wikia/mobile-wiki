@@ -45,12 +45,12 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 					expectedOutput: 'http://verify.test.wikia.com'
 				},
 				{
-					host: 'muppet.mattk.wikia-dev.com',
-					expectedOutput: 'http://test.mattk.wikia-dev.com'
+					host: 'muppet.mattk.wikia-dev.us',
+					expectedOutput: 'http://test.mattk.wikia-dev.us'
 				},
 				{
-					host: 'es.walkingdead.mattk.wikia-dev.com',
-					expectedOutput: 'http://test.mattk.wikia-dev.com'
+					host: 'es.walkingdead.mattk.wikia-dev.pl',
+					expectedOutput: 'http://test.mattk.wikia-dev.pl'
 				},
 				{
 					host: 'muppet.127.0.0.1.xip.io:8000',
@@ -210,10 +210,10 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 			}
 		};
 
-		M.prop('mediawikiDomain', 'adventuretime.mattk.wikia-dev.com');
+		M.prop('mediawikiDomain', 'adventuretime.mattk.wikia-dev.pl');
 		assert.equal(
 			M.buildUrl({}, context),
-			'http://adventuretime.mattk.wikia-dev.com'
+			'http://adventuretime.mattk.wikia-dev.pl'
 		);
 	});
 });

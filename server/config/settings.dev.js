@@ -1,13 +1,18 @@
 /**
  * settings for application, used by default by dev environments
  */
+// These variables are used in multiple places in config
+const devDomain = (process.env.WIKIA_DATACENTER === 'poz') ? 'pl' : 'us',
+	servicesDomain = `services.wikia-dev.${devDomain}`;
+
+
 export default {
 	loggers: {
 		console: 'debug'
 	},
-	devDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'pl' : 'us',
-	authCookieDomain: (process.env.WIKIA_DATACENTER === 'poz') ? '.wikia-dev.pl' : '.wikia-dev.us',
-	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services.wikia-dev.pl' : 'services.wikia-dev.us',
+	devDomain,
+	authCookieDomain: `.wikia-dev.${devDomain}`,
+	servicesDomain,
 	facebook: {
 		appId: 881967318489580
 	},
@@ -17,13 +22,7 @@ export default {
 	qualaroo: {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
-	port: 7000,
-	clickstream: {
-		social: {
-			enable: true,
-			url: 'https://services.wikia-dev.com/clickstream/events/social'
-		}
-	},
+	port: 7001,
 	helios: {
 		internalUrl: 'http://dev.helios.service.consul:9500/',
 	},
