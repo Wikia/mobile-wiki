@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	classNames: ['wikia-stats'],
@@ -18,12 +19,20 @@ export default Ember.Component.extend({
 				value: this.get('model.videos'),
 			},
 			{
-				label: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
-				routeName: 'discussion.index',
-				trackingCategory: 'main-page',
+				label: i18n.t('app.discussions-label'),
+				url: '/d/f',
 				trackingLabel: 'discussions-clicked',
 				value: this.get('model.discussions'),
 			}
 		];
-	})
+	}),
+	actions: {
+		trackClick(trackingLabel) {
+			mercuryTrack({
+				action: trackActions.click,
+				category: 'main-page',
+				label: trackingLabel
+			});
+		}
+	}
 });

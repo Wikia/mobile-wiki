@@ -4,9 +4,8 @@
 	}
 
 	.article-body, .wiki-page-body {
-		@extend .small-12;
-
 		overflow-x: hidden;
+		width: 100%;
 	}
 
 	.article-content {

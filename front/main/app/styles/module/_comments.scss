@@ -38,11 +38,18 @@
 
 .article-comment {
 	@extend .row;
-	margin: rem-calc(20) 0;
+	margin: 0;
 
 	> div {
 		@extend .columns;
 		padding: 0;
+	}
+
+	&::before,
+	&::after {
+		clear: both;
+		content: " ";
+		display: table;
 	}
 
 	ul {
@@ -66,9 +73,10 @@
 	}
 
 	.avatar {
-		@extend .small-3;
-		text-align: left;
+		float: left;
 		padding-left: rem-calc(15);
+		text-align: left;
+		width: 25%;
 
 		img {
 			border-radius: 100%;
@@ -76,8 +84,9 @@
 	}
 
 	.content {
-		@extend .small-9;
+		float: left;
 		padding-right: rem-calc(20);
+		width: 75%;
 
 		.content {
 			padding-right: 0;

@@ -15,7 +15,7 @@ export default Object.extend({
 			ns: 'design-system'
 		});
 	}),
-	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
+	localLinks: localLinks: get(Mercury, 'wiki.localNav') || get(Mercury, 'wiki.navigation2016.localNav'),
 	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
 	wikiName: get(Mercury, 'wiki.siteName'),
 
@@ -158,9 +158,9 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('discussionsEnabled') &&
 			[{
-				type: 'nav-menu-item',
-				route: 'discussion',
-				name: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
+				type: 'nav-menu-external',
+				href: '/d/f',
+				name: i18n.t('app.discussions-label'),
 				trackCategory: 'discussion',
 				trackLabel: 'local-nav'
 			}] || [];

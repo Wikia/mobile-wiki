@@ -8,11 +8,11 @@ export default Ember.Component.extend(
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
 		actions: {
-			trackClick() {
+			trackClick(trackingLabel) {
 				mercuryTrack({
 					action: trackActions.click,
-					category: 'wikiname',
-					label: ''
+					category: 'main-page',
+					label: trackingLabel
 				});
 			}
 		}
