@@ -1,5 +1,5 @@
 {
-  "name": "Mercury",
+  "name": "Mobile Wiki",
   "description": "Wikia Web Application",
   "main": "www/server/app/server.js",
   "scripts": {
@@ -36,9 +36,9 @@
     "linter": "eslint .",
     "svgo": "bash ./tasks/optimize-svg.sh"
   },
-  "repository": "git://github.com/Wikia/mercury.git",
+  "repository": "git://github.com/Wikia/mobile-wiki.git",
   "license": "MIT",
-  "homepage": "https://github.com/Wikia/mercury",
+  "homepage": "https://github.com/Wikia/mobile-wiki",
   "private": true,
   "devDependencies": {
     "babel-core": "6.7.2",
