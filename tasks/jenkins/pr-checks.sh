@@ -5,8 +5,8 @@ set -x
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
 echo "githubToken=Authorization: token $GITHUB_TOKEN" > jenkins/params
-echo "githubUrl=https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT" >> jenkins/params
-dependenciesDir="/var/lib/jenkins/workspace/Mercury-UPDATE-dependencies"
+echo "githubUrl=https://api.github.com/repos/Wikia/mobile-wiki/statuses/$GIT_COMMIT" >> jenkins/params
+dependenciesDir="/var/lib/jenkins/workspace/mobile-wiki-update-dependencies"
 
 # $1 - context
 # $2 - state
@@ -17,7 +17,7 @@ curl -s \
 	-X POST  \
 	-H "Authorization: token $GITHUB_TOKEN" \
 	-d "{ \"state\": \"$2\", \"description\": \"$3\", \"context\": \"$1\", \"target_url\": \"$4\" }" \
-	https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT
+	https://api.github.com/repos/Wikia/mobile-wiki/statuses/$GIT_COMMIT
 }
 
 # $1 - state name
@@ -99,7 +99,6 @@ setupNpm "/"
 setupNpm "/front/main/"
 setupNpm "/server/"
 
-setupBower "/front/auth/"
 setupBower "/front/common/"
 setupBower "/front/main/"
 
