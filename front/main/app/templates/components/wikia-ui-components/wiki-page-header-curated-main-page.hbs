@@ -2,15 +2,10 @@
 	{{title}}
 	{{#if showButtons}}
 		<div>
-			{{#link-to 'curatedContentEditor'
-			   bubbles=false
-			   class='main-page-edit'
-			   trackingCategory='main-page'
-			   trackingLabel='open-editor'
-			}}
+			<a href="/main/edit" class="main-page-edit" {{action 'trackClick' 'open-editor' preventDefault=false}}>
 				{{svg 'pencil' role='img' class='icon pencil'}}
 				{{i18n 'app.curated-content-editor-edit-main-page'}}
-			{{/link-to}}
+			</a>
 		</div>
 	{{/if}}
 </h1>
