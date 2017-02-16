@@ -2806,8 +2806,8 @@
     },
     "vignette": {
       "version": "2.4.0",
-      "from": "git://github.com/Wikia/vignette-js#2.4.0",
-      "resolved": "git://github.com/Wikia/vignette-js#efdc8d7b1ff27649c846ea18ae1c91f9c6ac06fb"
+      "from": "git://github.com/Wikia/vignette-js#2.5.0",
+      "resolved": "git://github.com/Wikia/vignette-js#1b14c518837fafd3794bc969e77fea76e58a685a"
     },
     "vision": {
       "version": "3.0.0",
