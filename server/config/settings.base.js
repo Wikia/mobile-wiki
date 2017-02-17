@@ -249,7 +249,7 @@ export default {
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no trailing slash
-	cdnBaseUrl: '//mercury.nocookie.net',
+	cdnBaseUrl: '//mobile-wiki.nocookie.net',
 	facebook: {
 		appId: 112328095453510
 	},
