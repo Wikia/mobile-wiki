@@ -7,13 +7,14 @@ export default Ember.Mixin.create({
 	 * @param {AlertNotification} alertData
 	 * @returns {void}
 	 */
-	addAlert(alertData) {
-		const message = alertData.message,
-			type = alertData.type || '',
-			expiry = alertData.expiry || 10000,
-			unsafe = alertData.unsafe || false,
-			callbacks = alertData.callbacks || {},
-			persistent = alertData.persistent || false;
+	addAlert({
+		message,
+		type = 'info',
+		expiry = 10000,
+		unsafe = false,
+		callbacks = {},
+		persistent = {}
+	}) {
 
 		this.get('alertNotifications').pushObject({
 			message,
