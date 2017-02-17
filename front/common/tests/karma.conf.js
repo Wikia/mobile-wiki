@@ -7,12 +7,12 @@ module.exports = function (config) {
 
 		basePath: '../../../',
 		files: [
-			'www/front/common/bower_components/loader.js/loader.js',
-			'www/front/common/bower_components/sinonjs/sinon.js',
-			'www/front/common/bower_components/jquery/dist/jquery.js',
+			'www/mobile-wiki/common/bower_components/loader.js/loader.js',
+			'www/mobile-wiki/common/bower_components/sinonjs/sinon.js',
+			'www/mobile-wiki/common/bower_components/jquery/dist/jquery.js',
 
-			'www/front/common/baseline.js',
-			'www/front/common/common.js',
+			'www/mobile-wiki/common/baseline.js',
+			'www/mobile-wiki/common/common.js',
 
 			'front/common/tests/unit/**/*.js'
 		]

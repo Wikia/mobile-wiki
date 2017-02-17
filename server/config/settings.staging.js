@@ -14,10 +14,4 @@ export default {
 	// once we phase out custom domains, we can change this to "cookieDomain" and use it for more features
 	authCookieDomain: '.wikia-staging.com',
 	redirectUrlOnNoData: 'http://community.wikia-staging.com/wiki/Community_Central:Not_a_valid_Wikia',
-	clickstream: {
-		social: {
-			enable: true,
-			url: 'https://services.wikia-staging.com/clickstream/events/social'
-		},
-	},
 };

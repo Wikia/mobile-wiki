@@ -128,9 +128,9 @@ test('test zero state with values from api', (assert) => {
 					href: ''
 				},
 				{
-					type: 'nav-menu-item',
-					route: 'discussion',
-					name: 'main.discussions-header-title',
+					type: 'nav-menu-external',
+					href: '/d/f',
+					name: 'app.discussions-label',
 					trackCategory: 'discussion',
 					trackLabel: 'local-nav'
 				},
