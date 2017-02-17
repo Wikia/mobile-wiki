@@ -1,29 +1,26 @@
-[![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
-[![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
-
 ## Setup
-To begin your journey with Mercury all you need to do is:
+To begin your journey with Mobile Wiki all you need to do is:
 
 1. Get the repo:
  1. If you're developing locally, clone the repo and `cd` into the root directory. 
- 2. On devboxes, the repos is already downloaded. `cd /usr/wikia/mercury`
+ 2. On devboxes, the repos is already downloaded. `cd /usr/wikia/mobile-wiki`
 1. Use `npm run setup`
 1. Use `npm run dev`
 1. Start developing
 
 For most cases you don't need to modify your `settings.js`, but if you do, read [this](#settings) section.
 
-If you are using Mercury on your local machine, install global dependencies by `npm run setup-for-local`.
+If you are using Mobile Wiki on your local machine, install global dependencies by `npm run setup-for-local`.
 
 More available scripts are listed [here](#scripts)
 
-## Access Mercury
+## Access Mobile Wiki
 ### Devbox environment
-Open http://muppet.yourname.wikia-dev.com/wiki/Kermit from mobile device or while emulating it in desktop browser.
-Or use `curl -H "Host:muppet.yourname.wikia-dev.com" "http://dev-yourname:7000/wiki/Kermit"`
+Open http://muppet.yourname.wikia-dev.pl/wiki/Kermit from mobile device or while emulating it in desktop browser.
+Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wiki/Kermit"`
 
 ### Local environment
-Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
+Open http://muppet.127.0.0.1.xip.io:7001/wiki/Kermit
 
 ## Scripts
 * `npm run setup` - install all dependencies, including node modules and bower components
@@ -32,7 +29,6 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 * `npm run build-prod` - build files for prod environment
 * `npm run start` - run built application (**requires application to be build first**)
 * `npm run dev` - build, run application and watch files
-* `npm run dev-auth` - build only the auth app and its dependencies, run it and watch files
 * `npm run dev-main` - build only the main app and its dependencies, run it and watch files
 * `npm run restart` - build ember, run application and watch files (without running gulp's build pipeline)
 * `npm run test` - run test-front and test-server (**requires application to be build first**)
@@ -55,14 +51,12 @@ Some tips if you develop outside of devbox:
 
 ## See also
 
-### [CHANGELOG](https://github.com/Wikia/mercury/blob/dev/CHANGELOG.md)
+### [CHANGELOG](https://github.com/Wikia/mobile-wiki/blob/dev/CHANGELOG.md)
 
-### [Tasks](https://github.com/Wikia/mercury/blob/dev/tasks/README.md)
+### [Tasks](https://github.com/Wikia/mobile-wiki/blob/dev/tasks/README.md)
 
 ### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
 
 ### [How to update translations](https://github.com/Wikia/mercury/blob/dev/crowdin/README.md)
 
-### [How to add or update NodeJS dependencies](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages)
-
-### [Troubleshooting](https://github.com/Wikia/mercury/blob/dev/TROUBLESHOOTING.md)
+### [Troubleshooting](https://github.com/Wikia/mobile-wiki/blob/dev/TROUBLESHOOTING.md)

@@ -1,7 +1,6 @@
 import * as MW from '../lib/mediawiki';
 import * as Utils from '../lib/utils';
 import * as Tracking from '../lib/tracking';
-import * as OpenGraph from '../lib/open-graph';
 import Promise from 'bluebird';
 import Logger from '../lib/logger';
 import settings from '../../config/settings';
@@ -65,11 +64,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 			context.wikiVariables = wikiVariables;
 			context.isRtl = isRtl(wikiVariables);
 
-			return OpenGraph.getAttributes(request, context.wikiVariables).then((openGraphData) => {
-				// Add OpenGraph attributes to context
-				context.openGraph = openGraphData;
-				return context;
-			});
+			return context;
 		})
 		/**
 		 * Get data for Global Footer

@@ -9,8 +9,8 @@ module('Unit | Utility | domain', () => {
 				expected: 'wikia.com',
 			},
 			{
-				hostname: 'fallout.warkot.wikia-dev.com',
-				expected: 'wikia-dev.com',
+				hostname: 'fallout.warkot.wikia-dev.pl',
+				expected: 'wikia-dev.pl',
 			},
 			{
 				hostname: 'fallout.wikia-staging.com',
@@ -33,8 +33,8 @@ module('Unit | Utility | domain', () => {
 	test('extracts domain from provided urls', (assert) => {
 		const testCasesForExtractDomainFromUrl = [
 			{
-				url: 'http://thelastofus.james.wikia-dev.com/wiki/MakerTest',
-				expected: 'thelastofus.james.wikia-dev.com',
+				url: 'http://thelastofus.james.wikia-dev.us/wiki/MakerTest',
+				expected: 'thelastofus.james.wikia-dev.us',
 			},
 			{
 				url: 'http://starwars.wikia-staging.com/wiki/MakerTest',
