@@ -1,36 +1,28 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
+import WidgetDiscussionsModel from '../models/widget-discussion';
 
 export default Ember.Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['widget-discussions'],
-		classNameBindings: ['forumWrapper', 'discussion', 'forum'],
-		discussion: true,
-		forumWrapper: true,
-		forum: true,
 
-		data: null,
 		isLoading: true,
-		canShowCategories: true,
 
-		model: Ember.computed(() => {
-			return WidgetDiscussionsModel.create();
-		}),
+		model: WidgetDiscussionsModel.create(),
 
 		/**
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const categoryIds = this.getWithDefault('categoryIds', []),
-				posts = DiscussionForumModel.find(
-					Mercury.wiki.id,
-					categoryIds,
-					this.get('show'),
-					this.get('itemCount')
-				);
+			const categoryIds = this.getWithDefault('categoryIds', []);
 
-			posts.then((result) => {
+			this.get('model').find(
+				Mercury.wiki.id,
+				categoryIds,
+				this.get('show'),
+				this.get('itemCount')
+			).then((result) => {
 				this.setProperties({
 					posts: result.posts,
 					isLoading: false,

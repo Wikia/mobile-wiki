@@ -3,42 +3,85 @@
 		<h2 class="heading">
 			{{{i18n 'main.discussions-header-title' ns='discussion'}}}
 		</h2>
-		{{#link-to 'discussion' class='heading-viewall'}}
+		<a href="/d/f" class='heading-viewall'>
 			{{{i18n 'main.all-discussions-link-mobile' ns='discussion'}}}
 			{{svg 'arrow-right-long'}}
-		{{/link-to}}
+		</a>
 	</h1>
 {{/if}}
-{{#each posts as |entity|}}
-	{{discussion-post-card-detail
-		author=entity.createdBy
-		categories=categories
-		canShowCategories=canShowCategories
-		categoryName=entity.categoryName
-		delete=(action 'delete')
-		hideMoreOptions=true
-		lock=(action 'lock')
-		openEditEditor=(action 'openEditEditor')
-		post=entity
-		reply=(action 'reply')
-		replyCount=entity.repliesCount
-		report=(action 'report')
-		setEditorActive=(action 'setEditorActive')
-		share=(action 'share')
-		undelete=(action 'undelete')
-		unlock=(action 'unlock')
-		upvote=(action 'upvote')
-	}}
+{{#each posts as |post|}}
+
+	<div class="post-detail">
+		<div class="post-header">
+			<div class="user-avatar">
+				<figure class="avatar">
+					<a href="{{post.createdBy.profileUrl}}">
+						<img src="{{post.createdBy.avatarUrl}}">
+					</a>
+				</figure>
+				<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
+			</div>
+			<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
+				&bull; {{time-ago post.creationTimestamp}}
+			</span>
+		</div>
+		<div class="discussion-content">
+			{{#if post.title}}
+				<h2 class="post-title">
+					<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
+				</h2>
+			{{/if}}
+			<a class="post-details-link clamp" href="/d/p/{{post.threadId}}">TODO content and links</a>
+		</div>
+		<a id="ember1087" href="http://www.history.com/topics/great-depression" title="www.history.com" target="_blank" class="og-container large-image-card-mobile small-image-card-desktop">
+			<img class="og-image" src="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/525/height/295" srcset="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 380w, http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 5000w" alt="The Great Depression - Facts &amp; Summary - HISTORY.com">
+			<div class="og-texts">
+				<span class="og-title">
+					The Great Depression - Facts &amp; Summary - HISTORY.com
+				</span>
+				<span class="og-site-name">
+					HISTORY.com
+				</span>
+			</div>
+		</a>
+		<div class="row post-bottom-row">
+			<span class="post-category-name">
+				in General
+			</span>
+			<span class="post-counters">
+				<span class="upvote-count">
+					<svg class="icon upvote" viewBox="0 0 14 14"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#upvote-tiny"></use></svg>
+					{{post.upvoteCount}}
+				</span>
+				<span class="reply-count">
+					<svg class="icon replies" viewBox="0 0 14 14"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#reply-tiny"></use></svg>
+					{{post.repliesCount}}
+				</span>
+			</span>
+		</div>
+		<div>
+			<ul class="row post-actions">
+				<li class="small-4 large-4 upvote-area upvote " data-ember-action="1114">
+					<svg class="icon upvote" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#upvote"></use></svg>
+					Upvote
+				</li>
+				<li class="small-4 large-4 replies replies-area" data-ember-action="1115">
+					<a href="/d/p/{{post.threadId}}">
+						<svg class="icon replies" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#reply"></use></svg>
+						Reply
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
 {{else}}
 	{{#if isLoading}}
 		{{loading-spinner
 			active=true
 			radius=32
 			strokeWidth=2
-		}}
-	{{else}}
-		{{discussion-empty-forum-message
-			setEditorActive=(action 'setEditorActive')
 		}}
 	{{/if}}
 {{/each}}
