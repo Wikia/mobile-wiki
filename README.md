@@ -1,6 +1,3 @@
-[![Dependency Status](https://david-dm.org/Wikia/mobile-wiki.svg)](https://david-dm.org/Wikia/mobile-wiki)
-[![devDependency Status](https://david-dm.org/Wikia/mobile-wiki/dev-status.svg)](https://david-dm.org/Wikia/mobile-wiki#info=devDependencies)
-
 ## Setup
 To begin your journey with Mobile Wiki all you need to do is:
 
@@ -61,7 +58,5 @@ Some tips if you develop outside of devbox:
 ### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
 
 ### [How to update translations](https://github.com/Wikia/mercury/blob/dev/crowdin/README.md)
-
-### [How to add or update NodeJS dependencies](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages)
 
 ### [Troubleshooting](https://github.com/Wikia/mobile-wiki/blob/dev/TROUBLESHOOTING.md)

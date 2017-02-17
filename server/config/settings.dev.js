@@ -5,7 +5,6 @@
 const devDomain = (process.env.WIKIA_DATACENTER === 'poz') ? 'pl' : 'us',
 	servicesDomain = `services.wikia-dev.${devDomain}`;
 
-
 export default {
 	loggers: {
 		console: 'debug'
