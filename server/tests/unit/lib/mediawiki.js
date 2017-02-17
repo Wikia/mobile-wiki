@@ -5,20 +5,20 @@ QUnit.test('createURL', function (assert) {
 	global.settings.default.devboxDomain = 'test';
 	global.settings.default.mediawikiDomain = undefined;
 
-	assert.equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {}),
-		'http://foo.test.wikia-dev.com/api/test', 'zero query params');
-	assert.equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {
+	assert.equal(global.createUrl('foo.test.wikia-dev.pl', 'api/test', {}),
+		'http://foo.test.wikia-dev.pl/api/test', 'zero query params');
+	assert.equal(global.createUrl('foo.test.wikia-dev.pl', 'api/test', {
 		title: 'bar'
-	}), 'http://foo.test.wikia-dev.com/api/test?title=bar', 'one query param');
-	assert.equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {
+	}), 'http://foo.test.wikia-dev.pl/api/test?title=bar', 'one query param');
+	assert.equal(global.createUrl('foo.test.wikia-dev.pl', 'api/test', {
 		title: 'bar',
 		param: 'gibberish'
-	}), 'http://foo.test.wikia-dev.com/api/test?title=bar&param=gibberish', 'two query params');
-	assert.equal(global.createUrl('foo.test.wikia-dev.com', 'api/test'),
-		'http://foo.test.wikia-dev.com/api/test', 'missing query params');
+	}), 'http://foo.test.wikia-dev.pl/api/test?title=bar&param=gibberish', 'two query params');
+	assert.equal(global.createUrl('foo.test.wikia-dev.pl', 'api/test'),
+		'http://foo.test.wikia-dev.pl/api/test', 'missing query params');
 
 	global.settings.default.mediawikiDomain = 'mediawiki.service.consul';
-	assert.equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {}),
+	assert.equal(global.createUrl('foo.test.wikia-dev.pl', 'api/test', {}),
 		'http://mediawiki.service.consul/api/test', 'consul url rewrite');
 });
 
