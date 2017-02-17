@@ -272,23 +272,6 @@ export function createServerData(settings, wikiDomain = '') {
 }
 
 /**
- * Gets the domain and path for a static asset
- *
- * @param {Settings} settings
- * @param {Hapi.Request} request
- * @returns {string}
- */
-export function getStaticAssetPath(settings, request) {
-	const env = settings.environment || environments.dev;
-
-	return env !== environments.dev ?
-		// The CDN path should match what's used in
-		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
-		`${settings.cdnBaseUrl}/mercury-static/` :
-		`//${getCachedWikiDomainName(settings, request)}/mobile-wiki/`;
-}
-
-/**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on
  * wikiVariables.basePath If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly

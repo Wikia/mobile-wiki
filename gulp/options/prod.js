@@ -22,6 +22,6 @@ module.exports = {
 			partials: '**/_partials/*.hbs'
 		},
 		find: '/front/',
-		replace: '{{server.cdnBaseUrl}}/mercury-static/'
+		replace: '{{server.cdnBaseUrl}}/mobile-wiki/'
 	}
 };
