@@ -1,7 +1,4 @@
 import Ember from 'ember';
-
-import DiscussionForumModel from '../models/discussion/forum';
-import WidgetDiscussionsModel from '../models/widget-discussions';
 import InViewportMixin from 'ember-in-viewport';
 
 export default Ember.Component.extend(
@@ -29,33 +26,22 @@ export default Ember.Component.extend(
 				posts = DiscussionForumModel.find(
 					Mercury.wiki.id,
 					categoryIds,
-					this.get('show')
+					this.get('show'),
+					this.get('itemCount')
 				);
 
 			posts.then((result) => {
 				this.setProperties({
-					posts: result.data.entities.slice(0, this.get('itemCount')),
+					posts: result.posts,
 					isLoading: false,
 				});
 			});
 		},
 
 		actions: {
-			upvote(entity) {
-				this.get('model').upvote(entity);
+			upvote(post) {
+				this.get('model').upvote(post);
 			},
-
-			// Placeholders. These action must be present for discussion-post-card-detail to render,
-			// but are not used directly by this component
-			delete() {},
-			lock() {},
-			openEditEditor() {},
-			report() {},
-			undelete() {},
-			unlock() {},
-			setEditorActive() {},
-			reply() {},
-			share() {},
 		}
 	}
 );
