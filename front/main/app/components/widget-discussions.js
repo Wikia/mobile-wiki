@@ -9,7 +9,12 @@ export default Ember.Component.extend(
 
 		isLoading: true,
 
-		model: WidgetDiscussionsModel.create(),
+		model: null,
+
+		didInsertElement() {
+			this._super(...arguments);
+			this.set('model', WidgetDiscussionsModel.create());
+		},
 
 		/**
 		 * @returns {void}
@@ -22,9 +27,9 @@ export default Ember.Component.extend(
 				categoryIds,
 				this.get('show'),
 				this.get('itemCount')
-			).then((result) => {
+			).then((posts) => {
 				this.setProperties({
-					posts: result.posts,
+					posts: posts,
 					isLoading: false,
 				});
 			});

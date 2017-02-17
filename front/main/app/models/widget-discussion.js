@@ -1,42 +1,59 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 const DiscussionForumModel = Ember.Object.extend(
 	{
-		setNormalizedData(data) {
-			const posts = Ember.getWithDefault(data, '_embedded.threads', []).map(threadData => {
-				const creationDate = threadData.creationDate;
-				const createdBy = threadData.createdBy;
-
-				const post = {
-					categoryName: threadData.forumName,
-					contentImages: null,
-					createdBy: {
-						avatarUrl: createdBy.avatarUrl,
-						badgePermission: createdBy.badgePermission,
-						id: createdBy.id,
-						name: createdBy.name,
-						profileUrl: M.buildUrl({
-							namespace: 'User',
-							title: createdBy.name
-						})
-					},
-					creationTimestamp: typeof creationDate === 'string' ? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
-					id: threadData.firstPostId,
-					openGraph: null,
-					rawContent: threadData.rawContent,
-					repliesCount: parseInt(threadData.postCount, 10),
-					title: threadData.title,
-					threadId: threadData.id,
-					upvoteCount: parseInt(threadData.upvoteCount, 10),
-					userData: null,
+		/**
+		 * @param {number} wikiId
+		 * @param {array|string} [categories=[]]
+		 * @param {string} [sortBy='trending']
+		 * @param {integer} [limit=20]
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
+			const requestData = {
+					forumId: categories instanceof Array ? categories : [categories],
+					limit,
+					sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
 				};
+
+			return request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
+				data: requestData,
+				traditional: true,
+			}).then(this.normalizeData);
+		},
+		normalizeData(data) {
+			return Ember.getWithDefault(data, '_embedded.threads', []).map(threadData => {
+				const creationDate = threadData.creationDate,
+					createdBy = threadData.createdBy,
+					post = {
+						categoryName: threadData.forumName,
+						contentImages: null,
+						createdBy: {
+							avatarUrl: createdBy.avatarUrl,
+							badgePermission: createdBy.badgePermission,
+							id: createdBy.id,
+							name: createdBy.name,
+							profileUrl: M.buildUrl({
+								namespace: 'User',
+								title: createdBy.name
+							})
+						},
+						creationTimestamp: typeof creationDate === 'string' ? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
+						id: threadData.firstPostId,
+						openGraph: null,
+						rawContent: threadData.rawContent,
+						repliesCount: parseInt(threadData.postCount, 10),
+						title: threadData.title,
+						threadId: threadData.id,
+						upvoteCount: parseInt(threadData.upvoteCount, 10),
+						userData: null,
+					};
 
 				// TODO userdata, opengraph, contentImages
 
 				return post;
 			});
-
-			this.set('posts', posts);
 		},
 
 		/**
@@ -71,35 +88,6 @@ const DiscussionForumModel = Ember.Object.extend(
 
 DiscussionForumModel.reopenClass(
 	{
-		/**
-		 * @param {number} wikiId
-		 * @param {array|string} [categories=[]]
-		 * @param {string} [sortBy='trending']
-		 * @param {integer} [limit=20]
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				const forumInstance = DiscussionForumModel.create({
-						wikiId
-					}),
-					requestData = {
-						forumId: categories instanceof Array ? categories : [categories],
-						limit,
-						sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
-					};
-
-				request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
-					data: requestData,
-					traditional: true,
-				}).then((data) => {
-					forumInstance.setNormalizedData(data);
-					resolve(forumInstance);
-				}).catch((err) => {
-					reject(forumInstance);
-				});
-			});
-		},
 	}
 );
 
