@@ -2,7 +2,9 @@ import Ember from 'ember';
 import {truncate} from '../utils/truncate';
 import nl2br from 'common/utils/nl2br';
 
-export default Ember.Component.extend(
+const {Component, Handlebars, computed} = Ember;
+
+export default Component.extend(
 	{
 		classNames: ['post-detail'],
 		autolinkerConfig: {},
@@ -19,9 +21,9 @@ export default Ember.Component.extend(
 			this._super();
 		},
 
-		openGraphSiteName: Ember.computed.or('post.openGraph.domain', 'post.openGraph.siteName'),
+		openGraphSiteName: computed.or('post.openGraph.domain', 'post.openGraph.siteName'),
 
-		openGraphImageUrl: Ember.computed('post.openGraph.imageUrl', function () {
+		openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
 			const imageWidth = 525,
 				imageHeight = parseInt(imageWidth * 9 / 16, 10);
 
@@ -32,8 +34,8 @@ export default Ember.Component.extend(
 			return `${this.get('post.openGraph.imageUrl')}/zoom-crop/width/${imageWidth}/height/${imageHeight}`;
 		}),
 
-		parsedContent: Ember.computed('post.rawContent', function() {
-			let escapedContent = Ember.Handlebars.Utils.escapeExpression(
+		parsedContent: computed('post.rawContent', function() {
+			let escapedContent = Handlebars.Utils.escapeExpression(
 				this.get('post.rawContent')
 			).trim();
 
