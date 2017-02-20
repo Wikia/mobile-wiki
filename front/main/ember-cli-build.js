@@ -110,6 +110,7 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/numeral/numeral.js');
 	app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
+	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import('vendor/common.js');
 
 	if (app.env === 'test') {

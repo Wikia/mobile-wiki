@@ -72,6 +72,10 @@ $article-negative-padding: -$article-horizontal-padding;
 	.discussion-content {
 		font-size: 0.875rem;
 		margin: 4px 0 6px;
+
+		.url {
+			color: #1A5EB8;
+		}
 	}
 
 	.post-title {

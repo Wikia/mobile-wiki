@@ -17,7 +17,7 @@
 			<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
 		</h2>
 	{{/if}}
-	<a class="post-details-link clamp" href="/d/p/{{post.threadId}}">TODO content and links</a>
+	<a class="post-details-link" href="/d/p/{{post.threadId}}">{{{parsedContent}}}</a>
 </div>
 {{#if post.openGraph}}
 	<a href="{{post.openGraph.uri}}" title="{{post.openGraph.title}}" target="_blank" class="og-container">
