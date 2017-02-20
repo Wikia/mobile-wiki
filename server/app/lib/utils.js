@@ -14,7 +14,6 @@ import uuid from 'node-uuid';
  * @typedef {Object} ServerData
  * @property {string} mediawikiDomain
  * @property {string} environments
- * @property {string} cdnBaseURL
  * @property {string} gaUrl
  * @property {string} [optimizelyScript]
  */
@@ -70,14 +69,6 @@ export function stripDevboxDomain(host) {
 export function isXipHost(settings, hostName) {
 	return settings.environment === environments.dev &&
 		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
-}
-
-/**
- * @param {Settings} settings
- * @returns {string}
- */
-export function getCDNBaseUrl(settings) {
-	return (settings.environment !== environments.dev) ? settings.cdnBaseUrl : '';
 }
 
 /**
@@ -256,7 +247,6 @@ export function createServerData(settings, wikiDomain = '') {
 		data = {
 			mediawikiDomain: getWikiDomainName(settings, wikiDomain),
 			environment: getEnvironment(env),
-			cdnBaseUrl: getCDNBaseUrl(settings),
 			gaUrl: settings.tracking.ua.scriptUrl
 		};
 

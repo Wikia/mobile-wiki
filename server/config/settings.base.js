@@ -38,7 +38,6 @@ import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
  * @typedef {Object} Settings
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
- * @property {string} cdnBaseUrl
  * @property {string} [devboxDomain]
  * @property {string} domain
  * @property {*} environments
@@ -248,8 +247,6 @@ export default {
 	},
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
-	// CDN prefix with no trailing slash
-	cdnBaseUrl: '//mobile-wiki.nocookie.net',
 	facebook: {
 		appId: 112328095453510
 	},
