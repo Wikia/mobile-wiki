@@ -5,14 +5,14 @@ $article-negative-padding: -$article-horizontal-padding;
 
 	.heading-wrapper {
 		svg {
-			//fill: $discussion-widget-link-color;
+			fill: #00f;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
 		}
 
 		align-items: center;
-		//background-color: $discussion-widget-heading-background;
+		background-color: #f6f6f6;
 		display: flex;
 		height: 70px;
 		font-size: 12px;
@@ -25,7 +25,7 @@ $article-negative-padding: -$article-horizontal-padding;
 	}
 
 	.heading-viewall {
-		//color: $discussion-widget-link-color;
+		color: #00f;
 		margin-left: auto;
 		padding-right: 14px;
 	}
@@ -63,7 +63,9 @@ $article-negative-padding: -$article-horizontal-padding;
 		}
 
 		.timestamp {
+			color: #999;
 			font-size: $type-min;
+			font-weight: bold;
 		}
 	}
 
@@ -99,10 +101,20 @@ $article-negative-padding: -$article-horizontal-padding;
 
 	.post-counters {
 		.icon {
-			@include square(14px);
+			@include square(18px);
 			fill: #999;
-			margin-right: 4px;
+			margin-right: 2px;
+
+			&.replies {
+				margin-left: 8px;
+			}
 		}
+	}
+
+	.upvote-count,
+	.reply-count {
+		display: flex;
+		align-items: center;
 	}
 
 	.post-actions {
@@ -110,7 +122,7 @@ $article-negative-padding: -$article-horizontal-padding;
 		display: flex;
 		list-style: none;
 		margin: 0 -12px;
-		padding: 6px 12px;
+		padding: 6px 0;
 
 		.icon {
 			@include square(24px);
@@ -121,19 +133,22 @@ $article-negative-padding: -$article-horizontal-padding;
 
 	.upvote-area,
 	.replies-area {
+		align-items: center;
 		color: #999;
 		cursor: pointer;
+		display: flex;
 		flex-grow: 1;
 		font-size: $type-min;
 		font-weight: 500;
 		height: 33px;
+		justify-content: center;
 	}
 
 	.replies-area {
-		text-align: right;
-
 		a {
+			align-items: center;
 			color: #999;
+			display: flex;
 		}
 	}
 }
