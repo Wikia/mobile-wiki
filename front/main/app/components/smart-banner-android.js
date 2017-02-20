@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 import {system, standalone} from 'common/utils/browser';
 
 const {
@@ -171,7 +171,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	track(action) {
-		mercuryTrack({
+		track({
 			action,
 			category: 'smart-banner',
 			label: this.get('dbName')

@@ -1,12 +1,12 @@
 {
-  "name": "server",
+  "name": "mobile-wiki-server",
   "version": "0.0.0",
   "description": "Small description for server goes here",
   "private": true,
   "directories": {
     "test": "tests"
   },
-  "repository": "https://github.com/Wikia/mercury/tree/dev/server",
+  "repository": "https://github.com/Wikia/mobile-wiki/tree/dev/server",
   "engines": {
     "node": ">= 0.12.9"
   },

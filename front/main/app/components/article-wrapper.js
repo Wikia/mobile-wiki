@@ -157,7 +157,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			$(window).off('scroll.mercury.preload');
+			$(window).off('scroll.mobileWiki.preload');
 			window.scrollTo(0, M.prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {

@@ -136,8 +136,8 @@ function beforeRedirect(redirectMethod, statusCode, location, redirectOptions) {
  */
 export function fetch(url, host = '', redirects = 1, headers = {}) {
 	headers.Host = host;
-	headers['User-Agent'] = 'mercury';
-	headers['X-Wikia-Internal-Request'] = 'mercury';
+	headers['User-Agent'] = 'mobile-wiki';
+	headers['X-Wikia-Internal-Request'] = 'mobile-wiki';
 
 	/**
 	 * @param {Function} resolve
@@ -188,8 +188,8 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
  */
 export function post(url, formData, host = '', headers = {}) {
 	headers.Host = host;
-	headers['User-Agent'] = 'mercury';
-	headers['X-Wikia-Internal-Request'] = 'mercury';
+	headers['User-Agent'] = 'mobile-wiki';
+	headers['X-Wikia-Internal-Request'] = 'mobile-wiki';
 	headers['Content-Type'] = 'application/x-www-form-urlencoded';
 	// Cannot be 'application/json' due to error in MW: 'Automatically populating $HTTP_RAW_POST_DATA
 	// is deprecated and will be removed in a future version.' which is thrown for requests using
