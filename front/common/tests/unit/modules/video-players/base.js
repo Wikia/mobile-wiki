@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/video-players/base', function (hooks) {
+QUnit.module('common/modules/video-players/base', function (hooks) {
 	var BasePlayer,
 		loadStub = sinon.stub().callsArg(1),
 		trackStub = sinon.stub(),
