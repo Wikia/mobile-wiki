@@ -1,7 +1,6 @@
 {
   "name": "mercury-main",
   "dependencies": {
-    "Autolinker.js": "1.4.0",
     "design-system": "Wikia/design-system#5.0.0",
     "ember": "2.5.0",
     "ember-cli-shims": "0.1.1",

@@ -2,7 +2,9 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussion';
 
-export default Ember.Component.extend(
+const {Component} = Ember;
+
+export default Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['widget-discussions'],
