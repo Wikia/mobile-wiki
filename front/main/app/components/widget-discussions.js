@@ -31,7 +31,7 @@ export default Component.extend(
 				this.get('itemCount')
 			).then((posts) => {
 				this.setProperties({
-					posts: posts,
+					posts,
 					isLoading: false,
 				});
 			});

@@ -17,10 +17,10 @@ const DiscussionForumModel = EmberObject.extend(
 		 */
 		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
 			const requestData = {
-					forumId: categories instanceof Array ? categories : [categories],
-					limit,
-					sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
-				};
+				forumId: categories instanceof Array ? categories : [categories],
+				limit,
+				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
+			};
 
 			return request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
 				data: requestData,
@@ -45,7 +45,9 @@ const DiscussionForumModel = EmberObject.extend(
 								title: createdBy.name
 							})
 						},
-						creationTimestamp: typeof creationDate === 'string' ? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
+						creationTimestamp: typeof creationDate === 'string' ?
+							(new Date(creationDate)).getTime() / 1000 :
+							creationDate.epochSecond,
 						id: threadData.firstPostId,
 						openGraph: null,
 						rawContent: threadData.rawContent,

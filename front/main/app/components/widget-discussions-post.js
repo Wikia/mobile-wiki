@@ -34,7 +34,7 @@ export default Component.extend(
 			return `${this.get('post.openGraph.imageUrl')}/zoom-crop/width/${imageWidth}/height/${imageHeight}`;
 		}),
 
-		parsedContent: computed('post.rawContent', function() {
+		parsedContent: computed('post.rawContent', function () {
 			let escapedContent = Handlebars.Utils.escapeExpression(
 				this.get('post.rawContent')
 			).trim();
