@@ -22,6 +22,7 @@ const DiscussionForumModel = Ember.Object.extend(
 				traditional: true,
 			}).then(this.normalizeData);
 		},
+
 		normalizeData(data) {
 			return Ember.getWithDefault(data, '_embedded.threads', []).map(threadData => {
 				const creationDate = threadData.creationDate,
@@ -83,11 +84,6 @@ const DiscussionForumModel = Ember.Object.extend(
 				post.set('userData.hasUpvoted', hasUpvoted);
 			});
 		}
-	}
-);
-
-DiscussionForumModel.reopenClass(
-	{
 	}
 );
 

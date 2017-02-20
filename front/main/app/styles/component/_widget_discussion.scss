@@ -1,0 +1,139 @@
+$article-negative-padding: -$article-horizontal-padding;
+
+.widget-discussions {
+	margin: 0 $article-negative-padding;
+
+	.heading-wrapper {
+		svg {
+			//fill: $discussion-widget-link-color;
+			height: 16px;
+			vertical-align: middle;
+			width: 11px;
+		}
+
+		align-items: center;
+		//background-color: $discussion-widget-heading-background;
+		display: flex;
+		height: 70px;
+		font-size: 12px;
+		padding-top: 0;
+	}
+
+	.heading {
+		font-size: 27px;
+		padding: 18px 0 0 18px;
+	}
+
+	.heading-viewall {
+		//color: $discussion-widget-link-color;
+		margin-left: auto;
+		padding-right: 14px;
+	}
+
+	.loading-overlay {
+		padding-top: 20px;
+		position: relative;
+	}
+
+	.post-title {
+		padding-top: 0;
+	}
+
+	.post-detail {
+		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		margin-bottom: 10px;
+		padding: 0 12px;
+	}
+
+	.post-header {
+		padding-top: 12px;
+
+
+		.avatar {
+			display: inline-block;
+			margin-right: 5px;
+		}
+
+		.avatar-username {
+			@include ellipsis;
+			display: inline-block;
+			font-size: $type-base;
+			max-width: 140px;
+			vertical-align: middle;
+		}
+
+		.timestamp {
+			font-size: $type-min;
+		}
+	}
+
+	.discussion-content {
+		font-size: 0.875rem;
+		margin: 4px 0 6px;
+	}
+
+	.post-title {
+		margin-bottom: 5px;
+		font-size: 1.125rem;
+		font-weight: 600;
+		line-height: 1.5rem;
+	}
+
+	.post-details-link {
+		color: #262626;
+	}
+
+	.post-bottom-row {
+		color: #999;
+		display: flex;
+		font-size: $type-min;
+		justify-content: space-between;
+		padding-bottom: 14px;
+	}
+
+	.post-category-name,
+	.post-counters {
+		align-items: center;
+		display: flex;
+	}
+
+	.post-counters {
+		.icon {
+			@include square(14px);
+			fill: #999;
+			margin-right: 4px;
+		}
+	}
+
+	.post-actions {
+		border-top: 1px solid #e6e6e6;
+		display: flex;
+		list-style: none;
+		margin: 0 -12px;
+		padding: 6px 12px;
+
+		.icon {
+			@include square(24px);
+			fill: #999;
+			margin-right: 2px;
+		}
+	}
+
+	.upvote-area,
+	.replies-area {
+		color: #999;
+		cursor: pointer;
+		flex-grow: 1;
+		font-size: $type-min;
+		font-weight: 500;
+		height: 33px;
+	}
+
+	.replies-area {
+		text-align: right;
+
+		a {
+			color: #999;
+		}
+	}
+}

@@ -1,10 +1,10 @@
 {{#if posts}}
 	<h1 class="heading-wrapper">
 		<h2 class="heading">
-			{{{i18n 'main.discussions-header-title' ns='discussion'}}}
+			{{i18n 'widget-discussions.header-title'}}
 		</h2>
 		<a href="/d/f" class='heading-viewall'>
-			{{{i18n 'main.all-discussions-link-mobile' ns='discussion'}}}
+			{{i18n 'widget-discussions.all-discussions-link-mobile'}}
 			{{svg 'arrow-right-long'}}
 		</a>
 	</h1>
@@ -32,6 +32,8 @@
 			{{/if}}
 			<a class="post-details-link clamp" href="/d/p/{{post.threadId}}">TODO content and links</a>
 		</div>
+		<!--
+		TODO
 		<a id="ember1087" href="http://www.history.com/topics/great-depression" title="www.history.com" target="_blank" class="og-container large-image-card-mobile small-image-card-desktop">
 			<img class="og-image" src="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/525/height/295" srcset="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 380w, http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 5000w" alt="The Great Depression - Facts &amp; Summary - HISTORY.com">
 			<div class="og-texts">
@@ -43,35 +45,34 @@
 				</span>
 			</div>
 		</a>
+		-->
 		<div class="row post-bottom-row">
 			<span class="post-category-name">
 				in General
 			</span>
 			<span class="post-counters">
 				<span class="upvote-count">
-					<svg class="icon upvote" viewBox="0 0 14 14"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#upvote-tiny"></use></svg>
+					{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 					{{post.upvoteCount}}
 				</span>
 				<span class="reply-count">
-					<svg class="icon replies" viewBox="0 0 14 14"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#reply-tiny"></use></svg>
+					{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
 					{{post.repliesCount}}
 				</span>
 			</span>
 		</div>
-		<div>
-			<ul class="row post-actions">
-				<li class="small-4 large-4 upvote-area upvote " data-ember-action="1114">
-					<svg class="icon upvote" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#upvote"></use></svg>
-					Upvote
-				</li>
-				<li class="small-4 large-4 replies replies-area" data-ember-action="1115">
-					<a href="/d/p/{{post.threadId}}">
-						<svg class="icon replies" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#reply"></use></svg>
-						Reply
-					</a>
-				</li>
-			</ul>
-		</div>
+		<ul class="row post-actions">
+			<li class="small-4 large-4 upvote-area upvote">
+				{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+				{{i18n 'widget-discussions.post-actions-upvote-label'}}
+			</li>
+			<li class="small-4 large-4 replies replies-area" data-ember-action="1115">
+				<a href="/d/p/{{post.threadId}}">
+					{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
+					{{i18n 'widget-discussions.post-actions-replies-label'}}
+				</a>
+			</li>
+		</ul>
 	</div>
 {{else}}
 	{{#if isLoading}}
