@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} MercuryUtilsBuildUrlParams
+ * @typedef {Object} BuildUrlParams
  * @property {string} [namespace] - MediaWiki article namespace
  * @property {string} [path] - Additional URL path appended to the end of the URL before the querystring
  * @property {string} [protocol] - Protocol
@@ -67,7 +67,7 @@ if (typeof window.M === 'undefined') {
 		}
 
 		// At this point, in the case of an unknown local host where the wiki is not in the
-		// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
+		// host string (ie. "mobile-wiki-s1:7001"), it will be left unmodified and returned as-is.
 		return host;
 	};
 
@@ -87,7 +87,7 @@ if (typeof window.M === 'undefined') {
 	 *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
 	 *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
 	 *
-	 * @param {MercuryUtilsBuildUrlParams} urlParams
+	 * @param {BuildUrlParams} urlParams
 	 * @param {Object} [context=window] - Window context
 	 * @returns {string}
 	 */

@@ -9,7 +9,7 @@
  */
 
 import Ember from 'ember';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 const {Component} = Ember;
 
@@ -38,7 +38,7 @@ export default Component.extend(
 			const trackLabel = this.get('trackLabel');
 
 			if (trackLabel) {
-				mercuryTrack({
+				track({
 					action: trackActions.click,
 					category: 'wikia-button',
 					label: trackLabel

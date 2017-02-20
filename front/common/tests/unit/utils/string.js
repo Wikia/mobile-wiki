@@ -1,4 +1,4 @@
-QUnit.module('mercury/utils/string', function () {
+QUnit.module('common/utils/string', function () {
 	QUnit.test('sanitizing title', function (assert) {
 		var string = require('common/utils/string'),
 			testCases = [
