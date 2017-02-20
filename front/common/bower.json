@@ -1,6 +1,6 @@
 {
-  "name": "mercury-common",
-  "homepage": "https://github.com/Wikia/mercury",
+  "name": "mobile-wiki-common",
+  "homepage": "https://github.com/Wikia/mobile-wiki",
   "license": "MIT",
   "private": true,
   "devDependencies": {

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
@@ -9,7 +9,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			trackClick(trackingLabel) {
-				mercuryTrack({
+				track({
 					action: trackActions.click,
 					category: 'main-page',
 					label: trackingLabel

@@ -24,7 +24,7 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ViewportMixin,
@@ -83,7 +83,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			trackClick() {
-				mercuryTrack({
+				track({
 					action: trackActions.click,
 					category: 'wikiname',
 					label: ''

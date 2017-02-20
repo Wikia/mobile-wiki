@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/video-loader', function (hooks) {
+QUnit.module('common/modules/video-loader', function (hooks) {
 	var VideoLoader,
 		getInstance = function (params) {
 			return new VideoLoader(params);
