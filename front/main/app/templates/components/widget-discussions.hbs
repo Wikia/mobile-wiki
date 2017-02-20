@@ -1,5 +1,5 @@
 {{#if posts}}
-	<h1 class="heading-wrapper">
+	<div class="heading-wrapper">
 		<h2 class="heading">
 			{{i18n 'widget-discussions.header-title'}}
 		</h2>
@@ -7,7 +7,7 @@
 			{{i18n 'widget-discussions.all-discussions-link-mobile'}}
 			{{svg 'arrow-right-long'}}
 		</a>
-	</h1>
+	</div>
 {{/if}}
 {{#each posts as |post|}}
 	<div class="post-detail">

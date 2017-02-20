@@ -1,5 +1,5 @@
 $article-negative-padding: -$article-horizontal-padding;
-
+// TODO colors and sizes as variables
 .widget-discussions {
 	margin: 0 $article-negative-padding;
 
@@ -57,7 +57,7 @@ $article-negative-padding: -$article-horizontal-padding;
 		.avatar-username {
 			@include ellipsis;
 			display: inline-block;
-			font-size: $type-base;
+			font-size: 0.875rem;
 			max-width: 140px;
 			vertical-align: middle;
 		}
