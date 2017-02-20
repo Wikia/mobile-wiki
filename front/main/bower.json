@@ -1,5 +1,5 @@
 {
-  "name": "mercury-main",
+  "name": "mobile-wiki-main",
   "dependencies": {
     "design-system": "Wikia/design-system#5.0.0",
     "ember": "2.5.0",

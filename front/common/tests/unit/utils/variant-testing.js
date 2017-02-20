@@ -1,4 +1,4 @@
-QUnit.module('mercury/utils/variant-testing', function (hooks) {
+QUnit.module('common/utils/variant-testing', function (hooks) {
 	var getLastItem = function () {
 		return window.optimizely[window.optimizely.length - 1];
 	};

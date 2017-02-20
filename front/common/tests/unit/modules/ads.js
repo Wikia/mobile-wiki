@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/ads', function (hooks) {
+QUnit.module('common/modules/ads', function (hooks) {
 	var Ads, trackerUA,
 		loadStub = sinon.stub().callsArg(1);
 
