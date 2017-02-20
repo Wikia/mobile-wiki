@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 
-const DiscussionForumModel = Ember.Object.extend(
+import {extractDomainFromUrl} from '../utils/domain';
+import {track} from 'common/utils/track';
+
+const {Object: EmberObject, get, getWithDefault} = Ember;
+
+const DiscussionForumModel = EmberObject.extend(
 	{
 		/**
 		 * @param {number} wikiId
@@ -24,10 +29,10 @@ const DiscussionForumModel = Ember.Object.extend(
 		},
 
 		normalizeData(data) {
-			return Ember.getWithDefault(data, '_embedded.threads', []).map(threadData => {
+			return getWithDefault(data, '_embedded.threads', []).map(threadData => {
 				const creationDate = threadData.creationDate,
 					createdBy = threadData.createdBy,
-					post = {
+					post = EmberObject.create({
 						categoryName: threadData.forumName,
 						contentImages: null,
 						createdBy: {
@@ -49,9 +54,29 @@ const DiscussionForumModel = Ember.Object.extend(
 						threadId: threadData.id,
 						upvoteCount: parseInt(threadData.upvoteCount, 10),
 						userData: null,
-					};
+					}),
+					userData = get(threadData, '_embedded.userData.0'),
+					openGraphData = get(threadData, '_embedded.openGraph.0');
 
-				// TODO userdata, opengraph, contentImages
+				if (userData) {
+					post.set('userData', EmberObject.create({
+						hasUpvoted: userData.hasUpvoted,
+					}));
+				}
+
+				if (openGraphData) {
+					post.set('openGraph', EmberObject.create({
+						description: openGraphData.description,
+						domain: extractDomainFromUrl(openGraph.url),
+						imageHeight: openGraphData.imageHeight,
+						imageUrl: openGraphData.imageUrl,
+						imageWidth: openGraphData.imageWidth,
+						siteName: openGraphData.siteName,
+						title: openGraphData.title,
+						type: openGraphData.type,
+						url: openGraphData.url,
+					}));
+				}
 
 				return post;
 			});
@@ -62,27 +87,33 @@ const DiscussionForumModel = Ember.Object.extend(
 		 * @returns {void}
 		 */
 		upvote(post) {
-			const entityId = post.get('id'),
-				hasUpvoted = post.get('userData.hasUpvoted'),
+			const hasUpvoted = post.get('userData.hasUpvoted'),
 				method = hasUpvoted ? 'delete' : 'post';
 
 			// the change in the front-end is done here
 			post.set('userData.hasUpvoted', !hasUpvoted);
 
-			request(M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
+			request(M.getDiscussionServiceUrl(`/${get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
 				method,
 			}).then((data) => {
 				post.set('upvoteCount', data.upvoteCount);
-
-				// TODO
-				// if (hasUpvoted) {
-				// 	track(trackActions.UndoUpvotePost);
-				// } else {
-				// 	track(trackActions.UpvotePost);
-				// }
 			}).catch(() => {
 				post.set('userData.hasUpvoted', hasUpvoted);
 			});
+
+			if (hasUpvoted) {
+				track({
+					category: 'MobileWebDiscussions',
+					action: 'UndoUpvotePost',
+					label: window.location.origin
+				});
+			} else {
+				track({
+					category: 'MobileWebDiscussions',
+					action: 'UpvotePost',
+					label: window.location.origin
+				});
+			}
 		}
 	}
 );

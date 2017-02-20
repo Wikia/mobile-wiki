@@ -151,4 +151,10 @@ $article-negative-padding: -$article-horizontal-padding;
 			display: flex;
 		}
 	}
+
+	.has-upvoted {
+		.icon {
+			fill: #e3bd00;
+		}
+	}
 }
