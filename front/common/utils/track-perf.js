@@ -12,7 +12,7 @@ const context = {
 	country: M.prop('geo.country'),
 	env: M.prop('environment'),
 	logged_in: Boolean(M.prop('userId')),
-	skin: 'mercury',
+	skin: 'mobile-wiki',
 	url: window.location.href.split('#')[0],
 	'user-agent': window.navigator.userAgent
 };
@@ -30,7 +30,7 @@ function getTracker() {
 		const weppyConfig = M.prop('weppyConfig');
 
 		if (weppyConfig && typeof Weppy === 'function') {
-			tracker = Weppy.namespace('mercury');
+			tracker = Weppy.namespace('mobile-wiki');
 
 			tracker.setOptions({
 				aggregationInterval: weppyConfig.aggregationInterval,
