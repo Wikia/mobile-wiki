@@ -67,7 +67,7 @@ const DiscussionForumModel = EmberObject.extend(
 				if (openGraphData) {
 					post.set('openGraph', EmberObject.create({
 						description: openGraphData.description,
-						domain: extractDomainFromUrl(openGraph.url),
+						domain: extractDomainFromUrl(openGraphData.url),
 						imageHeight: openGraphData.imageHeight,
 						imageUrl: openGraphData.imageUrl,
 						imageWidth: openGraphData.imageWidth,

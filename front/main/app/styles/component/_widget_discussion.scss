@@ -157,4 +157,28 @@ $article-negative-padding: -$article-horizontal-padding;
 			fill: #e3bd00;
 		}
 	}
+
+	.og-container {
+		border: 1px solid #ccc;
+		display: inline-block;
+		margin: 7px 0 9px;
+	}
+
+	.og-texts {
+		padding: 12px 18px;
+		overflow: hidden;
+		word-wrap: break-word;
+	}
+
+	.og-title {
+		color: #333;
+		display: block;
+		font-size: 14px;
+	}
+
+	.og-site-name {
+		color: #999;
+		font-size: $type-min;
+		line-height: $line-height-min;
+	}
 }

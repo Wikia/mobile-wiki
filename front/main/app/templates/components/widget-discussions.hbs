@@ -10,70 +10,10 @@
 	</div>
 {{/if}}
 {{#each posts as |post|}}
-	<div class="post-detail">
-		<div class="post-header">
-			<div class="user-avatar">
-				<figure class="avatar">
-					<a href="{{post.createdBy.profileUrl}}">
-						<img src="{{post.createdBy.avatarUrl}}">
-					</a>
-				</figure>
-				<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
-			</div>
-			<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
-				&bull; {{time-ago post.creationTimestamp}}
-			</span>
-		</div>
-		<div class="discussion-content">
-			{{#if post.title}}
-				<h2 class="post-title">
-					<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
-				</h2>
-			{{/if}}
-			<a class="post-details-link clamp" href="/d/p/{{post.threadId}}">TODO content and links</a>
-		</div>
-		<!--
-		TODO
-		<a id="ember1087" href="http://www.history.com/topics/great-depression" title="www.history.com" target="_blank" class="og-container large-image-card-mobile small-image-card-desktop">
-			<img class="og-image" src="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/525/height/295" srcset="http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 380w, http://static.wikia.nocookie.net/4ce958fc-e0bc-4061-a280-41b16d255156/zoom-crop/width/325/height/182 5000w" alt="The Great Depression - Facts &amp; Summary - HISTORY.com">
-			<div class="og-texts">
-				<span class="og-title">
-					The Great Depression - Facts &amp; Summary - HISTORY.com
-				</span>
-				<span class="og-site-name">
-					HISTORY.com
-				</span>
-			</div>
-		</a>
-		-->
-		<div class="row post-bottom-row">
-			<span class="post-category-name">
-				in General
-			</span>
-			<span class="post-counters">
-				<span class="upvote-count">
-					{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
-					{{post.upvoteCount}}
-				</span>
-				<span class="reply-count">
-					{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
-					{{post.repliesCount}}
-				</span>
-			</span>
-		</div>
-		<ul class="row post-actions">
-			<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" {{action 'upvote' post}}>
-				{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
-				{{i18n 'widget-discussions.post-actions-upvote-label'}}
-			</li>
-			<li class="small-4 large-4 replies replies-area" data-ember-action="1115">
-				<a href="/d/p/{{post.threadId}}">
-					{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
-					{{i18n 'widget-discussions.post-actions-replies-label'}}
-				</a>
-			</li>
-		</ul>
-	</div>
+	{{widget-discussions-post
+		post=post
+		upvote=(action 'upvote')
+	}}
 {{else}}
 	{{#if isLoading}}
 		{{loading-spinner
