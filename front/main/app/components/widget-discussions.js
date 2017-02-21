@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import WidgetDiscussionsModel from '../models/widget-discussion';
+import WidgetDiscussionsModel from '../models/widget-discussions';
 
 const {Component} = Ember;
 
