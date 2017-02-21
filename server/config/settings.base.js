@@ -164,6 +164,9 @@ export default {
 		path: '/whoami',
 		timeout: 3000
 	},
+	discussions: {
+		baseAPIPath: 'discussion'
+	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
