@@ -13,7 +13,7 @@ export default Component.extend(
 
 		model: null,
 
-		didInsertElement() {
+		init() {
 			this._super(...arguments);
 			this.set('model', WidgetDiscussionsModel.create());
 		},
