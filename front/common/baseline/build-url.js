@@ -137,4 +137,12 @@ if (typeof window.M === 'undefined') {
 	M.getUserPermissionsServiceUrl = function (path = '') {
 		return `https://${M.prop('servicesDomain')}/${M.prop('userPermissionsBaseRoute')}${path}`;
 	};
+
+	/**
+	 * @param {string} [path='']
+	 * @returns {string}
+	 */
+	M.getDiscussionServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
+	};
 })(M);

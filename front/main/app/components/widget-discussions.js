@@ -1,61 +1,44 @@
 import Ember from 'ember';
-
-import DiscussionForumModel from '../models/discussion/forum';
-import WidgetDiscussionsModel from '../models/widget-discussions';
 import InViewportMixin from 'ember-in-viewport';
+import WidgetDiscussionsModel from '../models/widget-discussions';
 
-export default Ember.Component.extend(
+const {Component} = Ember;
+
+export default Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['widget-discussions'],
-		classNameBindings: ['forumWrapper', 'discussion', 'forum'],
-		discussion: true,
-		forumWrapper: true,
-		forum: true,
 
-		data: null,
 		isLoading: true,
-		canShowCategories: true,
 
-		model: Ember.computed(() => {
-			return WidgetDiscussionsModel.create();
-		}),
+		model: null,
+
+		init() {
+			this._super(...arguments);
+			this.set('model', WidgetDiscussionsModel.create());
+		},
 
 		/**
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const categoryIds = this.getWithDefault('categoryIds', []),
-				posts = DiscussionForumModel.find(
-					Mercury.wiki.id,
-					categoryIds,
-					this.get('show')
-				);
-
-			posts.then((result) => {
+			this.get('model').find(
+				Mercury.wiki.id,
+				this.getWithDefault('categoryIds', []),
+				this.get('show'),
+				this.get('itemCount')
+			).then((posts) => {
 				this.setProperties({
-					posts: result.data.entities.slice(0, this.get('itemCount')),
+					posts,
 					isLoading: false,
 				});
 			});
 		},
 
 		actions: {
-			upvote(entity) {
-				this.get('model').upvote(entity);
+			upvote(post) {
+				this.get('model').upvote(post);
 			},
-
-			// Placeholders. These action must be present for discussion-post-card-detail to render,
-			// but are not used directly by this component
-			delete() {},
-			lock() {},
-			openEditEditor() {},
-			report() {},
-			undelete() {},
-			unlock() {},
-			setEditorActive() {},
-			reply() {},
-			share() {},
 		}
 	}
 );
