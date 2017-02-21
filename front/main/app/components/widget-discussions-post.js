@@ -7,19 +7,6 @@ const {Component, Handlebars, computed} = Ember;
 export default Component.extend(
 	{
 		classNames: ['post-detail'],
-		autolinkerConfig: {},
-
-		init() {
-			this.autolinkerConfig = {
-				email: false,
-				phone: false,
-				stripPrefix: false,
-				twitter: false,
-				replaceFn: this.getReplaceFn()
-			};
-
-			this._super();
-		},
 
 		openGraphSiteName: computed.or('post.openGraph.domain', 'post.openGraph.siteName'),
 

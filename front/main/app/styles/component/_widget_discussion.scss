@@ -1,36 +1,34 @@
-$article-negative-padding: -$article-horizontal-padding;
-// TODO colors and sizes as variables
 .widget-discussions {
-	margin: 0 $article-negative-padding;
+	margin: 0 -$article-horizontal-padding;
 
 	.heading-wrapper {
 		svg {
-			fill: #00f;
+			fill: $link-color;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
 		}
 
 		align-items: center;
-		background-color: #f6f6f6;
+		background-color: $wds-color-off-white;
 		display: flex;
-		height: 70px;
-		font-size: 12px;
+		min-height: 70px;
+		font-size: $type-min;
 		padding-top: 0;
 	}
 
 	.heading {
-		font-size: 27px;
+		font-size: $type-large;
 		padding: 18px 0 0 18px;
 	}
 
 	.heading-viewall {
-		color: #00f;
 		margin-left: auto;
 		padding-right: 14px;
 	}
 
 	.loading-overlay {
+		height: 100px;
 		padding-top: 20px;
 		position: relative;
 	}
@@ -48,7 +46,6 @@ $article-negative-padding: -$article-horizontal-padding;
 	.post-header {
 		padding-top: 12px;
 
-
 		.avatar {
 			display: inline-block;
 			margin-right: 5px;
@@ -57,40 +54,40 @@ $article-negative-padding: -$article-horizontal-padding;
 		.avatar-username {
 			@include ellipsis;
 			display: inline-block;
-			font-size: 0.875rem;
+			font-size: $type-smallest;
 			max-width: 140px;
 			vertical-align: middle;
 		}
 
 		.timestamp {
-			color: #999;
+			color: $wds-color-light-gray;
 			font-size: $type-min;
-			font-weight: bold;
+			font-weight: $font-weight-bold;
 		}
 	}
 
 	.discussion-content {
-		font-size: 0.875rem;
+		font-size: $type-smallest;
 		margin: 4px 0 6px;
 
 		.url {
-			color: #1A5EB8;
+			color: $link-color;
 		}
 	}
 
 	.post-title {
 		margin-bottom: 5px;
-		font-size: 1.125rem;
+		font-size: $type-smaller;
 		font-weight: 600;
-		line-height: 1.5rem;
+		line-height: $line-height-smaller;
 	}
 
 	.post-details-link {
-		color: #262626;
+		color: $wds-color-night-sky;
 	}
 
 	.post-bottom-row {
-		color: #999;
+		color: $wds-color-light-gray;
 		display: flex;
 		font-size: $type-min;
 		justify-content: space-between;
@@ -103,15 +100,13 @@ $article-negative-padding: -$article-horizontal-padding;
 		display: flex;
 	}
 
-	.post-counters {
-		.icon {
-			@include square(18px);
-			fill: #999;
-			margin-right: 2px;
+	.post-counters .icon {
+		@include square(18px);
+		fill: $wds-color-light-gray;
+		margin-right: 2px;
 
-			&.replies {
-				margin-left: 8px;
-			}
+		&.replies {
+			margin-left: 8px;
 		}
 	}
 
@@ -122,7 +117,7 @@ $article-negative-padding: -$article-horizontal-padding;
 	}
 
 	.post-actions {
-		border-top: 1px solid #e6e6e6;
+		border-top: 1px solid $wds-color-mist-gray;
 		display: flex;
 		list-style: none;
 		margin: 0 -12px;
@@ -130,7 +125,7 @@ $article-negative-padding: -$article-horizontal-padding;
 
 		.icon {
 			@include square(24px);
-			fill: #999;
+			fill: $wds-color-light-gray;
 			margin-right: 2px;
 		}
 	}
@@ -138,32 +133,28 @@ $article-negative-padding: -$article-horizontal-padding;
 	.upvote-area,
 	.replies-area {
 		align-items: center;
-		color: #999;
+		color: $wds-color-light-gray;
 		cursor: pointer;
 		display: flex;
 		flex-grow: 1;
 		font-size: $type-min;
-		font-weight: 500;
+		font-weight: $font-weight-medium;
 		height: 33px;
 		justify-content: center;
 	}
 
-	.replies-area {
-		a {
-			align-items: center;
-			color: #999;
-			display: flex;
-		}
+	.replies-area a {
+		align-items: center;
+		color: $wds-color-light-gray;
+		display: flex;
 	}
 
-	.has-upvoted {
-		.icon {
-			fill: #e3bd00;
-		}
+	.has-upvoted .icon {
+		fill: $wds-color-gold;
 	}
 
 	.og-container {
-		border: 1px solid #ccc;
+		border: 1px solid $wds-color-faint-gray;
 		display: inline-block;
 		margin: 7px 0 9px;
 	}
@@ -175,13 +166,13 @@ $article-negative-padding: -$article-horizontal-padding;
 	}
 
 	.og-title {
-		color: #333;
+		color: $wds-color-dark-gray;
 		display: block;
-		font-size: 14px;
+		font-size: $type-smallest;
 	}
 
 	.og-site-name {
-		color: #999;
+		color: $wds-color-light-gray;
 		font-size: $type-min;
 		line-height: $line-height-min;
 	}
