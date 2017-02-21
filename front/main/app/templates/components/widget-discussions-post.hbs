@@ -1,0 +1,64 @@
+<div class="post-header">
+	<div class="user-avatar">
+		<figure class="avatar">
+			<a href="{{post.createdBy.profileUrl}}">
+				<img src="{{post.createdBy.avatarUrl}}">
+			</a>
+		</figure>
+		<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
+	</div>
+	<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
+		&bull; {{time-ago post.creationTimestamp}}
+	</span>
+</div>
+<div class="discussion-content">
+	{{#if post.title}}
+		<h2 class="post-title">
+			<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
+		</h2>
+	{{/if}}
+	<a class="post-details-link" href="/d/p/{{post.threadId}}">{{parsedContent}}</a>
+</div>
+{{#if post.openGraph}}
+	<a href="{{post.openGraph.uri}}" title="{{post.openGraph.title}}" target="_blank" class="og-container">
+		{{#if openGraphImageUrl}}
+			<img class="og-image" src="{{openGraphImageUrl}}" alt="{{post.openGraph.title}}">
+		{{/if}}
+
+		<div class="og-texts">
+			<span class="og-title">
+				{{post.openGraph.title}}
+			</span>
+			<span class="og-site-name">
+				{{openGraphSiteName}}
+			</span>
+		</div>
+	</a>
+{{/if}}
+<div class="row post-bottom-row">
+	<span class="post-category-name">
+		{{i18n 'widget-discussions.in-category-label' categoryName=post.categoryName}}
+	</span>
+	<span class="post-counters">
+		<span class="upvote-count">
+			{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+			{{post.upvoteCount}}
+		</span>
+		<span class="reply-count">
+			{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
+			{{post.repliesCount}}
+		</span>
+	</span>
+</div>
+<ul class="row post-actions">
+	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" {{action this.attrs.upvote post}}>
+		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+		{{i18n 'widget-discussions.post-actions-upvote-label'}}
+	</li>
+	<li class="small-4 large-4 replies replies-area">
+		<a href="/d/p/{{post.threadId}}">
+			{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
+			{{i18n 'widget-discussions.post-actions-replies-label'}}
+		</a>
+	</li>
+</ul>
