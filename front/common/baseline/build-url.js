@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} MercuryUtilsBuildUrlParams
+ * @typedef {Object} BuildUrlParams
  * @property {string} [namespace] - MediaWiki article namespace
  * @property {string} [path] - Additional URL path appended to the end of the URL before the querystring
  * @property {string} [protocol] - Protocol
@@ -59,7 +59,7 @@ if (typeof window.M === 'undefined') {
 			// (3) Staging env hosted on wikia-staging.com
 			host = host.replace(`${match[1]}.wikia-staging.com`, `${wiki}.wikia-staging.com`);
 		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-			// (4) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
+			// (4) Devbox hosted on wikia-dev.us, wikia-dev.pl, etc.
 			host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
 		} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
 			// (5) Environment using xip.io
@@ -67,7 +67,7 @@ if (typeof window.M === 'undefined') {
 		}
 
 		// At this point, in the case of an unknown local host where the wiki is not in the
-		// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
+		// host string (ie. "mobile-wiki-s1:7001"), it will be left unmodified and returned as-is.
 		return host;
 	};
 
@@ -87,7 +87,7 @@ if (typeof window.M === 'undefined') {
 	 *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
 	 *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
 	 *
-	 * @param {MercuryUtilsBuildUrlParams} urlParams
+	 * @param {BuildUrlParams} urlParams
 	 * @param {Object} [context=window] - Window context
 	 * @returns {string}
 	 */

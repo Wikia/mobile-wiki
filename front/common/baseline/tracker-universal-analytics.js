@@ -43,7 +43,7 @@ if (typeof window.M.tracker === 'undefined') {
 		accountAds = 'ads';
 
 	/**
-	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is called
+	 * We create new tracker instance every time common/utils/track #track or #trackPageView is called
 	 * Google wants us to call methods below just once per account
 	 *
 	 * @param {string} id

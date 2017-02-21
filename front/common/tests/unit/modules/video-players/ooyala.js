@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/video-players/ooyala', function (hooks) {
+QUnit.module('common/modules/video-players/ooyala', function (hooks) {
 	var createPlayerSpy,
 		OoyalaPlayer,
 		getInstance = function (params) {

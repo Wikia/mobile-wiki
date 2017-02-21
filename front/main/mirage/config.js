@@ -1,6 +1,3 @@
-import userActivityReportsFixtures from './fixtures/discussion-user-activity-reports';
-import userActivityPostsFixtures from './fixtures/discussion-user-activity-posts';
-import userActivityModerationsFixtures from './fixtures/discussion-user-activity-moderations';
 import filePageFixture from './fixtures/file-page';
 
 /**
@@ -10,7 +7,8 @@ export default function () {
 	this.passthrough('/write-blanket-coverage');
 	this.passthrough('https://localhost/**');
 
-	this.passthrough('https://services-poz.wikia-dev.com/**');
+	this.passthrough('https://services.wikia-dev.pl/**');
+	this.passthrough('https://services.wikia-dev.us/**');
 	this.passthrough('https://services.wikia.com/**');
 	this.passthrough('/wikia.php');
 	this.passthrough('/api.php');
@@ -47,43 +45,5 @@ export default function () {
 			return;
 		}
 		throw new Error(`Controller or method response isn't yet mocked`);
-	});
-
-
-
-	this.get('https://localhost/discussion/:siteId/threads', (schema, request) => {
-		return schema.discussionThreads.first();
-	});
-
-	this.get('https://localhost/discussion/:siteId/forums', (schema, request) => {
-		return schema.discussionForums.first();
-	});
-
-	this.get('https://localhost/site-attribute/site/:siteId/attr', (schema, request) => {
-		return schema.siteAttributes.first();
-	});
-
-	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboards', (schema, request) => {
-		return userActivityPostsFixtures;
-	});
-
-	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/reports', (schema, request) => {
-		return userActivityReportsFixtures;
-	});
-
-	this.get('https://services-poz.wikia-dev.com/discussion/:forum_id/leaderboard/moderator', (schema, request) => {
-		return userActivityModerationsFixtures;
-	});
-
-	this.get('https://services.wikia.com/discussion/:forum_id/leaderboards', (schema, request) => {
-		return userActivityPostsFixtures;
-	});
-
-	this.get('https://services.wikia.com/discussion/:forum_id/leaderboard/reports', (schema, request) => {
-		return userActivityReportsFixtures;
-	});
-
-	this.get('https://services.wikia.com/discussion/:forum_id/leaderboard/moderator', (schema, request) => {
-		return userActivityModerationsFixtures;
 	});
 }

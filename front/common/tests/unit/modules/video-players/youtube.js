@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/video-players/youtube', function (hooks) {
+QUnit.module('common/modules/video-players/youtube', function (hooks) {
 	var YouTubePlayer,
 		getInstance = function () {
 			var instance = new YouTubePlayer('youtube', {

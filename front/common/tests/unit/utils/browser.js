@@ -1,4 +1,4 @@
-QUnit.module('mercury/utils/browser', function (hooks) {
+QUnit.module('common/utils/browser', function (hooks) {
 
 	var originalNavigator;
 
