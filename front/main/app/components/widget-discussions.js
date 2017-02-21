@@ -22,11 +22,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const categoryIds = this.getWithDefault('categoryIds', []);
-
 			this.get('model').find(
 				Mercury.wiki.id,
-				categoryIds,
+				this.getWithDefault('categoryIds', []),
 				this.get('show'),
 				this.get('itemCount')
 			).then((posts) => {

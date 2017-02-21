@@ -17,7 +17,7 @@
 			<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
 		</h2>
 	{{/if}}
-	<a class="post-details-link" href="/d/p/{{post.threadId}}">{{{parsedContent}}}</a>
+	<a class="post-details-link" href="/d/p/{{post.threadId}}">{{parsedContent}}</a>
 </div>
 {{#if post.openGraph}}
 	<a href="{{post.openGraph.uri}}" title="{{post.openGraph.title}}" target="_blank" class="og-container">
@@ -55,7 +55,7 @@
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
-	<li class="small-4 large-4 replies replies-area" data-ember-action="1115">
+	<li class="small-4 large-4 replies replies-area">
 		<a href="/d/p/{{post.threadId}}">
 			{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
 			{{i18n 'widget-discussions.post-actions-replies-label'}}

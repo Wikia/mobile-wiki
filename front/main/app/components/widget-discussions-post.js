@@ -29,7 +29,7 @@ export default Component.extend(
 			escapedContent = truncate(escapedContent, 148);
 			escapedContent = nl2br(escapedContent);
 
-			return escapedContent;
+			return new Handlebars.SafeString(escapedContent);
 		})
 	}
 );

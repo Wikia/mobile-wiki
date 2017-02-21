@@ -6,7 +6,7 @@ import {track} from 'common/utils/track';
 
 const {Object: EmberObject, get, getWithDefault} = Ember;
 
-const DiscussionForumModel = EmberObject.extend(
+export default EmberObject.extend(
 	{
 		/**
 		 * @param {number} wikiId
@@ -92,7 +92,7 @@ const DiscussionForumModel = EmberObject.extend(
 			const hasUpvoted = post.get('userData.hasUpvoted'),
 				method = hasUpvoted ? 'delete' : 'post';
 
-			// the change in the front-end is done here
+			// Update frontend immediately. If error occurs then we revert state
 			post.set('userData.hasUpvoted', !hasUpvoted);
 
 			request(M.getDiscussionServiceUrl(`/${get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
@@ -103,21 +103,11 @@ const DiscussionForumModel = EmberObject.extend(
 				post.set('userData.hasUpvoted', hasUpvoted);
 			});
 
-			if (hasUpvoted) {
-				track({
-					category: 'MobileWebDiscussions',
-					action: 'UndoUpvotePost',
-					label: window.location.origin
-				});
-			} else {
-				track({
-					category: 'MobileWebDiscussions',
-					action: 'UpvotePost',
-					label: window.location.origin
-				});
-			}
+			track({
+				category: 'MobileWebDiscussions',
+				action: hasUpvoted ? 'UndoUpvotePost' : 'UpvotePost',
+				label: window.location.origin
+			});
 		}
 	}
 );
-
-export default DiscussionForumModel;
