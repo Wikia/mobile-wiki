@@ -19,6 +19,8 @@ if (typeof window.M === 'undefined') {
 
 		scriptElement.async = false;
 		scriptElement.src = src;
+		// Always send Origin header so we can use mobile-wiki.nocookie.net for all environments
+		scriptElement.crossOrigin = 'anonymous';
 		document.head.appendChild(scriptElement);
 	}
 

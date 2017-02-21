@@ -1,6 +1,6 @@
 import {PageRequestHelper} from '../lib/mediawiki-page';
 import {disableCache} from '../lib/caching';
-import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/utils';
+import {getCachedWikiDomainName} from '../lib/utils';
 import settings from '../../config/settings';
 import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
@@ -39,9 +39,6 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 		htmlTitle: 'Article preview | Fandom powered by Wikia',
 		// required in server-data.hbs
 		userId: 0,
-		server: {
-			cdnBaseUrl: getCDNBaseUrl(settings)
-		},
 		// required for UniversalAnalytics to work
 		tracking: settings.tracking,
 		// clone object to avoid overriding real settings for future requests
