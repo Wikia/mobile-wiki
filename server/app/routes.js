@@ -54,7 +54,12 @@ let routes,
 		{
 			method: 'GET',
 			path: '/mobile-wiki/{path*}',
-			handler: assetsHandler
+			handler: assetsHandler,
+			config: {
+				cors: {
+					origin: ['*']
+				}
+			}
 		},
 		{
 			method: 'GET',
