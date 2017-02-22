@@ -1,12 +1,15 @@
 {
+  "add-photo": {
+    "error": "Sorry, it looks like something went wrong. Please try again.",
+    "instruction": "The image will be added to the end of the section",
+    "page-add-button": "Add",
+    "page-heading": "Adding photo to:",
+    "photo-name": "Photo Name",
+    "section-title-error": "Invalid title.",
+    "success": "A photo has been added to the page."
+  },
   "app": {
-    "add-photo-error": "Sorry, it looks like something went wrong. Please try again.",
-    "add-photo-instruction": "The image will be added to the end of the section",
-    "add-photo-page-add-button": "Add",
-    "add-photo-page-heading": "Adding photo to:",
-    "add-photo-photo-name": "Photo Name",
-    "add-photo-section-title-error": "Invalid title.",
-    "add-photo-success": "A photo has been added to the page.",
+    "advertisement-label": "Advertisement",
     "article-categories-list-label": "Categories",
     "article-comments-label": "__count__ comment",
     "article-comments-label_plural": "__count__ comments",
@@ -23,14 +26,15 @@
     "article-toc-label": "Table of Contents",
     "article-top-contributors-label": "Top Contributors to this article",
     "cancel-label": "Cancel",
+    "category-page-load-error": "Sorry, it looks like something went wrong. Please try again.",
     "category-page-load-more": "Load more",
     "category-page-load-previous": "Load previous",
     "category-page-no-members": "This category currently contains no pages.",
     "category-page-subtitle": "Category Page",
-    "category-page-load-error": "Sorry, it looks like something went wrong. Please try again.",
     "comments-next-button": "Next page",
     "comments-prev-button": "Previous page",
     "curated-content-load-more-items": "Load more",
+    "discussions-label": "Discussions",
     "edit-load-error": "Sorry, it looks like something went wrong. Please try again.",
     "edit-page-heading": "Editing:",
     "edit-page-publish": "Publish",
@@ -68,22 +72,20 @@
     "user-menu-profile": "Profile",
     "username-anonymous": "A Fandom User",
     "videos-label": "Videos",
-    "discussions-label": "Discussions",
     "view-more": "View more",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button": "Refresh",
-    "wikia-map-view-map": "View",
-    "advertisement-label": "Advertisement"
+    "wikia-map-view-map": "View"
   },
-  "userStatus": {
+  "user-status": {
     "login-text": "Sign In",
     "register-text": "Register"
   },
   "widget-discussions": {
-    "header-title": "Discussions",
     "all-discussions-link-mobile": "All Discussions",
-    "post-actions-upvote-label": "Upvote",
+    "header-title": "Discussions",
+    "in-category-label": "in __categoryName__",
     "post-actions-reply-label": "Reply",
-    "in-category-label": "in __categoryName__"
+    "post-actions-upvote-label": "Upvote"
   }
 }

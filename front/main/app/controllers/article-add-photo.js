@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	errorCodeMap: {
-		invalidtitle: 'app.add-photo-section-title-error',
+		invalidtitle: 'add-photo.section-title-error',
 		noedit: 'app.edit-publish-error-noedit',
 		'noedit-anon': 'app.edit-publish-error-noedit-anon'
 	},
@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
 
 		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
-				message: i18n.t('app.add-photo-success'),
+				message: i18n.t('add-photo.success'),
 				type: 'success'
 			});
 		});
@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
 	 */
 	handleError(error) {
 		const appController = this.get('application'),
-			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
+			errorMsg = this.errorCodeMap[error] || 'add-photo.error';
 
 		appController.addAlert({
 			message: i18n.t(errorMsg),
