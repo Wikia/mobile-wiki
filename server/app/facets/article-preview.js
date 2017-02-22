@@ -11,10 +11,11 @@ import deepExtend from 'deep-extend';
  *
  * @param {string} title title of article to preview
  * @param {MediaWikiPageData} article
+ * @param {string} wikiDomain
  * @param {Object} [wikiVariables={}]
  * @returns {Object}
  */
-function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
+function prepareArticleDataToPreview(title, article, wikiDomain, wikiVariables = {}) {
 	return {
 		articlePage: {
 			data: {
@@ -44,7 +45,10 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 		// clone object to avoid overriding real settings for future requests
 		settings: deepExtend({}, settings),
 		isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl',
-		preview: true
+		preview: true,
+		server: {
+			mediawikiDomain: wikiDomain,
+		}
 	};
 }
 
@@ -74,7 +78,12 @@ export default function articlePreview(request, reply) {
 				throw new Error('Invalid payload received from API: ', content);
 			}
 
-			articleData = prepareArticleDataToPreview(request.payload.title, content.data.article, content.wikiVariables);
+			articleData = prepareArticleDataToPreview(
+				request.payload.title,
+				content.data.article,
+				wikiDomain,
+				content.wikiVariables
+			);
 
 			response = reply.view('article', articleData);
 			response.code(200);
