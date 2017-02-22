@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "Advertisement",
     "cancel-label": "Cancel",
-    "comments-next-button": "Next page",
-    "comments-prev-button": "Previous page",
     "curated-content-load-more-items": "Load more",
     "discussions-label": "Discussions",
     "explore-wiki": "Explore __wikiName__",
@@ -54,6 +52,10 @@
     "suggestions-label": "Read More",
     "toc-label": "Table of Contents",
     "top-contributors-label": "Top Contributors to this article"
+  },
+  "article-comments": {
+    "next-button": "Next page",
+    "prev-button": "Previous page"
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",

@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "Advertisement",
     "cancel-label": "Cancel",
-    "comments-next-button": "Seuraava sivu",
-    "comments-prev-button": "Edellinen sivu",
     "curated-content-load-more-items": "Load more",
     "discussions-label": "Discussions",
     "explore-wiki": "Explore __wikiName__",
@@ -57,6 +55,10 @@
     "suggestions-label": "Lue lisää",
     "toc-label": "Sisällysluettelo",
     "top-contributors-label": "Top Contributors to this article"
+  },
+  "article-comments": {
+    "next-button": "Seuraava sivu",
+    "prev-button": "Edellinen sivu"
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",

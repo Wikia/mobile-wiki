@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "Werbung",
     "cancel-label": "Abbrechen",
-    "comments-next-button": "Nächste Seite",
-    "comments-prev-button": "Vorherige Seite",
     "curated-content-load-more-items": "Mehr anzeigen",
     "discussions-label": "Diskussionen",
     "explore-wiki": "__wikiName__ erkunden",
@@ -57,6 +55,10 @@
     "suggestions-label": "Mehr anzeigen",
     "toc-label": "Inhaltsverzeichnis",
     "top-contributors-label": "Top-Autoren in diesem Artikel"
+  },
+  "article-comments": {
+    "next-button": "Nächste Seite",
+    "prev-button": "Vorherige Seite"
   },
   "category-page": {
     "load-error": "Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",

@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "Advertisement",
     "cancel-label": "Cancel",
-    "comments-next-button": "Nästa sida",
-    "comments-prev-button": "Föregående sida",
     "curated-content-load-more-items": "Load more",
     "discussions-label": "Discussions",
     "explore-wiki": "Explore __wikiName__",
@@ -57,6 +55,10 @@
     "suggestions-label": "Läs mer",
     "toc-label": "Innehållsförteckning",
     "top-contributors-label": "Top Contributors to this article"
+  },
+  "article-comments": {
+    "next-button": "Nästa sida",
+    "prev-button": "Föregående sida"
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",

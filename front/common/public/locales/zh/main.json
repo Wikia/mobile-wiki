@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "廣告",
     "cancel-label": "取消",
-    "comments-next-button": "後一頁",
-    "comments-prev-button": "前一頁",
     "curated-content-load-more-items": "加載更多",
     "discussions-label": "討論版",
     "explore-wiki": "瀏覽__wikiName__",
@@ -57,6 +55,10 @@
     "suggestions-label": "瀏覽更多",
     "toc-label": "内容列表",
     "top-contributors-label": "這篇文章的傑出貢獻者"
+  },
+  "article-comments": {
+    "next-button": "後一頁",
+    "prev-button": "前一頁"
   },
   "category-page": {
     "load-error": "發生錯誤。抱歉，請再試一次。",

@@ -11,8 +11,6 @@
   "app": {
     "advertisement-label": "広告",
     "cancel-label": "キャンセル",
-    "comments-next-button": "次のページ",
-    "comments-prev-button": "前のページ",
     "curated-content-load-more-items": "もっと見る",
     "discussions-label": "ディスカッション",
     "explore-wiki": "__wikiName__",
@@ -57,6 +55,10 @@
     "suggestions-label": "もっと読む",
     "toc-label": "目次",
     "top-contributors-label": "この記事のトップ投稿者"
+  },
+  "article-comments": {
+    "next-button": "次のページ",
+    "prev-button": "前のページ"
   },
   "category-page": {
     "load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。",
