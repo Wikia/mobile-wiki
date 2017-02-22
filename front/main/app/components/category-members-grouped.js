@@ -36,7 +36,7 @@ export default Component.extend(
 					})
 					.catch((error) => {
 						this.addAlert({
-							message: i18n.t('app.category-page-load-error'),
+							message: i18n.t('category-page.load-error'),
 							type: 'alert'
 						});
 

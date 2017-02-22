@@ -14,11 +14,11 @@ export default Ember.Controller.extend({
 
 	// FIXME: Cover more errors
 	errorCodeMap: {
-		autoblockedtext: 'app.edit-publish-error-autoblockedtext',
-		blocked: 'app.edit-publish-error-blocked',
-		noedit: 'app.edit-publish-error-noedit',
-		'noedit-anon': 'app.edit-publish-error-noedit-anon',
-		protectedpage: 'app.edit-publish-error-protectedpage'
+		autoblockedtext: 'edit.publish-error-autoblockedtext',
+		blocked: 'edit.publish-error-blocked',
+		noedit: 'edit.publish-error-noedit',
+		'noedit-anon': 'edit.publish-error-noedit-anon',
+		protectedpage: 'edit.publish-error-protectedpage'
 	},
 
 	/**
@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
 
 		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
-				message: i18n.t('app.edit-success', {
+				message: i18n.t('edit.success', {
 					pageTitle: title
 				}),
 				type: 'success'
@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
 	 */
 	handlePublishError(error) {
 		const appController = this.get('application'),
-			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
+			errorMsg = this.errorCodeMap[error] || 'edit.publish-error';
 
 		appController.addAlert({
 			message: i18n.t(errorMsg),

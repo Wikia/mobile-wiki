@@ -57,7 +57,7 @@ export default Component.extend(
 					this.handleJumpLink();
 					this.injectPlacementTest();
 				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
+					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
 				}
 
 				this.injectAds();

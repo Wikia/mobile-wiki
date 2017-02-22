@@ -150,7 +150,7 @@ export default Object.extend({
 				route: 'wiki-page',
 				// will generate href="/wiki/"
 				href: '',
-				name: i18n.t('app.explore-wiki', {wikiName: this.get('wikiName')})
+				name: i18n.t('navigation.explore-wiki', {wikiName: this.get('wikiName')})
 			}] || [];
 	}),
 
@@ -184,7 +184,7 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'nav-menu-item',
-				name: i18n.t('app.random-page-label'),
+				name: i18n.t('navigation.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'
 			}] || [];
