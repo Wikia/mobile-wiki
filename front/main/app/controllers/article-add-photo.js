@@ -8,8 +8,8 @@ export default Ember.Controller.extend({
 
 	errorCodeMap: {
 		invalidtitle: 'add-photo.section-title-error',
-		noedit: 'app.edit-publish-error-noedit',
-		'noedit-anon': 'app.edit-publish-error-noedit-anon'
+		noedit: 'edit.publish-error-noedit',
+		'noedit-anon': 'edit.publish-error-noedit-anon'
 	},
 
 	/**
