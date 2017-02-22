@@ -83,7 +83,7 @@
     "header-title": "Discussions",
     "all-discussions-link-mobile": "All Discussions",
     "post-actions-upvote-label": "Upvote",
-    "post-actions-replies-label": "Replies",
-    "in-category-label": "In __categoryName__"
+    "post-actions-reply-label": "Reply",
+    "in-category-label": "in __categoryName__"
   }
 }

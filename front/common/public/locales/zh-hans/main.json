@@ -169,5 +169,12 @@
     "anon-cta":"__registerLink__或__loginLink__",
     "login-text":"登入",
     "register-text":"注册"
+  },
+  "widget-discussions": {
+    "header-title": "讨论版",
+    "all-discussions-link-mobile": "所有讨论",
+    "post-actions-upvote-label": "赞",
+    "post-actions-reply-label": "回复",
+    "in-category-label": "__categoryName__"
   }
 }

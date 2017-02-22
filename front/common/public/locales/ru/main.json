@@ -169,5 +169,12 @@
     "anon-cta":"__registerLink__ или __loginLink__",
     "login-text":"Войти",
     "register-text":"Зарегистрироваться"
+  },
+  "widget-discussions": {
+    "header-title": "Обсуждения",
+    "all-discussions-link-mobile": "Все обсуждения",
+    "post-actions-upvote-label": "Оценить",
+    "post-actions-reply-label": "Комментировать",
+    "in-category-label": "__categoryName__"
   }
 }

@@ -169,5 +169,12 @@
     "anon-cta":"__registerLink__または__loginLink__",
     "login-text":"ログイン",
     "register-text":"登録"
+  },
+  "widget-discussions": {
+    "header-title": "ディスカッション",
+    "all-discussions-link-mobile": "すべてのディスカッション",
+    "post-actions-upvote-label": "イイね！",
+    "post-actions-reply-label": "返信",
+    "in-category-label": "__categoryName__"
   }
 }

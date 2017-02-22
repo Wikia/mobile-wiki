@@ -169,5 +169,12 @@
     "anon-cta":"__registerLink__ oder __loginLink__",
     "login-text":"Anmelden",
     "register-text":"Registrieren"
+  },
+  "widget-discussions": {
+    "all-discussions-link-mobile": "Alle Diskussionen",
+    "post-actions-reply-label": "Antworten",
+    "header-title": "Diskussionen",
+    "in-category-label": "__categoryName__",
+    "post-actions-upvote-label": "Abstimmen"
   }
 }
