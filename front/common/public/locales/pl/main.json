@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Reklama",
     "cancel-label": "Anuluj",
-    "category-page-load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
-    "category-page-load-more": "Załaduj więcej",
-    "category-page-load-previous": "Załaduj poprzednie",
-    "category-page-no-members": "Obecnie brak stron w tej kategorii.",
-    "category-page-subtitle": "Strona kategorii",
     "comments-next-button": "Następna strona",
     "comments-prev-button": "Poprzednia strona",
     "curated-content-load-more-items": "Załaduj więcej",
@@ -68,6 +63,13 @@
     "suggestions-label": "Czytaj dalej",
     "toc-label": "Spis treści",
     "top-contributors-label": "Najlepsi współtwórcy tego artykułu"
+  },
+  "category-page": {
+    "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
+    "load-more": "Załaduj więcej",
+    "load-previous": "Załaduj poprzednie",
+    "no-members": "Obecnie brak stron w tej kategorii.",
+    "subtitle": "Strona kategorii"
   },
   "edit": {
     "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",

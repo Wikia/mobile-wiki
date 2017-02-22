@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Werbung",
     "cancel-label": "Abbrechen",
-    "category-page-load-error": "Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
-    "category-page-load-more": "Mehr anzeigen",
-    "category-page-load-previous": "Vorherige anzeigen",
-    "category-page-no-members": "Diese Kategorie enthält zur Zeit keine Seiten.",
-    "category-page-subtitle": "Kategorienseite",
     "comments-next-button": "Nächste Seite",
     "comments-prev-button": "Vorherige Seite",
     "curated-content-load-more-items": "Mehr anzeigen",
@@ -68,6 +63,13 @@
     "suggestions-label": "Mehr anzeigen",
     "toc-label": "Inhaltsverzeichnis",
     "top-contributors-label": "Top-Autoren in diesem Artikel"
+  },
+  "category-page": {
+    "load-error": "Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
+    "load-more": "Mehr anzeigen",
+    "load-previous": "Vorherige anzeigen",
+    "no-members": "Diese Kategorie enthält zur Zeit keine Seiten.",
+    "subtitle": "Kategorienseite"
   },
   "edit": {
     "load-error": "Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",

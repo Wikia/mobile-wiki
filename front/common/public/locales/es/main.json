@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Anuncio",
     "cancel-label": "Cancelar",
-    "category-page-load-error": "Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.",
-    "category-page-load-more": "Cargar más",
-    "category-page-load-previous": "Cargar anterior",
-    "category-page-no-members": "Esta categoría no contiene actualmente ninguna página.",
-    "category-page-subtitle": "Página de categoría",
     "comments-next-button": "Página siguiente",
     "comments-prev-button": "Página anterior",
     "curated-content-load-more-items": "Cargar más",
@@ -68,6 +63,13 @@
     "suggestions-label": "Leer más",
     "toc-label": "Tabla de contenidos",
     "top-contributors-label": "Principales editores de este artículo"
+  },
+  "category-page": {
+    "load-error": "Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.",
+    "load-more": "Cargar más",
+    "load-previous": "Cargar anterior",
+    "no-members": "Esta categoría no contiene actualmente ninguna página.",
+    "subtitle": "Página de categoría"
   },
   "edit": {
     "load-error": "Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.",

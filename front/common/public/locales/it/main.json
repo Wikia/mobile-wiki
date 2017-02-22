@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Pubblicità",
     "cancel-label": "Annulla",
-    "category-page-load-error": "Purtroppo qualcosa è andato storto. Riprova.",
-    "category-page-load-more": "Carica altro",
-    "category-page-load-previous": "Carica precedente",
-    "category-page-no-members": "Al momento questa categoria non contiene pagine.",
-    "category-page-subtitle": "Pagina della categoria",
     "comments-next-button": "Pagina successiva",
     "comments-prev-button": "Pagina precedente",
     "curated-content-load-more-items": "Carica altro",
@@ -68,6 +63,13 @@
     "suggestions-label": "Per saperne di più",
     "toc-label": "Indice",
     "top-contributors-label": "Maggiori contributori di questo articolo"
+  },
+  "category-page": {
+    "load-error": "Purtroppo qualcosa è andato storto. Riprova.",
+    "load-more": "Carica altro",
+    "load-previous": "Carica precedente",
+    "no-members": "Al momento questa categoria non contiene pagine.",
+    "subtitle": "Pagina della categoria"
   },
   "edit": {
     "load-error": "Qualcosa è andato storto. Riprova.",

@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Publicité",
     "cancel-label": "Annuler",
-    "category-page-load-error": "Désolé, un problème est survenu. Veuillez réessayer.",
-    "category-page-load-more": "En charger plus",
-    "category-page-load-previous": "Charger la précédente",
-    "category-page-no-members": "Cette catégorie ne contient aucune page à l'heure actuelle.",
-    "category-page-subtitle": "Page de catégorie",
     "comments-next-button": "Page suivante",
     "comments-prev-button": "Page précédente",
     "curated-content-load-more-items": "Importer plus",
@@ -68,6 +63,13 @@
     "suggestions-label": "Lire plus",
     "toc-label": "Sommaire",
     "top-contributors-label": "Meilleurs contributeurs de cet article"
+  },
+  "category-page": {
+    "load-error": "Désolé, un problème est survenu. Veuillez réessayer.",
+    "load-more": "En charger plus",
+    "load-previous": "Charger la précédente",
+    "no-members": "Cette catégorie ne contient aucune page à l'heure actuelle.",
+    "subtitle": "Page de catégorie"
   },
   "edit": {
     "load-error": "Désolés, il y a eu un problème. Merci de réessayer.",

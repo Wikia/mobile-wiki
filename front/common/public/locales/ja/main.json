@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "広告",
     "cancel-label": "キャンセル",
-    "category-page-load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。",
-    "category-page-load-more": "さらに表示",
-    "category-page-load-previous": "前のページ",
-    "category-page-no-members": "このカテゴリにはページがありません。",
-    "category-page-subtitle": "カテゴリページ",
     "comments-next-button": "次のページ",
     "comments-prev-button": "前のページ",
     "curated-content-load-more-items": "もっと見る",
@@ -68,6 +63,13 @@
     "suggestions-label": "もっと読む",
     "toc-label": "目次",
     "top-contributors-label": "この記事のトップ投稿者"
+  },
+  "category-page": {
+    "load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。",
+    "load-more": "さらに表示",
+    "load-previous": "前のページ",
+    "no-members": "このカテゴリにはページがありません。",
+    "subtitle": "カテゴリページ"
   },
   "edit": {
     "load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。",

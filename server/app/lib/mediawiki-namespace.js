@@ -42,5 +42,5 @@ export function isContentNamespace(ns, contentNamespaces = []) {
 
 export const namespaceSubtitleMessageKeys = {
 	[namespace.FILE]: 'app.file-page-subtitle',
-	[namespace.CATEGORY]: 'app.category-page-subtitle'
+	[namespace.CATEGORY]: 'category-page.subtitle'
 };

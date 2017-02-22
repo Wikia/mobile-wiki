@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "广告",
     "cancel-label": "取消",
-    "category-page-load-error": "出现错误，对不起，请再试一次。",
-    "category-page-load-more": "加载更多",
-    "category-page-load-previous": "加载前一个",
-    "category-page-no-members": "当前类别不包含任何页面。",
-    "category-page-subtitle": "类别页面",
     "comments-next-button": "下一页",
     "comments-prev-button": "前一页",
     "curated-content-load-more-items": "加载更多",
@@ -68,6 +63,13 @@
     "suggestions-label": "浏览更多",
     "toc-label": "内容列表",
     "top-contributors-label": "这篇文章的杰出编辑者"
+  },
+  "category-page": {
+    "load-error": "出现错误，对不起，请再试一次。",
+    "load-more": "加载更多",
+    "load-previous": "加载前一个",
+    "no-members": "当前类别不包含任何页面。",
+    "subtitle": "类别页面"
   },
   "edit": {
     "load-error": "出现错误。对不起，请再试一次。",

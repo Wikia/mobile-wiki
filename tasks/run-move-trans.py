@@ -2,16 +2,11 @@ import os
 
 strings = [
     "load-error",
-    "page-heading",
-    "page-publish",
-    "publish-error",
-    "publish-error-autoblockedtext",
-    "publish-error-blocked",
-    "publish-error-noedit",
-    "publish-error-noedit-anon",
-    "publish-error-protectedpage",
-    "success",
+    "load-more",
+    "load-previous",
+    "no-members",
+    "subtitle",
 ]
 
 for strr in strings:
-    os.system('python move-trans.py main:app:edit-' + strr + ' main:edit:' + strr)
+    os.system('python move-trans.py main:app:category-page-' + strr + ' main:category-page:' + strr)

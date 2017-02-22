@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Advertisement",
     "cancel-label": "Cancel",
-    "category-page-load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "category-page-load-more": "Load more",
-    "category-page-load-previous": "Load previous",
-    "category-page-no-members": "This category currently contains no pages.",
-    "category-page-subtitle": "Category Page",
     "comments-next-button": "Próxima página",
     "comments-prev-button": "Página anterior",
     "curated-content-load-more-items": "Load more",
@@ -68,6 +63,13 @@
     "suggestions-label": "Ler mais",
     "toc-label": "Tabela de conteúdo",
     "top-contributors-label": "Top contribuidores deste artigo"
+  },
+  "category-page": {
+    "load-error": "Sorry, it looks like something went wrong. Please try again.",
+    "load-more": "Load more",
+    "load-previous": "Load previous",
+    "no-members": "This category currently contains no pages.",
+    "subtitle": "Category Page"
   },
   "edit": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",

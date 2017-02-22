@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "Реклама",
     "cancel-label": "Отмена",
-    "category-page-load-error": "К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",
-    "category-page-load-more": "Загрузить ещё",
-    "category-page-load-previous": "Загрузить предыдущие",
-    "category-page-no-members": "В настоящее время эта категория пуста.",
-    "category-page-subtitle": "Страница категории",
     "comments-next-button": "Следующая страница",
     "comments-prev-button": "Предыдущая страница",
     "curated-content-load-more-items": "Загрузить ещё",
@@ -68,6 +63,13 @@
     "suggestions-label": "Читать далее",
     "toc-label": "Содержание",
     "top-contributors-label": "Самые активные редакторы этой статьи"
+  },
+  "category-page": {
+    "load-error": "К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",
+    "load-more": "Загрузить ещё",
+    "load-previous": "Загрузить предыдущие",
+    "no-members": "В настоящее время эта категория пуста.",
+    "subtitle": "Страница категории"
   },
   "edit": {
     "load-error": "К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",

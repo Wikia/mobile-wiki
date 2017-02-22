@@ -11,11 +11,6 @@
   "app": {
     "advertisement-label": "廣告",
     "cancel-label": "取消",
-    "category-page-load-error": "發生錯誤。抱歉，請再試一次。",
-    "category-page-load-more": "加載更多",
-    "category-page-load-previous": "載入前一個",
-    "category-page-no-members": "這一分類中目前沒有任何頁面。",
-    "category-page-subtitle": "分類頁面",
     "comments-next-button": "後一頁",
     "comments-prev-button": "前一頁",
     "curated-content-load-more-items": "加載更多",
@@ -68,6 +63,13 @@
     "suggestions-label": "瀏覽更多",
     "toc-label": "内容列表",
     "top-contributors-label": "這篇文章的傑出貢獻者"
+  },
+  "category-page": {
+    "load-error": "發生錯誤。抱歉，請再試一次。",
+    "load-more": "加載更多",
+    "load-previous": "載入前一個",
+    "no-members": "這一分類中目前沒有任何頁面。",
+    "subtitle": "分類頁面"
   },
   "edit": {
     "load-error": "發生錯誤。對不起，請再試一次。",
