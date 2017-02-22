@@ -43,7 +43,7 @@ test('test zero state with values from api', (assert) => {
 			expected: [
 				{
 					actionId: 'onRandomPageClick',
-					name: 'app.random-page-label',
+					name: 'navigation.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -75,7 +75,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-root'
 				},
 				{
-					name: 'app.explore-wiki',
+					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
@@ -90,7 +90,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: 'app.random-page-label',
+					name: 'navigation.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -122,7 +122,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-root'
 				},
 				{
-					name: 'app.explore-wiki',
+					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
@@ -144,7 +144,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: 'app.random-page-label',
+					name: 'navigation.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -169,7 +169,7 @@ test('test zero state with values from api', (assert) => {
 					className: 'nav-menu--explore'
 				},
 				{
-					name: 'app.explore-wiki',
+					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
@@ -184,7 +184,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: 'app.random-page-label',
+					name: 'navigation.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -217,7 +217,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-external'
 				},
 				{
-					name: 'app.explore-wiki',
+					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
 					href: ''
@@ -232,7 +232,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: 'app.random-page-label',
+					name: 'navigation.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
