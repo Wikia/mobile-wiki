@@ -1,10 +1,10 @@
 import os
 
 strings = [
-    "subtitle",
-    "usages-header",
-    "usages-see-more-link-label",
+    "install-android",
+    "price",
+    "store-android",
 ]
 
 for strr in strings:
-    os.system('python move-trans.py main:app:file-page-' + strr + ' main:file-page:' + strr)
+    os.system('python move-trans.py main:app:smartbanner-' + strr + ' main:smartbanner:' + strr)
