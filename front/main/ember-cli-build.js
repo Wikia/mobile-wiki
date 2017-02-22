@@ -72,7 +72,9 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			replaceExtensions: ['html', 'css', 'js', 'hbs']
+			replaceExtensions: ['html', 'css', 'js', 'hbs'],
+			// Keep it in sync with gulp/options/prod.js
+			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/main/'
 		},
 		derequire: {
 			patterns: [

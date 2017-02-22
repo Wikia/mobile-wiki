@@ -22,6 +22,7 @@ module.exports = {
 			partials: '**/_partials/*.hbs'
 		},
 		find: '/front/',
-		replace: '{{server.cdnBaseUrl}}/mercury-static/'
+		// Keep it in sync with front/main/ember-cli-build.js
+		replace: '//mobile-wiki.nocookie.net/mobile-wiki/'
 	}
 };

@@ -26,9 +26,9 @@
 	{{/if}}
 
 	{{#if isRtl}}
-		<link rel="stylesheet" href="/mobile-wiki/main/assets/app.rtl.css">
+		<link rel="stylesheet" href="/mobile-wiki/main/assets/app.rtl.css" crossorigin="anonymous">
 	{{else}}
-		<link rel="stylesheet" href="/mobile-wiki/main/assets/app.css">
+		<link rel="stylesheet" href="/mobile-wiki/main/assets/app.css" crossorigin="anonymous">
 	{{/if}}
 
 	{{> dns-prefetch}}
@@ -45,7 +45,7 @@
 	{{/if}}
 
 	{{> nirvana }}
-	<script src="/mobile-wiki/main/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="/mobile-wiki/main/assets/vendor/jquery/jquery.min.js" crossorigin="anonymous"></script>
 	{{content-for 'baseline'}}
 	{{content-for '$script'}}
 	{{> server-data}}
