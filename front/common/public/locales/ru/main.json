@@ -11,6 +11,7 @@
   "app": {
     "advertisement-label": "Реклама",
     "cancel-label": "Отмена",
+    "curated-content-editor-edit-main-page":"Править Заглавную страницу",
     "curated-content-load-more-items": "Загрузить ещё",
     "discussions-label": "Обсуждения",
     "header-in-wiki-name-label-prefix": "в:",

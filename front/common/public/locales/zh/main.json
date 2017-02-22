@@ -11,6 +11,7 @@
   "app": {
     "advertisement-label": "廣告",
     "cancel-label": "取消",
+    "curated-content-editor-edit-main-page":"編輯首頁面",
     "curated-content-load-more-items": "加載更多",
     "discussions-label": "討論版",
     "header-in-wiki-name-label-prefix": "來自:",

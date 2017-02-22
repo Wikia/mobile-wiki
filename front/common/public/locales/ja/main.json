@@ -11,6 +11,7 @@
   "app": {
     "advertisement-label": "広告",
     "cancel-label": "キャンセル",
+    "curated-content-editor-edit-main-page":"メインページの編集",
     "curated-content-load-more-items": "もっと見る",
     "discussions-label": "ディスカッション",
     "header-in-wiki-name-label-prefix": " ",

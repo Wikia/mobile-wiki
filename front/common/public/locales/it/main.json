@@ -11,6 +11,7 @@
   "app": {
     "advertisement-label": "Pubblicità",
     "cancel-label": "Annulla",
+    "curated-content-editor-edit-main-page":"Modifica pagina principale",
     "curated-content-load-more-items": "Carica altro",
     "discussions-label": "Discussioni",
     "header-in-wiki-name-label-prefix": "su:",
