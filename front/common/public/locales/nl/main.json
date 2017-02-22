@@ -1,106 +1,102 @@
 {
-  "add-photo": {
-    "error": "Sorry, er ging iets mis. Probeer het nog eens.",
-    "instruction": "The image will be added to the end of the section",
-    "page-add-button": "Add",
-    "page-heading": "Adding photo to:",
-    "photo-name": "Photo Name",
-    "section-title-error": "Invalid title.",
-    "success": "A photo has been added to the page."
+  "add-photo":{
+    "error":"Sorry, er ging iets mis. Probeer het nog eens.",
+    "instruction":"The image will be added to the end of the section",
+    "page-add-button":"Add",
+    "page-heading":"Adding photo to:",
+    "photo-name":"Photo Name",
+    "section-title-error":"Invalid title.",
+    "success":"A photo has been added to the page."
   },
-  "app": {
-    "advertisement-label": "Advertisement",
-    "cancel-label": "Cancel",
+  "app":{
+    "advertisement-label":"Advertisement",
+    "cancel-label":"Cancel",
     "curated-content-editor-edit-main-page":"Edit Main Page",
-    "curated-content-load-more-items": "Load more",
-    "discussions-label": "Discussies",
-    "header-in-wiki-name-label-prefix": "in:",
-    "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
-    "media-lightbox-error": "Media niet gevonden",
-    "media-video-views": "__count__ weergave",
-    "media-video-views_plural": "__count__ weergaven",
-    "media-video-views_plural_0": "__count__ weergaven",
-    "now-label": "nu",
-    "page-not-found-error": "Sorry, we kunnen de pagina waar je naar zoekt niet vinden.",
-    "page-not-found-message": "Gebruik de navigatie- of zoekfuncties",
-    "pages-label": "Pages",
-    "photos-label": "Photos",
-    "trending-articles-label": "Trending Articles",
-    "username-anonymous": "A Fandom User",
-    "videos-label": "Videos",
-    "view-more": "Meer weergeven",
-    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Vernieuwen",
-    "wikia-map-view-map": "View"
+    "curated-content-load-more-items":"Load more",
+    "discussions-label":"Discussies",
+    "header-in-wiki-name-label-prefix":"in:",
+    "header-in-wiki-name-label-suffix":"",
+    "map-lightbox-error":"Map not found",
+    "media-lightbox-error":"Media niet gevonden",
+    "now-label":"nu",
+    "page-not-found-error":"Sorry, we kunnen de pagina waar je naar zoekt niet vinden.",
+    "page-not-found-message":"Gebruik de navigatie- of zoekfuncties",
+    "pages-label":"Pages",
+    "photos-label":"Photos",
+    "trending-articles-label":"Trending Articles",
+    "username-anonymous":"A Fandom User",
+    "videos-label":"Videos",
+    "view-more":"Meer weergeven",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button":"Vernieuwen",
+    "wikia-map-view-map":"View"
   },
-  "article": {
-    "categories-list-label": "Categorieën",
-    "comments-label": "__count__ reactie",
-    "comments-label_plural": "__count__ reacties",
-    "empty-label": "Sorry, dit artikel lijkt leeg te zijn!",
-    "error": "Sorry, we couldn't load the article. Please try again.",
-    "last-edit": "Laatst bewerkt 1 week geleden",
-    "last-edit_plural_0": "Laatst bewerkt deze week",
-    "last-edit_plural_2": "Laatst bewerkt __count__ weken geleden",
-    "other-languages": "In andere talen",
-    "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
-    "replies-label": "__count__ antwoord weergeven",
-    "replies-label_plural": "__count__ antwoorden weergeven",
-    "suggestions-label": "Meer lezen",
-    "toc-label": "Inhoudsopgave",
-    "top-contributors-label": "Top Contributors to this article"
+  "article":{
+    "categories-list-label":"Categorieën",
+    "comments-label":"__count__ reactie",
+    "comments-label_plural":"__count__ reacties",
+    "empty-label":"Sorry, dit artikel lijkt leeg te zijn!",
+    "error":"Sorry, we couldn't load the article. Please try again.",
+    "last-edit":"Laatst bewerkt 1 week geleden",
+    "last-edit_plural_0":"Laatst bewerkt deze week",
+    "last-edit_plural_2":"Laatst bewerkt __count__ weken geleden",
+    "other-languages":"In andere talen",
+    "redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
+    "replies-label":"__count__ antwoord weergeven",
+    "replies-label_plural":"__count__ antwoorden weergeven",
+    "suggestions-label":"Meer lezen",
+    "toc-label":"Inhoudsopgave",
+    "top-contributors-label":"Top Contributors to this article"
   },
-  "article-comments": {
-    "next-button": "Volgende pagina",
-    "prev-button": "Vorige pagina"
+  "article-comments":{
+    "next-button":"Volgende pagina",
+    "prev-button":"Vorige pagina"
   },
-  "category-page": {
-    "load-error": "Sorry, er ging iets mis. Probeer het nog eens.",
-    "load-more": "Load more",
-    "load-previous": "Load previous",
-    "no-members": "This category currently contains no pages.",
-    "subtitle": "Category Page"
+  "category-page":{
+    "load-error":"Sorry, er ging iets mis. Probeer het nog eens.",
+    "load-more":"Load more",
+    "load-previous":"Load previous",
+    "no-members":"This category currently contains no pages.",
+    "subtitle":"Category Page"
   },
-  "edit": {
-    "load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "page-heading": "Editing:",
-    "page-publish": "Publish",
-    "publish-error": "Sorry, it looks like something went wrong. Please try again.",
-    "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.",
-    "publish-error-blocked": "You have been blocked from editing.",
-    "publish-error-noedit": "You don't have permission to edit pages on this wiki.",
-    "publish-error-noedit-anon": "Anonymous users can't edit pages.",
-    "publish-error-protectedpage": "You don't have permission to edit this page.",
-    "success": "Successfully edited page __pageTitle__!"
+  "edit":{
+    "load-error":"Sorry, it looks like something went wrong. Please try again.",
+    "page-heading":"Editing:",
+    "page-publish":"Publish",
+    "publish-error":"Sorry, it looks like something went wrong. Please try again.",
+    "publish-error-autoblockedtext":"Your IP address has been blocked automatically, because it was used by a blocked user.",
+    "publish-error-blocked":"You have been blocked from editing.",
+    "publish-error-noedit":"You don't have permission to edit pages on this wiki.",
+    "publish-error-noedit-anon":"Anonymous users can't edit pages.",
+    "publish-error-protectedpage":"You don't have permission to edit this page.",
+    "success":"Successfully edited page __pageTitle__!"
   },
-  "file-page": {
-    "subtitle": "File Page",
-    "usages-header": "Appears on these pages",
-    "usages-see-more-link-label": "See full list"
+  "file-page":{
+    "subtitle":"File Page",
+    "usages-header":"Appears on these pages",
+    "usages-see-more-link-label":"See full list"
   },
-  "navigation": {
-    "back-label": "Terug",
-    "explore-wiki": "Explore __wikiName__",
-    "random-page-label": "Willekeurige pagina",
-    "side-nav-menu-label": "Menu",
-    "user-menu-log-out": "Log out",
-    "user-menu-profile": "Profile"
+  "navigation":{
+    "back-label":"Terug",
+    "explore-wiki":"Explore __wikiName__",
+    "random-page-label":"Willekeurige pagina",
+    "user-menu-log-out":"Log out",
+    "user-menu-profile":"Profile"
   },
-  "smartbanner": {
-    "install-android": "Installeren",
-    "price": "GRATIS",
-    "store-android": "In Google Play"
+  "smartbanner":{
+    "install-android":"Installeren",
+    "price":"GRATIS",
+    "store-android":"In Google Play"
   },
-  "user-status": {
-    "login-text": "Sign In",
-    "register-text": "Register"
+  "user-status":{
+    "login-text":"Sign In",
+    "register-text":"Register"
   },
-  "widget-discussions": {
-    "all-discussions-link-mobile": "Alle discussies",
-    "header-title": "Discussies",
-    "in-category-label": "in __categoryName__",
-    "post-actions-reply-label": "Reply",
-    "post-actions-upvote-label": "Upvote"
+  "widget-discussions":{
+    "all-discussions-link-mobile":"Alle discussies",
+    "header-title":"Discussies",
+    "in-category-label":"in __categoryName__",
+    "post-actions-reply-label":"Reply",
+    "post-actions-upvote-label":"Upvote"
   }
 }

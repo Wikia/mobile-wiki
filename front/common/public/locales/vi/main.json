@@ -1,106 +1,102 @@
 {
-  "add-photo": {
-    "error": "Sorry, it looks like something went wrong. Please try again.",
-    "instruction": "The image will be added to the end of the section",
-    "page-add-button": "Add",
-    "page-heading": "Adding photo to:",
-    "photo-name": "Photo Name",
-    "section-title-error": "Invalid title.",
-    "success": "A photo has been added to the page."
+  "add-photo":{
+    "error":"Sorry, it looks like something went wrong. Please try again.",
+    "instruction":"The image will be added to the end of the section",
+    "page-add-button":"Add",
+    "page-heading":"Adding photo to:",
+    "photo-name":"Photo Name",
+    "section-title-error":"Invalid title.",
+    "success":"A photo has been added to the page."
   },
-  "app": {
-    "advertisement-label": "Advertisement",
-    "cancel-label": "Cancel",
+  "app":{
+    "advertisement-label":"Advertisement",
+    "cancel-label":"Cancel",
     "curated-content-editor-edit-main-page":"Edit Main Page",
-    "curated-content-load-more-items": "Load more",
-    "discussions-label": "Discussions",
-    "header-in-wiki-name-label-prefix": "in:",
-    "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
-    "media-lightbox-error": "Tập tin không được tìm thấy",
-    "media-video-views": "__count__ lượt xem",
-    "media-video-views_plural": "__count__ lượt xem",
-    "media-video-views_plural_0": "__count__ lượt xem",
-    "now-label": "bây giờ",
-    "page-not-found-error": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.",
-    "page-not-found-message": "Sử dụng Danh mục hoặc Tìm kiếm",
-    "pages-label": "Pages",
-    "photos-label": "Photos",
-    "trending-articles-label": "Trending Articles",
-    "username-anonymous": "A Fandom User",
-    "videos-label": "Videos",
-    "view-more": "Xem thêm",
-    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Làm mới",
-    "wikia-map-view-map": "View"
+    "curated-content-load-more-items":"Load more",
+    "discussions-label":"Discussions",
+    "header-in-wiki-name-label-prefix":"in:",
+    "header-in-wiki-name-label-suffix":"",
+    "map-lightbox-error":"Map not found",
+    "media-lightbox-error":"Tập tin không được tìm thấy",
+    "now-label":"bây giờ",
+    "page-not-found-error":"Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.",
+    "page-not-found-message":"Sử dụng Danh mục hoặc Tìm kiếm",
+    "pages-label":"Pages",
+    "photos-label":"Photos",
+    "trending-articles-label":"Trending Articles",
+    "username-anonymous":"A Fandom User",
+    "videos-label":"Videos",
+    "view-more":"Xem thêm",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button":"Làm mới",
+    "wikia-map-view-map":"View"
   },
-  "article": {
-    "categories-list-label": "Thể loại",
-    "comments-label": "__count__ bình luận",
-    "comments-label_plural": "__count__ bình luận",
-    "empty-label": "Xin lỗi, bài này có vẻ trống rỗng!",
-    "error": "Sorry, we couldn't load the article. Please try again.",
-    "last-edit": "Được sửa đổi 1 tuần trước",
-    "last-edit_plural_0": "Đã được sửa đổi trong tuần này",
-    "last-edit_plural_2": "Được sửa đổi __count__ tuần trước",
-    "other-languages": "In other languages",
-    "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
-    "replies-label": "Xem __count__ hồi âm",
-    "replies-label_plural": "Xem __count__ hồi âm",
-    "suggestions-label": "Xem thêm",
-    "toc-label": "Mục lục",
-    "top-contributors-label": "Top Contributors to this article"
+  "article":{
+    "categories-list-label":"Thể loại",
+    "comments-label":"__count__ bình luận",
+    "comments-label_plural":"__count__ bình luận",
+    "empty-label":"Xin lỗi, bài này có vẻ trống rỗng!",
+    "error":"Sorry, we couldn't load the article. Please try again.",
+    "last-edit":"Được sửa đổi 1 tuần trước",
+    "last-edit_plural_0":"Đã được sửa đổi trong tuần này",
+    "last-edit_plural_2":"Được sửa đổi __count__ tuần trước",
+    "other-languages":"In other languages",
+    "redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
+    "replies-label":"Xem __count__ hồi âm",
+    "replies-label_plural":"Xem __count__ hồi âm",
+    "suggestions-label":"Xem thêm",
+    "toc-label":"Mục lục",
+    "top-contributors-label":"Top Contributors to this article"
   },
-  "article-comments": {
-    "next-button": "Trang tiếp theo",
-    "prev-button": "Trang trước"
+  "article-comments":{
+    "next-button":"Trang tiếp theo",
+    "prev-button":"Trang trước"
   },
-  "category-page": {
-    "load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "load-more": "Load more",
-    "load-previous": "Load previous",
-    "no-members": "This category currently contains no pages.",
-    "subtitle": "Category Page"
+  "category-page":{
+    "load-error":"Sorry, it looks like something went wrong. Please try again.",
+    "load-more":"Load more",
+    "load-previous":"Load previous",
+    "no-members":"This category currently contains no pages.",
+    "subtitle":"Category Page"
   },
-  "edit": {
-    "load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "page-heading": "Editing:",
-    "page-publish": "Publish",
-    "publish-error": "Sorry, it looks like something went wrong. Please try again.",
-    "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.",
-    "publish-error-blocked": "You have been blocked from editing.",
-    "publish-error-noedit": "You don't have permission to edit pages on this wiki.",
-    "publish-error-noedit-anon": "Anonymous users can't edit pages.",
-    "publish-error-protectedpage": "You don't have permission to edit this page.",
-    "success": "Successfully edited page __pageTitle__!"
+  "edit":{
+    "load-error":"Sorry, it looks like something went wrong. Please try again.",
+    "page-heading":"Editing:",
+    "page-publish":"Publish",
+    "publish-error":"Sorry, it looks like something went wrong. Please try again.",
+    "publish-error-autoblockedtext":"Your IP address has been blocked automatically, because it was used by a blocked user.",
+    "publish-error-blocked":"You have been blocked from editing.",
+    "publish-error-noedit":"You don't have permission to edit pages on this wiki.",
+    "publish-error-noedit-anon":"Anonymous users can't edit pages.",
+    "publish-error-protectedpage":"You don't have permission to edit this page.",
+    "success":"Successfully edited page __pageTitle__!"
   },
-  "file-page": {
-    "subtitle": "File Page",
-    "usages-header": "Appears on these pages",
-    "usages-see-more-link-label": "See full list"
+  "file-page":{
+    "subtitle":"File Page",
+    "usages-header":"Appears on these pages",
+    "usages-see-more-link-label":"See full list"
   },
-  "navigation": {
-    "back-label": "Trở lại",
-    "explore-wiki": "Explore __wikiName__",
-    "random-page-label": "Trang ngẫu nhiên",
-    "side-nav-menu-label": "Danh mục",
-    "user-menu-log-out": "Log out",
-    "user-menu-profile": "Profile"
+  "navigation":{
+    "back-label":"Trở lại",
+    "explore-wiki":"Explore __wikiName__",
+    "random-page-label":"Trang ngẫu nhiên",
+    "user-menu-log-out":"Log out",
+    "user-menu-profile":"Profile"
   },
-  "smartbanner": {
-    "install-android": "Cài đặt",
-    "price": "MIỄN PHÍ",
-    "store-android": "Trong Trình chạy Google"
+  "smartbanner":{
+    "install-android":"Cài đặt",
+    "price":"MIỄN PHÍ",
+    "store-android":"Trong Trình chạy Google"
   },
-  "user-status": {
-    "login-text": "Sign In",
-    "register-text": "Register"
+  "user-status":{
+    "login-text":"Sign In",
+    "register-text":"Register"
   },
-  "widget-discussions": {
-    "all-discussions-link-mobile": "All Discussions",
-    "header-title": "Discussions",
-    "in-category-label": "in __categoryName__",
-    "post-actions-reply-label": "Reply",
-    "post-actions-upvote-label": "Upvote"
+  "widget-discussions":{
+    "all-discussions-link-mobile":"All Discussions",
+    "header-title":"Discussions",
+    "in-category-label":"in __categoryName__",
+    "post-actions-reply-label":"Reply",
+    "post-actions-upvote-label":"Upvote"
   }
 }
