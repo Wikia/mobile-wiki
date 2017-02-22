@@ -12,15 +12,20 @@ if (typeof window.M === 'undefined') {
 	 * Modern browsers
 	 *
 	 * @param {string} src
+	 * @param {Boolean} forceCors
 	 * @returns {void}
 	 */
-	function loadUsingAsync(src) {
+	function loadUsingAsync(src, forceCors = false) {
 		const scriptElement = document.createElement('script');
 
 		scriptElement.async = false;
 		scriptElement.src = src;
-		// Always send Origin header so we can use mobile-wiki.nocookie.net for all environments
-		scriptElement.crossOrigin = 'anonymous';
+
+		if (forceCors) {
+			// Send Origin header so we can use mobile-wiki.nocookie.net for all environments
+			scriptElement.crossOrigin = 'anonymous';
+		}
+
 		document.head.appendChild(scriptElement);
 	}
 
@@ -79,12 +84,13 @@ if (typeof window.M === 'undefined') {
 	 * Load multiple scripts in parallel, run them in order
 	 *
 	 * @param {string[]} scripts
+	 * @param {Boolean} forceCors
 	 * @returns {void}
 	 */
-	M.loadScripts = function (scripts) {
+	M.loadScripts = function (scripts, forceCors = false) {
 		scripts.forEach((src) => {
 			if (supportsAsync) {
-				loadUsingAsync(src);
+				loadUsingAsync(src, forceCors);
 			} else if (supportsReadyState) {
 				loadUsingReadyState(src);
 			} else {

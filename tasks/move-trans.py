@@ -14,7 +14,10 @@ class Mover:
     locales = '../front/common/public/locales'
 
     def move(self, source, target):
-        for lang in os.listdir(self.locales):
+        langs = os.listdir(self.locales)
+        langs.remove('README.md')
+
+        for lang in langs:
             print(lang)
             translation = self.get_translation(source, lang)
             if translation:

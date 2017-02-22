@@ -40,7 +40,7 @@ export default Ember.Route.extend(
 			 */
 			error() {
 				this.controllerFor('application').addAlert({
-					message: i18n.t('app.edit-load-error'),
+					message: i18n.t('edit.load-error'),
 					type: 'alert'
 				});
 

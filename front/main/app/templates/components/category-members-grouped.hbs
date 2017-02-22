@@ -8,7 +8,7 @@
 			strokeWidth=2
 		}}
 		<a href="{{prevPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__prev" {{action 'loadPage' prevPage 'previous'}}>
-			{{i18n 'app.category-page-load-previous'}}
+			{{i18n 'category-page.load-previous'}}
 		</a>
 	</div>
 {{/if}}
@@ -24,7 +24,7 @@
 		</ul>
 	</div>
 {{else}}
-	<div>{{i18n 'app.category-page-no-members'}}</div>
+	<div>{{i18n 'category-page.no-members'}}</div>
 {{/each-in}}
 {{#if nextPage}}
 	<div class="category-navigation">
@@ -35,7 +35,7 @@
 			strokeWidth=2
 		}}
 		<a href="{{nextPageUrl}}" class="wds-button wds-is-secondary wds-is-full-width category-navigation__button category-navigation__next" {{action 'loadPage' nextPage 'next'}}>
-			{{i18n 'app.category-page-load-more'}}
+			{{i18n 'category-page.load-more'}}
 		</a>
 	</div>
 {{/if}}

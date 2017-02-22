@@ -237,7 +237,7 @@ export default Route.extend(
 			didTransition() {
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
-						message: i18n.t('app.article-redirect-empty-target'),
+						message: i18n.t('article.redirect-empty-target'),
 						type: 'warning'
 					});
 				}
