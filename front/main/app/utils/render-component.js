@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import getOwner from 'ember-getowner-polyfill';
 
 /**
  * This is mostly copied from ember-islands but with some modifications
  */
 
-const {$, assert} = Ember;
+const {$, assert, getOwner} = Ember;
 
 /**
  * @param {HTMLElement} element
@@ -34,7 +33,7 @@ export function getRenderComponentFor(parent) {
 	const componentLookup = getOwner(parent).lookup('component-lookup:main');
 
 	return function renderComponent({name, attrs, element}) {
-		const component = componentLookup.lookupFactory(name);
+		const component = componentLookup.container.lookupFactory(`component:${name}`);
 
 		let componentInstance;
 
