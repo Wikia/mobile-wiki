@@ -57,7 +57,10 @@ let routes,
 			handler: assetsHandler,
 			config: {
 				cors: {
-					origin: ['*']
+					origin: ['*'],
+					// We can't set `access-control-allow-origin: 'http://gta.wikia.com'`
+					// The same URL is shared between wikis and cached in the browser
+					matchOrigin: false
 				}
 			}
 		},
