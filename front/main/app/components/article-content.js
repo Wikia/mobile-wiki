@@ -35,33 +35,33 @@ export default Component.extend(
 			this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
-				if (!isBlank(content)) {
-					this.hackIntoEmberRendering(content);
-
-					this.handleInfoboxes();
-					this.replaceInfoboxesWithInfoboxComponents();
-
-					this.renderedComponents = queryPlaceholders(this.$())
-						.map(getAttributesForMedia, {
-							media: this.get('media'),
-							openLightbox: this.get('openLightbox')
-						})
-						.map(this.renderComponent);
-
-					this.loadIcons();
-					this.createTableOfContents();
-					this.createContributionButtons();
-					this.handleTables();
-					this.replaceWikiaWidgetsWithComponents();
-					this.handleWikiaWidgetWrappers();
-					this.handleJumpLink();
-					this.injectPlacementTest();
-				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
-				}
-
-				this.injectAds();
-				this.setupAdsContext(this.get('adsContext'));
+				// if (!isBlank(content)) {
+				// 	this.hackIntoEmberRendering(content);
+				//
+				// 	this.handleInfoboxes();
+				// 	this.replaceInfoboxesWithInfoboxComponents();
+				//
+				// 	this.renderedComponents = queryPlaceholders(this.$())
+				// 		.map(getAttributesForMedia, {
+				// 			media: this.get('media'),
+				// 			openLightbox: this.get('openLightbox')
+				// 		})
+				// 		.map(this.renderComponent);
+				//
+				// 	this.loadIcons();
+				// 	this.createTableOfContents();
+				// 	this.createContributionButtons();
+				// 	this.handleTables();
+				// 	this.replaceWikiaWidgetsWithComponents();
+				// 	this.handleWikiaWidgetWrappers();
+				// 	this.handleJumpLink();
+				// 	this.injectPlacementTest();
+				// } else if (this.get('displayEmptyArticleInfo')) {
+				// 	this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
+				// }
+				//
+				// this.injectAds();
+				// this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
 
