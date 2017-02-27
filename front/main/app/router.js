@@ -21,11 +21,6 @@ Router.map(function () {
 	this.route('articleAddPhoto', {
 		path: '/wiki/addPhoto/:title'
 	});
-
-	// Route to catch all badly formed URLs
-	this.route('notFound', {
-		path: '/*url'
-	});
 });
 
 export default Router;
