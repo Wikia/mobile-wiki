@@ -3,7 +3,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
-import {escapeRegex} from 'common/utils/string';
+import {escapeRegex, normalizeToUnderscore} from 'common/utils/string';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -172,7 +172,7 @@ export default Component.extend(
 				 */
 				(suggestion) => {
 					suggestion.setProperties({
-						uri: encodeURIComponent(suggestion.title),
+						uri: encodeURIComponent(normalizeToUnderscore(suggestion.title)),
 						text: suggestion.title.replace(highlightRegexp, highlighted)
 					});
 				}
