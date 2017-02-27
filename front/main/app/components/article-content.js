@@ -258,6 +258,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
+			debugger;
+
 			const component = this.createComponentInstance('article-table-of-contents'),
 				$firstInfobox = this.$('.portable-infobox').first(),
 				componentElement = this.createChildView(component).createElement();

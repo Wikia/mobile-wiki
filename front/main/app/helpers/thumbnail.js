@@ -8,7 +8,7 @@ import Thumbnailer from 'common/modules/thumbnailer';
  *
  * @param {Array} params
  * @param {Object} options
- * @returns {Ember.Handlebars.SafeString}
+ * @returns {Ember.String.htmlSafe}
  */
 export default Ember.Helper.helper((params, options) => {
 	const thumbnailer = Thumbnailer,
@@ -51,7 +51,7 @@ export default Ember.Helper.helper((params, options) => {
 		});
 	}
 
-	return new Ember.Handlebars.SafeString(
+	return new Ember.String.htmlSafe(
 		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });

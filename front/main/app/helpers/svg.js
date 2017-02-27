@@ -14,7 +14,7 @@ import Ember from 'ember';
  *
  * @param {Array} params
  * @param {Object} options
- * @returns {Ember.Handlebars.SafeString}
+ * @returns {Ember.String.htmlSafe}
  */
 export default Ember.Helper.helper((params, options) => {
 	const optionalParams = [
@@ -35,5 +35,5 @@ export default Ember.Helper.helper((params, options) => {
 	});
 	ret += `><use xlink:href="#${name}"></use></svg>`;
 
-	return new Ember.Handlebars.SafeString(ret);
+	return new Ember.String.htmlSafe(ret);
 });

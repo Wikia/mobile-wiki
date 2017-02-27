@@ -22,7 +22,7 @@ import Ember from 'ember';
  * @returns {string}
  */
 
-const {Handlebars, Helper} = Ember;
+const {Handlebars, Helper, String} = Ember;
 
 export default Helper.helper((params, options) => {
 	const content = Handlebars.Utils.escapeExpression(params[0] || '');
@@ -46,5 +46,5 @@ export default Helper.helper((params, options) => {
 		key => (options[key] ? ` ${key}="${options[key]}"` : '')
 	).join('');
 
-	return new Handlebars.SafeString(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
+	return new String.htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });
