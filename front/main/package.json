@@ -61,7 +61,7 @@
     "ember-route-action-helper": "1.0.0",
     "ember-sinon": "0.3.0",
     "ember-source": "2.11.2",
-    "ember-wormhole": "0.4.0",
+    "ember-wormhole": "0.5.1",
     "loader.js": "4.2.2",
     "moment": "2.11.2",
     "moment-timezone": "0.5.0",
