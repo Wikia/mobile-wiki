@@ -35,6 +35,7 @@ export default Component.extend(
 			this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
+				// TODO XW-2733 fix injecting components
 				// if (!isBlank(content)) {
 				// 	this.hackIntoEmberRendering(content);
 				//

@@ -35,7 +35,8 @@ export default Ember.Component.extend(
 		 */
 		didInsertElement() {
 			this._super(...arguments);
-			this.injectMainPageAds();
+			// TODO XW-2733 fix injecting components
+			//this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		},
 	}
