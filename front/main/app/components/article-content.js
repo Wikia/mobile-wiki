@@ -30,36 +30,30 @@ export default Component.extend(
 		displayEmptyArticleInfo: true,
 
 		articleContentObserver: on('init', observer('content', function () {
-			const content = this.get('content');
-
-			this.destroyChildComponents();
+			// this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
-				// TODO XW-2733 fix injecting components
-				// if (!isBlank(content)) {
-				// 	this.hackIntoEmberRendering(content);
-				//
-				// 	this.handleInfoboxes();
-				// 	this.replaceInfoboxesWithInfoboxComponents();
-				//
-				// 	this.renderedComponents = queryPlaceholders(this.$())
-				// 		.map(getAttributesForMedia, {
-				// 			media: this.get('media'),
-				// 			openLightbox: this.get('openLightbox')
-				// 		})
-				// 		.map(this.renderComponent);
-				//
-				// 	this.loadIcons();
-				// 	this.createTableOfContents();
-				// 	this.createContributionButtons();
-				// 	this.handleTables();
-				// 	this.replaceWikiaWidgetsWithComponents();
-				// 	this.handleWikiaWidgetWrappers();
-				// 	this.handleJumpLink();
-				// 	this.injectPlacementTest();
-				// } else if (this.get('displayEmptyArticleInfo')) {
-				// 	this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
-				// }
+				if (!isBlank(this.get('content'))) {
+					// TODO XW-2733 fix injecting components
+					// this.handleInfoboxes();
+					// this.replaceInfoboxesWithInfoboxComponents();
+					this.renderedComponents = queryPlaceholders(this.$())
+						.map(getAttributesForMedia, {
+							media: this.get('media'),
+							openLightbox: this.get('openLightbox')
+						})
+						.map(this.renderComponent);
+
+					// 	this.loadIcons();
+					// 	this.createTableOfContents();
+					// 	this.createContributionButtons();
+					// 	this.handleTables();
+					// 	this.replaceWikiaWidgetsWithComponents();
+					// 	this.handleWikiaWidgetWrappers();
+					// 	this.handleJumpLink();
+					// 	this.injectPlacementTest();
+				}
+
 				//
 				// this.injectAds();
 				// this.setupAdsContext(this.get('adsContext'));
@@ -71,6 +65,12 @@ export default Component.extend(
 
 			this.renderComponent = getRenderComponentFor(this);
 			this.renderedComponents = [];
+		},
+
+		didUpdateAttrs({newAttrs, oldAttrs}) {
+			if (newAttrs.content !== oldAttrs.content) {
+				this.destroyChildComponents();
+			}
 		},
 
 		willDestroyElement() {
@@ -173,6 +173,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		destroyChildComponents() {
+			debugger;
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
 			});

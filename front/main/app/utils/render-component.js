@@ -25,24 +25,42 @@ function componentAttributes(element) {
 
 	return attrs;
 }
+
+function lookupComponent(owner, name) {
+	let componentLookupKey = `component:${name}`;
+	let layoutLookupKey = `template:components/${name}`;
+	let layout = owner._lookupFactory(layoutLookupKey);
+	let component = owner._lookupFactory(componentLookupKey);
+
+	if (layout && !component) {
+		owner.register(componentLookupKey, Component);
+		component = owner._lookupFactory(componentLookupKey);
+	}
+
+	return {component, layout};
+}
+
 /**
  * @param {Component} parent
  * @returns {Function}
  */
 export function getRenderComponentFor(parent) {
-	const componentLookup = getOwner(parent).lookup('component-lookup:main');
+	const owner = getOwner(parent);
 
 	return function renderComponent({name, attrs, element}) {
-		const component = componentLookup.container.lookupFactory(`component:${name}`);
-
+		const {component, layout} = lookupComponent(owner, name);
 		let componentInstance;
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
+		if (layout) {
+			attrs.layout = layout;
+		}
+
 		componentInstance = component.create(attrs);
 
-		// It has to be rendered outside .ember-view because of Ember's assertion
-		componentInstance.appendTo($('#ember-component-constructor'));
+		// // It has to be rendered outside .ember-view because of Ember's assertion
+		componentInstance.appendTo($('#ember-component-constructor')[0]);
 
 		// Wait until component element is rendered in DOM and ready to be moved
 		Ember.run.scheduleOnce('afterRender', this, () => {
