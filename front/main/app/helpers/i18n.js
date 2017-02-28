@@ -18,7 +18,7 @@ export default Ember.Helper.helper((params, options) => {
 	Object.keys(options).forEach((key) => {
 		if (key === 'ns') {
 			namespace = options[key];
-		} else if (options.hasOwnProperty(key)) {
+		} else if (options[key] !== undefined) {
 			i18nParams[key] = options[key];
 		}
 	});
