@@ -25,7 +25,7 @@ export function initialize() {
 				}
 
 				// trigger the action on the controller
-				this.get('parentView').get('context').send(action, this.get('actionParam'));
+				this.sendAction('action', this.get('actionParam'));
 			}
 
 			if (trackingCategory) {
