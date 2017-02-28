@@ -2,8 +2,6 @@
   "name": "mobile-wiki-main",
   "dependencies": {
     "design-system": "Wikia/design-system#5.0.0",
-    "ember": "2.10",
-    "ember-cli-shims": "0.1.1",
     "ember-hammer": "1.0.2",
     "ember-qunit-notifications": "0.1.0",
     "fastclick": "1.0.6",
@@ -22,7 +20,6 @@
     "wikia-style-guide": "Wikia/style-guide#v1.9.0"
   },
   "resolutions": {
-    "ember": "2.10",
     "ember-qunit-notifications": "0.1.0",
     "jquery": "2.1.4"
   },
