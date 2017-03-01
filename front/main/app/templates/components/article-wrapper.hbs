@@ -30,7 +30,7 @@
 		}}
 	{{/if}}
 	{{article-content
-		addPhoto='addPhoto'
+		addPhoto=(action 'addPhoto')
 		addPhotoAllowed=addPhotoAllowed
 		addPhotoIconVisible=addPhotoIconVisible
 		adsContext=model.adsContext
@@ -38,7 +38,7 @@
 		contributionEnabled=contributionEnabled
 		displayEmptyArticleInfo=displayEmptyArticleInfo
 		displayTitle=model.displayTitle
-		edit='edit'
+		edit=(action 'edit')
 		editAllowed=editAllowed
 		editIconVisible=editIconVisible
 		heroImage=model.heroImage

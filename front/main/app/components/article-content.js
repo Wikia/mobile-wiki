@@ -44,7 +44,7 @@ export default Component.extend(
 
 					this.loadIcons();
 					this.createTableOfContents();
-					// this.createContributionButtons();
+					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
@@ -201,29 +201,24 @@ export default Component.extend(
 		 * @param {string} sectionId
 		 * @returns {JQuery}
 		 */
-		createArticleContributionComponent(placeholder, section, sectionId) {
-			const title = this.get('displayTitle'),
-				edit = 'edit',
-				addPhoto = 'addPhoto',
-				addPhotoIconVisible = this.get('addPhotoIconVisible'),
-				editIconVisible = this.get('editIconVisible'),
-				editAllowed = this.get('editAllowed'),
-				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent = this.createComponentInstance('article-contribution');
-
-			contributionComponent.setProperties({
-				section,
-				sectionId,
-				title,
-				edit,
-				addPhoto,
-				addPhotoIconVisible,
-				editIconVisible,
-				editAllowed,
-				addPhotoAllowed
-			});
-
-			return this.createChildView(contributionComponent).createElement().$();
+		renderArticleContributionComponent(placeholder, section, sectionId) {
+			this.renderedComponents.push(
+				this.renderComponent({
+					name: 'article-contribution',
+					attrs: {
+						section,
+						sectionId,
+						title: this.get('displayTitle'),
+						edit: this.get('edit'),
+						addPhoto: this.get('addPhoto'),
+						addPhotoIconVisible: this.get('addPhotoIconVisible'),
+						editIconVisible: this.get('editIconVisible'),
+						editAllowed: this.get('editAllowed'),
+						addPhotoAllowed: this.get('addPhotoAllowed')
+					},
+					element: placeholder
+				})
+			);
 		},
 
 		/**
@@ -249,7 +244,7 @@ export default Component.extend(
 						.wrapInner('<div class="section-header-label"></div>')
 						.append($placeholder);
 
-					this.createArticleContributionComponent($placeholder.get(0), header.section, header.id);
+					this.renderArticleContributionComponent($placeholder.get(0), header.section, header.id);
 				});
 			}
 		},
