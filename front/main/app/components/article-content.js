@@ -36,7 +36,7 @@ export default Component.extend(
 				if (!isBlank(this.get('content'))) {
 					// TODO XW-2733 fix injecting components
 					this.handleInfoboxes();
-					// this.replaceInfoboxesWithInfoboxComponents();
+					this.replaceInfoboxesWithInfoboxComponents();
 					this.renderedComponents = queryPlaceholders(this.$())
 						.map(getAttributesForMedia, {
 							media: this.get('media'),
@@ -284,31 +284,16 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			this.$('.portable-infobox').map((i, elem) => {
-				this.replaceInfoboxWithInfoboxComponent(elem);
+				this.renderComponent({
+					name: 'portable-infobox',
+					attrs: {
+						infoboxHTML: elem.innerHTML,
+						height: $(elem).outerHeight(),
+						pageTitle: this.get('displayTitle')
+					},
+					element: elem
+				});
 			});
-		},
-
-		/**
-		 * @param {Element} elem
-		 * @returns {void}
-		 */
-		replaceInfoboxWithInfoboxComponent(elem) {
-			const infoboxComponent = this.createComponentInstance('portable-infobox'),
-				$infoboxPlaceholder = $(elem);
-
-			let infoboxComponentElement;
-
-			infoboxComponent.setProperties({
-				infoboxHTML: elem.innerHTML,
-				height: $infoboxPlaceholder.outerHeight(),
-				pageTitle: this.get('displayTitle'),
-			});
-
-			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
-
-			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
-
-			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
