@@ -267,11 +267,13 @@ export default Component.extend(
 				$placeholder.prependTo(this.$());
 			}
 
-			this.renderComponent({
-				name: 'article-table-of-contents',
-				attrs: {},
-				element: $placeholder.get(0)
-			});
+			this.renderedComponents.push(
+				this.renderComponent({
+					name: 'article-table-of-contents',
+					attrs: {},
+					element: $placeholder.get(0)
+				})
+			);
 		},
 
 		/**
