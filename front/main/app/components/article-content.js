@@ -44,10 +44,10 @@ export default Component.extend(
 						})
 						.map(this.renderComponent);
 
-					// 	this.loadIcons();
-					// 	this.createTableOfContents();
-					// 	this.createContributionButtons();
-					// 	this.handleTables();
+					this.loadIcons();
+					// this.createTableOfContents();
+					// this.createContributionButtons();
+					this.handleTables();
 					// 	this.replaceWikiaWidgetsWithComponents();
 					// 	this.handleWikiaWidgetWrappers();
 					// 	this.handleJumpLink();
@@ -259,8 +259,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			debugger;
-
 			const component = this.createComponentInstance('article-table-of-contents'),
 				$firstInfobox = this.$('.portable-infobox').first(),
 				componentElement = this.createChildView(component).createElement();
