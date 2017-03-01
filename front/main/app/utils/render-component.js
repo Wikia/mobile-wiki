@@ -57,19 +57,12 @@ export function getRenderComponentFor(parent) {
 			attrs.layout = layout;
 		}
 
+		$(element).empty();
 		componentInstance = component.create(attrs);
 
-		// // It has to be rendered outside .ember-view because of Ember's assertion
-		componentInstance.appendTo($('#ember-component-constructor')[0]);
-
-		// Wait until component element is rendered in DOM and ready to be moved
-		Ember.run.scheduleOnce('afterRender', this, () => {
-			// Take component element out from the temp container and put it just before its placeholder
-			element.parentNode.insertBefore(componentInstance.element, element);
-
-			// Remove the placeholder
-			$(element).remove();
-		});
+		// We bypass Ember assertions that prevent appending components which have .ember-view parent
+		// Seems to be working fine
+		componentInstance.renderer.appendTo(componentInstance, element);
 
 		return componentInstance;
 	};

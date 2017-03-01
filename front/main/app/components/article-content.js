@@ -173,7 +173,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		destroyChildComponents() {
-			debugger;
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
 			});
