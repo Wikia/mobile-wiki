@@ -35,7 +35,7 @@ export default Component.extend(
 			run.scheduleOnce('afterRender', this, () => {
 				if (!isBlank(this.get('content'))) {
 					// TODO XW-2733 fix injecting components
-					// this.handleInfoboxes();
+					this.handleInfoboxes();
 					// this.replaceInfoboxesWithInfoboxComponents();
 					this.renderedComponents = queryPlaceholders(this.$())
 						.map(getAttributesForMedia, {
