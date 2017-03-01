@@ -32,7 +32,6 @@ export default Component.extend(
 		articleContentObserver: on('init', observer('content', function () {
 			run.scheduleOnce('afterRender', this, () => {
 				if (!isBlank(this.get('content'))) {
-					// TODO XW-2733 fix injecting components
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 					this.renderedComponents = this.renderedComponents.concat(queryPlaceholders(this.$())
@@ -51,6 +50,7 @@ export default Component.extend(
 					this.handleJumpLink();
 				}
 
+				// TODO XW-2733 fix injecting components
 				// this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
