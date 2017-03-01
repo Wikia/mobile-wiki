@@ -50,8 +50,7 @@ export default Component.extend(
 					this.handleTables();
 					// 	this.replaceWikiaWidgetsWithComponents();
 					// 	this.handleWikiaWidgetWrappers();
-					// 	this.handleJumpLink();
-					// 	this.injectPlacementTest();
+					this.handleJumpLink();
 				}
 
 				//
@@ -425,93 +424,6 @@ export default Component.extend(
 			return this.get('container').lookup(`component:${componentName}`, {
 				singleton: false
 			});
-		},
-
-		/**
-		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
-		 *
-		 * @returns {void}
-		 */
-		injectPlacementTest(group) {
-			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT';
-			let view, component, model, location,
-				externalLink = false;
-
-			group = group || getGroup(experimentName);
-
-			if (get(Mercury, 'wiki.language.content') !== 'en') {
-				return;
-			}
-
-			switch (group) {
-				/**
-				 * To be thrown away after E3
-				 */
-				case 'SDCC_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = FandomPostsModel.create({
-						type: 'category',
-						moreHref: 'http://fandom.wikia.com/articles/category/events/sdcc-2016'
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					externalLink = true;
-					break;
-				case 'LINKS_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = TopLinksModel.create({
-						article: this
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					break;
-				case 'LINKS_FOOTER':
-					component = this.createComponentInstance('recirculation/footer');
-					model = TopLinksModel.create({
-						article: this,
-						style: 'landscape'
-					});
-					location = $('.article-footer');
-					break;
-				case 'FANDOM_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = FandomPostsModel.create({
-						thumbSize: 'medium'
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					externalLink = true;
-					break;
-				case 'FANDOM_FOOTER':
-				case 'CONTROL':
-					component = this.createComponentInstance('recirculation/footer');
-					model = FandomPostsModel.create();
-					location = $('.article-footer');
-					externalLink = true;
-					break;
-				default:
-					break;
-			}
-
-			if (component && model && location.length !== 0) {
-				view = this.createChildView(component, {
-					model,
-					experimentName,
-					externalLink
-				});
-
-				this.renderedComponents.push(view);
-
-				return model.load()
-					.then(() => {
-						if (!view.isDestroyed && !view.isDestroying) {
-							view.createElement();
-
-							location.after(view.$());
-							view.trigger('didInsertElement');
-							view.trackImpression();
-						}
-
-						return view;
-					});
-			}
 		},
 	}
 );
