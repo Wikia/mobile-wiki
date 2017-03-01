@@ -47,7 +47,7 @@ function lookupComponent(owner, name) {
 export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
-	return function renderComponent({name, attrs, placeholderElement}) {
+	return function renderComponent({name, attrs, element: placeholderElement}) {
 		const {component, layout} = lookupComponent(owner, name);
 
 		let componentInstance,
