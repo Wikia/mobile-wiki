@@ -35,19 +35,19 @@ export default Component.extend(
 					// TODO XW-2733 fix injecting components
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
-					this.renderedComponents = queryPlaceholders(this.$())
+					this.renderedComponents = this.renderedComponents.concat(queryPlaceholders(this.$())
 						.map(getAttributesForMedia, {
 							media: this.get('media'),
 							openLightbox: this.get('openLightbox')
 						})
-						.map(this.renderComponent);
+						.map(this.renderComponent));
 
 					this.loadIcons();
 					// this.createTableOfContents();
 					// this.createContributionButtons();
 					this.handleTables();
 					// 	this.replaceWikiaWidgetsWithComponents();
-					// 	this.handleWikiaWidgetWrappers();
+					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 				}
 
@@ -278,15 +278,17 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			this.$('.portable-infobox').map((i, elem) => {
-				this.renderComponent({
-					name: 'portable-infobox',
-					attrs: {
-						infoboxHTML: elem.innerHTML,
-						height: $(elem).outerHeight(),
-						pageTitle: this.get('displayTitle')
-					},
-					element: elem
-				});
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: 'portable-infobox',
+						attrs: {
+							infoboxHTML: elem.innerHTML,
+							height: $(elem).outerHeight(),
+							pageTitle: this.get('displayTitle')
+						},
+						element: elem
+					})
+				);
 			});
 		},
 
