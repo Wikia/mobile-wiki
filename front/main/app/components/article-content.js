@@ -43,7 +43,7 @@ export default Component.extend(
 						.map(this.renderComponent));
 
 					this.loadIcons();
-					// this.createTableOfContents();
+					this.createTableOfContents();
 					// this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
@@ -52,7 +52,7 @@ export default Component.extend(
 				}
 
 				// this.injectAds();
-				// this.setupAdsContext(this.get('adsContext'));
+				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
 
@@ -201,7 +201,7 @@ export default Component.extend(
 		 * @param {string} sectionId
 		 * @returns {JQuery}
 		 */
-		createArticleContributionComponent(section, sectionId) {
+		createArticleContributionComponent(placeholder, section, sectionId) {
 			const title = this.get('displayTitle'),
 				edit = 'edit',
 				addPhoto = 'addPhoto',
@@ -231,7 +231,8 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = this.$('h2[section]').map((i, elem) => {
+				const $placeholder = $('<div />'),
+					headers = this.$('h2[section]').map((i, elem) => {
 					if (elem.textContent) {
 						return {
 							element: elem,
@@ -246,7 +247,9 @@ export default Component.extend(
 				headers.forEach((header) => {
 					this.$(header.element)
 						.wrapInner('<div class="section-header-label"></div>')
-						.append(this.createArticleContributionComponent(header.section, header.id));
+						.append($placeholder);
+
+					this.createArticleContributionComponent($placeholder.get(0), header.section, header.id);
 				});
 			}
 		},
@@ -255,17 +258,20 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			const component = this.createComponentInstance('article-table-of-contents'),
-				$firstInfobox = this.$('.portable-infobox').first(),
-				componentElement = this.createChildView(component).createElement();
+			const $firstInfobox = this.$('.portable-infobox').first(),
+				$placeholder = $('<div />');
 
 			if ($firstInfobox.length) {
-				componentElement.$().insertAfter($firstInfobox);
+				$placeholder.insertAfter($firstInfobox);
 			} else {
-				componentElement.$().prependTo(this.$());
+				$placeholder.prependTo(this.$());
 			}
 
-			componentElement.trigger('didInsertElement');
+			this.renderComponent({
+				name: 'article-table-of-contents',
+				attrs: {},
+				element: $placeholder.get(0)
+			});
 		},
 
 		/**
