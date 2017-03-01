@@ -47,9 +47,11 @@ function lookupComponent(owner, name) {
 export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
-	return function renderComponent({name, attrs, element}) {
+	return function renderComponent({name, attrs, placeholderElement}) {
 		const {component, layout} = lookupComponent(owner, name);
-		let componentInstance;
+
+		let componentInstance,
+			wrapperElement;
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
@@ -57,12 +59,23 @@ export function getRenderComponentFor(parent) {
 			attrs.layout = layout;
 		}
 
-		$(element).empty();
+		// Component needs to be put in a wrapper, so Glimmer can reference it correctly
+		placeholderElement.insertAdjacentHTML('beforeBegin', '<div></div>');
+		wrapperElement = placeholderElement.previousSibling;
+
+		// We can't remove the placeholder element as it's referenced internally in Glimmer
+		// Instead we clean it up as much as possible
+		while (placeholderElement.attributes.length > 0) {
+			placeholderElement.removeAttribute(placeholderElement.attributes[0].name);
+		}
+
+		$(placeholderElement).empty().addClass('hidden').attr('data-ignore', 1);
+
 		componentInstance = component.create(attrs);
 
 		// We bypass Ember assertions that prevent appending components which have .ember-view parent
 		// Seems to be working fine
-		componentInstance.renderer.appendTo(componentInstance, element);
+		componentInstance.renderer.appendTo(componentInstance, wrapperElement);
 
 		return componentInstance;
 	};

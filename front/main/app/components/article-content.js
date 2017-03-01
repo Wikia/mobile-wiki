@@ -30,8 +30,6 @@ export default Component.extend(
 		displayEmptyArticleInfo: true,
 
 		articleContentObserver: on('init', observer('content', function () {
-			// this.destroyChildComponents();
-
 			run.scheduleOnce('afterRender', this, () => {
 				if (!isBlank(this.get('content'))) {
 					// TODO XW-2733 fix injecting components
@@ -53,7 +51,6 @@ export default Component.extend(
 					this.handleJumpLink();
 				}
 
-				//
 				// this.injectAds();
 				// this.setupAdsContext(this.get('adsContext'));
 			});
