@@ -46,7 +46,7 @@ export default Component.extend(
 					// this.createTableOfContents();
 					// this.createContributionButtons();
 					this.handleTables();
-					// 	this.replaceWikiaWidgetsWithComponents();
+					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 				}
@@ -311,27 +311,29 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetWithComponent(elem) {
-			const $widgetPlaceholder = $(elem),
-				widgetData = $widgetPlaceholder.data(),
+			const widgetData = $(elem).data(),
 				widgetType = widgetData.wikiaWidget,
-				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
+				componentName = this.getWidgetComponentName(widgetType);
 
-			let widgetComponentElement;
-
-			if (widgetComponent) {
-				widgetComponentElement = this.createChildView(widgetComponent).createElement();
-				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
-				widgetComponentElement.trigger('didInsertElement');
+			if (componentName) {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: componentName,
+						attrs: {
+							data: widgetData
+						},
+						element: elem
+					})
+				);
 			}
 		},
 
 		/**
 		 * @param {string} widgetType
-		 * @param {*} data
 		 * @returns {string|null}
 		 */
-		createWidgetComponent(widgetType, data) {
-			let component, componentName;
+		getWidgetComponentName(widgetType) {
+			let componentName;
 
 			switch (widgetType) {
 				case 'twitter':
@@ -351,9 +353,7 @@ export default Component.extend(
 					return null;
 			}
 
-			component = this.createComponentInstance(componentName);
-			component.set('data', data);
-			return component;
+			return componentName;
 		},
 
 		/**
