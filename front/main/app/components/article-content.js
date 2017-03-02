@@ -4,8 +4,6 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
-import FandomPostsModel from '../models/fandom-posts';
-import TopLinksModel from '../models/top-links';
 
 const {Component, Logger, $, get, isBlank, observer, on, run, computed} = Ember;
 
@@ -48,14 +46,13 @@ export default Component.extend(
 					this.loadIcons();
 					this.createTableOfContents();
 					this.createContributionButtons();
-					this.handleTables();
+					// this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 				}
 
-				// TODO XW-2733 fix injecting components
-				// this.injectAds();
+				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),

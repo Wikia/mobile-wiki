@@ -13,54 +13,59 @@ export default Ember.Mixin.create({
 		},
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
+		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
+		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 	},
 	ads: Ember.inject.service(),
-	adsHighImpact: Ember.inject.service(),
 
 	/**
 	 * @param {string} adSlotName
 	 * @param {string} place
-	 * @param {JQuery} element
+	 * @param {jQuery} element
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
 		const adsData = this.get('adsData'),
-			component = this.get('container').lookup(`component:ad-slot`, {
-				singleton: false
-			}),
-			config = adsData.additionalConfig[adSlotName] || {};
-
-		component.setProperties({
-			disableManualInsert: !!config.disableManualInsert,
-			isAboveTheFold: !!config.isAboveTheFold,
-			name: adSlotName
-		});
-
-		const componentElement = this.createChildView(component).createElement();
+			config = adsData.additionalConfig[adSlotName] || {},
+			$placeholder = $('<div>');
 
 		if (place === 'after') {
-			componentElement.$().insertAfter(element);
+			$placeholder.insertAfter(element);
 		} else if (place === 'before') {
-			componentElement.$().insertBefore(element);
+			$placeholder.insertBefore(element);
 		}
 
-		componentElement.trigger('didInsertElement');
-		this.get('ads').pushInContentAd(adSlotName, componentElement);
+		this.get('ads').pushAdSlotComponent(adSlotName, this.renderComponent({
+			name: 'ad-slot',
+			attrs: {
+				disableManualInsert: !!config.disableManualInsert,
+				isAboveTheFold: !!config.isAboveTheFold,
+				name: adSlotName
+			},
+			element: $placeholder.get(0)
+		}));
 	},
 
 	appendHighImpactAd() {
-		const highImpactComponent = this.get('container').lookup('component:ads/invisible-high-impact-2', {
-				singleton: false
-			}),
-			highImpactComponentElement = this.createChildView(highImpactComponent).createElement();
+		const $placeholder = $('<div>'),
+			$wikiContainer = $('#wikiContainer');
 
-		this.get('adsHighImpact').load(highImpactComponentElement);
+		$placeholder.insertAfter($wikiContainer);
 
-		this.appendAd('INVISIBLE_HIGH_IMPACT', 'after', $('#wikiContainer'));
+		this.get('ads').pushAdSlotComponent(
+			this.get('adsData.invisibleHighImpact2'),
+			this.renderComponent({
+				name: 'ads/invisible-high-impact-2',
+				attrs: {},
+				element: $placeholder.get(0)
+			})
+		);
+
+		this.appendAd(this.get('adsData.invisibleHighImpact'), 'after', $wikiContainer);
 	},
 
 	/**

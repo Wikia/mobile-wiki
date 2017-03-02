@@ -3,24 +3,38 @@ import Ember from 'ember';
 const {Component, inject, computed} = Ember;
 
 export default Component.extend({
-	adsHighImpact: inject.service(),
 	ads: inject.service(),
 
-	name: computed.readOnly('adsHighImpact.name'),
-	layoutName: 'components/ads/invisible-high-impact-2',
+	highImpactCountries: Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
 	noAds: computed.readOnly('ads.noAds'),
+	isVisible: false,
 
+	name: 'INVISIBLE_HIGH_IMPACT_2',
 	nameLowerCase: computed('name', function () {
 		return Ember.String.dasherize(this.get('name').toLowerCase());
 	}),
 
 	didInsertElement() {
-		this.get('ads.module').addSlot(this.get('name'));
-		this.get('ads').pushInContentAd(this.get('name'), this);
+		this.get('ads.module').onReady(() => {
+			if (this.isEnabled()) {
+				this.set('isVisible', true);
+				this.get('ads.module').addSlot(this.get('name'));
+			}
+		});
 	},
 
 	willDestroyElement() {
-		this.get('ads.module').removeSlot(this.get('name'));
-		this.$().remove();
+		if (this.isEnabled()) {
+			this.get('ads.module').removeSlot(this.get('name'));
+		}
+	},
+
+	isProperGeo(param) {
+		const isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+		return typeof isProperGeo === 'function' && isProperGeo(param);
+	},
+
+	isEnabled() {
+		return this.isProperGeo(this.highImpactCountries);
 	}
 });

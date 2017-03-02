@@ -9,8 +9,7 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'service:currentUser',
-		'service:ads',
-		'service:adsHighImpact'
+		'service:ads'
 	]
 });
 
