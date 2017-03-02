@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {getRenderComponentFor} from '../utils/render-component';
 
 export default Ember.Mixin.create({
 	adsData: {
@@ -22,6 +23,11 @@ export default Ember.Mixin.create({
 	},
 	ads: Ember.inject.service(),
 
+	init() {
+		this._super(...arguments);
+		this.renderAdComponent = getRenderComponentFor(this);
+	},
+
 	/**
 	 * @param {string} adSlotName
 	 * @param {string} place
@@ -39,7 +45,7 @@ export default Ember.Mixin.create({
 			$placeholder.insertBefore(element);
 		}
 
-		this.get('ads').pushAdSlotComponent(adSlotName, this.renderComponent({
+		this.get('ads').pushAdSlotComponent(adSlotName, this.renderAdComponent({
 			name: 'ad-slot',
 			attrs: {
 				disableManualInsert: !!config.disableManualInsert,
@@ -58,7 +64,7 @@ export default Ember.Mixin.create({
 
 		this.get('ads').pushAdSlotComponent(
 			this.get('adsData.invisibleHighImpact2'),
-			this.renderComponent({
+			this.renderAdComponent({
 				name: 'ads/invisible-high-impact-2',
 				attrs: {},
 				element: $placeholder.get(0)
