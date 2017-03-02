@@ -7,7 +7,7 @@ import {getGroup} from 'common/modules/abtest';
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
 
-const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
+const {Component, Logger, $, get, isBlank, observer, on, run, computed} = Ember;
 
 /**
  * HTMLElement
@@ -28,6 +28,10 @@ export default Component.extend(
 		uploadFeatureEnabled: null,
 		displayTitle: null,
 		displayEmptyArticleInfo: true,
+
+		isEmptyArticleInfoVisible: computed('content', 'displayEmptyArticleInfo', function() {
+			return isBlank(this.get('content')) && this.get('displayEmptyArticleInfo');
+		}),
 
 		articleContentObserver: on('init', observer('content', function () {
 			run.scheduleOnce('afterRender', this, () => {
