@@ -201,6 +201,7 @@ export default Component.extend(
 		 * "Lookup" function defined in
 		 * https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
 		 *
+		 * @param {object} placeholder
 		 * @param {number} section
 		 * @param {string} sectionId
 		 * @returns {JQuery}
