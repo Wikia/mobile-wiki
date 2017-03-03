@@ -5,7 +5,7 @@ import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
 
-const {Component, Logger, $, get, isBlank, observer, on, run, computed} = Ember;
+const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
 /**
  * HTMLElement
@@ -19,6 +19,7 @@ export default Component.extend(
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
 
+		$articleContent: null,
 		adsContext: null,
 		content: null,
 		media: null,
@@ -27,29 +28,41 @@ export default Component.extend(
 		displayTitle: null,
 		displayEmptyArticleInfo: true,
 
-		isEmptyArticleInfoVisible: computed('content', 'displayEmptyArticleInfo', function() {
-			return isBlank(this.get('content')) && this.get('displayEmptyArticleInfo');
-		}),
-
 		articleContentObserver: on('init', observer('content', function () {
+			this.destroyChildComponents();
+
 			run.scheduleOnce('afterRender', this, () => {
-				if (!isBlank(this.get('content'))) {
+				const rawContent = this.get('content');
+
+				if (!isBlank(rawContent)) {
+					const articleContentBuilder = document.createElement('div'),
+						$articleContent = $(articleContentBuilder);
+
+					this.set('$articleContent', $articleContent);
+					articleContentBuilder.innerHTML = rawContent;
+
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
-					this.renderedComponents = this.renderedComponents.concat(queryPlaceholders(this.$())
-						.map(getAttributesForMedia, {
-							media: this.get('media'),
-							openLightbox: this.get('openLightbox')
-						})
-						.map(this.renderComponent));
+					this.renderedComponents = this.renderedComponents.concat(
+						queryPlaceholders($articleContent)
+							.map(getAttributesForMedia, {
+								media: this.get('media'),
+								openLightbox: this.get('openLightbox')
+							})
+							.map(this.renderComponent)
+					);
 
 					this.loadIcons();
 					this.createTableOfContents();
 					this.createContributionButtons();
-					// this.handleTables();
+					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
+
+					this.$().empty().prepend(articleContentBuilder);
+				} else if (this.get('displayEmptyArticleInfo')) {
+					this.$().empty().prepend(`<p>${i18n.t('article.empty-label')}</p>`);
 				}
 
 				this.injectAds();
@@ -62,12 +75,6 @@ export default Component.extend(
 
 			this.renderComponent = getRenderComponentFor(this);
 			this.renderedComponents = [];
-		},
-
-		didUpdateAttrs({newAttrs, oldAttrs}) {
-			if (newAttrs.content !== oldAttrs.content) {
-				this.destroyChildComponents();
-			}
 		},
 
 		willDestroyElement() {
@@ -108,23 +115,6 @@ export default Component.extend(
 			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
-		},
-
-		/**
-		 * This is due to the fact that we send whole article
-		 * as an HTML and then we have to modify it in the DOM
-		 *
-		 * Ember+Glimmer are not fan of this as they would like to have
-		 * full control over the DOM and rendering
-		 *
-		 * In perfect world articles would come as Handlebars templates
-		 * so Ember+Glimmer could handle all the rendering
-		 *
-		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
-		 */
-		hackIntoEmberRendering(content) {
-			this.$().html(content);
 		},
 
 		/**
@@ -173,6 +163,8 @@ export default Component.extend(
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
 			});
+
+			this.renderedComponents.length = 0;
 		},
 
 		/**
@@ -183,22 +175,13 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		loadIcons() {
-			this.$('.article-media-icon[data-src]').each(function () {
+			this.get('$articleContent').find('.article-media-icon[data-src]').each(function () {
 				this.src = this.getAttribute('data-src');
 			});
 		},
 
 		/**
-		 * Instantiate ArticleContributionComponent by looking up the component from container
-		 * in order to have dependency injection.
-		 *
-		 * Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in
-		 * http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/
-		 *
-		 * "Lookup" function defined in
-		 * https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
-		 *
-		 * @param {object} placeholder
+		 * @param {Node} placeholder
 		 * @param {number} section
 		 * @param {string} sectionId
 		 * @returns {JQuery}
@@ -228,8 +211,9 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const $placeholder = $('<div />'),
-					headers = this.$('h2[section]').map((i, elem) => {
+				const $articleContent = this.get('$articleContent'),
+					$placeholder = $('<div />'),
+					headers = $articleContent.find('h2[section]').map((i, elem) => {
 					if (elem.textContent) {
 						return {
 							element: elem,
@@ -242,7 +226,7 @@ export default Component.extend(
 				}).toArray();
 
 				headers.forEach((header) => {
-					this.$(header.element)
+					$articleContent.find(header.element)
 						.wrapInner('<div class="section-header-label"></div>')
 						.append($placeholder);
 
@@ -255,19 +239,22 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			const $firstInfobox = this.$('.portable-infobox').first(),
+			const $articleContent = this.get('$articleContent'),
+				$firstInfobox = $articleContent.find('.portable-infobox').first(),
 				$placeholder = $('<div />');
 
 			if ($firstInfobox.length) {
 				$placeholder.insertAfter($firstInfobox);
 			} else {
-				$placeholder.prependTo(this.$());
+				$placeholder.prependTo($articleContent);
 			}
 
 			this.renderedComponents.push(
 				this.renderComponent({
 					name: 'article-table-of-contents',
-					attrs: {},
+					attrs: {
+						articleContent: $articleContent
+					},
 					element: $placeholder.get(0)
 				})
 			);
@@ -282,7 +269,7 @@ export default Component.extend(
 			 * @param {Element} elem
 			 * @returns {void}
 			 */
-			this.$('.portable-infobox').map((i, elem) => {
+			this.get('$articleContent').find('.portable-infobox').map((i, elem) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
@@ -306,7 +293,7 @@ export default Component.extend(
 			 * @param {Element} elem
 			 * @returns {void}
 			 */
-			this.$('[data-wikia-widget]').map((i, elem) => {
+			this.get('$articleContent').find('[data-wikia-widget]').map((i, elem) => {
 				this.replaceWikiaWidgetWithComponent(elem);
 			});
 		},
@@ -365,7 +352,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleWikiaWidgetWrappers() {
-			this.$('script[type="x-wikia-widget"]').each(function () {
+			this.get('$articleContent').find('script[type="x-wikia-widget"]').each(function () {
 				const $this = $(this);
 
 				$this.replaceWith($this.html());
@@ -379,7 +366,7 @@ export default Component.extend(
 		 */
 		handleInfoboxes() {
 			const shortClass = 'short',
-				$infoboxes = this.$('table[class*="infobox"] tbody'),
+				$infoboxes = this.get('$articleContent').find('table[class*="infobox"] tbody'),
 				body = window.document.body,
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
@@ -408,26 +395,17 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
+			const $articleContent = this.get('$articleContent');
+
+				$articleContent.find('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
-					const $element = this.$(element),
+					const $element = $articleContent.find(element),
 						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
 							' portable-table-wrappper' : ''}"/>`;
 
 					$element.wrap(wrapper);
 				});
-		},
-
-		/**
-		 * Create component instance using container lookup.
-		 * @param {String} componentName
-		 * @returns {Ember.Component}
-		 */
-		createComponentInstance(componentName) {
-			return this.get('container').lookup(`component:${componentName}`, {
-				singleton: false
-			});
 		},
 	}
 );
