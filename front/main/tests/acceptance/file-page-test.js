@@ -1,5 +1,6 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
+import mockAdsService from 'main/tests/helpers/mock-ads-service';
 import sinon from 'sinon';
 
 moduleForAcceptance('Acceptance | file page');
