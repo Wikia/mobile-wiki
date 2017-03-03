@@ -249,7 +249,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			const $firstInfobox =  this.$('.portable-infobox').first(),
+			const $firstInfobox = this.$('.portable-infobox').first(),
 				$placeholder = $('<div />');
 
 			if ($firstInfobox.length) {
