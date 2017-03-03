@@ -13,6 +13,14 @@ $player-button-sound-off: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfNF9jb3B
 
 $vpaid-z-index: 10;
 
+@mixin absolute-fill() {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	top: 0;
+}
+
 .ad-slot {
 	margin: 0;
 	padding: 0;
@@ -55,26 +63,15 @@ $vpaid-z-index: 10;
 		width: 100%;
 
 		iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
+			@include absolute-fill();
 		}
 	}
 
 	.vpaid-container {
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
+		@include absolute-fill();
 
 		video, & > div {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			width: 100%;
-			top: 0;
+			@include absolute-fill();
 		}
 
 		// Node elements created by IMA library
