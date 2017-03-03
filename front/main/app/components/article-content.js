@@ -19,7 +19,6 @@ export default Component.extend(
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
 
-		$articleContent: null,
 		adsContext: null,
 		content: null,
 		media: null,
@@ -35,16 +34,12 @@ export default Component.extend(
 				const rawContent = this.get('content');
 
 				if (!isBlank(rawContent)) {
-					const articleContentBuilder = document.createElement('div'),
-						$articleContent = $(articleContentBuilder);
-
-					this.set('$articleContent', $articleContent);
-					articleContentBuilder.innerHTML = rawContent;
+					this.hackIntoEmberRendering(rawContent);
 
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 					this.renderedComponents = this.renderedComponents.concat(
-						queryPlaceholders($articleContent)
+						queryPlaceholders(this.$())
 							.map(getAttributesForMedia, {
 								media: this.get('media'),
 								openLightbox: this.get('openLightbox')
@@ -59,10 +54,8 @@ export default Component.extend(
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
-
-					this.$().empty().prepend(articleContentBuilder);
 				} else if (this.get('displayEmptyArticleInfo')) {
-					this.$().empty().prepend(`<p>${i18n.t('article.empty-label')}</p>`);
+					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
 				}
 
 				this.injectAds();
@@ -115,6 +108,23 @@ export default Component.extend(
 			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
+		},
+
+		/**
+		 * This is due to the fact that we send whole article
+		 * as an HTML and then we have to modify it in the DOM
+		 *
+		 * Ember+Glimmer are not fan of this as they would like to have
+		 * full control over the DOM and rendering
+		 *
+		 * In perfect world articles would come as Handlebars templates
+		 * so Ember+Glimmer could handle all the rendering
+		 *
+		 * @param {string} content - HTML containing whole article
+		 * @returns {void}
+		 */
+		hackIntoEmberRendering(content) {
+			this.$().html(content);
 		},
 
 		/**
@@ -175,7 +185,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		loadIcons() {
-			this.get('$articleContent').find('.article-media-icon[data-src]').each(function () {
+			this.$('.article-media-icon[data-src]').each(function () {
 				this.src = this.getAttribute('data-src');
 			});
 		},
@@ -211,9 +221,8 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const $articleContent = this.get('$articleContent'),
-					$placeholder = $('<div />'),
-					headers = $articleContent.find('h2[section]').map((i, elem) => {
+				const $placeholder = $('<div />'),
+					headers = this.$('h2[section]').map((i, elem) => {
 					if (elem.textContent) {
 						return {
 							element: elem,
@@ -226,7 +235,7 @@ export default Component.extend(
 				}).toArray();
 
 				headers.forEach((header) => {
-					$articleContent.find(header.element)
+					this.$(header.element)
 						.wrapInner('<div class="section-header-label"></div>')
 						.append($placeholder);
 
@@ -239,21 +248,20 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			const $articleContent = this.get('$articleContent'),
-				$firstInfobox = $articleContent.find('.portable-infobox').first(),
+			const $firstInfobox =  this.$('.portable-infobox').first(),
 				$placeholder = $('<div />');
 
 			if ($firstInfobox.length) {
 				$placeholder.insertAfter($firstInfobox);
 			} else {
-				$placeholder.prependTo($articleContent);
+				$placeholder.prependTo(this.$());
 			}
 
 			this.renderedComponents.push(
 				this.renderComponent({
 					name: 'article-table-of-contents',
 					attrs: {
-						articleContent: $articleContent
+						articleContent: this.$()
 					},
 					element: $placeholder.get(0)
 				})
@@ -269,7 +277,7 @@ export default Component.extend(
 			 * @param {Element} elem
 			 * @returns {void}
 			 */
-			this.get('$articleContent').find('.portable-infobox').map((i, elem) => {
+			this.$('.portable-infobox').map((i, elem) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
@@ -293,7 +301,7 @@ export default Component.extend(
 			 * @param {Element} elem
 			 * @returns {void}
 			 */
-			this.get('$articleContent').find('[data-wikia-widget]').map((i, elem) => {
+			this.$('[data-wikia-widget]').map((i, elem) => {
 				this.replaceWikiaWidgetWithComponent(elem);
 			});
 		},
@@ -352,7 +360,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleWikiaWidgetWrappers() {
-			this.get('$articleContent').find('script[type="x-wikia-widget"]').each(function () {
+			this.$('script[type="x-wikia-widget"]').each(function () {
 				const $this = $(this);
 
 				$this.replaceWith($this.html());
@@ -366,7 +374,7 @@ export default Component.extend(
 		 */
 		handleInfoboxes() {
 			const shortClass = 'short',
-				$infoboxes = this.get('$articleContent').find('table[class*="infobox"] tbody'),
+				$infoboxes = this.$('table[class*="infobox"] tbody'),
 				body = window.document.body,
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
@@ -395,12 +403,10 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			const $articleContent = this.get('$articleContent');
-
-				$articleContent.find('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
+			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
-					const $element = $articleContent.find(element),
+					const $element = this.$(element),
 						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
 							' portable-table-wrappper' : ''}"/>`;
 
