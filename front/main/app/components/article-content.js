@@ -49,7 +49,7 @@ export default Component.extend(
 
 					this.loadIcons();
 					this.createTableOfContents();
-					// this.createContributionButtons();
+					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
@@ -221,8 +221,7 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const $placeholder = $('<div />'),
-					headers = this.$('h2[section]').map((i, elem) => {
+				const headers = this.$('h2[section]').map((i, elem) => {
 					if (elem.textContent) {
 						return {
 							element: elem,
@@ -235,6 +234,8 @@ export default Component.extend(
 				}).toArray();
 
 				headers.forEach((header) => {
+					const $placeholder = $('<div />');
+
 					this.$(header.element)
 						.wrapInner('<div class="section-header-label"></div>')
 						.append($placeholder);
