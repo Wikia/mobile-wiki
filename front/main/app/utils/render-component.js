@@ -31,12 +31,7 @@ function lookupComponent(owner, name) {
 	return {component, layout};
 }
 
-function replacePlaceholderWithComponent(placeholderElement, componentInstance) {
-	placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
-	$(placeholderElement).remove();
-}
-
-export function getRenderComponentFor(parent, waitForAfterRender = false) {
+export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
 	return function renderComponent({name, attrs, element: placeholderElement}) {
@@ -52,13 +47,10 @@ export function getRenderComponentFor(parent, waitForAfterRender = false) {
 		componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
-		if (waitForAfterRender) {
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				replacePlaceholderWithComponent(placeholderElement, componentInstance);
-			});
-		} else {
-			replacePlaceholderWithComponent(placeholderElement, componentInstance);
-		}
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
+			$(placeholderElement).remove();
+		});
 
 		return componentInstance;
 	};

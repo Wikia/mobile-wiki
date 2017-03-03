@@ -49,7 +49,7 @@ export default Component.extend(
 
 					this.loadIcons();
 					this.createTableOfContents();
-					this.createContributionButtons();
+					// this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
