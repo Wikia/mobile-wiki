@@ -234,7 +234,7 @@ export default Component.extend(
 				}).toArray();
 
 				headers.forEach((header) => {
-					const $placeholder = $('<div />');
+					const $placeholder = $('<div>');
 
 					this.$(header.element)
 						.wrapInner('<div class="section-header-label"></div>')

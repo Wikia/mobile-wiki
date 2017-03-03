@@ -25,7 +25,7 @@ export default Ember.Mixin.create({
 
 	init() {
 		this._super(...arguments);
-		this.renderAdComponent = getRenderComponentFor(this, true);
+		this.renderAdComponent = getRenderComponentFor(this);
 	},
 
 	/**
