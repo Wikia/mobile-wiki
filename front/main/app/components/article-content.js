@@ -21,11 +21,12 @@ export default Component.extend(
 
 		adsContext: null,
 		content: null,
-		media: null,
 		contributionEnabled: null,
-		uploadFeatureEnabled: null,
-		displayTitle: null,
 		displayEmptyArticleInfo: true,
+		displayTitle: null,
+		isPreview: false,
+		media: null,
+		uploadFeatureEnabled: null,
 
 		articleContentObserver: on('init', observer('content', function () {
 			this.destroyChildComponents();
@@ -58,8 +59,10 @@ export default Component.extend(
 					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
 				}
 
-				this.injectAds();
-				this.setupAdsContext(this.get('adsContext'));
+				if (!this.get('isPreview')) {
+					this.injectAds();
+					this.setupAdsContext(this.get('adsContext'));
+				}
 			});
 		})),
 
