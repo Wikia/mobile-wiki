@@ -30,6 +30,17 @@ export class RedirectedToCanonicalHost {
 RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
 
 /**
+ * @class RedirectedInterwikiLink
+ */
+export class RedirectInterwikiLink {
+    constructor() {
+        Error.apply(this, arguments);
+    }
+}
+
+RedirectInterwikiLink.prototype = Object.create(Error.prototype);
+
+/**
  * @class WikiVariablesRequestError
  */
 export class WikiVariablesRequestError {

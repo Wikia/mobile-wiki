@@ -5,7 +5,7 @@
 import {applyToDefaults, escapeHtml} from 'hoek';
 import {parse} from 'url';
 import {stringify} from 'querystring';
-import {RedirectedToCanonicalHost} from './custom-errors';
+import {RedirectedToCanonicalHost, RedirectInterwikiLink} from './custom-errors';
 import deepExtend from 'deep-extend';
 import Promise from 'bluebird';
 import uuid from 'node-uuid';
@@ -289,6 +289,13 @@ export function redirectToCanonicalHostIfNeeded(settings, request, reply, wikiVa
 		reply.redirect(redirectLocation).permanent(true);
 		throw new RedirectedToCanonicalHost();
 	}
+}
+
+export function redirectInterwikiLinkIfNeeded(data, reply) {
+    if ('redirectTo' in data.data) {
+        reply.redirect(data.data.redirectTo).permanent(false);
+        throw new RedirectInterwikiLink();
+    }
 }
 
 /**

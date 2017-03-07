@@ -90,6 +90,9 @@ export default function getPageModel(params) {
 
 	return request(getURL(params))
 		.then((data) => {
+			if ('redirectTo' in data.data) {
+				window.location = data.data.redirectTo;
+			}
 			model = getModelForNamespace(data, params);
 
 			return model;
