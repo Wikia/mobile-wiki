@@ -30,7 +30,7 @@
 		}}
 	{{/if}}
 	{{article-content
-		addPhoto='addPhoto'
+		addPhoto=(action 'addPhoto')
 		addPhotoAllowed=addPhotoAllowed
 		addPhotoIconVisible=addPhotoIconVisible
 		adsContext=model.adsContext
@@ -38,7 +38,7 @@
 		contributionEnabled=contributionEnabled
 		displayEmptyArticleInfo=displayEmptyArticleInfo
 		displayTitle=model.displayTitle
-		edit='edit'
+		edit=(action 'edit')
 		editAllowed=editAllowed
 		editIconVisible=editIconVisible
 		heroImage=model.heroImage
@@ -62,7 +62,7 @@
 		}}
 	{{/if}}
 	{{#if model.categories}}
-	{{! Keep the same server/app/views/_partials/article-footer/categories.hbs }}
+		{{! Keep the same server/app/views/_partials/article-footer/categories.hbs }}
 		{{#collapsible-menu
 			observe=model.displayTitle
 			ordered=false

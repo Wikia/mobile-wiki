@@ -26,7 +26,6 @@ export default Route.extend(
 		},
 
 		ads: Ember.inject.service(),
-		adsHighImpact: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -242,8 +241,11 @@ export default Route.extend(
 			const adsModule = this.get('ads.module'),
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
-			if (this.get('ads.adsUrl') && !M.prop('queryParams.noexternals') &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury) {
+			if (
+				this.get('ads.adsUrl') &&
+				!M.prop('queryParams.noexternals') &&
+				!instantGlobals.wgSitewideDisableAdsOnMercury
+			) {
 				adsModule.init(this.get('ads.adsUrl'));
 
 				/*

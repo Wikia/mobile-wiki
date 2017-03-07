@@ -79,7 +79,7 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		didInitAttrs() {
+		init() {
 			this._super(...arguments);
 
 			this.set('model', ArticleCommentsModel.create({

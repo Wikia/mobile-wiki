@@ -17,10 +17,10 @@ moduleForComponent('design-system.wds-dropdown', 'Integration | Component | wds-
 
 test('yields toggle and content', function (assert) {
 	this.render(hbs`
-		{{#design-system.wds-dropdown as |dropdown|}}
+		{{#design-system/wds-dropdown as |dropdown|}}
 			{{#dropdown.toggle}}Toggle{{/dropdown.toggle}}
 			{{#dropdown.content}}Content{{/dropdown.content}}
-		{{/design-system.wds-dropdown}}
+		{{/design-system/wds-dropdown}}
 	`);
 
 	assert.ok(
@@ -34,10 +34,10 @@ test('yields toggle and content', function (assert) {
 
 test('handles additional attributes', function (assert) {
 	this.render(hbs`
-		{{#design-system.wds-dropdown  as |dropdown|}}
+		{{#design-system/wds-dropdown  as |dropdown|}}
 			{{#dropdown.toggle title="Title"}}Toggle{{/dropdown.toggle}}
 			{{#dropdown.content dropdownRightAligned=true}}Content{{/dropdown.content}}
-		{{/design-system.wds-dropdown}}
+		{{/design-system/wds-dropdown}}
 	`);
 
 	assert.equal(this.$(toggleSelector).prop('title'), 'Title', 'Toggle has title attribute');
@@ -46,10 +46,10 @@ test('handles additional attributes', function (assert) {
 
 test('handles class names', function (assert) {
 	this.render(hbs`
-		{{#design-system.wds-dropdown class="test-dropdown" as |dropdown|}}
+		{{#design-system/wds-dropdown class="test-dropdown" as |dropdown|}}
 			{{#dropdown.toggle class="test-dropdown-toggle"}}Toggle{{/dropdown.toggle}}
 			{{#dropdown.content class="test-dropdown-content"}}Content{{/dropdown.content}}
-		{{/design-system.wds-dropdown}}
+		{{/design-system/wds-dropdown}}
 	`);
 
 	assert.ok(this.$(dropdownSelector).is('.wds-dropdown, .test-dropdown'), 'Dropdown has correct classes');
