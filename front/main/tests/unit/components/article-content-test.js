@@ -3,11 +3,11 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 const {Component, String: EmberString, computed, run} = Ember,
 	adSlotComponentStub = Component.extend({
-	classNameBindings: ['nameLowerCase'],
-	nameLowerCase: computed('name', function () {
-		return EmberString.dasherize(this.get('name').toLowerCase());
-	})
-});
+		classNameBindings: ['nameLowerCase'],
+		nameLowerCase: computed('name', function () {
+			return EmberString.dasherize(this.get('name').toLowerCase());
+		})
+	});
 
 moduleForComponent('article-content', 'Unit | Component | article content', {
 	unit: true,
