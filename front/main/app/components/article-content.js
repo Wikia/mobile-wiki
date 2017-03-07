@@ -224,14 +224,14 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = this.$('h2[section]').map((i, elem) => {
-					if (elem.textContent) {
+				const headers = this.$('h2[section]').map((i, element) => {
+					if (element.textContent) {
 						return {
-							element: elem,
-							level: elem.tagName,
-							name: elem.textContent,
-							id: elem.id,
-							section: elem.getAttribute('section'),
+							element,
+							level: element.tagName,
+							name: element.textContent,
+							id: element.id,
+							section: element.getAttribute('section'),
 						};
 					}
 				}).toArray();
@@ -278,19 +278,19 @@ export default Component.extend(
 		replaceInfoboxesWithInfoboxComponents() {
 			/**
 			 * @param {number} i
-			 * @param {Element} elem
+			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('.portable-infobox').map((i, elem) => {
+			this.$('.portable-infobox').map((i, element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
 						attrs: {
-							infoboxHTML: elem.innerHTML,
-							height: $(elem).outerHeight(),
+							infoboxHTML: element.innerHTML,
+							height: $(element).outerHeight(),
 							pageTitle: this.get('displayTitle')
 						},
-						element: elem
+						element
 					})
 				);
 			});
@@ -302,20 +302,20 @@ export default Component.extend(
 		replaceWikiaWidgetsWithComponents() {
 			/**
 			 * @param {number} i
-			 * @param {Element} elem
+			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('[data-wikia-widget]').map((i, elem) => {
-				this.replaceWikiaWidgetWithComponent(elem);
+			this.$('[data-wikia-widget]').map((i, element) => {
+				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
 
 		/**
-		 * @param {Element} elem
+		 * @param {Element} element
 		 * @returns {void}
 		 */
-		replaceWikiaWidgetWithComponent(elem) {
-			const widgetData = $(elem).data(),
+		replaceWikiaWidgetWithComponent(element) {
+			const widgetData = $(element).data(),
 				widgetType = widgetData.wikiaWidget,
 				componentName = this.getWidgetComponentName(widgetType);
 
@@ -326,7 +326,7 @@ export default Component.extend(
 						attrs: {
 							data: widgetData
 						},
-						element: elem
+						element
 					})
 				);
 			}
