@@ -44,7 +44,7 @@ test('visiting /search', (assert) => {
 			);
 
 			assert.equal(
-				find('.wikia-search__clear svg').is(':visible'),
+				find('.wikia-search__clear svg').length,
 				true,
 				'Clean query icon is visible'
 			);

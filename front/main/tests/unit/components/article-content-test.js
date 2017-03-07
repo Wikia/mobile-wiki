@@ -1,6 +1,14 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
+const {Component, String: EmberString, computed, run} = Ember,
+	adSlotComponentStub = Component.extend({
+		classNameBindings: ['nameLowerCase'],
+		nameLowerCase: computed('name', function () {
+			return EmberString.dasherize(this.get('name').toLowerCase());
+		})
+	});
+
 moduleForComponent('article-content', 'Unit | Component | article content', {
 	unit: true,
 	needs: [
@@ -9,47 +17,50 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'service:currentUser',
-		'service:ads',
-		'service:adsHighImpact'
-	]
+		'service:ads'
+	],
+
+	beforeEach() {
+		this.register('component:ad-slot', adSlotComponentStub);
+	}
 });
 
 const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
 
-test('ads are correctly inserted', function (assert) {
-	Ember.run(() => {
+test('ad is injected below portable infobox with no page header', function (assert) {
+	run(() => {
 		const content =
 			'<p>some content</p>' +
 			'<aside class="portable-infobox"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>',
-			component = this.subject();
+			'<div>more content</div>';
 
-		component.set('content', content);
-
-		// this.$() renders the component
-		this.$();
+		this.subject({
+			content
+		});
+		this.render();
 	});
 
 	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1);
 	assert.equal(
 		this.$(mobileTopLeaderboardSelector).prev().get(0),
 		this.$('.portable-infobox').get(0),
-		'previous element is an infobox');
+		'previous element is an infobox'
+	);
 });
 
-test('ads are correctly inserted', function (assert) {
-	Ember.run(() => {
+test('ad is injected below page header', function (assert) {
+	run(() => {
 		const content =
 			'<p>some content</p>' +
 			'<aside class="wiki-page-header"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>',
-			component = this.subject();
+			'<div>more content</div>';
 
-		component.set('content', content);
-		// this.$() renders the component
-		this.$();
+		this.subject({
+			content
+		});
+		this.render();
 	});
 
 	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1);
@@ -60,19 +71,19 @@ test('ads are correctly inserted', function (assert) {
 	);
 });
 
-test('ads are correctly inserted', function (assert) {
-	Ember.run(() => {
+test('ad is injected below portable infobox', function (assert) {
+	run(() => {
 		const content =
 			'<p>some content</p>' +
 			'<div class="wiki-page-header"></div>' +
 			'<aside class="portable-infobox"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>',
-			component = this.subject();
+			'<div>more content</div>';
 
-		component.set('content', content);
-		// this.$() renders the component
-		this.$();
+		this.subject({
+			content
+		});
+		this.render();
 	});
 
 	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');

@@ -10,7 +10,7 @@ export default Ember.Test.registerHelper('mockAdsService', () => {
 			removeSlot: Ember.K,
 			waitForUapResponse: Ember.K
 		},
-		destroyInContentAds: Ember.K,
-		pushInContentAd: Ember.K
+		destroyAdSlotComponents: Ember.K,
+		pushAdSlotComponent: Ember.K
 	}), 'ads');
 });

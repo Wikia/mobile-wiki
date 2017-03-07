@@ -21,7 +21,6 @@ export default Route.extend(
 		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
-		adsHighImpact: inject.service(),
 		currentUser: inject.service(),
 		ads: inject.service(),
 
@@ -206,20 +205,6 @@ export default Route.extend(
 			}
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		activate() {
-			this.controllerFor('application').set('enableShareHeader', true);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		deactivate() {
-			this.controllerFor('application').set('enableShareHeader', false);
-		},
-
 		actions: {
 			/**
 			 * @returns {void}
@@ -228,7 +213,7 @@ export default Route.extend(
 				// notify a property change on soon to be stale model for observers (like
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
-				this.get('ads').destroyInContentAds();
+				this.get('ads').destroyAdSlotComponents();
 			},
 
 			/**

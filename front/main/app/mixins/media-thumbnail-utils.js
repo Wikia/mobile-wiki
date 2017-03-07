@@ -23,7 +23,6 @@ export default Ember.Mixin.create(
 				const thumbParams = this.getThumbnailParams(),
 					thumbURL = Thumbnailer.getThumbURL(url, thumbParams);
 
-				this.set('isLoading', true);
 				this.setImageEvents(thumbURL);
 
 				return thumbURL;
@@ -48,6 +47,9 @@ export default Ember.Mixin.create(
 		 */
 		didEnterViewport() {
 			this.set('shouldBeLoaded', true);
+			if (this.get('url')) {
+				this.set('isLoading', true);
+			}
 		},
 
 		/**

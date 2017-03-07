@@ -124,7 +124,9 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 			{
 				title: 'sug sug suggestions sug sug'
 			}
-		],
+		].map((suggestion) => {
+			return Ember.Object.create(suggestion);
+		}),
 		suggestionsAfterProcessing = [
 			{
 				text: '<span class="wikia-search__suggestion-highlighted">sug</span>gestion1',
@@ -155,8 +157,12 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				title: 'sug sug suggestions sug sug',
 				uri: 'sug_sug_suggestions_sug_sug'
 			}
-		];
+		].map((suggestion) => {
+			return Ember.Object.create(suggestion);
+		});
 
+	// Cache empty array so we don't send an AJAX request
+	component.cacheResult('sug', []);
 	component.set('phrase', 'sug');
 	assert.deepEqual(component.get('suggestions'), [], 'suggestions should be empty at init');
 

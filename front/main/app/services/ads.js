@@ -3,28 +3,27 @@ import Ads from 'common/modules/ads';
 
 export default Ember.Service.extend({
 	module: Ads.getInstance(),
-	adsHighImpact: Ember.inject.service(),
 	siteHeadOffset: 0,
 	noAdsQueryParam: '',
 	noAds: Ember.computed('noAdsQueryParam', function () {
 		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') || !!M.prop('userId');
 	}),
-	inContentAds: {},
+	adSlotComponents: {},
 	adsUrl: Ember.computed(() => {
 		return M.prop('adsUrl');
 	}),
 
-	pushInContentAd(slotName, adComponent) {
-		this.get('inContentAds')[slotName] = adComponent;
+	pushAdSlotComponent(slotName, adSlotComponent) {
+		this.get('adSlotComponents')[slotName] = adSlotComponent;
 	},
 
-	destroyInContentAds() {
-		const inContentAds = this.get('inContentAds');
+	destroyAdSlotComponents() {
+		const adSlotComponents = this.get('adSlotComponents');
 
-		Object.keys(inContentAds).forEach((slotName) => {
-			inContentAds[slotName].destroyElement();
+		Object.keys(adSlotComponents).forEach((slotName) => {
+			adSlotComponents[slotName].destroy();
 		});
 
-		this.set('inContentAds', {});
+		this.set('adSlotComponents', {});
 	}
 });
