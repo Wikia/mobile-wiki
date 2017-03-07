@@ -6,13 +6,7 @@ moduleForAcceptance('Acceptance | search');
 test('visiting /search', (assert) => {
 	const searchInput = '.side-search__input',
 		enterKeyCode = 13,
-		testQuery = 'test query',
-		responsiveMock = Ember.Service.extend({
-			isMobile: true,
-			setBreakpoints: Ember.K
-		});
-
-	mockService(responsiveMock, 'responsive');
+		testQuery = 'test query';
 
 	visit('/');
 	visit('/search');

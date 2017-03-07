@@ -7,7 +7,6 @@ let trackStub, buildUrlStub;
 
 moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
-	needs: ['service:responsive'],
 
 	beforeEach() {
 		buildUrlStub = sinon.stub(M, 'buildUrl');
