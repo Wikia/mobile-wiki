@@ -2,7 +2,6 @@ import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as
 import {
 	PageRequestError,
 	RedirectedToCanonicalHost,
-	RedirectInterwikiLink,
 	NonJsonApiResponseError,
 	WikiVariablesRequestError
 } from '../lib/custom-errors';
@@ -15,7 +14,6 @@ import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
-	redirectInterwikiLinkIfNeeded,
 	redirectToOasis,
 	setI18nLang
 } from '../lib/utils';
@@ -195,7 +193,6 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 */
 		.then((data) => {
 			redirectToCanonicalHostIfNeeded(settings, request, reply, data.wikiVariables);
-			redirectInterwikiLinkIfNeeded(data, reply);
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
@@ -241,9 +238,6 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 */
 		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
-		})
-		.catch(RedirectInterwikiLink, () => {
-			Logger.info('Resolving interwiki link redirection')
 		})
 		/**
 		 * Other errors
