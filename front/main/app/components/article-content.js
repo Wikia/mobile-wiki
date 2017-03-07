@@ -282,6 +282,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			this.$('.portable-infobox').map((i, elem) => {
+				debugger;
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',

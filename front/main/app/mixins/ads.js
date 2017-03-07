@@ -60,18 +60,20 @@ export default Ember.Mixin.create({
 		const $placeholder = $('<div>'),
 			$wikiContainer = $('#wikiContainer');
 
-		$placeholder.insertAfter($wikiContainer);
+		if ($wikiContainer.length) {
+			$placeholder.insertAfter($wikiContainer);
 
-		this.get('ads').pushAdSlotComponent(
-			this.get('adsData.invisibleHighImpact2'),
-			this.renderAdComponent({
-				name: 'ads/invisible-high-impact-2',
-				attrs: {},
-				element: $placeholder.get(0)
-			})
-		);
+			this.get('ads').pushAdSlotComponent(
+				this.get('adsData.invisibleHighImpact2'),
+				this.renderAdComponent({
+					name: 'ads/invisible-high-impact-2',
+					attrs: {},
+					element: $placeholder.get(0)
+				})
+			);
 
-		this.appendAd(this.get('adsData.invisibleHighImpact'), 'after', $wikiContainer);
+			this.appendAd(this.get('adsData.invisibleHighImpact'), 'after', $wikiContainer);
+		}
 	},
 
 	/**
@@ -88,7 +90,7 @@ export default Ember.Mixin.create({
 			articleBodyHeight = $articleBody.height(),
 
 			showInContent = firstSectionTop > adsData.minZerothSectionLength,
-			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
+			showPreFooter = $articleFooter.length && !showInContent || articleBodyHeight > adsData.minPageLength,
 			$globalFooter = $('.wds-global-footer');
 
 		if ($pi.length) {

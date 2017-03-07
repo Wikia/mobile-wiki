@@ -72,7 +72,6 @@ test('search input has correct classes when inputFocused=true', function (assert
 test('display div with loading search suggestions', function (assert) {
 	this.render(hbs`{{wikia-search
 		isLoadingResultsSuggestions=true
-		suggestions=[]
 	}}`);
 
 	assert.equal(this.$('.wikia-search__loading').length, 1);

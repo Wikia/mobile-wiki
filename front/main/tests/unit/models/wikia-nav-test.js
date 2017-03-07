@@ -78,7 +78,7 @@ test('test zero state with values from api', (assert) => {
 					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
-					href: ''
+					href: 'Main_Page'
 				},
 				{
 					href: 'Test_1',
@@ -125,7 +125,7 @@ test('test zero state with values from api', (assert) => {
 					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
-					href: ''
+					href: 'Main_Page'
 				},
 				{
 					type: 'nav-menu-external',
@@ -172,7 +172,7 @@ test('test zero state with values from api', (assert) => {
 					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
-					href: ''
+					href: 'Main_Page'
 				},
 				{
 					href: 'Test_1',
@@ -220,7 +220,7 @@ test('test zero state with values from api', (assert) => {
 					name: 'navigation.explore-wiki',
 					type: 'nav-menu-header',
 					route: 'wiki-page',
-					href: ''
+					href: 'Main_Page'
 				},
 				{
 					href: 'Test_1',
