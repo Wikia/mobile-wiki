@@ -4,8 +4,6 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
-import FandomPostsModel from '../models/fandom-posts';
-import TopLinksModel from '../models/top-links';
 
 const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
@@ -23,30 +21,32 @@ export default Component.extend(
 
 		adsContext: null,
 		content: null,
-		media: null,
 		contributionEnabled: null,
-		uploadFeatureEnabled: null,
-		displayTitle: null,
 		displayEmptyArticleInfo: true,
+		displayTitle: null,
+		isPreview: false,
+		media: null,
+		uploadFeatureEnabled: null,
 
 		articleContentObserver: on('init', observer('content', function () {
-			const content = this.get('content');
-
 			this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
-				if (!isBlank(content)) {
-					this.hackIntoEmberRendering(content);
+				const rawContent = this.get('content');
+
+				if (!isBlank(rawContent)) {
+					this.hackIntoEmberRendering(rawContent);
 
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
-
-					this.renderedComponents = queryPlaceholders(this.$())
-						.map(getAttributesForMedia, {
-							media: this.get('media'),
-							openLightbox: this.get('openLightbox')
-						})
-						.map(this.renderComponent);
+					this.renderedComponents = this.renderedComponents.concat(
+						queryPlaceholders(this.$())
+							.map(getAttributesForMedia, {
+								media: this.get('media'),
+								openLightbox: this.get('openLightbox')
+							})
+							.map(this.renderComponent)
+					);
 
 					this.loadIcons();
 					this.createTableOfContents();
@@ -55,13 +55,14 @@ export default Component.extend(
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
-					this.injectPlacementTest();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
 				}
 
-				this.injectAds();
-				this.setupAdsContext(this.get('adsContext'));
+				if (!this.get('isPreview')) {
+					this.injectAds();
+					this.setupAdsContext(this.get('adsContext'));
+				}
 			});
 		})),
 
@@ -175,6 +176,8 @@ export default Component.extend(
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
 			});
+
+			this.renderedComponents.length = 0;
 		},
 
 		/**
@@ -191,42 +194,29 @@ export default Component.extend(
 		},
 
 		/**
-		 * Instantiate ArticleContributionComponent by looking up the component from container
-		 * in order to have dependency injection.
-		 *
-		 * Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in
-		 * http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/
-		 *
-		 * "Lookup" function defined in
-		 * https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
-		 *
+		 * @param {Node} placeholder
 		 * @param {number} section
 		 * @param {string} sectionId
 		 * @returns {JQuery}
 		 */
-		createArticleContributionComponent(section, sectionId) {
-			const title = this.get('displayTitle'),
-				edit = 'edit',
-				addPhoto = 'addPhoto',
-				addPhotoIconVisible = this.get('addPhotoIconVisible'),
-				editIconVisible = this.get('editIconVisible'),
-				editAllowed = this.get('editAllowed'),
-				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent = this.createComponentInstance('article-contribution');
-
-			contributionComponent.setProperties({
-				section,
-				sectionId,
-				title,
-				edit,
-				addPhoto,
-				addPhotoIconVisible,
-				editIconVisible,
-				editAllowed,
-				addPhotoAllowed
-			});
-
-			return this.createChildView(contributionComponent).createElement().$();
+		renderArticleContributionComponent(placeholder, section, sectionId) {
+			this.renderedComponents.push(
+				this.renderComponent({
+					name: 'article-contribution',
+					attrs: {
+						section,
+						sectionId,
+						title: this.get('displayTitle'),
+						edit: this.get('edit'),
+						addPhoto: this.get('addPhoto'),
+						addPhotoIconVisible: this.get('addPhotoIconVisible'),
+						editIconVisible: this.get('editIconVisible'),
+						editAllowed: this.get('editAllowed'),
+						addPhotoAllowed: this.get('addPhotoAllowed')
+					},
+					element: placeholder
+				})
+			);
 		},
 
 		/**
@@ -234,22 +224,26 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = this.$('h2[section]').map((i, elem) => {
-					if (elem.textContent) {
+				const headers = this.$('h2[section]').map((i, element) => {
+					if (element.textContent) {
 						return {
-							element: elem,
-							level: elem.tagName,
-							name: elem.textContent,
-							id: elem.id,
-							section: elem.getAttribute('section'),
+							element,
+							level: element.tagName,
+							name: element.textContent,
+							id: element.id,
+							section: element.getAttribute('section'),
 						};
 					}
 				}).toArray();
 
 				headers.forEach((header) => {
+					const $placeholder = $('<div>');
+
 					this.$(header.element)
 						.wrapInner('<div class="section-header-label"></div>')
-						.append(this.createArticleContributionComponent(header.section, header.id));
+						.append($placeholder);
+
+					this.renderArticleContributionComponent($placeholder.get(0), header.section, header.id);
 				});
 			}
 		},
@@ -258,17 +252,24 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createTableOfContents() {
-			const component = this.createComponentInstance('article-table-of-contents'),
-				$firstInfobox = this.$('.portable-infobox').first(),
-				componentElement = this.createChildView(component).createElement();
+			const $firstInfobox = this.$('.portable-infobox').first(),
+				$placeholder = $('<div />');
 
 			if ($firstInfobox.length) {
-				componentElement.$().insertAfter($firstInfobox);
+				$placeholder.insertAfter($firstInfobox);
 			} else {
-				componentElement.$().prependTo(this.$());
+				$placeholder.prependTo(this.$());
 			}
 
-			componentElement.trigger('didInsertElement');
+			this.renderedComponents.push(
+				this.renderComponent({
+					name: 'article-table-of-contents',
+					attrs: {
+						articleContent: this.$()
+					},
+					element: $placeholder.get(0)
+				})
+			);
 		},
 
 		/**
@@ -277,35 +278,22 @@ export default Component.extend(
 		replaceInfoboxesWithInfoboxComponents() {
 			/**
 			 * @param {number} i
-			 * @param {Element} elem
+			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('.portable-infobox').map((i, elem) => {
-				this.replaceInfoboxWithInfoboxComponent(elem);
+			this.$('.portable-infobox').map((i, element) => {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: 'portable-infobox',
+						attrs: {
+							infoboxHTML: element.innerHTML,
+							height: $(element).outerHeight(),
+							pageTitle: this.get('displayTitle')
+						},
+						element
+					})
+				);
 			});
-		},
-
-		/**
-		 * @param {Element} elem
-		 * @returns {void}
-		 */
-		replaceInfoboxWithInfoboxComponent(elem) {
-			const infoboxComponent = this.createComponentInstance('portable-infobox'),
-				$infoboxPlaceholder = $(elem);
-
-			let infoboxComponentElement;
-
-			infoboxComponent.setProperties({
-				infoboxHTML: elem.innerHTML,
-				height: $infoboxPlaceholder.outerHeight(),
-				pageTitle: this.get('displayTitle'),
-			});
-
-			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
-
-			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
-
-			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
@@ -314,40 +302,42 @@ export default Component.extend(
 		replaceWikiaWidgetsWithComponents() {
 			/**
 			 * @param {number} i
-			 * @param {Element} elem
+			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('[data-wikia-widget]').map((i, elem) => {
-				this.replaceWikiaWidgetWithComponent(elem);
+			this.$('[data-wikia-widget]').map((i, element) => {
+				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
 
 		/**
-		 * @param {Element} elem
+		 * @param {Element} element
 		 * @returns {void}
 		 */
-		replaceWikiaWidgetWithComponent(elem) {
-			const $widgetPlaceholder = $(elem),
-				widgetData = $widgetPlaceholder.data(),
+		replaceWikiaWidgetWithComponent(element) {
+			const widgetData = $(element).data(),
 				widgetType = widgetData.wikiaWidget,
-				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
+				componentName = this.getWidgetComponentName(widgetType);
 
-			let widgetComponentElement;
-
-			if (widgetComponent) {
-				widgetComponentElement = this.createChildView(widgetComponent).createElement();
-				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
-				widgetComponentElement.trigger('didInsertElement');
+			if (componentName) {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: componentName,
+						attrs: {
+							data: widgetData
+						},
+						element
+					})
+				);
 			}
 		},
 
 		/**
 		 * @param {string} widgetType
-		 * @param {*} data
 		 * @returns {string|null}
 		 */
-		createWidgetComponent(widgetType, data) {
-			let component, componentName;
+		getWidgetComponentName(widgetType) {
+			let componentName;
 
 			switch (widgetType) {
 				case 'twitter':
@@ -367,9 +357,7 @@ export default Component.extend(
 					return null;
 			}
 
-			component = this.createComponentInstance(componentName);
-			component.set('data', data);
-			return component;
+			return componentName;
 		},
 
 		/**
@@ -428,104 +416,6 @@ export default Component.extend(
 
 					$element.wrap(wrapper);
 				});
-		},
-
-		/**
-		 * Create component instance using container lookup.
-		 * @param {String} componentName
-		 * @returns {Ember.Component}
-		 */
-		createComponentInstance(componentName) {
-			return this.get('container').lookup(`component:${componentName}`, {
-				singleton: false
-			});
-		},
-
-		/**
-		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
-		 *
-		 * @returns {void}
-		 */
-		injectPlacementTest(group) {
-			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT';
-			let view, component, model, location,
-				externalLink = false;
-
-			group = group || getGroup(experimentName);
-
-			if (get(Mercury, 'wiki.language.content') !== 'en') {
-				return;
-			}
-
-			switch (group) {
-				/**
-				 * To be thrown away after E3
-				 */
-				case 'SDCC_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = FandomPostsModel.create({
-						type: 'category',
-						moreHref: 'http://fandom.wikia.com/articles/category/events/sdcc-2016'
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					externalLink = true;
-					break;
-				case 'LINKS_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = TopLinksModel.create({
-						article: this
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					break;
-				case 'LINKS_FOOTER':
-					component = this.createComponentInstance('recirculation/footer');
-					model = TopLinksModel.create({
-						article: this,
-						style: 'landscape'
-					});
-					location = $('.article-footer');
-					break;
-				case 'FANDOM_INCONTENT':
-					component = this.createComponentInstance('recirculation/incontent');
-					model = FandomPostsModel.create({
-						thumbSize: 'medium'
-					});
-					location = this.$('h2:nth-of-type(2)').prev();
-					externalLink = true;
-					break;
-				case 'FANDOM_FOOTER':
-				case 'CONTROL':
-					component = this.createComponentInstance('recirculation/footer');
-					model = FandomPostsModel.create();
-					location = $('.article-footer');
-					externalLink = true;
-					break;
-				default:
-					break;
-			}
-
-			if (component && model && location.length !== 0) {
-				view = this.createChildView(component, {
-					model,
-					experimentName,
-					externalLink
-				});
-
-				this.renderedComponents.push(view);
-
-				return model.load()
-					.then(() => {
-						if (!view.isDestroyed && !view.isDestroying) {
-							view.createElement();
-
-							location.after(view.$());
-							view.trigger('didInsertElement');
-							view.trackImpression();
-						}
-
-						return view;
-					});
-			}
 		},
 	}
 );

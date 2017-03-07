@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Ads from 'common/modules/ads';
 import InViewportMixin from 'ember-in-viewport';
 
 const {Component, computed, Logger} = Ember;
@@ -82,9 +81,7 @@ export default Component.extend(
 			const name = this.get('name');
 
 			Logger.info('Will destroy ad:', name);
-			// adComponent.$().remove HAS TO be called after remove slot method from ads module
-			this.get('ads.module').removeSlot(this.get('name'));
-			this.$().remove();
+			this.get('ads.module').removeSlot(name);
 		}
 	}
 );

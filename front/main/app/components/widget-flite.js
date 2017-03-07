@@ -5,7 +5,12 @@ export default Ember.Component.extend({
 	layoutName: 'components/widget-flite',
 	data: null,
 
-	scriptTag: Ember.computed('data', function () {
+	didInsertElement() {
+		this._super(...arguments);
+		this.$().html(this.getScriptTag());
+	},
+
+	getScriptTag() {
 		const src = '//s.flite.com/syndication/combo.js',
 			guid = this.get('data.guid'),
 			width = this.get('data.width'),
@@ -14,10 +19,10 @@ export default Ember.Component.extend({
 		// make sure globl configuration for this widget is initialized
 		this.setUpConfig(guid);
 
-		return Ember.String.htmlSafe(`<script src="${src}" async="async" ` +
+		return `<script src="${src}" async="async" ` +
 			`data-instance="${guid}" data-width="${width}" data-height="${height}"></` +
-			'script>');
-	}),
+			'script>';
+	},
 
 	/**
 	 * @param {string} guid

@@ -203,7 +203,7 @@ export default Ember.Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new Ember.Handlebars.SafeString(currentMedia.caption));
+				this.sendAction('setFooter', new Ember.String.htmlSafe(currentMedia.caption));
 			} else {
 				this.sendAction('setFooter', null);
 			}

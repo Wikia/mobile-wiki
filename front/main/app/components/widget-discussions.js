@@ -9,12 +9,15 @@ export default Component.extend(
 	{
 		classNames: ['widget-discussions'],
 
+		layoutName: 'components/widget-discussions',
+
 		isLoading: true,
 
 		model: null,
 
 		init() {
 			this._super(...arguments);
+
 			this.set('model', WidgetDiscussionsModel.create());
 		},
 
