@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import ResponsiveMixin from '../mixins/responsive';
 
 const {Controller, computed, inject, $, run} = Ember;
 
-export default Controller.extend(ResponsiveMixin, {
+export default Controller.extend({
 	application: inject.controller(),
 	// TODO: to be removed as we'll be supporting more errors on search page,
 	// see: https://wikia-inc.atlassian.net/browse/DAT-4324

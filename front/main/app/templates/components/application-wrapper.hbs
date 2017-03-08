@@ -1,22 +1,15 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{#if responsive.isMobile}}
-		{{site-head
-			smartBannerVisible=smartBannerVisible
-			toggleDrawer=this.attrs.toggleDrawer
-			themeBar=themeBar
-			drawerContent=activeDrawerContent
-			drawerVisible=drawerVisible
-			setDrawerContent=(action 'setDrawerContent')
-			isSearchPage=isSearchPage
-		}}
-	{{else}}
-		{{design-system.global-navigation
-			isGlobalNavigationPositionFixed=isGlobalNavigationPositionFixed
-			triggerGlobalNavigationHeadroomStateChange=(route-action 'triggerGlobalNavigationHeadroomStateChange')
-		}}
-	{{/if}}
+	{{site-head
+		smartBannerVisible=smartBannerVisible
+		toggleDrawer=this.attrs.toggleDrawer
+		themeBar=themeBar
+		drawerContent=activeDrawerContent
+		drawerVisible=drawerVisible
+		setDrawerContent=(action 'setDrawerContent')
+		isSearchPage=isSearchPage
+	}}
 
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
