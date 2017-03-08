@@ -90,6 +90,11 @@ export default function getPageModel(params) {
 
 	return request(getURL(params))
 		.then((data) => {
+			const redirectTo = Ember.get(data, 'data.redirectTo');
+
+			if (redirectTo) {
+				window.location.assign(redirectTo);
+			}
 			model = getModelForNamespace(data, params);
 
 			return model;
