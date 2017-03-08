@@ -35,12 +35,6 @@ export default Ember.Controller.extend(
 		lightboxModel: null,
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
-		isGlobalNavigationPositionFixed: true,
-		isGlobalNavigationHeadroomPinnedOrDisabled: true,
-		isGlobalNavigationVisible: Ember.computed.and(
-			'isGlobalNavigationPositionFixed',
-			'isGlobalNavigationHeadroomPinnedOrDisabled'
-		),
 
 		isSearchPage: Ember.computed.equal('currentRouteName', 'search'),
 
