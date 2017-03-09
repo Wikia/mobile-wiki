@@ -205,18 +205,27 @@ $player-button-sound-off: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfNF9jb3B
 		}
 
 		.close {
+			align-items: center;
 			background-color: #000;
 			border-radius: 50%;
 			border: 2px solid white;
+			display: flex;
 			height: $closeButtonHeight;
+			justify-content: center;
 			padding: 5px;
+			position: absolute;
+			right: 0;
 			text-align: center;
 			top: -($closeButtonHeight / 2);
 			width: $closeButtonHeight;
-			position: absolute;
-			right: 0;
 			//This is needed to make sure that close button is always displayed above ad
 			z-index: $z-modal-dialog;
+
+			.close-button {
+				fill: white;
+				height: 20px;
+				width: 20px;
+			}
 		}
 	}
 
