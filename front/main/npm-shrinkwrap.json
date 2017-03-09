@@ -1959,7 +1959,7 @@
       "dev": true
     },
     "ember-route-action-helper": {
-      "version": "1.0.0",
+      "version": "2.0.2",
       "dev": true
     },
     "ember-router-generator": {
