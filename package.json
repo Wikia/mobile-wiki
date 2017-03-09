@@ -89,7 +89,7 @@
     "karma-coverage": "0.5.3",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-qunit": "0.1.8",
-    "lab": "6.2.0",
+    "lab": "12.1.0",
     "multipipe": "0.1.2",
     "nodemon": "1.8.1",
     "npm-run-all": "1.4.0",
