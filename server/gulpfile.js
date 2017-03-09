@@ -56,7 +56,7 @@ gulp.task('build-server-scripts-for-acceptance-tests', function (done) {
  * Copy node dependencies to www/server/
  */
 gulp.task('build-server-node-modules', function () {
-	var deps = '/**/*}';
+	var deps = '/**/*';
 
 	return gulp.src(paths.nodeModules.src + deps)
 		.pipe(gulp.dest(paths.nodeModules.dest));
