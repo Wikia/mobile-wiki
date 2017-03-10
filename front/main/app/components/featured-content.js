@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 /**
  * ImageCropData

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {truncate} from '../utils/truncate';
-import nl2br from 'common/utils/nl2br';
+import nl2br from '../utils/nl2br';
 
 const {Component, Handlebars, String, computed} = Ember;
 

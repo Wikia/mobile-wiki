@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
-import {escapeRegex, normalizeToUnderscore} from 'common/utils/string';
+import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 

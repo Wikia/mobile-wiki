@@ -2,7 +2,7 @@ import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 const {Component, computed, inject} = Ember;
 

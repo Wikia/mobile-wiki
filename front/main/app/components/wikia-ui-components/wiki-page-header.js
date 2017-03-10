@@ -22,9 +22,9 @@
  */
 
 import Ember from 'ember';
-import Thumbnailer from 'common/modules/thumbnailer';
+import Thumbnailer from '../../modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../../utils/track';
 
 export default Ember.Component.extend(
 	ViewportMixin,

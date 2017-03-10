@@ -1,3 +1,5 @@
+import M from '../mmm';
+
 /**
  * @returns {void}
  */

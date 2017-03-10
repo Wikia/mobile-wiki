@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
-import {trackPerf} from 'common/utils/track-perf';
+import {trackPerf} from '../utils/track-perf';
 
 const {Component, computed, Logger, $} = Ember;
 

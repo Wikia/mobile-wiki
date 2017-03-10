@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from 'common/modules/thumbnailer';
+import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(

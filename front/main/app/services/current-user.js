@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import UserModel from '../models/user';
+import M from '../mmm';
 
 /**
  * @typedef {Object} QueryUserInfoResponse

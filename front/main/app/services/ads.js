@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import Ads from 'common/modules/ads';
+import Ads from '../modules/ads';
+import M from '../mmm';
 
 export default Ember.Service.extend({
 	module: Ads.getInstance(),

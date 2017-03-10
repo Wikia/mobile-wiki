@@ -1,8 +1,9 @@
 import Ember from 'ember';
+import M from '../mmm';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
 /**

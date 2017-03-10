@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import M from '../mmm';
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
@@ -20,6 +21,9 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	removeStaticServerTags() {
+		if (!window.location) {
+			return;
+		}
 		const headData = this.get('headData');
 
 		if (!headData.get('staticServerTagsRemoved')) {
@@ -39,7 +43,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setStaticHeadTags() {
-		const wikiVariables = Ember.get(Mercury, 'wiki'),
+		const wikiVariables = Ember.getWithDefault(Mercury, 'wiki', {}),
 			verticalColors = {
 				comics: '#ff5400',
 				games: '#94d11f',

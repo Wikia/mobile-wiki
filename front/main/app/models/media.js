@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {normalizeToUnderscore} from 'common/utils/string';
+import {normalizeToUnderscore} from '../utils/string';
 
 /**
  * @typedef {Object} ArticleMedia

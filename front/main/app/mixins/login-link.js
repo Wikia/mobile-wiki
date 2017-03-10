@@ -1,5 +1,5 @@
 import LanguagesMixin from './languages';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 export default Ember.Mixin.create(LanguagesMixin, {
 	/**

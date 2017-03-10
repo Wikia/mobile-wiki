@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import MediaModel from '../models/media';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 export default Ember.Controller.extend(
 	AlertNotificationsMixin, NoScrollMixin,
@@ -43,7 +43,7 @@ export default Ember.Controller.extend(
 		 */
 		init() {
 			this.setProperties({
-				domain: Ember.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+				domain: Ember.get(Mercury, 'wiki.dbName') || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: Ember.get(Mercury, 'wiki.language')
 			});
 

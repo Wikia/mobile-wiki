@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 /**
  * Component that displays article comments

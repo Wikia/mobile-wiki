@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import M from '../mmm';
 
 export default Ember.Mixin.create({
 	/**

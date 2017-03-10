@@ -2,9 +2,10 @@ import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import {normalizeToUnderscore} from 'common/utils/string';
-import {track, trackActions} from 'common/utils/track';
-import {activate as variantTestingActivate} from 'common/utils/variant-testing';
+import {normalizeToUnderscore} from '../utils/string';
+import {track, trackActions} from '../utils/track';
+import {activate as variantTestingActivate} from '../utils/variant-testing';
+import M from '../mmm';
 
 const {
 	$,
@@ -58,7 +59,7 @@ export default Route.extend(
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
-				window.scrollTo(0, 0);
+				//window.scrollTo(0, 0);
 			},
 
 			/**

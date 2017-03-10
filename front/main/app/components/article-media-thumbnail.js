@@ -2,7 +2,7 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
-import Thumbnailer from 'common/modules/thumbnailer';
+import Thumbnailer from '../modules/thumbnailer';
 
 export default Ember.Component.extend(
 	InViewportMixin,

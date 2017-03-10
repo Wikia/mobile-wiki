@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions, trackPageView} from 'common/utils/track';
+import {track, trackActions, trackPageView} from '../utils/track';
 import SearchModel from '../models/search';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 

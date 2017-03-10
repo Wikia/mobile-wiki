@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
-import {normalizeToUnderscore} from 'common/utils/string';
+import {normalizeToUnderscore} from '../utils/string';
 
 export default Ember.Component.extend(
 	ThirdsClickMixin,

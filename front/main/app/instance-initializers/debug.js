@@ -4,12 +4,12 @@
  * @returns {void}
  */
 export function initialize(applicationInstance) {
-	let debug = M.prop('environment') === 'dev';
+	let debug = true;
 
 	// turn on debugging with querystring ?debug=1
-	if (window.location.search.match(/debug=1/)) {
-		debug = true;
-	}
+	// if (window.location.search.match(/debug=1/)) {
+	// 	debug = true;
+	// }
 
 	applicationInstance.setProperties({
 		LOG_ACTIVE_GENERATION: debug,

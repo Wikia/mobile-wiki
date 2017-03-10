@@ -28,6 +28,10 @@ export default Mixin.create({
 	},
 
 	setNoScroll(current) {
+		if (!window.location) {
+			return
+		}
+
 		const $body = $('body');
 
 		if (this.get('noScrollState.state') && current) {

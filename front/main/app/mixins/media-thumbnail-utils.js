@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import Thumbnailer from 'common/modules/thumbnailer';
+import Thumbnailer from '../modules/thumbnailer';
 
 export default Ember.Mixin.create(
 	InViewportMixin,

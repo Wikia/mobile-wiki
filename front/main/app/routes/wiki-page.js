@@ -7,8 +7,8 @@ import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
-import {normalizeToUnderscore} from 'common/utils/string';
-import {setTrackContext, trackPageView} from 'common/utils/track';
+import {normalizeToUnderscore} from '../utils/string';
+import {setTrackContext, trackPageView} from '../utils/track';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
 const {Logger, Route, $, inject, get} = Ember;

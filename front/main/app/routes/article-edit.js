@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 export default Ember.Route.extend(

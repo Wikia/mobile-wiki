@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import {trackExperiment, trackActions} from 'common/utils/track';
+import {trackExperiment, trackActions} from '../utils/track';
 import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create(

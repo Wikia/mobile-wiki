@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 
 export default Ember.Component.extend(
 	CuratedContentThumbnailMixin,

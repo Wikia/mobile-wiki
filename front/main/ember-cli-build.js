@@ -67,7 +67,7 @@ module.exports = function (defaults) {
 				css: {
 					app: 'assets/app.css'
 				},
-				html: 'ember-main.hbs',
+				html: 'index.html',
 			}
 		},
 		fingerprint: {
@@ -76,18 +76,18 @@ module.exports = function (defaults) {
 			// Keep it in sync with gulp/options/prod.js
 			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/main/'
 		},
-		derequire: {
-			patterns: [
-				{
-					from: 'define',
-					to: 'mefine'
-				},
-				{
-					from: 'require',
-					to: 'mequire'
-				}
-			]
-		},
+		// derequire: {
+		// 	patterns: [
+		// 		{
+		// 			from: 'define',
+		// 			to: 'mefine'
+		// 		},
+		// 		{
+		// 			from: 'require',
+		// 			to: 'mequire'
+		// 		}
+		// 	]
+		// },
 		trees: {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
@@ -102,17 +102,17 @@ module.exports = function (defaults) {
 	});
 
 	// Files below are concatenated to assets/vendor.js
-	app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
-	app.import(app.bowerDirectory + '/hammerjs/hammer.js');
-	app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
-	app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
-	app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
+	// app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
+	//app.import(app.bowerDirectory + '/hammerjs/hammer.js');
+	// app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
+	// app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
+	// app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
 	app.import(app.bowerDirectory + '/i18next/i18next.js');
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
-	app.import(app.bowerDirectory + '/numeral/numeral.js');
-	app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
-	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
-	app.import('vendor/common.js');
+	// app.import(app.bowerDirectory + '/numeral/numeral.js');
+	// app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
+	// app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
+	// app.import('vendor/common.js');
 
 	if (app.env === 'test') {
 		// Fix for PhantomJS errors

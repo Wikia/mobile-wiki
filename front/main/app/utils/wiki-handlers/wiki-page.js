@@ -5,6 +5,7 @@ import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import request from 'ember-ajax/request';
+import M from '../../mmm';
 
 /**
  *

@@ -56,22 +56,22 @@ export default Ember.Service.extend({
 	 * @return {void}
 	 */
 	loadLocale() {
-		if (!this.get('isLoading')) {
-			const contentLang = Ember.get(Mercury, 'wiki.language.content'),
-				lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : this.defaultLocation;
-
-			this.changeLoadingStatus(false);
-			if (lang === 'en') {
-				this.setEnLocale();
-			} else {
-				Ember.$.getScript(this.localePath[lang]).done(() => {
-					this.changeLoadingStatus();
-				}).fail((jqxhr, settings, exception) => {
-					Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
-					this.setEnLocale();
-				});
-			}
-		}
+		// if (!this.get('isLoading')) {
+		// 	const contentLang = Ember.get(Mercury, 'wiki.language.content'),
+		// 		lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : this.defaultLocation;
+		//
+		// 	this.changeLoadingStatus(false);
+		// 	if (lang === 'en') {
+		// 		this.setEnLocale();
+		// 	} else {
+		// 		Ember.$.getScript(this.localePath[lang]).done(() => {
+		// 			this.changeLoadingStatus();
+		// 		}).fail((jqxhr, settings, exception) => {
+		// 			Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
+		// 			this.setEnLocale();
+		// 		});
+		// 	}
+		// }
 	},
 	// Extends default en translation by needed relative time on init
 	init() {

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {trackExperiment, trackActions} from 'common/utils/track';
+import {trackExperiment, trackActions} from '../utils/track';
 
 export default Ember.Component.extend({
 	experimentName: 'RECIRCULATION_MERCURY_FOOTER',

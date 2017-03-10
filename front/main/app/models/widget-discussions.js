@@ -2,7 +2,7 @@ import Ember from 'ember';
 import request from 'ember-ajax/request';
 
 import {extractDomainFromUrl} from '../utils/domain';
-import {track} from 'common/utils/track';
+import {track} from '../utils/track';
 
 const {Object: EmberObject, get, getWithDefault} = Ember;
 

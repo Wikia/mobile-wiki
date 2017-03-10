@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 
-const trackModule = require('common/utils/track');
+const trackModule = require('../utils/track');
 let trackStub, buildUrlStub;
 
 moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {

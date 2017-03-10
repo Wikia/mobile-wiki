@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MediaModel from '../media';
-import {normalizeToWhitespace} from 'common/utils/string';
+import {normalizeToWhitespace} from '../../utils/string';
+import M from '../../mmm';
 
 const {Object: EmberObject, get} = Ember,
 	BaseModel = EmberObject.extend({

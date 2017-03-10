@@ -1,7 +1,7 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
 import thumbnailHelper from 'main/helpers/thumbnail';
-import thumbnailer from 'common/modules/thumbnailer';
+import thumbnailer from '../modules/thumbnailer';
 
 module('Unit | Helper | thumbnail', (hooks) => {
 	let originalThumbnailerGetThumbURL;

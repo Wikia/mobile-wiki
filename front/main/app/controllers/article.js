@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions} from '../utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 
 export default Ember.Controller.extend({
