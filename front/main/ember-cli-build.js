@@ -76,18 +76,18 @@ module.exports = function (defaults) {
 			// Keep it in sync with gulp/options/prod.js
 			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/main/'
 		},
-		// derequire: {
-		// 	patterns: [
-		// 		{
-		// 			from: 'define',
-		// 			to: 'mefine'
-		// 		},
-		// 		{
-		// 			from: 'require',
-		// 			to: 'mequire'
-		// 		}
-		// 	]
-		// },
+		derequire: {
+			patterns: [
+				{
+					from: 'define',
+					to: 'mefine'
+				},
+				{
+					from: 'require',
+					to: 'mequire'
+				}
+			]
+		},
 		trees: {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'

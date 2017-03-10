@@ -23,5 +23,8 @@ export default Ember.Helper.helper((params, options) => {
 		}
 	});
 
+	if (!window.location) {
+		return `${namespace}:${value}`;
+	}
 	return i18n.t(`${namespace}:${value}`, i18nParams);
 });
