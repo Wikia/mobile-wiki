@@ -30,6 +30,7 @@ function getURL(params) {
 	}
 
 	return M.buildUrl({
+		host: params.basePath,
 		path: '/wikia.php',
 		query
 	});
@@ -99,13 +100,13 @@ export default function getPageModel(params) {
 			model = getModelForNamespace(data, params);
 
 			return model;
-		})
-		.catch((err) => {
-			if (!err.code && err.status) {
-				err.code = err.status;
-			}
-
-			throw new Error(err);
 		});
+		// .catch((err) => {
+		// 	if (!err.code && err.status) {
+		// 		err.code = err.status;
+		// 	}
+		//
+		// 	throw new Error(err);
+		// });
 }
 

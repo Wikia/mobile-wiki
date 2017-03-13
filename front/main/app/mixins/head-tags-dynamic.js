@@ -11,9 +11,11 @@ export default Ember.Mixin.create({
 	afterModel(model, transition) {
 		this._super(...arguments);
 
+		console.log(model);
+
 		transition.then(() => {
 			this.setDynamicHeadTags(model);
-			this.removeDynamicServerTags();
+			// this.removeDynamicServerTags();
 		});
 	},
 
@@ -46,7 +48,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model, data = {}) {
-		const wikiVariables = Ember.get(Mercury, 'wiki'),
+		const wikiVariables = this.modelFor('application'),
 			htmlTitleSettings = wikiVariables.htmlTitle,
 			wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator),
 			headData = {

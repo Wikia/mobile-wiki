@@ -22,9 +22,9 @@ export default Ember.Mixin.create({
 
 		if (!this.get('initiated')) {
 			this.onResize();
-			Ember.$(window).on('resize', () => {
-				this.onResize();
-			});
+			// Ember.$(window).on('resize', () => {
+			// 	this.onResize();
+			// });
 			this.set('initiated', true);
 		}
 	},
@@ -35,8 +35,8 @@ export default Ember.Mixin.create({
 	onResize() {
 		if (!this.get('isDestroyed')) {
 			this.setProperties({
-				'viewportDimensions.width': Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-				'viewportDimensions.height': Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+				// 'viewportDimensions.width': Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+				// 'viewportDimensions.height': Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 			});
 		}
 	}

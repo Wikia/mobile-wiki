@@ -77,13 +77,13 @@ BaseModel.reopenClass({
 			if (data.article) {
 				article = data.article;
 
-				pageProperties = $.extend(pageProperties, {
+				Object.assign(pageProperties, {
 					displayTitle: get(data, 'article.displayTitle'),
 					user: get(data, 'details.revision.user_id')
 				});
 
 				if (article.content && article.content.length > 0) {
-					pageProperties = $.extend(pageProperties, {
+					Object.assign(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
 						media: MediaModel.create({

@@ -62,3 +62,13 @@
 {{#if model.prev}}
 	<link rel="prev" href="{{model.prev}}" />
 {{/if}}
+
+{{#if model.favicon}}
+	<link rel="shortcut icon" href="{{model.favicon}}">
+{{/if}}
+
+{{#if model.isRtl}}
+	<link rel="stylesheet" href="/mobile-wiki/main/assets/app.rtl.css" crossorigin="anonymous">
+{{else}}
+	<link rel="stylesheet" href="/mobile-wiki/main/assets/app.css" crossorigin="anonymous">
+{{/if}}

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
+import VariablesModel from '../models/wiki/variables';
 import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
@@ -18,6 +19,7 @@ export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
 	{
+		fastboot: Ember.inject.service(),
 		queryParams: {
 			commentsPage: {
 				replace: true
@@ -25,6 +27,14 @@ export default Route.extend(
 		},
 
 		ads: Ember.inject.service(),
+
+		/**
+		 * @param {*} params
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		model(params) {
+			return VariablesModel.get(this.get('fastboot.request.headers').get('host'));
+		},
 
 		actions: {
 			/**

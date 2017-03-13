@@ -84,9 +84,10 @@ export default Route.extend(
 		 */
 		model(params) {
 			const modelParams = {
-				basePath: Mercury.wiki.basePath,
+				// TODO replace hack
+				basePath: this.modelFor('application').basePath.replace('http://', ''),
 				title: params.title,
-				wiki: this.controllerFor('application').get('domain')
+				wiki: this.modelFor('application').dbName
 			};
 
 			if (params.page) {

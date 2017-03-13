@@ -1,48 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}" {{#if preview}}class='article-preview'{{/if}}>
 <head>
-	<meta data-server-head-tags-static charset="utf-8">
-	<meta data-server-head-tags-static http-equiv="X-UA-Compatible" content="IE=edge">
-	<title data-server-head-tags-dynamic>{{htmlTitle}}</title>
-	<meta data-server-head-tags-dynamic name="keywords"
-		  content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
-	<!--{{#if description}}-->
-		<!--<meta data-server-head-tags-dynamic name="description" content="{{description}}">-->
-	<!--{{/if}}-->
-	<meta data-server-head-tags-static name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
-
 	{{content-for 'head'}}
-
-	<!--{{#if themeColor}}-->
-		<!--<meta data-server-head-tags-static name="theme-color" content="{{themeColor}}">-->
-	<!--{{/if}}-->
-
-	<!--{{#if wikiVariables.specialRobotPolicy}}-->
-		<!--<meta data-server-head-tags-dynamic name="robots" content="{{wikiVariables.specialRobotPolicy}}">-->
-	<!--{{/if}}-->
-
-	<!--{{#if wikiVariables.favicon}}-->
-		<!--<link data-server-head-tags-static rel="shortcut icon" href="{{wikiVariables.favicon}}">-->
-	<!--{{/if}}-->
-
-	<!--{{#if isRtl}}-->
-		<!--<link rel="stylesheet" href="/mobile-wiki/main/assets/app.rtl.css" crossorigin="anonymous">-->
-	<!--{{else}}-->
-		<link rel="stylesheet" href="/mobile-wiki/main/assets/app.css" crossorigin="anonymous">
-	<!--{{/if}}-->
 
 	<!--{{> dns-prefetch}}-->
 	<!--{{> open-graph-tags}}-->
 	<!--{{> other-languages-head}}-->
 	<!--{{> smart-banner-ios}}-->
-
-	<link data-server-head-tags-dynamic rel="canonical" href="{{canonicalUrl}}">
-	<!--{{#if nextPageUrl}}-->
-		<!--<link data-server-head-tags-dynamic rel="next" href="{{{nextPageUrl}}}">-->
-	<!--{{/if}}-->
-	<!--{{#if prevPageUrl}}-->
-		<!--<link data-server-head-tags-dynamic rel="prev" href="{{{prevPageUrl}}}">-->
-	<!--{{/if}}-->
 
 	<!--{{> nirvana }}-->
 	<script src="/mobile-wiki/main/assets/vendor/jquery/jquery.min.js" crossorigin="anonymous"></script>

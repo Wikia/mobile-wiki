@@ -3,7 +3,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-import {getGroup} from 'common/modules/abtest';
+import {getGroup} from '../modules/abtest';
 
 const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
@@ -34,35 +34,35 @@ export default Component.extend(
 			run.scheduleOnce('afterRender', this, () => {
 				const rawContent = this.get('content');
 
-				if (!isBlank(rawContent)) {
-					this.hackIntoEmberRendering(rawContent);
-
-					this.handleInfoboxes();
-					this.replaceInfoboxesWithInfoboxComponents();
-					this.renderedComponents = this.renderedComponents.concat(
-						queryPlaceholders(this.$())
-							.map(getAttributesForMedia, {
-								media: this.get('media'),
-								openLightbox: this.get('openLightbox')
-							})
-							.map(this.renderComponent)
-					);
-
-					this.loadIcons();
-					this.createTableOfContents();
-					this.createContributionButtons();
-					this.handleTables();
-					this.replaceWikiaWidgetsWithComponents();
-					this.handleWikiaWidgetWrappers();
-					this.handleJumpLink();
-				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
-				}
-
-				if (!this.get('isPreview')) {
-					this.injectAds();
-					this.setupAdsContext(this.get('adsContext'));
-				}
+				// if (!isBlank(rawContent)) {
+				// 	this.hackIntoEmberRendering(rawContent);
+				//
+				// 	this.handleInfoboxes();
+				// 	this.replaceInfoboxesWithInfoboxComponents();
+				// 	this.renderedComponents = this.renderedComponents.concat(
+				// 		queryPlaceholders(this.$())
+				// 			.map(getAttributesForMedia, {
+				// 				media: this.get('media'),
+				// 				openLightbox: this.get('openLightbox')
+				// 			})
+				// 			.map(this.renderComponent)
+				// 	);
+				//
+				// 	this.loadIcons();
+				// 	this.createTableOfContents();
+				// 	this.createContributionButtons();
+				// 	this.handleTables();
+				// 	this.replaceWikiaWidgetsWithComponents();
+				// 	this.handleWikiaWidgetWrappers();
+				// 	this.handleJumpLink();
+				// } else if (this.get('displayEmptyArticleInfo')) {
+				// 	this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
+				// }
+				//
+				// if (!this.get('isPreview')) {
+				// 	this.injectAds();
+				// 	this.setupAdsContext(this.get('adsContext'));
+				// }
 			});
 		})),
 

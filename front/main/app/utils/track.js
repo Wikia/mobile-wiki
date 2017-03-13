@@ -165,23 +165,23 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(uaDimensions, overrideUrl) {
-	if (M.prop('queryParams.noexternals')) {
-		return;
-	}
-
-	if (M.prop('initialPageView')) {
-		M.prop('initialPageView', false);
-	} else {
-		window.trackQuantservePageView();
-		window.trackNielsenPageView();
-		window.trackComscorePageView();
-
-		M.tracker.Internal.trackPageView(context);
-		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
-	}
-
-	window.trackIVW3PageView();
-	Ads.getInstance().trackKruxPageView();
+	// if (M.prop('queryParams.noexternals')) {
+	// 	return;
+	// }
+	//
+	// if (M.prop('initialPageView')) {
+	// 	M.prop('initialPageView', false);
+	// } else {
+	// 	window.trackQuantservePageView();
+	// 	window.trackNielsenPageView();
+	// 	window.trackComscorePageView();
+	//
+	// 	M.tracker.Internal.trackPageView(context);
+	// 	M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
+	// }
+	//
+	// window.trackIVW3PageView();
+	// Ads.getInstance().trackKruxPageView();
 }
 
 /**

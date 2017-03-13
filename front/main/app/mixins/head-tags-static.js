@@ -7,11 +7,11 @@ export default Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	init() {
+	afterModel() {
 		this._super(...arguments);
 
 		this.setStaticHeadTags();
-		this.removeStaticServerTags();
+		// this.removeStaticServerTags();
 	},
 
 	/**
@@ -43,7 +43,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setStaticHeadTags() {
-		const wikiVariables = Ember.getWithDefault(Mercury, 'wiki', {}),
+		const wikiVariables = this.modelFor('application'),
 			verticalColors = {
 				comics: '#ff5400',
 				games: '#94d11f',
@@ -59,7 +59,8 @@ export default Ember.Mixin.create({
 			themeColor: verticalColors[wikiVariables.vertical],
 			gaUrl: M.prop('gaUrl'),
 			qualarooScript: M.prop('qualarooScript'),
-			optimizelyScript: M.prop('optimizelyScript')
+			optimizelyScript: M.prop('optimizelyScript'),
+			isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl'
 		});
 	}
 });
