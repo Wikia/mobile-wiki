@@ -25,6 +25,7 @@ VariablesModel.reopenClass({
 				.then(navigationApiResponse => navigationApiResponse.json())
 				.then(navigationData => {
 					data.globalFooter = navigationData['global-footer'];
+					data.globalNavigation = navigationData['global-navigation'];
 
 					return data;
 				});
