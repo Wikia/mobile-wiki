@@ -31,18 +31,12 @@
 	<!--Google PageSpeed will mistakenly believe that we have scripts loading and blocking content-->
 	<!--DO NOT REMOVE THE FOLLOWING LINE:-->
 <!--&#45;&#45;}}-->
-<div id="ember-container" class="ember-container">
-	<div id="preload">
-		<!--{{> site-head}}-->
-		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
-			{{content-for 'body'}}
-		</div>
-	</div>
-</div>
-
-<!--{{#if globalFooter}}-->
-	<!--{{> global-footer/global-footer model=globalFooter}}-->
-<!--{{/if}}-->
+<!--<div id="ember-container" class="ember-container">-->
+	<!--&lt;!&ndash;{{> site-head}}&ndash;&gt;-->
+	<!--<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">-->
+		<!--{{content-for 'body'}}-->
+	<!--</div>-->
+<!--</div>-->
 
 <script>
 	M.loadScripts([

@@ -11,31 +11,9 @@ export default Ember.Mixin.create({
 	afterModel(model, transition) {
 		this._super(...arguments);
 
-		console.log(model);
-
 		transition.then(() => {
 			this.setDynamicHeadTags(model);
-			// this.removeDynamicServerTags();
 		});
-	},
-
-	/**
-	 * This function removes all head tags with data-server-head-tags-dynamic attribute to avoid having duplicates.
-	 * This function should be removed when fastboot will be introduced.
-	 *
-	 * @returns {void}
-	 */
-	removeDynamicServerTags() {
-		const headData = this.get('headData');
-
-		if (!headData.get('dynamicServerTagsRemoved')) {
-			// We want to run this afterRender in order to be sure that
-			// meta tags in head are updated by setDynamicHeadTags method
-			Ember.run.schedule('afterRender', () => {
-				Ember.$('[data-server-head-tags-dynamic]').remove();
-				headData.set('dynamicServerTagsRemoved', true);
-			});
-		}
 	},
 
 	/**
