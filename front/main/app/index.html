@@ -9,7 +9,7 @@
 	<!--{{> smart-banner-ios}}-->
 
 	<!--{{> nirvana }}-->
-	<script src="/mobile-wiki/main/assets/vendor/jquery/jquery.min.js" crossorigin="anonymous"></script>
+	<script src="/assets/vendor/jquery/jquery.min.js" crossorigin="anonymous"></script>
 	{{content-for 'baseline'}}
 	{{content-for '$script'}}
 	<!--{{> server-data}}-->
@@ -46,12 +46,12 @@
 
 <script>
 	M.loadScripts([
-		'/mobile-wiki/main/assets/vendor.js',
-		'/mobile-wiki/main/assets/main.js'
+		'/assets/vendor.js',
+		'/assets/main.js'
 	], true);
-	M.loadDOMResource('/mobile-wiki/main/assets/main.svg');
-	M.loadDOMResource('/mobile-wiki/main/assets/common.svg');
-	M.loadDOMResource('/mobile-wiki/main/assets/design-system.svg');
+	M.loadDOMResource('/assets/main.svg');
+	M.loadDOMResource('/assets/common.svg');
+	M.loadDOMResource('/assets/design-system.svg');
 </script>
 
 <script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
