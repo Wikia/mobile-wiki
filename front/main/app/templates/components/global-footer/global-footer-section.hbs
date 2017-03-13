@@ -10,16 +10,12 @@
 	<ul class="wds-global-footer__links-list">
 		{{#each model.links as |link|}}
 			<li class="wds-global-footer__links-list-item">
-				{{!--
-					First parameter of some partials called bellow has to be '..' to preserve parent context within.
-					Without it context would be loops context i.e. current loop item
-				--}}
 				{{#if (equal 'link-image' link.type)}}
-					{{> global-footer/global-footer-link-image model=link}}
+					{{global-footer/global-footer-link-image model=link}}
 				{{else if (equal 'link-branded' link.type)}}
-					{{> global-footer/global-footer-link-branded .. model=link}}
+					{{global-footer/global-footer-link-branded model=link}}
 				{{else}}
-					{{> global-footer/global-footer-link-text .. model=link}}
+					{{global-footer/global-footer-link-text model=link}}
 				{{/if}}
 			</li>
 		{{/each}}
