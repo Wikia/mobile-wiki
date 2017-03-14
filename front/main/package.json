@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
+    "fastboot": "ember fastboot --serve-assets --port 7001",
     "test": "ember test"
   },
   "repository": "",
