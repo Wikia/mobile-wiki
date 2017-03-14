@@ -36,7 +36,7 @@ Open http://muppet.127.0.0.1.xip.io:7001/wiki/Kermit
 * `npm run clean` - remove all dependencies and build directory
 * `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
-* `npm run shrinkwrap` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after [installing or updating a dependency](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages))
+* `npm run shrinkwrap-all` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after [installing or updating a dependency](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages))
 
 ## Settings
 `server/config/settings` is main configuration structure. All application settings should be stored there.

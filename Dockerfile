@@ -1,4 +1,4 @@
-FROM node:0.12
+FROM node:6.10
 
 # phantomjs workaround
 RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
