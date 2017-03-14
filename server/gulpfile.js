@@ -9,7 +9,6 @@ var fs = require('fs'),
 	watch = require('gulp-watch'),
 	path = require('path'),
 	spawn = require('child_process').spawn,
-	nodeDeps = Object.keys(require('./npm-shrinkwrap.json').dependencies),
 	exitOnError = require('../gulp/utils/exit-on-error'),
 	paths = require('../gulp/paths').server,
 	pathsConfig = paths.config;
@@ -57,7 +56,7 @@ gulp.task('build-server-scripts-for-acceptance-tests', function (done) {
  * Copy node dependencies to www/server/
  */
 gulp.task('build-server-node-modules', function () {
-	var deps = '/{' + nodeDeps.join('/**/*,') + '/**/*}';
+	var deps = '/**/*';
 
 	return gulp.src(paths.nodeModules.src + deps)
 		.pipe(gulp.dest(paths.nodeModules.dest));
