@@ -199,7 +199,7 @@ export default {
 		ua: {
 			primary: {
 				id: 'UA-32129070-1',
-				sampleRate: 10
+				sampleRate: 100
 			},
 			ads: {
 				prefix: 'ads',
