@@ -1,8 +1,6 @@
 www/
 node_modules/
-test/
 
-front/auth/bower_components/
 front/common/bower_components/
 
 front/main/bower_components/
@@ -12,5 +10,3 @@ front/main/vendor/
 front/main/tmp/
 
 server/node_modules
-
-homepage/
