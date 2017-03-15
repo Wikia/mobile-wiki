@@ -8,7 +8,9 @@
   },
   "scripts": {
     "build": "ember build",
+    "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "fastboot": "ember fastboot --serve-assets --port 7001",
+    "setup": "npm install && bower update",
     "test": "ember test"
   },
   "repository": "",
