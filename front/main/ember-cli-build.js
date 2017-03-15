@@ -64,7 +64,7 @@ module.exports = function (defaults) {
 		outputPaths: {
 			app: {
 				css: {
-					app: 'assets/app.css'
+					app: '/assets/app.css'
 				},
 				html: 'index.html',
 			}
@@ -73,7 +73,7 @@ module.exports = function (defaults) {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			// Keep it in sync with gulp/options/prod.js
-			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/main/'
+			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
 		},
 		derequire: {
 			patterns: [
