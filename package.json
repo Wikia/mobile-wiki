@@ -34,7 +34,8 @@
     "test-server-unit": "gulp test-server",
     "test-server-acceptance": "gulp build-server-scripts-for-acceptance-tests && cd server && lab -v tests/acceptance/*.js",
     "linter": "eslint .",
-    "svgo": "bash ./tasks/optimize-svg.sh"
+    "svgo": "bash ./tasks/optimize-svg.sh",
+    "crowdin": "bash ./tasks/download-translations.sh"
   },
   "repository": "git://github.com/Wikia/mobile-wiki.git",
   "license": "MIT",
