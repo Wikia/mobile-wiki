@@ -11,6 +11,68 @@ module.exports = function (environment) {
 			licenseKey: '60e97494a4',
 			spaMonitoring: true
 		},
+		qualaroo: {
+			enabled: true,
+			scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
+		},
+		optimizely: {
+			enabled: true,
+			scriptPath: '//cdn.optimizely.com/js/',
+			account: '2449650414'
+		},
+		verticalColors: {
+			comics: '#ff5400',
+			games: '#94d11f',
+			books: '#ff7f26',
+			movies: '#09d3bf',
+			lifestyle: '#ffd000',
+			music: '#c819ad',
+			tv: '#00b7e0'
+		},
+		tracking: {
+			ua: {
+				primary: {
+					id: 'UA-32129070-1',
+					sampleRate: 10
+				},
+				ads: {
+					prefix: 'ads',
+					id: 'UA-32129071-1',
+					sampleRate: 100
+				},
+				special: {
+					prefix: 'special',
+					id: 'UA-32132943-1',
+					sampleRate: 100
+				},
+				scriptUrl: '//www.google-analytics.com/analytics.js'
+			},
+			quantserve: 'p-8bG6eLqkH6Avk',
+			comscore: {
+				keyword: 'comscorekw',
+				id: '6177433',
+				c7: '',
+				c7Value: ''
+			},
+			ivw3: {
+				cmKey: '',
+				countries: []
+			},
+			nielsen: {
+				apid: 'FIXME',
+				dbName: '',
+				section: '',
+				enabled: false
+			},
+			krux: {
+				mobileId: 'JTKzTN3f'
+			},
+			netzathleten: {
+				enabled: false,
+				url: '',
+				isMainPage: false
+			}
+		},
 		EmberENV: {
 			EXTEND_PROTOTYPES: {
 				Array: true,

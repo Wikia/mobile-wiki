@@ -24,7 +24,11 @@ export default Route.extend(
 			commentsPage: {
 				replace: true
 			},
+			noexternals: {
+				replace: true
+			}
 		},
+		noexternals: null,
 
 		ads: Ember.inject.service(),
 
@@ -33,7 +37,11 @@ export default Route.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return VariablesModel.get(this.get('fastboot.request.headers').get('host'));
+			const host = this.get('fastboot.request') ?
+				this.get('fastboot.request.headers').get('host') :
+				window.location.hostname;
+
+			return VariablesModel.get(host);
 		},
 
 		actions: {

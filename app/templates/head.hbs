@@ -8,22 +8,24 @@
 	<meta name="theme-color" content="{{model.themeColor}}">
 {{/if}}
 
-<link rel="dns-prefetch" href="http://edge.quantserve.com">
-<link rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
-<link rel="dns-prefetch" href="http://b.scorecardresearch.com">
-<link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
+{{#unless model.noexternals}}
+	<link rel="dns-prefetch" href="http://edge.quantserve.com">
+	<link rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
+	<link rel="dns-prefetch" href="http://b.scorecardresearch.com">
+	<link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
 
-{{#if model.gaUrl}}
-	<link rel="dns-prefetch" href="{{model.gaUrl}}">
-{{/if}}
+	{{#if model.gaUrl}}
+		<link rel="dns-prefetch" href="{{model.gaUrl}}">
+	{{/if}}
 
-{{#if model.optimizelyScript}}
-	<link rel="dns-prefetch" href="{{model.optimizelyScript}}">
-{{/if}}
+	{{#if model.optimizelyScript}}
+		<link rel="dns-prefetch" href="{{model.optimizelyScript}}">
+	{{/if}}
 
-{{#if model.qualarooScript}}
-	<link rel="dns-prefetch" href="{{model.qualarooScript}}">
-{{/if}}
+	{{#if model.qualarooScript}}
+		<link rel="dns-prefetch" href="{{model.qualarooScript}}">
+	{{/if}}
+{{/unless}}
 
 {{#if model.favicon}}
 	<link rel="shortcut icon" href="{{model.favicon}}">
