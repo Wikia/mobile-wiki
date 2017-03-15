@@ -5,9 +5,16 @@
 
 	<!--{{> open-graph-tags}}-->
 	<!--{{> other-languages-head}}-->
-	<!--{{> smart-banner-ios}}-->
 
-	<!--{{> nirvana }}-->
+	<script>
+		// TODO maybe we don't need it
+		// initialize objects needed for Oasis
+		Wikia = {};
+		// initialize objects needed for AdEngine
+		mw = { loader: { state: function() {} } };
+		wgNow = new Date();
+	</script>
+
 	<script src="/mobile-wiki/assets/vendor/jquery/jquery.min.js" crossorigin="anonymous"></script>
 	{{content-for 'baseline'}}
 	{{content-for '$script'}}
