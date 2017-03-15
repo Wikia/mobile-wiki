@@ -20,24 +20,11 @@
 
 	{{content-for 'head-footer'}}
 </head>
-<body class="mobile-wiki show-global-footer {{bodyClassName}}">
+<body id="ember-container" class="mobile-wiki show-global-footer {{bodyClassName}}">
 {{content-for 'body'}}
 
 <!--{{> first-render-time}}-->
 <!--{{> qualaroo}}-->
-
-<!--{{!&#45;&#45;-->
-	<!--Ember must render out to a specific div above the scripts, otherwise-->
-	<!--Google PageSpeed will mistakenly believe that we have scripts loading and blocking content-->
-	<!--DO NOT REMOVE THE FOLLOWING LINE:-->
-<!--&#45;&#45;}}-->
-<!--<div id="ember-container" class="ember-container">-->
-	<!--&lt;!&ndash;{{> site-head}}&ndash;&gt;-->
-	<!--<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">-->
-		<!--{{content-for 'body'}}-->
-	<!--</div>-->
-<!--</div>-->
-
 
 <script src="/mobile-wiki/assets/vendor.js" defer></script>
 <script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
