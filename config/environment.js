@@ -3,7 +3,7 @@
 
 module.exports = function (environment) {
 	var ENV = {
-		modulePrefix: 'main',
+		modulePrefix: 'mobile-wiki',
 		environment: environment,
 		locationType: 'auto',
 		newRelic: {
