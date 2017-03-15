@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
-import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {escapeRegex, normalizeToUnderscore} from 'common/utils/string';
@@ -19,7 +18,6 @@ const {Component, computed, observer, inject, run, $} = Ember;
  */
 export default Component.extend(
 	NoScrollMixin,
-	ResponsiveMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
 		// key: phrase string, value: Array<SearchSuggestionItem>
@@ -168,13 +166,13 @@ export default Component.extend(
 			suggestions.forEach(
 				/**
 				 * @param {SearchSuggestionItem} suggestion
-				 * @param {number} index
-				 * @param {SearchSuggestionItem[]} suggestionsArr
 				 * @returns {void}
 				 */
-				(suggestion, index, suggestionsArr) => {
-					suggestionsArr[index].uri = encodeURIComponent(normalizeToUnderscore(suggestion.title));
-					suggestion.text = suggestion.title.replace(highlightRegexp, highlighted);
+				(suggestion) => {
+					suggestion.setProperties({
+						uri: encodeURIComponent(normalizeToUnderscore(suggestion.title)),
+						text: suggestion.title.replace(highlightRegexp, highlighted)
+					});
 				}
 			);
 
@@ -224,6 +222,10 @@ export default Component.extend(
 			this.startedRequest(phrase);
 
 			this.get('ajax').request(uri).then((data) => {
+				const suggestions = data.items.map((suggestion) => {
+					return Ember.Object.create(suggestion);
+				});
+
 				/**
 				 * If the user makes one request, request A, and then keeps typing to make
 				 * request B, but request A takes a long time while request B returns quickly,
@@ -233,10 +235,10 @@ export default Component.extend(
 				 * will be finished, what will happen if search request is still in progress.
 				 */
 				if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
-					this.setSearchSuggestionItems(data.items);
+					this.setSearchSuggestionItems(suggestions);
 				}
 
-				this.cacheResult(phrase, data.items);
+				this.cacheResult(phrase, suggestions);
 			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (phrase === this.get('phrase')) {

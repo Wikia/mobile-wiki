@@ -18,6 +18,7 @@ export default Object.extend({
 	localLinks: get(Mercury, 'wiki.localNav') || get(Mercury, 'wiki.navigation2016.localNav'),
 	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
 	wikiName: get(Mercury, 'wiki.siteName'),
+	mainPageTitle: get(Mercury, 'wiki.mainPageTitle'),
 
 	/**
 	 * Iteratively traverse local navigation tree to find out root node
@@ -148,8 +149,7 @@ export default Object.extend({
 			[{
 				type: 'nav-menu-header',
 				route: 'wiki-page',
-				// will generate href="/wiki/"
-				href: '',
+				href: this.get('mainPageTitle'),
 				name: i18n.t('navigation.explore-wiki', {wikiName: this.get('wikiName')})
 			}] || [];
 	}),

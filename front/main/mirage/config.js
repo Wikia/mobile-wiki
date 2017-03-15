@@ -4,7 +4,6 @@ import filePageFixture from './fixtures/file-page';
  * @returns {void}
  */
 export default function () {
-	this.passthrough('/write-blanket-coverage');
 	this.passthrough('https://localhost/**');
 
 	this.passthrough('https://services.wikia-dev.pl/**');

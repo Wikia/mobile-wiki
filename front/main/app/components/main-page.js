@@ -1,15 +1,17 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 
-export default Ember.Component.extend(
+const {Component, computed, inject, run} = Ember;
+
+export default Component.extend(
 	AdsMixin,
 	{
 		classNames: ['main-page-modules', 'main-page-body'],
 		tagName: 'section',
 
-		currentUser: Ember.inject.service(),
+		currentUser: inject.service(),
 
-		curatedContentToolButtonVisible: Ember.computed.and('currentUser.rights.curatedcontent'),
+		curatedContentToolButtonVisible: computed.and('currentUser.rights.curatedcontent'),
 
 		actions: {
 			/**
@@ -35,8 +37,11 @@ export default Ember.Component.extend(
 		 */
 		didInsertElement() {
 			this._super(...arguments);
-			this.injectMainPageAds();
-			this.setupAdsContext(this.get('adsContext'));
+
+			run.scheduleOnce('afterRender', this, () => {
+				this.injectMainPageAds();
+				this.setupAdsContext(this.get('adsContext'));
+			});
 		},
 	}
 );

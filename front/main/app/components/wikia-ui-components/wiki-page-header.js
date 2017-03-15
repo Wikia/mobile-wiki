@@ -78,7 +78,7 @@ export default Ember.Component.extend(
 				width: windowWidth
 			});
 
-			return new Ember.Handlebars.SafeString(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
+			return new Ember.String.htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
 		}),
 
 		actions: {

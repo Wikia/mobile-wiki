@@ -1,16 +1,11 @@
 import Ember from 'ember';
-import getOwner from 'ember-getowner-polyfill';
 
 /**
  * This is mostly copied from ember-islands but with some modifications
  */
 
-const {$, assert} = Ember;
+const {$, assert, getOwner} = Ember;
 
-/**
- * @param {HTMLElement} element
- * @returns {Object}
- */
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
 
@@ -26,42 +21,41 @@ function componentAttributes(element) {
 
 	return attrs;
 }
-/**
- * @param {Component} parent
- * @returns {Function}
- */
+
+function lookupComponent(owner, name) {
+	let componentLookupKey = `component:${name}`,
+		layoutLookupKey = `template:components/${name}`,
+		layout = owner._lookupFactory(layoutLookupKey),
+		component = owner._lookupFactory(componentLookupKey);
+
+	return {component, layout};
+}
+
 export function getRenderComponentFor(parent) {
-	const componentLookup = getOwner(parent).lookup('component-lookup:main');
+	const owner = getOwner(parent);
 
-	return function renderComponent({name, attrs, element}) {
-		const component = componentLookup.lookupFactory(name);
-
+	return function renderComponent({name, attrs, element: placeholderElement}) {
+		const {component, layout} = lookupComponent(owner, name);
 		let componentInstance;
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
+		if (layout) {
+			attrs.layout = layout;
+		}
+
 		componentInstance = component.create(attrs);
+		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
-		// It has to be rendered outside .ember-view because of Ember's assertion
-		componentInstance.appendTo($('#ember-component-constructor'));
-
-		// Wait until component element is rendered in DOM and ready to be moved
 		Ember.run.scheduleOnce('afterRender', this, () => {
-			// Take component element out from the temp container and put it just before its placeholder
-			element.parentNode.insertBefore(componentInstance.element, element);
-
-			// Remove the placeholder
-			$(element).remove();
+			placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
+			$(placeholderElement).remove();
 		});
 
 		return componentInstance;
 	};
 }
 
-/**
- * @param {JQuery} $element
- * @returns {Array}
- */
 export function queryPlaceholders($element) {
 	const components = [];
 

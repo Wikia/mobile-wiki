@@ -21,6 +21,12 @@ $vpaid-z-index: 10;
 	top: 0;
 }
 
+%high-impact-close-icon {
+	fill: white;
+	height: $closeButtonHeight / 2;
+	width: $closeButtonHeight / 2;
+}
+
 .ad-slot {
 	margin: 0;
 	padding: 0;
@@ -238,18 +244,24 @@ $vpaid-z-index: 10;
 		}
 
 		.close {
+			align-items: center;
 			background-color: #000;
 			border-radius: 50%;
 			border: 2px solid white;
+			display: flex;
 			height: $closeButtonHeight;
+			justify-content: center;
 			padding: 5px;
-			text-align: center;
-			top: -($closeButtonHeight / 2);
-			width: $closeButtonHeight;
 			position: absolute;
 			right: 0;
+			top: -($closeButtonHeight / 2);
+			width: $closeButtonHeight;
 			//This is needed to make sure that close button is always displayed above ad
 			z-index: $z-modal-dialog;
+
+			.close-button {
+				@extend %high-impact-close-icon;
+			}
 		}
 	}
 
@@ -275,6 +287,9 @@ $vpaid-z-index: 10;
 
 		.top-bar {
 			background-color: rgba(0, 0, 0, 0.5);
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: space-between;
 			left: 0;
 			position: absolute;
 			top: 0;
@@ -286,18 +301,17 @@ $vpaid-z-index: 10;
 		}
 
 		.close {
-			display: inline-block;
 			padding: 20px;
-			float: right;
-			position: relative;
+
+			.close-button {
+				@extend %high-impact-close-icon;
+			}
 		}
 
 		.label {
 			color: #D5D4D4;
-			display: inline-block;
 			font-size: 17px;
 			padding: 20px 10px;
-			position: relative;
 		}
 	}
 }

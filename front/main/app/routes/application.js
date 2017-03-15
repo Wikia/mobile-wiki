@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {track, trackActions} from 'common/utils/track';
 import {activate as variantTestingActivate} from 'common/utils/variant-testing';
@@ -17,7 +16,6 @@ const {
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
-	ResponsiveMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -26,25 +24,8 @@ export default Route.extend(
 		},
 
 		ads: Ember.inject.service(),
-		adsHighImpact: Ember.inject.service(),
 
 		actions: {
-			/**
-			 * @param {boolean} state
-			 * @returns {void}
-			 */
-			triggerHighlightOverlayStateChange(state) {
-				this.controller.set('isGlobalNavigationPositionFixed', !state);
-			},
-
-			/**
-			 * @param {boolean} state
-			 * @returns {void}
-			 */
-			triggerGlobalNavigationHeadroomStateChange(state) {
-				this.controller.set('isGlobalNavigationHeadroomPinnedOrDisabled', state);
-			},
-
 			/**
 			 * @returns {void}
 			 */
@@ -220,11 +201,7 @@ export default Route.extend(
 			 * @param {string} query
 			 */
 			goToSearchResults(query) {
-				if (this.get('responsive.isMobile')) {
-					this.transitionTo('search', {queryParams: {query}});
-				} else {
-					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
-				}
+				this.transitionTo('search', {queryParams: {query}});
 			},
 
 			openNav() {
@@ -242,8 +219,11 @@ export default Route.extend(
 			const adsModule = this.get('ads.module'),
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
-			if (this.get('ads.adsUrl') && !M.prop('queryParams.noexternals') &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury) {
+			if (
+				this.get('ads.adsUrl') &&
+				!M.prop('queryParams.noexternals') &&
+				!instantGlobals.wgSitewideDisableAdsOnMercury
+			) {
 				adsModule.init(this.get('ads.adsUrl'));
 
 				/*

@@ -16,7 +16,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			const headers = Ember.$('.article-content h2[section]').map((i, elem) => {
+			const headers = this.get('articleContent').find('h2[section]').map((i, elem) => {
 				if (elem.textContent) {
 					return {
 						element: elem,

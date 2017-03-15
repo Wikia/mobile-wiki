@@ -9,7 +9,7 @@ const {
 	computed,
 	get,
 	getWithDefault,
-	Handlebars,
+	String,
 	run,
 } = Ember;
 
@@ -53,7 +53,7 @@ export default Component.extend({
 			height: this.iconSize
 		});
 
-		return new Handlebars.SafeString(`background-image: url(${icon})`);
+		return new String.htmlSafe(`background-image: url(${icon})`);
 	}),
 
 	link: computed('appId', 'dbName', function () {
