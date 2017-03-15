@@ -96,18 +96,19 @@ module.exports = function (defaults) {
 		}
 	});
 
-	// Files below are concatenated to assets/vendor.js
-	// app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
-	//app.import(app.bowerDirectory + '/hammerjs/hammer.js');
-	// app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
-	// app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
-	// app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
+	if (!process.env.EMBER_CLI_FASTBOOT) {
+		// Files below are concatenated to assets/vendor.js
+		app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
+		app.import(app.bowerDirectory + '/hammerjs/hammer.js');
+		app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
+		app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
+		app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
+		app.import(app.bowerDirectory + '/numeral/numeral.js');
+		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
+		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
+	}
 	app.import(app.bowerDirectory + '/i18next/i18next.js');
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
-	// app.import(app.bowerDirectory + '/numeral/numeral.js');
-	// app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
-	// app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
-	// app.import('vendor/common.js');
 
 	if (app.env === 'test') {
 		// Fix for PhantomJS errors
