@@ -32,16 +32,18 @@ export default Route.extend(
 
 		ads: Ember.inject.service(),
 
-		/**
-		 * @param {*} params
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		model(params) {
-			const host = this.get('fastboot.request') ?
-				this.get('fastboot.request.headers').get('host') :
-				window.location.hostname;
+		model() {
+			const shoebox = this.get('fastboot.shoebox');
 
-			return VariablesModel.get(host);
+			if (this.get('fastboot.isFastBoot')) {
+				return VariablesModel.get(this.get('fastboot.request.headers').get('host'))
+					.then((model) => {
+						shoebox.put('variablesModel', model);
+						return model;
+					});
+			} else {
+				return shoebox.retrieve('variablesModel');
+			}
 		},
 
 		actions: {
