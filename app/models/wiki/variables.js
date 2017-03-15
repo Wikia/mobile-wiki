@@ -24,7 +24,7 @@ VariablesModel.reopenClass({
 			return fetch(
 					M.buildUrl({
 						host,
-						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`
+						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`,
 						wiki: 'www'
 					})
 				)
