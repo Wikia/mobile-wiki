@@ -1,9 +1,0 @@
-{
-  "env": {
-    "es6": true,
-    "node": true
-  },
-  "rules": {
-    "no-process-env": 0
-  }
-}

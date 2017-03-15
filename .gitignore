@@ -1,21 +1,26 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
 # dependencies
 **/node_modules/
 **/bower_components/
 
 # compiled output
-/www/
-/test/
+/dist
+/tmp
+/vendor
 
-# others
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
 .idea/
 .DS_Store
 .settings
-.sass-cache
 *.sublime-*
 *.sw[a-z]
 *.orig
 *.log
 *.iml
-
-# coverage files
-**/coverage.*
