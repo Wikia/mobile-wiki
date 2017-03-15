@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import MediaModel from '../media';
-import {extractEncodedTitle} from 'main/utils/url';
+import {extractEncodedTitle} from '../../utils/url';
 
 const {get} = Ember,
 	FileModel = BaseModel.extend({
