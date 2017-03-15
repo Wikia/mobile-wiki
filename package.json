@@ -10,6 +10,7 @@
     "build": "ember build",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "fastboot": "ember fastboot --serve-assets --port 7001",
+    "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember fastboot --no-build --serve-assets --port 7001",
     "setup": "npm install && bower update",
     "test": "ember test"
   },
@@ -67,5 +68,10 @@
     "moment-timezone": "0.5.0",
     "tslint": "4.5.1",
     "typescript": "2.0.0"
+  },
+  "ember-addon": {
+    "paths": [
+      "lib/fastboot-require"
+    ]
   }
 }
