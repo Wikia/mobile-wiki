@@ -5,7 +5,6 @@ import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import request from 'ember-ajax/request';
-import M from '../../mmm';
 import {buildUrl} from '../../utils/url';
 
 /**
@@ -69,10 +68,9 @@ export function getModelForNamespace(data, params) {
 }
 
 export default function getPageModel(params, isFastBoot, shoebox) {
-	const articleData = shoebox.retrieve(`wikiPage-${params.title}`);
+	const articleData = shoebox.retrieve('wikiPage');
 
-	console.log(shoebox);
-	if (!articleData) {
+	if (!articleData || articleData.data.details.url !== `/wiki/${params.title}`) {
 		return request(getURL(params))
 			.then((data) => {
 				const redirectTo = Ember.get(data, 'data.redirectTo');
@@ -82,7 +80,7 @@ export default function getPageModel(params, isFastBoot, shoebox) {
 				}
 
 				if (isFastBoot) {
-					shoebox.put(`wikiPage-${params.title}`, data);
+					shoebox.put('wikiPage', data);
 				}
 
 				return getModelForNamespace(data, params);
