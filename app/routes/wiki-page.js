@@ -99,9 +99,9 @@ export default Route.extend(
 
 			return getPageModel(
 				modelParams,
-				this.get('wikiVariables.contentNamespaces'),
 				this.get('fastboot.isFastBoot'),
-				this.get('fastboot.shoebox')
+				this.get('fastboot.shoebox'),
+				this.get('wikiVariables.contentNamespaces'),
 			);
 		},
 

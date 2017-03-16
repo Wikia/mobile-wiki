@@ -40,6 +40,7 @@ function getURL(params) {
  *
  * @param {Object} data
  * @param {Object} params
+ * @param {Array} contentNamespaces
  * @returns {Object}
  */
 export function getModelForNamespace(data, params, contentNamespaces) {
