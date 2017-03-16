@@ -76,10 +76,24 @@ export default Route.extend(
 				const fs = FastBoot.require('fs');
 
 				config.translationsNamespaces.forEach(namespace => {
-					// TODO error handling and fallback langs
-					const translationPath = `public/locales/${language}/${namespace}.json`;
+					[language, language.split('-')[0], 'en'].some((lang) => {
+						const translationPath = `public/locales/${lang}/${namespace}.json`;
 
-					translations[namespace] = JSON.parse(fs.readFileSync(translationPath));
+						try {
+							translations[namespace] = JSON.parse(fs.readFileSync(translationPath));
+
+							return true;
+						} catch (exception) {
+							if (lang === 'en') {
+								Logger.error({
+									lang,
+									namespace,
+									path: translationPath,
+									error: exception.message
+								}, `Translation for default language not found`);
+							}
+						}
+					});
 				});
 
 				shoebox.put('translations', translations);
