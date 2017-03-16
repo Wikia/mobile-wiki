@@ -106,6 +106,10 @@ export default Route.extend(
 				lng: language,
 				lowerCaseLng: true,
 				defaultNS: 'main',
+				interpolation: {
+					prefix: '__',
+					suffix: '__'
+				},
 				resources: {
 					[language]: translations
 				}
