@@ -35,11 +35,13 @@ export default Component.extend(
 		svgName: computed.alias('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
+			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ?
+				this.get('closeIcon') : 'nav';
 		}),
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
+			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
+				this.get('closeIcon') : 'search';
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),

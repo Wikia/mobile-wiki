@@ -55,7 +55,6 @@ export default Route.extend(
 					wikiVariablesService = this.get('wikiVariables');
 
 				wikiVariablesService.setProperties(model);
-				Object.freeze(wikiVariablesService);
 
 				// FIXME use wikiVariables service in buildUrl() instead of depending on a global
 				window.Mercury = {wiki: model};
