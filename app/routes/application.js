@@ -7,7 +7,7 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
 import M from '../mmm';
-import i18next from 'npm:i18next';
+import i18n from 'npm:i18next';
 import config from '../config/environment';
 
 const {
@@ -27,6 +27,9 @@ export default Route.extend(
 				replace: true
 			},
 			noexternals: {
+				replace: true
+			},
+			uselang: {
 				replace: true
 			}
 		},
@@ -52,7 +55,7 @@ export default Route.extend(
 			this._super(...arguments);
 
 			const shoebox = this.get('fastboot.shoebox'),
-				language = model.language.content;
+				language = transition.queryParams.uselang || model.language.content;
 
 			let translations = {};
 
@@ -71,9 +74,9 @@ export default Route.extend(
 				translations = shoebox.retrieve('translations');
 			}
 
-			i18next.init({
+			i18n.init({
 				fallbackLng: 'en',
-				lng: model.language.content,
+				lng: language,
 				lowerCaseLng: true,
 				ns: 'main',
 				resources: {
