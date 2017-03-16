@@ -13,7 +13,7 @@ export function initializeI18next(language, isFastBoot, shoebox) {
 
 		config.translationsNamespaces.forEach(namespace => {
 			[language, language.split('-')[0], 'en'].some((lang) => {
-				const translationPath = `public/locales/${lang}/${namespace}.json`;
+				const translationPath = `dist/mobile-wiki/locales/${lang}/${namespace}.json`;
 
 				try {
 					// TODO consider using async readFile for performance reasons

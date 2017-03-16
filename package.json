@@ -17,10 +17,13 @@
   },
   "repository": "",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 6.10.0"
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "fastboot-app-server": "1.0.0-rc.5"
+  },
   "devDependencies": {
     "broccoli-asset-rev": "rogatty/broccoli-asset-rev#broccoli-asset-rewrite-1.0.9",
     "broccoli-babel-transpiler": "5.5.0",
