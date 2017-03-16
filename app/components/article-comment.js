@@ -81,7 +81,7 @@ export default Component.extend({
 					}),
 					$thumbnail = $('<img/>').attr('src', thumbnailURL),
 					articlePath = this.get('wikiVariables.articlePath'),
-					fileNamespace = this.getW('wikiVariables.namespaces.6') || 'File',
+					fileNamespace = this.get('wikiVariables.namespaces.6') || 'File',
 					href = `${articlePath}${fileNamespace}:${thumbnailData.name}`,
 					$anchor = $('<a/>').attr('href', href).append($thumbnail),
 					$figure = $('<figure/>');
