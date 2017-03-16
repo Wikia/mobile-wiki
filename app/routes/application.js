@@ -7,8 +7,7 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
 import M from '../mmm';
-import i18n from 'npm:i18next';
-import config from '../config/environment';
+import {initializeI18next} from '../utils/i18n';
 
 const {
 	$,
@@ -55,7 +54,6 @@ export default Route.extend(
 					wikiVariablesService = this.get('wikiVariables');
 
 				wikiVariablesService.setProperties(model);
-				Object.freeze(wikiVariablesService);
 
 				// FIXME use wikiVariables service in buildUrl() instead of depending on a global
 				window.Mercury = {wiki: model};
@@ -67,55 +65,11 @@ export default Route.extend(
 		afterModel(model, transition) {
 			this._super(...arguments);
 
-			const shoebox = this.get('fastboot.shoebox'),
-				language = transition.queryParams.uselang || model.language.content;
-
-			let translations = {};
-
-			if (this.get('fastboot.isFastBoot')) {
-				const fs = FastBoot.require('fs');
-
-				config.translationsNamespaces.forEach(namespace => {
-					[language, language.split('-')[0], 'en'].some((lang) => {
-						const translationPath = `public/locales/${lang}/${namespace}.json`;
-
-						try {
-							// TODO consider using async readFile for performance reasons
-							// It's not trivial when we look for up to 3 different languages in every namespace
-							translations[namespace] = JSON.parse(fs.readFileSync(translationPath));
-
-							return true;
-						} catch (exception) {
-							if (lang === 'en') {
-								Logger.error({
-									lang,
-									namespace,
-									path: translationPath,
-									error: exception.message
-								}, `Translation for default language not found`);
-							}
-						}
-					});
-				});
-
-				shoebox.put('translations', translations);
-			} else {
-				translations = shoebox.retrieve('translations');
-			}
-
-			i18n.init({
-				fallbackLng: 'en',
-				lng: language,
-				lowerCaseLng: true,
-				defaultNS: 'main',
-				interpolation: {
-					prefix: '__',
-					suffix: '__'
-				},
-				resources: {
-					[language]: translations
-				}
-			});
+			initializeI18next(
+				transition.queryParams.uselang || model.language.content,
+				this.get('fastboot.isFastBoot'),
+				this.get('fastboot.shoebox')
+			);
 		},
 
 		actions: {
