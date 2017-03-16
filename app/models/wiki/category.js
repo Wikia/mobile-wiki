@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../../utils/url';
 
 const {get, isEmpty} = Ember,
 	CategoryModel = BaseModel.extend({
@@ -44,7 +45,7 @@ const {get, isEmpty} = Ember,
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(page) {
-			const url = M.buildUrl({
+			return request(buildUrl({
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
@@ -53,9 +54,7 @@ const {get, isEmpty} = Ember,
 					categoryMembersPage: page,
 					format: 'json'
 				}
-			});
-
-			return request(url)
+			}))
 				.then(({data}) => {
 					if (isEmpty(data) || isEmpty(data.membersGrouped)) {
 						throw new Error('Unexpected response from server');
@@ -101,7 +100,7 @@ CategoryModel.reopenClass({
 			index
 		};
 
-		return M.buildUrl({
+		return buildUrl({
 			path: '/wikia.php',
 			query
 		});

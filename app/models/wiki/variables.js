@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import fetch from 'ember-network/fetch';
-import M from '../../mmm';
+import {buildUrl} from '../utils/url';
 
 const VariablesModel = Ember.Object.extend({});
 
 VariablesModel.reopenClass({
 	get(host) {
-		const url = M.buildUrl({
+		const url = buildUrl({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -22,7 +22,7 @@ VariablesModel.reopenClass({
 				return response.data;
 			}).then((data) => {
 				return fetch(
-					M.buildUrl({
+					buildUrl({
 						host,
 						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`,
 						wiki: 'www'

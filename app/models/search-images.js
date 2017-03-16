@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 /**
  * @typedef {Object} SearchImageResponse
@@ -112,7 +113,7 @@ export default Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	fetch() {
-		return request(M.buildUrl({path: '/api.php'}), {
+		return request(buildUrl({path: '/api.php'}), {
 			data: {
 				format: 'json',
 				action: 'apimediasearch',

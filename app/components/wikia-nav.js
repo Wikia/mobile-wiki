@@ -3,7 +3,7 @@ import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from '../utils/track';
-import M from '../mmm';
+import {buildUrl} from '../utils/url';
 
 const {Component, computed, inject} = Ember;
 
@@ -16,14 +16,14 @@ export default Component.extend(
 		currentUser: inject.service(),
 		wikiVariables: inject.service(),
 
-		logoutLink: M.buildUrl({
+		logoutLink: buildUrl({
 			namespace: 'Special',
 			title: 'UserLogout'
 		}),
 
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		userProfileLink: computed('currentUser.name', function () {
-			return M.buildUrl({
+			return buildUrl({
 				namespace: 'User',
 				title: this.get('currentUser.name')
 			});

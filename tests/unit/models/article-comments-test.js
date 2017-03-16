@@ -7,11 +7,11 @@ moduleFor('model:article-comments', 'Unit | Model | article comments', {
 	unit: true,
 
 	beforeEach() {
-		stub = sinon.stub(M, 'buildUrl');
+		stub = sinon.stub(require('main/utils/url'), 'buildUrl');
 	},
 
 	afterEach() {
-		M.buildUrl.restore();
+		require('main/utils/url').buildUrl.restore();
 	}
 });
 

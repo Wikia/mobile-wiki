@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../../utils/url';
 
 /**
  * @param {Ember.Route} route
@@ -26,7 +27,7 @@ function afterModel(route, model) {
  */
 function sendLyricsPageView(model) {
 	if (Ember.get(Mercury, 'wiki.id') === 43339 && !model.get('isMainPage')) {
-		request(M.buildUrl({path: '/wikia.php'}), {
+		request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'LyricFind',
 				method: 'track',

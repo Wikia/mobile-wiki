@@ -2,6 +2,7 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 /**
  * @param {string} lang
@@ -46,7 +47,7 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 		}
 
 		return request(
-			M.buildUrl({path: '/wikia.php'}), {
+			buildUrl({path: '/wikia.php'}), {
 				data: {
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',

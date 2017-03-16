@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 /**
  * @param {string} title
  * @returns {Ember.RSVP.Promise}
  */
 export default function (title) {
-	return request(M.buildUrl({path: '/api.php'}), {
+	return request(buildUrl({path: '/api.php'}), {
 		data: {
 			action: 'query',
 			prop: 'info',

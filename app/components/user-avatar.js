@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import {buildUrl} from '../utils/url';
 
-export default Ember.Component.extend({
+const {Component, computed} = Ember;
+
+export default Component.extend({
 	classNames: ['user-avatar'],
-	profileName: Ember.computed('username', function () {
+	profileName: computed('username', function () {
 		const userName = this.get('username') || '';
 
 		return userName.trim();
@@ -11,13 +14,13 @@ export default Ember.Component.extend({
 	 * Returns link to the post author's user page
 	 * @returns {string}
 	 */
-	profileUrl: Ember.computed('profileName', function () {
-		return M.buildUrl({
+	profileUrl: computed('profileName', function () {
+		return buildUrl({
 			namespace: 'User',
 			title: this.get('profileName'),
 		});
 	}),
-	displayName: Ember.computed('profileName', function () {
+	displayName: computed('profileName', function () {
 		return this.get('anonymous') ? i18n.t('app.username-anonymous') : this.get('profileName');
 	}),
 	shouldWrapInHref: true

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 export default Ember.Object.extend({
 	articleId: null,
@@ -41,7 +42,7 @@ export default Ember.Object.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return M.buildUrl({
+		return buildUrl({
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

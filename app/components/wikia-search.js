@@ -3,6 +3,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
+import {buildUrl} from '../utils/url';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -189,7 +190,7 @@ export default Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(phrase) {
-			return M.buildUrl({
+			return buildUrl({
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

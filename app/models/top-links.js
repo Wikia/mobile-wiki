@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 /**
  * This is duplicating logic used on the desktop version of the site. It finds the most
@@ -29,7 +30,7 @@ const TopLinksModel = Ember.Object.extend({
 			height = 270;
 		}
 
-		return request(M.buildUrl({path: '/wikia.php'}), {
+		return request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'ArticlesApi',
 				method: 'getDetails',

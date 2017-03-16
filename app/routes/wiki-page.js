@@ -9,6 +9,7 @@ import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
+import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
 const {Logger, Route, $, inject, get} = Ember;
@@ -122,7 +123,7 @@ export default Route.extend(
 					handler.afterModel(this, ...arguments);
 				} else {
 					transition.abort();
-					window.location.assign(M.buildUrl({
+					window.location.assign(buildUrl({
 						wikiPage: get(transition, 'params.wiki-page.title'),
 						query: {
 							useskin: 'oasis'

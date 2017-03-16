@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import {isNotFoundError, isBadRequestError, isForbiddenError} from 'ember-ajax/errors';
-import {extractEncodedTitle} from '../utils/url';
+import {buildUrl, extractEncodedTitle} from '../utils/url';
 
 const {Object, computed, A, Logger} = Ember;
 
@@ -47,7 +47,7 @@ export default Object.extend({
 			loading: true
 		});
 
-		return request(M.buildUrl({path: '/wikia.php'}), {
+		return request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'SearchApi',
 				method: 'getList',

@@ -6,6 +6,7 @@ import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import request from 'ember-ajax/request';
 import M from '../../mmm';
+import {buildUrl} from '../utils/url';
 
 /**
  *
@@ -29,7 +30,7 @@ function getURL(params) {
 		query.categoryMembersPage = params.page;
 	}
 
-	return M.buildUrl({
+	return buildUrl({
 		host: params.basePath,
 		path: '/wikia.php',
 		query

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BaseModel from './base';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../../utils/url';
 
 const ArticleModel = BaseModel.extend({
 	content: null,
@@ -16,7 +17,7 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		const url = M.buildUrl({
+		return request(buildUrl({
 			path: '/api.php',
 			query: {
 				action: 'query',
@@ -24,9 +25,7 @@ ArticleModel.reopenClass({
 				grnnamespace: 0,
 				format: 'json'
 			}
-		});
-
-		return request(url, {
+		}), {
 			cache: false,
 		}).then((data) => {
 			if (data.query && data.query.pages) {

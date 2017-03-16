@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
 import {form} from '../utils/content-type';
+import {buildUrl} from '../utils/url';
 
 const ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -23,7 +24,7 @@ ArticleEditModel.reopenClass(
 		publish(model) {
 			return getEditToken(model.title)
 				.then((token) => {
-					return request(M.buildUrl({path: '/api.php'}), {
+					return request(buildUrl({path: '/api.php'}), {
 						method: 'POST',
 						contentType: form,
 						data: {
@@ -52,7 +53,7 @@ ArticleEditModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		load(title, sectionIndex) {
-			return request(M.buildUrl({path: '/api.php'}), {
+			return request(buildUrl({path: '/api.php'}), {
 				cache: false,
 				data: {
 					action: 'query',

@@ -3,8 +3,18 @@ import request from 'ember-ajax/request';
 
 import {extractDomainFromUrl} from '../utils/domain';
 import {track} from '../utils/track';
+import M from '../mmm';
+import {buildUrl} from '../utils/url';
 
 const {Object: EmberObject, get, getWithDefault} = Ember;
+
+/**
+ * @param {string} [path='']
+ * @returns {string}
+ */
+function getDiscussionServiceUrl(path = '') {
+	return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
+}
 
 export default EmberObject.extend(
 	{
@@ -22,7 +32,7 @@ export default EmberObject.extend(
 				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
 			};
 
-			return request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
+			return request(getDiscussionServiceUrl(`/${wikiId}/threads`), {
 				data: requestData,
 				traditional: true,
 			}).then(this.normalizeData.bind(this));
@@ -43,7 +53,7 @@ export default EmberObject.extend(
 						badgePermission: createdBy.badgePermission,
 						id: createdBy.id,
 						name: createdBy.name,
-						profileUrl: M.buildUrl({
+						profileUrl: buildUrl({
 							namespace: 'User',
 							title: createdBy.name
 						})
@@ -97,7 +107,7 @@ export default EmberObject.extend(
 			// Update frontend immediately. If error occurs then we revert state
 			post.set('userData.hasUpvoted', !hasUpvoted);
 
-			request(M.getDiscussionServiceUrl(`/${get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
+			request(getDiscussionServiceUrl(`/${get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
 				method,
 			}).then((data) => {
 				post.set('upvoteCount', data.upvoteCount);

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -57,7 +58,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(userId, avatarSize) {
-		return request(M.buildUrl({path: '/wikia.php'}), {
+		return request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'UserApi',
 				method: 'getDetails',
@@ -78,7 +79,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(userId) {
-		return request(M.buildUrl({path: '/api.php'}), {
+		return request(buildUrl({path: '/api.php'}), {
 			data: {
 				action: 'query',
 				meta: 'userinfo',
@@ -97,7 +98,7 @@ UserModel.reopenClass({
 		const data = {
 			name: userData.name,
 			avatarPath: userData.avatar,
-			profileUrl: M.buildUrl({
+			profileUrl: buildUrl({
 				namespace: 'User',
 				title: userData.name
 			})

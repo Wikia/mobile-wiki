@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {buildUrl} from '../utils/url';
 
 const FandomPostsModel = Ember.Object.extend({
 	title: null,
@@ -15,7 +16,7 @@ const FandomPostsModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise} model
 	 */
 	load() {
-		return request(M.buildUrl({path: '/wikia.php'}), {
+		return request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'RecirculationApi',
 				method: 'getFandomPosts',

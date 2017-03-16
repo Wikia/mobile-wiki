@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
 import {form} from '../utils/content-type';
+import {buildUrl} from '../utils/url';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -79,7 +80,7 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		editContent(data) {
-			return request(M.buildUrl({path: '/api.php'}), {
+			return request(buildUrl({path: '/api.php'}), {
 				method: 'POST',
 				contentType: form,
 				data,
@@ -127,7 +128,7 @@ ArticleAddPhotoModel.reopenClass(
 		permanentUpload(title, tempName) {
 			return getEditToken(title)
 				.then((token) => {
-					return request(M.buildUrl({path: '/api.php'}), {
+					return request(buildUrl({path: '/api.php'}), {
 						method: 'POST',
 						contentType: form,
 						data: {
@@ -164,7 +165,7 @@ ArticleAddPhotoModel.reopenClass(
 					formData.append('type', 'image');
 					formData.append('token', token);
 
-					return request(M.buildUrl({path: '/api.php'}), {
+					return request(buildUrl({path: '/api.php'}), {
 						method: 'POST',
 						data: formData,
 						cache: false,
