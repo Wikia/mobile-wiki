@@ -80,6 +80,8 @@ export default Route.extend(
 						const translationPath = `public/locales/${lang}/${namespace}.json`;
 
 						try {
+							// TODO consider using async readFile for performance reasons
+							// It's not trivial when we look for up to 3 different languages in every namespace
 							translations[namespace] = JSON.parse(fs.readFileSync(translationPath));
 
 							return true;
