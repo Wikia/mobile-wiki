@@ -120,43 +120,43 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
-	const trackingMethod = params.trackingMethod || 'both',
-		action = params.action,
-		category = params.category ? `mercury-${params.category}` : null,
-		label = params.label || '',
-		value = params.value || 0,
-		isNonInteractive = params.isNonInteractive !== false;
-
-	if (M.prop('queryParams.noexternals')) {
-		return;
-	}
-
-	if (!window.location) {
-		return;
-	}
-	params = $.extend({
-		ga_action: action,
-		ga_category: category,
-		ga_label: label,
-		ga_value: value,
-		ga_is_nonInteractive: isNonInteractive
-	}, params);
-
-	// We rely on ga_* params in both trackers
-	pruneParams(params);
-
-	if (trackingMethod === 'both' || trackingMethod === 'ga') {
-		if (!category || !action) {
-			throw new Error('Missing required GA params');
-		}
-
-		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
-	}
-
-	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		params = $.extend({}, context, params);
-		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
-	}
+	// const trackingMethod = params.trackingMethod || 'both',
+	// 	action = params.action,
+	// 	category = params.category ? `mercury-${params.category}` : null,
+	// 	label = params.label || '',
+	// 	value = params.value || 0,
+	// 	isNonInteractive = params.isNonInteractive !== false;
+	//
+	// if (M.prop('queryParams.noexternals')) {
+	// 	return;
+	// }
+	//
+	// if (!window.location) {
+	// 	return;
+	// }
+	// params = $.extend({
+	// 	ga_action: action,
+	// 	ga_category: category,
+	// 	ga_label: label,
+	// 	ga_value: value,
+	// 	ga_is_nonInteractive: isNonInteractive
+	// }, params);
+	//
+	// // We rely on ga_* params in both trackers
+	// pruneParams(params);
+	//
+	// if (trackingMethod === 'both' || trackingMethod === 'ga') {
+	// 	if (!category || !action) {
+	// 		throw new Error('Missing required GA params');
+	// 	}
+	//
+	// 	M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
+	// }
+	//
+	// if (trackingMethod === 'both' || trackingMethod === 'internal') {
+	// 	params = $.extend({}, context, params);
+	// 	M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
+	// }
 }
 
 /**
