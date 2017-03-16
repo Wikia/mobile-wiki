@@ -87,7 +87,7 @@ export function buildUrl(urlParams = {}) {
 	let url = `${urlParams.protocol}://`;
 
 	if (urlParams.wiki) {
-		url += this.replaceWikiInHost(host, urlParams.wiki);
+		url += replaceWikiInHost(host, urlParams.wiki);
 	} else if (typeof mediawikiDomain !== 'undefined') {
 		url += mediawikiDomain;
 	} else {
@@ -109,7 +109,7 @@ export function buildUrl(urlParams = {}) {
 	}
 
 	if (urlParams.query) {
-		url += this.getQueryString(urlParams.query);
+		url += getQueryString(urlParams.query);
 	}
 
 	return url;

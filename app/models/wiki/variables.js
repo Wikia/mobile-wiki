@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import fetch from 'ember-network/fetch';
-import {buildUrl} from '../utils/url';
+import {buildUrl} from '../../utils/url';
 
 const VariablesModel = Ember.Object.extend({});
 
