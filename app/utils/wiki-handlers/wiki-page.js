@@ -68,46 +68,34 @@ export function getModelForNamespace(data, params) {
 	}
 }
 
-/**
- *
- * @param {Object} params
- * @returns {Ember.RSVP.Promise}
- */
-export default function getPageModel(params) {
-	let model;
+export default function getPageModel(params, isFastBoot, shoebox) {
+	const articleData = shoebox.retrieve(`wikiPage-${params.title}`);
 
-	if (M.prop('articleContentPreloadedInDOM')) {
-		const preloadedData = BaseModel.getPreloadedData();
-		model = getModelForNamespace(preloadedData, params);
+	console.log(shoebox);
+	if (!articleData) {
+		return request(getURL(params))
+			.then((data) => {
+				const redirectTo = Ember.get(data, 'data.redirectTo');
 
-		return Ember.RSVP.resolve(model);
+				if (redirectTo) {
+					window.location.assign(redirectTo);
+				}
+
+				if (isFastBoot) {
+					shoebox.put(`wikiPage-${params.title}`, data);
+				}
+
+				return getModelForNamespace(data, params);
+			})
+			.catch((err) => {
+				if (!err.code && err.status) {
+					err.code = err.status;
+				}
+
+				throw new Error(err);
+			});
+	} else {
+		return getModelForNamespace(articleData, params);
 	}
-
-	if (M.prop('exception')) {
-		const exception = M.prop('exception');
-
-		M.prop('exception', null);
-
-		return Ember.RSVP.reject(exception);
-	}
-
-	return request(getURL(params))
-		.then((data) => {
-			const redirectTo = Ember.get(data, 'data.redirectTo');
-
-			if (redirectTo) {
-				window.location.assign(redirectTo);
-			}
-			model = getModelForNamespace(data, params);
-
-			return model;
-		});
-		// .catch((err) => {
-		// 	if (!err.code && err.status) {
-		// 		err.code = err.status;
-		// 	}
-		//
-		// 	throw new Error(err);
-		// });
 }
 

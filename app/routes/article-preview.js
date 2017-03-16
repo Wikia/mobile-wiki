@@ -3,6 +3,7 @@ import getPageModel from '../utils/wiki-handlers/wiki-page';
 
 export default Ember.Route.extend({
 	model() {
+		// TODO fix preview
 		return getPageModel(Ember.get(Mercury, 'article.data.article'));
 	},
 

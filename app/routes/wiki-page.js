@@ -24,6 +24,7 @@ export default Route.extend(
 		wikiHandler: null,
 		currentUser: inject.service(),
 		ads: inject.service(),
+		fastboot: inject.service(),
 
 		queryParams: {
 			page: {
@@ -95,7 +96,11 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return getPageModel(modelParams);
+			return getPageModel(
+				modelParams,
+				this.get('fastboot.isFastBoot'),
+				this.get('fastboot.shoebox')
+			);
 		},
 
 		/**
