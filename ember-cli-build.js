@@ -107,7 +107,6 @@ module.exports = function (defaults) {
 		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	}
-	app.import(app.bowerDirectory + '/i18next/i18next.js');
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
 
 	if (app.env === 'test') {

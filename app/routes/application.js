@@ -7,6 +7,8 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
 import M from '../mmm';
+import i18next from 'npm:i18next';
+import config from '../config/environment';
 
 const {
 	$,
@@ -44,6 +46,40 @@ export default Route.extend(
 			} else {
 				return shoebox.retrieve('variablesModel');
 			}
+		},
+
+		afterModel(model, transition) {
+			this._super(...arguments);
+
+			const shoebox = this.get('fastboot.shoebox'),
+				language = model.language.content;
+
+			let translations = {};
+
+			if (this.get('fastboot.isFastBoot')) {
+				const fs = FastBoot.require('fs');
+
+				config.translationsNamespaces.forEach(namespace => {
+					// TODO error handling and fallback langs
+					const translationPath = `public/locales/${language}/${namespace}.json`;
+
+					translations[namespace] = JSON.parse(fs.readFileSync(translationPath));
+				});
+
+				shoebox.put('translations', translations);
+			} else {
+				translations = shoebox.retrieve('translations');
+			}
+
+			i18next.init({
+				fallbackLng: 'en',
+				lng: model.language.content,
+				lowerCaseLng: true,
+				ns: 'main',
+				resources: {
+					[language]: translations
+				}
+			});
 		},
 
 		actions: {

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import i18n from 'npm:i18next';
 
 /**
  * @param {Array} params
@@ -23,8 +24,5 @@ export default Ember.Helper.helper((params, options) => {
 		}
 	});
 
-	if (!window.location) {
-		return `${namespace}:${value}`;
-	}
 	return i18n.t(`${namespace}:${value}`, i18nParams);
 });
