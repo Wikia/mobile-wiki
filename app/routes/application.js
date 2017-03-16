@@ -15,13 +15,17 @@ const {
 	Logger,
 	Route,
 	TargetActionSupport,
+	inject
 } = Ember;
 
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
 	{
-		fastboot: Ember.inject.service(),
+		ads: inject.service(),
+		fastboot: inject.service(),
+		wikiVariables: inject.service(),
+
 		queryParams: {
 			commentsPage: {
 				replace: true
@@ -35,8 +39,6 @@ export default Route.extend(
 		},
 		noexternals: null,
 
-		ads: Ember.inject.service(),
-
 		model() {
 			const shoebox = this.get('fastboot.shoebox');
 
@@ -44,10 +46,21 @@ export default Route.extend(
 				return VariablesModel.get(this.get('fastboot.request.headers').get('host'))
 					.then((model) => {
 						shoebox.put('variablesModel', model);
+						this.get('wikiVariables').setProperties(model);
+
 						return model;
 					});
 			} else {
-				return shoebox.retrieve('variablesModel');
+				const model = shoebox.retrieve('variablesModel'),
+					wikiVariablesService = this.get('wikiVariables');
+
+				wikiVariablesService.setProperties(model);
+				Object.freeze(wikiVariablesService);
+
+				// FIXME use wikiVariables service in buildUrl() instead of depending on a global
+				window.Mercury = {wiki: model};
+
+				return model;
 			}
 		},
 
@@ -78,7 +91,7 @@ export default Route.extend(
 				fallbackLng: 'en',
 				lng: language,
 				lowerCaseLng: true,
-				ns: 'main',
+				defaultNS: 'main',
 				resources: {
 					[language]: translations
 				}

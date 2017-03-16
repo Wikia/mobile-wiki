@@ -3,6 +3,7 @@ import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from '../utils/track';
+import M from '../mmm';
 
 const {Component, computed, inject} = Ember;
 
@@ -11,14 +12,16 @@ export default Component.extend(
 	{
 		classNames: ['wikia-nav'],
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
+
 		currentUser: inject.service(),
-		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
+		wikiVariables: inject.service(),
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
 			title: 'UserLogout'
 		}),
 
+		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		userProfileLink: computed('currentUser.name', function () {
 			return M.buildUrl({
 				namespace: 'User',
@@ -28,7 +31,9 @@ export default Component.extend(
 
 		init() {
 			this._super(...arguments);
-			this.model = WikiaNavModel.create();
+			this.model = WikiaNavModel.create({
+				dsGlobalNavigation: this.get('wikiVariables.globalNavigation')
+			});
 			this.clickHandlers = {
 				onRandomPageClick: 'loadRandomArticle'
 			};

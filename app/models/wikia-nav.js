@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import M from '../mmm';
+import i18n from 'npm:i18next';
 
-const {Object, A, Logger, computed, get} = Ember;
+const {Object: EmberObject, A, Logger, computed, get} = Ember;
 
-export default Object.extend({
-	dsGlobalNavigation: M.prop('globalNavigation'),
+export default EmberObject.extend({
+	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
 	}),

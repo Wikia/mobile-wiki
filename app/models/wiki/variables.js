@@ -2,9 +2,7 @@ import Ember from 'ember';
 import fetch from 'ember-network/fetch';
 import M from '../../mmm';
 
-const VariablesModel = Ember.Object.extend({
-
-});
+const VariablesModel = Ember.Object.extend({});
 
 VariablesModel.reopenClass({
 	get(host) {
@@ -18,24 +16,26 @@ VariablesModel.reopenClass({
 			}
 		});
 
-		return fetch(url).then(response => response.json()).then(response => {
-			return response.data;
-		}).then(data => {
-			return fetch(
+		return fetch(url)
+			.then((response) => response.json())
+			.then((response) => {
+				return response.data;
+			}).then((data) => {
+				return fetch(
 					M.buildUrl({
 						host,
 						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`,
 						wiki: 'www'
 					})
 				)
-				.then((navigationApiResponse) => navigationApiResponse.json())
-				.then((navigationData) => {
-					data.globalFooter = navigationData['global-footer'];
-					data.globalNavigation = navigationData['global-navigation'];
+					.then((navigationApiResponse) => navigationApiResponse.json())
+					.then((navigationData) => {
+						data.globalFooter = navigationData['global-footer'];
+						data.globalNavigation = navigationData['global-navigation'];
 
-					return data;
-				});
-		});
+						return data;
+					});
+			});
 	}
 });
 
