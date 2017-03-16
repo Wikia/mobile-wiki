@@ -120,14 +120,6 @@ export default {
 	 * @param {string} [path='']
 	 * @returns {string}
 	 */
-	getUserPermissionsServiceUrl(path = '') {
-		return `https://${this.prop('servicesDomain')}/${this.prop('userPermissionsBaseRoute')}${path}`;
-	},
-
-	/**
-	 * @param {string} [path='']
-	 * @returns {string}
-	 */
 	getDiscussionServiceUrl(path = '') {
 		return `https://${this.prop('servicesDomain')}/${this.prop('discussionBaseRoute')}${path}`;
 	}
