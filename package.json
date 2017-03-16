@@ -11,6 +11,7 @@
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "fastboot": "ember fastboot --serve-assets --port 7001",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember fastboot --no-build --serve-assets --port 7001",
+    "fastboot-server": "PORT=7001 node fastboot-server.js",
     "setup": "npm install && bower update",
     "test": "ember test"
   },
