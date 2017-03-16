@@ -101,26 +101,6 @@ moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
 	}
 });
 
-test('getPreloadedData', (assert, undef) => {
-	const articleFromPreloadedData = articleModelClass.getPreloadedData();
-
-	assert.strictEqual(
-		M.prop('articleContentPreloadedInDOM'),
-		false,
-		'Mercury object\'s articleContentPreloadedInDOM state flipped to false'
-	);
-
-	assert.deepEqual(articleFromPreloadedData, articleExample, 'article loaded from Mercury object on first page');
-	assert.deepEqual(M.article, undef, 'Mercury.article is deleted');
-});
-
-test('setData with preloaded data', function (assert) {
-	const model = this.subject();
-
-	articleModelClass.setData(model, articleModelClass.getPreloadedData());
-	verifyArticle(model, articleExample, assert);
-});
-
 test('setData with parametrized data', function (assert) {
 	const model = this.subject();
 

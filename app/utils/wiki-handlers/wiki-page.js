@@ -77,7 +77,8 @@ export default function getPageModel(params, isFastBoot, shoebox, contentNamespa
 				const redirectTo = Ember.get(data, 'data.redirectTo');
 
 				if (redirectTo) {
-					window.location.assign(redirectTo);
+					// TODO make it working in fastboot
+					window.location.replace(redirectTo);
 				}
 
 				if (isFastBoot) {

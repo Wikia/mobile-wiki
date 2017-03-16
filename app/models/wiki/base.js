@@ -25,24 +25,6 @@ const {Object: EmberObject, get} = Ember,
 
 BaseModel.reopenClass({
 	/**
-	 * @returns {*}
-	 */
-	getPreloadedData() {
-		const article = Mercury.article;
-
-		M.prop('articleContentPreloadedInDOM', false, true);
-
-		if (article.data && article.data.article) {
-			// On the first page load the article content is available only in HTML
-			article.data.article.content = $('#preloadedContent').html();
-		}
-
-		Mercury.article = null;
-
-		return article;
-	},
-
-	/**
 	 * @param {Model} model
 	 * @param {Object} exception
 	 * @param {Object} data
