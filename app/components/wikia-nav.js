@@ -32,7 +32,8 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 			this.model = WikiaNavModel.create({
-				dsGlobalNavigation: this.get('wikiVariables.globalNavigation')
+				dsGlobalNavigation: this.get('wikiVariables.globalNavigation'),
+				wikiVariables: this.get('wikiVariables')
 			});
 			this.clickHandlers = {
 				onRandomPageClick: 'loadRandomArticle'

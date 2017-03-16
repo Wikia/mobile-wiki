@@ -73,7 +73,7 @@ function replaceWikiInHost(host, wiki) {
  *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
  *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
  *
- * @param {BuildUrlParams} urlParams
+ * @param {Object} urlParams
  * @returns {string}
  */
 export function buildUrl(urlParams = {}) {
@@ -82,6 +82,10 @@ export function buildUrl(urlParams = {}) {
 
 	if (!urlParams.protocol) {
 		urlParams.protocol = 'http';
+	}
+
+	if (!urlParams.articlePath) {
+		urlParams.articlePath = '/wiki/';
 	}
 
 	let url = `${urlParams.protocol}://`;
@@ -95,13 +99,13 @@ export function buildUrl(urlParams = {}) {
 	}
 
 	if (urlParams.title) {
-		url += Mercury.wiki.articlePath +
+		url += urlParams.articlePath +
 			(urlParams.namespace ? `${urlParams.namespace}:` : '') +
 			encodeURIComponent(urlParams.title);
 	}
 
 	if (urlParams.wikiPage) {
-		url += Mercury.wiki.articlePath + urlParams.wikiPage;
+		url += urlParams.articlePath + urlParams.wikiPage;
 	}
 
 	if (urlParams.path) {

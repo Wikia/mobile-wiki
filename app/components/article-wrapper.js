@@ -6,6 +6,8 @@ import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
+const {Component, computed, inject} = Ember;
+
 /**
  * @typedef {Object} ArticleSectionHeader
  * @property {HTMLElement} element
@@ -15,13 +17,14 @@ import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
  * @property {string} section
  */
 
-export default Ember.Component.extend(
+export default Component.extend(
 	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
-		currentUser: Ember.inject.service(),
+		currentUser: inject.service(),
+		wikiVariables: inject.service(),
 		displayEmptyArticleInfo: true,
 		hammerOptions: {
 			touchAction: 'auto',
@@ -41,14 +44,10 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
-		contributionEnabledForCommunity: Ember.computed(() => {
-			if (Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false)) {
-				// When disableMobileSectionEditor is set to true, no contribution tools should
-				// show up
-				return false;
-			}
-
-			return true;
+		contributionEnabledForCommunity: computed(function() {
+			// When disableMobileSectionEditor is set to true, no contribution tools should
+			// show up
+			return this.get('wikiVariables.disableMobileSectionEditor') || false;
 		}),
 
 		/**
@@ -57,7 +56,7 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if the contribution features should be rendered on the page
 		 */
-		contributionEnabled: Ember.computed('model.isMainPage', function () {
+		contributionEnabled: computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
 				this.get('contributionEnabledForCommunity') &&
 				// @todo XW-1196: Enable article editing on category and file pages
@@ -71,14 +70,14 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if the upload photo icon should be rendered
 		 */
-		addPhotoIconVisible: Ember.computed.oneWay('isJapaneseWikia'),
+		addPhotoIconVisible: computed.oneWay('isJapaneseWikia'),
 
 		/**
 		 * Determine if the edit section icon should be rendered
 		 *
 		 * @returns {boolean} True if the edit icon should be rendered
 		 */
-		editIconVisible: Ember.computed.oneWay('contributionEnabled'),
+		editIconVisible: computed.oneWay('contributionEnabled'),
 
 		/**
 		 * For section editor, checks if the user is allowed to edit
@@ -88,9 +87,9 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if edit is allowed
 		 */
-		editAllowed: Ember.computed(function () {
-			const isCoppaWiki = Ember.getWithDefault(Mercury, 'wiki.isCoppaWiki', false),
-				disableAnonymousEditing = Ember.getWithDefault(Mercury, 'wiki.disableAnonymousEditing', false),
+		editAllowed: computed(function () {
+			const isCoppaWiki = this.get('wikiVariables.isCoppaWiki') || false,
+				disableAnonymousEditing = this.get('wikiVariables.disableAnonymousEditing') || false,
 				isLoggedIn = this.get('currentUser.isAuthenticated');
 
 			if (isLoggedIn) {
@@ -106,9 +105,7 @@ export default Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if add photo is allowed
 		 */
-		addPhotoAllowed: Ember.computed(function () {
-			return this.get('currentUser.isAuthenticated');
-		}),
+		addPhotoAllowed: computed.reads('currentUser.isAuthenticated'),
 
 		actions: {
 			/**

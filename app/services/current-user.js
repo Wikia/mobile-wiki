@@ -2,6 +2,8 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import M from '../mmm';
 
+const {computed, Service, inject, Logger, RSVP} = Ember;
+
 /**
  * @typedef {Object} QueryUserInfoResponse
  * @property {QueryUserInfoResponseQuery} query
@@ -22,30 +24,33 @@ import M from '../mmm';
  * @property {*} options
  */
 
-export default Ember.Service.extend({
-	ajax: Ember.inject.service(),
+export default Service.extend({
+	ajax: inject.service(),
+	wikiVariables: inject.service(),
 	rights: {},
-	isAuthenticated: Ember.computed.bool('userId'),
-	language: Ember.getWithDefault(Mercury, 'wiki.language.content', 'en'),
+	isAuthenticated: computed.bool('userId'),
+	language: computed('wikiVariables', function () {
+		return this.get('wikiVariables.language.content') || 'en';
+	}),
 
-	userId: Ember.computed(() => {
+	userId: computed(() => {
 		const cookieUserId = parseInt(M.prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
-	userModel: Ember.computed('userId', function () {
+	userModel: computed('userId', function () {
 		const userId = this.get('userId');
 
 		if (userId !== null) {
 			return UserModel
 				.find({userId})
 				.catch((err) => {
-					Ember.Logger.warn('Couldn\'t load current user model', err);
+					Logger.warn('Couldn\'t load current user model', err);
 				});
 		}
 
-		return Ember.RSVP.reject();
+		return RSVP.reject();
 	}),
 
 	/**

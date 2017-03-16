@@ -2,17 +2,16 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussions';
 
-const {Component} = Ember;
+const {Component, inject} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
 	{
+		wikiVariables: inject.service(),
+
 		classNames: ['widget-discussions'],
-
 		layoutName: 'components/widget-discussions',
-
 		isLoading: true,
-
 		model: null,
 
 		init() {
@@ -26,7 +25,7 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			this.get('model').find(
-				Mercury.wiki.id,
+				this.get('wikiVariables.id'),
 				this.getWithDefault('categoryIds', []),
 				this.get('show'),
 				this.get('itemCount')

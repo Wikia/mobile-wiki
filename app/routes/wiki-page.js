@@ -24,6 +24,7 @@ export default Route.extend(
 		wikiHandler: null,
 		currentUser: inject.service(),
 		ads: inject.service(),
+		wikiVariables: inject.service(),
 		fastboot: inject.service(),
 
 		queryParams: {
@@ -42,7 +43,7 @@ export default Route.extend(
 
 			if (model.isCuratedMainPage) {
 				return CuratedMainPageHandler;
-			} else if (isContentNamespace(currentNamespace)) {
+			} else if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
 				return ArticleHandler;
 			} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
 				return CategoryHandler;
@@ -76,7 +77,7 @@ export default Route.extend(
 
 			// if title is empty, we want to redirect to main page
 			if (!title.length) {
-				this.transitionTo('wiki-page', get(Mercury, 'wiki.mainPageTitle'));
+				this.transitionTo('wiki-page', this.get('wikiVariables.mainPageTitle'));
 			}
 		},
 
@@ -98,6 +99,7 @@ export default Route.extend(
 
 			return getPageModel(
 				modelParams,
+				this.get('wikiVariables.contentNamespaces'),
 				this.get('fastboot.isFastBoot'),
 				this.get('fastboot.shoebox')
 			);
@@ -119,7 +121,7 @@ export default Route.extend(
 						this.updateTrackingData(model);
 
 						if (typeof handler.afterTransition === 'function') {
-							handler.afterTransition(model);
+							handler.afterTransition(model, this.get('wikiVariables.id'));
 						}
 					});
 
@@ -148,7 +150,7 @@ export default Route.extend(
 		setDynamicHeadTags(model) {
 			const handler = this.get('wikiHandler'),
 				pageUrl = model.get('url'),
-				pageFullUrl = `${get(Mercury, 'wiki.basePath')}${pageUrl}`,
+				pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`,
 				data = {
 					htmlTitle: model.get('htmlTitle'),
 					description: model.get('description'),

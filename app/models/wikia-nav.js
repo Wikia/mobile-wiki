@@ -1,10 +1,11 @@
 import Ember from 'ember';
-import M from '../mmm';
 import i18n from 'npm:i18next';
 
 const {Object: EmberObject, A, Logger, computed, get} = Ember;
 
 export default EmberObject.extend({
+	//This has to be injected
+	wikiVariables: null,
 	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
@@ -17,10 +18,10 @@ export default EmberObject.extend({
 			ns: 'design-system'
 		});
 	}),
-	localLinks: get(Mercury, 'wiki.localNav') || get(Mercury, 'wiki.navigation2016.localNav'),
-	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
-	wikiName: get(Mercury, 'wiki.siteName'),
-	mainPageTitle: get(Mercury, 'wiki.mainPageTitle'),
+	localLinks: computed.reads('wikiVariables.localNav'),
+	discussionsEnabled: computed.reads('wikiVariables.enableDiscussions'),
+	wikiName: computed.reads('wikiVariables.siteName'),
+	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
 
 	/**
 	 * Iteratively traverse local navigation tree to find out root node

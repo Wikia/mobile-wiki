@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-	mainPageTitle: Ember.computed(() => {
-		return Ember.get(Mercury, 'wiki.mainPageTitle');
-	}),
+const {Controller, computed, inject} = Ember;
 
-	siteName: Ember.computed(() => {
-		return Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia');
+export default Controller.extend({
+	wikiVariables: inject.service(),
+	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
+
+	siteName: computed('wikiVariables', function () {
+		return this.get('wikiVariables.siteName') || 'Fandom powered by Wikia';
 	})
 });

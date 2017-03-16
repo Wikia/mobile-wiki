@@ -4,13 +4,16 @@ import MediaModel from '../models/media';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Controller.extend(
+const {Controller, inject} = Ember;
+
+export default Controller.extend(
 	AlertNotificationsMixin, NoScrollMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
-		wikiPage: Ember.inject.controller(),
-		ads: Ember.inject.service(),
+		wikiPage: inject.controller(),
+		ads: inject.service(),
+		wikiVariables: inject.service(),
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -43,8 +46,8 @@ export default Ember.Controller.extend(
 		 */
 		init() {
 			this.setProperties({
-				domain: Ember.get(Mercury, 'wiki.dbName') || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-				language: Ember.get(Mercury, 'wiki.language')
+				domain: this.get('wikiVariables.dbName') || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+				language: this.get('wikiVariables.language')
 			});
 
 			// This event is for tracking mobile sessions between Mercury and WikiaMobile

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import CuratedContentModel from '../../models/curated-content';
 
-const {Object: EmberObject, getWithDefault, get} = Ember;
+const {Object: EmberObject, get} = Ember;
 
 /**
  * Set curatedContent data if main page has curated content set
@@ -32,7 +32,6 @@ function afterModel(route, model) {
 	route.controllerFor('main-page').setProperties({
 		adsContext: model.get('adsContext'),
 		ns: model.get('ns'),
-		title: getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
 	});
 
 	return model;

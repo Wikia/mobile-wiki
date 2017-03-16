@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
 
-const {Component, computed, Logger, $} = Ember;
+const {Component, computed, inject, Logger, $} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -32,12 +32,14 @@ export default Component.extend({
 	smartBannerVisible: false,
 	firstRender: true,
 
+	wikiVariables: inject.service(),
+
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
 	}),
 
-	verticalClass: computed(() => {
-		const vertical = Ember.get(Mercury, 'wiki.vertical');
+	verticalClass: computed('wikiVariables', function() {
+		const vertical = this.get('wikiVariables.vertical');
 
 		return `${vertical}-vertical`;
 	}),

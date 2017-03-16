@@ -2,19 +2,17 @@ import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 
-export default Ember.Controller.extend({
-	application: Ember.inject.controller(),
-	commentsPage: Ember.computed.alias('application.commentsPage'),
+const {Controller, computed, inject} = Ember;
 
-	/**
-	 * @returns {void}
-	 */
-	init() {
-		this.setProperties({
-			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
-			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
-		});
-	},
+export default Controller.extend({
+	application: inject.controller(),
+	wikiVariables: inject.service(),
+
+	commentsPage: computed.alias('application.commentsPage'),
+	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
+	siteName: computed('wikiVariables', function () {
+		return this.get('wikiVariables.siteName') || 'Fandom powered by Wikia';
+	}),
 
 	actions: {
 		/**

@@ -1,7 +1,10 @@
 import Ember from 'ember';
 
-export default Ember.Service.extend({
-	currentUser: Ember.inject.service(),
+const {Service, inject, Logger,$} = Ember;
+
+export default Service.extend({
+	currentUser: inject.service(),
+	wikiVariables: inject.service(),
 	defaultLanguage: 'en',
 	isLoaded: false,
 	isLoading: false,
@@ -47,17 +50,17 @@ export default Ember.Service.extend({
 	 */
 	loadLocale() {
 		if (!this.get('isLoading')) {
-			const contentLanguage = Ember.get(Mercury, 'wiki.language.content'),
+			const contentLanguage = this.get('wikiVariables.language.content'),
 				lang = this.localePath.hasOwnProperty(contentLanguage) ? contentLanguage : this.defaultLanguage;
 
 			this.changeLoadingStatus(false);
 			if (lang === 'en') {
 				this.setLocale();
 			} else {
-				Ember.$.getScript(this.localePath[lang]).done(() => {
+				$.getScript(this.localePath[lang]).done(() => {
 					this.setLocale(lang);
 				}).fail((jqxhr, settings, exception) => {
-					Ember.Logger.error(`Can't get numeral translation for ${lang} | ${exception}`);
+					Logger.error(`Can't get numeral translation for ${lang} | ${exception}`);
 					this.setLocale();
 				});
 			}

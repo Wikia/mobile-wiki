@@ -26,25 +26,28 @@ import Thumbnailer from '../../modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
 import {track, trackActions} from '../../utils/track';
 
-export default Ember.Component.extend(
+const {Component, computed, isEmpty, inject, String} = Ember;
+
+export default Component.extend(
 	ViewportMixin,
 	{
+		wikiVariables: inject.service(),
 		imageAspectRatio: 16 / 9,
 		classNames: ['wiki-page-header'],
 		classNameBindings: ['heroImage:has-hero-image'],
 		attributeBindings: ['style'],
 		isMainPage: false,
-		siteName: Ember.get(Mercury, 'wiki.siteName'),
-		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
+		siteName: computed.reads('wikiVariables.siteName'),
+		mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
 
-		style: Ember.computed('heroImage', 'viewportDimensions.width', function () {
+		style: computed('heroImage', 'viewportDimensions.width', function () {
 			const heroImage = this.get('heroImage'),
 				windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio');
 
 			let imageWidth, imageHeight, maxWidth, computedHeight, cropMode, thumbUrl;
 
-			if (Ember.isEmpty(heroImage)) {
+			if (isEmpty(heroImage)) {
 				return '';
 			}
 
@@ -78,7 +81,7 @@ export default Ember.Component.extend(
 				width: windowWidth
 			});
 
-			return new Ember.String.htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
+			return new String.htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
 		}),
 
 		actions: {

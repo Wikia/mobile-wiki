@@ -5,10 +5,13 @@ import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+const {Component, inject} = Ember;
+
+export default Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
 	{
+		wikiVariables: inject.service(),
 		alertKey: 'wikiaInYourLang.alertDismissed',
 
 		/**
@@ -100,7 +103,7 @@ export default Ember.Component.extend(
 			let isDifferent = false;
 
 			if (eligibleCountries.indexOf(userLang) !== -1) {
-				isDifferent = userLang !== Ember.get(Mercury, 'wiki.language.content');
+				isDifferent = userLang !== this.get('wikiVariables.language.content');
 			}
 
 			return isDifferent;

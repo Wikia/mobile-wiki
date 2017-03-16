@@ -25,8 +25,8 @@ function afterModel(route, model) {
  *
  * @param {Ember.model} model
  */
-function sendLyricsPageView(model) {
-	if (Ember.get(Mercury, 'wiki.id') === 43339 && !model.get('isMainPage')) {
+function sendLyricsPageView(model, wikiId) {
+	if (wikiId === 43339 && !model.get('isMainPage')) {
 		request(buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'LyricFind',
@@ -51,8 +51,8 @@ function sendLyricsPageView(model) {
  *
  * @param {Ember.model} model
  */
-function afterTransition(model) {
-	sendLyricsPageView(model);
+function afterTransition(model, wikiId) {
+	sendLyricsPageView(model, wikiId);
 }
 
 /**

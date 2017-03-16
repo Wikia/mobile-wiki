@@ -8,7 +8,7 @@ const {
 	Component,
 	computed,
 	get,
-	getWithDefault,
+	inject,
 	String,
 	run,
 } = Ember;
@@ -21,6 +21,8 @@ const {
 export default Component.extend({
 	classNames: ['smart-banner-android'],
 	classNameBindings: ['noIcon'],
+
+	wikiVariables: inject.service(),
 
 	options: {
 		// Language code for App Store
@@ -36,8 +38,10 @@ export default Component.extend({
 
 	appId: computed.oneWay(`config.appId.android`),
 	appScheme: computed.oneWay(`config.appScheme.android`),
-	config: getWithDefault(Mercury, 'wiki.smartBanner', {}),
-	dbName: get(Mercury, 'wiki.dbName'),
+	config: computed('wikiVariables', function () {
+		return this.get('wikiVariables').get('smartBanner') || {};
+	}),
+	dbName: computed.reads('wikiVariables.dbName'),
 	description: computed.oneWay('config.description'),
 	icon: computed.oneWay('config.icon'),
 	iconSize: 92,

@@ -1,9 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const {Mixin, computed, inject, String} = Ember;
+
+export default Mixin.create({
+	wikiVariables: inject.service(),
 	defaultLanguage: 'en',
 
-	isJapaneseBrowser: Ember.computed(function () {
+	isJapaneseBrowser: computed('isJapaneseWikia', function () {
 		let lang = navigator.language || navigator.browserLanguage;
 
 		if (!lang) {
@@ -15,7 +18,7 @@ export default Ember.Mixin.create({
 		return lang === 'ja';
 	}),
 
-	isJapaneseWikia: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') === 'ja'),
+	isJapaneseWikia: computed.equal('wikiVariables.language.content', 'ja'),
 
 	/**
 	 * Returns navigator language with fallback to a default language
@@ -28,7 +31,7 @@ export default Ember.Mixin.create({
 		if (!lang) {
 			return this.get('defaultLanguage');
 		} else {
-			lang = Ember.String.dasherize(lang);
+			lang = String.dasherize(lang);
 
 			// pt-br is the only one supported share-feature language with dash and 5 characters
 			if (lang !== 'pt-br') {
@@ -44,7 +47,7 @@ export default Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	getUselangParam() {
-		const lang = Ember.get(Mercury, 'wiki.language.content');
+		const lang = this.get('wikiVariables.language.content');
 
 		if (!lang || lang === 'en') {
 			return '';

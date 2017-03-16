@@ -42,12 +42,12 @@ function getURL(params) {
  * @param {Object} params
  * @returns {Object}
  */
-export function getModelForNamespace(data, params) {
+export function getModelForNamespace(data, params, contentNamespaces) {
 	const currentNamespace = data.data.ns;
 	let model;
 
 	// Main pages can live in namespaces which are not marked as content
-	if (isContentNamespace(currentNamespace) || data.data.isMainPage) {
+	if (isContentNamespace(currentNamespace, contentNamespaces) || data.data.isMainPage) {
 		model = ArticleModel.create(params);
 		ArticleModel.setData(model, data);
 
@@ -67,7 +67,7 @@ export function getModelForNamespace(data, params) {
 	}
 }
 
-export default function getPageModel(params, isFastBoot, shoebox) {
+export default function getPageModel(params, isFastBoot, shoebox, contentNamespaces) {
 	const articleData = shoebox.retrieve('wikiPage');
 
 	if (!articleData || articleData.data.details.url !== `/wiki/${params.title}`) {
@@ -83,7 +83,7 @@ export default function getPageModel(params, isFastBoot, shoebox) {
 					shoebox.put('wikiPage', data);
 				}
 
-				return getModelForNamespace(data, params);
+				return getModelForNamespace(data, params, contentNamespaces);
 			})
 			.catch((err) => {
 				if (!err.code && err.status) {

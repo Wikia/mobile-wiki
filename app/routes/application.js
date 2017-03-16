@@ -55,11 +55,9 @@ export default Route.extend(
 
 				wikiVariablesService.setProperties(model);
 
-				// FIXME use wikiVariables service in buildUrl() instead of depending on a global
-				window.Mercury = {wiki: model};
-
 				return model;
-			}
+
+				}
 		},
 
 		afterModel(model, transition) {
@@ -141,7 +139,7 @@ export default Route.extend(
 
 				trackingCategory = target.dataset.trackingCategory;
 				info = getLinkInfo(
-					Mercury.wiki.basePath,
+					this.get('wikiVariables.basePath'),
 					title,
 					target.hash,
 					target.href,

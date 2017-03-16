@@ -1,22 +1,17 @@
 import Ember from 'ember';
 
-const {Controller, RSVP, inject, get, getWithDefault} = Ember;
+const {Controller, computed, RSVP, inject} = Ember;
 
 export default Controller.extend(
 	{
 		application: inject.controller(),
 		article: inject.controller(),
+		wikiVariables: inject.service(),
 
-		/**
-		 * @returns {void}
-		 */
-		init() {
-			this._super(...arguments);
-			this.setProperties({
-				mainPageTitle: get(Mercury, 'wiki.mainPageTitle'),
-				siteName: getWithDefault(Mercury, 'wiki.siteName', 'Fandom powered by Wikia')
-			});
-		},
+		mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
+		siteName: computed('wikiVariables', function () {
+			return this.get('wikiVariables.siteName') || 'Fandom powered by Wikia';
+		}),
 
 		actions: {
 			/**

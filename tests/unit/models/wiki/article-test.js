@@ -20,8 +20,7 @@ const articleExample = {
 			userDetails: ['someItem', 'yetOneMore']
 		}
 	},
-	articleModelClass = require('main/models/wiki/article').default,
-	originalMercury = Ember.$.extend(true, {}, window.Mercury);
+	articleModelClass = require('main/models/wiki/article').default;
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model

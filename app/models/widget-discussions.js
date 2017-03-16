@@ -6,7 +6,7 @@ import {track} from '../utils/track';
 import M from '../mmm';
 import {buildUrl} from '../utils/url';
 
-const {Object: EmberObject, get, getWithDefault} = Ember;
+const {Object: EmberObject, get, getWithDefault, inject} = Ember;
 
 /**
  * @param {string} [path='']
@@ -18,6 +18,7 @@ function getDiscussionServiceUrl(path = '') {
 
 export default EmberObject.extend(
 	{
+		wikiVariables: inject.service(),
 		/**
 		 * @param {number} wikiId
 		 * @param {array|string} [categories=[]]
@@ -107,7 +108,7 @@ export default EmberObject.extend(
 			// Update frontend immediately. If error occurs then we revert state
 			post.set('userData.hasUpvoted', !hasUpvoted);
 
-			request(getDiscussionServiceUrl(`/${get(Mercury, 'wiki.id')}/votes/post/${post.get('id')}`), {
+			request(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
 				method,
 			}).then((data) => {
 				post.set('upvoteCount', data.upvoteCount);

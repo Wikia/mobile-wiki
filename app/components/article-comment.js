@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
 
+const {Component, computed, inject} = Ember;
+
 /**
  * @typedef {Object} ArticleCommentThumbnailData
  * @property {string} name
@@ -9,7 +11,8 @@ import Thumbnailer from '../modules/thumbnailer';
  * @property {string} [type]
  */
 
-export default Ember.Component.extend({
+export default Component.extend({
+	wikiVariables: inject.service(),
 	tagName: 'li',
 	classNames: ['article-comment'],
 
@@ -18,7 +21,7 @@ export default Ember.Component.extend({
 	comment: null,
 	thumbnailWidth: 480,
 
-	text: Ember.computed('comment.text', function () {
+	text: computed('comment.text', function () {
 		const $text = $('<div/>').html(this.get('comment.text')),
 			$figure = $text.find('figure');
 
@@ -29,7 +32,7 @@ export default Ember.Component.extend({
 		return $text.html();
 	}),
 
-	user: Ember.computed('users', function () {
+	user: computed('users', function () {
 		const users = this.get('users');
 
 		if (users) {
@@ -37,7 +40,7 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	userName: Ember.computed('comment.userName', function () {
+	userName: computed('comment.userName', function () {
 		// Checks for an IP address to identify an anonymous user. This is very crude and obviously doesn't check IPv6.
 		const userName = this.get('comment.userName'),
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
@@ -77,8 +80,8 @@ export default Ember.Component.extend({
 						width: this.thumbnailWidth
 					}),
 					$thumbnail = $('<img/>').attr('src', thumbnailURL),
-					articlePath = Ember.get(Mercury, 'wiki.articlePath'),
-					fileNamespace = Ember.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
+					articlePath = this.get('wikiVariables.articlePath'),
+					fileNamespace = this.getW('wikiVariables.namespaces.6') || 'File',
 					href = `${articlePath}${fileNamespace}:${thumbnailData.name}`,
 					$anchor = $('<a/>').attr('href', href).append($thumbnail),
 					$figure = $('<figure/>');
