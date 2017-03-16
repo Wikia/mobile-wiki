@@ -19,6 +19,9 @@ export default Component.extend(
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
 
+		fastboot: Ember.inject.service(),
+		isFastBoot: Ember.computed.reads('fastboot.isFastBoot'),
+
 		adsContext: null,
 		content: null,
 		contributionEnabled: null,
@@ -29,40 +32,45 @@ export default Component.extend(
 		uploadFeatureEnabled: null,
 
 		articleContentObserver: on('init', observer('content', function () {
+			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
+			if (this.get('isFastBoot')) {
+				return;
+			}
+
 			this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
 				const rawContent = this.get('content');
 
-				// if (!isBlank(rawContent)) {
-				// 	this.hackIntoEmberRendering(rawContent);
-				//
-				// 	this.handleInfoboxes();
-				// 	this.replaceInfoboxesWithInfoboxComponents();
-				// 	this.renderedComponents = this.renderedComponents.concat(
-				// 		queryPlaceholders(this.$())
-				// 			.map(getAttributesForMedia, {
-				// 				media: this.get('media'),
-				// 				openLightbox: this.get('openLightbox')
-				// 			})
-				// 			.map(this.renderComponent)
-				// 	);
-				//
-				// 	this.loadIcons();
-				// 	this.createTableOfContents();
-				// 	this.createContributionButtons();
-				// 	this.handleTables();
-				// 	this.replaceWikiaWidgetsWithComponents();
-				// 	this.handleWikiaWidgetWrappers();
-				// 	this.handleJumpLink();
-				// } else if (this.get('displayEmptyArticleInfo')) {
-				// 	this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
-				// }
-				//
-				// if (!this.get('isPreview')) {
-				// 	this.injectAds();
-				// 	this.setupAdsContext(this.get('adsContext'));
-				// }
+				if (!isBlank(rawContent)) {
+					this.hackIntoEmberRendering(rawContent);
+
+					this.handleInfoboxes();
+					this.replaceInfoboxesWithInfoboxComponents();
+					this.renderedComponents = this.renderedComponents.concat(
+						queryPlaceholders(this.$())
+							.map(getAttributesForMedia, {
+								media: this.get('media'),
+								openLightbox: this.get('openLightbox')
+							})
+							.map(this.renderComponent)
+					);
+
+					this.loadIcons();
+					this.createTableOfContents();
+					this.createContributionButtons();
+					this.handleTables();
+					this.replaceWikiaWidgetsWithComponents();
+					this.handleWikiaWidgetWrappers();
+					this.handleJumpLink();
+				} else if (this.get('displayEmptyArticleInfo')) {
+					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
+				}
+
+				if (!this.get('isPreview')) {
+					this.injectAds();
+					this.setupAdsContext(this.get('adsContext'));
+				}
 			});
 		})),
 
