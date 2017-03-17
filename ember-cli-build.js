@@ -125,11 +125,15 @@ module.exports = function (defaults) {
 		}),
 		designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
 			destDir: 'assets/design-system.svg'
+		}),
+		designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
+			destDir: 'locales'
 		});
 
 	return app.toTree([
 		jQueryAssets,
 		numeralAssets,
-		designSystemAssets
+		designSystemAssets,
+		designSystemI18n
 	]);
 };

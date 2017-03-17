@@ -29,8 +29,7 @@ module.exports = function (environment) {
 			music: '#c819ad',
 			tv: '#00b7e0'
 		},
-		// TODO add handling for DS namespace which is loaded from node_modules
-		translationsNamespaces: ['main', 'search'],
+		translationsNamespaces: ['main', 'search', 'design-system'],
 		tracking: {
 			ua: {
 				primary: {
