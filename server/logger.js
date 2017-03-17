@@ -97,5 +97,5 @@ function createLogger(loggerConfig) {
 
 // FIXME prod should use syslog, not console
 module.exports = createLogger({
-	console: 'debug'
+	console: 'warn'
 });
