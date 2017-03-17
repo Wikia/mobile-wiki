@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import FullPageMixin from '../mixins/full-page';
 import {track, trackActions} from '../utils/track';
+import i18n from 'npm:i18next';
 
 export default Ember.Route.extend(FullPageMixin, {
 	/**

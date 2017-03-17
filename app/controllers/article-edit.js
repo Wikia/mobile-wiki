@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
+import i18n from 'npm:i18next';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
+import i18n from 'npm:i18next';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),

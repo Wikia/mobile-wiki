@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
+import i18n from 'npm:i18next';
 
 export default Ember.Component.extend({
 	classNames: ['wikia-stats'],

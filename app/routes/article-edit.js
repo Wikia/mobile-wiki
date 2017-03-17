@@ -3,6 +3,7 @@ import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
+import i18n from 'npm:i18next';
 
 export default Ember.Route.extend(
 	FullPageMixin,

@@ -11,6 +11,7 @@ import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
+import i18n from 'npm:i18next';
 
 const {Logger, Route, $, inject, get} = Ember;
 

@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {buildUrl} from '../utils/url';
+import i18n from 'npm:i18next';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 

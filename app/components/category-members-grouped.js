@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
+import i18n from 'npm:i18next';
 
 const {Component, Logger, $, run} = Ember;
 

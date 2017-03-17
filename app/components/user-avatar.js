@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {buildUrl} from '../utils/url';
+import i18n from 'npm:i18next';
 
 const {Component, computed} = Ember;
 

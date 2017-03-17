@@ -3,7 +3,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-import {getGroup} from '../modules/abtest';
+import i18n from 'npm:i18next';
 
 const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
 
