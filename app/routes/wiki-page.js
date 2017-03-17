@@ -137,6 +137,7 @@ export default Route.extend(
 						window.location.replace(redirectTo);
 					}
 				} else {
+					// TODO fixme XW-3015
 					transition.abort();
 					window.location.assign(buildUrl({
 						wikiPage: get(transition, 'params.wiki-page.title'),
