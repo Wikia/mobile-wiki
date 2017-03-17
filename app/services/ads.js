@@ -2,16 +2,21 @@ import Ember from 'ember';
 import Ads from '../modules/ads';
 import M from '../mmm';
 
-export default Ember.Service.extend({
+const {computed, Service, inject} = Ember;
+
+export default Service.extend({
 	module: Ads.getInstance(),
+	wikiVariables: inject.service(),
 	siteHeadOffset: 0,
 	noAdsQueryParam: '',
-	noAds: Ember.computed('noAdsQueryParam', function () {
+	noAds: computed('noAdsQueryParam', function () {
 		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') || !!M.prop('userId');
 	}),
 	adSlotComponents: {},
-	adsUrl: Ember.computed(() => {
-		return M.prop('adsUrl');
+	adsUrl: computed('wikiVariables', function ()  {
+		let {basePath, cacheBuster} = this.get('wikiVariables');
+
+		return `${basePath}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
 	}),
 
 	pushAdSlotComponent(slotName, adSlotComponent) {

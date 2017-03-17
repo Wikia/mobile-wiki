@@ -39,9 +39,6 @@ module.exports = function (defaults) {
 			cascade: false,
 			map: false
 		},
-		inlineContent: {
-			$script: 'bower_components/script.js/dist/script.js',
-		},
 		sassOptions: {
 			includePaths: [
 				'app/styles'
@@ -107,6 +104,7 @@ module.exports = function (defaults) {
 		app.import(app.bowerDirectory + '/numeral/numeral.js');
 		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
+		app.import(app.bowerDirectory + '/script.js/dist/script.js');
 	}
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
 

@@ -1,4 +1,3 @@
-import load from '../../utils/load';
 import {containerSize} from '../../utils/calculation';
 import {track} from '../../utils/track';
 
@@ -31,7 +30,7 @@ export default class BasePlayer {
 	 * @returns {*}
 	 */
 	loadPlayer() {
-		return load(this.resourceURI, () => {
+		return $script(this.resourceURI, () => {
 			// called once player is loaded
 			this.playerDidLoad();
 		});

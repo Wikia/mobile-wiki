@@ -265,6 +265,7 @@ export default Route.extend(
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
 			if (
+				!this.get('fastboot.isFastBoot') &&
 				this.get('ads.adsUrl') &&
 				!M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury

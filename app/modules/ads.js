@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import load from '../utils/load';
 import M from '../mmm';
 
 /**
@@ -100,8 +99,10 @@ class Ads {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
+		this.adsUrl = adsUrl;
+
 		// Load the ads code from MW
-		load(adsUrl, () => {
+		$script(adsUrl, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -451,9 +452,8 @@ class Ads {
 	 * @param {object} context
 	 */
 	onReady(callback, context) {
-		const url = M.prop('adsUrl');
-		if (url) {
-			$script.ready(url, () => {
+		if (this.adsUrl) {
+			$script.ready(this.adsUrl, () => {
 				callback.apply(context);
 			});
 		}
