@@ -3,7 +3,7 @@ import request from 'ember-ajax/request';
 
 import {extractDomainFromUrl} from '../utils/domain';
 import {track} from '../utils/track';
-import M from '../mmm';
+import config from '../config/environment';
 import {buildUrl} from '../utils/url';
 
 const {Object: EmberObject, get, getWithDefault, inject} = Ember;
@@ -13,7 +13,7 @@ const {Object: EmberObject, get, getWithDefault, inject} = Ember;
  * @returns {string}
  */
 function getDiscussionServiceUrl(path = '') {
-	return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
+	return `https://${config.services.domain}/${config.services.discussions.baseAPIPath}${path}`;
 }
 
 export default EmberObject.extend(

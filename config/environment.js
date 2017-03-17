@@ -6,6 +6,12 @@ module.exports = function (environment) {
 		modulePrefix: 'mobile-wiki',
 		environment: environment,
 		locationType: 'auto',
+		services: {
+			domain: 'services.wikia.com',
+			discussions: {
+				baseAPIPath: 'discussion'
+			},
+		},
 		newRelic: {
 			agent: 'js-agent.newrelic.com/nr-spa-974.min.js',
 			licenseKey: '60e97494a4',
@@ -97,6 +103,9 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS = true;
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+		// TODO datacenter suffix
+		ENV.services.domain = 'services.wikia-dev.pl';
 
 		ENV['ember-cli-mirage'] = {
 			enabled: false
