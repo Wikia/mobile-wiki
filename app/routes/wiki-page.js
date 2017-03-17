@@ -99,9 +99,8 @@ export default Route.extend(
 
 			return getPageModel(
 				modelParams,
-				this.get('fastboot.isFastBoot'),
-				this.get('fastboot.shoebox'),
-				this.get('wikiVariables.contentNamespaces'),
+				this.get('fastboot'),
+				this.get('wikiVariables.contentNamespaces')
 			);
 		},
 
@@ -115,6 +114,7 @@ export default Route.extend(
 
 			if (model) {
 				const handler = this.getHandler(model);
+				const redirectTo = model.get('redirectTo');
 
 				if (handler) {
 					transition.then(() => {
@@ -128,6 +128,14 @@ export default Route.extend(
 					this.set('wikiHandler', handler);
 
 					handler.afterModel(this, ...arguments);
+				} else if (redirectTo) {
+					const fastboot = this.get('fastboot');
+					if (fastboot.get('isFastBoot')) {
+						fastboot.get('response.headers').set('location', redirectTo);
+						fastboot.set('response.statusCode', 301);
+					} else {
+						window.location.replace(redirectTo);
+					}
 				} else {
 					transition.abort();
 					window.location.assign(buildUrl({

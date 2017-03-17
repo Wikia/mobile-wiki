@@ -64,23 +64,20 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 
 		return model;
 	} else {
-		return Ember.Object.create();
+		return Ember.Object.create({
+			redirectTo: data.data.redirectTo || null
+		});
 	}
 }
 
-export default function getPageModel(params, isFastBoot, shoebox, contentNamespaces) {
-	const articleData = shoebox.retrieve('wikiPage');
+export default function getPageModel(params, fastboot, contentNamespaces) {
+	const isFastBoot = fastboot.get('isFastBoot'),
+		shoebox = fastboot.get('shoebox'),
+		articleData = shoebox.retrieve('wikiPage');
 
 	if (!articleData || articleData.data.details.url !== `/wiki/${params.title}`) {
 		return request(getURL(params))
 			.then((data) => {
-				const redirectTo = Ember.get(data, 'data.redirectTo');
-
-				if (redirectTo) {
-					// TODO make it working in fastboot
-					window.location.replace(redirectTo);
-				}
-
 				if (isFastBoot) {
 					shoebox.put('wikiPage', data);
 				}
