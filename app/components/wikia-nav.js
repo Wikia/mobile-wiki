@@ -15,6 +15,7 @@ export default Component.extend(
 
 		currentUser: inject.service(),
 		wikiVariables: inject.service(),
+		i18n: inject.service(),
 
 		logoutLink: buildUrl({
 			namespace: 'Special',
@@ -33,7 +34,8 @@ export default Component.extend(
 			this._super(...arguments);
 			this.model = WikiaNavModel.create({
 				dsGlobalNavigation: this.get('wikiVariables.globalNavigation'),
-				wikiVariables: this.get('wikiVariables')
+				wikiVariables: this.get('wikiVariables'),
+				i18n: this.get('i18n')
 			});
 			this.clickHandlers = {
 				onRandomPageClick: 'loadRandomArticle'

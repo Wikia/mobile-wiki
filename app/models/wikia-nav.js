@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import i18n from 'npm:i18next';
 
 const {Object: EmberObject, A, Logger, computed, get} = Ember;
 
 export default EmberObject.extend({
 	//This has to be injected
+	i18n: null,
 	wikiVariables: null,
 	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
@@ -14,7 +14,7 @@ export default EmberObject.extend({
 		return this.get('dsGlobalNavigation.wikis');
 	}),
 	exploreWikisLabel: computed(function () {
-		return i18n.t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
+		return this.get('i18n').t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
 			ns: 'design-system'
 		});
 	}),
@@ -91,7 +91,7 @@ export default EmberObject.extend({
 				return {
 					type: 'nav-menu-external',
 					href: item.href,
-					name: i18n.t(item.title.key, {
+					name: this.get('i18n').t(item.title.key, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-${item.title.key}`
@@ -107,7 +107,7 @@ export default EmberObject.extend({
 					type: 'nav-menu-external',
 					className: `nav-menu--external nav-menu--${item.brand}`,
 					href: item.href,
-					name: i18n.t(item.title.key, {
+					name: this.get('i18n').t(item.title.key, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-hub-${item.title.key}`
@@ -135,7 +135,7 @@ export default EmberObject.extend({
 					type: 'nav-menu-external',
 					className: 'nav-menu--external',
 					href: firstLink.href,
-					name: i18n.t(messageKey, {
+					name: this.get('i18n').t(messageKey, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-${messageKey}`
@@ -153,7 +153,7 @@ export default EmberObject.extend({
 				type: 'nav-menu-header',
 				route: 'wiki-page',
 				href: this.get('mainPageTitle'),
-				name: i18n.t('navigation.explore-wiki', {wikiName: this.get('wikiName')})
+				name: this.get('i18n').t('navigation.explore-wiki', {wikiName: this.get('wikiName')})
 			}] || [];
 	}),
 
@@ -163,7 +163,7 @@ export default EmberObject.extend({
 			[{
 				type: 'nav-menu-external',
 				href: '/d/f',
-				name: i18n.t('app.discussions-label'),
+				name: this.get('i18n').t('app.discussions-label'),
 				trackCategory: 'discussion',
 				trackLabel: 'local-nav'
 			}] || [];
@@ -187,7 +187,7 @@ export default EmberObject.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'nav-menu-item',
-				name: i18n.t('navigation.random-page-label'),
+				name: this.get('i18n').t('navigation.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'
 			}] || [];
