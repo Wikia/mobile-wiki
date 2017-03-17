@@ -12,6 +12,7 @@ const {Component, computed, inject} = Ember;
  */
 
 export default Component.extend({
+	i18n: inject.service(),
 	wikiVariables: inject.service(),
 	tagName: 'li',
 	classNames: ['article-comment'],
@@ -46,7 +47,7 @@ export default Component.extend({
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 
 		if (regex.test(userName)) {
-			return i18n.t('app.username-anonymous');
+			return this.get('i18n').t('app.username-anonymous');
 		} else {
 			return userName;
 		}

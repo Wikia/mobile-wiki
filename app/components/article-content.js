@@ -3,9 +3,8 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-import i18n from 'npm:i18next';
 
-const {Component, Logger, $, get, isBlank, observer, on, run} = Ember;
+const {Component, Logger, $, get, isBlank, observer, on, run, inject} = Ember;
 
 /**
  * HTMLElement
@@ -19,7 +18,8 @@ export default Component.extend(
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
 
-		fastboot: Ember.inject.service(),
+		fastboot: inject.service(),
+		i18n: inject.service(),
 		isFastBoot: Ember.computed.reads('fastboot.isFastBoot'),
 
 		adsContext: null,
@@ -64,7 +64,7 @@ export default Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${i18n.t('article.empty-label')}</p>`);
+					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
 
 				if (!this.get('isPreview')) {

@@ -3,12 +3,12 @@ import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
-import i18n from 'npm:i18next';
 
 export default Ember.Route.extend(
 	FullPageMixin,
 	HeadTagsDynamicMixin,
 	{
+		i18n: Ember.inject.service(),
 		/**
 		 * @param {*} params
 		 * @returns {Ember.RSVP.Promise}
@@ -41,7 +41,7 @@ export default Ember.Route.extend(
 			 */
 			error() {
 				this.controllerFor('application').addAlert({
-					message: i18n.t('edit.load-error'),
+					message: this.get('i18n').t('edit.load-error'),
 					type: 'alert'
 				});
 

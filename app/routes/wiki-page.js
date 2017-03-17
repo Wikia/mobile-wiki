@@ -11,7 +11,6 @@ import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
-import i18n from 'npm:i18next';
 
 const {Logger, Route, $, inject, get} = Ember;
 
@@ -25,6 +24,7 @@ export default Route.extend(
 		wikiHandler: null,
 		currentUser: inject.service(),
 		ads: inject.service(),
+		i18n: inject.service(),
 		wikiVariables: inject.service(),
 		fastboot: inject.service(),
 
@@ -241,7 +241,7 @@ export default Route.extend(
 			didTransition() {
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
-						message: i18n.t('article.redirect-empty-target'),
+						message: this.get('i18n').t('article.redirect-empty-target'),
 						type: 'warning'
 					});
 				}

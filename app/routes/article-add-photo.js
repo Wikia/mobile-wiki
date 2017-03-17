@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import FullPageMixin from '../mixins/full-page';
 import {track, trackActions} from '../utils/track';
-import i18n from 'npm:i18next';
 
 export default Ember.Route.extend(FullPageMixin, {
+	i18n: Ember.inject.service(),
 	/**
 	 * @returns {void}
 	 */
@@ -19,7 +19,7 @@ export default Ember.Route.extend(FullPageMixin, {
 		 */
 		error() {
 			this.controllerFor('application').addAlert({
-				message: i18n.t('app.addphoto-load-error'),
+				message: this.get('i18n').t('app.addphoto-load-error'),
 				type: 'alert'
 			});
 

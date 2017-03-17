@@ -2,10 +2,12 @@ import Ember from 'ember';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
-import i18n from 'npm:i18next';
 
-export default Ember.Controller.extend({
-	application: Ember.inject.controller(),
+const {Controller, inject} = Ember;
+
+export default Controller.extend({
+	application: inject.controller(),
+	i18n: inject.service(),
 
 	errorCodeMap: {
 		invalidtitle: 'add-photo.section-title-error',
@@ -25,7 +27,7 @@ export default Ember.Controller.extend({
 
 		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
-				message: i18n.t('add-photo.success'),
+				message: this.get('i18n').t('add-photo.success'),
 				type: 'success'
 			});
 		});
@@ -57,7 +59,7 @@ export default Ember.Controller.extend({
 			errorMsg = this.errorCodeMap[error] || 'add-photo.error';
 
 		appController.addAlert({
-			message: i18n.t(errorMsg),
+			message: this.get('i18n').t(errorMsg),
 			type: 'alert'
 		});
 

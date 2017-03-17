@@ -7,7 +7,6 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
 import M from '../mmm';
-import {initializeI18next} from '../utils/i18n';
 
 const {
 	$,
@@ -23,6 +22,7 @@ export default Route.extend(
 	{
 		ads: inject.service(),
 		fastboot: inject.service(),
+		i18n: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -63,11 +63,7 @@ export default Route.extend(
 		afterModel(model, transition) {
 			this._super(...arguments);
 
-			initializeI18next(
-				transition.queryParams.uselang || model.language.content,
-				this.get('fastboot.isFastBoot'),
-				this.get('fastboot.shoebox')
-			);
+			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
 		},
 
 		actions: {

@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import {buildUrl} from '../utils/url';
-import i18n from 'npm:i18next';
 
-const {Component, computed} = Ember;
+const {Component, computed, inject} = Ember;
 
 export default Component.extend({
+	i18n: inject.service(),
 	classNames: ['user-avatar'],
 	profileName: computed('username', function () {
 		const userName = this.get('username') || '';
@@ -22,7 +22,7 @@ export default Component.extend({
 		});
 	}),
 	displayName: computed('profileName', function () {
-		return this.get('anonymous') ? i18n.t('app.username-anonymous') : this.get('profileName');
+		return this.get('anonymous') ? this.get('i18n').t('app.username-anonymous') : this.get('profileName');
 	}),
 	shouldWrapInHref: true
 });

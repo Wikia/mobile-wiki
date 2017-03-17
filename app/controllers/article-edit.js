@@ -2,14 +2,16 @@ import Ember from 'ember';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
-import i18n from 'npm:i18next';
 
-export default Ember.Controller.extend({
-	application: Ember.inject.controller(),
+const {Controller, inject, computed} = Ember;
+
+export default Controller.extend({
+	application: inject.controller(),
+	i18n: inject.service(),
 
 	isPublishing: false,
 
-	publishDisabled: Ember.computed('isPublishing', 'model.isDirty', function () {
+	publishDisabled: computed('isPublishing', 'model.isDirty', function () {
 		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
 	}),
 
@@ -34,7 +36,7 @@ export default Ember.Controller.extend({
 
 		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
-				message: i18n.t('edit.success', {
+				message: this.get('i18n').t('edit.success', {
 					pageTitle: title
 				}),
 				type: 'success'
@@ -58,7 +60,7 @@ export default Ember.Controller.extend({
 			errorMsg = this.errorCodeMap[error] || 'edit.publish-error';
 
 		appController.addAlert({
-			message: i18n.t(errorMsg),
+			message: this.get('i18n').t(errorMsg),
 			type: 'alert'
 		});
 

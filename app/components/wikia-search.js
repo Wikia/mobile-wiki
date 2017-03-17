@@ -4,7 +4,6 @@ import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {buildUrl} from '../utils/url';
-import i18n from 'npm:i18next';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -51,6 +50,7 @@ export default Component.extend(
 		suggestionsEnabled: true,
 
 		ajax: inject.service(),
+		i18n: inject.service(),
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
@@ -58,8 +58,8 @@ export default Component.extend(
 			// ensures that phrase is changed according to external change
 			this.set('phrase', this.get('query'));
 		}),
-		searchPlaceholderLabel: computed(() => {
-			return i18n.t('search:main.search-input-label');
+		searchPlaceholderLabel: computed(function() {
+			return this.get('i18n').t('search:main.search-input-label');
 		}),
 
 		didInsertElement() {

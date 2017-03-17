@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
-import i18n from 'npm:i18next';
 
-const {Component, Logger, $, run} = Ember;
+const {Component, Logger, $, run, inject} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
 	{
+		i18n: inject.service(),
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
 		isLoading: false,
@@ -37,7 +37,7 @@ export default Component.extend(
 					})
 					.catch((error) => {
 						this.addAlert({
-							message: i18n.t('category-page.load-error'),
+							message: this.get('i18n').t('category-page.load-error'),
 							type: 'alert'
 						});
 

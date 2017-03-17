@@ -1,28 +1,32 @@
 import Ember from 'ember';
-import i18n from 'npm:i18next';
 
+const {Helper, inject} = Ember;
 /**
  * @param {Array} params
  * @param {Object} options
  * @returns {string}
  */
-export default Ember.Helper.helper((params, options) => {
-	const i18nParams = {},
-		value = params.join('.');
+export default Helper.extend({
+	i18n: inject.service(),
 
-	let namespace = 'main';
+	compute(params, options) {
+		const i18nParams = {},
+			value = params.join('.');
 
-	/**
-	 * @param {string} key
-	 * @returns {void}
-	 */
-	Object.keys(options).forEach((key) => {
-		if (key === 'ns') {
-			namespace = options[key];
-		} else if (options[key] !== undefined) {
-			i18nParams[key] = options[key];
-		}
-	});
+		let namespace = 'main';
 
-	return i18n.t(`${namespace}:${value}`, i18nParams);
+		/**
+		 * @param {string} key
+		 * @returns {void}
+		 */
+		Object.keys(options).forEach((key) => {
+			if (key === 'ns') {
+				namespace = options[key];
+			} else if (options[key] !== undefined) {
+				i18nParams[key] = options[key];
+			}
+		});
+
+		return this.get('i18n').t(`${namespace}:${value}`, i18nParams);
+	}
 });
