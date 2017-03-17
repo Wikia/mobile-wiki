@@ -1,7 +1,7 @@
 /**
  * Helper for variant testing using Optimizely
  */
-import M from '../mmm';
+import config from '../config/environment';
 
 /**
  * @typedef {Object} OptimizelyExperimentIds
@@ -83,9 +83,7 @@ export function getExperimentVariationNumberBySingleId(experimentId) {
  * @returns {string|null}
  */
 export function getExperimentIdForThisEnvironment(experimentIds) {
-	const environment = M.prop('environment');
-
-	switch (environment) {
+	switch (config.environment) {
 		case 'prod':
 		case 'preview':
 		case 'sandbox':

@@ -110,8 +110,8 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		// TODO datacenter suffix
-		ENV.services.domain = 'services.wikia-dev.pl';
+		ENV.optimizely.account = '2441440871'
+		ENV.qualaroo.scriptUrl = '//s3.amazonaws.com/ki.js/52510/dlS.js';
 
 		ENV['ember-cli-mirage'] = {
 			enabled: false

@@ -1,4 +1,4 @@
-import M from '../mmm';
+import config from '../config/environment';
 
 /**
  * Converting and escaping Querystring object to string.
@@ -77,7 +77,7 @@ function replaceWikiInHost(host, wiki) {
  * @returns {string}
  */
 export function buildUrl(urlParams = {}) {
-	const mediawikiDomain = M.prop('mediawikiDomain'),
+	const mediawikiDomain = config.mediawikiDomain,
 		host = urlParams.host;
 
 	if (!urlParams.protocol) {

@@ -86,6 +86,7 @@
     ]
   },
   "fastbootDependencies": [
-    "fs"
+    "fs",
+    "process"
   ]
 }

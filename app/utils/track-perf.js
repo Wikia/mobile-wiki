@@ -12,7 +12,7 @@ import config from '../config/environment';
 
 const context = {
 	country: M.prop('geo.country'),
-	env: M.prop('environment'),
+	env: config.environment,
 	logged_in: Boolean(M.prop('userId')),
 	skin: 'mobile_wiki',
 	url: window.location && window.location.href.split('#')[0],
