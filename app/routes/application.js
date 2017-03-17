@@ -64,6 +64,10 @@ export default Route.extend(
 			this._super(...arguments);
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
+
+			if (this.get('fastboot.isFastBoot')) {
+				this.get('fastboot.response.headers').set('vary', 'cookie');
+			}
 		},
 
 		actions: {
