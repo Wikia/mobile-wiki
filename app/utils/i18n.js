@@ -45,6 +45,7 @@ export function initializeI18next(language, isFastBoot, shoebox) {
 		lowerCaseLng: true,
 		defaultNS: 'main',
 		interpolation: {
+			escapeValue: false,
 			prefix: '__',
 			suffix: '__'
 		},
