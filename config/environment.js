@@ -12,6 +12,12 @@ module.exports = function (environment) {
 				baseAPIPath: 'discussion'
 			},
 		},
+		weppy: {
+			enabled: false,
+			host: 'http://speed.wikia.net/__rum',
+			samplingRate: 0.1,
+			aggregationInterval: 1000
+		},
 		newRelic: {
 			agent: 'js-agent.newrelic.com/nr-spa-974.min.js',
 			licenseKey: '60e97494a4',
@@ -125,7 +131,7 @@ module.exports = function (environment) {
 	}
 
 	if (environment === 'production') {
-		// ENV.newRelic.applicationId = '4539016';
+		ENV.weppy.enabled = true;
 	}
 
 	return ENV;

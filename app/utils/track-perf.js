@@ -8,6 +8,7 @@
  * @property {*} [annotations]
  */
 import M from '../mmm';
+import config from '../../config/environment';
 
 const context = {
 	country: M.prop('geo.country'),
@@ -28,7 +29,7 @@ let tracker;
  */
 function getTracker() {
 	if (typeof tracker === 'undefined') {
-		const weppyConfig = M.prop('weppyConfig');
+		const weppyConfig = config.weppyConfig;
 
 		if (weppyConfig && typeof Weppy === 'function') {
 			tracker = Weppy.namespace('mobile_wiki');
