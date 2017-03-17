@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "ember build",
+    "build-prod": "ember build -prod",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "fastboot": "ember fastboot --serve-assets --port 7001",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember fastboot --no-build --serve-assets --port 7001",
