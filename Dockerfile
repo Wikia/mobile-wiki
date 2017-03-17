@@ -15,6 +15,3 @@ RUN mkdir -p /build
 COPY package.json /build
 COPY . /build
 WORKDIR /build
-
-# install dependencies
-RUN npm run setup-for-local
