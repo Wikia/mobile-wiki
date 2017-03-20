@@ -22,6 +22,7 @@ export default Ember.Mixin.create({
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 	},
 	ads: Ember.inject.service(),
+	currentUser: Ember.inject.service(),
 
 	init() {
 		this._super(...arguments);
@@ -151,6 +152,9 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setupAdsContext(adsContext) {
+		adsContext.user = {
+			isAuthenticated: this.get('currentUser.isAuthenticated')
+		};
 		this.get('ads.module').reload(adsContext);
 	}
 });

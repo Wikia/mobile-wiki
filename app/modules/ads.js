@@ -304,7 +304,7 @@ class Ads {
 	turnOffAdsForLoggedInUsers(adsContext) {
 		// TODO: Refactor/remove while working on ADEN-2189
 		adsContext = adsContext || {};
-		if (M.prop('userId')) {
+		if (adsContext.user && adsContext.user.isAuthenticated) {
 			adsContext.opts = adsContext.opts || {};
 			adsContext.opts.showAds = false;
 			adsContext.opts.pageType = 'no_ads';

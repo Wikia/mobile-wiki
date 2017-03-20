@@ -12,7 +12,7 @@ export default Service.extend({
 	noAdsQueryParam: '',
 	noAds: computed('noAdsQueryParam', function () {
 		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') ||
-			currentUser.isAuthenticated;
+			this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: {},
 	adsUrl: computed('wikiVariables', function ()  {
