@@ -47,7 +47,7 @@ export default Service.extend({
 			if (this.get('fastboot.isFastBoot')) {
 				UserModel
 					.find({
-						accessToken: this.get('fastboot.cookies.access_token'),
+						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
 						host: 'fallout.damian.wikia-dev.pl'
 					})
