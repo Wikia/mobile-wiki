@@ -1,4 +1,5 @@
-const PrettyStream = require('bunyan-prettystream');
+const BunyanPrettyStream = require('bunyan-prettystream');
+const BunyanSyslog = require('bunyan-syslog');
 const expressBunyanLogger = require('express-bunyan-logger');
 const config = require('../config/fastboot-server');
 
@@ -29,7 +30,7 @@ function createDefaultLogStream(minLogLevel = 'info') {
  * @returns {BunyanLoggerStream}
  */
 function createConsoleStream(minLogLevel) {
-	const prettyStdOut = new PrettyStream();
+	const prettyStdOut = new BunyanPrettyStream();
 
 	prettyStdOut.pipe(process.stdout);
 
