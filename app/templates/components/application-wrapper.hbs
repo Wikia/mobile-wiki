@@ -49,11 +49,11 @@
 		closeLightbox=attrs.closeLightbox
 		setQueryParam=attrs.setQueryParam
 	}}
+	{{wikia-in-your-lang}}
+	{{#if globalFooter}}
+		{{global-footer/global-footer model=globalFooter}}
+	{{/if}}
 {{/if}}
-{{wikia-in-your-lang}}
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}
 
-{{#if globalFooter}}
-	{{global-footer/global-footer model=globalFooter}}
-{{/if}}

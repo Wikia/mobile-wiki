@@ -8,13 +8,14 @@ export default Ember.Route.extend(
 	FullPageMixin,
 	HeadTagsDynamicMixin,
 	{
+		wikiVariables: Ember.inject.service(),
 		i18n: Ember.inject.service(),
 		/**
 		 * @param {*} params
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return ArticleEditModel.load(params.title, params.sectionIndex);
+			return ArticleEditModel.load(this.get('wikiVariables.host'), params.title, params.sectionIndex);
 		},
 
 		/**

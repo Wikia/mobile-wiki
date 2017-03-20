@@ -18,10 +18,11 @@ const ArticleEditModel = Ember.Object.extend({
 ArticleEditModel.reopenClass(
 	{
 		/**
+		 * @param {string} host
 		 * @param {*} model
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		publish(model) {
+		publish(host, model) {
 			return getEditToken(model.title)
 				.then((token) => {
 					return request(buildUrl({path: '/api.php'}), {
@@ -48,12 +49,13 @@ ArticleEditModel.reopenClass(
 		},
 
 		/**
+		 * @param {string} host
 		 * @param {string} title
 		 * @param {number} sectionIndex
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		load(title, sectionIndex) {
-			return request(buildUrl({path: '/api.php'}), {
+		load(host, title, sectionIndex) {
+			return request(buildUrl({host, path: '/api.php'}), {
 				cache: false,
 				data: {
 					action: 'query',

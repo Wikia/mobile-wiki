@@ -8,6 +8,7 @@ const {Controller, inject, computed} = Ember;
 export default Controller.extend({
 	application: inject.controller(),
 	i18n: inject.service(),
+	wikiVariables: inject.service(),
 
 	isPublishing: false,
 
@@ -83,7 +84,7 @@ export default Controller.extend({
 			this.set('isPublishing', true);
 			this.get('application').set('isLoading', true);
 
-			ArticleEditModel.publish(this.get('model')).then(
+			ArticleEditModel.publish(this.get('wikiVariables.host'), this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
