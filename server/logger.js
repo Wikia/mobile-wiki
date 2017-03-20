@@ -46,15 +46,10 @@ function createConsoleStream(minLogLevel) {
  * @returns {BunyanLoggerStream}
  */
 function createSysLogStream(minLogLevel) {
-	const bsyslog = require('bunyan-syslog');
-
 	return {
 		level: minLogLevel,
 		type: 'raw',
-		stream: bsyslog.createBunyanStream({
-			facility: bsyslog.local0,
-			type: 'sys'
-		})
+		path: '/var/log/syslog'
 	};
 }
 
