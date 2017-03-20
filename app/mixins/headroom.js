@@ -46,8 +46,8 @@ export default Ember.Mixin.create({
 	),
 
 	actions: {
-		onHeadroomPin: Ember.K,
-		onHeadroomUnpin: Ember.K
+		onHeadroomPin() {},
+		onHeadroomUnpin() {}
 	},
 
 	/**

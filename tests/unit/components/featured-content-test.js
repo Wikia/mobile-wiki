@@ -8,7 +8,7 @@ moduleForComponent('featured-content', 'Unit | Component | featured content', {
 test('detects if there are multiple items in the model', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = Ember.K;
+	component.currentItemIndexObserver = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'
@@ -26,7 +26,7 @@ test('detects if there are multiple items in the model', function (assert) {
 test('returns the current item', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = Ember.K;
+	component.currentItemIndexObserver = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'
@@ -48,7 +48,7 @@ test('returns the current item', function (assert) {
 test('sets proper index in the prevItem function', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = Ember.K;
+	component.currentItemIndexObserver = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'
@@ -71,7 +71,7 @@ test('sets proper index in the prevItem function', function (assert) {
 test('sets proper index in the nextItem function', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = Ember.K;
+	component.currentItemIndexObserver = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'

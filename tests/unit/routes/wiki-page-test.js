@@ -30,8 +30,8 @@ test('set head tags for correct model', function (assert) {
 	let headData;
 
 	mock.setProperties({
-		removeServerTags: Ember.K,
-		setStaticHeadTags: Ember.K,
+		removeServerTags() {},
+		setStaticHeadTags() {},
 		headData: Ember.Object.create()
 	});
 
@@ -54,8 +54,8 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 	delete window.Mercury.wiki.smartBanner;
 
 	mock.setProperties({
-		removeServerTags: Ember.K,
-		setStaticHeadTags: Ember.K,
+		removeServerTags() {},
+		setStaticHeadTags() {},
 		headData: Ember.Object.create()
 	});
 

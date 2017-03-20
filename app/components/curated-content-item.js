@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 		attributeBindings: ['href'],
 		classNames: ['curated-content-item'],
 		classNameBindings: ['type'],
-		openSection: Ember.K,
+		openSection() {},
 		href: Ember.computed.oneWay('model.url'),
 		type: Ember.computed.oneWay('model.type'),
 

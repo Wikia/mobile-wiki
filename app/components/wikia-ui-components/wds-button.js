@@ -20,7 +20,7 @@ export default Component.extend(
 		classNameBindings: ['isSecondary:wds-is-secondary', 'isText:wds-is-text'],
 		isSecondary: false,
 		isText: false,
-		onClick: Ember.K,
+		onClick() {},
 
 		/**
 		 * Handles click event on button - calls proper action if passed

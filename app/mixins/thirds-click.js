@@ -10,9 +10,9 @@ import Ember from 'ember';
  */
 
 export default Ember.Mixin.create({
-	leftClickHandler: Ember.K,
-	rightClickHandler: Ember.K,
-	centerClickHandler: Ember.K,
+	leftClickHandler() {},
+	rightClickHandler() {},
+	centerClickHandler() {},
 
 	viewportWidth: Ember.computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
 
