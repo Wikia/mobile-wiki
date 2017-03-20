@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 
 import M from '../mmm';
+import config from '../config/environment';
 
 /**
  * @typedef {Object} SourcePointDetectionModule
@@ -226,7 +227,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(M.prop('tracking.krux.mobileId'));
+			this.krux.load(config.tracking.krux.mobileId));
 		}
 	}
 

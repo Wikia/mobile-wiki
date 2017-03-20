@@ -134,12 +134,6 @@ export default Route.extend(
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
 
-				/*
-				 * This is called after the first route of any application session has loaded
-				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
-				 */
-				M.prop('articleContentPreloadedInDOM', false, true);
-
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
 				//window.scrollTo(0, 0);

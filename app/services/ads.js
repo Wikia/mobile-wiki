@@ -7,10 +7,12 @@ const {computed, Service, inject} = Ember;
 export default Service.extend({
 	module: Ads.getInstance(),
 	wikiVariables: inject.service(),
+	currentUser: inject.service(),
 	siteHeadOffset: 0,
 	noAdsQueryParam: '',
 	noAds: computed('noAdsQueryParam', function () {
-		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') || !!M.prop('userId');
+		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') ||
+			currentUser.isAuthenticated;
 	}),
 	adSlotComponents: {},
 	adsUrl: computed('wikiVariables', function ()  {
