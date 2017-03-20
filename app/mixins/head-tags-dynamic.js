@@ -56,7 +56,7 @@ export default Ember.Mixin.create({
 			headData.type = model.type;
 		}
 
-		if (model.details.thumbnail) {
+		if (model.details && model.details.thumbnail) {
 			headData.pageImage = model.details.thumbnail;
 		}
 
