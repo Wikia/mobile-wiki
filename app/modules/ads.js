@@ -227,7 +227,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(config.tracking.krux.mobileId));
+			this.krux.load(config.tracking.krux.mobileId);
 		}
 	}
 
