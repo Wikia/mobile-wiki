@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import UserModel from '../models/user';
-import M from '../mmm';
 
-const {computed, Service, inject, Logger, RSVP} = Ember;
+const {computed, Service, inject, Logger} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -25,47 +24,46 @@ const {computed, Service, inject, Logger, RSVP} = Ember;
  */
 
 export default Service.extend({
-	ajax: inject.service(),
 	wikiVariables: inject.service(),
+	fastboot: inject.service(),
 	rights: {},
 	isAuthenticated: computed.bool('userId'),
 	language: computed('wikiVariables', function () {
 		return this.get('wikiVariables.language.content') || 'en';
 	}),
 
-	userId: computed(() => {
-		const cookieUserId = parseInt(M.prop('userId'), 10);
-
-		return cookieUserId > 0 ? cookieUserId : null;
-	}),
-
-	userModel: computed('userId', function () {
-		const userId = this.get('userId');
-
-		if (userId !== null) {
-			return UserModel
-				.find({userId})
-				.catch((err) => {
-					Logger.warn('Couldn\'t load current user model', err);
-				});
-		}
-
-		return RSVP.reject();
-	}),
+	userId: null,
 
 	/**
 	 * @returns {void}
 	 */
-	init() {
+	initializeUserData(userId) {
 		this._super(...arguments);
-		const userId = this.get('userId');
+
+		this.set('userId', userId);
 
 		if (userId !== null) {
-			this.get('userModel').then((userModel) => {
-				if (userModel) {
-					this.setProperties(userModel);
-				}
-			});
+			const shoebox = this.get('fastboot.shoebox');
+			if (this.get('fastboot.isFastBoot')) {
+				console.log(this.get('fastboot.cookies.access_token'));
+				UserModel
+					.find({
+						accessToken: this.get('fastboot.cookies.access_token'),
+						userId,
+						host: 'fallout.damian.wikia-dev.pl'
+					})
+					.then((userModelData) => {
+						if (userModelData) {
+							this.setProperties(userModelData);
+							shoebox.put('userData', userModelData);
+						}
+					})
+					.catch((err) => {
+						Logger.warn('Couldn\'t load current user model', err);
+					});
+			} else {
+				this.setProperties(shoebox.retrieve('userData'));
+			}
 		}
 	},
 });

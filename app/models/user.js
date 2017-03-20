@@ -5,6 +5,8 @@ import {buildUrl} from '../utils/url';
 /**
  * @typedef {Object} UserModelFindParams
  * @property {number} userId
+ * @property {string} host
+ * @property {string} [accessToken]
  * @property {number} [avatarSize]
  */
 
@@ -33,11 +35,13 @@ UserModel.reopenClass({
 	find(params) {
 		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
 			modelInstance = UserModel.create(),
-			userId = params.userId;
+			userId = params.userId,
+			host = params.host,
+			accessToken = params.accessToken || '';
 
 		return Ember.RSVP.all([
-			this.loadDetails(userId, avatarSize),
-			this.loadUserInfo(userId),
+			this.loadDetails(host, userId, avatarSize),
+			this.loadUserInfo(host, accessToken, userId),
 		]).then(([userDetails, userInfo]) => {
 			if (userDetails) {
 				modelInstance.setProperties(UserModel.sanitizeDetails(userDetails));
@@ -53,12 +57,13 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {string} host
 	 * @param {number} userId
 	 * @param {number} avatarSize
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadDetails(userId, avatarSize) {
-		return request(buildUrl({path: '/wikia.php'}), {
+	loadDetails(host, userId, avatarSize) {
+		return request(buildUrl({host, path: '/wikia.php'}), {
 			data: {
 				controller: 'UserApi',
 				method: 'getDetails',
@@ -75,17 +80,27 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {string} host
+	 * @param {string} accessToken
 	 * @param {number} userId
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserInfo(userId) {
-		return request(buildUrl({path: '/api.php'}), {
+	loadUserInfo(host, accessToken, userId) {
+		console.log(`access_token=${accessToken}`);
+
+		return request(buildUrl({
+			host,
+			path: '/api.php'
+		}), {
 			data: {
 				action: 'query',
 				meta: 'userinfo',
 				uiprop: 'rights|options|blockinfo',
 				format: 'json',
 				ids: userId
+			},
+			headers: {
+				Cookie: `access_token=${accessToken}`
 			},
 		});
 	},

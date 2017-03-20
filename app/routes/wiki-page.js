@@ -89,7 +89,7 @@ export default Route.extend(
 		model(params) {
 			const modelParams = {
 				// TODO replace hack
-				basePath: this.modelFor('application').basePath.replace('http://', ''),
+				basePath: this.modelFor('application').host,
 				title: params.title,
 				wiki: this.modelFor('application').dbName
 			};

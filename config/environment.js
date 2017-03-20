@@ -10,7 +10,11 @@ module.exports = function (environment) {
 			domain: 'services.wikia.com',
 			discussions: {
 				baseAPIPath: 'discussion'
-			},
+			}
+		},
+		helios: {
+			internalUrl: 'http://prod.helios.service.consul:9500/info',
+			timeout: 3000
 		},
 		weppy: {
 			enabled: false,
@@ -112,6 +116,7 @@ module.exports = function (environment) {
 
 		ENV.optimizely.account = '2441440871'
 		ENV.qualaroo.scriptUrl = '//s3.amazonaws.com/ki.js/52510/dlS.js';
+		ENV.helios.internalUrl = 'http://dev.helios.service.consul:9500/info',
 
 		ENV['ember-cli-mirage'] = {
 			enabled: false
