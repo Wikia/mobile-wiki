@@ -10,9 +10,7 @@ export default Controller.extend({
 
 	commentsPage: computed.alias('application.commentsPage'),
 	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
-	siteName: computed('wikiVariables', function () {
-		return this.get('wikiVariables.siteName') || 'Fandom powered by Wikia';
-	}),
+	siteName: computed.reads('wikiVariables.siteName'),
 
 	actions: {
 		/**

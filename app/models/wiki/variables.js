@@ -30,6 +30,10 @@ VariablesModel.reopenClass({
 				)
 					.then((navigationApiResponse) => navigationApiResponse.json())
 					.then((navigationData) => {
+						if (!data.siteName) {
+							data.siteName = 'Fandom powered by Wikia';
+						}
+
 						data.host = host;
 						data.globalFooter = navigationData['global-footer'];
 						data.globalNavigation = navigationData['global-navigation'];
