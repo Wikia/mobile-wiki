@@ -1,5 +1,6 @@
 const PrettyStream = require('bunyan-prettystream');
 const expressBunyanLogger = require('express-bunyan-logger');
+const config = require('../config/fastboot-server');
 
 /**
  * @typedef {Object} BunyanLoggerStream
@@ -95,7 +96,4 @@ function createLogger(loggerConfig) {
 	});
 }
 
-// FIXME prod should use syslog, not console
-module.exports = createLogger({
-	console: 'warn'
-});
+module.exports = createLogger(config.loggers);
