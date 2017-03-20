@@ -49,7 +49,10 @@ function createSysLogStream(minLogLevel) {
 	return {
 		level: minLogLevel,
 		type: 'raw',
-		path: '/var/log/syslog'
+		stream: BunyanSyslog.createBunyanStream({
+			facility: BunyanSyslog.local0,
+			type: 'sys'
+		})
 	};
 }
 
