@@ -45,7 +45,6 @@ export default Service.extend({
 		if (userId !== null) {
 			const shoebox = this.get('fastboot.shoebox');
 			if (this.get('fastboot.isFastBoot')) {
-				console.log(this.get('fastboot.cookies.access_token'));
 				UserModel
 					.find({
 						accessToken: this.get('fastboot.cookies.access_token'),

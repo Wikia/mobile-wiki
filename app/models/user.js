@@ -86,8 +86,6 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		console.log(`access_token=${accessToken}`);
-
 		return request(buildUrl({
 			host,
 			path: '/api.php'
