@@ -1,7 +1,7 @@
 <script>
 	(function() {
 		window.trackQuantservePageView = function() {
-			var quantcastLabels, prefix, scriptTag, firstScriptInDocument;
+			var quantcastLabels, prefix, scriptTag, firstScriptInDocument, _qevents = window._qevents || [];
 
 			if (!M.prop('queryParams.noexternals')) {
 				quantcastLabels = ['Category.MobileWeb.Mercury'];
@@ -18,10 +18,10 @@
 					window.__qc.qpixelsent = [];
 				}
 
-				window._qevents = [{
+				_qevents.push({
 					qacct: M.prop('tracking.quantserve'),
 					labels: quantcastLabels.join(',')
-				}];
+				});
 
 				scriptTag.async = 1;
 				scriptTag.src = prefix + '.quantserve.com/quant.js?' + Math.random();
