@@ -152,6 +152,7 @@ export default Component.extend(
 		 */
 		didInsertElement() {
 			$(window).off('scroll.mobileWiki.preload');
+			// TODO bring back scroll initializer or remove it
 			window.scrollTo(0, M.prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
