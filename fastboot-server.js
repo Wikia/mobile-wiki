@@ -1,9 +1,10 @@
 const FastBootAppServer = require('fastboot-app-server');
 const express = require('express');
+const config = require('./config/fastboot-server');
 const logger = require('./server/logger');
 const headers = require('./server/headers');
 const heartbeat = require('./server/heartbeat');
-const distPath = 'dist/mobile-wiki';
+const staticAssets = require('./server/static-assets');
 
 function levelFn(status, err) {
 	if (err || status >= 500) {
@@ -20,7 +21,7 @@ const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {
 		app.use(logger);
 		app.use(headers);
-		app.use('/mobile-wiki', express.static(distPath));
+		app.use('/mobile-wiki', staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
 	afterMiddleware: (app) => {
@@ -36,7 +37,7 @@ const server = new FastBootAppServer({
 			}
 		});
 	},
-	distPath,
+	distPath: config.distPath,
 	gzip: true
 });
 
