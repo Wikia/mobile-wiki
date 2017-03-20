@@ -44,11 +44,7 @@ export default Component.extend(
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
-		contributionEnabledForCommunity: computed(function() {
-			// When disableMobileSectionEditor is set to true, no contribution tools should
-			// show up
-			return this.get('wikiVariables.disableMobileSectionEditor') || false;
-		}),
+		contributionEnabledForCommunity: computed.not('wikiVariables.disableMobileSectionEditor'),
 
 		/**
 		 * Checks if mobile contribution features are enabled.
