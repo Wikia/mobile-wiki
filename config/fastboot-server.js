@@ -1,7 +1,7 @@
 module.exports = function () {
 	const config = {
 		loggers: {
-			syslog: 'debug'
+			syslog: 'warn'
 		}
 	};
 
