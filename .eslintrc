@@ -1,6 +1,5 @@
 {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "rules": {
     "array-callback-return": 0,
     "arrow-body-style": 0,
@@ -10,6 +9,9 @@
     "global-require": 0,
     "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "no-tabs": 0,
     "indent": [2, "tab", {"VariableDeclarator": 1, "SwitchCase": 1}],
     "max-len": [2, 120, 2],
     "new-cap": 0,
@@ -40,19 +42,11 @@
     "jquery": true
   },
   "globals": {
-    "$script": true,
-    "Ember": true,
-    "EmPerfSender": true,
-    "FastClick": true,
     "ga": true,
-    "Hammer": true,
     "Headroom": true,
     "i18n": true,
-    "M": true,
-    "Mercury": true,
     "numeral": true,
     "optimizely": true,
-    "CryptoJS": true,
     "state": false,
     "VisitSource": true,
     "Weppy": true,
