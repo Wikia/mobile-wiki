@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import M from '../mmm';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
@@ -153,7 +152,7 @@ export default Component.extend(
 		didInsertElement() {
 			$(window).off('scroll.mobileWiki.preload');
 			// TODO bring back scroll initializer or remove it
-			window.scrollTo(0, M.prop('scroll'));
+			//window.scrollTo(0, M.prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
