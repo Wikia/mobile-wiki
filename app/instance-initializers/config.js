@@ -12,6 +12,18 @@ function getServicesDomain(environment, datacenter) {
 	}
 }
 
+function getCookieDomain(environment, datacenter) {
+	if (environment === 'dev') {
+		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
+
+		return `.wikia-dev.${devDomain}`
+	} else if (environment === 'staging'){
+		return '.wikia-staging.com';
+	} else {
+		return '.wikia.com';
+	}
+}
+
 export function initialize(applicationInstance) {
 	let fastboot = applicationInstance.lookup('service:fastboot'),
         shoebox = fastboot.get('shoebox'),
@@ -23,8 +35,9 @@ export function initialize(applicationInstance) {
 			environment = env.WIKIA_ENVIRONMENT;
 
 		runtimeConfig = {
-		    mediawikiDomain: env.MEDIAWIKI_DOMAIN,
-            wikiaDatacenter: env.WIKIA_DATACENTER,
+			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
+			wikiaDatacenter: env.WIKIA_DATACENTER,
+			cookieDomain: getCookieDomain(environment, env.WIKIA_DATACENTER),
 			environment,
 		};
 
