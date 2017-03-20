@@ -7,19 +7,25 @@
  * @property {number} [value]
  * @property {*} [annotations]
  */
-import M from '../mmm';
 import config from '../config/environment';
+import Ember from 'ember';
 
 const context = {
-	country: M.prop('geo.country'),
+	country: null,
 	env: config.environment,
-	logged_in: Boolean(M.prop('userId')),
+	logged_in: false,
 	skin: 'mobile_wiki',
 	url: window.location && window.location.href.split('#')[0],
 	'user-agent': window.navigator && window.navigator.userAgent
 };
 
 let tracker;
+
+try {
+	context.country = JSON.parse($.cookie('Geo')).country;
+} catch(err) {
+	Ember.Logger.warn("Can't parse Geo cookie", err)
+}
 
 /**
  * 1. initialize tracker if it's undefined
@@ -54,10 +60,6 @@ function getTracker() {
  * @returns {void}
  */
 export function trackPerf(params) {
-	if (!window.location){
-		return;
-	}
-
 	let trackFn = getTracker();
 
 	if (!trackFn) {
@@ -96,17 +98,4 @@ export function trackPerf(params) {
 		default:
 			throw new Error('This action not supported in Weppy tracker');
 	}
-}
-
-/**
- * @returns {void}
- */
-export function sendPagePerformance() {
-	const trackFn = getTracker();
-
-	if (trackFn) {
-		trackFn.sendPagePerformance();
-	}
-	// used for automation test
-	M.prop('pagePerformanceSent', true);
 }

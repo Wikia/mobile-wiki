@@ -33,6 +33,8 @@ export default Component.extend({
 	firstRender: true,
 
 	wikiVariables: inject.service(),
+	fastboot: inject.service(),
+	currentUser:inject.service(),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
@@ -58,10 +60,15 @@ export default Component.extend({
 		if (this.firstRender === true) {
 			this.firstRender = false;
 
-			trackPerf({
-				name: 'appRendered',
-				type: 'mark'
-			});
+			if (!this.get('fastboot.isFastBoot')) {
+				trackPerf({
+					name: 'appRendered',
+					type: 'mark',
+					context: {
+						logged_in: this.get('currentUser.isAuthenticated'),
+					}
+				});
+			}
 		}
 	},
 
