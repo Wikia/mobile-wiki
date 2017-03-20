@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 import {track, trackActions} from '../utils/track';
-import M from '../mmm';
 
 const {computed, Component} = Ember;
 

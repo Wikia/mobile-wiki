@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Ads from '../modules/ads';
-import M from '../mmm';
 
 const {computed, Service, inject} = Ember;
 
