@@ -61,12 +61,51 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
+			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
+
 			this._super(...arguments);
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
 
 			if (this.get('fastboot.isFastBoot')) {
 				this.get('fastboot.response.headers').set('vary', 'cookie');
+			}
+
+			if (
+				!this.get('fastboot.isFastBoot') &&
+				this.get('ads.adsUrl') &&
+				!transition.queryParams.noexternals &&
+				!instantGlobals.wgSitewideDisableAdsOnMercury
+			) {
+				const adsModule = this.get('ads.module');
+
+				adsModule.init(this.get('ads.adsUrl'));
+
+				/*
+				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+				 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+				 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+				 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+				 * lightboxVisible=false and then decide if we want to show it.
+				 */
+				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+
+					if (!closeButtonDelay) {
+						closeButtonDelay = 0;
+					}
+
+					this.send(actionName, 'ads', {contents}, closeButtonDelay);
+				};
+
+				adsModule.showLightbox = () => {
+					this.send('showLightbox');
+				};
+
+				adsModule.setSiteHeadOffset = (offset) => {
+					this.set('ads.siteHeadOffset', offset);
+				};
 			}
 		},
 
@@ -254,49 +293,6 @@ export default Route.extend(
 					drawerContent: 'nav',
 					drawerVisible: true
 				});
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		activate() {
-			const adsModule = this.get('ads.module'),
-				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
-
-			if (
-				!this.get('fastboot.isFastBoot') &&
-				this.get('ads.adsUrl') &&
-				!M.prop('queryParams.noexternals') &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury
-			) {
-				adsModule.init(this.get('ads.adsUrl'));
-
-				/*
-				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-				 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-				 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-				 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
-				 * lightboxVisible=false and then decide if we want to show it.
-				 */
-				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-
-					if (!closeButtonDelay) {
-						closeButtonDelay = 0;
-					}
-
-					this.send(actionName, 'ads', {contents}, closeButtonDelay);
-				};
-
-				adsModule.showLightbox = () => {
-					this.send('showLightbox');
-				};
-
-				adsModule.setSiteHeadOffset = (offset) => {
-					this.set('ads.siteHeadOffset', offset);
-				};
 			}
 		},
 	}
