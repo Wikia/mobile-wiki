@@ -62,7 +62,8 @@ ArticleModel.reopenClass({
 
 				articleProperties = {
 					comments: details.comments,
-					user: details.revision.user_id
+					user: details.revision.user_id,
+					details
 				};
 			}
 

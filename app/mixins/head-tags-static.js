@@ -1,8 +1,11 @@
 import Ember from 'ember';
 import config from '../config/environment';
 
-export default Ember.Mixin.create({
-	headData: Ember.inject.service(),
+const {Mixin, inject} = Ember;
+
+export default Mixin.create({
+	headData: inject.service(),
+	fastboot: inject.service(),
 
 	/**
 	 * @returns {void}
@@ -24,6 +27,7 @@ export default Ember.Mixin.create({
 
 		this.get('headData').setProperties({
 			favicon: wikiVariables.favicon,
+			siteName: wikiVariables.siteName,
 			themeColor: config.verticalColors[wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
 			qualarooScript: config.qualaroo.enabled && config.qualaroo.scriptUrl,
@@ -31,7 +35,8 @@ export default Ember.Mixin.create({
 				`${config.optimizely.scriptPath}${config.optimizely.account}`:
 				false,
 			isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl',
-			noexternals
+			noexternals,
+			facebookAppId: config.facebook.appId
 		});
 	}
 });

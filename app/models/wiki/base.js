@@ -1,7 +1,21 @@
 import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from '../../utils/string';
-import M from '../../mmm';
+
+/**
+ * get type for open graph, website is for main page even if API returns 'article'
+ *
+ * @param {bool} isMainPage
+ * @param {string} type
+ * @returns string
+ */
+function getType({isMainPage, details: {type}}) {
+	if (isMainPage) {
+		return 'website';
+	} else {
+		return type;
+	}
+}
 
 const {Object: EmberObject, get} = Ember,
 	BaseModel = EmberObject.extend({
@@ -53,6 +67,7 @@ BaseModel.reopenClass({
 				ns: get(data, 'ns'),
 				title: get(data, 'details.title'),
 				url: get(data, 'details.url'),
+				type: getType(data),
 			};
 
 			// Article related Data - if Article exists

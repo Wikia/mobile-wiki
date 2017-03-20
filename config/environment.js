@@ -6,6 +6,9 @@ module.exports = function (environment) {
 		modulePrefix: 'mobile-wiki',
 		environment: environment,
 		locationType: 'auto',
+		facebook: {
+			appId: '112328095453510'
+		},
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
@@ -114,9 +117,10 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		ENV.optimizely.account = '2441440871'
+		ENV.optimizely.account = '2441440871';
 		ENV.qualaroo.scriptUrl = '//s3.amazonaws.com/ki.js/52510/dlS.js';
 		ENV.helios.internalUrl = 'http://dev.helios.service.consul:9500/info',
+		ENV.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {
 			enabled: false

@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
+	wikiVariables: Ember.inject.service(),
 
 	/**
 	 * @param {Object} model
@@ -26,8 +27,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model, data = {}) {
-		const wikiVariables = this.modelFor('application'),
-			htmlTitleSettings = wikiVariables.htmlTitle,
+		const htmlTitleSettings = this.get('wikiVariables.htmlTitle'),
 			wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator),
 			headData = {
 				htmlTitle: wikiHtmlTitle,
@@ -35,15 +35,29 @@ export default Ember.Mixin.create({
 				canonical: data.canonical,
 				next: data.next,
 				prev: data.prev,
-				appId: Ember.get(wikiVariables, 'smartBanner.appId.ios'),
-				robots: wikiVariables.specialRobotPolicy || data.robots || 'index,follow',
-				keywords: `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
+				appId: this.get('wikiVariables.smartBanner.appId.ios'),
+				robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
+				keywords: this.get('wikiVariables.siteMessage') +
+					',' + this.get('wikiVariables.siteName') +
+					',' + this.get('wikiVariables.dbName'),
 				appleItunesApp: ''
 			};
 
 		if (data.htmlTitle) {
 			headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
 			headData.keywords += `,${data.htmlTitle}`;
+		}
+
+		if (model.title) {
+			headData.title =  model.title;
+		}
+
+		if (model.type) {
+			headData.type = model.type;
+		}
+
+		if (model.details.thumbnail) {
+			headData.pageImage = model.details.thumbnail;
 		}
 
 		if (headData.appId) {

@@ -74,3 +74,27 @@
 {{else}}
 	<link rel="stylesheet" href="/mobile-wiki/assets/app.css" crossorigin="anonymous">
 {{/if}}
+
+{{! Open Graph Tags }}
+
+<meta property="og:type" content="{{model.type}}" />
+
+{{#unless model.isMainPage}}
+	<meta property="og:site_name" content="{{model.siteName}}" />
+{{/unless}}
+
+<meta property="og:title" content="{{model.title}}" />
+
+{{#if model.description}}
+	<meta property="og:description" content="{{model.description}}" />
+{{/if}}
+
+<meta property="og:url" content="{{model.canonical}}" />
+
+{{#if model.pageImage}}
+	<meta property="og:image" content="{{model.pageImage}}" />
+{{/if}}
+
+{{#if model.facebookAppId}}
+	<meta property="fb:app_id" content="{{model.facebookAppId}}" prefix="fb: http://www.facebook.com/2008/fbml" />
+{{/if}}
