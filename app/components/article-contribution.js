@@ -10,7 +10,6 @@ export default Ember.Component.extend(
 		section: null,
 		sectionId: null,
 		title: null,
-		uploadFeatureEnabled: null,
 
 		actions: {
 			/**
@@ -32,28 +31,6 @@ export default Ember.Component.extend(
 					this.sendAction('edit', this.get('title'), section);
 				} else {
 					this.redirectToLogin('edit-section-no-auth');
-				}
-			},
-
-			/**
-			 * Go to add photo
-			 * If login is required to add photo, redirect to login page
-			 *
-			 * @returns {void}
-			 */
-			addPhoto() {
-				if (this.get('addPhotoAllowed')) {
-					const photoData = this.$('.file-upload-input')[0].files[0];
-
-					track({
-						action: trackActions.click,
-						category: 'sectioneditor',
-						label: 'add-photo',
-						value: this.get('section')
-					});
-					this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
-				} else {
-					this.redirectToLogin('add-photo-no-auth');
 				}
 			},
 		},

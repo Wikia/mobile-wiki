@@ -49,15 +49,6 @@ test('component is initialized', function (assert) {
 	assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
 });
 
-test('addPhoto action without auth redirects to login', function (assert) {
-	const openLocationSpy = sinon.spy(),
-		component = createComponent(this);
-
-	component.openLocation = openLocationSpy;
-	component.send('addPhoto');
-	assert.ok(openLocationSpy.calledOnce);
-});
-
 test('edit action without editAllowed redirects to login', function (assert) {
 	const openLocationSpy = sinon.spy(),
 		component = createComponent(this, false);

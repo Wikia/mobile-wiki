@@ -1,9 +1,6 @@
 {{#if contributionEnabled}}
 	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 		{{article-contribution
-			addPhoto='addPhoto'
-			addPhotoAllowed=addPhotoAllowed
-			addPhotoIconVisible=addPhotoIconVisible
 			edit='edit'
 			editAllowed=editAllowed
 			editIconVisible=editIconVisible
@@ -30,9 +27,6 @@
 		}}
 	{{/if}}
 	{{article-content
-		addPhoto=(action 'addPhoto')
-		addPhotoAllowed=addPhotoAllowed
-		addPhotoIconVisible=addPhotoIconVisible
 		adsContext=model.adsContext
 		content=model.content
 		contributionEnabled=contributionEnabled
@@ -44,7 +38,6 @@
 		heroImage=model.heroImage
 		media=model.media
 		openLightbox=(action 'openLightbox')
-		uploadFeatureEnabled=uploadFeatureEnabled
 	}}
 </section>
 {{yield}}

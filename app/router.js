@@ -17,10 +17,6 @@ Router.map(function () {
 	this.route('articleEdit', {
 		path: '/wiki/edit/:title/:sectionIndex'
 	});
-
-	this.route('articleAddPhoto', {
-		path: '/wiki/addPhoto/:title'
-	});
 });
 
 export default Router;

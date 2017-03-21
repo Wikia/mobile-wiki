@@ -1,15 +1,3 @@
-{{#if addPhotoIconVisible}}
-	{{#if addPhotoAllowed}}
-		<div class='upload-photo'>
-			{{svg 'camera' role='img' class='icon camera'}}
-			<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
-		</div>
-	{{else}}
-		<div class='upload-photo' {{action 'addPhoto'}}>
-			{{svg 'camera' role='img' class='icon camera'}}
-		</div>
-	{{/if}}
-{{/if}}
 {{#if editIconVisible}}
 	<div class='edit-section' {{action 'edit'}}>
 		{{svg 'pencil' role='img' class='icon pencil'}}

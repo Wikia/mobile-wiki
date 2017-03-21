@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
-import ArticleAddPhotoModel from '../models/article-add-photo';
 
 const {Controller, computed, inject} = Ember;
 
@@ -27,28 +26,6 @@ export default Controller.extend({
 				label: 'edit',
 				value: sectionIndex
 			});
-		},
-
-		/**
-		 * @param {string} title
-		 * @param {number} sectionIndex
-		 * @param {*} photoData
-		 * @returns {void}
-		 */
-		addPhoto(title, sectionIndex, photoData) {
-			const photoModel = ArticleAddPhotoModel.load(photoData);
-
-			// We don't want to hold with transition and wait for a promise to resolve.
-			// Instead we set properties on model after resolving promise and Ember scheduler
-			// handles this gracefully.
-			photoModel.then((model) => {
-				model.setProperties({
-					title,
-					sectionIndex
-				});
-			});
-
-			this.transitionToRoute('articleAddPhoto', photoModel);
 		},
 
 		/**

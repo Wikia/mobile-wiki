@@ -101,24 +101,6 @@ test('contribution enabled on non-Japanese page 2', function (assert) {
 	}, 'contributionEnabled', assert);
 });
 
-test('add photo icon visible on japanese page', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: true,
-		disableMobileSectionEditor: false,
-		expected: true
-	}, 'addPhotoIconVisible', assert);
-});
-
-test('add photo icon not visible on japanese page', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: false,
-		disableMobileSectionEditor: false,
-		expected: false
-	}, 'addPhotoIconVisible', assert);
-});
-
 test('edit icon visible on japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
@@ -169,24 +151,4 @@ test('wiki with disableAnonymousEditing set requires log in', function (assert) 
 		disableAnonymousEditing: true,
 		expected: false
 	}, 'editAllowed', assert);
-});
-
-test('logged in user can upload photo', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: true,
-		disableMobileSectionEditor: false,
-		isAuthenticated: true,
-		expected: true
-	}, 'addPhotoAllowed', assert);
-});
-
-test('not logged in user can not upload photo', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: true,
-		disableMobileSectionEditor: false,
-		isAuthenticated: false,
-		expected: false
-	}, 'addPhotoAllowed', assert);
 });

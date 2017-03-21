@@ -29,7 +29,6 @@ export default Component.extend(
 		displayTitle: null,
 		isPreview: false,
 		media: null,
-		uploadFeatureEnabled: null,
 
 		articleContentObserver: on('init', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
@@ -108,16 +107,6 @@ export default Component.extend(
 			 */
 			edit(title, sectionIndex) {
 				this.sendAction('edit', title, sectionIndex);
-			},
-
-			/**
-			 * @param {string} title
-			 * @param {number} sectionIndex
-			 * @param {*} photoData
-			 * @returns {void}
-			 */
-			addPhoto(title, sectionIndex, photoData) {
-				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
 		},
 
@@ -216,11 +205,8 @@ export default Component.extend(
 						sectionId,
 						title: this.get('displayTitle'),
 						edit: this.get('edit'),
-						addPhoto: this.get('addPhoto'),
-						addPhotoIconVisible: this.get('addPhotoIconVisible'),
 						editIconVisible: this.get('editIconVisible'),
 						editAllowed: this.get('editAllowed'),
-						addPhotoAllowed: this.get('addPhotoAllowed')
 					},
 					element: placeholder
 				})

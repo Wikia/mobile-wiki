@@ -60,14 +60,6 @@ export default Component.extend(
 		}),
 
 		/**
-		 * Determine if the upload photo icon should be rendered.
-		 * Only enabled for Japanese wikias
-		 *
-		 * @returns {boolean} True if the upload photo icon should be rendered
-		 */
-		addPhotoIconVisible: computed.oneWay('isJapaneseWikia'),
-
-		/**
 		 * Determine if the edit section icon should be rendered
 		 *
 		 * @returns {boolean} True if the edit icon should be rendered
@@ -94,14 +86,6 @@ export default Component.extend(
 			}
 		}),
 
-		/**
-		 * For add photo, check if the user is allowed to upload
-		 * Only logged in users are allowed to add photo
-		 *
-		 * @returns {boolean} True if add photo is allowed
-		 */
-		addPhotoAllowed: computed.reads('currentUser.isAuthenticated'),
-
 		actions: {
 			/**
 			 * @param {string} title
@@ -110,16 +94,6 @@ export default Component.extend(
 			 */
 			edit(title, sectionIndex) {
 				this.sendAction('edit', title, sectionIndex);
-			},
-
-			/**
-			 * @param {string} title
-			 * @param {number} sectionIndex
-			 * @param {*} photoData
-			 * @returns {void}
-			 */
-			addPhoto(title, sectionIndex, photoData) {
-				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
 
 			/**
