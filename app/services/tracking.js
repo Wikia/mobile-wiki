@@ -10,7 +10,7 @@ export default Service.extend({
 	wikiVariables: inject.service(),
 
 	config: computed(function () {
-		let config = extend({}, baseConfig.tracking);
+		let config = extend({}, baseConfig.tracking, this.get('wikiVariables.tracking'));
 
 		config = this.setupComscore(config);
 
@@ -18,17 +18,13 @@ export default Service.extend({
 	}),
 
 	setupComscore(config) {
-		const wikiVariablesConfig = this.get('wikiVariables.tracking.comscore');
-
-		if (get(wikiVariablesConfig, 'c7Value')) {
+		if (get(config, 'comscore.c7Value')) {
 			const request = this.get('fastboot.request');
 			const requestUrl = `${request.get('protocol')}://${request.get('host')}${request.get('path')}`;
-			const c7Value = get(wikiVariablesConfig, 'c7Value');
 			const c7 = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
-				`${get(config, 'comscore.keyword')}=${c7Value}`;
+				`${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
 
 			set(config, 'comscore.c7', encodeURIComponent(c7));
-			set(config, 'comscore.c7Value', c7Value);
 		}
 
 		return config;
