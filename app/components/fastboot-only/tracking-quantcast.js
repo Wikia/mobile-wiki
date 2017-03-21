@@ -1,7 +1,10 @@
 import Ember from 'ember';
+import config from '../../config/environment';
 
-const {Component} = Ember;
+const {Component, inject} = Ember;
 
 export default Component.extend({
-	tagName: ''
+	tagName: '',
+	wikiVariables: inject.service(),
+	account: config.tracking.quantcast
 });

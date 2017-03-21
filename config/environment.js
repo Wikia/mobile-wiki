@@ -67,7 +67,7 @@ module.exports = function (environment) {
 				},
 				scriptUrl: '//www.google-analytics.com/analytics.js'
 			},
-			quantserve: 'p-8bG6eLqkH6Avk',
+			quantcast: 'p-8bG6eLqkH6Avk',
 			comscore: {
 				keyword: 'comscorekw',
 				id: '6177433',

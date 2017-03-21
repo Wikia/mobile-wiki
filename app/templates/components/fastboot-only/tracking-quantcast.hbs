@@ -1,1 +1,32 @@
-<!-- Quantcast -->
+<script>
+	(function () {
+		window.trackQuantcastPageView = function () {
+			var quantcastLabels, prefix, scriptTag, firstScriptInDocument, _qevents = window._qevents || [];
+
+			quantcastLabels = ['Category.MobileWeb.Mercury'];
+			prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge';
+			scriptTag = document.createElement('script');
+			firstScriptInDocument = document.getElementsByTagName('script')[0];
+			quantcastLabels.unshift('{{wikiVariables.vertical}}');
+
+			// without this quantserve does not want to track 2+ page view (ADEN-4803)
+			if (window.__qc) {
+				window.__qc.qpixelsent = [];
+			}
+
+			_qevents.push({
+				qacct: '{{account}}',
+				labels: quantcastLabels.join(',')
+			});
+
+			scriptTag.async = 1;
+			scriptTag.src = prefix + '.quantserve.com/quant.js?' + Math.random();
+
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+
+			console.info('Track pageView: Quantserve');
+		};
+
+		window.trackQuantcastPageView();
+	})();
+</script>
