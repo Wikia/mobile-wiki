@@ -7,6 +7,7 @@
 		// TODO maybe we don't need it
 		// initialize objects needed for Oasis
 		Wikia = {};
+		Mercury = {};
 		// initialize objects needed for AdEngine
 		mw = { loader: { state: function() {} } };
 		wgNow = new Date();
@@ -63,15 +64,10 @@
 	loadDOMResource('/mobile-wiki/assets/design-system.svg');
 </script>
 
-<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 <!--{{> tracking-ua}}-->
 <!--{{> tracking-internal}}-->
 <!--{{> tracking-ivw3}}-->
 
 {{content-for 'body-footer'}}
-
-<!--{{> tracking-pixels}}-->
-<!--{{> tracking-nielsen}}-->
-<!--{{> tracking-netzathleten}}-->
 </body>
 </html>

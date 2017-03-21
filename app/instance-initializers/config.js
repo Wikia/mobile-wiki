@@ -1,4 +1,5 @@
 import config from '../config/environment';
+import extend from '../utils/extend';
 
 function getServicesDomain(environment, datacenter) {
 	if (environment === 'dev') {
@@ -52,8 +53,8 @@ export function initialize(applicationInstance) {
 	  runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');
     }
 
-    Object.assign(config.services, runtimeServicesConfig);
-	Object.assign(config, runtimeConfig);
+	extend(config.services, runtimeServicesConfig);
+	extend(config, runtimeConfig);
 }
 
 export default {

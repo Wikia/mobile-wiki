@@ -1,0 +1,28 @@
+{{#if enabled}}
+	<script type="text/javascript">
+		(function () {
+			var allowedCountries = [];
+			// FIXME, use logic from /front/common/baseline/state-geo.js
+			var geo = 'PL';
+
+			function initializeNetzAthletenTracking(url) {
+				var script = document.createElement('script');
+
+				script.id = 'Wikia_container';
+				script.src = url;
+				document.head.appendChild(script);
+			}
+
+			if (window.Wikia) {
+				allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
+
+				if (
+					allowedCountries.indexOf('{{geo}}') !== -1 ||
+					allowedCountries.indexOf('XX') !== -1
+				) {
+					initializeNetzAthletenTracking('{{config.url}}');
+				}
+			}
+		})();
+	</script>
+{{/if}}
