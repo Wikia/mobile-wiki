@@ -162,14 +162,14 @@ export function track(params) {
 
 /**
  * @param {UniversalAnalyticsDimensions} [uaDimensions]
- * @param {string} [overrideUrl] - if you want to override URL sent to UA
  * @returns {void}
  */
-export function trackPageView(uaDimensions, overrideUrl) {
+export function trackPageView(uaDimensions) {
 	if (initialPageView) {
 		initialPageView = false;
 	} else {
 		window.trackQuantcastPageView();
+		window.trackComscorePageView();
 	}
 	// if (M.prop('queryParams.noexternals')) {
 	// 	return;
@@ -179,10 +179,9 @@ export function trackPageView(uaDimensions, overrideUrl) {
 	// 	M.prop('initialPageView', false);
 	// } else {
 	// 	window.trackNielsenPageView();
-	// 	window.trackComscorePageView();
 	//
 	// 	M.tracker.Internal.trackPageView(context);
-	// 	M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
+	// 	M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	// }
 	//
 	// window.trackIVW3PageView();

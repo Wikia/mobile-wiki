@@ -1,1 +1,38 @@
-<!-- Comscore -->
+<script src="{{src}}" defer></script>
+<script>
+	(function () {
+		window._comscore = window._comscore || [];
+
+		window.trackComscorePageView = function () {
+			if ('{{config.c7Value}}') {
+				window._comscore.push({
+					c1: '2',
+					c2: '{{config.id}}',
+					options: {
+						url_append: '{{config.keyword}}' + '=' + '{{config.c7Value}}'
+					}
+				});
+
+				/**
+				 * Whenever comscore script loads it'll send all the events from the _comscore array
+				 * but on the second page view in a session we don't want to load the script once again
+				 * that is why we have to call purge method here
+				 * It'll make sure that whatever is in _comscore gets send
+				 */
+				if (window.COMSCORE) {
+					// Can't use && because Ember will convert it to &amp;
+					if (window.COMSCORE.purge) {
+						window.COMSCORE.purge();
+					}
+				}
+
+				console.info('Track pageView: Comscore');
+			}
+		};
+
+		window.trackComscorePageView();
+	})();
+</script>
+<noscript style="display: none">
+	<img src='http://b.scorecardresearch.com/p?c1=2&amp;c2={{config.id}}&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c7={{config.c7}}&amp;c15=&amp;cv=2.0&amp;cj=1'>
+</noscript>

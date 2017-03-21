@@ -8,7 +8,7 @@ import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from '../utils/string';
-import {setTrackContext, trackPageView} from '../utils/track';
+import {setTrackContext} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
@@ -22,11 +22,12 @@ export default Route.extend(
 		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
-		currentUser: inject.service(),
 		ads: inject.service(),
-		i18n: inject.service(),
-		wikiVariables: inject.service(),
+		currentUser: inject.service(),
 		fastboot: inject.service(),
+		i18n: inject.service(),
+		tracking: inject.service(),
+		wikiVariables: inject.service(),
 
 		queryParams: {
 			page: {
@@ -205,7 +206,7 @@ export default Route.extend(
 				n: model.get('ns')
 			});
 
-			trackPageView(uaDimensions);
+			this.get('tracking').trackPageView(uaDimensions);
 		},
 
 		/**
