@@ -60,6 +60,10 @@ export default Ember.Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
+		if (model.otherLanguages) {
+			headData.otherLanguages = model.otherLanguages;
+		}
+
 		if (headData.appId) {
 			headData.appleItunesApp = `app-id=${headData.appId}`;
 
