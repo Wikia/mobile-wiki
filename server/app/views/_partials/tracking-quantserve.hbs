@@ -1,24 +1,20 @@
 <script>
 	(function() {
 		window.trackQuantservePageView = function() {
-			var quantcastLabels, prefix, scriptTag, firstScriptInDocument, _qevents = window._qevents || [];
+			var quantcastLabels, prefix, scriptTag, firstScriptInDocument;
 
 			if (!M.prop('queryParams.noexternals')) {
 				quantcastLabels = ['Category.MobileWeb.Mercury'];
 				prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge';
 				scriptTag = document.createElement('script');
 				firstScriptInDocument = document.getElementsByTagName('script')[0];
+				window._qevents = window._qevents || [];
 
-				if (window.Mercury && window.Mercury.wiki && window.Mercury.wiki.vertical) {
-					quantcastLabels.unshift(window.Mercury.wiki.vertical);
-				}
-
-				// without this quantserve does not want to track 2+ page view (ADEN-4803)
 				if (window.__qc) {
 					window.__qc.qpixelsent = [];
 				}
 
-				_qevents.push({
+				window._qevents.push({
 					qacct: M.prop('tracking.quantserve'),
 					labels: quantcastLabels.join(',')
 				});
