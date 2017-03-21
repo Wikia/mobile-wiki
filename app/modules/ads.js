@@ -102,6 +102,8 @@ class Ads {
 
 		this.adsUrl = adsUrl;
 
+		console.log(adsUrl);
+
 		// Load the ads code from MW
 		$script(adsUrl, () => {
 			/* eslint-disable max-params */
@@ -420,7 +422,9 @@ class Ads {
 			return slot[0] && slot[0] === name;
 		}, true);
 
-		this.googleTagModule.destroySlots([name]);
+		if (this.googleTagModule) {
+			this.googleTagModule.destroySlots([name]);
+		}
 	}
 
 	/**
