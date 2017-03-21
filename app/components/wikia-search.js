@@ -51,6 +51,7 @@ export default Component.extend(
 
 		ajax: inject.service(),
 		i18n: inject.service(),
+		wikiVariables: inject.service(),
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
@@ -192,6 +193,7 @@ export default Component.extend(
 		 */
 		getSearchURI(phrase) {
 			return buildUrl({
+				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

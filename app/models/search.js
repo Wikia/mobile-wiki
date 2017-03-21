@@ -14,6 +14,7 @@ export default Object.extend({
 	query: '',
 	totalItems: 0,
 	totalBatches: 0,
+	host: null,
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -47,7 +48,10 @@ export default Object.extend({
 			loading: true
 		});
 
-		return request(buildUrl({path: '/wikia.php'}), {
+		return request(buildUrl({
+			host: this.get('host'),
+			path: '/wikia.php'
+		}), {
 			data: {
 				controller: 'SearchApi',
 				method: 'getList',
