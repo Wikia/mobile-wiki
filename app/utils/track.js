@@ -2,7 +2,6 @@
 
 import Ads from '../modules/ads';
 import {getGroup} from '../modules/abtest';
-import M from '../mmm';
 
 /**
  * @typedef {Object} TrackContext
@@ -95,6 +94,8 @@ let context = {
 	n: null
 };
 
+let initialPageView = true;
+
 /**
  * @param {TrackingParams} params
  * @returns {void}
@@ -165,6 +166,11 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(uaDimensions, overrideUrl) {
+	if (initialPageView) {
+		initialPageView = false;
+	} else {
+		window.trackQuantcastPageView();
+	}
 	// if (M.prop('queryParams.noexternals')) {
 	// 	return;
 	// }
@@ -172,7 +178,6 @@ export function trackPageView(uaDimensions, overrideUrl) {
 	// if (M.prop('initialPageView')) {
 	// 	M.prop('initialPageView', false);
 	// } else {
-	// 	window.trackQuantservePageView();
 	// 	window.trackNielsenPageView();
 	// 	window.trackComscorePageView();
 	//
