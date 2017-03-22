@@ -21,7 +21,7 @@ export default Service.extend({
 	setupComscore(config) {
 		if (get(config, 'comscore.c7Value')) {
 			const request = this.get('fastboot.request');
-			const requestUrl = `${request.get('protocol')}://${request.get('headers').get('host')}${request.get('path')}`;
+			const requestUrl = `${request.get('protocol')}://${request.get('host')}${request.get('path')}`;
 			const c7 = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
 				`${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
 

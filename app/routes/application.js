@@ -41,7 +41,7 @@ export default Route.extend(
 			const shoebox = this.get('fastboot.shoebox');
 
 			if (this.get('fastboot.isFastBoot')) {
-				return VariablesModel.get(this.get('fastboot.request.headers').get('host'))
+				return VariablesModel.get(this.get('fastboot.request.host'))
 					.then((model) => {
 						shoebox.put('variablesModel', model);
 						this.get('wikiVariables').setProperties(model);
