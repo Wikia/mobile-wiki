@@ -6,7 +6,7 @@ const headers = require('./server/headers');
 const heartbeat = require('./server/heartbeat');
 const staticAssets = require('./server/static-assets');
 const methodOverride = require('method-override');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 function levelFn(status, err) {
 	if (err || status >= 500) {
@@ -18,6 +18,8 @@ function levelFn(status, err) {
 	}
 	return 'info';
 }
+
+process.env.PORT = config.port;
 
 const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {

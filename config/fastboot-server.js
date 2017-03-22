@@ -5,13 +5,15 @@ module.exports = function () {
 			syslog: 'warn'
 		},
 		// 30 days in seconds
-		staticAssetsTTL: 2.592e+6
+		staticAssetsTTL: 2.592e+6,
+		port: 8001
 	};
 
 	if (process.env.WIKIA_ENVIRONMENT === 'dev') {
 		config.loggers = {
 			console: 'debug'
 		};
+		config.port = 7001;
 	}
 
 	return config;
