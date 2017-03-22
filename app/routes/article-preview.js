@@ -1,10 +1,31 @@
 import Ember from 'ember';
-import getPageModel from '../utils/wiki-handlers/wiki-page';
+import ArticlePreviewModel from '../models/article-preview';
 
+/**
+ * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
+ */
 export default Ember.Route.extend({
+	fastboot: Ember.inject.service(),
+	wikiVariables: Ember.inject.service(),
+
 	model() {
-		// TODO fix preview
-		return getPageModel(Ember.get(Mercury, 'article.data.article'));
+		const shoebox = this.get('fastboot.shoebox');
+
+		if (this.get('fastboot.isFastBoot')) {
+			const requestBody = this.get('fastboot._fastbootInfo.request.body');
+
+			const model = ArticlePreviewModel.create({
+				host: this.get('wikiVariables.host')
+			});
+
+			return model.articleFromMarkup(requestBody.title, requestBody.wikitext, requestBody.CKmarkup)
+				.then((articleData) => {
+					shoebox.put('articleData', articleData);
+					return articleData;
+				});
+		} else {
+			return shoebox.retrieve('articleData');
+		}
 	},
 
 	actions: {

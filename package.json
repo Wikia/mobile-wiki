@@ -92,6 +92,7 @@
     "deep-extend",
     "fs",
     "process",
+    "querystring",
     "util"
   ]
 }
