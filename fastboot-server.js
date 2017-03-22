@@ -25,12 +25,13 @@ const server = new FastBootAppServer({
 		app.use(headers);
 		/**
 		 * Special handling for article-preview route.
-		 * Fastboot doesn't support POST requests
-		 * so we rewrite them on express to GET using query parameter ?_method=GET
+		 * Fastboot doesn't support POST requests so we rewrite them on express to GET
 		 * Additionally we have to enable POST body parser for this route to get data that was posted
 		 */
 		app.use('/article-preview', bodyParser.urlencoded({extended: true}));
-		app.use('/article-preview', methodOverride('_method'));
+		app.use('/article-preview', methodOverride(function() {
+			return 'GET';
+		}));
 		app.use('/mobile-wiki', staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
