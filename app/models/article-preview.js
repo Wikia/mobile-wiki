@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import {form} from '../utils/content-type';
 import {buildUrl} from '../utils/url';
 
-export default Ember.Object.extend({
+const {EmberObject} = Ember;
+
+export default EmberObject.extend({
 	host: null,
 
 	/**
@@ -39,11 +40,6 @@ export default Ember.Object.extend({
 			// don't use charset until https://github.com/najaxjs/najax/pull/59 is merged
 			contentType: 'application/x-www-form-urlencoded',
 			data
-		})
-		/**
-		 * @param {payload, redirectLocation}
-		 * @returns {Promise}
-		 */
-			.then(({data}) => data.article);
+		}).then(({data}) => data.article);
 	}
 });
