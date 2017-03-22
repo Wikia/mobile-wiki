@@ -21,10 +21,12 @@ const context = {
 
 let tracker;
 
-try {
-	context.country = JSON.parse($.cookie('Geo')).country;
-} catch(err) {
-	Ember.Logger.warn("Can't parse Geo cookie", err)
+if (typeof $ !== 'undefined') {
+	try {
+		context.country = JSON.parse($.cookie('Geo')).country;
+	} catch(err) {
+		Ember.Logger.warn("Can't parse Geo cookie", err)
+	}
 }
 
 /**
