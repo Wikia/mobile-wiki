@@ -116,7 +116,7 @@ export default Route.extend(
 
 			if (model) {
 				const handler = this.getHandler(model);
-				const redirectTo = model.get('redirectTo');
+				let redirectTo = model.get('redirectTo');
 
 				if (handler) {
 					transition.then(() => {
@@ -130,23 +130,25 @@ export default Route.extend(
 					this.set('wikiHandler', handler);
 
 					handler.afterModel(this, ...arguments);
-				} else if (redirectTo) {
+				} else {
 					const fastboot = this.get('fastboot');
+
+					if (!redirectTo) {
+						redirectTo = buildUrl({
+							host: this.get('wikiVariables.host'),
+							wikiPage: get(transition, 'params.wiki-page.title'),
+							query: {
+								useskin: 'oasis'
+							}
+						});
+					}
+
 					if (fastboot.get('isFastBoot')) {
 						fastboot.get('response.headers').set('location', redirectTo);
 						fastboot.set('response.statusCode', 301);
 					} else {
 						window.location.replace(redirectTo);
 					}
-				} else {
-					// TODO fixme XW-3015
-					transition.abort();
-					window.location.assign(buildUrl({
-						wikiPage: get(transition, 'params.wiki-page.title'),
-						query: {
-							useskin: 'oasis'
-						}
-					}));
 				}
 			} else {
 				Logger.warn('Unsupported page');
