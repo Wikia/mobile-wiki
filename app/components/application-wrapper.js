@@ -34,7 +34,7 @@ export default Component.extend({
 
 	wikiVariables: inject.service(),
 	fastboot: inject.service(),
-	currentUser:inject.service(),
+	currentUser: inject.service(),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;

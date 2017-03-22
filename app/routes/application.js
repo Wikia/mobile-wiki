@@ -3,7 +3,6 @@ import ArticleModel from '../models/wiki/article';
 import VariablesModel from '../models/wiki/variables';
 import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import appendFastBootOnlyScripts from '../utils/scripts-fastboot-only';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
@@ -68,8 +67,6 @@ export default Route.extend(
 
 			if (this.get('fastboot.isFastBoot')) {
 				this.get('fastboot.response.headers').set('vary', 'cookie');
-				// Some of these scripts depend on wiki variables so make sure they're available
-				appendFastBootOnlyScripts(this, transition.queryParams);
 			}
 
 			if (

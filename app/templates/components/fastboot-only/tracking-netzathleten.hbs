@@ -1,15 +1,18 @@
 {{#if enabled}}
-	<script type="text/javascript">
+	<script>
 		(function () {
 			var allowedCountries = [];
 			// FIXME, use logic from /front/common/baseline/state-geo.js
 			var geo = 'PL';
 
-			function initializeNetzAthletenTracking(url) {
+			function initializeNetzAthletenTracking() {
 				var script = document.createElement('script');
 
 				script.id = 'Wikia_container';
-				script.src = url;
+				script.src = '{{config.url}}';
+				script.addEventListener('load', function () {
+					window.naMediaAd.setValue('homesite', {{isMainPage}});
+				});
 				document.head.appendChild(script);
 			}
 
@@ -20,7 +23,7 @@
 					allowedCountries.indexOf('{{geo}}') !== -1 ||
 					allowedCountries.indexOf('XX') !== -1
 				) {
-					initializeNetzAthletenTracking('{{config.url}}');
+					initializeNetzAthletenTracking();
 				}
 			}
 		})();

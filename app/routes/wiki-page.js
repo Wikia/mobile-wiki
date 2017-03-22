@@ -6,6 +6,7 @@ import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
+import ScriptsForFastBootOnlyMixin from '../mixins/scripts-fastboot-only';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
@@ -19,6 +20,7 @@ export default Route.extend(
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
 	RouteWithBodyClassNameMixin,
+	ScriptsForFastBootOnlyMixin,
 	{
 		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
