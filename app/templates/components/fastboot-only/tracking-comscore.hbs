@@ -1,36 +1,38 @@
 <script src="{{src}}" defer></script>
 <script>
 	(function () {
+	{{#if enabled}}
 		window._comscore = window._comscore || [];
 
 		window.trackComscorePageView = function () {
-			if ('{{config.c7Value}}') {
-				window._comscore.push({
-					c1: '2',
-					c2: '{{config.id}}',
-					options: {
-						url_append: '{{config.keyword}}' + '=' + '{{config.c7Value}}'
-					}
-				});
-
-				/**
-				 * Whenever comscore script loads it'll send all the events from the _comscore array
-				 * but on the second page view in a session we don't want to load the script once again
-				 * that is why we have to call purge method here
-				 * It'll make sure that whatever is in _comscore gets send
-				 */
-				if (window.COMSCORE) {
-					// Can't use && because Ember will convert it to &amp;
-					if (window.COMSCORE.purge) {
-						window.COMSCORE.purge();
-					}
+			window._comscore.push({
+				c1: '2',
+				c2: '{{config.id}}',
+				options: {
+					url_append: '{{config.keyword}}' + '=' + '{{config.c7Value}}'
 				}
+			});
 
-				console.info('Track pageView: Comscore');
+			{{!--
+			Whenever comscore script loads it'll send all the events from the _comscore array
+			but on the second page view in a session we don't want to load the script once again
+			that is why we have to call purge method here
+			It'll make sure that whatever is in _comscore gets send
+			--}}
+			if (window.COMSCORE) {
+				{{! Can't use && because Ember will convert it to &amp;}}
+				if (window.COMSCORE.purge) {
+					window.COMSCORE.purge();
+				}
 			}
+
+			console.info('Track pageView: Comscore');
 		};
 
 		window.trackComscorePageView();
+	{{else}}
+		window.trackComscorePageView = function () {};
+	{{/if}}
 	})();
 </script>
 <noscript style="display: none">

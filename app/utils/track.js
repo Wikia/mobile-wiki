@@ -172,20 +172,11 @@ export function trackPageView(uaDimensions) {
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
 		window.trackNielsenPageView();
+		// M.tracker.Internal.trackPageView(context);
+		// M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
-	// if (M.prop('queryParams.noexternals')) {
-	// 	return;
-	// }
-	//
-	// if (M.prop('initialPageView')) {
-	// 	M.prop('initialPageView', false);
-	// } else {
-	//
-	// 	M.tracker.Internal.trackPageView(context);
-	// 	M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
-	// }
-	//
-	// window.trackIVW3PageView();
+
+	window.trackIVW3PageView();
 	// Ads.getInstance().trackKruxPageView();
 }
 

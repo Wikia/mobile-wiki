@@ -1,5 +1,6 @@
 <script>
 	(function () {
+	{{#if config.enabled}}
 		function sendNielsenPageView() {
 			var assetidRnd, globalParams;
 
@@ -34,24 +35,22 @@
 			console.info('Track pageView: Nielsen');
 		}
 
-
 		window.trackNielsenPageView = function () {
-			var scriptTag, firstScriptInDocument;
+			var scriptTag = document.createElement('script');
+			var firstScriptInDocument = document.getElementsByTagName('script')[0];
 
-			scriptTag = document.createElement('script');
-			firstScriptInDocument = document.getElementsByTagName('script')[0];
+			delete window.NOLCMB;
 
-			if ({{config.enabled}}) {
-				delete window.NOLCMB;
+			scriptTag.async = 1;
+			scriptTag.src = 'http://secure-dcr.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now();
+			scriptTag.onload = sendNielsenPageView;
 
-				scriptTag.async = 1;
-				scriptTag.src = 'http://secure-dcr.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now();
-				scriptTag.onload = sendNielsenPageView;
-
-				firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
-			}
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 		};
 
 		window.trackNielsenPageView();
+	{{else}}
+		window.trackNielsenPageView = function () {};
+	{{/if}}
 	})();
 </script>

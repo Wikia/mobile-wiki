@@ -4,7 +4,7 @@
 		window.trackQuantcastPageView = function () {
 			window._qevents = window._qevents || [];
 
-			// without this quantserve does not want to track 2+ page view (ADEN-4803)
+			{{! without this quantserve does not want to track 2+ page view (ADEN-4803) }}
 			if (window.__qc) {
 				window.__qc.qpixelsent = [];
 			}
