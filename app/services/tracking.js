@@ -31,6 +31,10 @@ export default Service.extend({
 	},
 
 	trackPageView(uaDimensions) {
+		if (this.get('fastboot.isFastBoot')) {
+			return;
+		}
+
 		trackPageView(uaDimensions);
 	}
 });
