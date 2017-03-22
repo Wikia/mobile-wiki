@@ -1,6 +1,9 @@
 {{fastboot-only/load-svgs}}
 <script src="{{basePath}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 {{#unless noExternals}}
+	{{fastboot-only/tracking-ua}}
+	{{fastboot-only/tracking-internal}}
+	{{fastboot-only/tracking-ivw3}}
 	{{fastboot-only/tracking-nielsen}}
 	{{fastboot-only/tracking-netzathleten pageModel=pageModel}}
 {{/unless}}
