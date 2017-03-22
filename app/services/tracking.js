@@ -13,6 +13,7 @@ export default Service.extend({
 		let config = extend({}, baseConfig.tracking, this.get('wikiVariables.tracking'));
 
 		config = this.setupComscore(config);
+		config = this.setupNielsen(config);
 
 		return config;
 	}),
@@ -26,6 +27,13 @@ export default Service.extend({
 
 			set(config, 'comscore.c7', encodeURIComponent(c7));
 		}
+
+		return config;
+	},
+
+	setupNielsen(config) {
+		set(config, 'nielsen.section', get(config, 'vertical'));
+		set(config, 'nielsen.dbName', this.get('wikiVariables.dbName'));
 
 		return config;
 	},

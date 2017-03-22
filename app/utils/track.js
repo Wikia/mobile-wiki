@@ -168,8 +168,10 @@ export function trackPageView(uaDimensions) {
 	if (initialPageView) {
 		initialPageView = false;
 	} else {
+		// Defined in templates/components/fastboot-only/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
+		window.trackNielsenPageView();
 	}
 	// if (M.prop('queryParams.noexternals')) {
 	// 	return;
@@ -178,7 +180,6 @@ export function trackPageView(uaDimensions) {
 	// if (M.prop('initialPageView')) {
 	// 	M.prop('initialPageView', false);
 	// } else {
-	// 	window.trackNielsenPageView();
 	//
 	// 	M.tracker.Internal.trackPageView(context);
 	// 	M.tracker.UniversalAnalytics.trackPageView(uaDimensions);

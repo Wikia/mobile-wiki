@@ -6,4 +6,9 @@ export default Component.extend({
 	tagName: '',
 	tracking: inject.service(),
 	config: computed.reads('tracking.config.nielsen'),
+	invalidApid: computed(function () {
+		const apid = this.get('config.apid');
+
+		return typeof(apid) !== 'string' || apid === 'FIXME';
+	})
 });

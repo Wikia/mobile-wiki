@@ -7,6 +7,7 @@ import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
+import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext} from '../utils/track';
 import {buildUrl} from '../utils/url';
@@ -176,7 +177,7 @@ export default Route.extend(
 			}
 
 			if (handler && typeof handler.getDynamicHeadTags === 'function') {
-				$.extend(data, handler.getDynamicHeadTags(model));
+				extend(data, handler.getDynamicHeadTags(model));
 			}
 
 			this._super(model, data);
