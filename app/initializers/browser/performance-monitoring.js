@@ -5,9 +5,7 @@ import {sendPagePerformance, trackPerf} from '../../utils/track-perf';
  * @returns {void}
  */
 export function initialize() {
-	//const firstRenderTime = M.prop('firstRenderTime');
-	// TODO
-	const firstRenderTime = 0;
+	const firstRenderTime = window.firstRenderTime;
 
 	// Send page performance stats after window is loaded
 	// Since we load our JS async this code may execute post load event

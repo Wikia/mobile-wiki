@@ -25,41 +25,6 @@
 <!--{{> first-render-time}}-->
 <!--{{> qualaroo}}-->
 
-<script src="/mobile-wiki/assets/vendor.js" defer></script>
-<script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
-<script>
-	// TODO move it somewhere
-	htmlToElement = function (html) {
-		var template = document.createElement('template');
-
-		template.insertAdjacentHTML('beforeend', html);
-
-		return template.firstChild;
-	};
-
-	loadDOMResource = function (src) {
-		var ajax = new XMLHttpRequest();
-
-		ajax.onload = function () {
-			var element = htmlToElement(ajax.responseText);
-
-			element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
-
-			document.body.insertBefore(element, document.body.firstChild);
-		};
-
-		ajax.onerror = function (error) {
-			throw new URIError('The resource ' + error.target.src + ' is not accessible.');
-		};
-
-		ajax.open('GET', src, true);
-		ajax.send();
-	};
-
-	loadDOMResource('/mobile-wiki/assets/main.svg');
-	loadDOMResource('/mobile-wiki/assets/common.svg');
-	loadDOMResource('/mobile-wiki/assets/design-system.svg');
-</script>
 
 <!--{{> tracking-ua}}-->
 <!--{{> tracking-internal}}-->

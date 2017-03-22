@@ -1,3 +1,9 @@
+{{#unless noExternals}}
+	{{fastboot-only/first-render-time}}
+{{/unless}}
+<script src="/mobile-wiki/assets/vendor.js" defer></script>
+<script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
+{{fastboot-only/load-svgs}}
 <script src="{{basePath}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 {{#unless noExternals}}
 	{{fastboot-only/tracking-nielsen}}
