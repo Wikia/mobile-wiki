@@ -22,10 +22,61 @@
 <body id="ember-container" class="mobile-wiki {{bodyClassName}}">
 {{content-for 'body'}}
 
-<!--{{> first-render-time}}-->
 <!--{{> qualaroo}}-->
 
+{{! @todo (XW-1374) this should be an Ember addon }}
+{{! Idea from https://davidwalsh.name/css-animation-callback }}
+{{! TODO move firstRenderTime to a separate view}}
+<span class="render-time-test"></span>
+<style type="text/css">
+	.render-time-test {
+		transition-property: opacity;
+		transition-duration: 1ms;
+		opacity: 0;
+	}
 
+	.render-time-test.measure {
+		opacity: 1;
+	}
+</style>
+<script>
+	/**
+	 * @returns {String|null}
+	 */
+	function whichTransitionEnd() {
+		var fakeElement = document.createElement('fakeelement'),
+				transitions = {
+					'transition': 'transitionend',
+					'OTransition': 'oTransitionEnd',
+					'MozTransition': 'transitionend',
+					'WebkitTransition': 'webkitTransitionEnd'
+				};
+
+		for (var t in transitions) {
+			if (fakeElement.style[t] !== undefined) {
+				return transitions[t];
+			}
+		}
+
+		return null;
+	}
+
+	var testElement = document.getElementsByClassName('render-time-test')[0],
+			transitionEnd = whichTransitionEnd();
+
+	if (transitionEnd && window.performance && typeof window.performance.now === 'function') {
+		testElement.addEventListener(transitionEnd, function () {
+			window.firstRenderTime = window.performance.now();
+		});
+
+		// Transition isn't triggered without setTimeout because of browser optimizations
+		setTimeout(function () {
+			testElement.classList.add('measure');
+		}, 0);
+	}
+</script>
+<script src="/mobile-wiki/assets/vendor.js" defer></script>
+<script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
 <!--{{> tracking-ua}}-->
 <!--{{> tracking-internal}}-->
 <!--{{> tracking-ivw3}}-->
