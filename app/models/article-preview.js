@@ -26,8 +26,7 @@ export default Ember.Object.extend({
 					title
 				}
 			}),
-			data = {},
-			querystring = FastBoot.require('querystring');
+			data = {};
 
 		if (wikitext) {
 			data.wikitext = wikitext;
@@ -37,8 +36,9 @@ export default Ember.Object.extend({
 
 		return request(url, {
 			method: 'POST',
-			contentType: form,
-			data: querystring.stringify(data)
+			// don't use charset until https://github.com/najaxjs/najax/pull/59 is merged
+			contentType: 'application/x-www-form-urlencoded',
+			data
 		})
 		/**
 		 * @param {payload, redirectLocation}
