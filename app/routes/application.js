@@ -134,7 +134,9 @@ export default Route.extend(
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
-				//window.scrollTo(0, 0);
+				if (!this.get('fastboot.isFastBoot')) {
+					window.scrollTo(0, 0);
+				}
 			},
 
 			/**
