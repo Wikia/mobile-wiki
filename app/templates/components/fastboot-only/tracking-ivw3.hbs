@@ -1,12 +1,14 @@
 {{! template-lint-disable block-indentation }}
 <script>
 	(function () {
-		{{#if enabled}}
-			var triedToTrackWithoutLoadedLibrary = false;
+		var triedToTrackWithoutLoadedLibrary = false;
+		var geo = M.geo || {};
+		var countries = {{countries}};
 
-			if (window.Wikia) {
-				{{! Can't use && because Ember will convert it to &amp; }}
-				if (!window.Wikia.InstantGlobals['wgSitewideDisableIVW3']) {
+		if (window.Wikia) {
+			{{! Can't use && because Ember will convert it to &amp; }}
+			if (!window.Wikia.InstantGlobals['wgSitewideDisableIVW3']) {
+				if (countries.indexOf(geo.country) !== -1) {
 					var scriptTag = document.createElement('script'),
 							firstScriptInDocument = document.getElementsByTagName('script')[0];
 
@@ -22,23 +24,21 @@
 					};
 				}
 			}
+		}
 
-			window.trackIVW3PageView = function () {
-				if (window.iom) {
-					window.iam_skiponload = true;
-					window.iom.c({
-						st: 'wikia',
-						cp: '{{config.cmKey}}',
-						sv: 'mo'
-					}, 2);
+		window.trackIVW3PageView = function () {
+			if (window.iom) {
+				window.iam_skiponload = true;
+				window.iom.c({
+					st: 'wikia',
+					cp: '{{config.cmKey}}',
+					sv: 'mo'
+				}, 2);
 
-					console.info('Track pageView: IVW3');
-				} else {
-					triedToTrackWithoutLoadedLibrary = true;
-				}
-			};
-		{{else}}
-			window.trackIVW3PageView = function () {};
-		{{/if}}
+				console.info('Track pageView: IVW3');
+			} else {
+				triedToTrackWithoutLoadedLibrary = true;
+			}
+		};
 	})();
 </script>

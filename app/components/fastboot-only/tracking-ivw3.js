@@ -7,11 +7,7 @@ export default Component.extend({
 	tracking: inject.service(),
 
 	config: computed.reads('tracking.config.ivw3'),
-	enabled: computed(function () {
-		const config = this.get('config');
-
-		return config && config.countries &&
-			typeof config.countries.indexOf === 'function' &&
-			config.countries.indexOf('AT') !== -1; //FIXME use geo.country
+	countries: computed(function () {
+		return JSON.stringify(this.get('config.countries'));
 	})
 });

@@ -3,8 +3,7 @@
 	<script>
 		(function () {
 			var allowedCountries = [];
-			// FIXME, use logic from /front/common/baseline/state-geo.js
-			var geo = 'PL';
+			var geo = M.geo || {};
 
 			function initializeNetzAthletenTracking() {
 				var script = document.createElement('script');
@@ -21,7 +20,7 @@
 				allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
 
 				if (
-					allowedCountries.indexOf('{{geo}}') !== -1 ||
+					allowedCountries.indexOf(geo.country) !== -1 ||
 					allowedCountries.indexOf('XX') !== -1
 				) {
 					initializeNetzAthletenTracking();

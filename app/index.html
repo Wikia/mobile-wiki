@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}" {{#if preview}}class='article-preview'{{/if}}>
+<html>
 <head>
 	{{content-for 'head'}}
 
@@ -8,18 +8,16 @@
 		// initialize objects needed for Oasis
 		Wikia = {};
 		Mercury = {};
+		M = {};
 		// initialize objects needed for AdEngine
 		mw = { loader: { state: function() {} } };
 		wgNow = new Date();
 	</script>
 
-	{{content-for 'baseline'}}
-	<!--{{> optimizely}}-->
-
 	{{content-for 'head-footer'}}
 </head>
-<body id="ember-container" class="mobile-wiki {{bodyClassName}}">
-{{content-for 'body'}}
+<body class="mobile-wiki">
+<div id="ember-container">{{content-for 'body'}}</div>
 
 <!--{{> qualaroo}}-->
 <!--
@@ -75,11 +73,9 @@
 		}, 0);
 	}
 </script>
+
 <script src="/mobile-wiki/assets/vendor.js" defer></script>
 <script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
-<!--{{> tracking-ua}}-->
-<!--{{> tracking-internal}}-->
-<!--{{> tracking-ivw3}}-->
 
 {{content-for 'body-footer'}}
 </body>
