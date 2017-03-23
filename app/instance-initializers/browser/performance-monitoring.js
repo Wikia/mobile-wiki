@@ -25,6 +25,7 @@ export function initialize() {
 }
 
 export default {
+	after: 'config',
 	name: 'performance-monitoring',
 	initialize
 };

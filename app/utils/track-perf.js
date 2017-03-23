@@ -10,6 +10,8 @@
 import config from '../config/environment';
 import Ember from 'ember';
 
+const {get} = Ember;
+
 const context = {
 	country: null,
 	env: config.environment,
@@ -21,12 +23,8 @@ const context = {
 
 let tracker;
 
-if (typeof $ !== 'undefined') {
-	try {
-		context.country = JSON.parse($.cookie('Geo')).country;
-	} catch(err) {
-		Ember.Logger.warn("Can't parse Geo cookie", err)
-	}
+if (typeof FastBoot === 'undefined') {
+	context.country = get(window.M, 'geo.country');
 }
 
 /**
@@ -37,7 +35,7 @@ if (typeof $ !== 'undefined') {
  */
 function getTracker() {
 	if (typeof tracker === 'undefined') {
-		const weppyConfig = config.weppyConfig;
+		const weppyConfig = config.weppy;
 
 		if (weppyConfig && typeof Weppy === 'function') {
 			tracker = Weppy.namespace('mobile_wiki');

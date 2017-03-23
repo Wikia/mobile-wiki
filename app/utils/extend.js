@@ -3,6 +3,6 @@ export default function () {
 	if (typeof FastBoot !== 'undefined') {
 		return FastBoot.require('deep-extend')(...arguments);
 	} else {
-		return $.extend(...arguments);
+		return $.extend(true, ...arguments);
 	}
 }
