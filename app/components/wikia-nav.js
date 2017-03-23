@@ -25,6 +25,7 @@ export default Component.extend(
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		userProfileLink: computed('currentUser.name', function () {
 			return buildUrl({
+				host: this.get('wikiVariables.host'),
 				namespace: 'User',
 				title: this.get('currentUser.name')
 			});
