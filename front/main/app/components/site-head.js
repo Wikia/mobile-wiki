@@ -1,19 +1,22 @@
 import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
+import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count'
 import {track, trackActions} from 'common/utils/track';
 
 const {computed, Component} = Ember;
 
 export default Component.extend(
-	HeadroomMixin,
+	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
 		classNames: ['site-head-container'],
 		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
+		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
 		ads: Ember.inject.service(),
+		notifications: Ember.inject.service(),
 
 		headroomOptions: {
 			classes: {
@@ -34,7 +37,7 @@ export default Component.extend(
 		svgName: M.prop('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
+			return this.get('drawerVisible') && this.isDrawerInClosableState() ? 'close' : 'nav';
 		}),
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
@@ -43,13 +46,30 @@ export default Component.extend(
 
 		offset: computed.readOnly('ads.siteHeadOffset'),
 
+		unreadNotificationsCount: computed.alias('notifications.model.unreadCount'),
+
+		isDrawerInClosableState() {
+			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
+		},
+
+
+		canBeClosed(icon) {
+			const drawerContent = this.get('drawerContent');
+
+			return icon === this.getPrimaryDrawerState(drawerContent);
+		},
+
+		getPrimaryDrawerState(state) {
+			return state === 'user-profile' ? 'nav' : state;
+		},
+
 		actions: {
 			/**
 			 * @param {String} icon
 			 * @returns {void}
 			 */
 			siteHeadIconClick(icon) {
-				if (this.get('drawerVisible') && this.get('drawerContent') === icon) {
+				if (this.get('drawerVisible') && this.canBeClosed(icon)) {
 					track({
 						action: trackActions.click,
 						category: 'side-nav',

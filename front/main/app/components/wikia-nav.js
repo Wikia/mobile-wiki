@@ -17,11 +17,13 @@ export default Component.extend(
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		enableOnSiteNotifications: get(Mercury, 'wiki.enableOnSiteNotifications'),
 
+		/** TODO: Remove with the feature flag IRIS-4170 */
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
 			title: 'UserLogout'
 		}),
 
+		/** TODO: Remove with the feature flag IRIS-4170 */
 		userProfileLink: computed('currentUser.name', function () {
 			return M.buildUrl({
 				namespace: 'User',
@@ -63,6 +65,11 @@ export default Component.extend(
 
 					this.get(actionName)();
 				}
+			},
+
+			onUsernameClicked() {
+				this.send('trackClick', 'side-nav', 'open-user-profile');
+				this.sendAction('setDrawerContent', 'user-profile');
 			},
 
 			goRoot() {
