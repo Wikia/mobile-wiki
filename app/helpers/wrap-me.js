@@ -29,7 +29,7 @@ const {
 } = Ember;
 
 export default Helper.helper((params, options) => {
-	const content = Handlebars.Utils.escapeExpression(params[0] || '');
+	const content = params[0] || '';
 	let tagName = 'span',
 		className = '',
 		otherOptions = {
