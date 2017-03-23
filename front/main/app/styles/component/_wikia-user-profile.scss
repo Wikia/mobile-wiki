@@ -1,0 +1,85 @@
+.user-profile-header {
+	.menu-chevron {
+		float: right;
+		margin-top: 5px;
+		transform: rotate(-90deg);
+	}
+}
+
+.user-profile-back-link {
+	line-height: 20px;
+
+	svg {
+		float: left;
+		margin-top: 5px;
+		transform: rotate(90deg);
+	}
+}
+
+.icon {
+	&.menu-chevron {
+		fill: $wds-color-blue-gray;
+	}
+}
+
+.user-profile-header-wrapper {
+	.user-avatar {
+		background-color: $wds-color-white;
+		border-radius: 100%;
+		margin-top: -25px;
+		// hack for making it get on top of the header
+		transform: translate(0, 0);
+
+		figure.avatar {
+			svg,a>img  {
+				border-color: $wds-color-white;
+				border-width: 3px;
+				height: 94px;
+				width: 94px;
+			}
+		}
+	}
+}
+
+.wikia-user-profile {
+	background-color: $wds-color-white;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	text-align: center;
+
+	.user-profile-username {
+		margin: 4px 18px 1.1rem 18px;
+	}
+
+	.notifications-title {
+		border-bottom: solid 1px $wds-color-blue-gray;
+		display: flex;
+		justify-content: space-between;
+		margin: 0 18px;
+		padding: 0 0 11px;
+
+		h5,
+		.mark-all-as-read {
+			line-height: 12px;
+			margin: 0;
+			padding: 0;
+		}
+
+		h5 {
+			font-size: 12px;
+			text-transform: uppercase;
+		}
+	}
+}
+
+.user-profile-fixed-wrapper {
+	flex-grow: 0;
+}
+
+.user-profile-scrollable-wrapper {
+	flex-grow: 1;
+	overflow: auto;
+}
