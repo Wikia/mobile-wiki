@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import config from '../config/environment';
 
 /**
  * @param {*} applicationInstance
@@ -6,12 +6,15 @@ import Ember from 'ember';
  * @returns {void}
  */
 export function initialize(applicationInstance) {
-	let debug = true;
+	const fastboot = applicationInstance.lookup('service:fastboot');
+	let debug = config.environment === 'dev';
 
 	// turn on debugging with querystring ?debug=1
-	// if (window.location.search.match(/debug=1/)) {
-	// 	debug = true;
-	// }
+	if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1') ||
+		!fastboot.get('isFastBoot') && window.location.search.match(/debug=1/)
+	) {
+		debug = true;
+	}
 
 	applicationInstance.setProperties({
 		LOG_ACTIVE_GENERATION: debug,
