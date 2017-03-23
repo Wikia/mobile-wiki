@@ -131,12 +131,6 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
-
-				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
-				// Optimally, it would remain in the same place.
-				if (!this.get('fastboot.isFastBoot')) {
-					window.scrollTo(0, 0);
-				}
 			},
 
 			/**
