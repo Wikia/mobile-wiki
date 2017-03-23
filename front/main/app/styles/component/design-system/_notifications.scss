@@ -16,6 +16,22 @@ $wds-icon-color: $wds-color-light-c5;
 
 .wds-notifications {
 
+  &__unread-mark {
+	align-items: center;
+	background-color: $wds-color-link;
+	border: 1px solid $wds-color-white;
+	border-radius: 100%;
+	color: $wds-color-white;
+	display: flex;
+	justify-content: center;
+	font-size: 10px;
+	height: 18px;
+	left: -9px;
+	position: absolute;
+	top: 7px;
+	width: 18px;
+  }
+
   &__mark-all-as-read-button {
 	justify-content: flex-start;
 	box-shadow: 0 -1px 10px 0 rgba(0, 0, 0, 0.1);
@@ -227,4 +243,16 @@ $spinner-color: $wds-color-link;
   margin-top: 5px;
   transform: rotate(-90deg);
   fill: $wds-color-blue-gray;
+}
+
+.wikia-nav {
+  .user-profile-avatar {
+	position: relative;
+  }
+
+  .wds-notifications__unread-mark {
+	left: initial;
+	right: -9px;
+	top: -3px;
+  }
 }
