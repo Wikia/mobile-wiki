@@ -101,3 +101,14 @@ export function trackPerf(params) {
 			throw new Error('This action not supported in Weppy tracker');
 	}
 }
+
+/**
+ * @returns {void}
+ */
+export function sendPagePerformance() {
+	const trackFn = getTracker();
+
+	if (trackFn) {
+		trackFn.sendPagePerformance();
+	}
+}

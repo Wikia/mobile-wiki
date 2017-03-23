@@ -85,10 +85,6 @@ module.exports = function (defaults) {
 				}
 			]
 		},
-		vendorFiles: {
-			// we'll load jQuery on our own
-			'jquery.js': false
-		},
 		'ember-cli-qunit': {
 			useLintTree: false
 		}
@@ -114,11 +110,7 @@ module.exports = function (defaults) {
 	}
 
 	// Assets which are lazy loaded
-	var jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
-			include: ['*.min.*'],
-			destDir: 'assets/vendor/jquery'
-		}),
-		numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
+	var numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
 			destDir: 'assets/vendor/numeral'
 		}),
 		designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
@@ -129,7 +121,6 @@ module.exports = function (defaults) {
 		});
 
 	return app.toTree([
-		jQueryAssets,
 		numeralAssets,
 		designSystemAssets,
 		designSystemI18n
