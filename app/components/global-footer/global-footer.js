@@ -6,7 +6,6 @@ export default Ember.Component.extend({
 
 	actions: {
 		track(trackingLabel) {
-			console.log(trackingLabel);
 			track({
 				action: trackActions.click,
 				category: 'footer',
