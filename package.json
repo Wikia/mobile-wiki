@@ -12,8 +12,8 @@
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "fastboot": "ember fastboot --serve-assets",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember fastboot --no-build --serve-assets",
-    "fastboot-server": "node fastboot-server.js",
-    "fastboot-server-debug": "node --inspect --debug-brk fastboot-server.js",
+    "fastboot-server": "node server/app/server.js",
+    "fastboot-server-debug": "node --inspect --debug-brk server/app/server.js",
     "setup": "npm install && bower update",
     "test": "ember test"
   },
