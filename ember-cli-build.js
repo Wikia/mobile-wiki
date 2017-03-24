@@ -14,30 +14,72 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
  * If you update ember-cli and something breaks,
  * the first thing you should try is to comment this out
  */
-EmberApp.prototype.addonTreesFor = function (type) {
-	return this.project.addons.map(function (addon) {
-		if (addon.treeFor) {
-			var tree = addon.treeFor(type);
+/*
+ EmberApp.prototype.addonTreesFor = function (type) {
+ return this.project.addons.map(function (addon) {
+ if (addon.treeFor) {
+ var tree = addon.treeFor(type);
 
-			if (tree) {
-				// uncomment to see the files available to be filtered out
-				// tree = stew.log(tree, {output: 'tree'});
-				tree = stew.rm(tree,
-					'**/components/rl-dropdown*.{js,hbs}'
-				);
-			}
+ if (tree) {
+ // uncomment to see the files available to be filtered out
+ // tree = stew.log(tree, {output: 'tree'});
+ tree = stew.rm(tree,
+ '**!/components/rl-dropdown*.{js,hbs}'
+ );
+ }
 
-			return tree;
-		}
-	}).filter(Boolean);
-};
+ return tree;
+ }
+ }).filter(Boolean);
+ };
+ */
 
 module.exports = function (defaults) {
-	var app = new EmberApp(defaults, {
+	const inlineScriptsPath = 'app/inline-scripts/';
+	const app = new EmberApp(defaults, {
 		autoprefixer: {
 			browsers: ['last 2 version', 'last 3 iOS versions', '> 1%'],
 			cascade: false,
 			map: false
+		},
+		derequire: {
+			patterns: [
+				{
+					from: 'define',
+					to: 'mefine'
+				},
+				{
+					from: 'require',
+					to: 'mequire'
+				}
+			]
+		},
+		fingerprint: {
+			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
+			replaceExtensions: ['html', 'css', 'js', 'hbs'],
+			// FIXME
+			// prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
+		},
+		inlineContent: {
+			'mediawiki-globals': `${inlineScriptsPath}mediawiki-globals.js`,
+			'get-from-shoebox': `${inlineScriptsPath}get-from-shoebox.js`,
+			'geo-cookie': `${inlineScriptsPath}geo-cookie.js`,
+			'load-script': `${inlineScriptsPath}load-script.js`,
+			'tracking-quantcast': `${inlineScriptsPath}tracking-quantcast.js`,
+			'tracking-comscore': `${inlineScriptsPath}tracking-comscore.js`,
+			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
+			'load-svg': `${inlineScriptsPath}load-svg.js`,
+			'tracking-ivw3': `${inlineScriptsPath}tracking-ivw3.js`,
+			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
+			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
+		},
+		outputPaths: {
+			app: {
+				css: {
+					app: '/assets/app.css'
+				},
+				html: 'index.html',
+			}
 		},
 		sassOptions: {
 			includePaths: [
@@ -57,36 +99,6 @@ module.exports = function (defaults) {
 					outputFile: '/assets/common.svg'
 				}
 			]
-		},
-		outputPaths: {
-			app: {
-				css: {
-					app: '/assets/app.css'
-				},
-				html: 'index.html',
-			}
-		},
-		fingerprint: {
-			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			// Keep it in sync with gulp/options/prod.js
-			// FIXME
-			// prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
-		},
-		derequire: {
-			patterns: [
-				{
-					from: 'define',
-					to: 'mefine'
-				},
-				{
-					from: 'require',
-					to: 'mequire'
-				}
-			]
-		},
-		'ember-cli-qunit': {
-			useLintTree: false
 		}
 	});
 
@@ -110,7 +122,7 @@ module.exports = function (defaults) {
 	}
 
 	// Assets which are lazy loaded
-	var numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
+	const numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
 			destDir: 'assets/vendor/numeral'
 		}),
 		designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
