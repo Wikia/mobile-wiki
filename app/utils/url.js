@@ -92,8 +92,9 @@ export function buildUrl(urlParams = {}) {
 
 	if (urlParams.wiki) {
 		url += replaceWikiInHost(host, urlParams.wiki);
-	} else if (typeof mediawikiDomain !== 'undefined') {
-		url += mediawikiDomain;
+	// TODO enable when working on icache
+	// } else if (typeof mediawikiDomain !== 'undefined') {
+	// 	url += mediawikiDomain;
 	} else {
 		url += host;
 	}
