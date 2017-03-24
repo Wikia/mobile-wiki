@@ -37,7 +37,8 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env,
 			environment = env.WIKIA_ENVIRONMENT,
-			buckySampling = fastboot.get('request.queryParams.buckysampling');
+			buckySampling = fastboot.get('request.queryParams.buckysampling'),
+			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
@@ -59,6 +60,10 @@ export function initialize(applicationInstance) {
 					samplingRate: parseInt(buckySampling) / 100
 				};
 			}
+		}
+
+		if (!isBlank(noExternals)) {
+			runtimeConfig.noExternals = Boolean(noExternals);
 		}
 
 		shoebox.put('runtimeConfig', runtimeConfig);

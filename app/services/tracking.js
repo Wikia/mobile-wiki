@@ -8,8 +8,15 @@ const {Service, computed, get, inject, set} = Ember;
 export default Service.extend({
 	fastboot: inject.service(),
 	wikiVariables: inject.service(),
+	config: {},
 
-	config: computed(function () {
+	init() {
+		this._super(...arguments);
+
+		if (!this.get('fastboot.isFastBoot')) {
+			return;
+		}
+
 		// Extend defaults from the config file with config from wiki variables
 		// It's enough for most trackers
 		let config = extend({}, baseConfig.tracking, this.get('wikiVariables.tracking'));
@@ -17,8 +24,10 @@ export default Service.extend({
 		config = this.setupComscore(config);
 		config = this.setupNielsen(config);
 
-		return config;
-	}),
+		this.get('fastboot.shoebox').put('tracking', config);
+
+		this.set('config', config);
+	},
 
 	setupComscore(config) {
 		if (get(config, 'comscore.c7Value')) {
