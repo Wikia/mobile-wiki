@@ -26,6 +26,7 @@ const {Component, computed, inject, Logger, $} = Ember;
  */
 
 export default Component.extend({
+	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 	scrollLocation: null,
@@ -35,6 +36,8 @@ export default Component.extend({
 	wikiVariables: inject.service(),
 	fastboot: inject.service(),
 	currentUser: inject.service(),
+
+	dir: computed.reads('wikiVariables.language.contentDir'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;

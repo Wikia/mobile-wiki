@@ -69,6 +69,7 @@ export default Route.extend(
 
 			if (this.get('fastboot.isFastBoot')) {
 				this.get('fastboot.response.headers').set('vary', 'cookie');
+				this.get('fastboot.response.headers').set('Content-Language', model.language.content);
 			}
 
 			if (
