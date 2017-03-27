@@ -1,5 +1,7 @@
 import Ember from 'ember';
+import config from '../config/environment';
 import request from 'ember-ajax/request';
+import {isTimeoutError} from 'ember-ajax/errors';
 import {buildUrl} from '../utils/url';
 
 /**
@@ -27,6 +29,26 @@ const UserModel = Ember.Object.extend({
 
 UserModel.reopenClass({
 	defaultAvatarSize: 100,
+
+	getUserId(accessToken) {
+		return request(config.helios.internalUrl, {
+			data: {
+				code: accessToken
+			},
+			timeout: config.helios.timeout,
+			error: false
+		}).then((data) => {
+			return data.user_id
+		}).catch((reason) => {
+			if (isTimeoutError(reason)) {
+				Logger.error('Helios timeout error: ', reason);
+			} else if (reason.errors && reason.errors[0].status == 401) {
+				Logger.info('Token not authorized by Helios: ', reason);
+			} else {
+				Logger.error('Helios connection error: ', reason);
+			}
+		})
+	},
 
 	/**
 	 * @param {UserModelFindParams} params

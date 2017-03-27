@@ -1,7 +1,4 @@
 import Ember from 'ember';
-import config from '../config/environment';
-import request from 'ember-ajax/request';
-import {isTimeoutError} from 'ember-ajax/errors';
 import UserModel from '../models/user';
 
 const {computed, Service, inject, Logger} = Ember;
@@ -44,24 +41,12 @@ export default Service.extend({
 			const accessToken = fastboot.get('request.cookies.access_token');
 
 			if (accessToken) {
-				request(config.helios.internalUrl, {
-					data: {
-						code: accessToken
-					},
-					timeout: config.helios.timeout,
-					error: false
-				}).then((data) => {
-					fastboot.get('shoebox').put('userId', data.user_id);
-					this.initializeUserData(data.user_id);
-				}).catch((reason) => {
-					if (isTimeoutError(reason)) {
-						Logger.error('Helios timeout error: ', reason);
-					} else if (reason.errors && reason.errors[0].status == 401) {
-						Logger.info('Token not authorized by Helios: ', reason);
-					} else {
-						Logger.error('Helios connection error: ', reason);
+				UserModel.getUserId(accessToken).then((userId) => {
+					if (userId) {
+						fastboot.get('shoebox').put('userId', userId);
+						this.initializeUserData(userId);
 					}
-				})
+				});
 			}
 		} else {
 			const userId = fastboot.get('shoebox').retrieve('userId');
