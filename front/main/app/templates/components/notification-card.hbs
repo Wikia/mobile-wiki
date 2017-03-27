@@ -5,18 +5,17 @@
 			totalContributorCount=model.totalUniqueActors
 	}}
 {{/if}}
-<a href="{{model.latestEventUri}}" {{action 'onNotificationClicked' preventDefault=false}}>
-	<a {{action 'markAsRead' model}}>
-		<div class="notification-icon-wrapper">
-			{{svg iconName viewBox='0 0 24 24' class='icon'}}
-		</div>
-	</a>
-	<div class="notification-body">
-		<p class="notification-text">
+<a class="wds-notification-card__outer-body" href="{{model.latestEventUri}}"
+	{{action 'onNotificationClicked' preventDefault=false}}>
+	<div class="wds-notification-card__icon-wrapper" {{action 'markAsRead' model}}>
+		{{svg iconName viewBox='0 0 18 18' class='wds-icon'}}
+	</div>
+	<div class="wds-notification-card__body">
+		<p class="wds-notification-card__text">
 			{{{text}}}
 		</p>
 		{{#if showSnippet}}
-			<p class="notification-entity-text-snippet">
+			<p class="wds-notification-card__snippet">
 				{{{postSnippetMarkup}}}
 			</p>
 		{{/if}}

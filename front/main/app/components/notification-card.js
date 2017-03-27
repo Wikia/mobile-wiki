@@ -15,9 +15,9 @@ export default Component.extend(
 	ReplyUpvoteNotificationMixin,
 	MarkAsReadNotificationMixin,
 	{
-		classNames: ['notification-card'],
+		classNames: ['wds-notification-card'],
 
-		classNameBindings: ['isUnread'],
+		classNameBindings: ['isUnread:wds-is-unread'],
 
 		tagName: 'li',
 

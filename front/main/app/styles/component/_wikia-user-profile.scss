@@ -48,6 +48,10 @@
 	flex-grow: 1;
 	overflow: auto;
 
+	.wds-notifications__notification-list {
+	  max-height: inherit;
+	}
+
 	.wds-notifications__zero-state {
 	  padding-top: 40px;
 	}
