@@ -32,7 +32,7 @@
 
 <div class="wds-user-profile__scrollable-wrapper scrolling-part">
 	{{#if notificationsList.length}}
-		<ul class="wds-list wds-has-lines-between notifications-list">
+		<ul class="wds-notifications__notification-list wds-list wds-has-lines-between">
 			{{#each notificationsList as |notification|}}
 				{{notification-card
 						model=notification
