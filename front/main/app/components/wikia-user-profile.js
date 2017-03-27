@@ -23,16 +23,10 @@ export default Component.extend(
 			title: 'UserLogout'
 		}),
 
-		userProfileLink: computed('currentUser.name', function () {
-			return M.buildUrl({
-				namespace: 'User',
-				title: this.get('currentUser.name')
-			});
-		}),
-
 		username: computed.oneWay('currentUser.name'),
 
 		didRender() {
+			console.log('zorf');
 			this._super(...arguments);
 			this.element.scrollTop = 0;
 		},
