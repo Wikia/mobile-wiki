@@ -8,6 +8,7 @@
 	<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
 {{/each}}
 {{#if additionalContributorCount}}
-	<div class="discussion-contributors-more" {{action 'clickDiscussionsHeaderAvatar'}}>+{{numeral
-			additionalContributorCount '0a'}}</div>
+	<div class="discussion-contributors-more" {{action 'clickDiscussionsHeaderAvatar'}}>
+		+{{numeraladditionalContributorCount '0a'}}
+	</div>
 {{/if}}
