@@ -193,7 +193,7 @@ $notification-card-anchor-color: $notifications-dropdown-content-color;
   }
 }
 
-$duration: 1s;
+$duration: 2s;
 $spinner-color: $wds-color-link;
 
 .wds-spinner {
@@ -229,7 +229,7 @@ $spinner-color: $wds-color-link;
 
   .wds-path {
 	-webkit-backface-visibility: hidden;
-	animation: dash ($duration * 2) linear infinite alternate-reverse;
+	animation: dash ($duration / 4) linear infinite alternate-reverse;
 	stroke: $spinner-color;
   }
 }

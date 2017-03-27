@@ -3,6 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	classNameBindings: ['overlay:loading-overlay'],
 
+	spinnerClasses: Ember.computed('isBlock', function () {
+		return `spinner ${this.get('isBlock') ? 'block' : ''}`;
+	}),
+
+	strokeClasses: Ember.computed('isThemed', function () {
+		return `path ${this.get('isThemed') ? 'stroke-theme-color' : ''}`;
+	}),
+
 	// 'isVisible' is set to false also when 'active' is undefined.
 	// This way it is not needed to initialize it in components.
 	isVisible: Ember.computed('active', function () {
@@ -11,6 +19,8 @@ export default Ember.Component.extend({
 
 	active: false,
 	overlay: true,
+	isBlock: false,
+	isThemed: true,
 	radius: 30,
 	strokeWidth: 6,
 
@@ -21,4 +31,8 @@ export default Ember.Component.extend({
 	fullDiameter: Ember.computed('radius', function () {
 		return this.get('radius') * 2 + this.get('strokeWidth');
 	}),
+
+	strokeLength: Ember.computed('radius', function () {
+		return 2 * Math.PI * this.get('radius');
+	})
 });
