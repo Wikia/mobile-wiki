@@ -11,6 +11,7 @@ import {track, trackActions} from '../utils/track';
  */
 export default Ember.Component.extend(
 	{
+		wikiVariables: Ember.inject.service(),
 		page: null,
 		articleId: null,
 		commentsCount: null,
@@ -83,7 +84,8 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 
 			this.set('model', ArticleCommentsModel.create({
-				articleId: this.get('articleId')
+				articleId: this.get('articleId'),
+				host: this.get('wikiVariables.host')
 			}));
 		},
 

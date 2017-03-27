@@ -4,6 +4,7 @@ import {buildUrl} from '../utils/url';
 
 export default Ember.Object.extend({
 	articleId: null,
+	host: null,
 	comments: 0,
 	users: null,
 	pagesCount: 0,
@@ -43,6 +44,7 @@ export default Ember.Object.extend({
 	 */
 	url(articleId, page = 0) {
 		return buildUrl({
+			host: this.get('host'),
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',
