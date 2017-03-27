@@ -30,7 +30,7 @@ function getURL(params) {
 	}
 
 	return buildUrl({
-		host: params.basePath,
+		host: params.host,
 		path: '/wikia.php',
 		query
 	});

@@ -173,7 +173,7 @@ export function trackPageView(uaDimensions) {
 		window.trackComscorePageView();
 		window.trackNielsenPageView();
 		// M.tracker.Internal.trackPageView(context);
-		// M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
+		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
 
 	window.trackIVW3PageView();

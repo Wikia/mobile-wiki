@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
-import VariablesModel from '../models/wiki/variables';
+import WikiVariablesModel from '../models/wiki-variables';
 import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
@@ -43,20 +43,20 @@ export default Route.extend(
 			if (this.get('fastboot.isFastBoot')) {
 				const request = this.get('fastboot.request');
 
-				return VariablesModel.get(request.get('headers').get('x-original-host') || request.get('host'))
-					.then((model) => {
-						shoebox.put('variablesModel', model);
-						this.get('wikiVariables').setProperties(model);
+				return WikiVariablesModel.get(request.get('headers').get('x-original-host') || request.get('host'))
+					.then((wikiVariablesModel) => {
+						shoebox.put('wikiVariables', wikiVariablesModel);
+						this.get('wikiVariables').setProperties(wikiVariablesModel);
 
-						return model;
+						return wikiVariablesModel;
 					});
 			} else {
-				const model = shoebox.retrieve('variablesModel'),
+				const wikiVariablesModel = shoebox.retrieve('wikiVariables'),
 					wikiVariablesService = this.get('wikiVariables');
 
-				wikiVariablesService.setProperties(model);
+				wikiVariablesService.setProperties(wikiVariablesModel);
 
-				return model;
+				return wikiVariablesModel;
 
 			}
 		},

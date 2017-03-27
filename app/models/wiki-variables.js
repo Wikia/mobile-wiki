@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import fetch from 'ember-network/fetch';
-import {buildUrl} from '../../utils/url';
+import {buildUrl} from '../utils/url';
 
-const VariablesModel = Ember.Object.extend({});
+const WikiVariablesModel = Ember.Object.extend({});
 
-VariablesModel.reopenClass({
+WikiVariablesModel.reopenClass({
 	get(host) {
 		const url = buildUrl({
 			host,
@@ -44,4 +44,4 @@ VariablesModel.reopenClass({
 	}
 });
 
-export default VariablesModel;
+export default WikiVariablesModel;

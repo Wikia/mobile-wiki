@@ -41,10 +41,11 @@ export function initialize(applicationInstance) {
 			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
+			cookieDomain: getCookieDomain(environment, env.WIKIA_DATACENTER),
+			gaUserSalt: env.GA_USERID_SALT,
+			environment,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER,
-			cookieDomain: getCookieDomain(environment, env.WIKIA_DATACENTER),
-			environment,
 		};
 
 		runtimeServicesConfig = {

@@ -29,6 +29,7 @@
     "body-parser": "1.17.1",
     "bunyan-prettystream": "0.1.3",
     "bunyan-syslog": "github:mcavage/node-bunyan-syslog#9bdb9eb62a763c7d30e032a619138032d5ff8771",
+    "crypto": "0.0.3",
     "deep-extend": "0.4.1",
     "express-bunyan-logger": "1.3.1",
     "fastboot": "github:wikia/fastboot#shoebox-append-to",
@@ -39,10 +40,11 @@
   "devDependencies": {
     "broccoli-asset-rev": "rogatty/broccoli-asset-rev#broccoli-asset-rewrite-1.0.9",
     "broccoli-babel-transpiler": "5.5.0",
-    "broccoli-concat": "2.0.4",
+    "broccoli-concat": "3.2.2",
     "broccoli-funnel": "1.0.1",
     "broccoli-merge-trees": "1.1.1",
     "broccoli-stew": "1.3.2",
+    "broccoli-uglify-sourcemap": "1.5.1",
     "design-system-i18n": "wikia/design-system-i18n.git#0.6.3",
     "ember-ajax": "2.4.1",
     "ember-browserify": "1.1.13",
@@ -97,6 +99,7 @@
     ]
   },
   "fastbootDependencies": [
+    "crypto",
     "deep-extend",
     "fs",
     "process",

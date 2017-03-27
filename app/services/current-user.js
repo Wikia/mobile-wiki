@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import UserModel from '../models/user';
+import config from '../config/environment';
 
 const {computed, Service, inject, Logger} = Ember;
 
@@ -44,6 +45,9 @@ export default Service.extend({
 				UserModel.getUserId(accessToken).then((userId) => {
 					if (userId) {
 						fastboot.get('shoebox').put('userId', userId);
+						// We have to anonymize user id before sending it to Google
+						// It's faster to do the hashing server side and pass to the front-end, ready to use
+						fastboot.get('shoebox').put('gaUserIdHash', this.getGaUserIdHash(userId));
 						this.initializeUserData(userId);
 					}
 				});
@@ -86,4 +90,11 @@ export default Service.extend({
 			}
 		}
 	},
+
+	getGaUserIdHash(userId) {
+		const Crypto = FastBoot.require('crypto');
+		const rawString = userId.toString() + config.gaUserSalt;
+
+		return Crypto.createHash('md5').update(rawString).digest('hex');
+	}
 });

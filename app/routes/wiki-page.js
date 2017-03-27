@@ -11,10 +11,11 @@ import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext} from '../utils/track';
+import {putTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Logger, Route, $, inject, get} = Ember;
+const {Logger, Route, RSVP, $, inject, get} = Ember;
 
 export default Route.extend(
 	HeadTagsDynamicMixin,
@@ -91,22 +92,32 @@ export default Route.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
+			const fastboot = this.get('fastboot');
+			const wikiVariables = this.get('wikiVariables');
+			const host = wikiVariables.get('host');
 			const modelParams = {
-				// TODO replace hack
-				basePath: this.modelFor('application').host,
+				host,
 				title: params.title,
-				wiki: this.modelFor('application').dbName
+				wiki: wikiVariables.get('dbName')
 			};
 
 			if (params.page) {
 				modelParams.page = params.page;
 			}
 
-			return getPageModel(
+			return RSVP.resolve(getPageModel(
 				modelParams,
-				this.get('fastboot'),
+				fastboot,
 				this.get('wikiVariables.contentNamespaces')
-			);
+			)).then((pageModel) => {
+				if (fastboot.get('isFastBoot')) {
+					return RSVP
+						.resolve(pageModel)
+						.then(putTrackingDimensionsToShoebox.bind(null, fastboot, this.get('currentUser'), host));
+				} else {
+					return pageModel;
+				}
+			});
 		},
 
 		/**
@@ -118,12 +129,13 @@ export default Route.extend(
 			this._super(...arguments);
 
 			if (model) {
+				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
 				if (handler) {
 					transition.then(() => {
-						this.updateTrackingData(model);
+						this.trackPageView(model);
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition(model, this.get('wikiVariables.id'));
@@ -134,8 +146,6 @@ export default Route.extend(
 
 					handler.afterModel(this, ...arguments);
 				} else {
-					const fastboot = this.get('fastboot');
-
 					if (!redirectTo) {
 						redirectTo = buildUrl({
 							host: this.get('wikiVariables.host'),
@@ -189,7 +199,7 @@ export default Route.extend(
 		 * @param {ArticleModel} model
 		 * @returns {void}
 		 */
-		updateTrackingData(model) {
+		trackPageView(model) {
 			const articleType = model.get('articleType'),
 				namespace = model.get('ns'),
 				uaDimensions = {};

@@ -66,7 +66,7 @@ module.exports = function (environment) {
 					id: 'UA-32132943-1',
 					sampleRate: 100
 				},
-				scriptUrl: '//www.google-analytics.com/analytics.js'
+				scriptUrl: 'https://www.google-analytics.com/analytics.js'
 			},
 			quantcast: 'p-8bG6eLqkH6Avk',
 			comscore: {
