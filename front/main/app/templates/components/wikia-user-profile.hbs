@@ -1,8 +1,8 @@
-<div class="user-profile-fixed-wrapper">
+<div class="wds-user-profile__fixed-wrapper">
 	<div class="wikia-nav__header">
 		<a {{action 'getBack' preventDefault=false}}
-				class="wikia-nav__back user-profile-back-link">
-			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon menu-chevron'}}
+				class="wikia-nav__back wds-user-profile__back-link">
+			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
 		</a>
 		<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}}
 				href="{{unbound logoutLink}}"
@@ -11,25 +11,26 @@
 		</a>
 	</div>
 
-	<header class="user-profile-header-wrapper">
+	<header class="wds-user-profile__header-wrapper">
 		{{user-avatar
-			username=username
-			avatarUrl=currentUser.avatarPath
+				username=username
+				avatarUrl=currentUser.avatarPath
 		}}
-		<h4 class="user-profile-username">{{username}}</h4>
+		<h4 class="wds-user-profile__username">{{username}}</h4>
 	</header>
 
-	{{#if notificationsList.length}}
-		<div class="notifications-title">
-			<h5>{{i18n 'notifications-notifications' ns='design-system'}}</h5>
-			<a class="mark-all-as-read" {{action 'markAllAsRead'}}>
+	<div class="wds-user-profile__notification-title-wrapper">
+		<h5 class="wds-user-profile__notification-title">{{i18n 'notifications-notifications' ns='design-system'}}</h5>
+		{{#if notificationsList.length}}
+			<a class="wds-notifications__mark-all-as-read" {{action 'markAllAsRead'}}>
 				{{i18n 'notifications-mark-all-as-read' ns='design-system'}}
 			</a>
-		</div>
-	{{/if}}
+		{{/if}}
+	</div>
 </div>
 
-<div class="user-profile-scrollable-wrapper scrolling-part">
+
+<div class="wds-user-profile__scrollable-wrapper scrolling-part">
 	{{#if notificationsList.length}}
 		<ul class="wds-list wds-has-lines-between notifications-list">
 			{{#each notificationsList as |notification|}}
@@ -38,19 +39,21 @@
 				}}
 			{{/each}}
 		</ul>
+		{{#if isLoadingNewResults }}
+			<div class="spinner-container">
+				{{loading-spinner
+						active=true
+						isBlock=true
+						isThemed=false
+						overlay=false
+						radius=15
+						strokeWidth=2
+				}}
+			</div>
+		{{/if}}
 	{{else}}
-		{{i18n 'notifications-no-notifications-message' ns='design-system'}}
-	{{/if}}
-	{{#if isLoadingNewResults }}
-		<div class="spinner-container">
-			{{loading-spinner
-					active=true
-					isBlock=true
-					isThemed=false
-					overlay=false
-					radius=15
-					strokeWidth=2
-			}}
-		</div>
+		<p class="wds-notifications__zero-state">
+			{{i18n 'notifications-no-notifications-message' ns='design-system'}}
+		</p>
 	{{/if}}
 </div>

@@ -11,7 +11,7 @@ export default Component.extend(
 	NotificationsScrollMenuMixin,
 	MarkAllNotificationsMixin,
 	{
-		classNames: ['wikia-user-profile'],
+		classNames: ['wds-user-profile'],
 		currentUser: inject.service(),
 		notifications: inject.service(),
 
