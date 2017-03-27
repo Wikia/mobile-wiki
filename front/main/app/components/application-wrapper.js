@@ -33,8 +33,7 @@ export default Component.extend({
 	firstRender: true,
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
-		//TODO revert this after OSN are complete
-		return `wikia-user-profile`;
+		return `wikia-${this.get('activeDrawerContent')}`;
 	}),
 
 	verticalClass: computed(() => {
