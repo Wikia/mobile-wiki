@@ -16,8 +16,9 @@ ArticleModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getArticleRandomTitle() {
+	getArticleRandomTitle(host) {
 		return request(buildUrl({
+			host,
 			path: '/api.php',
 			query: {
 				action: 'query',
