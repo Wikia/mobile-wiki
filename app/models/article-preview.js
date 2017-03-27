@@ -2,7 +2,7 @@ import Ember from 'ember';
 import request from 'ember-ajax/request';
 import {buildUrl} from '../utils/url';
 
-const {EmberObject} = Ember;
+const {Object: EmberObject} = Ember;
 
 export default EmberObject.extend({
 	host: null,
