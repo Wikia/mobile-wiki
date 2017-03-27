@@ -109,7 +109,6 @@ module.exports = function (defaults) {
 		app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
 		app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
 		app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
-		app.import(app.bowerDirectory + '/numeral/numeral.js');
 		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 		app.import(app.bowerDirectory + '/script.js/dist/script.js');
@@ -122,10 +121,7 @@ module.exports = function (defaults) {
 	}
 
 	// Assets which are lazy loaded
-	const numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
-			destDir: 'assets/vendor/numeral'
-		}),
-		designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
+	const designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
 			destDir: 'assets/design-system.svg'
 		}),
 		designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
@@ -133,7 +129,6 @@ module.exports = function (defaults) {
 		});
 
 	return app.toTree([
-		numeralAssets,
 		designSystemAssets,
 		designSystemI18n
 	]);
