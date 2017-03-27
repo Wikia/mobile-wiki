@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
-import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count'
+import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from 'common/utils/track';
 
 const {computed, Component} = Ember;
