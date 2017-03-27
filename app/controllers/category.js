@@ -20,16 +20,6 @@ export default Controller.extend(
 			},
 
 			/**
-			 * TODO Remove after XW-2583 is released
-			 * @param {number} index
-			 * @param {number} batch
-			 * @returns {Ember.RSVP.Promise}
-			 */
-			loadBatch(index, batch) {
-				return this.get('model').loadMore(index, batch);
-			},
-
-			/**
 			 * @param {number} page
 			 * @returns {Ember.RSVP.Promise}
 			 */
