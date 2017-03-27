@@ -26,7 +26,6 @@ export default Component.extend(
 		username: computed.oneWay('currentUser.name'),
 
 		didRender() {
-			console.log('zorf');
 			this._super(...arguments);
 			this.element.scrollTop = 0;
 		},
