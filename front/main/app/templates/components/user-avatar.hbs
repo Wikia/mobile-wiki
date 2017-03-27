@@ -1,8 +1,8 @@
 <figure class="avatar">
 	{{#if avatarUrl}}
 		{{#if shouldWrapInHref}}
-			<a href="{{profileUrl}}">
-				<img src="{{avatarUrl}}">
+			<a class="user-avatar__link" href="{{profileUrl}}">
+				<img class="user-avatar__image" src="{{avatarUrl}}" title="{{displayName}}" alt="Avatar">
 			</a>
 		{{else}}
 			<img src="{{avatarUrl}}">
