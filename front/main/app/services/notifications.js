@@ -21,10 +21,9 @@ export default Service.extend({
 	 */
 	enableOnSiteNotifications: Ember.get(Mercury, 'wiki.enableOnSiteNotifications'),
 
-
-	modelLoader: computed('currentUser.isAuthenticated', 'enableOnSiteNotifications', function () {
+	modelLoader: computed('isUserAuthenticated', 'enableOnSiteNotifications', function () {
 		this.set('isLoading', true);
-		if (!this.isUserAuthenticated || !this.enableOnSiteNotifications) {
+		if (!this.get('isUserAuthenticated') || !this.get('enableOnSiteNotifications')) {
 			this.set('isLoading', false);
 			return RSVP.reject();
 		}
