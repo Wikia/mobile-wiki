@@ -2,6 +2,7 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.Service.extend({
+	wikiVariables: Ember.inject.service(),
 	defaultLocation: 'en',
 	enRelativeTime: {
 		m: '1m',
@@ -15,16 +16,16 @@ export default Ember.Service.extend({
 	isLoading: false,
 	// Path to all supported locales, so they can be fingerprinted
 	localePath: {
-		de: '/front/main/moment/de.js',
-		es: '/front/main/moment/es.js',
-		fr: '/front/main/moment/fr.js',
-		it: '/front/main/moment/it.js',
-		ja: '/front/main/moment/ja.js',
-		pl: '/front/main/moment/pl.js',
-		'pt-br': '/front/main/moment/pt-br.js',
-		ru: '/front/main/moment/ru.js',
-		'zh-cn': '/front/main/moment/zh-cn.js',
-		'zh-tw': '/front/main/moment/zh-tw.js'
+		de: '/mobile-wiki/moment/de.js',
+		es: '/mobile-wiki/moment/es.js',
+		fr: '/mobile-wiki/moment/fr.js',
+		it: '/mobile-wiki/moment/it.js',
+		ja: '/mobile-wiki/moment/ja.js',
+		pl: '/mobile-wiki/moment/pl.js',
+		'pt-br': '/mobile-wiki/moment/pt-br.js',
+		ru: '/mobile-wiki/moment/ru.js',
+		'zh-cn': '/mobile-wiki/moment/zh-cn.js',
+		'zh-tw': '/mobile-wiki/moment/zh-tw.js'
 	},
 	/**
 	 * Changes status of downloading moment's locale to trigger helper's observers
@@ -56,22 +57,22 @@ export default Ember.Service.extend({
 	 * @return {void}
 	 */
 	loadLocale() {
-		// if (!this.get('isLoading')) {
-		// 	const contentLang = Ember.get(Mercury, 'wiki.language.content'),
-		// 		lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : this.defaultLocation;
-		//
-		// 	this.changeLoadingStatus(false);
-		// 	if (lang === 'en') {
-		// 		this.setEnLocale();
-		// 	} else {
-		// 		Ember.$.getScript(this.localePath[lang]).done(() => {
-		// 			this.changeLoadingStatus();
-		// 		}).fail((jqxhr, settings, exception) => {
-		// 			Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
-		// 			this.setEnLocale();
-		// 		});
-		// 	}
-		// }
+		if (!this.get('isLoading')) {
+			const contentLang = this.get('wikiVariables.language.content'),
+				lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : this.defaultLocation;
+
+			this.changeLoadingStatus(false);
+			if (lang === 'en') {
+				this.setEnLocale();
+			} else {
+				Ember.$.getScript(this.localePath[lang]).done(() => {
+					this.changeLoadingStatus();
+				}).fail((jqxhr, settings, exception) => {
+					Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
+					this.setEnLocale();
+				});
+			}
+		}
 	},
 	// Extends default en translation by needed relative time on init
 	init() {
