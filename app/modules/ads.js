@@ -244,8 +244,8 @@ class Ads {
 		let value = isAdBlockDetected ? 'Yes' : 'No';
 
 		Ads.setPreviousDetectionResult(name, isAdBlockDetected);
-		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
-		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
+		// M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
+		// M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
 		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
 	}
