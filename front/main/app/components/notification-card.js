@@ -108,7 +108,8 @@ export default Component.extend(
 
 		getTranslatedMessage(key, context) {
 			const fullContext = $.extend({}, {
-				lng: this.get('userLanguage'),
+				// TODO: XW-1685 fix i18n for User's language
+				// lng: this.get('userLanguage'),
 				ns: 'design-system',
 			}, context);
 
