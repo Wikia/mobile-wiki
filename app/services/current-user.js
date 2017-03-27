@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import config from '../config/environment';
+import request from 'ember-ajax/request';
+import {isTimeoutError} from 'ember-ajax/errors';
 import UserModel from '../models/user';
 
 const {computed, Service, inject, Logger} = Ember;
@@ -34,12 +37,45 @@ export default Service.extend({
 
 	userId: null,
 
+	initialize() {
+		const fastboot = this.get('fastboot');
+
+		if (fastboot.get('isFastBoot')) {
+			const accessToken = fastboot.get('request.cookies.access_token');
+
+			if (accessToken) {
+				request(config.helios.internalUrl, {
+					data: {
+						code: accessToken
+					},
+					timeout: config.helios.timeout,
+					error: false
+				}).then((data) => {
+					fastboot.get('shoebox').put('userId', data.user_id);
+					this.initializeUserData(data.user_id);
+				}).catch((reason) => {
+					if (isTimeoutError(reason)) {
+						Logger.error('Helios timeout error: ', reason);
+					} else if (reason.errors && reason.errors[0].status == 401) {
+						Logger.info('Token not authorized by Helios: ', reason);
+					} else {
+						Logger.error('Helios connection error: ', reason);
+					}
+				})
+			}
+		} else {
+			const userId = fastboot.get('shoebox').retrieve('userId');
+
+			if (userId) {
+				this.initializeUserData(userId);
+			}
+		}
+	},
+
 	/**
 	 * @returns {void}
 	 */
 	initializeUserData(userId) {
-		this._super(...arguments);
-
 		this.set('userId', userId);
 
 		if (userId !== null) {
@@ -49,7 +85,7 @@ export default Service.extend({
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
-						host: 'fallout.damian.wikia-dev.pl'
+						host: this.get('wikiVariables.host')
 					})
 					.then((userModelData) => {
 						if (userModelData) {

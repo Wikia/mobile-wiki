@@ -19,6 +19,7 @@ export default Route.extend(
 	HeadTagsStaticMixin,
 	{
 		ads: inject.service(),
+		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
 		wikiVariables: inject.service(),
@@ -66,6 +67,7 @@ export default Route.extend(
 			this._super(...arguments);
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
+			this.get('currentUser').initialize();
 
 			if (this.get('fastboot.isFastBoot')) {
 				this.get('fastboot.response.headers').set('vary', 'cookie');
