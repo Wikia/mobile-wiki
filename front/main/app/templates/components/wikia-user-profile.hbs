@@ -1,7 +1,7 @@
-<div class="wds-user-profile__fixed-wrapper">
+<div class="wikia-user-profile__fixed-wrapper">
 	<div class="wikia-nav__header">
 		<a {{action 'getBack' preventDefault=false}}
-				class="wikia-nav__back wds-user-profile__back-link">
+				class="wikia-nav__back wikia-user-profile__back-link">
 			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
 		</a>
 		<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}}
@@ -11,16 +11,16 @@
 		</a>
 	</div>
 
-	<header class="wds-user-profile__header-wrapper">
+	<header class="wikia-user-profile__header-wrapper">
 		{{user-avatar
 				username=username
 				avatarUrl=currentUser.avatarPath
 		}}
-		<h4 class="wds-user-profile__username">{{username}}</h4>
+		<h4 class="wikia-user-profile__username">{{username}}</h4>
 	</header>
 
-	<div class="wds-user-profile__notification-title-wrapper">
-		<h5 class="wds-user-profile__notification-title">{{i18n 'notifications-notifications' ns='design-system'}}</h5>
+	<div class="wikia-user-profile__notification-title-wrapper">
+		<h5 class="wikia-user-profile__notification-title">{{i18n 'notifications-notifications' ns='design-system'}}</h5>
 		{{#if notificationsList.length}}
 			<a class="wds-notifications__mark-all-as-read" {{action 'markAllAsRead'}}>
 				{{i18n 'notifications-mark-all-as-read' ns='design-system'}}
@@ -30,7 +30,7 @@
 </div>
 
 
-<div class="wds-user-profile__scrollable-wrapper scrolling-part">
+<div class="wikia-user-profile__scrollable-wrapper scrolling-part">
 	{{#if notificationsList.length}}
 		<ul class="wds-notifications__notification-list wds-list wds-has-lines-between">
 			{{#each notificationsList as |notification|}}
