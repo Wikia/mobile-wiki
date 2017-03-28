@@ -3,12 +3,8 @@
 /* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
-	esTranspiler = require('broccoli-babel-transpiler'),
-	concat = require('broccoli-concat'),
 	Funnel = require('broccoli-funnel'),
-	BroccoliMergeTrees = require('broccoli-merge-trees'),
-	stew = require('broccoli-stew'),
-	uglify = require('broccoli-uglify-sourcemap');
+	stew = require('broccoli-stew');
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -77,7 +73,7 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua-init': `${inlineScriptsPath}tracking-ua-init.js`,
-			'inline-scripts-transpiled': `dist/mobile-wiki/assets/vendor/inline-scripts-transpiled.js`
+			'mercury-shared': `node_modules/mercury-shared/dist/mercury-shared.js`
 		},
 		outputPaths: {
 			app: {
@@ -135,32 +131,8 @@ module.exports = function (defaults) {
 			destDir: 'locales'
 		});
 
-	// Compile scripts which live outside of the Ember app
-	let inlineScriptsTree = esTranspiler(`${inlineScriptsPath}es6`);
-
-	inlineScriptsTree = concat(inlineScriptsTree, {
-		inputFiles: [
-			'simple-extend.js',
-			'tracking-internal.js',
-			'tracking-ua.js'
-		],
-		outputFile: 'assets/vendor/inline-scripts-transpiled.js',
-		sourceMapConfig: {
-			enabled: false
-		}
-	});
-
-	if (app.env === 'production') {
-		inlineScriptsTree = uglify(inlineScriptsTree);
-	}
-
-	return BroccoliMergeTrees([
-		inlineScriptsTree,
-		app.toTree([
-			designSystemAssets,
-			designSystemI18n
-		])], {
-		// Without it there is `Merge error: file assets/vendor/inline-scripts.js exists in tmp/...`
-		overwrite: true
-	});
+	return app.toTree([
+		designSystemAssets,
+		designSystemI18n
+	]);
 };
