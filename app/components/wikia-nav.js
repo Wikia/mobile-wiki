@@ -17,13 +17,14 @@ export default Component.extend(
 		wikiVariables: inject.service(),
 		i18n: inject.service(),
 
-		logoutLink: buildUrl({
-			host: this.get('wikiVariables.host'),
-			namespace: 'Special',
-			title: 'UserLogout'
-		}),
-
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
+		logoutLink: computed(function () {
+			return buildUrl({
+				host: this.get('wikiVariables.host'),
+				namespace: 'Special',
+				title: 'UserLogout'
+			});
+		}),
 		userProfileLink: computed('currentUser.name', function () {
 			return buildUrl({
 				host: this.get('wikiVariables.host'),
