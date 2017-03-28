@@ -70,17 +70,6 @@ export default Route.extend(
 
 			this._super(...arguments);
 
-			if (fastboot.get('isFastBoot') && model.basePath !== `${fastboot.get('request.protocol')}://${model.host}`) {
-				const fastbootRequest = this.get('fastboot.request');
-
-				fastboot.get('response.headers').set(
-					'location',
-					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
-				);
-				fastboot.set('response.statusCode', 301);
-				return;
-			}
-
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
 			this.get('currentUser').initialize();
 
@@ -140,6 +129,21 @@ export default Route.extend(
 				adsModule.setSiteHeadOffset = (offset) => {
 					this.set('ads.siteHeadOffset', offset);
 				};
+			}
+		},
+
+		redirect(model, transition) {
+			const fastboot = this.get('fastboot');
+
+			if (fastboot.get('isFastBoot') && model.basePath !== `${fastboot.get('request.protocol')}://${model.host}`) {
+				const fastbootRequest = this.get('fastboot.request');
+
+				fastboot.get('response.headers').set(
+					'location',
+					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+				);
+				fastboot.set('response.statusCode', 301);
+				return false;
 			}
 		},
 
