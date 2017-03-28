@@ -1,7 +1,7 @@
 import request from 'ember-ajax/request';
 import {buildUrl} from './url';
 
-export function putTrackingDimensionsToShoebox(fastboot, currentUser, host, model) {
+export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host, model) {
 	return request(
 		buildUrl({
 			host,

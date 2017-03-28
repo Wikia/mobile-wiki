@@ -11,7 +11,7 @@ import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext} from '../utils/track';
-import {putTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
+import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
@@ -113,7 +113,7 @@ export default Route.extend(
 				if (fastboot.get('isFastBoot')) {
 					return RSVP
 						.resolve(pageModel)
-						.then(putTrackingDimensionsToShoebox.bind(null, fastboot, this.get('currentUser'), host));
+						.then(getAndPutTrackingDimensionsToShoebox.bind(null, fastboot, this.get('currentUser'), host));
 				} else {
 					return pageModel;
 				}
