@@ -87,7 +87,7 @@ export default Route.extend(
 			if (fastboot.get('isFastBoot')) {
 				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
 				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-				fastboot.get('response.headers').set('vary', 'cookie accept-encoding');
+				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
 				fastboot.get('response.headers').set('Content-Language', model.language.content);
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
