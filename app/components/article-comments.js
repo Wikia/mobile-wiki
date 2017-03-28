@@ -2,6 +2,8 @@ import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
 
+const {Component, computed, inject, observer, run} = Ember;
+
 /**
  * Component that displays article comments
  *
@@ -9,9 +11,9 @@ import {track, trackActions} from '../utils/track';
  *
  * TODO: Great refactor XW-1237
  */
-export default Ember.Component.extend(
+export default Component.extend(
 	{
-		wikiVariables: Ember.inject.service(),
+		wikiVariables: inject.service(),
 		page: null,
 		articleId: null,
 		commentsCount: null,
@@ -21,14 +23,14 @@ export default Ember.Component.extend(
 
 		nextButtonShown: false,
 		prevButtonShown: false,
-		showComments: Ember.computed.bool('page'),
+		showComments: computed.bool('page'),
 
 		/**
 		 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
 		 * and updates model, so it can load a page of comments
 		 */
-		pageObserver: Ember.observer('page', 'model.comments', function () {
-			Ember.run.scheduleOnce('afterRender', this, () => {
+		pageObserver: observer('page', 'model.comments', function () {
+			run.scheduleOnce('afterRender', this, () => {
 				const page = this.get('page'),
 					count = this.get('model.pagesCount');
 
@@ -57,7 +59,7 @@ export default Ember.Component.extend(
 		/**
 		 * watches changes to model, and scrolls to top of comments
 		 */
-		commentsObserver: Ember.observer('model.comments', function () {
+		commentsObserver: observer('model.comments', function () {
 			if (this.get('model.comments')) {
 				this.scrollToTop();
 			}
@@ -66,7 +68,7 @@ export default Ember.Component.extend(
 		/**
 		 * if articleId changes, updates model
 		 */
-		articleIdObserver: Ember.observer('articleId', function () {
+		articleIdObserver: observer('articleId', function () {
 			this.setProperties({
 				'model.articleId': this.get('articleId'),
 				page: null

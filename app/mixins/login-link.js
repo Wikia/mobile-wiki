@@ -1,7 +1,9 @@
 import LanguagesMixin from './languages';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Mixin.create(LanguagesMixin, {
+const {Mixin} = Ember;
+
+export default Mixin.create(LanguagesMixin, {
 	/**
 	 * Creates a link to a login page preserving current page as a redirect
 	 * and adding a language code to the querystring

@@ -10,7 +10,7 @@ import ScriptsForFastBootOnlyMixin from '../mixins/scripts-fastboot-only';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
-import {setTrackContext} from '../utils/track';
+import {setTrackContext, trackPageView} from '../utils/track';
 import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
@@ -30,7 +30,6 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
-		tracking: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -221,7 +220,7 @@ export default Route.extend(
 				n: model.get('ns')
 			});
 
-			this.get('tracking').trackPageView(uaDimensions);
+			trackPageView(uaDimensions);
 		},
 
 		/**

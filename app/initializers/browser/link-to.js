@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import {track, trackActions} from '../../utils/track';
 
+const {LinkComponent} = Ember;
+
 /**
  * @returns {void}
  */
 export function initialize() {
-	Ember.LinkComponent.reopen({
+	LinkComponent.reopen({
 		// it allows to use action='x' actionParam='y' in link-to helper
 		action: null,
 

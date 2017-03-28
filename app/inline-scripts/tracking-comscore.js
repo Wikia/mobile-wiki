@@ -1,4 +1,4 @@
-(function () {
+(function (M) {
 	var prefix = (document.location.protocol === 'https:' ? 'https://sb' : 'http://b');
 
 	if (M.getFromShoebox('runtimeConfig.noExternals')) {
@@ -37,4 +37,4 @@
 	};
 
 	window.trackComscorePageView();
-})();
+})(window.M);

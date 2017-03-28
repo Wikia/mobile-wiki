@@ -1,4 +1,4 @@
-(function() {
+(function(M, Wikia) {
 	var allowExternals = !M.getFromShoebox('runtimeConfig.noExternals'),
 		triedToTrackWithoutLoadedLibrary = false,
 		ivw3 = M.getFromShoebox('tracking.ivw3') || {};
@@ -35,4 +35,4 @@
 			triedToTrackWithoutLoadedLibrary = true;
 		}
 	};
-})();
+})(window.M, window.Wikia);

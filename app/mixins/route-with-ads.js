@@ -1,7 +1,10 @@
 import Ember from 'ember';
-import M from '../mmm';
 
-export default Ember.Mixin.create({
+const {Mixin, inject} = Ember;
+
+export default Mixin.create({
+	fastboot: inject.service(),
+
 	/**
 	 * Reset AdEngine variables before article load
 	 *
@@ -9,7 +12,7 @@ export default Ember.Mixin.create({
 	 */
 	beforeModel() {
 		this._super();
-		if (!M.prop('initialPageView')) {
+		if (!this.get('fastboot.isFastBoot') && !M.initialPageView) {
 			window.wgNow = new Date();
 		}
 	}

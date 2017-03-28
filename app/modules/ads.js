@@ -1,6 +1,4 @@
 /* eslint no-console: 0 */
-
-import M from '../mmm';
 import config from '../config/environment';
 
 /**
@@ -102,10 +100,8 @@ class Ads {
 
 		this.adsUrl = adsUrl;
 
-		console.log(adsUrl);
-
 		// Load the ads code from MW
-		$script(adsUrl, () => {
+		window.M.loadScript(adsUrl, true, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -212,8 +208,7 @@ class Ads {
 		// Sampling on GA side will kill the performance as we need to allocate object each time we track
 		// ToDo: Optimize object allocation for tracking all events
 		if (Math.random() * 100 <= adHitSample) {
-			// FIXME
-			// M.tracker.UniversalAnalytics.trackAds(...arguments);
+			M.tracker.UniversalAnalytics.trackAds(...arguments);
 		}
 	}
 
@@ -244,8 +239,8 @@ class Ads {
 		let value = isAdBlockDetected ? 'Yes' : 'No';
 
 		Ads.setPreviousDetectionResult(name, isAdBlockDetected);
-		// M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
-		// M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
+		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
+		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
 		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
 	}
@@ -459,7 +454,7 @@ class Ads {
 	 */
 	onReady(callback, context) {
 		if (this.adsUrl) {
-			$script.ready(this.adsUrl, () => {
+			window.M.loadScript(this.adsUrl, true, () => {
 				callback.apply(context);
 			});
 		}

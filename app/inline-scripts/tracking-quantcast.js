@@ -1,4 +1,4 @@
-(function () {
+(function (M) {
 	var prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge';
 
 	if (M.getFromShoebox('runtimeConfig.noExternals')) {
@@ -24,4 +24,4 @@
 	};
 
 	window.trackQuantcastPageView();
-})();
+})(window.M);

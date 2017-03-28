@@ -1,4 +1,4 @@
-(function () {
+(function (M) {
 	var config = M.getFromShoebox('tracking.nielsen') || {};
 
 	function sendNielsenPageView() {
@@ -50,4 +50,4 @@
 	};
 
 	window.trackNielsenPageView();
-})();
+})(window.M);

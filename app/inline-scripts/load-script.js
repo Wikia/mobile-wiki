@@ -12,4 +12,4 @@
 
 		firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 	};
-})(M);
+})(window.M);

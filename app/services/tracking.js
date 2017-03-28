@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import baseConfig from '../config/environment';
-import {trackPageView} from '../utils/track';
 import extend from '../utils/extend';
 
 const {Service, computed, get, inject, set} = Ember;
@@ -47,13 +46,5 @@ export default Service.extend({
 		set(config, 'nielsen.dbName', this.get('wikiVariables.dbName'));
 
 		return config;
-	},
-
-	trackPageView(uaDimensions) {
-		if (this.get('fastboot.isFastBoot')) {
-			return;
-		}
-
-		trackPageView(uaDimensions);
 	}
 });
