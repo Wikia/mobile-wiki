@@ -5,7 +5,7 @@ import {buildUrl} from '../../utils/url';
 
 const {get, isEmpty} = Ember,
 	CategoryModel = BaseModel.extend({
-		basePath: null,
+		host: null,
 		hasArticle: false,
 		membersGrouped: null,
 		nextPage: null,
@@ -20,7 +20,7 @@ const {get, isEmpty} = Ember,
 		 */
 		loadPage(page) {
 			return request(buildUrl({
-				host: this.get('basePath'),
+				host: this.get('host'),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
