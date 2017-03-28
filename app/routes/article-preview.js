@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticlePreviewModel from '../models/article-preview';
+import {disableCache} from '../utils/fastboot-caching';
 
 /**
  * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
@@ -18,6 +19,8 @@ export default Ember.Route.extend({
 			const model = ArticlePreviewModel.create({
 				host: this.get('wikiVariables.host')
 			});
+
+			disableCache();
 
 			return model.articleFromMarkup(requestBody.title, requestBody.wikitext, requestBody.CKmarkup)
 				.then((articleData) => {

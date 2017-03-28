@@ -7,6 +7,8 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
 
+import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
+
 const {
 	Logger,
 	Route,
@@ -70,8 +72,24 @@ export default Route.extend(
 			this.get('currentUser').initialize();
 
 			if (this.get('fastboot.isFastBoot')) {
-				this.get('fastboot.response.headers').set('vary', 'cookie');
+				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+				this.get('fastboot.response.headers').set('vary', 'cookie accept-encoding');
 				this.get('fastboot.response.headers').set('Content-Language', model.language.content);
+
+				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+				// and we can purge the category pages
+				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+					disableCache(this.get('fastboot'));
+				} else {
+					// TODO don't cache errors
+					setResponseCaching(this.get('fastboot'), {
+						enabled: true,
+						cachingPolicy: CachingPolicy.Public,
+						varnishTTL: CachingInterval.standard,
+						browserTTL: CachingInterval.disabled
+					});
+				}
 			}
 
 			if (
