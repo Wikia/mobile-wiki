@@ -147,12 +147,14 @@ module.exports = function (defaults) {
 
 	if (app.env === 'production') {
 		inlineScriptsTree = uglify(inlineScriptsTree);
-	}return BroccoliMergeTrees([
-		inlineScriptsTree,app.toTree([
+	}
 
-		designSystemAssets,
-		designSystemI18n
-	])], {
+	return BroccoliMergeTrees([
+		inlineScriptsTree,
+		app.toTree([
+			designSystemAssets,
+			designSystemI18n
+		])], {
 		// Without it there is `Merge error: file assets/vendor/inline-scripts.js exists in tmp/...`
 		overwrite: true
 	});
