@@ -1,14 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNameBindings: ['overlay:loading-overlay'],
+	classNameBindings: ['overlay:wds-spinner__overlay'],
 
 	spinnerClasses: Ember.computed('isBlock', function () {
-		return `spinner ${this.get('isBlock') ? 'block' : ''}`;
+		return `wds-spinner ${this.get('isBlock') ? 'wds-spinner__block' : ''}`;
 	}),
 
 	strokeClasses: Ember.computed('isThemed', function () {
-		return `path ${this.get('isThemed') ? 'stroke-theme-color' : ''}`;
+		return `wds-spinner__stroke ${this.get('isThemed') ? 'wds-spinner__stroke-theme-color' : ''}`;
 	}),
 
 	// 'isVisible' is set to false also when 'active' is undefined.
