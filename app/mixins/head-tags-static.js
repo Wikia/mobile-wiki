@@ -22,7 +22,7 @@ export default Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	setStaticHeadTags(noexternals) {
+	setStaticHeadTags(noExternals) {
 		const wikiVariables = this.modelFor('application');
 
 		this.get('headData').setProperties({
@@ -34,8 +34,7 @@ export default Mixin.create({
 			optimizelyScript: config.optimizely.enabled ?
 				`${config.optimizely.scriptPath}${config.optimizely.account}`:
 				false,
-			isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl',
-			noexternals,
+			noExternals,
 			facebookAppId: config.facebook.appId
 		});
 	}
