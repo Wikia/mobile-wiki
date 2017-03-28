@@ -6,7 +6,7 @@ import config from '../config/environment';
  * @param {Object} [query={}] Querystring object
  * @returns {string}
  */
-function getQueryString(query = {}) {
+export function getQueryString(query = {}) {
 	const queryArray = Object.keys(query);
 
 	let queryString = '';

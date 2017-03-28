@@ -6,6 +6,7 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {activate as variantTestingActivate} from '../utils/variant-testing';
+import {getQueryString} from '../utils/url';
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
@@ -64,23 +65,35 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
+			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {},
+				fastboot = this.get('fastboot');
 
 			this._super(...arguments);
+
+			if (fastboot.get('isFastBoot') && model.basePath !== `${fastboot.get('request.protocol')}://${model.host}`) {
+				const fastbootRequest = this.get('fastboot.request');
+
+				fastboot.get('response.headers').set(
+					'location',
+					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+				);
+				fastboot.set('response.statusCode', 301);
+				return;
+			}
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
 			this.get('currentUser').initialize();
 
-			if (this.get('fastboot.isFastBoot')) {
+			if (fastboot.get('isFastBoot')) {
 				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
 				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-				this.get('fastboot.response.headers').set('vary', 'cookie accept-encoding');
-				this.get('fastboot.response.headers').set('Content-Language', model.language.content);
+				fastboot.get('response.headers').set('vary', 'cookie accept-encoding');
+				fastboot.get('response.headers').set('Content-Language', model.language.content);
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
 				// and we can purge the category pages
 				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-					disableCache(this.get('fastboot'));
+					disableCache(fastboot);
 				} else {
 					// TODO don't cache errors
 					setResponseCaching(this.get('fastboot'), {
@@ -93,7 +106,7 @@ export default Route.extend(
 			}
 
 			if (
-				!this.get('fastboot.isFastBoot') &&
+				!fastboot.get('isFastBoot') &&
 				this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury
