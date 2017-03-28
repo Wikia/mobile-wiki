@@ -101,7 +101,7 @@ class Ads {
 		this.adsUrl = adsUrl;
 
 		// Load the ads code from MW
-		window.M.loadScript(adsUrl, true, () => {
+		$script(adsUrl, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -454,7 +454,7 @@ class Ads {
 	 */
 	onReady(callback, context) {
 		if (this.adsUrl) {
-			window.M.loadScript(this.adsUrl, true, () => {
+			$script(this.adsUrl, () => {
 				callback.apply(context);
 			});
 		}

@@ -113,8 +113,7 @@ module.exports = function (defaults) {
 		app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
 		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
-		// FIXME remove it
-		app.import(app.bowerDirectory + '/script.js/dist/script.js');
+		app.import(app.bowerDirectory + '/script.js/dist/script.min.js');
 	}
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
 
