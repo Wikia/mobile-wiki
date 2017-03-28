@@ -18,6 +18,7 @@ export default Component.extend(
 		i18n: inject.service(),
 
 		logoutLink: buildUrl({
+			host: this.get('wikiVariables.host'),
 			namespace: 'Special',
 			title: 'UserLogout'
 		}),
