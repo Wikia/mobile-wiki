@@ -119,11 +119,9 @@
 			tracked.forEach((account) => {
 				const prefix = getPrefix(account);
 
-				for (let index in dimensions) {
-					if (dimensions.hasOwnProperty(index)) {
-						ga(`${prefix}set`, `dimension${index}`, getDimension(index));
-					}
-				}
+				Object.keys(dimensions).forEach((key) => {
+					ga(`${prefix}set`, `dimension${key}`, getDimension(key));
+				});
 			});
 
 			dimensionsSynced = true;
@@ -168,11 +166,9 @@
 					 * Which, ultimately, tells us if new dimensions are
 					 * different from the old ones and if we need a re-syncing.
 					 */
-					for (let index in dimensions) {
-						if (dimensions.hasOwnProperty(index)) {
-							dimensionsSynced = dimensionsSynced && (oldDimensions[index] === dimensions[index]);
-						}
-					}
+					Object.keys(dimensions).forEach((key) => {
+						dimensionsSynced = dimensionsSynced && (oldDimensions[key] === dimensions[key]);
+					});
 				}
 			}
 		}
@@ -333,11 +329,9 @@
 
 		// set per-page dimensions if they were passed
 		if (typeof uaDimensions === 'object') {
-			for (let index in uaDimensions) {
-				if (uaDimensions.hasOwnProperty(index)) {
-					setDimension(index, uaDimensions[index]);
-				}
-			}
+			Object.keys(uaDimensions).forEach((key) => {
+				setDimension(key, uaDimensions[key]);
+			});
 		}
 
 		syncDimensions();
@@ -516,6 +510,10 @@
 })(M);
 
 (function (M) {
+	if (M.getFromShoebox('runtimeConfig.noExternals')) {
+		return;
+	}
+
 	const dimensions = M.getFromShoebox('trackingDimensionsForFirstPage');
 
 	if (dimensions) {

@@ -1,4 +1,4 @@
-(function () {
+(function (M) {
 	M.loadScript = function (src, async, onload) {
 		var firstScriptInDocument = document.getElementsByTagName('script')[0];
 		var scriptTag = document.createElement('script');
@@ -12,4 +12,4 @@
 
 		firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 	};
-})();
+})(M);

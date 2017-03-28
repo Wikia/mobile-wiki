@@ -65,7 +65,7 @@ module.exports = function (defaults) {
 			// prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
 		},
 		inlineContent: {
-			'mediawiki-globals': `${inlineScriptsPath}mediawiki-globals.js`,
+			'globals': `${inlineScriptsPath}globals.js`,
 			'get-from-shoebox': `${inlineScriptsPath}get-from-shoebox.js`,
 			'geo-cookie': `${inlineScriptsPath}geo-cookie.js`,
 			'load-script': `${inlineScriptsPath}load-script.js`,
@@ -138,7 +138,11 @@ module.exports = function (defaults) {
 	let inlineScriptsTree = esTranspiler(`${inlineScriptsPath}es6`);
 
 	inlineScriptsTree = concat(inlineScriptsTree, {
-		inputFiles: ['simple-extend.js', 'tracking-ua.js'],
+		inputFiles: [
+			'simple-extend.js',
+			'tracking-internal.js',
+			'tracking-ua.js'
+		],
 		outputFile: 'assets/vendor/inline-scripts-transpiled.js',
 		sourceMapConfig: {
 			enabled: false

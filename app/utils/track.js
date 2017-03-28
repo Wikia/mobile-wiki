@@ -94,8 +94,6 @@ let context = {
 	n: null
 };
 
-let initialPageView = true;
-
 /**
  * @param {TrackingParams} params
  * @returns {void}
@@ -165,14 +163,14 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(uaDimensions) {
-	if (initialPageView) {
-		initialPageView = false;
+	if (M.initialPageView) {
+		M.initialPageView = false;
 	} else {
 		// Defined in templates/components/fastboot-only/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
 		window.trackNielsenPageView();
-		// M.tracker.Internal.trackPageView(context);
+		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
 
