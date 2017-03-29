@@ -137,7 +137,7 @@ export default Route.extend(
 						this.trackPageView(model);
 
 						if (typeof handler.afterTransition === 'function') {
-							handler.afterTransition(model, this.get('wikiVariables.id'));
+							handler.afterTransition(model, this.get('wikiVariables.id'), this.get('wikiVariables.host'));
 						}
 					});
 

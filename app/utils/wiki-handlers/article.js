@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
-import {buildUrl} from '../../utils/url';
+import fetch from '../wikia-fetch';
+import {buildUrl} from '../url';
 
 /**
  * @param {Ember.Route} route
@@ -24,20 +24,23 @@ function afterModel(route, model) {
  * https://github.com/Wikia/app/blob/dev/extensions/3rdparty/LyricWiki/LyricFind/js/modules/LyricFind.Tracker.js
  *
  * @param {Ember.model} model
+ * @param {number} wikiId
+ * @param {String} host
  */
-function sendLyricsPageView(model, wikiId) {
+function sendLyricsPageView(model, wikiId, host) {
 	if (wikiId === 43339 && !model.get('isMainPage')) {
-		request(buildUrl({path: '/wikia.php'}), {
-			data: {
+		fetch(buildUrl({
+			host,
+			path: '/wikia.php',
+			query: {
 				controller: 'LyricFind',
 				method: 'track',
 				title: model.get('title'),
 				amgid: 0,
 				gracenoteid: 0,
 				rand: (`${Math.random()}`).substr(2, 8)
-			},
-			dataType: 'text'
-		}).catch((error) => {
+			}
+		})).catch((error) => {
 			/**
 			 * MediaWiki returns 404 with header X-LyricFind-API-Code:106
 			 * for success request but no lyrics
@@ -50,9 +53,11 @@ function sendLyricsPageView(model, wikiId) {
  * Hook triggered on transition.then() in Route::afterModel()
  *
  * @param {Ember.model} model
+ * @param {number} wikiId
+ * @param {String} host
  */
-function afterTransition(model, wikiId) {
-	sendLyricsPageView(model, wikiId);
+function afterTransition(model, wikiId, host) {
+	sendLyricsPageView(model, wikiId, host);
 }
 
 /**
