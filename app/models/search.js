@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
-import {isNotFoundError, isBadRequestError, isForbiddenError} from 'ember-ajax/errors';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 
 const {Object, computed, A, Logger} = Ember;
@@ -48,37 +47,36 @@ export default Object.extend({
 			loading: true
 		});
 
-		return request(buildUrl({
+		return fetch(buildUrl({
 			host: this.get('host'),
-			path: '/wikia.php'
-		}), {
-			data: {
+			path: '/wikia.php',
+			query: {
 				controller: 'SearchApi',
 				method: 'getList',
 				query,
 				batch: this.get('batch')
 			}
-		}).then((data) => {
-			// update state on success
-			return this.update(data);
-		}, (error) => {
-			this.setProperties({
-				error: 'search-error-general',
-				erroneousQuery: query,
-				loading: false
-			});
+		}))
+			.then((response) => {
+				if (!response.ok) {
+					this.setProperties({
+						error: 'search-error-general',
+						erroneousQuery: query,
+						loading: false
+					});
 
-			if (isNotFoundError(error)) {
-				this.set('error', 'search-error-not-found');
-			} else if (isForbiddenError(error)) {
-				Logger.error('Search forbidden request', query);
-			} else if (isBadRequestError(error)) {
-				// this shouldn't happen
-				Logger.error('Search bad request', query);
-			} else {
-				Logger.error('Search error', error);
-			}
-		});
+					if (response.status === 404) {
+						this.set('error', 'search-error-not-found');
+					} else {
+						Logger.error('Search request error', response);
+					}
+				} else {
+					return response.json().then((data) => {
+						// update state on success
+						return this.update(data);
+					});
+				}
+			});
 	},
 
 	update(state) {
