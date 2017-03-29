@@ -145,4 +145,12 @@ if (typeof window.M === 'undefined') {
 	M.getDiscussionServiceUrl = function (path = '') {
 		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
 	};
+
+	/**
+	 * @param {string} [path='']
+	 * @returns {string}
+	 */
+	M.getOnSiteNotificationsServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('onSiteNotificationsBaseRoute')}${path}`;
+	};
 })(M);
