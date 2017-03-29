@@ -28,8 +28,7 @@ export default EmberObject.extend(
 		 */
 		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
 			const queryString = getQueryString({
-				// TODO traditional forumIds
-				// forumId: categories instanceof Array ? categories : [categories],
+				forumId: categories instanceof Array ? categories : [categories],
 				limit,
 				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
 			});

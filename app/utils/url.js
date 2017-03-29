@@ -16,8 +16,17 @@ export function getQueryString(query = {}) {
 		 * @param {string} key
 		 * @returns {string}
 		 */
-		queryString = `?${queryArray.map((key) =>
-			`${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`
+		queryString = `?${queryArray.map((key) =>{
+				if (query[key] instanceof Array) {
+					if (query[key].length) {
+						return query[key]
+							.map((item) => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`)
+							.join('&');
+					}
+				} else {
+					return `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`;
+				}
+			}
 		).join('&')}`;
 	}
 
