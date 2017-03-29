@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-moduleForComponent('loading-spinner', 'Unit | Component | loading spinner', {
+moduleForComponent('wds-spinner', 'Unit | Component | loading spinner', {
 	unit: true
 });
 

@@ -88,6 +88,15 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		}
 	}
 
+	&__nav-icon-wrapper {
+	  position: relative;
+	}
+
+	.wds-notifications__unread-mark {
+	  left: initial;
+	  right: 0;
+	}
+
 	.avatar {
 		float: right;
 		position: relative;
