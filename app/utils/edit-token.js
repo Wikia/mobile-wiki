@@ -2,11 +2,13 @@ import Ember from 'ember';
 import fetch from './wikia-fetch';
 import {buildUrl} from '../utils/url';
 /**
+ * @param {string} host
  * @param {string} title
  * @returns {Ember.RSVP.Promise}
  */
-export default function (title) {
+export default function (host, title) {
 	return fetch(buildUrl({
+		host,
 		path: '/api.php',
 		query: {
 			action: 'query',

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 const {Object: EmberObject} = Ember;
@@ -27,19 +27,21 @@ export default EmberObject.extend({
 					title
 				}
 			}),
-			data = {};
+			formData = new FastBoot.require('form-data')();
 
 		if (wikitext) {
-			data.wikitext = wikitext;
+			formData.append('wikitext', wikitext);
 		} else {
-			data.CKmarkup = CKmarkup;
+			formData.append('CKmarkup', CKmarkup);
 		}
 
-		return request(url, {
+		console.log(url);
+
+		return fetch(url, {
 			method: 'POST',
-			// don't use charset until https://github.com/najaxjs/najax/pull/59 is merged
-			contentType: 'application/x-www-form-urlencoded',
-			data
-		}).then(({data}) => data.article);
+			body: formData
+		})
+			.then((response) => response.json())
+			.then(({data}) => data.article);
 	}
 });

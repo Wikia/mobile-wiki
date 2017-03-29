@@ -44,6 +44,10 @@ export const CachingPolicy = {
  * @returns {void}
  */
 export function disableCache(fastboot) {
+	if (!fastboot.get('isFastBoot')) {
+		return;
+	}
+
 	fastboot.get('response.headers').set('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
 }
 

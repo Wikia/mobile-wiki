@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
-import request from 'ember-ajax/request';
 import fetch from '../utils/wikia-fetch';
-import {form} from '../utils/content-type';
 import {buildUrl} from '../utils/url';
 
 const ArticleEditModel = Ember.Object.extend({
@@ -24,28 +22,31 @@ ArticleEditModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		publish(host, model) {
-			return getEditToken(model.title)
+			return getEditToken(host, model.title)
 				.then((token) => {
-					return request(buildUrl({path: '/api.php'}), {
+					const formData = new FormData();
+
+					formData.append('action', 'edit');
+					formData.append('title', model.title);
+					formData.append('section', model.sectionIndex);
+					formData.append('text', model.content);
+					formData.append('token', token);
+					formData.append('format', 'json');
+
+					return fetch(buildUrl({host, path: '/api.php'}), {
 						method: 'POST',
-						contentType: form,
-						data: {
-							action: 'edit',
-							title: model.title,
-							section: model.sectionIndex,
-							text: model.content,
-							token,
-							format: 'json'
-						},
-					}).then((response) => {
-						if (response && response.edit && response.edit.result === 'Success') {
-							return response.edit.result;
-						} else if (response && response.error) {
-							throw new Error(response.error.code);
-						} else {
-							throw new Error();
-						}
-					});
+						body: formData,
+					})
+						.then((response) => response.json())
+						.then((response) => {
+							if (response && response.edit && response.edit.result === 'Success') {
+								return response.edit.result;
+							} else if (response && response.error) {
+								throw new Error(response.error.code);
+							} else {
+								throw new Error();
+							}
+						});
 				});
 		},
 
