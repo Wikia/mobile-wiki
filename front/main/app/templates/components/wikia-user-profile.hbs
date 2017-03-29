@@ -13,8 +13,8 @@
 
 	<header class="wikia-user-profile__header-wrapper">
 		{{user-avatar
-				username=username
-				avatarUrl=currentUser.avatarPath
+			username=username
+			avatarUrl=currentUser.avatarPath
 		}}
 		<h4 class="wikia-user-profile__username">{{username}}</h4>
 	</header>
@@ -41,12 +41,12 @@
 			{{#if isLoadingNewResults }}
 				<li>
 					{{wds-spinner
-							active=true
-							isBlock=true
-							isThemed=false
-							overlay=false
-							radius=15
-							strokeWidth=2
+						active=true
+						isBlock=true
+						isThemed=false
+						overlay=false
+						radius=15
+						strokeWidth=2
 					}}
 				</li>
 			{{/if}}

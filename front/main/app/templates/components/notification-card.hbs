@@ -1,8 +1,8 @@
 {{#if showAvatars}}
-	{{discussion-contributors
-			users=model.latestActors
-			maxContributorDisplayCount=5
-			totalContributorCount=model.totalUniqueActors
+	{{wds-avatar-stack
+		users=model.latestActors
+		displayLimit=5
+		totalCount=model.totalUniqueActors
 	}}
 {{/if}}
 <a class="wds-notification-card__outer-body" href="{{model.latestEventUri}}"

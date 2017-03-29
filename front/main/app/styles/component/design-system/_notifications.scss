@@ -1,44 +1,18 @@
-/// Override for discussion-contributors in On Site Notifications
 /// On Site Notifications CSS reside in Design System
-.wds-notification-card {
-  .discussion-contributors {
-	align-items: center;
-	display: flex;
-	margin: 8px 18px 6px 40px;
+/// Override for avatar-stack in On Site Notifications because it uses user-avatar
 
-	.user-avatar {
-	  background: $wds-color-white;
-	  border-radius: 100%;
-	  margin: 0;
+.wds-avatar-stack {
+  .avatar__link {
+	@extend .wds-avatar-stack__avatar;
+  }
 
-	  &__image {
-		border-color: $wds-color-light-c4;
-	  }
-	}
-
-	@for $i from 1 to 6 {
-	  .user-avatar:nth-child(#{$i}) {
-		transform: translate(($i - 1) * - 15px);
-		z-index: 5 - $i;
-		position: relative;
-	  }
-	}
-
-	div.discussion-contributors-more {
-	  background-color: $wds-color-white;
-	  border: 0;
-	  color: $wds-color-light-c6;
-	  font-size: 12px;
-	  transform: translate(-60px);
-	}
-
-	$discussion-contributors-avatar-dimension: 30px;
-
+  .user-avatar {
 	.avatar {
-	  img, svg {
-		height: $discussion-contributors-avatar-dimension;
-		width: $discussion-contributors-avatar-dimension;
+	  .user-avatar__image {
+		@extend .wds-avatar;
+		border-color: $wds-color-light-c4;
 	  }
 	}
   }
 }
+
