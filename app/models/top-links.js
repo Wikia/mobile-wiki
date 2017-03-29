@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 /**
@@ -30,8 +30,9 @@ const TopLinksModel = Ember.Object.extend({
 			height = 270;
 		}
 
-		return request(buildUrl({path: '/wikia.php'}), {
-			data: {
+		return fetch(buildUrl({
+			path: '/wikia.php',
+			query: {
 				controller: 'ArticlesApi',
 				method: 'getDetails',
 				format: 'json',
@@ -40,10 +41,12 @@ const TopLinksModel = Ember.Object.extend({
 				width,
 				height
 			}
-		}).then((data) => {
-			this.setProperties(this.formatData(data));
-			return this;
-		});
+		}))
+			.then((response) => response.json())
+			.then((data) => {
+				this.setProperties(this.formatData(data));
+				return this;
+			});
 	},
 
 	formatData(data) {

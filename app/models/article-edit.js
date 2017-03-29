@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {form} from '../utils/content-type';
 import {buildUrl} from '../utils/url';
 
@@ -55,9 +56,10 @@ ArticleEditModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		load(host, title, sectionIndex) {
-			return request(buildUrl({host, path: '/api.php'}), {
-				cache: false,
-				data: {
+			return fetch(buildUrl({
+				host,
+				path: '/api.php',
+				query: {
 					action: 'query',
 					prop: 'revisions',
 					// FIXME: It should be possible to pass props as an array
@@ -66,30 +68,33 @@ ArticleEditModel.reopenClass(
 					rvsection: sectionIndex,
 					format: 'json'
 				}
-			}).then((response) => {
-				let pages,
-					revision;
+			}), {
+				cache: 'no-store'
+			}).then((response) => response.json())
+				.then((response) => {
+					let pages,
+						revision;
 
-				if (response.error) {
-					throw new Error(response.error.code);
-				}
+					if (response.error) {
+						throw new Error(response.error.code);
+					}
 
-				pages = Ember.get(response, 'query.pages');
+					pages = Ember.get(response, 'query.pages');
 
-				if (pages) {
-					// FIXME: MediaWiki API, seriously?
-					revision = pages[Object.keys(pages)[0]].revisions[0];
-					return ArticleEditModel.create({
-						title,
-						sectionIndex,
-						content: revision['*'],
-						originalContent: revision['*'],
-						timestamp: revision.timestamp
-					});
-				} else {
-					throw new Error();
-				}
-			});
+					if (pages) {
+						// FIXME: MediaWiki API, seriously?
+						revision = pages[Object.keys(pages)[0]].revisions[0];
+						return ArticleEditModel.create({
+							title,
+							sectionIndex,
+							content: revision['*'],
+							originalContent: revision['*'],
+							timestamp: revision.timestamp
+						});
+					} else {
+						throw new Error();
+					}
+				});
 		}
 	}
 );

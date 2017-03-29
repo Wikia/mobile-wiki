@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import request from 'ember-ajax/request';
+import fetch from '../../utils/wikia-fetch';
 import {buildUrl} from '../../utils/url';
 
 const ArticleModel = BaseModel.extend({
@@ -17,7 +17,8 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle(host) {
-		return request(buildUrl({
+		// TODO check cache
+		return fetch(buildUrl({
 			host,
 			path: '/api.php',
 			query: {
@@ -27,22 +28,24 @@ ArticleModel.reopenClass({
 				format: 'json'
 			}
 		}), {
-			cache: false,
-		}).then((data) => {
-			if (data.query && data.query.pages) {
-				const articleId = Object.keys(data.query.pages)[0],
-					pageData = data.query.pages[articleId];
+			cache: 'no-store'
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.query && data.query.pages) {
+					const articleId = Object.keys(data.query.pages)[0],
+						pageData = data.query.pages[articleId];
 
-				if (pageData.title) {
-					return pageData.title;
+					if (pageData.title) {
+						return pageData.title;
+					}
 				}
-			}
 
-			throw new Error({
-				message: 'Data from server misshaped',
-				data
+				throw new Error({
+					message: 'Data from server misshaped',
+					data
+				});
 			});
-		});
 	},
 
 	/**

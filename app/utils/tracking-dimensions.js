@@ -1,8 +1,8 @@
-import request from 'ember-ajax/request';
+import fetch from './wikia-fetch';
 import {buildUrl} from './url';
 
 export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host, model) {
-	return request(
+	return fetch(
 		buildUrl({
 			host,
 			path: '/wikia.php',
@@ -14,11 +14,13 @@ export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host
 				format: 'json'
 			}
 		})
-	).then(({dimensions}) => {
-		if (dimensions) {
-			fastboot.get('shoebox').put('trackingDimensionsForFirstPage', dimensions);
-		}
+	)
+		.then((response) => response.json())
+		.then(({dimensions}) => {
+			if (dimensions) {
+				fastboot.get('shoebox').put('trackingDimensionsForFirstPage', dimensions);
+			}
 
-		return model;
-	});
+			return model;
+		});
 }

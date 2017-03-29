@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
-import request from 'ember-ajax/request';
-import {isTimeoutError} from 'ember-ajax/errors';
-import {buildUrl} from '../utils/url';
+import fetch from '../utils/wikia-fetch';
+import {buildUrl, getQueryString} from '../utils/url';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -31,21 +30,27 @@ UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	getUserId(accessToken) {
-		return request(config.helios.internalUrl, {
-			data: {
-				code: accessToken
-			},
+		const queryString = getQueryString({
+			code: accessToken
+		});
+
+		return fetch(`${config.helios.internalUrl}${queryString}`, {
 			timeout: config.helios.timeout,
-			error: false
-		}).then((data) => {
-			return data.user_id
-		}).catch((reason) => {
-			if (isTimeoutError(reason)) {
-				Logger.error('Helios timeout error: ', reason);
-			} else if (reason.errors && reason.errors[0].status == 401) {
-				Logger.info('Token not authorized by Helios: ', reason);
+		}).then((response) => {
+			if (response.ok) {
+				return response.json().then((data) => {return data.user_id})
 			} else {
-				Logger.error('Helios connection error: ', reason);
+				if (response.status == 401) {
+					Ember.Logger.info('Token not authorized by Helios');
+				} else {
+					Ember.Logger.error('Helios connection error: ', response);
+				}
+			}
+		}).catch((reason) => {
+			if (reason.type === 'request-timeout') {
+				Ember.Logger.error('Helios timeout error: ', reason);
+			} else {
+				Ember.Logger.error('Helios connection error: ', reason);
 			}
 		})
 	},
@@ -85,14 +90,17 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
-		return request(buildUrl({host, path: '/wikia.php'}), {
-			data: {
+		return fetch(buildUrl({
+			host,
+			path: '/wikia.php',
+			query: {
 				controller: 'UserApi',
 				method: 'getDetails',
 				ids: userId,
 				size: avatarSize
-			},
-		}).then((result) => {
+			}
+		})).then((response) => response.json())
+			.then((result) => {
 			if (Ember.isArray(result.items)) {
 				return result.items[0];
 			} else {
@@ -108,21 +116,21 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		return request(buildUrl({
+		return fetch(buildUrl({
 			host,
-			path: '/api.php'
-		}), {
-			data: {
+			path: '/api.php',
+			query: {
 				action: 'query',
 				meta: 'userinfo',
 				uiprop: 'rights|options|blockinfo',
 				format: 'json',
 				ids: userId
-			},
+			}
+		}), {
 			headers: {
 				Cookie: `access_token=${accessToken}`
 			},
-		});
+		}).then((response) => response.json());
 	},
 
 	/**

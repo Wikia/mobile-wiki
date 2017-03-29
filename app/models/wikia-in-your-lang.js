@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
-import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 /**
@@ -46,15 +46,17 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 			return Ember.RSVP.resolve(model);
 		}
 
-		return request(
-			buildUrl({path: '/wikia.php'}), {
-				data: {
+		return fetch(
+			buildUrl({
+				path: '/wikia.php',
+				query: {
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',
 					format: 'json',
 					targetLanguage: browserLang
 				}
-			})
+			}))
+			.then((response) => response.json())
 			.then((resp) => {
 				let modelInstance = null;
 

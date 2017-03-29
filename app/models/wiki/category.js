@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import request from 'ember-ajax/request';
+import fetch from '../../utils/wikia-fetch';
 import {buildUrl} from '../../utils/url';
 
 const {get, isEmpty} = Ember,
@@ -19,7 +19,7 @@ const {get, isEmpty} = Ember,
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(page) {
-			return request(buildUrl({
+			return fetch(buildUrl({
 				host: this.get('host'),
 				path: '/wikia.php',
 				query: {
@@ -30,6 +30,7 @@ const {get, isEmpty} = Ember,
 					format: 'json'
 				}
 			}))
+				.then((response) => response.json())
 				.then(({data}) => {
 					if (isEmpty(data) || isEmpty(data.membersGrouped)) {
 						throw new Error('Unexpected response from server');

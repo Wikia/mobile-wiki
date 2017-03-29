@@ -1,10 +1,9 @@
 import Ember from 'ember';
 import ArticleModel from '../../models/wiki/article';
-import BaseModel from '../../models/wiki/base';
 import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
-import request from 'ember-ajax/request';
+import fetch from '../wikia-fetch';
 import {buildUrl} from '../../utils/url';
 
 /**
@@ -76,7 +75,8 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 		articleData = shoebox.retrieve('wikiPage');
 
 	if (!articleData || articleData.data.details.url !== `/wiki/${params.title}`) {
-		return request(getURL(params))
+		return fetch(getURL(params))
+			.then((response) => response.json())
 			.then((data) => {
 				if (isFastBoot) {
 					shoebox.put('wikiPage', data);

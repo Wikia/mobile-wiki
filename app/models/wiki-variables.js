@@ -18,9 +18,7 @@ WikiVariablesModel.reopenClass({
 
 		return fetch(url)
 			.then((response) => response.json())
-			.then((response) => {
-				return response.data;
-			}).then((data) => {
+			.then(({data}) => {
 				return fetch(
 					buildUrl({
 						host,

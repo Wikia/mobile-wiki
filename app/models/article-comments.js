@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 export default Ember.Object.extend({
@@ -15,7 +15,8 @@ export default Ember.Object.extend({
 			articleId = this.get('articleId');
 
 		if (page && page >= 0 && articleId) {
-			return request(this.url(articleId, page))
+			return fetch(this.url(articleId, page))
+				.then((response) => response.json())
 				.then((data) => {
 					this.setProperties({
 						comments: Ember.get(data, 'payload.comments'),

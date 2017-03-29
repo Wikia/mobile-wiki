@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import request from 'ember-ajax/request';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 /**
@@ -113,8 +113,9 @@ export default Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	fetch() {
-		return request(buildUrl({path: '/api.php'}), {
-			data: {
+		return fetch(buildUrl({
+			path: '/api.php',
+			query: {
 				format: 'json',
 				action: 'apimediasearch',
 				query: this.get('searchQuery'),
@@ -122,6 +123,7 @@ export default Ember.Object.extend({
 				batch: this.get('nextBatch'),
 				limit: this.searchLimit
 			}
-		});
+		}))
+			.then((response) => response.json());
 	}
 });

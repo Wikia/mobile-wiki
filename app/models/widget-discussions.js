@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
 
 import {extractDomainFromUrl} from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
-import {buildUrl} from '../utils/url';
+import {buildUrl, getQueryString} from '../utils/url';
+import fetch from '../utils/wikia-fetch';
 
 const {Object: EmberObject, get, getWithDefault, inject} = Ember;
 
@@ -27,16 +27,16 @@ export default EmberObject.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
-			const requestData = {
-				forumId: categories instanceof Array ? categories : [categories],
+			const queryString = getQueryString({
+				// TODO traditional forumIds
+				// forumId: categories instanceof Array ? categories : [categories],
 				limit,
 				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
-			};
+			});
 
-			return request(getDiscussionServiceUrl(`/${wikiId}/threads`), {
-				data: requestData,
-				traditional: true,
-			}).then(this.normalizeData.bind(this));
+			return fetch(getDiscussionServiceUrl(`/${wikiId}/threads${queryString}`))
+				.then((response) => response.json())
+				.then(this.normalizeData.bind(this));
 		},
 
 		normalizeData(data) {

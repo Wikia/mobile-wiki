@@ -1,20 +1,22 @@
 import Ember from 'ember';
-import request from 'ember-ajax/request';
+import fetch from './wikia-fetch';
 import {buildUrl} from '../utils/url';
 /**
  * @param {string} title
  * @returns {Ember.RSVP.Promise}
  */
 export default function (title) {
-	return request(buildUrl({path: '/api.php'}), {
-		data: {
+	return fetch(buildUrl({
+		path: '/api.php',
+		query: {
 			action: 'query',
 			prop: 'info',
 			titles: title,
 			intoken: 'edit',
 			format: 'json'
 		}
-	}).then((resp) => {
+	})).then((response) => response.json())
+		.then((resp) => {
 		const pages = Ember.get(resp, 'query.pages');
 
 		if (pages) {
