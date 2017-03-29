@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import fetch from 'ember-network/fetch';
+import fetch from '../utils/wikia-fetch';
 import {buildUrl} from '../utils/url';
 
 const WikiVariablesModel = Ember.Object.extend({});
