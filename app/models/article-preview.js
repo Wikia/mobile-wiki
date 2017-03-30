@@ -35,13 +35,19 @@ export default EmberObject.extend({
 			formData.append('CKmarkup', CKmarkup);
 		}
 
-		console.log(url);
-
 		return fetch(url, {
 			method: 'POST',
 			body: formData
 		})
 			.then((response) => response.json())
-			.then(({data}) => data.article);
+			.then(({data}) => {
+				// Make sure media is in the same format as on article page
+				// otherwise hero image won't work correctly
+				data.article.media = {
+					media: data.article.media
+				};
+
+				return data.article
+			});
 	}
 });
