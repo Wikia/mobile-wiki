@@ -79,7 +79,11 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 			.then((response) => response.json())
 			.then((data) => {
 				if (isFastBoot) {
-					shoebox.put('wikiPage', data);
+					// Remove article content so it's not duplicated in shoebox and HTML
+					const shoeboxData = JSON.parse(JSON.stringify(data));
+
+					delete shoeboxData.data.article.content;
+					shoebox.put('wikiPage', shoeboxData);
 				}
 
 				return getModelForNamespace(data, params, contentNamespaces);
@@ -92,6 +96,8 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				throw new Error(err);
 			});
 	} else {
+		articleData.data.article.content = Ember.$('.article-content').html();
+
 		return getModelForNamespace(articleData, params);
 	}
 }
