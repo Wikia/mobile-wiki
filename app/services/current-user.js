@@ -42,7 +42,7 @@ export default Service.extend({
 			const accessToken = fastboot.get('request.cookies.access_token');
 
 			if (accessToken) {
-				UserModel.getUserId(accessToken).then((userId) => {
+				return UserModel.getUserId(accessToken).then((userId) => {
 					if (userId) {
 						fastboot.get('shoebox').put('userId', userId);
 						// We have to anonymize user id before sending it to Google
@@ -50,6 +50,8 @@ export default Service.extend({
 						fastboot.get('shoebox').put('gaUserIdHash', this.getGaUserIdHash(userId));
 						return this.initializeUserData(userId);
 					}
+
+					return RSVP.resolve();
 				});
 			}
 		} else {
