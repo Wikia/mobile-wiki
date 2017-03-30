@@ -2,9 +2,9 @@ import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 
-const {Object, computed, A, Logger} = Ember;
+const {Object: EmberObject, computed, A, Logger} = Ember;
 
-export default Object.extend({
+export default EmberObject.extend({
 	batch: 1,
 	error: '',
 	erroneousQuery: '',
@@ -28,7 +28,9 @@ export default Object.extend({
 			items: A([])
 		});
 
-		return query && this.fetch(query);
+		if (query) {
+			return this.fetch(query);
+		}
 	},
 
 	loadMore() {
@@ -96,6 +98,6 @@ export default Object.extend({
 			totalBatches: state.batches,
 		});
 
-		return this.get('items');
+		return this;
 	}
 });

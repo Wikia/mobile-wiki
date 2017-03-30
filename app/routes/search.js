@@ -23,11 +23,7 @@ export default Route.extend(
 				host: this.get('wikiVariables.host')
 			});
 
-			if (params.query) {
-				model.search(params.query);
-			}
-
-			return model;
+			return model.search(params.query);
 		},
 
 		afterModel(model, transition) {
