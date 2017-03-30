@@ -1,4 +1,4 @@
-import fetch from './wikia-fetch';
+import fetch from './mediawiki-fetch';
 import {buildUrl} from './url';
 
 export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host, model) {

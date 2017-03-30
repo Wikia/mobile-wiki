@@ -4,7 +4,7 @@ import {extractDomainFromUrl} from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';
-import fetch from '../utils/wikia-fetch';
+import fetch from '../utils/ember-network/fetch';
 
 const {Object: EmberObject, get, getWithDefault, inject} = Ember;
 

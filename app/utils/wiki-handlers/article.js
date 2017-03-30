@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import fetch from '../wikia-fetch';
+import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
 
 /**

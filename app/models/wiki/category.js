@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BaseModel from './base';
-import fetch from '../../utils/wikia-fetch';
+import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
 const {get, isEmpty} = Ember,

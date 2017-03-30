@@ -3,7 +3,7 @@ import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
-import fetch from '../wikia-fetch';
+import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
 /**

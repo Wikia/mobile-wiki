@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
-import fetch from '../utils/wikia-fetch';
+import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 const ArticleEditModel = Ember.Object.extend({

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import fetch from '../utils/wikia-fetch';
+import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 /**
