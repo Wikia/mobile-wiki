@@ -10,6 +10,9 @@ export default Component.extend(
 		tagName: 'section',
 
 		currentUser: inject.service(),
+		wikiVariables: inject.service(),
+
+		title: computed.reads('wikiVariables.siteName'),
 
 		curatedContentToolButtonVisible: computed.and('currentUser.rights.curatedcontent'),
 
