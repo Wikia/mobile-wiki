@@ -11,6 +11,10 @@ Router.map(function () {
 
 	this.route('search');
 
+	this.route('main-page-redirect', {
+		path: '/wiki/'
+	});
+
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
