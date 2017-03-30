@@ -71,10 +71,9 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 
 export default function getPageModel(params, fastboot, contentNamespaces) {
 	const isFastBoot = fastboot.get('isFastBoot'),
-		shoebox = fastboot.get('shoebox'),
-		articleData = shoebox.retrieve('wikiPage');
+		shoebox = fastboot.get('shoebox');
 
-	if (!articleData || articleData.data.details.url !== `/wiki/${params.title}`) {
+	if (isFastBoot || !M.initialPageView) {
 		return fetch(getURL(params))
 			.then((response) => response.json())
 			.then((data) => {
@@ -98,6 +97,8 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				throw new Error(err);
 			});
 	} else {
+		const articleData = shoebox.retrieve('wikiPage');
+
 		articleData.data.article.content = Ember.$('.article-content').html();
 
 		return getModelForNamespace(articleData, params);
