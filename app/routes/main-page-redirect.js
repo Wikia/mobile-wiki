@@ -14,7 +14,7 @@ export default Route.extend(
 					`${this.get('wikiVariables.basePath')}${this.get('wikiVariables.articlePath')}${this.get('wikiVariables.mainPageTitle')}`
 				);
 			} else {
-				this.replaceWith('wiki-page', 'Fallout_Wiki');
+				this.replaceWith('wiki-page', this.get('wikiVariables.mainPageTitle'));
 			}
 
 			return false;
