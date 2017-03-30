@@ -31,6 +31,8 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
+			this._super(...arguments);
+
 			transition.then(() => {
 				trackPageView();
 			});

@@ -82,7 +82,9 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 					// Remove article content so it's not duplicated in shoebox and HTML
 					const shoeboxData = JSON.parse(JSON.stringify(data));
 
-					delete shoeboxData.data.article.content;
+					if (shoeboxData.data && shoeboxData.data.article) {
+						delete shoeboxData.data.article.content;
+					}
 					shoebox.put('wikiPage', shoeboxData);
 				}
 

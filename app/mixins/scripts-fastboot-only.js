@@ -22,7 +22,6 @@ export default Mixin.create({
 		headBottomComponent.appendTo(document.head);
 
 		bodyBottomComponent.setProperties({
-			pageModel: model,
 			queryParams: transition.queryParams
 		});
 
