@@ -80,6 +80,7 @@
     "ember-sinon": "0.3.0",
     "ember-source": "2.11.2",
     "ember-wormhole": "0.5.1",
+    "form-data": "2.1.2",
     "i18next": "7.1.2",
     "loader.js": "4.2.2",
     "mercury-shared": "wikia/mercury-shared#1.0.1",
@@ -97,6 +98,7 @@
   "fastbootDependencies": [
     "crypto",
     "deep-extend",
+    "form-data",
     "fs",
     "process",
     "url",
