@@ -2,7 +2,7 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
-const {computed, Service, inject, Logger} = Ember;
+const {computed, Service, inject, Logger, RSVP} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -48,7 +48,7 @@ export default Service.extend({
 						// We have to anonymize user id before sending it to Google
 						// It's faster to do the hashing server side and pass to the front-end, ready to use
 						fastboot.get('shoebox').put('gaUserIdHash', this.getGaUserIdHash(userId));
-						this.initializeUserData(userId);
+						return this.initializeUserData(userId);
 					}
 				});
 			}
@@ -56,13 +56,15 @@ export default Service.extend({
 			const userId = fastboot.get('shoebox').retrieve('userId');
 
 			if (userId) {
-				this.initializeUserData(userId);
+				return this.initializeUserData(userId);
 			}
 		}
+
+		return RSVP.resolve();
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {RSVP}
 	 */
 	initializeUserData(userId) {
 		this.set('userId', userId);
@@ -70,7 +72,7 @@ export default Service.extend({
 		if (userId !== null) {
 			const shoebox = this.get('fastboot.shoebox');
 			if (this.get('fastboot.isFastBoot')) {
-				UserModel
+				return UserModel
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
@@ -89,6 +91,8 @@ export default Service.extend({
 				this.setProperties(shoebox.retrieve('userData'));
 			}
 		}
+
+		return RSVP.resolve();
 	},
 
 	getGaUserIdHash(userId) {

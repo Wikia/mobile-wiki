@@ -71,28 +71,6 @@ export default Route.extend(
 			this._super(...arguments);
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
-			this.get('currentUser').initialize();
-
-			if (fastboot.get('isFastBoot')) {
-				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
-				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-				fastboot.get('response.headers').set('Content-Language', model.language.content);
-
-				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
-				// and we can purge the category pages
-				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-					disableCache(fastboot);
-				} else {
-					// TODO don't cache errors
-					setResponseCaching(this.get('fastboot'), {
-						enabled: true,
-						cachingPolicy: CachingPolicy.Public,
-						varnishTTL: CachingInterval.standard,
-						browserTTL: CachingInterval.disabled
-					});
-				}
-			}
 
 			if (
 				!fastboot.get('isFastBoot') &&
@@ -130,6 +108,30 @@ export default Route.extend(
 					this.set('ads.siteHeadOffset', offset);
 				};
 			}
+
+			// TODO move to applicationModel
+			return this.get('currentUser').initialize().then(() => {
+				if (fastboot.get('isFastBoot')) {
+					// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+					// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+					fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
+					fastboot.get('response.headers').set('Content-Language', model.language.content);
+
+					// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+					// and we can purge the category pages
+					if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+						disableCache(fastboot);
+					} else {
+						// TODO don't cache errors
+						setResponseCaching(this.get('fastboot'), {
+							enabled: true,
+							cachingPolicy: CachingPolicy.Public,
+							varnishTTL: CachingInterval.standard,
+							browserTTL: CachingInterval.disabled
+						});
+					}
+				}
+			});
 		},
 
 		redirect(model, transition) {

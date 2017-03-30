@@ -45,7 +45,7 @@ export default Service.extend({
 			translations = shoebox.retrieve('translations');
 		}
 
-		const asd = i18n.createInstance().init({
+		const i18nextInstance = i18n.createInstance().init({
 			fallbackLng: 'en',
 			lng: language,
 			lowerCaseLng: true,
@@ -61,7 +61,7 @@ export default Service.extend({
 		});
 
 
-		this.set('i18nextInstance', asd);
+		this.set('i18nextInstance', i18nextInstance);
 	},
 
 	t() {
