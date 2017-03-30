@@ -352,6 +352,9 @@ export default Component.extend(
 				case 'flite':
 					componentName = 'widget-flite';
 					break;
+				case 'apester':
+					componentName = 'widget-apester';
+					break;
 				default:
 					Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
