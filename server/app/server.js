@@ -41,12 +41,13 @@ const server = new FastBootAppServer({
 	afterMiddleware: (app) => {
 		app.use(function (err, req, res, next) {
 			if (err) {
+				// It should never get here
+				// In theory, the Ember app handles all server errors
 				const level = levelFn(res.statusCode, err);
 				const logFn = req.log[level].bind(req.log);
 
 				logFn(err);
 
-				// TODO make it pretty
 				res.send('Server error');
 			}
 		});

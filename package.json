@@ -97,6 +97,8 @@
     ]
   },
   "fastbootDependencies": [
+    "bunyan",
+    "bunyan-syslog",
     "crypto",
     "deep-extend",
     "form-data",
