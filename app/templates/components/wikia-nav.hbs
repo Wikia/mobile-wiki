@@ -1,18 +1,32 @@
 {{#if model.inRoot}}
 	{{#if isUserAuthenticated}}
 		<div class="wikia-nav__header">
-			<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}}
-					href="{{userProfileLink}}" class="wikia-nav--external wikia-nav--profile-link">
-				<figure class="wikia-nav__avatar">
-					<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
-				</figure>
-				{{i18n 'navigation.user-menu-profile'}}
-			</a>
-			<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}}
-					href="{{unbound logoutLink}}"
-					class="wikia-nav--external wikia-nav--logout">
-				{{i18n 'navigation.user-menu-log-out'}}
-			</a>
+			{{#if enableOnSiteNotifications}}
+				<a {{action 'onUsernameClicked'}}
+						class="wikia-nav--external wikia-nav--profile-link">
+					<figure class="wikia-nav__avatar user-profile-avatar">
+						{{#if unreadCount}}
+							<span class="wds-notifications__unread-mark">{{unreadCount}}</span>
+						{{/if}}
+						<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
+					</figure>
+					{{currentUser.name}}
+					{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
+				</a>
+			{{else}}
+				<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}}
+						href="{{userProfileLink}}" class="wikia-nav--external wikia-nav--profile-link">
+					<figure class="wikia-nav__avatar">
+						<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
+					</figure>
+					{{i18n 'navigation.user-menu-profile'}}
+				</a>
+				<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}}
+						href="{{unbound logoutLink}}"
+						class="wikia-nav--external wikia-nav--logout">
+					{{i18n 'navigation.user-menu-log-out'}}
+				</a>
+			{{/if}}
 		</div>
 	{{else}}
 		<a class="wikia-nav__header" {{action 'goToLogin'}}>

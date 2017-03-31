@@ -14,6 +14,9 @@ module.exports = function (environment) {
 			domain: 'services.wikia.com',
 			discussions: {
 				baseAPIPath: 'discussion'
+			},
+			onSiteNotifications: {
+				baseAPIPath: 'on-site-notifications'
 			}
 		},
 		helios: {

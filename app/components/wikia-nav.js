@@ -2,13 +2,14 @@ import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
+import UnreadCountMixin from '../mixins/notifications-unread-count';
+import {track, trackActions} from '../utils/track';
 
-const {Component, computed, inject} = Ember;
+const {Component, computed, inject, get} = Ember;
 
 export default Component.extend(
-	LoginLinkMixin, NoScrollMixin,
+	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,
 	{
 		classNames: ['wikia-nav'],
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
@@ -16,8 +17,11 @@ export default Component.extend(
 		currentUser: inject.service(),
 		wikiVariables: inject.service(),
 		i18n: inject.service(),
+		notifications: inject.service(),
 
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
+		enableOnSiteNotifications: computed.oneWay('wikiVariables.enableOnSiteNotifications'),
+		/** TODO: Remove with the feature flag IRIS-4170 */
 		logoutLink: computed(function () {
 			return buildUrl({
 				host: this.get('wikiVariables.host'),
@@ -25,6 +29,8 @@ export default Component.extend(
 				title: 'UserLogout'
 			});
 		}),
+
+		/** TODO: Remove with the feature flag IRIS-4170 */
 		userProfileLink: computed('currentUser.name', function () {
 			return buildUrl({
 				host: this.get('wikiVariables.host'),
@@ -71,6 +77,11 @@ export default Component.extend(
 
 					this.get(actionName)();
 				}
+			},
+
+			onUsernameClicked() {
+				this.send('trackClick', 'side-nav', 'open-user-profile');
+				this.sendAction('setDrawerContent', 'user-profile');
 			},
 
 			goRoot() {
