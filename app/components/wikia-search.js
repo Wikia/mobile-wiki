@@ -197,7 +197,7 @@ export default Component.extend(
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
-					method: 'getSearchSuggestions1',
+					method: 'getSearchSuggestions',
 					query: phrase
 				}
 			});
