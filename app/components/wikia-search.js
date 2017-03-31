@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {buildUrl} from '../utils/url';
+import fetch from '../utils/mediawiki-fetch'
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -49,7 +50,6 @@ export default Component.extend(
 		suggestions: [],
 		suggestionsEnabled: true,
 
-		ajax: inject.service(),
 		i18n: inject.service(),
 		wikiVariables: inject.service(),
 		emptyPhraseInput: computed.not('phrase'),
@@ -197,7 +197,7 @@ export default Component.extend(
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
-					method: 'getSearchSuggestions',
+					method: 'getSearchSuggestions1',
 					query: phrase
 				}
 			});
@@ -225,39 +225,48 @@ export default Component.extend(
 
 			this.startedRequest(phrase);
 
-			this.get('ajax').request(uri).then((data) => {
-				const suggestions = data.items.map((suggestion) => {
-					return Ember.Object.create(suggestion);
+			fetch(uri)
+				.then((response) => {
+					if (response.ok) {
+						return response.json().then((data) => {
+							const suggestions = data.items.map((suggestion) => {
+								return Ember.Object.create(suggestion);
+							});
+
+							/**
+							 * If the user makes one request, request A, and then keeps typing to make
+							 * request B, but request A takes a long time while request B returns quickly,
+							 * then we don't want request A to dump its info into the window after B has
+							 * already inserted the relevant information.
+							 * Also, we don't want to show the suggestion results after a real search
+							 * will be finished, what will happen if search request is still in progress.
+							 */
+							if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
+								this.setSearchSuggestionItems(suggestions);
+							}
+
+							this.cacheResult(phrase, suggestions);
+						})
+					} else if (response.status === 404) {
+						// When we get a 404, it means there were no results
+						if (phrase === this.get('phrase')) {
+							this.setSearchSuggestionItems();
+						}
+
+						this.cacheResult(phrase);
+					} else {
+						Ember.Logger.error('Search suggestion error: ', response)
+					}
+				})
+				.catch((reason) => Ember.Logger.error('Search suggestion error: ', reason))
+				.finally(() => {
+					// We have a response, so we're no longer loading the results
+					if (phrase === this.get('phrase')) {
+						this.set('isLoadingResultsSuggestions', false);
+					}
+
+					this.endedRequest(phrase);
 				});
-
-				/**
-				 * If the user makes one request, request A, and then keeps typing to make
-				 * request B, but request A takes a long time while request B returns quickly,
-				 * then we don't want request A to dump its info into the window after B has
-				 * already inserted the relevant information.
-				 * Also, we don't want to show the suggestion results after a real search
-				 * will be finished, what will happen if search request is still in progress.
-				 */
-				if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
-					this.setSearchSuggestionItems(suggestions);
-				}
-
-				this.cacheResult(phrase, suggestions);
-			}).catch(() => {
-				// When we get a 404, it means there were no results
-				if (phrase === this.get('phrase')) {
-					this.setSearchSuggestionItems();
-				}
-
-				this.cacheResult(phrase);
-			}).finally(() => {
-				// We have a response, so we're no longer loading the results
-				if (phrase === this.get('phrase')) {
-					this.set('isLoadingResultsSuggestions', false);
-				}
-
-				this.endedRequest(phrase);
-			});
 		},
 
 		/**
