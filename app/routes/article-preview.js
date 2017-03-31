@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ArticlePreviewModel from '../models/article-preview';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
-import ScriptsForFastBootOnlyMixin from '../mixins/scripts-fastboot-only';
 import {disableCache} from '../utils/fastboot-caching';
 
 /**
@@ -10,7 +9,6 @@ import {disableCache} from '../utils/fastboot-caching';
  */
 export default Ember.Route.extend(
 	RouteWithBodyClassNameMixin,
-	ScriptsForFastBootOnlyMixin,
 	{
 		fastboot: Ember.inject.service(),
 		wikiVariables: Ember.inject.service(),
@@ -60,4 +58,5 @@ export default Ember.Route.extend(
 				return true;
 			}
 		}
-	});
+	}
+);

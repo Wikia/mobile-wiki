@@ -14,6 +14,7 @@ const {
 	Logger,
 	Route,
 	TargetActionSupport,
+	getOwner,
 	inject
 } = Ember;
 
@@ -40,7 +41,7 @@ export default Route.extend(
 		},
 		noexternals: null,
 
-		model() {
+		model(params, transition) {
 			const shoebox = this.get('fastboot.shoebox');
 
 			if (this.get('fastboot.isFastBoot')) {
@@ -50,8 +51,13 @@ export default Route.extend(
 					.then((wikiVariablesModel) => {
 						shoebox.put('wikiVariables', wikiVariablesModel);
 						this.get('wikiVariables').setProperties(wikiVariablesModel);
+						this.injectScriptsFastbootOnly(wikiVariablesModel, transition.queryParams);
 
 						return wikiVariablesModel;
+					})
+					.catch((error) => {
+						this.injectScriptsFastbootOnly(null, transition.queryParams);
+						throw error;
 					});
 			} else {
 				const wikiVariablesModel = shoebox.retrieve('wikiVariables'),
@@ -60,7 +66,6 @@ export default Route.extend(
 				wikiVariablesService.setProperties(wikiVariablesModel);
 
 				return wikiVariablesModel;
-
 			}
 		},
 
@@ -177,20 +182,6 @@ export default Route.extend(
 				if (!this.get('fastboot.isFastBoot')) {
 					M.initialPageView = false;
 				}
-			},
-
-			/**
-			 * @param {*} error
-			 * @returns {Boolean}
-			 */
-			error(error) {
-				if (this.controller) {
-					this.controller.set('isLoading', false);
-				}
-
-				Logger.error('Route error', error);
-
-				return true;
 			},
 
 			/**
@@ -329,5 +320,25 @@ export default Route.extend(
 				});
 			}
 		},
+
+		injectScriptsFastbootOnly(wikiVariables, queryParams) {
+			this._super(...arguments);
+
+			if (!this.get('fastboot.isFastBoot')) {
+				return;
+			}
+
+			// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
+			const applicationInstance = getOwner(this);
+			const document = applicationInstance.lookup('service:-document');
+			const headBottomComponent = applicationInstance.lookup('component:fastboot-only/head-bottom');
+			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
+
+			headBottomComponent.set('wikiVariables', wikiVariables);
+			headBottomComponent.appendTo(document.head);
+
+			bodyBottomComponent.set('queryParams', queryParams);
+			bodyBottomComponent.appendTo(document.body);
+		}
 	}
 );

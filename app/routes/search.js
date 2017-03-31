@@ -2,13 +2,11 @@ import Ember from 'ember';
 import {track, trackActions, trackPageView} from '../utils/track';
 import SearchModel from '../models/search';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
-import ScriptsForFastBootOnlyMixin from '../mixins/scripts-fastboot-only';
 
 const {Route, inject} = Ember;
 
 export default Route.extend(
 	RouteWithBodyClassNameMixin,
-	ScriptsForFastBootOnlyMixin,
 	{
 		wikiVariables: inject.service(),
 		bodyClassNames: ['search-result-page', 'show-global-footer'],

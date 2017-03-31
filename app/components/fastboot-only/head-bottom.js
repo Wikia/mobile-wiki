@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-const {Component, computed, inject} = Ember;
+const {Component, computed} = Ember;
 
 export default Component.extend({
 	tagName: '',
 	layoutName: 'components/fastboot-only/head-bottom',
-	wikiVariables: inject.service(),
+	wikiVariables: null,
 	isRtl: computed.equal('wikiVariables.language.contentDir', 'rtl')
 });

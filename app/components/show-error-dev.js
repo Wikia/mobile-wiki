@@ -11,7 +11,7 @@ export default BaseErrorComponent.extend({
 	additionalData: computed(function () {
 		const additionalData = this.get('descriptor.additionalData');
 
-		return additionalData ? JSON.stringify(additionalData) : null;
+		return additionalData ? JSON.stringify(additionalData, null, 1) : null;
 	}),
 
 	setStatusCode: observer('descriptor', function () {

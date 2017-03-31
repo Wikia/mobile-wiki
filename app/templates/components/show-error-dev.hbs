@@ -1,13 +1,12 @@
-<div>
-	<h1>Error: {{message}}</h1>
-</div>
-<div>
-	<h2>Stack trace</h2>
-	{{{stackTrace}}}
-</div>
-{{#if additionalData}}
-	<div>
+<div class="show-error-container is-dev">
+	<h1>{{message}}</h1>
+	<button class="wds-button" onclick="window.location.reload()">Refresh</button>
+	{{#if stackTrace}}
+		<h2>Stack trace</h2>
+		<pre>{{{stackTrace}}}</pre>
+	{{/if}}
+	{{#if additionalData}}
 		<h2>Additional data</h2>
-		{{additionalData}}
-	</div>
-{{/if}}
+		<pre>{{additionalData}}</pre>
+	{{/if}}
+</div>
