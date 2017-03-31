@@ -3,10 +3,12 @@ import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
+import ScriptsForFastBootOnlyMixin from '../mixins/scripts-fastboot-only';
 
 export default Ember.Route.extend(
 	FullPageMixin,
 	HeadTagsDynamicMixin,
+	ScriptsForFastBootOnlyMixin,
 	{
 		wikiVariables: Ember.inject.service(),
 		i18n: Ember.inject.service(),
