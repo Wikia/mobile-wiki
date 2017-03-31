@@ -99,7 +99,9 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 	} else {
 		const articleData = shoebox.retrieve('wikiPage');
 
-		articleData.data.article.content = Ember.$('.article-content').html();
+		if (articleData.data.article) {
+			articleData.data.article.content = Ember.$('.article-content').html();
+		}
 
 		return getModelForNamespace(articleData, params);
 	}
