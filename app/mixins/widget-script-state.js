@@ -15,6 +15,7 @@ export default Ember.Mixin.create({
 	 * It's used to update every instance of given component after external script is loaded.
 	 */
 	scriptLoaded: {
+		apester: false,
 		twitter: false,
 		vk: false,
 	},

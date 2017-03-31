@@ -132,3 +132,7 @@ export function buildUrl(urlParams = {}) {
 export function extractEncodedTitle(url) {
 	return url ? url.replace(/^(http:\/\/[^\/]+)?(\/wiki)?\//, '') : '';
 }
+
+export function getOnSiteNotificationsServiceUrl(path='') {
+	return `https://${config.services.domain}/${config.services.onSiteNotifications.baseAPIPath}${path}`;
+}

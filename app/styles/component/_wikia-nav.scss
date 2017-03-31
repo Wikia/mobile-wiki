@@ -21,6 +21,19 @@ $nav-padding-vertical: 18px;
 	-webkit-overflow-scrolling: touch;
 }
 
+// Overrides for unread mark from On Site Notifications
+.wikia-nav {
+  .user-profile-avatar {
+	position: relative;
+  }
+
+  .wds-notifications__unread-mark {
+	left: initial;
+	right: -9px;
+	top: -3px;
+  }
+}
+
 .wikia-nav__header {
 	@include link-interactions-color(inherit);
 

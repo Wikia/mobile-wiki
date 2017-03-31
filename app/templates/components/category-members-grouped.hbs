@@ -1,7 +1,7 @@
 {{! Keep the same HTML structure as in server/app/views/_partials/category-members-grouped.hbs }}
 {{#if prevPage}}
 	<div class="category-navigation">
-		{{loading-spinner
+		{{wds-spinner
 			active=true
 			overlay=false
 			radius=16
@@ -28,7 +28,7 @@
 {{/each-in}}
 {{#if nextPage}}
 	<div class="category-navigation">
-		{{loading-spinner
+		{{wds-spinner
 			active=true
 			overlay=false
 			radius=16

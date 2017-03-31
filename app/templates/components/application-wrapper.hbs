@@ -20,6 +20,7 @@
 				drawerContentComponent
 				onEnterHandler=(action 'closeDrawer')
 				suggestionClickAction=(action 'closeDrawer')
+				setDrawerContent=(action 'setDrawerContent')
 				closeDrawer=(action 'closeDrawer')
 				outsideSuggestionsClickAction=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
@@ -55,5 +56,4 @@
 	{{/if}}
 {{/if}}
 {{alert-notifications alerts=alertNotifications}}
-{{loading-spinner active=isLoading}}
-
+{{wds-spinner active=isLoading}}
