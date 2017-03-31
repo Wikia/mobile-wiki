@@ -134,8 +134,6 @@ export default Route.extend(
 
 				if (handler) {
 					transition.then(() => {
-						this.trackPageView(model);
-
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition(model, this.get('wikiVariables.id'), this.get('wikiVariables.host'));
 						}
@@ -254,6 +252,8 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
+				this.trackPageView(this.modelFor(this.routeName));
+
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
 						message: this.get('i18n').t('article.redirect-empty-target'),

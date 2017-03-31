@@ -26,19 +26,13 @@ export default Route.extend(
 			return model.search(params.query);
 		},
 
-		afterModel(model, transition) {
-			this._super(...arguments);
-
-			transition.then(() => {
-				trackPageView();
-			});
-		},
-
 		actions: {
 			/**
 			 * @returns {boolean}
 			 */
 			didTransition() {
+				trackPageView();
+
 				track({
 					action: trackActions.impression,
 					category: 'app',

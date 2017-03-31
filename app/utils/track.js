@@ -169,9 +169,7 @@ export function trackPageView(uaDimensions) {
 
 	const noExternals = M.getFromShoebox('runtimeConfig.noExternals');
 
-	if (M.initialPageView) {
-		M.initialPageView = false;
-	} else if (!noExternals) {
+	if (!M.initialPageView && !noExternals) {
 		// Defined in templates/components/fastboot-only/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();

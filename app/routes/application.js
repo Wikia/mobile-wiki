@@ -173,6 +173,10 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				if (!this.get('fastboot.isFastBoot')) {
+					M.initialPageView = false;
+				}
 			},
 
 			/**
