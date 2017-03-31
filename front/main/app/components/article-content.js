@@ -352,6 +352,9 @@ export default Component.extend(
 				case 'flite':
 					componentName = 'widget-flite';
 					break;
+				case 'apester':
+					componentName = 'widget-apester';
+          break;
 				case 'playbuzz':
 					componentName = 'widget-playbuzz';
 					break;
