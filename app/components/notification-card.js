@@ -23,6 +23,7 @@ export default Component.extend(
 
 		currentUser: inject.service(),
 		notifications: inject.service(),
+		i18n: inject.service(),
 
 		userLanguage: computed.oneWay('currentUser.language'),
 
@@ -113,7 +114,7 @@ export default Component.extend(
 				ns: 'design-system',
 			}, context);
 
-			return i18n.t(key, fullContext);
+			return this.get('i18n').t(key, fullContext);
 		},
 
 		actions: {

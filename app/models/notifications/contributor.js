@@ -3,6 +3,7 @@ import Ember from 'ember';
 const DiscussionContributor = Ember.Object.extend({
 	avatarUrl: null,
 	badgePermission: null,
+	host: null,
 	id: null,
 	name: null,
 	profileUrl: null,
@@ -15,10 +16,12 @@ DiscussionContributor.reopenClass({
 	 * @returns {string}
 	 */
 	getProfileUrl(name) {
-		return M.buildUrl({
-			namespace: 'User',
-			title: name
-		});
+		// return M.buildUrl({
+		// 	namespace: 'User',
+		// 	title: name
+		// });
+		// TODO fix buildUrl
+		return '/asdfs';
 	},
 	/**
 	 * @param {object} data

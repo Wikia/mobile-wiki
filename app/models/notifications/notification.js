@@ -23,7 +23,9 @@ const NotificationModel = EmberObject.extend({
 	markAsRead() {
 		return fetch(getOnSiteNotificationsServiceUrl(`/notifications/mark-as-read/by-uri`), {
 			method: 'POST',
-			body: JSON.stringify([this.get('uri')])
+			body: JSON.stringify([this.get('uri')]),
+			credentials: 'include',
+			headers: { 'Content-Type': 'application/json' },
 		}).then(() => {
 			this.set('isUnread', false);
 		});

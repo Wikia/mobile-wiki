@@ -37,6 +37,7 @@ const NotificationsModel = EmberObject.extend({
 		});
 
 		return fetch(getOnSiteNotificationsServiceUrl(`/notifications${queryString}`), {
+			credentials: 'include'
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -62,6 +63,8 @@ const NotificationsModel = EmberObject.extend({
 		return fetch(getOnSiteNotificationsServiceUrl(`/notifications/mark-all-as-read`), {
 			method: 'POST',
 			body: JSON.stringify({since}),
+			credentials: 'include',
+			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -96,7 +99,9 @@ NotificationsModel.reopenClass({
 	},
 
 	getUnreadNotificationsCount(model) {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'))
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), {
+			credentials: 'include'
+		})
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((result) => {
@@ -122,7 +127,9 @@ NotificationsModel.reopenClass({
 	 * @private
 	 */
 	requestNotifications() {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications')).then((response) => response.json());
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), {
+			credentials: 'include'
+		}).then((response) => response.json());
 	}
 
 });

@@ -10,6 +10,8 @@ export default Service.extend({
 	notificationsPerPage: 10,
 
 	currentUser: inject.service(),
+	wikiVariables: inject.service(),
+	fastboot: inject.service(),
 
 	/**
 	 * @private
@@ -19,9 +21,13 @@ export default Service.extend({
 	/**
 	 * @private
 	 */
-	enableOnSiteNotifications: Ember.get(Mercury, 'wiki.enableOnSiteNotifications'),
+	enableOnSiteNotifications: Ember.computed.reads('wikiVariables.enableOnSiteNotifications'),
 
 	modelLoader: computed('isUserAuthenticated', 'enableOnSiteNotifications', function () {
+		if (this.get('fastboot.isFastBoot')){
+			return;
+		}
+
 		this.set('isLoading', true);
 		if (!this.get('isUserAuthenticated') || !this.get('enableOnSiteNotifications')) {
 			this.set('isLoading', false);

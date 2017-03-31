@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import moment from 'moment';
-import i18nHelper from './i18n';
 
 /**
  * Helper to give textual representation of time interval between past date
@@ -34,7 +33,6 @@ export default Ember.Helper.extend({
 			if (now.diff(date, 'days') > 5) {
 				output = date.format('L');
 			} else if (now.diff(date, 'minutes') < 1) {
-				debugger;
 				output = this.get('i18n').t('main:app.now-label');
 			} else {
 				output = date.fromNow(shouldHideAgoPrefix);
