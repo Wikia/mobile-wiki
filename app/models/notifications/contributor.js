@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {buildUrl} from '../../utils/url';
 
 const DiscussionContributor = Ember.Object.extend({
 	avatarUrl: null,
@@ -16,12 +17,11 @@ DiscussionContributor.reopenClass({
 	 * @returns {string}
 	 */
 	getProfileUrl(name) {
-		// return M.buildUrl({
-		// 	namespace: 'User',
-		// 	title: name
-		// });
-		// TODO fix buildUrl
-		return '/asdfs';
+		return buildUrl({
+			namespace: 'User',
+			relative: true,
+			title: name
+		});
 	},
 	/**
 	 * @param {object} data

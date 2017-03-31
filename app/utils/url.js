@@ -97,15 +97,16 @@ export function buildUrl(urlParams = {}) {
 		urlParams.articlePath = '/wiki/';
 	}
 
-	let url = `${urlParams.protocol}://`;
+	let url = '';
 
-	if (urlParams.wiki) {
-		url += replaceWikiInHost(host, urlParams.wiki);
-	// TODO enable when working on icache
-	// } else if (typeof mediawikiDomain !== 'undefined') {
-	// 	url += mediawikiDomain;
-	} else {
-		url += host;
+	if (!urlParams.relative) {
+		url += `${urlParams.protocol}://`;
+
+		if (urlParams.wiki) {
+			url += replaceWikiInHost(host, urlParams.wiki);
+		} else {
+			url += host;
+		}
 	}
 
 	if (urlParams.title) {
