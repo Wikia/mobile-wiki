@@ -32,7 +32,11 @@
 	}
 
 	window.trackNielsenPageView = function () {
-		if (M.getFromShoebox('runtimeConfig.noExternals') || !config.enabled) {
+		if (
+			M.getFromShoebox('runtimeConfig.noExternals') ||
+			M.getFromShoebox('serverError') ||
+			!config.enabled
+		) {
 			return;
 		}
 

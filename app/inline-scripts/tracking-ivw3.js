@@ -1,10 +1,10 @@
 (function(M, Wikia) {
-	var allowExternals = !M.getFromShoebox('runtimeConfig.noExternals'),
+	var enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError'),
 		triedToTrackWithoutLoadedLibrary = false,
 		ivw3 = M.getFromShoebox('tracking.ivw3') || {};
 
 	if (
-		allowExternals &&
+		enableTracking &&
 		window.Wikia && Wikia.InstantGlobals &&
 		!Wikia.InstantGlobals['wgSitewideDisableIVW3'] &&
 		ivw3 && ivw3.countries &&
@@ -19,7 +19,7 @@
 	}
 
 	window.trackIVW3PageView = function() {
-		if (!allowExternals) {
+		if (!enableTracking) {
 			return;
 		}
 

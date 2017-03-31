@@ -1,8 +1,15 @@
 import Ember from 'ember';
+import {defineError} from 'ember-exex/error';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 const WikiVariablesModel = Ember.Object.extend({});
+
+export const WikiVariablesFetchError = defineError({
+	name: 'WikiVariablesFetchError',
+	message: `Wiki variables couldn't be fetched`,
+	code: 503
+});
 
 WikiVariablesModel.reopenClass({
 	get(host) {
@@ -37,6 +44,14 @@ WikiVariablesModel.reopenClass({
 						data.globalNavigation = navigationData['global-navigation'];
 
 						return data;
+					});
+			})
+			.catch((error) => {
+				throw new WikiVariablesFetchError()
+					.withPreviousError(error)
+					.withAdditionalData({
+						host,
+						url
 					});
 			});
 	}

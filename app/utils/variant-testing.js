@@ -83,7 +83,7 @@ export function getExperimentVariationNumberBySingleId(experimentId) {
  * @returns {string|null}
  */
 export function getExperimentIdForThisEnvironment(experimentIds) {
-	switch (config.environment) {
+	switch (config.wikiaEnv) {
 		case 'prod':
 		case 'preview':
 		case 'sandbox':

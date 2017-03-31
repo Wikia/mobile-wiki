@@ -17,6 +17,7 @@
 
 	if (
 		!M.getFromShoebox('runtimeConfig.noExternals') &&
+		!M.getFromShoebox('serverError') &&
 		config.enabled &&
 		config.url &&
 		!isLoggedIn &&

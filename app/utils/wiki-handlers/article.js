@@ -40,12 +40,7 @@ function sendLyricsPageView(model, wikiId, host) {
 				gracenoteid: 0,
 				rand: (`${Math.random()}`).substr(2, 8)
 			}
-		})).catch((error) => {
-			/**
-			 * MediaWiki returns 404 with header X-LyricFind-API-Code:106
-			 * for success request but no lyrics
-			 */
-		});
+		}));
 	}
 }
 

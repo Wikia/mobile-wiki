@@ -7,7 +7,7 @@ import config from '../config/environment';
  */
 export function initialize(applicationInstance) {
 	const fastboot = applicationInstance.lookup('service:fastboot');
-	let debug = config.environment === 'dev';
+	let debug = config.environment === 'development';
 
 	// turn on debugging with querystring ?debug=1
 	if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1') ||

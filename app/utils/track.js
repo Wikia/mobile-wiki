@@ -126,7 +126,11 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	if (typeof FastBoot !== 'undefined' || M.getFromShoebox('runtimeConfig.noExternals')) {
+	if (
+		typeof FastBoot !== 'undefined' ||
+		M.getFromShoebox('runtimeConfig.noExternals') ||
+		M.getFromShoebox('serverError')
+	) {
 		return;
 	}
 
@@ -167,9 +171,9 @@ export function trackPageView(uaDimensions) {
 		return;
 	}
 
-	const noExternals = M.getFromShoebox('runtimeConfig.noExternals');
+	const enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError');
 
-	if (!M.initialPageView && !noExternals) {
+	if (!M.initialPageView && enableTracking) {
 		// Defined in templates/components/fastboot-only/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
@@ -178,7 +182,7 @@ export function trackPageView(uaDimensions) {
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
 
-	if (!noExternals) {
+	if (enableTracking) {
 		window.trackIVW3PageView();
 		Ads.getInstance().trackKruxPageView();
 	}

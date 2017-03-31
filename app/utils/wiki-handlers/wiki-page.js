@@ -75,7 +75,17 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 	if (isFastBoot || !M.initialPageView) {
 		return fetch(getURL(params))
-			.then((response) => response.json())
+			.then((response) => {
+				if (response.ok === false) {
+					// TODO use ember-exex
+					throw new Error({
+						url: response.url,
+						code: response.status
+					});
+				}
+
+				return response.json();
+			})
 			.then((data) => {
 				if (isFastBoot) {
 					// Remove article content so it's not duplicated in shoebox and HTML
@@ -88,13 +98,6 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				}
 
 				return getModelForNamespace(data, params, contentNamespaces);
-			})
-			.catch((err) => {
-				if (!err.code && err.status) {
-					err.code = err.status;
-				}
-
-				throw new Error(err);
 			});
 	} else {
 		const articleData = shoebox.retrieve('wikiPage');

@@ -1,7 +1,7 @@
 (function (M) {
 	var prefix = (document.location.protocol === 'https:' ? 'https://sb' : 'http://b');
 
-	if (M.getFromShoebox('runtimeConfig.noExternals')) {
+	if (M.getFromShoebox('runtimeConfig.noExternals') || M.getFromShoebox('serverError')) {
 		window.trackComscorePageView = function () {};
 		return;
 	}

@@ -1,0 +1,13 @@
+<div>
+	<h1>Error: {{message}}</h1>
+</div>
+<div>
+	<h2>Stack trace</h2>
+	{{{stackTrace}}}
+</div>
+{{#if additionalData}}
+	<div>
+		<h2>Additional data</h2>
+		{{additionalData}}
+	</div>
+{{/if}}

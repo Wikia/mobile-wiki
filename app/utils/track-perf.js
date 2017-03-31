@@ -14,7 +14,7 @@ const {get} = Ember;
 
 const context = {
 	country: null,
-	env: config.environment,
+	env: config.wikiaEnv,
 	logged_in: false,
 	skin: 'mobile_wiki',
 	url: window.location && window.location.href.split('#')[0],

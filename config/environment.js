@@ -112,6 +112,19 @@ module.exports = function (environment) {
 		fastboot: {
 			hostWhitelist: [/.*\.wikia-dev\.(pl|us)/, /.*\.wikia-staging.com/, /.*\.wikia.com/],
 			shoeboxAppendTo: 'head'
+		},
+		'ember-error-handler': {
+			consumers: [
+				'service:ember-error-handler/consumer/wsod-consumer',
+				'service:ember-error-handler/consumer/console-consumer',
+				'service:fastboot-error-consumer',
+			],
+			listeners: [
+				'service:ember-error-handler/listener/window-listener',
+				'service:ember-error-handler/listener/ember-listener'
+			],
+			'wsod-component-production': 'show-error-prod',
+			'wsod-component-development': 'show-error-dev'
 		}
 	};
 
@@ -124,7 +137,7 @@ module.exports = function (environment) {
 
 		ENV.optimizely.account = '2441440871';
 		ENV.qualaroo.scriptUrl = '//s3.amazonaws.com/ki.js/52510/dlS.js';
-		ENV.helios.internalUrl = 'http://dev.helios.service.consul:9500/info',
+		ENV.helios.internalUrl = 'http://dev.helios.service.consul:9500/info';
 		ENV.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {

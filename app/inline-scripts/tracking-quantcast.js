@@ -1,7 +1,7 @@
 (function (M) {
 	var prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge';
 
-	if (M.getFromShoebox('runtimeConfig.noExternals')) {
+	if (M.getFromShoebox('runtimeConfig.noExternals') || M.getFromShoebox('serverError')) {
 		window.trackQuantcastPageView = function () {};
 		return;
 	}

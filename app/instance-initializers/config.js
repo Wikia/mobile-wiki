@@ -4,24 +4,24 @@ import extend from '../utils/extend';
 
 const {isBlank} = Ember;
 
-function getServicesDomain(environment, datacenter) {
-	if (environment === 'dev') {
+function getServicesDomain(wikiaEnv, datacenter) {
+	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `services.wikia-dev.${devDomain}`
-	} else if (environment === 'staging') {
+	} else if (wikiaEnv === 'staging') {
 		return 'services.wikia-staging.com';
 	} else {
 		return 'services.wikia.com';
 	}
 }
 
-function getCookieDomain(environment, datacenter) {
-	if (environment === 'dev') {
+function getCookieDomain(wikiaEnv, datacenter) {
+	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `.wikia-dev.${devDomain}`
-	} else if (environment === 'staging') {
+	} else if (wikiaEnv === 'staging') {
 		return '.wikia-staging.com';
 	} else {
 		return '.wikia.com';
@@ -36,20 +36,20 @@ export function initialize(applicationInstance) {
 
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env,
-			environment = env.WIKIA_ENVIRONMENT,
+			wikiaEnv = env.WIKIA_ENVIRONMENT,
 			buckySampling = fastboot.get('request.queryParams.buckysampling'),
 			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
-			cookieDomain: getCookieDomain(environment, env.WIKIA_DATACENTER),
+			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
 			gaUserSalt: env.GA_USERID_SALT,
-			environment,
+			wikiaEnv,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER,
 		};
 
 		runtimeServicesConfig = {
-			domain: getServicesDomain(environment, env.WIKIA_DATACENTER)
+			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
 		};
 
 		if (!isBlank(buckySampling)) {

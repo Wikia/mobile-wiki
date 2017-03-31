@@ -25,6 +25,10 @@ export default Mixin.create({
 	setStaticHeadTags(noExternals) {
 		const wikiVariables = this.modelFor('application');
 
+		if (!wikiVariables) {
+			return;
+		}
+
 		this.get('headData').setProperties({
 			favicon: wikiVariables.favicon,
 			siteName: wikiVariables.siteName,
