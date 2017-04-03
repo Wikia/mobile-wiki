@@ -67,7 +67,8 @@ ArticleEditModel.reopenClass(
 					rvprop: 'content|timestamp',
 					titles: title,
 					rvsection: sectionIndex,
-					format: 'json'
+					format: 'json',
+					cb: new Date().getTime()
 				}
 			}), {
 				cache: 'no-store'
