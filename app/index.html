@@ -22,8 +22,8 @@
 			// No need to load Ember in browser on server error page
 			return;
 		}
-		M.loadScript('/mobile-wiki/assets/vendor.js', false);
-		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false);
+		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
+		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
 	})(window.M);
 </script>
 
