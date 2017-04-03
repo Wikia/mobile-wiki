@@ -34,15 +34,6 @@ module.exports = function (environment) {
 			licenseKey: '60e97494a4',
 			spaMonitoring: true
 		},
-		qualaroo: {
-			enabled: true,
-			scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
-		},
-		optimizely: {
-			enabled: true,
-			scriptPath: '//cdn.optimizely.com/js/',
-			account: '2449650414'
-		},
 		verticalColors: {
 			comics: '#ff5400',
 			games: '#94d11f',
@@ -138,8 +129,6 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		ENV.optimizely.account = '2441440871';
-		ENV.qualaroo.scriptUrl = '//s3.amazonaws.com/ki.js/52510/dlS.js';
 		ENV.helios.internalUrl = 'http://dev.helios.service.consul:9500/info';
 		ENV.facebook.appId = '881967318489580';
 
