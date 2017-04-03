@@ -46,6 +46,14 @@ export default EmberObject.extend({
 				data.article.media = {
 					media: data.article.media
 				};
+				data.article.details = {
+					ns: 0,
+					title,
+					revision: {},
+					type: 'article',
+					comments: 0
+				};
+				data.article.displayTitle = title;
 
 				return data.article
 			});
