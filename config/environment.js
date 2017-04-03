@@ -109,8 +109,8 @@ module.exports = function (environment) {
 		},
 		'ember-error-handler': {
 			consumers: [
-				'service:ember-error-handler/consumer/wsod-consumer',
 				'service:ember-error-handler/consumer/console-consumer',
+				'service:wsod-error-consumer',
 				'service:fastboot-error-consumer',
 			],
 			listeners: [
