@@ -34,10 +34,6 @@ export default Mixin.create({
 			siteName: wikiVariables.siteName,
 			themeColor: config.verticalColors[wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
-			qualarooScript: config.qualaroo.enabled && config.qualaroo.scriptUrl,
-			optimizelyScript: config.optimizely.enabled ?
-				`${config.optimizely.scriptPath}${config.optimizely.account}`:
-				false,
 			noExternals,
 			facebookAppId: config.facebook.appId
 		});
