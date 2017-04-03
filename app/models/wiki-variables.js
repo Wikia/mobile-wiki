@@ -5,10 +5,14 @@ import {buildUrl} from '../utils/url';
 
 const WikiVariablesModel = Ember.Object.extend({});
 
-export const WikiVariablesFetchError = defineError({
+const WikiVariablesFetchError = defineError({
 	name: 'WikiVariablesFetchError',
-	message: `Wiki variables couldn't be fetched`,
-	code: 503
+	message: `Wiki variables couldn't be fetched`
+});
+
+const DesignSystemFetchError = defineError({
+	name: 'DesignSystemFetchError',
+	message: `Design System data couldn't be fetched`
 });
 
 WikiVariablesModel.reopenClass({
@@ -26,7 +30,13 @@ WikiVariablesModel.reopenClass({
 		return fetch(url)
 			.then((response) => {
 				if (!response.ok) {
-					throw Error(response.statusText)
+					throw new WikiVariablesFetchError({
+						code: response.status || 503
+					}).withAdditionalData({
+						host,
+						responseBody: response.json(),
+						url
+					});
 				}
 
 				return response.json()
@@ -41,10 +51,16 @@ WikiVariablesModel.reopenClass({
 				)
 					.then((navigationApiResponse) => {
 						if (!navigationApiResponse.ok) {
-							throw Error(navigationApiResponse.statusText);
+							throw new DesignSystemFetchError({
+								code: navigationApiResponse.status || 503
+							}).withAdditionalData({
+								host,
+								response: navigationApiResponse.json(),
+								url
+							});
 						}
 
-						return navigationApiResponse.json()
+						return navigationApiResponse.json();
 					})
 					.then((navigationData) => {
 						if (!data.siteName) {
@@ -59,7 +75,9 @@ WikiVariablesModel.reopenClass({
 					});
 			})
 			.catch((error) => {
-				throw new WikiVariablesFetchError()
+				throw new WikiVariablesFetchError({
+					code: error.code || 503
+				})
 					.withPreviousError(error)
 					.withAdditionalData({
 						host,

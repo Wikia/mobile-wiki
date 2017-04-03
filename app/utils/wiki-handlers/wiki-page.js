@@ -1,10 +1,18 @@
 import Ember from 'ember';
+import {defineError} from 'ember-exex/error';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
+
+const {$, Object: EmberObject, get} = Ember;
+
+const WikiPageFetchError = defineError({
+	name: 'WikiPageFetchError',
+	message: `Wiki page couldn't be fetched`
+});
 
 /**
  *
@@ -63,7 +71,7 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 
 		return model;
 	} else {
-		return Ember.Object.create({
+		return EmberObject.create({
 			redirectTo: data.data.redirectTo || null
 		});
 	}
@@ -77,10 +85,12 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 		return fetch(getURL(params))
 			.then((response) => {
 				if (response.ok === false) {
-					// TODO use ember-exex
-					throw new Error({
-						url: response.url,
-						code: response.status
+					throw new WikiPageFetchError({
+						code: response.status || 503
+					}).withAdditionalData({
+						responseBody: response.json(),
+						fetchParams: params,
+						url: response.url
 					});
 				}
 
@@ -100,13 +110,13 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				return getModelForNamespace(data, params, contentNamespaces);
 			});
 	} else {
-		const articleData = shoebox.retrieve('wikiPage');
+		const wikiPageData = shoebox.retrieve('wikiPage');
 
-		if (articleData.data.article) {
-			articleData.data.article.content = Ember.$('.article-content').html();
+		if (get(wikiPageData, 'data.article')) {
+			wikiPageData.data.article.content = $('.article-content').html();
 		}
 
-		return getModelForNamespace(articleData, params);
+		return getModelForNamespace(wikiPageData, params, contentNamespaces);
 	}
 }
 

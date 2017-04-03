@@ -11,7 +11,6 @@
 		isSearchPage=isSearchPage
 		globalNavigation=this.attrs.globalNavigation
 	}}
-
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
 	}}
@@ -30,18 +29,13 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-
 	{{smart-banner-android
 		isVisible=smartBannerVisible
 		toggleVisibility=attrs.toggleSmartBanner
 	}}
-	{{#if noMargins}}
+	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
-	{{else}}
-		<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
-			{{outlet}}
-		</div>
-	{{/if}}
+	</div>
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel

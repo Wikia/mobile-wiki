@@ -14,6 +14,7 @@ export default BaseErrorComponent.extend({
 		return additionalData ? JSON.stringify(additionalData, null, 1) : null;
 	}),
 
+	// descriptor is not available on init(), so we use observer instead
 	setStatusCode: observer('descriptor', function () {
 		const fastboot = this.get('fastboot');
 		const code = this.get('descriptor.error.code');

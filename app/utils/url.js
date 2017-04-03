@@ -86,8 +86,7 @@ function replaceWikiInHost(host, wiki) {
  * @returns {string}
  */
 export function buildUrl(urlParams = {}) {
-	const mediawikiDomain = config.mediawikiDomain,
-		host = urlParams.host;
+	const host = urlParams.host;
 
 	if (!urlParams.protocol) {
 		urlParams.protocol = 'http';

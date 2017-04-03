@@ -154,22 +154,16 @@ export default Route.extend(
 		},
 
 		actions: {
-			/**
-			 * @returns {void}
-			 */
-			loading() {
+			loading(transition) {
 				if (this.controller) {
 					this.controller.set('isLoading', true);
+					transition.promise.finally(() => {
+						this.controller.set('isLoading', false);
+					});
 				}
 			},
 
-			/**
-			 * @returns {void}
-			 */
 			didTransition() {
-				if (this.controller) {
-					this.controller.set('isLoading', false);
-				}
 				this.get('ads.module').onTransition();
 
 				// Clear notification alerts for the new route

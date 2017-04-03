@@ -29,5 +29,7 @@ export default BaseConsumer.extend({
 
 			logger.error(descriptor);
 		}
+
+		return true;
 	}
 });
