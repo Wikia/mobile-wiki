@@ -5,6 +5,8 @@ import Thumbnailer from '../modules/thumbnailer';
 export default Ember.Mixin.create(
 	InViewportMixin,
 	{
+		fastboot: Ember.inject.service(),
+
 		classNameBindings: ['isLoaded'],
 
 		isLoaded: false,
@@ -69,6 +71,10 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		setImageEvents(url) {
+			if (this.get('fastboot.isFastBoot')) {
+				return;
+			}
+
 			const image = new Image();
 
 			image.src = url;
