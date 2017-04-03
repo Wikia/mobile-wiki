@@ -24,7 +24,13 @@ WikiVariablesModel.reopenClass({
 		});
 
 		return fetch(url)
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) {
+					throw Error(response.statusText)
+				}
+
+				return response.json()
+			})
 			.then(({data}) => {
 				return fetch(
 					buildUrl({
@@ -33,7 +39,13 @@ WikiVariablesModel.reopenClass({
 						wiki: 'www'
 					})
 				)
-					.then((navigationApiResponse) => navigationApiResponse.json())
+					.then((navigationApiResponse) => {
+						if (!navigationApiResponse.ok) {
+							throw Error(navigationApiResponse.statusText);
+						}
+
+						return navigationApiResponse.json()
+					})
 					.then((navigationData) => {
 						if (!data.siteName) {
 							data.siteName = 'Fandom powered by Wikia';
