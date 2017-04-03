@@ -66,8 +66,7 @@ const NotificationsModel = EmberObject.extend({
 			credentials: 'include',
 			headers: { 'Content-Type': 'application/json' },
 		})
-			.then((response) => response.json())
-			.then((data) => {
+			.then(() => {
 				this.get('data').setEach('isUnread', false);
 				this.set('unreadCount', 0);
 			});
