@@ -36,30 +36,3 @@ $duration: 1s;
 	top: 0;
 	z-index: $z-side-nav-overlay;
 }
-
-.spinner {
-	animation: rotator $duration linear infinite;
-	left: 50%;
-	margin: -33px 0 0 -33px;
-	position: absolute;
-	top: 50%;
-	transform: translateZ(0);
-
-	&.block {
-		display: block;
-		left: auto;
-		margin: auto;
-		position: relative;
-	}
-
-	&.ember-initializing {
-		height: 75vh;
-	}
-
-	.path {
-		animation: dash $duration ease-in-out infinite;
-		stroke: $spinner-color;
-		stroke-dasharray: $offset;
-		stroke-dashoffset: 0;
-	}
-}
