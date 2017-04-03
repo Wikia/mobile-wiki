@@ -24,6 +24,9 @@ process.env.PORT = config.port;
 
 const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {
+		let compression = require('compression');
+
+		app.use(compression());
 		app.use(logger);
 		app.use(headers);
 		/**
