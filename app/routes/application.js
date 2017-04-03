@@ -5,7 +5,6 @@ import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {activate as variantTestingActivate} from '../utils/variant-testing';
 import {getQueryString} from '../utils/url';
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
@@ -168,9 +167,6 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			didTransition() {
-				// Activate any A/B tests for the new route
-				variantTestingActivate();
-
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
