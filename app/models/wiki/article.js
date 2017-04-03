@@ -17,7 +17,6 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle(host) {
-		// TODO check cache
 		return fetch(buildUrl({
 			host,
 			path: '/api.php',

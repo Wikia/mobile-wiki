@@ -72,6 +72,8 @@ export default EmberObject.extend({
 					} else {
 						Logger.error('Search request error', response);
 					}
+
+					return this;
 				} else {
 					return response.json().then((data) => {
 						// update state on success
