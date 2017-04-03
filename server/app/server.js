@@ -1,5 +1,6 @@
 // TODO after full rollout change path to REPO ROOT
 const FastBootAppServer = require('fastboot-app-server');
+const compression = require('compression');
 const express = require('express');
 const config = require('../../config/fastboot-server');
 const logger = require('../logger');
@@ -24,8 +25,6 @@ process.env.PORT = config.port;
 
 const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {
-		let compression = require('compression');
-
 		app.use(compression());
 		app.use(logger);
 		app.use(headers);
