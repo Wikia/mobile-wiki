@@ -33,7 +33,7 @@ const server = new FastBootAppServer({
 		 * Fastboot doesn't support POST requests so we rewrite them on express to GET
 		 * Additionally we have to enable POST body parser for this route to get data that was posted
 		 */
-		app.use('/article-preview', bodyParser.urlencoded({extended: true}));
+		app.use('/article-preview', bodyParser.urlencoded({extended: true, limit: '10mb'}));
 		app.use('/article-preview', methodOverride(function() {
 			return 'GET';
 		}));
