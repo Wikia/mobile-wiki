@@ -22,6 +22,10 @@
 	<link rel="shortcut icon" href="{{model.favicon}}">
 {{/if}}
 
+{{#if model.appleTouchIcon}}
+	<link rel="apple-touch-icon" href="{{model.appleTouchIcon.url}}" sizes="{{model.appleTouchIcon.size}}" />
+{{/if}}
+
 {{! Tags updated on each transition (dynamic head tags) }}
 {{#if model.htmlTitle}}
 	<title>{{model.htmlTitle}}</title>

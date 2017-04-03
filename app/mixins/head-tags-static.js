@@ -30,6 +30,7 @@ export default Mixin.create({
 		}
 
 		this.get('headData').setProperties({
+			appleTouchIcon: wikiVariables.appleTouchIcon,
 			favicon: wikiVariables.favicon,
 			siteName: wikiVariables.siteName,
 			themeColor: config.verticalColors[wikiVariables.vertical],
