@@ -6,6 +6,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
 	stew = require('broccoli-stew');
 
+// TODO consider uncommenting it ;)
 /**
  * We override Ember's private method to remove files from the final build
  * which are added by addons but not used by us
