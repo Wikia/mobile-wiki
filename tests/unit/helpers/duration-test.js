@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import duration from 'main/helpers/duration';
+import duration from 'mobile-wiki/helpers/duration';
 
 module('Unit | Helper | duration', () => {
 	test('Duration helper is exported', (assert) => {

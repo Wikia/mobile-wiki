@@ -1,6 +1,6 @@
 import {moduleFor, test} from 'ember-qunit';
 import sinon from 'sinon';
-import WikiaNavModel from 'main/models/wikia-nav';
+import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 
 moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
 	unit: true

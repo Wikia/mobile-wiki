@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import wrapMeHelper from 'main/helpers/wrap-me';
+import wrapMeHelper from 'mobile-wiki/helpers/wrap-me';
 
 module('Unit | Helper | wrap-me', () => {
 	test('wrap-me helper is exported', (assert) => {

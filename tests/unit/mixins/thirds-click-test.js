@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import ThirdsClicksMixin from 'main/mixins/thirds-click';
+import ThirdsClicksMixin from 'mobile-wiki/mixins/thirds-click';
 import sinon from 'sinon';
 
 module('Unit | Mixin | thirds click', () => {

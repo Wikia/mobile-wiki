@@ -2,8 +2,8 @@ import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
 module('Unit | Utility | article link', () => {
-	const getLinkInfo = require('main/utils/article-link').default,
-		isHashLink = require('main/utils/article-link').isHashLink;
+	const getLinkInfo = require('mobile-wiki/utils/article-link').default,
+		isHashLink = require('mobile-wiki/utils/article-link').isHashLink;
 
 	test('getLinkInfo test external paths', (assert) => {
 		// These tests need to not contain the current base path (in the test, that's http://localhost:9876)

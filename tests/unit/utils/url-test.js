@@ -5,7 +5,7 @@ module('Unit | Utility | url', (hooks) => {
 	let extractEncodedTitle;
 
 	hooks.beforeEach(() => {
-		extractEncodedTitle = require('main/utils/url').extractEncodedTitle;
+		extractEncodedTitle = require('mobile-wiki/utils/url').extractEncodedTitle;
 	});
 
 	test('test empty string', (assert) => {

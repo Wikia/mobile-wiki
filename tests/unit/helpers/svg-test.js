@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import svgHelper from 'main/helpers/svg';
+import svgHelper from 'mobile-wiki/helpers/svg';
 
 module('Unit | Helper | svg', () => {
 	test('SVG helper is exported', (assert) => {

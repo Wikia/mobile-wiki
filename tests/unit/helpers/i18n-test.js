@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import i18nHelper from 'main/helpers/i18n';
+import i18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
 module('Unit | Helper | i18n', (hooks) => {

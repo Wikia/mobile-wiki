@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const mediaModel = require('main/models/media').default;
+const mediaModel = require('mobile-wiki/models/media').default;
 let createStub;
 
 moduleForComponent('trending-videos', 'Unit | Component | trending videos', {

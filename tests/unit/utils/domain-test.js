@@ -26,7 +26,7 @@ module('Unit | Utility | domain', () => {
 		];
 
 		testCasesForGetDomain.forEach((testCase) => {
-			assert.strictEqual(require('main/utils/domain').getDomain(testCase.hostname), testCase.expected);
+			assert.strictEqual(require('mobile-wiki/utils/domain').getDomain(testCase.hostname), testCase.expected);
 		});
 	});
 
@@ -67,7 +67,7 @@ module('Unit | Utility | domain', () => {
 		];
 
 		testCasesForExtractDomainFromUrl.forEach((testCase) => {
-			assert.strictEqual(require('main/utils/domain').extractDomainFromUrl(testCase.url), testCase.expected);
+			assert.strictEqual(require('mobile-wiki/utils/domain').extractDomainFromUrl(testCase.url), testCase.expected);
 		});
 	});
 });

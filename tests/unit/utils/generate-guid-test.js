@@ -1,7 +1,7 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 import sinon from 'sinon';
-import generateGuid from 'main/utils/generate-guid';
+import generateGuid from 'mobile-wiki/utils/generate-guid';
 
 module('Unit | Utility | generate-guid', (hooks) => {
 	hooks.beforeEach(() => {

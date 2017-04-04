@@ -1,14 +1,14 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import {getModelForNamespace} from 'main/utils/wiki-handlers/wiki-page';
+import {getModelForNamespace} from 'mobile-wiki/utils/wiki-handlers/wiki-page';
 import Ember from 'ember';
 import sinon from 'sinon';
 
 module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
-	const articleModel = require('main/models/wiki/article').default,
-		categoryModel = require('main/models/wiki/category').default,
-		fileModel = require('main/models/wiki/file').default,
-		mediawikiNamespace = require('main/utils/mediawiki-namespace').default;
+	const articleModel = require('mobile-wiki/models/wiki/article').default,
+		categoryModel = require('mobile-wiki/models/wiki/category').default,
+		fileModel = require('mobile-wiki/models/wiki/file').default,
+		mediawikiNamespace = require('mobile-wiki/utils/mediawiki-namespace').default;
 
 	let articleCreateStub,
 		articleSetDataStub,

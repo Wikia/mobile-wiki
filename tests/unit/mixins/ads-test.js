@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {moduleFor, test} from 'ember-qunit';
-import AdsMixin from 'main/mixins/ads';
+import AdsMixin from 'mobile-wiki/mixins/ads';
 import sinon from 'sinon';
 
 const adsStub = Ember.Service.extend({

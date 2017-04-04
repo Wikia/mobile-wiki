@@ -1,4 +1,4 @@
-import {form, json} from 'main/utils/content-type';
+import {form, json} from 'mobile-wiki/utils/content-type';
 import {module, test} from 'qunit';
 
 module('Unit | Utility | content type');

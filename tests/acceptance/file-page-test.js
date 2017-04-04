@@ -1,5 +1,5 @@
 import {test} from 'qunit';
-import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
+import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
 import sinon from 'sinon';
 
 moduleForAcceptance('Acceptance | file page');

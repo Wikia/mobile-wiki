@@ -1,5 +1,5 @@
 import {moduleFor, test} from 'ember-qunit';
-import SearchModel from 'main/models/search';
+import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
 
 moduleFor('model:search', 'Unit | Model | search result page', {

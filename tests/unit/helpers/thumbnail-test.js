@@ -1,6 +1,6 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import thumbnailHelper from 'main/helpers/thumbnail';
+import thumbnailHelper from 'mobile-wiki/helpers/thumbnail';
 import thumbnailer from '../modules/thumbnailer';
 
 module('Unit | Helper | thumbnail', (hooks) => {
