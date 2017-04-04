@@ -1,6 +1,7 @@
 // TODO after full rollout change path to REPO ROOT
 const FastBootAppServer = require('fastboot-app-server');
 const compression = require('compression');
+const cors = require('cors');
 const express = require('express');
 const config = require('../../config/fastboot-server');
 const logger = require('../logger');
@@ -37,7 +38,7 @@ const server = new FastBootAppServer({
 		app.use('/article-preview', methodOverride(function() {
 			return 'GET';
 		}));
-		app.use('/mobile-wiki', staticAssets);
+		app.use('/mobile-wiki', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
 	afterMiddleware: (app) => {
