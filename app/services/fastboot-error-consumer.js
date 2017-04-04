@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BaseConsumer from 'ember-error-handler/consumer/base-consumer';
+import extend from '../utils/extend';
 
 const {inject} = Ember;
 
@@ -27,7 +28,15 @@ export default BaseConsumer.extend({
 				}]
 			});
 
-			logger.error(descriptor);
+			const error = extend({}, descriptor.get('error'));
+			const errorWithStack = extend(error, {
+				stack: descriptor.get('normalizedStack')
+			});
+
+			logger.error(
+				errorWithStack,
+				`FastBoot error: ${descriptor.get('normalizedMessage')}`
+			);
 		}
 
 		return true;
