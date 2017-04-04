@@ -2,9 +2,11 @@ import Ember from 'ember';
 import {defineError} from 'ember-exex/error';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
+import NotFoundModel from '../../models/wiki/not-found';
 import FileModel from '../../models/wiki/file';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
+import extend from '../../utils/extend';
 import {buildUrl} from '../../utils/url';
 
 const {$, Object: EmberObject, get} = Ember;
@@ -77,6 +79,12 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 	}
 }
 
+function getModelForNotFound(params) {
+	const model = NotFoundModel.create(params);
+	NotFoundModel.setData(model);
+	return model;
+}
+
 export default function getPageModel(params, fastboot, contentNamespaces) {
 	const isFastBoot = fastboot.get('isFastBoot'),
 		shoebox = fastboot.get('shoebox');
@@ -84,30 +92,48 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 	if (isFastBoot || !M.initialPageView) {
 		return fetch(getURL(params))
 			.then((response) => {
-				if (response.ok === false) {
-					throw new WikiPageFetchError({
-						code: response.status || 503
-					}).withAdditionalData({
-						responseBody: response.json(),
-						fetchParams: params,
-						url: response.url
+				if (response.ok) {
+					return response.json();
+				} else {
+					return response.json().then((responseBody) => {
+						throw new WikiPageFetchError({
+							code: response.status || 503
+						}).withAdditionalData({
+							fetchParams: params,
+							responseBody,
+							url: response.url
+						});
 					});
 				}
-
-				return response.json();
 			})
 			.then((data) => {
 				if (isFastBoot) {
-					// Remove article content so it's not duplicated in shoebox and HTML
-					const shoeboxData = JSON.parse(JSON.stringify(data));
+					const dataForShoebox = extend({}, data);
 
-					if (shoeboxData.data && shoeboxData.data.article) {
-						delete shoeboxData.data.article.content;
+					if (dataForShoebox.data && dataForShoebox.data.article) {
+						// Remove article content so it's not duplicated in shoebox and HTML
+						delete dataForShoebox.data.article.content;
 					}
-					shoebox.put('wikiPage', shoeboxData);
+
+					shoebox.put('wikiPage', dataForShoebox);
 				}
 
 				return getModelForNamespace(data, params, contentNamespaces);
+			})
+			.catch((error) => {
+				if (error.code === 404) {
+					const notFoundModel = getModelForNotFound(params);
+
+					if (isFastBoot) {
+						shoebox.put('wikiPage', notFoundModel);
+						fastboot.set('response.statusCode', error.code);
+					}
+
+					return notFoundModel;
+				} else {
+					// Let ember-error-handler take care of this
+					throw error;
+				}
 			});
 	} else {
 		const wikiPageData = shoebox.retrieve('wikiPage');
@@ -116,7 +142,11 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 			wikiPageData.data.article.content = $('.article-content').html();
 		}
 
-		return getModelForNamespace(wikiPageData, params, contentNamespaces);
+		if (wikiPageData.notFound) {
+			return getModelForNotFound(params);
+		} else {
+			return getModelForNamespace(wikiPageData, params, contentNamespaces);
+		}
 	}
 }
 

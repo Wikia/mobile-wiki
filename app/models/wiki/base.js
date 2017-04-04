@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import MediaModel from '../media';
-import {normalizeToWhitespace} from '../../utils/string';
 
 /**
  * get type for open graph, website is for main page even if API returns 'article'
@@ -40,22 +39,13 @@ const {Object: EmberObject, get} = Ember,
 BaseModel.reopenClass({
 	/**
 	 * @param {Model} model
-	 * @param {Object} exception
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {exception, data}) {
+	setData(model, {data}) {
 		let pageProperties, article;
 
-		if (exception) {
-			const normalizedTitle = normalizeToWhitespace(model.title);
-
-			pageProperties = {
-				displayTitle: normalizedTitle,
-				htmlTitle: normalizedTitle,
-				exception
-			};
-		} else if (data) {
+		if (data) {
 			// This data should always be set
 			pageProperties = {
 				articleType: get(data, 'articleType'),

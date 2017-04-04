@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
-import FileHandler from '../utils/wiki-handlers/file';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
+import FileHandler from '../utils/wiki-handlers/file';
+import NotFoundHandler from '../utils/wiki-handlers/not-found';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
@@ -52,6 +53,8 @@ export default Route.extend(
 				return CategoryHandler;
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
+			} else if (model.notFound) {
+				return NotFoundHandler;
 			} else {
 				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
@@ -110,7 +113,11 @@ export default Route.extend(
 				if (fastboot.get('isFastBoot')) {
 					return RSVP
 						.resolve(pageModel)
-						.then(getAndPutTrackingDimensionsToShoebox.bind(null, fastboot, this.get('currentUser'), host));
+						.then((pageModel) => {
+							return getAndPutTrackingDimensionsToShoebox(
+								fastboot, this.get('currentUser'), host, pageModel
+							);
+						});
 				} else {
 					return pageModel;
 				}

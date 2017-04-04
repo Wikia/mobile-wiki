@@ -14,15 +14,14 @@ const {get} = Ember,
 FileModel.reopenClass({
 	/**
 	 * @param {Model} model
-	 * @param {Object} exception
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {exception, data}) {
+	setData(model, {data}) {
 		this._super(...arguments);
 		let pageProperties;
 
-		if (!exception && data) {
+		if (data) {
 			const media = get(data, 'nsSpecificContent.media');
 
 			// This data should always be set - no matter if file has an article or not

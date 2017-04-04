@@ -49,17 +49,16 @@ ArticleModel.reopenClass({
 
 	/**
 	 * @param {Model} model
-	 * @param {Object} exception
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {exception, data}) {
+	setData(model, {data}) {
 		this._super(...arguments);
 
 		let articleProperties = {},
 			details;
 
-		if (!exception && data) {
+		if (data) {
 			if (data.details) {
 				details = data.details;
 

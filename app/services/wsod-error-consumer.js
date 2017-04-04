@@ -36,6 +36,8 @@ export default BaseConsumer.extend({
 			const document = owner.lookup('service:-document');
 			component.appendTo(document.body);
 		} else {
+			// In case of application error replace the whole app with error message and reload button
+			// This is not a perfect UX but FastBoot currently can't handle errors gracefully
 			this.get('renderComponent')({
 				name: this.get('component'),
 				attrs: {

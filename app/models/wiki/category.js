@@ -3,7 +3,7 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
-const {get, isEmpty} = Ember,
+const {isEmpty} = Ember,
 	CategoryModel = BaseModel.extend({
 		host: null,
 		hasArticle: false,
@@ -44,14 +44,13 @@ const {get, isEmpty} = Ember,
 CategoryModel.reopenClass({
 	/**
 	 * @param {Model} model
-	 * @param {Object} exception
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {exception, data}) {
+	setData(model, {data}) {
 		this._super(...arguments);
 
-		if (!exception && data && data.nsSpecificContent) {
+		if (data && data.nsSpecificContent) {
 			model.setProperties(data.nsSpecificContent);
 		}
 	}

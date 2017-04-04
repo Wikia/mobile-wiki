@@ -8,8 +8,6 @@ import {buildUrl} from '../url';
  * @returns {void}
  */
 function afterModel(route, model) {
-	route.controllerFor('application').set('currentTitle', model.get('title'));
-
 	// Reset query parameters
 	model.set('commentsPage', null);
 
