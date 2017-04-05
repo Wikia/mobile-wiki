@@ -11,7 +11,7 @@ const wikiaSearchDivSelector = '.wikia-search',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
 
 const i18nStub = Ember.Service.extend({
-	t: function(key) {
+	t(key) {
 		return key;
 	}
 });
@@ -22,7 +22,7 @@ moduleForComponent('wikia-search', 'Integration | Component | wikia search', {
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');
 		this.register('service:i18n', i18nStub);
-		this.inject.service('i18n', { as: 'i18nService' });
+		this.inject.service('i18n', {as: 'i18nService'});
 	},
 
 	afterEach() {

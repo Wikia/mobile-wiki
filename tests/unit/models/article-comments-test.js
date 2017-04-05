@@ -18,7 +18,7 @@ moduleFor('model:article-comments', 'Unit | Model | article comments', {
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();
 
-	model.set('host', 'wikia.com')
+	model.set('host', 'wikia.com');
 	model.url(1, 1);
 	assert.ok(stub.calledWith({
 		host: 'wikia.com',

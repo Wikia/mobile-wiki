@@ -15,7 +15,7 @@ moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 		component = this.subject();
 		component.set('wikiVariables', {
 			host: 'wikia.com'
-		})
+		});
 	},
 
 	afterEach() {
@@ -24,12 +24,12 @@ moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 	}
 });
 
-test('search URI generation', function (assert) {
+test('search URI generation', (assert) => {
 	const queries = [
-			'',
-			'query',
-			'something that\'s encodable'
-		];
+		'',
+		'query',
+		'something that\'s encodable'
+	];
 
 	queries.forEach((query) => {
 		component.getSearchURI(query);

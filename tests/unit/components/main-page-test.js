@@ -40,7 +40,7 @@ test('injects ads', function (asset) {
 		adsContext,
 		curatedContent: {},
 		currentUser: {
-			userModel: new Ember.RSVP.Promise(function () {})
+			userModel: new Ember.RSVP.Promise(() => {})
 		},
 		injectMainPageAds: injectMainPageAdsSpy,
 		setupAdsContext: setupAdsContextSpy

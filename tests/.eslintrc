@@ -5,6 +5,7 @@
   },
   "globals": {
     "mockAdsService": true,
+    "mockFastbootService": true,
     "mockService": true
   },
   "parserOptions": {

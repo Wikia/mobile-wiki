@@ -1,11 +1,11 @@
 import {test, moduleFor} from 'ember-qunit';
 
 const model = Ember.Object.create({
-		url: '/wiki/Kermit',
-		description: 'Article about Kermit',
-		displayTitle: 'Kermit The Frog',
-		htmlTitle: 'Kermit The Frog'
-	});
+	url: '/wiki/Kermit',
+	description: 'Article about Kermit',
+	displayTitle: 'Kermit The Frog',
+	htmlTitle: 'Kermit The Frog'
+});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	needs: ['service:router-scroll'],
@@ -43,7 +43,7 @@ test('set head tags for correct model', function (assert) {
 			specialRobotPolicy: 'index,follow',
 			smartBanner: {
 				appId: {
-					ios: "1234",
+					ios: '1234',
 				},
 			}
 		}

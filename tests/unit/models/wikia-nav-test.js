@@ -39,7 +39,7 @@ test('test zero state with values from api', (assert) => {
 				exploreWikisLabel: '',
 				discussionsEnabled: false,
 				wikiName: '',
-				i18n: {t: function(key) { return key }}
+				i18n: {t(key) { return key; }}
 			},
 			expected: [
 				{
@@ -60,7 +60,7 @@ test('test zero state with values from api', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -113,7 +113,7 @@ test('test zero state with values from api', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -173,7 +173,7 @@ test('test zero state with values from api', (assert) => {
 				discussionsEnabled: false,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -227,7 +227,7 @@ test('test zero state with values from api', (assert) => {
 				discussionsEnabled: false,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -283,7 +283,7 @@ test('test local sub nav transitions', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				}
 			},
 			path: [0],
@@ -307,7 +307,7 @@ test('test local sub nav transitions', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				}
 			},
 			path: [1],
@@ -347,7 +347,7 @@ test('test local sub nav transitions', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				}
 			},
 			path: [1, 1],
@@ -395,7 +395,7 @@ test('Header value', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				}
 			},
 			path: [1],
@@ -412,7 +412,7 @@ test('Header value', (assert) => {
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t: function(key) { return key }
+					t(key) { return key; }
 				}
 			},
 			path: [],
