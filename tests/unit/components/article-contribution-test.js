@@ -1,7 +1,7 @@
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
-const trackModule = require('common/utils/track');
+const trackModule = require('mobile-wiki/utils/track');
 let trackStub;
 
 /**

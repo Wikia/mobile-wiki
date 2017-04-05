@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
-const trackModule = require('common/utils/track'),
+const trackModule = require('mobile-wiki/utils/track'),
 	adSlotComponentStub = Ember.Component.extend({});
 let setTrackContextStub,
 	trackPageViewStub;

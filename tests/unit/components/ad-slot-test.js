@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const adsStub = Ember.Service.extend({
-	module: require('common/modules/ads').default.getInstance()
+	module: require('mobile-wiki/modules/ads').default.getInstance()
 });
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
@@ -83,7 +83,7 @@ test('test UAP listeners', (assert) => {
 	];
 
 	testCases.forEach((testCase) => {
-		const Ads = require('common/modules/ads').default,
+		const Ads = require('mobile-wiki/modules/ads').default,
 			ads = new Ads(),
 			spyUap = sinon.spy(),
 			spyNoUap = sinon.spy();

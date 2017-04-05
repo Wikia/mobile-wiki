@@ -1,21 +1,16 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
-import i18nHelper from 'mobile-wiki/helpers/i18n';
+import I18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
 module('Unit | Helper | i18n', (hooks) => {
 	const tStub = sinon.stub();
 	let originalI18nGlobal;
+	let i18nHelper;
 
 	hooks.beforeEach(() => {
-		originalI18nGlobal = window.i18n;
-		window.i18n = {
-			t: tStub
-		};
-	});
-
-	hooks.afterEach(() => {
-		window.i18n = originalI18nGlobal;
+		i18nHelper = new I18nHelper();
+		i18nHelper.set('i18n', {t: tStub});
 	});
 
 	test('i18n helper is exported', (assert) => {
