@@ -13,6 +13,12 @@ export default BaseConsumer.extend({
 	},
 
 	consume(descriptor) {
+		// We don't want to display White Screen of Death in browser
+		// We have too many external scripts that like to fail (ads, tracking)
+		if (!this.get('fastboot.isFastBoot')) {
+			return true;
+		}
+
 		const descriptors = this.get('descriptors');
 		descriptors.pushObject(descriptor);
 
