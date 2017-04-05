@@ -41,7 +41,7 @@
 		}
 
 		if (typeof(config.apid) !== 'string' || config.apid === 'FIXME') {
-			throw 'Invalid Nielsen apid';
+			throw new Error('Invalid Nielsen apid');
 		}
 
 		delete window.NOLCMB;

@@ -1,13 +1,18 @@
 // objects needed for Oasis
-Wikia = {};
-Mercury = {};
+window.Wikia = {};
+window.Mercury = {};
 
 // objects needed for AdEngine
-mw = { loader: { state: function() {} } };
-wgNow = new Date();
+window.mw = {
+	loader: {
+		state: function () {
+		}
+	}
+};
+window.wgNow = new Date();
 
 // objects needed for Mobile Wiki
-M = {
+window.M = {
 	initialPageView: true,
 	tracker: {}
 };

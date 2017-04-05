@@ -3,13 +3,15 @@
 
 	function getProp(obj, path) {
 		// TODO split, join, split, this can be optimized
-		var parts = path.split('.');
+		var parts = path.split('.'),
+			value = obj,
+			i,
+			length;
 
 		if (parts.length > 1) {
-			var value = obj,
-				length = parts.length;
+			length = parts.length;
 
-			for (var i = 0; i < length; i++) {
+			for (i = 0; i < length; i++) {
 				if (!value.hasOwnProperty(parts[i])) {
 					return;
 				}
@@ -24,16 +26,21 @@
 	}
 
 	M.getFromShoebox = function (path) {
-		var parts = path.split('.');
-		var key = parts.shift();
+		var parts = path.split('.'),
+			key = parts.shift(),
+			el = document.querySelector('#shoebox-' + key),
+			shoeboxItem,
+			valueString;
 
-		var el = document.querySelector('#shoebox-' + key);
-		if (!el) { return; }
+		if (!el) {
+			return;
+		}
+		valueString = el.textContent;
+		if (!valueString) {
+			return;
+		}
 
-		var valueString = el.textContent;
-		if (!valueString) { return; }
-
-		var shoeboxItem = JSON.parse(valueString);
+		shoeboxItem = JSON.parse(valueString);
 		shoeboxCache[key] = shoeboxItem;
 
 		if (parts.length === 0) {
