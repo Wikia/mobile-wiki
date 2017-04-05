@@ -38,6 +38,7 @@
     "fastboot": "github:wikia/fastboot#shoebox-append-to",
     "fastboot-app-server": "1.0.0-rc.5",
     "method-override": "2.3.7",
+    "newrelic": "1.38.2",
     "on-headers": "1.0.1"
   },
   "devDependencies": {

@@ -11,6 +11,14 @@ const staticAssets = require('../static-assets');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
+/**
+ * NewRelic is only enabled on one server and that logic is managed by chef,
+ * which passes it to our config
+ */
+if (process.env.NEW_RELIC_ENABLED === 'true') {
+	require('newrelic');
+}
+
 function levelFn(status, err) {
 	if (err || status >= 500) {
 		// server internal error or error
