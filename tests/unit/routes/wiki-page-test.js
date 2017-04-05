@@ -1,7 +1,6 @@
 import {test, moduleFor} from 'ember-qunit';
 
-const originalMercury = Ember.$.extend(true, {}, window.Mercury),
-	model = Ember.Object.create({
+const model = Ember.Object.create({
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
 		displayTitle: 'Kermit The Frog',
@@ -9,11 +8,9 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
+	needs: ['service:router-scroll'],
 	beforeEach() {
 		window.wgNow = null;
-	},
-	afterEach() {
-		window.Mercury = Ember.$.extend(true, {}, originalMercury);
 	}
 });
 
@@ -24,7 +21,8 @@ test('set head tags for correct model', function (assert) {
 			description: 'Article about Kermit',
 			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
 			appleItunesApp: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit',
-			robots: 'index,follow'
+			robots: 'index,follow',
+			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
 		};
 
 	let headData;
@@ -32,7 +30,23 @@ test('set head tags for correct model', function (assert) {
 	mock.setProperties({
 		removeServerTags() {},
 		setStaticHeadTags() {},
-		headData: Ember.Object.create()
+		headData: Ember.Object.create(),
+		wikiVariables: {
+			basePath: 'http://muppet.wikia.com',
+			htmlTitle: {
+				parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
+				separator: ' | '
+			},
+			siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
+			siteName: 'MediaWiki',
+			dbName: 'fallout',
+			specialRobotPolicy: 'index,follow',
+			smartBanner: {
+				appId: {
+					ios: "1234",
+				},
+			}
+		}
 	});
 
 	mock.setDynamicHeadTags(model);
@@ -43,6 +57,7 @@ test('set head tags for correct model', function (assert) {
 	assert.equal(headData.appleItunesApp, expectedHeadTags.appleItunesApp);
 	assert.equal(headData.robots, expectedHeadTags.robots);
 	assert.equal(headData.htmlTitle, expectedHeadTags.htmlTitle);
+	assert.equal(headData.keywords, expectedHeadTags.keywords);
 });
 
 test('set head tags without apple-itunes-app when appId is not set', function (assert) {
@@ -51,12 +66,21 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 
 	let headData;
 
-	delete window.Mercury.wiki.smartBanner;
-
 	mock.setProperties({
 		removeServerTags() {},
 		setStaticHeadTags() {},
-		headData: Ember.Object.create()
+		headData: Ember.Object.create(),
+		wikiVariables: {
+			basePath: 'http://muppet.wikia.com',
+			htmlTitle: {
+				parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
+				separator: ' | '
+			},
+			siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
+			siteName: 'MediaWiki',
+			dbName: 'fallout',
+			specialRobotPolicy: 'index,follow',
+		}
 	});
 
 	mock.setDynamicHeadTags(model);
@@ -103,7 +127,9 @@ test('get correct handler based on model namespace', function (assert) {
 			}
 		];
 
-	window.Mercury.wiki.contentNamespaces = [0, 112];
+	mock.set('wikiVariables', {
+		contentNamespaces: [0, 112]
+	});
 
 	testCases.forEach(({expectedHandler, model}) => {
 		const handler = mock.getHandler(model);
@@ -137,7 +163,7 @@ test('get correct handler based on model isMainPage flag and exception', functio
 test('reset ads variables on before model', function (assert) {
 	const mock = this.subject();
 
-	M.prop('initialPageView', false);
+	M.initialPageView = false;
 	mock.controllerFor = () => {
 		return {
 			send: () => {}
