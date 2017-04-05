@@ -10,11 +10,19 @@ const wikiaSearchDivSelector = '.wikia-search',
 	focusedInputClass = 'wikia-search--focused',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
 
+const i18nStub = Ember.Service.extend({
+	t: function(key) {
+		return key;
+	}
+});
+
 moduleForComponent('wikia-search', 'Integration | Component | wikia search', {
 	integration: true,
 
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');
+		this.register('service:i18n', i18nStub);
+		this.inject.service('i18n', { as: 'i18nService' });
 	},
 
 	afterEach() {
