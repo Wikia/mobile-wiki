@@ -3,14 +3,19 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 
 const trackModule = require('mobile-wiki/utils/track');
-let trackStub, buildUrlStub;
+const urlModule = require('mobile-wiki/utils/url');
+let trackStub, buildUrlStub, component;
 
 moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {
-		buildUrlStub = sinon.stub(M, 'buildUrl');
+		buildUrlStub = sinon.stub(urlModule, 'buildUrl');
 		trackStub = sinon.stub(trackModule, 'track');
+		component = this.subject();
+		component.set('wikiVariables', {
+			host: 'wikia.com'
+		})
 	},
 
 	afterEach() {
@@ -24,13 +29,13 @@ test('search URI generation', function (assert) {
 			'',
 			'query',
 			'something that\'s encodable'
-		],
-		component = this.subject();
+		];
 
 	queries.forEach((query) => {
 		component.getSearchURI(query);
 		assert.ok(
 			buildUrlStub.calledWith({
+				host: 'wikia.com',
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
