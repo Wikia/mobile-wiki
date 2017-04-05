@@ -11,6 +11,9 @@ const adsStub = Ember.Service.extend({
 
 moduleFor('mixin:ads', 'Unit | Mixin | ads', {
 	unit: true,
+	needs: [
+		'service:currentUser',
+	],
 
 	beforeEach() {
 		this.register('service:ads', adsStub);
