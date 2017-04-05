@@ -61,6 +61,7 @@ test('ad is injected below page header', function (assert) {
 			'<div>more content</div>';
 
 		this.subject({
+			adsContext: {},
 			content
 		});
 		this.render();
@@ -84,6 +85,7 @@ test('ad is injected below portable infobox', function (assert) {
 			'<div>more content</div>';
 
 		this.subject({
+			adsContext: {},
 			content
 		});
 		this.render();

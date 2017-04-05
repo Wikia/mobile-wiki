@@ -18,8 +18,6 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 			section,
 			sectionId,
 			title,
-			uploadFeatureEnabled: testCase.uploadFeatureEnabled,
-			isJapaneseWikia: testCase.isJapaneseWikia,
 			model: {
 				isMainPage: testCase.isMainPage
 			},
@@ -29,7 +27,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 			}
 		});
 
-		window.Mercury.wiki = {
+		component.set('wikiVariables', {
 			id: 80433,
 			dbName: testCase.hasOwnProperty('dbName') ? testCase.dbName : 'wikiaglobal',
 			language: {
@@ -39,7 +37,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 			isCoppaWiki: testCase.hasOwnProperty('isCoppaWiki') ? testCase.isCoppaWiki : false,
 			disableAnonymousEditing: testCase.hasOwnProperty('disableAnonymousEditing') ?
 				testCase.disableAnonymousEditing : false
-		};
+		});
 
 		assert.equal(component.get(property), testCase.expected);
 	});
@@ -57,7 +55,6 @@ moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
 test('contribution disabled on main page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: true,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: false
 	}, 'contributionEnabled', assert);
@@ -66,7 +63,6 @@ test('contribution disabled on main page', function (assert) {
 test('contribution enabled on Japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: true
 	}, 'contributionEnabled', assert);
@@ -75,54 +71,14 @@ test('contribution enabled on Japanese page', function (assert) {
 test('contribution disabled when disableMobileSectionEditor is set', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: true,
 		expected: false
 	}, 'contributionEnabled', assert);
-});
-
-test('contribution enabled on non-Japanese page 1', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: false,
-		disableMobileSectionEditor: false,
-		dbName: 'zhclashofclans723',
-		expected: true
-	}, 'contributionEnabled', assert);
-});
-
-test('contribution enabled on non-Japanese page 2', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: false,
-		disableMobileSectionEditor: false,
-		dbName: 'starwars',
-		expected: true
-	}, 'contributionEnabled', assert);
-});
-
-test('edit icon visible on japanese page', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: true,
-		disableMobileSectionEditor: false,
-		expected: true
-	}, 'editIconVisible', assert);
-});
-
-test('edit icon not visible on japanese page with section editor disabled', function (assert) {
-	contributionTestHelper(this, {
-		isMainPage: false,
-		isJapaneseWikia: false,
-		disableMobileSectionEditor: true,
-		expected: false
-	}, 'editIconVisible', assert);
 });
 
 test('logged in user can edit', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: true,
 		expected: true
@@ -132,7 +88,6 @@ test('logged in user can edit', function (assert) {
 test('coppa wiki requires log in', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: false,
 		isCoppaWiki: true,
@@ -144,7 +99,6 @@ test('coppa wiki requires log in', function (assert) {
 test('wiki with disableAnonymousEditing set requires log in', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
-		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: false,
 		isCoppaWiki: false,
