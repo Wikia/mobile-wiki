@@ -88,18 +88,7 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
-	beforeEach() {
-		M.provide('article', articleExample);
-		M.prop('articleContentPreloadedInDOM', true, true);
-
-		Ember.$('#ember-testing').html('<div class="article-content" id="preloadedContent">Test content</div>');
-	},
-
-	afterEach() {
-		Ember.$('#ember-testing').html('');
-	}
-});
+moduleFor('model:wiki/article', 'Integration | Model | wiki/article');
 
 test('setData with parametrized data', function (assert) {
 	const model = this.subject();
