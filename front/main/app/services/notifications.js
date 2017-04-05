@@ -48,7 +48,7 @@ export default Service.extend({
 	},
 
 	loadMoreResults() {
-		if (this.get('isLoading') === true || !this.isUserAuthenticated || this.get('allLoaded') === true) {
+		if (this.get('isLoading') === true || !this.get('isUserAuthenticated') || this.get('allLoaded') === true) {
 			return;
 		}
 
