@@ -35,14 +35,20 @@ export default function () {
 			return schema.curatedContentEditorItems.first();
 		}
 
-		if (controller === 'SearchApi' && method === 'getList') {
-			return schema.searches.first();
-		}
-
 		// fixme probably it shouldn't look like this - it just to have mirage working for backend-less development
 		if (controller === 'UserApi') {
 			return;
 		}
+		throw new Error(`Controller or method response isn't yet mocked`);
+	});
+
+	this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
+		const {controller, method, title} = request.queryParams;
+
+		if (controller === 'SearchApi' && method === 'getList') {
+			return schema.searches.first();
+		}
+
 		throw new Error(`Controller or method response isn't yet mocked`);
 	});
 }
