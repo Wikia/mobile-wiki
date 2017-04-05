@@ -38,7 +38,8 @@ test('test zero state with values from api', (assert) => {
 				exploreWikis: [],
 				exploreWikisLabel: '',
 				discussionsEnabled: false,
-				wikiName: ''
+				wikiName: '',
+				i18n: {t: function(key) { return key }}
 			},
 			expected: [
 				{
@@ -57,7 +58,13 @@ test('test zero state with values from api', (assert) => {
 				exploreWikis: exploreWikisMock,
 				discussionsEnabled: false,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				},
+				wikiVariables: {
+					mainPageTitle: 'Main_Page'
+				}
 			},
 			expected: [
 				{
@@ -104,7 +111,13 @@ test('test zero state with values from api', (assert) => {
 				exploreWikis: exploreWikisMock,
 				discussionsEnabled: true,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				},
+				wikiVariables: {
+					mainPageTitle: 'Main_Page'
+				}
 			},
 			expected: [
 				{
@@ -158,7 +171,13 @@ test('test zero state with values from api', (assert) => {
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				discussionsEnabled: false,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				},
+				wikiVariables: {
+					mainPageTitle: 'Main_Page'
+				}
 			},
 			expected: [
 				{
@@ -206,7 +225,13 @@ test('test zero state with values from api', (assert) => {
 				},
 				exploreWikisLabel: exploreWikisLabelMock,
 				discussionsEnabled: false,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				},
+				wikiVariables: {
+					mainPageTitle: 'Main_Page'
+				}
 			},
 			expected: [
 				{
@@ -241,17 +266,11 @@ test('test zero state with values from api', (assert) => {
 		}
 	];
 
-	const i18nStub = sinon.stub(window.i18n, 't');
-
-	i18nStub.returnsArg(0);
-
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
-
-	i18nStub.restore();
 });
 
 test('test local sub nav transitions', (assert) => {
@@ -262,7 +281,10 @@ test('test local sub nav transitions', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				}
 			},
 			path: [0],
 			expected: [
@@ -283,7 +305,10 @@ test('test local sub nav transitions', (assert) => {
 				]}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				}
 			},
 			path: [1],
 			expected: [
@@ -320,7 +345,10 @@ test('test local sub nav transitions', (assert) => {
 				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				}
 			},
 			path: [1, 1],
 			expected: [
@@ -345,10 +373,6 @@ test('test local sub nav transitions', (assert) => {
 		}
 	];
 
-	const i18nStub = sinon.stub(window.i18n, 't');
-
-	i18nStub.returnsArg(0);
-
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
@@ -357,8 +381,6 @@ test('test local sub nav transitions', (assert) => {
 		});
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
-
-	i18nStub.restore();
 });
 
 test('Header value', (assert) => {
@@ -371,7 +393,10 @@ test('Header value', (assert) => {
 				]}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				}
 			},
 			path: [1],
 			expected: 'Test 1',
@@ -385,7 +410,10 @@ test('Header value', (assert) => {
 				]}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
-				wikiName: 'Test'
+				wikiName: 'Test',
+				i18n: {
+					t: function(key) { return key }
+				}
 			},
 			path: [],
 			expected: 'global-navigation-wikis-header',
