@@ -1,5 +1,5 @@
 import {test, moduleForComponent} from 'ember-qunit';
-import Thumbnailer from '../modules/thumbnailer';
+import Thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
 moduleForComponent('portable-infobox-hero-image', 'Unit | Component | portable-infobox-hero-image', {
 	unit: true

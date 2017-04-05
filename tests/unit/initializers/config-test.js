@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { initialize } from 'mobile-wiki/../../../app/instance-initializers/config';
+import { initialize } from 'mobile-wiki/instance-initializers/config';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 

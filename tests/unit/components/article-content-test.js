@@ -17,7 +17,9 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'service:currentUser',
-		'service:ads'
+		'service:ads',
+		'service:wikiVariables',
+		'service:fastboot'
 	],
 
 	beforeEach() {
@@ -36,7 +38,8 @@ test('ad is injected below portable infobox with no page header', function (asse
 			'<div>more content</div>';
 
 		this.subject({
-			content
+			adsContext: {},
+			content,
 		});
 		this.render();
 	});

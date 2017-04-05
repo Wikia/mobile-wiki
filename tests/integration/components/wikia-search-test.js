@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const trackModule = require('common/utils/track');
+const trackModule = require('mobile-wiki/utils/track');
 let trackStub;
 
 const wikiaSearchDivSelector = '.wikia-search',
