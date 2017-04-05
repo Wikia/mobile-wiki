@@ -5,7 +5,7 @@ import destroyApp from '../helpers/destroy-app';
 export default function (name, options = {}) {
 	module(name, {
 		beforeEach() {
-			this.application = startApp();
+			this.applicationInstance = startApp();
 
 			if (options.beforeEach) {
 				options.beforeEach.apply(this, arguments);
@@ -17,7 +17,7 @@ export default function (name, options = {}) {
 				options.afterEach.apply(this, arguments);
 			}
 
-			destroyApp(this.application);
+			destroyApp(this.applicationInstance);
 		},
 	});
 }
