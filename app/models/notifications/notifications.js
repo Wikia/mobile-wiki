@@ -2,8 +2,7 @@ import Ember from 'ember';
 import Notification from './notification';
 import fetch from 'ember-network/fetch';
 import {convertToIsoString} from '../../utils/iso-date-time';
-import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
-import {getQueryString} from '../../utils/url';
+import {getOnSiteNotificationsServiceUrl, getQueryString} from '../../utils/url';
 
 const {Object: EmberObject, A, RSVP, Logger} = Ember;
 
@@ -64,7 +63,7 @@ const NotificationsModel = EmberObject.extend({
 			method: 'POST',
 			body: JSON.stringify({since}),
 			credentials: 'include',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {'Content-Type': 'application/json'},
 		})
 			.then(() => {
 				this.get('data').setEach('isUnread', false);

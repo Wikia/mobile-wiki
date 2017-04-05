@@ -3,7 +3,7 @@ import Ember from 'ember';
 const {Object: EmberObject, A, Logger, computed, get} = Ember;
 
 export default EmberObject.extend({
-	//This has to be injected
+	// This has to be injected
 	i18n: null,
 	wikiVariables: null,
 	dsGlobalNavigation: {},

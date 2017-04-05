@@ -38,9 +38,11 @@ UserModel.reopenClass({
 			timeout: config.helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
-				return response.json().then((data) => {return data.user_id})
+				return response.json().then((data) => {
+					return data.user_id;
+				});
 			} else {
-				if (response.status == 401) {
+				if (response.status === 401) {
 					Ember.Logger.info('Token not authorized by Helios');
 				} else {
 					Ember.Logger.error('Helios connection error: ', response);
@@ -52,7 +54,7 @@ UserModel.reopenClass({
 			} else {
 				Ember.Logger.error('Helios connection error: ', reason);
 			}
-		})
+		});
 	},
 
 	/**
@@ -101,12 +103,12 @@ UserModel.reopenClass({
 			}
 		})).then((response) => response.json())
 			.then((result) => {
-			if (Ember.isArray(result.items)) {
-				return result.items[0];
-			} else {
-				throw new Error(result);
-			}
-		});
+				if (Ember.isArray(result.items)) {
+					return result.items[0];
+				} else {
+					throw new Error(result);
+				}
+			});
 	},
 
 	/**

@@ -24,7 +24,7 @@ export default Service.extend({
 	enableOnSiteNotifications: Ember.computed.reads('wikiVariables.enableOnSiteNotifications'),
 
 	modelLoader: computed('isUserAuthenticated', 'enableOnSiteNotifications', function () {
-		if (this.get('fastboot.isFastBoot')){
+		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
 

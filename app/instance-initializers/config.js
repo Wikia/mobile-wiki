@@ -8,7 +8,7 @@ function getServicesDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
-		return `services.wikia-dev.${devDomain}`
+		return `services.wikia-dev.${devDomain}`;
 	} else if (wikiaEnv === 'staging') {
 		return 'services.wikia-staging.com';
 	} else {
@@ -20,7 +20,7 @@ function getCookieDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
-		return `.wikia-dev.${devDomain}`
+		return `.wikia-dev.${devDomain}`;
 	} else if (wikiaEnv === 'staging') {
 		return '.wikia-staging.com';
 	} else {
@@ -58,7 +58,7 @@ export function initialize(applicationInstance) {
 			if (buckySamplingInt >= 0 && buckySamplingInt <= 100) {
 				// Convert percent to 0-1 scale
 				runtimeConfig.weppy = {
-					samplingRate: parseInt(buckySampling) / 100
+					samplingRate: buckySamplingInt / 100
 				};
 			}
 		}

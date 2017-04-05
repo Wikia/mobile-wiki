@@ -25,7 +25,7 @@ const NotificationModel = EmberObject.extend({
 			method: 'POST',
 			body: JSON.stringify([this.get('uri')]),
 			credentials: 'include',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {'Content-Type': 'application/json'},
 		}).then(() => {
 			this.set('isUnread', false);
 		});

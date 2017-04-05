@@ -12,22 +12,17 @@ export function getQueryString(query = {}) {
 	let queryString = '';
 
 	if (queryArray.length > 0) {
-		/**
-		 * @param {string} key
-		 * @returns {string}
-		 */
-		queryString = `?${queryArray.map((key) =>{
-				if (query[key] instanceof Array) {
-					if (query[key].length) {
-						return query[key]
-							.map((item) => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`)
-							.join('&');
-					}
-				} else {
-					return `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`;
+		queryString = `?${queryArray.map((key) => {
+			if (query[key] instanceof Array) {
+				if (query[key].length) {
+					return query[key]
+						.map((item) => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`)
+						.join('&');
 				}
+			} else {
+				return `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`;
 			}
-		).join('&')}`;
+		}).join('&')}`;
 	}
 
 	return queryString;
@@ -133,6 +128,6 @@ export function extractEncodedTitle(url) {
 	return url ? url.replace(/^(http:\/\/[^\/]+)?(\/wiki)?\//, '') : '';
 }
 
-export function getOnSiteNotificationsServiceUrl(path='') {
+export function getOnSiteNotificationsServiceUrl(path = '') {
 	return `https://${config.services.domain}/${config.services.onSiteNotifications.baseAPIPath}${path}`;
 }

@@ -24,7 +24,7 @@ export default function mediawikiFetch(url, options = {}) {
 				options.counter++;
 				return mediawikiFetch(response.headers.get('Location'), options);
 			} else {
-				throw `maximum redirect reached at: ${response.headers.get('Location')}`;
+				throw new Error(`maximum redirect reached at: ${response.headers.get('Location')}`);
 			}
 		}
 

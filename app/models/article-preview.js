@@ -55,7 +55,7 @@ export default EmberObject.extend({
 				};
 				data.article.displayTitle = title;
 
-				return data.article
+				return data.article;
 			});
 	}
 });

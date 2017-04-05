@@ -39,7 +39,7 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-				return response.json()
+				return response.json();
 			})
 			.then(({data}) => {
 				return fetch(

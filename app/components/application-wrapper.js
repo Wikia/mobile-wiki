@@ -43,7 +43,7 @@ export default Component.extend({
 		return `wikia-${this.get('activeDrawerContent')}`;
 	}),
 
-	verticalClass: computed('wikiVariables', function() {
+	verticalClass: computed('wikiVariables', function () {
 		const vertical = this.get('wikiVariables.vertical');
 
 		return `${vertical}-vertical`;
@@ -131,9 +131,9 @@ export default Component.extend({
 
 		return (
 			$target.closest('.mw-content').length &&
-				// ignore polldaddy content
+			// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length &&
-				// don't need special logic for article references
+			// don't need special logic for article references
 			!isReference
 		);
 	},

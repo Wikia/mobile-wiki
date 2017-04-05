@@ -43,13 +43,8 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 	});
 }
 
-const originalMercury = Ember.$.extend(true, {}, window.Mercury);
-
 moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
-	unit: true,
-	afterEach() {
-		window.Mercury = Ember.$.extend(true, {}, originalMercury);
-	}
+	unit: true
 });
 
 test('contribution disabled on main page', function (assert) {

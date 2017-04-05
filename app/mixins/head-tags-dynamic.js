@@ -37,9 +37,9 @@ export default Ember.Mixin.create({
 				prev: data.prev,
 				appId: this.get('wikiVariables.smartBanner.appId.ios'),
 				robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
-				keywords: this.get('wikiVariables.siteMessage') +
-					',' + this.get('wikiVariables.siteName') +
-					',' + this.get('wikiVariables.dbName'),
+				keywords: `${this.get('wikiVariables.siteMessage')}` +
+				`,${this.get('wikiVariables.siteName')}` +
+				`,${this.get('wikiVariables.dbName')}`,
 				appleItunesApp: ''
 			};
 
@@ -49,7 +49,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (model.title) {
-			headData.title =  model.title;
+			headData.title = model.title;
 		}
 
 		if (model.type) {

@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = (function () {
 	const config = {
 		distPath: 'dist/mobile-wiki',
 		loggers: {
@@ -17,4 +17,4 @@ module.exports = function () {
 	}
 
 	return config;
-}();
+})();

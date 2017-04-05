@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import MediaModel from '../media';
-import extend from '../../utils/extend'
+import extend from '../../utils/extend';
 
 /**
  * get type for open graph, website is for main page even if API returns 'article'

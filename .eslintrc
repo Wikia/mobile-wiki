@@ -42,17 +42,12 @@
   "globals": {
     "$script": true,
     "Ember": true,
-    "EmPerfSender": true,
+    "FastBoot": true,
     "FastClick": true,
     "ga": true,
     "Hammer": true,
     "Headroom": true,
-    "i18n": true,
     "M": true,
-    "Mercury": true,
-    "numeral": true,
-    "CryptoJS": true,
-    "state": false,
     "VisitSource": true,
     "Weppy": true,
     "Wikia": true

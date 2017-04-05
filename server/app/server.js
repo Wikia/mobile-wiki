@@ -43,14 +43,14 @@ const server = new FastBootAppServer({
 		 * Additionally we have to enable POST body parser for this route to get data that was posted
 		 */
 		app.use('/article-preview', bodyParser.urlencoded({extended: true, limit: '10mb'}));
-		app.use('/article-preview', methodOverride(function() {
+		app.use('/article-preview', methodOverride(() => {
 			return 'GET';
 		}));
 		app.use('/mobile-wiki', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
 	afterMiddleware: (app) => {
-		app.use(function (err, req, res, next) {
+		app.use((err, req, res, next) => {
 			if (err) {
 				// It should never get here
 				// In theory, the Ember app handles all server errors

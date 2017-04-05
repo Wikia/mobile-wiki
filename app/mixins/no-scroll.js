@@ -29,7 +29,7 @@ export default Mixin.create({
 
 	setNoScroll(current) {
 		if (!window.location) {
-			return
+			return;
 		}
 
 		const $body = $('body');

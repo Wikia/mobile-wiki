@@ -45,7 +45,8 @@ export default Controller.extend(
 		 */
 		init() {
 			this.setProperties({
-				domain: this.get('wikiVariables.dbName') || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+				domain: this.get('wikiVariables.dbName') ||
+				window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: this.get('wikiVariables.language')
 			});
 

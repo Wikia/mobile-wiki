@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from '../utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
+import fetch from '../utils/mediawiki-fetch';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
+import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
-import fetch from '../utils/mediawiki-fetch'
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -59,7 +59,7 @@ export default Component.extend(
 			// ensures that phrase is changed according to external change
 			this.set('phrase', this.get('query'));
 		}),
-		searchPlaceholderLabel: computed(function() {
+		searchPlaceholderLabel: computed(function () {
 			return this.get('i18n').t('search:main.search-input-label');
 		}),
 
@@ -246,7 +246,7 @@ export default Component.extend(
 							}
 
 							this.cacheResult(phrase, suggestions);
-						})
+						});
 					} else if (response.status === 404) {
 						// When we get a 404, it means there were no results
 						if (phrase === this.get('phrase')) {
@@ -255,7 +255,7 @@ export default Component.extend(
 
 						this.cacheResult(phrase);
 					} else {
-						Ember.Logger.error('Search suggestion error: ', response)
+						Ember.Logger.error('Search suggestion error: ', response);
 					}
 				})
 				.catch((reason) => Ember.Logger.error('Search suggestion error: ', reason))

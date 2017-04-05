@@ -19,13 +19,13 @@ export default BaseConsumer.extend({
 		let lookupKey;
 		const owner = getOwner(this);
 
-		lookupKey = 'component:' + this.get('component');
+		lookupKey = `component:${this.get('component')}`;
 		const component = owner.lookup(lookupKey);
 		if (!component) {
 			throw Error(`Cannot instantiate wsod component '${lookupKey}'`);
 		}
 
-		lookupKey = 'template:components/' + this.get('component');
+		lookupKey = `template:components/${this.get('component')}`;
 		const layout = owner.lookup(lookupKey);
 		component.set('descriptors', descriptors);
 		if (layout) {

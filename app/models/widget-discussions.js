@@ -107,12 +107,16 @@ export default EmberObject.extend(
 			// Update frontend immediately. If error occurs then we revert state
 			post.set('userData.hasUpvoted', !hasUpvoted);
 
-			request(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
+			fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
 				method,
-			}).then((data) => {
-				post.set('upvoteCount', data.upvoteCount);
-			}).catch(() => {
-				post.set('userData.hasUpvoted', hasUpvoted);
+			}).then((response) => {
+				if (response.ok) {
+					response.json().then((data) => {
+						post.set('upvoteCount', data.upvoteCount);
+					});
+				} else {
+					post.set('userData.hasUpvoted', hasUpvoted);
+				}
 			});
 
 			track({

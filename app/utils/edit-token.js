@@ -17,21 +17,22 @@ export default function (host, title) {
 			intoken: 'edit',
 			format: 'json'
 		}
-	})).then((response) => response.json())
+	}))
+		.then((response) => response.json())
 		.then((resp) => {
-		const pages = Ember.get(resp, 'query.pages');
+			const pages = Ember.get(resp, 'query.pages');
 
-		if (pages) {
-			// FIXME: MediaWiki API, seriously?
-			const edittoken = pages[Object.keys(pages)[0]].edittoken;
+			if (pages) {
+				// FIXME: MediaWiki API, seriously?
+				const edittoken = pages[Object.keys(pages)[0]].edittoken;
 
-			if (typeof edittoken === 'undefined') {
-				throw new Error('noedit');
+				if (typeof edittoken === 'undefined') {
+					throw new Error('noedit');
+				}
+
+				return edittoken;
+			} else {
+				throw new Error();
 			}
-
-			return edittoken;
-		} else {
-			throw new Error();
-		}
-	});
+		});
 }

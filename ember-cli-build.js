@@ -60,7 +60,7 @@ module.exports = function (defaults) {
 			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
 		},
 		inlineContent: {
-			'globals': `${inlineScriptsPath}globals.js`,
+			globals: `${inlineScriptsPath}globals.js`,
 			'get-from-shoebox': `${inlineScriptsPath}get-from-shoebox.js`,
 			'geo-cookie': `${inlineScriptsPath}geo-cookie.js`,
 			'load-script': `${inlineScriptsPath}load-script.js`,

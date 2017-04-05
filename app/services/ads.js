@@ -14,7 +14,7 @@ export default Service.extend({
 			this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: {},
-	adsUrl: computed('wikiVariables', function ()  {
+	adsUrl: computed('wikiVariables', function () {
 		let {basePath, cacheBuster} = this.get('wikiVariables');
 
 		return `${basePath}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
