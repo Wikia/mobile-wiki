@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import MediaModel from '../media';
+import extend from '../../utils/extend'
 
 /**
  * get type for open graph, website is for main page even if API returns 'article'
@@ -64,13 +65,13 @@ BaseModel.reopenClass({
 			if (data.article) {
 				article = data.article;
 
-				Object.assign(pageProperties, {
+				extend(pageProperties, {
 					displayTitle: get(data, 'article.displayTitle'),
 					user: get(data, 'details.revision.user_id')
 				});
 
 				if (article.content && article.content.length > 0) {
-					Object.assign(pageProperties, {
+					extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
 						media: MediaModel.create({
