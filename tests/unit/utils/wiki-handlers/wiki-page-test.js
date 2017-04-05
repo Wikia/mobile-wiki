@@ -132,7 +132,9 @@ module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 			params = {
 				title: 'Test'
 			},
-			expected = Ember.Object.create();
+			expected = Ember.Object.create({
+				redirectTo: null
+			});
 
 		isContentNamespaceStub.returns(false);
 

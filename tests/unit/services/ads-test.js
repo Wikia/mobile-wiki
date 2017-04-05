@@ -6,8 +6,7 @@ moduleFor('service:ads', 'Unit | Service | ads', {
 });
 
 test('noAds is set correctly base on passed Query Parameter and logged in user', function (assert) {
-	const propStub = sinon.stub(M, 'prop'),
-		service = this.subject(),
+	const service = this.subject(),
 		testCases = [
 			{
 				noAdsQueryParam: 'false',
@@ -48,11 +47,10 @@ test('noAds is set correctly base on passed Query Parameter and logged in user',
 		];
 
 	testCases.forEach((testCase) => {
-		propStub.withArgs('userId').returns(testCase.userId);
-
+		service.set('currentUser', {
+			isAuthenticated: Boolean(testCase.userId)
+		});
 		service.set('noAdsQueryParam', testCase.noAdsQueryParam);
 		assert.equal(service.get('noAds'), testCase.expected, testCase.msg);
 	});
-
-	M.prop.restore();
 });

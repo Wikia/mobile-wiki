@@ -27,11 +27,7 @@ module('Unit | Utility | mediawiki namespace', () => {
 		];
 
 		testCases.forEach(({contentNamespaces, namespace, expected}) => {
-			sinon.stub(Ember, 'getWithDefault').withArgs(Mercury, 'wiki.contentNamespaces', []).returns(contentNamespaces);
-
-			assert.equal(isContentNamespace(namespace), expected);
-
-			Ember.getWithDefault.restore();
+			assert.equal(isContentNamespace(namespace, contentNamespaces), expected);
 		});
 	});
 });
