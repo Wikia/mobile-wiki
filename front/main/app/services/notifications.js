@@ -16,14 +16,9 @@ export default Service.extend({
 	 */
 	isUserAuthenticated: Ember.computed.bool('currentUser.isAuthenticated'),
 
-	/**
-	 * @private
-	 */
-	enableOnSiteNotifications: Ember.get(Mercury, 'wiki.enableOnSiteNotifications'),
-
-	modelLoader: computed('isUserAuthenticated', 'enableOnSiteNotifications', function () {
+	modelLoader: computed('isUserAuthenticated', function () {
 		this.set('isLoading', true);
-		if (!this.get('isUserAuthenticated') || !this.get('enableOnSiteNotifications')) {
+		if (!this.get('isUserAuthenticated')) {
 			this.set('isLoading', false);
 			return RSVP.reject();
 		}
@@ -53,8 +48,7 @@ export default Service.extend({
 	},
 
 	loadMoreResults() {
-		if (this.get('isLoading') === true || !this.isUserAuthenticated
-			|| this.get('allLoaded') === true || !this.enableOnSiteNotifications) {
+		if (this.get('isLoading') === true || !this.isUserAuthenticated || this.get('allLoaded') === true) {
 			return;
 		}
 

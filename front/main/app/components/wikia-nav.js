@@ -15,21 +15,6 @@ export default Component.extend(
 		currentUser: inject.service(),
 		notifications: inject.service(),
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
-		enableOnSiteNotifications: get(Mercury, 'wiki.enableOnSiteNotifications'),
-
-		/** TODO: Remove with the feature flag IRIS-4170 */
-		logoutLink: M.buildUrl({
-			namespace: 'Special',
-			title: 'UserLogout'
-		}),
-
-		/** TODO: Remove with the feature flag IRIS-4170 */
-		userProfileLink: computed('currentUser.name', function () {
-			return M.buildUrl({
-				namespace: 'User',
-				title: this.get('currentUser.name')
-			});
-		}),
 
 		init() {
 			this._super(...arguments);
