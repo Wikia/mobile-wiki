@@ -348,7 +348,7 @@ export default Component.extend(
 					break;
 				case 'apester':
 					componentName = 'widget-apester';
-          break;
+					break;
 				case 'playbuzz':
 					componentName = 'widget-playbuzz';
 					break;
