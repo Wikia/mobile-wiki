@@ -45,6 +45,12 @@ export default function () {
 	this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
 		const {controller, method, title} = request.queryParams;
 
+		if (controller === 'MercuryApi') {
+			if (method === 'getPage' && title === 'File:Example.jpg') {
+				return filePageFixture;
+			}
+		}
+
 		if (controller === 'SearchApi' && method === 'getList') {
 			return schema.searches.first();
 		}

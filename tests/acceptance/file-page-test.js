@@ -9,6 +9,7 @@ test('visiting File Page', (assert) => {
 
 	window.Image = sinon.stub();
 	mockAdsService();
+	mockFastbootService();
 
 	visit('/');
 	visit('/wiki/File:Example.jpg');

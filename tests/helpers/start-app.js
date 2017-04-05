@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
 import './mock-ads-service';
+import './mock-fastboot-service';
 import './mock-service';
 
 export default function startApp(attrs) {

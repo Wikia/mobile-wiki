@@ -19,16 +19,19 @@
 	{{content-for 'test-head-footer'}}
 
 	<script>
-		window.trackQuantservePageView = function() {};
+		window.trackQuantcastPageView = function() {};
 		window.trackNielsenPageView = function() {};
 		window.trackComscorePageView = function() {};
 		window.trackIVW3PageView = function() {};
 		window.Wikia = {};
-		// TODO
-//		M.tracker.Internal.track = function () {};
-//		M.tracker.Internal.trackPageView = function () {};
-//
-//		M.prop('environment', 'test', true);
+		M.tracker.Internal = {
+			track: function () {},
+			trackPageView: function() {}
+		};
+		M.tracker.UniversalAnalytics = {
+			track: function () {},
+			trackPageView: function() {}
+		};
 	</script>
 
 </head>

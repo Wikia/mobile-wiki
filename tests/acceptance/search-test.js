@@ -1,6 +1,7 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
 
+
 moduleForAcceptance('Acceptance | search');
 
 test('visiting /search', (assert) => {
@@ -8,6 +9,7 @@ test('visiting /search', (assert) => {
 		enterKeyCode = 13,
 		testQuery = 'test query';
 
+	mockFastbootService();
 	visit('/');
 	visit('/search');
 
