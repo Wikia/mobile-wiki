@@ -1,0 +1,93 @@
+{
+  "app":{
+    "advertisement-label":"Publicité",
+    "cancel-label":"Annuler",
+    "curated-content-editor-edit-main-page":"Modification de la page d'accueil",
+    "curated-content-load-more-items":"Importer plus",
+    "discussions-label":"Discussions",
+    "header-in-wiki-name-label-prefix":"dans :",
+    "header-in-wiki-name-label-suffix":"",
+    "map-lightbox-error":"Carte non trouvée",
+    "media-lightbox-error":"Média non trouvé",
+    "now-label":"maintenant",
+    "page-not-found-error":"Désolés, nous n'avons pas pu trouver la page que vous cherchez.",
+    "page-not-found-message":"Utilisez Navigation ou Recherche",
+    "pages-label":"Pages",
+    "photos-label":"Images",
+    "trending-articles-label":"Articles tendance",
+    "username-anonymous":"Un utilisateur de Fandom",
+    "videos-label":"Vidéos",
+    "view-more":"Voir plus",
+    "wiki-page-error":"Nous n'avons pas pu charger la page. Veuillez réessayer.",
+    "wiki-page-error-reload-button":"Actualiser",
+    "wikia-map-view-map":"Afficher"
+  },
+  "article":{
+    "categories-list-label":"Catégories",
+    "comments-label":"__count__ commentaire",
+    "comments-label_plural":"__count__ commentaires",
+    "empty-label":"Désolés, il semble que cet article soit vide !",
+    "error":"Désolés, nous n'avons pas pu charger l'article. Veuillez réessayer.",
+    "last-edit":"Dernière modification il y a une semaine",
+    "last-edit_plural_0":"Dernière modification cette semaine",
+    "last-edit_plural_2":"Dernière modification il y a __count__ semaines",
+    "other-languages":"Autres langues",
+    "redirect-empty-target":"Le lien suivi correspond à une redirection, mais la page vers laquelle il renvoie n'existe pas.",
+    "replies-label":"Afficher __count__ réponse",
+    "replies-label_plural":"Afficher __count__ réponses",
+    "suggestions-label":"Lire plus",
+    "toc-label":"Sommaire",
+    "top-contributors-label":"Meilleurs contributeurs de cet article"
+  },
+  "article-comments":{
+    "next-button":"Page suivante",
+    "prev-button":"Page précédente"
+  },
+  "category-page":{
+    "load-error":"Désolé, un problème est survenu. Veuillez réessayer.",
+    "load-more":"En charger plus",
+    "load-previous":"Charger la précédente",
+    "no-members":"Cette catégorie ne contient aucune page à l'heure actuelle.",
+    "subtitle":"Page de catégorie"
+  },
+  "edit":{
+    "load-error":"Désolés, il y a eu un problème. Merci de réessayer.",
+    "page-heading":"Modification :",
+    "page-publish":"Publier",
+    "publish-error":"Désolés, il y a eu un problème. Merci de réessayer.",
+    "publish-error-autoblockedtext":"Votre adresse IP a été automatiquement bloquée car elle a été utilisée par un utilisateur bloqué.",
+    "publish-error-blocked":"Vous ne pouvez plus faire de modifications.",
+    "publish-error-noedit":"Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wiki.",
+    "publish-error-noedit-anon":"Les utilisateurs anonymes ne peuvent pas modifier de pages.",
+    "publish-error-protectedpage":"Vous n'avez pas la permission de modifier cette page.",
+    "success":"La page__pageTitle__ a été modifiée avec succès !"
+  },
+  "file-page":{
+    "subtitle":"Fichier",
+    "usages-header":"Apparaît sur ces pages",
+    "usages-see-more-link-label":"Voir la liste complète"
+  },
+  "navigation":{
+    "back-label":"Retour",
+    "explore-wiki":"Explorer __wikiName__",
+    "random-page-label":"Page au hasard",
+    "user-menu-log-out":"Se déconnecter",
+    "user-menu-profile":"Profil"
+  },
+  "smartbanner":{
+    "install-android":"Installer",
+    "price":"GRATUIT",
+    "store-android":"Sur Google Play"
+  },
+  "user-status":{
+    "login-text":"Se connecter",
+    "register-text":"S'inscrire"
+  },
+  "widget-discussions":{
+    "all-discussions-link-mobile":"Toutes les discussions",
+    "header-title":"Discussions",
+    "in-category-label":"dans __categoryName__",
+    "post-actions-reply-label":"Répondre",
+    "post-actions-upvote-label":"Voter"
+  }
+}

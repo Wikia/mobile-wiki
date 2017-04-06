@@ -1,9 +1,0 @@
-{{#each-in sections as |id data|}}
-	{{category-section
-		data=data
-		id=id
-		loadBatch=attrs.loadBatch
-	}}
-{{else}}
-	<div data-category-page-no-members>{{i18n 'category-page.no-members'}}</div>
-{{/each-in}}

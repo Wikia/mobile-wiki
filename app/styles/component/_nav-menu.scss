@@ -1,0 +1,115 @@
+$nav-chevron-padding: 54px;
+$nav-global-border: 4px;
+$nav-line-height: 48px;
+$nav-padding-horizontal: 6px;
+
+.nav-menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0 $nav-padding-horizontal 0;
+
+	a {
+		color: inherit;
+		display: block;
+		height: $nav-line-height;
+		left: 0;
+		padding-left: $nav-padding-vertical;
+		position: absolute;
+		top: $nav-padding-horizontal;
+		width: 100%;
+	}
+}
+
+.nav-menu__item {
+	@include link-interactions-color(inherit);
+
+	box-sizing: content-box;
+	color: inherit;
+	display: block;
+	font-size: $nav-font-size;
+	height: $nav-line-height;
+	line-height: $nav-line-height;
+	overflow: hidden;
+	padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
+	position: relative;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	&::before {
+		content: ' ';
+		display: block;
+		height: $nav-line-height;
+		left: 0;
+		position: absolute;
+		width: $nav-global-border;
+	}
+
+	&.nav-menu__header {
+		background-color: $nav-background-color;
+		font-weight: bold;
+		margin-top: 0;
+		padding: 0 $nav-padding-vertical;
+
+		a {
+			top: 0;
+		}
+
+		&::before {
+			display: none;
+		}
+	}
+
+	&.nav-menu--external {
+		background: $color-gray-dark;
+		font-weight: bold;
+	}
+
+	&.nav-menu--root {
+		background-image: $side-nav-menu-svg;
+		background-position: right $nav-padding-vertical center;
+		background-repeat: no-repeat;
+		padding-right: $nav-chevron-padding;
+	}
+
+	&.nav-menu--comics::before {
+		background: $color-hub-comics;
+	}
+
+	&.nav-menu--books::before {
+		background: $color-hub-books;
+	}
+
+	&.nav-menu--games::before {
+		background: $color-hub-games;
+	}
+
+	&.nav-menu--movies::before {
+		background: $color-hub-movies;
+	}
+
+	&.nav-menu--lifestyle::before {
+		background: $color-hub-lifestyle;
+	}
+
+	&.nav-menu--music::before {
+		background: $color-hub-music;
+	}
+
+	&.nav-menu--tv::before {
+		background: $color-hub-tv;
+	}
+
+	&.nav-menu--entertainment::before {
+		background: $color-hub-tv;
+	}
+
+	&.nav-menu--explore {
+		background-color: $color-gray-dark;
+		font-weight: bold;
+		padding-bottom: 6px;
+
+		&::before {
+			background: $nav-background-color;
+		}
+	}
+}
