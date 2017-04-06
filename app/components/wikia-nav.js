@@ -20,24 +20,6 @@ export default Component.extend(
 		notifications: inject.service(),
 
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
-		enableOnSiteNotifications: computed.oneWay('wikiVariables.enableOnSiteNotifications'),
-		/** TODO: Remove with the feature flag IRIS-4170 */
-		logoutLink: computed(function () {
-			return buildUrl({
-				host: this.get('wikiVariables.host'),
-				namespace: 'Special',
-				title: 'UserLogout'
-			});
-		}),
-
-		/** TODO: Remove with the feature flag IRIS-4170 */
-		userProfileLink: computed('currentUser.name', function () {
-			return buildUrl({
-				host: this.get('wikiVariables.host'),
-				namespace: 'User',
-				title: this.get('currentUser.name')
-			});
-		}),
 
 		init() {
 			this._super(...arguments);
