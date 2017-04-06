@@ -22,5 +22,4 @@ function optimize_dir {
 
 
 # if you created new SVG directory outside of this list, please add it here and to README.md
-optimize_dir "./front/common/public/symbols"
-optimize_dir "./front/main/app/symbols"
+optimize_dir "./app/symbols"
