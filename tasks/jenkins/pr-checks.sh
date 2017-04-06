@@ -29,7 +29,7 @@ saveState() {
 echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"target_url\": \"$5\" }" >> jenkins/params
 }
 
-### Those tests depends on Build step
+### Those tests depends on Setup step
 failTests() {
 	updateGit "Tests" failure skipped
 	updateGit "Linter" failure skipped
@@ -48,14 +48,14 @@ setupNpm() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Build" pending "updating node modules in .${1}"
+		updateGit "Setup" pending "updating node modules in .${1}"
 		cd ".${1}"
 		npm install || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Build" failure "failed on: updating node modules in .${1}"
+			updateGit "Setup" failure "failed on: updating node modules in .${1}"
 			failTests && exit 1
 		fi
 	fi
@@ -73,14 +73,14 @@ setupBower() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Build" pending "updating bower components in .${1}"
+		updateGit "Setup" pending "updating bower components in .${1}"
 		cd ".${1}"
 		bower update || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Build" failure "failed on: updating bower components in .${1}"
+			updateGit "Setup" failure "failed on: updating bower components in .${1}"
 			failTests && exit 1
 		fi
 	fi
@@ -88,27 +88,22 @@ setupBower() {
 
 ### Set pending status to all tasks
 updateGit "Jenkins job" pending running $BUILD_URL"console"
-updateGit "Build" pending pending
+updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
 
-### Build - node_modules and bower components
+### Setup - node_modules and bower components
 setupNpm "/"
 
 setupBower "/"
 
-### Build - building application
-updateGit "Build" pending "building application"
-npm run build 2>&1 | tee jenkins/build.log || error=true
-vim -e -s -c ':set bomb' -c ':wq' jenkins/build.log
-
 if [ -z $error ]
 then
-	updateGit "Build" success success
-	saveState "buildState" "Build" success success $BUILD_URL"artifact/jenkins/build.log"
+	updateGit "Setup" success success
+	saveState "setupState" "Setup" success success $BUILD_URL"artifact/jenkins/setup.log"
 else
-	updateGit "Build" failure "failed on: building application"
-	saveState "buildState" "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/build.log"
+	updateGit "Setup" failure "failed on: setting up application"
+	saveState "setupState" "Setup" failure "failed on: setting up application" $BUILD_URL"artifact/jenkins/setup.log"
 	failTests && exit 1
 fi
 
