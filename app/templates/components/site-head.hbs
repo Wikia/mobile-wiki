@@ -1,0 +1,37 @@
+<div class="site-head-wrapper">
+	<nav class="site-head">
+		<div class="site-head__nav-icon-wrapper">
+			{{wikia-ui-components/icon-button
+				click=(action 'siteHeadIconClick' 'nav')
+				class='site-head-icon site-head-icon-nav'
+				icon=navIcon
+				iconSize=24
+			}}
+			{{#unless drawerVisible}}
+				{{#if unreadCount}}
+					<span class="wds-notifications__unread-mark">{{unreadCount}}</span>
+				{{/if}}
+			{{/unless}}
+		</div>
+		<div class="site-logo">
+			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
+				{{svg svgName role='img' class='fandom-logo'}}
+			</a>
+		</div>
+		<div class="site-head-icon-search">
+			{{wikia-ui-components/icon-button
+				click=(action 'siteHeadIconClick' 'search')
+				class='site-head-icon'
+				icon=searchIcon
+				iconSize=24
+				isVisible=(if isSearchPage false true)
+			}}
+		</div>
+	</nav>
+</div>
+{{site-head-fandom-bar
+	wikiaHomepage=wikiaHomepage
+	isVisible=displayFandomBar
+	globalNavigation=this.attrs.globalNavigation
+}}
+<div id="site-head-sub-header" class="{{unless displayFandomBar 'site-head-fandom-bar-hidden'}}"></div>

@@ -19,9 +19,6 @@ npm run setup
 #### EACCESS / Permission Errors on Devbox
 The easiest way to fix permissions is to remove `/usr/wikia/mobile-wiki` and run `sudo chef-client` which clones the repo and sets permissions from scratch. See [chef recipe](https://github.com/Wikia/chef-repo/blob/master/cookbooks/mobile-wiki/recipes/dev.rb) for more details on what it does.
 
-#### Run commands individually
-For example, if `npm run dev` is failing, you can look at package.json under `scripts` and see that the command consists of individual smaller commands. Run `rm -rf www/*`, then `gulp build-common`, etc. That way you'll be able to see which script is actually failing and start debugging from there. 
-
 ### Errors while running `npm install`
 #### libsass
 So far, we've encountered one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:

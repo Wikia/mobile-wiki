@@ -15,7 +15,6 @@ This script iterates through all SVG files in predefined directories and optimiz
 Use of `npm run svgo` is recommended to run this script, but you can also invoke it directly: `./tasks/optimize-svg.sh`.
 
 Currently iterated directories:
-* `./front/common/public/symbols`
-* `./front/main/app/symbols`
+* `./app/symbols`
 
 If you've added SVGs in different directory please update the script and this README file.
