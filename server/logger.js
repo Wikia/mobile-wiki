@@ -63,6 +63,25 @@ const availableTargets = {
 	console: createConsoleStream
 };
 
+const serializers = {
+	'req-headers': (req) => {
+		if (!req) {
+			return req;
+		}
+
+		return {
+			accept: req.accept,
+			'accept-language': req['accept-language'],
+			'fastly-client-ip': req['fastly-client-ip'],
+			'fastly-orig-accept-encoding': req['fastly-orig-accept-encoding'],
+			host: req.host,
+			'user-agent': req['user-agent'],
+			'x-beacon': req['x-beacon'],
+			'x-forwarded-for': req['x-forwarded-for']
+		};
+	}
+};
+
 /**
  * Create logger
  *
@@ -91,6 +110,17 @@ function createLogger(loggerConfig) {
 	return expressBunyanLogger({
 		appname: 'mobile-wiki',
 		name: 'mobile-wiki',
+		excludes: [
+			'incoming',
+			'ip',
+			'remote-address',
+			'req',
+			'res',
+			'response-hrtime',
+			'response-time',
+			'user-agent'
+		],
+		serializers,
 		streams
 	});
 }
