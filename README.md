@@ -34,9 +34,10 @@ Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wi
 
 ## Settings
 
-Mobile Wiki application currently supports two types of configuration.
-* configurations computed at build time `config/environment.js`
-* runtime configuration `app/instance-initializers/config.js` which has access to environment variables
+Mobile Wiki application currently supports three types of configuration.
+* Ember & FastBoot configuration computed at build time `config/environment.js`
+* Ember & FastBoot runtime configuration `app/instance-initializers/config.js` which has access to environment variables
+* Express server configuration (middleware in front of FastBoot server) `config/fastboot-server.js`
 
 Some tips if you develop outside of devbox:
  * The devboxDomain must have your devbox name (without the dev- prefix) in it
