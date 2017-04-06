@@ -4,9 +4,7 @@ Mobile Wiki is an application built on top of [Ember](https://emberjs.com/) and 
 ## Setup
 To begin your journey with Mobile Wiki all you need to do is:
 
-1. Get the repo:
- 1. If you're developing locally, clone the repo and `cd` into the root directory. 
- 2. On devboxes, the repos is already downloaded. `cd /usr/wikia/mobile-wiki`
+1. On devboxes, the repo is already downloaded. `cd /usr/wikia/mobile-wiki`
 1. Use `npm run setup`
 1. Use `npm run dev`
 1. Start developing
