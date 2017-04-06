@@ -44,11 +44,11 @@ Some tips if you develop outside of devbox:
 
 ## See also
 
-### [CHANGELOG](https://github.com/Wikia/mobile-wiki/blob/dev/CHANGELOG.md)
+### [CHANGELOG](https://github.com/Wikia/mobile-wiki/releases)
 
 ### [Tasks](https://github.com/Wikia/mobile-wiki/blob/dev/tasks/README.md)
 
-### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
+### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury) - Legacy documentation created before Mercury and Mobile Wiki split
 
 ### [How to update translations](https://github.com/Wikia/mobile-wiki/blob/dev/crowdin/README.md)
 
