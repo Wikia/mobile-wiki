@@ -33,5 +33,23 @@
     "prefer-rest-params": 0,
     "quotes": [2, "single", {"allowTemplateLiterals": true}],
     "wrap-iife": [2, "inside"]
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "$script": true,
+    "Ember": true,
+    "FastBoot": true,
+    "FastClick": true,
+    "ga": true,
+    "Hammer": true,
+    "Headroom": true,
+    "M": true,
+    "VisitSource": true,
+    "Weppy": true,
+    "Wikia": true
   }
 }

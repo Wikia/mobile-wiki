@@ -16,14 +16,9 @@ then
     sendCurl "$buildState"
 fi
 
-if [[ ! -z "$frontTestsState" ]]
+if [[ ! -z "$testsState" ]]
 then
-    sendCurl "$frontTestsState"
-fi
-
-if [[ ! -z "$serverTestsState" ]]
-then
-    sendCurl "$serverTestsState"
+    sendCurl "$testsState"
 fi
 
 if [[ ! -z "$linterState" ]]

@@ -1,0 +1,93 @@
+{
+  "app":{
+    "advertisement-label":"Werbung",
+    "cancel-label":"Abbrechen",
+    "curated-content-editor-edit-main-page":"Hauptseite bearbeiten",
+    "curated-content-load-more-items":"Mehr anzeigen",
+    "discussions-label":"Diskussionen",
+    "header-in-wiki-name-label-prefix":"in:",
+    "header-in-wiki-name-label-suffix":"",
+    "map-lightbox-error":"Keine Karten gefunden",
+    "media-lightbox-error":"Keine Medien gefunden",
+    "now-label":"gerade eben",
+    "page-not-found-error":"Wir können die von dir gesuchte Seite leider nicht finden :-(",
+    "page-not-found-message":"Benutze die Navigationsleiste oder die Suche",
+    "pages-label":"Seiten",
+    "photos-label":"Fotos",
+    "trending-articles-label":"Beliebte Artikel",
+    "username-anonymous":"Ein Fandom-Benutzer",
+    "videos-label":"Videos",
+    "view-more":"Mehr anzeigen",
+    "wiki-page-error":"Sorry, wir konnten die Seite nicht laden. Bitte versuche es noch einmal.",
+    "wiki-page-error-reload-button":"Aktualisieren",
+    "wikia-map-view-map":"Anzeigen"
+  },
+  "article":{
+    "categories-list-label":"Kategorien",
+    "comments-label":"__count__ Kommentar",
+    "comments-label_plural":"__count__ Kommentare",
+    "empty-label":"Sorry, aber dieser Artikel scheint (noch) nicht zu existieren.",
+    "error":"Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal.",
+    "last-edit":"Zuletzt vor einer Woche bearbeitet",
+    "last-edit_plural_0":"Zuletzt diese Woche bearbeitet",
+    "last-edit_plural_2":"Zuletzt vor __count__ Wochen bearbeitet",
+    "other-languages":"In anderen Sprachen",
+    "redirect-empty-target":"Der Link, dem du gefolgt bist, ist eine Umleitung. Die Seite, zu der er dich leiten sollte, existiert jedoch nicht.",
+    "replies-label":"Zeige __count__ Antwort",
+    "replies-label_plural":"Zeige __count__ Antworten",
+    "suggestions-label":"Mehr anzeigen",
+    "toc-label":"Inhaltsverzeichnis",
+    "top-contributors-label":"Top-Autoren in diesem Artikel"
+  },
+  "article-comments":{
+    "next-button":"Nächste Seite",
+    "prev-button":"Vorherige Seite"
+  },
+  "category-page":{
+    "load-error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
+    "load-more":"Mehr anzeigen",
+    "load-previous":"Vorherige anzeigen",
+    "no-members":"Diese Kategorie enthält zur Zeit keine Seiten.",
+    "subtitle":"Kategorienseite"
+  },
+  "edit":{
+    "load-error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
+    "page-heading":"Bearbeiten:",
+    "page-publish":"Veröffentlichen",
+    "publish-error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
+    "publish-error-autoblockedtext":"Deine IP-Adresse wurde automatisch gesperrt, da sie von einem gesperrten Benutzer verwendet wurde.",
+    "publish-error-blocked":"Du wurdest gesperrt und kannst keine Bearbeitungen vornehmen.",
+    "publish-error-noedit":"Du hast keine Berechtigung, Seiten in diesem Wiki zu bearbeiten.",
+    "publish-error-noedit-anon":"Anonyme Benutzer können keine Seiten bearbeiten.",
+    "publish-error-protectedpage":"Du hast keine Berechtigung, diese Seite zu bearbeiten.",
+    "success":"Die Seite __pageTitle__ wurde erfolgreich bearbeitet!"
+  },
+  "file-page":{
+    "subtitle":"Datei-Seite",
+    "usages-header":"Erscheint auf diesen Seiten",
+    "usages-see-more-link-label":"Vollständige Liste anzeigen"
+  },
+  "navigation":{
+    "back-label":"Zurück",
+    "explore-wiki":"__wikiName__ erkunden",
+    "random-page-label":"Zufällige Seite",
+    "user-menu-log-out":"Abmelden",
+    "user-menu-profile":"Profil"
+  },
+  "smartbanner":{
+    "install-android":"Installieren",
+    "price":"KOSTENLOS",
+    "store-android":"In Google Play"
+  },
+  "user-status":{
+    "login-text":"Anmelden",
+    "register-text":"Registrieren"
+  },
+  "widget-discussions":{
+    "all-discussions-link-mobile":"Alle Diskussionen",
+    "header-title":"Diskussionen",
+    "in-category-label":"__categoryName__",
+    "post-actions-reply-label":"Antworten",
+    "post-actions-upvote-label":"Abstimmen"
+  }
+}

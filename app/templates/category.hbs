@@ -1,0 +1,31 @@
+<div id="wikiContainer" class="wiki-container">
+	{{#article-wrapper
+		articleRendered='articleRendered'
+		displayEmptyArticleInfo=false
+		edit='edit'
+		mainPageTitle=mainPageTitle
+		model=model
+		openLightbox='openLightbox'
+		showComments=false
+		siteName=siteName
+		toggleDrawer='toggleDrawer'
+		wikiPageHeaderSubtitle=(i18n 'category-page.subtitle')
+	}}
+		{{#if model.trendingArticles}}
+			{{trending-articles
+				header=(i18n 'app.trending-articles-label')
+				model=model.trendingArticles
+			}}
+		{{/if}}
+		{{#if model.membersGrouped}}
+			{{category-members-grouped
+				loadPage=(action 'loadPage')
+				membersGrouped=model.membersGrouped
+				nextPage=model.nextPage
+				nextPageUrl=model.nextPageUrl
+				prevPage=model.prevPage
+				prevPageUrl=model.prevPageUrl
+			}}
+		{{/if}}
+	{{/article-wrapper}}
+</div>

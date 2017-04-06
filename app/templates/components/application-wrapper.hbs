@@ -1,0 +1,53 @@
+{{#if fullPage}}
+	{{outlet}}
+{{else}}
+	{{site-head
+		smartBannerVisible=smartBannerVisible
+		toggleDrawer=this.attrs.toggleDrawer
+		themeBar=themeBar
+		drawerContent=activeDrawerContent
+		drawerVisible=drawerVisible
+		setDrawerContent=(action 'setDrawerContent')
+		isSearchPage=isSearchPage
+		globalNavigation=this.attrs.globalNavigation
+	}}
+	{{#wikia-drawer
+		shouldBeVisible=drawerVisible
+	}}
+		{{#if activeDrawerContent}}
+			{{component
+				drawerContentComponent
+				onEnterHandler=(action 'closeDrawer')
+				suggestionClickAction=(action 'closeDrawer')
+				setDrawerContent=(action 'setDrawerContent')
+				closeDrawer=(action 'closeDrawer')
+				outsideSuggestionsClickAction=(action 'closeDrawer')
+				loadRandomArticle=this.attrs.loadRandomArticle
+				goToSearchResults=this.attrs.goToSearchResults
+				noScroll=true
+				focusInput=true
+			}}
+		{{/if}}
+	{{/wikia-drawer}}
+	{{smart-banner-android
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
+	}}
+	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+		{{outlet}}
+	</div>
+	{{lightbox-wrapper
+		type=lightboxType
+		model=lightboxModel
+		isVisible=lightboxVisible
+		lightboxCloseButtonDelay=lightboxCloseButtonDelay
+		closeLightbox=attrs.closeLightbox
+		setQueryParam=attrs.setQueryParam
+	}}
+	{{wikia-in-your-lang}}
+	{{#if globalFooter}}
+		{{global-footer/global-footer model=globalFooter}}
+	{{/if}}
+{{/if}}
+{{alert-notifications alerts=alertNotifications}}
+{{wds-spinner active=isLoading}}

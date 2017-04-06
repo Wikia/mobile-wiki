@@ -1,0 +1,93 @@
+{
+  "app": {
+    "advertisement-label": "Advertisement",
+    "cancel-label": "Cancel",
+    "curated-content-editor-edit-main-page": "Edit Main Page",
+    "curated-content-load-more-items": "Load more",
+    "discussions-label": "Discussions",
+    "header-in-wiki-name-label-prefix": "in:",
+    "header-in-wiki-name-label-suffix": "",
+    "map-lightbox-error": "Map not found",
+    "media-lightbox-error": "Media not found",
+    "now-label": "now",
+    "page-not-found-error": "Sorry, we can't find the page you are looking for.",
+    "page-not-found-message": "Use Navigation or Search",
+    "pages-label": "Pages",
+    "photos-label": "Photos",
+    "trending-articles-label": "Trending Articles",
+    "username-anonymous": "A Fandom User",
+    "videos-label": "Videos",
+    "view-more": "View more",
+    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button": "Refresh",
+    "wikia-map-view-map": "View"
+  },
+  "article": {
+    "categories-list-label": "Categories",
+    "comments-label": "__count__ comment",
+    "comments-label_plural": "__count__ comments",
+    "empty-label": "Sorry, this article seems to be empty!",
+    "error": "Sorry, we couldn't load the article. Please try again.",
+    "last-edit": "Last edited a week ago",
+    "last-edit_plural_0": "Last edited this week",
+    "last-edit_plural_2": "Last edited __count__ weeks ago",
+    "other-languages": "In other languages",
+    "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
+    "replies-label": "View __count__ reply",
+    "replies-label_plural": "View __count__ replies",
+    "suggestions-label": "Read More",
+    "toc-label": "Table of Contents",
+    "top-contributors-label": "Top Contributors to this article"
+  },
+  "article-comments": {
+    "next-button": "Next page",
+    "prev-button": "Previous page"
+  },
+  "category-page": {
+    "load-error": "Sorry, it looks like something went wrong. Please try again.",
+    "load-more": "Load more",
+    "load-previous": "Load previous",
+    "no-members": "This category currently contains no pages.",
+    "subtitle": "Category Page"
+  },
+  "edit": {
+    "load-error": "Sorry, it looks like something went wrong. Please try again.",
+    "page-heading": "Editing:",
+    "page-publish": "Publish",
+    "publish-error": "Sorry, it looks like something went wrong. Please try again.",
+    "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.",
+    "publish-error-blocked": "You have been blocked from editing.",
+    "publish-error-noedit": "You don't have permission to edit pages on this wiki.",
+    "publish-error-noedit-anon": "Anonymous users can't edit pages.",
+    "publish-error-protectedpage": "You don't have permission to edit this page.",
+    "success": "Successfully edited page __pageTitle__!"
+  },
+  "file-page": {
+    "subtitle": "File Page",
+    "usages-header": "Appears on these pages",
+    "usages-see-more-link-label": "See full list"
+  },
+  "navigation": {
+    "back-label": "Back",
+    "explore-wiki": "Explore __wikiName__",
+    "random-page-label": "Random Page",
+    "user-menu-log-out": "Log out",
+    "user-menu-profile": "Profile"
+  },
+  "smartbanner": {
+    "install-android": "Install",
+    "price": "FREE",
+    "store-android": "In Google Play"
+  },
+  "user-status": {
+    "login-text": "Sign In",
+    "register-text": "Register"
+  },
+  "widget-discussions": {
+    "all-discussions-link-mobile": "All Discussions",
+    "header-title": "Discussions",
+    "in-category-label": "in __categoryName__",
+    "post-actions-reply-label": "Reply",
+    "post-actions-upvote-label": "Upvote"
+  }
+}

@@ -1,0 +1,28 @@
+{{#application-wrapper
+	alertNotifications=alertNotifications
+	fullPage=fullPage
+	isLoading=isLoading
+	language=language
+	lightboxModel=lightboxModel
+	lightboxType=lightboxType
+	lightboxVisible=lightboxVisible
+	lightboxCloseButtonDelay=lightboxCloseButtonDelay
+	drawerVisible=drawerVisible
+	activeDrawerContent=drawerContent
+	smartBannerVisible=smartBannerVisible
+	themeBar=themeBar
+	userMenuVisible=userMenuVisible
+	closeLightbox=(action 'closeLightbox')
+	handleLink=(action 'handleLink')
+	loadRandomArticle=(action 'loadRandomArticle')
+	goToSearchResults=(route-action 'goToSearchResults')
+	setQueryParam=(action 'setQueryParam')
+	toggleDrawer=(action 'toggleDrawer')
+	toggleSmartBanner=(action 'toggleSmartBanner')
+	toggleUserMenu=(action 'toggleUserMenu')
+	isSearchPage=isSearchPage
+	globalFooter=model.globalFooter
+	globalNavigation=model.globalNavigation
+}}
+	{{outlet}}
+{{/application-wrapper}}
