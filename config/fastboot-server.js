@@ -2,7 +2,7 @@ module.exports = (function () {
 	const config = {
 		distPath: 'dist/mobile-wiki',
 		loggers: {
-			syslog: 'warn'
+			syslog: 'debug'
 		},
 		// 30 days in seconds
 		staticAssetsTTL: 2.592e+6,
