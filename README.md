@@ -1,16 +1,16 @@
+## Overview
+Mobile Wiki is an application built on top of [Ember](https://emberjs.com/) and [Ember FastBoot](https://ember-fastboot.com/). This combination allows us serve server side rendered application to end client (The same code is executed on frontend and backend).
+
 ## Setup
 To begin your journey with Mobile Wiki all you need to do is:
 
-1. Get the repo:
- 1. If you're developing locally, clone the repo and `cd` into the root directory. 
- 2. On devboxes, the repos is already downloaded. `cd /usr/wikia/mobile-wiki`
+1. On devboxes, the repo is already downloaded. `cd /usr/wikia/mobile-wiki`
 1. Use `npm run setup`
 1. Use `npm run dev`
 1. Start developing
 
-For most cases you don't need to modify your `settings.js`, but if you do, read [this](#settings) section.
-
-If you are using Mobile Wiki on your local machine, install global dependencies by `npm run setup-for-local`.
+It's recommended to host mobile-wiki application on your devbox machine (make sure [`mobileWikiDev` role](https://github.com/Wikia/chef-repo/blob/master/roles/mobileWikiDev.json) is enabled). This setup solves many problems like dependencies, cross-domain scripting, etc.
+Development on local machine isn't tested. If you make that happen, please add "how to" here.
 
 More available scripts are listed [here](#scripts)
 
@@ -19,31 +19,25 @@ More available scripts are listed [here](#scripts)
 Open http://muppet.yourname.wikia-dev.pl/wiki/Kermit from mobile device or while emulating it in desktop browser.
 Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wiki/Kermit"`
 
-### Local environment
-Open http://muppet.127.0.0.1.xip.io:7001/wiki/Kermit
-
 ## Scripts
 * `npm run setup` - install all dependencies, including node modules and bower components
-* `npm run setup-for-local` - install Ember-CLI, Bower and Gulp globally (**required only on local machine**)
-* `npm run build-dev` - build files for dev environment
+* `npm run build` - build files for dev environment
 * `npm run build-prod` - build files for prod environment
-* `npm run start` - run built application (**requires application to be build first**)
+* `npm run fastboot-server` - run built application (**requires application to be build first**)
 * `npm run dev` - build, run application and watch files
-* `npm run dev-main` - build only the main app and its dependencies, run it and watch files
-* `npm run restart` - build ember, run application and watch files (without running gulp's build pipeline)
-* `npm run test` - run test-front and test-server (**requires application to be build first**)
+* `npm run test` - run tests
 * `npm run linter` - run ESLint on all js files
 * `npm run clean` - remove all dependencies and build directory
 * `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
-* `npm run shrinkwrap-all` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after [installing or updating a dependency](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages))
+* (Experimental) `npm run fastboot-debug` - build and run application in debugging mode. Server side code can be interrupted by debuggers.
 
 ## Settings
-`server/config/settings` is main configuration structure. All application settings should be stored there.
-Config files are loaded in the following order (next extending a previous one):
- * `settings.base.js` - base configuration
- * `settings.${environment}.js` - configuration for specific environment environment - for production environment e.g. prod, dev, staging
- * `settings.js` - your local overrides
+
+Mobile Wiki application currently supports three types of configuration.
+* Ember & FastBoot configuration computed at build time `config/environment.js`
+* Ember & FastBoot runtime configuration `app/instance-initializers/config.js` which has access to environment variables
+* Express server configuration (middleware in front of FastBoot server) `config/fastboot-server.js`
 
 Some tips if you develop outside of devbox:
  * The devboxDomain must have your devbox name (without the dev- prefix) in it
@@ -51,11 +45,11 @@ Some tips if you develop outside of devbox:
 
 ## See also
 
-### [CHANGELOG](https://github.com/Wikia/mobile-wiki/blob/dev/CHANGELOG.md)
+### [CHANGELOG](https://github.com/Wikia/mobile-wiki/releases)
 
 ### [Tasks](https://github.com/Wikia/mobile-wiki/blob/dev/tasks/README.md)
 
-### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
+### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury) - Legacy documentation created before Mercury and Mobile Wiki split
 
 ### [How to update translations](https://github.com/Wikia/mobile-wiki/blob/dev/crowdin/README.md)
 
