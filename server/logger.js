@@ -118,7 +118,6 @@ function createLogger(loggerConfig) {
 			'req',
 			'res',
 			'response-hrtime',
-			'response-time',
 			'user-agent'
 		],
 		serializers,
