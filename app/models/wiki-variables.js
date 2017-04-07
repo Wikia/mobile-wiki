@@ -1,19 +1,9 @@
 import Ember from 'ember';
-import {defineError} from 'ember-exex/error';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
+import {NonJsonApiResponseError, WikiVariablesFetchError, DesignSystemFetchError} from '../errors/main';
 
 const WikiVariablesModel = Ember.Object.extend({});
-
-const WikiVariablesFetchError = defineError({
-	name: 'WikiVariablesFetchError',
-	message: `Wiki variables couldn't be fetched`
-});
-
-const DesignSystemFetchError = defineError({
-	name: 'DesignSystemFetchError',
-	message: `Design System data couldn't be fetched`
-});
 
 WikiVariablesModel.reopenClass({
 	get(host) {
@@ -39,7 +29,16 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-				return response.json();
+				const contentType = response.headers.get('content-type');
+
+				if (contentType && contentType.indexOf('application/json') !== -1) {
+					return response.json();
+				} else {
+					throw new NonJsonApiResponseError().withAdditionalData({
+						redirectLocation: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_community'
+					});
+				}
+
 			})
 			.then(({data}) => {
 				return fetch(
@@ -75,6 +74,10 @@ WikiVariablesModel.reopenClass({
 					});
 			})
 			.catch((error) => {
+				if (error.name === 'NonJsonApiResponseError') {
+					throw error;
+				}
+
 				throw new WikiVariablesFetchError({
 					code: error.code || 503
 				})
