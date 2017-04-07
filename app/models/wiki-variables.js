@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-import {NonJsonApiResponseError, WikiVariablesFetchError, DesignSystemFetchError} from '../errors/main'
+import {NonJsonApiResponseError, WikiVariablesFetchError, DesignSystemFetchError} from '../errors/main';
 
 const WikiVariablesModel = Ember.Object.extend({});
 
@@ -29,9 +29,9 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-				const contentType = response.headers.get("content-type");
+				const contentType = response.headers.get('content-type');
 
-				if (contentType && contentType.indexOf("application/json") !== -1) {
+				if (contentType && contentType.indexOf('application/json') !== -1) {
 					return response.json();
 				} else {
 					throw new NonJsonApiResponseError().withAdditionalData({

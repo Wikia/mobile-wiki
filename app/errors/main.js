@@ -26,4 +26,4 @@ export {
 	DesignSystemFetchError,
 	DontLogMeErrorError,
 	NonJsonApiResponseError
-}
+};

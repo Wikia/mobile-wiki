@@ -6,7 +6,7 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
-import {NonJsonApiResponseError, DontLogMeErrorError} from '../errors/main'
+import {NonJsonApiResponseError, DontLogMeErrorError} from '../errors/main';
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
