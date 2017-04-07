@@ -13,7 +13,7 @@ export default Route.extend(
 					'location',
 					this.get('wikiVariables.basePath') +
 					this.get('wikiVariables.articlePath') +
-					this.get('wikiVariables.mainPageTitle')
+					encodeURIComponent(this.get('wikiVariables.mainPageTitle'))
 				);
 			} else {
 				this.replaceWith('wiki-page', this.get('wikiVariables.mainPageTitle'));
