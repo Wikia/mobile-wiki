@@ -15,7 +15,7 @@ export default BaseConsumer.extend({
 			// TODO XW-3198
 			// Don't log special type of errors. Currently we use them hack Ember and stop executing application
 			if (descriptor.get('error') instanceof DontLogMeError) {
-				return;
+				return true;
 			}
 
 			const error = extend({}, descriptor.get('error'));
