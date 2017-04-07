@@ -35,6 +35,7 @@ process.env.PORT = config.port;
 const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {
 		app.use(compression());
+		app.disable('x-powered-by');
 		app.use(logger);
 		app.use(headers);
 		/**
