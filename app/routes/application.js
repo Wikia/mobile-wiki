@@ -6,7 +6,7 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
-import {NonJsonApiResponseError, DontLogMeErrorError} from '../errors/main';
+import {NonJsonApiResponseError, DontLogMeError} from '../errors/main';
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
@@ -167,7 +167,7 @@ export default Route.extend(
 
 				// TODO XW-3198
 				// We throw error to stop Ember and redirect immediately
-				throw new DontLogMeErrorError();
+				throw new DontLogMeError();
 			}
 		},
 

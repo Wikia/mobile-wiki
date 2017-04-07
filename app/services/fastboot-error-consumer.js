@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BaseConsumer from 'ember-error-handler/consumer/base-consumer';
 import extend from '../utils/extend';
-import {DontLogMeErrorError} from '../errors/main';
+import {DontLogMeError} from '../errors/main';
 
 const {inject} = Ember;
 
@@ -14,7 +14,7 @@ export default BaseConsumer.extend({
 		if (fastboot.get('isFastBoot')) {
 			// TODO XW-3198
 			// Don't log special type of errors. Currently we use them hack Ember and stop executing application
-			if (descriptor.get('error') instanceof DontLogMeErrorError) {
+			if (descriptor.get('error') instanceof DontLogMeError) {
 				return;
 			}
 
