@@ -6,6 +6,7 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
+import {NonJsonApiResponseError, DontLogMeErrorError} from '../errors/main'
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
@@ -55,6 +56,20 @@ export default Route.extend(
 						return wikiVariablesModel;
 					})
 					.catch((error) => {
+						if (error instanceof NonJsonApiResponseError) {
+							const fastboot = this.get('fastboot');
+
+							fastboot.get('response.headers').set(
+								'location',
+								error.additionalData[0].redirectLocation
+							);
+							fastboot.set('response.statusCode', 301);
+
+							// TODO XW-3198
+							// We throw error to stop Ember
+							throw error;
+						}
+
 						this.injectScriptsFastbootOnly(null, transition.queryParams);
 						throw error;
 					});
@@ -149,7 +164,10 @@ export default Route.extend(
 					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
 				);
 				fastboot.set('response.statusCode', 301);
-				return false;
+
+				// TODO XW-3198
+				// We throw error to stop Ember and redirect immediately
+				throw new DontLogMeErrorError();
 			}
 		},
 

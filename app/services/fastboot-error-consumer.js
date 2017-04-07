@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BaseConsumer from 'ember-error-handler/consumer/base-consumer';
 import extend from '../utils/extend';
+import {DontLogMeErrorError} from '../errors/main';
 
 const {inject} = Ember;
 
@@ -11,6 +12,17 @@ export default BaseConsumer.extend({
 		const fastboot = this.get('fastboot');
 
 		if (fastboot.get('isFastBoot')) {
+			// TODO XW-3198
+			// Don't log special type of errors. Currently we use them hack Ember and stop executing application
+			if (descriptor.get('error') instanceof DontLogMeErrorError) {
+				return;
+			}
+
+			const error = extend({}, descriptor.get('error'));
+			const errorWithStack = extend(error, {
+				stack: descriptor.get('normalizedStack')
+			});
+
 			const bunyan = FastBoot.require('bunyan');
 			const BunyanSyslog = FastBoot.require('bunyan-syslog');
 			// TODO we probably shouldn't create new instance on every error
@@ -26,11 +38,6 @@ export default BaseConsumer.extend({
 						type: 'sys'
 					})
 				}]
-			});
-
-			const error = extend({}, descriptor.get('error'));
-			const errorWithStack = extend(error, {
-				stack: descriptor.get('normalizedStack')
 			});
 
 			logger.error(
