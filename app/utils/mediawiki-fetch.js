@@ -7,7 +7,7 @@ export default function mediawikiFetch(url, options = {}) {
 			proxyingAgent = FastBoot.require('proxying-agent'),
 			parsedUrl = Url.parse(url);
 
-		options.agent = proxyingAgent.create(config.mediawikiDomain, parsedUrl.host);
+		options.agent = proxyingAgent.create(`http://${config.mediawikiDomain}`, parsedUrl.host);
 		options.follow = options.follow || 5;
 	}
 
