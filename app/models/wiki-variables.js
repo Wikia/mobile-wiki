@@ -35,7 +35,7 @@ WikiVariablesModel.reopenClass({
 					return response.json();
 				} else {
 					throw new NonJsonApiResponseError().withAdditionalData({
-						redirectLocation: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_community'
+						redirectLocation: response.url
 					});
 				}
 

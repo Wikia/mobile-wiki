@@ -100,6 +100,7 @@
     "moment-timezone": "0.5.0",
     "numeral": "2.0.6",
     "phantomjs-prebuilt": "2.1.14",
+    "proxying-agent": "2.1.0",
     "tslint": "4.5.1",
     "typescript": "2.0.0"
   },
@@ -117,6 +118,7 @@
     "fs",
     "process",
     "url",
-    "util"
+    "util",
+    "proxying-agent"
   ]
 }
