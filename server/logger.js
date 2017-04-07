@@ -64,21 +64,22 @@ const availableTargets = {
 };
 
 const serializers = {
-	'req-headers': (req) => {
+	'req-headers'(req) {
 		if (!req) {
 			return req;
 		}
 
-		return {
-			accept: req.accept,
-			'accept-language': req['accept-language'],
-			'fastly-client-ip': req['fastly-client-ip'],
-			'fastly-orig-accept-encoding': req['fastly-orig-accept-encoding'],
-			host: req.host,
-			'user-agent': req['user-agent'],
-			'x-beacon': req['x-beacon'],
-			'x-forwarded-for': req['x-forwarded-for']
-		};
+		const serializedReq = {},
+			allowedHeaders = ['accept', 'accept-language', 'fastly-client-ip', 'fastly-orig-accept-encoding',
+				'host', 'user-agent', 'x-beacon', 'x-forwarded-for'];
+
+		allowedHeaders.forEach((field) => {
+			if (typeof req[field] !== 'undefined') {
+				serializedReq[field] = req[field];
+			}
+		});
+
+		return serializedReq;
 	}
 };
 
