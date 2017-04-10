@@ -63,7 +63,7 @@ export default Route.extend(
 								'location',
 								error.additionalData[0].redirectLocation
 							);
-							fastboot.set('response.statusCode', 301);
+							fastboot.set('response.statusCode', 302);
 
 							// TODO XW-3198
 							// We throw error to stop Ember
