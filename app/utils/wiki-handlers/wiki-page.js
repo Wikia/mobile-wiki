@@ -119,6 +119,13 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 							requestUrl: url,
 							responseUrl: response.url
 						});
+					}).catch((error) => {
+						throw new WikiPageFetchError({
+							code: 503
+						}).withAdditionalData({
+							requestUrl: url,
+							responseUrl: response.url
+						}).withPreviousError(error);
 					});
 				}
 			})
