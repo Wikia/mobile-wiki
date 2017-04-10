@@ -100,7 +100,7 @@
     "moment-timezone": "0.5.0",
     "numeral": "2.0.6",
     "phantomjs-prebuilt": "2.1.14",
-    "proxying-agent": "github:wikia/node-proxying-agent.git#a6331e8c90af08e3f8d28c17c0cc9a9f77bb4cca",
+    "proxying-agent": "2.1.1",
     "tslint": "4.5.1",
     "typescript": "2.0.0"
   },
