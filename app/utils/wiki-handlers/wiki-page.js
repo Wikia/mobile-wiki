@@ -90,7 +90,9 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 		shoebox = fastboot.get('shoebox');
 
 	if (isFastBoot || !M.initialPageView) {
-		return fetch(getURL(params))
+		const url = getURL(params);
+
+		return fetch(url)
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
@@ -131,8 +133,12 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 					return notFoundModel;
 				} else {
-					// Let ember-error-handler take care of this
-					throw error;
+					throw new WikiPageFetchError({
+						code: 503
+					}).withAdditionalData({
+						fetchParams: params,
+						url
+					}).withPreviousError(error);
 				}
 			});
 	} else {
