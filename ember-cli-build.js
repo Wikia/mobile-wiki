@@ -57,7 +57,8 @@ module.exports = function (defaults) {
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
+			// TODO XW-3230 after rolling out fastboot to 100% of traffic, uncomment this
+			// prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
 		},
 		inlineContent: {
 			globals: `${inlineScriptsPath}globals.js`,
