@@ -47,7 +47,7 @@
     "broccoli-asset-rev": "github:rogatty/broccoli-asset-rev#broccoli-asset-rewrite-1.0.9",
     "broccoli-funnel": "1.0.1",
     "broccoli-stew": "1.3.2",
-    "design-system-i18n": "github:wikia/design-system-i18n.git#0.8.2",
+    "design-system-i18n": "github:wikia/design-system-i18n.git#0.8.3",
     "ember-browserify": "1.1.13",
     "ember-cli": "2.11.1",
     "ember-cli-app-version": "2.0.0",
