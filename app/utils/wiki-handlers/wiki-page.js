@@ -111,11 +111,21 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 						});
 					}
 				} else {
-					throw new WikiPageFetchError({
-						code: 503
-					}).withAdditionalData({
-						requestUrl: url,
-						responseUrl: response.url
+					return response.text().then((responseBody) => {
+						throw new WikiPageFetchError({
+							code: 503
+						}).withAdditionalData({
+							responseBody,
+							requestUrl: url,
+							responseUrl: response.url
+						});
+					}).catch((error) => {
+						throw new WikiPageFetchError({
+							code: 503
+						}).withAdditionalData({
+							requestUrl: url,
+							responseUrl: response.url
+						}).withPreviousError(error);
 					});
 				}
 			})
