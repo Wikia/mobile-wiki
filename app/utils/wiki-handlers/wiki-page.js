@@ -94,17 +94,28 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 		return fetch(url)
 			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					return response.json().then((responseBody) => {
-						throw new WikiPageFetchError({
-							code: response.status || 503
-						}).withAdditionalData({
-							fetchParams: params,
-							responseBody,
-							url: response.url
+				const contentType = response.headers.get('content-type');
+
+				if (contentType && contentType.indexOf('application/json') !== -1) {
+					if (response.ok) {
+						return response.json();
+					} else {
+						return response.json().then((responseBody) => {
+							throw new WikiPageFetchError({
+								code: response.status || 503
+							}).withAdditionalData({
+								responseBody,
+								requestUrl: url,
+								responseUrl: response.url
+							});
 						});
+					}
+				} else {
+					throw new WikiPageFetchError({
+						code: 503
+					}).withAdditionalData({
+						requestUrl: url,
+						responseUrl: response.url
 					});
 				}
 			})
@@ -133,12 +144,7 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 					return notFoundModel;
 				} else {
-					throw new WikiPageFetchError({
-						code: 503
-					}).withAdditionalData({
-						fetchParams: params,
-						url
-					}).withPreviousError(error);
+					throw error;
 				}
 			});
 	} else {
