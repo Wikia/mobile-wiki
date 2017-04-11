@@ -67,6 +67,8 @@ if (this.get('fastboot.isFastBoot')) {
 } else {
   data = shoebox.retrieve('unique-key');
 }
+
+// use your data
 ```
 
 ## See also
