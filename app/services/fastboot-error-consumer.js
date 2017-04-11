@@ -13,7 +13,7 @@ const {inject} = Ember;
  * @returns {Object}
  */
 const additionalDataSerializer = (additionalData) => {
-	if (Array.isArray(additionalData)) {
+	if (additionalData && Array.isArray(additionalData)) {
 		return Object.assign({}, additionalData);
 	}
 
@@ -28,9 +28,9 @@ const additionalDataSerializer = (additionalData) => {
  * @returns {Object}
  */
 const previousErrorSerializer = (previousError) => {
-	if (previousError.additionalData && Array.isArray(previousError.additionalData)) {
+	if (previousError && previousError.additionalData) {
 		const serialized = Object.assign({}, previousError);
-		serialized.additionalData = Object.assign({}, previousError.additionalData);
+		serialized.additionalData = additionalDataSerializer(previousError.additionalData);
 		return serialized;
 	}
 
