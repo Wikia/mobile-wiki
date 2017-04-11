@@ -42,6 +42,32 @@ Mobile Wiki application currently supports three types of configuration.
 Some tips if you develop outside of devbox:
  * The devboxDomain must have your devbox name (without the dev- prefix) in it
  * If you want to test with consul, use `mediawikiDomain: 'consul.service.sjc-dev.consul'` or `mediawikiDomain: 'consul.service.poz-dev.consul'`
+ 
+## Development
+
+### FastBoot and Server side funtionality
+* Check if code is executed on server side: inject fastboot service `fastboot: Ember.inject.service()` and `this.get('fastboot.isFastBoot')`
+* Require node package: Whitelist package in `package.json` and `const proc = FastBoot.require('proc')`
+* Read request headers: `this.get('fastboot.request.headers')`
+* Set response headers: `this.get('fastboot.request.headers').set('x-header', 'value')`
+* more on https://ember-fastboot.com/docs/user-guide
+
+### Shoebox
+To improve frontend performance we avoid making the same requests on backend and frontend. [Shoebox](https://ember-fastboot.com/docs/user-guide#the-shoebox) helps us passing data from server to browser. Shoebox serilize data to JSON and puts it as script tag in HTML. In the browser shoebox reads data from HTML and uses it in Ember application.
+
+```javascript
+const shoebox = this.get('fastboot.shoebox');
+
+let data;
+
+if (this.get('fastboot.isFastBoot')) {
+  data = this.get('model').fetchData();
+  
+  shoebox.put('unique-key', data);
+} else {
+  data = shoebox.retrieve('unique-key');
+}
+```
 
 ## See also
 
