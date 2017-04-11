@@ -94,12 +94,6 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/main',
 					outputFile: '/assets/main.svg'
 				},
-				// This duplicates build-common-symbols task but we still want to do it
-				// as there is no easy way to use external rev-manifest.json in here
-				{
-					sourceDirs: '../common/public/symbols',
-					outputFile: '/assets/common.svg'
-				}
 			]
 		}
 	});
