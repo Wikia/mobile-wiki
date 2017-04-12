@@ -11,13 +11,22 @@ module('Unit | Utility | host', () => {
 			},
 			{
 				headers: {
+					'x-original-host': 'sandbox-xw1.starwars.wikia.com'
+				},
+				host: 'starwars.wikia.com',
+				expected: 'sandbox-xw1.starwars.wikia.com',
+			},
+			{
+				headers: {
+					'x-original-host': 'externaltest.starwars.wikia.com',
 					'x-staging': 'externaltest'
 				},
-				host: 'externaltest.starwars.wikia.com',
+				host: 'starwars.wikia.com',
 				expected: 'starwars.wikia.com',
 			},
 			{
 				headers: {
+					'x-original-host': 'starwars.wikia.com',
 					'x-staging': 'externaltest'
 				},
 				host: 'showcase.starwars.wikia.com',
