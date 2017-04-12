@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import WikiVariablesModel from '../models/wiki-variables';
-import getLinkInfo from '../utils/article-link';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import getHostFromRequest from '../utils/host';
+import getLinkInfo from '../utils/article-link';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
@@ -47,7 +48,7 @@ export default Route.extend(
 			if (this.get('fastboot.isFastBoot')) {
 				const request = this.get('fastboot.request');
 
-				return WikiVariablesModel.get(request.get('headers').get('x-original-host') || request.get('host'))
+				return WikiVariablesModel.get(getHostFromRequest(request))
 					.then((wikiVariablesModel) => {
 						shoebox.put('wikiVariables', wikiVariablesModel);
 						this.get('wikiVariables').setProperties(wikiVariablesModel);
