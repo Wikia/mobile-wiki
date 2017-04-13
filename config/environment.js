@@ -7,6 +7,7 @@ module.exports = function (environment) {
 		environment: environment,
 		locationType: 'router-scroll',
 		historySupportMiddleware: true,
+		exportApplicationGlobal: true,
 		facebook: {
 			appId: '112328095453510'
 		},

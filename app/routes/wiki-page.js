@@ -3,12 +3,12 @@ import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
-import NotFoundHandler from '../utils/wiki-handlers/not-found';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
+import isInitialPageView from '../utils/initial-page-view';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
 import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
@@ -22,7 +22,7 @@ export default Route.extend(
 	RouteWithAdsMixin,
 	RouteWithBodyClassNameMixin,
 	{
-		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
+		bodyClassNames: ['show-global-footer'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
 		ads: inject.service(),
@@ -108,7 +108,8 @@ export default Route.extend(
 			return RSVP.resolve(getPageModel(
 				modelParams,
 				fastboot,
-				this.get('wikiVariables.contentNamespaces')
+				this.get('wikiVariables.contentNamespaces'),
+				isInitialPageView(this)
 			)).then((pageModel) => {
 				if (fastboot.get('isFastBoot')) {
 					return RSVP
@@ -267,6 +268,17 @@ export default Route.extend(
 				}
 
 				return true;
+			},
+
+			/**
+			 * @param {EmberError} error
+			 * @returns {boolean}
+			 */
+			error(error, transition) {
+				Logger.error('Wiki page error', error);
+				this.intermediateTransitionTo('wiki-page_error', error);
+
+				return false;
 			},
 
 			/**
