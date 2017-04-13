@@ -5,6 +5,38 @@ import {DontLogMeError} from '../errors/main';
 
 const {inject} = Ember;
 
+/**
+ * Elastic Search doesn't play well with arrays of objects
+ * Convert additionalData to an object with objects
+ *
+ * @param {Object} additionalData
+ * @returns {Object}
+ */
+const additionalDataSerializer = (additionalData) => {
+	if (additionalData && Array.isArray(additionalData)) {
+		return Object.assign({}, additionalData);
+	}
+
+	return additionalData;
+};
+
+/**
+ * Elastic Search doesn't play well with arrays of objects
+ * Convert previousError.additionalData to an object with objects
+ *
+ * @param {Object} previousError
+ * @returns {Object}
+ */
+const previousErrorSerializer = (previousError) => {
+	if (previousError && previousError.additionalData) {
+		const serialized = Object.assign({}, previousError);
+		serialized.additionalData = additionalDataSerializer(previousError.additionalData);
+		return serialized;
+	}
+
+	return previousError;
+};
+
 export default BaseConsumer.extend({
 	fastboot: inject.service(),
 
@@ -30,6 +62,10 @@ export default BaseConsumer.extend({
 			const logger = bunyan.createLogger({
 				appname: 'mobile-wiki',
 				name: 'mobile-wiki',
+				serializers: {
+					additionalData: additionalDataSerializer,
+					previous: previousErrorSerializer
+				},
 				streams: [{
 					level: 'warn',
 					type: 'raw',

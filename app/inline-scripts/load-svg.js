@@ -26,8 +26,6 @@
 		ajax.send();
 	}
 
-	// TODO check if fingerprint works correctly
 	loadDOMResource('/mobile-wiki/assets/main.svg');
-	loadDOMResource('/mobile-wiki/assets/common.svg');
 	loadDOMResource('/mobile-wiki/assets/design-system.svg');
 })();

@@ -90,19 +90,42 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 		shoebox = fastboot.get('shoebox');
 
 	if (isFastBoot || !M.initialPageView) {
-		return fetch(getURL(params))
+		const url = getURL(params);
+
+		return fetch(url)
 			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					return response.json().then((responseBody) => {
-						throw new WikiPageFetchError({
-							code: response.status || 503
-						}).withAdditionalData({
-							fetchParams: params,
-							responseBody,
-							url: response.url
+				const contentType = response.headers.get('content-type');
+
+				if (contentType && contentType.indexOf('application/json') !== -1) {
+					if (response.ok) {
+						return response.json();
+					} else {
+						return response.json().then((responseBody) => {
+							throw new WikiPageFetchError({
+								code: response.status || 503
+							}).withAdditionalData({
+								responseBody,
+								requestUrl: url,
+								responseUrl: response.url
+							});
 						});
+					}
+				} else {
+					return response.text().then((responseBody) => {
+						throw new WikiPageFetchError({
+							code: 503
+						}).withAdditionalData({
+							responseBody,
+							requestUrl: url,
+							responseUrl: response.url
+						});
+					}).catch((error) => {
+						throw new WikiPageFetchError({
+							code: 503
+						}).withAdditionalData({
+							requestUrl: url,
+							responseUrl: response.url
+						}).withPreviousError(error);
 					});
 				}
 			})
@@ -131,7 +154,6 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 					return notFoundModel;
 				} else {
-					// Let ember-error-handler take care of this
 					throw error;
 				}
 			});

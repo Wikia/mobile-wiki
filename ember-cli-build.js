@@ -57,8 +57,7 @@ module.exports = function (defaults) {
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			// TODO XW-3230 after rolling out fastboot to 100% of traffic, uncomment this
-			// prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
+			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
 		},
 		inlineContent: {
 			globals: `${inlineScriptsPath}globals.js`,
@@ -94,12 +93,6 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/main',
 					outputFile: '/assets/main.svg'
 				},
-				// This duplicates build-common-symbols task but we still want to do it
-				// as there is no easy way to use external rev-manifest.json in here
-				{
-					sourceDirs: '../common/public/symbols',
-					outputFile: '/assets/common.svg'
-				}
 			]
 		}
 	});
