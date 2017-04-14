@@ -31,8 +31,6 @@ ApplicationModel.reopenClass({
 						fastboot, !Boolean(userId), host, title
 					)
 				]).then(([navigationData]) => {
-					console.log(wikiVariables);
-
 					if (!wikiVariables.siteName) {
 						wikiVariables.siteName = 'Fandom powered by Wikia';
 					}
