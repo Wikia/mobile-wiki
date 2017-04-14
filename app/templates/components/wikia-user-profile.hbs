@@ -51,7 +51,18 @@
 		</ul>
 	{{else}}
 		<p class="wds-notifications__zero-state">
-			{{i18n 'notifications-no-notifications-message' ns='design-system'}}
+			{{#if isLoadingNewResults}}
+				{{wds-spinner
+						active=true
+						isBlock=true
+						isThemed=false
+						overlay=false
+						radius=15
+						strokeWidth=2
+				}}
+			{{else}}
+				{{i18n 'notifications-no-notifications-message' ns='design-system'}}
+			{{/if}}
 		</p>
 	{{/if}}
 </div>

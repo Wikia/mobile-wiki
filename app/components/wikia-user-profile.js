@@ -20,6 +20,12 @@ export default Component.extend(
 		isLoadingNewResults: computed.oneWay('notifications.isLoading'),
 		username: computed.oneWay('currentUser.name'),
 
+		init() {
+			this._super(...arguments);
+			this.errors = [];
+			this.get('notifications').loadFirstPage();
+		},
+
 		didRender() {
 			this._super(...arguments);
 			this.element.scrollTop = 0;

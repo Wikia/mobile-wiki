@@ -2,8 +2,8 @@ import Ember from 'ember';
 import {defineError} from 'ember-exex/error';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
-import NotFoundModel from '../../models/wiki/not-found';
 import FileModel from '../../models/wiki/file';
+import isInitialPageView from '../../utils/initial-page-view';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
 import extend from '../../utils/extend';
@@ -79,17 +79,11 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 	}
 }
 
-function getModelForNotFound(params) {
-	const model = NotFoundModel.create(params);
-	NotFoundModel.setData(model);
-	return model;
-}
-
 export default function getPageModel(params, fastboot, contentNamespaces) {
 	const isFastBoot = fastboot.get('isFastBoot'),
 		shoebox = fastboot.get('shoebox');
 
-	if (isFastBoot || !M.initialPageView) {
+	if (isFastBoot || !isInitialPageView()) {
 		const url = getURL(params);
 
 		return fetch(url)
@@ -144,31 +138,27 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				return getModelForNamespace(data, params, contentNamespaces);
 			})
 			.catch((error) => {
-				if (error.code === 404) {
-					const notFoundModel = getModelForNotFound(params);
-
-					if (isFastBoot) {
-						shoebox.put('wikiPage', notFoundModel);
-						fastboot.set('response.statusCode', error.code);
-					}
-
-					return notFoundModel;
-				} else {
-					throw error;
+				if (isFastBoot) {
+					shoebox.put('wikiPageError', error);
+					fastboot.set('response.statusCode', error.code);
 				}
+
+				throw error;
 			});
 	} else {
-		const wikiPageData = shoebox.retrieve('wikiPage');
+		const wikiPageData = shoebox.retrieve('wikiPage'),
+			wikiPageError = shoebox.retrieve('wikiPageError');
+
+		// There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
+		if (wikiPageError && isInitialPageView()) {
+			throw wikiPageError;
+		}
 
 		if (get(wikiPageData, 'data.article')) {
 			wikiPageData.data.article.content = $('.article-content').html();
 		}
 
-		if (wikiPageData.notFound) {
-			return getModelForNotFound(params);
-		} else {
-			return getModelForNamespace(wikiPageData, params, contentNamespaces);
-		}
+		return getModelForNamespace(wikiPageData, params, contentNamespaces);
 	}
 }
 

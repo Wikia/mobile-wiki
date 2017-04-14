@@ -3,10 +3,8 @@ import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
-import NotFoundHandler from '../utils/wiki-handlers/not-found';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
-import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
@@ -20,9 +18,7 @@ const {Logger, Route, RSVP, $, inject, get} = Ember;
 export default Route.extend(
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
-	RouteWithBodyClassNameMixin,
 	{
-		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
 		ads: inject.service(),
@@ -53,8 +49,6 @@ export default Route.extend(
 				return CategoryHandler;
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
-			} else if (model.notFound) {
-				return NotFoundHandler;
 			} else {
 				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
@@ -267,6 +261,21 @@ export default Route.extend(
 				}
 
 				return true;
+			},
+
+			/**
+			 * We can't use the built-in mechanism to render error substates
+			 * It bubbles the error to application route and then FastBoot dies
+			 * Instead, we transition to substate manually and prevent the bubbling
+			 *
+			 * @param {EmberError} error
+			 * @returns {boolean}
+			 */
+			error(error) {
+				Logger.error('Wiki page error', error);
+				this.intermediateTransitionTo('wiki-page_error', error);
+
+				return false;
 			},
 
 			/**
