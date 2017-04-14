@@ -1,10 +1,5 @@
 import {defineError} from 'ember-exex/error';
 
-const WikiVariablesFetchError = defineError({
-	name: 'WikiVariablesFetchError',
-	message: `Wiki variables couldn't be fetched`
-});
-
 const DesignSystemFetchError = defineError({
 	name: 'DesignSystemFetchError',
 	message: `Design System data couldn't be fetched`
@@ -36,12 +31,23 @@ const TrackingDimensionsFetchError = defineError({
 	message: `Tracking dimensions couldn't be fetched`
 });
 
+const WikiPageFetchError = defineError({
+	name: 'WikiPageFetchError',
+	message: `Wiki page couldn't be fetched`
+});
+
+const WikiVariablesFetchError = defineError({
+	name: 'WikiVariablesFetchError',
+	message: `Wiki variables couldn't be fetched`
+});
+
 export {
-	WikiVariablesFetchError,
 	DesignSystemFetchError,
 	DontLogMeError,
 	NonJsonApiResponseError,
 	UserLoadDetailsFetchError,
 	UserLoadInfoFetchError,
-	TrackingDimensionsFetchError
+	TrackingDimensionsFetchError,
+	WikiPageFetchError,
+	WikiVariablesFetchError,
 };

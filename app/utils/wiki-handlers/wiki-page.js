@@ -6,15 +6,11 @@ import FileModel from '../../models/wiki/file';
 import isInitialPageView from '../../utils/initial-page-view';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
+import {WikiPageFetchError} from '../../utils/errors';
 import extend from '../../utils/extend';
 import {buildUrl} from '../../utils/url';
 
 const {$, Object: EmberObject, get} = Ember;
-
-const WikiPageFetchError = defineError({
-	name: 'WikiPageFetchError',
-	message: `Wiki page couldn't be fetched`
-});
 
 /**
  *
@@ -88,40 +84,25 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 
 		return fetch(url)
 			.then((response) => {
-				const contentType = response.headers.get('content-type');
-
-				if (contentType && contentType.indexOf('application/json') !== -1) {
-					if (response.ok) {
-						return response.json();
-					} else {
-						return response.json().then((responseBody) => {
-							throw new WikiPageFetchError({
-								code: response.status || 503,
-								message: 'MercuryApi::getPage returned exception'
-							}).withAdditionalData({
-								responseBody,
-								requestUrl: url,
-								responseUrl: response.url
-							});
-						});
-					}
+				if (response.ok) {
+					return response.json();
 				} else {
-					return response.text().then((responseBody) => {
+					const contentType = response.headers.get('content-type');
+					const throwError = (responseBody) => {
 						throw new WikiPageFetchError({
-							code: 503
+							code: response.status || 503
 						}).withAdditionalData({
 							responseBody,
 							requestUrl: url,
 							responseUrl: response.url
 						});
-					}).catch((error) => {
-						throw new WikiPageFetchError({
-							code: 503
-						}).withAdditionalData({
-							requestUrl: url,
-							responseUrl: response.url
-						}).withPreviousError(error);
-					});
+					};
+
+					if (contentType && contentType.indexOf('application/json') !== -1) {
+						return response.json().then(throwError);
+					} else {
+						return response.text().then(throwError);
+					}
 				}
 			})
 			.then((data) => {
@@ -141,7 +122,7 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 			.catch((error) => {
 				if (isFastBoot) {
 					shoebox.put('wikiPageError', error);
-					fastboot.set('response.statusCode', error.code);
+					fastboot.set('response.statusCode', error.code || 503);
 				}
 
 				throw error;

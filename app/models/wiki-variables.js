@@ -41,8 +41,7 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-			}).
-			then((response) => {
+			}).then((response) => {
 				if (!response.data.siteName) {
 					response.data.siteName = 'Fandom powered by Wikia';
 				}
@@ -58,12 +57,10 @@ WikiVariablesModel.reopenClass({
 
 				throw new WikiVariablesFetchError({
 					code: error.code || 503
-				})
-					.withPreviousError(error)
-					.withAdditionalData({
-						host,
-						url
-					});
+				}).withAdditionalData({
+					host,
+					url
+				}).withPreviousError(error);
 			});
 	}
 });

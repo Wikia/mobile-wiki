@@ -31,6 +31,10 @@ UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	getUserId(accessToken) {
+		if (!accessToken) {
+			return null;
+		}
+
 		const queryString = getQueryString({
 			code: accessToken
 		});
@@ -39,9 +43,7 @@ UserModel.reopenClass({
 			timeout: config.helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
-				return response.json().then((data) => {
-					return data.user_id;
-				});
+				return response.json().then((data) => data.user_id);
 			} else {
 				if (response.status === 401) {
 					Ember.Logger.info('Token not authorized by Helios');
@@ -97,7 +99,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
-		return fetch(buildUrl({
+		const url = buildUrl({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -106,18 +108,29 @@ UserModel.reopenClass({
 				ids: userId,
 				size: avatarSize
 			}
-		}))
+		});
+
+		return fetch(url)
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
 				} else {
-					return response.text().then((responseBody) => {
-						throw new UserLoadDetailsFetchError().withAdditionalData({
-							host,
+					const contentType = response.headers.get('content-type');
+					const throwError = (responseBody) => {
+						throw new UserLoadDetailsFetchError({
+							code: response.status
+						}).withAdditionalData({
 							responseBody,
-							url: response.url
+							requestUrl: url,
+							responseUrl: response.url
 						});
-					});
+					};
+
+					if (contentType && contentType.indexOf('application/json') !== -1) {
+						return response.json().then(throwError);
+					} else {
+						return response.text().then(throwError);
+					}
 				}
 			})
 			.then((result) => {
@@ -136,7 +149,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		return fetch(buildUrl({
+		const url = buildUrl({
 			host,
 			path: '/api.php',
 			query: {
@@ -146,7 +159,9 @@ UserModel.reopenClass({
 				format: 'json',
 				ids: userId
 			}
-		}), {
+		});
+
+		return fetch(url, {
 			headers: {
 				Cookie: `access_token=${accessToken}`
 			},
@@ -154,13 +169,22 @@ UserModel.reopenClass({
 			if (response.ok) {
 				return response.json();
 			} else {
-				return response.text().then((responseBody) => {
-					throw new UserLoadInfoFetchError().withAdditionalData({
-						host,
+				const contentType = response.headers.get('content-type');
+				const throwError = (responseBody) => {
+					throw new UserLoadInfoFetchError({
+						code: response.status
+					}).withAdditionalData({
 						responseBody,
-						url: response.url
+						requestUrl: url,
+						responseUrl: response.url
 					});
-				});
+				};
+
+				if (contentType && contentType.indexOf('application/json') !== -1) {
+					return response.json().then(throwError);
+				} else {
+					return response.text().then(throwError);
+				}
 			}
 		});
 	},

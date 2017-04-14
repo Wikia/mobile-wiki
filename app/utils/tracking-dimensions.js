@@ -34,12 +34,11 @@ export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title) {
 				const throwError = (responseBody) => {
 					const error = new TrackingDimensionsFetchError({
 						code: response.status
-					})
-						.withAdditionalData({
-							responseBody,
-							requestUrl: url,
-							responseUrl: response.url
-						});
+					}).withAdditionalData({
+						responseBody,
+						requestUrl: url,
+						responseUrl: response.url
+					});
 
 					throw error;
 				};
