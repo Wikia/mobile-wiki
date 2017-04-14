@@ -5,7 +5,6 @@ import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
-import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
@@ -18,9 +17,7 @@ const {Logger, Route, RSVP, $, inject, get} = Ember;
 export default Route.extend(
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
-	RouteWithBodyClassNameMixin,
 	{
-		bodyClassNames: ['show-global-footer'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
 		ads: inject.service(),

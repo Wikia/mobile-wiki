@@ -28,6 +28,7 @@ export default Controller.extend(
 		noAds: Ember.computed.alias('ads.noAdsQueryParam'),
 		commentsPage: null,
 
+		applicationWrapperClassNames: null,
 		smartBannerVisible: false,
 		drawerVisible: false,
 		drawerContent: null,
@@ -45,6 +46,7 @@ export default Controller.extend(
 		 */
 		init() {
 			this.setProperties({
+				applicationWrapperClassNames: [],
 				domain: this.get('wikiVariables.dbName') ||
 				window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: this.get('wikiVariables.language')
