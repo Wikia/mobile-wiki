@@ -50,7 +50,7 @@ export default Route.extend(
 				title = transition.params['wiki-page'].title;
 			}
 
-			return ApplicationModel.get(fastboot, title)
+			return ApplicationModel.get(fastboot, title, this.get('currentUser'))
 				.then((wikiVariables) => {
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(wikiVariables, transition.queryParams);

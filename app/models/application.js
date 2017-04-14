@@ -15,7 +15,9 @@ const ApplicationModel = EmberObject.extend({});
 
 
 ApplicationModel.reopenClass({
-	get(fastboot, title) {
+	get(fastboot, title, currentUser) {
+		const shoebox = fastboot.get('shoebox');
+
 		if (fastboot.get('isFastBoot')) {
 			const host = getHostFromRequest(fastboot.get('request')),
 				accessToken = fastboot.get('request.cookies.access_token');
@@ -24,9 +26,11 @@ ApplicationModel.reopenClass({
 				WikiVariables.get(host),
 				UserModel.getUserId(accessToken)
 			]).then(([wikiVariables, userId]) => {
+				shoebox.put('userId', userId);
+
 				return RSVP.all([
 					NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
-					// initialize currentUser
+					currentUser.initializeUserData(userId, host),
 					getAndPutTrackingDimensionsToShoebox(
 						fastboot, !Boolean(userId), host, title
 					)
@@ -38,13 +42,15 @@ ApplicationModel.reopenClass({
 					wikiVariables.host = host;
 					extend(wikiVariables, navigationData);
 
-					fastboot.get('shoebox').put('wikiVariables', wikiVariables);
+					shoebox.put('wikiVariables', wikiVariables);
 
 					return wikiVariables;
 				});
 			});
 		} else {
-			return RSVP.resolve(fastboot.get('shoebox').retrieve('wikiVariables'));
+			currentUser.initializeUserData(shoebox.retrieve('userId'));
+
+			return RSVP.resolve(shoebox.retrieve('wikiVariables'));
 		}
 	}
 });
