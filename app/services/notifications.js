@@ -17,7 +17,7 @@ export default Service.extend({
 	 */
 	isUserAnonymous: Ember.computed.not('currentUser.isAuthenticated'),
 
-	modelLoader: computed('isUserAuthenticated', function () {
+	modelLoader: computed('isUserAnonymous', function () {
 		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
