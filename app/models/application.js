@@ -32,9 +32,10 @@ ApplicationModel.reopenClass({
 
 				return RSVP.all([
 					NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
+					RSVP.resolve(wikiVariables),
 					currentUser.initializeUserData(userId, host),
 					getAndPutTrackingDimensionsToShoebox(fastboot, !Boolean(userId), host, title)
-				]).then(([navigation]) => {
+				]).then(([navigation, wikiVariables]) => {
 					const applicationData = {
 						wikiVariables,
 						navigation
