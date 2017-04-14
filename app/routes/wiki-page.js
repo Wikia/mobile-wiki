@@ -53,8 +53,6 @@ export default Route.extend(
 				return CategoryHandler;
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
-			} else if (model.notFound) {
-				return NotFoundHandler;
 			} else {
 				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
