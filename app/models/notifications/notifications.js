@@ -1,8 +1,8 @@
-import Ember from 'ember'
-import Notification from './notification'
-import fetch from 'ember-network/fetch'
-import { convertToIsoString } from '../../utils/iso-date-time'
-import { getOnSiteNotificationsServiceUrl } from '../../utils/url'
+import Ember from 'ember';
+import Notification from './notification';
+import fetch from 'ember-network/fetch';
+import {convertToIsoString} from '../../utils/iso-date-time';
+import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
 const {Object: EmberObject, A, RSVP, Logger, get} = Ember;
 
