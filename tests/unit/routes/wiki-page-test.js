@@ -1,4 +1,5 @@
 import {test, moduleFor} from 'ember-qunit';
+import sinon from 'sinon';
 
 const model = Ember.Object.create({
 	url: '/wiki/Kermit',
@@ -161,8 +162,10 @@ test('get correct handler based on model isMainPage flag and exception', functio
 });
 
 test('reset ads variables on before model', function (assert) {
-	const mock = this.subject();
+	const stub = sinon.stub(require('mobile-wiki/utils/initial-page-view'), 'default');
+	stub.returns(false);
 
+	const mock = this.subject();
 	mock.controllerFor = () => {
 		return {
 			send: () => {}
@@ -178,4 +181,6 @@ test('reset ads variables on before model', function (assert) {
 	});
 
 	assert.notEqual(window.wgNow, null);
+
+	stub.restore();
 });
