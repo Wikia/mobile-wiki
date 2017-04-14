@@ -62,7 +62,7 @@ export default Service.extend({
 						}
 					})
 					.catch((err) => {
-						Logger.warn('Couldn\'t load current user model', err);
+						Logger.error('Couldn\'t load current user model', err);
 					});
 			} else {
 				this.setProperties(shoebox.retrieve('userData'));

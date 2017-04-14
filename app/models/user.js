@@ -2,6 +2,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
 import {buildUrl, getQueryString} from '../utils/url';
+import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../errors/main'
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -101,7 +102,18 @@ UserModel.reopenClass({
 				ids: userId,
 				size: avatarSize
 			}
-		})).then((response) => response.json())
+		}))
+			.then((response) => {
+				if (response.ok) {
+					return response.json()
+				} else {
+					throw new UserLoadDetailsFetchError().withAdditionalData({
+						host,
+						responseBody: response.json(),
+						url: response.url
+					});
+				}
+			})
 			.then((result) => {
 				if (Ember.isArray(result.items)) {
 					return result.items[0];
@@ -132,7 +144,17 @@ UserModel.reopenClass({
 			headers: {
 				Cookie: `access_token=${accessToken}`
 			},
-		}).then((response) => response.json());
+		}).then((response) => {
+			if (response.ok) {
+				return response.json()
+			} else {
+				throw new UserLoadInfoFetchError().withAdditionalData({
+					host,
+					responseBody: response.json(),
+					url: response.url
+				});
+			}
+		});
 	},
 
 	/**

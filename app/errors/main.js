@@ -21,9 +21,21 @@ const NonJsonApiResponseError = defineError({
 	extends: DontLogMeError
 });
 
+const UserLoadDetailsFetchError = defineError({
+	name: 'UserLoadDetailsFetchError',
+	message: `User details couldn't be fetched`
+});
+
+const UserLoadInfoFetchError = defineError({
+	name: 'UserLoadInfoFetchError',
+	message: `User info couldn't be fetched`
+});
+
 export {
 	WikiVariablesFetchError,
 	DesignSystemFetchError,
 	DontLogMeError,
-	NonJsonApiResponseError
+	NonJsonApiResponseError,
+	UserLoadDetailsFetchError,
+	UserLoadInfoFetchError
 };
