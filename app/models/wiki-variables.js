@@ -39,40 +39,8 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-			})
-			.then(({data}) => {
-				return fetch(
-					buildUrl({
-						host,
-						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`,
-						wiki: 'www'
-					})
-				)
-					.then((navigationApiResponse) => {
-						if (!navigationApiResponse.ok) {
-							throw new DesignSystemFetchError({
-								code: navigationApiResponse.status || 503
-							}).withAdditionalData({
-								host,
-								response: navigationApiResponse.json(),
-								url
-							});
-						}
-
-						return navigationApiResponse.json();
-					})
-					.then((navigationData) => {
-						if (!data.siteName) {
-							data.siteName = 'Fandom powered by Wikia';
-						}
-
-						data.host = host;
-						data.globalFooter = navigationData['global-footer'];
-						data.globalNavigation = navigationData['global-navigation'];
-
-						return data;
-					});
-			})
+			}).
+			then((response) => response.data)
 			.catch((error) => {
 				if (error.name === 'NonJsonApiResponseError') {
 					throw error;

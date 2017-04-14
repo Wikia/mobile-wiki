@@ -11,7 +11,6 @@ import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
-import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
@@ -109,19 +108,7 @@ export default Route.extend(
 				modelParams,
 				fastboot,
 				this.get('wikiVariables.contentNamespaces')
-			)).then((pageModel) => {
-				if (fastboot.get('isFastBoot')) {
-					return RSVP
-						.resolve(pageModel)
-						.then((pageModel) => {
-							return getAndPutTrackingDimensionsToShoebox(
-								fastboot, this.get('currentUser'), host, pageModel
-							);
-						});
-				} else {
-					return pageModel;
-				}
-			});
+			));
 		},
 
 		/**

@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
-import WikiVariablesModel from '../models/wiki-variables';
+import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import getHostFromRequest from '../utils/host';
 import getLinkInfo from '../utils/article-link';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
@@ -43,45 +42,36 @@ export default Route.extend(
 		noexternals: null,
 
 		model(params, transition) {
-			const shoebox = this.get('fastboot.shoebox');
+			const fastboot = this.get('fastboot');
 
-			if (this.get('fastboot.isFastBoot')) {
-				const request = this.get('fastboot.request');
+			return ApplicationModel.get(fastboot)
+				.then((wikiVariables) => {
+					if (fastboot.get('isFastBoot')) {
+						this.injectScriptsFastbootOnly(wikiVariables, transition.queryParams);
+					}
 
-				return WikiVariablesModel.get(getHostFromRequest(request))
-					.then((wikiVariablesModel) => {
-						shoebox.put('wikiVariables', wikiVariablesModel);
-						this.get('wikiVariables').setProperties(wikiVariablesModel);
-						this.injectScriptsFastbootOnly(wikiVariablesModel, transition.queryParams);
+					this.get('wikiVariables').setProperties(wikiVariables);
 
-						return wikiVariablesModel;
-					})
-					.catch((error) => {
-						if (error instanceof NonJsonApiResponseError) {
-							const fastboot = this.get('fastboot');
+					return wikiVariables;
+				})
+				.catch((error) => {
+					if (error instanceof NonJsonApiResponseError) {
+						const fastboot = this.get('fastboot');
 
-							fastboot.get('response.headers').set(
-								'location',
-								error.additionalData[0].redirectLocation
-							);
-							fastboot.set('response.statusCode', 302);
+						fastboot.get('response.headers').set(
+							'location',
+							error.additionalData[0].redirectLocation
+						);
+						fastboot.set('response.statusCode', 302);
 
-							// TODO XW-3198
-							// We throw error to stop Ember
-							throw error;
-						}
-
-						this.injectScriptsFastbootOnly(null, transition.queryParams);
+						// TODO XW-3198
+						// We throw error to stop Ember
 						throw error;
-					});
-			} else {
-				const wikiVariablesModel = shoebox.retrieve('wikiVariables'),
-					wikiVariablesService = this.get('wikiVariables');
+					}
 
-				wikiVariablesService.setProperties(wikiVariablesModel);
-
-				return wikiVariablesModel;
-			}
+					this.injectScriptsFastbootOnly(null, transition.queryParams);
+					throw error;
+				});
 		},
 
 		afterModel(model, transition) {
@@ -129,29 +119,26 @@ export default Route.extend(
 				};
 			}
 
-			// TODO move to applicationModel
-			return this.get('currentUser').initialize().then(() => {
-				if (fastboot.get('isFastBoot')) {
-					// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
-					// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-					fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-					fastboot.get('response.headers').set('Content-Language', model.language.content);
+			if (fastboot.get('isFastBoot')) {
+				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
+				fastboot.get('response.headers').set('Content-Language', model.language.content);
 
-					// TODO remove `transition.queryParams.page`when icache supports surrogate keys
-					// and we can purge the category pages
-					if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-						disableCache(fastboot);
-					} else {
-						// TODO don't cache errors
-						setResponseCaching(this.get('fastboot'), {
-							enabled: true,
-							cachingPolicy: CachingPolicy.Public,
-							varnishTTL: CachingInterval.standard,
-							browserTTL: CachingInterval.disabled
-						});
-					}
+				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+				// and we can purge the category pages
+				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+					disableCache(fastboot);
+				} else {
+					// TODO don't cache errors
+					setResponseCaching(fastboot, {
+						enabled: true,
+						cachingPolicy: CachingPolicy.Public,
+						varnishTTL: CachingInterval.standard,
+						browserTTL: CachingInterval.disabled
+					});
 				}
-			});
+			}
 		},
 
 		redirect(model, transition) {

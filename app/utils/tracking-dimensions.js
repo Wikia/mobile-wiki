@@ -1,7 +1,7 @@
 import fetch from './mediawiki-fetch';
 import {buildUrl} from './url';
 
-export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host, model) {
+export function getAndPutTrackingDimensionsToShoebox(fastboot, isAnon, host, title) {
 	return fetch(
 		buildUrl({
 			host,
@@ -9,8 +9,8 @@ export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host
 			query: {
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
-				title: model.get('title'),
-				isanon: !currentUser.isAuthenticated,
+				title,
+				isanon: isAnon,
 				format: 'json'
 			}
 		})
@@ -20,7 +20,5 @@ export function getAndPutTrackingDimensionsToShoebox(fastboot, currentUser, host
 			if (dimensions) {
 				fastboot.get('shoebox').put('trackingDimensionsForFirstPage', dimensions);
 			}
-
-			return model;
 		});
 }
