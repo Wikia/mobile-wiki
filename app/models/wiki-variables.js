@@ -40,7 +40,15 @@ WikiVariablesModel.reopenClass({
 				}
 
 			}).
-			then((response) => response.data)
+			then((response) => {
+				if (!response.data.siteName) {
+					response.data.siteName = 'Fandom powered by Wikia';
+				}
+
+				response.data.host = host;
+
+				return response.data
+			})
 			.catch((error) => {
 				if (error.name === 'NonJsonApiResponseError') {
 					throw error;

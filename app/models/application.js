@@ -4,7 +4,7 @@ import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariables from './wiki-variables';
-import extend from '../utils/extend';
+import applicationInstance from '../utils/application-instance';
 
 const {
 	Object: EmberObject,
@@ -15,8 +15,10 @@ const ApplicationModel = EmberObject.extend({});
 
 
 ApplicationModel.reopenClass({
-	get(fastboot, title, currentUser) {
-		const shoebox = fastboot.get('shoebox');
+	get(title) {
+		const fastboot = applicationInstance.instance.lookup('service:fastboot'),
+			shoebox = fastboot.get('shoebox'),
+			currentUser = applicationInstance.instance.lookup('service:current-user');
 
 		if (fastboot.get('isFastBoot')) {
 			const host = getHostFromRequest(fastboot.get('request')),
@@ -31,16 +33,8 @@ ApplicationModel.reopenClass({
 				return RSVP.all([
 					NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
 					currentUser.initializeUserData(userId, host),
-					getAndPutTrackingDimensionsToShoebox(
-						fastboot, !Boolean(userId), host, title
-					)
+					getAndPutTrackingDimensionsToShoebox(fastboot, !Boolean(userId), host, title)
 				]).then(([navigation]) => {
-					if (!wikiVariables.siteName) {
-						wikiVariables.siteName = 'Fandom powered by Wikia';
-					}
-
-					wikiVariables.host = host;
-
 					const applicationData = {
 						wikiVariables,
 						navigation

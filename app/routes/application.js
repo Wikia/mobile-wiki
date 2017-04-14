@@ -50,7 +50,7 @@ export default Route.extend(
 				title = transition.params['wiki-page'].title;
 			}
 
-			return ApplicationModel.get(fastboot, title, this.get('currentUser'))
+			return ApplicationModel.get(title)
 				.then((applicationData) => {
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
@@ -62,8 +62,6 @@ export default Route.extend(
 				})
 				.catch((error) => {
 					if (error instanceof NonJsonApiResponseError) {
-						const fastboot = this.get('fastboot');
-
 						fastboot.get('response.headers').set(
 							'location',
 							error.additionalData[0].redirectLocation
