@@ -2,7 +2,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
 import {buildUrl, getQueryString} from '../utils/url';
-import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../errors/main';
+import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors'
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -48,6 +48,8 @@ UserModel.reopenClass({
 				} else {
 					Ember.Logger.error('Helios connection error: ', response);
 				}
+
+				return null;
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
@@ -55,6 +57,8 @@ UserModel.reopenClass({
 			} else {
 				Ember.Logger.error('Helios connection error: ', reason);
 			}
+
+			return null;
 		});
 	},
 

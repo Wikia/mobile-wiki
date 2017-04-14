@@ -31,11 +31,17 @@ const UserLoadInfoFetchError = defineError({
 	message: `User info couldn't be fetched`
 });
 
+const TrackingDimensionsFetchError = defineError({
+	name: 'TrackingDimensionsFetchError',
+	message: `Tracking dimensions couldn't be fetched`
+});
+
 export {
 	WikiVariablesFetchError,
 	DesignSystemFetchError,
 	DontLogMeError,
 	NonJsonApiResponseError,
 	UserLoadDetailsFetchError,
-	UserLoadInfoFetchError
+	UserLoadInfoFetchError,
+	TrackingDimensionsFetchError
 };

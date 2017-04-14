@@ -6,7 +6,7 @@ import getLinkInfo from '../utils/article-link';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
-import {NonJsonApiResponseError, DontLogMeError} from '../errors/main';
+import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
 
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 

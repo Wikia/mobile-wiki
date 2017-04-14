@@ -96,7 +96,8 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 					} else {
 						return response.json().then((responseBody) => {
 							throw new WikiPageFetchError({
-								code: response.status || 503
+								code: response.status || 503,
+								message: 'MercuryApi::getPage returned exception'
 							}).withAdditionalData({
 								responseBody,
 								requestUrl: url,

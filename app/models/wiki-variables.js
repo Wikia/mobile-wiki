@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-import {NonJsonApiResponseError, WikiVariablesFetchError, DesignSystemFetchError} from '../errors/main';
+import {NonJsonApiResponseError, WikiVariablesFetchError} from '../utils/errors';
 
 const WikiVariablesModel = Ember.Object.extend({});
 

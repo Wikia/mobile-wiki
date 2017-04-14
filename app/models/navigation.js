@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import {DesignSystemFetchError} from '../errors/main';
+import {DesignSystemFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 const {
-	Object: EmberObject,
-	Logger
+	Object: EmberObject
 } = Ember;
 
 const NavigationModel = EmberObject.extend({});

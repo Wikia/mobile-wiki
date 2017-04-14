@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BaseConsumer from 'ember-error-handler/consumer/base-consumer';
 import extend from '../utils/extend';
-import {DontLogMeError} from '../errors/main';
+import {DontLogMeError} from '../utils/errors';
 
 const {inject} = Ember;
 
