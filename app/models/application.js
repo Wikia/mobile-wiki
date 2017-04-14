@@ -34,23 +34,27 @@ ApplicationModel.reopenClass({
 					getAndPutTrackingDimensionsToShoebox(
 						fastboot, !Boolean(userId), host, title
 					)
-				]).then(([navigationData]) => {
+				]).then(([navigation]) => {
 					if (!wikiVariables.siteName) {
 						wikiVariables.siteName = 'Fandom powered by Wikia';
 					}
 
 					wikiVariables.host = host;
-					extend(wikiVariables, navigationData);
 
-					shoebox.put('wikiVariables', wikiVariables);
+					const applicationData = {
+						wikiVariables,
+						navigation
+					};
 
-					return wikiVariables;
+					shoebox.put('applicationData', applicationData);
+
+					return applicationData;
 				});
 			});
 		} else {
 			currentUser.initializeUserData(shoebox.retrieve('userId'));
 
-			return RSVP.resolve(shoebox.retrieve('wikiVariables'));
+			return RSVP.resolve(shoebox.retrieve('applicationData'));
 		}
 	}
 });

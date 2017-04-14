@@ -51,14 +51,14 @@ export default Route.extend(
 			}
 
 			return ApplicationModel.get(fastboot, title, this.get('currentUser'))
-				.then((wikiVariables) => {
+				.then((applicationData) => {
 					if (fastboot.get('isFastBoot')) {
-						this.injectScriptsFastbootOnly(wikiVariables, transition.queryParams);
+						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
 
-					this.get('wikiVariables').setProperties(wikiVariables);
+					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
-					return wikiVariables;
+					return applicationData;
 				})
 				.catch((error) => {
 					if (error instanceof NonJsonApiResponseError) {
@@ -86,7 +86,7 @@ export default Route.extend(
 
 			this._super(...arguments);
 
-			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
+			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
 				!fastboot.get('isFastBoot') &&
@@ -129,7 +129,7 @@ export default Route.extend(
 				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
 				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
 				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-				fastboot.get('response.headers').set('Content-Language', model.language.content);
+				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
 				// and we can purge the category pages
@@ -150,12 +150,12 @@ export default Route.extend(
 		redirect(model, transition) {
 			const fastboot = this.get('fastboot');
 
-			if (fastboot.get('isFastBoot') && model.basePath !== `${fastboot.get('request.protocol')}://${model.host}`) {
+			if (fastboot.get('isFastBoot') && model.wikiVariables.basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
 				const fastbootRequest = this.get('fastboot.request');
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${model.wikiVariables.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
 				);
 				fastboot.set('response.statusCode', 301);
 
