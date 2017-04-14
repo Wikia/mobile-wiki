@@ -73,6 +73,7 @@ $vpaid-z-index: 10;
 		}
 	}
 
+	// TODO: remove below styles
 	.vpaid-container {
 		@include absolute-fill();
 
@@ -97,6 +98,32 @@ $vpaid-z-index: 10;
 			background: #000;
 			margin: 0 auto;
 			pointer-events: auto;
+		}
+	}
+	// End of removal
+
+	.video-overlay {
+		@include absolute-fill();
+	}
+
+	.video-display-wrapper {
+		position: relative;
+
+		video, &.vpaid-enabled > div {
+			@include absolute-fill();
+		}
+
+		&.vpaid-enabled > div {
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+
+		.video-player {
+			background: #000;
+			left: 50%;
+			margin: 0 auto;
+			pointer-events: auto;
+			transform: translate(-50%, 0);
 		}
 	}
 }
