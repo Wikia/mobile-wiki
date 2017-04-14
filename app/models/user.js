@@ -107,11 +107,13 @@ UserModel.reopenClass({
 				if (response.ok) {
 					return response.json()
 				} else {
-					throw new UserLoadDetailsFetchError().withAdditionalData({
-						host,
-						responseBody: response.json(),
-						url: response.url
-					});
+					return response.text().then((responseBody) => {
+						throw new UserLoadDetailsFetchError().withAdditionalData({
+							host,
+							responseBody,
+							url: response.url
+						});
+					})
 				}
 			})
 			.then((result) => {
@@ -148,11 +150,13 @@ UserModel.reopenClass({
 			if (response.ok) {
 				return response.json()
 			} else {
-				throw new UserLoadInfoFetchError().withAdditionalData({
-					host,
-					responseBody: response.json(),
-					url: response.url
-				});
+				return response.text().then((responseBody) => {
+					throw new UserLoadInfoFetchError().withAdditionalData({
+						host,
+						responseBody,
+						url: response.url
+					});
+				})
 			}
 		});
 	},

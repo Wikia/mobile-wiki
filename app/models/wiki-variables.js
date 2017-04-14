@@ -20,12 +20,14 @@ WikiVariablesModel.reopenClass({
 		return fetch(url)
 			.then((response) => {
 				if (!response.ok) {
-					throw new WikiVariablesFetchError({
-						code: response.status || 503
-					}).withAdditionalData({
-						host,
-						responseBody: response.json(),
-						url
+					return response.text().then((responseBody) => {
+						throw new WikiVariablesFetchError({
+							code: response.status || 503
+						}).withAdditionalData({
+							host,
+							responseBody,
+							url
+						});
 					});
 				}
 
