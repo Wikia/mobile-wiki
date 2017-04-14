@@ -2,7 +2,7 @@ import Ember from 'ember';
 import fetch from './mediawiki-fetch';
 import {buildUrl} from './url';
 
-const { Logger } = Ember;
+const {Logger} = Ember;
 
 export function getAndPutTrackingDimensionsToShoebox(fastboot, isAnon, host, title) {
 	return fetch(

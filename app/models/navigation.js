@@ -26,8 +26,7 @@ NavigationModel.reopenClass({
 						code: navigationApiResponse.status || 503
 					}).withAdditionalData({
 						host,
-						response: navigationApiResponse.json(),
-						url
+						response: navigationApiResponse.json()
 					});
 				}
 
