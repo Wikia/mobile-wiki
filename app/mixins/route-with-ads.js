@@ -13,7 +13,7 @@ export default Mixin.create({
 	 */
 	beforeModel() {
 		this._super();
-		if (!this.get('fastboot.isFastBoot') && !isInitialPageView(this)) {
+		if (!this.get('fastboot.isFastBoot') && !isInitialPageView()) {
 			window.wgNow = new Date();
 		}
 	}

@@ -107,7 +107,7 @@ export default Route.extend(
 				modelParams,
 				fastboot,
 				this.get('wikiVariables.contentNamespaces'),
-				isInitialPageView(this)
+				isInitialPageView()
 			)).then((pageModel) => {
 				if (fastboot.get('isFastBoot')) {
 					return RSVP
