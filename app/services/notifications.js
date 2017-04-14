@@ -15,13 +15,13 @@ export default Service.extend({
 	/**
 	 * @private
 	 */
-	isUserAuthenticated: Ember.computed.bool('currentUser.isAuthenticated'),
+	isUserAnonymous: Ember.computed.not('currentUser.isAuthenticated'),
 
 	modelLoader: computed('isUserAuthenticated', function () {
 		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
-		if (this.isUserAnonymous()) {
+		if (this.get('isUserAnonymous') === true) {
 			return RSVP.reject();
 		}
 		return this.get('model').loadUnreadNotificationCount()
@@ -41,7 +41,7 @@ export default Service.extend({
 	},
 
 	loadFirstPage() {
-		if (this.isUserAnonymous()
+		if (this.get('isUserAnonymous') === true
 			|| this.get('isLoading') === true
 			|| this.get('nextPage') !== null) {
 			return;
@@ -50,19 +50,18 @@ export default Service.extend({
 		this.get('model')
 			.loadFirstPageReturningNextPageLink()
 			.then((nextPage) => {
-				this.setProperties({
-					isLoading: false,
-					nextPage
-				});
+				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
 				Logger.warn('Couldn\'t load first page', err);
+			})
+			.finally(() => {
 				this.set('isLoading', false);
 			});
 	},
 
 	loadNextPage() {
-		if (this.isUserAnonymous()
+		if (this.get('isUserAnonymous') === true
 			|| this.get('isLoading') === true
 			|| this.get('nextPage') === null) {
 			return;
@@ -71,13 +70,12 @@ export default Service.extend({
 		this.get('model')
 			.loadPageReturningNextPageLink(this.get('nextPage'))
 			.then((nextPage) => {
-				this.setProperties({
-					isLoading: false,
-					nextPage
-				});
+				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
 				Logger.warn('Couldn\'t load more notifications', err);
+			})
+			.finally(() => {
 				this.set('isLoading', false);
 			});
 	},
@@ -90,11 +88,5 @@ export default Service.extend({
 		this.get('model').markAsRead(notification);
 	},
 
-	/**
-	 * @private
-	 */
-	isUserAnonymous() {
-		return !this.get('isUserAuthenticated');
-	}
 
 });
