@@ -34,7 +34,7 @@ ApplicationModel.reopenClass({
 					NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
 					RSVP.resolve(wikiVariables),
 					currentUser.initializeUserData(userId, host),
-					getAndPutTrackingDimensionsToShoebox(fastboot, !Boolean(userId), host, title)
+					getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title)
 				]).then(([navigation, wikiVariables]) => {
 					const applicationData = {
 						wikiVariables,

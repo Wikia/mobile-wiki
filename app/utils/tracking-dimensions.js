@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import fetch from './mediawiki-fetch';
 import {buildUrl} from './url';
+import applicationInstance from '../utils/application-instance';
 
 const {Logger} = Ember;
 
-export function getAndPutTrackingDimensionsToShoebox(fastboot, isAnon, host, title) {
+export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title) {
+	const fastboot = applicationInstance.instance.lookup('service:fastboot');
+
 	return fetch(
 		buildUrl({
 			host,
