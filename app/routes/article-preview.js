@@ -1,6 +1,6 @@
 import Ember from 'ember';
+import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import ArticlePreviewModel from '../models/article-preview';
-import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import {disableCache} from '../utils/fastboot-caching';
 
 /**
@@ -8,12 +8,12 @@ import {disableCache} from '../utils/fastboot-caching';
  * In order to enable this route you need to run `npm run build` and `npm run fastboot-server`
  */
 export default Ember.Route.extend(
-	RouteWithBodyClassNameMixin,
+	ApplicationWrapperClassNamesMixin,
 	{
 		fastboot: Ember.inject.service(),
 		wikiVariables: Ember.inject.service(),
 
-		bodyClassNames: ['article-preview'],
+		applicationWrapperClassNames: ['article-preview'],
 
 		model() {
 			const shoebox = this.get('fastboot.shoebox');

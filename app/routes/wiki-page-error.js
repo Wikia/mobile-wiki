@@ -1,13 +1,9 @@
 import Ember from 'ember';
-import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 
 const {Route} = Ember;
 
 export default Route.extend(
-	RouteWithBodyClassNameMixin,
 	{
-		bodyClassNames: ['show-global-footer'],
-
 		/**
 		 * @param {Ember.Controller} controller
 		 * @param {EmberError} error

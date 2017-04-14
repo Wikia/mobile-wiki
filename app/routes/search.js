@@ -1,15 +1,15 @@
 import Ember from 'ember';
-import {track, trackActions, trackPageView} from '../utils/track';
+import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import SearchModel from '../models/search';
-import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
+import {track, trackActions, trackPageView} from '../utils/track';
 
 const {Route, inject} = Ember;
 
 export default Route.extend(
-	RouteWithBodyClassNameMixin,
+	ApplicationWrapperClassNamesMixin,
 	{
 		wikiVariables: inject.service(),
-		bodyClassNames: ['search-result-page', 'show-global-footer'],
+		applicationWrapperClassNames: ['search-result-page'],
 		queryParams: {
 			query: {
 				refreshModel: true
