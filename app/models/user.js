@@ -2,7 +2,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
 import {buildUrl, getQueryString} from '../utils/url';
-import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../errors/main'
+import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../errors/main';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -105,7 +105,7 @@ UserModel.reopenClass({
 		}))
 			.then((response) => {
 				if (response.ok) {
-					return response.json()
+					return response.json();
 				} else {
 					return response.text().then((responseBody) => {
 						throw new UserLoadDetailsFetchError().withAdditionalData({
@@ -113,7 +113,7 @@ UserModel.reopenClass({
 							responseBody,
 							url: response.url
 						});
-					})
+					});
 				}
 			})
 			.then((result) => {
@@ -148,7 +148,7 @@ UserModel.reopenClass({
 			},
 		}).then((response) => {
 			if (response.ok) {
-				return response.json()
+				return response.json();
 			} else {
 				return response.text().then((responseBody) => {
 					throw new UserLoadInfoFetchError().withAdditionalData({
@@ -156,7 +156,7 @@ UserModel.reopenClass({
 						responseBody,
 						url: response.url
 					});
-				})
+				});
 			}
 		});
 	},
