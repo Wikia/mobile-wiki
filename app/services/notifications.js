@@ -24,7 +24,6 @@ export default Service.extend({
 		if (this.isUserAnonymous()) {
 			return RSVP.reject();
 		}
-
 		return this.get('model').loadUnreadNotificationCount()
 			.catch((err) => {
 				Logger.warn('Couldn\'t load notification count', err);

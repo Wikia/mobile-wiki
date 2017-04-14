@@ -19,6 +19,7 @@ const NotificationsModel = EmberObject.extend({
 	 */
 	loadUnreadNotificationCount() {
 		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), {credentials: 'include'})
+			.then((response) => response.json())
 			.then((result) => {
 				this.set('unreadCount', result.unreadCount);
 			}).catch((error) => {
@@ -32,6 +33,7 @@ const NotificationsModel = EmberObject.extend({
 	 */
 	loadFirstPageReturningNextPageLink() {
 		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), {credentials: 'include'})
+			.then((response) => response.json())
 			.then((data) => {
 				this.addNotifications(data.notifications);
 				return this.getNext(data);
@@ -46,10 +48,11 @@ const NotificationsModel = EmberObject.extend({
 		return fetch(getOnSiteNotificationsServiceUrl(page), {
 			method: 'GET',
 			credentials: 'include'
-		}).then((data) => {
-			this.addNotifications(data.notifications);
-			return this.getNext(data);
-		});
+		}).then((response) => response.json())
+			.then((data) => {
+				this.addNotifications(data.notifications);
+				return this.getNext(data);
+			});
 	},
 
 	getNext(data) {

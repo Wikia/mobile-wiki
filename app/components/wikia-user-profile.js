@@ -32,7 +32,7 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 			this.errors = [];
-			this.get('notifications').loadNextPage();
+			this.get('notifications').loadFirstPage();
 		},
 
 		didRender() {
