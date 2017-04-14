@@ -16,9 +16,9 @@ const ApplicationModel = EmberObject.extend({});
 
 ApplicationModel.reopenClass({
 	get(title) {
-		const fastboot = applicationInstance.instance.lookup('service:fastboot'),
-			shoebox = fastboot.get('shoebox'),
-			currentUser = applicationInstance.instance.lookup('service:current-user');
+		const currentUser = applicationInstance.instance.lookup('service:current-user'),
+			fastboot = applicationInstance.instance.lookup('service:fastboot'),
+			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
 			const host = getHostFromRequest(fastboot.get('request')),
