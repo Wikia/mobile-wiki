@@ -269,10 +269,14 @@ export default Route.extend(
 			},
 
 			/**
+			 * We can't use the built-in mechanism to render error substates
+			 * It bubbles the error to application route and then FastBoot dies
+			 * Instead, we transition to substate manually and prevent the bubbling
+			 *
 			 * @param {EmberError} error
 			 * @returns {boolean}
 			 */
-			error(error, transition) {
+			error(error) {
 				Logger.error('Wiki page error', error);
 				this.intermediateTransitionTo('wiki-page_error', error);
 
