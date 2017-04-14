@@ -2,4 +2,4 @@
 // Useful for container lookups in files outside of the usual hierarchy.
 export default {
 	instance: null
-}
+};
