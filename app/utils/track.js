@@ -2,6 +2,7 @@
 
 import Ads from '../modules/ads';
 import {getGroup} from '../modules/abtest';
+import isInitialPageView from './initial-page-view';
 
 /**
  * @typedef {Object} TrackContext
@@ -173,7 +174,7 @@ export function trackPageView(uaDimensions) {
 
 	const enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError');
 
-	if (!M.initialPageView && enableTracking) {
+	if (!isInitialPageView() && enableTracking) {
 		// Defined in templates/components/fastboot-only/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();

@@ -13,6 +13,5 @@ window.wgNow = new Date();
 
 // objects needed for Mobile Wiki
 window.M = {
-	initialPageView: true,
 	tracker: {}
 };
