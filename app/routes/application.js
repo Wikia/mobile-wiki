@@ -44,7 +44,13 @@ export default Route.extend(
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
 
-			return ApplicationModel.get(fastboot)
+			let title;
+
+			if (transition.targetName === 'wiki-page') {
+				title = transition.params['wiki-page'].title;
+			}
+
+			return ApplicationModel.get(fastboot, title)
 				.then((wikiVariables) => {
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(wikiVariables, transition.queryParams);
