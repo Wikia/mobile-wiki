@@ -47,7 +47,7 @@ WikiVariablesModel.reopenClass({
 
 				response.data.host = host;
 
-				return response.data
+				return response.data;
 			})
 			.catch((error) => {
 				if (error.name === 'NonJsonApiResponseError') {
