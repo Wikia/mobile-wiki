@@ -1,15 +1,7 @@
-import Ember from 'ember';
+import applicationInstance from './application-instance';
 
-const {getOwner} = Ember;
+export default function isInitialPageView() {
+	const router = applicationInstance.instance.lookup('router:main').router;
 
-export default function isInitialPageView(object = null) {
-	let container;
-
-	if (object !== null) {
-		container = getOwner(object);
-	} else {
-		container = window.MobileWiki.__container__;
-	}
-
-	return container.lookup('router:main').router.currentSequence === 1;
+	return router.currentSequence === 1;
 }
