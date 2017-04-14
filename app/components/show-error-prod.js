@@ -10,7 +10,7 @@ export default BaseErrorComponent.extend({
 
 	setStatusCode: observer('descriptor', function () {
 		const fastboot = this.get('fastboot');
-		const code = this.get('descriptor.error.code');
+		const code = parseInt(this.get('descriptor.error.code'), 10) || 503;
 
 		if (fastboot.get('isFastBoot')) {
 			if (code >= 400) {
