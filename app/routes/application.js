@@ -148,14 +148,16 @@ export default Route.extend(
 		},
 
 		redirect(model, transition) {
-			const fastboot = this.get('fastboot');
+			const fastboot = this.get('fastboot'),
+				basePath = model.wikiVariables.basePath;
 
-			if (fastboot.get('isFastBoot') && model.wikiVariables.basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
+			if (fastboot.get('isFastBoot') &&
+				basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
 				const fastbootRequest = this.get('fastboot.request');
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${model.wikiVariables.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
 				);
 				fastboot.set('response.statusCode', 301);
 
