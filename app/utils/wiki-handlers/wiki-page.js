@@ -3,6 +3,7 @@ import {defineError} from 'ember-exex/error';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import FileModel from '../../models/wiki/file';
+import isInitialPageView from '../../utils/initial-page-view';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
 import extend from '../../utils/extend';
@@ -78,11 +79,11 @@ export function getModelForNamespace(data, params, contentNamespaces) {
 	}
 }
 
-export default function getPageModel(params, fastboot, contentNamespaces, isInitialPageView) {
+export default function getPageModel(params, fastboot, contentNamespaces) {
 	const isFastBoot = fastboot.get('isFastBoot'),
 		shoebox = fastboot.get('shoebox');
 
-	if (isFastBoot || !isInitialPageView) {
+	if (isFastBoot || !isInitialPageView()) {
 		const url = getURL(params);
 
 		return fetch(url)
@@ -149,7 +150,7 @@ export default function getPageModel(params, fastboot, contentNamespaces, isInit
 			wikiPageError = shoebox.retrieve('wikiPageError');
 
 		// There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
-		if (wikiPageError && isInitialPageView) {
+		if (wikiPageError && isInitialPageView()) {
 			throw wikiPageError;
 		}
 

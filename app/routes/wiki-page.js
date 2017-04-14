@@ -8,7 +8,6 @@ import RouteWithAdsMixin from '../mixins/route-with-ads';
 import RouteWithBodyClassNameMixin from '../mixins/route-with-body-class-name';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
-import isInitialPageView from '../utils/initial-page-view';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
 import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
@@ -106,8 +105,7 @@ export default Route.extend(
 			return RSVP.resolve(getPageModel(
 				modelParams,
 				fastboot,
-				this.get('wikiVariables.contentNamespaces'),
-				isInitialPageView()
+				this.get('wikiVariables.contentNamespaces')
 			)).then((pageModel) => {
 				if (fastboot.get('isFastBoot')) {
 					return RSVP
