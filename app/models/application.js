@@ -13,7 +13,6 @@ const {
 
 const ApplicationModel = EmberObject.extend({});
 
-
 ApplicationModel.reopenClass({
 	get(title) {
 		const currentUser = applicationInstance.instance.lookup('service:current-user'),
@@ -30,15 +29,20 @@ ApplicationModel.reopenClass({
 			]).then(([wikiVariables, userId]) => {
 				shoebox.put('userId', userId);
 
-				return RSVP.all([
-					NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
-					RSVP.resolve(wikiVariables),
-					currentUser.initializeUserData(userId, host),
-					getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title)
-				]).then(([navigation, wikiVariables]) => {
+				return RSVP.hashSettled({
+					currentUser: currentUser.initializeUserData(userId, host),
+					navigation: NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
+					trackingDimensions: getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title),
+					wikiVariables
+				}).then(({navigation, wikiVariables}) => {
+					// We only want to fail application if we don't have the navigation data
+					if (navigation.state === 'rejected') {
+						throw navigation.reason;
+					}
+
 					const applicationData = {
-						wikiVariables,
-						navigation
+						navigation: navigation.value,
+						wikiVariables: wikiVariables.value
 					};
 
 					shoebox.put('applicationData', applicationData);
