@@ -4,15 +4,13 @@ import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
+import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
+import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
-import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
-
-import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
 const {
-	Logger,
 	Route,
 	TargetActionSupport,
 	getOwner,
@@ -27,6 +25,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -191,7 +190,7 @@ export default Route.extend(
 				const fastboot = this.get('fastboot');
 				const errorDescriptor = ErrorDescriptor.create({error});
 
-				Logger.error('Application error', errorDescriptor);
+				this.get('logger').error('Application error', errorDescriptor);
 
 				if (fastboot.get('isFastBoot')) {
 					fastboot.get('shoebox').put('serverError', true);
