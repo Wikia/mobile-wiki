@@ -18,15 +18,6 @@ export default Component.extend(
 
 		notificationsList: computed.oneWay('notifications.model.data'),
 		isLoadingNewResults: computed.oneWay('notifications.isLoading'),
-
-		logoutLink: computed(function () {
-			return buildUrl({
-				host: this.get('wikiVariables.host'),
-				namespace: 'Special',
-				title: 'UserLogout'
-			});
-		}),
-
 		username: computed.oneWay('currentUser.name'),
 
 		init() {
