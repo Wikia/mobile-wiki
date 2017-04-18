@@ -1,3 +1,5 @@
+import {getService} from '../utils/application-instance';
+
 /**
  * @param {String} text
  * @param {Number} maxLength
@@ -10,8 +12,8 @@ export function truncate(text, maxLength = 48) {
 		lastWhiteSpacePos;
 
 	if (typeof text !== 'string') {
-		Ember.Logger.error(`Truncate Util expected string as a parameter, but ${typeof text} given:`, text);
-		return null;
+		getService('logger').error(`Truncate Util expected string as a parameter, but ${typeof text} given`, text);
+		return '';
 	}
 
 	if (text.length <= maxLength) {

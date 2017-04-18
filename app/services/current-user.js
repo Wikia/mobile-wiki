@@ -2,7 +2,7 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
-const {computed, Service, inject, Logger, RSVP} = Ember;
+const {computed, Service, inject, RSVP} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -25,8 +25,9 @@ const {computed, Service, inject, Logger, RSVP} = Ember;
  */
 
 export default Service.extend({
-	wikiVariables: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 	rights: {},
 	isAuthenticated: computed.bool('userId'),
 	language: computed('wikiVariables', function () {
@@ -62,7 +63,7 @@ export default Service.extend({
 						}
 					})
 					.catch((err) => {
-						Logger.error('Couldn\'t load current user model', err);
+						this.get('logger').error('Couldn\'t load current user model', err);
 					});
 			} else {
 				this.setProperties(shoebox.retrieve('userData'));

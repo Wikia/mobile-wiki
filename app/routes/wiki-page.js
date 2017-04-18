@@ -12,7 +12,7 @@ import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Logger, Route, RSVP, $, inject, get} = Ember;
+const {Route, RSVP, $, inject, get} = Ember;
 
 export default Route.extend(
 	HeadTagsDynamicMixin,
@@ -24,6 +24,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -49,7 +50,7 @@ export default Route.extend(
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
 			} else {
-				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
 			}
 		},
@@ -147,7 +148,7 @@ export default Route.extend(
 					}
 				}
 			} else {
-				Logger.warn('Unsupported page');
+				this.get('logger').warn('Unsupported page');
 			}
 		},
 
@@ -259,7 +260,7 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error) {
-				Logger.error('Wiki page error', error);
+				this.get('logger').error('Wiki page error', error);
 				this.intermediateTransitionTo('wiki-page_error', error);
 
 				return false;

@@ -188,6 +188,7 @@ export default Route.extend(
 			 */
 			error(error) {
 				const fastboot = this.get('fastboot');
+				// FIXME can it be done in the error substate instead?
 				const errorDescriptor = ErrorDescriptor.create({error});
 
 				this.get('logger').error('Application error', errorDescriptor);
@@ -264,7 +265,7 @@ export default Route.extend(
 					}
 				} else {
 					// Reaching this clause means something is probably wrong.
-					Logger.error('unable to open link', target.href);
+					this.get('logger').error('Unable to open link', target.href);
 				}
 			},
 

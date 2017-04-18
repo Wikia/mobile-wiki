@@ -53,7 +53,6 @@ export default Service.extend({
 	setupRequestDetails() {
 		const request = this.get('fastboot.request');
 		const headers = request.get('headers');
-		console.log(headers);
 
 		this.set('requestContext', {
 			'@fields': {
@@ -130,6 +129,7 @@ export default Service.extend({
 	error(message, object) {
 		if (this.get('fastboot.isFastBoot')) {
 			// FIXME this needs more processing, see fastboot-error-consumer
+			// const errorDescriptor = ErrorDescriptor.create({object});
 			this.get('bunyanInstance').error(this.addContext(object, message), message);
 		}
 

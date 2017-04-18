@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import NotificationsModel from '../models/notifications/notifications';
 
-const {Service, Logger, computed, inject, RSVP} = Ember;
+const {Service, computed, inject, RSVP} = Ember;
 
 export default Service.extend({
 	isLoading: false,
@@ -10,8 +10,9 @@ export default Service.extend({
 	notificationsPerPage: 10,
 
 	currentUser: inject.service(),
-	wikiVariables: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 
 	/**
 	 * @private
@@ -37,7 +38,7 @@ export default Service.extend({
 				});
 			})
 			.catch((err) => {
-				Logger.warn('Couldn\'t load notifications', err);
+				this.get('logger').warn('Couldn\'t load notifications', err);
 				this.set('isLoading', false);
 			});
 	}),
@@ -67,7 +68,7 @@ export default Service.extend({
 				});
 			})
 			.catch((err) => {
-				Logger.warn('Couldn\'t load more notifications', err);
+				this.get('logger').warn('Couldn\'t load more notifications', err);
 				this.set('isLoading', false);
 			});
 	},

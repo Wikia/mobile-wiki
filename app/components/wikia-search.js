@@ -51,7 +51,9 @@ export default Component.extend(
 		suggestionsEnabled: true,
 
 		i18n: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
+
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
@@ -255,10 +257,10 @@ export default Component.extend(
 
 						this.cacheResult(phrase);
 					} else {
-						Ember.Logger.error('Search suggestion error: ', response);
+						this.get('logger').error('Search suggestions error', response);
 					}
 				})
-				.catch((reason) => Ember.Logger.error('Search suggestion error: ', reason))
+				.catch((reason) => this.get('logger').error('Search suggestions error', reason))
 				.finally(() => {
 					// We have a response, so we're no longer loading the results
 					if (phrase === this.get('phrase')) {

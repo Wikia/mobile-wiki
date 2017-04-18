@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
+import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
 import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors'
 
@@ -38,6 +39,7 @@ UserModel.reopenClass({
 		const queryString = getQueryString({
 			code: accessToken
 		});
+		const logger = getService('logger');
 
 		return fetch(`${config.helios.internalUrl}${queryString}`, {
 			timeout: config.helios.timeout,
@@ -46,18 +48,18 @@ UserModel.reopenClass({
 				return response.json().then((data) => data.user_id);
 			} else {
 				if (response.status === 401) {
-					Ember.Logger.info('Token not authorized by Helios');
+					logger.info('Token not authorized by Helios');
 				} else {
-					Ember.Logger.error('Helios connection error: ', response);
+					logger.error('Helios connection error: ', response);
 				}
 
 				return null;
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
-				Ember.Logger.error('Helios timeout error: ', reason);
+				logger.error('Helios timeout error: ', reason);
 			} else {
-				Ember.Logger.error('Helios connection error: ', reason);
+				logger.error('Helios connection error: ', reason);
 			}
 
 			return null;

@@ -1,13 +1,11 @@
 import Ember from 'ember';
 import fetch from './mediawiki-fetch';
 import {buildUrl} from './url';
-import applicationInstance from '../utils/application-instance';
+import {getService} from '../utils/application-instance';
 import {TrackingDimensionsFetchError} from '../utils/errors';
 
-const {Logger} = Ember;
-
 export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title) {
-	const fastboot = applicationInstance.instance.lookup('service:fastboot');
+	const fastboot = getService('fastboot');
 	const url = buildUrl({
 		host,
 		path: '/wikia.php',
@@ -50,5 +48,5 @@ export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title) {
 				}
 			}
 		})
-		.catch((error) => Logger.error('getTrackingDimensions error: ', error));
+		.catch((error) => getService('logger').error('getTrackingDimensions error: ', error));
 }
