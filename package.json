@@ -76,7 +76,7 @@
     "ember-cli-uglify": "1.2.0",
     "ember-derequire": "0.1.2",
     "ember-disable-proxy-controllers": "1.0.1",
-    "ember-error-handler": "0.1.13",
+    "ember-exex": "0.1.12",
     "ember-export-application-global": "1.0.5",
     "ember-in-viewport": "2.1.1",
     "ember-load-initializers": "0.5.1",

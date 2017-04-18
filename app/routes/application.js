@@ -3,6 +3,7 @@ import ArticleModel from '../models/wiki/article';
 import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
+import ErrorDescriptor from '../utils/error-descriptor';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
@@ -180,6 +181,30 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+			},
+
+			/**
+			 * @param {EmberError} error
+			 * @returns {boolean}
+			 */
+			error(error) {
+				const fastboot = this.get('fastboot');
+				const errorDescriptor = ErrorDescriptor.create({error});
+
+				Logger.error('Application error', errorDescriptor);
+
+				if (fastboot.get('isFastBoot')) {
+					fastboot.get('shoebox').put('serverError', true);
+					fastboot.set('response.statusCode', 503);
+
+					// We can't use the built-in mechanism to render error substates.
+					// When FastBoot sees that application route sends error, it dies.
+					// Instead, we transition to the error substate manually.
+					this.intermediateTransitionTo('application_error', errorDescriptor);
+					return false;
+				}
+
+				return true;
 			},
 
 			/**

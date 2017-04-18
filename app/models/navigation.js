@@ -9,7 +9,6 @@ const {
 
 const NavigationModel = EmberObject.extend({});
 
-
 NavigationModel.reopenClass({
 	getAll(host, wikiId, language) {
 		const url = buildUrl({

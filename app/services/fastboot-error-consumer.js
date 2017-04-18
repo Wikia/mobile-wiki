@@ -5,6 +5,8 @@ import {DontLogMeError} from '../utils/errors';
 
 const {inject} = Ember;
 
+// FIXME XW-3249 this isn't used and we need logging to ELK
+
 /**
  * Elastic Search doesn't play well with arrays of objects
  * Convert additionalData to an object with objects
