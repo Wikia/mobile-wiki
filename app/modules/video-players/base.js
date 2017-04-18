@@ -26,10 +26,24 @@ export default class BasePlayer {
 	setupPlayer() {
 	}
 
+	loadScript() {
+
+	}
+
 	/**
 	 * @returns {*}
 	 */
 	loadPlayer() {
+		if(Array.isArray(this.resourceURI)) {
+			return $script(this.resourceURI[0], () => {
+				if(this.resourceURI.length > 1) {
+					this.resourceURI.shift();
+					this.loadPlayer();
+				}
+				// called once player is loaded
+				this.playerDidLoad();
+			});
+		}
 		return $script(this.resourceURI, () => {
 			// called once player is loaded
 			this.playerDidLoad();

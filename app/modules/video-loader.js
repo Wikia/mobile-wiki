@@ -1,10 +1,12 @@
 import BasePlayer from './video-players/base';
 import OoyalaPlayer from './video-players/ooyala';
+import OoyalaV4Player from './video-players/ooyala-v4';
 import YouTubePlayer from './video-players/youtube';
 
 const playerClassMap = {
 	base: BasePlayer,
 	ooyala: OoyalaPlayer,
+	'ooyala-v4': OoyalaV4Player,
 	youtube: YouTubePlayer
 };
 
@@ -53,6 +55,7 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
+		if(this.data.provider === 'ooyala-v4') return 'ooyala-v4';
 		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 	}
 
