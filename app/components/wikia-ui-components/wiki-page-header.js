@@ -26,7 +26,13 @@ import Thumbnailer from '../../modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
 import {track, trackActions} from '../../utils/track';
 
-const {Component, computed, isEmpty, inject, String} = Ember;
+const {
+	Component,
+	String: {htmlSafe},
+	computed,
+	inject,
+	isEmpty
+} = Ember;
 
 export default Component.extend(
 	ViewportMixin,
@@ -81,7 +87,7 @@ export default Component.extend(
 				width: windowWidth
 			});
 
-			return new String.htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
+			return new htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
 		}),
 
 		actions: {

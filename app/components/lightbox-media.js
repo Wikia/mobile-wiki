@@ -3,7 +3,14 @@ import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {normalizeToUnderscore} from '../utils/string';
 
-const {Component, String, computed, inject, isArray, observer} = Ember;
+const {
+	Component,
+	String: {htmlSafe},
+	computed,
+	inject,
+	isArray,
+	observer
+} = Ember;
 
 export default Component.extend(
 	ThirdsClickMixin,
@@ -207,7 +214,7 @@ export default Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new String.htmlSafe(currentMedia.caption));
+				this.sendAction('setFooter', new htmlSafe(currentMedia.caption));
 			} else {
 				this.sendAction('setFooter', null);
 			}

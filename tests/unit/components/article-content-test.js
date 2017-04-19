@@ -1,11 +1,16 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const {Component, String: EmberString, computed, run} = Ember,
+const {
+	Component,
+	String: {dasherize},
+	computed,
+	run
+} = Ember,
 	adSlotComponentStub = Component.extend({
 		classNameBindings: ['nameLowerCase'],
 		nameLowerCase: computed('name', function () {
-			return EmberString.dasherize(this.get('name').toLowerCase());
+			return dasherize(this.get('name').toLowerCase());
 		})
 	});
 

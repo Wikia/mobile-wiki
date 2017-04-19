@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 
-const {Component, String, computed, inject, on, setProperties} = Ember;
+const {Component, String: {dasherize}, computed, inject, on, setProperties} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
@@ -18,7 +18,7 @@ export default Component.extend(
 		name: null,
 
 		nameLowerCase: computed('name', function () {
-			return String.dasherize(this.get('name').toLowerCase());
+			return dasherize(this.get('name').toLowerCase());
 		}),
 
 		onElementManualInsert: on('didInsertElement', function () {
