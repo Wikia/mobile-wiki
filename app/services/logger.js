@@ -137,12 +137,6 @@ export default Service.extend({
 	},
 
 	error(message, object) {
-		// TODO XW-3198
-		// Don't log special type of errors. Currently we use them hack Ember and stop executing application
-		if (object instanceof DontLogMeError) {
-			return true;
-		}
-
 		if (this.get('fastboot.isFastBoot')) {
 			this.get('bunyanInstance').error(this.extendError(object, message), message);
 		}

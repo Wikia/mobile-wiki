@@ -184,6 +184,12 @@ export default Route.extend(
 			error(error, transition) {
 				const fastboot = this.get('fastboot');
 
+				// TODO XW-3198
+				// Don't handle special type of errors. Currently we use them hack Ember and stop executing application
+				if (error instanceof DontLogMeError) {
+					return false;
+				}
+
 				this.get('logger').error('Application error', error);
 
 				if (fastboot.get('isFastBoot')) {
