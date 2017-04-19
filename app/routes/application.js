@@ -44,13 +44,16 @@ export default Route.extend(
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
 
-			let title;
+			// We need the wiki page title for setting tracking dimensions in ApplicationModel.
+			// Instead of waiting for the wiki page model to resolve,
+			// let's just use the value from route params.
+			let wikiPageTitle;
 
 			if (transition.targetName === 'wiki-page') {
-				title = transition.params['wiki-page'].title;
+				wikiPageTitle = transition.params['wiki-page'].title;
 			}
 
-			return ApplicationModel.get(title)
+			return ApplicationModel.get(wikiPageTitle)
 				.then((applicationData) => {
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
