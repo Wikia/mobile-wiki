@@ -68,7 +68,7 @@ export default Ember.Component.extend(
 			videoLoader.loadPlayerClass();
 
 			// Stop bubbling it up to the lightbox
-			this.$(this.wrapperClass).on(`click.${this.id}`, () => false);
+			// this.$(this.wrapperClass).on(`click.${this.id}`, () => false);
 		},
 
 		/**

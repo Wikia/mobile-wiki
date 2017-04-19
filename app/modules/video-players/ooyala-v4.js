@@ -11,8 +11,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	constructor(provider, params) {
 		params.pcode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
 		params.playerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
-		params.width = 300;
-		params.height = 200;
+
 		params.skin = {
 			config: '/wikia.php?controller=OoyalaConfig&method=skin'
 		};
@@ -22,9 +21,9 @@ export default class OoyalaV4Player extends BasePlayer {
 		this.ended = false;
 
 		this.resourceURI = [
-			'http://player.ooyala.com/static/v4/stable/4.10.6/core.min.js',
-			'http://player.ooyala.com/static/v4/stable/4.10.6/video-plugin/main_html5.min.js',
-			'http://player.ooyala.com/static/v4/production/latest/skin-plugin/html5-skin.js'
+			'http://harrypotter.wikia.com/extensions/wikia/ArticleVideo/scripts/ooyala/core.js',
+			'http://harrypotter.wikia.com/extensions/wikia/ArticleVideo/scripts/ooyala/main_html5.js',
+			'http://harrypotter.wikia.com/extensions/wikia/ArticleVideo/scripts/ooyala/html5-skin.js'
 		];
 
 		// Ooyala JSON payload contains a DOM id
@@ -47,10 +46,10 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
-		if(this.created) {
+		if (this.created) {
 			return;
 		}
-		this.created= true;
+		this.created = true;
 		Ads.getInstance().onReady(function () {
 			const size = this.params.size || {},
 				vastUrl = Ads.getInstance().buildVastUrl(size.width / size.height, {
@@ -68,8 +67,7 @@ export default class OoyalaV4Player extends BasePlayer {
 					adTagUrl: vastUrl
 				};
 			}
-
-			window.OO.Player.create('asdasd', this.params.videoId, this.params);
+			window.OO.Player.create( 'asdasd', this.params.videoId, this.params);
 		}, this);
 	}
 

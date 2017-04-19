@@ -39,9 +39,10 @@ export default class BasePlayer {
 				if(this.resourceURI.length > 1) {
 					this.resourceURI.shift();
 					this.loadPlayer();
+				} else {
+					// called once player is loaded
+					this.playerDidLoad();
 				}
-				// called once player is loaded
-				this.playerDidLoad();
 			});
 		}
 		return $script(this.resourceURI, () => {
