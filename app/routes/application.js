@@ -73,7 +73,6 @@ export default Route.extend(
 						throw error;
 					}
 
-					this.injectScriptsFastbootOnly(null, transition.queryParams);
 					throw error;
 				});
 		},
@@ -182,11 +181,7 @@ export default Route.extend(
 				this.controller.clearNotifications();
 			},
 
-			/**
-			 * @param {EmberError} error
-			 * @returns {boolean}
-			 */
-			error(error) {
+			error(error, transition) {
 				const fastboot = this.get('fastboot');
 
 				this.get('logger').error('Application error', error);
@@ -194,6 +189,7 @@ export default Route.extend(
 				if (fastboot.get('isFastBoot')) {
 					fastboot.get('shoebox').put('serverError', true);
 					fastboot.set('response.statusCode', 503);
+					this.injectScriptsFastbootOnly(null, transition.queryParams);
 
 					// We can't use the built-in mechanism to render error substates.
 					// When FastBoot sees that application route sends error, it dies.
