@@ -113,7 +113,11 @@ export default Service.extend({
 
 	log(logLevel, message, object) {
 		if (this.get('fastboot.isFastBoot')) {
-			this.get('bunyanInstance')[logLevel](this.addContext(object, message), message);
+			const extendedObject = logLevel === 'error' ?
+				this.extendError(object, message) :
+				this.addContext(object, message);
+
+			this.get('bunyanInstance')[logLevel](extendedObject, message);
 		}
 
 		EmberLogger[logLevel](message, object);
