@@ -262,7 +262,10 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error) {
-				this.get('logger').error('Wiki page error', error);
+				if (this.get('fastboot.isFastBoot') && (!error.code || error.code !== 404)) {
+					this.get('logger').error('Wiki page error', error);
+				}
+
 				this.intermediateTransitionTo('wiki-page_error', error);
 
 				return false;
