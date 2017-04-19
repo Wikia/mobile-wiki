@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {DontLogMeError} from '../utils/errors';
 import extend from '../utils/extend';
 
 const {Logger: EmberLogger, Service, inject} = Ember;
