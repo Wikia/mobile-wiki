@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
+import mediawikiFetch from '../utils/mediawiki-fetch';
 import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
 import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
@@ -112,7 +113,7 @@ UserModel.reopenClass({
 			}
 		});
 
-		return fetch(url)
+		return mediawikiFetch(url)
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
@@ -163,7 +164,7 @@ UserModel.reopenClass({
 			}
 		});
 
-		return fetch(url, {
+		return mediawikiFetch(url, {
 			headers: {
 				Cookie: `access_token=${accessToken}`
 			},
