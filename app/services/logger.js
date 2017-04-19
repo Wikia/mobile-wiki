@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import ErrorDescriptor from '../utils/error-descriptor';
+import {DontLogMeError} from '../utils/errors';
 import extend from '../utils/extend';
 
 const {Logger: EmberLogger, Service, inject} = Ember;
@@ -77,11 +79,6 @@ export default Service.extend({
 		const instance = bunyan.createLogger({
 			appname: 'mobile-wiki',
 			name: 'mobile-wiki',
-			serializers: {
-				// FIXME
-				additionalData: additionalDataSerializer,
-				previous: previousErrorSerializer
-			},
 			streams: [{
 				level: 'warn',
 				type: 'raw',
@@ -96,10 +93,23 @@ export default Service.extend({
 	},
 
 	addContext(object, message) {
-		return extend({}, this.get('requestContext'), {
+		return extend({
 			'@message': message,
 			event: object
-		});
+		}, this.get('requestContext'));
+	},
+
+	extendError(error, message) {
+		const errorDescriptor = ErrorDescriptor.create({error});
+
+		return extend({
+			'@message': `FastBoot error - ${message} - ${errorDescriptor.get('normalizedMessage')}`,
+			'@stack_trace': errorDescriptor.get('normalizedStack').substring(0, 500),
+			event: {
+				additionalData: additionalDataSerializer(errorDescriptor.get('additionalData')),
+				previous: previousErrorSerializer(errorDescriptor.get('previous'))
+			}
+		}, this.get('requestContext'));
 	},
 
 	debug(message, object) {
@@ -127,10 +137,14 @@ export default Service.extend({
 	},
 
 	error(message, object) {
+		// TODO XW-3198
+		// Don't log special type of errors. Currently we use them hack Ember and stop executing application
+		if (object instanceof DontLogMeError) {
+			return true;
+		}
+
 		if (this.get('fastboot.isFastBoot')) {
-			// FIXME this needs more processing, see fastboot-error-consumer
-			// const errorDescriptor = ErrorDescriptor.create({object});
-			this.get('bunyanInstance').error(this.addContext(object, message), message);
+			this.get('bunyanInstance').error(this.extendError(object, message), message);
 		}
 
 		EmberLogger.error(message, object);

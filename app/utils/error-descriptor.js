@@ -70,18 +70,16 @@ export default EmberObject.extend({
 	normalizedStack: computed(function () {
 		let stack = this.get('error.stack');
 
-		if (stack) {
-			const parsed = (stack || '').replace(new RegExp('\\r', 'g'), '').split('\n');
-			const message = this.get('normalizedMessage');
+		const parsed = (stack || '').replace(new RegExp('\\r', 'g'), '').split('\n');
+		const message = this.get('normalizedMessage');
 
-			const firstLine = parsed[0];
-			const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
+		const firstLine = parsed[0];
+		const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
 
-			if (!doesStackIncludeMessage) {
-				parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
-				parsed[0] = parsed[0] + message;
-				stack = parsed.join('\n');
-			}
+		if (!doesStackIncludeMessage) {
+			parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
+			parsed[0] = parsed[0] + message;
+			stack = parsed.join('\n');
 		}
 
 		return stack;

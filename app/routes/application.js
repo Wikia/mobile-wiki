@@ -188,10 +188,8 @@ export default Route.extend(
 			 */
 			error(error) {
 				const fastboot = this.get('fastboot');
-				// FIXME can it be done in the error substate instead?
-				const errorDescriptor = ErrorDescriptor.create({error});
 
-				this.get('logger').error('Application error', errorDescriptor);
+				this.get('logger').error('Application error', error);
 
 				if (fastboot.get('isFastBoot')) {
 					fastboot.get('shoebox').put('serverError', true);
@@ -200,6 +198,8 @@ export default Route.extend(
 					// We can't use the built-in mechanism to render error substates.
 					// When FastBoot sees that application route sends error, it dies.
 					// Instead, we transition to the error substate manually.
+					// FIXME can it be done in the error substate instead?
+					const errorDescriptor = ErrorDescriptor.create({error});
 					this.intermediateTransitionTo('application_error', errorDescriptor);
 					return false;
 				}
