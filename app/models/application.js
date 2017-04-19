@@ -4,7 +4,7 @@ import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariables from './wiki-variables';
-import applicationInstance from '../utils/application-instance';
+import {getService} from '../utils/application-instance';
 
 const {
 	Object: EmberObject,
@@ -15,8 +15,8 @@ const ApplicationModel = EmberObject.extend({});
 
 ApplicationModel.reopenClass({
 	get(title) {
-		const currentUser = applicationInstance.instance.lookup('service:current-user'),
-			fastboot = applicationInstance.instance.lookup('service:fastboot'),
+		const currentUser = getService('current-user'),
+			fastboot = getService('fastboot'),
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
