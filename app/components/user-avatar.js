@@ -18,6 +18,7 @@ export default Component.extend({
 	profileUrl: computed('profileName', function () {
 		return buildUrl({
 			namespace: 'User',
+			relative: true,
 			title: this.get('profileName'),
 		});
 	}),
