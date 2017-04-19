@@ -201,6 +201,7 @@ UserModel.reopenClass({
 			avatarPath: userData.avatar,
 			profileUrl: buildUrl({
 				namespace: 'User',
+				relative: true,
 				title: userData.name
 			})
 		};
