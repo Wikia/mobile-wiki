@@ -88,5 +88,8 @@ export default Service.extend({
 		this.get('model').markAsRead(notification);
 	},
 
+	getUnreadCount() {
+		return this.get('model.unreadCount');
+	}
 
 });
