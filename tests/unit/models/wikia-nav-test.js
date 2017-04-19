@@ -12,7 +12,7 @@ moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
 		getServiceStub = sinon.stub(applicationInstanceModule, 'getService');
 		getServiceStub.returns({
 			error: (message, error) => {
-				// eslint no-console: 0
+				// eslint-disable-next-line no-console
 				console.error(message, error);
 			}
 		});
