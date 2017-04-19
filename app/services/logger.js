@@ -106,8 +106,8 @@ export default Service.extend({
 			'@message': `FastBoot error - ${message} - ${errorDescriptor.get('normalizedMessage')}`,
 			'@stack_trace': errorDescriptor.get('normalizedStack').substring(0, 500),
 			event: {
-				additionalData: additionalDataSerializer(errorDescriptor.get('additionalData')),
-				previous: previousErrorSerializer(errorDescriptor.get('previous'))
+				additionalData: additionalDataSerializer(error.additionalData),
+				previous: previousErrorSerializer(error.previous)
 			}
 		}, this.get('requestContext'));
 	},
