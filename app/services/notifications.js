@@ -55,7 +55,7 @@ export default Service.extend({
 				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
-				Logger.warn('Couldn\'t load first page', err);
+				this.get('logger').warn('Couldn\'t load first page', err);
 			})
 			.finally(() => {
 				this.set('isLoading', false);
