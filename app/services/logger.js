@@ -111,35 +111,27 @@ export default Service.extend({
 		}, this.get('requestContext'));
 	},
 
-	debug(message, object) {
+	log(logLevel, message, object) {
 		if (this.get('fastboot.isFastBoot')) {
-			this.get('bunyanInstance').debug(this.addContext(object, message), message);
+			this.get('bunyanInstance')[logLevel](this.addContext(object, message), message);
 		}
 
-		EmberLogger.debug(message, object);
+		EmberLogger[logLevel](message, object);
+	},
+
+	debug(message, object) {
+		this.log('debug', message, object);
 	},
 
 	info(message, object) {
-		if (this.get('fastboot.isFastBoot')) {
-			this.get('bunyanInstance').info(this.addContext(object, message), message);
-		}
-
-		EmberLogger.info(message, object);
+		this.log('info', message, object);
 	},
 
 	warn(message, object) {
-		if (this.get('fastboot.isFastBoot')) {
-			this.get('bunyanInstance').warn(this.addContext(object, message), message);
-		}
-
-		EmberLogger.warn(message, object);
+		this.log('warn', message, object);
 	},
 
 	error(message, object) {
-		if (this.get('fastboot.isFastBoot')) {
-			this.get('bunyanInstance').error(this.extendError(object, message), message);
-		}
-
-		EmberLogger.error(message, object);
+		this.log('error', message, object);
 	}
 });
