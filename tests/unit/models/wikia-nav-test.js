@@ -2,8 +2,25 @@ import {moduleFor, test} from 'ember-qunit';
 import sinon from 'sinon';
 import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 
+const applicationInstanceModule = require('mobile-wiki/utils/application-instance');
+let getServiceStub;
+
 moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
-	unit: true
+	unit: true,
+
+	beforeEach() {
+		getServiceStub = sinon.stub(applicationInstanceModule, 'getService');
+		getServiceStub.returns({
+			error: (message, error) => {
+				// eslint no-console: 0
+				console.error(message, error);
+			}
+		});
+	},
+
+	afterEach() {
+		getServiceStub.restore();
+	}
 });
 
 const hubsLinksMock = [{
@@ -433,13 +450,6 @@ test('Header value', (assert) => {
 });
 
 test('Parent value', (assert) => {
-	const getServiceStub = sinon.stub(
-		require('mobile-wiki/utils/application-instance'),
-		'getService'
-	).returns({
-		error: console.debug
-	});
-
 	const cases = [
 		{
 			mock: {
@@ -563,6 +573,4 @@ test('Parent value', (assert) => {
 
 		assert.deepEqual(nav.get('currentLocalNav'), testCase.expected, testCase.message);
 	});
-
-	getServiceStub.restore();
 });

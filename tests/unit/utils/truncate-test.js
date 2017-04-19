@@ -2,11 +2,26 @@ import {module} from 'qunit';
 import {test} from 'ember-qunit';
 import sinon from 'sinon';
 
+const applicationInstanceModule = require('mobile-wiki/utils/application-instance');
+let getServiceStub;
+
 module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {
 		truncate = require('mobile-wiki/utils/truncate').truncate;
+
+		getServiceStub = sinon.stub(applicationInstanceModule, 'getService');
+		getServiceStub.returns({
+			error: (message, error) => {
+				// eslint no-console: 0
+				console.error(message, error);
+			}
+		});
+	});
+
+	hooks.afterEach(() => {
+		getServiceStub.restore();
 	});
 
 	test('Truncate helper is exported', (assert) => {
@@ -44,15 +59,6 @@ module('Unit | Utility | truncate', (hooks) => {
 	});
 
 	test('number instead of text', (assert) => {
-		const getServiceStub = sinon.stub(
-			require('mobile-wiki/utils/application-instance'),
-			'getService'
-		).returns({
-			error: console.debug
-		});
-
 		assert.equal(truncate(20), null);
-
-		getServiceStub.restore();
 	});
 });
