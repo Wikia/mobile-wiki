@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DesignSystemFetchError} from '../utils/errors';
+import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
@@ -22,9 +22,8 @@ NavigationModel.reopenClass({
 				if (response.ok) {
 					return response.json();
 				} else {
-					const contentType = response.headers.get('content-type');
-					const throwError = (responseBody) => {
-						const error = new DesignSystemFetchError({
+					return getFetchErrorMessage(response).then((responseBody) => {
+						throw new DesignSystemFetchError({
 							code: 503
 						}).withAdditionalData({
 							responseStatus: response.status,
@@ -32,15 +31,7 @@ NavigationModel.reopenClass({
 							requestUrl: url,
 							responseUrl: response.url
 						});
-
-						throw error;
-					};
-
-					if (contentType && contentType.indexOf('application/json') !== -1) {
-						return response.json().then(throwError);
-					} else {
-						return response.text().then(throwError);
-					}
+					});
 				}
 			})
 			.then((navigationData) => {

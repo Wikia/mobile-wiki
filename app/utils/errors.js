@@ -41,7 +41,18 @@ const WikiVariablesFetchError = defineError({
 	message: `Wiki variables couldn't be fetched`
 });
 
+const getFetchErrorMessage = function (response) {
+	const contentType = response.headers.get('content-type');
+
+	if (contentType && contentType.indexOf('application/json') !== -1) {
+		return response.json();
+	} else {
+		return response.text();
+	}
+};
+
 export {
+	getFetchErrorMessage,
 	DesignSystemFetchError,
 	DontLogMeError,
 	NonJsonApiResponseError,

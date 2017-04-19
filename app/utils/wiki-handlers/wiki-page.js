@@ -6,7 +6,7 @@ import FileModel from '../../models/wiki/file';
 import isInitialPageView from '../../utils/initial-page-view';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import fetch from '../mediawiki-fetch';
-import {WikiPageFetchError} from '../../utils/errors';
+import {getFetchErrorMessage, WikiPageFetchError} from '../../utils/errors';
 import extend from '../../utils/extend';
 import {buildUrl} from '../../utils/url';
 
@@ -37,7 +37,7 @@ function getURL(params) {
 	return buildUrl({
 		host: params.host,
 		path: '/wikia.php',
-		query
+		//query
 	});
 }
 
@@ -87,8 +87,7 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 				if (response.ok) {
 					return response.json();
 				} else {
-					const contentType = response.headers.get('content-type');
-					const throwError = (responseBody) => {
+					return getFetchErrorMessage(response).then((responseBody) => {
 						throw new WikiPageFetchError({
 							code: response.status || 503
 						}).withAdditionalData({
@@ -96,13 +95,7 @@ export default function getPageModel(params, fastboot, contentNamespaces) {
 							requestUrl: url,
 							responseUrl: response.url
 						});
-					};
-
-					if (contentType && contentType.indexOf('application/json') !== -1) {
-						return response.json().then(throwError);
-					} else {
-						return response.text().then(throwError);
-					}
+					});
 				}
 			})
 			.then((data) => {

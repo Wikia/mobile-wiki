@@ -4,7 +4,7 @@ import fetch from 'ember-network/fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
-import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
+import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -118,8 +118,7 @@ UserModel.reopenClass({
 				if (response.ok) {
 					return response.json();
 				} else {
-					const contentType = response.headers.get('content-type');
-					const throwError = (responseBody) => {
+					return getFetchErrorMessage(response).then((responseBody) => {
 						throw new UserLoadDetailsFetchError({
 							code: response.status
 						}).withAdditionalData({
@@ -127,13 +126,7 @@ UserModel.reopenClass({
 							requestUrl: url,
 							responseUrl: response.url
 						});
-					};
-
-					if (contentType && contentType.indexOf('application/json') !== -1) {
-						return response.json().then(throwError);
-					} else {
-						return response.text().then(throwError);
-					}
+					});
 				}
 			})
 			.then((result) => {
@@ -172,8 +165,7 @@ UserModel.reopenClass({
 			if (response.ok) {
 				return response.json();
 			} else {
-				const contentType = response.headers.get('content-type');
-				const throwError = (responseBody) => {
+				return getFetchErrorMessage(response).then((responseBody) => {
 					throw new UserLoadInfoFetchError({
 						code: response.status
 					}).withAdditionalData({
@@ -181,13 +173,7 @@ UserModel.reopenClass({
 						requestUrl: url,
 						responseUrl: response.url
 					});
-				};
-
-				if (contentType && contentType.indexOf('application/json') !== -1) {
-					return response.json().then(throwError);
-				} else {
-					return response.text().then(throwError);
-				}
+				});
 			}
 		});
 	},
