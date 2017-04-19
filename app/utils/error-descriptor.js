@@ -13,7 +13,7 @@ const stringify = (value) => {
 	try {
 		value = String(value);
 	} catch (e) {
-		value = 'unrecognized'
+		value = 'unrecognized';
 	}
 	return value;
 };
@@ -78,7 +78,7 @@ export default EmberObject.extend({
 			const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
 
 			if (!doesStackIncludeMessage) {
-				parsed[0] = parsed[0] ? parsed[0] + ':' : parsed[0];
+				parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
 				parsed[0] = parsed[0] + message;
 				stack = parsed.join('\n');
 			}
@@ -97,7 +97,7 @@ export default EmberObject.extend({
 			let name;
 			let index = 0;
 			do {
-				name = root + ':' + index;
+				name = `${root}:${index}`;
 				index++;
 			} while (namesUsed.indexOf(name) !== -1);
 

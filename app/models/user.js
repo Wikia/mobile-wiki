@@ -3,7 +3,7 @@ import config from '../config/environment';
 import fetch from 'ember-network/fetch';
 import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
-import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors'
+import {UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
 /**
  * @typedef {Object} UserModelFindParams
