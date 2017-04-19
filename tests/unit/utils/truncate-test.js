@@ -1,5 +1,6 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
+import sinon from 'sinon';
 
 module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
@@ -43,6 +44,15 @@ module('Unit | Utility | truncate', (hooks) => {
 	});
 
 	test('number instead of text', (assert) => {
+		const getServiceStub = sinon.stub(
+			require('mobile-wiki/utils/application-instance'),
+			'getService'
+		).returns({
+			error: console.debug
+		});
+
 		assert.equal(truncate(20), null);
+
+		getServiceStub.restore();
 	});
 });

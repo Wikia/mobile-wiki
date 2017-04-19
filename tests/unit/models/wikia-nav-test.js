@@ -433,6 +433,13 @@ test('Header value', (assert) => {
 });
 
 test('Parent value', (assert) => {
+	const getServiceStub = sinon.stub(
+		require('mobile-wiki/utils/application-instance'),
+		'getService'
+	).returns({
+		error: console.debug
+	});
+
 	const cases = [
 		{
 			mock: {
@@ -556,4 +563,6 @@ test('Parent value', (assert) => {
 
 		assert.deepEqual(nav.get('currentLocalNav'), testCase.expected, testCase.message);
 	});
+
+	getServiceStub.restore();
 });

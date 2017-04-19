@@ -16,10 +16,11 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:ads/invisible-high-impact-2',
 		'component:portable-infobox',
 		'component:article-table-of-contents',
-		'service:currentUser',
 		'service:ads',
-		'service:wikiVariables',
-		'service:fastboot'
+		'service:currentUser',
+		'service:fastboot',
+		'service:logger',
+		'service:wikiVariables'
 	],
 
 	beforeEach() {

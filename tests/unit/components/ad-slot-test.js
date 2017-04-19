@@ -7,6 +7,12 @@ const adsStub = Ember.Service.extend({
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	unit: true,
+	needs: [
+		'service:fastboot',
+		'service:logger',
+		'service:wikiVariables'
+	],
+
 	beforeEach() {
 		this.register('service:ads', adsStub);
 		this.inject.service('ads', {as: 'ads'});

@@ -13,7 +13,7 @@ export function truncate(text, maxLength = 48) {
 
 	if (typeof text !== 'string') {
 		getService('logger').error(`Truncate Util expected string as a parameter, but ${typeof text} given`, text);
-		return '';
+		return null;
 	}
 
 	if (text.length <= maxLength) {
