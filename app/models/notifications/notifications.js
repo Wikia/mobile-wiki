@@ -3,47 +3,61 @@ import Notification from './notification';
 import fetch from 'ember-network/fetch';
 import {getService} from '../../utils/application-instance';
 import {convertToIsoString} from '../../utils/iso-date-time';
-import {getOnSiteNotificationsServiceUrl, getQueryString} from '../../utils/url';
+import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
-const {A, Object: EmberObject, RSVP} = Ember;
+const {A, Object: EmberObject, RSVP, get} = Ember;
 
 const NotificationsModel = EmberObject.extend({
 	unreadCount: 0,
-	data: null,
+	data: new A(),
 
 	getNewestNotificationISODate() {
 		return convertToIsoString(this.get('data.0.timestamp'));
 	},
 
-	getOldestNotificationISODate() {
-		return convertToIsoString(this.get('data.lastObject.timestamp'));
+	/**
+	 * @return {Promise}
+	 */
+	loadUnreadNotificationCount() {
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), {credentials: 'include'})
+			.then((response) => response.json())
+			.then((result) => {
+				this.set('unreadCount', result.unreadCount);
+			}).catch((error) => {
+				this.set('unreadCount', 0);
+				getService('logger').error('Setting notifications unread count to 0 because of the API fetch error');
+			});
 	},
 
-	setNormalizedData(apiData) {
-		this.setProperties({
-			data: new A()
-		});
-
-		const notifications = apiData.notifications;
-
-		if (notifications && notifications.length) {
-			this.addNotifications(notifications);
-		}
-	},
-
-	loadMoreResults() {
-		const queryString = getQueryString({
-			startingTimestamp: this.getOldestNotificationISODate()
-		});
-
-		return fetch(getOnSiteNotificationsServiceUrl(`/notifications${queryString}`), {
-			credentials: 'include'
-		})
+	/**
+	 * @return {Promise.<string>}
+	 */
+	loadFirstPageReturningNextPageLink() {
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), {credentials: 'include'})
 			.then((response) => response.json())
 			.then((data) => {
 				this.addNotifications(data.notifications);
-				return data.notifications.length;
+				return this.getNext(data);
 			});
+	},
+
+	/**
+	 * @param page link to the page to load
+	 * @return {Promise.<string>}
+	 */
+	loadPageReturningNextPageLink(page) {
+		return fetch(getOnSiteNotificationsServiceUrl(page), {
+			method: 'GET',
+			credentials: 'include'
+		}).then((response) => response.json())
+			.then((data) => {
+				this.addNotifications(data.notifications);
+				return this.getNext(data);
+			});
+	},
+
+	getNext(data) {
+		return get(data, '_links.next') || null;
 	},
 
 	markAsRead(notification) {
@@ -78,62 +92,7 @@ const NotificationsModel = EmberObject.extend({
 		});
 
 		this.get('data').pushObjects(notificationModels);
-	},
-
-});
-
-NotificationsModel.reopenClass({
-	/**
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	getNotifications() {
-		const model = NotificationsModel.create();
-
-		return RSVP.all([
-			this.getNotificationsList(model),
-			this.getUnreadNotificationsCount(model)
-		]).then(() => {
-			return model;
-		});
-	},
-
-	getUnreadNotificationsCount(model) {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), {
-			credentials: 'include'
-		})
-			.then((response) => {
-				if (response.ok) {
-					response.json().then((result) => {
-						model.set('unreadCount', result.unreadCount);
-					});
-				} else {
-					model.set('unreadCount', 0);
-					getService('logger').error('Notifications unread-count error:', response);
-				}
-			}).catch((error) => {
-				model.set('unreadCount', 0);
-				getService('logger').error(
-					'Setting notifications unread count to 0 because of the API fetch error',
-					error
-				);
-			});
-	},
-
-	getNotificationsList(model) {
-		return this.requestNotifications().then((data) => {
-			model.setNormalizedData(data);
-		});
-	},
-
-	/**
-	 * @private
-	 */
-	requestNotifications() {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), {
-			credentials: 'include'
-		}).then((response) => response.json());
 	}
-
 });
 
 export default NotificationsModel;

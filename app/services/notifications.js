@@ -4,10 +4,9 @@ import NotificationsModel from '../models/notifications/notifications';
 const {Service, computed, inject, RSVP} = Ember;
 
 export default Service.extend({
+	model: NotificationsModel.create(),
 	isLoading: false,
-	allLoaded: false,
-	model: null,
-	notificationsPerPage: 10,
+	nextPage: null,
 
 	currentUser: inject.service(),
 	fastboot: inject.service(),
@@ -17,28 +16,18 @@ export default Service.extend({
 	/**
 	 * @private
 	 */
-	isUserAuthenticated: Ember.computed.bool('currentUser.isAuthenticated'),
+	isUserAnonymous: Ember.computed.not('currentUser.isAuthenticated'),
 
-	modelLoader: computed('isUserAuthenticated', function () {
+	modelLoader: computed('isUserAnonymous', function () {
 		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
-		this.set('isLoading', true);
-		if (!this.get('isUserAuthenticated')) {
-			this.set('isLoading', false);
+		if (this.get('isUserAnonymous') === true) {
 			return RSVP.reject();
 		}
-
-		return NotificationsModel.getNotifications()
-			.then((model) => {
-				this.setProperties({
-					model,
-					isLoading: false,
-					allLoaded: model.data.length < this.get('notificationsPerPage')
-				});
-			})
+		return this.get('model').loadUnreadNotificationCount()
 			.catch((err) => {
-				this.get('logger').warn('Couldn\'t load notifications', err);
+				this.get('logger').warn('Couldn\'t load notification count', err);
 				this.set('isLoading', false);
 			});
 	}),
@@ -53,22 +42,42 @@ export default Service.extend({
 		this.get('modelLoader');
 	},
 
-	loadMoreResults() {
-		if (this.get('isLoading') === true || !this.get('isUserAuthenticated') || this.get('allLoaded') === true) {
+	loadFirstPage() {
+		if (this.get('isUserAnonymous') === true
+			|| this.get('isLoading') === true
+			|| this.get('nextPage') !== null) {
 			return;
 		}
-
 		this.set('isLoading', true);
 		this.get('model')
-			.loadMoreResults(this.get('notificationsPerPage'))
-			.then((resultCount) => {
-				this.setProperties({
-					isLoading: false,
-					allLoaded: resultCount < this.get('notificationsPerPage')
-				});
+			.loadFirstPageReturningNextPageLink()
+			.then((nextPage) => {
+				this.set('nextPage', nextPage);
+			})
+			.catch((err) => {
+				Logger.warn('Couldn\'t load first page', err);
+			})
+			.finally(() => {
+				this.set('isLoading', false);
+			});
+	},
+
+	loadNextPage() {
+		if (this.get('isUserAnonymous') === true
+			|| this.get('isLoading') === true
+			|| this.get('nextPage') === null) {
+			return;
+		}
+		this.set('isLoading', true);
+		this.get('model')
+			.loadPageReturningNextPageLink(this.get('nextPage'))
+			.then((nextPage) => {
+				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
 				this.get('logger').warn('Couldn\'t load more notifications', err);
+			})
+			.finally(() => {
 				this.set('isLoading', false);
 			});
 	},
@@ -79,6 +88,7 @@ export default Service.extend({
 
 	markAsRead(notification) {
 		this.get('model').markAsRead(notification);
-	}
+	},
+
 
 });
