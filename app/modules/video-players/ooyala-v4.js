@@ -33,10 +33,6 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
-		if (this.created) {
-			return;
-		}
-		this.created = true;
 		window.OO.ready(() => {
 			window.OO.Player.create('asdasd', this.params.videoId, this.params);
 		});
