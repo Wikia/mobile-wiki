@@ -27,7 +27,6 @@ export default class BasePlayer {
 	}
 
 	loadScript() {
-
 	}
 
 	/**
