@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+const {Component, inject} = Ember;
+
+export default Component.extend(
 	{
 		classNames: ['article-media-map-thumbnail'],
 		tagName: 'figure',
+		logger: inject.service(),
 
 		/**
 		 * @returns {void|boolean}
@@ -15,7 +18,7 @@ export default Ember.Component.extend(
 				title = this.get('title');
 
 			if (url) {
-				Ember.Logger.debug('Handling map with id:', id, 'and title:', title);
+				this.get('logger').debug('Handling map with id:', id, 'and title:', title);
 
 				track({
 					action: trackActions.click,

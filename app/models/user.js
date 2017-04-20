@@ -1,7 +1,10 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
+import mediawikiFetch from '../utils/mediawiki-fetch';
+import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
+import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -30,30 +33,37 @@ UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	getUserId(accessToken) {
+		if (!accessToken) {
+			return null;
+		}
+
 		const queryString = getQueryString({
 			code: accessToken
 		});
+		const logger = getService('logger');
 
 		return fetch(`${config.helios.internalUrl}${queryString}`, {
 			timeout: config.helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
-				return response.json().then((data) => {
-					return data.user_id;
-				});
+				return response.json().then((data) => data.user_id);
 			} else {
 				if (response.status === 401) {
-					Ember.Logger.info('Token not authorized by Helios');
+					logger.info('Token not authorized by Helios');
 				} else {
-					Ember.Logger.error('Helios connection error: ', response);
+					logger.error('Helios connection error: ', response);
 				}
+
+				return null;
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
-				Ember.Logger.error('Helios timeout error: ', reason);
+				logger.error('Helios timeout error: ', reason);
 			} else {
-				Ember.Logger.error('Helios connection error: ', reason);
+				logger.error('Helios connection error: ', reason);
 			}
+
+			return null;
 		});
 	},
 
@@ -92,7 +102,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
-		return fetch(buildUrl({
+		const url = buildUrl({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -101,7 +111,24 @@ UserModel.reopenClass({
 				ids: userId,
 				size: avatarSize
 			}
-		})).then((response) => response.json())
+		});
+
+		return mediawikiFetch(url)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					return getFetchErrorMessage(response).then((responseBody) => {
+						throw new UserLoadDetailsFetchError({
+							code: response.status
+						}).withAdditionalData({
+							responseBody,
+							requestUrl: url,
+							responseUrl: response.url
+						});
+					});
+				}
+			})
 			.then((result) => {
 				if (Ember.isArray(result.items)) {
 					return result.items[0];
@@ -118,7 +145,7 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		return fetch(buildUrl({
+		const url = buildUrl({
 			host,
 			path: '/api.php',
 			query: {
@@ -128,11 +155,27 @@ UserModel.reopenClass({
 				format: 'json',
 				ids: userId
 			}
-		}), {
+		});
+
+		return mediawikiFetch(url, {
 			headers: {
 				Cookie: `access_token=${accessToken}`
 			},
-		}).then((response) => response.json());
+		}).then((response) => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				return getFetchErrorMessage(response).then((responseBody) => {
+					throw new UserLoadInfoFetchError({
+						code: response.status
+					}).withAdditionalData({
+						responseBody,
+						requestUrl: url,
+						responseUrl: response.url
+					});
+				});
+			}
+		});
 	},
 
 	/**

@@ -1,5 +1,8 @@
 import Ember from 'ember';
+import {getService} from '../utils/application-instance';
 import {normalizeToUnderscore} from '../utils/string';
+
+const {Object: EmberObject, isArray} = Ember;
 
 /**
  * @typedef {Object} ArticleMedia
@@ -21,7 +24,7 @@ import {normalizeToUnderscore} from '../utils/string';
  * @property {number} mediaRef
  */
 
-export default Ember.Object.extend({
+export default EmberObject.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
@@ -30,7 +33,7 @@ export default Ember.Object.extend({
 	init() {
 		const media = this.get('media');
 
-		if (!Ember.isArray(media)) {
+		if (!isArray(media)) {
 			this.set('media', [media]);
 		}
 	},
@@ -71,7 +74,7 @@ export default Ember.Object.extend({
 			 * @returns {boolean}
 			 */
 			findInMedia = function (mediaItem, mediaIndex) {
-				if (Ember.isArray(mediaItem)) {
+				if (isArray(mediaItem)) {
 					return (mediaItem).some(findInGallery, {
 						mediaIndex
 					});
@@ -81,10 +84,10 @@ export default Ember.Object.extend({
 				}
 			};
 
-		if (Ember.isArray(media)) {
+		if (isArray(media)) {
 			media.some(findInMedia);
 		} else {
-			Ember.Logger.debug('Media is not an array', media);
+			getService('logger').debug('Media is not an array', media);
 		}
 
 		return {

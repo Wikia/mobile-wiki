@@ -2,8 +2,25 @@ import {moduleFor, test} from 'ember-qunit';
 import sinon from 'sinon';
 import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 
+const applicationInstanceModule = require('mobile-wiki/utils/application-instance');
+let getServiceStub;
+
 moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
-	unit: true
+	unit: true,
+
+	beforeEach() {
+		getServiceStub = sinon.stub(applicationInstanceModule, 'getService');
+		getServiceStub.returns({
+			error: (message, error) => {
+				// eslint-disable-next-line no-console
+				console.error(message, error);
+			}
+		});
+	},
+
+	afterEach() {
+		getServiceStub.restore();
+	}
 });
 
 const hubsLinksMock = [{

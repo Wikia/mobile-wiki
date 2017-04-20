@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import NotificationsModel from '../models/notifications/notifications';
 
-const {Service, Logger, computed, inject, RSVP} = Ember;
+const {Service, computed, inject, RSVP} = Ember;
 
 export default Service.extend({
 	model: NotificationsModel.create(),
@@ -9,8 +9,9 @@ export default Service.extend({
 	nextPage: null,
 
 	currentUser: inject.service(),
-	wikiVariables: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 
 	/**
 	 * @private
@@ -26,7 +27,8 @@ export default Service.extend({
 		}
 		return this.get('model').loadUnreadNotificationCount()
 			.catch((err) => {
-				Logger.warn('Couldn\'t load notification count', err);
+				this.get('logger').warn('Couldn\'t load notification count', err);
+				this.set('isLoading', false);
 			});
 	}),
 
@@ -53,7 +55,7 @@ export default Service.extend({
 				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
-				Logger.warn('Couldn\'t load first page', err);
+				this.get('logger').warn('Couldn\'t load first page', err);
 			})
 			.finally(() => {
 				this.set('isLoading', false);
@@ -73,7 +75,7 @@ export default Service.extend({
 				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
-				Logger.warn('Couldn\'t load more notifications', err);
+				this.get('logger').warn('Couldn\'t load more notifications', err);
 			})
 			.finally(() => {
 				this.set('isLoading', false);

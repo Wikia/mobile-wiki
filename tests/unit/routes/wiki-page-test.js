@@ -9,7 +9,12 @@ const model = Ember.Object.create({
 });
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
-	needs: ['service:router-scroll'],
+	needs: [
+		'service:fastboot',
+		'service:logger',
+		'service:router-scroll',
+		'service:wiki-variables'
+	],
 	beforeEach() {
 		window.wgNow = null;
 	}
@@ -144,7 +149,7 @@ test('get correct handler based on model namespace', function (assert) {
 	});
 });
 
-test('get correct handler based on model isMainPage flag and exception', function (assert) {
+test('get correct handler based on model isCuratedMainPage', function (assert) {
 	const mock = this.subject(),
 		expectedHandler = {
 			viewName: 'main-page',

@@ -3,25 +3,36 @@ import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {normalizeToUnderscore} from '../utils/string';
 
-export default Ember.Component.extend(
+const {
+	Component,
+	String: {htmlSafe},
+	computed,
+	inject,
+	isArray,
+	observer
+} = Ember;
+
+export default Component.extend(
 	ThirdsClickMixin,
 	{
 		classNames: ['lightbox-media', 'lightbox-content-inner'],
 		// This is needed for keyDown event to work
 		attributeBindings: ['tabindex'],
+		logger: inject.service(),
+
 		tabindex: 0,
 		videoPlayer: null,
 
 		/**
 		 * gets current media from model
 		 */
-		current: Ember.computed('model.media', 'model.mediaRef', function () {
+		current: computed('model.media', 'model.mediaRef', function () {
 			const mediaModel = this.get('model.media');
 
 			if (mediaModel instanceof MediaModel) {
 				return mediaModel.find(this.get('model.mediaRef'));
 			} else {
-				Ember.Logger.error('Media model is not an instance of MediaModel');
+				this.get('logger').error('Media model is not an instance of MediaModel');
 				return null;
 			}
 		}),
@@ -29,13 +40,13 @@ export default Ember.Component.extend(
 		/**
 		 * gets current media or current media from gallery
 		 */
-		currentMedia: Ember.computed('current', 'isGallery', 'currentGalleryRef', function () {
+		currentMedia: computed('current', 'isGallery', 'currentGalleryRef', function () {
 			const current = this.get('current');
 
 			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 		}),
 
-		currentGalleryRef: Ember.computed('model.galleryRef', {
+		currentGalleryRef: computed('model.galleryRef', {
 			get() {
 				return this.get('model.galleryRef') || 0;
 			},
@@ -53,27 +64,27 @@ export default Ember.Component.extend(
 			},
 		}),
 
-		galleryLength: Ember.computed('isGallery', 'current', function () {
+		galleryLength: computed('isGallery', 'current', function () {
 			return this.get('isGallery') ? this.get('current').length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
-		isGallery: Ember.computed('current', function () {
-			return Ember.isArray(this.get('current'));
+		isGallery: computed('current', function () {
+			return isArray(this.get('current'));
 		}),
 
 		/**
 		 * checks if current media is a video or image and which lightbox component to render
 		 */
-		lightboxComponent: Ember.computed('currentMedia', function () {
+		lightboxComponent: computed('currentMedia', function () {
 			const currentMedia = this.get('currentMedia');
 
 			return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
 		}),
 
-		modelObserver: Ember.observer('model', 'currentMedia', function () {
+		modelObserver: observer('model', 'currentMedia', function () {
 			this.updateState();
 		}),
 
@@ -203,7 +214,7 @@ export default Ember.Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new Ember.String.htmlSafe(currentMedia.caption));
+				this.sendAction('setFooter', new htmlSafe(currentMedia.caption));
 			} else {
 				this.sendAction('setFooter', null);
 			}

@@ -4,7 +4,7 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {getAttributesForMedia} from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
 
-const {Component, Logger, $, get, isBlank, observer, on, run, inject} = Ember;
+const {Component, $, get, isBlank, observer, on, run, inject} = Ember;
 
 /**
  * HTMLElement
@@ -20,6 +20,7 @@ export default Component.extend(
 
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		isFastBoot: Ember.computed.reads('fastboot.isFastBoot'),
 
 		adsContext: null,
@@ -353,7 +354,7 @@ export default Component.extend(
 					componentName = 'widget-playbuzz';
 					break;
 				default:
-					Logger.warn(`Can't create widget with type '${widgetType}'`);
+					this.get('logger').warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
 
