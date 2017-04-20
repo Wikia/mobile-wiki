@@ -55,11 +55,11 @@ export default Route.extend(
 
 			return ApplicationModel.get(wikiPageTitle)
 				.then((applicationData) => {
+					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
+
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
-
-					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
 					return applicationData;
 				})
