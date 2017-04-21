@@ -15,7 +15,7 @@ export default class OoyalaV4Player extends BasePlayer {
 		};
 		super(provider, params);
 
-		this.resourceURI = '/mobile-wiki/assets/ooyala.js';
+		this.resourceURI = '/mobile-wiki/assets/ooyala/all.js';
 	}
 
 	/**

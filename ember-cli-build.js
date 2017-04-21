@@ -122,17 +122,13 @@ module.exports = function (defaults) {
 		designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
 			destDir: 'locales'
 		}),
-		ooyalaScripts = new Funnel('node_modules/html5-skin/build/all.js', {
-			destDir: 'assets/ooyala.js'
-		}),
-		ooyalaStyles = new Funnel('node_modules/html5-skin/build/html5-skin.min.css', {
-			destDir: 'assets/ooyala.css'
+		ooyalaAssets = new Funnel('node_modules/html5-skin/build', {
+			destDir: 'assets/ooyala'
 		});
 
 	return app.toTree([
 		designSystemAssets,
 		designSystemI18n,
-		ooyalaScripts,
-		ooyalaStyles
+		ooyalaAssets
 	]);
 };
