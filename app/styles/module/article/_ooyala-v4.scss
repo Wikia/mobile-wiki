@@ -133,6 +133,10 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
   }
 
   .oo-player-skin {
+    z-index: 1 !important;
+  }
+
+  .video {
     z-index: 0 !important;
   }
 
