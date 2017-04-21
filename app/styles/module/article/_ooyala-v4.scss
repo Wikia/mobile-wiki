@@ -210,6 +210,10 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
         // Reduce original horizontal spacing of icons
         padding: 0 6px;
 
+        svg {
+          fill: $wds-color-white
+        }
+
         // On selected don't show the icon behind the background image
         &.oo-selected > .fandom-video-gear-icon {
           // Already important from ooyala
@@ -219,12 +223,11 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
 
       .oo-volume {
         .oo-volume-bar {
-          transition: none;
+          display: none;
+        }
 
-          // Make all icon bars the same height
-          height: $video-player-volume-bar-height;
-          background-color: $video-player-volume-bar-off-color;
-          margin-bottom: 1px;
+        .oo-volume-slider {
+          display: none;
         }
       }
 
@@ -254,10 +257,6 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
         }
       }
     }
-  }
-
-  .oo-volume-bar {
-    padding-left: 6px;
   }
 
   // That overrides ooyala icons font. It prevents downloading the font.
