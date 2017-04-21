@@ -13,6 +13,7 @@ export default Controller.extend(
 		// lightbox TODO: Should be refactored when decoupling article from application
 		wikiPage: inject.controller(),
 		ads: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
 		queryParams: ['file', 'map',
 			{
@@ -166,7 +167,7 @@ export default Controller.extend(
 				const queryParamsWhitelist = ['file', 'map'];
 
 				if (queryParamsWhitelist.indexOf(name) === -1) {
-					Ember.Logger.error('Something tried to set query param that is not on the whitelist', {
+					this.get('logger').error('Something tried to set query param that is not on the whitelist', {
 						name,
 						value,
 						whitelist: queryParamsWhitelist

@@ -7,7 +7,7 @@ import MarkAsReadNotificationMixin from '../mixins/mark-as-read-notification';
 import {trackClick, trackImpression} from '../utils/notifications-tracker';
 import {notificationTypes} from '../utils/notification-types';
 
-const {Component, inject, computed, Logger} = Ember;
+const {Component, computed, inject} = Ember;
 
 export default Component.extend(
 	NewReplyNotificationMixin,
@@ -22,8 +22,9 @@ export default Component.extend(
 		tagName: 'li',
 
 		currentUser: inject.service(),
-		notifications: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
+		notifications: inject.service(),
 
 		userLanguage: computed.oneWay('currentUser.language'),
 
@@ -78,7 +79,7 @@ export default Component.extend(
 			} else if (this.isAnnouncement(type)) {
 				return model.title;
 			} else {
-				Logger.warn('No type found for a notification', model);
+				this.get('logger').warn('No type found for a notification', model);
 			}
 		}),
 

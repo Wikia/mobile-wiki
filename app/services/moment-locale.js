@@ -1,8 +1,11 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.Service.extend({
-	wikiVariables: Ember.inject.service(),
+const {Service, $, inject, run} = Ember;
+
+export default Service.extend({
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 	defaultLocation: 'en',
 	enRelativeTime: {
 		m: '1m',
@@ -47,7 +50,7 @@ export default Ember.Service.extend({
 	setEnLocale() {
 		moment.locale('en');
 		// Change status when moment finished changing locale
-		Ember.run.next(() => {
+		run.next(() => {
 			this.changeLoadingStatus();
 		});
 	},
@@ -65,10 +68,10 @@ export default Ember.Service.extend({
 			if (lang === 'en') {
 				this.setEnLocale();
 			} else {
-				Ember.$.getScript(this.localePath[lang]).done(() => {
+				$.getScript(this.localePath[lang]).done(() => {
 					this.changeLoadingStatus();
 				}).fail((jqxhr, settings, exception) => {
-					Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
+					this.get('logger').error(`Can't get moment translation for ${lang}`, exception);
 					this.setEnLocale();
 				});
 			}

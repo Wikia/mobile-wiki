@@ -9,6 +9,7 @@ test('visiting /search', (assert) => {
 		enterKeyCode = 13,
 		testQuery = 'test query';
 
+	mockAdsService();
 	mockFastbootService();
 	visit('/');
 	visit('/search');

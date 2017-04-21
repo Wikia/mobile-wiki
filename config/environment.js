@@ -106,19 +106,6 @@ module.exports = function (environment) {
 		fastboot: {
 			hostWhitelist: [/.*\.wikia-dev\.(pl|us)/, /.*\.wikia-staging.com/, /.*\.wikia.com/],
 			shoeboxAppendTo: 'head'
-		},
-		'ember-error-handler': {
-			consumers: [
-				'service:ember-error-handler/consumer/console-consumer',
-				'service:wsod-error-consumer',
-				'service:fastboot-error-consumer',
-			],
-			listeners: [
-				'service:ember-error-handler/listener/window-listener',
-				'service:ember-error-handler/listener/ember-listener'
-			],
-			'wsod-component-production': 'show-error-prod',
-			'wsod-component-development': 'show-error-dev'
 		}
 	};
 

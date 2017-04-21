@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
+import {getService} from '../utils/application-instance';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 
-const {Object: EmberObject, computed, A, Logger} = Ember;
+const {A, Object: EmberObject, computed} = Ember;
 
 export default EmberObject.extend({
 	batch: 1,
@@ -70,7 +71,7 @@ export default EmberObject.extend({
 					if (response.status === 404) {
 						this.set('error', 'search-error-not-found');
 					} else {
-						Logger.error('Search request error', response);
+						getService('logger').error('Search request error', response);
 					}
 
 					return this;

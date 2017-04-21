@@ -24,7 +24,7 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 			this.model = WikiaNavModel.create({
-				dsGlobalNavigation: this.get('wikiVariables.globalNavigation'),
+				dsGlobalNavigation: this.get('globalNavigation'),
 				wikiVariables: this.get('wikiVariables'),
 				i18n: this.get('i18n')
 			});
