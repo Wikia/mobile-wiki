@@ -5,6 +5,7 @@ import {buildUrl} from '../../utils/url';
 
 const ArticleModel = BaseModel.extend({
 	content: null,
+	featuredVideo: null,
 	comments: 0,
 	isCuratedMainPage: false,
 	isMainPage: false,
@@ -71,6 +72,10 @@ ArticleModel.reopenClass({
 
 			if (data.article) {
 				articleProperties.content = data.article.content;
+
+				if (data.article.featuredVideo) {
+					articleProperties.featuredVideo = data.article.featuredVideo;
+				}
 			}
 
 			if (data.relatedPages) {
