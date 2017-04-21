@@ -7,15 +7,22 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @returns {void}
 	 */
 	constructor(provider, params) {
-		params.pcode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
-		params.playerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
+		const ooyalaPCode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
+		const ooyalaPlayerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
+		const ooyalaJs = '/mobile-wiki/assets/ooyala/all.js';
+		const skinConfigUrl = '/wikia.php?controller=OoyalaConfig&method=skin&cb=' + M.getFromShoebox('wikiVariables').cacheBuster;
+		const containerId = 'ooyala-article-video';
 
+		params.pcode = ooyalaPCode;
+		params.playerBrandingId = ooyalaPlayerBrandingId;
 		params.skin = {
-			config: '/wikia.php?controller=OoyalaConfig&method=skin'
+			config: skinConfigUrl
 		};
+
 		super(provider, params);
 
-		this.resourceURI = '/mobile-wiki/assets/ooyala/all.js';
+		this.resourceURI = ooyalaJs;
+		this.containerId = containerId;
 	}
 
 	/**
@@ -34,7 +41,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			window.OO.Player.create('asdasd', this.params.videoId, this.params);
+			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
 		});
 	}
 
