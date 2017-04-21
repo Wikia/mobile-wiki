@@ -269,7 +269,7 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
   }
 
   // That overrides ooyala icons font. It prevents downloading the font.
-  .oo-icon-svg {
+  .oo-icon-svg, .oo-time-duration {
     font-family: $wds-font-family !important;
   }
 }
