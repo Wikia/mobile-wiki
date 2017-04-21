@@ -132,6 +132,10 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
     display: none;
   }
 
+  .oo-player-skin {
+    z-index: 0 !important;
+  }
+
   // Note that Ooyala delivers social svg's with round backgrounds
   .oo-player-skin .oo-content-panel.oo-share-panel .oo-share-tab-panel {
     .oo-facebook, .oo-twitter {
