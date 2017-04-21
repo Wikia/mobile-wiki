@@ -8,7 +8,7 @@ const labels = {
 		markAsRead: 'mark-as-read',
 		openMenu: 'open-menu',
 	},
-	gaCategory = 'on-site-notifications-mobile';
+	gaCategory = 'on-site-notifications';
 
 /**
  * @param {string} label
