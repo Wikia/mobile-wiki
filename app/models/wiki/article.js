@@ -5,6 +5,7 @@ import {buildUrl} from '../../utils/url';
 
 const ArticleModel = BaseModel.extend({
 	content: null,
+	hasPortableInfobox: null,
 	featuredVideo: null,
 	comments: 0,
 	isCuratedMainPage: false,
@@ -75,6 +76,10 @@ ArticleModel.reopenClass({
 
 				if (data.article.featuredVideo) {
 					articleProperties.featuredVideo = data.article.featuredVideo;
+				}
+
+				if (data.article.hasPortableInfobox) {
+					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
 				}
 			}
 
