@@ -1,15 +1,12 @@
 import Ember from 'ember';
 
-const {A, Mixin} = Ember;
+export default Ember.Mixin.create({
+	alertNotifications: Ember.A(),
 
-export default Mixin.create({
-	alertNotifications: null,
-
-	init() {
-		this._super(...arguments);
-		this.set('alertNotifications', A());
-	},
-
+	/**
+	 * @param {AlertNotification} alertData
+	 * @returns {void}
+	 */
 	addAlert({
 		message,
 		type = 'info',
@@ -18,6 +15,7 @@ export default Mixin.create({
 		callbacks = {},
 		persistent = {}
 	}) {
+
 		this.get('alertNotifications').pushObject({
 			message,
 			type,
@@ -28,6 +26,9 @@ export default Mixin.create({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	clearNotifications() {
 		const notifications = this.get('alertNotifications'),
 			updatedNotifications = notifications.filter((item) => item.persistent);
