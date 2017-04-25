@@ -37,7 +37,8 @@
     "replies-label_plural": "View __count__ replies",
     "suggestions-label": "Read More",
     "toc-label": "Table of Contents",
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors to this article",
+    "video-watch": "Watch"
   },
   "article-comments": {
     "next-button": "Next page",

@@ -1,1 +1,16 @@
-<div id="ooyala-article-video"></div>
+<div class="video-container" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9)
+		0%, transparent 100%), url({{model.url}});">
+	<div {{action 'playVideo'}} class="video-placeholder">
+		<div class="video-details">
+			<div class="video-label">
+				{{i18n 'article.video-watch'}}
+				<span class="video-time"></span>
+			</div>
+			<div class="video-title"></div>
+		</div>
+		<div class="video-play-circle">
+			{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
+		</div>
+	</div>
+	<div id="ooyala-article-video" class="ooyala-article-video"></div>
+</div>
