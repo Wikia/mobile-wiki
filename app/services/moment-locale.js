@@ -80,7 +80,7 @@ export default Service.extend({
 	// Extends default en translation by needed relative time on init
 	init() {
 		this._super();
-		moment.locale('en', {
+		moment.updateLocale('en', {
 			relativeTime: this.enRelativeTime
 		});
 	}
