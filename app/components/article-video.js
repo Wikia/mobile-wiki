@@ -1,21 +1,34 @@
 import Ember from 'ember';
 import VideoLoader from '../modules/video-loader';
-import {track, trackActions} from '../utils/track'
+import { track, trackActions } from '../utils/track'
 
 export default Ember.Component.extend(
 	{
-		/**
-		 * @returns VideoLoader
-		 */
-		videoLoader: Ember.computed('model.embed', function () {
-			return new VideoLoader(this.get('model.embed'));
-		}),
-
 		/**
 		 * @returns {void}
 		 */
 		didRender() {
 			this.initVideoPlayer();
+		},
+
+		getFormattedDuration(millisec) {
+			let seconds = parseInt(millisec / 1000, 10);
+			let hours = parseInt(seconds / 3600, 10);
+			seconds = seconds % 3600;
+			let minutes = parseInt(seconds / 60, 10);
+			seconds = seconds % 60;
+			let duration = '';
+			if (hours > 0) {
+				duration += hours + ':';
+				if (minutes < 10) {
+					duration += '0';
+				}
+			}
+			duration += minutes + ':';
+			if (seconds < 10) {
+				duration += '0';
+			}
+			return duration + seconds;
 		},
 
 		/**
@@ -24,7 +37,27 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = this.get('videoLoader');
+			const data = this.get('model.embed'),
+				$videoContainer = this.$('.video-container');
+
+			data.jsParams.onCreate = (player) => {
+				this.player = player;
+
+				player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
+					const videoTitle = player.getTitle(),
+						videoTime = this.getFormattedDuration(player.getDuration());
+
+					$videoContainer.find('.video-title').text(videoTitle);
+					$videoContainer.find('.video-time').text(videoTime);
+					$videoContainer.find('.video-placeholder').show();
+				});
+
+				this.setupTracking(player);
+			};
+
+			data.containerId = 'ooyala-article-video';
+
+			const videoLoader = new VideoLoader(data);
 
 			/**
 			 * This loads and creates a player
@@ -115,6 +148,14 @@ export default Ember.Component.extend(
 				category: 'article-video',
 				label: 'featured-video'
 			});
+		},
+
+		actions: {
+			playVideo() {
+				this.$('#ooyala-article-video').show();
+				this.$('.video-container').find('.video-details').hide();
+				this.player.play();
+			}
 		}
 	}
 );
