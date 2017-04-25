@@ -272,4 +272,78 @@ $share-icon-uri-hover: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbm
 	.oo-icon-svg, .oo-time-duration {
 		font-family: $wds-font-family !important;
 	}
+
+	&.fixed {
+		background: $wds-color-white;
+		box-shadow: $site-head-default-box-shadow;
+		padding: 12px;
+		position: fixed;
+		top: $wds-global-navigation-height;
+		z-index: $z-site-head + 1;
+
+		.plugins, .resize, .video {
+			display: none;
+		}
+
+		.oo-player {
+			background: transparent !important;
+			overflow: visible;
+			padding: 0;
+
+			> div {
+				position: static;
+			}
+
+			.oo-player-skin {
+				overflow: visible;
+			}
+		}
+
+		.oo-state-screen {
+			align-items: center;
+			display: flex;
+			overflow: visible;
+			position: relative;
+
+			.oo-state-screen-info {
+				position: static;
+				width: auto;
+
+				.oo-state-screen-title {
+					color: $wds-color-dark-blue-gray;
+					font-size: $wds-typescale-size-minus-1 !important;
+					font-weight: bold;
+					line-height: $wds-typescale-size-base !important;
+					max-width: 100%;
+				}
+			}
+
+			.oo-state-screen-poster {
+				flex: 0 0 100px;
+				height: 56px;
+				margin-right: 12px;
+				position: static;
+				width: 100px;
+
+				.oo-start-screen-linear-gradient {
+					display: none;
+				}
+			}
+
+			.oo-action-icon {
+				bottom: 6px;
+				box-shadow: none;
+				border-width: 3px;
+				height: 30px;
+				left: 64px;
+				right: auto;
+				width: 30px;
+
+				svg {
+					margin-left: 2px;
+					width: 12px;
+				}
+			}
+		}
+	}
 }
