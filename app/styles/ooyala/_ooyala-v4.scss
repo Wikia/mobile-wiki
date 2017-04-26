@@ -67,15 +67,15 @@ $video-player-head-size-scrubbing: 20px;
 			top: auto !important;
 
 			.oo-state-screen-title {
-				font-size: 16px !important;
+				font-size: $wds-typescale-size-base !important;
 				font-family: $wds-font-family !important;
 				line-height: 24px !important;
 				margin-bottom: 0 !important;
 			}
 
 			.video-duration {
-				color: #fff;
-				font-size: 14px;
+				color: $wds-color-white;
+				font-size: $wds-typescale-size-minus-1;
 				font-weight: bold;
 				letter-spacing: 0.25px;
 				line-height: 18px;
@@ -223,7 +223,7 @@ $video-player-head-size-scrubbing: 20px;
 			filter: none !important;
 
 			svg {
-				fill: #fff;
+				fill: $wds-color-white;
 				filter: none !important;
 			}
 

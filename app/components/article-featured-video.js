@@ -10,16 +10,21 @@ export default Ember.Component.extend(
 
 		init() {
 			this._super(...arguments);
+
 			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
 		},
 		/**
 		 * @returns {void}
 		 */
 		didRender() {
+			this._super(...arguments);
+
 			this.initVideoPlayer();
 		},
 
 		willDestroyElement() {
+			this._super(...arguments);
+
 			this.player.destroy();
 		},
 
