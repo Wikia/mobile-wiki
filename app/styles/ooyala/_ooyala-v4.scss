@@ -23,6 +23,70 @@ $video-player-head-size-scrubbing: 20px;
       }
     }
 
+    &.oo-start-screen {
+      .oo-start-screen-linear-gradient {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+      }
+
+      .oo-action-icon {
+        align-items: center;
+        background-color: $wds-color-light-blue;
+        border: 6px solid rgba(0, 0, 0, 0.32);
+        border-radius: 100%;
+        bottom: 12px;
+        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        left: auto;
+        position: absolute;
+        right: 12px;
+        top: auto;
+        transform: none;
+        width: 60px;
+
+        svg {
+          fill: $wds-color-white;
+          margin-left: 4px;
+          vertical-align: text-bottom;
+        }
+      }
+    }
+
+    .oo-action-icon {
+      position: absolute;
+    }
+
+    .oo-state-screen-info {
+      bottom: 9px !important;
+      left: 12px !important;
+      top: auto !important;
+
+      .oo-state-screen-title {
+        font-size: 16px !important;
+        font-family: $wds-font-family !important;
+        line-height: 24px !important;
+        margin-bottom: 0 !important;
+      }
+
+      .video-duration {
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 0.25px;
+        line-height: 18px;
+        opacity: .75;
+      }
+    }
+
+    // Override one-line title with ellipsis
+    .oo-text-truncate {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
     .oo-interactive-container {
       height: 56px;
     }
