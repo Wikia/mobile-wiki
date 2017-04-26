@@ -50,6 +50,14 @@ export default {
 				height: '400'
 			},
 			description: ''
+		},
+		adsContext: {
+			opts: {
+				showAds: false
+			},
+			targeting: {
+				wikiVertical: 'tv'
+			}
 		}
 	}
 };

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-import {NonJsonApiResponseError, WikiVariablesFetchError, DesignSystemFetchError} from '../errors/main';
+import {NonJsonApiResponseError, WikiVariablesFetchError} from '../utils/errors';
 
 const WikiVariablesModel = Ember.Object.extend({});
 
@@ -20,12 +20,14 @@ WikiVariablesModel.reopenClass({
 		return fetch(url)
 			.then((response) => {
 				if (!response.ok) {
-					throw new WikiVariablesFetchError({
-						code: response.status || 503
-					}).withAdditionalData({
-						host,
-						responseBody: response.json(),
-						url
+					return response.text().then((responseBody) => {
+						throw new WikiVariablesFetchError({
+							code: response.status || 503
+						}).withAdditionalData({
+							host,
+							responseBody,
+							url
+						});
 					});
 				}
 
@@ -39,39 +41,14 @@ WikiVariablesModel.reopenClass({
 					});
 				}
 
-			})
-			.then(({data}) => {
-				return fetch(
-					buildUrl({
-						host,
-						path: `/api/v1/design-system/wikis/${data.id}/${data.language.content}/`,
-						wiki: 'www'
-					})
-				)
-					.then((navigationApiResponse) => {
-						if (!navigationApiResponse.ok) {
-							throw new DesignSystemFetchError({
-								code: navigationApiResponse.status || 503
-							}).withAdditionalData({
-								host,
-								response: navigationApiResponse.json(),
-								url
-							});
-						}
+			}).then((response) => {
+				if (!response.data.siteName) {
+					response.data.siteName = 'Fandom powered by Wikia';
+				}
 
-						return navigationApiResponse.json();
-					})
-					.then((navigationData) => {
-						if (!data.siteName) {
-							data.siteName = 'Fandom powered by Wikia';
-						}
+				response.data.host = host;
 
-						data.host = host;
-						data.globalFooter = navigationData['global-footer'];
-						data.globalNavigation = navigationData['global-navigation'];
-
-						return data;
-					});
+				return response.data;
 			})
 			.catch((error) => {
 				if (error.name === 'NonJsonApiResponseError') {
@@ -80,12 +57,10 @@ WikiVariablesModel.reopenClass({
 
 				throw new WikiVariablesFetchError({
 					code: error.code || 503
-				})
-					.withPreviousError(error)
-					.withAdditionalData({
-						host,
-						url
-					});
+				}).withAdditionalData({
+					host,
+					url
+				}).withPreviousError(error);
 			});
 	}
 });

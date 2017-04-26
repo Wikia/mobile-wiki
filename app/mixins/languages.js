@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
-const {Mixin, computed, inject, String} = Ember;
+const {
+	Mixin,
+	String: {dasherize},
+	computed,
+	inject
+} = Ember;
 
 export default Mixin.create({
 	wikiVariables: inject.service(),
@@ -31,7 +36,7 @@ export default Mixin.create({
 		if (!lang) {
 			return this.get('defaultLanguage');
 		} else {
-			lang = String.dasherize(lang);
+			lang = dasherize(lang);
 
 			// pt-br is the only one supported share-feature language with dash and 5 characters
 			if (lang !== 'pt-br') {

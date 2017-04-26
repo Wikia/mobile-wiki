@@ -2,10 +2,11 @@ import Ember from 'ember';
 import config from '../config/environment';
 import i18n from 'npm:i18next';
 
-const {Logger, Service, inject} = Ember;
+const {Service, inject} = Ember;
 
 export default Service.extend({
 	fastboot: inject.service(),
+	logger: inject.service(),
 	i18nextInstance: null,
 
 	initialize(language) {
@@ -29,12 +30,12 @@ export default Service.extend({
 						return true;
 					} catch (exception) {
 						if (lang === 'en') {
-							Logger.error({
+							this.get('logger').error(`Translation for default language not found`, {
 								lang,
 								namespace,
 								path: translationPath,
 								error: exception.message
-							}, `Translation for default language not found`);
+							});
 						}
 					}
 				});

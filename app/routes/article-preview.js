@@ -3,15 +3,18 @@ import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-cla
 import ArticlePreviewModel from '../models/article-preview';
 import {disableCache} from '../utils/fastboot-caching';
 
+const {Route, inject} = Ember;
+
 /**
  * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
  * In order to enable this route you need to run `npm run build` and `npm run fastboot-server`
  */
-export default Ember.Route.extend(
+export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
 	{
-		fastboot: Ember.inject.service(),
-		wikiVariables: Ember.inject.service(),
+		fastboot: inject.service(),
+		logger: inject.service(),
+		wikiVariables: inject.service(),
 
 		applicationWrapperClassNames: ['article-preview'],
 
@@ -44,7 +47,7 @@ export default Ember.Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error, transition) {
-				Ember.Logger.error(error);
+				this.get('logger').error(error);
 				if (transition) {
 					transition.abort();
 				}

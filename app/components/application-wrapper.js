@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
 
-const {Component, computed, inject, Logger, $} = Ember;
+const {Component, computed, inject, $} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -33,9 +33,10 @@ export default Component.extend({
 	smartBannerVisible: false,
 	firstRender: true,
 
-	wikiVariables: inject.service(),
-	fastboot: inject.service(),
 	currentUser: inject.service(),
+	fastboot: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 
 	dir: computed.reads('wikiVariables.language.contentDir'),
 
@@ -159,7 +160,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	handleLink(target) {
-		Logger.debug('Handling link with href:', target.href);
+		this.get('logger').debug('Handling link with href:', target.href);
 
 		/**
 		 * If either the target or the target's parent is an anchor (and thus target == true),

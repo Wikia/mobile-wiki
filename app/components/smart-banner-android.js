@@ -9,7 +9,7 @@ const {
 	computed,
 	get,
 	inject,
-	String,
+	String: {htmlSafe},
 	run,
 } = Ember;
 
@@ -57,7 +57,7 @@ export default Component.extend({
 			height: this.iconSize
 		});
 
-		return new String.htmlSafe(`background-image: url(${icon})`);
+		return new htmlSafe(`background-image: url(${icon})`);
 	}),
 
 	link: computed('appId', 'dbName', function () {
