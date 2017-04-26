@@ -77,7 +77,8 @@ module.exports = function (defaults) {
 		outputPaths: {
 			app: {
 				css: {
-					app: '/assets/app.css'
+					app: '/assets/app.css',
+					'ooyala/index': '/assets/ooyala.css'
 				},
 				html: 'index.html',
 			}

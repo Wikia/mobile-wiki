@@ -1,15 +1,16 @@
 import BasePlayer from './base';
+import { Logger } from 'ember';
 
 export default class OoyalaV4Player extends BasePlayer {
 	/**
 	 * @param {string} provider
 	 * @param {*} params
+	 * @param {string} containerId
 	 * @returns {void}
 	 */
 	constructor(provider, params, containerId) {
 		const ooyalaPCode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
 		const ooyalaPlayerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
-		const ooyalaJs = '/mobile-wiki/assets/ooyala/all.js';
 		const skinConfigUrl = '/wikia.php?controller=OoyalaConfig&method=skin&cb=' + M.getFromShoebox('wikiVariables').cacheBuster;
 
 		params.pcode = ooyalaPCode;
@@ -20,7 +21,6 @@ export default class OoyalaV4Player extends BasePlayer {
 
 		super(provider, params);
 
-		this.resourceURI = ooyalaJs;
 		this.containerId = containerId;
 	}
 
@@ -29,7 +29,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	setupPlayer() {
 		if (!window.OO) {
-			this.loadPlayer();
+			Logger.error('Ooyala player has not beed loaded.');
 		} else {
 			this.createPlayer();
 		}
