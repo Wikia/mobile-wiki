@@ -1,6 +1,4 @@
 .video-container {
-	background-size: cover;
-	padding-top: 56.25%;
 	position: relative;
 
 	.ooyala-article-video {
@@ -13,15 +11,19 @@
 
 	.video-placeholder {
 		-webkit-font-smoothing: antialiased;
+		align-items: flex-end;
+		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
 		bottom: 0;
 		color: #fff;
-		display: none;
+		//display: none;
+		display: flex;
 		font-weight: bold;
+		justify-content: space-between;
 		left: 0;
+		padding: 12px;
 		position: absolute;
 		resize: none;
 		right: 0;
-		top: 0;
 	}
 
 	.video-play-circle {
@@ -29,11 +31,10 @@
 		background-color: #1a5eb8;
 		border: 6px solid rgba(0, 0, 0, 0.32);
 		border-radius: 50%;
-		bottom: 12px;
 		display: flex;
 		height: 60px;
 		justify-content: center;
-		position: absolute;
+		margin-left: 12px;
 		right: 12px;
 		width: 60px;
 
@@ -43,15 +44,12 @@
 	}
 
 	.video-details {
-		bottom: 9px;
-		left: 12px;
-		max-width: 70%;
-		position: absolute;
+		flex: 1 0 70%;
 
 		.video-label {
 			color: #fff;
-			font-size: 12px;
-			line-height: 1;
+			font-size: $wds-typescale-size-minus-2;
+			line-height: $wds-typescale-size-minus-1;
 			opacity: 0.5;
 			text-transform: uppercase;
 		}
@@ -59,6 +57,71 @@
 		.video-time:before {
 			content: '\2022';
 			padding: 0 2px;
+		}
+
+		.video-title {
+			font-size: $wds-typescale-size-base;
+			line-height: 19px;
+		}
+	}
+
+	&.fixed {
+		background: $wds-color-white;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+		padding: 12px;
+		position: fixed;
+		top: $wds-global-navigation-height;
+		z-index: $z-site-head + 1;
+		align-items: center;
+		display: flex;
+		width: 100%;
+
+		.video-placeholder {
+			background-image: none;
+			display: block;
+			padding: 0;
+			position: static;
+		}
+
+		.video-thumbnail {
+			flex: 0 0 100px;
+			height: 56px;
+			margin-right: 12px;
+			position: static;
+			width: 100px;
+		}
+
+		.video-details {
+			flex-basis: 100%;
+
+			.video-label {
+				color: $wds-color-light-c5;
+				font-size: $wds-typescale-size-minus-3;
+				opacity: 1;
+			}
+
+			.video-title {
+				color: $wds-color-dark-blue-gray;
+				font-size: $wds-typescale-size-minus-1;
+				line-height: $wds-typescale-size-base;
+			}
+		}
+
+		.video-play-circle {
+			bottom: 18px;
+			box-shadow: none;
+			border-width: 3px;
+			height: 30px;
+			left: 64px;
+			position: absolute;
+			right: auto;
+			width: 30px;
+
+			.wds-icon {
+				height: 12px;
+				margin-left: 2px;
+				width: 12px;
+			}
 		}
 	}
 }
