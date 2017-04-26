@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/track';
 
 export default Ember.Component.extend(
 	{
+		classNames: ['article-featured-video'],
 		isPlayerLoading: true,
 
 		init() {
