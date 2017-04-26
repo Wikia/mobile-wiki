@@ -6,6 +6,11 @@ import {getService} from '../utils/application-instance';
 import {buildUrl, getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
+const {
+	Object: EmberObject,
+	RSVP
+} = Ember;
+
 /**
  * @typedef {Object} UserModelFindParams
  * @property {number} userId
@@ -22,7 +27,7 @@ import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError}
  * @property {number} userId
  */
 
-const UserModel = Ember.Object.extend({
+const UserModel = EmberObject.extend({
 	avatarPath: null,
 	name: null,
 	powerUserTypes: null,
@@ -34,7 +39,7 @@ UserModel.reopenClass({
 
 	getUserId(accessToken) {
 		if (!accessToken) {
-			return null;
+			return RSVP.resolve(null);
 		}
 
 		const queryString = getQueryString({
@@ -54,7 +59,7 @@ UserModel.reopenClass({
 					logger.error('Helios connection error: ', response);
 				}
 
-				return null;
+				return RSVP.resolve(null);
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
@@ -63,7 +68,7 @@ UserModel.reopenClass({
 				logger.error('Helios connection error: ', reason);
 			}
 
-			return null;
+			return RSVP.resolve(null);
 		});
 	},
 
