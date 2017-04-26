@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import VideoLoader from '../modules/video-loader';
+import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 
 export default Ember.Component.extend(
@@ -22,26 +23,6 @@ export default Ember.Component.extend(
 			this.player.destroy();
 		},
 
-		getFormattedDuration(millisec) {
-			let seconds = parseInt(millisec / 1000, 10);
-			let hours = parseInt(seconds / 3600, 10);
-			seconds = seconds % 3600;
-			let minutes = parseInt(seconds / 60, 10);
-			seconds = seconds % 60;
-			let duration = '';
-			if (hours > 0) {
-				duration += `${hours}:`;
-				if (minutes < 10) {
-					duration += '0';
-				}
-			}
-			duration += `${minutes}:`;
-			if (seconds < 10) {
-				duration += '0';
-			}
-			return duration + seconds;
-		},
-
 		onCreate(player) {
 			const $videoContainer = this.$('.video-container');
 
@@ -49,7 +30,7 @@ export default Ember.Component.extend(
 
 			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
 				const videoTitle = player.getTitle(),
-					videoTime = this.getFormattedDuration(player.getDuration());
+					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
 
 				$videoContainer.find('.video-title').text(videoTitle);
 				$videoContainer.find('.video-time').text(videoTime);
