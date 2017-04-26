@@ -9,231 +9,231 @@ $video-player-head-size: 13px;
 $video-player-head-size-scrubbing: 20px;
 
 .oo-player-container {
-  min-width: 0 !important;
+	min-width: 0 !important;
 
-  .oo-player {
-    transition: none;
-  }
+	.oo-player {
+		transition: none;
+	}
 
-  .oo-state-screen {
-    // hides title on pause screen
-    &.oo-pause-screen {
-      .oo-state-screen-title {
-        display: none;
-      }
-    }
+	.oo-state-screen {
+		// hides title on pause screen
+		&.oo-pause-screen {
+			.oo-state-screen-title {
+				display: none;
+			}
+		}
 
-    &.oo-start-screen {
-      .oo-start-screen-linear-gradient {
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
-      }
+		&.oo-start-screen {
+			.oo-start-screen-linear-gradient {
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+			}
 
-      .oo-action-icon {
-        align-items: center;
-        background-color: $wds-color-light-blue;
-        border: 6px solid rgba(0, 0, 0, 0.32);
-        border-radius: 100%;
-        bottom: 12px;
-        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
-        box-sizing: border-box;
-        display: flex;
-        height: 60px;
-        justify-content: center;
-        left: auto;
-        position: absolute;
-        right: 12px;
-        top: auto;
-        transform: none;
-        width: 60px;
+			.oo-action-icon {
+				align-items: center;
+				background-color: $wds-color-light-blue;
+				border: 6px solid rgba(0, 0, 0, 0.32);
+				border-radius: 100%;
+				bottom: 12px;
+				box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+				box-sizing: border-box;
+				display: flex;
+				height: 60px;
+				justify-content: center;
+				left: auto;
+				position: absolute;
+				right: 12px;
+				top: auto;
+				transform: none;
+				width: 60px;
 
-        svg {
-          fill: $wds-color-white;
-          margin-left: 4px;
-          vertical-align: text-bottom;
-        }
-      }
-    }
+				svg {
+					fill: $wds-color-white;
+					margin-left: 4px;
+					vertical-align: text-bottom;
+				}
+			}
+		}
 
-    .oo-action-icon {
-      position: absolute;
-    }
+		.oo-action-icon {
+			position: absolute;
+		}
 
-    .oo-state-screen-info {
-      bottom: 9px !important;
-      left: 12px !important;
-      top: auto !important;
+		.oo-state-screen-info {
+			bottom: 9px !important;
+			left: 12px !important;
+			top: auto !important;
 
-      .oo-state-screen-title {
-        font-size: 16px !important;
-        font-family: $wds-font-family !important;
-        line-height: 24px !important;
-        margin-bottom: 0 !important;
-      }
+			.oo-state-screen-title {
+				font-size: 16px !important;
+				font-family: $wds-font-family !important;
+				line-height: 24px !important;
+				margin-bottom: 0 !important;
+			}
 
-      .video-duration {
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 0.25px;
-        line-height: 18px;
-        opacity: .75;
-      }
-    }
+			.video-duration {
+				color: #fff;
+				font-size: 14px;
+				font-weight: bold;
+				letter-spacing: 0.25px;
+				line-height: 18px;
+				opacity: .75;
+			}
+		}
 
-    // Override one-line title with ellipsis
-    .oo-text-truncate {
-      overflow: visible;
-      text-overflow: clip;
-      white-space: normal;
-    }
+		// Override one-line title with ellipsis
+		.oo-text-truncate {
+			overflow: visible;
+			text-overflow: clip;
+			white-space: normal;
+		}
 
-    .oo-interactive-container {
-      height: 56px;
-    }
-  }
+		.oo-interactive-container {
+			height: 56px;
+		}
+	}
 
-  .oo-social-action-text {
-    display: none;
-  }
+	.oo-social-action-text {
+		display: none;
+	}
 
-  .oo-player-skin {
-    z-index: 1 !important;
-  }
+	.oo-player-skin {
+		z-index: 1 !important;
+	}
 
-  .video {
-    z-index: 0 !important;
-  }
+	.video {
+		z-index: 0 !important;
+	}
 
-  // Note that Ooyala delivers social svg's with round backgrounds
-  .oo-player-skin .oo-content-panel.oo-share-panel .oo-share-tab-panel {
-    .oo-facebook, .oo-twitter {
-      border-radius: 0;
-      height: 45px;
-      margin-right: 6px;
-      width: 45px;
-    }
+	// Note that Ooyala delivers social svg's with round backgrounds
+	.oo-player-skin .oo-content-panel.oo-share-panel .oo-share-tab-panel {
+		.oo-facebook, .oo-twitter {
+			border-radius: 0;
+			height: 45px;
+			margin-right: 6px;
+			width: 45px;
+		}
 
-    .oo-facebook {
-      background-color: #3b5998;
-      background-size: 30px;
-    }
+		.oo-facebook {
+			background-color: #3b5998;
+			background-size: 30px;
+		}
 
-    .oo-twitter {
-      background-color: #55acee;
-      background-size: 40px;
-    }
+		.oo-twitter {
+			background-color: #55acee;
+			background-size: 40px;
+		}
 
-    .oo-google-plus, .oo-email-share {
-      display: none;
-    }
-  }
+		.oo-google-plus, .oo-email-share {
+			display: none;
+		}
+	}
 
-  .oo-thumbnail-carousel-time, .oo-thumbnail-time {
-    font-family: $wds-font-family;
-  }
+	.oo-thumbnail-carousel-time, .oo-thumbnail-time {
+		font-family: $wds-font-family;
+	}
 
-  .oo-scrubber-bar-container {
-    // Adjustment for smaller height on controlbar
-    height: 5px;
+	.oo-scrubber-bar-container {
+		// Adjustment for smaller height on controlbar
+		height: 5px;
 
-    .oo-scrubber-bar-padding {
-      .oo-scrubber-bar {
-        height: $video-scrubber-height;
-      }
+		.oo-scrubber-bar-padding {
+			.oo-scrubber-bar {
+				height: $video-scrubber-height;
+			}
 
-      .oo-playhead-padding {
-        .oo-playhead {
-          background: $video-player-head-color;
-          border-radius: $video-player-head-size;
-          border: 2px solid #fff;
-          height: $video-player-head-size;
-          width: $video-player-head-size;
-        }
+			.oo-playhead-padding {
+				.oo-playhead {
+					background: $video-player-head-color;
+					border-radius: $video-player-head-size;
+					border: 2px solid #fff;
+					height: $video-player-head-size;
+					width: $video-player-head-size;
+				}
 
-        .oo-playhead-scrubbing {
-          background: $video-player-head-color;
-          border-radius: $video-player-head-size-scrubbing;
-          border: 3px solid #fff;
-          height: $video-player-head-size-scrubbing;
-          width: $video-player-head-size-scrubbing;
-        }
-      }
-    }
-  }
+				.oo-playhead-scrubbing {
+					background: $video-player-head-color;
+					border-radius: $video-player-head-size-scrubbing;
+					border: 3px solid #fff;
+					height: $video-player-head-size-scrubbing;
+					width: $video-player-head-size-scrubbing;
+				}
+			}
+		}
+	}
 
-  .oo-control-bar {
-    transition: none;
+	.oo-control-bar {
+		transition: none;
 
-    .oo-logo {
-      display: none !important;
-    }
+		.oo-logo {
+			display: none !important;
+		}
 
-    .oo-icon {
-      &:hover {
-        // Remove however glow effect added by js
-        filter: none !important;
-      }
-    }
+		.oo-icon {
+			&:hover {
+				// Remove however glow effect added by js
+				filter: none !important;
+			}
+		}
 
-    .oo-control-bar-items-wrapper {
-      // Adjustment for smaller height on controlbar
-      margin-top: 11px;
+		.oo-control-bar-items-wrapper {
+			// Adjustment for smaller height on controlbar
+			margin-top: 11px;
 
-      .oo-control-bar-item {
-        // Reduce original horizontal spacing of icons
-        padding: 0 6px;
+			.oo-control-bar-item {
+				// Reduce original horizontal spacing of icons
+				padding: 0 6px;
 
-        svg {
-          fill: $wds-color-white
-        }
+				svg {
+					fill: $wds-color-white
+				}
 
-        // On selected don't show the icon behind the background image
-        &.oo-selected > .fandom-video-gear-icon {
-          // Already important from ooyala
-          color: transparent !important;
-        }
-      }
+				// On selected don't show the icon behind the background image
+				&.oo-selected > .fandom-video-gear-icon {
+					// Already important from ooyala
+					color: transparent !important;
+				}
+			}
 
-      .oo-volume {
-        .oo-volume-bar {
-          display: none;
-        }
+			.oo-volume {
+				.oo-volume-bar {
+					display: none;
+				}
 
-        .oo-volume-slider {
-          display: none;
-        }
-      }
+				.oo-volume-slider {
+					display: none;
+				}
+			}
 
-      .oo-control-bar-duration {
-        font-weight: bold;
-        font-family: $wds-font-family;
-        top: 0;
-      }
-    }
+			.oo-control-bar-duration {
+				font-weight: bold;
+				font-family: $wds-font-family;
+				top: 0;
+			}
+		}
 
-    // For all default icons (new icons stay transparent) make the hover state the default video blue color
-    .oo-icon:hover {
-      color: $video-player-blue !important;
-    }
+		// For all default icons (new icons stay transparent) make the hover state the default video blue color
+		.oo-icon:hover {
+			color: $video-player-blue !important;
+		}
 
-    .oo-icon-svg {
-      filter: none !important;
+		.oo-icon-svg {
+			filter: none !important;
 
-      svg {
-        fill: #fff;
-        filter: none !important;
-      }
+			svg {
+				fill: #fff;
+				filter: none !important;
+			}
 
-      &:hover {
-        svg {
-          fill: $video-player-blue;
-        }
-      }
-    }
-  }
+			&:hover {
+				svg {
+					fill: $video-player-blue;
+				}
+			}
+		}
+	}
 
-  // That overrides ooyala icons font. It prevents downloading the font.
-  .oo-icon-svg, .oo-time-duration {
-    font-family: $wds-font-family !important;
-  }
+	// That overrides ooyala icons font. It prevents downloading the font.
+	.oo-icon-svg, .oo-time-duration {
+		font-family: $wds-font-family !important;
+	}
 }
