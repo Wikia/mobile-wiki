@@ -4,11 +4,19 @@ import { track, trackActions } from '../utils/track'
 
 export default Ember.Component.extend(
 	{
+		init() {
+			this._super(...arguments);
+			this.set('videoContainerId', 'ooyala-article-video' + new Date().getTime());
+		},
 		/**
 		 * @returns {void}
 		 */
 		didRender() {
 			this.initVideoPlayer();
+		},
+
+		willDestroyElement() {
+			this.player.destroy();
 		},
 
 		getFormattedDuration(millisec) {
@@ -55,7 +63,7 @@ export default Ember.Component.extend(
 				this.setupTracking(player);
 			};
 
-			data.containerId = 'ooyala-article-video';
+			data.containerId = this.get('videoContainerId');
 
 			const videoLoader = new VideoLoader(data);
 
@@ -152,7 +160,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			playVideo() {
-				this.$('#ooyala-article-video').show();
+				this.$('#' + this.get('videoContainerId')).show();
 				this.$('.video-container').find('.video-details').hide();
 				this.player.play();
 			}
