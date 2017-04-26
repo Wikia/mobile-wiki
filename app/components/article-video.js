@@ -4,6 +4,8 @@ import { track, trackActions } from '../utils/track'
 
 export default Ember.Component.extend(
 	{
+		isPlayerLoading: true,
+
 		init() {
 			this._super(...arguments);
 			this.set('videoContainerId', 'ooyala-article-video' + new Date().getTime());
@@ -39,29 +41,33 @@ export default Ember.Component.extend(
 			return duration + seconds;
 		},
 
+		onCreate(player) {
+			const $videoContainer = this.$('.video-container');
+
+			this.player = player;
+
+			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
+				const videoTitle = player.getTitle(),
+					videoTime = this.getFormattedDuration(player.getDuration());
+
+				$videoContainer.find('.video-title').text(videoTitle);
+				$videoContainer.find('.video-time').text(videoTime);
+				$videoContainer.find('.video-details').show();
+				this.set('isPlayerLoading', false);
+			});
+
+			this.setupTracking(player);
+		},
+
 		/**
 		 * Used to instantiate a video player
 		 *
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const data = this.get('model.embed'),
-				$videoContainer = this.$('.video-container');
+			const data = this.get('model.embed');
 
-			data.jsParams.onCreate = (player) => {
-				this.player = player;
-
-				player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
-					const videoTitle = player.getTitle(),
-						videoTime = this.getFormattedDuration(player.getDuration());
-
-					$videoContainer.find('.video-title').text(videoTitle);
-					$videoContainer.find('.video-time').text(videoTime);
-					$videoContainer.find('.video-placeholder').show();
-				});
-
-				this.setupTracking(player);
-			};
+			data.jsParams.onCreate = this.onCreate.bind(this);
 
 			data.containerId = this.get('videoContainerId');
 
@@ -160,9 +166,11 @@ export default Ember.Component.extend(
 
 		actions: {
 			playVideo() {
-				this.$('#' + this.get('videoContainerId')).show();
-				this.$('.video-container').find('.video-details').hide();
-				this.player.play();
+				if(this.player) {
+					this.$('#' + this.get('videoContainerId')).show();
+					this.$('.video-container').find('.video-details').hide();
+					this.player.play();
+				}
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-<div class="video-container">
+<div class="video-container{{unless isPlayerLoading ' player-ready'}}">
+	{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
 	<img src="{{model.url}}" class="video-thumbnail">
 	<div {{action 'playVideo'}} class="video-placeholder">
 		<div class="video-details">
