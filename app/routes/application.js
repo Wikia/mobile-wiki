@@ -1,18 +1,16 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
-import WikiVariablesModel from '../models/wiki-variables';
+import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import getHostFromRequest from '../utils/host';
 import getLinkInfo from '../utils/article-link';
+import ErrorDescriptor from '../utils/error-descriptor';
+import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
+import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
-import {NonJsonApiResponseError, DontLogMeError} from '../errors/main';
-
-import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 
 const {
-	Logger,
 	Route,
 	TargetActionSupport,
 	getOwner,
@@ -27,6 +25,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -43,45 +42,38 @@ export default Route.extend(
 		noexternals: null,
 
 		model(params, transition) {
-			const shoebox = this.get('fastboot.shoebox');
+			const fastboot = this.get('fastboot');
 
-			if (this.get('fastboot.isFastBoot')) {
-				const request = this.get('fastboot.request');
+			// We need the wiki page title for setting tracking dimensions in ApplicationModel.
+			// Instead of waiting for the wiki page model to resolve,
+			// let's just use the value from route params.
+			let wikiPageTitle;
 
-				return WikiVariablesModel.get(getHostFromRequest(request))
-					.then((wikiVariablesModel) => {
-						shoebox.put('wikiVariables', wikiVariablesModel);
-						this.get('wikiVariables').setProperties(wikiVariablesModel);
-						this.injectScriptsFastbootOnly(wikiVariablesModel, transition.queryParams);
-
-						return wikiVariablesModel;
-					})
-					.catch((error) => {
-						if (error instanceof NonJsonApiResponseError) {
-							const fastboot = this.get('fastboot');
-
-							fastboot.get('response.headers').set(
-								'location',
-								error.additionalData[0].redirectLocation
-							);
-							fastboot.set('response.statusCode', 302);
-
-							// TODO XW-3198
-							// We throw error to stop Ember
-							throw error;
-						}
-
-						this.injectScriptsFastbootOnly(null, transition.queryParams);
-						throw error;
-					});
-			} else {
-				const wikiVariablesModel = shoebox.retrieve('wikiVariables'),
-					wikiVariablesService = this.get('wikiVariables');
-
-				wikiVariablesService.setProperties(wikiVariablesModel);
-
-				return wikiVariablesModel;
+			if (transition.targetName === 'wiki-page') {
+				wikiPageTitle = transition.params['wiki-page'].title;
 			}
+
+			return ApplicationModel.get(wikiPageTitle)
+				.then((applicationData) => {
+					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
+
+					if (fastboot.get('isFastBoot')) {
+						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
+					}
+
+					return applicationData;
+				})
+				.catch((error) => {
+					if (error instanceof NonJsonApiResponseError) {
+						fastboot.get('response.headers').set(
+							'location',
+							error.additionalData[0].redirectLocation
+						);
+						fastboot.set('response.statusCode', 302);
+					}
+
+					throw error;
+				});
 		},
 
 		afterModel(model, transition) {
@@ -90,7 +82,7 @@ export default Route.extend(
 
 			this._super(...arguments);
 
-			this.get('i18n').initialize(transition.queryParams.uselang || model.language.content);
+			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
 				!fastboot.get('isFastBoot') &&
@@ -129,40 +121,39 @@ export default Route.extend(
 				};
 			}
 
-			// TODO move to applicationModel
-			return this.get('currentUser').initialize().then(() => {
-				if (fastboot.get('isFastBoot')) {
-					// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
-					// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-					fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-					fastboot.get('response.headers').set('Content-Language', model.language.content);
+			if (fastboot.get('isFastBoot')) {
+				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
+				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
 
-					// TODO remove `transition.queryParams.page`when icache supports surrogate keys
-					// and we can purge the category pages
-					if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-						disableCache(fastboot);
-					} else {
-						// TODO don't cache errors
-						setResponseCaching(this.get('fastboot'), {
-							enabled: true,
-							cachingPolicy: CachingPolicy.Public,
-							varnishTTL: CachingInterval.standard,
-							browserTTL: CachingInterval.disabled
-						});
-					}
+				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+				// and we can purge the category pages
+				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+					disableCache(fastboot);
+				} else {
+					// TODO don't cache errors
+					setResponseCaching(fastboot, {
+						enabled: true,
+						cachingPolicy: CachingPolicy.Public,
+						varnishTTL: CachingInterval.standard,
+						browserTTL: CachingInterval.disabled
+					});
 				}
-			});
+			}
 		},
 
 		redirect(model, transition) {
-			const fastboot = this.get('fastboot');
+			const fastboot = this.get('fastboot'),
+				basePath = model.wikiVariables.basePath;
 
-			if (fastboot.get('isFastBoot') && model.basePath !== `${fastboot.get('request.protocol')}://${model.host}`) {
+			if (fastboot.get('isFastBoot') &&
+				basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
 				const fastbootRequest = this.get('fastboot.request');
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${model.basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
 				);
 				fastboot.set('response.statusCode', 301);
 
@@ -187,6 +178,33 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+			},
+
+			error(error, transition) {
+				const fastboot = this.get('fastboot');
+
+				// TODO XW-3198
+				// Don't handle special type of errors. Currently we use them hack Ember and stop executing application
+				if (error instanceof DontLogMeError) {
+					return false;
+				}
+
+				this.get('logger').error('Application error', error);
+
+				if (fastboot.get('isFastBoot')) {
+					fastboot.get('shoebox').put('serverError', true);
+					fastboot.set('response.statusCode', 503);
+					this.injectScriptsFastbootOnly(null, transition.queryParams);
+
+					// We can't use the built-in mechanism to render error substates.
+					// When FastBoot sees that application route sends error, it dies.
+					// Instead, we transition to the error substate manually.
+					const errorDescriptor = ErrorDescriptor.create({error});
+					this.intermediateTransitionTo('application_error', errorDescriptor);
+					return false;
+				}
+
+				return true;
 			},
 
 			/**
@@ -247,7 +265,7 @@ export default Route.extend(
 					}
 				} else {
 					// Reaching this clause means something is probably wrong.
-					Logger.error('unable to open link', target.href);
+					this.get('logger').error('Unable to open link', target.href);
 				}
 			},
 

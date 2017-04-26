@@ -9,11 +9,10 @@ import getPageModel from '../utils/wiki-handlers/wiki-page';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
-import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Logger, Route, RSVP, $, inject, get} = Ember;
+const {Route, RSVP, $, inject, get} = Ember;
 
 export default Route.extend(
 	HeadTagsDynamicMixin,
@@ -25,6 +24,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		wikiVariables: inject.service(),
 
 		queryParams: {
@@ -50,7 +50,7 @@ export default Route.extend(
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
 			} else {
-				Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
 			}
 		},
@@ -103,19 +103,7 @@ export default Route.extend(
 				modelParams,
 				fastboot,
 				this.get('wikiVariables.contentNamespaces')
-			)).then((pageModel) => {
-				if (fastboot.get('isFastBoot')) {
-					return RSVP
-						.resolve(pageModel)
-						.then((pageModel) => {
-							return getAndPutTrackingDimensionsToShoebox(
-								fastboot, this.get('currentUser'), host, pageModel
-							);
-						});
-				} else {
-					return pageModel;
-				}
-			});
+			));
 		},
 
 		/**
@@ -133,6 +121,10 @@ export default Route.extend(
 
 				if (handler) {
 					transition.then(() => {
+						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
+						// updated yet. `didTrasition` hook is called too fast.
+						this.trackPageView(model);
+
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition(model, this.get('wikiVariables.id'), this.get('wikiVariables.host'));
 						}
@@ -160,7 +152,7 @@ export default Route.extend(
 					}
 				}
 			} else {
-				Logger.warn('Unsupported page');
+				this.get('logger').warn('Unsupported page');
 			}
 		},
 
@@ -251,8 +243,6 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
-				this.trackPageView(this.modelFor(this.routeName));
-
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
 						message: this.get('i18n').t('article.redirect-empty-target'),
@@ -272,7 +262,10 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error) {
-				Logger.error('Wiki page error', error);
+				if (this.get('fastboot.isFastBoot') && (!error.code || error.code !== 404)) {
+					this.get('logger').error('Wiki page error', error);
+				}
+
 				this.intermediateTransitionTo('wiki-page_error', error);
 
 				return false;

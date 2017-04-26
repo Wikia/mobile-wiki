@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import {getService} from '../utils/application-instance';
 
-const {Object: EmberObject, A, Logger, computed, get} = Ember;
+const {A, Object: EmberObject, computed, get} = Ember;
 
 export default EmberObject.extend({
 	// This has to be injected
@@ -43,7 +44,7 @@ export default EmberObject.extend({
 					parent = node;
 					localNav = node.children;
 				} else {
-					Logger.error('Incorrect navigation state');
+					getService('logger').error('Incorrect navigation state');
 					return {};
 				}
 			}

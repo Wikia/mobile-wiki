@@ -2,7 +2,7 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
-const {computed, Service, inject, Logger, RSVP} = Ember;
+const {computed, Service, inject, RSVP} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -25,8 +25,9 @@ const {computed, Service, inject, Logger, RSVP} = Ember;
  */
 
 export default Service.extend({
-	wikiVariables: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 	rights: {},
 	isAuthenticated: computed.bool('userId'),
 	language: computed('wikiVariables', function () {
@@ -35,50 +36,25 @@ export default Service.extend({
 
 	userId: null,
 
-	initialize() {
-		const fastboot = this.get('fastboot');
-
-		if (fastboot.get('isFastBoot')) {
-			const accessToken = fastboot.get('request.cookies.access_token');
-
-			if (accessToken) {
-				return UserModel.getUserId(accessToken).then((userId) => {
-					if (userId) {
-						fastboot.get('shoebox').put('userId', userId);
-						// We have to anonymize user id before sending it to Google
-						// It's faster to do the hashing server side and pass to the front-end, ready to use
-						fastboot.get('shoebox').put('gaUserIdHash', this.getGaUserIdHash(userId));
-						return this.initializeUserData(userId);
-					}
-
-					return RSVP.resolve();
-				});
-			}
-		} else {
-			const userId = fastboot.get('shoebox').retrieve('userId');
-
-			if (userId) {
-				return this.initializeUserData(userId);
-			}
-		}
-
-		return RSVP.resolve();
-	},
-
 	/**
 	 * @returns {RSVP}
 	 */
-	initializeUserData(userId) {
+	initializeUserData(userId, host = null) {
 		this.set('userId', userId);
 
 		if (userId !== null) {
 			const shoebox = this.get('fastboot.shoebox');
+
 			if (this.get('fastboot.isFastBoot')) {
+				// We have to anonymize user id before sending it to Google
+				// It's faster to do the hashing server side and pass to the front-end, ready to use
+				shoebox.put('gaUserIdHash', this.getGaUserIdHash(userId));
+
 				return UserModel
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
-						host: this.get('wikiVariables.host')
+						host
 					})
 					.then((userModelData) => {
 						if (userModelData) {
@@ -87,7 +63,7 @@ export default Service.extend({
 						}
 					})
 					.catch((err) => {
-						Logger.warn('Couldn\'t load current user model', err);
+						this.get('logger').error('Couldn\'t load current user model', err);
 					});
 			} else {
 				this.setProperties(shoebox.retrieve('userData'));

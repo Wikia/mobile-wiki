@@ -1,11 +1,16 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const {Component, String: EmberString, computed, run} = Ember,
+const {
+	Component,
+	String: {dasherize},
+	computed,
+	run
+} = Ember,
 	adSlotComponentStub = Component.extend({
 		classNameBindings: ['nameLowerCase'],
 		nameLowerCase: computed('name', function () {
-			return EmberString.dasherize(this.get('name').toLowerCase());
+			return dasherize(this.get('name').toLowerCase());
 		})
 	});
 
@@ -16,10 +21,11 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:ads/invisible-high-impact-2',
 		'component:portable-infobox',
 		'component:article-table-of-contents',
-		'service:currentUser',
 		'service:ads',
-		'service:wikiVariables',
-		'service:fastboot'
+		'service:currentUser',
+		'service:fastboot',
+		'service:logger',
+		'service:wikiVariables'
 	],
 
 	beforeEach() {

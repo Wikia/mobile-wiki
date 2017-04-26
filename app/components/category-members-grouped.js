@@ -2,12 +2,13 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
 
-const {Component, Logger, $, run, inject} = Ember;
+const {Component, $, run, inject} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
 	{
 		i18n: inject.service(),
+		logger: inject.service(),
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
 		isLoading: false,
@@ -41,7 +42,7 @@ export default Component.extend(
 							type: 'alert'
 						});
 
-						Logger.error(error);
+						this.get('logger').error(error);
 					})
 					.finally(() => {
 						this.set('isLoading', false);

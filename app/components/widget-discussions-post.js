@@ -2,7 +2,12 @@ import Ember from 'ember';
 import {truncate} from '../utils/truncate';
 import nl2br from '../utils/nl2br';
 
-const {Component, Handlebars, String, computed} = Ember;
+const {
+	Component,
+	Handlebars,
+	String: {htmlSafe},
+	computed
+} = Ember;
 
 export default Component.extend(
 	{
@@ -29,7 +34,7 @@ export default Component.extend(
 			escapedContent = truncate(escapedContent, 148);
 			escapedContent = nl2br(escapedContent);
 
-			return new String.htmlSafe(escapedContent);
+			return new htmlSafe(escapedContent);
 		})
 	}
 );

@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import Notification from './notification';
 import fetch from 'ember-network/fetch';
+import {getService} from '../../utils/application-instance';
 import {convertToIsoString} from '../../utils/iso-date-time';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
-const {Object: EmberObject, A, RSVP, Logger, get} = Ember;
+const {A, Object: EmberObject, RSVP, get} = Ember;
 
 const NotificationsModel = EmberObject.extend({
 	unreadCount: 0,
@@ -24,7 +25,7 @@ const NotificationsModel = EmberObject.extend({
 				this.set('unreadCount', result.unreadCount);
 			}).catch((error) => {
 				this.set('unreadCount', 0);
-				Logger.error('Setting notifications unread count to 0 because of the API fetch error');
+				getService('logger').error('Setting notifications unread count to 0 because of the API fetch error');
 			});
 	},
 
@@ -91,8 +92,7 @@ const NotificationsModel = EmberObject.extend({
 		});
 
 		this.get('data').pushObjects(notificationModels);
-	},
-
+	}
 });
 
 export default NotificationsModel;
