@@ -1,6 +1,9 @@
 .article-featured-video {
+	position: relative;
+	padding-bottom: 56.25%;
+
 	.video-container {
-		position: relative;
+		position: absolute;
 
 		.wds-spinner {
 			$spinner-size: 59px;
@@ -51,8 +54,6 @@
 			justify-content: center;
 			margin-left: 12px;
 			opacity: .7;
-			position: absolute;
-			right: 12px;
 			width: 60px;
 
 			.wds-icon {
@@ -104,6 +105,10 @@
 			align-items: center;
 			display: flex;
 			width: 100%;
+
+			.wds-spinner {
+				display: none;
+			}
 
 			.video-placeholder {
 				background-image: none;

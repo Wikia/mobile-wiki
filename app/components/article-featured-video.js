@@ -17,6 +17,30 @@ export default Ember.Component.extend(
 		 */
 		didRender() {
 			this.initVideoPlayer();
+			this.initOnScrollBehaviour();
+		},
+
+		/**
+		 * Manages video transformation on user's scroll action
+		 *
+		 * @returns {void}
+		 */
+		initOnScrollBehaviour() {
+			var prevScroll = 0,
+				$video = $(".video-container"),
+				videoBottomPosition = $video.offset().top + $video.height();
+
+			$(window).scroll(function() {
+				var currentScroll = $(window).scrollTop();
+
+				if (!$video.hasClass('fixed') && currentScroll >= videoBottomPosition && currentScroll > prevScroll) {
+					$video.addClass('fixed');
+				} else if ($video.hasClass('fixed') && currentScroll < videoBottomPosition - $video.height() && currentScroll < prevScroll) {
+					$video.removeClass('fixed');
+				}
+
+				prevScroll = currentScroll;
+			});
 		},
 
 		willDestroyElement() {
