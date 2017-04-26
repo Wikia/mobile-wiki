@@ -1,8 +1,11 @@
 @import "../../../bower_components/design-system/dist/scss/wds-variables/colors";
 @import "../../../bower_components/design-system/dist/scss/wds-variables/typography";
 
+// NOTE: !important is used multiple times in this file because of overriding ooyala default styles
+// that are already defined with !important, or with very specific selector
+
 //Vars (Some are from the config.json file)
-$video-player-blue: #00b7e0;
+$video-player-blue: $wds-color-link;
 $video-scrubber-height: 3px;
 $video-player-head-color: $video-player-blue;
 $video-player-head-size: 13px;
