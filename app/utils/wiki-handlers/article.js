@@ -2,23 +2,6 @@ import Ember from 'ember';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
 
-/**
- * @param {Ember.Route} route
- * @param {Ember.model} model
- * @returns {void}
- */
-function afterModel(route, model) {
-	// Reset query parameters
-	model.set('commentsPage', null);
-
-	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
-
-	// Include Ooyala assets if there is no portable infobox and featured video is attached
-	if(!model.get('hasPortableInfobox') && model.get('featuredVideo')) {
-		addOoyalaAssets(route);
-	}
-}
-
 function addOoyalaAssets(route) {
 	if (!route.get('fastboot.isFastBoot')) {
 		return;
@@ -31,6 +14,23 @@ function addOoyalaAssets(route) {
 	const articleVideoStyles = applicationInstance.lookup('component:fastboot-only/article-video-styles');
 	articleVideoScripts.appendTo(document.body);
 	articleVideoStyles.appendTo(document.head);
+}
+
+/**
+ * @param {Ember.Route} route
+ * @param {Ember.model} model
+ * @returns {void}
+ */
+function afterModel(route, model) {
+	// Reset query parameters
+	model.set('commentsPage', null);
+
+	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+
+	// Include Ooyala assets if there is no portable infobox and featured video is attached
+	if (!model.get('hasPortableInfobox') && model.get('featuredVideo')) {
+		addOoyalaAssets(route);
+	}
 }
 
 /**

@@ -1,14 +1,16 @@
 import Ember from 'ember';
 import VideoLoader from '../modules/video-loader';
-import { track, trackActions } from '../utils/track'
+import duration from '../helpers/duration';
+import {track, trackActions} from '../utils/track';
 
 export default Ember.Component.extend(
 	{
+		classNames: ['article-featured-video'],
 		isPlayerLoading: true,
 
 		init() {
 			this._super(...arguments);
-			this.set('videoContainerId', 'ooyala-article-video' + new Date().getTime());
+			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
 		},
 		/**
 		 * @returns {void}
@@ -21,26 +23,6 @@ export default Ember.Component.extend(
 			this.player.destroy();
 		},
 
-		getFormattedDuration(millisec) {
-			let seconds = parseInt(millisec / 1000, 10);
-			let hours = parseInt(seconds / 3600, 10);
-			seconds = seconds % 3600;
-			let minutes = parseInt(seconds / 60, 10);
-			seconds = seconds % 60;
-			let duration = '';
-			if (hours > 0) {
-				duration += hours + ':';
-				if (minutes < 10) {
-					duration += '0';
-				}
-			}
-			duration += minutes + ':';
-			if (seconds < 10) {
-				duration += '0';
-			}
-			return duration + seconds;
-		},
-
 		onCreate(player) {
 			const $videoContainer = this.$('.video-container');
 
@@ -48,7 +30,7 @@ export default Ember.Component.extend(
 
 			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
 				const videoTitle = player.getTitle(),
-					videoTime = this.getFormattedDuration(player.getDuration());
+					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
 
 				$videoContainer.find('.video-title').text(videoTitle);
 				$videoContainer.find('.video-time').text(videoTime);
@@ -83,7 +65,7 @@ export default Ember.Component.extend(
 			let playTime = -1,
 				percentagePlayTime = -1;
 
-			player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', () => {
 				track({
 					action: trackActions.playVideo,
 					category: 'article-video',
@@ -91,7 +73,7 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.VOLUME_CHANGED, 'featured-video', function (eventName, volume) {
+			player.mb.subscribe(window.OO.EVENTS.VOLUME_CHANGED, 'featured-video', (eventName, volume) => {
 				if (volume > 0) {
 					track({
 						action: trackActions.click,
@@ -102,7 +84,7 @@ export default Ember.Component.extend(
 				}
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.PLAY, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.PLAY, 'featured-video', () => {
 				track({
 					action: trackActions.click,
 					category: 'article-video',
@@ -110,7 +92,7 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.PLAYED, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.PLAYED, 'featured-video', () => {
 				track({
 					action: trackActions.click,
 					category: 'article-video',
@@ -118,7 +100,7 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.PAUSE, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.PAUSE, 'featured-video', () => {
 				track({
 					action: trackActions.click,
 					category: 'article-video',
@@ -126,7 +108,7 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.REPLAY, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.REPLAY, 'featured-video', () => {
 				track({
 					action: trackActions.click,
 					category: 'article-video',
@@ -134,28 +116,29 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'featured-video', function (eventName, time, totalTime) {
-				let secondsPlayed = Math.floor(time),
-					percentage = Math.round(time / totalTime * 100);
+			player.mb.subscribe(window.OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'featured-video',
+				(eventName, time, totalTime) => {
+					let secondsPlayed = Math.floor(time),
+						percentage = Math.round(time / totalTime * 100);
 
-				if (secondsPlayed % 5 === 0 && secondsPlayed !== playTime) {
-					playTime = secondsPlayed;
-					track({
-						action: trackActions.view,
-						category: 'article-video',
-						label: 'featured-video-played-seconds-' + playTime
-					});
-				}
+					if (secondsPlayed % 5 === 0 && secondsPlayed !== playTime) {
+						playTime = secondsPlayed;
+						track({
+							action: trackActions.view,
+							category: 'article-video',
+							label: `featured-video-played-seconds-${playTime}`
+						});
+					}
 
-				if (percentage % 10 === 0 && percentage !== percentagePlayTime) {
-					percentagePlayTime = percentage;
-					track({
-						action: trackActions.view,
-						category: 'article-video',
-						label: 'featured-video-played-percentage-' + percentagePlayTime
-					});
-				}
-			});
+					if (percentage % 10 === 0 && percentage !== percentagePlayTime) {
+						percentagePlayTime = percentage;
+						track({
+							action: trackActions.view,
+							category: 'article-video',
+							label: `featured-video-played-percentage-${percentagePlayTime}`
+						});
+					}
+				});
 
 			track({
 				action: trackActions.impression,
@@ -166,8 +149,8 @@ export default Ember.Component.extend(
 
 		actions: {
 			playVideo() {
-				if(this.player) {
-					this.$('#' + this.get('videoContainerId')).show();
+				if (this.player) {
+					this.$(`#${this.get('videoContainerId')}`).show();
 					this.$('.video-container').find('.video-details').hide();
 					this.player.play();
 				}

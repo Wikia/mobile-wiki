@@ -27,7 +27,7 @@ export default class VideoLoader {
 	 * @returns {boolean}
 	 */
 	isProvider(name) {
-		return Boolean(this.data.provider.toLowerCase().match(name));
+		return this.data.provider.toLowerCase() === name;
 	}
 
 	/**
@@ -43,7 +43,7 @@ export default class VideoLoader {
 					height: this.data.height,
 					width: this.data.width
 				},
-				noAds: this.data.noAds,
+				noAds: this.data.noAds
 			});
 
 		this.player = VideoLoader.createPlayer(playerClass, provider, params, this.data.containerId);
@@ -55,7 +55,6 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		if(this.data.provider === 'ooyala-v4') return 'ooyala-v4';
 		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 	}
 
