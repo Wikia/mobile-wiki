@@ -1,5 +1,8 @@
+// NOTE: !important is used multiple times in this file because of overriding ooyala default styles
+// that are already defined with !important, or with very specific selector
+
 //Vars (Some are from the config.json file)
-$video-player-blue: #00b7e0;
+$video-player-blue: $wds-color-link;
 $video-scrubber-height: 3px;
 $video-player-head-color: $video-player-blue;
 $video-player-head-size: 13px;
@@ -61,15 +64,15 @@ $video-player-head-size-scrubbing: 20px;
 			top: auto !important;
 
 			.oo-state-screen-title {
-				font-size: 16px !important;
+				font-size: $wds-typescale-size-base !important;
 				font-family: $wds-font-family !important;
 				line-height: 24px !important;
 				margin-bottom: 0 !important;
 			}
 
 			.video-duration {
-				color: #fff;
-				font-size: 14px;
+				color: $wds-color-white;
+				font-size: $wds-typescale-size-minus-1;
 				font-weight: bold;
 				letter-spacing: 0.25px;
 				line-height: 18px;
@@ -217,7 +220,7 @@ $video-player-head-size-scrubbing: 20px;
 			filter: none !important;
 
 			svg {
-				fill: #fff;
+				fill: $wds-color-white;
 				filter: none !important;
 			}
 
