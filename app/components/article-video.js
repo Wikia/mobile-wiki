@@ -112,7 +112,7 @@ export default Ember.Component.extend(
 				});
 			});
 
-			player.mb.subscribe(window.OO.EVENTS.PAUSED, 'featured-video', function () {
+			player.mb.subscribe(window.OO.EVENTS.PAUSE, 'featured-video', function () {
 				track({
 					action: trackActions.click,
 					category: 'article-video',
