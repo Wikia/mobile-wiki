@@ -1,5 +1,6 @@
-<div class="video-container" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9)
-		0%, transparent 100%), url({{model.url}});">
+<div class="video-container{{unless isPlayerLoading ' player-ready'}}"
+	 style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%), url({{model.url}});">
+	{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
 	<div {{action 'playVideo'}} class="video-placeholder">
 		<div class="video-details">
 			<div class="video-label">
