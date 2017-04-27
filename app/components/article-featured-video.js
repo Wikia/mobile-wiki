@@ -3,7 +3,9 @@ import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+const {Component} = Ember;
+
+export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		isPlayerLoading: true,

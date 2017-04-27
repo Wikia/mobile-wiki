@@ -53,7 +53,7 @@ export default Route.extend(
 				wikiPageTitle = transition.params['wiki-page'].title;
 			}
 
-			return ApplicationModel.get(wikiPageTitle)
+			return ApplicationModel.get(wikiPageTitle, this.get('currentUser'), this.get('fastboot'))
 				.then((applicationData) => {
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 

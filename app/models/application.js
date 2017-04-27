@@ -14,9 +14,11 @@ const {
 const ApplicationModel = EmberObject.extend({});
 
 ApplicationModel.reopenClass({
-	get(title) {
-		const currentUser = getService('current-user'),
-			fastboot = getService('fastboot'),
+	get(title, currentUser, fastboot) {
+		const
+			// TODO XW-3310 rethink how we share application instance
+			// currentUser = getService('current-user'),
+			// fastboot = getService('fastboot'),
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
@@ -32,7 +34,7 @@ ApplicationModel.reopenClass({
 				return RSVP.hashSettled({
 					currentUser: currentUser.initializeUserData(userId, host),
 					navigation: NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
-					trackingDimensions: getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title),
+					trackingDimensions: getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title, fastboot),
 					wikiVariables
 				}).then(({navigation, wikiVariables}) => {
 					// We only want to fail application if we don't have the navigation data
