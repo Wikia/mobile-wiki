@@ -65,13 +65,13 @@
 		background-color: $wds-color-light-blue;
 		border: 6px solid rgba(0, 0, 0, 0.32);
 		border-radius: 50%;
-		bottom: 12px;
+		bottom: 18px;
 		display: flex;
 		height: 80px;
 		justify-content: center;
 		opacity: .7;
 		position: absolute;
-		right: 12px;
+		right: 18px;
 		width: 80px;
 
 		.wds-icon {
@@ -102,9 +102,9 @@
 	}
 
 	.video-details {
-		bottom: 9px;
+		bottom: 18px;
 		display: none;
-		left: 12px;
+		left: 18px;
 		max-width: 70%;
 		position: absolute;
 
@@ -144,7 +144,7 @@
 			}
 
 			.video-details {
-				bottom: 9px;
+				bottom: 18px;
 
 				.video-title {
 					font-size: $wds-typescale-size-base;
