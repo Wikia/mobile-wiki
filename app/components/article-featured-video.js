@@ -3,7 +3,7 @@ import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 
-const {Component} = Ember;
+const {Component, run} = Ember;
 
 export default Component.extend(
 	{
@@ -33,34 +33,23 @@ export default Component.extend(
 		initOnScrollBehaviour() {
 			var $video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height(),
-				showVideoOnScroll = true,
-				hasScrolled = false;
+				showVideoOnScroll = true;
 
-			this.scrollIntervalHandler= setInterval(function() {
-				if (hasScrolled) {
-					hasScrolled = false;
-				}
-			}, 200);
-
-			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function(e) {
-				var currentScroll = e.data.$window.scrollTop(),
+			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function({data: {player, $window}}) {
+				var currentScroll = $window.scrollTop(),
 					$siteHead = this.$('.site-head');
 
-				if (hasScrolled) {
-					return;
-				}
-
-				hasScrolled = true;
-
-				if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
-					if (showVideoOnScroll && (e.data.player === undefined || !e.data.player.isPlaying())) {
-						$video.addClass('fixed');
-						$siteHead.addClass('no-shadow');
+				run.throttle(this, function () {
+					if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
+						if (showVideoOnScroll && (player === undefined || ! player.isPlaying())) {
+							$video.addClass('fixed');
+							$siteHead.addClass('no-shadow');
+						}
+					} else if (currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
+						$video.removeClass('fixed');
+						$siteHead.removeClass('no-shadow');
 					}
-				} else if (currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
-					$video.removeClass('fixed');
-					$siteHead.removeClass('no-shadow');
-				}
+				}, 200);
 			});
 
 			$video.find('.video-close-button').on('click', function () {
@@ -68,9 +57,9 @@ export default Component.extend(
 				showVideoOnScroll = false;
 			});
 
-			$video.find('.video-thumbnail, .video-placeholder').on('click', { player: this.player }, function (e) {
-				e.data.player.mb.publish(OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-				e.data.player.play();
+			$video.find('.video-thumbnail, .video-placeholder').on('click', { player: this.player }, function ({data: player}) {
+				player.mb.publish(OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+				player.play();
 			});
 		},
 
@@ -78,8 +67,6 @@ export default Component.extend(
 			this._super(...arguments);
 
 			this.player.destroy();
-
-			clearInterval(this.scrollIntervalHandler);
 		},
 
 		onCreate(player) {
