@@ -17,33 +17,31 @@ function getType({isMainPage, details: {type}}) {
 	}
 }
 
-const {Object: EmberObject, get} = Ember,
-	BaseModel = EmberObject.extend({
-		adsContext: null,
-		basePath: null,
-		categories: [],
-		description: '',
-		displayTitle: null,
-		htmlTitle: '',
-		id: null,
-		media: [],
-		mediaUsers: [],
-		ns: null,
-		redirectEmptyTarget: false,
-		otherLanguages: [],
-		title: null,
-		url: null,
-		user: null,
-		wiki: null
-	});
+const {Object: EmberObject, get} = Ember;
 
-BaseModel.reopenClass({
+export default EmberObject.extend({
+	adsContext: null,
+	basePath: null,
+	categories: [],
+	description: '',
+	displayTitle: null,
+	htmlTitle: '',
+	id: null,
+	media: [],
+	mediaUsers: [],
+	ns: null,
+	redirectEmptyTarget: false,
+	otherLanguages: [],
+	title: null,
+	url: null,
+	user: null,
+	wiki: null,
+
 	/**
-	 * @param {Model} model
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {data}) {
+	setData({data}) {
 		let pageProperties, article;
 
 		if (data) {
@@ -74,7 +72,7 @@ BaseModel.reopenClass({
 					extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
-						media: MediaModel.create({
+						media: MediaModel.create(getOwner(this).ownerInjection(), {
 							media: article.media
 						}),
 						redirectEmptyTarget: data.redirectEmptyTarget,
@@ -98,8 +96,6 @@ BaseModel.reopenClass({
 			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
 		}
 
-		model.setProperties(pageProperties);
+		this.setProperties(pageProperties);
 	},
 });
-
-export default BaseModel;

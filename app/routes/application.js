@@ -275,8 +275,8 @@ export default Route.extend(
 			loadRandomArticle() {
 				this.get('controller').send('toggleDrawer', false);
 
-				ArticleModel
-					.getArticleRandomTitle(this.get('wikiVariables.host'))
+				ArticleModel.create(getOwner(this).ownerInjection())
+					.getArticleRandomTitle()
 					.then((articleTitle) => {
 						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
