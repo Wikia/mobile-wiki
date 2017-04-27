@@ -32,19 +32,31 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			var prevScroll = 0,
-				$video = $(".video-container"),
-				videoBottomPosition = $video.offset().top + $video.height();
+				$video = $('.video-container'),
+				videoBottomPosition = $video.offset().top + $video.height(),
+				showVideoOnScroll = true;
 
-			$(window).scroll(function() {
+			$(window).on('scroll', { player: this.player }, function(e) {
 				var currentScroll = $(window).scrollTop();
 
 				if (!$video.hasClass('fixed') && currentScroll >= videoBottomPosition && currentScroll > prevScroll) {
-					$video.addClass('fixed');
+					if (showVideoOnScroll && (e.data.player === undefined || !e.data.player.isPlaying())) {
+						$video.addClass('fixed');
+					}
 				} else if ($video.hasClass('fixed') && currentScroll < videoBottomPosition - $video.height() && currentScroll < prevScroll) {
 					$video.removeClass('fixed');
 				}
 
 				prevScroll = currentScroll;
+			});
+
+			$video.find('.video-close-button').on('click', function () {
+				$video.removeClass('fixed');
+				showVideoOnScroll = false;
+			});
+
+			$video.find('.video-thumbnail, .video-placeholder').on('click', function () {
+
 			});
 		},
 
@@ -65,7 +77,7 @@ export default Component.extend(
 
 				$videoContainer.find('.video-title').text(videoTitle);
 				$videoContainer.find('.video-time').text(videoTime);
-				$videoContainer.find('.video-details').show();
+				$videoContainer.find('.video-details').css('visibility', 'visible');
 				this.set('isPlayerLoading', false);
 			});
 
@@ -182,7 +194,7 @@ export default Component.extend(
 			playVideo() {
 				if (this.player) {
 					this.$(`#${this.get('videoContainerId')}`).show();
-					this.$('.video-container').find('.video-details').hide();
+					this.$('.video-container').find('.video-details').css('visibility', 'visible');
 					this.player.play();
 				}
 			}

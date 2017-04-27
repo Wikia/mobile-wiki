@@ -61,6 +61,10 @@
 			}
 		}
 
+		.video-close-button {
+			display: none;
+		}
+
 		&.player-ready {
 			.video-play-circle {
 				opacity: 1;
@@ -69,6 +73,7 @@
 
 		.video-details {
 			flex: 1 0 70%;
+			visibility: hidden;
 
 			.video-label {
 				color: $wds-color-white;
@@ -120,13 +125,13 @@
 			.video-thumbnail {
 				flex: 0 0 100px;
 				height: 56px;
-				margin-right: 12px;
 				position: static;
 				width: 100px;
 			}
 
 			.video-details {
 				flex-basis: 100%;
+				padding-left: 12px;
 
 				.video-label {
 					color: $wds-color-light-c5;
@@ -138,6 +143,19 @@
 					color: $wds-color-dark-blue-gray;
 					font-size: $wds-typescale-size-minus-1;
 					line-height: $wds-typescale-size-base;
+				}
+			}
+
+			.video-close-button {
+				display: block;
+				position: absolute;
+				top: 6px;
+				right: 6px;
+
+				.wds-icon {
+					width: 14px;
+					height: 14px;
+					fill: $wds-color-light-c5;
 				}
 			}
 
