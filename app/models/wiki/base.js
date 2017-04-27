@@ -19,7 +19,8 @@ function getType({isMainPage, details: {type}}) {
 
 const {
 	Object: EmberObject,
-	get
+	get,
+	getOwner
 } = Ember;
 
 export default EmberObject.extend({
@@ -75,6 +76,7 @@ export default EmberObject.extend({
 					extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
+						// FIXME TypeError: Cannot read property 'ownerInjection' of undefined
 						media: MediaModel.create(getOwner(this).ownerInjection(), {
 							media: article.media
 						}),
