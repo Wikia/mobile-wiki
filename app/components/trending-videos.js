@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		openLightbox(video) {
-			const mediaModel = MediaModel.create({
+			const mediaModel = MediaModel.create(getOwner(this).ownerInjection(), {
 				media: video,
 			});
 

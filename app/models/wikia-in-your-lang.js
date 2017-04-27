@@ -29,12 +29,10 @@ function getFromCache(browserLang) {
 	return value.model;
 }
 
-const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
+export default Ember.Object.extend(LanguagesMixin, {
 	message: null,
-	nativeDomain: null
-});
+	nativeDomain: null,
 
-WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -80,5 +78,3 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 			});
 	},
 });
-
-export default WikiaInYourLangModel;

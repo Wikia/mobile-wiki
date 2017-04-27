@@ -26,7 +26,7 @@ export default Component.extend(
 		 */
 		handleWikiaInYourLang() {
 			if (this.shouldShowWikiaInYourLang()) {
-				WikiaInYourLangModel.load()
+				WikiaInYourLangModel.create(getOwner(this).ownerInjection()).load()
 					.then((model) => {
 						if (model) {
 							this.createAlert(model);

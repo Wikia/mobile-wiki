@@ -20,20 +20,19 @@ export default EmberObject.extend(
 	{
 		wikiVariables: inject.service(),
 		/**
-		 * @param {number} wikiId
 		 * @param {array|string} [categories=[]]
 		 * @param {string} [sortBy='trending']
 		 * @param {integer} [limit=20]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		find(wikiId, categories = [], sortBy = 'trending', limit = 20) {
+		find(categories = [], sortBy = 'trending', limit = 20) {
 			const queryString = getQueryString({
 				forumId: categories instanceof Array ? categories : [categories],
 				limit,
 				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
 			});
 
-			return fetch(getDiscussionServiceUrl(`/${wikiId}/threads${queryString}`))
+			return fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/threads${queryString}`))
 				.then((response) => response.json())
 				.then(this.normalizeData.bind(this));
 		},
