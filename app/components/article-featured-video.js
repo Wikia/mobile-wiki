@@ -32,20 +32,20 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			var prevScroll = 0,
-				$video = $('.video-container'),
-				$siteHead = $('.site-head'),
+				$video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height(),
 				showVideoOnScroll = true;
 
-			$(window).on('scroll', { player: this.player }, function(e) {
-				var currentScroll = $(window).scrollTop();
+			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function(e) {
+				var currentScroll = e.data.$window.scrollTop(),
+					$siteHead = this.$('.site-head');
 
-				if (!$video.hasClass('fixed') && currentScroll >= videoBottomPosition && currentScroll > prevScroll) {
+				if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
 					if (showVideoOnScroll && (e.data.player === undefined || !e.data.player.isPlaying())) {
 						$video.addClass('fixed');
 						$siteHead.addClass('no-shadow');
 					}
-				} else if ($video.hasClass('fixed') && currentScroll < videoBottomPosition - $video.height() && currentScroll < prevScroll) {
+				} else if (currentScroll < prevScroll && currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
 					$video.removeClass('fixed');
 					$siteHead.removeClass('no-shadow');
 				}
