@@ -20,7 +20,7 @@
 			}
 
 			.ooyala-article-video {
-				display: block;
+				visibility: visible;
 			}
 		}
 	}
@@ -127,7 +127,7 @@
 	}
 
 	.ooyala-article-video {
-		display: none;
+		visibility: hidden;
 	}
 
 	// for oo-xsmall breakpoint

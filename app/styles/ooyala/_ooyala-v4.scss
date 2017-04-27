@@ -25,6 +25,11 @@ $video-player-head-size-scrubbing: 20px;
 					height: 60px;
 					width: 60px;
 
+					svg {
+						height: 18px;
+						width: 18px;
+					}
+
 					// reply icon, iOS only
 					.oo-icon-system-replay {
 						font-size: $wds-typescale-size-plus-2 !important;
@@ -33,7 +38,7 @@ $video-player-head-size-scrubbing: 20px;
 			}
 
 			.oo-state-screen-info {
-				bottom: 12px !important;
+				bottom: 9px !important;
 				left: 12px !important;
 				top: auto !important;
 
@@ -78,8 +83,10 @@ $video-player-head-size-scrubbing: 20px;
 
 				svg {
 					fill: $wds-color-white;
+					height: 30px;
 					margin-left: 4px;
 					vertical-align: text-bottom;
+					width: 30px;
 				}
 
 				// reply icon, iOS only
@@ -101,7 +108,7 @@ $video-player-head-size-scrubbing: 20px;
 			.oo-state-screen-title {
 				font-size: $wds-typescale-size-plus-2 !important;
 				font-family: $wds-font-family !important;
-				line-height: 32px !important;
+				line-height: 1 !important;
 				margin-bottom: 0 !important;
 			}
 
