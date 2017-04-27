@@ -41,9 +41,11 @@ export default Component.extend(
 				const videoTitle = player.getTitle(),
 					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
 
-				this.set('videoTitle', videoTitle);
-				this.set('videoTime', videoTime);
-				this.set('isPlayerLoading', false);
+				this.setProperties({
+					videoTitle,
+					videoTime,
+					isPlayerLoading: false
+				});
 			});
 
 			this.setupTracking(player);
@@ -60,13 +62,9 @@ export default Component.extend(
 					onCreate: this.onCreate.bind(this),
 					containerId: this.get('videoContainerId'),
 					cacheBuster: this.get('wikiVariables.cacheBuster')
-				};
-			const data = extend({}, model, {jsParams}),
+				},
+				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
-
-			/**
-			 * This loads and creates a player
-			 */
 			videoLoader.loadPlayerClass();
 		},
 
