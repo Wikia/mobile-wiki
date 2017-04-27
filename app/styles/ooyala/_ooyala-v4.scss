@@ -15,6 +15,33 @@ $video-player-head-size-scrubbing: 20px;
 		transition: none;
 	}
 
+	.oo-xsmall {
+		.oo-state-screen {
+			&.oo-start-screen {
+				.oo-action-icon {
+					height: 60px;
+					width: 60px;
+
+					// reply icon, iOS only
+					.oo-icon-system-replay {
+						font-size: $wds-typescale-size-plus-2 !important;
+					}
+				}
+			}
+
+			.oo-state-screen-info {
+				bottom: 12px !important;
+				left: 12px !important;
+				top: auto !important;
+
+				.oo-state-screen-title {
+					font-size: $wds-typescale-size-base !important;
+					line-height: 24px !important;
+				}
+			}
+		}
+	}
+
 	.oo-state-screen {
 		// hides title on pause screen
 		&.oo-pause-screen {
@@ -37,19 +64,24 @@ $video-player-head-size-scrubbing: 20px;
 				box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
 				box-sizing: border-box;
 				display: flex;
-				height: 60px;
+				height: 80px;
 				justify-content: center;
 				left: auto;
 				position: absolute;
 				right: 12px;
 				top: auto;
 				transform: none;
-				width: 60px;
+				width: 80px;
 
 				svg {
 					fill: $wds-color-white;
 					margin-left: 4px;
 					vertical-align: text-bottom;
+				}
+
+				// reply icon, iOS only
+				.oo-icon-system-replay {
+					font-size: $wds-typescale-size-plus-4 !important;
 				}
 			}
 		}
@@ -64,9 +96,9 @@ $video-player-head-size-scrubbing: 20px;
 			top: auto !important;
 
 			.oo-state-screen-title {
-				font-size: $wds-typescale-size-base !important;
+				font-size: $wds-typescale-size-plus-2 !important;
 				font-family: $wds-font-family !important;
-				line-height: 24px !important;
+				line-height: 32px !important;
 				margin-bottom: 0 !important;
 			}
 

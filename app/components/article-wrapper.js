@@ -86,6 +86,10 @@ export default Component.extend(
 			}
 		}),
 
+		featuredVideoVisible: computed('model.hasPortableInfobox', 'model.featuredVideo', function () {
+			return !this.get('model.hasPortableInfobox') && this.get('model.featuredVideo');
+		}),
+
 		actions: {
 			/**
 			 * @param {string} title

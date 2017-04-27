@@ -1,21 +1,16 @@
 import BasePlayer from './base';
-import Ember from 'ember';
-import {getService} from '../../utils/application-instance';
-
-const {Logger} = Ember;
+import config from '../../config/environment';
 
 export default class OoyalaV4Player extends BasePlayer {
 	/**
 	 * @param {string} provider
 	 * @param {*} params
-	 * @param {string} containerId
 	 * @returns {void}
 	 */
-	constructor(provider, params, containerId) {
-		const ooyalaPCode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
-		const ooyalaPlayerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
-		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=
-			${getService('wikiVariables').cacheBuster}`;
+	constructor(provider, params) {
+		const ooyalaPCode = config.ooyala.pcode;
+		const ooyalaPlayerBrandingId = config.ooyala.playerBrandingId;
+		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=${params.cacheBuster}`;
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;
@@ -25,7 +20,7 @@ export default class OoyalaV4Player extends BasePlayer {
 
 		super(provider, params);
 
-		this.containerId = containerId;
+		this.containerId = params.containerId;
 	}
 
 	/**
@@ -33,7 +28,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	setupPlayer() {
 		if (!window.OO) {
-			Logger.error('Ooyala player has not beed loaded.');
+			console.error('Ooyala player has not beed loaded.');
 		} else {
 			this.createPlayer();
 		}

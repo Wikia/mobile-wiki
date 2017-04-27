@@ -2,13 +2,15 @@ import Ember from 'ember';
 import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
+import extend from '../utils/extend';
 
-const {Component, run} = Ember;
+const {Component, inject, run} = Ember;
 
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		isPlayerLoading: true,
+		wikiVariables: inject.service(),
 
 		init() {
 			this._super(...arguments);
@@ -66,7 +68,9 @@ export default Component.extend(
 		willDestroyElement() {
 			this._super(...arguments);
 
-			this.player.destroy();
+			if (this.player) {
+				this.player.destroy();
+			}
 		},
 
 		onCreate(player) {
@@ -76,9 +80,11 @@ export default Component.extend(
 				const videoTitle = player.getTitle(),
 					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
 
-				this.set('videoTitle', videoTitle);
-				this.set('videoTime', videoTime);
-				this.set('isPlayerLoading', false);
+				this.setProperties({
+					videoTitle,
+					videoTime,
+					isPlayerLoading: false
+				});
 			});
 
 			this.setupTracking(player);
@@ -90,17 +96,14 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const data = this.get('model.embed');
-
-			data.jsParams.onCreate = this.onCreate.bind(this);
-
-			data.containerId = this.get('videoContainerId');
-
-			const videoLoader = new VideoLoader(data);
-
-			/**
-			 * This loads and creates a player
-			 */
+			const model = this.get('model.embed'),
+				jsParams = {
+					onCreate: this.onCreate.bind(this),
+					containerId: this.get('videoContainerId'),
+					cacheBuster: this.get('wikiVariables.cacheBuster')
+				},
+				data = extend({}, model, {jsParams}),
+				videoLoader = new VideoLoader(data);
 			videoLoader.loadPlayerClass();
 		},
 
