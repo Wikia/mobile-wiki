@@ -88,7 +88,7 @@
 			.video-label {
 				color: $wds-color-white;
 				font-size: $wds-typescale-size-minus-2;
-				line-height: 1;
+				line-height: $wds-line-height;
 				opacity: 0.5;
 				text-transform: uppercase;
 			}

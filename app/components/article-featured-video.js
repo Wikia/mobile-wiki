@@ -2,6 +2,7 @@ import Ember from 'ember';
 import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
+import extend from '../utils/extend';
 
 const {Component, inject} = Ember;
 
@@ -28,7 +29,9 @@ export default Component.extend(
 		willDestroyElement() {
 			this._super(...arguments);
 
-			this.player.destroy();
+			if (this.player) {
+				this.player.destroy();
+			}
 		},
 
 		onCreate(player) {
@@ -52,14 +55,14 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const data = this.get('model.embed'),
-				params = {
+			const model = this.get('model.embed'),
+				jsParams = {
 					onCreate: this.onCreate.bind(this),
 					containerId: this.get('videoContainerId'),
 					cacheBuster: this.get('wikiVariables.cacheBuster')
 				};
-			$.extend(data.jsParams, params);
-			const videoLoader = new VideoLoader(data);
+			const data = extend({}, model, {jsParams}),
+				videoLoader = new VideoLoader(data);
 
 			/**
 			 * This loads and creates a player
