@@ -1,5 +1,7 @@
 import BasePlayer from './base';
 import Ember from 'ember';
+import config from '../../config/environment';
+
 import {getService} from '../../utils/application-instance';
 
 const {Logger} = Ember;
@@ -12,8 +14,8 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @returns {void}
 	 */
 	constructor(provider, params, containerId) {
-		const ooyalaPCode = 'J0MTUxOtPDJVNZastij14_v7VDRS';
-		const ooyalaPlayerBrandingId = '6d79ed36a62a4a9885d9c961c70289a8';
+		const ooyalaPCode = config.ooyala.pcode;
+		const ooyalaPlayerBrandingId = config.ooyala.playerBrandingId;
 		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=
 			${getService('wikiVariables').cacheBuster}`;
 

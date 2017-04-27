@@ -106,6 +106,10 @@ module.exports = function (environment) {
 		fastboot: {
 			hostWhitelist: [/.*\.wikia-dev\.(pl|us)/, /.*\.wikia-staging.com/, /.*\.wikia.com/],
 			shoeboxAppendTo: 'head'
+		},
+		ooyala: {
+			pcode: 'J0MTUxOtPDJVNZastij14_v7VDRS',
+			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8'
 		}
 	};
 
