@@ -17,8 +17,8 @@ ApplicationModel.reopenClass({
 	get(title, currentUser, fastboot) {
 		const
 			// TODO XW-3310 rethink how we share application instance
-			//currentUser = getService('current-user'),
-			//fastboot = getService('fastboot'),
+			// currentUser = getService('current-user'),
+			// fastboot = getService('fastboot'),
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
