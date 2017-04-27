@@ -33,16 +33,16 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initOnScrollBehaviour() {
-			var $video = this.$('.video-container'),
+			let $video = this.$('.video-container'),
 				$siteHead = $('.site-head'),
 				videoBottomPosition = $video.offset().top + $video.height(),
 				showVideoOnScroll = true;
 
-			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function({data: {player, $window}}) {
+			$(window).on('scroll', {player: this.player, $window: this.$(window)}, function ({data: {player, $window}}) {
 				run.throttle(this, function () {
-					var currentScroll = $window.scrollTop();
+					let currentScroll = $window.scrollTop();
 
-					if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
+					if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed')) {
 						if (showVideoOnScroll && (player === undefined || ! player.isPlaying())) {
 							$video.addClass('fixed');
 							$siteHead.addClass('no-shadow');
@@ -59,10 +59,11 @@ export default Component.extend(
 				showVideoOnScroll = false;
 			});
 
-			$video.find('.video-thumbnail, .video-placeholder').on('click', { player: this.player }, function ({data: player}) {
-				player.mb.publish(OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-				player.play();
-			});
+			$video.find('.video-thumbnail, .video-placeholder').on('click', {player: this.player},
+				function ({data: player}) {
+					player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+					player.play();
+				});
 		},
 
 		willDestroyElement() {
