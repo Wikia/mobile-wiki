@@ -27,7 +27,7 @@ $video-player-head-size-scrubbing: 20px;
 
 					// reply icon, iOS only
 					.oo-icon-system-replay {
-						font-size: 32px !important;
+						font-size: $wds-typescale-size-plus-2 !important;
 					}
 				}
 			}
@@ -67,14 +67,14 @@ $video-player-head-size-scrubbing: 20px;
 				box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
 				box-sizing: border-box;
 				display: flex;
-				height: 90px;
+				height: 80px;
 				justify-content: center;
 				left: auto;
 				position: absolute;
 				right: 12px;
 				top: auto;
 				transform: none;
-				width: 90px;
+				width: 80px;
 
 				svg {
 					fill: $wds-color-white;
@@ -84,7 +84,7 @@ $video-player-head-size-scrubbing: 20px;
 
 				// reply icon, iOS only
 				.oo-icon-system-replay {
-					font-size: $wds-typescale-size-plus-6 !important;
+					font-size: $wds-typescale-size-plus-4 !important;
 				}
 			}
 		}

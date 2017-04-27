@@ -46,15 +46,17 @@
 			border-radius: 50%;
 			bottom: 12px;
 			display: flex;
-			height: 60px;
+			height: 80px;
 			justify-content: center;
 			opacity: .7;
 			position: absolute;
 			right: 12px;
-			width: 60px;
+			width: 80px;
 
 			.wds-icon {
 				margin-left: 4px;
+				height: 30px;
+				width: 30px;
 			}
 		}
 
@@ -79,7 +81,7 @@
 		}
 
 		.video-details {
-			bottom: 9px;
+			bottom: 16px;
 			display: none;
 			left: 12px;
 			max-width: 70%;
@@ -97,10 +99,37 @@
 				content: '\2022';
 				padding: 0 2px;
 			}
+
+			.video-title {
+				font-size: $wds-typescale-size-plus-2;
+			}
 		}
 	}
 
 	.ooyala-article-video {
 		display: none;
+	}
+
+	// for oo-xsmall breakpoint
+	@media screen and (max-width: 559px) {
+		.video-container {
+			.video-play-circle {
+				height: 60px;
+				width: 60px;
+
+				.wds-icon {
+					height: 18px;
+					width: 18px;
+				}
+			}
+
+			.video-details {
+				bottom: 9px;
+
+				.video-title {
+					font-size: $wds-typescale-size-base;
+				}
+			}
+		}
 	}
 }
