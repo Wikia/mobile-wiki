@@ -12,9 +12,9 @@
 	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
 <section class="article-body">
-	{{#unless model.hasPortableInfobox}}
+	{{#if featuredVideoVisible}}
 		{{article-featured-video model=model.featuredVideo}}
-	{{/unless}}
+	{{/if}}
 
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
 	{{#if model.fileThumbnail}}

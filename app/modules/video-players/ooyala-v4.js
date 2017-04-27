@@ -1,10 +1,5 @@
 import BasePlayer from './base';
-import Ember from 'ember';
 import config from '../../config/environment';
-
-import {getService} from '../../utils/application-instance';
-
-const {Logger} = Ember;
 
 export default class OoyalaV4Player extends BasePlayer {
 	/**
@@ -33,7 +28,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	setupPlayer() {
 		if (!window.OO) {
-			Logger.error('Ooyala player has not beed loaded.');
+			console.error('Ooyala player has not beed loaded.');
 		} else {
 			this.createPlayer();
 		}
