@@ -71,7 +71,7 @@
 			}
 
 			.video-details {
-				display: block;
+				visibility: visible;
 			}
 
 			&.is-played {
@@ -188,6 +188,16 @@
 					height: 12px;
 					margin-left: 2px;
 					width: 12px;
+				}
+			}
+
+			&.is-played {
+				.video-details {
+					display: block;
+				}
+
+				.ooyala-article-video {
+					display: none;
 				}
 			}
 		}

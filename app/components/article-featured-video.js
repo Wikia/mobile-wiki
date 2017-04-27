@@ -55,8 +55,9 @@ export default Component.extend(
 				showVideoOnScroll = false;
 			});
 
-			$video.find('.video-thumbnail, .video-placeholder').on('click', function () {
-
+			$video.find('.video-thumbnail, .video-placeholder').on('click', { player: this.player }, function (e) {
+				e.data.player.mb.publish(OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+				e.data.player.play();
 			});
 		},
 
