@@ -16,9 +16,9 @@ export default Route.extend(
 		},
 
 		model(params) {
-			const model = SearchModel.create(getOwner(this).ownerInjection(), {dupa: true});
-
-			return model.search(params.query);
+			return SearchModel
+				.create(getOwner(this).ownerInjection())
+				.search(params.query);
 		},
 
 		actions: {

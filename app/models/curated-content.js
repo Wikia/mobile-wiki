@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-const {Object: EmberObject} = Ember;
+const {
+	Object: EmberObject
+} = Ember;
 
 /**
  * @typedef {Object} CuratedContentItem

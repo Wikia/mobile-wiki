@@ -3,7 +3,9 @@ import BaseModel from './base';
 import MediaModel from '../media';
 import {extractEncodedTitle} from '../../utils/url';
 
-const {get} = Ember;
+const {
+	get
+} = Ember;
 
 export default BaseModel.extend({
 	hasArticle: false,

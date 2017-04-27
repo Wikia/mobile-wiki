@@ -6,10 +6,10 @@ import WikiVariables from './wiki-variables';
 import TrackingDimensions from './tracking-dimensions';
 
 const {
-	getOwner,
-	inject,
 	Object: EmberObject,
-	RSVP
+	RSVP,
+	getOwner,
+	inject
 } = Ember;
 
 export default EmberObject.extend({
@@ -23,22 +23,23 @@ export default EmberObject.extend({
 
 		if (fastboot.get('isFastBoot')) {
 			const host = getHostFromRequest(fastboot.get('request')),
-				accessToken = fastboot.get('request.cookies.access_token');
+				accessToken = fastboot.get('request.cookies.access_token'),
+				ownerInjection = getOwner(this).ownerInjection();
 
 			return RSVP.all([
-				WikiVariables.create(getOwner(this).ownerInjection()).fetch(host),
-				UserModel.create(getOwner(this).ownerInjection()).getUserId(accessToken)
+				WikiVariables.create(ownerInjection).fetch(host),
+				UserModel.create(ownerInjection).getUserId(accessToken)
 			]).then(([wikiVariables, userId]) => {
 				shoebox.put('userId', userId);
 
 				return RSVP.hashSettled({
 					currentUser: currentUser.initializeUserData(userId, host),
-					navigation: NavigationModel.create(getOwner(this).ownerInjection()).fetchAll(
+					navigation: NavigationModel.create(ownerInjection).fetchAll(
 						host,
 						wikiVariables.id,
 						wikiVariables.language.content
 					),
-					trackingDimensions: TrackingDimensions.create(getOwner(this).ownerInjection()).fetch(
+					trackingDimensions: TrackingDimensions.create(ownerInjection).fetch(
 						!Boolean(userId),
 						host, title,
 						fastboot

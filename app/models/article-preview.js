@@ -2,7 +2,10 @@ import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-const {inject, Object: EmberObject} = Ember;
+const {
+	Object: EmberObject,
+	inject
+} = Ember;
 
 export default EmberObject.extend({
 	wikiVariables: inject.service(),

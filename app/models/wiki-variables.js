@@ -3,7 +3,11 @@ import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 import {NonJsonApiResponseError, WikiVariablesFetchError} from '../utils/errors';
 
-export default Ember.Object.extend({
+const {
+	Object: EmberObject
+} = Ember;
+
+export default EmberObject.extend({
 	fetch(host) {
 		const url = buildUrl({
 			host,

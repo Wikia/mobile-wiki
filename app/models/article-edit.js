@@ -3,16 +3,25 @@ import getEditToken from '../utils/edit-token';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-export default Ember.Object.extend({
+const {
+	Object: EmberObject,
+	computed,
+	get,
+	inject
+} = Ember;
+
+export default EmberObject.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
 	title: null,
 	sectionIndex: null,
-	isDirty: Ember.computed('content', 'originalContent', function () {
+
+	wikiVariables: inject.service(),
+
+	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
 	}),
-	wikiVariables: inject.service(),
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
@@ -79,7 +88,7 @@ export default Ember.Object.extend({
 					throw new Error(response.error.code);
 				}
 
-				pages = Ember.get(response, 'query.pages');
+				pages = get(response, 'query.pages');
 
 				if (pages) {
 					// FIXME: MediaWiki API, seriously?

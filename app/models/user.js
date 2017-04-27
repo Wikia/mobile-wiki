@@ -22,9 +22,16 @@ import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError}
  * @property {number} userId
  */
 
-export default Ember.Object.extend({
+const {
+	Object: EmberObject,
+	RSVP,
+	inject,
+	isArray
+} = Ember;
+
+export default EmberObject.extend({
 	defaultAvatarSize: 100,
-	logger: Ember.inject.service(),
+	logger: inject.service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -70,7 +77,7 @@ export default Ember.Object.extend({
 			host = params.host,
 			accessToken = params.accessToken || '';
 
-		return Ember.RSVP.all([
+		return RSVP.all([
 			this.loadDetails(host, userId, avatarSize),
 			this.loadUserInfo(host, accessToken, userId),
 		]).then(([userDetails, userInfo]) => {
@@ -138,7 +145,7 @@ export default Ember.Object.extend({
 				}
 			})
 			.then((result) => {
-				if (Ember.isArray(result.items)) {
+				if (isArray(result.items)) {
 					return result.items[0];
 				} else {
 					throw new Error(result);
@@ -188,7 +195,7 @@ export default Ember.Object.extend({
 
 	/**
 	 * @param {*} userData
-	 * @returns {UserProperties}
+	 * @returns {Object}
 	 */
 	sanitizeDetails(userData) {
 		const data = {
@@ -210,19 +217,19 @@ export default Ember.Object.extend({
 
 	/**
 	 * @param {QueryUserInfoResponse} query
-	 * @returns {void}
+	 * @returns {Object}
 	 */
 	getUserRights({query}) {
 		const rights = {},
 			rightsArray = query.userinfo.rights;
 
-		if (Ember.isArray(rightsArray)) {
+		if (isArray(rightsArray)) {
 			// TODO - we could use contains instead of making an object out of an array
 			rightsArray.forEach((right) => {
 				rights[right] = true;
 			});
 
-			return rights
+			return rights;
 		}
 	},
 });

@@ -2,13 +2,18 @@ import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 
-const {A, Object: EmberObject, computed, inject} = Ember;
+const {
+	A,
+	Object: EmberObject,
+	computed,
+	inject
+} = Ember;
 
 export default EmberObject.extend({
 	batch: 1,
 	error: '',
 	erroneousQuery: '',
-	items: A([]),
+	items: null,
 	loading: false,
 	query: '',
 	totalItems: 0,
@@ -19,6 +24,11 @@ export default EmberObject.extend({
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
 	}),
+
+	init() {
+		this._super(...arguments);
+		this.set('items', A([]));
+	},
 
 	search(query) {
 		this.setProperties({

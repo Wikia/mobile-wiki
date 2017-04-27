@@ -3,8 +3,12 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
+const {
+	inject
+} = Ember;
+
 export default BaseModel.extend({
-	wikiVariables: Ember.inject.service(),
+	wikiVariables: inject.service(),
 	content: null,
 	comments: 0,
 	isCuratedMainPage: false,

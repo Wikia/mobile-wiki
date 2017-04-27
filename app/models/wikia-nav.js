@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-const {A, inject, Object: EmberObject, computed, get} = Ember;
+const {
+	A,
+	Object: EmberObject,
+	computed,
+	get,
+	inject
+} = Ember;
 
 export default EmberObject.extend({
 	i18n: inject.service(),

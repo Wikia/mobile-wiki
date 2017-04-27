@@ -17,7 +17,10 @@ function getType({isMainPage, details: {type}}) {
 	}
 }
 
-const {Object: EmberObject, get} = Ember;
+const {
+	Object: EmberObject,
+	get
+} = Ember;
 
 export default EmberObject.extend({
 	adsContext: null,

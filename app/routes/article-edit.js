@@ -15,7 +15,9 @@ export default Ember.Route.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return ArticleEditModel.create(getOwner(this).ownerInjection()).load(this.get('wikiVariables.host'), params.title, params.sectionIndex);
+			return ArticleEditModel
+				.create(getOwner(this).ownerInjection())
+				.load(this.get('wikiVariables.host'), params.title, params.sectionIndex);
 		},
 
 		/**

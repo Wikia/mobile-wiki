@@ -4,6 +4,11 @@ import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
+const {
+	Object: EmberObject,
+	RSVP
+} = Ember;
+
 /**
  * @param {string} lang
  * @returns {string}
@@ -29,7 +34,7 @@ function getFromCache(browserLang) {
 	return value.model;
 }
 
-export default Ember.Object.extend(LanguagesMixin, {
+export default EmberObject.extend(LanguagesMixin, {
 	message: null,
 	nativeDomain: null,
 
@@ -37,11 +42,11 @@ export default Ember.Object.extend(LanguagesMixin, {
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
-		const browserLang = WikiaInYourLangModel.getBrowserLanguage(),
+		const browserLang = this.getBrowserLanguage(),
 			model = getFromCache(browserLang);
 
 		if (model) {
-			return Ember.RSVP.resolve(model);
+			return RSVP.resolve(model);
 		}
 
 		return fetch(
@@ -59,6 +64,7 @@ export default Ember.Object.extend(LanguagesMixin, {
 				let modelInstance = null;
 
 				if (resp.success) {
+					// FIXME
 					modelInstance = WikiaInYourLangModel.create({
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile

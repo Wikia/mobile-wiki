@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import {normalizeToUnderscore} from '../utils/string';
 
-const {Object: EmberObject, inject, isArray} = Ember;
+const {
+	Object: EmberObject,
+	inject,
+	isArray
+} = Ember;
 
 /**
  * @typedef {Object} ArticleMedia

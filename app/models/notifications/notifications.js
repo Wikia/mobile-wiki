@@ -4,7 +4,13 @@ import fetch from 'ember-network/fetch';
 import {convertToIsoString} from '../../utils/iso-date-time';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
-const {A, inject, Object: EmberObject, RSVP, get} = Ember;
+const {
+	A,
+	Object: EmberObject,
+	RSVP,
+	get,
+	inject
+} = Ember;
 
 const NotificationsModel = EmberObject.extend({
 	unreadCount: 0,

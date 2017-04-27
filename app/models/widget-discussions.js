@@ -6,7 +6,12 @@ import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';
 import fetch from 'ember-network/fetch';
 
-const {Object: EmberObject, get, getWithDefault, inject} = Ember;
+const {
+	Object: EmberObject,
+	get,
+	getWithDefault,
+	inject
+} = Ember;
 
 /**
  * @param {string} [path='']

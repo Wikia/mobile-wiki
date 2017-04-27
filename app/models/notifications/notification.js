@@ -1,13 +1,17 @@
 import Ember from 'ember';
 import DiscussionContributor from './contributor';
-import {notificationTypes} from '../../utils/notification-types';
 import fetch from 'ember-network/fetch';
 import {convertToTimestamp} from '../../utils/iso-date-time';
+import {notificationTypes} from '../../utils/notification-types';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
+const {
+	A,
+	Object: EmberObject,
+	get
+} = Ember;
 
-const {Object: EmberObject, A} = Ember,
-	avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
+const avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
 
 const NotificationModel = EmberObject.extend({
 	title: null,
@@ -40,16 +44,16 @@ NotificationModel.reopenClass({
 	 */
 	create(notificationData) {
 		return this._super({
-			title: Ember.get(notificationData, 'refersTo.title'),
-			snippet: Ember.get(notificationData, 'refersTo.snippet'),
-			uri: Ember.get(notificationData, 'refersTo.uri'),
-			latestEventUri: Ember.get(notificationData, 'events.latestEvent.uri'),
-			timestamp: convertToTimestamp(Ember.get(notificationData, 'events.latestEvent.when')),
-			communityName: Ember.get(notificationData, 'community.name'),
-			communityId: Ember.get(notificationData, 'community.id'),
+			title: get(notificationData, 'refersTo.title'),
+			snippet: get(notificationData, 'refersTo.snippet'),
+			uri: get(notificationData, 'refersTo.uri'),
+			latestEventUri: get(notificationData, 'events.latestEvent.uri'),
+			timestamp: convertToTimestamp(get(notificationData, 'events.latestEvent.when')),
+			communityName: get(notificationData, 'community.name'),
+			communityId: get(notificationData, 'community.id'),
 			isUnread: notificationData.read === false,
-			totalUniqueActors: Ember.get(notificationData, 'events.totalUniqueActors'),
-			latestActors: NotificationModel.createActors(Ember.get(notificationData, 'events.latestActors')),
+			totalUniqueActors: get(notificationData, 'events.totalUniqueActors'),
+			latestActors: NotificationModel.createActors(get(notificationData, 'events.latestActors')),
 			type: NotificationModel.getTypeFromApiData(notificationData)
 		});
 	},
