@@ -1,13 +1,13 @@
-<div class="video-container{{unless isPlayerLoading ' player-ready'}}"
+<div class="video-container{{unless isPlayerLoading ' player-ready'}}{{if isPlayed ' is-played'}}"
 	 style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%), url({{model.url}});">
 	{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
 	<div {{action 'playVideo'}} class="video-placeholder">
 		<div class="video-details">
 			<div class="video-label">
 				{{i18n 'article.video-watch'}}
-				<span class="video-time"></span>
+				<span class="video-time">{{videoTime}}</span>
 			</div>
-			<div class="video-title"></div>
+			<div class="video-title">{{videoTitle}}</div>
 		</div>
 		<div class="video-play-circle">
 			{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}

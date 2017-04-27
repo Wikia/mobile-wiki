@@ -31,17 +31,14 @@ export default Component.extend(
 		},
 
 		onCreate(player) {
-			const $videoContainer = this.$('.video-container');
-
 			this.player = player;
 
 			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
 				const videoTitle = player.getTitle(),
 					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
 
-				$videoContainer.find('.video-title').text(videoTitle);
-				$videoContainer.find('.video-time').text(videoTime);
-				$videoContainer.find('.video-details').show();
+				this.set('videoTitle', videoTitle);
+				this.set('videoTime', videoTime);
 				this.set('isPlayerLoading', false);
 			});
 
@@ -157,8 +154,7 @@ export default Component.extend(
 		actions: {
 			playVideo() {
 				if (this.player) {
-					this.$(`#${this.get('videoContainerId')}`).show();
-					this.$('.video-container').find('.video-details').hide();
+					this.set('isPlayed', true);
 					this.player.play();
 				}
 			}
