@@ -115,7 +115,7 @@
 
 			&.is-played {
 				.video-details {
-					display: block;
+					visibility: visible;
 				}
 
 				.ooyala-article-video {
@@ -188,11 +188,8 @@
 	}
 
 	.video-details {
-		bottom: 9px;
-		display: none;
-		left: 12px;
-		max-width: 70%;
-		position: absolute;
+		flex: 1 0 70%;
+		visibility: hidden;
 
 		.video-label {
 			color: $wds-color-white;
@@ -208,7 +205,8 @@
 		}
 
 		.video-title {
-			font-size: $wds-typescale-size-plus-2;
+			font-size: $wds-typescale-size-base;
+			line-height: $wds-typescale-size-plus-2;
 		}
 	}
 
