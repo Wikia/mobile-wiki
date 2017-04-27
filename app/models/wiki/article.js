@@ -4,13 +4,13 @@ import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
 const ArticleModel = BaseModel.extend({
-	content: null,
-	hasPortableInfobox: null,
-	featuredVideo: null,
 	comments: 0,
+	content: null,
+	curatedMainPageData: null,
+	featuredVideo: null,
+	hasPortableInfobox: false,
 	isCuratedMainPage: false,
 	isMainPage: false,
-	curatedMainPageData: null,
 	user: null
 });
 

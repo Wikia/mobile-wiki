@@ -12,15 +12,15 @@
 			.video-details {
 				display: block;
 			}
+		}
 
-			&.is-played {
-				.video-details {
-					display: none;
-				}
+		&.is-played {
+			.video-details {
+				display: none;
+			}
 
-				.ooyala-article-video {
-					display: block;
-				}
+			.ooyala-article-video {
+				display: block;
 			}
 		}
 	}

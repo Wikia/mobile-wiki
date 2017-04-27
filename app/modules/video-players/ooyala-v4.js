@@ -28,7 +28,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	setupPlayer() {
 		if (!window.OO) {
-			console.error('Ooyala player has not beed loaded.');
+			console.error('Ooyala player has not been loaded.');
 		} else {
 			this.createPlayer();
 		}
