@@ -101,15 +101,16 @@
 		}
 
 		&.fixed {
+			align-items: center;
+			animation: slide-from-top .5s forwards;
 			background: $wds-color-white;
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+			display: flex;
 			padding: 12px;
 			position: fixed;
 			top: $wds-global-navigation-height;
-			z-index: $z-site-head + 1;
-			align-items: center;
-			display: flex;
 			width: 100%;
+			z-index: $z-site-head + 1;
 
 			.wds-spinner {
 				display: none;
