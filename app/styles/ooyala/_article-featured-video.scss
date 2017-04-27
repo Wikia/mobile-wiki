@@ -115,16 +115,26 @@
 		}
 
 		&.fixed {
+			@keyframes video-slide {
+				0% {
+					transform: translateY(-100%);
+				}
+				100% {
+					transform: translateY(0%);
+				}
+			}
+
 			align-items: center;
-			animation: slide-from-top .5s forwards;
+			animation: video-slide .5s forwards;
 			background: $wds-color-white;
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 			display: flex;
 			padding: 12px;
 			position: fixed;
+			transform: translateY(-100%);
 			top: $wds-global-navigation-height;
 			width: 100%;
-			z-index: $z-site-head + 1;
+			z-index: $z-site-head - 1;
 
 			.wds-spinner {
 				display: none;
