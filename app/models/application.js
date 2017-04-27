@@ -14,9 +14,9 @@ const {
 const ApplicationModel = EmberObject.extend({});
 
 ApplicationModel.reopenClass({
-	get(title) {
-		const currentUser = getService('current-user'),
-			fastboot = getService('fastboot'),
+	get(title, currentUser, fastboot) {
+		const //currentUser = getService('current-user'),
+			//fastboot = getService('fastboot'),
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
