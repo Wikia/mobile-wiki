@@ -36,7 +36,7 @@ export default Component.extend(
 				showVideoOnScroll = true,
 				hasScrolled = false;
 
-			setInterval(function() {
+			this.scrollIntervalHandler= setInterval(function() {
 				if (hasScrolled) {
 					hasScrolled = false;
 				}
@@ -78,6 +78,8 @@ export default Component.extend(
 			this._super(...arguments);
 
 			this.player.destroy();
+
+			clearInterval(this.scrollIntervalHandler);
 		},
 
 		onCreate(player) {
