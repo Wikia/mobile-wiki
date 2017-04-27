@@ -4,8 +4,9 @@ import {buildUrl} from './url';
 import {getService} from '../utils/application-instance';
 import {getFetchErrorMessage, TrackingDimensionsFetchError} from '../utils/errors';
 
-export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title) {
-	const fastboot = getService('fastboot');
+export function getAndPutTrackingDimensionsToShoebox(isAnon, host, title, fastboot) {
+	// TODO XW-3310 rethink how we share application instance
+	// const fastboot = getService('fastboot');
 	const url = buildUrl({
 		host,
 		path: '/wikia.php',
