@@ -4,7 +4,7 @@ import NotificationsModel from '../models/notifications/notifications';
 const {Service, computed, inject, RSVP} = Ember;
 
 export default Service.extend({
-	model: NotificationsModel.create(),
+	model: null,
 	isLoading: false,
 	nextPage: null,
 
@@ -39,6 +39,7 @@ export default Service.extend({
 		this._super(...arguments);
 		// fetches the model from the API at first attempt to use the data
 		// then a singleton service will keep the data until page reloads
+		this.set('model', NotificationsModel.create(getOwner(this).ownerInjection()))
 		this.get('modelLoader');
 	},
 

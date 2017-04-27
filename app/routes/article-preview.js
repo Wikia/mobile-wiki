@@ -24,9 +24,7 @@ export default Route.extend(
 			if (this.get('fastboot.isFastBoot')) {
 				const requestBody = this.get('fastboot._fastbootInfo.request.body');
 
-				const model = ArticlePreviewModel.create({
-					host: this.get('wikiVariables.host')
-				});
+				const model = ArticlePreviewModel.create(getOwner(this).ownerInjection());
 
 				disableCache(this.get('fastboot'));
 

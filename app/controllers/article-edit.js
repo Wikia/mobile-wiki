@@ -84,7 +84,7 @@ export default Controller.extend({
 			this.set('isPublishing', true);
 			this.get('application').set('isLoading', true);
 
-			ArticleEditModel.publish(this.get('wikiVariables.host'), this.get('model')).then(
+			this.get('model').publish().then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);

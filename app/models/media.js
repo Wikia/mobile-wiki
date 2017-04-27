@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {getService} from '../utils/application-instance';
 import {normalizeToUnderscore} from '../utils/string';
 
-const {Object: EmberObject, isArray} = Ember;
+const {Object: EmberObject, inject, isArray} = Ember;
 
 /**
  * @typedef {Object} ArticleMedia
@@ -25,6 +24,8 @@ const {Object: EmberObject, isArray} = Ember;
  */
 
 export default EmberObject.extend({
+	logger: inject.service(),
+
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
@@ -87,7 +88,7 @@ export default EmberObject.extend({
 		if (isArray(media)) {
 			media.some(findInMedia);
 		} else {
-			getService('logger').debug('Media is not an array', media);
+			this.get('logger').debug('Media is not an array', media);
 		}
 
 		return {
