@@ -33,11 +33,24 @@ export default Component.extend(
 		initOnScrollBehaviour() {
 			var $video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height(),
-				showVideoOnScroll = true;
+				showVideoOnScroll = true,
+				hasScrolled = false;
+
+			setInterval(function() {
+				if (hasScrolled) {
+					hasScrolled = false;
+				}
+			}, 200);
 
 			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function(e) {
 				var currentScroll = e.data.$window.scrollTop(),
 					$siteHead = this.$('.site-head');
+
+				if (hasScrolled) {
+					return;
+				}
+
+				hasScrolled = true;
 
 				if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
 					if (showVideoOnScroll && (e.data.player === undefined || !e.data.player.isPlaying())) {
