@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
-import {getService} from '../utils/application-instance';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 
-const {A, Object: EmberObject, computed} = Ember;
+const {A, Object: EmberObject, computed, inject} = Ember;
 
 export default EmberObject.extend({
 	batch: 1,
@@ -14,7 +13,8 @@ export default EmberObject.extend({
 	query: '',
 	totalItems: 0,
 	totalBatches: 0,
-	host: null,
+	wikiVariables: inject.service(),
+	logger: inject.service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -51,7 +51,7 @@ export default EmberObject.extend({
 		});
 
 		return fetch(buildUrl({
-			host: this.get('host'),
+			host: this.get('wikiVariables.host'),
 			path: '/wikia.php',
 			query: {
 				controller: 'SearchApi',
@@ -71,7 +71,7 @@ export default EmberObject.extend({
 					if (response.status === 404) {
 						this.set('error', 'search-error-not-found');
 					} else {
-						getService('logger').error('Search request error', response);
+						this.get('logger').error('Search request error', response);
 					}
 
 					return this;

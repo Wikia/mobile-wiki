@@ -15,18 +15,14 @@ export default Component.extend(
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 
 		currentUser: inject.service(),
-		wikiVariables: inject.service(),
-		i18n: inject.service(),
 		notifications: inject.service(),
 
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 
 		init() {
 			this._super(...arguments);
-			this.model = WikiaNavModel.create({
+			this.model = WikiaNavModel.create(getOwner(this).ownerInjection(), {
 				dsGlobalNavigation: this.get('globalNavigation'),
-				wikiVariables: this.get('wikiVariables'),
-				i18n: this.get('i18n')
 			});
 			this.clickHandlers = {
 				onRandomPageClick: 'loadRandomArticle'

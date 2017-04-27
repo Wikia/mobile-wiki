@@ -3,12 +3,11 @@ import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-cla
 import SearchModel from '../models/search';
 import {track, trackActions, trackPageView} from '../utils/track';
 
-const {Route, inject} = Ember;
+const {getOwner, Route} = Ember;
 
 export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
 	{
-		wikiVariables: inject.service(),
 		applicationWrapperClassNames: ['search-result-page'],
 		queryParams: {
 			query: {
@@ -17,9 +16,7 @@ export default Route.extend(
 		},
 
 		model(params) {
-			const model = SearchModel.create({
-				host: this.get('wikiVariables.host')
-			});
+			const model = SearchModel.create(getOwner(this).ownerInjection(), {dupa: true});
 
 			return model.search(params.query);
 		},

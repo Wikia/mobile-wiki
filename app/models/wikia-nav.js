@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import {getService} from '../utils/application-instance';
 
-const {A, Object: EmberObject, computed, get} = Ember;
+const {A, inject, Object: EmberObject, computed, get} = Ember;
 
 export default EmberObject.extend({
-	// This has to be injected
-	i18n: null,
-	wikiVariables: null,
+	i18n: inject.service(),
+	wikiVariables: inject.service(),
 	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
