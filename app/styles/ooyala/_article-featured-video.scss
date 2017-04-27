@@ -69,6 +69,20 @@
 			.video-play-circle {
 				opacity: 1;
 			}
+
+			.video-details {
+				display: block;
+			}
+
+			&.is-played {
+				.video-details {
+					display: none;
+				}
+
+				.ooyala-article-video {
+					display: block;
+				}
+			}
 		}
 
 		.video-details {
