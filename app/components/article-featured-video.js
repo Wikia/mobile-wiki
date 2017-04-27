@@ -31,8 +31,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initOnScrollBehaviour() {
-			var prevScroll = 0,
-				$video = this.$('.video-container'),
+			var $video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height(),
 				showVideoOnScroll = true;
 
@@ -45,12 +44,10 @@ export default Component.extend(
 						$video.addClass('fixed');
 						$siteHead.addClass('no-shadow');
 					}
-				} else if (currentScroll < prevScroll && currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
+				} else if (currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
 					$video.removeClass('fixed');
 					$siteHead.removeClass('no-shadow');
 				}
-
-				prevScroll = currentScroll;
 			});
 
 			$video.find('.video-close-button').on('click', function () {
