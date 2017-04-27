@@ -23,11 +23,12 @@ export default class VideoLoader {
 	}
 
 	/**
-	 * @param {string} name
 	 * @returns {boolean}
 	 */
-	isProvider(name) {
-		return this.data.provider.toLowerCase() === name;
+	isOoyalaV3() {
+		// We need to use regexp check because Ooyala provider name may contain 'ooyala/funimation' or
+		// other similar
+		return Boolean(this.data.provider.toLowerCase().match(/ooyala/)) && this.data.provider !== 'ooyala-v4';
 	}
 
 	/**
@@ -55,7 +56,7 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
+		return this.isOoyalaV3() ? 'ooyala' : this.data.provider;
 	}
 
 	/**

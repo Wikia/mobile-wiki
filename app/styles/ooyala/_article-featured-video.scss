@@ -13,16 +13,16 @@
 			.video-details {
 				visibility: visible;
 			}
+		}
 
-			&.is-played {
-				.video-details {
-					flex: 1 0 70%;
-					visibility: hidden;
-				}
+		&.is-played {
+			.video-details {
+				flex: 1 0 70%;
+				visibility: hidden;
+			}
 
-				.ooyala-article-video {
-					display: block;
-				}
+			.ooyala-article-video {
+				display: block;
 			}
 		}
 
