@@ -10,14 +10,12 @@ export default class OoyalaV4Player extends BasePlayer {
 	/**
 	 * @param {string} provider
 	 * @param {*} params
-	 * @param {string} containerId
 	 * @returns {void}
 	 */
-	constructor(provider, params, containerId) {
+	constructor(provider, params) {
 		const ooyalaPCode = config.ooyala.pcode;
 		const ooyalaPlayerBrandingId = config.ooyala.playerBrandingId;
-		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=
-			${getService('wikiVariables').cacheBuster}`;
+		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=${params.cacheBuster}`;
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;
@@ -27,7 +25,7 @@ export default class OoyalaV4Player extends BasePlayer {
 
 		super(provider, params);
 
-		this.containerId = containerId;
+		this.containerId = params.containerId;
 	}
 
 	/**

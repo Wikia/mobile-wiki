@@ -3,12 +3,13 @@ import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 
-const {Component} = Ember;
+const {Component, inject} = Ember;
 
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		isPlayerLoading: true,
+		wikiVariables: inject.service(),
 
 		init() {
 			this._super(...arguments);
@@ -51,12 +52,13 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const data = this.get('model.embed');
-
-			data.jsParams.onCreate = this.onCreate.bind(this);
-
-			data.containerId = this.get('videoContainerId');
-
+			const data = this.get('model.embed'),
+				params = {
+					onCreate: this.onCreate.bind(this),
+					containerId: this.get('videoContainerId'),
+					cacheBuster: this.get('wikiVariables.cacheBuster')
+				};
+			$.extend(data.jsParams, params);
 			const videoLoader = new VideoLoader(data);
 
 			/**

@@ -43,10 +43,10 @@ export default class VideoLoader {
 					height: this.data.height,
 					width: this.data.width
 				},
-				noAds: this.data.noAds
+				noAds: this.data.noAds,
 			});
 
-		this.player = VideoLoader.createPlayer(playerClass, provider, params, this.data.containerId);
+		this.player = VideoLoader.createPlayer(playerClass, provider, params);
 		this.player.setupPlayer();
 		this.player.onResize();
 	}
@@ -71,10 +71,10 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
+	 * @returns {BasePlayer|OoyalaPlayer|OoyalaV4Player|YouTubePlayer}
 	 */
-	static createPlayer(playerClass, provider, params, containerId) {
-		return new playerClass(provider, params, containerId);
+	static createPlayer(playerClass, provider, params) {
+		return new playerClass(provider, params);
 	}
 
 	/**
