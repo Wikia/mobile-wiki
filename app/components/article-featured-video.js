@@ -34,14 +34,14 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			var $video = this.$('.video-container'),
+				$siteHead = $('.site-head'),
 				videoBottomPosition = $video.offset().top + $video.height(),
 				showVideoOnScroll = true;
 
 			$(window).on('scroll', { player: this.player, $window: this.$(window) }, function({data: {player, $window}}) {
-				var currentScroll = $window.scrollTop(),
-					$siteHead = this.$('.site-head');
-
 				run.throttle(this, function () {
+					var currentScroll = $window.scrollTop();
+
 					if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed') ) {
 						if (showVideoOnScroll && (player === undefined || ! player.isPlaying())) {
 							$video.addClass('fixed');
