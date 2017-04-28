@@ -9,10 +9,8 @@ const {
 	A,
 	Object: EmberObject,
 	get,
-	getOwner
-} = Ember;
-
-const avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
+} = Ember,
+	avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
 
 const NotificationModel = EmberObject.extend({
 	title: null,
