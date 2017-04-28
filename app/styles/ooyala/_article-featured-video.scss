@@ -109,8 +109,8 @@
 
 		.video-label {
 			color: $wds-color-white;
-			font-size: $wds-typescale-size-minus-2;
-			line-height: $wds-line-height;
+			font-size: $wds-typescale-size-minus-1;
+			line-height: 1.25em;
 			opacity: 0.5;
 			text-transform: uppercase;
 		}
@@ -122,6 +122,7 @@
 
 		.video-title {
 			font-size: $wds-typescale-size-plus-2;
+			line-height: 1.25em;
 		}
 	}
 
@@ -143,6 +144,10 @@
 
 			.video-details {
 				bottom: 18px;
+
+				.video-label {
+					font-size: $wds-typescale-size-minus-2;
+				}
 
 				.video-title {
 					font-size: $wds-typescale-size-base;
