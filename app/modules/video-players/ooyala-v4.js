@@ -10,7 +10,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	constructor(provider, params) {
 		const ooyalaPCode = config.ooyala.pcode;
 		const ooyalaPlayerBrandingId = config.ooyala.playerBrandingId;
-		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&cb=${params.cacheBuster}`;
+		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&isMobile=1&cb=${params.cacheBuster}`;
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;

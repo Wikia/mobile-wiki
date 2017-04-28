@@ -87,7 +87,10 @@ export default Component.extend(
 		}),
 
 		noPortableInfobox: computed.not('model.hasPortableInfobox'),
-		featuredVideoVisible: computed.and('noPortableInfobox', 'model.featuredVideo'),
+
+		hasFeaturedVideo: computed.bool('model.featuredVideo'),
+
+		featuredVideoVisible: computed.and('noPortableInfobox', 'hasFeaturedVideo'),
 
 		actions: {
 			/**

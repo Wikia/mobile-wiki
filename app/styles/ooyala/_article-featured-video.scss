@@ -22,7 +22,7 @@
 			}
 
 			.ooyala-article-video {
-				display: block;
+				visibility: visible;
 			}
 		}
 
@@ -177,9 +177,8 @@
 		width: 80px;
 
 		.wds-icon {
+			@include square(30px);
 			margin-left: 4px;
-			height: 30px;
-			width: 30px;
 		}
 	}
 
@@ -193,8 +192,8 @@
 
 		.video-label {
 			color: $wds-color-white;
-			font-size: $wds-typescale-size-minus-2;
-			line-height: $wds-line-height;
+			font-size: $wds-typescale-size-minus-1;
+			line-height: 1.25em;
 			opacity: 0.5;
 			text-transform: uppercase;
 		}
@@ -206,12 +205,12 @@
 
 		.video-title {
 			font-size: $wds-typescale-size-base;
-			line-height: $wds-typescale-size-plus-2;
+			line-height: 1.25em;
 		}
 	}
 
 	.ooyala-article-video {
-		display: none;
+		visibility: hidden;
 	}
 
 	// for oo-xsmall breakpoint
@@ -222,13 +221,16 @@
 				width: 60px;
 
 				.wds-icon {
-					height: 18px;
-					width: 18px;
+					@include square($wds-icon-small-size);
 				}
 			}
 
 			.video-details {
-				bottom: 9px;
+				bottom: 18px;
+
+				.video-label {
+					font-size: $wds-typescale-size-minus-2;
+				}
 
 				.video-title {
 					font-size: $wds-typescale-size-base;
