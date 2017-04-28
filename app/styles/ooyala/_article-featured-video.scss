@@ -75,9 +75,8 @@
 		width: 80px;
 
 		.wds-icon {
+			@include square(30px);
 			margin-left: 4px;
-			height: 30px;
-			width: 30px;
 		}
 	}
 
@@ -138,8 +137,7 @@
 				width: 60px;
 
 				.wds-icon {
-					height: 18px;
-					width: 18px;
+					@include square($wds-icon-small-size);
 				}
 			}
 
