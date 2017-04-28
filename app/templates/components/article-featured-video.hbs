@@ -10,7 +10,11 @@
 			<div class="video-title">{{videoTitle}}</div>
 		</div>
 		<div class="video-play-circle">
-			{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
+			{{#if isVideoDrawerVisible}}
+				{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-tiny'}}
+			{{else}}
+				{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
+			{{/if}}
 		</div>
 	</div>
 	<div class="video-close-button" {{action 'closeVideoDrawer'}}>

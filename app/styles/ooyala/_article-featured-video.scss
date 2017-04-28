@@ -102,10 +102,8 @@
 				right: auto;
 				width: 30px;
 
-				.wds-icon {
-					height: 12px;
+				.wds-icon-tiny {
 					margin-left: 2px;
-					width: 12px;
 				}
 			}
 
@@ -172,7 +170,7 @@
 		opacity: .7;
 		width: 80px;
 
-		.wds-icon {
+		.wds-icon-small {
 			@include square(30px);
 			margin-left: 4px;
 		}
@@ -216,7 +214,7 @@
 				height: 60px;
 				width: 60px;
 
-				.wds-icon {
+				.wds-icon-small {
 					@include square($wds-icon-small-size);
 				}
 			}
