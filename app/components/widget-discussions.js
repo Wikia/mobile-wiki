@@ -2,7 +2,7 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussions';
 
-const {Component, inject} = Ember;
+const {Component, getOwner} = Ember;
 
 export default Component.extend(
 	InViewportMixin,

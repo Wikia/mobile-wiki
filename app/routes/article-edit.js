@@ -4,7 +4,10 @@ import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
-export default Ember.Route.extend(
+
+const {getOwner, Route} = Ember;
+
+export default Route.extend(
 	FullPageMixin,
 	HeadTagsDynamicMixin,
 	{

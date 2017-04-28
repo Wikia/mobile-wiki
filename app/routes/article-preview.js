@@ -3,7 +3,7 @@ import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-cla
 import ArticlePreviewModel from '../models/article-preview';
 import {disableCache} from '../utils/fastboot-caching';
 
-const {Route, inject} = Ember;
+const {Route, getOwner, inject} = Ember;
 
 /**
  * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`

@@ -61,26 +61,25 @@ export default EmberObject.extend(LanguagesMixin, {
 			}))
 			.then((response) => response.json())
 			.then((resp) => {
-				let modelInstance = null;
+				let out = null;
 
 				if (resp.success) {
-					// FIXME
-					modelInstance = WikiaInYourLangModel.create({
+					out = {
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile
-					});
+					};
 				}
 
 				// write to cache
 				localStorageConnector.setItem(
 					getCacheKey(browserLang),
 					JSON.stringify({
-						model: modelInstance,
+						model: out,
 						timestamp: new Date().getTime()
 					})
 				);
 
-				return modelInstance;
+				return out;
 			});
 	},
 });

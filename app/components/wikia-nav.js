@@ -6,7 +6,7 @@ import {buildUrl} from '../utils/url';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 
-const {Component, computed, inject, get} = Ember;
+const {Component, computed, get, getOwner, inject} = Ember;
 
 export default Component.extend(
 	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,
