@@ -123,6 +123,10 @@ export default Component.extend(
 					category,
 					label
 				});
+			},
+
+			toggleSiteHeadShadow(visible) {
+				this.sendAction('toggleSiteHeadShadow', visible);
 			}
 		},
 

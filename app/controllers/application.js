@@ -213,6 +213,10 @@ export default Controller.extend(
 			 */
 			toggleUserMenu(visible) {
 				this.set('userMenuVisible', visible);
+			},
+
+			toggleSiteHeadShadow(visible) {
+				this.set('siteHeadNoShadow', !visible);
 			}
 		},
 

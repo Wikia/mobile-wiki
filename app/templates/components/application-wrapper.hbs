@@ -2,14 +2,15 @@
 	{{outlet}}
 {{else}}
 	{{site-head
-		smartBannerVisible=smartBannerVisible
-		toggleDrawer=this.attrs.toggleDrawer
-		themeBar=themeBar
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
-		setDrawerContent=(action 'setDrawerContent')
-		isSearchPage=isSearchPage
 		globalNavigation=this.attrs.globalNavigation
+		isSearchPage=isSearchPage
+		noShadow=siteHeadNoShadow
+		setDrawerContent=(action 'setDrawerContent')
+		smartBannerVisible=smartBannerVisible
+		themeBar=themeBar
+		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible

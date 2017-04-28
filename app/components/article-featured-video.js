@@ -34,7 +34,6 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			let $video = this.$('.video-container'),
-				$siteHead = $('.site-head'),
 				videoBottomPosition = $video.offset().top + $video.height(),
 				self = this;
 
@@ -44,10 +43,10 @@ export default Component.extend(
 
 					if (currentScroll >= videoBottomPosition && self.canVideoDrawerShow()) {
 						self.set('isVideoDrawerVisible', true);
-						$siteHead.addClass('no-shadow');
+						self.toggleSiteHeadShadow(false);
 					} else if (currentScroll < videoBottomPosition - $video.height() && self.canVideoDrawerHide()) {
 						self.set('isVideoDrawerVisible', false);
-						$siteHead.removeClass('no-shadow');
+						self.toggleSiteHeadShadow(true);
 					}
 				}, 200);
 			});
