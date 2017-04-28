@@ -22,19 +22,17 @@ $video-player-head-size-scrubbing: 20px;
 
 	.oo-xsmall {
 		.oo-state-screen {
-			&.oo-start-screen {
-				.oo-action-icon {
-					height: 60px;
-					width: 60px;
+			&.oo-start-screen .oo-action-icon {
+				height: 60px;
+				width: 60px;
 
-					svg {
-						@include square($wds-icon-small-size);
-					}
+				svg {
+					@include square($wds-icon-small-size);
+				}
 
-					// reply icon, iOS only
-					.oo-icon-system-replay {
-						font-size: $wds-typescale-size-plus-2 !important;
-					}
+				// reply icon, iOS only
+				.oo-icon-system-replay {
+					font-size: $wds-typescale-size-plus-2 !important;
 				}
 			}
 
@@ -83,11 +81,11 @@ $video-player-head-size-scrubbing: 20px;
 				width: 80px;
 
 				svg {
+					@include square(30px);
+
 					fill: $wds-color-white;
-					height: 30px;
 					margin-left: 4px;
 					vertical-align: text-bottom;
-					width: 30px;
 				}
 
 				// reply icon, iOS only
