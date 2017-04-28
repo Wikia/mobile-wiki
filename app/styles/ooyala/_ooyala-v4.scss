@@ -1,5 +1,7 @@
 @import "../../../bower_components/design-system/dist/scss/wds-variables/colors";
 @import "../../../bower_components/design-system/dist/scss/wds-variables/typography";
+@import "../../../bower_components/design-system/dist/scss/wds-variables/icons";
+@import "../../../bower_components/design-system/dist/scss/wds-mixins/square";
 
 // NOTE: !important is used multiple times in this file because of overriding ooyala default styles
 // that are already defined with !important, or with very specific selector
@@ -26,8 +28,7 @@ $video-player-head-size-scrubbing: 20px;
 					width: 60px;
 
 					svg {
-						height: 18px;
-						width: 18px;
+						@include square($wds-icon-small-size);
 					}
 
 					// reply icon, iOS only
@@ -67,7 +68,7 @@ $video-player-head-size-scrubbing: 20px;
 				align-items: center;
 				background-color: $wds-color-light-blue;
 				border: 6px solid rgba(0, 0, 0, 0.32);
-				border-radius: 100%;
+				border-radius: 50%;
 				bottom: 18px;
 				box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
 				box-sizing: border-box;
@@ -116,7 +117,7 @@ $video-player-head-size-scrubbing: 20px;
 				color: $wds-color-white;
 				font-size: $wds-typescale-size-minus-1;
 				font-weight: bold;
-				letter-spacing: 0.25px;
+				letter-spacing: .25px;
 				line-height: 18px;
 				opacity: .75;
 			}
@@ -156,11 +157,12 @@ $video-player-head-size-scrubbing: 20px;
 		}
 
 		.oo-facebook {
-			background-color: #3b5998;
+			background-color: $wds-color-social-facebook;
 			background-size: 30px;
 		}
 
 		.oo-twitter {
+			// we can't use $wds-color-social-twitter because twitter icon from ooyala has slightly different color
 			background-color: #55acee;
 			background-size: 40px;
 		}
@@ -187,7 +189,7 @@ $video-player-head-size-scrubbing: 20px;
 				.oo-playhead {
 					background: $video-player-head-color;
 					border-radius: $video-player-head-size;
-					border: 2px solid #fff;
+					border: 2px solid $wds-color-white;
 					height: $video-player-head-size;
 					width: $video-player-head-size;
 				}
@@ -195,7 +197,7 @@ $video-player-head-size-scrubbing: 20px;
 				.oo-playhead-scrubbing {
 					background: $video-player-head-color;
 					border-radius: $video-player-head-size-scrubbing;
-					border: 3px solid #fff;
+					border: 3px solid $wds-color-white;
 					height: $video-player-head-size-scrubbing;
 					width: $video-player-head-size-scrubbing;
 				}
@@ -237,11 +239,7 @@ $video-player-head-size-scrubbing: 20px;
 			}
 
 			.oo-volume {
-				.oo-volume-bar {
-					display: none;
-				}
-
-				.oo-volume-slider {
+				.oo-volume-bar, .oo-volume-slider {
 					display: none;
 				}
 			}
