@@ -58,7 +58,7 @@ module.exports = function (defaults) {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/',
-			ignore: ['html5-skin']
+			exclude: ['node_modules/html5-skin']
 		},
 		inlineContent: {
 			globals: `${inlineScriptsPath}globals.js`,
