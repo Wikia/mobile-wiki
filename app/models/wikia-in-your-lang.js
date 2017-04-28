@@ -19,7 +19,7 @@ function getCacheKey(lang) {
 
 /**
  * @param {string} browserLang
- * @returns {WikiaInYourLangModel}
+ * @returns {object}
  */
 function getFromCache(browserLang) {
 	const key = getCacheKey(browserLang),

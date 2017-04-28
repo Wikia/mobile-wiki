@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
 
-const {Component, computed, inject, observer, run} = Ember;
+const {Component, computed, inject, observer, run, getOwner} = Ember;
 
 /**
  * Component that displays article comments
@@ -85,7 +85,7 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 
-			this.set('model', ArticleCommentsModel.create({
+			this.set('model', ArticleCommentsModel.create(getOwner(this).ownerInjection(), {
 				articleId: this.get('articleId'),
 				host: this.get('wikiVariables.host')
 			}));

@@ -2,8 +2,8 @@ import Ember from 'ember';
 import getHostFromRequest from '../utils/host';
 import UserModel from './user';
 import NavigationModel from './navigation';
-import WikiVariables from './wiki-variables';
-import TrackingDimensions from './tracking-dimensions';
+import WikiVariablesModel from './wiki-variables';
+import TrackingDimensionsModel from './tracking-dimensions';
 
 const {
 	Object: EmberObject,
@@ -27,25 +27,25 @@ export default EmberObject.extend({
 				ownerInjection = getOwner(this).ownerInjection();
 
 			return RSVP.all([
-				WikiVariables.create(ownerInjection).fetch(host),
+				WikiVariablesModel.create(ownerInjection).fetch(host),
 				UserModel.create(ownerInjection).getUserId(accessToken)
-			]).then(([wikiVariables, userId]) => {
+			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
 
 				return RSVP.hashSettled({
 					currentUser: currentUser.initializeUserData(userId, host),
 					navigation: NavigationModel.create(ownerInjection).fetchAll(
 						host,
-						wikiVariables.id,
-						wikiVariables.language.content
+						wikiVariablesData.id,
+						wikiVariablesData.language.content
 					),
-					trackingDimensions: TrackingDimensions.create(ownerInjection).fetch(
+					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
 						!Boolean(userId),
 						host, title,
 						fastboot
 					),
-					wikiVariables
-				}).then(({navigation, wikiVariables, trackingDimensions}) => {
+					wikiVariablesData
+				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {
 					// We only want to fail application if we don't have the navigation data
 					if (navigation.state === 'rejected') {
 						throw navigation.reason;
@@ -53,7 +53,7 @@ export default EmberObject.extend({
 
 					const applicationData = {
 						navigation: navigation.value,
-						wikiVariables: wikiVariables.value
+						wikiVariables: wikiVariablesData.value
 					};
 
 					shoebox.put('applicationData', applicationData);

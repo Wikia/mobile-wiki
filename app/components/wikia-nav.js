@@ -2,7 +2,6 @@ import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
-import {buildUrl} from '../utils/url';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 

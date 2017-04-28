@@ -9,6 +9,7 @@ const {
 	Object: EmberObject,
 	RSVP,
 	get,
+	getOwner,
 	inject
 } = Ember;
 
@@ -94,7 +95,7 @@ const NotificationsModel = EmberObject.extend({
 
 	addNotifications(notifications) {
 		const notificationModels = notifications.map((notificationApiData) => {
-			return Notification.create(notificationApiData);
+			return Notification.create(getOwner(this).ownerInjection(), notificationApiData);
 		});
 
 		this.get('data').pushObjects(notificationModels);

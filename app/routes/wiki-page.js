@@ -5,7 +5,7 @@ import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
-import getPageModel from '../utils/wiki-handlers/wiki-page';
+import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
@@ -15,6 +15,7 @@ import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/medi
 const {Route, RSVP, $, inject, get} = Ember;
 
 export default Route.extend(
+	WikiPageHandlerMixin,
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
 	{
@@ -86,7 +87,6 @@ export default Route.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			const fastboot = this.get('fastboot');
 			const wikiVariables = this.get('wikiVariables');
 			const host = wikiVariables.get('host');
 			const modelParams = {
@@ -99,9 +99,8 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return RSVP.resolve(getPageModel(
+			return RSVP.resolve(this.getPageModel(
 				modelParams,
-				fastboot,
 				this.get('wikiVariables.contentNamespaces')
 			));
 		},

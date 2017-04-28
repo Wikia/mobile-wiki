@@ -8,7 +8,8 @@ import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 const {
 	A,
 	Object: EmberObject,
-	get
+	get,
+	getOwner
 } = Ember;
 
 const avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
@@ -38,12 +39,13 @@ const NotificationModel = EmberObject.extend({
 
 NotificationModel.reopenClass({
 	/**
+	 * @param {*} ownerInjection
 	 * @param {EmberObject} notificationData
 	 *
 	 * @returns {array}
 	 */
-	create(notificationData) {
-		return this._super({
+	create(ownerInjection, notificationData) {
+		return this._super(ownerInjection, {
 			title: get(notificationData, 'refersTo.title'),
 			snippet: get(notificationData, 'refersTo.snippet'),
 			uri: get(notificationData, 'refersTo.uri'),
@@ -53,17 +55,17 @@ NotificationModel.reopenClass({
 			communityId: get(notificationData, 'community.id'),
 			isUnread: notificationData.read === false,
 			totalUniqueActors: get(notificationData, 'events.totalUniqueActors'),
-			latestActors: NotificationModel.createActors(get(notificationData, 'events.latestActors')),
+			latestActors: NotificationModel.createActors(ownerInjection, get(notificationData, 'events.latestActors')),
 			type: NotificationModel.getTypeFromApiData(notificationData)
 		});
 	},
 
-	createActors(actors) {
+	createActors(ownerInjection, actors) {
 		return actors.reduce((array, actor) => {
 			if (!actor.avatarUrl) {
 				actor.avatarUrl = avatar;
 			}
-			array.addObject(DiscussionContributor.create(actor));
+			array.addObject(DiscussionContributor.create(ownerInjection, actor));
 			return array;
 		}, new A());
 	},
