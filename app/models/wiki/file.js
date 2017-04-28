@@ -34,7 +34,6 @@ export default BaseModel.extend({
 				fileThumbnail: media,
 				fileMedia: {
 					// This is for lightbox only
-					// FIXME TypeError: Cannot read property 'ownerInjection' of undefined
 					media: MediaModel.create(getOwner(this).ownerInjection(), {media}),
 					mediaRef: 0
 				}
