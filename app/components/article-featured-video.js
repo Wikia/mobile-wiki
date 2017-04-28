@@ -36,34 +36,21 @@ export default Component.extend(
 			let $video = this.$('.video-container'),
 				$siteHead = $('.site-head'),
 				videoBottomPosition = $video.offset().top + $video.height(),
-				showVideoOnScroll = true;
+				self = this;
 
-			$(window).on('scroll', {player: this.player, $window: this.$(window)}, function ({data: {player, $window}}) {
+			$(window).on('scroll', function () {
 				run.throttle(this, function () {
-					let currentScroll = $window.scrollTop();
+					let currentScroll = self.$(window).scrollTop();
 
-					if (currentScroll >= videoBottomPosition && !$video.hasClass('fixed')) {
-						if (showVideoOnScroll && (player === undefined || ! player.isPlaying())) {
-							$video.addClass('fixed');
-							$siteHead.addClass('no-shadow');
-						}
-					} else if (currentScroll < videoBottomPosition - $video.height() && $video.hasClass('fixed')) {
-						$video.removeClass('fixed');
+					if (currentScroll >= videoBottomPosition && self.canVideoDrawerShow()) {
+						self.set('isVideoDrawerVisible', true);
+						$siteHead.addClass('no-shadow');
+					} else if (currentScroll < videoBottomPosition - $video.height() && self.canVideoDrawerHide()) {
+						self.set('isVideoDrawerVisible', false);
 						$siteHead.removeClass('no-shadow');
 					}
 				}, 200);
 			});
-
-			$video.find('.video-close-button').on('click', function () {
-				$video.removeClass('fixed');
-				showVideoOnScroll = false;
-			});
-
-			$video.find('.video-thumbnail, .video-placeholder').on('click', {player: this.player},
-				function ({data: player}) {
-					player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-					player.play();
-				});
 		},
 
 		willDestroyElement() {
@@ -194,12 +181,32 @@ export default Component.extend(
 			});
 		},
 
+		canVideoDrawerShow() {
+			return !this.get('isVideoDrawerVisible') &&
+				!this.get('videoDrawerClosedManually') &&
+				!this.get('isPlayerLoading') &&
+				!this.player.isPlaying();
+		},
+
+		canVideoDrawerHide() {
+			return this.get('isVideoDrawerVisible');
+		},
+
 		actions: {
 			playVideo() {
 				if (this.player) {
+					if (this.get('isVideoDrawerVisible')) {
+						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+					}
 					this.set('isPlayed', true);
 					this.player.play();
 				}
+			},
+			closeVideoDrawer() {
+				this.setProperties({
+					'isVideoDrawerVisible': false,
+					'videoDrawerClosedManually': true
+				});
 			}
 		}
 	}

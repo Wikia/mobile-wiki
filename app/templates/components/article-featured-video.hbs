@@ -1,6 +1,6 @@
-<div class="video-container{{unless isPlayerLoading ' player-ready'}}{{if isPlayed ' is-played'}}">
+<div class="video-container{{unless isPlayerLoading ' player-ready'}}{{if isPlayed ' is-played'}}{{if isVideoDrawerVisible ' fixed'}}">
 	{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
-	<img src="{{model.url}}" class="video-thumbnail">
+	<img src="{{model.url}}" class="video-thumbnail" {{action 'playVideo'}}>
 	<div {{action 'playVideo'}} class="video-placeholder">
 		<div class="video-details">
 			<div class="video-label">
@@ -13,7 +13,7 @@
 			{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
 		</div>
 	</div>
-	<div class="video-close-button">
+	<div class="video-close-button" {{action 'closeVideoDrawer'}}>
 		{{svg 'wds-icons-cross' class='wds-icon wds-icon-small'}}
 	</div>
 	<div id="{{videoContainerId}}" class="ooyala-article-video"></div>
