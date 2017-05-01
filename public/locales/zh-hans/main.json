@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"出现错误，对不起，请再试一次。",
+    "instruction":"将在这个段落的最后添加图像",
+    "page-add-button":"添加",
+    "page-heading":"添加图片至：",
+    "photo-name":"图片名称",
+    "section-title-error":"标题无效。",
+    "success":"图片已添加到页面。"
+  },
   "app":{
     "advertisement-label":"广告",
     "cancel-label":"取消",
