@@ -34,19 +34,18 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			let $video = this.$('.video-container'),
-				videoBottomPosition = $video.offset().top + $video.height(),
-				self = this;
+				videoBottomPosition = $video.offset().top + $video.height();
 
-			$(window).on('scroll', function () {
-				run.throttle(this, function () {
-					let currentScroll = self.$(window).scrollTop();
+			$(window).on('scroll', () => {
+				run.throttle(this, () => {
+					let currentScroll = this.$(window).scrollTop();
 
-					if (currentScroll >= videoBottomPosition && self.canVideoDrawerShow()) {
-						self.set('isVideoDrawerVisible', true);
-						self.toggleSiteHeadShadow(false);
-					} else if (currentScroll < videoBottomPosition - $video.height() && self.canVideoDrawerHide()) {
-						self.set('isVideoDrawerVisible', false);
-						self.toggleSiteHeadShadow(true);
+					if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
+						this.set('isVideoDrawerVisible', true);
+						this.toggleSiteHeadShadow(false);
+					} else if (currentScroll < videoBottomPosition - $video.height() && this.canVideoDrawerHide()) {
+						this.set('isVideoDrawerVisible', false);
+						this.toggleSiteHeadShadow(true);
 					}
 				}, 200);
 			});
@@ -203,8 +202,8 @@ export default Component.extend(
 			},
 			closeVideoDrawer() {
 				this.setProperties({
-					'isVideoDrawerVisible': false,
-					'videoDrawerClosedManually': true
+					isVideoDrawerVisible: false,
+					videoDrawerClosedManually: true
 				});
 			}
 		}
