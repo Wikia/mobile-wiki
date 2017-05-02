@@ -50,11 +50,7 @@ export default Component.extend(
 						this.toggleSiteHeadShadow(false);
 					} else if (currentScroll < videoBottomPosition - $video.height()) {
 						this.set('videoDrawerDismissed', false);
-
-						if (this.canVideoDrawerHide()) {
-							this.set('isVideoDrawerVisible', false);
-							this.toggleSiteHeadShadow(true);
-						}
+						this.closeVideoDrawer();
 					}
 				}, 200);
 			});
@@ -195,8 +191,11 @@ export default Component.extend(
 				!this.get('isPlayed');
 		},
 
-		canVideoDrawerHide() {
-			return this.get('isVideoDrawerVisible');
+		closeVideoDrawer() {
+			if (this.get('isVideoDrawerVisible')) {
+				this.set('isVideoDrawerVisible', false);
+				this.toggleSiteHeadShadow(true);
+			}
 		},
 
 		actions: {
@@ -205,7 +204,9 @@ export default Component.extend(
 					if (this.get('isVideoDrawerVisible')) {
 						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
 					}
+
 					this.set('isPlayed', true);
+					this.closeVideoDrawer();
 					this.player.play();
 				}
 			},
