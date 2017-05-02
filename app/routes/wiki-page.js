@@ -99,10 +99,7 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return RSVP.resolve(this.getPageModel(
-				modelParams,
-				this.get('wikiVariables.contentNamespaces')
-			));
+			return RSVP.resolve(this.getPageModel(modelParams));
 		},
 
 		/**

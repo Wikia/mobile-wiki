@@ -42,10 +42,12 @@ function getURL(params) {
 
 export default Ember.Mixin.create({
 	fastboot: inject.service(),
+	wikiVariables: inject.service(),
 
-	getPageModel(params, contentNamespaces) {
+	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
-			shoebox = this.get('fastboot.shoebox');
+			shoebox = this.get('fastboot.shoebox'),
+			contentNamespaces = this.get('wikiVariables.contentNamespaces');
 
 		if (isFastBoot || !isInitialPageView()) {
 			const url = getURL(params);
