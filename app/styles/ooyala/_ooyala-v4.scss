@@ -160,8 +160,7 @@ $video-player-head-size-scrubbing: 20px;
 		}
 
 		.oo-twitter {
-			// we can't use $wds-color-social-twitter because twitter icon from ooyala has slightly different color
-			background-color: #55acee;
+			background-color: $wds-color-social-twitter;
 			background-size: 40px;
 		}
 
