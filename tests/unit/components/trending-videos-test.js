@@ -9,7 +9,7 @@ moduleForComponent('trending-videos', 'Unit | Component | trending videos', {
 
 	beforeEach() {
 		createStub = sinon.stub(mediaModel, 'create');
-		createStub.returnsArg(0);
+		createStub.returnsArg(1);
 	},
 
 	afterEach() {

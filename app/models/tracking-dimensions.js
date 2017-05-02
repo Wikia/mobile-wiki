@@ -1,18 +1,28 @@
 import Ember from 'ember';
-import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
+import {getFetchErrorMessage, TrackingDimensionsFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 const {
+	inject,
 	Object: EmberObject
 } = Ember;
 
 export default EmberObject.extend({
-	fetchAll(host, wikiId, language) {
+	fastboot: inject.service(),
+	logger: inject.service(),
+
+	fetch(isAnon, host, title) {
 		const url = buildUrl({
 			host,
-			path: `/api/v1/design-system/wikis/${wikiId}/${language}/`,
-			wiki: 'www'
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getTrackingDimensions',
+				title,
+				isanon: isAnon,
+				format: 'json'
+			}
 		});
 
 		return fetch(url)
@@ -21,10 +31,9 @@ export default EmberObject.extend({
 					return response.json();
 				} else {
 					return getFetchErrorMessage(response).then((responseBody) => {
-						throw new DesignSystemFetchError({
-							code: 503
+						throw new TrackingDimensionsFetchError({
+							code: response.status
 						}).withAdditionalData({
-							responseStatus: response.status,
 							responseBody,
 							requestUrl: url,
 							responseUrl: response.url
@@ -32,11 +41,6 @@ export default EmberObject.extend({
 					});
 				}
 			})
-			.then((navigationData) => {
-				return {
-					globalFooter: navigationData['global-footer'],
-					globalNavigation: navigationData['global-navigation']
-				};
-			});
+			.catch((error) => this.get('logger').error('getTrackingDimensions error: ', error));
 	}
 });

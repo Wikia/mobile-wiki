@@ -3,21 +3,22 @@ import BaseModel from './base';
 import MediaModel from '../media';
 import {extractEncodedTitle} from '../../utils/url';
 
-const {get} = Ember,
-	FileModel = BaseModel.extend({
-		hasArticle: false,
-		heroImage: null,
-		fileUsageList: null,
-		fileUsageListSeeMoreUrl: null
-	});
+const {
+	get,
+	getOwner
+} = Ember;
 
-FileModel.reopenClass({
+export default BaseModel.extend({
+	hasArticle: false,
+	heroImage: null,
+	fileUsageList: null,
+	fileUsageListSeeMoreUrl: null,
+
 	/**
-	 * @param {Model} model
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {data}) {
+	setData({data}) {
 		this._super(...arguments);
 		let pageProperties;
 
@@ -33,13 +34,13 @@ FileModel.reopenClass({
 				fileThumbnail: media,
 				fileMedia: {
 					// This is for lightbox only
-					media: MediaModel.create({media}),
+					media: MediaModel.create(getOwner(this).ownerInjection(), {media}),
 					mediaRef: 0
 				}
 			};
 		}
 
-		model.setProperties(pageProperties);
+		this.setProperties(pageProperties);
 	},
 
 	prepareFileUsageItem({titleText: title, snippet, url}) {
@@ -50,5 +51,3 @@ FileModel.reopenClass({
 		};
 	}
 });
-
-export default FileModel;

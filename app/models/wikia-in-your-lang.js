@@ -4,6 +4,12 @@ import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
+const {
+	inject,
+	Object: EmberObject,
+	RSVP
+} = Ember;
+
 /**
  * @param {string} lang
  * @returns {string}
@@ -14,7 +20,7 @@ function getCacheKey(lang) {
 
 /**
  * @param {string} browserLang
- * @returns {WikiaInYourLangModel}
+ * @returns {object}
  */
 function getFromCache(browserLang) {
 	const key = getCacheKey(browserLang),
@@ -29,25 +35,26 @@ function getFromCache(browserLang) {
 	return value.model;
 }
 
-const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
-	message: null,
-	nativeDomain: null
-});
+export default EmberObject.extend(LanguagesMixin, {
+	wikiVariables: inject.service(),
 
-WikiaInYourLangModel.reopenClass(LanguagesMixin, {
+	message: null,
+	nativeDomain: null,
+
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
-		const browserLang = WikiaInYourLangModel.getBrowserLanguage(),
+		const browserLang = this.getBrowserLanguage(),
 			model = getFromCache(browserLang);
 
 		if (model) {
-			return Ember.RSVP.resolve(model);
+			return RSVP.resolve(model);
 		}
 
 		return fetch(
 			buildUrl({
+				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
 					controller: 'WikiaInYourLangController',
@@ -58,27 +65,25 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 			}))
 			.then((response) => response.json())
 			.then((resp) => {
-				let modelInstance = null;
+				let out = null;
 
 				if (resp.success) {
-					modelInstance = WikiaInYourLangModel.create({
+					out = {
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile
-					});
+					};
 				}
 
 				// write to cache
 				localStorageConnector.setItem(
 					getCacheKey(browserLang),
 					JSON.stringify({
-						model: modelInstance,
+						model: out,
 						timestamp: new Date().getTime()
 					})
 				);
 
-				return modelInstance;
+				return out;
 			});
 	},
 });
-
-export default WikiaInYourLangModel;

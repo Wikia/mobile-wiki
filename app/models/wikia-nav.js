@@ -1,12 +1,17 @@
 import Ember from 'ember';
-import {getService} from '../utils/application-instance';
 
-const {A, Object: EmberObject, computed, get} = Ember;
+const {
+	A,
+	Object: EmberObject,
+	computed,
+	get,
+	inject
+} = Ember;
 
 export default EmberObject.extend({
-	// This has to be injected
-	i18n: null,
-	wikiVariables: null,
+	i18n: inject.service(),
+	logger: inject.service(),
+	wikiVariables: inject.service(),
 	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
@@ -44,7 +49,7 @@ export default EmberObject.extend({
 					parent = node;
 					localNav = node.children;
 				} else {
-					getService('logger').error('Incorrect navigation state');
+					this.get('logger').error('Incorrect navigation state');
 					return {};
 				}
 			}
