@@ -78,7 +78,7 @@ export default EmberObject.extend({
 						mediaUsers: article.users,
 						redirectEmptyTarget: data.redirectEmptyTarget,
 					});
-					pageProperties.model = MediaModel.create(getOwner(this).ownerInjection(), {
+					pageProperties.media = MediaModel.create(getOwner(this).ownerInjection(), {
 						media: article.media
 					});
 				}
