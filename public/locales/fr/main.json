@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"Désolés, il y a eu un problème. Merci de réessayer.",
+    "instruction":"L'image sera ajoutée à la fin de la section",
+    "page-add-button":"Ajouter",
+    "page-heading":"Ajout d'une image à :",
+    "photo-name":"Nom de l'image",
+    "section-title-error":"Titre non valide.",
+    "success":"Une image a été ajoutée à la page."
+  },
   "app":{
     "advertisement-label":"Publicité",
     "cancel-label":"Annuler",

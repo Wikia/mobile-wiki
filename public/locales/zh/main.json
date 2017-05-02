@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"發生錯誤。對不起，請再試一次。",
+    "instruction":"圖像將添加到這個部分的結束処",
+    "page-add-button":"添加",
+    "page-heading":"添加圖片至：",
+    "photo-name":"圖片名稱",
+    "section-title-error":"標題無效。",
+    "success":"圖片已經添加到這個頁面。"
+  },
   "app":{
     "advertisement-label":"廣告",
     "cancel-label":"取消",

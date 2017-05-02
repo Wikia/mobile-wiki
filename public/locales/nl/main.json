@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"Sorry, er ging iets mis. Probeer het nog eens.",
+    "instruction":"The image will be added to the end of the section",
+    "page-add-button":"Add",
+    "page-heading":"Adding photo to:",
+    "photo-name":"Photo Name",
+    "section-title-error":"Invalid title.",
+    "success":"A photo has been added to the page."
+  },
   "app":{
     "advertisement-label":"Advertisement",
     "cancel-label":"Cancel",
