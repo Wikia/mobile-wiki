@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-import {NonJsonApiResponseError, WikiVariablesFetchError} from '../utils/errors';
+import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 const {
 	Object: EmberObject
@@ -37,9 +37,21 @@ export default EmberObject.extend({
 
 				if (contentType && contentType.indexOf('application/json') !== -1) {
 					return response.json();
-				} else {
-					throw new NonJsonApiResponseError().withAdditionalData({
+				} else if (url !== response.url) {
+					// API was redirected to non-json page
+					throw new WikiVariablesRedirectError().withAdditionalData({
 						redirectLocation: response.url
+					});
+				} else {
+					// non-json API response
+					return response.text().then((responseBody) => {
+						throw new WikiVariablesFetchError({
+							code: response.status || 503
+						}).withAdditionalData({
+							host,
+							responseBody,
+							url
+						});
 					});
 				}
 
@@ -53,7 +65,7 @@ export default EmberObject.extend({
 				return response.data;
 			})
 			.catch((error) => {
-				if (error.name === 'NonJsonApiResponseError') {
+				if (error.name === 'WikiVariablesRedirectError') {
 					throw error;
 				}
 
