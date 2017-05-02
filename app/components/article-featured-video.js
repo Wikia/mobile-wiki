@@ -48,9 +48,13 @@ export default Component.extend(
 					if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
 						this.set('isVideoDrawerVisible', true);
 						this.toggleSiteHeadShadow(false);
-					} else if (currentScroll < videoBottomPosition - $video.height() && this.canVideoDrawerHide()) {
-						this.set('isVideoDrawerVisible', false);
-						this.toggleSiteHeadShadow(true);
+					} else if (currentScroll < videoBottomPosition - $video.height()) {
+						this.set('videoDrawerDismissed', false);
+
+						if (this.canVideoDrawerHide()) {
+							this.set('isVideoDrawerVisible', false);
+							this.toggleSiteHeadShadow(true);
+						}
 					}
 				}, 200);
 			});
@@ -186,7 +190,7 @@ export default Component.extend(
 
 		canVideoDrawerShow() {
 			return !this.get('isVideoDrawerVisible') &&
-				!this.get('videoDrawerClosedManually') &&
+				!this.get('videoDrawerDismissed') &&
 				!this.get('isPlayerLoading') &&
 				!this.get('isPlayed');
 		},
@@ -208,7 +212,7 @@ export default Component.extend(
 			closeVideoDrawer() {
 				this.setProperties({
 					isVideoDrawerVisible: false,
-					videoDrawerClosedManually: true
+					videoDrawerDismissed: true
 				});
 			}
 		}
