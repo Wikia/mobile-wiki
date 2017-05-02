@@ -12,6 +12,7 @@ export default Component.extend(
 		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed:is-played', 'isVideoDrawerVisible:fixed'],
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
+		hasRendered: false,
 
 		init() {
 			this._super(...arguments);
@@ -24,8 +25,11 @@ export default Component.extend(
 		didRender() {
 			this._super(...arguments);
 
-			this.initVideoPlayer();
-			this.initOnScrollBehaviour();
+			if (!this.get('hasRendered')) {
+				this.initVideoPlayer();
+				this.initOnScrollBehaviour();
+				this.set('hasRendered', true);
+			}
 		},
 
 		/**
