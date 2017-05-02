@@ -5,7 +5,6 @@ import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 const {
-	inject,
 	Object: EmberObject,
 	RSVP
 } = Ember;
@@ -36,8 +35,6 @@ function getFromCache(browserLang) {
 }
 
 export default EmberObject.extend(LanguagesMixin, {
-	wikiVariables: inject.service(),
-
 	message: null,
 	nativeDomain: null,
 
@@ -54,7 +51,6 @@ export default EmberObject.extend(LanguagesMixin, {
 
 		return fetch(
 			buildUrl({
-				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
 					controller: 'WikiaInYourLangController',
