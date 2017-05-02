@@ -4,7 +4,7 @@ import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
+import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
@@ -64,7 +64,7 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
-					if (error instanceof NonJsonApiResponseError) {
+					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
 							error.additionalData[0].redirectLocation
