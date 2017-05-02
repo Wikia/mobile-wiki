@@ -35,9 +35,21 @@ WikiVariablesModel.reopenClass({
 
 				if (contentType && contentType.indexOf('application/json') !== -1) {
 					return response.json();
-				} else {
+				} else if (url !== response.url) {
+					// API was redirected to non-json page
 					throw new NonJsonApiResponseError().withAdditionalData({
 						redirectLocation: response.url
+					});
+				} else {
+					// non-json API response
+					return response.text().then((responseBody) => {
+						throw new WikiVariablesFetchError({
+							code: response.status || 503
+						}).withAdditionalData({
+							host,
+							responseBody,
+							url
+						});
 					});
 				}
 
