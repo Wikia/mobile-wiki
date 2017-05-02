@@ -109,12 +109,7 @@ module.exports = function (environment) {
 		},
 		ooyala: {
 			pcode: 'J0MTUxOtPDJVNZastij14_v7VDRS',
-			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8',
-			styles: [
-				'/mobile-wiki/assets/ooyala/html5-skin.css',
-				'/mobile-wiki/assets/ooyala.css'
-			],
-			script: '/mobile-wiki/assets/ooyala/all.js'
+			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8'
 		}
 	};
 

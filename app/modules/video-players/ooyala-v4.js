@@ -1,6 +1,14 @@
 import BasePlayer from './base';
 import config from '../../config/environment';
 
+export const ooyalaAssets = {
+	styles: [
+		'/mobile-wiki/assets/ooyala/html5-skin.css',
+		'/mobile-wiki/assets/ooyala.css'
+	],
+	script: '/mobile-wiki/assets/ooyala/all.js'
+};
+
 export default class OoyalaV4Player extends BasePlayer {
 	/**
 	 * @param {string} provider
@@ -47,8 +55,8 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @return {void}
 	 */
 	loadPlayer() {
-		this.loadStyles(config.ooyala.styles);
-		this.loadScripts(config.ooyala.script, this.playerDidLoad.bind(this));
+		this.loadStyles(ooyalaAssets.styles);
+		this.loadScripts(ooyalaAssets.script, this.playerDidLoad.bind(this));
 	}
 
 	loadStyles(cssFiles) {
