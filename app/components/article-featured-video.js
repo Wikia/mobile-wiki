@@ -188,7 +188,7 @@ export default Component.extend(
 			return !this.get('isVideoDrawerVisible') &&
 				!this.get('videoDrawerClosedManually') &&
 				!this.get('isPlayerLoading') &&
-				!this.player.isPlaying();
+				!this.get('isPlayed');
 		},
 
 		canVideoDrawerHide() {
