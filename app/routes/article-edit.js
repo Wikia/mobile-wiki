@@ -20,7 +20,7 @@ export default Route.extend(
 		model(params) {
 			return ArticleEditModel
 				.create(getOwner(this).ownerInjection())
-				.load(this.get('wikiVariables.host'), params.title, params.sectionIndex);
+				.load(params.title, params.sectionIndex);
 		},
 
 		/**
