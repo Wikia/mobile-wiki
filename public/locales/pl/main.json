@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
+    "instruction":"Obraz zostanie dodany do końca sekcji",
+    "page-add-button":"Dodaj",
+    "page-heading":"Dodawanie zdjęcia do:",
+    "photo-name":"Nazwa Zdjęcia",
+    "section-title-error":"Niepoprawny tytuł.",
+    "success":"Zdjęcie zostało dodane do strony."
+  },
   "app":{
     "advertisement-label":"Reklama",
     "cancel-label":"Anuluj",

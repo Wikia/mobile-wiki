@@ -1,4 +1,13 @@
 {
+  "add-photo":{
+    "error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
+    "instruction":"Das Bild wird am Ende des Abschnitts hinzugefügt.",
+    "page-add-button":"Hinzufügen",
+    "page-heading":"Foto hinzufügen zu:",
+    "photo-name":"Name des Fotos",
+    "section-title-error":"Ungültiger Titel",
+    "success":"Ein Bild wurde zur Seite hinzugefügt."
+  },
   "app":{
     "advertisement-label":"Werbung",
     "cancel-label":"Abbrechen",
@@ -88,6 +97,6 @@
     "header-title":"Diskussionen",
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"Antworten",
-    "post-actions-upvote-label":"Abstimmen"
+    "post-actions-upvote-label":"Zustimmen"
   }
 }
