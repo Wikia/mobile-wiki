@@ -19,14 +19,15 @@ const staticAssets = require('../static-assets');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
-function levelFn(status, err) {
-	if (err || status >= 500) {
+function levelFn(status) {
+	if (status >= 500) {
 		// server internal error or error
 		return 'error';
 	} else if (status >= 400) {
 		// client error
 		return 'warn';
 	}
+
 	return 'info';
 }
 
@@ -53,14 +54,14 @@ const server = new FastBootAppServer({
 	afterMiddleware: (app) => {
 		app.use((err, req, res, next) => {
 			if (err) {
-				// It should never get here
-				// In theory, the Ember app handles all server errors
-				const level = levelFn(res.statusCode, err);
+				// Handle errors that don't go to FastBoot, like Bad Request etc.
+				const statusCode = Math.max(res.statusCode, err.statusCode);
+				const level = levelFn(statusCode);
 				const logFn = req.log[level].bind(req.log);
 
 				logFn(err);
 
-				res.send('Server error');
+				res.sendStatus(statusCode);
 			}
 		});
 	},
