@@ -47,6 +47,10 @@ $video-player-head-size-scrubbing: 20px;
 				}
 			}
 		}
+
+		.oo-control-bar .oo-control-bar-items-wrapper .oo-control-bar-duration {
+			font-size: $wds-typescale-size-minus-2;
+		}
 	}
 
 	.oo-state-screen {
