@@ -28,7 +28,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	setupPlayer() {
 		if (!window.OO) {
-			console.error('Ooyala player has not been loaded.');
+			this.loadPlayer();
 		} else {
 			this.createPlayer();
 		}
@@ -40,6 +40,28 @@ export default class OoyalaV4Player extends BasePlayer {
 	createPlayer() {
 		window.OO.ready(() => {
 			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+		});
+	}
+
+	/**
+	 * @return {void}
+	 */
+	loadPlayer() {
+		this.loadStyles(config.ooyala.styles);
+		this.loadScripts(config.ooyala.script, this.playerDidLoad.bind(this));
+	}
+
+	loadStyles(cssFiles) {
+		const html = cssFiles.map((url) => {
+			return `<link rel="stylesheet" href="${url}" crossorigin="anonymous">`;
+		}).join('');
+
+		$(html).appendTo('head');
+	}
+
+	loadScripts(jsFile, callback) {
+		$script(jsFile, () => {
+			callback();
 		});
 	}
 
