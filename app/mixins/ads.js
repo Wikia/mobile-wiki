@@ -97,8 +97,9 @@ export default Ember.Mixin.create({
 		if ($pi.length) {
 			// inject top mobileTopLeaderBoard below infobox
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
-		} else if ($pageHeader.length) {
+		} else if ($pageHeader.length && !this.get('featuredVideo')) {
 			// inject top mobileTopLeaderBoard below article header
+			// only if there is no featured video embedded
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
 		}
 

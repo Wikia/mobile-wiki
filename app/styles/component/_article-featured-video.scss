@@ -1,0 +1,158 @@
+.article-featured-video {
+	.video-container {
+		background-size: cover;
+		padding-top: 56.25%;
+		position: relative;
+
+		&.player-ready {
+			.video-play-circle {
+				opacity: 1;
+			}
+
+			.video-details {
+				display: block;
+			}
+		}
+
+		&.is-played {
+			.video-details {
+				display: none;
+			}
+
+			.ooyala-article-video {
+				visibility: visible;
+			}
+		}
+	}
+
+	.wds-spinner {
+		$spinner-size: 59px;
+
+		left: 50%;
+		margin-left: -($spinner-size/2);
+		margin-top: -($spinner-size/2);
+		opacity: .7;
+		position: absolute;
+		top: 50%;
+
+		.wds-spinner__stroke {
+			stroke: $wds-color-white;
+		}
+	}
+
+	.ooyala-article-video {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+	.video-placeholder {
+		-webkit-font-smoothing: antialiased;
+		bottom: 0;
+		color: $wds-color-white;
+		font-weight: bold;
+		left: 0;
+		position: absolute;
+		resize: none;
+		right: 0;
+		top: 0;
+	}
+
+	.video-play-circle {
+		align-items: center;
+		background-color: $wds-color-light-blue;
+		border: 6px solid rgba(0, 0, 0, 0.32);
+		border-radius: 50%;
+		bottom: 18px;
+		display: flex;
+		height: 80px;
+		justify-content: center;
+		opacity: .7;
+		position: absolute;
+		right: 18px;
+		width: 80px;
+
+		.wds-icon {
+			@include square(30px);
+			margin-left: 4px;
+		}
+	}
+
+	&.player-ready {
+		.video-play-circle {
+			opacity: 1;
+		}
+
+		.video-details {
+			display: block;
+		}
+
+		&.is-played {
+			.video-details {
+				display: none;
+			}
+
+			.ooyala-article-video {
+				display: block;
+			}
+		}
+	}
+
+	.video-details {
+		bottom: 18px;
+		display: none;
+		left: 18px;
+		max-width: 70%;
+		position: absolute;
+
+		.video-label {
+			color: $wds-color-white;
+			font-size: $wds-typescale-size-minus-1;
+			line-height: 1.25em;
+			opacity: 0.5;
+			text-transform: uppercase;
+		}
+
+		.video-time:before {
+			content: '\2022';
+			padding: 0 2px;
+		}
+
+		.video-title {
+			font-size: $wds-typescale-size-plus-2;
+			line-height: 1.25em;
+		}
+	}
+
+	.ooyala-article-video {
+		visibility: hidden;
+	}
+
+	// for oo-xsmall breakpoint
+	@media screen and (max-width: 559px) {
+		.video-container {
+			.video-play-circle {
+				height: 60px;
+				width: 60px;
+
+				.wds-icon {
+					@include square($wds-icon-small-size);
+				}
+			}
+
+			.video-details {
+				bottom: 18px;
+
+				.video-label {
+					font-size: $wds-typescale-size-minus-2;
+				}
+
+				.video-title {
+					font-size: $wds-typescale-size-base;
+				}
+			}
+		}
+	}
+}

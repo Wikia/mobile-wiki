@@ -9,11 +9,13 @@ const {
 
 export default BaseModel.extend({
 	wikiVariables: inject.service(),
-	content: null,
 	comments: 0,
+	content: null,
+	curatedMainPageData: null,
+	featuredVideo: null,
+	hasPortableInfobox: false,
 	isCuratedMainPage: false,
 	isMainPage: false,
-	curatedMainPageData: null,
 	user: null,
 
 	/**
@@ -73,6 +75,14 @@ export default BaseModel.extend({
 
 			if (data.article) {
 				articleProperties.content = data.article.content;
+
+				if (data.article.featuredVideo) {
+					articleProperties.featuredVideo = data.article.featuredVideo;
+				}
+
+				if (data.article.hasPortableInfobox) {
+					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
+				}
 			}
 
 			if (data.relatedPages) {

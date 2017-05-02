@@ -1,10 +1,12 @@
 import BasePlayer from './video-players/base';
 import OoyalaPlayer from './video-players/ooyala';
+import OoyalaV4Player from './video-players/ooyala-v4';
 import YouTubePlayer from './video-players/youtube';
 
 const playerClassMap = {
 	base: BasePlayer,
 	ooyala: OoyalaPlayer,
+	'ooyala-v4': OoyalaV4Player,
 	youtube: YouTubePlayer
 };
 
@@ -21,11 +23,12 @@ export default class VideoLoader {
 	}
 
 	/**
-	 * @param {string} name
 	 * @returns {boolean}
 	 */
-	isProvider(name) {
-		return Boolean(this.data.provider.toLowerCase().match(name));
+	isOoyalaV3() {
+		// We need to use regexp check because Ooyala provider name may contain 'ooyala/funimation' or
+		// other similar
+		return Boolean(this.data.provider.toLowerCase().match(/ooyala/)) && this.data.provider !== 'ooyala-v4';
 	}
 
 	/**
@@ -41,7 +44,7 @@ export default class VideoLoader {
 					height: this.data.height,
 					width: this.data.width
 				},
-				noAds: this.data.noAds
+				noAds: this.data.noAds,
 			});
 
 		this.player = VideoLoader.createPlayer(playerClass, provider, params);
@@ -53,7 +56,7 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
+		return this.isOoyalaV3() ? 'ooyala' : this.data.provider;
 	}
 
 	/**
@@ -69,7 +72,7 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
+	 * @returns {BasePlayer|OoyalaPlayer|OoyalaV4Player|YouTubePlayer}
 	 */
 	static createPlayer(playerClass, provider, params) {
 		return new playerClass(provider, params);

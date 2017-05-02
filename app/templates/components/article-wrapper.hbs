@@ -12,6 +12,10 @@
 	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
 <section class="article-body">
+	{{#if featuredVideoVisible}}
+		{{article-featured-video model=model.featuredVideo}}
+	{{/if}}
+
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
 	{{#if model.fileThumbnail}}
 		{{article-media-thumbnail
@@ -35,6 +39,7 @@
 		edit=(action 'edit')
 		editAllowed=editAllowed
 		editIconVisible=editIconVisible
+		featuredVideo=model.featuredVideo
 		heroImage=model.heroImage
 		media=model.media
 		openLightbox=(action 'openLightbox')

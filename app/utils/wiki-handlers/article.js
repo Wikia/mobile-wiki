@@ -2,6 +2,20 @@ import Ember from 'ember';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
 
+function addOoyalaAssets(route) {
+	if (!route.get('fastboot.isFastBoot')) {
+		return;
+	}
+
+	// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
+	const applicationInstance = Ember.getOwner(route);
+	const document = applicationInstance.lookup('service:-document');
+	const articleVideoScripts = applicationInstance.lookup('component:fastboot-only/article-video-scripts');
+	const articleVideoStyles = applicationInstance.lookup('component:fastboot-only/article-video-styles');
+	articleVideoScripts.appendTo(document.body);
+	articleVideoStyles.appendTo(document.head);
+}
+
 /**
  * @param {Ember.Route} route
  * @param {Ember.model} model
@@ -12,6 +26,11 @@ function afterModel(route, model) {
 	model.set('commentsPage', null);
 
 	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+
+	// Include Ooyala assets if there is no portable infobox and featured video is attached
+	if (!model.get('hasPortableInfobox') && model.get('featuredVideo')) {
+		addOoyalaAssets(route);
+	}
 }
 
 /**

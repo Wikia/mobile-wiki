@@ -43,6 +43,17 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 	});
 }
 
+function featuredVideoTestHelper(testThis, testCase, property, assert) {
+	const component = testThis.subject({
+		model: {
+			featuredVideo: testCase.featuredVideo,
+			hasPortableInfobox: testCase.hasPortableInfobox
+		}
+	});
+
+	assert.equal(component.get(property), testCase.expected);
+}
+
 moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
 	unit: true
 });
@@ -100,4 +111,27 @@ test('wiki with disableAnonymousEditing set requires log in', function (assert) 
 		disableAnonymousEditing: true,
 		expected: false
 	}, 'editAllowed', assert);
+});
+
+test('featured video visible for articles without infoboxes and featured video set', function (assert) {
+	featuredVideoTestHelper(this, {
+		featuredVideo: {},
+		hasPortableInfobox: false,
+		expected: true
+	}, 'featuredVideoVisible', assert);
+});
+
+test('featured video is not visible for articles with infoboxes and featured video set', function (assert) {
+	featuredVideoTestHelper(this, {
+		featuredVideo: {},
+		hasPortableInfobox: true,
+		expected: false
+	}, 'featuredVideoVisible', assert);
+});
+
+test('featured video is not visible for articles without featured video set', function (assert) {
+	featuredVideoTestHelper(this, {
+		featuredVideo: undefined,
+		expected: false
+	}, 'featuredVideoVisible', assert);
 });
