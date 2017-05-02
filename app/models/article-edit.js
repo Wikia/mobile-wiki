@@ -58,7 +58,6 @@ export default EmberObject.extend({
 	},
 
 	/**
-	 * @param {string} host
 	 * @param {string} title
 	 * @param {number} sectionIndex
 	 * @returns {Ember.RSVP.Promise}

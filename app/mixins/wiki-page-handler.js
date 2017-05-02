@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {defineError} from 'ember-exex/error';
 import ArticleModel from '../models/wiki/article';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
