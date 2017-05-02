@@ -10,9 +10,9 @@ export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed:is-played', 'isVideoDrawerVisible:fixed'],
+		hasRendered: false,
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
-		hasRendered: false,
 
 		init() {
 			this._super(...arguments);
@@ -41,7 +41,7 @@ export default Component.extend(
 			let $video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height();
 
-			$(window).on('scroll', () => {
+			this.$(window).bind('scroll', () => {
 				run.throttle(this, () => {
 					let currentScroll = this.$(window).scrollTop();
 
@@ -62,6 +62,8 @@ export default Component.extend(
 			if (this.player) {
 				this.player.destroy();
 			}
+
+			this.$(window).unbind('scroll');
 		},
 
 		onCreate(player) {
