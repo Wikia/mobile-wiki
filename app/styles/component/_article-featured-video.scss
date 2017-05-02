@@ -2,34 +2,29 @@
 	position: relative;
 	padding-bottom: 56.25%;
 
-	.video-container {
-		bottom: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-
-		&.player-ready {
-			.video-play-circle {
-				opacity: 1;
-			}
-
-			.video-details {
-				visibility: visible;
-			}
+	&.player-ready {
+		.video-play-circle {
+			opacity: 1;
 		}
 
-		&.is-played {
-			.video-details {
-				flex: 1 0 70%;
-				visibility: hidden;
-			}
+		.video-details {
+			visibility: visible;
+		}
+	}
 
-			.ooyala-article-video {
-				visibility: visible;
-			}
+	&.is-played {
+		.video-details {
+			flex: 1 0 70%;
+			visibility: hidden;
 		}
 
-		&.fixed {
+		.ooyala-article-video {
+			visibility: visible;
+		}
+	}
+
+	&.fixed {
+		.video-container {
 			@keyframes video-slide {
 				0% {
 					transform: translateY(-100%);
@@ -121,6 +116,13 @@
 				}
 			}
 		}
+	}
+
+	.video-container {
+		bottom: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
 	}
 
 	.wds-spinner {
