@@ -2,10 +2,13 @@ import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-const {Object: EmberObject} = Ember;
+const {
+	Object: EmberObject,
+	inject
+} = Ember;
 
 export default EmberObject.extend({
-	host: null,
+	wikiVariables: inject.service(),
 
 	/**
 	 * prepare POST request body before sending to API
@@ -19,7 +22,7 @@ export default EmberObject.extend({
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = buildUrl({
-				host: this.get('host'),
+				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

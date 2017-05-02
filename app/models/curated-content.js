@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-const {Object: EmberObject} = Ember;
+const {
+	Object: EmberObject
+} = Ember;
 
 /**
  * @typedef {Object} CuratedContentItem
@@ -26,10 +28,8 @@ const {Object: EmberObject} = Ember;
  * @property {number} height
  */
 
-const CuratedContentModel = EmberObject.extend({
+export default EmberObject.extend({
 	title: null,
 	type: null,
 	items: []
 });
-
-export default CuratedContentModel;

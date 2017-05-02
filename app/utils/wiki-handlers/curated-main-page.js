@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import CuratedContentModel from '../../models/curated-content';
 
-const {Object: EmberObject, get} = Ember;
+const {Object: EmberObject, get, getOwner} = Ember;
 
 /**
  * Set curatedContent data if main page has curated content set
@@ -12,7 +12,7 @@ function getCuratedContentModel(mainPageModel) {
 	const curatedContent = get(mainPageModel, 'curatedMainPageData.curatedContent');
 
 	if (curatedContent) {
-		return CuratedContentModel.create({
+		return CuratedContentModel.create(getOwner(mainPageModel).ownerInjection(), {
 			type: 'section',
 			items: curatedContent.items
 		});

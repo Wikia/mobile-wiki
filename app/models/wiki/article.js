@@ -3,22 +3,25 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
-const ArticleModel = BaseModel.extend({
+const {
+	inject
+} = Ember;
+
+export default BaseModel.extend({
+	wikiVariables: inject.service(),
 	content: null,
 	comments: 0,
 	isCuratedMainPage: false,
 	isMainPage: false,
 	curatedMainPageData: null,
-	user: null
-});
+	user: null,
 
-ArticleModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getArticleRandomTitle(host) {
+	getArticleRandomTitle() {
 		return fetch(buildUrl({
-			host,
+			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {
 				action: 'query',
@@ -48,11 +51,10 @@ ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @param {Model} model
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData(model, {data}) {
+	setData({data}) {
 		this._super(...arguments);
 
 		let articleProperties = {},
@@ -95,8 +97,6 @@ ArticleModel.reopenClass({
 			}
 		}
 
-		model.setProperties(articleProperties);
+		this.setProperties(articleProperties);
 	}
 });
-
-export default ArticleModel;

@@ -1,42 +1,51 @@
 import Ember from 'ember';
 import getHostFromRequest from '../utils/host';
-import {getAndPutTrackingDimensionsToShoebox} from '../utils/tracking-dimensions';
 import UserModel from './user';
 import NavigationModel from './navigation';
-import WikiVariables from './wiki-variables';
-import {getService} from '../utils/application-instance';
+import WikiVariablesModel from './wiki-variables';
+import TrackingDimensionsModel from './tracking-dimensions';
 
 const {
 	Object: EmberObject,
-	RSVP
+	RSVP,
+	getOwner,
+	inject
 } = Ember;
 
-const ApplicationModel = EmberObject.extend({});
+export default EmberObject.extend({
+	currentUser: inject.service(),
+	fastboot: inject.service(),
 
-ApplicationModel.reopenClass({
-	get(title, currentUser, fastboot) {
-		const
-			// TODO XW-3310 rethink how we share application instance
-			// currentUser = getService('current-user'),
-			// fastboot = getService('fastboot'),
+	fetch(title) {
+		const currentUser = this.get('currentUser'),
+			fastboot = this.get('fastboot'),
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
 			const host = getHostFromRequest(fastboot.get('request')),
-				accessToken = fastboot.get('request.cookies.access_token');
+				accessToken = fastboot.get('request.cookies.access_token'),
+				ownerInjection = getOwner(this).ownerInjection();
 
 			return RSVP.all([
-				WikiVariables.get(host),
-				UserModel.getUserId(accessToken)
-			]).then(([wikiVariables, userId]) => {
+				WikiVariablesModel.create(ownerInjection).fetch(host),
+				UserModel.create(ownerInjection).getUserId(accessToken)
+			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
 
 				return RSVP.hashSettled({
 					currentUser: currentUser.initializeUserData(userId, host),
-					navigation: NavigationModel.getAll(host, wikiVariables.id, wikiVariables.language.content),
-					trackingDimensions: getAndPutTrackingDimensionsToShoebox(!Boolean(userId), host, title, fastboot),
-					wikiVariables
-				}).then(({navigation, wikiVariables}) => {
+					navigation: NavigationModel.create(ownerInjection).fetchAll(
+						host,
+						wikiVariablesData.id,
+						wikiVariablesData.language.content
+					),
+					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
+						!Boolean(userId),
+						host,
+						title,
+					),
+					wikiVariablesData
+				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {
 					// We only want to fail application if we don't have the navigation data
 					if (navigation.state === 'rejected') {
 						throw navigation.reason;
@@ -44,10 +53,14 @@ ApplicationModel.reopenClass({
 
 					const applicationData = {
 						navigation: navigation.value,
-						wikiVariables: wikiVariables.value
+						wikiVariables: wikiVariablesData.value
 					};
 
 					shoebox.put('applicationData', applicationData);
+
+					if (trackingDimensions) {
+						shoebox.put('trackingDimensionsForFirstPage', trackingDimensions);
+					}
 
 					return applicationData;
 				});
@@ -59,5 +72,3 @@ ApplicationModel.reopenClass({
 		}
 	}
 });
-
-export default ApplicationModel;

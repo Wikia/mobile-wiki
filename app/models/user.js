@@ -2,7 +2,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import fetch from 'ember-network/fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
-import {getService} from '../utils/application-instance';
+import extend from '../utils/extend';
 import {buildUrl, getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
@@ -22,15 +22,16 @@ import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError}
  * @property {number} userId
  */
 
-const UserModel = Ember.Object.extend({
-	avatarPath: null,
-	name: null,
-	powerUserTypes: null,
-	rights: null,
-});
+const {
+	Object: EmberObject,
+	RSVP,
+	inject,
+	isArray
+} = Ember;
 
-UserModel.reopenClass({
+export default EmberObject.extend({
 	defaultAvatarSize: 100,
+	logger: inject.service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -40,7 +41,6 @@ UserModel.reopenClass({
 		const queryString = getQueryString({
 			code: accessToken
 		});
-		const logger = getService('logger');
 
 		return fetch(`${config.helios.internalUrl}${queryString}`, {
 			timeout: config.helios.timeout,
@@ -49,18 +49,18 @@ UserModel.reopenClass({
 				return response.json().then((data) => data.user_id);
 			} else {
 				if (response.status === 401) {
-					logger.info('Token not authorized by Helios');
+					this.get('logger').info('Token not authorized by Helios');
 				} else {
-					logger.error('Helios connection error: ', response);
+					this.get('logger').error('Helios connection error: ', response);
 				}
 
 				return null;
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
-				logger.error('Helios timeout error: ', reason);
+				this.get('logger').error('Helios timeout error: ', reason);
 			} else {
-				logger.error('Helios connection error: ', reason);
+				this.get('logger').error('Helios connection error: ', reason);
 			}
 
 			return null;
@@ -72,26 +72,41 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<UserModel>}
 	 */
 	find(params) {
-		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
-			modelInstance = UserModel.create(),
+		const avatarSize = params.avatarSize || this.defaultAvatarSize,
 			userId = params.userId,
 			host = params.host,
 			accessToken = params.accessToken || '';
 
-		return Ember.RSVP.all([
+		return RSVP.all([
 			this.loadDetails(host, userId, avatarSize),
 			this.loadUserInfo(host, accessToken, userId),
 		]).then(([userDetails, userInfo]) => {
+			const userLanguage = userInfo && userInfo.query.userinfo.options.language;
+
+			let out = {
+				avatarPath: null,
+				name: null,
+				powerUserTypes: null,
+				rights: null
+			};
+
 			if (userDetails) {
-				modelInstance.setProperties(UserModel.sanitizeDetails(userDetails));
+				out = extend(out, this.sanitizeDetails(userDetails));
+			}
+
+			if (userLanguage) {
+				out.language = userLanguage;
 			}
 
 			if (userInfo) {
-				UserModel.setUserLanguage(modelInstance, userInfo);
-				UserModel.setUserRights(modelInstance, userInfo);
+				const rights = this.getUserRights(userInfo);
+
+				if (rights) {
+					out.rights = rights;
+				}
 			}
 
-			return modelInstance;
+			return out;
 		});
 	},
 
@@ -130,7 +145,7 @@ UserModel.reopenClass({
 				}
 			})
 			.then((result) => {
-				if (Ember.isArray(result.items)) {
+				if (isArray(result.items)) {
 					return result.items[0];
 				} else {
 					throw new Error(result);
@@ -180,7 +195,7 @@ UserModel.reopenClass({
 
 	/**
 	 * @param {*} userData
-	 * @returns {UserProperties}
+	 * @returns {Object}
 	 */
 	sanitizeDetails(userData) {
 		const data = {
@@ -201,36 +216,20 @@ UserModel.reopenClass({
 	},
 
 	/**
-	 * @param {Ember.Object} model
-	 * @param {string} query
-	 * @returns {void}
-	 */
-	setUserLanguage(model, {query}) {
-		const userLanguage = query.userinfo.options.language;
-
-		if (userLanguage) {
-			model.set('language', userLanguage);
-		}
-	},
-
-	/**
-	 * @param {Ember.Object} model
 	 * @param {QueryUserInfoResponse} query
-	 * @returns {void}
+	 * @returns {Object}
 	 */
-	setUserRights(model, {query}) {
+	getUserRights({query}) {
 		const rights = {},
 			rightsArray = query.userinfo.rights;
 
-		if (Ember.isArray(rightsArray)) {
+		if (isArray(rightsArray)) {
 			// TODO - we could use contains instead of making an object out of an array
 			rightsArray.forEach((right) => {
 				rights[right] = true;
 			});
 
-			model.set('rights', rights);
+			return rights;
 		}
 	},
 });
-
-export default UserModel;

@@ -3,10 +3,12 @@ import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
-const WikiVariablesModel = Ember.Object.extend({});
+const {
+	Object: EmberObject
+} = Ember;
 
-WikiVariablesModel.reopenClass({
-	get(host) {
+export default EmberObject.extend({
+	fetch(host) {
 		const url = buildUrl({
 			host,
 			path: '/wikia.php',
@@ -76,5 +78,3 @@ WikiVariablesModel.reopenClass({
 			});
 	}
 });
-
-export default WikiVariablesModel;
