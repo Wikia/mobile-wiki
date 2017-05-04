@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
+import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
 import isInitialPageView from '../utils/initial-page-view';
@@ -132,6 +133,15 @@ export default Ember.Mixin.create({
 			return model;
 		} else if (currentNamespace === MediawikiNamespace.FILE) {
 			model = FileModel.create(ownerInjection, params);
+			model.setData(data);
+
+			return model;
+		} else if (
+			currentNamespace === MediawikiNamespace.BLOG_ARTICLE &&
+			// User blog listing has BLOG_ARTICLE namespace but no article
+			data.data.article
+		) {
+			model = BlogModel.create(ownerInjection, params);
 			model.setData(data);
 
 			return model;

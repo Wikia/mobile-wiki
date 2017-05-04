@@ -1,7 +1,5 @@
 /**
  * This list is taken from MediaWiki:app/includes/Defines.php
- * This module is the front end twin of server/app/lib/mediawiki-namespace.js - they should be in sync
- * @type {{name: number}}
  */
 export const namespace = {
 	// virtual namespaces
@@ -25,12 +23,14 @@ export const namespace = {
 	CATEGORY: 14,
 	CATEGORY_TALK: 15,
 	IMAGE: 6,
-	IMAGE_TALK: 7
+	IMAGE_TALK: 7,
+	BLOG_ARTICLE: 500
 };
 
 /**
  * @param {number} ns
  *
+ * @param {string[]} contentNamespaces
  * @returns {boolean}
  */
 export function isContentNamespace(ns, contentNamespaces = []) {

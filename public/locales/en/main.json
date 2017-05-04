@@ -67,6 +67,9 @@
     "usages-header": "Appears on these pages",
     "usages-see-more-link-label": "See full list"
   },
+  "blog-page": {
+    "subtitle": "User blog"
+  },
   "navigation": {
     "back-label": "Back",
     "explore-wiki": "Explore __wikiName__",

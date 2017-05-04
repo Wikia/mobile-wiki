@@ -54,7 +54,8 @@ export default Component.extend(
 		contributionEnabled: computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
 				this.get('contributionEnabledForCommunity') &&
-				// @todo XW-1196: Enable article editing on category and file pages
+				// @todo XW-1196: Enable article editing on blog, category and file pages
+				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.BLOG_ARTICLE &&
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.CATEGORY &&
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.FILE;
 		}),
