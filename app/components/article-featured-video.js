@@ -41,7 +41,7 @@ export default Component.extend(
 			let $video = this.$('.video-container'),
 				videoBottomPosition = $video.offset().top + $video.height();
 
-			this.$(window).bind('scroll', () => {
+			this.set('onScrollHandler', () => {
 				run.throttle(this, () => {
 					let currentScroll = this.$(window).scrollTop();
 
@@ -54,6 +54,8 @@ export default Component.extend(
 					}
 				}, 200);
 			});
+
+			this.$(window).on('scroll', this.get('onScrollHandler'));
 		},
 
 		willDestroyElement() {
@@ -63,7 +65,7 @@ export default Component.extend(
 				this.player.destroy();
 			}
 
-			this.$(window).unbind('scroll');
+			this.$(window).off('scroll', this.get('onScrollHandler'));
 		},
 
 		onCreate(player) {
