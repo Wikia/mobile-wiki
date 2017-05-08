@@ -93,6 +93,6 @@ moduleFor('model:wiki/article', 'Integration | Model | wiki/article');
 test('setData with parametrized data', function (assert) {
 	const model = this.subject();
 
-	articleModelClass.setData(model, articleExample);
+	model.setData(articleExample);
 	verifyArticle(model, articleExample, assert);
 });

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
 
@@ -84,7 +83,7 @@ export default Controller.extend({
 			this.set('isPublishing', true);
 			this.get('application').set('isLoading', true);
 
-			ArticleEditModel.publish(this.get('wikiVariables.host'), this.get('model')).then(
+			this.get('model').publish().then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);

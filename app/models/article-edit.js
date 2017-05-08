@@ -3,102 +3,107 @@ import getEditToken from '../utils/edit-token';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-const ArticleEditModel = Ember.Object.extend({
+const {
+	Object: EmberObject,
+	computed,
+	get,
+	inject
+} = Ember;
+
+export default EmberObject.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
 	title: null,
 	sectionIndex: null,
-	isDirty: Ember.computed('content', 'originalContent', function () {
+
+	wikiVariables: inject.service(),
+
+	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
-	})
-});
+	}),
 
-ArticleEditModel.reopenClass(
-	{
-		/**
-		 * @param {string} host
-		 * @param {*} model
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		publish(host, model) {
-			return getEditToken(host, model.title)
-				.then((token) => {
-					const formData = new FormData();
+	/**
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	publish() {
+		const host = this.get('wikiVariables.host');
 
-					formData.append('action', 'edit');
-					formData.append('title', model.title);
-					formData.append('section', model.sectionIndex);
-					formData.append('text', model.content);
-					formData.append('token', token);
-					formData.append('format', 'json');
+		return getEditToken(host, this.get('title'))
+			.then((token) => {
+				const formData = new FormData();
 
-					return fetch(buildUrl({host, path: '/api.php'}), {
-						method: 'POST',
-						body: formData,
-					})
-						.then((response) => response.json())
-						.then((response) => {
-							if (response && response.edit && response.edit.result === 'Success') {
-								return response.edit.result;
-							} else if (response && response.error) {
-								throw new Error(response.error.code);
-							} else {
-								throw new Error();
-							}
-						});
-				});
-		},
+				formData.append('action', 'edit');
+				formData.append('title', this.get('title'));
+				formData.append('section', this.get('sectionIndex'));
+				formData.append('text', this.get('content'));
+				formData.append('token', token);
+				formData.append('format', 'json');
 
-		/**
-		 * @param {string} host
-		 * @param {string} title
-		 * @param {number} sectionIndex
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		load(host, title, sectionIndex) {
-			return fetch(buildUrl({
-				host,
-				path: '/api.php',
-				query: {
-					action: 'query',
-					prop: 'revisions',
-					// FIXME: It should be possible to pass props as an array
-					rvprop: 'content|timestamp',
-					titles: title,
-					rvsection: sectionIndex,
-					format: 'json',
-					cb: new Date().getTime()
+				return fetch(buildUrl({host, path: '/api.php'}), {
+					method: 'POST',
+					body: formData,
+				})
+					.then((response) => response.json())
+					.then((response) => {
+						if (response && response.edit && response.edit.result === 'Success') {
+							return response.edit.result;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
+						} else {
+							throw new Error();
+						}
+					});
+			});
+	},
+
+	/**
+	 * @param {string} title
+	 * @param {number} sectionIndex
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	load(title, sectionIndex) {
+		return fetch(buildUrl({
+			host: this.get('wikiVariables.host'),
+			path: '/api.php',
+			query: {
+				action: 'query',
+				prop: 'revisions',
+				// FIXME: It should be possible to pass props as an array
+				rvprop: 'content|timestamp',
+				titles: title,
+				rvsection: sectionIndex,
+				format: 'json',
+				cb: new Date().getTime()
+			}
+		}), {
+			cache: 'no-store'
+		}).then((response) => response.json())
+			.then((response) => {
+				let pages,
+					revision;
+
+				if (response.error) {
+					throw new Error(response.error.code);
 				}
-			}), {
-				cache: 'no-store'
-			}).then((response) => response.json())
-				.then((response) => {
-					let pages,
-						revision;
 
-					if (response.error) {
-						throw new Error(response.error.code);
-					}
+				pages = get(response, 'query.pages');
 
-					pages = Ember.get(response, 'query.pages');
+				if (pages) {
+					// FIXME: MediaWiki API, seriously?
+					revision = pages[Object.keys(pages)[0]].revisions[0];
+					this.setProperties({
+						title,
+						sectionIndex,
+						content: revision['*'],
+						originalContent: revision['*'],
+						timestamp: revision.timestamp
+					});
 
-					if (pages) {
-						// FIXME: MediaWiki API, seriously?
-						revision = pages[Object.keys(pages)[0]].revisions[0];
-						return ArticleEditModel.create({
-							title,
-							sectionIndex,
-							content: revision['*'],
-							originalContent: revision['*'],
-							timestamp: revision.timestamp
-						});
-					} else {
-						throw new Error();
-					}
-				});
-		}
+					return this;
+				} else {
+					throw new Error();
+				}
+			});
 	}
-);
-
-export default ArticleEditModel;
+});

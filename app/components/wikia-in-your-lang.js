@@ -5,7 +5,7 @@ import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
 import {track, trackActions} from '../utils/track';
 
-const {Component, inject} = Ember;
+const {Component, getOwner, inject} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -26,10 +26,10 @@ export default Component.extend(
 		 */
 		handleWikiaInYourLang() {
 			if (this.shouldShowWikiaInYourLang()) {
-				WikiaInYourLangModel.load()
-					.then((model) => {
-						if (model) {
-							this.createAlert(model);
+				WikiaInYourLangModel.create(getOwner(this).ownerInjection()).load()
+					.then((modelData) => {
+						if (modelData) {
+							this.createAlert(modelData);
 							track({
 								action: trackActions.impression,
 								category: 'wikiaInYourLangAlert',
@@ -47,12 +47,12 @@ export default Component.extend(
 		},
 
 		/**
-		 * @param {WikiaInYourLangModel} model
+		 * @param {object} modelData
 		 * @returns {void}
 		 */
-		createAlert(model) {
+		createAlert(modelData) {
 			const alertData = {
-				message: model.message,
+				message: modelData.message,
 				expiry: 60000,
 				unsafe: true,
 				callbacks: {

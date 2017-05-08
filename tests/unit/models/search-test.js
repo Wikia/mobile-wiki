@@ -189,7 +189,9 @@ test('run load more if search was not performed', (assert) => {
 
 test('test load more batch increase', (assert) => {
 	const search = SearchModel.create({
-			host: 'fallout.wikia.com',
+			wikiVariables: {
+				host: 'fallout.wikia.com',
+			},
 			totalBatches: 2,
 			query: 'testQuery'
 		}), fetchSpy = sinon.spy(search, 'fetch');

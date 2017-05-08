@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import MediaModel from '../models/media';
 
-export default Ember.Component.extend({
+const {Component, getOwner} = Ember;
+
+export default Component.extend({
 	classNames: ['trending', 'trending-videos', 'mw-content'],
 
 	actions: {
@@ -10,7 +12,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		openLightbox(video) {
-			const mediaModel = MediaModel.create({
+			const mediaModel = MediaModel.create(getOwner(this).ownerInjection(), {
 				media: video,
 			});
 

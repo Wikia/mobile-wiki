@@ -2,7 +2,7 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
-const {computed, Service, inject, RSVP} = Ember;
+const {computed, getOwner, Service, inject, RSVP} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -50,7 +50,7 @@ export default Service.extend({
 				// It's faster to do the hashing server side and pass to the front-end, ready to use
 				shoebox.put('gaUserIdHash', this.getGaUserIdHash(userId));
 
-				return UserModel
+				return UserModel.create(getOwner(this).ownerInjection())
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
@@ -59,6 +59,7 @@ export default Service.extend({
 					.then((userModelData) => {
 						if (userModelData) {
 							this.setProperties(userModelData);
+
 							shoebox.put('userData', userModelData);
 						}
 					})

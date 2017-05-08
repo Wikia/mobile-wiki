@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import {buildUrl} from '../../utils/url';
 
-const DiscussionContributor = Ember.Object.extend({
+const {
+	Object: EmberObject
+} = Ember;
+
+const DiscussionContributor = EmberObject.extend({
 	avatarUrl: null,
 	badgePermission: null,
 	host: null,
@@ -24,15 +28,16 @@ DiscussionContributor.reopenClass({
 		});
 	},
 	/**
+	 * @param {*} ownerInjection
 	 * @param {object} data
 	 *
 	 * @returns {Ember.Object}
 	 */
-	create(data) {
+	create(ownerInjection, data) {
 		let result = null;
 
 		if (data) {
-			result = this._super({
+			result = this._super(ownerInjection, {
 				avatarUrl: data.avatarUrl,
 				badgePermission: data.badgePermission,
 				id: data.id,

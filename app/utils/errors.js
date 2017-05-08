@@ -10,8 +10,8 @@ const DontLogMeError = defineError({
 	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
 });
 
-const NonJsonApiResponseError = defineError({
-	name: 'NonJsonApiResponseError',
+const WikiVariablesRedirectError = defineError({
+	name: 'WikiVariablesRedirectError',
 	message: `The API response was in incorrect format`,
 	extends: DontLogMeError
 });
@@ -55,7 +55,7 @@ export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
 	DontLogMeError,
-	NonJsonApiResponseError,
+	WikiVariablesRedirectError,
 	UserLoadDetailsFetchError,
 	UserLoadInfoFetchError,
 	TrackingDimensionsFetchError,

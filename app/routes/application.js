@@ -1,14 +1,14 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
-import ApplicationModel from '../models/application';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {NonJsonApiResponseError, DontLogMeError} from '../utils/errors';
+import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
+import ApplicationModel from '../models/application';
 
 const {
 	Route,
@@ -53,7 +53,7 @@ export default Route.extend(
 				wikiPageTitle = transition.params['wiki-page'].title;
 			}
 
-			return ApplicationModel.get(wikiPageTitle, this.get('currentUser'), this.get('fastboot'))
+			return ApplicationModel.create(getOwner(this).ownerInjection()).fetch(wikiPageTitle)
 				.then((applicationData) => {
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
@@ -64,7 +64,7 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
-					if (error instanceof NonJsonApiResponseError) {
+					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
 							error.additionalData[0].redirectLocation
@@ -275,8 +275,8 @@ export default Route.extend(
 			loadRandomArticle() {
 				this.get('controller').send('toggleDrawer', false);
 
-				ArticleModel
-					.getArticleRandomTitle(this.get('wikiVariables.host'))
+				ArticleModel.create(getOwner(this).ownerInjection())
+					.getArticleRandomTitle()
 					.then((articleTitle) => {
 						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})

@@ -2,7 +2,13 @@ import Ember from 'ember';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-export default Ember.Object.extend({
+const {
+	Object: EmberObject,
+	get,
+	observer
+} = Ember;
+
+export default EmberObject.extend({
 	articleId: null,
 	host: null,
 	comments: 0,
@@ -10,7 +16,7 @@ export default Ember.Object.extend({
 	pagesCount: 0,
 	page: 0,
 
-	fetch: Ember.observer('page', 'articleId', function () {
+	fetch: observer('page', 'articleId', function () {
 		const page = this.get('page'),
 			articleId = this.get('articleId');
 
@@ -19,10 +25,10 @@ export default Ember.Object.extend({
 				.then((response) => response.json())
 				.then((data) => {
 					this.setProperties({
-						comments: Ember.get(data, 'payload.comments'),
-						users: Ember.get(data, 'payload.users'),
-						pagesCount: Ember.get(data, 'pagesCount'),
-						basePath: Ember.get(data, 'basePath')
+						comments: get(data, 'payload.comments'),
+						users: get(data, 'payload.users'),
+						pagesCount: get(data, 'pagesCount'),
+						basePath: get(data, 'basePath')
 					});
 
 					return this;
@@ -30,7 +36,7 @@ export default Ember.Object.extend({
 		}
 	}),
 
-	reset: Ember.observer('articleId', function () {
+	reset: observer('articleId', function () {
 		this.setProperties({
 			comments: 0,
 			users: null,
