@@ -207,6 +207,11 @@ export default Component.extend(
 				if (this.player) {
 					if (this.get('isVideoDrawerVisible')) {
 						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+						track({
+							action: trackActions.click,
+							category: 'article-video',
+							label: 'on-scroll-bar'
+						});
 					}
 
 					this.set('isPlayed', true);
@@ -218,6 +223,12 @@ export default Component.extend(
 				this.setProperties({
 					isVideoDrawerVisible: false,
 					videoDrawerDismissed: true
+				});
+
+				track({
+					action: trackActions.close,
+					category: 'article-video',
+					label: 'on-scroll-bar'
 				});
 			}
 		}
