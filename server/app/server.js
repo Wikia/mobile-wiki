@@ -35,6 +35,12 @@ process.env.PORT = config.port;
 
 const server = new FastBootAppServer({
 	beforeMiddleware: (app) => {
+		app.use((req, res, next) => {
+			const heapUsed = process.memoryUsage().heapUsed;
+			console.log('memoryUsage: ' + Math.floor((heapUsed / (1024*1024))) + 'MB');
+
+			next();
+		});
 		app.use(compression());
 		app.disable('x-powered-by');
 		app.use(logger);
