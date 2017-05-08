@@ -192,7 +192,7 @@ export default Component.extend(
 			return !this.get('isVideoDrawerVisible') &&
 				!this.get('videoDrawerDismissed') &&
 				!this.get('isPlayerLoading') &&
-				!this.get('isPlayed');
+				this.player.getState() !== window.OO.STATE.PLAYING;
 		},
 
 		closeVideoDrawer() {

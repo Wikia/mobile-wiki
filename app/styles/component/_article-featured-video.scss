@@ -21,6 +21,16 @@
 		.ooyala-article-video {
 			visibility: visible;
 		}
+
+		&.fixed {
+			.video-details {
+				visibility: visible;
+			}
+
+			.ooyala-article-video {
+				display: none;
+			}
+		}
 	}
 
 	&.fixed {
@@ -107,16 +117,6 @@
 
 				.wds-icon-tiny {
 					margin-left: 2px;
-				}
-			}
-
-			&.is-played {
-				.video-details {
-					visibility: visible;
-				}
-
-				.ooyala-article-video {
-					display: none;
 				}
 			}
 		}
