@@ -36,16 +36,20 @@
 
 			align-items: center;
 			animation: video-slide .5s forwards;
-			background: $wds-color-white;
 			bottom: auto;
-			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-			display: flex;
-			padding: 12px;
 			position: fixed;
 			transform: translateY(-100%);
 			top: $wds-global-navigation-height;
 			width: 100%;
 			z-index: $z-site-head - 2;
+
+			.video-wrapper {
+				background-color: $wds-color-white;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+				display: flex;
+				padding: 12px;
+				position: static;
+			}
 
 			.video-placeholder {
 				background-image: none;
@@ -123,6 +127,13 @@
 		position: absolute;
 		top: 0;
 		width: 100%;
+
+		.video-wrapper {
+			bottom: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
 	}
 
 	.wds-spinner {
@@ -162,7 +173,7 @@
 		font-weight: bold;
 		justify-content: space-between;
 		left: 0;
-		padding: 12px;
+		padding: 18px;
 		position: absolute;
 		resize: none;
 		right: 0;
