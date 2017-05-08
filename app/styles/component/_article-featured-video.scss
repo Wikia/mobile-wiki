@@ -44,7 +44,6 @@
 				}
 			}
 
-			align-items: center;
 			animation: video-slide .5s forwards;
 			bottom: auto;
 			position: fixed;
@@ -54,6 +53,7 @@
 			z-index: $z-site-head - 2;
 
 			.video-wrapper {
+				align-items: center;
 				background-color: $wds-color-white;
 				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 				display: flex;
