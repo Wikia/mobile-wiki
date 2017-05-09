@@ -9,8 +9,9 @@ const {Component, inject, run} = Ember;
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isVideoDrawerVisible:is-fixed'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isVideoDrawerVisible:is-fixed'],
 		hasRendered: false,
+
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -22,14 +23,10 @@ export default Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didRender() {
+		didInsertElement() {
 			this._super(...arguments);
-
-			if (!this.get('hasRendered')) {
-				this.initVideoPlayer();
-				this.initOnScrollBehaviour();
-				this.set('hasRendered', true);
-			}
+			this.initVideoPlayer();
+			this.initOnScrollBehaviour();
 		},
 
 		/**
@@ -38,17 +35,19 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initOnScrollBehaviour() {
-			let $video = this.$('.article-featured-video__container'),
-				videoBottomPosition = $video.offset().top + $video.height();
+			const $video = this.$('.article-featured-video__container'),
+				videoHeight = $video.height(),
+				videoBottomPosition = $video.offset().top + videoHeight,
+				videoTopPosition = videoBottomPosition - videoHeight;
 
 			this.$(window).on('scroll.featured-video', () => {
 				run.throttle(this, () => {
-					let currentScroll = this.$(window).scrollTop();
+					const currentScroll = this.$(window).scrollTop();
 
 					if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
 						this.set('isVideoDrawerVisible', true);
 						this.toggleSiteHeadShadow(false);
-					} else if (currentScroll < videoBottomPosition - $video.height()) {
+					} else if (currentScroll < videoTopPosition) {
 						this.set('videoDrawerDismissed', false);
 						this.closeVideoDrawer();
 					}
