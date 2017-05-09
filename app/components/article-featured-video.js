@@ -9,7 +9,7 @@ const {Component, inject, run} = Ember;
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed', 'isVideoDrawerVisible:fixed'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isVideoDrawerVisible:is-fixed'],
 		hasRendered: false,
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
@@ -38,7 +38,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initOnScrollBehaviour() {
-			let $video = this.$('.video-container'),
+			let $video = this.$('.article-featured-video__container'),
 				videoBottomPosition = $video.offset().top + $video.height();
 
 			this.$(window).on('scroll.featured-video', () => {

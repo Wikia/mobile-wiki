@@ -1,18 +1,18 @@
-<div class="video-container">
-	{{! The 'video-wrapper' element is needed here to fix an issue with background color while
+<div class="article-featured-video__container">
+	{{! The 'article-featured-video__wrapper' element is needed here to fix an issue with background color while
 	scrolling on iOS 9. }}
-	<div class="video-wrapper">
+	<div class="article-featured-video__wrapper">
 		{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
-		<img src="{{model.url}}" class="video-thumbnail" {{action 'playVideo'}}>
-		<div {{action 'playVideo'}} class="video-placeholder">
-			<div class="video-details">
-				<div class="video-label">
+		<img src="{{model.url}}" class="article-featured-video__thumbnail" {{action 'playVideo'}}>
+		<div {{action 'playVideo'}} class="article-featured-video__placeholder">
+			<div class="article-featured-video__details">
+				<div class="article-featured-video__label">
 					Watch
-					<span class="video-time">{{videoTime}}</span>
+					<span class="article-featured-video__time">{{videoTime}}</span>
 				</div>
-				<div class="video-title">{{videoTitle}}</div>
+				<div class="article-featured-video__title">{{videoTitle}}</div>
 			</div>
-			<div class="video-play-circle">
+			<div class="article-featured-video__play-circle">
 				{{#if isVideoDrawerVisible}}
 					{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-tiny'}}
 				{{else}}
@@ -20,7 +20,7 @@
 				{{/if}}
 			</div>
 		</div>
-		<div class="video-close-button" {{action 'closeVideoDrawer'}}>
+		<div class="article-featured-video__close-button" {{action 'closeVideoDrawer'}}>
 			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small'}}
 		</div>
 		<div id="{{videoContainerId}}" class="ooyala-article-video"></div>
