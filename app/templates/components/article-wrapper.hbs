@@ -13,8 +13,10 @@
 {{/if}}
 <section class="article-body">
 	{{#if featuredVideoVisible}}
-		{{article-featured-video model=model.featuredVideo
-								 toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')}}
+		{{article-featured-video
+				model=model.featuredVideo
+				toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
+		}}
 	{{/if}}
 
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
