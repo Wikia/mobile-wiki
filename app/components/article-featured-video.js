@@ -9,7 +9,7 @@ const {Component, inject, run} = Ember;
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed:is-played', 'isVideoDrawerVisible:fixed'],
+		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed', 'isVideoDrawerVisible:fixed'],
 		hasRendered: false,
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
