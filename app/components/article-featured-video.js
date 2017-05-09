@@ -10,7 +10,6 @@ export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		classNameBindings: ['isPlayerLoading::player-ready', 'isPlayed', 'isVideoDrawerVisible:fixed'],
-		hasRendered: false,
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -22,14 +21,11 @@ export default Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didRender() {
+		didInsertElement() {
 			this._super(...arguments);
-
-			if (!this.get('hasRendered')) {
-				this.initVideoPlayer();
-				this.initOnScrollBehaviour();
-				this.set('hasRendered', true);
-			}
+			
+			this.initVideoPlayer();
+			this.initOnScrollBehaviour();
 		},
 
 		/**
