@@ -49,7 +49,7 @@ export default Component.extend(
 						this.toggleSiteHeadShadow(false);
 					} else if (currentScroll < videoTopPosition) {
 						this.set('videoDrawerDismissed', false);
-						this.closeVideoDrawer();
+						this.hideVideoDrawer();
 					}
 				}, 200);
 			});
@@ -192,7 +192,7 @@ export default Component.extend(
 				this.player.getState() !== window.OO.STATE.PLAYING;
 		},
 
-		closeVideoDrawer() {
+		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
 				this.toggleSiteHeadShadow(true);
@@ -212,7 +212,7 @@ export default Component.extend(
 					}
 
 					this.set('isPlayed', true);
-					this.closeVideoDrawer();
+					this.hideVideoDrawer();
 					this.player.play();
 				}
 			},
