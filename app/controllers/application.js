@@ -216,7 +216,7 @@ export default Controller.extend(
 			},
 
 			toggleSiteHeadShadow(visible) {
-				this.set('siteHeadNoShadow', !visible);
+				this.set('siteHeadShadow', visible);
 			}
 		},
 

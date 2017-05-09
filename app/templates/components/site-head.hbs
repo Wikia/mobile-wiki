@@ -1,5 +1,5 @@
 <div class="site-head-wrapper">
-	<nav class="site-head{{if noShadow ' no-shadow'}}">
+	<nav class="site-head{{unless shadow ' no-shadow'}}">
 		<div class="site-head__nav-icon-wrapper">
 			{{wikia-ui-components/icon-button
 				click=(action 'siteHeadIconClick' 'nav')
