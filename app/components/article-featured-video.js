@@ -44,7 +44,8 @@ export default Component.extend(
 					this.onScrollHandler,
 					videoTopPosition,
 					videoBottomPosition,
-					200
+					100,
+					false
 				);
 			});
 		},
