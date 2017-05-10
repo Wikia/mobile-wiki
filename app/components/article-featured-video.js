@@ -35,14 +35,12 @@ export default Component.extend(
 		initOnScrollBehaviour() {
 			const $video = this.$('.article-featured-video__container'),
 				videoHeight = $video.height(),
-				videoTopPosition = $video.offset().top,
-				videoBottomPosition = videoTopPosition + videoHeight;
+				videoBottomPosition = $video.offset().top + videoHeight;
 
 			this.$(window).on('scroll.featured-video', () => {
 				run.throttle(
 					this,
 					this.onScrollHandler,
-					videoTopPosition,
 					videoBottomPosition,
 					100,
 					false
@@ -50,13 +48,13 @@ export default Component.extend(
 			});
 		},
 
-		onScrollHandler(videoTopPosition, videoBottomPosition) {
+		onScrollHandler(videoBottomPosition) {
 			const currentScroll = this.$(window).scrollTop();
 
-			if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
+			if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
 				this.set('isVideoDrawerVisible', true);
 				this.toggleSiteHeadShadow(false);
-			} else if (currentScroll < videoTopPosition) {
+			} else if (currentScroll < videoBottomPosition) {
 				this.set('videoDrawerDismissed', false);
 				this.hideVideoDrawer();
 			}
