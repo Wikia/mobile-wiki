@@ -9,7 +9,7 @@ const {Component, inject, run} = Ember;
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isVideoDrawerVisible:is-fixed'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isVideoDrawerVisible:is-fixed', 'withinPortableInfobox'],
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -56,7 +56,7 @@ export default Component.extend(
 			if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
 				this.set('isVideoDrawerVisible', true);
 				this.toggleSiteHeadShadow(false);
-			} else if (currentScroll < videoTopPosition) {
+			} else if (currentScroll < (videoBottomPosition - 50)) {
 				this.set('videoDrawerDismissed', false);
 				this.hideVideoDrawer();
 			}
