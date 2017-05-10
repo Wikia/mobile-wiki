@@ -58,8 +58,8 @@ export default EmberObject.extend({
 
 					shoebox.put('applicationData', applicationData);
 
-					if (trackingDimensions) {
-						shoebox.put('trackingDimensionsForFirstPage', trackingDimensions);
+					if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
+						shoebox.put('trackingDimensionsForFirstPage', trackingDimensions.value.dimensions);
 					}
 
 					return applicationData;
