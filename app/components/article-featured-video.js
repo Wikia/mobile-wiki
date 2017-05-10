@@ -39,18 +39,26 @@ export default Component.extend(
 				videoBottomPosition = videoTopPosition + videoHeight;
 
 			this.$(window).on('scroll.featured-video', () => {
-				run.throttle(this, () => {
-					const currentScroll = this.$(window).scrollTop();
-
-					if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
-						this.set('isVideoDrawerVisible', true);
-						this.toggleSiteHeadShadow(false);
-					} else if (currentScroll < videoTopPosition) {
-						this.set('videoDrawerDismissed', false);
-						this.hideVideoDrawer();
-					}
-				}, 200);
+				run.throttle(
+					this,
+					this.onScrollHandler,
+					videoTopPosition,
+					videoBottomPosition,
+					200
+				);
 			});
+		},
+
+		onScrollHandler(videoTopPosition, videoBottomPosition) {
+			const currentScroll = this.$(window).scrollTop();
+
+			if (currentScroll >= videoBottomPosition && this.canVideoDrawerShow()) {
+				this.set('isVideoDrawerVisible', true);
+				this.toggleSiteHeadShadow(false);
+			} else if (currentScroll < videoTopPosition) {
+				this.set('videoDrawerDismissed', false);
+				this.hideVideoDrawer();
+			}
 		},
 
 		willDestroyElement() {
