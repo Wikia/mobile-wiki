@@ -38,13 +38,15 @@ export default Component.extend(
 				videoBottomPosition = $video.offset().top + videoHeight;
 
 			this.$(window).on('scroll.featured-video', () => {
-				run.throttle(
-					this,
-					this.onScrollHandler,
-					videoBottomPosition,
-					100,
-					false
-				);
+				requestAnimationFrame(() => {
+					run.throttle(
+						this,
+						this.onScrollHandler,
+						videoBottomPosition,
+						100,
+						false
+					);
+				});
 			});
 		},
 
