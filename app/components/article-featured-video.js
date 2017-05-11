@@ -18,9 +18,10 @@ let lastTimestamp = 0,
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed',
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isPlaying',
 							'withinPortableInfobox:within-portable-infobox:without-portable-infobox'],
 		isPlayerLoading: true,
+		isPlaying: false,
 		wikiVariables: inject.service(),
 
 		init() {
@@ -91,6 +92,15 @@ export default Component.extend(
 					videoTime,
 					isPlayerLoading: false
 				});
+			});
+
+			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
+				this.set('isPlaying', isFullScreen);
+
+				if (this.get('withinPortableInfobox') && !isFullScreen) {
+					player.pause();
+				}
+
 			});
 
 			this.setupTracking(player);

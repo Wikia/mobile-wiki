@@ -223,6 +223,10 @@
 		.article-featured-video__wrapper {
 			background-color: mix(mix($button-color, $black, 50%), $white, 10%); //TODO: make sure it is the same as $infobox-background in _portable-infobox.scss
 		}
+
+		&.is-playing .ooyala-article-video {
+			display: block;
+		}
 	}
 
 	&.is-fixed {
