@@ -8,6 +8,13 @@ const {Component, inject} = Ember;
 let lastTimestamp = 0,
 	lastAnimationFrameReqId;
 
+/**
+ * Due to janky animation effect on Android Chrome, we decided not to use onscroll event to handle
+ * on-scroll behaviour for featured video. Instead, we use requestAnimationFrame with handler that
+ * checks if the on-scroll bar should appear or not, the handler is executed every 100ms.
+ * Also is-fixed class is intentionally applied to the component manually (not by ember component
+ * class binding) to make the animation smoother.
+ */
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
