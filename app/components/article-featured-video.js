@@ -5,11 +5,12 @@ import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
 const {Component, inject, run} = Ember;
+let lastTimestamp = 0;
 
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isVideoDrawerVisible:is-fixed'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed'],
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -37,26 +38,25 @@ export default Component.extend(
 				videoHeight = $video.height(),
 				videoBottomPosition = $video.offset().top + videoHeight;
 
-			this.$(window).on('scroll.featured-video', () => {
-				run.throttle(
-					this,
-					this.onScrollHandler,
-					videoBottomPosition,
-					100,
-					false
-				);
-			});
+			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
 		},
 
-		onScrollHandler(videoBottomPosition) {
-			const currentScroll = this.$(window).scrollTop();
+		onScrollHandler(videoBottomPosition, timestamp) {
+			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
 
-			if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
-				this.set('isVideoDrawerVisible', true);
-				this.toggleSiteHeadShadow(false);
-			} else if (currentScroll < videoBottomPosition) {
-				this.set('videoDrawerDismissed', false);
-				this.hideVideoDrawer();
+			if (timestamp - lastTimestamp > 100) {
+				const currentScroll = window.scrollY;
+
+				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
+					this.set('isVideoDrawerVisible', true);
+					document.getElementsByClassName('article-featured-video')[0].classList.add('is-fixed');
+					this.toggleSiteHeadShadow(false);
+				} else if (currentScroll < videoBottomPosition) {
+					this.set('videoDrawerDismissed', false);
+					this.hideVideoDrawer();
+				}
+
+				lastTimestamp = timestamp;
 			}
 		},
 
@@ -200,6 +200,8 @@ export default Component.extend(
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
+				document.getElementsByClassName('article-featured-video')[0].classList.remove('is-fixed');
+
 				this.toggleSiteHeadShadow(true);
 			}
 		},
