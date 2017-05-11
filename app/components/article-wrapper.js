@@ -86,11 +86,7 @@ export default Component.extend(
 			}
 		}),
 
-		// noPortableInfobox: computed.not('model.hasPortableInfobox'),
-
 		hasFeaturedVideo: computed.bool('model.featuredVideo'),
-
-		// featuredVideoVisible: computed.and('noPortableInfobox', 'hasFeaturedVideo'),
 
 		actions: {
 			/**
