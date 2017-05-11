@@ -18,7 +18,8 @@ let lastTimestamp = 0,
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'withinPortableInfobox'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed',
+							'withinPortableInfobox:within-portable-infobox:without-portable-infobox'],
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -223,6 +224,11 @@ export default Component.extend(
 							category: 'article-video',
 							label: 'on-scroll-bar'
 						});
+					}
+
+					if (this.get('withinPortableInfobox')) {
+						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+						// TODO: tracking // here or in other place?
 					}
 
 					this.set('isPlayed', true);
