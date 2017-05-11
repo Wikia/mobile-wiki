@@ -1,17 +1,28 @@
-<div class="video-container{{unless isPlayerLoading ' player-ready'}}{{if isPlayed ' is-played'}}"
-	 style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%), url({{model.url}});">
-	{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
-	<div {{action 'playVideo'}} class="video-placeholder">
-		<div class="video-details">
-			<div class="video-label">
-				Watch
-				<span class="video-time">{{videoTime}}</span>
+<div class="article-featured-video__container">
+	{{! The 'article-featured-video__wrapper' element is needed here to fix an issue with background color while
+	scrolling on iOS 9. }}
+	<div class="article-featured-video__wrapper">
+		{{wds-spinner active=isPlayerLoading overlay=false radius=27 strokeWidth=5}}
+		<img src="{{model.url}}" class="article-featured-video__thumbnail" {{action 'playVideo'}}>
+		<div {{action 'playVideo'}} class="article-featured-video__placeholder">
+			<div class="article-featured-video__details">
+				<div class="article-featured-video__label">
+					Watch
+					<span class="article-featured-video__time">{{videoTime}}</span>
+				</div>
+				<div class="article-featured-video__title">{{videoTitle}}</div>
 			</div>
-			<div class="video-title">{{videoTitle}}</div>
+			<div class="article-featured-video__play-circle">
+				{{#if isVideoDrawerVisible}}
+					{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-tiny'}}
+				{{else}}
+					{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
+				{{/if}}
+			</div>
 		</div>
-		<div class="video-play-circle">
-			{{svg 'wds-icons-play-triangle' class='wds-icon wds-icon-small'}}
+		<div class="article-featured-video__close-button" {{action 'closeVideoDrawer'}}>
+			{{svg 'wds-icons-cross' class='wds-icon wds-icon-small'}}
 		</div>
+		<div id="{{videoContainerId}}" class="ooyala-article-video"></div>
 	</div>
-	<div id="{{videoContainerId}}" class="ooyala-article-video"></div>
 </div>

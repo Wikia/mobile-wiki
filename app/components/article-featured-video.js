@@ -5,10 +5,20 @@ import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
 const {Component, inject} = Ember;
+let lastTimestamp = 0,
+	lastAnimationFrameReqId;
 
+/**
+ * Due to janky animation effect on Android Chrome, we decided not to use onscroll event to handle
+ * on-scroll behaviour for featured video. Instead, we use requestAnimationFrame with handler that
+ * checks if the on-scroll bar should appear or not, the handler is executed every 100ms.
+ * Also is-fixed class is intentionally applied to the component manually (not by ember component
+ * class binding) to make the animation smoother.
+ */
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed'],
 		isPlayerLoading: true,
 		wikiVariables: inject.service(),
 
@@ -20,10 +30,42 @@ export default Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didRender() {
+		didInsertElement() {
 			this._super(...arguments);
-
 			this.initVideoPlayer();
+			this.initOnScrollBehaviour();
+		},
+
+		/**
+		 * Manages video transformation on user's scroll action
+		 *
+		 * @returns {void}
+		 */
+		initOnScrollBehaviour() {
+			const $video = this.$('.article-featured-video__container'),
+				videoHeight = $video.height(),
+				videoBottomPosition = $video.offset().top + videoHeight;
+
+			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+		},
+
+		onScrollHandler(videoBottomPosition, timestamp) {
+			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+
+			if (timestamp - lastTimestamp > 100) {
+				const currentScroll = window.scrollY;
+
+				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
+					this.set('isVideoDrawerVisible', true);
+					this.element.classList.add('is-fixed');
+					this.toggleSiteHeadShadow(false);
+				} else if (currentScroll < videoBottomPosition) {
+					this.set('videoDrawerDismissed', false);
+					this.hideVideoDrawer();
+				}
+
+				lastTimestamp = timestamp;
+			}
 		},
 
 		willDestroyElement() {
@@ -32,6 +74,8 @@ export default Component.extend(
 			if (this.player) {
 				this.player.destroy();
 			}
+
+			cancelAnimationFrame(lastAnimationFrameReqId);
 		},
 
 		onCreate(player) {
@@ -154,12 +198,47 @@ export default Component.extend(
 			});
 		},
 
+		canVideoDrawerShow() {
+			return !this.get('isVideoDrawerVisible') &&
+				!this.get('videoDrawerDismissed') &&
+				!this.get('isPlayerLoading') &&
+				this.player.getState() !== window.OO.STATE.PLAYING;
+		},
+
+		hideVideoDrawer() {
+			if (this.get('isVideoDrawerVisible')) {
+				this.set('isVideoDrawerVisible', false);
+				this.element.classList.remove('is-fixed');
+				this.toggleSiteHeadShadow(true);
+			}
+		},
+
 		actions: {
 			playVideo() {
 				if (this.player) {
+					if (this.get('isVideoDrawerVisible')) {
+						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+						track({
+							action: trackActions.click,
+							category: 'article-video',
+							label: 'on-scroll-bar'
+						});
+					}
+
 					this.set('isPlayed', true);
+					this.hideVideoDrawer();
 					this.player.play();
 				}
+			},
+			closeVideoDrawer() {
+				this.set('videoDrawerDismissed', true);
+				this.hideVideoDrawer();
+
+				track({
+					action: trackActions.close,
+					category: 'article-video',
+					label: 'on-scroll-bar'
+				});
 			}
 		}
 	}
