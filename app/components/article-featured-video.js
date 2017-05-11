@@ -5,14 +5,14 @@ import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
 const {Component, inject} = Ember;
-let lastTimestamp = 0;
+let lastTimestamp = 0,
+	lastAnimationFrameReqId;
 
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
 		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed'],
 		isPlayerLoading: true,
-		mainElement: null,
 		wikiVariables: inject.service(),
 
 		init() {
@@ -26,7 +26,6 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 			this.initVideoPlayer();
-			this.set('mainElement', document.getElementsByClassName(this.get('classNames')[0])[0]);
 			this.initOnScrollBehaviour();
 		},
 
@@ -40,18 +39,18 @@ export default Component.extend(
 				videoHeight = $video.height(),
 				videoBottomPosition = $video.offset().top + videoHeight;
 
-			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
 		},
 
 		onScrollHandler(videoBottomPosition, timestamp) {
-			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
 
 			if (timestamp - lastTimestamp > 100) {
 				const currentScroll = window.scrollY;
 
 				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
 					this.set('isVideoDrawerVisible', true);
-					this.get('mainElement').classList.add('is-fixed');
+					this.element.classList.add('is-fixed');
 					this.toggleSiteHeadShadow(false);
 				} else if (currentScroll < videoBottomPosition) {
 					this.set('videoDrawerDismissed', false);
@@ -69,7 +68,7 @@ export default Component.extend(
 				this.player.destroy();
 			}
 
-			this.$(window).off('scroll.featured-video');
+			cancelAnimationFrame(lastAnimationFrameReqId);
 		},
 
 		onCreate(player) {
@@ -202,7 +201,7 @@ export default Component.extend(
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
-				this.get('mainElement').classList.remove('is-fixed');
+				this.element.classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
 		},
