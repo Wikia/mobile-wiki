@@ -4,7 +4,7 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, run} = Ember;
+const {Component, inject} = Ember;
 let lastTimestamp = 0;
 
 export default Component.extend(
@@ -49,7 +49,7 @@ export default Component.extend(
 
 				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
 					this.set('isVideoDrawerVisible', true);
-					document.getElementsByClassName('article-featured-video')[0].classList.add('is-fixed');
+					this.getMainElement().classList.add('is-fixed');
 					this.toggleSiteHeadShadow(false);
 				} else if (currentScroll < videoBottomPosition) {
 					this.set('videoDrawerDismissed', false);
@@ -58,6 +58,10 @@ export default Component.extend(
 
 				lastTimestamp = timestamp;
 			}
+		},
+
+		getMainElement() {
+			return document.getElementsByClassName(this.get('classNames')[0])[0];
 		},
 
 		willDestroyElement() {
@@ -200,8 +204,7 @@ export default Component.extend(
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
-				document.getElementsByClassName('article-featured-video')[0].classList.remove('is-fixed');
-
+				this.getMainElement().classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
 		},
@@ -224,10 +227,8 @@ export default Component.extend(
 				}
 			},
 			closeVideoDrawer() {
-				this.setProperties({
-					isVideoDrawerVisible: false,
-					videoDrawerDismissed: true
-				});
+				this.set('videoDrawerDismissed', true);
+				this.hideVideoDrawer();
 
 				track({
 					action: trackActions.close,
