@@ -41,6 +41,10 @@ export default Controller.extend({
 				category,
 				label
 			});
+		},
+
+		toggleSiteHeadShadow(visible) {
+			this.get('application').send('toggleSiteHeadShadow', visible);
 		}
 	}
 });
