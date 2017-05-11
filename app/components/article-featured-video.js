@@ -12,6 +12,7 @@ export default Component.extend(
 		classNames: ['article-featured-video'],
 		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed'],
 		isPlayerLoading: true,
+		mainElement: null,
 		wikiVariables: inject.service(),
 
 		init() {
@@ -25,6 +26,7 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 			this.initVideoPlayer();
+			this.set('mainElement', document.getElementsByClassName(this.get('classNames')[0])[0]);
 			this.initOnScrollBehaviour();
 		},
 
@@ -49,7 +51,7 @@ export default Component.extend(
 
 				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
 					this.set('isVideoDrawerVisible', true);
-					this.getMainElement().classList.add('is-fixed');
+					this.get('mainElement').classList.add('is-fixed');
 					this.toggleSiteHeadShadow(false);
 				} else if (currentScroll < videoBottomPosition) {
 					this.set('videoDrawerDismissed', false);
@@ -58,10 +60,6 @@ export default Component.extend(
 
 				lastTimestamp = timestamp;
 			}
-		},
-
-		getMainElement() {
-			return document.getElementsByClassName(this.get('classNames')[0])[0];
 		},
 
 		willDestroyElement() {
@@ -204,7 +202,7 @@ export default Component.extend(
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
-				this.getMainElement().classList.remove('is-fixed');
+				this.get('mainElement').classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
 		},
