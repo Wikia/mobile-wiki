@@ -4,7 +4,7 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject} = Ember;
+const {Component, inject, computed} = Ember;
 let lastTimestamp = 0,
 	lastAnimationFrameReqId;
 
@@ -22,6 +22,7 @@ export default Component.extend(
 							'withinPortableInfobox:within-portable-infobox:without-portable-infobox'],
 		isPlayerLoading: true,
 		isPlaying: false,
+		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		wikiVariables: inject.service(),
 
 		init() {

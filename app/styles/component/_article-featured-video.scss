@@ -202,11 +202,11 @@
 		}
 
 		.article-featured-video__play-circle {
-			bottom: 18px;
+			bottom: 20px;
 			box-shadow: none;
 			border-width: 3px;
 			height: 30px;
-			left: 64px;
+			left: 74px;
 			position: absolute;
 			right: auto;
 			width: 30px;
@@ -221,7 +221,8 @@
 		height: 92px;
 
 		.article-featured-video__wrapper {
-			background-color: mix(mix($button-color, $black, 50%), $white, 10%); //TODO: make sure it is the same as $infobox-background in _portable-infobox.scss
+			//make sure it is the same as $infobox-background in _portable-infobox.scss
+			background-color: mix(mix($button-color, $black, 50%), $white, 10%);
 		}
 
 		&.is-playing .ooyala-article-video {
@@ -249,8 +250,8 @@
 			z-index: $z-site-head - 2;
 		}
 
-		// The 'article-featured-video__wrapper' element is needed here to fix an issue with background color while
-		// scrolling on iOS 9.
+		// The 'article-featured-video__wrapper' element is needed here to fix an issue with
+		// background color while scrolling on iOS 9.
 		.article-featured-video__wrapper {
 			background-color: $wds-color-white;
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
