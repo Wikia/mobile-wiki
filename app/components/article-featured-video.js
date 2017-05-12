@@ -46,7 +46,7 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			const $video = this.$('.article-featured-video__container'),
-				videoHeight = $video.height(),
+				videoHeight = this.get('withinPortableInfobox') ? 92 : 230,
 				videoBottomPosition = $video.offset().top + videoHeight;
 
 			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
@@ -250,7 +250,7 @@ export default Component.extend(
 					if (this.get('isVideoDrawerVisible')) {
 						this.playInFullScreen('on-scroll-bar');
 					} else 	if (this.get('withinPortableInfobox')) {
-						this.playInFullScreen('in-portable-infobox');
+						this.playInFullScreen('in-portable-infobox-video');
 					} else {
 						this.play('inline-video');
 					}
