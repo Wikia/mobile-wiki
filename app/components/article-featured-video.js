@@ -46,7 +46,7 @@ export default Component.extend(
 		 */
 		initOnScrollBehaviour() {
 			const $video = this.$('.article-featured-video__container'),
-				videoHeight = this.get('withinPortableInfobox') ? 92 : 230,
+				videoHeight = this.get('withinPortableInfobox') ? 97 : 230,
 				videoBottomPosition = $video.offset().top + videoHeight;
 
 			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));

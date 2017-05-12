@@ -166,7 +166,6 @@
 			align-items: center;
 			display: flex;
 			height: 100%;
-			padding: 18px;
 			position: static;
 		}
 
@@ -202,11 +201,9 @@
 		}
 
 		.article-featured-video__play-circle {
-			bottom: 20px;
 			box-shadow: none;
 			border-width: 3px;
 			height: 30px;
-			left: 74px;
 			position: absolute;
 			right: auto;
 			width: 30px;
@@ -218,15 +215,37 @@
 	}
 
 	&.within-portable-infobox {
-		height: 92px;
+		//make sure it is the same as $infobox-background in _portable-infobox.scss
+		$infobox-bg-color: mix(mix($button-color, $black, 50%), $white, 10%);
+		$padding-left-right: 12px;
+		$padding-top-bottom: 21px;
 
-		.article-featured-video__wrapper {
-			//make sure it is the same as $infobox-background in _portable-infobox.scss
-			background-color: mix(mix($button-color, $black, 50%), $white, 10%);
+		height: 97px;
+
+		&::after {
+			border-bottom: 1px solid $wds-color-light-c4;
+			bottom: 0;
+			content: '';
+			left: $padding-left-right;
+			position: absolute;
+			width: calc(100% - 24px);
 		}
 
 		&.is-playing .ooyala-article-video {
 			display: block;
+		}
+
+		.article-featured-video__wrapper {
+			background-color: $infobox-bg-color;
+		}
+
+		.article-featured-video__wrapper {
+			padding: $padding-top-bottom $padding-left-right;
+		}
+
+		.article-featured-video__play-circle {
+			bottom: 21px;
+			left: 68px;
 		}
 	}
 
@@ -255,6 +274,12 @@
 		.article-featured-video__wrapper {
 			background-color: $wds-color-white;
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+			padding: 18px;
+		}
+
+		.article-featured-video__play-circle {
+			bottom: 20px;
+			left: 74px;
 		}
 
 		.article-featured-video__close-button {
