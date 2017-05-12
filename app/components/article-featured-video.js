@@ -28,7 +28,7 @@ export default Component.extend(
 		// when navigating from one article to another with video, we need to destroy player and
 		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 		// hook, however it is fired twice with new attributes.
-		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function() {
+		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
 			this.initOnScrollBehaviour();
@@ -83,7 +83,6 @@ export default Component.extend(
 		willDestroyElement() {
 			this._super(...arguments);
 
-			console.log('willDestroy');
 			this.destroyVideoPlayer();
 		},
 
