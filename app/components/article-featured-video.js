@@ -98,10 +98,12 @@ export default Component.extend(
 			// when playing video on article with infobox, closing fullscreen also has to pause video
 			// as it will be not visible
 			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
-				this.set('isPlaying', isFullScreen);
+				if (this.get('withinPortableInfobox')) {
+					this.set('isPlaying', isFullScreen);
 
-				if (this.get('withinPortableInfobox') && !isFullScreen) {
-					player.pause();
+					if (!isFullScreen) {
+						player.pause();
+					}
 				}
 
 			});
