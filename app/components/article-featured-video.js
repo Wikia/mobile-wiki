@@ -18,7 +18,7 @@ let lastTimestamp = 0,
 export default Component.extend(
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed', 'isPlaying',
+		classNameBindings: ['isPlayerLoading::is-player-ready', 'hasStartedPlaying', 'isPlaying',
 							'withinPortableInfobox:within-portable-infobox:without-portable-infobox'],
 		isPlayerLoading: true,
 		isPlaying: false,
@@ -94,6 +94,8 @@ export default Component.extend(
 				});
 			});
 
+			// when playing video on article with infobox, closing fullscreen also has to pause video
+			// as it will be not visible
 			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
 				this.set('isPlaying', isFullScreen);
 
@@ -224,28 +226,36 @@ export default Component.extend(
 			}
 		},
 
+		playInFullScreen(trackingLabel) {
+			this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+			this.play(trackingLabel);
+		},
+
+		play(trackingLabel) {
+			track({
+				action: trackActions.click,
+				category: 'article-video',
+				label: trackingLabel
+			});
+
+			this.set('hasStartedPlaying', true);
+			this.hideVideoDrawer();
+			this.player.play();
+		},
+
 		actions: {
 			playVideo() {
 				if (this.player) {
 					if (this.get('isVideoDrawerVisible')) {
-						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-						track({
-							action: trackActions.click,
-							category: 'article-video',
-							label: 'on-scroll-bar'
-						});
+						this.playInFullScreen('on-scroll-bar');
+					} else 	if (this.get('withinPortableInfobox')) {
+						this.playInFullScreen('in-portable-infobox');
+					} else {
+						this.play('inline-video');
 					}
-
-					if (this.get('withinPortableInfobox')) {
-						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-						// TODO: tracking // here or in other place?
-					}
-
-					this.set('isPlayed', true);
-					this.hideVideoDrawer();
-					this.player.play();
 				}
 			},
+
 			closeVideoDrawer() {
 				this.set('videoDrawerDismissed', true);
 				this.hideVideoDrawer();
