@@ -1,3 +1,5 @@
+$small-thumbnail-height: 56px;
+
 .article-featured-video {
 	position: relative;
 
@@ -178,7 +180,7 @@
 
 		.article-featured-video__thumbnail {
 			flex: 0 0 100px;
-			height: 56px;
+			height: $small-thumbnail-height;
 			position: static;
 			width: 100px;
 		}
@@ -220,7 +222,7 @@
 		$padding-left-right: 12px;
 		$padding-top-bottom: 21px;
 
-		height: 97px;
+		height: 2*$padding-top-bottom + $small-thumbnail-height;
 
 		&::after {
 			border-bottom: 1px solid $wds-color-light-c4;
@@ -244,7 +246,7 @@
 		}
 
 		.article-featured-video__play-circle {
-			bottom: 21px;
+			bottom: 23px;
 			left: 68px;
 		}
 	}
