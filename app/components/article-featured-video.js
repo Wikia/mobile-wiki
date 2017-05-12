@@ -4,7 +4,7 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, computed} = Ember;
+const {Component, inject, computed, on, observer} = Ember;
 let lastTimestamp = 0,
 	lastAnimationFrameReqId;
 
@@ -25,18 +25,19 @@ export default Component.extend(
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		wikiVariables: inject.service(),
 
+		// when navigating from one article to another with video, we need to destroy player and
+		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
+		// hook, however it is fired twice with new attributes.
+		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function() {
+			this.destroyVideoPlayer();
+			this.initVideoPlayer();
+			this.initOnScrollBehaviour();
+		})),
+
 		init() {
 			this._super(...arguments);
 
 			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
-		},
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			this._super(...arguments);
-			this.initVideoPlayer();
-			this.initOnScrollBehaviour();
 		},
 
 		/**
@@ -71,14 +72,19 @@ export default Component.extend(
 			}
 		},
 
-		willDestroyElement() {
-			this._super(...arguments);
-
+		destroyVideoPlayer() {
 			if (this.player) {
 				this.player.destroy();
 			}
 
 			cancelAnimationFrame(lastAnimationFrameReqId);
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			console.log('willDestroy');
+			this.destroyVideoPlayer();
 		},
 
 		onCreate(player) {
