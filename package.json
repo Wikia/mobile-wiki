@@ -94,6 +94,7 @@
     "eslint-plugin-jsx-a11y": "1.2.0",
     "eslint-plugin-react": "5.0.1",
     "form-data": "2.1.2",
+    "heapdump": "0.3.9",
     "i18next": "7.1.2",
     "loader.js": "4.2.2",
     "mercury-shared": "github:wikia/mercury-shared#1.0.4",
