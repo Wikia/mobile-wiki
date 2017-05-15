@@ -3,7 +3,11 @@ import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-cla
 import SearchModel from '../models/search';
 import {track, trackActions, trackPageView} from '../utils/track';
 
-const {getOwner, Route} = Ember;
+const {
+	Route,
+	getOwner,
+	inject
+} = Ember;
 
 export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
@@ -14,6 +18,8 @@ export default Route.extend(
 				refreshModel: true
 			}
 		},
+
+		initialPageView: inject.service(),
 
 		model(params) {
 			return SearchModel
@@ -26,7 +32,7 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
-				trackPageView();
+				trackPageView(this.get('initialPageView').isInitialPageView());
 
 				track({
 					action: trackActions.impression,

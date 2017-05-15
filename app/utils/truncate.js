@@ -1,5 +1,3 @@
-import {getService} from '../utils/application-instance';
-
 /**
  * @param {String} text
  * @param {Number} maxLength
@@ -12,7 +10,6 @@ export function truncate(text, maxLength = 48) {
 		lastWhiteSpacePos;
 
 	if (typeof text !== 'string') {
-		getService('logger').error(`Truncate Util expected string as a parameter, but ${typeof text} given`, text);
 		return null;
 	}
 
@@ -28,14 +25,4 @@ export function truncate(text, maxLength = 48) {
 	}
 
 	return truncatedString.substr(0, lastWhiteSpacePos) + ellipsisCharacter;
-}
-
-/**
- * @desc Provides information about whether it is need to use truncation hack as a cover fort the line-clamp css
- * property. Method returns true only in Firefox and in IE, because in other browsers 'line-clamp' css property works.
- *
- * @returns {Boolean}
- */
-export function shouldUseTruncationHack() {
-	return (/Firefox|Trident|Edge/).test(navigator.userAgent);
 }
