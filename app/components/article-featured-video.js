@@ -5,22 +5,26 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, computed, on, observer} = Ember;
+const {Component, inject, computed, on, observer, setProperties} = Ember;
 
 export default Component.extend(InViewportMixin,
 	{
 		classNames: ['article-featured-video'],
 		classNameBindings: [
-			'isPlayerLoading::is-player-ready',
 			'hasStartedPlaying',
+			'isPlayerLoading::is-player-ready',
 			'isPlaying',
+			'isVideoDrawerVisible:is-fixed',
 			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
-			// is-fixed class is intentionally applied to the component manually (not by ember
-			// component class binding) to make the animation smoother.
 		],
+		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
 		isPlaying: false,
-		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
+		playerLoadingObserver: observer('isPlayerLoading', function() {
+			if (this.get('viewportExited')) {
+				this.didExitViewport();
+			}
+		}),
 		wikiVariables: inject.service(),
 
 		// when navigating from one article to another with video, we need to destroy player and
@@ -31,8 +35,8 @@ export default Component.extend(InViewportMixin,
 			this.initVideoPlayer();
 		})),
 
-		viewportOptionsOverride: Ember.on('willRender', function () {
-			Ember.setProperties(this, {
+		viewportOptionsOverride: on('willRender', function () {
+			setProperties(this, {
 				viewportSpy: true,
 				viewportRefreshRate: 200,
 				viewportTolerance: {
@@ -56,10 +60,6 @@ export default Component.extend(InViewportMixin,
 		didExitViewport() {
 			if (this.canVideoDrawerShow()) {
 				this.set('isVideoDrawerVisible', true);
-
-				// is-fixed class is intentionally applied to the component manually (not by ember
-				// component class binding) to make the animation smoother.
-				this.element.classList.add('is-fixed');
 				this.toggleSiteHeadShadow(false);
 			}
 		},
@@ -219,7 +219,6 @@ export default Component.extend(InViewportMixin,
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
-				this.element.classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
 		},
