@@ -7,10 +7,6 @@ import extend from '../utils/extend';
 
 const {Component, inject, computed, on, observer} = Ember;
 
-/**
- * Also is-fixed class is intentionally applied to the component manually (not by ember component
- * class binding) to make the animation smoother.
- */
 export default Component.extend(InViewportMixin,
 	{
 		classNames: ['article-featured-video'],
