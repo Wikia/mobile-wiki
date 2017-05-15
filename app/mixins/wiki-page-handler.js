@@ -47,7 +47,7 @@ export default Ember.Mixin.create({
 		const isFastBoot = this.get('fastboot.isFastBoot'),
 			shoebox = this.get('fastboot.shoebox'),
 			contentNamespaces = this.get('wikiVariables.contentNamespaces'),
-			isInitialPageView = this.get('initialPageView').isInitialPageView(getOwner(this));
+			isInitialPageView = this.get('initialPageView').isInitialPageView();
 
 		if (isFastBoot || !isInitialPageView) {
 			const url = getURL(params);
