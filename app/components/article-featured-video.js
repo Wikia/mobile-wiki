@@ -35,13 +35,13 @@ export default Component.extend(InViewportMixin,
 			this.initVideoPlayer();
 		})),
 
-		viewportOptionsOverride: Ember.on('willRender', function() {
+		viewportOptionsOverride: Ember.on('willRender', function () {
 			Ember.setProperties(this, {
-				viewportSpy               : true,
-				viewportRefreshRate       : 200,
+				viewportSpy: true,
+				viewportRefreshRate: 200,
 				viewportTolerance: {
-					top    : this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
-					bottom : 9999,
+					top: this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
+					bottom: 9999,
 				}
 			});
 		}),
