@@ -60,6 +60,10 @@ export default Component.extend(InViewportMixin,
 		didExitViewport() {
 			if (this.canVideoDrawerShow()) {
 				this.set('isVideoDrawerVisible', true);
+
+				// is-fixed class is intentionally applied to the component manually to make the
+				// animation smoother.
+				this.element.classList.add('is-fixed');
 				this.toggleSiteHeadShadow(false);
 			}
 		},
@@ -219,6 +223,10 @@ export default Component.extend(InViewportMixin,
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
+
+				// is-fixed class is intentionally removed from the component manually to make the
+				// animation smoother.
+				this.element.classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
 		},
