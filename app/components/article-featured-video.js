@@ -4,7 +4,7 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, computed, on, observer} = Ember;
+const {Component, inject, computed, on, observer, run} = Ember;
 let lastTimestamp = 0,
 	lastAnimationFrameReqId;
 
@@ -35,7 +35,11 @@ export default Component.extend(
 		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
-			this.initOnScrollBehaviour();
+
+			// onscroll behaviour needs to be initialized after render because we need video height
+			// to properly calculate on what scroll position the bar at the top of screen should
+			// appear
+			run.scheduleOnce('afterRender', this, this.initOnScrollBehaviour);
 		})),
 
 		init() {
@@ -45,16 +49,14 @@ export default Component.extend(
 		},
 
 		/**
-		 * Manages video transformation on user's scroll action
+		 * Initializes video transformation on user's scroll action
 		 *
 		 * @returns {void}
 		 */
 		initOnScrollBehaviour() {
-			const $video = this.$('.article-featured-video__container'),
-				videoHeight = this.get('withinPortableInfobox') ? 97 : 230,
-				videoBottomPosition = $video.offset().top + videoHeight;
+			const videoBottomPosition = this.element.getBoundingClientRect().bottom;
 
-			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
 		},
 
 		onScrollHandler(videoBottomPosition, timestamp) {
