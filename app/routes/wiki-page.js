@@ -25,6 +25,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		initialPageView: inject.service(),
 		logger: inject.service(),
 		wikiVariables: inject.service(),
 
@@ -205,7 +206,7 @@ export default Route.extend(
 				n: model.get('ns')
 			});
 
-			trackPageView(uaDimensions);
+			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
 		},
 
 		/**
