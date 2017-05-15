@@ -1,22 +1,35 @@
 import {test, moduleFor} from 'ember-qunit';
 import sinon from 'sinon';
 
-const model = Ember.Object.create({
+const {
+	Object: EmberObject,
+	Service
+} = Ember;
+
+const model = EmberObject.create({
 	url: '/wiki/Kermit',
 	description: 'Article about Kermit',
 	displayTitle: 'Kermit The Frog',
 	htmlTitle: 'Kermit The Frog'
 });
 
+const isInitialPageViewStub = sinon.stub();
+const initialPageViewStub = Service.extend({
+	isInitialPageView: isInitialPageViewStub
+});
+
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	needs: [
 		'service:fastboot',
+		'service:initial-page-view',
 		'service:logger',
 		'service:router-scroll',
 		'service:wiki-variables'
 	],
 	beforeEach() {
 		window.wgNow = null;
+		this.register('service:initial-page-view', initialPageViewStub);
+		this.inject.service('initial-page-view', {as: 'initial-page-view'});
 	}
 });
 
@@ -36,7 +49,7 @@ test('set head tags for correct model', function (assert) {
 	mock.setProperties({
 		removeServerTags() {},
 		setStaticHeadTags() {},
-		headData: Ember.Object.create(),
+		headData: EmberObject.create(),
 		wikiVariables: {
 			basePath: 'http://muppet.wikia.com',
 			htmlTitle: {
@@ -75,7 +88,7 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 	mock.setProperties({
 		removeServerTags() {},
 		setStaticHeadTags() {},
-		headData: Ember.Object.create(),
+		headData: EmberObject.create(),
 		wikiVariables: {
 			basePath: 'http://muppet.wikia.com',
 			htmlTitle: {
@@ -103,7 +116,7 @@ test('get correct handler based on model namespace', function (assert) {
 					viewName: 'article',
 					controllerName: 'article'
 				},
-				model: Ember.Object.create({
+				model: EmberObject.create({
 					ns: 0
 				})
 			},
@@ -112,7 +125,7 @@ test('get correct handler based on model namespace', function (assert) {
 					viewName: 'article',
 					controllerName: 'article'
 				},
-				model: Ember.Object.create({
+				model: EmberObject.create({
 					ns: 112
 				})
 			},
@@ -121,13 +134,13 @@ test('get correct handler based on model namespace', function (assert) {
 					viewName: 'category',
 					controllerName: 'category'
 				},
-				model: Ember.Object.create({
+				model: EmberObject.create({
 					ns: 14
 				})
 			},
 			{
 				expectedHandler: null,
-				model: Ember.Object.create({
+				model: EmberObject.create({
 					ns: 200
 				})
 			}
@@ -167,8 +180,7 @@ test('get correct handler based on model isCuratedMainPage', function (assert) {
 });
 
 test('reset ads variables on before model', function (assert) {
-	const stub = sinon.stub(require('mobile-wiki/utils/initial-page-view'), 'default');
-	stub.returns(false);
+	isInitialPageViewStub.returns(false);
 
 	const mock = this.subject();
 	mock.controllerFor = () => {
@@ -187,5 +199,5 @@ test('reset ads variables on before model', function (assert) {
 
 	assert.notEqual(window.wgNow, null);
 
-	stub.restore();
+	isInitialPageViewStub.reset();
 });
