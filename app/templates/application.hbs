@@ -1,29 +1,31 @@
 {{#application-wrapper
+	activeDrawerContent=drawerContent
 	alertNotifications=alertNotifications
 	class=applicationWrapperClassNames
+	closeLightbox=(action 'closeLightbox')
+	drawerVisible=drawerVisible
 	fullPage=fullPage
+	globalNavigation=model.navigation.globalNavigation
+	globalFooter=model.navigation.globalFooter
+	goToSearchResults=(route-action 'goToSearchResults')
+	handleLink=(action 'handleLink')
 	isLoading=isLoading
+	isSearchPage=isSearchPage
 	language=language
 	lightboxModel=lightboxModel
 	lightboxType=lightboxType
 	lightboxVisible=lightboxVisible
 	lightboxCloseButtonDelay=lightboxCloseButtonDelay
-	drawerVisible=drawerVisible
-	activeDrawerContent=drawerContent
+	loadRandomArticle=(action 'loadRandomArticle')
+	setQueryParam=(action 'setQueryParam')
+	siteHeadNoShadow=siteHeadNoShadow
 	smartBannerVisible=smartBannerVisible
 	themeBar=themeBar
-	userMenuVisible=userMenuVisible
-	closeLightbox=(action 'closeLightbox')
-	handleLink=(action 'handleLink')
-	loadRandomArticle=(action 'loadRandomArticle')
-	goToSearchResults=(route-action 'goToSearchResults')
-	setQueryParam=(action 'setQueryParam')
 	toggleDrawer=(action 'toggleDrawer')
 	toggleSmartBanner=(action 'toggleSmartBanner')
+	toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
 	toggleUserMenu=(action 'toggleUserMenu')
-	isSearchPage=isSearchPage
-	globalFooter=model.navigation.globalFooter
-	globalNavigation=model.navigation.globalNavigation
+	userMenuVisible=userMenuVisible
 }}
 	{{outlet}}
 {{/application-wrapper}}
