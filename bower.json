@@ -1,7 +1,7 @@
 {
   "name": "mobile-wiki",
   "dependencies": {
-    "design-system": "wikia/design-system#6.0.0",
+    "design-system": "wikia/design-system#6.0.1",
     "ember-hammer": "1.0.2",
     "ember-qunit-notifications": "0.1.0",
     "fastclick": "1.0.6",
