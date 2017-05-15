@@ -20,7 +20,7 @@ export default Component.extend(InViewportMixin,
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
 		isPlaying: false,
-		playerLoadingObserver: observer('isPlayerLoading', function() {
+		playerLoadingObserver: observer('isPlayerLoading', function () {
 			if (this.get('viewportExited')) {
 				this.didExitViewport();
 			}
