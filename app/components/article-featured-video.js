@@ -1,81 +1,83 @@
 import Ember from 'ember';
+import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject} = Ember;
-let lastTimestamp = 0,
-	lastAnimationFrameReqId;
+const {Component, inject, computed, on, observer, setProperties} = Ember;
 
-/**
- * Due to janky animation effect on Android Chrome, we decided not to use onscroll event to handle
- * on-scroll behaviour for featured video. Instead, we use requestAnimationFrame with handler that
- * checks if the on-scroll bar should appear or not, the handler is executed every 100ms.
- * Also is-fixed class is intentionally applied to the component manually (not by ember component
- * class binding) to make the animation smoother.
- */
-export default Component.extend(
+export default Component.extend(InViewportMixin,
 	{
 		classNames: ['article-featured-video'],
-		classNameBindings: ['isPlayerLoading::is-player-ready', 'isPlayed'],
+		classNameBindings: [
+			'hasStartedPlaying',
+			'isPlayerLoading::is-player-ready',
+			'isPlaying',
+			'isVideoDrawerVisible:is-fixed',
+			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
+		],
+		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
+		isPlaying: false,
+		playerLoadingObserver: observer('isPlayerLoading', function () {
+			if (this.get('viewportExited')) {
+				this.didExitViewport();
+			}
+		}),
 		wikiVariables: inject.service(),
+
+		// when navigating from one article to another with video, we need to destroy player and
+		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
+		// hook, however it is fired twice with new attributes.
+		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
+			this.destroyVideoPlayer();
+			this.initVideoPlayer();
+		})),
+
+		viewportOptionsOverride: on('willRender', function () {
+			setProperties(this, {
+				viewportSpy: true,
+				viewportRefreshRate: 200,
+				viewportTolerance: {
+					top: this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
+					bottom: 9999,
+				}
+			});
+		}),
 
 		init() {
 			this._super(...arguments);
 
 			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
 		},
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			this._super(...arguments);
-			this.initVideoPlayer();
-			this.initOnScrollBehaviour();
+
+		didEnterViewport() {
+			this.set('videoDrawerDismissed', false);
+			this.hideVideoDrawer();
 		},
 
-		/**
-		 * Manages video transformation on user's scroll action
-		 *
-		 * @returns {void}
-		 */
-		initOnScrollBehaviour() {
-			const $video = this.$('.article-featured-video__container'),
-				videoHeight = $video.height(),
-				videoBottomPosition = $video.offset().top + videoHeight;
+		didExitViewport() {
+			if (this.canVideoDrawerShow()) {
+				this.set('isVideoDrawerVisible', true);
 
-			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+				// is-fixed class is intentionally applied to the component manually to make the
+				// animation smoother.
+				this.element.classList.add('is-fixed');
+				this.toggleSiteHeadShadow(false);
+			}
 		},
 
-		onScrollHandler(videoBottomPosition, timestamp) {
-			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
-
-			if (timestamp - lastTimestamp > 100) {
-				const currentScroll = window.scrollY;
-
-				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
-					this.set('isVideoDrawerVisible', true);
-					this.element.classList.add('is-fixed');
-					this.toggleSiteHeadShadow(false);
-				} else if (currentScroll < videoBottomPosition) {
-					this.set('videoDrawerDismissed', false);
-					this.hideVideoDrawer();
-				}
-
-				lastTimestamp = timestamp;
+		destroyVideoPlayer() {
+			if (this.player) {
+				this.player.destroy();
 			}
 		},
 
 		willDestroyElement() {
 			this._super(...arguments);
 
-			if (this.player) {
-				this.player.destroy();
-			}
-
-			cancelAnimationFrame(lastAnimationFrameReqId);
+			this.destroyVideoPlayer();
 		},
 
 		onCreate(player) {
@@ -90,6 +92,19 @@ export default Component.extend(
 					videoTime,
 					isPlayerLoading: false
 				});
+			});
+
+			// when playing video on article with infobox, closing fullscreen also has to pause video
+			// as it will be not visible
+			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
+				if (this.get('withinPortableInfobox')) {
+					this.set('isPlaying', isFullScreen);
+
+					if (!isFullScreen) {
+						player.pause();
+					}
+				}
+
 			});
 
 			this.setupTracking(player);
@@ -208,28 +223,44 @@ export default Component.extend(
 		hideVideoDrawer() {
 			if (this.get('isVideoDrawerVisible')) {
 				this.set('isVideoDrawerVisible', false);
+
+				// is-fixed class is intentionally removed from the component manually to make the
+				// animation smoother.
 				this.element.classList.remove('is-fixed');
 				this.toggleSiteHeadShadow(true);
 			}
+		},
+
+		playInFullScreen(trackingLabel) {
+			this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+			this.play(trackingLabel);
+		},
+
+		play(trackingLabel) {
+			track({
+				action: trackActions.click,
+				category: 'article-video',
+				label: trackingLabel
+			});
+
+			this.set('hasStartedPlaying', true);
+			this.hideVideoDrawer();
+			this.player.play();
 		},
 
 		actions: {
 			playVideo() {
 				if (this.player) {
 					if (this.get('isVideoDrawerVisible')) {
-						this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
-						track({
-							action: trackActions.click,
-							category: 'article-video',
-							label: 'on-scroll-bar'
-						});
+						this.playInFullScreen('on-scroll-bar');
+					} else 	if (this.get('withinPortableInfobox')) {
+						this.playInFullScreen('in-portable-infobox-video');
+					} else {
+						this.play('inline-video');
 					}
-
-					this.set('isPlayed', true);
-					this.hideVideoDrawer();
-					this.player.play();
 				}
 			},
+
 			closeVideoDrawer() {
 				this.set('videoDrawerDismissed', true);
 				this.hideVideoDrawer();
