@@ -1,21 +1,17 @@
 import Ember from 'ember';
+import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, computed, on, observer, run} = Ember;
-let lastTimestamp = 0,
-	lastAnimationFrameReqId;
+const {Component, inject, computed, on, observer} = Ember;
 
 /**
- * Due to janky animation effect on Android Chrome, we decided not to use onscroll event to handle
- * on-scroll behaviour for featured video. Instead, we use requestAnimationFrame with handler that
- * checks if the on-scroll bar should appear or not, the handler is executed every 100ms.
  * Also is-fixed class is intentionally applied to the component manually (not by ember component
  * class binding) to make the animation smoother.
  */
-export default Component.extend(
+export default Component.extend(InViewportMixin,
 	{
 		classNames: ['article-featured-video'],
 		classNameBindings: [
@@ -23,6 +19,8 @@ export default Component.extend(
 			'hasStartedPlaying',
 			'isPlaying',
 			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
+			// is-fixed class is intentionally applied to the component manually (not by ember
+			// component class binding) to make the animation smoother.
 		],
 		isPlayerLoading: true,
 		isPlaying: false,
@@ -35,12 +33,18 @@ export default Component.extend(
 		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
-
-			// onscroll behaviour needs to be initialized after render because we need video height
-			// to properly calculate on what scroll position the bar at the top of screen should
-			// appear
-			run.scheduleOnce('afterRender', this, this.initOnScrollBehaviour);
 		})),
+
+		viewportOptionsOverride: Ember.on('willRender', function() {
+			Ember.setProperties(this, {
+				viewportSpy               : true,
+				viewportRefreshRate       : 200,
+				viewportTolerance: {
+					top    : this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
+					bottom : 9999,
+				}
+			});
+		}),
 
 		init() {
 			this._super(...arguments);
@@ -48,33 +52,19 @@ export default Component.extend(
 			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
 		},
 
-		/**
-		 * Initializes video transformation on user's scroll action
-		 *
-		 * @returns {void}
-		 */
-		initOnScrollBehaviour() {
-			const videoBottomPosition = this.element.getBoundingClientRect().bottom;
-
-			requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+		didEnterViewport() {
+			this.set('videoDrawerDismissed', false);
+			this.hideVideoDrawer();
 		},
 
-		onScrollHandler(videoBottomPosition, timestamp) {
-			lastAnimationFrameReqId = requestAnimationFrame(this.onScrollHandler.bind(this, videoBottomPosition));
+		didExitViewport() {
+			if (this.canVideoDrawerShow()) {
+				this.set('isVideoDrawerVisible', true);
 
-			if (timestamp - lastTimestamp > 100) {
-				const currentScroll = window.scrollY;
-
-				if (currentScroll > videoBottomPosition && this.canVideoDrawerShow()) {
-					this.set('isVideoDrawerVisible', true);
-					this.element.classList.add('is-fixed');
-					this.toggleSiteHeadShadow(false);
-				} else if (currentScroll < videoBottomPosition) {
-					this.set('videoDrawerDismissed', false);
-					this.hideVideoDrawer();
-				}
-
-				lastTimestamp = timestamp;
+				// is-fixed class is intentionally applied to the component manually (not by ember
+				// component class binding) to make the animation smoother.
+				this.element.classList.add('is-fixed');
+				this.toggleSiteHeadShadow(false);
 			}
 		},
 
@@ -82,8 +72,6 @@ export default Component.extend(
 			if (this.player) {
 				this.player.destroy();
 			}
-
-			cancelAnimationFrame(lastAnimationFrameReqId);
 		},
 
 		willDestroyElement() {
