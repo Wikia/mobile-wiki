@@ -99,31 +99,5 @@ export default Ember.Mixin.create(
 				}
 			};
 		},
-
-		/**
-		 * Normalize image width used to generate a thumbnail
-		 * so we don't pollute the cache with multiple thumbs for every device width
-		 *
-		 * @param {number} width
-		 * @returns {number}
-		 */
-		normalizeThumbWidth(width) {
-			const thumbSize = {
-				small: 284,
-				medium: 340,
-				large: 732,
-				maximum: 985
-			};
-
-			if (width <= thumbSize.small) {
-				return thumbSize.small;
-			} else if (width <= thumbSize.medium) {
-				return thumbSize.medium;
-			} else if (width <= thumbSize.large) {
-				return thumbSize.large;
-			}
-
-			return thumbSize.maximum;
-		},
 	}
 );
