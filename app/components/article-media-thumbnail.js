@@ -3,6 +3,7 @@ import InViewportMixin from 'ember-in-viewport';
 import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from '../modules/thumbnailer';
+import {normalizeThumbWidth} from '../utils/thumbnail';
 
 export default Ember.Component.extend(
 	InViewportMixin,
@@ -69,7 +70,7 @@ export default Ember.Component.extend(
 				width = originalWidth;
 				height = originalHeight;
 			} else {
-				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('viewportDimensions.width'));
+				width = this.get('forcedWidth') || normalizeThumbWidth(this.get('viewportDimensions.width'));
 				height = this.get('forcedHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
