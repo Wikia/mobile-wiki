@@ -24,6 +24,7 @@
 import Ember from 'ember';
 import Thumbnailer from '../../modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
+import {thumbSize} from '../../utils/thumbnail';
 import {track, trackActions} from '../../utils/track';
 
 const {
@@ -37,10 +38,11 @@ const {
 export default Component.extend(
 	ViewportMixin,
 	{
+		fastboot: inject.service(),
 		wikiVariables: inject.service(),
 		imageAspectRatio: 16 / 9,
 		classNames: ['wiki-page-header'],
-		classNameBindings: ['heroImage:has-hero-image'],
+		classNameBindings: ['heroImage:has-hero-image', 'fastboot.isFastBoot:is-fastboot'],
 		attributeBindings: ['style'],
 		isMainPage: false,
 		siteName: computed.reads('wikiVariables.siteName'),
@@ -51,10 +53,20 @@ export default Component.extend(
 				windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio');
 
-			let imageWidth, imageHeight, maxWidth, computedHeight, cropMode, thumbUrl;
+			let computedHeight,
+				cropMode,
+				imageHeight,
+				imageWidth,
+				maxWidth,
+				thumbUrl;
 
 			if (isEmpty(heroImage)) {
 				return '';
+			}
+
+			if (this.get('fastboot.isFastBoot')) {
+				// We display brackets placeholder as the background using .is-fastboot class
+				return new htmlSafe(`height: ${thumbSize.medium}px`);
 			}
 
 			imageWidth = heroImage.width || windowWidth;
