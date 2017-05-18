@@ -184,7 +184,6 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 	}
 
 	if (enableTracking) {
-		window.trackIVW3PageView();
 		Ads.getInstance().trackKruxPageView();
 	}
 }
