@@ -110,14 +110,14 @@ test('behaves correctly depending on noAds value', function (assert) {
 	const testCases = [
 		{
 			properties: {
-				isAboveTheFold: true,
+				dontWaitForUapResponse: true,
 				name: 'Test ad 1'
 			},
 			expectedResult: true,
 			message: 'Element added to slot because no noAds property was passed'
 		}, {
 			properties: {
-				isAboveTheFold: true,
+				dontWaitForUapResponse: true,
 				name: 'Test ad 2',
 			},
 			noAds: true,
@@ -125,7 +125,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to true'
 		}, {
 			properties: {
-				isAboveTheFold: true,
+				dontWaitForUapResponse: true,
 				name: 'Test ad 3',
 			},
 			noAds: false,

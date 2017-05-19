@@ -14,7 +14,7 @@ export default Component.extend(
 		logger: inject.service(),
 		noAds: computed.readOnly('ads.noAds'),
 		disableManualInsert: false,
-		isAboveTheFold: false,
+		dontWaitForUapResponse: false,
 		name: null,
 
 		nameLowerCase: computed('name', function () {
@@ -25,6 +25,8 @@ export default Component.extend(
 			const ads = this.get('ads.module'),
 				name = this.get('name');
 
+			debugger
+
 			if (this.get('disableManualInsert')) {
 				return;
 			}
@@ -34,13 +36,15 @@ export default Component.extend(
 				return;
 			}
 
-			if (this.get('isAboveTheFold')) {
+			if (this.get('dontWaitForUapResponse')) { //check if mLB is on that page
+				//debugger
 				this.get('logger').info('Injected ad', name);
 				ads.addSlot(name);
 			} else {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
+						debugger
 						this.get('logger').info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
 					}
@@ -67,7 +71,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (!this.get('isAboveTheFold')) {
+			if (!this.get('dontWaitForUapResponse')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);
