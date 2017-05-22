@@ -69,10 +69,6 @@ module.exports = function (environment) {
 				c7: '',
 				c7Value: ''
 			},
-			ivw3: {
-				cmKey: '',
-				countries: []
-			},
 			nielsen: {
 				apid: 'FIXME',
 				dbName: '',
