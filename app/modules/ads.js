@@ -181,7 +181,6 @@ class Ads {
 				noUapCallback();
 			};
 
-		debugger
 		this.uapCallbacks.push(wrappedUapCallback);
 		this.noUapCallbacks.push(wrappedNoUapCallback);
 

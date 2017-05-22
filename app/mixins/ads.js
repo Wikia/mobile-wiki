@@ -117,8 +117,6 @@ export default Ember.Mixin.create({
 		}
 
 		this.appendHighImpactAd();
-
-		//debugger
 	},
 
 	/**

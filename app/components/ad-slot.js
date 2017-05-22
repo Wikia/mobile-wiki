@@ -25,8 +25,6 @@ export default Component.extend(
 			const ads = this.get('ads.module'),
 				name = this.get('name');
 
-			debugger
-
 			if (this.get('disableManualInsert')) {
 				return;
 			}
@@ -36,15 +34,13 @@ export default Component.extend(
 				return;
 			}
 
-			if (this.get('dontWaitForUapResponse')) { //check if mLB is on that page
-				//debugger
+			if (this.get('dontWaitForUapResponse')) {
 				this.get('logger').info('Injected ad', name);
 				ads.addSlot(name);
 			} else {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
-						debugger
 						this.get('logger').info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
 					}
