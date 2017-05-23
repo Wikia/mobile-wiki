@@ -68,7 +68,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (delayBtf !== false && !this.get('isAboveTheFold')) {
+			if (delayBtf && !this.get('isAboveTheFold')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);
