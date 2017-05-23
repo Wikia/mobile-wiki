@@ -60,6 +60,7 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			const ads = this.get('ads.module'),
+				delayBtf = this.get('ads.module.adsContext.opts.delayBtf'),
 				name = this.get('name');
 
 			if (this.get('noAds')) {
@@ -67,7 +68,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (ads.adsContext.opts.delayBtf && !this.get('isAboveTheFold')) {
+			if (delayBtf !== false && !this.get('isAboveTheFold')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);
