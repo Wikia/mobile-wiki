@@ -5,8 +5,8 @@ export default Ember.Mixin.create({
 	adsData: {
 		additionalConfig: {
 			MOBILE_TOP_LEADERBOARD: {
-				// slot is pushed immediately (without any delay/in single request with other slots)
-				dontWaitForUapResponse: true
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
+				isAboveTheFold: true
 			},
 			MOBILE_BOTTOM_LEADERBOARD: {
 				disableManualInsert: true
@@ -19,7 +19,7 @@ export default Ember.Mixin.create({
 		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 	},
 	ads: Ember.inject.service(),
 	currentUser: Ember.inject.service(),
@@ -37,7 +37,6 @@ export default Ember.Mixin.create({
 	 */
 	appendAd(adSlotName, place, element) {
 		const adsData = this.get('adsData'),
-			pageWithFeaturedVideo = this.get('featuredVideo'),
 			config = adsData.additionalConfig[adSlotName] || {},
 			$placeholder = $('<div>');
 
@@ -51,7 +50,7 @@ export default Ember.Mixin.create({
 			name: 'ad-slot',
 			attrs: {
 				disableManualInsert: !!config.disableManualInsert,
-				dontWaitForUapResponse: !!config.dontWaitForUapResponse || pageWithFeaturedVideo,
+				isAboveTheFold: !!config.isAboveTheFold,
 				name: adSlotName
 			},
 			element: $placeholder.get(0)

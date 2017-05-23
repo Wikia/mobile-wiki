@@ -14,7 +14,7 @@ export default Component.extend(
 		logger: inject.service(),
 		noAds: computed.readOnly('ads.noAds'),
 		disableManualInsert: false,
-		dontWaitForUapResponse: false,
+		isAboveTheFold: false,
 		name: null,
 
 		nameLowerCase: computed('name', function () {
@@ -34,7 +34,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (this.get('dontWaitForUapResponse')) {
+			if (this.get('isAboveTheFold')) {
 				this.get('logger').info('Injected ad', name);
 				ads.addSlot(name);
 			} else {
@@ -67,7 +67,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (!this.get('dontWaitForUapResponse')) {
+			if (ads.adsContext.opts.delayBtf && !this.get('isAboveTheFold')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);
