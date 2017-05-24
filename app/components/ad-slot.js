@@ -13,12 +13,17 @@ export default Component.extend(
 		ads: inject.service(),
 		logger: inject.service(),
 		noAds: computed.readOnly('ads.noAds'),
+		delayBtf: computed.bool('ads.adsContext.opts.delayBtf'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
 
 		nameLowerCase: computed('name', function () {
 			return dasherize(this.get('name').toLowerCase());
+		}),
+
+		shouldWaitForUapResponse: computed('delayBtf', 'isAboveTheFold', function() {
+			return this.get('delayBtf') && !this.get('isAboveTheFold');
 		}),
 
 		onElementManualInsert: on('didInsertElement', function () {
@@ -34,10 +39,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (this.get('isAboveTheFold')) {
-				this.get('logger').info('Injected ad', name);
-				ads.addSlot(name);
-			} else {
+			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
@@ -45,6 +47,9 @@ export default Component.extend(
 						ads.pushSlotToQueue(name);
 					}
 				);
+			} else {
+				this.get('logger').info('Injected ad', name);
+				ads.addSlot(name);
 			}
 
 			setProperties(this, {
@@ -60,7 +65,6 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			const ads = this.get('ads.module'),
-				delayBtf = this.get('ads.module.adsContext.opts.delayBtf'),
 				name = this.get('name');
 
 			if (this.get('noAds')) {
@@ -68,7 +72,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (delayBtf && !this.get('isAboveTheFold')) {
+			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);
