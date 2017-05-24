@@ -46,7 +46,7 @@ export function initialize(applicationInstance) {
 			wikiaEnv,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER,
-			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === "true",
+			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
 
 		runtimeServicesConfig = {
