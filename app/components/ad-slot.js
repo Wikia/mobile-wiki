@@ -22,7 +22,7 @@ export default Component.extend(
 			return dasherize(this.get('name').toLowerCase());
 		}),
 
-		shouldWaitForUapResponse: computed('delayBtf', 'isAboveTheFold', function() {
+		shouldWaitForUapResponse: computed('delayBtf', 'isAboveTheFold', function () {
 			return this.get('delayBtf') && !this.get('isAboveTheFold');
 		}),
 
