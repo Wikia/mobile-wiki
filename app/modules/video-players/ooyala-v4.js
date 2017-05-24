@@ -1,3 +1,4 @@
+import Ads from '../ads';
 import BasePlayer from './base';
 import config from '../../config/environment';
 
@@ -6,7 +7,7 @@ export const ooyalaAssets = {
 		'/mobile-wiki/assets/ooyala/html5-skin.css',
 		'/mobile-wiki/assets/ooyala.css'
 	],
-	script: '/mobile-wiki/assets/ooyala/all.js'
+	script: '/mobile-wiki/assets/ooyala/all-with-google-ima.js'
 };
 
 export default class OoyalaV4Player extends BasePlayer {
@@ -47,7 +48,32 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+			Ads.getInstance().onReady(function () {
+				// TODO find better solution for this hack
+				window.require([
+					'ext.wikia.adEngine.video.vastUrlBuilder'
+				], () => {
+					if (!this.params.noAds) {
+						console.log('building vast');
+
+						const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
+							pos: 'FEATURED_VIDEO',
+							src: 'premium'
+						});
+
+						this.params['google-ima-ads-manager'] = {
+							all_ads: [
+								{
+									tag_url: vastUrl
+								}
+							],
+							useGoogleCountdown: true
+						};
+					}
+
+					window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+				});
+			}, this);
 		});
 	}
 

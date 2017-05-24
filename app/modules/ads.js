@@ -95,6 +95,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	init(adsUrl) {
+
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
@@ -102,6 +103,8 @@ class Ads {
 
 		// Load the ads code from MW
 		$script(adsUrl, () => {
+
+			console.log('ads init promise resolve');
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -127,6 +130,8 @@ class Ads {
 					sourcePointDetectionModule,
 					vastUrlBuilder,
 					krux) => {
+					console.log('kvas', vastUrlBuilder);
+
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.adEngineRunnerModule = adEngineRunnerModule;
