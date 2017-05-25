@@ -49,30 +49,23 @@ export default class OoyalaV4Player extends BasePlayer {
 	createPlayer() {
 		window.OO.ready(() => {
 			Ads.getInstance().onReady(function () {
-				// TODO find better solution for this hack
-				window.require([
-					'ext.wikia.adEngine.video.vastUrlBuilder'
-				], () => {
-					if (!this.params.noAds) {
-						console.log('building vast');
+				if (!this.params.noAds) {
+					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
+						pos: 'FEATURED_VIDEO',
+						src: 'premium'
+					});
 
-						const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
-							pos: 'FEATURED_VIDEO',
-							src: 'premium'
-						});
+					this.params['google-ima-ads-manager'] = {
+						all_ads: [
+							{
+								tag_url: vastUrl
+							}
+						],
+						useGoogleCountdown: true
+					};
+				}
 
-						this.params['google-ima-ads-manager'] = {
-							all_ads: [
-								{
-									tag_url: vastUrl
-								}
-							],
-							useGoogleCountdown: true
-						};
-					}
-
-					window.OO.Player.create(this.containerId, this.params.videoId, this.params);
-				});
+				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
 			}, this);
 		});
 	}
