@@ -297,7 +297,6 @@ export default Route.extend(
 			/**
 			 * @returns {void}
 			 */
-			//Doesn't fire
 			closeLightbox() {
 				this.get('controller').send('closeLightbox');
 			},
