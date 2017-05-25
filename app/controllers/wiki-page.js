@@ -5,9 +5,9 @@ export default Ember.Controller.extend({
 	actions: {
 		/**
 		 *
-		 * @param lightboxType
-		 * @param lightboxModel
-		 * @param closeButtonDelay
+		 * @param {string} lightboxType
+		 * @param {*} lightboxModel
+		 * @param {number} closeButtonDelay
 		 */
 		openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
 			this.set('preserveScrollPosition', true);

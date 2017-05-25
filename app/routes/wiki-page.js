@@ -59,7 +59,7 @@ export default Route.extend(
 
 		/**
 		 *
-		 * @param controller
+		 * @param {Ember.Controller} controller
 		 */
 		resetController(controller) {
 			controller.set('preserveScrollPosition', false);
