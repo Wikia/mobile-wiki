@@ -60,6 +60,7 @@ export default Route.extend(
 		/**
 		 *
 		 * @param {Ember.Controller} controller
+		 * @returns {void}
 		 */
 		resetController(controller) {
 			controller.set('preserveScrollPosition', false);
@@ -292,13 +293,6 @@ export default Route.extend(
 			 */
 			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
 				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			closeLightbox() {
-				this.get('controller').send('closeLightbox');
 			},
 		}
 	}
