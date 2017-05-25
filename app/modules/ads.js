@@ -74,6 +74,7 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.mercuryPV = 1;
+		this.onReadyCallbacks = [];
 	}
 
 	/**
@@ -144,6 +145,8 @@ class Ads {
 					this.adLogicPageParams = adLogicPageParams;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
+
+					this.onReadyCallbacks.forEach((callback) => callback());
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -452,17 +455,9 @@ class Ads {
 	 * Execute when ads package is ready to use
 	 *
 	 * @param {function} callback
-	 * @param {object} context
 	 */
-	onReady(callback, context) {
-		if (this.adsUrl) {
-			$script(this.adsUrl, () => {
-				// make sure code in init require is executed
-				window.require([], function () {
-					callback.apply(context);
-				})
-			});
-		}
+	onReady(callback) {
+		this.onReadyCallbacks.push(callback);
 	}
 
 	/**

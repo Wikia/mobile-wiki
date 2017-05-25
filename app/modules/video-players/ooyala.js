@@ -38,7 +38,7 @@ export default class OoyalaPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
-		Ads.getInstance().onReady(function () {
+		Ads.getInstance().onReady(() => {
 			const size = this.params.size || {},
 				vastUrl = Ads.getInstance().buildVastUrl(size.width / size.height, {
 					passback: 'ooyala',
@@ -57,7 +57,7 @@ export default class OoyalaPlayer extends BasePlayer {
 			}
 
 			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
-		}, this);
+		});
 	}
 
 	/**

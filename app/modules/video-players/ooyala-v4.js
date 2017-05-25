@@ -48,7 +48,7 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			Ads.getInstance().onReady(function () {
+			Ads.getInstance().onReady(() => {
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
 						pos: 'FEATURED_VIDEO',
@@ -66,7 +66,7 @@ export default class OoyalaV4Player extends BasePlayer {
 				}
 
 				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
-			}, this);
+			});
 		});
 	}
 
