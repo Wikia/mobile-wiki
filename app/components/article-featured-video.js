@@ -9,6 +9,7 @@ const {Component, inject, computed, on, observer, setProperties} = Ember;
 
 export default Component.extend(InViewportMixin,
 	{
+		ads: inject.service(),
 		classNames: ['article-featured-video'],
 		classNameBindings: [
 			'hasStartedPlaying',
@@ -118,9 +119,10 @@ export default Component.extend(InViewportMixin,
 		initVideoPlayer() {
 			const model = this.get('model.embed'),
 				jsParams = {
-					onCreate: this.onCreate.bind(this),
+					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
-					cacheBuster: this.get('wikiVariables.cacheBuster')
+					noAds: this.get('ads.noAds'),
+					onCreate: this.onCreate.bind(this)
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
