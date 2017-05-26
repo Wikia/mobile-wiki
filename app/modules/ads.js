@@ -96,7 +96,6 @@ class Ads {
 	 * @returns {void}
 	 */
 	init(adsUrl) {
-
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
@@ -104,7 +103,6 @@ class Ads {
 
 		// Load the ads code from MW
 		$script(adsUrl, () => {
-
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
