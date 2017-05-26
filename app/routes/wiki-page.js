@@ -58,6 +58,15 @@ export default Route.extend(
 		},
 
 		/**
+		 *
+		 * @param {Ember.Controller} controller
+		 * @returns {void}
+		 */
+		resetController(controller) {
+			controller.set('preserveScrollPosition', false);
+		},
+
+		/**
 		 * @param {EmberStates.Transition} transition
 		 * @returns {void}
 		 */
@@ -274,7 +283,17 @@ export default Route.extend(
 			 */
 			updateDynamicHeadTags() {
 				this.setDynamicHeadTags(this.get('controller.model'));
-			}
+			},
+
+			/**
+			 * @param {string} lightboxType
+			 * @param {*} [lightboxModel]
+			 * @param {number} [closeButtonDelay]
+			 * @returns {void}
+			 */
+			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
+			},
 		}
 	}
 );

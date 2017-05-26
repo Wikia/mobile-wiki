@@ -297,16 +297,6 @@ export default Route.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} [lightboxModel]
-			 * @param {number} [closeButtonDelay]
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
-				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
 			 * @returns {void}
 			 */
 			createHiddenLightbox(lightboxType, lightboxModel) {
