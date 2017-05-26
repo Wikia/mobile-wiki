@@ -66,8 +66,6 @@ test('getModelForNamespace - article', function (assert) {
 			setData: articleSetDataStub
 		};
 
-	console.log(this.subject());
-
 	articleCreateStub.returns(expected);
 	isContentNamespaceStub.returns(true);
 
