@@ -142,9 +142,11 @@ class Ads {
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.addDetectionListeners();
-					this.reloadWhenReady();
 
 					this.onReadyCallbacks.forEach((callback) => callback());
+
+					this.reloadWhenReady();
+
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
