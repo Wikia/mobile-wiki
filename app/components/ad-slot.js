@@ -13,17 +13,17 @@ export default Component.extend(
 		ads: inject.service(),
 		logger: inject.service(),
 		noAds: computed.readOnly('ads.noAds'),
-		delayBtf: computed.bool('ads.adsContext.opts.delayBtf'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
+		pageHasFeaturedVideo: false,
 
 		nameLowerCase: computed('name', function () {
 			return dasherize(this.get('name').toLowerCase());
 		}),
 
-		shouldWaitForUapResponse: computed('delayBtf', 'isAboveTheFold', function () {
-			return this.get('delayBtf') && !this.get('isAboveTheFold');
+		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', function () {
+			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold'));
 		}),
 
 		onElementManualInsert: on('didInsertElement', function () {
