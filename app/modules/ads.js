@@ -141,10 +141,8 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+
 					this.addDetectionListeners();
-
-					this.onReadyCallbacks.forEach((callback) => callback());
-
 					this.reloadWhenReady();
 
 				});
@@ -328,8 +326,6 @@ class Ads {
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;
-		// We need a copy of adSlots as adEngineModule.run destroys it
-		this.slotsQueue = this.getSlots();
 
 		if (this.isLoaded) {
 			this.adMercuryListenerModule.onPageChange(() => {
@@ -340,6 +336,13 @@ class Ads {
 			});
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
+
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
+
+				// We need a copy of adSlots as adEngineModule.run destroys it
+				this.slotsQueue = this.getSlots();
+
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
 				}
