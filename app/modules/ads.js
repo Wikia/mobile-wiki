@@ -74,6 +74,7 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.mercuryPV = 1;
+		this.onReadyCallbacks = [];
 	}
 
 	/**
@@ -140,8 +141,10 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+
 					this.addDetectionListeners();
 					this.reloadWhenReady();
+
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -323,8 +326,6 @@ class Ads {
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;
-		// We need a copy of adSlots as adEngineModule.run destroys it
-		this.slotsQueue = this.getSlots();
 
 		if (this.isLoaded) {
 			this.adMercuryListenerModule.onPageChange(() => {
@@ -335,6 +336,13 @@ class Ads {
 			});
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
+
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
+
+				// We need a copy of adSlots as adEngineModule.run destroys it
+				this.slotsQueue = this.getSlots();
+
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
 				}
@@ -450,13 +458,12 @@ class Ads {
 	 * Execute when ads package is ready to use
 	 *
 	 * @param {function} callback
-	 * @param {object} context
 	 */
-	onReady(callback, context) {
-		if (this.adsUrl) {
-			$script(this.adsUrl, () => {
-				callback.apply(context);
-			});
+	onReady(callback) {
+		if (this.isLoaded) {
+			callback();
+		} else {
+			this.onReadyCallbacks.push(callback);
 		}
 	}
 
