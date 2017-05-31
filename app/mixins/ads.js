@@ -50,6 +50,7 @@ export default Ember.Mixin.create({
 			name: 'ad-slot',
 			attrs: {
 				disableManualInsert: !!config.disableManualInsert,
+				pageHasFeaturedVideo: this.get('featuredVideo'),
 				isAboveTheFold: !!config.isAboveTheFold,
 				name: adSlotName
 			},
