@@ -1,13 +1,14 @@
 import Ads from '../ads';
 import BasePlayer from './base';
 import config from '../../config/environment';
+import loadOoyalaGoogleImaPlugin from './google_ima';
 
 export const ooyalaAssets = {
 	styles: [
 		'/mobile-wiki/assets/ooyala/html5-skin.css',
 		'/mobile-wiki/assets/ooyala.css'
 	],
-	script: '/mobile-wiki/assets/ooyala/all-with-google-ima.js'
+	script: '/mobile-wiki/assets/ooyala/all.js'
 };
 
 export default class OoyalaV4Player extends BasePlayer {
@@ -48,6 +49,8 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
+			loadOoyalaGoogleImaPlugin();
+
 			Ads.getInstance().onReady(() => {
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
