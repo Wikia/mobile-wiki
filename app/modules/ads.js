@@ -2,6 +2,12 @@
 import config from '../config/environment';
 
 /**
+ * @typedef {Object} SlotsContext
+ * @property {Function} isApplicable
+ * @property {Function} setStatus
+ */
+
+/**
  * @typedef {Object} SourcePointDetectionModule
  * @property {Function} initDetection
  */
@@ -31,7 +37,6 @@ import config from '../config/environment';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
@@ -39,6 +44,7 @@ import config from '../config/environment';
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
+ * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
  * @property {VastUrlBuilder} vastUrlBuilder
@@ -50,7 +56,6 @@ import config from '../config/environment';
  */
 class Ads {
 	constructor() {
-		this.adSlots = [];
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
@@ -75,6 +80,10 @@ class Ads {
 		this.googleTagModule = null;
 		this.mercuryPV = 1;
 		this.onReadyCallbacks = [];
+		this.adsData = {
+			minZerothSectionLength: 700,
+			minPageLength: 2000
+		};
 	}
 
 	/**
@@ -111,25 +120,30 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
+					'ext.wikia.adEngine.context.slotsContext',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
-				], (adContextModule,
+				], (
+					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
 					adLogicPageViewCounterModule,
 					adConfigMobile,
+					slotsContext,
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
 					sourcePointDetectionModule,
 					vastUrlBuilder,
-					krux) => {
+					krux
+				) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
+					this.slotsContext = slotsContext;
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
@@ -296,6 +310,10 @@ class Ads {
 		this.adsContext = adsContext ? adsContext : null;
 	}
 
+	getTargetingValue(key) {
+		return this.adsContext && this.adsContext.targeting && this.adsContext.targeting[key];
+	}
+
 	/**
 	 * Turns off all ads for logged in user
 	 *
@@ -310,6 +328,64 @@ class Ads {
 			adsContext.opts.showAds = false;
 			adsContext.opts.pageType = 'no_ads';
 		}
+	}
+
+	isTopLeaderboardApplicable() {
+		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
+			isHome = this.getTargetingValue('pageType') === 'home',
+			$pi = $('.portable-infobox'),
+			$pageHeader = $('.wiki-page-header');
+
+		return isHome || $pi.length > 0 || ($pageHeader.length > 0 && !hasFeaturedVideo);
+	}
+
+	isInContentApplicable() {
+		const $curatedContent = $('.curated-content'),
+			$firstSection = $('.article-content > h2').first(),
+			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
+
+		if (this.getTargetingValue('pageType') === 'home') {
+			return $curatedContent.length > 0;
+		}
+
+		return firstSectionTop > this.adsData.minZerothSectionLength;
+	}
+
+	isPrefooterApplicable() {
+		const $articleBody = $('.article-body'),
+			$articleFooter = $('.article-footer'),
+			articleBodyHeight = $articleBody.height(),
+			showInContent = this.isInContentApplicable(),
+			$trendingArticles = $('.trending-articles');
+
+		if (this.getTargetingValue('pageType') === 'home') {
+			return $trendingArticles.length > 0;
+		}
+
+		return $articleFooter.length && !showInContent || articleBodyHeight > this.adsData.minPageLength;
+	}
+
+	isBottomLeaderboardApplicable() {
+		return $('.wds-global-footer').length > 0;
+	}
+
+	setupSlotsContext() {
+		if (!this.slotsContext) {
+			return;
+		}
+
+		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
+		this.slotsContext.setStatus('MOBILE_IN_CONTENT', this.isInContentApplicable());
+		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable());
+		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+	}
+
+	isSlotApplicable(slotName) {
+		if (!this.slotsContext) {
+			return true;
+		}
+
+		return this.slotsContext.isApplicable(slotName);
 	}
 
 	/**
@@ -328,6 +404,10 @@ class Ads {
 		this.currentAdsContext = adsContext;
 
 		if (this.isLoaded) {
+			this.setupSlotsContext();
+			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+				this.adMercuryListenerModule.runOnPageChangeCallbacks();
+			}
 			this.adMercuryListenerModule.onPageChange(() => {
 				this.adLogicPageViewCounterModule.increment();
 				this.googleTagModule.updateCorrelator();
@@ -339,9 +419,6 @@ class Ads {
 
 				this.onReadyCallbacks.forEach((callback) => callback());
 				this.onReadyCallbacks = [];
-
-				// We need a copy of adSlots as adEngineModule.run destroys it
-				this.slotsQueue = this.getSlots();
 
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
@@ -387,15 +464,6 @@ class Ads {
 	}
 
 	/**
-	 * Returns copy of adSlots
-	 *
-	 * @returns {*}
-	 */
-	getSlots() {
-		return $.extend([], this.adSlots);
-	}
-
-	/**
 	 * Push slot to the current queue (refresh ad in given slot)
 	 *
 	 * @param {string} name - name of the slot
@@ -406,26 +474,12 @@ class Ads {
 	}
 
 	/**
-	 * Adds ad slot
-	 *
-	 * @param {string} name - ad slot name
-	 * @returns {number} index of the inserted slot
-	 */
-	addSlot(name) {
-		return this.adSlots.push([name]);
-	}
-
-	/**
 	 * Removes ad slot by name
 	 *
 	 * @param {string} name - Name of ths slot to remove
 	 * @returns {void}
 	 */
 	removeSlot(name) {
-		this.adSlots = $.grep(this.adSlots, (slot) => {
-			return slot[0] && slot[0] === name;
-		}, true);
-
 		if (this.googleTagModule) {
 			this.googleTagModule.destroySlots([name]);
 		}
@@ -437,9 +491,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	onTransition() {
-		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
-			this.adMercuryListenerModule.runOnPageChangeCallbacks();
-		}
+		this.slotsQueue = [];
 
 		this.uapCalled = false;
 		this.uapResult = false;

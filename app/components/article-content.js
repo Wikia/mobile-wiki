@@ -68,8 +68,10 @@ export default Component.extend(
 				}
 
 				if (!this.get('isPreview')) {
-					this.injectAds();
 					this.setupAdsContext(this.get('adsContext'));
+					this.get('ads.module').onReady(() => {
+						this.injectAds();
+					});
 				}
 			});
 		})),

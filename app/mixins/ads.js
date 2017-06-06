@@ -12,14 +12,12 @@ export default Ember.Mixin.create({
 				disableManualInsert: true
 			}
 		},
-		minZerothSectionLength: 700,
-		minPageLength: 2000,
 		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
 		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
+		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
 	},
 	ads: Ember.inject.service(),
 	currentUser: Ember.inject.service(),
@@ -83,16 +81,10 @@ export default Ember.Mixin.create({
 	 */
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
-			$articleBody = $('.article-body'),
 			$articleFooter = $('.article-footer'),
 			$pi = $('.portable-infobox'),
 			$pageHeader = $('.wiki-page-header'),
 			adsData = this.get('adsData'),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
-			articleBodyHeight = $articleBody.height(),
-
-			showInContent = firstSectionTop > adsData.minZerothSectionLength,
-			showPreFooter = $articleFooter.length && !showInContent || articleBodyHeight > adsData.minPageLength,
 			$globalFooter = $('.wds-global-footer');
 
 		if ($pi.length) {
@@ -104,15 +96,15 @@ export default Ember.Mixin.create({
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
 		}
 
-		if (showInContent) {
+		if (this.get('ads.module').isSlotApplicable(adsData.mobileInContent)) {
 			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
 		}
 
-		if (showPreFooter) {
+		if (this.get('ads.module').isSlotApplicable(adsData.mobilePreFooter)) {
 			this.appendAd(adsData.mobilePreFooter, 'before', $articleFooter);
 		}
 
-		if ($globalFooter.length) {
+		if (this.get('ads.module').isSlotApplicable(adsData.mobileBottomLeaderBoard)) {
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 
@@ -128,22 +120,21 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	injectMainPageAds() {
-		const $curatedContent = this.$('.curated-content'),
+		const adsData = this.get('adsData'),
+			$curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
-			showInContent = $curatedContent.length > 0,
-			showPreFooter = $trendingArticles.length,
 			$globalFooter = $('.wds-global-footer');
 
-		if (showInContent) {
-			this.appendAd(this.adsData.mobileInContent, 'after', $curatedContent);
+		if (this.get('ads.module').isSlotApplicable(adsData.mobileInContent)) {
+			this.appendAd(adsData.mobileInContent, 'after', $curatedContent);
 		}
 
-		if (showPreFooter) {
-			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
+		if (this.get('ads.module').isSlotApplicable(adsData.mobilePreFooter)) {
+			this.appendAd(adsData.mobilePreFooter, 'after', $trendingArticles);
 		}
 
-		if ($globalFooter.length) {
-			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
+		if (this.get('ads.module').isSlotApplicable(adsData.mobileBottomLeaderBoard)) {
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 
 		this.appendHighImpactAd();
