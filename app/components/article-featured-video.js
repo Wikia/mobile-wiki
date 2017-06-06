@@ -1,3 +1,4 @@
+import Ads from '../modules/ads';
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
@@ -5,7 +6,12 @@ import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject, computed, on, observer, setProperties} = Ember;
+const {Component, inject, computed, on, observer, setProperties} = Ember,
+	prerollSlotName = 'FEATURED_VIDEO',
+	playerTrackerParams = {
+		adProduct: 'featured-video-preroll',
+		slotName: prerollSlotName
+	};
 
 export default Component.extend(InViewportMixin,
 	{
@@ -126,12 +132,23 @@ export default Component.extend(InViewportMixin,
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
+
+			Ads.getInstance().onReady(() => {
+				Ads.getInstance().trackOoyalaEvent(playerTrackerParams, 'init');
+			});
+
+			if (this.get('ads.noAds')) {
+				playerTrackerParams.adProduct = 'featured-video-no-preroll';
+			}
+
 			videoLoader.loadPlayerClass();
 		},
 
 		setupTracking(player) {
 			let playTime = -1,
 				percentagePlayTime = -1;
+
+			Ads.getInstance().registerOoyalaTracker(player, playerTrackerParams);
 
 			player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', () => {
 				track({
