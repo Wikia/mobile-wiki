@@ -23,6 +23,12 @@ import config from '../config/environment';
  */
 
 /**
+ * @typedef {Object} OoyalaTracker
+ * @property {Function} register
+ * @property {Function} track
+ */
+
+/**
  * @typedef {Object} AdLogicPageViewCounterModule
  * @property {Function} get
  * @property {Function} increment
@@ -47,6 +53,7 @@ import config from '../config/environment';
  * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
+ * @property {OoyalaTracker} ooyalaTracker
  * @property {VastUrlBuilder} vastUrlBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
@@ -124,6 +131,7 @@ class Ads {
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
+					'ext.wikia.adEngine.video.player.ooyala.ooyalaTracker',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
@@ -137,6 +145,7 @@ class Ads {
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
+					ooyalaTracker,
 					sourcePointDetectionModule,
 					vastUrlBuilder,
 					krux
@@ -148,6 +157,7 @@ class Ads {
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
+					this.ooyalaTracker = ooyalaTracker;
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
@@ -182,6 +192,31 @@ class Ads {
 		}
 
 		return this.vastUrlBuilder.build(aspectRatio, slotParams);
+	}
+
+	/**
+	 * Build VAST url for video players
+	 *
+	 */
+	registerOoyalaTracker(player, params) {
+		if (!this.ooyalaTracker) {
+			console.warn('Can not use Ooyala tracker.');
+			return;
+		}
+
+		this.ooyalaTracker.register(player, params);
+	}
+
+	/**
+	 * Track Ooyala single event
+	 */
+	trackOoyalaEvent(params, eventName) {
+		if (!this.ooyalaTracker) {
+			console.warn('Can not use Ooyala tracker.');
+			return;
+		}
+
+		this.ooyalaTracker.track(params, eventName);
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
