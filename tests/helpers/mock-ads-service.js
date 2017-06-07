@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Test.registerHelper('mockAdsService', () => {
 	mockService(Ember.Service.extend({
 		module: {
-			addSlot() {},
+			pushSlotToQueue() {},
 			onReady() {},
 			onTransition() {},
 			reload() {},

@@ -136,7 +136,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 
 	testCases.forEach((testCase) => {
 		const component = this.subject(),
-			addSlotSpy = sinon.spy(component.get('ads.module'), 'addSlot');
+			pushSlotSpy = sinon.spy(component.get('ads.module'), 'pushSlotToQueue');
 
 		this.ads.set('noAds', testCase.noAds);
 
@@ -145,11 +145,11 @@ test('behaves correctly depending on noAds value', function (assert) {
 		component.didEnterViewport();
 
 		assert.equal(
-			addSlotSpy.called,
+			pushSlotSpy.called,
 			testCase.expectedResult,
 			testCase.message
 		);
 
-		component.get('ads.module').addSlot.restore();
+		component.get('ads.module').pushSlotToQueue.restore();
 	});
 });

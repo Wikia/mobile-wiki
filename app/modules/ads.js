@@ -440,15 +440,15 @@ class Ads {
 
 		if (this.isLoaded) {
 			this.setupSlotsContext();
-			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+			if (this.adMercuryListenerModule) {
 				this.adMercuryListenerModule.runOnPageChangeCallbacks();
+				this.adMercuryListenerModule.onPageChange(() => {
+					this.adLogicPageViewCounterModule.increment();
+					this.googleTagModule.updateCorrelator();
+					this.mercuryPV = this.mercuryPV + 1;
+					this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
+				});
 			}
-			this.adMercuryListenerModule.onPageChange(() => {
-				this.adLogicPageViewCounterModule.increment();
-				this.googleTagModule.updateCorrelator();
-				this.mercuryPV = this.mercuryPV + 1;
-				this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
-			});
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
 

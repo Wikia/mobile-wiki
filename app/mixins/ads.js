@@ -38,6 +38,10 @@ export default Ember.Mixin.create({
 			config = adsData.additionalConfig[adSlotName] || {},
 			$placeholder = $('<div>');
 
+		if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
+			return;
+		}
+
 		if (place === 'after') {
 			$placeholder.insertAfter(element);
 		} else if (place === 'before') {
@@ -96,15 +100,15 @@ export default Ember.Mixin.create({
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
 		}
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobileInContent)) {
+		if ($firstSection.length > 0) {
 			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
 		}
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobilePreFooter)) {
+		if ($articleFooter.length > 0) {
 			this.appendAd(adsData.mobilePreFooter, 'before', $articleFooter);
 		}
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobileBottomLeaderBoard)) {
+		if ($globalFooter.length > 0) {
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 
@@ -125,15 +129,15 @@ export default Ember.Mixin.create({
 			$trendingArticles = this.$('.trending-articles'),
 			$globalFooter = $('.wds-global-footer');
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobileInContent)) {
+		if ($curatedContent.length > 0) {
 			this.appendAd(adsData.mobileInContent, 'after', $curatedContent);
 		}
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobilePreFooter)) {
+		if ($trendingArticles.length > 0) {
 			this.appendAd(adsData.mobilePreFooter, 'after', $trendingArticles);
 		}
 
-		if (this.get('ads.module').isSlotApplicable(adsData.mobileBottomLeaderBoard)) {
+		if ($globalFooter.length > 0) {
 			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 
