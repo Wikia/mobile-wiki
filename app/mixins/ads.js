@@ -34,13 +34,13 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
-		const adsData = this.get('adsData'),
-			config = adsData.additionalConfig[adSlotName] || {},
-			$placeholder = $('<div>');
-
 		if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
 			return;
 		}
+
+		const adsData = this.get('adsData'),
+			config = adsData.additionalConfig[adSlotName] || {},
+			$placeholder = $('<div>');
 
 		if (place === 'after') {
 			$placeholder.insertAfter(element);

@@ -368,36 +368,35 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			$pi = $('.portable-infobox'),
-			$pageHeader = $('.wiki-page-header');
+			hasPageHeader = $('.wiki-page-header').length > 0,
+			hasPortableInfobox = $('.portable-infobox').length > 0;
 
-		return isHome || $pi.length > 0 || ($pageHeader.length > 0 && !hasFeaturedVideo);
+		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
-		const $curatedContent = $('.curated-content'),
-			$firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
+		const $firstSection = $('.article-content > h2').first(),
+			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
+			hasCuratedContent = $('.curated-content').length > 0;
 
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $curatedContent.length > 0;
+			return hasCuratedContent;
 		}
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}
 
 	isPrefooterApplicable() {
-		const $articleBody = $('.article-body'),
-			$articleFooter = $('.article-footer'),
-			articleBodyHeight = $articleBody.height(),
-			showInContent = this.isInContentApplicable(),
-			$trendingArticles = $('.trending-articles');
+		const articleBodyHeight = $('.article-body').height(),
+			hasArticleFooter = $('.article-footer').length > 0,
+			hasTrendingArticles = $('.trending-articles').length > 0,
+			showInContent = this.isInContentApplicable();
 
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $trendingArticles.length > 0;
+			return hasTrendingArticles;
 		}
 
-		return $articleFooter.length && !showInContent || articleBodyHeight > this.adsData.minPageLength;
+		return hasArticleFooter && !showInContent || articleBodyHeight > this.adsData.minPageLength;
 	}
 
 	isBottomLeaderboardApplicable() {
@@ -416,11 +415,7 @@ class Ads {
 	}
 
 	isSlotApplicable(slotName) {
-		if (!this.slotsContext) {
-			return true;
-		}
-
-		return this.slotsContext.isApplicable(slotName);
+		return !this.slotsContext || this.slotsContext.isApplicable(slotName);
 	}
 
 	/**
@@ -445,7 +440,7 @@ class Ads {
 				this.adMercuryListenerModule.onPageChange(() => {
 					this.adLogicPageViewCounterModule.increment();
 					this.googleTagModule.updateCorrelator();
-					this.mercuryPV = this.mercuryPV + 1;
+					this.mercuryPV += 1;
 					this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 				});
 			}
