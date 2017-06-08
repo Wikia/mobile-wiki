@@ -43,6 +43,7 @@ export default EmberObject.extend({
 		});
 
 		return fetch(`${config.helios.internalUrl}${queryString}`, {
+			headers: {'X-Wikia-Internal-Request': '1'},
 			timeout: config.helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
