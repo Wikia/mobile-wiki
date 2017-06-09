@@ -68,6 +68,7 @@ export default class OoyalaV4Player extends BasePlayer {
 						],
 						useGoogleCountdown: true
 					};
+					this.params.replayAds = false;
 				}
 
 				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
