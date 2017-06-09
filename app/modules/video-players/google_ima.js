@@ -1,6 +1,6 @@
 import moatVideoTracker from './moat-video-tracker'
 
-export default function loadOoyalaGoogleImaPlugin() {
+export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideoEnabled) {
 
     (function e(t, n, r) {
         function s(o, u) {
@@ -4273,7 +4273,9 @@ export default function loadOoyalaGoogleImaPlugin() {
                             _IMAAdsManager = adsManagerLoadedEvent.getAdsManager(_playheadTracker, adsSettings);
 
                             // ----------------------------------------- MOAT - START----------------------------------
-                            moatVideoTracker(_IMAAdsManager, _uiContainer, google.ima.ViewMode.NORMAL, 'ooyala');
+                            if (isMoatTrackingForFeaturedVideoEnabled) {
+                                moatVideoTracker(_IMAAdsManager, _uiContainer, google.ima.ViewMode.NORMAL, 'ooyala');
+                            }
                             // ----------------------------------------- MOAT - END -----------------------------------
 
                             // When the ads manager is ready, we are ready to apply css changes to the video element

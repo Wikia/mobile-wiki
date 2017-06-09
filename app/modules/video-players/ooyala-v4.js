@@ -49,9 +49,11 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			loadOoyalaGoogleImaPlugin();
-
 			Ads.getInstance().onReady(() => {
+				// It's not possible to check context (=decide about MOAT tracking) before onReady
+				// that's why it can't be on window.OO.ready
+				loadOoyalaGoogleImaPlugin(Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled);
+
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
 						pos: 'FEATURED_VIDEO',
