@@ -1,3 +1,4 @@
+/* eslint-disable */
 import moatVideoTracker from './moat-video-tracker'
 
 export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideoEnabled) {
