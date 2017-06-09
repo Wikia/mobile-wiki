@@ -1,7 +1,7 @@
 import Ads from '../ads';
 import BasePlayer from './base';
 import config from '../../config/environment';
-import loadOoyalaGoogleImaPlugin from './google_ima';
+import loadOoyalaGoogleImaPlugin from './ooyala-google-ima-plugin';
 
 export const ooyalaAssets = {
 	styles: [
