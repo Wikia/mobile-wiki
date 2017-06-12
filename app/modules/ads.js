@@ -436,7 +436,6 @@ class Ads {
 		if (this.isLoaded) {
 			this.setupSlotsContext();
 			if (this.adMercuryListenerModule) {
-				this.adMercuryListenerModule.runOnPageChangeCallbacks();
 				this.adMercuryListenerModule.onPageChange(() => {
 					this.adLogicPageViewCounterModule.increment();
 					this.googleTagModule.updateCorrelator();
@@ -490,6 +489,21 @@ class Ads {
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
 			this.adLogicPageViewCounterModule.increment();
+		});
+	}
+
+	/**
+	 * This is a callback that is run after transition (when article is already loaded)
+	 *
+	 * @param {*} adsContext
+	 *
+	 * @returns {void}
+	 */
+	reloadAfterTransition(adsContext) {
+		this.reload(adsContext, () => {
+			if (this.adMercuryListenerModule) {
+				this.adMercuryListenerModule.runOnPageChangeCallbacks();
+			}
 		});
 	}
 

@@ -152,6 +152,6 @@ export default Ember.Mixin.create({
 		adsContext.user = {
 			isAuthenticated: this.get('currentUser.isAuthenticated')
 		};
-		this.get('ads.module').reload(adsContext);
+		this.get('ads.module').reloadAfterTransition(adsContext);
 	}
 });

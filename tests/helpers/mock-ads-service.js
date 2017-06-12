@@ -7,6 +7,7 @@ export default Ember.Test.registerHelper('mockAdsService', () => {
 			onReady() {},
 			onTransition() {},
 			reload() {},
+			reloadAfterTransition() {},
 			removeSlot() {},
 			waitForUapResponse() {}
 		},
