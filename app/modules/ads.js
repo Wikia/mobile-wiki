@@ -501,8 +501,8 @@ class Ads {
 	 */
 	reloadAfterTransition(adsContext) {
 		this.reload(adsContext, () => {
-			if (this.adMercuryListenerModule) {
-				this.adMercuryListenerModule.runOnPageChangeCallbacks();
+			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
+				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
 			}
 		});
 	}
@@ -535,6 +535,10 @@ class Ads {
 	 * @returns {void}
 	 */
 	onTransition() {
+		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+			this.adMercuryListenerModule.runOnPageChangeCallbacks();
+		}
+
 		this.slotsQueue = [];
 
 		this.uapCalled = false;
