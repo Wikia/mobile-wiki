@@ -18,7 +18,7 @@ export default Component.extend({
 		this.get('ads.module').onReady(() => {
 			if (this.isEnabled()) {
 				this.set('isVisible', true);
-				this.get('ads.module').addSlot(this.get('name'));
+				this.get('ads.module').pushSlotToQueue(this.get('name'));
 			}
 		});
 	},

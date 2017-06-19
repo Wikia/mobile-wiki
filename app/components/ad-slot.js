@@ -49,7 +49,7 @@ export default Component.extend(
 				);
 			} else {
 				this.get('logger').info('Injected ad', name);
-				ads.addSlot(name);
+				ads.pushSlotToQueue(name);
 			}
 
 			setProperties(this, {
