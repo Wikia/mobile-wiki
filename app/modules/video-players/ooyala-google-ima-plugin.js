@@ -4275,7 +4275,7 @@ export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideo
 
                             // ----------------------------------------- MOAT - START----------------------------------
                             if (isMoatTrackingForFeaturedVideoEnabled) {
-                                moatVideoTracker(_IMAAdsManager, _uiContainer, google.ima.ViewMode.NORMAL, 'ooyala');
+                                moatVideoTracker(_IMAAdsManager, _uiContainer, google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
                             }
                             // ----------------------------------------- MOAT - END -----------------------------------
 
