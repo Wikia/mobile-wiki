@@ -128,7 +128,8 @@ export default Component.extend(InViewportMixin,
 					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
 					noAds: this.get('ads.noAds'),
-					onCreate: this.onCreate.bind(this)
+					onCreate: this.onCreate.bind(this),
+					autoplay: true
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
