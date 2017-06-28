@@ -28,7 +28,7 @@ export default Component.extend(InViewportMixin,
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
-		isPlaying: false,
+		isPlaying: computed.oneWay('autoplay'),
 		playerLoadingObserver: observer('isPlayerLoading', function () {
 			if (this.get('viewportExited')) {
 				this.didExitViewport();
