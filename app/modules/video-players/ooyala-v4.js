@@ -24,9 +24,10 @@ export default class OoyalaV4Player extends BasePlayer {
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;
-		params.skin = {
-			config: skinConfigUrl
-		};
+		if (!params.skin) {
+			params.skin = {};
+		}
+		params.skin.config = skinConfigUrl;
 
 		super(provider, params);
 

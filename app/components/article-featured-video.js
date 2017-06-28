@@ -126,12 +126,21 @@ export default Component.extend(InViewportMixin,
 		 */
 		initVideoPlayer() {
 			const model = this.get('model.embed'),
+				autoplayCookieName = 'featuredVideoAutoplay',
 				jsParams = {
 					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
 					noAds: this.get('ads.noAds'),
 					onCreate: this.onCreate.bind(this),
-					autoplay: this.get('autoplay')
+					autoplay: this.get('autoplay') && $.cookie(autoplayCookieName) !== '0',
+					skin: {
+						inline: {
+							controlBar: {
+								autoplayToggle: true,
+								autoplayCookieName
+							}
+						}
+					}
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
