@@ -25,6 +25,7 @@ export default Component.extend(InViewportMixin,
 			'isVideoDrawerVisible:is-fixed',
 			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
 		],
+		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
 		isPlaying: false,
