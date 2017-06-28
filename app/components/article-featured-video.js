@@ -16,6 +16,7 @@ const {Component, inject, computed, on, observer, setProperties} = Ember,
 export default Component.extend(InViewportMixin,
 	{
 		ads: inject.service(),
+		autoplay: computed.not('withinPortableInfobox'),
 		classNames: ['article-featured-video'],
 		classNameBindings: [
 			'hasStartedPlaying',
@@ -129,10 +130,11 @@ export default Component.extend(InViewportMixin,
 					containerId: this.get('videoContainerId'),
 					noAds: this.get('ads.noAds'),
 					onCreate: this.onCreate.bind(this),
-					autoplay: true
+					autoplay: this.get('autoplay')
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
+
 
 			Ads.getInstance().onReady(() => {
 				Ads.getInstance().trackOoyalaEvent(playerTrackerParams, 'init');
