@@ -3,7 +3,7 @@
 	@extend .clearfix;
 	padding: rem-calc(20) rem-calc(13);
 	margin-bottom: rem-calc(40);
-	background-color: #F2F3F3;
+	background-color: $wds-color-off-white;
 
 	ul {
 		display: block;

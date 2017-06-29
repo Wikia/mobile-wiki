@@ -1,0 +1,16 @@
+.recirculation-prefooter {
+  background: $wds-color-off-white;
+  padding: rem-calc(20);
+
+  &__list {
+	@extend %list-reset;
+  }
+
+  &__item {
+	min-height: 150px;
+  }
+
+  &__title {
+	margin-top: 5px;
+  }
+}

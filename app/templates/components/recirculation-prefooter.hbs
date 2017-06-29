@@ -1,16 +1,10 @@
 {{#if model.posts.length}}
 	<h3>{{model.title}}</h3>
-	<ul class="list">
+	<ul class="recirculation-prefooter__list">
 		{{#each model.posts as |post index|}}
-			<li class="item" {{action 'postClick' post index preventDefault=true}}>
-				<a href="{{post.url}}">
-					<div class="image image-thumbnail">
-						{{#if post.image_url }}
-							<img src="{{post.image_url}}" alt="{{post.title}}">
-						{{/if}}
-					</div>
-					<p class="title">{{post.title}}</p>
-				</a>
+			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
+				<img src="{{post.image_url}}" alt="{{post.title}}">
+				<p class="recirculation-prefooter__title">{{post.title}}</p>
 			</li>
 		{{/each}}
 	</ul>
