@@ -1,16 +1,47 @@
 import Ember from 'ember';
+import {getFetchErrorMessage, FandomPostsError} from '../utils/errors';
+import fetch from '../utils/mediawiki-fetch';
+import {buildUrl} from '../utils/url';
 
 const {
-	Object: EmberObject
+	Object: EmberObject,
+	inject
 } = Ember;
 
 export default EmberObject.extend(
 	{
-		title: 'TITLE',
-		posts: [{
-			title: 'Facebook Gives Fans a Harry Potter Easter Egg and They\'re Going Crazy For It',
-			url: 'http://fandom.wikia.com/articles/facebook-gives-fans-a-harry-potter-easter-egg-and-theyre-going-crazy-for-it',
-			image_url: 'https://vignette.wikia.nocookie.net/927bbe5e-6d8c-4f8c-88f5-69b848eaa3db/scale-to-width-down/400'
-		}]
+		logger: inject.service(),
+		wikiVariables: inject.service(),
+
+		fetch(type) {
+			const url = buildUrl({
+				host: this.get('wikiVariables.host'),
+				path: '/wikia.php',
+				query: {
+					controller: 'RecirculationApi1',
+					method: 'getFandomPosts',
+					type,
+					cityId: this.get('wikiVariables.id'),
+					format: 'json'
+				}
+			});
+
+			return fetch(url)
+				.then((response) => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						return getFetchErrorMessage(response).then((responseBody) => {
+							throw new FandomPostsError({
+								code: response.status
+							}).withAdditionalData({
+								responseBody,
+								requestUrl: url
+							});
+						});
+					}
+				})
+				.catch((error) => this.get('logger').error('Fandom posts fetch error', error));
+		}
 	}
 );

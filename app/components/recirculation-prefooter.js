@@ -8,7 +8,11 @@ export default Component.extend(
 	InViewportMixin,
 	{
 		viewportOptionsOverride: on('didInsertElement', function () {
-			this.set('model', FandomPostsModel.create(getOwner(this).ownerInjection()));
+			const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
+
+			fandomPosts.fetch('recent_popular').then((model) => {
+				this.set('model', model);
+			});
 		})
 	}
 );
