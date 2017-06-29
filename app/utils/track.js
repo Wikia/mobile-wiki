@@ -175,7 +175,7 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 	const enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError');
 
 	if (!isInitialPageView && enableTracking) {
-		// Defined in templates/components/fastboot-only/
+		// Defined in /app/inline-scripts/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
 		window.trackNielsenPageView();
@@ -202,17 +202,6 @@ export function trackExperiment(experiment, params) {
 
 	params.label = [experiment, group, params.label].join('=');
 	track(params);
-}
-
-/**
- * Function to save data about registered users that seen the
- * New Contributor Flow modal
- *
- * @param {TrackingParams} params
- * @returns {void}
- */
-export function trackRegister(params) {
-	M.tracker.Internal.track('special/newcontributorflow', params);
 }
 
 /**
