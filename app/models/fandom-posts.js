@@ -18,7 +18,7 @@ export default EmberObject.extend(
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
-					controller: 'RecirculationApi1',
+					controller: 'RecirculationApi',
 					method: 'getFandomPosts',
 					type,
 					cityId: this.get('wikiVariables.id'),
