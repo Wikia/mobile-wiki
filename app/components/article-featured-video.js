@@ -2,7 +2,6 @@ import Ads from '../modules/ads';
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
-import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
@@ -39,6 +38,7 @@ export default Component.extend(InViewportMixin,
 		// hook, however it is fired twice with new attributes.
 		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 			this.destroyVideoPlayer();
+			this.updateCustomDimensions();
 			this.initVideoPlayer();
 		})),
 
@@ -90,15 +90,8 @@ export default Component.extend(InViewportMixin,
 		onCreate(player) {
 			this.player = player;
 
-			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
-				const videoTitle = player.getTitle(),
-					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
-
-				this.setProperties({
-					videoTitle,
-					videoTime,
-					isPlayerLoading: false
-				});
+			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'featured-video', () => {
+				this.set('isPlayerLoading', false);
 			});
 
 			// when playing video on article with infobox, closing fullscreen also has to pause video
@@ -142,6 +135,17 @@ export default Component.extend(InViewportMixin,
 			}
 
 			videoLoader.loadPlayerClass();
+		},
+
+		/**
+		 * Set video-specific data as GA custom dimensions
+		 *
+		 * @returns {void}
+		 */
+		updateCustomDimensions() {
+			M.tracker.UniversalAnalytics.setDimension(34, this.get('model.embed.jsParams.videoId'));
+			M.tracker.UniversalAnalytics.setDimension(35, this.get('model.title'));
+			M.tracker.UniversalAnalytics.setDimension(36, this.get('model.labels'));
 		},
 
 		setupTracking(player) {
