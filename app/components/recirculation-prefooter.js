@@ -7,12 +7,21 @@ const {Component, getOwner, on} = Ember;
 export default Component.extend(
 	InViewportMixin,
 	{
-		viewportOptionsOverride: on('didInsertElement', function () {
+		didEnterViewport() {
 			const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
 
 			fandomPosts.fetch('recent_popular').then((model) => {
 				this.set('model', model);
 			});
-		})
+		},
+
+		viewportOptionsOverride: on('willRender', function () {
+			const viewportTolerance = 1000;
+
+			this.set('viewportTolerance', {
+				top: viewportTolerance,
+				bottom: viewportTolerance
+			});
+		}),
 	}
 );
