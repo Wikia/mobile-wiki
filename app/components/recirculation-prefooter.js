@@ -9,12 +9,16 @@ export default Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['recirculation-prefooter'],
+		isVisible: false,
 
 		didEnterViewport() {
 			const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
 
-			fandomPosts.fetch('recent_popular').then((model) => {
-				this.set('model', model);
+			fandomPosts.fetch('recent_popular', 10).then((model) => {
+				this.setProperties({
+					isVisible: true,
+					model
+				});
 			});
 
 			track({

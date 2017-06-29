@@ -13,7 +13,7 @@ export default EmberObject.extend(
 		logger: inject.service(),
 		wikiVariables: inject.service(),
 
-		fetch(type) {
+		fetch(type, limit) {
 			const url = buildUrl({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
@@ -22,6 +22,7 @@ export default EmberObject.extend(
 					method: 'getFandomPosts',
 					type,
 					cityId: this.get('wikiVariables.id'),
+					limit,
 					format: 'json'
 				}
 			});
