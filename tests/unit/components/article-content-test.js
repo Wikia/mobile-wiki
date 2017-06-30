@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const {
@@ -41,12 +42,15 @@ test('ad is injected below portable infobox with no page header', function (asse
 			'<p>some content</p>' +
 			'<aside class="portable-infobox"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>';
+			'<div>more content</div>',
+			setupAdsContextSpy = sinon.spy(),
+			component = this.subject({
+				adsContext: {},
+				content,
+				setupAdsContext: setupAdsContextSpy
+			});
 
-		this.subject({
-			adsContext: {},
-			content,
-		});
+		component.get('ads.module').isLoaded = true;
 		this.render();
 	});
 
@@ -64,12 +68,15 @@ test('ad is injected below page header', function (assert) {
 			'<p>some content</p>' +
 			'<aside class="wiki-page-header"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>';
+			'<div>more content</div>',
+			setupAdsContextSpy = sinon.spy(),
+			component = this.subject({
+				adsContext: {},
+				content,
+				setupAdsContext: setupAdsContextSpy
+			});
 
-		this.subject({
-			adsContext: {},
-			content
-		});
+		component.get('ads.module').isLoaded = true;
 		this.render();
 	});
 
@@ -88,12 +95,15 @@ test('ad is injected below portable infobox', function (assert) {
 			'<div class="wiki-page-header"></div>' +
 			'<aside class="portable-infobox"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>';
+			'<div>more content</div>',
+			setupAdsContextSpy = sinon.spy(),
+			component = this.subject({
+				adsContext: {},
+				content,
+				setupAdsContext: setupAdsContextSpy
+			});
 
-		this.subject({
-			adsContext: {},
-			content
-		});
+		component.get('ads.module').isLoaded = true;
 		this.render();
 	});
 

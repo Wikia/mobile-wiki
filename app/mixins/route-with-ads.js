@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import isInitialPageView from '../utils/initial-page-view';
 
 const {Mixin, inject} = Ember;
 
 export default Mixin.create({
 	fastboot: inject.service(),
+	initialPageView: inject.service(),
 
 	/**
 	 * Reset AdEngine variables before article load
@@ -13,7 +13,10 @@ export default Mixin.create({
 	 */
 	beforeModel() {
 		this._super();
-		if (!this.get('fastboot.isFastBoot') && !isInitialPageView()) {
+
+		const isInitialPageView = this.get('initialPageView').isInitialPageView();
+
+		if (!this.get('fastboot.isFastBoot') && !isInitialPageView) {
 			window.wgNow = new Date();
 		}
 	}

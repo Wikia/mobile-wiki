@@ -3,7 +3,6 @@ import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
-import isInitialPageView from '../utils/initial-page-view';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
@@ -48,9 +47,10 @@ export default Ember.Mixin.create({
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
 			shoebox = this.get('fastboot.shoebox'),
-			contentNamespaces = this.get('wikiVariables.contentNamespaces');
+			contentNamespaces = this.get('wikiVariables.contentNamespaces'),
+			isInitialPageView = this.get('initialPageView').isInitialPageView();
 
-		if (isFastBoot || !isInitialPageView()) {
+		if (isFastBoot || !isInitialPageView) {
 			const url = getURL(params);
 
 			return fetch(url)
@@ -96,7 +96,7 @@ export default Ember.Mixin.create({
 				wikiPageError = shoebox.retrieve('wikiPageError');
 
 			// There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
-			if (wikiPageError && isInitialPageView()) {
+			if (wikiPageError && isInitialPageView) {
 				throw wikiPageError;
 			}
 

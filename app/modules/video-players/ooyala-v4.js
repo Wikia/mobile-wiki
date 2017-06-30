@@ -1,5 +1,7 @@
+import Ads from '../ads';
 import BasePlayer from './base';
 import config from '../../config/environment';
+import loadOoyalaGoogleImaPlugin from './ooyala-google-ima-plugin';
 
 export const ooyalaAssets = {
 	styles: [
@@ -47,7 +49,30 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+			Ads.getInstance().onReady(() => {
+				// It's not possible to check context (=decide about MOAT tracking) before onReady
+				// that's why it can't be on window.OO.ready
+				loadOoyalaGoogleImaPlugin(Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled);
+
+				if (!this.params.noAds) {
+					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
+						pos: 'FEATURED_VIDEO',
+						src: 'premium'
+					});
+
+					this.params['google-ima-ads-manager'] = {
+						all_ads: [
+							{
+								tag_url: vastUrl
+							}
+						],
+						useGoogleCountdown: true
+					};
+					this.params.replayAds = false;
+				}
+
+				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
+			});
 		});
 	}
 

@@ -2,6 +2,12 @@
 import config from '../config/environment';
 
 /**
+ * @typedef {Object} SlotsContext
+ * @property {Function} isApplicable
+ * @property {Function} setStatus
+ */
+
+/**
  * @typedef {Object} SourcePointDetectionModule
  * @property {Function} initDetection
  */
@@ -14,6 +20,12 @@ import config from '../config/environment';
 /**
  * @typedef {Object} VastUrlBuilder
  * @property {Function} build
+ */
+
+/**
+ * @typedef {Object} OoyalaTracker
+ * @property {Function} register
+ * @property {Function} track
  */
 
 /**
@@ -31,7 +43,6 @@ import config from '../config/environment';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
@@ -39,8 +50,10 @@ import config from '../config/environment';
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
+ * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
+ * @property {OoyalaTracker} ooyalaTracker
  * @property {VastUrlBuilder} vastUrlBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
@@ -50,7 +63,6 @@ import config from '../config/environment';
  */
 class Ads {
 	constructor() {
-		this.adSlots = [];
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
@@ -74,6 +86,11 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.mercuryPV = 1;
+		this.onReadyCallbacks = [];
+		this.adsData = {
+			minZerothSectionLength: 700,
+			minPageLength: 2000
+		};
 	}
 
 	/**
@@ -110,29 +127,37 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
+					'ext.wikia.adEngine.context.slotsContext',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
+					'ext.wikia.adEngine.video.player.ooyala.ooyalaTracker',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
-				], (adContextModule,
+				], (
+					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
 					adLogicPageViewCounterModule,
 					adConfigMobile,
+					slotsContext,
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
+					ooyalaTracker,
 					sourcePointDetectionModule,
 					vastUrlBuilder,
-					krux) => {
+					krux
+				) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
+					this.slotsContext = slotsContext;
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
+					this.ooyalaTracker = ooyalaTracker;
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
@@ -140,8 +165,10 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+
 					this.addDetectionListeners();
 					this.reloadWhenReady();
+
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -165,6 +192,31 @@ class Ads {
 		}
 
 		return this.vastUrlBuilder.build(aspectRatio, slotParams);
+	}
+
+	/**
+	 * Build VAST url for video players
+	 *
+	 */
+	registerOoyalaTracker(player, params) {
+		if (!this.ooyalaTracker) {
+			console.warn('Can not use Ooyala tracker.');
+			return;
+		}
+
+		this.ooyalaTracker.register(player, params);
+	}
+
+	/**
+	 * Track Ooyala single event
+	 */
+	trackOoyalaEvent(params, eventName) {
+		if (!this.ooyalaTracker) {
+			console.warn('Can not use Ooyala tracker.');
+			return;
+		}
+
+		this.ooyalaTracker.track(params, eventName);
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
@@ -293,6 +345,10 @@ class Ads {
 		this.adsContext = adsContext ? adsContext : null;
 	}
 
+	getTargetingValue(key) {
+		return this.adsContext && this.adsContext.targeting && this.adsContext.targeting[key];
+	}
+
 	/**
 	 * Turns off all ads for logged in user
 	 *
@@ -309,6 +365,59 @@ class Ads {
 		}
 	}
 
+	isTopLeaderboardApplicable() {
+		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
+			isHome = this.getTargetingValue('pageType') === 'home',
+			hasPageHeader = $('.wiki-page-header').length > 0,
+			hasPortableInfobox = $('.portable-infobox').length > 0;
+
+		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
+	}
+
+	isInContentApplicable() {
+		const $firstSection = $('.article-content > h2').first(),
+			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
+			hasCuratedContent = $('.curated-content').length > 0;
+
+		if (this.getTargetingValue('pageType') === 'home') {
+			return hasCuratedContent;
+		}
+
+		return firstSectionTop > this.adsData.minZerothSectionLength;
+	}
+
+	isPrefooterApplicable() {
+		const articleBodyHeight = $('.article-body').height(),
+			hasArticleFooter = $('.article-footer').length > 0,
+			hasTrendingArticles = $('.trending-articles').length > 0,
+			showInContent = this.isInContentApplicable();
+
+		if (this.getTargetingValue('pageType') === 'home') {
+			return hasTrendingArticles;
+		}
+
+		return hasArticleFooter && !showInContent || articleBodyHeight > this.adsData.minPageLength;
+	}
+
+	isBottomLeaderboardApplicable() {
+		return $('.wds-global-footer').length > 0;
+	}
+
+	setupSlotsContext() {
+		if (!this.slotsContext) {
+			return;
+		}
+
+		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
+		this.slotsContext.setStatus('MOBILE_IN_CONTENT', this.isInContentApplicable());
+		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable());
+		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+	}
+
+	isSlotApplicable(slotName) {
+		return !this.slotsContext || this.slotsContext.isApplicable(slotName);
+	}
+
 	/**
 	 * Reloads the ads with the provided adsContext
 	 *
@@ -323,18 +432,23 @@ class Ads {
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;
-		// We need a copy of adSlots as adEngineModule.run destroys it
-		this.slotsQueue = this.getSlots();
 
 		if (this.isLoaded) {
-			this.adMercuryListenerModule.onPageChange(() => {
-				this.adLogicPageViewCounterModule.increment();
-				this.googleTagModule.updateCorrelator();
-				this.mercuryPV = this.mercuryPV + 1;
-				this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
-			});
+			this.setupSlotsContext();
+			if (this.adMercuryListenerModule) {
+				this.adMercuryListenerModule.onPageChange(() => {
+					this.adLogicPageViewCounterModule.increment();
+					this.googleTagModule.updateCorrelator();
+					this.mercuryPV += 1;
+					this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
+				});
+			}
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
+
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
+
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
 				}
@@ -379,12 +493,18 @@ class Ads {
 	}
 
 	/**
-	 * Returns copy of adSlots
+	 * This is a callback that is run after transition (when article is already loaded)
 	 *
-	 * @returns {*}
+	 * @param {*} adsContext
+	 *
+	 * @returns {void}
 	 */
-	getSlots() {
-		return $.extend([], this.adSlots);
+	reloadAfterTransition(adsContext) {
+		this.reload(adsContext, () => {
+			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
+				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
+			}
+		});
 	}
 
 	/**
@@ -398,26 +518,12 @@ class Ads {
 	}
 
 	/**
-	 * Adds ad slot
-	 *
-	 * @param {string} name - ad slot name
-	 * @returns {number} index of the inserted slot
-	 */
-	addSlot(name) {
-		return this.adSlots.push([name]);
-	}
-
-	/**
 	 * Removes ad slot by name
 	 *
 	 * @param {string} name - Name of ths slot to remove
 	 * @returns {void}
 	 */
 	removeSlot(name) {
-		this.adSlots = $.grep(this.adSlots, (slot) => {
-			return slot[0] && slot[0] === name;
-		}, true);
-
 		if (this.googleTagModule) {
 			this.googleTagModule.destroySlots([name]);
 		}
@@ -432,6 +538,8 @@ class Ads {
 		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
 			this.adMercuryListenerModule.runOnPageChangeCallbacks();
 		}
+
+		this.slotsQueue = [];
 
 		this.uapCalled = false;
 		this.uapResult = false;
@@ -450,13 +558,12 @@ class Ads {
 	 * Execute when ads package is ready to use
 	 *
 	 * @param {function} callback
-	 * @param {object} context
 	 */
-	onReady(callback, context) {
-		if (this.adsUrl) {
-			$script(this.adsUrl, () => {
-				callback.apply(context);
-			});
+	onReady(callback) {
+		if (this.isLoaded) {
+			callback();
+		} else {
+			this.onReadyCallbacks.push(callback);
 		}
 	}
 

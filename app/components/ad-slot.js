@@ -16,9 +16,14 @@ export default Component.extend(
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
+		pageHasFeaturedVideo: false,
 
 		nameLowerCase: computed('name', function () {
 			return dasherize(this.get('name').toLowerCase());
+		}),
+
+		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', function () {
+			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold'));
 		}),
 
 		onElementManualInsert: on('didInsertElement', function () {
@@ -34,10 +39,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (this.get('isAboveTheFold')) {
-				this.get('logger').info('Injected ad', name);
-				ads.addSlot(name);
-			} else {
+			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
@@ -45,6 +47,9 @@ export default Component.extend(
 						ads.pushSlotToQueue(name);
 					}
 				);
+			} else {
+				this.get('logger').info('Injected ad', name);
+				ads.pushSlotToQueue(name);
 			}
 
 			setProperties(this, {
@@ -67,7 +72,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (!this.get('isAboveTheFold')) {
+			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
 					() => {
 						this.get('logger').info('Injected ad on scroll:', name);

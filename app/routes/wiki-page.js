@@ -26,6 +26,7 @@ export default Route.extend(
 		currentUser: inject.service(),
 		fastboot: inject.service(),
 		i18n: inject.service(),
+		initialPageView: inject.service(),
 		logger: inject.service(),
 		wikiVariables: inject.service(),
 
@@ -57,6 +58,15 @@ export default Route.extend(
 				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
 			}
+		},
+
+		/**
+		 *
+		 * @param {Ember.Controller} controller
+		 * @returns {void}
+		 */
+		resetController(controller) {
+			controller.set('preserveScrollPosition', false);
 		},
 
 		/**
@@ -208,7 +218,7 @@ export default Route.extend(
 				n: model.get('ns')
 			});
 
-			trackPageView(uaDimensions);
+			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
 		},
 
 		/**
@@ -276,7 +286,17 @@ export default Route.extend(
 			 */
 			updateDynamicHeadTags() {
 				this.setDynamicHeadTags(this.get('controller.model'));
-			}
+			},
+
+			/**
+			 * @param {string} lightboxType
+			 * @param {*} [lightboxModel]
+			 * @param {number} [closeButtonDelay]
+			 * @returns {void}
+			 */
+			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
+			},
 		}
 	}
 );

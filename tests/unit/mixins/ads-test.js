@@ -5,7 +5,7 @@ import sinon from 'sinon';
 
 const adsStub = Ember.Service.extend({
 	module: {
-		reload: () => {}
+		reloadAfterTransition: () => {}
 	}
 });
 
@@ -37,7 +37,7 @@ test('setup ads context', function (assert) {
 			a: 1
 		},
 		mixin = this.subject(),
-		reloadSpy = sinon.spy(mixin.get('ads.module'), 'reload');
+		reloadSpy = sinon.spy(mixin.get('ads.module'), 'reloadAfterTransition');
 
 
 	mixin.setupAdsContext(context);

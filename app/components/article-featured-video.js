@@ -1,51 +1,110 @@
+import Ads from '../modules/ads';
 import Ember from 'ember';
+import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
-import duration from '../helpers/duration';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
-const {Component, inject} = Ember;
+const {Component, inject, computed, on, observer, setProperties} = Ember,
+	prerollSlotName = 'FEATURED_VIDEO',
+	playerTrackerParams = {
+		adProduct: 'featured-video-preroll',
+		slotName: prerollSlotName
+	};
 
-export default Component.extend(
+export default Component.extend(InViewportMixin,
 	{
+		ads: inject.service(),
 		classNames: ['article-featured-video'],
+		classNameBindings: [
+			'hasStartedPlaying',
+			'isPlayerLoading::is-player-ready',
+			'isPlaying',
+			'isVideoDrawerVisible:is-fixed',
+			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
+		],
+		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlayerLoading: true,
+		isPlaying: false,
+		playerLoadingObserver: observer('isPlayerLoading', function () {
+			if (this.get('viewportExited')) {
+				this.didExitViewport();
+			}
+		}),
 		wikiVariables: inject.service(),
+
+		// when navigating from one article to another with video, we need to destroy player and
+		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
+		// hook, however it is fired twice with new attributes.
+		videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
+			this.destroyVideoPlayer();
+			this.updateCustomDimensions();
+			this.initVideoPlayer();
+		})),
+
+		viewportOptionsOverride: on('willRender', function () {
+			setProperties(this, {
+				viewportSpy: true,
+				viewportRefreshRate: 200,
+				viewportTolerance: {
+					top: this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
+					bottom: 9999,
+				}
+			});
+		}),
 
 		init() {
 			this._super(...arguments);
 
 			this.set('videoContainerId', `ooyala-article-video${new Date().getTime()}`);
 		},
-		/**
-		 * @returns {void}
-		 */
-		didRender() {
-			this._super(...arguments);
 
-			this.initVideoPlayer();
+		didEnterViewport() {
+			this.set('videoDrawerDismissed', false);
+			this.hideVideoDrawer();
 		},
 
-		willDestroyElement() {
-			this._super(...arguments);
+		didExitViewport() {
+			if (this.canVideoDrawerShow()) {
+				this.set('isVideoDrawerVisible', true);
 
+				// is-fixed class is intentionally applied to the component manually to make the
+				// animation smoother.
+				this.element.classList.add('is-fixed');
+				this.toggleSiteHeadShadow(false);
+			}
+		},
+
+		destroyVideoPlayer() {
 			if (this.player) {
 				this.player.destroy();
 			}
 		},
 
+		willDestroyElement() {
+			this._super(...arguments);
+
+			this.destroyVideoPlayer();
+		},
+
 		onCreate(player) {
 			this.player = player;
 
-			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'ui-title-update', () => {
-				const videoTitle = player.getTitle(),
-					videoTime = duration.compute([Math.floor(player.getDuration() / 1000)]);
+			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'featured-video', () => {
+				this.set('isPlayerLoading', false);
+			});
 
-				this.setProperties({
-					videoTitle,
-					videoTime,
-					isPlayerLoading: false
-				});
+			// when playing video on article with infobox, closing fullscreen also has to pause video
+			// as it will be not visible
+			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
+				if (this.get('withinPortableInfobox')) {
+					this.set('isPlaying', isFullScreen);
+
+					if (!isFullScreen) {
+						player.pause();
+					}
+				}
+
 			});
 
 			this.setupTracking(player);
@@ -59,18 +118,41 @@ export default Component.extend(
 		initVideoPlayer() {
 			const model = this.get('model.embed'),
 				jsParams = {
-					onCreate: this.onCreate.bind(this),
+					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
-					cacheBuster: this.get('wikiVariables.cacheBuster')
+					noAds: this.get('ads.noAds'),
+					onCreate: this.onCreate.bind(this)
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
+
+			Ads.getInstance().onReady(() => {
+				Ads.getInstance().trackOoyalaEvent(playerTrackerParams, 'init');
+			});
+
+			if (this.get('ads.noAds')) {
+				playerTrackerParams.adProduct = 'featured-video-no-preroll';
+			}
+
 			videoLoader.loadPlayerClass();
+		},
+
+		/**
+		 * Set video-specific data as GA custom dimensions
+		 *
+		 * @returns {void}
+		 */
+		updateCustomDimensions() {
+			M.tracker.UniversalAnalytics.setDimension(34, this.get('model.embed.jsParams.videoId'));
+			M.tracker.UniversalAnalytics.setDimension(35, this.get('model.title'));
+			M.tracker.UniversalAnalytics.setDimension(36, this.get('model.labels'));
 		},
 
 		setupTracking(player) {
 			let playTime = -1,
 				percentagePlayTime = -1;
+
+			Ads.getInstance().registerOoyalaTracker(player, playerTrackerParams);
 
 			player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', () => {
 				track({
@@ -154,12 +236,63 @@ export default Component.extend(
 			});
 		},
 
+		canVideoDrawerShow() {
+			return !this.get('isVideoDrawerVisible') &&
+				!this.get('videoDrawerDismissed') &&
+				!this.get('isPlayerLoading') &&
+				this.player.getState() !== window.OO.STATE.PLAYING;
+		},
+
+		hideVideoDrawer() {
+			if (this.get('isVideoDrawerVisible')) {
+				this.set('isVideoDrawerVisible', false);
+
+				// is-fixed class is intentionally removed from the component manually to make the
+				// animation smoother.
+				this.element.classList.remove('is-fixed');
+				this.toggleSiteHeadShadow(true);
+			}
+		},
+
+		playInFullScreen(trackingLabel) {
+			this.player.mb.publish(window.OO.EVENTS.WILL_CHANGE_FULLSCREEN, true);
+			this.play(trackingLabel);
+		},
+
+		play(trackingLabel) {
+			track({
+				action: trackActions.click,
+				category: 'article-video',
+				label: trackingLabel
+			});
+
+			this.set('hasStartedPlaying', true);
+			this.hideVideoDrawer();
+			this.player.play();
+		},
+
 		actions: {
 			playVideo() {
 				if (this.player) {
-					this.set('isPlayed', true);
-					this.player.play();
+					if (this.get('isVideoDrawerVisible')) {
+						this.playInFullScreen('on-scroll-bar');
+					} else 	if (this.get('withinPortableInfobox')) {
+						this.playInFullScreen('in-portable-infobox-video');
+					} else {
+						this.play('inline-video');
+					}
 				}
+			},
+
+			closeVideoDrawer() {
+				this.set('videoDrawerDismissed', true);
+				this.hideVideoDrawer();
+
+				track({
+					action: trackActions.close,
+					category: 'article-video',
+					label: 'on-scroll-bar'
+				});
 			}
 		}
 	}
