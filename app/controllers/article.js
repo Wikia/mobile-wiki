@@ -10,6 +10,7 @@ export default Controller.extend({
 	commentsPage: computed.alias('application.commentsPage'),
 	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
 	siteName: computed.reads('wikiVariables.siteName'),
+	displayRecirculation: computed.equal('wikiVariables.language.content', 'en'),
 
 	actions: {
 		/**

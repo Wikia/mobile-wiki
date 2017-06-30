@@ -10,6 +10,11 @@ const DontLogMeError = defineError({
 	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
 });
 
+const FandomPostsError = defineError({
+	name: 'FandomPostsError',
+	message: `Fandom posts couldn't be fetched`
+});
+
 const WikiVariablesRedirectError = defineError({
 	name: 'WikiVariablesRedirectError',
 	message: `The API response was in incorrect format`,
@@ -55,6 +60,7 @@ export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
 	DontLogMeError,
+	FandomPostsError,
 	WikiVariablesRedirectError,
 	UserLoadDetailsFetchError,
 	UserLoadInfoFetchError,
