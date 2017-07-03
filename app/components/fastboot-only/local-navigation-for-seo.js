@@ -24,6 +24,6 @@ export default Component.extend({
 		return flatArray;
 	},
 	model: computed('flattenLinksArray', function () {
-		return this.flattenLinksArray(this.get('currentLocalLinks'))
+		return this.flattenLinksArray(this.get('currentLocalLinks'));
 	}),
 });
