@@ -11,18 +11,6 @@ export default Component.extend({
 	wikiVariables: inject.service(),
 	localLinks: computed.reads('wikiVariables.localNav'),
 	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
-	localItems: computed('currentLocalLinks', function () {
-		return this.get('currentLocalLinks').map((item, index) => {
-			return {
-				type: item.children ? 'nav-menu-root' : 'nav-menu-item',
-				href: item.href.replace(/^(\/wiki)?\//i, ''),
-				route: 'wiki-page',
-				name: item.text,
-				index: index + 1,
-				trackLabel: `local-nav-open-link-index-${index + 1}`
-			};
-		}) || [];
-	}),
 	flatNavigationLinks: computed('currentLocalLinks', function () {
 		let deepMap = function (linksList) {
 			let flatArray = [];
