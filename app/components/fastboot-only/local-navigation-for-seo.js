@@ -7,6 +7,7 @@ const {
 } = Ember;
 
 export default Component.extend({
+	classNames: ['local-navigation-for-seo'],
 	wikiVariables: inject.service(),
 	localLinks: computed.reads('wikiVariables.localNav'),
 	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
@@ -23,33 +24,24 @@ export default Component.extend({
 		}) || [];
 	}),
 	flatNavigationLinks: computed('currentLocalLinks', function () {
-		let linksArray = this.get('currentLocalLinks');
-		let flatArray = [];
+		let deepMap = function (linksList) {
+			let flatArray = [];
 
-		linksArray.map((item, index) => { // First level
-			item.children.map((item, index) => { // Second level
-				if (item.children) {
-					item.children.map((item, index) => { // Third level
-						if (item.href !== '#') {
-							flatArray.push({name: item.text, href: item.href});
-						}
-					});
-				}
+			linksList.forEach(item => {
 				if (item.href !== '#') {
 					flatArray.push({name: item.text, href: item.href});
 				}
+				if (item.children) {
+					flatArray = flatArray.concat(deepMap(item.children));
+				}
 			});
-			if (item.href !== '#') {
-				flatArray.push({name: item.text, href: item.href});
-			}
-		});
-		return flatArray;
+
+			return flatArray;
+		};
+
+		return deepMap(this.get('currentLocalLinks'));
 	}),
 	localNavigationForSeo: computed('flatNavigationLinks', function () {
 		return this.get('flatNavigationLinks');
-		// let navigationForSeo = this.get('flatNavigationLinks');
-		// return navigationForSeo.map((item) => {
-		// 	return `<a href="${item.href}">${item.name}</a>`;
-		// });
 	}),
 });
