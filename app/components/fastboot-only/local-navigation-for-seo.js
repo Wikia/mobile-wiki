@@ -11,25 +11,19 @@ export default Component.extend({
 	wikiVariables: inject.service(),
 	localLinks: computed.reads('wikiVariables.localNav'),
 	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
-	flatNavigationLinks: computed('currentLocalLinks', function () {
-		let deepMap = function (linksList) {
-			let flatArray = [];
-
-			linksList.forEach(item => {
-				if (item.href !== '#') {
-					flatArray.push({name: item.text, href: item.href});
-				}
-				if (item.children) {
-					flatArray = flatArray.concat(deepMap(item.children));
-				}
-			});
-
-			return flatArray;
-		};
-
-		return deepMap(this.get('currentLocalLinks'));
-	}),
-	localNavigationForSeo: computed('flatNavigationLinks', function () {
-		return this.get('flatNavigationLinks');
+	flattenLinksArray(linksList) {
+		let flatArray = [];
+		linksList.forEach(item => {
+			if (item.href !== '#') {
+				flatArray.push({name: item.text, href: item.href});
+			}
+			if (item.children) {
+				flatArray = flatArray.concat(this.flattenLinksArray(item.children));
+			}
+		});
+		return flatArray;
+	},
+	model: computed('flattenLinksArray', function () {
+		return this.flattenLinksArray(this.get('currentLocalLinks'))
 	}),
 });
