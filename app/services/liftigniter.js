@@ -49,6 +49,21 @@ export default Service.extend({
 		if (kxallsegs) {
 			context['_kruxTags'] = kxallsegs.split(',');
 		}
+
+		window.$p("init", "l9ehhrb6mtv75bp2", {
+			config: {
+				sdk: {
+					queryServer: "//query.fandommetrics.com"
+				},
+				activity: {
+					activityServer: "//api.fandommetrics.com"
+				},
+				inventory: {
+					inventoryServer: "//api.fandommetrics.com"
+				},
+				globalCtx: context,
+			}
+		});
 	},
 
 	sendPageview() {
