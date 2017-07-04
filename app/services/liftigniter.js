@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Service, $} = Ember;
+const {Service, $, inject} = Ember;
 const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 
 export default Service.extend({
@@ -10,8 +10,13 @@ export default Service.extend({
 		height: 180,
 		flush: false
 	},
+	fastboot: inject.service(),
 
 	initLiftigniter(adsContext) {
+		if (this.get('fastboot.isFastBoot')) {
+			return;
+		}
+
 		const kxallsegs = localStorageAdapter.getItem('kxallsegs');
 		let context = {};
 
@@ -64,13 +69,8 @@ export default Service.extend({
 				globalCtx: context,
 			}
 		});
-	},
 
-	sendPageview() {
 		window.$p('send', 'pageview');
-	},
-
-	setRequestFields() {
 		window.$p("setRequestFields", ["rank", "thumbnail", "title", "url", "presented_by", "author"]);
 	},
 

@@ -128,11 +128,7 @@ export default Route.extend(
 
 				if (handler) {
 					transition.then(() => {
-						const li = this.get('liftigniter');
-
-						li.initLiftigniter(model.adsContext);
-						li.sendPageview();
-						li.setRequestFields();
+						this.get('liftigniter').initLiftigniter(model.adsContext);
 
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTrasition` hook is called too fast.
