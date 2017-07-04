@@ -68,6 +68,7 @@ module.exports = function (defaults) {
 			'tracking-comscore': `${inlineScriptsPath}tracking-comscore.js`,
 			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
 			'load-svg': `${inlineScriptsPath}load-svg.js`,
+			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua-init': `${inlineScriptsPath}tracking-ua-init.js`,
