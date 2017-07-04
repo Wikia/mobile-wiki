@@ -8,6 +8,7 @@ export default Controller.extend(WikiPageControllerMixin, {
 	application: inject.controller(),
 
 	commentsPage: computed.alias('application.commentsPage'),
+	displayRecirculation: computed.equal('wikiVariables.language.content', 'en'),
 
 	actions: {
 		/**
