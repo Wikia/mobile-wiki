@@ -3,7 +3,7 @@ import InViewportMixin from 'ember-in-viewport';
 import FandomPostsModel from '../models/fandom-posts';
 import {track, trackActions} from '../utils/track';
 
-const {Component, getOwner, on, run, inject} = Ember;
+const {Component, getOwner, on, run, inject, $} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
@@ -13,6 +13,7 @@ export default Component.extend(
 		liftigniter: inject.service(),
 		config: {
 			max: 9,
+			flush: true,
 			widget: 'wikia-impactfooter',
 			source: 'fandom',
 			opts: {
@@ -22,12 +23,13 @@ export default Component.extend(
 		},
 		didEnterViewport() {
 			// const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
-
-			this.get('liftigniter').getData(this.get('config')).then((model) => {
+			// console.log(this.get('liftigniter').getData(this.get('config')));
+			this.get('liftigniter').getData(this.get('config')).done((model) => {
 				this.setProperties({
 					isVisible: true,
 					model
 				});
+				console.log(this.get('model'));
 			});
 			// fandomPosts.fetch('recent_popular', 10).then((model) => {
 			// 	this.setProperties({

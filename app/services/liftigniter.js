@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Service} = Ember;
+const {Service, $} = Ember;
 const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 
 export default Service.extend({
@@ -80,8 +80,8 @@ export default Service.extend({
 			registerOptions = {
 				max: options.max * 2, // We want to load twice as many because we filter based on thumbnails
 				widget: options.widget,
-				callback: function (response) {
-					deferred.resolve(formatData(response));
+				callback(response) {
+					deferred.resolve(response);
 				}
 			};
 
