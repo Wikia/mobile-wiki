@@ -1,17 +1,31 @@
-{{#if commentsCount}}
-	<div {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
-		{{i18n 'article.comments-label' count=commentsCount}}
-		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-	</div>
-{{/if}}
+<div {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
+	{{i18n 'article.comments-label' count=commentsCount}}
+	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+</div>
 {{#if showComments}}
 	{{#if model.comments}}
-		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>{{i18n 'article-comments.prev-button'}}</button>
+		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>
+			{{i18n 'article-comments.prev-button'}}
+		</button>
 		<ul class='comments {{if commentsHidden 'hidden'}}'>
 			{{#each model.comments as |comment|}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='page-btn {{unless nextButtonShown 'hidden'}}' {{action 'nextPage'}}>{{i18n 'article-comments.next-button'}}</button>
+		<button class='page-btn {{unless nextButtonShown 'hidden'}}' {{action 'nextPage'}}>
+			{{i18n 'article-comments.next-button'}}
+		</button>
+	{{else}}
+		<div class="comments__no-comments">
+			{{svg 'wds-icons-reply' class='wds-icon comments__replay-icon'}}
+			<div>{{i18n 'article-comments.no-comments'}}</div>
+		</div>
 	{{/if}}
+
+	<div class='comments__add-comment'>
+		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary wds-is-squished'>
+			{{i18n 'article-comments.add-comment'}}
+		</a>
+		<div class='comments__message'>{{i18n 'article-comments.desktop-warning'}}</div>
+	</div>
 {{/if}}
