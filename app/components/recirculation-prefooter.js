@@ -3,23 +3,38 @@ import InViewportMixin from 'ember-in-viewport';
 import FandomPostsModel from '../models/fandom-posts';
 import {track, trackActions} from '../utils/track';
 
-const {Component, getOwner, on, run} = Ember;
+const {Component, getOwner, on, run, inject} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['recirculation-prefooter'],
 		isVisible: false,
-
+		liftigniter: inject.service(),
+		config: {
+			max: 9,
+			widget: 'wikia-impactfooter',
+			source: 'fandom',
+			opts: {
+				resultType: 'cross-domain',
+				domainType: 'fandom.wikia.com'
+			}
+		},
 		didEnterViewport() {
-			const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
+			// const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
 
-			fandomPosts.fetch('recent_popular', 10).then((model) => {
+			this.get('liftigniter').getData(this.get('config')).then((model) => {
 				this.setProperties({
 					isVisible: true,
 					model
 				});
 			});
+			// fandomPosts.fetch('recent_popular', 10).then((model) => {
+			// 	this.setProperties({
+			// 		isVisible: true,
+			// 		model
+			// 	});
+			// });
 
 			track({
 				action: trackActions.impression,
