@@ -4,6 +4,12 @@ const {Service} = Ember;
 const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 
 export default Service.extend({
+	defaultOptions: {
+		max: 5,
+		width: 320,
+		height: 180,
+		flush: false
+	},
 
 	initLiftigniter(adsContext) {
 		const kxallsegs = localStorageAdapter.getItem('kxallsegs');
@@ -52,4 +58,34 @@ export default Service.extend({
 	setRequestFields() {
 		window.$p("setRequestFields", ["rank", "thumbnail", "title", "url", "presented_by", "author"]);
 	},
+
+	getData(config) {
+		const options = $.extend({}, this.get('defaultOptions'), config),
+			deferred = $.Deferred(),
+			registerOptions = {
+				max: options.max * 2, // We want to load twice as many because we filter based on thumbnails
+				widget: options.widget,
+				callback: function (response) {
+					deferred.resolve(formatData(response));
+				}
+			};
+
+		if (!window.$p) {
+			return deferred.reject('Liftigniter library not found').promise();
+		}
+
+		if (options.opts) {
+			registerOptions.opts = options.opts;
+		}
+
+		// Callback renders and injects results into the placeholder.
+		window.$p('register', registerOptions);
+
+		if (options.flush) {
+			window.$p('fetch');
+		}
+
+		return deferred.promise();
+
+	}
 });
