@@ -4,19 +4,23 @@
 
   &__item {
 	min-height: 150px;
+	position: relative;
+  }
 
-	&:nth-of-type(1) {
-	  color: white;
-	  display: block;
-	  font-size: 12px;
-	  font-weight: bold;
-	  left: 0;
-	  top: 0;
+  &__badge {
+	position: absolute;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	left: 0;
+	top: 0;
+	padding: 3px 8px;
+
+	&-sponsored {
+	  background-color: #666;
 	}
-	&:nth-of-type(1)::after {
-	  background-color: orange;
-	  content: 'Trending';
-	  padding: 5px 10px;
+	&-trending {
+	  background-color: #f08a24;
 	}
   }
 
