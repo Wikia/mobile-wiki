@@ -1,17 +1,17 @@
 import Ember from 'ember';
+import localStorageConnector from '../utils/local-storage-connector';
 
 const {Service, $, inject} = Ember;
-const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 
 export default Service.extend({
 	fastboot: inject.service(),
 
 	initLiftigniter(adsContext) {
-		if (this.get('fastboot.isFastBoot')) {
+		if (this.get('fastboot.isFastBoot') || !window.liftigniter) {
 			return;
 		}
 
-		const kxallsegs = localStorageAdapter.getItem('kxallsegs');
+		const kxallsegs = localStorageConnector.getItem('kxallsegs');
 		let context = {};
 
 		if (adsContext && adsContext.targeting) {
@@ -49,7 +49,7 @@ export default Service.extend({
 			context['_kruxTags'] = kxallsegs.split(',');
 		}
 
-		window.$p("init", "l9ehhrb6mtv75bp2", {
+		window.liftigniter("init", "l9ehhrb6mtv75bp2", {
 			config: {
 				sdk: {
 					queryServer: "//query.fandommetrics.com"
@@ -64,8 +64,8 @@ export default Service.extend({
 			}
 		});
 
-		window.$p('send', 'pageview');
-		window.$p("setRequestFields", ["rank", "thumbnail", "title", "url", "presented_by", "author"]);
+		window.liftigniter('send', 'pageview');
+		window.liftigniter("setRequestFields", ["rank", "thumbnail", "title", "url", "presented_by", "author"]);
 	},
 
 	getData(config) {
@@ -78,7 +78,7 @@ export default Service.extend({
 				}
 			};
 
-		if (!window.$p) {
+		if (!window.liftigniter) {
 			return deferred.reject('Liftigniter library not found').promise();
 		}
 
@@ -90,8 +90,8 @@ export default Service.extend({
 		// invocation of this method is fine. However, if there will be more than one recirc
 		// component on a page, 'register' should be called for every of them, and the fetch only
 		// once at the end - the calls to liftigniter will be batched.
-		window.$p('register', registerOptions);
-		window.$p('fetch');
+		window.liftigniter('register', registerOptions);
+		window.liftigniter('fetch');
 
 		return deferred.promise();
 	},
@@ -107,6 +107,6 @@ export default Service.extend({
 			source: source
 		};
 
-		window.$p('track', options);
+		window.liftigniter('track', options);
 	}
 });
