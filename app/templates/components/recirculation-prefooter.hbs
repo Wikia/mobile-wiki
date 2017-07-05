@@ -1,9 +1,12 @@
-{{#if items.length}}
+{{#if model.items.length}}
 	<h3>{{!--model.title--}}</h3>
 	<ul class="recirculation-prefooter__list">
-		{{#each items as |post index|}}
+		{{#each model.items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
 				<img src="{{post.thumbnail}}" alt="{{post.title}}">
+				{{#if post.presented_by}}
+					<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
+				{{/if}}
 				<p class="recirculation-prefooter__title">{{post.title}}</p>
 			</li>
 		{{/each}}
