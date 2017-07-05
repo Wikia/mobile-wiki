@@ -3,7 +3,7 @@
 	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 </div>
 {{#if showComments}}
-	{{#if model.comments}}
+	{{#if commentsCount}}
 		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>
 			{{i18n 'article-comments.prev-button'}}
 		</button>
