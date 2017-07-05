@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
-import FandomPostsModel from '../models/fandom-posts';
 import {track, trackActions} from '../utils/track';
 
-const {Component, getOwner, on, run, inject, $} = Ember;
+const {Component, on, run, inject, $} = Ember;
+const maxItems = 9;
 
 export default Component.extend(
 	InViewportMixin,
@@ -11,9 +11,11 @@ export default Component.extend(
 		classNames: ['recirculation-prefooter'],
 		isVisible: false,
 		liftigniter: inject.service(),
+
 		config: {
-			max: 9,
-			flush: true,
+			//we load twice as many items as we want to display because we need to filter out those without thumbnail
+			max: maxItems * 2,
+			flush: true, //todo: figure out why there is check on this param and how it works in app
 			widget: 'wikia-impactfooter',
 			source: 'fandom',
 			opts: {
@@ -22,21 +24,18 @@ export default Component.extend(
 			}
 		},
 		didEnterViewport() {
-			// const fandomPosts = FandomPostsModel.create(getOwner(this).ownerInjection());
-			// console.log(this.get('liftigniter').getData(this.get('config')));
-			this.get('liftigniter').getData(this.get('config')).done((model) => {
-				this.setProperties({
-					isVisible: true,
-					model
+			this.get('liftigniter')
+				.getData(this.get('config'))
+				.done((data) => {
+					this.setProperties({
+						isVisible: true,
+						items: data.items
+							.filter((item) => {
+								return item.hasOwnProperty('thumbnail') && item.thumbnail;
+							}).slice(0, maxItems)
+
 				});
-				console.log(this.get('model'));
 			});
-			// fandomPosts.fetch('recent_popular', 10).then((model) => {
-			// 	this.setProperties({
-			// 		isVisible: true,
-			// 		model
-			// 	});
-			// });
 
 			track({
 				action: trackActions.impression,

@@ -78,7 +78,7 @@ export default Service.extend({
 		const options = $.extend({}, this.get('defaultOptions'), config),
 			deferred = $.Deferred(),
 			registerOptions = {
-				max: options.max * 2, // We want to load twice as many because we filter based on thumbnails
+				max: options.max,
 				widget: options.widget,
 				callback(response) {
 					deferred.resolve(response);
