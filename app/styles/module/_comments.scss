@@ -36,8 +36,8 @@
 	font-size: rem-calc(13);
 
 	&__no-comments, &__add-comment {
-		display: flex;
 		align-items: center;
+		display: flex;
 		flex-direction: column;
 	}
 
