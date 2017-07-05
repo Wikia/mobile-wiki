@@ -3,7 +3,8 @@
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
-				<a href="#" class="recirculation-prefooter__item-anchor"> <!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
+				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
+				<a href="#" class="recirculation-prefooter__item-anchor">
 					<img src="{{post.thumbnail}}" alt="{{post.title}}">
 					{{#if post.presented_by}}
 						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
