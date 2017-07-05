@@ -11,6 +11,7 @@ export default Component.extend(
 		classNames: ['recirculation-prefooter'],
 		isVisible: false,
 		liftigniter: inject.service(),
+		i18n: inject.service(),
 
 		config: {
 			//we load twice as many items as we want to display because we need to filter out those without thumbnail
@@ -32,6 +33,7 @@ export default Component.extend(
 				.done((data) => {
 					this.setProperties({
 						isVisible: true,
+						title: this.get('i18n').t('recirculation.trending-fandom-articles'),
 						items: data.items
 							.filter((item) => {
 								return item.hasOwnProperty('thumbnail') && item.thumbnail;
@@ -39,7 +41,6 @@ export default Component.extend(
 					});
 
 					run.scheduleOnce('afterRender', () => {
-						console.log(this.$().find('.recirculation-prefooter__item'));
 						liftigniter.setupTracking(
 							this.$().find('.recirculation-prefooter__item'),
 							config.widget,
