@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
-    "instruction":"セクションの最後に画像が追加されます",
-    "page-add-button":"追加",
-    "page-heading":"写真の追加先：",
-    "photo-name":"画像名",
-    "section-title-error":"無効なタイトル名です。",
-    "success":"ページに画像を追加しました。"
-  },
   "app":{
     "advertisement-label":"広告",
     "cancel-label":"キャンセル",

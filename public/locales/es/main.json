@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.",
-    "instruction":"La imagen se agregará al final de la sección",
-    "page-add-button":"Añadir",
-    "page-heading":"Añadir foto a:",
-    "photo-name":"Nombre de foto",
-    "section-title-error":"Título no válido.",
-    "success":"Se ha añadido una foto a la página."
-  },
   "app":{
     "advertisement-label":"Anuncio",
     "cancel-label":"Cancelar",
