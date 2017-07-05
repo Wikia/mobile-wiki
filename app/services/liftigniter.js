@@ -7,8 +7,7 @@ export default Service.extend({
 	defaultOptions: {
 		max: 5,
 		width: 320,
-		height: 180,
-		flush: false
+		height: 180
 	},
 	fastboot: inject.service(),
 
@@ -93,12 +92,12 @@ export default Service.extend({
 			registerOptions.opts = options.opts;
 		}
 
-		// Callback renders and injects results into the placeholder.
+		// currently we display only one recirc component on a page so calling 'fetch' with every
+		// invocation of this method is fine. However, if there will be more than one recirc
+		// component on a page, 'register' should be called for every of them, and the fetch only
+		// once at the end - the calls to liftigniter will be batched.
 		window.$p('register', registerOptions);
-
-		if (options.flush) {
-			window.$p('fetch');
-		}
+		window.$p('fetch');
 
 		return deferred.promise();
 	},

@@ -15,7 +15,6 @@ export default Component.extend(
 		config: {
 			//we load twice as many items as we want to display because we need to filter out those without thumbnail
 			max: maxItems * 2,
-			flush: true, //todo: figure out why there is check on this param and how it works in app
 			widget: 'wikia-impactfooter',
 			source: 'fandom',
 			opts: {
