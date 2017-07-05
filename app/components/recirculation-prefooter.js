@@ -23,9 +23,13 @@ export default Component.extend(
 				domainType: 'fandom.wikia.com'
 			}
 		},
+
 		didEnterViewport() {
-			this.get('liftigniter')
-				.getData(this.get('config'))
+			const config = this.get('config'),
+				liftigniter = this.get('liftigniter');
+
+			liftigniter
+				.getData(config)
 				.done((data) => {
 					this.setProperties({
 						isVisible: true,
@@ -33,9 +37,17 @@ export default Component.extend(
 							.filter((item) => {
 								return item.hasOwnProperty('thumbnail') && item.thumbnail;
 							}).slice(0, maxItems)
+					});
 
+					run.scheduleOnce('afterRender', () => {
+						console.log(this.$().find('.recirculation-prefooter__item'));
+						liftigniter.setupTracking(
+							this.$().find('.recirculation-prefooter__item'),
+							config.widget,
+							'LI'
+						);
+					});
 				});
-			});
 
 			track({
 				action: trackActions.impression,

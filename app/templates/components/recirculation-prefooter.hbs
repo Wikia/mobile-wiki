@@ -3,11 +3,13 @@
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
-				<img src="{{post.thumbnail}}" alt="{{post.title}}">
-				{{#if post.presented_by}}
-					<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
-				{{/if}}
-				<p class="recirculation-prefooter__title">{{post.title}}</p>
+				<a href="#" class="recirculation-prefooter__item-anchor"> <!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
+					<img src="{{post.thumbnail}}" alt="{{post.title}}">
+					{{#if post.presented_by}}
+						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
+					{{/if}}
+					<p class="recirculation-prefooter__title">{{post.title}}</p>
+				</a>
 			</li>
 		{{/each}}
 	</ul>
