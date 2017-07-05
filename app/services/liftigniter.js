@@ -4,11 +4,6 @@ const {Service, $, inject} = Ember;
 const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 
 export default Service.extend({
-	defaultOptions: {
-		max: 5,
-		width: 320,
-		height: 180
-	},
 	fastboot: inject.service(),
 
 	initLiftigniter(adsContext) {
@@ -74,11 +69,10 @@ export default Service.extend({
 	},
 
 	getData(config) {
-		const options = $.extend({}, this.get('defaultOptions'), config),
-			deferred = $.Deferred(),
+		const deferred = $.Deferred(),
 			registerOptions = {
-				max: options.max,
-				widget: options.widget,
+				max: config.max,
+				widget: config.widget,
 				callback(response) {
 					deferred.resolve(response);
 				}
@@ -88,8 +82,8 @@ export default Service.extend({
 			return deferred.reject('Liftigniter library not found').promise();
 		}
 
-		if (options.opts) {
-			registerOptions.opts = options.opts;
+		if (config.opts) {
+			registerOptions.opts = config.opts;
 		}
 
 		// currently we display only one recirc component on a page so calling 'fetch' with every
