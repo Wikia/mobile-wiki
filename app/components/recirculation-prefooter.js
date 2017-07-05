@@ -3,7 +3,7 @@ import InViewportMixin from 'ember-in-viewport';
 import {track, trackActions} from '../utils/track';
 
 const {Component, on, run, inject, $} = Ember;
-const maxItems = 9;
+const recircItemsCount = 10;
 
 export default Component.extend(
 	InViewportMixin,
@@ -15,7 +15,7 @@ export default Component.extend(
 
 		config: {
 			//we load twice as many items as we want to display because we need to filter out those without thumbnail
-			max: maxItems * 2,
+			max: recircItemsCount * 2,
 			widget: 'wikia-impactfooter',
 			source: 'fandom',
 			opts: {
@@ -37,7 +37,7 @@ export default Component.extend(
 						items: data.items
 							.filter((item) => {
 								return item.hasOwnProperty('thumbnail') && item.thumbnail;
-							}).slice(0, maxItems)
+							}).slice(0, recircItemsCount)
 					});
 
 					run.scheduleOnce('afterRender', () => {
