@@ -4,10 +4,17 @@
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
 				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
-				<a href="#" class="recirculation-prefooter__item-anchor">
-					<img src="{{post.thumbnail}}" alt="{{post.title}}">
+				<div class=""></div>
+				<a href="#" class="recirculation-prefooter__item--anchor">
+					<div class="recirculation-prefooter__item--thumbnail">
+						<img src="{{post.thumbnail}}" alt="{{post.title}}">
+						{{#if post.isVideo}}
+							<img src="http://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
+								 class="recirculation-prefooter__item--is-video">
+						{{/if}}
+					</div>
 					{{#if post.presented_by}}
-						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
+						<span class="recirculation-prefooter__badge recirculation-prefooter__badge--sponsored">Sponsored</span>
 					{{/if}}
 					<p class="recirculation-prefooter__title">{{post.title}}</p>
 				</a>
