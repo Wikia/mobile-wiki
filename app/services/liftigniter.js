@@ -101,6 +101,19 @@ export default Service.extend({
 		}
 
 		return deferred.promise();
+	},
 
+	setupTracking(elements, widgetName, source) {
+		if (this.get('fastboot.isFastBoot')) {
+			return;
+		}
+
+		const options = {
+			elements: elements,
+			name: widgetName,
+			source: source
+		};
+
+		window.$p('track', options);
 	}
 });
