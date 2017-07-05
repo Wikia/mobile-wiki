@@ -2,8 +2,18 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import {track, trackActions} from '../utils/track';
 
-const {Component, on, run, inject, $} = Ember;
-const recircItemsCount = 10;
+const {Component, on, run, inject, $} = Ember,
+	recircItemsCount = 10,
+	config = {
+		// we load twice as many items as we want to display because we need to filter out those without thumbnail
+		max: recircItemsCount * 2,
+		widget: 'wikia-impactfooter',
+		source: 'fandom',
+		opts: {
+			resultType: 'cross-domain',
+			domainType: 'fandom.wikia.com'
+		}
+	};
 
 export default Component.extend(
 	InViewportMixin,
@@ -13,20 +23,8 @@ export default Component.extend(
 		liftigniter: inject.service(),
 		i18n: inject.service(),
 
-		config: {
-			//we load twice as many items as we want to display because we need to filter out those without thumbnail
-			max: recircItemsCount * 2,
-			widget: 'wikia-impactfooter',
-			source: 'fandom',
-			opts: {
-				resultType: 'cross-domain',
-				domainType: 'fandom.wikia.com'
-			}
-		},
-
 		didEnterViewport() {
-			const config = this.get('config'),
-				liftigniter = this.get('liftigniter');
+			const liftigniter = this.get('liftigniter');
 
 			liftigniter
 				.getData(config)

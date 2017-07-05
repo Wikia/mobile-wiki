@@ -30,42 +30,42 @@ export default Service.extend({
 			if (targeting.wikiCustomKeyValues) {
 				targeting.wikiCustomKeyValues
 					.split(';')
-					.map(function(keyVal) {
+					.map((keyVal) => {
 						return keyVal.split('=');
 					})
-					.forEach(function(parts) {
-						const key = '_'+parts[0];
+					.forEach((parts) => {
+						const key = `_${parts[0]}`;
 
 						if (!context[key]) {
 							context[key] = [parts[1]];
 						} else {
 							context[key].push(parts[1]);
 						}
-					})
+					});
 			}
 		}
 
 		if (kxallsegs) {
-			context['_kruxTags'] = kxallsegs.split(',');
+			context._kruxTags = kxallsegs.split(',');
 		}
 
-		window.liftigniter("init", "l9ehhrb6mtv75bp2", {
+		window.liftigniter('init', 'l9ehhrb6mtv75bp2', {
 			config: {
 				sdk: {
-					queryServer: "//query.fandommetrics.com"
+					queryServer: '//query.fandommetrics.com'
 				},
 				activity: {
-					activityServer: "//api.fandommetrics.com"
+					activityServer: '//api.fandommetrics.com'
 				},
 				inventory: {
-					inventoryServer: "//api.fandommetrics.com"
+					inventoryServer: '//api.fandommetrics.com'
 				},
 				globalCtx: context,
 			}
 		});
 
 		window.liftigniter('send', 'pageview');
-		window.liftigniter("setRequestFields", ["rank", "thumbnail", "title", "url", "presented_by", "author"]);
+		window.liftigniter('setRequestFields', ['rank', 'thumbnail', 'title', 'url', 'presented_by', 'author']);
 	},
 
 	getData(config) {
@@ -102,9 +102,9 @@ export default Service.extend({
 		}
 
 		const options = {
-			elements: elements,
+			elements,
 			name: widgetName,
-			source: source
+			source
 		};
 
 		window.liftigniter('track', options);
