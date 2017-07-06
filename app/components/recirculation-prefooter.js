@@ -31,7 +31,6 @@ export default Component.extend(
 				.then((data) => {
 					this.setProperties({
 						isVisible: true,
-						title: this.get('i18n').t('recirculation.trending-fandom-articles'),
 						items: data.items
 							.filter((item) => {
 								return item.hasOwnProperty('thumbnail') && item.thumbnail;

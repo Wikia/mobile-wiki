@@ -1,5 +1,5 @@
 {{#if items.length}}
-	<h3>{{title}}</h3>
+	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
