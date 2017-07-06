@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import localStorageConnector from '../utils/local-storage-connector';
 
-const {Service, $, inject} = Ember;
+const {Service, RSVP, inject} = Ember;
 
 export default Service.extend({
 	fastboot: inject.service(),
@@ -69,7 +69,7 @@ export default Service.extend({
 	},
 
 	getData(config) {
-		const deferred = $.Deferred(),
+		const deferred = RSVP.defer(),
 			registerOptions = {
 				max: config.max,
 				widget: config.widget,
@@ -93,7 +93,7 @@ export default Service.extend({
 		window.liftigniter('register', registerOptions);
 		window.liftigniter('fetch');
 
-		return deferred.promise();
+		return deferred.promise;
 	},
 
 	setupTracking(elements, widgetName, source) {

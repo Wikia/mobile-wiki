@@ -28,7 +28,7 @@ export default Component.extend(
 
 			liftigniter
 				.getData(config)
-				.done((data) => {
+				.then((data) => {
 					this.setProperties({
 						isVisible: true,
 						title: this.get('i18n').t('recirculation.trending-fandom-articles'),
