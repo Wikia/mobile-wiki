@@ -6,11 +6,11 @@
 	min-height: 150px;
 	position: relative;
 
-	&--anchor {
+	&-anchor {
 	  color: $wds-color-black;
 	}
 
-	&--is-video {
+	&-is-video {
 	  bottom: 0;
 	  height: 60px;
 	  margin-right: 12px;
@@ -21,7 +21,7 @@
 	  z-index: 1;
 	}
 
-	&--thumbnail {
+	&-thumbnail {
 	  position: relative;
 	}
   }
@@ -35,11 +35,11 @@
 	position: absolute;
 	top: 0;
 
-	&--sponsored {
+	&-sponsored {
 	  background-color: #666;
 	}
 
-	&--trending {
+	&-trending {
 	  background-color: #f08a24;
 	}
   }
