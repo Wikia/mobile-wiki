@@ -89,5 +89,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"返信",
     "post-actions-upvote-label":"イイね！"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"人気のFANDOM記事"
   }
 }
