@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"次のページ",
-    "prev-button":"前のページ"
+    "prev-button":"前のページ",
+    "no-comments":"まだコメントはありません",
+    "add-comment":"コメントを追加",
+    "desktop-warning":"* コメントを追加する場合はPC版に移動します"
   },
   "category-page":{
     "load-error":"エラーが発生しました。申し訳ございませんが、もう一度お試しください。",
@@ -66,6 +69,9 @@
     "subtitle":"ファイルページ",
     "usages-header":"関連があるページ",
     "usages-see-more-link-label":"すべて見る"
+  },
+  "blog-page":{
+    "subtitle":"ユーザー・ブログ"
   },
   "navigation":{
     "back-label":"戻る",

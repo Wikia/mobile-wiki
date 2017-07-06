@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Página siguiente",
-    "prev-button":"Página anterior"
+    "prev-button":"Página anterior",
+    "no-comments":"Aún no hay comentarios",
+    "add-comment":"Añadir un comentario",
+    "desktop-warning":"*Serás redirigido a la vista en escritorio para añadir un comentario"
   },
   "category-page":{
     "load-error":"Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.",
@@ -66,6 +69,9 @@
     "subtitle":"Página de archivo",
     "usages-header":"Aparece en estas páginas",
     "usages-see-more-link-label":"Ver lista completa"
+  },
+  "blog-page":{
+    "subtitle":"Usuario blog"
   },
   "navigation":{
     "back-label":"Atrás",

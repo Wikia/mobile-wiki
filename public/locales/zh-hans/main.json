@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"下一页",
-    "prev-button":"前一页"
+    "prev-button":"前一页",
+    "no-comments":"还没有评论！",
+    "add-comment":"添加评论",
+    "desktop-warning":"* 你将被转到浏览器模式添加评论"
   },
   "category-page":{
     "load-error":"出现错误，对不起，请再试一次。",
@@ -66,6 +69,9 @@
     "subtitle":"文件页面",
     "usages-header":"出现在这些页面上",
     "usages-see-more-link-label":"查看完整列表"
+  },
+  "blog-page":{
+    "subtitle":"用户博客"
   },
   "navigation":{
     "back-label":"返回",

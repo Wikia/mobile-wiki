@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Nästa sida",
-    "prev-button":"Föregående sida"
+    "prev-button":"Föregående sida",
+    "no-comments":"No Comments Yet",
+    "add-comment":"Add comment",
+    "desktop-warning":"* You will be directed to the desktop experience to add a comment"
   },
   "category-page":{
     "load-error":"Sorry, it looks like something went wrong. Please try again.",
@@ -66,6 +69,9 @@
     "subtitle":"File Page",
     "usages-header":"Appears on these pages",
     "usages-see-more-link-label":"See full list"
+  },
+  "blog-page":{
+    "subtitle":"User blog"
   },
   "navigation":{
     "back-label":"Tillbaka",
