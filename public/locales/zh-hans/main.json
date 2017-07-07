@@ -89,5 +89,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"回复",
     "post-actions-upvote-label":"赞"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"粉丝流行原创文章"
   }
 }

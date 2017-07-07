@@ -89,5 +89,8 @@
     "in-category-label": "in __categoryName__",
     "post-actions-reply-label": "Reply",
     "post-actions-upvote-label": "Upvote"
+  },
+  "recirculation": {
+    "trending-fandom-articles": "Trending FANDOM Articles"
   }
 }

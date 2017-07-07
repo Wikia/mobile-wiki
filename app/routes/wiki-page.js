@@ -28,6 +28,7 @@ export default Route.extend(
 		initialPageView: inject.service(),
 		logger: inject.service(),
 		wikiVariables: inject.service(),
+		liftigniter: inject.service(),
 
 		queryParams: {
 			page: {
@@ -127,6 +128,8 @@ export default Route.extend(
 
 				if (handler) {
 					transition.then(() => {
+						this.get('liftigniter').initLiftigniter(model.adsContext);
+
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTrasition` hook is called too fast.
 						this.trackPageView(model);
