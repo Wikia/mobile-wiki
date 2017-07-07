@@ -95,5 +95,8 @@
     "in-category-label":"dans __categoryName__",
     "post-actions-reply-label":"Répondre",
     "post-actions-upvote-label":"Voter"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Articles de FANDOM tendance"
   }
 }

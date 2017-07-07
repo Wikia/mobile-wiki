@@ -1,10 +1,22 @@
-{{#if model.posts.length}}
-	<h3>{{model.title}}</h3>
+{{#if items.length}}
+	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
-		{{#each model.posts as |post index|}}
+		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
-				<img src="{{post.image_url}}" alt="{{post.title}}">
-				<p class="recirculation-prefooter__title">{{post.title}}</p>
+				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
+				<a href="#" class="recirculation-prefooter__item-anchor">
+					<div class="recirculation-prefooter__item-thumbnail">
+						<img src="{{post.thumbnail}}" alt="{{post.title}}">
+						{{#if post.isVideo}}
+							<img src="http://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
+								 class="recirculation-prefooter__item-is-video">
+						{{/if}}
+					</div>
+					{{#if post.presented_by}}
+						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
+					{{/if}}
+					<p class="recirculation-prefooter__title">{{post.title}}</p>
+				</a>
 			</li>
 		{{/each}}
 	</ul>

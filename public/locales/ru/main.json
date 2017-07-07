@@ -95,5 +95,8 @@
     "in-category-label":"в __categoryName__",
     "post-actions-reply-label":"Ответить",
     "post-actions-upvote-label":"Оценить"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Популярные статьи с FANDOM"
   }
 }
