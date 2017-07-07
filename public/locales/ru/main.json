@@ -11,9 +11,9 @@
     "media-lightbox-error":"Файлы не найдены",
     "now-label":"сейчас",
     "page-not-found-error":"К сожалению, мы не можем найти страницу, которую вы ищете.",
-    "page-not-found-message":"Используйте Навигацию или Поиск",
+    "page-not-found-message":"Используйте навигацию или поиск",
     "pages-label":"Страницы",
-    "photos-label":"Фото",
+    "photos-label":"Изображения",
     "trending-articles-label":"Популярные статьи",
     "username-anonymous":"Участник Фэндома",
     "videos-label":"Видео",
@@ -28,9 +28,9 @@
     "comments-label_plural":"__count__ коммент.",
     "empty-label":"Кажется, эта статья пустая!",
     "error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте снова.",
-    "last-edit":"Последний раз отредактировано неделю назад",
+    "last-edit":"Последняя правка неделю назад",
     "last-edit_plural_0":"Последняя правка на этой неделе",
-    "last-edit_plural_2":"Последняя правка была совершена __count__ нед. назад",
+    "last-edit_plural_2":"Последняя правка была __count__ нед. назад",
     "other-languages":"На других языках",
     "redirect-empty-target":"Ссылка, по которой вы перешли, является перенаправлением на страницу, которой не существует.",
     "replies-label":"Посмотреть __count__ ответ",
@@ -56,10 +56,10 @@
   "edit":{
     "load-error":"К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",
     "page-heading":"Редактирование:",
-    "page-publish":"Отправить",
+    "page-publish":"Записать",
     "publish-error":"К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",
-    "publish-error-autoblockedtext":"Ваш IP-адрес был автоматически заблокирован, так как он использовался заблокированным пользователем.",
-    "publish-error-blocked":"Вы были заблокированы и не можете редактировать страницы Фэндома.",
+    "publish-error-autoblockedtext":"Ваш IP-адрес был заблокирован, так как его использовал заблокированный участник.",
+    "publish-error-blocked":"Вы были заблокированы и не можете редактировать страницы.",
     "publish-error-noedit":"Вы не можете редактировать страницы на этой вики.",
     "publish-error-noedit-anon":"Анонимные участники не могут редактировать страницы.",
     "publish-error-protectedpage":"Вы не можете редактировать эту страницу.",
@@ -87,13 +87,13 @@
   },
   "user-status":{
     "login-text":"Войти",
-    "register-text":"Зарегистрироваться"
+    "register-text":"Регистрация"
   },
   "widget-discussions":{
     "all-discussions-link-mobile":"Все обсуждения",
     "header-title":"Обсуждения",
-    "in-category-label":"__categoryName__",
-    "post-actions-reply-label":"Комментировать",
+    "in-category-label":"в __categoryName__",
+    "post-actions-reply-label":"Ответить",
     "post-actions-upvote-label":"Оценить"
   }
 }

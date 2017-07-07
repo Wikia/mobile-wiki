@@ -44,7 +44,7 @@
     "prev-button":"Poprzednia strona",
     "no-comments":"Nikt jeszcze nie skomentował",
     "add-comment":"Dodaj komentarz",
-    "desktop-warning":"* Zostaniesz przekierowany do wersji desktopowej, w celu dodania komentarza"
+    "desktop-warning":"Nastąpi przekierowanie do wersji desktopowej, w celu dodania komentarza"
   },
   "category-page":{
     "load-error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
