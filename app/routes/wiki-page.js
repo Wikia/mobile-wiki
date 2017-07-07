@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleHandler from '../utils/wiki-handlers/article';
+import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
@@ -52,6 +53,8 @@ export default Route.extend(
 				return CategoryHandler;
 			} else if (currentNamespace === mediawikiNamespace.FILE) {
 				return FileHandler;
+			} else if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
+				return BlogHandler;
 			} else {
 				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;

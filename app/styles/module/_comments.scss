@@ -34,6 +34,38 @@
 	@extend %list-reset;
 
 	font-size: rem-calc(13);
+
+	&__no-comments, &__add-comment {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__no-comments {
+		color: $wds-color-slate-gray;
+		font-size: $wds-typescale-size-minus-1;
+		padding: 20px 0;
+	}
+
+	&__add-comment {
+		padding: 10px 0 20px;
+	}
+
+	&__reply-icon {
+		color: $wds-color-slate-gray;
+		height: 40px;
+		width: 40px;
+	}
+
+	&__message {
+		color: $wds-color-slate-gray;
+		font-size: $wds-typescale-size-minus-2;
+		font-style: italic;
+		line-height: $wds-line-height;
+		margin-top: 12px;
+		max-width: 200px;
+		text-align: center;
+	}
 }
 
 .article-comment {

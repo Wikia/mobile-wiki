@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"後一頁",
-    "prev-button":"前一頁"
+    "prev-button":"前一頁",
+    "no-comments":"還沒有評論！",
+    "add-comment":"添加評論",
+    "desktop-warning":"* 你將被轉至電腦版頁面添加評論"
   },
   "category-page":{
     "load-error":"發生錯誤。抱歉，請再試一次。",
@@ -66,6 +69,9 @@
     "subtitle":"檔案頁面",
     "usages-header":"出現在這些頁面",
     "usages-see-more-link-label":"查看完整列表"
+  },
+  "blog-page":{
+    "subtitle":"用戶網誌"
   },
   "navigation":{
     "back-label":"返回",

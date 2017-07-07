@@ -41,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Page suivante",
-    "prev-button":"Page précédente"
+    "prev-button":"Page précédente",
+    "no-comments":"Pas encore de commentaires",
+    "add-comment":"Ajouter un commentaire",
+    "desktop-warning":"* Vous serez redirigé vers la version Bureau pour ajouter un commentaire"
   },
   "category-page":{
     "load-error":"Désolé, un problème est survenu. Veuillez réessayer.",
@@ -66,6 +69,9 @@
     "subtitle":"Fichier",
     "usages-header":"Apparaît sur ces pages",
     "usages-see-more-link-label":"Voir la liste complète"
+  },
+  "blog-page":{
+    "subtitle":"Blog utilisateur"
   },
   "navigation":{
     "back-label":"Retour",

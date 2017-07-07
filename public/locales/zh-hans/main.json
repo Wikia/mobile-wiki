@@ -9,7 +9,7 @@
     "header-in-wiki-name-label-suffix":"",
     "map-lightbox-error":"未找到地图",
     "media-lightbox-error":"无法找到媒体内容",
-    "now-label":"现在",
+    "now-label":"刚刚",
     "page-not-found-error":"对不起，我们找不到您正在查找的页面。",
     "page-not-found-message":"使用导航或搜索",
     "pages-label":"页面",
@@ -23,7 +23,7 @@
     "wikia-map-view-map":"查看"
   },
   "article":{
-    "categories-list-label":"类别",
+    "categories-list-label":"分类",
     "comments-label":"__count__ 次评论",
     "comments-label_plural":"__count__ 次评论",
     "empty-label":"对不起，这篇文章似乎沒有內容！",
@@ -41,14 +41,17 @@
   },
   "article-comments":{
     "next-button":"下一页",
-    "prev-button":"前一页"
+    "prev-button":"前一页",
+    "no-comments":"还没有评论！",
+    "add-comment":"添加评论",
+    "desktop-warning":"* 你将被转到浏览器模式添加评论"
   },
   "category-page":{
     "load-error":"出现错误，对不起，请再试一次。",
     "load-more":"加载更多",
     "load-previous":"加载前一个",
-    "no-members":"当前类别不包含任何页面。",
-    "subtitle":"类别页面"
+    "no-members":"当前分类不包含任何页面。",
+    "subtitle":"分类页"
   },
   "edit":{
     "load-error":"出现错误。对不起，请再试一次。",
@@ -66,6 +69,9 @@
     "subtitle":"文件页面",
     "usages-header":"出现在这些页面上",
     "usages-see-more-link-label":"查看完整列表"
+  },
+  "blog-page":{
+    "subtitle":"用户博客"
   },
   "navigation":{
     "back-label":"返回",
