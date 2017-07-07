@@ -1,10 +1,7 @@
 import Ember from 'ember';
 import config from '../../config/environment';
 
-const {
-	Component,
-	computed,
-} = Ember;
+const {Component, computed} = Ember;
 
 export default Component.extend({
 	tagName: '',
