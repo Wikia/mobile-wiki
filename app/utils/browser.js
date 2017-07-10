@@ -18,15 +18,15 @@ if (/iPad|iPhone|iPod/i.test(userAgent)) {
 standalone = window.navigator && navigator.standalone;
 
 /**
- * Checks if current browser is Chrome of version higher or equal to provided
- * @param {int} fullVersion Full version number without decimals
+ * Checks if current browser is Safari of version higher or equal to provided
+ * @param {int} version Full version number without decimals
  * @returns {boolean}
  */
-function isChromeMinVer(fullVersion) {
-	const regex = 'chrome\/([0-9]*)',
-		match = userAgent.toLowerCase().match(regex);
+function isSafariMinVer(version) {
+	const pattern = /OS (\d+)/,
+		match = window.navigator.userAgent.match(pattern);
 
-	return match && parseInt(match[1], 10) >= fullVersion;
+	return match && parseInt(match[1], 10) >= version;
 }
 
-export {system, standalone, isChromeMinVer};
+export {isSafariMinVer, system, standalone};

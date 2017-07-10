@@ -3,10 +3,11 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
 import duration from '../helpers/duration';
-import {track, trackActions} from '../utils/track';
+import {isSafariMinVer, system} from '../utils/browser';
 import extend from '../utils/extend';
+import {track, trackActions} from '../utils/track';
 
-const {Component, inject, computed, on, observer, setProperties} = Ember,
+const {$, Component, inject, computed, on, observer, setProperties} = Ember,
 	autoplayCookieName = 'featuredVideoAutoplay',
 	prerollSlotName = 'FEATURED_VIDEO',
 	playerTrackerParams = {
@@ -33,7 +34,7 @@ export default Component.extend(InViewportMixin,
 		autoplay: computed('withinPortableInfobox', function () {
 			return !this.get('fastboot.isFastBoot') &&
 				!this.get('withinPortableInfobox') &&
-				(!window.OO.isIphone || window.OO.iosMajorVersion >= 10) &&
+				(system !== 'ios' || isSafariMinVer(10)) &&
 				$.cookie(autoplayCookieName) !== '0';
 		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
