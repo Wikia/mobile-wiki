@@ -7,6 +7,7 @@ import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
 const {Component, inject, computed, on, observer, setProperties} = Ember,
+	autoplayCookieName = 'featuredVideoAutoplay',
 	prerollSlotName = 'FEATURED_VIDEO',
 	playerTrackerParams = {
 		adProduct: 'featured-video-preroll',
@@ -15,8 +16,6 @@ const {Component, inject, computed, on, observer, setProperties} = Ember,
 
 export default Component.extend(InViewportMixin,
 	{
-		ads: inject.service(),
-		autoplay: computed.not('withinPortableInfobox'),
 		classNames: ['article-featured-video'],
 		classNameBindings: [
 			'hasStartedPlaying',
@@ -25,16 +24,26 @@ export default Component.extend(InViewportMixin,
 			'isVideoDrawerVisible:is-fixed',
 			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
 		],
+
+		ads: inject.service(),
+		fastboot: inject.service(),
+		wikiVariables: inject.service(),
+
+		isPlayerLoading: true,
+		autoplay: computed('withinPortableInfobox', function () {
+			return !this.get('fastboot.isFastBoot') &&
+				!this.get('withinPortableInfobox') &&
+				(!window.OO.isIphone || window.OO.iosMajorVersion >= 10) &&
+				$.cookie(autoplayCookieName) !== '0';
+		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
-		isPlayerLoading: true,
 		isPlaying: computed.oneWay('autoplay'),
 		playerLoadingObserver: observer('isPlayerLoading', function () {
 			if (this.get('viewportExited')) {
 				this.didExitViewport();
 			}
 		}),
-		wikiVariables: inject.service(),
 
 		// when navigating from one article to another with video, we need to destroy player and
 		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
@@ -126,13 +135,14 @@ export default Component.extend(InViewportMixin,
 		 */
 		initVideoPlayer() {
 			const model = this.get('model.embed'),
-				autoplayCookieName = 'featuredVideoAutoplay',
+				autoplay = this.get('autoplay'),
 				jsParams = {
+					autoplay,
 					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
+					initialVolume: autoplay ? 0 : 1,
 					noAds: this.get('ads.noAds'),
 					onCreate: this.onCreate.bind(this),
-					autoplay: this.get('autoplay') && $.cookie(autoplayCookieName) !== '0',
 					skin: {
 						inline: {
 							controlBar: {
@@ -144,7 +154,6 @@ export default Component.extend(InViewportMixin,
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
-
 
 			Ads.getInstance().onReady(() => {
 				Ads.getInstance().trackOoyalaEvent(playerTrackerParams, 'init');

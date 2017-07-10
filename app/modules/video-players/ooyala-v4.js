@@ -67,7 +67,33 @@ export default class OoyalaV4Player extends BasePlayer {
 								tag_url: vastUrl
 							}
 						],
-						useGoogleCountdown: true
+						useGoogleAdUI: true,
+						useGoogleCountdown: false,
+						onBeforeAdsManagerStart: function (IMAAdsManager) {
+							// mutes VAST ads from the very beginning
+							// FIXME with VPAID it causes volume controls to be in incorrect state
+							IMAAdsManager.setVolume(0);
+						},
+						onAdRequestSuccess: function (IMAAdsManager) {
+							IMAAdsManager.addEventListener('loaded', (eventData) => {
+								if (eventData.getAdData().vpaid === true) {
+									window.pp.mb.publish(OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
+									window.pp.mb.publish(OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
+								}
+							}, false, this);
+
+							// that's a hack for autoplay on mobile for VPAID ads
+							let initiallyResumed = false;
+							IMAAdsManager.addEventListener('pause', (eventData) => {
+								if (eventData.getAd().getApiFramework() === 'VPAID') {
+									if (!initiallyResumed) {
+										IMAAdsManager.resume();
+										// we don't use removeEventListener because it doesn't work as expected
+										initiallyResumed = true;
+									}
+								}
+							}, false, this);
+						}
 					};
 					this.params.replayAds = false;
 				}
