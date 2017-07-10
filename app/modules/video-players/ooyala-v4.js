@@ -53,7 +53,9 @@ export default class OoyalaV4Player extends BasePlayer {
 			Ads.getInstance().onReady(() => {
 				// It's not possible to check context (=decide about MOAT tracking) before onReady
 				// that's why it can't be on window.OO.ready
-				loadOoyalaGoogleImaPlugin(Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled);
+				const moatEnabled = Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled;
+
+				loadOoyalaGoogleImaPlugin(moatEnabled);
 
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
@@ -69,16 +71,16 @@ export default class OoyalaV4Player extends BasePlayer {
 						],
 						useGoogleAdUI: true,
 						useGoogleCountdown: false,
-						onBeforeAdsManagerStart: function (IMAAdsManager) {
+						onBeforeAdsManagerStart(IMAAdsManager) {
 							// mutes VAST ads from the very beginning
 							// FIXME with VPAID it causes volume controls to be in incorrect state
 							IMAAdsManager.setVolume(0);
 						},
-						onAdRequestSuccess: function (IMAAdsManager) {
+						onAdRequestSuccess(IMAAdsManager) {
 							IMAAdsManager.addEventListener('loaded', (eventData) => {
 								if (eventData.getAdData().vpaid === true) {
-									window.pp.mb.publish(OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
-									window.pp.mb.publish(OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
+									window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
+									window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
 								}
 							}, false, this);
 
