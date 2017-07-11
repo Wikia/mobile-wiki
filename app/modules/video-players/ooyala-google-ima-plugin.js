@@ -5247,6 +5247,11 @@ export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideo
 						notifyIfInControl(this.controller.EVENTS.ENDED);
 					};
 
+					this.raiseFullScreenEvent = function()
+					{
+						notifyIfInControl(this.controller.EVENTS.FULLSCREEN_CHANGED);
+					};
+
 					this.raisePauseEvent = function () {
 						notifyIfInControl(this.controller.EVENTS.PAUSED);
 					};
