@@ -1,15 +1,12 @@
 import Ember from 'ember';
+import WikiPageControllerMixin from '../mixins/wiki-page-controller';
 
-const {Controller, computed, RSVP, inject} = Ember;
+const {Controller, RSVP, inject} = Ember;
 
 export default Controller.extend(
+	WikiPageControllerMixin,
 	{
-		application: inject.controller(),
 		article: inject.controller(),
-		wikiVariables: inject.service(),
-
-		mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
-		siteName: computed.reads('wikiVariables.siteName'),
 
 		actions: {
 			/**

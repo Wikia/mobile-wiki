@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
-    "instruction":"Das Bild wird am Ende des Abschnitts hinzugefügt.",
-    "page-add-button":"Hinzufügen",
-    "page-heading":"Foto hinzufügen zu:",
-    "photo-name":"Name des Fotos",
-    "section-title-error":"Ungültiger Titel",
-    "success":"Ein Bild wurde zur Seite hinzugefügt."
-  },
   "app":{
     "advertisement-label":"Werbung",
     "cancel-label":"Abbrechen",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Nächste Seite",
-    "prev-button":"Vorherige Seite"
+    "prev-button":"Vorherige Seite",
+    "no-comments":"Noch keine Kommentare",
+    "add-comment":"Kommentar hinzufügen",
+    "desktop-warning":"Du wirst zur Desktop-Version weitergeleitet, um einen Kommentar hinzuzufügen"
   },
   "category-page":{
     "load-error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
@@ -76,6 +70,9 @@
     "usages-header":"Erscheint auf diesen Seiten",
     "usages-see-more-link-label":"Vollständige Liste anzeigen"
   },
+  "blog-page":{
+    "subtitle":"Benutzer-Blog"
+  },
   "navigation":{
     "back-label":"Zurück",
     "explore-wiki":"__wikiName__ erkunden",
@@ -98,5 +95,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"Antworten",
     "post-actions-upvote-label":"Zustimmen"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"FANDOM-Artikel im Trend"
   }
 }

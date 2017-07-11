@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
-    "instruction":"Obraz zostanie dodany do końca sekcji",
-    "page-add-button":"Dodaj",
-    "page-heading":"Dodawanie zdjęcia do:",
-    "photo-name":"Nazwa Zdjęcia",
-    "section-title-error":"Niepoprawny tytuł.",
-    "success":"Zdjęcie zostało dodane do strony."
-  },
   "app":{
     "advertisement-label":"Reklama",
     "cancel-label":"Anuluj",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Następna strona",
-    "prev-button":"Poprzednia strona"
+    "prev-button":"Poprzednia strona",
+    "no-comments":"Nikt jeszcze nie skomentował",
+    "add-comment":"Dodaj komentarz",
+    "desktop-warning":"Nastąpi przekierowanie do wersji desktopowej, w celu dodania komentarza"
   },
   "category-page":{
     "load-error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
@@ -76,6 +70,9 @@
     "usages-header":"Wykorzystanie na stronach",
     "usages-see-more-link-label":"Zobacz pełną listę"
   },
+  "blog-page":{
+    "subtitle":"Blog użytkownika"
+  },
   "navigation":{
     "back-label":"Wstecz",
     "explore-wiki":"Przeglądaj __wikiName__",
@@ -98,5 +95,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"Odpowiedz",
     "post-actions-upvote-label":"Zagłosuj"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Popularne artykuły z Fandomu"
   }
 }

@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Qualcosa è andato storto. Riprova.",
-    "instruction":"L'immagine sarà aggiunta alla fine della sezione",
-    "page-add-button":"Aggiungi",
-    "page-heading":"Aggiunta di foto a:",
-    "photo-name":"Titolo della foto",
-    "section-title-error":"Titolo non valido.",
-    "success":"Una foto è stata aggiunta alla pagina."
-  },
   "app":{
     "advertisement-label":"Pubblicità",
     "cancel-label":"Annulla",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Pagina successiva",
-    "prev-button":"Pagina precedente"
+    "prev-button":"Pagina precedente",
+    "no-comments":"Ancora nessun commento",
+    "add-comment":"Aggiungi un commento",
+    "desktop-warning":"* Sarai reindirizzato alla versione desktop per poter aggiungere un commento"
   },
   "category-page":{
     "load-error":"Purtroppo qualcosa è andato storto. Riprova.",
@@ -76,6 +70,9 @@
     "usages-header":"Appare su queste pagine",
     "usages-see-more-link-label":"Vedi elenco completo"
   },
+  "blog-page":{
+    "subtitle":"Blog utente"
+  },
   "navigation":{
     "back-label":"Indietro",
     "explore-wiki":"Esplora __wikiName__",
@@ -98,5 +95,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"Rispondi",
     "post-actions-upvote-label":"Vota"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Articoli in tendenza di FANDOM"
   }
 }

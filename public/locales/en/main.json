@@ -41,7 +41,10 @@
   },
   "article-comments": {
     "next-button": "Next page",
-    "prev-button": "Previous page"
+    "prev-button": "Previous page",
+    "no-comments": "No Comments Yet",
+    "add-comment": "Add comment",
+    "desktop-warning": "* You will be directed to the desktop experience to add a comment"
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",
@@ -67,6 +70,9 @@
     "usages-header": "Appears on these pages",
     "usages-see-more-link-label": "See full list"
   },
+  "blog-page": {
+    "subtitle": "User blog"
+  },
   "navigation": {
     "back-label": "Back",
     "explore-wiki": "Explore __wikiName__",
@@ -89,5 +95,8 @@
     "in-category-label": "in __categoryName__",
     "post-actions-reply-label": "Reply",
     "post-actions-upvote-label": "Upvote"
+  },
+  "recirculation": {
+    "trending-fandom-articles": "Trending FANDOM Articles"
   }
 }

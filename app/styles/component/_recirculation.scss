@@ -1,0 +1,55 @@
+.recirculation-prefooter {
+	background: $wds-color-off-white;
+	padding: rem-calc(20);
+
+	&__item {
+		min-height: 150px;
+		position: relative;
+
+		a {
+			color: $wds-color-black;
+		}
+
+		&-is-video {
+			bottom: 0;
+			height: 60px;
+			margin-right: 12px;
+			margin-bottom: 12px;
+			position: absolute;
+			right: 0;
+			width: 60px;
+			z-index: 1;
+		}
+
+		&-thumbnail {
+			position: relative;
+		}
+	}
+
+	&__badge {
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+		left: 0;
+		padding: 3px 8px;
+		position: absolute;
+		top: 0;
+
+		&-sponsored {
+			background-color: #666;
+		}
+
+		&-trending {
+			background-color: #f08a24;
+		}
+	}
+
+	&__list {
+		@extend %list-reset;
+	}
+
+	&__title {
+		margin: 24px 0;
+		line-height: 1.5;
+	}
+}

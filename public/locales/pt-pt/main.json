@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Sorry, it looks like something went wrong. Please try again.",
-    "instruction":"The image will be added to the end of the section",
-    "page-add-button":"Add",
-    "page-heading":"Adding photo to:",
-    "photo-name":"Photo Name",
-    "section-title-error":"Invalid title.",
-    "success":"A photo has been added to the page."
-  },
   "app":{
     "advertisement-label":"Advertisement",
     "cancel-label":"Cancel",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Próxima página",
-    "prev-button":"Página anterior"
+    "prev-button":"Página anterior",
+    "no-comments":"No Comments Yet",
+    "add-comment":"Add comment",
+    "desktop-warning":"* You will be directed to the desktop experience to add a comment"
   },
   "category-page":{
     "load-error":"Sorry, it looks like something went wrong. Please try again.",
@@ -76,6 +70,9 @@
     "usages-header":"Appears on these pages",
     "usages-see-more-link-label":"See full list"
   },
+  "blog-page":{
+    "subtitle":"User blog"
+  },
   "navigation":{
     "back-label":"Voltar",
     "explore-wiki":"Explore __wikiName__",
@@ -98,5 +95,8 @@
     "in-category-label":"in __categoryName__",
     "post-actions-reply-label":"Reply",
     "post-actions-upvote-label":"Upvote"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Trending FANDOM Articles"
   }
 }

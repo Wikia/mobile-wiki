@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"Désolés, il y a eu un problème. Merci de réessayer.",
-    "instruction":"L'image sera ajoutée à la fin de la section",
-    "page-add-button":"Ajouter",
-    "page-heading":"Ajout d'une image à :",
-    "photo-name":"Nom de l'image",
-    "section-title-error":"Titre non valide.",
-    "success":"Une image a été ajoutée à la page."
-  },
   "app":{
     "advertisement-label":"Publicité",
     "cancel-label":"Annuler",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"Page suivante",
-    "prev-button":"Page précédente"
+    "prev-button":"Page précédente",
+    "no-comments":"Pas encore de commentaires",
+    "add-comment":"Ajouter un commentaire",
+    "desktop-warning":"* Vous serez redirigé vers la version Bureau pour ajouter un commentaire"
   },
   "category-page":{
     "load-error":"Désolé, un problème est survenu. Veuillez réessayer.",
@@ -76,6 +70,9 @@
     "usages-header":"Apparaît sur ces pages",
     "usages-see-more-link-label":"Voir la liste complète"
   },
+  "blog-page":{
+    "subtitle":"Blog utilisateur"
+  },
   "navigation":{
     "back-label":"Retour",
     "explore-wiki":"Explorer __wikiName__",
@@ -98,5 +95,8 @@
     "in-category-label":"dans __categoryName__",
     "post-actions-reply-label":"Répondre",
     "post-actions-upvote-label":"Voter"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"Articles de FANDOM tendance"
   }
 }

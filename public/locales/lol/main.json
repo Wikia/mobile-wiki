@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"crwdns58196:0crwdne58196:0",
-    "instruction":"crwdns58197:0crwdne58197:0",
-    "page-add-button":"crwdns58198:0crwdne58198:0",
-    "page-heading":"crwdns58199:0crwdne58199:0",
-    "photo-name":"crwdns58200:0crwdne58200:0",
-    "section-title-error":"crwdns58201:0crwdne58201:0",
-    "success":"crwdns58202:0crwdne58202:0"
-  },
   "app":{
     "advertisement-label":"crwdns58128:0crwdne58128:0",
     "cancel-label":"crwdns57987:0crwdne57987:0",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"crwdns58219:0crwdne58219:0",
-    "prev-button":"crwdns58220:0crwdne58220:0"
+    "prev-button":"crwdns58220:0crwdne58220:0",
+    "no-comments":"crwdns68290:0crwdne68290:0",
+    "add-comment":"crwdns68291:0crwdne68291:0",
+    "desktop-warning":"crwdns68292:0crwdne68292:0"
   },
   "category-page":{
     "load-error":"crwdns58221:0crwdne58221:0",
@@ -76,6 +70,9 @@
     "usages-header":"crwdns58237:0crwdne58237:0",
     "usages-see-more-link-label":"crwdns58238:0crwdne58238:0"
   },
+  "blog-page":{
+    "subtitle":"crwdns68293:0crwdne68293:0"
+  },
   "navigation":{
     "back-label":"crwdns58239:0crwdne58239:0",
     "explore-wiki":"crwdns58240:0__wikiName__crwdne58240:0",
@@ -98,5 +95,8 @@
     "in-category-label":"crwdns58195:0__categoryName__crwdne58195:0",
     "post-actions-reply-label":"crwdns58194:0crwdne58194:0",
     "post-actions-upvote-label":"crwdns58193:0crwdne58193:0"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"crwdns68294:0crwdne68294:0"
   }
 }

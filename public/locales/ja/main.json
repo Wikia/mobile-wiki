@@ -1,13 +1,4 @@
 {
-  "add-photo":{
-    "error":"エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
-    "instruction":"セクションの最後に画像が追加されます",
-    "page-add-button":"追加",
-    "page-heading":"写真の追加先：",
-    "photo-name":"画像名",
-    "section-title-error":"無効なタイトル名です。",
-    "success":"ページに画像を追加しました。"
-  },
   "app":{
     "advertisement-label":"広告",
     "cancel-label":"キャンセル",
@@ -50,7 +41,10 @@
   },
   "article-comments":{
     "next-button":"次のページ",
-    "prev-button":"前のページ"
+    "prev-button":"前のページ",
+    "no-comments":"コメントはありません",
+    "add-comment":"コメントを追加",
+    "desktop-warning":"* コメントを追加する場合、Pc版へ移動します"
   },
   "category-page":{
     "load-error":"エラーが発生しました。申し訳ございませんが、もう一度お試しください。",
@@ -76,6 +70,9 @@
     "usages-header":"関連があるページ",
     "usages-see-more-link-label":"すべて見る"
   },
+  "blog-page":{
+    "subtitle":"ユーザーブログ"
+  },
   "navigation":{
     "back-label":"戻る",
     "explore-wiki":"__wikiName__",
@@ -98,5 +95,8 @@
     "in-category-label":"__categoryName__",
     "post-actions-reply-label":"返信",
     "post-actions-upvote-label":"イイね！"
+  },
+  "recirculation":{
+    "trending-fandom-articles":"人気のFANDOM記事"
   }
 }
