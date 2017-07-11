@@ -111,7 +111,7 @@ export default class OoyalaV4Player extends BasePlayer {
 
 	onAdRequestSuccess(IMAAdsManager, uiContainer) {
 		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
-			moatVideoTracker(IMAAdsManager, uiContainer, google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
+			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
 		}
 
 		IMAAdsManager.addEventListener('loaded', (eventData) => {
