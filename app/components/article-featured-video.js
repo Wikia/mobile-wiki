@@ -142,7 +142,6 @@ export default Component.extend(InViewportMixin,
 					skin: {
 						inline: {
 							controlBar: {
-								autoplayToggle: true,
 								autoplayCookieName
 							}
 						}
