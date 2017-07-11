@@ -1,4 +1,5 @@
 import Ads from '../modules/ads';
+import {inGroup} from '../modules/abtest';
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
@@ -34,7 +35,8 @@ export default Component.extend(InViewportMixin,
 			return !this.get('fastboot.isFastBoot') &&
 				!this.get('withinPortableInfobox') &&
 				(system !== 'ios' || isSafariMinVer(10)) &&
-				$.cookie(autoplayCookieName) !== '0';
+				$.cookie(autoplayCookieName) !== '0' &&
+				inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
 		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
