@@ -3533,14 +3533,14 @@ export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideo
 						this.setupSharedVideoElement = function (element) {
 							//Remove any listeners we added on the previous shared video element
 							if (this.sharedVideoElement && OO.isIphone && typeof this.sharedVideoElement.removeEventListener === "function") {
-								this.sharedVideoElement.removeEventListener('webkitendfullscreen', _raisePauseEvent);
+								this.sharedVideoElement.removeEventListener('webkitendfullscreen', _raiseFullScreenEndEvent);
 							}
 							this.sharedVideoElement = element;
 							//On iPhone, there is a limitation in the IMA SDK where we do not receive a pause event when
 							//we leave the native player
 							//This is a workaround to listen for the webkitendfullscreen event ourselves
 							if (this.sharedVideoElement && OO.isIphone && typeof this.sharedVideoElement.addEventListener === "function") {
-								this.sharedVideoElement.addEventListener('webkitendfullscreen', _raisePauseEvent);
+								this.sharedVideoElement.addEventListener('webkitendfullscreen', _raiseFullScreenEndEvent);
 							}
 						};
 
@@ -4455,6 +4455,21 @@ export default function loadOoyalaGoogleImaPlugin(isMoatTrackingForFeaturedVideo
 							_endCurrentAd(true);
 
 							OO.log("GOOGLE_IMA:: Content Resume Requested by Google IMA!");
+						});
+
+						/**
+						 * Notifies the video controller wrapper of the fullscreen end event.
+						 * @private
+						 * @method GoogleIMA#_raiseFullScreenEndEvent
+						 */
+						var _raiseFullScreenEndEvent = privateMember(function()
+						{
+
+							if (this.videoControllerWrapper)
+							{
+								this.videoControllerWrapper.raiseFullScreenEvent();
+								this.videoControllerWrapper.raisePauseEvent();
+							}
 						});
 
 						/**
