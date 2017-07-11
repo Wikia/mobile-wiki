@@ -85,6 +85,7 @@ export default class OoyalaV4Player extends BasePlayer {
 							}, false, this);
 
 							// that's a hack for autoplay on mobile for VPAID ads
+							// VPAID ads still don't work perfectly
 							let initiallyResumed = false;
 							IMAAdsManager.addEventListener('pause', (eventData) => {
 								if (eventData.getAd().getApiFramework() === 'VPAID') {
