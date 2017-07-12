@@ -38,7 +38,7 @@
     "express-bunyan-logger": "1.3.1",
     "fastboot": "github:wikia/fastboot#6815b712f4a193ebccfa1408dbc480e6e202fa71",
     "fastboot-app-server": "1.0.0-rc.5",
-    "html5-skin": "github:wikia/html5-skin#b8c0056ab9eabaf23b252b50457a89c14a835cfa",
+    "html5-skin": "github:wikia/html5-skin#84574003c0cf2fa6de499bd6e7423a2a37681e44",
     "method-override": "2.3.7",
     "newrelic": "1.38.2",
     "on-headers": "1.0.1"
