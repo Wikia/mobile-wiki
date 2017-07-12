@@ -9,3 +9,6 @@ vendor/
 
 # Script copied from Google documentation
 app/inline-scripts/tracking-ua-init.js
+
+# Vendor files
+app/modules/video-players/ooyala-google-ima-plugin.js
