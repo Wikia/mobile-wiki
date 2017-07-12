@@ -1,7 +1,7 @@
 import Ads from '../ads';
 import BasePlayer from './base';
+import moatVideoTracker from './moat-video-tracker';
 import config from '../../config/environment';
-import loadOoyalaGoogleImaPlugin from './ooyala-google-ima-plugin';
 
 export const ooyalaAssets = {
 	styles: [
@@ -24,9 +24,10 @@ export default class OoyalaV4Player extends BasePlayer {
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;
-		params.skin = {
-			config: skinConfigUrl
-		};
+		if (!params.skin) {
+			params.skin = {};
+		}
+		params.skin.config = skinConfigUrl;
 
 		super(provider, params);
 
@@ -50,10 +51,6 @@ export default class OoyalaV4Player extends BasePlayer {
 	createPlayer() {
 		window.OO.ready(() => {
 			Ads.getInstance().onReady(() => {
-				// It's not possible to check context (=decide about MOAT tracking) before onReady
-				// that's why it can't be on window.OO.ready
-				loadOoyalaGoogleImaPlugin(Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled);
-
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
 						pos: 'FEATURED_VIDEO',
@@ -66,7 +63,14 @@ export default class OoyalaV4Player extends BasePlayer {
 								tag_url: vastUrl
 							}
 						],
-						useGoogleCountdown: true
+						useGoogleAdUI: true,
+						useGoogleCountdown: false,
+						onBeforeAdsManagerStart(IMAAdsManager) {
+							// mutes VAST ads from the very beginning
+							// FIXME with VPAID it causes volume controls to be in incorrect state
+							IMAAdsManager.setVolume(0);
+						},
+						onAdRequestSuccess: this.onAdRequestSuccess.bind(this)
 					};
 					this.params.replayAds = false;
 				}
@@ -103,5 +107,31 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	playerDidLoad() {
 		this.createPlayer();
+	}
+
+	onAdRequestSuccess(IMAAdsManager, uiContainer) {
+		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
+			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
+		}
+
+		IMAAdsManager.addEventListener('loaded', (eventData) => {
+			if (eventData.getAdData().vpaid === true) {
+				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
+				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
+			}
+		}, false, this);
+
+		// that's a hack for autoplay on mobile for VPAID ads
+		// VPAID ads still don't work perfectly
+		let initiallyResumed = false;
+		IMAAdsManager.addEventListener('pause', (eventData) => {
+			if (eventData.getAd().getApiFramework() === 'VPAID') {
+				if (!initiallyResumed) {
+					IMAAdsManager.resume();
+					// we don't use removeEventListener because it doesn't work as expected
+					initiallyResumed = true;
+				}
+			}
+		}, false, this);
 	}
 }

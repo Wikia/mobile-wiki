@@ -1,11 +1,14 @@
 import Ads from '../modules/ads';
+import {inGroup} from '../modules/abtest';
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
-import {track, trackActions} from '../utils/track';
+import {isSafariMinVer, system} from '../utils/browser';
 import extend from '../utils/extend';
+import {track, trackActions} from '../utils/track';
 
-const {Component, inject, computed, on, observer, setProperties} = Ember,
+const {$, Component, inject, computed, on, observer, setProperties} = Ember,
+	autoplayCookieName = 'featuredVideoAutoplay',
 	prerollSlotName = 'FEATURED_VIDEO',
 	playerTrackerParams = {
 		adProduct: 'featured-video-preroll',
@@ -14,7 +17,6 @@ const {Component, inject, computed, on, observer, setProperties} = Ember,
 
 export default Component.extend(InViewportMixin,
 	{
-		ads: inject.service(),
 		classNames: ['article-featured-video'],
 		classNameBindings: [
 			'hasStartedPlaying',
@@ -23,15 +25,27 @@ export default Component.extend(InViewportMixin,
 			'isVideoDrawerVisible:is-fixed',
 			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
 		],
-		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
+
+		ads: inject.service(),
+		fastboot: inject.service(),
+		wikiVariables: inject.service(),
+
 		isPlayerLoading: true,
-		isPlaying: false,
+		autoplay: computed('withinPortableInfobox', function () {
+			return !this.get('fastboot.isFastBoot') &&
+				!this.get('withinPortableInfobox') &&
+				(system !== 'ios' || isSafariMinVer(10)) &&
+				$.cookie(autoplayCookieName) !== '0' &&
+				inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
+		}),
+		hasStartedPlaying: computed.oneWay('autoplay'),
+		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
+		isPlaying: computed.oneWay('autoplay'),
 		playerLoadingObserver: observer('isPlayerLoading', function () {
 			if (this.get('viewportExited')) {
 				this.didExitViewport();
 			}
 		}),
-		wikiVariables: inject.service(),
 
 		// when navigating from one article to another with video, we need to destroy player and
 		// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
@@ -117,11 +131,21 @@ export default Component.extend(InViewportMixin,
 		 */
 		initVideoPlayer() {
 			const model = this.get('model.embed'),
+				autoplay = this.get('autoplay'),
 				jsParams = {
+					autoplay,
 					cacheBuster: this.get('wikiVariables.cacheBuster'),
 					containerId: this.get('videoContainerId'),
+					initialVolume: autoplay ? 0 : 1,
 					noAds: this.get('ads.noAds'),
-					onCreate: this.onCreate.bind(this)
+					onCreate: this.onCreate.bind(this),
+					skin: {
+						inline: {
+							controlBar: {
+								autoplayCookieName
+							}
+						}
+					}
 				},
 				data = extend({}, model, {jsParams}),
 				videoLoader = new VideoLoader(data);
