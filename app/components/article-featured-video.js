@@ -31,12 +31,18 @@ export default Component.extend(InViewportMixin,
 		wikiVariables: inject.service(),
 
 		isPlayerLoading: true,
+		supportsAutoplay: computed(() => {
+			return system !== 'ios' || isSafariMinVer(10);
+		}),
 		autoplay: computed('withinPortableInfobox', function () {
 			return !this.get('fastboot.isFastBoot') &&
 				!this.get('withinPortableInfobox') &&
-				(system !== 'ios' || isSafariMinVer(10)) &&
+				this.get('supportsAutoplay') &&
 				$.cookie(autoplayCookieName) !== '0' &&
 				inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
+		}),
+		autoplayToggleVisible: computed('supportsAutoplay', function () {
+			return this.get('supportsAutoplay') && inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
 		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
@@ -142,7 +148,8 @@ export default Component.extend(InViewportMixin,
 					skin: {
 						inline: {
 							controlBar: {
-								autoplayCookieName
+								autoplayCookieName,
+								autoplayToggle: this.get('autoplayToggleVisible')
 							}
 						}
 					}
