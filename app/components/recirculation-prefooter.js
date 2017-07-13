@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
+import Thumbnailer from '../modules/thumbnailer';
+import {normalizeThumbWidth} from '../utils/thumbnail';
 import {track, trackActions} from '../utils/track';
 
 const {Component, on, run, inject, $} = Ember,
@@ -34,7 +36,17 @@ export default Component.extend(
 						items: data.items
 							.filter((item) => {
 								return item.hasOwnProperty('thumbnail') && item.thumbnail;
-							}).slice(0, recircItemsCount)
+							})
+							.slice(0, recircItemsCount)
+							.map((item) => {
+
+								item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
+									mode: Thumbnailer.mode.scaleToWidth,
+									width: normalizeThumbWidth(window.innerWidth)
+								});
+
+								return item;
+							})
 					});
 
 					run.scheduleOnce('afterRender', () => {
