@@ -262,13 +262,14 @@ export default Component.extend(InViewportMixin,
 					}
 				});
 
-			player.mb.subscribe(window.OO.EVENTS.WIKIA.AUTOPLAY_TOGGLED, 'featured-video', function (eventName, enabled) {
-				track({
-					action: trackActions.click,
-					category: trackCategory,
-					label: enabled ? 'featured-video-autoplay-enabled' : 'featured-video-autoplay-disabled'
+			player.mb.subscribe(window.OO.EVENTS.WIKIA.AUTOPLAY_TOGGLED, 'featured-video',
+				(eventName, enabled) => {
+					track({
+						action: trackActions.click,
+						category: trackCategory,
+						label: enabled ? 'featured-video-autoplay-enabled' : 'featured-video-autoplay-disabled'
+					});
 				});
-			});
 
 			track({
 				action: trackActions.impression,
