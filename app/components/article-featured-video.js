@@ -177,9 +177,11 @@ export default Component.extend(InViewportMixin,
 			M.tracker.UniversalAnalytics.setDimension(34, this.get('model.embed.jsParams.videoId'));
 			M.tracker.UniversalAnalytics.setDimension(35, this.get('model.title'));
 			M.tracker.UniversalAnalytics.setDimension(36, this.get('model.labels'));
+			M.tracker.UniversalAnalytics.setDimension(37, this.get('autoplay') ? 'Yes' : 'No');
 		},
 
 		setupTracking(player) {
+			const trackCategory = 'article-video';
 			let playTime = -1,
 				percentagePlayTime = -1;
 
@@ -188,7 +190,7 @@ export default Component.extend(InViewportMixin,
 			player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', () => {
 				track({
 					action: trackActions.playVideo,
-					category: 'article-video',
+					category: trackCategory,
 					label: 'featured-video'
 				});
 			});
@@ -197,7 +199,7 @@ export default Component.extend(InViewportMixin,
 				if (volume > 0) {
 					track({
 						action: trackActions.click,
-						category: 'article-video',
+						category: trackCategory,
 						label: 'featured-video-unmuted'
 					});
 					player.mb.unsubscribe(window.OO.EVENTS.VOLUME_CHANGED, 'featured-video');
@@ -207,7 +209,7 @@ export default Component.extend(InViewportMixin,
 			player.mb.subscribe(window.OO.EVENTS.PLAY, 'featured-video', () => {
 				track({
 					action: trackActions.click,
-					category: 'article-video',
+					category: trackCategory,
 					label: 'featured-video-play'
 				});
 			});
@@ -215,7 +217,7 @@ export default Component.extend(InViewportMixin,
 			player.mb.subscribe(window.OO.EVENTS.PLAYED, 'featured-video', () => {
 				track({
 					action: trackActions.click,
-					category: 'article-video',
+					category: trackCategory,
 					label: 'featured-video-played'
 				});
 			});
@@ -223,7 +225,7 @@ export default Component.extend(InViewportMixin,
 			player.mb.subscribe(window.OO.EVENTS.PAUSE, 'featured-video', () => {
 				track({
 					action: trackActions.click,
-					category: 'article-video',
+					category: trackCategory,
 					label: 'featured-video-paused'
 				});
 			});
@@ -231,7 +233,7 @@ export default Component.extend(InViewportMixin,
 			player.mb.subscribe(window.OO.EVENTS.REPLAY, 'featured-video', () => {
 				track({
 					action: trackActions.click,
-					category: 'article-video',
+					category: trackCategory,
 					label: 'featured-video-replay'
 				});
 			});
@@ -245,7 +247,7 @@ export default Component.extend(InViewportMixin,
 						playTime = secondsPlayed;
 						track({
 							action: trackActions.view,
-							category: 'article-video',
+							category: trackCategory,
 							label: `featured-video-played-seconds-${playTime}`
 						});
 					}
@@ -254,11 +256,19 @@ export default Component.extend(InViewportMixin,
 						percentagePlayTime = percentage;
 						track({
 							action: trackActions.view,
-							category: 'article-video',
+							category: trackCategory,
 							label: `featured-video-played-percentage-${percentagePlayTime}`
 						});
 					}
 				});
+
+			player.mb.subscribe(window.OO.EVENTS.WIKIA.AUTOPLAY_TOGGLED, 'featured-video', function (eventName, enabled) {
+				track({
+					action: trackActions.click,
+					category: trackCategory,
+					label: enabled ? 'featured-video-autoplay-enabled' : 'featured-video-autoplay-disabled'
+				});
+			});
 
 			track({
 				action: trackActions.impression,
