@@ -150,7 +150,7 @@ export default Route.extend(
 						redirectTo = buildUrl({
 							host: this.get('wikiVariables.host'),
 							wikiPage: get(transition, 'params.wiki-page.title'),
-							query: Object.assign(
+							query: extend(
 								{},
 								transition.state.queryParams,
 								{useskin: 'oasis'},
