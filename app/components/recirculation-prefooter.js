@@ -37,8 +37,7 @@ export default Component.extend(
 				})
 				.then(data => {
 					if (data) {
-						console.log(data);
-						return data.results;
+						return data;
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
 					}
@@ -89,7 +88,7 @@ export default Component.extend(
 					if (this.get('shouldShowPlista')) {
 
 						let plistaItem = this.fetchPlista();
-
+						console.log(plistaItem[0]);
 						if (plistaItem[0]) {
 							let plistaSponsoredContent = plistaItem.map(item => {
 
