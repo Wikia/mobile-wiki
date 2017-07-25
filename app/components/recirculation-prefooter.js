@@ -30,13 +30,15 @@ export default Component.extend(
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
+
 			return fetch(plistaURL)
 				.then(response => {
 					return response.json();
 				})
 				.then(data => {
 					if (data) {
-						return data;
+						console.log(data);
+						return data.results;
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
 					}
