@@ -81,9 +81,3 @@
 {{#if model.facebookAppId}}
 	<meta property="fb:app_id" content="{{model.facebookAppId}}" prefix="fb: http://www.facebook.com/2008/fbml" />
 {{/if}}
-
-{{#if model.otherLanguages}}
-	{{#each model.otherLanguages as |lang|}}
-		<link rel="alternate" hreflang="{{lang.languageCode}}" href="{{lang.url}}">
-	{{/each}}
-{{/if}}
