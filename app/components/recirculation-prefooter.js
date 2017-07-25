@@ -17,10 +17,6 @@ const {Component, computed, on, run, inject, $} = Ember,
 		}
 	};
 
-function fetchPlista() {
-
-}
-
 export default Component.extend(
 	InViewportMixin,
 	{
@@ -39,7 +35,7 @@ export default Component.extend(
 					return response.json();
 				})
 				.then(data => {
-					if (data[0]) {
+					if (data) {
 						return data;
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
