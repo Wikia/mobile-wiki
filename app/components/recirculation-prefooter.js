@@ -41,7 +41,7 @@ export default Component.extend(
 				})
 				.then(data => {
 					if (data) {
-						this.set('plistaSponsoredContent', data[0]);
+						return data[0];
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
 					}
@@ -54,10 +54,10 @@ export default Component.extend(
 			return {
 				meta: 'wikia-impactfooter',
 				source: 'plista',
-				thumbnail: item.img,
-				title: item.title,
-				url: item.url,
-				presented_by: item.brand
+				thumbnail: item.img || 'img',
+				title: item.title || 'title',
+				url: item.url || 'url',
+				presented_by: item.brand || 'brand'
 			};
 		},
 
@@ -97,11 +97,11 @@ export default Component.extend(
 						);
 					});
 
-					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'PL'));
+					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
 
 					if (this.get('shouldShowPlista')) {
 						this.fetchPlista()
-							.then(this.mapPlista())
+							.then(this.mapPlista)
 							.then((item) => {
 								console.log(item);
 								this.set('items.1', item);
