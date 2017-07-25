@@ -31,7 +31,7 @@
     "last-edit":"上次編輯在一周前",
     "last-edit_plural_0":"這星期編輯過",
     "last-edit_plural_2":"上次編輯在 __count__ 周前",
-    "other-languages":"其他語言",
+
     "redirect-empty-target":"您關注的連結是一個重定向，但是重定向的目標頁面不存在。",
     "replies-label":"查看 __count__ 個回覆",
     "replies-label_plural":"查看 __count__ 個回覆",

@@ -83,21 +83,4 @@
 			{{/each}}
 		{{/collapsible-menu}}
 	{{/if}}
-	{{#if model.otherLanguages}}
-		{{#collapsible-menu
-			observe=model.displayTitle
-			ordered=false
-			showMenuIcon=false
-			tLabel='article.other-languages'
-		}}
-			{{#each model.otherLanguages as |link|}}
-				<li class="mw-content">
-					<a href="{{unbound link.url}}" title="{{unbound link.title}}">
-						{{unbound link.languageName}} | {{unbound link.articleTitle}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
-			{{/each}}
-		{{/collapsible-menu}}
-	{{/if}}
 </section>
