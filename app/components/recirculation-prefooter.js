@@ -86,7 +86,7 @@ export default Component.extend(
 						);
 					});
 
-					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'DE'));
+					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
 
 					if (this.get('shouldShowPlista')) {
 
