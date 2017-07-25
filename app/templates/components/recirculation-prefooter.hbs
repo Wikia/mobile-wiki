@@ -2,7 +2,10 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
+			<li data-source={source} class="recirculation-prefooter__item" {{action 'postClick'
+				post
+				index
+				preventDefault=true}}>
 				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
 				<a href="#" class="recirculation-prefooter__item-anchor">
 					<div class="recirculation-prefooter__item-thumbnail">
