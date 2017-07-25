@@ -86,12 +86,8 @@ export default Component.extend(
 					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
 
 					if (this.get('shouldShowPlista')) {
-
-						let plistaItem = this.fetchPlista();
-						console.log(plistaItem[0]);
-						if (plistaItem[0]) {
-							let plistaSponsoredContent = plistaItem.map(item => {
-
+						this.fetchPlista().then((data) => {
+							let plistaSponsoredContent = data.map(item => {
 								return {
 									meta: 'wikia-impactfooter',
 									source: 'plista',
@@ -101,12 +97,10 @@ export default Component.extend(
 									presented_by: 'item.brand'
 								};
 							});
+						});
 
 							this.set('items.1', plistaSponsoredContent[0]);
 						}
-					}
-
-				});
 
 			track({
 				action: trackActions.impression,
