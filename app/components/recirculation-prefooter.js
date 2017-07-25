@@ -37,10 +37,12 @@ export default Component.extend(
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
 			return fetch(plistaURL)
 				.then(response => {
+					console.log(response.json());
 					return response.json();
 				})
 				.then(data => {
 					if (data) {
+						console.log(data);
 						return data[0];
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
@@ -51,14 +53,16 @@ export default Component.extend(
 				});
 		},
 		mapPlista(item) {
-			return {
-				meta: 'wikia-impactfooter',
-				source: 'plista',
-				thumbnail: item.img || 'img',
-				title: item.title || 'title',
-				url: item.url || 'url',
-				presented_by: item.brand || 'brand'
-			};
+			if (typeof(item) !== 'undefined') {
+				return {
+					meta: 'wikia-impactfooter',
+					source: 'plista',
+					thumbnail: item.img || 'img',
+					title: item.title || 'title',
+					url: item.url || 'url',
+					presented_by: item.brand || 'brand'
+				};
+			}
 		},
 
 		didEnterViewport() {
@@ -97,13 +101,12 @@ export default Component.extend(
 						);
 					});
 
-					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
+					this.set('isInRightCountry', (M.geo.country === 'PL') || (M.geo.country === 'NZ'));
 
 					if (this.get('shouldShowPlista')) {
 						this.fetchPlista()
-							.then(this.mapPlista)
+							.then(this.mapPlista())
 							.then((item) => {
-								console.log(item);
 								this.set('items.1', item);
 							});
 					}
