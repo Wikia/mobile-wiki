@@ -27,6 +27,7 @@ export default Component.extend(
 		hasNoLiftigniterSponsoredItem: true,
 		isInRightCountry: false,
 		shouldShowPlista: computed.and('hasNoLiftigniterSponsoredItem', 'isInRightCountry'),
+		plistaSponsoredContent: {},
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
@@ -87,7 +88,7 @@ export default Component.extend(
 
 					if (this.get('shouldShowPlista')) {
 						this.fetchPlista().then((data) => {
-							let plistaSponsoredContent = data.map(item => {
+							this.set('plistaSponsoredContent', data.map(item => {
 								return {
 									meta: 'wikia-impactfooter',
 									source: 'plista',
@@ -95,9 +96,10 @@ export default Component.extend(
 									title: item.title,
 									url: item.url,
 									presented_by: 'item.brand'
-								};
-							});
+								}
+							}))
 						});
+
 
 							this.set('items.1', plistaSponsoredContent[0]);
 						}
