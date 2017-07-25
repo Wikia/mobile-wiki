@@ -17,6 +17,10 @@ const {Component, computed, on, run, inject, $} = Ember,
 		}
 	};
 
+function fetchPlista() {
+
+}
+
 export default Component.extend(
 	InViewportMixin,
 	{
@@ -27,18 +31,17 @@ export default Component.extend(
 		hasNoLiftigniterSponsoredItem: true,
 		isInRightCountry: false,
 		shouldShowPlista: computed.and('hasNoLiftigniterSponsoredItem', 'isInRightCountry'),
-		plistaSponsoredContent: {},
+		plistaSponsoredContent: [],
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
-
 			return fetch(plistaURL)
 				.then(response => {
 					return response.json();
 				})
 				.then(data => {
 					if (data) {
-						return data;
+						this.set('plistaSponsoredContent', data[0]);
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
 					}
@@ -46,6 +49,16 @@ export default Component.extend(
 				.catch(error => {
 					console.log(error);
 				});
+		},
+		mapPlista(item) {
+			return {
+				meta: 'wikia-impactfooter',
+				source: 'plista',
+				thumbnail: item.img,
+				title: item.title,
+				url: item.url,
+				presented_by: item.brand
+			};
 		},
 
 		didEnterViewport() {
@@ -84,25 +97,17 @@ export default Component.extend(
 						);
 					});
 
-					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
+					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'PL'));
 
 					if (this.get('shouldShowPlista')) {
-						this.fetchPlista().then((data) => {
-							this.set('plistaSponsoredContent', data.map(item => {
-								return {
-									meta: 'wikia-impactfooter',
-									source: 'plista',
-									thumbnail: item.img,
-									title: item.title,
-									url: item.url,
-									presented_by: 'item.brand'
-								}
-							}))
-						});
-
-
-							this.set('items.1', plistaSponsoredContent[0]);
-						}
+						this.fetchPlista()
+							.then(this.mapPlista())
+							.then((item) => {
+								console.log(item);
+								this.set('items.1', item);
+							});
+					}
+				});
 
 			track({
 				action: trackActions.impression,
