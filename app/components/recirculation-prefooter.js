@@ -37,12 +37,10 @@ export default Component.extend(
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
 			return fetch(plistaURL)
 				.then(response => {
-					console.log(response.json());
 					return response.json();
 				})
 				.then(data => {
 					if (data) {
-						console.log(data);
 						return data[0];
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
@@ -105,7 +103,7 @@ export default Component.extend(
 
 					if (this.get('shouldShowPlista')) {
 						this.fetchPlista()
-							.then(this.mapPlista())
+							.then(this.mapPlista)
 							.then((item) => {
 								this.set('items.1', item);
 							});
