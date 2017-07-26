@@ -105,6 +105,7 @@ export default Component.extend(
 						this.fetchPlista()
 							.then(this.mapPlista)
 							.then((item) => {
+								this.notifyPropertyChange('items');
 								this.set('items.1', item);
 							});
 					}
