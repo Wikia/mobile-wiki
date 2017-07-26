@@ -25,7 +25,7 @@ export default Component.extend(
 		liftigniter: inject.service(),
 		i18n: inject.service(),
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
-			return this.get('items').some((item) => item.presented_by);
+			return !this.get('items').some((item) => item.presented_by);
 		}),
 		isInRightCountry: false,
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
