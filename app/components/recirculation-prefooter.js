@@ -29,9 +29,8 @@ export default Component.extend(
 		}),
 		isInRightCountry: false,
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return ['AU', 'NZ'].indexOf(M.geo) > -1 & this.get('hasNoLiftigniterSponsoredItem');
+			return ['AU', 'NZ'].indexOf(M.geo.country) > -1 & this.get('hasNoLiftigniterSponsoredItem');
 		}),
-		plistaSponsoredContent: [],
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
