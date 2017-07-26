@@ -24,39 +24,39 @@ export default Component.extend(
 		isVisible: false,
 		liftigniter: inject.service(),
 		i18n: inject.service(),
-		hasNoLiftigniterSponsoredItem: true,
+		hasNoLiftigniterSponsoredItem: computed('items', function () {
+			this.get('items').some((item) => item.presented_by);
+		}),
 		isInRightCountry: false,
-		shouldShowPlista: computed.and('hasNoLiftigniterSponsoredItem', 'isInRightCountry'),
+		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
+			return ['AU', 'NZ'].indexOf(M.geo) > -1 & this.get('hasNoLiftigniterSponsoredItem');
+		}),
 		plistaSponsoredContent: [],
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
 							'&count=1&adcount=1&image[width]=583&image[height]=328';
 			return fetch(plistaURL)
-				.then(response => {
-					return response.json();
-				})
-				.then(data => {
+				.then((response) => response.json())
+				.then((data) => {
 					if (data.length) {
 						return data[0];
 					} else {
 						throw new Error('We haven\'t got PLISTA!');
 					}
 				})
-				.catch(error => {
-					console.log(error);
+				.catch((error) => {
+					// If Plista did not return anything, just don't add it to to items
 				});
 		},
 		mapPlista(item) {
-			if (typeof(item) !== 'undefined') {
-				return {
-					meta: 'wikia-impactfooter',
-					thumbnail: item.img,
-					title: item.title,
-					url: item.url,
-					presented_by: item.brand,
-					plista: true
-				};
-			}
+			return {
+				meta: 'wikia-impactfooter',
+				thumbnail: item.img,
+				title: item.title,
+				url: item.url,
+				presented_by: item.brand,
+				isPlista: true
+			};
 		},
 
 		didEnterViewport() {
@@ -73,11 +73,6 @@ export default Component.extend(
 							})
 							.slice(0, recircItemsCount)
 							.map((item) => {
-
-								if (item.presented_by) {
-									this.set('hasNoLiftigniterSponsoredItem', false);
-								}
-
 								item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
 									mode: Thumbnailer.mode.scaleToWidth,
 									width: normalizeThumbWidth(window.innerWidth)
@@ -94,8 +89,6 @@ export default Component.extend(
 							'LI'
 						);
 					});
-
-					this.set('isInRightCountry', (M.geo.country === 'AU') || (M.geo.country === 'NZ'));
 
 					if (this.get('shouldShowPlista')) {
 						this.fetchPlista()
@@ -127,6 +120,7 @@ export default Component.extend(
 
 		actions: {
 			postClick(post, index) {
+
 				const labelParts = ['footer', `slot-${index + 1}`, post.source, post.isVideo ? 'video' : 'not-video'];
 
 				track({
