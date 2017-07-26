@@ -16,7 +16,8 @@
 						{{/if}}
 					</div>
 					{{#if post.plista}}
-						<a class="recirculation-prefooter__badge
+						<a {{action 'adChoiceBadgeClick' bubbles=false}}
+								class="recirculation-prefooter__badge
 							recirculation-prefooter__badge-plista" href="https://www.plista.com/optout/index">
 						</a>
 					{{/if}}
