@@ -29,7 +29,7 @@ export default Component.extend(
 		}),
 		isInRightCountry: false,
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return ['AU', 'NZ'].indexOf(M.geo.country) > -1 & this.get('hasNoLiftigniterSponsoredItem');
+			return ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
