@@ -2,7 +2,7 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li data-source={source} class="recirculation-prefooter__item" {{action 'postClick'
+			<li class="recirculation-prefooter__item" {{action 'postClick'
 				post
 				index
 				preventDefault=true}}>
@@ -15,6 +15,10 @@
 								 class="recirculation-prefooter__item-is-video">
 						{{/if}}
 					</div>
+					{{#if post.plista}}
+						<span class="recirculation-prefooter__badge
+						recirculation-prefooter__badge-plista"></span>
+					{{/if}}
 					{{#if post.presented_by}}
 						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored">Sponsored</span>
 					{{/if}}

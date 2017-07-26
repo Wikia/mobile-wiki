@@ -50,11 +50,11 @@ export default Component.extend(
 			if (typeof(item) !== 'undefined') {
 				return {
 					meta: 'wikia-impactfooter',
-					source: 'plista',
-					thumbnail: item.img || 'img',
-					title: item.title || 'title',
-					url: item.url || 'url',
-					presented_by: item.brand || 'brand'
+					thumbnail: item.img,
+					title: item.title,
+					url: item.url,
+					presented_by: item.brand,
+					plista: true
 				};
 			}
 		},
