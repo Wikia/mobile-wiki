@@ -99,7 +99,7 @@ export default Component.extend(
 								}
 							})
 							.catch((error) => {
-								this.get('logger').error('Plista fetch failed', error);
+								this.get('logger').info('Plista fetch failed', error);
 							});
 					}
 				});
