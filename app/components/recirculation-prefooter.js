@@ -53,7 +53,7 @@ export default Component.extend(
 				thumbnail: item.img,
 				title: item.title,
 				url: item.url,
-				presented_by: item.brand,
+				presented_by: 'Plista',
 				isPlista: true
 			};
 		},
