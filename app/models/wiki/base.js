@@ -35,7 +35,6 @@ export default EmberObject.extend({
 	mediaUsers: [],
 	ns: null,
 	redirectEmptyTarget: false,
-	otherLanguages: [],
 	title: null,
 	url: null,
 	user: null,
@@ -82,10 +81,6 @@ export default EmberObject.extend({
 						media: article.media
 					});
 				}
-			}
-
-			if (data.otherLanguages) {
-				pageProperties.otherLanguages = data.otherLanguages;
 			}
 
 			if (data.adsContext) {
