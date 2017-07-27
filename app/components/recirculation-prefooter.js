@@ -24,38 +24,37 @@ export default Component.extend(
 		isVisible: false,
 		liftigniter: inject.service(),
 		i18n: inject.service(),
+		logger: inject.service(),
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.get('items').some((item) => item.presented_by);
 		}),
-		isInRightCountry: false,
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
 			return ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
 		fetchPlista() {
 			const plistaURL = 'http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api' +
-							'&count=1&adcount=1&image[width]=583&image[height]=328';
+							'&count=1&adcount=1&image[width]=320&image[height]=180';
 			return fetch(plistaURL)
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.length) {
 						return data[0];
 					} else {
-						throw new Error('We haven\'t got PLISTA!');
+						throw new Error('We haven\'t got Plista!');
 					}
-				})
-				.catch((error) => {
-					// If Plista did not return anything, just don't add it to to items
 				});
 		},
 		mapPlista(item) {
-			return {
-				meta: 'wikia-impactfooter',
-				thumbnail: item.img,
-				title: item.title,
-				url: item.url,
-				presented_by: 'Plista',
-				isPlista: true
-			};
+			if (item) {
+				return {
+					meta: 'wikia-impactfooter',
+					thumbnail: item.img,
+					title: item.title,
+					url: item.url,
+					presented_by: 'Plista',
+					isPlista: true
+				};
+			}
 		},
 
 		didEnterViewport() {
@@ -94,9 +93,13 @@ export default Component.extend(
 							.then(this.mapPlista)
 							.then((item) => {
 								if (item.thumbnail) {
+									this.get('items').splice(1, 0, item);
+									this.get('items').pop();
 									this.notifyPropertyChange('items');
-									this.set('items.1', item);
 								}
+							})
+							.catch((error) => {
+								this.get('logger').error('Plista fetch failed', error);
 							});
 					}
 				});

@@ -2,10 +2,7 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li class="recirculation-prefooter__item" {{action 'postClick'
-				post
-				index
-				preventDefault=true}}>
+			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
 				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
 				<a href="#" class="recirculation-prefooter__item-anchor">
 					<div class="recirculation-prefooter__item-thumbnail">
@@ -19,6 +16,7 @@
 						<a {{action 'adChoiceBadgeClick' bubbles=false}}
 								class="recirculation-prefooter__badge
 							recirculation-prefooter__badge-plista" href="https://www.plista.com/opt-out">
+							<img src="https://services.wikia.com/static-assets/image/c7c31771-d3e2-4aee-8d0d-6d4c4629bcff">
 						</a>
 					{{/if}}
 					{{#if post.presented_by}}
