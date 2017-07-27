@@ -95,9 +95,12 @@ export default Component.extend(
 							.then(this.mapPlista)
 							.then((item) => {
 								if (item.thumbnail) {
-									this.get('items').splice(1, 0, item);
-									this.get('items').pop();
-									this.notifyPropertyChange('items');
+									let newItems = this.get('items');
+
+									newItems.splice(1, 0, item);
+									newItems.pop();
+									this.set('items', newItems);
+									// this.notifyPropertyChange('items');
 								}
 							})
 							.catch((error) => {
