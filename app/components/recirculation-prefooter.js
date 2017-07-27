@@ -100,7 +100,7 @@ export default Component.extend(
 									newItems.splice(1, 0, item);
 									newItems.pop();
 									this.set('items', newItems);
-									// this.notifyPropertyChange('items');
+									this.notifyPropertyChange('items');
 								}
 							})
 							.catch((error) => {
