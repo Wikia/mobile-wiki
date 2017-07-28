@@ -31,7 +31,7 @@
     "last-edit":"最後の編集：1週間前",
     "last-edit_plural_0":"最後の編集：今週",
     "last-edit_plural_2":"最後の編集：__count__週間前",
-
+    "other-languages":"他言語版",
     "redirect-empty-target":"転送先が存在しない転送リンクをクリックされました。",
     "replies-label":"__count__件の返信を閲覧",
     "replies-label_plural":"__count__件の返信を閲覧",

@@ -15,7 +15,7 @@
     "pages-label":"Pages",
     "photos-label":"Photos",
     "trending-articles-label":"Trending Articles",
-    "username-anonymous":"A Fandom User",
+    "username-anonymous":"A FANDOM User",
     "videos-label":"Videos",
     "view-more":"Katso lisää",
     "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
@@ -31,7 +31,7 @@
     "last-edit":"Muokattu viimeksi viikko sitten",
     "last-edit_plural_0":"Muokattu viimeksi tällä viikolla",
     "last-edit_plural_2":"Viimeksi muokattu __count__ viikkoa sitten",
-
+    "other-languages":"Muilla kielillä",
     "redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
     "replies-label":"Näytä vastaus",
     "replies-label_plural":"Näytä vastaukset (__count__)",
