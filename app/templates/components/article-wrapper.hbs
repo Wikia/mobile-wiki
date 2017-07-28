@@ -13,12 +13,13 @@
 {{/if}}
 
 {{#if hasFeaturedVideo}}
-	{{article-featured-video
+	{{!article-featured-video
 			model=model.featuredVideo
 			toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
 			withinPortableInfobox=model.hasPortableInfobox
 	}}
 {{/if}}
+{{jw-player-test}}
 
 <section class="article-body">
 	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
