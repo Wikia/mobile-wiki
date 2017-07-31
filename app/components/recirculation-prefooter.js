@@ -54,7 +54,8 @@ export default Component.extend(
 					title: item.title,
 					url: item.url,
 					presented_by: 'Plista',
-					isPlista: true
+					isPlista: true,
+					plistaURL: 'https://www.plista.com/au'
 				};
 			}
 		},
@@ -140,6 +141,9 @@ export default Component.extend(
 					window.location.assign(post.url);
 				}, 200);
 			}
+		},
+		adChoiceBadgeClick(post) {
+			window.location.assign(post.plistaURL);
 		}
 	}
 );
