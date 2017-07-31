@@ -31,7 +31,6 @@
     "last-edit":"Dernière modification il y a une semaine",
     "last-edit_plural_0":"Dernière modification cette semaine",
     "last-edit_plural_2":"Dernière modification il y a __count__ semaines",
-    "other-languages":"Autres langues",
     "redirect-empty-target":"Le lien suivi correspond à une redirection, mais la page vers laquelle il renvoie n'existe pas.",
     "replies-label":"Afficher __count__ réponse",
     "replies-label_plural":"Afficher __count__ réponses",
