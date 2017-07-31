@@ -13,7 +13,7 @@
 						{{/if}}
 					</div>
 					{{#if post.isPlista}}
-						<a {{action 'adChoiceBadgeClick' bubbles=false}}
+						<a {{action 'adChoiceBadgeClick' post preventDefault=true}}
 								class="recirculation-prefooter__badge
 							recirculation-prefooter__badge-plista" href="#">
 							<img src="http://static.plista.com/images/powered_by_plista_logo.png">
