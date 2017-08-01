@@ -139,9 +139,6 @@ export default Component.extend(
 				run.later(() => {
 					window.location.assign(post.url);
 				}, 200);
-			},
-			plistaLogoClick() {
-
 			}
 		}
 	}
