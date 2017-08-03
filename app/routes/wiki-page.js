@@ -219,7 +219,7 @@ export default Route.extend(
 			}
 
 			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
-			uaDimensions[29] = !!model.get('featuredVideo') ? 'Yes' : 'No';
+			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
 
 			setTrackContext({
 				a: model.get('id'),
