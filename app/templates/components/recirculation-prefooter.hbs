@@ -2,9 +2,9 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li class="recirculation-prefooter__item" {{action 'postClick' post index preventDefault=true}}>
+			<li class="recirculation-prefooter__item" >
 				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
-				<a href="#" class="recirculation-prefooter__item-anchor">
+				<a href="#" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
 					<div class="recirculation-prefooter__item-thumbnail">
 						<img src="{{post.thumbnail}}" alt="{{post.title}}">
 						{{#if post.isVideo}}
@@ -17,6 +17,12 @@
 					{{/if}}
 					<p class="recirculation-prefooter__title">{{post.title}}</p>
 				</a>
+				{{#if post.isPlista}}
+					<a class="recirculation-prefooter__badge
+							recirculation-prefooter__badge-plista" href="https://www.plista.com/au">
+						<img src="http://static.plista.com/images/powered_by_plista_logo.png">
+					</a>
+				{{/if}}
 			</li>
 		{{/each}}
 	</ul>
