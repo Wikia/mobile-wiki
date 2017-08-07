@@ -16,6 +16,18 @@ function getServicesDomain(wikiaEnv, datacenter) {
 	}
 }
 
+function getHeliosInfoURL(wikiaEnv, datacenter) {
+	if (wikiaEnv === 'dev') {
+		const devEnvironment = (datacenter === 'poz') ? 'poz-dev' : 'sjc-dev';
+
+		return `http://dev.${devEnvironment}.k8s.wikia.net/helios/info`;
+	} else if (wikiaEnv === 'staging') {
+		return 'http://staging.helios.service.sjc.consul:9500/info';
+	}
+
+	return 'http://prod.sjc.k8s.wikia.net/helios/info';
+}
+
 function getCookieDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
@@ -32,7 +44,8 @@ export function initialize(applicationInstance) {
 	let fastboot = applicationInstance.lookup('service:fastboot'),
 		shoebox = fastboot.get('shoebox'),
 		runtimeConfig,
-		runtimeServicesConfig;
+		runtimeServicesConfig,
+		runtimeHeliosConfig;
 
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env,
@@ -53,6 +66,10 @@ export function initialize(applicationInstance) {
 			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
 		};
 
+		runtimeHeliosConfig = {
+			internalUrl: getHeliosInfoURL(wikiaEnv, env.WIKIA_DATACENTER)
+		};
+
 		if (!isBlank(buckySampling)) {
 			const buckySamplingInt = parseInt(buckySampling, 10);
 
@@ -70,12 +87,15 @@ export function initialize(applicationInstance) {
 
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
+		shoebox.put('runtimeHeliosConfig', runtimeHeliosConfig);
 	} else {
 		runtimeConfig = shoebox.retrieve('runtimeConfig');
 		runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');
+		runtimeHeliosConfig = shoebox.retrieve('runtimeHeliosConfig');
 	}
 
 	extend(config.services, runtimeServicesConfig);
+	extend(config.helios, runtimeHeliosConfig);
 	extend(config, runtimeConfig);
 }
 
