@@ -39,7 +39,6 @@ export default Component.extend(InViewportMixin,
 				this.get('supportsAutoplay') &&
 				$.cookie(autoplayCookieName) !== '0';
 		}),
-		autoplayToggleVisible: computed.oneWay('supportsAutoplay'),
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
 		isPlaying: computed.oneWay('autoplay'),
@@ -145,7 +144,7 @@ export default Component.extend(InViewportMixin,
 						inline: {
 							controlBar: {
 								autoplayCookieName,
-								autoplayToggle: this.get('autoplayToggleVisible')
+								autoplayToggle: this.get('supportsAutoplay')
 							}
 						}
 					}
