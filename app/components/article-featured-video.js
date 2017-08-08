@@ -1,5 +1,4 @@
 import Ads from '../modules/ads';
-import {inGroup} from '../modules/abtest';
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
@@ -38,11 +37,7 @@ export default Component.extend(InViewportMixin,
 			return !this.get('fastboot.isFastBoot') &&
 				!this.get('withinPortableInfobox') &&
 				this.get('supportsAutoplay') &&
-				$.cookie(autoplayCookieName) !== '0' &&
-				inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
-		}),
-		autoplayToggleVisible: computed('supportsAutoplay', function () {
-			return this.get('supportsAutoplay') && inGroup('MOBILE_FEATURED_VIDEO_AUTOPLAY', 'AUTOPLAY');
+				$.cookie(autoplayCookieName) !== '0';
 		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
 		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
@@ -149,7 +144,7 @@ export default Component.extend(InViewportMixin,
 						inline: {
 							controlBar: {
 								autoplayCookieName,
-								autoplayToggle: this.get('autoplayToggleVisible')
+								autoplayToggle: this.get('supportsAutoplay')
 							}
 						}
 					}
