@@ -8,10 +8,9 @@ import {track, trackActions} from '../utils/track';
 
 const {$, Component, inject, computed, on, observer, setProperties} = Ember,
 	autoplayCookieName = 'featuredVideoAutoplay',
-	prerollSlotName = 'FEATURED_VIDEO',
 	playerTrackerParams = {
 		adProduct: 'featured-video-preroll',
-		slotName: prerollSlotName
+		slotName: 'FEATURED_VIDEO'
 	};
 
 export default Component.extend(InViewportMixin,
