@@ -53,7 +53,7 @@ export default class OoyalaV4Player extends BasePlayer {
 			Ads.getInstance().onReady(() => {
 				if (!this.params.noAds) {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
-						pos: 'FEATURED_VIDEO',
+						pos: Ads.getInstance().adsContext.opts.megaAdUnitBuilderEnabled ? 'FEATURED' : 'FEATURED_VIDEO',
 						src: 'premium'
 					});
 
