@@ -10,7 +10,7 @@ const {$, Component, inject, computed, on, observer, setProperties} = Ember,
 	autoplayCookieName = 'featuredVideoAutoplay',
 	playerTrackerParams = {
 		adProduct: 'featured-video-preroll',
-		slotName: 'FEATURED_VIDEO'
+		slotName: 'FEATURED'
 	};
 
 export default Component.extend(InViewportMixin,
