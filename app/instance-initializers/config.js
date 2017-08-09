@@ -25,7 +25,7 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 		return 'http://staging.helios.service.sjc.consul:9500/info';
 	}
 
-	return 'http://prod.sjc.k8s.wikia.net/helios/info';
+	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
 }
 
 function getCookieDomain(wikiaEnv, datacenter) {
