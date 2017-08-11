@@ -89,6 +89,8 @@ export default Component.extend(
 
 		hasFeaturedVideo: computed.bool('model.featuredVideo'),
 
+		showComments: computed.gte('model.comments', 0),
+
 		actions: {
 			/**
 			 * @param {string} title

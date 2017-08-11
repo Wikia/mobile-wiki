@@ -62,6 +62,10 @@ export default Component.extend(
 		didEnterViewport() {
 			const liftigniter = this.get('liftigniter');
 
+			if (M.getFromShoebox('runtimeConfig.noExternals')) {
+				return;
+			}
+
 			liftigniter
 				.getData(config)
 				.then((data) => {
