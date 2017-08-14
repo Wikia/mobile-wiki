@@ -29,12 +29,6 @@ import config from '../config/environment';
  */
 
 /**
- * @typedef {Object} AdLogicPageViewCounterModule
- * @property {Function} get
- * @property {Function} increment
- */
-
-/**
  * @typedef {Object} AdMercuryListenerModule
  * @property {Function} startOnLoadQueue
  */
@@ -82,7 +76,6 @@ class Ads {
 				dimension: 7
 			}
 		};
-		this.adLogicPageViewCounterModule = null;
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.mercuryPV = 1;
@@ -125,7 +118,6 @@ class Ads {
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
 					'ext.wikia.adEngine.adLogicPageParams',
-					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.context.slotsContext',
 					'ext.wikia.adEngine.mobile.mercuryListener',
@@ -139,7 +131,6 @@ class Ads {
 					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
-					adLogicPageViewCounterModule,
 					adConfigMobile,
 					slotsContext,
 					adMercuryListener,
@@ -154,7 +145,6 @@ class Ads {
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
 					this.adEngineRunnerModule = adEngineRunnerModule;
-					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
 					this.ooyalaTracker = ooyalaTracker;
@@ -437,7 +427,6 @@ class Ads {
 			this.setupSlotsContext();
 			if (this.adMercuryListenerModule) {
 				this.adMercuryListenerModule.onPageChange(() => {
-					this.adLogicPageViewCounterModule.increment();
 					this.googleTagModule.updateCorrelator();
 					this.mercuryPV += 1;
 					this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
@@ -488,7 +477,6 @@ class Ads {
 			this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
-			this.adLogicPageViewCounterModule.increment();
 		});
 	}
 
