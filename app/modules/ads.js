@@ -78,7 +78,6 @@ class Ads {
 		};
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
-		this.mercuryPV = 1;
 		this.onReadyCallbacks = [];
 		this.adsData = {
 			minZerothSectionLength: 700,
@@ -428,8 +427,6 @@ class Ads {
 			if (this.adMercuryListenerModule) {
 				this.adMercuryListenerModule.onPageChange(() => {
 					this.googleTagModule.updateCorrelator();
-					this.mercuryPV += 1;
-					this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 				});
 			}
 			if (adsContext) {
@@ -474,7 +471,6 @@ class Ads {
 	 */
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext, () => {
-			this.adLogicPageParams.add('mercuryPV', this.mercuryPV.toString());
 			this.adMercuryListenerModule.startOnLoadQueue();
 			this.trackKruxPageView();
 		});
