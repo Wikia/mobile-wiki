@@ -411,7 +411,7 @@ $group-header-font-size: 16px;
 			position: relative;
 
 			// that needs to be done to keep height before image is loaded
-			&:before {
+			&::before {
 				padding-top: 56.25%;
 				content: '';
 				display: block;

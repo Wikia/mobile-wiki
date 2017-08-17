@@ -8,7 +8,7 @@ export default Ember.Component.extend(
 		cropMode: Thumbnailer.mode.zoomCrop,
 
 		computedHeight: Ember.computed('width', function () {
-			return Math.round(this.get('width') * (1 / this.get('imageAspectRatio')));
+			return Math.round(this.get('width') / this.get('imageAspectRatio'));
 		}),
 
 		thumbnailUrl: Ember.computed(function () {
