@@ -1,9 +1,7 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
-	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,
 
