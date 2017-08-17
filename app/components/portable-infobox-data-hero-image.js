@@ -11,6 +11,19 @@ export default Ember.Component.extend(
 
 		computedHeight: Ember.computed('width', function () {
 			return Math.round(this.get('width') * (1 / this.get('imageAspectRatio')));
-		})
+		}),
+
+		thumbnailUrl: Ember.computed(function () {
+			return Thumbnailer.getThumbURL(this.get('url'), {
+				mode: this.get('cropMode'),
+				width: this.get('width'),
+				height: this.get('computedHeight')
+			});
+		}),
+
+		click() {
+			this.get('openLightbox')(this.get('ref'));
+			return false;
+		},
 	}
 );
