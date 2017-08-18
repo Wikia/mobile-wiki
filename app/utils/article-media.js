@@ -42,7 +42,8 @@ export function getAttributesForMedia({name, attrs, element}) {
 		mediaArray = get(mediaModel, 'media');
 
 	if (attrs.ref >= 0 && mediaArray && mediaArray[attrs.ref]) {
-		if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
+		if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image' ||
+			name === 'portable-infobox-hero-image-small') {
 			attrs = $.extend(attrs, mediaArray[attrs.ref], {
 				openLightbox: (mediaRef) => {
 					this.openLightbox('media', {
@@ -65,7 +66,7 @@ export function getAttributesForMedia({name, attrs, element}) {
 			});
 		}
 
-		if (name === 'portable-infobox-hero-image') {
+		if (name === 'portable-infobox-hero-image' || name === 'portable-infobox-hero-image-small') {
 			attrs = fixPortableInfoboxAttrs(attrs);
 		}
 	} else if (name === 'article-media-map-thumbnail') {
