@@ -406,21 +406,5 @@ $group-header-font-size: 16px;
 				max-height: 100vw;
 			}
 		}
-
-		.pi-data-hero-image {
-			position: relative;
-
-			// that needs to be done to keep height before image is loaded
-			&::before {
-				padding-top: 56.25%;
-				content: '';
-				display: block;
-			}
-
-			> a {
-				position: absolute;
-				top: 0;
-			}
-		}
 	}
 }
