@@ -19,7 +19,6 @@ export default Ember.Mixin.create({
 				});
 
 				image.addEventListener('error', () => {
-					debugger;
 					reject();
 				});
 			}
