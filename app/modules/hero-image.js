@@ -33,7 +33,7 @@ export default class HeroImage {
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
 			height: computedHeight,
-			width: width
+			width
 		});
 	}
 

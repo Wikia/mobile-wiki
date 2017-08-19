@@ -8,7 +8,7 @@ export default Ember.Component.extend(
 	ImageLoader,
 	{
 		isLoading: true,
-		
+
 		maxWidth: Ember.computed('viewportDimensions.width', function () {
 			return Math.round(this.get('viewportDimensions.width') * 0.7);
 		}),

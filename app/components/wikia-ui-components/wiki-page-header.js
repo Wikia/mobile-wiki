@@ -62,7 +62,7 @@ export default Component.extend(
 
 			const heroImageHelper = new HeroImage(heroImage, windowWidth);
 
-			return new htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`);
+			return new htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
 		}),
 
 		actions: {
