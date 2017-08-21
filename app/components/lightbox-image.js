@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
+import ImageLoader from '../mixins/image-loader';
 
 export default Ember.Component.extend(
 	ViewportMixin,
+	ImageLoader,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
 		maxZoom: 5,
@@ -249,7 +251,11 @@ export default Ember.Component.extend(
 			const url = this.get('model.url');
 
 			if (url) {
-				this.load(url);
+				this.load(url).then((imageSrc) => {
+					this.update(imageSrc);
+				}).catch(() => {
+					this.update('', true);
+				});
 			}
 
 			this.resetZoom();
@@ -315,31 +321,6 @@ export default Ember.Component.extend(
 				lastX: 0,
 				lastY: 0,
 			});
-		},
-
-		/**
-		 * load an image and run update function when it is loaded
-		 *
-		 * @param {string} url url of current image
-		 * @returns {void}
-		 */
-		load(url) {
-			const image = new Image();
-
-			this.set('isLoading', true);
-			image.src = url;
-
-			if (image.complete) {
-				this.update(image.src);
-			} else {
-				image.addEventListener('load', () => {
-					this.update(image.src);
-				});
-
-				image.addEventListener('error', () => {
-					this.update('', true);
-				});
-			}
 		},
 
 		/**

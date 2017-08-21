@@ -285,7 +285,9 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: $(element).outerHeight(),
-							pageTitle: this.get('displayTitle')
+							pageTitle: this.get('displayTitle'),
+							smallHeroImage: this.get('featuredVideo') && this.get('heroImage'),
+							openLightbox: this.get('openLightbox')
 						},
 						element
 					})
