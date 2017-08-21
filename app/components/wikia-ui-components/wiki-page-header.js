@@ -22,10 +22,10 @@
  */
 
 import Ember from 'ember';
-import Thumbnailer from '../../modules/thumbnailer';
 import ViewportMixin from '../../mixins/viewport';
 import {thumbSize} from '../../utils/thumbnail';
 import {track, trackActions} from '../../utils/track';
+import HeroImage from '../../modules/hero-image';
 
 const {
 	Component,
@@ -40,7 +40,6 @@ export default Component.extend(
 	{
 		fastboot: inject.service(),
 		wikiVariables: inject.service(),
-		imageAspectRatio: 16 / 9,
 		classNames: ['wiki-page-header'],
 		classNameBindings: ['heroImage:has-hero-image', 'fastboot.isFastBoot:is-fastboot'],
 		attributeBindings: ['style'],
@@ -50,15 +49,7 @@ export default Component.extend(
 
 		style: computed('heroImage', 'viewportDimensions.width', function () {
 			const heroImage = this.get('heroImage'),
-				windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio');
-
-			let computedHeight,
-				cropMode,
-				imageHeight,
-				imageWidth,
-				maxWidth,
-				thumbUrl;
+				windowWidth = this.get('viewportDimensions.width');
 
 			if (isEmpty(heroImage)) {
 				return '';
@@ -69,37 +60,9 @@ export default Component.extend(
 				return new htmlSafe(`height: ${thumbSize.medium}px`);
 			}
 
-			imageWidth = heroImage.width || windowWidth;
-			imageHeight = heroImage.height;
-			maxWidth = Math.floor(imageHeight * imageAspectRatio);
-			computedHeight = imageHeight;
-			cropMode = Thumbnailer.mode.thumbnailDown;
+			const heroImageHelper = new HeroImage(heroImage, windowWidth);
 
-			// wide image - crop images wider than 16:9 aspect ratio to 16:9
-			if (imageWidth > maxWidth) {
-				cropMode = Thumbnailer.mode.zoomCrop;
-				computedHeight = Math.floor(windowWidth / imageAspectRatio);
-			}
-
-			// image needs resizing
-			if (windowWidth < imageWidth) {
-				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
-			}
-
-			// tall image - use top-crop-down for images taller than square
-			if (windowWidth < computedHeight) {
-				cropMode = Thumbnailer.mode.topCropDown;
-				computedHeight = windowWidth;
-			}
-
-			// generate thumbnail
-			thumbUrl = Thumbnailer.getThumbURL(heroImage.url, {
-				mode: cropMode,
-				height: computedHeight,
-				width: windowWidth
-			});
-
-			return new htmlSafe(`background-image: url(${thumbUrl}); height: ${computedHeight}px`);
+			return new htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
 		}),
 
 		actions: {

@@ -13,5 +13,9 @@ export default Ember.Mixin.create({
 		}
 
 		return null;
-	})
+	}),
+
+	heroImageInHeader: Ember.computed('heroImage', 'model.featuredVideo', function () {
+		return !this.get('model.featuredVideo') ? this.get('heroImage') : null;
+	}),
 });
