@@ -171,16 +171,17 @@ class Ads {
 	 *
 	 * @param {number} aspectRatio
 	 * @param {Object} slotParams
+	 * @param {Object} options
 	 *
 	 * @returns {string}
 	 */
-	buildVastUrl(aspectRatio, slotParams) {
+	buildVastUrl(aspectRatio, slotParams, options) {
 		if (!this.vastUrlBuilder) {
 			console.warn('Can not build VAST url.');
 			return '';
 		}
 
-		return this.vastUrlBuilder.build(aspectRatio, slotParams);
+		return this.vastUrlBuilder.build(aspectRatio, slotParams, options);
 	}
 
 	/**
