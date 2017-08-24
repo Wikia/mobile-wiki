@@ -20,8 +20,7 @@ export default Component.extend(InViewportMixin,
 			'hasStartedPlaying',
 			'isPlayerLoading::is-player-ready',
 			'isPlaying',
-			'isVideoDrawerVisible:is-fixed',
-			'withinPortableInfobox:within-portable-infobox:without-portable-infobox'
+			'isVideoDrawerVisible:is-fixed'
 		],
 
 		ads: inject.service(),
@@ -32,14 +31,13 @@ export default Component.extend(InViewportMixin,
 		supportsAutoplay: computed(() => {
 			return system !== 'ios' || isSafariMinVer(10);
 		}),
-		autoplay: computed('withinPortableInfobox', function () {
+		autoplay: computed(function () {
 			return !this.get('fastboot.isFastBoot') &&
-				!this.get('withinPortableInfobox') &&
 				this.get('supportsAutoplay') &&
 				$.cookie(autoplayCookieName) !== '0';
 		}),
 		hasStartedPlaying: computed.oneWay('autoplay'),
-		hasTinyPlayIcon: computed.or('withinPortableInfobox', 'isVideoDrawerVisible'),
+		hasTinyPlayIcon: computed.oneWay('isVideoDrawerVisible'),
 		isPlaying: computed.oneWay('autoplay'),
 		playerLoadingObserver: observer('isPlayerLoading', function () {
 			if (this.get('viewportExited')) {
@@ -61,7 +59,7 @@ export default Component.extend(InViewportMixin,
 				viewportSpy: true,
 				viewportRefreshRate: 200,
 				viewportTolerance: {
-					top: this.get('withinPortableInfobox') ? 100 : $(window).width() * 0.56,
+					top: $(window).width() * 0.56,
 					bottom: 9999,
 				}
 			});
@@ -106,19 +104,6 @@ export default Component.extend(InViewportMixin,
 
 			player.mb.subscribe(window.OO.EVENTS.PLAYBACK_READY, 'featured-video', () => {
 				this.set('isPlayerLoading', false);
-			});
-
-			// when playing video on article with infobox, closing fullscreen also has to pause video
-			// as it will be not visible
-			player.mb.subscribe(window.OO.EVENTS.FULLSCREEN_CHANGED, 'ui-display-update', (name, isFullScreen, paused) => {
-				if (this.get('withinPortableInfobox')) {
-					this.set('isPlaying', isFullScreen);
-
-					if (!isFullScreen) {
-						player.pause();
-					}
-				}
-
 			});
 
 			this.setupTracking(player);
@@ -318,8 +303,6 @@ export default Component.extend(InViewportMixin,
 				if (this.player) {
 					if (this.get('isVideoDrawerVisible')) {
 						this.playInFullScreen('on-scroll-bar');
-					} else 	if (this.get('withinPortableInfobox')) {
-						this.playInFullScreen('in-portable-infobox-video');
 					} else {
 						this.play('inline-video');
 					}
