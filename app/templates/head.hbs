@@ -26,6 +26,10 @@
 	<link rel="apple-touch-icon" href="{{model.appleTouchIcon.url}}" sizes="{{model.appleTouchIcon.size}}" />
 {{/if}}
 
+{{#if model.amphtml}}
+	<link rel="amphtml" href="{{model.amphtml}}" />
+{{/if}}
+
 {{! Tags updated on each transition (dynamic head tags) }}
 {{#if model.htmlTitle}}
 	<title>{{model.htmlTitle}}</title>
