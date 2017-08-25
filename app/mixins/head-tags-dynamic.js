@@ -40,7 +40,8 @@ export default Ember.Mixin.create({
 				keywords: `${this.get('wikiVariables.siteMessage')}` +
 				`,${this.get('wikiVariables.siteName')}` +
 				`,${this.get('wikiVariables.dbName')}`,
-				appleItunesApp: ''
+				appleItunesApp: '',
+				amphtml: data.amphtml
 			};
 
 		if (data.htmlTitle) {
