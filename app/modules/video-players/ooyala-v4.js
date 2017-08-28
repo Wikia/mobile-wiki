@@ -117,13 +117,6 @@ export default class OoyalaV4Player extends BasePlayer {
 			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
 		}
 
-		IMAAdsManager.addEventListener('loaded', (eventData) => {
-			if (eventData.getAdData().vpaid === true) {
-				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
-				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
-			}
-		}, false, this);
-
 		// that's a hack for autoplay on mobile for VPAID ads
 		// VPAID ads still don't work perfectly
 		let initiallyResumed = false;
