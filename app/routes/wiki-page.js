@@ -183,7 +183,8 @@ export default Route.extend(
 					htmlTitle: model.get('htmlTitle'),
 					description: model.get('description'),
 					robots: 'index,follow',
-					canonical: pageFullUrl
+					canonical: pageFullUrl,
+					amphtml: model.get('amphtml')
 				};
 
 			if (pageUrl) {
