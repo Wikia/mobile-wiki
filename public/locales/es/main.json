@@ -31,6 +31,7 @@
     "last-edit": "Editado por última vez hace una semana", 
     "last-edit_plural_0": "Editado por última vez esta semana", 
     "last-edit_plural_2": "Editado por última vez hace __count__ semanas", 
+    "portable-infobox-image": "Imagen", 
     "redirect-empty-target": "El enlace que has seguido es una redirección, pero la página a la que redirige no existe.", 
     "replies-label": "Ver __count__ respuesta", 
     "replies-label_plural": "Ver __count__ respuestas", 

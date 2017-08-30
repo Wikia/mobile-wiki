@@ -55,6 +55,9 @@ export default class OoyalaV4Player extends BasePlayer {
 					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
 						pos: 'FEATURED',
 						src: 'premium'
+					}, {
+						contentSourceId: this.params.dfpContentSourceId,
+						videoId: this.params.videoId
 					});
 
 					this.params['google-ima-ads-manager'] = {
@@ -113,13 +116,6 @@ export default class OoyalaV4Player extends BasePlayer {
 		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
 			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
 		}
-
-		IMAAdsManager.addEventListener('loaded', (eventData) => {
-			if (eventData.getAdData().vpaid === true) {
-				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_TIME_LEFT, false);
-				window.pp.mb.publish(window.OO.EVENTS.WIKIA.SHOW_AD_FULLSCREEN_TOGGLE, false);
-			}
-		}, false, this);
 
 		// that's a hack for autoplay on mobile for VPAID ads
 		// VPAID ads still don't work perfectly

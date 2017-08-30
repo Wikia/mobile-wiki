@@ -31,6 +31,7 @@
     "last-edit": "上次编辑为1周前", 
     "last-edit_plural_0": "这星期进行编辑过", 
     "last-edit_plural_2": "上次编辑在 __count__ 周前", 
+    "portable-infobox-image": "图片", 
     "redirect-empty-target": "您关注的链接是一个重定向，但是重定向的页面不存在。", 
     "replies-label": "查看 __count__ 个回复", 
     "replies-label_plural": "查看 __count__ 个回复", 

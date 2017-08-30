@@ -37,7 +37,8 @@
     "replies-label_plural":"Veja __count__ respostas",
     "suggestions-label":"Ler mais",
     "toc-label":"Tabela de conteúdo",
-    "top-contributors-label":"Top contribuidores deste artigo"
+    "top-contributors-label":"Top contribuidores deste artigo",
+    "portable-infobox-image": "Imagem"
   },
   "article-comments":{
     "next-button":"Próxima página",

@@ -44,6 +44,9 @@ export default class OoyalaPlayer extends BasePlayer {
 					passback: 'ooyala',
 					pos: 'ooyala',
 					src: 'gpt'
+				}, {
+					contentSourceId: this.params.dfpContentSourceId,
+					videoId: this.params.videoId
 				});
 
 			this.params.onCreate = (...args) => {
