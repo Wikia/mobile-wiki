@@ -50,37 +50,64 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			Ads.getInstance().onReady(() => {
-				if (!this.params.noAds) {
-					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
-						pos: 'FEATURED',
-						src: 'premium'
-					}, {
-						contentSourceId: this.params.dfpContentSourceId,
-						videoId: this.params.videoId
-					});
-
-					this.params['google-ima-ads-manager'] = {
-						all_ads: [
-							{
-								tag_url: vastUrl
-							}
-						],
-						useGoogleAdUI: true,
-						useGoogleCountdown: false,
-						onBeforeAdsManagerStart(IMAAdsManager) {
-							// mutes VAST ads from the very beginning
-							// FIXME with VPAID it causes volume controls to be in incorrect state
-							IMAAdsManager.setVolume(0);
-						},
-						onAdRequestSuccess: this.onAdRequestSuccess.bind(this)
-					};
-					this.params.replayAds = false;
-				}
-
-				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
-			});
+			Ads.getInstance()
+				.waitForReady()
+				.then(() => this.setupAds())
+				.then(() => window.OO.Player.create(this.containerId, this.params.videoId, this.params));
 		});
+	}
+
+	setupAds() {
+		if (this.params.noAds) {
+			return null;
+		} else {
+			return this.parseBidderParameters()
+				.catch(() => {})
+				.then((additionalParams) => { // final
+					this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
+					this.params.replayAds = false;
+				});
+		}
+	}
+
+	buildVAST(slotParams) {
+		slotParams = slotParams || {};
+		slotParams.pos = 'FEATURED';
+		slotParams.src = 'premium';
+
+		return Ads.getInstance().buildVastUrl(640 / 480, slotParams, {
+			contentSourceId: this.params.dfpContentSourceId,
+			videoId: this.params.videoId
+		});
+	}
+
+	parseBidderParameters() {
+		let a9 = Ads.getInstance().a9;
+
+		if (!a9) {
+			return {};
+		}
+
+		return a9.waitForResponse()
+			.then(() => a9.getSlotParams('FEATURED'))
+	}
+
+	getAdsManagerConfig(vastUrl) {
+		return {
+			all_ads: [
+				{
+					tag_url: vastUrl
+				}
+			],
+			useGoogleAdUI: true,
+			useGoogleCountdown: false,
+			onBeforeAdsManagerStart(IMAAdsManager) {
+				// mutes VAST ads from the very beginning
+				// FIXME with VPAID it causes volume controls to be in incorrect state
+				IMAAdsManager.setVolume(0);
+			},
+			onAdRequestSuccess: this.onAdRequestSuccess.bind(this)
+		};
 	}
 
 	/**

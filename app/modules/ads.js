@@ -54,6 +54,7 @@ import config from '../config/environment';
  * @property {Object} googleTag
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
+ * @property {Object} a9
  */
 class Ads {
 	constructor() {
@@ -119,6 +120,7 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.context.slotsContext',
+					'ext.wikia.adEngine.lookup.a9',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
@@ -132,6 +134,7 @@ class Ads {
 					adLogicPageParams,
 					adConfigMobile,
 					slotsContext,
+					a9,
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
@@ -154,6 +157,7 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+					this.a9 = a9;
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
@@ -550,6 +554,10 @@ class Ads {
 		} else {
 			this.onReadyCallbacks.push(callback);
 		}
+	}
+
+	waitForReady() {
+		return new Promise((resolve) => this.onReady(resolve));
 	}
 
 	/**
