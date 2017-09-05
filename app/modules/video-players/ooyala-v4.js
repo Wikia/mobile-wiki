@@ -60,14 +60,19 @@ export default class OoyalaV4Player extends BasePlayer {
 	setupAds() {
 		if (this.params.noAds) {
 			return null;
-		} else {
+		} else if (this.isA9VideoEnabled()) {
 			return this.parseBidderParameters()
 				.catch(() => {})
-				.then((additionalParams) => { // final
-					this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
-					this.params.replayAds = false;
-				});
+				.then((additionalParams) => this.setupAdManager(additionalParams));
+		} else {
+			return this.setupAdManager();
 		}
+	}
+
+	setupAdManager(additionalParams) {
+		additionalParams = additionalParams || {};
+		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
+		this.params.replayAds = false;
 	}
 
 	buildVAST(slotParams) {
@@ -84,12 +89,17 @@ export default class OoyalaV4Player extends BasePlayer {
 	parseBidderParameters() {
 		let a9 = Ads.getInstance().a9;
 
-		if (!a9) {
+		if (!a9 || !this.isA9VideoEnabled()) {
 			return {};
 		}
 
 		return a9.waitForResponse()
 			.then(() => a9.getSlotParams('FEATURED'))
+	}
+
+	isA9VideoEnabled() {
+		let ads = Ads.getInstance();
+		return Ads.getInstance().a9 && ads.currentAdsContext && ads.currentAdsContext.bidders && ads.currentAdsContext.bidders.a9Video;
 	}
 
 	getAdsManagerConfig(vastUrl) {
