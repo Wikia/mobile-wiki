@@ -25,7 +25,7 @@ export default class OoyalaVideoAds {
 		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
 		this.params.replayAds = false;
 
-		return this.params
+		return this.params;
 	}
 
 	buildVAST(slotParams) {
@@ -47,12 +47,15 @@ export default class OoyalaVideoAds {
 		}
 
 		return a9.waitForResponse()
-			.then(() => a9.getSlotParams('FEATURED'))
+			.then(() => a9.getSlotParams('FEATURED'));
 	}
 
 	isA9VideoEnabled() {
 		let ads = Ads.getInstance();
-		return Ads.getInstance().a9 && ads.currentAdsContext && ads.currentAdsContext.bidders && ads.currentAdsContext.bidders.a9Video;
+		return ads.a9 &&
+			ads.currentAdsContext &&
+			ads.currentAdsContext.bidders &&
+			ads.currentAdsContext.bidders.a9Video;
 	}
 
 	getAdsManagerConfig(vastUrl) {
