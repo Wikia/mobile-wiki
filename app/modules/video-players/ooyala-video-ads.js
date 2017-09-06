@@ -19,17 +19,14 @@ export default class OoyalaVideoAds {
 		}
 	}
 
-	setupAdManager(additionalParams) {
-		additionalParams = additionalParams || {};
-
+	setupAdManager(additionalParams = {}) {
 		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
 		this.params.replayAds = false;
 
 		return this.params;
 	}
 
-	buildVAST(slotParams) {
-		slotParams = slotParams || {};
+	buildVAST(slotParams = {}) {
 		slotParams.pos = 'FEATURED';
 		slotParams.src = 'premium';
 
