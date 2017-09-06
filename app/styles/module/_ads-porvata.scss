@@ -14,6 +14,7 @@ $outstream-button-sound-on: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%
 $outstream-button-sound-off: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%2214%22%20style%3D%22%22%3E%3Crect%20id%3D%22backgroundrect%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20x%3D%220%22%20y%3D%220%22%20fill%3D%22none%22%20stroke%3D%22none%22%2F%3E%3Cg%20class%3D%22currentLayer%22%20style%3D%22%22%3E%3Ctitle%3ELayer%201%3C%2Ftitle%3E%3Cpath%20d%3D%22M8.45.17L4.664%204.28H1.036C.256%204.28%200%204.74%200%205.175v3.522c0%20.436.256.985%201.036.985h3.646l3.785%204.176c.165.092.35.143.533.143a.964.964%200%200%200%20.5-.136c.33-.185.5-.526.5-.897V1.013c0-.37-.17-.713-.5-.898-.33-.186-.72-.13-1.05.054zM18.413%207l3.294-3.294a1%201%200%200%200-1.412-1.413L17%205.588l-3.294-3.295a.998.998%200%201%200-1.413%201.413L15.588%207l-3.295%203.295a.998.998%200%201%200%201.413%201.412L17%208.413l3.295%203.294a.996.996%200%200%200%201.412%200%201%201%200%200%200%200-1.412L18.413%207z%22%20id%3D%22svg_1%22%20class%3D%22%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%221%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A';
 
 $vpaid-z-index: 10;
+$controls-z-index: 11;
 
 .ad-slot {
 	.video-overlay {
@@ -70,6 +71,7 @@ $vpaid-z-index: 10;
 		left: 0;
 		position: absolute;
 		width: 100%;
+		z-index: $controls-z-index;
 	}
 
 	.current-time {
@@ -79,6 +81,7 @@ $vpaid-z-index: 10;
 		max-width: 100%;
 		width: 0;
 		transition: width linear;
+		z-index: $controls-z-index;
 	}
 
 	.pause-overlay {
@@ -87,6 +90,7 @@ $vpaid-z-index: 10;
 		position: absolute;
 		top: 0;
 		width: 100%;
+		z-index: $controls-z-index;
 	}
 
 	.close-ad {
@@ -98,6 +102,7 @@ $vpaid-z-index: 10;
 		right: 0;
 		top: 0;
 		width: $player-button-size;
+		z-index: $controls-z-index;
 	}
 
 	.ima-mute-div, .volume-control {
@@ -106,6 +111,7 @@ $vpaid-z-index: 10;
 		position: absolute;
 		right: 0;
 		text-align: right;
+		z-index: $controls-z-index;
 
 		.speaker {
 			&.mute {
