@@ -132,9 +132,9 @@ $controls-z-index: 11;
 	&::before {
 		content: attr(data-label);
 		display: block;
-		font-size: 0.625rem;
+		font-size: .625rem;
 		font-weight: 700;
-		line-height: 0.75rem;
+		line-height: .75rem;
 		margin-top: 20px;
 		padding-bottom: 6px;
 		padding-top: 6px;
