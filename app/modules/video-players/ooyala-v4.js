@@ -51,21 +51,14 @@ export default class OoyalaV4Player extends BasePlayer {
 	createPlayer() {
 		window.OO.ready(() => {
 			Ads.getInstance().onReady(() => {
-				if (!this.params.noAds) {
-					const vastUrl = Ads.getInstance().buildVastUrl(640 / 480, {
-						pos: 'FEATURED',
-						src: 'premium'
-					}, {
-						contentSourceId: this.params.dfpContentSourceId,
-						videoId: this.params.videoId
-					});
+				const ads = Ads.getInstance();
 
+				if (!this.params.noAds && ads) {
 					this.params['google-ima-ads-manager'] = {
-						all_ads: [
-							{
-								tag_url: vastUrl
-							}
-						],
+						all_ads: ads.ooyalaAdSetProvider.get(1, null, {
+							contentSourceId: this.params.dfpContentSourceId,
+							videoId: this.params.videoId
+						}),
 						useGoogleAdUI: true,
 						useGoogleCountdown: false,
 						onBeforeAdsManagerStart(IMAAdsManager) {
