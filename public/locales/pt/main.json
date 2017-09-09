@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Categorias", 
-    "comments-label": "__count__ comentário", 
-    "comments-label_plural": "__count__ comentários", 
+    "comments-label": "{count} comentário",
+    "comments-label_plural": "{count} comentários",
     "empty-label": "Desculpe, este artigo parece estar vazio!", 
     "error": "Não foi possível carregar o artigo. Por favor, tente novamente.", 
     "last-edit": "Última edição feita 1 semana atrás", 
     "last-edit_plural_0": "Última edição desta semana", 
-    "last-edit_plural_2": "Última edição feita  __count__  semanas atrás", 
+    "last-edit_plural_2": "Última edição feita  {count}  semanas atrás",
     "portable-infobox-image": "Imagem", 
     "redirect-empty-target": "O link que você seguiu é um redirecionamento, mas a página não existe.", 
-    "replies-label": "Veja  __count__ resposta", 
-    "replies-label_plural": "Veja __count__ respostas", 
+    "replies-label": "Veja  {count} resposta",
+    "replies-label_plural": "Veja {count} respostas",
     "suggestions-label": "Ler mais", 
     "toc-label": "Tabela de conteúdo", 
     "top-contributors-label": "Top contribuidores deste artigo"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "Você não tem permissão para editar páginas nesta wiki.", 
     "publish-error-noedit-anon": "Usuários anônimos não podem editar páginas.", 
     "publish-error-protectedpage": "Você não tem permissão para editar esta página.", 
-    "success": "Página editada com sucesso __pageTitle__!"
+    "success": "Página editada com sucesso {pageTitle}!"
   }, 
   "file-page": {
     "subtitle": "Página do arquivo", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Voltar", 
-    "explore-wiki": "Explore a __wikiName__", 
+    "explore-wiki": "Explore a {wikiName}",
     "random-page-label": "Página aleatória", 
     "user-menu-log-out": "Sair", 
     "user-menu-profile": "Perfil"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Todas as discussões", 
     "header-title": "Discussões", 
-    "in-category-label": "__categoryName__", 
+    "in-category-label": "{categoryName}",
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
   }

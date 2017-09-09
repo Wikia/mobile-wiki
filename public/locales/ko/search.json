@@ -3,10 +3,10 @@
     "load-more-results": "Load more", 
     "search-error-general": "Can't connect, please try again", 
     "search-error-general-action": "Click to retry", 
-    "search-error-not-found": "We couldn't find anything for __query__", 
+    "search-error-not-found": "We couldn't find anything for {query}",
     "search-error-not-found-action": "Try Another Search", 
     "search-input-label": "Search", 
     "search-loading-msg": "Loading search results...", 
-    "total-results": "About __totalItems__ results for __query__"
+    "total-results": "About {totalItems} results for {query}"
   }
 }
