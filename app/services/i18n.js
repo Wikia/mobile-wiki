@@ -52,7 +52,9 @@ export default Service.extend({
 			lowerCaseLng: true,
 			defaultNS: 'main',
 			interpolation: {
-				escapeValue: false
+				escapeValue: false,
+				prefix: '{',
+				suffix: '}'
 			},
 			resources: {
 				[language]: translations
