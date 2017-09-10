@@ -5,6 +5,7 @@ module.exports = function (environment) {
 	var ENV = {
 		modulePrefix: 'mobile-wiki',
 		environment: environment,
+		rootURL: '/',
 		locationType: 'router-scroll',
 		historySupportMiddleware: true,
 		facebook: {
