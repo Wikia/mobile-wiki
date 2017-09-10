@@ -25,8 +25,8 @@ function componentAttributes(element) {
 function lookupComponent(owner, name) {
 	let componentLookupKey = `component:${name}`,
 		layoutLookupKey = `template:components/${name}`,
-		layout = owner._lookupFactory(layoutLookupKey),
-		component = owner._lookupFactory(componentLookupKey);
+		layout = owner.factoryFor(layoutLookupKey),
+		component = owner.factoryFor(componentLookupKey);
 
 	return {component, layout};
 }
