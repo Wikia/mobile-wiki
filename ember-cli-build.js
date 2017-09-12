@@ -69,6 +69,7 @@ module.exports = function (defaults) {
 			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
 			'load-svg': `${inlineScriptsPath}load-svg.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
+			'optimizely': `${inlineScriptsPath}optimizely.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua-init': `${inlineScriptsPath}tracking-ua-init.js`,
