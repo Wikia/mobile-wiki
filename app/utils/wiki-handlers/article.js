@@ -44,18 +44,18 @@ function afterModel(route, model) {
  * @param {String} host
  */
 function sendLyricsPageView(model, host) {
-    fetch(buildUrl({
+	fetch(buildUrl({
 		host,
-        path: '/wikia.php',
-        query: {
-            controller: 'LyricFind',
-            method: 'track',
-            title: model.get('title'),
-            amgid: 0,
-            gracenoteid: 0,
-            rand: (`${Math.random()}`).substr(2, 8)
-        }
-    }));
+		path: '/wikia.php',
+		query: {
+			controller: 'LyricFind',
+			method: 'track',
+			title: model.get('title'),
+			amgid: 0,
+			gracenoteid: 0,
+			rand: (`${Math.random()}`).substr(2, 8)
+		}
+	}));
 }
 
 /**
@@ -65,12 +65,12 @@ function sendLyricsPageView(model, host) {
  * @returns {boolean}
  */
 function shouldSendLyricFindRequest(model, wikiId, request) {
-    const lyricWikiId = 43339;
-    const headers = request.get("headers");
+	const lyricWikiId = 43339;
+	const headers = request.get("headers");
 
-    return wikiId === lyricWikiId
-        && !model.get("isMainPage")
-        && headers.get("X-Wikia-Is-Internal-Request") !== "goreplay";
+	return wikiId === lyricWikiId
+		&& !model.get("isMainPage")
+		&& headers.get("X-Wikia-Is-Internal-Request") !== "goreplay";
 }
 
 /**
@@ -81,10 +81,10 @@ function shouldSendLyricFindRequest(model, wikiId, request) {
  * @param {String} host
  * @param {Object} request - FastBoot request
  */
-function afterTransition({ model, wikiId, host, request }) {
-    if (shouldSendLyricFindRequest(model, wikiId, request)) {
-        sendLyricsPageView(model, host);
-    }
+function afterTransition({model, wikiId, host, request}) {
+	if (shouldSendLyricFindRequest(model, wikiId, request)) {
+		sendLyricsPageView(model, host);
+	}
 }
 
 /**
