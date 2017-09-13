@@ -62,7 +62,7 @@
     "ember-cli-deprecation-workflow": "0.2.3",
     "ember-cli-eslint": "4.0.0",
     "ember-cli-fastboot": "github:ember-fastboot/ember-cli-fastboot#ee4bd3b2e32a8b3995a18322ef9fbd25e05047cd",
-    "ember-cli-head": "0.1.4",
+    "ember-cli-head": "0.3.1",
     "ember-cli-htmlbars": "2.0.1",
     "ember-cli-htmlbars-inline-precompile": "1.0.0",
     "ember-cli-inject-live-reload": "1.4.1",
