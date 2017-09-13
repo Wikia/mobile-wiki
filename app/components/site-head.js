@@ -18,6 +18,7 @@ export default Component.extend(
 		closeIcon: 'close',
 
 		ads: Ember.inject.service(),
+		currentUser: inject.service(),
 		notifications: Ember.inject.service(),
 
 		headroomOptions: {
@@ -47,8 +48,10 @@ export default Component.extend(
 				this.get('closeIcon') : 'search';
 		}),
 
-		canShowABTestediOSAppButton: computed(function () {
-			return system === 'ios' && inGroup('ourABTest', 'variation2');
+		canShowABTestedIOSAppButton: computed('currentUser.language', function () {
+			return system === 'ios' &&
+				this.get('currentUser.language') &&
+				inGroup('ourABTest', 'variation2');
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),
@@ -58,7 +61,6 @@ export default Component.extend(
 		isDrawerInClosableState() {
 			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
 		},
-
 
 		canBeClosed(icon) {
 			const drawerContent = this.get('drawerContent');

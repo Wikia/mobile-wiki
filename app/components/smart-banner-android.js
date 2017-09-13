@@ -24,6 +24,7 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: inject.service(),
+	currentUser: inject.service(),
 
 	options: {
 		// Language code for App Store
@@ -65,6 +66,18 @@ export default Component.extend({
 		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
+
+
+	// Smart Banner AB Testing
+	/**
+	 * @returns {boolean}
+	 */
+	shouldShowABTestBannerOnIOS: computed('currentUser.language', function() {
+		return system === 'ios' &&
+			this.get('currentUser.language') &&
+			inGroup('ourABTest', 'variation1');
+	}),
+	// Smart Banner AB Testing
 
 	noIcon: computed.not('icon'),
 	title: computed.oneWay('config.name'),
@@ -128,7 +141,7 @@ export default Component.extend({
 		// website isn't loaded in app and user did not dismiss it already
 		if ((system === 'android' ||
 			// Smart Banner AB Testing
-			this.shouldShowABTestBannerOnIOS()) &&
+			this.get('shouldShowABTestBannerOnIOS')) &&
 			// Smart Banner AB Testing
 			!standalone &&
 			name &&
@@ -139,15 +152,6 @@ export default Component.extend({
 			this.track(trackActions.impression);
 		}
 	},
-
-	// Smart Banner AB Testing
-	/**
-	 * @returns {boolean}
-	 */
-	shouldShowABTestBannerOnIOS() {
-		return system === 'ios' && inGroup('ourABTest', 'variation1');
-	},
-	// Smart Banner AB Testing
 
 	/**
 	 * Try to open app using custom scheme and if it fails go to fallback function
