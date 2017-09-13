@@ -5,7 +5,9 @@ import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
 
-export default Ember.Component.extend(
+const {$, Component, computed} = Ember;
+
+export default Component.extend(
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
 	ViewportMixin,
@@ -27,20 +29,20 @@ export default Ember.Component.extend(
 		 */
 		itemContext: 'article',
 
-		itemType: Ember.computed('itemContext', 'type', function () {
+		itemType: computed('itemContext', 'type', function () {
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
 		/**
 		 * Check if image width is smaller than article container
 		 */
-		isSmall: Ember.computed('width', 'height', function () {
+		isSmall: computed('width', 'height', function () {
 			return this.get('width') <= this.get('viewportDimensions.width');
 		}),
 
-		hasFigcaption: Ember.computed.or('caption', 'showTitle'),
+		hasFigcaption: computed.or('caption', 'showTitle'),
 
-		showTitle: Ember.computed('type', function () {
+		showTitle: computed('type', function () {
 			return this.get('type') === 'video' && this.get('title');
 		}),
 

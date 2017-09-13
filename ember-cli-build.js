@@ -95,12 +95,17 @@ module.exports = function (defaults) {
 					outputFile: '/assets/main.svg'
 				},
 			]
+		},
+		eslint: {
+			testGenerator: 'qunit',
+			group: true,
+			rulesDir: '.',
+			extensions: ['js'],
 		}
 	});
 
 	if (!process.env.EMBER_CLI_FASTBOOT) {
 		// Files below are concatenated to assets/vendor.js
-		app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
 		app.import(app.bowerDirectory + '/hammerjs/hammer.js');
 		app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
 		app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');

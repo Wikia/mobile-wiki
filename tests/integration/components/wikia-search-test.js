@@ -1,5 +1,6 @@
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
+import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');

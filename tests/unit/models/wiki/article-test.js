@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import require from 'require';
 import {test, moduleFor} from 'ember-qunit';
 
 const articleExample = {

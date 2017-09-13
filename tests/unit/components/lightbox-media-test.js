@@ -3,6 +3,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 import mediaModel from 'mobile-wiki/models/media';
 
 const trackModule = require('mobile-wiki/utils/track');
+import require from 'require';
 let model,
 	trackStub;
 

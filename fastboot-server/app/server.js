@@ -10,7 +10,7 @@ if (process.env.HEAPDUMP_ENABLED === 'true') {
 }
 
 /**
- * NewRelic is only enabled on one server and that logic is managed by chef,
+ * NewRelic is only enabled on one fastboot-server and that logic is managed by chef,
  * which passes it to our config
  */
 if (process.env.NEW_RELIC_ENABLED === 'true') {
@@ -18,7 +18,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 }
 
 // TODO after full rollout change path to REPO ROOT
-const FastBootAppServer = require('fastboot-app-server');
+const FastBootAppServer = require('fastboot-app-fastboot-server');
 const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
@@ -32,7 +32,7 @@ const bodyParser = require('body-parser');
 
 function levelFn(status) {
 	if (status >= 500) {
-		// server internal error or error
+		// fastboot-server internal error or error
 		return 'error';
 	} else if (status >= 400) {
 		// client error
