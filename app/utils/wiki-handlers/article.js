@@ -42,8 +42,10 @@ function afterModel(route, model) {
  *
  * @param {Ember.model} model
  * @param {String} host
+ * @param {Ember.Object} logger - logger service
+ * @param {Ember.Object} headers - FastBoot request's headers
  */
-function sendLyricsPageView(model, host) {
+function sendLyricsPageView({model, host, logger, headers}) {
 	fetch(buildUrl({
 		host,
 		path: '/wikia.php',
@@ -55,18 +57,20 @@ function sendLyricsPageView(model, host) {
 			gracenoteid: 0,
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
-	}));
+	}))
+		.then(() => {
+			logger.info("LyricFind PageView tracking event sent", { headers: headers.getAll() });
+		});
 }
 
 /**
  * @param {Ember.model} model
  * @param {number} wikiId
- * @param {Object} request - FastBoot request
+ * @param {Ember.Object} headers - FastBoot request's headers
  * @returns {boolean}
  */
-function shouldSendLyricFindRequest(model, wikiId, request) {
+function shouldSendLyricFindRequest({model, wikiId, headers}) {
 	const lyricWikiId = 43339;
-	const headers = request.get("headers");
 
 	return wikiId === lyricWikiId
 		&& !model.get("isMainPage")
@@ -79,11 +83,12 @@ function shouldSendLyricFindRequest(model, wikiId, request) {
  * @param {Ember.model} model
  * @param {number} wikiId
  * @param {String} host
- * @param {Object} request - FastBoot request
+ * @param {Ember.Object} logger - logger service
+ * @param {Ember.Object} headers - FastBoot request's headers
  */
-function afterTransition({model, wikiId, host, request}) {
-	if (shouldSendLyricFindRequest(model, wikiId, request)) {
-		sendLyricsPageView(model, host);
+function afterTransition({model, wikiId, host, headers, logger}) {
+	if (shouldSendLyricFindRequest({model, wikiId, headers})) {
+		sendLyricsPageView({model, host, headers, logger});
 	}
 }
 

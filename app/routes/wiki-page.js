@@ -140,7 +140,8 @@ export default Route.extend(
 						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
 							handler.afterTransition({
 								model,
-								request: fastboot.get("request"),
+								logger: this.get("logger"),
+								headers: fastboot.get("request.headers"),
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host')
 							});
