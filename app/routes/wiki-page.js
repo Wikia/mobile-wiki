@@ -138,13 +138,13 @@ export default Route.extend(
 						this.trackPageView(model);
 
 						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
-                            handler.afterTransition({
-                                model,
-                                request: fastboot.get("request"),
-                                wikiId: this.get('wikiVariables.id'),
-                                host: this.get('wikiVariables.host')
-                            });
-                        }
+							handler.afterTransition({
+								model,
+								request: fastboot.get("request"),
+								wikiId: this.get('wikiVariables.id'),
+								host: this.get('wikiVariables.host')
+							});
+						}
 					});
 
 					this.set('wikiHandler', handler);
