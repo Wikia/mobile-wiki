@@ -134,11 +134,17 @@ export default Route.extend(
 						this.get('liftigniter').initLiftigniter(model.adsContext);
 
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
-						// updated yet. `didTrasition` hook is called too fast.
+						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
 
-						if (typeof handler.afterTransition === 'function') {
-							handler.afterTransition(model, this.get('wikiVariables.id'), this.get('wikiVariables.host'));
+						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
+							handler.afterTransition({
+								model,
+								logger: this.get('logger'),
+								headers: fastboot.get('request.headers'),
+								wikiId: this.get('wikiVariables.id'),
+								host: this.get('wikiVariables.host')
+							});
 						}
 					});
 
