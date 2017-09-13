@@ -13,7 +13,7 @@
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "clean-deep": "npm run clean && npm cache clean && bower cache clean",
     "crowdin": "bash ./tasks/download-translations.sh",
-    "dev": "ember fastboot --serve-assets",
+    "dev": "ember serve",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember fastboot --no-build --serve-assets",
     "fastboot-server": "node server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk server/app/server.js",
