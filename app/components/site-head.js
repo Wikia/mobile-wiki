@@ -2,6 +2,8 @@ import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
+import {inGroup} from '../modules/abtest';
+import {system,} from '../utils/browser';
 
 const {computed, Component} = Ember;
 
@@ -43,6 +45,10 @@ export default Component.extend(
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
 				this.get('closeIcon') : 'search';
+		}),
+
+		canShowABTestediOSAppButton: computed(function () {
+			return system === 'ios' && inGroup('ourABTest', 'variation2');
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),

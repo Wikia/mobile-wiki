@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import {inGroup} from '../modules/abtest'
+import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
 import {system, standalone} from '../utils/browser';
 
