@@ -1,7 +1,6 @@
 /* global module */
 /* eslint-env es5, node */
 /* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
-import config from 'config/environment';
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
@@ -70,7 +69,6 @@ module.exports = function (defaults) {
 			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
 			'load-svg': `${inlineScriptsPath}load-svg.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
-			'optimizely': `//cdn.optimizely.com/js/2449650414.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua-init': `${inlineScriptsPath}tracking-ua-init.js`,
