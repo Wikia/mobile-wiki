@@ -10,7 +10,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
  * We override Ember's private method to remove files from the final build
  * which are added by addons but not used by us
  *
- * HEADS UP!
+ * HEADS UP!P
  * If you update ember-cli and something breaks,
  * the first thing you should try is to comment this out
  */

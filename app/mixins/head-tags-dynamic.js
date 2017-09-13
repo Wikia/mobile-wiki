@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {inGroup} from '../modules/abtest'
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
@@ -61,7 +62,11 @@ export default Ember.Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
-		if (headData.appId) {
+		if (headData.appId &&
+			// Smart Banner AB Testing
+			!inGroup('ourABTest', 'variation1') && !inGroup('ourABTest', 'variation2')
+			// Smart Banner AB Testing
+		) {
 			headData.appleItunesApp = `app-id=${headData.appId}`;
 
 			if (data.appArgument) {

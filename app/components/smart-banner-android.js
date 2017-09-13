@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
+import {inGroup} from '../modules/abtest'
 import {track, trackActions} from '../utils/track';
 import {system, standalone} from '../utils/browser';
 
@@ -125,11 +126,28 @@ export default Component.extend({
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
+		if ((system === 'android' ||
+			// Smart Banner AB Testing
+			this.shouldShowABTestBannerOnIOS()) &&
+			// Smart Banner AB Testing
+			!standalone &&
+			name &&
+			!disabled &&
+			$.cookie('sb-closed') !== '1'
+		) {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
 	},
+
+	// Smart Banner AB Testing
+	/**
+	 * @returns {boolean}
+	 */
+	shouldShowABTestBannerOnIOS() {
+		return system === 'ios' && inGroup('ourABTest', 'variation1');
+	},
+	// Smart Banner AB Testing
 
 	/**
 	 * Try to open app using custom scheme and if it fails go to fallback function
