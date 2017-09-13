@@ -57,10 +57,9 @@ function sendLyricsPageView({model, host, logger, headers}) {
 			gracenoteid: 0,
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
-	}))
-		.then(() => {
-			logger.info("LyricFind PageView tracking event sent", { headers: headers.getAll() });
-		});
+	})).then(() => {
+		logger.info("LyricFind PageView tracking event sent", {headers: headers.getAll()});
+	});
 }
 
 /**
