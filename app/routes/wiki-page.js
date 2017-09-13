@@ -117,7 +117,7 @@ export default Route.extend(
 		},
 
 		/**
-		 * @param {Ember.model} model
+		 * @param {Ember.Object} model
 		 * @param {EmberStates.Transition} transition
 		 * @returns {void}
 		 */
@@ -140,8 +140,8 @@ export default Route.extend(
 						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
 							handler.afterTransition({
 								model,
-								logger: this.get("logger"),
-								headers: fastboot.get("request.headers"),
+								logger: this.get('logger'),
+								headers: fastboot.get('request.headers'),
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host')
 							});

@@ -18,7 +18,7 @@ function addOoyalaAssets(route) {
 
 /**
  * @param {Ember.Route} route
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @returns {void}
  */
 function afterModel(route, model) {
@@ -40,7 +40,7 @@ function afterModel(route, model) {
  *
  * https://github.com/Wikia/app/blob/dev/extensions/3rdparty/LyricWiki/LyricFind/js/modules/LyricFind.Tracker.js
  *
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @param {String} host
  * @param {Ember.Object} logger - logger service
  * @param {Ember.Object} headers - FastBoot request's headers
@@ -58,12 +58,12 @@ function sendLyricsPageView({model, host, logger, headers}) {
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
 	})).then(() => {
-		logger.info("LyricFind PageView tracking event sent", {headers: headers.getAll()});
+		logger.info('LyricFind PageView tracking event sent', {headers: headers.getAll()});
 	});
 }
 
 /**
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @param {number} wikiId
  * @param {Ember.Object} headers - FastBoot request's headers
  * @returns {boolean}
@@ -71,15 +71,17 @@ function sendLyricsPageView({model, host, logger, headers}) {
 function shouldSendLyricFindRequest({model, wikiId, headers}) {
 	const lyricWikiId = 43339;
 
+	// 'goreplay' header indicates http traffic replayed between SJC and RES
+	// for more info please read 'Confluence > Operations > Goreplay' article
 	return wikiId === lyricWikiId
-		&& !model.get("isMainPage")
-		&& headers.get("X-Wikia-Is-Internal-Request") !== "goreplay";
+		&& !model.get('isMainPage')
+		&& headers.get('X-Wikia-Is-Internal-Request') !== 'goreplay';
 }
 
 /**
  * Hook triggered on transition.then() in Route::afterModel()
  *
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @param {number} wikiId
  * @param {String} host
  * @param {Ember.Object} logger - logger service
