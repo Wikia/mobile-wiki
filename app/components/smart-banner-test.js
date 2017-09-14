@@ -24,13 +24,13 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: inject.service(),
+	currentUser: inject.service(),
 
 	options: {
 		// Language code for App Store
 		appStoreLanguage: 'us',
 
-		// Duration to hide the banner after close button is clicked (0 = always show
-		// banner)
+		// Duration to hide the banner after close button is clicked (0 = always show banner)
 		daysHiddenAfterClose: 15,
 
 		// Duration to hide the banner after it is clicked (0 = always show banner)
@@ -41,7 +41,6 @@ export default Component.extend({
 	appId: computed.oneWay(`config.appId.android`),
 	appScheme: computed.oneWay(`config.appScheme.android`),
 	config: computed('wikiVariables', function () {
-		console.log(this.get('wikiVariables').get('smartBanner'));
 		return this.get('wikiVariables').get('smartBanner') || {};
 	}),
 	dbName: computed.reads('wikiVariables.dbName'),
@@ -65,9 +64,21 @@ export default Component.extend({
 
 	link: computed('appId', 'dbName', function () {
 		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
-			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get(
-				'dbName')}`;
+			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
+
+
+	// Smart Banner AB Testing
+	/**
+	 * @returns {boolean}
+	 */
+	shouldShowABTestBannerOnIOS: computed('currentUser.language', function() {
+		return true;
+		// system === 'ios' &&
+		// 	this.get('currentUser.language') &&
+		// 	inGroup('ourABTest', 'variation1');
+	}),
+	// Smart Banner AB Testing
 
 	noIcon: computed.not('icon'),
 	title: computed.oneWay('config.name'),
@@ -116,8 +127,8 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	willInsertElement() {
-		// this HAVE TO be run while rendering, but it cannot be run on
-		// didInsert/willInsert running this just after render is working too
+		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+		// running this just after render is working too
 		run.scheduleOnce('afterRender', this, this.checkForHiding);
 	},
 
@@ -131,7 +142,7 @@ export default Component.extend({
 		// website isn't loaded in app and user did not dismiss it already
 		if ((system === 'android' ||
 			// Smart Banner AB Testing
-			this.shouldShowABTestBannerOnIOS()) &&
+			this.get('shouldShowABTestBannerOnIOS')) &&
 			// Smart Banner AB Testing
 			!standalone &&
 			name &&
@@ -142,15 +153,6 @@ export default Component.extend({
 			this.track(trackActions.impression);
 		}
 	},
-
-	// Smart Banner AB Testing
-	/**
-	 * @returns {boolean}
-	 */
-	shouldShowABTestBannerOnIOS() {
-		return system === 'ios' && inGroup('ourABTest', 'variation1');
-	},
-	// Smart Banner AB Testing
 
 	/**
 	 * Try to open app using custom scheme and if it fails go to fallback function

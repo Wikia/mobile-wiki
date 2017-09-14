@@ -5,7 +5,7 @@ import {track, trackActions} from '../utils/track';
 import {inGroup} from '../modules/abtest';
 import {system,} from '../utils/browser';
 
-const {computed, Component} = Ember;
+const {computed, Component, inject} = Ember;
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
@@ -17,9 +17,9 @@ export default Component.extend(
 		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
-		ads: Ember.inject.service(),
+		ads: inject.service(),
 		currentUser: inject.service(),
-		notifications: Ember.inject.service(),
+		notifications: inject.service(),
 
 		headroomOptions: {
 			classes: {
