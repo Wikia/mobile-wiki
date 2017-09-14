@@ -3,7 +3,7 @@ import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 import {inGroup} from '../modules/abtest';
-import {system,} from '../utils/browser';
+import {system} from '../utils/browser';
 
 const {computed, Component, inject} = Ember;
 

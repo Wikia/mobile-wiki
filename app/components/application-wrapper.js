@@ -55,7 +55,7 @@ export default Component.extend({
 	/**
 	 * @returns {boolean}
 	 */
-	shouldShowABTestBannerOnIOS: computed('currentUser.language', function() {
+	shouldShowABTestBannerOnIOS: computed('currentUser.language', function () {
 		return system === 'ios' &&
 			this.get('currentUser.language') === 'en' &&
 			inGroup('ourABTest', 'variation1');

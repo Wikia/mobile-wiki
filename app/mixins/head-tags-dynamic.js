@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {inGroup} from '../modules/abtest'
+import {inGroup} from '../modules/abtest';
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
