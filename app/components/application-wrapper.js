@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
+import {inGroup} from '../modules/abtest';
+import {system} from '../utils/browser';
 
 const {Component, computed, inject, $} = Ember;
 
@@ -49,6 +51,16 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
+	// Smart Banner AB Testing
+	/**
+	 * @returns {boolean}
+	 */
+	shouldShowABTestBannerOnIOS: computed('currentUser.language', function() {
+		return system === 'ios' &&
+			this.get('currentUser.language') === 'en' &&
+			inGroup('ourABTest', 'variation1');
+	}),
+	// Smart Banner AB Testing
 
 	/**
 	 * @returns {void}

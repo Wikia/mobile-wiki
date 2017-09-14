@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
 import {system, standalone} from '../utils/browser';
 
@@ -62,23 +61,7 @@ export default Component.extend({
 		return new htmlSafe(`background-image: url(${icon})`);
 	}),
 
-	link: computed('appId', 'dbName', function () {
-		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
-			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
-	}),
-
-
-	// Smart Banner AB Testing
-	/**
-	 * @returns {boolean}
-	 */
-	shouldShowABTestBannerOnIOS: computed('currentUser.language', function() {
-		return true;
-		// system === 'ios' &&
-		// 	this.get('currentUser.language') &&
-		// 	inGroup('ourABTest', 'variation1');
-	}),
-	// Smart Banner AB Testing
+	link: 'https://itunes.apple.com/us/developer/wikia-inc/id422467077',
 
 	noIcon: computed.not('icon'),
 	title: computed.oneWay('config.name'),
@@ -118,7 +101,7 @@ export default Component.extend({
 	click(event) {
 		const $target = this.$(event.target);
 
-		if (!$target.is('.sb-close')) {
+		if (!$target.is('.sb-test-close')) {
 			this.send('view');
 		}
 	},
@@ -200,7 +183,7 @@ export default Component.extend({
 	track(action) {
 		track({
 			action,
-			category: 'smart-banner',
+			category: 'smart-banner-ios-test',
 			label: this.get('dbName')
 		});
 	},

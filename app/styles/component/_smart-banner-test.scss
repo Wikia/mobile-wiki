@@ -6,8 +6,7 @@
 	height: 85px;
 	-webkit-font-smoothing: antialiased;
 	width: 100%;
-  align-items: center;
-  justify-content: space-between;
+  	justify-content: flex-start;
 }
 
 .sb-test-close {
@@ -33,7 +32,9 @@
 }
 
 .sb-test-info {
+  align-items: center;
   display: flex;
+  flex-grow: 1;
 
   .sb-test-icon {
 	width: 64px;
