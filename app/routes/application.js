@@ -7,7 +7,6 @@ import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 const {
@@ -143,26 +142,6 @@ export default Route.extend(
 			}
 		},
 
-		redirect(model, transition) {
-			const fastboot = this.get('fastboot'),
-				basePath = model.wikiVariables.basePath;
-
-			if (fastboot.get('isFastBoot') &&
-				basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
-				const fastbootRequest = this.get('fastboot.request');
-
-				fastboot.get('response.headers').set(
-					'location',
-					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
-				);
-				fastboot.set('response.statusCode', 301);
-
-				// TODO XW-3198
-				// We throw error to stop Ember and redirect immediately
-				throw new DontLogMeError();
-			}
-		},
-
 		actions: {
 			loading(transition) {
 				if (this.controller) {
@@ -258,7 +237,7 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
+					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(-.*)?\.com.*\/.*$/)) {
 						window.location.assign(info.url);
 					} else {
 						window.open(info.url);

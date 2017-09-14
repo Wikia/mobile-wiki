@@ -13,7 +13,7 @@ import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Route, RSVP, $, inject, get} = Ember;
+const {Route, RSVP, inject, get} = Ember;
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -128,6 +128,7 @@ export default Route.extend(
 				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
+				console.log('asrtrst', redirectTo);
 
 				if (handler) {
 					transition.then(() => {
@@ -159,8 +160,8 @@ export default Route.extend(
 					}
 
 					if (fastboot.get('isFastBoot')) {
-						fastboot.get('response.headers').set('location', redirectTo);
-						fastboot.set('response.statusCode', 301);
+						//fastboot.get('response.headers').set('location', redirectTo);
+						//fastboot.set('response.statusCode', 301);
 					} else {
 						window.location.replace(redirectTo);
 					}

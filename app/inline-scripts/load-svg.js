@@ -4,26 +4,21 @@
 
 		template.insertAdjacentHTML('beforeend', html);
 
-		return template.firstChild;
+		return template.querySelector('svg');
 	}
 
 	function loadDOMResource(src) {
-		var ajax = new XMLHttpRequest();
+		fetch(src)
+			.then(function(response) {
+				return response.text();
+			})
+			.then(function(body) {
+				var element = htmlToElement(body);
 
-		ajax.onload = function () {
-			var element = htmlToElement(ajax.responseText);
+				element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
 
-			element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
-
-			document.body.insertBefore(element, document.body.firstChild);
-		};
-
-		ajax.onerror = function (error) {
-			throw new URIError('The resource ' + error.target.src + ' is not accessible.');
-		};
-
-		ajax.open('GET', src, true);
-		ajax.send();
+				document.body.insertBefore(element, document.body.firstChild);
+			});
 	}
 
 	loadDOMResource('/mobile-wiki/assets/main.svg');

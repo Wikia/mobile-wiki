@@ -49,5 +49,5 @@ export function getLastUrlFromText(text) {
  * @return {string}
  */
 export function escapeRegex(text) {
-	return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+	return text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 }
