@@ -1,8 +1,4 @@
-/* global module */
-/* eslint-env es5, node */
-/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
-
-var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
+const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
 	stew = require('broccoli-stew');
 
@@ -14,25 +10,25 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
  * If you update ember-cli and something breaks,
  * the first thing you should try is to comment this out
  */
-EmberApp.prototype.addonTreesFor = function (type) {
-	return this.project.addons.map(function (addon) {
-		if (addon.treeFor) {
-			var tree = addon.treeFor(type);
-
-			if (tree) {
-				// uncomment to see the files available to be filtered out
-				// tree = stew.log(tree, {output: 'tree'});
-				tree = stew.rm(tree,
-					'modules/ember-types/asserts/**/*.js',
-					'modules/ember-types/constants/*.js',
-					'modules/ember-types/property/*.js'
-				);
-			}
-
-			return tree;
-		}
-	}).filter(Boolean);
-};
+// EmberApp.prototype.addonTreesFor = function (type) {
+// 	return this.project.addons.map(function (addon) {
+// 		if (addon.treeFor) {
+// 			let tree = addon.treeFor(type);
+//
+// 			if (tree) {
+// 				// uncomment to see the files available to be filtered out
+// 				// tree = stew.log(tree, {output: 'tree'});
+// 				tree = stew.rm(tree,
+// 					'modules/ember-types/asserts/**/*.js',
+// 					'modules/ember-types/constants/*.js',
+// 					'modules/ember-types/property/*.js'
+// 				);
+// 			}
+//
+// 			return tree;
+// 		}
+// 	}).filter(Boolean);
+// };
 
 module.exports = function (defaults) {
 	const inlineScriptsPath = 'app/inline-scripts/';
@@ -104,28 +100,13 @@ module.exports = function (defaults) {
 		}
 	});
 
-	if (!process.env.EMBER_CLI_FASTBOOT) {
-		// Files below are concatenated to assets/vendor.js
-		app.import(app.bowerDirectory + '/hammerjs/hammer.js');
-		app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
-		app.import(app.bowerDirectory + '/jquery.cookie/jquery.cookie.js');
-		app.import(app.bowerDirectory + '/ember-hammer/ember-hammer.js');
-		app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
-		app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
-		app.import(app.bowerDirectory + '/script.js/dist/script.min.js');
-	}
-	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
+	const designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
+		destDir: 'assets/design-system.svg'
+	});
 
-	if (app.env === 'test') {
-		// Fix for PhantomJS errors
-		app.import(app.bowerDirectory + '/es5-shim/es5-shim.min.js');
-	}
 
 	// Assets which are lazy loaded
-	const designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
-			destDir: 'assets/design-system.svg'
-		}),
-		designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
+	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
 			destDir: 'locales'
 		}),
 		ooyalaAssets = new Funnel('node_modules/html5-skin/build', {
@@ -133,8 +114,8 @@ module.exports = function (defaults) {
 		});
 
 	return app.toTree([
-		designSystemAssets,
 		designSystemI18n,
-		ooyalaAssets
+		ooyalaAssets,
+		designSystemAssets
 	]);
 };

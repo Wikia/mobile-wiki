@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import require from 'require';
+import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
-
 
 const trackModule = require('mobile-wiki/utils/track');
 const urlModule = require('mobile-wiki/utils/url');

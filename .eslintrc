@@ -43,7 +43,6 @@
     "$script": true,
     "Ember": true,
     "FastBoot": true,
-    "FastClick": true,
     "ga": true,
     "Hammer": true,
     "Headroom": true,

@@ -1,4 +1,3 @@
-import require from 'require';
 import {test, moduleFor} from 'ember-qunit';
 
 const articleExample = {
@@ -19,8 +18,7 @@ const articleExample = {
 			relatedPages: ['anItem', 'anotherItem'],
 			userDetails: ['someItem', 'yetOneMore']
 		}
-	},
-	articleModelClass = require('mobile-wiki/models/wiki/article').default;
+	};
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model

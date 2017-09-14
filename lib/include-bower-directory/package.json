@@ -1,0 +1,10 @@
+{
+  "name": "include-bower-directory",
+  "keywords": [
+    "ember-addon"
+  ],
+  "devDependencies": {
+    "broccoli-merge-trees": "2.0.0",
+    "fastboot-transform": "^0.1.2"
+  }
+}

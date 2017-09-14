@@ -36,14 +36,13 @@
     "cors": "2.8.4",
     "deep-extend": "0.5.0",
     "express-bunyan-logger": "1.3.2",
-    "fastboot": "github:wikia/fastboot#b8b240b2be3030a5911dc84d63dba4d6abfcaa46",
+    "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
     "html5-skin": "github:wikia/html5-skin#84574003c0cf2fa6de499bd6e7423a2a37681e44",
     "method-override": "2.3.9",
     "newrelic": "1.38.2",
     "on-headers": "1.0.1"
   },
-  "comment": "//might be github:rogatty/broccoli-asset-rev#broccoli-asset-rewrite-1.0.9",
   "devDependencies": {
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "1.0.1",
@@ -60,7 +59,7 @@
     "ember-cli-deprecation-workflow": "0.2.3",
     "ember-cli-eslint": "4.2.0",
     "ember-cli-fastboot": "1.0.5",
-    "ember-cli-fastclick": "1.3.0",
+    "ember-cli-fastclick": "ember-mobile/ember-cli-fastclick#0d48e8dc2df8af6b0d5fd031215c728756106f3e",
     "ember-cli-head": "0.3.1",
     "ember-cli-htmlbars": "2.0.3",
     "ember-cli-htmlbars-inline-precompile": "1.0.2",
@@ -77,20 +76,20 @@
     "ember-cli-template-lint": "0.5.2",
     "ember-cli-test-loader": "1.1.1",
     "ember-cli-uglify": "1.2.0",
-    "ember-derequire": "0.1.2",
+    "ember-derequire": "0.2.0",
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-exex": "0.1.13",
     "ember-export-application-global": "2.0.0",
+    "ember-fetch": "3.3.1",
     "ember-in-viewport": "2.1.1",
     "ember-load-initializers": "1.0.0",
-    "ember-network": "0.3.1",
     "ember-resolver": "4.5.0",
-    "ember-route-action-helper": "2.0.2",
+    "ember-route-action-helper": "2.0.6",
     "ember-router-scroll": "0.3.1",
     "ember-sinon": "0.3.0",
     "ember-source": "2.15.0",
     "ember-wormhole": "0.5.2",
-    "eslint": "4.6.1",
+    "eslint": "2.9.0",
     "eslint-config-airbnb": "9.0.1",
     "eslint-plugin-import": "1.7.0",
     "eslint-plugin-jsx-a11y": "1.2.0",
@@ -109,7 +108,8 @@
   },
   "ember-addon": {
     "paths": [
-      "lib/fastboot-require"
+      "lib/fastboot-require",
+      "lib/include-bower-directory"
     ]
   },
   "fastbootDependencies": [

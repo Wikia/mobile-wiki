@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import sinon from 'sinon';
 import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('alert-notifications', 'Unit | Component | alert notifications', {

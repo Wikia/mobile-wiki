@@ -1,5 +1,6 @@
 import {test, moduleFor} from 'ember-qunit';
 import sinon from 'sinon';
+import Ember from 'ember';
 
 const {
 	Object: EmberObject,
