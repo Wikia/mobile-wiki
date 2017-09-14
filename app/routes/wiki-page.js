@@ -128,7 +128,6 @@ export default Route.extend(
 				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
-				console.log('asrtrst', redirectTo);
 
 				if (handler) {
 					transition.then(() => {
