@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
-import {system, standalone} from '../utils/browser';
+import {standalone} from '../utils/browser';
 
 const {
 	$,
@@ -22,8 +21,9 @@ export default Component.extend({
 	classNames: ['smart-banner-test'],
 
 	currentUser: inject.service(),
+	wikiVariables: inject.service(),
 
-	appScheme: computed.oneWay(`config.appScheme.android`),
+	appScheme: computed.oneWay(`config.appScheme.ios`),
 	config: computed('wikiVariables', function () {
 		return this.get('wikiVariables').get('smartBanner') || {};
 	}),
@@ -95,11 +95,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	checkForHiding() {
-		if (this.get('shouldShowABTestBannerOnIOS') &&
-			// Smart Banner AB Testing
-			!standalone &&
-			$.cookie('sb-closed') !== '1'
-		) {
+		if (!standalone && $.cookie('sb-closed') !== '1') {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
@@ -125,7 +121,7 @@ export default Component.extend({
 	 */
 	fallbackToStore() {
 		this.track(trackActions.install);
-		window.open(this.get('link'), '_blank');
+		window.open(this.get('link'));
 	},
 
 	/**

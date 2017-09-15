@@ -35,11 +35,12 @@
 		isVisible=smartBannerVisible
 		toggleVisibility=attrs.toggleSmartBanner
 	}}
-
 	{{#if shouldShowABTestBannerOnIOS}}
-		{{smart-banner-test toggleVisibility=attrs.toggleSmartBanner isVisible=smartBannerVisible}}
+		{{smart-banner-test
+			toggleVisibility=attrs.toggleSmartBanner
+			isVisible=smartBannerVisible
+		}}
 	{{/if}}
-
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
