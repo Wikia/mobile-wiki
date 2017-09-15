@@ -42,7 +42,7 @@ export default EmberObject.extend({
 					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
 						!Boolean(userId),
 						host,
-						title,
+						title
 					),
 					wikiVariablesData
 				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {

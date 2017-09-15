@@ -153,7 +153,7 @@ export default Route.extend(
 							query: extend(
 								{},
 								transition.state.queryParams,
-								{useskin: 'oasis'},
+								{useskin: 'oasis'}
 							)
 						});
 					}
