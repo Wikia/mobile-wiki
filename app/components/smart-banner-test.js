@@ -38,7 +38,7 @@ export default Component.extend({
 		// Duration to hide the banner after it is clicked (0 = always show banner)
 		daysHiddenAfterView: 30,
 	},
-	day: 86400000,
+	dayInSeconds: 86400000,
 
 	link: 'https://itunes.apple.com/us/developer/wikia-inc/id422467077',
 
@@ -133,7 +133,7 @@ export default Component.extend({
 	setSmartBannerCookie(days) {
 		const date = new Date();
 
-		date.setTime(date.getTime() + (days * this.get('day')));
+		date.setTime(date.getTime() + (days * this.get('dayInSeconds')));
 		$.cookie('sb-closed', 1, {
 			expires: date,
 			path: '/'

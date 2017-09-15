@@ -106,10 +106,6 @@ module.exports = function (environment) {
 		ooyala: {
 			pcode: 'J0MTUxOtPDJVNZastij14_v7VDRS',
 			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8'
-		},
-		optimizely: {
-			scriptPath: '//cdn.optimizely.com/js/',
-			account: '2449650414'
 		}
 	};
 

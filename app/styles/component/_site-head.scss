@@ -108,9 +108,9 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 
 	.appstore-button {
-		background-color: #00d6d6;
+		background-color: $wds-fandom-color-aqua;
 		border-radius: 4px;
-		color: #002a32;
+		color: $wds-fandom-color-navy;
 		font-size: 12px;
 		font-weight: bold;
 		padding: 3px;
