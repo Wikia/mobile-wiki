@@ -100,7 +100,7 @@ module.exports = function (environment) {
 			// when it is created
 		},
 		fastboot: {
-			hostWhitelist: [/.*\.wikia-dev\.(pl|us)/, /.*\.wikia-staging.com/, /.*\.wikia.com/],
+			hostWhitelist: [/.*\.wikia-dev\.(pl|us)/, /.*\.wikia-staging.com/, /.*\.wikia.com/,  /^localhost:\d+$/],
 			shoeboxAppendTo: 'head'
 		},
 		ooyala: {

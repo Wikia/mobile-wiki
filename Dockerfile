@@ -23,7 +23,10 @@ WORKDIR /build
 RUN npm install -g bower
 RUN npm install -g ember-cli
 RUN npm run setup
+RUN npm run build
 
 EXPOSE 7001
+EXPOSE 8001
 
-ENTRYPOINT ["npm", "run", "dev"]
+
+ENTRYPOINT ["npm", "run", "fastboot-server"]
