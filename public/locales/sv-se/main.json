@@ -24,17 +24,17 @@
   },
   "article":{
     "categories-list-label":"Kategorier",
-    "comments-label":"__count__ kommentar",
-    "comments-label_plural":"__count__ kommentarer",
+    "comments-label":"{count} kommentar",
+    "comments-label_plural":"{count} kommentarer",
     "empty-label":"Sorry, this article seems to be empty!",
     "error":"Sorry, we couldn't load the article. Please try again.",
     "last-edit":"Senast redigerad 1 vecka sedan",
     "last-edit_plural_0":"Senast redigerad den här veckan",
-    "last-edit_plural_2":"Senast redigerad __count__ veckor sedan",
+    "last-edit_plural_2":"Senast redigerad {count} veckor sedan",
 
     "redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
-    "replies-label":"Visa __count__ svar",
-    "replies-label_plural":"Visa __count__ svar",
+    "replies-label":"Visa {count} svar",
+    "replies-label_plural":"Visa {count} svar",
     "suggestions-label":"Läs mer",
     "toc-label":"Innehållsförteckning",
     "top-contributors-label":"Top Contributors to this article"
@@ -63,7 +63,7 @@
     "publish-error-noedit":"You don't have permission to edit pages on this wiki.",
     "publish-error-noedit-anon":"Anonymous users can't edit pages.",
     "publish-error-protectedpage":"You don't have permission to edit this page.",
-    "success":"Successfully edited page __pageTitle__!"
+    "success":"Successfully edited page {pageTitle}!"
   },
   "file-page":{
     "subtitle":"File Page",
@@ -75,7 +75,7 @@
   },
   "navigation":{
     "back-label":"Tillbaka",
-    "explore-wiki":"Explore __wikiName__",
+    "explore-wiki":"Explore {wikiName}",
     "random-page-label":"Random Page",
     "user-menu-log-out":"Log out",
     "user-menu-profile":"Profile"
@@ -92,7 +92,7 @@
   "widget-discussions":{
     "all-discussions-link-mobile":"All Discussions",
     "header-title":"Discussions",
-    "in-category-label":"in __categoryName__",
+    "in-category-label":"in {categoryName}",
     "post-actions-reply-label":"Reply",
     "post-actions-upvote-label":"Upvote"
   },

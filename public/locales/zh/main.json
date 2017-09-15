@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "分類", 
-    "comments-label": "__count__ 次評論", 
-    "comments-label_plural": "__count__ 次評論", 
+    "comments-label": "{count} 次評論",
+    "comments-label_plural": "{count} 次評論",
     "empty-label": "對不起，這篇文章似乎是空的 ！", 
     "error": "對不起，我們無法載入這篇文章。請再試一次。", 
     "last-edit": "上次編輯在一周前", 
     "last-edit_plural_0": "這星期編輯過", 
-    "last-edit_plural_2": "上次編輯在 __count__ 周前", 
+    "last-edit_plural_2": "上次編輯在 {count} 周前",
     "portable-infobox-image": "圖片", 
     "redirect-empty-target": "您關注的連結是一個重定向，但是重定向的目標頁面不存在。", 
-    "replies-label": "查看 __count__ 個回覆", 
-    "replies-label_plural": "查看 __count__ 個回覆", 
+    "replies-label": "查看 {count} 個回覆",
+    "replies-label_plural": "查看 {count} 個回覆",
     "suggestions-label": "瀏覽更多", 
     "toc-label": "内容列表", 
     "top-contributors-label": "這篇文章的傑出貢獻者"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "您在這個Wiki沒有編輯此頁面的權限。", 
     "publish-error-noedit-anon": "匿名用戶無法編輯頁面。", 
     "publish-error-protectedpage": "你沒有編輯此頁面的權限。", 
-    "success": "已編輯成功的頁面 __pageTitle__！"
+    "success": "已編輯成功的頁面 {pageTitle}！"
   }, 
   "file-page": {
     "subtitle": "檔案頁面", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "返回", 
-    "explore-wiki": "瀏覽__wikiName__", 
+    "explore-wiki": "瀏覽{wikiName}",
     "random-page-label": "隨機頁面", 
     "user-menu-log-out": "登出", 
     "user-menu-profile": "用戶資料"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "所有討論", 
     "header-title": "討論版", 
-    "in-category-label": "__categoryName__", 
+    "in-category-label": "{categoryName}",
     "post-actions-reply-label": "回覆", 
     "post-actions-upvote-label": "讚"
   }

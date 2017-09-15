@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Kategorie", 
-    "comments-label": "__count__ komentarz", 
-    "comments-label_plural": "__count__ komentarzy", 
+    "comments-label": "{count} komentarz",
+    "comments-label_plural": "{count} komentarzy",
     "empty-label": "Niestety ten artykuł wydaje się być pusty!", 
     "error": "Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.", 
     "last-edit": "Ostatnio edytowane tydzień temu", 
     "last-edit_plural_0": "Ostatnio edytowane w tym tygodniu", 
-    "last-edit_plural_2": "Ostatnio edytowane __count__ tygodni temu", 
+    "last-edit_plural_2": "Ostatnio edytowane {count} tygodni temu",
     "portable-infobox-image": "Obraz", 
     "redirect-empty-target": "Link jest przekierowaniem, ale strona do której kieruje nie istnieje.", 
-    "replies-label": "Zobacz __count__ odpowiedź", 
-    "replies-label_plural": "Zobacz __count__ odpowiedzi", 
+    "replies-label": "Zobacz {count} odpowiedź",
+    "replies-label_plural": "Zobacz {count} odpowiedzi",
     "suggestions-label": "Czytaj dalej", 
     "toc-label": "Spis treści", 
     "top-contributors-label": "Najlepsi współtwórcy tego artykułu"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "Nie masz uprawnień do edycji stron na tym wiki.", 
     "publish-error-noedit-anon": "Anonimowi użytkownicy nie mogą edytować stron.", 
     "publish-error-protectedpage": "Nie posiadasz uprawnień do edytowania tej strony.", 
-    "success": "Dokonano edycji strony __pageTitle__!"
+    "success": "Dokonano edycji strony {pageTitle}!"
   }, 
   "file-page": {
     "subtitle": "Strona pliku", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Wstecz", 
-    "explore-wiki": "Przeglądaj __wikiName__", 
+    "explore-wiki": "Przeglądaj {wikiName}",
     "random-page-label": "Losowa strona", 
     "user-menu-log-out": "Wyloguj", 
     "user-menu-profile": "Profil"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Wszystkie dyskusje", 
     "header-title": "Dyskusje", 
-    "in-category-label": "__categoryName__", 
+    "in-category-label": "{categoryName}",
     "post-actions-reply-label": "Odpowiedz", 
     "post-actions-upvote-label": "Zagłosuj"
   }
