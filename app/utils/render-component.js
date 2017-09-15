@@ -33,13 +33,16 @@ export function getRenderComponentFor(parent) {
 
 	return function renderComponent({name, attrs, element: placeholderElement}) {
 		const component = lookupComponent(owner, name);
-		let componentInstance;
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
+		/**
+		 * layoutName - for dynamically created components we need to tell Ember where is it's template
+		 * @type {string}
+		 */
 		attrs.layoutName = `components/${name}`;
 
-		componentInstance = component.create(attrs);
+		let componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
 		Ember.run.scheduleOnce('afterRender', this, () => {

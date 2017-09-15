@@ -46,6 +46,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "1.0.1",
+    "broccoli-merge-trees": "2.0.0",
     "broccoli-stew": "1.3.2",
     "design-system-i18n": "github:wikia/design-system-i18n.git#0.10.2",
     "ember-browserify": "1.2.0",
@@ -93,6 +94,7 @@
     "eslint-plugin-import": "1.7.0",
     "eslint-plugin-jsx-a11y": "1.2.0",
     "eslint-plugin-react": "5.0.1",
+    "fastboot-transform": "0.1.2",
     "form-data": "2.3.1",
     "heapdump": "0.3.9",
     "i18next": "7.1.2",

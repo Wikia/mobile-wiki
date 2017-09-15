@@ -1,24 +1,24 @@
 import {test, moduleFor} from 'ember-qunit';
 
 const articleExample = {
-		data: {
-			details: {
-				revision: {
-					timestamp: 123
-				},
-				comments: 123,
-				id: 123
+	data: {
+		details: {
+			revision: {
+				timestamp: 123
 			},
-			categories: 'test',
-			article: {
-				content: 'TestContent',
-				users: 'test'
-			},
-			ns: 'namespace',
-			relatedPages: ['anItem', 'anotherItem'],
-			userDetails: ['someItem', 'yetOneMore']
-		}
-	};
+			comments: 123,
+			id: 123
+		},
+		categories: 'test',
+		article: {
+			content: 'TestContent',
+			users: 'test'
+		},
+		ns: 'namespace',
+		relatedPages: ['anItem', 'anotherItem'],
+		userDetails: ['someItem', 'yetOneMore']
+	}
+};
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model

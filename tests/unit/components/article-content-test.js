@@ -3,11 +3,11 @@ import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const {
-	Component,
-	String: {dasherize},
-	computed,
-	run
-} = Ember,
+		Component,
+		String: {dasherize},
+		computed,
+		run
+	} = Ember,
 	adSlotComponentStub = Component.extend({
 		classNameBindings: ['nameLowerCase'],
 		nameLowerCase: computed('name', function () {

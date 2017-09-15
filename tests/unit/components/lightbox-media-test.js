@@ -1,9 +1,10 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import mediaModel from 'mobile-wiki/models/media';
+import require from 'require';
 
 const trackModule = require('mobile-wiki/utils/track');
-import require from 'require';
+
 let model,
 	trackStub;
 
