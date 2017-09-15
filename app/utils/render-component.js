@@ -23,26 +23,21 @@ function componentAttributes(element) {
 }
 
 function lookupComponent(owner, name) {
-	let componentLookupKey = `component:${name}`,
-		layoutLookupKey = `template:components/${name}`,
-		layout = owner.factoryFor(layoutLookupKey),
-		component = owner.factoryFor(componentLookupKey);
+	const componentLookupKey = `component:${name}`;
 
-	return {component, layout};
+	return owner.factoryFor(componentLookupKey);
 }
 
 export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
 	return function renderComponent({name, attrs, element: placeholderElement}) {
-		const {component, layout} = lookupComponent(owner, name);
+		const component = lookupComponent(owner, name);
 		let componentInstance;
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
-		if (layout) {
-			attrs.layout = layout;
-		}
+		attrs.layoutName = `components/${name}`;
 
 		componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
