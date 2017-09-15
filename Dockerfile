@@ -19,3 +19,11 @@ RUN mkdir -p /build
 COPY package.json /build
 COPY . /build
 WORKDIR /build
+
+RUN npm install -g bower
+RUN npm install -g ember-cli
+RUN npm run setup
+
+EXPOSE 7001
+
+ENTRYPOINT ["npm", "run", "dev"]
