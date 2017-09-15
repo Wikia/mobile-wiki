@@ -14,16 +14,19 @@ const {
 } = Ember;
 
 /**
- * Component for a custom Smart Banner
- * it's visible only for Android devices
- * iOS has its own native smart banner - no need to render it there
+ * This is a fork from smart-banner-android
+ * Needed for a/b test purposes
+ * Uses code repetition and will be removed after the test is done
  */
 export default Component.extend({
 	classNames: ['smart-banner-test'],
-	classNameBindings: ['noIcon'],
 
-	wikiVariables: inject.service(),
 	currentUser: inject.service(),
+
+	appScheme: computed.oneWay(`config.appScheme.android`),
+	config: computed('wikiVariables', function () {
+		return this.get('wikiVariables').get('smartBanner') || {};
+	}),
 
 	options: {
 		// Language code for App Store
@@ -37,34 +40,7 @@ export default Component.extend({
 	},
 	day: 86400000,
 
-	appId: computed.oneWay(`config.appId.android`),
-	appScheme: computed.oneWay(`config.appScheme.android`),
-	config: computed('wikiVariables', function () {
-		return this.get('wikiVariables').get('smartBanner') || {};
-	}),
-	dbName: computed.reads('wikiVariables.dbName'),
-	description: computed.oneWay('config.description'),
-	icon: computed.oneWay('config.icon'),
-	iconSize: 92,
-
-	iconStyle: computed('icon', function () {
-		if (this.get('noIcon')) {
-			return null;
-		}
-
-		const icon = Thumbnailer.getThumbURL(this.get('icon'), {
-			mode: Thumbnailer.mode.thumbnailDown,
-			width: this.iconSize,
-			height: this.iconSize
-		});
-
-		return new htmlSafe(`background-image: url(${icon})`);
-	}),
-
 	link: 'https://itunes.apple.com/us/developer/wikia-inc/id422467077',
-
-	noIcon: computed.not('icon'),
-	title: computed.oneWay('config.name'),
 
 	actions: {
 		/**
@@ -119,17 +95,9 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	checkForHiding() {
-		const {name, disabled} = this.get('config');
-
-		// Show custom smart banner only when a device is Android
-		// website isn't loaded in app and user did not dismiss it already
-		if ((system === 'android' ||
-			// Smart Banner AB Testing
-			this.get('shouldShowABTestBannerOnIOS')) &&
+		if (this.get('shouldShowABTestBannerOnIOS') &&
 			// Smart Banner AB Testing
 			!standalone &&
-			name &&
-			!disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);

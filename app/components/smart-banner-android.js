@@ -67,18 +67,6 @@ export default Component.extend({
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
 
-
-	// Smart Banner AB Testing
-	/**
-	 * @returns {boolean}
-	 */
-	shouldShowABTestBannerOnIOS: computed('currentUser.language', function () {
-		return system === 'ios' &&
-			this.get('currentUser.language') &&
-			inGroup('ourABTest', 'variation1');
-	}),
-	// Smart Banner AB Testing
-
 	noIcon: computed.not('icon'),
 	title: computed.oneWay('config.name'),
 
@@ -139,14 +127,7 @@ export default Component.extend({
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if ((system === 'android' ||
-			// Smart Banner AB Testing
-			this.get('shouldShowABTestBannerOnIOS')) &&
-			// Smart Banner AB Testing
-			!standalone &&
-			name &&
-			!disabled &&
-			$.cookie('sb-closed') !== '1'
+		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
