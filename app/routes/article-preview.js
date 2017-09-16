@@ -46,6 +46,7 @@ export default Route.extend(
 			 */
 			error(error, transition) {
 				this.get('logger').error(error);
+
 				if (transition) {
 					transition.abort();
 				}
