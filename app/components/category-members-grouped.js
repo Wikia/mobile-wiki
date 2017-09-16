@@ -2,7 +2,12 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
 
-const {Component, $, run, inject} = Ember;
+const {
+	Component,
+	$,
+	run,
+	inject
+} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,

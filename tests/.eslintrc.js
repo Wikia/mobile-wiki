@@ -8,6 +8,7 @@ module.exports = {
 		mockService: true
 	},
 	rules: {
-		"import/newline-after-import": 0
+		"import/newline-after-import": 0,
+		"no-restricted-globals": 0
 	}
 };

@@ -13,7 +13,12 @@ import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Route, RSVP, inject, get} = Ember;
+const {
+	Route,
+	RSVP,
+	inject,
+	get
+} = Ember;
 
 export default Route.extend(
 	WikiPageHandlerMixin,

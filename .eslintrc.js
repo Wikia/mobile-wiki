@@ -3,7 +3,7 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module'
 	},
-	extends: 'airbnb',
+	extends: 'airbnb-base',
 	env: {
 		es6: true,
 		browser: true,
@@ -29,6 +29,7 @@ module.exports = {
 		"comma-dangle": 0,
 		"consistent-return": 0,
 		"func-names": 0,
+		"function-paren-newline": [2, "consistent"],
 		"global-require": 0,
 		"import/extensions": 0,
 		"import/first": 0,
@@ -60,10 +61,10 @@ module.exports = {
 		"one-var": 0,
 		"one-var-declaration-per-line": 0,
 		"padded-blocks": 0,
+		"prefer-destructuring": 0,
 		"prefer-const": 0,
 		"prefer-rest-params": 0,
 		"quotes": [2, "single", {"allowTemplateLiterals": true}],
-		"wrap-iife": [2, "inside"],
-		"jsx-a11y/href-no-hash": 0
+		"wrap-iife": [2, "inside"]
 	}
 };

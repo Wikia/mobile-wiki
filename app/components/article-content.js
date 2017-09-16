@@ -4,7 +4,15 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
 
-const {Component, $, isBlank, observer, on, run, inject} = Ember;
+const {
+	Component,
+	$,
+	isBlank,
+	observer,
+	on,
+	run,
+	inject
+} = Ember;
 
 /**
  * HTMLElement

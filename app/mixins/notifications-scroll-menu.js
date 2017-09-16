@@ -43,5 +43,4 @@ export default Mixin.create({
 		return element[0].scrollHeight - this.get('almostBottom') <= element.scrollTop() + element.innerHeight();
 	}
 
-})
-;
+});

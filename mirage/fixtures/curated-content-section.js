@@ -37,4 +37,5 @@ export default {
 				'Red.jpg/revision/latest?cb=20150708092401',
 			article_local_url: '/wiki/Category:Videos'
 		}
-	]};
+	]
+};

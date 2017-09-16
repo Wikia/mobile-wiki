@@ -108,8 +108,8 @@ test('display div with loading search suggestions', function (assert) {
 	];
 
 	this.set('suggestions', suggestions);
-	this.render(hbs`
-		{{wikia-search
+	this.render(
+		hbs`{{wikia-search
 			suggestions=suggestions
 		}}`
 	);
