@@ -34,7 +34,6 @@ module.exports = function (defaults) {
 	const inlineScriptsPath = 'app/inline-scripts/';
 	const app = new EmberApp(defaults, {
 		autoprefixer: {
-			browsers: ['last 2 version', 'last 3 iOS versions', '> 1%'],
 			cascade: false,
 			map: false
 		},
