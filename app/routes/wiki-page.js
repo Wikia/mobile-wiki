@@ -75,7 +75,7 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		beforeModel(transition) {
-			this._super();
+			this._super(transition);
 
 			const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
@@ -125,7 +125,6 @@ export default Route.extend(
 			this._super(...arguments);
 
 			if (model) {
-				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -158,12 +157,7 @@ export default Route.extend(
 						});
 					}
 
-					if (fastboot.get('isFastBoot')) {
-						//fastboot.get('response.headers').set('location', redirectTo);
-						//fastboot.set('response.statusCode', 301);
-					} else {
-						window.location.replace(redirectTo);
-					}
+					this.replaceWith(redirectTo);
 				}
 			} else {
 				this.get('logger').warn('Unsupported page');
