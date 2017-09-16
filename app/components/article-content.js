@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {getAttributesForMedia} from '../utils/article-media';
+import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
 
 const {Component, $, isBlank, observer, on, run, inject} = Ember;

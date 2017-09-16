@@ -40,7 +40,7 @@ export default EmberObject.extend({
 						wikiVariablesData.language.content
 					),
 					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
-						!Boolean(userId),
+						!userId,
 						host,
 						title
 					),

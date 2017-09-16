@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DiscussionContributor from './contributor';
 import fetch from 'fetch';
 import {convertToTimestamp} from '../../utils/iso-date-time';
-import {notificationTypes} from '../../utils/notification-types';
+import notificationTypes from '../../utils/notification-types';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
 const {

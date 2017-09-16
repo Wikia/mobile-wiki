@@ -3,10 +3,11 @@ import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
+import {WikiVariablesRedirectError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
+import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 const {
@@ -142,6 +143,23 @@ export default Route.extend(
 			}
 		},
 
+		redirect(model) {
+			const fastboot = this.get('fastboot'),
+				basePath = model.wikiVariables.basePath;
+
+			if (fastboot.get('isFastBoot') &&
+				basePath !== `${fastboot.get('request.protocol')}//${model.wikiVariables.host}`) {
+				const fastbootRequest = this.get('fastboot.request');
+
+				fastboot.get('response.headers').set(
+					'location',
+					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+				);
+				fastboot.set('response.statusCode', 301);
+			}
+		},
+
+
 		actions: {
 			loading(transition) {
 				if (this.controller) {
@@ -161,12 +179,6 @@ export default Route.extend(
 
 			error(error, transition) {
 				const fastboot = this.get('fastboot');
-
-				// TODO XW-3198
-				// Don't handle special type of errors. Currently we use them hack Ember and stop executing application
-				if (error instanceof DontLogMeError) {
-					return false;
-				}
 
 				this.get('logger').error('Application error', error);
 

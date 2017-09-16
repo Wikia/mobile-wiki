@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {extractDomainFromUrl} from '../utils/domain';
+import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';

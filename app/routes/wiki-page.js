@@ -133,7 +133,7 @@ export default Route.extend(
 						this.get('liftigniter').initLiftigniter(model.adsContext);
 
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
-						// updated yet. `didTrasition` hook is called too fast.
+						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
 
 						if (typeof handler.afterTransition === 'function') {

@@ -7,4 +7,7 @@ module.exports = {
 		mockFastbootService: true,
 		mockService: true
 	},
+	rules: {
+		"import/newline-after-import": 0
+	}
 };

@@ -9,10 +9,10 @@
 
 	function loadDOMResource(src) {
 		fetch(src)
-			.then(function(response) {
+			.then(function (response) {
 				return response.text();
 			})
-			.then(function(body) {
+			.then(function (body) {
 				var element = htmlToElement(body);
 
 				element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';

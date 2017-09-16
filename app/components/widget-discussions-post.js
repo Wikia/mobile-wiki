@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {truncate} from '../utils/truncate';
+import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
 
 const {

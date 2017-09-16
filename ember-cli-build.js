@@ -100,7 +100,7 @@ module.exports = function (defaults) {
 		}
 	});
 
-	const designSystemAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite.svg', {
+	const designSystemAssets = new Funnel(`${app.bowerDirectory}/design-system/dist/svg/sprite.svg`, {
 		destDir: 'assets/design-system.svg'
 	});
 

@@ -5,7 +5,7 @@
  */
 export function initialize() {
 	if (typeof FastBoot !== 'undefined') {
-		return
+		return;
 	}
 
 	window.emberHammerOptions = {
