@@ -10,25 +10,26 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
  * If you update ember-cli and something breaks,
  * the first thing you should try is to comment this out
  */
-// EmberApp.prototype.addonTreesFor = function (type) {
-// 	return this.project.addons.map(function (addon) {
-// 		if (addon.treeFor) {
-// 			let tree = addon.treeFor(type);
-//
-// 			if (tree) {
-// 				// uncomment to see the files available to be filtered out
-// 				// tree = stew.log(tree, {output: 'tree'});
-// 				tree = stew.rm(tree,
-// 					'modules/ember-types/asserts/**/*.js',
-// 					'modules/ember-types/constants/*.js',
-// 					'modules/ember-types/property/*.js'
-// 				);
-// 			}
-//
-// 			return tree;
-// 		}
-// 	}).filter(Boolean);
-// };
+EmberApp.prototype.addonTreesFor = function (type) {
+	return this.project.addons.map((addon) => {
+		if (addon.treeFor) {
+			let tree = addon.treeFor(type);
+
+			if (tree) {
+				// uncomment to see the files available to be filtered out
+				// tree = stew.log(tree, {output: 'tree'});
+				tree = stew.rm(
+					tree,
+					'modules/ember-types/asserts/**/*.js',
+					'modules/ember-types/constants/*.js',
+					'modules/ember-types/property/*.js'
+				);
+			}
+
+			return tree;
+		}
+	}).filter(Boolean);
+};
 
 module.exports = function (defaults) {
 	const inlineScriptsPath = 'app/inline-scripts/';
@@ -102,7 +103,6 @@ module.exports = function (defaults) {
 	const designSystemAssets = new Funnel(`${app.bowerDirectory}/design-system/dist/svg/sprite.svg`, {
 		destDir: 'assets/design-system.svg'
 	});
-
 
 	// Assets which are lazy loaded
 	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
