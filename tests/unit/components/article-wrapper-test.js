@@ -44,7 +44,12 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 }
 
 moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:currentUser',
+		'service:fastboot',
+		'service:wiki-variables'
+	]
 });
 
 test('contribution disabled on main page', function (assert) {

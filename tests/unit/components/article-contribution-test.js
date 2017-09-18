@@ -27,6 +27,10 @@ function createComponent(testThis, editAllowed = true) {
 
 moduleForComponent('article-contribution', 'Unit | Component | article contribution', {
 	unit: true,
+	needs: [
+		'service:i18n',
+		'service:wiki-variables'
+	],
 
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');

@@ -9,6 +9,11 @@ let trackStub, buildUrlStub, component;
 
 moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
+	needs: [
+		'service:i18n',
+		'service:logger',
+		'service:wiki-variables'
+	],
 
 	beforeEach() {
 		buildUrlStub = sinon.stub(urlModule, 'buildUrl');

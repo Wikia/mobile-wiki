@@ -1,7 +1,10 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('curated-content-item', 'Unit | Component | curated content item', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:fastboot'
+	]
 });
 
 test('returns correct icon name', function (assert) {

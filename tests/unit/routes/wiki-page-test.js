@@ -21,11 +21,17 @@ const initialPageViewStub = Service.extend({
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	needs: [
+		'service:ads',
+		'service:currentUser',
 		'service:fastboot',
 		'service:initial-page-view',
+		'service:liftigniter',
+		'service:i18n',
 		'service:logger',
 		'service:router-scroll',
-		'service:wiki-variables'
+		'service:scheduler',
+		'service:wiki-variables',
+		'service:head-data'
 	],
 	beforeEach() {
 		window.wgNow = null;

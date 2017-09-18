@@ -16,7 +16,7 @@ moduleForComponent('main-page', 'Unit | Component | main page', {
 		'component:wikia-ui-components/wiki-page-header-curated-main-page',
 		'service:ads',
 		'service:current-user',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

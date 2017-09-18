@@ -10,6 +10,9 @@ let model,
 
 moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	unit: true,
+	needs: [
+		'service:logger'
+	],
 
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');

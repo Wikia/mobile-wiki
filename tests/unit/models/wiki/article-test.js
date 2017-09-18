@@ -86,7 +86,11 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-moduleFor('model:wiki/article', 'Integration | Model | wiki/article');
+moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
+	needs: [
+		'service:wiki-variables'
+	],
+});
 
 test('setData with parametrized data', function (assert) {
 	const model = this.subject();

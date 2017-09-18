@@ -25,8 +25,9 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'service:ads',
 		'service:currentUser',
 		'service:fastboot',
+		'service:i18n',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

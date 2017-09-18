@@ -12,7 +12,7 @@ moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	needs: [
 		'service:fastboot',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {
