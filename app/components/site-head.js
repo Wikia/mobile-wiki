@@ -51,7 +51,7 @@ export default Component.extend(
 		canShowABTestedIOSAppButton: computed('currentUser.language', function () {
 			return system === 'ios' &&
 				this.get('currentUser.language') &&
-				inGroup('ourABTest', 'variation2');
+				inGroup('FANDOM_APP_SMART_BANNER_IOS_TEST', 'button');
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),

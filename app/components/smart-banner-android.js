@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
-import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
 import {system, standalone} from '../utils/browser';
 
@@ -127,8 +126,7 @@ export default Component.extend({
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1'
-		) {
+		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
