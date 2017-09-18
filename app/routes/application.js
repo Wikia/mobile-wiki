@@ -3,7 +3,7 @@ import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {WikiVariablesRedirectError} from '../utils/errors';
+import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
@@ -156,6 +156,10 @@ export default Route.extend(
 					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
 				);
 				fastboot.set('response.statusCode', 301);
+
+				// TODO XW-3198
+				// We throw error to stop Ember and redirect immediately
+				throw new DontLogMeError();
 			}
 		},
 
@@ -179,6 +183,12 @@ export default Route.extend(
 
 			error(error, transition) {
 				const fastboot = this.get('fastboot');
+
+				// TODO XW-3198
+				// Don't handle special type of errors. Currently we use them hack Ember and stop executing application
+				if (error instanceof DontLogMeError) {
+					return false;
+				}
 
 				this.get('logger').error('Application error', error);
 

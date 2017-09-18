@@ -5,6 +5,11 @@ const DesignSystemFetchError = defineError({
 	message: `Design System data couldn't be fetched`
 });
 
+const DontLogMeError = defineError({
+	name: 'DontLogMeError',
+	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
+});
+
 const FandomPostsError = defineError({
 	name: 'FandomPostsError',
 	message: `Fandom posts couldn't be fetched`
@@ -13,6 +18,7 @@ const FandomPostsError = defineError({
 const WikiVariablesRedirectError = defineError({
 	name: 'WikiVariablesRedirectError',
 	message: `The API response was in incorrect format`,
+	extends: DontLogMeError
 });
 
 const UserLoadDetailsFetchError = defineError({
@@ -53,6 +59,7 @@ const getFetchErrorMessage = function (response) {
 export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
+	DontLogMeError,
 	FandomPostsError,
 	WikiVariablesRedirectError,
 	UserLoadDetailsFetchError,
