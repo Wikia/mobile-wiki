@@ -141,6 +141,8 @@ export default Route.extend(
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
 
+						const fastboot = this.get('fastboot');
+
 						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
 							handler.afterTransition({
 								model,

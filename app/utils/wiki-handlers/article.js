@@ -89,7 +89,12 @@ function shouldSendLyricFindRequest({model, wikiId, headers}) {
  */
 function afterTransition({model, wikiId, host, headers, logger}) {
 	if (shouldSendLyricFindRequest({model, wikiId, headers})) {
-		sendLyricsPageView({model, host, headers, logger});
+		sendLyricsPageView({
+			model,
+			host,
+			headers,
+			logger
+		});
 	}
 }
 
