@@ -53,8 +53,8 @@ export default Service.extend({
 			defaultNS: 'main',
 			interpolation: {
 				escapeValue: false,
-				prefix: '__',
-				suffix: '__'
+				prefix: '{',
+				suffix: '}'
 			},
 			resources: {
 				[language]: translations
