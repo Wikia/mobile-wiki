@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Categorías", 
-    "comments-label": "__count__ comentario", 
-    "comments-label_plural": "__count__ comentarios", 
+    "comments-label": "{count} comentario",
+    "comments-label_plural": "{count} comentarios",
     "empty-label": "¡Lo sentimos, este artículo parece estar vacío!", 
     "error": "Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.", 
     "last-edit": "Editado por última vez hace una semana", 
     "last-edit_plural_0": "Editado por última vez esta semana", 
-    "last-edit_plural_2": "Editado por última vez hace __count__ semanas", 
+    "last-edit_plural_2": "Editado por última vez hace {count} semanas",
     "portable-infobox-image": "Imagen", 
     "redirect-empty-target": "El enlace que has seguido es una redirección, pero la página a la que redirige no existe.", 
-    "replies-label": "Ver __count__ respuesta", 
-    "replies-label_plural": "Ver __count__ respuestas", 
+    "replies-label": "Ver {count} respuesta",
+    "replies-label_plural": "Ver {count} respuestas",
     "suggestions-label": "Leer más", 
     "toc-label": "Tabla de contenidos", 
     "top-contributors-label": "Principales editores de este artículo"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "No tienes permiso para editar páginas en este wiki.", 
     "publish-error-noedit-anon": "Los usuarios anónimos no pueden editar páginas.", 
     "publish-error-protectedpage": "No tienes permiso para editar esta página.", 
-    "success": "¡Página editada con éxito __pageTitle__!"
+    "success": "¡Página editada con éxito {pageTitle}!"
   }, 
   "file-page": {
     "subtitle": "Página de archivo", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Atrás", 
-    "explore-wiki": "Explora __wikiName__", 
+    "explore-wiki": "Explora {wikiName}",
     "random-page-label": "Página aleatoria", 
     "user-menu-log-out": "Cerrar sesión", 
     "user-menu-profile": "Perfil"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Todas las discusiones", 
     "header-title": "Discusiones", 
-    "in-category-label": "__categoryName__", 
+    "in-category-label": "{categoryName}",
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
   }
