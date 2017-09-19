@@ -1,4 +1,4 @@
-FROM node:6.10
+FROM node:6.11.3 as prepare
 
 # phantomjs workaround
 RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
@@ -24,6 +24,12 @@ RUN npm install -g bower
 RUN npm install -g ember-cli
 RUN npm run setup
 RUN npm run build
+
+
+FROM node:6.11.3-alpine
+
+COPY --from=prepare /build /build
+WORKDIR /build
 
 EXPOSE 7001
 EXPOSE 8001
