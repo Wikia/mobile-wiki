@@ -1,6 +1,6 @@
 import Ads from '../ads';
 import BasePlayer from './base';
-import moatVideoTracker from './moat-video-tracker';
+import OoyalaVideoAds from './ooyala-video-ads';
 import config from '../../config/environment';
 
 export const ooyalaAssets = {
@@ -50,29 +50,10 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	createPlayer() {
 		window.OO.ready(() => {
-			Ads.getInstance().onReady(() => {
-				const ads = Ads.getInstance();
-
-				if (!this.params.noAds && ads) {
-					this.params['google-ima-ads-manager'] = {
-						all_ads: ads.ooyalaAdSetProvider.get(1, null, {
-							contentSourceId: this.params.dfpContentSourceId,
-							videoId: this.params.videoId
-						}),
-						useGoogleAdUI: true,
-						useGoogleCountdown: false,
-						onBeforeAdsManagerStart(IMAAdsManager) {
-							// mutes VAST ads from the very beginning
-							// FIXME with VPAID it causes volume controls to be in incorrect state
-							IMAAdsManager.setVolume(0);
-						},
-						onAdRequestSuccess: this.onAdRequestSuccess.bind(this)
-					};
-					this.params.replayAds = false;
-				}
-
-				window.OO.Player.create(this.containerId, this.params.videoId, this.params);
-			});
+			Ads.getInstance()
+				.waitForReady()
+				.then(() => (new OoyalaVideoAds(this.params)).getOoyalaConfig())
+				.then((params) => window.OO.Player.create(this.containerId, this.params.videoId, params));
 		});
 	}
 
@@ -103,24 +84,5 @@ export default class OoyalaV4Player extends BasePlayer {
 	 */
 	playerDidLoad() {
 		this.createPlayer();
-	}
-
-	onAdRequestSuccess(IMAAdsManager, uiContainer) {
-		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
-			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
-		}
-
-		// that's a hack for autoplay on mobile for VPAID ads
-		// VPAID ads still don't work perfectly
-		let initiallyResumed = false;
-		IMAAdsManager.addEventListener('pause', (eventData) => {
-			if (eventData.getAd().getApiFramework() === 'VPAID') {
-				if (!initiallyResumed) {
-					IMAAdsManager.resume();
-					// we don't use removeEventListener because it doesn't work as expected
-					initiallyResumed = true;
-				}
-			}
-		}, false, this);
 	}
 }
