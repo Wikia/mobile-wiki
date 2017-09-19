@@ -80,6 +80,7 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
+		this.ooyalaAdSetProvider = null;
 		this.adsData = {
 			minZerothSectionLength: 700,
 			minPageLength: 2000
@@ -126,6 +127,7 @@ class Ads {
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.video.player.ooyala.ooyalaTracker',
 					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
 				], (
@@ -140,6 +142,7 @@ class Ads {
 					googleTagModule,
 					ooyalaTracker,
 					sourcePointDetectionModule,
+					ooyalaAdSetProvider,
 					vastUrlBuilder,
 					krux
 				) => {
@@ -157,6 +160,7 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+					this.ooyalaAdSetProvider = ooyalaAdSetProvider;
 					this.a9 = a9;
 
 					this.addDetectionListeners();
