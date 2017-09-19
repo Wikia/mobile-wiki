@@ -57,14 +57,10 @@ export default class OoyalaVideoAds {
 
 	getAdsManagerConfig() {
 		return {
-			all_ads: [
-				{
-					tag_url: Ads.getInstance().ooyalaAdSetProvider.get(1, null, {
-						contentSourceId: this.params.dfpContentSourceId,
-						videoId: this.params.videoId
-					})
-				}
-			],
+			all_ads: Ads.getInstance().ooyalaAdSetProvider.get(1, null, {
+				contentSourceId: this.params.dfpContentSourceId,
+				videoId: this.params.videoId
+			}),
 			useGoogleAdUI: true,
 			useGoogleCountdown: false,
 			onBeforeAdsManagerStart(IMAAdsManager) {
