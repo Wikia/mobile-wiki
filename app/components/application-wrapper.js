@@ -56,9 +56,12 @@ export default Component.extend({
 	 * @returns {boolean}
 	 */
 	shouldShowABTestBannerOnIOS: computed('currentUser.language', function () {
+		console.log('System', system);
+		console.log('Lang', this.get('currentUser.language'));
+		console.log('ABTEST', inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER'));
 		return system === 'ios' &&
 			this.get('currentUser.language') === 'en' &&
-			inGroup('FANDOM_APP_SMART_BANNER_IOS_TEST', 'banner');
+			inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT	', 'BANNER');
 	}),
 	// Smart Banner AB Testing
 
