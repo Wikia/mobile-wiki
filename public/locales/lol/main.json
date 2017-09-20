@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "crwdns58204:0crwdne58204:0", 
-    "comments-label": "crwdns58205:0{count}crwdne58205:0",
-    "comments-label_plural": "crwdns58206:0{count}crwdne58206:0",
+    "comments-label": "crwdns71074:0{count}crwdne71074:0", 
+    "comments-label_plural": "crwdns71075:0{count}crwdne71075:0", 
     "empty-label": "crwdns58207:0crwdne58207:0", 
     "error": "crwdns58208:0crwdne58208:0", 
     "last-edit": "crwdns58209:0crwdne58209:0", 
     "last-edit_plural_0": "crwdns58210:0crwdne58210:0", 
-    "last-edit_plural_2": "crwdns58211:0{count}crwdne58211:0",
+    "last-edit_plural_2": "crwdns71076:0{count}crwdne71076:0", 
     "portable-infobox-image": "crwdns70362:0crwdne70362:0", 
     "redirect-empty-target": "crwdns58213:0crwdne58213:0", 
-    "replies-label": "crwdns58214:0{count}crwdne58214:0",
-    "replies-label_plural": "crwdns58215:0{count}crwdne58215:0",
+    "replies-label": "crwdns71077:0{count}crwdne71077:0", 
+    "replies-label_plural": "crwdns71078:0{count}crwdne71078:0", 
     "suggestions-label": "crwdns58216:0crwdne58216:0", 
     "toc-label": "crwdns58217:0crwdne58217:0", 
     "top-contributors-label": "crwdns58218:0crwdne58218:0"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "crwdns58232:0crwdne58232:0", 
     "publish-error-noedit-anon": "crwdns58233:0crwdne58233:0", 
     "publish-error-protectedpage": "crwdns58234:0crwdne58234:0", 
-    "success": "crwdns58235:0{pageTitle}crwdne58235:0"
+    "success": "crwdns71079:0{pageTitle}crwdne71079:0"
   }, 
   "file-page": {
     "subtitle": "crwdns58236:0crwdne58236:0", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "crwdns58239:0crwdne58239:0", 
-    "explore-wiki": "crwdns58240:0{wikiName}crwdne58240:0",
+    "explore-wiki": "crwdns71080:0{wikiName}crwdne71080:0", 
     "random-page-label": "crwdns58241:0crwdne58241:0", 
     "user-menu-log-out": "crwdns58242:0crwdne58242:0", 
     "user-menu-profile": "crwdns58243:0crwdne58243:0"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "crwdns58192:0crwdne58192:0", 
     "header-title": "crwdns58191:0crwdne58191:0", 
-    "in-category-label": "crwdns58195:0{categoryName}crwdne58195:0",
+    "in-category-label": "crwdns71081:0{categoryName}crwdne71081:0", 
     "post-actions-reply-label": "crwdns58194:0crwdne58194:0", 
     "post-actions-upvote-label": "crwdns58193:0crwdne58193:0"
   }
