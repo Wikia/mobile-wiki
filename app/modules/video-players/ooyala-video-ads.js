@@ -55,13 +55,12 @@ export default class OoyalaVideoAds {
 			ads.currentAdsContext.bidders.a9Video;
 	}
 
-	getAdsManagerConfig(vastUrl) {
+	getAdsManagerConfig() {
 		return {
-			all_ads: [
-				{
-					tag_url: vastUrl
-				}
-			],
+			all_ads: Ads.getInstance().ooyalaAdSetProvider.get(1, null, {
+				contentSourceId: this.params.dfpContentSourceId,
+				videoId: this.params.videoId
+			}),
 			useGoogleAdUI: true,
 			useGoogleCountdown: false,
 			onBeforeAdsManagerStart(IMAAdsManager) {

@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Categorie", 
-    "comments-label": "{count} commento",
-    "comments-label_plural": "{count} commenti",
+    "comments-label": "{count} commento", 
+    "comments-label_plural": "{count} commenti", 
     "empty-label": "Siamo spiacenti, questo articolo sembra essere vuoto!", 
     "error": "Non è possibile caricare l'articolo al momento. Riprova.", 
     "last-edit": "Ultima modifica una settimana fa", 
     "last-edit_plural_0": "Ultima modifica questa settimana", 
-    "last-edit_plural_2": "Ultima modifica {count} settimane fa",
+    "last-edit_plural_2": "Ultima modifica {count} settimane fa", 
     "portable-infobox-image": "Immagine", 
     "redirect-empty-target": "Il link su cui hai cliccato ti reindirizza qui, ma questa pagina non esiste.", 
-    "replies-label": "Leggi {count} risposta",
-    "replies-label_plural": "Leggi {count} risposte",
+    "replies-label": "Leggi {count} risposta", 
+    "replies-label_plural": "Leggi {count} risposte", 
     "suggestions-label": "Per saperne di più", 
     "toc-label": "Indice", 
     "top-contributors-label": "Maggiori contributori di questo articolo"
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Indietro", 
-    "explore-wiki": "Esplora {wikiName}",
+    "explore-wiki": "Esplora {wikiName}", 
     "random-page-label": "Pagina casuale", 
     "user-menu-log-out": "Esci", 
     "user-menu-profile": "Profilo"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Tutte le discussioni", 
     "header-title": "Discussioni", 
-    "in-category-label": "{categoryName}",
+    "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Rispondi", 
     "post-actions-upvote-label": "Vota"
   }

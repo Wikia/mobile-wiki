@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Categorias", 
-    "comments-label": "{count} comentário",
-    "comments-label_plural": "{count} comentários",
+    "comments-label": "{count} comentário", 
+    "comments-label_plural": "{count} comentários", 
     "empty-label": "Desculpe, este artigo parece estar vazio!", 
     "error": "Não foi possível carregar o artigo. Por favor, tente novamente.", 
     "last-edit": "Última edição feita 1 semana atrás", 
     "last-edit_plural_0": "Última edição desta semana", 
-    "last-edit_plural_2": "Última edição feita  {count}  semanas atrás",
+    "last-edit_plural_2": "Última edição feita  {count}  semanas atrás", 
     "portable-infobox-image": "Imagem", 
     "redirect-empty-target": "O link que você seguiu é um redirecionamento, mas a página não existe.", 
-    "replies-label": "Veja  {count} resposta",
-    "replies-label_plural": "Veja {count} respostas",
+    "replies-label": "Veja  {count} resposta", 
+    "replies-label_plural": "Veja {count} respostas", 
     "suggestions-label": "Ler mais", 
     "toc-label": "Tabela de conteúdo", 
     "top-contributors-label": "Top contribuidores deste artigo"
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Voltar", 
-    "explore-wiki": "Explore a {wikiName}",
+    "explore-wiki": "Explore a {wikiName}", 
     "random-page-label": "Página aleatória", 
     "user-menu-log-out": "Sair", 
     "user-menu-profile": "Perfil"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Todas as discussões", 
     "header-title": "Discussões", 
-    "in-category-label": "{categoryName}",
+    "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
   }

@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "カテゴリ", 
-    "comments-label": "{count}件のコメント",
-    "comments-label_plural": "{count}件のコメント",
+    "comments-label": "{count}件のコメント", 
+    "comments-label_plural": "{count}件のコメント", 
     "empty-label": "申し訳ありません、この記事は存在しないようです。", 
     "error": "記事を読み込めませんでした。申し訳ございませんが、もう一度お試しください。", 
     "last-edit": "最後の編集：1週間前", 
     "last-edit_plural_0": "最後の編集：今週", 
-    "last-edit_plural_2": "最後の編集：{count}週間前",
+    "last-edit_plural_2": "最後の編集：{count}週間前", 
     "portable-infobox-image": "画像", 
     "redirect-empty-target": "転送先が存在しない転送リンクをクリックされました。", 
-    "replies-label": "{count}件の返信を閲覧",
-    "replies-label_plural": "{count}件の返信を閲覧",
+    "replies-label": "{count}件の返信を閲覧", 
+    "replies-label_plural": "{count}件の返信を閲覧", 
     "suggestions-label": "もっと読む", 
     "toc-label": "目次", 
     "top-contributors-label": "この記事のトップ投稿者"
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "戻る", 
-    "explore-wiki": "{wikiName}",
+    "explore-wiki": "{wikiName}", 
     "random-page-label": "おまかせ表示", 
     "user-menu-log-out": "ログアウト", 
     "user-menu-profile": "プロフィール"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "すべてのディスカッション", 
     "header-title": "ディスカッション", 
-    "in-category-label": "{categoryName}",
+    "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "返信", 
     "post-actions-upvote-label": "イイね！"
   }
