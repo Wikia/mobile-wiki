@@ -61,7 +61,7 @@ export default Component.extend({
 		console.log('ABTEST', inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER'));
 		return system === 'ios' &&
 			this.get('currentUser.language') === 'en' &&
-			inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT	', 'BANNER');
+			inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER');
 	}),
 	// Smart Banner AB Testing
 

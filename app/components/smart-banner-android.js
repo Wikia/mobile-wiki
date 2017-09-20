@@ -23,7 +23,6 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: inject.service(),
-	currentUser: inject.service(),
 
 	options: {
 		// Language code for App Store
