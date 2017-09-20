@@ -53,7 +53,7 @@ module.exports = function (defaults) {
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			prepend: 'http://mobile-wiki.nocookie.net/mobile-wiki/'
+			prepend: 'http://mobile-wiki.nocookie.net/'
 		},
 		inlineContent: {
 			globals: `${inlineScriptsPath}globals.js`,
