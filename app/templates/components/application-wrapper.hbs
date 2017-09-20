@@ -31,14 +31,15 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
-	}}
 	{{#if shouldShowABTestBannerOnIOS}}
 		{{smart-banner-test
 			toggleVisibility=attrs.toggleSmartBanner
 			isVisible=smartBannerVisible
+		}}
+	{{else}}
+		{{smart-banner-android
+			isVisible=smartBannerVisible
+			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/if}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
