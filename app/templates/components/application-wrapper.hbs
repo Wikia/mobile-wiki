@@ -2,56 +2,56 @@
 	{{outlet}}
 {{else}}
 	{{site-head
-			drawerContent=activeDrawerContent
-			drawerVisible=drawerVisible
-			globalNavigation=this.attrs.globalNavigation
-			isSearchPage=isSearchPage
-			shadow=siteHeadShadow
-			setDrawerContent=(action 'setDrawerContent')
-			smartBannerVisible=smartBannerVisible
-			themeBar=themeBar
-			toggleDrawer=this.attrs.toggleDrawer
+		drawerContent=activeDrawerContent
+		drawerVisible=drawerVisible
+		globalNavigation=this.attrs.globalNavigation
+		isSearchPage=isSearchPage
+		shadow=siteHeadShadow
+		setDrawerContent=(action 'setDrawerContent')
+		smartBannerVisible=smartBannerVisible
+		themeBar=themeBar
+		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
-			shouldBeVisible=drawerVisible
+		shouldBeVisible=drawerVisible
 	}}
 		{{#if activeDrawerContent}}
 			{{component
-					drawerContentComponent
-					onEnterHandler=(action 'closeDrawer')
-					suggestionClickAction=(action 'closeDrawer')
-					setDrawerContent=(action 'setDrawerContent')
-					closeDrawer=(action 'closeDrawer')
-					outsideSuggestionsClickAction=(action 'closeDrawer')
-					loadRandomArticle=this.attrs.loadRandomArticle
-					globalNavigation=this.attrs.globalNavigation
-					goToSearchResults=this.attrs.goToSearchResults
-					noScroll=true
-					focusInput=true
+				drawerContentComponent
+				onEnterHandler=(action 'closeDrawer')
+				suggestionClickAction=(action 'closeDrawer')
+				setDrawerContent=(action 'setDrawerContent')
+				closeDrawer=(action 'closeDrawer')
+				outsideSuggestionsClickAction=(action 'closeDrawer')
+				loadRandomArticle=this.attrs.loadRandomArticle
+				globalNavigation=this.attrs.globalNavigation
+				goToSearchResults=this.attrs.goToSearchResults
+				noScroll=true
+				focusInput=true
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
 	{{#if shouldShowABTestBannerOnIOS}}
 		{{smart-banner-test
-				toggleVisibility=attrs.toggleSmartBanner
-				isVisible=smartBannerVisible
+			toggleVisibility=attrs.toggleSmartBanner
+			isVisible=smartBannerVisible
 		}}
 	{{else}}
 		{{smart-banner-android
-				isVisible=smartBannerVisible
-				toggleVisibility=attrs.toggleSmartBanner
+			isVisible=smartBannerVisible
+			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/if}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper
-			type=lightboxType
-			model=lightboxModel
-			isVisible=lightboxVisible
-			lightboxCloseButtonDelay=lightboxCloseButtonDelay
-			closeLightbox=attrs.closeLightbox
-			setQueryParam=attrs.setQueryParam
+		type=lightboxType
+		model=lightboxModel
+		isVisible=lightboxVisible
+		lightboxCloseButtonDelay=lightboxCloseButtonDelay
+		closeLightbox=attrs.closeLightbox
+		setQueryParam=attrs.setQueryParam
 	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}
