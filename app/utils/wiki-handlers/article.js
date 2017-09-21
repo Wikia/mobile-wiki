@@ -56,6 +56,7 @@ function sendLyricsPageView({model, host}) {
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
 	}));
+}
 
 /**
  * @param {Ember.Object} model
@@ -66,8 +67,7 @@ function sendLyricsPageView({model, host}) {
 function shouldSendLyricFindRequest({model, wikiId}) {
 	const lyricWikiId = 43339;
 
-	return wikiId === lyricWikiId
-		&& !model.get('isMainPage');
+	return wikiId === lyricWikiId && !model.get('isMainPage');
 }
 
 /**
