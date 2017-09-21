@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 /**
  * @param {string} url
- * @returns {string}
+ * @returns {string|null}
  */
 export default function extractDomainFromUrl(url) {
 	const domain = (
