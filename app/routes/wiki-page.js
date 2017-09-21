@@ -130,6 +130,7 @@ export default Route.extend(
 			this._super(...arguments);
 
 			if (model) {
+				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -140,8 +141,6 @@ export default Route.extend(
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
-
-						const fastboot = this.get('fastboot');
 
 						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
 							handler.afterTransition({
@@ -170,7 +169,12 @@ export default Route.extend(
 						});
 					}
 
-					this.replaceWith(redirectTo);
+					if (fastboot.get('isFastBoot')) {
+						fastboot.get('response.headers').set('location', redirectTo);
+						fastboot.set('response.statusCode', 301);
+					} else {
+						window.location.replace(redirectTo);
+					}
 				}
 			} else {
 				this.get('logger').warn('Unsupported page');
