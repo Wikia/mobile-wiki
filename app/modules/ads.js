@@ -410,6 +410,7 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', this.isInContentApplicable());
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable());
 		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 	}
 
 	isSlotApplicable(slotName) {
