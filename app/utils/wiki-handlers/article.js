@@ -58,7 +58,7 @@ function sendLyricsPageView({model, host, logger, headers}) {
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
 	})).then(() => {
-		logger.info('LyricFind PageView tracking event sent', {headers: headers.getAll()});
+		logger.info('LyricFind PageView tracking event sent', {headers: headers.entries()});
 	});
 }
 
