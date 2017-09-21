@@ -42,10 +42,8 @@ function afterModel(route, model) {
  *
  * @param {Ember.Object} model
  * @param {String} host
- * @param {Ember.Object} logger - logger service
- * @param {Ember.Object} headers - FastBoot request's headers
  */
-function sendLyricsPageView({model, host, logger, headers}) {
+function sendLyricsPageView({model, host}) {
 	fetch(buildUrl({
 		host,
 		path: '/wikia.php',
@@ -57,25 +55,19 @@ function sendLyricsPageView({model, host, logger, headers}) {
 			gracenoteid: 0,
 			rand: (`${Math.random()}`).substr(2, 8)
 		}
-	})).then(() => {
-		logger.info('LyricFind PageView tracking event sent', {headers: headers.headers});
-	});
-}
+	}));
 
 /**
  * @param {Ember.Object} model
  * @param {number} wikiId
- * @param {Ember.Object} headers - FastBoot request's headers
+ *
  * @returns {boolean}
  */
-function shouldSendLyricFindRequest({model, wikiId, headers}) {
+function shouldSendLyricFindRequest({model, wikiId}) {
 	const lyricWikiId = 43339;
 
-	// 'goreplay' header indicates http traffic replayed between SJC and RES
-	// for more info please read 'Confluence > Operations > Goreplay' article
 	return wikiId === lyricWikiId
-		&& !model.get('isMainPage')
-		&& headers.get('X-Wikia-Is-Internal-Request') !== 'goreplay';
+		&& !model.get('isMainPage');
 }
 
 /**
@@ -84,12 +76,10 @@ function shouldSendLyricFindRequest({model, wikiId, headers}) {
  * @param {Ember.Object} model
  * @param {number} wikiId
  * @param {String} host
- * @param {Ember.Object} logger - logger service
- * @param {Ember.Object} headers - FastBoot request's headers
  */
-function afterTransition({model, wikiId, host, headers, logger}) {
-	if (shouldSendLyricFindRequest({model, wikiId, headers})) {
-		sendLyricsPageView({model, host, headers, logger});
+function afterTransition({model, wikiId, host}) {
+	if (shouldSendLyricFindRequest({model, wikiId})) {
+		sendLyricsPageView({model, host});
 	}
 }
 
