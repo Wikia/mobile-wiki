@@ -61,13 +61,14 @@ function sendLyricsPageView({model, host}) {
 /**
  * @param {Ember.Object} model
  * @param {number} wikiId
+ * @param {{get}} fastboot
  *
  * @returns {boolean}
  */
-function shouldSendLyricFindRequest({model, wikiId}) {
+function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
 	const lyricWikiId = 43339;
 
-	return wikiId === lyricWikiId && !model.get('isMainPage');
+	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
 }
 
 /**
@@ -76,9 +77,10 @@ function shouldSendLyricFindRequest({model, wikiId}) {
  * @param {Ember.Object} model
  * @param {number} wikiId
  * @param {String} host
+ * @param {{get}} fastboot
  */
-function afterTransition({model, wikiId, host}) {
-	if (shouldSendLyricFindRequest({model, wikiId})) {
+function afterTransition({model, wikiId, host, fastboot}) {
+	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
 		sendLyricsPageView({model, host});
 	}
 }
