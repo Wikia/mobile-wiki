@@ -52,6 +52,7 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
+			exclude: ['player.ooyala.com'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'http://mobile-wiki.nocookie.net/'
 		},
