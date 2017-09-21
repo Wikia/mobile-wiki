@@ -50,8 +50,8 @@ export default Component.extend(
 
 		canShowABTestedIOSAppButton: computed('currentUser.language', function () {
 			return system === 'ios' &&
-				this.get('currentUser.language') &&
-				inGroup('FANDOM_APP_SMART_BANNER_IOS_TEST', 'button');
+				this.get('currentUser.language') === 'en' &&
+				inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BUTTON');
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),
@@ -106,6 +106,13 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wordmark'
+				});
+			},
+
+			onIosButtonClicked() {
+				track({
+					action: trackActions.click,
+					category: 'fandom-app-ios-smart-banner',
 				});
 			}
 		}
