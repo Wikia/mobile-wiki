@@ -69,9 +69,8 @@ function sendLyricsPageView({model, host}) {
  */
 function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
 	const lyricWikiId = 43339;
-	const pageContainsLyricbox = $('.lyricbox').length;
 
-	return wikiId === lyricWikiId && pageContainsLyricbox && !model.get('isMainPage') && !fastboot.get('isFastBoot');
+	return wikiId === lyricWikiId && !model.get('isMainPage') && $('.lyricbox').length && !fastboot.get('isFastBoot');
 }
 
 /**
