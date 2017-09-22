@@ -137,13 +137,12 @@ export default Route.extend(
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
 
-						if (typeof handler.afterTransition === 'function' && fastboot.get('isFastBoot')) {
+						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
 								model,
-								logger: this.get('logger'),
-								headers: fastboot.get('request.headers'),
 								wikiId: this.get('wikiVariables.id'),
-								host: this.get('wikiVariables.host')
+								host: this.get('wikiVariables.host'),
+								fastboot
 							});
 						}
 					});
