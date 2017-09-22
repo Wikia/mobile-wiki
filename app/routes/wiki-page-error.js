@@ -25,7 +25,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			reloadPage() {
-				location.reload();
+				window.location.reload();
 			}
 		}
 	}

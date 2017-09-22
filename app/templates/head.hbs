@@ -23,11 +23,11 @@
 {{/if}}
 
 {{#if model.appleTouchIcon}}
-	<link rel="apple-touch-icon" href="{{model.appleTouchIcon.url}}" sizes="{{model.appleTouchIcon.size}}" />
+	<link rel="apple-touch-icon" href="{{model.appleTouchIcon.url}}" sizes="{{model.appleTouchIcon.size}}">
 {{/if}}
 
 {{#if model.amphtml}}
-	<link rel="amphtml" href="{{model.amphtml}}" />
+	<link rel="amphtml" href="{{model.amphtml}}">
 {{/if}}
 
 {{! Tags updated on each transition (dynamic head tags) }}
@@ -56,34 +56,34 @@
 {{/if}}
 
 {{#if model.next}}
-	<link rel="next" href="{{model.next}}" />
+	<link rel="next" href="{{model.next}}">
 {{/if}}
 
 {{#if model.prev}}
-	<link rel="prev" href="{{model.prev}}" />
+	<link rel="prev" href="{{model.prev}}">
 {{/if}}
 
 {{! Open Graph Tags }}
-<meta property="og:type" content="{{model.type}}" />
+<meta property="og:type" content="{{model.type}}">
 
 {{#unless model.isMainPage}}
-	<meta property="og:site_name" content="{{model.siteName}}" />
+	<meta property="og:site_name" content="{{model.siteName}}">
 {{/unless}}
 
-<meta property="og:title" content="{{model.title}}" />
+<meta property="og:title" content="{{model.title}}">
 
 {{#if model.description}}
-	<meta property="og:description" content="{{model.description}}" />
+	<meta property="og:description" content="{{model.description}}">
 {{/if}}
 
-<meta property="og:url" content="{{model.canonical}}" />
+<meta property="og:url" content="{{model.canonical}}">
 
 {{#if model.pageImage}}
-	<meta property="og:image" content="{{model.pageImage}}" />
+	<meta property="og:image" content="{{model.pageImage}}">
 {{/if}}
 
 {{#if model.facebookAppId}}
-	<meta property="fb:app_id" content="{{model.facebookAppId}}" prefix="fb: http://www.facebook.com/2008/fbml" />
+	<meta property="fb:app_id" content="{{model.facebookAppId}}" prefix="fb: http://www.facebook.com/2008/fbml">
 {{/if}}
 
 <script id="liftigniter-metadata" type="application/json">{"noIndex":"true"}</script>

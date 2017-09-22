@@ -1,8 +1,11 @@
-import sinon from 'sinon';
 import {moduleFor, test} from 'ember-qunit';
 
 moduleFor('service:ads', 'Unit | Service | ads', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:currentUser',
+		'service:wiki-variables'
+	],
 });
 
 test('noAds is set correctly base on passed Query Parameter and logged in user', function (assert) {

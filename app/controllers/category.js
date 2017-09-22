@@ -21,23 +21,23 @@ export default Controller.extend(
 			 * @returns {Ember.RSVP.Promise}
 			 */
 			loadPage(page) {
-				const model = this.get('model');
-
-				if (page !== null) {
-					return this.get('model').loadPage(page)
-						.then(() => {
-							// Documentation says we should do `this.set('page', page)` but it doesn't update the URL
-							// It's the same issue as HG-815, but here we bypass it in a better way
-							// TODO figure out how to remove the param instead of going to ?page=1
-							this.transitionToRoute({
-								queryParams: {page}
-							});
-
-							this.get('target').send('updateDynamicHeadTags');
-						});
+				if (page === null) {
+					return RSVP.Promise.reject('Page was not provided');
 				}
 
-				return RSVP.Promise.reject('Page was not provided');
+				return this.get('model').loadPage(page)
+					.then(() => {
+						// Documentation says we should do `this.set('page', page)` but it doesn't update the URL
+						// It's the same issue as HG-815, but here we bypass it in a better way
+						// TODO figure out how to remove the param instead of going to ?page=1
+						this.transitionToRoute({
+							queryParams: {page}
+						});
+
+						this.get('target').send('updateDynamicHeadTags');
+					});
+
+
 			}
 		}
 	}

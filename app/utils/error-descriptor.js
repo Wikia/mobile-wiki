@@ -78,7 +78,7 @@ export default EmberObject.extend({
 
 		if (!doesStackIncludeMessage) {
 			parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
-			parsed[0] = parsed[0] + message;
+			parsed[0] += message;
 			stack = parsed.join('\n');
 		}
 
@@ -96,7 +96,7 @@ export default EmberObject.extend({
 			let index = 0;
 			do {
 				name = `${root}:${index}`;
-				index++;
+				index += 1;
 			} while (namesUsed.indexOf(name) !== -1);
 
 			return name;

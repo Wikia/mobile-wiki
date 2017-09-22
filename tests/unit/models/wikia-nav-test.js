@@ -39,7 +39,11 @@ test('test zero state with values from api', (assert) => {
 				exploreWikisLabel: '',
 				discussionsEnabled: false,
 				wikiName: '',
-				i18n: {t(key) { return key; }}
+				i18n: {
+					t(key) {
+						return key;
+					}
+				}
 			},
 			expected: [
 				{
@@ -54,13 +58,18 @@ test('test zero state with values from api', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1'
+				}],
 				exploreWikis: exploreWikisMock,
 				discussionsEnabled: false,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -107,13 +116,18 @@ test('test zero state with values from api', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1'
+				}],
 				exploreWikis: exploreWikisMock,
 				discussionsEnabled: true,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -167,13 +181,18 @@ test('test zero state with values from api', (assert) => {
 		{
 			mock: {
 				hubsLinks: [],
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1'
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				discussionsEnabled: false,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -213,7 +232,10 @@ test('test zero state with values from api', (assert) => {
 		{
 			mock: {
 				hubsLinks: [],
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1'
+				}],
 				exploreWikis: {
 					links: [{
 						title: {
@@ -227,7 +249,9 @@ test('test zero state with values from api', (assert) => {
 				discussionsEnabled: false,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				},
 				wikiVariables: {
 					mainPageTitle: 'Main_Page'
@@ -278,12 +302,17 @@ test('test local sub nav transitions', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1'
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				}
 			},
 			path: [0],
@@ -300,14 +329,26 @@ test('test local sub nav transitions', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
-				]}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2'
+						}, {
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
+					]
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				}
 			},
 			path: [1],
@@ -335,19 +376,36 @@ test('test local sub nav transitions', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{
-					text: 'Test 1', href: '/wiki/Test_1', children: [
-						{text: 'Test 2', href: '/wiki/Test_2', children: [
-							{text: 'Test 2.1', href: '/wiki/Test_2.1'},
-							{text: 'Test 2.2', href: '/Test_2.2'}
-						]},
-						{text: 'Test 3', href: '/wiki/Test_3'}
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2',
+							children: [
+								{
+									text: 'Test 2.1',
+									href: '/wiki/Test_2.1'
+								},
+								{
+									text: 'Test 2.2',
+									href: '/Test_2.2'
+								}
+							]
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
 					]
 				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				}
 			},
 			path: [1, 1],
@@ -388,14 +446,27 @@ test('Header value', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
-				]}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2'
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
+					]
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				}
 			},
 			path: [1],
@@ -405,14 +476,27 @@ test('Header value', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
-				]}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2'
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
+					]
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
 				i18n: {
-					t(key) { return key; }
+					t(key) {
+						return key;
+					}
 				}
 			},
 			path: [],
@@ -437,9 +521,20 @@ test('Parent value', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
-				]}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2'
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
+					]
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test',
@@ -454,9 +549,20 @@ test('Parent value', (assert) => {
 		{
 			mock: {
 				hubsLinks: hubsLinksMock,
-				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
-				]}],
+				localLinks: [{
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2'
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
+					]
+				}],
 				exploreWikis: exploreWikisMock,
 				exploreWikisLabel: exploreWikisLabelMock,
 				wikiName: 'Test'
@@ -469,12 +575,27 @@ test('Parent value', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{
-					text: 'Test 1', href: '/wiki/Test_1', children: [
-						{text: 'Test 2', href: '/wiki/Test_2', children: [
-							{text: 'Test 2.1', href: '/wiki/Test_2.1'},
-							{text: 'Test 2.2', href: '/Test_2.2'}
-						]},
-						{text: 'Test 3', href: '/wiki/Test_3'}
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2',
+							children: [
+								{
+									text: 'Test 2.1',
+									href: '/wiki/Test_2.1'
+								},
+								{
+									text: 'Test 2.2',
+									href: '/Test_2.2'
+								}
+							]
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
 					]
 				}],
 				exploreWikis: exploreWikisMock,
@@ -483,12 +604,27 @@ test('Parent value', (assert) => {
 			},
 			path: [1],
 			expected: {
-				text: 'Test 1', href: '/wiki/Test_1', children: [
-					{text: 'Test 2', href: '/wiki/Test_2', children: [
-						{text: 'Test 2.1', href: '/wiki/Test_2.1'},
-						{text: 'Test 2.2', href: '/Test_2.2'}
-					]},
-					{text: 'Test 3', href: '/wiki/Test_3'}
+				text: 'Test 1',
+				href: '/wiki/Test_1',
+				children: [
+					{
+						text: 'Test 2',
+						href: '/wiki/Test_2',
+						children: [
+							{
+								text: 'Test 2.1',
+								href: '/wiki/Test_2.1'
+							},
+							{
+								text: 'Test 2.2',
+								href: '/Test_2.2'
+							}
+						]
+					},
+					{
+						text: 'Test 3',
+						href: '/wiki/Test_3'
+					}
 				]
 			},
 			message: 'One level deep'
@@ -497,12 +633,27 @@ test('Parent value', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{
-					text: 'Test 1', href: '/wiki/Test_1', children: [
-						{text: 'Test 2', href: '/wiki/Test_2', children: [
-							{text: 'Test 2.1', href: '/wiki/Test_2.1'},
-							{text: 'Test 2.2', href: '/Test_2.2'}
-						]},
-						{text: 'Test 3', href: '/wiki/Test_3'}
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2',
+							children: [
+								{
+									text: 'Test 2.1',
+									href: '/wiki/Test_2.1'
+								},
+								{
+									text: 'Test 2.2',
+									href: '/Test_2.2'
+								}
+							]
+						},
+						{
+							text: 'Test 3',
+							href: '/wiki/Test_3'
+						}
 					]
 				}],
 				exploreWikis: exploreWikisMock,
@@ -514,8 +665,14 @@ test('Parent value', (assert) => {
 				text: 'Test 2',
 				href: '/wiki/Test_2',
 				children: [
-					{text: 'Test 2.1', href: '/wiki/Test_2.1'},
-					{text: 'Test 2.2', href: '/Test_2.2'}
+					{
+						text: 'Test 2.1',
+						href: '/wiki/Test_2.1'
+					},
+					{
+						text: 'Test 2.2',
+						href: '/Test_2.2'
+					}
 				]
 			},
 			message: 'Two levels deep'
@@ -524,15 +681,37 @@ test('Parent value', (assert) => {
 			mock: {
 				hubsLinks: hubsLinksMock,
 				localLinks: [{
-					text: 'Test 1', href: '/wiki/Test_1', children: [
-						{text: 'Test 2', href: '/wiki/Test_2', children: [
-							{text: 'Test 3', href: '/wiki/Test_3', children: [
-								{text: 'Test 3.1', href: '/wiki/Test_3.1'},
-								{text: 'Test 3.2', href: '/Test_3.2'}
-							]},
-							{text: 'Test 4', href: '/Test_4'}
-						]},
-						{text: 'Test 5', href: '/wiki/Test_5'}
+					text: 'Test 1',
+					href: '/wiki/Test_1',
+					children: [
+						{
+							text: 'Test 2',
+							href: '/wiki/Test_2',
+							children: [
+								{
+									text: 'Test 3',
+									href: '/wiki/Test_3',
+									children: [
+										{
+											text: 'Test 3.1',
+											href: '/wiki/Test_3.1'
+										},
+										{
+											text: 'Test 3.2',
+											href: '/Test_3.2'
+										}
+									]
+								},
+								{
+									text: 'Test 4',
+									href: '/Test_4'
+								}
+							]
+						},
+						{
+							text: 'Test 5',
+							href: '/wiki/Test_5'
+						}
 					]
 				}],
 				exploreWikis: exploreWikisMock,
@@ -541,9 +720,17 @@ test('Parent value', (assert) => {
 			},
 			path: [1, 1, 1],
 			expected: {
-				text: 'Test 3', href: '/wiki/Test_3', children: [
-					{text: 'Test 3.1', href: '/wiki/Test_3.1'},
-					{text: 'Test 3.2', href: '/Test_3.2'}
+				text: 'Test 3',
+				href: '/wiki/Test_3',
+				children: [
+					{
+						text: 'Test 3.1',
+						href: '/wiki/Test_3.1'
+					},
+					{
+						text: 'Test 3.2',
+						href: '/Test_3.2'
+					}
 				]
 			},
 			message: 'Three levels deep'

@@ -23,28 +23,26 @@ function componentAttributes(element) {
 }
 
 function lookupComponent(owner, name) {
-	let componentLookupKey = `component:${name}`,
-		layoutLookupKey = `template:components/${name}`,
-		layout = owner._lookupFactory(layoutLookupKey),
-		component = owner._lookupFactory(componentLookupKey);
+	const componentLookupKey = `component:${name}`;
 
-	return {component, layout};
+	return owner.factoryFor(componentLookupKey);
 }
 
 export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
 	return function renderComponent({name, attrs, element: placeholderElement}) {
-		const {component, layout} = lookupComponent(owner, name);
-		let componentInstance;
+		const component = lookupComponent(owner, name);
 
 		assert(`Component named "${name}" doesn't exist.`, component);
 
-		if (layout) {
-			attrs.layout = layout;
-		}
+		/**
+		 * layoutName - for dynamically created components we need to tell Ember where is it's template
+		 * @type {string}
+		 */
+		attrs.layoutName = `components/${name}`;
 
-		componentInstance = component.create(attrs);
+		let componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
 		Ember.run.scheduleOnce('afterRender', this, () => {

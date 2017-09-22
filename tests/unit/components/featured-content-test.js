@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('featured-content', 'Unit | Component | featured content', {

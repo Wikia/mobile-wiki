@@ -143,12 +143,12 @@ export default Route.extend(
 			}
 		},
 
-		redirect(model, transition) {
+		redirect(model) {
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
 
 			if (fastboot.get('isFastBoot') &&
-				basePath !== `${fastboot.get('request.protocol')}://${model.wikiVariables.host}`) {
+				basePath !== `${fastboot.get('request.protocol')}//${model.wikiVariables.host}`) {
 				const fastbootRequest = this.get('fastboot.request');
 
 				fastboot.get('response.headers').set(
@@ -162,6 +162,7 @@ export default Route.extend(
 				throw new DontLogMeError();
 			}
 		},
+
 
 		actions: {
 			loading(transition) {
@@ -258,7 +259,7 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
+					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(-.*)?\.com.*\/.*$/)) {
 						window.location.assign(info.url);
 					} else {
 						window.open(info.url);

@@ -2,6 +2,9 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('wikia-in-your-lang', 'Unit | Component | wikia-in-your-lang', {
 	unit: true,
+	needs: [
+		'service:wiki-variables'
+	]
 });
 
 test('createAlert', function (assert) {

@@ -37,7 +37,7 @@ function fixPortableInfoboxAttrs(attrs) {
  * @param {Object} element
  * @returns {{name: string, attrs: Object, element: Object}}
  */
-export function getAttributesForMedia({name, attrs, element}) {
+export default function getAttributesForMedia({name, attrs, element}) {
 	const mediaModel = this.media,
 		mediaArray = get(mediaModel, 'media');
 

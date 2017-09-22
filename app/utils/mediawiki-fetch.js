@@ -1,4 +1,4 @@
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 import config from '../config/environment';
 
 export default function mediawikiFetch(url, options = {}) {

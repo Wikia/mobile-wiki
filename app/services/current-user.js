@@ -2,7 +2,13 @@ import Ember from 'ember';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
-const {computed, getOwner, Service, inject, RSVP} = Ember;
+const {
+	computed,
+	getOwner,
+	Service,
+	inject,
+	RSVP
+} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse

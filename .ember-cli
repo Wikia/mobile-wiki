@@ -7,5 +7,6 @@
   */
   "disableAnalytics": false,
   "output-path": "dist/mobile-wiki/",
-  "port": 7001
+  "port": 7001,
+  "live-reload": false
 }

@@ -1,13 +1,18 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import mediaModel from 'mobile-wiki/models/media';
+import require from 'require';
 
 const trackModule = require('mobile-wiki/utils/track');
+
 let model,
 	trackStub;
 
 moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	unit: true,
+	needs: [
+		'service:logger'
+	],
 
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');

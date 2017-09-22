@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Notification from './notification';
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 import {convertToIsoString} from '../../utils/iso-date-time';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 

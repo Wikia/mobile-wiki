@@ -4,7 +4,13 @@ import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
 import {track, trackActions} from '../utils/track';
 
-const {Component, computed, on, run, inject, $} = Ember,
+const {
+		Component,
+		computed,
+		on,
+		run,
+		inject
+	} = Ember,
 	recircItemsCount = 10,
 	config = {
 		// we load twice as many items as we want to display because we need to filter out those without thumbnail

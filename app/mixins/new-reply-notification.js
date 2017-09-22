@@ -34,23 +34,21 @@ export default Mixin.create({
 					postTitle: this.get('postTitleMarkup'),
 				});
 			}
+		} else if (hasThreeOrMoreUsers) {
+			return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {
+				username: this.get('usernameMarkup'),
+				mostRecentUser: firstReplierName,
+				number: totalUniqueActors - 1
+			});
+		} else if (hasTwoUsers) {
+			return this.getTranslatedMessage('notifications-replied-by-two-users-no-title', {
+				firstUser: firstReplierName,
+				secondUser: model.get('latestActors.1.name'),
+			});
 		} else {
-			if (hasThreeOrMoreUsers) {
-				return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {
-					username: this.get('usernameMarkup'),
-					mostRecentUser: firstReplierName,
-					number: totalUniqueActors - 1
-				});
-			} else if (hasTwoUsers) {
-				return this.getTranslatedMessage('notifications-replied-by-two-users-no-title', {
-					firstUser: firstReplierName,
-					secondUser: model.get('latestActors.1.name'),
-				});
-			} else {
-				return this.getTranslatedMessage('notifications-replied-by-no-title', {
-					user: firstReplierName,
-				});
-			}
+			return this.getTranslatedMessage('notifications-replied-by-no-title', {
+				user: firstReplierName,
+			});
 		}
 	}
 });
