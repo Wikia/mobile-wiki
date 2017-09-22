@@ -20,7 +20,7 @@ export default class OoyalaVideoAds {
 	}
 
 	setupAdManager(additionalParams = {}) {
-		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
+		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig();
 		this.params.replayAds = false;
 
 		return this.params;
