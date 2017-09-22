@@ -3,7 +3,7 @@
     "load-more-results": "Загрузить ещё", 
     "search-error-general": "Не получается установить соединение; повторите попытку", 
     "search-error-general-action": "Повторить попытку", 
-    "search-error-not-found": "Не найдено результатов для {query}",
+    "search-error-not-found": "Не найдено результатов для {query}", 
     "search-error-not-found-action": "Задать новый поиск", 
     "search-input-label": "Поиск", 
     "search-loading-msg": "Загрузка результатов поиска...", 

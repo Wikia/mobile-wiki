@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Категории", 
-    "comments-label": "{count} комментарий",
-    "comments-label_plural": "{count} коммент.",
+    "comments-label": "{count} комментарий", 
+    "comments-label_plural": "{count} коммент.", 
     "empty-label": "Кажется, эта статья пустая!", 
     "error": "Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте снова.", 
     "last-edit": "Последняя правка неделю назад", 
     "last-edit_plural_0": "Последняя правка на этой неделе", 
-    "last-edit_plural_2": "Последняя правка была {count} нед. назад",
+    "last-edit_plural_2": "Последняя правка была {count} нед. назад", 
     "portable-infobox-image": "Изображение", 
     "redirect-empty-target": "Ссылка, по которой вы перешли, является перенаправлением на страницу, которой не существует.", 
-    "replies-label": "Посмотреть {count} ответ",
-    "replies-label_plural": "Посмотреть {count} отв.",
+    "replies-label": "Посмотреть {count} ответ", 
+    "replies-label_plural": "Посмотреть {count} отв.", 
     "suggestions-label": "Читать далее", 
     "toc-label": "Содержание", 
     "top-contributors-label": "Самые активные редакторы этой статьи"
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Назад", 
-    "explore-wiki": "Исследовать {wikiName}",
+    "explore-wiki": "Исследовать {wikiName}", 
     "random-page-label": "Случайная страница", 
     "user-menu-log-out": "Выйти", 
     "user-menu-profile": "Профайл"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Все обсуждения", 
     "header-title": "Обсуждения", 
-    "in-category-label": "в {categoryName}",
+    "in-category-label": "в {categoryName}", 
     "post-actions-reply-label": "Ответить", 
     "post-actions-upvote-label": "Оценить"
   }

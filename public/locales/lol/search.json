@@ -3,10 +3,10 @@
     "load-more-results": "crwdns58132:0crwdne58132:0", 
     "search-error-general": "crwdns58133:0crwdne58133:0", 
     "search-error-general-action": "crwdns58134:0crwdne58134:0", 
-    "search-error-not-found": "crwdns58135:0{query}crwdne58135:0",
+    "search-error-not-found": "crwdns71072:0{query}crwdne71072:0", 
     "search-error-not-found-action": "crwdns58136:0crwdne58136:0", 
     "search-input-label": "crwdns58137:0crwdne58137:0", 
     "search-loading-msg": "crwdns58138:0crwdne58138:0", 
-    "total-results": "crwdns58139:0{totalItems}crwdnd58139:0{query}crwdne58139:0"
+    "total-results": "crwdns71073:0{totalItems}crwdnd71073:0{query}crwdne71073:0"
   }
 }
