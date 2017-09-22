@@ -52,34 +52,15 @@ export default Component.extend({
 			this.track(trackActions.close);
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		view() {
-			const appScheme = this.get('appScheme');
-
+		onClick() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-
-			if (appScheme) {
-				this.tryToOpenApp(appScheme);
-			} else {
-				window.open(this.get('link'), '_blank');
-			}
-
 			this.sendAction('toggleVisibility', false);
-		},
+		}
 	},
 
-	/**
-	 * @param {MouseEvent} event
-	 * @returns {void}
-	 */
-	click(event) {
-		const $target = this.$(event.target);
-
-		if (!$target.is('.sb-test-close')) {
-			this.send('view');
-		}
+	click() {
+		this.track(trackActions.install);
+		this.sendAction('toggleVisibility', false);
 	},
 
 	/**
@@ -99,29 +80,6 @@ export default Component.extend({
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
-	},
-
-	/**
-	 * Try to open app using custom scheme and if it fails go to fallback function
-	 *
-	 * @param {string} appScheme
-	 * @returns {void}
-	 */
-	tryToOpenApp(appScheme) {
-		this.track(trackActions.open);
-		window.document.location.href = `${appScheme}://`;
-
-		run.later(this, this.fallbackToStore, 300);
-	},
-
-	/**
-	 * Open app store
-	 *
-	 * @returns {void}
-	 */
-	fallbackToStore() {
-		this.track(trackActions.install);
-		window.open(this.get('link'));
 	},
 
 	/**

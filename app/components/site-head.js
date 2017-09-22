@@ -111,8 +111,8 @@ export default Component.extend(
 
 			onIosButtonClicked() {
 				track({
-					action: trackActions.click,
-					category: 'fandom-app-ios-smart-banner',
+					action: trackActions.install,
+					category: 'fandom-app-ios-site-head-button',
 				});
 			}
 		}

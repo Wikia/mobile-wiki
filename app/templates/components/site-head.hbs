@@ -21,14 +21,7 @@
 
 		<!--Smart Banner AB Testing-->
 		{{#if canShowABTestedIOSAppButton}}
-			<a
-				class="appstore-button"
-				href="https://itunes.apple.com/us/developer/wikia-inc/id422467077"
-				target="_blank"
-				{{action 'onIosButtonClicked'}}
-			>
-				Open in App
-			</a>
+			{{ios-app-button}}
 		{{/if}}
 		<!--Smart Banner AB Testing-->
 
