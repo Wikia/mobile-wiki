@@ -18,6 +18,7 @@
     "fastboot-server-debug": "node --inspect --debug-brk server/app/server.js",
     "linter": "eslint .",
     "setup": "npm install && bower update",
+    "setup-prod": "npm install --production && bower update --production",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
   },
@@ -93,7 +94,7 @@
     "eslint-plugin-import": "1.7.0",
     "eslint-plugin-jsx-a11y": "1.2.0",
     "eslint-plugin-react": "5.0.1",
-    "form-data": "2.1.2",
+    "form-data": "2.3.1",
     "heapdump": "0.3.9",
     "i18next": "7.1.2",
     "loader.js": "4.2.2",
