@@ -2,13 +2,15 @@ import Ember from 'ember';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
 
+const {$, getOwner} = Ember;
+
 function addOoyalaAssets(route) {
 	if (!route.get('fastboot.isFastBoot')) {
 		return;
 	}
 
 	// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
-	const applicationInstance = Ember.getOwner(route);
+	const applicationInstance = getOwner(route);
 	const document = applicationInstance.lookup('service:-document');
 	const articleVideoScripts = applicationInstance.lookup('component:fastboot-only/article-video-scripts');
 	const articleVideoStyles = applicationInstance.lookup('component:fastboot-only/article-video-styles');
@@ -68,7 +70,7 @@ function sendLyricsPageView({model, host}) {
 function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
 	const lyricWikiId = 43339;
 
-	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
+	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot') && $('.lyricbox').length;
 }
 
 /**
