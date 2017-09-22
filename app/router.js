@@ -3,7 +3,8 @@ import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 
 const Router = Ember.Router.extend(RouterScroll, {
-	location: config.locationType
+	location: config.locationType,
+	rootURL: config.rootURL
 });
 
 Router.map(function () {

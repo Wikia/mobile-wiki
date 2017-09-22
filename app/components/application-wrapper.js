@@ -2,7 +2,12 @@ import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
 
-const {Component, computed, inject, $} = Ember;
+const {
+	Component,
+	computed,
+	inject,
+	$
+} = Ember;
 
 /**
  * HTMLMouseEvent

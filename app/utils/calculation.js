@@ -17,7 +17,7 @@
  * @param {number} contentHeight
  * @returns {ContainerSize}
  */
-export function containerSize(maxWidth, maxHeight, contentWidth, contentHeight) {
+export default function containerSize(maxWidth, maxHeight, contentWidth, contentHeight) {
 	const targetSize = {
 		width: 0,
 		height: 0

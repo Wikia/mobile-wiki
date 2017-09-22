@@ -13,7 +13,12 @@ import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
 import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-const {Route, RSVP, $, inject, get} = Ember;
+const {
+	Route,
+	RSVP,
+	inject,
+	get
+} = Ember;
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -75,7 +80,7 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		beforeModel(transition) {
-			this._super();
+			this._super(transition);
 
 			const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
@@ -159,7 +164,7 @@ export default Route.extend(
 							query: extend(
 								{},
 								transition.state.queryParams,
-								{useskin: 'oasis'},
+								{useskin: 'oasis'}
 							)
 						});
 					}

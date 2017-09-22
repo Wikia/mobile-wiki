@@ -1,10 +1,14 @@
 import Ember from 'ember';
-import {sendPagePerformance, trackPerf} from '../../utils/track-perf';
+import {sendPagePerformance, trackPerf} from '../utils/track-perf';
 
 /**
  * @returns {void}
  */
 export function initialize() {
+	if (typeof FastBoot !== 'undefined') {
+		return;
+	}
+
 	const firstRenderTime = window.firstRenderTime;
 
 	// Send page performance stats after window is loaded
@@ -22,6 +26,7 @@ export function initialize() {
 			value: firstRenderTime
 		});
 	}
+
 }
 
 export default {

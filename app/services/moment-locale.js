@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-const {Service, $, inject, run} = Ember;
+const {
+	Service,
+	$,
+	inject,
+	run
+} = Ember;
 
 export default Service.extend({
 	logger: inject.service(),

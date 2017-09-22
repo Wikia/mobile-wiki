@@ -1,26 +1,24 @@
-import Ember from 'ember';
 import {test, moduleFor} from 'ember-qunit';
 
 const articleExample = {
-		data: {
-			details: {
-				revision: {
-					timestamp: 123
-				},
-				comments: 123,
-				id: 123
+	data: {
+		details: {
+			revision: {
+				timestamp: 123
 			},
-			categories: 'test',
-			article: {
-				content: 'TestContent',
-				users: 'test'
-			},
-			ns: 'namespace',
-			relatedPages: ['anItem', 'anotherItem'],
-			userDetails: ['someItem', 'yetOneMore']
-		}
-	},
-	articleModelClass = require('mobile-wiki/models/wiki/article').default;
+			comments: 123,
+			id: 123
+		},
+		categories: 'test',
+		article: {
+			content: 'TestContent',
+			users: 'test'
+		},
+		ns: 'namespace',
+		relatedPages: ['anItem', 'anotherItem'],
+		userDetails: ['someItem', 'yetOneMore']
+	}
+};
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model
@@ -88,7 +86,11 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-moduleFor('model:wiki/article', 'Integration | Model | wiki/article');
+moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
+	needs: [
+		'service:wiki-variables'
+	],
+});
 
 test('setData with parametrized data', function (assert) {
 	const model = this.subject();

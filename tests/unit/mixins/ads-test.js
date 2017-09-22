@@ -15,7 +15,7 @@ moduleFor('mixin:ads', 'Unit | Mixin | ads', {
 		'service:currentUser',
 		'service:fastboot',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

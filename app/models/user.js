@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import config from '../config/environment';
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
 import {buildUrl, getQueryString} from '../utils/url';

@@ -42,8 +42,7 @@ export default Ember.Mixin.create({
 
 				this.initHeadroom(headroomOptions, offset);
 			}
-		})
-	),
+		})),
 
 	actions: {
 		onHeadroomPin() {},

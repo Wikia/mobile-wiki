@@ -5,7 +5,12 @@ import NoScrollMixin from '../mixins/no-scroll';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 
-const {Component, computed, get, getOwner, inject} = Ember;
+const {
+	Component,
+	computed,
+	getOwner,
+	inject
+} = Ember;
 
 export default Component.extend(
 	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,

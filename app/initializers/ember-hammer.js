@@ -4,6 +4,10 @@
  * @returns {void}
  */
 export function initialize() {
+	if (typeof FastBoot !== 'undefined') {
+		return;
+	}
+
 	window.emberHammerOptions = {
 		hammerOptions: {
 			// we are using fastclick as this is advised by ember-hammer lib

@@ -23,7 +23,7 @@ export const CachingPolicy = {
 		Private: 'private',
 		Public: 'public'
 	},
-// Caching expire intervals
+	// Caching expire intervals
 	CachingInterval = {
 		// 30 days in seconds
 		long: 2.592e+6,

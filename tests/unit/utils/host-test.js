@@ -1,5 +1,7 @@
 import {module} from 'qunit';
+import require from 'require';
 import {test} from 'ember-qunit';
+import Ember from 'ember';
 
 module('Unit | Utility | host', () => {
 	test('returns correct host', (assert) => {

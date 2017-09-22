@@ -1,10 +1,9 @@
 import Ember from 'ember';
-
-import {extractDomainFromUrl} from '../utils/domain';
+import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 
 const {
 	Object: EmberObject,
@@ -63,7 +62,7 @@ export default EmberObject.extend(
 						})
 					},
 					creationTimestamp: typeof creationDate === 'string' ?
-					(new Date(creationDate)).getTime() / 1000 :
+						(new Date(creationDate)).getTime() / 1000 :
 						creationDate.epochSecond,
 					id: threadData.firstPostId,
 					openGraph: null,
