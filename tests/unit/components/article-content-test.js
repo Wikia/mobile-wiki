@@ -3,11 +3,11 @@ import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const {
-	Component,
-	String: {dasherize},
-	computed,
-	run
-} = Ember,
+		Component,
+		String: {dasherize},
+		computed,
+		run
+	} = Ember,
 	adSlotComponentStub = Component.extend({
 		classNameBindings: ['nameLowerCase'],
 		nameLowerCase: computed('name', function () {
@@ -25,8 +25,9 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'service:ads',
 		'service:currentUser',
 		'service:fastboot',
+		'service:i18n',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

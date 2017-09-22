@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions} from '../../utils/track';
+import {track, trackActions} from '../utils/track';
 
 const {LinkComponent} = Ember;
 
@@ -7,6 +7,10 @@ const {LinkComponent} = Ember;
  * @returns {void}
  */
 export function initialize() {
+	if (typeof FastBoot !== 'undefined') {
+		return;
+	}
+
 	LinkComponent.reopen({
 		// it allows to use action='x' actionParam='y' in link-to helper
 		action: null,
@@ -41,6 +45,7 @@ export function initialize() {
 			return this._super(event);
 		},
 	});
+
 }
 
 export default {

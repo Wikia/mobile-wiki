@@ -2,7 +2,10 @@ import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('article-comments', 'Unit | Component | article comments', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:wiki-variables'
+	]
 });
 
 test('page is set correctly within boundaries and buttons are displayed correctly', function (assert) {

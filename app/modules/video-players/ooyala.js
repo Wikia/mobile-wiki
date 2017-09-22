@@ -50,7 +50,7 @@ export default class OoyalaPlayer extends BasePlayer {
 				});
 
 			this.params.onCreate = (...args) => {
-				return this.onCreate.apply(this, args);
+				return this.onCreate(...args);
 			};
 
 			if (!this.params.noAds) {

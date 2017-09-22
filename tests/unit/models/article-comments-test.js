@@ -1,5 +1,6 @@
 import {test, moduleFor} from 'ember-qunit';
 import sinon from 'sinon';
+import require from 'require';
 
 let stub;
 

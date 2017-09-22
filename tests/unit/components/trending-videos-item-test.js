@@ -1,7 +1,10 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('trending-videos-item', 'Unit | Component | trending videos item', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:fastboot'
+	],
 });
 
 test('computes thumb url properly', function (assert) {

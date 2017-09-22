@@ -40,7 +40,7 @@
 			return;
 		}
 
-		if (typeof(config.apid) !== 'string' || config.apid === 'FIXME') {
+		if (typeof (config.apid) !== 'string' || config.apid === 'FIXME') {
 			throw new Error('Invalid Nielsen apid');
 		}
 

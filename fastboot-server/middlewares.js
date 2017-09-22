@@ -1,38 +1,15 @@
-/**
- * Heapdump can be enabled by chef when there is need to debug a memory leak
- * To create a heapdump, send `kill -SIGUSR2` to FastBoot process
- * Make sure that server's CWD is writable, if there is no heapdump created then it's not
- *
- * See https://github.com/bnoordhuis/node-heapdump
- */
-if (process.env.HEAPDUMP_ENABLED === 'true') {
-	require('heapdump');
-}
-
-/**
- * NewRelic is only enabled on one server and that logic is managed by chef,
- * which passes it to our config
- */
-if (process.env.NEW_RELIC_ENABLED === 'true') {
-	require('newrelic');
-}
-
-// TODO after full rollout change path to REPO ROOT
-const FastBootAppServer = require('fastboot-app-server');
 const compression = require('compression');
 const cors = require('cors');
-const express = require('express');
-const config = require('../../config/fastboot-server');
-const logger = require('../logger');
-const headers = require('../headers');
-const heartbeat = require('../heartbeat');
-const staticAssets = require('../static-assets');
+const logger = require('./logger');
+const headers = require('./headers');
+const heartbeat = require('./heartbeat');
+const staticAssets = require('./static-assets');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
 function levelFn(status) {
 	if (status >= 500) {
-		// server internal error or error
+		// fastboot-server internal error or error
 		return 'error';
 	} else if (status >= 400) {
 		// client error
@@ -42,13 +19,12 @@ function levelFn(status) {
 	return 'info';
 }
 
-process.env.PORT = config.port;
-
-const server = new FastBootAppServer({
-	beforeMiddleware: (app) => {
+module.exports = {
+	before(app) {
 		app.use(compression());
 		app.disable('x-powered-by');
 		app.use(logger);
+
 		app.use(headers);
 		/**
 		 * Special handling for article-preview route.
@@ -59,10 +35,12 @@ const server = new FastBootAppServer({
 		app.use('/article-preview', methodOverride(() => {
 			return 'GET';
 		}));
+
 		app.use('/mobile-wiki', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
-	afterMiddleware: (app) => {
+
+	after(app) {
 		app.use((err, req, res, next) => {
 			if (err) {
 				// Handle errors that don't go to FastBoot, like Bad Request etc.
@@ -75,9 +53,5 @@ const server = new FastBootAppServer({
 				res.sendStatus(statusCode);
 			}
 		});
-	},
-	distPath: config.distPath,
-	gzip: true
-});
-
-server.start();
+	}
+};

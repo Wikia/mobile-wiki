@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import fetch from './mediawiki-fetch';
 import {buildUrl} from '../utils/url';
+
 /**
  * @param {string} host
  * @param {string} title

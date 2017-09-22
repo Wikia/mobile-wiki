@@ -4,7 +4,12 @@ import {trackPerf} from '../utils/track-perf';
 import {inGroup} from '../modules/abtest';
 import {system} from '../utils/browser';
 
-const {Component, computed, inject, $} = Ember;
+const {
+	Component,
+	computed,
+	inject,
+	$
+} = Ember;
 
 /**
  * HTMLMouseEvent

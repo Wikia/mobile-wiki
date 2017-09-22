@@ -2,7 +2,14 @@ import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
 
-const {Component, computed, inject, observer, run, getOwner} = Ember;
+const {
+	Component,
+	computed,
+	inject,
+	observer,
+	run,
+	getOwner
+} = Ember;
 
 /**
  * Component that displays article comments

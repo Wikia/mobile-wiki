@@ -1,9 +1,13 @@
-import config from '../../config/environment';
+import config from '../config/environment';
 
 /**
  * @returns {void}
  */
 export function initialize() {
+	if (typeof FastBoot !== 'undefined') {
+		return;
+	}
+
 	if (typeof VisitSource === 'function') {
 		(new VisitSource('WikiaSessionSource', config.cookieDomain)).checkAndStore();
 		(new VisitSource('WikiaLifetimeSource', config.cookieDomain, false)).checkAndStore();

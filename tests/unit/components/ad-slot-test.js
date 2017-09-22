@@ -1,4 +1,6 @@
+import Ember from 'ember';
 import sinon from 'sinon';
+import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const adsStub = Ember.Service.extend({
@@ -10,7 +12,7 @@ moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	needs: [
 		'service:fastboot',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

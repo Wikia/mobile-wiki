@@ -1,7 +1,11 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('article-comment', 'Unit | Component | article comment', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:i18n',
+		'service:wiki-variables'
+	]
 });
 
 test('users is correctly fetched', function (assert) {

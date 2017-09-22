@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 
-const {Component, computed, inject, run} = Ember;
+const {
+	Component,
+	computed,
+	inject,
+	run
+} = Ember;
 
 export default Component.extend(
 	AdsMixin,

@@ -1,4 +1,5 @@
 import {test, moduleForComponent} from 'ember-qunit';
+import require from 'require';
 import sinon from 'sinon';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -26,6 +27,10 @@ function createComponent(testThis, editAllowed = true) {
 
 moduleForComponent('article-contribution', 'Unit | Component | article contribution', {
 	unit: true,
+	needs: [
+		'service:i18n',
+		'service:wiki-variables'
+	],
 
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');

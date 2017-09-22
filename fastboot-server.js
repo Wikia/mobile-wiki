@@ -9,4 +9,4 @@ I need to have a single file that would work for both cases
 to be able to change that in chef repo
  */
 
-require('./server/app/server');
+require('./fastboot-server/app/server');

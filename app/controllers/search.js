@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-const {Controller, computed, inject, $, run} = Ember;
+const {
+	Controller,
+	computed,
+	inject,
+	$,
+	run
+} = Ember;
 
 export default Controller.extend({
 	application: inject.controller(),
