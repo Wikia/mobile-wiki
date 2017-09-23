@@ -18,6 +18,13 @@
 				{{svg svgName role='img' class='fandom-logo'}}
 			</a>
 		</div>
+
+		<!--Smart Banner AB Testing-->
+		{{#if canShowABTestedIOSAppButton}}
+			{{ios-app-button}}
+		{{/if}}
+		<!--Smart Banner AB Testing-->
+
 		<div class="site-head-icon-search">
 			{{wikia-ui-components/icon-button
 				click=(action 'siteHeadIconClick' 'search')

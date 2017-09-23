@@ -1,3 +1,7 @@
+// Remove these 2 lines once we upgrade to wds:8.8.0 or higher
+$wds-fandom-color-aqua: #00d6d6;
+$wds-fandom-color-navy: #002a32;
+
 $z-header: $z-6;
 $nav-container-padding: 6px;
 $icon-size: 25px;
@@ -105,6 +109,15 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		position: relative;
 		right: 6px;
 		top: 6px;
+	}
+
+	.appstore-button {
+		background-color: $wds-fandom-color-aqua;
+		border-radius: 4px;
+		color: $wds-fandom-color-navy;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 3px;
 	}
 }
 
