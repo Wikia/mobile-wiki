@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "Catégories", 
-    "comments-label": "__count__ commentaire", 
-    "comments-label_plural": "__count__ commentaires", 
+    "comments-label": "{count} commentaire", 
+    "comments-label_plural": "{count} commentaires", 
     "empty-label": "Désolés, il semble que cet article soit vide !", 
     "error": "Désolés, nous n'avons pas pu charger l'article. Veuillez réessayer.", 
     "last-edit": "Dernière modification il y a une semaine", 
     "last-edit_plural_0": "Dernière modification cette semaine", 
-    "last-edit_plural_2": "Dernière modification il y a __count__ semaines", 
+    "last-edit_plural_2": "Dernière modification il y a {count} semaines", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "Le lien suivi correspond à une redirection, mais la page vers laquelle il renvoie n'existe pas.", 
-    "replies-label": "Afficher __count__ réponse", 
-    "replies-label_plural": "Afficher __count__ réponses", 
+    "replies-label": "Afficher {count} réponse", 
+    "replies-label_plural": "Afficher {count} réponses", 
     "suggestions-label": "Lire plus", 
     "toc-label": "Sommaire", 
     "top-contributors-label": "Meilleurs contributeurs de cet article"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wiki.", 
     "publish-error-noedit-anon": "Les utilisateurs anonymes ne peuvent pas modifier de pages.", 
     "publish-error-protectedpage": "Vous n'avez pas la permission de modifier cette page.", 
-    "success": "La page__pageTitle__ a été modifiée avec succès !"
+    "success": "La page{pageTitle} a été modifiée avec succès !"
   }, 
   "file-page": {
     "subtitle": "Fichier", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "Retour", 
-    "explore-wiki": "Explorer __wikiName__", 
+    "explore-wiki": "Explorer {wikiName}", 
     "random-page-label": "Page au hasard", 
     "user-menu-log-out": "Se déconnecter", 
     "user-menu-profile": "Profil"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Toutes les discussions", 
     "header-title": "Discussions", 
-    "in-category-label": "dans __categoryName__", 
+    "in-category-label": "dans {categoryName}", 
     "post-actions-reply-label": "Répondre", 
     "post-actions-upvote-label": "Voter"
   }

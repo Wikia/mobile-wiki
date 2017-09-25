@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import config from '../../config/environment';
 
-export default Ember.Component.extend({
+const {$, Component, inject} = Ember;
+
+export default Component.extend({
 	tagName: '',
-	wikiVariables: Ember.inject.service(),
+	wikiVariables: inject.service(),
 
 	actions: {
 		fullSiteClicked() {

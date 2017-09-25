@@ -5,4 +5,4 @@ const notificationTypes = {
 	announcement: 'announcement'
 };
 
-export {notificationTypes};
+export default {notificationTypes};

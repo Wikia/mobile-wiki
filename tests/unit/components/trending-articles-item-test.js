@@ -1,7 +1,10 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('trending-articles-item', 'Unit | Component | trending articles item', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:fastboot'
+	]
 });
 
 test('sets proper url for the image', function (asset) {

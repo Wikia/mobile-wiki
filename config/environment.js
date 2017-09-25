@@ -1,10 +1,7 @@
-/* eslint-env es5, node */
-/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, object-shorthand: 0, no-empty: 0 */
-
 module.exports = function (environment) {
-	var ENV = {
+	const ENV = {
 		modulePrefix: 'mobile-wiki',
-		environment: environment,
+		environment,
 		locationType: 'router-scroll',
 		historySupportMiddleware: true,
 		facebook: {

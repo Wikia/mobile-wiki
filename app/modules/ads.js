@@ -54,6 +54,7 @@ import config from '../config/environment';
  * @property {Object} googleTag
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
+ * @property {Object} a9
  */
 class Ads {
 	constructor() {
@@ -79,6 +80,7 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
+		this.ooyalaAdSetProvider = null;
 		this.adsData = {
 			minZerothSectionLength: 700,
 			minPageLength: 2000
@@ -119,11 +121,13 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageParams',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.context.slotsContext',
+					'ext.wikia.adEngine.lookup.a9',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.video.player.ooyala.ooyalaTracker',
 					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					'wikia.krux'
 				], (
@@ -132,11 +136,13 @@ class Ads {
 					adLogicPageParams,
 					adConfigMobile,
 					slotsContext,
+					a9,
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
 					ooyalaTracker,
 					sourcePointDetectionModule,
+					ooyalaAdSetProvider,
 					vastUrlBuilder,
 					krux
 				) => {
@@ -154,6 +160,8 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
+					this.ooyalaAdSetProvider = ooyalaAdSetProvider;
+					this.a9 = a9;
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
@@ -402,6 +410,7 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', this.isInContentApplicable());
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable());
 		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 	}
 
 	isSlotApplicable(slotName) {
@@ -550,6 +559,10 @@ class Ads {
 		} else {
 			this.onReadyCallbacks.push(callback);
 		}
+	}
+
+	waitForReady() {
+		return new Promise((resolve) => this.onReady(resolve));
 	}
 
 	/**

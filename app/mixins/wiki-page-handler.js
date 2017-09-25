@@ -9,7 +9,13 @@ import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
 
-const {$, Object: EmberObject, get, getOwner, inject} = Ember;
+const {
+	$,
+	Object: EmberObject,
+	get,
+	getOwner,
+	inject
+} = Ember;
 
 /**
  *

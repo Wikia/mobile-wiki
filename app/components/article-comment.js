@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import Thumbnailer from '../modules/thumbnailer';
 
-const {Component, computed, inject} = Ember;
+const {
+	$,
+	Component,
+	computed,
+	inject
+} = Ember;
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData

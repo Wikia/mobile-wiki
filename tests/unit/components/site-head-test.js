@@ -1,9 +1,14 @@
 import {moduleForComponent, test} from 'ember-qunit';
 
 moduleForComponent('site-head', 'Unit | Component | site head', {
-	// Specify the other units that are required for this test
-	// needs: ['component:foo', 'helper:bar'],
-	unit: true
+	unit: true,
+	needs: [
+		'service:ads',
+		'service:notifications'
+	],
+	beforeEach() {
+		this.register('service:currentUser', window.document, {instantiate: false});
+	},
 });
 
 test('correct icons returned', function (assert) {

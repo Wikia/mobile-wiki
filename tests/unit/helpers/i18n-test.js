@@ -5,7 +5,6 @@ import sinon from 'sinon';
 
 module('Unit | Helper | i18n', (hooks) => {
 	const tStub = sinon.stub();
-	let originalI18nGlobal;
 	let i18nHelper;
 
 	hooks.beforeEach(() => {

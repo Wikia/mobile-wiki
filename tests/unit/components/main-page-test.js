@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
+import require from 'require';
 import sinon from 'sinon';
 
 const trackModule = require('mobile-wiki/utils/track'),
@@ -15,7 +16,7 @@ moduleForComponent('main-page', 'Unit | Component | main page', {
 		'component:wikia-ui-components/wiki-page-header-curated-main-page',
 		'service:ads',
 		'service:current-user',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

@@ -67,14 +67,17 @@ export default Ember.Mixin.create({
 		if ($wikiContainer.length) {
 			$placeholder.insertAfter($wikiContainer);
 
-			this.get('ads').pushAdSlotComponent(
-				this.get('adsData.invisibleHighImpact2'),
-				this.renderAdComponent({
-					name: 'ads/invisible-high-impact-2',
-					attrs: {},
-					element: $placeholder.get(0)
-				})
-			);
+			if (this.get('ads.module').isSlotApplicable(this.get('adsData.invisibleHighImpact2'))) {
+				this.get('ads').pushAdSlotComponent(
+					this.get('adsData.invisibleHighImpact2'),
+					this.renderAdComponent({
+						name: 'ads/invisible-high-impact-2',
+						attrs: {},
+						element: $placeholder.get(0)
+					})
+				);
+			}
+
 
 			this.appendAd(this.get('adsData.invisibleHighImpact'), 'after', $wikiContainer);
 		}

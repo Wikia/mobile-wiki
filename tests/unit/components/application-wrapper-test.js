@@ -1,7 +1,13 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('application-wrapper', 'Unit | Component | application wrapper', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:current-user',
+		'service:fastboot',
+		'service:logger',
+		'service:wiki-variables'
+	]
 });
 
 test('shouldHandleClick returns correct value', function (assert) {

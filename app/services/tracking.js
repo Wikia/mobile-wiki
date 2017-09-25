@@ -2,7 +2,12 @@ import Ember from 'ember';
 import baseConfig from '../config/environment';
 import extend from '../utils/extend';
 
-const {Service, computed, get, inject, set} = Ember;
+const {
+	Service,
+	get,
+	inject,
+	set
+} = Ember;
 
 export default Service.extend({
 	fastboot: inject.service(),

@@ -18,7 +18,7 @@ function addOoyalaAssets(route) {
 
 /**
  * @param {Ember.Route} route
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @returns {void}
  */
 function afterModel(route, model) {
@@ -34,42 +34,55 @@ function afterModel(route, model) {
 }
 
 /**
- * This function tracks page view only on articles on Lyrics Wiki (id: 43339).
+ * This function, along with shouldSendLyricFindRequest, tracks page view only on articles on Lyrics Wiki (id: 43339).
  * Notice that params amgid and gracenoteid are set to 0, those params are not important,
  * but to be consistent with Oasis we send them
  *
  * https://github.com/Wikia/app/blob/dev/extensions/3rdparty/LyricWiki/LyricFind/js/modules/LyricFind.Tracker.js
  *
- * @param {Ember.model} model
- * @param {number} wikiId
+ * @param {Ember.Object} model
  * @param {String} host
  */
-function sendLyricsPageView(model, wikiId, host) {
-	if (wikiId === 43339 && !model.get('isMainPage')) {
-		fetch(buildUrl({
-			host,
-			path: '/wikia.php',
-			query: {
-				controller: 'LyricFind',
-				method: 'track',
-				title: model.get('title'),
-				amgid: 0,
-				gracenoteid: 0,
-				rand: (`${Math.random()}`).substr(2, 8)
-			}
-		}));
-	}
+function sendLyricsPageView({model, host}) {
+	fetch(buildUrl({
+		host,
+		path: '/wikia.php',
+		query: {
+			controller: 'LyricFind',
+			method: 'track',
+			title: model.get('title'),
+			amgid: 0,
+			gracenoteid: 0,
+			rand: (`${Math.random()}`).substr(2, 8)
+		}
+	}));
+}
+
+/**
+ * @param {Ember.Object} model
+ * @param {number} wikiId
+ * @param {{get}} fastboot
+ *
+ * @returns {boolean}
+ */
+function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
+	const lyricWikiId = 43339;
+
+	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
 }
 
 /**
  * Hook triggered on transition.then() in Route::afterModel()
  *
- * @param {Ember.model} model
+ * @param {Ember.Object} model
  * @param {number} wikiId
  * @param {String} host
+ * @param {{get}} fastboot
  */
-function afterTransition(model, wikiId, host) {
-	sendLyricsPageView(model, wikiId, host);
+function afterTransition({model, wikiId, host, fastboot}) {
+	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
+		sendLyricsPageView({model, host});
+	}
 }
 
 /**

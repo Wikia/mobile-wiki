@@ -18,7 +18,7 @@ export default Service.extend({
 		if (fastboot.get('isFastBoot')) {
 			const fs = FastBoot.require('fs');
 
-			config.translationsNamespaces.forEach(namespace => {
+			config.translationsNamespaces.forEach((namespace) => {
 				[language, language.split('-')[0], 'en'].some((lang) => {
 					const translationPath = `dist/mobile-wiki/locales/${lang}/${namespace}.json`;
 
@@ -53,8 +53,8 @@ export default Service.extend({
 			defaultNS: 'main',
 			interpolation: {
 				escapeValue: false,
-				prefix: '__',
-				suffix: '__'
+				prefix: '{',
+				suffix: '}'
 			},
 			resources: {
 				[language]: translations

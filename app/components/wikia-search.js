@@ -6,7 +6,14 @@ import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
 
-const {Component, computed, observer, inject, run, $} = Ember;
+const {
+	Component,
+	computed,
+	observer,
+	inject,
+	run,
+	$
+} = Ember;
 
 /**
  * Type for search suggestion

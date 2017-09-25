@@ -1,7 +1,14 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 
-const {Component, String: {dasherize}, computed, inject, on, setProperties} = Ember;
+const {
+	Component,
+	String: {dasherize},
+	computed,
+	inject,
+	on,
+	setProperties
+} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
@@ -41,7 +48,8 @@ export default Component.extend(
 
 			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
-					() => {},
+					() => {
+					},
 					() => {
 						this.get('logger').info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
@@ -78,7 +86,8 @@ export default Component.extend(
 						this.get('logger').info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);
 					},
-					() => {}
+					() => {
+					}
 				);
 			}
 		},

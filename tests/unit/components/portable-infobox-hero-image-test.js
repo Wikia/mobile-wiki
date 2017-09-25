@@ -2,7 +2,10 @@ import {test, moduleForComponent} from 'ember-qunit';
 import Thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
 moduleForComponent('portable-infobox-hero-image', 'Unit | Component | portable-infobox-hero-image', {
-	unit: true
+	unit: true,
+	needs: [
+		'service:fastboot'
+	],
 });
 
 test('cropMode', function (assert) {

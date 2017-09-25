@@ -24,17 +24,17 @@
   }, 
   "article": {
     "categories-list-label": "분류", 
-    "comments-label": "댓글 __count__개", 
-    "comments-label_plural": "댓글 __count__개", 
+    "comments-label": "댓글 {count}개", 
+    "comments-label_plural": "댓글 {count}개", 
     "empty-label": "이 문서는 비어 있습니다.", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
     "last-edit": "1주일 전에 마지막으로 편집됨", 
     "last-edit_plural_0": "이번 주에 마지막으로 편집됨", 
-    "last-edit_plural_2": "__count__주일 전에 마지막으로 편집됨", 
+    "last-edit_plural_2": "{count}주일 전에 마지막으로 편집됨", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
-    "replies-label": "답글 __count__개 보기", 
-    "replies-label_plural": "답글 __count__개 보기", 
+    "replies-label": "답글 {count}개 보기", 
+    "replies-label_plural": "답글 {count}개 보기", 
     "suggestions-label": "더 보기", 
     "toc-label": "목차", 
     "top-contributors-label": "Top Contributors to this article"
@@ -66,7 +66,7 @@
     "publish-error-noedit": "You don't have permission to edit pages on this wiki.", 
     "publish-error-noedit-anon": "Anonymous users can't edit pages.", 
     "publish-error-protectedpage": "You don't have permission to edit this page.", 
-    "success": "Successfully edited page __pageTitle__!"
+    "success": "Successfully edited page {pageTitle}!"
   }, 
   "file-page": {
     "subtitle": "File Page", 
@@ -75,7 +75,7 @@
   }, 
   "navigation": {
     "back-label": "뒤로", 
-    "explore-wiki": "Explore __wikiName__", 
+    "explore-wiki": "Explore {wikiName}", 
     "random-page-label": "임의 문서", 
     "user-menu-log-out": "Log out", 
     "user-menu-profile": "Profile"
@@ -95,7 +95,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "All Discussions", 
     "header-title": "Discussions", 
-    "in-category-label": "in __categoryName__", 
+    "in-category-label": "in {categoryName}", 
     "post-actions-reply-label": "Reply", 
     "post-actions-upvote-label": "Upvote"
   }

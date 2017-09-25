@@ -1,11 +1,12 @@
 import {module} from 'qunit';
+import require from 'require';
 import {test} from 'ember-qunit';
 
 module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {
-		truncate = require('mobile-wiki/utils/truncate').truncate;
+		truncate = require('mobile-wiki/utils/truncate').default;
 	});
 
 	test('Truncate helper is exported', (assert) => {

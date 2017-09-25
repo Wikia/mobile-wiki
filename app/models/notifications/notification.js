@@ -1,15 +1,15 @@
 import Ember from 'ember';
 import DiscussionContributor from './contributor';
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 import {convertToTimestamp} from '../../utils/iso-date-time';
-import {notificationTypes} from '../../utils/notification-types';
+import notificationTypes from '../../utils/notification-types';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
 const {
-	A,
-	Object: EmberObject,
-	get,
-} = Ember,
+		A,
+		Object: EmberObject,
+		get,
+	} = Ember,
 	avatar = 'http://static.wikia.nocookie.net/messaging/images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
 
 const NotificationModel = EmberObject.extend({

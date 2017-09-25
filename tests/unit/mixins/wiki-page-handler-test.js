@@ -1,8 +1,8 @@
 import {moduleFor, test} from 'ember-qunit';
 import Ember from 'ember';
 import sinon from 'sinon';
+import require from 'require';
 import WikiPageHandlerMixin from 'mobile-wiki/mixins/wiki-page-handler';
-
 
 const articleModel = require('mobile-wiki/models/wiki/article').default,
 	categoryModel = require('mobile-wiki/models/wiki/category').default,
@@ -23,7 +23,7 @@ moduleFor('mixin:wiki-page-handler', 'Unit | Mixins | Wiki Page Handler', {
 		'service:currentUser',
 		'service:fastboot',
 		'service:logger',
-		'service:wikiVariables'
+		'service:wiki-variables'
 	],
 
 	beforeEach() {

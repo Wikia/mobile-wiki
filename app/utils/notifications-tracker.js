@@ -38,7 +38,7 @@ function getGAValueFromUnreadStatus(isUnread) {
  */
 export function track(label, action, params = null) {
 	mercuryTrack(
-		getTrackingContext(label, action, params),
+		getTrackingContext(label, action, params)
 	);
 }
 

@@ -1,4 +1,5 @@
 import {module} from 'qunit';
+import require from 'require';
 import {test} from 'ember-qunit';
 
 module('Unit | Utility | url', (hooks) => {
@@ -13,8 +14,10 @@ module('Unit | Utility | url', (hooks) => {
 	});
 
 	test('full url with params', (assert) => {
-		assert.equal(extractEncodedTitle(
-			'http://test.wikia.com/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'),
+		assert.equal(
+			extractEncodedTitle(
+				'http://test.wikia.com/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+			),
 			'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
 		);
 	});
@@ -32,8 +35,10 @@ module('Unit | Utility | url', (hooks) => {
 	});
 
 	test('full url with many wikis', (assert) => {
-		assert.equal(extractEncodedTitle(
-			'http://test.wikia.com/wiki/Wiki/wiki/wiki/wiki'),
+		assert.equal(
+			extractEncodedTitle(
+				'http://test.wikia.com/wiki/Wiki/wiki/wiki/wiki'
+			),
 			'Wiki/wiki/wiki/wiki'
 		);
 	});
