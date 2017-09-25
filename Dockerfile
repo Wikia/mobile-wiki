@@ -22,6 +22,7 @@ COPY bower.json .
 # install npm globals
 RUN npm install -g bower
 RUN npm install -g ember-cli
+RUN npm run clean-deep
 
 # install prod dependencies
 # todo // related to prod build and mobile-wiki's package.json:
@@ -38,6 +39,11 @@ RUN cp -R bower_components prod_dependencies
 RUN npm run setup
 
 # copy app
+# Note:
+# - first argument is the path inside the context of build (folder where Dockerfile is placed)
+# - second argument is the docker daemon (newly created container)
+# - "." means "current working directory", and since we're not selecting any specific files
+# it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
 COPY . .
 
 # build app
