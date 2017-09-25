@@ -4,6 +4,7 @@ import {inGroup} from '../modules/abtest';
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
 	wikiVariables: Ember.inject.service(),
+	fastboot: Ember.inject.service(),
 
 	/**
 	 * @param {Object} model
@@ -62,7 +63,7 @@ export default Ember.Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
-		if (headData.appId &&
+		if (!this.get('fastboot.isFastBoot') && headData.appId &&
 			// Smart Banner AB Testing
 			!inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER') &&
 			!inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BUTTON')
