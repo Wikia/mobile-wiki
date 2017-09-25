@@ -8,17 +8,23 @@
 	}
 
 	function loadDOMResource(src) {
-		fetch(src)
-			.then(function (response) {
-				return response.text();
-			})
-			.then(function (body) {
-				var element = htmlToElement(body);
+		// we have to use XMLHttpRequest which is supported by all browsers
+		var ajax = new XMLHttpRequest();
 
-				element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
+		ajax.onload = function () {
+			var element = htmlToElement(ajax.responseText);
 
-				document.body.insertBefore(element, document.body.firstChild);
-			});
+			element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
+
+			document.body.insertBefore(element, document.body.firstChild);
+		};
+
+		ajax.onerror = function (error) {
+			throw new URIError('The resource ' + error.target.src + ' is not accessible.');
+		};
+
+		ajax.open('GET', src, true);
+		ajax.send();
 	}
 
 	loadDOMResource('/mobile-wiki/assets/main.svg');
