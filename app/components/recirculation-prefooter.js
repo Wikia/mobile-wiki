@@ -40,7 +40,7 @@ export default Component.extend(
 		fetchPlista() {
 			const width = normalizeThumbWidth(window.innerWidth);
 			const height = Math.round(width / (16 / 9));
-			const plistaURL = `http://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
+			const plistaURL = `https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
 				+ `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
 			return fetch(plistaURL)
 				.then((response) => response.json())
