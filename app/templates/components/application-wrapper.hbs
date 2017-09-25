@@ -16,7 +16,7 @@
 		setDrawerContent=(action 'setDrawerContent')
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
-		testSmartBannerVisible=shouldShowABTestBannerOnIOS
+		testSmartBannerVisible=isIosBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
@@ -44,7 +44,7 @@
 			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/unless}}
-	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+	<div class="page-wrapper row {{if isIosBannerVisible 'with-ios-banner'}}" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper

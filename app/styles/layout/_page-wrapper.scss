@@ -1,4 +1,8 @@
 .page-wrapper {
+	&.with-ios-banner {
+		margin-top: 85px;
+	}
+
 	.mobile-top-leaderboard ~ & {
 		margin-top: 0;
 	}
