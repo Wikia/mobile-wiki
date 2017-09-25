@@ -1,6 +1,7 @@
 .page-wrapper {
 	&.with-ios-banner {
-		margin-top: 85px;
+		//smart banner height + site head height
+		margin-top: 140px;
 	}
 
 	.mobile-top-leaderboard ~ & {
