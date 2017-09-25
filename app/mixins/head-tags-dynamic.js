@@ -64,7 +64,8 @@ export default Ember.Mixin.create({
 
 		if (headData.appId &&
 			// Smart Banner AB Testing
-			!inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER') && !inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BUTTON')
+			!inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER') &&
+			!inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BUTTON')
 			// Smart Banner AB Testing
 		) {
 			headData.appleItunesApp = `app-id=${headData.appId}`;
