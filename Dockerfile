@@ -14,7 +14,7 @@ RUN useradd -u 663 release
 RUN apt-get update && apt-get install -y python python-pip
 RUN pip install pyparsing && pip install -i https://pypi.wikia-services.com/simple/ wikia.crowdin
 
-# create folder to cache node_modules
+# create folder to cache dependencies
 WORKDIR /app
 COPY package.json .
 COPY bower.json .
