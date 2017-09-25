@@ -24,6 +24,9 @@ RUN npm install -g bower
 RUN npm install -g ember-cli
 
 # install prod dependencies
+# todo // related to prod build and mobile-wiki's package.json:
+# todo // due to difficulties with running mobile-wiki on kubernetes it's impossible to figure out
+# todo // the final list of prod dependencies thus it still might be necessary to move some "devDeps" to "deps" section
 RUN npm run setup-prod
 
 # store prod dependencies separately for docker's caching reasons
@@ -45,8 +48,12 @@ FROM node:6.11.3-alpine as build
 
 WORKDIR /app
 
-# copy app
-COPY --from=prepare_build /app/dist .
+# copy all required files
+COPY --from=prepare_build /app/dist dist
+COPY --from=prepare_build /app/server server
+COPY --from=prepare_build /app/config config
+COPY --from=prepare_build /app/lib lib
+COPY --from=prepare_build /app/package.json /app/bower.json ./
 
 # copy cached prod dependencies
 COPY --from=prepare_build /app/prod_dependencies/node_modules node_modules
