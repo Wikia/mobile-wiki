@@ -56,7 +56,7 @@ WORKDIR /app
 
 # copy all required files
 COPY --from=prepare_build /app/dist dist
-COPY --from=prepare_build /app/server server
+COPY --from=prepare_build /app/fastboot-server fastboot-server
 COPY --from=prepare_build /app/config config
 COPY --from=prepare_build /app/lib lib
 COPY --from=prepare_build /app/package.json /app/bower.json ./
