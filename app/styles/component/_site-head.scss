@@ -23,6 +23,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 .site-head-container {
 	min-height: $site-head-height;
+
+	&.test-smart-banner-visible {
+		.site-head {
+			top: 85px;
+		}
+	}
 }
 
 .site-head-wrapper {
@@ -117,7 +123,8 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		color: $wds-fandom-color-navy;
 		font-size: 12px;
 		font-weight: bold;
-		padding: 3px;
+		margin: 0 auto;
+		padding: 4px;
 	}
 }
 
