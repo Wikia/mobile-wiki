@@ -1,6 +1,12 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
+	{{#if shouldShowABTestBannerOnIOS}}                                                                                │  774 root       30  10  778M 23252  6304 S  0.0  0.4  6:19.36 osqueryd
+		{{smart-banner-test                                                                                            │  704 root       30  10  778M 23252  6304 S  0.0  0.4  6:28.94 osqueryd
+			toggleVisibility=attrs.toggleSmartBanner                                                                   │  839 telegraf   20   0  782M 16780  4308 S  0.0  0.3  1:48.79 /usr/bin/telegraf -pidfile /var/run/telegraf/telegraf.p
+			isVisible=smartBannerVisible                                                                               │  552 root       20   0 38164 17976  5980 S  0.0  0.3  1:14.51 /usr/bin/consul agent -config-dir /etc/consul.d
+		}}                                                                                                             │ 9539 bkowalczy  20   0  104M  5568  3556 S  0.0  0.1  0:01.02 sshd: bkowalczyk@pts/2
+   {{/if}}
 	{{site-head
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
@@ -10,6 +16,7 @@
 		setDrawerContent=(action 'setDrawerContent')
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
+		testSmartBannerVisible=shouldShowABTestBannerOnIOS
 		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
@@ -31,17 +38,12 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#if shouldShowABTestBannerOnIOS}}
-		{{smart-banner-test
-			toggleVisibility=attrs.toggleSmartBanner
-			isVisible=smartBannerVisible
-		}}
-	{{else}}
+	{{#unless shouldShowABTestBannerOnIOS}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
 			toggleVisibility=attrs.toggleSmartBanner
 		}}
-	{{/if}}
+	{{/unless}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
