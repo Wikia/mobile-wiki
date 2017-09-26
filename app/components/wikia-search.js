@@ -41,7 +41,6 @@ export default Component.extend(
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
-		phrase: '',
 		phraseMinimalLength: 3,
 		query: '',
 		/**
@@ -64,10 +63,7 @@ export default Component.extend(
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
-		queryObserver: observer('query', function () {
-			// ensures that phrase is changed according to external change
-			this.set('phrase', this.get('query'));
-		}),
+		phrase: Ember.computed.oneWay('query'),
 		searchPlaceholderLabel: computed(function () {
 			return this.get('i18n').t('search:main.search-input-label');
 		}),
@@ -75,15 +71,10 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 
-			run.scheduleOnce('afterRender', this, () => {
-				// initialize with query
-				this.set('phrase', this.get('query'));
-				this.set('inputField', $('.side-search__input'));
+			if (this.get('focusInput')) {
+				this.$('.side-search__input').focus();
+			}
 
-				if (this.get('focusInput')) {
-					this.get('inputField').focus();
-				}
-			});
 		},
 
 		actions: {
@@ -94,7 +85,7 @@ export default Component.extend(
 					label: 'search-open-special-search'
 				});
 
-				this.get('inputField').blur();
+				this.$('.side-search__input').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -103,7 +94,7 @@ export default Component.extend(
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.get('inputField').focus();
+				this.$('.side-search__input').focus();
 			},
 
 			searchSuggestionClick() {
