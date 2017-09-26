@@ -59,12 +59,12 @@ export default Component.extend(
 		i18n: inject.service(),
 		logger: inject.service(),
 		wikiVariables: inject.service(),
-
+		inputSearchSelector: '.side-search__input',
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
 		phrase: Ember.computed.oneWay('query'),
-		$searchInputElement: this.$('.side-search__input'),
+
 		searchPlaceholderLabel: computed(function () {
 			return this.get('i18n').t('search:main.search-input-label');
 		}),
@@ -73,7 +73,7 @@ export default Component.extend(
 			this._super(...arguments);
 
 			if (this.get('focusInput')) {
-				this.get('$searchInputElement').focus();
+				this.$(this.get('inputSearchSelector')).focus();
 			}
 
 		},
@@ -86,7 +86,7 @@ export default Component.extend(
 					label: 'search-open-special-search'
 				});
 
-				this.get('$searchInputElement').blur();
+				this.$(this.get('inputSearchSelector')).blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -95,7 +95,7 @@ export default Component.extend(
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.get('$searchInputElement').focus();
+				this.$(this.get('inputSearchSelector')).focus();
 			},
 
 			searchSuggestionClick() {
