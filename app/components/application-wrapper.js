@@ -65,6 +65,10 @@ export default Component.extend({
 			this.get('currentUser.language') === 'en' &&
 			inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER');
 	}),
+
+	isIosBannerVisible: computed('shouldShowABTestBannerOnIOS', 'smartBannerVisible', function () {
+		return this.get('shouldShowABTestBannerOnIOS') && this.get('smartBannerVisible');
+	}),
 	// Smart Banner AB Testing
 
 	/**
