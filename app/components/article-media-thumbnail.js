@@ -26,6 +26,9 @@ export default Component.extend(
 		 * It can be overridden when rendering from another component, e.g. from article-media-gallery
 		 */
 		itemContext: 'article',
+		itemIsOgg: computed('mime', function () {
+			return this.get('mime') === 'application/ogg';
+		}),
 
 		itemType: computed('itemContext', 'type', function () {
 			return `${this.get('itemContext')}-${this.get('type')}`;
@@ -46,7 +49,7 @@ export default Component.extend(
 
 		click(event) {
 			// Don't open lightbox when image is linked by user or caption was clicked
-			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length) {
+			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length && !this.get('itemIsOgg')) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				// it can also be overriden when this component is rendered from a template instead of JS
 				this.get('openLightbox')(this.get('ref'));
