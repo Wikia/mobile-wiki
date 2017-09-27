@@ -15,9 +15,9 @@ export default Service.extend({
 	}),
 	adSlotComponents: {},
 	adsUrl: computed('wikiVariables', function () {
-		let {basePath, cacheBuster} = this.get('wikiVariables');
+		let {cdnRootUrl, cacheBuster} = this.get('wikiVariables');
 
-		return `${basePath}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
+		return `${cdnRootUrl}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
 	}),
 
 	pushAdSlotComponent(slotName, adSlotComponent) {

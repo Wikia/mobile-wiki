@@ -7,14 +7,14 @@ export default {
 				items: [
 					{
 						label: 'Categories',
-						imageUrl: 'http://vignette2.wikia.nocookie.net/mercurycc/images/3/3e/Burton-jane-' +
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/3/3e/Burton-jane-' +
 						'ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg/revision/latest' +
 						'?cb=20150706160548',
 						type: 'section',
 						items: [
 							{
 								label: 'Articles label',
-								imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
 								'/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Articles',
@@ -22,7 +22,7 @@ export default {
 							},
 							{
 								label: 'Blogs label',
-								imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
 								'/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Blog_posts',
@@ -30,7 +30,7 @@ export default {
 							},
 							{
 								label: 'Photos label',
-								imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
 								'/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Images',
@@ -38,7 +38,7 @@ export default {
 							},
 							{
 								label: 'Videos label',
-								imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
 								'/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Videos',
@@ -49,7 +49,7 @@ export default {
 					},
 					{
 						label: 'Templates label',
-						imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
 						'/revision/latest?cb=20150708092401',
 						type: 'category',
 						url: '/wiki/Category:Templates',
@@ -57,7 +57,7 @@ export default {
 					},
 					{
 						label: 'Broken',
-						imageUrl: 'http://vignette1.wikia.nocookie.net/mercurycc/images/5/57/UC39.jpg' +
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/57/UC39.jpg' +
 						'/revision/latest?cb=20150715133441',
 						type: 'category',
 						url: '/wiki/Category:Broken',
