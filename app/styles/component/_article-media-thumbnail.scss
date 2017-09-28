@@ -37,6 +37,11 @@
 		}
 	}
 
+	&.is-ogg figcaption {
+		height: auto;
+		text-align: center;
+	}
+
 	.chevron {
 		background-color: #fff;
 		bottom: 0;

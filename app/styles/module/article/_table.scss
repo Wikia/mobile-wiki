@@ -18,16 +18,18 @@
 		padding: 10px;
 
 		figure {
-			display: inline-block;
 			margin: 0;
-			width:100%;
+
+			&:not(.is-ogg) {
+				display: inline-block;
+
+				figcaption {
+					display: none;
+				}
+			}
 
 			&.has-caption .chevron {
 				margin-bottom: 0;
-			}
-
-			figcaption {
-				display: none;
 			}
 		}
 	}
