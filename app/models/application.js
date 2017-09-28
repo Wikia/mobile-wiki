@@ -16,7 +16,7 @@ export default EmberObject.extend({
 	currentUser: inject.service(),
 	fastboot: inject.service(),
 
-	fetch(title) {
+	fetch(title, uselangParam) {
 		const currentUser = this.get('currentUser'),
 			fastboot = this.get('fastboot'),
 			shoebox = fastboot.get('shoebox');
@@ -37,7 +37,7 @@ export default EmberObject.extend({
 					navigation: NavigationModel.create(ownerInjection).fetchAll(
 						host,
 						wikiVariablesData.id,
-						wikiVariablesData.language.content
+						uselangParam || wikiVariablesData.language.content
 					),
 					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
 						!userId,
