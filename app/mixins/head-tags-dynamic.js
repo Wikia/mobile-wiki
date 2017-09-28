@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {inGroup} from '../modules/abtest';
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
@@ -63,7 +62,7 @@ export default Ember.Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
-		if (!this.get('fastboot.isFastBoot') && headData.appId) {
+		if (!this.get('fastboot.isFastBoot') && headData.appId && !this.get('wikiVariables.enableFandomAppSmartBanner')) {
 			headData.appleItunesApp = `app-id=${headData.appId}`;
 
 			if (data.appArgument) {

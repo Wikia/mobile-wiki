@@ -10,13 +10,8 @@ const {
 	run,
 } = Ember;
 
-/**
- * This is a fork from smart-banner-android
- * Needed for a/b test purposes
- * Uses code repetition and will be removed after the test is done
- */
 export default Component.extend({
-	classNames: ['smart-banner-test'],
+	classNames: ['fandom-app-smart-banner'],
 
 	currentUser: inject.service(),
 	wikiVariables: inject.service(),
