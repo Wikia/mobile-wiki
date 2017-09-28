@@ -1,7 +1,7 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{#if shouldShowABTestBannerOnIOS}}
+	{{#if shouldShowSmartBanner}}
 		{{smart-banner-test
 			toggleVisibility=attrs.toggleSmartBanner
 			isVisible=smartBannerVisible
@@ -16,7 +16,7 @@
 		setDrawerContent=(action 'setDrawerContent')
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
-		testSmartBannerVisible=isIosBannerVisible
+		testSmartBannerVisible=isSmartBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
@@ -38,13 +38,13 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#unless shouldShowABTestBannerOnIOS}}
+	{{#unless shouldShowSmartBanner}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
 			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/unless}}
-	<div class="page-wrapper row {{if isIosBannerVisible 'with-ios-banner'}}" lang={{language.content}} dir={{language.contentDir}}>
+	<div class="page-wrapper row {{if isSmartBannerVisible 'with-ios-banner'}}" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper

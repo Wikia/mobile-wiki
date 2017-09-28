@@ -2,8 +2,6 @@ import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
-import {inGroup} from '../modules/abtest';
-import {system} from '../utils/browser';
 
 const {computed, Component, inject} = Ember;
 
@@ -19,7 +17,6 @@ export default Component.extend(
 		closeIcon: 'close',
 
 		ads: inject.service(),
-		currentUser: inject.service(),
 		notifications: inject.service(),
 
 		headroomOptions: {
@@ -47,12 +44,6 @@ export default Component.extend(
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
 				this.get('closeIcon') : 'search';
-		}),
-
-		canShowABTestedIOSAppButton: computed('currentUser.language', function () {
-			return system === 'ios' &&
-				this.get('currentUser.language') === 'en' &&
-				inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BUTTON');
 		}),
 
 		offset: computed.readOnly('ads.siteHeadOffset'),
@@ -107,13 +98,6 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wordmark'
-				});
-			},
-
-			onIosButtonClicked() {
-				track({
-					action: trackActions.install,
-					category: 'fandom-app-ios-site-head-button',
 				});
 			}
 		}

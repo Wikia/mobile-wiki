@@ -6,9 +6,7 @@ const {
 	$,
 	Component,
 	computed,
-	get,
 	inject,
-	String: {htmlSafe},
 	run,
 } = Ember;
 
