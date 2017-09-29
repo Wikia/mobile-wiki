@@ -13,7 +13,7 @@ export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['article-media-thumbnail'],
-		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
+		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
 		tagName: 'figure',
 
 		smallImageSize: {
@@ -26,6 +26,10 @@ export default Component.extend(
 		 * It can be overridden when rendering from another component, e.g. from article-media-gallery
 		 */
 		itemContext: 'article',
+
+		isOgg: computed('mime', function () {
+			return this.get('mime') === 'application/ogg';
+		}),
 
 		itemType: computed('itemContext', 'type', function () {
 			return `${this.get('itemContext')}-${this.get('type')}`;
@@ -41,12 +45,12 @@ export default Component.extend(
 		hasFigcaption: computed.or('caption', 'showTitle'),
 
 		showTitle: computed('type', function () {
-			return this.get('type') === 'video' && this.get('title');
+			return this.get('type') === 'video' || this.get('isOgg') && this.get('title');
 		}),
 
 		click(event) {
 			// Don't open lightbox when image is linked by user or caption was clicked
-			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length) {
+			if (!this.get('isLinkedByUser') && !$(event.target).closest('figcaption').length && !this.get('isOgg')) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				// it can also be overriden when this component is rendered from a template instead of JS
 				this.get('openLightbox')(this.get('ref'));
