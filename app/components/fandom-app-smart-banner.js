@@ -6,6 +6,7 @@ const {
 	$,
 	Component,
 	computed,
+	inject,
 	run,
 } = Ember;
 
@@ -21,13 +22,17 @@ export default Component.extend({
 	},
 	dayInSeconds: 86400000,
 
-	link: computed(function () {
+	i18n: inject.service(),
+
+	link: () => {
 		return system === 'ios' ? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
-			   : 'https://play.google.com/store/apps/details?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner'
-	}),
+			: 'https://play.google.com/store/apps/details?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner';
+	},
 
 	storeName: computed(function () {
-		return system === 'ios' ? 'App Store' : 'Google Play';
+		return system === 'ios'
+			? this.get('i18n').t('fandom-app-banner.app-store')
+			: this.get('i18n').t('fandom-app-banner.google-play');
 	}),
 
 	actions: {
