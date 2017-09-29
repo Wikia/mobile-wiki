@@ -1,8 +1,8 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{#if shouldShowABTestBannerOnIOS}}
-		{{smart-banner-test
+	{{#if shouldShowFandomAppSmartBanner}}
+		{{fandom-app-smart-banner
 			toggleVisibility=attrs.toggleSmartBanner
 			isVisible=smartBannerVisible
 		}}
@@ -16,7 +16,7 @@
 		setDrawerContent=(action 'setDrawerContent')
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
-		testSmartBannerVisible=isIosBannerVisible
+		testSmartBannerVisible=isFandomAppSmartBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
 	}}
 	{{#wikia-drawer
@@ -38,13 +38,13 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#unless shouldShowABTestBannerOnIOS}}
+	{{#unless shouldShowFandomAppSmartBanner}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
 			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/unless}}
-	<div class="page-wrapper row {{if isIosBannerVisible 'with-ios-banner'}}" lang={{language.content}} dir={{language.contentDir}}>
+	<div class="page-wrapper row {{if isFandomAppSmartBannerVisible 'with-fandom-app-smart-banner'}}" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper

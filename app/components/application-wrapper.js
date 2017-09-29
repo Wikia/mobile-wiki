@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
-import {inGroup} from '../modules/abtest';
 import {system} from '../utils/browser';
 
 const {
@@ -56,20 +55,13 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
-	// Smart Banner AB Testing
+
 	/**
 	 * @returns {boolean}
 	 */
-	shouldShowABTestBannerOnIOS: computed('currentUser.language', function () {
-		return system === 'ios' &&
-			this.get('currentUser.language') === 'en' &&
-			inGroup('FANDOM_APP_SMART_BANNER_IOS_EXPERIMENT', 'BANNER');
-	}),
-
-	isIosBannerVisible: computed('shouldShowABTestBannerOnIOS', 'smartBannerVisible', function () {
-		return this.get('shouldShowABTestBannerOnIOS') && this.get('smartBannerVisible');
-	}),
-	// Smart Banner AB Testing
+	isUserLangEn: computed.equal('currentUser.language', 'en'),
+	shouldShowFandomAppSmartBanner: computed.and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: computed.and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}

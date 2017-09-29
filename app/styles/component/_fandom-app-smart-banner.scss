@@ -1,6 +1,4 @@
-$wds-fandom-color-light-gray: #f2f5f5;
-
-.smart-banner-test {
+.fandom-app-smart-banner {
 	-webkit-font-smoothing: antialiased;
 	align-items: center;
 	background: $wds-fandom-color-light-gray;
@@ -11,54 +9,54 @@ $wds-fandom-color-light-gray: #f2f5f5;
 	position: fixed;
 	width: 100%;
 	z-index: $z-site-head;
-}
 
-.smart-banner-link {
-	display: flex;
-	flex: 1;
-}
+	&__link {
+		display: flex;
+		flex: 1;
+	}
 
-.sb-test-close {
-	align-self: center;
-	margin: 0 18px;
+	&__close {
+		align-self: center;
+		margin: 0 18px;
 
-	svg {
-		height: 18px;
-		pointer-events: none;
+		svg {
+			height: 18px;
+			pointer-events: none;
 
-		path {
-			fill: #773;
+			path {
+				fill: #773;
+			}
 		}
 	}
-}
 
-.sb-test-button {
-	align-items: center;
-	color: #007aff;
-	display: flex;
-	font-size: 17px;
-	font-weight: 500;
-	margin-right: 24px;
-	text-align: center;
-}
+	&__install {
+		align-items: center;
+		color: #007aff;
+		display: flex;
+		font-size: 17px;
+		font-weight: 500;
+		margin-right: 24px;
+		text-align: center;
+	}
 
-.sb-test-info {
-	align-items: center;
-	display: flex;
-	flex-grow: 1;
+	&__info {
+		align-items: center;
+		display: flex;
+		flex-grow: 1;
+	}
 
-	.sb-test-icon {
+	&__icon {
 		height: 64px;
 		width: 64px;
 	}
 
-	.sb-test-meta {
+	&__meta {
 		display: flex;
 		flex-direction: column;
 		margin-left: 8px;
 	}
 
-	.sb-test-title {
+	&__title {
 		color: #191919;
 		font-size: 16px;
 		font-weight: bold;
@@ -66,16 +64,17 @@ $wds-fandom-color-light-gray: #f2f5f5;
 		margin-bottom: 3px;
 	}
 
-	.sb-test-description {
+	&__description {
 		color: #4a4a4a;
 		font-size: 14px;
 		line-height: 1;
 	}
 
-	.sb-test-app-store {
+	&__store {
 		color: #4a4a4a;
 		font-size: 14px;
 		line-height: 1;
 		margin-bottom: 5px;
 	}
 }
+

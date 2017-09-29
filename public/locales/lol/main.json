@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "crwdns58234:0crwdne58234:0", 
     "success": "crwdns71079:0{pageTitle}crwdne71079:0"
   }, 
+  "fandom-app-banner": {
+    "app-store": "crwdns71803:0crwdne71803:0", 
+    "google-play": "crwdns71802:0crwdne71802:0"
+  }, 
   "file-page": {
     "subtitle": "crwdns58236:0crwdne58236:0", 
     "usages-header": "crwdns58237:0crwdne58237:0", 
