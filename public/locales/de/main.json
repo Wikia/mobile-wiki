@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "Du hast keine Berechtigung, diese Seite zu bearbeiten.", 
     "success": "Die Seite {pageTitle} wurde erfolgreich bearbeitet!"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "Datei-Seite", 
     "usages-header": "Erscheint auf diesen Seiten", 
