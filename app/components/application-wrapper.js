@@ -59,13 +59,9 @@ export default Component.extend({
 	/**
 	 * @returns {boolean}
 	 */
-	shouldShowFandomAppSmartBanner: computed('currentUser.language', 'wikiVariables', function () {
-		return this.get('currentUser.language') === 'en' && this.get('wikiVariables.enableFandomAppSmartBanner');
-	}),
-
-	isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
-		return this.get('shouldShowFandomAppSmartBanner') && this.get('smartBannerVisible');
-	}),
+	isUserLangEn: computed.equal('currentUser.language', 'en'),
+	shouldShowFandomAppSmartBanner: computed.and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: computed.and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}
