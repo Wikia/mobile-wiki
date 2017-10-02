@@ -3,8 +3,9 @@ import moatVideoTracker from './moat-video-tracker';
 
 export default class OoyalaVideoAds {
 
-	constructor(params) {
+	constructor(params, trackingParams) {
 		this.params = params;
+		this.trackingParams = trackingParams;
 	}
 
 	getOoyalaConfig() {
@@ -76,6 +77,13 @@ export default class OoyalaVideoAds {
 		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
 			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
 		}
+
+		IMAAdsManager.addEventListener('loaded', (eventData) => {
+			const adData = eventData.getAdData();
+
+			this.trackingParams.lineItemId = adData.adId;
+			this.trackingParams.creativeId = adData.creativeId;
+		});
 
 		// that's a hack for autoplay on mobile for VPAID ads
 		// VPAID ads still don't work perfectly

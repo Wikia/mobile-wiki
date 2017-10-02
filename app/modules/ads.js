@@ -191,11 +191,7 @@ class Ads {
 
 		return this.vastUrlBuilder.build(aspectRatio, slotParams, options);
 	}
-
-	/**
-	 * Build VAST url for video players
-	 *
-	 */
+ 	
 	registerOoyalaTracker(player, params) {
 		if (!this.ooyalaTracker) {
 			console.warn('Can not use Ooyala tracker.');
