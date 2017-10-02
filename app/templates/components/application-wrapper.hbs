@@ -1,12 +1,6 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{#if shouldShowFandomAppSmartBanner}}
-		{{fandom-app-smart-banner
-			toggleVisibility=attrs.toggleSmartBanner
-			isVisible=smartBannerVisible
-		}}
-	{{/if}}
 	{{site-head
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
@@ -14,10 +8,12 @@
 		isSearchPage=isSearchPage
 		shadow=siteHeadShadow
 		setDrawerContent=(action 'setDrawerContent')
+		shouldShowFandomAppSmartBanner=shouldShowFandomAppSmartBanner
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
 		testSmartBannerVisible=isFandomAppSmartBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
+		toggleSmartBannerVisibility=attrs.toggleSmartBanner
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible

@@ -61,7 +61,16 @@ export default Component.extend({
 	 */
 	isUserLangEn: computed.equal('currentUser.language', 'en'),
 	shouldShowFandomAppSmartBanner: computed.and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-	isFandomAppSmartBannerVisible: computed.and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
+	isFandomAppSmartBannerVisible: computed(
+		'shouldShowFandomAppSmartBanner',
+		'smartBannerVisible',
+		'drawerVisible',
+		function () {
+			return this.get('shouldShowFandomAppSmartBanner') &&
+				this.get('smartBannerVisible') &&
+				!this.get('drawerVisible');
+		}
+	),
 
 	/**
 	 * @returns {void}

@@ -27,6 +27,13 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
+.site-head-headroom-not-top {
+	.fandom-app-smart-banner {
+		position: fixed;
+		top: 0;
+	}
+}
+
 .site-head-wrapper {
 	height: $site-head-height;
 }
