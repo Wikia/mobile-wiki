@@ -8,7 +8,7 @@
 	justify-content: flex-start;
 	position: static;
 	width: 100%;
-	z-index: $z-site-head;
+	z-index: $z-site-head - 2;
 
 	&__link {
 		display: flex;

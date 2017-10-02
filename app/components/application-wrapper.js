@@ -74,11 +74,9 @@ export default Component.extend({
 	isFandomAppSmartBannerVisible: computed(
 		'shouldShowFandomAppSmartBanner',
 		'smartBannerVisible',
-		'drawerVisible',
 		function () {
 			return this.get('shouldShowFandomAppSmartBanner') &&
-				this.get('smartBannerVisible') &&
-				!this.get('drawerVisible');
+				this.get('smartBannerVisible');
 		}
 	),
 
