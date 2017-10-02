@@ -34,6 +34,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
+.with-fandom-app-smart-banner {
+	.site-head-container {
+		min-height: 140px;
+	}
+}
+
 .site-head-wrapper {
 	height: $site-head-height;
 }

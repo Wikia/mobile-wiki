@@ -34,7 +34,11 @@ const {
 export default Component.extend({
 	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
-	classNameBindings: ['smartBannerVisible', 'verticalClass'],
+	classNameBindings: [
+		'smartBannerVisible',
+		'verticalClass',
+		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner'
+	],
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,

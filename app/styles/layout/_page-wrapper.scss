@@ -23,9 +23,8 @@
 }
 
 .bfaa-template {
-	.page-wrapper {
-		&.with-fandom-app-smart-banner {
-			//smart banner height + site head height
+	.with-fandom-app-smart-banner {
+		.page-wrapper {
 			margin-top: 0;
 		}
 	}
