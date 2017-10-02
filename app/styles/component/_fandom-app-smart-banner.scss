@@ -6,7 +6,6 @@
 	display: flex;
 	height: 85px;
 	justify-content: flex-start;
-	position: static;
 	width: 100%;
 	// one less than drawer as it cannot be visible when drawer opens
 	z-index: $z-site-head - 2;
