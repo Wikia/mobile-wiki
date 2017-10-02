@@ -37,18 +37,24 @@ export default Component.extend({
 	classNameBindings: [
 		'smartBannerVisible',
 		'verticalClass',
-		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner'
+		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
+		'bfaaTemplate'
 	],
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
 
+	ads: inject.service(),
 	currentUser: inject.service(),
 	fastboot: inject.service(),
 	logger: inject.service(),
 	wikiVariables: inject.service(),
 
 	dir: computed.reads('wikiVariables.language.contentDir'),
+
+	bfaaTemplate: computed('ads.siteHeadOffset', function () {
+		return !!this.get('ads.siteHeadOffset');
+	}),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
