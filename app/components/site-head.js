@@ -9,10 +9,9 @@ export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar', 'testSmartBannerVisible'],
+		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
-		testSmartBannerVisible: false,
 		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
