@@ -12,7 +12,7 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
+			const navHeight = $('.site-head-container').outerHeight(),
 				scrollTop = this.$().offset().top - navHeight;
 
 			this.set('activeLabel', item.label);
