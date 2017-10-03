@@ -34,17 +34,25 @@ const {
 export default Component.extend({
 	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
-	classNameBindings: ['smartBannerVisible', 'verticalClass'],
+	classNameBindings: [
+		'smartBannerVisible',
+		'verticalClass',
+		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
+		'bfaaTemplate'
+	],
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
 
+	ads: inject.service(),
 	currentUser: inject.service(),
 	fastboot: inject.service(),
 	logger: inject.service(),
 	wikiVariables: inject.service(),
 
 	dir: computed.reads('wikiVariables.language.contentDir'),
+
+	bfaaTemplate: computed.bool('ads.siteHeadOffset'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
