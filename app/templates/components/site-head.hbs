@@ -1,3 +1,9 @@
+{{#if shouldShowFandomAppSmartBanner}}
+	{{fandom-app-smart-banner
+		toggleVisibility=toggleSmartBannerVisibility
+		isVisible=smartBannerVisible
+	}}
+{{/if}}
 <div class="site-head-wrapper">
 	<nav class="site-head{{unless shadow ' no-shadow'}}">
 		<div class="site-head__nav-icon-wrapper">
@@ -29,7 +35,7 @@
 		</div>
 	</nav>
 </div>
-{{#unless testSmartBannerVisible}}
+{{#unless isFandomAppSmartBannerVisible}}
 	{{site-head-fandom-bar
 		wikiaHomepage=wikiaHomepage
 		isVisible=displayFandomBar

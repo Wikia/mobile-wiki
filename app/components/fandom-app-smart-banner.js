@@ -45,15 +45,11 @@ export default Component.extend({
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
 			this.track(trackActions.close);
-		},
-
-		onClick() {
-			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-			this.sendAction('toggleVisibility', false);
 		}
 	},
 
 	click() {
+		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 		this.track(trackActions.install);
 		this.sendAction('toggleVisibility', false);
 	},
