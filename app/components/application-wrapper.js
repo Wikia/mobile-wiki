@@ -52,9 +52,7 @@ export default Component.extend({
 
 	dir: computed.reads('wikiVariables.language.contentDir'),
 
-	bfaaTemplate: computed('ads.siteHeadOffset', function () {
-		return !!this.get('ads.siteHeadOffset');
-	}),
+	bfaaTemplate: computed.bool('ads.siteHeadOffset'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
