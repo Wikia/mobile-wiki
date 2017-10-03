@@ -191,7 +191,7 @@ class Ads {
 
 		return this.vastUrlBuilder.build(aspectRatio, slotParams, options);
 	}
- 	
+
 	registerOoyalaTracker(player, params) {
 		if (!this.ooyalaTracker) {
 			console.warn('Can not use Ooyala tracker.');
