@@ -15,6 +15,7 @@ const {
 export default EmberObject.extend({
 	currentUser: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
 
 	fetch(title) {
 		const currentUser = this.get('currentUser'),
@@ -22,7 +23,7 @@ export default EmberObject.extend({
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
-			const host = getHostFromRequest(fastboot.get('request')),
+			const host = getHostFromRequest(fastboot.get('request'), this.get('logger')),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 
