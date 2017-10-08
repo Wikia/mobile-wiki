@@ -10,7 +10,8 @@ spec:
   - protocol: TCP
     name: main
     port: 80
-    targetPort: 8001
+    targetPort: 7001
+#    targetPort: 8001 TODO: this should be on prod
   selector:
     app: mobile-wiki
   type: ClusterIP
@@ -32,7 +33,7 @@ spec:
     spec:
       containers:
       - name: mobile-wiki
-        image: artifactory.wikia-inc.com/test/mobile-wiki:0.0.2
+        image: artifactory.wikia-inc.com/test/mobile-wiki:0.0.6
 #        livenessProbe:
 #          httpGet:
 #            path: /healthcheck
@@ -41,7 +42,7 @@ spec:
 #          timeoutSeconds: 3
 #          periodSeconds: 20
         env:
-          - name: ENVIRONMENT
+          - name: WIKIA_ENVIRONMENT
             value: dev
         resources:
          requests:
@@ -64,12 +65,5 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: mobile-wiki
-          servicePort: main
-  - host: services-k8s.wikia-dev.pl
-    http:
-      paths:
-      - path: /mobile-wiki
-        backend:
           serviceName: mobile-wiki
           servicePort: main

@@ -47,7 +47,8 @@ RUN npm run setup
 COPY . .
 
 # build app
-RUN npm run build-prod
+RUN npm run build
+#RUN npm run build-prod #TODO: this should be on prod
 
 
 FROM node:6.11.3-alpine as build
