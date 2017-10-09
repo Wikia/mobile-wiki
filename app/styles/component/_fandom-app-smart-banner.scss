@@ -1,0 +1,79 @@
+.fandom-app-smart-banner {
+	-webkit-font-smoothing: antialiased;
+	align-items: center;
+	background: $wds-fandom-color-light-gray;
+	background-size: auto 100%;
+	display: flex;
+	height: 85px;
+	justify-content: flex-start;
+	width: 100%;
+	// one less than drawer as it cannot be visible when drawer opens
+	z-index: $z-site-head - 2;
+
+	&__link {
+		display: flex;
+		flex: 1;
+	}
+
+	&__close {
+		align-self: center;
+		margin: 0 18px;
+
+		svg {
+			height: 18px;
+			pointer-events: none;
+
+			path {
+				fill: #773;
+			}
+		}
+	}
+
+	&__install {
+		align-items: center;
+		color: #007aff;
+		display: flex;
+		font-size: 17px;
+		font-weight: 500;
+		margin-right: 24px;
+		text-align: center;
+	}
+
+	&__info {
+		align-items: center;
+		display: flex;
+		flex-grow: 1;
+	}
+
+	&__icon {
+		height: 64px;
+		width: 64px;
+	}
+
+	&__meta {
+		display: flex;
+		flex-direction: column;
+		margin-left: 8px;
+	}
+
+	&__title {
+		color: #191919;
+		font-size: 16px;
+		font-weight: bold;
+		letter-spacing: .4px;
+		margin-bottom: 3px;
+	}
+
+	&__description {
+		color: #4a4a4a;
+		font-size: 14px;
+		line-height: 1;
+	}
+
+	&__store {
+		color: #4a4a4a;
+		font-size: 14px;
+		line-height: 1;
+		margin-bottom: 5px;
+	}
+}

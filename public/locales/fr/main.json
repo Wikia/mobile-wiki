@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "Vous n'avez pas la permission de modifier cette page.", 
     "success": "La page{pageTitle} a été modifiée avec succès !"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "Fichier", 
     "usages-header": "Apparaît sur ces pages", 

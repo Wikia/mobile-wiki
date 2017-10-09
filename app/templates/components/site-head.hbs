@@ -1,3 +1,9 @@
+{{#if shouldShowFandomAppSmartBanner}}
+	{{fandom-app-smart-banner
+		toggleVisibility=toggleSmartBannerVisibility
+		isVisible=smartBannerVisible
+	}}
+{{/if}}
 <div class="site-head-wrapper">
 	<nav class="site-head{{unless shadow ' no-shadow'}}">
 		<div class="site-head__nav-icon-wrapper">
@@ -18,13 +24,6 @@
 				{{svg svgName role='img' class='fandom-logo'}}
 			</a>
 		</div>
-
-		<!--Smart Banner AB Testing-->
-		{{#if canShowABTestedIOSAppButton}}
-			{{ios-app-button}}
-		{{/if}}
-		<!--Smart Banner AB Testing-->
-
 		<div class="site-head-icon-search">
 			{{wikia-ui-components/icon-button
 				click=(action 'siteHeadIconClick' 'search')
@@ -36,7 +35,7 @@
 		</div>
 	</nav>
 </div>
-{{#unless testSmartBannerVisible}}
+{{#unless isFandomAppSmartBannerVisible}}
 	{{site-head-fandom-bar
 		wikiaHomepage=wikiaHomepage
 		isVisible=displayFandomBar

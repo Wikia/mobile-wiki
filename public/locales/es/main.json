@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "No tienes permiso para editar esta página.", 
     "success": "¡Página editada con éxito {pageTitle}!"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "Página de archivo", 
     "usages-header": "Aparece en estas páginas", 
