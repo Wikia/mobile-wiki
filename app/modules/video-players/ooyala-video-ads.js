@@ -14,27 +14,17 @@ export default class OoyalaVideoAds {
 		} else if (this.isA9VideoEnabled()) {
 			return this.parseBidderParameters()
 				.catch(() => {})
-				.then((additionalParams) => this.setupAdManager(additionalParams));
+				.then((bidParams) => this.setupAdManager(bidParams));
 		} else {
 			return this.setupAdManager();
 		}
 	}
 
-	setupAdManager(additionalParams = {}) {
-		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig();
+	setupAdManager(bidParams = {}) {
+		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(bidParams);
 		this.params.replayAds = false;
 
 		return this.params;
-	}
-
-	buildVAST(slotParams = {}) {
-		slotParams.pos = 'FEATURED';
-		slotParams.src = 'premium';
-
-		return Ads.getInstance().buildVastUrl(640 / 480, slotParams, {
-			contentSourceId: this.params.dfpContentSourceId,
-			videoId: this.params.videoId
-		});
 	}
 
 	parseBidderParameters() {
@@ -56,12 +46,12 @@ export default class OoyalaVideoAds {
 			ads.currentAdsContext.bidders.a9Video;
 	}
 
-	getAdsManagerConfig() {
+	getAdsManagerConfig(bidParams = {}) {
 		return {
 			all_ads: Ads.getInstance().ooyalaAdSetProvider.get(1, null, {
 				contentSourceId: this.params.dfpContentSourceId,
 				videoId: this.params.videoId
-			}),
+			}, bidParams),
 			useGoogleAdUI: true,
 			useGoogleCountdown: false,
 			onBeforeAdsManagerStart(IMAAdsManager) {
