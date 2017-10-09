@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#usage ./docker-image-name <prod> <image-name> [<namespace>]
+#usage ./yaml-descriptor <prod> <image-name> [<namespace>]
 
 ENV="$1"
 IMAGE="$2"
