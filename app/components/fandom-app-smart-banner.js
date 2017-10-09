@@ -1,37 +1,19 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
-import {standalone} from '../utils/browser';
+import {standalone, system} from '../utils/browser';
 
 const {
 	$,
 	Component,
 	computed,
-	get,
 	inject,
-	String: {htmlSafe},
 	run,
 } = Ember;
 
-/**
- * This is a fork from smart-banner-android
- * Needed for a/b test purposes
- * Uses code repetition and will be removed after the test is done
- */
 export default Component.extend({
-	classNames: ['smart-banner-test'],
-
-	currentUser: inject.service(),
-	wikiVariables: inject.service(),
-
-	appScheme: computed.oneWay(`config.appScheme.ios`),
-	config: computed('wikiVariables', function () {
-		return this.get('wikiVariables').get('smartBanner') || {};
-	}),
+	classNames: ['fandom-app-smart-banner'],
 
 	options: {
-		// Language code for App Store
-		appStoreLanguage: 'us',
-
 		// Duration to hide the banner after close button is clicked (0 = always show banner)
 		daysHiddenAfterClose: 15,
 
@@ -40,7 +22,20 @@ export default Component.extend({
 	},
 	dayInSeconds: 86400000,
 
-	link: 'https://itunes.apple.com/us/developer/wikia-inc/id422467077',
+	i18n: inject.service(),
+
+	link: computed(() => {
+		return system === 'ios'
+			? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
+			: 'https://play.google.com/store/apps/details'
+				+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner';
+	}),
+
+	storeName: computed(function () {
+		return system === 'ios'
+			? this.get('i18n').t('fandom-app-banner.app-store')
+			: this.get('i18n').t('fandom-app-banner.google-play');
+	}),
 
 	actions: {
 		/**
@@ -50,15 +45,11 @@ export default Component.extend({
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
 			this.track(trackActions.close);
-		},
-
-		onClick() {
-			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-			this.sendAction('toggleVisibility', false);
 		}
 	},
 
 	click() {
+		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 		this.track(trackActions.install);
 		this.sendAction('toggleVisibility', false);
 	},
@@ -76,14 +67,14 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	checkForHiding() {
-		if (!standalone && $.cookie('sb-closed') !== '1') {
+		if (!standalone && $.cookie('fandom-sb-closed') !== '1') {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
 	},
 
 	/**
-	 * Sets sb-closed=1 cookie for given number of days
+	 * Sets fandom-sb-closed1 cookie for given number of days
 	 *
 	 * @param {number} days
 	 * @returns {void}
@@ -92,7 +83,7 @@ export default Component.extend({
 		const date = new Date();
 
 		date.setTime(date.getTime() + (days * this.get('dayInSeconds')));
-		$.cookie('sb-closed', 1, {
+		$.cookie('fandom-sb-closed', 1, {
 			expires: date,
 			path: '/'
 		});
@@ -105,7 +96,7 @@ export default Component.extend({
 	track(action) {
 		track({
 			action,
-			category: 'smart-banner-ios-test',
+			category: 'fandom-app-smart-banner',
 			label: this.get('dbName')
 		});
 	},

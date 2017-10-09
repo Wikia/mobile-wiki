@@ -8,6 +8,6 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	didInsertElement() {
-		$script(`http://cdn.playbuzz.com/widget/feed.js`);
+		$script(`https://cdn.playbuzz.com/widget/feed.js`);
 	}
 });

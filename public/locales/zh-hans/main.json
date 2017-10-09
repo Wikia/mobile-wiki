@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "您没有编辑此页面的权限。", 
     "success": "已编辑成功的页面{pageTitle}!"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "文件页面", 
     "usages-header": "出现在这些页面上", 

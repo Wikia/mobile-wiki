@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import {inGroup} from '../modules/abtest';
 
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
 	wikiVariables: Ember.inject.service(),
+	fastboot: Ember.inject.service(),
 
 	/**
 	 * @param {Object} model
@@ -62,11 +62,7 @@ export default Ember.Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
-		if (headData.appId &&
-			// Smart Banner AB Testing
-			!inGroup('FANDOM_APP_SMART_BANNER_IOS_TEST', 'banner') && !inGroup('FANDOM_APP_SMART_BANNER_IOS_TEST', 'button')
-			// Smart Banner AB Testing
-		) {
+		if (!this.get('fastboot.isFastBoot') && headData.appId && !this.get('wikiVariables.enableFandomAppSmartBanner')) {
 			headData.appleItunesApp = `app-id=${headData.appId}`;
 
 			if (data.appArgument) {
