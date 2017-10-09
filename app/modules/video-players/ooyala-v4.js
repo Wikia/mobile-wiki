@@ -37,7 +37,7 @@ export default class OoyalaV4Player extends BasePlayer {
 			originalOnCreate(player);
 
 			Ads.getInstance().registerOoyalaTracker(player, this.adTrackingParams);
-			player.mb.subscribe(OO.EVENTS.ADS_PLAYED, 'video-tracker', () => {
+			player.mb.subscribe(window.OO.EVENTS.ADS_PLAYED, 'video-tracker', () => {
 				this.params.adIndex += 1;
 			});
 		};
