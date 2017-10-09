@@ -19,4 +19,4 @@ function replaceYaml {
         k8s/k8s-descriptor-template1.yaml > k8s-descriptor-"$ENV".yaml
 }
 
-getCommit
+
