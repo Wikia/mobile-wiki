@@ -79,10 +79,37 @@ export default class OoyalaVideoAds {
 		}
 
 		IMAAdsManager.addEventListener('loaded', (eventData) => {
-			const adData = eventData.getAdData();
+			const adData = eventData.getAdData(),
+				currentAd = IMAAdsManager.getCurrentAd(),
+				adSet = this.params['google-ima-ads-manager'].all_ads;
 
-			this.trackingParams.lineItemId = adData.adId;
-			this.trackingParams.creativeId = adData.creativeId;
+			let wrapperId;
+
+			if (adData) {
+				this.trackingParams.lineItemId = adData.adId;
+				this.trackingParams.creativeId = adData.creativeId;
+			}
+
+			if (currentAd) {
+				wrapperId = currentAd.getWrapperAdIds();
+				if (wrapperId.length) {
+					this.trackingParams.lineItemId = wrapperId[0];
+				}
+
+				wrapperId = currentAd.getWrapperCreativeIds();
+				if (wrapperId.length) {
+					this.trackingParams.creativeId = wrapperId[0];
+				}
+			}
+
+			if (adSet && adSet[this.params.adIndex]) {
+				Ads.getInstance().dispatchEvent('video.status', {
+					vastUrl: adSet[this.params.adIndex].tag_url,
+					creativeId: this.trackingParams.creativeId,
+					lineItemId: this.trackingParams.lineItemId,
+					status: 'success'
+				});
+			}
 		});
 
 		// that's a hack for autoplay on mobile for VPAID ads
