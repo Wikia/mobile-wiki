@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#usage ./yaml-descriptor <prod> <image-name> [<namespace>]
+# usage ./yaml-descriptor <env> <image-name> [<namespace>]
 
 ENV="$1"
 IMAGE="$2"
