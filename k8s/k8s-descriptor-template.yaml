@@ -60,7 +60,7 @@ metadata:
     traefik.frontend.rule.type: PathPrefixStrip
 spec:
   rules:
-  - host: mobile-wiki-${env}.${namespace}.sjc.k8s.wikia.net
+  - host: mobile-wiki-${env}.${namespace}.${dc}.k8s.wikia.net
     http:
       paths:
       - backend:

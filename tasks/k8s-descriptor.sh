@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
-# usage ./yaml-descriptor <env> <image-name> [<namespace>]
+# usage ./yaml-descriptor <env> <image-name> [<dc>]
 
-ENV="$1"
-IMAGE="$2"
+ENV=$1
+IMAGE=$2
 # prod as a default value
-NAMESPACE="${3:-prod}"
+NAMESPACE="prod"
+DC=${3:-sjc}
+
+if [ ${ENV} = "staging" ]
+then
+    NAMESPACE=${ENV}
+fi
 
 sed\
    -e "s/\${env}/$ENV/g"\
    -e "s/\${image}/$IMAGE/g"\
    -e "s/\${namespace}/$NAMESPACE/g"\
+   -e "s/\${dc}/$DC/g"\
    k8s/k8s-descriptor-template.yaml > k8s/k8s-descriptor-"$ENV".yaml
