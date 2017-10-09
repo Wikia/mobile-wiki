@@ -258,3 +258,14 @@ $small-thumbnail-height: 56px;
 		}
 	}
 }
+
+.with-fandom-app-smart-banner {
+	.article-featured-video {
+		&.is-fixed {
+			.article-featured-video__container {
+				top: $wds-global-navigation-height + $fandom-app-smart-banner-height;
+				z-index: $z-site-head - 3;
+			}
+		}
+	}
+}
