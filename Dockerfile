@@ -1,4 +1,4 @@
-FROM node:6.11.3 as prepare_build
+FROM node:6.11.4 as prepare_build
 
 # phantomjs workaround
 RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
