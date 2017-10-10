@@ -50,7 +50,7 @@ COPY . .
 RUN npm run build-prod
 
 
-FROM node:6.11.3-alpine as build
+FROM node:6.11.3-alpine
 
 WORKDIR /app
 
