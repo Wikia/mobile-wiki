@@ -83,7 +83,8 @@ export default class OoyalaVideoAds {
 				currentAd = IMAAdsManager.getCurrentAd(),
 				adSet = this.params['google-ima-ads-manager'].all_ads;
 
-			let wrapperId;
+			let wrapperCreativeId,
+				wrapperId;
 
 			if (adData) {
 				this.trackingParams.lineItemId = adData.adId;
@@ -96,9 +97,9 @@ export default class OoyalaVideoAds {
 					this.trackingParams.lineItemId = wrapperId[0];
 				}
 
-				wrapperId = currentAd.getWrapperCreativeIds();
-				if (wrapperId.length) {
-					this.trackingParams.creativeId = wrapperId[0];
+				wrapperCreativeId = currentAd.getWrapperCreativeIds();
+				if (wrapperCreativeId.length) {
+					this.trackingParams.creativeId = wrapperCreativeId[0];
 				}
 			}
 
