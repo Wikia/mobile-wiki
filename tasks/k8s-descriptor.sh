@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # usage ./yaml-descriptor <env> <image-name> [<dc>]
+# - env: prod | staging
+# - dc: sjc | res
 
 ENV=$1
 IMAGE=$2
