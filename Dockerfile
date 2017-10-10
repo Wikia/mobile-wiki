@@ -1,4 +1,4 @@
-FROM node:6.11.4 as prepare_build
+FROM node:6.11.4
 
 # phantomjs workaround
 RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
@@ -55,15 +55,15 @@ FROM node:6.11.3-alpine as build
 WORKDIR /app
 
 # copy all required files
-COPY --from=prepare_build /app/dist dist
-COPY --from=prepare_build /app/fastboot-server fastboot-server
-COPY --from=prepare_build /app/config config
-COPY --from=prepare_build /app/lib lib
-COPY --from=prepare_build /app/package.json /app/bower.json ./
+COPY --from=0 /app/dist dist
+COPY --from=0 /app/fastboot-server fastboot-server
+COPY --from=0 /app/config config
+COPY --from=0 /app/lib lib
+COPY --from=0 /app/package.json /app/bower.json ./
 
 # copy cached prod dependencies
-COPY --from=prepare_build /app/prod_dependencies/node_modules node_modules
-COPY --from=prepare_build /app/prod_dependencies/bower_components bower_components
+COPY --from=0 /app/prod_dependencies/node_modules node_modules
+COPY --from=0 /app/prod_dependencies/bower_components bower_components
 
 # 7001 is for debugging, 8001 is for prod
 EXPOSE 7001
