@@ -1,9 +1,5 @@
 FROM node:6.10
 
-# phantomjs workaround
-RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
-RUN chmod a+x /bin/phantomjs
-
 # bower workaround
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
