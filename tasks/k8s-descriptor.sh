@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # usage ./yaml-descriptor <env> <image-name> [<dc>]
 # - env: prod | staging

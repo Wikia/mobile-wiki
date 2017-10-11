@@ -54,7 +54,7 @@ module.exports = function (defaults) {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			exclude: ['player.ooyala.com'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			// prepend: 'https://mobile-wiki.nocookie.net/' //TODO: do sth with this
+			prepend: 'https://mobile-wiki.nocookie.net/'
 		},
 		inlineContent: {
 			globals: `${inlineScriptsPath}globals.js`,

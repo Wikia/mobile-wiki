@@ -10,4 +10,3 @@ EXPOSE 8001
 
 # run fastboot-server when 'docker run' will be called
 ENTRYPOINT ["npm", "run", "fastboot-server"]
-
