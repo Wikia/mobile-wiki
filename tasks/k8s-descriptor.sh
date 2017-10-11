@@ -16,8 +16,8 @@ then
 fi
 
 sed\
-   -e "s/\${env}/$ENV/g"\
-   -e "s/\${image}/$IMAGE/g"\
-   -e "s/\${namespace}/$NAMESPACE/g"\
-   -e "s/\${dc}/$DC/g"\
+   -e "s~\${env}~$ENV~g"\
+   -e "s~\${image}~$IMAGE~g"\
+   -e "s~\${namespace}~$NAMESPACE~g"\
+   -e "s~\${dc}~$DC~g"\
    k8s/k8s-descriptor-template.yaml > k8s/k8s-descriptor-"$ENV".yaml
