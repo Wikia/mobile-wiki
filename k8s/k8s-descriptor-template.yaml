@@ -43,6 +43,8 @@ spec:
         env:
           - name: WIKIA_ENVIRONMENT
             value: ${env}
+          - name: WIKIA_DATACENTER
+            value: ${dc}
         resources:
          requests:
            cpu: 0.4
