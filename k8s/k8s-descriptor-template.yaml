@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: mobile-wiki-${env}
-        image: artifactory.wikia-inc.com/mobile-wiki/${image}
+        image: ${image}
 #        livenessProbe:
 #          httpGet:
 #            path: /healthcheck
