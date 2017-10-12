@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mobile-wiki-prod
+  name: mobile-wiki-prod
+  namespace: prod
+spec:
+  ports:
+  - protocol: TCP
+    name: main
+    port: 80
+    targetPort: 8001
+  selector:
+    app: mobile-wiki-prod
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mobile-wiki-prod
+  namespace: prod
+spec:
+  replicas: 1 #TODO: adjust
+  selector:
+    matchLabels:
+      app: mobile-wiki-stable
+  template:
+    metadata:
+      labels:
+        app: mobile-wiki-stable
+    spec:
+      containers:
+      - name: mobile-wiki-stable
+        image: ${image}
+#        livenessProbe: #TODO: configure
+#          httpGet:
+#            path: /healthcheck
+#            port: 8081
+#          initialDelaySeconds: 3
+#          timeoutSeconds: 3
+#          periodSeconds: 20
+        env:
+          - name: WIKIA_ENVIRONMENT
+            value: prod
+          - name: WIKIA_DATACENTER
+            value: ${dc}
+          - name: MEDIAWIKI_DOMAIN
+            value: prod.icache.service.${dc}.consul
+          - name: GA_USERID_SALT
+            valueFrom:
+              secretKeyRef:
+                name: mobile-wiki
+                key: gaUserIdSalt
+        resources:
+         requests: #TODO: adjust and set upper limits TOO
+           cpu: 0.4
+           memory: 300Mi
+        ports:
+        - containerPort: 8001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mobile-wiki-stable
+  namespace: prod
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: mobile-wiki-stable.prod.${dc}.k8s.wikia.net
+    http:
+      paths:
+      - backend:
+          serviceName: mobile-wiki-stable
+          servicePort: main
