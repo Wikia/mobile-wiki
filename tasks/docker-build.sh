@@ -1,10 +1,10 @@
 #!/bin/sh
 
-#usage ./docker-build.sh
+#usage ./docker-build.sh <env>
 
 # we're creating tags for both images
-DEPS=$(sh ./tasks/docker-image-name.sh "deps")
-BUILD=$(sh ./tasks/docker-image-name.sh "build")
+DEPS=$(sh ./tasks/docker-image-name-deps.sh)
+BUILD=$(sh ./tasks/docker-image-name.sh)
 
 ################
 ## deps stage ##
