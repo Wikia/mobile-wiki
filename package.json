@@ -101,7 +101,7 @@
     "heapdump": "0.3.9",
     "i18next": "9.0.0",
     "loader.js": "4.6.0",
-    "mercury-shared": "github:wikia/mercury-shared#1.0.5",
+    "mercury-shared": "github:wikia/mercury-shared#14991423567ff00985f7eea9c266a574debbebc9",
     "moment": "2.18.1",
     "numeral": "2.0.6",
     "phantomjs-prebuilt": "2.1.15",

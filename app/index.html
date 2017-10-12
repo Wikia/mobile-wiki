@@ -2,13 +2,8 @@
 <html>
 <head>
 {{content-for 'head'}}
-{{content-for 'globals'}}
-{{content-for 'get-from-shoebox'}}
-{{content-for 'geo-cookie'}}
-{{content-for 'load-script'}}
-{{content-for 'tracking-quantcast'}}
-{{content-for 'tracking-comscore'}}
-{{content-for 'tracking-ua-init'}}
+{{content-for 'fastboot-inline-scripts-head'}}
+{{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
@@ -17,7 +12,7 @@
 {{content-for 'measure-first-render'}}
 
 <script>
-	(function () {
+	(function (M) {
 		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
 			// No need to load Ember in browser on server error page
 			return;
@@ -27,11 +22,19 @@
 	})(window.M);
 </script>
 
-{{content-for 'load-svg'}}
+{{content-for 'fastboot-inline-scripts-load-svg'}}
+<script>
+	(function (M) {
+		M.loadDOMResource('/mobile-wiki/assets/main.svg');
+		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
+	})(window.M);
+</script>
 
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 
-{{content-for 'mercury-shared'}}
+{{content-for 'fastboot-inline-scripts-body-bottom'}}
+{{content-for 'tracking-ua'}}
+{{content-for 'tracking-internal'}}
 {{content-for 'tracking-nielsen'}}
 {{content-for 'tracking-netzathleten'}}
 {{content-for 'tracking-liftigniter'}}
