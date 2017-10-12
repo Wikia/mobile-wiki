@@ -3,7 +3,7 @@
 #usage ./docker-build.sh <env>
 
 # we're creating tags for both images
-DEPS=$(sh ./tasks/docker-image-name-deps.sh)
+DEPS=$(sh ./tasks/docker-deps-image-name.sh)
 BUILD=$(sh ./tasks/docker-image-name.sh)
 
 ################
