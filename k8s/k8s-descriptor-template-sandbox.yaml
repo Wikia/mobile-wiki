@@ -46,7 +46,7 @@ spec:
           - name: WIKIA_DATACENTER
             value: ${dc}
           - name: MEDIAWIKI_DOMAIN
-            value: ${env}.icache.service.${dc}.consul
+            value: prod.icache.service.${dc}.consul
           - name: GA_USERID_SALT
             valueFrom:
               secretKeyRef:
