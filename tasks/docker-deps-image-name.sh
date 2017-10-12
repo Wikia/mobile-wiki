@@ -1,6 +1,5 @@
 #!/bin/sh
 
-#usage ./docker-image-name <description>
+#usage ./docker-deps-image-name <version>
 
-VERSION=`git rev-parse --abbrev-ref HEAD`"-"`git describe | grep -o '[0-9a-z]\+$'`
-echo "artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-deps:"${VERSION}
+echo "artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-deps:"$1

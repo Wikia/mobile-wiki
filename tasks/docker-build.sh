@@ -3,15 +3,10 @@
 #usage ./docker-build.sh <env>
 
 # we're creating tags for both images
-DEPS=$(sh ./tasks/docker-deps-image-name.sh)
+DEPS=$(sh ./tasks/docker-deps-image-name.sh $(sh ./tasks/docker-deps-version.sh))
 BUILD=$(sh ./tasks/docker-image-name.sh)
 
-################
-## deps stage ##
-################
-echo Building mobile-wiki-deps image
-
-docker build -f Dockerfile.build -t ${DEPS} .
+echo Building mobile-wiki-build image
 
 # we have to create a container to copy it's artifact
 docker create --name temporary-container ${DEPS}
@@ -32,15 +27,7 @@ docker cp temporary-container:/app/prod_dependencies/node_modules ./docker_temp_
 docker cp temporary-container:/app/prod_dependencies/bower_components ./docker_temp_container
 
 # temporary container is not needed anymore so we're removing it
-docker rm -f temporary-container
-
-# push deps image to remote repository
-docker push ${DEPS}
-
-#################
-## build stage ##
-#################
-echo Building mobile-wiki-build image
+docker rm -f temporary-containergit
 
 # we're using --no-cache to force rebuilding every stage every time
 docker build --no-cache -t ${BUILD} .
