@@ -45,6 +45,13 @@ spec:
             value: ${env}
           - name: WIKIA_DATACENTER
             value: ${dc}
+          - name: MEDIAWIKI_DOMAIN
+            value: ${env}.icache.service.${dc}.consul
+          - name: GA_USERID_SALT
+            valueFrom:
+              secretKeyRef:
+                name: mobile-wiki
+                key: gaUserIdSalt
         resources:
          requests:
            cpu: 0.4
