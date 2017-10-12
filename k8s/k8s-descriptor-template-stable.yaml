@@ -44,9 +44,9 @@ spec:
           - name: WIKIA_ENVIRONMENT
             value: prod
           - name: WIKIA_DATACENTER
-            value: ${dc}
+            value: sjc
           - name: MEDIAWIKI_DOMAIN
-            value: prod.icache.service.${dc}.consul
+            value: prod.icache.service.sjc.consul
           - name: GA_USERID_SALT
             valueFrom:
               secretKeyRef:
@@ -68,7 +68,7 @@ metadata:
     traefik.frontend.rule.type: PathPrefixStrip
 spec:
   rules:
-  - host: mobile-wiki-stable.prod.${dc}.k8s.wikia.net
+  - host: mobile-wiki-stable.prod.sjc.k8s.wikia.net
     http:
       paths:
       - backend:
