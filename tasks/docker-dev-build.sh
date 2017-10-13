@@ -10,4 +10,4 @@ echo "Building mobile-wiki image for development environment"
 docker build -f Dockerfile.dev -t ${DEV_TAG_NAME} .
 
 # push deps image to remote repository
-#docker push ${DEV_TAG_NAME}
+docker push ${DEV_TAG_NAME}
