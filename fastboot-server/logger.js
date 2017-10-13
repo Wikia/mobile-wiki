@@ -1,5 +1,3 @@
-const BunyanPrettyStream = require('bunyan-prettystream');
-const BunyanSyslog = require('bunyan-syslog');
 const expressBunyanLogger = require('express-bunyan-logger');
 const config = require('../config/fastboot-server');
 
@@ -19,48 +17,12 @@ const config = require('../config/fastboot-server');
 function createDefaultLogStream(minLogLevel = 'info') {
 	return {
 		level: minLogLevel,
-		stream: process.stderr
-	};
-}
-
-/**
- * Creates the console log settings
- *
- * @param {string} minLogLevel
- * @returns {BunyanLoggerStream}
- */
-function createConsoleStream(minLogLevel) {
-	const prettyStdOut = new BunyanPrettyStream();
-
-	prettyStdOut.pipe(process.stdout);
-
-	return {
-		level: minLogLevel,
-		stream: prettyStdOut
-	};
-}
-
-/**
- * Create the SysLog stream settings
- *
- * @param {string} minLogLevel
- * @returns {BunyanLoggerStream}
- */
-function createSysLogStream(minLogLevel) {
-	return {
-		level: minLogLevel,
-		type: 'raw',
-		stream: BunyanSyslog.createBunyanStream({
-			facility: BunyanSyslog.local0,
-			type: 'sys'
-		})
+		stream: process.stdout
 	};
 }
 
 const availableTargets = {
-	default: createDefaultLogStream,
-	syslog: createSysLogStream,
-	console: createConsoleStream
+	default: createDefaultLogStream
 };
 
 const serializers = {
