@@ -28,8 +28,8 @@ RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs && \
 
 # cleanup
     apk del .gyp python make g++ git && \
+    bower cache clean && \
     npm uninstall -g bower && \
-    npm uninstall bower && \
     npm cache clean
 
 # copy app
