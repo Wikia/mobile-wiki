@@ -79,7 +79,7 @@ export default Service.extend({
 		const instance = bunyan.createLogger({
 			appname: 'mobile-wiki',
 			name: 'mobile-wiki',
-			loggerName: 'services/logger.je',
+			loggerName: 'services/logger.js',
 			streams: [{
 				level: 'warn',
 				type: 'raw',
