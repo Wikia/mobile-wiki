@@ -32,7 +32,6 @@ echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"ta
 ### Those tests depends on Setup step
 failTests() {
 	updateGit "Tests" failure skipped
-	updateGit "Linter" failure skipped
 	updateGit "Jenkins job" failure finished $BUILD_URL"console"
 }
 
@@ -90,7 +89,6 @@ setupBower() {
 updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
-updateGit "Linter" pending pending
 
 ### Setup - node_modules and bower components
 setupNpm "/"
@@ -119,20 +117,6 @@ then
 else
 	updateGit "Tests" failure failure
 	saveState "testsState" "Tests" failure failure $BUILD_URL"artifact/jenkins/tests.log"
-fi
-
-### Linter - running
-updateGit "Linter" pending running
-npm run linter 2>&1 | tee jenkins/linter.log || { error3=true && failJob=true; }
-vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
-
-if [ -z $error3 ]
-then
-	updateGit "Linter" success success
-	saveState "linterState" "Linter" success success $BUILD_URL"artifact/jenkins/linter.log"
-else
-	updateGit "Linter" failure failure
-	saveState "linterState" "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
 fi
 
 ### Finish
