@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Controller, computed} = Ember;
+const {Controller, computed} = Ember
 
 export default Controller.extend({
 	additionalData: computed(function () {
