@@ -20,9 +20,7 @@
     "linter": "eslint .",
     "setup": "npm install && bower update",
     "svgo": "bash ./tasks/optimize-svg.sh",
-    "test": "ember test",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "ember test"f
   },
   "repository": "",
   "engines": {
