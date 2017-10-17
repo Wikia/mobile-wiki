@@ -32,7 +32,6 @@ echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"ta
 ### Those tests depends on Setup step
 failTests() {
 	updateGit "Tests" failure skipped
-	updateGit "Linter" failure skipped
 	updateGit "Jenkins job" failure finished $BUILD_URL"console"
 }
 
@@ -90,7 +89,6 @@ setupBower() {
 updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
-updateGit "Linter" pending pending
 
 ### Setup - node_modules and bower components
 setupNpm "/"
