@@ -121,20 +121,6 @@ else
 	saveState "testsState" "Tests" failure failure $BUILD_URL"artifact/jenkins/tests.log"
 fi
 
-### Linter - running
-updateGit "Linter" pending running
-npm run linter 2>&1 | tee jenkins/linter.log || { error3=true && failJob=true; }
-vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
-
-if [ -z $error3 ]
-then
-	updateGit "Linter" success success
-	saveState "linterState" "Linter" success success $BUILD_URL"artifact/jenkins/linter.log"
-else
-	updateGit "Linter" failure failure
-	saveState "linterState" "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
-fi
-
 ### Finish
 if [ -z $failJob ]
 then
