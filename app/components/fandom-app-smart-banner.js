@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/track';
 import {standalone, system} from '../utils/browser';
+import config from '../config/environment';
 
 const {
 	$,
@@ -36,18 +37,6 @@ export default Component.extend({
 		return system === 'ios'
 			? this.get('i18n').t('fandom-app-banner.app-store')
 			: this.get('i18n').t('fandom-app-banner.google-play');
-	}),
-
-	/**
-	 * Obtains domain we should cookies on. Since Fandom App SmartBanner is global for all the wikis,
-	 * we should set it to all subdomains of wikia.com, wikia-dev.us or wikia.dev-pl
-	 *
-	 * @returns {string}
-	 */
-	cookieDomain: computed(() => {
-		const domainSegmentsReversed = window.location.hostname.split('.').reverse();
-
-		return `.${domainSegmentsReversed[1]}.${domainSegmentsReversed[0]}`;
 	}),
 
 	actions: {
@@ -103,7 +92,7 @@ export default Component.extend({
 		$.cookie('fandom-sb-closed', 1, {
 			expires: date,
 			path: '/',
-			domain: this.get('cookieDomain')
+			domain: config.cookieDomain
 		});
 	},
 
