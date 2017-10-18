@@ -7,7 +7,7 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
     ]){
         node('mobile-wiki'){
-            def verifyEnvName = "mobile-wiki-verify"
+            def sourceEnvName = "mobile-wiki-${params.source}"
             def namespace = params.namespace
             def context = "kube-${params.datacenter}-${namespace}"
             def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
@@ -18,7 +18,7 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
             if ( normalizedEnv == "prod" ) {
                 container('kubectl') {
                     stage('Fetch image version from "verify" env') {
-                        imageName = sh (script: "kubectl get deployment ${verifyEnvName} --namespace={namespace} --output=jsonpath='{.spec.template.spec.containers[0].image}'", returnStdout: true).trim()
+                        imageName = sh (script: "kubectl get deployment ${sourceEnvName} --namespace={namespace} --output=jsonpath='{.spec.template.spec.containers[0].image}'", returnStdout: true).trim()
                         imageVersion = imageName.find(/release-\d+\.\d+/);
 
                         println "Fetched version ${imageVersion}"
