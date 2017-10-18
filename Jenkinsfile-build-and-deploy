@@ -7,6 +7,7 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
     ]){
         node('mobile-wiki'){
+            def verifyEnvName = "mobile-wiki-verify"
             def namespace = params.namespace
             def context = "kube-${params.datacenter}-${namespace}"
             def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
@@ -14,38 +15,51 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
             def imageExists = false
             def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
 
-            stage('Clone sources'){
-                checkout scm
+            if ( normalizedEnv == "prod" ) {
+                container('kubectl') {
+                    stage('Fetch image version from "verify" env') {
+                        imageName = sh (script: "kubectl get deployment ${verifyEnvName} --namespace={namespace} --output=jsonpath='{.spec.template.spec.containers[0].image}'", returnStdout: true).trim()
+                        imageVersion = imageName.find(/release-\d+\.\d+/);
 
-                println "imageName: ${imageName}"
-            }
-
-            container('deployenv'){
-                stage('Check if image already exists'){
-                    def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
-                    def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
-
-                    if ( status == "200" ){
-                        println "Image ${imageName} already exists"
-                        imageExists = true
+                        println "Fetched version ${imageVersion}"
                     }
                 }
-            }
+            } else {
+                stage('Clone sources'){
+                    checkout scm
 
+                    println "imageName: ${imageName}"
+                }
 
-            if ( !imageExists ) {
-                container('docker'){
-                    if (params.environment == "preview" || params.environment == "verify" ) {
-                        stage('Build and push image'){
-                            sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
-                       }
-                    } else {
-                        stage('Build developement image') {
-                            sh """#!/bin/sh
-                            ./tasks/docker-dev-build.sh ${imageName}"""
+                 container('deployenv'){
+                    stage('Check if image already exists'){
+                        println "Using version ${imageVersion}"
+
+                        def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
+                        def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
+
+                        if ( status == "200" ){
+                            println "Image ${imageName} already exists"
+                            imageExists = true
                         }
-                   }
+                    }
+                }
+
+
+                if ( !imageExists ) {
+                    container('docker'){
+                        if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
+                            stage('Build and push image'){
+                                sh """#!/bin/sh
+                                ./tasks/docker-build.sh ${imageName}"""
+                           }
+                        } else {
+                            stage('Build developement image') {
+                                sh """#!/bin/sh
+                                ./tasks/docker-dev-build.sh ${imageName}"""
+                            }
+                       }
+                    }
                 }
             }
 
@@ -61,8 +75,8 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
                     println "Push to k8s"
 
                     sh """#!/bin/sh
-                    kubectl --namespace {namespace} \
-                            --context ${context} \
+                    kubectl --namespace={namespace} \
+                            --context=${context} \
                              --kubeconfig=/config/.kube/config \
                              apply -f k8s/k8s-descriptor-${normalizedEnv}.yaml"""
                 }
