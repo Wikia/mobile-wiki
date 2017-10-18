@@ -33,13 +33,19 @@ spec:
       containers:
       - name: mobile-wiki-stable
         image: ${image}
-#        livenessProbe: #TODO: configure
-#          httpGet:
-#            path: /healthcheck
-#            port: 8081
-#          initialDelaySeconds: 3
-#          timeoutSeconds: 3
-#          periodSeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8001
+          initialDelaySeconds: 20
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8001
+          periodSeconds: 5
         env:
           - name: WIKIA_ENVIRONMENT
             value: prod
