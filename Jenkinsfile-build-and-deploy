@@ -75,7 +75,7 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
                     println "Push to k8s"
 
                     sh """#!/bin/sh
-                    kubectl --namespace={namespace} \
+                    kubectl --namespace=${namespace} \
                             --context=${context} \
                              --kubeconfig=/config/.kube/config \
                              apply -f k8s/k8s-descriptor-${normalizedEnv}.yaml"""
