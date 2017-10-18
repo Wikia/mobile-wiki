@@ -30,6 +30,21 @@ spec:
       labels:
         app: mobile-wiki-stable
     spec:
+      initContainers:
+      - args:
+        - secret/chef/google/analytics
+        env:
+        - name: VAULT_ADDR # This isn't required in prod but must be set for dev
+          value: active.vault.service.${dc}.consul:8200
+        name: secrets
+        image: artifactory.wikia-inc.com/ops/init-vault:0.0.14
+        imagePullPolicy: Always
+        volumeMounts: # vault auth cert is read from here
+        - name: host-chef
+          mountPath: /etc/chef/
+          readOnly: true
+        - name: secrets-dir # secrets are stored here
+          mountPath: /var/lib/secrets
       containers:
       - name: mobile-wiki-stable
         image: ${image}
@@ -53,17 +68,24 @@ spec:
             value: sjc
           - name: MEDIAWIKI_DOMAIN
             value: prod.icache.service.sjc.consul
-          - name: GA_USERID_SALT
-            valueFrom:
-              secretKeyRef:
-                name: mobile-wiki
-                key: gaUserIdSalt
         resources:
          requests: #TODO: adjust and set upper limits TOO
            cpu: 0.4
            memory: 300Mi
         ports:
         - containerPort: 8001
+        command: ["sh", "-c", "source /var/lib/secrets/export.env && npm run fastboot-server"]
+        volumeMounts:
+        - name: secrets-dir
+          readOnly: true
+          mountPath: /var/lib/secrets
+      volumes:
+        - name: secrets-dir # secrets will be stored here
+          emptyDir:
+            medium: Memory
+        - name: host-chef # the init container uses client certs to auth against vault
+          hostPath:
+            path: /etc/chef
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
