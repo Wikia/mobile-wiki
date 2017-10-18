@@ -31,12 +31,15 @@ export default class OoyalaV4Player extends BasePlayer {
 		params.skin.config = skinConfigUrl;
 
 		super(provider, params);
-		this.adTrackingParams = params.adTrackingParams;
+		this.adTrackingParams = params.adTrackingParams || {};
 
 		params.onCreate = (player) => {
 			originalOnCreate(player);
 
 			Ads.getInstance().registerOoyalaTracker(player, this.adTrackingParams);
+			player.mb.subscribe(window.OO.EVENTS.ADS_PLAYED, 'video-tracker', () => {
+				this.params.adIndex += 1;
+			});
 		};
 
 		this.containerId = params.containerId;

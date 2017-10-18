@@ -21,9 +21,7 @@
     "setup": "npm install && bower update",
     "setup-prod": "npm install --production && bower update --production",
     "svgo": "bash ./tasks/optimize-svg.sh",
-    "test": "ember test",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "ember test"
   },
   "repository": "",
   "engines": {
@@ -42,7 +40,7 @@
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
     "html5-skin": "github:wikia/html5-skin#84574003c0cf2fa6de499bd6e7423a2a37681e44",
-    "method-override": "2.3.9",
+    "method-override": "2.3.10",
     "newrelic": "2.2.1",
     "on-headers": "1.0.1",
     "proxying-agent": "2.1.1",
@@ -102,7 +100,7 @@
     "heapdump": "0.3.9",
     "i18next": "9.0.0",
     "loader.js": "4.6.0",
-    "mercury-shared": "github:wikia/mercury-shared#1.0.5",
+    "mercury-shared": "github:wikia/mercury-shared#2.1.0",
     "moment": "2.18.1",
     "numeral": "2.0.6",
     "phantomjs-prebuilt": "2.1.15",

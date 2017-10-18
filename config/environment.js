@@ -59,7 +59,10 @@ module.exports = function (environment) {
 				},
 				scriptUrl: 'https://www.google-analytics.com/analytics.js'
 			},
-			quantcast: 'p-8bG6eLqkH6Avk',
+			quantcast: {
+				id: 'p-8bG6eLqkH6Avk',
+				labels: 'Category.MobileWeb.Mercury'
+			},
 			comscore: {
 				keyword: 'comscorekw',
 				id: '6177433',

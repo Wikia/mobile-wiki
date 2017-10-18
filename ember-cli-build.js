@@ -57,19 +57,16 @@ module.exports = function (defaults) {
 			prepend: 'https://mobile-wiki.nocookie.net/'
 		},
 		inlineContent: {
-			globals: `${inlineScriptsPath}globals.js`,
-			'get-from-shoebox': `${inlineScriptsPath}get-from-shoebox.js`,
-			'geo-cookie': `${inlineScriptsPath}geo-cookie.js`,
-			'load-script': `${inlineScriptsPath}load-script.js`,
-			'tracking-quantcast': `${inlineScriptsPath}tracking-quantcast.js`,
-			'tracking-comscore': `${inlineScriptsPath}tracking-comscore.js`,
+			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
+			'fastboot-inline-scripts-head': `node_modules/mercury-shared/dist/head.js`,
+			'fastboot-inline-scripts-head-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
+			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
-			'load-svg': `${inlineScriptsPath}load-svg.js`,
+			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
-			'tracking-ua-init': `${inlineScriptsPath}tracking-ua-init.js`,
-			'mercury-shared': `node_modules/mercury-shared/dist/mercury-shared.js`
+			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
 		},
 		outputPaths: {
 			app: {
