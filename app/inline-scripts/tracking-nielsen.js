@@ -47,7 +47,7 @@
 		delete window.NOLCMB;
 
 		M.loadScript(
-			'http://secure-dcr.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now(),
+			'https://secure-dcr.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now(),
 			true,
 			sendNielsenPageView
 		);

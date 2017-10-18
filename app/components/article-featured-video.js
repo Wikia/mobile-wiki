@@ -15,11 +15,7 @@ const {
 		observer,
 		setProperties
 	} = Ember,
-	autoplayCookieName = 'featuredVideoAutoplay',
-	playerTrackerParams = {
-		adProduct: 'featured-video-preroll',
-		slotName: 'FEATURED'
-	};
+	autoplayCookieName = 'featuredVideoAutoplay';
 
 export default Component.extend(InViewportMixin, {
 	classNames: ['article-featured-video'],
@@ -126,6 +122,10 @@ export default Component.extend(InViewportMixin, {
 			autoplay = this.get('autoplay'),
 			jsParams = {
 				autoplay,
+				adTrackingParams: {
+					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
+					slotName: 'FEATURED'
+				},
 				cacheBuster: this.get('wikiVariables.cacheBuster'),
 				containerId: this.get('videoContainerId'),
 				initialVolume: autoplay ? 0 : 1,
@@ -142,14 +142,6 @@ export default Component.extend(InViewportMixin, {
 			},
 			data = extend({}, model, {jsParams}),
 			videoLoader = new VideoLoader(data);
-
-		Ads.getInstance().onReady(() => {
-			Ads.getInstance().trackOoyalaEvent(playerTrackerParams, 'init');
-		});
-
-		if (this.get('ads.noAds')) {
-			playerTrackerParams.adProduct = 'featured-video-no-preroll';
-		}
 
 		videoLoader.loadPlayerClass();
 	},
@@ -170,8 +162,6 @@ export default Component.extend(InViewportMixin, {
 		const category = 'article-video';
 		let playTime = -1,
 			percentagePlayTime = -1;
-
-		Ads.getInstance().registerOoyalaTracker(player, playerTrackerParams);
 
 		player.mb.subscribe(window.OO.EVENTS.INITIAL_PLAY, 'featured-video', () => {
 			track({

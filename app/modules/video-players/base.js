@@ -18,6 +18,7 @@ export default class BasePlayer {
 		this.videoHeight = params.size.height;
 		// Most common video container selector
 		this.containerSelector = '.lightbox-content-inner > iframe';
+		this.params.adIndex = 0;
 	}
 
 	/**

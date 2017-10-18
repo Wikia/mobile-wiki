@@ -9,9 +9,7 @@
 
 	{{content-for 'head'}}
 	{{content-for 'test-head'}}
-	{{content-for 'globals'}}
-	{{content-for 'get-from-shoebox'}}
-	{{content-for 'geo-cookie'}}
+	{{content-for 'fastboot-inline-scripts-head'}}
 
 	<link rel="stylesheet" href="assets/test-support.css">
 
@@ -23,11 +21,12 @@
 		window.trackNielsenPageView = function() {};
 		window.trackComscorePageView = function() {};
 		window.Wikia = {};
-		M.tracker.Internal = {
+		window.M.tracker = {};
+		window.M.tracker.Internal = {
 			track: function () {},
 			trackPageView: function() {}
 		};
-		M.tracker.UniversalAnalytics = {
+		window.M.tracker.UniversalAnalytics = {
 			track: function () {},
 			trackPageView: function() {}
 		};
@@ -57,7 +56,6 @@
 <script src="assets/mobile-wiki.js"></script>
 <script src="assets/tests.js"></script>
 
-{{content-for 'tracking-liftigniter'}}
 {{content-for 'body-footer'}}
 {{content-for 'test-body-footer'}}
 </body>

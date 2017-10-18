@@ -3,6 +3,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 moduleForComponent('application-wrapper', 'Unit | Component | application wrapper', {
 	unit: true,
 	needs: [
+		'service:ads',
 		'service:current-user',
 		'service:fastboot',
 		'service:logger',

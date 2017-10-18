@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
+import {system} from '../utils/browser';
 
 const {
 	Component,
@@ -33,17 +34,25 @@ const {
 export default Component.extend({
 	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
-	classNameBindings: ['smartBannerVisible', 'verticalClass'],
+	classNameBindings: [
+		'smartBannerVisible',
+		'verticalClass',
+		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
+		'bfaaTemplate'
+	],
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
 
+	ads: inject.service(),
 	currentUser: inject.service(),
 	fastboot: inject.service(),
 	logger: inject.service(),
 	wikiVariables: inject.service(),
 
 	dir: computed.reads('wikiVariables.language.contentDir'),
+
+	bfaaTemplate: computed.bool('ads.siteHeadOffset'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
@@ -54,6 +63,13 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
+
+	/**
+	 * @returns {boolean}
+	 */
+	isUserLangEn: computed.equal('currentUser.language', 'en'),
+	shouldShowFandomAppSmartBanner: computed.and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: computed.and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}

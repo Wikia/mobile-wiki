@@ -5,7 +5,10 @@ moduleForComponent('site-head', 'Unit | Component | site head', {
 	needs: [
 		'service:ads',
 		'service:notifications'
-	]
+	],
+	beforeEach() {
+		this.register('service:currentUser', window.document, {instantiate: false});
+	},
 });
 
 test('correct icons returned', function (assert) {
