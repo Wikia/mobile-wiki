@@ -1,6 +1,7 @@
 # local dependencies
-node_modules
-bower_components
+**/node_modules/
+**/bower_components/
+GIT_IGNORE
 
 # compiled output
 dist

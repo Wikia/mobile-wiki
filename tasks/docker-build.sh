@@ -1,13 +1,12 @@
 #!/bin/sh
 
-# usage ./docker-build.sh
+# usage ./docker-build.sh <image-name>
 
-# create tag for image
-PROD_TAG_NAME=$(sh ./tasks/docker-image-name.sh "prod")
+IMAGE_NAME=$1
 
 echo "Building mobile-wiki image for production environment"
 
-docker build -t ${PROD_TAG_NAME} .
+docker build -t ${IMAGE_NAME} .
 
 # push prod image to remote repository
-docker push ${PROD_TAG_NAME}
+docker push ${IMAGE_NAME}

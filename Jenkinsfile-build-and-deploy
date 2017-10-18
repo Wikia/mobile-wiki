@@ -1,26 +1,4 @@
-def context = params.cluster
-def buildUser = "Anonymous"
-def namespace = ""
-def normalizedEnv = params.environment
-
-switch(params.environment){
-    case "prod":
-    case "verify":
-    case "preview":
-    case "stable":
-        namespace = "prod"
-        break
-    case ~/sandbox-/:
-        namespace = "prod"
-        normalizedEnv = "sandbox"
-        break
-    case "staging":
-        namespace = "staging"
-        break
-}
-
 podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
-    containerTemplate(name: 'buildenv', label: "mobile-wiki", image: 'node:6.11.4-alpine', ttyEnabled: true),
     containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', label: 'mobile-wiki', image: 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.9-jenkins', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'docker', image: 'docker:17.09.0-git', ttyEnabled: true)
@@ -29,30 +7,23 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
     ]){
         node('mobile-wiki'){
+            def namespace = params.namespace
+            def context = "kube-${params.datacenter}-${namespace}"
+            def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
+            def imageVersion = params.version
             def imageExists = false
-            def isSnapshot = true
-            def imageVersion = ""
-            def imageName = ""
+            def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
 
             stage('Clone sources'){
-                wrap([$class: 'BuildUser']) {
-                    buildUser = "${BUILD_USER}"
-                }
-                git url: 'git@github.com:Wikia/mobile-wiki.git', credentialsId: 'bd3cf712-39a7-4b16-979e-ff86208ab2ea', branch: 'dev'
-                sh "git checkout ${params.branch}"
+                checkout scm
 
-                imageVersion = sh (script: "./tasks/docker-image-version.sh ${params.environment}", returnStdout: true).trim()
-                imageName = sh (script: "./tasks/docker-image-name.sh ${params.environment}", returnStdout: true).trim()
+                println "imageName: ${imageName}"
             }
 
             container('deployenv'){
                 stage('Check if image already exists'){
-                    isReleaseBranch = params.branch ==~ /^(?i)release-\d+$/
-
-                    println "imageName: ${imageName}"
-                    println "isReleaseBranch: ${isReleaseBranch}"
-
-                    def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET \"https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/mobile-wiki/${imageVersion}\"", returnStdout: true).trim()
+                    def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
+                    def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
 
                     if ( status == "200" ){
                         println "Image ${imageName} already exists"
@@ -61,43 +32,27 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
                 }
             }
 
-            if ( !imageExists && isReleaseBranch && params.environment == "preview" ) {
+
+            if ( !imageExists ) {
                 container('docker'){
-                   stage('Build production image'){
-                       println "Build started"
-
-                       sh """#!/bin/sh
-                       ./tasks/docker-build.sh"""
-
-                       println "Production image ${imageName} built and pushed"
+                    if (params.environment == "preview" || params.environment == "verify" ) {
+                        stage('Build and push image'){
+                            sh """#!/bin/sh
+                            ./tasks/docker-build.sh ${imageName}"""
+                       }
+                    } else {
+                        stage('Build developement image') {
+                            sh """#!/bin/sh
+                            ./tasks/docker-dev-build.sh ${imageName}"""
+                        }
                    }
-               }
-
-               stage('Push tags to github'){
-                   println "Tag pushed"
-                   // sshagent (credentials: ['bd3cf712-39a7-4b16-979e-ff86208ab2ea']) {
-                   //     sh """#!/bin/sh
-                   //     ./tasks/docker-git-tag-bump.sh ${imageVersion}"""
-                   // }
-               }
-            } else if ( !imageExists ) {
-                container('docker'){
-                    stage('Build developement image'){
-                        println "Build started"
-
-                        sh """#!/bin/sh
-                        ./tasks/docker-dev-build.sh"""
-
-                        println "Developement image ${imageName} built and pushed"
-                    }
                 }
             }
 
-            container('buildenv') {
+            container('deployenv') {
                 stage('Create k8s descriptor') {
-                    // parametrize env
                     sh """#!/bin/sh
-                    ./tasks/k8s-descriptor.sh ${params.environment} ${imageName}"""
+                    ./tasks/k8s-descriptor.sh ${params.environment} ${imageName} ${params.datacenter}"""
                 }
             }
 
