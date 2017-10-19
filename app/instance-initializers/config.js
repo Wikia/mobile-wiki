@@ -55,7 +55,7 @@ export function initialize(applicationInstance) {
 
 		runtimeConfig = {
 			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
-			gaUserSalt: env.SECRET_APP_GOOGLE_ANALYTICS_USER_ID_SALT,
+			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
 			wikiaEnv,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER,
