@@ -7,42 +7,32 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
     ]){
         node('mobile-wiki'){
-            def sourceEnvName = "mobile-wiki-${params.source}"
             def namespace = params.namespace
-            def context = "kube-${params.datacenter}-${namespace}"
+            def cluster = params.cluster ?: "prod"
+            def context = "kube-${params.datacenter}-${cluster}"
             def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
             def imageVersion = params.version
             def imageExists = false
             def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
 
-            if ( normalizedEnv == "prod" ) {
-                container('kubectl') {
-                    stage('Fetch image version from "verify" env') {
-                        imageName = sh (script: "kubectl get deployment ${sourceEnvName} --namespace={namespace} --output=jsonpath='{.spec.template.spec.containers[0].image}'", returnStdout: true).trim()
-                        imageVersion = imageName.find(/release-\d+\.\d+/);
-
-                        println "Fetched version ${imageVersion}"
-                    }
-                }
-            } else {
-                stage('Clone sources'){
+               stage('Clone sources'){
                     checkout scm
 
                     println "imageName: ${imageName}"
                 }
 
-                 container('deployenv'){
-                    stage('Check if image already exists'){
-                        println "Using version ${imageVersion}"
+                container('deployenv'){
+                   stage('Check if image already exists'){
+                       println "Using version ${imageVersion}"
 
-                        def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
-                        def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
+                       def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
+                       def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
 
-                        if ( status == "200" ){
-                            println "Image ${imageName} already exists"
-                            imageExists = true
-                        }
-                    }
+                       if ( status == "200" ){
+                           println "Image ${imageName} already exists"
+                           imageExists = true
+                       }
+                   }
                 }
 
 
@@ -61,7 +51,6 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
                        }
                     }
                 }
-            }
 
             container('deployenv') {
                 stage('Create k8s descriptor') {
