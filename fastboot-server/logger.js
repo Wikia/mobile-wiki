@@ -93,16 +93,6 @@ function createLogger(loggerConfig) {
 		appname: 'mobile-wiki',
 		name: 'mobile-wiki',
 		loggerName: 'fastboot-server/logger.js',
-		excludes: [
-			'incoming',
-			'ip',
-			'remote-address',
-			'req',
-			'res',
-			'response-hrtime',
-			'user-agent'
-		],
-		serializers,
 		streams
 	});
 }
