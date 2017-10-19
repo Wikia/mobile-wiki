@@ -26,8 +26,7 @@ podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
                    stage('Check if image already exists'){
                        println "Using version ${imageVersion}"
 
-                       def artifactoryUrl = "https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}"
-                       def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET ${artifactoryUrl}", returnStdout: true).trim()
+                       def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET \"https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}\"", returnStdout: true).trim()
 
                        if ( status == "200" ){
                            println "Image ${imageName} already exists"
