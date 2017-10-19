@@ -1,4 +1,5 @@
 podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki', containers: [
+    containerTemplate(name: 'jnlp', image: 'artifactory.wikia-inc.com/jenkins/jnlp-slave-ssh:2.62-alpine', args: '${computer.jnlpmac} ${computer.name}'),
     containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', label: 'mobile-wiki', image: 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.9-jenkins', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'docker', image: 'docker:17.09.0-git', ttyEnabled: true)
