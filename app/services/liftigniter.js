@@ -52,13 +52,13 @@ export default Service.extend({
 		window.liftigniter('init', 'l9ehhrb6mtv75bp2', {
 			config: {
 				sdk: {
-					queryServer: '//query.fandommetrics.com'
+					queryServer: '//query.petametrics.com'
 				},
 				activity: {
-					activityServer: '//api.fandommetrics.com'
+					activityServer: '//api.petametrics.com'
 				},
 				inventory: {
-					inventoryServer: '//api.fandommetrics.com'
+					inventoryServer: '//api.petametrics.com'
 				},
 				globalCtx: context,
 			}
