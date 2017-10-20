@@ -85,7 +85,7 @@ export function buildUrl(urlParams = {}) {
 
 	if (!urlParams.protocol) {
 		if (window && window.location && window.location.protocol) {
-			urlParams.protocol = window.location.protocol;
+			urlParams.protocol = window.location.protocol.replace(':', '');
 		} else {
 			urlParams.protocol = 'http';
 		}
