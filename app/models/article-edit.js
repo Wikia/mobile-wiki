@@ -40,7 +40,7 @@ export default EmberObject.extend({
 				formData.append('token', token);
 				formData.append('format', 'json');
 
-				return fetch(buildUrl({path: '/api.php'}), {
+				return fetch(buildUrl({host, path: '/api.php'}), {
 					method: 'POST',
 					body: formData,
 				})
