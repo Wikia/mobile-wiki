@@ -23,7 +23,7 @@ export default EmberObject.extend({
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
-			const host = getHostFromRequest(fastboot.get('request'), this.get('logger')),
+			const host = getHostFromRequest(fastboot.get('request')),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 

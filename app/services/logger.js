@@ -82,7 +82,6 @@ export default Service.extend({
 			loggerName: 'services/logger.js',
 			streams: [{
 				level: 'warn',
-				type: 'raw',
 				stream: process.stdout
 			}]
 		});
