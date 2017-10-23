@@ -1,7 +1,7 @@
 # local dependencies
 **/node_modules/
 **/bower_components/
-GIT_IGNORE
+GIT_IGNORE/
 
 # compiled output
 dist
@@ -13,8 +13,8 @@ Dockerfile
 Dockerfile.dev
 
 # misc
-.github
-.tx
+.github/
+.tx/
 /.sass-cache
 /connect.lock
 /coverage/*
@@ -29,3 +29,6 @@ testem.log
 *.orig
 *.log
 *.iml
+Jenkinsfile-build-and-deploy
+README.md
+TROUBLESHOOTING.md
