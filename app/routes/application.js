@@ -65,6 +65,7 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
+					this.get('logger').warning(`wikiVariables error: ${error}`);
 					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
