@@ -21,7 +21,7 @@ metadata:
   name: mobile-wiki-prod
   namespace: prod
 spec:
-  replicas: 4
+  replicas: 8
   selector:
     matchLabels:
       app: mobile-wiki-prod
@@ -69,9 +69,11 @@ spec:
           - name: MEDIAWIKI_DOMAIN
             value: prod.icache.service.${dc}.consul
         resources:
-         requests: #TODO: adjust and set upper limits TOO
-           cpu: 0.4
-           memory: 300Mi
+          requests:
+            cpu: 0.4
+            memory: 1.5Gi
+          limits:
+            memory: 4Gi
         ports:
         - containerPort: 8001
         command: ["sh", "-c", "source /var/lib/secrets/export.env && npm run fastboot-server"]

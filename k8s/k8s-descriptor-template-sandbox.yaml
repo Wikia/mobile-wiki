@@ -69,9 +69,11 @@ spec:
           - name: MEDIAWIKI_DOMAIN
             value: prod.icache.service.${dc}.consul
         resources:
-         requests:
-           cpu: 0.4
-           memory: 300Mi
+          requests:
+            cpu: 0.4
+            memory: 1.5Gi
+          limits:
+            memory: 4Gi
         ports:
         - containerPort: 8001
         command: ["sh", "-c", "source /var/lib/secrets/export.env && npm run fastboot-server"]
