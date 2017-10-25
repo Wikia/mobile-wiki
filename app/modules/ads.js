@@ -193,9 +193,20 @@ class Ads {
 	}
 
 	/**
-	 * Build VAST url for video players
+	 * Dispatch adengine event
 	 *
+	 * @param {string} name
+	 * @param {Object} data
+	 *
+	 * @returns {void}
 	 */
+	dispatchEvent(name, data) {
+		const event = document.createEvent('CustomEvent');
+
+		event.initCustomEvent(`adengine.${name}`, true, true, data || {});
+		window.dispatchEvent(event);
+	}
+
 	registerOoyalaTracker(player, params) {
 		if (!this.ooyalaTracker) {
 			console.warn('Can not use Ooyala tracker.');

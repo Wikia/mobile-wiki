@@ -3,8 +3,9 @@ import moatVideoTracker from './moat-video-tracker';
 
 export default class OoyalaVideoAds {
 
-	constructor(params) {
+	constructor(params, trackingParams) {
 		this.params = params;
+		this.trackingParams = trackingParams;
 	}
 
 	getOoyalaConfig() {
@@ -13,27 +14,17 @@ export default class OoyalaVideoAds {
 		} else if (this.isA9VideoEnabled()) {
 			return this.parseBidderParameters()
 				.catch(() => {})
-				.then((additionalParams) => this.setupAdManager(additionalParams));
+				.then((bidParams) => this.setupAdManager(bidParams));
 		} else {
 			return this.setupAdManager();
 		}
 	}
 
-	setupAdManager(additionalParams = {}) {
-		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(this.buildVAST(additionalParams));
+	setupAdManager(bidParams = {}) {
+		this.params['google-ima-ads-manager'] = this.getAdsManagerConfig(bidParams);
 		this.params.replayAds = false;
 
 		return this.params;
-	}
-
-	buildVAST(slotParams = {}) {
-		slotParams.pos = 'FEATURED';
-		slotParams.src = 'premium';
-
-		return Ads.getInstance().buildVastUrl(640 / 480, slotParams, {
-			contentSourceId: this.params.dfpContentSourceId,
-			videoId: this.params.videoId
-		});
 	}
 
 	parseBidderParameters() {
@@ -55,12 +46,12 @@ export default class OoyalaVideoAds {
 			ads.currentAdsContext.bidders.a9Video;
 	}
 
-	getAdsManagerConfig() {
+	getAdsManagerConfig(bidParams = {}) {
 		return {
 			all_ads: Ads.getInstance().ooyalaAdSetProvider.get(1, null, {
 				contentSourceId: this.params.dfpContentSourceId,
 				videoId: this.params.videoId
-			}),
+			}, bidParams),
 			useGoogleAdUI: true,
 			useGoogleCountdown: false,
 			onBeforeAdsManagerStart(IMAAdsManager) {
@@ -76,6 +67,41 @@ export default class OoyalaVideoAds {
 		if (Ads.getInstance().currentAdsContext.opts.isMoatTrackingForFeaturedVideoEnabled) {
 			moatVideoTracker(IMAAdsManager, uiContainer, window.google.ima.ViewMode.NORMAL, 'ooyala', 'featured-video');
 		}
+
+		IMAAdsManager.addEventListener('loaded', (eventData) => {
+			const adData = eventData.getAdData(),
+				currentAd = IMAAdsManager.getCurrentAd(),
+				adSet = this.params['google-ima-ads-manager'].all_ads;
+
+			let wrapperCreativeId,
+				wrapperId;
+
+			if (adData) {
+				this.trackingParams.lineItemId = adData.adId;
+				this.trackingParams.creativeId = adData.creativeId;
+			}
+
+			if (currentAd) {
+				wrapperId = currentAd.getWrapperAdIds();
+				if (wrapperId.length) {
+					this.trackingParams.lineItemId = wrapperId[0];
+				}
+
+				wrapperCreativeId = currentAd.getWrapperCreativeIds();
+				if (wrapperCreativeId.length) {
+					this.trackingParams.creativeId = wrapperCreativeId[0];
+				}
+			}
+
+			if (adSet && adSet[this.params.adIndex]) {
+				Ads.getInstance().dispatchEvent('video.status', {
+					vastUrl: adSet[this.params.adIndex].tag_url,
+					creativeId: this.trackingParams.creativeId,
+					lineItemId: this.trackingParams.lineItemId,
+					status: 'success'
+				});
+			}
+		});
 
 		// that's a hack for autoplay on mobile for VPAID ads
 		// VPAID ads still don't work perfectly

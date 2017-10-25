@@ -21,6 +21,7 @@ export default class OoyalaV4Player extends BasePlayer {
 		const ooyalaPCode = config.ooyala.pcode;
 		const ooyalaPlayerBrandingId = config.ooyala.playerBrandingId;
 		const skinConfigUrl = `/wikia.php?controller=OoyalaConfig&method=skin&isMobile=1&cb=${params.cacheBuster}`;
+		const originalOnCreate = params.onCreate;
 
 		params.pcode = ooyalaPCode;
 		params.playerBrandingId = ooyalaPlayerBrandingId;
@@ -30,6 +31,16 @@ export default class OoyalaV4Player extends BasePlayer {
 		params.skin.config = skinConfigUrl;
 
 		super(provider, params);
+		this.adTrackingParams = params.adTrackingParams || {};
+
+		params.onCreate = (player) => {
+			originalOnCreate(player);
+
+			Ads.getInstance().registerOoyalaTracker(player, this.adTrackingParams);
+			player.mb.subscribe(window.OO.EVENTS.ADS_PLAYED, 'video-tracker', () => {
+				this.params.adIndex += 1;
+			});
+		};
 
 		this.containerId = params.containerId;
 	}
@@ -52,7 +63,10 @@ export default class OoyalaV4Player extends BasePlayer {
 		window.OO.ready(() => {
 			Ads.getInstance()
 				.waitForReady()
-				.then(() => (new OoyalaVideoAds(this.params)).getOoyalaConfig())
+				.then(() => {
+					Ads.getInstance().trackOoyalaEvent(this.adTrackingParams, 'init');
+					return (new OoyalaVideoAds(this.params, this.adTrackingParams)).getOoyalaConfig();
+				})
 				.then((params) => window.OO.Player.create(this.containerId, this.params.videoId, params));
 		});
 	}

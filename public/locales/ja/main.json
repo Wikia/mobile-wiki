@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "このwikiでページを編集する権限がありません。", 
     "success": "{pageTitle}の編集が完了しました。"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "ファイルページ", 
     "usages-header": "関連があるページ", 

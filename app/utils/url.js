@@ -125,7 +125,7 @@ export function buildUrl(urlParams = {}) {
 }
 
 export function extractEncodedTitle(url) {
-	return url ? url.replace(/^(http:\/\/[^/]+)?(\/wiki)?\//, '') : '';
+	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
 }
 
 export function getOnSiteNotificationsServiceUrl(path = '') {

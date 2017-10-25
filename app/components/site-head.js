@@ -3,7 +3,7 @@ import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 
-const {computed, Component} = Ember;
+const {computed, Component, inject} = Ember;
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
@@ -15,8 +15,8 @@ export default Component.extend(
 		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
-		ads: Ember.inject.service(),
-		notifications: Ember.inject.service(),
+		ads: inject.service(),
+		notifications: inject.service(),
 
 		headroomOptions: {
 			classes: {
@@ -52,7 +52,6 @@ export default Component.extend(
 		isDrawerInClosableState() {
 			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
 		},
-
 
 		canBeClosed(icon) {
 			const drawerContent = this.get('drawerContent');

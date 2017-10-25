@@ -68,6 +68,10 @@
     "publish-error-protectedpage": "Вы не можете редактировать эту страницу.", 
     "success": "Страница {pageTitle} была успешно отредактирована!"
   }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
   "file-page": {
     "subtitle": "Страница файла", 
     "usages-header": "Присутствует на этих страницах", 

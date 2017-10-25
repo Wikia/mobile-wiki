@@ -17,8 +17,29 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
+body:not(.no-scroll) {
+	.with-fandom-app-smart-banner {
+		.site-head {
+			top: 85px;
+		}
+	}
+}
+
 .site-head-container {
 	min-height: $site-head-height;
+}
+
+.site-head-headroom-not-top {
+	.fandom-app-smart-banner {
+		position: fixed;
+		top: 0;
+	}
+}
+
+.with-fandom-app-smart-banner {
+	.site-head-container {
+		min-height: 140px;
+	}
 }
 
 .site-head-wrapper {

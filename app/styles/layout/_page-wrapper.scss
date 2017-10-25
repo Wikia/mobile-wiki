@@ -1,4 +1,9 @@
 .page-wrapper {
+	&.with-fandom-app-smart-banner {
+		//smart banner height + site head height
+		margin-top: 140px;
+	}
+
 	.mobile-top-leaderboard ~ & {
 		margin-top: 0;
 	}
@@ -15,4 +20,12 @@
 
 .site-head.theme-bar ~ .page-wrapper {
 	margin-top: 60px;
+}
+
+.bfaa-template {
+	.with-fandom-app-smart-banner {
+		.page-wrapper {
+			margin-top: 0;
+		}
+	}
 }
