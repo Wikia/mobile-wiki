@@ -1,15 +1,3 @@
-### Errors while running `npm run setup`
-#### PhantomJS
-If npm run setup fails on fetching PhantomJS:
-```
-bzip2: Compressed file ends unexpectedly; perhaps it is corrupted?
-```
-Try removing phantomjs binaries directory:
-```
-rm -rf /usr/local/bin/phantomjs
-```
-And try to run npm run setup again.
-
 ### Errors while running `npm run dev`
 Sometimes it helps to just remove all dependencies and install them from the beginning.
 ```
