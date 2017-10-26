@@ -39,7 +39,7 @@
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
     "html5-skin": "github:wikia/html5-skin#84574003c0cf2fa6de499bd6e7423a2a37681e44",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#6c779f560be94847d0acf713b29c1963145bcb2d",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#72b58176e86ecf8be041288466d00ce51c08820d",
     "method-override": "2.3.10",
     "newrelic": "2.2.1",
     "on-headers": "1.0.1",
