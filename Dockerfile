@@ -1,57 +1,21 @@
-FROM node:6.11.3-alpine
-
-WORKDIR /app
-
-# move files to cache installing of dependencies
-COPY package.json .
-COPY bower.json .
+FROM node:6.10
 
 # phantomjs workaround
-RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs && \
-    chmod a+x /bin/phantomjs && \
+RUN echo -e '#!/bin/sh\necho "2.1.1"' > /bin/phantomjs
+RUN chmod a+x /bin/phantomjs
 
 # bower workaround
-    echo '{ "allow_root": true }' > /root/.bowerrc && \
+RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
-# create group and user
-    addgroup -S mobile-wiki && \
-    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
-    chmod 755 /app && \
+# create release user so that we can chown output dir
+RUN useradd -u 663 release
 
-# install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git && \
+# install i18n-tools
+RUN apt-get update && apt-get install -y python python-pip
+RUN pip install pyparsing && pip install -i https://pypi.wikia-services.com/simple/ wikia.crowdin
 
-# install npm globals
-    npm install -g bower && \
-    npm install -g ember-cli && \
-
-# install all dependencies
-    npm run setup && \
-
-# cleanup
-    apk del .gyp python make g++ git && \
-    bower cache clean && \
-    npm uninstall -g bower && \
-    npm cache clean
-
-USER docker_user
-
-# copy app
-# Note:
-# - first argument is the path inside the context of build (folder where Dockerfile is placed)
-# - second argument is the docker daemon (newly created container)
-# - "." means "current working directory", and since we're not selecting any specific files
-# it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
-COPY . .
-
-# build app
-RUN npm run linter && \
-# tests are broken for now
-# npm run tests && \
-    npm run build-prod
-
-# 8001 is for prod
-EXPOSE 8001
-
-# run fastboot-server when 'docker run' will be called
-ENTRYPOINT ["npm", "run", "fastboot-server"]
+# prepare build dir
+RUN mkdir -p /build
+COPY package.json /build
+COPY . /build
+WORKDIR /build
