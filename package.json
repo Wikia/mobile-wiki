@@ -35,7 +35,6 @@
     "compression": "1.7.1",
     "cors": "2.8.4",
     "deep-extend": "0.5.0",
-    "ember-fetch": "3.3.1",
     "express-bunyan-logger": "1.3.2",
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
@@ -43,7 +42,6 @@
     "method-override": "2.3.10",
     "newrelic": "2.2.1",
     "on-headers": "1.0.1",
-    "proxying-agent": "2.1.1",
     "snyk": "^1.41.1"
   },
   "devDependencies": {
@@ -103,7 +101,7 @@
     "mercury-shared": "github:wikia/mercury-shared#2.1.0",
     "moment": "2.18.1",
     "numeral": "2.0.6",
-    "phantomjs-prebuilt": "2.1.15",
+    "proxying-agent": "2.1.1",
     "tslint": "5.7.0",
     "typescript": "2.5.2"
   },
