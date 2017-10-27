@@ -55,10 +55,10 @@ export default Service.extend({
 					queryServer: '//query.petametrics.com'
 				},
 				activity: {
-					activityServer: '//api.petametrics.com'
+					activityServer: '//query.petametrics.com'
 				},
 				inventory: {
-					inventoryServer: '//api.petametrics.com'
+					inventoryServer: '//query.petametrics.com'
 				},
 				globalCtx: context,
 			}
