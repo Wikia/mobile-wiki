@@ -41,10 +41,13 @@ USER docker_user
 COPY . .
 
 # build app
-RUN npm run build
+RUN npm run linter && \
+# tests are broken for now
+# npm run tests && \
+    npm run build-prod
 
-# 7001 is for debugging
-EXPOSE 7001
+# 8001 is for prod
+EXPOSE 8001
 
 # run fastboot-server when 'docker run' will be called
 ENTRYPOINT ["npm", "run", "fastboot-server"]
