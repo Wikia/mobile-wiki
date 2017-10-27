@@ -13,14 +13,14 @@ module('Unit | Utility | host', () => {
 			},
 			{
 				headers: {
-					'x-original-host': 'sandbox-xw1.starwars.wikia.com'
+					'x-original-host': 'starwars.sandbox-xw1.wikia.com'
 				},
 				host: 'starwars.wikia.com',
-				expected: 'sandbox-xw1.starwars.wikia.com',
+				expected: 'starwars.sandbox-xw1.wikia.com',
 			},
 			{
 				headers: {
-					'x-original-host': 'externaltest.starwars.wikia.com',
+					'x-original-host': 'starwars.externaltest.wikia.com',
 					'x-staging': 'externaltest'
 				},
 				host: 'starwars.wikia.com',
@@ -31,7 +31,7 @@ module('Unit | Utility | host', () => {
 					'x-original-host': 'starwars.wikia.com',
 					'x-staging': 'externaltest'
 				},
-				host: 'showcase.starwars.wikia.com',
+				host: 'starwars.showcase.wikia.com',
 				expected: 'starwars.wikia.com',
 			},
 		];
