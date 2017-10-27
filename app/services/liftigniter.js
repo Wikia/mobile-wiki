@@ -55,10 +55,10 @@ export default Service.extend({
 					queryServer: '//query.fandommetrics.com'
 				},
 				activity: {
-					activityServer: '//api.fandommetrics.com'
+					activityServer: '//query.fandommetrics.com'
 				},
 				inventory: {
-					inventoryServer: '//api.fandommetrics.com'
+					inventoryServer: '//query.fandommetrics.com'
 				},
 				globalCtx: context,
 			}
