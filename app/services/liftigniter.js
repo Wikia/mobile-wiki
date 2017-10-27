@@ -51,15 +51,6 @@ export default Service.extend({
 
 		window.liftigniter('init', 'l9ehhrb6mtv75bp2', {
 			config: {
-				sdk: {
-					queryServer: '//query.fandommetrics.com'
-				},
-				activity: {
-					activityServer: '//query.fandommetrics.com'
-				},
-				inventory: {
-					inventoryServer: '//query.fandommetrics.com'
-				},
 				globalCtx: context,
 			}
 		});
