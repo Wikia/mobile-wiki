@@ -7,7 +7,7 @@ COPY package.json .
 COPY bower.json .
 
 # bower workaround
-    echo '{ "allow_root": true }' > /root/.bowerrc && \
+RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # create group and user
     addgroup -S mobile-wiki && \
