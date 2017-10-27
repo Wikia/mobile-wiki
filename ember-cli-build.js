@@ -54,7 +54,7 @@ module.exports = function (defaults) {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			exclude: ['player.ooyala.com'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			prepend: 'https://mobile-wiki.nocookie.net/'
+			// prepend: 'https://mobile-wiki.nocookie.net/'
 		},
 		inlineContent: {
 			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,

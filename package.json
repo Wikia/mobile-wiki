@@ -19,6 +19,7 @@
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint .",
     "setup": "npm install && bower update",
+    "setup-prod": "npm install --production && bower update --production",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
   },
@@ -31,10 +32,10 @@
   "dependencies": {
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
-    "bunyan-syslog": "github:mcavage/node-bunyan-syslog#9bdb9eb62a763c7d30e032a619138032d5ff8771",
     "compression": "1.7.1",
     "cors": "2.8.4",
     "deep-extend": "0.5.0",
+    "ember-fetch": "3.3.1",
     "express-bunyan-logger": "1.3.2",
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
@@ -42,6 +43,7 @@
     "method-override": "2.3.10",
     "newrelic": "2.2.1",
     "on-headers": "1.0.1",
+    "proxying-agent": "2.1.1",
     "snyk": "^1.41.1"
   },
   "devDependencies": {
@@ -82,7 +84,6 @@
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-exex": "0.1.13",
     "ember-export-application-global": "2.0.0",
-    "ember-fetch": "3.3.1",
     "ember-in-viewport": "2.1.1",
     "ember-load-initializers": "1.0.0",
     "ember-resolver": "4.5.0",
@@ -103,6 +104,7 @@
     "moment": "2.18.1",
     "numeral": "2.0.6",
     "proxying-agent": "2.1.1",
+    "phantomjs-prebuilt": "2.1.15",
     "tslint": "5.7.0",
     "typescript": "2.5.2"
   },
@@ -115,9 +117,9 @@
   },
   "fastbootDependencies": [
     "bunyan",
-    "bunyan-syslog",
     "crypto",
     "deep-extend",
+    "ember-fetch",
     "form-data",
     "fs",
     "process",

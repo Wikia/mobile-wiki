@@ -1,0 +1,76 @@
+node('linux'){
+    podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki-build-and-deploy', containers: [
+        containerTemplate(name: 'jnlp', image: 'artifactory.wikia-inc.com/jenkins/jnlp-slave-ssh:2.62-alpine', args: '${computer.jnlpmac} ${computer.name}'),
+        containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'kubectl', label: 'mobile-wiki-kube', image: 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'docker', image: 'docker:17.09.0-git', ttyEnabled: true)
+    ],
+    volumes: [
+        hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
+    ]){
+        node('mobile-wiki-build-and-deploy'){
+            def namespace = params.namespace
+            def cluster = params.cluster ?: "prod"
+            def context = "kube-${params.datacenter}-${cluster}"
+            def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
+            def imageVersion = params.version
+            def imageExists = false
+            def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
+
+           stage('Clone sources'){
+                checkout scm
+
+                println "imageName: ${imageName}"
+            }
+
+            container('deployenv'){
+               stage('Check if image already exists'){
+                   println "Using version ${imageVersion}"
+
+                   def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET \"https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}\"", returnStdout: true).trim()
+
+                   if ( status == "200" ){
+                       println "Image ${imageName} already exists"
+                       imageExists = true
+                   }
+               }
+            }
+
+
+            if ( !imageExists ) {
+                container('docker'){
+                    if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
+                        stage('Build and push image'){
+                            sh """#!/bin/sh
+                            ./tasks/docker-build.sh ${imageName}"""
+                       }
+                    } else {
+                        stage('Build developement image') {
+                            sh """#!/bin/sh
+                            ./tasks/docker-dev-build.sh ${imageName}"""
+                        }
+                   }
+                }
+            }
+
+            container('deployenv') {
+                stage('Create k8s descriptor') {
+                    sh """#!/bin/sh
+                    ./tasks/k8s-descriptor.sh ${params.environment} ${imageName} ${params.datacenter}"""
+                }
+            }
+
+            container('kubectl') {
+                stage('Apply k8s descriptor') {
+                    println "Push to k8s"
+
+                    sh """#!/bin/sh
+                    kubectl --namespace=${namespace} \
+                            --context=${context} \
+                             --kubeconfig=/config/.kube/config \
+                             apply -f k8s/k8s-descriptor-${normalizedEnv}.yaml"""
+                }
+            }
+        }
+    }
+}

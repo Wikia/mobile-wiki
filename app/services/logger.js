@@ -74,17 +74,15 @@ export default Service.extend({
 
 	setupBunyan() {
 		const bunyan = FastBoot.require('bunyan');
-		const BunyanSyslog = FastBoot.require('bunyan-syslog');
+		const process = FastBoot.require('process');
+
 		const instance = bunyan.createLogger({
 			appname: 'mobile-wiki',
 			name: 'mobile-wiki',
+			loggerName: 'services/logger.js',
 			streams: [{
 				level: 'warn',
-				type: 'raw',
-				stream: BunyanSyslog.createBunyanStream({
-					facility: BunyanSyslog.local0,
-					type: 'sys'
-				})
+				stream: process.stdout
 			}]
 		});
 
