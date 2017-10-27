@@ -19,7 +19,6 @@
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint .",
     "setup": "npm install && bower update",
-    "setup-prod": "npm install --production && bower update --production",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
   },
