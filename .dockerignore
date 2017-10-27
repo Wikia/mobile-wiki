@@ -1,0 +1,35 @@
+# local dependencies
+**/node_modules/
+**/bower_components/
+GIT_IGNORE/
+
+# compiled output
+dist
+tmp
+vendor
+
+# dockerfiles
+Dockerfile
+Dockerfile.dev
+Dockerfile.prod
+
+# misc
+.github/
+.tx/
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+.idea/
+.DS_Store
+.settings
+*.sublime-*
+*.sw[a-z]
+*.orig
+*.log
+*.iml
+Jenkinsfile-build-and-deploy
+README.md
+TROUBLESHOOTING.md
