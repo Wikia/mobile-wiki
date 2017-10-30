@@ -2,14 +2,14 @@ import BasePlayer from './video-players/base';
 import OoyalaPlayer from './video-players/ooyala';
 import OoyalaV4Player from './video-players/ooyala-v4';
 import YouTubePlayer from './video-players/youtube';
-import JWPlayer from './video-players/jw-player';
+import JWPlayer from './video-players/jwplayer';
 
 const playerClassMap = {
 	base: BasePlayer,
 	ooyala: OoyalaPlayer,
 	'ooyala-v4': OoyalaV4Player,
 	youtube: YouTubePlayer,
-	'jw-player': JWPlayer
+	jwplayer: JWPlayer
 };
 
 /**
@@ -58,8 +58,6 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		return 'jw-player';
-
 		return this.isOoyalaV3() ? 'ooyala' : this.data.provider;
 	}
 

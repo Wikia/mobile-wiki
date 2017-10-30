@@ -13,10 +13,16 @@
 {{/if}}
 
 {{#if hasFeaturedVideo}}
-	{{article-featured-video
-			model=model.featuredVideo
-			toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
-	}}
+    {{#if isJWPlayer}}
+        {{article-featured-video-jwplayer
+            model=model.featuredVideo
+        }}
+    {{else}}
+        {{article-featured-video-ooyala
+            model=model.featuredVideo
+            toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
+        }}
+    {{/if}}
 {{/if}}
 
 <section class="article-body">
