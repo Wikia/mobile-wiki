@@ -1,38 +1,24 @@
-import Ads from '../modules/ads';
 import Ember from 'ember';
-import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
-import {isSafariMinVer, system} from '../utils/browser';
 import extend from '../utils/extend';
-import {track, trackActions} from '../utils/track';
 
 const {
-		$,
 		Component,
 		inject,
-		computed,
 		on,
 		observer,
-		setProperties
-	} = Ember,
-	autoplayCookieName = 'featuredVideoAutoplay';
+	} = Ember;
 
-export default Component.extend(InViewportMixin, {
+export default Component.extend({
 	classNames: ['article-featured-video-jwplayer'],
 
 	ads: inject.service(),
-	fastboot: inject.service(),
-
-	autoplay: computed(function () {
-		return !this.get('fastboot.isFastBoot') && $.cookie(autoplayCookieName) !== '0';
-	}),
 
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 	// hook, however it is fired twice with new attributes.
 	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
-		// this.destroyVideoPlayer();
-		// this.updateCustomDimensions();
+		this.destroyVideoPlayer();
 		this.initVideoPlayer();
 	})),
 
@@ -42,20 +28,21 @@ export default Component.extend(InViewportMixin, {
 		this.set('videoContainerId', `jwplayer-article-video${new Date().getTime()}`);
 	},
 
-	onCreate() {
-		console.log('JW Player loaded!!!!111')
+	/**
+	 * @param {Object} player
+	 * @returns {void}
+	 */
+	onCreate(player) {
+		this.player = player;
 	},
 
 	/**
-	 * Used to instantiate a video player
-	 *
 	 * @returns {void}
 	 */
 	initVideoPlayer() {
 		const model = this.get('model.embed'),
-			autoplay = this.get('autoplay'),
 			jsParams = {
-				autoplay,
+				autoplay: true,
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
@@ -68,5 +55,14 @@ export default Component.extend(InViewportMixin, {
 			videoLoader = new VideoLoader(data);
 
 		videoLoader.loadPlayerClass();
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	destroyVideoPlayer() {
+		if (this.player) {
+			this.player.remove();
+		}
 	}
 });
