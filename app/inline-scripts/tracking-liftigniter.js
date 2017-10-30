@@ -9,4 +9,4 @@
 	e.async = 1;
 	e.src = p + '?ts=' + (+new Date() / 3600000 | 0);
 	r.parentNode.insertBefore(e, r);
-})(window, document, 'script', '//cdn.fandommetrics.com/l9ehhrb6mtv75bp2.js', 'liftigniter');
+})(window, document, 'script', '//cdn.petametrics.com/l9ehhrb6mtv75bp2.js', 'liftigniter');
