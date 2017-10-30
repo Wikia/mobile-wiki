@@ -1,5 +1,4 @@
 const BunyanPrettyStream = require('bunyan-prettystream');
-const BunyanSyslog = require('bunyan-syslog');
 const expressBunyanLogger = require('express-bunyan-logger');
 const config = require('../config/fastboot-server');
 
@@ -19,7 +18,7 @@ const config = require('../config/fastboot-server');
 function createDefaultLogStream(minLogLevel = 'info') {
 	return {
 		level: minLogLevel,
-		stream: process.stderr
+		stream: process.stdout
 	};
 }
 
@@ -40,26 +39,8 @@ function createConsoleStream(minLogLevel) {
 	};
 }
 
-/**
- * Create the SysLog stream settings
- *
- * @param {string} minLogLevel
- * @returns {BunyanLoggerStream}
- */
-function createSysLogStream(minLogLevel) {
-	return {
-		level: minLogLevel,
-		type: 'raw',
-		stream: BunyanSyslog.createBunyanStream({
-			facility: BunyanSyslog.local0,
-			type: 'sys'
-		})
-	};
-}
-
 const availableTargets = {
 	default: createDefaultLogStream,
-	syslog: createSysLogStream,
 	console: createConsoleStream
 };
 
@@ -111,6 +92,7 @@ function createLogger(loggerConfig) {
 	return expressBunyanLogger({
 		appname: 'mobile-wiki',
 		name: 'mobile-wiki',
+		loggerName: 'fastboot-server/logger.js',
 		excludes: [
 			'incoming',
 			'ip',

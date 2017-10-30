@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mobile-wiki-preview
+  name: mobile-wiki-preview
+  namespace: prod
+spec:
+  ports:
+  - protocol: TCP
+    name: main
+    port: 80
+    targetPort: 8001
+  selector:
+    app: mobile-wiki-preview
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mobile-wiki-preview
+  namespace: prod
+spec:
+  replicas: 1 #TODO: adjust - tests on preview may kill single instance
+  selector:
+    matchLabels:
+      app: mobile-wiki-preview
+  template:
+    metadata:
+      labels:
+        app: mobile-wiki-preview
+    spec:
+      initContainers:
+      - args:
+        - secret/chef/google/analytics
+        env:
+        - name: VAULT_ADDR # This isn't required in prod but must be set for dev
+          value: active.vault.service.${dc}.consul:8200
+        name: secrets
+        image: artifactory.wikia-inc.com/ops/init-vault:0.0.14
+        imagePullPolicy: Always
+        volumeMounts: # vault auth cert is read from here
+        - name: host-chef
+          mountPath: /etc/chef/
+          readOnly: true
+        - name: secrets-dir # secrets are stored here
+          mountPath: /var/lib/secrets
+      containers:
+      - name: mobile-wiki-preview
+        image: ${image}
+        livenessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8001
+          initialDelaySeconds: 20
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8001
+          periodSeconds: 5
+        env:
+          - name: WIKIA_ENVIRONMENT
+            value: prod
+          - name: WIKIA_DATACENTER
+            value: sjc
+          - name: MEDIAWIKI_DOMAIN
+            value: prod.icache.service.sjc.consul
+        resources:
+          requests:
+            cpu: 0.4
+            memory: 1.5Gi
+          limits:
+            memory: 5Gi
+        ports:
+        - containerPort: 8001
+        command: ["sh", "-c", "source /var/lib/secrets/export.env && npm run fastboot-server"]
+        volumeMounts:
+        - name: secrets-dir
+          readOnly: true
+          mountPath: /var/lib/secrets
+      volumes:
+        - name: secrets-dir # secrets will be stored here
+          emptyDir:
+            medium: Memory
+        - name: host-chef # the init container uses client certs to auth against vault
+          hostPath:
+            path: /etc/chef
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mobile-wiki-preview
+  namespace: prod
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: mobile-wiki-preview.prod.sjc.k8s.wikia.net
+    http:
+      paths:
+      - backend:
+          serviceName: mobile-wiki-preview
+          servicePort: main

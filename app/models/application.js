@@ -15,6 +15,7 @@ const {
 export default EmberObject.extend({
 	currentUser: inject.service(),
 	fastboot: inject.service(),
+	logger: inject.service(),
 
 	fetch(title, uselangParam) {
 		const currentUser = this.get('currentUser'),
