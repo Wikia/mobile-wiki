@@ -3,11 +3,11 @@ import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 
 const {
-		Component,
-		inject,
-		on,
-		observer,
-	} = Ember;
+	Component,
+	inject,
+	on,
+	observer,
+} = Ember;
 
 export default Component.extend({
 	classNames: ['article-featured-video-jwplayer'],
