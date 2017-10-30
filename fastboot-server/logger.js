@@ -61,7 +61,7 @@ const serializers = {
 		});
 
 		if (typeof req['x-original-host'] !== 'undefined') {
-			serializedReq['host'] = req['x-original-host'];
+			serializedReq.host = req['x-original-host'];
 		}
 
 		return serializedReq;
