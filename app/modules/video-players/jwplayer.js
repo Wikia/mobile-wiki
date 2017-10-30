@@ -1,5 +1,6 @@
 import Ads from '../ads';
 import BasePlayer from './base';
+import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
 
 export const jwPlayerAssets = {
@@ -13,13 +14,13 @@ export default class JWPlayer extends BasePlayer {
 
 		super(provider, params);
 
-		params.onCreate = (player) => {
+		params.onCreate = (bidParams, player) => {
+			const adsInstance = Ads.getInstance();
+
 			originalOnCreate(player);
 
-			Ads.getInstance().registerOoyalaTracker(player, this.adTrackingParams);
-			// player.mb.subscribe(window.OO.EVENTS.ADS_PLAYED, 'video-tracker', () => {
-			// 	this.params.adIndex += 1;
-			// });
+			adsInstance.jwPlayerAds(player, bidParams);
+			adsInstance.jwPlayerMoat(player);
 		};
 
 		this.adTrackingParams = params.adTrackingParams || {};
@@ -39,14 +40,11 @@ export default class JWPlayer extends BasePlayer {
 	createPlayer() {
 		Ads.getInstance()
 			.waitForReady()
-			.then(() => {
-				// Ads.getInstance().trackOoyalaEvent(this.adTrackingParams, 'init');
-				// return (new JWPlayerVideoAds(this.params, this.adTrackingParams)).getOoyalaConfig();
-			})
+			.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
 			.then(this.initializePlayer.bind(this));
 	}
 
-	initializePlayer() {
+	initializePlayer(bidParams) {
 		window.wikiaJWPlayer(this.params.containerId, {
 				tracking: {
 					track: function (data) {
@@ -72,7 +70,7 @@ export default class JWPlayer extends BasePlayer {
 					playlist: this.params.playlist
 				}
 			},
-			this.params.onCreate.bind(this)
+			this.params.onCreate.bind(this, bidParams)
 		);
 	}
 
@@ -89,9 +87,7 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	loadScripts(jsFile, callback) {
-		$script(jsFile, () => {
-			callback();
-		});
+		$script(jsFile, callback);
 	}
 
 	/**

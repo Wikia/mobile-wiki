@@ -10,8 +10,6 @@ const {
 } = Ember;
 
 export default Component.extend({
-	classNames: ['article-featured-video-jwplayer'],
-
 	ads: inject.service(),
 
 	// when navigating from one article to another with video, we need to destroy player and
