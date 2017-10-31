@@ -13,16 +13,16 @@
 {{/if}}
 
 {{#if hasFeaturedVideo}}
-    {{#if isJWPlayer}}
-        {{article-featured-video-jwplayer
-            model=model.featuredVideo
-        }}
-    {{else}}
-        {{article-featured-video-ooyala
-            model=model.featuredVideo
-            toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
-        }}
-    {{/if}}
+	{{#if isJWPlayer}}
+		{{article-featured-video-jwplayer
+			model=model.featuredVideo
+		}}
+	{{else}}
+		{{article-featured-video-ooyala
+			model=model.featuredVideo
+			toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
+		}}
+	{{/if}}
 {{/if}}
 
 <section class="article-body">

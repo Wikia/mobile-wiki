@@ -129,9 +129,9 @@ class Ads {
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
-					'wikia.krux',
 					'wikia.articleVideo.featuredVideo.ads',
-					'wikia.articleVideo.featuredVideo.moatTracking'
+					'wikia.articleVideo.featuredVideo.moatTracking',
+					'wikia.krux'
 				], (
 					adContextModule,
 					adEngineRunnerModule,
@@ -146,9 +146,9 @@ class Ads {
 					sourcePointDetectionModule,
 					ooyalaAdSetProvider,
 					vastUrlBuilder,
-					krux,
 					jwPlayerAds,
-					jwPlayerMoat
+					jwPlayerMoat,
+					krux
 				) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
@@ -160,7 +160,6 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
