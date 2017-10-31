@@ -88,7 +88,9 @@ export default class OoyalaV4Player extends BasePlayer {
 	}
 
 	loadScripts(jsFile, callback) {
-		window.M.loadScript(jsFile, true, callback, 'anonymous');
+		$script(jsFile, () => {
+			callback();
+		});
 	}
 
 	/**

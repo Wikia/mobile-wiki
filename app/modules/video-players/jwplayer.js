@@ -89,7 +89,7 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	loadScripts(jsFile, callback) {
-		$script(jsFile, callback);
+		window.M.loadScript(jsFile, true, callback, 'anonymous');
 	}
 
 	/**
