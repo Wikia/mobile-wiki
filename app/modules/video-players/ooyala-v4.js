@@ -95,6 +95,6 @@ export default class OoyalaV4Player extends BasePlayer {
 	 * @returns {void}
 	 */
 	playerDidLoad() {
-		this.createPlayer();x
+		this.createPlayer();
 	}
 }
