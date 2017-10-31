@@ -89,6 +89,8 @@ export default Component.extend(
 
 		hasFeaturedVideo: computed.bool('model.featuredVideo'),
 
+		isJWPlayer: computed.equal('model.featuredVideo.provider', 'jwplayer'),
+
 		showComments: computed.gte('model.comments', 0),
 
 		actions: {

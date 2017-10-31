@@ -129,6 +129,8 @@ class Ads {
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
+					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
+					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
 				], (
 					adContextModule,
@@ -144,6 +146,8 @@ class Ads {
 					sourcePointDetectionModule,
 					ooyalaAdSetProvider,
 					vastUrlBuilder,
+					jwPlayerAds,
+					jwPlayerMoat,
 					krux
 				) => {
 					this.adConfigMobile = adConfigMobile;
@@ -156,12 +160,13 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.krux = krux;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.ooyalaAdSetProvider = ooyalaAdSetProvider;
 					this.a9 = a9;
+					this.jwPlayerAds = jwPlayerAds;
+					this.jwPlayerMoat = jwPlayerMoat;
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
