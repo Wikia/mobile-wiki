@@ -108,11 +108,15 @@ module.exports = function (defaults) {
 		}),
 		ooyalaAssets = new Funnel('node_modules/html5-skin/build', {
 			destDir: 'assets/ooyala'
+		}),
+		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
+			destDir: 'assets/jwplayer'
 		});
 
 	return app.toTree([
 		designSystemI18n,
 		ooyalaAssets,
-		designSystemAssets
+		designSystemAssets,
+		jwPlayerAssets
 	]);
 };
