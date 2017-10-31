@@ -17,7 +17,7 @@
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember serve --no-build",
     "fastboot-server": "node fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
-    "linter": "eslint .",
+    "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
     "setup": "npm install && bower update",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
