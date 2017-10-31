@@ -129,8 +129,8 @@ class Ads {
 					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
-					'wikia.articleVideo.featuredVideo.ads',
-					'wikia.articleVideo.featuredVideo.moatTracking',
+					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
+					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
 				], (
 					adContextModule,

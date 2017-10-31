@@ -19,8 +19,10 @@ export default class JWPlayer extends BasePlayer {
 
 			originalOnCreate(player);
 
-			adsInstance.jwPlayerAds(player, bidParams);
-			adsInstance.jwPlayerMoat(player);
+			if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
+				adsInstance.jwPlayerAds(player, bidParams);
+				adsInstance.jwPlayerMoat(player);
+			}
 		};
 
 		this.adTrackingParams = params.adTrackingParams || {};
