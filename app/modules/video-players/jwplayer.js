@@ -45,7 +45,9 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
-		window.wikiaJWPlayer(this.params.containerId, {
+		window.wikiaJWPlayer(
+			this.params.containerId,
+			{
 				tracking: {
 					track: function (data) {
 						data.trackingMethod = 'both';

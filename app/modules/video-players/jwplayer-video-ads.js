@@ -7,12 +7,12 @@ export default class JWPlayerVideoAds {
 
 	getConfig() {
 		if (this.params.noAds) {
-			return this.params;
+			return Promise.resolve(this.params);
 		} else if (this.isA9VideoEnabled()) {
 			return this.parseBidderParameters()
 				.catch(() => {});
 		} else {
-			return {};
+			return Promise.resolve({});
 		}
 	}
 
@@ -20,7 +20,7 @@ export default class JWPlayerVideoAds {
 		const a9 = Ads.getInstance().a9;
 
 		if (!a9) {
-			return {};
+			return Promise.resolve({});
 		}
 
 		return a9.waitForResponse()
