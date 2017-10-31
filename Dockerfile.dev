@@ -11,10 +11,7 @@ WORKDIR /app
 # - "." means "current working directory", and since we're not selecting any specific files
 # it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
 COPY . .
-
-# move files to cache installing of dependencies
-# COPY package.json .
-# COPY bower.json .
+COPY /etc/crowdin/crowdin.conf /etc/crowdin/crowdin.conf
 
 # bower workaround
 RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
