@@ -84,7 +84,11 @@ export function buildUrl(urlParams = {}) {
 	const host = urlParams.host;
 
 	if (!urlParams.protocol) {
-		urlParams.protocol = 'http';
+		if (window && window.location && window.location.protocol) {
+			urlParams.protocol = window.location.protocol.replace(':', '');
+		} else {
+			urlParams.protocol = 'http';
+		}
 	}
 
 	if (!urlParams.articlePath) {
