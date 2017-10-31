@@ -1,10 +1,20 @@
 FROM node:6.11.3-alpine
 
+ARG crowdin_branch=master
+
 WORKDIR /app
 
+# copy app
+# Note:
+# - first argument is the path inside the context of build (folder where Dockerfile is placed)
+# - second argument is the docker daemon (newly created container)
+# - "." means "current working directory", and since we're not selecting any specific files
+# it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
+COPY . .
+
 # move files to cache installing of dependencies
-COPY package.json .
-COPY bower.json .
+# COPY package.json .
+# COPY bower.json .
 
 # bower workaround
 RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
@@ -15,7 +25,8 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
     chmod 755 /app && \
 
 # install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git && \
+    apk add --no-cache --virtual .gyp python make g++ git py-pip && \
+    pip install pyparsing && pip install -i https://pypi.wikia-services.com/simple/ wikia-crowdin && \
 
 # install npm globals
     npm install -g bower && \
@@ -24,21 +35,16 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 # install all dependencies
     npm run setup && \
 
+    npm run crowdin crowdin/main.conf $crowdin_branch && \
+    npm run crowdin crowdin/search.conf $crowdin_branch && \
+
 # cleanup
-    apk del .gyp python make g++ git && \
+    apk del .gyp python py-pip make g++ git && \
     bower cache clean && \
     npm uninstall -g bower && \
     npm cache clean
 
 USER docker_user
-
-# copy app
-# Note:
-# - first argument is the path inside the context of build (folder where Dockerfile is placed)
-# - second argument is the docker daemon (newly created container)
-# - "." means "current working directory", and since we're not selecting any specific files
-# it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
-COPY . .
 
 # build app
 RUN npm run build

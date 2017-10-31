@@ -16,6 +16,7 @@ node('linux'){
             def imageVersion = params.version
             def imageExists = false
             def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
+            def crowdinBranch = params.crowdinBranch == null ? 'master' : params.crowdinBranch
 
            stage('Clone sources'){
                 checkout scm
@@ -47,7 +48,7 @@ node('linux'){
                     } else {
                         stage('Build developement image') {
                             sh """#!/bin/sh
-                            ./tasks/docker-dev-build.sh ${imageName}"""
+                            ./tasks/docker-dev-build.sh ${imageName} ${crowdinBranch}"""
                         }
                    }
                 }
