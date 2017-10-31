@@ -1,4 +1,4 @@
-node('linux'){
+node('deploytools'){
     podTemplate(cloud: 'k8s-sjc-prod', label: 'mobile-wiki-build-and-deploy', containers: [
         containerTemplate(name: 'jnlp', image: 'artifactory.wikia-inc.com/jenkins/jnlp-slave-ssh:2.62-alpine', args: '${computer.jnlpmac} ${computer.name}'),
         containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
