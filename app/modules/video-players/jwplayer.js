@@ -49,7 +49,7 @@ export default class JWPlayer extends BasePlayer {
 			this.params.containerId,
 			{
 				tracking: {
-					track: function (data) {
+					track(data) {
 						data.trackingMethod = 'both';
 
 						track(data);

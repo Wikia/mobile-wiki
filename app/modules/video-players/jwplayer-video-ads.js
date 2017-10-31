@@ -10,6 +10,7 @@ export default class JWPlayerVideoAds {
 			return Promise.resolve(this.params);
 		} else if (this.isA9VideoEnabled()) {
 			return this.parseBidderParameters()
+				/* eslint no-console: 0 */
 				.catch((error) => console.error('JWPlayer: Error while receiving bidder parameters', error));
 		} else {
 			return Promise.resolve({});
