@@ -47,7 +47,7 @@ node('linux'){
                     } else {
                         stage('Build developement image') {
                             sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
+                            ./tasks/docker-dev-build.sh ${imageName}"""
                         }
                    }
                 }

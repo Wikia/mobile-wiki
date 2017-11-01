@@ -47,12 +47,13 @@ if ! [[ "$response" =~ ^[Yy]([Ee][Ss])?$ ]]; then
     exit 0
 fi
 
-./tasks/docker-build.sh ${IMAGE_NAME}
+./tasks/docker-dev-build.sh ${IMAGE_NAME}
 
 echo "Generating k8s descriptor"
 
 ./tasks/k8s-descriptor.sh ${SANDBOX_NAME} ${IMAGE_NAME}
 
 scp "k8s/k8s-descriptor-${SANDBOX_NAME}.yaml" k8s-controler-s1:~/
+rm "k8s/k8s-descriptor-${SANDBOX_NAME}.yaml"
 
 #TODO: kubectl apply
