@@ -3,7 +3,7 @@ node('linux'){
         containerTemplate(name: 'jnlp', image: 'artifactory.wikia-inc.com/jenkins/jnlp-slave-ssh:2.62-alpine', args: '${computer.jnlpmac} ${computer.name}'),
         containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
         containerTemplate(name: 'kubectl', label: 'mobile-wiki-kube', image: 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12', command: 'cat', ttyEnabled: true),
-        containerTemplate(name: 'docker', image: 'docker:17.09.0-git', ttyEnabled: true)
+        containerTemplate(name: 'docker', image: 'artifactory.wikia-inc.com/platform/crowdin:0.0.1', ttyEnabled: true)
     ],
     volumes: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
@@ -46,6 +46,11 @@ node('linux'){
                        }
                     } else {
                         stage('Build developement image') {
+                            if ( params.crowdinBranch != null ) {
+                                sh """#!/bin/sh
+                                ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdinBranch}"""
+                            }
+
                             sh """#!/bin/sh
                             ./tasks/docker-build.sh ${imageName}"""
                         }
