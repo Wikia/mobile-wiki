@@ -58,4 +58,4 @@ DESCRIPTOR_FILE="k8s-descriptor-${SANDBOX_NAME}.yaml"
 scp "k8s/${DESCRIPTOR_FILE}" k8s-controller-s1:~/
 rm "k8s/${DESCRIPTOR_FILE}"
 
-# ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
+ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
