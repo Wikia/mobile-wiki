@@ -37,6 +37,22 @@ fi
 IMAGE_VERSION="${BRANCH}-${COMMIT_HASH}"
 IMAGE_NAME="artifactory.wikia-inc.com/mobile-wiki:${IMAGE_VERSION}"
 
+# TODO: fetch image name from k8s and display in confirmation message
+
 echo "Building and pushing image ${IMAGE_VERSION}"
 
+read -r -p "Are you sure? [y/N] " response
+
+if ! [[ "$response" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+    exit 0
+fi
+
 ./tasks/docker-build.sh ${IMAGE_NAME}
+
+echo "Generating k8s descriptor"
+
+./tasks/k8s-descriptor.sh ${SANDBOX_NAME} ${IMAGE_NAME}
+
+scp "k8s/k8s-descriptor-${SANDBOX_NAME}.yaml" k8s-controler-s1:~/
+
+#TODO: kubectl apply
