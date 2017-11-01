@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # usage ./tasks/deploy-sandbox.sh <sandbox-name>
+# Note that it takes code from current branch, all changes needs to be committed
 
 SANDBOX_NAME=$1
 
@@ -36,10 +37,10 @@ fi
 
 IMAGE_VERSION="${BRANCH}-${COMMIT_HASH}"
 IMAGE_NAME="artifactory.wikia-inc.com/mobile-wiki:${IMAGE_VERSION}"
+PREVIOUS_IMAGE=`ssh k8s-controller-s1 "kubectl get deployment mobile-wiki-${SANDBOX_NAME} -n prod -o=jsonpath='{$.spec.template.spec.containers[:1].image}'"`
 
-# TODO: fetch image name from k8s and display in confirmation message
-
-echo "Building and pushing image ${IMAGE_VERSION}"
+echo "Going to deploy ${IMAGE_NAME}"
+echo "Previous image: ${PREVIOUS_IMAGE}"
 
 read -r -p "Are you sure? [y/N] " response
 
@@ -53,7 +54,8 @@ echo "Generating k8s descriptor"
 
 ./tasks/k8s-descriptor.sh ${SANDBOX_NAME} ${IMAGE_NAME}
 
-scp "k8s/k8s-descriptor-${SANDBOX_NAME}.yaml" k8s-controler-s1:~/
-rm "k8s/k8s-descriptor-${SANDBOX_NAME}.yaml"
+DESCRIPTOR_FILE="k8s-descriptor-${SANDBOX_NAME}.yaml"
+scp "k8s/${DESCRIPTOR_FILE}" k8s-controller-s1:~/
+rm "k8s/${DESCRIPTOR_FILE}"
 
-#TODO: kubectl apply
+# ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
