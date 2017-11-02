@@ -7,11 +7,9 @@ export default Mixin.create({
 	connection: computed('fastboot.isFastBoot', function () {
 		if (!this.get('fastboot.isFastBoot')) {
 			return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-		} else {
-			return 'unresolved';
 		}
 	}),
 	effectiveConnectionType: computed('connection', function () {
-		return this.get('connection.effectiveType') || this.get('connection.type');
+		return this.get('connection.effectiveType');
 	})
 });
