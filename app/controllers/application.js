@@ -66,11 +66,11 @@ export default Controller.extend(
 
 			this._super();
 
-			if (this.get('connectionType') !== 'unresolved') {
+			if (this.get('effectiveConnectionType') !== 'unresolved') {
 				track({
-					action: trackActions.open,
+					action: trackActions.view,
 					category: 'connection-type',
-					label: this.get('connectionType')
+					label: this.get('effectiveConnectionType')
 				});
 			}
 		},

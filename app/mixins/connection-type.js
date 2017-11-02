@@ -1,19 +1,17 @@
 import Ember from 'ember';
 
-const {Mixin, inject} = Ember;
+const {Mixin, inject, computed} = Ember;
 
 export default Mixin.create({
 	fastboot: inject.service(),
-	connectionType: 'unresolved',
-
-	init() {
+	connection: computed('fastboot.isFastBoot', function() {
 		if (!this.get('fastboot.isFastBoot')) {
-			const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-			const effectiveConnectionType = connection.effectiveType || connection.type;
-
-			if (connection && effectiveConnectionType) {
-				this.set('connectionType', effectiveConnectionType);
-			}
+			return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+		} else {
+			return 'unresolved';
 		}
-	}
+	}),
+	effectiveConnectionType: computed('connection', function() {
+		return this.get('connection.effectiveType') || this.get('connection.type');
+	})
 });
