@@ -46,10 +46,8 @@ node('linux'){
                        }
                     } else {
                         stage('Build developement image') {
-                            if ( params.crowdinBranch != null ) {
-                                sh """#!/bin/sh
-                                ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdinBranch}"""
-                            }
+                            sh """#!/bin/sh
+                            ./tasks/download-translations.sh /etc/crowdin/crowdin.conf master"""
 
                             sh """#!/bin/sh
                             ./tasks/docker-build.sh ${imageName}"""
