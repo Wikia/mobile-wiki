@@ -65,6 +65,12 @@ export default Controller.extend(
 			});
 
 			this._super();
+
+			track({
+				action: trackActions.open,
+				category: 'connection-type',
+				label: `mobile-${this.get('connectionType')}`
+			});
 		},
 
 		actions: {
