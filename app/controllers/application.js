@@ -1,13 +1,16 @@
 import Ember from 'ember';
-import AlertNotificationsMixin from '../mixins/alert-notifications';
 import MediaModel from '../models/media';
+import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
+import ConnectionTypeMixin from '../mixins/connection-type';
 import {track, trackActions} from '../utils/track';
 
 const {Controller, inject} = Ember;
 
 export default Controller.extend(
-	AlertNotificationsMixin, NoScrollMixin,
+	AlertNotificationsMixin,
+	NoScrollMixin,
+	ConnectionTypeMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
