@@ -72,6 +72,9 @@ export default class JWPlayer extends BasePlayer {
 					description: this.params.playlist[0].description,
 					title: this.params.playlist[0].title,
 					playlist: this.params.playlist
+				},
+				logger: {
+					clientName: 'mobile-wiki'
 				}
 			},
 			this.params.onCreate.bind(this, bidParams)
