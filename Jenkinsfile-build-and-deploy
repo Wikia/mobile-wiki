@@ -46,7 +46,7 @@ node('linux'){
                        }
                     } else {
                         stage('Build developement image') {
-                            if (${params.crowdin_branch} != null) {
+                            if (params.crowdin_branch != null) {
                                 sh """#!/bin/sh
                                 ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
                             }
