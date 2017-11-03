@@ -1,5 +1,6 @@
 import Helper from '@ember/component/helper';
-import {escapeExpression, htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/string';
+import Handlebars from "handlebars";
 
 /**
  * Helper to generate HTML from passed string and additional options.
@@ -24,7 +25,7 @@ import {escapeExpression, htmlSafe} from '@ember/string';
  */
 
 export default Helper.helper((params, options) => {
-	const content = escapeExpression(params[0] || '');
+	const content = Handlebars.Utils.escapeExpression((params[0] || '');
 	let tagName = 'span',
 		className = '',
 		otherOptions = {

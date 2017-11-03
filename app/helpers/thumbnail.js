@@ -1,7 +1,8 @@
-import {escapeExpression, htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/string';
 import {getWithDefault, get} from '@ember/object';
 import {helper} from '@ember/component/helper';
 import Thumbnailer from '../modules/thumbnailer';
+import Handlebars from "handlebars";
 
 /**
  * Helper to generate img element with link to thumbnail as the src attribute
@@ -42,8 +43,8 @@ export default helper((params, options) => {
 
 	width = getWithDefault(options, 'width', defaultWidth);
 	height = getWithDefault(options, 'height', defaultHeight);
-	alt = escapeExpression(get(options, 'alt'));
-	className = escapeExpression(get(options, 'className')) || className;
+	alt = Handlebars.Utils.escapeExpression(get(options, 'alt'));
+	className = Handlebars.Utils.escapeExpression(get(options, 'className')) || className;
 
 	if (imgUrl) {
 		src = thumbnailer.getThumbURL(imgUrl, {

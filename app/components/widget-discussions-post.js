@@ -1,9 +1,10 @@
 import {or} from '@ember/object/computed';
 import Component from '@ember/component';
-import {escapeExpression, htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/string';
 import {computed} from '@ember/object';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
+import Handlebars from "handlebars";
 
 export default Component.extend(
 	{
@@ -23,7 +24,7 @@ export default Component.extend(
 		}),
 
 		parsedContent: computed('post.rawContent', function () {
-			let escapedContent = escapeExpression(
+			let escapedContent = Handlebars.Utils.escapeExpression(
 				this.get('post.rawContent')
 			).trim();
 
