@@ -31,7 +31,7 @@ export default Helper.extend({
 
 		if (!momentLocaleService.get('isLoaded')) {
 			momentLocaleService.loadLocale();
-			return new htmlSafe('<span class="date-placeholder"></span>');
+			return htmlSafe('<span class="date-placeholder"></span>');
 		} else {
 			if (now.diff(date, 'days') > 5) {
 				output = date.format('L');

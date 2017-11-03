@@ -30,7 +30,7 @@ export default Component.extend(
 			escapedContent = truncate(escapedContent, 148);
 			escapedContent = nl2br(escapedContent);
 
-			return new htmlSafe(escapedContent);
+			return htmlSafe(escapedContent);
 		})
 	}
 );

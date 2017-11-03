@@ -53,7 +53,7 @@ export default helper((params, options) => {
 		});
 	}
 
-	return new htmlSafe(
+	return htmlSafe(
 		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });

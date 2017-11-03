@@ -209,7 +209,7 @@ export default Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new htmlSafe(currentMedia.caption));
+				this.sendAction('setFooter', htmlSafe(currentMedia.caption));
 			} else {
 				this.sendAction('setFooter', null);
 			}

@@ -54,12 +54,12 @@ export default Component.extend(
 
 			if (this.get('fastboot.isFastBoot')) {
 				// We display brackets placeholder as the background using .is-fastboot class
-				return new htmlSafe(`height: ${thumbSize.medium}px`);
+				return htmlSafe(`height: ${thumbSize.medium}px`);
 			}
 
 			const heroImageHelper = new HeroImage(heroImage, windowWidth);
 
-			return new htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
+			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
 		}),
 
 		actions: {

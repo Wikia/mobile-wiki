@@ -45,5 +45,5 @@ export default Helper.helper((params, options) => {
 		(key) => (options[key] ? ` ${key}="${options[key]}"` : '')
 	).join('');
 
-	return new htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
+	return htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });
