@@ -23,7 +23,7 @@ node('linux'){
                 println "imageName: ${imageName}"
 
                 if (params.crowdin_branch != null) {
-                    def timestamp = ""  # TODO: generate timestamp
+                    def timestamp = System.currentTimeMillis()
                     imageVersion = "${imageVersion}-${timestamp}"
                 }
 
