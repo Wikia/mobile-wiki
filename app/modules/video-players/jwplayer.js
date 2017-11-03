@@ -60,9 +60,10 @@ export default class JWPlayer extends BasePlayer {
 					// todo verify after Stanley's response
 					comscore: false
 				},
-				autoplay: {
-					enabled: this.params.autoplay,
+				settings: {
+					showAutoplayToggle: true,
 				},
+				autoplay: this.params.autoplay,
 				related: {
 					time: 3,
 					playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',
