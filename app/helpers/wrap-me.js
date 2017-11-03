@@ -1,6 +1,6 @@
 import Helper from '@ember/component/helper';
 import {htmlSafe} from '@ember/string';
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 /**
  * Helper to generate HTML from passed string and additional options.

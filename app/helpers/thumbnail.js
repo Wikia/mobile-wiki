@@ -2,7 +2,7 @@ import {htmlSafe} from '@ember/string';
 import {getWithDefault, get} from '@ember/object';
 import {helper} from '@ember/component/helper';
 import Thumbnailer from '../modules/thumbnailer';
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 /**
  * Helper to generate img element with link to thumbnail as the src attribute

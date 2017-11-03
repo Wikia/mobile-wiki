@@ -4,7 +4,7 @@ import {htmlSafe} from '@ember/string';
 import {computed} from '@ember/object';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 export default Component.extend(
 	{
