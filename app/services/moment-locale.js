@@ -1,16 +1,11 @@
-import Ember from 'ember';
+import Service, {inject as service} from '@ember/service';
+import $ from 'jquery';
+import {run} from '@ember/runloop';
 import moment from 'moment';
 
-const {
-	Service,
-	$,
-	inject,
-	run
-} = Ember;
-
 export default Service.extend({
-	logger: inject.service(),
-	wikiVariables: inject.service(),
+	logger: service(),
+	wikiVariables: service(),
 	defaultLocation: 'en',
 	enRelativeTime: {
 		m: '1m',

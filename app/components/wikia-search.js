@@ -1,19 +1,15 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {oneWay, not, notEmpty} from '@ember/object/computed';
+import Component from '@ember/component';
+import EmberObject, {observer, computed} from '@ember/object';
+import {run} from '@ember/runloop';
+import $ from 'jquery';
 import NoScrollMixin from '../mixins/no-scroll';
 import wrapMeHelper from '../helpers/wrap-me';
 import fetch from '../utils/mediawiki-fetch';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
-
-const {
-	Component,
-	computed,
-	observer,
-	inject,
-	run,
-	$
-} = Ember;
 
 /**
  * Type for search suggestion
@@ -56,14 +52,14 @@ export default Component.extend(
 		suggestions: [],
 		suggestionsEnabled: true,
 
-		i18n: inject.service(),
-		logger: inject.service(),
-		wikiVariables: inject.service(),
+		i18n: service(),
+		logger: service(),
+		wikiVariables: service(),
 		inputSearchSelector: '.side-search__input',
-		emptyPhraseInput: computed.not('phrase'),
-		hasSuggestions: computed.notEmpty('suggestions'),
-		noScroll: computed.oneWay('hasSuggestions'),
-		phrase: Ember.computed.oneWay('query'),
+		emptyPhraseInput: not('phrase'),
+		hasSuggestions: notEmpty('suggestions'),
+		noScroll: oneWay('hasSuggestions'),
+		phrase: oneWay('query'),
 
 		searchPlaceholderLabel: computed(function () {
 			return this.get('i18n').t('search:main.search-input-label');
@@ -231,7 +227,7 @@ export default Component.extend(
 					if (response.ok) {
 						return response.json().then((data) => {
 							const suggestions = data.items.map((suggestion) => {
-								return Ember.Object.create(suggestion);
+								return EmberObject.create(suggestion);
 							});
 
 							/**

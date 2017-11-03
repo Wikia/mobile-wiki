@@ -1,11 +1,10 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import {bool} from '@ember/object/computed';
 import config from '../../config/environment';
-
-const {Component, computed} = Ember;
 
 export default Component.extend({
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
-	noExternals: computed.bool('queryParams.noexternals'),
+	noExternals: bool('queryParams.noexternals'),
 	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
 });

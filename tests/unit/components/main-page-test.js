@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import {Promise as EmberPromise} from 'rsvp';
+import Component from '@ember/component';
 import {test, moduleForComponent} from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
 
 const trackModule = require('mobile-wiki/utils/track'),
-	adSlotComponentStub = Ember.Component.extend({});
+	adSlotComponentStub = Component.extend({});
 let setTrackContextStub,
 	trackPageViewStub;
 
@@ -41,7 +42,7 @@ test('injects ads', function (asset) {
 			adsContext,
 			curatedContent: {},
 			currentUser: {
-				userModel: new Ember.RSVP.Promise(() => {})
+				userModel: new EmberPromise(() => {})
 			},
 			injectMainPageAds: injectMainPageAdsSpy,
 			setupAdsContext: setupAdsContextSpy

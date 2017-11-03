@@ -1,15 +1,11 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {bool} from '@ember/object/computed';
+import Component from '@ember/component';
+import {observer} from '@ember/object';
+import {run} from '@ember/runloop';
+import {getOwner} from '@ember/application';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
-
-const {
-	Component,
-	computed,
-	inject,
-	observer,
-	run,
-	getOwner
-} = Ember;
 
 /**
  * Component that displays article comments
@@ -20,7 +16,7 @@ const {
  */
 export default Component.extend(
 	{
-		wikiVariables: inject.service(),
+		wikiVariables: service(),
 		page: null,
 		articleId: null,
 		commentsCount: null,
@@ -30,7 +26,7 @@ export default Component.extend(
 
 		nextButtonShown: false,
 		prevButtonShown: false,
-		showComments: computed.bool('page'),
+		showComments: bool('page'),
 
 		/**
 		 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`

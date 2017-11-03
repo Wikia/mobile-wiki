@@ -1,19 +1,16 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import {dasherize} from '@ember/string';
+import {computed} from '@ember/object';
+import {run} from '@ember/runloop';
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const {
-		Component,
-		String: {dasherize},
-		computed,
-		run
-	} = Ember,
-	adSlotComponentStub = Component.extend({
-		classNameBindings: ['nameLowerCase'],
-		nameLowerCase: computed('name', function () {
-			return dasherize(this.get('name').toLowerCase());
-		})
-	});
+const adSlotComponentStub = Component.extend({
+	classNameBindings: ['nameLowerCase'],
+	nameLowerCase: computed('name', function () {
+		return dasherize(this.get('name').toLowerCase());
+	})
+});
 
 moduleForComponent('article-content', 'Unit | Component | article content', {
 	unit: true,

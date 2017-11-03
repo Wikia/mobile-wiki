@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
+import {resolve} from 'rsvp';
 import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-
-const {
-	inject,
-	Object: EmberObject,
-	RSVP
-} = Ember;
 
 /**
  * @param {string} lang
@@ -36,20 +32,20 @@ function getFromCache(browserLang) {
 }
 
 export default EmberObject.extend(LanguagesMixin, {
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 
 	message: null,
 	nativeDomain: null,
 
 	/**
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {RSVP.Promise}
 	 */
 	load() {
 		const browserLang = this.getBrowserLanguage(),
 			model = getFromCache(browserLang);
 
 		if (model) {
-			return RSVP.resolve(model);
+			return resolve(model);
 		}
 
 		return fetch(

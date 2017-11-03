@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import EmberRouter from '@ember/routing/router';
 import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 
-const Router = Ember.Router.extend(RouterScroll, {
+const Router = EmberRouter.extend(RouterScroll, {
 	location: config.locationType,
 	rootURL: config.rootURL
 });

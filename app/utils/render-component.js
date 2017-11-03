@@ -1,10 +1,7 @@
-import Ember from 'ember';
-
-/**
- * This is mostly copied from ember-islands but with some modifications
- */
-
-const {$, assert, getOwner} = Ember;
+import {scheduleOnce} from '@ember/runloop';
+import $ from 'jquery';
+import {assert} from '@ember/debug';
+import {getOwner} from '@ember/application';
 
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
@@ -45,7 +42,7 @@ export function getRenderComponentFor(parent) {
 		let componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
-		Ember.run.scheduleOnce('afterRender', this, () => {
+		scheduleOnce('afterRender', this, () => {
 			placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
 			$(placeholderElement).remove();
 		});

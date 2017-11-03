@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import LinkComponent from '@ember/routing/link-component';
 import {track, trackActions} from '../utils/track';
-
-const {LinkComponent} = Ember;
 
 /**
  * @returns {void}

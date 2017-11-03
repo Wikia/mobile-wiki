@@ -1,4 +1,9 @@
-import Ember from 'ember';
+import {later, cancel} from '@ember/runloop';
+import {on} from '@ember/object/evented';
+import {isEmpty} from '@ember/utils';
+import {computed, observer} from '@ember/object';
+import {readOnly} from '@ember/object/computed';
+import Component from '@ember/component';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import {track, trackActions} from '../utils/track';
 
@@ -31,7 +36,7 @@ import {track, trackActions} from '../utils/track';
  * @property {string} article_local_url
  */
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ThirdsClickMixin,
 	{
 		classNames: ['featured-content', 'mw-content'],
@@ -40,8 +45,8 @@ export default Ember.Component.extend(
 		cycleTimeoutHandle: null,
 		// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 		cycleInterval: 6250,
-		showChevrons: Ember.computed.readOnly('hasMultipleItems'),
-		screenEdgeWidthRatio: Ember.computed('hasMultipleItems', function () {
+		showChevrons: readOnly('hasMultipleItems'),
+		screenEdgeWidthRatio: computed('hasMultipleItems', function () {
 			if (this.get('hasMultipleItems')) {
 				return (1 / 6);
 			}
@@ -74,28 +79,28 @@ export default Ember.Component.extend(
 			}
 		},
 
-		hasMultipleItems: Ember.computed('model', function () {
+		hasMultipleItems: computed('model', function () {
 			return this.get('model.length') > 1;
 		}),
 
-		currentItem: Ember.computed('model', 'currentItemIndex', function () {
+		currentItem: computed('model', 'currentItemIndex', function () {
 			const model = this.get('model');
 
-			if (!Ember.isEmpty(model)) {
+			if (!isEmpty(model)) {
 				return this.get('model')[this.get('currentItemIndex')];
 			}
 
 			return null;
 		}),
 
-		lastIndex: Ember.computed('model', function () {
+		lastIndex: computed('model', function () {
 			return this.get('model.length') - 1;
 		}),
 
 		/**
 		 * Keep pagination up to date
 		 */
-		currentItemIndexObserver: Ember.on('didInsertElement', Ember.observer('currentItemIndex', function () {
+		currentItemIndexObserver: on('didInsertElement', observer('currentItemIndex', function () {
 			const $pagination = this.$('.featured-content-pagination');
 
 			$pagination.find('.current').removeClass('current');
@@ -185,7 +190,7 @@ export default Ember.Component.extend(
 		 */
 		cycleThroughItems() {
 			if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
-				this.set('cycleTimeoutHandle', Ember.run.later(this, () => {
+				this.set('cycleTimeoutHandle', later(this, () => {
 					this.set('isTimeoutHandleSet', false);
 					this.nextItem();
 					this.cycleThroughItems();
@@ -199,7 +204,7 @@ export default Ember.Component.extend(
 		 */
 		stopCyclingThroughItems() {
 			if (this.get('hasMultipleItems')) {
-				Ember.run.cancel(this.get('cycleTimeoutHandle'));
+				cancel(this.get('cycleTimeoutHandle'));
 				this.set('isTimeoutHandleSet', false);
 			}
 		},

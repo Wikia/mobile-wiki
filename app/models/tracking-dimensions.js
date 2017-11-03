@@ -1,16 +1,12 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
 import {getFetchErrorMessage, TrackingDimensionsFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-const {
-	inject,
-	Object: EmberObject
-} = Ember;
-
 export default EmberObject.extend({
-	fastboot: inject.service(),
-	logger: inject.service(),
+	fastboot: service(),
+	logger: service(),
 
 	fetch(isAnon, host, title) {
 		const url = buildUrl({

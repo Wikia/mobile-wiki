@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import EmberObject, {get} from '@ember/object';
+import {getOwner} from '@ember/application';
 import CuratedContentModel from '../../models/curated-content';
-
-const {Object: EmberObject, get, getOwner} = Ember;
 
 /**
  * Set curatedContent data if main page has curated content set

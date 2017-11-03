@@ -1,21 +1,17 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
+import {all, hashSettled, resolve} from 'rsvp';
+import {getOwner} from '@ember/application';
 import getHostFromRequest from '../utils/host';
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariablesModel from './wiki-variables';
 import TrackingDimensionsModel from './tracking-dimensions';
 
-const {
-	Object: EmberObject,
-	RSVP,
-	getOwner,
-	inject
-} = Ember;
-
 export default EmberObject.extend({
-	currentUser: inject.service(),
-	fastboot: inject.service(),
-	logger: inject.service(),
+	currentUser: service(),
+	fastboot: service(),
+	logger: service(),
 
 	fetch(title, uselangParam) {
 		const currentUser = this.get('currentUser'),
@@ -27,13 +23,13 @@ export default EmberObject.extend({
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 
-			return RSVP.all([
+			return all([
 				WikiVariablesModel.create(ownerInjection).fetch(host),
 				UserModel.create(ownerInjection).getUserId(accessToken)
 			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
 
-				return RSVP.hashSettled({
+				return hashSettled({
 					currentUser: currentUser.initializeUserData(userId, host),
 					navigation: NavigationModel.create(ownerInjection).fetchAll(
 						host,
@@ -69,7 +65,7 @@ export default EmberObject.extend({
 		} else {
 			currentUser.initializeUserData(shoebox.retrieve('userId'));
 
-			return RSVP.resolve(shoebox.retrieve('applicationData'));
+			return resolve(shoebox.retrieve('applicationData'));
 		}
 	}
 });

@@ -1,9 +1,5 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import {buildUrl} from '../../utils/url';
-
-const {
-	Object: EmberObject
-} = Ember;
 
 const DiscussionContributor = EmberObject.extend({
 	avatarUrl: null,

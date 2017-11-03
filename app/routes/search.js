@@ -1,13 +1,9 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Route from '@ember/routing/route';
+import {getOwner} from '@ember/application';
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import SearchModel from '../models/search';
 import {track, trackActions, trackPageView} from '../utils/track';
-
-const {
-	Route,
-	getOwner,
-	inject
-} = Ember;
 
 export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
@@ -19,7 +15,7 @@ export default Route.extend(
 			}
 		},
 
-		initialPageView: inject.service(),
+		initialPageView: service(),
 
 		model(params) {
 			return SearchModel

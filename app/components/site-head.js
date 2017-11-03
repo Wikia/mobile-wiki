@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {alias, readOnly} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
-
-const {computed, Component, inject} = Ember;
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
@@ -15,8 +16,8 @@ export default Component.extend(
 		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
-		ads: inject.service(),
-		notifications: inject.service(),
+		ads: service(),
+		notifications: service(),
 
 		headroomOptions: {
 			classes: {
@@ -28,13 +29,13 @@ export default Component.extend(
 			}
 		},
 
-		wikiaHomepage: computed.alias('globalNavigation.logo.module.main.href') || 'http://fandom.wikia.com',
+		wikiaHomepage: alias('globalNavigation.logo.module.main.href') || 'http://fandom.wikia.com',
 
 		displayFandomBar: computed('isSearchPage', function () {
 			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
 		}),
 
-		svgName: computed.alias('globalNavigation.logo.module.main.image-data.name'),
+		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
@@ -45,9 +46,9 @@ export default Component.extend(
 				this.get('closeIcon') : 'search';
 		}),
 
-		offset: computed.readOnly('ads.siteHeadOffset'),
+		offset: readOnly('ads.siteHeadOffset'),
 
-		unreadNotificationsCount: computed.alias('notifications.model.unreadCount'),
+		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 
 		isDrawerInClosableState() {
 			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;

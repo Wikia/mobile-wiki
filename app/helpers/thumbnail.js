@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import {escapeExpression, htmlSafe} from '@ember/string';
+import {getWithDefault, get} from '@ember/object';
+import {helper} from '@ember/component/helper';
 import Thumbnailer from '../modules/thumbnailer';
 
 /**
@@ -8,9 +10,9 @@ import Thumbnailer from '../modules/thumbnailer';
  *
  * @param {Array} params
  * @param {Object} options
- * @returns {Ember.String.htmlSafe}
+ * @returns {htmlSafe}
  */
-export default Ember.Helper.helper((params, options) => {
+export default helper((params, options) => {
 	const thumbnailer = Thumbnailer,
 		defaultMode = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth = 100,
@@ -38,10 +40,10 @@ export default Ember.Helper.helper((params, options) => {
 		mode = defaultMode;
 	}
 
-	width = Ember.getWithDefault(options, 'width', defaultWidth);
-	height = Ember.getWithDefault(options, 'height', defaultHeight);
-	alt = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'alt'));
-	className = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'className')) || className;
+	width = getWithDefault(options, 'width', defaultWidth);
+	height = getWithDefault(options, 'height', defaultHeight);
+	alt = escapeExpression(get(options, 'alt'));
+	className = escapeExpression(get(options, 'className')) || className;
 
 	if (imgUrl) {
 		src = thumbnailer.getThumbURL(imgUrl, {
@@ -51,7 +53,7 @@ export default Ember.Helper.helper((params, options) => {
 		});
 	}
 
-	return new Ember.String.htmlSafe(
+	return new htmlSafe(
 		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });

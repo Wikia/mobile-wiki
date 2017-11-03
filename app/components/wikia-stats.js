@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
 import {track, trackActions} from '../utils/track';
-
-const {Component, computed, inject} = Ember;
 
 export default Component.extend({
 	classNames: ['wikia-stats'],
-	i18n: inject.service(),
+	i18n: service(),
 
 	items: computed('model', function () {
 		return [

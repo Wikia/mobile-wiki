@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
 
 /**
  * This mixin keeps track of viewport size which is updated on every window resize.
@@ -6,8 +8,8 @@ import Ember from 'ember';
  * It is stored as object because objects and arrays are shared among all objects which include mixin.
  * @type {Ember.Mixin}
  */
-export default Ember.Mixin.create({
-	fastboot: Ember.inject.service(),
+export default Mixin.create({
+	fastboot: service(),
 
 	// This object is shared among all objects which include this mixin
 	viewportDimensions: {
@@ -24,7 +26,7 @@ export default Ember.Mixin.create({
 
 		if (!this.get('initiated') && !this.get('fastboot.isFastBoot')) {
 			this.onResize();
-			Ember.$(window).on('resize', () => {
+			$(window).on('resize', () => {
 				this.onResize();
 			});
 			this.set('initiated', true);

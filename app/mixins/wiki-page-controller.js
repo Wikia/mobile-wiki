@@ -1,10 +1,10 @@
-import Ember from 'ember';
-
-const {Mixin, computed, inject} = Ember;
+import {inject as service} from '@ember/service';
+import {reads} from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 
-	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
-	siteName: computed.reads('wikiVariables.siteName'),
+	mainPageTitle: reads('wikiVariables.mainPageTitle'),
+	siteName: reads('wikiVariables.siteName'),
 });

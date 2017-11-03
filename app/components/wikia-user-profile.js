@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {oneWay} from '@ember/object/computed';
+import Component from '@ember/component';
 import NoScrollMixin from '../mixins/no-scroll';
 import NotificationsScrollMenuMixin from '../mixins/notifications-scroll-menu';
 import MarkAllNotificationsMixin from '../mixins/mark-all-notifications';
 import {trackOpenMenu} from '../utils/notifications-tracker';
-
-const {Component, computed, inject} = Ember;
 
 export default Component.extend(
 	NoScrollMixin,
@@ -12,13 +12,13 @@ export default Component.extend(
 	MarkAllNotificationsMixin,
 	{
 		classNames: ['wikia-user-profile'],
-		currentUser: inject.service(),
-		notifications: inject.service(),
-		wikiVariables: inject.service(),
+		currentUser: service(),
+		notifications: service(),
+		wikiVariables: service(),
 
-		notificationsList: computed.oneWay('notifications.model.data'),
-		isLoadingNewResults: computed.oneWay('notifications.isLoading'),
-		username: computed.oneWay('currentUser.name'),
+		notificationsList: oneWay('notifications.model.data'),
+		isLoadingNewResults: oneWay('notifications.isLoading'),
+		username: oneWay('currentUser.name'),
 
 		init() {
 			this._super(...arguments);

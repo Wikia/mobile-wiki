@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
 /**
  * Wrapper for inline elements inside block elements and other components
@@ -15,7 +15,7 @@ import Ember from 'ember';
  *
  * <div><div class="track-click">Text</div></div>
  */
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['track-click'],
 	click() {
 		this.sendAction();

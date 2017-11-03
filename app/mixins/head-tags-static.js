@@ -1,11 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
 import config from '../config/environment';
 
-const {Mixin, inject} = Ember;
-
 export default Mixin.create({
-	headData: inject.service(),
-	fastboot: inject.service(),
+	headData: service(),
+	fastboot: service(),
 
 	/**
 	 * @returns {void}

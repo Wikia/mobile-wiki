@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import {getGroup} from '../modules/abtest';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	didReceiveAttrs() {
 		this._super(...arguments);
 		const experiment = this.get('experiment'),

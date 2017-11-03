@@ -23,9 +23,9 @@
  * "textOnly" attribute skips rendering both back arrow and confirmation button
  */
 
-import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	tagName: 'header',
 	classNames: ['sub-head'],
 	classNameBindings: ['fixed:sub-head--fixed']
