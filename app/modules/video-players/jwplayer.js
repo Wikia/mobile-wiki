@@ -2,6 +2,7 @@ import Ads from '../ads';
 import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
+import config from '../../config/environment';
 
 export const jwPlayerAssets = {
 	styles: '/mobile-wiki/assets/jwplayer/index.css',
@@ -57,8 +58,7 @@ export default class JWPlayer extends BasePlayer {
 						track(data);
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
-					// todo verify after Stanley's response
-					comscore: false
+					comscore: config.environment === 'production'
 				},
 				autoplay: {
 					enabled: this.params.autoplay,
