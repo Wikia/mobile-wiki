@@ -15,12 +15,19 @@ node('linux'){
             def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
             def imageVersion = params.version
             def imageExists = false
-            def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
+            def imageName = ""
 
            stage('Clone sources'){
                 checkout scm
 
                 println "imageName: ${imageName}"
+
+                if (params.crowdin_branch != null) {
+                    def timestamp = ""  # TODO: generate timestamp
+                    imageVersion = "${imageVersion}-${timestamp}"
+                }
+
+                imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
             }
 
             container('deployenv'){
