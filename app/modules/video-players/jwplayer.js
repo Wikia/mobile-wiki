@@ -64,7 +64,6 @@ export default class JWPlayer extends BasePlayer {
 					showAutoplayToggle: true,
 				},
 				autoplay: this.params.autoplay,
-				mute: this.params.autoplay,
 				related: {
 					time: 3,
 					playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',
