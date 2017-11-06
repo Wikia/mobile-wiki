@@ -1,0 +1,8 @@
+{
+  "outputFile": "/usr/wikia/mobile-wiki/tmp/source_map_concat-output_path-gjb0bTOz.tmp/assets/mobile-wiki-fastboot.js",
+  "sizes": {
+    "mobile-wiki/initializers/ajax.js": 1507,
+    "mobile-wiki/initializers/error-handler.js": 633,
+    "mobile-wiki/instance-initializers/head-fastboot.js": 488
+  }
+}

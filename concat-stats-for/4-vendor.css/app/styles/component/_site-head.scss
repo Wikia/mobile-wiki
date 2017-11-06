@@ -1,0 +1,161 @@
+$z-header: $z-6;
+$nav-container-padding: 6px;
+$icon-size: 25px;
+$site-head-box-shadow-color: rgba(0, 0, 0, .15);
+$icon-button-size: 48px;
+$site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
+
+.site-body {
+	margin-top: $icon-site-head-width;
+}
+
+.site-head-headroom-un-pinned .site-head {
+	box-shadow: $site-head-default-box-shadow;
+
+	&.no-shadow {
+		box-shadow: 0 0 0 0 $site-head-box-shadow-color;
+	}
+}
+
+body:not(.no-scroll) {
+	.with-fandom-app-smart-banner {
+		.site-head {
+			top: 85px;
+		}
+	}
+}
+
+.site-head-container {
+	min-height: $site-head-height;
+}
+
+.site-head-headroom-not-top {
+	.fandom-app-smart-banner {
+		position: fixed;
+		top: 0;
+	}
+}
+
+.with-fandom-app-smart-banner {
+	.site-head-container {
+		min-height: 140px;
+	}
+}
+
+.site-head-wrapper {
+	height: $site-head-height;
+}
+
+.site-head {
+	align-items: center;
+	background-color: $white;
+	border-bottom: 1px solid $vapor;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
+	direction: ltr;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: $site-head-height;
+	justify-content: space-between;
+	left: 0;
+	margin: 0 auto;
+	padding: 0 $nav-container-padding;
+	position: fixed;
+	right: 0;
+	text-align: center;
+	top: 0;
+	// A way to make .site-head 'position: fixed' immediately on iPhone (when changing from 'position: static')
+	transform: translate3d(0, 0, 0);
+	transition: box-shadow .5s;
+	width: 100%;
+	z-index: $z-site-head;
+
+	.site-head-icon-search {
+		width: $icon-button-size;
+	}
+
+	.site-logo {
+		// These prevent the Wikia logo element from taking up more vertical
+		// space than it should, potentially affecting placement of elements
+		// beneath it.
+		height: 1.6rem;
+		//this is needed to center logo before app starts and we have just 'stub' of site head
+		margin: 0 auto;
+	}
+
+	.fandom-logo {
+		height: 28px;
+		width: 130px;
+	}
+
+	.wikia-org-logo {
+		height: 26px;
+		width: 132px;
+	}
+
+	.site-head-icon {
+		position: relative;
+
+		.icon-button-icon {
+			fill: $color-blue-dark;
+		}
+
+		&-search,
+		&-nav {
+			flex: 0 0 48px;
+		}
+
+		&:hover {
+			.icon-button-icon {
+				fill: $color-blue-dark;
+			}
+		}
+	}
+
+	&__nav-icon-wrapper {
+	  position: relative;
+	}
+
+	.wds-notifications__unread-mark {
+	  left: initial;
+	  right: 0;
+	}
+
+	.avatar {
+		float: right;
+		position: relative;
+		right: 6px;
+		top: 6px;
+	}
+}
+
+.side-nav-toggle {
+	display: inline-block;
+	float: left;
+	height: $icon-site-head-height;
+	padding-top: rem-calc(15);
+	position: relative;
+	width: $icon-site-head-width;
+
+	svg {
+		display: block;
+		margin: auto;
+	}
+}
+
+//Styles for BFAA
+.bfaa-template {
+	.site-head-headroom-top {
+		.site-head {
+			position: static;
+		}
+	}
+}
+
+.no-scroll {
+	.bfaa-template {
+		.site-head {
+			position: fixed;
+		}
+	}
+}

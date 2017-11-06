@@ -1,0 +1,19 @@
+body {
+	font-family: $wds-font-family;
+}
+
+.wds-button {
+	height: auto;
+	margin-bottom: 0;
+
+	&:disabled {
+		background-color: $wds-color-link;
+		border-color: $wds-color-link;
+		color: $wds-color-white;
+	}
+
+	&:focus,
+	&:hover {
+		color: $wds-color-white;
+	}
+}

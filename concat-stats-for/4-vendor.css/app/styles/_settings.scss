@@ -1,0 +1,43 @@
+// Use Wikia style guide settings
+@import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
+
+$appreciate-activated-color: $color-blue-light;
+$auth-content-background-color: $color-white;
+$body-background: $color-blue-dark;
+$button-color: $color-blue-light;
+// TODO CE-3548 move these button colors to styleguide
+// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/_settings.scss
+$button-enabled-color: $button-bg-color;
+$button-tapped-color: mix($button-enabled-color, $color-black, 80%);
+$button-disabled-color: mix($button-enabled-color, $color-white, 70%);
+$disabled-button-text-color: #b4d6f2;
+$footer-text-color: $color-white;
+$header-text-color: $color-white;
+$input-color-active: $color-blue-gray;
+$input-border-error-color: $alert-color;
+$label-color-active: $color-blue-gray-dark;
+$label-color-inactive: $color-blue-gray;
+$label-color-valid: $color-blue-gray-dark;
+$link-color: $color-blue-light;
+$upvote-icon-stroke-color: $color-white;
+$upvote-icon-back-color: $color-white;
+$upvote-icon-activated-color: #e3bd00;
+
+$fancy-check-box-border: #999;
+$fancy-check-box-disabled-border: #ccc;
+$fancy-check-box-background: #fff;
+$highlight-overlay-background-color: #f6f6f6;
+
+$large-desktop-range: $xxlarge-up;
+
+$large-desktop-post-details-font-size: rem-calc(28);
+
+$discussion-timestamp-color: #999;
+$collapsible-menu-border-color: #d0d0d0;
+$collapsible-menu-title-color: $body-font-color;
+$collapsible-menu-list-link-color: $color-black;
+
+$dark-highlight-overlay-background-color: #262626;
+
+$wikia-ui-components-sub-head-height: 48px;
+$wikia-ui-components-sub-head-height-large: 66px;

@@ -1,0 +1,125 @@
+{
+  "outputFile": "/mirage.lint-test.js",
+  "files": [
+    {
+      "relativePath": "mirage/config.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 100
+      }
+    },
+    {
+      "relativePath": "mirage/fixtures/curated-content-editor-item.lint-test.js",
+      "sizes": {
+        "raw": 196,
+        "uglified": 167,
+        "compressed": 121
+      }
+    },
+    {
+      "relativePath": "mirage/fixtures/curated-content-section.lint-test.js",
+      "sizes": {
+        "raw": 188,
+        "uglified": 159,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "mirage/fixtures/curated-content.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mirage/fixtures/file-page.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "mirage/fixtures/search.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "mirage/models/curated-content-editor-item.lint-test.js",
+      "sizes": {
+        "raw": 192,
+        "uglified": 163,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "mirage/models/curated-content-section.lint-test.js",
+      "sizes": {
+        "raw": 184,
+        "uglified": 155,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "mirage/models/curated-content.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "mirage/models/search.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "mirage/serializers/application.lint-test.js",
+      "sizes": {
+        "raw": 170,
+        "uglified": 141,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "mirage/serializers/curated-content-editor-item.lint-test.js",
+      "sizes": {
+        "raw": 202,
+        "uglified": 173,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "mirage/serializers/curated-content-section.lint-test.js",
+      "sizes": {
+        "raw": 194,
+        "uglified": 165,
+        "compressed": 122
+      }
+    },
+    {
+      "relativePath": "mirage/serializers/curated-content.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "mirage/serializers/search.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    }
+  ]
+}

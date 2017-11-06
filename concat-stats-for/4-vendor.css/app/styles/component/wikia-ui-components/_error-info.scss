@@ -1,0 +1,18 @@
+$error-info-side-padding: 18px;
+$error-info-text-bubble-padding: 24px 50px;
+$error-info-text-bubble-border-radius: 8px;
+$error-info-text-bubble-margin-vertical: 60px;
+
+.error-info {
+	font-size: $type-smallest;
+	line-height: $line-height-smallest;
+	padding: 0 $error-info-side-padding;
+}
+
+.error-info__text-bubble {
+	background-color: $white;
+	border-radius: $error-info-text-bubble-border-radius;
+	margin: $error-info-text-bubble-margin-vertical auto;
+	padding: $error-info-text-bubble-padding;
+	text-align: center;
+}

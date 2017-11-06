@@ -1,0 +1,869 @@
+{
+  "outputFile": "/templates.template.lint-test.js",
+  "files": [
+    {
+      "relativePath": "mobile-wiki/templates/application.template.lint-test.js",
+      "sizes": {
+        "raw": 185,
+        "uglified": 156,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/article-edit.template.lint-test.js",
+      "sizes": {
+        "raw": 187,
+        "uglified": 158,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/article-preview.template.lint-test.js",
+      "sizes": {
+        "raw": 193,
+        "uglified": 164,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/article.template.lint-test.js",
+      "sizes": {
+        "raw": 177,
+        "uglified": 148,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/blog.template.lint-test.js",
+      "sizes": {
+        "raw": 171,
+        "uglified": 142,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/category.template.lint-test.js",
+      "sizes": {
+        "raw": 179,
+        "uglified": 150,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/ab-test.template.lint-test.js",
+      "sizes": {
+        "raw": 199,
+        "uglified": 170,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/ad-slot.template.lint-test.js",
+      "sizes": {
+        "raw": 199,
+        "uglified": 170,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/ads/invisible-high-impact-2.template.lint-test.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 210,
+        "compressed": 137
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/alert-notification.template.lint-test.js",
+      "sizes": {
+        "raw": 221,
+        "uglified": 192,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/alert-notifications.template.lint-test.js",
+      "sizes": {
+        "raw": 223,
+        "uglified": 194,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/application-wrapper.template.lint-test.js",
+      "sizes": {
+        "raw": 223,
+        "uglified": 194,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-comment.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-comments.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-content.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-contribution.template.lint-test.js",
+      "sizes": {
+        "raw": 225,
+        "uglified": 196,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-edit.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-featured-video-jwplayer.template.lint-test.js",
+      "sizes": {
+        "raw": 247,
+        "uglified": 218,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-featured-video-ooyala.template.lint-test.js",
+      "sizes": {
+        "raw": 243,
+        "uglified": 214,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-media-gallery.template.lint-test.js",
+      "sizes": {
+        "raw": 227,
+        "uglified": 198,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-media-linked-gallery.template.lint-test.js",
+      "sizes": {
+        "raw": 241,
+        "uglified": 212,
+        "compressed": 137
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-media-map-thumbnail.template.lint-test.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 210,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-media-thumbnail.template.lint-test.js",
+      "sizes": {
+        "raw": 231,
+        "uglified": 202,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-table-of-contents.template.lint-test.js",
+      "sizes": {
+        "raw": 235,
+        "uglified": 206,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/article-wrapper.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/category-members-grouped.template.lint-test.js",
+      "sizes": {
+        "raw": 233,
+        "uglified": 204,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/collapsible-menu.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/curated-content-item.template.lint-test.js",
+      "sizes": {
+        "raw": 225,
+        "uglified": 196,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/curated-content-section.template.lint-test.js",
+      "sizes": {
+        "raw": 231,
+        "uglified": 202,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/curated-content.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fandom-app-smart-banner.template.lint-test.js",
+      "sizes": {
+        "raw": 231,
+        "uglified": 202,
+        "compressed": 134
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/article-video-scripts.template.lint-test.js",
+      "sizes": {
+        "raw": 255,
+        "uglified": 226,
+        "compressed": 142
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/article-video-styles.template.lint-test.js",
+      "sizes": {
+        "raw": 253,
+        "uglified": 224,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/body-bottom.template.lint-test.js",
+      "sizes": {
+        "raw": 235,
+        "uglified": 206,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/crowdin-incontext.template.lint-test.js",
+      "sizes": {
+        "raw": 247,
+        "uglified": 218,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/head-bottom.template.lint-test.js",
+      "sizes": {
+        "raw": 235,
+        "uglified": 206,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/fastboot-only/tracking-pixels.template.lint-test.js",
+      "sizes": {
+        "raw": 243,
+        "uglified": 214,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/featured-content-item.template.lint-test.js",
+      "sizes": {
+        "raw": 227,
+        "uglified": 198,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/featured-content.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer-bottom-bar.template.lint-test.js",
+      "sizes": {
+        "raw": 261,
+        "uglified": 232,
+        "compressed": 137
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer-link-branded.template.lint-test.js",
+      "sizes": {
+        "raw": 265,
+        "uglified": 236,
+        "compressed": 138
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer-link-image.template.lint-test.js",
+      "sizes": {
+        "raw": 261,
+        "uglified": 232,
+        "compressed": 137
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer-link-text.template.lint-test.js",
+      "sizes": {
+        "raw": 259,
+        "uglified": 230,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer-section.template.lint-test.js",
+      "sizes": {
+        "raw": 255,
+        "uglified": 226,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/global-footer/global-footer.template.lint-test.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 210,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-ads.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-image.template.lint-test.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 184,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-map.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-media.template.lint-test.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 184,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-video.template.lint-test.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 184,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/lightbox-wrapper.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/login-icon.template.lint-test.js",
+      "sizes": {
+        "raw": 205,
+        "uglified": 176,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/main-page.template.lint-test.js",
+      "sizes": {
+        "raw": 203,
+        "uglified": 174,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/modal-dialog.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/nav-menu-external.template.lint-test.js",
+      "sizes": {
+        "raw": 219,
+        "uglified": 190,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/nav-menu-header.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/nav-menu-item.template.lint-test.js",
+      "sizes": {
+        "raw": 211,
+        "uglified": 182,
+        "compressed": 126
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/nav-menu-root.template.lint-test.js",
+      "sizes": {
+        "raw": 211,
+        "uglified": 182,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/nav-menu.template.lint-test.js",
+      "sizes": {
+        "raw": 201,
+        "uglified": 172,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/notification-card.template.lint-test.js",
+      "sizes": {
+        "raw": 219,
+        "uglified": 190,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/portable-infobox-hero-image-small.template.lint-test.js",
+      "sizes": {
+        "raw": 251,
+        "uglified": 222,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/portable-infobox-hero-image.template.lint-test.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 210,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/portable-infobox-image-collection.template.lint-test.js",
+      "sizes": {
+        "raw": 251,
+        "uglified": 222,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/portable-infobox.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/recirculation-prefooter.template.lint-test.js",
+      "sizes": {
+        "raw": 231,
+        "uglified": 202,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/sign-out.template.lint-test.js",
+      "sizes": {
+        "raw": 201,
+        "uglified": 172,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/site-head-fandom-bar.template.lint-test.js",
+      "sizes": {
+        "raw": 225,
+        "uglified": 196,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/site-head.template.lint-test.js",
+      "sizes": {
+        "raw": 203,
+        "uglified": 174,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/smart-banner-android.template.lint-test.js",
+      "sizes": {
+        "raw": 225,
+        "uglified": 196,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/track-click.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/trending-articles-item.template.lint-test.js",
+      "sizes": {
+        "raw": 229,
+        "uglified": 200,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/trending-articles.template.lint-test.js",
+      "sizes": {
+        "raw": 219,
+        "uglified": 190,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/trending-videos-item.template.lint-test.js",
+      "sizes": {
+        "raw": 225,
+        "uglified": 196,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/trending-videos.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/user-avatar.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wds-avatar-stack.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wds-spinner.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-apester.template.lint-test.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 184,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-discussions-post.template.lint-test.js",
+      "sizes": {
+        "raw": 231,
+        "uglified": 202,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-discussions.template.lint-test.js",
+      "sizes": {
+        "raw": 221,
+        "uglified": 192,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-flite.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-playbuzz.template.lint-test.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 186,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/widget-polldaddy.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wiki-description.template.lint-test.js",
+      "sizes": {
+        "raw": 217,
+        "uglified": 188,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-drawer.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 126
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-in-your-lang.template.lint-test.js",
+      "sizes": {
+        "raw": 221,
+        "uglified": 192,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-nav.template.lint-test.js",
+      "sizes": {
+        "raw": 203,
+        "uglified": 174,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-search-error-not-found.template.lint-test.js",
+      "sizes": {
+        "raw": 241,
+        "uglified": 212,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-search.template.lint-test.js",
+      "sizes": {
+        "raw": 209,
+        "uglified": 180,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-stats.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/error-info.template.lint-test.js",
+      "sizes": {
+        "raw": 245,
+        "uglified": 216,
+        "compressed": 134
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/icon-button.template.lint-test.js",
+      "sizes": {
+        "raw": 247,
+        "uglified": 218,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/sub-header.template.lint-test.js",
+      "sizes": {
+        "raw": 245,
+        "uglified": 216,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/wds-button.template.lint-test.js",
+      "sizes": {
+        "raw": 245,
+        "uglified": 216,
+        "compressed": 133
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/wiki-page-header-curated-main-page.template.lint-test.js",
+      "sizes": {
+        "raw": 293,
+        "uglified": 264,
+        "compressed": 145
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/wiki-page-header.template.lint-test.js",
+      "sizes": {
+        "raw": 257,
+        "uglified": 228,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-ui-components/wikia-card-list.template.lint-test.js",
+      "sizes": {
+        "raw": 255,
+        "uglified": 226,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-user-profile.template.lint-test.js",
+      "sizes": {
+        "raw": 221,
+        "uglified": 192,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/components/wikia-users.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/errors/application-dev.template.lint-test.js",
+      "sizes": {
+        "raw": 207,
+        "uglified": 178,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/errors/application.template.lint-test.js",
+      "sizes": {
+        "raw": 199,
+        "uglified": 170,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/errors/not-found.template.lint-test.js",
+      "sizes": {
+        "raw": 195,
+        "uglified": 166,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/errors/other.template.lint-test.js",
+      "sizes": {
+        "raw": 187,
+        "uglified": 158,
+        "compressed": 121
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/file.template.lint-test.js",
+      "sizes": {
+        "raw": 171,
+        "uglified": 142,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/head.template.lint-test.js",
+      "sizes": {
+        "raw": 171,
+        "uglified": 142,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/index.template.lint-test.js",
+      "sizes": {
+        "raw": 173,
+        "uglified": 144,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/main-page.template.lint-test.js",
+      "sizes": {
+        "raw": 181,
+        "uglified": 152,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/templates/search.template.lint-test.js",
+      "sizes": {
+        "raw": 175,
+        "uglified": 146,
+        "compressed": 117
+      }
+    }
+  ]
+}

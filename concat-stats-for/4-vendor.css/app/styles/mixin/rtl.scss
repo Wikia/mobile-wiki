@@ -1,0 +1,6 @@
+//Wrap content in [dir='rtl']
+@mixin rtl {
+	[dir='rtl'] & {
+		@content;
+	}
+}

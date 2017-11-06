@@ -1,0 +1,20 @@
+.article-section-header {
+	padding-right: rem-calc(20);
+	position: relative;
+
+	a {
+		@include perfect-square(rem-calc(44));
+		position: absolute;
+		right: rem-calc(5);
+		text-align: right;
+		top: 0;
+	}
+
+	h2 ~ a {
+		margin-top: rem-calc(37);
+	}
+
+	.chevron {
+		transform: rotate(180deg);
+	}
+}

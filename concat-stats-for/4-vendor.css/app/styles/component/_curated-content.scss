@@ -1,0 +1,128 @@
+$curated-content-image-spacing: 8px;
+$curated-content-grid-icon-size: 22px;
+
+.curated-content {
+	margin: 0 0 2rem;
+	padding: 0 $article-horizontal-padding / 3;
+
+	.curated-content-items {
+		line-height: 0;
+		margin: 0 auto;
+		text-align: justify;
+
+		// this pseudoelement lets the last inline item to be justified to the right if it's even
+		&::after {
+			content: '';
+			display: inline-block;
+			width: 100%;
+		}
+	}
+
+	.curated-content-item {
+		display: inline-block;
+		line-height: initial;
+		margin-bottom: $curated-content-image-spacing;
+		vertical-align: top;
+		width: calc(50% - #{$curated-content-image-spacing / 2});
+	}
+
+	.item-figure {
+		position: relative;
+	}
+
+	.item-image {
+		@extend %image-placeholder;
+	}
+
+	.item-figcaption {
+		background: linear-gradient(to top, rgba(0, 0, 0 , .7), rgba(255, 255, 255, 0));
+		bottom: 0;
+		height: 50%;
+		//Reset of default figcaption styles which add 5px bottom padding
+		padding: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.item-caption-row {
+		bottom: 0;
+		display: table;
+		position: absolute;
+	}
+
+	.item-caption {
+		&.label {
+			color: $white;
+			display: table-cell;
+			font-size: $type-smallest;
+			font-weight: bold;
+			left: 0;
+			line-height: $line-height-smallest;
+			padding: 0 0 10px 10px;
+			vertical-align: bottom;
+			width: 100%;
+			// should work for WebKit/Blink based browsers http://caniuse.com/#feat=word-break
+			word-break: break-word;
+		}
+
+		&.clamp {
+			@include clamp(7);
+		}
+
+		&.grid-icon {
+			display: table-cell;
+			vertical-align: bottom;
+
+			.grid-icon-container {
+				background: rgba(0, 0, 0, .4);
+				border-radius: 100px 0 0;
+				height: 50px;
+				text-align: center;
+				width: 50px;
+			}
+
+			svg {
+				bottom: 10px;
+				fill: $white;
+				height: $curated-content-grid-icon-size;
+				opacity: 0.7;
+				position: absolute;
+				right: 10px;
+				stroke: $white;
+				width: $curated-content-grid-icon-size;
+			}
+		}
+	}
+
+	.curated-content-section__header {
+		padding: 0 18px;
+	}
+
+	.curated-content-section__back {
+		color: inherit;
+		font-style: italic;
+
+		svg {
+			margin-bottom: 3px;
+		}
+	}
+
+	//Ember by default adds div when certain action is bound to an element
+	//we don't want to have div with 100% because we can't style grid elements to be next to each other
+	//using float wouldn't work because items have to be centered.
+	[data-ember-action] {
+		display: inline-block;
+	}
+
+	.load-more-items {
+		display: block;
+		margin: 0 auto;
+		width: 80%;
+	}
+}
+
+@media #{$desktop-range} {
+	.curated-content .curated-content-item {
+		width: calc(33.33% - #{$curated-content-image-spacing / 2});
+	}
+}

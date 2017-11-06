@@ -1,0 +1,29 @@
+{
+  "outputFile": "/usr/wikia/mobile-wiki/tmp/source_map_concat-output_path-gjb0bTOz.tmp/assets/mobile-wiki-fastboot.js",
+  "files": [
+    {
+      "relativePath": "mobile-wiki/initializers/ajax.js",
+      "sizes": {
+        "raw": 1507,
+        "uglified": 988,
+        "compressed": 555
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/initializers/error-handler.js",
+      "sizes": {
+        "raw": 633,
+        "uglified": 360,
+        "compressed": 245
+      }
+    },
+    {
+      "relativePath": "mobile-wiki/instance-initializers/head-fastboot.js",
+      "sizes": {
+        "raw": 488,
+        "uglified": 307,
+        "compressed": 217
+      }
+    }
+  ]
+}
