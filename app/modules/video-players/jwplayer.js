@@ -62,6 +62,7 @@ export default class JWPlayer extends BasePlayer {
 				},
 				settings: {
 					showAutoplayToggle: true,
+					showCaptionsToggle: true
 				},
 				autoplay: this.params.autoplay,
 				mute: this.params.autoplay,
