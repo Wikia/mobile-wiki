@@ -1,0 +1,93 @@
+$nav-avatar-border: 2px;
+$nav-avatar-border-radius: 50%;
+$nav-avatar-margin: 10px;
+$nav-avatar-size: 30px;
+$nav-back-arrow-padding: 68px;
+$nav-background-color: #636b76;
+$nav-font-size: 16px;
+$nav-line-height: 30px;
+$nav-local-background-color: #4F5863;
+$nav-logout-color: #d7d9dc;
+$nav-padding-horizontal: 9px;
+$nav-padding-vertical: 18px;
+
+.wikia-nav {
+	background-color: $color-gray-dark;
+	flex-grow: 1;
+	overflow: auto;
+	// smooth scrolling on ios. This is not a stable CSS property, thus it may
+	// not be supported on all browsers or behaviour may change.
+	// see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
+	-webkit-overflow-scrolling: touch;
+}
+
+// Overrides for unread mark from On Site Notifications
+.wikia-nav {
+  .user-profile-avatar {
+	position: relative;
+  }
+
+  .wds-notifications__unread-mark {
+	left: initial;
+	right: -9px;
+	top: -3px;
+  }
+}
+
+.wikia-nav__header {
+	@include link-interactions-color(inherit);
+
+	background-color: $nav-background-color;
+	color: inherit;
+	display: block;
+	flex-grow: 0;
+	flex-shrink: 0;
+	font-size: $nav-font-size;
+	line-height: $nav-line-height;
+	margin-top: 0;
+	overflow: hidden;
+	padding: $nav-padding-horizontal $nav-padding-vertical;
+	position: relative;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	&.wikia-nav__back {
+		background-image: $side-nav-back-svg;
+		background-position: left $nav-padding-vertical center;
+		background-repeat: no-repeat;
+		padding-left: $nav-back-arrow-padding;
+	}
+
+	.wikia-nav__avatar {
+		float: left;
+		margin-right: $nav-avatar-margin;
+
+		img {
+			border: $nav-avatar-border solid $white;
+			border-radius: $nav-avatar-border-radius;
+			height: $nav-avatar-size;
+			width: $nav-avatar-size;
+			vertical-align: top;
+		}
+	}
+
+	.wikia-nav--login {
+		background: #fff;
+		border: $nav-avatar-border solid #fff;
+		border-radius: $nav-avatar-border-radius;
+		height: $nav-avatar-size;
+		width: $nav-avatar-size;
+		vertical-align: top;
+	}
+
+	.wikia-nav--logout {
+		color: $nav-logout-color;
+		float: right;
+	}
+}
+
+.wikia-nav--in-root {
+	background-color: $nav-local-background-color;
+	flex-grow: 1;
+	height: inherit;
+}

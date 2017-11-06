@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/components/wikia-stats", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "55y+b2/l", "block": "{\"symbols\":[\"item\"],\"statements\":[[6,\"div\"],[9,\"class\",\"wikia-stats-container\"],[7],[0,\"\\n\"],[4,\"each\",[[19,0,[\"items\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"value\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"wikia-stats-item\"],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"url\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"a\"],[10,\"href\",[26,[[19,1,[\"url\"]]]]],[9,\"class\",\"wikia-stats-link\"],[3,\"action\",[[19,0,[]],\"trackClick\",[19,1,[\"trackingLabel\"]]],[[\"preventDefault\"],[false]]],[7],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"wikia-stats-label\"],[7],[1,[19,1,[\"label\"]],false],[8],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"wikia-stats-value\"],[7],[1,[25,\"numeral\",[[19,1,[\"value\"]],\"0a\"],null],false],[8],[0,\"\\n\\t\\t\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"wikia-stats-label\"],[7],[1,[19,1,[\"label\"]],false],[8],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"wikia-stats-value\"],[7],[1,[25,\"numeral\",[[19,1,[\"value\"]],\"0a\"],null],false],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/components/wikia-stats.hbs" } });
+});

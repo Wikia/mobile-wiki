@@ -1,0 +1,5 @@
+// Mixin for giving an element the same height and width
+@mixin perfect-square($size) {
+	height: $size;
+	width: $size;
+}

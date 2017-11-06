@@ -1,0 +1,77 @@
+$border-color: #d0d0d0;
+
+table[class*='infobox'] {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 0.9rem;
+	margin: 2.5rem auto;
+	width: 100%;
+
+	figure {
+		margin: 0 auto;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	th {
+		text-align: left;
+	}
+
+	tr:not(:first-of-type) {
+		border-bottom: 1px solid $border-color-light;
+	}
+
+   	tr:last-of-type {
+		border-bottom: none;
+	}
+
+	//There is already enough spacing
+	ul, ol {
+		padding: 0;
+	}
+
+	th {
+		width: 100px;
+	}
+
+	th, td {
+		padding: 5px;
+		vertical-align: top;
+
+		&[colspan='2'] {
+			text-align: center;
+			padding: 0;
+
+			b {
+				display: inline-block;
+				margin: 5px;
+			}
+		}
+
+		p {
+			//Some wikis have p inside td. ie. Firefly
+			margin: 0;
+		}
+	}
+
+	.short tr:nth-of-type(n+6):not(.infobox-expand) {
+		display: none;
+	}
+
+	& tbody:not(.short) svg {
+		transform: rotate(180deg);
+	}
+}
+
+.infobox-expand {
+	td {
+		line-height: 2rem;
+	}
+
+	svg {
+		height: 12px;
+	}
+}

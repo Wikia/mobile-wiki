@@ -1,0 +1,125 @@
+.lightbox-wrapper {
+	-webkit-tap-highlight-color: transparent;
+	bottom: 0;
+	color: $modal-text-color;
+	font-size: 0.8rem;
+	left: 0;
+	overflow: hidden;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: $z-lightbox-wrapper;
+
+	&.open {
+		animation: fadeInFromNone .3s;
+	}
+
+	&:focus {
+		outline: 0;
+	}
+}
+
+// This is needed because we can't transform opacity from display: hidden in a regular way
+@keyframes fadeInFromNone {
+	0% {
+		opacity: 0;
+	}
+	1% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.lightbox-header {
+	height: 40px;
+	line-height: 15px;
+	position: absolute;
+	width: 100%;
+	z-index: $z-lightbox-header;
+}
+
+.lightbox-header-title {
+	float: left;
+	padding: 15px 13px;
+}
+
+.lightbox-close-wrapper {
+	box-sizing: content-box;
+	fill: white;
+	float: right;
+	height: 15px;
+	padding: 13px 13px 33px;
+	width: 15px;
+}
+
+.lightbox-close-button {
+	height: 15px;
+	pointer-events: none;
+	width: 15px;
+}
+
+.lightbox-content {
+	background-color: $modal-background;
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+
+	& > p {
+		margin: 0;
+	}
+
+	img {
+		max-height: 100%;
+		max-width: 100%;
+		opacity: 0;
+		transition: .01s opacity .3s;
+
+		.open & {
+			opacity: 1;
+		}
+	}
+}
+
+.lightbox-content-inner {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+}
+
+.lightbox-footer {
+	background-color: rgba(black, 0.8);
+	bottom: 0;
+	font-weight: 300;
+	height: auto;
+	left: 0;
+	line-height: 1rem;
+	max-height: 3rem;
+	padding: 15px 13px;
+	position: absolute;
+	width: 100%;
+	z-index: $z-lightbox-footer;
+
+	&.expanded {
+		max-height: none;
+	}
+
+	&::after {
+		background: linear-gradient(to bottom, transparent 10%, black 100%);
+		bottom: 0;
+		content: '';
+		display: block;
+		height: 15px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+
+	//caption is an output from parser
+	p {
+		margin: 0;
+	}
+}

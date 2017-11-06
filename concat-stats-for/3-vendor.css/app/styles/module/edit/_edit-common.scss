@@ -1,0 +1,19 @@
+h2[section] {
+	display: flex;
+}
+
+.section-header-label {
+	align-self: flex-end;
+	flex: 1;
+}
+
+.contribution-container {
+	align-self: flex-end;
+	display: flex;
+	margin-bottom: -7px;
+	margin-right: -13px;
+
+	.disabled {
+		display: none;
+	}
+}

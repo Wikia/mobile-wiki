@@ -1,0 +1,31 @@
+.page-wrapper {
+	&.with-fandom-app-smart-banner {
+		//smart banner height + site head height
+		margin-top: 140px;
+	}
+
+	.mobile-top-leaderboard ~ & {
+		margin-top: 0;
+	}
+
+	.article-body, .wiki-page-body {
+		overflow-x: hidden;
+		width: 100%;
+	}
+
+	.article-content {
+		padding: 0 $article-horizontal-padding;
+	}
+}
+
+.site-head.theme-bar ~ .page-wrapper {
+	margin-top: 60px;
+}
+
+.bfaa-template {
+	.with-fandom-app-smart-banner {
+		.page-wrapper {
+			margin-top: 0;
+		}
+	}
+}

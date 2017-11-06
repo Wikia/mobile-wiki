@@ -1,0 +1,12 @@
+.video-provider-ooyala {
+	// Ooyala player (3rd party script) sets z-index to 10000 and it breaks our layout, needs to be overridden
+	.innerWrapper {
+		z-index: $z-video-provider-ooyala-override !important;
+	}
+}
+
+.animated-media {
+	height: auto;
+	position: fixed;
+	transition: all .3s;
+}

@@ -1,0 +1,28 @@
+.show-error-container {
+	padding: 0 20px;
+	text-align: center;
+
+	h1 {
+		font-size: 36px;
+		font-weight: bold;
+		margin: 70px 0 25px;
+	}
+
+	&.is-dev {
+		h1 {
+			margin-top: 40px;
+		}
+
+		pre {
+			text-align: left;
+		}
+	}
+
+	h2 {
+		margin-top: 20px;
+	}
+
+	button {
+		margin-top: 25px;
+	}
+}

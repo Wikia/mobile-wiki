@@ -1,0 +1,283 @@
+define('mobile-wiki/controllers/application', ['exports', 'mobile-wiki/models/media', 'mobile-wiki/mixins/alert-notifications', 'mobile-wiki/mixins/no-scroll', 'mobile-wiki/mixins/connection-type', 'mobile-wiki/utils/track'], function (exports, _media, _alertNotifications, _noScroll, _connectionType, _track) {
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var service = Ember.inject.service;
+	var $ = Ember.$;
+	var isEmpty = Ember.isEmpty;
+	var alias = Ember.computed.alias;
+	var equal = Ember.computed.equal;
+	var Controller = Ember.Controller;
+	var controller = Ember.inject.controller;
+	exports.default = Controller.extend(_alertNotifications.default, _noScroll.default, _connectionType.default, {
+		// This has to be here because we need to access media from ArticleController model to open
+		// lightbox TODO: Should be refactored when decoupling article from application
+		wikiPage: controller(),
+		ads: service(),
+		logger: service(),
+		wikiVariables: service(),
+		queryParams: ['file', 'map', {
+			noAds: 'noads'
+		},
+		// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
+		{
+			commentsPage: 'comments_page'
+		}],
+		file: null,
+		map: null,
+		noAds: alias('ads.noAdsQueryParam'),
+		commentsPage: null,
+
+		applicationWrapperClassNames: null,
+		smartBannerVisible: false,
+		drawerVisible: false,
+		drawerContent: null,
+		userMenuVisible: false,
+		fullPage: false,
+		lightboxType: null,
+		lightboxModel: null,
+		lightboxVisible: false,
+		lightboxCloseButtonDelay: 0,
+
+		isSearchPage: equal('currentRouteName', 'search'),
+
+		/**
+   * @returns {void}
+   */
+		init: function init() {
+			this.setProperties({
+				applicationWrapperClassNames: [],
+				domain: this.get('wikiVariables.dbName') || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+				language: this.get('wikiVariables.language')
+			});
+
+			// This event is for tracking mobile sessions between Mercury and WikiaMobile
+			// NOTE: this event won't have additional dimensions set up from API, ie. #19 (articleType)
+			(0, _track.track)({
+				action: _track.trackActions.impression,
+				category: 'app',
+				label: 'load'
+			});
+
+			this._super();
+
+			if (this.get('effectiveConnectionType')) {
+				(0, _track.track)({
+					action: _track.trackActions.view,
+					category: 'connection-type',
+					label: this.get('effectiveConnectionType')
+				});
+			}
+		},
+
+
+		actions: {
+			/**
+    * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
+    *
+    * @returns {void}
+    */
+			closeLightbox: function closeLightbox() {
+				this.setProperties({
+					lightboxModel: null,
+					lightboxType: null,
+					lightboxVisible: false,
+					lightboxCloseButtonDelay: 0,
+					file: null,
+					map: null,
+					noScroll: false
+				});
+			},
+
+
+			/**
+    * Sets lightbox type and model but doesn't show it. This method is used by Ads Module to
+    * prevent showing lightbox when there is no ad to display.
+    *
+    * @param {string} lightboxType
+    * @param {Object} [lightboxModel]
+    * @param {number} [closeButtonDelay]
+    * @returns {void}
+    */
+			createHiddenLightbox: function createHiddenLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+				this.setProperties({
+					lightboxModel: lightboxModel,
+					lightboxType: lightboxType,
+					lightboxVisible: false,
+					lightboxCloseButtonDelay: closeButtonDelay,
+					noScroll: false
+				});
+			},
+
+
+			/**
+    * Bubbles up to ApplicationRoute
+    *
+    * @param {HTMLAnchorElement} target
+    * @returns {void}
+    */
+			handleLink: function handleLink(target) {
+				this.get('target').send('handleLink', target);
+			},
+
+
+			/**
+    * Handles query params that should open a lightbox.
+    * If you add another param to the app you should modify this function.
+    *
+    * @returns {void}
+    */
+			handleLightbox: function handleLightbox() {
+				var file = this.get('file'),
+				    map = this.get('map');
+
+				if (!isEmpty(file)) {
+					this.openLightboxForMedia(file);
+				} else if (!isEmpty(map)) {
+					this.openLightboxForMap(map);
+				}
+			},
+
+
+			/**
+    * Bubbles up to ApplicationRoute
+    *
+    * @returns {void}
+    */
+			loadRandomArticle: function loadRandomArticle() {
+				this.get('target').send('loadRandomArticle');
+			},
+
+
+			/**
+    * Sets controller properties that are passed to LightboxWrapperComponent.
+    * Also blocks scrolling.
+    *
+    * @param {string} lightboxType
+    * @param {Object} [lightboxModel]
+    * @param {number} [closeButtonDelay]
+    * @returns {void}
+    */
+			openLightbox: function openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+				this.setProperties({
+					lightboxModel: lightboxModel,
+					lightboxType: lightboxType,
+					lightboxVisible: true,
+					lightboxCloseButtonDelay: closeButtonDelay,
+					noScroll: true
+				});
+			},
+
+
+			/**
+    * Sets query param with given name to given value. Uses whitelist.
+    *
+    * @param {string} name
+    * @param {*} value
+    * @returns {void}
+    */
+			setQueryParam: function setQueryParam(name, value) {
+				var queryParamsWhitelist = ['file', 'map'];
+
+				if (queryParamsWhitelist.indexOf(name) === -1) {
+					this.get('logger').error('Something tried to set query param that is not on the whitelist', {
+						name: name,
+						value: value,
+						whitelist: queryParamsWhitelist
+					});
+					return;
+				}
+
+				this.set(name, value);
+			},
+
+
+			/**
+    * Sets lightbox visibility to true. If you use openLightbox with lightboxVisible=false
+    * you can use this method to lightbox.
+    *
+    * @returns {void}
+    */
+			showLightbox: function showLightbox() {
+				this.setProperties({
+					lightboxVisible: true,
+					noScroll: true
+				});
+			},
+
+
+			/**
+    * @param {boolean} visible
+    * @returns {void}
+    */
+			toggleDrawer: function toggleDrawer(visible) {
+				this.set('drawerVisible', visible);
+			},
+
+
+			/**
+    * @param {boolean} visible
+    * @returns {void}
+    */
+			toggleSmartBanner: function toggleSmartBanner(visible) {
+				this.set('smartBannerVisible', visible);
+			},
+
+
+			/**
+    * @param {boolean} visible
+    * @returns {void}
+    */
+			toggleUserMenu: function toggleUserMenu(visible) {
+				this.set('userMenuVisible', visible);
+			},
+			toggleSiteHeadShadow: function toggleSiteHeadShadow(visible) {
+				this.set('siteHeadShadow', visible);
+			}
+		},
+
+		/**
+   * Finds media in article model by the file query param and sends proper data to
+   * openLightbox action.
+   * TODO: It currently opens the first found image with the given title (file qp),
+   * TODO: we should improve it some day.
+   *
+   * @param {string} file
+   * @returns {void}
+   */
+		openLightboxForMedia: function openLightboxForMedia(file) {
+			var mediaModel = this.get('wikiPage.model.media'),
+			    lightboxMediaRefs = mediaModel instanceof _media.default ? mediaModel.getRefsForLightboxByTitle(file) : null;
+
+			if (!isEmpty(lightboxMediaRefs)) {
+				this.send('openLightbox', 'media', {
+					media: mediaModel,
+					mediaRef: lightboxMediaRefs.mediaRef,
+					galleryRef: lightboxMediaRefs.galleryRef
+				});
+			} else {
+				// If we can't display the lightbox let's remove this param from the URL
+				this.set('file', null);
+			}
+		},
+
+
+		/**
+   * Find the map element in DOM by given map id and sends proper data to openLightbox action.
+   *
+   * @param {string} map
+   * @returns {void}
+   */
+		openLightboxForMap: function openLightboxForMap(map) {
+			var $map = $('a[data-map-id=' + map + ']');
+
+			this.send('openLightbox', 'map', {
+				title: $map.data('map-title'),
+				url: $map.data('map-url'),
+				id: $map.data('map-id')
+			});
+		}
+	});
+});

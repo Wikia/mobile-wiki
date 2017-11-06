@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/components/widget-discussions", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "w/63bv1J", "block": "{\"symbols\":[\"post\"],\"statements\":[[4,\"if\",[[20,[\"posts\"]]],null,{\"statements\":[[0,\"\\t\"],[6,\"div\"],[9,\"class\",\"heading-wrapper\"],[7],[0,\"\\n\\t\\t\"],[6,\"h2\"],[9,\"class\",\"heading\"],[7],[0,\"\\n\\t\\t\\t\"],[1,[25,\"i18n\",[\"widget-discussions.header-title\"],null],false],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"a\"],[9,\"href\",\"/d/f\"],[9,\"class\",\"heading-viewall\"],[7],[0,\"\\n\\t\\t\\t\"],[1,[25,\"i18n\",[\"widget-discussions.all-discussions-link-mobile\"],null],false],[0,\"\\n\\t\\t\\t\"],[1,[25,\"svg\",[\"arrow-right-long\"],null],false],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[20,[\"posts\"]]],null,{\"statements\":[[0,\"\\t\"],[1,[25,\"widget-discussions-post\",null,[[\"post\",\"upvote\"],[[19,1,[]],[25,\"action\",[[19,0,[]],\"upvote\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1]},{\"statements\":[[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"\\t\\t\"],[1,[25,\"wds-spinner\",null,[[\"active\",\"radius\",\"strokeWidth\"],[true,32,2]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/components/widget-discussions.hbs" } });
+});

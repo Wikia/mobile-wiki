@@ -1,0 +1,10 @@
+@mixin link-interactions-color($color) {
+	&:hover,
+	&:visited,
+	> a,
+	> a:hover,
+	> a:visited,
+	> a:focus {
+		color: $color;
+	}
+}

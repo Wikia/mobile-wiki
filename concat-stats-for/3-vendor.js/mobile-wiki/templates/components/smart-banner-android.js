@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/components/smart-banner-android", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "8gBNPS+H", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"sb-close\"],[3,\"action\",[[19,0,[]],\"close\"]],[7],[1,[25,\"svg\",[\"close\"],[[\"viewBox\"],[\"0 0 18 18\"]]],false],[8],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"sb-icon\"],[10,\"style\",[18,\"iconStyle\"],null],[7],[8],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"sb-info\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"sb-title\"],[7],[1,[18,\"title\"],false],[8],[0,\"\\n\"],[4,\"if\",[[19,0,[\"description\"]]],null,{\"statements\":[[0,\"\\t\\t\"],[6,\"div\"],[9,\"class\",\"sb-description\"],[7],[1,[18,\"description\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\t\"],[6,\"div\"],[9,\"class\",\"sb-rating\"],[7],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"sb-in-store\"],[7],[1,[25,\"i18n\",[\"smartbanner.price\"],null],false],[0,\" - \"],[1,[25,\"i18n\",[\"smartbanner.store-android\"],null],false],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"sb-button\"],[7],[1,[25,\"i18n\",[\"smartbanner.install-android\"],null],false],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/components/smart-banner-android.hbs" } });
+});

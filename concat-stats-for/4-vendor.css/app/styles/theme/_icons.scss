@@ -1,0 +1,25 @@
+.icon {
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+
+	&.chevron {
+		width: rem-calc(12);
+		height: rem-calc(7);
+	}
+
+	&.nav {
+		width: rem-calc(34);
+		height: rem-calc(20);
+	}
+
+	&.search {
+		width: rem-calc(14);
+		height: rem-calc(14);
+	}
+
+	&.close {
+		width: rem-calc(14);
+		height: rem-calc(14);
+	}
+}

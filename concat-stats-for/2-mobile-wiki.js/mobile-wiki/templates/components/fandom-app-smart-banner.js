@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/components/fandom-app-smart-banner", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "zXXqV1RJ", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"fandom-app-smart-banner__close\"],[3,\"action\",[[19,0,[]],\"close\"]],[7],[1,[25,\"svg\",[\"close\"],[[\"viewBox\"],[\"0 0 18 18\"]]],false],[8],[0,\"\\n\"],[6,\"a\"],[10,\"href\",[26,[[18,\"link\"]]]],[9,\"class\",\"fandom-app-smart-banner__link\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"fandom-app-smart-banner__info\"],[7],[0,\"\\n\\t\\t\"],[6,\"img\"],[9,\"class\",\"fandom-app-smart-banner__icon\"],[9,\"src\",\"https://services.wikia.com/static-assets/image/28423c7b-dae5-4b5e-bfba-a779f4f57eb0\"],[7],[8],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"fandom-app-smart-banner__meta\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"fandom-app-smart-banner__title\"],[7],[0,\"FANDOM\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"fandom-app-smart-banner__description\"],[7],[0,\"Get it free at the\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"fandom-app-smart-banner__store\"],[7],[1,[18,\"storeName\"],false],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"fandom-app-smart-banner__install\"],[7],[1,[25,\"i18n\",[\"smartbanner.install-android\"],null],false],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/components/fandom-app-smart-banner.hbs" } });
+});

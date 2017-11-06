@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/components/curated-content-section", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "w8z/+dzt", "block": "{\"symbols\":[\"item\",\"index\",\"@openSection\"],\"statements\":[[4,\"if\",[[20,[\"model\",\"items\"]]],null,{\"statements\":[[4,\"if\",[[20,[\"model\",\"label\"]]],null,{\"statements\":[[0,\"\\t\\t\"],[6,\"div\"],[9,\"class\",\"curated-content-section__header\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"href\",\"#\"],[9,\"class\",\"curated-content-section__back\"],[3,\"action\",[[19,0,[]],[20,[\"closeSection\"]]]],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"svg\",[\"wds-icons-arrow\"],[[\"viewBox\",\"role\",\"class\"],[\"0 0 20 16\",\"img\",\"icon\"]]],false],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"i18n\",[\"navigation.back-label\"],null],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"h2\"],[7],[1,[20,[\"model\",\"label\"]],false],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\t\"],[6,\"div\"],[9,\"class\",\"curated-content-items\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"items\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[1,[25,\"curated-content-item\",null,[[\"index\",\"model\",\"openSection\"],[[19,2,[]],[19,1,[]],[19,3,[]]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"\\n\"],[0,\"\\t\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/components/curated-content-section.hbs" } });
+});

@@ -1,0 +1,18 @@
+/// On Site Notifications CSS reside in Design System
+/// Override for avatar-stack in On Site Notifications because it uses user-avatar
+
+.wds-avatar-stack {
+  .avatar__link {
+	@extend .wds-avatar-stack__avatar;
+  }
+
+  .user-avatar {
+	.avatar {
+	  .user-avatar__image {
+		@extend .wds-avatar;
+		border-color: $wds-color-light-c4;
+	  }
+	}
+  }
+}
+

@@ -1,0 +1,17 @@
+// These are overrides for Mobile Wiki only
+// If you look for Global Footer styles go here:
+// https://github.com/Wikia/design-system/blob/master/components/_global-footer.scss
+
+.wds-global-footer {
+	line-height: normal;
+
+	h2 {
+		font-size: 1.5em;
+		line-height: normal;
+	}
+
+	ul,
+	&__section-header {
+		line-height: normal;
+	}
+}

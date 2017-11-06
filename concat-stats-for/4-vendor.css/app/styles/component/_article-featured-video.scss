@@ -1,0 +1,271 @@
+$small-thumbnail-height: 56px;
+
+.article-featured-video {
+	padding-bottom: 56.25%;
+	position: relative;
+
+	.article-featured-video__placeholder {
+		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+	}
+
+	.wds-spinner {
+		$spinner-size: 59px;
+
+		left: 50%;
+		margin-left: -($spinner-size/2);
+		margin-top: -($spinner-size/2);
+		opacity: .7;
+		position: absolute;
+		top: 50%;
+
+		.wds-spinner__stroke {
+			stroke: $wds-color-white;
+		}
+	}
+
+	.ooyala-article-video {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		visibility: hidden;
+	}
+
+	&__close-button {
+		display: none;
+	}
+
+	&__details {
+		flex: 1 0 70%;
+		visibility: hidden;
+	}
+
+	&__label {
+		color: $wds-color-white;
+		font-size: $wds-typescale-size-minus-1;
+		line-height: 1.25em;
+		opacity: 0.5;
+		text-transform: uppercase;
+	}
+
+	&__time:before {
+		content: '\2022';
+		padding: 0 2px;
+	}
+
+	&__title {
+		font-size: $wds-typescale-size-plus-2;
+		line-height: 1.25em;
+	}
+
+	&__thumbnail {
+		width: 100%;
+	}
+
+	&__placeholder {
+		-webkit-font-smoothing: antialiased;
+		align-items: flex-end;
+		bottom: 0;
+		color: $wds-color-white;
+		display: flex;
+		font-weight: bold;
+		justify-content: space-between;
+		left: 0;
+		padding: 18px;
+		position: absolute;
+		resize: none;
+		right: 0;
+	}
+
+	&__play-circle {
+		align-items: center;
+		background-color: $wds-color-light-blue;
+		border: 6px solid rgba(0, 0, 0, 0.32);
+		border-radius: 50%;
+		display: flex;
+		height: 80px;
+		justify-content: center;
+		margin-left: 12px;
+		opacity: .7;
+		width: 80px;
+
+		.wds-icon-small {
+			@include square(30px);
+			margin-left: 4px;
+		}
+	}
+
+	&__wrapper {
+		bottom: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+	// for oo-xsmall breakpoint
+	@media screen and (max-width: 559px) {
+		&__play-circle {
+			height: 60px;
+			width: 60px;
+
+			.wds-icon-small {
+				@include square($wds-icon-small-size);
+			}
+		}
+
+		&__details {
+			bottom: 18px;
+		}
+
+		&__label {
+			font-size: $wds-typescale-size-minus-2;
+		}
+
+		&__title {
+			font-size: $wds-typescale-size-base;
+		}
+	}
+
+	&.is-player-ready {
+		.article-featured-video__play-circle {
+			opacity: 1;
+		}
+
+		.article-featured-video__details {
+			visibility: visible;
+		}
+	}
+
+	&.has-started-playing {
+		.article-featured-video__details {
+			flex: 1 0 70%;
+			visibility: hidden;
+		}
+
+		.ooyala-article-video {
+			visibility: visible;
+		}
+
+		&.is-fixed {
+			.article-featured-video__details {
+				visibility: visible;
+			}
+
+			.ooyala-article-video {
+				display: none;
+			}
+		}
+	}
+
+	&.is-fixed {
+		.article-featured-video__wrapper {
+			align-items: center;
+			display: flex;
+			height: 100%;
+			position: static;
+		}
+
+		.article-featured-video__placeholder {
+			background: none;
+			display: block;
+			padding: 0;
+			position: static;
+		}
+
+		.article-featured-video__thumbnail {
+			flex: 0 0 100px;
+			height: $small-thumbnail-height;
+			position: static;
+			width: 100px;
+		}
+
+		.article-featured-video__details {
+			flex-basis: 100%;
+			padding-left: 12px;
+		}
+
+		.article-featured-video__label {
+			color: $wds-color-light-c5;
+			font-size: $wds-typescale-size-minus-3;
+			opacity: 1;
+		}
+
+		.article-featured-video__title {
+			color: $wds-color-dark-blue-gray;
+			font-size: $wds-typescale-size-minus-1;
+			line-height: $wds-typescale-size-base;
+		}
+
+		.article-featured-video__play-circle {
+			box-shadow: none;
+			border-width: 3px;
+			height: 30px;
+			position: absolute;
+			right: auto;
+			width: 30px;
+
+			.wds-icon-tiny {
+				margin-left: 2px;
+			}
+		}
+	}
+
+	&.is-fixed {
+		.article-featured-video__container {
+			@keyframes video-slide {
+				0% {
+					transform: translateY(-100%);
+				}
+				100% {
+					transform: translateY(0%);
+				}
+			}
+
+			animation: video-slide .5s forwards;
+			bottom: auto;
+			position: fixed;
+			transform: translateY(-100%);
+			top: $wds-global-navigation-height;
+			width: 100%;
+			z-index: $z-site-head - 2;
+		}
+
+		// The 'article-featured-video__wrapper' element is needed here to fix an issue with
+		// background color while scrolling on iOS 9.
+		.article-featured-video__wrapper {
+			background-color: $wds-color-white;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+			padding: 18px;
+		}
+
+		.article-featured-video__play-circle {
+			bottom: 20px;
+			left: 74px;
+		}
+
+		.article-featured-video__close-button {
+			display: block;
+			position: absolute;
+			top: 6px;
+			right: 6px;
+
+			.wds-icon {
+				width: 14px;
+				height: 14px;
+				fill: $wds-color-light-c5;
+			}
+		}
+	}
+}
+
+.with-fandom-app-smart-banner {
+	.article-featured-video {
+		&.is-fixed {
+			.article-featured-video__container {
+				top: $wds-global-navigation-height + $fandom-app-smart-banner-height;
+				z-index: $z-site-head - 3;
+			}
+		}
+	}
+}
