@@ -1,0 +1,14 @@
+.login {
+	&.external {
+		height: $icon-site-head-height;
+		width: $icon-site-head-width;
+	}
+	&.icon {
+		height: 36px;
+		position: relative;
+		right: 6px;
+		top: 6px;
+		width: 36px;
+	}
+	float: right;
+}

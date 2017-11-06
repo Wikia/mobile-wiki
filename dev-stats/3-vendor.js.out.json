@@ -1,0 +1,6077 @@
+{
+  "outputFile": "/usr/wikia/mobile-wiki/tmp/source_map_concat-output_path-7eHbKvr9.tmp/assets/vendor.js",
+  "files": [
+    {
+      "relativePath": "vendor/ember-cli/vendor-prefix.js",
+      "sizes": {
+        "raw": 130,
+        "uglified": 101,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "vendor/loader/loader.js",
+      "sizes": {
+        "raw": 8933,
+        "uglified": 4302,
+        "compressed": 1585
+      }
+    },
+    {
+      "relativePath": "vendor/moment/moment.js",
+      "sizes": {
+        "raw": 128986,
+        "uglified": 50360,
+        "compressed": 16356
+      }
+    },
+    {
+      "relativePath": "vendor/ember/jquery/jquery.js",
+      "sizes": {
+        "raw": 268039,
+        "uglified": 86644,
+        "compressed": 30285
+      }
+    },
+    {
+      "relativePath": "vendor/ember/ember.debug.js",
+      "sizes": {
+        "raw": 1817440,
+        "uglified": 609821,
+        "compressed": 154547
+      }
+    },
+    {
+      "relativePath": "browserify/browserify.js",
+      "sizes": {
+        "raw": 214706,
+        "uglified": 47011,
+        "compressed": 10796
+      }
+    },
+    {
+      "relativePath": "vendor/ember-debug-handlers-polyfill/debug.js",
+      "sizes": {
+        "raw": 3277,
+        "uglified": 1256,
+        "compressed": 656
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli-deprecation-workflow/deprecation-workflow.js",
+      "sizes": {
+        "raw": 337,
+        "uglified": 220,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli-deprecation-workflow/main.js",
+      "sizes": {
+        "raw": 2530,
+        "uglified": 1273,
+        "compressed": 564
+      }
+    },
+    {
+      "relativePath": "vendor/fastclick/fastclick.js",
+      "sizes": {
+        "raw": 26006,
+        "uglified": 7791,
+        "compressed": 2456
+      }
+    },
+    {
+      "relativePath": "vendor/route-recognizer/dist/route-recognizer.js",
+      "sizes": {
+        "raw": 20423,
+        "uglified": 7657,
+        "compressed": 2875
+      }
+    },
+    {
+      "relativePath": "vendor/fake-xml-http-request/fake_xml_http_request.js",
+      "sizes": {
+        "raw": 14348,
+        "uglified": 6348,
+        "compressed": 2490
+      }
+    },
+    {
+      "relativePath": "vendor/pretender/pretender.js",
+      "sizes": {
+        "raw": 14807,
+        "uglified": 6650,
+        "compressed": 2584
+      }
+    },
+    {
+      "relativePath": "vendor/faker/build/build/faker.js",
+      "sizes": {
+        "raw": 977590,
+        "uglified": 722539,
+        "compressed": 214427
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli-mirage/pretender-shim.js",
+      "sizes": {
+        "raw": 124,
+        "uglified": 74,
+        "compressed": 75
+      }
+    },
+    {
+      "relativePath": "vendor/numeral/numeral.js",
+      "sizes": {
+        "raw": 28561,
+        "uglified": 8989,
+        "compressed": 3031
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli-shims/app-shims.js",
+      "sizes": {
+        "raw": 7539,
+        "uglified": 4486,
+        "compressed": 1404
+      }
+    },
+    {
+      "relativePath": "vendor/ember-fetch.js",
+      "sizes": {
+        "raw": 14085,
+        "uglified": 7936,
+        "compressed": 2710
+      }
+    },
+    {
+      "relativePath": "vendor/ember-resolver/legacy-shims.js",
+      "sizes": {
+        "raw": 511,
+        "uglified": 353,
+        "compressed": 204
+      }
+    },
+    {
+      "relativePath": "vendor/restore-require.js",
+      "sizes": {
+        "raw": 121,
+        "uglified": 76,
+        "compressed": 67
+      }
+    },
+    {
+      "relativePath": "vendor/hammerjs/hammer.js",
+      "sizes": {
+        "raw": 67619,
+        "uglified": 18015,
+        "compressed": 6144
+      }
+    },
+    {
+      "relativePath": "vendor/headroom.js/dist/headroom.js",
+      "sizes": {
+        "raw": 11535,
+        "uglified": 4128,
+        "compressed": 1361
+      }
+    },
+    {
+      "relativePath": "vendor/jquery.cookie/jquery.cookie.js",
+      "sizes": {
+        "raw": 3162,
+        "uglified": 1280,
+        "compressed": 667
+      }
+    },
+    {
+      "relativePath": "vendor/ember-hammer/ember-hammer.js",
+      "sizes": {
+        "raw": 6133,
+        "uglified": 1747,
+        "compressed": 649
+      }
+    },
+    {
+      "relativePath": "vendor/weppy/dist/weppy.js",
+      "sizes": {
+        "raw": 14922,
+        "uglified": 5874,
+        "compressed": 2274
+      }
+    },
+    {
+      "relativePath": "vendor/visit-source/dist/visit-source.js",
+      "sizes": {
+        "raw": 1974,
+        "uglified": 938,
+        "compressed": 411
+      }
+    },
+    {
+      "relativePath": "vendor/script.js/dist/script.min.js",
+      "sizes": {
+        "raw": 1664,
+        "uglified": 1493,
+        "compressed": 802
+      }
+    },
+    {
+      "relativePath": "bower_components/vignette/dist/vignette.js",
+      "sizes": {
+        "raw": 11199,
+        "uglified": 3688,
+        "compressed": 1283
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/initializers/app-scheduler.js",
+      "sizes": {
+        "raw": 326,
+        "uglified": 210,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/instance-initializers/init-app-scheduler.js",
+      "sizes": {
+        "raw": 320,
+        "uglified": 206,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/services/scheduler.js",
+      "sizes": {
+        "raw": 5482,
+        "uglified": 3002,
+        "compressed": 992
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-app-version/initializer-factory.js",
+      "sizes": {
+        "raw": 567,
+        "uglified": 284,
+        "compressed": 214
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-app-version/utils/regexp.js",
+      "sizes": {
+        "raw": 284,
+        "uglified": 188,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-head/services/head-data.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 166,
+        "compressed": 146
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-head/templates/components/head-layout.js",
+      "sizes": {
+        "raw": 513,
+        "uglified": 433,
+        "compressed": 267
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/assert.js",
+      "sizes": {
+        "raw": 1011,
+        "uglified": 540,
+        "compressed": 337
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/association.js",
+      "sizes": {
+        "raw": 468,
+        "uglified": 204,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/db-collection.js",
+      "sizes": {
+        "raw": 12288,
+        "uglified": 3801,
+        "compressed": 1350
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/db.js",
+      "sizes": {
+        "raw": 4481,
+        "uglified": 1726,
+        "compressed": 728
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/ember-data.js",
+      "sizes": {
+        "raw": 2739,
+        "uglified": 1020,
+        "compressed": 536
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/factory.js",
+      "sizes": {
+        "raw": 4307,
+        "uglified": 1745,
+        "compressed": 725
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/faker.js",
+      "sizes": {
+        "raw": 642,
+        "uglified": 393,
+        "compressed": 203
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/identity-manager.js",
+      "sizes": {
+        "raw": 2518,
+        "uglified": 1019,
+        "compressed": 498
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/index.js",
+      "sizes": {
+        "raw": 2650,
+        "uglified": 1265,
+        "compressed": 454
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/associations/association.js",
+      "sizes": {
+        "raw": 2545,
+        "uglified": 980,
+        "compressed": 497
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/associations/belongs-to.js",
+      "sizes": {
+        "raw": 11372,
+        "uglified": 3842,
+        "compressed": 1434
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/associations/has-many.js",
+      "sizes": {
+        "raw": 13507,
+        "uglified": 4765,
+        "compressed": 1610
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/collection.js",
+      "sizes": {
+        "raw": 6845,
+        "uglified": 2516,
+        "compressed": 965
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/model.js",
+      "sizes": {
+        "raw": 28544,
+        "uglified": 9896,
+        "compressed": 2773
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/polymorphic-collection.js",
+      "sizes": {
+        "raw": 6911,
+        "uglified": 2332,
+        "compressed": 909
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/orm/schema.js",
+      "sizes": {
+        "raw": 15229,
+        "uglified": 5412,
+        "compressed": 1834
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/response.js",
+      "sizes": {
+        "raw": 1564,
+        "uglified": 810,
+        "compressed": 441
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handler.js",
+      "sizes": {
+        "raw": 7164,
+        "uglified": 3011,
+        "compressed": 1121
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/base.js",
+      "sizes": {
+        "raw": 5648,
+        "uglified": 2666,
+        "compressed": 1196
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/function.js",
+      "sizes": {
+        "raw": 3900,
+        "uglified": 1855,
+        "compressed": 849
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/object.js",
+      "sizes": {
+        "raw": 1332,
+        "uglified": 595,
+        "compressed": 359
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/base.js",
+      "sizes": {
+        "raw": 3296,
+        "uglified": 1536,
+        "compressed": 742
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/delete.js",
+      "sizes": {
+        "raw": 4395,
+        "uglified": 1866,
+        "compressed": 895
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/get.js",
+      "sizes": {
+        "raw": 5214,
+        "uglified": 2368,
+        "compressed": 1121
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/head.js",
+      "sizes": {
+        "raw": 4157,
+        "uglified": 1866,
+        "compressed": 889
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/post.js",
+      "sizes": {
+        "raw": 3565,
+        "uglified": 1655,
+        "compressed": 820
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/route-handlers/shorthands/put.js",
+      "sizes": {
+        "raw": 3566,
+        "uglified": 1689,
+        "compressed": 839
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/serializer-registry.js",
+      "sizes": {
+        "raw": 4820,
+        "uglified": 2231,
+        "compressed": 888
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/serializer.js",
+      "sizes": {
+        "raw": 21845,
+        "uglified": 6644,
+        "compressed": 2093
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/serializers/active-model-serializer.js",
+      "sizes": {
+        "raw": 2230,
+        "uglified": 964,
+        "compressed": 374
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/serializers/json-api-serializer.js",
+      "sizes": {
+        "raw": 6934,
+        "uglified": 2981,
+        "compressed": 1031
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/serializers/rest-serializer.js",
+      "sizes": {
+        "raw": 1333,
+        "uglified": 592,
+        "compressed": 227
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/server.js",
+      "sizes": {
+        "raw": 29217,
+        "uglified": 11745,
+        "compressed": 4031
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/trait.js",
+      "sizes": {
+        "raw": 255,
+        "uglified": 116,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/ember-data.js",
+      "sizes": {
+        "raw": 536,
+        "uglified": 302,
+        "compressed": 213
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/extend.js",
+      "sizes": {
+        "raw": 1496,
+        "uglified": 401,
+        "compressed": 231
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/inflector.js",
+      "sizes": {
+        "raw": 785,
+        "uglified": 468,
+        "compressed": 225
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/is-association.js",
+      "sizes": {
+        "raw": 273,
+        "uglified": 170,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/normalize-name.js",
+      "sizes": {
+        "raw": 640,
+        "uglified": 287,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/read-modules.js",
+      "sizes": {
+        "raw": 2230,
+        "uglified": 920,
+        "compressed": 516
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/reference-sort.js",
+      "sizes": {
+        "raw": 1287,
+        "uglified": 517,
+        "compressed": 350
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-mirage/utils/uuid.js",
+      "sizes": {
+        "raw": 349,
+        "uglified": 222,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/error.js",
+      "sizes": {
+        "raw": 3506,
+        "uglified": 1546,
+        "compressed": 651
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/stack.js",
+      "sizes": {
+        "raw": 3189,
+        "uglified": 1251,
+        "compressed": 594
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/tools.js",
+      "sizes": {
+        "raw": 1234,
+        "uglified": 613,
+        "compressed": 329
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-fetch/ajax.js",
+      "sizes": {
+        "raw": 396,
+        "uglified": 238,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-fetch/mixins/adapter-fetch.js",
+      "sizes": {
+        "raw": 9511,
+        "uglified": 2808,
+        "compressed": 1306
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-get-config/index.js",
+      "sizes": {
+        "raw": 294,
+        "uglified": 177,
+        "compressed": 143
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-getowner-polyfill/index.js",
+      "sizes": {
+        "raw": 382,
+        "uglified": 308,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/index.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 120,
+        "compressed": 93
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/mixins/in-viewport.js",
+      "sizes": {
+        "raw": 9123,
+        "uglified": 4810,
+        "compressed": 1438
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/can-use-dom.js",
+      "sizes": {
+        "raw": 223,
+        "uglified": 169,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/can-use-raf.js",
+      "sizes": {
+        "raw": 1152,
+        "uglified": 429,
+        "compressed": 238
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/check-scroll-direction.js",
+      "sizes": {
+        "raw": 1163,
+        "uglified": 540,
+        "compressed": 301
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/is-in-viewport.js",
+      "sizes": {
+        "raw": 1304,
+        "uglified": 602,
+        "compressed": 294
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/index.js",
+      "sizes": {
+        "raw": 1228,
+        "uglified": 780,
+        "compressed": 302
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/ext/string.js",
+      "sizes": {
+        "raw": 648,
+        "uglified": 309,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/helpers/pluralize.js",
+      "sizes": {
+        "raw": 837,
+        "uglified": 425,
+        "compressed": 268
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/helpers/singularize.js",
+      "sizes": {
+        "raw": 392,
+        "uglified": 267,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/system.js",
+      "sizes": {
+        "raw": 671,
+        "uglified": 450,
+        "compressed": 216
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/system/inflections.js",
+      "sizes": {
+        "raw": 1803,
+        "uglified": 1608,
+        "compressed": 674
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/system/inflector.js",
+      "sizes": {
+        "raw": 8065,
+        "uglified": 2713,
+        "compressed": 1003
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/system/string.js",
+      "sizes": {
+        "raw": 534,
+        "uglified": 339,
+        "compressed": 187
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-inflector/lib/utils/make-helper.js",
+      "sizes": {
+        "raw": 483,
+        "uglified": 286,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-load-initializers/index.js",
+      "sizes": {
+        "raw": 1775,
+        "uglified": 675,
+        "compressed": 372
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/features.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 62,
+        "compressed": 68
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/index.js",
+      "sizes": {
+        "raw": 336,
+        "uglified": 239,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolver.js",
+      "sizes": {
+        "raw": 339,
+        "uglified": 242,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolvers/classic/container-debug-adapter.js",
+      "sizes": {
+        "raw": 3062,
+        "uglified": 849,
+        "compressed": 463
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolvers/classic/index.js",
+      "sizes": {
+        "raw": 14767,
+        "uglified": 6438,
+        "compressed": 2395
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/utils/class-factory.js",
+      "sizes": {
+        "raw": 457,
+        "uglified": 231,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/utils/make-dictionary.js",
+      "sizes": {
+        "raw": 351,
+        "uglified": 219,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-route-action-helper/-private/internals.js",
+      "sizes": {
+        "raw": 686,
+        "uglified": 458,
+        "compressed": 229
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-route-action-helper/helpers/route-action.js",
+      "sizes": {
+        "raw": 2746,
+        "uglified": 1283,
+        "compressed": 625
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/index.js",
+      "sizes": {
+        "raw": 2262,
+        "uglified": 1177,
+        "compressed": 612
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/locations/router-scroll.js",
+      "sizes": {
+        "raw": 970,
+        "uglified": 614,
+        "compressed": 329
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/services/router-scroll.js",
+      "sizes": {
+        "raw": 2058,
+        "uglified": 1147,
+        "compressed": 557
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/components/ember-wormhole.js",
+      "sizes": {
+        "raw": 4456,
+        "uglified": 2257,
+        "compressed": 858
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/templates/components/ember-wormhole.js",
+      "sizes": {
+        "raw": 508,
+        "uglified": 434,
+        "compressed": 263
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/utils/dom.js",
+      "sizes": {
+        "raw": 1794,
+        "uglified": 767,
+        "compressed": 436
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_DataView.js",
+      "sizes": {
+        "raw": 377,
+        "uglified": 207,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Hash.js",
+      "sizes": {
+        "raw": 948,
+        "uglified": 463,
+        "compressed": 258
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_LazyWrapper.js",
+      "sizes": {
+        "raw": 981,
+        "uglified": 405,
+        "compressed": 257
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_ListCache.js",
+      "sizes": {
+        "raw": 1075,
+        "uglified": 493,
+        "compressed": 260
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_LodashWrapper.js",
+      "sizes": {
+        "raw": 811,
+        "uglified": 354,
+        "compressed": 226
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Map.js",
+      "sizes": {
+        "raw": 357,
+        "uglified": 197,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_MapCache.js",
+      "sizes": {
+        "raw": 1074,
+        "uglified": 487,
+        "compressed": 261
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Promise.js",
+      "sizes": {
+        "raw": 373,
+        "uglified": 205,
+        "compressed": 151
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Set.js",
+      "sizes": {
+        "raw": 357,
+        "uglified": 197,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_SetCache.js",
+      "sizes": {
+        "raw": 831,
+        "uglified": 362,
+        "compressed": 237
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Stack.js",
+      "sizes": {
+        "raw": 927,
+        "uglified": 458,
+        "compressed": 243
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Symbol.js",
+      "sizes": {
+        "raw": 279,
+        "uglified": 164,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_Uint8Array.js",
+      "sizes": {
+        "raw": 293,
+        "uglified": 172,
+        "compressed": 143
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_WeakMap.js",
+      "sizes": {
+        "raw": 373,
+        "uglified": 205,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_addMapEntry.js",
+      "sizes": {
+        "raw": 549,
+        "uglified": 168,
+        "compressed": 145
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_addSetEntry.js",
+      "sizes": {
+        "raw": 514,
+        "uglified": 160,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_apply.js",
+      "sizes": {
+        "raw": 936,
+        "uglified": 301,
+        "compressed": 190
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayAggregator.js",
+      "sizes": {
+        "raw": 884,
+        "uglified": 226,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayEach.js",
+      "sizes": {
+        "raw": 731,
+        "uglified": 209,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayEachRight.js",
+      "sizes": {
+        "raw": 725,
+        "uglified": 207,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayEvery.js",
+      "sizes": {
+        "raw": 794,
+        "uglified": 216,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayFilter.js",
+      "sizes": {
+        "raw": 834,
+        "uglified": 234,
+        "compressed": 192
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayIncludes.js",
+      "sizes": {
+        "raw": 719,
+        "uglified": 222,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayIncludesWith.js",
+      "sizes": {
+        "raw": 817,
+        "uglified": 222,
+        "compressed": 186
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayLikeKeys.js",
+      "sizes": {
+        "raw": 1965,
+        "uglified": 649,
+        "compressed": 363
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayMap.js",
+      "sizes": {
+        "raw": 747,
+        "uglified": 217,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayPush.js",
+      "sizes": {
+        "raw": 627,
+        "uglified": 203,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayReduce.js",
+      "sizes": {
+        "raw": 991,
+        "uglified": 229,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayReduceRight.js",
+      "sizes": {
+        "raw": 984,
+        "uglified": 227,
+        "compressed": 186
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arraySample.js",
+      "sizes": {
+        "raw": 550,
+        "uglified": 218,
+        "compressed": 174
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arraySampleSize.js",
+      "sizes": {
+        "raw": 703,
+        "uglified": 280,
+        "compressed": 193
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arrayShuffle.js",
+      "sizes": {
+        "raw": 557,
+        "uglified": 225,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_arraySome.js",
+      "sizes": {
+        "raw": 790,
+        "uglified": 214,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_asciiSize.js",
+      "sizes": {
+        "raw": 450,
+        "uglified": 182,
+        "compressed": 149
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_asciiToArray.js",
+      "sizes": {
+        "raw": 436,
+        "uglified": 160,
+        "compressed": 139
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_asciiWords.js",
+      "sizes": {
+        "raw": 585,
+        "uglified": 211,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_assignMergeValue.js",
+      "sizes": {
+        "raw": 776,
+        "uglified": 271,
+        "compressed": 187
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_assignValue.js",
+      "sizes": {
+        "raw": 1102,
+        "uglified": 311,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_assocIndexOf.js",
+      "sizes": {
+        "raw": 687,
+        "uglified": 227,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseAggregator.js",
+      "sizes": {
+        "raw": 949,
+        "uglified": 226,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseAssign.js",
+      "sizes": {
+        "raw": 664,
+        "uglified": 226,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseAssignIn.js",
+      "sizes": {
+        "raw": 678,
+        "uglified": 230,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseAssignValue.js",
+      "sizes": {
+        "raw": 845,
+        "uglified": 279,
+        "compressed": 192
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseAt.js",
+      "sizes": {
+        "raw": 765,
+        "uglified": 249,
+        "compressed": 195
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseClamp.js",
+      "sizes": {
+        "raw": 767,
+        "uglified": 209,
+        "compressed": 167
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseClone.js",
+      "sizes": {
+        "raw": 5633,
+        "uglified": 1904,
+        "compressed": 765
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseConforms.js",
+      "sizes": {
+        "raw": 683,
+        "uglified": 254,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseConformsTo.js",
+      "sizes": {
+        "raw": 925,
+        "uglified": 279,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseCreate.js",
+      "sizes": {
+        "raw": 902,
+        "uglified": 319,
+        "compressed": 209
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseDelay.js",
+      "sizes": {
+        "raw": 875,
+        "uglified": 268,
+        "compressed": 205
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseDifference.js",
+      "sizes": {
+        "raw": 2189,
+        "uglified": 635,
+        "compressed": 385
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseEach.js",
+      "sizes": {
+        "raw": 636,
+        "uglified": 207,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseEachRight.js",
+      "sizes": {
+        "raw": 677,
+        "uglified": 220,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseEvery.js",
+      "sizes": {
+        "raw": 823,
+        "uglified": 232,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseExtremum.js",
+      "sizes": {
+        "raw": 1078,
+        "uglified": 292,
+        "compressed": 226
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFill.js",
+      "sizes": {
+        "raw": 1073,
+        "uglified": 339,
+        "compressed": 234
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFilter.js",
+      "sizes": {
+        "raw": 789,
+        "uglified": 233,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFindIndex.js",
+      "sizes": {
+        "raw": 966,
+        "uglified": 226,
+        "compressed": 188
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFindKey.js",
+      "sizes": {
+        "raw": 948,
+        "uglified": 207,
+        "compressed": 160
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFlatten.js",
+      "sizes": {
+        "raw": 1429,
+        "uglified": 345,
+        "compressed": 246
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFor.js",
+      "sizes": {
+        "raw": 778,
+        "uglified": 173,
+        "compressed": 144
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseForOwn.js",
+      "sizes": {
+        "raw": 643,
+        "uglified": 216,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseForOwnRight.js",
+      "sizes": {
+        "raw": 678,
+        "uglified": 226,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseForRight.js",
+      "sizes": {
+        "raw": 665,
+        "uglified": 180,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseFunctions.js",
+      "sizes": {
+        "raw": 754,
+        "uglified": 252,
+        "compressed": 167
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseGet.js",
+      "sizes": {
+        "raw": 815,
+        "uglified": 286,
+        "compressed": 210
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseGetAllKeys.js",
+      "sizes": {
+        "raw": 943,
+        "uglified": 246,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseGetTag.js",
+      "sizes": {
+        "raw": 1001,
+        "uglified": 375,
+        "compressed": 241
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseGt.js",
+      "sizes": {
+        "raw": 534,
+        "uglified": 148,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseHas.js",
+      "sizes": {
+        "raw": 743,
+        "uglified": 204,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseHasIn.js",
+      "sizes": {
+        "raw": 552,
+        "uglified": 171,
+        "compressed": 147
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseInRange.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 197,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIndexOf.js",
+      "sizes": {
+        "raw": 847,
+        "uglified": 280,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIndexOfWith.js",
+      "sizes": {
+        "raw": 862,
+        "uglified": 213,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIntersection.js",
+      "sizes": {
+        "raw": 2475,
+        "uglified": 760,
+        "compressed": 453
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseInverter.js",
+      "sizes": {
+        "raw": 937,
+        "uglified": 226,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseInvoke.js",
+      "sizes": {
+        "raw": 1009,
+        "uglified": 371,
+        "compressed": 227
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsArguments.js",
+      "sizes": {
+        "raw": 687,
+        "uglified": 262,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsArrayBuffer.js",
+      "sizes": {
+        "raw": 700,
+        "uglified": 266,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsDate.js",
+      "sizes": {
+        "raw": 695,
+        "uglified": 252,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsEqual.js",
+      "sizes": {
+        "raw": 1248,
+        "uglified": 312,
+        "compressed": 211
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsEqualDeep.js",
+      "sizes": {
+        "raw": 3390,
+        "uglified": 959,
+        "compressed": 462
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsMap.js",
+      "sizes": {
+        "raw": 668,
+        "uglified": 246,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsMatch.js",
+      "sizes": {
+        "raw": 1963,
+        "uglified": 531,
+        "compressed": 338
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsNaN.js",
+      "sizes": {
+        "raw": 472,
+        "uglified": 150,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsNative.js",
+      "sizes": {
+        "raw": 1657,
+        "uglified": 565,
+        "compressed": 346
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsRegExp.js",
+      "sizes": {
+        "raw": 704,
+        "uglified": 256,
+        "compressed": 183
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsSet.js",
+      "sizes": {
+        "raw": 668,
+        "uglified": 246,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIsTypedArray.js",
+      "sizes": {
+        "raw": 2567,
+        "uglified": 854,
+        "compressed": 343
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseIteratee.js",
+      "sizes": {
+        "raw": 1443,
+        "uglified": 627,
+        "compressed": 307
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseKeys.js",
+      "sizes": {
+        "raw": 990,
+        "uglified": 348,
+        "compressed": 230
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseKeysIn.js",
+      "sizes": {
+        "raw": 1094,
+        "uglified": 389,
+        "compressed": 246
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseLodash.js",
+      "sizes": {
+        "raw": 351,
+        "uglified": 139,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseLt.js",
+      "sizes": {
+        "raw": 531,
+        "uglified": 148,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMap.js",
+      "sizes": {
+        "raw": 868,
+        "uglified": 287,
+        "compressed": 200
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMatches.js",
+      "sizes": {
+        "raw": 920,
+        "uglified": 355,
+        "compressed": 231
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMatchesProperty.js",
+      "sizes": {
+        "raw": 1365,
+        "uglified": 501,
+        "compressed": 275
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMean.js",
+      "sizes": {
+        "raw": 758,
+        "uglified": 226,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMerge.js",
+      "sizes": {
+        "raw": 1504,
+        "uglified": 480,
+        "compressed": 287
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseMergeDeep.js",
+      "sizes": {
+        "raw": 3391,
+        "uglified": 1021,
+        "compressed": 466
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseNth.js",
+      "sizes": {
+        "raw": 676,
+        "uglified": 227,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseOrderBy.js",
+      "sizes": {
+        "raw": 1448,
+        "uglified": 559,
+        "compressed": 293
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePick.js",
+      "sizes": {
+        "raw": 698,
+        "uglified": 244,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePickBy.js",
+      "sizes": {
+        "raw": 1011,
+        "uglified": 328,
+        "compressed": 225
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseProperty.js",
+      "sizes": {
+        "raw": 544,
+        "uglified": 188,
+        "compressed": 145
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePropertyDeep.js",
+      "sizes": {
+        "raw": 586,
+        "uglified": 210,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePropertyOf.js",
+      "sizes": {
+        "raw": 544,
+        "uglified": 190,
+        "compressed": 147
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePullAll.js",
+      "sizes": {
+        "raw": 1716,
+        "uglified": 513,
+        "compressed": 321
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_basePullAt.js",
+      "sizes": {
+        "raw": 1167,
+        "uglified": 342,
+        "compressed": 244
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseRandom.js",
+      "sizes": {
+        "raw": 728,
+        "uglified": 196,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseRange.js",
+      "sizes": {
+        "raw": 1054,
+        "uglified": 250,
+        "compressed": 205
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseReduce.js",
+      "sizes": {
+        "raw": 1093,
+        "uglified": 202,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseRepeat.js",
+      "sizes": {
+        "raw": 1169,
+        "uglified": 263,
+        "compressed": 216
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseRest.js",
+      "sizes": {
+        "raw": 750,
+        "uglified": 259,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSample.js",
+      "sizes": {
+        "raw": 549,
+        "uglified": 219,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSampleSize.js",
+      "sizes": {
+        "raw": 752,
+        "uglified": 283,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSet.js",
+      "sizes": {
+        "raw": 1523,
+        "uglified": 517,
+        "compressed": 316
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSetData.js",
+      "sizes": {
+        "raw": 651,
+        "uglified": 238,
+        "compressed": 170
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSetToString.js",
+      "sizes": {
+        "raw": 859,
+        "uglified": 342,
+        "compressed": 216
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseShuffle.js",
+      "sizes": {
+        "raw": 562,
+        "uglified": 220,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSlice.js",
+      "sizes": {
+        "raw": 960,
+        "uglified": 274,
+        "compressed": 218
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSome.js",
+      "sizes": {
+        "raw": 816,
+        "uglified": 230,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSortBy.js",
+      "sizes": {
+        "raw": 736,
+        "uglified": 200,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSortedIndex.js",
+      "sizes": {
+        "raw": 1653,
+        "uglified": 429,
+        "compressed": 294
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSortedIndexBy.js",
+      "sizes": {
+        "raw": 2512,
+        "uglified": 504,
+        "compressed": 348
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSortedUniq.js",
+      "sizes": {
+        "raw": 974,
+        "uglified": 285,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseSum.js",
+      "sizes": {
+        "raw": 794,
+        "uglified": 228,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseTimes.js",
+      "sizes": {
+        "raw": 694,
+        "uglified": 190,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseToNumber.js",
+      "sizes": {
+        "raw": 743,
+        "uglified": 220,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseToPairs.js",
+      "sizes": {
+        "raw": 731,
+        "uglified": 214,
+        "compressed": 160
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseToString.js",
+      "sizes": {
+        "raw": 1395,
+        "uglified": 455,
+        "compressed": 280
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseUnary.js",
+      "sizes": {
+        "raw": 513,
+        "uglified": 170,
+        "compressed": 138
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseUniq.js",
+      "sizes": {
+        "raw": 2183,
+        "uglified": 668,
+        "compressed": 402
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseUnset.js",
+      "sizes": {
+        "raw": 787,
+        "uglified": 314,
+        "compressed": 201
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseUpdate.js",
+      "sizes": {
+        "raw": 801,
+        "uglified": 234,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseValues.js",
+      "sizes": {
+        "raw": 729,
+        "uglified": 210,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseWhile.js",
+      "sizes": {
+        "raw": 1124,
+        "uglified": 294,
+        "compressed": 217
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseWrapperValue.js",
+      "sizes": {
+        "raw": 1073,
+        "uglified": 361,
+        "compressed": 236
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseXor.js",
+      "sizes": {
+        "raw": 1342,
+        "uglified": 413,
+        "compressed": 265
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_baseZipObject.js",
+      "sizes": {
+        "raw": 860,
+        "uglified": 237,
+        "compressed": 190
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cacheHas.js",
+      "sizes": {
+        "raw": 514,
+        "uglified": 155,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_castArrayLikeObject.js",
+      "sizes": {
+        "raw": 574,
+        "uglified": 205,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_castFunction.js",
+      "sizes": {
+        "raw": 507,
+        "uglified": 200,
+        "compressed": 153
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_castPath.js",
+      "sizes": {
+        "raw": 777,
+        "uglified": 301,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_castRest.js",
+      "sizes": {
+        "raw": 525,
+        "uglified": 163,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_castSlice.js",
+      "sizes": {
+        "raw": 706,
+        "uglified": 235,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_charsEndIndex.js",
+      "sizes": {
+        "raw": 795,
+        "uglified": 230,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_charsStartIndex.js",
+      "sizes": {
+        "raw": 835,
+        "uglified": 239,
+        "compressed": 192
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneArrayBuffer.js",
+      "sizes": {
+        "raw": 647,
+        "uglified": 254,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneBuffer.js",
+      "sizes": {
+        "raw": 1671,
+        "uglified": 657,
+        "compressed": 352
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneDataView.js",
+      "sizes": {
+        "raw": 698,
+        "uglified": 268,
+        "compressed": 200
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneMap.js",
+      "sizes": {
+        "raw": 893,
+        "uglified": 318,
+        "compressed": 212
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneRegExp.js",
+      "sizes": {
+        "raw": 625,
+        "uglified": 230,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneSet.js",
+      "sizes": {
+        "raw": 893,
+        "uglified": 318,
+        "compressed": 211
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneSymbol.js",
+      "sizes": {
+        "raw": 722,
+        "uglified": 253,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_cloneTypedArray.js",
+      "sizes": {
+        "raw": 720,
+        "uglified": 266,
+        "compressed": 197
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_compareAscending.js",
+      "sizes": {
+        "raw": 1501,
+        "uglified": 420,
+        "compressed": 267
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_compareMultiple.js",
+      "sizes": {
+        "raw": 1846,
+        "uglified": 341,
+        "compressed": 242
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_composeArgs.js",
+      "sizes": {
+        "raw": 1551,
+        "uglified": 328,
+        "compressed": 246
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_composeArgsRight.js",
+      "sizes": {
+        "raw": 1625,
+        "uglified": 349,
+        "compressed": 258
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_copyArray.js",
+      "sizes": {
+        "raw": 644,
+        "uglified": 206,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_copyObject.js",
+      "sizes": {
+        "raw": 1260,
+        "uglified": 363,
+        "compressed": 247
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_copySymbols.js",
+      "sizes": {
+        "raw": 639,
+        "uglified": 230,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_copySymbolsIn.js",
+      "sizes": {
+        "raw": 665,
+        "uglified": 234,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_coreJsData.js",
+      "sizes": {
+        "raw": 320,
+        "uglified": 183,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_countHolders.js",
+      "sizes": {
+        "raw": 664,
+        "uglified": 194,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createAggregator.js",
+      "sizes": {
+        "raw": 998,
+        "uglified": 357,
+        "compressed": 217
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createAssigner.js",
+      "sizes": {
+        "raw": 1259,
+        "uglified": 445,
+        "compressed": 297
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createBaseEach.js",
+      "sizes": {
+        "raw": 1107,
+        "uglified": 328,
+        "compressed": 237
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createBaseFor.js",
+      "sizes": {
+        "raw": 853,
+        "uglified": 267,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createBind.js",
+      "sizes": {
+        "raw": 1058,
+        "uglified": 322,
+        "compressed": 220
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createCaseFirst.js",
+      "sizes": {
+        "raw": 995,
+        "uglified": 401,
+        "compressed": 254
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createCompounder.js",
+      "sizes": {
+        "raw": 851,
+        "uglified": 321,
+        "compressed": 221
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createCtor.js",
+      "sizes": {
+        "raw": 1797,
+        "uglified": 616,
+        "compressed": 286
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createCurry.js",
+      "sizes": {
+        "raw": 1663,
+        "uglified": 664,
+        "compressed": 370
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createFind.js",
+      "sizes": {
+        "raw": 1096,
+        "uglified": 389,
+        "compressed": 244
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createFlow.js",
+      "sizes": {
+        "raw": 2548,
+        "uglified": 964,
+        "compressed": 547
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createHybrid.js",
+      "sizes": {
+        "raw": 3597,
+        "uglified": 954,
+        "compressed": 526
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createInverter.js",
+      "sizes": {
+        "raw": 692,
+        "uglified": 225,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createMathOperation.js",
+      "sizes": {
+        "raw": 1378,
+        "uglified": 456,
+        "compressed": 254
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createOver.js",
+      "sizes": {
+        "raw": 1008,
+        "uglified": 443,
+        "compressed": 234
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createPadding.js",
+      "sizes": {
+        "raw": 1396,
+        "uglified": 514,
+        "compressed": 293
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createPartial.js",
+      "sizes": {
+        "raw": 1622,
+        "uglified": 457,
+        "compressed": 292
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createRange.js",
+      "sizes": {
+        "raw": 1116,
+        "uglified": 419,
+        "compressed": 250
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createRecurry.js",
+      "sizes": {
+        "raw": 2368,
+        "uglified": 473,
+        "compressed": 310
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createRelationalOperation.js",
+      "sizes": {
+        "raw": 804,
+        "uglified": 289,
+        "compressed": 193
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createRound.js",
+      "sizes": {
+        "raw": 1342,
+        "uglified": 451,
+        "compressed": 270
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createSet.js",
+      "sizes": {
+        "raw": 708,
+        "uglified": 292,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createToPairs.js",
+      "sizes": {
+        "raw": 1019,
+        "uglified": 385,
+        "compressed": 227
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_createWrap.js",
+      "sizes": {
+        "raw": 4069,
+        "uglified": 1069,
+        "compressed": 587
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_customDefaultsAssignIn.js",
+      "sizes": {
+        "raw": 1146,
+        "uglified": 272,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_customDefaultsMerge.js",
+      "sizes": {
+        "raw": 1288,
+        "uglified": 302,
+        "compressed": 203
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_customOmitClone.js",
+      "sizes": {
+        "raw": 668,
+        "uglified": 201,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_deburrLetter.js",
+      "sizes": {
+        "raw": 3663,
+        "uglified": 1710,
+        "compressed": 686
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_defineProperty.js",
+      "sizes": {
+        "raw": 438,
+        "uglified": 266,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_equalArrays.js",
+      "sizes": {
+        "raw": 2820,
+        "uglified": 697,
+        "compressed": 421
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_equalByTag.js",
+      "sizes": {
+        "raw": 4089,
+        "uglified": 1129,
+        "compressed": 564
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_equalObjects.js",
+      "sizes": {
+        "raw": 3148,
+        "uglified": 807,
+        "compressed": 464
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_escapeHtmlChar.js",
+      "sizes": {
+        "raw": 679,
+        "uglified": 241,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_escapeStringChar.js",
+      "sizes": {
+        "raw": 722,
+        "uglified": 239,
+        "compressed": 183
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_flatRest.js",
+      "sizes": {
+        "raw": 646,
+        "uglified": 261,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_freeGlobal.js",
+      "sizes": {
+        "raw": 667,
+        "uglified": 439,
+        "compressed": 244
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getAllKeys.js",
+      "sizes": {
+        "raw": 641,
+        "uglified": 248,
+        "compressed": 170
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getAllKeysIn.js",
+      "sizes": {
+        "raw": 678,
+        "uglified": 254,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getData.js",
+      "sizes": {
+        "raw": 512,
+        "uglified": 224,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getFuncName.js",
+      "sizes": {
+        "raw": 971,
+        "uglified": 334,
+        "compressed": 236
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getHolder.js",
+      "sizes": {
+        "raw": 458,
+        "uglified": 159,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getMapData.js",
+      "sizes": {
+        "raw": 580,
+        "uglified": 247,
+        "compressed": 190
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getMatchData.js",
+      "sizes": {
+        "raw": 779,
+        "uglified": 287,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getNative.js",
+      "sizes": {
+        "raw": 666,
+        "uglified": 241,
+        "compressed": 170
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getPrototype.js",
+      "sizes": {
+        "raw": 333,
+        "uglified": 200,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getRawTag.js",
+      "sizes": {
+        "raw": 1381,
+        "uglified": 364,
+        "compressed": 248
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getSymbols.js",
+      "sizes": {
+        "raw": 1097,
+        "uglified": 359,
+        "compressed": 235
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getSymbolsIn.js",
+      "sizes": {
+        "raw": 968,
+        "uglified": 357,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getTag.js",
+      "sizes": {
+        "raw": 2530,
+        "uglified": 963,
+        "compressed": 405
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getValue.js",
+      "sizes": {
+        "raw": 502,
+        "uglified": 166,
+        "compressed": 144
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getView.js",
+      "sizes": {
+        "raw": 1260,
+        "uglified": 360,
+        "compressed": 254
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_getWrapDetails.js",
+      "sizes": {
+        "raw": 668,
+        "uglified": 238,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hasPath.js",
+      "sizes": {
+        "raw": 1326,
+        "uglified": 502,
+        "compressed": 300
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hasUnicode.js",
+      "sizes": {
+        "raw": 1147,
+        "uglified": 256,
+        "compressed": 196
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hasUnicodeWord.js",
+      "sizes": {
+        "raw": 677,
+        "uglified": 236,
+        "compressed": 186
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hashClear.js",
+      "sizes": {
+        "raw": 475,
+        "uglified": 221,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hashDelete.js",
+      "sizes": {
+        "raw": 632,
+        "uglified": 208,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hashGet.js",
+      "sizes": {
+        "raw": 974,
+        "uglified": 327,
+        "compressed": 226
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hashHas.js",
+      "sizes": {
+        "raw": 814,
+        "uglified": 262,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_hashSet.js",
+      "sizes": {
+        "raw": 788,
+        "uglified": 287,
+        "compressed": 212
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_initCloneArray.js",
+      "sizes": {
+        "raw": 891,
+        "uglified": 303,
+        "compressed": 221
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_initCloneByTag.js",
+      "sizes": {
+        "raw": 2769,
+        "uglified": 1124,
+        "compressed": 457
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_initCloneObject.js",
+      "sizes": {
+        "raw": 677,
+        "uglified": 308,
+        "compressed": 197
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_insertWrapDetails.js",
+      "sizes": {
+        "raw": 952,
+        "uglified": 339,
+        "compressed": 256
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isFlattenable.js",
+      "sizes": {
+        "raw": 814,
+        "uglified": 312,
+        "compressed": 214
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isIndex.js",
+      "sizes": {
+        "raw": 883,
+        "uglified": 258,
+        "compressed": 221
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isIterateeCall.js",
+      "sizes": {
+        "raw": 1407,
+        "uglified": 605,
+        "compressed": 332
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isKey.js",
+      "sizes": {
+        "raw": 1406,
+        "uglified": 633,
+        "compressed": 366
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isKeyable.js",
+      "sizes": {
+        "raw": 927,
+        "uglified": 463,
+        "compressed": 268
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isLaziable.js",
+      "sizes": {
+        "raw": 938,
+        "uglified": 393,
+        "compressed": 248
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isMaskable.js",
+      "sizes": {
+        "raw": 572,
+        "uglified": 230,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isMasked.js",
+      "sizes": {
+        "raw": 764,
+        "uglified": 305,
+        "compressed": 225
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isPrototype.js",
+      "sizes": {
+        "raw": 664,
+        "uglified": 236,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_isStrictComparable.js",
+      "sizes": {
+        "raw": 608,
+        "uglified": 198,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_iteratorToArray.js",
+      "sizes": {
+        "raw": 552,
+        "uglified": 204,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_lazyClone.js",
+      "sizes": {
+        "raw": 885,
+        "uglified": 459,
+        "compressed": 245
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_lazyReverse.js",
+      "sizes": {
+        "raw": 689,
+        "uglified": 284,
+        "compressed": 203
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_lazyValue.js",
+      "sizes": {
+        "raw": 2069,
+        "uglified": 676,
+        "compressed": 437
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_listCacheClear.js",
+      "sizes": {
+        "raw": 401,
+        "uglified": 171,
+        "compressed": 147
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_listCacheDelete.js",
+      "sizes": {
+        "raw": 1000,
+        "uglified": 305,
+        "compressed": 233
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_listCacheGet.js",
+      "sizes": {
+        "raw": 614,
+        "uglified": 233,
+        "compressed": 187
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_listCacheHas.js",
+      "sizes": {
+        "raw": 593,
+        "uglified": 206,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_listCacheSet.js",
+      "sizes": {
+        "raw": 761,
+        "uglified": 263,
+        "compressed": 205
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapCacheClear.js",
+      "sizes": {
+        "raw": 602,
+        "uglified": 294,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapCacheDelete.js",
+      "sizes": {
+        "raw": 646,
+        "uglified": 230,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapCacheGet.js",
+      "sizes": {
+        "raw": 519,
+        "uglified": 198,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapCacheHas.js",
+      "sizes": {
+        "raw": 571,
+        "uglified": 198,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapCacheSet.js",
+      "sizes": {
+        "raw": 688,
+        "uglified": 250,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mapToArray.js",
+      "sizes": {
+        "raw": 551,
+        "uglified": 212,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_matchesStrictComparable.js",
+      "sizes": {
+        "raw": 771,
+        "uglified": 229,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_memoizeCapped.js",
+      "sizes": {
+        "raw": 841,
+        "uglified": 257,
+        "compressed": 190
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_mergeData.js",
+      "sizes": {
+        "raw": 3440,
+        "uglified": 742,
+        "compressed": 440
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_metaMap.js",
+      "sizes": {
+        "raw": 314,
+        "uglified": 176,
+        "compressed": 144
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_nativeCreate.js",
+      "sizes": {
+        "raw": 357,
+        "uglified": 189,
+        "compressed": 149
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_nativeKeys.js",
+      "sizes": {
+        "raw": 372,
+        "uglified": 188,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_nativeKeysIn.js",
+      "sizes": {
+        "raw": 685,
+        "uglified": 203,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_nodeUtil.js",
+      "sizes": {
+        "raw": 1346,
+        "uglified": 601,
+        "compressed": 328
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_objectToString.js",
+      "sizes": {
+        "raw": 762,
+        "uglified": 192,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_overArg.js",
+      "sizes": {
+        "raw": 563,
+        "uglified": 173,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_overRest.js",
+      "sizes": {
+        "raw": 1317,
+        "uglified": 381,
+        "compressed": 263
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_parent.js",
+      "sizes": {
+        "raw": 624,
+        "uglified": 238,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_reEscape.js",
+      "sizes": {
+        "raw": 264,
+        "uglified": 143,
+        "compressed": 138
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_reEvaluate.js",
+      "sizes": {
+        "raw": 269,
+        "uglified": 144,
+        "compressed": 137
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_reInterpolate.js",
+      "sizes": {
+        "raw": 279,
+        "uglified": 148,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_realNames.js",
+      "sizes": {
+        "raw": 258,
+        "uglified": 128,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_reorder.js",
+      "sizes": {
+        "raw": 1111,
+        "uglified": 311,
+        "compressed": 221
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_replaceHolders.js",
+      "sizes": {
+        "raw": 996,
+        "uglified": 269,
+        "compressed": 211
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_root.js",
+      "sizes": {
+        "raw": 793,
+        "uglified": 488,
+        "compressed": 272
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setCacheAdd.js",
+      "sizes": {
+        "raw": 614,
+        "uglified": 209,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setCacheHas.js",
+      "sizes": {
+        "raw": 498,
+        "uglified": 168,
+        "compressed": 144
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setData.js",
+      "sizes": {
+        "raw": 837,
+        "uglified": 201,
+        "compressed": 151
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setToArray.js",
+      "sizes": {
+        "raw": 533,
+        "uglified": 206,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setToPairs.js",
+      "sizes": {
+        "raw": 552,
+        "uglified": 210,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setToString.js",
+      "sizes": {
+        "raw": 576,
+        "uglified": 209,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_setWrapToString.js",
+      "sizes": {
+        "raw": 1060,
+        "uglified": 344,
+        "compressed": 204
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_shortOut.js",
+      "sizes": {
+        "raw": 1159,
+        "uglified": 298,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_shuffleSelf.js",
+      "sizes": {
+        "raw": 986,
+        "uglified": 289,
+        "compressed": 217
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stackClear.js",
+      "sizes": {
+        "raw": 437,
+        "uglified": 200,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stackDelete.js",
+      "sizes": {
+        "raw": 593,
+        "uglified": 200,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stackGet.js",
+      "sizes": {
+        "raw": 450,
+        "uglified": 165,
+        "compressed": 142
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stackHas.js",
+      "sizes": {
+        "raw": 502,
+        "uglified": 165,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stackSet.js",
+      "sizes": {
+        "raw": 1064,
+        "uglified": 418,
+        "compressed": 255
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_strictIndexOf.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 208,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_strictLastIndexOf.js",
+      "sizes": {
+        "raw": 778,
+        "uglified": 199,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stringSize.js",
+      "sizes": {
+        "raw": 620,
+        "uglified": 265,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stringToArray.js",
+      "sizes": {
+        "raw": 641,
+        "uglified": 274,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_stringToPath.js",
+      "sizes": {
+        "raw": 1060,
+        "uglified": 417,
+        "compressed": 295
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_toKey.js",
+      "sizes": {
+        "raw": 708,
+        "uglified": 253,
+        "compressed": 198
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_toSource.js",
+      "sizes": {
+        "raw": 753,
+        "uglified": 250,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_unescapeHtmlChar.js",
+      "sizes": {
+        "raw": 695,
+        "uglified": 243,
+        "compressed": 188
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_unicodeSize.js",
+      "sizes": {
+        "raw": 1976,
+        "uglified": 578,
+        "compressed": 340
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_unicodeToArray.js",
+      "sizes": {
+        "raw": 1899,
+        "uglified": 555,
+        "compressed": 328
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_unicodeWords.js",
+      "sizes": {
+        "raw": 3418,
+        "uglified": 1271,
+        "compressed": 633
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_updateWrapDetails.js",
+      "sizes": {
+        "raw": 1524,
+        "uglified": 433,
+        "compressed": 288
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/_wrapperClone.js",
+      "sizes": {
+        "raw": 859,
+        "uglified": 405,
+        "compressed": 245
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/add.js",
+      "sizes": {
+        "raw": 662,
+        "uglified": 201,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/after.js",
+      "sizes": {
+        "raw": 1293,
+        "uglified": 309,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/array.default.js",
+      "sizes": {
+        "raw": 4197,
+        "uglified": 2753,
+        "compressed": 811
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/array.js",
+      "sizes": {
+        "raw": 11230,
+        "uglified": 7134,
+        "compressed": 947
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/ary.js",
+      "sizes": {
+        "raw": 1059,
+        "uglified": 261,
+        "compressed": 194
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/assign.js",
+      "sizes": {
+        "raw": 1850,
+        "uglified": 461,
+        "compressed": 261
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/assignIn.js",
+      "sizes": {
+        "raw": 1148,
+        "uglified": 265,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/assignInWith.js",
+      "sizes": {
+        "raw": 1498,
+        "uglified": 275,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/assignWith.js",
+      "sizes": {
+        "raw": 1461,
+        "uglified": 271,
+        "compressed": 181
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/at.js",
+      "sizes": {
+        "raw": 751,
+        "uglified": 190,
+        "compressed": 149
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/attempt.js",
+      "sizes": {
+        "raw": 1162,
+        "uglified": 302,
+        "compressed": 201
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/before.js",
+      "sizes": {
+        "raw": 1320,
+        "uglified": 336,
+        "compressed": 242
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/bind.js",
+      "sizes": {
+        "raw": 1966,
+        "uglified": 367,
+        "compressed": 232
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/bindAll.js",
+      "sizes": {
+        "raw": 1377,
+        "uglified": 363,
+        "compressed": 220
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/bindKey.js",
+      "sizes": {
+        "raw": 2368,
+        "uglified": 370,
+        "compressed": 236
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/camelCase.js",
+      "sizes": {
+        "raw": 918,
+        "uglified": 265,
+        "compressed": 193
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/capitalize.js",
+      "sizes": {
+        "raw": 734,
+        "uglified": 232,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/castArray.js",
+      "sizes": {
+        "raw": 1010,
+        "uglified": 233,
+        "compressed": 174
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/ceil.js",
+      "sizes": {
+        "raw": 708,
+        "uglified": 173,
+        "compressed": 143
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/chain.js",
+      "sizes": {
+        "raw": 1091,
+        "uglified": 205,
+        "compressed": 160
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/chunk.js",
+      "sizes": {
+        "raw": 1661,
+        "uglified": 418,
+        "compressed": 285
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/clamp.js",
+      "sizes": {
+        "raw": 1150,
+        "uglified": 337,
+        "compressed": 209
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/clone.js",
+      "sizes": {
+        "raw": 1285,
+        "uglified": 188,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/cloneDeep.js",
+      "sizes": {
+        "raw": 889,
+        "uglified": 198,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/cloneDeepWith.js",
+      "sizes": {
+        "raw": 1282,
+        "uglified": 239,
+        "compressed": 186
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/cloneWith.js",
+      "sizes": {
+        "raw": 1430,
+        "uglified": 229,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/collection.default.js",
+      "sizes": {
+        "raw": 1767,
+        "uglified": 1179,
+        "compressed": 432
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/collection.js",
+      "sizes": {
+        "raw": 4884,
+        "uglified": 3121,
+        "compressed": 517
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/commit.js",
+      "sizes": {
+        "raw": 853,
+        "uglified": 209,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/compact.js",
+      "sizes": {
+        "raw": 890,
+        "uglified": 220,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/concat.js",
+      "sizes": {
+        "raw": 1254,
+        "uglified": 401,
+        "compressed": 249
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/cond.js",
+      "sizes": {
+        "raw": 1899,
+        "uglified": 521,
+        "compressed": 310
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/conforms.js",
+      "sizes": {
+        "raw": 1203,
+        "uglified": 231,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/conformsTo.js",
+      "sizes": {
+        "raw": 1177,
+        "uglified": 235,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/constant.js",
+      "sizes": {
+        "raw": 731,
+        "uglified": 164,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/countBy.js",
+      "sizes": {
+        "raw": 1495,
+        "uglified": 293,
+        "compressed": 209
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/create.js",
+      "sizes": {
+        "raw": 1273,
+        "uglified": 241,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/curry.js",
+      "sizes": {
+        "raw": 1904,
+        "uglified": 300,
+        "compressed": 201
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/curryRight.js",
+      "sizes": {
+        "raw": 1758,
+        "uglified": 306,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/date.default.js",
+      "sizes": {
+        "raw": 224,
+        "uglified": 158,
+        "compressed": 134
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/date.js",
+      "sizes": {
+        "raw": 454,
+        "uglified": 312,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/debounce.js",
+      "sizes": {
+        "raw": 6569,
+        "uglified": 1135,
+        "compressed": 575
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/deburr.js",
+      "sizes": {
+        "raw": 1847,
+        "uglified": 360,
+        "compressed": 248
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/defaultTo.js",
+      "sizes": {
+        "raw": 807,
+        "uglified": 164,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/defaults.js",
+      "sizes": {
+        "raw": 1251,
+        "uglified": 323,
+        "compressed": 210
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/defaultsDeep.js",
+      "sizes": {
+        "raw": 1059,
+        "uglified": 321,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/defer.js",
+      "sizes": {
+        "raw": 900,
+        "uglified": 228,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/delay.js",
+      "sizes": {
+        "raw": 1010,
+        "uglified": 268,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/difference.js",
+      "sizes": {
+        "raw": 1294,
+        "uglified": 339,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/differenceBy.js",
+      "sizes": {
+        "raw": 1804,
+        "uglified": 453,
+        "compressed": 248
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/differenceWith.js",
+      "sizes": {
+        "raw": 1662,
+        "uglified": 420,
+        "compressed": 239
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/divide.js",
+      "sizes": {
+        "raw": 687,
+        "uglified": 204,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/drop.js",
+      "sizes": {
+        "raw": 1117,
+        "uglified": 280,
+        "compressed": 206
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/dropRight.js",
+      "sizes": {
+        "raw": 1161,
+        "uglified": 291,
+        "compressed": 214
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/dropRightWhile.js",
+      "sizes": {
+        "raw": 1651,
+        "uglified": 255,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/dropWhile.js",
+      "sizes": {
+        "raw": 1618,
+        "uglified": 247,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/each.js",
+      "sizes": {
+        "raw": 309,
+        "uglified": 212,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/eachRight.js",
+      "sizes": {
+        "raw": 329,
+        "uglified": 222,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/endsWith.js",
+      "sizes": {
+        "raw": 1333,
+        "uglified": 374,
+        "compressed": 242
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/entries.js",
+      "sizes": {
+        "raw": 312,
+        "uglified": 215,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/entriesIn.js",
+      "sizes": {
+        "raw": 320,
+        "uglified": 219,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/eq.js",
+      "sizes": {
+        "raw": 1015,
+        "uglified": 157,
+        "compressed": 138
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/escape.js",
+      "sizes": {
+        "raw": 1750,
+        "uglified": 280,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/escapeRegExp.js",
+      "sizes": {
+        "raw": 1076,
+        "uglified": 267,
+        "compressed": 210
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/every.js",
+      "sizes": {
+        "raw": 2137,
+        "uglified": 363,
+        "compressed": 221
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/extend.js",
+      "sizes": {
+        "raw": 314,
+        "uglified": 215,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/extendWith.js",
+      "sizes": {
+        "raw": 330,
+        "uglified": 223,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/fill.js",
+      "sizes": {
+        "raw": 1324,
+        "uglified": 303,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/filter.js",
+      "sizes": {
+        "raw": 1755,
+        "uglified": 294,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/find.js",
+      "sizes": {
+        "raw": 1536,
+        "uglified": 196,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/findIndex.js",
+      "sizes": {
+        "raw": 1924,
+        "uglified": 364,
+        "compressed": 242
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/findKey.js",
+      "sizes": {
+        "raw": 1572,
+        "uglified": 261,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/findLast.js",
+      "sizes": {
+        "raw": 932,
+        "uglified": 204,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/findLastIndex.js",
+      "sizes": {
+        "raw": 2027,
+        "uglified": 398,
+        "compressed": 266
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/findLastKey.js",
+      "sizes": {
+        "raw": 1593,
+        "uglified": 270,
+        "compressed": 183
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/first.js",
+      "sizes": {
+        "raw": 301,
+        "uglified": 210,
+        "compressed": 153
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flatMap.js",
+      "sizes": {
+        "raw": 1026,
+        "uglified": 218,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flatMapDeep.js",
+      "sizes": {
+        "raw": 1016,
+        "uglified": 232,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flatMapDepth.js",
+      "sizes": {
+        "raw": 1128,
+        "uglified": 279,
+        "compressed": 195
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flatten.js",
+      "sizes": {
+        "raw": 685,
+        "uglified": 208,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flattenDeep.js",
+      "sizes": {
+        "raw": 781,
+        "uglified": 222,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flattenDepth.js",
+      "sizes": {
+        "raw": 1014,
+        "uglified": 270,
+        "compressed": 197
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flip.js",
+      "sizes": {
+        "raw": 839,
+        "uglified": 190,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/floor.js",
+      "sizes": {
+        "raw": 723,
+        "uglified": 175,
+        "compressed": 145
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flow.js",
+      "sizes": {
+        "raw": 869,
+        "uglified": 166,
+        "compressed": 140
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/flowRight.js",
+      "sizes": {
+        "raw": 796,
+        "uglified": 173,
+        "compressed": 147
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forEach.js",
+      "sizes": {
+        "raw": 1591,
+        "uglified": 289,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forEachRight.js",
+      "sizes": {
+        "raw": 1145,
+        "uglified": 304,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forIn.js",
+      "sizes": {
+        "raw": 1284,
+        "uglified": 259,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forInRight.js",
+      "sizes": {
+        "raw": 1149,
+        "uglified": 269,
+        "compressed": 183
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forOwn.js",
+      "sizes": {
+        "raw": 1219,
+        "uglified": 228,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/forOwnRight.js",
+      "sizes": {
+        "raw": 1094,
+        "uglified": 238,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/fromPairs.js",
+      "sizes": {
+        "raw": 801,
+        "uglified": 217,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/function.default.js",
+      "sizes": {
+        "raw": 1378,
+        "uglified": 938,
+        "compressed": 373
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/function.js",
+      "sizes": {
+        "raw": 3958,
+        "uglified": 2548,
+        "compressed": 449
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/functions.js",
+      "sizes": {
+        "raw": 905,
+        "uglified": 231,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/functionsIn.js",
+      "sizes": {
+        "raw": 936,
+        "uglified": 235,
+        "compressed": 167
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/get.js",
+      "sizes": {
+        "raw": 1098,
+        "uglified": 217,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/groupBy.js",
+      "sizes": {
+        "raw": 1634,
+        "uglified": 301,
+        "compressed": 213
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/gt.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 207,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/gte.js",
+      "sizes": {
+        "raw": 844,
+        "uglified": 206,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/has.js",
+      "sizes": {
+        "raw": 974,
+        "uglified": 218,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/hasIn.js",
+      "sizes": {
+        "raw": 970,
+        "uglified": 222,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/head.js",
+      "sizes": {
+        "raw": 605,
+        "uglified": 163,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/identity.js",
+      "sizes": {
+        "raw": 562,
+        "uglified": 145,
+        "compressed": 126
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/inRange.js",
+      "sizes": {
+        "raw": 1529,
+        "uglified": 309,
+        "compressed": 201
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/includes.js",
+      "sizes": {
+        "raw": 2025,
+        "uglified": 438,
+        "compressed": 277
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/index.js",
+      "sizes": {
+        "raw": 52924,
+        "uglified": 34104,
+        "compressed": 4114
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/indexOf.js",
+      "sizes": {
+        "raw": 1478,
+        "uglified": 318,
+        "compressed": 225
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/initial.js",
+      "sizes": {
+        "raw": 657,
+        "uglified": 209,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/intersection.js",
+      "sizes": {
+        "raw": 1164,
+        "uglified": 348,
+        "compressed": 219
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/intersectionBy.js",
+      "sizes": {
+        "raw": 1730,
+        "uglified": 467,
+        "compressed": 261
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/intersectionWith.js",
+      "sizes": {
+        "raw": 1627,
+        "uglified": 438,
+        "compressed": 263
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/invert.js",
+      "sizes": {
+        "raw": 948,
+        "uglified": 260,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/invertBy.js",
+      "sizes": {
+        "raw": 1580,
+        "uglified": 293,
+        "compressed": 204
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/invoke.js",
+      "sizes": {
+        "raw": 832,
+        "uglified": 198,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/invokeMap.js",
+      "sizes": {
+        "raw": 1692,
+        "uglified": 429,
+        "compressed": 258
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isArguments.js",
+      "sizes": {
+        "raw": 1263,
+        "uglified": 382,
+        "compressed": 238
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isArray.js",
+      "sizes": {
+        "raw": 689,
+        "uglified": 144,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isArrayBuffer.js",
+      "sizes": {
+        "raw": 946,
+        "uglified": 275,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isArrayLike.js",
+      "sizes": {
+        "raw": 1056,
+        "uglified": 240,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isArrayLikeObject.js",
+      "sizes": {
+        "raw": 974,
+        "uglified": 233,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isBoolean.js",
+      "sizes": {
+        "raw": 887,
+        "uglified": 269,
+        "compressed": 196
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isBuffer.js",
+      "sizes": {
+        "raw": 1730,
+        "uglified": 585,
+        "compressed": 315
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isDate.js",
+      "sizes": {
+        "raw": 849,
+        "uglified": 254,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isElement.js",
+      "sizes": {
+        "raw": 782,
+        "uglified": 244,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isEmpty.js",
+      "sizes": {
+        "raw": 2310,
+        "uglified": 709,
+        "compressed": 358
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isEqual.js",
+      "sizes": {
+        "raw": 1208,
+        "uglified": 186,
+        "compressed": 145
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isEqualWith.js",
+      "sizes": {
+        "raw": 1590,
+        "uglified": 271,
+        "compressed": 198
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isError.js",
+      "sizes": {
+        "raw": 1183,
+        "uglified": 399,
+        "compressed": 250
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isFinite.js",
+      "sizes": {
+        "raw": 1011,
+        "uglified": 209,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isFunction.js",
+      "sizes": {
+        "raw": 1224,
+        "uglified": 367,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isInteger.js",
+      "sizes": {
+        "raw": 889,
+        "uglified": 204,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isLength.js",
+      "sizes": {
+        "raw": 1014,
+        "uglified": 204,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isMap.js",
+      "sizes": {
+        "raw": 819,
+        "uglified": 251,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isMatch.js",
+      "sizes": {
+        "raw": 1306,
+        "uglified": 236,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isMatchWith.js",
+      "sizes": {
+        "raw": 1571,
+        "uglified": 269,
+        "compressed": 190
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isNaN.js",
+      "sizes": {
+        "raw": 1137,
+        "uglified": 183,
+        "compressed": 146
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isNative.js",
+      "sizes": {
+        "raw": 1456,
+        "uglified": 318,
+        "compressed": 231
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isNil.js",
+      "sizes": {
+        "raw": 623,
+        "uglified": 148,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isNull.js",
+      "sizes": {
+        "raw": 573,
+        "uglified": 150,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isNumber.js",
+      "sizes": {
+        "raw": 1109,
+        "uglified": 271,
+        "compressed": 196
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isObject.js",
+      "sizes": {
+        "raw": 1278,
+        "uglified": 423,
+        "compressed": 240
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isObjectLike.js",
+      "sizes": {
+        "raw": 1161,
+        "uglified": 404,
+        "compressed": 236
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isPlainObject.js",
+      "sizes": {
+        "raw": 1924,
+        "uglified": 523,
+        "compressed": 305
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isRegExp.js",
+      "sizes": {
+        "raw": 855,
+        "uglified": 260,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isSafeInteger.js",
+      "sizes": {
+        "raw": 1179,
+        "uglified": 221,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isSet.js",
+      "sizes": {
+        "raw": 819,
+        "uglified": 251,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isString.js",
+      "sizes": {
+        "raw": 934,
+        "uglified": 309,
+        "compressed": 208
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isSymbol.js",
+      "sizes": {
+        "raw": 1220,
+        "uglified": 496,
+        "compressed": 274
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isTypedArray.js",
+      "sizes": {
+        "raw": 908,
+        "uglified": 272,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isUndefined.js",
+      "sizes": {
+        "raw": 613,
+        "uglified": 157,
+        "compressed": 135
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isWeakMap.js",
+      "sizes": {
+        "raw": 843,
+        "uglified": 249,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/isWeakSet.js",
+      "sizes": {
+        "raw": 855,
+        "uglified": 253,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/iteratee.js",
+      "sizes": {
+        "raw": 1961,
+        "uglified": 254,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/join.js",
+      "sizes": {
+        "raw": 887,
+        "uglified": 191,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/kebabCase.js",
+      "sizes": {
+        "raw": 870,
+        "uglified": 229,
+        "compressed": 181
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/keyBy.js",
+      "sizes": {
+        "raw": 1421,
+        "uglified": 238,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/keys.js",
+      "sizes": {
+        "raw": 1115,
+        "uglified": 259,
+        "compressed": 170
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/keysIn.js",
+      "sizes": {
+        "raw": 1001,
+        "uglified": 266,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lang.default.js",
+      "sizes": {
+        "raw": 3621,
+        "uglified": 2363,
+        "compressed": 733
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lang.js",
+      "sizes": {
+        "raw": 9692,
+        "uglified": 6149,
+        "compressed": 863
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/last.js",
+      "sizes": {
+        "raw": 587,
+        "uglified": 180,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lastIndexOf.js",
+      "sizes": {
+        "raw": 1599,
+        "uglified": 438,
+        "compressed": 280
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lodash.default.js",
+      "sizes": {
+        "raw": 30484,
+        "uglified": 16394,
+        "compressed": 4024
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lowerCase.js",
+      "sizes": {
+        "raw": 831,
+        "uglified": 229,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lowerFirst.js",
+      "sizes": {
+        "raw": 669,
+        "uglified": 190,
+        "compressed": 153
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lt.js",
+      "sizes": {
+        "raw": 794,
+        "uglified": 207,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/lte.js",
+      "sizes": {
+        "raw": 838,
+        "uglified": 206,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/map.js",
+      "sizes": {
+        "raw": 1877,
+        "uglified": 285,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/mapKeys.js",
+      "sizes": {
+        "raw": 1328,
+        "uglified": 314,
+        "compressed": 205
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/mapValues.js",
+      "sizes": {
+        "raw": 1585,
+        "uglified": 316,
+        "compressed": 203
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/matches.js",
+      "sizes": {
+        "raw": 1380,
+        "uglified": 229,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/matchesProperty.js",
+      "sizes": {
+        "raw": 1389,
+        "uglified": 249,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/math.default.js",
+      "sizes": {
+        "raw": 890,
+        "uglified": 620,
+        "compressed": 266
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/math.js",
+      "sizes": {
+        "raw": 2610,
+        "uglified": 1698,
+        "compressed": 327
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/max.js",
+      "sizes": {
+        "raw": 804,
+        "uglified": 258,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/maxBy.js",
+      "sizes": {
+        "raw": 1198,
+        "uglified": 276,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/mean.js",
+      "sizes": {
+        "raw": 614,
+        "uglified": 206,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/meanBy.js",
+      "sizes": {
+        "raw": 1096,
+        "uglified": 224,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/memoize.js",
+      "sizes": {
+        "raw": 2529,
+        "uglified": 478,
+        "compressed": 299
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/merge.js",
+      "sizes": {
+        "raw": 1453,
+        "uglified": 230,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/mergeWith.js",
+      "sizes": {
+        "raw": 1484,
+        "uglified": 238,
+        "compressed": 171
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/method.js",
+      "sizes": {
+        "raw": 1085,
+        "uglified": 250,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/methodOf.js",
+      "sizes": {
+        "raw": 1137,
+        "uglified": 252,
+        "compressed": 174
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/min.js",
+      "sizes": {
+        "raw": 804,
+        "uglified": 258,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/minBy.js",
+      "sizes": {
+        "raw": 1198,
+        "uglified": 276,
+        "compressed": 193
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/mixin.js",
+      "sizes": {
+        "raw": 2552,
+        "uglified": 707,
+        "compressed": 373
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/multiply.js",
+      "sizes": {
+        "raw": 728,
+        "uglified": 206,
+        "compressed": 161
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/negate.js",
+      "sizes": {
+        "raw": 1346,
+        "uglified": 422,
+        "compressed": 252
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/next.js",
+      "sizes": {
+        "raw": 1053,
+        "uglified": 331,
+        "compressed": 209
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/noop.js",
+      "sizes": {
+        "raw": 430,
+        "uglified": 132,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/now.js",
+      "sizes": {
+        "raw": 713,
+        "uglified": 175,
+        "compressed": 143
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/nth.js",
+      "sizes": {
+        "raw": 879,
+        "uglified": 234,
+        "compressed": 173
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/nthArg.js",
+      "sizes": {
+        "raw": 954,
+        "uglified": 275,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/number.default.js",
+      "sizes": {
+        "raw": 340,
+        "uglified": 236,
+        "compressed": 164
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/number.js",
+      "sizes": {
+        "raw": 790,
+        "uglified": 524,
+        "compressed": 202
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/object.default.js",
+      "sizes": {
+        "raw": 2824,
+        "uglified": 1878,
+        "compressed": 605
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/object.js",
+      "sizes": {
+        "raw": 7946,
+        "uglified": 5070,
+        "compressed": 717
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/omit.js",
+      "sizes": {
+        "raw": 1915,
+        "uglified": 585,
+        "compressed": 320
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/omitBy.js",
+      "sizes": {
+        "raw": 1071,
+        "uglified": 252,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/once.js",
+      "sizes": {
+        "raw": 864,
+        "uglified": 175,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/orderBy.js",
+      "sizes": {
+        "raw": 1884,
+        "uglified": 312,
+        "compressed": 207
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/over.js",
+      "sizes": {
+        "raw": 754,
+        "uglified": 196,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/overArgs.js",
+      "sizes": {
+        "raw": 1937,
+        "uglified": 623,
+        "compressed": 321
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/overEvery.js",
+      "sizes": {
+        "raw": 867,
+        "uglified": 203,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/overSome.js",
+      "sizes": {
+        "raw": 859,
+        "uglified": 201,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pad.js",
+      "sizes": {
+        "raw": 1531,
+        "uglified": 406,
+        "compressed": 249
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/padEnd.js",
+      "sizes": {
+        "raw": 1240,
+        "uglified": 332,
+        "compressed": 216
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/padStart.js",
+      "sizes": {
+        "raw": 1251,
+        "uglified": 334,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/parseInt.js",
+      "sizes": {
+        "raw": 1503,
+        "uglified": 282,
+        "compressed": 206
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/partial.js",
+      "sizes": {
+        "raw": 1827,
+        "uglified": 347,
+        "compressed": 219
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/partialRight.js",
+      "sizes": {
+        "raw": 1816,
+        "uglified": 352,
+        "compressed": 224
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/partition.js",
+      "sizes": {
+        "raw": 1766,
+        "uglified": 236,
+        "compressed": 179
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pick.js",
+      "sizes": {
+        "raw": 833,
+        "uglified": 236,
+        "compressed": 172
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pickBy.js",
+      "sizes": {
+        "raw": 1271,
+        "uglified": 388,
+        "compressed": 233
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/plant.js",
+      "sizes": {
+        "raw": 1259,
+        "uglified": 351,
+        "compressed": 230
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/property.js",
+      "sizes": {
+        "raw": 1022,
+        "uglified": 298,
+        "compressed": 174
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/propertyOf.js",
+      "sizes": {
+        "raw": 948,
+        "uglified": 219,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pull.js",
+      "sizes": {
+        "raw": 964,
+        "uglified": 192,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pullAll.js",
+      "sizes": {
+        "raw": 906,
+        "uglified": 214,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pullAllBy.js",
+      "sizes": {
+        "raw": 1281,
+        "uglified": 262,
+        "compressed": 189
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pullAllWith.js",
+      "sizes": {
+        "raw": 1235,
+        "uglified": 229,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/pullAt.js",
+      "sizes": {
+        "raw": 1432,
+        "uglified": 439,
+        "compressed": 251
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/random.js",
+      "sizes": {
+        "raw": 2692,
+        "uglified": 612,
+        "compressed": 354
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/range.js",
+      "sizes": {
+        "raw": 1393,
+        "uglified": 168,
+        "compressed": 141
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/rangeRight.js",
+      "sizes": {
+        "raw": 1099,
+        "uglified": 175,
+        "compressed": 146
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/rearg.js",
+      "sizes": {
+        "raw": 1242,
+        "uglified": 252,
+        "compressed": 178
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/reduce.js",
+      "sizes": {
+        "raw": 2058,
+        "uglified": 359,
+        "compressed": 222
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/reduceRight.js",
+      "sizes": {
+        "raw": 1383,
+        "uglified": 374,
+        "compressed": 228
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/reject.js",
+      "sizes": {
+        "raw": 1666,
+        "uglified": 327,
+        "compressed": 198
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/remove.js",
+      "sizes": {
+        "raw": 1591,
+        "uglified": 347,
+        "compressed": 240
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/repeat.js",
+      "sizes": {
+        "raw": 1128,
+        "uglified": 327,
+        "compressed": 211
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/replace.js",
+      "sizes": {
+        "raw": 962,
+        "uglified": 233,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/rest.js",
+      "sizes": {
+        "raw": 1413,
+        "uglified": 309,
+        "compressed": 218
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/result.js",
+      "sizes": {
+        "raw": 1731,
+        "uglified": 376,
+        "compressed": 251
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/reverse.js",
+      "sizes": {
+        "raw": 1057,
+        "uglified": 192,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/round.js",
+      "sizes": {
+        "raw": 703,
+        "uglified": 175,
+        "compressed": 144
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sample.js",
+      "sizes": {
+        "raw": 748,
+        "uglified": 248,
+        "compressed": 167
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sampleSize.js",
+      "sizes": {
+        "raw": 1301,
+        "uglified": 372,
+        "compressed": 226
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/seq.default.js",
+      "sizes": {
+        "raw": 982,
+        "uglified": 642,
+        "compressed": 285
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/seq.js",
+      "sizes": {
+        "raw": 2592,
+        "uglified": 1653,
+        "compressed": 351
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/set.js",
+      "sizes": {
+        "raw": 1178,
+        "uglified": 193,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/setWith.js",
+      "sizes": {
+        "raw": 1271,
+        "uglified": 233,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/shuffle.js",
+      "sizes": {
+        "raw": 878,
+        "uglified": 251,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/size.js",
+      "sizes": {
+        "raw": 1392,
+        "uglified": 437,
+        "compressed": 256
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/slice.js",
+      "sizes": {
+        "raw": 1274,
+        "uglified": 384,
+        "compressed": 249
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/snakeCase.js",
+      "sizes": {
+        "raw": 849,
+        "uglified": 229,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/some.js",
+      "sizes": {
+        "raw": 1865,
+        "uglified": 360,
+        "compressed": 220
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortBy.js",
+      "sizes": {
+        "raw": 1942,
+        "uglified": 420,
+        "compressed": 257
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedIndex.js",
+      "sizes": {
+        "raw": 830,
+        "uglified": 194,
+        "compressed": 149
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedIndexBy.js",
+      "sizes": {
+        "raw": 1288,
+        "uglified": 244,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedIndexOf.js",
+      "sizes": {
+        "raw": 986,
+        "uglified": 289,
+        "compressed": 202
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedLastIndex.js",
+      "sizes": {
+        "raw": 889,
+        "uglified": 201,
+        "compressed": 156
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedLastIndexBy.js",
+      "sizes": {
+        "raw": 1318,
+        "uglified": 251,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedLastIndexOf.js",
+      "sizes": {
+        "raw": 998,
+        "uglified": 285,
+        "compressed": 205
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedUniq.js",
+      "sizes": {
+        "raw": 702,
+        "uglified": 204,
+        "compressed": 160
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sortedUniqBy.js",
+      "sizes": {
+        "raw": 897,
+        "uglified": 252,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/split.js",
+      "sizes": {
+        "raw": 1794,
+        "uglified": 569,
+        "compressed": 333
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/spread.js",
+      "sizes": {
+        "raw": 2022,
+        "uglified": 482,
+        "compressed": 296
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/startCase.js",
+      "sizes": {
+        "raw": 931,
+        "uglified": 252,
+        "compressed": 180
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/startsWith.js",
+      "sizes": {
+        "raw": 1248,
+        "uglified": 355,
+        "compressed": 224
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/string.default.js",
+      "sizes": {
+        "raw": 2040,
+        "uglified": 1340,
+        "compressed": 481
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/string.js",
+      "sizes": {
+        "raw": 5462,
+        "uglified": 3476,
+        "compressed": 575
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/stubArray.js",
+      "sizes": {
+        "raw": 587,
+        "uglified": 145,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/stubFalse.js",
+      "sizes": {
+        "raw": 467,
+        "uglified": 145,
+        "compressed": 131
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/stubObject.js",
+      "sizes": {
+        "raw": 598,
+        "uglified": 146,
+        "compressed": 127
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/stubString.js",
+      "sizes": {
+        "raw": 478,
+        "uglified": 146,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/stubTrue.js",
+      "sizes": {
+        "raw": 458,
+        "uglified": 144,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/subtract.js",
+      "sizes": {
+        "raw": 709,
+        "uglified": 206,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sum.js",
+      "sizes": {
+        "raw": 634,
+        "uglified": 219,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/sumBy.js",
+      "sizes": {
+        "raw": 1114,
+        "uglified": 237,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/tail.js",
+      "sizes": {
+        "raw": 650,
+        "uglified": 212,
+        "compressed": 168
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/take.js",
+      "sizes": {
+        "raw": 1076,
+        "uglified": 265,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/takeRight.js",
+      "sizes": {
+        "raw": 1164,
+        "uglified": 291,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/takeRightWhile.js",
+      "sizes": {
+        "raw": 1615,
+        "uglified": 255,
+        "compressed": 185
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/takeWhile.js",
+      "sizes": {
+        "raw": 1569,
+        "uglified": 244,
+        "compressed": 176
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/tap.js",
+      "sizes": {
+        "raw": 906,
+        "uglified": 147,
+        "compressed": 128
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/template.js",
+      "sizes": {
+        "raw": 9595,
+        "uglified": 1706,
+        "compressed": 893
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/templateSettings.js",
+      "sizes": {
+        "raw": 1686,
+        "uglified": 330,
+        "compressed": 207
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/throttle.js",
+      "sizes": {
+        "raw": 3000,
+        "uglified": 409,
+        "compressed": 260
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/thru.js",
+      "sizes": {
+        "raw": 876,
+        "uglified": 146,
+        "compressed": 130
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/times.js",
+      "sizes": {
+        "raw": 1617,
+        "uglified": 381,
+        "compressed": 265
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toArray.js",
+      "sizes": {
+        "raw": 1694,
+        "uglified": 637,
+        "compressed": 309
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toFinite.js",
+      "sizes": {
+        "raw": 1101,
+        "uglified": 265,
+        "compressed": 212
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toInteger.js",
+      "sizes": {
+        "raw": 982,
+        "uglified": 208,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toIterator.js",
+      "sizes": {
+        "raw": 601,
+        "uglified": 149,
+        "compressed": 132
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toJSON.js",
+      "sizes": {
+        "raw": 326,
+        "uglified": 219,
+        "compressed": 162
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toLength.js",
+      "sizes": {
+        "raw": 1099,
+        "uglified": 243,
+        "compressed": 188
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toLower.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 192,
+        "compressed": 152
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toNumber.js",
+      "sizes": {
+        "raw": 1845,
+        "uglified": 551,
+        "compressed": 335
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toPairs.js",
+      "sizes": {
+        "raw": 910,
+        "uglified": 197,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toPairsIn.js",
+      "sizes": {
+        "raw": 950,
+        "uglified": 201,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toPath.js",
+      "sizes": {
+        "raw": 1040,
+        "uglified": 397,
+        "compressed": 219
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toPlainObject.js",
+      "sizes": {
+        "raw": 970,
+        "uglified": 222,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toSafeInteger.js",
+      "sizes": {
+        "raw": 1056,
+        "uglified": 263,
+        "compressed": 199
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toString.js",
+      "sizes": {
+        "raw": 789,
+        "uglified": 196,
+        "compressed": 153
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/toUpper.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 192,
+        "compressed": 151
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/transform.js",
+      "sizes": {
+        "raw": 2579,
+        "uglified": 638,
+        "compressed": 327
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/trim.js",
+      "sizes": {
+        "raw": 1711,
+        "uglified": 526,
+        "compressed": 301
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/trimEnd.js",
+      "sizes": {
+        "raw": 1491,
+        "uglified": 470,
+        "compressed": 282
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/trimStart.js",
+      "sizes": {
+        "raw": 1507,
+        "uglified": 470,
+        "compressed": 277
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/truncate.js",
+      "sizes": {
+        "raw": 3764,
+        "uglified": 1050,
+        "compressed": 551
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unary.js",
+      "sizes": {
+        "raw": 663,
+        "uglified": 173,
+        "compressed": 138
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unescape.js",
+      "sizes": {
+        "raw": 1328,
+        "uglified": 301,
+        "compressed": 225
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/union.js",
+      "sizes": {
+        "raw": 959,
+        "uglified": 304,
+        "compressed": 195
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unionBy.js",
+      "sizes": {
+        "raw": 1580,
+        "uglified": 418,
+        "compressed": 239
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unionWith.js",
+      "sizes": {
+        "raw": 1489,
+        "uglified": 389,
+        "compressed": 234
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/uniq.js",
+      "sizes": {
+        "raw": 885,
+        "uglified": 192,
+        "compressed": 155
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/uniqBy.js",
+      "sizes": {
+        "raw": 1228,
+        "uglified": 240,
+        "compressed": 177
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/uniqWith.js",
+      "sizes": {
+        "raw": 1165,
+        "uglified": 239,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/uniqueId.js",
+      "sizes": {
+        "raw": 769,
+        "uglified": 199,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unset.js",
+      "sizes": {
+        "raw": 1022,
+        "uglified": 192,
+        "compressed": 150
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unzip.js",
+      "sizes": {
+        "raw": 1538,
+        "uglified": 458,
+        "compressed": 257
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/unzipWith.js",
+      "sizes": {
+        "raw": 1290,
+        "uglified": 323,
+        "compressed": 215
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/update.js",
+      "sizes": {
+        "raw": 1301,
+        "uglified": 239,
+        "compressed": 170
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/updateWith.js",
+      "sizes": {
+        "raw": 1412,
+        "uglified": 279,
+        "compressed": 196
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/upperCase.js",
+      "sizes": {
+        "raw": 829,
+        "uglified": 229,
+        "compressed": 175
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/upperFirst.js",
+      "sizes": {
+        "raw": 669,
+        "uglified": 190,
+        "compressed": 154
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/util.default.js",
+      "sizes": {
+        "raw": 2041,
+        "uglified": 1349,
+        "compressed": 487
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/util.js",
+      "sizes": {
+        "raw": 5564,
+        "uglified": 3549,
+        "compressed": 584
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/value.js",
+      "sizes": {
+        "raw": 325,
+        "uglified": 218,
+        "compressed": 157
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/valueOf.js",
+      "sizes": {
+        "raw": 327,
+        "uglified": 220,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/values.js",
+      "sizes": {
+        "raw": 956,
+        "uglified": 225,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/valuesIn.js",
+      "sizes": {
+        "raw": 944,
+        "uglified": 229,
+        "compressed": 167
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/without.js",
+      "sizes": {
+        "raw": 1069,
+        "uglified": 282,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/words.js",
+      "sizes": {
+        "raw": 1261,
+        "uglified": 348,
+        "compressed": 218
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrap.js",
+      "sizes": {
+        "raw": 1084,
+        "uglified": 218,
+        "compressed": 158
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrapperAt.js",
+      "sizes": {
+        "raw": 1610,
+        "uglified": 640,
+        "compressed": 370
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrapperChain.js",
+      "sizes": {
+        "raw": 931,
+        "uglified": 182,
+        "compressed": 146
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrapperLodash.js",
+      "sizes": {
+        "raw": 7402,
+        "uglified": 547,
+        "compressed": 290
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrapperReverse.js",
+      "sizes": {
+        "raw": 1276,
+        "uglified": 483,
+        "compressed": 281
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/wrapperValue.js",
+      "sizes": {
+        "raw": 654,
+        "uglified": 223,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/xor.js",
+      "sizes": {
+        "raw": 1023,
+        "uglified": 296,
+        "compressed": 191
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/xorBy.js",
+      "sizes": {
+        "raw": 1559,
+        "uglified": 410,
+        "compressed": 234
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/xorWith.js",
+      "sizes": {
+        "raw": 1454,
+        "uglified": 381,
+        "compressed": 228
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/zip.js",
+      "sizes": {
+        "raw": 800,
+        "uglified": 189,
+        "compressed": 147
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/zipObject.js",
+      "sizes": {
+        "raw": 865,
+        "uglified": 232,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/zipObjectDeep.js",
+      "sizes": {
+        "raw": 846,
+        "uglified": 232,
+        "compressed": 165
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/lodash/zipWith.js",
+      "sizes": {
+        "raw": 1179,
+        "uglified": 303,
+        "compressed": 212
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/moment/index.js",
+      "sizes": {
+        "raw": 696,
+        "uglified": 437,
+        "compressed": 268
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/moment/lib.js",
+      "sizes": {
+        "raw": 179,
+        "uglified": 130,
+        "compressed": 122
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli/vendor-suffix.js",
+      "sizes": {
+        "raw": 1,
+        "uglified": 0,
+        "compressed": 8
+      }
+    }
+  ]
+}

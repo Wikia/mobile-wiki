@@ -1,0 +1,21 @@
+.trending-videos-item {
+	display: block;
+	margin: 0 0 1.5rem;
+	width: 100%;
+
+	.item-image {
+		@include play-icon-in-circle(45px, 20px, 16px);
+		position: relative;
+	}
+
+	.item-duration {
+		background-color: rgba($black, .5);
+		bottom: 0;
+		color: $white;
+		font-size: $type-min;
+		line-height: $line-height-smallest;
+		padding: 0 8px;
+		position: absolute;
+		right: 0;
+	}
+}

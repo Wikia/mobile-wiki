@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+{{content-for 'head'}}
+{{content-for 'fastboot-inline-scripts-head'}}
+{{content-for 'fastboot-inline-scripts-head-tracking'}}
+{{content-for 'head-footer'}}
+</head>
+<body class="mobile-wiki">
+<div id="ember-container">{{content-for 'body'}}</div>
+
+{{content-for 'measure-first-render'}}
+
+<script>
+	(function (M) {
+		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
+			// No need to load Ember in browser on server error page
+			return;
+		}
+		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
+		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
+	})(window.M);
+</script>
+
+{{content-for 'fastboot-inline-scripts-load-svg'}}
+<script>
+	(function (M) {
+		M.loadDOMResource('/mobile-wiki/assets/main.svg');
+		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
+	})(window.M);
+</script>
+
+<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
+
+{{content-for 'fastboot-inline-scripts-body-bottom'}}
+{{content-for 'tracking-ua'}}
+{{content-for 'tracking-internal'}}
+{{content-for 'tracking-nielsen'}}
+{{content-for 'tracking-netzathleten'}}
+{{content-for 'tracking-liftigniter'}}
+{{content-for 'body-footer'}}
+</body>
+</html>

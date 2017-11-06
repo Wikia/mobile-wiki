@@ -1,0 +1,59 @@
+.category-members-grouped {
+	padding: 1.5rem $article-horizontal-padding;
+
+	h3 {
+		border-bottom: solid 1px $wds-color-light-c4;
+		margin-bottom: 0;
+		padding-bottom: 0.7rem;
+	}
+
+	ul {
+		margin-left: .4rem;
+	}
+
+	&__list {
+		position: relative;
+	}
+
+	&__subcategory {
+		$icon-size: 18px;
+
+		&::before {
+			background-image: $wds-icons-pages-small-svg;
+			content: '';
+			left: -4px;
+			height: $icon-size;
+			position: absolute;
+			width: $icon-size;
+		}
+	}
+
+	.wds-spinner {
+		display: none;
+		left: auto;
+		margin: 0;
+		position: static;
+		top: auto;
+	}
+
+	&.is-loading {
+		.category-navigation__button {
+			display: none;
+			pointer-events: none;
+		}
+
+		.wds-spinner {
+			display: inline;
+		}
+	}
+}
+
+.category-navigation {
+	text-align: center;
+	padding-bottom: 1.125rem;
+	position: relative;
+
+	&__button {
+		margin: 0;
+	}
+}

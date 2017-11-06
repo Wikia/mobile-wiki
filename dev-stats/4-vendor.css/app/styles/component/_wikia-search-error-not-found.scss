@@ -1,0 +1,13 @@
+.search-error-not-found {
+	color: $aluminum;
+}
+
+.search-error-not-found__query {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.search-error-not-found__action {
+	color: $link-color;
+	padding: 6px;
+}

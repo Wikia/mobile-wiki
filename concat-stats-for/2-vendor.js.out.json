@@ -1,0 +1,477 @@
+{
+  "outputFile": "/assets/vendor.js",
+  "files": [
+    {
+      "relativePath": "vendor/ember-cli/vendor-prefix.js",
+      "sizes": {
+        "raw": 130,
+        "uglified": 101,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "vendor/loader/loader.js",
+      "sizes": {
+        "raw": 8933,
+        "uglified": 4302,
+        "compressed": 1585
+      }
+    },
+    {
+      "relativePath": "vendor/moment/min/moment.min.js",
+      "sizes": {
+        "raw": 51506,
+        "uglified": 50377,
+        "compressed": 16354
+      }
+    },
+    {
+      "relativePath": "vendor/ember/jquery/jquery.js",
+      "sizes": {
+        "raw": 268039,
+        "uglified": 86644,
+        "compressed": 30285
+      }
+    },
+    {
+      "relativePath": "vendor/ember/ember.prod.js",
+      "sizes": {
+        "raw": 1601031,
+        "uglified": 483278,
+        "compressed": 120548
+      }
+    },
+    {
+      "relativePath": "browserify/browserify.js",
+      "sizes": {
+        "raw": 82975,
+        "uglified": 43745,
+        "compressed": 10597
+      }
+    },
+    {
+      "relativePath": "vendor/ember-debug-handlers-polyfill/prod.js",
+      "sizes": {
+        "raw": 183,
+        "uglified": 137,
+        "compressed": 90
+      }
+    },
+    {
+      "relativePath": "vendor/fastclick/fastclick.js",
+      "sizes": {
+        "raw": 26006,
+        "uglified": 7791,
+        "compressed": 2456
+      }
+    },
+    {
+      "relativePath": "vendor/numeral/numeral.js",
+      "sizes": {
+        "raw": 28561,
+        "uglified": 8989,
+        "compressed": 3031
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli-shims/app-shims.js",
+      "sizes": {
+        "raw": 7539,
+        "uglified": 4486,
+        "compressed": 1404
+      }
+    },
+    {
+      "relativePath": "vendor/ember-fetch.js",
+      "sizes": {
+        "raw": 14085,
+        "uglified": 7936,
+        "compressed": 2710
+      }
+    },
+    {
+      "relativePath": "vendor/ember-resolver/legacy-shims.js",
+      "sizes": {
+        "raw": 511,
+        "uglified": 353,
+        "compressed": 204
+      }
+    },
+    {
+      "relativePath": "vendor/restore-require.js",
+      "sizes": {
+        "raw": 121,
+        "uglified": 76,
+        "compressed": 67
+      }
+    },
+    {
+      "relativePath": "vendor/hammerjs/hammer.js",
+      "sizes": {
+        "raw": 67619,
+        "uglified": 18015,
+        "compressed": 6144
+      }
+    },
+    {
+      "relativePath": "vendor/headroom.js/dist/headroom.js",
+      "sizes": {
+        "raw": 11535,
+        "uglified": 4128,
+        "compressed": 1361
+      }
+    },
+    {
+      "relativePath": "vendor/jquery.cookie/jquery.cookie.js",
+      "sizes": {
+        "raw": 3162,
+        "uglified": 1280,
+        "compressed": 667
+      }
+    },
+    {
+      "relativePath": "vendor/ember-hammer/ember-hammer.js",
+      "sizes": {
+        "raw": 6133,
+        "uglified": 1747,
+        "compressed": 649
+      }
+    },
+    {
+      "relativePath": "vendor/weppy/dist/weppy.js",
+      "sizes": {
+        "raw": 14922,
+        "uglified": 5874,
+        "compressed": 2274
+      }
+    },
+    {
+      "relativePath": "vendor/visit-source/dist/visit-source.js",
+      "sizes": {
+        "raw": 1974,
+        "uglified": 938,
+        "compressed": 411
+      }
+    },
+    {
+      "relativePath": "vendor/script.js/dist/script.min.js",
+      "sizes": {
+        "raw": 1664,
+        "uglified": 1493,
+        "compressed": 802
+      }
+    },
+    {
+      "relativePath": "bower_components/vignette/dist/vignette.js",
+      "sizes": {
+        "raw": 11199,
+        "uglified": 3688,
+        "compressed": 1283
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/initializers/app-scheduler.js",
+      "sizes": {
+        "raw": 326,
+        "uglified": 210,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/instance-initializers/init-app-scheduler.js",
+      "sizes": {
+        "raw": 320,
+        "uglified": 206,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-app-scheduler/services/scheduler.js",
+      "sizes": {
+        "raw": 5482,
+        "uglified": 3002,
+        "compressed": 992
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-app-version/initializer-factory.js",
+      "sizes": {
+        "raw": 567,
+        "uglified": 284,
+        "compressed": 214
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-app-version/utils/regexp.js",
+      "sizes": {
+        "raw": 284,
+        "uglified": 188,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-head/services/head-data.js",
+      "sizes": {
+        "raw": 215,
+        "uglified": 166,
+        "compressed": 146
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-cli-head/templates/components/head-layout.js",
+      "sizes": {
+        "raw": 513,
+        "uglified": 433,
+        "compressed": 267
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/error.js",
+      "sizes": {
+        "raw": 3506,
+        "uglified": 1546,
+        "compressed": 651
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/stack.js",
+      "sizes": {
+        "raw": 3189,
+        "uglified": 1251,
+        "compressed": 594
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-exex/tools.js",
+      "sizes": {
+        "raw": 1234,
+        "uglified": 613,
+        "compressed": 329
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-fetch/ajax.js",
+      "sizes": {
+        "raw": 396,
+        "uglified": 238,
+        "compressed": 182
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-fetch/mixins/adapter-fetch.js",
+      "sizes": {
+        "raw": 9511,
+        "uglified": 2808,
+        "compressed": 1306
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-getowner-polyfill/index.js",
+      "sizes": {
+        "raw": 382,
+        "uglified": 308,
+        "compressed": 184
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/index.js",
+      "sizes": {
+        "raw": 213,
+        "uglified": 120,
+        "compressed": 93
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/mixins/in-viewport.js",
+      "sizes": {
+        "raw": 9123,
+        "uglified": 4810,
+        "compressed": 1438
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/can-use-dom.js",
+      "sizes": {
+        "raw": 223,
+        "uglified": 169,
+        "compressed": 136
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/can-use-raf.js",
+      "sizes": {
+        "raw": 1152,
+        "uglified": 429,
+        "compressed": 238
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/check-scroll-direction.js",
+      "sizes": {
+        "raw": 1163,
+        "uglified": 540,
+        "compressed": 301
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-in-viewport/utils/is-in-viewport.js",
+      "sizes": {
+        "raw": 1304,
+        "uglified": 602,
+        "compressed": 294
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-load-initializers/index.js",
+      "sizes": {
+        "raw": 1775,
+        "uglified": 675,
+        "compressed": 372
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/features.js",
+      "sizes": {
+        "raw": 239,
+        "uglified": 62,
+        "compressed": 68
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/index.js",
+      "sizes": {
+        "raw": 336,
+        "uglified": 239,
+        "compressed": 163
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolver.js",
+      "sizes": {
+        "raw": 339,
+        "uglified": 242,
+        "compressed": 159
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolvers/classic/container-debug-adapter.js",
+      "sizes": {
+        "raw": 3062,
+        "uglified": 849,
+        "compressed": 463
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/resolvers/classic/index.js",
+      "sizes": {
+        "raw": 14767,
+        "uglified": 6438,
+        "compressed": 2395
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/utils/class-factory.js",
+      "sizes": {
+        "raw": 457,
+        "uglified": 231,
+        "compressed": 169
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-resolver/utils/make-dictionary.js",
+      "sizes": {
+        "raw": 351,
+        "uglified": 219,
+        "compressed": 166
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-route-action-helper/-private/internals.js",
+      "sizes": {
+        "raw": 686,
+        "uglified": 458,
+        "compressed": 229
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-route-action-helper/helpers/route-action.js",
+      "sizes": {
+        "raw": 2748,
+        "uglified": 1128,
+        "compressed": 574
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/index.js",
+      "sizes": {
+        "raw": 2262,
+        "uglified": 1177,
+        "compressed": 612
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/locations/router-scroll.js",
+      "sizes": {
+        "raw": 970,
+        "uglified": 614,
+        "compressed": 329
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-router-scroll/services/router-scroll.js",
+      "sizes": {
+        "raw": 2058,
+        "uglified": 1147,
+        "compressed": 557
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/components/ember-wormhole.js",
+      "sizes": {
+        "raw": 4456,
+        "uglified": 2257,
+        "compressed": 858
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/templates/components/ember-wormhole.js",
+      "sizes": {
+        "raw": 508,
+        "uglified": 434,
+        "compressed": 263
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/ember-wormhole/utils/dom.js",
+      "sizes": {
+        "raw": 1794,
+        "uglified": 767,
+        "compressed": 436
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/moment/index.js",
+      "sizes": {
+        "raw": 696,
+        "uglified": 437,
+        "compressed": 268
+      }
+    },
+    {
+      "relativePath": "addon-tree-output/moment/lib.js",
+      "sizes": {
+        "raw": 179,
+        "uglified": 130,
+        "compressed": 122
+      }
+    },
+    {
+      "relativePath": "vendor/ember-cli/vendor-suffix.js",
+      "sizes": {
+        "raw": 1,
+        "uglified": 0,
+        "compressed": 8
+      }
+    }
+  ]
+}

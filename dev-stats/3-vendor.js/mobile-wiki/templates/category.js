@@ -1,0 +1,8 @@
+define("mobile-wiki/templates/category", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "a4WTOGb+", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"id\",\"wikiContainer\"],[9,\"class\",\"wiki-container\"],[7],[0,\"\\n\"],[4,\"article-wrapper\",null,[[\"articleRendered\",\"displayEmptyArticleInfo\",\"edit\",\"mainPageTitle\",\"model\",\"openLightbox\",\"showComments\",\"siteName\",\"toggleDrawer\",\"wikiPageHeaderSubtitle\"],[\"articleRendered\",false,\"edit\",[19,0,[\"mainPageTitle\"]],[19,0,[\"model\"]],\"openLightbox\",false,[19,0,[\"siteName\"]],\"toggleDrawer\",[25,\"i18n\",[\"category-page.subtitle\"],null]]],{\"statements\":[[4,\"if\",[[19,0,[\"model\",\"trendingArticles\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[1,[25,\"trending-articles\",null,[[\"header\",\"model\"],[[25,\"i18n\",[\"app.trending-articles-label\"],null],[19,0,[\"model\",\"trendingArticles\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[19,0,[\"model\",\"membersGrouped\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[1,[25,\"category-members-grouped\",null,[[\"loadPage\",\"membersGrouped\",\"nextPage\",\"nextPageUrl\",\"prevPage\",\"prevPageUrl\"],[[25,\"action\",[[19,0,[]],\"loadPage\"],null],[19,0,[\"model\",\"membersGrouped\"]],[19,0,[\"model\",\"nextPage\"]],[19,0,[\"model\",\"nextPageUrl\"]],[19,0,[\"model\",\"prevPage\"]],[19,0,[\"model\",\"prevPageUrl\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mobile-wiki/templates/category.hbs" } });
+});

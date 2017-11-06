@@ -1,0 +1,1925 @@
+{
+  "outputFile": "/app.lint-test.js",
+  "files": [
+    {
+      "relativePath": "app.lint-test.js",
+      "sizes": {
+        "raw": 116,
+        "uglified": 87,
+        "compressed": 90
+      }
+    },
+    {
+      "relativePath": "components/ab-test.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "components/ad-slot.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "components/ads/invisible-high-impact-2.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "components/alert-notification.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/alert-notifications.lint-test.js",
+      "sizes": {
+        "raw": 170,
+        "uglified": 141,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/application-wrapper.lint-test.js",
+      "sizes": {
+        "raw": 170,
+        "uglified": 141,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "components/article-comment.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "components/article-comments.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/article-content.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/article-contribution.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/article-edit.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/article-featured-video-jwplayer.lint-test.js",
+      "sizes": {
+        "raw": 194,
+        "uglified": 165,
+        "compressed": 122
+      }
+    },
+    {
+      "relativePath": "components/article-featured-video-ooyala.lint-test.js",
+      "sizes": {
+        "raw": 190,
+        "uglified": 161,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "components/article-media-gallery.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/article-media-linked-gallery.lint-test.js",
+      "sizes": {
+        "raw": 188,
+        "uglified": 159,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "components/article-media-map-thumbnail.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "components/article-media-thumbnail.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/article-table-of-contents.lint-test.js",
+      "sizes": {
+        "raw": 182,
+        "uglified": 153,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "components/article-wrapper.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "components/category-members-grouped.lint-test.js",
+      "sizes": {
+        "raw": 180,
+        "uglified": 151,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "components/collapsible-menu.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/curated-content-item.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "components/curated-content-section.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/curated-content.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/fandom-app-smart-banner.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/fastboot-only/article-video-scripts.lint-test.js",
+      "sizes": {
+        "raw": 202,
+        "uglified": 173,
+        "compressed": 124
+      }
+    },
+    {
+      "relativePath": "components/fastboot-only/article-video-styles.lint-test.js",
+      "sizes": {
+        "raw": 200,
+        "uglified": 171,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "components/fastboot-only/body-bottom.lint-test.js",
+      "sizes": {
+        "raw": 182,
+        "uglified": 153,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "components/fastboot-only/head-bottom.lint-test.js",
+      "sizes": {
+        "raw": 182,
+        "uglified": 153,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "components/fastboot-only/tracking-pixels.lint-test.js",
+      "sizes": {
+        "raw": 190,
+        "uglified": 161,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "components/featured-content-item.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/featured-content.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer-bottom-bar.lint-test.js",
+      "sizes": {
+        "raw": 208,
+        "uglified": 179,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer-link-branded.lint-test.js",
+      "sizes": {
+        "raw": 212,
+        "uglified": 183,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer-link-image.lint-test.js",
+      "sizes": {
+        "raw": 208,
+        "uglified": 179,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer-link-text.lint-test.js",
+      "sizes": {
+        "raw": 206,
+        "uglified": 177,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer-section.lint-test.js",
+      "sizes": {
+        "raw": 202,
+        "uglified": 173,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "components/global-footer/global-footer.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/lightbox-ads.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/lightbox-image.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/lightbox-map.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/lightbox-media.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/lightbox-video.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/lightbox-wrapper.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/login-icon.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "components/main-page.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "components/modal-dialog.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "components/notification-card.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/portable-infobox-hero-image-small.lint-test.js",
+      "sizes": {
+        "raw": 198,
+        "uglified": 169,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "components/portable-infobox-hero-image.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "components/portable-infobox-image-collection.lint-test.js",
+      "sizes": {
+        "raw": 198,
+        "uglified": 169,
+        "compressed": 123
+      }
+    },
+    {
+      "relativePath": "components/portable-infobox.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/recirculation-prefooter.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/sign-out.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "components/site-head-fandom-bar.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/site-head.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "components/smart-banner-android.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "components/track-click.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "components/trending-articles-item.lint-test.js",
+      "sizes": {
+        "raw": 176,
+        "uglified": 147,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/trending-articles.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/trending-videos-item.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "components/trending-videos.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "components/user-avatar.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/wds-avatar-stack.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/wds-spinner.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "components/widget-apester.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "components/widget-discussions-post.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/widget-discussions.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/widget-flite.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/widget-playbuzz.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/widget-polldaddy.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/widget-twitter.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "components/widget-vk.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "components/wiki-description.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "components/wikia-drawer.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/wikia-in-your-lang.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/wikia-nav.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "components/wikia-search-error-not-found.lint-test.js",
+      "sizes": {
+        "raw": 188,
+        "uglified": 159,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "components/wikia-search.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "components/wikia-stats.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/error-info.lint-test.js",
+      "sizes": {
+        "raw": 192,
+        "uglified": 163,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/icon-button.lint-test.js",
+      "sizes": {
+        "raw": 194,
+        "uglified": 165,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/sub-header.lint-test.js",
+      "sizes": {
+        "raw": 192,
+        "uglified": 163,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/wds-button.lint-test.js",
+      "sizes": {
+        "raw": 192,
+        "uglified": 163,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/wiki-page-header-curated-main-page.lint-test.js",
+      "sizes": {
+        "raw": 240,
+        "uglified": 211,
+        "compressed": 129
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/wiki-page-header.lint-test.js",
+      "sizes": {
+        "raw": 204,
+        "uglified": 175,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "components/wikia-ui-components/wikia-card-list.lint-test.js",
+      "sizes": {
+        "raw": 202,
+        "uglified": 173,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "components/wikia-user-profile.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "components/wikia-users.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "controllers/application-error.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "controllers/application.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "controllers/article-edit.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "controllers/article-preview.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "controllers/article.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "controllers/blog.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "controllers/category.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "controllers/file.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "controllers/main-page.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "controllers/search.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "controllers/wiki-page.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "helpers/duration.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 101
+      }
+    },
+    {
+      "relativePath": "helpers/equal.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 100
+      }
+    },
+    {
+      "relativePath": "helpers/i18n.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "helpers/numeral.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "helpers/shorten-large-number.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "helpers/svg.lint-test.js",
+      "sizes": {
+        "raw": 132,
+        "uglified": 103,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "helpers/thumbnail.lint-test.js",
+      "sizes": {
+        "raw": 144,
+        "uglified": 115,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "helpers/time-ago.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "helpers/timestamp-to-date.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "helpers/truncate.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "helpers/wrap-me.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "initializers/ember-hammer.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "initializers/link-to.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "inline-scripts/tracking-internal.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "inline-scripts/tracking-netzathleten.lint-test.js",
+      "sizes": {
+        "raw": 182,
+        "uglified": 153,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "inline-scripts/tracking-nielsen.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "inline-scripts/tracking-ua.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "instance-initializers/config.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "instance-initializers/debug.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "instance-initializers/performance-monitoring.lint-test.js",
+      "sizes": {
+        "raw": 198,
+        "uglified": 169,
+        "compressed": 122
+      }
+    },
+    {
+      "relativePath": "instance-initializers/visit-source.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "mixins/ads.lint-test.js",
+      "sizes": {
+        "raw": 130,
+        "uglified": 101,
+        "compressed": 97
+      }
+    },
+    {
+      "relativePath": "mixins/alert-notifications.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "mixins/application-wrapper-class-names.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "mixins/connection-type.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "mixins/curated-content-thumbnail.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mixins/full-page.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "mixins/head-tags-dynamic.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "mixins/head-tags-static.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "mixins/headroom.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "mixins/image-loader.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "mixins/languages.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "mixins/login-link.lint-test.js",
+      "sizes": {
+        "raw": 144,
+        "uglified": 115,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "mixins/mark-all-notifications.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "mixins/mark-as-read-notification.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 116
+      }
+    },
+    {
+      "relativePath": "mixins/media-thumbnail-utils.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "mixins/new-reply-notification.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "mixins/no-scroll.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "mixins/notifications-scroll-menu.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mixins/notifications-unread-count.lint-test.js",
+      "sizes": {
+        "raw": 176,
+        "uglified": 147,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mixins/object-utilities.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "mixins/portable-infobox-hero-image.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "mixins/post-upvote-notification.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "mixins/reply-upvote-notification.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 115
+      }
+    },
+    {
+      "relativePath": "mixins/route-with-ads.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "mixins/thirds-click.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "mixins/viewport.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "mixins/widget-script-state.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "mixins/wiki-page-controller.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "mixins/wiki-page-handler.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "models/application.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "models/article-comments.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "models/article-edit.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "models/article-preview.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "models/curated-content.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "models/media.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "models/navigation.lint-test.js",
+      "sizes": {
+        "raw": 144,
+        "uglified": 115,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "models/notifications/contributor.lint-test.js",
+      "sizes": {
+        "raw": 174,
+        "uglified": 145,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "models/notifications/notification.lint-test.js",
+      "sizes": {
+        "raw": 176,
+        "uglified": 147,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "models/notifications/notifications.lint-test.js",
+      "sizes": {
+        "raw": 178,
+        "uglified": 149,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "models/search.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 100
+      }
+    },
+    {
+      "relativePath": "models/tracking-dimensions.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "models/user.lint-test.js",
+      "sizes": {
+        "raw": 132,
+        "uglified": 103,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "models/widget-discussions.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "models/wiki-variables.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "models/wiki/article.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "models/wiki/base.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "models/wiki/blog.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "models/wiki/category.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "models/wiki/file.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "models/wikia-in-your-lang.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "models/wikia-nav.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "modules/abtest.lint-test.js",
+      "sizes": {
+        "raw": 138,
+        "uglified": 109,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "modules/ads.lint-test.js",
+      "sizes": {
+        "raw": 132,
+        "uglified": 103,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "modules/hero-image.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "modules/instant-globals.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "modules/thumbnailer.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "modules/video-loader.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "modules/video-players/base.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "modules/video-players/jwplayer-video-ads.lint-test.js",
+      "sizes": {
+        "raw": 190,
+        "uglified": 161,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "modules/video-players/jwplayer.lint-test.js",
+      "sizes": {
+        "raw": 170,
+        "uglified": 141,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "modules/video-players/moat-video-tracker.lint-test.js",
+      "sizes": {
+        "raw": 190,
+        "uglified": 161,
+        "compressed": 120
+      }
+    },
+    {
+      "relativePath": "modules/video-players/moat-video-tracking-script.lint-test.js",
+      "sizes": {
+        "raw": 206,
+        "uglified": 177,
+        "compressed": 125
+      }
+    },
+    {
+      "relativePath": "modules/video-players/ooyala-v4.lint-test.js",
+      "sizes": {
+        "raw": 172,
+        "uglified": 143,
+        "compressed": 117
+      }
+    },
+    {
+      "relativePath": "modules/video-players/ooyala-video-ads.lint-test.js",
+      "sizes": {
+        "raw": 186,
+        "uglified": 157,
+        "compressed": 118
+      }
+    },
+    {
+      "relativePath": "modules/video-players/ooyala.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "modules/video-players/youtube.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "resolver.lint-test.js",
+      "sizes": {
+        "raw": 126,
+        "uglified": 97,
+        "compressed": 95
+      }
+    },
+    {
+      "relativePath": "router.lint-test.js",
+      "sizes": {
+        "raw": 122,
+        "uglified": 93,
+        "compressed": 93
+      }
+    },
+    {
+      "relativePath": "routes/application-error.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "routes/application.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 101
+      }
+    },
+    {
+      "relativePath": "routes/article-edit.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "routes/article-preview.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "routes/main-page-redirect.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "routes/search.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "routes/wiki-page-error.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "routes/wiki-page.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "services/ads.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "services/current-user.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "services/i18n.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 100
+      }
+    },
+    {
+      "relativePath": "services/initial-page-view.lint-test.js",
+      "sizes": {
+        "raw": 162,
+        "uglified": 133,
+        "compressed": 112
+      }
+    },
+    {
+      "relativePath": "services/liftigniter.lint-test.js",
+      "sizes": {
+        "raw": 150,
+        "uglified": 121,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "services/logger.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "services/moment-locale.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "services/notifications.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 107
+      }
+    },
+    {
+      "relativePath": "services/tracking.lint-test.js",
+      "sizes": {
+        "raw": 144,
+        "uglified": 115,
+        "compressed": 104
+      }
+    },
+    {
+      "relativePath": "services/wiki-variables.lint-test.js",
+      "sizes": {
+        "raw": 156,
+        "uglified": 127,
+        "compressed": 109
+      }
+    },
+    {
+      "relativePath": "utils/article-link.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "utils/article-media.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "utils/browser.lint-test.js",
+      "sizes": {
+        "raw": 136,
+        "uglified": 107,
+        "compressed": 100
+      }
+    },
+    {
+      "relativePath": "utils/calculation.lint-test.js",
+      "sizes": {
+        "raw": 144,
+        "uglified": 115,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "utils/content-type.lint-test.js",
+      "sizes": {
+        "raw": 146,
+        "uglified": 117,
+        "compressed": 105
+      }
+    },
+    {
+      "relativePath": "utils/domain.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "utils/edit-token.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "utils/error-descriptor.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "utils/errors.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "utils/extend.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 97
+      }
+    },
+    {
+      "relativePath": "utils/fastboot-caching.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "utils/generate-guid.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "utils/host.lint-test.js",
+      "sizes": {
+        "raw": 130,
+        "uglified": 101,
+        "compressed": 96
+      }
+    },
+    {
+      "relativePath": "utils/iso-date-time.lint-test.js",
+      "sizes": {
+        "raw": 148,
+        "uglified": 119,
+        "compressed": 106
+      }
+    },
+    {
+      "relativePath": "utils/local-storage-connector.lint-test.js",
+      "sizes": {
+        "raw": 168,
+        "uglified": 139,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "utils/mediawiki-fetch.lint-test.js",
+      "sizes": {
+        "raw": 152,
+        "uglified": 123,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "utils/mediawiki-namespace.lint-test.js",
+      "sizes": {
+        "raw": 160,
+        "uglified": 131,
+        "compressed": 110
+      }
+    },
+    {
+      "relativePath": "utils/nl2br.lint-test.js",
+      "sizes": {
+        "raw": 132,
+        "uglified": 103,
+        "compressed": 98
+      }
+    },
+    {
+      "relativePath": "utils/notification-types.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "utils/notifications-tracker.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "utils/render-component.lint-test.js",
+      "sizes": {
+        "raw": 154,
+        "uglified": 125,
+        "compressed": 108
+      }
+    },
+    {
+      "relativePath": "utils/string.lint-test.js",
+      "sizes": {
+        "raw": 134,
+        "uglified": 105,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "utils/thumbnail.lint-test.js",
+      "sizes": {
+        "raw": 140,
+        "uglified": 111,
+        "compressed": 102
+      }
+    },
+    {
+      "relativePath": "utils/track-perf.lint-test.js",
+      "sizes": {
+        "raw": 142,
+        "uglified": 113,
+        "compressed": 103
+      }
+    },
+    {
+      "relativePath": "utils/track.lint-test.js",
+      "sizes": {
+        "raw": 132,
+        "uglified": 103,
+        "compressed": 97
+      }
+    },
+    {
+      "relativePath": "utils/truncate.lint-test.js",
+      "sizes": {
+        "raw": 138,
+        "uglified": 109,
+        "compressed": 99
+      }
+    },
+    {
+      "relativePath": "utils/url.lint-test.js",
+      "sizes": {
+        "raw": 128,
+        "uglified": 99,
+        "compressed": 96
+      }
+    },
+    {
+      "relativePath": "utils/wiki-handlers/article.lint-test.js",
+      "sizes": {
+        "raw": 164,
+        "uglified": 135,
+        "compressed": 113
+      }
+    },
+    {
+      "relativePath": "utils/wiki-handlers/blog.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 111
+      }
+    },
+    {
+      "relativePath": "utils/wiki-handlers/category.lint-test.js",
+      "sizes": {
+        "raw": 166,
+        "uglified": 137,
+        "compressed": 114
+      }
+    },
+    {
+      "relativePath": "utils/wiki-handlers/curated-main-page.lint-test.js",
+      "sizes": {
+        "raw": 184,
+        "uglified": 155,
+        "compressed": 119
+      }
+    },
+    {
+      "relativePath": "utils/wiki-handlers/file.lint-test.js",
+      "sizes": {
+        "raw": 158,
+        "uglified": 129,
+        "compressed": 110
+      }
+    }
+  ]
+}

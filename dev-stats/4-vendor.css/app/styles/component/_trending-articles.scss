@@ -1,0 +1,19 @@
+$trending-articles-image-spacing: 8px;
+
+.trending-articles {
+	text-align: justify;
+
+	// this pseudoelement lets the last inline item to be justified to the right if it's even
+	&::after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+.trending-articles-item {
+	display: inline-block;
+	margin: 0 0 1.5rem;
+	vertical-align: top;
+	width: calc(50% - #{$trending-articles-image-spacing / 2});
+}

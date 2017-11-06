@@ -1,0 +1,123 @@
+$back-arrow-size: 16px;
+$cancel-margin-left: 6px;
+$cancel-margin-left-large: 9px;
+$done-margin-right-large: 6px;
+$title-padding: 0 6px;
+$title-padding-large: 0 21px;
+
+.sub-head {
+	align-items: center;
+	background: $color-blue-light;
+	color: $white;
+	display: flex;
+	font-size: $type-smallest;
+	height: $wikia-ui-components-sub-head-height;
+	left: 0;
+	margin: 0 auto;
+	right: 0;
+	top: 0;
+	z-index: $z-site-head;
+
+	@media (min-width: lower-bound($large-range)) {
+		font-size: $base-font-size;
+		height: $wikia-ui-components-sub-head-height-large;
+	}
+}
+
+.sub-head--fixed {
+	position: fixed
+}
+
+/*a*/
+// todo: cleanup sub-head--cancel once all subheaders in Mobile Wiki use sub-header component
+// https://wikia-inc.atlassian.net/browse/DAT-3965
+.sub-head--cancel {
+	align-items: center;
+	background: inherit;
+	border: 0;
+	cursor: pointer;
+	display: flex;
+	height: $wikia-ui-components-sub-head-height;
+	justify-content: center;
+	line-height: inherit;
+	margin: {
+		bottom: 0;
+		left: $cancel-margin-left;
+		right: 0;
+		top: 0;
+	};
+	order: 1;
+	padding: 0;
+	width: $wikia-ui-components-sub-head-height;
+
+	svg {
+		fill: $white;
+		height: $back-arrow-size;
+		width: $back-arrow-size;
+	}
+
+	.icon-button-icon {
+		fill: $white;
+	}
+
+	&:active,
+	&:visited,
+	&:hover {
+		background: inherit;
+
+		.icon-button-icon {
+			fill: $white;
+		}
+	}
+
+	@media (min-width: lower-bound($large-range)) {
+		margin-left: $cancel-margin-left-large;
+	}
+}
+
+.sub-head--title {
+	color: inherit;
+	flex: 1;
+	font: inherit;
+	margin: 0;
+	order: 2;
+	overflow: hidden;
+	padding: $title-padding;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	@media (min-width: lower-bound($large-range)) {
+		padding: $title-padding-large;
+	}
+}
+
+// proper margins already added to .sub-head--title.
+// TODO: This could be removed once article diff uses sub-header component invocation instead of hardcoded HTML markup
+.sub-head--text-only {
+	padding: 0 $article-horizontal-padding;
+}
+
+/*button*/
+.sub-head--done {
+	background: inherit;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+	font: inherit;
+	font-weight: bolder;
+	height: $wikia-ui-components-sub-head-height;
+	margin: 0;
+	order: 3;
+	padding: 0 $article-horizontal-padding;
+	text-transform: none;
+
+	&:disabled {
+		background: inherit;
+		border: 0;
+		color: inherit;
+	}
+
+	@media (min-width: lower-bound($large-range)) {
+		margin-right: $done-margin-right-large;
+	}
+}
