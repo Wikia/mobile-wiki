@@ -1,13 +1,12 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
 import {track, trackActions} from '../utils/track';
-
-const {Component, inject} = Ember;
 
 export default Component.extend(
 	{
 		classNames: ['article-media-map-thumbnail'],
 		tagName: 'figure',
-		logger: inject.service(),
+		logger: service(),
 
 		/**
 		 * @returns {void|boolean}

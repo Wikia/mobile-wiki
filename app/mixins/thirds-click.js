@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import Mixin from '@ember/object/mixin';
 
 /**
  * PreventableClickEvent
@@ -9,12 +10,12 @@ import Ember from 'ember';
  * @property {Function} stopPropagation
  */
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 	leftClickHandler() {},
 	rightClickHandler() {},
 	centerClickHandler() {},
 
-	viewportWidth: Ember.computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
+	viewportWidth: computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
 
 	/**
 	 * This can be overriden to change how wide should be areas that leftClickHandler & rightClickHandler respond to.

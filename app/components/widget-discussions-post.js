@@ -1,19 +1,16 @@
-import Ember from 'ember';
+import {or} from '@ember/object/computed';
+import Component from '@ember/component';
+import {htmlSafe} from '@ember/string';
+import {computed} from '@ember/object';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
-
-const {
-	Component,
-	Handlebars,
-	String: {htmlSafe},
-	computed
-} = Ember;
+import Handlebars from 'handlebars';
 
 export default Component.extend(
 	{
 		classNames: ['post-detail'],
 
-		openGraphSiteName: computed.or('post.openGraph.domain', 'post.openGraph.siteName'),
+		openGraphSiteName: or('post.openGraph.domain', 'post.openGraph.siteName'),
 
 		openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
 			const imageWidth = 525,
@@ -34,7 +31,7 @@ export default Component.extend(
 			escapedContent = truncate(escapedContent, 148);
 			escapedContent = nl2br(escapedContent);
 
-			return new htmlSafe(escapedContent);
+			return htmlSafe(escapedContent);
 		})
 	}
 );

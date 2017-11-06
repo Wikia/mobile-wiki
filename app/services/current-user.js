@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {bool} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import {getOwner} from '@ember/application';
+import Service, {inject as service} from '@ember/service';
+import {resolve} from 'rsvp';
 import UserModel from '../models/user';
 import config from '../config/environment';
-
-const {
-	computed,
-	getOwner,
-	Service,
-	inject,
-	RSVP
-} = Ember;
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -31,11 +27,11 @@ const {
  */
 
 export default Service.extend({
-	fastboot: inject.service(),
-	logger: inject.service(),
-	wikiVariables: inject.service(),
+	fastboot: service(),
+	logger: service(),
+	wikiVariables: service(),
 	rights: {},
-	isAuthenticated: computed.bool('userId'),
+	isAuthenticated: bool('userId'),
 	language: computed('wikiVariables', function () {
 		return this.get('wikiVariables.language.content') || 'en';
 	}),
@@ -77,7 +73,7 @@ export default Service.extend({
 			}
 		}
 
-		return RSVP.resolve();
+		return resolve();
 	},
 
 	getGaUserIdHash(userId) {

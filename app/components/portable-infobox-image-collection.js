@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import {readOnly, gt} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['pi-image-collection'],
@@ -10,19 +12,19 @@ export default Ember.Component.extend(
 		imageAspectRatio: 16 / 9,
 		currentImageIndex: 0,
 
-		currentImage: Ember.computed('items', 'currentImageIndex', function () {
+		currentImage: computed('items', 'currentImageIndex', function () {
 			return this.get('items')[this.get('currentImageIndex')];
 		}),
 
-		collectionLength: Ember.computed.readOnly('items.length'),
+		collectionLength: readOnly('items.length'),
 
-		hasNextImage: Ember.computed('currentImageIndex', 'collectionLength', function () {
+		hasNextImage: computed('currentImageIndex', 'collectionLength', function () {
 			return this.get('currentImageIndex') < (this.get('collectionLength') - 1);
 		}),
 
-		hasPreviousImage: Ember.computed.gt('currentImageIndex', 0),
+		hasPreviousImage: gt('currentImageIndex', 0),
 
-		cropMode: Ember.computed('currentImage', function () {
+		cropMode: computed('currentImage', function () {
 			const currentImage = this.get('currentImage');
 
 			return currentImage.height > currentImage.width ?
@@ -30,9 +32,9 @@ export default Ember.Component.extend(
 				Thumbnailer.mode.zoomCrop;
 		}),
 
-		computedWidth: Ember.computed.readOnly('viewportDimensions.width'),
+		computedWidth: readOnly('viewportDimensions.width'),
 
-		computedHeight: Ember.computed('currentImage', function () {
+		computedHeight: computed('currentImage', function () {
 			const windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
 				currentImage = this.get('currentImage'),

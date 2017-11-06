@@ -1,14 +1,13 @@
-import Ember from 'ember';
+import {alias, equal} from '@ember/object/computed';
+import Controller, {inject as controller} from '@ember/controller';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
 import {track, trackActions} from '../utils/track';
 
-const {Controller, computed, inject} = Ember;
-
 export default Controller.extend(WikiPageControllerMixin, {
-	application: inject.controller(),
+	application: controller(),
 
-	commentsPage: computed.alias('application.commentsPage'),
-	displayRecirculation: computed.equal('wikiVariables.language.content', 'en'),
+	commentsPage: alias('application.commentsPage'),
+	displayRecirculation: equal('wikiVariables.language.content', 'en'),
 
 	actions: {
 		/**

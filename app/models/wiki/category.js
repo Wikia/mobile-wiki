@@ -1,11 +1,7 @@
-import Ember from 'ember';
+import {isEmpty} from '@ember/utils';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
-
-const {
-	isEmpty
-} = Ember;
 
 export default BaseModel.extend({
 	host: null,

@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import {typeOf} from '@ember/utils';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 	/**
 	 * @returns {Object}
 	 */
@@ -12,7 +13,7 @@ export default Ember.Mixin.create({
 				const value = this[key];
 
 				// ignore useless items
-				if (value !== 'toString' && Ember.typeOf(value) !== 'function' && typeof value !== 'function') {
+				if (value !== 'toString' && typeOf(value) !== 'function' && typeof value !== 'function') {
 					keys.push(key);
 				}
 			}

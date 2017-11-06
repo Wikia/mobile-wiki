@@ -1,12 +1,11 @@
-import Ember from 'ember';
+import Controller, {inject as controller} from '@ember/controller';
+import {Promise} from 'rsvp';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
-
-const {Controller, RSVP, inject} = Ember;
 
 export default Controller.extend(
 	WikiPageControllerMixin,
 	{
-		article: inject.controller(),
+		article: controller(),
 
 		actions: {
 			/**
@@ -18,11 +17,11 @@ export default Controller.extend(
 
 			/**
 			 * @param {number} page
-			 * @returns {Ember.RSVP.Promise}
+			 * @returns {Promise}
 			 */
 			loadPage(page) {
 				if (page === null) {
-					return RSVP.Promise.reject('Page was not provided');
+					return Promise.reject(new Error('Page was not provided'));
 				}
 
 				return this.get('model').loadPage(page)

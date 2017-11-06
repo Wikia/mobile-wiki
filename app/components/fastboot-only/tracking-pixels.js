@@ -1,10 +1,10 @@
-import Ember from 'ember';
-
-const {Component, computed, inject} = Ember;
+import {inject as service} from '@ember/service';
+import {reads} from '@ember/object/computed';
+import Component from '@ember/component';
 
 export default Component.extend({
 	tagName: '',
-	tracking: inject.service(),
-	comscore: computed.reads('tracking.config.comscore'),
-	quantcast: computed.reads('tracking.config.quantcast')
+	tracking: service(),
+	comscore: reads('tracking.config.comscore'),
+	quantcast: reads('tracking.config.quantcast')
 });

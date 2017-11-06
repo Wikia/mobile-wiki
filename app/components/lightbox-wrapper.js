@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import {not} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
@@ -19,13 +21,13 @@ export default Ember.Component.extend({
 	type: null,
 	model: null,
 
-	lightboxComponent: Ember.computed('type', function () {
+	lightboxComponent: computed('type', function () {
 		const type = this.get('type');
 
 		return type ? `lightbox-${type}` : null;
 	}),
 
-	closeAllowed: Ember.computed.not('closeButtonHidden'),
+	closeAllowed: not('closeButtonHidden'),
 
 	actions: {
 		/**

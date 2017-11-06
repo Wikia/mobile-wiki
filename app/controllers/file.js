@@ -1,12 +1,10 @@
-import Ember from 'ember';
+import Controller, {inject as controller} from '@ember/controller';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
-
-const {Controller, inject} = Ember;
 
 export default Controller.extend(
 	WikiPageControllerMixin,
 	{
-		article: inject.controller(),
+		article: controller(),
 
 		actions: {
 			/**

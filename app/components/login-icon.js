@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import LoginLinkMixin from '../mixins/login-link';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	LoginLinkMixin,
 	{
 		tagName: 'a',

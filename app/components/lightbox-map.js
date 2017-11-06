@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import {scheduleOnce} from '@ember/runloop';
+import {observer} from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
-	modelObserver: Ember.observer('model', function () {
+	modelObserver: observer('model', function () {
 		this.updateState();
 	}),
 
@@ -14,7 +16,7 @@ export default Ember.Component.extend({
 		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
 		// This isn't allowed by Ember to do on didInsertElement
 		// That's why we need to schedule it in the afterRender queue
-		Ember.run.scheduleOnce('afterRender', this, () => {
+		scheduleOnce('afterRender', this, () => {
 			this.updateState();
 		});
 	},

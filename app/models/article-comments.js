@@ -1,12 +1,6 @@
-import Ember from 'ember';
+import EmberObject, {observer, get} from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-
-const {
-	Object: EmberObject,
-	get,
-	observer
-} = Ember;
 
 export default EmberObject.extend({
 	articleId: null,

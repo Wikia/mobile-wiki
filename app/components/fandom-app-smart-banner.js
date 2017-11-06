@@ -1,15 +1,11 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
+import {run} from '@ember/runloop';
 import {track, trackActions} from '../utils/track';
 import {standalone, system} from '../utils/browser';
 import config from '../config/environment';
-
-const {
-	$,
-	Component,
-	computed,
-	inject,
-	run,
-} = Ember;
 
 export default Component.extend({
 	classNames: ['fandom-app-smart-banner'],
@@ -24,7 +20,7 @@ export default Component.extend({
 	dayInMiliseconds: 86400000,
 	closeButtonSelector: '.fandom-app-smart-banner__close',
 
-	i18n: inject.service(),
+	i18n: service(),
 
 	link: computed(() => {
 		return system === 'ios'

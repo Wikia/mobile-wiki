@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Service from '@ember/service';
 import sinon from 'sinon';
 import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const adsStub = Ember.Service.extend({
+const adsStub = Service.extend({
 	module: require('mobile-wiki/modules/ads').default.getInstance()
 });
 

@@ -1,13 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Controller, {inject as controller} from '@ember/controller';
+import {computed} from '@ember/object';
 import {track, trackActions} from '../utils/track';
 import {normalizeToUnderscore} from '../utils/string';
 
-const {Controller, inject, computed} = Ember;
-
 export default Controller.extend({
-	application: inject.controller(),
-	i18n: inject.service(),
-	wikiVariables: inject.service(),
+	application: controller(),
+	i18n: service(),
+	wikiVariables: service(),
 
 	isPublishing: false,
 

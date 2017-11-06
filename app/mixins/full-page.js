@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 
 /**
  * This mixin should be considered temporary, until a
  * better solution is created with Jira ticket XW-247
  */
-export default Ember.Mixin.create({
+export default Mixin.create({
 	/**
 	 * @returns {void}
 	 */

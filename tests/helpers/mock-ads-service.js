@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Service from '@ember/service';
+import {registerHelper} from '@ember/test';
 
-export default Ember.Test.registerHelper('mockAdsService', () => {
-	mockService(Ember.Service.extend({
+export default registerHelper('mockAdsService', () => {
+	mockService(Service.extend({
 		module: {
 			pushSlotToQueue() {},
 			onReady() {},

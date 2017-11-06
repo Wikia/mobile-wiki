@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['portable-infobox'],
@@ -15,14 +16,14 @@ export default Ember.Component.extend(
 		infoboxHTML: '',
 		collapsed: false,
 
-		button: Ember.computed('expandButtonClass', function () {
+		button: computed('expandButtonClass', function () {
 			return this.$(`.${this.get('expandButtonClass')}`)[0];
 		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
 		 */
-		isLongInfobox: Ember.computed('collapsedHeight', 'height', {
+		isLongInfobox: computed('collapsedHeight', 'height', {
 			get() {
 				const collapsedHeight = this.get('collapsedHeight'),
 					height = this.get('height');
@@ -38,7 +39,7 @@ export default Ember.Component.extend(
 		 * We want to always show the image AND some other infobox informations to
 		 * indicate that this is infobox, not only an ordinary image.
 		 */
-		collapsedHeight: Ember.computed('viewportDimensions.width', 'viewportDimensions.height', function () {
+		collapsedHeight: computed('viewportDimensions.width', 'viewportDimensions.height', function () {
 			const deviceWidth = this.get('viewportDimensions.width'),
 				deviceHeight = this.get('viewportDimensions.height'),
 				isLandscape = deviceWidth > deviceHeight;

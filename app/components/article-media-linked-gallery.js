@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import {sort, map} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	{
 		classNames: ['article-media-linked-gallery'],
 
@@ -9,11 +11,11 @@ export default Ember.Component.extend(
 		cropMode: Thumbnailer.mode.topCrop,
 		numberOfItemsRendered: 4,
 
-		canShowMore: Ember.computed('items', 'numberOfItemsRendered', function () {
+		canShowMore: computed('items', 'numberOfItemsRendered', function () {
 			return this.get('items.length') > this.get('numberOfItemsRendered');
 		}),
 
-		sortedItems: Ember.computed.sort('sanitizedItems', (a, b) => {
+		sortedItems: sort('sanitizedItems', (a, b) => {
 			if (a.isLinkedByUser && !b.isLinkedByUser) {
 				return 1;
 			} else if (b.isLinkedByUser && !a.isLinkedByUser) {
@@ -23,7 +25,7 @@ export default Ember.Component.extend(
 			return 0;
 		}),
 
-		sanitizedItems: Ember.computed.map('items', (item, index) => {
+		sanitizedItems: map('items', (item, index) => {
 			item.galleryRef = index;
 			return item;
 		}),
@@ -33,7 +35,7 @@ export default Ember.Component.extend(
 		 * Initially, we render this.numberOfItemsRendered components
 		 * Then increment this number in this.showMore
 		 */
-		itemsToRender: Ember.computed('sortedItems', 'numberOfItemsRendered', function () {
+		itemsToRender: computed('sortedItems', 'numberOfItemsRendered', function () {
 			return this.get('sortedItems').slice(0, this.get('numberOfItemsRendered'));
 		}),
 

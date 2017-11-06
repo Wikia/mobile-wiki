@@ -1,13 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Helper from '@ember/component/helper';
 
-const {Helper, inject} = Ember;
 /**
  * @param {Array} params
  * @param {Object} options
  * @returns {string}
  */
 export default Helper.extend({
-	i18n: inject.service(),
+	i18n: service(),
 
 	compute(params, options) {
 		const i18nParams = {},

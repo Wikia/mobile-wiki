@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import {track, trackActions} from '../../utils/track';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	tagName: '',
 
 	actions: {
