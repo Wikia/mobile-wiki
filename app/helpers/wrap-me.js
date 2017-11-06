@@ -25,7 +25,7 @@ import Handlebars from 'handlebars';
  */
 
 export default Helper.helper((params, options) => {
-	const content = Handlebars.Utils.escapeExpression((params[0] || '');
+	const content = Handlebars.Utils.escapeExpression(params[0] || '');
 	let tagName = 'span',
 		className = '',
 		otherOptions = {
