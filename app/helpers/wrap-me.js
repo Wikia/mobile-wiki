@@ -1,6 +1,6 @@
 import {helper} from '@ember/component/helper';
 import {htmlSafe} from '@ember/string';
-import Handlebars from 'handlebars';
+import Ember from 'ember';
 
 /**
  * Helper to generate HTML from passed string and additional options.
@@ -25,7 +25,7 @@ import Handlebars from 'handlebars';
  */
 
 export default helper((params, options) => {
-	const content = Handlebars.Utils.escapeExpression(params[0] || '');
+	const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
 	let tagName = 'span',
 		className = '',
 		otherOptions = {

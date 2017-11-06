@@ -4,7 +4,7 @@ import {htmlSafe} from '@ember/string';
 import {computed} from '@ember/object';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
-import Handlebars from 'handlebars';
+import Ember from 'ember';
 
 export default Component.extend(
 	{
@@ -24,7 +24,7 @@ export default Component.extend(
 		}),
 
 		parsedContent: computed('post.rawContent', function () {
-			let escapedContent = Handlebars.Utils.escapeExpression(
+			let escapedContent = Ember.Handlebars.Utils.escapeExpression(
 				this.get('post.rawContent')
 			).trim();
 
