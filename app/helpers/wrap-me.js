@@ -1,4 +1,4 @@
-import Helper from '@ember/component/helper';
+import {helper} from '@ember/component/helper';
 import {htmlSafe} from '@ember/string';
 import Handlebars from 'handlebars';
 
@@ -24,7 +24,7 @@ import Handlebars from 'handlebars';
  * @returns {string}
  */
 
-export default Helper.helper((params, options) => {
+export default helper((params, options) => {
 	const content = Handlebars.Utils.escapeExpression(params[0] || '');
 	let tagName = 'span',
 		className = '',
