@@ -10,7 +10,8 @@ export default Component.extend({
 	ads: service(),
 
 	autoplayCookieName: 'featuredVideoAutoplay',
-	autoplayCookieExpireDays: 14,
+	captionsCookieName: 'featuredVideoCaptions',
+	playerCookieExpireDays: 14,
 
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
@@ -34,11 +35,11 @@ export default Component.extend({
 		this.player = player;
 
 		this.player.on('autoplayToggle', (data) => {
-			$.cookie(this.get('autoplayCookieName'), data.enabled ? '1' : '0', {
-				expires: this.get('autoplayCookieExpireDays'),
-				path: '/',
-				domain: config.cookieDomain
-			});
+			this.setCookie(this.get('autoplayCookieName'), data.enabled);
+		});
+
+		this.player.on('captionsSelected', (data) => {
+			this.setCookie(this.get('captionsCookieName'), data.enabled);
 		});
 	},
 
@@ -49,6 +50,7 @@ export default Component.extend({
 		const model = this.get('model.embed'),
 			jsParams = {
 				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
+				captions: $.cookie(this.get('captionsCookieName')) !== '0',
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
@@ -70,5 +72,13 @@ export default Component.extend({
 		if (this.player) {
 			this.player.remove();
 		}
+	},
+
+	setCookie(cookieName, condition) {
+		$.cookie(cookieName, condition ? '1' : '0', {
+			expires: this.get('playerCookieExpireDays'),
+			path: '/',
+			domain: config.cookieDomain
+		});
 	}
 });
