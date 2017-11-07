@@ -3,6 +3,7 @@ import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
 import config from '../../config/environment';
+import JWPlayerAssets from '../jwplayer-assets';
 
 export const jwPlayerAssets = {
 	styles: '/mobile-wiki/assets/jwplayer/index.css',
@@ -96,7 +97,9 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	loadScripts(jsFile, callback) {
-		window.M.loadScript(jsFile, true, callback, 'anonymous');
+		JWPlayerAssets.loadScripts(jsFile).then((data) => {
+			callback(data);
+		});
 	}
 
 	/**
