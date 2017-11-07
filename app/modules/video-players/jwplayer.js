@@ -5,11 +5,6 @@ import {track} from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 
-export const jwPlayerAssets = {
-	styles: '/mobile-wiki/assets/jwplayer/index.css',
-	script: '/mobile-wiki/assets/jwplayer/wikiajwplayer.js'
-};
-
 export default class JWPlayer extends BasePlayer {
 	constructor(provider, params) {
 		const originalOnCreate = params.onCreate;
@@ -88,17 +83,9 @@ export default class JWPlayer extends BasePlayer {
 	 * @return {void}
 	 */
 	loadPlayer() {
-		this.loadStyles(jwPlayerAssets.styles);
-		this.loadScripts(jwPlayerAssets.script, this.playerDidLoad.bind(this));
-	}
-
-	loadStyles(cssFile) {
-		$(`<link rel="stylesheet" href="${cssFile}" crossorigin="anonymous">`).appendTo('head');
-	}
-
-	loadScripts(jsFile, callback) {
-		JWPlayerAssets.loadScripts(jsFile).then((data) => {
-			callback(data);
+		JWPlayerAssets.loadStyles();
+		JWPlayerAssets.loadScripts().then((data) => {
+			this.playerDidLoad.bind(this)(data);
 		});
 	}
 

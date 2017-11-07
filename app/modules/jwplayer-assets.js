@@ -10,16 +10,29 @@ export const assetUrls = {
  * @class JWPlayerAssets
  */
 class JWPlayerAssets {
-	loadStyles(cssFile) {
-		$(`<link rel="stylesheet" href="${cssFile}" crossorigin="anonymous">`).appendTo('head');
+	constructor() {
+		this.wasStyleLoadInitialized = false;
+		this.scriptsPromise = null;
 	}
 
-	loadScripts(jsFile) {
-		return new RSVP.Promise((resolve) => {
-			window.M.loadScript(jsFile, true, (data) => {
-				resolve(data);
-			}, 'anonymous');
-		});
+	loadStyles() {
+		if (!this.wasStyleLoadInitialized) {
+			$(`<link rel="stylesheet" href="${assetUrls.styles}" crossorigin="anonymous">`)
+				.appendTo('head');
+			this.wasStyleLoadInitialized = true;
+		}
+	}
+
+	loadScripts() {
+		if (!this.scriptsPromise) {
+			this.scriptsPromise = new RSVP.Promise((resolve) => {
+				window.M.loadScript(assetUrls.script, true, (data) => {
+					resolve(data);
+				}, 'anonymous');
+			});
+		}
+
+		return this.scriptsPromise;
 	}
 }
 
