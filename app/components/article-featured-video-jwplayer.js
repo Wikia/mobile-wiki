@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
-import {observer} from '@ember/object';
+import {observer, computed} from '@ember/object';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import config from '../config/environment';
@@ -11,6 +11,9 @@ export default Component.extend({
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	autoplayCookieExpireDays: 14,
+	placeholderImage: computed('model', function () {
+		return this.get('model').embed.jsParams.playlist[0].image;
+	}),
 
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
