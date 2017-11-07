@@ -53,7 +53,6 @@ export function initialize(applicationInstance) {
 
 		runtimeConfig = {
 			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
-			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
 			wikiaEnv,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER,
@@ -86,6 +85,9 @@ export function initialize(applicationInstance) {
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
 		shoebox.put('runtimeHeliosConfig', runtimeHeliosConfig);
+
+		// variables below won't be available on the front end
+		runtimeConfig.gaUserSalt = env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT;
 	} else {
 		runtimeConfig = shoebox.retrieve('runtimeConfig');
 		runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');
