@@ -135,12 +135,14 @@ export default Route.extend(
 				let redirectTo = model.get('redirectTo');
 
 				if (handler) {
-					transition.then(() => {
-						this.get('liftigniter').initLiftigniter(model.adsContext);
-
+					Ember.run.scheduleOnce('afterRender', () => {
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
+					});
+
+					transition.then(() => {
+						this.get('liftigniter').initLiftigniter(model.adsContext);
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
@@ -229,12 +231,13 @@ export default Route.extend(
 				uaDimensions[25] = namespace;
 			}
 
+			uaDimensions[21] = model.get('id');
 			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
 			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
 
 			setTrackContext({
 				a: model.get('id'),
-				n: model.get('ns')
+				n: namespace
 			});
 
 			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
