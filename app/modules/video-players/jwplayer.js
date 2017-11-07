@@ -60,9 +60,11 @@ export default class JWPlayer extends BasePlayer {
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
 					comscore: config.environment === 'production'
 				},
-				autoplay: {
-					enabled: this.params.autoplay,
+				settings: {
+					showAutoplayToggle: true,
 				},
+				autoplay: this.params.autoplay,
+				mute: this.params.autoplay,
 				related: {
 					time: 3,
 					playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',

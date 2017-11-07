@@ -4,9 +4,13 @@ import {on} from '@ember/object/evented';
 import {observer} from '@ember/object';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
+import config from '../config/environment';
 
 export default Component.extend({
 	ads: service(),
+
+	autoplayCookieName: 'featuredVideoAutoplay',
+	autoplayCookieExpireDays: 14,
 
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
@@ -28,6 +32,14 @@ export default Component.extend({
 	 */
 	onCreate(player) {
 		this.player = player;
+
+		this.player.on('autoplayToggle', (data) => {
+			$.cookie(this.get('autoplayCookieName'), data.enabled ? '1' : '0', {
+				expires: this.get('autoplayCookieExpireDays'),
+				path: '/',
+				domain: config.cookieDomain
+			});
+		});
 	},
 
 	/**
@@ -36,7 +48,7 @@ export default Component.extend({
 	initVideoPlayer() {
 		const model = this.get('model.embed'),
 			jsParams = {
-				autoplay: true,
+				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
