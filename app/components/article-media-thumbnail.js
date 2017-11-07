@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import {or} from '@ember/object/computed';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
-
-const {$, Component, computed} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
@@ -42,7 +43,7 @@ export default Component.extend(
 			return this.get('width') <= this.get('viewportDimensions.width');
 		}),
 
-		hasFigcaption: computed.or('caption', 'showTitle'),
+		hasFigcaption: or('caption', 'showTitle'),
 
 		showTitle: computed('type', function () {
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
@@ -60,8 +61,8 @@ export default Component.extend(
 		},
 
 		/**
-		* @returns {{mode: string, height: number, width: number}}
-		*/
+		 * @returns {{mode: string, height: number, width: number}}
+		 */
 		getThumbnailParams() {
 			const originalWidth = this.get('width'),
 				originalHeight = this.get('height'),

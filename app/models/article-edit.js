@@ -1,14 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject, {get, computed} from '@ember/object';
 import getEditToken from '../utils/edit-token';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-
-const {
-	Object: EmberObject,
-	computed,
-	get,
-	inject
-} = Ember;
 
 export default EmberObject.extend({
 	content: null,
@@ -17,7 +11,7 @@ export default EmberObject.extend({
 	title: null,
 	sectionIndex: null,
 
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');

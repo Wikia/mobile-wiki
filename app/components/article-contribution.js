@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	LanguagesMixin,
 	{
 		classNames: ['contribution-container'],

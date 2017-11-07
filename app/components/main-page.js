@@ -1,12 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {reads, and} from '@ember/object/computed';
+import Component from '@ember/component';
+import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
-
-const {
-	Component,
-	computed,
-	inject,
-	run
-} = Ember;
 
 export default Component.extend(
 	AdsMixin,
@@ -14,12 +10,12 @@ export default Component.extend(
 		classNames: ['main-page-modules', 'main-page-body'],
 		tagName: 'section',
 
-		currentUser: inject.service(),
-		wikiVariables: inject.service(),
+		currentUser: service(),
+		wikiVariables: service(),
 
-		title: computed.reads('wikiVariables.siteName'),
+		title: reads('wikiVariables.siteName'),
 
-		curatedContentToolButtonVisible: computed.and('currentUser.rights.curatedcontent'),
+		curatedContentToolButtonVisible: and('currentUser.rights.curatedcontent'),
 
 		actions: {
 			/**

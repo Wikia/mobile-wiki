@@ -1,17 +1,20 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import {on} from '@ember/object/evented';
+import {observer} from '@ember/object';
+import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['article-edit'],
 
-		viewportHeightObserver: Ember.observer('viewportDimensions.height', function () {
+		viewportHeightObserver: observer('viewportDimensions.height', function () {
 			this.adjustTextareaHeight();
 		}),
 
-		adjustTextareaHeight: Ember.on('didInsertElement', () => {
-			Ember.$('textarea').css('height', Ember.$(window).height() - Ember.$('.sub-head').outerHeight());
+		adjustTextareaHeight: on('didInsertElement', () => {
+			$('textarea').css('height', $(window).height() - $('.sub-head').outerHeight());
 		}),
 
 		actions: {

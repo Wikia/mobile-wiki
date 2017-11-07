@@ -1,22 +1,17 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {A} from '@ember/array';
+import {reject} from 'rsvp';
+import EmberObject, {get} from '@ember/object';
+import {getOwner} from '@ember/application';
 import Notification from './notification';
 import fetch from 'fetch';
 import {convertToIsoString} from '../../utils/iso-date-time';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
-const {
-	A,
-	Object: EmberObject,
-	RSVP,
-	get,
-	getOwner,
-	inject
-} = Ember;
-
 const NotificationsModel = EmberObject.extend({
 	unreadCount: 0,
 	data: new A(),
-	logger: inject.service(),
+	logger: service(),
 
 	getNewestNotificationISODate() {
 		return convertToIsoString(this.get('data.0.timestamp'));
@@ -69,7 +64,7 @@ const NotificationsModel = EmberObject.extend({
 
 	markAsRead(notification) {
 		if (!notification.isUnread) {
-			return RSVP.reject();
+			return reject();
 		}
 
 		return notification.markAsRead()

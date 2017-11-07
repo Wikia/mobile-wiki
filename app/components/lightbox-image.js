@@ -1,8 +1,12 @@
-import Ember from 'ember';
+import {scheduleOnce} from '@ember/runloop';
+import {htmlSafe} from '@ember/string';
+import {computed, observer} from '@ember/object';
+import {gt} from '@ember/object/computed';
+import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import ImageLoader from '../mixins/image-loader';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	ImageLoader,
 	{
@@ -22,22 +26,22 @@ export default Ember.Component.extend(
 			right: 2,
 		},
 
-		isZoomed: Ember.computed.gt('scale', 1),
+		isZoomed: gt('scale', 1),
 		loadingError: false,
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 		 */
-		style: Ember.computed(function () {
+		style: computed(function () {
 			const scale = this.get('scale').toFixed(2),
 				x = this.get('newX').toFixed(2),
 				y = this.get('newY').toFixed(2),
 				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
-			return Ember.String.htmlSafe(`-webkit-${transform}${transform}`);
+			return htmlSafe(`-webkit-${transform}${transform}`);
 		}),
 
-		viewportSize: Ember.computed(() => {
+		viewportSize: computed(() => {
 			return {
 				width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 				height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
@@ -47,7 +51,7 @@ export default Ember.Component.extend(
 		/**
 		 * calculates current scale for zooming
 		 */
-		limitedScale: Ember.computed('scale', {
+		limitedScale: computed('scale', {
 			get() {
 				return this.get('scale');
 			},
@@ -66,11 +70,11 @@ export default Ember.Component.extend(
 		/**
 		 * property that holds current image
 		 */
-		image: Ember.computed(function () {
+		image: computed(function () {
 			return this.$('.current');
 		}),
 
-		imageWidth: Ember.computed('image', 'scale', function () {
+		imageWidth: computed('image', 'scale', function () {
 			const $image = this.get('image');
 
 			let imageWidth = 0;
@@ -82,7 +86,7 @@ export default Ember.Component.extend(
 			return imageWidth;
 		}),
 
-		imageHeight: Ember.computed('image', 'scale', function () {
+		imageHeight: computed('image', 'scale', function () {
 			const $image = this.get('image');
 
 			let imageHeight = 0;
@@ -97,21 +101,21 @@ export default Ember.Component.extend(
 		/**
 		 * used to set X boundaries for panning image in media lightbox
 		 */
-		maxX: Ember.computed('viewportSize', 'imageWidth', 'scale', function () {
+		maxX: computed('viewportSize', 'imageWidth', 'scale', function () {
 			return Math.abs(this.get('viewportSize.width') - this.get('imageWidth')) / 2 / this.get('scale');
 		}),
 
 		/**
 		 * used to set Y boundaries for panning image in media lightbox
 		 */
-		maxY: Ember.computed('viewportSize', 'imageHeight', 'scale', function () {
+		maxY: computed('viewportSize', 'imageHeight', 'scale', function () {
 			return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
 		}),
 
 		/**
 		 * calculates X for panning with respect to maxX
 		 */
-		limitedNewX: Ember.computed('newX', 'viewportSize', 'imageWidth', {
+		limitedNewX: computed('newX', 'viewportSize', 'imageWidth', {
 			get() {
 				return this.get('newX');
 			},
@@ -130,7 +134,7 @@ export default Ember.Component.extend(
 		/**
 		 * calculates Y for panning with respect to maxY
 		 */
-		limitedNewY: Ember.computed('newY', 'viewportSize', 'imageHeight', {
+		limitedNewY: computed('newY', 'viewportSize', 'imageHeight', {
 			get() {
 				return this.get('newY');
 			},
@@ -146,13 +150,13 @@ export default Ember.Component.extend(
 			},
 		}),
 
-		articleContentWidthObserver: Ember.observer('viewportDimensions.width', function () {
+		articleContentWidthObserver: observer('viewportDimensions.width', function () {
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');
 		}),
 
-		urlObserver: Ember.observer('model.url', function () {
+		urlObserver: observer('model.url', function () {
 			this.loadUrl();
 		}),
 
@@ -275,7 +279,7 @@ export default Ember.Component.extend(
 				direction: Hammer.DIRECTION_ALL
 			});
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
+			scheduleOnce('afterRender', this, () => {
 				this.loadUrl();
 			});
 		},

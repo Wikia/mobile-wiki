@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {A} from '@ember/array';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('alert-notifications', 'Unit | Component | alert notifications', {
@@ -19,12 +19,12 @@ test('Dismissing alert', function (assert) {
 		component = this.subject();
 
 	component.setProperties({
-		alerts: Ember.A([
+		alerts: A([
 			alertOne,
 			alertTwo
 		])
 	});
 
 	component.send('dismissAlert', alertOne);
-	assert.deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
+	assert.deepEqual(component.get('alerts'), A([alertTwo]), 'First alert should be removed');
 });

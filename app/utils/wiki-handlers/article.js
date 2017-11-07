@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {getOwner} from '@ember/application';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
 
@@ -8,7 +8,7 @@ function addOoyalaAssets(route) {
 	}
 
 	// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
-	const applicationInstance = Ember.getOwner(route);
+	const applicationInstance = getOwner(route);
 	const document = applicationInstance.lookup('service:-document');
 	const articleVideoScripts = applicationInstance.lookup('component:fastboot-only/article-video-scripts');
 	const articleVideoStyles = applicationInstance.lookup('component:fastboot-only/article-video-styles');

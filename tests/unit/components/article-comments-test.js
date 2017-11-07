@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {run} from '@ember/runloop';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('article-comments', 'Unit | Component | article comments', {
@@ -13,14 +13,15 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 
 	assert.expect(18);
 
-	Ember.run(() => {
+	run(() => {
 		component.setProperties({
 			model: {
 				pagesCount: 3
 			},
 			page: 2,
 
-			scrollToTop() {}
+			scrollToTop() {
+			}
 		});
 	});
 
@@ -28,7 +29,7 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 	assert.equal(component.get('nextButtonShown'), true);
 	assert.equal(component.get('prevButtonShown'), true);
 
-	Ember.run(() => {
+	run(() => {
 		component.send('nextPage');
 	});
 
@@ -36,7 +37,7 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 	assert.equal(component.get('nextButtonShown'), false);
 	assert.equal(component.get('prevButtonShown'), true);
 
-	Ember.run(() => {
+	run(() => {
 		component.send('nextPage');
 	});
 
@@ -44,7 +45,7 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 	assert.equal(component.get('nextButtonShown'), false);
 	assert.equal(component.get('prevButtonShown'), true);
 
-	Ember.run(() => {
+	run(() => {
 		component.send('prevPage');
 	});
 
@@ -52,7 +53,7 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 	assert.equal(component.get('nextButtonShown'), true);
 	assert.equal(component.get('prevButtonShown'), true);
 
-	Ember.run(() => {
+	run(() => {
 		component.send('prevPage');
 	});
 
@@ -60,7 +61,7 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 	assert.equal(component.get('nextButtonShown'), true);
 	assert.equal(component.get('prevButtonShown'), false);
 
-	Ember.run(() => {
+	run(() => {
 		component.send('prevPage');
 	});
 

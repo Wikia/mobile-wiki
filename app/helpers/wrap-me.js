@@ -1,3 +1,5 @@
+import {helper} from '@ember/component/helper';
+import {htmlSafe} from '@ember/string';
 import Ember from 'ember';
 
 /**
@@ -22,14 +24,8 @@ import Ember from 'ember';
  * @returns {string}
  */
 
-const {
-	Handlebars,
-	Helper,
-	String: {htmlSafe}
-} = Ember;
-
-export default Helper.helper((params, options) => {
-	const content = Handlebars.Utils.escapeExpression(params[0] || '');
+export default helper((params, options) => {
+	const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
 	let tagName = 'span',
 		className = '',
 		otherOptions = {
@@ -50,5 +46,5 @@ export default Helper.helper((params, options) => {
 		(key) => (options[key] ? ` ${key}="${options[key]}"` : '')
 	).join('');
 
-	return new htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
+	return htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });

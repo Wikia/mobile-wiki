@@ -1,11 +1,7 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
+import {isArray} from '@ember/array';
 import {normalizeToUnderscore} from '../utils/string';
-
-const {
-	Object: EmberObject,
-	inject,
-	isArray
-} = Ember;
 
 /**
  * @typedef {Object} ArticleMedia
@@ -28,7 +24,7 @@ const {
  */
 
 export default EmberObject.extend({
-	logger: inject.service(),
+	logger: service(),
 
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not

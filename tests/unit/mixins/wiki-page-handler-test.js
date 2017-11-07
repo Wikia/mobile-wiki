@@ -1,5 +1,6 @@
+import {getOwner} from '@ember/application';
+import EmberObject from '@ember/object';
 import {moduleFor, test} from 'ember-qunit';
-import Ember from 'ember';
 import sinon from 'sinon';
 import require from 'require';
 import WikiPageHandlerMixin from 'mobile-wiki/mixins/wiki-page-handler';
@@ -44,11 +45,11 @@ moduleFor('mixin:wiki-page-handler', 'Unit | Mixins | Wiki Page Handler', {
 	},
 
 	subject() {
-		const WikiPageHandlerObject = Ember.Object.extend(WikiPageHandlerMixin);
+		const WikiPageHandlerObject = EmberObject.extend(WikiPageHandlerMixin);
 
 		this.register('test-container:wiki-page-handler-object', WikiPageHandlerObject);
 
-		return Ember.getOwner(this).lookup('test-container:wiki-page-handler-object');
+		return getOwner(this).lookup('test-container:wiki-page-handler-object');
 	}
 });
 
@@ -150,7 +151,7 @@ test('getModelForNamespace - unsupported namespace', function (assert) {
 		params = {
 			title: 'Test'
 		},
-		expected = Ember.Object.create({
+		expected = EmberObject.create({
 			redirectTo: null
 		});
 

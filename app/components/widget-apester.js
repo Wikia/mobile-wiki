@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
-export default Ember.Component.extend(WidgetScriptStateMixin, {
+export default Component.extend(WidgetScriptStateMixin, {
 	classNames: ['widget-apester'],
 	data: null,
 

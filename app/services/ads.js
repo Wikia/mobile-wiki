@@ -1,12 +1,11 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import Service, {inject as service} from '@ember/service';
 import Ads from '../modules/ads';
-
-const {computed, Service, inject} = Ember;
 
 export default Service.extend({
 	module: Ads.getInstance(),
-	wikiVariables: inject.service(),
-	currentUser: inject.service(),
+	wikiVariables: service(),
+	currentUser: service(),
 	siteHeadOffset: 0,
 	noAdsQueryParam: '',
 	noAds: computed('noAdsQueryParam', function () {

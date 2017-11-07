@@ -194,7 +194,8 @@ test('test load more batch increase', (assert) => {
 			},
 			totalBatches: 2,
 			query: 'testQuery'
-		}), fetchSpy = sinon.spy(search, 'fetch');
+		}),
+		fetchSpy = sinon.spy(search, 'fetch');
 
 	search.loadMore();
 

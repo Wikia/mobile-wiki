@@ -1,14 +1,11 @@
-import Ember from 'ember';
-
-const {
-	Mixin,
-	String: {dasherize},
-	computed,
-	inject
-} = Ember;
+import {inject as service} from '@ember/service';
+import {equal} from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
+import {dasherize} from '@ember/string';
+import {computed} from '@ember/object';
 
 export default Mixin.create({
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 	defaultLanguage: 'en',
 
 	isJapaneseBrowser: computed('isJapaneseWikia', function () {
@@ -23,7 +20,7 @@ export default Mixin.create({
 		return lang === 'ja';
 	}),
 
-	isJapaneseWikia: computed.equal('wikiVariables.language.content', 'ja'),
+	isJapaneseWikia: equal('wikiVariables.language.content', 'ja'),
 
 	/**
 	 * Returns navigator language with fallback to a default language

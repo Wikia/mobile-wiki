@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import {A} from '@ember/array';
+import {debounce} from '@ember/runloop';
+import EmberObject, {computed} from '@ember/object';
+import Component from '@ember/component';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	InViewportMixin,
 	{
 		classNames: ['article-media-gallery'],
@@ -18,7 +21,7 @@ export default Ember.Component.extend(
 		 * Initially, we render this.numberOfItemsRendered components
 		 * Then increment this number in this.didEnterViewport and this.onScroll
 		 */
-		itemsToRender: Ember.computed('items', 'numberOfItemsRendered', function () {
+		itemsToRender: computed('items', 'numberOfItemsRendered', function () {
 			return this.get('items').slice(0, this.get('numberOfItemsRendered'));
 		}),
 
@@ -34,7 +37,7 @@ export default Ember.Component.extend(
 		 */
 		didRender() {
 			this.$().on('scroll', () => {
-				Ember.run.debounce(this, 'onScroll', 100);
+				debounce(this, 'onScroll', 100);
 			});
 		},
 
@@ -58,12 +61,12 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		sanitizeItems() {
-			const itemsSanitized = Ember.A(),
+			const itemsSanitized = A(),
 				itemsRaw = this.get('items');
 
 			itemsRaw.forEach((mediaItem, index) => {
 				mediaItem.galleryRef = index;
-				itemsSanitized.pushObject(Ember.Object.create(mediaItem));
+				itemsSanitized.pushObject(EmberObject.create(mediaItem));
 			});
 
 			this.set('items', itemsSanitized);

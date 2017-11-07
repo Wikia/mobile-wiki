@@ -1,11 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import $ from 'jquery';
+import {isEmpty} from '@ember/utils';
+import {alias, equal} from '@ember/object/computed';
+import Controller, {inject as controller} from '@ember/controller';
 import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
 import ConnectionTypeMixin from '../mixins/connection-type';
 import {track, trackActions} from '../utils/track';
-
-const {Controller, inject} = Ember;
 
 export default Controller.extend(
 	AlertNotificationsMixin,
@@ -14,10 +16,10 @@ export default Controller.extend(
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
-		wikiPage: inject.controller(),
-		ads: inject.service(),
-		logger: inject.service(),
-		wikiVariables: inject.service(),
+		wikiPage: controller(),
+		ads: service(),
+		logger: service(),
+		wikiVariables: service(),
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -29,7 +31,7 @@ export default Controller.extend(
 		],
 		file: null,
 		map: null,
-		noAds: Ember.computed.alias('ads.noAdsQueryParam'),
+		noAds: alias('ads.noAdsQueryParam'),
 		commentsPage: null,
 
 		applicationWrapperClassNames: null,
@@ -43,7 +45,7 @@ export default Controller.extend(
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
 
-		isSearchPage: Ember.computed.equal('currentRouteName', 'search'),
+		isSearchPage: equal('currentRouteName', 'search'),
 
 		/**
 		 * @returns {void}
@@ -132,9 +134,9 @@ export default Controller.extend(
 				const file = this.get('file'),
 					map = this.get('map');
 
-				if (!Ember.isEmpty(file)) {
+				if (!isEmpty(file)) {
 					this.openLightboxForMedia(file);
-				} else if (!Ember.isEmpty(map)) {
+				} else if (!isEmpty(map)) {
 					this.openLightboxForMap(map);
 				}
 			},
@@ -246,7 +248,7 @@ export default Controller.extend(
 					mediaModel.getRefsForLightboxByTitle(file) :
 					null;
 
-			if (!Ember.isEmpty(lightboxMediaRefs)) {
+			if (!isEmpty(lightboxMediaRefs)) {
 				this.send('openLightbox', 'media', {
 					media: mediaModel,
 					mediaRef: lightboxMediaRefs.mediaRef,
@@ -265,7 +267,7 @@ export default Controller.extend(
 		 * @returns {void}
 		 */
 		openLightboxForMap(map) {
-			const $map = Ember.$(`a[data-map-id=${map}]`);
+			const $map = $(`a[data-map-id=${map}]`);
 
 			this.send('openLightbox', 'map', {
 				title: $map.data('map-title'),

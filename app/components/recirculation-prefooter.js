@@ -1,17 +1,14 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
+import {on} from '@ember/object/evented';
+import {run} from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
 import {track, trackActions} from '../utils/track';
 
-const {
-		Component,
-		computed,
-		on,
-		run,
-		inject
-	} = Ember,
-	recircItemsCount = 10,
+const recircItemsCount = 10,
 	config = {
 		// we load twice as many items as we want to display because we need to filter out those without thumbnail
 		max: recircItemsCount * 2,
@@ -28,9 +25,9 @@ export default Component.extend(
 	{
 		classNames: ['recirculation-prefooter'],
 		isVisible: false,
-		liftigniter: inject.service(),
-		i18n: inject.service(),
-		logger: inject.service(),
+		liftigniter: service(),
+		i18n: service(),
+		logger: service(),
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.get('items').some((item) => item.presented_by);
 		}),

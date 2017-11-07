@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Route from '@ember/routing/route';
+import {getOwner} from '@ember/application';
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import ArticlePreviewModel from '../models/article-preview';
 import {disableCache} from '../utils/fastboot-caching';
-
-const {Route, getOwner, inject} = Ember;
 
 /**
  * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
@@ -12,9 +12,9 @@ const {Route, getOwner, inject} = Ember;
 export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
 	{
-		fastboot: inject.service(),
-		logger: inject.service(),
-		wikiVariables: inject.service(),
+		fastboot: service(),
+		logger: service(),
+		wikiVariables: service(),
 
 		applicationWrapperClassNames: ['article-preview'],
 

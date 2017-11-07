@@ -1,21 +1,17 @@
+import {inject as service} from '@ember/service';
+import {oneWay} from '@ember/object/computed';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {on} from '@ember/object/evented';
+import {setProperties, observer, computed} from '@ember/object';
 import Ads from '../modules/ads';
-import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import VideoLoader from '../modules/video-loader';
 import {isSafariMinVer, system} from '../utils/browser';
 import extend from '../utils/extend';
 import {track, trackActions} from '../utils/track';
 
-const {
-		$,
-		Component,
-		inject,
-		computed,
-		on,
-		observer,
-		setProperties
-	} = Ember,
-	autoplayCookieName = 'featuredVideoAutoplay';
+const autoplayCookieName = 'featuredVideoAutoplay';
 
 export default Component.extend(InViewportMixin, {
 	classNames: ['article-featured-video'],
@@ -26,9 +22,9 @@ export default Component.extend(InViewportMixin, {
 		'isVideoDrawerVisible:is-fixed'
 	],
 
-	ads: inject.service(),
-	fastboot: inject.service(),
-	wikiVariables: inject.service(),
+	ads: service(),
+	fastboot: service(),
+	wikiVariables: service(),
 
 	isPlayerLoading: true,
 	supportsAutoplay: computed(() => {
@@ -39,9 +35,9 @@ export default Component.extend(InViewportMixin, {
 			this.get('supportsAutoplay') &&
 			$.cookie(autoplayCookieName) !== '0';
 	}),
-	hasStartedPlaying: computed.oneWay('autoplay'),
-	hasTinyPlayIcon: computed.oneWay('isVideoDrawerVisible'),
-	isPlaying: computed.oneWay('autoplay'),
+	hasStartedPlaying: oneWay('autoplay'),
+	hasTinyPlayIcon: oneWay('isVideoDrawerVisible'),
+	isPlaying: oneWay('autoplay'),
 	playerLoadingObserver: observer('isPlayerLoading', function () {
 		if (this.get('viewportExited')) {
 			this.didExitViewport();
