@@ -1,3 +1,8 @@
+.article-featured-video-jwplayer {
+	height: calc(100vw * 9 / 16);
+	background: $wds-color-black;
+}
+
 .jwplayer {
 	// resets wikia-style-guide styles
 	input[type="checkbox"] + label {
