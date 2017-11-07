@@ -1,20 +1,22 @@
-import Ember from 'ember';
+import {gt} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['wds-avatar-stack'],
 
 	users: [],
 	totalCount: 0,
 	displayLimit: 5,
 
-	avatars: Ember.computed('users', function () {
+	avatars: computed('users', function () {
 		return this.get('users').slice(0, this.get('displayLimit'));
 	}),
 
-	avatarOverflow: Ember.computed('users', 'totalCount', function () {
+	avatarOverflow: computed('users', 'totalCount', function () {
 		return this.get('totalCount') - this.get('avatars.length');
 	}),
 
-	showAvatarOverflow: Ember.computed.gt('avatarOverflow', 0)
+	showAvatarOverflow: gt('avatarOverflow', 0)
 
 });

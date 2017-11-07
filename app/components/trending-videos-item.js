@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import {oneWay} from '@ember/object/computed';
+import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		tagName: 'a',
@@ -14,13 +16,13 @@ export default Ember.Component.extend(
 		imageStyle: null,
 		video: null,
 		imageWidth: 250,
-		href: Ember.computed.oneWay('video.fileUrl'),
+		href: oneWay('video.fileUrl'),
 
-		imageHeight: Ember.computed('imageWidth', function () {
+		imageHeight: computed('imageWidth', function () {
 			return Math.floor(this.get('imageWidth') * 9 / 16);
 		}),
 
-		thumbUrl: Ember.computed('video.url', function () {
+		thumbUrl: computed('video.url', function () {
 			const options = {
 					width: this.get('imageWidth'),
 					height: this.get('imageHeight'),

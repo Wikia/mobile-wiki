@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import EmberObject, {get} from '@ember/object';
+import {getOwner} from '@ember/application';
 import MediaModel from '../media';
 import extend from '../../utils/extend';
 
@@ -16,12 +17,6 @@ function getType({isMainPage, details: {type}}) {
 		return type;
 	}
 }
-
-const {
-	Object: EmberObject,
-	get,
-	getOwner
-} = Ember;
 
 export default EmberObject.extend({
 	adsContext: null,

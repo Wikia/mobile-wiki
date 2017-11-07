@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import {htmlSafe} from '@ember/string';
+import {helper} from '@ember/component/helper';
 
 /**
  * Helper to generate SVGs in the form:
@@ -16,7 +17,7 @@ import Ember from 'ember';
  * @param {Object} options
  * @returns {Ember.String.htmlSafe}
  */
-export default Ember.Helper.helper((params, options) => {
+export default helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
@@ -35,5 +36,5 @@ export default Ember.Helper.helper((params, options) => {
 	});
 	ret += `><use xlink:href="#${name}"></use></svg>`;
 
-	return new Ember.String.htmlSafe(ret);
+	return htmlSafe(ret);
 });

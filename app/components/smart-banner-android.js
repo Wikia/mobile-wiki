@@ -1,17 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {oneWay, reads, not} from '@ember/object/computed';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {get, computed} from '@ember/object';
+import {htmlSafe} from '@ember/string';
+import {run} from '@ember/runloop';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 import {system, standalone} from '../utils/browser';
-
-const {
-	$,
-	Component,
-	computed,
-	get,
-	inject,
-	String: {htmlSafe},
-	run,
-} = Ember;
 
 /**
  * Component for a custom Smart Banner
@@ -22,7 +18,7 @@ export default Component.extend({
 	classNames: ['smart-banner-android'],
 	classNameBindings: ['noIcon'],
 
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 
 	options: {
 		// Language code for App Store
@@ -36,14 +32,14 @@ export default Component.extend({
 	},
 	day: 86400000,
 
-	appId: computed.oneWay(`config.appId.android`),
-	appScheme: computed.oneWay(`config.appScheme.android`),
+	appId: oneWay(`config.appId.android`),
+	appScheme: oneWay(`config.appScheme.android`),
 	config: computed('wikiVariables', function () {
 		return this.get('wikiVariables').get('smartBanner') || {};
 	}),
-	dbName: computed.reads('wikiVariables.dbName'),
-	description: computed.oneWay('config.description'),
-	icon: computed.oneWay('config.icon'),
+	dbName: reads('wikiVariables.dbName'),
+	description: oneWay('config.description'),
+	icon: oneWay('config.icon'),
 	iconSize: 92,
 
 	iconStyle: computed('icon', function () {
@@ -57,16 +53,16 @@ export default Component.extend({
 			height: this.iconSize
 		});
 
-		return new htmlSafe(`background-image: url(${icon})`);
+		return htmlSafe(`background-image: url(${icon})`);
 	}),
 
 	link: computed('appId', 'dbName', function () {
 		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
-				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
+			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
 
-	noIcon: computed.not('icon'),
-	title: computed.oneWay('config.name'),
+	noIcon: not('icon'),
+	title: oneWay('config.name'),
 
 	actions: {
 		/**

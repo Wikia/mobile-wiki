@@ -1,11 +1,7 @@
+import EmberObject from '@ember/object';
+import Service from '@ember/service';
 import {test, moduleFor} from 'ember-qunit';
 import sinon from 'sinon';
-import Ember from 'ember';
-
-const {
-	Object: EmberObject,
-	Service
-} = Ember;
 
 const model = EmberObject.create({
 	url: '/wiki/Kermit',
@@ -54,8 +50,10 @@ test('set head tags for correct model', function (assert) {
 	let headData;
 
 	mock.setProperties({
-		removeServerTags() {},
-		setStaticHeadTags() {},
+		removeServerTags() {
+		},
+		setStaticHeadTags() {
+		},
 		headData: EmberObject.create(),
 		wikiVariables: {
 			basePath: 'http://muppet.wikia.com',
@@ -93,8 +91,10 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 	let headData;
 
 	mock.setProperties({
-		removeServerTags() {},
-		setStaticHeadTags() {},
+		removeServerTags() {
+		},
+		setStaticHeadTags() {
+		},
 		headData: EmberObject.create(),
 		wikiVariables: {
 			basePath: 'http://muppet.wikia.com',
@@ -192,7 +192,8 @@ test('reset ads variables on before model', function (assert) {
 	const mock = this.subject();
 	mock.controllerFor = () => {
 		return {
-			send: () => {}
+			send: () => {
+			}
 		};
 	};
 

@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import {ooyalaAssets} from '../../modules/video-players/ooyala-v4';
-
-const {Component} = Ember;
 
 export default Component.extend({
 	tagName: '',

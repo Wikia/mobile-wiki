@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {reads, bool, equal, and} from '@ember/object/computed';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
+import $ from 'jquery';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
-import {system} from '../utils/browser';
-
-const {
-	Component,
-	computed,
-	inject,
-	$
-} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -44,15 +40,15 @@ export default Component.extend({
 	smartBannerVisible: false,
 	firstRender: true,
 
-	ads: inject.service(),
-	currentUser: inject.service(),
-	fastboot: inject.service(),
-	logger: inject.service(),
-	wikiVariables: inject.service(),
+	ads: service(),
+	currentUser: service(),
+	fastboot: service(),
+	logger: service(),
+	wikiVariables: service(),
 
-	dir: computed.reads('wikiVariables.language.contentDir'),
+	dir: reads('wikiVariables.language.contentDir'),
 
-	bfaaTemplate: computed.bool('ads.siteHeadOffset'),
+	bfaaTemplate: bool('ads.siteHeadOffset'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
@@ -67,9 +63,9 @@ export default Component.extend({
 	/**
 	 * @returns {boolean}
 	 */
-	isUserLangEn: computed.equal('currentUser.language', 'en'),
-	shouldShowFandomAppSmartBanner: computed.and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-	isFandomAppSmartBannerVisible: computed.and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
+	isUserLangEn: equal('currentUser.language', 'en'),
+	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}

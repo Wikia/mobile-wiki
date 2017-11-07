@@ -1,17 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {on} from '@ember/object/evented';
+import {observer} from '@ember/object';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import config from '../config/environment';
 
-const {
-	Component,
-	inject,
-	on,
-	observer,
-} = Ember;
-
 export default Component.extend({
-	ads: inject.service(),
+	ads: service(),
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	autoplayCookieExpireDays: 14,

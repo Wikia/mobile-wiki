@@ -3,9 +3,10 @@
  * - https://github.com/janmisek/ember-types
  * - https://github.com/janmisek/ember-error-handler
  */
+import EmberObject, {computed} from '@ember/object';
 import Ember from 'ember';
 
-const {NAME_KEY, Object: EmberObject, computed} = Ember;
+const {NAME_KEY} = Ember;
 const unknownFunction = 'UnknownFunction';
 const unknownObject = 'UnknownObject';
 

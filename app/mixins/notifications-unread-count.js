@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const {Mixin, computed} = Ember;
+import {gt} from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
+import {computed} from '@ember/object';
 
 export default Mixin.create({
 	unreadCount: computed('notifications.model.unreadCount', function () {
@@ -11,5 +11,5 @@ export default Mixin.create({
 			return count;
 		}
 	}),
-	hasUnread: computed.gt('notifications.model.unreadCount', 0),
+	hasUnread: gt('notifications.model.unreadCount', 0),
 });

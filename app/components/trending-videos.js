@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import {getOwner} from '@ember/application';
 import MediaModel from '../models/media';
-
-const {Component, getOwner} = Ember;
 
 export default Component.extend({
 	classNames: ['trending', 'trending-videos', 'mw-content'],

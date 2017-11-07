@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {$, get} = Ember;
+import $ from 'jquery';
+import {get} from '@ember/object';
 
 /**
  * @param {{context: string, type: string}} attrs

@@ -29,9 +29,9 @@
  *  }}
  */
 
-import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	attributeBindings: ['title'],
 	classNames: ['icon-button'],
 	iconSize: 16,

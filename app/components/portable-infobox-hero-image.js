@@ -1,15 +1,17 @@
-import Ember from 'ember';
+import {readOnly} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,
 
 		// @todo XW-1363 - keep it DRY
 		// or should it be the same as in portable-infobox-image-collection?
-		cropMode: Ember.computed('viewportDimensions.width', function () {
+		cropMode: computed('viewportDimensions.width', function () {
 			const windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
 				imageWidth = this.get('width') || windowWidth,
@@ -37,7 +39,7 @@ export default Ember.Component.extend(
 		}),
 
 		// @todo XW-1363 - keep it DRY
-		computedHeight: Ember.computed('viewportDimensions.width', function () {
+		computedHeight: computed('viewportDimensions.width', function () {
 			const windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
 				imageWidth = this.get('width') || windowWidth,
@@ -64,6 +66,6 @@ export default Ember.Component.extend(
 			return computedHeight;
 		}),
 
-		computedWidth: Ember.computed.readOnly('viewportDimensions.width')
+		computedWidth: readOnly('viewportDimensions.width')
 	}
 );

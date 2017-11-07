@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 import {trackMarkAllAsRead} from '../utils/notifications-tracker';
-
-const {Mixin} = Ember;
 
 export default Mixin.create(
 	{

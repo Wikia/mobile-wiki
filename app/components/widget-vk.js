@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import {observer} from '@ember/object';
+import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
 /**
@@ -19,13 +21,13 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
  * @property {VK} [VK]
  */
 
-export default Ember.Component.extend(
+export default Component.extend(
 	WidgetScriptStateMixin,
 	{
 		classNames: ['widget-vk'],
 		data: null,
 
-		scriptLoadedObserver: Ember.observer('scriptLoaded.vk', function () {
+		scriptLoadedObserver: observer('scriptLoaded.vk', function () {
 			this.createWidget();
 		}),
 
@@ -44,7 +46,7 @@ export default Ember.Component.extend(
 			if (!this.get('scriptLoadInitialized.vk')) {
 				this.set('scriptLoadInitialized.vk', true);
 
-				Ember.$.getScript('//vk.com/js/api/openapi.js', () => {
+				$.getScript('//vk.com/js/api/openapi.js', () => {
 					this.set('scriptLoaded.vk', true);
 				});
 			}

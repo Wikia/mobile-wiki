@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import {observer} from '@ember/object';
+import {on} from '@ember/object/evented';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
@@ -18,8 +20,8 @@ export default Ember.Mixin.create({
 	 * and only once - without cache'ing smartBannerVisibleObserver is fiering for each component
 	 * it's included in - at the time of writing this it's TWO TIMES
 	 */
-	smartBannerVisibleObserver: Ember.on('willInsertElement',
-		Ember.observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
+	smartBannerVisibleObserver: on('willInsertElement',
+		observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
 			const headroom = this.get('headroom'),
 				smartBannerVisible = this.get('smartBannerVisible'),
 				offset = this.get('offset'),

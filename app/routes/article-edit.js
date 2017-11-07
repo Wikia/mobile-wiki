@@ -1,18 +1,18 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {getOwner} from '@ember/application';
+import Route from '@ember/routing/route';
 import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 
-const {getOwner, Route} = Ember;
-
 export default Route.extend(
 	FullPageMixin,
 	HeadTagsDynamicMixin,
 	{
-		wikiVariables: Ember.inject.service(),
-		i18n: Ember.inject.service(),
+		wikiVariables: service(),
+		i18n: service(),
 		/**
 		 * @param {*} params
 		 * @returns {Ember.RSVP.Promise}
