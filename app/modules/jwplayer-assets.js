@@ -34,6 +34,12 @@ class JWPlayerAssets {
 
 		return this.scriptsPromise;
 	}
+
+	load() {
+		this.loadStyles();
+
+		return this.loadScripts();
+	}
 }
 
 const jwPlayerAssets = new JWPlayerAssets();

@@ -83,8 +83,7 @@ export default class JWPlayer extends BasePlayer {
 	 * @return {void}
 	 */
 	loadPlayer() {
-		JWPlayerAssets.loadStyles();
-		JWPlayerAssets.loadScripts().then((data) => {
+		JWPlayerAssets.load().then((data) => {
 			this.playerDidLoad.bind(this)(data);
 		});
 	}
