@@ -124,7 +124,7 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		ENV.helios.internalUrl = 'http://dev.sjc-dev.k8s.wikia.net/helios/info';
+		ENV.fastbootOnly.helios.internalUrl = 'http://dev.sjc-dev.k8s.wikia.net/helios/info';
 		ENV.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {
