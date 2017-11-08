@@ -12,7 +12,7 @@ export default Component.extend({
 	autoplayCookieName: 'featuredVideoAutoplay',
 	autoplayCookieExpireDays: 14,
 	placeholderImage: computed('model', function () {
-		return this.get('model').embed.jsParams.playlist[0].image;
+		return this.get('model.embed.jsParams.playlist.0.image');
 	}),
 
 	// when navigating from one article to another with video, we need to destroy player and

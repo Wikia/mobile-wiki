@@ -1,7 +1,7 @@
 .article-featured-video-jwplayer {
-	height: calc(100vw * 9 / 16);
-	background: $wds-color-black;
 	background-size: contain;
+	background-color: $wds-color-black;
+	height: calc(100vw * 9 / 16);
 }
 
 .jwplayer {
