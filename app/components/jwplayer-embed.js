@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 
-const { RSVP, $, computed, Component } = Ember;
+const {RSVP, $, computed, Component} = Ember;
 
 export default Component.extend({
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
 	jwPlayerRootId: computed('media-id', function () {
-		return `jwPlayerTag${this.get('media-id')}`
+		return `jwPlayerTag${this.get('media-id')}`;
 	}),
 
 	/**

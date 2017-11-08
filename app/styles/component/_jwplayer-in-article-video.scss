@@ -1,0 +1,7 @@
+@import '../wikia-variables';
+
+.jwplayer-in-article-video {
+	height: calc((100vw - 2*#{$article-horizontal-padding}) * 9 / 16);
+	background: $wds-color-black;
+	background-size: contain;
+}
