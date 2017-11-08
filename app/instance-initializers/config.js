@@ -54,8 +54,6 @@ export function initialize(applicationInstance) {
 		runtimeConfig = {
 			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
 			wikiaEnv,
-			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
-			wikiaDatacenter: env.WIKIA_DATACENTER,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
 
@@ -84,18 +82,21 @@ export function initialize(applicationInstance) {
 
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
-		shoebox.put('runtimeHeliosConfig', runtimeHeliosConfig);
 
 		// variables below won't be available on the front end
-		runtimeConfig.gaUserSalt = env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT;
+		extend(runtimeConfig.fastbootOnly, {
+			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
+			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
+			wikiaDatacenter: env.WIKIA_DATACENTER
+		});
+
+		extend(config.fastbootOnly.helios, runtimeHeliosConfig);
 	} else {
 		runtimeConfig = shoebox.retrieve('runtimeConfig');
 		runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');
-		runtimeHeliosConfig = shoebox.retrieve('runtimeHeliosConfig');
 	}
 
 	extend(config.services, runtimeServicesConfig);
-	extend(config.helios, runtimeHeliosConfig);
 	extend(config, runtimeConfig);
 }
 

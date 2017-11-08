@@ -16,10 +16,6 @@ module.exports = function (environment) {
 				baseAPIPath: 'on-site-notifications'
 			}
 		},
-		helios: {
-			internalUrl: 'http://prod.sjc.k8s.wikia.net/helios/info',
-			timeout: 3000
-		},
 		weppy: {
 			enabled: false,
 			host: 'http://speed.wikia.net/__rum',
@@ -112,6 +108,12 @@ module.exports = function (environment) {
 		ooyala: {
 			pcode: 'J0MTUxOtPDJVNZastij14_v7VDRS',
 			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8'
+		},
+		fastbootOnly: {
+			helios: {
+				internalUrl: 'http://prod.sjc.k8s.wikia.net/helios/info',
+				timeout: 3000
+			}
 		}
 	};
 

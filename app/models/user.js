@@ -21,10 +21,11 @@ export default EmberObject.extend({
 		const queryString = getQueryString({
 			code: accessToken
 		});
+		const {fastbootOnly: {helios}} = config;
 
-		return fetch(`${config.helios.internalUrl}${queryString}`, {
+		return fetch(`${helios.internalUrl}${queryString}`, {
 			headers: {'X-Wikia-Internal-Request': '1'},
-			timeout: config.helios.timeout,
+			timeout: helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
 				return response.json().then((data) => data.user_id);
