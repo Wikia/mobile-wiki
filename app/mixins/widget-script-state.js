@@ -7,7 +7,7 @@ export default Mixin.create({
 	 */
 	scriptLoadInitialized: {
 		twitter: false,
-		vk: false
+		vk: false,
 	},
 
 	/**
@@ -17,6 +17,6 @@ export default Mixin.create({
 	scriptLoaded: {
 		apester: false,
 		twitter: false,
-		vk: false
+		vk: false,
 	},
 });
