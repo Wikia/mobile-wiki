@@ -1,9 +1,9 @@
-import Ember from 'ember';
-
-const {Mixin, inject, computed} = Ember;
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
+import {computed} from '@ember/object';
 
 export default Mixin.create({
-	fastboot: inject.service(),
+	fastboot: service(),
 	connection: computed('fastboot.isFastBoot', function () {
 		if (!this.get('fastboot.isFastBoot')) {
 			return navigator.connection || navigator.mozConnection || navigator.webkitConnection;

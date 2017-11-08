@@ -1,7 +1,6 @@
+import Mixin from '@ember/object/mixin';
 import LanguagesMixin from './languages';
 import {track, trackActions} from '../utils/track';
-
-const {Mixin} = Ember;
 
 export default Mixin.create(LanguagesMixin, {
 	/**

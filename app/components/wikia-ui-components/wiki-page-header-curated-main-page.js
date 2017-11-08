@@ -1,14 +1,14 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {reads} from '@ember/object/computed';
+import Component from '@ember/component';
 import {track, trackActions} from '../../utils/track';
-
-const {Component, computed, inject} = Ember;
 
 export default Component.extend(
 	{
-		wikiVariables: inject.service(),
+		wikiVariables: service(),
 		classNames: ['wiki-page-header-curated-main-page'],
-		siteName: computed.reads('wikiVariables.siteName'),
-		mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
+		siteName: reads('wikiVariables.siteName'),
+		mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
 		actions: {
 			trackClick(trackingLabel) {

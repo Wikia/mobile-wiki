@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const {Mixin, on, run} = Ember;
+import Mixin from '@ember/object/mixin';
+import {on} from '@ember/object/evented';
+import {run} from '@ember/runloop';
 
 export default Mixin.create({
 	classNames: ['notifications-scroll-menu'],

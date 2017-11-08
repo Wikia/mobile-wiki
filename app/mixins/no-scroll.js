@@ -1,9 +1,9 @@
-import Ember from 'ember';
-
-const {Mixin, observer, $} = Ember;
+import Mixin from '@ember/object/mixin';
+import EmberObject, {observer} from '@ember/object';
+import $ from 'jquery';
 
 // singleton for no scroll state shared across all mixin usages
-const NoScrollState = Ember.Object.extend().reopenClass({state: false});
+const NoScrollState = EmberObject.extend().reopenClass({state: false});
 
 export default Mixin.create({
 	// global state

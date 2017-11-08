@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {alias} from '@ember/object/computed';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNameBindings: ['type', 'closeOnOverlayClick::layover-cursor-auto', 'additionalClass'],
 	classNames: ['modal-dialog-wrapper'],
-	additionalClass: Ember.computed.alias('modalDialog.name'),
+	additionalClass: alias('modalDialog.name'),
 	closeOnOverlayClick: true,
 	isVisible: false,
-	modalDialog: Ember.inject.service(),
+	modalDialog: service(),
 	onOverlayClose() {},
 	type: 'info',
 

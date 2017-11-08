@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {readOnly} from '@ember/object/computed';
+import Component from '@ember/component';
+import {dasherize} from '@ember/string';
+import {on} from '@ember/object/evented';
+import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
-
-const {
-	Component,
-	String: {dasherize},
-	computed,
-	inject,
-	on,
-	setProperties
-} = Ember;
 
 export default Component.extend(
 	InViewportMixin,
@@ -17,9 +13,9 @@ export default Component.extend(
 		classNameBindings: ['nameLowerCase', 'noAds'],
 		// This component is created dynamically, and this won't work without it
 		layoutName: 'components/ad-slot',
-		ads: inject.service(),
-		logger: inject.service(),
-		noAds: computed.readOnly('ads.noAds'),
+		ads: service(),
+		logger: service(),
+		noAds: readOnly('ads.noAds'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,

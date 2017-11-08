@@ -1,13 +1,14 @@
-import Ember from 'ember';
+import {notEmpty} from '@ember/object/computed';
+import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	{
 		avatarHeight: 100,
 		avatarWidth: 100,
 		classNameBindings: ['classes'],
-		isVisible: Ember.computed.notEmpty('users'),
+		isVisible: notEmpty('users'),
 		label: null,
 		limit: 5,
 		thumbMode: Thumbnailer.mode.fixedAspectRatio,

@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {A, Mixin} = Ember;
+import {A} from '@ember/array';
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
 	alertNotifications: null,

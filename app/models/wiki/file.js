@@ -1,12 +1,8 @@
-import Ember from 'ember';
+import {get} from '@ember/object';
+import {getOwner} from '@ember/application';
 import BaseModel from './base';
 import MediaModel from '../media';
 import {extractEncodedTitle} from '../../utils/url';
-
-const {
-	get,
-	getOwner
-} = Ember;
 
 export default BaseModel.extend({
 	hasArticle: false,

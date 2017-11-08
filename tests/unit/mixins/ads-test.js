@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import {getOwner} from '@ember/application';
+import EmberObject from '@ember/object';
+import Service from '@ember/service';
 import {moduleFor, test} from 'ember-qunit';
 import AdsMixin from 'mobile-wiki/mixins/ads';
 import sinon from 'sinon';
 
-const adsStub = Ember.Service.extend({
+const adsStub = Service.extend({
 	module: {
 		reloadAfterTransition: () => {}
 	}
@@ -24,11 +26,11 @@ moduleFor('mixin:ads', 'Unit | Mixin | ads', {
 	},
 
 	subject() {
-		const AdsObject = Ember.Object.extend(AdsMixin);
+		const AdsObject = EmberObject.extend(AdsMixin);
 
 		this.register('test-container:ads-object', AdsObject);
 
-		return Ember.getOwner(this).lookup('test-container:ads-object');
+		return getOwner(this).lookup('test-container:ads-object');
 	}
 });
 

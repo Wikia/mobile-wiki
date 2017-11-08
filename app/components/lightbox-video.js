@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import {observer, computed} from '@ember/object';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import VideoLoader from '../modules/video-loader';
 
@@ -6,16 +8,16 @@ import VideoLoader from '../modules/video-loader';
  * Component that is used inside ligthbox-media component
  * to handle displaying video
  */
-export default Ember.Component.extend(
+export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
 		wrapperClass: '.video-player-wrapper',
 
-		ads: Ember.inject.service(),
+		ads: service(),
 
-		articleContentWidthObserver: Ember.observer('viewportDimensions.width', function () {
+		articleContentWidthObserver: observer('viewportDimensions.width', function () {
 			if (this.get('videoLoader')) {
 				this.get('videoLoader').onResize();
 			}
@@ -24,7 +26,7 @@ export default Ember.Component.extend(
 		/**
 		 * @returns string
 		 */
-		provider: Ember.computed('videoLoader', function () {
+		provider: computed('videoLoader', function () {
 			const videoLoader = this.get('videoLoader');
 
 			return `video-provider-${videoLoader.getProviderName()}`;
@@ -33,7 +35,7 @@ export default Ember.Component.extend(
 		/**
 		 * @returns VideoLoader
 		 */
-		videoLoader: Ember.computed('model.embed', function () {
+		videoLoader: computed('model.embed', function () {
 			this.set('model.embed.noAds', this.get('ads.noAds'));
 
 			return new VideoLoader(this.get('model.embed'));

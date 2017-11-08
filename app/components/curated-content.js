@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {Component, $} = Ember;
+import Component from '@ember/component';
+import $ from 'jquery';
 
 export default Component.extend({
 	classNames: ['curated-content', 'mw-content'],

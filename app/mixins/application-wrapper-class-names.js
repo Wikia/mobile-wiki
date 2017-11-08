@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {Mixin, on} = Ember;
+import Mixin from '@ember/object/mixin';
+import {on} from '@ember/object/evented';
 
 export default Mixin.create({
 	addBodyClassOnActivate: on('activate', function () {

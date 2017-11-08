@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import {addObserver, removeObserver} from '@ember/object/observers';
+import Component from '@ember/component';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	{
 		tagName: 'nav',
 		classNames: ['collapsible-menu'],
@@ -35,14 +36,14 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			Ember.addObserver(this, 'observe', this, this.titleDidChange);
+			addObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			Ember.removeObserver(this, 'observe', this, this.titleDidChange);
+			removeObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**

@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import sinon from 'sinon';
 import require from 'require';
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -135,7 +135,7 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				title: 'sug sug suggestions sug sug'
 			}
 		].map((suggestion) => {
-			return Ember.Object.create(suggestion);
+			return EmberObject.create(suggestion);
 		}),
 		suggestionsAfterProcessing = [
 			{
@@ -168,7 +168,7 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				uri: 'sug_sug_suggestions_sug_sug'
 			}
 		].map((suggestion) => {
-			return Ember.Object.create(suggestion);
+			return EmberObject.create(suggestion);
 		});
 
 	// Cache empty array so we don't send an AJAX request

@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import {isBlank} from '@ember/utils';
 import config from '../config/environment';
 import extend from '../utils/extend';
-
-const {isBlank} = Ember;
 
 function getServicesDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {

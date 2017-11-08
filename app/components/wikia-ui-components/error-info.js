@@ -7,9 +7,7 @@
  * {{/wikia-ui-components/error-info}}
  */
 
-import Ember from 'ember';
-
-const {Component} = Ember;
+import Component from '@ember/component';
 
 export default Component.extend({
 	classNames: ['error-info']

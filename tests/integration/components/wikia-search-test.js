@@ -1,7 +1,7 @@
+import Service from '@ember/service';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -12,7 +12,7 @@ const wikiaSearchDivSelector = '.wikia-search',
 	focusedInputClass = 'wikia-search--focused',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
 
-const i18nStub = Ember.Service.extend({
+const i18nStub = Service.extend({
 	t(key) {
 		return key;
 	}

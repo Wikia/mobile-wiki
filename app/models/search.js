@@ -1,13 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {A} from '@ember/array';
+import EmberObject, {computed} from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
-
-const {
-	A,
-	Object: EmberObject,
-	computed,
-	inject
-} = Ember;
 
 export default EmberObject.extend({
 	batch: 1,
@@ -18,8 +13,8 @@ export default EmberObject.extend({
 	query: '',
 	totalItems: 0,
 	totalBatches: 0,
-	wikiVariables: inject.service(),
-	logger: inject.service(),
+	wikiVariables: service(),
+	logger: service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');

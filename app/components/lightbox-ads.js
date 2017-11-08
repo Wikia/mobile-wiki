@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import {later} from '@ember/runloop';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['lightbox-ads', 'lightbox-content-inner'],
 
 	/**
@@ -10,7 +11,7 @@ export default Ember.Component.extend({
 		const closeButtonDelay = this.get('lightboxCloseButtonDelay') || 0,
 			showCloseButtonAfterCountDown = () => {
 				if (this.get('lightboxCloseButtonDelay') > 0) {
-					Ember.run.later(this, () => {
+					later(this, () => {
 						this.decrementProperty('lightboxCloseButtonDelay');
 						showCloseButtonAfterCountDown();
 					}, 1000);

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
 /**
  * AlertNotification
@@ -11,7 +11,7 @@ import Ember from 'ember';
  * @property {boolean} [persistent]
  */
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['alert-notifications'],
 
 	alerts: null,

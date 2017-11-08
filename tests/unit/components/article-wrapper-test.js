@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {run} from '@ember/runloop';
 import {test, moduleForComponent} from 'ember-qunit';
 
 /**
@@ -13,7 +13,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 		sectionId = 'myId',
 		title = 'hello world';
 
-	Ember.run(() => {
+	run(() => {
 		const component = testThis.subject({
 			section,
 			sectionId,

@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
 import {getRenderComponentFor} from '../utils/render-component';
 
-export default Ember.Mixin.create({
+export default Mixin.create({
 	adsData: {
 		additionalConfig: {
 			MOBILE_TOP_LEADERBOARD: {
@@ -19,8 +20,8 @@ export default Ember.Mixin.create({
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
 	},
-	ads: Ember.inject.service(),
-	currentUser: Ember.inject.service(),
+	ads: service(),
+	currentUser: service(),
 
 	init() {
 		this._super(...arguments);

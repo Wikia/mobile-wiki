@@ -1,21 +1,23 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import {oneWay} from '@ember/object/computed';
+import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
 	{
 		tagName: 'a',
 		attributeBindings: ['href', 'style'],
 		classNames: ['featured-content-item'],
-		href: Ember.computed.oneWay('model.url'),
+		href: oneWay('model.url'),
 
 		aspectRatio: 16 / 9,
 		imageWidth: 400,
 		cropMode: Thumbnailer.mode.zoomCrop,
-		thumbUrl: Ember.computed('model', function () {
+		thumbUrl: computed('model', function () {
 			const imageUrl = this.get('model.imageUrl');
 
 			if (imageUrl) {

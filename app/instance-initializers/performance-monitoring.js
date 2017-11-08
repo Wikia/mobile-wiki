@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import {isEmpty} from '@ember/utils';
+import $ from 'jquery';
 import {sendPagePerformance, trackPerf} from '../utils/track-perf';
 
 /**
@@ -16,10 +17,10 @@ export function initialize() {
 	if (document.readyState === 'complete') {
 		sendPagePerformance();
 	} else {
-		Ember.$(window).on('load', sendPagePerformance);
+		$(window).on('load', sendPagePerformance);
 	}
 
-	if (!Ember.isEmpty(firstRenderTime)) {
+	if (!isEmpty(firstRenderTime)) {
 		trackPerf({
 			type: 'timer',
 			name: 'firstRender',
