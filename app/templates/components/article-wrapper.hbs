@@ -13,16 +13,9 @@
 {{/if}}
 
 {{#if hasFeaturedVideo}}
-	{{#if isJWPlayer}}
-		{{article-featured-video-jwplayer
-			model=model.featuredVideo
-		}}
-	{{else}}
-		{{article-featured-video-ooyala
-			model=model.featuredVideo
-			toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
-		}}
-	{{/if}}
+	{{article-featured-video-jwplayer
+		model=model.featuredVideo
+	}}
 {{/if}}
 
 <section class="article-body">

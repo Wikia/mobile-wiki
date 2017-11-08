@@ -57,11 +57,7 @@ module('Unit | Utility | video loader', () => {
 				provider: 'youtube',
 				expected: 'youtube'
 			},
-			{
-				provider: 'ooyala-v4',
-				expected: 'ooyala-v4'
-			}
-		];
+		]
 
 		assert.expect(testCases.length);
 		testCases.forEach((testCase) => {
@@ -86,11 +82,7 @@ module('Unit | Utility | video loader', () => {
 			{
 				provider: 'realgravity',
 				expected: 'BasePlayer'
-			},
-			{
-				provider: 'ooyala-v4',
-				expected: 'OoyalaV4Player'
-			},
+			}
 		];
 
 		assert.expect(testCases.length);
