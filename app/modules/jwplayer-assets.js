@@ -1,5 +1,6 @@
 import Ember from 'ember';
-const { RSVP } =  Ember;
+
+const {RSVP} = Ember;
 
 export const assetUrls = {
 	styles: '/mobile-wiki/assets/jwplayer/index.css',
