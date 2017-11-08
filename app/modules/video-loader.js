@@ -72,7 +72,7 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {BasePlayer|OoyalaPlayer|OoyalaV4Player|YouTubePlayer}
+	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
 	 */
 	static createPlayer(playerClass, provider, params) {
 		return new playerClass(provider, params);

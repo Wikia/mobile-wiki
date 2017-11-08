@@ -57,7 +57,7 @@ module('Unit | Utility | video loader', () => {
 				provider: 'youtube',
 				expected: 'youtube'
 			},
-		]
+		];
 
 		assert.expect(testCases.length);
 		testCases.forEach((testCase) => {
