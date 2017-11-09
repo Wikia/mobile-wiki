@@ -8,6 +8,7 @@ import config from '../config/environment';
 
 export default Component.extend({
 	ads: service(),
+	currentUser: service(),
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	autoplayCookieExpireDays: 14,
@@ -58,7 +59,8 @@ export default Component.extend({
 				},
 				containerId: this.get('videoContainerId'),
 				noAds: this.get('ads.noAds'),
-				onCreate: this.onCreate.bind(this)
+				onCreate: this.onCreate.bind(this),
+				lang: this.get('currentUser.language')
 			},
 			data = extend({}, model, {jsParams}),
 			videoLoader = new VideoLoader(data);
