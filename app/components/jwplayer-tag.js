@@ -1,26 +1,22 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {Promise} from 'rsvp';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track} from '../utils/track';
 
-const {RSVP, $, computed, Component} = Ember;
-
 export default Component.extend({
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
-
-	jwPlayerRootId: computed('media-id', function () {
-		return `jwPlayerTag${this.get('media-id')}${Math.floor(Math.random() * 1000)}`;
-	}),
 
 	/**
 	 * @returns {void}
 	 */
 	didInsertElement() {
-		RSVP.Promise.all([
+		Promise.all([
 			jwPlayerAssets.load(),
 			this.getVideoData()
 		]).then(([, videoData]) => {
 			window.wikiaJWPlayer(
-				this.get('jwPlayerRootId'),
+				this.get('element-id'),
 				this.getPlayerSetup(videoData)
 			);
 		});

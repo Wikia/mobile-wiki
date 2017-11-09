@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const {RSVP} = Ember;
+import {Promise} from 'rsvp';
 
 export const assetUrls = {
 	styles: '/mobile-wiki/assets/jwplayer/index.css',
@@ -26,7 +24,7 @@ class JWPlayerAssets {
 
 	loadScripts() {
 		if (!this.scriptsPromise) {
-			this.scriptsPromise = new RSVP.Promise((resolve) => {
+			this.scriptsPromise = new Promise((resolve) => {
 				window.M.loadScript(assetUrls.script, true, (data) => {
 					resolve(data);
 				}, 'anonymous');
@@ -43,6 +41,4 @@ class JWPlayerAssets {
 	}
 }
 
-const jwPlayerAssets = new JWPlayerAssets();
-
-export default jwPlayerAssets;
+export default new JWPlayerAssets();
