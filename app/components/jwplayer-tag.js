@@ -7,7 +7,7 @@ export default Component.extend({
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
 	jwPlayerRootId: computed('media-id', function () {
-		return `jwPlayerTag${this.get('media-id')}`;
+		return `jwPlayerTag${this.get('media-id')}${Math.floor(Math.random() * 1000)}`;
 	}),
 
 	/**
