@@ -1,17 +1,17 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {getOwner} from '@ember/application';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
 import {track, trackActions} from '../utils/track';
 
-const {Component, getOwner, inject} = Ember;
-
 export default Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
 	{
-		wikiVariables: inject.service(),
+		wikiVariables: service(),
 		alertKey: 'wikiaInYourLang.alertDismissed',
 
 		/**

@@ -1,5 +1,5 @@
 module.exports = function (environment) {
-	const ENV = {
+	let ENV = {
 		modulePrefix: 'mobile-wiki',
 		environment,
 		locationType: 'router-scroll',
@@ -15,10 +15,6 @@ module.exports = function (environment) {
 			onSiteNotifications: {
 				baseAPIPath: 'on-site-notifications'
 			}
-		},
-		helios: {
-			internalUrl: 'http://prod.sjc.k8s.wikia.net/helios/info',
-			timeout: 3000
 		},
 		weppy: {
 			enabled: false,
@@ -112,6 +108,12 @@ module.exports = function (environment) {
 		ooyala: {
 			pcode: 'J0MTUxOtPDJVNZastij14_v7VDRS',
 			playerBrandingId: '6d79ed36a62a4a9885d9c961c70289a8'
+		},
+		fastbootOnly: {
+			helios: {
+				internalUrl: 'http://prod.sjc.k8s.wikia.net/helios/info',
+				timeout: 3000
+			}
 		}
 	};
 
@@ -122,7 +124,7 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		ENV.helios.internalUrl = 'http://dev.sjc-dev.k8s.wikia.net/helios/info';
+		ENV.fastbootOnly.helios.internalUrl = 'http://dev.sjc-dev.k8s.wikia.net/helios/info';
 		ENV.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {

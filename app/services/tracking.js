@@ -1,17 +1,11 @@
-import Ember from 'ember';
+import Service, {inject as service} from '@ember/service';
+import {set, get} from '@ember/object';
 import baseConfig from '../config/environment';
 import extend from '../utils/extend';
 
-const {
-	Service,
-	get,
-	inject,
-	set
-} = Ember;
-
 export default Service.extend({
-	fastboot: inject.service(),
-	wikiVariables: inject.service(),
+	fastboot: service(),
+	wikiVariables: service(),
 	config: {},
 
 	init() {

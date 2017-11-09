@@ -1,17 +1,12 @@
-import Ember from 'ember';
-
-const {
-	A,
-	Object: EmberObject,
-	computed,
-	get,
-	inject
-} = Ember;
+import {inject as service} from '@ember/service';
+import {reads, or, bool} from '@ember/object/computed';
+import {A} from '@ember/array';
+import EmberObject, {get, computed} from '@ember/object';
 
 export default EmberObject.extend({
-	i18n: inject.service(),
-	logger: inject.service(),
-	wikiVariables: inject.service(),
+	i18n: service(),
+	logger: service(),
+	wikiVariables: service(),
 	dsGlobalNavigation: {},
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
@@ -24,10 +19,10 @@ export default EmberObject.extend({
 			ns: 'design-system'
 		});
 	}),
-	localLinks: computed.reads('wikiVariables.localNav'),
-	discussionsEnabled: computed.reads('wikiVariables.enableDiscussions'),
-	wikiName: computed.reads('wikiVariables.siteName'),
-	mainPageTitle: computed.reads('wikiVariables.mainPageTitle'),
+	localLinks: reads('wikiVariables.localNav'),
+	discussionsEnabled: reads('wikiVariables.enableDiscussions'),
+	wikiName: reads('wikiVariables.siteName'),
+	mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
 	/**
 	 * Iteratively traverse local navigation tree to find out root node
@@ -58,9 +53,9 @@ export default EmberObject.extend({
 		return parent || {};
 	}),
 
-	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
+	currentLocalLinks: or('currentLocalNav.children', 'localLinks'),
 
-	header: computed.or('currentLocalNav.text', 'exploreWikisLabel'),
+	header: or('currentLocalNav.text', 'exploreWikisLabel'),
 
 	inExploreNav: computed('state.[]', function () {
 		const state = this.get('state');
@@ -68,7 +63,7 @@ export default EmberObject.extend({
 		return state.length && state[0] === 0;
 	}),
 
-	inSubNav: computed.bool('currentLocalNav.children.length'),
+	inSubNav: bool('currentLocalNav.children.length'),
 
 	inRoot: computed('inSubNav', 'inExploreNav', function () {
 		return !this.get('inSubNav') && !this.get('inExploreNav');

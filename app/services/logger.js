@@ -1,9 +1,7 @@
-import Ember from 'ember';
+import Service, {inject as service} from '@ember/service';
 import config from '../config/environment';
 import ErrorDescriptor from '../utils/error-descriptor';
 import extend from '../utils/extend';
-
-const {Logger: EmberLogger, Service, inject} = Ember;
 
 /**
  * Elastic Search doesn't play well with arrays of objects
@@ -38,8 +36,8 @@ const previousErrorSerializer = (previousError) => {
 };
 
 export default Service.extend({
-	fastboot: inject.service(),
-	wikiVariables: inject.service(),
+	fastboot: service(),
+	wikiVariables: service(),
 
 	bunyanInstance: null,
 	requestContext: null,
@@ -58,7 +56,7 @@ export default Service.extend({
 		this.set('requestContext', {
 			'@fields': {
 				app_name: 'mobile-wiki',
-				datacenter: config.wikiaDatacenter,
+				datacenter: config.fastbootOnly.wikiaDatacenter,
 				environment: config.wikiaEnv,
 				http_url_domain: request.get('host'),
 				http_url_path: request.get('path'),
@@ -116,9 +114,10 @@ export default Service.extend({
 				this.addContext(object, message);
 
 			this.get('bunyanInstance')[logLevel](extendedObject, message);
+		} else {
+			// eslint-disable-next-line no-console
+			console[logLevel](message, object);
 		}
-
-		EmberLogger[logLevel](message, object);
 	},
 
 	debug(message, object) {

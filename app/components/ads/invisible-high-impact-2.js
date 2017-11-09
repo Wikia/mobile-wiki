@@ -1,17 +1,19 @@
-import Ember from 'ember';
-
-const {Component, inject, computed} = Ember;
+import {inject as service} from '@ember/service';
+import {readOnly} from '@ember/object/computed';
+import {dasherize} from '@ember/string';
+import Component from '@ember/component';
+import {computed, get} from '@ember/object';
 
 export default Component.extend({
-	ads: inject.service(),
+	ads: service(),
 
-	highImpactCountries: Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
-	noAds: computed.readOnly('ads.noAds'),
+	highImpactCountries: get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+	noAds: readOnly('ads.noAds'),
 	isVisible: false,
 
 	name: 'INVISIBLE_HIGH_IMPACT_2',
 	nameLowerCase: computed('name', function () {
-		return Ember.String.dasherize(this.get('name').toLowerCase());
+		return dasherize(this.get('name').toLowerCase());
 	}),
 
 	didInsertElement() {
@@ -30,7 +32,7 @@ export default Component.extend({
 	},
 
 	isProperGeo(param) {
-		const isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+		const isProperGeo = get(Wikia, 'geo.isProperGeo');
 		return typeof isProperGeo === 'function' && isProperGeo(param);
 	},
 

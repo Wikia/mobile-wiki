@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['widget-polldaddy'],
 	layoutName: 'components/widget-polldaddy',
 	data: null,
@@ -23,6 +24,6 @@ export default Ember.Component.extend({
 	loadScript() {
 		const id = this.get('data.id');
 
-		Ember.$.getScript(`//static.polldaddy.com/p/${id}.js`);
+		$.getScript(`//static.polldaddy.com/p/${id}.js`);
 	},
 });

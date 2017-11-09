@@ -76,7 +76,7 @@ spec:
             memory: 5Gi
         ports:
         - containerPort: 8001
-        command: ["sh", "-c", "source /var/lib/secrets/export.env && npm run fastboot-server"]
+        command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
         volumeMounts:
         - name: secrets-dir
           readOnly: true

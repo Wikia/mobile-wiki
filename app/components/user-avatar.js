@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
 import {buildUrl} from '../utils/url';
 
-const {Component, computed, inject} = Ember;
-
 export default Component.extend({
-	i18n: inject.service(),
+	i18n: service(),
 	classNames: ['user-avatar'],
 	profileName: computed('username', function () {
 		const userName = this.get('username') || '';

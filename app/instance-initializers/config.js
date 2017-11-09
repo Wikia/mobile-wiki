@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import {isBlank} from '@ember/utils';
 import config from '../config/environment';
 import extend from '../utils/extend';
-
-const {isBlank} = Ember;
 
 function getServicesDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
@@ -55,10 +53,7 @@ export function initialize(applicationInstance) {
 
 		runtimeConfig = {
 			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
-			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
 			wikiaEnv,
-			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
-			wikiaDatacenter: env.WIKIA_DATACENTER,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
 
@@ -87,15 +82,21 @@ export function initialize(applicationInstance) {
 
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
-		shoebox.put('runtimeHeliosConfig', runtimeHeliosConfig);
+
+		// variables below won't be available on the front end
+		extend(runtimeConfig.fastbootOnly, {
+			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
+			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
+			wikiaDatacenter: env.WIKIA_DATACENTER
+		});
+
+		extend(config.fastbootOnly.helios, runtimeHeliosConfig);
 	} else {
 		runtimeConfig = shoebox.retrieve('runtimeConfig');
 		runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');
-		runtimeHeliosConfig = shoebox.retrieve('runtimeHeliosConfig');
 	}
 
 	extend(config.services, runtimeServicesConfig);
-	extend(config.helios, runtimeHeliosConfig);
 	extend(config, runtimeConfig);
 }
 

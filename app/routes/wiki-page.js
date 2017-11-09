@@ -1,4 +1,7 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Route from '@ember/routing/route';
+import {resolve} from 'rsvp';
+import {get} from '@ember/object';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
@@ -11,14 +14,10 @@ import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
 import {buildUrl} from '../utils/url';
-import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
-
-const {
-	Route,
-	RSVP,
-	inject,
-	get
-} = Ember;
+import {
+	namespace as mediawikiNamespace,
+	isContentNamespace
+} from '../utils/mediawiki-namespace';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -27,14 +26,14 @@ export default Route.extend(
 	{
 		redirectEmptyTarget: false,
 		wikiHandler: null,
-		ads: inject.service(),
-		currentUser: inject.service(),
-		fastboot: inject.service(),
-		i18n: inject.service(),
-		initialPageView: inject.service(),
-		logger: inject.service(),
-		wikiVariables: inject.service(),
-		liftigniter: inject.service(),
+		ads: service(),
+		currentUser: service(),
+		fastboot: service(),
+		i18n: service(),
+		initialPageView: service(),
+		logger: service(),
+		wikiVariables: service(),
+		liftigniter: service(),
 
 		queryParams: {
 			page: {
@@ -103,7 +102,7 @@ export default Route.extend(
 
 		/**
 		 * @param {*} params
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {RSVP.Promise}
 		 */
 		model(params) {
 			const wikiVariables = this.get('wikiVariables');
@@ -118,7 +117,7 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return RSVP.resolve(this.getPageModel(modelParams));
+			return resolve(this.getPageModel(modelParams));
 		},
 
 		/**
@@ -135,12 +134,14 @@ export default Route.extend(
 				let redirectTo = model.get('redirectTo');
 
 				if (handler) {
-					transition.then(() => {
-						this.get('liftigniter').initLiftigniter(model.adsContext);
-
+					Ember.run.scheduleOnce('afterRender', () => {
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);
+					});
+
+					transition.then(() => {
+						this.get('liftigniter').initLiftigniter(model.adsContext);
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
@@ -229,12 +230,13 @@ export default Route.extend(
 				uaDimensions[25] = namespace;
 			}
 
+			uaDimensions[21] = model.get('id');
 			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
 			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
 
 			setTrackContext({
 				a: model.get('id'),
-				n: model.get('ns')
+				n: namespace
 			});
 
 			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);

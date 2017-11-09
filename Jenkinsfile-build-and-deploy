@@ -3,7 +3,7 @@ node('linux'){
         containerTemplate(name: 'jnlp', image: 'artifactory.wikia-inc.com/jenkins/jnlp-slave-ssh:2.62-alpine', args: '${computer.jnlpmac} ${computer.name}'),
         containerTemplate(name: 'deployenv', label: 'pandora', image: 'artifactory.wikia-inc.com/platform/alpine:3.6-curl', command: 'cat', ttyEnabled: true),
         containerTemplate(name: 'kubectl', label: 'mobile-wiki-kube', image: 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12', command: 'cat', ttyEnabled: true),
-        containerTemplate(name: 'docker', image: 'docker:17.09.0-git', ttyEnabled: true)
+        containerTemplate(name: 'docker', image: 'artifactory.wikia-inc.com/platform/crowdin:0.0.1', ttyEnabled: true)
     ],
     volumes: [
         hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock")
@@ -15,12 +15,19 @@ node('linux'){
             def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
             def imageVersion = params.version
             def imageExists = false
-            def imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
+            def imageName = ""
 
            stage('Clone sources'){
                 checkout scm
 
                 println "imageName: ${imageName}"
+
+                if (params.crowdin_branch != null) {
+                    def timestamp = System.currentTimeMillis()
+                    imageVersion = "${imageVersion}-${timestamp}"
+                }
+
+                imageName = "artifactory.wikia-inc.com/mobile-wiki:${imageVersion}"
             }
 
             container('deployenv'){
@@ -46,8 +53,13 @@ node('linux'){
                        }
                     } else {
                         stage('Build developement image') {
+                            if (params.crowdin_branch != null) {
+                                sh """#!/bin/sh
+                                ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
+                            }
+
                             sh """#!/bin/sh
-                            ./tasks/docker-dev-build.sh ${imageName}"""
+                            ./tasks/docker-build.sh ${imageName}"""
                         }
                    }
                 }

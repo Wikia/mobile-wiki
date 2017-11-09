@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import {computed} from '@ember/object';
+import {oneWay, equal} from '@ember/object/computed';
+import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 
-export default Ember.Component.extend(
+export default Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
 	{
@@ -12,14 +14,14 @@ export default Ember.Component.extend(
 		classNames: ['curated-content-item'],
 		classNameBindings: ['type'],
 		openSection() {},
-		href: Ember.computed.oneWay('model.url'),
-		type: Ember.computed.oneWay('model.type'),
+		href: oneWay('model.url'),
+		type: oneWay('model.type'),
 
-		isArticle: Ember.computed.equal('model.type', 'article'),
+		isArticle: equal('model.type', 'article'),
 
 		aspectRatio: 1,
 		imageWidth: 200,
-		thumbUrl: Ember.computed('model', function () {
+		thumbUrl: computed('model', function () {
 			if (this.get('model.imageUrl')) {
 				return this.generateThumbUrl(
 					this.get('model.imageUrl'),
@@ -30,7 +32,7 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		icon: Ember.computed('type', function () {
+		icon: computed('type', function () {
 			const type = this.get('type'),
 				typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'];
 

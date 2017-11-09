@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {run} from '@ember/runloop';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('wds-spinner', 'Unit | Component | loading spinner', {
@@ -6,7 +6,7 @@ moduleForComponent('wds-spinner', 'Unit | Component | loading spinner', {
 });
 
 test('should be hidden by default', function (assert) {
-	Ember.run(() => {
+	run(() => {
 		const componentMock = this.subject();
 
 		assert.equal(componentMock.get('isVisible'), false);
@@ -14,7 +14,7 @@ test('should be hidden by default', function (assert) {
 });
 
 test('should be visible if loading param is truthy', function (assert) {
-	Ember.run(() => {
+	run(() => {
 		const componentMock = this.subject();
 
 		componentMock.set('active', true);
@@ -23,7 +23,7 @@ test('should be visible if loading param is truthy', function (assert) {
 });
 
 test('should be hidden if loading param is falsy', function (assert) {
-	Ember.run(() => {
+	run(() => {
 		const componentMock = this.subject();
 
 		componentMock.set('active', false);

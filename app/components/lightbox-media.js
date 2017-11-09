@@ -1,16 +1,11 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import {htmlSafe} from '@ember/string';
+import {isArray} from '@ember/array';
+import {observer, computed} from '@ember/object';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {normalizeToUnderscore} from '../utils/string';
-
-const {
-	Component,
-	String: {htmlSafe},
-	computed,
-	inject,
-	isArray,
-	observer
-} = Ember;
 
 export default Component.extend(
 	ThirdsClickMixin,
@@ -18,7 +13,7 @@ export default Component.extend(
 		classNames: ['lightbox-media', 'lightbox-content-inner'],
 		// This is needed for keyDown event to work
 		attributeBindings: ['tabindex'],
-		logger: inject.service(),
+		logger: service(),
 
 		tabindex: 0,
 		videoPlayer: null,
@@ -214,7 +209,7 @@ export default Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new htmlSafe(currentMedia.caption));
+				this.sendAction('setFooter', htmlSafe(currentMedia.caption));
 			} else {
 				this.sendAction('setFooter', null);
 			}

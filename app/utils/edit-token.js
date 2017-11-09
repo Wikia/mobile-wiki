@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {get} from '@ember/object';
 import fetch from './mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
@@ -21,7 +21,7 @@ export default function (host, title) {
 	}))
 		.then((response) => response.json())
 		.then((resp) => {
-			const pages = Ember.get(resp, 'query.pages');
+			const pages = get(resp, 'query.pages');
 
 			if (pages) {
 				// FIXME: MediaWiki API, seriously?

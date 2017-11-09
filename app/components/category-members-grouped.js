@@ -1,19 +1,15 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import $ from 'jquery';
+import {run} from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
-
-const {
-	Component,
-	$,
-	run,
-	inject
-} = Ember;
 
 export default Component.extend(
 	AlertNotificationsMixin,
 	{
-		i18n: inject.service(),
-		logger: inject.service(),
+		i18n: service(),
+		logger: service(),
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
 		isLoading: false,

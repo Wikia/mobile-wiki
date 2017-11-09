@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
-const {
-	Object: EmberObject,
-	inject
-} = Ember;
-
 export default EmberObject.extend({
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 
 	/**
 	 * prepare POST request body before sending to API

@@ -1,3 +1,6 @@
+import {inject as service} from '@ember/service';
+import Route from '@ember/routing/route';
+import {getOwner} from '@ember/application';
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
@@ -11,22 +14,19 @@ import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 const {
-	Route,
-	TargetActionSupport,
-	getOwner,
-	inject
+	TargetActionSupport
 } = Ember;
 
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
 	{
-		ads: inject.service(),
-		currentUser: inject.service(),
-		fastboot: inject.service(),
-		i18n: inject.service(),
-		logger: inject.service(),
-		wikiVariables: inject.service(),
+		ads: service(),
+		currentUser: service(),
+		fastboot: service(),
+		i18n: service(),
+		logger: service(),
+		wikiVariables: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -65,7 +65,7 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
-					this.get('logger').warning(`wikiVariables error: ${error}`);
+					this.get('logger').warn(`wikiVariables error: ${error}`);
 					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',

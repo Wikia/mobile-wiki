@@ -1,10 +1,9 @@
-import Ember from 'ember';
+import Service, {inject as service} from '@ember/service';
+import {defer} from 'rsvp';
 import localStorageConnector from '../utils/local-storage-connector';
 
-const {Service, RSVP, inject} = Ember;
-
 export default Service.extend({
-	fastboot: inject.service(),
+	fastboot: service(),
 
 	initLiftigniter(adsContext) {
 		if (this.get('fastboot.isFastBoot') || !window.liftigniter) {
@@ -51,15 +50,6 @@ export default Service.extend({
 
 		window.liftigniter('init', 'l9ehhrb6mtv75bp2', {
 			config: {
-				sdk: {
-					queryServer: '//query.fandommetrics.com'
-				},
-				activity: {
-					activityServer: '//query.fandommetrics.com'
-				},
-				inventory: {
-					inventoryServer: '//query.fandommetrics.com'
-				},
 				globalCtx: context,
 			}
 		});
@@ -69,7 +59,7 @@ export default Service.extend({
 	},
 
 	getData(config) {
-		const deferred = RSVP.defer(),
+		const deferred = defer(),
 			registerOptions = {
 				max: config.max,
 				widget: config.widget,
