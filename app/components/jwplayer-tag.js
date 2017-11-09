@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import jwPlayerAssets from '../modules/jwplayer-assets';
+import {track} from '../utils/track';
 
 const {RSVP, $, computed, Component} = Ember;
 
@@ -27,8 +28,14 @@ export default Component.extend({
 
 	getPlayerSetup(jwVideoData) {
 		return {
-			autoplay: {
-				enabled: false
+			autoplay: false,
+			tracking: {
+				category: 'in-article-video',
+				track(data) {
+					data.trackingMethod = 'both';
+
+					track(data);
+				},
 			},
 			videoDetails: {
 				description: jwVideoData.description,
