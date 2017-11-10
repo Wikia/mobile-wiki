@@ -29,7 +29,7 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
     apk del .gyp python make g++ git && \
     bower cache clean && \
     npm uninstall -g bower && \
-    npm cache clean
+    npm cache clean --force
 
 USER docker_user
 
