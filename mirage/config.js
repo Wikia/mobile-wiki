@@ -6,6 +6,9 @@ import filePageFixture from './fixtures/file-page';
 export default function () {
 	this.passthrough('https://localhost/**');
 
+	this.passthrough('/write-coverage');
+	this.namespace = 'api';
+
 	this.passthrough('https://services.wikia-dev.pl/**');
 	this.passthrough('https://services.wikia-dev.us/**');
 	this.passthrough('https://services.wikia.com/**');
