@@ -53,7 +53,7 @@ export default Component.extend({
 		const model = this.get('model.embed'),
 			jsParams = {
 				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
-				selectedCaptions: $.cookie(this.get('captionsCookieName')),
+				selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
