@@ -17,18 +17,13 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 # install missing stuff
     apk add --no-cache --virtual .gyp python make g++ git && \
 
-# install npm globals
-    npm set progress=false && \
-    npm install -g bower && \
-    npm install -g ember-cli && \
-
 # install all dependencies
+    npm set progress=false && \
     npm run setup && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    bower cache clean && \
-    npm uninstall -g bower && \
+    node_modules/.bin/bower cache clean && \
     npm cache clean --force
 
 USER docker_user
