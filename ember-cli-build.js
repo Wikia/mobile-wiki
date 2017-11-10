@@ -77,8 +77,10 @@ module.exports = function (defaults) {
 		},
 		sassOptions: {
 			includePaths: [
-				'app/styles'
-			]
+				'bower_components/wikia-style-guide/src/scss',
+				'bower_components/design-system/dist/scss'
+			],
+			onlyIncluded: true
 		},
 		svgstore: {
 			files: [
