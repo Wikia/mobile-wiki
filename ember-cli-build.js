@@ -66,6 +66,8 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
+			'asd': 'public/ads.js',
+			'asd2': 'public/ads-jwplayer.js'
 		},
 		outputPaths: {
 			app: {
@@ -113,6 +115,6 @@ module.exports = function (defaults) {
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
-		jwPlayerAssets
+		jwPlayerAssets,
 	]);
 };
