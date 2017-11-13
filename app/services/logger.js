@@ -55,7 +55,7 @@ export default Service.extend({
 
 		this.set('requestContext', {
 			'@fields': {
-				app_name: 'mobile-wiki',
+				app_version: config.APP.version,
 				datacenter: config.fastbootOnly.wikiaDatacenter,
 				environment: config.wikiaEnv,
 				http_url_domain: request.get('host'),
