@@ -38,12 +38,12 @@ export default Component.extend({
 	onCreate(player) {
 		this.player = player;
 
-		this.player.on('autoplayToggle', (data) => {
-			this.setCookie(this.get('autoplayCookieName'), data.enabled);
+		this.player.on('autoplayToggle', ({enabled}) => {
+			this.setCookie(this.get('autoplayCookieName'), (enabled ? '1' : '0'));
 		});
 
-		this.player.on('captionsSelected', (data) => {
-			this.setCookie(this.get('captionsCookieName'), data.enabled);
+		this.player.on('captionsSelected', ({selectedLang}) => {
+			this.setCookie(this.get('captionsCookieName'), selectedLang);
 		});
 	},
 
@@ -54,7 +54,7 @@ export default Component.extend({
 		const model = this.get('model.embed'),
 			jsParams = {
 				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
-				captions: $.cookie(this.get('captionsCookieName')) !== '0',
+				selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
@@ -79,8 +79,8 @@ export default Component.extend({
 		}
 	},
 
-	setCookie(cookieName, condition) {
-		$.cookie(cookieName, condition ? '1' : '0', {
+	setCookie(cookieName, cookieValue) {
+		$.cookie(cookieName, cookieValue, {
 			expires: this.get('playerCookieExpireDays'),
 			path: '/',
 			domain: config.cookieDomain
