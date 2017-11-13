@@ -133,7 +133,7 @@ figcaption {
 	position: relative;
 
 	&::after {
-		@include perfect-square(100%);
+		@include square(100%);
 		background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
 		content: '';
 		left: 0;

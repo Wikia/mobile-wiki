@@ -1,8 +1,11 @@
 // Nothing in this document should be considered permanent
 // Temporary overrides in lieu of final treatments for legacy MW/Wikia views
 
-.navbox:not(> .article-table) {
-	display: none;
+
+:not(.article-table) {
+	> .navbox {
+		display: none;
+	}
 }
 
 /* Polls don't display correctly with style attributes stripped out

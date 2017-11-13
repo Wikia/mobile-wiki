@@ -1,4 +1,4 @@
-FROM node:6.11.3-alpine
+FROM node:8.9.1-alpine
 
 WORKDIR /app
 
@@ -17,18 +17,14 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 # install missing stuff
     apk add --no-cache --virtual .gyp python make g++ git && \
 
-# install npm globals
-    npm install -g bower && \
-    npm install -g ember-cli && \
-
 # install all dependencies
+    npm set progress=false && \
     npm run setup && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    bower cache clean && \
-    npm uninstall -g bower && \
-    npm cache clean
+    node_modules/.bin/bower cache clean && \
+    npm cache clean --force
 
 USER docker_user
 

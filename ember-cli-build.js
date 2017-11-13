@@ -52,7 +52,6 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			exclude: ['player.ooyala.com'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'https://mobile-wiki.nocookie.net/'
 		},
@@ -72,15 +71,16 @@ module.exports = function (defaults) {
 			app: {
 				css: {
 					app: '/assets/app.css',
-					'ooyala/index': '/assets/ooyala.css'
 				},
 				html: 'index.html',
 			}
 		},
 		sassOptions: {
 			includePaths: [
-				'app/styles'
-			]
+				'bower_components/wikia-style-guide/src/scss',
+				'bower_components/design-system/dist/scss'
+			],
+			onlyIncluded: true
 		},
 		svgstore: {
 			files: [
@@ -106,16 +106,12 @@ module.exports = function (defaults) {
 	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
 			destDir: 'locales'
 		}),
-		ooyalaAssets = new Funnel('node_modules/html5-skin/build', {
-			destDir: 'assets/ooyala'
-		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
 		});
 
 	return app.toTree([
 		designSystemI18n,
-		ooyalaAssets,
 		designSystemAssets,
 		jwPlayerAssets
 	]);
