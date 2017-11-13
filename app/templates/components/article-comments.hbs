@@ -4,15 +4,15 @@
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>
+		<button class='page-btn {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
 			{{i18n 'article-comments.prev-button'}}
 		</button>
-		<ul class='comments {{if commentsHidden 'hidden'}}'>
+		<ul class='comments {{if commentsHidden 'wds-is-hidden'}}'>
 			{{#each model.comments as |comment|}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='page-btn {{unless nextButtonShown 'hidden'}}' {{action 'nextPage'}}>
+		<button class='page-btn {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
 			{{i18n 'article-comments.next-button'}}
 		</button>
 	{{else}}

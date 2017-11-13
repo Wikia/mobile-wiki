@@ -22,11 +22,6 @@ module.exports = function (environment) {
 			samplingRate: 0.1,
 			aggregationInterval: 1000
 		},
-		newRelic: {
-			agent: 'js-agent.newrelic.com/nr-spa-974.min.js',
-			licenseKey: '60e97494a4',
-			spaMonitoring: true
-		},
 		verticalColors: {
 			comics: '#ff5400',
 			games: '#94d11f',

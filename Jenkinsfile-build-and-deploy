@@ -63,6 +63,9 @@ node('linux'){
                         }
                    }
                 }
+            } else {
+                stage('Build and push image') {}
+                stage('Build developement image') {}
             }
 
             container('deployenv') {
