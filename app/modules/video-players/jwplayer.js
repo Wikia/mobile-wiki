@@ -77,7 +77,8 @@ export default class JWPlayer extends BasePlayer {
 				},
 				logger: {
 					clientName: 'mobile-wiki'
-				}
+				},
+				lang: this.params.lang
 			},
 			this.params.onCreate.bind(this, bidParams)
 		);

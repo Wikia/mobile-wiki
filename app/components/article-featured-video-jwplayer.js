@@ -8,6 +8,7 @@ import config from '../config/environment';
 
 export default Component.extend({
 	ads: service(),
+	wikiVariables: service(),
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
@@ -60,7 +61,8 @@ export default Component.extend({
 				},
 				containerId: this.get('videoContainerId'),
 				noAds: this.get('ads.noAds'),
-				onCreate: this.onCreate.bind(this)
+				onCreate: this.onCreate.bind(this),
+				lang: this.get('wikiVariables.language.content')
 			},
 			data = extend({}, model, {jsParams}),
 			videoLoader = new VideoLoader(data);
