@@ -9,14 +9,6 @@ if (process.env.HEAPDUMP_ENABLED === 'true') {
 	require('heapdump');
 }
 
-/**
- * NewRelic is only enabled on one fastboot-server and that logic is managed by chef,
- * which passes it to our config
- */
-if (process.env.NEW_RELIC_ENABLED === 'true') {
-	require('newrelic');
-}
-
 // TODO after full rollout change path to REPO ROOT
 const FastBootAppServer = require('fastboot-app-server');
 const config = require('../../config/fastboot-server');
