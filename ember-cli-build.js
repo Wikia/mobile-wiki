@@ -67,7 +67,8 @@ module.exports = function (defaults) {
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
 			'asd': 'public/ads.js',
-			'asd2': 'public/ads-jwplayer.js'
+			'asd2': 'public/jwplayer-ads.js',
+			'jwp': 'public/jwplayer.js'
 		},
 		outputPaths: {
 			app: {
