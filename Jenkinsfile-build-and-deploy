@@ -31,41 +31,36 @@ node('linux'){
             }
 
             container('deployenv'){
-               stage('Check if image already exists'){
-                   println "Using version ${imageVersion}"
+                stage('Check if image already exists'){
+                    println "Using version ${imageVersion}"
 
-                   def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET \"https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}\"", returnStdout: true).trim()
+                    def status = sh (script: "curl -u ${env.JENKINS_ARTIFACTORY_USERNAME}:${env.JENKINS_ARTIFACTORY_PASSWORD} -w \"%{http_code}\" -s -I -o /dev/null -XGET \"https://artifactory.wikia-inc.com/artifactory/api/storage/dockerv2-local/mobile-wiki/${imageVersion}\"", returnStdout: true).trim()
 
-                   if ( status == "200" ){
-                       println "Image ${imageName} already exists"
-                       imageExists = true
-                   }
-               }
+                    if ( status == "200" ){
+                        println "Image ${imageName} already exists"
+                        imageExists = true
+                    }
+                }
             }
 
+            container('docker'){
+                stage('Build and push image') {
+                    if ( !imageExists && (normalizedEnv == "preview" || normalizedEnv == "verify") ) {
+                        sh """#!/bin/sh
+                        ./tasks/docker-build.sh ${imageName}"""
+                    }
 
-            if ( !imageExists ) {
-                container('docker'){
-                    if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
-                        stage('Build and push image'){
+                stage('Build developement image') {
+                    if ( !imageExists ) {
+                        if (params.crowdin_branch != null) {
                             sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
-                       }
-                    } else {
-                        stage('Build developement image') {
-                            if (params.crowdin_branch != null) {
-                                sh """#!/bin/sh
-                                ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
-                            }
-
-                            sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
+                            ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
                         }
-                   }
+
+                        sh """#!/bin/sh
+                        ./tasks/docker-build.sh ${imageName}"""
+                    }
                 }
-            } else {
-                stage('Build and push image') {}
-                stage('Build developement image') {}
             }
 
             container('deployenv') {
