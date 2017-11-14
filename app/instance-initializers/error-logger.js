@@ -17,7 +17,10 @@ export function initialize(/* appInstance */) {
 			},
 			body: JSON.stringify({
 				name: 'Ember.onerror',
-				description: JSON.stringify(error),
+				description: JSON.stringify({
+					message: error.message,
+					stack: error.stack,
+				}),
 				client: 'mobile-wiki'
 			})
 		});
