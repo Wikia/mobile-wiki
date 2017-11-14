@@ -1,4 +1,6 @@
 import config from '../config/environment';
+import fetch from 'fetch';
+import Ember from 'ember';
 
 export function initialize(/* appInstance */) {
 	if (typeof FastBoot !== 'undefined') {
@@ -8,13 +10,16 @@ export function initialize(/* appInstance */) {
 	Ember.onerror = function (error) {
 		const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}/error`;
 
-		Ember.$.ajax(url, {
-			type: 'POST',
-			data: {
-				name: "Ember.onerror",
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: 'Ember.onerror',
 				description: error,
-				client: "mobile-wiki"
-			}
+				client: 'mobile-wiki'
+			})
 		});
 	};
 }
