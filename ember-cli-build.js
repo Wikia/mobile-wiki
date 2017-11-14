@@ -66,9 +66,8 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'asd': 'public/ads.js',
-			'asd2': 'public/jwplayer-ads.js',
-			'jwp': 'public/jwplayer.js'
+			'jwplayer-fandom': 'node_modules/jwplayer-fandom/dist/wikiajwplayer.js',
+			'jwplayer-instance': 'public/jwplayer-fandom-index.html'
 		},
 		outputPaths: {
 			app: {
