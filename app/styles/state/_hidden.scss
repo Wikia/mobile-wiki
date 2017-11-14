@@ -1,0 +1,7 @@
+/*
+* classes that are set by AdEngine are not controlable by us
+* we can't use wds-is-hidden there as ads set/unset hidden class
+*/
+.hidden {
+	@extend .wds-is-hidden;
+}
