@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-import config from '../config/environment';
+import config from './environment';
 
 /**
  * @typedef {Object} SlotsContext
