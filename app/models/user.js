@@ -115,11 +115,10 @@ export default EmberObject.extend({
 				if (response.ok) {
 					return response.json();
 				} else {
-					return getFetchErrorMessage(response).then((responseBody) => {
+					return getFetchErrorMessage(response).then(() => {
 						throw new UserLoadDetailsFetchError({
 							code: response.status
 						}).withAdditionalData({
-							responseBody,
 							requestUrl: url,
 							responseUrl: response.url
 						});
@@ -162,11 +161,10 @@ export default EmberObject.extend({
 			if (response.ok) {
 				return response.json();
 			} else {
-				return getFetchErrorMessage(response).then((responseBody) => {
+				return getFetchErrorMessage(response).then(() => {
 					throw new UserLoadInfoFetchError({
 						code: response.status
 					}).withAdditionalData({
-						responseBody,
 						requestUrl: url,
 						responseUrl: response.url
 					});
