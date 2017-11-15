@@ -1,0 +1,57 @@
+.article-featured-video-wrapper {
+	position: relative;
+	top: 0;
+	z-index: 1000;
+
+	&.is-on-scroll-video {
+		background-color: $wds-color-white;
+		position: fixed;
+		padding: 5px 0;
+		width: 100%;
+
+		.with-fandom-app-smart-banner & {
+			// height of fandom smart banner
+			top: 85px;
+		}
+	}
+}
+
+.article-featured-video-close-button {
+	background-color: white;
+	display: none;
+	height: 36px;
+	padding-top: 6px;
+	position: absolute;
+	right: -6px;
+	text-align: center;
+	top: -6px;
+	width: 36px;
+
+	.is-on-scroll-video & {
+		display: block;
+	}
+
+	.wds-icon {
+		fill: $wds-color-light-c4;
+	}
+}
+
+.article-featured-video {
+	background-color: $wds-color-black;
+	background-size: contain;
+	height: calc(100vw * 9 / 16);
+	transform: scale(1);
+	transition: transform 0.3s;
+
+	.is-on-scroll-video & {
+		transform: scale(0.95);
+	}
+}
+
+.jwplayer {
+	// resets wikia-style-guide styles
+	input[type="checkbox"] + label {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}

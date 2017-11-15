@@ -1,14 +1,25 @@
 import {inject as service} from '@ember/service';
+import {readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import config from '../config/environment';
+import {inGroup} from '../modules/abtest';
+import {track, trackActions} from '../utils/track';
+
+const scrollClassName = 'is-on-scroll-video';
 
 export default Component.extend({
+	classNames: ['article-featured-video-wrapper'],
+
 	ads: service(),
 	wikiVariables: service(),
+	smartBanner: service(),
+
+	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
+	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
@@ -24,6 +35,20 @@ export default Component.extend({
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
 	})),
+
+	actions: {
+		/**
+		 * FIXME FEATURED VIDEO A/B TEST ONLY
+		 */
+		dismissPlayer() {
+			this.element.classList.remove(scrollClassName);
+
+			this.player.setMute(true);
+			this.track(trackActions.click, 'onscroll-close');
+
+			$(window).off('scroll', this.onScrollHandler);
+		}
+	},
 
 	init() {
 		this._super(...arguments);
@@ -44,6 +69,15 @@ export default Component.extend({
 
 		this.player.on('captionsSelected', ({selectedLang}) => {
 			this.setCookie(this.get('captionsCookieName'), selectedLang);
+		});
+
+		/**
+		 * FIXME FEATURED VIDEO A/B TEST ONLY
+		 */
+		this.player.on('play', ({playReason}) => {
+			if (playReason === 'interaction' && this.element.classList.contains(scrollClassName)) {
+				this.track(trackActions.click, 'onscroll-click');
+			}
 		});
 	},
 
@@ -85,5 +119,58 @@ export default Component.extend({
 			path: '/',
 			domain: config.cookieDomain
 		});
-	}
+	},
+
+	didInsertElement() {
+		this.onScrollHandler = this.onScrollHandler.bind(this);
+
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
+			$(window).on('scroll', this.onScrollHandler);
+		}
+	},
+
+	/**
+	 * FIXME FEATURED VIDEO A/B TEST ONLY
+	 */
+	onScrollHandler() {
+		const currentScrollPosition = window.pageYOffset,
+			requiredScrollDelimiter = this.getScrollDelimiter(),
+			hasScrollClass = this.element.classList.contains(scrollClassName);
+
+		if (currentScrollPosition >= requiredScrollDelimiter && !hasScrollClass) {
+			this.element.classList.add(scrollClassName);
+			this.track(trackActions.impression, 'onscroll');
+		} else if (currentScrollPosition < requiredScrollDelimiter && hasScrollClass) {
+			this.element.classList.remove(scrollClassName);
+		}
+	},
+
+	/**
+	 * Returns the lowest scroll delimiter where video should start floating
+	 *
+	 * @returns {number}
+	 */
+	getScrollDelimiter() {
+		if (this.get('smartBannerVisible') && !this.get('isFandomAppSmartBannerVisible')) {
+			// navbar + smart banner + page header
+			return 220;
+		} else {
+			// navbar + fandom smart banner OR navbar + page header
+			return 140;
+		}
+	},
+
+
+	/**
+	 * @param {String} action
+	 * @param {String} label
+	 * @returns {void}
+	 */
+	track(action, label) {
+		track({
+			action,
+			label,
+			category: 'featured-video'
+		});
+	},
 });

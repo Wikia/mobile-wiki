@@ -21,6 +21,7 @@ export default Component.extend({
 	closeButtonSelector: '.fandom-app-smart-banner__close',
 
 	i18n: service(),
+	smartBanner: service('smart-banner'),
 
 	link: computed(() => {
 		return system === 'ios'
@@ -41,7 +42,7 @@ export default Component.extend({
 		 */
 		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.sendAction('toggleVisibility', false);
+			this.get('smartBanner').setBannerVisibility(false);
 			this.track(trackActions.close);
 		}
 	},
@@ -52,7 +53,7 @@ export default Component.extend({
 		}
 
 		this.track(trackActions.install);
-		this.sendAction('toggleVisibility', false);
+		this.get('smartBanner').setBannerVisibility(false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 	},
 
@@ -70,7 +71,7 @@ export default Component.extend({
 	 */
 	checkForHiding() {
 		if (!standalone && $.cookie('fandom-sb-closed') !== '1') {
-			this.sendAction('toggleVisibility', true);
+			this.get('smartBanner').setBannerVisibility(true);
 			this.track(trackActions.impression);
 		}
 	},
