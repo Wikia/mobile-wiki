@@ -15,6 +15,7 @@ export function initialize(/* appInstance */) {
 			headers: {
 				'Content-Type': 'application/json'
 			},
+			credentials: "include",
 			body: JSON.stringify({
 				name: 'Ember.onerror',
 				description: JSON.stringify({
