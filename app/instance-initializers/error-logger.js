@@ -24,6 +24,8 @@ export function initialize(/* appInstance */) {
 				client: 'mobile-wiki'
 			})
 		});
+
+		throw error;
 	};
 }
 
