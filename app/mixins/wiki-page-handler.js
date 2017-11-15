@@ -60,11 +60,10 @@ export default Mixin.create({
 					if (response.ok) {
 						return response.json();
 					} else {
-						return getFetchErrorMessage(response).then((responseBody) => {
+						return getFetchErrorMessage(response).then(() => {
 							throw new WikiPageFetchError({
 								code: response.status || 503
 							}).withAdditionalData({
-								responseBody,
 								requestUrl: url,
 								responseUrl: response.url
 							});
