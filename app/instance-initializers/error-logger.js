@@ -25,6 +25,7 @@ export function initialize(/* appInstance */) {
 			})
 		});
 
+		// To be able to display it in console
 		throw error;
 	};
 }
