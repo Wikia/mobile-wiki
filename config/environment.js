@@ -14,6 +14,9 @@ module.exports = function (environment) {
 			},
 			onSiteNotifications: {
 				baseAPIPath: 'on-site-notifications'
+			},
+			eventLogger: {
+				baseAPIPath: 'event-logger'
 			}
 		},
 		weppy: {
