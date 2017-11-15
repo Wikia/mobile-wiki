@@ -1,6 +1,8 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew');
+	stew = require('broccoli-stew'),
+	BabelTranspiler = require('broccoli-babel-transpiler');
+
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -102,17 +104,37 @@ module.exports = function (defaults) {
 		destDir: 'assets/design-system.svg'
 	});
 
+	// Needed for the instant video loading AB Test
+	const transpiledJWPlayerInlineAssets = new BabelTranspiler('jwplayer-inline', {
+		presets: [
+			['env', {
+				'targets': {
+					'browsers': [
+						'last 2 version',
+						'last 3 iOS versions',
+						'> 1%'
+					]
+				}
+			}]
+		]
+	});
+
 	// Assets which are lazy loaded
 	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
 			destDir: 'locales'
 		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
+		}),
+		jwPlayerInlineAssets = new Funnel(transpiledJWPlayerInlineAssets, {
+			destDir: 'assets/jwplayer-inline'
 		});
+
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
-		jwPlayerAssets
+		jwPlayerAssets,
+		jwPlayerInlineAssets,
 	]);
 };
