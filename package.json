@@ -37,7 +37,7 @@
     "express-bunyan-logger": "1.3.2",
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.0.20",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#XW-4271",
     "method-override": "2.3.10",
     "on-headers": "1.0.1",
     "snyk": "^1.41.1"
@@ -48,7 +48,7 @@
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "2.0.0",
     "broccoli-stew": "1.5.0",
-    "design-system-i18n": "github:wikia/design-system-i18n.git#1.0.1",
+    "design-system-i18n": "github:wikia/design-system-i18n#1.0.1",
     "ember-browserify": "1.2.0",
     "ember-cli": "2.16.2",
     "ember-cli-app-version": "3.1.0",
