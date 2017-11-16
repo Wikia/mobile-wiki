@@ -7,7 +7,9 @@
 		JWPlayerVideoAds = Mercury.Modules.JWPlayerVideoAds;
 
 	Ads.init(adsUrl);
+	debugger;
 	window.Mercury.Modules.Ads.initialized = true;
+	window.Mercury.Modules.Ads.currentAdsContext = M.getFromShoebox('adsContext');
 
 	function createPlayer() {
 		Ads.waitForReady()

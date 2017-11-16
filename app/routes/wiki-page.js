@@ -117,7 +117,13 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return resolve(this.getPageModel(modelParams));
+			const pageData = this.getPageModel(modelParams);
+console.log(pageData);
+			if (this.get('fastboot.isFastboot')) {
+				this.get('fastboot.shoebox').put('adsContext', pageData.adsContext);
+			}
+
+			return resolve(pageData);
 		},
 
 		/**

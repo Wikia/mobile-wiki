@@ -135,7 +135,7 @@ var Ads = function () {
 						_this.a9 = a9;
 						_this.jwPlayerAds = jwPlayerAds;
 						_this.jwPlayerMoat = jwPlayerMoat;
-
+debugger;
 						_this.addDetectionListeners();
 						_this.reloadWhenReady();
 					});
@@ -408,7 +408,7 @@ var Ads = function () {
 			var onContextLoadCallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
 			var delayEnabled = false;
-
+debugger;
 			this.turnOffAdsForLoggedInUsers(adsContext);
 			// Store the context for external reuse
 			this.setContext(adsContext);
@@ -464,6 +464,7 @@ var Ads = function () {
 		key: 'reloadWhenReady',
 		value: function reloadWhenReady() {
 			var _this5 = this;
+			console.log('reload when ready');
 
 			this.reload(this.currentAdsContext, function () {
 				_this5.adMercuryListenerModule.startOnLoadQueue();
