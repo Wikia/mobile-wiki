@@ -1,13 +1,16 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import {test, moduleFor} from 'ember-qunit';
 
-moduleForComponent('application-wrapper', 'Unit | Component | application wrapper', {
+moduleFor('controller:application', 'Unit | Controller | application', {
 	unit: true,
 	needs: [
+		'controller:wiki-page',
 		'service:ads',
 		'service:current-user',
 		'service:fastboot',
 		'service:logger',
-		'service:wiki-variables'
+		'service:wiki-variables',
+		'service:scheduler',
+		'service:router-scroll'
 	]
 });
 
@@ -28,8 +31,8 @@ test('shouldHandleClick returns correct value', function (assert) {
 	];
 
 	testCases.forEach((testCase) => {
-		const component = this.subject();
+		const applicationController = this.subject();
 
-		assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
+		assert.equal(applicationController.shouldHandleClick(testCase.target), testCase.expected);
 	});
 });
