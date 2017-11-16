@@ -1,8 +1,6 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew'),
-	BabelTranspiler = require('broccoli-babel-transpiler');
-
+	stew = require('broccoli-stew');
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -35,6 +33,7 @@ EmberApp.prototype.addonTreesFor = function (type) {
 
 module.exports = function (defaults) {
 	const inlineScriptsPath = 'app/inline-scripts/';
+	const videoRenderingABTestPath = `${inlineScriptsPath}video-rendering-abtest/`;
 	const app = new EmberApp(defaults, {
 		autoprefixer: {
 			cascade: false,
@@ -68,6 +67,14 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
+			// AB Test for video rendering
+			'ads-inline': `${videoRenderingABTestPath}ads.js`,
+			'jwplayer-video-ads-inline': `${videoRenderingABTestPath}jwplayer-video-ads.js`,
+			'featured-video-inline': `${videoRenderingABTestPath}featured-video.js`,
+			'script-inline': `bower_components/script.js/dist/script.min.js`,
+			'jwplayer-fandom-js-inline': `node_modules/jwplayer-fandom/dist/wikiajwplayer.js`,
+			'jwplayer-fandom-css-inline': `node_modules/jwplayer-fandom/dist/index.css`,
+			'jquery-inline': `bower_components/jquery/dist/jquery.min.js`,
 		},
 		outputPaths: {
 			app: {
@@ -104,37 +111,18 @@ module.exports = function (defaults) {
 		destDir: 'assets/design-system.svg'
 	});
 
-	// Needed for the instant video loading AB Test
-	const transpiledJWPlayerInlineAssets = new BabelTranspiler('jwplayer-inline', {
-		presets: [
-			['env', {
-				'targets': {
-					'browsers': [
-						'last 2 version',
-						'last 3 iOS versions',
-						'> 1%'
-					]
-				}
-			}]
-		]
-	});
-
 	// Assets which are lazy loaded
 	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
 			destDir: 'locales'
 		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
-		}),
-		jwPlayerInlineAssets = new Funnel(transpiledJWPlayerInlineAssets, {
-			destDir: 'assets/jwplayer-inline'
 		});
 
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
-		jwPlayerAssets,
-		jwPlayerInlineAssets,
+		jwPlayerAssets
 	]);
 };

@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-import config from './environment';
+import config from '../config/environment';
 
 /**
  * @typedef {Object} SlotsContext
@@ -599,6 +599,9 @@ Ads.previousDetectionResults = {
 // When introducing sync require in ads this should be fixed
 window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
-window.Mercury.Modules.Ads = Ads;
+
+// Video Rendering AB Test Change
+// original: window.Mercury.Modules.Ads = Ads
+window.Mercury.Modules.Ads = window.Mercury.Modules.Ads || Ads;
 
 export default Ads;

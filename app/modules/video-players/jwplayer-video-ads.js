@@ -1,6 +1,6 @@
 import Ads from '../ads';
 
-export default class JWPlayerVideoAds {
+class JWPlayerVideoAds {
 	constructor(params) {
 		this.params = params;
 	}
@@ -37,3 +37,7 @@ export default class JWPlayerVideoAds {
 			ads.currentAdsContext.bidders.a9Video;
 	}
 }
+
+window.Mercury = window.Mercury || {};
+window.Mercury.Modules = window.Mercury.Modules || {};
+window.Mercury.Modules.JWPlayerVideoAds = window.Mercury.Modules.JWPlayerVideoAds || JWPlayerVideoAds;

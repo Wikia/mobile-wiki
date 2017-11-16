@@ -59,6 +59,9 @@ export default Route.extend(
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
 					if (fastboot.get('isFastBoot')) {
+						this.get('fastboot.shoebox').put('wikiVariables', applicationData.wikiVariables);
+						// Video rendering AB test change
+						// Video rendering AB test change
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
 
@@ -94,7 +97,9 @@ export default Route.extend(
 			) {
 				const adsModule = this.get('ads.module');
 
-				adsModule.init(this.get('ads.adsUrl'));
+				if (!window.Mercury.Modules.Ads.initialized) {
+					adsModule.init(this.get('ads.adsUrl'));
+				}
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
