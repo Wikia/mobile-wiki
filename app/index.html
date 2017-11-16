@@ -7,6 +7,7 @@
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+<div id="pre-featured-video"></div>
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'measure-first-render'}}
@@ -40,6 +41,11 @@
 {{content-for 'ads-inline'}}
 {{content-for 'jwplayer-video-ads-inline'}}
 {{content-for 'featured-video-inline'}}
+<style>
+	#pre-featured-video {
+		z-index: 1000;
+	}
+</style>
 <!-- AB Test for video rendering -->
 
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
