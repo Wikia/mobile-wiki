@@ -1,50 +1,73 @@
-.article-featured-video-wrapper {
+.article-featured-video {
 	position: relative;
 	top: 0;
-	z-index: 1000;
+	z-index: $z-site-head  + 1;
 
-	&.is-on-scroll-video {
+	&.is-dismissed,
+	.slide-into-view + .page-wrapper & {
+		z-index: $z-site-head - 3;
+	}
+
+	&__close-button {
 		background-color: $wds-color-white;
-		position: fixed;
-		padding: 5px 0;
-		width: 100%;
+		display: none;
+		height: 32px;
+		padding-top: 6px;
+		position: absolute;
+		right: 2px;
+		text-align: center;
+		top: 2px;
+		width: 36px;
 
-		.with-fandom-app-smart-banner & {
+		.is-on-scroll-video & {
+			display: block;
+		}
+
+		.wds-icon {
+			fill: $wds-color-light-c4;
+		}
+	}
+
+	&__on-scroll-video-wrapper {
+		background-color: $wds-color-white;
+
+		.is-on-scroll-video & {
+			padding: 5px 0;
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
+
+		.with-fandom-app-smart-banner .is-on-scroll-video & {
 			// height of fandom smart banner
 			top: 85px;
 		}
-	}
-}
 
-.article-featured-video-close-button {
-	background-color: white;
-	display: none;
-	height: 36px;
-	padding-top: 6px;
-	position: absolute;
-	right: -6px;
-	text-align: center;
-	top: -6px;
-	width: 36px;
+		.article-featured-video__video-content,
+		.jwplayer {
+			transform: scale(1);
+			transition: transform 0.3s;
 
-	.is-on-scroll-video & {
-		display: block;
+			.is-on-scroll-video & {
+				transform: scale(0.95);
+			}
+		}
 	}
 
-	.wds-icon {
-		fill: $wds-color-light-c4;
+	&__video-content {
+		background-color: $wds-color-black;
+		background-size: contain;
+		height: calc(100vw * 9 / 16);
 	}
-}
 
-.article-featured-video {
-	background-color: $wds-color-black;
-	background-size: contain;
-	height: calc(100vw * 9 / 16);
-	transform: scale(1);
-	transition: transform 0.3s;
+	&__on-scroll-placeholder {
+		position: absolute;
+		top: 0;
+		z-index: -1;
 
-	.is-on-scroll-video & {
-		transform: scale(0.95);
+		.is-on-scroll-video & {
+			position: relative;
+		}
 	}
 }
 

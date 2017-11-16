@@ -11,7 +11,7 @@ export default Service.extend({
 	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
 	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
-	setBannerVisibility(state) {
+	setVisibility(state) {
 		this.set('smartBannerVisible', state);
 	}
 });

@@ -48,6 +48,7 @@ export default Component.extend({
 
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	dir: reads('wikiVariables.language.contentDir'),
 

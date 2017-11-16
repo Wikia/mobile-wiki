@@ -12,7 +12,7 @@ import {track, trackActions} from '../utils/track';
 const scrollClassName = 'is-on-scroll-video';
 
 export default Component.extend({
-	classNames: ['article-featured-video-wrapper'],
+	classNames: ['article-featured-video'],
 
 	ads: service(),
 	wikiVariables: service(),
@@ -42,6 +42,7 @@ export default Component.extend({
 		 */
 		dismissPlayer() {
 			this.element.classList.remove(scrollClassName);
+			this.element.classList.add('is-dismissed');
 
 			this.player.setMute(true);
 			this.track(trackActions.click, 'onscroll-close');
@@ -125,8 +126,13 @@ export default Component.extend({
 		this.onScrollHandler = this.onScrollHandler.bind(this);
 
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
+			this.setPlaceholderDimensions();
 			$(window).on('scroll', this.onScrollHandler);
 		}
+	},
+
+	willDestroyElement() {
+		$(window).off('scroll', this.onScrollHandler);
 	},
 
 	/**
@@ -134,7 +140,7 @@ export default Component.extend({
 	 */
 	onScrollHandler() {
 		const currentScrollPosition = window.pageYOffset,
-			requiredScrollDelimiter = this.getScrollDelimiter(),
+			requiredScrollDelimiter = this.getRequiredScrollDelimiter(),
 			hasScrollClass = this.element.classList.contains(scrollClassName);
 
 		if (currentScrollPosition >= requiredScrollDelimiter && !hasScrollClass) {
@@ -146,20 +152,22 @@ export default Component.extend({
 	},
 
 	/**
-	 * Returns the lowest scroll delimiter where video should start floating
+	 * Gets number indicating when video should start floating
 	 *
-	 * @returns {number}
+	 * @return {number}
 	 */
-	getScrollDelimiter() {
-		if (this.get('smartBannerVisible') && !this.get('isFandomAppSmartBannerVisible')) {
-			// navbar + smart banner + page header
-			return 220;
-		} else {
-			// navbar + fandom smart banner OR navbar + page header
-			return 140;
-		}
+	getRequiredScrollDelimiter() {
+		const compensation = this.get('isFandomAppSmartBannerVisible') ? 85 : 0;
+
+		return this.element.getBoundingClientRect().top + window.scrollY - compensation;
 	},
 
+	setPlaceholderDimensions() {
+		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0];
+
+		placeHolder.style.height = `${this.element.offsetHeight}px`;
+		placeHolder.style.width = `${this.element.offsetWidth}px`;
+	},
 
 	/**
 	 * @param {String} action
