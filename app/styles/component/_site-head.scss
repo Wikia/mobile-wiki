@@ -113,12 +113,13 @@ body:not(.no-scroll) {
 	}
 
 	&__nav-icon-wrapper {
-	  position: relative;
+		position: relative;
 	}
 
 	.wds-notifications__unread-mark {
-	  left: initial;
-	  right: 0;
+		left: initial;
+		pointer-events: none
+		right: 0;
 	}
 
 	.avatar {
