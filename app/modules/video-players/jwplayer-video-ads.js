@@ -2,6 +2,7 @@ import Ads from '../ads';
 
 class JWPlayerVideoAds {
 	constructor(params) {
+		console.log('JWPlayerVideoAds constructor');
 		this.params = params;
 	}
 

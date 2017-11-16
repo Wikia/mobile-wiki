@@ -14,6 +14,7 @@ var JWPlayerVideoAds = function () {
 	_createClass(JWPlayerVideoAds, [{
 		key: 'getConfig',
 		value: function getConfig() {
+			console.log('getConfig');
 			if (this.params.noAds) {
 				return Promise.resolve(this.params);
 			} else if (this.isA9VideoEnabled()) {

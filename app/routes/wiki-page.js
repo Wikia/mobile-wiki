@@ -118,10 +118,6 @@ export default Route.extend(
 			}
 
 			const pageData = this.getPageModel(modelParams);
-console.log(pageData);
-			if (this.get('fastboot.isFastboot')) {
-				this.get('fastboot.shoebox').put('adsContext', pageData.adsContext);
-			}
 
 			return resolve(pageData);
 		},
@@ -135,6 +131,11 @@ console.log(pageData);
 			this._super(...arguments);
 
 			if (model) {
+
+				if (this.get('fastboot.isFastBoot')) {
+					this.get('fastboot.shoebox').put('adsContext', model.adsContext);
+				}
+
 				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');

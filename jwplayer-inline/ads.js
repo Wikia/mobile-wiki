@@ -51,7 +51,7 @@ import config from './environment';
  */
 class Ads {
 	constructor() {
-		this.adsContext = null;
+		this.adsContext = M.getFromShoebox('adsContext'); //null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
 		this.krux = null;
@@ -321,7 +321,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	setContext(adsContext) {
-		this.adsContext = adsContext ? adsContext : null;
+		this.adsContext = M.getFromShoebox('adsContext') //adsContext ? adsContext : null;
 	}
 
 	getTargetingValue(key) {
@@ -407,7 +407,6 @@ class Ads {
 	 */
 	reload(adsContext, onContextLoadCallback = null) {
 		let delayEnabled = false;
-debugger;
 		this.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);

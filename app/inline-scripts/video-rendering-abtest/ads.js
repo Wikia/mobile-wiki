@@ -61,7 +61,7 @@ var Ads = function () {
 	function Ads() {
 		_classCallCheck(this, Ads);
 
-		this.adsContext = null;
+		this.adsContext = M.getFromShoebox('adsContext'); //null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
 		this.krux = null;
@@ -135,7 +135,7 @@ var Ads = function () {
 						_this.a9 = a9;
 						_this.jwPlayerAds = jwPlayerAds;
 						_this.jwPlayerMoat = jwPlayerMoat;
-debugger;
+
 						_this.addDetectionListeners();
 						_this.reloadWhenReady();
 					});
@@ -305,7 +305,8 @@ debugger;
 	}, {
 		key: 'setContext',
 		value: function setContext(adsContext) {
-			this.adsContext = adsContext ? adsContext : null;
+			console.log('setContext');
+			this.adsContext = M.getFromShoebox('adsContext') //adsContext ? adsContext : null;
 		}
 	}, {
 		key: 'getTargetingValue',
@@ -408,7 +409,7 @@ debugger;
 			var onContextLoadCallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
 			var delayEnabled = false;
-debugger;
+
 			this.turnOffAdsForLoggedInUsers(adsContext);
 			// Store the context for external reuse
 			this.setContext(adsContext);
