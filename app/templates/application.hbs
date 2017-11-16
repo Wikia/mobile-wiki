@@ -1,31 +1,60 @@
-{{#application-wrapper
-	activeDrawerContent=drawerContent
-	alertNotifications=alertNotifications
-	class=applicationWrapperClassNames
-	closeLightbox=(action 'closeLightbox')
-	drawerVisible=drawerVisible
-	fullPage=fullPage
-	globalNavigation=model.navigation.globalNavigation
-	globalFooter=model.navigation.globalFooter
-	goToSearchResults=(route-action 'goToSearchResults')
-	handleLink=(action 'handleLink')
-	isLoading=isLoading
-	isSearchPage=isSearchPage
-	language=language
-	lightboxModel=lightboxModel
-	lightboxType=lightboxType
-	lightboxVisible=lightboxVisible
-	lightboxCloseButtonDelay=lightboxCloseButtonDelay
-	loadRandomArticle=(action 'loadRandomArticle')
-	setQueryParam=(action 'setQueryParam')
-	siteHeadNoShadow=siteHeadNoShadow
-	smartBannerVisible=smartBannerVisible
-	themeBar=themeBar
-	toggleDrawer=(action 'toggleDrawer')
-	toggleSmartBanner=(action 'toggleSmartBanner')
-	toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
-	toggleUserMenu=(action 'toggleUserMenu')
-	userMenuVisible=userMenuVisible
-}}
+{{#if fullPage}}
 	{{outlet}}
-{{/application-wrapper}}
+{{else}}
+	{{site-head
+			drawerContent=drawerContent
+			drawerVisible=drawerVisible
+			globalNavigation=model.navigation.globalNavigation
+			isFandomAppSmartBannerVisible=isFandomAppSmartBannerVisible
+			isSearchPage=isSearchPage
+			shadow=siteHeadShadow
+			setDrawerContent=(action 'setDrawerContent')
+			shouldShowFandomAppSmartBanner=shouldShowFandomAppSmartBanner
+			smartBannerVisible=smartBannerVisible
+			themeBar=themeBar
+			toggleDrawer=(action 'toggleDrawer')
+			toggleSmartBannerVisibility=(action 'toggleSmartBanner')
+	}}
+	{{#wikia-drawer
+			shouldBeVisible=drawerVisible
+	}}
+		{{#if drawerContent}}
+			{{component
+					drawerContentComponent
+					onEnterHandler=(action 'closeDrawer')
+					suggestionClickAction=(action 'closeDrawer')
+					setDrawerContent=(action 'setDrawerContent')
+					closeDrawer=(action 'closeDrawer')
+					outsideSuggestionsClickAction=(action 'closeDrawer')
+					loadRandomArticle=(action 'loadRandomArticle')
+					globalNavigation=model.navigation.globalNavigation
+					goToSearchResults=(route-action 'goToSearchResults')
+					noScroll=true
+					focusInput=true
+			}}
+		{{/if}}
+	{{/wikia-drawer}}
+	{{#unless shouldShowFandomAppSmartBanner}}
+		{{smart-banner-android
+				isVisible=smartBannerVisible
+				toggleVisibility=attrs.toggleSmartBanner
+		}}
+	{{/unless}}
+	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+		{{outlet}}
+	</div>
+	{{lightbox-wrapper
+			type=lightboxType
+			model=lightboxModel
+			isVisible=lightboxVisible
+			lightboxCloseButtonDelay=lightboxCloseButtonDelay
+			closeLightbox=(action 'closeLightbox')
+			setQueryParam=(action 'setQueryParam')
+	}}
+	{{wikia-in-your-lang}}
+	{{#if model.navigation.globalFooter}}
+		{{global-footer/global-footer model=model.navigation.globalFooter}}
+	{{/if}}
+{{/if}}
+{{alert-notifications alerts=alertNotifications}}
+{{wds-spinner active=isLoading}}
