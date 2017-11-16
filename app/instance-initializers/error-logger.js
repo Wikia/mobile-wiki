@@ -16,7 +16,7 @@ export function initialize(/* appInstance */) {
 				'Content-Type': 'application/json'
 			},
 			// sends cookie with request, allows for logging beaconId and sessionId
-			credentials: "include",
+			credentials: 'include',
 			body: JSON.stringify({
 				name: 'Ember.onerror',
 				description: JSON.stringify({
