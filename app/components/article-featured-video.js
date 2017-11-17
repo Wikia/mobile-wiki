@@ -41,8 +41,7 @@ export default Component.extend({
 		 * FIXME FEATURED VIDEO A/B TEST ONLY
 		 */
 		dismissPlayer() {
-			this.element.classList.remove(scrollClassName);
-			this.element.classList.add('is-dismissed');
+			this.$().removeClass(scrollClassName).addClass('is-dismissed');
 
 			this.player.setMute(true);
 			this.track(trackActions.click, 'onscroll-close');
@@ -62,6 +61,8 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	onCreate(player) {
+		let playerOnceInViewport = false;
+
 		this.player = player;
 
 		this.player.on('autoplayToggle', ({enabled}) => {
@@ -75,11 +76,26 @@ export default Component.extend({
 		/**
 		 * FIXME FEATURED VIDEO A/B TEST ONLY
 		 */
-		this.player.on('play', ({playReason}) => {
-			if (playReason === 'interaction' && this.element.classList.contains(scrollClassName)) {
-				this.track(trackActions.click, 'onscroll-click');
-			}
-		});
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+			this.player.on('viewable', (value) => {
+				if (value && !playerOnceInViewport) {
+					playerOnceInViewport = true;
+
+					this.player.play();
+				}
+			});
+		}
+
+		/**
+		 * FIXME FEATURED VIDEO A/B TEST ONLY
+		 */
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
+			this.player.on('play', ({playReason}) => {
+				if (playReason === 'interaction' && this.$().hasClass(scrollClassName)) {
+					this.track(trackActions.click, 'onscroll-click');
+				}
+			});
+		}
 	},
 
 	/**
@@ -128,6 +144,11 @@ export default Component.extend({
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
 			this.setPlaceholderDimensions();
 			$(window).on('scroll', this.onScrollHandler);
+			this.$().addClass('on-scroll-variant');
+		}
+
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+			this.$().addClass('page-placement-variant');
 		}
 	},
 
@@ -141,13 +162,13 @@ export default Component.extend({
 	onScrollHandler() {
 		const currentScrollPosition = window.pageYOffset,
 			requiredScrollDelimiter = this.getRequiredScrollDelimiter(),
-			hasScrollClass = this.element.classList.contains(scrollClassName);
+			hasScrollClass = this.$().hasClass(scrollClassName);
 
 		if (currentScrollPosition >= requiredScrollDelimiter && !hasScrollClass) {
-			this.element.classList.add(scrollClassName);
+			this.$().addClass(scrollClassName);
 			this.track(trackActions.impression, 'onscroll');
 		} else if (currentScrollPosition < requiredScrollDelimiter && hasScrollClass) {
-			this.element.classList.remove(scrollClassName);
+			this.$().removeClass(scrollClassName);
 		}
 	},
 
@@ -159,7 +180,7 @@ export default Component.extend({
 	getRequiredScrollDelimiter() {
 		const compensation = this.get('isFandomAppSmartBannerVisible') ? 85 : 0;
 
-		return this.element.getBoundingClientRect().top + window.scrollY - compensation;
+		return this.$().offset().top - compensation;
 	},
 
 	setPlaceholderDimensions() {
