@@ -20,27 +20,28 @@
 		window.wikiaJWPlayer(
 			'pre-featured-video',
 			{
-				// tracking: {
-				// 	track(data) {
-				// 		data.trackingMethod = 'both';
-				//
-				// 		track(data);
-				// 	},
-				// 	setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
-				// 	comscore: config.environment === 'production'
-				// },
-				// settings: {
-				// 	showAutoplayToggle: true,
-				// 	showCaptions: true
-				// },
+				tracking: {
+					track(data) {
+						M.tracker.UniversalAnalytics.track(
+							data.category, data.action, data.label, data.value
+						);
+						M.tracker.Internal.track('special/videoplayerevent', data);
+					},
+					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
+					// comscore: config.environment === 'production'
+				},
+				settings: {
+					showAutoplayToggle: true,
+					showCaptions: true
+				},
 				// selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
 				autoplay: true,
 				mute: true,
-				// related: {
-				// 	time: 3,
-				// 	playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',
-				// 	autoplay: true
-				// },
+				related: {
+					time: 3,
+					playlistId: featuredVideoData.jsParams.recommendedVideoPlaylist || 'Y2RWCKuS',
+					autoplay: true
+				},
 				videoDetails: {
 					description: 'test',
 					title: featuredVideoData.jsParams.playlist[0].title,
