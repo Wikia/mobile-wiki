@@ -112,7 +112,7 @@
   "ember-addon": {
     "paths": [
       "lib/fastboot-require",
-      "lib/include-bower-directory",
+      "lib/include-node-modules",
       "lib/fastboot-server"
     ]
   },
