@@ -1,14 +1,14 @@
 // DO NOT CHANGE:
 // load order of files below is intentional
-@import "bower_components/wikia-style-guide/src/scss/normalize",
-"bower_components/wikia-style-guide/src/scss/lib/components/global",
-"bower_components/wikia-style-guide/src/scss/lib/components/buttons",
-"bower_components/wikia-style-guide/src/scss/lib/components/dropdown",
-"bower_components/wikia-style-guide/src/scss/lib/components/forms",
-"bower_components/wikia-style-guide/src/scss/lib/components/imagery",
-"bower_components/wikia-style-guide/src/scss/lib/components/pagination",
-"bower_components/wikia-style-guide/src/scss/lib/components/type";
-@import 'bower_components/design-system/dist/scss/index';
+@import "node_modules/wikia-style-guide/src/scss/normalize",
+"node_modules/wikia-style-guide/src/scss/lib/components/global",
+"node_modules/wikia-style-guide/src/scss/lib/components/buttons",
+"node_modules/wikia-style-guide/src/scss/lib/components/dropdown",
+"node_modules/wikia-style-guide/src/scss/lib/components/forms",
+"node_modules/wikia-style-guide/src/scss/lib/components/imagery",
+"node_modules/wikia-style-guide/src/scss/lib/components/pagination",
+"node_modules/wikia-style-guide/src/scss/lib/components/type";
+@import 'node_modules/design-system/dist/scss/index';
 @import 'embedded-svgs';
 @import 'settings';
 @import 'wikia-variables';
