@@ -1,10 +1,13 @@
 .article-featured-video {
-	position: relative;
-	z-index: $z-site-head + 1;
 
-	&.is-dismissed,
-	.slide-into-view + .page-wrapper & {
-		z-index: $z-site-head - 3;
+	&.on-scroll-variant {
+		position: relative;
+		z-index: $z-site-head  + 1;
+
+		&.is-dismissed,
+		.slide-into-view + .page-wrapper & {
+			z-index: $z-site-head - 3;
+		}
 	}
 
 	&__close-button {
@@ -51,6 +54,10 @@
 		background-color: $wds-color-black;
 		background-size: contain;
 		height: calc(100vw * 9 / 16);
+
+		.page-placement-variant & {
+			height: calc(( 100vw - 3.125em ) * 9 / 16);
+		}
 	}
 
 	&__on-scroll-placeholder {

@@ -2,6 +2,7 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
+import {inGroup} from '../modules/abtest';
 
 export default Component.extend(
 	ViewportMixin,
@@ -42,9 +43,17 @@ export default Component.extend(
 		collapsedHeight: computed('viewportDimensions.width', 'viewportDimensions.height', function () {
 			const deviceWidth = this.get('viewportDimensions.width'),
 				deviceHeight = this.get('viewportDimensions.height'),
-				isLandscape = deviceWidth > deviceHeight;
+				isLandscape = deviceWidth > deviceHeight,
+				calculatedHeight = Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 
-			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+			/**
+			 * FIXME FEATURED VIDEO A/B TEST ONLY
+			 */
+			if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+				return calculatedHeight > 500 ? 500 : calculatedHeight;
+			}
+
+			return calculatedHeight;
 		}),
 
 		didInsertElement() {
