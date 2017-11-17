@@ -20,7 +20,7 @@ Open http://muppet.yourname.wikia-dev.pl/wiki/Kermit from mobile device or while
 Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wiki/Kermit"`
 
 ## Scripts
-* `npm run setup` - install all dependencies, including node modules and bower components
+* `npm run setup` - install all dependencies, including node modules
 * `npm run build` - build files for dev environment
 * `npm run build-prod` - build files for prod environment
 * `npm run fastboot-server` - run built application (**requires application to be build first**)

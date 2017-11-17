@@ -49,7 +49,6 @@
     "wikia-style-guide": "github:Wikia/style-guide#v1.9.0"
   },
   "devDependencies": {
-    "bower": "1.8.2",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "2.0.0",
