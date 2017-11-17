@@ -56,7 +56,8 @@
 		height: calc(100vw * 9 / 16);
 
 		.page-placement-variant & {
-			height: calc(( 100vw - 3.125em ) * 9 / 16);
+			// 1.125rem is the size of article's side padding
+			height: calc(( 100vw - ( 2 * 1.125rem ) ) * 9 / 16);
 		}
 	}
 

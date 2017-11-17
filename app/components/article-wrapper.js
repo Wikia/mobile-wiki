@@ -91,6 +91,9 @@ export default Component.extend(
 		}),
 
 		hasFeaturedVideo: computed('model.featuredVideo', function () {
+			/**
+			 * FIXME FEATURED VIDEO A/B TEST ONLY
+			 */
 			return this.get('model.featuredVideo') && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT');
 		}),
 
