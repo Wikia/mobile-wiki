@@ -61,7 +61,7 @@ var Ads = function () {
 	function Ads() {
 		_classCallCheck(this, Ads);
 
-		this.adsContext = M.getFromShoebox('adsContext'); //null;
+		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
 		this.krux = null;
@@ -305,8 +305,7 @@ var Ads = function () {
 	}, {
 		key: 'setContext',
 		value: function setContext(adsContext) {
-			console.log('setContext');
-			this.adsContext = M.getFromShoebox('adsContext') //adsContext ? adsContext : null;
+			this.adsContext = adsContext ? adsContext : null;
 		}
 	}, {
 		key: 'getTargetingValue',

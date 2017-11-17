@@ -131,11 +131,6 @@ export default Route.extend(
 			this._super(...arguments);
 
 			if (model) {
-
-				if (this.get('fastboot.isFastBoot')) {
-					this.get('fastboot.shoebox').put('adsContext', model.adsContext);
-				}
-
 				const fastboot = this.get('fastboot');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
