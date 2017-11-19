@@ -3,13 +3,16 @@
 # usage ./tasks/deploy-sandbox.sh <sandbox-name>
 # Note that it takes code from current branch, all changes needs to be committed
 
+# accept only sandbox-* names
 SANDBOX_NAME=$1
-
 if ! [[ $SANDBOX_NAME =~ ^sandbox-[a-z0-9]{2,} ]]; then
     echo "Incorrect sandbox-name"
     exit 1
 fi
 
+
+# if there are any uncommitted/untracked changes - exit. It'll prevent creating and deploying image
+# which has different code than stated in last commit
 git diff-index --quiet HEAD --
 CHANGES=$?
 
@@ -35,6 +38,10 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+eval $(ssh-agent -s)
+ssh-add
+ssh-copy-id k8s-controller-s1
+
 IMAGE_VERSION="${BRANCH}-${COMMIT_HASH}"
 IMAGE_NAME="artifactory.wikia-inc.com/mobile-wiki:${IMAGE_VERSION}"
 PREVIOUS_IMAGE=`ssh k8s-controller-s1 "kubectl get deployment mobile-wiki-${SANDBOX_NAME} -n prod -o=jsonpath='{$.spec.template.spec.containers[:1].image}'"`
@@ -45,6 +52,7 @@ echo "Previous image: ${PREVIOUS_IMAGE}"
 read -r -p "Are you sure? [y/N] " response
 
 if ! [[ "$response" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+    ssh-agent -k
     exit 0
 fi
 
@@ -56,6 +64,8 @@ echo "Generating k8s descriptor"
 
 DESCRIPTOR_FILE="k8s-descriptor-${SANDBOX_NAME}.yaml"
 scp "k8s/${DESCRIPTOR_FILE}" k8s-controller-s1:~/
+ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
 rm "k8s/${DESCRIPTOR_FILE}"
 
-ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
+ssh-agent -k
+
