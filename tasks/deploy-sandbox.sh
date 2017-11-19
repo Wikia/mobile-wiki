@@ -38,13 +38,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+CONTROLLER_HOST="k8s-controller-s1"
+
 eval $(ssh-agent -s)
 ssh-add
-ssh-copy-id k8s-controller-s1
+ssh-copy-id ${CONTROLLER_HOST}
 
 IMAGE_VERSION="${BRANCH}-${COMMIT_HASH}"
 IMAGE_NAME="artifactory.wikia-inc.com/mobile-wiki:${IMAGE_VERSION}"
-PREVIOUS_IMAGE=`ssh k8s-controller-s1 "kubectl get deployment mobile-wiki-${SANDBOX_NAME} -n prod -o=jsonpath='{$.spec.template.spec.containers[:1].image}'"`
+PREVIOUS_IMAGE=`ssh ${CONTROLLER_HOST} "kubectl get deployment mobile-wiki-${SANDBOX_NAME} -n prod -o=jsonpath='{$.spec.template.spec.containers[:1].image}'"`
 
 echo "Going to deploy ${IMAGE_NAME}"
 echo "Previous image: ${PREVIOUS_IMAGE}"
@@ -63,8 +65,8 @@ echo "Generating k8s descriptor"
 ./tasks/k8s-descriptor.sh ${SANDBOX_NAME} ${IMAGE_NAME}
 
 DESCRIPTOR_FILE="k8s-descriptor-${SANDBOX_NAME}.yaml"
-scp "k8s/${DESCRIPTOR_FILE}" k8s-controller-s1:~/
-ssh k8s-controller-s1 "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
+scp "k8s/${DESCRIPTOR_FILE}" ${CONTROLLER_HOST}:~/
+ssh ${CONTROLLER_HOST} "kubectl apply -f ${DESCRIPTOR_FILE} -n prod"
 rm "k8s/${DESCRIPTOR_FILE}"
 
 ssh-agent -k
