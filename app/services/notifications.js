@@ -1,35 +1,31 @@
-import Ember from 'ember';
+import {not} from '@ember/object/computed';
+import {computed} from '@ember/object';
+import {getOwner} from '@ember/application';
+import {reject} from 'rsvp';
+import Service, {inject as service} from '@ember/service';
 import NotificationsModel from '../models/notifications/notifications';
-
-const {
-	computed,
-	getOwner,
-	inject,
-	RSVP,
-	Service
-} = Ember;
 
 export default Service.extend({
 	model: null,
 	isLoading: false,
 	nextPage: null,
 
-	currentUser: inject.service(),
-	fastboot: inject.service(),
-	logger: inject.service(),
-	wikiVariables: inject.service(),
+	currentUser: service(),
+	fastboot: service(),
+	logger: service(),
+	wikiVariables: service(),
 
 	/**
 	 * @private
 	 */
-	isUserAnonymous: computed.not('currentUser.isAuthenticated'),
+	isUserAnonymous: not('currentUser.isAuthenticated'),
 
 	modelLoader: computed('isUserAnonymous', function () {
 		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
 		if (this.get('isUserAnonymous') === true) {
-			return RSVP.reject();
+			return reject();
 		}
 		return this.get('model').loadUnreadNotificationCount()
 			.catch((err) => {

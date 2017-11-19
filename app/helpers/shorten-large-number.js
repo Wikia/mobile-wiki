@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import {helper} from '@ember/component/helper';
 
 /**
  * Shorten number to thousands, millions, billions, etc.
@@ -27,7 +27,7 @@ import Ember from 'ember';
  * @param {Array} [number, digits]
  * @returns {string}
  */
-export default Ember.Helper.helper((params) => {
+export default helper((params) => {
 	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
 		number = params[0],
 		digits = params[1];

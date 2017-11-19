@@ -7,10 +7,8 @@
  * @property {number} [value]
  * @property {*} [annotations]
  */
+import {get} from '@ember/object';
 import config from '../config/environment';
-import Ember from 'ember';
-
-const {get} = Ember;
 
 const context = {
 	country: null,

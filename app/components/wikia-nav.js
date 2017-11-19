@@ -1,16 +1,12 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {oneWay} from '@ember/object/computed';
+import Component from '@ember/component';
+import {getOwner} from '@ember/application';
 import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
-
-const {
-	Component,
-	computed,
-	getOwner,
-	inject
-} = Ember;
 
 export default Component.extend(
 	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,
@@ -18,10 +14,10 @@ export default Component.extend(
 		classNames: ['wikia-nav'],
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 
-		currentUser: inject.service(),
-		notifications: inject.service(),
+		currentUser: service(),
+		notifications: service(),
 
-		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
+		isUserAuthenticated: oneWay('currentUser.isAuthenticated'),
 
 		init() {
 			this._super(...arguments);

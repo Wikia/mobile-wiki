@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 import FullPageMixin from '../mixins/full-page';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 
-export default Ember.Controller.extend(
+export default Controller.extend(
 	FullPageMixin,
 	PortableInfoboxHeroImageMixin,
 	{}

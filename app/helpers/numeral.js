@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import {helper} from '@ember/component/helper';
 import numeral from 'numeral';
 
 /**
  * @param {Array} params
  * @returns {string}
  */
-export default Ember.Helper.helper((params) => {
+export default helper((params) => {
 	const numberToFormat = params[0],
 		format = params[1];
 

@@ -1,12 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import $ from 'jquery';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
 import Thumbnailer from '../modules/thumbnailer';
-
-const {
-	$,
-	Component,
-	computed,
-	inject
-} = Ember;
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -17,8 +13,8 @@ const {
  */
 
 export default Component.extend({
-	i18n: inject.service(),
-	wikiVariables: inject.service(),
+	i18n: service(),
+	wikiVariables: service(),
 	tagName: 'li',
 	classNames: ['article-comment'],
 

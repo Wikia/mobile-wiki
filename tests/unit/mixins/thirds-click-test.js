@@ -1,12 +1,12 @@
+import EmberObject from '@ember/object';
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
 import ThirdsClicksMixin from 'mobile-wiki/mixins/thirds-click';
 import sinon from 'sinon';
-import Ember from 'ember';
 
 module('Unit | Mixin | thirds click', () => {
 	test('calls proper handlers on click', (assert) => {
-		const mixin = Ember.Object.extend(ThirdsClicksMixin).create(),
+		const mixin = EmberObject.extend(ThirdsClicksMixin).create(),
 			clickEventLeft = {
 				clientX: 80
 			},

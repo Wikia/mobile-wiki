@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {Service, getOwner} = Ember;
+import Service from '@ember/service';
+import {getOwner} from '@ember/application';
 
 export default Service.extend({
 	isInitialPageView() {

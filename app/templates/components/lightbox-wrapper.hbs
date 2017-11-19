@@ -1,5 +1,5 @@
 {{#if type}}
-	<div class="lightbox-header {{if headerHidden 'hidden'}}">
+	<div class="lightbox-header {{if headerHidden 'wds-is-hidden'}}">
 		<div class="lightbox-close-wrapper">
 			{{#if closeButtonHidden}}
 				{{lightboxCloseButtonDelay}}
@@ -20,6 +20,6 @@
 		}}
 	</div>
 	{{#if footer}}
-		<div class="lightbox-footer mw-content {{if footerExpanded 'expanded'}} {{if footerHidden 'hidden'}}">{{footer}}</div>
+		<div class="lightbox-footer mw-content {{if footerExpanded 'expanded'}} {{if footerHidden 'wds-is-hidden'}}">{{footer}}</div>
 	{{/if}}
 {{/if}}

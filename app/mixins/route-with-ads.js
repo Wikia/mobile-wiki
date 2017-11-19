@@ -1,10 +1,9 @@
-import Ember from 'ember';
-
-const {Mixin, inject} = Ember;
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
-	fastboot: inject.service(),
-	initialPageView: inject.service(),
+	fastboot: service(),
+	initialPageView: service(),
 
 	/**
 	 * Reset AdEngine variables before article load

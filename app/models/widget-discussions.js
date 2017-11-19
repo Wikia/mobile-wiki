@@ -1,16 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject, {getWithDefault, get} from '@ember/object';
 import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';
 import fetch from 'fetch';
-
-const {
-	Object: EmberObject,
-	get,
-	getWithDefault,
-	inject
-} = Ember;
 
 /**
  * @param {string} [path='']
@@ -22,7 +16,7 @@ function getDiscussionServiceUrl(path = '') {
 
 export default EmberObject.extend(
 	{
-		wikiVariables: inject.service(),
+		wikiVariables: service(),
 		/**
 		 * @param {array|string} [categories=[]]
 		 * @param {string} [sortBy='trending']

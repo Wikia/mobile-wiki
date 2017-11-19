@@ -1,4 +1,8 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
+import $ from 'jquery';
+import EmberObject, {get} from '@ember/object';
+import {getOwner} from '@ember/application';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
@@ -8,14 +12,6 @@ import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
-
-const {
-	$,
-	Object: EmberObject,
-	get,
-	getOwner,
-	inject
-} = Ember;
 
 /**
  *
@@ -46,9 +42,9 @@ function getURL(params) {
 	});
 }
 
-export default Ember.Mixin.create({
-	fastboot: inject.service(),
-	wikiVariables: inject.service(),
+export default Mixin.create({
+	fastboot: service(),
+	wikiVariables: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -64,11 +60,10 @@ export default Ember.Mixin.create({
 					if (response.ok) {
 						return response.json();
 					} else {
-						return getFetchErrorMessage(response).then((responseBody) => {
+						return getFetchErrorMessage(response).then(() => {
 							throw new WikiPageFetchError({
 								code: response.status || 503
 							}).withAdditionalData({
-								responseBody,
 								requestUrl: url,
 								responseUrl: response.url
 							});

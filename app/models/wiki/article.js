@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
 
-const {
-	inject
-} = Ember;
-
 export default BaseModel.extend({
-	wikiVariables: inject.service(),
+	wikiVariables: service(),
 	comments: 0,
 	content: null,
 	curatedMainPageData: null,
@@ -19,7 +15,7 @@ export default BaseModel.extend({
 	user: null,
 
 	/**
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
 		return fetch(buildUrl({

@@ -1,7 +1,7 @@
 {
   "name": "mobile-wiki",
   "dependencies": {
-    "design-system": "wikia/design-system#8.11.0",
+    "design-system": "wikia/design-system#8.11.2",
     "ember-hammer": "1.0.2",
     "hammerjs": "2.0.4",
     "headroom.js": "0.7.0",

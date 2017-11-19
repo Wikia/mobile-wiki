@@ -1,11 +1,7 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
-
-const {
-	Object: EmberObject
-} = Ember;
 
 export default EmberObject.extend({
 	fetch(host) {
@@ -22,12 +18,11 @@ export default EmberObject.extend({
 		return fetch(url)
 			.then((response) => {
 				if (!response.ok) {
-					return response.text().then((responseBody) => {
+					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
 							code: response.status || 503
 						}).withAdditionalData({
 							host,
-							responseBody,
 							url
 						});
 					});
@@ -44,12 +39,11 @@ export default EmberObject.extend({
 					});
 				} else {
 					// non-json API response
-					return response.text().then((responseBody) => {
+					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
 							code: response.status || 503
 						}).withAdditionalData({
 							host,
-							responseBody,
 							url
 						});
 					});

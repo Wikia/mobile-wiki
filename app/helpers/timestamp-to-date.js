@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import {observer} from '@ember/object';
+import {inject as service} from '@ember/service';
+import Helper from '@ember/component/helper';
 import moment from 'moment';
 
 /**
@@ -9,9 +11,9 @@ import moment from 'moment';
  * @param {string} dateFormat
  * @returns {string}
  */
-export default Ember.Helper.extend({
-	momentLocale: Ember.inject.service(),
-	onLocaleChange: Ember.observer('momentLocale.isLoaded', function () {
+export default Helper.extend({
+	momentLocale: service(),
+	onLocaleChange: observer('momentLocale.isLoaded', function () {
 		this.recompute();
 	}),
 

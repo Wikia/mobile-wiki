@@ -1,11 +1,13 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {not, oneWay, bool, equal, gte} from '@ember/object/computed';
+import {scheduleOnce} from '@ember/runloop';
+import Component from '@ember/component';
+import {computed} from '@ember/object';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
-
-const {Component, computed, inject} = Ember;
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -22,8 +24,8 @@ export default Component.extend(
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
-		currentUser: inject.service(),
-		wikiVariables: inject.service(),
+		currentUser: service(),
+		wikiVariables: service(),
 		displayEmptyArticleInfo: true,
 		hammerOptions: {
 			touchAction: 'auto',
@@ -43,7 +45,7 @@ export default Component.extend(
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
-		contributionEnabledForCommunity: computed.not('wikiVariables.disableMobileSectionEditor'),
+		contributionEnabledForCommunity: not('wikiVariables.disableMobileSectionEditor'),
 
 		/**
 		 * Checks if mobile contribution features are enabled.
@@ -65,7 +67,7 @@ export default Component.extend(
 		 *
 		 * @returns {boolean} True if the edit icon should be rendered
 		 */
-		editIconVisible: computed.oneWay('contributionEnabled'),
+		editIconVisible: oneWay('contributionEnabled'),
 
 		/**
 		 * For section editor, checks if the user is allowed to edit
@@ -87,11 +89,9 @@ export default Component.extend(
 			}
 		}),
 
-		hasFeaturedVideo: computed.bool('model.featuredVideo'),
+		hasFeaturedVideo: bool('model.featuredVideo'),
 
-		isJWPlayer: computed.equal('model.featuredVideo.provider', 'jwplayer'),
-
-		showComments: computed.gte('model.comments', 0),
+		showComments: gte('model.comments', 0),
 
 		actions: {
 			/**
@@ -135,7 +135,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			Ember.run.scheduleOnce('afterRender', this, () => {
+			scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
 		},

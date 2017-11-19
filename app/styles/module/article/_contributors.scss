@@ -24,7 +24,7 @@
 			}
 
 			img {
-				@include perfect-square(rem-calc(44));
+				@include square(rem-calc(44));
 				display: block;
 				margin: 0 auto;
 				border-radius: 50%;

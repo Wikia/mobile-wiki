@@ -1,18 +1,15 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import {reads} from '@ember/object/computed';
+import Component from '@ember/component';
+import $ from 'jquery';
+import {isBlank} from '@ember/utils';
+import {observer} from '@ember/object';
+import {on} from '@ember/object/evented';
+import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-
-const {
-	Component,
-	$,
-	isBlank,
-	observer,
-	on,
-	run,
-	inject
-} = Ember;
 
 /**
  * HTMLElement
@@ -26,10 +23,10 @@ export default Component.extend(
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
 
-		fastboot: inject.service(),
-		i18n: inject.service(),
-		logger: inject.service(),
-		isFastBoot: Ember.computed.reads('fastboot.isFastBoot'),
+		fastboot: service(),
+		i18n: service(),
+		logger: service(),
+		isFastBoot: reads('fastboot.isFastBoot'),
 
 		adsContext: null,
 		content: null,

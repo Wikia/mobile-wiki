@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
-	headData: Ember.inject.service(),
-	wikiVariables: Ember.inject.service(),
-	fastboot: Ember.inject.service(),
+export default Mixin.create({
+	headData: service(),
+	wikiVariables: service(),
+	fastboot: service(),
 
 	/**
 	 * @param {Object} model

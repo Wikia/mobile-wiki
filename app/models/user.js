@@ -1,4 +1,7 @@
-import Ember from 'ember';
+import {inject as service} from '@ember/service';
+import EmberObject from '@ember/object';
+import {all} from 'rsvp';
+import {isArray} from '@ember/array';
 import config from '../config/environment';
 import fetch from 'fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
@@ -6,32 +9,9 @@ import extend from '../utils/extend';
 import {buildUrl, getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
-/**
- * @typedef {Object} UserModelFindParams
- * @property {number} userId
- * @property {string} host
- * @property {string} [accessToken]
- * @property {number} [avatarSize]
- */
-
-/**
- * @typedef {Object} UserProperties
- * @property {string} avatarPath
- * @property {string} name
- * @property {string} profileUrl
- * @property {number} userId
- */
-
-const {
-	Object: EmberObject,
-	RSVP,
-	inject,
-	isArray
-} = Ember;
-
 export default EmberObject.extend({
 	defaultAvatarSize: 100,
-	logger: inject.service(),
+	logger: service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -41,10 +21,11 @@ export default EmberObject.extend({
 		const queryString = getQueryString({
 			code: accessToken
 		});
+		const {fastbootOnly: {helios}} = config;
 
-		return fetch(`${config.helios.internalUrl}${queryString}`, {
+		return fetch(`${helios.internalUrl}${queryString}`, {
 			headers: {'X-Wikia-Internal-Request': '1'},
-			timeout: config.helios.timeout,
+			timeout: helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
 				return response.json().then((data) => data.user_id);
@@ -70,7 +51,7 @@ export default EmberObject.extend({
 
 	/**
 	 * @param {UserModelFindParams} params
-	 * @returns {Ember.RSVP.Promise<UserModel>}
+	 * @returns {RSVP.Promise<UserModel>}
 	 */
 	find(params) {
 		const avatarSize = params.avatarSize || this.defaultAvatarSize,
@@ -78,7 +59,7 @@ export default EmberObject.extend({
 			host = params.host,
 			accessToken = params.accessToken || '';
 
-		return RSVP.all([
+		return all([
 			this.loadDetails(host, userId, avatarSize),
 			this.loadUserInfo(host, accessToken, userId),
 		]).then(([userDetails, userInfo]) => {
@@ -115,7 +96,7 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {number} userId
 	 * @param {number} avatarSize
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
 		const url = buildUrl({
@@ -134,11 +115,10 @@ export default EmberObject.extend({
 				if (response.ok) {
 					return response.json();
 				} else {
-					return getFetchErrorMessage(response).then((responseBody) => {
+					return getFetchErrorMessage(response).then(() => {
 						throw new UserLoadDetailsFetchError({
 							code: response.status
 						}).withAdditionalData({
-							responseBody,
 							requestUrl: url,
 							responseUrl: response.url
 						});
@@ -158,7 +138,7 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {string} accessToken
 	 * @param {number} userId
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
 		const url = buildUrl({
@@ -181,11 +161,10 @@ export default EmberObject.extend({
 			if (response.ok) {
 				return response.json();
 			} else {
-				return getFetchErrorMessage(response).then((responseBody) => {
+				return getFetchErrorMessage(response).then(() => {
 					throw new UserLoadInfoFetchError({
 						code: response.status
 					}).withAdditionalData({
-						responseBody,
 						requestUrl: url,
 						responseUrl: response.url
 					});

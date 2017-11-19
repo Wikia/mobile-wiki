@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import {later, cancel} from '@ember/runloop';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['alert-notification', 'alert-box'],
 	classNameBindings: ['alert.type'],
 
@@ -30,7 +31,7 @@ export default Ember.Component.extend({
 			onInsertElement = this.get('alert.callbacks.onInsertElement');
 
 		if (expiry > 0) {
-			this.set('timeout', Ember.run.later(this, this.dismissNotification, expiry));
+			this.set('timeout', later(this, this.dismissNotification, expiry));
 		}
 
 		if (typeof onInsertElement === 'function') {
@@ -42,7 +43,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	willDestroyElement() {
-		Ember.run.cancel(this.get('timeout'));
+		cancel(this.get('timeout'));
 	},
 
 	/**

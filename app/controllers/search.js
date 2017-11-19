@@ -1,19 +1,15 @@
-import Ember from 'ember';
-
-const {
-	Controller,
-	computed,
-	inject,
-	$,
-} = Ember;
+import {inject as service} from '@ember/service';
+import {equal, alias} from '@ember/object/computed';
+import Controller, {inject as controller} from '@ember/controller';
+import $ from 'jquery';
 
 export default Controller.extend({
-	application: inject.controller(),
-	fastboot: inject.service(),
+	application: controller(),
+	fastboot: service(),
 	// TODO: to be removed as we'll be supporting more errors on search page,
 	// see: https://wikia-inc.atlassian.net/browse/DAT-4324
-	notFoundError: computed.equal('model.error', 'search-error-not-found'),
-	inputPhrase: computed.alias('query'),
+	notFoundError: equal('model.error', 'search-error-not-found'),
+	inputPhrase: alias('query'),
 
 	actions: {
 		onSearchEnter(query) {

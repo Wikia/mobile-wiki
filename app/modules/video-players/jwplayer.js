@@ -2,11 +2,8 @@ import Ads from '../ads';
 import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
-
-export const jwPlayerAssets = {
-	styles: '/mobile-wiki/assets/jwplayer/index.css',
-	script: '/mobile-wiki/assets/jwplayer/wikiajwplayer.js'
-};
+import config from '../../config/environment';
+import JWPlayerAssets from '../jwplayer-assets';
 
 export default class JWPlayer extends BasePlayer {
 	constructor(provider, params) {
@@ -57,12 +54,15 @@ export default class JWPlayer extends BasePlayer {
 						track(data);
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
-					// todo verify after Stanley's response
-					comscore: false
+					comscore: config.environment === 'production'
 				},
-				autoplay: {
-					enabled: this.params.autoplay,
+				settings: {
+					showAutoplayToggle: true,
+					showCaptions: true
 				},
+				selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
+				autoplay: this.params.autoplay,
+				mute: this.params.autoplay,
 				related: {
 					time: 3,
 					playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',
@@ -75,7 +75,8 @@ export default class JWPlayer extends BasePlayer {
 				},
 				logger: {
 					clientName: 'mobile-wiki'
-				}
+				},
+				lang: this.params.lang
 			},
 			this.params.onCreate.bind(this, bidParams)
 		);
@@ -85,16 +86,9 @@ export default class JWPlayer extends BasePlayer {
 	 * @return {void}
 	 */
 	loadPlayer() {
-		this.loadStyles(jwPlayerAssets.styles);
-		this.loadScripts(jwPlayerAssets.script, this.playerDidLoad.bind(this));
-	}
-
-	loadStyles(cssFile) {
-		$(`<link rel="stylesheet" href="${cssFile}" crossorigin="anonymous">`).appendTo('head');
-	}
-
-	loadScripts(jsFile, callback) {
-		window.M.loadScript(jsFile, true, callback, 'anonymous');
+		JWPlayerAssets.load().then(() => {
+			this.playerDidLoad();
+		});
 	}
 
 	/**

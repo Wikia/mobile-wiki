@@ -1,12 +1,10 @@
-import Ember from 'ember';
+import Service, {inject as service} from '@ember/service';
 import config from '../config/environment';
 import i18n from 'npm:i18next';
 
-const {Service, inject} = Ember;
-
 export default Service.extend({
-	fastboot: inject.service(),
-	logger: inject.service(),
+	fastboot: service(),
+	logger: service(),
 	i18nextInstance: null,
 
 	initialize(language) {

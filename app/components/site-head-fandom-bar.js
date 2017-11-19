@@ -1,13 +1,12 @@
-import Ember from 'ember';
+import {alias} from '@ember/object/computed';
+import Component from '@ember/component';
 import {track, trackActions} from '../utils/track';
-
-const {Component, computed} = Ember;
 
 export default Component.extend({
 	classNames: ['site-head-fandom-bar-wrapper'],
 
-	partnerSlot: computed.alias('globalNavigation.partner_slot'),
-	svgName: computed.alias('globalNavigation.logo.module.tagline.image-data.name'),
+	partnerSlot: alias('globalNavigation.partner_slot'),
+	svgName: alias('globalNavigation.logo.module.tagline.image-data.name'),
 
 	actions: {
 		trackClick(label) {

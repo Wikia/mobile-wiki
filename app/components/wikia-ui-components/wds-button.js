@@ -8,10 +8,8 @@
  * }}
  */
 
-import Ember from 'ember';
+import Component from '@ember/component';
 import {track, trackActions} from '../../utils/track';
-
-const {Component} = Ember;
 
 export default Component.extend(
 	{

@@ -1,11 +1,7 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
-
-const {
-	Object: EmberObject
-} = Ember;
 
 export default EmberObject.extend({
 	fetchAll(host, wikiId, language) {
@@ -20,12 +16,11 @@ export default EmberObject.extend({
 				if (response.ok) {
 					return response.json();
 				} else {
-					return getFetchErrorMessage(response).then((responseBody) => {
+					return getFetchErrorMessage(response).then(() => {
 						throw new DesignSystemFetchError({
 							code: 503
 						}).withAdditionalData({
 							responseStatus: response.status,
-							responseBody,
 							requestUrl: url,
 							responseUrl: response.url
 						});

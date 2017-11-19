@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import config from '../config/environment';
-
-const {Route} = Ember;
 
 export default Route.extend(
 	{
