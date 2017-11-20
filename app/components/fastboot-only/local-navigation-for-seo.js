@@ -10,7 +10,7 @@ export default Component.extend({
 	currentLocalLinks: or('currentLocalNav.children', 'localLinks'),
 	flattenLinksArray(linksList) {
 		let flatArray = [];
-		linksList.forEach(item => {
+		linksList.forEach((item) => {
 			if (item.href !== '#') {
 				flatArray.push({name: item.text, href: item.href});
 			}
