@@ -49,6 +49,14 @@ export default Component.extend({
 		this.player.on('ready', function () {
 			console.timeEnd('Player is ready');
 		});
+
+		this.player.on('adRequest', function () {
+			console.timeEnd('Player adRequest');
+		});
+
+		this.player.on('adImpression', function () {
+			console.timeEnd('Player adImpression');
+		});
 	},
 
 	/**
