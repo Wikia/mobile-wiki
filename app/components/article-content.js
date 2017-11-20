@@ -10,7 +10,6 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-
 import {inGroup} from '../modules/abtest';
 
 /**
@@ -329,25 +328,6 @@ export default Component.extend(
 					element: $placeholder.get(0)
 				})
 			);
-
-			this.adjustVideoScale();
-		},
-
-		/**
-		 * To not mess with side paddings across whole article.
-		 */
-		adjustVideoScale() {
-			const baseWidth = $('body').width(),
-				$videoEl = this.$('.article-featured-video'),
-				videoWidth = $videoEl.width();
-
-			$videoEl.css({
-				transform: `scale(${baseWidth / videoWidth})`,
-				webkitTransform: `scale(${baseWidth / videoWidth})`,
-				transformOrigin: 'top',
-				webkitTransformOrigin: 'top',
-				paddingBottom: '20px'
-			});
 		},
 
 		/**
