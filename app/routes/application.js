@@ -43,7 +43,6 @@ export default Route.extend(
 
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
-			console.time('Application route model starts');
 
 
 			// We need the wiki page title for setting tracking dimensions in ApplicationModel.
@@ -66,6 +65,8 @@ export default Route.extend(
 						// Video rendering AB test change
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
+					console.timeEnd('Application route model starts');
+
 
 					return applicationData;
 				})

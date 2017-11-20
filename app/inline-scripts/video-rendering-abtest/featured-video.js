@@ -26,7 +26,6 @@
 		console.log('Video performance', 'Player Init', Date.now());
 		console.timeEnd('JW Ads request finished');
 
-
 		window.wikiaJWPlayer(
 			'pre-featured-video',
 			{
