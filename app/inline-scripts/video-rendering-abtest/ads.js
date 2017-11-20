@@ -114,9 +114,12 @@ var Ads = function () {
 			window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
 			this.adsUrl = adsUrl;
+			console.log('Video performance', 'Ads package requested', Date.now());
 
 			// Load the ads code from MW
 			$script(adsUrl, function () {
+				console.log('Video performance', 'Ads package fetched', Date.now());
+
 				/* eslint-disable max-params */
 				if (window.require) {
 					window.require(['ext.wikia.adEngine.adContext', 'ext.wikia.adEngine.adEngineRunner', 'ext.wikia.adEngine.adLogicPageParams', 'ext.wikia.adEngine.config.mobile', 'ext.wikia.adEngine.context.slotsContext', 'ext.wikia.adEngine.lookup.a9', 'ext.wikia.adEngine.mobile.mercuryListener', 'ext.wikia.adEngine.pageFairDetection', 'ext.wikia.adEngine.provider.gpt.googleTag', 'ext.wikia.adEngine.sourcePointDetection', 'ext.wikia.adEngine.video.vastUrlBuilder', window.require.optional('wikia.articleVideo.featuredVideo.ads'), window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'), 'wikia.krux'], function (adContextModule, adEngineRunnerModule, adLogicPageParams, adConfigMobile, slotsContext, a9, adMercuryListener, pageFairDetectionModule, googleTagModule, sourcePointDetectionModule, vastUrlBuilder, jwPlayerAds, jwPlayerMoat, krux) {

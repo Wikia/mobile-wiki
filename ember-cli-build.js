@@ -75,6 +75,7 @@ module.exports = function (defaults) {
 			'jwplayer-fandom-js-inline': `node_modules/jwplayer-fandom/dist/wikiajwplayer.js`,
 			'jwplayer-fandom-css-inline': `node_modules/jwplayer-fandom/dist/index.css`,
 			'jquery-inline': `bower_components/jquery/dist/jquery.min.js`,
+			'featured-video-inline-css': `${videoRenderingABTestPath}style.css`,
 		},
 		outputPaths: {
 			app: {

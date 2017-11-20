@@ -9,7 +9,7 @@
 		adsContext = M.getFromShoebox('wikiPage.data.adsContext');
 
 	Ads.init(adsUrl);
-
+	console.log('Video performance', 'Inline script init', Date.now());
 	window.Mercury.Modules.Ads.initialized = true;
 	window.Mercury.Modules.Ads.currentAdsContext = adsContext;
 
@@ -17,6 +17,8 @@
 	Ads.reloadAfterTransition(adsContext);
 
 	function initializePlayer(bidParams) {
+		console.log('Video performance', 'Player Init', Date.now());
+
 		window.wikiaJWPlayer(
 			'pre-featured-video',
 			{
@@ -62,12 +64,18 @@
 			adsInstance.jwPlayerAds(player, bidParams);
 			adsInstance.jwPlayerMoat(player);
 		}
+
+		player.on('ready', function () {
+			console.log('Video performance', 'Player ready', Date.now());
+		})
 	}
 
 	function createPlayer() {
 		console.log('1');
 		Ads.waitForReady()
 			.then(() => {
+				console.log('Video performance', 'JWPlayer Ads init', Date.now());
+
 				(new JWPlayerVideoAds({noAds: false})).getConfig()
 				console.log('2');
 			})

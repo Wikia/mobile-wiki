@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import {reads, bool, equal, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
+import {observer} from '@ember/object';
 import $ from 'jquery';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
@@ -66,6 +67,14 @@ export default Component.extend({
 	isUserLangEn: equal('currentUser.language', 'en'),
 	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
 	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
+
+	smartBannerVisibleObserver: observer('smartBannerVisible', function () {
+		if (this.get('smartBannerVisible')) {
+			document.body.classList.add('smart-banner-visible');
+		} else {
+			document.body.classList.remove('smart-banner-visible');
+		}
+	}),
 
 	/**
 	 * @returns {void}
