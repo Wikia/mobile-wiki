@@ -23,12 +23,6 @@ import config from '../config/environment';
  */
 
 /**
- * @typedef {Object} OoyalaTracker
- * @property {Function} register
- * @property {Function} track
- */
-
-/**
  * @typedef {Object} AdMercuryListenerModule
  * @property {Function} startOnLoadQueue
  */
@@ -47,7 +41,6 @@ import config from '../config/environment';
  * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
  * @property {Object} GASettings
- * @property {OoyalaTracker} ooyalaTracker
  * @property {VastUrlBuilder} vastUrlBuilder
  * @property {Krux} krux
  * @property {Object} currentAdsContext
@@ -80,7 +73,6 @@ class Ads {
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
-		this.ooyalaAdSetProvider = null;
 		this.adsData = {
 			minZerothSectionLength: 700,
 			minPageLength: 2000
@@ -125,9 +117,7 @@ class Ads {
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
-					'ext.wikia.adEngine.video.player.ooyala.ooyalaTracker',
 					'ext.wikia.adEngine.sourcePointDetection',
-					'ext.wikia.adEngine.video.ooyalaAdSetProvider',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
@@ -142,9 +132,7 @@ class Ads {
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
-					ooyalaTracker,
 					sourcePointDetectionModule,
-					ooyalaAdSetProvider,
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
@@ -156,14 +144,12 @@ class Ads {
 					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.googleTagModule = googleTagModule;
-					this.ooyalaTracker = ooyalaTracker;
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
-					this.ooyalaAdSetProvider = ooyalaAdSetProvider;
 					this.a9 = a9;
 					this.jwPlayerAds = jwPlayerAds;
 					this.jwPlayerMoat = jwPlayerMoat;
@@ -210,27 +196,6 @@ class Ads {
 
 		event.initCustomEvent(`adengine.${name}`, true, true, data || {});
 		window.dispatchEvent(event);
-	}
-
-	registerOoyalaTracker(player, params) {
-		if (!this.ooyalaTracker) {
-			console.warn('Can not use Ooyala tracker.');
-			return;
-		}
-
-		this.ooyalaTracker.register(player, params);
-	}
-
-	/**
-	 * Track Ooyala single event
-	 */
-	trackOoyalaEvent(params, eventName) {
-		if (!this.ooyalaTracker) {
-			console.warn('Can not use Ooyala tracker.');
-			return;
-		}
-
-		this.ooyalaTracker.track(params, eventName);
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {

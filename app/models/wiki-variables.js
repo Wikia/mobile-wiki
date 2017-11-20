@@ -18,12 +18,11 @@ export default EmberObject.extend({
 		return fetch(url)
 			.then((response) => {
 				if (!response.ok) {
-					return response.text().then((responseBody) => {
+					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
 							code: response.status || 503
 						}).withAdditionalData({
 							host,
-							responseBody,
 							url
 						});
 					});
@@ -40,12 +39,11 @@ export default EmberObject.extend({
 					});
 				} else {
 					// non-json API response
-					return response.text().then((responseBody) => {
+					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
 							code: response.status || 503
 						}).withAdditionalData({
 							host,
-							responseBody,
 							url
 						});
 					});

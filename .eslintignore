@@ -12,7 +12,6 @@ vendor/
 app/inline-scripts/tracking-ua-init.js
 
 # Vendor files
-app/modules/video-players/ooyala-google-ima-plugin.js
 app/inline-scripts/tracking-liftigniter.js
 
 # Ember files
