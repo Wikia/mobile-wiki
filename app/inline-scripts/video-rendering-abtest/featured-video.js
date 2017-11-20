@@ -23,7 +23,6 @@
 	Ads.reloadAfterTransition(adsContext);
 
 	function initializePlayer(bidParams) {
-		console.log('Video performance', 'Player Init', Date.now());
 		console.timeEnd('JW Ads request finished');
 
 		window.wikiaJWPlayer(
@@ -84,10 +83,7 @@
 		Ads.waitForReady()
 			.then(() => {
 				console.timeEnd('JW Ads request started');
-				console.log('Video performance', 'JWPlayer Ads init', Date.now());
-
 				(new JWPlayerVideoAds({noAds: false})).getConfig()
-				console.log('2');
 			})
 			.then(initializePlayer.bind(this));
 

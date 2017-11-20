@@ -14,4 +14,6 @@ const App = Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
+console.timeEnd('Ember starts');
+
 export default App;

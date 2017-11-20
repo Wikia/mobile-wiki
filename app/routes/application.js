@@ -57,6 +57,7 @@ export default Route.extend(
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
 				.then((applicationData) => {
+					console.timeEnd('Application route model starts');
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
 					if (fastboot.get('isFastBoot')) {
@@ -65,7 +66,6 @@ export default Route.extend(
 						// Video rendering AB test change
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
-					console.timeEnd('Application route model starts');
 
 
 					return applicationData;
