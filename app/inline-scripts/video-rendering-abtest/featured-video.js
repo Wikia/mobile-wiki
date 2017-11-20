@@ -75,7 +75,15 @@
 			console.log('Video performance', 'Player ready', Date.now());
 			console.timeEnd('Player is ready');
 
-		})
+		});
+
+		player.on('adRequest', function (event) {
+			console.timeEnd('Player adRequest');
+		});
+
+		player.on('adImpression', function (event) {
+			console.timeEnd('Player adImpression');
+		});
 	}
 
 	function createPlayer() {
