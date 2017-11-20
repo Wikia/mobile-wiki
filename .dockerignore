@@ -15,6 +15,7 @@ Dockerfile.prod
 
 # misc
 .github/
+.git/
 .tx/
 /.sass-cache
 /connect.lock
