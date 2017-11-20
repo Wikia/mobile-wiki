@@ -20,7 +20,7 @@ export default Component.extend({
 		});
 		return flatArray;
 	},
-	model: computed('flattenLinksArray', function () {
+	model: computed('currentLocalLinks', function () {
 		return this.flattenLinksArray(this.get('currentLocalLinks'));
 	}),
 });
