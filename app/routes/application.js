@@ -57,6 +57,7 @@ export default Route.extend(
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
 				.then((applicationData) => {
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
+					console.timeEnd('Application route model starts');
 
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);

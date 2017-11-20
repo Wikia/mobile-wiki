@@ -102,9 +102,11 @@ class Ads {
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
 		this.adsUrl = adsUrl;
-
+		console.timeEnd('Ads request started');
 		// Load the ads code from MW
 		$script(adsUrl, () => {
+			console.timeEnd('Ads request finished');
+
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([

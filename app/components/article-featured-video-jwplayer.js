@@ -45,6 +45,10 @@ export default Component.extend({
 		this.player.on('captionsSelected', ({selectedLang}) => {
 			this.setCookie(this.get('captionsCookieName'), selectedLang);
 		});
+
+		this.player.on('ready', function () {
+			console.timeEnd('Player is ready');
+		});
 	},
 
 	/**

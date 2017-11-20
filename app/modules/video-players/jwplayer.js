@@ -37,13 +37,19 @@ export default class JWPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
+
 		Ads.getInstance()
 			.waitForReady()
-			.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
+			.then(() => {
+				console.timeEnd('JW Ads request started');
+				return (new JWPlayerVideoAds(this.params)).getConfig()
+			})
 			.then(this.initializePlayer.bind(this));
 	}
 
 	initializePlayer(bidParams) {
+		console.timeEnd('JW Ads request finished');
+
 		window.wikiaJWPlayer(
 			this.params.containerId,
 			{
