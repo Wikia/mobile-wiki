@@ -4,6 +4,7 @@
 		position: relative;
 		z-index: $z-site-head  + 1;
 
+		// FIXME consider moving & to the beginning of selectors
 		&.is-dismissed,
 		.slide-into-view + .page-wrapper & {
 			// video is visible over nav / side menu by default, so we want to move it under
