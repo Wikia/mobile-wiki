@@ -66,7 +66,7 @@ export default Service.extend({
 						}
 					})
 					.catch((err) => {
-						if(err.code !== 404) {
+						if (err.code !== 404) {
 							this.get('logger').error('Couldn\'t load current user model', err);
 						}
 					});
