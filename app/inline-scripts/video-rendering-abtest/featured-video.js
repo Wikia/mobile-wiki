@@ -10,6 +10,12 @@
 
 	Ads.init(adsUrl);
 	console.log('Video performance', 'Inline script init', Date.now());
+	console.time('Ads request started');
+	console.time('Ads request finished');
+	console.time('JW Ads request started');
+	console.time('JW Ads request finished');
+	console.time('Player is ready');
+	console.time('Application route model starts');
 	window.Mercury.Modules.Ads.initialized = true;
 	window.Mercury.Modules.Ads.currentAdsContext = adsContext;
 
@@ -18,6 +24,8 @@
 
 	function initializePlayer(bidParams) {
 		console.log('Video performance', 'Player Init', Date.now());
+		console.timeEnd('JW Ads request finished');
+
 
 		window.wikiaJWPlayer(
 			'pre-featured-video',
@@ -67,6 +75,8 @@
 
 		player.on('ready', function () {
 			console.log('Video performance', 'Player ready', Date.now());
+			console.timeEnd('Player is ready');
+
 		})
 	}
 
@@ -74,6 +84,7 @@
 		console.log('1');
 		Ads.waitForReady()
 			.then(() => {
+				console.timeEnd('JW Ads request started');
 				console.log('Video performance', 'JWPlayer Ads init', Date.now());
 
 				(new JWPlayerVideoAds({noAds: false})).getConfig()

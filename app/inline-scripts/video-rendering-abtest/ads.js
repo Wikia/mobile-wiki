@@ -109,6 +109,7 @@ var Ads = function () {
 		value: function init(adsUrl) {
 			var _this = this;
 			console.log('init from ads inline');
+			console.timeEnd('Ads request started');
 
 			// Required by ads tracking code
 			window.gaTrackAdEvent = Ads.gaTrackAdEvent;
@@ -119,6 +120,7 @@ var Ads = function () {
 			// Load the ads code from MW
 			$script(adsUrl, function () {
 				console.log('Video performance', 'Ads package fetched', Date.now());
+				console.timeEnd('Ads request finished');
 
 				/* eslint-disable max-params */
 				if (window.require) {
@@ -154,7 +156,6 @@ var Ads = function () {
 		 *
 		 * @param {number} aspectRatio
 		 * @param {Object} slotParams
-		 * @param {Object} options
 		 *
 		 * @returns {string}
 		 */
