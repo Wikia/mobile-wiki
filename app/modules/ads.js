@@ -8,11 +8,6 @@ import config from '../config/environment';
  */
 
 /**
- * @typedef {Object} SourcePointDetectionModule
- * @property {Function} initDetection
- */
-
-/**
  * @typedef {Object} PageFairDetectionModule
  * @property {Function} initDetection
  */
@@ -35,7 +30,6 @@ import config from '../config/environment';
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
- * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
  * @property {SlotsContext} slotsContext
@@ -61,10 +55,6 @@ class Ads {
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
-			sourcePoint: {
-				name: 'sourcepoint',
-				dimension: 6
-			},
 			pageFair: {
 				name: 'pagefair',
 				dimension: 7
@@ -117,7 +107,6 @@ class Ads {
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
-					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
@@ -132,7 +121,6 @@ class Ads {
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
-					sourcePointDetectionModule,
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
@@ -147,7 +135,6 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.a9 = a9;
@@ -288,16 +275,6 @@ class Ads {
 		const GASettings = this.GASettings,
 			listenerSettings = [
 				{
-					name: 'sourcePoint',
-					eventName: 'sp.blocking',
-					value: true,
-				},
-				{
-					name: 'sourcePoint',
-					eventName: 'sp.not_blocking',
-					value: false,
-				},
-				{
 					name: 'pageFair',
 					eventName: 'pf.blocking',
 					value: true,
@@ -428,16 +405,6 @@ class Ads {
 
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
-				}
-
-				if (Ads.previousDetectionResults.sourcePoint.exists) {
-					this.trackBlocking(
-						'sourcePoint',
-						this.GASettings.sourcePoint,
-						Ads.previousDetectionResults.sourcePoint.value
-					);
-				} else {
-					this.sourcePointDetectionModule.initDetection();
 				}
 
 				if (Ads.previousDetectionResults.pageFair.exists) {
@@ -586,10 +553,6 @@ class Ads {
 Ads.instance = null;
 Ads.previousDetectionResults = {
 	pageFair: {
-		exists: false,
-		value: null
-	},
-	sourcePoint: {
 		exists: false,
 		value: null
 	}
