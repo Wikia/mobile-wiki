@@ -1,6 +1,6 @@
 .article-featured-video {
 	position: relative;
-	z-index: $z-site-head  + 1;
+	z-index: $z-site-head + 1;
 
 	&.is-dismissed,
 	.slide-into-view + .page-wrapper & {
@@ -8,10 +8,11 @@
 	}
 
 	&__close-button {
+		align-items: center;
 		background-color: $wds-color-white;
 		display: none;
 		height: 32px;
-		padding-top: 6px;
+		justify-content: center;
 		position: absolute;
 		right: 6px;
 		text-align: center;
@@ -19,7 +20,7 @@
 		width: 36px;
 
 		.is-on-scroll-video & {
-			display: block;
+			display: flex;
 		}
 
 		.wds-icon {
@@ -31,6 +32,7 @@
 		background-color: $wds-color-white;
 		padding: 0;
 		transition: padding 0.3s;
+		transform: translate3d(0, 0, 0);
 
 		.is-on-scroll-video & {
 			padding: 12px;
