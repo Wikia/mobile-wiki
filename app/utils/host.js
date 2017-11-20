@@ -12,7 +12,7 @@ export default function getHostFromRequest(request) {
 	let host = headers.get('x-original-host') || request.get('host');
 
 	if (headers.get('x-staging') === 'externaltest') {
-		host = host.replace(/^(externaltest|showcase)\./, '');
+		host = host.replace(/\.(externaltest|showcase)\.wikia.com$/, '.wikia.com');
 	}
 
 	return host;
