@@ -44,13 +44,14 @@ export default Component.extend(
 			const deviceWidth = this.get('viewportDimensions.width'),
 				deviceHeight = this.get('viewportDimensions.height'),
 				isLandscape = deviceWidth > deviceHeight,
-				calculatedHeight = Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+				calculatedHeight = Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100,
+				maximumRequiredHeight = 500;
 
 			/**
 			 * FIXME FEATURED VIDEO A/B TEST ONLY
 			 */
 			if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-				return calculatedHeight > 500 ? 500 : calculatedHeight;
+				return calculatedHeight > maximumRequiredHeight ? maximumRequiredHeight : calculatedHeight;
 			}
 
 			return calculatedHeight;

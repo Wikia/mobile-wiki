@@ -61,7 +61,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	onCreate(player) {
-		let playerOnceInViewport = false;
+		let playerWasOnceInViewport = false;
 
 		this.player = player;
 
@@ -78,8 +78,9 @@ export default Component.extend({
 		 */
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
 			this.player.on('viewable', (value) => {
-				if (value && !playerOnceInViewport) {
-					playerOnceInViewport = true;
+				// we want to prevent firing this event every time player is visible during scrolling
+				if (value && !playerWasOnceInViewport) {
+					playerWasOnceInViewport = true;
 
 					this.player.play();
 				}
