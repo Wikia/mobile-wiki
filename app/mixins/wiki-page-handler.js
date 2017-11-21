@@ -31,6 +31,14 @@ function getURL(params) {
 		query.redirect = params.redirect;
 	}
 
+	if (params.noads) {
+		query.noads = params.noads;
+	}
+
+	if (params.noexternals) {
+		query.noexternals = params.noexternals;
+	}
+
 	if (params.page) {
 		query.categoryMembersPage = params.page;
 	}
@@ -53,6 +61,9 @@ export default Mixin.create({
 			isInitialPageView = this.get('initialPageView').isInitialPageView();
 
 		if (isFastBoot || !isInitialPageView) {
+			params.noads = this.get('fastboot.request.queryParams.noads');
+			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
+
 			const url = getURL(params);
 
 			return fetch(url)
