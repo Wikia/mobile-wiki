@@ -1,6 +1,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew');
+	stew = require('broccoli-stew'),
+	BabelTranspiler = require('broccoli-babel-transpiler');
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -108,11 +109,29 @@ module.exports = function (defaults) {
 		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
+		}),
+		ads = new Funnel('app/modules', {
+			destDir: 'assets/ads',
+			include: ['ads-inline.js']
+		}),
+		transpiledAds = new BabelTranspiler(ads, {
+			presets: [
+				['env', {
+					'targets': {
+						'browsers': [
+							'last 2 version',
+							'last 3 iOS versions',
+							'> 1%'
+						]
+					}
+				}]
+			]
 		});
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
-		jwPlayerAssets
+		jwPlayerAssets,
+		transpiledAds
 	]);
 };

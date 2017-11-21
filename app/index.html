@@ -32,6 +32,11 @@
 
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 
+<script>
+	console.time('ads-load');
+	console.time('ember-load');
+</script>
+<script src="/mobile-wiki/assets/ads/ads-inline.js"></script>
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}
 {{content-for 'tracking-internal'}}
