@@ -2,7 +2,7 @@ import {scheduleOnce} from '@ember/runloop';
 import $ from 'jquery';
 import {assert} from '@ember/debug';
 import {getOwner} from '@ember/application';
-import {logEvent} from "../modules/event-logger";
+import {logEvent} from '../modules/event-logger';
 
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
@@ -51,7 +51,7 @@ export function getRenderComponentFor(parent) {
 				logEvent('render-component--element', {
 					componentName: name,
 					componentInstanceElement: JSON.stringify(componentInstance.element),
-				})
+				});
 			}
 		});
 
