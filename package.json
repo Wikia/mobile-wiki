@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "npm run babel-ads && ember build",
-    "babel-ads": "rm -rf compiled && mkdir compiled && babel app/modules/ads-inline.js --out-file compiled/ads-inline.js",
+    "babel-ads": "rm -rf compiled && mkdir compiled && babel app/modules/ads-inline.js --out-file compiled/ads-inline.js --presets es2015",
     "build-prod": "npm run babel-ads && ember build -prod",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "clean-deep": "npm run clean && bower cache clean",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-es2015": "6.22.0",
     "bower": "1.8.2",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
