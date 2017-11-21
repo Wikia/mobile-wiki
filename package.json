@@ -8,8 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build",
-    "build-prod": "ember build -prod",
+    "build": "npm run babel-ads && ember build",
+    "babel-ads": "rm -rf compiled && mkdir compiled && babel app/modules/ads-inline.js --out-file compiled/ads-inline.js",
+    "build-prod": "npm run babel-ads && ember build -prod",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "clean-deep": "npm run clean && bower cache clean",
     "crowdin": "bash ./tasks/download-translations.sh",
@@ -43,9 +44,10 @@
     "snyk": "^1.41.1"
   },
   "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.1",
     "bower": "1.8.2",
     "broccoli-asset-rev": "2.6.0",
-    "broccoli-babel-transpiler": "6.1.2",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "2.0.0",
     "broccoli-stew": "1.5.0",
