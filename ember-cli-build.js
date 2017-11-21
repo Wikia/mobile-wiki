@@ -117,8 +117,8 @@ module.exports = function (defaults) {
 		transpiledAds = new BabelTranspiler(ads, {
 			presets: [
 				['env', {
-					'targets': {
-						'browsers': [
+					targets: {
+						browsers: [
 							'last 2 version',
 							'last 3 iOS versions',
 							'> 1%'

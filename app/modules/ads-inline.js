@@ -583,7 +583,7 @@ class Ads {
 	}
 
 	offset(element) {
-		if ( !element ) {
+		if (!element) {
 			return;
 		}
 
@@ -591,8 +591,8 @@ class Ads {
 		// Support: IE <=11 only
 		// Running getBoundingClientRect on a
 		// disconnected node in IE throws an error
-		if ( !element.getClientRects().length ) {
-			return { top: 0, left: 0 };
+		if (!element.getClientRects().length) {
+			return {top: 0, left: 0};
 		}
 
 		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
@@ -623,6 +623,8 @@ window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
 window.Mercury.Modules.Ads = Ads;
 
-const adsUrl = `${M.getFromShoebox('applicationData.wikiVariables.cdnRootUrl')}/__am/${M.getFromShoebox('applicationData.wikiVariables.cacheBuster')}/groups/-/mercury_ads_js`;
+const cdnRootUrl = M.getFromShoebox('applicationData.wikiVariables.cdnRootUrl');
+const cacheBuster = M.getFromShoebox('applicationData.wikiVariables.cacheBuster');
+const adsUrl = `${cdnRootUrl}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
 
 Ads.getInstance().init(adsUrl);

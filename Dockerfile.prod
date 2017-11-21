@@ -37,10 +37,10 @@ USER docker_user
 COPY . .
 
 # build app
-RUN npm run linter && \
+RUN npm run build-prod
 # tests are broken for now
 # npm run tests && \
-    npm run build-prod
+#    npm run build-prod
 
 # 8001 is for prod
 EXPOSE 8001
