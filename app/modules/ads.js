@@ -1,5 +1,4 @@
 /* eslint no-console: 0 */
-import DomHelper from 'dom-helper';
 
 /**
  * @typedef {Object} SlotsContext
@@ -355,7 +354,7 @@ class Ads {
 
 	isInContentApplicable() {
 		const firstSection = document.querySelector('.article-content > h2'),
-			firstSectionTop = (firstSection.length && DomHelper.offset(firstSection).top) || 0,
+			firstSectionTop = (firstSection.length && this.offset(firstSection).top) || 0,
 			hasCuratedContent = document.querySelector('.curated-content');
 
 		if (this.getTargetingValue('pageType') === 'home') {
@@ -581,6 +580,28 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
+
+	static offset(element) {
+		if ( !element ) {
+			return;
+		}
+
+		// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
+		// Support: IE <=11 only
+		// Running getBoundingClientRect on a
+		// disconnected node in IE throws an error
+		if ( !element.getClientRects().length ) {
+			return { top: 0, left: 0 };
+		}
+
+		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
+		const rect = element.getBoundingClientRect(),
+			win = element.ownerDocument.defaultView;
+		return {
+			top: rect.top + win.pageYOffset,
+			left: rect.left + win.pageXOffset
+		};
+	}
 }
 
 Ads.instance = null;
@@ -600,5 +621,3 @@ Ads.previousDetectionResults = {
 window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
 window.Mercury.Modules.Ads = Ads;
-
-export default Ads;
