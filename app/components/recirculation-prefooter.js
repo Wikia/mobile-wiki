@@ -32,7 +32,7 @@ export default Component.extend(
 			return !this.get('items').some((item) => item.presented_by);
 		}),
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
+			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
 		fetchPlista() {
 			const width = normalizeThumbWidth(window.innerWidth);
