@@ -66,6 +66,9 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
+			'script-loader': `bower_components/script.js/dist/script.min.js`,
+			'inline-ads': `${inlineScriptsPath}ads.js`,
+			'inline-ads-loader': `${inlineScriptsPath}ads-loader.js`,
 		},
 		outputPaths: {
 			app: {

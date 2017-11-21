@@ -58,6 +58,9 @@ export default Route.extend(
 				.then((applicationData) => {
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
+					fastboot.get('shoebox').put('cdnRootUrl', applicationData.wikiVariables.cdnRootUrl);
+					fastboot.get('shoebox').put('cacheBuster', applicationData.wikiVariables.cacheBuster);
+
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
