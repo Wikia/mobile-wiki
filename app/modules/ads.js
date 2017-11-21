@@ -1,2 +1,5 @@
+const Mercury = window.Mercury || {};
+const Modules = Mercury.Modules || {};
+
 // We need to make a global ads module, loaded inline, reachable through imports
-export default window.Mercury.Modules.Ads;
+export default Modules.Ads;

@@ -237,7 +237,7 @@ var Ads = function () {
 				console.info('Track pageView: Krux');
 
 				// @todo XW-123 add logging to kibana how many times failed to load
-				this.krux.load();
+				this.krux.load('JTKzTN3f'); //config.tracking.krux.mobileId
 			}
 		}
 
@@ -334,17 +334,17 @@ var Ads = function () {
 		value: function isTopLeaderboardApplicable() {
 			var hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 				isHome = this.getTargetingValue('pageType') === 'home',
-				hasPageHeader = $('.wiki-page-header').length > 0,
-				hasPortableInfobox = $('.portable-infobox').length > 0;
+				hasPageHeader = !!document.querySelector('.wiki-page-header'),
+				hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
 			return isHome || hasPortableInfobox || hasPageHeader > 0 && !hasFeaturedVideo;
 		}
 	}, {
 		key: 'isInContentApplicable',
 		value: function isInContentApplicable() {
-			var $firstSection = $('.article-content > h2').first(),
-				firstSectionTop = $firstSection.length && $firstSection.offset().top || 0,
-				hasCuratedContent = $('.curated-content').length > 0;
+			var $firstSection = document.querySelector('.article-content > h2'),
+				firstSectionTop = $firstSection && $firstSection.getBoundingClientRect.top + document.body.scrollTop || 0,
+				hasCuratedContent = !!document.querySelector('.curated-content');
 
 			if (this.getTargetingValue('pageType') === 'home') {
 				return hasCuratedContent;
@@ -355,9 +355,9 @@ var Ads = function () {
 	}, {
 		key: 'isPrefooterApplicable',
 		value: function isPrefooterApplicable() {
-			var articleBodyHeight = $('.article-body').height(),
-				hasArticleFooter = $('.article-footer').length > 0,
-				hasTrendingArticles = $('.trending-articles').length > 0,
+			var articleBodyHeight = document.querySelector('.article-body').offsetHeight,
+				hasArticleFooter = !!document.querySelector('.article-footer'),
+				hasTrendingArticles = !!document.querySelector('.trending-articles').length > 0,
 				showInContent = this.isInContentApplicable();
 
 			if (this.getTargetingValue('pageType') === 'home') {
@@ -369,7 +369,7 @@ var Ads = function () {
 	}, {
 		key: 'isBottomLeaderboardApplicable',
 		value: function isBottomLeaderboardApplicable() {
-			return $('.wds-global-footer').length > 0;
+			return !!document.querySelector('.wds-global-footer');
 		}
 	}, {
 		key: 'setupSlotsContext',
