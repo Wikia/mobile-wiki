@@ -1,30 +1,14 @@
-import config from '../config/environment';
-import fetch from 'fetch';
+import {logEvent} from "../modules/event-logger";
 import Ember from 'ember';
 
 export function initialize(/* appInstance */) {
 	if (typeof FastBoot !== 'undefined') {
 		return;
 	}
-
 	Ember.onerror = function (error) {
-		const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}/error`;
-
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			// sends cookie with request, allows for logging beaconId and sessionId
-			credentials: 'include',
-			body: JSON.stringify({
-				name: 'Ember.onerror',
-				description: JSON.stringify({
-					message: error.message,
-					stack: error.stack,
-				}),
-				client: 'mobile-wiki'
-			})
+		logEvent('Ember.onerror', {
+			message: error.message,
+			stack: error.stack,
 		});
 
 		// To be able to display it in console
