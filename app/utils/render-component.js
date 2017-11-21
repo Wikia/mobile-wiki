@@ -43,8 +43,10 @@ export function getRenderComponentFor(parent) {
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
 		scheduleOnce('afterRender', this, () => {
-			placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
-			$(placeholderElement).remove();
+			if (componentInstance.element instanceof Node) {
+				placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
+				$(placeholderElement).remove();
+			}
 		});
 
 		return componentInstance;
