@@ -58,10 +58,8 @@ export default Route.extend(
 				.then((applicationData) => {
 					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
 
-					fastboot.get('shoebox').put('cdnRootUrl', applicationData.wikiVariables.cdnRootUrl);
-					fastboot.get('shoebox').put('cacheBuster', applicationData.wikiVariables.cacheBuster);
-
 					if (fastboot.get('isFastBoot')) {
+						fastboot.get('shoebox').put('wikiVariables', applicationData.wikiVariables);
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
 					}
 
@@ -97,7 +95,7 @@ export default Route.extend(
 			) {
 				const adsModule = this.get('ads.module');
 
-				adsModule.init(this.get('ads.adsUrl'));
+				//adsModule.init(this.get('ads.adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
