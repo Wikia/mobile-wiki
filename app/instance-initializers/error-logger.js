@@ -1,4 +1,4 @@
-import {logEvent} from "../modules/event-logger";
+import logEvent from "../modules/event-logger";
 import Ember from 'ember';
 
 export function initialize(/* appInstance */) {
