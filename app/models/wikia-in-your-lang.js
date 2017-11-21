@@ -25,7 +25,7 @@ function getFromCache(browserLang) {
 		now = new Date().getTime();
 
 	// we cache for 30 days (2592000000)
-	if (!value || now - value.timestamp > 2592000000) {
+	if (!value.model || now - value.timestamp > 2592000000) {
 		return null;
 	}
 
