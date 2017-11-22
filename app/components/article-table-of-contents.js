@@ -1,7 +1,9 @@
 import Component from '@ember/component';
 import {track, trackActions} from '../utils/track';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	{
 		classNames: ['table-of-contents'],
 		layoutName: 'components/article-table-of-contents',

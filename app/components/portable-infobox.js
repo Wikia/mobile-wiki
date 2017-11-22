@@ -1,9 +1,11 @@
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
+import RenderComponentMixin from '../mixins/render-component';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
+	RenderComponentMixin,
 	ViewportMixin,
 	{
 		classNames: ['portable-infobox'],
