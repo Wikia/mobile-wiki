@@ -1,6 +1,6 @@
 <div class="wikia-user-profile__fixed-wrapper">
 	<div class="wikia-nav__header">
-		<a {{action 'getBack' preventDefault=false}}
+		<a role="button" {{action 'getBack' preventDefault=false}}
 				class="wikia-nav__back wikia-user-profile__back-link">
 			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
 		</a>
@@ -20,7 +20,7 @@
 	<div class="wikia-user-profile__notification-title-wrapper">
 		<h5 class="wikia-user-profile__notification-title">{{i18n 'notifications-notifications' ns='design-system'}}</h5>
 		{{#if notificationsList.length}}
-			<a class="wds-notifications__mark-all-as-read" {{action 'markAllAsRead'}}>
+			<a role="button" class="wds-notifications__mark-all-as-read" {{action 'markAllAsRead'}}>
 				{{i18n 'notifications-mark-all-as-read' ns='design-system'}}
 			</a>
 		{{/if}}

@@ -71,7 +71,7 @@
 			trackingEvent='category-menu'
 		}}
 			{{#each model.categories as |category|}}
-				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}>
+				<li class="mw-content" role="listitem" {{action 'trackClick' 'category-menu' 'open-category'}}>
 					<a href="{{unbound category.url}}" title="{{unbound category.title}}">
 						{{unbound category.title}}
 						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}

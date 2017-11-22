@@ -3,12 +3,12 @@
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" >
-				<!--This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements-->
+				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
 				<a href="#" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
 					<div class="recirculation-prefooter__item-thumbnail">
 						<img src="{{post.thumbnail}}" alt="{{post.title}}">
 						{{#if post.isVideo}}
-							<img src="https://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
+							<img alt="play button" src="https://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
 								 class="recirculation-prefooter__item-is-video">
 						{{/if}}
 					</div>
@@ -20,7 +20,7 @@
 				{{#if post.isPlista}}
 					<a class="recirculation-prefooter__badge
 							recirculation-prefooter__badge-plista" href="https://www.plista.com/au">
-						<img src="https://static.plista.com/images/powered_by_plista_logo.png">
+						<img alt="plista badge" src="https://static.plista.com/images/powered_by_plista_logo.png">
 					</a>
 				{{/if}}
 			</li>
