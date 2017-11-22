@@ -3,7 +3,7 @@
 		{{#if isMainPage}}
 			<h1 class="wiki-page-header__title">{{siteName}}</h1>
 		{{else}}
-			<h2 class="wiki-page-header__site-name-block" role="heading" {{action 'trackClick'}}>
+			<h2 class="wiki-page-header__site-name-block" role="button" {{action 'trackClick'}}>
 				{{i18n 'app.header-in-wiki-name-label-prefix'}}
 				{{#link-to 'wiki-page' mainPageTitle title=siteName class='wiki-page-header__site-link'}}
 					<span class="wiki-page-header__site-name">{{siteName}}</span>
