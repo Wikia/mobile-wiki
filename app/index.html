@@ -6,15 +6,15 @@
 {{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
 <style>
-	#pre-featured-video {
+	#pre-featured-video-wrapper {
 		position: absolute;
-		top: 251px;
+		width: 100%
 	}
 </style>
 <link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
 </head>
 <body class="mobile-wiki">
-<div id="pre-featured-video"></div>
+<div id="pre-featured-video-wrapper"><div id="pre-featured-video"></div></div>
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'measure-first-render'}}

@@ -22,6 +22,7 @@ export default Component.extend({
 	// hook, however it is fired twice with new attributes.
 	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 		console.timeEnd('featured-video-component-did-insert');
+		window.updateFeaturedVideoPosition();
 		// this.destroyVideoPlayer();
 		// this.initVideoPlayer();
 	})),

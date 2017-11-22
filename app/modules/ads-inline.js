@@ -1,5 +1,27 @@
 /* eslint no-console: 0 */
 
+function offset(element) {
+	if (!element) {
+		return;
+	}
+
+	// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
+	// Support: IE <=11 only
+	// Running getBoundingClientRect on a
+	// disconnected node in IE throws an error
+	if (!element.getClientRects().length) {
+		return { top: 0, left: 0 };
+	}
+
+	// Get document-relative position by adding viewport scroll to viewport-relative gBCR
+	const rect = element.getBoundingClientRect(),
+		win = element.ownerDocument.defaultView;
+	return {
+		top: rect.top + win.pageYOffset,
+		left: rect.left + win.pageXOffset
+	};
+}
+
 /**
  * @typedef {Object} SlotsContext
  * @property {Function} isApplicable
@@ -355,7 +377,7 @@ class Ads {
 
 	isInContentApplicable() {
 		const firstSection = document.querySelector('.article-content > h2'),
-			firstSectionTop = (firstSection && this.offset(firstSection).top) || 0,
+			firstSectionTop = (firstSection && offset(firstSection).top) || 0,
 			hasCuratedContent = document.querySelector('.curated-content');
 
 		if (this.getTargetingValue('pageType') === 'home') {
@@ -581,28 +603,6 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
-
-	offset(element) {
-		if (!element) {
-			return;
-		}
-
-		// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a
-		// disconnected node in IE throws an error
-		if (!element.getClientRects().length) {
-			return { top: 0, left: 0 };
-		}
-
-		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
-		const rect = element.getBoundingClientRect(),
-			win = element.ownerDocument.defaultView;
-		return {
-			top: rect.top + win.pageYOffset,
-			left: rect.left + win.pageXOffset
-		};
-	}
 }
 
 Ads.instance = null;
@@ -753,4 +753,10 @@ function createPlayer() {
 
 }
 
+function updateFeaturedVideoPosition() {
+	const videoOffset = offset(document.querySelector('.article-featured-video-jwplayer'));
+	document.querySelector('#pre-featured-video-wrapper').style.top = `${videoOffset.top}px`;
+}
+
 createPlayer();
+updateFeaturedVideoPosition();
