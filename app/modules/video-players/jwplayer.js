@@ -37,9 +37,11 @@ export default class JWPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
+		console.time('player-ads-wait-for-ready');
 		Ads.getInstance()
 			.waitForReady()
 			.then(() => {
+				console.timeEnd('player-ads-wait-for-ready');
 				console.timeEnd('player-ads-ready');
 				return (new JWPlayerVideoAds(this.params)).getConfig();
 			})
