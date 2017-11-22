@@ -5,8 +5,16 @@
 {{content-for 'fastboot-inline-scripts-head'}}
 {{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
+<style>
+	#pre-featured-video {
+		position: absolute;
+		top: 251px;
+	}
+</style>
+<link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
 </head>
 <body class="mobile-wiki">
+<div id="pre-featured-video"></div>
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'measure-first-render'}}
@@ -31,7 +39,7 @@
 </script>
 
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
-
+<script src="/mobile-wiki/assets/jwplayer/wikiajwplayer.js" crossorigin="anonymous"></script>
 <script>
 	console.time('ads-load');
 	console.time('ember-load');
@@ -40,6 +48,8 @@
 	console.time('player-created');
 	console.time('player-beforePlay');
 	console.time('player-ads-ready');
+	console.time('featured-video-component-init');
+	console.time('featured-video-component-did-insert');
 </script>
 {{content-for 'ads-inline'}}
 {{content-for 'fastboot-inline-scripts-body-bottom'}}

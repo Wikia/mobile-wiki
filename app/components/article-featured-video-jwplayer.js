@@ -21,14 +21,16 @@ export default Component.extend({
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 	// hook, however it is fired twice with new attributes.
 	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
-		this.destroyVideoPlayer();
-		this.initVideoPlayer();
+		console.timeEnd('featured-video-component-did-insert');
+		// this.destroyVideoPlayer();
+		// this.initVideoPlayer();
 	})),
 
 	init() {
 		this._super(...arguments);
 
 		this.set('videoContainerId', `jwplayer-article-video-${new Date().getTime()}`);
+		console.timeEnd('featured-video-component-init');
 	},
 
 	/**

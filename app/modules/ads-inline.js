@@ -106,6 +106,7 @@ class Ads {
 		M.loadScript(adsUrl, true, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
+				console.time('ads require');
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
@@ -121,8 +122,7 @@ class Ads {
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
-				], (
-					adContextModule,
+				], (adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
 					adConfigMobile,
@@ -135,9 +135,9 @@ class Ads {
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
-					krux
-				) => {
+					krux) => {
 					console.timeEnd('ads-load');
+					console.timeEnd('ads require');
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -592,7 +592,7 @@ class Ads {
 		// Running getBoundingClientRect on a
 		// disconnected node in IE throws an error
 		if (!element.getClientRects().length) {
-			return {top: 0, left: 0};
+			return { top: 0, left: 0 };
 		}
 
 		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
@@ -623,8 +623,126 @@ window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
 window.Mercury.Modules.Ads = Ads;
 
-const cdnRootUrl = M.getFromShoebox('applicationData.wikiVariables.cdnRootUrl');
-const cacheBuster = M.getFromShoebox('applicationData.wikiVariables.cacheBuster');
-const adsUrl = `${cdnRootUrl}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
+class JWPlayerVideoAds {
+	constructor(params) {
+		this.params = params;
+	}
 
-Ads.getInstance().init(adsUrl);
+	getConfig() {
+		if (this.params.noAds) {
+			return Promise.resolve(this.params);
+		} else if (this.isA9VideoEnabled()) {
+			return this.parseBidderParameters()
+			/* eslint no-console: 0 */
+			.catch((error) => console.error('JWPlayer: Error while receiving bidder parameters', error));
+		} else {
+			return Promise.resolve({});
+		}
+	}
+
+	parseBidderParameters() {
+		const a9 = Ads.getInstance().a9;
+
+		if (!a9) {
+			return Promise.resolve({});
+		}
+
+		return a9.waitForResponse()
+		.then(() => a9.getSlotParams('FEATURED'));
+	}
+
+	isA9VideoEnabled() {
+		const ads = Ads.getInstance();
+
+		return ads.a9 &&
+			ads.currentAdsContext &&
+			ads.currentAdsContext.bidders &&
+			ads.currentAdsContext.bidders.a9Video;
+	}
+}
+
+window.JWPlayerVideoAds = JWPlayerVideoAds;
+
+const wikiVariables = M.getFromShoebox('applicationData.wikiVariables');
+const adsUrl = `${wikiVariables.cdnRootUrl}/__am/${wikiVariables.cacheBuster}/groups/-/mercury_ads_js`;
+const adsModule = Ads.getInstance();
+
+adsModule.init(adsUrl);
+
+const adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
+	featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed');
+
+adsModule.reloadAfterTransition(adsContext);
+
+function initializePlayer(bidParams) {
+	window.wikiaJWPlayer(
+		'pre-featured-video',
+		{
+			tracking: {
+				track(data) {
+					// M.tracker.UniversalAnalytics.track(
+					// 	data.category, data.action, data.label, data.value
+					// );
+					// M.tracker.Internal.track('special/videoplayerevent', data);
+				},
+				setCustomDimension: function () {}//M.tracker.UniversalAnalytics.setDimension,
+				// comscore: config.environment === 'production'
+			},
+			settings: {
+				showAutoplayToggle: true,
+				showCaptions: true
+			},
+			// selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
+			autoplay: true,
+			mute: true,
+			related: {
+				time: 3,
+				playlistId: featuredVideoData.jsParams.recommendedVideoPlaylist || 'Y2RWCKuS',
+				autoplay: true
+			},
+			videoDetails: {
+				description: 'test',
+				title: featuredVideoData.jsParams.playlist[0].title,
+				playlist: featuredVideoData.jsParams.playlist
+			},
+			logger: {
+				clientName: 'mobile-wiki'
+			},
+			lang: wikiVariables.language.content
+		},
+		onCreate.bind(this, bidParams)
+	);
+}
+
+function onCreate(bidParams, player) {
+	var adsInstance = adsModule;
+	if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
+		adsInstance.jwPlayerAds(player, bidParams);
+		adsInstance.jwPlayerMoat(player);
+	}
+
+	player.on('adRequest', function (event) {
+		console.timeEnd('ad-request');
+	});
+
+	player.on('adImpression', function (event) {
+		console.timeEnd('ad-impression');
+	});
+
+	player.on('beforePlay', () => {
+		console.timeEnd('player-beforePlay');
+	});
+
+	console.timeEnd('player-created');
+}
+
+function createPlayer() {
+	adsModule.waitForReady()
+	.then(() => {
+		(new JWPlayerVideoAds({ noAds: false })).getConfig()
+	})
+	.then(initializePlayer.bind(this));
+
+}
+
+createPlayer();
