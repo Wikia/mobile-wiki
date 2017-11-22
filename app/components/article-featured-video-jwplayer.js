@@ -53,6 +53,12 @@ export default Component.extend({
 		this.player.on('adRequest', () => {
 			console.timeEnd('ad-request');
 		});
+
+		this.player.on('beforePlay', () => {
+			console.timeEnd('player-beforePlay');
+		});
+
+		console.timeEnd('player-created');
 	},
 
 	/**
