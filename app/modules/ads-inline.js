@@ -727,6 +727,14 @@ function onCreate(bidParams, player) {
 
 	player.on('adImpression', function (event) {
 		console.timeEnd('ad-impression');
+		(function (M) {
+			if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
+				// No need to load Ember in browser on server error page
+				return;
+			}
+			M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
+			M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
+		})(window.M);
 	});
 
 	player.on('beforePlay', () => {

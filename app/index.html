@@ -19,17 +19,6 @@
 
 {{content-for 'measure-first-render'}}
 
-<script>
-	(function (M) {
-		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
-			// No need to load Ember in browser on server error page
-			return;
-		}
-		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
-		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
-	})(window.M);
-</script>
-
 {{content-for 'fastboot-inline-scripts-load-svg'}}
 <script>
 	(function (M) {
