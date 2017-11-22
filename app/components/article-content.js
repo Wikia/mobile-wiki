@@ -311,23 +311,28 @@ export default Component.extend(
 		 */
 		renderFeaturedVideo() {
 			const $infoboxes = this.$('.portable-infobox'),
+				$headers = this.$(':header'),
 				$placeholder = $('<div />');
 
 			if ($infoboxes.length) {
 				$infoboxes.first().after($placeholder);
+			} else if ($headers.length) {
+				$headers.first().after($placeholder);
 			} else {
-				this.$().children('h2').first().after($placeholder);
+				this.get('forceFeaturedVideoVisibility')();
 			}
 
-			this.renderedComponents.push(
-				this.renderComponent({
-					name: 'article-featured-video',
-					attrs: {
-						model: this.get('featuredVideo')
-					},
-					element: $placeholder.get(0)
-				})
-			);
+			if ($infoboxes.length || $headers.length) {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: 'article-featured-video',
+						attrs: {
+							model: this.get('featuredVideo')
+						},
+						element: $placeholder.get(0)
+					})
+				);
+			}
 		},
 
 		/**

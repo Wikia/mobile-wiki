@@ -134,6 +134,10 @@ export default Component.extend(
 
 			toggleSiteHeadShadow(visible) {
 				this.sendAction('toggleSiteHeadShadow', visible);
+			},
+
+			forceFeaturedVideoVisibility() {
+				this.set('hasFeaturedVideo', true);
 			}
 		},
 
