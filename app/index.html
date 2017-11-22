@@ -32,6 +32,13 @@
 
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 
+<script>
+	console.time('ads-load');
+	console.time('ember-load');
+	console.time('ad-request');
+	console.time('ad-impression');
+</script>
+
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}
 {{content-for 'tracking-internal'}}

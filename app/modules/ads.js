@@ -138,6 +138,7 @@ class Ads {
 					jwPlayerMoat,
 					krux
 				) => {
+					console.timeEnd('ads-load');
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
