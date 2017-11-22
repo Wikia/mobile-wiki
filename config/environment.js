@@ -21,7 +21,7 @@ module.exports = function (environment) {
 		},
 		weppy: {
 			enabled: false,
-			host: 'http://speed.wikia.net/__rum',
+			host: 'https://speed.nocookie.net/__rum',
 			samplingRate: 0.1,
 			aggregationInterval: 1000
 		},
