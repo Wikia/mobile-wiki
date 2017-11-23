@@ -44,18 +44,6 @@ export function getRenderComponentFor(parent) {
 		let componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
-		// scheduleOnce('afterRender', this, () => {
-		// 	if (componentInstance.element instanceof Node) {
-		// 		placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
-		// 		$(placeholderElement).remove();
-		// 	} else {
-		// 		logEvent('render-component--element', {
-		// 			componentName: name,
-		// 			componentInstanceElement: JSON.stringify(componentInstance.element),
-		// 		});
-		// 	}
-		// });
-
 		return componentInstance;
 	};
 }
