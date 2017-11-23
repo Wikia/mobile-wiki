@@ -36,7 +36,7 @@ export default Component.extend(
 		isPreview: false,
 		media: null,
 
-		articleContentObserver: on('init', observer('content', function () {
+		articleContentObserver: on('didInsertElement', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
 			if (this.get('isFastBoot')) {
 				return;
