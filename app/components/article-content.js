@@ -53,7 +53,6 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
-					// todo: add mixin for these
 					this.renderedComponents = this.renderedComponents.concat(
 						queryPlaceholders(this.$())
 							.map(getAttributesForMedia, {
