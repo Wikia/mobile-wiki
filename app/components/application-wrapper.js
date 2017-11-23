@@ -8,6 +8,7 @@ import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
 import {observer} from '@ember/object';
 import {inGroup} from '../modules/abtest';
+import {updateFeaturedVideoPosition} from '../modules/abtest/featured-video-render-order-helper';
 
 /**
  * HTMLMouseEvent
@@ -70,7 +71,7 @@ export default Component.extend({
 	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', function () {
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 			scheduleOnce('afterRender', () => {
-				window.updateFeaturedVideoPosition();
+				updateFeaturedVideoPosition();
 			});
 		}
 	}),

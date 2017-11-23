@@ -8,6 +8,7 @@ import extend from '../utils/extend';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
+import {updateFeaturedVideoPosition} from '../modules/abtest/featured-video-render-order-helper';
 
 const scrollClassName = 'is-on-scroll-video';
 
@@ -36,7 +37,7 @@ export default Component.extend({
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
 		} else {
-			window.updateFeaturedVideoPosition();
+			updateFeaturedVideoPosition();
 		}
 	})),
 

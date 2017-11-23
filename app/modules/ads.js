@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import DomHelper from './dom-helper';
 import {Promise} from 'rsvp';
 

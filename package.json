@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "npm run babel-ads && ember build",
-    "babel-ads": "rm -rf compiled && mkdir compiled && browserify app/modules/abtest-inline/featured-video-render-order.js -o compiled/featured-video-render-order.js -t [ babelify --presets [ es2015 ] ]",
+    "babel-ads": "rm -rf compiled && mkdir compiled && browserify app/modules/abtest/featured-video-render-order.js -o compiled/featured-video-render-order.js -t [ babelify --presets [ es2015 ] ]",
     "build-prod": "npm run babel-ads && ember build -prod",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "clean-deep": "npm run clean && bower cache clean",
