@@ -3,8 +3,9 @@ import {readOnly} from '@ember/object/computed';
 import {dasherize} from '@ember/string';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend({
+export default Component.extend(RenderComponentMixin, {
 	ads: service(),
 
 	highImpactCountries: get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),

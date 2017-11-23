@@ -7,8 +7,10 @@ import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
 	ViewportMixin,
