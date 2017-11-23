@@ -2,6 +2,7 @@ import {scheduleOnce} from '@ember/runloop';
 import $ from 'jquery';
 import {assert} from '@ember/debug';
 import {getOwner} from '@ember/application';
+import logEvent from '../modules/event-logger';
 
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
@@ -43,8 +44,15 @@ export function getRenderComponentFor(parent) {
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
 		scheduleOnce('afterRender', this, () => {
-			placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
-			$(placeholderElement).remove();
+			if (componentInstance.element instanceof Node) {
+				placeholderElement.parentNode.insertBefore(componentInstance.element, placeholderElement);
+				$(placeholderElement).remove();
+			} else {
+				logEvent('render-component--element', {
+					componentName: name,
+					componentInstanceElement: JSON.stringify(componentInstance.element),
+				});
+			}
 		});
 
 		return componentInstance;
