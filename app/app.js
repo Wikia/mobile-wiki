@@ -12,7 +12,6 @@ const App = Application.extend({
 	Resolver
 });
 
-console.timeEnd('ember-load');
 loadInitializers(App, config.modulePrefix);
 
 export default App;

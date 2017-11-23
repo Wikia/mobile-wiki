@@ -1,5 +1,7 @@
 /* eslint no-console: 0 */
 
+// TODO add Promise (import/polyfill)
+
 function offset(element) {
 	if (!element) {
 		return;
@@ -128,7 +130,6 @@ class Ads {
 		M.loadScript(adsUrl, true, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
-				console.time('ads require');
 				window.require([
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
@@ -158,8 +159,6 @@ class Ads {
 					jwPlayerAds,
 					jwPlayerMoat,
 					krux) => {
-					console.timeEnd('ads-load');
-					console.timeEnd('ads require');
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -721,12 +720,7 @@ function onCreate(bidParams, player) {
 		adsInstance.jwPlayerMoat(player);
 	}
 
-	player.on('adRequest', function (event) {
-		console.timeEnd('ad-request');
-	});
-
 	player.on('adImpression', function (event) {
-		console.timeEnd('ad-impression');
 		(function (M) {
 			if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
 				// No need to load Ember in browser on server error page
@@ -736,12 +730,6 @@ function onCreate(bidParams, player) {
 			M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
 		})(window.M);
 	});
-
-	player.on('beforePlay', () => {
-		console.timeEnd('player-beforePlay');
-	});
-
-	console.timeEnd('player-created');
 }
 
 function createPlayer() {
