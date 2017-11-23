@@ -32,12 +32,14 @@ export default Component.extend({
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 	// hook, however it is fired twice with new attributes.
+	// fixme it won't work if user moves between articles with the same video
 	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
 		if (false && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
 		} else {
 			updateFeaturedVideoPosition();
+			// fixme - it's a hack
 			const fastbootVideoId = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed.jsParams.videoId');
 			if (fastbootVideoId !== this.get('model.embed.jsParams.videoId')) {
 				const model = this.get('model.embed'),
