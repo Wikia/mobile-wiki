@@ -1,6 +1,7 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {getOwner} from '@ember/application';
+import {getWithDefault} from '@ember/object';
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
@@ -193,10 +194,9 @@ export default Route.extend(
 				}
 
 				this.get('logger').error('Application error', error);
-
 				if (fastboot.get('isFastBoot')) {
 					fastboot.get('shoebox').put('serverError', true);
-					fastboot.set('response.statusCode', 503);
+					fastboot.set('response.statusCode', getWithDefault(error, 'code', 503));
 					this.injectScriptsFastbootOnly(null, transition.queryParams);
 
 					// We can't use the built-in mechanism to render error substates.
