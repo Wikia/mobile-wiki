@@ -12,6 +12,7 @@ import {normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
+import {inGroup} from '../modules/abtest';
 
 const {
 	TargetActionSupport
@@ -94,6 +95,9 @@ export default Route.extend(
 			) {
 				const adsModule = this.get('ads.module');
 
+				if (!inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+					adsModule.init(this.get('ads.adsUrl'));
+				}
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
 				 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
