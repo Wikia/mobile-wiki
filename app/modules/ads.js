@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import config from '../config/environment';
+import {Promise} from 'rsvp';
 
 /**
  * @typedef {Object} SlotsContext
