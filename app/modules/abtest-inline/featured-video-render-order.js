@@ -7,11 +7,12 @@ const wikiVariables = M.getFromShoebox('applicationData.wikiVariables');
 const adsUrl = `${wikiVariables.cdnRootUrl}/__am/${wikiVariables.cacheBuster}/groups/-/mercury_ads_js`;
 const adsModule = Ads.getInstance();
 
-adsModule.init(adsUrl);
-
 const adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
 	featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed');
 
+let mobileWikiInitialized = false;
+
+adsModule.init(adsUrl);
 adsModule.reloadAfterTransition(adsContext);
 
 function initializePlayer(bidParams) {
@@ -54,6 +55,18 @@ function initializePlayer(bidParams) {
 	);
 }
 
+function initializeMobileWiki() {
+	if(!mobileWikiInitialized) {
+		mobileWikiInitialized = true;
+		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
+			// No need to load Ember in browser on server error page
+			return;
+		}
+		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
+		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
+	}
+}
+
 function onCreate(bidParams, player) {
 	var adsInstance = adsModule;
 	if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
@@ -61,15 +74,12 @@ function onCreate(bidParams, player) {
 		adsInstance.jwPlayerMoat(player);
 	}
 
-	player.on('adImpression', function (event) {
-		(function (M) {
-			if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
-				// No need to load Ember in browser on server error page
-				return;
-			}
-			M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
-			M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
-		})(window.M);
+	player.on('adImpression', function () {
+		initializeMobileWiki();
+	});
+
+	player.on('videoStart', function () {
+		initializeMobileWiki();
 	});
 }
 
@@ -86,8 +96,6 @@ function updateFeaturedVideoPosition() {
 	const videoOffset = DomHelper.offset(document.querySelector('.article-featured-video'));
 	document.querySelector('#pre-featured-video-wrapper').style.top = `${videoOffset.top}px`;
 }
-
-
 
 createPlayer();
 updateFeaturedVideoPosition();
