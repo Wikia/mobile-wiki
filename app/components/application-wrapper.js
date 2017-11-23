@@ -7,6 +7,7 @@ import $ from 'jquery';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
 import {observer} from '@ember/object';
+import {inGroup} from '../modules/abtest';
 
 /**
  * HTMLMouseEvent
@@ -67,9 +68,11 @@ export default Component.extend({
 	}),
 
 	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', function () {
-		scheduleOnce('afterRender', () => {
-			window.updateFeaturedVideoPosition();
-		});
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+			scheduleOnce('afterRender', () => {
+				window.updateFeaturedVideoPosition();
+			});
+		}
 	}),
 
 	/**
