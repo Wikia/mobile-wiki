@@ -10,6 +10,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
+import {inGroup} from '../modules/abtest';
 
 /**
  * HTMLElement
@@ -66,6 +67,11 @@ export default Component.extend(
 					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
+
+					if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+						this.renderFeaturedVideo();
+					}
+
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 				} else if (this.get('displayEmptyArticleInfo')) {
@@ -298,6 +304,35 @@ export default Component.extend(
 					})
 				);
 			});
+		},
+
+		/**
+		 * FIXME FEATURED VIDEO A/B TEST ONLY
+		 */
+		renderFeaturedVideo() {
+			const $infoboxes = this.$('.portable-infobox'),
+				$headers = this.$(':header'),
+				$placeholder = $('<div />');
+
+			if ($infoboxes.length) {
+				$infoboxes.first().after($placeholder);
+			} else if ($headers.length) {
+				$headers.first().after($placeholder);
+			} else {
+				this.get('forceFeaturedVideoVisibility')();
+			}
+
+			if ($infoboxes.length || $headers.length) {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: 'article-featured-video',
+						attrs: {
+							model: this.get('featuredVideo')
+						},
+						element: $placeholder.get(0)
+					})
+				);
+			}
 		},
 
 		/**

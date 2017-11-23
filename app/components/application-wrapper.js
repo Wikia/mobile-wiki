@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {reads, bool, equal, and} from '@ember/object/computed';
+import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {scheduleOnce} from '@ember/runloop';
@@ -39,14 +39,18 @@ export default Component.extend({
 		'bfaaTemplate'
 	],
 	scrollLocation: null,
-	smartBannerVisible: false,
 	firstRender: true,
 
 	ads: service(),
 	currentUser: service(),
+	smartBanner: service(),
 	fastboot: service(),
 	logger: service(),
 	wikiVariables: service(),
+
+	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
+	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	dir: reads('wikiVariables.language.contentDir'),
 
@@ -61,13 +65,6 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
-
-	/**
-	 * @returns {boolean}
-	 */
-	isUserLangEn: equal('currentUser.language', 'en'),
-	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', function () {
 		scheduleOnce('afterRender', () => {
