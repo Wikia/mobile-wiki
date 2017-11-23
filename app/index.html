@@ -5,13 +5,6 @@
 {{content-for 'fastboot-inline-scripts-head'}}
 {{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
-<style>
-	#pre-featured-video-wrapper {
-		position: absolute;
-		width: 100%
-	}
-</style>
-<link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
 </head>
 <body class="mobile-wiki">
 <div id="pre-featured-video-wrapper"><div id="pre-featured-video"></div></div>
@@ -29,6 +22,18 @@
 
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 <script>
+	(function (M) {
+		if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER') ||
+			(typeof FastBoot === 'undefined' && M.getFromShoebox('serverError'))) {
+			// No need to load Ember in browser on server error page
+			return;
+		}
+		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
+		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
+	})(window.M);
+</script>
+
+<script>
 	/**
 	 * FIXME FEATURED VIDEO A/B TEST ONLY
 	 *
@@ -40,9 +45,15 @@
 		document.querySelector('.article-featured-video').style.display = 'none';
 	}
 </script>
-
+<!-- TODO: only add if featured video in article -->
+<link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
 <script src="/mobile-wiki/assets/jwplayer/wikiajwplayer.js" crossorigin="anonymous"></script>
-{{content-for 'ads-inline'}}
+<script>
+	if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+		M.loadScript('/mobile-wiki/assets/abtest/featured-video-render-order.js', false, false,
+			'anonymous');
+	}
+</script>
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}
 {{content-for 'tracking-internal'}}

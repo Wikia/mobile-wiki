@@ -65,8 +65,7 @@ module.exports = function (defaults) {
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
-			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'ads-inline': 'compiled/ads-inline.js'
+			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`
 		},
 		outputPaths: {
 			app: {
@@ -109,11 +108,15 @@ module.exports = function (defaults) {
 		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
+		}),
+		fvRenderOrderAssets = new Funnel('compiled/featured-video-render-order.js', {
+			destDir: 'assets/abtest/featured-video-render-order.js'
 		});
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
-		jwPlayerAssets
+		jwPlayerAssets,
+		fvRenderOrderAssets
 	]);
 };
