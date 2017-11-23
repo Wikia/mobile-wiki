@@ -6,8 +6,10 @@ import {observer, computed} from '@ember/object';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {normalizeToUnderscore} from '../utils/string';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	ThirdsClickMixin,
 	{
 		classNames: ['lightbox-media', 'lightbox-content-inner'],

@@ -5,8 +5,10 @@ import {gt} from '@ember/object/computed';
 import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import ImageLoader from '../mixins/image-loader';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	ViewportMixin,
 	ImageLoader,
 	{
