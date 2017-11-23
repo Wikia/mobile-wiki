@@ -8,7 +8,7 @@ import extend from '../utils/extend';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
-import {updateFeaturedVideoPosition} from '../modules/abtest/featured-video-render-order-helper';
+import {updateFeaturedVideoPosition, createPlayer} from '../modules/abtest/featured-video-render-order-helper';
 
 const scrollClassName = 'is-on-scroll-video';
 
@@ -38,6 +38,24 @@ export default Component.extend({
 			this.initVideoPlayer();
 		} else {
 			updateFeaturedVideoPosition();
+			const fastbootVideoId = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed.jsParams.videoId');
+			if (fastbootVideoId !== this.get('model.embed.jsParams.videoId')) {
+				const model = this.get('model.embed'),
+					jsParams = {
+						autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
+						selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+						adTrackingParams: {
+							adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
+							slotName: 'FEATURED'
+						},
+						containerId: this.get('videoContainerId'),
+						noAds: this.get('ads.noAds'),
+						onCreate: this.onCreate.bind(this),
+						lang: this.get('wikiVariables.language.content')
+					},
+					data = extend({}, model, {jsParams});
+				createPlayer(data.jsParams);
+			}
 		}
 	})),
 

@@ -1,12 +1,11 @@
 import {inject as service} from '@ember/service';
 import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import {computed, observer} from '@ember/object';
 import {scheduleOnce} from '@ember/runloop';
 import $ from 'jquery';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from '../utils/track-perf';
-import {observer} from '@ember/object';
 import {inGroup} from '../modules/abtest';
 import {updateFeaturedVideoPosition} from '../modules/abtest/featured-video-render-order-helper';
 

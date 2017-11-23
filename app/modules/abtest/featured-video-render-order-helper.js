@@ -1,9 +1,7 @@
 import DomHelper from '../dom-helper';
 import Ads from '../ads';
 import JWPlayerVideoAds from '../video-players/jwplayer-video-ads';
-
-const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed'),
-	wikiVariables = M.getFromShoebox('applicationData.wikiVariables');
+import {track} from '../../utils/track';
 
 let featuredVideoPlayer,
 	mobileWikiInitialized = false;
@@ -54,51 +52,49 @@ export function destroyPlayer() {
 	}
 }
 
-export function createPlayer() {
+export function createPlayer(params) {
+	params.onCreate = onCreate;
 	Ads.getInstance().waitForReady()
-	.then(() => {
-		(new JWPlayerVideoAds({ noAds: false })).getConfig()
-	})
-	.then(initializePlayer.bind(this));
+		.then((new JWPlayerVideoAds(params)).getConfig())
+		.then(initializePlayer.bind(this, params));
 }
 
-export function initializePlayer(bidParams) {
+export function initializePlayer(params, bidParams) {
 	destroyPlayer();
 	window.wikiaJWPlayer(
 		'pre-featured-video',
 		{
 			tracking: {
 				track(data) {
-					// M.tracker.UniversalAnalytics.track(
-					// 	data.category, data.action, data.label, data.value
-					// );
-					// M.tracker.Internal.track('special/videoplayerevent', data);
+					data.trackingMethod = 'both';
+
+					track(data);
 				},
-				setCustomDimension: function () {
-				}//M.tracker.UniversalAnalytics.setDimension,
+				setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
+				// TODO comscore
 				// comscore: config.environment === 'production'
 			},
 			settings: {
 				showAutoplayToggle: true,
 				showCaptions: true
 			},
-			// selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
+			selectedCaptionsLanguage: params.selectedCaptionsLanguage,
 			autoplay: true,
 			mute: true,
 			related: {
 				time: 3,
-				playlistId: featuredVideoData.jsParams.recommendedVideoPlaylist || 'Y2RWCKuS',
+				playlistId: params.recommendedVideoPlaylist || 'Y2RWCKuS',
 				autoplay: true
 			},
 			videoDetails: {
-				description: featuredVideoData.jsParams.playlist[0].description,
-				title: featuredVideoData.jsParams.playlist[0].title,
-				playlist: featuredVideoData.jsParams.playlist
+				description: params.playlist[0].description,
+				title: params.playlist[0].title,
+				playlist: params.playlist
 			},
 			logger: {
 				clientName: 'mobile-wiki'
 			},
-			lang: wikiVariables.language.content
+			lang: params.lang
 		},
 		onCreate.bind(this, bidParams)
 	);
