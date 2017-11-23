@@ -79,5 +79,4 @@ export default Component.extend(RenderComponentMixin,
 				this.set('currentImageIndex', newImageIndex);
 			}
 		}
-	}
-);
+	});
