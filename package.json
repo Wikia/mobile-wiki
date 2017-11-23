@@ -29,6 +29,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ad-products": "github:wikia/ad-products#v2.0.0",
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.1",
