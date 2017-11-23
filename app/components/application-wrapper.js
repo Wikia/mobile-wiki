@@ -68,7 +68,7 @@ export default Component.extend({
 	}),
 
 	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', function () {
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+		if (true || inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 			scheduleOnce('afterRender', () => {
 				updateFeaturedVideoPosition();
 			});

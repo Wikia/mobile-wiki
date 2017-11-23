@@ -23,8 +23,7 @@
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
 <script>
 	(function (M) {
-		if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER') ||
-			(typeof FastBoot === 'undefined' && M.getFromShoebox('serverError'))) {
+		if (true || (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError'))) {
 			// No need to load Ember in browser on server error page
 			return;
 		}
@@ -50,7 +49,7 @@
 <link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
 <script src="/mobile-wiki/assets/jwplayer/wikiajwplayer.js" crossorigin="anonymous"></script>
 <script>
-	if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+	if (true) {
 		var hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 		if (hasFeaturedVideo) {
 			var head = document.getElementsByTagName('head')[0];
