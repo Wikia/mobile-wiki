@@ -4,7 +4,6 @@ import {computed} from '@ember/object';
 import {run} from '@ember/runloop';
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
-import {on} from '@ember/object/evented';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
