@@ -7,6 +7,8 @@
 </div>
 <div class="show-error-container">
 	<h1>Error</h1>
-	<div>Sorry, we couldn't load the page. Please try again.</div>
-	<button class="wds-button" onclick="window.location.reload()">Refresh</button>
+	<div>{{model.productionErrorMessage}}</div>
+	{{#if model.canAttemptRefresh}}
+		<button class="wds-button" onclick="window.location.reload()">Refresh</button>
+	{{/if}}
 </div>
