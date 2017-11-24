@@ -3,8 +3,10 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,

@@ -3,8 +3,9 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(
+export default Component.extend(RenderComponentMixin,
 	ViewportMixin,
 	{
 		classNames: ['pi-image-collection'],
@@ -78,5 +79,4 @@ export default Component.extend(
 				this.set('currentImageIndex', newImageIndex);
 			}
 		}
-	}
-);
+	});
