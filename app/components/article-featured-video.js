@@ -33,15 +33,15 @@ export default Component.extend({
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 	// hook, however it is fired twice with new attributes.
 	// fixme it won't work if user moves between articles with the same video
-	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
+	videoIdObserver: on('didInsertElement', observer('model', function () {
 		if (false && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 			this.destroyVideoPlayer();
 			this.initVideoPlayer();
 		} else {
 			updateFeaturedVideoPosition();
 			// fixme - it's a hack
-			const fastbootVideoId = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed.jsParams.videoId');
-			if (fastbootVideoId !== this.get('model.embed.jsParams.videoId')) {
+			const fastbootArticleId = M.getFromShoebox('wikiPage.data.details.id');
+			if (fastbootArticleId !== this.get('articleId')) {
 				const model = this.get('model.embed'),
 					jsParams = {
 						autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
