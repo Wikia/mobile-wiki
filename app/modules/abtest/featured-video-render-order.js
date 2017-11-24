@@ -7,7 +7,7 @@ const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.
 	adsUrl = `${wikiVariables.cdnRootUrl}/__am/${wikiVariables.cacheBuster}/groups/-/mercury_ads_js`,
 	adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
 	adsModule = Ads.getInstance(),
-	// fixme - it should be true for logged in users and when noads param is set
+	// TODO - it should be true for logged in users and when noads param is set
 	noAds = false,
 	hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 
