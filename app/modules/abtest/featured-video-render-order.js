@@ -1,5 +1,5 @@
 import Ads from '../ads';
-import {updateFeaturedVideoPosition, createPlayer} from './featured-video-render-order-helper';
+import {loadJWPlayerAssets, initializeMobileWiki} from './featured-video-render-order-helper';
 import $ from 'jquery';
 
 const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed'),
@@ -8,7 +8,8 @@ const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.
 	adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
 	adsModule = Ads.getInstance(),
 	// fixme - it should be true for logged in users and when noads param is set
-	noAds = false;
+	noAds = false,
+	hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 
 
 function getCookieValue(a) {
@@ -16,21 +17,25 @@ function getCookieValue(a) {
 	return b ? b.pop() : '';
 }
 
-const params = Object.assign(featuredVideoData.jsParams, {
-	selectedCaptionsLanguage: getCookieValue('featuredVideoCaptions'),
-	autoplay: getCookieValue('featuredVideoAutoplay') !== '0',
-	adTrackingParams: {
-		adProduct: noAds ? 'featured-video-no-preroll' : 'featured-video-preroll',
-		slotName: 'FEATURED'
-	},
-	noAds: noAds,
-	lang: wikiVariables.language.content
-});
+if (hasFeaturedVideo) {
+	const params = Object.assign(featuredVideoData.jsParams, {
+		selectedCaptionsLanguage: getCookieValue('featuredVideoCaptions'),
+		autoplay: getCookieValue('featuredVideoAutoplay') !== '0',
+		adTrackingParams: {
+			adProduct: noAds ? 'featured-video-no-preroll' : 'featured-video-preroll',
+			slotName: 'FEATURED'
+		},
+		noAds: noAds,
+		lang: wikiVariables.language.content
+	});
+	loadJWPlayerAssets(params);
+} else {
+	initializeMobileWiki();
+}
 
 adsModule.init(adsUrl);
 adsModule.reloadAfterTransition(adsContext);
 
 // TODO setting autoplay/subtitles cookies
 
-createPlayer(params);
-updateFeaturedVideoPosition();
+

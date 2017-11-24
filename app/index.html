@@ -44,27 +44,11 @@
 		document.querySelector('.article-featured-video').style.display = 'none';
 	}
 </script>
-<!-- TODO: only add if featured video in article -->
 
-<link rel="stylesheet" href="/mobile-wiki/assets/jwplayer/index.css">
-<script src="/mobile-wiki/assets/jwplayer/wikiajwplayer.js" crossorigin="anonymous"></script>
 <script>
 	if (true) {
-		var hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
-		if (hasFeaturedVideo) {
-			var head = document.getElementsByTagName('head')[0];
-			var link = document.createElement('link');
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = '/mobile-wiki/assets/jwplayer/index.css';
-			head.appendChild(link);
-
-			M.loadScript('/mobile-wiki/assets/jwplayer/wikiajwplayer.js', false, false,
-				'anonymous');
-			M.loadScript('/mobile-wiki/assets/abtest/featured-video-render-order.js', false, false,
-				'anonymous');
-		}
-
+		M.loadScript('/mobile-wiki/assets/abtest/featured-video-render-order.js', false, false,
+			'anonymous');
 	}
 </script>
 {{content-for 'fastboot-inline-scripts-body-bottom'}}

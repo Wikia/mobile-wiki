@@ -3,12 +3,11 @@ import Ads from '../ads';
 import JWPlayerVideoAds from '../video-players/jwplayer-video-ads';
 import {track} from '../../utils/track';
 
-let featuredVideoPlayer,
-	mobileWikiInitialized = false;
+let featuredVideoPlayer;
 
-function initializeMobileWiki() {
-	if (!mobileWikiInitialized) {
-		mobileWikiInitialized = true;
+export function initializeMobileWiki() {
+	if (!window.mobileWikiInitialized) {
+		window.mobileWikiInitialized = true;
 		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
 			// No need to load Ember in browser on server error page
 			return;
@@ -37,8 +36,11 @@ function onCreate(bidParams, player) {
 }
 
 export function updateFeaturedVideoPosition() {
-	const videoOffset = DomHelper.offset(document.querySelector('.article-featured-video'));
-	document.querySelector('#pre-featured-video-wrapper').style.top = `${videoOffset.top}px`;
+	const articleFeaturedVideoElement = document.querySelector('.article-featured-video');
+	if (articleFeaturedVideoElement) {
+		const videoOffset = DomHelper.offset(articleFeaturedVideoElement);
+		document.querySelector('#pre-featured-video-wrapper').style.top = `${videoOffset.top}px`;
+	}
 }
 
 export function setFeaturedVideoPlayer(player) {
@@ -98,4 +100,18 @@ export function initializePlayer(params, bidParams) {
 		},
 		onCreate.bind(this, bidParams)
 	);
+}
+
+export function loadJWPlayerAssets(params) {
+	const head = document.getElementsByTagName('head')[0],
+		link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = '/mobile-wiki/assets/jwplayer/index.css';
+	head.appendChild(link);
+
+	M.loadScript('/mobile-wiki/assets/jwplayer/wikiajwplayer.js', false, () => {
+		createPlayer(params);
+		updateFeaturedVideoPosition();
+	}, 'anonymous');
 }
