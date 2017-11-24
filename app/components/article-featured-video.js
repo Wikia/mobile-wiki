@@ -39,7 +39,6 @@ export default Component.extend({
 			this.initVideoPlayer();
 		} else {
 			updateFeaturedVideoPosition();
-			// fixme - it's a hack
 			const fastbootArticleId = M.getFromShoebox('wikiPage.data.details.id');
 			if (fastbootArticleId !== this.get('articleId')) {
 				const model = this.get('model.embed'),
