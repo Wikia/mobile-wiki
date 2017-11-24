@@ -39,7 +39,7 @@ export function getRenderComponentFor(parent) {
 		 * @type {string}
 		 */
 		attrs.layoutName = `components/${name}`;
-		attrs.placeholderElement = placeholderElement;
+		attrs._placeholderElement = placeholderElement;
 
 		let componentInstance = component.create(attrs);
 		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
