@@ -8,7 +8,7 @@ export default Component.extend({
 	wikiVariables: service(),
 	localLinks: readOnly('wikiVariables.localNav'),
 	currentLocalLinks: or('currentLocalNav.children', 'localLinks'),
-	flattenLinksArray(linksList) {
+	flattenLinksArray(linksList = []) {
 		let flatArray = [];
 		linksList.forEach((item) => {
 			if (item.href !== '#') {
