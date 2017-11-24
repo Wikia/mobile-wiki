@@ -16,8 +16,8 @@ function getCookieValue(a) {
 }
 
 const params = Object.assign(featuredVideoData.jsParams, {
-	autoplay: getCookieValue('featuredVideoAutoplay') !== '0',
 	selectedCaptionsLanguage: getCookieValue('featuredVideoCaptions'),
+	autoplay: getCookieValue('featuredVideoAutoplay') !== '0',
 	adTrackingParams: {
 		adProduct: noAds ? 'featured-video-no-preroll' : 'featured-video-preroll',
 		slotName: 'FEATURED'
