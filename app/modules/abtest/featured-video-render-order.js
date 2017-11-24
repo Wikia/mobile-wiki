@@ -1,5 +1,6 @@
 import Ads from '../ads';
 import {updateFeaturedVideoPosition, createPlayer} from './featured-video-render-order-helper';
+import $ from 'jquery';
 
 const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed'),
 	wikiVariables = M.getFromShoebox('applicationData.wikiVariables'),
