@@ -9,7 +9,7 @@ class DomHelper {
 		// Running getBoundingClientRect on a
 		// disconnected node in IE throws an error
 		if (!element.getClientRects().length) {
-			return { top: 0, left: 0 };
+			return {top: 0, left: 0};
 		}
 
 		// Get document-relative position by adding viewport scroll to viewport-relative gBCR

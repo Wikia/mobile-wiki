@@ -17,18 +17,22 @@ export function initializeMobileWiki() {
 	}
 }
 
+export function setFeaturedVideoPlayer(player) {
+	featuredVideoPlayer = player;
+}
+
 function onCreate(bidParams, player) {
-	var adsInstance = Ads.getInstance();
+	const adsInstance = Ads.getInstance();
 	if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
 		adsInstance.jwPlayerAds(player, bidParams);
 		adsInstance.jwPlayerMoat(player);
 	}
 
-	player.once('adImpression', function () {
+	player.once('adImpression', () => {
 		initializeMobileWiki();
 	});
 
-	player.once('videoStart', function () {
+	player.once('videoStart', () => {
 		initializeMobileWiki();
 	});
 
@@ -43,10 +47,6 @@ export function updateFeaturedVideoPosition() {
 	}
 }
 
-export function setFeaturedVideoPlayer(player) {
-	featuredVideoPlayer = player;
-}
-
 export function destroyPlayer() {
 	if (featuredVideoPlayer) {
 		featuredVideoPlayer.remove();
@@ -54,12 +54,6 @@ export function destroyPlayer() {
 	}
 }
 
-export function createPlayer(params) {
-	params.onCreate = onCreate;
-	Ads.getInstance().waitForReady()
-		.then((new JWPlayerVideoAds(params)).getConfig())
-		.then(initializePlayer.bind(this, params));
-}
 
 export function initializePlayer(params, bidParams) {
 	destroyPlayer();
@@ -100,6 +94,13 @@ export function initializePlayer(params, bidParams) {
 		},
 		onCreate.bind(this, bidParams)
 	);
+}
+
+export function createPlayer(params) {
+	params.onCreate = onCreate;
+	Ads.getInstance().waitForReady()
+		.then((new JWPlayerVideoAds(params)).getConfig())
+		.then(initializePlayer.bind(this, params));
 }
 
 export function loadJWPlayerAssets(params) {

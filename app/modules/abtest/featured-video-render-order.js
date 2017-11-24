@@ -12,9 +12,9 @@ const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.
 	hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 
 
-function getCookieValue(a) {
-	const b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-	return b ? b.pop() : '';
+function getCookieValue(name) {
+	const matches = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+	return matches ? matches.pop() : '';
 }
 
 if (hasFeaturedVideo) {
@@ -25,7 +25,7 @@ if (hasFeaturedVideo) {
 			adProduct: noAds ? 'featured-video-no-preroll' : 'featured-video-preroll',
 			slotName: 'FEATURED'
 		},
-		noAds: noAds,
+		noAds,
 		lang: wikiVariables.language.content
 	});
 	loadJWPlayerAssets(params);

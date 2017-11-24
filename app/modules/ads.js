@@ -599,7 +599,7 @@ Ads.previousDetectionResults = {
 // When introducing sync require in ads this should be fixed
 window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
-if(!window.Mercury.Modules.Ads) {
+if (!window.Mercury.Modules.Ads) {
 	window.Mercury.Modules.Ads = Ads;
 }
 

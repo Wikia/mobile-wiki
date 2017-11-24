@@ -67,7 +67,7 @@ export default Component.extend({
 		return `${vertical}-vertical`;
 	}),
 
-	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', function () {
+	fandomAppSmartBannerObserver: observer('isFandomAppSmartBannerVisible', () => {
 		if (true || inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 			scheduleOnce('afterRender', () => {
 				updateFeaturedVideoPosition();

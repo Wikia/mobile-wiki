@@ -8,7 +8,12 @@ import extend from '../utils/extend';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
-import {updateFeaturedVideoPosition, createPlayer, destroyPlayer, loadJWPlayerAssets} from '../modules/abtest/featured-video-render-order-helper';
+import {
+	updateFeaturedVideoPosition,
+	createPlayer,
+	destroyPlayer,
+	loadJWPlayerAssets
+} from '../modules/abtest/featured-video-render-order-helper';
 
 const scrollClassName = 'is-on-scroll-video';
 
@@ -59,7 +64,7 @@ export default Component.extend({
 					createPlayer(data.jsParams);
 				}
 			} else {
-				loadJWPlayerAssets(data.jsParams)
+				loadJWPlayerAssets(data.jsParams);
 			}
 		}
 	})),
