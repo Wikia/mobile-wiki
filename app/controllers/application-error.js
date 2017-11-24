@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import {computed} from '@ember/object';
+import {getProductionErrorMessage, canAttemptRefresh} from '../utils/errors';
 
 export default Controller.extend({
 	additionalData: computed(function () {
@@ -13,5 +14,14 @@ export default Controller.extend({
 			.replace(new RegExp('\\n', 'g'), '<br />');
 
 		return stackTrace ? stackTrace : 'No stack trace available';
+	}),
+
+	productionErrorContext: computed(function () {
+		const errorCode = this.get('controller.model.error.code');
+
+		return {
+			message: getProductionErrorMessage(errorCode),
+			canAttemptRefresh: canAttemptRefresh(errorCode)
+		};
 	})
 });
