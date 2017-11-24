@@ -6,7 +6,6 @@ import Controller, {inject as controller} from '@ember/controller';
 import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from '../utils/track';
 
 export default Controller.extend(
 	AlertNotificationsMixin,
@@ -54,14 +53,6 @@ export default Controller.extend(
 				domain: this.get('wikiVariables.dbName') ||
 				window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: this.get('wikiVariables.language')
-			});
-
-			// This event is for tracking mobile sessions between Mercury and WikiaMobile
-			// NOTE: this event won't have additional dimensions set up from API, ie. #19 (articleType)
-			track({
-				action: trackActions.impression,
-				category: 'app',
-				label: 'load'
 			});
 
 			this._super();
