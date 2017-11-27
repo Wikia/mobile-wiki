@@ -3,8 +3,6 @@ import Ads from '../ads';
 import JWPlayerVideoAds from '../video-players/jwplayer-video-ads';
 import {track} from '../../utils/track';
 
-let featuredVideoPlayer;
-
 export function initializeMobileWiki() {
 	if (!window.mobileWikiInitialized) {
 		window.mobileWikiInitialized = true;
@@ -18,7 +16,17 @@ export function initializeMobileWiki() {
 }
 
 export function setFeaturedVideoPlayer(player) {
-	featuredVideoPlayer = player;
+	window.featuredVideoPlayer = player;
+}
+
+function createCookie(name, value, days = 14) {
+	let expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = `${name}=${value}${expires}; path=/; domain=${M.getFromShoebox('runtimeConfig.cookieDomain')}`;
 }
 
 function onCreate(bidParams, player) {
@@ -28,6 +36,14 @@ function onCreate(bidParams, player) {
 		adsInstance.jwPlayerMoat(player);
 	}
 
+	player.on('autoplayToggle', ({enabled}) => {
+		createCookie('featuredVideoAutoplay', (enabled ? '1' : '0'));
+	});
+
+	player.on('captionsSelected', ({selectedLang}) => {
+		createCookie('featuredVideoCaptions', selectedLang);
+	});
+
 	player.once('adImpression', () => {
 		initializeMobileWiki();
 	});
@@ -35,6 +51,11 @@ function onCreate(bidParams, player) {
 	player.once('videoStart', () => {
 		initializeMobileWiki();
 	});
+
+	// initialize mobile wiki after 8 seconds if it hasn't been initialized yet
+	setTimeout(() => {
+		initializeMobileWiki();
+	}, 8000);
 
 	setFeaturedVideoPlayer(player);
 }
@@ -48,9 +69,9 @@ export function updateFeaturedVideoPosition() {
 }
 
 export function destroyPlayer() {
-	if (featuredVideoPlayer) {
-		featuredVideoPlayer.remove();
-		featuredVideoPlayer = null;
+	if (window.featuredVideoPlayer) {
+		window.featuredVideoPlayer.remove();
+		window.featuredVideoPlayer = null;
 	}
 }
 
@@ -67,16 +88,15 @@ export function initializePlayer(params, bidParams) {
 					track(data);
 				},
 				setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
-				// TODO comscore
-				// comscore: config.environment === 'production'
+				comscore: M.getFromShoebox('runtimeConfig.wikiaEnv') === 'prod'
 			},
 			settings: {
 				showAutoplayToggle: true,
 				showCaptions: true
 			},
 			selectedCaptionsLanguage: params.selectedCaptionsLanguage,
-			autoplay: true,
-			mute: true,
+			autoplay: params.autoplay,
+			mute: params.autoplay,
 			related: {
 				time: 3,
 				playlistId: params.recommendedVideoPlaylist || 'Y2RWCKuS',
@@ -115,4 +135,13 @@ export function loadJWPlayerAssets(params) {
 		createPlayer(params);
 		updateFeaturedVideoPosition();
 	}, 'anonymous');
+}
+
+export function getQueryParameterByName(name) {
+	name = name.replace(/[\[\]]/g, "\\$&");
+	const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(window.location.href);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }

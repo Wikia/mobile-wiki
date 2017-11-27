@@ -1,5 +1,5 @@
 import Ads from '../ads';
-import {loadJWPlayerAssets, initializeMobileWiki} from './featured-video-render-order-helper';
+import {loadJWPlayerAssets, initializeMobileWiki, getQueryParameterByName} from './featured-video-render-order-helper';
 import $ from 'jquery';
 
 const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.embed'),
@@ -7,8 +7,8 @@ const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.
 	adsUrl = `${wikiVariables.cdnRootUrl}/__am/${wikiVariables.cacheBuster}/groups/-/mercury_ads_js`,
 	adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
 	adsModule = Ads.getInstance(),
-	// TODO - it should be true for logged in users and when noads param is set
-	noAds = false,
+	noAdsQueryParam =  getQueryParameterByName('noads'),
+	noAds = (noAdsQueryParam && noAdsQueryParam !== '0') || !!M.getFromShoebox('userData'),
 	hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 
 
@@ -35,7 +35,3 @@ if (hasFeaturedVideo) {
 
 adsModule.init(adsUrl);
 adsModule.reloadAfterTransition(adsContext);
-
-// TODO setting autoplay/subtitles cookies
-
-
