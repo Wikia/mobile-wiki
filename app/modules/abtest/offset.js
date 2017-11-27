@@ -1,4 +1,4 @@
-export function offset(element) {
+export default function offset(element) {
 	if (!element) {
 		return;
 	}
