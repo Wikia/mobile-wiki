@@ -8,6 +8,12 @@ import extend from '../utils/extend';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
+import {
+	updateFeaturedVideoPosition,
+	createPlayer,
+	destroyPlayer,
+	loadJWPlayerAssets
+} from '../modules/abtest/featured-video-render-order-helper';
 
 const scrollClassName = 'is-on-scroll-video';
 
@@ -31,9 +37,36 @@ export default Component.extend({
 	// when navigating from one article to another with video, we need to destroy player and
 	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
 	// hook, however it is fired twice with new attributes.
-	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
-		this.destroyVideoPlayer();
-		this.initVideoPlayer();
+	videoIdObserver: on('didInsertElement', observer('articleId', function () {
+		if (false && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
+			this.destroyVideoPlayer();
+			this.initVideoPlayer();
+		} else {
+			const model = this.get('model.embed'),
+				jsParams = {
+					autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
+					selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+					adTrackingParams: {
+						adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
+						slotName: 'FEATURED'
+					},
+					containerId: this.get('videoContainerId'),
+					noAds: this.get('ads.noAds'),
+					onCreate: this.onCreate.bind(this),
+					lang: this.get('wikiVariables.language.content')
+				},
+				data = extend({}, model, {jsParams});
+
+			if (window.wikiaJWPlayer) {
+				updateFeaturedVideoPosition();
+				const fastbootArticleId = M.getFromShoebox('wikiPage.data.details.id');
+				if (fastbootArticleId !== this.get('articleId')) {
+					createPlayer(data.jsParams);
+				}
+			} else {
+				loadJWPlayerAssets(data.jsParams);
+			}
+		}
 	})),
 
 	actions: {
@@ -154,6 +187,7 @@ export default Component.extend({
 	},
 
 	willDestroyElement() {
+		destroyPlayer();
 		$(window).off('scroll', this.onScrollHandler);
 	},
 

@@ -8,12 +8,17 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build",
-    "build-prod": "ember build -prod",
+    "build": "npm run babel-render-order && ember build && npm run clean-render-order",
+    "babel-render-order-prod": "rm -rf compiled && mkdir compiled && browserify app/modules/abtest/featured-video-render-order.js -t [ babelify --presets [ es2015 ] ] | uglifyjs -cm > compiled/featured-video-render-order.js",
+    "babel-render-order": "rm -rf compiled && mkdir compiled && browserify app/modules/abtest/featured-video-render-order.js -o compiled/featured-video-render-order.js -t [ babelify --presets [ es2015 ] ]",
+    "babel-render-order-watch": "rm -rf compiled && mkdir compiled && watchify app/modules/abtest/featured-video-render-order.js -o compiled/featured-video-render-order.js -t [ babelify --presets [ es2015 ] ] -v",
+    "clean-render-order": "rm -rf compiled",
+    "build-prod": "npm run babel-render-order-prod && ember build -pro && npm run clean-render-order",
     "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
     "clean-deep": "npm run clean && bower cache clean",
     "crowdin": "bash ./tasks/download-translations.sh",
-    "dev": "ember serve",
+    "dev": "npm run babel-render-order && npm-run-all --parallel serve babel-render-order-watch",
+    "serve": "ember serve",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember serve --no-build",
     "fastboot-server": "node fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
@@ -43,6 +48,10 @@
     "snyk": "^1.41.1"
   },
   "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-preset-es2015": "6.22.0",
+    "babelify": "8.0.0",
     "bower": "1.8.2",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
@@ -97,10 +106,13 @@
     "loader.js": "4.6.0",
     "mercury-shared": "github:wikia/mercury-shared#2.1.0",
     "moment": "2.18.1",
+    "npm-run-all": "4.1.2",
     "numeral": "2.0.6",
     "proxying-agent": "2.1.1",
     "tslint": "5.7.0",
-    "typescript": "2.5.2"
+    "typescript": "2.5.2",
+    "uglify-js": "3.1.10",
+    "watchify": "3.9.0"
   },
   "ember-addon": {
     "paths": [

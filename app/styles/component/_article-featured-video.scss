@@ -82,3 +82,10 @@
 		margin-right: 0;
 	}
 }
+
+// AB TEST: FEATURED_VIDEO_VIEWABILITY_VARIANTS=RENDER_ORDER
+#pre-featured-video-wrapper {
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+}
