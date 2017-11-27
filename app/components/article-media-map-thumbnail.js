@@ -1,6 +1,5 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
-import {track, trackActions} from '../utils/track';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
@@ -18,12 +17,6 @@ export default Component.extend(RenderComponentMixin, {
 
 		if (url) {
 			this.get('logger').debug('Handling map with id:', id, 'and title:', title);
-
-			track({
-				action: trackActions.click,
-				category: 'map',
-				label: 'open'
-			});
 
 			this.get('openLightbox')('map', {
 				id,
