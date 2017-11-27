@@ -7,7 +7,7 @@ const featuredVideoData = M.getFromShoebox('wikiPage.data.article.featuredVideo.
 	adsUrl = `${wikiVariables.cdnRootUrl}/__am/${wikiVariables.cacheBuster}/groups/-/mercury_ads_js`,
 	adsContext = M.getFromShoebox('wikiPage.data.adsContext'),
 	adsModule = Ads.getInstance(),
-	noAdsQueryParam =  getQueryParameterByName('noads'),
+	noAdsQueryParam = getQueryParameterByName('noads'),
 	noAds = (noAdsQueryParam && noAdsQueryParam !== '0') || !!M.getFromShoebox('userData'),
 	hasFeaturedVideo = M.getFromShoebox('wikiPage.data.article.featuredVideo');
 

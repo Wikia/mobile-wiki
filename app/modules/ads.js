@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import {offset} from './dom-helper';
+import offset from './abtest/offset';
 import {Promise} from 'rsvp';
 
 /**
