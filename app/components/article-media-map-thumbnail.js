@@ -19,12 +19,6 @@ export default Component.extend(RenderComponentMixin, {
 		if (url) {
 			this.get('logger').debug('Handling map with id:', id, 'and title:', title);
 
-			track({
-				action: trackActions.click,
-				category: 'map',
-				label: 'open'
-			});
-
 			this.get('openLightbox')('map', {
 				id,
 				title,
