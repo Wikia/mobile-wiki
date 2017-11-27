@@ -21,7 +21,7 @@ module.exports = function (environment) {
 		},
 		weppy: {
 			enabled: false,
-			host: 'http://speed.wikia.net/__rum',
+			host: 'https://speed.nocookie.net/__rum',
 			samplingRate: 0.1,
 			aggregationInterval: 1000
 		},
@@ -44,11 +44,6 @@ module.exports = function (environment) {
 				ads: {
 					prefix: 'ads',
 					id: 'UA-32129071-1',
-					sampleRate: 100
-				},
-				special: {
-					prefix: 'special',
-					id: 'UA-32132943-1',
 					sampleRate: 100
 				},
 				scriptUrl: 'https://www.google-analytics.com/analytics.js'

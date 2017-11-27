@@ -4,8 +4,10 @@ import EmberObject, {computed} from '@ember/object';
 import Component from '@ember/component';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	InViewportMixin,
 	{
 		classNames: ['article-media-gallery'],
