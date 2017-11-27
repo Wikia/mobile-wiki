@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import DomHelper from './dom-helper';
+import {offset} from './dom-helper';
 import {Promise} from 'rsvp';
 
 /**
@@ -355,7 +355,7 @@ class Ads {
 
 	isInContentApplicable() {
 		const firstSection = document.querySelector('.article-content > h2'),
-			firstSectionTop = (firstSection && DomHelper.offset(firstSection).top) || 0,
+			firstSectionTop = (firstSection && offset(firstSection).top) || 0,
 			hasCuratedContent = document.querySelector('.curated-content');
 
 		if (this.getTargetingValue('pageType') === 'home') {

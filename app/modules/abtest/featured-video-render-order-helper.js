@@ -1,4 +1,4 @@
-import DomHelper from '../dom-helper';
+import {offset} from '../dom-helper';
 import Ads from '../ads';
 import JWPlayerVideoAds from '../video-players/jwplayer-video-ads';
 import {track} from '../../utils/track';
@@ -20,11 +20,11 @@ export function setFeaturedVideoPlayer(player) {
 }
 
 function createCookie(name, value, days = 14) {
-	let expires = "";
+	let expires = '';
 	if (days) {
 		var date = new Date();
 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		expires = "; expires=" + date.toUTCString();
+		expires = `; expires=${date.toUTCString()}`;
 	}
 	document.cookie = `${name}=${value}${expires}; path=/; domain=${M.getFromShoebox('runtimeConfig.cookieDomain')}`;
 }
@@ -52,6 +52,10 @@ function onCreate(bidParams, player) {
 		initializeMobileWiki();
 	});
 
+	player.once('setupError', () => {
+		initializeMobileWiki();
+	});
+
 	// initialize mobile wiki after 8 seconds if it hasn't been initialized yet
 	setTimeout(() => {
 		initializeMobileWiki();
@@ -63,7 +67,7 @@ function onCreate(bidParams, player) {
 export function updateFeaturedVideoPosition() {
 	const articleFeaturedVideoElement = document.querySelector('.article-featured-video');
 	if (articleFeaturedVideoElement) {
-		const videoOffset = DomHelper.offset(articleFeaturedVideoElement);
+		const videoOffset = offset(articleFeaturedVideoElement);
 		document.querySelector('#pre-featured-video-wrapper').style.top = `${videoOffset.top}px`;
 	}
 }

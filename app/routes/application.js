@@ -95,7 +95,7 @@ export default Route.extend(
 			) {
 				const adsModule = this.get('ads.module');
 
-				if (false) {
+				if (!inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'RENDER_ORDER')) {
 					adsModule.init(this.get('ads.adsUrl'));
 				}
 				/*
