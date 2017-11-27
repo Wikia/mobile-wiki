@@ -2,6 +2,7 @@ import $ from 'jquery';
 import {observer} from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
+import RenderComponentMixin from '../mixins/render-component';
 
 /**
  * Widgets
@@ -22,6 +23,7 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
  */
 
 export default Component.extend(
+	RenderComponentMixin,
 	WidgetScriptStateMixin,
 	{
 		classNames: ['widget-vk'],

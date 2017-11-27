@@ -1,5 +1,10 @@
 import {defineError} from 'ember-exex/error';
 
+const errorsMap = {
+	403: 'You do not have permissions to view this page.',
+	default: 'Sorry, we couldn\'t load the page. Please try again.'
+};
+
 const DesignSystemFetchError = defineError({
 	name: 'DesignSystemFetchError',
 	message: `Design System data couldn't be fetched`
@@ -56,6 +61,14 @@ const getFetchErrorMessage = function (response) {
 	}
 };
 
+const canAttemptRefresh = function (errorCode) {
+	return typeof errorCode === 'number' && errorCode >= 500;
+};
+
+const getProductionErrorMessage = function (errorCode) {
+	return errorsMap[errorCode] || errorsMap.default;
+};
+
 export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
@@ -67,4 +80,6 @@ export {
 	TrackingDimensionsFetchError,
 	WikiPageFetchError,
 	WikiVariablesFetchError,
+	canAttemptRefresh,
+	getProductionErrorMessage
 };

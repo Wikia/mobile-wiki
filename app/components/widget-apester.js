@@ -1,7 +1,8 @@
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(WidgetScriptStateMixin, {
+export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
 	classNames: ['widget-apester'],
 	data: null,
 

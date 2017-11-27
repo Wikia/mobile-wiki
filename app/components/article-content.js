@@ -53,6 +53,7 @@ export default Component.extend(
 
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
+
 					this.renderedComponents = this.renderedComponents.concat(
 						queryPlaceholders(this.$())
 							.map(getAttributesForMedia, {

@@ -1,8 +1,9 @@
 import {scheduleOnce} from '@ember/runloop';
 import {observer} from '@ember/object';
 import Component from '@ember/component';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend({
+export default Component.extend(RenderComponentMixin, {
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
 	modelObserver: observer('model', function () {

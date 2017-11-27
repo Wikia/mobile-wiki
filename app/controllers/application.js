@@ -6,13 +6,10 @@ import Controller, {inject as controller} from '@ember/controller';
 import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
-import ConnectionTypeMixin from '../mixins/connection-type';
-import {track, trackActions} from '../utils/track';
 
 export default Controller.extend(
 	AlertNotificationsMixin,
 	NoScrollMixin,
-	ConnectionTypeMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
@@ -57,23 +54,7 @@ export default Controller.extend(
 				language: this.get('wikiVariables.language')
 			});
 
-			// This event is for tracking mobile sessions between Mercury and WikiaMobile
-			// NOTE: this event won't have additional dimensions set up from API, ie. #19 (articleType)
-			track({
-				action: trackActions.impression,
-				category: 'app',
-				label: 'load'
-			});
-
 			this._super();
-
-			if (this.get('effectiveConnectionType')) {
-				track({
-					action: trackActions.view,
-					category: 'connection-type',
-					label: this.get('effectiveConnectionType')
-				});
-			}
 		},
 
 		actions: {

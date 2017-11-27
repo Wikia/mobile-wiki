@@ -1,8 +1,10 @@
 import Component from '@ember/component';
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../utils/track';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	LanguagesMixin,
 	{
 		classNames: ['contribution-container'],
