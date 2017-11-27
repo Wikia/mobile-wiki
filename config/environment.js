@@ -46,11 +46,6 @@ module.exports = function (environment) {
 					id: 'UA-32129071-1',
 					sampleRate: 100
 				},
-				special: {
-					prefix: 'special',
-					id: 'UA-32132943-1',
-					sampleRate: 100
-				},
 				scriptUrl: 'https://www.google-analytics.com/analytics.js'
 			},
 			quantcast: {
