@@ -29,6 +29,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ad-engine": "git+ssh://git@github.com/Wikia/ad-engine.git#v6.1.0",
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.1",

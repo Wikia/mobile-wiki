@@ -1,3 +1,5 @@
+import {isProperGeo} from '../utils/fixme/geo';
+
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {getOwner} from '@ember/application';
@@ -81,6 +83,7 @@ export default Route.extend(
 
 		afterModel(model, transition) {
 			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {},
+				isAdEngine3Enabled = isProperGeo(instantGlobals.wgAdDriverAdEngine3Countries),
 				fastboot = this.get('fastboot');
 
 			this._super(...arguments);
@@ -91,7 +94,8 @@ export default Route.extend(
 				!fastboot.get('isFastBoot') &&
 				this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury
+				!instantGlobals.wgSitewideDisableAdsOnMercury &&
+				!isAdEngine3Enabled
 			) {
 				const adsModule = this.get('ads.module');
 
@@ -122,6 +126,15 @@ export default Route.extend(
 				adsModule.setSiteHeadOffset = (offset) => {
 					this.set('ads.siteHeadOffset', offset);
 				};
+			}
+
+			if (
+				!fastboot.get('isFastBoot') &&
+				!transition.queryParams.noexternals &&
+				!instantGlobals.wgSitewideDisableAdsOnMercury &&
+				isAdEngine3Enabled
+			) {
+				console.warn('Run ad-engine!!!');
 			}
 
 			if (fastboot.get('isFastBoot')) {
