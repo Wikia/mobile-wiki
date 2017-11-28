@@ -10,15 +10,14 @@
   "scripts": {
     "build": "ember build",
     "build-prod": "ember build -prod",
-    "clean": "rm -rf node_modules/ bower_components/ dist/ tmp/",
-    "clean-deep": "npm run clean && bower cache clean",
+    "clean": "rm -rf node_modules/ dist/ tmp/",
     "crowdin": "bash ./tasks/download-translations.sh",
     "dev": "ember serve",
     "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember serve --no-build",
     "fastboot-server": "node fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
-    "setup": "npm install && bower update",
+    "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
   },
@@ -34,16 +33,24 @@
     "compression": "1.7.1",
     "cors": "2.8.4",
     "deep-extend": "0.5.0",
+    "design-system": "github:wikia/design-system#8.11.2",
+    "ember-hammer": "github:hakubo/ember-hammer#8ef8c6688e1f95c88376bc32499b688782143e75",
     "express-bunyan-logger": "1.3.2",
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
+    "hammerjs": "2.0.8",
+    "jquery.cookie": "1.4.1",
     "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.0.25",
     "method-override": "2.3.10",
     "on-headers": "1.0.1",
-    "snyk": "^1.41.1"
+    "scriptjs": "2.5.8",
+    "snyk": "^1.41.1",
+    "vignette": "github:wikia/vignette-js#2.6.0",
+    "visit-source": "github:Wikia/visit-source#0.1.1",
+    "weppy": "github:wikia/weppy#v0.9.3",
+    "wikia-style-guide": "github:Wikia/style-guide#v1.9.0"
   },
   "devDependencies": {
-    "bower": "1.8.2",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "2.0.0",
@@ -80,6 +87,7 @@
     "ember-exex": "0.1.13",
     "ember-export-application-global": "2.0.0",
     "ember-fetch": "3.3.1",
+    "ember-headroom": "1.1.1",
     "ember-in-viewport": "2.1.1",
     "ember-load-initializers": "1.0.0",
     "ember-resolver": "4.5.0",
@@ -105,7 +113,7 @@
   "ember-addon": {
     "paths": [
       "lib/fastboot-require",
-      "lib/include-bower-directory",
+      "lib/include-node-modules",
       "lib/fastboot-server"
     ]
   },

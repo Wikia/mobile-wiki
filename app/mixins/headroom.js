@@ -1,6 +1,7 @@
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import Mixin from '@ember/object/mixin';
+import Headroom from 'headroom';
 
 export default Mixin.create({
 	headroom: null,

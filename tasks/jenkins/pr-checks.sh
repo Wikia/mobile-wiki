@@ -61,41 +61,14 @@ setupNpm() {
 	fi
 }
 
-# $1 - directory
-setupBower() {
-	oldPath=$(pwd)
-	md5old=$(md5sum ${dependenciesDir}${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum .${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="${dependenciesDir}${1}bower_components .${1}bower_components"
-
-	if [ "$md5new" = "$md5old" ]
-	then
-		ln -s $sourceTarget
-	else
-		cp -R $sourceTarget
-		updateGit "Setup" pending "updating bower components in .${1}"
-		cd ".${1}"
-		bower update || error=true
-		cd $oldPath
-
-		if [[ ! -z $error ]]
-		then
-			updateGit "Setup" failure "failed on: updating bower components in .${1}"
-			failTests && exit 1
-		fi
-	fi
-}
-
 ### Set pending status to all tasks
 updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
 
-### Setup - node_modules and bower components
+### Setup - node_modules
 setupNpm "/"
-
-setupBower "/"
 
 if [ -z $error ]
 then

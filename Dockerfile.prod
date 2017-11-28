@@ -4,10 +4,6 @@ WORKDIR /app
 
 # move files to cache installing of dependencies
 COPY package.json .
-COPY bower.json .
-
-# bower workaround
-RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # create group and user
     addgroup -S mobile-wiki && \
@@ -23,7 +19,6 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    node_modules/.bin/bower cache clean && \
     npm cache clean --force
 
 USER docker_user

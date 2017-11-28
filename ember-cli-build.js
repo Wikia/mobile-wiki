@@ -77,8 +77,8 @@ module.exports = function (defaults) {
 		},
 		sassOptions: {
 			includePaths: [
-				'bower_components/wikia-style-guide/src/scss',
-				'bower_components/design-system/dist/scss'
+				'node_modules/wikia-style-guide/src/scss',
+				'node_modules/design-system/dist/scss'
 			],
 			onlyIncluded: true
 		},
@@ -98,7 +98,7 @@ module.exports = function (defaults) {
 		}
 	});
 
-	const designSystemAssets = new Funnel(`${app.bowerDirectory}/design-system/dist/svg/sprite.svg`, {
+	const designSystemAssets = new Funnel('node_modules/design-system/dist/svg/sprite.svg', {
 		destDir: 'assets/design-system.svg'
 	});
 

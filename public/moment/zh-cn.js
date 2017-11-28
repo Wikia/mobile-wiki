@@ -7,7 +7,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined'
 	&& typeof mequire === 'function' ? factory(mequire('../moment')) :
-		typeof mefine === 'function' && mefine.amd ? mefine(['../../bower_components/moment/moment'], factory) :
+		typeof mefine === 'function' && mefine.amd ? mefine(['../../node_modules/moment/moment'], factory) :
 			factory(global.moment)
 }(this, function (moment) {
 	'use strict';
