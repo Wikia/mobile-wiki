@@ -110,6 +110,10 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
+	// Import files from node_modules, they will run both in FastBoot and browser
+	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
+	app.import('node_modules/vignette/dist/vignette.js');
+
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
