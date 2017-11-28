@@ -20,13 +20,13 @@ Open http://muppet.yourname.wikia-dev.pl/wiki/Kermit from mobile device or while
 Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wiki/Kermit"`
 
 ## Scripts
-* `npm run setup` - install all dependencies, including node modules
+* `npm run setup` - install all dependencies
 * `npm run build` - build files for dev environment
 * `npm run build-prod` - build files for prod environment
 * `npm run fastboot-server` - run built application (**requires application to be build first**)
 * `npm run dev` - build, run application and watch files
 * `npm run test` - run tests
-* `npm run linter` - run ESLint on all js files
+* `npm run linter` - run ESLint on files that are outside ember project
 * `npm run clean` - remove all dependencies and build directory
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
 * (Experimental) `npm run fastboot-debug` - build and run application in debugging mode. Server side code can be interrupted by debuggers.
