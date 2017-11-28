@@ -3,8 +3,9 @@ import Component from '@ember/component';
 import {Promise} from 'rsvp';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track} from '../utils/track';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend({
+export default Component.extend(RenderComponentMixin, {
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
 	/**

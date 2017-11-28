@@ -20,11 +20,12 @@ function getCacheKey(lang) {
  */
 function getFromCache(browserLang) {
 	const key = getCacheKey(browserLang),
-		value = JSON.parse(localStorageConnector.getItem(key)),
+		valueJson = localStorageConnector.getItem(key) || '{}',
+		value = JSON.parse(valueJson),
 		now = new Date().getTime();
 
 	// we cache for 30 days (2592000000)
-	if (!value || now - value.timestamp > 2592000000) {
+	if (!value.model || now - value.timestamp > 2592000000) {
 		return null;
 	}
 

@@ -5,8 +5,10 @@ import {dasherize} from '@ember/string';
 import {on} from '@ember/object/evented';
 import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
+import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
+	RenderComponentMixin,
 	InViewportMixin,
 	{
 		classNames: ['ad-slot-wrapper'],
