@@ -1,4 +1,4 @@
-<div {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
+<div role="button" {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
 	{{i18n 'article.comments-label' count=commentsCount}}
 	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 </div>

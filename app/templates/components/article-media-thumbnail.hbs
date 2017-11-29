@@ -4,7 +4,8 @@
 		<a href="{{href}}">{{svg 'wds-icons-download' viewBox='0 0 24 24' class='icon'}}</a>
 	{{else}}
 		<a href="{{href}}">
-			<img src="{{thumbnailUrl}}"
+			<img alt="{{title}}"
+				 src="{{thumbnailUrl}}"
 				 height="{{if forcedHeight forcedHeight height}}"
 				 width="{{if forcedWidth forcedWidth width}}">
 			{{#if isLinkedByUser}}

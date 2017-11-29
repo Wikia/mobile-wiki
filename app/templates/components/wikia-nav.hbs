@@ -1,7 +1,7 @@
 {{#if model.inRoot}}
 	{{#if isUserAuthenticated}}
 		<div class="wikia-nav__header">
-			<a {{action 'onUsernameClicked'}}
+			<a role="link" {{action 'onUsernameClicked'}}
 					class="wikia-nav--external wikia-nav--profile-link">
 				<figure class="wikia-nav__avatar user-profile-avatar">
 					{{#if unreadCount}}
@@ -14,7 +14,7 @@
 			</a>
 		</div>
 	{{else}}
-		<a class="wikia-nav__header" {{action 'goToLogin'}}>
+		<a class="wikia-nav__header" role="link" {{action 'goToLogin'}}>
 			<figure class="wikia-nav__avatar">
 				{{svg 'avatar' class='wikia-nav--login'}}
 			</figure>
