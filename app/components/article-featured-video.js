@@ -15,9 +15,12 @@ import {
 	loadJWPlayerAssets
 } from '../modules/abtest/featured-video-render-order-helper';
 
+// FIXME: After FeaturedVideo AB test is finished, consider removing inclusion of this mixin
+import RenderComponentMixin from '../mixins/render-component';
+
 const scrollClassName = 'is-on-scroll-video';
 
-export default Component.extend({
+export default Component.extend(RenderComponentMixin, {
 	classNames: ['article-featured-video'],
 
 	ads: service(),
