@@ -4,7 +4,7 @@
 	{{site-head
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
-		globalNavigation=this.attrs.globalNavigation
+		globalNavigation=globalNavigation
 		isFandomAppSmartBannerVisible=isFandomAppSmartBannerVisible
 		isSearchPage=isSearchPage
 		shadow=siteHeadShadow
@@ -26,9 +26,9 @@
 				setDrawerContent=(action 'setDrawerContent')
 				closeDrawer=(action 'closeDrawer')
 				outsideSuggestionsClickAction=(action 'closeDrawer')
-				loadRandomArticle=this.attrs.loadRandomArticle
-				globalNavigation=this.attrs.globalNavigation
-				goToSearchResults=this.attrs.goToSearchResults
+				loadRandomArticle=loadRandomArticle
+				globalNavigation=globalNavigation
+				goToSearchResults=goToSearchResults
 				noScroll=true
 				focusInput=true
 			}}
@@ -48,8 +48,8 @@
 		model=lightboxModel
 		isVisible=lightboxVisible
 		lightboxCloseButtonDelay=lightboxCloseButtonDelay
-		closeLightbox=(action 'attrs.closeLightbox')
-		setQueryParam=(action 'attrs.setQueryParam')
+		closeLightbox=(action 'closeLightbox')
+		setQueryParam=(action 'setQueryParam')
 	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}

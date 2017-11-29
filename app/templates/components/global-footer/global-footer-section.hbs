@@ -11,11 +11,11 @@
 		{{#each model.links as |link|}}
 			<li class="wds-global-footer__links-list-item">
 				{{#if (equal 'link-image' link.type)}}
-					{{global-footer/global-footer-link-image model=link track=this.attrs.track}}
+					{{global-footer/global-footer-link-image model=link track=track}}
 				{{else if (equal 'link-branded' link.type)}}
-					{{global-footer/global-footer-link-branded model=link track=this.attrs.track}}
+					{{global-footer/global-footer-link-branded model=link track=track}}
 				{{else}}
-					{{global-footer/global-footer-link-text model=link track=this.attrs.track}}
+					{{global-footer/global-footer-link-text model=link track=track}}
 				{{/if}}
 			</li>
 		{{/each}}
