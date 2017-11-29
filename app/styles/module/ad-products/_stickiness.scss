@@ -1,0 +1,10 @@
+.gpt-ad.bfaa-template.sticky-bfaa {
+	background: #FFF;
+	left: 0;
+	padding: 0;
+	position: fixed;
+	transform: translate3d(0, 0, 0); // GPU acceleration
+	transition: top 1s;
+	width: 100%;
+	z-index: 5000101;
+}
