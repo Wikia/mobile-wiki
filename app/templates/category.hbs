@@ -1,14 +1,14 @@
 <div id="wikiContainer" class="wiki-container">
 	{{#article-wrapper
-		articleRendered='articleRendered'
+		articleRendered=(action 'articleRendered')
 		displayEmptyArticleInfo=false
-		edit='edit'
+		edit=(action 'edit')
 		mainPageTitle=mainPageTitle
 		model=model
-		openLightbox='openLightbox'
+		openLightbox=(action 'openLightbox')
 		showComments=false
 		siteName=siteName
-		toggleDrawer='toggleDrawer'
+		toggleDrawer=(action 'toggleDrawer')
 		wikiPageHeaderSubtitle=(i18n 'category-page.subtitle')
 	}}
 		{{#if model.trendingArticles}}

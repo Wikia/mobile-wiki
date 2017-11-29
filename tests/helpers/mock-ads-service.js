@@ -3,14 +3,17 @@ import {registerHelper} from '@ember/test';
 
 export default registerHelper('mockAdsService', () => {
 	mockService(Service.extend({
-		module: {
-			pushSlotToQueue() {},
-			onReady() {},
-			onTransition() {},
-			reload() {},
-			reloadAfterTransition() {},
-			removeSlot() {},
-			waitForUapResponse() {}
+
+		init() {
+			this.module = {
+				pushSlotToQueue() {},
+				onReady() {},
+				onTransition() {},
+				reload() {},
+				reloadAfterTransition() {},
+				removeSlot() {},
+				waitForUapResponse() {}
+			};
 		},
 		destroyAdSlotComponents() {},
 		pushAdSlotComponent() {}

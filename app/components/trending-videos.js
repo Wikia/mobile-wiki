@@ -15,6 +15,7 @@ export default Component.extend({
 				media: video,
 			});
 
+			/* eslint ember/closure-actions:0 */
 			this.sendAction('openLightbox', 'media', {
 				media: mediaModel,
 				mediaRef: 0,

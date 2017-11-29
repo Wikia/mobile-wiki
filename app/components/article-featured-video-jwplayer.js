@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
-import {observer, computed} from '@ember/object';
+import {computed, reads} from '@ember/object';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import config from '../config/environment';
@@ -13,17 +13,18 @@ export default Component.extend({
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
 	playerCookieExpireDays: 14,
-	placeholderImage: computed('model', function () {
-		return this.get('model.embed.jsParams.playlist.0.image');
-	}),
+	placeholderImage: reads('model.embed.jsParams.playlist.0.image'),
 
-	// when navigating from one article to another with video, we need to destroy player and
-	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
-	// hook, however it is fired twice with new attributes.
-	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
+	didUpdateAttrs() {
+		// todo: is it fired twice?
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
-	})),
+	},
+
+	didInsertElement() {
+		this.destroyVideoPlayer();
+		this.initVideoPlayer();
+	},
 
 	init() {
 		this._super(...arguments);

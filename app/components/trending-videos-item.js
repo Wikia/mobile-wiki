@@ -46,7 +46,7 @@ export default Component.extend(
 				category: 'main-page-trending-videos',
 				label: `open-item-${this.get('index')}`
 			});
-			this.sendAction('action', this.get('video'));
+			this.get('action')(this.get('video'));
 
 			return false;
 		},

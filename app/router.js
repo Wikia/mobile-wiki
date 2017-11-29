@@ -20,8 +20,8 @@ Router.map(function () {
 		path: '/wiki/*title'
 	});
 
-	this.route('articleEdit', {
-		path: '/wiki/edit/:title/:sectionIndex'
+	this.route('article-edit', {
+		path: '/wiki/edit/:title/:section_index'
 	});
 });
 

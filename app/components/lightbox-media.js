@@ -23,7 +23,7 @@ export default Component.extend(
 		/**
 		 * gets current media from model
 		 */
-		current: computed('model.media', 'model.mediaRef', function () {
+		current: computed('model.{media, mediaRef}', function () {
 			const mediaModel = this.get('model.media');
 
 			if (mediaModel instanceof MediaModel) {
@@ -85,6 +85,7 @@ export default Component.extend(
 			this.updateState();
 		}),
 
+		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {void}
@@ -188,7 +189,7 @@ export default Component.extend(
 			this.updateHeader();
 			this.updateFooter();
 
-			this.sendAction('setQueryParam', 'file', normalizeToUnderscore(this.get('currentMedia.title')));
+			this.get('setQueryParam')('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**
@@ -201,7 +202,7 @@ export default Component.extend(
 				header = `${(this.get('currentGalleryRef') + 1)} / ${this.get('galleryLength')}`;
 			}
 
-			this.sendAction('setHeader', header);
+			this.get('setHeader')(header);
 		},
 
 		/**
@@ -211,9 +212,9 @@ export default Component.extend(
 			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', htmlSafe(currentMedia.caption));
+				this.get('setFooter')(htmlSafe(currentMedia.caption));
 			} else {
-				this.sendAction('setFooter', null);
+				this.get('setFooter')(null);
 			}
 		},
 	}

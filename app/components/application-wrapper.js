@@ -191,8 +191,8 @@ export default Component.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match(`^${window.location.origin}/a/.*/comments$`)) {
-				this.sendAction('closeLightbox');
-				this.sendAction('handleLink', target);
+				this.get('closeLightbox')();
+				this.get('handleLink', target)();
 			}
 		}
 	}

@@ -27,17 +27,22 @@ export default Component.extend(
 		currentUser: service(),
 		wikiVariables: service(),
 		displayEmptyArticleInfo: true,
-		hammerOptions: {
-			touchAction: 'auto',
-			cssProps: {
-				/**
-				 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
-				 * 'default' displays the callout
-				 * 'none' disables the callout
-				 * hammer.js sets it to 'none' by default so we have to override
-				 */
-				touchCallout: 'default',
-			}
+
+		init() {
+			this._super(...arguments);
+
+			this.hammerOptions = {
+				touchAction: 'auto',
+				cssProps: {
+					/**
+					 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+					 * 'default' displays the callout
+					 * 'none' disables the callout
+					 * hammer.js sets it to 'none' by default so we have to override
+					 */
+					touchCallout: 'default',
+				}
+			};
 		},
 
 		/**
@@ -95,15 +100,6 @@ export default Component.extend(
 
 		actions: {
 			/**
-			 * @param {string} title
-			 * @param {number} sectionIndex
-			 * @returns {void}
-			 */
-			edit(title, sectionIndex) {
-				this.sendAction('edit', title, sectionIndex);
-			},
-
-			/**
 			 * @param {string} lightboxType
 			 * @param {*} lightboxData
 			 * @returns {void}
@@ -115,7 +111,7 @@ export default Component.extend(
 					label: 'open'
 				});
 
-				this.sendAction('openLightbox', lightboxType, lightboxData);
+				this.get('openLightbox')(lightboxType, lightboxData);
 			},
 
 			trackClick(category, label) {
@@ -124,10 +120,6 @@ export default Component.extend(
 					category,
 					label
 				});
-			},
-
-			toggleSiteHeadShadow(visible) {
-				this.sendAction('toggleSiteHeadShadow', visible);
 			}
 		},
 
@@ -136,7 +128,7 @@ export default Component.extend(
 		 */
 		didInsertElement() {
 			scheduleOnce('afterRender', this, () => {
-				this.sendAction('articleRendered');
+				this.get('articleRendered')();
 			});
 		},
 	}

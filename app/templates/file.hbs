@@ -2,13 +2,13 @@
 	{{!TODO handle video player XW-2605}}
 	{{!TODO files without thumbnails}}
 	{{#article-wrapper
-		articleRendered='articleRendered'
+		articleRendered=(action 'articleRendered')
 		displayEmptyArticleInfo=false
 		model=model
-		openLightbox='openLightbox'
+		openLightbox=(action 'openLightbox')
 		showComments=false
 		siteName=siteName
-		toggleDrawer='toggleDrawer'
+		toggleDrawer=(action 'toggleDrawer')
 		wikiPageHeaderSubtitle=(i18n 'file-page.subtitle')
 	}}
 		{{#if model.fileUsageList}}

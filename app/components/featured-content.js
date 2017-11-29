@@ -53,6 +53,7 @@ export default Component.extend(
 			return 0;
 		}),
 
+		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {void}
@@ -97,15 +98,16 @@ export default Component.extend(
 			return this.get('model.length') - 1;
 		}),
 
-		/**
-		 * Keep pagination up to date
-		 */
-		currentItemIndexObserver: on('didInsertElement', observer('currentItemIndex', function () {
+		updatePagination() {
 			const $pagination = this.$('.featured-content-pagination');
 
 			$pagination.find('.current').removeClass('current');
 			$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
-		})),
+		},
+
+		keepPaginationUpToDate: observer('currentItemIndex', function () {
+			this.updatePagination();
+		}),
 
 		/**
 		 * @returns {void}
@@ -224,6 +226,7 @@ export default Component.extend(
 		 */
 		didInsertElement() {
 			this.cycleThroughItems();
+			this.updatePagination();
 		},
 
 		/**

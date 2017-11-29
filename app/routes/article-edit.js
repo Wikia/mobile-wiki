@@ -37,7 +37,7 @@ export default Route.extend(
 		 */
 		renderTemplate() {
 			this.render('article-edit', {
-				controller: 'articleEdit'
+				controller: 'article-edit'
 			});
 		},
 

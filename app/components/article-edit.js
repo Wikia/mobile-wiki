@@ -13,24 +13,8 @@ export default Component.extend(
 			this.adjustTextareaHeight();
 		}),
 
-		adjustTextareaHeight: on('didInsertElement', () => {
-			$('textarea').css('height', $(window).height() - $('.sub-head').outerHeight());
-		}),
-
-		actions: {
-			/**
-			 * @returns {void}
-			 */
-			back() {
-				this.sendAction('back');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			publish() {
-				this.sendAction('publish');
-			},
-		},
+		didInsertElement() {
+			this.$('textarea').css('height', $(window).height() - $('.sub-head').outerHeight());
+		}
 	}
 );

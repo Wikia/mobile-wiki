@@ -30,7 +30,7 @@ export default Service.extend({
 	fastboot: service(),
 	logger: service(),
 	wikiVariables: service(),
-	rights: {},
+	rights: null,
 	isAuthenticated: bool('userId'),
 	language: computed('wikiVariables', function () {
 		return this.get('wikiVariables.language.content') || 'en';

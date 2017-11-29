@@ -8,6 +8,8 @@ export default Component.extend({
 	alert: null,
 	timeout: null,
 
+	action() {},
+
 	actions: {
 		/**
 		 * @returns {void}
@@ -50,6 +52,6 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	dismissNotification() {
-		this.sendAction('action', this.get('alert'));
+		this.get('action')(this.get('alert'));
 	},
 });

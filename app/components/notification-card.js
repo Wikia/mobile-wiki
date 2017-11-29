@@ -51,7 +51,7 @@ export default Component.extend(
 			});
 		}),
 
-		showSnippet: computed('model.title', 'model.type', function () {
+		showSnippet: computed('model.{title, type}', function () {
 			return !this.get('model.title') && this.isAnnouncement(this.get('model.type')) !== true;
 		}),
 
@@ -104,7 +104,7 @@ export default Component.extend(
 			return type === notificationTypes.announcement;
 		},
 
-		showAvatars: computed('model.totalUniqueActors', 'model.type', function () {
+		showAvatars: computed('model.{totalUniqueActors, type}', function () {
 			return this.get('model.totalUniqueActors') > 2 &&
 				this.isDiscussionReply(this.get('model.type'));
 		}),

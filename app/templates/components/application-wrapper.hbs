@@ -13,7 +13,7 @@
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
 		toggleDrawer=this.attrs.toggleDrawer
-		toggleSmartBannerVisibility=attrs.toggleSmartBanner
+		toggleSmartBannerVisibility=(action 'attrs.toggleSmartBanner')
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
@@ -37,7 +37,7 @@
 	{{#unless shouldShowFandomAppSmartBanner}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
-			toggleVisibility=attrs.toggleSmartBanner
+			toggleVisibility=(action 'attrs.toggleSmartBanner')
 		}}
 	{{/unless}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
@@ -48,8 +48,8 @@
 		model=lightboxModel
 		isVisible=lightboxVisible
 		lightboxCloseButtonDelay=lightboxCloseButtonDelay
-		closeLightbox=attrs.closeLightbox
-		setQueryParam=attrs.setQueryParam
+		closeLightbox=(action 'attrs.closeLightbox')
+		setQueryParam=(action 'attrs.setQueryParam')
 	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}

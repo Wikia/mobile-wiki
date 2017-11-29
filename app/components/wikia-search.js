@@ -25,12 +25,8 @@ export default Component.extend(
 	NoScrollMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
-		// key: phrase string, value: Array<SearchSuggestionItem>
-		cachedResults: {},
 		// How many items to store in the cachedResultsQueue
 		cachedResultsLimit: 100,
-		// string[] which holds in order of insertion, the keys for the cached items
-		cachedResultsQueue: [],
 		// in ms
 		debounceDuration: 250,
 		// Wether or not to apply styles on input when focused
@@ -39,19 +35,8 @@ export default Component.extend(
 		isLoadingResultsSuggestions: false,
 		phraseMinimalLength: 3,
 		query: '',
-		/**
-		 * A set (only keys used) of phrase strings that are currently being ajax'd so
-		 * we know not to perform another request.
-		 */
-		requestsInProgress: {},
 		searchRequestInProgress: false,
-		/**
-		 * This is what's currently displayed in the search results
-		 * @member {SearchSuggestionItem[]}
-		 */
-		suggestions: [],
 		suggestionsEnabled: true,
-
 		i18n: service(),
 		logger: service(),
 		wikiVariables: service(),
@@ -60,6 +45,26 @@ export default Component.extend(
 		hasSuggestions: notEmpty('suggestions'),
 		noScroll: oneWay('hasSuggestions'),
 		phrase: oneWay('query'),
+
+		init() {
+			/**
+			 * This is what's currently displayed in the search results
+			 * @member {SearchSuggestionItem[]}
+			 */
+			this.suggestions = [];
+
+			/**
+			 * A set (only keys used) of phrase strings that are currently being ajax'd so
+			 * we know not to perform another request.
+			 */
+			this.requestsInProgress = {};
+
+			// string[] which holds in order of insertion, the keys for the cached items
+			this.cachedResultsQueue = [];
+
+			// key: phrase string, value: Array<SearchSuggestionItem>
+			this.cachedResults = {};
+		},
 
 		searchPlaceholderLabel: computed(function () {
 			return this.get('i18n').t('search:main.search-input-label');
@@ -86,6 +91,7 @@ export default Component.extend(
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
+				/* eslint ember/closure-actions:0 */
 				this.sendAction('goToSearchResults', value);
 			},
 

@@ -15,13 +15,17 @@ export default Controller.extend({
 		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
 	}),
 
-	// FIXME: Cover more errors
-	errorCodeMap: {
-		autoblockedtext: 'edit.publish-error-autoblockedtext',
-		blocked: 'edit.publish-error-blocked',
-		noedit: 'edit.publish-error-noedit',
-		'noedit-anon': 'edit.publish-error-noedit-anon',
-		protectedpage: 'edit.publish-error-protectedpage'
+	init() {
+		this._super(...arguments);
+
+		// FIXME: Cover more errors
+		this.errorCodeMap = {
+			autoblockedtext: 'edit.publish-error-autoblockedtext',
+			blocked: 'edit.publish-error-blocked',
+			noedit: 'edit.publish-error-noedit',
+			'noedit-anon': 'edit.publish-error-noedit-anon',
+			protectedpage: 'edit.publish-error-protectedpage'
+		};
 	},
 
 	/**

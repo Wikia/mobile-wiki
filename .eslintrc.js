@@ -3,7 +3,13 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module'
 	},
-	extends: 'airbnb-base',
+	plugins: [
+		'ember'
+	],
+	extends: [
+		'airbnb-base',
+		'plugin:ember/recommended'
+	],
 	env: {
 		es6: true,
 		browser: true,
@@ -66,6 +72,11 @@ module.exports = {
 		"prefer-const": 0,
 		"prefer-rest-params": 0,
 		"quotes": [2, "single", {"allowTemplateLiterals": true}],
-		"wrap-iife": [2, "inside"]
+		"wrap-iife": [2, "inside"],
+
+		// Ember rules
+		// Disabled for now as it is broken with new imports
+		// https://github.com/ember-cli/eslint-plugin-ember/pull/186
+		"ember/no-global-jquery": 0
 	}
 };

@@ -16,7 +16,7 @@ export default Controller.extend(WikiPageControllerMixin, {
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			this.transitionToRoute('articleEdit', title, sectionIndex);
+			this.transitionToRoute('article-edit', title, sectionIndex);
 
 			track({
 				action: trackActions.click,

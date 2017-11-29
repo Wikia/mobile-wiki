@@ -16,9 +16,11 @@ const playerClassMap = {
 export default class VideoLoader {
 	/**
 	 * @param {*} data
+	 * @param noAds bool
 	 * @returns {void}
 	 */
-	constructor(data) {
+	constructor(data, noAds = false) {
+		data.noAds = noAds;
 		this.data = data;
 	}
 

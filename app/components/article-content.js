@@ -36,6 +36,7 @@ export default Component.extend(
 		isPreview: false,
 		media: null,
 
+		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
 			if (this.get('isFastBoot')) {
@@ -106,17 +107,6 @@ export default Component.extend(
 					label
 				});
 			}
-		},
-
-		actions: {
-			/**
-			 * @param {string} title
-			 * @param {number} sectionIndex
-			 * @returns {void}
-			 */
-			edit(title, sectionIndex) {
-				this.sendAction('edit', title, sectionIndex);
-			},
 		},
 
 		/**
