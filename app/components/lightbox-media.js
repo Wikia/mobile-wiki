@@ -23,7 +23,7 @@ export default Component.extend(
 		/**
 		 * gets current media from model
 		 */
-		current: computed('model.{media, mediaRef}', function () {
+		current: computed('model.{media,mediaRef}', function () {
 			const mediaModel = this.get('model.media');
 
 			if (mediaModel instanceof MediaModel) {
