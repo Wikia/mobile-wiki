@@ -104,7 +104,7 @@
     "form-data": "2.3.1",
     "i18next": "9.0.0",
     "loader.js": "4.6.0",
-    "mercury-shared": "github:wikia/mercury-shared#2.1.0",
+    "mercury-shared": "github:wikia/mercury-shared#2.1.1",
     "moment": "2.18.1",
     "npm-run-all": "4.1.2",
     "numeral": "2.0.6",
