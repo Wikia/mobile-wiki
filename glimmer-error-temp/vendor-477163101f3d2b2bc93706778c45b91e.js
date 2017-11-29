@@ -1367,7 +1367,6 @@ Ne(this,e),this._macros=null,this._transaction=null,this.program=new ir,this.app
 	if (window) {
 		if (this._transaction && window.wikiaLogEvent) {
 			window.wikiaLogEvent('glimmer error', {
-				transaction: this._transaction,
 				stacktrace: window.wikiaGlimmerErrorStackTrace
 			});
 		}
