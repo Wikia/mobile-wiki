@@ -12,8 +12,8 @@
 		shouldShowFandomAppSmartBanner=shouldShowFandomAppSmartBanner
 		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
-		toggleDrawer=(action 'toggleDrawer')
-		toggleSmartBannerVisibility=(action 'toggleSmartBanner')
+		toggleDrawer=toggleDrawer
+		toggleSmartBannerVisibility=toggleSmartBanner
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
@@ -37,7 +37,7 @@
 	{{#unless shouldShowFandomAppSmartBanner}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
-			toggleVisibility=(action 'attrs.toggleSmartBanner')
+			toggleVisibility=toggleSmartBanner
 		}}
 	{{/unless}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
