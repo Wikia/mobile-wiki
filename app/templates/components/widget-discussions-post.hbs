@@ -2,7 +2,7 @@
 	<div class="user-avatar">
 		<figure class="avatar">
 			<a href="{{post.createdBy.profileUrl}}">
-				<img src="{{post.createdBy.avatarUrl}}">
+				<img alt="user avatar" src="{{post.createdBy.avatarUrl}}">
 			</a>
 		</figure>
 		<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
@@ -20,7 +20,7 @@
 	<a class="post-details-link" href="/d/p/{{post.threadId}}">{{parsedContent}}</a>
 </div>
 {{#if post.openGraph}}
-	<a href="{{post.openGraph.uri}}" title="{{post.openGraph.title}}" target="_blank" class="og-container">
+	<a href="{{post.openGraph.uri}}" title="{{post.openGraph.title}}" target="_blank" rel="noopener" class="og-container">
 		{{#if openGraphImageUrl}}
 			<img class="og-image" src="{{openGraphImageUrl}}" alt="{{post.openGraph.title}}">
 		{{/if}}
@@ -51,7 +51,7 @@
 	</span>
 </div>
 <ul class="row post-actions">
-	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" {{action this.attrs.upvote post}}>
+	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action this.attrs.upvote post}}>
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>

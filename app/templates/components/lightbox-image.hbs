@@ -1,6 +1,6 @@
-{{#unless loadingError}}
-	<img class="current" src="{{imageSrc}}" style={{style}}>
-{{else}}
+{{#if loadingError}}
 	{{i18n 'app.media-lightbox-error'}}
-{{/unless}}
+{{else}}
+	<img alt="{{model.title}}" class="current" src="{{imageSrc}}" style={{style}}>
+{{/if}}
 {{wds-spinner active=isLoading overlay=false}}

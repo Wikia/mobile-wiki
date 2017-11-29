@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
+import {htmlSafe} from '@ember/string';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import config from '../config/environment';
@@ -15,6 +16,9 @@ export default Component.extend({
 	playerCookieExpireDays: 14,
 	placeholderImage: computed('model', function () {
 		return this.get('model.embed.jsParams.playlist.0.image');
+	}),
+	placeholderStyle: computed('placeholderImage', function () {
+		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
 	}),
 
 	// when navigating from one article to another with video, we need to destroy player and
