@@ -47,6 +47,8 @@ export default Component.extend(
 		phrase: oneWay('query'),
 
 		init() {
+			this._super(...arguments);
+
 			/**
 			 * This is what's currently displayed in the search results
 			 * @member {SearchSuggestionItem[]}
