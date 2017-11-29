@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package.json .
 
 # create group and user
-    addgroup -S mobile-wiki && \
+RUN addgroup -S mobile-wiki && \
     adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
     chmod 755 /app && \
 
