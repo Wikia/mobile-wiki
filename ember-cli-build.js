@@ -110,6 +110,7 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
+	app.import('node_modules/is-sorted/index.js');
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
