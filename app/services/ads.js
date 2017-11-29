@@ -26,9 +26,11 @@ export default Service.extend({
 	destroyAdSlotComponents() {
 		const adSlotComponents = this.get('adSlotComponents');
 
-		Object.keys(adSlotComponents).forEach((slotName) => {
-			adSlotComponents[slotName].destroy();
-		});
+		if (window.location.href !== 'http://ru.gameofthrones.wikia.com/wiki/%D0%A1%D0%B5%D0%B7%D0%BE%D0%BD_7') {
+			Object.keys(adSlotComponents).forEach((slotName) => {
+				adSlotComponents[slotName].destroy();
+			});
+		}
 
 		this.set('adSlotComponents', {});
 	}
