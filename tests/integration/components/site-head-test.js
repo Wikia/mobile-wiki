@@ -31,8 +31,8 @@ test('click search icon when already in search and drawer visible - hide menu', 
 
 	this.render(hbs`
 	{{site-head
-		toggleDrawer=(action 'toggleDrawer')
-		setDrawerContent=(action 'setDrawerContent')
+		toggleDrawer=(action toggleDrawer)
+		setDrawerContent=(action setDrawerContent)
 		drawerContent='search'
 		drawerVisible=true
 	}}`);
@@ -51,8 +51,8 @@ test('click search icon when already in search but drawer not visible - show sea
 
 	this.render(hbs`
 	{{site-head
-		toggleDrawer=(action 'toggleDrawer')
-		setDrawerContent=(action 'setDrawerContent')
+		toggleDrawer=(action toggleDrawer)
+		setDrawerContent=(action setDrawerContent)
 		drawerContent='search'
 		drawerVisible=false
 	}}`);
@@ -71,8 +71,8 @@ test('click search icon when already visible is navigation - show search', funct
 
 	this.render(hbs`
 	{{site-head
-		toggleDrawer=(action 'toggleDrawer')
-		setDrawerContent=(action 'setDrawerContent')
+		toggleDrawer=(action toggleDrawer)
+		setDrawerContent=(action setDrawerContent)
 		drawerContent='nav'
 		drawerVisible=true
 	}}`);
@@ -91,8 +91,8 @@ test('click nav icon when already visible is search - show nav', function (asser
 
 	this.render(hbs`
 	{{site-head
-		toggleDrawer=(action 'toggleDrawer')
-		setDrawerContent=(action 'setDrawerContent')
+		toggleDrawer=(action toggleDrawer)
+		setDrawerContent=(action setDrawerContent)
 		drawerContent='search'
 		drawerVisible=true
 	}}`);
