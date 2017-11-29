@@ -20,6 +20,10 @@ export default Component.extend(
 		tabindex: 0,
 		videoPlayer: null,
 
+		setFooter() {},
+		setQueryParam() {},
+		setHeader() {},
+
 		/**
 		 * gets current media from model
 		 */
