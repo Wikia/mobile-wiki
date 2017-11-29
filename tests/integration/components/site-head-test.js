@@ -21,14 +21,12 @@ moduleForComponent('site-head', 'Integration | Component | site head', {
 });
 
 test('click search icon when already in search and drawer visible - hide menu', function (assert) {
-	this.set('actions', {
-		toggleDrawer(value) {
-			assert.equal(value, false);
-		},
+	this.set('toggleDrawer', (value) => {
+		assert.equal(value, false);
+	});
 
-		setDrawerContent(value) {
-			assert.equal(value, false);
-		}
+	this.set('setDrawerContent', (value) => {
+		assert.equal(value, false);
 	});
 
 	this.render(hbs`
@@ -43,14 +41,12 @@ test('click search icon when already in search and drawer visible - hide menu', 
 });
 
 test('click search icon when already in search but drawer not visible - show search', function (assert) {
-	this.set('actions', {
-		toggleDrawer(value) {
-			assert.equal(value, true);
-		},
+	this.set('toggleDrawer', (value) => {
+		assert.equal(value, true);
+	});
 
-		setDrawerContent(value) {
-			assert.equal(value, 'search');
-		}
+	this.set('setDrawerContent', (value) => {
+		assert.equal(value, 'search');
 	});
 
 	this.render(hbs`
@@ -65,14 +61,12 @@ test('click search icon when already in search but drawer not visible - show sea
 });
 
 test('click search icon when already visible is navigation - show search', function (assert) {
-	this.set('actions', {
-		toggleDrawer(value) {
-			assert.equal(value, true);
-		},
+	this.set('toggleDrawer', (value) => {
+		assert.equal(value, true);
+	});
 
-		setDrawerContent(value) {
-			assert.equal(value, 'search');
-		}
+	this.set('setDrawerContent', (value) => {
+		assert.equal(value, 'search');
 	});
 
 	this.render(hbs`
@@ -87,14 +81,12 @@ test('click search icon when already visible is navigation - show search', funct
 });
 
 test('click nav icon when already visible is search - show nav', function (assert) {
-	this.set('actions', {
-		toggleDrawer(value) {
-			assert.equal(value, true);
-		},
+	this.set('toggleDrawer', (value) => {
+		assert.equal(value, true);
+	});
 
-		setDrawerContent(value) {
-			assert.equal(value, 'nav');
-		}
+	this.set('setDrawerContent', (value) => {
+		assert.equal(value, 'nav');
 	});
 
 	this.render(hbs`
