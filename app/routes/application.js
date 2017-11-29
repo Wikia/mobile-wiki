@@ -184,7 +184,7 @@ export default Route.extend(
 				this.controller.clearNotifications();
 
 				if (typeof window.wikiaPageViewDepth === 'number') {
-					window.wikiaPageViewDepth++;
+					window.wikiaPageViewDepth += 1;
 				}
 			},
 
