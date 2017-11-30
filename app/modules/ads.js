@@ -343,7 +343,8 @@ class Ads {
 	}
 
 	isPrefooterApplicable() {
-		const articleBodyHeight = document.querySelector('.article-body').offsetHeight,
+		const articleBody = document.querySelector('.article-body'),
+			articleBodyHeight = articleBody ? articleBody.offsetHeight : undefined,
 			hasArticleFooter = document.querySelector('.article-footer'),
 			hasTrendingArticles = document.querySelector('.trending-articles'),
 			showInContent = this.isInContentApplicable();
