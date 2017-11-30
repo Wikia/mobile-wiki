@@ -32,7 +32,6 @@ export default Controller.extend(
 		commentsPage: null,
 
 		applicationWrapperClassNames: null,
-		smartBannerVisible: false,
 		drawerVisible: false,
 		drawerContent: null,
 		userMenuVisible: false,
@@ -191,14 +190,6 @@ export default Controller.extend(
 			 */
 			toggleDrawer(visible) {
 				this.set('drawerVisible', visible);
-			},
-
-			/**
-			 * @param {boolean} visible
-			 * @returns {void}
-			 */
-			toggleSmartBanner(visible) {
-				this.set('smartBannerVisible', visible);
 			},
 
 			/**

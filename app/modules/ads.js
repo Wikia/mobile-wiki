@@ -1,16 +1,12 @@
 /* eslint no-console: 0 */
-import config from '../config/environment';
+
+import offset from './abtest/offset';
 import {Promise} from 'rsvp';
 
 /**
  * @typedef {Object} SlotsContext
  * @property {Function} isApplicable
  * @property {Function} setStatus
- */
-
-/**
- * @typedef {Object} SourcePointDetectionModule
- * @property {Function} initDetection
  */
 
 /**
@@ -36,7 +32,6 @@ import {Promise} from 'rsvp';
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
- * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
  * @property {SlotsContext} slotsContext
@@ -62,10 +57,6 @@ class Ads {
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
-			sourcePoint: {
-				name: 'sourcepoint',
-				dimension: 6
-			},
 			pageFair: {
 				name: 'pagefair',
 				dimension: 7
@@ -105,7 +96,7 @@ class Ads {
 		this.adsUrl = adsUrl;
 
 		// Load the ads code from MW
-		$script(adsUrl, () => {
+		M.loadScript(adsUrl, true, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -118,13 +109,11 @@ class Ads {
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
-					'ext.wikia.adEngine.sourcePointDetection',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
-				], (
-					adContextModule,
+				], (adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
 					adConfigMobile,
@@ -133,12 +122,10 @@ class Ads {
 					adMercuryListener,
 					pageFairDetectionModule,
 					googleTagModule,
-					sourcePointDetectionModule,
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
-					krux
-				) => {
+					krux) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -148,7 +135,6 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.a9 = a9;
@@ -257,7 +243,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(config.tracking.krux.mobileId);
+			this.krux.load(M.getFromShoebox('tracking.krux.mobileId'));
 		}
 	}
 
@@ -288,16 +274,6 @@ class Ads {
 	addDetectionListeners() {
 		const GASettings = this.GASettings,
 			listenerSettings = [
-				{
-					name: 'sourcePoint',
-					eventName: 'sp.blocking',
-					value: true,
-				},
-				{
-					name: 'sourcePoint',
-					eventName: 'sp.not_blocking',
-					value: false,
-				},
 				{
 					name: 'pageFair',
 					eventName: 'pf.blocking',
@@ -348,16 +324,16 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = $('.wiki-page-header').length > 0,
-			hasPortableInfobox = $('.portable-infobox').length > 0;
+			hasPageHeader = document.querySelector('.wiki-page-header'),
+			hasPortableInfobox = document.querySelector('.portable-infobox');
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
-		const $firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
-			hasCuratedContent = $('.curated-content').length > 0;
+		const firstSection = document.querySelector('.article-content > h2'),
+			firstSectionTop = (firstSection && offset(firstSection).top) || 0,
+			hasCuratedContent = document.querySelector('.curated-content');
 
 		if (this.getTargetingValue('pageType') === 'home') {
 			return hasCuratedContent;
@@ -367,9 +343,9 @@ class Ads {
 	}
 
 	isPrefooterApplicable() {
-		const articleBodyHeight = $('.article-body').height(),
-			hasArticleFooter = $('.article-footer').length > 0,
-			hasTrendingArticles = $('.trending-articles').length > 0,
+		const articleBodyHeight = document.querySelector('.article-body').offsetHeight,
+			hasArticleFooter = document.querySelector('.article-footer'),
+			hasTrendingArticles = document.querySelector('.trending-articles'),
 			showInContent = this.isInContentApplicable();
 
 		if (this.getTargetingValue('pageType') === 'home') {
@@ -380,7 +356,7 @@ class Ads {
 	}
 
 	isBottomLeaderboardApplicable() {
-		return $('.wds-global-footer').length > 0;
+		return document.querySelector('.wds-global-footer');
 	}
 
 	setupSlotsContext() {
@@ -429,16 +405,6 @@ class Ads {
 
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
-				}
-
-				if (Ads.previousDetectionResults.sourcePoint.exists) {
-					this.trackBlocking(
-						'sourcePoint',
-						this.GASettings.sourcePoint,
-						Ads.previousDetectionResults.sourcePoint.value
-					);
-				} else {
-					this.sourcePointDetectionModule.initDetection();
 				}
 
 				if (Ads.previousDetectionResults.pageFair.exists) {
@@ -589,10 +555,6 @@ Ads.previousDetectionResults = {
 	pageFair: {
 		exists: false,
 		value: null
-	},
-	sourcePoint: {
-		exists: false,
-		value: null
 	}
 };
 
@@ -600,6 +562,8 @@ Ads.previousDetectionResults = {
 // When introducing sync require in ads this should be fixed
 window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
-window.Mercury.Modules.Ads = Ads;
+if (!window.Mercury.Modules.Ads) {
+	window.Mercury.Modules.Ads = Ads;
+}
 
-export default Ads;
+export default window.Mercury.Modules.Ads;
