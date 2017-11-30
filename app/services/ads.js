@@ -27,7 +27,12 @@ export default Service.extend({
 		const adSlotComponents = this.get('adSlotComponents');
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
-			this.get('module').removeSlot(slotName);
+			// adSlotComponents[slotName].destroy();
+			if (window.googletag.pubads) {
+				this.get('module').removeSlot(slotName);
+			} else {
+				console.log('window.googletag.pubads in undefined');
+			}
 		});
 
 		this.set('adSlotComponents', {});
