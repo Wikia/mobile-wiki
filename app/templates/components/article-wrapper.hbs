@@ -13,9 +13,8 @@
 {{/if}}
 
 {{#if hasFeaturedVideo}}
-	{{article-featured-video
+	{{article-featured-video-jwplayer
 		model=model.featuredVideo
-		articleId=model.id
 	}}
 {{/if}}
 
@@ -48,7 +47,6 @@
 		heroImage=heroImage
 		media=model.media
 		openLightbox=(action 'openLightbox')
-		forceFeaturedVideoVisibility=(action 'forceFeaturedVideoVisibility')
 	}}
 </section>
 {{yield}}

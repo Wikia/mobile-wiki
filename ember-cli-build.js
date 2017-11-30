@@ -1,7 +1,6 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew'),
-	fs = require('fs');
+	stew = require('broccoli-stew');
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -66,7 +65,7 @@ module.exports = function (defaults) {
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
-			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`
+			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
 		},
 		outputPaths: {
 			app: {
@@ -109,23 +108,16 @@ module.exports = function (defaults) {
 		}),
 		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
 			destDir: 'assets/jwplayer'
-		}),
-		extraAssets = [
-			designSystemI18n,
-			designSystemAssets,
-			jwPlayerAssets
-		];
-
-	if (fs.existsSync('compiled/featured-video-render-order.js')) {
-		const fvRenderOrderAssets = new Funnel('compiled/featured-video-render-order.js', {
-			destDir: 'assets/abtest/featured-video-render-order.js'
 		});
-		extraAssets.push(fvRenderOrderAssets);
-	}
 
 	// Import files from node_modules, they will run both in FastBoot and browser
 	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
 	app.import('node_modules/vignette/dist/vignette.js');
 
-	return app.toTree(extraAssets);
+	return app.toTree([
+		designSystemI18n,
+		designSystemAssets,
+		jwPlayerAssets
+	]);
+
 };

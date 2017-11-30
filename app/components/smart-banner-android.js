@@ -19,7 +19,6 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: service(),
-	smartBanner: service(),
 
 	options: {
 		// Language code for App Store
@@ -71,7 +70,7 @@ export default Component.extend({
 		 */
 		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.get('smartBanner').setVisibility(false);
+			this.sendAction('toggleVisibility', false);
 			this.track(trackActions.close);
 		},
 
@@ -89,7 +88,7 @@ export default Component.extend({
 				window.open(this.get('link'), '_blank');
 			}
 
-			this.get('smartBanner').setVisibility(false);
+			this.sendAction('toggleVisibility', false);
 		},
 	},
 
@@ -123,7 +122,7 @@ export default Component.extend({
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
 		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
-			this.get('smartBanner').setVisibility(true);
+			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
 	},
