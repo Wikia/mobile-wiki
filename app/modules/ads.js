@@ -327,7 +327,7 @@ class Ads {
 			hasPageHeader = document.querySelector('.wiki-page-header'),
 			hasPortableInfobox = document.querySelector('.portable-infobox');
 
-		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
+		return isHome || hasPortableInfobox || (hasPageHeader && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
