@@ -3,6 +3,7 @@ import {readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
+import {reads} from '@ember/object/computed';
 import {htmlSafe} from '@ember/string';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
@@ -35,9 +36,7 @@ export default Component.extend(RenderComponentMixin, {
 	captionsCookieName: 'featuredVideoCaptions',
 	playerCookieExpireDays: 14,
 
-	metadata: computed('model', function () {
-		return this.get('model.metadata');
-	}),
+	metadata: reads('model.metadata'),
 	placeholderImage: computed('model', function () {
 		return this.get('model.embed.jsParams.playlist.0.image');
 	}),
