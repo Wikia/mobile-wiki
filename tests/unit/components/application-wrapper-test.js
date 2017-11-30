@@ -7,8 +7,7 @@ moduleForComponent('application-wrapper', 'Unit | Component | application wrappe
 		'service:current-user',
 		'service:fastboot',
 		'service:logger',
-		'service:wiki-variables',
-		'service:smartBanner',
+		'service:wiki-variables'
 	]
 });
 

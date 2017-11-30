@@ -40,7 +40,7 @@ COPY . .
 RUN npm run linter && \
 # tests are broken for now
 # npm run tests && \
-  npm run build-prod
+    npm run build-prod
 
 # 8001 is for prod
 EXPOSE 8001

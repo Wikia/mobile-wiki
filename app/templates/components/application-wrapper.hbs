@@ -5,11 +5,15 @@
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
 		globalNavigation=this.attrs.globalNavigation
+		isFandomAppSmartBannerVisible=isFandomAppSmartBannerVisible
 		isSearchPage=isSearchPage
 		shadow=siteHeadShadow
 		setDrawerContent=(action 'setDrawerContent')
+		shouldShowFandomAppSmartBanner=shouldShowFandomAppSmartBanner
+		smartBannerVisible=smartBannerVisible
 		themeBar=themeBar
 		toggleDrawer=this.attrs.toggleDrawer
+		toggleSmartBannerVisibility=attrs.toggleSmartBanner
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
@@ -33,6 +37,7 @@
 	{{#unless shouldShowFandomAppSmartBanner}}
 		{{smart-banner-android
 			isVisible=smartBannerVisible
+			toggleVisibility=attrs.toggleSmartBanner
 		}}
 	{{/unless}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>

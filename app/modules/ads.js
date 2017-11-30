@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
-
-import offset from './abtest/offset';
+import config from '../config/environment';
 import {Promise} from 'rsvp';
 
 /**
@@ -96,7 +95,7 @@ class Ads {
 		this.adsUrl = adsUrl;
 
 		// Load the ads code from MW
-		M.loadScript(adsUrl, true, () => {
+		$script(adsUrl, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -113,7 +112,8 @@ class Ads {
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
-				], (adContextModule,
+				], (
+					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
 					adConfigMobile,
@@ -125,7 +125,8 @@ class Ads {
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
-					krux) => {
+					krux
+				) => {
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -243,7 +244,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(M.getFromShoebox('tracking.krux.mobileId'));
+			this.krux.load(config.tracking.krux.mobileId);
 		}
 	}
 
@@ -324,16 +325,16 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = document.querySelector('.wiki-page-header'),
-			hasPortableInfobox = document.querySelector('.portable-infobox');
+			hasPageHeader = $('.wiki-page-header').length > 0,
+			hasPortableInfobox = $('.portable-infobox').length > 0;
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
-		const firstSection = document.querySelector('.article-content > h2'),
-			firstSectionTop = (firstSection && offset(firstSection).top) || 0,
-			hasCuratedContent = document.querySelector('.curated-content');
+		const $firstSection = $('.article-content > h2').first(),
+			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
+			hasCuratedContent = $('.curated-content').length > 0;
 
 		if (this.getTargetingValue('pageType') === 'home') {
 			return hasCuratedContent;
@@ -343,9 +344,9 @@ class Ads {
 	}
 
 	isPrefooterApplicable() {
-		const articleBodyHeight = document.querySelector('.article-body').offsetHeight,
-			hasArticleFooter = document.querySelector('.article-footer'),
-			hasTrendingArticles = document.querySelector('.trending-articles'),
+		const articleBodyHeight = $('.article-body').height(),
+			hasArticleFooter = $('.article-footer').length > 0,
+			hasTrendingArticles = $('.trending-articles').length > 0,
 			showInContent = this.isInContentApplicable();
 
 		if (this.getTargetingValue('pageType') === 'home') {
@@ -356,7 +357,7 @@ class Ads {
 	}
 
 	isBottomLeaderboardApplicable() {
-		return document.querySelector('.wds-global-footer');
+		return $('.wds-global-footer').length > 0;
 	}
 
 	setupSlotsContext() {
@@ -562,8 +563,6 @@ Ads.previousDetectionResults = {
 // When introducing sync require in ads this should be fixed
 window.Mercury = window.Mercury || {};
 window.Mercury.Modules = window.Mercury.Modules || {};
-if (!window.Mercury.Modules.Ads) {
-	window.Mercury.Modules.Ads = Ads;
-}
+window.Mercury.Modules.Ads = Ads;
 
-export default window.Mercury.Modules.Ads;
+export default Ads;
