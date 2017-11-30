@@ -1,0 +1,17 @@
+<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+	<meta itemprop="name" content="{{metadata.name}}" />
+	<meta itemprop="duration" content="{{metadata.duration}}"/>
+	<meta itemprop="description" content="{{metadata.description}}"/>
+	<meta itemprop="thumbnailUrl" content="{{metadata.thumbnailUrl}}"/>
+	<meta itemprop="contentURL" content="{{metadata.contentUrl}}"/>
+	<meta itemprop="uploadDate" content="{{metadata.uploadDate}}"/>
+	<div class="article-featured-video__on-scroll-video-wrapper">
+		<div class="article-featured-video__video-content" style={{placeholderStyle}} id="{{videoContainerId}}"></div>
+		<div class="article-featured-video__close-button" {{action 'dismissPlayer'}}>
+			<svg class="wds-icon wds-icon-small">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wds-icons-cross"></use>
+			</svg>
+		</div>
+	</div>
+	<div class="article-featured-video__on-scroll-placeholder"></div>
+</div>
