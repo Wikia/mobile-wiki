@@ -1,7 +1,7 @@
 ### Errors while running `npm run dev`
 Sometimes it helps to just remove all dependencies and install them from the beginning.
 ```
-npm run clean-deep
+npm run clean
 npm run setup
 ```
 #### EACCESS / Permission Errors on Devbox
