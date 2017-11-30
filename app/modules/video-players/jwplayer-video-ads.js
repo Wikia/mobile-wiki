@@ -1,5 +1,4 @@
 import Ads from '../ads';
-import {Promise} from 'rsvp';
 
 export default class JWPlayerVideoAds {
 	constructor(params) {

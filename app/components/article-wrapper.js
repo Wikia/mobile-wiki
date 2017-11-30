@@ -8,7 +8,6 @@ import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
-import {inGroup} from '../modules/abtest';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -90,12 +89,7 @@ export default Component.extend(
 			}
 		}),
 
-		hasFeaturedVideo: computed('model.featuredVideo', function () {
-			/**
-			 * FIXME FEATURED VIDEO A/B TEST ONLY
-			 */
-			return this.get('model.featuredVideo') && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT');
-		}),
+		hasFeaturedVideo: bool('model.featuredVideo'),
 
 		showComments: gte('model.comments', 0),
 
@@ -134,10 +128,6 @@ export default Component.extend(
 
 			toggleSiteHeadShadow(visible) {
 				this.sendAction('toggleSiteHeadShadow', visible);
-			},
-
-			forceFeaturedVideoVisibility() {
-				this.set('hasFeaturedVideo', true);
 			}
 		},
 

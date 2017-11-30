@@ -1,0 +1,13 @@
+.article-featured-video-jwplayer {
+	background-color: $wds-color-black;
+	background-size: contain;
+	height: calc(100vw * 9 / 16);
+}
+
+.jwplayer {
+	// resets wikia-style-guide styles
+	input[type="checkbox"] + label {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
