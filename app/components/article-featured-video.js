@@ -1,9 +1,8 @@
 import {inject as service} from '@ember/service';
-import {readOnly} from '@ember/object/computed';
+import {readOnly, reads} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
-import {reads} from '@ember/object/computed';
 import {htmlSafe} from '@ember/string';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
