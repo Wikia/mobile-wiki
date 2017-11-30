@@ -13,6 +13,9 @@ export default Component.extend({
 
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
+	metadata: computed('model', function () {
+		return this.get('model.metadata');
+	}),
 	playerCookieExpireDays: 14,
 	placeholderImage: computed('model', function () {
 		return this.get('model.embed.jsParams.playlist.0.image');

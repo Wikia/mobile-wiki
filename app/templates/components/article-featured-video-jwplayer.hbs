@@ -1,1 +1,10 @@
-<div class="article-featured-video-jwplayer" id="{{videoContainerId}}" style={{placeholderStyle}}></div>
+<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+	<meta itemprop="name" content="{{metadata.name}}" />
+	<meta itemprop="duration" content="{{metadata.duration}}"/>
+	<meta itemprop="description" content="{{metadata.description}}"/>
+	<meta itemprop="thumbnailUrl" content="{{metadata.thumbnailUrl}}"/>
+	<meta itemprop="contentURL" content="{{metadata.contentUrl}}"/>
+	<meta itemprop="uploadDate" content="{{metadata.uploadDate}}"/>
+
+	<div class="article-featured-video-jwplayer" id="{{videoContainerId}}" style={{placeholderStyle}}></div>
+</div>
