@@ -28,20 +28,15 @@ export default Component.extend(RenderComponentMixin, {
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
 	playerCookieExpireDays: 14,
-	placeholderImage: computed('model', function () {
-		return this.get('model.embed.jsParams.playlist.0.image');
-	}),
+	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
 	}),
 
-	// when navigating from one article to another with video, we need to destroy player and
-	// reinitialize it as component itself is not destroyed. Could be done with didUpdateAttrs
-	// hook, however it is fired twice with new attributes.
-	videoIdObserver: on('didInsertElement', observer('model.embed.jsParams.videoId', function () {
+	didUpdateAttrs() {
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
-	})),
+	},
 
 	actions: {
 		/**
@@ -148,6 +143,9 @@ export default Component.extend(RenderComponentMixin, {
 
 	didInsertElement() {
 		this.onScrollHandler = this.onScrollHandler.bind(this);
+
+		this.destroyVideoPlayer();
+		this.initVideoPlayer();
 
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
 			this.setPlaceholderDimensions();
