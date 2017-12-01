@@ -18,6 +18,11 @@ export default Component.extend(
 
 		ads: service(),
 		notifications: service(),
+		smartBanner: service(),
+
+		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
+		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
+		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 		headroomOptions: {
 			classes: {
