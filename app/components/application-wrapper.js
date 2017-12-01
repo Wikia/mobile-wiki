@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {reads, bool, equal, and} from '@ember/object/computed';
+import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import $ from 'jquery';
@@ -42,9 +42,14 @@ export default Component.extend({
 
 	ads: service(),
 	currentUser: service(),
+	smartBanner: service(),
 	fastboot: service(),
 	logger: service(),
 	wikiVariables: service(),
+
+	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
+	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	dir: reads('wikiVariables.language.contentDir'),
 
