@@ -6,15 +6,9 @@ export default Controller.extend(
 	WikiPageControllerMixin,
 	{
 		article: controller(),
+		application: controller(),
 
 		actions: {
-			/**
-			 * @returns {void}
-			 */
-			articleRendered() {
-				this.get('article').send('articleRendered', ...arguments);
-			},
-
 			/**
 			 * @param {number} page
 			 * @returns {Promise}
@@ -35,8 +29,6 @@ export default Controller.extend(
 
 						this.get('target').send('updateDynamicHeadTags');
 					});
-
-
 			}
 		}
 	}

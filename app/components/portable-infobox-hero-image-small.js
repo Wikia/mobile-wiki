@@ -35,12 +35,6 @@ export default Component.extend(
 			}).catch(() => {
 				this.set('isLoading', false);
 			});
-		},
-
-		actions: {
-			openLightbox() {
-				this.openLightbox('image', {url: this.get('heroImage.url')});
-			}
 		}
 	}
 );

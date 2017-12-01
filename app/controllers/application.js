@@ -106,23 +106,6 @@ export default Controller.extend(
 			},
 
 			/**
-			 * Handles query params that should open a lightbox.
-			 * If you add another param to the app you should modify this function.
-			 *
-			 * @returns {void}
-			 */
-			handleLightbox() {
-				const file = this.get('file'),
-					map = this.get('map');
-
-				if (!isEmpty(file)) {
-					this.openLightboxForMedia(file);
-				} else if (!isEmpty(map)) {
-					this.openLightboxForMap(map);
-				}
-			},
-
-			/**
 			 * Bubbles up to ApplicationRoute
 			 *
 			 * @returns {void}
@@ -255,6 +238,7 @@ export default Controller.extend(
 				url: $map.data('map-url'),
 				id: $map.data('map-id')
 			});
+
 		}
 	}
 );

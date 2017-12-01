@@ -20,7 +20,7 @@ export default Route.extend(
 		model(params) {
 			return ArticleEditModel
 				.create(getOwner(this).ownerInjection())
-				.load(params.title, params.sectionIndex);
+				.load(params.title, params.section_index);
 		},
 
 		/**

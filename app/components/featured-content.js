@@ -105,10 +105,6 @@ export default Component.extend(
 			$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
 		},
 
-		keepPaginationUpToDate: observer('currentItemIndex', function () {
-			this.updatePagination();
-		}),
-
 		/**
 		 * @returns {void}
 		 */
@@ -119,6 +115,7 @@ export default Component.extend(
 				} else {
 					this.decrementProperty('currentItemIndex');
 				}
+				this.updatePagination();
 			}
 		},
 
@@ -132,6 +129,7 @@ export default Component.extend(
 				} else {
 					this.incrementProperty('currentItemIndex');
 				}
+				this.updatePagination();
 			}
 		},
 

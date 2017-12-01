@@ -3,13 +3,11 @@
 		commentsPage=commentsPage
 		model=model
 		siteName=siteName
-		articleRendered=(action 'articleRendered')
-		toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
+		toggleSiteHeadShadow=(action 'toggleSiteHeadShadow' target=application)
 		edit=(action 'edit')
-		openLightbox=(action openLightbox)
-		toggleDrawer=(action 'toggleDrawer')
+		openLightbox=(action 'openLightbox' target=application)
 	}}
 </div>
-{{#if displayRecirculation}}
+{{#if displayRecirculation}}F
 	{{recirculation-prefooter}}
 {{/if}}

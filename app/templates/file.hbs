@@ -2,14 +2,12 @@
 	{{!TODO handle video player XW-2605}}
 	{{!TODO files without thumbnails}}
 	{{#article-wrapper
-		articleRendered=(action 'articleRendered')
 		displayEmptyArticleInfo=false
 		model=model
-		openLightbox=(action openLightbox)
 		showComments=false
 		siteName=siteName
-		toggleDrawer=(action 'toggleDrawer')
 		wikiPageHeaderSubtitle=(i18n 'file-page.subtitle')
+		openLightbox=(action 'openLigthbox' target=application)
 	}}
 		{{#if model.fileUsageList}}
 			<nav class="file-usage">

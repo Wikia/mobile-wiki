@@ -122,14 +122,5 @@ export default Component.extend(
 				});
 			}
 		},
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			scheduleOnce('afterRender', this, () => {
-				this.get('articleRendered')();
-			});
-		},
 	}
 );

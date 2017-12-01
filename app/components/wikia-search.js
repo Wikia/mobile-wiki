@@ -40,6 +40,7 @@ export default Component.extend(
 		i18n: service(),
 		logger: service(),
 		wikiVariables: service(),
+		router: service(),
 		inputSearchSelector: '.side-search__input',
 		emptyPhraseInput: not('phrase'),
 		hasSuggestions: notEmpty('suggestions'),
@@ -93,8 +94,7 @@ export default Component.extend(
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
-				/* eslint ember/closure-actions:0 */
-				this.sendAction('goToSearchResults', value);
+				this.get('router').transitionTo('search', {queryParams: {value}});
 			},
 
 			clearSearch() {

@@ -1,7 +1,7 @@
 {{#if contributionEnabled}}
 	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
 		{{article-contribution
-			edit=(action 'edit')
+			edit=edit
 			editAllowed=editAllowed
 			editIconVisible=editIconVisible
 			section=0
@@ -40,7 +40,7 @@
 		contributionEnabled=contributionEnabled
 		displayEmptyArticleInfo=displayEmptyArticleInfo
 		displayTitle=model.displayTitle
-		edit=(action 'edit')
+		edit=(action edit)
 		editAllowed=editAllowed
 		editIconVisible=editIconVisible
 		featuredVideo=model.featuredVideo

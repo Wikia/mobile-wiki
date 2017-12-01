@@ -68,7 +68,7 @@ test('sets correct footer', function (assert) {
 	componentMock.setProperties({
 		model,
 		targetObject: parentMock,
-		setFooter: 'setFooter'
+		setFooter: parentMock.setFooter.bind(parentMock)
 	});
 
 	componentMock.set('model.mediaRef', 0);
@@ -90,7 +90,7 @@ test('sets correct header', function (assert) {
 	componentMock.setProperties({
 		model,
 		targetObject: parentMock,
-		setHeader: 'setHeader'
+		setHeader: parentMock.setHeader.bind(parentMock)
 	});
 
 	componentMock.set('model.mediaRef', 0);

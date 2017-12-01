@@ -3,6 +3,8 @@ import Route from '@ember/routing/route';
 import {getOwner} from '@ember/application';
 import {getWithDefault} from '@ember/object';
 import Ember from 'ember';
+import {isEmpty} from '@ember/utils';
+import {run} from '@ember/runloop';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
@@ -41,6 +43,23 @@ export default Route.extend(
 			}
 		},
 		noexternals: null,
+
+		setupController(controller, model) {
+			controller.set('model', model);
+
+			// Because application controller needs wiki-page controller
+			// we can't be sure that media model will be ready when aplication controller is ready
+			run.scheduleOnce('afterRender', () => {
+				const file = controller.get('file'),
+					map = controller.get('map');
+
+				if (!isEmpty(file)) {
+					controller.openLightboxForMedia(file);
+				} else if (!isEmpty(map)) {
+					controller.openLightboxForMap(map);
+				}
+			});
+		},
 
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
@@ -318,15 +337,6 @@ export default Route.extend(
 			 */
 			closeLightbox() {
 				this.get('controller').send('closeLightbox');
-			},
-
-			// This is used only in not-found.hbs template
-			/**
-			 * @returns {void}
-			 * @param {string} query
-			 */
-			goToSearchResults(query) {
-				this.transitionTo('search', {queryParams: {query}});
 			},
 
 			openNav() {

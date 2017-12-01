@@ -26,23 +26,12 @@ export default Controller.extend(WikiPageControllerMixin, {
 			});
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		articleRendered() {
-			this.send('handleLightbox');
-		},
-
 		trackClick(category, label) {
 			track({
 				action: trackActions.click,
 				category,
 				label
 			});
-		},
-
-		toggleSiteHeadShadow(visible) {
-			this.get('application').send('toggleSiteHeadShadow', visible);
 		}
 	}
 });
