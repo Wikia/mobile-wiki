@@ -17,7 +17,6 @@ export default Component.extend({
 	placeholderImage: reads('model.embed.jsParams.playlist.0.image'),
 
 	didUpdateAttrs() {
-		// todo: is it fired twice?
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
 	},
