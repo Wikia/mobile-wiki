@@ -19,6 +19,7 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: service(),
+	smartBanner: service(),
 
 	day: 86400000,
 
@@ -73,7 +74,7 @@ export default Component.extend({
 		 */
 		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.get('toggleVisibility')(false);
+			this.get('smartBanner').setVisibility(false);
 			this.track(trackActions.close);
 		},
 
@@ -91,7 +92,7 @@ export default Component.extend({
 				window.open(this.get('link'), '_blank');
 			}
 
-			this.get('toggleVisibility')(false);
+			this.get('smartBanner').setVisibility(false);
 		},
 	},
 
@@ -125,7 +126,7 @@ export default Component.extend({
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
 		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
-			this.get('toggleVisibility')(true);
+			this.get('smartBanner').setVisibility(true);
 			this.track(trackActions.impression);
 		}
 	},

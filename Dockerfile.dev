@@ -4,13 +4,9 @@ WORKDIR /app
 
 # move files to cache installing of dependencies
 COPY package.json .
-COPY bower.json .
-
-# bower workaround
-RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # create group and user
-    addgroup -S mobile-wiki && \
+RUN addgroup -S mobile-wiki && \
     adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
     chmod 755 /app && \
 
@@ -19,7 +15,6 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # install npm globals
     npm set progress=false && \
-    npm install -g bower && \
     npm install -g ember-cli && \
 
 # install all dependencies
@@ -27,8 +22,6 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    bower cache clean && \
-    npm uninstall -g bower && \
     npm cache clean --force
 
 USER docker_user

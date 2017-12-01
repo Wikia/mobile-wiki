@@ -1,6 +1,5 @@
 # local dependencies
 **/node_modules/
-**/bower_components/
 GIT_IGNORE/
 
 # compiled output
@@ -15,6 +14,7 @@ Dockerfile.prod
 
 # misc
 .github/
+.git/
 .tx/
 /.sass-cache
 /connect.lock

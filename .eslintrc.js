@@ -21,7 +21,6 @@ module.exports = {
 		FastBoot: true,
 		ga: true,
 		Hammer: true,
-		Headroom: true,
 		M: true,
 		VisitSource: true,
 		Weppy: true,
