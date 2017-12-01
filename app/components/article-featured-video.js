@@ -161,7 +161,6 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	willDestroyElement() {
-		destroyPlayer();
 		$(window).off('scroll', this.onScrollHandler);
 	},
 

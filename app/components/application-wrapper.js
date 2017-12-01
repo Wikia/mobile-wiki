@@ -37,7 +37,6 @@ export default Component.extend({
 		'bfaaTemplate'
 	],
 	scrollLocation: null,
-	smartBannerVisible: false,
 	firstRender: true,
 
 	ads: service(),
@@ -64,13 +63,6 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
-
-	/**
-	 * @returns {boolean}
-	 */
-	isUserLangEn: equal('currentUser.language', 'en'),
-	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}
