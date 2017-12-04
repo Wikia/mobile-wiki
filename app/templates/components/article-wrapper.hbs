@@ -15,7 +15,6 @@
 {{#if hasFeaturedVideo}}
 	{{article-featured-video
 		model=model.featuredVideo
-		articleId=model.id
 	}}
 {{/if}}
 
@@ -45,10 +44,10 @@
 		editAllowed=editAllowed
 		editIconVisible=editIconVisible
 		featuredVideo=model.featuredVideo
+		forceFeaturedVideoVisibility=(action 'forceFeaturedVideoVisibility')
 		heroImage=heroImage
 		media=model.media
 		openLightbox=(action 'openLightbox')
-		forceFeaturedVideoVisibility=(action 'forceFeaturedVideoVisibility')
 	}}
 </section>
 {{yield}}

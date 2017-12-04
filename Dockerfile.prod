@@ -4,13 +4,9 @@ WORKDIR /app
 
 # move files to cache installing of dependencies
 COPY package.json .
-COPY bower.json .
-
-# bower workaround
-RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # create group and user
-    addgroup -S mobile-wiki && \
+RUN addgroup -S mobile-wiki && \
     adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
     chmod 755 /app && \
 
@@ -23,7 +19,6 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    node_modules/.bin/bower cache clean && \
     npm cache clean --force
 
 USER docker_user
@@ -40,7 +35,7 @@ COPY . .
 RUN npm run linter && \
 # tests are broken for now
 # npm run tests && \
-  npm run build-prod
+    npm run build-prod
 
 # 8001 is for prod
 EXPOSE 8001

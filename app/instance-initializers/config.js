@@ -82,7 +82,6 @@ export function initialize(applicationInstance) {
 
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
-		shoebox.put('tracking.krux.mobileId', config.tracking.krux.mobileId);
 
 		// variables below won't be available on the front end
 		extend(runtimeConfig.fastbootOnly, {

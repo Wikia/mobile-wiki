@@ -1,4 +1,5 @@
 .article-featured-video {
+	$on-scroll-padding: 12px;
 
 	&.on-scroll-variant {
 		position: relative;
@@ -41,7 +42,7 @@
 		transform: translate3d(0, 0, 0);
 
 		.is-on-scroll-video & {
-			padding: 12px;
+			padding: $on-scroll-padding;
 			position: fixed;
 			top: 0;
 			width: 100%;
@@ -60,7 +61,11 @@
 
 		.article-body .page-placement-variant & {
 			// 1.125rem is the size of article's side padding
-			height: calc(( 100vw - ( 2 * 1.125rem ) ) * 9 / 16);
+			height: calc((100vw - (2 * 1.125rem)) * 9 / 16);
+		}
+
+		.is-on-scroll-video & {
+			height: calc((100vw - (2 * #{$on-scroll-padding})) * 9 / 16);
 		}
 	}
 
@@ -81,11 +86,4 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
-}
-
-// AB TEST: FEATURED_VIDEO_VIEWABILITY_VARIANTS=RENDER_ORDER
-#pre-featured-video-wrapper {
-	position: absolute;
-	width: 100%;
-	z-index: 1;
 }
