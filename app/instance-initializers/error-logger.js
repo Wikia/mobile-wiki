@@ -9,7 +9,7 @@ export function initialize(/* appInstance */) {
 		logEvent('Ember.onerror', {
 			message: error.message,
 			stack: error.stack,
-			pubadsExists: !!window.googletag.pubads
+			pubadsExists: window.wikiaGoogleTagPubAdsExists
 		});
 
 		// To be able to display it in console

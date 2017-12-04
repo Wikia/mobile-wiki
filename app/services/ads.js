@@ -27,7 +27,8 @@ export default Service.extend({
 		const adSlotComponents = this.get('adSlotComponents');
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
-			console.log('window.googletag.pubads', !!window.googletag.pubads);
+			window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
+			console.log('window.googletag.pubads', window.wikiaGoogleTagPubAdsExists);
 			if (window.googletag.pubads) {
 				this.get('module').removeSlot(slotName);
 			} else {
