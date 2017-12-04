@@ -6,6 +6,7 @@ import {on} from '@ember/object/evented';
 import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
+import logEvent from '../modules/event-logger';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -94,9 +95,12 @@ export default Component.extend(
 			const name = this.get('name');
 
 			this.get('logger').info('Will destroy ad:', name);
-			// XW-4268 - temporary fix
+			// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
+			// when exception of pubads being undefined is thrown
 			if (window.googletag.pubads) {
 				this.get('ads.module').removeSlot(name);
+			} else {
+				logEvent('window.googletag.pubads is undefined');
 			}
 		}
 	}
