@@ -24,17 +24,22 @@ export default Service.extend({
 	},
 
 	destroyAdSlotComponents() {
-		const adSlotComponents = this.get('adSlotComponents');
+		const adSlotComponents = this.get('adSlotComponents'),
+			components = Object.keys(adSlotComponents);
 
-		Object.keys(adSlotComponents).forEach((slotName) => {
-			window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
-			console.log('window.googletag.pubads', window.wikiaGoogleTagPubAdsExists);
-			if (window.googletag.pubads) {
+		// temp solution for XW-4268
+		window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
+		console.log('window.googletag.pubads', window.wikiaGoogleTagPubAdsExists);
+
+		if (window.googletag.pubads) {
+			components.forEach((slotName) => {
 				this.get('module').removeSlot(slotName);
-			} else {
+			});
+		} else {
+			components.forEach((slotName) => {
 				adSlotComponents[slotName].destroy();
-			}
-		});
+			});
+		}
 
 		this.set('adSlotComponents', {});
 	}

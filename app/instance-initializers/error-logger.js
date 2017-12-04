@@ -9,6 +9,7 @@ export function initialize(/* appInstance */) {
 		logEvent('Ember.onerror', {
 			message: error.message,
 			stack: error.stack,
+			// temp logging for XW-4268
 			pubadsExists: window.wikiaGoogleTagPubAdsExists
 		});
 
