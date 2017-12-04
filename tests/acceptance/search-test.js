@@ -1,20 +1,7 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
-import require from 'require';
 
-let eventLogger, oldEventLogger;
-
-moduleForAcceptance('Acceptance | search', {
-	beforeEach() {
-		eventLogger = require('mobile-wiki/modules/event-logger');
-		oldEventLogger = eventLogger.default;
-		eventLogger.default = function () {};
-	},
-
-	afterEach() {
-		eventLogger.default = oldEventLogger;
-	}
-});
+moduleForAcceptance('Acceptance | search');
 
 test('visiting /search', (assert) => {
 	const searchInput = '.side-search__input',
@@ -23,6 +10,7 @@ test('visiting /search', (assert) => {
 
 	mockAdsService();
 	mockFastbootService();
+
 	visit('/');
 	visit('/search');
 

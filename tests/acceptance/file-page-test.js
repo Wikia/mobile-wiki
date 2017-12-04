@@ -7,6 +7,10 @@ moduleForAcceptance('Acceptance | file page');
 test('visiting File Page', (assert) => {
 	const originalImage = window.Image;
 
+	window.googletag = {
+		pubads: true
+	};
+
 	window.Image = sinon.stub();
 	mockAdsService();
 	mockFastbootService();
