@@ -24,14 +24,9 @@ export default Service.extend({
 	},
 
 	destroyAdSlotComponents() {
-		const adSlotComponents = this.get('adSlotComponents'),
-			components = Object.keys(adSlotComponents);
+		const adSlotComponents = this.get('adSlotComponents');
 
-		// temp solution for XW-4268
-		window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
-		console.log('wikiaGoogleTagPubAdsExists', window.wikiaGoogleTagPubAdsExists);
-
-		components.forEach((slotName) => {
+		Object.keys(adSlotComponents).forEach((slotName) => {
 			adSlotComponents[slotName].destroy();
 		});
 

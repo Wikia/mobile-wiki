@@ -94,8 +94,10 @@ export default Component.extend(
 			const name = this.get('name');
 
 			this.get('logger').info('Will destroy ad:', name);
-			console.log('window.googletag.pubads', window.googletag.pubads);
-			this.get('ads.module').removeSlot(name);
+			// XW-4268 - temporary fix
+			if (window.googletag.pubads) {
+				this.get('ads.module').removeSlot(name);
+			}
 		}
 	}
 );
