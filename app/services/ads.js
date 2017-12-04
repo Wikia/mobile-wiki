@@ -31,9 +31,15 @@ export default Service.extend({
 		window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
 		console.log('wikiaGoogleTagPubAdsExists', window.wikiaGoogleTagPubAdsExists);
 
-		components.forEach((slotName) => {
-			adSlotComponents[slotName].destroy();
-		});
+		if (window.googletag.pubads) {
+			components.forEach((slotName) => {
+				this.get('module').removeSlot(slotName);
+			});
+		} else {
+			components.forEach((slotName) => {
+				adSlotComponents[slotName].destroy();
+			});
+		}
 
 		this.set('adSlotComponents', {});
 	}
