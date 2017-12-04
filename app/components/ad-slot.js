@@ -97,7 +97,7 @@ export default Component.extend(
 			this.get('logger').info('Will destroy ad:', name);
 			// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
 			// when exception of pubads being undefined is thrown
-			if (window.googletag.pubads) {
+			if (window.googletag && window.googletag.pubads) {
 				this.get('ads.module').removeSlot(name);
 			} else {
 				logEvent('window.googletag.pubads is undefined');
