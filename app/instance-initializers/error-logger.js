@@ -8,7 +8,7 @@ export function initialize(/* appInstance */) {
 	Ember.onerror = function (error) {
 		logEvent('Ember.onerror', {
 			message: error.message,
-			stack: error.stack
+			stack: error.stack,
 		});
 
 		// To be able to display it in console
