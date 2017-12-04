@@ -10,7 +10,6 @@ test('visiting /search', (assert) => {
 
 	mockAdsService();
 	mockFastbootService();
-
 	visit('/');
 	visit('/search');
 

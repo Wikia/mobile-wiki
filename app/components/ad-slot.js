@@ -8,6 +8,8 @@ import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
 import logEvent from '../modules/event-logger';
 
+let pubadsErrorLogged = false;
+
 export default Component.extend(
 	RenderComponentMixin,
 	InViewportMixin,
@@ -99,8 +101,9 @@ export default Component.extend(
 			// when exception of pubads being undefined is thrown
 			if (window.googletag && window.googletag.pubads) {
 				this.get('ads.module').removeSlot(name);
-			} else {
+			} else if (!pubadsErrorLogged) {
 				logEvent('window.googletag.pubads is undefined');
+				pubadsErrorLogged = true;
 			}
 		}
 	}
