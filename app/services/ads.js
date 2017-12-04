@@ -29,7 +29,7 @@ export default Service.extend({
 
 		// temp solution for XW-4268
 		window.wikiaGoogleTagPubAdsExists = !!window.googletag.pubads;
-		console.log('window.googletag.pubads', window.wikiaGoogleTagPubAdsExists);
+		console.log('wikiaGoogleTagPubAdsExists', window.wikiaGoogleTagPubAdsExists);
 
 		if (window.googletag.pubads) {
 			components.forEach((slotName) => {
