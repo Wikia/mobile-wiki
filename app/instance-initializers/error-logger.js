@@ -8,9 +8,7 @@ export function initialize(/* appInstance */) {
 	Ember.onerror = function (error) {
 		logEvent('Ember.onerror', {
 			message: error.message,
-			stack: error.stack,
-			// temp logging for XW-4268
-			pubadsExists: window.wikiaGoogleTagPubAdsExists
+			stack: error.stack
 		});
 
 		// To be able to display it in console
