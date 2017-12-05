@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {readOnly} from '@ember/object/computed';
+import {readOnly, reads} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
@@ -28,7 +28,9 @@ export default Component.extend(RenderComponentMixin, {
 	autoplayCookieName: 'featuredVideoAutoplay',
 	captionsCookieName: 'featuredVideoCaptions',
 	playerCookieExpireDays: 14,
+	metadata: reads('model.metadata'),
 	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
+
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
 	}),
