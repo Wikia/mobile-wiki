@@ -9,14 +9,6 @@ import config from '../config/environment';
 
 export default Component.extend({
 	classNames: ['fandom-app-smart-banner'],
-
-	options: {
-		// Duration to hide the banner after close button is clicked (0 = always show banner)
-		daysHiddenAfterClose: 30,
-
-		// Duration to hide the banner after it is clicked (0 = always show banner)
-		daysHiddenAfterView: 90,
-	},
 	dayInMiliseconds: 86400000,
 	closeButtonSelector: '.fandom-app-smart-banner__close',
 
@@ -27,7 +19,7 @@ export default Component.extend({
 		return system === 'ios'
 			? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
 			: 'https://play.google.com/store/apps/details'
-				+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner';
+			+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner';
 	}),
 
 	storeName: computed(function () {
@@ -35,6 +27,17 @@ export default Component.extend({
 			? this.get('i18n').t('fandom-app-banner.app-store')
 			: this.get('i18n').t('fandom-app-banner.google-play');
 	}),
+
+	init() {
+		this._super(...arguments);
+
+		this.options = {
+			// Duration to hide the banner after close button is clicked (0 = always show banner)
+			daysHiddenAfterClose: 30,
+			// Duration to hide the banner after it is clicked (0 = always show banner)
+			daysHiddenAfterView: 90,
+		};
+	},
 
 	actions: {
 		/**

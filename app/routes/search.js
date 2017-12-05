@@ -8,7 +8,7 @@ import {track, trackActions, trackPageView} from '../utils/track';
 export default Route.extend(
 	ApplicationWrapperClassNamesMixin,
 	{
-		applicationWrapperClassNames: ['search-result-page'],
+		applicationWrapperClassNames: null,
 		queryParams: {
 			query: {
 				refreshModel: true
@@ -16,6 +16,11 @@ export default Route.extend(
 		},
 
 		initialPageView: service(),
+
+		init() {
+			this._super(...arguments);
+			this.applicationWrapperClassNames = ['search-result-page'];
+		},
 
 		model(params) {
 			return SearchModel

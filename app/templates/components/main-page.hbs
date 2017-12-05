@@ -23,6 +23,6 @@
 		}}
 	{{/if}}
 	{{#if trendingVideos}}
-		{{trending-videos model=trendingVideos openLightbox='openLightbox'}}
+		{{trending-videos model=trendingVideos openLightbox=(action openLightbox)}}
 	{{/if}}
 </div>

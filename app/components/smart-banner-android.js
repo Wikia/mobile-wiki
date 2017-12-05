@@ -21,16 +21,6 @@ export default Component.extend({
 	wikiVariables: service(),
 	smartBanner: service(),
 
-	options: {
-		// Language code for App Store
-		appStoreLanguage: 'us',
-
-		// Duration to hide the banner after close button is clicked (0 = always show banner)
-		daysHiddenAfterClose: 15,
-
-		// Duration to hide the banner after it is clicked (0 = always show banner)
-		daysHiddenAfterView: 30,
-	},
 	day: 86400000,
 
 	appId: oneWay(`config.appId.android`),
@@ -64,6 +54,19 @@ export default Component.extend({
 
 	noIcon: not('icon'),
 	title: oneWay('config.name'),
+
+	init() {
+		this._super(...arguments);
+
+		this.options = {
+			// Language code for App Store
+			appStoreLanguage: 'us',
+			// Duration to hide the banner after close button is clicked (0 = always show banner)
+			daysHiddenAfterClose: 15,
+			// Duration to hide the banner after it is clicked (0 = always show banner)
+			daysHiddenAfterView: 30,
+		};
+	},
 
 	actions: {
 		/**

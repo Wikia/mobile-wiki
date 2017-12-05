@@ -4,12 +4,12 @@
 	{{site-head
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
-		globalNavigation=this.attrs.globalNavigation
+		globalNavigation=globalNavigation
 		isSearchPage=isSearchPage
 		shadow=siteHeadShadow
 		setDrawerContent=(action 'setDrawerContent')
 		themeBar=themeBar
-		toggleDrawer=this.attrs.toggleDrawer
+		toggleDrawer=toggleDrawer
 	}}
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
@@ -22,9 +22,8 @@
 				setDrawerContent=(action 'setDrawerContent')
 				closeDrawer=(action 'closeDrawer')
 				outsideSuggestionsClickAction=(action 'closeDrawer')
-				loadRandomArticle=this.attrs.loadRandomArticle
-				globalNavigation=this.attrs.globalNavigation
-				goToSearchResults=this.attrs.goToSearchResults
+				loadRandomArticle=loadRandomArticle
+				globalNavigation=globalNavigation
 				noScroll=true
 				focusInput=true
 			}}
@@ -43,8 +42,8 @@
 		model=lightboxModel
 		isVisible=lightboxVisible
 		lightboxCloseButtonDelay=lightboxCloseButtonDelay
-		closeLightbox=attrs.closeLightbox
-		setQueryParam=attrs.setQueryParam
+		closeLightbox=closeLightbox
+		setQueryParam=setQueryParam
 	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}

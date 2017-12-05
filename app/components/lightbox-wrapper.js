@@ -45,7 +45,7 @@ export default Component.extend(RenderComponentMixin, {
 				footerExpanded: false
 			});
 
-			this.sendAction('closeLightbox');
+			this.get('closeLightbox')();
 		},
 
 		/**
@@ -70,15 +70,6 @@ export default Component.extend(RenderComponentMixin, {
 		 */
 		setCloseButtonHidden(hidden) {
 			this.set('closeButtonHidden', hidden);
-		},
-
-		/**
-		 * @param {string} name
-		 * @param {*} value
-		 * @returns {void}
-		 */
-		setQueryParam(name, value) {
-			this.sendAction('setQueryParam', name, value);
 		},
 
 		/**

@@ -7,7 +7,7 @@ export default EmberObject.extend({
 	i18n: service(),
 	logger: service(),
 	wikiVariables: service(),
-	dsGlobalNavigation: {},
+	dsGlobalNavigation: null,
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
 	}),

@@ -16,9 +16,11 @@ const playerClassMap = {
 export default class VideoLoader {
 	/**
 	 * @param {*} data
+	 * @param noAds bool
 	 * @returns {void}
 	 */
-	constructor(data) {
+	constructor(data, noAds = false) {
+		data.noAds = noAds;
 		this.data = data;
 	}
 
@@ -40,6 +42,7 @@ export default class VideoLoader {
 		const provider = this.getProviderName(),
 			playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider),
 			params = $.extend(this.data.jsParams, {
+				/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 				size: {
 					height: this.data.height,
 					width: this.data.width

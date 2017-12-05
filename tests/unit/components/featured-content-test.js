@@ -47,7 +47,7 @@ test('returns the current item', function (assert) {
 test('sets proper index in the prevItem function', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = function () {};
+	component.updatePagination = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'
@@ -70,7 +70,7 @@ test('sets proper index in the prevItem function', function (assert) {
 test('sets proper index in the nextItem function', function (assert) {
 	const component = this.subject();
 
-	component.currentItemIndexObserver = function () {};
+	component.updatePagination = function () {};
 
 	component.set('model', [{
 		title: 'Item 1'

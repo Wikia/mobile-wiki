@@ -2,7 +2,6 @@ import fetch from 'fetch';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
-import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
@@ -124,14 +123,14 @@ export default Component.extend(
 			});
 		},
 
-		viewportOptionsOverride: on('willRender', function () {
+		willRender() {
 			const viewportTolerance = 1000;
 
 			this.set('viewportTolerance', {
 				top: viewportTolerance,
 				bottom: viewportTolerance
 			});
-		}),
+		},
 
 		actions: {
 			postClick(post, index) {

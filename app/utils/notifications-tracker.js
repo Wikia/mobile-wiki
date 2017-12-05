@@ -65,14 +65,14 @@ export function trackClick(notification) {
 export function trackMarkAsRead(notification) {
 	track(
 		`${labels.markAsRead}-${labels[notification.get('type')]}`,
-		'click',
+		'click'
 	);
 }
 
 export function trackMarkAllAsRead() {
 	track(
 		labels.markAllAsRead,
-		'click',
+		'click'
 	);
 }
 

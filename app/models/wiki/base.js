@@ -21,19 +21,25 @@ function getType({isMainPage, details: {type}}) {
 export default EmberObject.extend({
 	adsContext: null,
 	basePath: null,
-	categories: [],
+	categories: null,
 	description: '',
 	displayTitle: null,
 	htmlTitle: '',
 	id: null,
-	media: [],
-	mediaUsers: [],
+	media: null,
+	mediaUsers: null,
 	ns: null,
 	redirectEmptyTarget: false,
 	title: null,
 	url: null,
 	user: null,
 	wiki: null,
+
+	init() {
+		this.categories = [];
+		this.media = [];
+		this.mediaUsers = [];
+	},
 
 	/**
 	 * @param {Object} data

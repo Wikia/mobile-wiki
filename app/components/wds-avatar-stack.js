@@ -4,10 +4,13 @@ import Component from '@ember/component';
 
 export default Component.extend({
 	classNames: ['wds-avatar-stack'],
-
-	users: [],
 	totalCount: 0,
 	displayLimit: 5,
+
+	init() {
+		this._super(...arguments);
+		this.users = [];
+	},
 
 	avatars: computed('users', function () {
 		return this.get('users').slice(0, this.get('displayLimit'));

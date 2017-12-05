@@ -34,7 +34,7 @@ export default Component.extend(
 			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold'));
 		}),
 
-		onElementManualInsert: on('didInsertElement', function () {
+		didInsertElement() {
 			const ads = this.get('ads.module'),
 				name = this.get('name');
 
@@ -67,7 +67,7 @@ export default Component.extend(
 					bottom: 200
 				}
 			});
-		}),
+		},
 
 		/**
 		 * @returns {void}
