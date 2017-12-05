@@ -25,10 +25,9 @@ $title-padding-large: 0 21px;
 }
 
 .sub-head--fixed {
-	position: fixed
+	position: fixed;
 }
 
-/*a*/
 // todo: cleanup sub-head--cancel once all subheaders in Mobile Wiki use sub-header component
 // https://wikia-inc.atlassian.net/browse/DAT-3965
 .sub-head--cancel {
@@ -40,15 +39,15 @@ $title-padding-large: 0 21px;
 	height: $wikia-ui-components-sub-head-height;
 	justify-content: center;
 	line-height: inherit;
+	order: 1;
+	padding: 0;
+	width: $wikia-ui-components-sub-head-height;
 	margin: {
 		bottom: 0;
 		left: $cancel-margin-left;
 		right: 0;
 		top: 0;
 	};
-	order: 1;
-	padding: 0;
-	width: $wikia-ui-components-sub-head-height;
 
 	svg {
 		fill: $white;
@@ -97,7 +96,6 @@ $title-padding-large: 0 21px;
 	padding: 0 $article-horizontal-padding;
 }
 
-/*button*/
 .sub-head--done {
 	background: inherit;
 	border: 0;

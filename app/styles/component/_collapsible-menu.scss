@@ -34,11 +34,13 @@
 	}
 
 	//Takes care of hiding a menu
-	.collapsed + ul, .collapsed + ol {
+	.collapsed + ul,
+	.collapsed + ol {
 		display: none;
 	}
 
-	ol, ul {
+	ol,
+	ul {
 		margin: 0;
 		padding: 0;
 

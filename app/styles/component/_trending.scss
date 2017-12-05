@@ -1,7 +1,7 @@
 .trending {
+	line-height: 0;
 	margin: 2rem 0 0;
 	padding: 0 $article-horizontal-padding / 3;
-	line-height: 0;
 
 	h2 {
 		font-size: $type-smaller;
@@ -14,6 +14,7 @@
 
 	.item-image {
 		@extend %image-placeholder;
+
 		line-height: 1.25rem;
 	}
 

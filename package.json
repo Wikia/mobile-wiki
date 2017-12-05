@@ -17,6 +17,8 @@
     "fastboot-server": "node fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
+    "stylelint": "stylelint 'app/styles/**/*.scss'",
+    "stylelint.fix": "stylelint 'app/styles/**/*.scss' --fix",
     "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "test": "ember test"
@@ -109,7 +111,7 @@
     "moment": "2.18.1",
     "numeral": "2.0.6",
     "proxying-agent": "2.1.1",
-    "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.1",
+    "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.0.0",
     "tslint": "5.7.0",
     "typescript": "2.5.2"

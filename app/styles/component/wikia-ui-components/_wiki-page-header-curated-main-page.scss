@@ -6,6 +6,7 @@ $icon-size: 16px;
 
 .wiki-title {
 	@extend %header-section-title;
+
 	font-size: $type-smallest;
 	margin: 2rem 1rem 1.25em;
 
@@ -16,6 +17,7 @@ $icon-size: 16px;
 
 .wiki-page-title {
 	@extend %header-section-title;
+
 	line-height: 2rem;
 	margin: 1rem;
 	word-break: break-word;

@@ -11,8 +11,8 @@ $player-button-sound-off: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfNF9jb3B
 $uap-progress-bar-color: #b7b7b7;
 $uap-progress-bar-current-time-color: #666;
 $uap-progress-bar-height: 8px;
-$uap-replay-overlay-color: rgba(0,0,0,0.3);
-$uap-video-animation-duration: 0.4s;
+$uap-replay-overlay-color: rgba(0, 0, 0, .3);
+$uap-video-animation-duration: .4s;
 $uap-video-z-index: 100;
 
 .gpt-ad.bfaa-template,
@@ -31,7 +31,8 @@ $uap-video-z-index: 100;
 	}
 
 	.video-player {
-		&.video-player-left, &.video-player-right {
+		&.video-player-left,
+		&.video-player-right {
 			position: absolute !important;
 			z-index: $uap-video-z-index;
 		}
@@ -53,8 +54,8 @@ $uap-video-z-index: 100;
 			background: $uap-progress-bar-current-time-color;
 			height: 100%;
 			max-width: 100%;
-			width: 0;
 			transition: width linear;
+			width: 0;
 		}
 	}
 
@@ -62,8 +63,8 @@ $uap-video-z-index: 100;
 		height: 100%;
 		left: 0;
 		position: absolute;
-		width: 100%;
 		top: 0;
+		width: 100%;
 	}
 
 	.mobile-porvata .video-player > iframe {
@@ -109,21 +110,21 @@ $uap-video-z-index: 100;
 		padding: $player-button-click-area-mobile $player-button-border-space $player-button-border-space $player-button-click-area-mobile;
 
 		@media #{$breakpoint-m-up} {
-			padding-top: $player-button-click-area-desktop;
 			padding-left: $player-button-click-area-desktop;
+			padding-top: $player-button-click-area-desktop;
 		}
 
 		.speaker {
-			&.mute {
-				background: url($player-button-sound-off)
-			}
-
 			background: url($player-button-sound-on);
 			display: block;
 			height: $player-button-size;
 			overflow: hidden;
 			position: relative;
 			width: $player-button-size;
+
+			&.mute {
+				background: url($player-button-sound-off);
+			}
 		}
 	}
 }
@@ -137,9 +138,9 @@ body.vuap-loaded {
 	left: 0;
 	overflow: hidden;
 	position: absolute;
-	width: 100%;
-	transition: height $uap-video-animation-duration ease;
 	top: 0;
+	transition: height $uap-video-animation-duration ease;
+	width: 100%;
 
 	video {
 		left: 0;
@@ -148,16 +149,15 @@ body.vuap-loaded {
 
 .gpt-ad.bfab-template {
 	max-width: 1024px;
-	width: 100%;
 	overflow: hidden;
 	position: relative;
 	transition: height $uap-video-animation-duration ease;
+	width: 100%;
 
 	video {
 		left: 0;
 	}
 }
-
 
 @media #{$breakpoint-l-up} {
 	.gpt-ad.bfaa-template.on-animation,

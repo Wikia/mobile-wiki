@@ -1,11 +1,16 @@
 .article-content {
 	margin-bottom: rem-calc(40);
 
-	h1, h2, h3, h4, h6 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h6 {
 		color: $primary-color;
 	}
 
-	h1, h2 {
+	h1,
+	h2 {
 		margin-top: 0;
 		padding-top: rem-calc(40);
 	}

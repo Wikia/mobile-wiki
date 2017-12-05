@@ -1,25 +1,25 @@
 .icon {
 	height: 20px;
-	width: 20px;
 	vertical-align: middle;
+	width: 20px;
 
 	&.chevron {
-		width: rem-calc(12);
 		height: rem-calc(7);
+		width: rem-calc(12);
 	}
 
 	&.nav {
-		width: rem-calc(34);
 		height: rem-calc(20);
+		width: rem-calc(34);
 	}
 
 	&.search {
-		width: rem-calc(14);
 		height: rem-calc(14);
+		width: rem-calc(14);
 	}
 
 	&.close {
-		width: rem-calc(14);
 		height: rem-calc(14);
+		width: rem-calc(14);
 	}
 }
