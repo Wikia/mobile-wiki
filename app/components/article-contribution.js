@@ -30,7 +30,7 @@ export default Component.extend(
 						label: 'edit',
 						value: section
 					});
-					this.sendAction('edit', this.get('title'), section);
+					this.get('edit')(this.get('title'), section);
 				} else {
 					this.redirectToLogin('edit-section-no-auth');
 				}

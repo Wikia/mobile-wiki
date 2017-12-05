@@ -20,6 +20,8 @@ export default Component.extend(
 		isLoadingNewResults: oneWay('notifications.isLoading'),
 		username: oneWay('currentUser.name'),
 
+		setDrawerContent() {},
+
 		init() {
 			this._super(...arguments);
 			this.errors = [];
@@ -34,7 +36,7 @@ export default Component.extend(
 
 		actions: {
 			getBack() {
-				this.sendAction('setDrawerContent', 'nav');
+				this.get('setDrawerContent')('nav');
 			},
 		}
 	}

@@ -8,10 +8,14 @@ import fetch from 'fetch';
 import {convertToIsoString} from '../../utils/iso-date-time';
 import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
 
-const NotificationsModel = EmberObject.extend({
+export default EmberObject.extend({
 	unreadCount: 0,
-	data: new A(),
+	data: null,
 	logger: service(),
+
+	init() {
+		this.data = new A();
+	},
 
 	getNewestNotificationISODate() {
 		return convertToIsoString(this.get('data.0.timestamp'));
@@ -96,5 +100,3 @@ const NotificationsModel = EmberObject.extend({
 		this.get('data').pushObjects(notificationModels);
 	}
 });
-
-export default NotificationsModel;

@@ -107,12 +107,12 @@ test('display div with loading search suggestions', function (assert) {
 		}
 	];
 
-	this.set('suggestions', suggestions);
 	this.render(
 		hbs`{{wikia-search
 			suggestions=suggestions
 		}}`
 	);
+	this.set('suggestions', suggestions);
 
 	assert.equal(this.$('.wikia-search__search-suggestion').length, suggestions.length);
 });

@@ -28,7 +28,7 @@ export default Component.extend(RenderComponentMixin, {
 	updateState() {
 		const model = this.get('model');
 
-		this.sendAction('setHeader', model.title);
-		this.sendAction('setQueryParam', 'map', model.id);
+		this.get('setHeader')(model.title);
+		this.get('setQueryParam')('map', model.id);
 	},
 });

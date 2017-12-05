@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {alias, readOnly} from '@ember/object/computed';
+import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
@@ -13,7 +13,6 @@ export default Component.extend(
 		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
-		closableDrawerStates: ['nav', 'user-profile'],
 		closeIcon: 'close',
 
 		ads: service(),
@@ -24,17 +23,24 @@ export default Component.extend(
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-		headroomOptions: {
-			classes: {
-				initial: 'site-head-headroom',
-				pinned: 'site-head-headroom-pinned',
-				unpinned: 'site-head-headroom-un-pinned',
-				top: 'site-head-headroom-top',
-				notTop: 'site-head-headroom-not-top'
-			}
+		init() {
+			this._super(...arguments);
+
+			this.closableDrawerStates = ['nav', 'user-profile'];
+			this.headroomOptions = {
+				classes: {
+					initial: 'site-head-headroom',
+					pinned: 'site-head-headroom-pinned',
+					unpinned: 'site-head-headroom-un-pinned',
+					top: 'site-head-headroom-top',
+					notTop: 'site-head-headroom-not-top'
+				}
+			};
 		},
 
-		wikiaHomepage: alias('globalNavigation.logo.module.main.href') || 'http://fandom.wikia.com',
+		defaultWikiaHomePage: 'http://fandom.wikia.com',
+		wikiaHomepageFromNav: alias('globalNavigation.logo.module.main.href'),
+		wikiaHomepage: or('wikiaHomepageFromNav', 'defaultWikiHomePage'),
 
 		displayFandomBar: computed('isSearchPage', function () {
 			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');

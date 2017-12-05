@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {resolve} from 'rsvp';
 import {get} from '@ember/object';
+import {scheduleOnce} from '@ember/runloop';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
@@ -134,7 +135,7 @@ export default Route.extend(
 				let redirectTo = model.get('redirectTo');
 
 				if (handler) {
-					Ember.run.scheduleOnce('afterRender', () => {
+					scheduleOnce('afterRender', () => {
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
 						// updated yet. `didTransition` hook is called too fast.
 						this.trackPageView(model);

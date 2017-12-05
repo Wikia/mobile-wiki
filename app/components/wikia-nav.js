@@ -17,6 +17,8 @@ export default Component.extend(
 		currentUser: service(),
 		notifications: service(),
 
+		setDrawerContent() {},
+
 		isUserAuthenticated: oneWay('currentUser.isAuthenticated'),
 
 		init() {
@@ -59,7 +61,7 @@ export default Component.extend(
 
 			onUsernameClicked() {
 				this.send('trackClick', 'side-nav', 'open-user-profile');
-				this.sendAction('setDrawerContent', 'user-profile');
+				this.get('setDrawerContent')('user-profile');
 			},
 
 			goRoot() {

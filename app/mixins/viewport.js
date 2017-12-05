@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import Mixin from '@ember/object/mixin';
+import {bind} from '@ember/runloop';
 
 /**
  * This mixin keeps track of viewport size which is updated on every window resize.
@@ -27,7 +28,7 @@ export default Mixin.create({
 		if (!this.get('initiated') && !this.get('fastboot.isFastBoot')) {
 			this.onResize();
 			$(window).on('resize', () => {
-				this.onResize();
+				bind(this, this.onResize);
 			});
 			this.set('initiated', true);
 		}

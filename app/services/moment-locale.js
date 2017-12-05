@@ -1,35 +1,17 @@
 import Service, {inject as service} from '@ember/service';
 import $ from 'jquery';
-import {run} from '@ember/runloop';
+import {bind, run} from '@ember/runloop';
 import moment from 'moment';
 
 export default Service.extend({
 	logger: service(),
 	wikiVariables: service(),
 	defaultLocation: 'en',
-	enRelativeTime: {
-		m: '1m',
-		mm: '%dm',
-		h: '1h',
-		hh: '%dh',
-		d: '1d',
-		dd: '%dd'
-	},
+	enRelativeTime: null,
 	isLoaded: false,
 	isLoading: false,
 	// Path to all supported locales, so they can be fingerprinted
-	localePath: {
-		de: '/mobile-wiki/moment/de.js',
-		es: '/mobile-wiki/moment/es.js',
-		fr: '/mobile-wiki/moment/fr.js',
-		it: '/mobile-wiki/moment/it.js',
-		ja: '/mobile-wiki/moment/ja.js',
-		pl: '/mobile-wiki/moment/pl.js',
-		'pt-br': '/mobile-wiki/moment/pt-br.js',
-		ru: '/mobile-wiki/moment/ru.js',
-		'zh-cn': '/mobile-wiki/moment/zh-cn.js',
-		'zh-tw': '/mobile-wiki/moment/zh-tw.js'
-	},
+	localePath: null,
 	/**
 	 * Changes status of downloading moment's locale to trigger helper's observers
 	 *
@@ -69,7 +51,7 @@ export default Service.extend({
 				this.setEnLocale();
 			} else {
 				$.getScript(this.localePath[lang]).done(() => {
-					this.changeLoadingStatus();
+					bind(this, this.changeLoadingStatus);
 				}).fail((jqxhr, settings, exception) => {
 					this.get('logger').error(`Can't get moment translation for ${lang}`, exception);
 					this.setEnLocale();
@@ -80,6 +62,28 @@ export default Service.extend({
 	// Extends default en translation by needed relative time on init
 	init() {
 		this._super();
+
+		this.localePath = {
+			de: '/mobile-wiki/moment/de.js',
+			es: '/mobile-wiki/moment/es.js',
+			fr: '/mobile-wiki/moment/fr.js',
+			it: '/mobile-wiki/moment/it.js',
+			ja: '/mobile-wiki/moment/ja.js',
+			pl: '/mobile-wiki/moment/pl.js',
+			'pt-br': '/mobile-wiki/moment/pt-br.js',
+			ru: '/mobile-wiki/moment/ru.js',
+			'zh-cn': '/mobile-wiki/moment/zh-cn.js',
+			'zh-tw': '/mobile-wiki/moment/zh-tw.js'
+		};
+
+		this.enRelativeTime = {
+			m: '1m',
+			mm: '%dm',
+			h: '1h',
+			hh: '%dh',
+			d: '1d',
+			dd: '%dd'
+		};
 		moment.updateLocale('en', {
 			relativeTime: this.enRelativeTime
 		});

@@ -17,7 +17,7 @@ const NotificationModel = EmberObject.extend({
 	type: null,
 	isUnread: false,
 	totalUniqueActors: 1,
-	latestActors: [],
+	latestActors: null,
 	uri: null,
 
 	markAsRead() {

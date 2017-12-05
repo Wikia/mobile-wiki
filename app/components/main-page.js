@@ -17,25 +17,6 @@ export default Component.extend(
 
 		curatedContentToolButtonVisible: and('currentUser.rights.curatedcontent'),
 
-		actions: {
-			/**
-			 * @param {string} lightboxType
-			 * @param {Object} lightboxData
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxData) {
-				this.sendAction('openLightbox', lightboxType, lightboxData);
-			},
-
-			/**
-			 * @param {CuratedContentItem} item
-			 * @returns {void}
-			 */
-			openCuratedContentItem(item) {
-				this.sendAction('openCuratedContentItem', item);
-			},
-		},
-
 		/**
 		 * @returns {void}
 		 */

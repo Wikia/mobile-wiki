@@ -7,17 +7,21 @@ export default Service.extend({
 	wikiVariables: service(),
 	currentUser: service(),
 	siteHeadOffset: 0,
-	noAdsQueryParam: '',
+	noAdsQueryParam: null,
 	noAds: computed('noAdsQueryParam', function () {
 		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') ||
 			this.get('currentUser.isAuthenticated');
 	}),
-	adSlotComponents: {},
+	adSlotComponents: null,
 	adsUrl: computed('wikiVariables', function () {
 		let {cdnRootUrl, cacheBuster} = this.get('wikiVariables');
 
 		return `${cdnRootUrl}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
 	}),
+
+	init() {
+		this.adSlotComponents = {};
+	},
 
 	pushAdSlotComponent(slotName, adSlotComponent) {
 		this.get('adSlotComponents')[slotName] = adSlotComponent;

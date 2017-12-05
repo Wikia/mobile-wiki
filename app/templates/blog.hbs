@@ -1,12 +1,11 @@
 <div id="wikiContainer" class="wiki-container">
 	{{article-wrapper
-		articleRendered='articleRendered'
 		commentsPage=commentsPage
-		edit='edit'
 		model=model
-		openLightbox='openLightbox'
 		siteName=siteName
-		toggleDrawer='toggleDrawer'
 		wikiPageHeaderSubtitle=(i18n 'blog-page.subtitle')
+		edit=(action 'edit' target=article)
+		openLightbox=(action 'openLightbox' target=application)
+		toggleDrawer=(action 'toggleDrawer' target=application)
 	}}
 </div>

@@ -6,7 +6,7 @@ import extend from '../utils/extend';
 export default Service.extend({
 	fastboot: service(),
 	wikiVariables: service(),
-	config: {},
+	config: null,
 
 	init() {
 		this._super(...arguments);

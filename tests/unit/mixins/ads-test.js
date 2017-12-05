@@ -6,9 +6,11 @@ import AdsMixin from 'mobile-wiki/mixins/ads';
 import sinon from 'sinon';
 
 const adsStub = Service.extend({
-	module: {
-		reloadAfterTransition: () => {}
-	}
+	module: (function () {
+		return {
+			reloadAfterTransition: () => {}
+		};
+	})()
 });
 
 moduleFor('mixin:ads', 'Unit | Mixin | ads', {

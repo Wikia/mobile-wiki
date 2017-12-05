@@ -6,11 +6,5 @@ export default Controller.extend(WikiPageControllerMixin, {
 	application: controller(),
 	article: controller(),
 
-	commentsPage: alias('application.commentsPage'),
-
-	actions: {
-		articleRendered() {
-			this.get('article').send('articleRendered', ...arguments);
-		}
-	}
+	commentsPage: alias('application.commentsPage')
 });
