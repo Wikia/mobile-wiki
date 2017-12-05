@@ -182,6 +182,10 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				if (typeof window.wikiaPageViewDepth === 'number') {
+					window.wikiaPageViewDepth += 1;
+				}
 			},
 
 			error(error, transition) {
