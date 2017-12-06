@@ -113,7 +113,7 @@ module.exports = function (defaults) {
 	// Import files from node_modules, they will run both in FastBoot and browser
 	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
 	app.import('node_modules/vignette/dist/vignette.js');
-	app.import('test.js');
+	app.import('vendor/dependency1.js');
 
 	return app.toTree([
 		designSystemI18n,
