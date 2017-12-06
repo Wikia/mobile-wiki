@@ -45,6 +45,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
+			this._super(...arguments);
+
 			this.insertVideoPlayerHtml();
 			this.initVideoPlayer();
 		},
