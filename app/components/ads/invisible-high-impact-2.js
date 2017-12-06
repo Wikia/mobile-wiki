@@ -18,6 +18,8 @@ export default Component.extend(RenderComponentMixin, {
 	}),
 
 	didInsertElement() {
+		this._super(...arguments);
+
 		this.get('ads.module').onReady(() => {
 			if (this.isEnabled()) {
 				this.set('isVisible', true);
@@ -27,6 +29,8 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	willDestroyElement() {
+		this._super(...arguments);
+
 		if (this.isEnabled()) {
 			this.get('ads.module').removeSlot(this.get('name'));
 		}

@@ -9,6 +9,6 @@ export default Mixin.create({
 			this._placeholderElement = null;
 		}
 
-		this._super();
+		this._super(...arguments);
 	},
 });

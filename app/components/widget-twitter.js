@@ -37,6 +37,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			this._super(...arguments);
+
 			this.loadScript();
 			this.createTimeline();
 		},

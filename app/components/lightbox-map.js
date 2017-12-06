@@ -14,6 +14,8 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
 		// This isn't allowed by Ember to do on didInsertElement
 		// That's why we need to schedule it in the afterRender queue
