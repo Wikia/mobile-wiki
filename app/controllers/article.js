@@ -5,6 +5,7 @@ import {track, trackActions} from '../utils/track';
 
 export default Controller.extend(WikiPageControllerMixin, {
 	application: controller(),
+	wikiPage: controller(),
 
 	commentsPage: alias('application.commentsPage'),
 	displayRecirculation: equal('wikiVariables.language.content', 'en'),

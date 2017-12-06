@@ -7,6 +7,7 @@ export default Controller.extend(
 	{
 		article: controller(),
 		application: controller(),
+		wikiPage: controller(),
 
 		actions: {
 			/**

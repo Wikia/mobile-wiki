@@ -61,15 +61,6 @@ export default Route.extend(
 			});
 		},
 
-		/**
-		 *
-		 * @param {Ember.Controller} controller
-		 * @returns {void}
-		 */
-		resetController(controller) {
-			controller.set('preserveScrollPosition', false);
-		},
-
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
 

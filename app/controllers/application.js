@@ -128,8 +128,7 @@ export default Controller.extend(
 					lightboxType,
 					lightboxVisible: true,
 					lightboxCloseButtonDelay: closeButtonDelay,
-					noScroll: true,
-					preserveScrollPosition: true
+					noScroll: true
 				});
 			},
 
