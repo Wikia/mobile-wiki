@@ -67,15 +67,6 @@ export default Route.extend(
 		},
 
 		/**
-		 *
-		 * @param {Ember.Controller} controller
-		 * @returns {void}
-		 */
-		resetController(controller) {
-			controller.set('preserveScrollPosition', false);
-		},
-
-		/**
 		 * @param {EmberStates.Transition} transition
 		 * @returns {void}
 		 */
