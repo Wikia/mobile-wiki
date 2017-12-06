@@ -37,7 +37,7 @@ RUN npm run linter && \
 # npm run tests && \
     npm run build-prod
 
-RUN cp glimmer-error-temp/vendor-02e53fb11e2e2e442929588dbc71ad33.js dist/mobile-wiki/assets/
+RUN cp glimmer-error-temp/vendor-asdasdasd.js dist/mobile-wiki/assets/
 
 # 8001 is for prod
 EXPOSE 8001
