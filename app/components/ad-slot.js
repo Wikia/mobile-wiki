@@ -35,6 +35,8 @@ export default Component.extend(
 		}),
 
 		didInsertElement() {
+			this._super(...arguments);
+
 			const ads = this.get('ads.module'),
 				name = this.get('name');
 

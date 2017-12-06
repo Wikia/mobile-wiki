@@ -276,6 +276,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			this._super(...arguments);
+
 			const hammerInstance = this.get('_hammerInstance');
 
 			hammerInstance.get('pinch').set({

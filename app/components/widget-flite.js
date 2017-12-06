@@ -8,6 +8,7 @@ export default Component.extend(RenderComponentMixin, {
 
 	didInsertElement() {
 		this._super(...arguments);
+
 		this.$().html(this.getScriptTag());
 	},
 

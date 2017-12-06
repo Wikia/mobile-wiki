@@ -16,6 +16,8 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		const headers = this.get('articleContent').find('h2[section]').map((i, elem) => {
 			if (elem.textContent) {
 				return {
