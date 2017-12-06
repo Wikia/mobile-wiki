@@ -1,4 +1,5 @@
 import {computed} from '@ember/object';
+import {and, equal} from '@ember/object/computed';
 import Service, {inject as service} from '@ember/service';
 import Ads from '../modules/ads';
 
@@ -8,10 +9,8 @@ export default Service.extend({
 	currentUser: service(),
 	siteHeadOffset: 0,
 	noAdsQueryParam: null,
-	noAds: computed('noAdsQueryParam', function () {
-		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') ||
-			this.get('currentUser.isAuthenticated');
-	}),
+	shouldDisableAds: equals('noAdsQueryParam', '1'),
+	noAds: and('shouldDisableAds', 'currentUser.isAuthenticated'),
 	adSlotComponents: null,
 	adsUrl: computed('wikiVariables', function () {
 		let {cdnRootUrl, cacheBuster} = this.get('wikiVariables');
