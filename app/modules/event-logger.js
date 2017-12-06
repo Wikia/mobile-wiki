@@ -9,7 +9,6 @@ export default function logEvent(name, description) {
 	if (typeof description === 'object') {
 		description.depth = window.wikiaPageViewDepth;
 	}
-	console.log(name);
 	fetch(url, {
 		method: 'POST',
 		headers: {
