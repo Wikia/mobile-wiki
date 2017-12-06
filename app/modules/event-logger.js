@@ -23,5 +23,3 @@ export default function logEvent(name, description) {
 		})
 	});
 }
-
-window.wikiaLogEvent = logEvent;

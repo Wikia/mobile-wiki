@@ -1364,7 +1364,7 @@ s[e]=t-o}else r===zn.Pointer&&(s[e]=t-o)
 this.offset=this.offset-o},e}(),ir=function(){function e(){Ne(this,e),this.heap=new rr,this._opcode=new tr(this.heap),this.constants=new Tn}return e.prototype.opcode=function(e){return this._opcode.offset=e,this._opcode},e}(),or=function(){function e(t){var n=t.appendOperations,r=t.updateOperations
 Ne(this,e),this._macros=null,this._transaction=null,this.program=new ir,this.appendOperations=n,this.updateOperations=r}return e.prototype.toConditionalReference=function(e){return new $e(e)},e.prototype.getAppendOperations=function(){return this.appendOperations},e.prototype.getDOM=function(){return this.updateOperations},e.prototype.getIdentity=function(e){return(0,t.ensureGuid)(e)+""},e.prototype.begin=function(){
 	// logging glimmer error XW-4268
-	if (window) {
+	if (false) {
 		if (this._transaction && window.wikiaLogEvent && !window.wikiaGlimmerErrorStackTraceSent) {
 			window.wikiaLogEvent('glimmer error', {
 				stacktrace: window.wikiaGlimmerErrorStackTrace
