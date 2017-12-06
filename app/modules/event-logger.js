@@ -3,7 +3,12 @@ import fetch from 'fetch';
 
 const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}/error`;
 
+window.wikiaPageViewDepth = 0;
+
 export default function logEvent(name, description) {
+	if (typeof description === 'object') {
+		description.depth = window.wikiaPageViewDepth;
+	}
 	fetch(url, {
 		method: 'POST',
 		headers: {
@@ -18,3 +23,5 @@ export default function logEvent(name, description) {
 		})
 	});
 }
+
+window.wikiaLogEvent = logEvent;
