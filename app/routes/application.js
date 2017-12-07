@@ -47,18 +47,20 @@ export default Route.extend(
 		setupController(controller, model) {
 			controller.set('model', model);
 
-			// Because application controller needs wiki-page controller
-			// we can't be sure that media model will be ready when aplication controller is ready
-			run.scheduleOnce('afterRender', () => {
-				const file = controller.get('file'),
-					map = controller.get('map');
+			if (!this.get('fastboot.isFastBoot')) {
+				// Because application controller needs wiki-page controller
+				// we can't be sure that media model will be ready when aplication controller is ready
+				run.scheduleOnce('afterRender', () => {
+					const file = controller.get('file'),
+						map = controller.get('map');
 
-				if (!isEmpty(file)) {
-					controller.openLightboxForMedia(file);
-				} else if (!isEmpty(map)) {
-					controller.openLightboxForMap(map);
-				}
-			});
+					if (!isEmpty(file)) {
+						controller.openLightboxForMedia(file);
+					} else if (!isEmpty(map)) {
+						controller.openLightboxForMap(map);
+					}
+				});
+			}
 		},
 
 		model(params, transition) {
@@ -201,6 +203,10 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				if (typeof window.wikiaPageViewDepth === 'number') {
+					window.wikiaPageViewDepth += 1;
+				}
 			},
 
 			error(error, transition) {
