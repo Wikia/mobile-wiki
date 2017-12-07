@@ -7,7 +7,7 @@ export default Service.extend({
 	wikiVariables: service(),
 	currentUser: service(),
 	siteHeadOffset: 0,
-	noAdsQueryParam: null,
+	noAdsQueryParam: '',
 	noAds: computed('noAdsQueryParam', function () {
 		return (this.get('noAdsQueryParam') !== '' && this.get('noAdsQueryParam') !== '0') ||
 			this.get('currentUser.isAuthenticated');

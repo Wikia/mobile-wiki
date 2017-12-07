@@ -12,6 +12,8 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		Promise.all([
 			jwPlayerAssets.load(),
 			this.getVideoData()

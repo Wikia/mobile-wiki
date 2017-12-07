@@ -9,6 +9,8 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		const closeButtonDelay = this.get('lightboxCloseButtonDelay') || 0,
 			showCloseButtonAfterCountDown = () => {
 				if (this.get('lightboxCloseButtonDelay') > 0) {
