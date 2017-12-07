@@ -20,7 +20,7 @@ $border-bottom-height: 1px;
 	border-bottom: 1px solid $vapor;
 	border-top: 1px solid $vapor;
 	position: fixed;
-	transition: box-shadow 0.5s;
+	transition: box-shadow .5s;
 	width: 100%;
 	z-index: $z-6;
 
@@ -45,8 +45,8 @@ $border-bottom-height: 1px;
 		}
 
 		.search::after {
-			content: ' ';
 			border-bottom: $border-bottom-height solid $color-blue-light;
+			content: ' ';
 		}
 	}
 
@@ -112,8 +112,8 @@ $border-bottom-height: 1px;
 }
 
 .wikia-search__suggestions-wrapper {
-	height: 100%;
 	background-color: $overlay-background-color;
+	height: 100%;
 }
 
 .wikia-search__suggestions {

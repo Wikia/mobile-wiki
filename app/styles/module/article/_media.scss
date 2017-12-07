@@ -12,15 +12,15 @@
 	}
 
 	img {
+		display: inline-block;
+		width: 100%;
 		background: {
-			color: rgb(223,223,223);
+			color: rgb(223, 223, 223);
 			image: $brackets-svg-image;
 			position: center;
 			repeat: no-repeat;
 			size: contain;
 		}
-		display: inline-block;
-		width: 100%;
 	}
 
 	.chevron {
@@ -52,6 +52,7 @@
 
 	figcaption {
 		@include ellipsis;
+
 		height: 50px;
 		pointer-events: auto;
 	}
@@ -67,11 +68,11 @@ figcaption {
 	-webkit-overflow-scrolling: touch;
 
 	&:not(.linked-gallery) {
+		white-space: nowrap;
 		overflow: {
 			x: auto;
 			y: hidden;
 		}
-		white-space: nowrap;
 	}
 
 	img {
@@ -95,9 +96,9 @@ figcaption {
 
 		figure {
 			display: inline-block;
-			margin: 0 0 20px 0;
-			width: 49%;
+			margin: 0 0 20px;
 			vertical-align: top;
+			width: 49%;
 		}
 
 		img {
@@ -110,12 +111,6 @@ figcaption {
 .article-video::before,
 .comment-video::before,
 .file-video::before {
-	background: {
-		image: $media-play-svg;
-		position: 10px 10px;
-		repeat: no-repeat;
-		size: 45px;
-	}
 	bottom: 0;
 	content: '';
 	display: block;
@@ -126,6 +121,12 @@ figcaption {
 	top: 0;
 	// @todo XW-1364 - use variable
 	z-index: 1;
+	background: {
+		image: $media-play-svg;
+		position: 10px 10px;
+		repeat: no-repeat;
+		size: 45px;
+	}
 }
 
 .article-video,
@@ -134,6 +135,7 @@ figcaption {
 
 	&::after {
 		@include square(100%);
+
 		background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
 		content: '';
 		left: 0;
@@ -149,9 +151,10 @@ figcaption {
 
 	figcaption {
 		@include ellipsis;
+
 		bottom: 0;
 		color: white;
-		font-size: 0.9rem;
+		font-size: .9rem;
 		line-height: 1rem;
 		padding: 10px;
 		position: absolute;
@@ -172,6 +175,7 @@ figcaption {
 	0% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}
