@@ -41,7 +41,10 @@
 	 * placed differently so we have to hide the prerendered placeholder.
 	 */
 	if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-		document.querySelector('.article-featured-video').style.display = 'none';
+		var articleFeaturedVideo = document.querySelector('.article-featured-video');
+		if (articleFeaturedVideo) {
+			articlefeaturedVideo.style.display = 'none';
+		}
 	}
 </script>
 

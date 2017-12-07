@@ -70,7 +70,7 @@ export default Component.extend(
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 
-					if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+					if (this.get('featuredVideo') && inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
 						this.renderFeaturedVideo();
 					}
 
