@@ -27,6 +27,8 @@ Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wi
 * `npm run dev` - build, run application and watch files
 * `npm run test` - run tests
 * `npm run linter` - run ESLint on files that are outside ember project
+* `npm run stylelint` - run stylelint against all .scss in style folder
+* `npm run stylelint -- --fix` - run stylelint and fix all issues that can be automatically fixed
 * `npm run clean` - remove all dependencies and build directory
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
 * (Experimental) `npm run fastboot-debug` - build and run application in debugging mode. Server side code can be interrupted by debuggers.

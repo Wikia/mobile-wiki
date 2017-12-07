@@ -82,6 +82,9 @@ module.exports = function (defaults) {
 			],
 			onlyIncluded: true
 		},
+		stylelint: {
+			testFailingFiles: true
+		},
 		svgstore: {
 			files: [
 				{

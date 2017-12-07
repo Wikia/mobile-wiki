@@ -4,8 +4,8 @@
 
 .gpt-ad {
 	&.slot-animation {
-		transition: max-height 0.8s ease;
 		overflow: hidden;
+		transition: max-height .8s ease;
 	}
 
 	&.slot-responsive {

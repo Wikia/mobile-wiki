@@ -1,10 +1,10 @@
 .article-media-gallery {
 	-webkit-overflow-scrolling: touch;
+	white-space: nowrap;
 	overflow: {
 		x: auto;
 		y: hidden;
 	}
-	white-space: nowrap;
 
 	img {
 		height: 195px;

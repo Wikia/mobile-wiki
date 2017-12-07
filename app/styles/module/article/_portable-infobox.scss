@@ -141,6 +141,7 @@ $group-header-font-size: 16px;
 			.action-next {
 				right: 0;
 			}
+
 			.action-previous {
 				left: 0;
 			}
@@ -176,6 +177,7 @@ $group-header-font-size: 16px;
 		.pi-hero-title,
 		.pi-hero-caption {
 			@include ellipsis;
+
 			color: $infobox-hero-font-color;
 			text-shadow: 0 0 3px $infobox-hero-outline-color;
 
@@ -200,9 +202,9 @@ $group-header-font-size: 16px;
 			display: flex;
 			flex-direction: column;
 			font-size: $infobox-title-font-size;
-			min-height: $infobox-title-cell-height;
 			justify-content: center;
 			line-height: $infobox-title-line-height;
+			min-height: $infobox-title-cell-height;
 			text-align: center;
 		}
 
@@ -276,8 +278,8 @@ $group-header-font-size: 16px;
 
 		// infobox group
 		.pi-group .pi-header {
-			text-align: center;
 			font-size: $group-header-font-size;
+			text-align: center;
 		}
 
 		// infobox horizontal group
@@ -351,8 +353,7 @@ $group-header-font-size: 16px;
 		}
 
 		.pi-smart-group-head,
-		.pi-smart-group-body
-		{
+		.pi-smart-group-body {
 			display: flex;
 		}
 
@@ -399,7 +400,8 @@ $group-header-font-size: 16px;
 			}
 		}
 
-		.pi-hero, .pi-image-collection {
+		.pi-hero,
+		.pi-image-collection {
 			.article-media-placeholder {
 				// in case of long image (longer than wider)
 				// we want to crop its height to equal its width (which takes 100% of screen width)

@@ -36,8 +36,8 @@ table[data-portable="true"] {
 
 	th,
 	td {
-		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
 		max-width: $portable-table-cell-max-width;
+		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
 
 		&:not(:first-child) {
 			padding-left: 0;

@@ -1,82 +1,83 @@
 .wikia-user-profile {
-  -webkit-overflow-scrolling: touch;
-  background-color: $wds-color-white;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: auto;
-  text-align: center;
-
-  &__username {
-	margin: 4px 18px 1.1rem 18px;
-  }
-
-  &__fixed-wrapper {
-	flex-grow: 0;
-  }
-
-  &__back-link {
-	line-height: 20px;
-
-	svg {
-	  float: left;
-	  margin-top: 5px;
-	  transform: rotate(90deg);
-	}
-  }
-
-  &__header-wrapper {
-	.user-avatar {
-	  background-color: $wds-color-white;
-	  border-radius: 100%;
-	  margin-top: -25px;
-	  // hack for making it get on top of the header
-	  transform: translate(0, 0);
-
-	  figure.avatar {
-		svg,a>img  {
-		  border-color: $wds-color-white;
-		  border-width: 3px;
-		  height: 94px;
-		  width: 94px;
-		}
-	  }
-	}
-  }
-
-  &__scrollable-wrapper {
+	background-color: $wds-color-white;
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
 	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	text-align: center;
 
-	.wds-notifications__notification-list {
-	  max-height: inherit;
+	&__username {
+		margin: 4px 18px 1.1rem;
 	}
 
-	.wds-notifications__zero-state {
-	  padding-top: 40px;
+	&__fixed-wrapper {
+		flex-grow: 0;
 	}
-  }
 
-  &__notification-title-wrapper {
-	border-bottom: solid 1px $wds-color-blue-gray;
-	display: flex;
-	justify-content: space-between;
-	margin: 0 18px;
-	padding: 0 0 11px;
+	&__back-link {
+		line-height: 20px;
 
-	.wds-notifications__mark-all-as-read {
-	  line-height: 14px;
-	  margin: 0;
-	  padding: 0;
-	  text-align: right;
+		svg {
+			float: left;
+			margin-top: 5px;
+			transform: rotate(90deg);
+		}
 	}
-  }
 
-  &__notification-title {
-	font-size: $wds-typescale-size-minus-2;
-	line-height: 14px;
-	margin: 0;
-	padding: 0;
-	text-transform: uppercase;
-  }
+	&__header-wrapper {
+		.user-avatar {
+			background-color: $wds-color-white;
+			border-radius: 100%;
+			margin-top: -25px;
+			// hack for making it get on top of the header
+			transform: translate(0, 0);
+
+			figure.avatar {
+				svg,
+				a > img {
+					border-color: $wds-color-white;
+					border-width: 3px;
+					height: 94px;
+					width: 94px;
+				}
+			}
+		}
+	}
+
+	&__scrollable-wrapper {
+		flex-grow: 1;
+		overflow: auto;
+
+		.wds-notifications__notification-list {
+			max-height: inherit;
+		}
+
+		.wds-notifications__zero-state {
+			padding-top: 40px;
+		}
+	}
+
+	&__notification-title-wrapper {
+		border-bottom: solid 1px $wds-color-blue-gray;
+		display: flex;
+		justify-content: space-between;
+		margin: 0 18px;
+		padding: 0 0 11px;
+
+		.wds-notifications__mark-all-as-read {
+			line-height: 14px;
+			margin: 0;
+			padding: 0;
+			text-align: right;
+		}
+	}
+
+	&__notification-title {
+		font-size: $wds-typescale-size-minus-2;
+		line-height: 14px;
+		margin: 0;
+		padding: 0;
+		text-transform: uppercase;
+	}
 }

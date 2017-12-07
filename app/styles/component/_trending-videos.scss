@@ -5,6 +5,7 @@
 
 	.item-image {
 		@include play-icon-in-circle(45px, 20px, 16px);
+
 		position: relative;
 	}
 
