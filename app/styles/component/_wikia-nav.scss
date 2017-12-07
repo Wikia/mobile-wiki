@@ -6,7 +6,7 @@ $nav-back-arrow-padding: 68px;
 $nav-background-color: #636b76;
 $nav-font-size: 16px;
 $nav-line-height: 30px;
-$nav-local-background-color: #4F5863;
+$nav-local-background-color: #4f5863;
 $nav-logout-color: #d7d9dc;
 $nav-padding-horizontal: 9px;
 $nav-padding-vertical: 18px;
@@ -23,15 +23,15 @@ $nav-padding-vertical: 18px;
 
 // Overrides for unread mark from On Site Notifications
 .wikia-nav {
-  .user-profile-avatar {
-	position: relative;
-  }
+	.user-profile-avatar {
+		position: relative;
+	}
 
-  .wds-notifications__unread-mark {
-	left: initial;
-	right: -9px;
-	top: -3px;
-  }
+	.wds-notifications__unread-mark {
+		left: initial;
+		right: -9px;
+		top: -3px;
+	}
 }
 
 .wikia-nav__header {
@@ -48,8 +48,8 @@ $nav-padding-vertical: 18px;
 	overflow: hidden;
 	padding: $nav-padding-horizontal $nav-padding-vertical;
 	position: relative;
-	white-space: nowrap;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 
 	&.wikia-nav__back {
 		background-image: $side-nav-back-svg;
@@ -66,8 +66,8 @@ $nav-padding-vertical: 18px;
 			border: $nav-avatar-border solid $white;
 			border-radius: $nav-avatar-border-radius;
 			height: $nav-avatar-size;
-			width: $nav-avatar-size;
 			vertical-align: top;
+			width: $nav-avatar-size;
 		}
 	}
 
@@ -76,8 +76,8 @@ $nav-padding-vertical: 18px;
 		border: $nav-avatar-border solid #fff;
 		border-radius: $nav-avatar-border-radius;
 		height: $nav-avatar-size;
-		width: $nav-avatar-size;
 		vertical-align: top;
+		width: $nav-avatar-size;
 	}
 
 	.wikia-nav--logout {

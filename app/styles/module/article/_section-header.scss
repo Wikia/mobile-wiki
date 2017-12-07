@@ -4,6 +4,7 @@
 
 	a {
 		@include square(rem-calc(44));
+
 		position: absolute;
 		right: rem-calc(5);
 		text-align: right;

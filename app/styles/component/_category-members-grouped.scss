@@ -4,7 +4,7 @@
 	h3 {
 		border-bottom: solid 1px $wds-color-light-c4;
 		margin-bottom: 0;
-		padding-bottom: 0.7rem;
+		padding-bottom: .7rem;
 	}
 
 	ul {
@@ -21,8 +21,8 @@
 		&::before {
 			background-image: $wds-icons-pages-small-svg;
 			content: '';
-			left: -4px;
 			height: $icon-size;
+			left: -4px;
 			position: absolute;
 			width: $icon-size;
 		}
@@ -49,9 +49,9 @@
 }
 
 .category-navigation {
-	text-align: center;
 	padding-bottom: 1.125rem;
 	position: relative;
+	text-align: center;
 
 	&__button {
 		margin: 0;

@@ -4,6 +4,7 @@
 
 	figcaption {
 		@include ellipsis;
+
 		color: #999;
 		height: 50px;
 		padding: 5px 0;
@@ -69,6 +70,7 @@
 	0% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}

@@ -3,7 +3,7 @@ $border-color: #d0d0d0;
 table[class*='infobox'] {
 	border-collapse: collapse;
 	border-spacing: 0;
-	font-size: 0.9rem;
+	font-size: .9rem;
 	margin: 2.5rem auto;
 	width: 100%;
 
@@ -12,8 +12,8 @@ table[class*='infobox'] {
 	}
 
 	img {
-		max-width: 100%;
 		height: auto;
+		max-width: 100%;
 	}
 
 	th {
@@ -24,12 +24,13 @@ table[class*='infobox'] {
 		border-bottom: 1px solid $border-color-light;
 	}
 
-   	tr:last-of-type {
+	tr:last-of-type {
 		border-bottom: none;
 	}
 
 	//There is already enough spacing
-	ul, ol {
+	ul,
+	ol {
 		padding: 0;
 	}
 
@@ -37,13 +38,14 @@ table[class*='infobox'] {
 		width: 100px;
 	}
 
-	th, td {
+	th,
+	td {
 		padding: 5px;
 		vertical-align: top;
 
 		&[colspan='2'] {
-			text-align: center;
 			padding: 0;
+			text-align: center;
 
 			b {
 				display: inline-block;

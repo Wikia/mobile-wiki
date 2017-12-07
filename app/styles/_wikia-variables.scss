@@ -59,8 +59,8 @@ $color-gray-semi: $color-blue-gray;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$overlay-background-color: rgba(0, 0, 0, 0.5);
-$box-shadow-color: rgba(0, 0, 0, 0.3);
+$overlay-background-color: rgba(0, 0, 0, .5);
+$box-shadow-color: rgba(0, 0, 0, .3);
 
 $border-color-light: $color-gray-light;
 
@@ -83,13 +83,13 @@ $transition-length: .1s;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $verticals: comics games books movies lifestyle music tv;
 $vertical-colors: (
-		$color-hub-comics
-		$color-hub-games
-		$color-hub-books
-		$color-hub-movies
-		$color-hub-lifestyle
-		$color-hub-music
-		$color-hub-tv
+	$color-hub-comics
+	$color-hub-games
+	$color-hub-books
+	$color-hub-movies
+	$color-hub-lifestyle
+	$color-hub-music
+	$color-hub-tv
 );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

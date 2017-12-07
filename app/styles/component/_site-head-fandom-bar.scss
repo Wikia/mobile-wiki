@@ -1,5 +1,5 @@
 $head-fandom-bar-font-size: 12px;
-$home-of-fandom-letter-spacing: 0.5px;
+$home-of-fandom-letter-spacing: .5px;
 
 .site-head-fandom-bar-wrapper {
 	height: $site-head-fandom-bar-height;
@@ -12,27 +12,28 @@ $home-of-fandom-letter-spacing: 0.5px;
 .site-head-fandom-bar {
 	background-color: $white;
 	border-bottom: 1px solid $color-blue-gray-light;
+
+	//Styles for old tagline
+	color: $color-blue-gray-dark;
 	display: flex;
 	height: $site-head-fandom-bar-height;
 	justify-content: center;
+	letter-spacing: $home-of-fandom-letter-spacing;
 	position: fixed;
 	top: $site-head-height;
 	transition: transform .5s;
 	width: 100%;
 	will-change: transform;
 	z-index: $z-6;
-
-	//Styles for old tagline
-	color: $color-blue-gray-dark;
 	font: {
 		size: $head-fandom-bar-font-size;
 		weight: bold;
 	}
-	letter-spacing: $home-of-fandom-letter-spacing;
 	text: {
 		align: center;
 		transform: uppercase;
 	}
+
 	a {
 		color: $color-blue-gray-dark;
 		margin-top: 1px;

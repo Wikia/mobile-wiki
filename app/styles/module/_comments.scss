@@ -1,6 +1,6 @@
 .show-reply-btn,
 .page-btn {
-	background: rgb(250,250,250);
+	background: rgb(250, 250, 250);
 	color: $anchor-font-color;
 	width: 100%;
 }
@@ -10,23 +10,22 @@
 }
 
 .show-comments-btn {
-	display: block;
 	background: none;
 	border-top: 1px solid $secondary-color;
 	color: #333;
-
+	display: block;
+	font-weight: bold;
 	padding: rem-calc(16) rem-calc(20);
 	position: relative;
-	font-weight: bold;
 	text: {
 		align: left;
 		transform: uppercase;
 	}
 
 	.chevron {
+		margin-top: rem-calc(5);
 		position: absolute;
 		right: rem-calc(10);
-		margin-top: rem-calc(5);
 	}
 }
 
@@ -35,7 +34,8 @@
 
 	font-size: rem-calc(13);
 
-	&__no-comments, &__add-comment {
+	&__no-comments,
+	&__add-comment {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
@@ -70,10 +70,12 @@
 
 .article-comment {
 	@extend .row;
+
 	margin: 0;
 
 	> div {
 		@extend .columns;
+
 		padding: 0;
 	}
 
@@ -101,7 +103,6 @@
 		.avatar img {
 			margin-left: rem-calc(-10);
 		}
-
 	}
 
 	.avatar {

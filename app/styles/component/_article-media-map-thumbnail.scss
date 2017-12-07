@@ -8,7 +8,7 @@
 	}
 
 	figcaption {
-	  	@include ellipsis;
+		@include ellipsis;
 
 		bottom: 0;
 		color: #fff;
@@ -25,6 +25,6 @@
 		fill: #fff;
 		position: absolute;
 		right: 5%;
-  		top: 5%;
+		top: 5%;
 	}
 }

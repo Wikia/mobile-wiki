@@ -10,6 +10,7 @@
 	.user-avatar {
 		.avatar-username {
 			@include ellipsis;
+
 			display: inline-block;
 			max-width: 140px;
 			vertical-align: middle;
