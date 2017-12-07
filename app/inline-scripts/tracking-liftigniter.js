@@ -1,4 +1,16 @@
 (function (w, d, s, p, v, e, r) {
+	if (!('performance' in w)) {
+		w.performance = {
+			now() {
+				return 0;
+			},
+			memory: {
+				usedJSHeapSize: 0,
+				totalJSHeapSize: 0
+			}
+		};
+	}
+
 	w.$igniter_var = v;
 	w[v] = w[v] || function () {
 		(w[v].q = w[v].q || []).push(arguments);
