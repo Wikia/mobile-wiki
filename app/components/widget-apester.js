@@ -10,6 +10,8 @@ export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		this.loadScript();
 		this.createWidget();
 	},

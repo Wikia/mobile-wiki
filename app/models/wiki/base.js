@@ -35,12 +35,6 @@ export default EmberObject.extend({
 	user: null,
 	wiki: null,
 
-	init() {
-		this.categories = [];
-		this.media = [];
-		this.mediaUsers = [];
-	},
-
 	/**
 	 * @param {Object} data
 	 * @returns {void}

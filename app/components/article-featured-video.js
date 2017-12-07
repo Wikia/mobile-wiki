@@ -144,6 +144,8 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	didInsertElement() {
+		this._super(...arguments);
+
 		this.onScrollHandler = this.onScrollHandler.bind(this);
 
 		this.destroyVideoPlayer();
