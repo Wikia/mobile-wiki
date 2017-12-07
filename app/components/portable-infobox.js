@@ -63,6 +63,8 @@ export default Component.extend(
 			if (this.get('isLongInfobox')) {
 				this.collapse();
 			}
+
+			this._super(...arguments);
 		},
 
 		collapse() {
