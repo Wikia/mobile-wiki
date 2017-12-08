@@ -143,7 +143,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 		this.ads.set('noAds', testCase.noAds);
 
 		component.setProperties(testCase.properties);
-		component.onElementManualInsert();
+		component.didInsertElement();
 		component.didEnterViewport();
 
 		assert.equal(

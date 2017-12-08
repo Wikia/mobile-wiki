@@ -1,0 +1,89 @@
+.article-featured-video {
+	$on-scroll-padding: 12px;
+
+	&.on-scroll-variant {
+		position: relative;
+		z-index: $z-site-head  + 1;
+
+		// FIXME consider moving & to the beginning of selectors
+		&.is-dismissed,
+		.slide-into-view + .page-wrapper & {
+			// video is visible over nav / side menu by default, so we want to move it under
+			// both of them when either video is dismissed or side-menu is visible
+			z-index: $z-site-head - 3;
+		}
+	}
+
+	&__close-button {
+		align-items: center;
+		background-color: $wds-color-white;
+		display: none;
+		height: 32px;
+		justify-content: center;
+		position: absolute;
+		right: 6px;
+		text-align: center;
+		top: 6px;
+		width: 36px;
+
+		.is-on-scroll-video & {
+			display: flex;
+		}
+
+		.wds-icon {
+			fill: $wds-color-light-c4;
+		}
+	}
+
+	&__on-scroll-video-wrapper {
+		background-color: $wds-color-white;
+		padding: 0;
+		transform: translate3d(0, 0, 0);
+		transition: padding .3s;
+
+		.is-on-scroll-video & {
+			padding: $on-scroll-padding;
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
+
+		.with-fandom-app-smart-banner .is-on-scroll-video & {
+			// height of fandom smart banner
+			top: 85px;
+		}
+	}
+
+	&__video-content {
+		background-color: $wds-color-black;
+		background-size: contain;
+		height: calc(100vw * 9 / 16);
+
+		.article-body .page-placement-variant & {
+			// 1.125rem is the size of article's side padding
+			height: calc((100vw - (2 * 1.125rem)) * 9 / 16);
+		}
+
+		.is-on-scroll-video & {
+			height: calc((100vw - (2 * #{$on-scroll-padding})) * 9 / 16);
+		}
+	}
+
+	&__on-scroll-placeholder {
+		position: absolute;
+		top: 0;
+		z-index: -1;
+
+		.is-on-scroll-video & {
+			position: relative;
+		}
+	}
+}
+
+.jwplayer {
+	// resets wikia-style-guide styles
+	input[type="checkbox"] + label {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}

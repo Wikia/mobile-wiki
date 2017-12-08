@@ -4,7 +4,8 @@ moduleForComponent('site-head', 'Unit | Component | site head', {
 	unit: true,
 	needs: [
 		'service:ads',
-		'service:notifications'
+		'service:notifications',
+		'service:smartBanner'
 	],
 	beforeEach() {
 		this.register('service:currentUser', window.document, {instantiate: false});

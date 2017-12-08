@@ -5,6 +5,7 @@ import {track, trackActions} from '../utils/track';
 
 export default Controller.extend(WikiPageControllerMixin, {
 	application: controller(),
+	wikiPage: controller(),
 
 	commentsPage: alias('application.commentsPage'),
 	displayRecirculation: equal('wikiVariables.language.content', 'en'),
@@ -16,7 +17,7 @@ export default Controller.extend(WikiPageControllerMixin, {
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			this.transitionToRoute('articleEdit', title, sectionIndex);
+			this.transitionToRoute('article-edit', title, sectionIndex);
 
 			track({
 				action: trackActions.click,
@@ -26,23 +27,12 @@ export default Controller.extend(WikiPageControllerMixin, {
 			});
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		articleRendered() {
-			this.send('handleLightbox');
-		},
-
 		trackClick(category, label) {
 			track({
 				action: trackActions.click,
 				category,
 				label
 			});
-		},
-
-		toggleSiteHeadShadow(visible) {
-			this.get('application').send('toggleSiteHeadShadow', visible);
 		}
 	}
 });

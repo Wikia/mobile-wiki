@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {reads, bool, equal, and} from '@ember/object/computed';
+import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import $ from 'jquery';
@@ -37,14 +37,18 @@ export default Component.extend({
 		'bfaaTemplate'
 	],
 	scrollLocation: null,
-	smartBannerVisible: false,
 	firstRender: true,
 
 	ads: service(),
 	currentUser: service(),
+	smartBanner: service(),
 	fastboot: service(),
 	logger: service(),
 	wikiVariables: service(),
+
+	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
+	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
+	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	dir: reads('wikiVariables.language.contentDir'),
 
@@ -59,13 +63,6 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
-
-	/**
-	 * @returns {boolean}
-	 */
-	isUserLangEn: equal('currentUser.language', 'en'),
-	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
 
 	/**
 	 * @returns {void}
@@ -191,8 +188,8 @@ export default Component.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match(`^${window.location.origin}/a/.*/comments$`)) {
-				this.sendAction('closeLightbox');
-				this.sendAction('handleLink', target);
+				this.get('closeLightbox')();
+				this.get('handleLink', target)();
 			}
 		}
 	}

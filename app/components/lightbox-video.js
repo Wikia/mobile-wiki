@@ -37,16 +37,16 @@ export default Component.extend(
 		/**
 		 * @returns VideoLoader
 		 */
-		videoLoader: computed('model.embed', function () {
-			this.set('model.embed.noAds', this.get('ads.noAds'));
-
-			return new VideoLoader(this.get('model.embed'));
+		videoLoader: computed('model.embed', 'ads.noAds', function () {
+			return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
 		}),
 
 		/**
 		 * @returns {void}
 		 */
 		didRender() {
+			this._super(...arguments);
+
 			this.insertVideoPlayerHtml();
 			this.initVideoPlayer();
 		},

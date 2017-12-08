@@ -9,6 +9,8 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
+		this._super(...arguments);
+
 		const closeButtonDelay = this.get('lightboxCloseButtonDelay') || 0,
 			showCloseButtonAfterCountDown = () => {
 				if (this.get('lightboxCloseButtonDelay') > 0) {
@@ -17,14 +19,14 @@ export default Component.extend(RenderComponentMixin, {
 						showCloseButtonAfterCountDown();
 					}, 1000);
 				} else {
-					this.sendAction('setCloseButtonHidden', false);
+					this.get('setCloseButtonHidden')(false);
 				}
 			};
 
-		this.sendAction('setHeader', 'Advertisement');
+		this.get('setHeader')('Advertisement');
 
 		if (closeButtonDelay > 0) {
-			this.sendAction('setCloseButtonHidden', true);
+			this.get('setCloseButtonHidden')(true);
 			showCloseButtonAfterCountDown();
 		}
 	}

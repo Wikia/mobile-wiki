@@ -2,19 +2,19 @@
 	margin: 0 -$article-horizontal-padding;
 
 	.heading-wrapper {
+		align-items: center;
+		background-color: $wds-color-off-white;
+		display: flex;
+		font-size: $type-min;
+		min-height: 70px;
+		padding-top: 0;
+
 		svg {
 			fill: $link-color;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
 		}
-
-		align-items: center;
-		background-color: $wds-color-off-white;
-		display: flex;
-		min-height: 70px;
-		font-size: $type-min;
-		padding-top: 0;
 	}
 
 	.heading {
@@ -38,7 +38,7 @@
 	}
 
 	.post-detail {
-		box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
 		margin-bottom: 10px;
 		padding: 0 12px;
 	}
@@ -53,6 +53,7 @@
 
 		.avatar-username {
 			@include ellipsis;
+
 			display: inline-block;
 			font-size: $type-smallest;
 			max-width: 140px;
@@ -76,10 +77,10 @@
 	}
 
 	.post-title {
-		margin-bottom: 5px;
 		font-size: $type-smaller;
 		font-weight: 600;
 		line-height: $line-height-smaller;
+		margin-bottom: 5px;
 	}
 
 	.post-details-link {
@@ -102,6 +103,7 @@
 
 	.post-counters .icon {
 		@include square(18px);
+
 		fill: $wds-color-light-gray;
 		margin-right: 2px;
 
@@ -112,8 +114,8 @@
 
 	.upvote-count,
 	.reply-count {
-		display: flex;
 		align-items: center;
+		display: flex;
 	}
 
 	.post-actions {
@@ -125,6 +127,7 @@
 
 		.icon {
 			@include square(24px);
+
 			fill: $wds-color-light-gray;
 			margin-right: 2px;
 		}
@@ -160,8 +163,8 @@
 	}
 
 	.og-texts {
-		padding: 12px 18px;
 		overflow: hidden;
+		padding: 12px 18px;
 		word-wrap: break-word;
 	}
 

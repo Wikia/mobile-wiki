@@ -53,8 +53,7 @@ body:not(.no-scroll) {
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
+	flex-flow: row nowrap;
 	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;

@@ -29,7 +29,7 @@ export function initialize() {
 				}
 
 				// trigger the action on the controller
-				this.sendAction('action', this.get('actionParam'));
+				action(this.get('actionParam'));
 			}
 
 			if (trackingCategory) {

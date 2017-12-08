@@ -3,6 +3,7 @@ import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import RenderComponentMixin from '../mixins/render-component';
 import {track, trackActions} from '../utils/track';
+import {inGroup} from '../modules/abtest';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -41,18 +42,29 @@ export default Component.extend(
 		 * We want to always show the image AND some other infobox informations to
 		 * indicate that this is infobox, not only an ordinary image.
 		 */
-		collapsedHeight: computed('viewportDimensions.width', 'viewportDimensions.height', function () {
+		collapsedHeight: computed('viewportDimensions.{width,height}', function () {
 			const deviceWidth = this.get('viewportDimensions.width'),
 				deviceHeight = this.get('viewportDimensions.height'),
-				isLandscape = deviceWidth > deviceHeight;
+				isLandscape = deviceWidth > deviceHeight,
+				calculatedHeight = Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100,
+				maximumRequiredHeight = 500;
 
-			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+			/**
+			 * FIXME FEATURED VIDEO A/B TEST ONLY
+			 */
+			if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+				return calculatedHeight > maximumRequiredHeight ? maximumRequiredHeight : calculatedHeight;
+			}
+
+			return calculatedHeight;
 		}),
 
 		didInsertElement() {
 			if (this.get('isLongInfobox')) {
 				this.collapse();
 			}
+
+			this._super(...arguments);
 		},
 
 		collapse() {

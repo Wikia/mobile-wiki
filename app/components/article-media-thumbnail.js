@@ -19,11 +19,6 @@ export default Component.extend(
 		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
 		tagName: 'figure',
 
-		smallImageSize: {
-			height: 64,
-			width: 64
-		},
-
 		/**
 		 * Default is `article`
 		 * It can be overridden when rendering from another component, e.g. from article-media-gallery

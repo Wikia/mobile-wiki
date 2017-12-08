@@ -32,7 +32,6 @@ export default Controller.extend(
 		commentsPage: null,
 
 		applicationWrapperClassNames: null,
-		smartBannerVisible: false,
 		drawerVisible: false,
 		drawerContent: null,
 		userMenuVisible: false,
@@ -103,23 +102,6 @@ export default Controller.extend(
 			 */
 			handleLink(target) {
 				this.get('target').send('handleLink', target);
-			},
-
-			/**
-			 * Handles query params that should open a lightbox.
-			 * If you add another param to the app you should modify this function.
-			 *
-			 * @returns {void}
-			 */
-			handleLightbox() {
-				const file = this.get('file'),
-					map = this.get('map');
-
-				if (!isEmpty(file)) {
-					this.openLightboxForMedia(file);
-				} else if (!isEmpty(map)) {
-					this.openLightboxForMap(map);
-				}
 			},
 
 			/**
@@ -197,14 +179,6 @@ export default Controller.extend(
 			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleSmartBanner(visible) {
-				this.set('smartBannerVisible', visible);
-			},
-
-			/**
-			 * @param {boolean} visible
-			 * @returns {void}
-			 */
 			toggleUserMenu(visible) {
 				this.set('userMenuVisible', visible);
 			},
@@ -255,6 +229,7 @@ export default Controller.extend(
 				url: $map.data('map-url'),
 				id: $map.data('map-id')
 			});
+
 		}
 	}
 );

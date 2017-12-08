@@ -1,0 +1,27 @@
+@import '_mixin';
+@import '_stickiness';
+@import '_uap';
+
+.gpt-ad {
+	&.slot-animation {
+		overflow: hidden;
+		transition: max-height .8s ease;
+	}
+
+	&.slot-responsive {
+		width: 100%;
+
+		> div {
+			position: relative;
+
+			iframe {
+				@include absolute-fill();
+			}
+		}
+	}
+
+	&.hide,
+	& .hide {
+		display: none !important;
+	}
+}

@@ -6,6 +6,9 @@ import {on} from '@ember/object/evented';
 import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
+import logEvent from '../modules/event-logger';
+
+let pubadsErrorLogged = false;
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -31,7 +34,9 @@ export default Component.extend(
 			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold'));
 		}),
 
-		onElementManualInsert: on('didInsertElement', function () {
+		didInsertElement() {
+			this._super(...arguments);
+
 			const ads = this.get('ads.module'),
 				name = this.get('name');
 
@@ -64,7 +69,7 @@ export default Component.extend(
 					bottom: 200
 				}
 			});
-		}),
+		},
 
 		/**
 		 * @returns {void}
@@ -94,7 +99,14 @@ export default Component.extend(
 			const name = this.get('name');
 
 			this.get('logger').info('Will destroy ad:', name);
-			this.get('ads.module').removeSlot(name);
+			// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
+			// when exception of pubads being undefined is thrown
+			if (window.googletag && window.googletag.pubads) {
+				this.get('ads.module').removeSlot(name);
+			} else if (!pubadsErrorLogged) {
+				logEvent('pubads error', 'window.googletag.pubads is undefined');
+				pubadsErrorLogged = true;
+			}
 		}
 	}
 );

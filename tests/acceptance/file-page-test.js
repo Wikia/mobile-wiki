@@ -7,6 +7,11 @@ moduleForAcceptance('Acceptance | file page');
 test('visiting File Page', (assert) => {
 	const originalImage = window.Image;
 
+	// XW-4268 this is a hack to make the test work after adding logging in ad-slot.js component
+	window.googletag = {
+		pubads: true
+	};
+
 	window.Image = sinon.stub();
 	mockAdsService();
 	mockFastbootService();

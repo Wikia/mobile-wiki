@@ -16,7 +16,11 @@ export default Route.extend(
 		logger: service(),
 		wikiVariables: service(),
 
-		applicationWrapperClassNames: ['article-preview'],
+		init() {
+			this._super(...arguments);
+
+			this.applicationWrapperClassNames = ['article-preview'];
+		},
 
 		model() {
 			const shoebox = this.get('fastboot.shoebox');

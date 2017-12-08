@@ -1,6 +1,5 @@
 {{#if shouldShowFandomAppSmartBanner}}
 	{{fandom-app-smart-banner
-		toggleVisibility=toggleSmartBannerVisibility
 		isVisible=smartBannerVisible
 	}}
 {{/if}}
@@ -39,7 +38,7 @@
 	{{site-head-fandom-bar
 		wikiaHomepage=wikiaHomepage
 		isVisible=displayFandomBar
-		globalNavigation=this.attrs.globalNavigation
+		globalNavigation=globalNavigation
 	}}
 {{/unless}}
 <div id="site-head-sub-header" class="{{unless displayFandomBar 'site-head-fandom-bar-hidden'}}"></div>

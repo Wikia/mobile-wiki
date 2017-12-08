@@ -24,7 +24,8 @@ $controls-z-index: 11;
 	.video-display-wrapper {
 		position: relative;
 
-		video, &.vpaid-enabled > div {
+		video,
+		&.vpaid-enabled > div {
 			@include absolute-fill();
 		}
 
@@ -79,8 +80,8 @@ $controls-z-index: 11;
 		height: 100%;
 		margin: 0;
 		max-width: 100%;
-		width: 0;
 		transition: width linear;
+		width: 0;
 		z-index: $controls-z-index;
 	}
 
@@ -105,7 +106,8 @@ $controls-z-index: 11;
 		z-index: $controls-z-index;
 	}
 
-	.ima-mute-div, .volume-control {
+	.ima-mute-div,
+	.volume-control {
 		bottom: 0;
 		padding: $player-button-click-area $player-button-border-space 10px $player-button-click-area;
 		position: absolute;
@@ -114,16 +116,16 @@ $controls-z-index: 11;
 		z-index: $controls-z-index;
 
 		.speaker {
-			&.mute {
-				background-image: url($player-button-sound-off);
-			}
-
 			background-image: url($player-button-sound-on);
 			display: inline-block;
 			height: $player-button-size;
 			overflow: hidden;
 			position: relative;
 			width: $player-button-size;
+
+			&.mute {
+				background-image: url($player-button-sound-off);
+			}
 		}
 	}
 }
@@ -166,11 +168,11 @@ $controls-z-index: 11;
 			right: 7px;
 
 			.speaker {
+				background: url($outstream-button-sound-on) no-repeat left bottom;
+
 				&.mute {
 					background: url($outstream-button-sound-off) no-repeat left bottom;
 				}
-
-				background: url($outstream-button-sound-on) no-repeat left bottom;
 			}
 		}
 	}

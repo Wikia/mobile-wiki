@@ -8,13 +8,15 @@
 		width: 100%;
 
 		&.infobox {
-			th, td {
+			th,
+			td {
 				width: 50%;
 			}
 		}
 	}
 
-	th, td {
+	th,
+	td {
 		padding: 10px;
 
 		figure {
@@ -43,7 +45,8 @@
 		display: none;
 	}
 
-	td:not(:last-child), th:not(:last-child) {
+	td:not(:last-child),
+	th:not(:last-child) {
 		border-right: 1px solid $border-color-light;
 	}
 

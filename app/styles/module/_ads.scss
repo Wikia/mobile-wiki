@@ -1,6 +1,7 @@
 @import 'ads-floor';
 @import 'ads-mixin';
 @import 'ads-porvata';
+@import 'ad-products/styles';
 
 $closeButtonHeight: 40px;
 
@@ -67,7 +68,7 @@ $closeButtonHeight: 40px;
 		background: #000;
 		overflow: hidden;
 		position: relative;
-		transition: height 0.4s ease;
+		transition: height .4s ease;
 
 		.provider-container {
 			margin: 0;
@@ -128,8 +129,8 @@ $closeButtonHeight: 40px;
 		.close {
 			align-items: center;
 			background-color: #000;
-			border-radius: 50%;
 			border: 2px solid white;
+			border-radius: 50%;
 			display: flex;
 			height: $closeButtonHeight;
 			justify-content: center;
@@ -168,7 +169,7 @@ $closeButtonHeight: 40px;
 		}
 
 		.top-bar {
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: rgba(0, 0, 0, .5);
 			display: flex;
 			flex-direction: row-reverse;
 			justify-content: space-between;
@@ -191,7 +192,7 @@ $closeButtonHeight: 40px;
 		}
 
 		.label {
-			color: #D5D4D4;
+			color: #d5d4d4;
 			font-size: 17px;
 			padding: 20px 10px;
 		}

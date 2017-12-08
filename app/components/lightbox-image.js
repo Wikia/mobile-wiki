@@ -21,15 +21,19 @@ export default Component.extend(
 		lastScale: 1,
 		scale: 1,
 
-		// Easy to port if we find a way to use enum here
-		screenAreas: {
-			left: 0,
-			center: 1,
-			right: 2,
-		},
-
 		isZoomed: gt('scale', 1),
 		loadingError: false,
+
+		init() {
+			this._super(...arguments);
+
+			// Easy to port if we find a way to use enum here
+			this.screenAreas = {
+				left: 0,
+				center: 1,
+				right: 2,
+			};
+		},
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
@@ -162,6 +166,7 @@ export default Component.extend(
 			this.loadUrl();
 		}),
 
+		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {boolean}
@@ -271,6 +276,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			this._super(...arguments);
+
 			const hammerInstance = this.get('_hammerInstance');
 
 			hammerInstance.get('pinch').set({

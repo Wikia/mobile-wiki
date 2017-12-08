@@ -2,7 +2,6 @@
 
 # dependencies
 **/node_modules/
-**/bower_components/
 
 # compiled output
 /dist

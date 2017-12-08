@@ -19,17 +19,8 @@ export default Component.extend({
 	classNameBindings: ['noIcon'],
 
 	wikiVariables: service(),
+	smartBanner: service(),
 
-	options: {
-		// Language code for App Store
-		appStoreLanguage: 'us',
-
-		// Duration to hide the banner after close button is clicked (0 = always show banner)
-		daysHiddenAfterClose: 15,
-
-		// Duration to hide the banner after it is clicked (0 = always show banner)
-		daysHiddenAfterView: 30,
-	},
 	day: 86400000,
 
 	appId: oneWay(`config.appId.android`),
@@ -64,13 +55,26 @@ export default Component.extend({
 	noIcon: not('icon'),
 	title: oneWay('config.name'),
 
+	init() {
+		this._super(...arguments);
+
+		this.options = {
+			// Language code for App Store
+			appStoreLanguage: 'us',
+			// Duration to hide the banner after close button is clicked (0 = always show banner)
+			daysHiddenAfterClose: 15,
+			// Duration to hide the banner after it is clicked (0 = always show banner)
+			daysHiddenAfterView: 30,
+		};
+	},
+
 	actions: {
 		/**
 		 * @returns {void}
 		 */
 		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.sendAction('toggleVisibility', false);
+			this.get('smartBanner').setVisibility(false);
 			this.track(trackActions.close);
 		},
 
@@ -88,7 +92,7 @@ export default Component.extend({
 				window.open(this.get('link'), '_blank');
 			}
 
-			this.sendAction('toggleVisibility', false);
+			this.get('smartBanner').setVisibility(false);
 		},
 	},
 
@@ -122,7 +126,7 @@ export default Component.extend({
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
 		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
-			this.sendAction('toggleVisibility', true);
+			this.get('smartBanner').setVisibility(true);
 			this.track(trackActions.impression);
 		}
 	},

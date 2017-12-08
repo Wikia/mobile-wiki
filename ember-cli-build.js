@@ -77,10 +77,13 @@ module.exports = function (defaults) {
 		},
 		sassOptions: {
 			includePaths: [
-				'bower_components/wikia-style-guide/src/scss',
-				'bower_components/design-system/dist/scss'
+				'node_modules/wikia-style-guide/src/scss',
+				'node_modules/design-system/dist/scss'
 			],
 			onlyIncluded: true
+		},
+		stylelint: {
+			testFailingFiles: true
 		},
 		svgstore: {
 			files: [
@@ -98,7 +101,7 @@ module.exports = function (defaults) {
 		}
 	});
 
-	const designSystemAssets = new Funnel(`${app.bowerDirectory}/design-system/dist/svg/sprite.svg`, {
+	const designSystemAssets = new Funnel('node_modules/design-system/dist/svg/sprite.svg', {
 		destDir: 'assets/design-system.svg'
 	});
 
@@ -110,9 +113,14 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
+	// Import files from node_modules, they will run both in FastBoot and browser
+	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
+	app.import('node_modules/vignette/dist/vignette.js');
+
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
 		jwPlayerAssets
 	]);
+
 };

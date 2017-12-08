@@ -3,11 +3,9 @@
 		commentsPage=commentsPage
 		model=model
 		siteName=siteName
-		articleRendered='articleRendered'
-		toggleSiteHeadShadow='toggleSiteHeadShadow'
-		edit='edit'
-		openLightbox='openLightbox'
-		toggleDrawer='toggleDrawer'
+		toggleSiteHeadShadow=(action 'toggleSiteHeadShadow' target=application)
+		edit=(action 'edit')
+		openLightbox=(action 'openLightbox' target=wikiPage)
 	}}
 </div>
 {{#if displayRecirculation}}
