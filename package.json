@@ -63,6 +63,7 @@
     "ember-cli-autoprefixer": "0.8.0",
     "ember-cli-babel": "6.8.2",
     "ember-cli-bidi": "github:wikia/ember-cli-bidi#dd6fd681c29eb02ab21eda53a16bf3f779183fc4",
+    "ember-cli-code-coverage": "0.4.2",
     "ember-cli-dependency-checker": "2.0.1",
     "ember-cli-deprecation-workflow": "0.2.3",
     "ember-cli-eslint": "^4.2.1",
