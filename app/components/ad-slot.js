@@ -96,16 +96,20 @@ export default Component.extend(
 		},
 
 		willDestroyElement() {
-			const name = this.get('name');
+			try {
+				const name = this.get('name');
 
-			this.get('logger').info('Will destroy ad:', name);
-			// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
-			// when exception of pubads being undefined is thrown
-			if (window.googletag && window.googletag.pubads) {
-				this.get('ads.module').removeSlot(name);
-			} else if (!pubadsErrorLogged) {
-				logEvent('pubads error', 'window.googletag.pubads is undefined');
-				pubadsErrorLogged = true;
+				this.get('logger').info('Will destroy ad:', name);
+				// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
+				// when exception of pubads being undefined is thrown
+				if (window.googletag && window.googletag.pubads) {
+					this.get('ads.module').removeSlot(name);
+				} else if (!pubadsErrorLogged) {
+					logEvent('pubads error', 'window.googletag.pubads is undefined');
+					pubadsErrorLogged = true;
+				}
+			} catch(e) {
+				console.error(e);
 			}
 		}
 	}

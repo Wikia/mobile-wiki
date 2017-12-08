@@ -199,10 +199,14 @@ export default Route.extend(
 			},
 
 			didTransition() {
-				this.get('ads.module').onTransition();
+				try {
+					this.get('ads.module').onTransition();
 
-				// Clear notification alerts for the new route
-				this.controller.clearNotifications();
+					// Clear notification alerts for the new route
+					this.controller.clearNotifications();
+				} catch(e) {
+					console.error(e);
+				}
 			},
 
 			error(error, transition) {

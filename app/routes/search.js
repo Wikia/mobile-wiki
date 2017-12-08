@@ -33,13 +33,17 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			didTransition() {
-				trackPageView(this.get('initialPageView').isInitialPageView());
+				try {
+					trackPageView(this.get('initialPageView').isInitialPageView());
 
-				track({
-					action: trackActions.impression,
-					category: 'app',
-					label: 'search'
-				});
+					track({
+						action: trackActions.impression,
+						category: 'app',
+						label: 'search'
+					});
+				} catch(e) {
+					console.error(e);
+				}
 
 				return true;
 			}
