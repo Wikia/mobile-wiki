@@ -93,6 +93,8 @@ export default Component.extend(
 		},
 
 		willDestroyElement() {
+			this._super(...arguments);
+
 			const name = this.get('name');
 
 			this.get('logger').info('Will destroy ad:', name);
