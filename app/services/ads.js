@@ -32,7 +32,7 @@ export default Service.extend({
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
 			if (window.googletag && window.googletag.pubads) {
-				this.get('ads.module').removeSlot(slotName);
+				this.get('module').removeSlot(slotName);
 			}
 			// adSlotComponents[slotName].destroy();
 		});
