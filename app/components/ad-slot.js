@@ -6,7 +6,6 @@ import {on} from '@ember/object/evented';
 import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
-import logEvent from '../modules/event-logger';
 
 export default Component.extend(
 	RenderComponentMixin,
