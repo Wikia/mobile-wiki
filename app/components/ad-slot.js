@@ -99,7 +99,7 @@ export default Component.extend(
 			try {
 				const name = this.get('name');
 
-				this.get('logger').info('Will destroy ad:', name);
+				// this.get('logger').info('Will destroy ad:', name);
 				// XW-4268 - temporary fix that prevents interrupting glimmer transaction,
 				// when exception of pubads being undefined is thrown
 				if (window.googletag && window.googletag.pubads) {
