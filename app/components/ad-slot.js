@@ -104,9 +104,6 @@ export default Component.extend(
 				// when exception of pubads being undefined is thrown
 				if (window.googletag && window.googletag.pubads) {
 					this.get('ads.module').removeSlot(name);
-				} else if (!pubadsErrorLogged) {
-					logEvent('pubads error', 'window.googletag.pubads is undefined');
-					pubadsErrorLogged = true;
 				}
 			} catch(e) {
 				console.error(e);
