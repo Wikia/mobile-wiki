@@ -3,6 +3,7 @@ FROM node:8.9.1-alpine
 WORKDIR /app
 
 # move files to cache installing of dependencies
+COPY .npmrc .
 COPY package.json .
 
 # create group and user
