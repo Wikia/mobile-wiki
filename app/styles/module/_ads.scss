@@ -74,6 +74,15 @@ $closeButtonHeight: 40px;
 			margin: 0;
 		}
 	}
+
+	.sticky-bfaa {
+		position: fixed;
+		transition: none;
+	}
+}
+
+.no-scroll .bfaa-template.sticky-bfaa {
+	z-index: unset;
 }
 
 .bfab-template.ad-slot {
