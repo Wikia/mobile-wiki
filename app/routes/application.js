@@ -236,7 +236,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			handleLink(target) {
-				const currentRoute = this.router.get('currentRouteName');
+				const currentRoute = this._routerMicrolib.get('currentRouteName');
 
 				let title,
 					trackingCategory,
