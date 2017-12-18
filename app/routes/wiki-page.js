@@ -25,8 +25,6 @@ export default Route.extend(
 	HeadTagsDynamicMixin,
 	RouteWithAdsMixin,
 	{
-		redirectEmptyTarget: false,
-		wikiHandler: null,
 		ads: service(),
 		currentUser: service(),
 		fastboot: service(),
@@ -43,37 +41,8 @@ export default Route.extend(
 			}
 		},
 
-		/**
-		 * @param {Ember.Object} model
-		 * @returns {Object} handler for current namespace
-		 */
-		getHandler(model) {
-			const currentNamespace = model.ns;
-
-			if (model.isCuratedMainPage) {
-				return CuratedMainPageHandler;
-			} else if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
-				return ArticleHandler;
-			} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
-				return CategoryHandler;
-			} else if (currentNamespace === mediawikiNamespace.FILE) {
-				return FileHandler;
-			} else if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
-				return BlogHandler;
-			} else {
-				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
-				return null;
-			}
-		},
-
-		/**
-		 *
-		 * @param {Ember.Controller} controller
-		 * @returns {void}
-		 */
-		resetController(controller) {
-			controller.set('preserveScrollPosition', false);
-		},
+		redirectEmptyTarget: false,
+		wikiHandler: null,
 
 		/**
 		 * @param {EmberStates.Transition} transition
@@ -183,67 +152,6 @@ export default Route.extend(
 		},
 
 		/**
-		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
-		 * @param {Object} model, this is model object from route::afterModel() hook
-		 * @returns {void}
-		 */
-		setDynamicHeadTags(model) {
-			const handler = this.get('wikiHandler'),
-				pageUrl = model.get('url'),
-				pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`,
-				data = {
-					htmlTitle: model.get('htmlTitle'),
-					description: model.get('description'),
-					robots: 'index,follow',
-					canonical: pageFullUrl,
-					amphtml: model.get('amphtml')
-				};
-
-			if (pageUrl) {
-				data.appArgument = pageFullUrl;
-			}
-
-			if (handler && typeof handler.getDynamicHeadTags === 'function') {
-				extend(data, handler.getDynamicHeadTags(model));
-			}
-
-			this._super(model, data);
-		},
-
-		/**
-		 * @param {ArticleModel} model
-		 * @returns {void}
-		 */
-		trackPageView(model) {
-			const articleType = model.get('articleType'),
-				namespace = model.get('ns'),
-				uaDimensions = {};
-
-			// update UA dimensions
-			if (model.adsContext) {
-				uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-				uaDimensions[14] = model.adsContext.opts.showAds ? 'Yes' : 'No';
-			}
-			if (articleType) {
-				uaDimensions[19] = articleType;
-			}
-			if (typeof namespace !== 'undefined') {
-				uaDimensions[25] = namespace;
-			}
-
-			uaDimensions[21] = model.get('id');
-			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
-			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
-
-			setTrackContext({
-				a: model.get('id'),
-				n: namespace
-			});
-
-			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
-		},
-
-		/**
 		 * @param {Ember.Controller} controller
 		 * @param {Ember.Model} model
 		 * @returns {void}
@@ -257,6 +165,15 @@ export default Route.extend(
 					model
 				});
 			}
+		},
+
+		/**
+		 *
+		 * @param {Ember.Controller} controller
+		 * @returns {void}
+		 */
+		resetController(controller) {
+			controller.set('preserveScrollPosition', false);
 		},
 
 		actions: {
@@ -319,6 +236,90 @@ export default Route.extend(
 			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
 				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
 			},
+		},
+
+		/**
+		 * @param {Ember.Object} model
+		 * @returns {Object} handler for current namespace
+		 */
+		getHandler(model) {
+			const currentNamespace = model.ns;
+
+			if (model.isCuratedMainPage) {
+				return CuratedMainPageHandler;
+			} else if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
+				return ArticleHandler;
+			} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
+				return CategoryHandler;
+			} else if (currentNamespace === mediawikiNamespace.FILE) {
+				return FileHandler;
+			} else if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
+				return BlogHandler;
+			} else {
+				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+				return null;
+			}
+		},
+
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} model, this is model object from route::afterModel() hook
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model) {
+			const handler = this.get('wikiHandler'),
+				pageUrl = model.get('url'),
+				pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`,
+				data = {
+					htmlTitle: model.get('htmlTitle'),
+					description: model.get('description'),
+					robots: 'index,follow',
+					canonical: pageFullUrl,
+					amphtml: model.get('amphtml')
+				};
+
+			if (pageUrl) {
+				data.appArgument = pageFullUrl;
+			}
+
+			if (handler && typeof handler.getDynamicHeadTags === 'function') {
+				extend(data, handler.getDynamicHeadTags(model));
+			}
+
+			this._super(model, data);
+		},
+
+		/**
+		 * @param {ArticleModel} model
+		 * @returns {void}
+		 */
+		trackPageView(model) {
+			const articleType = model.get('articleType'),
+				namespace = model.get('ns'),
+				uaDimensions = {};
+
+			// update UA dimensions
+			if (model.adsContext) {
+				uaDimensions[3] = model.adsContext.targeting.wikiVertical;
+				uaDimensions[14] = model.adsContext.opts.showAds ? 'Yes' : 'No';
+			}
+			if (articleType) {
+				uaDimensions[19] = articleType;
+			}
+			if (typeof namespace !== 'undefined') {
+				uaDimensions[25] = namespace;
+			}
+
+			uaDimensions[21] = model.get('id');
+			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
+			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
+
+			setTrackContext({
+				a: model.get('id'),
+				n: namespace
+			});
+
+			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
 		}
 	}
 );

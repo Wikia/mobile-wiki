@@ -24,15 +24,6 @@ export default Route.extend(
 		},
 
 		/**
-		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
-		 * @param {Object} model, this is model object from route::afterModel() hook
-		 * @returns {void}
-		 */
-		setDynamicHeadTags(model) {
-			this._super(model, {robots: 'noindex,follow'});
-		},
-
-		/**
 		 * @returns {void}
 		 */
 		renderTemplate() {
@@ -59,6 +50,15 @@ export default Route.extend(
 
 				return true;
 			}
+		},
+
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} modesl, this is model object from route::afterModel() hook
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model) {
+			this._super(model, {robots: 'noindex,follow'});
 		}
 	}
 );
