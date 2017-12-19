@@ -46,14 +46,28 @@ export function getRenderComponentFor(parent) {
 	};
 }
 
-export function queryPlaceholders($element) {
+function isChildOfHidden(element) {
+	let node = element.parentElement;
+	while (node != null) {
+		if (node.classList.contains('mobile-hidden')) {
+			return true;
+		}
+		node = node.parentElement;
+	}
+	return false;
+}
+
+export function queryPlaceholders(element, filterHidden) {
 	const components = [];
+	let componentElements = element.querySelectorAll('[data-component]');
 
-	$element.find('[data-component]').each(function () {
-		const name = this.getAttribute('data-component'),
-			attrs = componentAttributes(this);
+	componentElements.forEach((componentElement) => {
+		if (!filterHidden || !isChildOfHidden(componentElement)) {
+			const name = componentElement.getAttribute('data-component'),
+				attrs = componentAttributes(componentElement);
 
-		components.push({attrs, name, element: this});
+			components.push({attrs, name, element: componentElement});
+		}
 	});
 
 	return components;

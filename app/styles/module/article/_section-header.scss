@@ -1,21 +1,32 @@
-.article-section-header {
-	padding-right: rem-calc(20);
-	position: relative;
+h2[section] {
+	align-items: center;
+	display: flex;
 
-	a {
-		@include square(rem-calc(44));
+	&.open-section {
+		.chevron {
+			transform: scaleY(-1);
+		}
 
-		position: absolute;
-		right: rem-calc(5);
-		text-align: right;
-		top: 0;
+		.contribution-container {
+			visibility: visible;
+		}
+
+		+ .mobile-hidden {
+			display: block;
+		}
 	}
 
-	h2 ~ a {
-		margin-top: rem-calc(37);
+	.contribution-container {
+		visibility: hidden;
 	}
+}
 
-	.chevron {
-		transform: rotate(180deg);
-	}
+.mobile-hidden {
+	display: none;
+}
+
+.section-header-label {
+	align-items: center;
+	display: flex;
+	flex: 1;
 }
