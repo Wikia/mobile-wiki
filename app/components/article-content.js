@@ -216,7 +216,7 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = [...this.element.querySelectorAll('h2[section]')].map((i, element) => {
+				const headers = [...this.element.querySelectorAll('h2[section]')].map((element) => {
 					if (element.textContent) {
 						return {
 							element,
