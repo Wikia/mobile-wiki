@@ -58,7 +58,6 @@ export default Component.extend(
 					this.renderDataComponents(this.element, true);
 
 					this.loadIcons();
-					this.createTableOfContents();
 					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
@@ -241,30 +240,6 @@ export default Component.extend(
 					}
 				});
 			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		createTableOfContents() {
-			const $firstInfobox = this.$('.portable-infobox').first(),
-				$placeholder = $('<div />');
-
-			if ($firstInfobox.length) {
-				$placeholder.insertAfter($firstInfobox);
-			} else {
-				$placeholder.prependTo(this.$());
-			}
-
-			this.renderedComponents.push(
-				this.renderComponent({
-					name: 'article-table-of-contents',
-					attrs: {
-						articleContent: this.$()
-					},
-					element: $placeholder.get(0)
-				})
-			);
 		},
 
 		/**
