@@ -52,8 +52,7 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			replaceExtensions: ['html', 'css', 'js', 'hbs'],
-			prepend: 'https://mobile-wiki.nocookie.net/'
+			replaceExtensions: ['html', 'css', 'js', 'hbs']
 		},
 		inlineContent: {
 			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
