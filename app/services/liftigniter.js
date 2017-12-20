@@ -1,5 +1,5 @@
 import Service, {inject as service} from '@ember/service';
-import {defer} from 'rsvp';
+import {Promise} from 'rsvp';
 import localStorageConnector from '../utils/local-storage-connector';
 
 export default Service.extend({
@@ -59,31 +59,28 @@ export default Service.extend({
 	},
 
 	getData(config) {
-		const deferred = defer(),
-			registerOptions = {
+		return new Promise((resolve, reject) => {
+			const registerOptions = {
 				max: config.max,
 				widget: config.widget,
-				callback(response) {
-					deferred.resolve(response);
-				}
+				callback: resolve
 			};
 
-		if (!window.liftigniter) {
-			return deferred.reject('Liftigniter library not found').promise();
-		}
+			if (!window.liftigniter) {
+				return reject(new Error('Liftigniter library not found'));
+			}
 
-		if (config.opts) {
-			registerOptions.opts = config.opts;
-		}
+			if (config.opts) {
+				registerOptions.opts = config.opts;
+			}
 
-		// currently we display only one recirc component on a page so calling 'fetch' with every
-		// invocation of this method is fine. However, if there will be more than one recirc
-		// component on a page, 'register' should be called for every of them, and the fetch only
-		// once at the end - the calls to liftigniter will be batched.
-		window.liftigniter('register', registerOptions);
-		window.liftigniter('fetch');
-
-		return deferred.promise;
+			// currently we display only one recirc component on a page so calling 'fetch' with every
+			// invocation of this method is fine. However, if there will be more than one recirc
+			// component on a page, 'register' should be called for every of them, and the fetch only
+			// once at the end - the calls to liftigniter will be batched.
+			window.liftigniter('register', registerOptions);
+			window.liftigniter('fetch');
+		});
 	},
 
 	setupTracking(elements, widgetName, source) {

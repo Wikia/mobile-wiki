@@ -73,7 +73,7 @@ spec:
             cpu: 0.4
             memory: 1.5Gi
           limits:
-            memory: 5Gi
+            memory: 3Gi
         ports:
         - containerPort: 8001
         command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]

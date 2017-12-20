@@ -44,25 +44,6 @@ export default Route.extend(
 		},
 		noexternals: null,
 
-		setupController(controller, model) {
-			controller.set('model', model);
-
-			if (!this.get('fastboot.isFastBoot')) {
-				// Because application controller needs wiki-page controller
-				// we can't be sure that media model will be ready when aplication controller is ready
-				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file'),
-						map = controller.get('map');
-
-					if (!isEmpty(file)) {
-						controller.openLightboxForMedia(file);
-					} else if (!isEmpty(map)) {
-						controller.openLightboxForMap(map);
-					}
-				});
-			}
-		},
-
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
 
@@ -187,6 +168,24 @@ export default Route.extend(
 			}
 		},
 
+		setupController(controller, model) {
+			controller.set('model', model);
+
+			if (!this.get('fastboot.isFastBoot')) {
+				// Because application controller needs wiki-page controller
+				// we can't be sure that media model will be ready when aplication controller is ready
+				run.scheduleOnce('afterRender', () => {
+					const file = controller.get('file'),
+						map = controller.get('map');
+
+					if (!isEmpty(file)) {
+						controller.openLightboxForMedia(file);
+					} else if (!isEmpty(map)) {
+						controller.openLightboxForMap(map);
+					}
+				});
+			}
+		},
 
 		actions: {
 			loading(transition) {
