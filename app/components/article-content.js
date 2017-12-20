@@ -55,7 +55,7 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
-					this.renderDataComponents(this.element, true);
+					this.renderDataComponents(this.element);
 
 					this.loadIcons();
 					this.createContributionButtons();
@@ -268,9 +268,9 @@ export default Component.extend(
 			});
 		},
 
-		renderDataComponents(element, filterHidden) {
+		renderDataComponents(element) {
 			this.renderedComponents = this.renderedComponents.concat(
-				queryPlaceholders(element, filterHidden)
+				queryPlaceholders(element)
 					.map(getAttributesForMedia, {
 						media: this.get('media'),
 						openLightbox: this.get('openLightbox')

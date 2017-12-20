@@ -46,23 +46,13 @@ export function getRenderComponentFor(parent) {
 	};
 }
 
-function isChildOfHidden(element) {
-	let node = element.parentElement;
-	while (node != null) {
-		if (node.classList.contains('mobile-hidden')) {
-			return true;
-		}
-		node = node.parentElement;
-	}
-	return false;
-}
-
-export function queryPlaceholders(element, filterHidden) {
+export function queryPlaceholders(element) {
 	const components = [];
 	let componentElements = element.querySelectorAll('[data-component]');
 
 	componentElements.forEach((componentElement) => {
-		if (!filterHidden || !isChildOfHidden(componentElement)) {
+		// if component is visible
+		if (componentElement.offsetParent) {
 			const name = componentElement.getAttribute('data-component'),
 				attrs = componentAttributes(componentElement);
 
