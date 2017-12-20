@@ -1,6 +1,7 @@
 const BunyanPrettyStream = require('bunyan-prettystream');
 const expressBunyanLogger = require('express-bunyan-logger');
 const config = require('../config/fastboot-server');
+const env = require('../config/environment');
 
 /**
  * @typedef {Object} BunyanLoggerStream
@@ -95,6 +96,7 @@ function createLogger(loggerConfig) {
 
 	return expressBunyanLogger({
 		appname: 'mobile-wiki',
+		app_version: env.APP.version,
 		name: 'mobile-wiki',
 		loggerName: 'fastboot-server/logger.js',
 		excludes: [
