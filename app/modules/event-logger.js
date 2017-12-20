@@ -14,7 +14,7 @@ export default function logEvent(name, description) {
 		body: JSON.stringify({
 			name,
 			description: JSON.stringify(description),
-			client: 'mobile-wiki'
+			client: `mobile-wiki:${config.APP.version}`
 		})
 	});
 }
