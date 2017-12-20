@@ -14,5 +14,9 @@ module.exports = (function () {
 		config.port = 7001;
 	}
 
+	if (process.env.IMAGE_VERSION) {
+		config.app_version = process.env.IMAGE_VERSION;
+	}
+
 	return config;
 })();
