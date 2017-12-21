@@ -137,5 +137,9 @@ module.exports = function (environment) {
 		ENV.weppy.enabled = true;
 	}
 
+	if (process.env.IMAGE_VERSION) {
+		ENV.APP.version = process.env.IMAGE_VERSION;
+	}
+
 	return ENV;
 };

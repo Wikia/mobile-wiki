@@ -95,6 +95,7 @@ function createLogger(loggerConfig) {
 
 	return expressBunyanLogger({
 		appname: 'mobile-wiki',
+		app_version: config.app_version,
 		name: 'mobile-wiki',
 		loggerName: 'fastboot-server/logger.js',
 		excludes: [

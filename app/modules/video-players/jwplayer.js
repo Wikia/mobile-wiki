@@ -74,7 +74,8 @@ export default class JWPlayer extends BasePlayer {
 					playlist: this.params.playlist
 				},
 				logger: {
-					clientName: 'mobile-wiki'
+					clientName: 'mobile-wiki',
+					clientVersion: config.APP.version
 				},
 				lang: this.params.lang
 			},

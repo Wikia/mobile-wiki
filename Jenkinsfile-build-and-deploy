@@ -49,7 +49,7 @@ node('linux'){
                     if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                         stage('Build and push image'){
                             sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
+                            ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
                        }
                     } else {
                         stage('Build developement image') {
@@ -59,7 +59,7 @@ node('linux'){
                             }
 
                             sh """#!/bin/sh
-                            ./tasks/docker-build.sh ${imageName}"""
+                            ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
                         }
                    }
                 }
