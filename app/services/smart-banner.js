@@ -2,6 +2,7 @@ import {computed} from '@ember/object';
 import {and, equal, readOnly} from '@ember/object/computed';
 import Service, {inject as service} from '@ember/service';
 import {track} from '../utils/track';
+import config from '../config/environment';
 
 export default Service.extend({
 	currentUser: service(),
@@ -32,15 +33,18 @@ export default Service.extend({
 	 * @returns {void}
 	 */
 	setCookie(days) {
-		const date = new Date();
+		const date = new Date(),
+			cookieOptions = {
+				expires: date,
+				path: '/'
+			};
+
+		if (this.get('shouldShowFandomAppSmartBanner')) {
+			cookieOptions.domain = config.cookieDomain;
+		}
 
 		date.setTime(date.getTime() + (days * this.get('dayInMiliseconds')));
-		$.cookie(this.get('cookieName'), 1, {
-			expires: date,
-			path: '/',
-			// TODO is it needed?
-			// domain: config.cookieDomain
-		});
+		$.cookie(this.get('cookieName'), 1, cookieOptions);
 	},
 
 	isCookieSet() {

@@ -1,11 +1,9 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {run} from '@ember/runloop';
-import {track, trackActions} from '../utils/track';
+import {trackActions} from '../utils/track';
 import {system} from '../utils/browser';
-import config from '../config/environment';
 
 export default Component.extend({
 	classNames: ['fandom-app-smart-banner'],
