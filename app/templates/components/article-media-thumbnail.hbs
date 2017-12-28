@@ -13,13 +13,14 @@
 			{{/if}}
 		</a>
 	{{/if}}
-
-	{{#if isVideo}}
-		<div class="article-media-thumbnail__play-icon">
-			{{svg 'wds-player-icon-play' class='wds-player-icon-play-medium'}}
-		</div>
-	{{/if}}
 </div>
+
+{{#if isVideo}}
+	<div class="article-media-thumbnail__play-icon">
+		{{svg 'wds-player-icon-play' class='wds-player-icon-play-medium'}}
+	</div>
+{{/if}}
+
 {{! Allow custom captions }}
 {{#if hasBlock}}
 	{{yield}}

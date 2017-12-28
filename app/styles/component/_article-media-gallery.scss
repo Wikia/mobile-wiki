@@ -14,12 +14,14 @@
 	}
 
 	.article-media-thumbnail {
-		display: inline-block;
+		display: inline-flex;
+		height: 195px;
 		margin: {
 			bottom: 20px;
 			left: 0;
 			right: 8px;
 			top: 20px;
 		}
+		width: 195px;
 	}
 }
