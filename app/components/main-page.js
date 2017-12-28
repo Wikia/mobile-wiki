@@ -7,11 +7,11 @@ import AdsMixin from '../mixins/ads';
 export default Component.extend(
 	AdsMixin,
 	{
-		classNames: ['main-page-modules', 'main-page-body'],
-		tagName: 'section',
-
 		currentUser: service(),
 		wikiVariables: service(),
+
+		classNames: ['main-page-modules', 'main-page-body'],
+		tagName: 'section',
 
 		title: reads('wikiVariables.siteName'),
 

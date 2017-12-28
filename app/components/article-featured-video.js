@@ -16,18 +16,20 @@ import RenderComponentMixin from '../mixins/render-component';
 const scrollClassName = 'is-on-scroll-video';
 
 export default Component.extend(RenderComponentMixin, {
-	classNames: ['article-featured-video'],
-
 	ads: service(),
 	wikiVariables: service(),
 	smartBanner: service(),
 
+	classNames: ['article-featured-video'],
+
+	autoplayCookieName: 'featuredVideoAutoplay',
+
+	captionsCookieName: 'featuredVideoCaptions',
+	playerCookieExpireDays: 14,
+
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-	autoplayCookieName: 'featuredVideoAutoplay',
-	captionsCookieName: 'featuredVideoCaptions',
-	playerCookieExpireDays: 14,
 	metadata: reads('model.metadata'),
 	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
 
@@ -35,9 +37,38 @@ export default Component.extend(RenderComponentMixin, {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
 	}),
 
+	init() {
+		this._super(...arguments);
+
+		this.set('videoContainerId', `jwplayer-article-video-${new Date().getTime()}`);
+	},
+
+	didInsertElement() {
+		this._super(...arguments);
+
+		this.onScrollHandler = this.onScrollHandler.bind(this);
+
+		this.destroyVideoPlayer();
+		this.initVideoPlayer();
+
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
+			this.setPlaceholderDimensions();
+			$(window).on('scroll', this.onScrollHandler);
+			this.$().addClass('on-scroll-variant');
+		}
+
+		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+			this.$().addClass('page-placement-variant');
+		}
+	},
+
 	didUpdateAttrs() {
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
+	},
+
+	willDestroyElement() {
+		$(window).off('scroll', this.onScrollHandler);
 	},
 
 	actions: {
@@ -52,12 +83,6 @@ export default Component.extend(RenderComponentMixin, {
 
 			$(window).off('scroll', this.onScrollHandler);
 		}
-	},
-
-	init() {
-		this._super(...arguments);
-
-		this.set('videoContainerId', `jwplayer-article-video-${new Date().getTime()}`);
 	},
 
 	/**
@@ -141,29 +166,6 @@ export default Component.extend(RenderComponentMixin, {
 			path: '/',
 			domain: config.cookieDomain
 		});
-	},
-
-	didInsertElement() {
-		this._super(...arguments);
-
-		this.onScrollHandler = this.onScrollHandler.bind(this);
-
-		this.destroyVideoPlayer();
-		this.initVideoPlayer();
-
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
-			this.setPlaceholderDimensions();
-			$(window).on('scroll', this.onScrollHandler);
-			this.$().addClass('on-scroll-variant');
-		}
-
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-			this.$().addClass('page-placement-variant');
-		}
-	},
-
-	willDestroyElement() {
-		$(window).off('scroll', this.onScrollHandler);
 	},
 
 	/**

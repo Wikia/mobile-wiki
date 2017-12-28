@@ -13,6 +13,7 @@ export default Component.extend(ViewportMixin, {
 	thumbnailer: Thumbnailer,
 	style: null,
 	imageWidth: 250,
+
 	href: oneWay('url'),
 
 	currentlyRenderedImageUrl: computed('imageUrl', function () {

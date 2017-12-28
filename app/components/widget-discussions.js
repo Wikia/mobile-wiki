@@ -15,6 +15,12 @@ export default Component.extend(InViewportMixin, {
 		this.set('model', WidgetDiscussionsModel.create(getOwner(this).ownerInjection()));
 	},
 
+	actions: {
+		upvote(post) {
+			this.get('model').upvote(post);
+		},
+	},
+
 	/**
 	 * @returns {void}
 	 */
@@ -29,11 +35,5 @@ export default Component.extend(InViewportMixin, {
 				isLoading: false,
 			});
 		});
-	},
-
-	actions: {
-		upvote(post) {
-			this.get('model').upvote(post);
-		},
 	}
 });

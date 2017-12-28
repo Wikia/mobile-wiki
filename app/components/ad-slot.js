@@ -11,17 +11,19 @@ export default Component.extend(
 	RenderComponentMixin,
 	InViewportMixin,
 	{
+		ads: service(),
+		logger: service(),
+
 		classNames: ['ad-slot-wrapper'],
 		classNameBindings: ['nameLowerCase', 'noAds'],
 		// This component is created dynamically, and this won't work without it
 		layoutName: 'components/ad-slot',
-		ads: service(),
-		logger: service(),
-		noAds: readOnly('ads.noAds'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
 		pageHasFeaturedVideo: false,
+
+		noAds: readOnly('ads.noAds'),
 
 		nameLowerCase: computed('name', function () {
 			return dasherize(this.get('name').toLowerCase());
@@ -68,6 +70,13 @@ export default Component.extend(
 			});
 		},
 
+		willDestroyElement() {
+			const name = this.get('name');
+
+			this.get('logger').info('Will destroy ad:', name);
+			this.get('ads.module').removeSlot(name);
+		},
+
 		/**
 		 * @returns {void}
 		 */
@@ -90,13 +99,6 @@ export default Component.extend(
 					}
 				);
 			}
-		},
-
-		willDestroyElement() {
-			const name = this.get('name');
-
-			this.get('logger').info('Will destroy ad:', name);
-			this.get('ads.module').removeSlot(name);
 		}
 	}
 );

@@ -15,23 +15,26 @@ import {system, standalone} from '../utils/browser';
  * iOS has its own native smart banner - no need to render it there
  */
 export default Component.extend({
-	classNames: ['smart-banner-android'],
-	classNameBindings: ['noIcon'],
-
 	wikiVariables: service(),
 	smartBanner: service(),
 
+	classNames: ['smart-banner-android'],
+	classNameBindings: ['noIcon'],
+
 	day: 86400000,
 
-	appId: oneWay(`config.appId.android`),
-	appScheme: oneWay(`config.appScheme.android`),
-	config: computed('wikiVariables', function () {
-		return this.get('wikiVariables').get('smartBanner') || {};
-	}),
+	iconSize: 92,
+
 	dbName: reads('wikiVariables.dbName'),
 	description: oneWay('config.description'),
 	icon: oneWay('config.icon'),
-	iconSize: 92,
+	appId: oneWay(`config.appId.android`),
+	appScheme: oneWay(`config.appScheme.android`),
+	noIcon: not('icon'),
+	title: oneWay('config.name'),
+	config: computed('wikiVariables', function () {
+		return this.get('wikiVariables').get('smartBanner') || {};
+	}),
 
 	iconStyle: computed('icon', function () {
 		if (this.get('noIcon')) {
@@ -51,9 +54,6 @@ export default Component.extend({
 		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
 			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
-
-	noIcon: not('icon'),
-	title: oneWay('config.name'),
 
 	init() {
 		this._super(...arguments);
@@ -111,6 +111,7 @@ export default Component.extend({
 	/**
 	 * @returns {void}
 	 */
+	// TODO willInsertElement is not recognized as a lifecycle hook by linter
 	willInsertElement() {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too

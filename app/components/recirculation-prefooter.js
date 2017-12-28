@@ -23,17 +23,45 @@ const recircItemsCount = 10,
 export default Component.extend(
 	InViewportMixin,
 	{
-		classNames: ['recirculation-prefooter'],
-		isVisible: false,
 		liftigniter: service(),
 		i18n: service(),
 		logger: service(),
+
+		classNames: ['recirculation-prefooter'],
+		isVisible: false,
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.get('items').some((item) => item.presented_by);
 		}),
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
 			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
+
+		willRender() {
+			const viewportTolerance = 1000;
+
+			this.set('viewportTolerance', {
+				top: viewportTolerance,
+				bottom: viewportTolerance
+			});
+		},
+
+		actions: {
+			postClick(post, index) {
+
+				const labelParts = ['footer', `slot-${index + 1}`, post.source, post.isVideo ? 'video' : 'not-video'];
+
+				track({
+					action: trackActions.click,
+					category: 'recirculation',
+					label: labelParts.join('=')
+				});
+
+				run.later(() => {
+					window.location.assign(post.url);
+				}, 200);
+			}
+		},
+
 		fetchPlista() {
 			const width = normalizeThumbWidth(window.innerWidth);
 			const height = Math.round(width / (16 / 9));
@@ -49,6 +77,7 @@ export default Component.extend(
 					}
 				});
 		},
+
 		mapPlista(item) {
 			if (item) {
 				return {
@@ -122,31 +151,5 @@ export default Component.extend(
 				label: 'footer'
 			});
 		},
-
-		willRender() {
-			const viewportTolerance = 1000;
-
-			this.set('viewportTolerance', {
-				top: viewportTolerance,
-				bottom: viewportTolerance
-			});
-		},
-
-		actions: {
-			postClick(post, index) {
-
-				const labelParts = ['footer', `slot-${index + 1}`, post.source, post.isVideo ? 'video' : 'not-video'];
-
-				track({
-					action: trackActions.click,
-					category: 'recirculation',
-					label: labelParts.join('=')
-				});
-
-				run.later(() => {
-					window.location.assign(post.url);
-				}, 200);
-			}
-		}
 	}
 );

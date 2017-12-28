@@ -4,6 +4,13 @@ import Component from '@ember/component';
 export default Component.extend({
 	classNameBindings: ['overlay:wds-spinner__overlay'],
 
+	active: false,
+	overlay: true,
+	isBlock: false,
+	isThemed: true,
+	radius: 30,
+	strokeWidth: 6,
+
 	spinnerClasses: computed('isBlock', function () {
 		return `wds-spinner ${this.get('isBlock') ? 'wds-spinner__block' : ''}`;
 	}),
@@ -17,13 +24,6 @@ export default Component.extend({
 	isVisible: computed('active', function () {
 		return Boolean(this.get('active'));
 	}),
-
-	active: false,
-	overlay: true,
-	isBlock: false,
-	isThemed: true,
-	radius: 30,
-	strokeWidth: 6,
 
 	fullRadius: computed('radius', function () {
 		return this.get('radius') + (this.get('strokeWidth') / 2);

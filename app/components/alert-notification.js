@@ -10,21 +10,6 @@ export default Component.extend({
 
 	action() {},
 
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		close() {
-			const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
-
-			this.dismissNotification();
-
-			if (typeof onCloseAlert === 'function') {
-				onCloseAlert();
-			}
-		},
-	},
-
 	/**
 	 * @returns {void}
 	 */
@@ -46,6 +31,21 @@ export default Component.extend({
 	 */
 	willDestroyElement() {
 		cancel(this.get('timeout'));
+	},
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		close() {
+			const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
+
+			this.dismissNotification();
+
+			if (typeof onCloseAlert === 'function') {
+				onCloseAlert();
+			}
+		},
 	},
 
 	/**

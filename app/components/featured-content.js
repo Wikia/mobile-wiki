@@ -45,13 +45,6 @@ export default Component.extend(
 		cycleTimeoutHandle: null,
 		// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 		cycleInterval: 6250,
-		showChevrons: readOnly('hasMultipleItems'),
-		screenEdgeWidthRatio: computed('hasMultipleItems', function () {
-			if (this.get('hasMultipleItems')) {
-				return (1 / 6);
-			}
-			return 0;
-		}),
 
 		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
@@ -80,6 +73,15 @@ export default Component.extend(
 			}
 		},
 
+		showChevrons: readOnly('hasMultipleItems'),
+
+		screenEdgeWidthRatio: computed('hasMultipleItems', function () {
+			if (this.get('hasMultipleItems')) {
+				return (1 / 6);
+			}
+			return 0;
+		}),
+
 		hasMultipleItems: computed('model', function () {
 			return this.get('model.length') > 1;
 		}),
@@ -97,6 +99,21 @@ export default Component.extend(
 		lastIndex: computed('model', function () {
 			return this.get('model.length') - 1;
 		}),
+
+		/**
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			this.cycleThroughItems();
+			this.updatePagination();
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			this.stopCyclingThroughItems();
+		},
 
 		updatePagination() {
 			const $pagination = this.$('.featured-content-pagination');
@@ -217,21 +234,6 @@ export default Component.extend(
 				this.stopCyclingThroughItems();
 				this.cycleThroughItems();
 			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			this.cycleThroughItems();
-			this.updatePagination();
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		willDestroyElement() {
-			this.stopCyclingThroughItems();
 		}
 	}
 );

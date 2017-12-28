@@ -8,12 +8,13 @@ import {standalone, system} from '../utils/browser';
 import config from '../config/environment';
 
 export default Component.extend({
-	classNames: ['fandom-app-smart-banner'],
-	dayInMiliseconds: 86400000,
-	closeButtonSelector: '.fandom-app-smart-banner__close',
-
 	i18n: service(),
 	smartBanner: service(),
+
+	classNames: ['fandom-app-smart-banner'],
+	dayInMiliseconds: 86400000,
+
+	closeButtonSelector: '.fandom-app-smart-banner__close',
 
 	link: computed(() => {
 		return system === 'ios'
@@ -63,6 +64,7 @@ export default Component.extend({
 	/**
 	 * @returns {void}
 	 */
+	// TODO willInsertElement is not recognized as a lifecycle hook by linter
 	willInsertElement() {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too
