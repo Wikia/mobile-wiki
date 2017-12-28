@@ -107,28 +107,6 @@ figcaption {
 	}
 }
 
-.gallery-video::after,
-.article-video::before,
-.comment-video::before,
-.file-video::before {
-	bottom: 0;
-	content: '';
-	display: block;
-	left: 0;
-	pointer-events: none;
-	position: absolute;
-	right: 0;
-	top: 0;
-	// @todo XW-1364 - use variable
-	z-index: 1;
-	background: {
-		image: $media-play-svg;
-		position: 10px 10px;
-		repeat: no-repeat;
-		size: 45px;
-	}
-}
-
 .article-video,
 .file-video {
 	position: relative;

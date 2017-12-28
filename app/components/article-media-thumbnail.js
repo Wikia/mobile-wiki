@@ -42,6 +42,10 @@ export default Component.extend(
 
 		hasFigcaption: or('caption', 'showTitle'),
 
+		isVideo: computed('type', function () {
+			return this.get('type') === 'video';
+		}),
+
 		showTitle: computed('type', function () {
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
 		}),
