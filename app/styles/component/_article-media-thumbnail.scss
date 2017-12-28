@@ -54,12 +54,12 @@
 		z-index: $z-1;
 	}
 
-  &__play-icon {
-	position: absolute;
-	width: 100%;
-	// 50% - 36px bc play icon is 72px high in total
-	top: calc(50% - 36px);
-  }
+	&__play-icon {
+		position: absolute;
+		width: 100%;
+		// 50% - 36px bc play icon is 72px high in total
+		top: calc(50% - 36px);
+	}
 }
 
 .article-media-placeholder {
