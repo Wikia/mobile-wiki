@@ -1,11 +1,9 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {run} from '@ember/runloop';
-import {track, trackActions} from '../utils/track';
-import {standalone, system} from '../utils/browser';
-import config from '../config/environment';
+import {trackActions} from '../utils/track';
+import {system} from '../utils/browser';
 
 export default Component.extend({
 	classNames: ['fandom-app-smart-banner'],
@@ -44,9 +42,9 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
+			this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterClose'));
 			this.get('smartBanner').setVisibility(false);
-			this.track(trackActions.close);
+			this.get('smartBanner').track(trackActions.close);
 		}
 	},
 
@@ -55,56 +53,8 @@ export default Component.extend({
 			return;
 		}
 
-		this.track(trackActions.install);
+		this.get('smartBanner').track(trackActions.install);
 		this.get('smartBanner').setVisibility(false);
-		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	willInsertElement() {
-		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
-		// running this just after render is working too
-		run.scheduleOnce('afterRender', this, this.checkForHiding);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	checkForHiding() {
-		if (!standalone && $.cookie('fandom-sb-closed') !== '1') {
-			this.get('smartBanner').setVisibility(true);
-			this.track(trackActions.impression);
-		}
-	},
-
-	/**
-	 * Sets fandom-sb-closed=1 cookie for given number of days
-	 *
-	 * @param {number} days
-	 * @returns {void}
-	 */
-	setSmartBannerCookie(days) {
-		const date = new Date();
-
-		date.setTime(date.getTime() + (days * this.get('dayInMiliseconds')));
-		$.cookie('fandom-sb-closed', 1, {
-			expires: date,
-			path: '/',
-			domain: config.cookieDomain
-		});
-	},
-
-	/**
-	 * @param {string} action
-	 * @returns {void}
-	 */
-	track(action) {
-		track({
-			action,
-			category: 'fandom-app-smart-banner',
-			label: this.get('dbName')
-		});
+		this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterView'));
 	},
 });
