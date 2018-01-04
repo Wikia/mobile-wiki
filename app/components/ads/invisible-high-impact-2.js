@@ -8,11 +8,12 @@ import RenderComponentMixin from '../../mixins/render-component';
 export default Component.extend(RenderComponentMixin, {
 	ads: service(),
 
-	highImpactCountries: get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
-	noAds: readOnly('ads.noAds'),
 	isVisible: false,
-
 	name: 'INVISIBLE_HIGH_IMPACT_2',
+
+	highImpactCountries: get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+
+	noAds: readOnly('ads.noAds'),
 	nameLowerCase: computed('name', function () {
 		return dasherize(this.get('name').toLowerCase());
 	}),

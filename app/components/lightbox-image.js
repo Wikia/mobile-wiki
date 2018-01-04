@@ -21,19 +21,98 @@ export default Component.extend(
 		lastScale: 1,
 		scale: 1,
 
-		isZoomed: gt('scale', 1),
 		loadingError: false,
 
-		init() {
-			this._super(...arguments);
+		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
+		gestures: {
+			/**
+			 * @returns {boolean}
+			 */
+			swipeLeft() {
+				return !this.get('isZoomed');
+			},
 
-			// Easy to port if we find a way to use enum here
-			this.screenAreas = {
-				left: 0,
-				center: 1,
-				right: 2,
-			};
+			/**
+			 * @returns {boolean}
+			 */
+			swipeRight() {
+				return !this.get('isZoomed');
+			},
+
+			/**
+			 * @param {HammerInput} event
+			 * @returns {void}
+			 */
+			pan(event) {
+				const scale = this.get('scale');
+
+				this.setProperties({
+					limitedNewX: this.get('lastX') + event.deltaX / scale,
+					limitedNewY: this.get('lastY') + event.deltaY / scale,
+				});
+
+				this.notifyPropertyChange('style');
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			panEnd() {
+				this.setProperties({
+					lastX: this.get('newX'),
+					lastY: this.get('newY')
+				});
+			},
+
+			/**
+			 * @param {HammerInput} event
+			 * @returns {void}
+			 */
+			doubleTap(event) {
+				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
+				if (
+					!this.get('isZoomed') &&
+					(!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center)
+				) {
+					const scale = 3;
+
+					this.setProperties({
+						limitedScale: scale,
+						lastScale: scale
+					});
+				} else {
+					this.resetZoom();
+				}
+
+				this.notifyPropertyChange('style');
+			},
+
+			/**
+			 * @param {HammerInput} event
+			 * @returns {void}
+			 */
+			pinchMove(event) {
+				const scale = this.get('scale');
+
+				this.setProperties({
+					limitedScale: this.get('lastScale') * event.scale,
+					limitedNewX: this.get('lastX') + event.deltaX / scale,
+					limitedNewY: this.get('lastY') + event.deltaY / scale,
+				});
+
+				this.notifyPropertyChange('style');
+			},
+
+			/**
+			 * @param {HammerInput} event
+			 * @returns {void}
+			 */
+			pinchEnd(event) {
+				this.set('lastScale', this.get('lastScale') * event.scale);
+			},
 		},
+
+		isZoomed: gt('scale', 1),
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
@@ -166,110 +245,15 @@ export default Component.extend(
 			this.loadUrl();
 		}),
 
-		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
-		gestures: {
-			/**
-			 * @returns {boolean}
-			 */
-			swipeLeft() {
-				return !this.get('isZoomed');
-			},
+		init() {
+			this._super(...arguments);
 
-			/**
-			 * @returns {boolean}
-			 */
-			swipeRight() {
-				return !this.get('isZoomed');
-			},
-
-			/**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
-			pan(event) {
-				const scale = this.get('scale');
-
-				this.setProperties({
-					limitedNewX: this.get('lastX') + event.deltaX / scale,
-					limitedNewY: this.get('lastY') + event.deltaY / scale,
-				});
-
-				this.notifyPropertyChange('style');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			panEnd() {
-				this.setProperties({
-					lastX: this.get('newX'),
-					lastY: this.get('newY')
-				});
-			},
-
-			/**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
-			doubleTap(event) {
-				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
-				if (
-					!this.get('isZoomed') &&
-					(!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center)
-				) {
-					const scale = 3;
-
-					this.setProperties({
-						limitedScale: scale,
-						lastScale: scale
-					});
-				} else {
-					this.resetZoom();
-				}
-
-				this.notifyPropertyChange('style');
-			},
-
-			/**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
-			pinchMove(event) {
-				const scale = this.get('scale');
-
-				this.setProperties({
-					limitedScale: this.get('lastScale') * event.scale,
-					limitedNewX: this.get('lastX') + event.deltaX / scale,
-					limitedNewY: this.get('lastY') + event.deltaY / scale,
-				});
-
-				this.notifyPropertyChange('style');
-			},
-
-			/**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
-			pinchEnd(event) {
-				this.set('lastScale', this.get('lastScale') * event.scale);
-			},
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		loadUrl() {
-			const url = this.get('model.url');
-
-			if (url) {
-				this.load(url).then((imageSrc) => {
-					this.update(imageSrc);
-				}).catch(() => {
-					this.update('', true);
-				});
-			}
-
-			this.resetZoom();
+			// Easy to port if we find a way to use enum here
+			this.screenAreas = {
+				left: 0,
+				center: 1,
+				right: 2,
+			};
 		},
 
 		/**
@@ -291,6 +275,23 @@ export default Component.extend(
 			scheduleOnce('afterRender', this, () => {
 				this.loadUrl();
 			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		loadUrl() {
+			const url = this.get('model.url');
+
+			if (url) {
+				this.load(url).then((imageSrc) => {
+					this.update(imageSrc);
+				}).catch(() => {
+					this.update('', true);
+				});
+			}
+
+			this.resetZoom();
 		},
 
 		/**

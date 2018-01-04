@@ -67,16 +67,6 @@ export default Component.extend(
 			this._super(...arguments);
 		},
 
-		collapse() {
-			this.set('collapsed', true);
-			this.$().height(this.get('collapsedHeight'));
-		},
-
-		expand() {
-			this.set('collapsed', false);
-			this.$().height('auto');
-		},
-
 		actions: {
 			toogleInfobox() {
 				if (!this.get('collapsed')) {
@@ -99,6 +89,16 @@ export default Component.extend(
 					});
 				}
 			}
+		},
+
+		collapse() {
+			this.set('collapsed', true);
+			this.$().height(this.get('collapsedHeight'));
+		},
+
+		expand() {
+			this.set('collapsed', false);
+			this.$().height('auto');
 		}
 	}
 );

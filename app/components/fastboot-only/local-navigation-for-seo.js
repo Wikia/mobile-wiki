@@ -4,10 +4,16 @@ import {readOnly, or} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 
 export default Component.extend({
-	classNames: ['local-navigation-for-seo'],
 	wikiVariables: service(),
+
+	classNames: ['local-navigation-for-seo'],
 	localLinks: readOnly('wikiVariables.localNav'),
 	currentLocalLinks: or('currentLocalNav.children', 'localLinks'),
+
+	model: computed('currentLocalLinks', function () {
+		return this.flattenLinksArray(this.get('currentLocalLinks'));
+	}),
+
 	flattenLinksArray(linksList = []) {
 		let flatArray = [];
 		linksList.forEach((item) => {
@@ -20,7 +26,4 @@ export default Component.extend({
 		});
 		return flatArray;
 	},
-	model: computed('currentLocalLinks', function () {
-		return this.flattenLinksArray(this.get('currentLocalLinks'));
-	}),
 });

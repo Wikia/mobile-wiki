@@ -13,17 +13,11 @@ export default Component.extend(
 	RenderComponentMixin,
 	ViewportMixin,
 	{
+		ads: service(),
+
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
 		wrapperClass: '.video-player-wrapper',
-
-		ads: service(),
-
-		articleContentWidthObserver: observer('viewportDimensions.width', function () {
-			if (this.get('videoLoader')) {
-				this.get('videoLoader').onResize();
-			}
-		}),
 
 		/**
 		 * @returns string
@@ -41,6 +35,12 @@ export default Component.extend(
 			return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
 		}),
 
+		articleContentWidthObserver: observer('viewportDimensions.width', function () {
+			if (this.get('videoLoader')) {
+				this.get('videoLoader').onResize();
+			}
+		}),
+
 		/**
 		 * @returns {void}
 		 */
@@ -49,6 +49,15 @@ export default Component.extend(
 
 			this.insertVideoPlayerHtml();
 			this.initVideoPlayer();
+		},
+
+		/**
+		 * Unbind all click events
+		 *
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			this.$(this.wrapperClass).off(`click.${this.id}`);
 		},
 
 		/**
@@ -82,14 +91,5 @@ export default Component.extend(
 		insertVideoPlayerHtml() {
 			this.$(this.wrapperClass).html(this.get('model.embed.html'));
 		},
-
-		/**
-		 * Unbind all click events
-		 *
-		 * @returns {void}
-		 */
-		willDestroyElement() {
-			this.$(this.wrapperClass).off(`click.${this.id}`);
-		}
 	}
 );

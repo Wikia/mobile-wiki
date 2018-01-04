@@ -7,10 +7,7 @@ export default Component.extend({
 	totalCount: 0,
 	displayLimit: 5,
 
-	init() {
-		this._super(...arguments);
-		this.users = [];
-	},
+	showAvatarOverflow: gt('avatarOverflow', 0),
 
 	avatars: computed('users', function () {
 		return this.get('users').slice(0, this.get('displayLimit'));
@@ -20,6 +17,8 @@ export default Component.extend({
 		return this.get('totalCount') - this.get('avatars.length');
 	}),
 
-	showAvatarOverflow: gt('avatarOverflow', 0)
-
+	init() {
+		this._super(...arguments);
+		this.users = [];
+	},
 });

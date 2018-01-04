@@ -5,7 +5,10 @@ import {buildUrl} from '../utils/url';
 
 export default Component.extend({
 	i18n: service(),
+
 	classNames: ['user-avatar'],
+	shouldWrapInHref: true,
+
 	profileName: computed('username', function () {
 		const userName = this.get('username') || '';
 
@@ -25,5 +28,4 @@ export default Component.extend({
 	displayName: computed('profileName', function () {
 		return this.get('anonymous') ? this.get('i18n').t('app.username-anonymous') : this.get('profileName');
 	}),
-	shouldWrapInHref: true
 });

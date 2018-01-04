@@ -21,14 +21,12 @@ import {inGroup} from '../modules/abtest';
 export default Component.extend(
 	AdsMixin,
 	{
-		tagName: 'article',
-		classNames: ['article-content', 'mw-content'],
-
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
-		isFastBoot: reads('fastboot.isFastBoot'),
 
+		tagName: 'article',
+		classNames: ['article-content', 'mw-content'],
 		adsContext: null,
 		content: null,
 		contributionEnabled: null,
@@ -36,6 +34,8 @@ export default Component.extend(
 		displayTitle: null,
 		isPreview: false,
 		media: null,
+
+		isFastBoot: reads('fastboot.isFastBoot'),
 
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
