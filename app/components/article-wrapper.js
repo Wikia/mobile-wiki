@@ -24,27 +24,11 @@ export default Component.extend(
 	LanguagesMixin,
 	ViewportMixin,
 	{
-		classNames: ['article-wrapper'],
 		currentUser: service(),
 		wikiVariables: service(),
+
+		classNames: ['article-wrapper'],
 		displayEmptyArticleInfo: true,
-
-		init() {
-			this._super(...arguments);
-
-			this.hammerOptions = {
-				touchAction: 'auto',
-				cssProps: {
-					/**
-					 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
-					 * 'default' displays the callout
-					 * 'none' disables the callout
-					 * hammer.js sets it to 'none' by default so we have to override
-					 */
-					touchCallout: 'default',
-				}
-			};
-		},
 
 		/**
 		 * Checks if contribution component should be enabled
@@ -52,6 +36,15 @@ export default Component.extend(
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
 		contributionEnabledForCommunity: not('wikiVariables.disableMobileSectionEditor'),
+
+		showComments: gte('model.comments', 0),
+
+		/**
+		 * Determine if the edit section icon should be rendered
+		 *
+		 * @returns {boolean} True if the edit icon should be rendered
+		 */
+		editIconVisible: oneWay('contributionEnabled'),
 
 		/**
 		 * Checks if mobile contribution features are enabled.
@@ -67,13 +60,6 @@ export default Component.extend(
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.CATEGORY &&
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.FILE;
 		}),
-
-		/**
-		 * Determine if the edit section icon should be rendered
-		 *
-		 * @returns {boolean} True if the edit icon should be rendered
-		 */
-		editIconVisible: oneWay('contributionEnabled'),
 
 		/**
 		 * For section editor, checks if the user is allowed to edit
@@ -102,7 +88,22 @@ export default Component.extend(
 			return this.get('model.featuredVideo') && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT');
 		}),
 
-		showComments: gte('model.comments', 0),
+		init() {
+			this._super(...arguments);
+
+			this.hammerOptions = {
+				touchAction: 'auto',
+				cssProps: {
+					/**
+					 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+					 * 'default' displays the callout
+					 * 'none' disables the callout
+					 * hammer.js sets it to 'none' by default so we have to override
+					 */
+					touchCallout: 'default',
+				}
+			};
+		},
 
 		actions: {
 			/**

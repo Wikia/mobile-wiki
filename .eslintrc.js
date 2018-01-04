@@ -77,7 +77,8 @@ module.exports = {
 		// Disabled for now as it is broken with new imports
 		// https://github.com/ember-cli/eslint-plugin-ember/pull/186
 		"ember/no-global-jquery": 0,
-		"ember/order-in-routes": 1,
-		"ember/order-in-controllers": 1
+    "ember/order-in-components": 1,
+    "ember/order-in-controllers": 1
+		"ember/order-in-routes": 1
 	}
 };

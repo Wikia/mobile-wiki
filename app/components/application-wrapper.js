@@ -28,6 +28,13 @@ import {trackPerf} from '../utils/track-perf';
  */
 
 export default Component.extend({
+	ads: service(),
+	currentUser: service(),
+	smartBanner: service(),
+	fastboot: service(),
+	logger: service(),
+	wikiVariables: service(),
+
 	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
 	classNameBindings: [
@@ -37,14 +44,8 @@ export default Component.extend({
 		'bfaaTemplate'
 	],
 	scrollLocation: null,
-	firstRender: true,
 
-	ads: service(),
-	currentUser: service(),
-	smartBanner: service(),
-	fastboot: service(),
-	logger: service(),
-	wikiVariables: service(),
+	firstRender: true,
 
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
@@ -63,13 +64,6 @@ export default Component.extend({
 
 		return `${vertical}-vertical`;
 	}),
-
-	/**
-	 * @returns {void}
-	 */
-	willInsertElement() {
-		$('#preload').remove();
-	},
 
 	/**
 	 * @returns {void}
@@ -103,6 +97,14 @@ export default Component.extend({
 			this.set('activeDrawerContent', null);
 			this.get('toggleDrawer')(false);
 		}
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	// TODO willInsertElement is not recognized as a lifecycle hook by linter
+	willInsertElement() {
+		$('#preload').remove();
 	},
 
 	/**

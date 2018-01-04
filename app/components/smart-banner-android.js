@@ -15,23 +15,26 @@ import {system, standalone} from '../utils/browser';
  * iOS has its own native smart banner - no need to render it there
  */
 export default Component.extend({
-	classNames: ['smart-banner-android'],
-	classNameBindings: ['noIcon'],
-
 	wikiVariables: service(),
 	smartBanner: service(),
 
+	classNames: ['smart-banner-android'],
+	classNameBindings: ['noIcon'],
+
 	day: 86400000,
 
-	appId: oneWay(`config.appId.android`),
-	appScheme: oneWay(`config.appScheme.android`),
-	config: computed('wikiVariables', function () {
-		return this.get('wikiVariables').get('smartBanner') || {};
-	}),
+	iconSize: 92,
+
 	dbName: reads('wikiVariables.dbName'),
 	description: oneWay('config.description'),
 	icon: oneWay('config.icon'),
-	iconSize: 92,
+	appId: oneWay(`config.appId.android`),
+	appScheme: oneWay(`config.appScheme.android`),
+	noIcon: not('icon'),
+	title: oneWay('config.name'),
+	config: computed('wikiVariables', function () {
+		return this.get('wikiVariables').get('smartBanner') || {};
+	}),
 
 	iconStyle: computed('icon', function () {
 		if (this.get('noIcon')) {
@@ -52,9 +55,6 @@ export default Component.extend({
 			`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
 
-	noIcon: not('icon'),
-	title: oneWay('config.name'),
-
 	init() {
 		this._super(...arguments);
 
@@ -73,9 +73,11 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.get('smartBanner').setVisibility(false);
-			this.track(trackActions.close);
+			const smartBannerService = this.get('smartBanner');
+
+			smartBannerService.setCookie(this.get('options.daysHiddenAfterClose'));
+			smartBannerService.setVisibility(false);
+			smartBannerService.track(trackActions.close);
 		},
 
 		/**
@@ -84,7 +86,7 @@ export default Component.extend({
 		view() {
 			const appScheme = this.get('appScheme');
 
-			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
+			this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterView'));
 
 			if (appScheme) {
 				this.tryToOpenApp(appScheme);
@@ -111,6 +113,7 @@ export default Component.extend({
 	/**
 	 * @returns {void}
 	 */
+	// TODO willInsertElement is not recognized as a lifecycle hook by linter
 	willInsertElement() {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too
@@ -121,13 +124,14 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	checkForHiding() {
-		const {name, disabled} = this.get('config');
+		const {name, disabled} = this.get('config'),
+			smartBannerService = this.get('smartBanner');
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
-			this.get('smartBanner').setVisibility(true);
-			this.track(trackActions.impression);
+		if (system === 'android' && !standalone && name && !disabled && !smartBannerService.isCookieSet()) {
+			smartBannerService.setVisibility(true);
+			smartBannerService.track(trackActions.impression);
 		}
 	},
 
@@ -138,7 +142,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	tryToOpenApp(appScheme) {
-		this.track(trackActions.open);
+		this.get('smartBanner').track(trackActions.open);
 		window.document.location.href = `${appScheme}://`;
 
 		run.later(this, this.fallbackToStore, 300);
@@ -150,35 +154,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	fallbackToStore() {
-		this.track(trackActions.install);
+		this.get('smartBanner').track(trackActions.install);
 		window.open(this.get('link'), '_blank');
-	},
-
-	/**
-	 * Sets sb-closed=1 cookie for given number of days
-	 *
-	 * @param {number} days
-	 * @returns {void}
-	 */
-	setSmartBannerCookie(days) {
-		const date = new Date();
-
-		date.setTime(date.getTime() + (days * this.get('day')));
-		$.cookie('sb-closed', 1, {
-			expires: date,
-			path: '/'
-		});
-	},
-
-	/**
-	 * @param {string} action
-	 * @returns {void}
-	 */
-	track(action) {
-		track({
-			action,
-			category: 'smart-banner',
-			label: this.get('dbName')
-		});
 	},
 });
