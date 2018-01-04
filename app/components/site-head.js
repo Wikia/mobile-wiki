@@ -1,10 +1,13 @@
+import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
+import {run} from '@ember/runloop';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
+import {standalone} from '../utils/browser';
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
@@ -60,6 +63,29 @@ export default Component.extend(
 					notTop: 'site-head-headroom-not-top'
 				}
 			};
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		willInsertElement() {
+			if (this.get('shouldShowFandomAppSmartBanner')) {
+				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+				// running this just after render is working too
+				run.scheduleOnce('afterRender', this, this.checkForHiding);
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		checkForHiding() {
+			const smartBannerService = this.get('smartBanner');
+
+			if (!standalone && !smartBannerService.isCookieSet()) {
+				smartBannerService.setVisibility(true);
+				smartBannerService.track(trackActions.impression);
+			}
 		},
 
 		actions: {
