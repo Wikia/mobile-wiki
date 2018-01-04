@@ -11,11 +11,11 @@ import {track, trackActions} from '../utils/track';
 export default Component.extend(
 	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,
 	{
-		classNames: ['wikia-nav'],
-		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
-
 		currentUser: service(),
 		notifications: service(),
+
+		classNames: ['wikia-nav'],
+		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 
 		setDrawerContent() {},
 

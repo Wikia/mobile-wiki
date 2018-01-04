@@ -9,6 +9,7 @@ export default Component.extend(
 	RenderComponentMixin,
 	ViewportMixin,
 	{
+		// TODO it's not treated as custom property
 		imageAspectRatio: 16 / 9,
 
 		// @todo XW-1363 - keep it DRY

@@ -16,18 +16,20 @@ export default Component.extend(
 	ReplyUpvoteNotificationMixin,
 	MarkAsReadNotificationMixin,
 	{
+		currentUser: service(),
+		i18n: service(),
+		logger: service(),
+		notifications: service(),
+
 		classNames: ['wds-notification-card'],
 
 		classNameBindings: ['isUnread:wds-is-unread'],
 
 		tagName: 'li',
 
-		currentUser: service(),
-		i18n: service(),
-		logger: service(),
-		notifications: service(),
-
 		userLanguage: oneWay('currentUser.language'),
+
+		isUnread: alias('model.isUnread'),
 
 		iconName: computed('model.type', function () {
 			const type = this.get('model.type');
@@ -41,7 +43,6 @@ export default Component.extend(
 			}
 		}),
 
-		isUnread: alias('model.isUnread'),
 
 		postTitleMarkup: computed('model.title', function () {
 			return wrapMeHelper.compute([
@@ -67,6 +68,11 @@ export default Component.extend(
 			});
 		}),
 
+		showAvatars: computed('model.{totalUniqueActors,type}', function () {
+			return this.get('model.totalUniqueActors') > 2 &&
+				this.isDiscussionReply(this.get('model.type'));
+		}),
+
 		text: computed('model', function () {
 			const model = this.get('model'),
 				type = model.type;
@@ -88,6 +94,12 @@ export default Component.extend(
 			trackImpression(this.get('model'));
 		},
 
+		actions: {
+			onNotificationClicked() {
+				trackClick(this.get('model'));
+			}
+		},
+
 		isDiscussionReply(type) {
 			return type === notificationTypes.discussionReply;
 		},
@@ -104,11 +116,6 @@ export default Component.extend(
 			return type === notificationTypes.announcement;
 		},
 
-		showAvatars: computed('model.{totalUniqueActors,type}', function () {
-			return this.get('model.totalUniqueActors') > 2 &&
-				this.isDiscussionReply(this.get('model.type'));
-		}),
-
 		getTranslatedMessage(key, context) {
 			const fullContext = $.extend({}, {
 				// TODO: XW-1685 fix i18n for User's language
@@ -117,12 +124,6 @@ export default Component.extend(
 			}, context);
 
 			return this.get('i18n').t(key, fullContext);
-		},
-
-		actions: {
-			onNotificationClicked() {
-				trackClick(this.get('model'));
-			}
 		}
 	}
 );

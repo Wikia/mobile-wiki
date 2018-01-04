@@ -12,13 +12,35 @@ export default Component.extend(
 	RenderComponentMixin,
 	ThirdsClickMixin,
 	{
+		logger: service(),
+
 		classNames: ['lightbox-media', 'lightbox-content-inner'],
 		// This is needed for keyDown event to work
 		attributeBindings: ['tabindex'],
-		logger: service(),
 
 		tabindex: 0,
 		videoPlayer: null,
+
+		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
+		gestures: {
+			/**
+			 * @returns {void}
+			 */
+			swipeLeft() {
+				if (this.get('isGallery')) {
+					this.nextMedia();
+				}
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			swipeRight() {
+				if (this.get('isGallery')) {
+					this.prevMedia();
+				}
+			},
+		},
 
 		setFooter() {},
 		setQueryParam() {},
@@ -88,27 +110,6 @@ export default Component.extend(
 		modelObserver: observer('model', 'currentMedia', function () {
 			this.updateState();
 		}),
-
-		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
-		gestures: {
-			/**
-			 * @returns {void}
-			 */
-			swipeLeft() {
-				if (this.get('isGallery')) {
-					this.nextMedia();
-				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			swipeRight() {
-				if (this.get('isGallery')) {
-					this.prevMedia();
-				}
-			},
-		},
 
 		/**
 		 * @returns {void}

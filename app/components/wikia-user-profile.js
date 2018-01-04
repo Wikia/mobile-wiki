@@ -11,16 +11,17 @@ export default Component.extend(
 	NotificationsScrollMenuMixin,
 	MarkAllNotificationsMixin,
 	{
-		classNames: ['wikia-user-profile'],
 		currentUser: service(),
 		notifications: service(),
 		wikiVariables: service(),
 
+		classNames: ['wikia-user-profile'],
+
+		setDrawerContent() {},
+
 		notificationsList: oneWay('notifications.model.data'),
 		isLoadingNewResults: oneWay('notifications.isLoading'),
 		username: oneWay('currentUser.name'),
-
-		setDrawerContent() {},
 
 		init() {
 			this._super(...arguments);

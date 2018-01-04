@@ -13,14 +13,17 @@ export default Component.extend(
 		attributeBindings: ['href'],
 		classNames: ['curated-content-item'],
 		classNameBindings: ['type'],
+
+		aspectRatio: 1,
+		imageWidth: 200,
+
 		openSection() {},
+
 		href: oneWay('model.url'),
 		type: oneWay('model.type'),
 
 		isArticle: equal('model.type', 'article'),
 
-		aspectRatio: 1,
-		imageWidth: 200,
 		thumbUrl: computed('model', function () {
 			if (this.get('model.imageUrl')) {
 				return this.generateThumbUrl(
