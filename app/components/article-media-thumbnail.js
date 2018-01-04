@@ -1,4 +1,4 @@
-import {or} from '@ember/object/computed';
+import {or, equal} from '@ember/object/computed';
 import $ from 'jquery';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
@@ -42,9 +42,7 @@ export default Component.extend(
 
 		hasFigcaption: or('caption', 'showTitle'),
 
-		isVideo: computed('type', function () {
-			return this.get('type') === 'video';
-		}),
+		isVideo: equal('type', 'video'),
 
 		showTitle: computed('type', function () {
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
