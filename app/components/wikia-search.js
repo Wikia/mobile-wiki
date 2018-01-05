@@ -24,6 +24,11 @@ import {buildUrl} from '../utils/url';
 export default Component.extend(
 	NoScrollMixin,
 	{
+		i18n: service(),
+		logger: service(),
+		wikiVariables: service(),
+		router: service(),
+
 		classNames: ['wikia-search-wrapper'],
 		// How many items to store in the cachedResultsQueue
 		cachedResultsLimit: 100,
@@ -37,15 +42,45 @@ export default Component.extend(
 		query: '',
 		searchRequestInProgress: false,
 		suggestionsEnabled: true,
-		i18n: service(),
-		logger: service(),
-		wikiVariables: service(),
-		router: service(),
 		inputSearchSelector: '.side-search__input',
 		emptyPhraseInput: not('phrase'),
 		hasSuggestions: notEmpty('suggestions'),
 		noScroll: oneWay('hasSuggestions'),
 		phrase: oneWay('query'),
+
+		searchPlaceholderLabel: computed(function () {
+			return this.get('i18n').t('search:main.search-input-label');
+		}),
+
+		/**
+		 * Wrapper for search suggestions performing, that also checks the cache
+		 */
+		updateSuggestions: observer('phrase', function () {
+			// disable suggestions
+			if (!this.get('suggestionsEnabled')) {
+				return;
+			}
+			const phrase = this.get('phrase');
+
+			this.setProperties({
+				suggestions: [],
+				searchRequestInProgress: false
+			});
+
+			// If the phrase string is empty or shorter than the minimal length, return to leave the view blank
+			if (!phrase || phrase.length < this.get('phraseMinimalLength')) {
+				/**
+				 * Even if there are pending search API ajax requests, we don't care about
+				 * them anymore because the phrase string has been cleared.
+				 */
+				this.set('isLoadingResultsSuggestions', false);
+			} else if (this.hasCachedResult(phrase)) {
+				this.setSearchSuggestionItems(this.getCachedResult(phrase));
+			} else {
+				this.set('isLoadingResultsSuggestions', true);
+				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
+			}
+		}),
 
 		init() {
 			this._super(...arguments);
@@ -68,10 +103,6 @@ export default Component.extend(
 			// key: phrase string, value: Array<SearchSuggestionItem>
 			this.cachedResults = {};
 		},
-
-		searchPlaceholderLabel: computed(function () {
-			return this.get('i18n').t('search:main.search-input-label');
-		}),
 
 		didInsertElement() {
 			this._super(...arguments);
@@ -129,36 +160,6 @@ export default Component.extend(
 				}
 			}
 		},
-
-		/**
-		 * Wrapper for search suggestions performing, that also checks the cache
-		 */
-		updateSuggestions: observer('phrase', function () {
-			// disable suggestions
-			if (!this.get('suggestionsEnabled')) {
-				return;
-			}
-			const phrase = this.get('phrase');
-
-			this.setProperties({
-				suggestions: [],
-				searchRequestInProgress: false
-			});
-
-			// If the phrase string is empty or shorter than the minimal length, return to leave the view blank
-			if (!phrase || phrase.length < this.get('phraseMinimalLength')) {
-				/**
-				 * Even if there are pending search API ajax requests, we don't care about
-				 * them anymore because the phrase string has been cleared.
-				 */
-				this.set('isLoadingResultsSuggestions', false);
-			} else if (this.hasCachedResult(phrase)) {
-				this.setSearchSuggestionItems(this.getCachedResult(phrase));
-			} else {
-				this.set('isLoadingResultsSuggestions', true);
-				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
-			}
-		}),
 
 		/**
 		 * @param {SearchSuggestionItem[]} [suggestions = []]

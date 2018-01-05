@@ -3,9 +3,10 @@ import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
+	logger: service(),
+
 	classNames: ['article-media-map-thumbnail'],
 	tagName: 'figure',
-	logger: service(),
 
 	/**
 	 * @returns {void|boolean}

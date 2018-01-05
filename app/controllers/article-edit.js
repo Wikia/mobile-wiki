@@ -9,12 +9,6 @@ export default Controller.extend({
 	i18n: service(),
 	wikiVariables: service(),
 
-	isPublishing: false,
-
-	publishDisabled: computed('isPublishing', 'model.isDirty', function () {
-		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
-	}),
-
 	init() {
 		this._super(...arguments);
 
@@ -26,6 +20,45 @@ export default Controller.extend({
 			'noedit-anon': 'edit.publish-error-noedit-anon',
 			protectedpage: 'edit.publish-error-protectedpage'
 		};
+	},
+
+	isPublishing: false,
+
+	publishDisabled: computed('isPublishing', 'model.isDirty', function () {
+		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
+	}),
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		publish() {
+			this.set('isPublishing', true);
+			this.get('application').set('isLoading', true);
+
+			this.get('model').publish().then(
+				this.handlePublishSuccess.bind(this),
+				this.handlePublishError.bind(this)
+			);
+
+			track({
+				action: trackActions.click,
+				category: 'sectioneditor',
+				label: 'publish'
+			});
+		},
+		/**
+		 * @returns {void}
+		 */
+		back() {
+			this.transitionToRoute('wiki-page', this.get('model.title'));
+			track({
+				action: trackActions.click,
+				category: 'sectioneditor',
+				label: 'back',
+				value: this.get('publishDisabled')
+			});
+		}
 	},
 
 	/**
@@ -77,38 +110,5 @@ export default Controller.extend({
 			category: 'sectioneditor',
 			label: error || 'edit-publish-error'
 		});
-	},
-
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		publish() {
-			this.set('isPublishing', true);
-			this.get('application').set('isLoading', true);
-
-			this.get('model').publish().then(
-				this.handlePublishSuccess.bind(this),
-				this.handlePublishError.bind(this)
-			);
-
-			track({
-				action: trackActions.click,
-				category: 'sectioneditor',
-				label: 'publish'
-			});
-		},
-		/**
-		 * @returns {void}
-		 */
-		back() {
-			this.transitionToRoute('wiki-page', this.get('model.title'));
-			track({
-				action: trackActions.click,
-				category: 'sectioneditor',
-				label: 'back',
-				value: this.get('publishDisabled')
-			});
-		}
 	}
 });

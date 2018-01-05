@@ -1,27 +1,54 @@
+import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
+import {run} from '@ember/runloop';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
+import {standalone} from '../utils/browser';
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
+		ads: service(),
+		notifications: service(),
+		smartBanner: service(),
+
 		classNames: ['site-head-container'],
 		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
 		closeIcon: 'close',
 
-		ads: service(),
-		notifications: service(),
-		smartBanner: service(),
+		defaultWikiaHomePage: 'http://fandom.wikia.com',
 
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+
+		offset: readOnly('ads.siteHeadOffset'),
+
+		unreadNotificationsCount: alias('notifications.model.unreadCount'),
+
+		wikiaHomepageFromNav: alias('globalNavigation.logo.module.main.href'),
+		wikiaHomepage: or('wikiaHomepageFromNav', 'defaultWikiHomePage'),
+
+		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
+
+		displayFandomBar: computed('isSearchPage', function () {
+			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
+		}),
+
+		navIcon: computed('drawerContent', 'drawerVisible', function () {
+			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
+		}),
+
+		searchIcon: computed('drawerContent', 'drawerVisible', function () {
+			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
+				this.get('closeIcon') : 'search';
+		}),
 
 		init() {
 			this._super(...arguments);
@@ -38,41 +65,27 @@ export default Component.extend(
 			};
 		},
 
-		defaultWikiaHomePage: 'http://fandom.wikia.com',
-		wikiaHomepageFromNav: alias('globalNavigation.logo.module.main.href'),
-		wikiaHomepage: or('wikiaHomepageFromNav', 'defaultWikiHomePage'),
-
-		displayFandomBar: computed('isSearchPage', function () {
-			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
-		}),
-
-		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
-
-		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
-		}),
-
-		searchIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
-				this.get('closeIcon') : 'search';
-		}),
-
-		offset: readOnly('ads.siteHeadOffset'),
-
-		unreadNotificationsCount: alias('notifications.model.unreadCount'),
-
-		isDrawerInClosableState() {
-			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
+		/**
+		 * @returns {void}
+		 */
+		willInsertElement() {
+			if (this.get('shouldShowFandomAppSmartBanner')) {
+				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+				// running this just after render is working too
+				run.scheduleOnce('afterRender', this, this.checkForHiding);
+			}
 		},
 
-		canBeClosed(icon) {
-			const drawerContent = this.get('drawerContent');
+		/**
+		 * @returns {void}
+		 */
+		checkForHiding() {
+			const smartBannerService = this.get('smartBanner');
 
-			return icon === this.getPrimaryDrawerState(drawerContent);
-		},
-
-		getPrimaryDrawerState(state) {
-			return state === 'user-profile' ? 'nav' : state;
+			if (!standalone && !smartBannerService.isCookieSet()) {
+				smartBannerService.setVisibility(true);
+				smartBannerService.track(trackActions.impression);
+			}
 		},
 
 		actions: {
@@ -111,6 +124,20 @@ export default Component.extend(
 					category: 'wordmark'
 				});
 			}
+		},
+
+		isDrawerInClosableState() {
+			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
+		},
+
+		canBeClosed(icon) {
+			const drawerContent = this.get('drawerContent');
+
+			return icon === this.getPrimaryDrawerState(drawerContent);
+		},
+
+		getPrimaryDrawerState(state) {
+			return state === 'user-profile' ? 'nav' : state;
 		}
 	}
 );

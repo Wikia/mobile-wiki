@@ -4,8 +4,9 @@ import {computed} from '@ember/object';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend({
-	classNames: ['wikia-stats'],
 	i18n: service(),
+
+	classNames: ['wikia-stats'],
 
 	items: computed('model', function () {
 		return [

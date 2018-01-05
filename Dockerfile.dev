@@ -2,6 +2,10 @@ FROM node:8.9.1-alpine
 
 WORKDIR /app
 
+# passes IMAGE_VERSION build-arg to environment variable to use it in application
+ARG IMAGE_VERSION
+ENV IMAGE_VERSION ${IMAGE_VERSION}
+
 # move files to cache installing of dependencies
 COPY .npmrc .
 COPY package-lock.json .
