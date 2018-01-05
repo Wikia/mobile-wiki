@@ -350,7 +350,7 @@ class Ads {
 		const numberOfSections = $('.article-content > h2').length,
 			hasArticleFooter = $('.article-footer').length > 0;
 
-		return hasArticleFooter && (!isInContentApplicable || numberOfSections > this.adsData.minPageLength);
+		return hasArticleFooter && (!isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections);
 	}
 
 	isBottomLeaderboardApplicable() {
