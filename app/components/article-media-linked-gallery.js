@@ -8,7 +8,6 @@ export default Component.extend(RenderComponentMixin, {
 	classNames: ['article-media-linked-gallery'],
 
 	imageSize: 195,
-	cropMode: Thumbnailer.mode.topCrop,
 	numberOfItemsRendered: 4,
 
 	canShowMore: computed('items', 'numberOfItemsRendered', function () {
@@ -48,4 +47,7 @@ export default Component.extend(RenderComponentMixin, {
 			this.set('numberOfItemsRendered', this.get('items.length'));
 		}
 	},
+
+	// TODO it should go together with other component properties
+	cropMode: Thumbnailer.mode.topCrop
 });

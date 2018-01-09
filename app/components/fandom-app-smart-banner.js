@@ -6,12 +6,13 @@ import {trackActions} from '../utils/track';
 import {system} from '../utils/browser';
 
 export default Component.extend({
-	classNames: ['fandom-app-smart-banner'],
-	dayInMiliseconds: 86400000,
-	closeButtonSelector: '.fandom-app-smart-banner__close',
-
 	i18n: service(),
 	smartBanner: service(),
+
+	classNames: ['fandom-app-smart-banner'],
+	dayInMiliseconds: 86400000,
+
+	closeButtonSelector: '.fandom-app-smart-banner__close',
 
 	link: computed(() => {
 		return system === 'ios'
@@ -56,5 +57,5 @@ export default Component.extend({
 		this.get('smartBanner').track(trackActions.install);
 		this.get('smartBanner').setVisibility(false);
 		this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterView'));
-	},
+	}
 });

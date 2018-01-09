@@ -22,13 +22,13 @@ export default Component.extend(RenderComponentMixin, {
 	type: null,
 	model: null,
 
+	closeAllowed: not('closeButtonHidden'),
+
 	lightboxComponent: computed('type', function () {
 		const type = this.get('type');
 
 		return type ? `lightbox-${type}` : null;
 	}),
-
-	closeAllowed: not('closeButtonHidden'),
 
 	actions: {
 		/**

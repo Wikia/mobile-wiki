@@ -8,12 +8,13 @@ export default Component.extend(
 		avatarHeight: 100,
 		avatarWidth: 100,
 		classNameBindings: ['classes'],
-		isVisible: notEmpty('users'),
 		label: null,
 		limit: 5,
 		thumbMode: Thumbnailer.mode.fixedAspectRatio,
 		trackingEvent: null,
 		users: null,
+
+		isVisible: notEmpty('users'),
 
 		actions: {
 			trackClick(category, label) {

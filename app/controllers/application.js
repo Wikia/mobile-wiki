@@ -17,6 +17,7 @@ export default Controller.extend(
 		ads: service(),
 		logger: service(),
 		wikiVariables: service(),
+
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -26,22 +27,6 @@ export default Controller.extend(
 				commentsPage: 'comments_page'
 			}
 		],
-		file: null,
-		map: null,
-		noAds: alias('ads.noAdsQueryParam'),
-		commentsPage: null,
-
-		applicationWrapperClassNames: null,
-		drawerVisible: false,
-		drawerContent: null,
-		userMenuVisible: false,
-		fullPage: false,
-		lightboxType: null,
-		lightboxModel: null,
-		lightboxVisible: false,
-		lightboxCloseButtonDelay: 0,
-
-		isSearchPage: equal('currentRouteName', 'search'),
 
 		/**
 		 * @returns {void}
@@ -56,6 +41,22 @@ export default Controller.extend(
 
 			this._super();
 		},
+
+		file: null,
+		map: null,
+		commentsPage: null,
+		applicationWrapperClassNames: null,
+		drawerVisible: false,
+		drawerContent: null,
+		userMenuVisible: false,
+		fullPage: false,
+		lightboxType: null,
+		lightboxModel: null,
+		lightboxVisible: false,
+		lightboxCloseButtonDelay: 0,
+
+		noAds: alias('ads.noAdsQueryParam'),
+		isSearchPage: equal('currentRouteName', 'search'),
 
 		actions: {
 			/**

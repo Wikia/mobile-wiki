@@ -13,7 +13,6 @@ export default Component.extend(
 		classNames: ['article-media-gallery'],
 
 		imageSize: 195,
-		cropMode: Thumbnailer.mode.topCrop,
 		// Initially it limits how many item components get rendered before user scrolls to a gallery
 		numberOfItemsRendered: 2,
 		incrementStepSize: 10,
@@ -43,18 +42,18 @@ export default Component.extend(
 			});
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		didEnterViewport() {
-			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
-		},
-
 		actions: {
 			openLightbox(galleryRef) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				this.get('openLightbox')(this.get('ref'), galleryRef);
 			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		didEnterViewport() {
+			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
 		},
 
 		/**
@@ -100,6 +99,9 @@ export default Component.extend(
 			} else {
 				$this.off('scroll');
 			}
-		}
+		},
+
+		// TODO it should go together with other component properties
+		cropMode: Thumbnailer.mode.topCrop
 	}
 );

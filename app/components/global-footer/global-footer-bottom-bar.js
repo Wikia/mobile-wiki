@@ -4,8 +4,9 @@ import Component from '@ember/component';
 import config from '../../config/environment';
 
 export default Component.extend({
-	tagName: '',
 	wikiVariables: service(),
+
+	tagName: '',
 
 	actions: {
 		fullSiteClicked() {

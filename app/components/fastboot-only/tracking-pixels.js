@@ -3,8 +3,10 @@ import {reads} from '@ember/object/computed';
 import Component from '@ember/component';
 
 export default Component.extend({
-	tagName: '',
 	tracking: service(),
+
+	tagName: '',
+
 	comscore: reads('tracking.config.comscore'),
 	quantcast: reads('tracking.config.quantcast')
 });

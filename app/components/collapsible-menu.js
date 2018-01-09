@@ -15,6 +15,20 @@ export default Component.extend(
 		tLabel: '',
 		trackingEvent: null,
 
+		/**
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			addObserver(this, 'observe', this, this.titleDidChange);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			removeObserver(this, 'observe', this, this.titleDidChange);
+		},
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -30,20 +44,6 @@ export default Component.extend(
 					});
 				}
 			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			addObserver(this, 'observe', this, this.titleDidChange);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		willDestroyElement() {
-			removeObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**

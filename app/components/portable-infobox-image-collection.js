@@ -10,20 +10,23 @@ export default Component.extend(RenderComponentMixin,
 	{
 		classNames: ['pi-image-collection'],
 
+		// TODO it's not treated as custom property
 		imageAspectRatio: 16 / 9,
 		currentImageIndex: 0,
+
+		collectionLength: readOnly('items.length'),
+
+		hasPreviousImage: gt('currentImageIndex', 0),
+
+		computedWidth: readOnly('viewportDimensions.width'),
 
 		currentImage: computed('items', 'currentImageIndex', function () {
 			return this.get('items')[this.get('currentImageIndex')];
 		}),
 
-		collectionLength: readOnly('items.length'),
-
 		hasNextImage: computed('currentImageIndex', 'collectionLength', function () {
 			return this.get('currentImageIndex') < (this.get('collectionLength') - 1);
 		}),
-
-		hasPreviousImage: gt('currentImageIndex', 0),
 
 		cropMode: computed('currentImage', function () {
 			const currentImage = this.get('currentImage');
@@ -32,8 +35,6 @@ export default Component.extend(RenderComponentMixin,
 				Thumbnailer.mode.topCropDown :
 				Thumbnailer.mode.zoomCrop;
 		}),
-
-		computedWidth: readOnly('viewportDimensions.width'),
 
 		computedHeight: computed('currentImage', function () {
 			const windowWidth = this.get('viewportDimensions.width'),

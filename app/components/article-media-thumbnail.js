@@ -25,6 +25,9 @@ export default Component.extend(
 		 */
 		itemContext: 'article',
 
+		hasFigcaption: or('caption', 'showTitle'),
+		isVideo: equal('type', 'video'),
+
 		isOgg: computed('mime', function () {
 			return this.get('mime') === 'application/ogg';
 		}),
@@ -39,10 +42,6 @@ export default Component.extend(
 		isSmall: computed('width', 'height', function () {
 			return this.get('width') <= this.get('viewportDimensions.width');
 		}),
-
-		hasFigcaption: or('caption', 'showTitle'),
-
-		isVideo: equal('type', 'video'),
 
 		showTitle: computed('type', function () {
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
@@ -94,6 +93,6 @@ export default Component.extend(
 			const scale = originalWidth / width;
 
 			return Math.floor(originalHeight / scale);
-		},
+		}
 	}
 );
