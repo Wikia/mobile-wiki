@@ -1,4 +1,4 @@
-import {alias, equal} from '@ember/object/computed';
+import {alias, and, equal, not} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
 import {track, trackActions} from '../utils/track';
@@ -8,7 +8,9 @@ export default Controller.extend(WikiPageControllerMixin, {
 	wikiPage: controller(),
 
 	commentsPage: alias('application.commentsPage'),
-	displayRecirculation: equal('wikiVariables.language.content', 'en'),
+	loadExternals: not('application.noExternals'),
+	isContLangEn: equal('wikiVariables.language.content', 'en'),
+	displayRecirculation: and('isContLangEn', 'noExternals'),
 
 	actions: {
 		/**
