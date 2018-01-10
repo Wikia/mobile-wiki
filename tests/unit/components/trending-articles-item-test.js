@@ -1,10 +1,25 @@
 import {test, moduleForComponent} from 'ember-qunit';
+import sinon from 'sinon';
+import require from 'require';
+
+const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
+let thumbnailerStub;
 
 moduleForComponent('trending-articles-item', 'Unit | Component | trending articles item', {
 	unit: true,
 	needs: [
 		'service:fastboot'
-	]
+	],
+
+	beforeEach() {
+		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
+			return `${url}/${options.mode}/${options.width}/${options.height}`;
+		});
+	},
+
+	afterEach() {
+		thumbnailerStub.restore();
+	}
 });
 
 test('sets proper url for the image', function (asset) {
@@ -15,13 +30,9 @@ test('sets proper url for the image', function (asset) {
 
 	componentMock.setProperties({
 		imageWidth,
-		cropMode: 'top-crop',
 		imageUrl: 'http://vignette/image.jpg'
 	});
 
-	componentMock.set('thumbnailer.getThumbURL', (url, options) => {
-		return `${url}/${options.mode}/${options.width}/${options.height}`;
-	});
 	asset.equal(
 		componentMock.get('currentlyRenderedImageUrl'),
 		`http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`
