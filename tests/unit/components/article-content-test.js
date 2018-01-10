@@ -19,7 +19,6 @@ moduleForComponent('article-content', 'Unit | Component | article content', {
 		'component:ad-slot',
 		'component:ads/invisible-high-impact-2',
 		'component:portable-infobox',
-		'component:article-table-of-contents',
 		'service:ads',
 		'service:currentUser',
 		'service:fastboot',

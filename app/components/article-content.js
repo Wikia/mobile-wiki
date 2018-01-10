@@ -55,17 +55,9 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
-					this.renderedComponents = this.renderedComponents.concat(
-						queryPlaceholders(this.$())
-							.map(getAttributesForMedia, {
-								media: this.get('media'),
-								openLightbox: this.get('openLightbox')
-							})
-							.map(this.renderComponent)
-					);
+					this.renderDataComponents(this.element);
 
 					this.loadIcons();
-					this.createTableOfContents();
 					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
@@ -76,6 +68,7 @@ export default Component.extend(
 
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
+					this.handleCollapsibleSections();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
@@ -223,7 +216,7 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = this.$('h2[section]').map((i, element) => {
+				const headers = [...this.element.querySelectorAll('h2[section]')].map((element) => {
 					if (element.textContent) {
 						return {
 							element,
@@ -233,42 +226,20 @@ export default Component.extend(
 							section: element.getAttribute('section'),
 						};
 					}
-				}).toArray();
+				});
 
 				headers.forEach((header) => {
-					const $placeholder = $('<div>');
+					if (header) {
+						const placeholder = document.createElement('div'),
+							sectionHeaderLabel = header.element.querySelector('.section-header-label');
 
-					this.$(header.element)
-						.wrapInner('<div class="section-header-label"></div>')
-						.append($placeholder);
-
-					this.renderArticleContributionComponent($placeholder.get(0), header.section, header.id);
+						if (sectionHeaderLabel) {
+							sectionHeaderLabel.appendChild(placeholder);
+							this.renderArticleContributionComponent(placeholder, header.section, header.id);
+						}
+					}
 				});
 			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		createTableOfContents() {
-			const $firstInfobox = this.$('.portable-infobox').first(),
-				$placeholder = $('<div />');
-
-			if ($firstInfobox.length) {
-				$placeholder.insertAfter($firstInfobox);
-			} else {
-				$placeholder.prependTo(this.$());
-			}
-
-			this.renderedComponents.push(
-				this.renderComponent({
-					name: 'article-table-of-contents',
-					attrs: {
-						articleContent: this.$()
-					},
-					element: $placeholder.get(0)
-				})
-			);
 		},
 
 		/**
@@ -295,6 +266,17 @@ export default Component.extend(
 					})
 				);
 			});
+		},
+
+		renderDataComponents(element) {
+			this.renderedComponents = this.renderedComponents.concat(
+				queryPlaceholders(element)
+					.map(getAttributesForMedia, {
+						media: this.get('media'),
+						openLightbox: this.get('openLightbox')
+					})
+					.map(this.renderComponent)
+			);
 		},
 
 		/**
@@ -453,5 +435,31 @@ export default Component.extend(
 					$element.wrap(wrapper);
 				});
 		},
+
+		handleCollapsibleSectionHeaderClick(event) {
+			const header = event.currentTarget,
+				section = header.nextElementSibling;
+			let visible = 'false';
+
+			if (header.classList.contains('open-section')) {
+				header.classList.remove('open-section');
+			} else {
+				header.classList.add('open-section');
+				visible = 'true';
+
+				if (!header.hasAttribute('data-rendered')) {
+					this.renderDataComponents(section);
+					header.setAttribute('data-rendered', '');
+				}
+			}
+
+			section.setAttribute('aria-pressed', visible);
+			section.setAttribute('aria-expanded', visible);
+		},
+
+		handleCollapsibleSections() {
+			this.element.querySelectorAll('h2[section]')
+				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
+		}
 	}
 );
