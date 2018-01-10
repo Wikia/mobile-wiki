@@ -1,4 +1,4 @@
-import {or} from '@ember/object/computed';
+import {or, equal} from '@ember/object/computed';
 import $ from 'jquery';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
@@ -26,6 +26,7 @@ export default Component.extend(
 		itemContext: 'article',
 
 		hasFigcaption: or('caption', 'showTitle'),
+		isVideo: equal('type', 'video'),
 
 		isOgg: computed('mime', function () {
 			return this.get('mime') === 'application/ogg';
@@ -92,6 +93,6 @@ export default Component.extend(
 			const scale = originalWidth / width;
 
 			return Math.floor(originalHeight / scale);
-		},
+		}
 	}
 );
