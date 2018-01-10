@@ -1,5 +1,7 @@
 .recirculation-prefooter {
 	background: $wds-color-off-white;
+	// compensate for footer margin
+	margin-bottom: -30px;
 	padding: rem-calc(20);
 
 	&__item {

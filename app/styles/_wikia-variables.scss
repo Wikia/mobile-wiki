@@ -81,6 +81,14 @@ $transition-length: .1s;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Hub Colors
+$color-hub-comics    : #FF5400;
+$color-hub-games     : #94D11F;
+$color-hub-books     : #FF7F26;
+$color-hub-movies    : #09D3BF;
+$color-hub-lifestyle : #FFD000;
+$color-hub-music     : #C819AD;
+$color-hub-tv        : #00B7E0;
 $verticals: comics games books movies lifestyle music tv;
 $vertical-colors: (
 	$color-hub-comics

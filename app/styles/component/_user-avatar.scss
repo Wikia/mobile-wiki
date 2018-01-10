@@ -6,7 +6,7 @@
 	}
 }
 
-@media #{$mobile-range} {
+@media #{$wds-breakpoint-m-down} {
 	.user-avatar {
 		.avatar-username {
 			@include ellipsis;

@@ -1,6 +1,54 @@
 // Use Wikia style guide settings
 //@import 'node_modules/wikia-style-guide/src/scss/lib/settings';
 
+$white: #FFFFFF;
+$ghost: #FAFAFA;
+$snow: #F9F9F9;
+$vapor: #F6F6F6;
+$white-smoke: #F5F5F5;
+$silver: #EFEFEF;
+$smoke: #EEEEEE;
+$gainsboro: #DDDDDD;
+$iron: #CCCCCC;
+$base: #AAAAAA;
+$aluminum: #999999;
+$jumbo: #888888;
+$monsoon: #777777;
+$steel: #666666;
+$charcoal: #555555;
+$tuatara: #444444;
+$oil: #333333;
+$jet: #222222;
+$black: #000000;
+
+// Default user experience colors
+$color-blue-dark: #092344;
+$color-blue-light: #1A5EB8;
+$color-gray-dark: #39424D;
+$color-blue-gray-dark: #656E78;
+$color-blue-gray: #C5CED9;
+$color-blue-gray-light: #E6EBF2;
+$color-gray-light: #F2F6FA;
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+// We use these as default colors throughout
+$primary-color: $color-blue-dark;
+$secondary-color: #e7e7e7;
+$alert-color: #ff3500;
+$success-color: #43AC6A;
+$warning-color: #f08a24;
+$info-color: #a0d3e8;
+$border-color: #cccccc;
+
+$anchor-font-color: $color-blue-light;
+
+$body-font-color: $color-gray-dark;
+
+$button-bg-color: $color-blue-light;
+
+$alert-color: #ff3500;
+
 $appreciate-activated-color: $color-blue-light;
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
@@ -28,8 +76,6 @@ $fancy-check-box-disabled-border: #ccc;
 $fancy-check-box-background: #fff;
 $highlight-overlay-background-color: #f6f6f6;
 
-$large-desktop-range: $xxlarge-up;
-
 $large-desktop-post-details-font-size: rem-calc(28);
 
 $discussion-timestamp-color: #999;
@@ -41,3 +87,52 @@ $dark-highlight-overlay-background-color: #262626;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;
+
+$screen: "only screen";
+$landscape: "#{$screen} and (orientation: landscape)";
+$portrait: "#{$screen} and (orientation: portrait)";
+
+// Type Scale inspired by Medium's CSS
+// @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
+$type-base: 1rem;
+$type-max: rem-calc(54);
+$type-largest: rem-calc(40);
+$type-larger: rem-calc(36);
+$type-large: rem-calc(27);
+$type-small: rem-calc(24);
+$type-smaller: rem-calc(18);
+$type-smallest: rem-calc(14);
+$type-min: 0.75rem;
+
+$line-height-base: rem-calc(26);
+$line-height-max: rem-calc(54);
+$line-height-largest: rem-calc(40);
+$line-height-larger: rem-calc(36);
+$line-height-large: rem-calc(32);
+$line-height-small: rem-calc(28);
+$line-height-smaller: rem-calc(28);
+$line-height-smallest: rem-calc(20);
+$line-height-min: rem-calc(18);
+
+// We use these to define default font weights
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 700 !default;
+
+// Since the typical default browser font-size is 16px, that makes the calculation for grid size.
+// If you want your base font-size to be different and not have it affect the grid breakpoints,
+// set $rem-base to $base-font-size and make sure $base-font-size is a px value.
+$base-font-size: 16px;
+
+// We use this to do clear floats
+@mixin clearfix {
+	&::before,
+	&::after {
+		content: '';
+		display: table;
+	}
+
+	&::after {
+		clear: both;
+	}
+}

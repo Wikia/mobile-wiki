@@ -1,6 +1,7 @@
 .contributors {
 	@extend %list-reset;
-	@extend .clearfix;
+
+	@include clearfix;
 
 	background-color: $wds-color-off-white;
 	margin-bottom: rem-calc(40);

@@ -69,12 +69,12 @@
 }
 
 .article-comment {
-	@extend .row;
+	// @extend .row;
 
 	margin: 0;
 
 	> div {
-		@extend .columns;
+	//	@extend .columns;
 
 		padding: 0;
 	}

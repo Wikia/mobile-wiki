@@ -2,3 +2,11 @@
 @import 'chevron';
 @import 'pointer';
 @import 'box-sizing';
+@import 'normalize';
+
+
+img {
+	max-width: 100%;
+	height: auto;
+	-ms-interpolation-mode: bicubic;
+}
