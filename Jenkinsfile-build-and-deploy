@@ -1,8 +1,7 @@
 def deployenv = 'artifactory.wikia-inc.com/platform/alpine:3.6-curl'
 def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12'
-def docker = 'artifactory.wikia-inc.com/platform/crowdin:0.0.1'
 
-node('docker-daemon'){
+node('docker-daemon') {
     def namespace = params.namespace
     def cluster = params.cluster ?: "prod"
     def context = "kube-${params.datacenter}-${cluster}"
@@ -39,24 +38,22 @@ node('docker-daemon'){
 
 
     if ( !imageExists ) {
-        withDockerContainer(docker){
-            if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
-                stage('Build and push image'){
-                    sh """#!/bin/sh
-                    ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
-               }
-            } else {
-                stage('Build developement image') {
-                    if (params.crowdin_branch != null) {
-                        sh """#!/bin/sh
-                        ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
-                    }
-
-                    sh """#!/bin/sh
-                    ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
-                }
+        if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
+            stage('Build and push image'){
+                sh """#!/bin/sh
+                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
            }
-        }
+        } else {
+            stage('Build developement image') {
+                if (params.crowdin_branch != null) {
+                    sh """#!/bin/sh
+                    ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
+                }
+
+                sh """#!/bin/sh
+                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+            }
+       }
     } else {
         stage('Build and push image') {}
         stage('Build developement image') {}
