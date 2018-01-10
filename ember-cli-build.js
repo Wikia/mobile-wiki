@@ -98,6 +98,9 @@ module.exports = function (defaults) {
 			group: true,
 			rulesDir: '.',
 			extensions: ['js'],
+		},
+		vendorFiles: {
+			'app-shims.js': null
 		}
 	});
 
