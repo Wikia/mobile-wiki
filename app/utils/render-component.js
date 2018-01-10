@@ -46,14 +46,18 @@ export function getRenderComponentFor(parent) {
 	};
 }
 
-export function queryPlaceholders($element) {
+export function queryPlaceholders(element) {
 	const components = [];
+	let componentElements = element.querySelectorAll('[data-component]');
 
-	$element.find('[data-component]').each(function () {
-		const name = this.getAttribute('data-component'),
-			attrs = componentAttributes(this);
+	componentElements.forEach((componentElement) => {
+		// if component is visible
+		if (componentElement.offsetParent) {
+			const name = componentElement.getAttribute('data-component'),
+				attrs = componentAttributes(componentElement);
 
-		components.push({attrs, name, element: this});
+			components.push({attrs, name, element: componentElement});
+		}
 	});
 
 	return components;

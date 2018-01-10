@@ -66,7 +66,7 @@ class Ads {
 		this.onReadyCallbacks = [];
 		this.adsData = {
 			minZerothSectionLength: 700,
-			minPageLength: 2000
+			minNumberOfSections: 4
 		};
 	}
 
@@ -332,28 +332,25 @@ class Ads {
 	}
 
 	isInContentApplicable() {
-		const $firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
-			hasCuratedContent = $('.curated-content').length > 0;
-
 		if (this.getTargetingValue('pageType') === 'home') {
-			return hasCuratedContent;
+			return $('.curated-content').length > 0;
 		}
+
+		const $firstSection = $('.article-content > h2').first(),
+			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}
 
-	isPrefooterApplicable() {
-		const articleBodyHeight = $('.article-body').height(),
-			hasArticleFooter = $('.article-footer').length > 0,
-			hasTrendingArticles = $('.trending-articles').length > 0,
-			showInContent = this.isInContentApplicable();
-
+	isPrefooterApplicable(isInContentApplicable) {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return hasTrendingArticles;
+			return $('.trending-articles').length > 0;
 		}
 
-		return hasArticleFooter && !showInContent || articleBodyHeight > this.adsData.minPageLength;
+		const numberOfSections = $('.article-content > h2').length,
+			hasArticleFooter = $('.article-footer').length > 0;
+
+		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
 
 	isBottomLeaderboardApplicable() {
@@ -365,9 +362,11 @@ class Ads {
 			return;
 		}
 
+		const isInContentApplicable = this.isInContentApplicable();
+
 		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
-		this.slotsContext.setStatus('MOBILE_IN_CONTENT', this.isInContentApplicable());
-		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable());
+		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
+		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
 		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 	}
