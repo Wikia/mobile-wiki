@@ -6,9 +6,9 @@ import config from './config/environment';
 // we in some places and some addons like mirage still use import Ember from 'ember' from ember-cli-shims
 // We have removed shims, so to make them work we need to redefine it
 // This can be removed when ember-cli-shims is officially sunset
-/* global define */
+/* global mefine */
 /* eslint prefer-arrow-callback:0 */
-define('ember', function () {
+mefine('ember', function () {
 	return Ember;
 });
 
