@@ -1,5 +1,5 @@
 (function (w, d, s, p, v, e, r) {
-	if (document.location.search.indexOf('noexternals=1') > -1) {
+	if (document.location.search.indexOf('noexternals=1') === -1) {
 		w.$igniter_var = v;
 		w[v] = w[v] || function () {
 			(w[v].q = w[v].q || []).push(arguments);
