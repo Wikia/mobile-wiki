@@ -48,7 +48,7 @@ export function getRenderComponentFor(parent) {
 
 export function queryPlaceholders(element) {
 	const components = [];
-	let componentElements = element.querySelectorAll('[data-component]');
+	let componentElements = [...element.querySelectorAll('[data-component]')];
 
 	componentElements.forEach((componentElement) => {
 		// if component is visible
