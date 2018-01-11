@@ -13,8 +13,6 @@ export default Component.extend(
 		tagName: 'a',
 		classNames: ['trending-videos-item'],
 		attributeBindings: ['href'],
-		thumbnailer: Thumbnailer,
-		cropMode: Thumbnailer.mode.topCrop,
 		imageStyle: null,
 		video: null,
 		imageWidth: 250,
@@ -28,12 +26,12 @@ export default Component.extend(
 			const options = {
 					width: this.get('imageWidth'),
 					height: this.get('imageHeight'),
-					mode: this.get('cropMode')
+					mode: Thumbnailer.mode.topCrop
 				},
 				videoUrl = this.get('video.url');
 
 			if (videoUrl) {
-				return this.thumbnailer.getThumbURL(videoUrl, options);
+				return Thumbnailer.getThumbURL(videoUrl, options);
 			} else {
 				return undefined;
 			}

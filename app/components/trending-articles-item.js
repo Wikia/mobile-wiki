@@ -9,8 +9,6 @@ export default Component.extend(ViewportMixin, {
 	tagName: 'a',
 	classNames: ['trending-articles-item'],
 	attributeBindings: ['href', 'style'],
-	cropMode: Thumbnailer.mode.topCrop,
-	thumbnailer: Thumbnailer,
 	style: null,
 	imageWidth: 250,
 
@@ -21,10 +19,10 @@ export default Component.extend(ViewportMixin, {
 			const options = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
-				mode: this.get('cropMode'),
+				mode: Thumbnailer.mode.topCrop,
 			};
 
-			return this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			return Thumbnailer.getThumbURL(this.get('imageUrl'), options);
 		} else {
 			return undefined;
 		}
