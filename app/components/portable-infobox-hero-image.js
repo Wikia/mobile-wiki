@@ -9,8 +9,7 @@ export default Component.extend(
 	RenderComponentMixin,
 	ViewportMixin,
 	{
-		// TODO it's not treated as custom property
-		imageAspectRatio: 16 / 9,
+		computedWidth: readOnly('viewportDimensions.width'),
 
 		// @todo XW-1363 - keep it DRY
 		// or should it be the same as in portable-infobox-image-collection?
@@ -69,6 +68,7 @@ export default Component.extend(
 			return computedHeight;
 		}),
 
-		computedWidth: readOnly('viewportDimensions.width')
+		// TODO it's not treated as custom property
+		imageAspectRatio: 16 / 9,
 	}
 );

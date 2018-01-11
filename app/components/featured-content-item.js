@@ -13,12 +13,7 @@ export default Component.extend(
 		attributeBindings: ['href', 'style'],
 		classNames: ['featured-content-item'],
 
-		// TODO it's not treated as valid property
-		aspectRatio: 16 / 9,
 		imageWidth: 400,
-		// TODO it's not treated as valid property
-		cropMode: Thumbnailer.mode.zoomCrop,
-
 		href: oneWay('model.url'),
 
 		thumbUrl: computed('model', function () {
@@ -32,6 +27,10 @@ export default Component.extend(
 			}
 
 			return this.get('emptyGif');
-		})
+		}),
+
+		// TODO it's not treated as valid property
+		aspectRatio: 16 / 9,
+		cropMode: Thumbnailer.mode.zoomCrop
 	}
 );

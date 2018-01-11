@@ -98,6 +98,10 @@ module.exports = function (defaults) {
 			group: true,
 			rulesDir: '.',
 			extensions: ['js'],
+		},
+		vendorFiles: {
+			// This should be removed when ember-cli-shims is sunset
+			'app-shims.js': null
 		}
 	});
 

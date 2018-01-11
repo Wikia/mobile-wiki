@@ -10,7 +10,6 @@ export default Component.extend(
 		classNameBindings: ['classes'],
 		label: null,
 		limit: 5,
-		thumbMode: Thumbnailer.mode.fixedAspectRatio,
 		trackingEvent: null,
 		users: null,
 
@@ -24,6 +23,8 @@ export default Component.extend(
 					label
 				});
 			}
-		}
+		},
+
+		thumbMode: Thumbnailer.mode.fixedAspectRatio
 	}
 );

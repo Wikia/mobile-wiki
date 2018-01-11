@@ -16,12 +16,8 @@ import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
-const {
-	TargetActionSupport
-} = Ember;
-
 export default Route.extend(
-	TargetActionSupport,
+	Ember.TargetActionSupport,
 	HeadTagsStaticMixin,
 	{
 		ads: service(),
