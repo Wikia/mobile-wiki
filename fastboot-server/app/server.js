@@ -8,8 +8,7 @@ process.env.PORT = config.port;
 const server = new FastBootAppServer({
 	beforeMiddleware: middlewares.before,
 	afterMiddleware: middlewares.after,
-	distPath: config.distPath,
-	gzip: true
+	distPath: config.distPath
 });
 
 server.start();

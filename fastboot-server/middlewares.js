@@ -1,4 +1,3 @@
-const compression = require('compression');
 const cors = require('cors');
 const logger = require('./logger');
 const headers = require('./headers');
@@ -21,7 +20,6 @@ function levelFn(status) {
 
 module.exports = {
 	before(app) {
-		app.use(compression());
 		app.disable('x-powered-by');
 		app.use(logger);
 
