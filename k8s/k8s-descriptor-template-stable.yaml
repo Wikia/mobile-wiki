@@ -15,12 +15,15 @@ spec:
     app: mobile-wiki-stable
   type: ClusterIP
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mobile-wiki-stable
   namespace: prod
 spec:
+  selector:
+    matchLabels:
+      app: mobile-wiki-stable
   replicas: 1 #TODO: adjust
   selector:
     matchLabels:
