@@ -91,16 +91,13 @@ export default EmberObject.extend({
 
 	update(state) {
 		this.setProperties({
-			items: [
-				...this.get('items'),
-				...state.items.map((item) => {
-					return {
-						title: item.title,
-						snippet: item.snippet,
-						prefixedTitle: extractEncodedTitle(item.url)
-					};
-				})
-			],
+			items: this.get('items').concat(state.items.map((item) => {
+				return {
+					title: item.title,
+					snippet: item.snippet,
+					prefixedTitle: extractEncodedTitle(item.url)
+				};
+			})),
 			loading: false,
 			totalItems: state.total,
 			totalBatches: state.batches,
