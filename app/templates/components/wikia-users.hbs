@@ -3,7 +3,7 @@
 	<ul>
 		{{#each users as |user|}}
 			<li>
-				<a href="{{unbound user.url}}" {{action 'trackClick' 'contributors' 'open-user' preventDefault=false}}>
+				<a href="{{unbound user.url}}" {{action 'trackClick' 'contributors' 'open-user'}}>
 					{{#if viewportEntered}}
 						{{thumbnail user.avatar mode=user.thumbMode alt=user.name}}
 					{{else}}
