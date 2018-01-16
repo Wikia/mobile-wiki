@@ -84,7 +84,7 @@ export function initialize(applicationInstance) {
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
 
 		// variables below won't be available on the front end
-		extend(runtimeConfig.fastbootOnly, {
+		extend(config.fastbootOnly, {
 			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER
