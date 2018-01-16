@@ -5,6 +5,7 @@ const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const shrinkRay = require('shrink-ray');
 
 function levelFn(status) {
 	if (status >= 500) {
@@ -20,6 +21,12 @@ function levelFn(status) {
 
 module.exports = {
 	before(app) {
+		app.use(shrinkRay({
+			cache(req) {
+				//cache only static assets
+				return req.baseUrl === '/mobile-wiki';
+			}
+		}));
 		app.disable('x-powered-by');
 		app.use(logger);
 
