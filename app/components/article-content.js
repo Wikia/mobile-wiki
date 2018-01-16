@@ -216,7 +216,9 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = [...this.element.querySelectorAll('h2[section]')].map((element) => {
+				const headers = Array.prototype.slice.call(
+					this.element.querySelectorAll('h2[section]')
+				).map((element) => {
 					if (element.textContent) {
 						return {
 							element,
@@ -458,7 +460,7 @@ export default Component.extend(
 		},
 
 		handleCollapsibleSections() {
-			this.element.querySelectorAll('h2[section]')
+			Array.prototype.slice.call(this.element.querySelectorAll('h2[section]'))
 				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
 		}
 	}
