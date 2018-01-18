@@ -82,22 +82,16 @@ $transition-length: .1s;
 // Vertical variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Hub Colors
-$color-hub-comics    : #FF5400;
-$color-hub-games     : #94D11F;
-$color-hub-books     : #FF7F26;
-$color-hub-movies    : #09D3BF;
-$color-hub-lifestyle : #FFD000;
-$color-hub-music     : #C819AD;
-$color-hub-tv        : #00B7E0;
+$color-hub-comics: #ff5400;
+$color-hub-games: #94d11f;
+$color-hub-books: #ff7f26;
+$color-hub-movies: #09d3bf;
+$color-hub-lifestyle: #ffd000;
+$color-hub-music: #c819ad;
+$color-hub-tv: #00b7e0;
 $verticals: comics games books movies lifestyle music tv;
 $vertical-colors: (
-	$color-hub-comics
-	$color-hub-games
-	$color-hub-books
-	$color-hub-movies
-	$color-hub-lifestyle
-	$color-hub-music
-	$color-hub-tv
+	$color-hub-comics $color-hub-games $color-hub-books $color-hub-movies $color-hub-lifestyle $color-hub-music $color-hub-tv
 );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
