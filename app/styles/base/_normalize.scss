@@ -44,7 +44,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-	font-family: monospace, monospace; /* 1 */
+	font-family: monospace, monospace; /* stylelint-disable-line font-family-no-duplicate-names */ /* 1 */
 	font-size: 1em; /* 2 */
 }
 
