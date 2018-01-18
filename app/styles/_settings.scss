@@ -76,7 +76,7 @@ $fancy-check-box-disabled-border: #ccc;
 $fancy-check-box-background: #fff;
 $highlight-overlay-background-color: #f6f6f6;
 
-$large-desktop-post-details-font-size: rem-calc(28);
+$large-desktop-post-details-font-size: 1.75rem;
 
 $discussion-timestamp-color: #999;
 $collapsible-menu-border-color: #d0d0d0;
@@ -95,24 +95,24 @@ $portrait: "#{$screen} and (orientation: portrait)";
 // Type Scale inspired by Medium's CSS
 // @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
 $type-base: 1rem;
-$type-max: rem-calc(54);
-$type-largest: rem-calc(40);
-$type-larger: rem-calc(36);
-$type-large: rem-calc(27);
-$type-small: rem-calc(24);
-$type-smaller: rem-calc(18);
-$type-smallest: rem-calc(14);
-$type-min: 0.75rem;
+$type-max: 3.375rem;
+$type-largest: 2.5rem;
+$type-larger: 2.25rem;
+$type-large: 1.6875rem;
+$type-small: 1.5rem;
+$type-smaller: 1.125rem;
+$type-smallest: .875rem;
+$type-min: .75rem;
 
-$line-height-base: rem-calc(26);
-$line-height-max: rem-calc(54);
-$line-height-largest: rem-calc(40);
-$line-height-larger: rem-calc(36);
-$line-height-large: rem-calc(32);
-$line-height-small: rem-calc(28);
-$line-height-smaller: rem-calc(28);
-$line-height-smallest: rem-calc(20);
-$line-height-min: rem-calc(18);
+$line-height-base: 1.625rem;
+$line-height-max: 3.375rem;
+$line-height-largest: 2.5rem;
+$line-height-larger: 2.25rem;
+$line-height-large: 2rem;
+$line-height-small: 1.75rem;
+$line-height-smaller: 1.75rem;
+$line-height-smallest: 1.25rem;
+$line-height-min: 1.125rem;
 
 // We use these to define default font weights
 $font-weight-normal: 400 !default;

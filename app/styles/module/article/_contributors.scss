@@ -4,8 +4,8 @@
 	@include clearfix;
 
 	background-color: $wds-color-off-white;
-	margin-bottom: rem-calc(40);
-	padding: rem-calc(20) rem-calc(13);
+	margin-bottom: 2.5rem;
+	padding: 1.25rem .8125rem;
 
 	ul {
 		display: block;
@@ -26,7 +26,7 @@
 			}
 
 			img {
-				@include square(rem-calc(44));
+				@include square(2.75rem);
 
 				border-radius: 50%;
 				display: block;
@@ -38,7 +38,7 @@
 	.title {
 		font-size: $type-smallest;
 		font-weight: bold;
-		margin-left: rem-calc(10);
-		padding-bottom: rem-calc(15);
+		margin-left: .625rem;
+		padding-bottom: .9375rem;
 	}
 }
