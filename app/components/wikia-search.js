@@ -43,7 +43,6 @@ export default Component.extend(
 		searchRequestInProgress: false,
 		suggestionsEnabled: true,
 		inputSearchSelector: '.side-search__input',
-		emptyPhraseInput: not('phrase'),
 		hasSuggestions: notEmpty('suggestions'),
 		noScroll: oneWay('hasSuggestions'),
 		phrase: oneWay('query'),

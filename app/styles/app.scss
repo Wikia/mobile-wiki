@@ -1,13 +1,3 @@
-// DO NOT CHANGE:
-// load order of files below is intentional
-//@import "node_modules/wikia-style-guide/src/scss/normalize",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/global",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/buttons",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/dropdown",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/forms",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/imagery",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/pagination",
-//	"node_modules/wikia-style-guide/src/scss/lib/components/type";
 
 // STRIP UNIT
 // It strips the unit of measure and returns it
@@ -61,6 +51,37 @@ $rem-base: 16px !default;
 }
 
 @import 'node_modules/design-system/dist/scss/index';
+
+
+h1 {
+	font-size: $wds-typescale-size-plus-4;
+	line-height: $wds-typescale-size-plus-4;
+}
+
+h2 {
+	font-size: $wds-typescale-size-plus-3;
+	line-height: 2rem;
+}
+
+h3 {
+	font-size: $wds-typescale-size-plus-2;
+	line-height: $wds-typescale-size-plus-2;
+}
+
+h4 {
+	font-size: $wds-typescale-size-plus-1;
+	line-height: $wds-typescale-size-plus-1;
+}
+
+h5, h6 {
+	font-size: $wds-typescale-size-plus-1;
+	line-height: $wds-typescale-size-plus-1;
+}
+p {
+	line-height: 1.6;
+}
+
+
 @import 'embedded-svgs';
 @import 'settings';
 @import 'wikia-variables';
