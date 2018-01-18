@@ -102,6 +102,14 @@ module.exports = function (defaults) {
 		vendorFiles: {
 			// This should be removed when ember-cli-shims is sunset
 			'app-shims.js': null
+		},
+		emberCliConcat: {
+			js: {
+				concat: true,
+				useAsync: true
+			},
+			outputDir: 'mobile-wiki/assets',
+			outputFileName: 'mobile-wiki'
 		}
 	});
 
