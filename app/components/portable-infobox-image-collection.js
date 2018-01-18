@@ -10,8 +10,6 @@ export default Component.extend(RenderComponentMixin,
 	{
 		classNames: ['pi-image-collection'],
 
-		// TODO it's not treated as custom property
-		imageAspectRatio: 16 / 9,
 		currentImageIndex: 0,
 
 		collectionLength: readOnly('items.length'),
@@ -79,5 +77,8 @@ export default Component.extend(RenderComponentMixin,
 
 				this.set('currentImageIndex', newImageIndex);
 			}
-		}
+		},
+
+		// TODO it's not treated as custom property
+		imageAspectRatio: 16 / 9,
 	});

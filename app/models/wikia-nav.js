@@ -72,15 +72,15 @@ export default EmberObject.extend({
 	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
 		'discussionItem', 'localItems', 'randomPageItem', function () {
-			return [
-				...this.get('exploreItems'),
-				...this.get('globalItems'),
-				...this.get('exploreSubMenuItem'),
-				...this.get('localNavHeaderItem'),
-				...this.get('discussionItem'),
-				...this.get('localItems'),
-				...this.get('randomPageItem')
-			];
+			return [].concat(
+				this.get('exploreItems'),
+				this.get('globalItems'),
+				this.get('exploreSubMenuItem'),
+				this.get('localNavHeaderItem'),
+				this.get('discussionItem'),
+				this.get('localItems'),
+				this.get('randomPageItem')
+			);
 		}),
 
 	exploreItems: computed('inExploreNav', 'exploreWikis', function () {

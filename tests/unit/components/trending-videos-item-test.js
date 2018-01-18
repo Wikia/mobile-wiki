@@ -3,7 +3,9 @@ import sinon from 'sinon';
 import require from 'require';
 
 const mediaModel = require('mobile-wiki/models/media').default;
+const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
 let createStub;
+let thumbnailerStub;
 
 moduleForComponent('trending-videos-item', 'Unit | Component | trending videos item', {
 	unit: true,
@@ -14,10 +16,15 @@ moduleForComponent('trending-videos-item', 'Unit | Component | trending videos i
 	beforeEach() {
 		createStub = sinon.stub(mediaModel, 'create');
 		createStub.returnsArg(1);
+
+		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
+			return `${url}/${options.mode}/${options.width}/${options.height}`;
+		});
 	},
 
 	afterEach() {
 		createStub.restore();
+		thumbnailerStub.restore();
 	}
 });
 
@@ -35,9 +42,6 @@ test('computes thumb url properly', function (assert) {
 		}
 	});
 
-	componentMock.set('thumbnailer.getThumbURL', (url, options) => {
-		return `${url}/${options.mode}/${options.width}/${options.height}`;
-	});
 	assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
 });
 

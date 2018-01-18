@@ -50,7 +50,7 @@ export function queryPlaceholders(element) {
 	const components = [];
 	let componentElements = element.querySelectorAll('[data-component]');
 
-	componentElements.forEach((componentElement) => {
+	Array.prototype.forEach.call(componentElements, (componentElement) => {
 		// if component is visible
 		if (componentElement.offsetParent) {
 			const name = componentElement.getAttribute('data-component'),
