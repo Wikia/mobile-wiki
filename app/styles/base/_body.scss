@@ -7,19 +7,15 @@ body {
 	color: #39424d;
 	cursor: auto;
 	font-style: normal;
-	overflow-y: scroll;
-	word-wrap: break-word;
 	line-height: 150%;
+	overflow-y: scroll;
 	position: relative;
+	word-wrap: break-word;
 }
 
 * {
 	margin: 0;
 	padding: 0;
-}
-
-p {
-	margin: 1rem 0;
 }
 
 blockquote {
@@ -93,13 +89,16 @@ h6 {
 
 p {
 	line-height: 1.6;
+	margin: 1rem 0;
 }
 
 figure img {
 	width: 100%;
 }
 
-.icon,
 img {
+	height: auto;
+	-ms-interpolation-mode: bicubic;
+	max-width: 100%;
 	vertical-align: middle;
 }

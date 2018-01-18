@@ -47,11 +47,6 @@ table[class*='infobox'] {
 				margin: 5px;
 			}
 		}
-
-		p {
-			//Some wikis have p inside td. ie. Firefly
-			margin: 0;
-		}
 	}
 
 	.short tr:nth-of-type(n+6):not(.infobox-expand) {

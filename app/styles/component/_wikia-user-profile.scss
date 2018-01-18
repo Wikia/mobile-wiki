@@ -67,8 +67,6 @@
 
 		.wds-notifications__mark-all-as-read {
 			line-height: 14px;
-			margin: 0;
-			padding: 0;
 			text-align: right;
 		}
 	}
@@ -76,8 +74,6 @@
 	&__notification-title {
 		font-size: $wds-typescale-size-minus-2;
 		line-height: 14px;
-		margin: 0;
-		padding: 0;
 		text-transform: uppercase;
 	}
 }

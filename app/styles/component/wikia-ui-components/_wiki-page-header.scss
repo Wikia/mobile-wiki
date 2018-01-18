@@ -7,19 +7,13 @@
 // component elements
 .wiki-page-header__wrapper {
 	display: flex;
-	padding: {
-		bottom: 12px;
-		left: $article-horizontal-padding;
-		right: $article-horizontal-padding;
-		top: 16px;
-	}
+	padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
 }
 
 %wiki-page-header-element {
 	color: inherit;
 	font-weight: normal;
 	line-height: 1;
-	margin: 0;
 }
 
 .wiki-page-header__site-name-block {

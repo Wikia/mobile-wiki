@@ -70,12 +70,6 @@
 }
 
 .article-comment {
-	margin: 0;
-
-	> div {
-		padding: 0;
-	}
-
 	&::before,
 	&::after {
 		clear: both;
