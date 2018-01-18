@@ -12,7 +12,11 @@ $edit-icon-container-size: 48px;
 }
 
 .edit-section {
+	align-items: center;
 	display: inline-flex;
+	height: $edit-icon-container-size;
+	justify-content: center;
+	width: $edit-icon-container-size;
 
 	.icon {
 		fill: $color-blue-light;
