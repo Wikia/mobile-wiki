@@ -1,0 +1,73 @@
+blockquote {
+	border-left: .25rem solid rgba(26, 94, 184, .3);
+	color: #3a3a3a;
+	font-size: 1rem;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.625rem;
+	margin-bottom: 1rem;
+	padding: .25rem 0 .25rem 1rem;
+
+	cite {
+		display: block;
+		font-size: .875rem;
+		font-style: normal;
+		line-height: 1.25rem;
+		padding-top: .875rem;
+
+		&::before {
+			content: "\2014 \0020";
+		}
+	}
+}
+
+a {
+	color: #1a5eb8;
+	line-height: inherit;
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 1.4rem;
+}
+
+ul,
+ol {
+	margin-left: 1.1rem;
+}
+
+h1 {
+	font-size: $wds-typescale-size-plus-4;
+	line-height: $wds-typescale-size-plus-4;
+}
+
+h2 {
+	font-size: $wds-typescale-size-plus-3;
+	line-height: 2rem;
+}
+
+h3 {
+	font-size: $wds-typescale-size-plus-2;
+	line-height: $wds-typescale-size-plus-2;
+}
+
+h4 {
+	font-size: $wds-typescale-size-plus-1;
+	line-height: $wds-typescale-size-plus-1;
+}
+
+h5,
+h6 {
+	font-size: $wds-typescale-size-plus-1;
+	line-height: $wds-typescale-size-plus-1;
+}
+
+p {
+	line-height: 1.6;
+	margin: 1rem 0;
+}
