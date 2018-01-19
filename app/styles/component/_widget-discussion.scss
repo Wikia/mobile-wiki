@@ -10,7 +10,7 @@
 		padding-top: 0;
 
 		svg {
-			fill: $link-color;
+			fill: $anchor-font-color;
 			height: 16px;
 			vertical-align: middle;
 			width: 11px;
@@ -78,7 +78,7 @@
 		margin: 4px 0 6px;
 
 		.url {
-			color: $link-color;
+			color: $anchor-font-color;
 		}
 	}
 

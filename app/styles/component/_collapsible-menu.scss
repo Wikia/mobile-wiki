@@ -1,4 +1,8 @@
 .collapsible-menu {
+	$collapsible-menu-border-color: #d0d0d0;
+	$collapsible-menu-title-color: $body-font-color;
+	$collapsible-menu-list-link-color: $color-black;
+
 	border-bottom: 1px solid $collapsible-menu-border-color;
 	border-top: 1px solid $collapsible-menu-border-color;
 

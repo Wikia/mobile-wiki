@@ -1,11 +1,13 @@
-$back-arrow-size: 16px;
-$cancel-margin-left: 6px;
-$cancel-margin-left-large: 9px;
-$done-margin-right-large: 6px;
-$title-padding: 0 6px;
-$title-padding-large: 0 21px;
-
 .sub-head {
+	$wikia-ui-components-sub-head-height: 48px;
+	$wikia-ui-components-sub-head-height-large: 66px;
+	$back-arrow-size: 16px;
+	$cancel-margin-left: 6px;
+	$cancel-margin-left-large: 9px;
+	$done-margin-right-large: 6px;
+	$title-padding: 0 6px;
+	$title-padding-large: 0 21px;
+
 	align-items: center;
 	background: $color-blue-light;
 	color: $white;
