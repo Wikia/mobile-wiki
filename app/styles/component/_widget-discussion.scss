@@ -1,5 +1,5 @@
 .widget-discussions {
-	margin: 0 -$article-horizontal-padding;
+	margin: 0 #{-$article-horizontal-padding};
 
 	.heading-wrapper {
 		align-items: center;
@@ -49,6 +49,12 @@
 		.avatar {
 			display: inline-block;
 			margin-right: 5px;
+
+			img {
+				border: 2px solid #fff;
+				border-radius: 50%;
+				width: 36px;
+			}
 		}
 
 		.avatar-username {
