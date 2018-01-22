@@ -78,7 +78,7 @@ module.exports = function (defaults) {
 			includePaths: [
 				'node_modules/wikia-style-guide/src/scss',
 				'node_modules/design-system/dist/scss',
-				'node_modules/ad-products/dist'
+				'node_modules/@wikia/ad-products/dist'
 			],
 			onlyIncluded: true
 		},
