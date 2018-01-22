@@ -11,12 +11,12 @@ export default Service.extend({
 	smartBannerVisible: false,
 	dayInMiliseconds: 86400000,
 	cookieName: 'fandom-sb-closed',
+	trackCategory: 'smart-banner',
 
 	dbName: readOnly('wikiVariables.dbName'),
 	isUserLangEn: equal('currentUser.language', 'en'),
 	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
 	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
-	trackCategory: 'smart-banner',
 
 	setVisibility(state) {
 		this.set('smartBannerVisible', state);
