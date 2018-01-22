@@ -107,9 +107,7 @@ module.exports = function (defaults) {
 			js: {
 				concat: true,
 				useAsync: true
-			},
-			outputDir: 'mobile-wiki/assets',
-			outputFileName: 'mobile-wiki'
+			}
 		}
 	});
 
