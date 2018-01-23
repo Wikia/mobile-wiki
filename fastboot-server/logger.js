@@ -65,7 +65,7 @@ const serializers = {
 		}
 
 		if (typeof req.cookie !== 'undefined') {
-			serializedReq.loggedIn = req.cookie.indexOf(/access_token=[^;]+/i) > -1;
+			serializedReq.loggedIn = req.cookie.search(/access_token=[^;]+/i) > -1;
 		}
 
 		return serializedReq;
