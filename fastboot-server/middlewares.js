@@ -59,6 +59,9 @@ module.exports = {
 			},
 			exception_url: [
 				/\?nominify/i,
+				function (request) {
+					return request.get('Cookie').indexOf(/access_token=[^;]+/i) > -1;
+				}
 			]
 		}));
 	},
