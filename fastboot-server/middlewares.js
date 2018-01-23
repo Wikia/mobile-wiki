@@ -60,7 +60,7 @@ module.exports = {
 			exception_url: [
 				/\?nominify/i,
 				function (request) {
-					return request.get('Cookie').indexOf(/access_token=[^;]+/i) > -1;
+					return request.get('Cookie').search(/access_token=[^;]+/i) > -1;
 				}
 			]
 		}));
