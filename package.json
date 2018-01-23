@@ -50,7 +50,6 @@
     "snyk": "^1.41.1",
     "vignette": "github:wikia/vignette-js#2.6.0",
     "visit-source": "github:Wikia/visit-source#0.1.1",
-    "weppy": "github:wikia/weppy#v0.9.3",
     "wikia-style-guide": "github:Wikia/style-guide#v1.9.0"
   },
   "devDependencies": {
