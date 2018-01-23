@@ -11,7 +11,7 @@ export default Service.extend({
 	smartBannerVisible: false,
 	dayInMiliseconds: 86400000,
 	cookieName: 'fandom-sb-closed',
-	trackCategory: 'smart-banner',
+	trackCategory: 'fandom-app-smart-banner',
 
 	dbName: readOnly('wikiVariables.dbName'),
 	isUserLangEn: equal('currentUser.language', 'en'),
