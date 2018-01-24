@@ -29,11 +29,6 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#unless shouldShowFandomAppSmartBanner}}
-		{{smart-banner-android
-			isVisible=smartBannerVisible
-		}}
-	{{/unless}}
 	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
