@@ -39,7 +39,6 @@
     "ember-cli-concat": "1.3.0",
     "ember-hammer": "github:chriswessels/ember-hammer",
     "express-bunyan-logger": "1.3.2",
-    "express-minify-html": "github:hakubo/express-minify-html#026f86f3287e2827095145a7ebd240074b56a807",
     "fastboot": "github:wikia/fastboot#582162a5e2eb39c2d94f857e53ee0efff4544447",
     "fastboot-app-server": "1.0.1",
     "hammerjs": "2.0.8",
@@ -51,7 +50,6 @@
     "snyk": "^1.41.1",
     "vignette": "github:wikia/vignette-js#2.6.0",
     "visit-source": "github:Wikia/visit-source#0.1.1",
-    "weppy": "github:wikia/weppy#v0.9.3",
     "wikia-style-guide": "github:Wikia/style-guide#v1.9.0"
   },
   "devDependencies": {
