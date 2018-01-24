@@ -59,7 +59,6 @@ module.exports = function (defaults) {
 			'fastboot-inline-scripts-head': `node_modules/mercury-shared/dist/head.js`,
 			'fastboot-inline-scripts-head-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
-			'measure-first-render': `${inlineScriptsPath}measure-first-render.html`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
@@ -78,7 +77,7 @@ module.exports = function (defaults) {
 			includePaths: [
 				'node_modules/wikia-style-guide/src/scss',
 				'node_modules/design-system/dist/scss',
-				'node_modules/ad-products/dist'
+				'node_modules/@wikia/ad-products/dist'
 			],
 			onlyIncluded: true
 		},

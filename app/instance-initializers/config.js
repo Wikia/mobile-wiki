@@ -48,7 +48,6 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env,
 			wikiaEnv = env.WIKIA_ENVIRONMENT,
-			buckySampling = fastboot.get('request.queryParams.buckysampling'),
 			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
@@ -64,17 +63,6 @@ export function initialize(applicationInstance) {
 		runtimeHeliosConfig = {
 			internalUrl: getHeliosInfoURL(wikiaEnv, env.WIKIA_DATACENTER)
 		};
-
-		if (!isBlank(buckySampling)) {
-			const buckySamplingInt = parseInt(buckySampling, 10);
-
-			if (buckySamplingInt >= 0 && buckySamplingInt <= 100) {
-				// Convert percent to 0-1 scale
-				runtimeConfig.weppy = {
-					samplingRate: buckySamplingInt / 100
-				};
-			}
-		}
 
 		if (!isBlank(noExternals)) {
 			runtimeConfig.noExternals = Boolean(noExternals);
