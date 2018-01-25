@@ -47,24 +47,10 @@ export default Component.extend(
 		/* eslint ember/no-on-calls-in-components:0 */
 		didInsertElement() {
 			this.destroyChildComponents();
-			this.set('adsDone', false)
-			run.scheduleOnce('afterRender', this, () => {
-				const rawContent = this.get('content');
-
-				// if (this.get('displayEmptyArticleInfo')) {
-				// 	this.set('html', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
-				// }
-			});
 		},
 
-		didUpdateAttrs() {
-			// this.rerender();
-		},
-
-		adsDone: false,
 
 		didReceiveAttrs() {
-
 			function getRandomColor() {
 				var letters = '0123456789ABCDEF';
 				var color = '#';
@@ -82,9 +68,9 @@ export default Component.extend(
 					document.querySelector('.ad-slot').style.background = getRandomColor();
 					document.querySelector('.ad-slot').classList.remove('hidden');
 					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
-						this.injectAds();
-					});
+					// this.get('ads.module').onReady(() => {
+					// 	this.injectAds();
+					// });
 				})
 
 			}
