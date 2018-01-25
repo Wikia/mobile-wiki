@@ -14,6 +14,7 @@ import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
 import {Promise} from 'rsvp';
 import {run} from '@ember/runloop';
+
 /**
  *
  * @param {Object} params
@@ -118,8 +119,9 @@ export default Mixin.create({
 			/* eslint no-undef:0 */
 			return new Promise((resolve, reject) => {
 				let model;
-console.time('start')
-console.time('shouldRender')
+				console.time('start')
+				console.time('shouldRender')
+				console.time('ads')
 				oboe(url)
 					.node('data.ns', (ns) => {
 						model = this.getModelForNamespace({
@@ -134,29 +136,25 @@ console.time('shouldRender')
 						resolve(model);
 					})
 					.node('data.details', (details) => {
-						window.requestAnimationFrame(function() {
-							model.set('comments', details.comments);
-							model.set('user', details.revision.user_id);
-							model.set('details', details);
+						model.set('comments', details.comments);
+						model.set('user', details.revision.user_id);
+						model.set('details', details);
 
-							// Display title is used in header
-							model.set('displayTitle', details.title);
-						})
+						// Display title is used in header
+						model.set('displayTitle', details.title);
 
 					})
 					.node('data.adsContext', (adsContext) => {
-						window.requestAnimationFrame(function() {
-							model.set('adsContext', adsContext);
+						model.set('adsContext', adsContext);
 
-							if (model.get('adsContext.targeting')) {
-								model.set('adsContext.targeting.mercuryPageCategories', model.get('categories'));
-							}
-						});
+						if (model.get('adsContext.targeting')) {
+							model.set('adsContext.targeting.mercuryPageCategories', model.get('categories'));
+						}
 					})
 					.node('data.article.$content[*]', (content) => {
-						run.scheduleOnce('afterRender', () => {
+						//run.scheduleOnce('afterRender', () => {
 							model.set('content', content);
-						});
+						//});
 					})
 					.node('data.article', (article) => {
 						// Article related Data - if Article exists

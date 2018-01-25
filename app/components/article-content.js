@@ -47,25 +47,47 @@ export default Component.extend(
 		/* eslint ember/no-on-calls-in-components:0 */
 		didInsertElement() {
 			this.destroyChildComponents();
-
+			this.set('adsDone', false)
 			run.scheduleOnce('afterRender', this, () => {
 				const rawContent = this.get('content');
 
-				if (this.get('displayEmptyArticleInfo')) {
-					this.set('html', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
-				}
-
-				if (!this.get('isPreview')) {
-					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
-						this.injectAds();
-					});
-				}
+				// if (this.get('displayEmptyArticleInfo')) {
+				// 	this.set('html', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
+				// }
 			});
 		},
 
 		didUpdateAttrs() {
-			this.rerender();
+			// this.rerender();
+		},
+
+		adsDone: false,
+
+		didReceiveAttrs() {
+
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+				for (var i = 0; i < 6; i++) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+
+			if (!this.get('isPreview') && this.get('adsContext') && $) {
+				this.set('adsDone', true)
+				console.log(document.querySelector('.ad-slot'))
+				run.scheduleOnce('afterRender', () => {
+					console.timeEnd('ads');
+					document.querySelector('.ad-slot').style.background = getRandomColor();
+					document.querySelector('.ad-slot').classList.remove('hidden');
+					this.setupAdsContext(this.get('adsContext'));
+					this.get('ads.module').onReady(() => {
+						this.injectAds();
+					});
+				})
+
+			}
 		},
 
 		didRender() {

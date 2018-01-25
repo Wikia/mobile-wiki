@@ -90,19 +90,8 @@ export default Mixin.create({
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
 			$articleFooter = $('.article-footer'),
-			$pi = $('.portable-infobox'),
-			$pageHeader = $('.wiki-page-header'),
 			adsData = this.get('adsData'),
 			$globalFooter = $('.wds-global-footer');
-
-		if ($pi.length) {
-			// inject top mobileTopLeaderBoard below infobox
-			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
-		} else if ($pageHeader.length && !this.get('featuredVideo')) {
-			// inject top mobileTopLeaderBoard below article header
-			// only if there is no featured video embedded
-			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
-		}
 
 		if ($firstSection.length > 0) {
 			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
