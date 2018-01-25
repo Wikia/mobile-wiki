@@ -237,19 +237,11 @@ export default Route.extend(
 					trackingCategory,
 					info;
 
-				var x = 20;
-
-				function scroll() {
-					if (window.scrollY > 1) {
-						window.scrollTo(0, window.scrollY / 1.2)
-						setTimeout(scroll, x);
-					} else {
-						window.scrollTo(0, 0);
-					}
-				}
-
-				setTimeout(scroll, x);
-
+				window.scroll({
+					top: 0,
+					left: 0,
+					behavior: 'smooth'
+				});
 
 				if (currentRoute === 'wiki-page') {
 					title = this.controllerFor('wikiPage').get('model').get('title');
