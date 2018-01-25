@@ -37,60 +37,18 @@ function fixPortableInfoboxAttrs(attrs) {
  * @returns {{name: string, attrs: Object, element: Object}}
  */
 export default function getAttributesForMedia({name, attrs, element}) {
-	const mediaModel = this.media,
-		mediaArray = get(mediaModel, 'media');
+	attrs = $.extend(attrs, {
+		openLightbox: this.openLightbox
+	});
 
-	if (attrs.ref >= 0 && mediaArray && mediaArray[attrs.ref]) {
-		if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-			attrs = $.extend(attrs, mediaArray[attrs.ref], {
-				openLightbox: (mediaRef) => {
-					this.openLightbox('media', {
-						media: mediaModel,
-						mediaRef,
-						galleryRef: 0
-					});
-				}
-			});
-		} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
-			attrs = $.extend(attrs, {
-				items: mediaArray[attrs.ref],
-				openLightbox: (mediaRef, galleryRef) => {
-					this.openLightbox('media', {
-						media: mediaModel,
-						mediaRef,
-						galleryRef
-					});
-				}
-			});
-		}
-
-		if (name === 'portable-infobox-hero-image') {
-			attrs = fixPortableInfoboxAttrs(attrs);
-		}
-	} else if (name === 'article-media-map-thumbnail') {
-		attrs = $.extend(attrs, {
-			openLightbox: this.openLightbox
-		});
+	if (name === 'portable-infobox-hero-image') {
+		attrs = fixPortableInfoboxAttrs(attrs);
 	} else if (name === 'portable-infobox-image-collection' && attrs.refs && mediaArray) {
-		const getMediaItemsForCollection = (ref) => $.extend({
-				// We will push new item to media so use its length as index of new gallery element
-				ref: mediaArray.length
-			}, mediaArray[ref]),
+		const getMediaItemsForCollection = (ref) => $.extend({}),
 			collectionItems = attrs.refs.map(getMediaItemsForCollection);
-
-		// Add new gallery to media object
-		// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
-		mediaArray.push(collectionItems);
 
 		attrs = $.extend(attrs, {
 			items: collectionItems,
-			openLightbox: (mediaRef, galleryRef) => {
-				this.openLightbox('media', {
-					media: mediaModel,
-					mediaRef,
-					galleryRef
-				});
-			}
 		});
 	}
 

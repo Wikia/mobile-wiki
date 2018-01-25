@@ -1,1 +1,7 @@
-{{#if isFastBoot}}{{{content}}}{{/if}}
+{{#if html}}
+	{{{html}}}
+{{else}}
+	{{#each content as |section|}}
+		{{{section}}}
+	{{/each}}
+{{/if}}

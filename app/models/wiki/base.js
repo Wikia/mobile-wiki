@@ -76,6 +76,10 @@ export default EmberObject.extend({
 						media: article.media
 					});
 				}
+
+				if (article.html && article.html.length > 0) {
+					pageProperties.html = article.html;
+				}
 			}
 
 			if (data.adsContext) {

@@ -12,7 +12,8 @@ import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
-
+import {Promise} from 'rsvp';
+import {run} from '@ember/runloop';
 /**
  *
  * @param {Object} params
@@ -64,7 +65,7 @@ export default Mixin.create({
 			contentNamespaces = this.get('wikiVariables.contentNamespaces'),
 			isInitialPageView = this.get('initialPageView').isInitialPageView();
 
-		if (isFastBoot || !isInitialPageView) {
+		if (isFastBoot) {
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
 
@@ -107,6 +108,75 @@ export default Mixin.create({
 
 					throw error;
 				});
+		} else if (!isInitialPageView) {
+			params.noads = this.get('fastboot.request.queryParams.noads');
+			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
+			params.mcache = 'writeonly';
+
+			const url = getURL(params);
+
+			/* eslint no-undef:0 */
+			return new Promise((resolve, reject) => {
+				let model;
+console.time('start')
+console.time('shouldRender')
+				oboe(url)
+					.node('data.ns', (ns) => {
+						model = this.getModelForNamespace({
+							htmlTitle: params.title.replace('_', ' '),
+							data: {
+								ns
+							}
+						}, params, contentNamespaces, true);
+
+						model.ns = ns;
+						console.timeEnd('shouldRender')
+						resolve(model);
+					})
+					.node('data.details', (details) => {
+						window.requestAnimationFrame(function() {
+							model.set('comments', details.comments);
+							model.set('user', details.revision.user_id);
+							model.set('details', details);
+
+							// Display title is used in header
+							model.set('displayTitle', details.title);
+						})
+
+					})
+					.node('data.adsContext', (adsContext) => {
+						window.requestAnimationFrame(function() {
+							model.set('adsContext', adsContext);
+
+							if (model.get('adsContext.targeting')) {
+								model.set('adsContext.targeting.mercuryPageCategories', model.get('categories'));
+							}
+						});
+					})
+					.node('data.article.$content[*]', (content) => {
+						run.scheduleOnce('afterRender', () => {
+							model.set('content', content);
+						});
+					})
+					.node('data.article', (article) => {
+						// Article related Data - if Article exists
+
+						if (article.featuredVideo) {
+							model.set('featuredVideo', article.featuredVideo);
+						}
+
+						if (article.hasPortableInfobox) {
+							model.set('hasPortableInfobox', article.hasPortableInfobox);
+						}
+					})
+					.done(() => {
+						console.timeEnd('start')
+					})
+					.fail((error) => {
+						//reject(error);
+					});
+
+			});
 		} else {
 			const wikiPageData = shoebox.retrieve('wikiPage'),
 				wikiPageError = shoebox.retrieve('wikiPageError');
@@ -117,7 +187,7 @@ export default Mixin.create({
 			}
 
 			if (get(wikiPageData, 'data.article')) {
-				wikiPageData.data.article.content = $('.article-content').html();
+				wikiPageData.data.article.html = $('.article-content').html();
 			}
 
 			return this.getModelForNamespace(wikiPageData, params, contentNamespaces);
@@ -131,7 +201,7 @@ export default Mixin.create({
 	 * @param {Array} contentNamespaces
 	 * @returns {Object}
 	 */
-	getModelForNamespace(data, params, contentNamespaces) {
+	getModelForNamespace(data, params, contentNamespaces, notset) {
 		const currentNamespace = data.data.ns,
 			ownerInjection = getOwner(this).ownerInjection();
 		let model;
@@ -139,7 +209,10 @@ export default Mixin.create({
 		// Main pages can live in namespaces which are not marked as content
 		if (isContentNamespace(currentNamespace, contentNamespaces) || data.data.isMainPage) {
 			model = ArticleModel.create(ownerInjection, params);
-			model.setData(data);
+			if (!notset) {
+				model.setData(data);
+			}
+
 
 			return model;
 		} else if (currentNamespace === MediawikiNamespace.CATEGORY) {

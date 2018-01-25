@@ -1,6 +1,5 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
-import {resolve} from 'rsvp';
 import {get} from '@ember/object';
 import {scheduleOnce} from '@ember/runloop';
 import ArticleHandler from '../utils/wiki-handlers/article';
@@ -87,7 +86,7 @@ export default Route.extend(
 				modelParams.page = params.page;
 			}
 
-			return resolve(this.getPageModel(modelParams));
+			return this.getPageModel(modelParams);
 		},
 
 		/**

@@ -185,12 +185,12 @@ export default Route.extend(
 
 		actions: {
 			loading(transition) {
-				if (this.controller) {
-					this.controller.set('isLoading', true);
-					transition.promise.finally(() => {
-						this.controller.set('isLoading', false);
-					});
-				}
+				// if (this.controller) {
+				// 	this.controller.set('isLoading', true);
+				// 	transition.promise.finally(() => {
+				// 		this.controller.set('isLoading', false);
+				// 	});
+				// }
 			},
 
 			didTransition() {

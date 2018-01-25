@@ -29,13 +29,6 @@ export default Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didReceiveAttrs() {
-			this.sanitizeItems();
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		didRender() {
 			this.$().on('scroll', () => {
 				debounce(this, 'onScroll', 100);
@@ -54,23 +47,6 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
-		},
-
-		/**
-		 * This should be done in the model, really
-		 *
-		 * @returns {void}
-		 */
-		sanitizeItems() {
-			const itemsSanitized = A(),
-				itemsRaw = this.get('items');
-
-			itemsRaw.forEach((mediaItem, index) => {
-				mediaItem.galleryRef = index;
-				itemsSanitized.pushObject(EmberObject.create(mediaItem));
-			});
-
-			this.set('items', itemsSanitized);
 		},
 
 		/**
