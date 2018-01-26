@@ -13,7 +13,7 @@ export default Component.extend(
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
 		isLoading: false,
-		showThumbnails: true,
+		showThumbnails: false,
 
 		actions: {
 			/**
@@ -61,6 +61,10 @@ export default Component.extend(
 					category,
 					label
 				});
+			},
+
+			toggleThumbnail() {
+				this.set('showThumbnails', !this.get('showThumbnails'));
 			}
 		}
 	}

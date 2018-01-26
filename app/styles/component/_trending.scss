@@ -35,4 +35,8 @@
 		line-height: $line-height-smallest;
 		padding: .25rem;
 	}
+
+	.item-image img {
+		@extend %image-placeholder;
+	}
 }

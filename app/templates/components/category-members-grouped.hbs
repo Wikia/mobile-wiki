@@ -1,3 +1,12 @@
+<div>
+	<a role="button" {{action 'toggleThumbnail'}}>
+		{{#if showThumbnails}}
+			{{svg 'wds-icons-bullet-list' class='wds-icon'}}
+		{{else}}
+			{{svg 'wds-icons-grid' class='wds-icon'}}
+		{{/if}}
+	</a>
+</div>
 {{#if prevPage}}
 	<div class="category-navigation">
 		{{wds-spinner
