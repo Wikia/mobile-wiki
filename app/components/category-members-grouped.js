@@ -13,6 +13,7 @@ export default Component.extend(
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
 		isLoading: false,
+		showThumbnails: true,
 
 		actions: {
 			/**
