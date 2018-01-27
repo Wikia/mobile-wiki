@@ -1,9 +1,8 @@
 import {inject as service} from '@ember/service';
 import {reads} from '@ember/object/computed';
+import {computed} from '@ember/object';
 import Component from '@ember/component';
 import $ from 'jquery';
-import {isBlank, isEmpty} from '@ember/utils';
-import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
@@ -29,6 +28,7 @@ export default Component.extend(
 		classNames: ['article-content', 'mw-content'],
 		adsContext: null,
 		content: null,
+
 		contributionEnabled: null,
 		displayEmptyArticleInfo: true,
 		displayTitle: null,
@@ -36,6 +36,16 @@ export default Component.extend(
 		media: null,
 
 		isFastBoot: reads('fastboot.isFastBoot'),
+
+		adsDone: computed('adsContext', {
+			get() {
+				return false;
+			},
+
+			set(key, value) {
+				return value;
+			}
+		}),
 
 		init() {
 			this._super(...arguments);
@@ -49,8 +59,7 @@ export default Component.extend(
 			this.destroyChildComponents();
 		},
 
-
-		didReceiveAttrs() {
+		didRender() {
 			function getRandomColor() {
 				var letters = '0123456789ABCDEF';
 				var color = '#';
@@ -60,23 +69,17 @@ export default Component.extend(
 				return color;
 			}
 
-			if (!this.get('isPreview') && this.get('adsContext') && $) {
-				this.set('adsDone', true)
-				console.log(document.querySelector('.ad-slot'))
-				run.scheduleOnce('afterRender', () => {
-					console.timeEnd('ads');
-					document.querySelector('.ad-slot').style.background = getRandomColor();
-					document.querySelector('.ad-slot').classList.remove('hidden');
-					this.setupAdsContext(this.get('adsContext'));
-					// this.get('ads.module').onReady(() => {
-					// 	this.injectAds();
-					// });
-				})
+			if (!this.get('isPreview') && this.get('adsContext') && $ && !this.get('adsDone')) {
 
+				this.set('adsDone', true);
+				console.timeEnd('ads');
+				document.querySelector('.ad-slot').style.background = getRandomColor();
+				document.querySelector('.ad-slot').classList.remove('hidden');
+				this.setupAdsContext(this.get('adsContext'));
+				// this.get('ads.module').onReady(() => {
+				// 	this.injectAds();
+				// });
 			}
-		},
-
-		didRender() {
 			this.handleInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
 
@@ -418,6 +421,7 @@ export default Component.extend(
 		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
+				.not('.article-table-wrapper table')
 				.each((index, element) => {
 					const $element = this.$(element),
 						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?

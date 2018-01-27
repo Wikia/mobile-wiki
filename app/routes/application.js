@@ -237,12 +237,6 @@ export default Route.extend(
 					trackingCategory,
 					info;
 
-				window.scroll({
-					top: 0,
-					left: 0,
-					behavior: 'smooth'
-				});
-
 				if (currentRoute === 'wiki-page') {
 					title = this.controllerFor('wikiPage').get('model').get('title');
 				} else {
@@ -276,6 +270,11 @@ export default Route.extend(
 				}
 
 				if (info.article) {
+					window.scroll({
+						top: 0,
+						left: 0,
+						behavior: 'smooth'
+					});
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**

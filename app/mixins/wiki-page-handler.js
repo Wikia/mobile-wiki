@@ -14,6 +14,7 @@ import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
 import {Promise} from 'rsvp';
 import {run} from '@ember/runloop';
+import {A} from '@ember/array';
 
 /**
  *
@@ -122,28 +123,63 @@ export default Mixin.create({
 				console.time('start')
 				console.time('shouldRender')
 				console.time('ads')
-				oboe(url)
-					.node('data.ns', (ns) => {
+
+				if (params.title.indexOf(':') === -1) {
+					model = this.getModelForNamespace({
+						data: {
+							ns: 0
+						}
+					}, params, contentNamespaces, true);
+					model.ns = 0;
+					model.content = A([]);
+					model.htmlTitle = params.title.replace(/_/ig, ' ');
+					model.displayTitle = params.title.replace(/_/ig, ' ');
+					model.isLoading = true;
+
+					const a = setInterval(() => {
+						if (window.scrollY < 10) {
+							resolve(model);
+							clearInterval(a);
+						}
+					}, 100);
+
+				}
+
+				console.timeEnd('shouldRender');
+
+
+				const request = oboe(url);
+
+				if (!model) {
+					request.node('data.ns', (ns) => {
+
 						model = this.getModelForNamespace({
-							htmlTitle: params.title.replace('_', ' '),
 							data: {
 								ns
 							}
 						}, params, contentNamespaces, true);
 
+						model.htmlTitle = params.title.replace(/_/ig, ' ');
+						model.displayTitle = params.title.replace(/_/ig, ' ');
+						model.content = A([]);
 						model.ns = ns;
-						console.timeEnd('shouldRender')
+						model.isLoading = true;
+
 						resolve(model);
-					})
-					.node('data.details', (details) => {
-						model.set('comments', details.comments);
-						model.set('user', details.revision.user_id);
-						model.set('details', details);
+					});
+				}
 
-						// Display title is used in header
-						model.set('displayTitle', details.title);
+				let first = true;
 
-					})
+				request.node('data.details', (details) => {
+					model.set('comments', details.comments);
+					model.set('user', details.revision.user_id);
+					model.set('details', details);
+
+					// Display title is used in header
+					model.set('displayTitle', details.title);
+
+				})
 					.node('data.adsContext', (adsContext) => {
 						model.set('adsContext', adsContext);
 
@@ -151,14 +187,16 @@ export default Mixin.create({
 							model.set('adsContext.targeting.mercuryPageCategories', model.get('categories'));
 						}
 					})
-					.node('data.article.$content[*]', (content) => {
-						//run.scheduleOnce('afterRender', () => {
+					.node('data.article.content.*', function (paragraph) {
+						model.get('content').pushObject(paragraph);
+						this.forget();
+					})
+					.node('data.article.content', (content) => {
+						setTimeout(() => {
 							model.set('content', content);
-						//});
+						}, 500);
 					})
 					.node('data.article', (article) => {
-						// Article related Data - if Article exists
-
 						if (article.featuredVideo) {
 							model.set('featuredVideo', article.featuredVideo);
 						}
@@ -169,11 +207,11 @@ export default Mixin.create({
 					})
 					.done(() => {
 						console.timeEnd('start')
+						model.set('isLoading', false);
 					})
 					.fail((error) => {
-						//reject(error);
+						// reject(error);
 					});
-
 			});
 		} else {
 			const wikiPageData = shoebox.retrieve('wikiPage'),

@@ -1,7 +1,16 @@
 {{#if html}}
 	{{{html}}}
-{{else}}
+{{else if content}}
 	{{#each content as |section|}}
 		{{{section}}}
 	{{/each}}
+{{/if}}
+{{#if isLoading}}
+	{{wds-spinner
+		active=true
+		isBlock=true
+		overlay=false
+		radius=16
+		strokeWidth=2
+	}}
 {{/if}}
