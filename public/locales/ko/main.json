@@ -100,5 +100,8 @@
     "in-category-label": "in {categoryName}",
     "post-actions-reply-label": "Reply",
     "post-actions-upvote-label": "Upvote"
+  },
+  "featured-video": {
+    "from": "from"
   }
 }

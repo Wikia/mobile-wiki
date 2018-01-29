@@ -78,6 +78,32 @@
 			position: relative;
 		}
 	}
+
+	&__attribution-container {
+		align-items: center;
+		border-bottom: 1px solid #ccc;
+		display: flex;
+		font-size: 12px;
+		font-weight: bold;
+		justify-content: center;
+		margin: 0 12px 6px;
+		padding: 6px 0;
+	}
+
+	&__attribution-avatar {
+		@include square(24px);
+		margin-right: 6px;
+	}
+
+	&__attribution-link {
+		align-items: center;
+		color: rgba(#333, .5);
+		display: flex;
+	}
+
+	&__attribution-icon {
+		margin-left: 6px;
+	}
 }
 
 .jwplayer {

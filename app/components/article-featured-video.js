@@ -26,11 +26,18 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
+	videoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	metadata: reads('model.metadata'),
-	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
+	placeholderImage: readOnly('videoDetails.image'),
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
+	}),
+
+	hasAttribution: computed('videoDetails.{username,userUrl,userAvatarUrl}', function () {
+		return !!(this.get('videoDetails.username') &&
+			this.get('videoDetails.userUrl') &&
+			this.get('videoDetails.userAvatarUrl'));
 	}),
 
 	init() {
@@ -192,10 +199,11 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	},
 
 	setPlaceholderDimensions() {
-		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0];
+		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0],
+			videoContainer = this.element.children[0];
 
-		placeHolder.style.height = `${this.element.offsetHeight}px`;
-		placeHolder.style.width = `${this.element.offsetWidth}px`;
+		placeHolder.style.height = `${videoContainer.offsetHeight}px`;
+		placeHolder.style.width = `${videoContainer.offsetWidth}px`;
 	},
 
 	/**
