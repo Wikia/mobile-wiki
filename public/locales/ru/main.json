@@ -89,6 +89,7 @@
   },
   "smartbanner": {
     "install-android": "Установить"
+  },
   "user-status": {
     "login-text": "Войти",
     "register-text": "Регистрация"
