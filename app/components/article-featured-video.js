@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {readOnly, reads} from '@ember/object/computed';
+import {readOnly, reads, oneWay} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
@@ -26,18 +26,19 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-	videoDetails: readOnly('model.embed.jsParams.playlist.0'),
+	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
+	currentVideoDetails: oneWay('initialVideoDetails'),
 	metadata: reads('model.metadata'),
-	placeholderImage: readOnly('videoDetails.image'),
+	placeholderImage: readOnly('initialVideoDetails.image'),
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
 	}),
 
-	hasAttribution: computed('videoDetails.{username,userUrl,userAvatarUrl}', function () {
-		return !!(this.get('videoDetails.username') &&
-			this.get('videoDetails.userUrl') &&
-			this.get('videoDetails.userAvatarUrl'));
+	hasAttribution: computed('currentVideoDetails.{username,userUrl,userAvatarUrl}', function () {
+		return !!(this.get('currentVideoDetails.username') &&
+			this.get('currentVideoDetails.userUrl') &&
+			this.get('currentVideoDetails.userAvatarUrl'));
 	}),
 
 	init() {
@@ -103,6 +104,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		this.player.on('captionsSelected', ({selectedLang}) => {
 			this.setCookie(this.get('captionsCookieName'), selectedLang);
+		});
+
+		this.player.on('relatedVideoPlay', ({item}) => {
+			this.set('currentVideoDetails', item);
 		});
 
 		/**
