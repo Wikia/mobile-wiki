@@ -18,12 +18,11 @@
 		align-items: center;
 		background-color: $wds-color-white;
 		display: none;
-		height: 32px;
+		height: 36px;
 		justify-content: center;
 		position: absolute;
-		right: 6px;
-		text-align: center;
-		top: 6px;
+		right: 0;
+		top: 0;
 		width: 36px;
 
 		.is-on-scroll-video & {
@@ -42,15 +41,11 @@
 		transition: padding .3s;
 
 		.is-on-scroll-video & {
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
 			padding: $on-scroll-padding;
 			position: fixed;
 			top: 0;
 			width: 100%;
-		}
-
-		.with-fandom-app-smart-banner .is-on-scroll-video & {
-			// height of fandom smart banner
-			top: 85px;
 		}
 	}
 
@@ -111,6 +106,31 @@
 
 	&__attribution-icon {
 		margin-left: 6px;
+	}
+
+	&:not(.is-on-scroll-video) &__details {
+		display: none;
+	}
+
+	&__label {
+		color: #999;
+		font-size: $wds-typescale-size-minus-3;
+		line-height: 1;
+		margin-top: 9px;
+		text-transform: uppercase;
+	}
+
+	&__time:before {
+		content: '\2022';
+		padding: 0 2px 0 0;
+	}
+
+	&__title {
+		color: #000;
+		font-size: $wds-typescale-size-minus-1;
+		font-weight: bold;
+		line-height: 1.14em;
+		margin-top: 4px;
 	}
 }
 

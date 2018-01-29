@@ -8,9 +8,14 @@
 	<div class="article-featured-video__on-scroll-video-wrapper">
 		<div class="article-featured-video__video-content" style={{placeholderStyle}} id="{{videoContainerId}}"></div>
 		<div class="article-featured-video__close-button" {{action 'dismissPlayer'}}>
-			<svg class="wds-icon wds-icon-small">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wds-icons-cross"></use>
-			</svg>
+			{{svg 'wds-icons-cross' class='wds-icon wds-icon-tiny'}}
+		</div>
+		<div class="article-featured-video__details">
+			<div class="article-featured-video__label">
+				Watch
+				<span class="article-featured-video__time">{{duration currentVideoDetails.duration}}</span>
+			</div>
+			<div class="article-featured-video__title">{{currentVideoDetails.title}}</div>
 		</div>
 	</div>
 	<div class="article-featured-video__on-scroll-placeholder"></div>

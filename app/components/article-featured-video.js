@@ -8,7 +8,6 @@ import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
-import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
 import JWPlayerMixin from '../mixins/jwplayer';
 
@@ -58,15 +57,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
 		}
 
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
-			this.setPlaceholderDimensions();
-			$(window).on('scroll', this.onScrollHandler);
-			this.$().addClass('on-scroll-variant');
-		}
-
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-			this.$().addClass('page-placement-variant');
-		}
+		this.setPlaceholderDimensions();
+		$(window).on('scroll', this.onScrollHandler);
+		this.$().addClass('on-scroll-variant');
+		document.body.classList.add('featured-video-on-scroll-active');
 	},
 
 	didUpdateAttrs() {
@@ -87,6 +81,8 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 			this.player.setMute(true);
 			this.track(trackActions.click, 'onscroll-close');
+
+			document.body.classList.remove('featured-video-on-scroll-active');
 
 			$(window).off('scroll', this.onScrollHandler);
 		}
@@ -113,30 +109,11 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			this.set('currentVideoDetails', item);
 		});
 
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-			this.player.on('viewable', (value) => {
-				// we want to prevent firing this event every time player is visible during scrolling
-				if (value && !playerWasOnceInViewport) {
-					playerWasOnceInViewport = true;
-
-					this.player.play();
-				}
-			});
-		}
-
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
-			this.player.on('play', ({playReason}) => {
-				if (playReason === 'interaction' && this.$().hasClass(scrollClassName)) {
-					this.track(trackActions.click, 'onscroll-click');
-				}
-			});
-		}
+		this.player.on('play', ({playReason}) => {
+			if (playReason === 'interaction' && this.$().hasClass(scrollClassName)) {
+				this.track(trackActions.click, 'onscroll-click');
+			}
+		});
 	},
 
 	/**
@@ -201,7 +178,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	 * @return {number}
 	 */
 	getRequiredScrollDelimiter() {
-		const compensation = this.get('isFandomAppSmartBannerVisible') ? 85 : 0;
+		const compensation = 0;
 
 		return this.$().offset().top - compensation;
 	},

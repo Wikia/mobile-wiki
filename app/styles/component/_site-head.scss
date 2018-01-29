@@ -33,6 +33,10 @@ body:not(.no-scroll) {
 	.fandom-app-smart-banner {
 		position: fixed;
 		top: 0;
+
+		.featured-video-on-scroll-active & {
+			position: static;
+		}
 	}
 }
 
@@ -68,6 +72,10 @@ body:not(.no-scroll) {
 	transition: box-shadow .5s;
 	width: 100%;
 	z-index: $z-site-head;
+
+	.featured-video-on-scroll-active & {
+		position: static;
+	}
 
 	.site-head-icon-search {
 		width: $icon-button-size;
