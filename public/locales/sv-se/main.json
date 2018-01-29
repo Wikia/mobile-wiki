@@ -81,9 +81,7 @@
     "user-menu-profile":"Profile"
   },
   "smartbanner":{
-    "install-android":"Install",
-    "price":"FREE",
-    "store-android":"In Google Play"
+    "install-android":"Install"
   },
   "user-status":{
     "login-text":"Sign In",

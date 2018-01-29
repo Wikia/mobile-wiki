@@ -9,23 +9,19 @@ import extend from '../utils/extend';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
+import JWPlayerMixin from '../mixins/jwplayer';
 
 // FIXME: After FeaturedVideo AB test is finished, consider removing inclusion of this mixin
 import RenderComponentMixin from '../mixins/render-component';
 
 const scrollClassName = 'is-on-scroll-video';
 
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	ads: service(),
 	wikiVariables: service(),
 	smartBanner: service(),
 
 	classNames: ['article-featured-video'],
-
-	autoplayCookieName: 'featuredVideoAutoplay',
-
-	captionsCookieName: 'featuredVideoCaptions',
-	playerCookieExpireDays: 14,
 
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
