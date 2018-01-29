@@ -80,13 +80,20 @@
 	}
 
 	&__attribution-container {
+		font-size: 12px;
+		font-weight: bold;
+
+		&.has-portable-infobox {
+			background-color: $infobox-background;
+		}
+	}
+
+	&__attribution-inner-container {
 		align-items: center;
 		border-bottom: 1px solid #ccc;
 		display: flex;
-		font-size: 12px;
-		font-weight: bold;
 		justify-content: center;
-		margin: 0 12px 6px;
+		margin: 0 12px;
 		padding: 6px 0;
 	}
 

@@ -41,3 +41,7 @@ $dark-highlight-overlay-background-color: #262626;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;
+
+// we are using the same page mix as on desktop infoboxes
+// 5% button color, 5% black and 90% white
+$infobox-background: mix(mix($button-color, $black, 50%), $white, 10%);
