@@ -2,10 +2,15 @@
 <html>
 <head>
 {{content-for 'head'}}
+<link rel="preload" href="/mobile-wiki/assets/app.css" as="style" />
+<link rel="preload" href="/mobile-wiki/assets/app.js" as="script">
+<script src="/mobile-wiki/assets/app.js" async></script>
 {{content-for 'fastboot-inline-scripts-head'}}
 {{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
 </head>
+
+
 <body class="mobile-wiki">
 <div id="ember-container">{{content-for 'body'}}</div>
 
