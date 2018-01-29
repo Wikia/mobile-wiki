@@ -23,6 +23,9 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 	classNames: ['article-featured-video'],
 
+	// transparent gif
+	attributionAvatarUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
@@ -54,6 +57,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
+
+		if (this.get('hasAttribution')) {
+			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
+		}
 
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
 			this.setPlaceholderDimensions();
