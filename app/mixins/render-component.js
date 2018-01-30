@@ -5,7 +5,7 @@ export default Mixin.create({
 	didInsertElement() {
 		if (this._placeholderElement) {
 			this._placeholderElement.parentNode.insertBefore(this.element, this._placeholderElement);
-			this._placeholderElement.remove();
+			$(this._placeholderElement).remove();
 			this._placeholderElement = null;
 		}
 
