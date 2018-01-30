@@ -26,6 +26,7 @@ export default Route.extend(
 		i18n: service(),
 		logger: service(),
 		wikiVariables: service(),
+		smartBanner: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -119,6 +120,10 @@ export default Route.extend(
 
 				adsModule.setSiteHeadOffset = (offset) => {
 					this.set('ads.siteHeadOffset', offset);
+				};
+
+				adsModule.hideSmartBanner = () => {
+					this.set('smartBanner.smartBannerVisible', false);
 				};
 			}
 
