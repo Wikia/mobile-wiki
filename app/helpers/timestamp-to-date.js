@@ -8,5 +8,5 @@ import {helper} from '@ember/component/helper';
  * @returns {string}
  */
 export default helper((unixTimestamp) => {
-	return new Intl.DateTimeFormat().format(new Date(unixTimestamp * 1000));
+	return new Date(unixTimestamp * 1000).toLocaleDateString();
 });

@@ -21,7 +21,7 @@ export default Helper.extend({
 
 		// 5 days
 		if (diffInSeconds > 432000) {
-			return new Intl.DateTimeFormat().format(date);
+			return date.toLocaleDateString();
 		} else if (diffInSeconds < 60) {
 			return i18n.t('main:app.now-label');
 		} else if (diffInSeconds > 86400) {
