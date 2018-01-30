@@ -158,6 +158,11 @@ export default Route.extend(
 					return;
 				}
 
+				// PLATFORM-3351 - for logged in users, need to handle vcl https->http redirect exceptions in the code.
+				if (protocol === 'https' && fastbootRequest.get('headers').get('x-wikia-wikiaappsid')) {
+					return;
+				}
+
 				fastboot.get('response.headers').set(
 					'location',
 					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
