@@ -114,7 +114,7 @@
 		text-transform: uppercase;
 	}
 
-	&__time:before {
+	&__time::before {
 		content: '\2022';
 		padding: 0 2px 0 0;
 	}
