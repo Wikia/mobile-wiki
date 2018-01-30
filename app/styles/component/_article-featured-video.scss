@@ -2,7 +2,10 @@
 	$on-scroll-padding: 12px;
 
 	position: relative;
-	z-index: $z-site-head  + 1;
+
+	&.is-on-scroll-active {
+		z-index: $z-site-head + 1;
+	}
 
 	&__close-button {
 		align-items: center;
