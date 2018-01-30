@@ -1,5 +1,3 @@
-import {transparentImageBase64} from '../../app/utils/thumbnail';
-
 export default {
 	data: [
 		{
@@ -13,7 +11,7 @@ export default {
 					label: 'Category Test',
 					title: 'Category:Test',
 					type: 'category',
-					image_url: transparentImageBase64,
+					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					node_type: 'item'
 				}
 			],
@@ -25,7 +23,7 @@ export default {
 					height: 412
 				}
 			},
-			image_url: transparentImageBase64,
+			image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			node_type: 'section'
 		},
 		{
@@ -39,7 +37,7 @@ export default {
 					label: 'Category Test 2',
 					title: 'Category:Test2',
 					type: 'category',
-					image_url: transparentImageBase64,
+					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					node_type: 'item'
 				}
 			],
@@ -51,7 +49,7 @@ export default {
 					height: 381
 				}
 			},
-			image_url: transparentImageBase64,
+			image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			node_type: 'section'
 		},
 		{
@@ -73,7 +71,7 @@ export default {
 					label: 'Featured item',
 					title: 'Test',
 					type: 'article',
-					image_url: transparentImageBase64,
+					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					node_type: 'item'
 				}
 			],
@@ -99,7 +97,7 @@ export default {
 					label: 'Optional category',
 					title: 'Category:Test3',
 					type: 'category',
-					image_url: transparentImageBase64,
+					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					node_type: 'item'
 				}
 			],

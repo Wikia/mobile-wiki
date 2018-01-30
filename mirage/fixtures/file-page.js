@@ -1,5 +1,3 @@
-import {transparentImageBase64} from '../../app/utils/thumbnail';
-
 export default {
 	data: {
 		isMainPage: false,
@@ -15,7 +13,7 @@ export default {
 					titleDBkey: 'Jim_Henson:_A_Man_and_His_Frog',
 					titleText: 'Jim Henson: A Man and His Frog',
 					articleId: 122215,
-					imageUrl: transparentImageBase64,
+					imageUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					url: 'http://muppet.damian.wikia-dev.pl/wiki/Jim_Henson:_A_Man_and_His_Frog',
 					snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;' +
 					'ellipsis&gt;'
@@ -24,7 +22,7 @@ export default {
 			fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg',
 			media: {
 				type: 'image',
-				url: transparentImageBase64,
+				url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 				fileUrl: 'http://muppet.igor.wikia-dev.pl/wiki/File:Kerm.jpg',
 				title: 'Kerm.jpg',
 				user: 'Scarecroe',
@@ -46,7 +44,7 @@ export default {
 			comments: 0,
 			type: 'image',
 			abstract: '',
-			thumbnail: transparentImageBase64,
+			thumbnail: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			original_dimensions: {
 				width: '300',
 				height: '400'
