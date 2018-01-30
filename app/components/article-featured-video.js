@@ -4,30 +4,24 @@ import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
+import {throttle} from '@ember/runloop';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
 import {track, trackActions} from '../utils/track';
+import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 
-// FIXME: After FeaturedVideo AB test is finished, consider removing inclusion of this mixin
-import RenderComponentMixin from '../mixins/render-component';
-
-const scrollClassName = 'is-on-scroll-video';
-
-export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
+export default Component.extend(JWPlayerMixin, {
 	ads: service(),
 	wikiVariables: service(),
-	smartBanner: service(),
 
 	classNames: ['article-featured-video'],
+	classNameBindings: ['isOnScrollActive'],
 
-	// transparent gif
 	attributionAvatarUrl: transparentImageBase64,
-
-	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
-	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+	isOnScrollActive: false,
 
 	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	currentVideoDetails: oneWay('initialVideoDetails'),
@@ -35,8 +29,21 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	placeholderImage: readOnly('initialVideoDetails.image'),
 	hasAttribution: and('currentVideoDetails.{username,userUrl,userAvatarUrl}'),
 
+	// initial video duration is in seconds, related video duration is a formatted string `MM:SS`
+	videoDuration: computed('currentVideoDetails', function () {
+		const currentVideoDuration = this.get('currentVideoDetails.duration');
+		if (this.get('currentVideoDetails') === this.get('initialVideoDetails')) {
+			return duration(currentVideoDuration);
+		}
+		return currentVideoDuration;
+	}),
+
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
+	}),
+
+	isOnScrollActiveObserver: observer('isOnScrollActive', function () {
+		M.tracker.UniversalAnalytics.setDimension(38, this.get('isOnScrollActive') ? 'Yes' : 'No');
 	}),
 
 	init() {
@@ -48,8 +55,6 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.onScrollHandler = this.onScrollHandler.bind(this);
-
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
 
@@ -58,8 +63,8 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 		}
 
 		this.setPlaceholderDimensions();
-		$(window).on('scroll', this.onScrollHandler);
-		this.$().addClass('on-scroll-variant');
+		this.throttleOnScroll = this.throttleOnScroll.bind(this);
+		window.addEventListener('scroll', this.throttleOnScroll);
 		document.body.classList.add('featured-video-on-scroll-active');
 	},
 
@@ -69,22 +74,21 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	},
 
 	willDestroyElement() {
-		$(window).off('scroll', this.onScrollHandler);
+		document.body.classList.remove('featured-video-on-scroll-active');
+		window.removeEventListener('scroll', this.throttleOnScroll);
 	},
 
 	actions: {
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
 		dismissPlayer() {
-			this.$().removeClass(scrollClassName).addClass('is-dismissed');
+			this.set('isOnScrollActive', false);
 
-			this.player.setMute(true);
-			this.track(trackActions.click, 'onscroll-close');
-
+			if (this.player) {
+				this.player.setMute(true);
+			}
+			// TODO add tracking
 			document.body.classList.remove('featured-video-on-scroll-active');
 
-			$(window).off('scroll', this.onScrollHandler);
+			window.removeEventListener('scroll', this.throttleOnScroll);
 		}
 	},
 
@@ -93,8 +97,6 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	 * @returns {void}
 	 */
 	onCreate(player) {
-		let playerWasOnceInViewport = false;
-
 		this.player = player;
 
 		this.player.on('autoplayToggle', ({enabled}) => {
@@ -107,12 +109,6 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		this.player.on('relatedVideoPlay', ({item}) => {
 			this.set('currentVideoDetails', item);
-		});
-
-		this.player.on('play', ({playReason}) => {
-			if (playReason === 'interaction' && this.$().hasClass(scrollClassName)) {
-				this.track(trackActions.click, 'onscroll-click');
-			}
 		});
 	},
 
@@ -156,35 +152,26 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 		});
 	},
 
-	/**
-	 * FIXME FEATURED VIDEO A/B TEST ONLY
-	 */
+	throttleOnScroll() {
+		throttle(this, this.onScrollHandler, null, 50, false);
+	},
+
 	onScrollHandler() {
 		const currentScrollPosition = window.pageYOffset,
-			requiredScrollDelimiter = this.getRequiredScrollDelimiter(),
-			hasScrollClass = this.$().hasClass(scrollClassName);
+			requiredScrollDelimiter = this.$().offset().top,
+			isOnScrollActive = this.get('isOnScrollActive');
 
-		if (currentScrollPosition >= requiredScrollDelimiter && !hasScrollClass) {
-			this.$().addClass(scrollClassName);
+		if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
+			this.set('isOnScrollActive', true);
+			// TODO should we track every onscroll impression?
 			this.track(trackActions.impression, 'onscroll');
-		} else if (currentScrollPosition < requiredScrollDelimiter && hasScrollClass) {
-			this.$().removeClass(scrollClassName);
+		} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
+			this.set('isOnScrollActive', false);
 		}
 	},
 
-	/**
-	 * Gets number indicating when video should start floating
-	 *
-	 * @return {number}
-	 */
-	getRequiredScrollDelimiter() {
-		const compensation = 0;
-
-		return this.$().offset().top - compensation;
-	},
-
 	setPlaceholderDimensions() {
-		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0],
+		const placeHolder = this.element.querySelector('.article-featured-video__on-scroll-placeholder'),
 			videoContainer = this.element.children[0];
 
 		placeHolder.style.height = `${videoContainer.offsetHeight}px`;

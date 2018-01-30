@@ -1,18 +1,8 @@
 .article-featured-video {
 	$on-scroll-padding: 12px;
 
-	&.on-scroll-variant {
-		position: relative;
-		z-index: $z-site-head  + 1;
-
-		// FIXME consider moving & to the beginning of selectors
-		&.is-dismissed,
-		.slide-into-view + .page-wrapper & {
-			// video is visible over nav / side menu by default, so we want to move it under
-			// both of them when either video is dismissed or side-menu is visible
-			z-index: $z-site-head - 3;
-		}
-	}
+	position: relative;
+	z-index: $z-site-head  + 1;
 
 	&__close-button {
 		align-items: center;
@@ -25,7 +15,7 @@
 		top: 0;
 		width: 36px;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			display: flex;
 		}
 
@@ -40,7 +30,7 @@
 		transform: translate3d(0, 0, 0);
 		transition: padding .3s;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
 			padding: $on-scroll-padding;
 			position: fixed;
@@ -59,7 +49,7 @@
 			height: calc((100vw - (2 * 1.125rem)) * 9 / 16);
 		}
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			height: calc((100vw - (2 * #{$on-scroll-padding})) * 9 / 16);
 		}
 	}
@@ -69,7 +59,7 @@
 		top: 0;
 		z-index: -1;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			position: relative;
 		}
 	}
@@ -108,13 +98,14 @@
 		margin-left: 6px;
 	}
 
-	&:not(.is-on-scroll-video) &__details {
+	&:not(.is-on-scroll-active) &__details {
 		display: none;
 	}
 
 	&__label {
 		color: #999;
 		font-size: $wds-typescale-size-minus-3;
+		font-weight: bold;
 		line-height: 1;
 		margin-top: 9px;
 		text-transform: uppercase;
