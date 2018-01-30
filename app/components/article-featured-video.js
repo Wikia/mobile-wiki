@@ -158,7 +158,7 @@ export default Component.extend(JWPlayerMixin, {
 
 	onScrollHandler() {
 		const currentScrollPosition = window.pageYOffset,
-			requiredScrollDelimiter = this.$().offset().top,
+			requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY,
 			isOnScrollActive = this.get('isOnScrollActive');
 
 		if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {

@@ -45,6 +45,8 @@ export default Component.extend(
 		 */
 		editIconVisible: oneWay('contributionEnabled'),
 
+		hasFeaturedVideo: bool('model.featuredVideo'),
+
 		/**
 		 * Checks if mobile contribution features are enabled.
 		 * Contribution features include section editor and photo upload.
@@ -79,8 +81,6 @@ export default Component.extend(
 				return !(isCoppaWiki || disableAnonymousEditing);
 			}
 		}),
-
-		hasFeaturedVideo: bool('model.featuredVideo'),
 
 		init() {
 			this._super(...arguments);
