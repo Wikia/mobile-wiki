@@ -1,29 +1,12 @@
-import {observer} from '@ember/object';
-import {inject as service} from '@ember/service';
-import Helper from '@ember/component/helper';
-import moment from 'moment';
+import {helper} from '@ember/component/helper';
 
 /**
- * Helper to convert unix timestamp to date in momentjs localized format
- * {{timestamp-to-date unixTimestamp dateFormat}}
+ * Helper to convert unix timestamp to date
+ * {{timestamp-to-date unixTimestamp}}
  *
  * @param {int} unixTimestamp
- * @param {string} dateFormat
  * @returns {string}
  */
-export default Helper.extend({
-	momentLocale: service(),
-	onLocaleChange: observer('momentLocale.isLoaded', function () {
-		this.recompute();
-	}),
-
-	compute([unixTimestamp, dateFormat = 'LLLL']) {
-		const momentLocaleService = this.get('momentLocale');
-
-		if (momentLocaleService.get('isLoaded')) {
-			return moment.unix(unixTimestamp).format(dateFormat);
-		} else {
-			momentLocaleService.loadLocale();
-		}
-	}
+export default helper((unixTimestamp) => {
+	return new Intl.DateTimeFormat().format(new Date(unixTimestamp * 1000));
 });
