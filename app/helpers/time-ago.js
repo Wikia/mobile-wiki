@@ -6,9 +6,7 @@ import Helper from '@ember/component/helper';
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
  * {{time-ago unixTimestamp}}
- * which returns something like '2d ago' if interval is below 6 days or formated param date
- *
- * In case that moment's translation is not downloaded yet returns placeholder
+ * which returns something like '2d' if interval is below 5 days or formated param date
  *
  * @param {int} unixTimestamp
  * @returns {string}
