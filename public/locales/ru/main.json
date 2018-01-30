@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Оценить"
   },
   "featured-video": {
-    "from": "автор:"
+    "from": "автор:",
+    "watch": "длительность"
   }
 }

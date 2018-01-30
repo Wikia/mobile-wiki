@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Upvote"
   },
   "featured-video": {
-    "from": "from"
+    "from": "from",
+    "watch": "watch"
   }
 }

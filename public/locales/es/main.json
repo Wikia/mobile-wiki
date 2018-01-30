@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Votar"
   },
   "featured-video": {
-    "from": "de"
+    "from": "de",
+    "watch": "mirar"
   }
 }

@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Vota"
   },
   "featured-video": {
-    "from": "da"
+    "from": "da",
+    "watch": "guarda"
   }
 }

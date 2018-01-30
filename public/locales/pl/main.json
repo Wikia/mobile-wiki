@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Zagłosuj"
   },
   "featured-video": {
-    "from": "dodany przez"
+    "from": "dodany przez",
+    "watch": "obejrzyj"
   }
 }

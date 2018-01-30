@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "イイね！"
   },
   "featured-video": {
-    "from": "作成："
+    "from": "作成：",
+    "watch": "再生時間"
   }
 }

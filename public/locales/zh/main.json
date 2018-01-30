@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "赞"
   },
   "featured-video": {
-    "from": "来源"
+    "from": "来源",
+    "watch": "观看"
   }
 }

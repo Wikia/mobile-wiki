@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "Voter"
   },
   "featured-video": {
-    "from": "de"
+    "from": "de",
+    "watch": "regarder"
   }
 }

@@ -99,6 +99,7 @@
     "trending-fandom-articles":"Trending FANDOM Articles"
   },
   "featured-video": {
-    "from": "de"
+    "from": "de",
+    "watch": "assistir"
   }
 }

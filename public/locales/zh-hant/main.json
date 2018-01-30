@@ -102,6 +102,7 @@
     "post-actions-upvote-label": "讚"
   },
   "featured-video": {
-    "from": "來源："
+    "from": "來源：",
+    "watch": "觀看"
   }
 }
