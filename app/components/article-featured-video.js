@@ -1,11 +1,12 @@
 import {inject as service} from '@ember/service';
-import {readOnly, reads, oneWay} from '@ember/object/computed';
+import {readOnly, reads, oneWay, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
+import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
@@ -24,7 +25,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	classNames: ['article-featured-video'],
 
 	// transparent gif
-	attributionAvatarUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+	attributionAvatarUrl: transparentImageBase64,
 
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
@@ -33,15 +34,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	currentVideoDetails: oneWay('initialVideoDetails'),
 	metadata: reads('model.metadata'),
 	placeholderImage: readOnly('initialVideoDetails.image'),
+	hasAttribution: and('currentVideoDetails.{username,userUrl,userAvatarUrl}'),
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
-	}),
-
-	hasAttribution: computed('currentVideoDetails.{username,userUrl,userAvatarUrl}', function () {
-		return !!(this.get('currentVideoDetails.username') &&
-			this.get('currentVideoDetails.userUrl') &&
-			this.get('currentVideoDetails.userAvatarUrl'));
 	}),
 
 	init() {
