@@ -3,6 +3,12 @@ html {
 }
 
 body {
+	background: $white;
+	color: $body-font-color;
+	cursor: auto;
+	font-style: normal;
+	line-height: 150%;
 	overflow-y: scroll;
+	position: relative;
 	word-wrap: break-word;
 }
