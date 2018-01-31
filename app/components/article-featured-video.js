@@ -22,6 +22,7 @@ export default Component.extend(JWPlayerMixin, {
 
 	attributionAvatarUrl: transparentImageBase64,
 	isOnScrollActive: false,
+	isOnScrollClosed: false,
 
 	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	currentVideoDetails: oneWay('initialVideoDetails'),
@@ -40,10 +41,6 @@ export default Component.extend(JWPlayerMixin, {
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
-	}),
-
-	isOnScrollActiveObserver: observer('isOnScrollActive', function () {
-		M.tracker.UniversalAnalytics.setDimension(38, this.get('isOnScrollActive') ? 'Yes' : 'No');
 	}),
 
 	init() {
@@ -81,11 +78,12 @@ export default Component.extend(JWPlayerMixin, {
 	actions: {
 		dismissPlayer() {
 			this.set('isOnScrollActive', false);
+			this.set('isOnScrollClosed', true);
+			this.triggerOnScrollStateChange('closed');
 
 			if (this.player) {
 				this.player.setMute(true);
 			}
-			// TODO add tracking
 			document.body.classList.remove('featured-video-on-scroll-active');
 
 			window.removeEventListener('scroll', this.throttleOnScroll);
@@ -110,6 +108,13 @@ export default Component.extend(JWPlayerMixin, {
 		this.player.on('relatedVideoPlay', ({item}) => {
 			this.set('currentVideoDetails', item);
 		});
+
+		// to make sure custom dimension is set and tracking event is sent
+		let onScrollState = this.get('isOnScrollActive') ? 'active' : 'inactive';
+		if (this.get('isOnScrollClosed')) {
+			onScrollState = 'closed';
+		}
+		this.triggerOnScrollStateChange(onScrollState);
 	},
 
 	/**
@@ -163,10 +168,10 @@ export default Component.extend(JWPlayerMixin, {
 
 		if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
 			this.set('isOnScrollActive', true);
-			// TODO should we track every onscroll impression?
-			this.track(trackActions.impression, 'onscroll');
+			this.triggerOnScrollStateChange('active');
 		} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
 			this.set('isOnScrollActive', false);
+			this.triggerOnScrollStateChange('inactive');
 		}
 	},
 
@@ -190,4 +195,10 @@ export default Component.extend(JWPlayerMixin, {
 			category: 'featured-video'
 		});
 	},
+
+	triggerOnScrollStateChange(state) {
+		if (this.player) {
+			this.player.trigger('onScrollStateChanged', {state});
+		}
+	}
 });
