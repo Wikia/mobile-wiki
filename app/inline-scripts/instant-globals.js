@@ -6,6 +6,12 @@
 		window.document.dispatchEvent(new Event('instantGlobalsLoaded'));
 	};
 
+	window.onInstantGlobalsError = function () {
+		window.Wikia = window.Wikia || {};
+		window.Wikia.InstantGlobals = {};
+		window.document.dispatchEvent(new Event('instantGlobalsLoaded'));
+	};
+
 	window.getInstantGlobal = function (key, callback) {
 		function onInstantGlobalsLoaded() {
 			gettersQueue.forEach(function (getter) {
@@ -13,7 +19,7 @@
 			});
 
 			gettersQueue = [];
-			document.removeEventListener('instantGlobalsLoaded');
+			document.removeEventListener('instantGlobalsLoaded', onInstantGlobalsLoaded);
 		}
 
 		if (window.Wikia && window.Wikia.InstantGlobals) {

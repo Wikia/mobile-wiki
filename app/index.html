@@ -20,7 +20,7 @@
 </script>
 
 {{content-for 'instant-globals'}}
-<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" defer></script>
+<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}

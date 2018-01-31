@@ -78,27 +78,30 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {},
-				fastboot = this.get('fastboot');
+			const fastboot = this.get('fastboot');
 
 			this._super(...arguments);
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
-			window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
-				if (
-					!fastboot.get('isFastBoot') &&
-					this.get('ads.adsUrl') &&
-					!transition.queryParams.noexternals &&
-					!wgSitewideDisableAdsOnMercury
-				) {
+			if (
+				!fastboot.get('isFastBoot') &&
+				this.get('ads.adsUrl') &&
+				!transition.queryParams.noexternals
+			) {
+				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', function (wgSitewideDisableAdsOnMercury) {
+					if (!wgSitewideDisableAdsOnMercury) {
+						return;
+					}
+
 					const adsModule = this.get('ads.module');
 
 					adsModule.init(this.get('ads.adsUrl'));
 
 					/*
 					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-					 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+					 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
+					 * for a user.
 					 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 					 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 					 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
@@ -121,29 +124,30 @@ export default Route.extend(
 					adsModule.setSiteHeadOffset = (offset) => {
 						this.set('ads.siteHeadOffset', offset);
 					};
-				}
+				});
 
-				if (fastboot.get('isFastBoot')) {
-					// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
-					// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-					fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-					fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
+			}
 
-					// TODO remove `transition.queryParams.page`when icache supports surrogate keys
-					// and we can purge the category pages
-					if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-						disableCache(fastboot);
-					} else {
-						// TODO don't cache errors
-						setResponseCaching(fastboot, {
-							enabled: true,
-							cachingPolicy: CachingPolicy.Public,
-							varnishTTL: CachingInterval.standard,
-							browserTTL: CachingInterval.disabled
-						});
-					}
+			if (fastboot.get('isFastBoot')) {
+				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
+				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
+
+				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+				// and we can purge the category pages
+				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+					disableCache(fastboot);
+				} else {
+					// TODO don't cache errors
+					setResponseCaching(fastboot, {
+						enabled: true,
+						cachingPolicy: CachingPolicy.Public,
+						varnishTTL: CachingInterval.standard,
+						browserTTL: CachingInterval.disabled
+					});
 				}
-			});
+			}
 		},
 
 		redirect(model) {
@@ -173,10 +177,13 @@ export default Route.extend(
 				// Because application controller needs wiki-page controller
 				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file');
+					const file = controller.get('file'),
+						map = controller.get('map');
 
 					if (!isEmpty(file)) {
 						controller.openLightboxForMedia(file);
+					} else if (!isEmpty(map)) {
+						controller.openLightboxForMap(map);
 					}
 				});
 			}
