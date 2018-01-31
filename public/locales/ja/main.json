@@ -7,7 +7,6 @@
     "discussions-label": "ディスカッション",
     "header-in-wiki-name-label-prefix": " ",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "地図が見つかりません",
     "media-lightbox-error": "メディアが見つかりません",
     "now-label": "現在",
     "minutes-ago": "{minutes}分前",
@@ -22,8 +21,7 @@
     "videos-label": "動画",
     "view-more": "もっと見る",
     "wiki-page-error": "ページを読み込めませんでした。申し訳ございませんが、もう一度お試しください。",
-    "wiki-page-error-reload-button": "更新",
-    "wikia-map-view-map": "表示"
+    "wiki-page-error-reload-button": "更新"
   },
   "article": {
     "categories-list-label": "カテゴリ",

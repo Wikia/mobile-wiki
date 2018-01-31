@@ -7,7 +7,6 @@
     "discussions-label": "Обсуждения",
     "header-in-wiki-name-label-prefix": "в:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Карта не найдена",
     "media-lightbox-error": "Файлы не найдены",
     "now-label": "сейчас",
     "minutes-ago": "{minutes}мин",
@@ -22,8 +21,7 @@
     "videos-label": "Видео",
     "view-more": "Посмотреть ещё",
     "wiki-page-error": "Произошла ошибка во время загрузки страницы. Пожалуйста, попробуйте снова.",
-    "wiki-page-error-reload-button": "Обновить",
-    "wikia-map-view-map": "Просмотреть"
+    "wiki-page-error-reload-button": "Обновить"
   },
   "article": {
     "categories-list-label": "Категории",

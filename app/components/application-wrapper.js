@@ -77,14 +77,6 @@ export default Component.extend({
 	},
 
 	/**
-	 * @returns {void}
-	 */
-	// TODO willInsertElement is not recognized as a lifecycle hook by linter
-	willInsertElement() {
-		$('#preload').remove();
-	},
-
-	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
 	 * the external link in a new page _and_ the current page would be set to that external link.

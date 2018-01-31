@@ -7,7 +7,6 @@
     "discussions-label": "Discussions",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
     "media-lightbox-error": "Mediaa ei löytynyt",
     "now-label": "nyt",
     "minutes-ago": "{minutes}m",
@@ -22,8 +21,7 @@
     "videos-label": "Videos",
     "view-more": "Katso lisää",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Päivitä",
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Päivitä"
   },
   "article": {
     "categories-list-label": "Luokat",

@@ -7,7 +7,6 @@
     "discussions-label": "Discussies",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
     "media-lightbox-error": "Media niet gevonden",
     "now-label": "nu",
     "minutes-ago": "{minutes}m",
@@ -22,8 +21,7 @@
     "videos-label": "Videos",
     "view-more": "Meer weergeven",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Vernieuwen",
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Vernieuwen"
   },
   "article": {
     "categories-list-label": "Categorieën",

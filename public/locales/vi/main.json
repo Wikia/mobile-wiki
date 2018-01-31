@@ -7,7 +7,6 @@
     "discussions-label": "Discussions",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
     "media-lightbox-error": "Tập tin không được tìm thấy",
     "now-label": "bây giờ",
     "minutes-ago": "{minutes}m",
@@ -22,8 +21,7 @@
     "videos-label": "Videos",
     "view-more": "Xem thêm",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Làm mới",
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Làm mới"
   },
   "article": {
     "categories-list-label": "Thể loại",
