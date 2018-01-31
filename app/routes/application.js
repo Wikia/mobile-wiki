@@ -85,63 +85,65 @@ export default Route.extend(
 
 			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
-			if (
-				!fastboot.get('isFastBoot') &&
-				this.get('ads.adsUrl') &&
-				!transition.queryParams.noexternals &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury
-			) {
-				const adsModule = this.get('ads.module');
+			window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
+				if (
+					!fastboot.get('isFastBoot') &&
+					this.get('ads.adsUrl') &&
+					!transition.queryParams.noexternals &&
+					!wgSitewideDisableAdsOnMercury
+				) {
+					const adsModule = this.get('ads.module');
 
-				adsModule.init(this.get('ads.adsUrl'));
+					adsModule.init(this.get('ads.adsUrl'));
 
-				/*
-				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-				 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-				 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-				 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
-				 * lightboxVisible=false and then decide if we want to show it.
-				 */
-				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+					/*
+					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+					 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+					 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+					 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+					 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+					 * lightboxVisible=false and then decide if we want to show it.
+					 */
+					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
-					if (!closeButtonDelay) {
-						closeButtonDelay = 0;
-					}
+						if (!closeButtonDelay) {
+							closeButtonDelay = 0;
+						}
 
-					this.send(actionName, 'ads', {contents}, closeButtonDelay);
-				};
+						this.send(actionName, 'ads', {contents}, closeButtonDelay);
+					};
 
-				adsModule.showLightbox = () => {
-					this.send('showLightbox');
-				};
+					adsModule.showLightbox = () => {
+						this.send('showLightbox');
+					};
 
-				adsModule.setSiteHeadOffset = (offset) => {
-					this.set('ads.siteHeadOffset', offset);
-				};
-			}
-
-			if (fastboot.get('isFastBoot')) {
-				// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
-				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
-				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
-				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
-
-				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
-				// and we can purge the category pages
-				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
-					disableCache(fastboot);
-				} else {
-					// TODO don't cache errors
-					setResponseCaching(fastboot, {
-						enabled: true,
-						cachingPolicy: CachingPolicy.Public,
-						varnishTTL: CachingInterval.standard,
-						browserTTL: CachingInterval.disabled
-					});
+					adsModule.setSiteHeadOffset = (offset) => {
+						this.set('ads.siteHeadOffset', offset);
+					};
 				}
-			}
+
+				if (fastboot.get('isFastBoot')) {
+					// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+					// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+					fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
+					fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
+
+					// TODO remove `transition.queryParams.page`when icache supports surrogate keys
+					// and we can purge the category pages
+					if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+						disableCache(fastboot);
+					} else {
+						// TODO don't cache errors
+						setResponseCaching(fastboot, {
+							enabled: true,
+							cachingPolicy: CachingPolicy.Public,
+							varnishTTL: CachingInterval.standard,
+							browserTTL: CachingInterval.disabled
+						});
+					}
+				}
+			});
 		},
 
 		redirect(model) {
