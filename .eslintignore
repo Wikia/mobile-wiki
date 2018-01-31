@@ -1,7 +1,6 @@
 crowdin/
 dist/
 node_modules/
-public/moment
 tasks/
 tmp/
 vendor/
