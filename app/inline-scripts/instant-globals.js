@@ -19,7 +19,6 @@
 			});
 
 			gettersQueue = [];
-			document.removeEventListener('instantGlobalsLoaded', onInstantGlobalsLoaded);
 		}
 
 		if (window.Wikia && window.Wikia.InstantGlobals) {
@@ -28,7 +27,7 @@
 			gettersQueue.push({key: key, callback: callback});
 
 			if (!isListening) {
-				document.addEventListener('instantGlobalsLoaded', onInstantGlobalsLoaded);
+				document.addEventListener('instantGlobalsLoaded', onInstantGlobalsLoaded, {once: true});
 				isListening = true;
 			}
 		}
