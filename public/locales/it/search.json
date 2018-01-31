@@ -7,6 +7,6 @@
     "search-error-not-found-action": "Prova un'altra ricerca", 
     "search-input-label": "Cerca", 
     "search-loading-msg": "Caricamento dei risultati di ricerca in corso...", 
-    "total-results": "Informazioni su {totalItems} risultati per {query}"
+    "total-results": "Circa {totalItems} risultati per {query}"
   }
 }
