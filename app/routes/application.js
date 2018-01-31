@@ -367,6 +367,7 @@ export default Route.extend(
 			headBottomComponent.appendTo(document.head);
 
 			bodyBottomComponent.set('queryParams', queryParams);
+			bodyBottomComponent.set('wikiVariable', wikiVariables);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}

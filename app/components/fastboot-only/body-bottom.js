@@ -1,10 +1,12 @@
 import Component from '@ember/component';
-import {bool} from '@ember/object/computed';
+import {bool, equal} from '@ember/object/computed';
 import config from '../../config/environment';
 
 export default Component.extend({
 	tagName: '',
+	wikiVariable: null,
 	layoutName: 'components/fastboot-only/body-bottom',
 	noExternals: bool('queryParams.noexternals'),
-	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
+	isRtl: equal('wikiVariables.language.contentDir', 'rtl'),
+	inContextTranslationsEnabled: config.inContextTranslationsEnabled
 });

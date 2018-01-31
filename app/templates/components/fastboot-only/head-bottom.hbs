@@ -1,9 +1,7 @@
 {{#if isRtl}}
 	<link rel="stylesheet" href="/mobile-wiki/assets/app.rtl.css" crossorigin="anonymous">
-	<link rel="preload" href="/mobile-wiki/assets/lazy.rtl.css" as="style" crossorigin="anonymous" onload="this.rel='stylesheet'">
 {{else}}
 	<link rel="stylesheet" href="/mobile-wiki/assets/app.css" crossorigin="anonymous">
-	<link rel="preload" href="/mobile-wiki/assets/lazy.css" as="style" crossorigin="anonymous" onload="this.rel='stylesheet'">
 {{/if}}
 
-<script src="/mobile-wiki/assets/app.js" async></script>
+<script src="/mobile-wiki/assets/app.js" async crossorigin="anonymous"></script>
