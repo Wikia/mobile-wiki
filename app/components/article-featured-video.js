@@ -9,7 +9,6 @@ import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
-import {track, trackActions} from '../utils/track';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 
@@ -184,19 +183,6 @@ export default Component.extend(JWPlayerMixin, {
 
 		placeHolder.style.height = `${videoContainer.offsetHeight}px`;
 		placeHolder.style.width = `${videoContainer.offsetWidth}px`;
-	},
-
-	/**
-	 * @param {String} action
-	 * @param {String} label
-	 * @returns {void}
-	 */
-	track(action, label) {
-		track({
-			action,
-			label,
-			category: 'featured-video'
-		});
 	},
 
 	triggerOnScrollStateChange(state) {
