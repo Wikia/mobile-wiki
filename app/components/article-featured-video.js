@@ -23,6 +23,7 @@ export default Component.extend(JWPlayerMixin, {
 	attributionAvatarUrl: transparentImageBase64,
 	isOnScrollActive: false,
 	isOnScrollClosed: false,
+	bodyOnScrollActiveClass: 'featured-video-on-scroll-active',
 
 	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	currentVideoDetails: oneWay('initialVideoDetails'),
@@ -33,9 +34,11 @@ export default Component.extend(JWPlayerMixin, {
 	// initial video duration is in seconds, related video duration is a formatted string `MM:SS`
 	videoDuration: computed('currentVideoDetails', function () {
 		const currentVideoDuration = this.get('currentVideoDetails.duration');
+
 		if (this.get('currentVideoDetails') === this.get('initialVideoDetails')) {
 			return duration(currentVideoDuration);
 		}
+
 		return currentVideoDuration;
 	}),
 
@@ -62,7 +65,7 @@ export default Component.extend(JWPlayerMixin, {
 		this.setPlaceholderDimensions();
 		this.throttleOnScroll = this.throttleOnScroll.bind(this);
 		window.addEventListener('scroll', this.throttleOnScroll);
-		document.body.classList.add('featured-video-on-scroll-active');
+		document.body.classList.add(this.get('bodyOnScrollActiveClass'));
 	},
 
 	didUpdateAttrs() {
@@ -71,7 +74,7 @@ export default Component.extend(JWPlayerMixin, {
 	},
 
 	willDestroyElement() {
-		document.body.classList.remove('featured-video-on-scroll-active');
+		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
 		window.removeEventListener('scroll', this.throttleOnScroll);
 	},
 
@@ -84,7 +87,7 @@ export default Component.extend(JWPlayerMixin, {
 			if (this.player) {
 				this.player.setMute(true);
 			}
-			document.body.classList.remove('featured-video-on-scroll-active');
+			document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
 
 			window.removeEventListener('scroll', this.throttleOnScroll);
 		}
