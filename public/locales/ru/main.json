@@ -101,5 +101,8 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Ответить", 
     "post-actions-upvote-label": "Оценить"
+  },
+  "featured-video": {
+    "from": "автор:"
   }
 }

@@ -15,3 +15,17 @@
 	</div>
 	<div class="article-featured-video__on-scroll-placeholder"></div>
 </div>
+{{#if hasAttribution}}
+	<div class="article-featured-video__attribution-container {{if hasPortableInfobox 'has-portable-infobox'}}">
+		<div class="article-featured-video__attribution-inner-container">
+			<a class="article-featured-video__attribution-link" href="{{currentVideoDetails.userUrl}}"
+				 target="_blank" rel="noopener">
+				<img class="article-featured-video__attribution-avatar" src="{{attributionAvatarUrl}}"
+						 alt="{{currentVideoDetails.username}}">
+				{{i18n 'featured-video.from'}}&nbsp;{{currentVideoDetails.username}}
+				{{svg 'wds-icons-out-arrow-tiny'
+							class='wds-icon wds-icon-tiny article-featured-video__attribution-icon'}}
+			</a>
+		</div>
+	</div>
+{{/if}}

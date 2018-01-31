@@ -101,5 +101,8 @@
     "in-category-label": "dans {categoryName}", 
     "post-actions-reply-label": "Répondre", 
     "post-actions-upvote-label": "Voter"
+  },
+  "featured-video": {
+    "from": "de"
   }
 }

@@ -101,5 +101,8 @@
     "in-category-label": "{categoryName}",
     "post-actions-reply-label": "回复",
     "post-actions-upvote-label": "赞"
+  },
+  "featured-video": {
+    "from": "来源"
   }
 }
