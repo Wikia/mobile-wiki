@@ -32,19 +32,10 @@ $color-black: #000;
 // We use these as default colors throughout
 $primary-color: $color-blue-dark;
 $secondary-color: #e7e7e7;
-$alert-color: #ff3500;
-$success-color: #43ac6a;
-$warning-color: #f08a24;
-$info-color: #a0d3e8;
-$border-color: #ccc;
 
 $anchor-font-color: $color-blue-light;
 
 $body-font-color: $color-gray-dark;
-
-$screen: "only screen";
-$landscape: "#{$screen} and (orientation: landscape)";
-$portrait: "#{$screen} and (orientation: portrait)";
 
 // Type Scale inspired by Medium's CSS
 // @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
@@ -76,16 +67,3 @@ $font-weight-bold: 700 !default;
 $nav-padding-vertical: 18px;
 $nav-padding-horizontal: 9px;
 $nav-background-color: #636b76;
-
-// We use this to do clear floats
-@mixin clearfix {
-	&::before,
-	&::after {
-		content: '';
-		display: table;
-	}
-
-	&::after {
-		clear: both;
-	}
-}
