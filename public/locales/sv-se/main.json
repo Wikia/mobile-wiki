@@ -1,103 +1,107 @@
 {
-  "app":{
-    "advertisement-label":"Advertisement",
-    "cancel-label":"Cancel",
-    "curated-content-editor-edit-main-page":"Edit Main Page",
-    "curated-content-load-more-items":"Load more",
-    "discussions-label":"Discussions",
-    "header-in-wiki-name-label-prefix":"in:",
-    "header-in-wiki-name-label-suffix":"",
-    "map-lightbox-error":"Map not found",
-    "media-lightbox-error":"Media hittades inte",
-    "now-label":"now",
-    "minutes-ago": "{minutes}m",
-    "hours-ago": "{hours}h",
-    "days-ago": "{days}d",
-    "page-not-found-error":"Sorry, we can't find the page you are looking for.",
-    "page-not-found-message":"Use Navigation or Search",
-    "pages-label":"Pages",
-    "photos-label":"Photos",
-    "trending-articles-label":"Trending Articles",
-    "username-anonymous":"A FANDOM User",
-    "videos-label":"Videos",
-    "view-more":"View more",
-    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button":"Uppdatera",
-    "wikia-map-view-map":"View"
-  },
-  "article":{
-    "categories-list-label":"Kategorier",
-    "comments-label":"{count} kommentar",
-    "comments-label_plural":"{count} kommentarer",
-    "empty-label":"Sorry, this article seems to be empty!",
-    "error":"Sorry, we couldn't load the article. Please try again.",
-    "last-edit":"Senast redigerad 1 vecka sedan",
-    "last-edit_plural_0":"Senast redigerad den här veckan",
-    "last-edit_plural_2":"Senast redigerad {count} veckor sedan",
-
-    "redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
-    "replies-label":"Visa {count} svar",
-    "replies-label_plural":"Visa {count} svar",
-    "suggestions-label":"Läs mer",
-    "toc-label":"Innehållsförteckning",
-    "top-contributors-label":"Top Contributors to this article"
-  },
-  "article-comments":{
-    "next-button":"Nästa sida",
-    "prev-button":"Föregående sida",
-    "no-comments":"No Comments Yet",
-    "add-comment":"Add comment",
-    "desktop-warning":"* You will be directed to the desktop experience to add a comment"
-  },
-  "category-page":{
-    "load-error":"Sorry, it looks like something went wrong. Please try again.",
-    "load-more":"Load more",
-    "load-previous":"Load previous",
-    "no-members":"This category currently contains no pages.",
-    "subtitle":"Category Page"
-  },
-  "edit":{
-    "load-error":"Sorry, it looks like something went wrong. Please try again.",
-    "page-heading":"Editing:",
-    "page-publish":"Publish",
-    "publish-error":"Sorry, it looks like something went wrong. Please try again.",
-    "publish-error-autoblockedtext":"Your IP address has been blocked automatically, because it was used by a blocked user.",
-    "publish-error-blocked":"You have been blocked from editing.",
-    "publish-error-noedit":"You don't have permission to edit pages on this wiki.",
-    "publish-error-noedit-anon":"Anonymous users can't edit pages.",
-    "publish-error-protectedpage":"You don't have permission to edit this page.",
-    "success":"Successfully edited page {pageTitle}!"
-  },
-  "file-page":{
-    "subtitle":"File Page",
-    "usages-header":"Appears on these pages",
-    "usages-see-more-link-label":"See full list"
-  },
-  "blog-page":{
-    "subtitle":"User blog"
-  },
-  "navigation":{
-    "back-label":"Tillbaka",
-    "explore-wiki":"Explore {wikiName}",
-    "random-page-label":"Random Page",
-    "user-menu-log-out":"Log out",
-    "user-menu-profile":"Profile"
-  },
-  "smartbanner":{
-    "install-android":"Install"
-  },
-  "user-status":{
-    "login-text":"Sign In",
-    "register-text":"Register"
-  },
-  "widget-discussions":{
-    "all-discussions-link-mobile":"All Discussions",
-    "header-title":"Discussions",
-    "in-category-label":"in {categoryName}",
-    "post-actions-reply-label":"Reply",
-    "post-actions-upvote-label":"Upvote"
-  },
-  "recirculation":{
-    "trending-fandom-articles":"Trending FANDOM Articles"
+  "app": {
+    "advertisement-label": "Advertisement", 
+    "cancel-label": "Cancel", 
+    "curated-content-editor-edit-main-page": "Edit Main Page", 
+    "curated-content-load-more-items": "Load more", 
+    "days-ago": "{days}d", 
+    "discussions-label": "Discussions", 
+    "header-in-wiki-name-label-prefix": "in:", 
+    "header-in-wiki-name-label-suffix": "", 
+    "hours-ago": "{hours}h", 
+    "map-lightbox-error": "Map not found", 
+    "media-lightbox-error": "Media hittades inte", 
+    "minutes-ago": "{minutes}m", 
+    "now-label": "now", 
+    "page-not-found-error": "Sorry, we can't find the page you are looking for.", 
+    "page-not-found-message": "Use Navigation or Search", 
+    "pages-label": "Pages", 
+    "photos-label": "Photos", 
+    "trending-articles-label": "Trending Articles", 
+    "username-anonymous": "A FANDOM User", 
+    "videos-label": "Videos", 
+    "view-more": "View more", 
+    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.", 
+    "wiki-page-error-reload-button": "Uppdatera", 
+    "wikia-map-view-map": "View"
+  }, 
+  "article": {
+    "categories-list-label": "Kategorier", 
+    "comments-label": "{count} comment", 
+    "comments-label_plural": "{count} comments", 
+    "empty-label": "Sorry, this article seems to be empty!", 
+    "error": "Sorry, we couldn't load the article. Please try again.", 
+    "last-edit": "Senast redigerad 1 vecka sedan", 
+    "last-edit_plural_0": "Senast redigerad den här veckan", 
+    "last-edit_plural_2": "Last edited {count} weeks ago", 
+    "portable-infobox-image": "Image", 
+    "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
+    "replies-label": "View {count} reply", 
+    "replies-label_plural": "View {count} replies", 
+    "suggestions-label": "Läs mer", 
+    "toc-label": "Innehållsförteckning", 
+    "top-contributors-label": "Top Contributors to this article"
+  }, 
+  "article-comments": {
+    "add-comment": "Add comment", 
+    "desktop-warning": "* You will be directed to the desktop experience to add a comment", 
+    "next-button": "Nästa sida", 
+    "no-comments": "No Comments Yet", 
+    "prev-button": "Föregående sida"
+  }, 
+  "blog-page": {
+    "subtitle": "User blog"
+  }, 
+  "category-page": {
+    "load-error": "Sorry, it looks like something went wrong. Please try again.", 
+    "load-more": "Load more", 
+    "load-previous": "Load previous", 
+    "no-members": "This category currently contains no pages.", 
+    "subtitle": "Category Page"
+  }, 
+  "edit": {
+    "load-error": "Sorry, it looks like something went wrong. Please try again.", 
+    "page-heading": "Editing:", 
+    "page-publish": "Publish", 
+    "publish-error": "Sorry, it looks like something went wrong. Please try again.", 
+    "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.", 
+    "publish-error-blocked": "You have been blocked from editing.", 
+    "publish-error-noedit": "You don't have permission to edit pages on this wiki.", 
+    "publish-error-noedit-anon": "Anonymous users can't edit pages.", 
+    "publish-error-protectedpage": "You don't have permission to edit this page.", 
+    "success": "Successfully edited page {pageTitle}!"
+  }, 
+  "fandom-app-banner": {
+    "app-store": "App Store", 
+    "google-play": "Google Play"
+  }, 
+  "file-page": {
+    "subtitle": "File Page", 
+    "usages-header": "Appears on these pages", 
+    "usages-see-more-link-label": "See full list"
+  }, 
+  "navigation": {
+    "back-label": "Tillbaka", 
+    "explore-wiki": "Explore {wikiName}", 
+    "random-page-label": "Random Page", 
+    "user-menu-log-out": "Log out", 
+    "user-menu-profile": "Profile"
+  }, 
+  "recirculation": {
+    "trending-fandom-articles": "Trending FANDOM Articles"
+  }, 
+  "smartbanner": {
+    "install-android": "Install"
+  }, 
+  "user-status": {
+    "login-text": "Sign In", 
+    "register-text": "Register"
+  }, 
+  "widget-discussions": {
+    "all-discussions-link-mobile": "All Discussions", 
+    "header-title": "Discussions", 
+    "in-category-label": "in {categoryName}", 
+    "post-actions-reply-label": "Reply", 
+    "post-actions-upvote-label": "Upvote"
   }
 }
