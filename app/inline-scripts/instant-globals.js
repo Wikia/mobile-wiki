@@ -8,7 +8,7 @@
 
 	window.getInstantGlobal = function (key, callback) {
 		function onInstantGlobalsLoaded() {
-			gettersQueue.forEach((getter) => {
+			gettersQueue.forEach(function (getter) {
 				getter.callback(window.Wikia.InstantGlobals[getter.key]);
 			});
 
