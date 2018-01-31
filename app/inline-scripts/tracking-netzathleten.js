@@ -23,13 +23,16 @@
 		!isLoggedIn &&
 		window.Wikia
 	) {
-		allowedCountries = window.Wikia.InstantGlobals.wgAdDriverNetzAthletenCountries || [];
+		window.getInstantGlobal('wgAdDriverNetzAthletenCountries', function (allowedCountries) {
+			allowedCountries = allowedCountries || [];
 
-		if (
-			allowedCountries.indexOf(geo.country) !== -1 ||
-			allowedCountries.indexOf('XX') !== -1
-		) {
-			initializeNetzAthletenTracking();
-		}
+			if (
+				allowedCountries.indexOf(geo.country) !== -1 ||
+				allowedCountries.indexOf('XX') !== -1
+			) {
+				initializeNetzAthletenTracking();
+			}
+
+		});
 	}
 })();
