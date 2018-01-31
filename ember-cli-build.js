@@ -70,6 +70,7 @@ module.exports = function (defaults) {
 			app: {
 				css: {
 					app: '/assets/app.css',
+					lazy: '/assets/lazy.css',
 				},
 				html: 'index.html',
 			}
