@@ -78,7 +78,6 @@ $controls-z-index: 11;
 	.current-time {
 		background: $uap-progress-bar-current-time-color;
 		height: 100%;
-		margin: 0;
 		max-width: 100%;
 		transition: width linear;
 		width: 0;
@@ -146,10 +145,6 @@ $controls-z-index: 11;
 
 	.video-overlay {
 		background: #000;
-	}
-
-	.provider-container {
-		margin: 0;
 	}
 
 	.video-player {
