@@ -4,7 +4,7 @@ $home-of-fandom-letter-spacing: .5px;
 .site-head-fandom-bar-wrapper {
 	height: $site-head-fandom-bar-height;
 
-	@media #{$desktop-range} {
+	@media #{$wds-breakpoint-xl-up} {
 		display: none;
 	}
 }

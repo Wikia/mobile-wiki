@@ -7,7 +7,6 @@
     "discussions-label": "Discussions",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
     "media-lightbox-error": "미디어를 찾을 수 없습니다",
     "now-label": "지금",
     "page-not-found-error": "해당 문서를 찾을 수 없습니다.",
@@ -19,8 +18,7 @@
     "videos-label": "Videos",
     "view-more": "더 보기",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "새로 고침",
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "새로 고침"
   },
   "article": {
     "categories-list-label": "분류",

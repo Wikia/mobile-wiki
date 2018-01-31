@@ -7,7 +7,6 @@
     "discussions-label": "討論版",
     "header-in-wiki-name-label-prefix": "來自:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "沒有找到地圖",
     "media-lightbox-error": "無法找到媒體內容",
     "now-label": "現在",
     "page-not-found-error": "對不起，我們找不到您要查找的頁面。",
@@ -19,8 +18,7 @@
     "videos-label": "影片",
     "view-more": "查看更多",
     "wiki-page-error": "對不起，我們不能載入頁面。請再試一次。",
-    "wiki-page-error-reload-button": "刷新",
-    "wikia-map-view-map": "查看"
+    "wiki-page-error-reload-button": "刷新"
   },
   "article": {
     "categories-list-label": "分類",

@@ -7,7 +7,6 @@
     "discussions-label": "Dyskusje",
     "header-in-wiki-name-label-prefix": "na:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Nie odnaleziono mapy",
     "media-lightbox-error": "Nie znaleziono mediów",
     "now-label": "teraz",
     "page-not-found-error": "Niestety nie możemy znaleźć strony, której szukasz.",
@@ -19,8 +18,7 @@
     "videos-label": "Filmy",
     "view-more": "Zobacz więcej",
     "wiki-page-error": "Przepraszamy, nie mogliśmy załadować strony. Spróbuj ponownie.",
-    "wiki-page-error-reload-button": "Odśwież",
-    "wikia-map-view-map": "Otwórz"
+    "wiki-page-error-reload-button": "Odśwież"
   },
   "article": {
     "categories-list-label": "Kategorie",
