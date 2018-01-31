@@ -3,13 +3,9 @@ $nav-avatar-border-radius: 50%;
 $nav-avatar-margin: 10px;
 $nav-avatar-size: 30px;
 $nav-back-arrow-padding: 68px;
-$nav-background-color: #636b76;
-$nav-font-size: 16px;
 $nav-line-height: 30px;
 $nav-local-background-color: #4f5863;
 $nav-logout-color: #d7d9dc;
-$nav-padding-horizontal: 9px;
-$nav-padding-vertical: 18px;
 
 .wikia-nav {
 	background-color: $color-gray-dark;
@@ -42,7 +38,7 @@ $nav-padding-vertical: 18px;
 	display: block;
 	flex-grow: 0;
 	flex-shrink: 0;
-	font-size: $nav-font-size;
+	font-size: $type-base;
 	line-height: $nav-line-height;
 	margin-top: 0;
 	overflow: hidden;

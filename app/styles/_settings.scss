@@ -73,6 +73,10 @@ $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
 $font-weight-bold: 700 !default;
 
+$nav-padding-vertical: 18px;
+$nav-padding-horizontal: 9px;
+$nav-background-color: #636b76;
+
 // We use this to do clear floats
 @mixin clearfix {
 	&::before,
