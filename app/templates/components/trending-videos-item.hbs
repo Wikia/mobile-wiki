@@ -3,7 +3,7 @@
 		{{#if thumbUrl}}
 			<img src="{{thumbUrl}}" alt="{{video.title}}">
 		{{else}}
-			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7" alt="{{video.title}}">
+			<img src="{{emptyGif}}" alt="{{video.title}}">
 		{{/if}}
 		<div class="item-image__play-icon">
 			{{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}

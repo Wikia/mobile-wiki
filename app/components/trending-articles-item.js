@@ -4,6 +4,7 @@ import Component from '@ember/component';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
+import {transparentImageBase64} from '../utils/thumbnail';
 
 export default Component.extend(ViewportMixin, {
 	tagName: 'a',
@@ -11,6 +12,7 @@ export default Component.extend(ViewportMixin, {
 	attributeBindings: ['href', 'style'],
 	style: null,
 	imageWidth: 250,
+	emptyGif: transparentImageBase64,
 
 	href: oneWay('url'),
 

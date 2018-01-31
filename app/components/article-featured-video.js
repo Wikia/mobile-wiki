@@ -1,11 +1,12 @@
 import {inject as service} from '@ember/service';
-import {readOnly, reads} from '@ember/object/computed';
+import {readOnly, reads, oneWay, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
+import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
 import {inGroup} from '../modules/abtest';
 import {track, trackActions} from '../utils/track';
@@ -23,11 +24,17 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 	classNames: ['article-featured-video'],
 
+	// transparent gif
+	attributionAvatarUrl: transparentImageBase64,
+
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
+	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
+	currentVideoDetails: oneWay('initialVideoDetails'),
 	metadata: reads('model.metadata'),
-	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
+	placeholderImage: readOnly('initialVideoDetails.image'),
+	hasAttribution: and('currentVideoDetails.{username,userUrl,userAvatarUrl}'),
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
@@ -46,6 +53,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
+
+		if (this.get('hasAttribution')) {
+			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
+		}
 
 		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
 			this.setPlaceholderDimensions();
@@ -96,6 +107,10 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		this.player.on('captionsSelected', ({selectedLang}) => {
 			this.setCookie(this.get('captionsCookieName'), selectedLang);
+		});
+
+		this.player.on('relatedVideoPlay', ({item}) => {
+			this.set('currentVideoDetails', item);
 		});
 
 		/**
@@ -192,10 +207,11 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	},
 
 	setPlaceholderDimensions() {
-		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0];
+		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0],
+			videoContainer = this.element.children[0];
 
-		placeHolder.style.height = `${this.element.offsetHeight}px`;
-		placeHolder.style.width = `${this.element.offsetWidth}px`;
+		placeHolder.style.height = `${videoContainer.offsetHeight}px`;
+		placeHolder.style.width = `${videoContainer.offsetWidth}px`;
 	},
 
 	/**
