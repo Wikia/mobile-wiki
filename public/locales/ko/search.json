@@ -5,7 +5,7 @@
     "search-error-general-action": "Click to retry", 
     "search-error-not-found": "We couldn't find anything for {query}", 
     "search-error-not-found-action": "Try Another Search", 
-    "search-input-label": "Search", 
+    "search-input-label": "검색", 
     "search-loading-msg": "Loading search results...", 
     "total-results": "About {totalItems} results for {query}"
   }
