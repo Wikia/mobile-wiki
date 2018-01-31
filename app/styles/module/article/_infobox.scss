@@ -11,11 +11,6 @@ table[class*='infobox'] {
 		margin: 0 auto;
 	}
 
-	img {
-		height: auto;
-		max-width: 100%;
-	}
-
 	th {
 		text-align: left;
 	}
@@ -51,11 +46,6 @@ table[class*='infobox'] {
 				display: inline-block;
 				margin: 5px;
 			}
-		}
-
-		p {
-			//Some wikis have p inside td. ie. Firefly
-			margin: 0;
 		}
 	}
 

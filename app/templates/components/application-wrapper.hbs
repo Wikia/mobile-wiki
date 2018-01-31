@@ -11,9 +11,7 @@
 		themeBar=themeBar
 		toggleDrawer=toggleDrawer
 	}}
-	{{#wikia-drawer
-		shouldBeVisible=drawerVisible
-	}}
+	{{#wikia-drawer shouldBeVisible=drawerVisible}}
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
@@ -29,12 +27,7 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#unless shouldShowFandomAppSmartBanner}}
-		{{smart-banner-android
-			isVisible=smartBannerVisible
-		}}
-	{{/unless}}
-	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+	<div class="page-wrapper" lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper

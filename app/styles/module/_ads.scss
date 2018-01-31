@@ -1,7 +1,7 @@
 @import 'ads-floor';
 @import 'ads-mixin';
 @import 'ads-porvata';
-@import 'node_modules/ad-products/dist/styles';
+@import 'node_modules/@wikia/ad-products/dist/ad-products';
 
 $closeButtonHeight: 40px;
 
@@ -12,13 +12,10 @@ $closeButtonHeight: 40px;
 }
 
 .ad-slot {
-	margin: 0;
-	padding: 0;
 	text-align: center;
 
 	.provider-container {
 		margin: 20px auto;
-		padding: 0;
 	}
 }
 
@@ -160,8 +157,6 @@ $closeButtonHeight: 40px;
 	&.interstitial {
 		height: 100%;
 		left: 0;
-		margin: 0;
-		padding: 0;
 		top: 0;
 
 		.provider-container {

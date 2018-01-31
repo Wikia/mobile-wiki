@@ -64,6 +64,10 @@ const serializers = {
 			serializedReq.host = req['x-original-host'];
 		}
 
+		if (typeof req.cookie !== 'undefined') {
+			serializedReq.loggedIn = req.cookie.indexOf(/access_token=[^;]+/i) > -1;
+		}
+
 		return serializedReq;
 	}
 };
