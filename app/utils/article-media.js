@@ -67,10 +67,6 @@ export default function getAttributesForMedia({name, attrs, element}) {
 		if (name === 'portable-infobox-hero-image') {
 			attrs = fixPortableInfoboxAttrs(attrs);
 		}
-	} else if (name === 'article-media-map-thumbnail') {
-		attrs = $.extend(attrs, {
-			openLightbox: this.openLightbox
-		});
 	} else if (name === 'portable-infobox-image-collection' && attrs.refs && mediaArray) {
 		const getMediaItemsForCollection = (ref) => $.extend({
 				// We will push new item to media so use its length as index of new gallery element

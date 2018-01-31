@@ -121,7 +121,7 @@ $curated-content-grid-icon-size: 22px;
 	}
 }
 
-@media #{$desktop-range} {
+@media #{$wds-breakpoint-xl-up} {
 	.curated-content .curated-content-item {
 		width: calc(33.33% - #{$curated-content-image-spacing / 2});
 	}

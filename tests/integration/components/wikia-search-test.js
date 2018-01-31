@@ -8,7 +8,6 @@ const trackModule = require('mobile-wiki/utils/track');
 let trackStub;
 
 const wikiaSearchDivSelector = '.wikia-search',
-	emptySearchClass = 'wikia-search--empty',
 	focusedInputClass = 'wikia-search--focused',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
 
@@ -37,11 +36,6 @@ test('search displayed correctly with default settings', function (assert) {
 
 	const wikiaSearchClass = this.$(wikiaSearchDivSelector).attr('class');
 
-	assert.notEqual(
-		wikiaSearchClass.indexOf(emptySearchClass),
-		-1,
-		`wikia-search has ${emptySearchClass} class`
-	);
 	assert.equal(
 		wikiaSearchClass.indexOf(focusedInputClass),
 		-1,
@@ -62,11 +56,6 @@ test('search input has correct classes when inputFocused=true', function (assert
 
 	const wikiaSearchClass = this.$(wikiaSearchDivSelector).attr('class');
 
-	assert.notEqual(
-		wikiaSearchClass.indexOf(emptySearchClass),
-		-1,
-		`wikia-search has ${emptySearchClass} class`
-	);
 	assert.notEqual(
 		wikiaSearchClass.indexOf(focusedInputClass),
 		-1,
