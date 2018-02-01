@@ -111,6 +111,13 @@ export default Component.extend(JWPlayerMixin, {
 			this.set('currentVideoDetails', item);
 		});
 
+		// this is a hack to fix pause/play issue while scrolling down and on scroll is active on iOS 10.3.2
+		this.player.on('pause', ({pauseReason, viewable}) => {
+			if (pauseReason === 'autostart' && viewable === 0 && this.get('isOnScrollActive')) {
+				this.player.play();
+			}
+		});
+
 		// to make sure custom dimension is set and tracking event is sent
 		let onScrollState = this.get('isOnScrollActive') ? 'active' : 'inactive';
 		if (this.get('isOnScrollClosed')) {
