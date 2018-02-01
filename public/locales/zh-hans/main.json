@@ -7,9 +7,11 @@
     "discussions-label": "讨论版",
     "header-in-wiki-name-label-prefix": "来源:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "未找到地图",
     "media-lightbox-error": "无法找到媒体内容",
     "now-label": "now",
+    "minutes-ago": "{minutes}分钟前",
+    "hours-ago": "{hours}小时前",
+    "days-ago": "{days}天前",
     "page-not-found-error": "对不起，我们找不到您正在查找的页面。",
     "page-not-found-message": "使用导航或搜索",
     "pages-label": "页面",
@@ -19,8 +21,7 @@
     "videos-label": "视频",
     "view-more": "查看更多",
     "wiki-page-error": "对不起，我们无法加载页面。请再试一次。",
-    "wiki-page-error-reload-button": "刷新",
-    "wikia-map-view-map": "查看"
+    "wiki-page-error-reload-button": "刷新"
   },
   "article": {
     "categories-list-label": "Categories",

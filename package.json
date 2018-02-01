@@ -29,7 +29,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-products": "3.1.0",
+    "@wikia/ad-engine": "9.2.1",
+    "@wikia/ad-products": "3.3.3",
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.1",
@@ -49,8 +50,7 @@
     "scriptjs": "2.5.8",
     "snyk": "^1.41.1",
     "vignette": "github:wikia/vignette-js#2.6.0",
-    "visit-source": "github:Wikia/visit-source#0.1.1",
-    "wikia-style-guide": "github:Wikia/style-guide#v1.9.0"
+    "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
     "broccoli-asset-rev": "2.6.0",
@@ -74,8 +74,6 @@
     "ember-cli-inject-live-reload": "1.7.0",
     "ember-cli-inline-content": "0.4.1",
     "ember-cli-mirage": "0.3.4",
-    "ember-cli-moment-shim": "3.5.0",
-    "ember-cli-numeral": "0.2.0",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-sass": "7.0.0",
     "ember-cli-sri": "2.1.1",
@@ -106,8 +104,6 @@
     "i18next": "9.0.0",
     "loader.js": "4.6.0",
     "mercury-shared": "github:wikia/mercury-shared#2.1.1",
-    "moment": "2.18.1",
-    "numeral": "2.0.6",
     "proxying-agent": "2.1.1",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.0.0",

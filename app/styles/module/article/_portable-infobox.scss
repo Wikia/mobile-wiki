@@ -2,7 +2,7 @@
 $page-background-color: $white;
 
 // 10% button color, 5% black and 85% white
-$tabular-layout-stripe-background: mix(mix($button-color, $black, 66%), $page-background-color, 15%);
+$tabular-layout-stripe-background: mix(mix($color-blue-light, $black, 66%), $page-background-color, 15%);
 
 // secondary fields colors
 $infobox-secondary-background: $color-blue-light;
@@ -225,7 +225,6 @@ $group-header-font-size: 16px;
 
 		// infobox data fields in tabular layout
 		.pi-data {
-			box-sizing: border-box;
 			display: flex;
 			flex-direction: row;
 			overflow: hidden;
@@ -330,7 +329,6 @@ $group-header-font-size: 16px;
 
 			.pi-smart-data-label,
 			.pi-smart-data-value {
-				box-sizing: border-box;
 				flex-basis: auto;
 				padding-left: $tabular-layout-padding;
 				padding-right: $tabular-layout-padding;
@@ -361,7 +359,7 @@ $group-header-font-size: 16px;
 			font-weight: normal;
 
 			a {
-				color: $link-color;
+				color: $anchor-font-color;
 				text-decoration: none;
 			}
 		}
@@ -369,7 +367,6 @@ $group-header-font-size: 16px;
 		// styles for infobox collapse / expand UI
 		.pi-expand-button {
 			background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
-			box-sizing: border-box;
 			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 			text-align: center;
 			width: 100%;

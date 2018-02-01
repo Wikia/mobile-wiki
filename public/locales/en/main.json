@@ -7,9 +7,11 @@
     "discussions-label": "Discussions",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
-    "map-lightbox-error": "Map not found",
     "media-lightbox-error": "Media not found",
     "now-label": "now",
+    "minutes-ago": "{minutes}m",
+    "hours-ago": "{hours}h",
+    "days-ago": "{days}d",
     "page-not-found-error": "Sorry, we can't find the page you are looking for.",
     "page-not-found-message": "Use Navigation or Search",
     "pages-label": "Pages",
@@ -19,8 +21,7 @@
     "videos-label": "Videos",
     "view-more": "View more",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Refresh",
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Refresh"
   },
   "article": {
     "categories-list-label": "Categories",

@@ -5,10 +5,6 @@ $site-head-box-shadow-color: rgba(0, 0, 0, .15);
 $icon-button-size: 48px;
 $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
-.site-body {
-	margin-top: $icon-site-head-width;
-}
-
 .site-head-headroom-un-pinned .site-head {
 	box-shadow: $site-head-default-box-shadow;
 
@@ -134,20 +130,6 @@ body:not(.no-scroll) {
 		position: relative;
 		right: 6px;
 		top: 6px;
-	}
-}
-
-.side-nav-toggle {
-	display: inline-block;
-	float: left;
-	height: $icon-site-head-height;
-	padding-top: rem-calc(15);
-	position: relative;
-	width: $icon-site-head-width;
-
-	svg {
-		display: block;
-		margin: auto;
 	}
 }
 
