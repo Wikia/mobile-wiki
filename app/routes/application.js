@@ -89,7 +89,7 @@ export default Route.extend(
 				this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals
 			) {
-				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', function (wgSitewideDisableAdsOnMercury) {
+				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
 					if (wgSitewideDisableAdsOnMercury) {
 						return;
 					}
