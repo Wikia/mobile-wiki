@@ -1,14 +1,9 @@
 .contributors {
-	@extend %list-reset;
-
-	@include clearfix;
-
 	background-color: $wds-color-off-white;
 	margin-bottom: 2.5rem;
 	padding: 1.25rem .8125rem;
 
 	ul {
-		display: block;
 		margin: 0;
 
 		li {
