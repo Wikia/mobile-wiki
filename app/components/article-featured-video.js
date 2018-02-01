@@ -23,6 +23,7 @@ export default Component.extend(JWPlayerMixin, {
 	isOnScrollActive: false,
 	isOnScrollClosed: false,
 	bodyOnScrollActiveClass: 'featured-video-on-scroll-active',
+	onScrollVideoWrapper: null,
 
 	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	currentVideoDetails: oneWay('initialVideoDetails'),
@@ -61,6 +62,8 @@ export default Component.extend(JWPlayerMixin, {
 			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
 		}
 
+		this.set('onScrollVideoWrapper', this.element.querySelector('.article-featured-video__on-scroll-video-wrapper'));
+
 		this.setPlaceholderDimensions();
 		this.throttleOnScroll = this.throttleOnScroll.bind(this);
 		window.addEventListener('scroll', this.throttleOnScroll);
@@ -79,9 +82,8 @@ export default Component.extend(JWPlayerMixin, {
 
 	actions: {
 		dismissPlayer() {
-			this.set('isOnScrollActive', false);
 			this.set('isOnScrollClosed', true);
-			this.triggerOnScrollStateChange('closed');
+			this.onScrollStateChange('closed');
 
 			if (this.player) {
 				this.player.setMute(true);
@@ -123,7 +125,10 @@ export default Component.extend(JWPlayerMixin, {
 		if (this.get('isOnScrollClosed')) {
 			onScrollState = 'closed';
 		}
-		this.triggerOnScrollStateChange(onScrollState);
+		this.onScrollStateChange(onScrollState);
+
+		this.resizeVideo = this.resizeVideo.bind(this);
+		this.get('onScrollVideoWrapper').addEventListener('transitionend', this.resizeVideo);
 	},
 
 	/**
@@ -166,6 +171,10 @@ export default Component.extend(JWPlayerMixin, {
 		});
 	},
 
+	resizeVideo() {
+		this.player.resize();
+	},
+
 	throttleOnScroll() {
 		throttle(this, this.onScrollHandler, null, 50, false);
 	},
@@ -176,11 +185,9 @@ export default Component.extend(JWPlayerMixin, {
 			isOnScrollActive = this.get('isOnScrollActive');
 
 		if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
-			this.set('isOnScrollActive', true);
-			this.triggerOnScrollStateChange('active');
+			this.onScrollStateChange('active');
 		} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
-			this.set('isOnScrollActive', false);
-			this.triggerOnScrollStateChange('inactive');
+			this.onScrollStateChange('inactive');
 		}
 	},
 
@@ -192,7 +199,8 @@ export default Component.extend(JWPlayerMixin, {
 		placeHolder.style.width = `${videoContainer.offsetWidth}px`;
 	},
 
-	triggerOnScrollStateChange(state) {
+	onScrollStateChange(state) {
+		this.set('isOnScrollActive', state === 'active');
 		if (this.player) {
 			this.player.trigger('onScrollStateChanged', {state});
 		}
