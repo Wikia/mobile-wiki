@@ -1,1 +1,5 @@
-!function(t){"use strict";var e,a={};try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}if(a.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},a.poly=function(){if(!e)for(var n=t.document.getElementsByTagName("link"),l=0;l<n.length;l++){var o=n[l];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),a.bindMediaToggle(o))}},!e){a.poly();var n=t.setInterval(a.poly,500);t.addEventListener?t.addEventListener("load",function(){a.poly(),t.clearInterval(n)}):t.attachEvent&&t.attachEvent("onload",function(){a.poly(),t.clearInterval(n)})}}(this);
+(function() {
+	document.addEventListener("DOMContentLoaded", function(event) {
+		document.getElementById('lazy-css').media = 'all'
+	});
+})();
