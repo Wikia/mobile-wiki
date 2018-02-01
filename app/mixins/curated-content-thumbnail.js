@@ -2,6 +2,7 @@ import {computed} from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import Thumbnailer from '../modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
+import {transparentImageBase64} from '../utils/thumbnail';
 
 /**
  * @typedef {Object} ImageCropData
@@ -14,7 +15,7 @@ import ViewportMixin from '../mixins/viewport';
 export default Mixin.create(ViewportMixin, {
 	thumbnailer: Thumbnailer,
 	cropMode: Thumbnailer.mode.topCrop,
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+	emptyGif: transparentImageBase64,
 
 	aspectRatio: computed('block', function () {
 		return ['featured', 'community'].indexOf(this.get('block')) !== -1 ? 16 / 9 : 1;

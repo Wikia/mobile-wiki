@@ -78,4 +78,38 @@
 			position: relative;
 		}
 	}
+
+	&__attribution-container {
+		font-size: 12px;
+		font-weight: bold;
+
+		&.has-portable-infobox {
+			background-color: $infobox-background;
+		}
+	}
+
+	&__attribution-inner-container {
+		align-items: center;
+		border-bottom: 1px solid #ccc;
+		display: flex;
+		justify-content: center;
+		margin: 0 12px;
+		padding: 6px 0;
+	}
+
+	&__attribution-avatar {
+		@include square(24px);
+
+		margin-right: 6px;
+	}
+
+	&__attribution-link {
+		align-items: center;
+		color: rgba(#333, .5);
+		display: flex;
+	}
+
+	&__attribution-icon {
+		margin-left: 6px;
+	}
 }

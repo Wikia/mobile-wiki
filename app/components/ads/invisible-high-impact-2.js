@@ -11,8 +11,6 @@ export default Component.extend(RenderComponentMixin, {
 	isVisible: false,
 	name: 'INVISIBLE_HIGH_IMPACT_2',
 
-	highImpactCountries: get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
-
 	noAds: readOnly('ads.noAds'),
 	nameLowerCase: computed('name', function () {
 		return dasherize(this.get('name').toLowerCase());
@@ -22,10 +20,12 @@ export default Component.extend(RenderComponentMixin, {
 		this._super(...arguments);
 
 		this.get('ads.module').onReady(() => {
-			if (this.isEnabled()) {
-				this.set('isVisible', true);
-				this.get('ads.module').pushSlotToQueue(this.get('name'));
-			}
+			window.getInstantGlobal('wgAdDriverHighImpact2SlotCountries', (highImpactCountries) => {
+				if (this.isEnabled(highImpactCountries)) {
+					this.set('isVisible', true);
+					this.get('ads.module').pushSlotToQueue(this.get('name'));
+				}
+			});
 		});
 	},
 
@@ -42,7 +42,7 @@ export default Component.extend(RenderComponentMixin, {
 		return typeof isProperGeo === 'function' && isProperGeo(param);
 	},
 
-	isEnabled() {
-		return this.isProperGeo(this.highImpactCountries);
+	isEnabled(highImpactCountries) {
+		return this.isProperGeo(highImpactCountries);
 	}
 });

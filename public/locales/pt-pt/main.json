@@ -10,6 +10,9 @@
     "map-lightbox-error":"Map not found",
     "media-lightbox-error":"Mídia não encontrada",
     "now-label":"agora",
+    "minutes-ago": "{minutes}min",
+    "hours-ago": "{hours}h",
+    "days-ago": "{days}d",
     "page-not-found-error":"Desculpe, mas não conseguimos encontrar a página que você está procurando.",
     "page-not-found-message":"Usar Navegação ou Busca",
     "pages-label":"Pages",
@@ -97,5 +100,8 @@
   },
   "recirculation":{
     "trending-fandom-articles":"Trending FANDOM Articles"
+  },
+  "featured-video": {
+    "from": "de"
   }
 }

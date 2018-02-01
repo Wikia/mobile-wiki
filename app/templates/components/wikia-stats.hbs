@@ -1,4 +1,3 @@
-{{! Keep the same HTML structure as in server/app/views/_partials/curated-main-page/stats.hbs }}
 <div class="wikia-stats-container">
 	{{#each items as |item|}}
 		{{#if item.value}}
@@ -6,11 +5,11 @@
 				{{#if item.url}}
 					<a href="{{item.url}}" class="wikia-stats-link" {{action 'trackClick' item.trackingLabel preventDefault=false}} >
 						<div class="wikia-stats-label">{{item.label}}</div>
-						<div class="wikia-stats-value">{{numeral item.value '0a'}}</div>
+						<div class="wikia-stats-value">{{shorten-large-number item.value}}</div>
 					</a>
 				{{else}}
 					<div class="wikia-stats-label">{{item.label}}</div>
-					<div class="wikia-stats-value">{{numeral item.value '0a'}}</div>
+					<div class="wikia-stats-value">{{shorten-large-number item.value}}</div>
 				{{/if}}
 			</div>
 		{{/if}}
