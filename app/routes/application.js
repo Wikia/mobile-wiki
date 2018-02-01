@@ -90,7 +90,7 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', function (wgSitewideDisableAdsOnMercury) {
-					if (!wgSitewideDisableAdsOnMercury) {
+					if (wgSitewideDisableAdsOnMercury) {
 						return;
 					}
 
