@@ -4,7 +4,7 @@ import config from '../../config/environment';
 
 export default Component.extend({
 	tagName: '',
-	wikiVariable: null,
+	wikiVariables: null,
 	layoutName: 'components/fastboot-only/body-bottom',
 	noExternals: bool('queryParams.noexternals'),
 	isRtl: equal('wikiVariables.language.contentDir', 'rtl'),
