@@ -65,6 +65,7 @@ module.exports = function (defaults) {
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
 			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
+			cssrelpreload: `${inlineScriptsPath}cssrelpreload.js`,
 		},
 		outputPaths: {
 			app: {

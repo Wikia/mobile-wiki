@@ -9,13 +9,9 @@
 {{fastboot-only/local-navigation-for-seo}}
 
 {{#if isRtl}}
-	<link rel="preload" href="/mobile-wiki/assets/lazy.rtl.css" as="style" crossorigin="anonymous">
+	<link rel="preload" href="/mobile-wiki/assets/lazy.rtl.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/mobile-wiki/assets/lazy.rtl.css"></noscript>
 {{else}}
-	<link rel="preload" href="/mobile-wiki/assets/lazy.css" as="style" crossorigin="anonymous">
+	<link rel="preload" href="/mobile-wiki/assets/lazy.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/mobile-wiki/assets/lazy.css"></noscript>
 {{/if}}
-
-{{!- slightly optimized version of https://github.com/filamentgroup/loadCSS/blob/v2.0.1/src/cssrelpreload.js -}}
-{{!- loadCSS. [c]2017 Filament Group, Inc. MIT License -}}
-<script>
-	!function(t){"use strict";var e,a={};try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}if(a.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},a.poly=function(){if(!e)for(var n=t.document.getElementsByTagName("link"),l=0;l<n.length;l++){var o=n[l];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),a.bindMediaToggle(o))}},!e){a.poly();var n=t.setInterval(a.poly,500);t.addEventListener?t.addEventListener("load",function(){a.poly(),t.clearInterval(n)}):t.attachEvent&&t.attachEvent("onload",function(){a.poly(),t.clearInterval(n)})}}(this);
-</script>

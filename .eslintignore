@@ -11,6 +11,7 @@ app/inline-scripts/tracking-ua-init.js
 
 # Vendor files
 app/inline-scripts/tracking-liftigniter.js
+app/inline-scripts/cssrelpreload.js
 
 # Ember files
 testem.js

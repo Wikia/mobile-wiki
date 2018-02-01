@@ -24,6 +24,10 @@
 		margin-bottom: $curated-content-image-spacing;
 		vertical-align: top;
 		width: calc(50% - #{$curated-content-image-spacing / 2});
+
+		@media #{$wds-breakpoint-xl-up} {
+			width: calc(33.33% - #{$curated-content-image-spacing / 2});
+		}
 	}
 
 	.item-figure {
@@ -118,11 +122,5 @@
 		display: block;
 		margin: 0 auto;
 		width: 80%;
-	}
-}
-
-@media #{$wds-breakpoint-xl-up} {
-	.curated-content .curated-content-item {
-		width: calc(33.33% - #{$curated-content-image-spacing / 2});
 	}
 }
