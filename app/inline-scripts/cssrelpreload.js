@@ -1,5 +1,7 @@
 (function() {
 	document.addEventListener("DOMContentLoaded", function(event) {
-		document.getElementById('lazy-css').media = 'all'
+		setTimeout(function () {
+			document.getElementById('lazy-css').media = 'all'
+		}, 500);
 	});
 })();
