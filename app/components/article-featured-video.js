@@ -120,6 +120,12 @@ export default Component.extend(JWPlayerMixin, {
 			}
 		});
 
+		this.player.on('adPause', ({viewable}) => {
+			if (viewable === 0 && this.get('isOnScrollActive')) {
+				this.player.play();
+			}
+		});
+
 		// to make sure custom dimension is set and tracking event is sent
 		let onScrollState = this.get('isOnScrollActive') ? 'active' : 'inactive';
 		if (this.get('isOnScrollClosed')) {
