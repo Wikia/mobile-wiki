@@ -170,7 +170,11 @@ export default Component.extend(JWPlayerMixin, {
 	 */
 	destroyVideoPlayer() {
 		if (this.player) {
-			this.player.remove();
+			try {
+				this.player.remove();
+			} catch (e) {
+				console.log(e);
+			}
 		}
 	},
 
