@@ -170,7 +170,13 @@ export default Component.extend(JWPlayerMixin, {
 	 */
 	destroyVideoPlayer() {
 		if (this.player) {
-			this.player.remove();
+			// FIXME this is temporary solution to fix nested glimmer transaction exception which causes application break
+			// more info in XW-4600
+			try {
+				this.player.remove();
+			} catch (e) {
+				console.error(e);
+			}
 		}
 	},
 
