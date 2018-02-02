@@ -357,15 +357,15 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = !!document.getElementsByClassName('.wiki-page-header'),
-			hasPortableInfobox = !!document.getElementsByClassName('.portable-infobox');
+			hasPageHeader = !!document.querySelector('.wiki-page-header'),
+			hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return !!document.getElementsByClassName('.curated-content');
+			return !!document.querySelector('.curated-content');
 		}
 
 		const firstSection = document.querySelector('.article-content > h2'),
