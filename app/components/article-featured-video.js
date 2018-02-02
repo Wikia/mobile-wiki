@@ -67,6 +67,11 @@ export default Component.extend(JWPlayerMixin, {
 		this.setPlaceholderDimensions();
 		this.throttleOnScroll = this.throttleOnScroll.bind(this);
 		window.addEventListener('scroll', this.throttleOnScroll);
+		window.addEventListener('orientationchange', () => {
+			if (this.isInLandscapeMode()) {
+				this.onScrollStateChange('inactive');
+			}
+		});
 		document.body.classList.add(this.get('bodyOnScrollActiveClass'));
 	},
 
@@ -188,12 +193,15 @@ export default Component.extend(JWPlayerMixin, {
 	onScrollHandler() {
 		const currentScrollPosition = window.pageYOffset,
 			requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY,
-			isOnScrollActive = this.get('isOnScrollActive');
+			isOnScrollActive = this.get('isOnScrollActive'),
+			isInLandscapeMode = this.isInLandscapeMode();
 
-		if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
-			this.onScrollStateChange('active');
-		} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
-			this.onScrollStateChange('inactive');
+		if (!isInLandscapeMode) {
+			if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
+				this.onScrollStateChange('active');
+			} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
+				this.onScrollStateChange('inactive');
+			}
 		}
 	},
 
@@ -210,5 +218,9 @@ export default Component.extend(JWPlayerMixin, {
 		if (this.player) {
 			this.player.trigger('onScrollStateChanged', {state});
 		}
+	},
+
+	isInLandscapeMode() {
+		return Math.abs(window.screen.orientation.angle) === 90;
 	}
 });
