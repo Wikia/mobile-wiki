@@ -1,5 +1,4 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import Thumbnailer from '../modules/thumbnailer';
@@ -23,17 +22,6 @@ export default Component.extend({
 	comment: null,
 	thumbnailWidth: 480,
 
-	text: computed('comment.text', function () {
-		const $text = $('<div/>').html(this.get('comment.text')),
-			$figure = $text.find('figure');
-
-		if ($figure.length) {
-			this.convertThumbnails($figure);
-		}
-
-		return $text.html();
-	}),
-
 	user: computed('users', function () {
 		const users = this.get('users');
 
@@ -54,67 +42,19 @@ export default Component.extend({
 		}
 	}),
 
+	didInsertElement() {
+		const images = this.element.querySelectorAll('figure img');
+
+		if (images.length) {
+			for (let i = 0; i < images.length; i++) {
+				images[i].setAttribute('src', images[i].getAttribute('data-src'));
+			}
+		}
+	},
+
 	actions: {
 		toggleExpand() {
 			this.toggleProperty('isExpanded');
 		},
-	},
-
-	/**
-	 * This is temporary workaround so we can display thumbnails in comments.
-	 * It parses <figure> element, gets data-params from <img> and creates new figures based on that.
-	 * Clicking on thumbnail will open File page instead of lightbox.
-	 *
-	 * TODO: this should be done properly starting from changing the API response
-	 *
-	 * @param {JQuery} $originalFigure
-	 * @returns {void}
-	 */
-	convertThumbnails($originalFigure) {
-		const thumbnailer = Thumbnailer,
-			/**
-			 * @param {ArticleCommentThumbnailData} thumbnailData
-			 * @returns {JQuery}
-			 */
-			createFigureFromThumbnailData = (thumbnailData) => {
-				const thumbnailURL = thumbnailer.getThumbURL(thumbnailData.full, {
-						mode: thumbnailer.mode.scaleToWidth,
-						width: this.thumbnailWidth
-					}),
-					$thumbnail = $('<img/>').attr('src', thumbnailURL),
-					articlePath = this.get('wikiVariables.articlePath'),
-					fileNamespace = this.get('wikiVariables.namespaces.6') || 'File',
-					href = `${articlePath}${fileNamespace}:${thumbnailData.name}`,
-					$anchor = $('<a/>').attr('href', href).append($thumbnail),
-					$figure = $('<figure/>');
-
-				let $figcaption;
-
-				if (thumbnailData.type === 'video') {
-					$figure.addClass('comment-video');
-				}
-
-				$figure.append($anchor);
-
-				if (thumbnailData.capt) {
-					$figcaption = $('<figcaption/>').text(thumbnailData.capt);
-					$figure.append($figcaption);
-				}
-
-				return $figure;
-			};
-
-		let thumbnailsData,
-			newFigures;
-
-		try {
-			thumbnailsData = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
-		} catch (exception) {
-			return;
-		}
-
-		newFigures = thumbnailsData.map(createFigureFromThumbnailData);
-
-		$originalFigure.replaceWith(newFigures);
-	},
+	}
 });
