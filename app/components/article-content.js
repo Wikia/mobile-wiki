@@ -401,26 +401,20 @@ export default Component.extend(
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 			if (infoboxes.length) {
-				[...infoboxes]
-					.filter((element) =>{
-						return element.rows.length > 6;
-					})
+				Array.prototype.filter.call(infoboxes, (element) => element.rows.length > 6)
 					.forEach((element) => {
 						element.classList.add(shortClass);
-					})
+						element.insertAdjacentHTML('beforeend',
+							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
+							`<use xlink:href="#chevron"></use></svg></td></tr>`);
 
-				//todo
-					.append(
-						`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
-						`<use xlink:href="#chevron"></use></svg></td></tr>`
-					)
-					.on('click', function (event) {
-						const $target = $(event.target),
-							$this = $(this);
+						element.addEventListener('click', (event) => {
+							const target = event.target;
 
-						if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
-							scrollTo.apply($this.find('.infobox-expand')[0]);
-						}
+							if (!target.matches('a') && element.classList.toggle(shortClass)) {
+								scrollTo.apply(element.querySelector('.infobox-expand'));
+							}
+						});
 					});
 			}
 		},
