@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 import config from '../config/environment';
 import {Promise} from 'rsvp';
+import offset from '../utils/offset';
 
 /**
  * @typedef {Object} SlotsContext
@@ -369,7 +370,7 @@ class Ads {
 		}
 
 		const $firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
+			firstSectionTop = ($firstSection.length && offset($firstSection).top) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}

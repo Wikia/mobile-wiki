@@ -4,6 +4,7 @@ import $ from 'jquery';
 import {run} from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
+import offset from '../utils/offset';
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -31,7 +32,7 @@ export default Component.extend(
 				this.get('loadPage')(page)
 					.then(() => {
 						const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
-							scrollTop = this.$().offset().top - navHeight;
+							scrollTop = offset(this.element).top - navHeight;
 
 						run.scheduleOnce('afterRender', this, () => {
 							$('html, body').animate({scrollTop});

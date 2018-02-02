@@ -37,7 +37,7 @@ test('click search icon when already in search and drawer visible - hide menu', 
 		drawerVisible=true
 	}}`);
 
-	this.$(searchIconSelector).click();
+	this.element.querySelector(searchIconSelector).click();
 });
 
 test('click search icon when already in search but drawer not visible - show search', function (assert) {
@@ -57,7 +57,7 @@ test('click search icon when already in search but drawer not visible - show sea
 		drawerVisible=false
 	}}`);
 
-	this.$(searchIconSelector).click();
+	this.element.querySelector(searchIconSelector).click();
 });
 
 test('click search icon when already visible is navigation - show search', function (assert) {
@@ -77,7 +77,7 @@ test('click search icon when already visible is navigation - show search', funct
 		drawerVisible=true
 	}}`);
 
-	this.$(searchIconSelector).click();
+	this.element.querySelector(searchIconSelector).click();
 });
 
 test('click nav icon when already visible is search - show nav', function (assert) {
@@ -97,5 +97,5 @@ test('click nav icon when already visible is search - show nav', function (asser
 		drawerVisible=true
 	}}`);
 
-	this.$(navIconSelector).click();
+	this.element.querySelector(navIconSelector).click();
 });

@@ -122,7 +122,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		hackIntoEmberRendering(content) {
-			this.$().html(content);
+			this.element.innerHTML = content;
 		},
 
 		/**
@@ -183,8 +183,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		loadIcons() {
-			this.$('.article-media-icon[data-src]').each(function () {
-				this.src = this.getAttribute('data-src');
+			this.element.querySelectorAll('.article-media-icon[data-src]').forEach((element) => {
+				element.src = element.getAttribute('data-src');
 			});
 		},
 
@@ -253,13 +253,13 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('.portable-infobox').map((i, element) => {
+			[...this.element.querySelectorAll('.portable-infobox')].map((element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
 						attrs: {
 							infoboxHTML: element.innerHTML,
-							height: $(element).outerHeight(),
+							height: element.offsetHeight,
 							pageTitle: this.get('displayTitle'),
 							smallHeroImage: this.get('featuredVideo') && this.get('heroImage'),
 							openLightbox: this.get('openLightbox')
@@ -319,7 +319,7 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('[data-wikia-widget]').map((i, element) => {
+			[...this.element.querySelectorAll('[data-wikia-widget]')].map((i, element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
@@ -384,10 +384,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleWikiaWidgetWrappers() {
-			this.$('script[type="x-wikia-widget"]').each(function () {
-				const $this = $(this);
-
-				$this.replaceWith($this.html());
+			this.element.querySelectorAll('script[type="x-wikia-widget"]').forEach((element) => {
+				element.outerHTML = element.innerHTML;
 			});
 		},
 
@@ -398,16 +396,20 @@ export default Component.extend(
 		 */
 		handleInfoboxes() {
 			const shortClass = 'short',
-				$infoboxes = this.$('table[class*="infobox"] tbody'),
+				infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody'),
 				body = window.document.body,
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-			if ($infoboxes.length) {
-				$infoboxes
-					.filter(function () {
-						return this.rows.length > 6;
+			if (infoboxes.length) {
+				[...infoboxes]
+					.filter((element) =>{
+						return element.rows.length > 6;
 					})
-					.addClass(shortClass)
+					.forEach((element) => {
+						element.classList.add(shortClass);
+					})
+
+				//todo
 					.append(
 						`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
 						`<use xlink:href="#chevron"></use></svg></td></tr>`

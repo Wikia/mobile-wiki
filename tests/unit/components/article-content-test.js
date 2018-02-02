@@ -52,10 +52,10 @@ test('ad is injected below portable infobox with no page header', function (asse
 		this.render();
 	});
 
-	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1);
+	assert.equal(this.element.querySelectorAll(mobileTopLeaderboardSelector).length, 1);
 	assert.equal(
-		this.$(mobileTopLeaderboardSelector).prev().get(0),
-		this.$('.portable-infobox').get(0),
+		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
+		this.element.querySelector('.portable-infobox'),
 		'previous element is an infobox'
 	);
 });
@@ -80,8 +80,8 @@ test('ad is injected below page header', function (assert) {
 
 	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1);
 	assert.equal(
-		this.$(mobileTopLeaderboardSelector).prev().get(0),
-		this.$('.wiki-page-header').get(0),
+		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
+		this.element.querySelector('.wiki-page-header'),
 		'previous element is site header'
 	);
 });
@@ -105,10 +105,10 @@ test('ad is injected below portable infobox', function (assert) {
 		this.render();
 	});
 
-	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
+	assert.equal(this.element.querySelectorAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
 	assert.equal(
-		this.$(mobileTopLeaderboardSelector).prev().get(0),
-		this.$('.portable-infobox').get(0),
+		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
+		this.element.querySelector('.portable-infobox'),
 		'previous element is an infobox'
 	);
 });

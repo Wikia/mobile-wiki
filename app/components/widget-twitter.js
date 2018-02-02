@@ -63,7 +63,7 @@ export default Component.extend(
 			if (this.get('scriptLoaded.twitter')) {
 				const data = this.get('data');
 
-				window.twttr.widgets.createTimeline(data.widgetId, this.$()[0], data);
+				window.twttr.widgets.createTimeline(data.widgetId, this.element, data);
 			}
 		},
 	}

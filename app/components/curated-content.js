@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import offset from '../utils/offset';
 import $ from 'jquery';
 
 export default Component.extend({
@@ -11,8 +12,8 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const navHeight = $('.site-head-container').outerHeight(),
-				scrollTop = this.$().offset().top - navHeight;
+			const navHeight = document.querySelector('.site-head-container').offsetHeight,
+				scrollTop = offset(this.element).top - navHeight;
 
 			this.set('activeLabel', item.label);
 			$('html, body').animate({scrollTop});

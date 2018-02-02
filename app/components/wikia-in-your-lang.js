@@ -57,6 +57,7 @@ export default Component.extend(
 				unsafe: true,
 				callbacks: {
 					onInsertElement: (alert) => {
+						// TODO change it to native JS
 						alert.on('click', 'a:not(.close)', () => {
 							track({
 								action: trackActions.click,

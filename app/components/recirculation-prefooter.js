@@ -120,7 +120,7 @@ export default Component.extend(
 
 					run.scheduleOnce('afterRender', () => {
 						liftigniter.setupTracking(
-							this.$().find('.recirculation-prefooter__item'),
+							this.element.querySelectorAll('.recirculation-prefooter__item'),
 							config.widget,
 							'LI'
 						);

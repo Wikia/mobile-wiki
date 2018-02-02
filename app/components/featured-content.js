@@ -116,10 +116,10 @@ export default Component.extend(
 		},
 
 		updatePagination() {
-			const $pagination = this.$('.featured-content-pagination');
+			const pagination = this.element.querySelector('.featured-content-pagination');
 
-			$pagination.find('.current').removeClass('current');
-			$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
+			pagination.querySelector('.current').classList.remove('current');
+			pagination.querySelector(`li[data-index=${this.get('currentItemIndex')}]`).classList.add('current');
 		},
 
 		/**
