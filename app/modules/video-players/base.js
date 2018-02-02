@@ -70,8 +70,8 @@ export default class BasePlayer {
 		// sanitize as our backend sometimes returns size of 0x0
 		if (targetSize.width > 0 && targetSize.height > 0) {
 			sanitizedSize = {
-				width: targetSize.width,
-				height: targetSize.height
+				width: `${targetSize.width}px`,
+				height: `${targetSize.height}px`
 			};
 		} else {
 			sanitizedSize = {
