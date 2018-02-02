@@ -1,6 +1,5 @@
 import Mixin from '@ember/object/mixin';
 import EmberObject, {observer} from '@ember/object';
-import $ from 'jquery';
 
 // singleton for no scroll state shared across all mixin usages
 const NoScrollState = EmberObject.extend().reopenClass({state: false});
@@ -32,17 +31,15 @@ export default Mixin.create({
 			return;
 		}
 
-		const $body = $('body');
-
 		if (this.get('noScrollState.state') && current) {
 			throw Error('No-scroll already applied, turn it off first');
 		}
 		this.set('noScrollState.state', current);
 
 		if (current) {
-			$body.addClass('no-scroll');
+			document.body.classList.add('no-scroll');
 		} else {
-			$body.removeClass('no-scroll');
+			document.body.classList.remove('no-scroll');
 		}
 	}
 });
