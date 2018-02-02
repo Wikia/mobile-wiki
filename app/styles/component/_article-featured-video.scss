@@ -5,6 +5,12 @@
 
 	&.is-on-scroll-active {
 		z-index: $z-site-head + 1;
+
+		// hides close button in related videos (discovery) module in on-scroll view
+		// to prevent displaying two close buttons next to each other
+		.jw-related-close {
+			display: none;
+		}
 	}
 
 	&__close-button {
