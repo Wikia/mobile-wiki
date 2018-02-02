@@ -5,6 +5,7 @@ import {getOwner} from '@ember/application';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
+import {transparentImageBase64} from '../utils/thumbnail';
 import MediaModel from '../models/media';
 
 export default Component.extend(
@@ -16,6 +17,7 @@ export default Component.extend(
 		imageStyle: null,
 		video: null,
 		imageWidth: 250,
+		emptyGif: transparentImageBase64,
 		href: oneWay('video.fileUrl'),
 
 		imageHeight: computed('imageWidth', function () {
