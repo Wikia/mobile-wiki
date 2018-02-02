@@ -125,10 +125,10 @@ export default Route.extend(
 					adsModule.setSiteHeadOffset = (offset) => {
 						this.set('ads.siteHeadOffset', offset);
 					};
-          
-          adsModule.hideSmartBanner = () => {
-					  this.set('smartBanner.smartBannerVisible', false);
-				  };
+
+					adsModule.hideSmartBanner = () => {
+						this.set('smartBanner.smartBannerVisible', false);
+					};
 				});
 			}
 
