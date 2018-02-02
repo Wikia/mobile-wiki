@@ -54,10 +54,10 @@ export default class BasePlayer {
 	 * @returns {void}
 	 */
 	onResize(containerSelector = this.containerSelector) {
-		const $container = $(containerSelector),
-			$lightbox = $('.lightbox-wrapper'),
-			lightboxWidth = $lightbox.width(),
-			lightboxHeight = $lightbox.height(),
+		const container = document.querySelector(containerSelector),
+			lightbox = document.querySelector('.lightbox-wrapper'),
+			lightboxWidth = lightbox ? lightbox.offsetWidth : null,
+			lightboxHeight = lightbox ? lightbox.offsetHeight : null,
 			targetSize = containerSize(
 				lightboxWidth,
 				lightboxHeight,
@@ -80,7 +80,7 @@ export default class BasePlayer {
 			};
 		}
 
-		$container.css(sanitizedSize);
+		Object.assign(container.style, sanitizedSize);
 	}
 
 	/**
