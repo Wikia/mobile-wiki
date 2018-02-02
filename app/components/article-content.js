@@ -423,14 +423,15 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
-				.not('table table')
-				.each((index, element) => {
-					const $element = this.$(element),
-						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-							' portable-table-wrappper' : ''}"/>`;
+			const tables = this.element.querySelectorAll('table');
 
-					$element.wrap(wrapper);
+			Array.prototype.filter.call(tables,
+				(table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.forEach((element) => {
+					const originalHTML = element.innerHTML;
+
+					element.innerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
 				});
 		},
 
@@ -439,10 +440,8 @@ export default Component.extend(
 				section = header.nextElementSibling;
 			let visible = 'false';
 
-			if (header.classList.contains('open-section')) {
-				header.classList.remove('open-section');
-			} else {
-				header.classList.add('open-section');
+
+			if (header.classList.toggle('open-section')) {
 				visible = 'true';
 
 				if (!header.hasAttribute('data-rendered')) {
