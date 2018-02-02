@@ -17,7 +17,7 @@ export default Controller.extend({
 		},
 
 		onErrorPageClick() {
-			const  input = document.querySelector('.side-search__input');
+			const input = document.querySelector('.side-search__input');
 
 			this.set('inputPhrase', '');
 			if (input) {
