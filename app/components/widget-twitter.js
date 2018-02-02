@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {observer} from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
@@ -50,7 +49,7 @@ export default Component.extend(
 			if (!this.get('scriptLoadInitialized.twitter')) {
 				this.set('scriptLoadInitialized.twitter', true);
 
-				$.getScript('//platform.twitter.com/widgets.js', () => {
+				$script('//platform.twitter.com/widgets.js', () => {
 					this.set('scriptLoaded.twitter', true);
 				});
 			}
