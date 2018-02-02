@@ -175,7 +175,7 @@ export default Component.extend(JWPlayerMixin, {
 			try {
 				this.player.remove();
 			} catch (e) {
-				console.error(e);
+				console.warn(e);
 			}
 		}
 	},
