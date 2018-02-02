@@ -357,36 +357,39 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = $('.wiki-page-header').length > 0,
-			hasPortableInfobox = $('.portable-infobox').length > 0;
+			hasPageHeader = !!document.getElementsByClassName('.wiki-page-header'),
+			hasPortableInfobox = !!document.getElementsByClassName('.portable-infobox');
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $('.curated-content').length > 0;
+			return !!document.getElementsByClassName('.curated-content');
 		}
 
-		const $firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
+		const firstSection = document.querySelector('.article-content > h2'),
+			firstSectionTop = (
+				firstSection.length &&
+				firstSection.getBoundingClientRect().top + document.body.scrollTop
+			) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}
 
 	isPrefooterApplicable(isInContentApplicable) {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $('.trending-articles').length > 0;
+			return !!document.querySelector('.trending-articles');
 		}
 
-		const numberOfSections = $('.article-content > h2').length,
-			hasArticleFooter = $('.article-footer').length > 0;
+		const numberOfSections = document.querySelector('.article-content > h2').length,
+			hasArticleFooter = !!document.querySelector('.article-footer');
 
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
 
 	isBottomLeaderboardApplicable() {
-		return $('.wds-global-footer').length > 0;
+		return !!document.querySelector('.wds-global-footer');
 	}
 
 	setupSlotsContext() {
