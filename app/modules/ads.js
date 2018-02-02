@@ -370,7 +370,7 @@ class Ads {
 
 		const firstSection = document.querySelector('.article-content > h2'),
 			firstSectionTop = (
-				firstSection.length &&
+				firstSection &&
 				firstSection.getBoundingClientRect().top + document.body.scrollTop
 			) || 0;
 
@@ -382,7 +382,7 @@ class Ads {
 			return !!document.querySelector('.trending-articles');
 		}
 
-		const numberOfSections = document.querySelector('.article-content > h2').length,
+		const numberOfSections = document.querySelectorAll('.article-content > h2').length,
 			hasArticleFooter = !!document.querySelector('.article-footer');
 
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
