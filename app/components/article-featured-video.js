@@ -14,6 +14,7 @@ import JWPlayerMixin from '../mixins/jwplayer';
 
 export default Component.extend(JWPlayerMixin, {
 	ads: service(),
+	logger: service(),
 	wikiVariables: service(),
 
 	classNames: ['article-featured-video'],
@@ -175,7 +176,7 @@ export default Component.extend(JWPlayerMixin, {
 			try {
 				this.player.remove();
 			} catch (e) {
-				console.warn(e);
+				this.get('logger').warn(e);
 			}
 		}
 	},
