@@ -12,6 +12,8 @@ export default Mixin.create({
 
 		this.set('scrollableElement', this.element.querySelector('.scrolling-part'));
 
+		this.onScrollHandler = this.onScroll.bind(this);
+		this.onMouseWheelHandler = this.onMouseWheel.bind(this);
 		this.listeners('addEventListener');
 	},
 
@@ -24,9 +26,9 @@ export default Mixin.create({
 	listeners(method) {
 		const scrollableElement = this.get('scrollableElement');
 
-		scrollableElement[method]('scroll', this.onScroll.bind(this));
-		scrollableElement[method]('DOMMouseScroll', this.onMouseWheel.bind(this));
-		scrollableElement[method]('mousewheel', this.onMouseWheel.bind(this));
+		scrollableElement[method]('scroll', this.onScrollHandler);
+		scrollableElement[method]('DOMMouseScroll', this.onMouseWheelHandler);
+		scrollableElement[method]('mousewheel', this.onMouseWheelHandler);
 	},
 
 	onScroll({target}) {
