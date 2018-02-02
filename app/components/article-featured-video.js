@@ -221,6 +221,6 @@ export default Component.extend(JWPlayerMixin, {
 	},
 
 	isInLandscapeMode() {
-		return Math.abs(window.screen.orientation.angle) === 90;
+		return Math.abs(window.orientation) === 90;
 	}
 });
