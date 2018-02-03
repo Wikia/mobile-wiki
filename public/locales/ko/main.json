@@ -103,6 +103,7 @@
     "post-actions-upvote-label": "추천"
   },
   "featured-video": {
-    "from": "from"
+    "from": "from",
+    "watch": "watch"
   }
 }
