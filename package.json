@@ -44,7 +44,7 @@
     "fastboot-app-server": "1.0.1",
     "hammerjs": "2.0.8",
     "jquery.cookie": "1.4.1",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.1.0",
+    "jwplayer-fandom": "1.1.1",
     "method-override": "2.3.10",
     "on-headers": "1.0.1",
     "scriptjs": "2.5.8",
