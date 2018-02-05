@@ -15,7 +15,7 @@
     "page-not-found-error": "申し訳ありません、お探しのページが見つかりません。", 
     "page-not-found-message": "ナビゲーションまたは検索を使用", 
     "pages-label": "ページ", 
-    "photos-label": "新規画像数", 
+    "photos-label": "画像", 
     "trending-articles-label": "人気のページ", 
     "username-anonymous": "FANDOMユーザー", 
     "videos-label": "動画", 
@@ -64,18 +64,22 @@
     "publish-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。", 
     "publish-error-autoblockedtext": "このIPアドレスは、ブロックされたユーザーが使用したため、アクセスが自動遮断されています。", 
     "publish-error-blocked": "あなたは編集をブロックされています。", 
-    "publish-error-noedit": "このwikiでページを編集する権限がありません。", 
+    "publish-error-noedit": "このWikiでページを編集する権限がありません。", 
     "publish-error-noedit-anon": "未登録ユーザーはページを編集することができません。", 
-    "publish-error-protectedpage": "このwikiでページを編集する権限がありません。", 
+    "publish-error-protectedpage": "このWikiでページを編集する権限がありません。", 
     "success": "{pageTitle}の編集が完了しました。"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "作成：", 
+    "watch": "再生時間"
+  }, 
   "file-page": {
     "subtitle": "ファイルページ", 
-    "usages-header": "このウィキアでの使用状況", 
+    "usages-header": "関連があるページ", 
     "usages-see-more-link-label": "全て見る"
   }, 
   "navigation": {
@@ -101,9 +105,5 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "返信", 
     "post-actions-upvote-label": "イイね！"
-  },
-  "featured-video": {
-    "from": "作成：",
-    "watch": "再生時間"
   }
 }

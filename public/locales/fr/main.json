@@ -37,7 +37,7 @@
     "replies-label": "Afficher {count} réponse", 
     "replies-label_plural": "Afficher {count} réponses", 
     "suggestions-label": "Lire plus", 
-    "toc-label": "Table des matières", 
+    "toc-label": "Sommaire", 
     "top-contributors-label": "Meilleurs contributeurs de cet article"
   }, 
   "article-comments": {
@@ -67,11 +67,15 @@
     "publish-error-noedit": "Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wiki.", 
     "publish-error-noedit-anon": "Les utilisateurs anonymes ne peuvent pas modifier de pages.", 
     "publish-error-protectedpage": "Vous n'avez pas la permission de modifier cette page.", 
-    "success": "La page{pageTitle} a été modifiée avec succès !"
+    "success": "La page {pageTitle} a été modifiée avec succès !"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "de", 
+    "watch": "regarder"
   }, 
   "file-page": {
     "subtitle": "Fichier", 
@@ -101,9 +105,5 @@
     "in-category-label": "dans {categoryName}", 
     "post-actions-reply-label": "Répondre", 
     "post-actions-upvote-label": "Voter"
-  },
-  "featured-video": {
-    "from": "de",
-    "watch": "regarder"
   }
 }

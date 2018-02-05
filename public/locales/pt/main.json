@@ -73,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "de", 
+    "watch": "assistir"
+  }, 
   "file-page": {
     "subtitle": "Página do arquivo", 
     "usages-header": "Aparece nestas páginas", 
@@ -101,9 +105,5 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
-  },
-  "featured-video": {
-    "from": "de",
-    "watch": "assistir"
   }
 }
