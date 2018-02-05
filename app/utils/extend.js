@@ -1,5 +1,4 @@
-function deepExtend(out) {
-	out = out || {};
+function deepExtend(out = {}) {
 	let i, key, obj;
 
 	for (i = 1; i < arguments.length; i++) {
