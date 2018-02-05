@@ -28,7 +28,7 @@ export default Component.extend(
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-		offset: readOnly('ads.siteHeadOffset'),
+		offset: 0,
 
 		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 

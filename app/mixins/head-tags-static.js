@@ -22,18 +22,18 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	setStaticHeadTags(noExternals) {
-		const wikiVariables = this.modelFor('application');
+		const model = this.modelFor('application');
 
-		if (!wikiVariables) {
+		if (!model) {
 			return;
 		}
 
 		this.get('headData').setProperties({
-			appleTouchIcon: wikiVariables.appleTouchIcon,
-			favicon: wikiVariables.favicon,
-			siteName: wikiVariables.siteName,
-			isRtl: wikiVariables.language.contentDir === 'rtl',
-			themeColor: config.verticalColors[wikiVariables.vertical],
+			appleTouchIcon: model.wikiVariables.appleTouchIcon,
+			favicon: model.wikiVariables.favicon,
+			siteName: model.wikiVariables.siteName,
+			isRtl: model.wikiVariables.language.contentDir === 'rtl',
+			themeColor: config.verticalColors[model.wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
 			noExternals,
 			facebookAppId: config.facebook.appId,
