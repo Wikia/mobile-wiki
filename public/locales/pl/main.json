@@ -73,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "dodany przez", 
+    "watch": "obejrzyj"
+  }, 
   "file-page": {
     "subtitle": "Strona pliku", 
     "usages-header": "Wykorzystanie na stronach", 
@@ -101,9 +105,5 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Odpowiedz", 
     "post-actions-upvote-label": "Zagłosuj"
-  },
-  "featured-video": {
-    "from": "dodany przez",
-    "watch": "obejrzyj"
   }
 }

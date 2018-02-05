@@ -5,7 +5,7 @@
     "search-error-general-action": "Klicke hier, um es noch einmal zu versuchen", 
     "search-error-not-found": "Für die Anfrage {query} gibt es keine Ergebnisse", 
     "search-error-not-found-action": "Probiere eine andere Suche", 
-    "search-input-label": "Suche", 
+    "search-input-label": "Suchen", 
     "search-loading-msg": "Lade Suchergebnisse...", 
     "total-results": "Ungefähr {totalItems} Ergebnisse für {query}"
   }
