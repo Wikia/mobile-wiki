@@ -23,3 +23,5 @@ export function normalizeThumbWidth(width) {
 
 	return thumbSize.maximum;
 }
+
+export const transparentImageBase64 = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';

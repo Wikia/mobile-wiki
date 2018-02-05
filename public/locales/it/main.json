@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Rispondi", 
     "post-actions-upvote-label": "Vota"
+  },
+  "featured-video": {
+    "from": "da",
+    "watch": "guarda"
   }
 }

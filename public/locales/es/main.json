@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
+  },
+  "featured-video": {
+    "from": "de",
+    "watch": "mirar"
   }
 }

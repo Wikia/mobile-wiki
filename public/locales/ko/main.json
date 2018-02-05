@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "올리기", 
     "post-actions-upvote-label": "추천"
+  },
+  "featured-video": {
+    "from": "from",
+    "watch": "watch"
   }
 }

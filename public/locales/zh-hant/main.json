@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "回覆", 
     "post-actions-upvote-label": "讚"
+  },
+  "featured-video": {
+    "from": "來源：",
+    "watch": "觀看"
   }
 }

@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "返信", 
     "post-actions-upvote-label": "イイね！"
+  },
+  "featured-video": {
+    "from": "作成：",
+    "watch": "再生時間"
   }
 }

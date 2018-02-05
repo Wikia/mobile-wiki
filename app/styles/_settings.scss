@@ -67,3 +67,7 @@ $font-weight-bold: 700 !default;
 $nav-padding-vertical: 18px;
 $nav-padding-horizontal: 9px;
 $nav-background-color: #636b76;
+
+// we are using the same page mix as on desktop infoboxes
+// 5% button color, 5% black and 90% white
+$infobox-background: mix(mix($color-blue-light, $black, 50%), $white, 10%);

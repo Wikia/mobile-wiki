@@ -101,5 +101,9 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Odpowiedz", 
     "post-actions-upvote-label": "Zagłosuj"
+  },
+  "featured-video": {
+    "from": "dodany przez",
+    "watch": "obejrzyj"
   }
 }
