@@ -43,13 +43,9 @@ export default Component.extend({
 	}),
 
 	didInsertElement() {
-		const images = this.element.querySelectorAll('figure img');
-
-		if (images.length) {
-			for (let i = 0; i < images.length; i++) {
-				images[i].setAttribute('src', images[i].getAttribute('data-src'));
-			}
-		}
+		this.element.querySelectorAll('figure img').forEach((element) => {
+			element.setAttribute('src', element.getAttribute('data-src'));
+		});
 	},
 
 	actions: {
