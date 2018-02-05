@@ -10,6 +10,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
+import toArray from '../utils/toArray';
 import {inGroup} from '../modules/abtest';
 
 /**
@@ -183,7 +184,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		loadIcons() {
-			this.element.querySelectorAll('.article-media-icon[data-src]').forEach((element) => {
+			toArray(this.element.querySelectorAll('.article-media-icon[data-src]')).forEach((element) => {
 				element.src = element.getAttribute('data-src');
 			});
 		},
@@ -216,7 +217,7 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = Array.prototype.slice.call(
+				const headers = toArray(
 					this.element.querySelectorAll('h2[section]')
 				).map((element) => {
 					if (element.textContent) {
@@ -253,7 +254,7 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			[...this.element.querySelectorAll('.portable-infobox')].map((element) => {
+			toArray(this.element.querySelectorAll('.portable-infobox')).map((element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
@@ -319,7 +320,7 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			[...this.element.querySelectorAll('[data-wikia-widget]')].map((i, element) => {
+			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((i, element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
@@ -384,7 +385,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleWikiaWidgetWrappers() {
-			this.element.querySelectorAll('script[type="x-wikia-widget"]').forEach((element) => {
+			toArray(this.element.querySelectorAll('script[type="x-wikia-widget"]')).forEach((element) => {
 				element.outerHTML = element.innerHTML;
 			});
 		},
@@ -455,7 +456,7 @@ export default Component.extend(
 		},
 
 		handleCollapsibleSections() {
-			Array.prototype.slice.call(this.element.querySelectorAll('h2[section]'))
+			toArray(this.element.querySelectorAll('h2[section]'))
 				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
 		}
 	}
