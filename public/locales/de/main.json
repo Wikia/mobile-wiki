@@ -103,6 +103,7 @@
     "post-actions-upvote-label": "Zustimmen"
   },
   "featured-video": {
-    "from": "von"
+    "from": "von",
+    "watch": "ansehen"
   }
 }

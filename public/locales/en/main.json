@@ -104,6 +104,7 @@
     "trending-fandom-articles": "Trending FANDOM Articles"
   },
   "featured-video": {
-    "from": "from"
+    "from": "from",
+    "watch": "watch"
   }
 }

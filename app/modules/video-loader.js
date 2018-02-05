@@ -41,7 +41,7 @@ export default class VideoLoader {
 	loadPlayerClass() {
 		const provider = this.getProviderName(),
 			playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider),
-			params = $.extend(this.data.jsParams, {
+			params = Object.assign({}, this.data.jsParams, {
 				/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 				size: {
 					height: this.data.height,

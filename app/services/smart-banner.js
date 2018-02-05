@@ -37,11 +37,11 @@ export default Service.extend({
 			};
 
 		date.setTime(date.getTime() + (days * this.get('dayInMiliseconds')));
-		$.cookie(this.get('cookieName'), 1, cookieOptions);
+		window.Cookies.set(this.get('cookieName'), 1, cookieOptions);
 	},
 
 	isCookieSet() {
-		return $.cookie(this.get('cookieName')) === '1';
+		return window.Cookies.get(this.get('cookieName')) === '1';
 	},
 
 	/**
