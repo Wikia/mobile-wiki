@@ -30,7 +30,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 	playerCreated(playerInstance) {
 		playerInstance.on('captionsSelected', ({selectedLang}) => {
-			$.cookie(this.get('captionsCookieName'), selectedLang, {
+			window.Cookies.set(this.get('captionsCookieName'), selectedLang, {
 				expires: this.get('playerCookieExpireDays'),
 				path: '/',
 				domain: config.cookieDomain
@@ -49,7 +49,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 					track(data);
 				},
 			},
-			selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+			selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
 			settings: {
 				showCaptions: true
 			},
