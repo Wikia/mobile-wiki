@@ -32,10 +32,12 @@ export default Mixin.create({
 			appleTouchIcon: wikiVariables.appleTouchIcon,
 			favicon: wikiVariables.favicon,
 			siteName: wikiVariables.siteName,
+			isRtl: wikiVariables.language.contentDir === 'rtl',
 			themeColor: config.verticalColors[wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
 			noExternals,
-			facebookAppId: config.facebook.appId
+			facebookAppId: config.facebook.appId,
+			lazyCss: !this.get('fastboot.isFastBoot')
 		});
 	}
 });
