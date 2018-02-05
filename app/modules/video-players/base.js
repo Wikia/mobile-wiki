@@ -54,10 +54,10 @@ export default class BasePlayer {
 	 * @returns {void}
 	 */
 	onResize(containerSelector = this.containerSelector) {
-		const $container = $(containerSelector),
-			$lightbox = $('.lightbox-wrapper'),
-			lightboxWidth = $lightbox.width(),
-			lightboxHeight = $lightbox.height(),
+		const container = document.querySelector(containerSelector),
+			lightbox = document.querySelector('.lightbox-wrapper'),
+			lightboxWidth = lightbox ? lightbox.offsetWidth : null,
+			lightboxHeight = lightbox ? lightbox.offsetHeight : null,
 			targetSize = containerSize(
 				lightboxWidth,
 				lightboxHeight,
@@ -70,8 +70,8 @@ export default class BasePlayer {
 		// sanitize as our backend sometimes returns size of 0x0
 		if (targetSize.width > 0 && targetSize.height > 0) {
 			sanitizedSize = {
-				width: targetSize.width,
-				height: targetSize.height
+				width: `${targetSize.width}px`,
+				height: `${targetSize.height}px`
 			};
 		} else {
 			sanitizedSize = {
@@ -80,7 +80,7 @@ export default class BasePlayer {
 			};
 		}
 
-		$container.css(sanitizedSize);
+		Object.assign(container.style, sanitizedSize);
 	}
 
 	/**
