@@ -1,16 +1,15 @@
 .article-featured-video {
 	$on-scroll-padding: 12px;
 
-	&.on-scroll-variant {
-		position: relative;
-		z-index: $z-site-head  + 1;
+	position: relative;
 
-		// FIXME consider moving & to the beginning of selectors
-		&.is-dismissed,
-		.slide-into-view + .page-wrapper & {
-			// video is visible over nav / side menu by default, so we want to move it under
-			// both of them when either video is dismissed or side-menu is visible
-			z-index: $z-site-head - 3;
+	&.is-on-scroll-active {
+		z-index: $z-site-head + 1;
+
+		// hides close button in related videos (discovery) module in on-scroll view
+		// to prevent displaying two close buttons next to each other
+		.jw-related-close {
+			display: none;
 		}
 	}
 
@@ -18,15 +17,14 @@
 		align-items: center;
 		background-color: $wds-color-white;
 		display: none;
-		height: 32px;
+		height: 36px;
 		justify-content: center;
 		position: absolute;
-		right: 6px;
-		text-align: center;
-		top: 6px;
+		right: 0;
+		top: 0;
 		width: 36px;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			display: flex;
 		}
 
@@ -41,16 +39,12 @@
 		transform: translate3d(0, 0, 0);
 		transition: padding .3s;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
 			padding: $on-scroll-padding;
 			position: fixed;
 			top: 0;
 			width: 100%;
-		}
-
-		.with-fandom-app-smart-banner .is-on-scroll-video & {
-			// height of fandom smart banner
-			top: 85px;
 		}
 	}
 
@@ -64,7 +58,7 @@
 			height: calc((100vw - (2 * 1.125rem)) * 9 / 16);
 		}
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			height: calc((100vw - (2 * #{$on-scroll-padding})) * 9 / 16);
 		}
 	}
@@ -74,16 +68,68 @@
 		top: 0;
 		z-index: -1;
 
-		.is-on-scroll-video & {
+		.is-on-scroll-active & {
 			position: relative;
 		}
 	}
-}
 
-.jwplayer {
-	// resets wikia-style-guide styles
-	input[type="checkbox"] + label {
-		margin-left: 0;
-		margin-right: 0;
+	&__attribution-container {
+		font-size: 12px;
+		font-weight: bold;
+
+		&.has-portable-infobox {
+			background-color: $infobox-background;
+		}
+	}
+
+	&__attribution-inner-container {
+		align-items: center;
+		border-bottom: 1px solid #ccc;
+		display: flex;
+		justify-content: center;
+		margin: 0 12px;
+		padding: 6px 0;
+	}
+
+	&__attribution-avatar {
+		@include square(24px);
+
+		margin-right: 6px;
+	}
+
+	&__attribution-link {
+		align-items: center;
+		color: rgba(#333, .5);
+		display: flex;
+	}
+
+	&__attribution-icon {
+		margin-left: 6px;
+	}
+
+	&:not(.is-on-scroll-active) &__details {
+		display: none;
+	}
+
+	&__label {
+		color: #999;
+		font-size: $wds-typescale-size-minus-3;
+		font-weight: bold;
+		line-height: 1;
+		margin-top: 9px;
+		text-transform: uppercase;
+	}
+
+	&__time::before {
+		content: '\2022';
+		padding: 0 2px 0 0;
+	}
+
+	&__title {
+		color: #000;
+		font-size: $wds-typescale-size-minus-1;
+		font-weight: bold;
+		line-height: 1.14em;
+		margin-top: 4px;
 	}
 }

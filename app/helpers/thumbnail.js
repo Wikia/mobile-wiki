@@ -2,6 +2,7 @@ import {htmlSafe} from '@ember/string';
 import {getWithDefault, get} from '@ember/object';
 import {helper} from '@ember/component/helper';
 import Thumbnailer from '../modules/thumbnailer';
+import {transparentImageBase64} from '../utils/thumbnail';
 import Ember from 'ember';
 
 /**
@@ -20,7 +21,7 @@ export default helper((params, options) => {
 		defaultHeight = 100,
 		imgUrl = params.join('');
 
-	let src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	let src = transparentImageBase64,
 		className = '',
 		mode,
 		width,

@@ -64,6 +64,7 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
+			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
 		},
 		outputPaths: {
 			app: {
@@ -75,7 +76,6 @@ module.exports = function (defaults) {
 		},
 		sassOptions: {
 			includePaths: [
-				'node_modules/wikia-style-guide/src/scss',
 				'node_modules/design-system/dist/scss',
 				'node_modules/@wikia/ad-products/dist'
 			],

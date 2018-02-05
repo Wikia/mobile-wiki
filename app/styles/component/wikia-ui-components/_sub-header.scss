@@ -1,3 +1,5 @@
+$wikia-ui-components-sub-head-height: 48px;
+$wikia-ui-components-sub-head-height-large: 66px;
 $back-arrow-size: 16px;
 $cancel-margin-left: 6px;
 $cancel-margin-left-large: 9px;
@@ -18,8 +20,8 @@ $title-padding-large: 0 21px;
 	top: 0;
 	z-index: $z-site-head;
 
-	@media (min-width: lower-bound($large-range)) {
-		font-size: $base-font-size;
+	@media #{$wds-breakpoint-m-down} {
+		font-size: 16px;
 		height: $wikia-ui-components-sub-head-height-large;
 	}
 }
@@ -69,7 +71,7 @@ $title-padding-large: 0 21px;
 		}
 	}
 
-	@media (min-width: lower-bound($large-range)) {
+	@media #{$wds-breakpoint-m-down} {
 		margin-left: $cancel-margin-left-large;
 	}
 }
@@ -78,14 +80,13 @@ $title-padding-large: 0 21px;
 	color: inherit;
 	flex: 1;
 	font: inherit;
-	margin: 0;
 	order: 2;
 	overflow: hidden;
 	padding: $title-padding;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
-	@media (min-width: lower-bound($large-range)) {
+	@media #{$wds-breakpoint-m-down} {
 		padding: $title-padding-large;
 	}
 }
@@ -104,7 +105,6 @@ $title-padding-large: 0 21px;
 	font: inherit;
 	font-weight: bolder;
 	height: $wikia-ui-components-sub-head-height;
-	margin: 0;
 	order: 3;
 	padding: 0 $article-horizontal-padding;
 	text-transform: none;
@@ -115,7 +115,7 @@ $title-padding-large: 0 21px;
 		color: inherit;
 	}
 
-	@media (min-width: lower-bound($large-range)) {
+	@media #{$wds-breakpoint-m-down} {
 		margin-right: $done-margin-right-large;
 	}
 }
