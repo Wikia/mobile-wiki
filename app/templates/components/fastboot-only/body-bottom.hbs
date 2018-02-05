@@ -9,9 +9,7 @@
 {{fastboot-only/local-navigation-for-seo}}
 
 {{#if isRtl}}
-	<link rel="stylesheet" href="/mobile-wiki/assets/lazy.rtl.css" as="style" media="lazy">
-	<noscript><link rel="stylesheet" href="/mobile-wiki/assets/lazy.rtl.css"></noscript>
+	<link id="lazy-css" rel="preload" href="/mobile-wiki/assets/lazy.rtl.css" as="style">
 {{else}}
-	<link rel="stylesheet" href="/mobile-wiki/assets/lazy.css" as="style" media="lazy">
-	<noscript><link rel="stylesheet" href="/mobile-wiki/assets/lazy.css"></noscript>
+	<link id="lazy-css" rel="preload" href="/mobile-wiki/assets/lazy.css" as="style">
 {{/if}}

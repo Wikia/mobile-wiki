@@ -64,8 +64,7 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
-			'lazy-css': `${inlineScriptsPath}lazy-css.js`,
+			'instant-globals': `${inlineScriptsPath}instant-globals.js`
 		},
 		outputPaths: {
 			app: {
