@@ -3,7 +3,6 @@ import {oneWay, not, notEmpty} from '@ember/object/computed';
 import Component from '@ember/component';
 import EmberObject, {observer, computed} from '@ember/object';
 import {run} from '@ember/runloop';
-import $ from 'jquery';
 import NoScrollMixin from '../mixins/no-scroll';
 import wrapMeHelper from '../helpers/wrap-me';
 import fetch from '../utils/mediawiki-fetch';

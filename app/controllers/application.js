@@ -1,5 +1,4 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import {isEmpty} from '@ember/utils';
 import {alias, equal} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
