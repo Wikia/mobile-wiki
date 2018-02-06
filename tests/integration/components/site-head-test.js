@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
+import {find} from 'ember-native-dom-helpers';
 
 const trackModule = require('mobile-wiki/utils/track'),
 	searchIconSelector = '.site-head-icon-search .site-head-icon',
@@ -37,7 +38,7 @@ test('click search icon when already in search and drawer visible - hide menu', 
 		drawerVisible=true
 	}}`);
 
-	this.element.querySelector(searchIconSelector).click();
+	find(searchIconSelector).click();
 });
 
 test('click search icon when already in search but drawer not visible - show search', function (assert) {
@@ -57,7 +58,7 @@ test('click search icon when already in search but drawer not visible - show sea
 		drawerVisible=false
 	}}`);
 
-	this.element.querySelector(searchIconSelector).click();
+	find(searchIconSelector).click();
 });
 
 test('click search icon when already visible is navigation - show search', function (assert) {
@@ -77,7 +78,7 @@ test('click search icon when already visible is navigation - show search', funct
 		drawerVisible=true
 	}}`);
 
-	this.element.querySelector(searchIconSelector).click();
+	find(searchIconSelector).click();
 });
 
 test('click nav icon when already visible is search - show nav', function (assert) {
@@ -97,5 +98,5 @@ test('click nav icon when already visible is search - show nav', function (asser
 		drawerVisible=true
 	}}`);
 
-	this.element.querySelector(navIconSelector).click();
+	find(navIconSelector).click();
 });

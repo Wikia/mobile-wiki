@@ -5,6 +5,7 @@ import {run} from '@ember/runloop';
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
+import {find, findAll} from 'ember-native-dom-helpers';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
@@ -52,10 +53,10 @@ test('ad is injected below portable infobox with no page header', function (asse
 		this.render();
 	});
 
-	assert.equal(this.element.querySelectorAll(mobileTopLeaderboardSelector).length, 1);
+	assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
 	assert.equal(
-		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
-		this.element.querySelector('.portable-infobox'),
+		find(mobileTopLeaderboardSelector).previousSibling,
+		find('.portable-infobox'),
 		'previous element is an infobox'
 	);
 });
@@ -78,10 +79,10 @@ test('ad is injected below page header', function (assert) {
 		this.render();
 	});
 
-	assert.equal(this.$(mobileTopLeaderboardSelector).length, 1);
+	assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
 	assert.equal(
-		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
-		this.element.querySelector('.wiki-page-header'),
+		find(mobileTopLeaderboardSelector).previousSibling,
+		find('.wiki-page-header'),
 		'previous element is site header'
 	);
 });
@@ -105,10 +106,10 @@ test('ad is injected below portable infobox', function (assert) {
 		this.render();
 	});
 
-	assert.equal(this.element.querySelectorAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
+	assert.equal(findAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
 	assert.equal(
-		this.element.querySelector(mobileTopLeaderboardSelector).previousSibling,
-		this.element.querySelector('.portable-infobox'),
+		find(mobileTopLeaderboardSelector).previousSibling,
+		find('.portable-infobox'),
 		'previous element is an infobox'
 	);
 });
