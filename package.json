@@ -92,6 +92,8 @@
     "ember-headroom": "1.1.1",
     "ember-in-viewport": "2.1.1",
     "ember-load-initializers": "1.0.0",
+    "ember-maybe-import-regenerator": "0.1.6",
+    "ember-native-dom-event-dispatcher": "0.6.4",
     "ember-resolver": "4.5.0",
     "ember-router-scroll": "0.3.1",
     "ember-sinon": "1.0.1",
