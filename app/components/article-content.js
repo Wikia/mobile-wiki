@@ -1,7 +1,6 @@
 import {inject as service} from '@ember/service';
 import {reads} from '@ember/object/computed';
 import Component from '@ember/component';
-import $ from 'jquery';
 import {isBlank} from '@ember/utils';
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
@@ -92,8 +91,8 @@ export default Component.extend(
 		},
 
 		click(event) {
-			const $anchor = $(event.target).closest('a'),
-				label = this.getTrackingEventLabel($anchor);
+			const anchor = event.target.closest('a'),
+				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
 				track({
@@ -134,23 +133,22 @@ export default Component.extend(
 		},
 
 		/**
-		 * @param {jQuery[]} $element — array of jQuery objects of which context is to be checked
+		 * @param {Element} element
 		 * @returns {string}
 		 */
-		getTrackingEventLabel($element) {
-			if ($element && $element.length) {
-
+		getTrackingEventLabel(element) {
+			if (element) {
 				// Mind the order -- 'figcaption' check has to be done before '.article-image',
 				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
-				if ($element.closest('.portable-infobox').length) {
+				if (element.closest('.portable-infobox')) {
 					return 'portable-infobox-link';
-				} else if ($element.closest('.context-link').length) {
+				} else if (element.closest('.context-link')) {
 					return 'context-link';
-				} else if ($element.closest('blockquote').length) {
+				} else if (element.closest('blockquote')) {
 					return 'blockquote-link';
-				} else if ($element.closest('figcaption').length) {
+				} else if (element.closest('figcaption')) {
 					return 'caption-link';
-				} else if ($element.closest('.article-image').length) {
+				} else if (element.closest('.article-image')) {
 					return 'image-link';
 				}
 
@@ -296,7 +294,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetWithComponent(element) {
-			const widgetData = $(element).data(),
+			const widgetData = element.dataset,
 				widgetType = widgetData.wikiaWidget,
 				componentName = this.getWidgetComponentName(widgetType);
 
