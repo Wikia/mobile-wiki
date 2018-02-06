@@ -1,6 +1,3 @@
-$edit-icon-size: 24px;
-$edit-icon-container-size: 48px;
-
 .edit-textarea {
 	border: 0;
 	font-size: .875rem;
@@ -12,6 +9,9 @@ $edit-icon-container-size: 48px;
 }
 
 .edit-section {
+	$edit-icon-size: 24px;
+	$edit-icon-container-size: 48px;
+
 	align-items: center;
 	display: inline-flex;
 	height: $edit-icon-container-size;
