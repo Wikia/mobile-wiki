@@ -13,8 +13,6 @@ function componentAttributes(element) {
 		attrs = {};
 	}
 
-	attrs.innerContent = element.innerHTML;
-
 	return attrs;
 }
 

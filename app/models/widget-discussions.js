@@ -52,7 +52,11 @@ export default EmberObject.extend(
 						name: createdBy.name,
 						profileUrl: buildUrl({
 							namespace: 'User',
-							title: createdBy.name
+							title: createdBy.name,
+							relative: true,
+							query: {
+								useskin: 'oasis'
+							}
 						})
 					},
 					creationTimestamp: typeof creationDate === 'string' ?

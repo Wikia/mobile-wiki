@@ -1,4 +1,3 @@
-.show-reply-btn,
 .page-btn {
 	background: rgb(250, 250, 250);
 	color: $anchor-font-color;
@@ -6,33 +5,15 @@
 }
 
 .show-reply-btn {
+	box-sizing: border-box;
 	margin-bottom: 20px;
-}
-
-.show-comments-btn {
-	background: none;
-	border-top: 1px solid $secondary-color;
-	color: #333;
-	display: block;
-	font-weight: bold;
-	padding: rem-calc(16) rem-calc(20);
-	position: relative;
-	text: {
-		align: left;
-		transform: uppercase;
-	}
-
-	.chevron {
-		margin-top: rem-calc(5);
-		position: absolute;
-		right: rem-calc(10);
-	}
+	width: 100%;
 }
 
 .comments {
 	@extend %list-reset;
 
-	font-size: rem-calc(13);
+	font-size: .8125rem;
 
 	&__no-comments,
 	&__add-comment {
@@ -69,16 +50,6 @@
 }
 
 .article-comment {
-	@extend .row;
-
-	margin: 0;
-
-	> div {
-		@extend .columns;
-
-		padding: 0;
-	}
-
 	&::before,
 	&::after {
 		clear: both;
@@ -92,8 +63,8 @@
 		display: none;
 
 		margin: {
-			left: rem-calc(-10);
-			top: rem-calc(20);
+			left: -.625rem;
+			top: 1.25rem;
 		}
 
 		&.expanded {
@@ -101,13 +72,13 @@
 		}
 
 		.avatar img {
-			margin-left: rem-calc(-10);
+			margin-left: -.625rem;
 		}
 	}
 
 	.avatar {
 		float: left;
-		padding-left: rem-calc(15);
+		padding-left: .9375rem;
 		text-align: left;
 		width: 25%;
 
@@ -118,7 +89,7 @@
 
 	.content {
 		float: left;
-		padding-right: rem-calc(20);
+		padding-right: 1.25rem;
 		width: 75%;
 
 		.content {
@@ -136,6 +107,6 @@
 	}
 
 	figure {
-		margin: rem-calc(16) auto;
+		margin: 1rem auto;
 	}
 }

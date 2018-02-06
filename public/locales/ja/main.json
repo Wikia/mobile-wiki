@@ -3,13 +3,15 @@
     "advertisement-label": "広告", 
     "cancel-label": "キャンセル", 
     "curated-content-editor-edit-main-page": "メインページの編集", 
-    "curated-content-load-more-items": "もっと見る", 
-    "discussions-label": "ディスカッション", 
+    "curated-content-load-more-items": "さらに表示", 
+    "days-ago": "{days}d", 
+    "discussions-label": "戻る", 
     "header-in-wiki-name-label-prefix": " ", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "地図が見つかりません", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "メディアが見つかりません", 
-    "now-label": "現在", 
+    "minutes-ago": "{minutes}m", 
+    "now-label": "たった今", 
     "page-not-found-error": "申し訳ありません、お探しのページが見つかりません。", 
     "page-not-found-message": "ナビゲーションまたは検索を使用", 
     "pages-label": "ページ", 
@@ -19,8 +21,7 @@
     "videos-label": "動画", 
     "view-more": "もっと見る", 
     "wiki-page-error": "ページを読み込めませんでした。申し訳ございませんが、もう一度お試しください。", 
-    "wiki-page-error-reload-button": "更新", 
-    "wikia-map-view-map": "表示"
+    "wiki-page-error-reload-button": "更新"
   }, 
   "article": {
     "categories-list-label": "カテゴリ", 
@@ -35,8 +36,8 @@
     "redirect-empty-target": "転送先が存在しない転送リンクをクリックされました。", 
     "replies-label": "{count}件の返信を閲覧", 
     "replies-label_plural": "{count}件の返信を閲覧", 
-    "suggestions-label": "もっと読む", 
-    "toc-label": "目次", 
+    "suggestions-label": "続きを読む", 
+    "toc-label": "目次\n", 
     "top-contributors-label": "この記事のトップ投稿者"
   }, 
   "article-comments": {
@@ -63,19 +64,23 @@
     "publish-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。", 
     "publish-error-autoblockedtext": "このIPアドレスは、ブロックされたユーザーが使用したため、アクセスが自動遮断されています。", 
     "publish-error-blocked": "あなたは編集をブロックされています。", 
-    "publish-error-noedit": "このwikiでページを編集する権限がありません。", 
+    "publish-error-noedit": "このWikiでページを編集する権限がありません。", 
     "publish-error-noedit-anon": "未登録ユーザーはページを編集することができません。", 
-    "publish-error-protectedpage": "このwikiでページを編集する権限がありません。", 
+    "publish-error-protectedpage": "このWikiでページを編集する権限がありません。", 
     "success": "{pageTitle}の編集が完了しました。"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "作成：", 
+    "watch": "再生時間"
+  }, 
   "file-page": {
     "subtitle": "ファイルページ", 
     "usages-header": "関連があるページ", 
-    "usages-see-more-link-label": "すべて見る"
+    "usages-see-more-link-label": "全て見る"
   }, 
   "navigation": {
     "back-label": "戻る", 
@@ -88,17 +93,15 @@
     "trending-fandom-articles": "人気のFANDOM記事"
   }, 
   "smartbanner": {
-    "install-android": "インストール", 
-    "price": "無料", 
-    "store-android": "Google Play"
+    "install-android": "インストール"
   }, 
   "user-status": {
     "login-text": "ログイン", 
     "register-text": "登録"
   }, 
   "widget-discussions": {
-    "all-discussions-link-mobile": "すべてのディスカッション", 
-    "header-title": "ディスカッション", 
+    "all-discussions-link-mobile": "戻る", 
+    "header-title": "戻る", 
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "返信", 
     "post-actions-upvote-label": "イイね！"

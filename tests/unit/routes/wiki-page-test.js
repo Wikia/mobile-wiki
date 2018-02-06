@@ -42,7 +42,6 @@ test('set head tags for correct model', function (assert) {
 			canonical: 'http://muppet.wikia.com/wiki/Kermit',
 			description: 'Article about Kermit',
 			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
-			appleItunesApp: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit',
 			robots: 'index,follow',
 			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
 		};
@@ -64,12 +63,7 @@ test('set head tags for correct model', function (assert) {
 			siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
 			siteName: 'MediaWiki',
 			dbName: 'fallout',
-			specialRobotPolicy: 'index,follow',
-			smartBanner: {
-				appId: {
-					ios: '1234',
-				},
-			}
+			specialRobotPolicy: 'index,follow'
 		}
 	});
 
@@ -78,41 +72,9 @@ test('set head tags for correct model', function (assert) {
 
 	assert.equal(headData.canonical, expectedHeadTags.canonical);
 	assert.equal(headData.description, expectedHeadTags.description);
-	assert.equal(headData.appleItunesApp, expectedHeadTags.appleItunesApp);
 	assert.equal(headData.robots, expectedHeadTags.robots);
 	assert.equal(headData.htmlTitle, expectedHeadTags.htmlTitle);
 	assert.equal(headData.keywords, expectedHeadTags.keywords);
-});
-
-test('set head tags without apple-itunes-app when appId is not set', function (assert) {
-	const mock = this.subject(),
-		expectedAppleItunesApp = '';
-
-	let headData;
-
-	mock.setProperties({
-		removeServerTags() {
-		},
-		setStaticHeadTags() {
-		},
-		headData: EmberObject.create(),
-		wikiVariables: {
-			basePath: 'http://muppet.wikia.com',
-			htmlTitle: {
-				parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
-				separator: ' | '
-			},
-			siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
-			siteName: 'MediaWiki',
-			dbName: 'fallout',
-			specialRobotPolicy: 'index,follow',
-		}
-	});
-
-	mock.setDynamicHeadTags(model);
-	headData = mock.get('headData');
-
-	assert.equal(headData.appleItunesApp, expectedAppleItunesApp);
 });
 
 test('get correct handler based on model namespace', function (assert) {

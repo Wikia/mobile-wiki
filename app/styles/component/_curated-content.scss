@@ -1,7 +1,7 @@
-$curated-content-image-spacing: 8px;
-$curated-content-grid-icon-size: 22px;
-
 .curated-content {
+	$curated-content-image-spacing: 8px;
+	$curated-content-grid-icon-size: 22px;
+
 	margin: 0 0 2rem;
 	padding: 0 $article-horizontal-padding / 3;
 
@@ -24,6 +24,10 @@ $curated-content-grid-icon-size: 22px;
 		margin-bottom: $curated-content-image-spacing;
 		vertical-align: top;
 		width: calc(50% - #{$curated-content-image-spacing / 2});
+
+		@media #{$wds-breakpoint-xl-up} {
+			width: calc(33.33% - #{$curated-content-image-spacing / 2});
+		}
 	}
 
 	.item-figure {
@@ -118,11 +122,5 @@ $curated-content-grid-icon-size: 22px;
 		display: block;
 		margin: 0 auto;
 		width: 80%;
-	}
-}
-
-@media #{$desktop-range} {
-	.curated-content .curated-content-item {
-		width: calc(33.33% - #{$curated-content-image-spacing / 2});
 	}
 }

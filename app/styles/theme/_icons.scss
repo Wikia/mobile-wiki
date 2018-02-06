@@ -4,22 +4,22 @@
 	width: 20px;
 
 	&.chevron {
-		height: rem-calc(7);
-		width: rem-calc(12);
+		height: .4375rem;
+		width: .75rem;
 	}
 
 	&.nav {
-		height: rem-calc(20);
-		width: rem-calc(34);
+		height: 1.25rem;
+		width: 2.125rem;
 	}
 
 	&.search {
-		height: rem-calc(14);
-		width: rem-calc(14);
+		height: .875rem;
+		width: .875rem;
 	}
 
 	&.close {
-		height: rem-calc(14);
-		width: rem-calc(14);
+		height: .875rem;
+		width: .875rem;
 	}
 }

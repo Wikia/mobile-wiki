@@ -31,7 +31,6 @@
 	.wds-spinner {
 		display: none;
 		left: auto;
-		margin: 0;
 		position: static;
 		top: auto;
 	}
@@ -52,8 +51,4 @@
 	padding-bottom: 1.125rem;
 	position: relative;
 	text-align: center;
-
-	&__button {
-		margin: 0;
-	}
 }

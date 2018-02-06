@@ -1,8 +1,8 @@
 {
   "main": {
-    "load-more-results": "もっと見る", 
+    "load-more-results": "さらに表示", 
     "search-error-general": "接続できません。もう一度お試しください。", 
-    "search-error-general-action": "クリックして再試行", 
+    "search-error-general-action": "クリックして再試行する", 
     "search-error-not-found": "{query}の検索結果を見つけることができませんでした", 
     "search-error-not-found-action": "別の検索を試してください", 
     "search-input-label": "検索", 

@@ -6,7 +6,6 @@ const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
-const minifyHTML = require('express-minify-html');
 
 function levelFn(status) {
 	if (status >= 500) {
@@ -39,28 +38,6 @@ module.exports = {
 
 		app.use('/mobile-wiki', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
-		app.use('/wiki/*', minifyHTML({
-			override: true,
-			htmlMinifier: {
-				collapseWhitespace: true,
-				collapseBooleanAttributes: true,
-				decodeEntities: true,
-				minifyJS: true,
-				quoteCharacter: '"',
-				removeComments: true,
-				removeAttributeQuotes: true,
-				removeEmptyAttributes: true,
-				removeOptionalTags: true,
-				removeRedundantAttributes: true,
-				removeScriptTypeAttributes: true,
-				removeStyleLinkTypeAttributes: true,
-				sortAttributes: true,
-				sortClassName: true
-			},
-			exception_url: [
-				/\?nominify/i,
-			]
-		}));
 	},
 
 	after(app) {
@@ -69,9 +46,13 @@ module.exports = {
 				// Handle errors that don't go to FastBoot, like Bad Request etc.
 				const statusCode = Math.max(res.statusCode, err.statusCode || 500);
 				const level = levelFn(statusCode);
-				const logFn = req.log[level].bind(req.log);
 
-				logFn(err);
+				if (req.log) {
+					const logFn = req.log[level].bind(req.log);
+					logFn(err);
+				} else {
+					console.error(err);
+				}
 
 				res.sendStatus(statusCode);
 			}

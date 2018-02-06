@@ -1,37 +1,47 @@
 import {inject as service} from '@ember/service';
-import {readOnly, reads} from '@ember/object/computed';
+import {readOnly, reads, oneWay, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
+import {throttle} from '@ember/runloop';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
+import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
-import {inGroup} from '../modules/abtest';
-import {track, trackActions} from '../utils/track';
+import duration from '../utils/duration';
+import JWPlayerMixin from '../mixins/jwplayer';
 
-// FIXME: After FeaturedVideo AB test is finished, consider removing inclusion of this mixin
-import RenderComponentMixin from '../mixins/render-component';
-
-const scrollClassName = 'is-on-scroll-video';
-
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend(JWPlayerMixin, {
 	ads: service(),
+	logger: service(),
 	wikiVariables: service(),
-	smartBanner: service(),
 
 	classNames: ['article-featured-video'],
+	classNameBindings: ['isOnScrollActive'],
 
-	autoplayCookieName: 'featuredVideoAutoplay',
+	attributionAvatarUrl: transparentImageBase64,
+	isOnScrollActive: false,
+	isOnScrollClosed: false,
+	bodyOnScrollActiveClass: 'featured-video-on-scroll-active',
+	onScrollVideoWrapper: null,
 
-	captionsCookieName: 'featuredVideoCaptions',
-	playerCookieExpireDays: 14,
-
-	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
-	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
-
+	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
+	currentVideoDetails: oneWay('initialVideoDetails'),
 	metadata: reads('model.metadata'),
-	placeholderImage: readOnly('model.embed.jsParams.playlist.0.image'),
+	placeholderImage: readOnly('initialVideoDetails.image'),
+	hasAttribution: and('currentVideoDetails.{username,userUrl,userAvatarUrl}'),
+
+	// initial video duration is in seconds, related video duration is a formatted string `MM:SS`
+	videoDuration: computed('currentVideoDetails', function () {
+		const currentVideoDuration = this.get('currentVideoDetails.duration');
+
+		if (this.get('currentVideoDetails') === this.get('initialVideoDetails')) {
+			return duration(currentVideoDuration);
+		}
+
+		return currentVideoDuration;
+	}),
 
 	placeholderStyle: computed('placeholderImage', function () {
 		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
@@ -46,20 +56,24 @@ export default Component.extend(RenderComponentMixin, {
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.onScrollHandler = this.onScrollHandler.bind(this);
-
 		this.destroyVideoPlayer();
 		this.initVideoPlayer();
 
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
-			this.setPlaceholderDimensions();
-			$(window).on('scroll', this.onScrollHandler);
-			this.$().addClass('on-scroll-variant');
+		if (this.get('hasAttribution')) {
+			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
 		}
 
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-			this.$().addClass('page-placement-variant');
-		}
+		this.set('onScrollVideoWrapper', this.element.querySelector('.article-featured-video__on-scroll-video-wrapper'));
+
+		this.setPlaceholderDimensions();
+		this.throttleOnScroll = this.throttleOnScroll.bind(this);
+		window.addEventListener('scroll', this.throttleOnScroll);
+		window.addEventListener('orientationchange', () => {
+			if (this.isInLandscapeMode()) {
+				this.onScrollStateChange('inactive');
+			}
+		});
+		document.body.classList.add(this.get('bodyOnScrollActiveClass'));
 	},
 
 	didUpdateAttrs() {
@@ -68,20 +82,21 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	willDestroyElement() {
-		$(window).off('scroll', this.onScrollHandler);
+		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
+		window.removeEventListener('scroll', this.throttleOnScroll);
 	},
 
 	actions: {
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
 		dismissPlayer() {
-			this.$().removeClass(scrollClassName).addClass('is-dismissed');
+			this.set('isOnScrollClosed', true);
+			this.onScrollStateChange('closed');
 
-			this.player.setMute(true);
-			this.track(trackActions.click, 'onscroll-close');
+			if (this.player) {
+				this.player.setMute(true);
+			}
+			document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
 
-			$(window).off('scroll', this.onScrollHandler);
+			window.removeEventListener('scroll', this.throttleOnScroll);
 		}
 	},
 
@@ -90,8 +105,6 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	onCreate(player) {
-		let playerWasOnceInViewport = false;
-
 		this.player = player;
 
 		this.player.on('autoplayToggle', ({enabled}) => {
@@ -102,30 +115,32 @@ export default Component.extend(RenderComponentMixin, {
 			this.setCookie(this.get('captionsCookieName'), selectedLang);
 		});
 
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-			this.player.on('viewable', (value) => {
-				// we want to prevent firing this event every time player is visible during scrolling
-				if (value && !playerWasOnceInViewport) {
-					playerWasOnceInViewport = true;
+		this.player.on('relatedVideoPlay', ({item}) => {
+			this.set('currentVideoDetails', item);
+		});
 
-					this.player.play();
-				}
-			});
-		}
+		// this is a hack to fix pause/play issue while scrolling down and on scroll is active on iOS 10.3.2
+		this.player.on('pause', ({pauseReason, viewable}) => {
+			if (pauseReason === 'autostart' && viewable === 0 && this.get('isOnScrollActive')) {
+				this.player.play();
+			}
+		});
 
-		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
-		if (inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'ON_SCROLL')) {
-			this.player.on('play', ({playReason}) => {
-				if (playReason === 'interaction' && this.$().hasClass(scrollClassName)) {
-					this.track(trackActions.click, 'onscroll-click');
-				}
-			});
+		this.player.on('adPause', ({viewable}) => {
+			if (viewable === 0 && this.get('isOnScrollActive')) {
+				this.player.play();
+			}
+		});
+
+		// to make sure custom dimension is set and tracking event is sent
+		let onScrollState = this.get('isOnScrollActive') ? 'active' : 'inactive';
+		if (this.get('isOnScrollClosed')) {
+			onScrollState = 'closed';
 		}
+		this.onScrollStateChange(onScrollState);
+
+		this.resizeVideo = this.resizeVideo.bind(this);
+		this.get('onScrollVideoWrapper').addEventListener('transitionend', this.resizeVideo);
 	},
 
 	/**
@@ -156,7 +171,13 @@ export default Component.extend(RenderComponentMixin, {
 	 */
 	destroyVideoPlayer() {
 		if (this.player) {
-			this.player.remove();
+			// FIXME this is temporary solution to fix nested glimmer transaction exception which causes application break
+			// more info in XW-4600
+			try {
+				this.player.remove();
+			} catch (e) {
+				this.get('logger').warn(e);
+			}
 		}
 	},
 
@@ -168,50 +189,49 @@ export default Component.extend(RenderComponentMixin, {
 		});
 	},
 
-	/**
-	 * FIXME FEATURED VIDEO A/B TEST ONLY
-	 */
-	onScrollHandler() {
-		const currentScrollPosition = window.pageYOffset,
-			requiredScrollDelimiter = this.getRequiredScrollDelimiter(),
-			hasScrollClass = this.$().hasClass(scrollClassName);
+	resizeVideo() {
+		this.player.resize();
+	},
 
-		if (currentScrollPosition >= requiredScrollDelimiter && !hasScrollClass) {
-			this.$().addClass(scrollClassName);
-			this.track(trackActions.impression, 'onscroll');
-		} else if (currentScrollPosition < requiredScrollDelimiter && hasScrollClass) {
-			this.$().removeClass(scrollClassName);
+	throttleOnScroll() {
+		throttle(this, this.onScrollHandler, null, 50, false);
+	},
+
+	onScrollHandler() {
+		if (!this.element) {
+			return;
+		}
+
+		const currentScrollPosition = window.pageYOffset,
+			requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY,
+			isOnScrollActive = this.get('isOnScrollActive'),
+			isInLandscapeMode = this.isInLandscapeMode();
+
+		if (!isInLandscapeMode) {
+			if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
+				this.onScrollStateChange('active');
+			} else if (currentScrollPosition < requiredScrollDelimiter && isOnScrollActive) {
+				this.onScrollStateChange('inactive');
+			}
 		}
 	},
 
-	/**
-	 * Gets number indicating when video should start floating
-	 *
-	 * @return {number}
-	 */
-	getRequiredScrollDelimiter() {
-		const compensation = this.get('isFandomAppSmartBannerVisible') ? 85 : 0;
-
-		return this.$().offset().top - compensation;
-	},
-
 	setPlaceholderDimensions() {
-		const placeHolder = this.$('.article-featured-video__on-scroll-placeholder')[0];
+		const placeHolder = this.element.querySelector('.article-featured-video__on-scroll-placeholder'),
+			videoContainer = this.element.children[0];
 
-		placeHolder.style.height = `${this.element.offsetHeight}px`;
-		placeHolder.style.width = `${this.element.offsetWidth}px`;
+		placeHolder.style.height = `${videoContainer.offsetHeight}px`;
+		placeHolder.style.width = `${videoContainer.offsetWidth}px`;
 	},
 
-	/**
-	 * @param {String} action
-	 * @param {String} label
-	 * @returns {void}
-	 */
-	track(action, label) {
-		track({
-			action,
-			label,
-			category: 'featured-video'
-		});
+	onScrollStateChange(state) {
+		this.set('isOnScrollActive', state === 'active');
+		if (this.player) {
+			this.player.trigger('onScrollStateChanged', {state});
+		}
 	},
+
+	isInLandscapeMode() {
+		return Math.abs(window.orientation) === 90;
+	}
 });

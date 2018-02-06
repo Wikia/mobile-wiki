@@ -1,43 +1,73 @@
-// Use Wikia style guide settings
-@import 'node_modules/wikia-style-guide/src/scss/lib/settings';
+$white: #fff;
+$ghost: #fafafa;
+$snow: #f9f9f9;
+$vapor: #f6f6f6;
+$white-smoke: #f5f5f5;
+$silver: #efefef;
+$smoke: #eee;
+$gainsboro: #ddd;
+$iron: #ccc;
+$base: #aaa;
+$aluminum: #999;
+$jumbo: #888;
+$monsoon: #777;
+$steel: #666;
+$charcoal: #555;
+$tuatara: #444;
+$oil: #333;
+$jet: #222;
+$black: #000;
 
-$appreciate-activated-color: $color-blue-light;
-$auth-content-background-color: $color-white;
-$body-background: $color-blue-dark;
-$button-color: $color-blue-light;
-// TODO CE-3548 move these button colors to styleguide
-// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/_settings.scss
-$button-enabled-color: $button-bg-color;
-$button-tapped-color: mix($button-enabled-color, $color-black, 80%);
-$button-disabled-color: mix($button-enabled-color, $color-white, 70%);
-$disabled-button-text-color: #b4d6f2;
-$footer-text-color: $color-white;
-$header-text-color: $color-white;
-$input-color-active: $color-blue-gray;
-$input-border-error-color: $alert-color;
-$label-color-active: $color-blue-gray-dark;
-$label-color-inactive: $color-blue-gray;
-$label-color-valid: $color-blue-gray-dark;
-$link-color: $color-blue-light;
-$upvote-icon-stroke-color: $color-white;
-$upvote-icon-back-color: $color-white;
-$upvote-icon-activated-color: #e3bd00;
+// Default user experience colors
+$color-blue-dark: #092344;
+$color-blue-light: #1a5eb8;
+$color-gray-dark: #39424d;
+$color-blue-gray-dark: #656e78;
+$color-blue-gray: #c5ced9;
+$color-blue-gray-light: #e6ebf2;
+$color-gray-light: #f2f6fa;
+$color-white: #fff;
+$color-black: #000;
 
-$fancy-check-box-border: #999;
-$fancy-check-box-disabled-border: #ccc;
-$fancy-check-box-background: #fff;
-$highlight-overlay-background-color: #f6f6f6;
+// We use these as default colors throughout
+$primary-color: $color-blue-dark;
+$secondary-color: #e7e7e7;
 
-$large-desktop-range: $xxlarge-up;
+$anchor-font-color: $color-blue-light;
 
-$large-desktop-post-details-font-size: rem-calc(28);
+$body-font-color: $color-gray-dark;
 
-$discussion-timestamp-color: #999;
-$collapsible-menu-border-color: #d0d0d0;
-$collapsible-menu-title-color: $body-font-color;
-$collapsible-menu-list-link-color: $color-black;
+// Type Scale inspired by Medium's CSS
+// @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
+$type-base: 1rem;
+$type-max: 3.375rem;
+$type-largest: 2.5rem;
+$type-larger: 2.25rem;
+$type-large: 1.6875rem;
+$type-small: 1.5rem;
+$type-smaller: 1.125rem;
+$type-smallest: .875rem;
+$type-min: .75rem;
 
-$dark-highlight-overlay-background-color: #262626;
+$line-height-base: 1.625rem;
+$line-height-max: 3.375rem;
+$line-height-largest: 2.5rem;
+$line-height-larger: 2.25rem;
+$line-height-large: 2rem;
+$line-height-small: 1.75rem;
+$line-height-smaller: 1.75rem;
+$line-height-smallest: 1.25rem;
+$line-height-min: 1.125rem;
 
-$wikia-ui-components-sub-head-height: 48px;
-$wikia-ui-components-sub-head-height-large: 66px;
+// We use these to define default font weights
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 700 !default;
+
+$nav-padding-vertical: 18px;
+$nav-padding-horizontal: 9px;
+$nav-background-color: #636b76;
+
+// we are using the same page mix as on desktop infoboxes
+// 5% button color, 5% black and 90% white
+$infobox-background: mix(mix($color-blue-light, $black, 50%), $white, 10%);

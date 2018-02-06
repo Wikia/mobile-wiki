@@ -19,12 +19,6 @@ module.exports = function (environment) {
 				baseAPIPath: 'event-logger'
 			}
 		},
-		weppy: {
-			enabled: false,
-			host: 'https://speed.nocookie.net/__rum',
-			samplingRate: 0.1,
-			aggregationInterval: 1000
-		},
 		verticalColors: {
 			comics: '#ff5400',
 			games: '#94d11f',
@@ -131,10 +125,6 @@ module.exports = function (environment) {
 		ENV.APP.LOG_VIEW_LOOKUPS = false;
 
 		ENV.APP.rootElement = '#ember-testing';
-	}
-
-	if (environment === 'production') {
-		ENV.weppy.enabled = true;
 	}
 
 	if (process.env.IMAGE_VERSION) {
