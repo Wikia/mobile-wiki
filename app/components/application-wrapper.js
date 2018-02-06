@@ -130,7 +130,6 @@ export default Component.extend({
 	 * @returns {boolean}
 	 */
 	targetIsReference(target) {
-		console.log(target);
 		return Boolean(
 			target.closest('.references') ||
 			target.parentNode.matches('.reference')

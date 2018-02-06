@@ -12,19 +12,29 @@ moduleForComponent('application-wrapper', 'Unit | Component | application wrappe
 	]
 });
 
+function createElement(tag, className) {
+	const element = document.createElement(tag),
+		parent = document.createElement('div');
+
+	element.className = className;
+	parent.appendChild(element);
+
+	return element;
+}
+
 test('shouldHandleClick returns correct value', function (assert) {
 	const testCases = [
 		{
-			target: '<li class="mw-content"></li>',
+			target: createElement('li', 'mw-content'),
 			expected: true
 		},
 		{
-			target: '<li></li>',
-			expected: false
+			target: createElement('li'),
+			expected: null
 		},
 		{
-			target: '<div class="PDS_Poll"></div>',
-			expected: false
+			target: createElement('div', 'PDS_Poll'),
+			expected: null
 		}
 	];
 
