@@ -368,7 +368,8 @@ export default Component.extend(
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 			if (infoboxes.length) {
-				Array.prototype.filter.call(infoboxes, (element) => element.rows.length > 6)
+				toArray(infoboxes)
+					.filter((element) => element.rows.length > 6)
 					.forEach((element) => {
 						element.classList.add(shortClass);
 						element.insertAdjacentHTML('beforeend',
@@ -392,8 +393,8 @@ export default Component.extend(
 		handleTables() {
 			const tables = this.element.querySelectorAll('table');
 
-			Array.prototype.filter.call(tables,
-				(table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+			toArray(tables)
+				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
 				.forEach((element) => {
 					const originalHTML = element.innerHTML;
 
