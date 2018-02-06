@@ -42,7 +42,7 @@ export default function getAttributesForMedia({name, attrs, element}) {
 
 	if (attrs.ref >= 0 && mediaArray && mediaArray[attrs.ref]) {
 		if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-			attrs = $.extend(attrs, mediaArray[attrs.ref], {
+			attrs = Object.assign(attrs, mediaArray[attrs.ref], {
 				openLightbox: (mediaRef) => {
 					this.openLightbox('media', {
 						media: mediaModel,
@@ -52,7 +52,7 @@ export default function getAttributesForMedia({name, attrs, element}) {
 				}
 			});
 		} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
-			attrs = $.extend(attrs, {
+			attrs = Object.assign(attrs, {
 				items: mediaArray[attrs.ref],
 				openLightbox: (mediaRef, galleryRef) => {
 					this.openLightbox('media', {
@@ -68,7 +68,7 @@ export default function getAttributesForMedia({name, attrs, element}) {
 			attrs = fixPortableInfoboxAttrs(attrs);
 		}
 	} else if (name === 'portable-infobox-image-collection' && attrs.refs && mediaArray) {
-		const getMediaItemsForCollection = (ref) => $.extend({
+		const getMediaItemsForCollection = (ref) => Object.assign({
 				// We will push new item to media so use its length as index of new gallery element
 				ref: mediaArray.length
 			}, mediaArray[ref]),
@@ -78,7 +78,7 @@ export default function getAttributesForMedia({name, attrs, element}) {
 		// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
 		mediaArray.push(collectionItems);
 
-		attrs = $.extend(attrs, {
+		attrs = Object.assign(attrs, {
 			items: collectionItems,
 			openLightbox: (mediaRef, galleryRef) => {
 				this.openLightbox('media', {
