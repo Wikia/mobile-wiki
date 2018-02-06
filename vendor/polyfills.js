@@ -1,13 +1,12 @@
 if (window && window.Element) {
 	if (!Element.prototype.matches) {
-		Element.prototype.matches = Element.prototype.msMatchesSelector ||
-			Element.prototype.webkitMatchesSelector;
+		Element.prototype.matches = Element.prototype.msMatchesSelector;
 	}
 
 
 	if (!Element.prototype.closest) {
 		Element.prototype.closest = function (selector) {
-			let element = this;
+			var element = this;
 
 			if (!document.documentElement.contains(element)) {
 				return null;
@@ -23,6 +22,3 @@ if (window && window.Element) {
 		};
 	}
 }
-
-
-export default {};

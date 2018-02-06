@@ -107,7 +107,7 @@ export default Component.extend({
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
 	 *
-	 * @param {EventTarget} target
+	 * @param {Element} target
 	 * @returns {boolean}
 	 */
 	shouldHandleClick(target) {
@@ -126,10 +126,11 @@ export default Component.extend({
 	 * Determine if the clicked target is an reference/in references list (in text or at the bottom
 	 * of article)
 	 *
-	 * @param {EventTarget} target
+	 * @param {Element} target
 	 * @returns {boolean}
 	 */
 	targetIsReference(target) {
+		console.log(target);
 		return Boolean(
 			target.closest('.references') ||
 			target.parentNode.matches('.reference')
