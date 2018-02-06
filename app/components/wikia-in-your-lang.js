@@ -57,13 +57,14 @@ export default Component.extend(
 				unsafe: true,
 				callbacks: {
 					onInsertElement: (alert) => {
-						// TODO change it to native JS
-						alert.on('click', 'a:not(.close)', () => {
-							track({
-								action: trackActions.click,
-								category: 'wikiaInYourLangAlert',
-								label: 'link'
-							});
+						alert.addEventListener('click', ({target}) => {
+							if (target.matches('a:not(.close)')) {
+								track({
+									action: trackActions.click,
+									category: 'wikiaInYourLangAlert',
+									label: 'link'
+								});
+							}
 						});
 					},
 					onCloseAlert: () => {
