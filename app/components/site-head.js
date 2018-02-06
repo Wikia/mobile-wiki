@@ -11,7 +11,6 @@ import {standalone} from '../utils/browser';
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
-		ads: service(),
 		notifications: service(),
 		smartBanner: service(),
 
@@ -20,6 +19,7 @@ export default Component.extend(
 		tagName: 'div',
 		themeBar: false,
 		closeIcon: 'close',
+		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
 
@@ -27,7 +27,6 @@ export default Component.extend(
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-		offset: readOnly('ads.siteHeadOffset'),
 
 		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 

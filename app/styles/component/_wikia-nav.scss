@@ -1,17 +1,13 @@
-$nav-avatar-border: 2px;
-$nav-avatar-border-radius: 50%;
-$nav-avatar-margin: 10px;
-$nav-avatar-size: 30px;
-$nav-back-arrow-padding: 68px;
-$nav-background-color: #636b76;
-$nav-font-size: 16px;
-$nav-line-height: 30px;
-$nav-local-background-color: #4f5863;
-$nav-logout-color: #d7d9dc;
-$nav-padding-horizontal: 9px;
-$nav-padding-vertical: 18px;
-
 .wikia-nav {
+	$nav-logout-color: #d7d9dc;
+	$nav-local-background-color: #4f5863;
+	$nav-back-arrow-padding: 68px;
+	$nav-avatar-size: 30px;
+	$nav-avatar-margin: 10px;
+	$nav-avatar-border-radius: 50%;
+	$nav-avatar-border: 2px;
+	$nav-line-height: 30px;
+
 	background-color: $color-gray-dark;
 	flex-grow: 1;
 	overflow: auto;
@@ -19,10 +15,65 @@ $nav-padding-vertical: 18px;
 	// not be supported on all browsers or behaviour may change.
 	// see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
 	-webkit-overflow-scrolling: touch;
-}
 
-// Overrides for unread mark from On Site Notifications
-.wikia-nav {
+	&__header {
+		@include link-interactions-color(inherit);
+
+		background-color: $nav-background-color;
+		color: inherit;
+		display: block;
+		flex-grow: 0;
+		flex-shrink: 0;
+		font-size: $type-base;
+		line-height: $nav-line-height;
+		margin-top: 0;
+		overflow: hidden;
+		padding: $nav-padding-horizontal $nav-padding-vertical;
+		position: relative;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&.wikia-nav__back {
+			background-image: $side-nav-back-svg;
+			background-position: left $nav-padding-vertical center;
+			background-repeat: no-repeat;
+			padding-left: $nav-back-arrow-padding;
+		}
+
+		.wikia-nav__avatar {
+			float: left;
+			margin-right: $nav-avatar-margin;
+
+			img {
+				border: $nav-avatar-border solid $white;
+				border-radius: $nav-avatar-border-radius;
+				height: $nav-avatar-size;
+				vertical-align: top;
+				width: $nav-avatar-size;
+			}
+		}
+
+		.wikia-nav--login {
+			background: #fff;
+			border: $nav-avatar-border solid #fff;
+			border-radius: $nav-avatar-border-radius;
+			height: $nav-avatar-size;
+			vertical-align: top;
+			width: $nav-avatar-size;
+		}
+
+		.wikia-nav--logout {
+			color: $nav-logout-color;
+			float: right;
+		}
+	}
+
+	&--in-root {
+		background-color: $nav-local-background-color;
+		flex-grow: 1;
+		height: inherit;
+	}
+
 	.user-profile-avatar {
 		position: relative;
 	}
@@ -32,62 +83,4 @@ $nav-padding-vertical: 18px;
 		right: -9px;
 		top: -3px;
 	}
-}
-
-.wikia-nav__header {
-	@include link-interactions-color(inherit);
-
-	background-color: $nav-background-color;
-	color: inherit;
-	display: block;
-	flex-grow: 0;
-	flex-shrink: 0;
-	font-size: $nav-font-size;
-	line-height: $nav-line-height;
-	margin-top: 0;
-	overflow: hidden;
-	padding: $nav-padding-horizontal $nav-padding-vertical;
-	position: relative;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-
-	&.wikia-nav__back {
-		background-image: $side-nav-back-svg;
-		background-position: left $nav-padding-vertical center;
-		background-repeat: no-repeat;
-		padding-left: $nav-back-arrow-padding;
-	}
-
-	.wikia-nav__avatar {
-		float: left;
-		margin-right: $nav-avatar-margin;
-
-		img {
-			border: $nav-avatar-border solid $white;
-			border-radius: $nav-avatar-border-radius;
-			height: $nav-avatar-size;
-			vertical-align: top;
-			width: $nav-avatar-size;
-		}
-	}
-
-	.wikia-nav--login {
-		background: #fff;
-		border: $nav-avatar-border solid #fff;
-		border-radius: $nav-avatar-border-radius;
-		height: $nav-avatar-size;
-		vertical-align: top;
-		width: $nav-avatar-size;
-	}
-
-	.wikia-nav--logout {
-		color: $nav-logout-color;
-		float: right;
-	}
-}
-
-.wikia-nav--in-root {
-	background-color: $nav-local-background-color;
-	flex-grow: 1;
-	height: inherit;
 }

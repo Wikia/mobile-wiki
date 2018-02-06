@@ -4,9 +4,9 @@
     "search-error-general": "Impossibile connettersi. Riprovare", 
     "search-error-general-action": "Fare clic per riprovare", 
     "search-error-not-found": "Non siamo riusciti a trovare nulla per {query}", 
-    "search-error-not-found-action": "Prova un'altra ricerca", 
+    "search-error-not-found-action": "Prova con un'altra ricerca", 
     "search-input-label": "Cerca", 
     "search-loading-msg": "Caricamento dei risultati di ricerca in corso...", 
-    "total-results": "Informazioni su {totalItems} risultati per {query}"
+    "total-results": "Circa {totalItems} risultati per {query}"
   }
 }

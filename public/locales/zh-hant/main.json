@@ -2,11 +2,11 @@
   "app": {
     "advertisement-label": "廣告", 
     "cancel-label": "取消", 
-    "curated-content-editor-edit-main-page": "編輯首頁面", 
+    "curated-content-editor-edit-main-page": "編輯首頁", 
     "curated-content-load-more-items": "加載更多", 
     "days-ago": "{days}日前", 
     "discussions-label": "討論版", 
-    "header-in-wiki-name-label-prefix": "來自:", 
+    "header-in-wiki-name-label-prefix": "來自：", 
     "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours}小時前", 
     "media-lightbox-error": "無法找到媒體內容", 
@@ -15,19 +15,19 @@
     "page-not-found-error": "對不起，我們找不到您要查找的頁面。", 
     "page-not-found-message": "使用導航或搜索", 
     "pages-label": "頁面", 
-    "photos-label": "增加圖片數", 
+    "photos-label": "圖片", 
     "trending-articles-label": "熱門文章", 
     "username-anonymous": "FANDOM用戶", 
     "videos-label": "影片", 
     "view-more": "查看更多", 
-    "wiki-page-error": "對不起，我們不能載入頁面。請再試一次。", 
+    "wiki-page-error": "對不起，我們無法載入頁面。請再試一次。", 
     "wiki-page-error-reload-button": "刷新"
   }, 
   "article": {
     "categories-list-label": "分類", 
     "comments-label": "{count} 次評論", 
     "comments-label_plural": "{count} 次評論", 
-    "empty-label": "對不起，這篇文章似乎是空的 ！", 
+    "empty-label": "對不起，這篇文章似乎沒有內容 ！", 
     "error": "對不起，我們無法載入這篇文章。請再試一次。", 
     "last-edit": "上次編輯在一周前", 
     "last-edit_plural_0": "這星期編輯過", 
@@ -37,7 +37,7 @@
     "replies-label": "查看 {count} 個回覆", 
     "replies-label_plural": "查看 {count} 個回覆", 
     "suggestions-label": "閱讀更多", 
-    "toc-label": "內容列表", 
+    "toc-label": "目錄", 
     "top-contributors-label": "這篇文章的傑出貢獻者"
   }, 
   "article-comments": {
@@ -52,7 +52,7 @@
   }, 
   "category-page": {
     "load-error": "發生錯誤。抱歉，請再試一次。", 
-    "load-more": "加載更多", 
+    "load-more": "載入更多", 
     "load-previous": "載入前一個", 
     "no-members": "這一分類中目前沒有任何頁面。", 
     "subtitle": "分類頁面"
@@ -67,11 +67,15 @@
     "publish-error-noedit": "您在這個Wiki沒有編輯此頁面的權限。", 
     "publish-error-noedit-anon": "匿名用戶無法編輯頁面。", 
     "publish-error-protectedpage": "你沒有編輯此頁面的權限。", 
-    "success": "已編輯成功的頁面 {pageTitle}！"
+    "success": "已成功編輯頁面 {pageTitle}！"
   }, 
   "fandom-app-banner": {
     "app-store": "App商店", 
     "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "來源：", 
+    "watch": "觀看"
   }, 
   "file-page": {
     "subtitle": "檔案頁面", 
@@ -98,12 +102,8 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "所有討論", 
     "header-title": "討論版", 
-    "in-category-label": "{categoryName}", 
+    "in-category-label": "分類：{categoryName}", 
     "post-actions-reply-label": "回覆", 
     "post-actions-upvote-label": "讚"
-  },
-  "featured-video": {
-    "from": "來源：",
-    "watch": "觀看"
   }
 }

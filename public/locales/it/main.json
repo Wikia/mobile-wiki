@@ -20,7 +20,7 @@
     "username-anonymous": "Un utente FANDOM", 
     "videos-label": "Video", 
     "view-more": "Mostra di più", 
-    "wiki-page-error": "Spiacente, non è stato possibile caricare la pagina. Si prega di riprovare.", 
+    "wiki-page-error": "Siamo spiacenti, non è stato possibile caricare la pagina. Si prega di riprovare.", 
     "wiki-page-error-reload-button": "Aggiorna"
   }, 
   "article": {
@@ -29,16 +29,16 @@
     "comments-label_plural": "{count} commenti", 
     "empty-label": "Siamo spiacenti, questo articolo sembra essere vuoto!", 
     "error": "Non è possibile caricare l'articolo al momento. Riprova.", 
-    "last-edit": "Ultima modifica 1 settimana fa", 
+    "last-edit": "Ultima modifica una settimana fa", 
     "last-edit_plural_0": "Ultima modifica questa settimana", 
     "last-edit_plural_2": "Ultima modifica {count} settimane fa", 
     "portable-infobox-image": "Immagine", 
-    "redirect-empty-target": "Il link su cui hai cliccato ti reindirizza qui, ma questa pagina non esiste.", 
+    "redirect-empty-target": "Il link che hai seguito è un redirect, ma la pagina a cui reindirizza non esiste.", 
     "replies-label": "Leggi {count} risposta", 
     "replies-label_plural": "Leggi {count} risposte", 
     "suggestions-label": "Per saperne di più", 
     "toc-label": "Indice dei contenuti", 
-    "top-contributors-label": "Maggiori contributori di questo articolo"
+    "top-contributors-label": "Maggiori contributori a questo articolo"
   }, 
   "article-comments": {
     "add-comment": "Aggiungi un commento", 
@@ -59,19 +59,23 @@
   }, 
   "edit": {
     "load-error": "Purtroppo qualcosa è andato storto. Riprova.", 
-    "page-heading": "Modifica:", 
+    "page-heading": "Modificando:", 
     "page-publish": "Pubblica", 
     "publish-error": "Purtroppo qualcosa è andato storto. Riprova.", 
-    "publish-error-autoblockedtext": "Tuo indirizzo IP è stato bloccato automaticamente perché è stato utilizzato da un utente bloccato.", 
-    "publish-error-blocked": "Non ti è più permesso fare modifiche.", 
+    "publish-error-autoblockedtext": "Il tuo indirizzo IP è stato bloccato automaticamente perché è stato utilizzato da un utente bloccato.", 
+    "publish-error-blocked": "Sei stato bloccato dal fare modifiche.", 
     "publish-error-noedit": "Non hai i permessi per modificare le pagine di questa wiki.", 
     "publish-error-noedit-anon": "Gli utenti anonimi non possono modificare le pagine.", 
-    "publish-error-protectedpage": "Non hai il permesso di modificare questa pagina.", 
+    "publish-error-protectedpage": "Non hai i permessi per modificare questa pagina.", 
     "success": "Pagina modificata con successo {pageTitle}!"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "da", 
+    "watch": "guarda"
   }, 
   "file-page": {
     "subtitle": "Pagina di file", 
@@ -82,7 +86,7 @@
     "back-label": "Indietro", 
     "explore-wiki": "Esplora {wikiName}", 
     "random-page-label": "Pagina casuale", 
-    "user-menu-log-out": "Uscita (logout)", 
+    "user-menu-log-out": "Esci", 
     "user-menu-profile": "Profilo"
   }, 
   "recirculation": {
@@ -98,12 +102,8 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Tutte le discussioni", 
     "header-title": "Discussioni", 
-    "in-category-label": "{categoryName}", 
+    "in-category-label": "in {categoryName}", 
     "post-actions-reply-label": "Rispondi", 
     "post-actions-upvote-label": "Vota"
-  },
-  "featured-video": {
-    "from": "da",
-    "watch": "guarda"
   }
 }
