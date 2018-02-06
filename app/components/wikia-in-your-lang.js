@@ -58,7 +58,7 @@ export default Component.extend(
 				callbacks: {
 					onInsertElement: (alert) => {
 						alert.addEventListener('click', ({target}) => {
-							if (target.matches('a:not(.close)')) {
+							if (target.closest('a:not(.close)')) {
 								track({
 									action: trackActions.click,
 									category: 'wikiaInYourLangAlert',
