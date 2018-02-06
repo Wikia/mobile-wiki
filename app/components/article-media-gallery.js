@@ -37,7 +37,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
-			this.element.addEventListener('scroll', this.debouncedScroll);
+			this.debouncedScrollHandler = this.debouncedScroll.bind(this);
+
+			this.element.addEventListener('scroll', this.debouncedScrollHandler);
 		},
 
 		actions: {
@@ -98,7 +100,7 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
-				this.element.removeEventListener('scroll', this.debouncedScroll);
+				this.element.removeEventListener('scroll', this.debouncedScrollHandler);
 			}
 		},
 
