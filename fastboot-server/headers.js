@@ -1,4 +1,5 @@
 const onHeaders = require('on-headers');
+const config = require('../config/fastboot-server');
 
 function setResponseTime(res) {
 	const startAt = process.hrtime();
@@ -18,7 +19,7 @@ module.exports = function (req, res, next) {
 	if (req.headers['fastly-ssl']) {
 		const cspPolicy = 'default-src https:; script-src https: \'unsafe-inline\' \'unsafe-eval\'; ' +
 			'style-src https: \'unsafe-inline\'; img-src https: data:;';
-		const cspReport = 'report-uri https://services.wikia.com/csp-logger/csp';
+		const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
 		res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
 	}
 	setResponseTime(res);
