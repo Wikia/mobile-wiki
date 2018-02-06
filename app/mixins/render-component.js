@@ -7,7 +7,7 @@ export default Mixin.create({
 			const parent = this._placeholderElement.parentNode;
 
 			parent.insertBefore(this.element, this._placeholderElement);
-			parent.removeChild(this._placeholderElemen);
+			parent.removeChild(this._placeholderElement);
 			this._placeholderElement = null;
 		}
 
