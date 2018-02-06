@@ -1,12 +1,12 @@
 {
   "main": {
-    "load-more-results": "加載更多", 
+    "load-more-results": "載入更多", 
     "search-error-general": "不能連接，請再試一次。", 
-    "search-error-general-action": "單擊重試", 
+    "search-error-general-action": "點擊重試", 
     "search-error-not-found": "我們找不到任何和{query}相關的訊息 ", 
-    "search-error-not-found-action": "嘗試其他搜索", 
-    "search-input-label": "搜索", 
+    "search-error-not-found-action": "嘗試其他搜尋", 
+    "search-input-label": "搜尋", 
     "search-loading-msg": "正在載入搜尋結果…", 
-    "total-results": "關於{query}的{totalItems}個結果"
+    "total-results": "關於{query}的{totalItems}項結果"
   }
 }

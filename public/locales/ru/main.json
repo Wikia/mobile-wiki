@@ -31,7 +31,7 @@
     "error": "Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте снова.", 
     "last-edit": "Последняя правка неделю назад", 
     "last-edit_plural_0": "Последняя правка на этой неделе", 
-    "last-edit_plural_2": "Последняя правка была совершена {count} нед. назад", 
+    "last-edit_plural_2": "Последняя правка была {count} нед. назад", 
     "portable-infobox-image": "Изображение", 
     "redirect-empty-target": "Ссылка, по которой вы перешли, является перенаправлением на страницу, которой не существует.", 
     "replies-label": "Посмотреть {count} ответ", 
@@ -73,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "автор:", 
+    "watch": "длительность"
+  }, 
   "file-page": {
     "subtitle": "Страница файла", 
     "usages-header": "Присутствует на этих страницах", 
@@ -101,9 +105,5 @@
     "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Ответить", 
     "post-actions-upvote-label": "Оценить"
-  },
-  "featured-video": {
-    "from": "автор:",
-    "watch": "длительность"
   }
 }

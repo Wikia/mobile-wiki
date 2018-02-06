@@ -73,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "File Page", 
     "usages-header": "Esiintyy näillä sivuilla", 
@@ -101,9 +105,5 @@
     "in-category-label": "in {categoryName}", 
     "post-actions-reply-label": "Reply", 
     "post-actions-upvote-label": "Upvote"
-  },
-  "featured-video": {
-    "from": "from",
-    "watch": "watch"
   }
 }
