@@ -1,5 +1,4 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import Component from '@ember/component';
 import config from '../../config/environment';
 

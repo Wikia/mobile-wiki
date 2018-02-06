@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {get} from '@ember/object';
 
 /**

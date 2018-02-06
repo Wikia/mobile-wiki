@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 import config from '../config/environment';
 import {Promise} from 'rsvp';
+import offset from '../utils/offset';
 
 /**
  * @typedef {Object} SlotsContext
@@ -371,7 +372,7 @@ class Ads {
 		const firstSection = document.querySelector('.article-content > h2'),
 			firstSectionTop = (
 				firstSection &&
-				firstSection.getBoundingClientRect().top + document.body.scrollTop
+				offset(firstSection).top
 			) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;

@@ -2,7 +2,6 @@ import {inject as service} from '@ember/service';
 import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
-import $ from 'jquery';
 import {isHashLink} from '../utils/article-link';
 
 /**
@@ -91,8 +90,8 @@ export default Component.extend({
 		 * because if the user clicks the part of the link in the <i></i> then
 		 * target.tagName will register as 'I' and not 'A'.
 		 */
-		const $anchor = $(event.target).closest('a'),
-			target = $anchor.length ? $anchor[0] : event.target;
+		const anchor = event.target.closest('a'),
+			target = anchor || event.target;
 		let tagName;
 
 		if (target && this.shouldHandleClick(target)) {
@@ -108,17 +107,16 @@ export default Component.extend({
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
 	 *
-	 * @param {EventTarget} target
+	 * @param {Element} target
 	 * @returns {boolean}
 	 */
 	shouldHandleClick(target) {
-		const $target = $(target),
-			isReference = this.targetIsReference(target);
+		const isReference = this.targetIsReference(target);
 
 		return (
-			$target.closest('.mw-content').length &&
+			target.closest('.mw-content') &&
 			// ignore polldaddy content
-			!$target.closest('.PDS_Poll').length &&
+			!target.closest('.PDS_Poll') &&
 			// don't need special logic for article references
 			!isReference
 		);
@@ -128,15 +126,13 @@ export default Component.extend({
 	 * Determine if the clicked target is an reference/in references list (in text or at the bottom
 	 * of article)
 	 *
-	 * @param {EventTarget} target
+	 * @param {Element} target
 	 * @returns {boolean}
 	 */
 	targetIsReference(target) {
-		const $target = $(target);
-
 		return Boolean(
-			$target.closest('.references').length ||
-			$target.parent('.reference').length
+			target.closest('.references') ||
+			target.parentNode.matches('.reference')
 		);
 	},
 
