@@ -37,9 +37,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
-			this.element.addEventListener('scroll', () => {
-				debounce(this, 'onScroll', 100);
-			});
+			this.element.addEventListener('scroll', this.debouncedScroll);
 		},
 
 		actions: {
@@ -54,6 +52,10 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
+		},
+
+		debouncedScroll() {
+			debounce(this, 'onScroll', 100);
 		},
 
 		/**
@@ -96,7 +98,7 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
-				this.element.removeEventListener('scroll');
+				this.element.removeEventListener('scroll', this.debouncedScroll);
 			}
 		},
 
