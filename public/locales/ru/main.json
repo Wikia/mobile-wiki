@@ -4,23 +4,24 @@
     "cancel-label": "Отмена", 
     "curated-content-editor-edit-main-page": "Править Заглавную страницу", 
     "curated-content-load-more-items": "Загрузить ещё", 
+    "days-ago": "{days}д", 
     "discussions-label": "Обсуждения", 
     "header-in-wiki-name-label-prefix": "в:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Карта не найдена", 
+    "hours-ago": "{hours}ч", 
     "media-lightbox-error": "Файлы не найдены", 
+    "minutes-ago": "{minutes}мин", 
     "now-label": "сейчас", 
     "page-not-found-error": "К сожалению, мы не можем найти страницу, которую вы ищете.", 
     "page-not-found-message": "Используйте навигацию или поиск", 
     "pages-label": "Страницы", 
     "photos-label": "Изображения", 
     "trending-articles-label": "Популярные статьи", 
-    "username-anonymous": "Участник Фэндома", 
+    "username-anonymous": "Участник ФЭНДОМА", 
     "videos-label": "Видео", 
     "view-more": "Посмотреть ещё", 
     "wiki-page-error": "Произошла ошибка во время загрузки страницы. Пожалуйста, попробуйте снова.", 
-    "wiki-page-error-reload-button": "Обновить", 
-    "wikia-map-view-map": "Просмотреть"
+    "wiki-page-error-reload-button": "Обновить"
   }, 
   "article": {
     "categories-list-label": "Категории", 
@@ -72,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "автор:", 
+    "watch": "длительность"
+  }, 
   "file-page": {
     "subtitle": "Страница файла", 
     "usages-header": "Присутствует на этих страницах", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "Популярные статьи с ФЭНДОМА"
   }, 
   "smartbanner": {
-    "install-android": "Установить", 
-    "price": "БЕСПЛАТНО", 
-    "store-android": "В Google Play"
+    "install-android": "Установить"
   }, 
   "user-status": {
     "login-text": "Войти", 
@@ -99,7 +102,7 @@
   "widget-discussions": {
     "all-discussions-link-mobile": "Все обсуждения", 
     "header-title": "Обсуждения", 
-    "in-category-label": "в {categoryName}", 
+    "in-category-label": "{categoryName}", 
     "post-actions-reply-label": "Ответить", 
     "post-actions-upvote-label": "Оценить"
   }

@@ -4,7 +4,7 @@ $home-of-fandom-letter-spacing: .5px;
 .site-head-fandom-bar-wrapper {
 	height: $site-head-fandom-bar-height;
 
-	@media #{$desktop-range} {
+	@media #{$wds-breakpoint-xl-up} {
 		display: none;
 	}
 }
@@ -40,6 +40,10 @@ $home-of-fandom-letter-spacing: .5px;
 	}
 	//end
 
+	.featured-video-on-scroll-active & {
+		position: static;
+	}
+
 	.fandom-bar-logo {
 		height: 10px;
 		width: 130px;
@@ -64,6 +68,6 @@ $home-of-fandom-letter-spacing: .5px;
 	position: static;
 }
 
-.site-head-headroom-un-pinned .site-head-fandom-bar {
+body:not(.featured-video-on-scroll-active) .site-head-headroom-un-pinned .site-head-fandom-bar {
 	transform: translateY(-100%);
 }

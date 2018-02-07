@@ -4,11 +4,13 @@
     "cancel-label": "crwdns57987:0crwdne57987:0", 
     "curated-content-editor-edit-main-page": "crwdns58203:0crwdne58203:0", 
     "curated-content-load-more-items": "crwdns58059:0crwdne58059:0", 
+    "days-ago": "crwdns76028:0{days}crwdne76028:0", 
     "discussions-label": "crwdns58121:0crwdne58121:0", 
     "header-in-wiki-name-label-prefix": "crwdns58081:0crwdne58081:0", 
     "header-in-wiki-name-label-suffix": "crwdns58082:0crwdne58082:0", 
-    "map-lightbox-error": "crwdns58092:0crwdne58092:0", 
+    "hours-ago": "crwdns76027:0{hours}crwdne76027:0", 
     "media-lightbox-error": "crwdns58093:0crwdne58093:0", 
+    "minutes-ago": "crwdns76026:0{minutes}crwdne76026:0", 
     "now-label": "crwdns58103:0crwdne58103:0", 
     "page-not-found-error": "crwdns58104:0crwdne58104:0", 
     "page-not-found-message": "crwdns58105:0crwdne58105:0", 
@@ -19,8 +21,7 @@
     "videos-label": "crwdns58120:0crwdne58120:0", 
     "view-more": "crwdns58122:0crwdne58122:0", 
     "wiki-page-error": "crwdns58123:0crwdne58123:0", 
-    "wiki-page-error-reload-button": "crwdns58124:0crwdne58124:0", 
-    "wikia-map-view-map": "crwdns58125:0crwdne58125:0"
+    "wiki-page-error-reload-button": "crwdns58124:0crwdne58124:0"
   }, 
   "article": {
     "categories-list-label": "crwdns58204:0crwdne58204:0", 
@@ -88,9 +89,7 @@
     "trending-fandom-articles": "crwdns68294:0crwdne68294:0"
   }, 
   "smartbanner": {
-    "install-android": "crwdns58244:0crwdne58244:0", 
-    "price": "crwdns58245:0crwdne58245:0", 
-    "store-android": "crwdns58246:0crwdne58246:0"
+    "install-android": "crwdns58244:0crwdne58244:0"
   }, 
   "user-status": {
     "login-text": "crwdns58247:0crwdne58247:0", 

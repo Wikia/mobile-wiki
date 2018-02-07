@@ -35,7 +35,7 @@
 		</div>
 	</a>
 {{/if}}
-<div class="row post-bottom-row">
+<div class="post-bottom-row">
 	<span class="post-category-name">
 		{{i18n 'widget-discussions.in-category-label' categoryName=post.categoryName}}
 	</span>
@@ -50,12 +50,12 @@
 		</span>
 	</span>
 </div>
-<ul class="row post-actions">
-	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
+<ul class="post-actions">
+	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
 		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
-	<li class="small-4 large-4 replies replies-area">
+	<li class="replies replies-area">
 		<a href="/d/p/{{post.threadId}}">
 			{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
 			{{i18n 'widget-discussions.post-actions-reply-label'}}

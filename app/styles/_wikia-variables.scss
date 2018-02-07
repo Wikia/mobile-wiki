@@ -1,7 +1,3 @@
-// Wikia Variables
-// TODO: This file may get broken out into smaller files later if we decide we'd prefer the granularity to the
-// 10,000 foot view.
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Z-Index Implementations
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10,16 +6,12 @@
 // z-1
 $z-ads-top-leaderboard: $z-1;
 $z-spinner-before: $z-1;
-$z-video-provider-ooyala-override: $z-1;
 $z-portable-infobox-collapse: $z-1;
-$z-discussion-sticky-editor: $z-7;
 // z-2
-$z-spinner-after: $z-2;
 // z-3
 // z-4
 // z-5
 // z-6
-$z-header-badge-image: $z-6;
 // z-7
 $z-ads-floor: $z-7;
 $z-site-head: $z-7;
@@ -27,30 +19,17 @@ $z-site-head: $z-7;
 $z-lightbox-footer: $z-8;
 $z-lightbox-header: $z-8;
 $z-lightbox-wrapper: $z-8;
-$z-side-nav-overlay: $z-8;
-$z-discussion-editor: $z-8;
-$z-highlight-overlay: $z-8;
 // z-9
 $z-alert-notification: $z-9;
 $z-modal-dialog: $z-9;
-$z-side-nav: $z-9;
-$z-highlight-overlay-content: $z-9;
 // z-max
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Global Variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Border Radius
-$border-radius-global: rem-calc(2);
-
 // Article horizontal padding
 $article-horizontal-padding: 1.125rem;
-
-// Colors
-
-$color-blue-brand: $color-blue-light;
-$color-gray-semi: $color-blue-gray;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
@@ -64,58 +43,40 @@ $box-shadow-color: rgba(0, 0, 0, .3);
 
 $border-color-light: $color-gray-light;
 
-$element-active-bg: $color-gray-light;
-
 $modal-background: $color-gray-dark;
 $modal-text-color: $color-white;
-
-$search-box-border-color: $color-blue-gray-light;
-$search-box-text-color: $color-blue-gray;
-$spinner-color: $color-blue-brand;
-
-$side-nav-item-gutter: rem-calc(13);
-$side-nav-width: rem-calc(260);
-$side-nav-offset: $side-nav-width * -1;
-$transition-length: .1s;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Hub Colors
+$color-hub-comics: #ff5400;
+$color-hub-games: #94d11f;
+$color-hub-books: #ff7f26;
+$color-hub-movies: #09d3bf;
+$color-hub-lifestyle: #ffd000;
+$color-hub-music: #c819ad;
+$color-hub-tv: #00b7e0;
 $verticals: comics games books movies lifestyle music tv;
 $vertical-colors: (
-	$color-hub-comics
-	$color-hub-games
-	$color-hub-books
-	$color-hub-movies
-	$color-hub-lifestyle
-	$color-hub-music
-	$color-hub-tv
+	$color-hub-comics $color-hub-games $color-hub-books $color-hub-movies $color-hub-lifestyle $color-hub-music $color-hub-tv
 );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Smart banner
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$smart-banner-android-height: rem-calc(66);
 $fandom-app-smart-banner-height: 85px;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Site head
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$site-head-top-border-height: rem-calc(6);
-$site-head-content-height: rem-calc(49);
-$site-head-fandom-bar-height: rem-calc(23);
+$site-head-top-border-height: .375rem;
+$site-head-content-height: 3.0625rem;
+$site-head-fandom-bar-height: 1.4375rem;
 $site-head-height: $site-head-top-border-height + $site-head-content-height;
 $site-head-with-fandom-bar-height: $site-head-height + $site-head-fandom-bar-height;
-$icon-site-head-width: rem-calc(60);
+$icon-site-head-width: 3.75rem;
 $icon-site-head-height: 50px;
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Discussion header
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$discussion-header-height: 50px;
-$theme-bar-height: 10px;
-
-$discussion-post-type-smaller-than-min: .7rem;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main Page

@@ -8,7 +8,6 @@ import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
-import {inGroup} from '../modules/abtest';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -46,6 +45,8 @@ export default Component.extend(
 		 */
 		editIconVisible: oneWay('contributionEnabled'),
 
+		hasFeaturedVideo: bool('model.featuredVideo'),
+
 		/**
 		 * Checks if mobile contribution features are enabled.
 		 * Contribution features include section editor and photo upload.
@@ -79,13 +80,6 @@ export default Component.extend(
 			} else {
 				return !(isCoppaWiki || disableAnonymousEditing);
 			}
-		}),
-
-		hasFeaturedVideo: computed('model.featuredVideo', function () {
-			/**
-			 * FIXME FEATURED VIDEO A/B TEST ONLY
-			 */
-			return this.get('model.featuredVideo') && !inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT');
 		}),
 
 		init() {

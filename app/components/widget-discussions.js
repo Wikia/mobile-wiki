@@ -2,8 +2,9 @@ import Component from '@ember/component';
 import {getOwner} from '@ember/application';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussions';
+import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(InViewportMixin, {
+export default Component.extend(InViewportMixin, RenderComponentMixin, {
 	classNames: ['widget-discussions'],
 	layoutName: 'components/widget-discussions',
 	isLoading: true,

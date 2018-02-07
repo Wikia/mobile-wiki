@@ -9,7 +9,17 @@ import {Promise} from 'rsvp';
  */
 
 /**
+ * @typedef {Object} AdEngineBridge
+ * @property {Function} checkAdBlocking
+ */
+
+/**
  * @typedef {Object} PageFairDetectionModule
+ * @property {Function} initDetection
+ */
+
+/**
+ * @typedef {Object} BabDetectionModule
  * @property {Function} initDetection
  */
 
@@ -31,7 +41,9 @@ import {Promise} from 'rsvp';
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
+ * @property {AdEngineBridge} adEngineBridge
  * @property {PageFairDetectionModule} pageFairDetectionModule
+ * @property {BabDetectionModule} babDetectionModule
  * @property {*} adConfigMobile
  * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
@@ -56,6 +68,10 @@ class Ads {
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
+			babDetector: {
+				name: 'babdetector',
+				dimension: 6
+			},
 			pageFair: {
 				name: 'pagefair',
 				dimension: 7
@@ -99,6 +115,7 @@ class Ads {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
+					'ext.wikia.adEngine.bridge',
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
 					'ext.wikia.adEngine.adLogicPageParams',
@@ -107,12 +124,14 @@ class Ads {
 					'ext.wikia.adEngine.lookup.a9',
 					'ext.wikia.adEngine.mobile.mercuryListener',
 					'ext.wikia.adEngine.pageFairDetection',
+					'ext.wikia.adEngine.babDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
 				], (
+					adEngineBridge,
 					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
@@ -121,12 +140,14 @@ class Ads {
 					a9,
 					adMercuryListener,
 					pageFairDetectionModule,
+					babDetectionModule,
 					googleTagModule,
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
 					krux
 				) => {
+					this.adEngineBridge = adEngineBridge;
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -137,6 +158,7 @@ class Ads {
 					this.krux = krux;
 					this.isLoaded = true;
 					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.babDetectionModule = babDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.a9 = a9;
 					this.jwPlayerAds = jwPlayerAds;
@@ -284,7 +306,17 @@ class Ads {
 					name: 'pageFair',
 					eventName: 'pf.not_blocking',
 					value: false,
-				}
+				},
+				{
+					name: 'babDetector',
+					eventName: 'bab.blocking',
+					value: true,
+				},
+				{
+					name: 'babDetector',
+					eventName: 'bab.not_blocking',
+					value: false,
+				},
 			];
 
 		listenerSettings.map((listenerSetting) => {
@@ -411,6 +443,13 @@ class Ads {
 					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
 				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
 					this.pageFairDetectionModule.initDetection(adsContext);
+				}
+
+				if (Ads.previousDetectionResults.babDetector.exists) {
+					this.trackBlocking('babDetector', this.GASettings.babDetector,
+						Ads.previousDetectionResults.babDetector.value);
+				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
+					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
 				}
 
 				if (adsContext.opts) {
@@ -553,6 +592,10 @@ class Ads {
 Ads.instance = null;
 Ads.previousDetectionResults = {
 	pageFair: {
+		exists: false,
+		value: null
+	},
+	babDetector: {
 		exists: false,
 		value: null
 	}

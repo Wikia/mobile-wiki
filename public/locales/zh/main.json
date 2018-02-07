@@ -4,12 +4,14 @@
     "cancel-label": "取消", 
     "curated-content-editor-edit-main-page": "编辑主页", 
     "curated-content-load-more-items": "加载更多", 
+    "days-ago": "{days}d", 
     "discussions-label": "讨论版", 
     "header-in-wiki-name-label-prefix": "来源:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "未找到地图", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "无法找到媒体内容", 
-    "now-label": "now", 
+    "minutes-ago": "{minutes}m", 
+    "now-label": "现在", 
     "page-not-found-error": "对不起，我们找不到您正在查找的页面。", 
     "page-not-found-message": "使用导航或搜索", 
     "pages-label": "页面", 
@@ -19,11 +21,10 @@
     "videos-label": "视频", 
     "view-more": "查看更多", 
     "wiki-page-error": "对不起，我们无法加载页面。请再试一次。", 
-    "wiki-page-error-reload-button": "刷新", 
-    "wikia-map-view-map": "查看"
+    "wiki-page-error-reload-button": "刷新"
   }, 
   "article": {
-    "categories-list-label": "Categories", 
+    "categories-list-label": "分类", 
     "comments-label": "{count} 次评论", 
     "comments-label_plural": "{count} 次评论", 
     "empty-label": "对不起，这篇文章似乎沒有內容！", 
@@ -35,7 +36,7 @@
     "redirect-empty-target": "您关注的链接是一个重定向，但是重定向的页面不存在。", 
     "replies-label": "查看 {count} 个回复", 
     "replies-label_plural": "查看 {count} 个回复", 
-    "suggestions-label": "浏览更多", 
+    "suggestions-label": "阅读更多", 
     "toc-label": "内容列表", 
     "top-contributors-label": "这篇文章的杰出编辑者"
   }, 
@@ -44,7 +45,7 @@
     "desktop-warning": "* 你将被转到浏览器模式添加评论", 
     "next-button": "下一页", 
     "no-comments": "还没有评论！", 
-    "prev-button": "前一页"
+    "prev-button": "上一页"
   }, 
   "blog-page": {
     "subtitle": "用户博客"
@@ -53,14 +54,14 @@
     "load-error": "出现错误，对不起，请再试一次。", 
     "load-more": "加载更多", 
     "load-previous": "加载前一个", 
-    "no-members": "This category currently contains no pages.", 
-    "subtitle": "Category Page"
+    "no-members": "当前类别不包含任何页面。", 
+    "subtitle": "分类页面"
   }, 
   "edit": {
-    "load-error": "出现错误。对不起，请再试一次。", 
+    "load-error": "出现错误，对不起，请再试一次。", 
     "page-heading": "编辑：", 
     "page-publish": "发布", 
-    "publish-error": "出现错误。对不起，请再试一次。", 
+    "publish-error": "出现错误，对不起，请再试一次。", 
     "publish-error-autoblockedtext": "您的IP地址已被屏蔽，因为它曾由被屏蔽的用户使用。", 
     "publish-error-blocked": "您已被屏蔽，无法进行编辑。", 
     "publish-error-noedit": "您没有这个维基页面的编辑权限。", 
@@ -69,8 +70,12 @@
     "success": "已编辑成功的页面{pageTitle}!"
   }, 
   "fandom-app-banner": {
-    "app-store": "App Store", 
+    "app-store": "苹果商店", 
     "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "来源", 
+    "watch": "观看"
   }, 
   "file-page": {
     "subtitle": "文件页面", 
@@ -81,16 +86,14 @@
     "back-label": "返回", 
     "explore-wiki": "浏览{wikiName}", 
     "random-page-label": "随机页面", 
-    "user-menu-log-out": "登出", 
+    "user-menu-log-out": "退出登录", 
     "user-menu-profile": "用户信息"
   }, 
   "recirculation": {
     "trending-fandom-articles": "粉丝流行原创文章"
   }, 
   "smartbanner": {
-    "install-android": "安装", 
-    "price": "免费", 
-    "store-android": "在Google Play上"
+    "install-android": "安装"
   }, 
   "user-status": {
     "login-text": "登入", 
@@ -100,7 +103,7 @@
     "all-discussions-link-mobile": "所有讨论", 
     "header-title": "讨论版", 
     "in-category-label": "{categoryName}", 
-    "post-actions-reply-label": "回复", 
+    "post-actions-reply-label": "答复", 
     "post-actions-upvote-label": "赞"
   }
 }

@@ -1,11 +1,10 @@
-$card-horizontal-margin: 6px;
-$card-vertical-margin: 10px;
-$card-title-margin: 4px;
-$card-padding: 12px;
-
 .wikia-card-list {
+	$card-horizontal-margin: 6px;
+	$card-vertical-margin: 10px;
+	$card-title-margin: 4px;
+	$card-padding: 12px;
+
 	background-color: $vapor;
-	margin: 0;
 	padding-bottom: $card-vertical-margin;
 
 	.wikia-card {

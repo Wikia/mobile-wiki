@@ -4,23 +4,24 @@
     "cancel-label": "Cancel", 
     "curated-content-editor-edit-main-page": "Edit Main Page", 
     "curated-content-load-more-items": "Load more", 
+    "days-ago": "{days}d", 
     "discussions-label": "Discussies", 
     "header-in-wiki-name-label-prefix": "in:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Map not found", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "Media niet gevonden", 
+    "minutes-ago": "{minutes}m", 
     "now-label": "nu", 
     "page-not-found-error": "Sorry, we kunnen de pagina waar je naar zoekt niet vinden.", 
     "page-not-found-message": "Gebruik de navigatie- of zoekfuncties", 
-    "pages-label": "Pages", 
-    "photos-label": "Photos", 
-    "trending-articles-label": "Trending Articles", 
+    "pages-label": "Pagina 's", 
+    "photos-label": "Afbeeldingen", 
+    "trending-articles-label": "Populaire pagina's", 
     "username-anonymous": "A FANDOM User", 
-    "videos-label": "Videos", 
+    "videos-label": "Video's", 
     "view-more": "Meer weergeven", 
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.", 
-    "wiki-page-error-reload-button": "Vernieuwen", 
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Vernieuwen"
   }, 
   "article": {
     "categories-list-label": "Categorieën", 
@@ -31,7 +32,7 @@
     "last-edit": "Laatst bewerkt 1 week geleden", 
     "last-edit_plural_0": "Laatst bewerkt deze week", 
     "last-edit_plural_2": "Laatst bewerkt {count} weken geleden", 
-    "portable-infobox-image": "Afbeelding", 
+    "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
     "replies-label": "{count} antwoord weergeven", 
     "replies-label_plural": "{count} antwoorden weergeven", 
@@ -47,10 +48,10 @@
     "prev-button": "Vorige pagina"
   }, 
   "blog-page": {
-    "subtitle": "User blog"
+    "subtitle": "Gebruikersblog"
   }, 
   "category-page": {
-    "load-error": "Sorry, er ging iets mis. Probeer het nog eens.", 
+    "load-error": "Sorry, it looks like something went wrong. Please try again.", 
     "load-more": "Load more", 
     "load-previous": "Load previous", 
     "no-members": "This category currently contains no pages.", 
@@ -59,7 +60,7 @@
   "edit": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.", 
     "page-heading": "Editing:", 
-    "page-publish": "Publish", 
+    "page-publish": "Publiceren", 
     "publish-error": "Sorry, it looks like something went wrong. Please try again.", 
     "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.", 
     "publish-error-blocked": "You have been blocked from editing.", 
@@ -72,35 +73,37 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "File Page", 
-    "usages-header": "Appears on these pages", 
-    "usages-see-more-link-label": "See full list"
+    "usages-header": "Gebruikt op deze pagina's", 
+    "usages-see-more-link-label": "Volledige lijst bekijken"
   }, 
   "navigation": {
-    "back-label": "Terug", 
+    "back-label": "Back", 
     "explore-wiki": "Explore {wikiName}", 
     "random-page-label": "Willekeurige pagina", 
-    "user-menu-log-out": "Log out", 
+    "user-menu-log-out": "Afmelden", 
     "user-menu-profile": "Profile"
   }, 
   "recirculation": {
     "trending-fandom-articles": "Trending FANDOM Articles"
   }, 
   "smartbanner": {
-    "install-android": "Installeren", 
-    "price": "GRATIS", 
-    "store-android": "In Google Play"
+    "install-android": "Installeren"
   }, 
   "user-status": {
-    "login-text": "Sign In", 
+    "login-text": "Aanmelden", 
     "register-text": "Register"
   }, 
   "widget-discussions": {
     "all-discussions-link-mobile": "Alle discussies", 
     "header-title": "Discussies", 
     "in-category-label": "in {categoryName}", 
-    "post-actions-reply-label": "Reply", 
+    "post-actions-reply-label": "Antwoorden", 
     "post-actions-upvote-label": "Upvote"
   }
 }

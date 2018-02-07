@@ -4,13 +4,11 @@
 {{content-for 'head'}}
 {{content-for 'fastboot-inline-scripts-head'}}
 {{content-for 'fastboot-inline-scripts-head-tracking'}}
-<script src="/mobile-wiki/assets/app.js" async></script>
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
 <div id="ember-container">{{content-for 'body'}}</div>
 
-{{content-for 'measure-first-render'}}
 {{content-for 'fastboot-inline-scripts-load-svg'}}
 
 <script>
@@ -20,23 +18,8 @@
 	})(window.M);
 </script>
 
-<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
-
-<script>
-	/**
-	 * FIXME FEATURED VIDEO A/B TEST ONLY
-	 *
-	 * This is the earliest moment when we can get AB group
-	 * Normally we prerender video placeholder, but in this specific variant of AB Testing video is
-	 * placed differently so we have to hide the prerendered placeholder.
-	 */
-	if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-		var articleFeaturedVideo = document.querySelector('.article-featured-video');
-		if (articleFeaturedVideo) {
-			articleFeaturedVideo.style.display = 'none';
-		}
-	}
-</script>
+{{content-for 'instant-globals'}}
+<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}

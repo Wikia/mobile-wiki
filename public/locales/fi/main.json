@@ -4,11 +4,13 @@
     "cancel-label": "Cancel", 
     "curated-content-editor-edit-main-page": "Edit Main Page", 
     "curated-content-load-more-items": "Load more", 
+    "days-ago": "{days}d", 
     "discussions-label": "Discussions", 
     "header-in-wiki-name-label-prefix": "in:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Map not found", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "Mediaa ei löytynyt", 
+    "minutes-ago": "{minutes}m", 
     "now-label": "nyt", 
     "page-not-found-error": "Valitettavasti emme löydä etsimääsi sivua.", 
     "page-not-found-message": "Käytä navigaatiota tai hakua", 
@@ -19,8 +21,7 @@
     "videos-label": "Videos", 
     "view-more": "Katso lisää", 
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.", 
-    "wiki-page-error-reload-button": "Päivitä", 
-    "wikia-map-view-map": "View"
+    "wiki-page-error-reload-button": "Päivitä"
   }, 
   "article": {
     "categories-list-label": "Luokat", 
@@ -47,7 +48,7 @@
     "prev-button": "Edellinen sivu"
   }, 
   "blog-page": {
-    "subtitle": "User blog"
+    "subtitle": "Käyttäjän blogi"
   }, 
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.", 
@@ -72,10 +73,14 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "File Page", 
-    "usages-header": "Appears on these pages", 
-    "usages-see-more-link-label": "See full list"
+    "usages-header": "Esiintyy näillä sivuilla", 
+    "usages-see-more-link-label": "Katso koko lista"
   }, 
   "navigation": {
     "back-label": "Takaisin", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "Trending FANDOM Articles"
   }, 
   "smartbanner": {
-    "install-android": "Asenna", 
-    "price": "ILMAINEN", 
-    "store-android": "Google Playssa"
+    "install-android": "Asenna"
   }, 
   "user-status": {
     "login-text": "Sign In", 

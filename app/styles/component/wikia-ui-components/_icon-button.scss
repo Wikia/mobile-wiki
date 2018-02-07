@@ -1,14 +1,12 @@
-$icon-button-size: 48px;
-
 .icon-button {
+	$icon-button-size: 48px;
+
 	align-items: center;
 	background: inherit;
 	cursor: pointer;
 	display: flex;
 	height: $icon-button-size;
 	justify-content: center;
-	margin: 0;
-	padding: 0;
 	text-decoration: none;
 	width: $icon-button-size;
 

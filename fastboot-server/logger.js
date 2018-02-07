@@ -52,7 +52,7 @@ const serializers = {
 
 		const serializedReq = {},
 			allowedHeaders = ['accept', 'accept-language', 'fastly-client-ip', 'fastly-orig-accept-encoding',
-				'host', 'user-agent', 'x-beacon', 'x-forwarded-for'];
+				'fastly-ssl', 'host', 'user-agent', 'x-beacon', 'x-forwarded-for'];
 
 		allowedHeaders.forEach((field) => {
 			if (typeof req[field] !== 'undefined') {
@@ -62,6 +62,10 @@ const serializers = {
 
 		if (typeof req['x-original-host'] !== 'undefined') {
 			serializedReq.host = req['x-original-host'];
+		}
+
+		if (typeof req.cookie !== 'undefined') {
+			serializedReq.loggedIn = req.cookie.indexOf(/access_token=[^;]+/i) > -1;
 		}
 
 		return serializedReq;

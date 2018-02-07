@@ -7,49 +7,16 @@ export default Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
-	cachedProperties: {
-		smartBannerVisible: null,
-		offset: null,
-		headroomOptions: null
+	didInsertElement() {
+		this._super(...arguments);
+
+		this.initHeadroom(this.get('headroomOptions'), this.get('offset'));
 	},
 
-	/**
-	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
-	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
-	 *
-	 * We're cacheing values, because we want to re-initialize Headroom only when those are changed
-	 * and only once - without cache'ing smartBannerVisibleObserver is fiering for each component
-	 * it's included in - at the time of writing this it's TWO TIMES
-	 */
-	smartBannerVisibleObserver: on('willInsertElement',
-		observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
-			const headroom = this.get('headroom'),
-				smartBannerVisible = this.get('smartBannerVisible'),
-				offset = this.get('offset'),
-				headroomOptions = this.get('headroomOptions'),
-				cachedProperties = this.get('cachedProperties');
+	didUpdateAttrs() {
+		this._super(...arguments);
 
-			if (smartBannerVisible !== cachedProperties.smartBannerVisible ||
-				headroomOptions !== cachedProperties.headroomOptions ||
-				offset !== cachedProperties.offset) {
-
-				this.set('cachedProperties', {
-					smartBannerVisible,
-					offset,
-					headroomOptions,
-				});
-
-				if (headroom) {
-					headroom.destroy();
-				}
-
-				this.initHeadroom(headroomOptions, offset);
-			}
-		})),
-
-	actions: {
-		onHeadroomPin() {},
-		onHeadroomUnpin() {}
+		this.initHeadroom(this.get('headroomOptions'), this.get('offset'));
 	},
 
 	/**
@@ -60,6 +27,12 @@ export default Mixin.create({
 	initHeadroom(headroomOptions, offset) {
 		if (this.get('headroomEnabled') === false) {
 			return;
+		}
+
+		let headroom = this.get('headroom');
+
+		if (headroom) {
+			headroom.destroy();
 		}
 
 		let options = {
@@ -74,13 +47,11 @@ export default Mixin.create({
 			onPin: () => {
 				if (!this.get('isDestroyed')) {
 					this.set('pinned', true);
-					this.send('onHeadroomPin');
 				}
 			},
 			onUnpin: () => {
 				if (!this.get('isDestroyed')) {
 					this.set('pinned', false);
-					this.send('onHeadroomUnpin');
 				}
 			}
 		};
@@ -89,7 +60,7 @@ export default Mixin.create({
 			options = $.extend({}, options, headroomOptions);
 		}
 
-		const headroom = new Headroom(this.get('element'), options);
+		headroom = new Headroom(this.element, options);
 
 		headroom.init();
 

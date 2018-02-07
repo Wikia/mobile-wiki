@@ -23,7 +23,6 @@ module.exports = {
 		Hammer: true,
 		M: true,
 		VisitSource: true,
-		Weppy: true,
 		Wikia: true
 	},
 	rules: {
