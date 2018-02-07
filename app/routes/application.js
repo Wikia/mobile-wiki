@@ -158,9 +158,15 @@ export default Route.extend(
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
 
-			if (fastboot.get('isFastBoot') &&
-				basePath !== `${fastboot.get('request.protocol')}//${model.wikiVariables.host}`) {
+			if (fastboot.get('isFastBoot')) {
+				const protocol = fastboot.get('request.headers').get('fastly-ssl')
+					? 'https:'
+					: fastboot.get('request.protocol');
 				const fastbootRequest = this.get('fastboot.request');
+
+				if (basePath === `${protocol}//${model.wikiVariables.host}`) {
+					return;
+				}
 
 				fastboot.get('response.headers').set(
 					'location',
@@ -371,6 +377,7 @@ export default Route.extend(
 			headBottomComponent.appendTo(document.head);
 
 			bodyBottomComponent.set('queryParams', queryParams);
+			bodyBottomComponent.set('wikiVariables', wikiVariables);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}

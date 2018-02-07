@@ -32,19 +32,10 @@ $color-black: #000;
 // We use these as default colors throughout
 $primary-color: $color-blue-dark;
 $secondary-color: #e7e7e7;
-$alert-color: #ff3500;
-$success-color: #43ac6a;
-$warning-color: #f08a24;
-$info-color: #a0d3e8;
-$border-color: #ccc;
 
 $anchor-font-color: $color-blue-light;
 
 $body-font-color: $color-gray-dark;
-
-$screen: "only screen";
-$landscape: "#{$screen} and (orientation: landscape)";
-$portrait: "#{$screen} and (orientation: portrait)";
 
 // Type Scale inspired by Medium's CSS
 // @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
@@ -73,18 +64,9 @@ $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
 $font-weight-bold: 700 !default;
 
-// We use this to do clear floats
-@mixin clearfix {
-	&::before,
-	&::after {
-		content: '';
-		display: table;
-	}
-
-	&::after {
-		clear: both;
-	}
-}
+$nav-padding-vertical: 18px;
+$nav-padding-horizontal: 9px;
+$nav-background-color: #636b76;
 
 // we are using the same page mix as on desktop infoboxes
 // 5% button color, 5% black and 90% white
