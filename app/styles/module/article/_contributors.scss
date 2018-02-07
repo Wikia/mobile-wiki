@@ -1,34 +1,23 @@
 .contributors {
-	@extend %list-reset;
-
-	@include clearfix;
-
 	background-color: $wds-color-off-white;
+	height: 125px;
 	margin-bottom: 2.5rem;
 	padding: 1.25rem .8125rem;
 
 	ul {
-		display: block;
+		display: flex;
 		margin: 0;
 
 		li {
-			display: block;
-			float: left;
-			height: auto;
+			flex: 1;
 			list-style: none;
-			padding: 0 .15625rem;
-			width: 20%;
-
-			&:nth-of-type(5n+1) {
-				clear: both;
-			}
+			max-width: 20%;
 
 			img {
-				@include square(2.75rem);
-
 				border-radius: 50%;
 				display: block;
 				margin: 0 auto;
+				width: 2.75rem;
 			}
 		}
 	}

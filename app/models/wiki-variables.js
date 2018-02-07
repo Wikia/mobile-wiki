@@ -4,7 +4,7 @@ import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
-	fetch(host) {
+	fetch(host, accessToken) {
 		const url = buildUrl({
 			host,
 			path: '/wikia.php',
@@ -14,8 +14,15 @@ export default EmberObject.extend({
 				format: 'json'
 			}
 		});
+		let options = {};
 
-		return fetch(url)
+		if (accessToken) {
+			options.headers = {
+				Cookie: `access_token=${accessToken}`
+			};
+		}
+
+		return fetch(url, options)
 			.then((response) => {
 				if (!response.ok) {
 					return response.text().then(() => {
