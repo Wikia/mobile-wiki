@@ -41,7 +41,9 @@ export default Component.extend(
 
 			this.set('viewportTolerance', {
 				top: viewportTolerance,
-				bottom: viewportTolerance
+				bottom: viewportTolerance,
+				left: 0,
+				right: 0
 			});
 		},
 
