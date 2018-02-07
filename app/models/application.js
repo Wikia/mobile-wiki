@@ -24,7 +24,7 @@ export default EmberObject.extend({
 				ownerInjection = getOwner(this).ownerInjection();
 
 			return all([
-				WikiVariablesModel.create(ownerInjection).fetch(host),
+				WikiVariablesModel.create(ownerInjection).fetch(host, accessToken),
 				UserModel.create(ownerInjection).getUserId(accessToken)
 			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
