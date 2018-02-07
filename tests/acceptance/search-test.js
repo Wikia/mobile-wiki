@@ -1,5 +1,6 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
+import {find, findAll, fillIn, triggerEvent} from 'ember-native-dom-helpers';
 
 moduleForAcceptance('Acceptance | search');
 
@@ -22,25 +23,25 @@ test('visiting /search', (assert) => {
 			assert.equal(currentURL(), '/search?query=test%20query');
 
 			assert.equal(
-				find('.search-results__list .wikia-card').length,
+				findAll('.search-results__list .wikia-card').length,
 				4,
 				'Correct amount of result cards is displayed'
 			);
 
 			assert.equal(
-				find('.search-results__list .wikia-card__title').first().text().trim(),
+				find('.search-results__list .wikia-card__title').textContent.trim(),
 				'Result 1',
 				'First title is correctly displayed'
 			);
 
 			assert.equal(
-				find(searchInput).val(),
+				find(searchInput).value,
 				testQuery,
 				'Search input still contains query'
 			);
 
 			assert.equal(
-				find('.wikia-search__clear svg').length,
+				!!find('.wikia-search__clear svg'),
 				true,
 				'Clean query icon is visible'
 			);
