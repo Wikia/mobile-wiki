@@ -36,10 +36,6 @@ export default Component.extend(
 
 		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
 
-		displayFandomBar: computed('isSearchPage', function () {
-			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
-		}),
-
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
 		}),
