@@ -17,7 +17,7 @@ test('visiting /search', (assert) => {
 	andThen(() => {
 		assert.equal(currentURL(), '/search');
 		fillIn(searchInput, testQuery);
-		triggerEvent(searchInput, 'keyup', {keyCode: enterKeyCode});
+		triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
 
 		andThen(() => {
 			assert.equal(currentURL(), '/search?query=test%20query');
