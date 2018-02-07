@@ -8,6 +8,9 @@ function deepExtend(out = {}) {
 			for (key in obj) {
 				if (obj.hasOwnProperty(key)) {
 					if (typeof obj[key] === 'object') {
+						if (!out[key] && Array.isArray(obj[key])) {
+							out[key] = [];
+						}
 						out[key] = deepExtend(out[key], obj[key]);
 					} else {
 						out[key] = obj[key];
