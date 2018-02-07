@@ -171,7 +171,7 @@ export default Route.extend(
 				// PLATFORM-3351 - if x-wikia-wikiaappsid is present, allow https even if basePath is set to http.
 				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid') &&
 					basePath === `http://${model.wikiVariables.host}`
-					) {
+				) {
 					return;
 				}
 
