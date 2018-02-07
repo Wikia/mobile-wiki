@@ -1,7 +1,7 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
 import sinon from 'sinon';
-import {find} from 'ember-native-dom-helpers';
+import {find, findAll} from 'ember-native-dom-helpers';
 
 moduleForAcceptance('Acceptance | file page');
 
