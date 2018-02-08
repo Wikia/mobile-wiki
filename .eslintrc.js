@@ -72,6 +72,7 @@ module.exports = {
 		"prefer-rest-params": 0,
 		"quotes": [2, "single", {"allowTemplateLiterals": true}],
 		"wrap-iife": [2, "inside"],
+		"strict": 0,
 
 		// Ember rules
 		// Disabled for now as it is broken with new imports
