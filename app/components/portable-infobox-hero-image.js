@@ -9,23 +9,14 @@ export default Component.extend(
 	RenderComponentMixin,
 	ViewportMixin,
 	{
-		computedWidth: readOnly('viewportDimensions.width'),
+		computedWidth: 410,
 
-		// @todo XW-1363 - keep it DRY
-		// or should it be the same as in portable-infobox-image-collection?
-		cropMode: computed('viewportDimensions.width', function () {
-			const windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio'),
+		cropMode: computed(function () {
+			const windowWidth = this.get('computedWidth'),
 				imageWidth = this.get('width') || windowWidth,
-				imageHeight = this.get('height'),
-				maxWidth = Math.floor(imageHeight * imageAspectRatio);
+				imageHeight = this.get('height');
 
 			let computedHeight = imageHeight;
-
-			// wide image - crop images wider than 16:9 aspect ratio to 16:9
-			if (imageWidth > maxWidth) {
-				return Thumbnailer.mode.zoomCrop;
-			}
 
 			// image needs resizing
 			if (windowWidth < imageWidth) {
@@ -40,20 +31,12 @@ export default Component.extend(
 			return Thumbnailer.mode.thumbnailDown;
 		}),
 
-		// @todo XW-1363 - keep it DRY
-		computedHeight: computed('viewportDimensions.width', function () {
-			const windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio'),
+		computedHeight: computed(function () {
+			const windowWidth = this.get('computedWidth'),
 				imageWidth = this.get('width') || windowWidth,
-				imageHeight = this.get('height'),
-				maxWidth = Math.floor(imageHeight * imageAspectRatio);
+				imageHeight = this.get('height');
 
 			let computedHeight = imageHeight;
-
-			// wide image - crop images wider than 16:9 aspect ratio to 16:9
-			if (imageWidth > maxWidth) {
-				return Math.floor(windowWidth / imageAspectRatio);
-			}
 
 			// image needs resizing
 			if (windowWidth < imageWidth) {
@@ -67,8 +50,5 @@ export default Component.extend(
 
 			return computedHeight;
 		}),
-
-		// TODO it's not treated as custom property
-		imageAspectRatio: 16 / 9,
 	}
 );

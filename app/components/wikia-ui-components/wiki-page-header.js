@@ -27,37 +27,27 @@ import Component from '@ember/component';
 import {htmlSafe} from '@ember/string';
 import {computed} from '@ember/object';
 import {isEmpty} from '@ember/utils';
-import ViewportMixin from '../../mixins/viewport';
-import {thumbSize} from '../../utils/thumbnail';
 import {track, trackActions} from '../../utils/track';
 import HeroImage from '../../modules/hero-image';
 
 export default Component.extend(
-	ViewportMixin,
 	{
-		fastboot: service(),
 		wikiVariables: service(),
-		classNames: ['wiki-page-header'],
-		classNameBindings: ['heroImage:has-hero-image', 'fastboot.isFastBoot:is-fastboot'],
-		attributeBindings: ['style'],
+		classNames: ['wiki-page-header__container'],
+		// classNameBindings: ['heroImage:has-hero-image'],
+		// attributeBindings: ['style'],
 		isMainPage: false,
 		siteName: reads('wikiVariables.siteName'),
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
-		style: computed('heroImage', 'viewportDimensions.width', function () {
-			const heroImage = this.get('heroImage'),
-				windowWidth = this.get('viewportDimensions.width');
+		style: computed('heroImage', function () {
+			const heroImage = this.get('heroImage');
 
 			if (isEmpty(heroImage)) {
 				return '';
 			}
 
-			if (this.get('fastboot.isFastBoot')) {
-				// We display brackets placeholder as the background using .is-fastboot class
-				return htmlSafe(`height: ${thumbSize.medium}px`);
-			}
-
-			const heroImageHelper = new HeroImage(heroImage, windowWidth);
+			const heroImageHelper = new HeroImage(heroImage);
 
 			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
 		}),

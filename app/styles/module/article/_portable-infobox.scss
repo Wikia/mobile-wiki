@@ -35,372 +35,384 @@ $hero-caption-font-size: 12px;
 $hero-caption-line-height: 18px;
 $group-header-font-size: 16px;
 
-.article-content {
-	.portable-infobox {
-		background-color: $infobox-background;
-		font-size: $infobox-default-font-size;
-		height: auto;
-		line-height: $infobox-default-line-height;
-		margin: 0 #{-$article-horizontal-padding};
+.portable-infobox,
+.portable-infobox-2 {
+	background-color: $infobox-background;
+	font-size: $infobox-default-font-size;
+	height: auto;
+	line-height: $infobox-default-line-height;
+	margin: 0 #{-$article-horizontal-padding};
 
-		.article-gallery {
-			// position:relative needed here for proper setting the
-			// offsetParent property for images in galleries in infoboxes
-			position: relative;
+	.article-gallery {
+		// position:relative needed here for proper setting the
+		// offsetParent property for images in galleries in infoboxes
+		position: relative;
+	}
+
+	&:not(.collapsed) {
+		.pi-expand-icon {
+			transform: rotate(180deg);
 		}
+	}
 
-		//////////// General classes and rules used across infobox ////////////
+	&.collapsed {
+		overflow: hidden;
+		position: relative;
 
-		// reset inherited margins and paddings
-		.pi-title,
-		.pi-header,
-		.pi-data-label,
-		.pi-hero-title,
-		.pi-hero-caption,
-		.media-component,
-		.article-media-thumbnail {
+		.pi-expand-button {
+			bottom: 0;
+			padding-top: 45px;
+			position: absolute;
+		}
+	}
+}
+
+//////////// General classes and rules used across infobox ////////////
+
+// reset inherited margins and paddings
+.pi-title,
+.pi-header,
+.pi-data-label,
+.pi-hero-title,
+.pi-hero-caption,
+.media-component,
+.article-media-thumbnail {
+	margin: 0;
+	padding: 0;
+}
+
+.pi-item-spacing {
+	padding: $infobox-item-margin * 2 $article-horizontal-padding;
+}
+
+.pi-secondary-background {
+	background-color: $infobox-secondary-background;
+	color: $infobox-secondary-font-color;
+
+	a {
+		color: inherit;
+		text-decoration: underline;
+	}
+}
+
+.pi-secondary-font {
+	font-size: inherit;
+	font-weight: bold;
+	line-height: inherit;
+	margin-top: 0;
+}
+
+//////////// Specific styles for each of the infobox elements starts here ////////////
+
+// infobox gallery
+.pi-image-collection {
+	position: relative;
+
+	// @todo it's for old markup only, remove in XW-1225
+	.pi-item {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+
+	.article-video::before {
+		background-position: center;
+	}
+
+	.pi-hero-title-wrapper {
+		text-align: left;
+	}
+
+	.image-collection-actions {
+		width: 100%;
+
+		button {
+			background: transparent;
+			border: none;
+			bottom: 0;
+			display: block;
+			height: auto;
 			margin: 0;
 			padding: 0;
-		}
-
-		.pi-item-spacing {
-			padding: $infobox-item-margin * 2 $article-horizontal-padding;
-		}
-
-		.pi-secondary-background {
-			background-color: $infobox-secondary-background;
-			color: $infobox-secondary-font-color;
-
-			a {
-				color: inherit;
-				text-decoration: underline;
-			}
-		}
-
-		.pi-secondary-font {
-			font-size: inherit;
-			font-weight: bold;
-			line-height: inherit;
-			margin-top: 0;
-		}
-
-		//////////// Specific styles for each of the infobox elements starts here ////////////
-
-		// infobox gallery
-		.pi-image-collection {
-			position: relative;
-
-			// @todo it's for old markup only, remove in XW-1225
-			.pi-item {
-				display: none;
-
-				&.active {
-					display: block;
-				}
-			}
-
-			.article-video::before {
-				background-position: center;
-			}
-
-			.pi-hero-title-wrapper {
-				text-align: left;
-			}
-
-			.image-collection-actions {
-				width: 100%;
-
-				button {
-					background: transparent;
-					border: none;
-					bottom: 0;
-					display: block;
-					height: auto;
-					margin: 0;
-					padding: 0;
-					position: absolute;
-					top: 0;
-					width: $infobox-image-collection-button-width;
-					z-index: $z-portable-infobox-collapse;
-				}
-
-				svg {
-					fill: $infobox-hero-font-color;
-					stroke: $infobox-hero-overlay-color;
-					stroke-width: .5;
-				}
-
-				.action-previous svg {
-					transform: scaleX(-1);
-				}
-			}
-
-			.action-next {
-				right: 0;
-			}
-
-			.action-previous {
-				left: 0;
-			}
-		}
-
-		// infobox hero
-		.pi-hero {
-			min-height: $min-hero-item-height;
-			position: relative;
-
-			> .media-component img {
-				width: 100%;
-			}
-		}
-
-		.pi-hero-title-wrapper {
-			background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
-			bottom: 0;
-			left: 0;
-			padding-bottom: 15px;
-			padding-top: $infobox-item-margin * 8;
-			pointer-events: none;
 			position: absolute;
-			width: 100%;
-			z-index: 1;
+			top: 0;
+			width: $infobox-image-collection-button-width;
+			z-index: $z-portable-infobox-collapse;
 		}
 
-		.pi-hero-title {
-			font-size: $hero-title-font-size;
-			line-height: $hero-title-line-height;
+		svg {
+			fill: $infobox-hero-font-color;
+			stroke: $infobox-hero-overlay-color;
+			stroke-width: .5;
 		}
 
-		.pi-hero-title,
-		.pi-hero-caption {
-			@include ellipsis;
+		.action-previous svg {
+			transform: scaleX(-1);
+		}
+	}
 
-			color: $infobox-hero-font-color;
-			text-shadow: 0 0 3px $infobox-hero-outline-color;
+	.action-next {
+		right: 0;
+	}
 
-			a {
-				color: inherit;
-				pointer-events: auto;
-				text-decoration: underline;
-			}
+	.action-previous {
+		left: 0;
+	}
+}
+
+// infobox hero
+.pi-hero {
+	min-height: $min-hero-item-height;
+	position: relative;
+
+	> .media-component img {
+		width: 100%;
+	}
+}
+
+.pi-hero-title-wrapper {
+	background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
+	bottom: 0;
+	left: 0;
+	padding-bottom: 15px;
+	padding-top: $infobox-item-margin * 8;
+	pointer-events: none;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+}
+
+.pi-hero-title {
+	font-size: $hero-title-font-size;
+	line-height: $hero-title-line-height;
+}
+
+.pi-hero-title,
+.pi-hero-caption {
+	@include ellipsis;
+
+	color: $infobox-hero-font-color;
+	text-shadow: 0 0 3px $infobox-hero-outline-color;
+
+	a {
+		color: inherit;
+		pointer-events: auto;
+		text-decoration: underline;
+	}
+}
+
+.pi-hero-caption {
+	font-size: $hero-caption-font-size;
+	font-weight: normal;
+	line-height: $hero-caption-line-height;
+	padding-top: $infobox-item-margin;
+}
+
+// infobox title
+.pi-title {
+	background-color: $infobox-secondary-background;
+	color: $infobox-secondary-font-color;
+	display: flex;
+	flex-direction: column;
+	font-size: $infobox-title-font-size;
+	justify-content: center;
+	line-height: $infobox-title-line-height;
+	min-height: $infobox-title-cell-height;
+	text-align: center;
+}
+
+// infobox images
+.media-component,
+.pi-image {
+	figcaption {
+		color: $black;
+		height: auto;
+		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+	}
+}
+
+.media-component {
+	.gallery-image img {
+		background-color: transparent;
+		background-image: none;
+		width: auto;
+	}
+}
+
+// infobox data fields in tabular layout
+.pi-data {
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	width: 100%;
+}
+
+.pi-data-label {
+	flex-basis: 30%;
+	hyphens: auto;
+}
+
+.pi-data-value {
+	overflow: auto;
+	padding-left: 0;
+
+	&:not(:first-child) {
+		flex-basis: 70%;
+		padding-left: $tabular-layout-padding;
+	}
+
+	// remove margins on all elements inside data value
+	// leave the chevrons in peace
+	*:not('.chevron') {
+		margin: 0;
+	}
+
+	dl,
+	ol,
+	ul,
+	p {
+		font-size: inherit;
+		line-height: inherit;
+		list-style-position: inside;
+	}
+
+	ol,
+	ul {
+		margin-left: 6px;
+
+		> li {
+			list-style-position: outside;
+			margin-bottom: 8px;
+			margin-left: 10px;
+		}
+	}
+}
+
+// infobox group
+.pi-group .pi-header {
+	font-size: $group-header-font-size;
+	text-align: center;
+}
+
+// infobox horizontal group
+.pi-horizontal-group {
+	border-spacing: 0;
+	table-layout: fixed;
+	text-align: left;
+	width: 100%;
+
+	.pi-header {
+		font-size: $group-header-font-size;
+		text-align: center;
+	}
+
+	.pi-horizontal-group-item {
+		vertical-align: top;
+	}
+
+	.pi-data-label {
+		padding-bottom: 0;
+	}
+
+	.pi-data-value:nth-child(even),
+	.pi-data-label:nth-child(even) {
+		background-color: $tabular-layout-stripe-background;
+	}
+
+	.pi-data-value,
+	.pi-data-label {
+		padding-left: $tabular-layout-padding;
+		padding-right: $tabular-layout-padding;
+
+		&:first-child {
+			padding-left: $article-horizontal-padding;
 		}
 
-		.pi-hero-caption {
-			font-size: $hero-caption-font-size;
-			font-weight: normal;
-			line-height: $hero-caption-line-height;
-			padding-top: $infobox-item-margin;
+		&:last-child {
+			padding-right: $article-horizontal-padding;
+		}
+	}
+}
+
+// infobox smart (flex) wrapped group
+.pi-smart-group {
+	display: flex;
+	flex-direction: column;
+
+	.pi-smart-data-label {
+		padding-bottom: 0;
+	}
+
+	.pi-smart-data-label,
+	.pi-smart-data-value {
+		flex-basis: auto;
+		padding-left: $tabular-layout-padding;
+		padding-right: $tabular-layout-padding;
+
+		&:nth-child(even) {
+			background-color: $tabular-layout-stripe-background;
 		}
 
-		// infobox title
-		.pi-title {
-			background-color: $infobox-secondary-background;
-			color: $infobox-secondary-font-color;
-			display: flex;
-			flex-direction: column;
-			font-size: $infobox-title-font-size;
-			justify-content: center;
-			line-height: $infobox-title-line-height;
-			min-height: $infobox-title-cell-height;
-			text-align: center;
+		&:first-child {
+			padding-left: $article-horizontal-padding;
 		}
 
-		// infobox images
-		.media-component,
-		.pi-image {
-			figcaption {
-				color: $black;
-				height: auto;
-				padding: $infobox-item-margin * 2 $article-horizontal-padding;
-			}
+		&:last-child {
+			padding-right: $article-horizontal-padding;
 		}
+	}
+}
 
-		.media-component {
-			.gallery-image img {
-				background-color: transparent;
-				background-image: none;
-				width: auto;
-			}
-		}
+.pi-smart-group-head,
+.pi-smart-group-body {
+	display: flex;
+}
 
-		// infobox data fields in tabular layout
-		.pi-data {
-			display: flex;
-			flex-direction: row;
-			overflow: hidden;
-			width: 100%;
-		}
+// infobox navigation
+.pi-navigation {
+	background-color: inherit;
+	color: inherit;
+	font-weight: normal;
 
-		.pi-data-label {
-			flex-basis: 30%;
-			hyphens: auto;
-		}
+	a {
+		color: $anchor-font-color;
+		text-decoration: none;
+	}
+}
 
-		.pi-data-value {
-			overflow: auto;
-			padding-left: 0;
+// styles for infobox collapse / expand UI
+.pi-expand-button {
+	background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
+	padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
+	text-align: center;
+	width: 100%;
+	z-index: $z-1;
+}
 
-			&:not(:first-child) {
-				flex-basis: 70%;
-				padding-left: $tabular-layout-padding;
-			}
+.pi-expand-icon {
+	height: $infobox-item-margin * 2;
+}
 
-			// remove margins on all elements inside data value
-			// leave the chevrons in peace
-			*:not('.chevron') {
-				margin: 0;
-			}
+.pi-hero,
+.pi-image-collection {
+	.article-media-placeholder {
+		// in case of long image (longer than wider)
+		// we want to crop its height to equal its width (which takes 100% of screen width)
+		max-height: 100vw;
+	}
+}
 
-			dl,
-			ol,
-			ul,
-			p {
-				font-size: inherit;
-				line-height: inherit;
-				list-style-position: inside;
-			}
+.pi-hero-small {
+	display: block;
+	position: relative;
 
-			ol,
-			ul {
-				margin-left: 6px;
-
-				> li {
-					list-style-position: outside;
-					margin-bottom: 8px;
-					margin-left: 10px;
-				}
-			}
-		}
-
-		// infobox group
-		.pi-group .pi-header {
-			font-size: $group-header-font-size;
-			text-align: center;
-		}
-
-		// infobox horizontal group
-		.pi-horizontal-group {
-			border-spacing: 0;
-			table-layout: fixed;
-			text-align: left;
-			width: 100%;
-
-			.pi-header {
-				font-size: $group-header-font-size;
-				text-align: center;
-			}
-
-			.pi-horizontal-group-item {
-				vertical-align: top;
-			}
-
-			.pi-data-label {
-				padding-bottom: 0;
-			}
-
-			.pi-data-value:nth-child(even),
-			.pi-data-label:nth-child(even) {
-				background-color: $tabular-layout-stripe-background;
-			}
-
-			.pi-data-value,
-			.pi-data-label {
-				padding-left: $tabular-layout-padding;
-				padding-right: $tabular-layout-padding;
-
-				&:first-child {
-					padding-left: $article-horizontal-padding;
-				}
-
-				&:last-child {
-					padding-right: $article-horizontal-padding;
-				}
-			}
-		}
-
-		// infobox smart (flex) wrapped group
-		.pi-smart-group {
-			display: flex;
-			flex-direction: column;
-
-			.pi-smart-data-label {
-				padding-bottom: 0;
-			}
-
-			.pi-smart-data-label,
-			.pi-smart-data-value {
-				flex-basis: auto;
-				padding-left: $tabular-layout-padding;
-				padding-right: $tabular-layout-padding;
-
-				&:nth-child(even) {
-					background-color: $tabular-layout-stripe-background;
-				}
-
-				&:first-child {
-					padding-left: $article-horizontal-padding;
-				}
-
-				&:last-child {
-					padding-right: $article-horizontal-padding;
-				}
-			}
-		}
-
-		.pi-smart-group-head,
-		.pi-smart-group-body {
-			display: flex;
-		}
-
-		// infobox navigation
-		.pi-navigation {
-			background-color: inherit;
-			color: inherit;
-			font-weight: normal;
-
-			a {
-				color: $anchor-font-color;
-				text-decoration: none;
-			}
-		}
-
-		// styles for infobox collapse / expand UI
-		.pi-expand-button {
-			background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
-			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
-			text-align: center;
-			width: 100%;
-			z-index: $z-1;
-		}
-
-		.pi-expand-icon {
-			height: $infobox-item-margin * 2;
-		}
-
-		&:not(.collapsed) {
-			.pi-expand-icon {
-				transform: rotate(180deg);
-			}
-		}
-
-		&.collapsed {
-			overflow: hidden;
-			position: relative;
-
-			.pi-expand-button {
-				bottom: 0;
-				padding-top: 45px;
-				position: absolute;
-			}
-		}
-
-		.pi-hero,
-		.pi-image-collection {
-			.article-media-placeholder {
-				// in case of long image (longer than wider)
-				// we want to crop its height to equal its width (which takes 100% of screen width)
-				max-height: 100vw;
-			}
-		}
+	> img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 	}
 }

@@ -1,17 +1,14 @@
 import {computed} from '@ember/object';
 import Component from '@ember/component';
+import {htmlSafe} from '@ember/string';
 import HeroImage from '../modules/hero-image';
-import ViewportMixin from '../mixins/viewport';
 import ImageLoader from '../mixins/image-loader';
 
 export default Component.extend(
-	ViewportMixin,
 	ImageLoader,
 	{
-		isLoading: true,
-
-		maxWidth: computed('viewportDimensions.width', function () {
-			return Math.round(this.get('viewportDimensions.width') * 0.7);
+		maxWidth: computed(function () {
+			return 410 * 0.7;
 		}),
 
 		heroImageHelper: computed('heroImage', 'maxWidth', function () {
@@ -21,20 +18,17 @@ export default Component.extend(
 			return new HeroImage(heroImage, maxWidth);
 		}),
 
-		imageSrc: computed('isLoading', function () {
-			if (this.get('isLoading')) {
-				return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 ${this.get('maxWidth')} ${this.get('heroImageHelper.computedHeight')}'%2F%3E`; // eslint-disable-line max-len
-			}
+		imageSrc: computed(function () {
 			return this.get('heroImageHelper.thumbnailUrl');
+		}),
+
+		linkStyle: computed('heroImageHelper', function () {
+			const percent = this.get('heroImageHelper.computedHeight') / this.get('maxWidth') * 100;
+			return htmlSafe(`padding-top: ${percent}%`);
 		}),
 
 		init() {
 			this._super(...arguments);
-			this.load(this.get('heroImageHelper.thumbnailUrl')).then(() => {
-				this.set('isLoading', false);
-			}).catch(() => {
-				this.set('isLoading', false);
-			});
 		}
 	}
 );

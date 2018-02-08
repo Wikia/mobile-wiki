@@ -2,7 +2,7 @@ import Thumbnailer from './thumbnailer';
 
 export default class HeroImage {
 
-	constructor(heroImage, width) {
+	constructor(heroImage, width = 410) {
 		const imageAspectRatio = 16 / 9,
 			imageWidth = heroImage.width || width,
 			imageHeight = heroImage.height,

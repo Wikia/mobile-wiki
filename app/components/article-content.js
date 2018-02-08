@@ -3,7 +3,7 @@ import {reads} from '@ember/object/computed';
 import Component from '@ember/component';
 import $ from 'jquery';
 import {isBlank} from '@ember/utils';
-import {observer} from '@ember/object';
+import {observer, computed} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
@@ -35,6 +35,10 @@ export default Component.extend(
 		media: null,
 
 		isFastBoot: reads('fastboot.isFastBoot'),
+
+		smallHeroImage: computed(function () {
+			return this.get('featuredVideo') && this.get('heroImage');
+		}),
 
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
@@ -256,7 +260,6 @@ export default Component.extend(
 							infoboxHTML: element.innerHTML,
 							height: $(element).outerHeight(),
 							pageTitle: this.get('displayTitle'),
-							smallHeroImage: this.get('featuredVideo') && this.get('heroImage'),
 							openLightbox: this.get('openLightbox')
 						},
 						element

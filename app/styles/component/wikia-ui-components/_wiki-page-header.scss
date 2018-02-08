@@ -66,16 +66,11 @@
 // component modifier-related changes to elements
 .wiki-page-header.has-hero-image {
 	background: {
-		color: #fff;
+		color: transparent;
 		position: center center;
 		repeat: no-repeat;
 	}
-}
-
-.wiki-page-header.has-hero-image.is-fastboot {
-	@extend %image-placeholder;
-
-	@include is-loading;
+	position: relative;
 }
 
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
@@ -94,4 +89,19 @@
 	.icon {
 		fill: #fff;
 	}
+}
+
+.wiki-page-header__container {
+	position: relative;
+}
+
+.wiki-page-header__background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	filter: blur(15px);
+	background-size: cover;
+	background-position: center;
 }
