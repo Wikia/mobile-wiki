@@ -89,7 +89,7 @@
     "ember-export-application-global": "2.0.0",
     "ember-fetch": "3.3.1",
     "ember-headroom": "1.1.1",
-    "ember-in-viewport": "github:Wikia/ember-in-viewport#58a56f5cbe9611bc6606b62ca5e5d275d787f893",
+    "ember-in-viewport": "github:Wikia/ember-in-viewport#8b476028070c7c3f04015bd6ad3ab978da688d15",
     "ember-load-initializers": "1.0.0",
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-native-dom-event-dispatcher": "0.6.4",
