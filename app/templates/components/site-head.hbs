@@ -3,7 +3,7 @@
 		isVisible=smartBannerVisible
 	}}
 {{/if}}
-<div class="site-head-wrapper">
+<div class="site-head-wrapper{{if partnerSlot ' site-head__has-partner-slot'}}">
 	<nav class="site-head{{unless shadow ' no-shadow'}}">
 		<div class="site-head__nav-icon-wrapper">
 			{{wikia-ui-components/icon-button
@@ -32,5 +32,13 @@
 				isVisible=(if isSearchPage false true)
 			}}
 		</div>
+		{{#if partnerSlot}}
+			<a class="site-head-fandom-bar__partner-logo" href="{{partnerSlot.href}}" {{action 'trackClick' partnerSlot.tracking_label preventDefault=false}}>
+				<img class="site-head-fandom-bar__partner-logo-img" src="{{partnerSlot.image-data.url}}" alt="{{partnerSlot.title.value}}">
+			</a>
+		{{/if}}
 	</nav>
+	{{#if partnerSlot}}
+		<div class="site-head__partner-slot"></div>
+	{{/if}}
 </div>

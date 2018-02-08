@@ -23,7 +23,7 @@ export default Component.extend(
 		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
-
+		partnerSlot: alias('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
