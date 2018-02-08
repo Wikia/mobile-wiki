@@ -50,7 +50,7 @@ body:not(.no-scroll) {
 	height: calc(#{$site-head-height} + #{$partner-slot-height});
 
 	.site-head {
-	border-bottom: none;
+		border-bottom: none;
 	}
 }
 
@@ -158,24 +158,24 @@ body:not(.no-scroll) {
 	}
 }
 
-.site-head__partner-slot{
+.site-head__partner-slot {
 	background: white;
 	border-bottom: 1px solid $vapor;
 	height: $partner-slot-height;
 	position: fixed;
 	top: 55px;
-	width:100%;
+	width: 100%;
 	z-index: 695;
 }
 
-.site-head-fandom-bar__partner-logo{
+.site-head-fandom-bar__partner-logo {
 	left: 50%;
 	position: absolute;
-	transform: translateX(-50%);
 	top: 36px;
+	transform: translateX(-50%);
 
 	img {
-	height: 18px;
+		height: 18px;
 	}
 }
 
