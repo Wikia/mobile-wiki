@@ -186,7 +186,7 @@ export default Component.extend(
 		 * @param {Node} placeholder
 		 * @param {number} section
 		 * @param {string} sectionId
-		 * @returns {JQuery}
+		 * @returns {void}
 		 */
 		renderArticleContributionComponent(placeholder, section, sectionId) {
 			this.renderedComponents.push(
