@@ -28,7 +28,8 @@ export default Component.extend(
 		logger: service(),
 
 		classNames: ['recirculation-prefooter'],
-		isVisible: false,
+		classNameBindings: ['items:has-items'],
+
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.get('items').some((item) => item.presented_by);
 		}),
@@ -36,7 +37,9 @@ export default Component.extend(
 			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
 
-		willRender() {
+		init() {
+			this._super(...arguments);
+
 			const viewportTolerance = 1000;
 
 			this.set('viewportTolerance', {
@@ -103,22 +106,18 @@ export default Component.extend(
 			liftigniter
 				.getData(config)
 				.then((data) => {
-					this.setProperties({
-						isVisible: true,
-						items: data.items
-							.filter((item) => {
-								return item.hasOwnProperty('thumbnail') && item.thumbnail;
-							})
-							.slice(0, recircItemsCount)
-							.map((item) => {
-								item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
-									mode: Thumbnailer.mode.scaleToWidth,
-									width: normalizeThumbWidth(window.innerWidth)
-								});
+					this.set('items', data.items.filter((item) => {
+						return item.hasOwnProperty('thumbnail') && item.thumbnail;
+					})
+						.slice(0, recircItemsCount)
+						.map((item) => {
+							item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
+								mode: Thumbnailer.mode.scaleToWidth,
+								width: normalizeThumbWidth(window.innerWidth)
+							});
 
-								return item;
-							})
-					});
+							return item;
+						}));
 
 					run.scheduleOnce('afterRender', () => {
 						liftigniter.setupTracking(
