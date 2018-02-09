@@ -40,13 +40,16 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 
-			const viewportTolerance = 1000;
+			const viewportTolerance = 100;
 
-			this.set('viewportTolerance', {
-				top: viewportTolerance,
-				bottom: viewportTolerance,
-				left: 0,
-				right: 0
+			this.setProperties({
+				viewportTolerance: {
+					top: viewportTolerance,
+					bottom: viewportTolerance,
+					left: 0,
+					right: 0
+				},
+				intersectionThreshold: 0
 			});
 		},
 

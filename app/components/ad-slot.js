@@ -68,7 +68,8 @@ export default Component.extend(
 					bottom: 200,
 					left: 0,
 					right: 0
-				}
+				},
+				intersectionThreshold: 0
 			});
 		},
 
