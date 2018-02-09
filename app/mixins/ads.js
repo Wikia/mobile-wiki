@@ -31,7 +31,7 @@ export default Mixin.create({
 	/**
 	 * @param {string} adSlotName
 	 * @param {string} place
-	 * @param {jQuery} element
+	 * @param {Element} element
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {

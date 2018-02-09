@@ -50,7 +50,7 @@ export default class BasePlayer {
 	 * Sets CSS width and height for the video container.
 	 * Container selector is can be overriden by the inheriting class
 	 *
-	 * @param {string} [containerSelector] - JQuery selector of the video container
+	 * @param {string} [containerSelector] - selector of the video container
 	 * @returns {void}
 	 */
 	onResize(containerSelector = this.containerSelector) {
