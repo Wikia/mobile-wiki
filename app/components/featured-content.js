@@ -121,7 +121,7 @@ export default Component.extend(
 				if (current) {
 					current.classList.remove('current');
 				}
-				pagination.querySelector(`li[data-index=${this.get('currentItemIndex')}]`).classList.add('current');
+				pagination.querySelector(`li[data-index="${this.get('currentItemIndex')}"]`).classList.add('current');
 			}
 		},
 
