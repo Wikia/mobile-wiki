@@ -4,7 +4,7 @@
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='wds-is-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
+		<button class='wds-button page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
 			{{i18n 'article-comments.prev-button'}}
 		</button>
 		<ul class='comments {{if commentsHidden 'wds-is-hidden'}}'>
@@ -12,7 +12,7 @@
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='wds-is-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
+		<button class='wds-button page-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
 			{{i18n 'article-comments.next-button'}}
 		</button>
 	{{else}}
