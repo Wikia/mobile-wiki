@@ -130,15 +130,15 @@ export default Mixin.create({
 			globalFooter = document.querySelector('.wds-global-footer');
 
 		if (curatedContent) {
-			this.appendAd(adsData.mobileInContent, 'after', curatedContent);
+			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
 
 		if (trendingArticles) {
-			this.appendAd(adsData.mobilePreFooter, 'after', trendingArticles);
+			this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
 		}
 
 		if (globalFooter) {
-			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', globalFooter);
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();
