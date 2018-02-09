@@ -284,7 +284,7 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((i, element) => {
+			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
