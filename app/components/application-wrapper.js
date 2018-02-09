@@ -132,7 +132,7 @@ export default Component.extend({
 	targetIsReference(target) {
 		return Boolean(
 			target.closest('.references') ||
-			target.parentNode.matches('.reference')
+			(target.parentNode && target.parentNode.matches('.reference'))
 		);
 	},
 
