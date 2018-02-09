@@ -166,6 +166,10 @@ body:not(.no-scroll) {
 	top: 55px;
 	width: 100%;
 	z-index: 695;
+
+	.featured-video-on-scroll-active & {
+		position: static;
+	}
 }
 
 .site-head-fandom-bar__partner-logo {
