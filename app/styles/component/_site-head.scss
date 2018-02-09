@@ -147,12 +147,20 @@ body:not(.no-scroll) {
 		.site-head {
 			position: static;
 		}
+
+		.site-head__partner-slot {
+			position: static;
+		}
 	}
 }
 
 .no-scroll {
 	.bfaa-template {
 		.site-head {
+			position: fixed;
+		}
+
+		.site-head__partner-slot {
 			position: fixed;
 		}
 	}
