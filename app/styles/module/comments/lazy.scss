@@ -1,7 +1,8 @@
-.page-btn {
-	background: rgb(250, 250, 250);
-	color: $anchor-font-color;
-	width: 100%;
+.article-comments {
+	.wds-button {
+		box-sizing: border-box;
+		width: 100%;
+	}
 }
 
 .show-reply-btn {
