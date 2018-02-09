@@ -70,9 +70,11 @@
 			showMenuIcon=false
 			tLabel='article.categories-list-label'
 			trackingEvent='category-menu'
+			click=(action 'trackClick' 'category-menu' 'open-category')
+			class="mw-content"
 		}}
 			{{#each model.categories as |category|}}
-				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}>
+				<li>
 					<a href="{{unbound category.url}}" title="{{unbound category.title}}">
 						{{unbound category.title}}
 						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
