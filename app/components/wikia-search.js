@@ -142,7 +142,7 @@ export default Component.extend(
 			onSuggestionsWrapperClick(event) {
 				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
 
-				if (event.target.closest('.wikia-search__search-suggestions')) {
+				if (event.target.closest('.wikia-search__search-suggestion')) {
 					track({
 						action: trackActions.click,
 						category: 'side-nav',
