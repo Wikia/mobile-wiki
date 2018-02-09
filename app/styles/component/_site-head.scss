@@ -172,7 +172,7 @@ body:not(.no-scroll) {
 	}
 }
 
-.site-head-fandom-bar__partner-logo {
+.site-head__partner-logo {
 	left: 50%;
 	position: absolute;
 	top: 36px;
@@ -183,6 +183,6 @@ body:not(.no-scroll) {
 	}
 }
 
-body.no-scroll .site-head-fandom-bar__partner-logo {
+body.no-scroll .site-head__partner-logo {
 	display: none;
 }
