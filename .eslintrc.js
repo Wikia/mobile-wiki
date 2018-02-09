@@ -12,8 +12,7 @@ module.exports = {
 	],
 	env: {
 		es6: true,
-		browser: true,
-		jquery: true
+		browser: true
 	},
 	globals: {
 		$script: true,
