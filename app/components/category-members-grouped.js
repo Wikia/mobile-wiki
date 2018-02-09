@@ -57,13 +57,16 @@ export default Component.extend(
 			/**
 			 * @param {string} category
 			 * @param {string} label
+			 * @param {Event} event
 			 */
-			trackClick(category, label) {
-				track({
-					action: trackActions.click,
-					category,
-					label
-				});
+			trackClick(category, label, event) {
+				if (event.target.matches('a')) {
+					track({
+						action: trackActions.click,
+						category,
+						label
+					});
+				}
 			}
 		}
 	}
