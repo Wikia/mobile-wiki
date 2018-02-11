@@ -84,7 +84,7 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectAds() {
-		const firstSection = this.element.querySelector('h2'),
+		const firstSection = this.element.parentNode.querySelector('.article-content > h2'),
 			articleFooter = document.querySelector('.article-footer'),
 			pi = document.querySelector('.portable-infobox'),
 			pageHeader = document.querySelector('.wiki-page-header'),
