@@ -30,7 +30,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-engine": "9.2.1",
     "@wikia/ad-products": "4.0.0",
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
