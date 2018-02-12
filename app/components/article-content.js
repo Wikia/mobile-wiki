@@ -1,9 +1,9 @@
 import {inject as service} from '@ember/service';
-import {reads} from '@ember/object/computed';
+import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import $ from 'jquery';
 import {isBlank} from '@ember/utils';
-import {observer, computed} from '@ember/object';
+import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
@@ -36,9 +36,7 @@ export default Component.extend(
 
 		isFastBoot: reads('fastboot.isFastBoot'),
 
-		smallHeroImage: computed(function () {
-			return this.get('featuredVideo') && this.get('heroImage');
-		}),
+		smallHeroImage: and('featuredVideo', 'heroImage'),
 
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
