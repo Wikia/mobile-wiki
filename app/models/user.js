@@ -188,10 +188,6 @@ export default EmberObject.extend({
 			})
 		};
 
-		if (userData.poweruser_types) {
-			data.powerUserTypes = userData.poweruser_types;
-		}
-
 		return data;
 	},
 
