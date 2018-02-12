@@ -30,7 +30,7 @@ export default Component.extend(
 
 				this.get('loadPage')(page)
 					.then(() => {
-						const navHeight = document.querySelector('site-head-wrapper').offsetHeight,
+						const navHeight = document.querySelector('.site-head-wrapper').offsetHeight,
 							scrollTop = this.$().offset().top - navHeight;
 
 						run.scheduleOnce('afterRender', this, () => {
