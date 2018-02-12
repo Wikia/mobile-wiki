@@ -46,14 +46,18 @@ body:not(.no-scroll) {
 	height: $site-head-height;
 }
 
-.has-partner-slot .site-head-wrapper,
-.has-partner-slot .site-head {
-	height: $site-head-with-partner-slot-height;
+.has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-with-partner-slot-height;
+	}
 }
 
-.no-scroll .has-partner-slot .site-head-wrapper,
-.no-scroll .has-partner-slot .site-head {
-	height: $site-head-height;
+.no-scroll .has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-height;
+	}
 }
 
 .site-head {
