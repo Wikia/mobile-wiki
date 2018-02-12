@@ -73,7 +73,8 @@ $fandom-app-smart-banner-height: 85px;
 $site-head-top-border-height: .375rem;
 $site-head-content-height: 3.0625rem;
 $site-head-height: $site-head-top-border-height + $site-head-content-height;
-$partner-slot-height: 16px;
+$partner-slot-height: 10px;
+$site-head-with-partner-slot-height: calc(#{$site-head-height} + #{$partner-slot-height});
 $icon-site-head-width: 3.75rem;
 $icon-site-head-height: 50px;
 

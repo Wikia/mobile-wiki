@@ -16,7 +16,7 @@ export default Component.extend(
 		smartBanner: service(),
 
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar'],
+		classNameBindings: ['themeBar', 'partnerSlot:site-head__has-partner-slot'],
 		tagName: 'div',
 		themeBar: false,
 		closeIcon: 'close',
