@@ -93,7 +93,7 @@ body:not(.no-scroll) {
 		// beneath it.
 		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
-		margin: 12px auto 0 auto;
+		margin: 12px auto 0;
 	}
 
 	.fandom-logo {
@@ -145,7 +145,6 @@ body:not(.no-scroll) {
 
 .site-head__partner-slot {
 	flex-basis: 100%;
-
 }
 
 .site-head__partner-logo {
