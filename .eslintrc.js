@@ -1,6 +1,7 @@
 module.exports = {
 	root: true,
 	parserOptions: {
+		ecmaVersion: 2017,
 		sourceType: 'module'
 	},
 	plugins: [
@@ -70,10 +71,48 @@ module.exports = {
 		"prefer-rest-params": 0,
 		"quotes": [2, "single", {"allowTemplateLiterals": true}],
 		"wrap-iife": [2, "inside"],
+		"strict": 0,
 
 		"ember/no-jquery": 2,
 		"ember/order-in-components": 1,
 		"ember/order-in-controllers": 1,
 		"ember/order-in-routes": 1
-	}
+	},
+	overrides: [
+		// node files
+		{
+			files: [
+				'testem.js',
+				'ember-cli-build.js',
+				'config/**/*.js',
+				'lib/*/index.js'
+			],
+			parserOptions: {
+				sourceType: 'script',
+				ecmaVersion: 2015
+			},
+			env: {
+				browser: false,
+				node: true
+			}
+		},
+
+		// test files
+		{
+			files: ['tests/**/*.js'],
+			excludedFiles: ['tests/dummy/**/*.js'],
+			env: {
+				embertest: true
+			},
+			globals: {
+				mockAdsService: true,
+				mockFastbootService: true,
+				mockService: true
+			},
+			rules: {
+				"import/newline-after-import": 0,
+				"no-restricted-globals": 0
+			}
+		}
+	]
 };
