@@ -22,9 +22,9 @@ export default class HeroImage {
 			computedHeight = Math.floor(width * (imageHeight / imageWidth));
 		}
 
-		// tall image - use top-crop-down for images taller than square
+		// tall image - use fixed-aspect-ratio-down for images taller than square
 		if (width < computedHeight) {
-			cropMode = Thumbnailer.mode.topCropDown;
+			cropMode = Thumbnailer.mode.fixedAspectRatioDown;
 			computedHeight = width;
 		}
 

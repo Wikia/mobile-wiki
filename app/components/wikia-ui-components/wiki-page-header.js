@@ -33,9 +33,9 @@ import HeroImage from '../../modules/hero-image';
 export default Component.extend(
 	{
 		wikiVariables: service(),
-		classNames: ['wiki-page-header__container'],
-		// classNameBindings: ['heroImage:has-hero-image'],
-		// attributeBindings: ['style'],
+		classNames: ['wiki-page-header'],
+		classNameBindings: ['heroImage:has-hero-image'],
+		attributeBindings: ['style'],
 		isMainPage: false,
 		siteName: reads('wikiVariables.siteName'),
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
