@@ -20,6 +20,7 @@ class JWPlayerAssets {
 
 			styles.rel = 'stylesheet';
 			styles.href = assetUrls.styles;
+			styles.crossOrigin = 'anonymous';
 			document.head.appendChild(styles);
 
 			this.wasStyleLoadInitialized = true;
