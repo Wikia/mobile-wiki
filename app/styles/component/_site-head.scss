@@ -143,9 +143,7 @@ body:not(.no-scroll) {
 }
 
 .no-scroll {
-	.bfaa-template {
-		.site-head {
-			position: fixed;
-		}
+	.site-head {
+		position: fixed;
 	}
 }
