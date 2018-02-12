@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {inject as service} from '@ember/service';
-import {alias, readOnly, or, reads} from '@ember/object/computed';
+import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {run} from '@ember/runloop';
 import Component from '@ember/component';
@@ -23,7 +23,7 @@ export default Component.extend(
 		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
-		partnerSlot: reads('globalNavigation.partner_slot'),
+		partnerSlot: readOnly('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
