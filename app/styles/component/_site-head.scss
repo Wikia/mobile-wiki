@@ -46,22 +46,24 @@ body:not(.no-scroll) {
 	height: $site-head-height;
 }
 
-.site-head__has-partner-slot.site-head-wrapper {
-	height: calc(#{$site-head-height} + #{$partner-slot-height});
+.site-head__has-partner-slot .site-head-wrapper,
+.site-head__has-partner-slot .site-head {
+	height: $site-head-with-partner-slot-height;
+}
 
-	.site-head {
-		border-bottom: none;
-	}
+.no-scroll .site-head__has-partner-slot .site-head-wrapper,
+.no-scroll .site-head__has-partner-slot .site-head {
+	height: $site-head-height;
 }
 
 .site-head {
-	align-items: center;
+	align-items: flex-start;
 	background-color: $white;
 	border-bottom: 1px solid $vapor;
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
@@ -91,7 +93,7 @@ body:not(.no-scroll) {
 		// beneath it.
 		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
-		margin: 0 auto;
+		margin: 12px auto 0 auto;
 	}
 
 	.fandom-logo {
@@ -141,14 +143,30 @@ body:not(.no-scroll) {
 	}
 }
 
+.site-head__partner-slot {
+	flex-basis: 100%;
+
+}
+
+.site-head__partner-logo {
+	left: 50%;
+	position: absolute;
+	top: 34px;
+	transform: translateX(-50%);
+
+	img {
+		height: 18px;
+	}
+}
+
+.no-scroll .site-head__partner-logo {
+	display: none;
+}
+
 //Styles for BFAA
 .bfaa-template {
 	.site-head-headroom-top {
 		.site-head {
-			position: static;
-		}
-
-		.site-head__partner-slot {
 			position: static;
 		}
 	}
@@ -159,38 +177,5 @@ body:not(.no-scroll) {
 		.site-head {
 			position: fixed;
 		}
-
-		.site-head__partner-slot {
-			position: fixed;
-		}
 	}
-}
-
-.site-head__partner-slot {
-	background: white;
-	border-bottom: 1px solid $vapor;
-	height: $partner-slot-height;
-	position: fixed;
-	top: 55px;
-	width: 100%;
-	z-index: 695;
-
-	.featured-video-on-scroll-active & {
-		position: static;
-	}
-}
-
-.site-head__partner-logo {
-	left: 50%;
-	position: absolute;
-	top: 36px;
-	transform: translateX(-50%);
-
-	img {
-		height: 18px;
-	}
-}
-
-body.no-scroll .site-head__partner-logo {
-	display: none;
 }
