@@ -5,7 +5,7 @@ import {htmlSafe} from '@ember/string';
 import HeroImage from '../modules/hero-image';
 import {MAX_WIDTH} from '../modules/hero-image';
 import ImageLoader from '../mixins/image-loader';
-import Thumbnailer from './thumbnailer';
+import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend(
 	ImageLoader,
