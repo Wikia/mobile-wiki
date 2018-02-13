@@ -12,6 +12,8 @@ export default Component.extend(
 	{
 		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
 
+		maxWidth: Math.floor(MAX_WIDTH * 0.7),
+
 		heroImageHelper: computed('heroImage', 'maxWidth', function () {
 			const heroImage = this.get('heroImage'),
 				maxWidth = this.get('maxWidth');
@@ -26,8 +28,6 @@ export default Component.extend(
 
 		init() {
 			this._super(...arguments);
-		},
-
-		maxWidth: MAX_WIDTH * 0.7
+		}
 	}
 );
