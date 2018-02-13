@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "来源", 
-    "watch": "观看"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "文件页面", 

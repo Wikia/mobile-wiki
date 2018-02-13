@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "來源：", 
-    "watch": "觀看"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "檔案頁面", 
