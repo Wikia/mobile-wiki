@@ -51,19 +51,19 @@ export default Component.extend(
 				if (!isBlank(rawContent)) {
 					this.hackIntoEmberRendering(rawContent);
 
-					this.handleInfoboxes();
-					this.replaceInfoboxesWithInfoboxComponents();
-
-					this.renderDataComponents(this.element);
+					// this.handleInfoboxes();
+					// this.replaceInfoboxesWithInfoboxComponents();
+                    //
+					// this.renderDataComponents(this.element);
 
 					this.loadIcons();
-					this.createContributionButtons();
-					this.handleTables();
-					this.replaceWikiaWidgetsWithComponents();
+					//this.createContributionButtons();
+					// this.handleTables();
+					// this.replaceWikiaWidgetsWithComponents();
 
-					this.handleWikiaWidgetWrappers();
+					//this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
-					this.handleCollapsibleSections();
+					// this.handleCollapsibleSections();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
