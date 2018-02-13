@@ -4,7 +4,7 @@ export const MAX_WIDTH = 412;
 
 export default class HeroImage {
 
-	constructor(heroImage, width = MAX_WIDTH, tallImageCropMode = Thumbnailer.mode.fixedAspectRatio) {
+	constructor(heroImage, width = MAX_WIDTH, tallImageCropMode) {
 		const imageAspectRatio = 16 / 9,
 			imageWidth = heroImage.width || width,
 			imageHeight = heroImage.height,
