@@ -49,7 +49,7 @@ export default Component.extend(
 				const rawContent = this.get('content');
 
 				if (!isBlank(rawContent)) {
-					this.hackIntoEmberRendering(rawContent);
+					// this.hackIntoEmberRendering(rawContent);
 
 					// this.handleInfoboxes();
 					// this.replaceInfoboxesWithInfoboxComponents();
