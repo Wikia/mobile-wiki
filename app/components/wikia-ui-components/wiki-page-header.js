@@ -49,7 +49,7 @@ export default Component.extend(
 				return '';
 			}
 
-			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCropDown : Thumbnailer.mode.fixedAspectRatio,
+			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCrop : Thumbnailer.mode.fixedAspectRatio,
 				heroImageHelper = new HeroImage(heroImage, MAX_WIDTH, mode);
 
 			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len

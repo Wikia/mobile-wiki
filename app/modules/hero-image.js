@@ -1,6 +1,6 @@
 import Thumbnailer from './thumbnailer';
 
-export const MAX_WIDTH = 350;
+export const MAX_WIDTH = 410;
 
 export default class HeroImage {
 
@@ -17,20 +17,23 @@ export default class HeroImage {
 		if (imageWidth > maxWidth) {
 			cropMode = Thumbnailer.mode.zoomCrop;
 			computedHeight = Math.floor(width / imageAspectRatio);
+		} else {
+			cropMode = tallImageCropMode;
+			computedHeight = 410;
 		}
 
-		// image needs resizing
-		if (width < imageWidth) {
-			computedHeight = Math.floor(width * (imageHeight / imageWidth));
-		}
+		// // image needs resizing
+		// if (width < imageWidth) {
+		// 	computedHeight = Math.floor(width * (imageHeight / imageWidth));
+		// }
 
 		// tall image - use fixed-aspect-ratio-down for images taller than square
-		if (width < computedHeight) {
-			cropMode = tallImageCropMode;
-			computedHeight = width;
-		}
+		// if (width < computedHeight) {
+		// 	cropMode = tallImageCropMode;
+		// 	computedHeight = width;
+		// }
 
-		this.computedHeight = computedHeight;
+		this.computedHeight = 375;
 		// generate thumbnail
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
