@@ -19,21 +19,10 @@ export default class HeroImage {
 			computedHeight = Math.floor(width / imageAspectRatio);
 		} else {
 			cropMode = tallImageCropMode;
-			computedHeight = 410;
+			computedHeight = MAX_WIDTH;
 		}
 
-		// // image needs resizing
-		// if (width < imageWidth) {
-		// 	computedHeight = Math.floor(width * (imageHeight / imageWidth));
-		// }
-
-		// tall image - use fixed-aspect-ratio-down for images taller than square
-		// if (width < computedHeight) {
-		// 	cropMode = tallImageCropMode;
-		// 	computedHeight = width;
-		// }
-
-		this.computedHeight = 375;
+		this.computedHeight = computedHeight;
 		// generate thumbnail
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
