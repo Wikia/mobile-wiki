@@ -1,6 +1,6 @@
 import Thumbnailer from './thumbnailer';
 
-export const MAX_WIDTH = 410;
+export const MAX_WIDTH = 412;
 
 export default class HeroImage {
 
