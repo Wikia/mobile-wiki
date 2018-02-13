@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "de", 
-    "watch": "regarder"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "Fichier", 
