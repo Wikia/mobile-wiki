@@ -191,6 +191,12 @@ export default Route.extend(
 			controller.set('model', model);
 
 			if (!this.get('fastboot.isFastBoot')) {
+				// Prevent scrolling to the top of the page after Ember is loaded
+				// See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
+				const routerScroll = this.get('router.service');
+				routerScroll.set('key', window.history.state.uuid);
+				routerScroll.update();
+
 				// Because application controller needs wiki-page controller
 				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
@@ -202,6 +208,9 @@ export default Route.extend(
 					} else if (!isEmpty(map)) {
 						controller.openLightboxForMap(map);
 					}
+
+					const scrollPosition = routerScroll.get('position');
+					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
 			}
 		},
