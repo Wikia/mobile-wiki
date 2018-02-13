@@ -16,7 +16,7 @@ class JWPlayerAssets {
 
 	loadStyles() {
 		if (!this.wasStyleLoadInitialized) {
-			$(`<link rel="stylesheet" href="${assetUrls.styles}" crossorigin="anonymous">`)
+			$(`<link rel="stylesheet" href="${assetUrls.styles}">`)
 				.appendTo('head');
 			this.wasStyleLoadInitialized = true;
 		}
@@ -27,7 +27,7 @@ class JWPlayerAssets {
 			this.scriptsPromise = new Promise((resolve) => {
 				window.M.loadScript(assetUrls.script, true, (data) => {
 					resolve(data);
-				}, 'anonymous');
+				});
 			});
 		}
 
