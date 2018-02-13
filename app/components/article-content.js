@@ -1,15 +1,15 @@
 import {inject as service} from '@ember/service';
 import {reads} from '@ember/object/computed';
+import {computed} from '@ember/object';
 import Component from '@ember/component';
 import $ from 'jquery';
-import {isBlank} from '@ember/utils';
-import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
+import {inGroup} from '../modules/abtest';
 
 /**
  * HTMLElement
@@ -28,6 +28,7 @@ export default Component.extend(
 		classNames: ['article-content', 'mw-content'],
 		adsContext: null,
 		content: null,
+
 		contributionEnabled: null,
 		displayEmptyArticleInfo: true,
 		displayTitle: null,
@@ -36,52 +37,43 @@ export default Component.extend(
 
 		isFastBoot: reads('fastboot.isFastBoot'),
 
-		/* eslint ember/no-on-calls-in-components:0 */
-		articleContentObserver: on('didInsertElement', observer('content', function () {
-			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
-			if (this.get('isFastBoot')) {
-				return;
-			}
-
-			this.destroyChildComponents();
-
-			run.scheduleOnce('afterRender', this, () => {
-				const rawContent = this.get('content');
-
-				if (!isBlank(rawContent)) {
-					// this.hackIntoEmberRendering(rawContent);
-
-					// this.handleInfoboxes();
-					// this.replaceInfoboxesWithInfoboxComponents();
-                    //
-					// this.renderDataComponents(this.element);
-
-					this.loadIcons();
-					//this.createContributionButtons();
-					// this.handleTables();
-					// this.replaceWikiaWidgetsWithComponents();
-
-					//this.handleWikiaWidgetWrappers();
-					this.handleJumpLink();
-					// this.handleCollapsibleSections();
-				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
-				}
-
-				if (!this.get('isPreview')) {
-					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
-						this.injectAds();
-					});
-				}
-			});
-		})),
-
 		init() {
 			this._super(...arguments);
 
 			this.renderComponent = getRenderComponentFor(this);
 			this.renderedComponents = [];
+		},
+
+		/* eslint ember/no-on-calls-in-components:0 */
+		didInsertElement() {
+			this.destroyChildComponents();
+		},
+
+		didRender() {
+			if (!this.get('isPreview') && this.get('adsContext')) {
+
+				this.setupAdsContext(this.get('adsContext'));
+				// this.get('ads.module').onReady(() => {
+				// 	this.injectAds();
+				// });
+			}
+			// this.handleInfoboxes();
+			// this.replaceInfoboxesWithInfoboxComponents();
+            //
+			// this.renderDataComponents(this.element);
+            //
+			// this.loadIcons();
+			// this.createContributionButtons();
+			// this.handleTables();
+			// this.replaceWikiaWidgetsWithComponents();
+
+			// if (this.get('featuredVideo') && inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
+			// 	this.renderFeaturedVideo();
+			// }
+
+			//this.handleWikiaWidgetWrappers();
+			this.handleJumpLink();
+			//this.handleCollapsibleSections();
 		},
 
 		willDestroyElement() {
@@ -101,23 +93,6 @@ export default Component.extend(
 					label
 				});
 			}
-		},
-
-		/**
-		 * This is due to the fact that we send whole article
-		 * as an HTML and then we have to modify it in the DOM
-		 *
-		 * Ember+Glimmer are not fan of this as they would like to have
-		 * full control over the DOM and rendering
-		 *
-		 * In perfect world articles would come as Handlebars templates
-		 * so Ember+Glimmer could handle all the rendering
-		 *
-		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
-		 */
-		hackIntoEmberRendering(content) {
-			this.$().html(content);
 		},
 
 		/**
@@ -269,11 +244,39 @@ export default Component.extend(
 			this.renderedComponents = this.renderedComponents.concat(
 				queryPlaceholders(element)
 					.map(getAttributesForMedia, {
-						media: this.get('media'),
 						openLightbox: this.get('openLightbox')
 					})
 					.map(this.renderComponent)
 			);
+		},
+
+		/**
+		 * FIXME FEATURED VIDEO A/B TEST ONLY
+		 */
+		renderFeaturedVideo() {
+			const $infoboxes = this.$('.portable-infobox'),
+				$headers = this.$(':header'),
+				$placeholder = $('<div />');
+
+			if ($infoboxes.length) {
+				$infoboxes.first().after($placeholder);
+			} else if ($headers.length) {
+				$headers.first().after($placeholder);
+			} else {
+				this.get('forceFeaturedVideoVisibility')();
+			}
+
+			if ($infoboxes.length || $headers.length) {
+				this.renderedComponents.push(
+					this.renderComponent({
+						name: 'article-featured-video',
+						attrs: {
+							model: this.get('featuredVideo')
+						},
+						element: $placeholder.get(0)
+					})
+				);
+			}
 		},
 
 		/**
@@ -395,6 +398,7 @@ export default Component.extend(
 		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
+				.not('.article-table-wrapper table')
 				.each((index, element) => {
 					const $element = this.$(element),
 						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
