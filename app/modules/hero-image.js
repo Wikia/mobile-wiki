@@ -19,7 +19,7 @@ export default class HeroImage {
 			computedHeight = Math.floor(width / imageAspectRatio);
 		} else {
 			cropMode = tallImageCropMode;
-			computedHeight = MAX_WIDTH;
+			computedHeight = width;
 		}
 
 		this.computedHeight = computedHeight;
