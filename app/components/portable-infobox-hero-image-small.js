@@ -10,6 +10,8 @@ import Thumbnailer from '../modules/thumbnailer';
 export default Component.extend(
 	ImageLoader,
 	{
+		classNames: ['pi'],
+
 		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
 
 		maxWidth: Math.floor(MAX_WIDTH * 0.7),
