@@ -94,7 +94,7 @@ export default Component.extend(
 		didEnterViewport() {
 			const liftigniter = this.get('liftigniter');
 
-			if (M.getFromShoebox('runtimeConfig.noExternals')) {
+			if (M.getFromHeadDataStore('noExternals')) {
 				return;
 			}
 

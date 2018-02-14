@@ -126,11 +126,7 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	if (
-		typeof FastBoot !== 'undefined' ||
-		M.getFromShoebox('runtimeConfig.noExternals') ||
-		M.getFromShoebox('serverError')
-	) {
+	if (typeof FastBoot !== 'undefined' || M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
@@ -172,7 +168,7 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 		return;
 	}
 
-	const enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError');
+	const enableTracking = !M.getFromHeadDataStore('noExternals');
 
 	if (!isInitialPageView && enableTracking) {
 		// Defined in /app/inline-scripts/

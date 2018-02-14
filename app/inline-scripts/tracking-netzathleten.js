@@ -1,8 +1,8 @@
 (function () {
 	var allowedCountries = [];
 	var geo = M.geo || {};
-	var config = M.getFromShoebox('tracking.netzathleten') || {};
-	var isLoggedIn = Boolean(M.getFromShoebox('userData'));
+	var config = M.getFromHeadDataStore('tracking.netzathleten') || {};
+	var isLoggedIn = Boolean(M.getFromHeadDataStore('userId'));
 
 	function initializeNetzAthletenTracking() {
 		var script = document.createElement('script');
@@ -10,14 +10,13 @@
 		script.id = 'Wikia_container';
 		script.src = config.url;
 		script.addEventListener('load', function () {
-			window.naMediaAd.setValue('homesite', Boolean(M.getFromShoebox('wikiPage.data.isMainPage')));
+			window.naMediaAd.setValue('homesite', Boolean(M.getFromHeadDataStore('isMainPage')));
 		});
 		document.head.appendChild(script);
 	}
 
 	if (
-		!M.getFromShoebox('runtimeConfig.noExternals') &&
-		!M.getFromShoebox('serverError') &&
+		!M.getFromHeadDataStore('noExternals') &&
 		config.enabled &&
 		config.url &&
 		!isLoggedIn &&

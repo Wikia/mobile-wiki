@@ -48,10 +48,6 @@ export default Service.extend({
 			const shoebox = this.get('fastboot.shoebox');
 
 			if (this.get('fastboot.isFastBoot')) {
-				// We have to anonymize user id before sending it to Google
-				// It's faster to do the hashing server side and pass to the front-end, ready to use
-				shoebox.put('gaUserIdHash', this.getGaUserIdHash(userId));
-
 				return UserModel.create(getOwner(this).ownerInjection())
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
@@ -78,9 +74,9 @@ export default Service.extend({
 		return resolve();
 	},
 
-	getGaUserIdHash(userId) {
+	getGaUserIdHash() {
 		const Crypto = FastBoot.require('crypto');
-		const rawString = userId.toString() + config.fastbootOnly.gaUserSalt;
+		const rawString = this.get('userId').toString() + config.fastbootOnly.gaUserSalt;
 
 		return Crypto.createHash('md5').update(rawString).digest('hex');
 	}
