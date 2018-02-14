@@ -57,7 +57,7 @@ export default EmberObject.extend({
 					shoebox.put('applicationData', applicationData);
 
 					if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
-						this.get('headStore').set('tracking', trackingDimensions.value.dimensions);
+						this.get('headStore').set('trackingDimensions', trackingDimensions.value.dimensions);
 					}
 
 					return applicationData;

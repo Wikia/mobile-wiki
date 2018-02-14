@@ -1,8 +1,7 @@
 (function () {
-	var allowedCountries = [];
 	var geo = M.geo || {};
 	var config = M.getFromHeadDataStore('tracking.netzathleten') || {};
-	var isLoggedIn = Boolean(M.getFromHeadDataStore('userId'));
+	var isLoggedIn = Boolean(M.getFromHeadDataStore('isAuthenticated'));
 
 	function initializeNetzAthletenTracking() {
 		var script = document.createElement('script');
