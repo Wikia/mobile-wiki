@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "dodany przez", 
-    "watch": "obejrzyj"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "Strona pliku", 
