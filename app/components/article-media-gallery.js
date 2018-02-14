@@ -37,9 +37,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
-			this.$().on('scroll', () => {
-				debounce(this, 'onScroll', 100);
-			});
+			this.debouncedScrollHandler = this.debouncedScroll.bind(this);
+
+			this.element.addEventListener('scroll', this.debouncedScrollHandler);
 		},
 
 		actions: {
@@ -54,6 +54,10 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
+		},
+
+		debouncedScroll() {
+			debounce(this, 'onScroll', 100);
 		},
 
 		/**
@@ -80,8 +84,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		onScroll() {
-			const $this = this.$(),
-				scrollOffset = $this.scrollLeft() + $this.width(),
+			const scrollOffset = this.element.scrollLeft + this.element.offsetWidth,
 				numberOfItemsRendered = this.get('numberOfItemsRendered'),
 				totalNumberOfItems = this.get('items.length'),
 				// article-media-thumbnail width is the same as imageSize plus margin defined in CSS
@@ -97,7 +100,7 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
-				$this.off('scroll');
+				this.element.removeEventListener('scroll', this.debouncedScrollHandler);
 			}
 		},
 

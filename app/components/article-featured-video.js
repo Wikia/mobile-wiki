@@ -149,8 +149,8 @@ export default Component.extend(JWPlayerMixin, {
 	initVideoPlayer() {
 		const model = this.get('model.embed'),
 			jsParams = {
-				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
-				selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+				autoplay: window.Cookies.get(this.get('autoplayCookieName')) !== '0',
+				selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
@@ -182,7 +182,7 @@ export default Component.extend(JWPlayerMixin, {
 	},
 
 	setCookie(cookieName, cookieValue) {
-		$.cookie(cookieName, cookieValue, {
+		window.Cookies.set(cookieName, cookieValue, {
 			expires: this.get('playerCookieExpireDays'),
 			path: '/',
 			domain: config.cookieDomain

@@ -22,7 +22,7 @@ export default Component.extend({
 		}
 
 		if (typeof onInsertElement === 'function') {
-			onInsertElement(this.$());
+			onInsertElement(this.element);
 		}
 	},
 
