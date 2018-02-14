@@ -2,6 +2,8 @@ import Thumbnailer from './thumbnailer';
 
 export const MAX_WIDTH = 412;
 
+const HERO_IMAGE_ASPECT_RATIO = 375 / MAX_WIDTH;
+
 export default class HeroImage {
 
 	constructor(heroImage, width = MAX_WIDTH, tallImageCropMode) {
@@ -19,7 +21,7 @@ export default class HeroImage {
 			computedHeight = Math.floor(width / imageAspectRatio);
 		} else {
 			cropMode = tallImageCropMode;
-			computedHeight = 375;
+			computedHeight = width * HERO_IMAGE_ASPECT_RATIO;
 		}
 
 		this.computedHeight = computedHeight;
