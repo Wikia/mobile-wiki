@@ -124,13 +124,28 @@ module.exports = function (defaults) {
 		});
 
 	// Import files from node_modules, they will run both in FastBoot and browser
-	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
 	app.import('node_modules/vignette/dist/vignette.js');
+
+	// These will run only in browser
+	app.import('node_modules/visit-source/dist/visit-source.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/jquery.cookie/jquery.cookie.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/scriptjs/dist/script.min.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/hammerjs/hammer.min.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/ember-hammer/ember-hammer.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
 		jwPlayerAssets
 	]);
-
 };
