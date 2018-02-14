@@ -28,7 +28,7 @@ export default class HeroImage {
 		// generate thumbnail
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
-			height: computedHeight,
+			height: this.computedHeight,
 			width
 		});
 	}
