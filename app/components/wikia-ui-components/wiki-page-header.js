@@ -28,7 +28,7 @@ import {htmlSafe} from '@ember/string';
 import {computed} from '@ember/object';
 import {isEmpty} from '@ember/utils';
 import {track, trackActions} from '../../utils/track';
-import HeroImage, {MAX_WIDTH} from '../../modules/hero-image';
+import HeroImage from '../../modules/hero-image';
 import Thumbnailer from '../../modules/thumbnailer';
 
 export default Component.extend(
@@ -49,7 +49,7 @@ export default Component.extend(
 			}
 
 			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCrop : Thumbnailer.mode.fixedAspectRatio,
-				heroImageHelper = new HeroImage(heroImage, MAX_WIDTH, mode);
+				heroImageHelper = new HeroImage(heroImage, mode);
 
 			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
 		}),

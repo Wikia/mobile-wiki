@@ -6,7 +6,7 @@ const HERO_IMAGE_ASPECT_RATIO = 375 / MAX_WIDTH;
 
 export default class HeroImage {
 
-	constructor(heroImage, width = MAX_WIDTH, tallImageCropMode) {
+	constructor(heroImage, tallImageCropMode, width = MAX_WIDTH) {
 		const imageAspectRatio = 16 / 9,
 			imageWidth = heroImage.width || width,
 			imageHeight = heroImage.height,

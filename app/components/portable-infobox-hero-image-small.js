@@ -19,7 +19,7 @@ export default Component.extend(
 			const heroImage = this.get('heroImage'),
 				maxWidth = this.get('maxWidth');
 
-			return new HeroImage(heroImage, maxWidth, Thumbnailer.mode.topCropDown);
+			return new HeroImage(heroImage, Thumbnailer.mode.topCropDown, maxWidth);
 		}),
 
 		linkStyle: computed('heroImageHelper', function () {
