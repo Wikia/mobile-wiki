@@ -4,13 +4,13 @@
     "cancel-label": "Отмена", 
     "curated-content-editor-edit-main-page": "Править Заглавную страницу", 
     "curated-content-load-more-items": "Загрузить ещё", 
-    "days-ago": "{days}д", 
+    "days-ago": "{days} д.", 
     "discussions-label": "Обсуждения", 
     "header-in-wiki-name-label-prefix": "в:", 
     "header-in-wiki-name-label-suffix": "", 
-    "hours-ago": "{hours}ч", 
+    "hours-ago": "{hours} ч.", 
     "media-lightbox-error": "Файлы не найдены", 
-    "minutes-ago": "{minutes}мин", 
+    "minutes-ago": "{minutes} мин.", 
     "now-label": "сейчас", 
     "page-not-found-error": "К сожалению, мы не можем найти страницу, которую вы ищете.", 
     "page-not-found-message": "Используйте навигацию или поиск", 
@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "автор:", 
-    "watch": "длительность"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "Страница файла", 
