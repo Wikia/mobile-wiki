@@ -24,7 +24,7 @@ export default class HeroImage {
 			computedHeight = width * HERO_IMAGE_ASPECT_RATIO;
 		}
 
-		this.computedHeight = computedHeight;
+		this.computedHeight = Math.round(computedHeight);
 		// generate thumbnail
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
