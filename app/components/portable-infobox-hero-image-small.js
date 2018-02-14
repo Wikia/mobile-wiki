@@ -2,8 +2,7 @@ import {readOnly} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 import {htmlSafe} from '@ember/string';
-import HeroImage from '../modules/hero-image';
-import {MAX_WIDTH} from '../modules/hero-image';
+import HeroImage, {MAX_WIDTH} from '../modules/hero-image';
 import ImageLoader from '../mixins/image-loader';
 import Thumbnailer from '../modules/thumbnailer';
 
