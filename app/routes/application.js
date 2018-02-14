@@ -177,7 +177,7 @@ export default Route.extend(
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${basePath}${fastbootRequest.get('path')}`
 				);
 				fastboot.set('response.statusCode', 301);
 
