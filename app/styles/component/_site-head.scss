@@ -46,14 +46,28 @@ body:not(.no-scroll) {
 	height: $site-head-height;
 }
 
+.has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-with-partner-slot-height;
+	}
+}
+
+.no-scroll .has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-height;
+	}
+}
+
 .site-head {
-	align-items: center;
+	align-items: flex-start;
 	background-color: $white;
 	border-bottom: 1px solid $vapor;
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
@@ -83,7 +97,7 @@ body:not(.no-scroll) {
 		// beneath it.
 		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
-		margin: 0 auto;
+		margin: 12px auto 0;
 	}
 
 	.fandom-logo {
@@ -131,6 +145,25 @@ body:not(.no-scroll) {
 		right: 6px;
 		top: 6px;
 	}
+}
+
+.site-head__partner-slot {
+	flex-basis: 100%;
+}
+
+.site-head__partner-logo {
+	left: 50%;
+	position: absolute;
+	top: 37px;
+	transform: translateX(-10px);
+
+	img {
+		height: 18px;
+	}
+}
+
+.no-scroll .site-head__partner-logo {
+	display: none;
 }
 
 //Styles for BFAA

@@ -1012,14 +1012,8 @@ export default registerHelper('mockFastbootService', () => {
 										"enableAdsInMaps": true,
 										"pageType": "all_ads",
 										"showAds": true,
-										"sourcePointDetectionUrl": "http://sandbox-xw2.fallout.wikia.com/__load/-/cb%3D1491394449%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Dwikiamobile/fde9cd08c8d4722e90ee6059dac8c6b2",
 										"yavliUrl": "http://sandbox-xw2.fallout.wikia.com/__load/-/cb%3D1491394449%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Dwikiamobile/8c56a18a3638374dd6308c11d4b3891e",
-										"pageFairDetectionUrl": "http://sandbox-xw2.fallout.wikia.com/__load/-/cb%3D1491394449%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Dwikiamobile/261805554227e47846605169b2b93aff",
-										"prebidBidderUrl": ["http://sandbox-xw2.slot1.wikia.com/__am/1491394449/group/-/prebid_prod_js"],
-										"sourcePointRecovery": false,
-										"sourcePointMMS": false,
-										"sourcePointMMSDomain": "mms.bre.wikia.com",
-										"pageFairRecovery": false
+										"prebidBidderUrl": ["http://sandbox-xw2.slot1.wikia.com/__am/1491394449/group/-/prebid_prod_js"]
 									},
 									"targeting": {
 										"enableKruxTargeting": true,

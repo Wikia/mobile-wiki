@@ -15,11 +15,6 @@ import offset from '../utils/offset';
  */
 
 /**
- * @typedef {Object} PageFairDetectionModule
- * @property {Function} initDetection
- */
-
-/**
  * @typedef {Object} BabDetectionModule
  * @property {Function} initDetection
  */
@@ -43,7 +38,6 @@ import offset from '../utils/offset';
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {AdEngineBridge} adEngineBridge
- * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {BabDetectionModule} babDetectionModule
  * @property {*} adConfigMobile
  * @property {SlotsContext} slotsContext
@@ -72,10 +66,6 @@ class Ads {
 			babDetector: {
 				name: 'babdetector',
 				dimension: 6
-			},
-			pageFair: {
-				name: 'pagefair',
-				dimension: 7
 			}
 		};
 		this.adLogicPageParams = null;
@@ -124,7 +114,6 @@ class Ads {
 					'ext.wikia.adEngine.context.slotsContext',
 					'ext.wikia.adEngine.lookup.a9',
 					'ext.wikia.adEngine.mobile.mercuryListener',
-					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.babDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
@@ -140,7 +129,6 @@ class Ads {
 					slotsContext,
 					a9,
 					adMercuryListener,
-					pageFairDetectionModule,
 					babDetectionModule,
 					googleTagModule,
 					vastUrlBuilder,
@@ -158,7 +146,6 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.babDetectionModule = babDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.a9 = a9;
@@ -299,16 +286,6 @@ class Ads {
 		const GASettings = this.GASettings,
 			listenerSettings = [
 				{
-					name: 'pageFair',
-					eventName: 'pf.blocking',
-					value: true,
-				},
-				{
-					name: 'pageFair',
-					eventName: 'pf.not_blocking',
-					value: false,
-				},
-				{
 					name: 'babDetector',
 					eventName: 'bab.blocking',
 					value: true,
@@ -405,6 +382,7 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
 		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
+		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
 	}
 
 	isSlotApplicable(slotName) {
@@ -441,12 +419,6 @@ class Ads {
 
 				if (typeof onContextLoadCallback === 'function') {
 					onContextLoadCallback();
-				}
-
-				if (Ads.previousDetectionResults.pageFair.exists) {
-					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
-					this.pageFairDetectionModule.initDetection(adsContext);
 				}
 
 				if (Ads.previousDetectionResults.babDetector.exists) {
@@ -595,10 +567,6 @@ class Ads {
 
 Ads.instance = null;
 Ads.previousDetectionResults = {
-	pageFair: {
-		exists: false,
-		value: null
-	},
 	babDetector: {
 		exists: false,
 		value: null

@@ -31,7 +31,7 @@ class JWPlayerAssets {
 			this.scriptsPromise = new Promise((resolve) => {
 				window.M.loadScript(assetUrls.script, true, (data) => {
 					resolve(data);
-				}, 'anonymous');
+				});
 			});
 		}
 
