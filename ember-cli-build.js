@@ -56,8 +56,8 @@ module.exports = function (defaults) {
 		},
 		inlineContent: {
 			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
-			'fastboot-inline-scripts-head': `node_modules/mercury-shared/dist/head.js`,
-			'fastboot-inline-scripts-head-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
+			'fastboot-inline-scripts': `node_modules/mercury-shared/dist/head.js`,
+			'fastboot-inline-scripts-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,

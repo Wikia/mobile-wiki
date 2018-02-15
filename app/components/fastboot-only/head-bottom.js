@@ -8,6 +8,5 @@ export default Component.extend({
 	tagName: '',
 	layoutName: 'components/fastboot-only/head-bottom',
 
-
 	isRtl: equal('wikiVariables.language.contentDir', 'rtl'),
 });
