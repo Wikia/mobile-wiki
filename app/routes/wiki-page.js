@@ -6,7 +6,6 @@ import {scheduleOnce} from '@ember/runloop';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
-import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
@@ -245,9 +244,7 @@ export default Route.extend(
 		getHandler(model) {
 			const currentNamespace = model.ns;
 
-			if (model.isCuratedMainPage) {
-				return CuratedMainPageHandler;
-			} else if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
+			if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
 				return ArticleHandler;
 			} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
 				return CategoryHandler;

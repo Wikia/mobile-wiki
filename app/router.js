@@ -8,21 +8,21 @@ const Router = EmberRouter.extend(RouterScroll, {
 });
 
 Router.map(function () {
-	this.route('article-preview');
+	// this.route('article-preview');
 
-	this.route('search');
+	// this.route('search');
 
-	this.route('main-page-redirect', {
-		path: '/wiki/'
-	});
+	// this.route('main-page-redirect', {
+	// 	path: '/wiki/'
+	// });
 
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
 
-	this.route('article-edit', {
-		path: '/wiki/edit/:title/:section_index'
-	});
+	// this.route('article-edit', {
+	// 	path: '/wiki/edit/:title/:section_index'
+	// });
 });
 
 export default Router;
