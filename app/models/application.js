@@ -12,7 +12,7 @@ export default EmberObject.extend({
 	currentUser: service(),
 	fastboot: service(),
 	logger: service(),
-	headStore: service(),
+	simpleStore: service(),
 
 	fetch(title, uselangParam) {
 		const currentUser = this.get('currentUser'),
@@ -57,7 +57,7 @@ export default EmberObject.extend({
 					shoebox.put('applicationData', applicationData);
 
 					if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
-						this.get('headStore').set('trackingDimensions', trackingDimensions.value.dimensions);
+						this.get('simpleStore').set('trackingDimensions', trackingDimensions.value.dimensions);
 					}
 
 					return applicationData;

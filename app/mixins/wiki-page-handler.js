@@ -57,7 +57,7 @@ function getURL(params) {
 export default Mixin.create({
 	fastboot: service(),
 	wikiVariables: service(),
-	headStore: service(),
+	simpleStore: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -96,7 +96,7 @@ export default Mixin.create({
 						}
 
 						shoebox.put('wikiPage', dataForShoebox);
-						this.get('headStore').setProperties({
+						this.get('simpleStore').setProperties({
 							namespace: data.ns,
 							articleId: data.details.id,
 							isMainPage: data.isMainPage

@@ -8,7 +8,7 @@ export default Component.extend({
 	currentUser: service(),
 	fastboot: service(),
 	tracking: service(),
-	headStore: service(),
+	simpleStore: service(),
 	wikiVariables: service(),
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
@@ -25,7 +25,7 @@ export default Component.extend({
 		const tracking = this.get('tracking.config');
 		const isAuthenticated = currentUser.get('isAuthenticated');
 		const wikiaEnv = config.wikiaEnv;
-		const headStore = this.get('headStore').getProperties(
+		const simpleStore = this.get('simpleStore').getProperties(
 			'trackingDimensions',
 			'articleId',
 			'namespace',
@@ -45,7 +45,7 @@ export default Component.extend({
 			isAuthenticated,
 			wikiaEnv,
 			wikiVariables
-		}, headStore));
+		}, simpleStore));
 	}),
 
 	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
