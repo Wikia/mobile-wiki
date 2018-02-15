@@ -11,7 +11,6 @@ export default Component.extend({
 	wikiVariables: service(),
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
-	noExternals: bool('queryParams.noexternals'),
 	isRtl: equal('wikiVariables.language.contentDir', 'rtl'),
 
 	data: computed(function () {
@@ -48,4 +47,5 @@ export default Component.extend({
 	}),
 
 	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
+	noExternals: config.noExternals
 });
