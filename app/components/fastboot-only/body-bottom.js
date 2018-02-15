@@ -6,7 +6,6 @@ import config from '../../config/environment';
 
 export default Component.extend({
 	currentUser: service(),
-	fastboot: service(),
 	tracking: service(),
 	simpleStore: service(),
 	wikiVariables: service(),
