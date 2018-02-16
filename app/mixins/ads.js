@@ -10,6 +10,9 @@ export default Mixin.create({
 				isAboveTheFold: true
 			},
 			MOBILE_BOTTOM_LEADERBOARD: {
+				// disableManualInsert: true
+			},
+			BOTTOM_LEADERBOARD: {
 				disableManualInsert: true
 			}
 		},
