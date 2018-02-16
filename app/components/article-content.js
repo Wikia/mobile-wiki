@@ -23,9 +23,11 @@ export default Component.extend(
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
+		wikiVariables: service(),
 
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
+		attributeBindings: ['lang', 'dir'],
 		adsContext: null,
 		content: null,
 		contributionEnabled: null,
@@ -34,6 +36,8 @@ export default Component.extend(
 		isPreview: false,
 		media: null,
 
+		lang: reads('wikiVariables.language.content'),
+		dir: reads('wikiVariables.language.contentDir'),
 		isFastBoot: reads('fastboot.isFastBoot'),
 
 		smallHeroImage: and('featuredVideo', 'heroImage'),

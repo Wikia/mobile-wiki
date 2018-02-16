@@ -51,6 +51,7 @@ module.exports = function (defaults) {
 			]
 		},
 		fingerprint: {
+			exclude: ['app.css'],
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs']
 		},

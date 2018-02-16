@@ -33,7 +33,6 @@ export default Component.extend({
 	logger: service(),
 	wikiVariables: service(),
 
-	attributeBindings: ['dir'],
 	classNames: ['application-wrapper'],
 	classNameBindings: [
 		'smartBannerVisible',
@@ -46,8 +45,6 @@ export default Component.extend({
 	smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 	shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
-
-	dir: reads('wikiVariables.language.contentDir'),
 
 	bfaaTemplate: bool('ads.siteHeadOffset'),
 
