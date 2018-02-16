@@ -13,14 +13,13 @@ export default class HeroImage {
 			maxWidth = Math.floor(imageHeight * imageAspectRatio);
 
 		let computedHeight = imageHeight,
-			cropMode = Thumbnailer.mode.thumbnailDown;
+			cropMode = tallImageCropMode;
 
 		// wide image - crop images wider than 16:9 aspect ratio to 16:9
 		if (imageWidth > maxWidth) {
 			cropMode = Thumbnailer.mode.zoomCrop;
 			computedHeight = Math.floor(width / imageAspectRatio);
 		} else {
-			cropMode = tallImageCropMode;
 			computedHeight = width * HERO_IMAGE_ASPECT_RATIO;
 		}
 
