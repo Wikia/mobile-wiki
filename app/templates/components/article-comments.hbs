@@ -1,6 +1,6 @@
 <div role="button" {{action 'toggleComments'}} class='show-comments-btn {{if isCollapsed 'collapsed'}}'>
-	{{i18n 'article.comments-label' count=commentsCount}}
-	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+	<span>{{i18n 'article.comments-label' count=commentsCount}}</span>
+	{{svg 'wds-icons-menu-control' viewBox='0 0 12 12' class='wds-icon wds-icon-tiny'}}
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}

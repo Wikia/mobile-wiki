@@ -10,10 +10,8 @@
 		padding-top: 0;
 
 		svg {
-			fill: $anchor-font-color;
-			height: 16px;
+			transform: rotate(180deg);
 			vertical-align: middle;
-			width: 11px;
 		}
 	}
 

@@ -144,16 +144,17 @@ $group-header-font-size: 16px;
 			z-index: $z-portable-infobox-collapse;
 		}
 
-		svg {
-			fill: $infobox-hero-font-color;
-			stroke: $infobox-hero-overlay-color;
-			stroke-width: .5;
-		}
+				svg {
+					fill: $infobox-hero-font-color;
+					stroke: $infobox-hero-overlay-color;
+					stroke-width: .5;
+					transform: rotate(-90deg);
+				}
 
-		.action-previous svg {
-			transform: scaleX(-1);
-		}
-	}
+				.action-previous svg {
+					transform: rotate(90deg);
+				}
+			}
 
 	.action-next {
 		right: 0;

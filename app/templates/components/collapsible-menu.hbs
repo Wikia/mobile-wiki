@@ -1,6 +1,6 @@
 <div role="button" {{action 'toggleMenu'}} class="{{if isCollapsed 'collapsed'}} title">
-	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-	{{i18n tLabel count=tCount}}
+	<span>{{i18n tLabel count=tCount}}</span>
+	{{svg 'wds-icons-menu-control-tiny' viewBox='0 0 12 12' class='wds-icon wds-icon-tiny'}}
 </div>
 {{#if ordered}}
 	<ol>

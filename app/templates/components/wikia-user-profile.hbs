@@ -2,7 +2,7 @@
 	<div class="wikia-nav__header">
 		<a role="button" {{action 'getBack' preventDefault=false}}
 				class="wikia-nav__back wikia-user-profile__back-link">
-			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
+			{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon'}}
 		</a>
 		<div class="wikia-nav--external wikia-nav--logout">
 			{{sign-out title='global-navigation-user-sign-out' trackingLabel='open-logout' trackingCategory='side-nav'}}
@@ -12,7 +12,6 @@
 	<header class="wikia-user-profile__header-wrapper">
 		{{user-avatar
 			username=username
-			avatarUrl=currentUser.avatarPath
 		}}
 		<h4 class="wikia-user-profile__username">{{username}}</h4>
 	</header>

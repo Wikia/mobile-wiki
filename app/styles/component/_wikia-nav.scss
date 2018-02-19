@@ -1,7 +1,6 @@
 .wikia-nav {
 	$nav-logout-color: #d7d9dc;
 	$nav-local-background-color: #4f5863;
-	$nav-back-arrow-padding: 68px;
 	$nav-avatar-size: 30px;
 	$nav-avatar-margin: 10px;
 	$nav-avatar-border-radius: 50%;
@@ -19,29 +18,27 @@
 	&__header {
 		@include link-interactions-color(inherit);
 
+		align-items: center;
 		background-color: $nav-background-color;
 		color: inherit;
-		display: block;
-		flex-grow: 0;
-		flex-shrink: 0;
-		font-size: $type-base;
+		display: flex;
 		line-height: $nav-line-height;
-		margin-top: 0;
-		overflow: hidden;
 		padding: $nav-padding-horizontal $nav-padding-vertical;
-		position: relative;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 
 		&.wikia-nav__back {
-			background-image: $side-nav-back-svg;
-			background-position: left $nav-padding-vertical center;
-			background-repeat: no-repeat;
-			padding-left: $nav-back-arrow-padding;
+			> span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			> .wds-icon {
+				margin-right: 26px;
+			}
 		}
 
 		.wikia-nav__avatar {
-			float: left;
+			display: flex;
 			margin-right: $nav-avatar-margin;
 
 			img {
@@ -50,6 +47,20 @@
 				height: $nav-avatar-size;
 				vertical-align: top;
 				width: $nav-avatar-size;
+			}
+
+			.wds-icon {
+				height: 32px;
+				width: 32px;
+			}
+		}
+
+		.wikia-nav--profile-link {
+			display: flex;
+			flex: 1;
+
+			> span {
+				flex: 1;
 			}
 		}
 

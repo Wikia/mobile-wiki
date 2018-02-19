@@ -11,17 +11,14 @@ $nav-padding-horizontal: 6px;
 	&__item {
 		@include link-interactions-color(inherit);
 
+		align-items: center;
 		box-sizing: content-box;
 		color: inherit;
-		display: block;
-		font-size: $type-base;
+		display: flex;
 		height: $nav-line-height;
 		line-height: $nav-line-height;
-		overflow: hidden;
 		padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
 		position: relative;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 
 		&::before {
 			content: ' ';
@@ -53,10 +50,18 @@ $nav-padding-horizontal: 6px;
 		}
 
 		&.nav-menu--root {
-			background-image: $side-nav-menu-svg;
-			background-position: right $nav-padding-vertical center;
-			background-repeat: no-repeat;
-			padding-right: $nav-chevron-padding;
+			> span {
+				flex: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			> .wds-icon {
+				fill: #656e78;
+				margin-left: 6px;
+				transform: rotate(-90deg);
+			}
 		}
 
 		&.nav-menu--comics::before {

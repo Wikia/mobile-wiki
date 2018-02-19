@@ -6,7 +6,7 @@
 	position: relative;
 	width: 100%;
 
-	.chevron {
+	> .wds-icon {
 		fill: $white;
 		height: 100%;
 		position: absolute;
@@ -14,13 +14,14 @@
 		stroke-width: .25;
 		top: 0;
 
-		&-left {
+		&.left {
 			left: 0;
-			transform: scaleX(-1);
+			transform: rotate(90deg);
 		}
 
-		&-right {
+		&.right {
 			right: 0;
+			transform: rotate(-90deg);
 		}
 	}
 

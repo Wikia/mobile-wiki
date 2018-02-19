@@ -45,13 +45,15 @@
 	}
 
 	.chevron {
-		background-color: #fff;
+		background: #fff;
 		bottom: 0;
 		height: 20px;
+		min-width: 20px;
+		padding: 4px;
 		position: absolute;
 		right: 0;
+		transform: rotate(-90deg);
 		width: 20px;
-		z-index: $z-1;
 	}
 
 	&__play-icon {

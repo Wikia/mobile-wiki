@@ -2,14 +2,13 @@ import {inject as service} from '@ember/service';
 import {oneWay} from '@ember/object/computed';
 import Component from '@ember/component';
 import {getOwner} from '@ember/application';
-import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
-	LoginLinkMixin, NoScrollMixin, UnreadCountMixin,
+	NoScrollMixin, UnreadCountMixin,
 	{
 		currentUser: service(),
 		notifications: service(),
@@ -76,6 +75,10 @@ export default Component.extend(
 				this.get('model').goToSubNav(index);
 			},
 
+			goToLogin() {
+				this.goToLogin(...arguments);
+			},
+
 			/**
 			 * wrapper for click tracking
 			 *
@@ -90,6 +93,24 @@ export default Component.extend(
 					label
 				});
 			}
+		},
+
+		/**
+		 * Creates a link to a login page preserving current page as a redirect
+		 * and adding a language code to the querystring
+		 * @returns {void}
+		 */
+		goToLogin(redirectUrl) {
+			track({
+				trackingMethod: 'ga',
+				action: trackActions.click,
+				category: 'user-login-mobile',
+				label: 'join-link',
+			});
+
+			const url = redirectUrl || window.location.href;
+
+			window.location.href = `/join?redirect=${encodeURIComponent(url)}${this.getUselangParam()}`;
 		}
 	}
 );

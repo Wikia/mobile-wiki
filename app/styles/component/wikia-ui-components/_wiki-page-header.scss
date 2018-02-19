@@ -47,17 +47,12 @@
 
 		font-size: 12px;
 
-		svg {
-			fill: #fff;
-			height: 16px;
-			vertical-align: middle;
-			width: 11px;
-		}
-
-		a:hover svg {
-			fill: #081e3a;
-		}
+	.wds-icon {
+		position: relative;
+		top: 2px;
+		transform: rotate(180deg);
 	}
+}
 
 	&__site-link {
 		color: inherit;
