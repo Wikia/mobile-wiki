@@ -41,7 +41,7 @@
 	</span>
 	<span class="post-counters">
 		<span class="upvote-count">
-			{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+			{{svg 'wds-icons-upvote' viewBox='0 0 24 24' class='wds-icon wds-icon-tiny upvote'}}
 			{{post.upvoteCount}}
 		</span>
 		<span class="reply-count">
@@ -52,7 +52,7 @@
 </div>
 <ul class="post-actions">
 	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
-		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+		{{svg 'wds-icons-upvote' viewBox='0 0 24 24' class='wds-icon wds-icon-small upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
 	<li class="replies replies-area">
