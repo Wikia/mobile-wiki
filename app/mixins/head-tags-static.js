@@ -32,7 +32,6 @@ export default Mixin.create({
 			appleTouchIcon: model.wikiVariables.appleTouchIcon,
 			favicon: model.wikiVariables.favicon,
 			siteName: model.wikiVariables.siteName,
-			isRtl: model.wikiVariables.language.contentDir === 'rtl',
 			themeColor: config.verticalColors[model.wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
 			noExternals,

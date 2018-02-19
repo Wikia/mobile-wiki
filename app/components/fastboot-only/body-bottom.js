@@ -11,7 +11,6 @@ export default Component.extend({
 	wikiVariables: service(),
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
-	isRtl: equal('wikiVariables.language.contentDir', 'rtl'),
 
 	data: computed(function () {
 		const cookieDomain = config.cookieDomain;

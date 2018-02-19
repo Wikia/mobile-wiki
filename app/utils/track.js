@@ -133,7 +133,7 @@ export function track(params) {
 	if (!window.location) {
 		return;
 	}
-	params = $.extend({
+	params = Object.assign({
 		ga_action: action,
 		ga_category: category,
 		ga_label: label,
@@ -153,7 +153,7 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		params = $.extend({}, context, params);
+		params = Object.assign({}, context, params);
 		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }

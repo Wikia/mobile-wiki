@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';

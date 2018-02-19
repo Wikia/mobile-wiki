@@ -51,6 +51,7 @@ module.exports = function (defaults) {
 			]
 		},
 		fingerprint: {
+			exclude: ['app.css'],
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs']
 		},
@@ -101,7 +102,8 @@ module.exports = function (defaults) {
 		},
 		vendorFiles: {
 			// This should be removed when ember-cli-shims is sunset
-			'app-shims.js': null
+			'app-shims.js': null,
+			'jquery.js': null
 		},
 		emberCliConcat: {
 			js: {
@@ -125,6 +127,7 @@ module.exports = function (defaults) {
 
 	// Import files from node_modules, they will run both in FastBoot and browser
 	app.import('node_modules/vignette/dist/vignette.js');
+	app.import('vendor/polyfills.js', {prepend: true});
 
 	// These will run only in browser
 	app.import('node_modules/visit-source/dist/visit-source.js', {

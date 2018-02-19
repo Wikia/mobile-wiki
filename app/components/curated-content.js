@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import $ from 'jquery';
+import offset from '../utils/offset';
 
 export default Component.extend({
 	classNames: ['curated-content', 'mw-content'],
@@ -11,11 +11,14 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const navHeight = $('.site-head-container').outerHeight(),
-				scrollTop = this.$().offset().top - navHeight;
+			const navHeight = document.querySelector('.site-head-container').offsetHeight,
+				scrollTop = offset(this.element).top - navHeight;
 
 			this.set('activeLabel', item.label);
-			$('html, body').animate({scrollTop});
+			window.scroll({
+				top: scrollTop,
+				behavior: 'smooth'
+			});
 		},
 
 		closeSection() {
