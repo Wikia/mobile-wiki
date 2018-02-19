@@ -41,7 +41,7 @@ export default Component.extend(
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
-				this.get('closeIcon') : 'search';
+				this.get('closeIcon') : 'wds-icons-magnifying-glass';
 		}),
 
 		init() {
