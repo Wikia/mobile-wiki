@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {reads} from '@ember/object/computed';
+import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import $ from 'jquery';
 import {isBlank} from '@ember/utils';
@@ -39,6 +39,8 @@ export default Component.extend(
 		lang: reads('wikiVariables.language.content'),
 		dir: reads('wikiVariables.language.contentDir'),
 		isFastBoot: reads('fastboot.isFastBoot'),
+
+		smallHeroImage: and('featuredVideo', 'heroImage'),
 
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
@@ -260,7 +262,6 @@ export default Component.extend(
 							infoboxHTML: element.innerHTML,
 							height: $(element).outerHeight(),
 							pageTitle: this.get('displayTitle'),
-							smallHeroImage: this.get('featuredVideo') && this.get('heroImage'),
 							openLightbox: this.get('openLightbox')
 						},
 						element

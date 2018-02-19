@@ -8,7 +8,7 @@ export default Component.extend(
 	RenderComponentMixin,
 	ViewportMixin,
 	{
-		classNames: ['portable-infobox'],
+		classNames: ['portable-infobox', 'pi'],
 		classNameBindings: ['collapsed'],
 		expandButtonClass: 'pi-expand-button',
 		layoutName: 'components/portable-infobox',
