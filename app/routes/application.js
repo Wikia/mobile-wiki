@@ -388,8 +388,6 @@ export default Route.extend(
 			const document = applicationInstance.lookup('service:-document');
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
-			bodyBottomComponent.set('queryParams', queryParams);
-			bodyBottomComponent.set('wikiVariables', wikiVariables);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}
