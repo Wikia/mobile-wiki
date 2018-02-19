@@ -37,21 +37,26 @@ export default Component.extend(
 
 		icon: computed('type', function () {
 			const type = this.get('type'),
-				typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'];
+				typesWithDedicatedIcon = {
+					category: 'grid',
+					video: 'play',
+					image: 'image',
+					blog: 'clock'
+				};
 
 			let iconType;
 
-			if (typesWithDedicatedIcon.indexOf(type) > -1) {
-				iconType = type;
+			if (typesWithDedicatedIcon[type]) {
+				iconType = typesWithDedicatedIcon[type];
 			} else if (type === 'section') {
 				// Sections use the same icons as categories
-				iconType = 'category';
+				iconType = 'grid';
 			} else {
 				// Default icon
 				iconType = 'article';
 			}
 
-			return `namespace-${iconType}`;
+			return `wds-icons-${iconType}`;
 		}),
 
 		/**
