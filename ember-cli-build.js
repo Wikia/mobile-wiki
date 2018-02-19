@@ -142,6 +142,9 @@ module.exports = function (defaults) {
 	app.import('node_modules/ember-hammer/ember-hammer.js', {
 		using: [{transformation: 'fastbootShim'}]
 	});
+	app.import('node_modules/js-cookie/src/js.cookie.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
 
 	return app.toTree([
 		designSystemI18n,
