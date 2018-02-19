@@ -113,6 +113,12 @@ body:not(.no-scroll) {
 	.site-head-icon {
 		position: relative;
 
+		svg {
+			fill: #092344;
+			width: 24px;
+			height: 24px;
+		}
+
 		.icon-button-icon {
 			fill: $color-blue-dark;
 		}
