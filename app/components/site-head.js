@@ -18,7 +18,7 @@ export default Component.extend(
 		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
 		tagName: 'div',
 		themeBar: false,
-		closeIcon: 'close',
+		closeIcon: 'wds-icons-cross',
 		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
@@ -36,7 +36,7 @@ export default Component.extend(
 		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
+			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'wds-icons-menu';
 		}),
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
