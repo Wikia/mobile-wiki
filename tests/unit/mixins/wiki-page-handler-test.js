@@ -24,7 +24,8 @@ moduleFor('mixin:wiki-page-handler', 'Unit | Mixins | Wiki Page Handler', {
 		'service:currentUser',
 		'service:fastboot',
 		'service:logger',
-		'service:wiki-variables'
+		'service:wiki-variables',
+		'service:simple-store'
 	],
 
 	beforeEach() {
