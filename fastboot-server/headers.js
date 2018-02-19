@@ -23,6 +23,10 @@ module.exports = function (req, res, next) {
 		const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
 		res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
 	}
+
+	const assetMap = require('../dist/mobile-wiki/assets/assetMap.json');
+
+	res.setHeader('link', `</mobile-wiki/${assetMap.assets['assets/vendor.js']}>; rel=preload; as=script`);
 	setResponseTime(res);
 	next();
 };

@@ -107,7 +107,7 @@ module.exports = function (defaults) {
 		},
 		emberCliConcat: {
 			js: {
-				concat: true,
+				concat: false,
 				useAsync: true
 			}
 		}
