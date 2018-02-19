@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import {bind} from '@ember/runloop';
@@ -27,7 +26,7 @@ export default Mixin.create({
 
 		if (!this.get('initiated') && !this.get('fastboot.isFastBoot')) {
 			this.onResize();
-			$(window).on('resize', () => {
+			window.addEventListener('resize', () => {
 				bind(this, this.onResize);
 			});
 			this.set('initiated', true);

@@ -34,7 +34,7 @@ export default Mixin.create({
 	/**
 	 * @param {string} adSlotName
 	 * @param {string} place
-	 * @param {jQuery} element
+	 * @param {Element} element
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
@@ -44,13 +44,9 @@ export default Mixin.create({
 
 		const adsData = this.get('adsData'),
 			config = adsData.additionalConfig[adSlotName] || {},
-			$placeholder = $('<div>');
+			placeholder = document.createElement('div');
 
-		if (place === 'after') {
-			$placeholder.insertAfter(element);
-		} else if (place === 'before') {
-			$placeholder.insertBefore(element);
-		}
+		element.insertAdjacentElement(place, placeholder);
 
 		this.get('ads').pushAdSlotComponent(adSlotName, this.renderAdComponent({
 			name: 'ad-slot',
@@ -60,16 +56,16 @@ export default Mixin.create({
 				isAboveTheFold: !!config.isAboveTheFold,
 				name: adSlotName
 			},
-			element: $placeholder.get(0)
+			element: placeholder
 		}));
 	},
 
 	appendHighImpactAd() {
-		const $placeholder = $('<div>'),
-			$wikiContainer = $('#wikiContainer');
+		const placeholder = document.createElement('div'),
+			wikiContainer = document.getElementById('wikiContainer');
 
-		if ($wikiContainer.length) {
-			$placeholder.insertAfter($wikiContainer);
+		if (wikiContainer) {
+			wikiContainer.insertAdjacentElement('afterend', placeholder);
 
 			if (this.get('ads.module').isSlotApplicable(this.get('adsData.invisibleHighImpact2'))) {
 				this.get('ads').pushAdSlotComponent(
@@ -77,13 +73,13 @@ export default Mixin.create({
 					this.renderAdComponent({
 						name: 'ads/invisible-high-impact-2',
 						attrs: {},
-						element: $placeholder.get(0)
+						element: placeholder
 					})
 				);
 			}
 
 
-			this.appendAd(this.get('adsData.invisibleHighImpact'), 'after', $wikiContainer);
+			this.appendAd(this.get('adsData.invisibleHighImpact'), 'afterend', wikiContainer);
 		}
 	},
 
@@ -91,32 +87,32 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectAds() {
-		const $firstSection = this.$().children('h2').first(),
-			$articleFooter = $('.article-footer'),
-			$pi = $('.portable-infobox'),
-			$pageHeader = $('.wiki-page-header'),
+		const firstSection = this.element.parentNode.querySelector('.article-content > h2'),
+			articleFooter = document.querySelector('.article-footer'),
+			pi = document.querySelector('.portable-infobox'),
+			pageHeader = document.querySelector('.wiki-page-header'),
 			adsData = this.get('adsData'),
-			$globalFooter = $('.wds-global-footer');
+			globalFooter = document.querySelector('.wds-global-footer');
 
-		if ($pi.length) {
+		if (pi) {
 			// inject top mobileTopLeaderBoard below infobox
-			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
-		} else if ($pageHeader.length && !this.get('featuredVideo')) {
+			this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pi);
+		} else if (pageHeader && !this.get('featuredVideo')) {
 			// inject top mobileTopLeaderBoard below article header
 			// only if there is no featured video embedded
-			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
+			this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
 		}
 
-		if ($firstSection.length > 0) {
-			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
+		if (firstSection) {
+			this.appendAd(adsData.mobileInContent, 'beforebegin', firstSection);
 		}
 
-		if ($articleFooter.length > 0) {
-			this.appendAd(adsData.mobilePreFooter, 'before', $articleFooter);
+		if (articleFooter) {
+			this.appendAd(adsData.mobilePreFooter, 'beforebegin', articleFooter);
 		}
 
-		if ($globalFooter.length > 0) {
-			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
+		if (globalFooter) {
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();
@@ -132,20 +128,20 @@ export default Mixin.create({
 	 */
 	injectMainPageAds() {
 		const adsData = this.get('adsData'),
-			$curatedContent = this.$('.curated-content'),
-			$trendingArticles = this.$('.trending-articles'),
-			$globalFooter = $('.wds-global-footer');
+			curatedContent = this.element.querySelector('.curated-content'),
+			trendingArticles = this.element.querySelector('.trending-articles'),
+			globalFooter = document.querySelector('.wds-global-footer');
 
-		if ($curatedContent.length > 0) {
-			this.appendAd(adsData.mobileInContent, 'after', $curatedContent);
+		if (curatedContent) {
+			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
 
-		if ($trendingArticles.length > 0) {
-			this.appendAd(adsData.mobilePreFooter, 'after', $trendingArticles);
+		if (trendingArticles) {
+			this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
 		}
 
-		if ($globalFooter.length > 0) {
-			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
+		if (globalFooter) {
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();

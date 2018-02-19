@@ -57,12 +57,14 @@ export default Component.extend(
 				unsafe: true,
 				callbacks: {
 					onInsertElement: (alert) => {
-						alert.on('click', 'a:not(.close)', () => {
-							track({
-								action: trackActions.click,
-								category: 'wikiaInYourLangAlert',
-								label: 'link'
-							});
+						alert.addEventListener('click', ({target}) => {
+							if (target.closest('a:not(.close)')) {
+								track({
+									action: trackActions.click,
+									category: 'wikiaInYourLangAlert',
+									label: 'link'
+								});
+							}
 						});
 					},
 					onCloseAlert: () => {
