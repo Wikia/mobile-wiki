@@ -13,23 +13,23 @@ test('returns correct icon name', function (assert) {
 	assert.expect(7);
 
 	componentMock.set('type', 'category');
-	assert.equal(componentMock.get('icon'), 'namespace-category');
+	assert.equal(componentMock.get('icon'), 'wds-icons-grid');
 
 	componentMock.set('type', 'section');
-	assert.equal(componentMock.get('icon'), 'namespace-category');
+	assert.equal(componentMock.get('icon'), 'wds-icons-grid');
 
 	componentMock.set('type', 'video');
-	assert.equal(componentMock.get('icon'), 'namespace-video');
+	assert.equal(componentMock.get('icon'), 'wds-icons-play');
 
 	componentMock.set('type', 'image');
-	assert.equal(componentMock.get('icon'), 'namespace-image');
+	assert.equal(componentMock.get('icon'), 'wds-icons-image');
 
 	componentMock.set('type', 'blog');
-	assert.equal(componentMock.get('icon'), 'namespace-blog');
+	assert.equal(componentMock.get('icon'), 'wds-icons-clock');
 
 	componentMock.set('type', 'article');
-	assert.equal(componentMock.get('icon'), 'namespace-article');
+	assert.equal(componentMock.get('icon'), 'wds-icons-article');
 
 	componentMock.set('type', 'whatever');
-	assert.equal(componentMock.get('icon'), 'namespace-article');
+	assert.equal(componentMock.get('icon'), 'wds-icons-article');
 });
