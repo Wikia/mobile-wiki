@@ -51,6 +51,7 @@ module.exports = {
 					const logFn = req.log[level].bind(req.log);
 					logFn(err);
 				} else {
+					// eslint-disable-next-line no-console
 					console.error(err);
 				}
 

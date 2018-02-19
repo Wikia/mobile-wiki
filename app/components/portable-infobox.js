@@ -19,7 +19,7 @@ export default Component.extend(
 		collapsed: false,
 
 		button: computed('expandButtonClass', function () {
-			return this.$(`.${this.get('expandButtonClass')}`)[0];
+			return this.element.querySelector(`.${this.get('expandButtonClass')}`);
 		}),
 
 		/**
@@ -84,12 +84,12 @@ export default Component.extend(
 
 		collapse() {
 			this.set('collapsed', true);
-			this.$().height(this.get('collapsedHeight'));
+			this.element.style.height = `${this.get('collapsedHeight')}px`;
 		},
 
 		expand() {
 			this.set('collapsed', false);
-			this.$().height('auto');
+			this.element.style.height = 'auto';
 		}
 	}
 );

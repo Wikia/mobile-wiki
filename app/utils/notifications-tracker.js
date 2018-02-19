@@ -18,7 +18,7 @@ const labels = {
  * @returns {Object}
  */
 function getTrackingContext(label, action, params) {
-	return $.extend({
+	return Object.assign({}, {
 		action,
 		category: gaCategory,
 		label: labels[label]

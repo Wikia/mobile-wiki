@@ -1,6 +1,7 @@
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
+import {find} from 'ember-native-dom-helpers';
 
 const icon = 'test-icon',
 	tagName = 'a',
@@ -24,12 +25,12 @@ moduleForComponent('wikia-ui-components/icon-button', 'Integration | Component |
 test('render default icon button', function (assert) {
 	this.render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
 
-	assert.equal(this.$(tagName).attr('class').indexOf(defaultClassName) !== negativeIndex, true);
-	assert.equal(this.$(svgSlector).attr('width'), defaultSize);
-	assert.equal(this.$(svgSlector).attr('height'), defaultSize);
-	assert.equal(this.$(svgSlector).attr('class').indexOf(defaultSVGClassName) !== negativeIndex, true);
-	assert.equal(this.$(svgSlector).attr('role'), role);
-	assert.equal(this.$(svgUseSelector).attr('xlink:href'), `#${icon}`);
+	assert.equal(find(tagName).className.indexOf(defaultClassName) !== negativeIndex, true);
+	assert.equal(find(svgSlector).getAttribute('width'), defaultSize);
+	assert.equal(find(svgSlector).getAttribute('height'), defaultSize);
+	assert.equal(find(svgSlector).getAttribute('class').indexOf(defaultSVGClassName) !== negativeIndex, true);
+	assert.equal(find(svgSlector).getAttribute('role'), role);
+	assert.equal(find(svgUseSelector).getAttribute('xlink:href'), `#${icon}`);
 });
 
 test('render icon button with custom class', function (assert) {
@@ -38,7 +39,7 @@ test('render icon button with custom class', function (assert) {
 	this.set('customClass', customClass);
 	this.render(hbs`{{wikia-ui-components/icon-button icon=icon class=customClass click=action}}`);
 
-	assert.equal(this.$(tagName).attr('class').indexOf(customClass) !== negativeIndex, true);
+	assert.equal(find(tagName).className.indexOf(customClass) !== negativeIndex, true);
 });
 
 test('render icon button with custom iconSize', function (assert) {
@@ -47,8 +48,8 @@ test('render icon button with custom iconSize', function (assert) {
 	this.set('iconSize', iconSize);
 	this.render(hbs`{{wikia-ui-components/icon-button icon=icon iconSize=iconSize click=action}}`);
 
-	assert.equal(this.$(svgSlector).attr('width'), iconSize);
-	assert.equal(this.$(svgSlector).attr('height'), iconSize);
+	assert.equal(find(svgSlector).getAttribute('width'), iconSize);
+	assert.equal(find(svgSlector).getAttribute('height'), iconSize);
 });
 
 test('render icon button with browser link tooltip', function (assert) {
@@ -57,12 +58,12 @@ test('render icon button with browser link tooltip', function (assert) {
 	this.set('tooltip', tooltip);
 	this.render(hbs`{{wikia-ui-components/icon-button icon=icon title=tooltip click=action}}`);
 
-	assert.equal(this.$(tagName).attr('title'), tooltip);
+	assert.equal(find(tagName).getAttribute('title'), tooltip);
 });
 
 test('clicking button triggers action', function (assert) {
 	this.render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
-	this.$(tagName).click();
+	find(tagName).click();
 
 	assert.equal(this.get('action').called, true);
 });

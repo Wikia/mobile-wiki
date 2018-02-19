@@ -57,7 +57,7 @@ export default Mixin.create({
 		};
 
 		if (headroomOptions) {
-			options = $.extend({}, options, headroomOptions);
+			options = Object.assign({}, options, headroomOptions);
 		}
 
 		headroom = new Headroom(this.element, options);
