@@ -133,9 +133,6 @@ module.exports = function (defaults) {
 	app.import('node_modules/visit-source/dist/visit-source.js', {
 		using: [{transformation: 'fastbootShim'}]
 	});
-	app.import('node_modules/jquery.cookie/jquery.cookie.js', {
-		using: [{transformation: 'fastbootShim'}]
-	});
 	app.import('node_modules/scriptjs/dist/script.min.js', {
 		using: [{transformation: 'fastbootShim'}]
 	});
