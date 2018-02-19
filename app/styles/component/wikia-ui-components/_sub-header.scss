@@ -57,18 +57,10 @@ $title-padding-large: 0 21px;
 		width: $back-arrow-size;
 	}
 
-	.icon-button-icon {
-		fill: $white;
-	}
-
 	&:active,
 	&:visited,
 	&:hover {
 		background: inherit;
-
-		.icon-button-icon {
-			fill: $white;
-		}
 	}
 
 	@media #{$wds-breakpoint-m-down} {

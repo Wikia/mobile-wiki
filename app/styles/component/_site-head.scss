@@ -119,19 +119,9 @@ body:not(.no-scroll) {
 			height: 24px;
 		}
 
-		.icon-button-icon {
-			fill: $color-blue-dark;
-		}
-
 		&-search,
 		&-nav {
 			flex: 0 0 48px;
-		}
-
-		&:hover {
-			.icon-button-icon {
-				fill: $color-blue-dark;
-			}
 		}
 	}
 
