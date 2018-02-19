@@ -12,7 +12,7 @@
 			{{unbound userName}}
 		{{/if}}
 	</span>
-	{{{text}}}
+	{{{comment.text}}}
 	{{#if comment.comments}}
 		<button class='show-reply-btn wds-button wds-is-secondary' {{action 'toggleExpand'}}>
 			{{i18n 'article.replies-label' count=comment.comments.length}}

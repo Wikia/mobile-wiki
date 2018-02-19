@@ -132,7 +132,7 @@ export default Component.extend(
 		},
 
 		/**
-		 * @param {JQueryEventObject} event
+		 * @param {Event} event
 		 * @returns {void}
 		 */
 		keyDown(event) {

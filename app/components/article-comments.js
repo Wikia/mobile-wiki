@@ -6,6 +6,7 @@ import {run} from '@ember/runloop';
 import {getOwner} from '@ember/application';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
+import offset from '../utils/offset';
 
 /**
  * Component that displays article comments
@@ -148,7 +149,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		scrollToTop() {
-			window.scrollTo(0, this.$().offset().top);
+			window.scrollTo(0, offset(this.element).top);
 		},
 	}
 );

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
 
@@ -27,6 +26,6 @@ export default Component.extend(RenderComponentMixin, {
 	loadScript() {
 		const id = this.get('data.id');
 
-		$.getScript(`//static.polldaddy.com/p/${id}.js`);
+		$script(`//static.polldaddy.com/p/${id}.js`);
 	},
 });

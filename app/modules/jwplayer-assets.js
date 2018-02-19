@@ -16,8 +16,12 @@ class JWPlayerAssets {
 
 	loadStyles() {
 		if (!this.wasStyleLoadInitialized) {
-			$(`<link rel="stylesheet" href="${assetUrls.styles}">`)
-				.appendTo('head');
+			const styles = document.createElement('link');
+
+			styles.rel = 'stylesheet';
+			styles.href = assetUrls.styles;
+			document.head.appendChild(styles);
+
 			this.wasStyleLoadInitialized = true;
 		}
 	}

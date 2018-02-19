@@ -102,7 +102,8 @@ module.exports = function (defaults) {
 		},
 		vendorFiles: {
 			// This should be removed when ember-cli-shims is sunset
-			'app-shims.js': null
+			'app-shims.js': null,
+			'jquery.js': null
 		},
 		emberCliConcat: {
 			js: {
@@ -127,6 +128,7 @@ module.exports = function (defaults) {
 	// Import files from node_modules, they will run both in FastBoot and browser
 	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
 	app.import('node_modules/vignette/dist/vignette.js');
+	app.import('vendor/polyfills.js', {prepend: true});
 
 	return app.toTree([
 		designSystemI18n,

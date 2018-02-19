@@ -50,7 +50,7 @@ export default Component.extend({
 	},
 
 	click(event) {
-		if (event.target === this.$(this.get('closeButtonSelector'))[0]) {
+		if (event.target === this.element.querySelector(this.get('closeButtonSelector'))) {
 			return;
 		}
 
