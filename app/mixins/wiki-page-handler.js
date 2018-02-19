@@ -96,9 +96,9 @@ export default Mixin.create({
 
 						shoebox.put('wikiPage', dataForShoebox);
 						this.get('simpleStore').setProperties({
-							namespace: dataForShoebox.data.ns,
-							articleId: dataForShoebox.data.details.id,
-							isMainPage: dataForShoebox.data.isMainPage
+							namespace: get(dataForShoebox, 'data.ns'),
+							articleId: get(dataForShoebox, 'data.details.id'),
+							isMainPage: get(dataForShoebox, 'data.isMainPage')
 						});
 					}
 
