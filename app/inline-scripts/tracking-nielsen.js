@@ -1,5 +1,5 @@
 (function (M) {
-	var config = M.getFromShoebox('tracking.nielsen') || {};
+	var config = M.getFromHeadDataStore('tracking.nielsen') || {};
 
 	function sendNielsenPageView() {
 		var assetidRnd, globalParams;
@@ -33,8 +33,7 @@
 
 	window.trackNielsenPageView = function () {
 		if (
-			M.getFromShoebox('runtimeConfig.noExternals') ||
-			M.getFromShoebox('serverError') ||
+			M.getFromHeadDataStore('noExternals') ||
 			!config.enabled
 		) {
 			return;

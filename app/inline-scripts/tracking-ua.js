@@ -1,9 +1,9 @@
 (function (M) {
-	if (M.getFromShoebox('runtimeConfig.noExternals') || M.getFromShoebox('serverError')) {
+	if (M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
-	const dimensions = M.getFromShoebox('trackingDimensionsForFirstPage');
+	const dimensions = M.getFromHeadDataStore('trackingDimensions');
 
 	if (dimensions) {
 		const ua = M.tracker.UniversalAnalytics;

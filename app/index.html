@@ -3,13 +3,13 @@
 <head>
 <link rel="stylesheet" href="/mobile-wiki/assets/app.css">
 {{content-for 'head'}}
-{{content-for 'fastboot-inline-scripts-head'}}
-{{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
 <div id="ember-container">{{content-for 'body'}}</div>
 
+{{content-for 'fastboot-inline-scripts'}}
+{{content-for 'fastboot-inline-scripts-tracking'}}
 {{content-for 'fastboot-inline-scripts-load-svg'}}
 
 <script>

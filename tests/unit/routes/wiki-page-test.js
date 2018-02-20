@@ -27,7 +27,8 @@ moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 		'service:router-scroll',
 		'service:scheduler',
 		'service:wiki-variables',
-		'service:head-data'
+		'service:head-data',
+		'service:simple-store'
 	],
 	beforeEach() {
 		window.wgNow = null;
