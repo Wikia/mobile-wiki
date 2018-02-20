@@ -65,8 +65,11 @@ export default Component.extend(
 			setProperties(this, {
 				viewportTolerance: {
 					top: 200,
-					bottom: 200
-				}
+					bottom: 200,
+					left: 0,
+					right: 0
+				},
+				intersectionThreshold: 0
 			});
 		},
 

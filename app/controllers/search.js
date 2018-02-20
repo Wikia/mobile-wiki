@@ -1,7 +1,6 @@
 import {inject as service} from '@ember/service';
 import {equal, alias} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
-import $ from 'jquery';
 
 export default Controller.extend({
 	application: controller(),
@@ -18,8 +17,12 @@ export default Controller.extend({
 		},
 
 		onErrorPageClick() {
+			const input = document.querySelector('.side-search__input');
+
 			this.set('inputPhrase', '');
-			$('.side-search__input').focus();
+			if (input) {
+				input.focus();
+			}
 		},
 
 		onLoadMore() {

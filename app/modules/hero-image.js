@@ -1,38 +1,33 @@
 import Thumbnailer from './thumbnailer';
 
+export const MAX_WIDTH = 412;
+
+const HERO_IMAGE_ASPECT_RATIO = 375 / MAX_WIDTH;
+
 export default class HeroImage {
 
-	constructor(heroImage, width) {
+	constructor(heroImage, tallImageCropMode, width = MAX_WIDTH) {
 		const imageAspectRatio = 16 / 9,
 			imageWidth = heroImage.width || width,
 			imageHeight = heroImage.height,
 			maxWidth = Math.floor(imageHeight * imageAspectRatio);
 
 		let computedHeight = imageHeight,
-			cropMode = Thumbnailer.mode.thumbnailDown;
+			cropMode = tallImageCropMode;
 
 		// wide image - crop images wider than 16:9 aspect ratio to 16:9
 		if (imageWidth > maxWidth) {
 			cropMode = Thumbnailer.mode.zoomCrop;
 			computedHeight = Math.floor(width / imageAspectRatio);
+		} else {
+			computedHeight = width * HERO_IMAGE_ASPECT_RATIO;
 		}
 
-		// image needs resizing
-		if (width < imageWidth) {
-			computedHeight = Math.floor(width * (imageHeight / imageWidth));
-		}
-
-		// tall image - use top-crop-down for images taller than square
-		if (width < computedHeight) {
-			cropMode = Thumbnailer.mode.topCropDown;
-			computedHeight = width;
-		}
-
-		this.computedHeight = computedHeight;
+		this.computedHeight = Math.round(computedHeight);
 		// generate thumbnail
 		this.thumbnailUrl = Thumbnailer.getThumbURL(heroImage.url, {
 			mode: cropMode,
-			height: computedHeight,
+			height: this.computedHeight,
 			width
 		});
 	}

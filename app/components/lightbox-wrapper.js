@@ -93,11 +93,11 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	click(event) {
-		const $target = this.$(event.target);
+		const target = event.target;
 
-		if ($target.is('.lightbox-footer')) {
+		if (target.classList.contains('lightbox-footer')) {
 			this.send('toggleFooter');
-		} else if ($target.is('.lightbox-close-wrapper')) {
+		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');
 		} else {
 			this.send('toggleUI');

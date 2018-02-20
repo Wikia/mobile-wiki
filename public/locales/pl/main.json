@@ -4,13 +4,13 @@
     "cancel-label": "Anuluj", 
     "curated-content-editor-edit-main-page": "Edycja strony głównej", 
     "curated-content-load-more-items": "Załaduj więcej", 
-    "days-ago": "{days}d", 
+    "days-ago": "{days}d.", 
     "discussions-label": "Dyskusje", 
     "header-in-wiki-name-label-prefix": "na:", 
     "header-in-wiki-name-label-suffix": "", 
-    "hours-ago": "{hours}h", 
+    "hours-ago": "{hours}godz.", 
     "media-lightbox-error": "Nie znaleziono mediów", 
-    "minutes-ago": "{minutes}m", 
+    "minutes-ago": "{minutes}min", 
     "now-label": "teraz", 
     "page-not-found-error": "Niestety nie możemy znaleźć strony, której szukasz.", 
     "page-not-found-message": "Użyj nawigacji lub wyszukiwarki", 
@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "dodany przez", 
-    "watch": "obejrzyj"
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "Strona pliku", 

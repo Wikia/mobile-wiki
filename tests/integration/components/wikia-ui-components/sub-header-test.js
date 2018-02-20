@@ -1,6 +1,7 @@
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
+import {find, findAll} from 'ember-native-dom-helpers';
 
 const fixedClass = 'sub-head--fixed',
 	negativeIndex = -1,
@@ -26,7 +27,7 @@ test('should have given title', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header title=titleText onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.equal(this.$(titleSelector).text(), title);
+	assert.equal(find(titleSelector).innerText, title);
 });
 
 test('should have given button label', function (assert) {
@@ -34,7 +35,7 @@ test('should have given button label', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header confirmLabel=labelText onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.equal(this.$(buttonSelector).text(), buttonLabel);
+	assert.equal(find(buttonSelector).innerText, buttonLabel);
 });
 
 test('should have given back arrow tooltip', function (assert) {
@@ -42,14 +43,14 @@ test('should have given back arrow tooltip', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header backArrowTooltip=backArrowTooltipText
 	 onBack=onBack onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.equal(this.$(backArrorSelector).attr('title'), backArrowTooltip);
+	assert.equal(find(backArrorSelector).getAttribute('title'), backArrowTooltip);
 });
 
 test('should not be fixed', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.equal(this.$(componentSelector).attr('class').indexOf(fixedClass), negativeIndex);
+	assert.equal(find(componentSelector).className.indexOf(fixedClass), negativeIndex);
 });
 
 test('should be fixed', function (assert) {
@@ -57,7 +58,7 @@ test('should be fixed', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header fixed=fixedState onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.notEqual(this.$(componentSelector).attr('class').indexOf(fixedClass), negativeIndex);
+	assert.notEqual(find(componentSelector).className.indexOf(fixedClass), negativeIndex);
 });
 
 test('clicking on back arrow triggers onBack handler', function (assert) {
@@ -65,7 +66,7 @@ test('clicking on back arrow triggers onBack handler', function (assert) {
 
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
-	this.$(backArrorSelector).click();
+	find(backArrorSelector).click();
 
 	assert.equal(onBackSpy.called, true);
 });
@@ -75,7 +76,7 @@ test('clicking on button triggers onConfirm handler', function (assert) {
 
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
-	this.$(buttonSelector).click();
+	find(buttonSelector).click();
 
 	assert.equal(onConfirmSpy.called, true);
 });
@@ -85,7 +86,7 @@ test('clicking on text triggers onTitleClick handler', function (assert) {
 
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
-	this.$(titleSelector).click();
+	find(titleSelector).click();
 
 	assert.equal(onTitleClickSpy.called, true);
 });
@@ -94,8 +95,8 @@ test('should render action buttons', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.notEqual(this.$(backArrorSelector).length, 0);
-	assert.notEqual(this.$(buttonSelector).length, 0);
+	assert.notEqual(findAll(backArrorSelector).length, 0);
+	assert.notEqual(findAll(buttonSelector).length, 0);
 });
 
 test('should not render action buttons', function (assert) {
@@ -103,6 +104,6 @@ test('should not render action buttons', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header textOnly=textOnly onBack=onBack
 	 onConfirm=onConfirm onTitleClick=onTitleClick}}`);
 
-	assert.equal(this.$(backArrorSelector).length, 0);
-	assert.equal(this.$(buttonSelector).length, 0);
+	assert.equal(findAll(backArrorSelector).length, 0);
+	assert.equal(findAll(buttonSelector).length, 0);
 });

@@ -41,7 +41,8 @@ export default Mixin.create(InViewportMixin, {
 				bottom: 400,
 				left: 200,
 				right: 200
-			}
+			},
+			intersectionThreshold: 0
 		});
 	}),
 
