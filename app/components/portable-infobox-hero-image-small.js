@@ -27,6 +27,10 @@ export default Component.extend(
 			return htmlSafe(`padding-top: ${percent}%`);
 		}),
 
+		lightboxModel: computed('heroImage', function () {
+			return {url: this.get('heroImage.url')};
+		}),
+
 		init() {
 			this._super(...arguments);
 		}
