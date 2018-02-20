@@ -12,13 +12,13 @@
 	{{else}}
 		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
 	{{/if}}
+{{/if}}
 
-	{{#if hasFeaturedVideo}}
-		{{article-featured-video
-			model=model.featuredVideo
-			hasPortableInfobox=model.hasPortableInfobox
-		}}
-	{{/if}}
+{{#if hasFeaturedVideo}}
+	{{article-featured-video
+		model=model.featuredVideo
+		hasPortableInfobox=model.hasPortableInfobox
+	}}
 {{/if}}
 
 <section class="article-body">
