@@ -21,6 +21,9 @@ export default Controller.extend(
 			{
 				noAds: 'noads'
 			},
+			{
+				fullPage: 'mobile-app'
+			},
 			// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 			{
 				commentsPage: 'comments_page'
