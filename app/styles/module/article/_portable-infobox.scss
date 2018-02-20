@@ -71,17 +71,16 @@ $group-header-font-size: 16px;
 
 //////////// General classes and rules used across infobox ////////////
 
-// reset inherited margins and paddings
-.pi-title,
-.pi-header,
-.pi-data-label,
-.pi-hero-title,
-.pi-hero-caption,
-.media-component,
-.article-media-thumbnail {
-	margin: 0;
-	padding: 0;
-}
+		// reset inherited margins and paddings
+		.pi-title,
+		.pi-header,
+		.pi-data-label,
+		.pi-hero-title,
+		.pi-hero-caption,
+		.article-media-thumbnail {
+			margin: 0;
+			padding: 0;
+		}
 
 .pi-item-spacing {
 	padding: $infobox-item-margin * 2 $article-horizontal-padding;
@@ -165,15 +164,11 @@ $group-header-font-size: 16px;
 	}
 }
 
-// infobox hero
-.pi-hero {
-	min-height: $min-hero-item-height;
-	position: relative;
-
-	> .media-component img {
-		width: 100%;
-	}
-}
+		// infobox hero
+		.pi-hero {
+			min-height: $min-hero-item-height;
+			position: relative;
+		}
 
 .pi-hero-title-wrapper {
 	background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
@@ -226,31 +221,22 @@ $group-header-font-size: 16px;
 	text-align: center;
 }
 
-// infobox images
-.media-component,
-.pi-image {
-	figcaption {
-		color: $black;
-		height: auto;
-		padding: $infobox-item-margin * 2 $article-horizontal-padding;
-	}
-}
+		// infobox images
+		.pi-image {
+			figcaption {
+				color: $black;
+				height: auto;
+				padding: $infobox-item-margin * 2 $article-horizontal-padding;
+			}
+		}
 
-.media-component {
-	.gallery-image img {
-		background-color: transparent;
-		background-image: none;
-		width: auto;
-	}
-}
-
-// infobox data fields in tabular layout
-.pi-data {
-	display: flex;
-	flex-direction: row;
-	overflow: hidden;
-	width: 100%;
-}
+		// infobox data fields in tabular layout
+		.pi-data {
+			display: flex;
+			flex-direction: row;
+			overflow: hidden;
+			width: 100%;
+		}
 
 .pi-data-label {
 	flex-basis: 30%;

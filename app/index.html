@@ -14,7 +14,6 @@
 
 <script>
 	(function (M) {
-		M.loadDOMResource('/mobile-wiki/assets/main.svg');
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
 </script>
@@ -22,6 +21,7 @@
 {{content-for 'instant-globals'}}
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
+{{content-for 'svg-inline'}}
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}
 {{content-for 'tracking-internal'}}

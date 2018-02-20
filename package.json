@@ -113,7 +113,9 @@
   "ember-addon": {
     "paths": [
       "lib/fastboot-require",
-      "lib/fastboot-server"
+      "lib/fastboot-server",
+      "lib/include-node-modules",
+      "lib/svg-inline"
     ]
   },
   "fastbootDependencies": [
