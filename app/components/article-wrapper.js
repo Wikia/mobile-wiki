@@ -46,7 +46,9 @@ export default Component.extend(
 		editIconVisible: oneWay('contributionEnabled'),
 
 		hasFeaturedVideo: bool('model.featuredVideo'),
-		
+
+		smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
+
 		/**
 		 * Checks if mobile contribution features are enabled.
 		 * Contribution features include section editor and photo upload.

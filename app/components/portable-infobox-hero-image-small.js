@@ -9,7 +9,7 @@ import Thumbnailer from '../modules/thumbnailer';
 export default Component.extend(
 	ImageLoader,
 	{
-		classNames: ['pi'],
+		classNames: ['pi', 'pi-hero-small-wrapper'],
 
 		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
 

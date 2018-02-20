@@ -39,9 +39,7 @@ export default Component.extend(
 		lang: reads('wikiVariables.language.content'),
 		dir: reads('wikiVariables.language.contentDir'),
 		isFastBoot: reads('fastboot.isFastBoot'),
-
-		smallHeroImage: and('featuredVideo', 'heroImage'),
-
+		
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
