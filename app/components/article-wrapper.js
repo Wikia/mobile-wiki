@@ -28,6 +28,7 @@ export default Component.extend(
 
 		classNames: ['article-wrapper'],
 		displayEmptyArticleInfo: true,
+		displayArticleFooter: true,
 
 		/**
 		 * Checks if contribution component should be enabled
