@@ -156,28 +156,28 @@ export default Component.extend(
 		 * property that holds current image
 		 */
 		image: computed(function () {
-			return this.$('.current');
+			return this.element.querySelector('.current');
 		}),
 
 		imageWidth: computed('image', 'scale', function () {
-			const $image = this.get('image');
+			const image = this.get('image');
 
 			let imageWidth = 0;
 
-			if ($image) {
-				imageWidth = $image.width() * this.get('scale');
+			if (image) {
+				imageWidth = image.offsetWidth * this.get('scale');
 			}
 
 			return imageWidth;
 		}),
 
 		imageHeight: computed('image', 'scale', function () {
-			const $image = this.get('image');
+			const image = this.get('image');
 
 			let imageHeight = 0;
 
-			if ($image) {
-				imageHeight = this.get('image').height() * this.get('scale');
+			if (image) {
+				imageHeight = image.offsetHeight * this.get('scale');
 			}
 
 			return imageHeight;

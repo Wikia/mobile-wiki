@@ -3,7 +3,6 @@ import {oneWay, not, notEmpty} from '@ember/object/computed';
 import Component from '@ember/component';
 import EmberObject, {observer, computed} from '@ember/object';
 import {run} from '@ember/runloop';
-import $ from 'jquery';
 import NoScrollMixin from '../mixins/no-scroll';
 import wrapMeHelper from '../helpers/wrap-me';
 import fetch from '../utils/mediawiki-fetch';
@@ -107,7 +106,7 @@ export default Component.extend(
 			this._super(...arguments);
 
 			if (this.get('focusInput')) {
-				this.$(this.get('inputSearchSelector')).focus();
+				this.element.querySelector(this.get('inputSearchSelector')).focus();
 			}
 
 		},
@@ -120,7 +119,7 @@ export default Component.extend(
 					label: 'search-open-special-search'
 				});
 
-				this.$(this.get('inputSearchSelector')).blur();
+				this.element.querySelector(this.get('inputSearchSelector')).blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -129,17 +128,7 @@ export default Component.extend(
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.$(this.get('inputSearchSelector')).focus();
-			},
-
-			searchSuggestionClick() {
-				track({
-					action: trackActions.click,
-					category: 'side-nav',
-					label: 'search-open-suggestion-link'
-				});
-
-				this.setSearchSuggestionItems();
+				this.element.querySelector(this.get('inputSearchSelector')).focus();
 			},
 
 			onInputFocus() {
@@ -152,6 +141,14 @@ export default Component.extend(
 
 			onSuggestionsWrapperClick(event) {
 				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
+
+				if (event.target.closest('.wikia-search__search-suggestion')) {
+					track({
+						action: trackActions.click,
+						category: 'side-nav',
+						label: 'search-open-suggestion-link'
+					});
+				}
 
 				this.setSearchSuggestionItems();
 				if (outsideSuggestionsClickAction) {

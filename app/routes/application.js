@@ -389,11 +389,7 @@ export default Route.extend(
 			const headBottomComponent = applicationInstance.lookup('component:fastboot-only/head-bottom');
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
-			headBottomComponent.set('wikiVariables', wikiVariables);
 			headBottomComponent.appendTo(document.head);
-
-			bodyBottomComponent.set('queryParams', queryParams);
-			bodyBottomComponent.set('wikiVariables', wikiVariables);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}

@@ -1,10 +1,10 @@
 (function (M) {
-	if (M.getFromShoebox('runtimeConfig.noExternals') || M.getFromShoebox('serverError')) {
+	if (M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
 	M.tracker.Internal.trackPageView({
-		a: M.getFromShoebox('wikiPage.data.details.id'),
-		n: M.getFromShoebox('wikiPage.data.ns')
+		a: M.getFromHeadDataStore('articleId'),
+		n: M.getFromHeadDataStore('namespace')
 	});
 })(window.M);

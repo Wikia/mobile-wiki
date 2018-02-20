@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {observer} from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
@@ -50,7 +49,7 @@ export default Component.extend(
 			if (!this.get('scriptLoadInitialized.vk')) {
 				this.set('scriptLoadInitialized.vk', true);
 
-				$.getScript('//vk.com/js/api/openapi.js', () => {
+				$script('//vk.com/js/api/openapi.js', () => {
 					this.set('scriptLoaded.vk', true);
 				});
 			}

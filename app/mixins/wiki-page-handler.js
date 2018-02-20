@@ -1,6 +1,5 @@
 import {inject as service} from '@ember/service';
 import Mixin from '@ember/object/mixin';
-import $ from 'jquery';
 import EmberObject, {get} from '@ember/object';
 import {getOwner} from '@ember/application';
 import ArticleModel from '../models/wiki/article';
@@ -57,6 +56,7 @@ function getURL(params) {
 export default Mixin.create({
 	fastboot: service(),
 	wikiVariables: service(),
+	simpleStore: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -95,6 +95,11 @@ export default Mixin.create({
 						}
 
 						shoebox.put('wikiPage', dataForShoebox);
+						this.get('simpleStore').setProperties({
+							namespace: get(dataForShoebox, 'data.ns'),
+							articleId: get(dataForShoebox, 'data.details.id'),
+							isMainPage: get(dataForShoebox, 'data.isMainPage')
+						});
 					}
 
 					return this.getModelForNamespace(data, params, contentNamespaces);
@@ -117,7 +122,7 @@ export default Mixin.create({
 			}
 
 			if (get(wikiPageData, 'data.article')) {
-				wikiPageData.data.article.content = $('.article-content').html();
+				wikiPageData.data.article.content = document.querySelector('.article-content').innerHTML;
 			}
 
 			return this.getModelForNamespace(wikiPageData, params, contentNamespaces);

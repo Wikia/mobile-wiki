@@ -89,8 +89,7 @@ module.exports = function (environment) {
 				/.*\.wikia-staging.com/,
 				/.*\.wikia.com/,
 				/^localhost:\d+$/
-			],
-			shoeboxAppendTo: 'head'
+			]
 		},
 		fastbootOnly: {
 			helios: {
