@@ -4,7 +4,8 @@
 		<figure>
 			<a href="{{heroImage.url}}"
 				 class="pi-hero-small"
-				{{action openLightbox 'image' value='heroImage.url' bubbles=false}}>
+				 style={{linkStyle}}
+				 {{action openLightbox 'image' value='heroImage.url' bubbles=false}}>
 				<img class="article-media-placeholder"
 						 src="{{imageSrc}}"
 						 height="{{heroImageHelper.computedHeight}}"

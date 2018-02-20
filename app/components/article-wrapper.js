@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import {not, oneWay, bool, equal, gte} from '@ember/object/computed';
+import {not, oneWay, bool, equal, gte, and} from '@ember/object/computed';
 import {scheduleOnce} from '@ember/runloop';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
@@ -46,6 +46,8 @@ export default Component.extend(
 		editIconVisible: oneWay('contributionEnabled'),
 
 		hasFeaturedVideo: bool('model.featuredVideo'),
+
+		smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
 
 		/**
 		 * Checks if mobile contribution features are enabled.
