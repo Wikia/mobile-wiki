@@ -56,6 +56,8 @@ export default Component.extend(
 				iconType = 'article';
 			}
 
+			// we use here following Design System icons
+			// wds-icons-grid, wds-icons-play, wds-icons-image, wds-icons-clock, wds-icons-article
 			return `wds-icons-${iconType}`;
 		}),
 

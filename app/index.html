@@ -6,6 +6,7 @@
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+{{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'fastboot-inline-scripts'}}
@@ -21,7 +22,6 @@
 {{content-for 'instant-globals'}}
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
-{{content-for 'svg-inline'}}
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}
 {{content-for 'tracking-internal'}}
