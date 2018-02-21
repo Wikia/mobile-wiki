@@ -2,10 +2,6 @@
   "name": "svg-inline",
   "main": "index.js",
   "keywords": [
-    "ember-addon",
-    "html",
-    "css",
-    "js",
-    "inline"
+    "ember-addon"
   ]
 }
