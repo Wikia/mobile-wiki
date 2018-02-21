@@ -114,7 +114,6 @@
     "paths": [
       "lib/fastboot-require",
       "lib/fastboot-server",
-      "lib/include-node-modules",
       "lib/svg-inline"
     ]
   },
