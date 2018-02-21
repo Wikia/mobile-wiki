@@ -50,7 +50,7 @@ export default Controller.extend(
 		drawerVisible: false,
 		drawerContent: null,
 		userMenuVisible: false,
-		fullPage: false,
+		fullPage: null,
 		lightboxType: null,
 		lightboxModel: null,
 		lightboxVisible: false,
