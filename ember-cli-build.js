@@ -104,12 +104,6 @@ module.exports = function (defaults) {
 			// This should be removed when ember-cli-shims is sunset
 			'app-shims.js': null,
 			'jquery.js': null
-		},
-		emberCliConcat: {
-			js: {
-				concat: true,
-				useAsync: true
-			}
 		}
 	});
 
