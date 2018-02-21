@@ -14,11 +14,12 @@
 
 	.item-image {
 		background-color: $wds-color-light-c4;
-		line-height: 1.25rem;
+		padding-top: 56.25%;
 		position: relative;
 
 		img {
-			position: relative;
+			position: absolute;
+			top: 0;
 			z-index: 1;
 		}
 	}
