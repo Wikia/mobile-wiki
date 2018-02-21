@@ -9,7 +9,7 @@ import Thumbnailer from '../modules/thumbnailer';
 export default Component.extend(
 	ImageLoader,
 	{
-		classNames: ['pi'],
+		classNames: ['pi', 'pi-hero-small-wrapper'],
 
 		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
 
@@ -25,6 +25,10 @@ export default Component.extend(
 		linkStyle: computed('heroImageHelper', function () {
 			const percent = this.get('heroImageHelper.computedHeight') / this.get('maxWidth') * 100;
 			return htmlSafe(`padding-top: ${percent}%`);
+		}),
+
+		lightboxModel: computed('heroImage', function () {
+			return {url: this.get('heroImage.url')};
 		}),
 
 		init() {

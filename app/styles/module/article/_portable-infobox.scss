@@ -406,6 +406,10 @@ $group-header-font-size: 16px;
 	}
 }
 
+.pi-hero-small-wrapper {
+	padding: 0 $article-horizontal-padding;
+}
+
 .pi-hero-small {
 	display: block;
 	position: relative;
