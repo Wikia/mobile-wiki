@@ -123,7 +123,9 @@ export default Component.extend(
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
-				this.get('router').transitionTo('search', {queryParams: {value}});
+				this.get('router').transitionTo('search', {
+					queryParams: {query: value}
+				});
 			},
 
 			clearSearch() {
