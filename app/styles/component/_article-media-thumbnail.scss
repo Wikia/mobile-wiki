@@ -13,8 +13,6 @@
 	}
 
 	img {
-		//@extend %image-placeholder;
-
 		display: inline-block;
 		width: 100%;
 	}
@@ -28,7 +26,10 @@
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
-			background: none;
+		}
+
+		.image-placeholder {
+			display: none;
 		}
 	}
 
@@ -65,8 +66,6 @@
 }
 
 .article-media-placeholder {
-	@extend %image-placeholder;
-
 	display: inline-block;
 	width: 100%;
 }
