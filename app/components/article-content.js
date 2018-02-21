@@ -40,8 +40,6 @@ export default Component.extend(
 		dir: reads('wikiVariables.language.contentDir'),
 		isFastBoot: reads('fastboot.isFastBoot'),
 
-		smallHeroImage: and('featuredVideo', 'heroImage'),
-
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
@@ -55,8 +53,6 @@ export default Component.extend(
 				const rawContent = this.get('content');
 
 				if (!isBlank(rawContent)) {
-					this.hackIntoEmberRendering(rawContent);
-
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
@@ -71,7 +67,7 @@ export default Component.extend(
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
 				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
+					this.set('content', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
 
 				if (!this.get('isPreview')) {
@@ -107,23 +103,6 @@ export default Component.extend(
 					label
 				});
 			}
-		},
-
-		/**
-		 * This is due to the fact that we send whole article
-		 * as an HTML and then we have to modify it in the DOM
-		 *
-		 * Ember+Glimmer are not fan of this as they would like to have
-		 * full control over the DOM and rendering
-		 *
-		 * In perfect world articles would come as Handlebars templates
-		 * so Ember+Glimmer could handle all the rendering
-		 *
-		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
-		 */
-		hackIntoEmberRendering(content) {
-			this.element.innerHTML = content;
 		},
 
 		/**
