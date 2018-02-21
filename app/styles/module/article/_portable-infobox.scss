@@ -71,16 +71,16 @@ $group-header-font-size: 16px;
 
 //////////// General classes and rules used across infobox ////////////
 
-		// reset inherited margins and paddings
-		.pi-title,
-		.pi-header,
-		.pi-data-label,
-		.pi-hero-title,
-		.pi-hero-caption,
-		.article-media-thumbnail {
-			margin: 0;
-			padding: 0;
-		}
+// reset inherited margins and paddings
+.pi-title,
+.pi-header,
+.pi-data-label,
+.pi-hero-title,
+.pi-hero-caption,
+.article-media-thumbnail {
+	margin: 0;
+	padding: 0;
+}
 
 .pi-item-spacing {
 	padding: $infobox-item-margin * 2 $article-horizontal-padding;
@@ -143,17 +143,17 @@ $group-header-font-size: 16px;
 			z-index: $z-portable-infobox-collapse;
 		}
 
-				svg {
-					fill: $infobox-hero-font-color;
-					stroke: $infobox-hero-overlay-color;
-					stroke-width: .5;
-					transform: rotate(-90deg);
-				}
+		svg {
+			fill: $infobox-hero-font-color;
+			stroke: $infobox-hero-overlay-color;
+			stroke-width: .5;
+			transform: rotate(-90deg);
+		}
 
-				.action-previous svg {
-					transform: rotate(90deg);
-				}
-			}
+		.action-previous svg {
+			transform: rotate(90deg);
+		}
+	}
 
 	.action-next {
 		right: 0;
@@ -164,11 +164,11 @@ $group-header-font-size: 16px;
 	}
 }
 
-		// infobox hero
-		.pi-hero {
-			min-height: $min-hero-item-height;
-			position: relative;
-		}
+// infobox hero
+.pi-hero {
+	min-height: $min-hero-item-height;
+	position: relative;
+}
 
 .pi-hero-title-wrapper {
 	background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
@@ -221,22 +221,22 @@ $group-header-font-size: 16px;
 	text-align: center;
 }
 
-		// infobox images
-		.pi-image {
-			figcaption {
-				color: $black;
-				height: auto;
-				padding: $infobox-item-margin * 2 $article-horizontal-padding;
-			}
-		}
+// infobox images
+.pi-image {
+	figcaption {
+		color: $black;
+		height: auto;
+		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+	}
+}
 
-		// infobox data fields in tabular layout
-		.pi-data {
-			display: flex;
-			flex-direction: row;
-			overflow: hidden;
-			width: 100%;
-		}
+// infobox data fields in tabular layout
+.pi-data {
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	width: 100%;
+}
 
 .pi-data-label {
 	flex-basis: 30%;
@@ -380,8 +380,8 @@ $group-header-font-size: 16px;
 	z-index: $z-1;
 }
 
-.pi-expand-icon {
-	height: $infobox-item-margin * 2;
+.pi:not(.collapsed) .pi-expand-icon {
+	transform: scaleY(-1);
 }
 
 .pi-hero,
