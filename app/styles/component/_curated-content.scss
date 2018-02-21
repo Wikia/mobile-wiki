@@ -32,10 +32,16 @@
 
 	.item-figure {
 		position: relative;
+		background-color: $wds-color-light-c4;
 	}
 
 	.item-image {
-		@extend %image-placeholder;
+		//@extend %image-placeholder;
+		//position: relative;
+		height:0;
+		padding-bottom:100%;
+		position: relative;
+		z-index: 1;
 	}
 
 	.item-figcaption {

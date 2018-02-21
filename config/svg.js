@@ -4,7 +4,8 @@ const designSystemAssetsPath = 'node_modules/design-system/style-guide/assets/';
 const designSystemInlineSVGs = [
 	'wds-company-logo-fandom',
 	'wds-icons-menu',
-	'wds-icons-magnifying-glass'
+	'wds-icons-magnifying-glass',
+	'wds-icons-image',
 ].map(name => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
 });

@@ -13,9 +13,15 @@
 	}
 
 	.item-image {
-		@extend %image-placeholder;
-
+		//@extend %image-placeholder;
+		background-color: $wds-color-light-c4;
+		position: relative;
 		line-height: 1.25rem;
+
+		img {
+			z-index: 1;
+			position: relative;
+		}
 	}
 
 	.item-figcaption {

@@ -29,10 +29,24 @@
 		display: block;
 		background: {
 			color: rgb(223, 223, 223);
-			image: $brackets-svg-image;
+			//image: $brackets-svg-image;
 			position: center;
 			repeat: no-repeat;
 			size: contain;
+		}
+
+		figure {
+			z-index: 1;
+			position: relative;
+		}
+
+		svg {
+			color: $color-white;
+			height: 50%;
+			left: 25%;
+			position: absolute;
+			top: 25%;
+			width: 50%;
 		}
 
 		.clamp {
@@ -59,10 +73,15 @@
 	}
 
 	&-pagination {
-		bottom: 15px;
-		left: 50%;
+		//bottom: 15px;
+		//left: 50%;
+		//position: absolute;
+		//transform: translate(-50%, 0);
+		bottom: -40px;
+		left: calc(50% - 18px);
 		position: absolute;
-		transform: translate(-50%, 0);
+		transform: rotate(90deg);
+		z-index: 2;
 
 		&.dot-pagination .current span {
 			background-color: $white;
