@@ -1,17 +1,15 @@
-{{#if displayArticleWrapper}}
-	{{#if contributionEnabled}}
-		{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
-			{{article-contribution
-				edit=edit
-				editAllowed=editAllowed
-				editIconVisible=editIconVisible
-				section=0
-				title=model.displayTitle
-			}}
-		{{/wikia-ui-components/wiki-page-header}}
-	{{else}}
-		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
-	{{/if}}
+{{#if contributionEnabled}}
+	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
+		{{article-contribution
+			edit=edit
+			editAllowed=editAllowed
+			editIconVisible=editIconVisible
+			section=0
+			title=model.displayTitle
+		}}
+	{{/wikia-ui-components/wiki-page-header}}
+{{else}}
+	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
 {{/if}}
 
 {{#if hasFeaturedVideo}}
