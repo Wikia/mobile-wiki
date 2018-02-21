@@ -107,12 +107,8 @@ module.exports = function (defaults) {
 		}
 	});
 
-	const designSystemAssets = new Funnel('node_modules/design-system/dist/svg/sprite.svg', {
-		destDir: 'assets/design-system.svg'
-	});
-
 	const designSystemIcons = new Funnel('node_modules/design-system/style-guide/assets', {
-		include: lazyloadedSVGs.map(icon => icon.path)
+		include: lazyloadedSVGs.map((icon) => `${icon.name}.svg`)
 	});
 	const svgStore = new SVGStore(designSystemIcons, {
 		outputFile: 'assets/design-system.svg',
@@ -151,7 +147,6 @@ module.exports = function (defaults) {
 	return app.toTree([
 		designSystemI18n,
 		svgStore,
-		designSystemAssets,
 		jwPlayerAssets
 	]);
 };

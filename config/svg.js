@@ -12,7 +12,8 @@ const designSystemInlineSVGs = [
 // DS icons which should be lazy loaded
 const designSystemLazyLoadedSVGs = [
 	'wds-icons-article',
-	'wds-icons-menu-control'
+	'wds-icons-menu-control',
+	'wds-avatar-icon'
 ].map(name => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
 });

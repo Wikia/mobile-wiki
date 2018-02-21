@@ -4,11 +4,12 @@ import Component from '@ember/component';
 import {getOwner} from '@ember/application';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
+import LanguagesMixin from '../mixins/languages';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
-	NoScrollMixin, UnreadCountMixin,
+	NoScrollMixin, UnreadCountMixin, LanguagesMixin,
 	{
 		currentUser: service(),
 		notifications: service(),
