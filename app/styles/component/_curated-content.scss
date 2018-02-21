@@ -39,7 +39,10 @@
 		height: 0;
 		padding-bottom: 100%;
 		position: relative;
-		z-index: 1;
+
+		img {
+			position: relative;
+		}
 	}
 
 	.item-figcaption {
