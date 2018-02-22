@@ -3,12 +3,14 @@ import {debounce} from '@ember/runloop';
 import EmberObject, {computed} from '@ember/object';
 import Component from '@ember/component';
 import InViewportMixin from 'ember-in-viewport';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import Thumbnailer from '../modules/thumbnailer';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
 	RenderComponentMixin,
 	InViewportMixin,
+	RespondsToScroll,
 	{
 		classNames: ['article-media-gallery'],
 
@@ -33,15 +35,6 @@ export default Component.extend(
 			this.sanitizeItems();
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		didRender() {
-			this.debouncedScrollHandler = this.debouncedScroll.bind(this);
-
-			this.element.addEventListener('scroll', this.debouncedScrollHandler);
-		},
-
 		actions: {
 			openLightbox(galleryRef) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
@@ -54,10 +47,6 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
-		},
-
-		debouncedScroll() {
-			debounce(this, 'onScroll', 100);
 		},
 
 		/**
@@ -83,7 +72,7 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		onScroll() {
+		scroll() {
 			const scrollOffset = this.element.scrollLeft + this.element.offsetWidth,
 				numberOfItemsRendered = this.get('numberOfItemsRendered'),
 				totalNumberOfItems = this.get('items.length'),
@@ -100,7 +89,7 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
-				this.element.removeEventListener('scroll', this.debouncedScrollHandler);
+				window.removeEventListener('scroll', this.scrollHandler);
 			}
 		},
 
