@@ -1,8 +1,7 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import {isContentNamespace} from 'mobile-wiki/utils/mediawiki-namespace';
 
-module('Unit | Utility | mediawiki namespace', () => {
+module(() => {
 	test('isContentNamespace', (assert) => {
 		const testCases = [
 			{
@@ -28,4 +27,4 @@ module('Unit | Utility | mediawiki namespace', () => {
 			assert.equal(isContentNamespace(namespace, contentNamespaces), expected);
 		});
 	});
-});
+}, function() {});

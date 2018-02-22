@@ -1,23 +1,21 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('wikia-in-your-lang', 'Unit | Component | wikia-in-your-lang', {
-	unit: true,
-	needs: [
-		'service:wiki-variables'
-	]
-});
+module('Unit | Component | wikia-in-your-lang', function(hooks) {
+  setupTest(hooks);
 
-test('createAlert', function (assert) {
-	const componentMock = this.subject();
+  test('createAlert', function (assert) {
+      const componentMock = this.owner.factoryFor('component:wikia-in-your-lang').create();
 
-	componentMock.clearNotifications();
+      componentMock.clearNotifications();
 
-	assert.equal(componentMock.alertNotifications.length, 0, 'should have no alert');
+      assert.equal(componentMock.alertNotifications.length, 0, 'should have no alert');
 
-	componentMock.createAlert({
-		message: 'hello',
-		nativeDomain: 'wikia.com'
-	});
-	assert.equal(componentMock.alertNotifications.length, 1, 'should have 1 alert');
-	assert.equal(componentMock.alertNotifications[0].message, 'hello', 'should be the created alert');
+      componentMock.createAlert({
+          message: 'hello',
+          nativeDomain: 'wikia.com'
+      });
+      assert.equal(componentMock.alertNotifications.length, 1, 'should have 1 alert');
+      assert.equal(componentMock.alertNotifications[0].message, 'hello', 'should be the created alert');
+  });
 });

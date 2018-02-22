@@ -1,8 +1,7 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import svgHelper from 'mobile-wiki/helpers/svg';
 
-module('Unit | Helper | svg', () => {
+module(() => {
 	test('SVG helper is exported', (assert) => {
 		assert.ok(svgHelper.compute);
 	});
@@ -44,4 +43,4 @@ module('Unit | Helper | svg', () => {
 
 		assert.equal(html, '<svg><use xlink:href="#nameOfSvg"></use></svg>');
 	});
-});
+}, function() {});

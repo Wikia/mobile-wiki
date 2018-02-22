@@ -1,37 +1,34 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('article-comment', 'Unit | Component | article comment', {
-	unit: true,
-	needs: [
-		'service:i18n',
-		'service:wiki-variables'
-	]
-});
+module('Unit | Component | article comment', function(hooks) {
+  setupTest(hooks);
 
-test('users is correctly fetched', function (assert) {
-	const component = this.subject();
+  test('users is correctly fetched', function (assert) {
+      const component = this.owner.factoryFor('component:article-comment').create();
 
-	assert.expect(2);
+      assert.expect(2);
 
-	component.setProperties({
-		users: {
-			test: 'test'
-		},
-		comment: {
-			userName: 'test'
-		}
-	});
+      component.setProperties({
+          users: {
+              test: 'test'
+          },
+          comment: {
+              userName: 'test'
+          }
+      });
 
-	assert.equal(component.get('user'), 'test');
+      assert.equal(component.get('user'), 'test');
 
-	component.setProperties({
-		users: {
-			test: 'test'
-		},
-		comment: {
-			userName: 'nope'
-		}
-	});
+      component.setProperties({
+          users: {
+              test: 'test'
+          },
+          comment: {
+              userName: 'nope'
+          }
+      });
 
-	assert.deepEqual(component.get('user'), {});
+      assert.deepEqual(component.get('user'), {});
+  });
 });

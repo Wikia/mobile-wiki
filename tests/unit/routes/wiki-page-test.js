@@ -1,6 +1,7 @@
 import EmberObject from '@ember/object';
 import Service from '@ember/service';
-import {test, moduleFor} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 
 const model = EmberObject.create({
@@ -15,160 +16,148 @@ const initialPageViewStub = Service.extend({
 	isInitialPageView: isInitialPageViewStub
 });
 
-moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
-	needs: [
-		'service:ads',
-		'service:currentUser',
-		'service:fastboot',
-		'service:initial-page-view',
-		'service:liftigniter',
-		'service:i18n',
-		'service:logger',
-		'service:router-scroll',
-		'service:scheduler',
-		'service:wiki-variables',
-		'service:head-data',
-		'service:simple-store'
-	],
-	beforeEach() {
-		window.wgNow = null;
-		this.register('service:initial-page-view', initialPageViewStub);
-		this.inject.service('initial-page-view', {as: 'initial-page-view'});
-	}
-});
+module('Unit | Route | wiki page', function(hooks) {
+  setupTest(hooks);
 
-test('set head tags for correct model', function (assert) {
-	const mock = this.subject(),
-		expectedHeadTags = {
-			canonical: 'http://muppet.wikia.com/wiki/Kermit',
-			description: 'Article about Kermit',
-			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
-			robots: 'index,follow',
-			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
-		};
+  hooks.beforeEach(function() {
+      window.wgNow = null;
+      this.owner.register('service:initial-page-view', initialPageViewStub);
+      this['initial-page-view'] = this.owner.lookup('service:initial-page-view');
+  });
 
-	let headData;
+  test('set head tags for correct model', function (assert) {
+      const mock = this.owner.lookup('route:wikiPage'),
+          expectedHeadTags = {
+              canonical: 'http://muppet.wikia.com/wiki/Kermit',
+              description: 'Article about Kermit',
+              htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
+              robots: 'index,follow',
+              keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
+          };
 
-	mock.setProperties({
-		removeServerTags() {
-		},
-		setStaticHeadTags() {
-		},
-		headData: EmberObject.create(),
-		wikiVariables: {
-			basePath: 'http://muppet.wikia.com',
-			htmlTitle: {
-				parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
-				separator: ' | '
-			},
-			siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
-			siteName: 'MediaWiki',
-			dbName: 'fallout',
-			specialRobotPolicy: 'index,follow'
-		}
-	});
+      let headData;
 
-	mock.setDynamicHeadTags(model);
-	headData = mock.get('headData');
+      mock.setProperties({
+          removeServerTags() {
+          },
+          setStaticHeadTags() {
+          },
+          headData: EmberObject.create(),
+          wikiVariables: {
+              basePath: 'http://muppet.wikia.com',
+              htmlTitle: {
+                  parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
+                  separator: ' | '
+              },
+              siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
+              siteName: 'MediaWiki',
+              dbName: 'fallout',
+              specialRobotPolicy: 'index,follow'
+          }
+      });
 
-	assert.equal(headData.canonical, expectedHeadTags.canonical);
-	assert.equal(headData.description, expectedHeadTags.description);
-	assert.equal(headData.robots, expectedHeadTags.robots);
-	assert.equal(headData.htmlTitle, expectedHeadTags.htmlTitle);
-	assert.equal(headData.keywords, expectedHeadTags.keywords);
-});
+      mock.setDynamicHeadTags(model);
+      headData = mock.get('headData');
 
-test('get correct handler based on model namespace', function (assert) {
-	const mock = this.subject(),
-		testCases = [
-			{
-				expectedHandler: {
-					viewName: 'article',
-					controllerName: 'article'
-				},
-				model: EmberObject.create({
-					ns: 0
-				})
-			},
-			{
-				expectedHandler: {
-					viewName: 'article',
-					controllerName: 'article'
-				},
-				model: EmberObject.create({
-					ns: 112
-				})
-			},
-			{
-				expectedHandler: {
-					viewName: 'category',
-					controllerName: 'category'
-				},
-				model: EmberObject.create({
-					ns: 14
-				})
-			},
-			{
-				expectedHandler: null,
-				model: EmberObject.create({
-					ns: 200
-				})
-			}
-		];
+      assert.equal(headData.canonical, expectedHeadTags.canonical);
+      assert.equal(headData.description, expectedHeadTags.description);
+      assert.equal(headData.robots, expectedHeadTags.robots);
+      assert.equal(headData.htmlTitle, expectedHeadTags.htmlTitle);
+      assert.equal(headData.keywords, expectedHeadTags.keywords);
+  });
 
-	mock.set('wikiVariables', {
-		contentNamespaces: [0, 112]
-	});
+  test('get correct handler based on model namespace', function (assert) {
+      const mock = this.owner.lookup('route:wikiPage'),
+          testCases = [
+              {
+                  expectedHandler: {
+                      viewName: 'article',
+                      controllerName: 'article'
+                  },
+                  model: EmberObject.create({
+                      ns: 0
+                  })
+              },
+              {
+                  expectedHandler: {
+                      viewName: 'article',
+                      controllerName: 'article'
+                  },
+                  model: EmberObject.create({
+                      ns: 112
+                  })
+              },
+              {
+                  expectedHandler: {
+                      viewName: 'category',
+                      controllerName: 'category'
+                  },
+                  model: EmberObject.create({
+                      ns: 14
+                  })
+              },
+              {
+                  expectedHandler: null,
+                  model: EmberObject.create({
+                      ns: 200
+                  })
+              }
+          ];
 
-	testCases.forEach(({expectedHandler, model}) => {
-		const handler = mock.getHandler(model);
+      mock.set('wikiVariables', {
+          contentNamespaces: [0, 112]
+      });
 
-		if (handler) {
-			assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
-			assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
-		} else {
-			assert.equal(handler, expectedHandler, 'handler is not null');
-		}
-	});
-});
+      testCases.forEach(({expectedHandler, model}) => {
+          const handler = mock.getHandler(model);
 
-test('get correct handler based on model isCuratedMainPage', function (assert) {
-	const mock = this.subject(),
-		expectedHandler = {
-			viewName: 'main-page',
-			controllerName: 'main-page'
-		};
+          if (handler) {
+              assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
+              assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+          } else {
+              assert.equal(handler, expectedHandler, 'handler is not null');
+          }
+      });
+  });
 
-	let handler;
+  test('get correct handler based on model isCuratedMainPage', function (assert) {
+      const mock = this.owner.lookup('route:wikiPage'),
+          expectedHandler = {
+              viewName: 'main-page',
+              controllerName: 'main-page'
+          };
 
-	model.isCuratedMainPage = true;
+      let handler;
 
-	handler = mock.getHandler(model);
+      model.isCuratedMainPage = true;
 
-	assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
-	assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
-});
+      handler = mock.getHandler(model);
 
-test('reset ads variables on before model', function (assert) {
-	isInitialPageViewStub.returns(false);
+      assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
+      assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+  });
 
-	const mock = this.subject();
-	mock.controllerFor = () => {
-		return {
-			send: () => {
-			}
-		};
-	};
+  test('reset ads variables on before model', function (assert) {
+      isInitialPageViewStub.returns(false);
 
-	mock.beforeModel({
-		params: {
-			'wiki-page': {
-				title: 'foo'
-			}
-		}
-	});
+      const mock = this.owner.lookup('route:wikiPage');
+      mock.controllerFor = () => {
+          return {
+              send: () => {
+              }
+          };
+      };
 
-	assert.notEqual(window.wgNow, null);
+      mock.beforeModel({
+          params: {
+              'wiki-page': {
+                  title: 'foo'
+              }
+          }
+      });
 
-	isInitialPageViewStub.reset();
+      assert.notEqual(window.wgNow, null);
+
+      isInitialPageViewStub.reset();
+  });
 });

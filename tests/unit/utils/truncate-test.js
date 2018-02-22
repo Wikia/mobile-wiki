@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | truncate', (hooks) => {
+module((hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {
@@ -46,4 +45,4 @@ module('Unit | Utility | truncate', (hooks) => {
 	test('number instead of text', (assert) => {
 		assert.equal(truncate(20), null);
 	});
-});
+}, function() {});

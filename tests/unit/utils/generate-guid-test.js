@@ -1,9 +1,8 @@
-import {module} from 'qunit';
-import {test} from 'ember-qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 import generateGuid from 'mobile-wiki/utils/generate-guid';
 
-module('Unit | Utility | generate-guid', (hooks) => {
+module((hooks) => {
 	hooks.beforeEach(() => {
 		sinon.stub(Date, 'now').returns('1234');
 	});
@@ -31,4 +30,4 @@ module('Unit | Utility | generate-guid', (hooks) => {
 			assert.strictEqual(generateGuid(testCase.prefix), testCase.expected);
 		});
 	});
-});
+}, function() {});

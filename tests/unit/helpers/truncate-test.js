@@ -1,9 +1,8 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import truncateHelper from 'mobile-wiki/helpers/truncate';
 
 
-module('Unit | Helper | truncate', () => {
+module(() => {
 
 	test('Truncate helper is exported', (assert) => {
 		assert.ok(truncateHelper.compute);
@@ -20,4 +19,4 @@ module('Unit | Helper | truncate', () => {
 	test('number instead of text', (assert) => {
 		assert.equal(truncateHelper.compute([20]), null);
 	});
-});
+}, function() {});

@@ -1,8 +1,7 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import wrapMeHelper from 'mobile-wiki/helpers/wrap-me';
 
-module('Unit | Helper | wrap-me', () => {
+module(() => {
 	test('wrap-me helper is exported', (assert) => {
 		assert.ok(wrapMeHelper.compute);
 	});
@@ -77,4 +76,4 @@ module('Unit | Helper | wrap-me', () => {
 
 		assert.equal(html, '<a href="/d/g" target="_blank">guidelines</a>');
 	});
-});
+}, function() {});

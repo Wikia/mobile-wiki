@@ -1,4 +1,7 @@
-import {test, moduleFor} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+
+import { run } from '@ember/runloop';
 
 const media = [
 	{
@@ -9,24 +12,22 @@ const media = [
 	}
 ];
 
-moduleFor('model:media', 'Unit | Model | media model', {
-	needs: [
-		'service:logger'
-	],
-});
+module('Unit | Model | media model', function(hooks) {
+  setupTest(hooks);
 
-test('returning the media array', function (assert) {
-	const model = this.subject({
-		media
-	});
+  test('returning the media array', function (assert) {
+      const model = run(() => this.owner.lookup('service:store').createRecord('media', {
+          media
+      }));
 
-	assert.deepEqual(media, model.get('media'));
-});
+      assert.deepEqual(media, model.get('media'));
+  });
 
-test('returning data about media', function (assert) {
-	const model = this.subject({
-		media
-	});
+  test('returning data about media', function (assert) {
+      const model = run(() => this.owner.lookup('service:store').createRecord('media', {
+          media
+      }));
 
-	assert.equal(media[0], model.get('media')[0]);
+      assert.equal(media[0], model.get('media')[0]);
+  });
 });

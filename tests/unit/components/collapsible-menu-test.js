@@ -1,23 +1,24 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('collapsible-menu', 'Unit | Component | collapsible menu', {
-	unit: true
-});
+module('Unit | Component | collapsible menu', function(hooks) {
+  setupTest(hooks);
 
-test('Beginning state', function (assert) {
-	const component = this.subject();
+  test('Beginning state', function (assert) {
+      const component = this.owner.factoryFor('component:collapsible-menu').create();
 
-	assert.equal(component.isCollapsed, true, 'component should start collapsed');
-});
+      assert.equal(component.isCollapsed, true, 'component should start collapsed');
+  });
 
-test('Calling toggleMenu to expand and then collapse', function (assert) {
-	const component = this.subject();
+  test('Calling toggleMenu to expand and then collapse', function (assert) {
+      const component = this.owner.factoryFor('component:collapsible-menu').create();
 
-	assert.expect(2);
+      assert.expect(2);
 
-	component.send('toggleMenu');
-	assert.equal(component.isCollapsed, false, 'component should then be expanded');
+      component.send('toggleMenu');
+      assert.equal(component.isCollapsed, false, 'component should then be expanded');
 
-	component.send('toggleMenu');
-	assert.equal(component.isCollapsed, true, 'it should flip back to collapsed');
+      component.send('toggleMenu');
+      assert.equal(component.isCollapsed, true, 'it should flip back to collapsed');
+  });
 });

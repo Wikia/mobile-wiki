@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | duration', () => {
+module(() => {
 	const duration = require('mobile-wiki/utils/duration').default;
 
 	test('Duration helper is exported', (assert) => {
@@ -28,4 +27,4 @@ module('Unit | Utility | duration', () => {
 	test('> 1 hour', (assert) => {
 		assert.equal(duration(3661), '01:01:01');
 	});
-});
+}, function() {});

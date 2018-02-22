@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | url', (hooks) => {
+module((hooks) => {
 	let extractEncodedTitle;
 
 	hooks.beforeEach(() => {
@@ -62,4 +61,4 @@ module('Unit | Utility | url', (hooks) => {
 	test('wiki as title', (assert) => {
 		assert.equal(extractEncodedTitle('/wiki'), 'wiki');
 	});
-});
+}, function() {});

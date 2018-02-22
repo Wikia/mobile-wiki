@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | extend', () => {
+module(() => {
 	const extend = require('mobile-wiki/utils/extend').default;
 
 	test('Extend function is exported', (assert) => {
@@ -30,4 +29,4 @@ module('Unit | Utility | extend', () => {
 
 		assert.deepEqual(result, obj);
 	});
-});
+}, function() {});

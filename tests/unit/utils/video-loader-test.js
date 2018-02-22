@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | video loader', () => {
+module(() => {
 	const VideoLoader = require('mobile-wiki/modules/video-loader').default;
 
 	test('VideoLoader can tell which provider is using', (assert) => {
@@ -42,4 +41,4 @@ module('Unit | Utility | video loader', () => {
 	});
 
 
-});
+}, function() {});

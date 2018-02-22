@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | domain', () => {
+module(() => {
 	test('extracts domain from provided urls', (assert) => {
 		const testCasesForExtractDomainFromUrl = [
 			{
@@ -43,4 +42,4 @@ module('Unit | Utility | domain', () => {
 			assert.strictEqual(require('mobile-wiki/utils/domain').default(testCase.url), testCase.expected);
 		});
 	});
-});
+}, function() {});

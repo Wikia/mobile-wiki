@@ -1,4 +1,7 @@
-import {test, moduleFor} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+
+import { run } from '@ember/runloop';
 
 const articleExample = {
 	data: {
@@ -86,15 +89,13 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
-	needs: [
-		'service:wiki-variables'
-	],
-});
+module('Integration | Model | wiki/article', function(hooks) {
+  setupTest(hooks);
 
-test('setData with parametrized data', function (assert) {
-	const model = this.subject();
+  test('setData with parametrized data', function (assert) {
+      const model = run(() => this.owner.lookup('service:store').createRecord('wiki/article'));
 
-	model.setData(articleExample);
-	verifyArticle(model, articleExample, assert);
+      model.setData(articleExample);
+      verifyArticle(model, articleExample, assert);
+  });
 });

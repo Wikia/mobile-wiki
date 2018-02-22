@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | article link', () => {
+module(() => {
 	const getLinkInfo = require('mobile-wiki/utils/article-link').default,
 		isHashLink = require('mobile-wiki/utils/article-link').isHashLink;
 
@@ -119,4 +118,4 @@ module('Unit | Utility | article link', () => {
 			assert.equal(result, testCase.expected);
 		});
 	});
-});
+}, function() {});
