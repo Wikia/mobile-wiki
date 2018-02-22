@@ -76,5 +76,5 @@ module(() => {
 
 		assert.equal(html, '<a href="/d/g" target="_blank">guidelines</a>');
 	});
-}, function () {
+}, () => {
 });

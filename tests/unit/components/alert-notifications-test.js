@@ -2,7 +2,7 @@ import {A} from '@ember/array';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | alert notifications', function (hooks) {
+module('Unit | Component | alert notifications', (hooks) => {
 	setupTest(hooks);
 
 	test('Dismissing alert', function (assert) {

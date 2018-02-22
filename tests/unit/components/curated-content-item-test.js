@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | curated content item', function (hooks) {
+module('Unit | Component | curated content item', (hooks) => {
 	setupTest(hooks);
 
 	test('returns correct icon name', function (assert) {

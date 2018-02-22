@@ -3,7 +3,7 @@ import {setupTest} from 'ember-qunit';
 import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
 
-module('Unit | Model | search result page', function (hooks) {
+module('Unit | Model | search result page', (hooks) => {
 	setupTest(hooks);
 
 	test('empty array set on zero state', (assert) => {

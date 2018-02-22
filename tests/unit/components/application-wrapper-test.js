@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | application wrapper', function (hooks) {
+module('Unit | Component | application wrapper', (hooks) => {
 	setupTest(hooks);
 
 	function createElement(tag, className) {

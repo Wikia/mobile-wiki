@@ -89,7 +89,7 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-module('Integration | Model | wiki/article', function (hooks) {
+module('Integration | Model | wiki/article', (hooks) => {
 	setupTest(hooks);
 
 	test('setData with parametrized data', function (assert) {

@@ -8,7 +8,7 @@ const adsStub = Service.extend({
 	module: require('mobile-wiki/modules/ads').default.getInstance()
 });
 
-module('Unit | Component | ad slot', function (hooks) {
+module('Unit | Component | ad slot', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {

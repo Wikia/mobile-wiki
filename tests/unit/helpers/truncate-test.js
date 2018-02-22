@@ -19,5 +19,5 @@ module(() => {
 	test('number instead of text', (assert) => {
 		assert.equal(truncateHelper.compute([20]), null);
 	});
-}, function () {
+}, () => {
 });

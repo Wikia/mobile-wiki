@@ -7,14 +7,14 @@ import {run} from '@ember/runloop';
 
 let stub;
 
-module('Unit | Model | article comments', function (hooks) {
+module('Unit | Model | article comments', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		stub = sinon.stub(require('mobile-wiki/utils/url'), 'buildUrl');
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		require('mobile-wiki/utils/url').buildUrl.restore();
 	});
 

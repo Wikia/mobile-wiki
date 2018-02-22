@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 import Thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
-module('Unit | Component | portable-infobox-hero-image', function (hooks) {
+module('Unit | Component | portable-infobox-hero-image', (hooks) => {
 	setupTest(hooks);
 
 	test('cropMode', function (assert) {

@@ -3,7 +3,7 @@ import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
 import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 
-module('Unit | Model | wikia nav', function (hooks) {
+module('Unit | Model | wikia nav', (hooks) => {
 	setupTest(hooks);
 
 	const hubsLinksMock = [{

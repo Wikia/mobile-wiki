@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | wikia-in-your-lang', function (hooks) {
+module('Unit | Component | wikia-in-your-lang', (hooks) => {
 	setupTest(hooks);
 
 	test('createAlert', function (assert) {

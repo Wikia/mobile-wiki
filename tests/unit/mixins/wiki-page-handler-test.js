@@ -19,7 +19,7 @@ let articleCreateStub,
 	fileSetDataStub,
 	isContentNamespaceStub;
 
-module('Unit | Mixins | Wiki Page Handler', function (hooks) {
+module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
@@ -32,7 +32,7 @@ module('Unit | Mixins | Wiki Page Handler', function (hooks) {
 		};
 	});
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		articleSetDataStub = sinon.stub();
 		articleCreateStub = sinon.stub(articleModel, 'create');
 		categorySetDataStub = sinon.stub();
@@ -42,7 +42,7 @@ module('Unit | Mixins | Wiki Page Handler', function (hooks) {
 		isContentNamespaceStub = sinon.stub(mediawikiNamespace, 'isContentNamespace');
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		articleCreateStub.restore();
 		categoryCreateStub.restore();
 		fileCreateStub.restore();

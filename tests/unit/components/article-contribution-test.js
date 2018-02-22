@@ -26,14 +26,14 @@ function createComponent(testThis, editAllowed = true) {
 	});
 }
 
-module('Unit | Component | article contribution', function (hooks) {
+module('Unit | Component | article contribution', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		trackStub = sinon.stub(trackModule, 'track');
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		trackStub.restore();
 	});
 

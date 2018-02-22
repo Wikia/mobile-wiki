@@ -15,7 +15,7 @@ const adsStub = Service.extend({
 	})()
 });
 
-module('Unit | Mixin | ads', function (hooks) {
+module('Unit | Mixin | ads', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {

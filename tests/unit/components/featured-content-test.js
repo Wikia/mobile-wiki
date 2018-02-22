@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | featured content', function (hooks) {
+module('Unit | Component | featured content', (hooks) => {
 	setupTest(hooks);
 
 	test('detects if there are multiple items in the model', function (assert) {

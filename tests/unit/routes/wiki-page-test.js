@@ -16,7 +16,7 @@ const initialPageViewStub = Service.extend({
 	isInitialPageView: isInitialPageViewStub
 });
 
-module('Unit | Route | wiki page', function (hooks) {
+module('Unit | Route | wiki page', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {

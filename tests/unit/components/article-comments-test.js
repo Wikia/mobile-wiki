@@ -2,7 +2,7 @@ import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | article comments', function (hooks) {
+module('Unit | Component | article comments', (hooks) => {
 	setupTest(hooks);
 
 	test('page is set correctly within boundaries and buttons are displayed correctly', function (assert) {

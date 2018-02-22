@@ -8,7 +8,7 @@ const trackModule = require('mobile-wiki/utils/track');
 const urlModule = require('mobile-wiki/utils/url');
 let trackStub, buildUrlStub, component;
 
-module('Unit | Component | local wikia search', function (hooks) {
+module('Unit | Component | local wikia search', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
@@ -20,7 +20,7 @@ module('Unit | Component | local wikia search', function (hooks) {
 		});
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		buildUrlStub.restore();
 		trackStub.restore();
 	});

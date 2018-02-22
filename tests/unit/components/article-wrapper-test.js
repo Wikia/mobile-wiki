@@ -44,7 +44,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 	});
 }
 
-module('Unit | Component | article wrapper', function (hooks) {
+module('Unit | Component | article wrapper', (hooks) => {
 	setupTest(hooks);
 
 	test('contribution disabled on main page', function (assert) {

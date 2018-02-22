@@ -8,10 +8,10 @@ const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
 let createStub;
 let thumbnailerStub;
 
-module('Unit | Component | trending videos item', function (hooks) {
+module('Unit | Component | trending videos item', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		createStub = sinon.stub(mediaModel, 'create');
 		createStub.returnsArg(1);
 
@@ -20,7 +20,7 @@ module('Unit | Component | trending videos item', function (hooks) {
 		});
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		createStub.restore();
 		thumbnailerStub.restore();
 	});

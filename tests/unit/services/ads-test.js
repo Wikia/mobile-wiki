@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Service | ads', function (hooks) {
+module('Unit | Service | ads', (hooks) => {
 	setupTest(hooks);
 
 	test('noAds is set correctly base on passed Query Parameter and logged in user', function (assert) {

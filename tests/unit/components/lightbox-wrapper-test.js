@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | lightbox wrapper', function (hooks) {
+module('Unit | Component | lightbox wrapper', (hooks) => {
 	setupTest(hooks);
 
 	test('toggleFooter method toggles footerExpanded', function (assert) {

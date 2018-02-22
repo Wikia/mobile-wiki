@@ -9,10 +9,10 @@ const trackModule = require('mobile-wiki/utils/track');
 let model,
 	trackStub;
 
-module('Unit | Component | lightbox media', function (hooks) {
+module('Unit | Component | lightbox media', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		trackStub = sinon.stub(trackModule, 'track');
 
 		model = {
@@ -49,7 +49,7 @@ module('Unit | Component | lightbox media', function (hooks) {
 		};
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		trackStub.restore();
 	});
 

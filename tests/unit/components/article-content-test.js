@@ -15,7 +15,7 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	})
 });
 
-module('Unit | Component | article content', function (hooks) {
+module('Unit | Component | article content', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {

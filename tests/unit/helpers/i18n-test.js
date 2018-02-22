@@ -54,5 +54,5 @@ module((hooks) => {
 
 		assert.ok(tStub.calledWith('main:string', i18nParams));
 	});
-}, function () {
+}, () => {
 });

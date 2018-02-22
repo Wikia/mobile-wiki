@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | site head', function (hooks) {
+module('Unit | Component | site head', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {

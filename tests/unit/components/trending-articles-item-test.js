@@ -6,16 +6,16 @@ import require from 'require';
 const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
 let thumbnailerStub;
 
-module('Unit | Component | trending articles item', function (hooks) {
+module('Unit | Component | trending articles item', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(function () {
+	hooks.beforeEach(() => {
 		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
 			return `${url}/${options.mode}/${options.width}/${options.height}`;
 		});
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		thumbnailerStub.restore();
 	});
 

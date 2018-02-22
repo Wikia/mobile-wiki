@@ -30,5 +30,5 @@ module(() => {
 		mixin.callClickHandler(clickEventCenter);
 		assert.ok(mixin.centerClickHandler.calledOnce, 'center click handler is called');
 	});
-}, function () {
+}, () => {
 });

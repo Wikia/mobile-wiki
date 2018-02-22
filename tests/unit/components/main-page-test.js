@@ -10,7 +10,7 @@ const trackModule = require('mobile-wiki/utils/track'),
 let setTrackContextStub,
 	trackPageViewStub;
 
-module('Unit | Component | main page', function (hooks) {
+module('Unit | Component | main page', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
@@ -19,7 +19,7 @@ module('Unit | Component | main page', function (hooks) {
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 	});
 
-	hooks.afterEach(function () {
+	hooks.afterEach(() => {
 		setTrackContextStub.restore();
 		trackPageViewStub.restore();
 	});

@@ -43,5 +43,5 @@ module(() => {
 
 		assert.equal(html, '<svg><use xlink:href="#nameOfSvg"></use></svg>');
 	});
-}, function () {
+}, () => {
 });

@@ -2,7 +2,7 @@ import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | loading spinner', function (hooks) {
+module('Unit | Component | loading spinner', (hooks) => {
 	setupTest(hooks);
 
 	test('should be hidden by default', function (assert) {

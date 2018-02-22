@@ -12,7 +12,7 @@ const media = [
 	}
 ];
 
-module('Unit | Model | media model', function (hooks) {
+module('Unit | Model | media model', (hooks) => {
 	setupTest(hooks);
 
 	test('returning the media array', function (assert) {

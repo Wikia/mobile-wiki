@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
-module('Unit | Component | article comment', function (hooks) {
+module('Unit | Component | article comment', (hooks) => {
 	setupTest(hooks);
 
 	test('users is correctly fetched', function (assert) {
