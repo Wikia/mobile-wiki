@@ -86,8 +86,9 @@
 			cursor: pointer;
 			float: left;
 			padding: 5px;
+
 			> * {
-				border: 1px solid #cccccc;
+				border: 1px solid #ccc;
 				border-radius: 4px;
 				display: block;
 				height: 9px;
@@ -95,8 +96,8 @@
 			}
 
 			&.current > * {
-				border: 1px solid $white;
 				background-color: $white;
+				border: 1px solid $white;
 			}
 		}
 	}
