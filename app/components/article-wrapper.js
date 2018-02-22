@@ -5,7 +5,6 @@ import Component from '@ember/component';
 import {computed} from '@ember/object';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
-import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
@@ -21,7 +20,6 @@ import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 export default Component.extend(
 	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
-	ViewportMixin,
 	{
 		currentUser: service(),
 		wikiVariables: service(),
