@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import thumbnailHelper from 'mobile-wiki/helpers/thumbnail';
 import thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
@@ -56,4 +56,5 @@ module((hooks) => {
 		);
 	});
 
-}, function() {});
+}, function () {
+});

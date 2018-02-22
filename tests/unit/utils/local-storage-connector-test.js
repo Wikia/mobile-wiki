@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module(() => {
@@ -24,4 +24,4 @@ module(() => {
 		localStorageAdapter.removeItem('foo');
 		assert.strictEqual(localStorageAdapter.getItem('foo') || false, false);
 	});
-}, function() {});
+});

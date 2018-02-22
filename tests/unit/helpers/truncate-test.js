@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import truncateHelper from 'mobile-wiki/helpers/truncate';
 
 
@@ -19,4 +19,5 @@ module(() => {
 	test('number instead of text', (assert) => {
 		assert.equal(truncateHelper.compute([20]), null);
 	});
-}, function() {});
+}, function () {
+});

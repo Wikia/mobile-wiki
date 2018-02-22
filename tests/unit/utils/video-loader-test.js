@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module(() => {
@@ -41,4 +41,4 @@ module(() => {
 	});
 
 
-}, function() {});
+});

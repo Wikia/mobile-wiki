@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module(() => {
@@ -118,4 +118,4 @@ module(() => {
 			assert.equal(result, testCase.expected);
 		});
 	});
-}, function() {});
+});

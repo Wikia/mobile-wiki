@@ -2,7 +2,7 @@ import {find, findAll, fillIn, triggerEvent} from '@ember/test-helpers';
 import {setupApplicationTest} from 'ember-qunit';
 import {test} from 'qunit';
 
-module((hooks) => {
+module('Acceptance | search', (hooks) => {
 	setupApplicationTest(hooks);
 
 	test('visiting /search', async (assert) => {
@@ -46,5 +46,4 @@ module((hooks) => {
 			'Clean query icon is visible'
 		);
 	});
-
-}, function() {});
+});

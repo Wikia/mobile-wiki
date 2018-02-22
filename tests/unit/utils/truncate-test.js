@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module((hooks) => {
@@ -45,4 +45,4 @@ module((hooks) => {
 	test('number instead of text', (assert) => {
 		assert.equal(truncate(20), null);
 	});
-}, function() {});
+});

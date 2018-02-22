@@ -1,6 +1,6 @@
 import {run} from '@ember/runloop';
-import { module, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
+import {module, test} from 'qunit';
+import {setupTest} from 'ember-qunit';
 
 /**
  * @param {object} testThis
@@ -44,61 +44,61 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 	});
 }
 
-module('Unit | Component | article wrapper', function(hooks) {
-  setupTest(hooks);
+module('Unit | Component | article wrapper', function (hooks) {
+	setupTest(hooks);
 
-  test('contribution disabled on main page', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: true,
-          disableMobileSectionEditor: false,
-          expected: false
-      }, 'contributionEnabled', assert);
-  });
+	test('contribution disabled on main page', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: true,
+			disableMobileSectionEditor: false,
+			expected: false
+		}, 'contributionEnabled', assert);
+	});
 
-  test('contribution enabled on Japanese page', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: false,
-          disableMobileSectionEditor: false,
-          expected: true
-      }, 'contributionEnabled', assert);
-  });
+	test('contribution enabled on Japanese page', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: false,
+			disableMobileSectionEditor: false,
+			expected: true
+		}, 'contributionEnabled', assert);
+	});
 
-  test('contribution disabled when disableMobileSectionEditor is set', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: false,
-          disableMobileSectionEditor: true,
-          expected: false
-      }, 'contributionEnabled', assert);
-  });
+	test('contribution disabled when disableMobileSectionEditor is set', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: false,
+			disableMobileSectionEditor: true,
+			expected: false
+		}, 'contributionEnabled', assert);
+	});
 
-  test('logged in user can edit', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: false,
-          disableMobileSectionEditor: false,
-          isAuthenticated: true,
-          expected: true
-      }, 'editAllowed', assert);
-  });
+	test('logged in user can edit', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: false,
+			disableMobileSectionEditor: false,
+			isAuthenticated: true,
+			expected: true
+		}, 'editAllowed', assert);
+	});
 
-  test('coppa wiki requires log in', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: false,
-          disableMobileSectionEditor: false,
-          isAuthenticated: false,
-          isCoppaWiki: true,
-          disableAnonymousEditing: false,
-          expected: false
-      }, 'editAllowed', assert);
-  });
+	test('coppa wiki requires log in', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: false,
+			disableMobileSectionEditor: false,
+			isAuthenticated: false,
+			isCoppaWiki: true,
+			disableAnonymousEditing: false,
+			expected: false
+		}, 'editAllowed', assert);
+	});
 
-  test('wiki with disableAnonymousEditing set requires log in', function (assert) {
-      contributionTestHelper(this, {
-          isMainPage: false,
-          disableMobileSectionEditor: false,
-          isAuthenticated: false,
-          isCoppaWiki: false,
-          disableAnonymousEditing: true,
-          expected: false
-      }, 'editAllowed', assert);
-  });
+	test('wiki with disableAnonymousEditing set requires log in', function (assert) {
+		contributionTestHelper(this, {
+			isMainPage: false,
+			disableMobileSectionEditor: false,
+			isAuthenticated: false,
+			isCoppaWiki: false,
+			disableAnonymousEditing: true,
+			expected: false
+		}, 'editAllowed', assert);
+	});
 });

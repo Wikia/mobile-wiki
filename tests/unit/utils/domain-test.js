@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module(() => {
@@ -42,4 +42,4 @@ module(() => {
 			assert.strictEqual(require('mobile-wiki/utils/domain').default(testCase.url), testCase.expected);
 		});
 	});
-}, function() {});
+});

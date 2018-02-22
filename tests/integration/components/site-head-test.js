@@ -1,4 +1,4 @@
-import { find, render } from '@ember/test-helpers';
+import {find, render} from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';

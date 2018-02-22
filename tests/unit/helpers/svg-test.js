@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import svgHelper from 'mobile-wiki/helpers/svg';
 
 module(() => {
@@ -43,4 +43,5 @@ module(() => {
 
 		assert.equal(html, '<svg><use xlink:href="#nameOfSvg"></use></svg>');
 	});
-}, function() {});
+}, function () {
+});

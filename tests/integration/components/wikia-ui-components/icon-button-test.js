@@ -14,7 +14,7 @@ const icon = 'test-icon',
 	role = 'img',
 	negativeIndex = -1;
 
-module((hooks) => {
+module('Integration | Component | icon button', (hooks) => {
 	setupRenderingTest(hooks);
 
 	hooks.beforeEach(function () {
@@ -67,4 +67,4 @@ module((hooks) => {
 
 		assert.equal(this.get('action').called, true);
 	});
-}, function() {});
+});

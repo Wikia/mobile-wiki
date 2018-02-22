@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import wrapMeHelper from 'mobile-wiki/helpers/wrap-me';
 
 module(() => {
@@ -76,4 +76,5 @@ module(() => {
 
 		assert.equal(html, '<a href="/d/g" target="_blank">guidelines</a>');
 	});
-}, function() {});
+}, function () {
+});

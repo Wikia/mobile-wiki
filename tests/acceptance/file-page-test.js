@@ -3,7 +3,7 @@ import {test, module} from 'qunit';
 import {setupApplicationTest} from 'ember-qunit';
 import sinon from 'sinon';
 
-module((hooks) => {
+module('Acceptance | file page', (hooks) => {
 	setupApplicationTest(hooks);
 
 	test('visiting File Page', async (assert) => {
@@ -26,6 +26,5 @@ module((hooks) => {
 
 		window.Image = originalImage;
 	});
-
-}, function() {});
+});
 

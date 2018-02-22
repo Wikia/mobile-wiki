@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import ThirdsClicksMixin from 'mobile-wiki/mixins/thirds-click';
 import sinon from 'sinon';
 
@@ -30,4 +30,5 @@ module(() => {
 		mixin.callClickHandler(clickEventCenter);
 		assert.ok(mixin.centerClickHandler.calledOnce, 'center click handler is called');
 	});
-}, function() {});
+}, function () {
+});

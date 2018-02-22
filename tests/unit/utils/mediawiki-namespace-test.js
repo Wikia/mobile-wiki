@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import {isContentNamespace} from 'mobile-wiki/utils/mediawiki-namespace';
 
 module(() => {
@@ -27,4 +27,4 @@ module(() => {
 			assert.equal(isContentNamespace(namespace, contentNamespaces), expected);
 		});
 	});
-}, function() {});
+});

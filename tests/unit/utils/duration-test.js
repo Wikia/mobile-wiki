@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module(() => {
@@ -27,4 +27,4 @@ module(() => {
 	test('> 1 hour', (assert) => {
 		assert.equal(duration(3661), '01:01:01');
 	});
-}, function() {});
+});

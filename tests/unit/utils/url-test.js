@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
 
 module((hooks) => {
@@ -61,4 +61,4 @@ module((hooks) => {
 	test('wiki as title', (assert) => {
 		assert.equal(extractEncodedTitle('/wiki'), 'wiki');
 	});
-}, function() {});
+});

@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import {module, test} from 'qunit';
 import I18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
@@ -54,4 +54,5 @@ module((hooks) => {
 
 		assert.ok(tStub.calledWith('main:string', i18nParams));
 	});
-}, function() {});
+}, function () {
+});

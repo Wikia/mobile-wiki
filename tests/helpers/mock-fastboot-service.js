@@ -736,7 +736,10 @@ export default registerHelper('mockFastbootService', () => {
 									"community": {
 										"header": {
 											"type": "line-text",
-											"title": {"type": "translatable-text", "key": "global-footer-community-header"}
+											"title": {
+												"type": "translatable-text",
+												"key": "global-footer-community-header"
+											}
 										},
 										"links": [{
 											"type": "link-text",
@@ -907,7 +910,10 @@ export default registerHelper('mockFastbootService', () => {
 									"wikis": {
 										"header": {
 											"type": "line-text",
-											"title": {"type": "translatable-text", "key": "global-navigation-wikis-header"},
+											"title": {
+												"type": "translatable-text",
+												"key": "global-navigation-wikis-header"
+											},
 											"tracking_label": "link.wikis"
 										},
 										"links": [{
@@ -953,7 +959,10 @@ export default registerHelper('mockFastbootService', () => {
 										},
 										"links": [{
 											"type": "link-authentication",
-											"title": {"type": "translatable-text", "key": "global-navigation-anon-sign-in"},
+											"title": {
+												"type": "translatable-text",
+												"key": "global-navigation-anon-sign-in"
+											},
 											"href": "http://www.wikia.com/signin",
 											"param-name": "redirect",
 											"tracking_label": "account.sign-in"
