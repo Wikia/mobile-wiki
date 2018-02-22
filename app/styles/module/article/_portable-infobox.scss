@@ -51,12 +51,6 @@ $group-header-font-size: 16px;
 		position: relative;
 	}
 
-	&:not(.collapsed) {
-		.pi-expand-icon {
-			transform: rotate(180deg);
-		}
-	}
-
 	&.collapsed {
 		overflow: hidden;
 		position: relative;
@@ -378,10 +372,6 @@ $group-header-font-size: 16px;
 	text-align: center;
 	width: 100%;
 	z-index: $z-1;
-}
-
-.pi:not(.collapsed) .pi-expand-icon {
-	transform: scaleY(-1);
 }
 
 .pi-hero,

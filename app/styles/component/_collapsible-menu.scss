@@ -29,10 +29,6 @@
 		> .wds-icon {
 			transition: .25s transform ease-in-out;
 		}
-
-		&:not(.collapsed) > .wds-icon {
-			transform: scaleY(-1);
-		}
 	}
 
 	//Takes care of hiding a menu
