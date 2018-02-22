@@ -6,7 +6,7 @@ const designSystemInlineSVGs = [
 	'wds-icons-menu',
 	'wds-icons-magnifying-glass',
 	'wds-icons-image',
-].map(name => {
+].map((name) => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
 });
 
@@ -41,7 +41,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-user',
 	'wds-icons-youtube',
 	'wds-player-icon-play'
-].map(name => {
+].map((name) => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
 });
 
