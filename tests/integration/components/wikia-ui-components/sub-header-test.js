@@ -1,7 +1,7 @@
+import { find, findAll } from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
-import {find, findAll} from 'ember-native-dom-helpers';
 
 const fixedClass = 'sub-head--fixed',
 	negativeIndex = -1,

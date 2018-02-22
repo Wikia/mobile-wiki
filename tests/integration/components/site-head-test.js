@@ -1,8 +1,8 @@
+import { find } from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
-import {find} from 'ember-native-dom-helpers';
 
 const trackModule = require('mobile-wiki/utils/track'),
 	searchIconSelector = '.site-head-icon-search .site-head-icon',

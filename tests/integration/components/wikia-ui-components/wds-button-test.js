@@ -1,7 +1,7 @@
+import { find } from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
-import {find} from 'ember-native-dom-helpers';
 
 const buttonSelector = '.wds-button';
 

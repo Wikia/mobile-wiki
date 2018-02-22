@@ -1,3 +1,4 @@
+import { find, findAll } from '@ember/test-helpers';
 import Component from '@ember/component';
 import {dasherize} from '@ember/string';
 import {computed} from '@ember/object';
@@ -5,7 +6,6 @@ import {run} from '@ember/runloop';
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
-import {find, findAll} from 'ember-native-dom-helpers';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
