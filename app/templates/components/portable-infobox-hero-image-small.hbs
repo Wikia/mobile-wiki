@@ -2,12 +2,12 @@
 	<h3 class="pi-data-label pi-secondary-font">{{i18n 'article.portable-infobox-image'}}</h3>
 	<div class="pi-data-value pi-font">
 		<figure>
-			<a href="{{heroImage.url}}"
+			<a href="{{imageUrl}}"
 				 class="pi-hero-small"
 				 style={{linkStyle}}
 				 {{action openLightbox 'image' lightboxModel bubbles=false}}>
 				<img class="article-media-placeholder"
-						 src="{{imageSrc}}"
+						 src="{{imageUrl}}"
 						 height="{{heroImageHelper.computedHeight}}"
 						 width="{{maxWidth}}"
 						 alt="{{heroImage.title}}">
