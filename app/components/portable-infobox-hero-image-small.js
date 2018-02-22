@@ -32,7 +32,7 @@ export default Component.extend(
 		}),
 
 		imageUrl: computed('heroImage', () => {
-			let url = 'https://project43.sandbox-xw2.wikia.com/vignette/starter/images/a/a9/Example.jpg/' +
+			let url = 'http://project43.sandbox-xw2.wikia.com/vignette/starter/images/a/a9/Example.jpg/' +
 				'revision/latest/fixed-aspect-ratio/width/412/height/375?cb=20060602123345'
 
 			return url;
