@@ -22,7 +22,10 @@ EmberApp.prototype.addonTreesFor = function (type) {
 					tree,
 					'modules/ember-types/asserts/**/*.js',
 					'modules/ember-types/constants/*.js',
-					'modules/ember-types/property/*.js'
+					'modules/ember-types/property/*.js',
+					'ember-responds-to/mixins/responds-to-enter-keydown.js',
+					'ember-responds-to/mixins/responds-to-esc-keydown.js',
+					'ember-responds-to/mixins/responds-to-print.js'
 				);
 			}
 
