@@ -72,6 +72,10 @@
 
 .article-media-thumbnail-image-wrapper {
 	position: relative;
+
+	svg {
+		@extend %image-placeholder;
+	}
 }
 
 @keyframes lazyImage {

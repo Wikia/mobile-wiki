@@ -40,6 +40,10 @@
 		padding-bottom: 100%;
 		position: relative;
 
+		svg {
+			@extend %image-placeholder;
+		}
+
 		img {
 			position: relative;
 		}
@@ -90,6 +94,7 @@
 				height: 50px;
 				text-align: center;
 				width: 50px;
+				position: relative;
 			}
 
 			svg {
