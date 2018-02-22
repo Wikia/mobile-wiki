@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import thumbnailHelper from 'mobile-wiki/helpers/thumbnail';
 import thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
-module((hooks) => {
+module('Unit | helper | thumbnail', (hooks) => {
 	let originalThumbnailerGetThumbURL;
 
 	hooks.beforeEach(() => {

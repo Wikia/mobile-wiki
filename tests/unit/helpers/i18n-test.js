@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import I18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
-module((hooks) => {
+module('Unit | helper | i18n', (hooks) => {
 	const tStub = sinon.stub();
 	let i18nHelper;
 

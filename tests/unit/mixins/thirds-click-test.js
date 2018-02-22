@@ -3,7 +3,7 @@ import {module, test} from 'qunit';
 import ThirdsClicksMixin from 'mobile-wiki/mixins/thirds-click';
 import sinon from 'sinon';
 
-module(() => {
+module('Unit | Mixin | thirds click', () => {
 	test('calls proper handlers on click', (assert) => {
 		const mixin = EmberObject.extend(ThirdsClicksMixin).create(),
 			clickEventLeft = {

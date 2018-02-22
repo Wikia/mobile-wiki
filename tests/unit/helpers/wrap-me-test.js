@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import wrapMeHelper from 'mobile-wiki/helpers/wrap-me';
 
-module(() => {
+module('Unit | helper | wrap me', () => {
 	test('wrap-me helper is exported', (assert) => {
 		assert.ok(wrapMeHelper.compute);
 	});

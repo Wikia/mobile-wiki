@@ -5,7 +5,7 @@ import {run} from '@ember/runloop';
 import './mock-service';
 import './mock-fastboot-service';
 import './mock-ads-service';
-
+debugger;
 export default function startApp(attrs) {
 	let attributes = merge({}, config.APP);
 	attributes.autoboot = true;

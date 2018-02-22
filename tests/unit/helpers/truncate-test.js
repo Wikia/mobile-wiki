@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import truncateHelper from 'mobile-wiki/helpers/truncate';
 
 
-module(() => {
+module('Unit | helper | truncate', () => {
 
 	test('Truncate helper is exported', (assert) => {
 		assert.ok(truncateHelper.compute);

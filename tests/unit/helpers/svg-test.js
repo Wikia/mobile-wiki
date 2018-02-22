@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import svgHelper from 'mobile-wiki/helpers/svg';
 
-module(() => {
+module('Unit | helper | svg', () => {
 	test('SVG helper is exported', (assert) => {
 		assert.ok(svgHelper.compute);
 	});
