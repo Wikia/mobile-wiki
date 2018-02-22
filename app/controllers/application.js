@@ -1,5 +1,4 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import {isEmpty} from '@ember/utils';
 import {alias, equal} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
@@ -139,7 +138,7 @@ export default Controller.extend(
 			 * @returns {void}
 			 */
 			setQueryParam(name, value) {
-				if (name === 'file') {
+				if (name !== 'file') {
 					this.get('logger').error('Something tried to set query param that is not on the whitelist', {
 						name,
 						value,

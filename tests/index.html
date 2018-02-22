@@ -9,33 +9,34 @@
 
 	{{content-for 'head'}}
 	{{content-for 'test-head'}}
-	{{content-for 'fastboot-inline-scripts-head'}}
 
 	<link rel="stylesheet" href="assets/test-support.css">
 
 	{{content-for 'head-footer'}}
 	{{content-for 'test-head-footer'}}
 
-	<script>
-		window.trackQuantcastPageView = function() {};
-		window.trackNielsenPageView = function() {};
-		window.trackComscorePageView = function() {};
-		window.Wikia = {};
-		window.M.tracker = {};
-		window.M.tracker.Internal = {
-			track: function () {},
-			trackPageView: function() {}
-		};
-		window.M.tracker.UniversalAnalytics = {
-			track: function () {},
-			trackPageView: function() {}
-		};
-	</script>
-
 </head>
 <body>
 {{content-for 'body'}}
 {{content-for 'test-body'}}
+<script type="x-head-data-store" id="head-data-store">{}</script>
+{{content-for 'fastboot-inline-scripts'}}
+
+<script>
+	window.trackQuantcastPageView = function() {};
+	window.trackNielsenPageView = function() {};
+	window.trackComscorePageView = function() {};
+	window.Wikia = {};
+	window.M.tracker = {};
+	window.M.tracker.Internal = {
+		track: function () {},
+		trackPageView: function() {}
+	};
+	window.M.tracker.UniversalAnalytics = {
+		track: function () {},
+		trackPageView: function() {}
+	};
+</script>
 
 <script src="testem.js" integrity=""></script>
 <script src="assets/vendor.js"></script>

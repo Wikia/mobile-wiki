@@ -14,3 +14,20 @@ h2[section] .contribution-container {
 		display: none;
 	}
 }
+
+.edit-section {
+	$edit-icon-size: 24px;
+	$edit-icon-container-size: 48px;
+
+	align-items: center;
+	display: inline-flex;
+	height: $edit-icon-container-size;
+	justify-content: center;
+	width: $edit-icon-container-size;
+
+	.icon {
+		fill: $color-blue-light;
+		height: $edit-icon-size;
+		width: $edit-icon-size;
+	}
+}

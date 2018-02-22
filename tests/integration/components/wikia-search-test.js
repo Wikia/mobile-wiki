@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
 import {test, moduleForComponent} from 'ember-qunit';
+import {find, findAll} from 'ember-native-dom-helpers';
 
 const trackModule = require('mobile-wiki/utils/track');
 let trackStub;
@@ -34,7 +35,7 @@ moduleForComponent('wikia-search', 'Integration | Component | wikia search', {
 test('search displayed correctly with default settings', function (assert) {
 	this.render(hbs`{{wikia-search}}`);
 
-	const wikiaSearchClass = this.$(wikiaSearchDivSelector).attr('class');
+	const wikiaSearchClass = find(wikiaSearchDivSelector).className;
 
 	assert.equal(
 		wikiaSearchClass.indexOf(focusedInputClass),
@@ -54,7 +55,7 @@ test('search input has correct classes when inputFocused=true', function (assert
 		inputFocused=true
 	}}`);
 
-	const wikiaSearchClass = this.$(wikiaSearchDivSelector).attr('class');
+	const wikiaSearchClass = find(wikiaSearchDivSelector).className;
 
 	assert.notEqual(
 		wikiaSearchClass.indexOf(focusedInputClass),
@@ -73,7 +74,7 @@ test('display div with loading search suggestions', function (assert) {
 		isLoadingResultsSuggestions=true
 	}}`);
 
-	assert.equal(this.$('.wikia-search__loading').length, 1);
+	assert.equal(findAll('.wikia-search__loading').length, 1);
 });
 
 test('display div with loading search suggestions', function (assert) {
@@ -103,5 +104,5 @@ test('display div with loading search suggestions', function (assert) {
 	);
 	this.set('suggestions', suggestions);
 
-	assert.equal(this.$('.wikia-search__search-suggestion').length, suggestions.length);
+	assert.equal(findAll('.wikia-search__search-suggestion').length, suggestions.length);
 });

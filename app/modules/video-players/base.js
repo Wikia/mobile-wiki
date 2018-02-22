@@ -50,37 +50,40 @@ export default class BasePlayer {
 	 * Sets CSS width and height for the video container.
 	 * Container selector is can be overriden by the inheriting class
 	 *
-	 * @param {string} [containerSelector] - JQuery selector of the video container
+	 * @param {string} [containerSelector] - selector of the video container
 	 * @returns {void}
 	 */
 	onResize(containerSelector = this.containerSelector) {
-		const $container = $(containerSelector),
-			$lightbox = $('.lightbox-wrapper'),
-			lightboxWidth = $lightbox.width(),
-			lightboxHeight = $lightbox.height(),
-			targetSize = containerSize(
-				lightboxWidth,
-				lightboxHeight,
-				this.videoWidth,
-				this.videoHeight
-			);
+		const container = document.querySelector(containerSelector);
 
-		let sanitizedSize;
+		if (container) {
+			const lightbox = document.querySelector('.lightbox-wrapper'),
+				lightboxWidth = lightbox ? lightbox.offsetWidth : null,
+				lightboxHeight = lightbox ? lightbox.offsetHeight : null,
+				targetSize = containerSize(
+					lightboxWidth,
+					lightboxHeight,
+					this.videoWidth,
+					this.videoHeight
+				);
 
-		// sanitize as our backend sometimes returns size of 0x0
-		if (targetSize.width > 0 && targetSize.height > 0) {
-			sanitizedSize = {
-				width: targetSize.width,
-				height: targetSize.height
-			};
-		} else {
-			sanitizedSize = {
-				width: '100%',
-				height: '100%'
-			};
+			let sanitizedSize;
+
+			// sanitize as our backend sometimes returns size of 0x0
+			if (targetSize.width > 0 && targetSize.height > 0) {
+				sanitizedSize = {
+					width: `${targetSize.width}px`,
+					height: `${targetSize.height}px`
+				};
+			} else {
+				sanitizedSize = {
+					width: '100%',
+					height: '100%'
+				};
+			}
+
+			Object.assign(container.style, sanitizedSize);
 		}
-
-		$container.css(sanitizedSize);
 	}
 
 	/**

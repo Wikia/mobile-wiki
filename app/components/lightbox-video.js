@@ -57,7 +57,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			this.$(this.wrapperClass).off(`click.${this.id}`);
+			this.element.querySelector(this.wrapperClass).removeEventListener('click', this.preventDefault);
 		},
 
 		/**
@@ -74,7 +74,11 @@ export default Component.extend(
 			videoLoader.loadPlayerClass();
 
 			// Stop bubbling it up to the lightbox
-			this.$(this.wrapperClass).on(`click.${this.id}`, () => false);
+			this.element.querySelector(this.wrapperClass).addEventListener('click', this.preventDefault);
+		},
+
+		preventDefault() {
+			return false;
 		},
 
 		/**
@@ -89,7 +93,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		insertVideoPlayerHtml() {
-			this.$(this.wrapperClass).html(this.get('model.embed.html'));
+			this.element.querySelector(this.wrapperClass).innerHTML = this.get('model.embed.html');
 		},
 	}
 );

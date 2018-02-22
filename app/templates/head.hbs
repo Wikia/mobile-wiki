@@ -92,9 +92,5 @@
 
 {{#if model.lazyCss}}
 	{{!- These styles will be added to head on front-end to lazy load them-}}
-	{{#if model.isRtl}}
-		<link rel="stylesheet" href="/mobile-wiki/assets/lazy.rtl.css">
-	{{else}}
-		<link rel="stylesheet" href="/mobile-wiki/assets/lazy.css">
-	{{/if}}
+	<link rel="stylesheet" href="/mobile-wiki/assets/lazy.css">
 {{/if}}
