@@ -67,7 +67,7 @@ test('sets correct footer', function (assert) {
 
 	componentMock.setProperties({
 		model,
-		targetObject: parentMock,
+		target: parentMock,
 		setFooter: parentMock.setFooter.bind(parentMock)
 	});
 
@@ -89,7 +89,7 @@ test('sets correct header', function (assert) {
 
 	componentMock.setProperties({
 		model,
-		targetObject: parentMock,
+		target: parentMock,
 		setHeader: parentMock.setHeader.bind(parentMock)
 	});
 
