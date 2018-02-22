@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import require from 'require';
 
-module(() => {
+module('Unit | Utility | extend', () => {
 	const extend = require('mobile-wiki/utils/extend').default;
 
 	test('Extend function is exported', (assert) => {

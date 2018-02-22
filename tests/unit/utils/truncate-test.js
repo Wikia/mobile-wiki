@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import require from 'require';
 
-module((hooks) => {
+module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {

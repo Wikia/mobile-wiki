@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import require from 'require';
 
-module(() => {
+module('Unit | Utility | duration', () => {
 	const duration = require('mobile-wiki/utils/duration').default;
 
 	test('Duration helper is exported', (assert) => {

@@ -1,4 +1,4 @@
-import {find} from '@ember/test-helpers';
+import {find, render} from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, module} from 'qunit';
@@ -22,8 +22,8 @@ module('Integration | Component | icon button', (hooks) => {
 		this.set('action', sinon.spy());
 	});
 
-	test('render default icon button', function (assert) {
-		this.render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
+	test('render default icon button', async function (assert) {
+		await render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
 
 		assert.equal(find(tagName).className.indexOf(defaultClassName) !== negativeIndex, true);
 		assert.equal(find(svgSlector).getAttribute('width'), defaultSize);
@@ -33,36 +33,36 @@ module('Integration | Component | icon button', (hooks) => {
 		assert.equal(find(svgUseSelector).getAttribute('xlink:href'), `#${icon}`);
 	});
 
-	test('render icon button with custom class', function (assert) {
+	test('render icon button with custom class', async function (assert) {
 		const customClass = 'custom-class';
 
 		this.set('customClass', customClass);
-		this.render(hbs`{{wikia-ui-components/icon-button icon=icon class=customClass click=action}}`);
+		await render(hbs`{{wikia-ui-components/icon-button icon=icon class=customClass click=action}}`);
 
 		assert.equal(find(tagName).className.indexOf(customClass) !== negativeIndex, true);
 	});
 
-	test('render icon button with custom iconSize', function (assert) {
+	test('render icon button with custom iconSize', async function (assert) {
 		const iconSize = 24;
 
 		this.set('iconSize', iconSize);
-		this.render(hbs`{{wikia-ui-components/icon-button icon=icon iconSize=iconSize click=action}}`);
+		await render(hbs`{{wikia-ui-components/icon-button icon=icon iconSize=iconSize click=action}}`);
 
 		assert.equal(find(svgSlector).getAttribute('width'), iconSize);
 		assert.equal(find(svgSlector).getAttribute('height'), iconSize);
 	});
 
-	test('render icon button with browser link tooltip', function (assert) {
+	test('render icon button with browser link tooltip', async function (assert) {
 		const tooltip = 'lorem ipsum dolor';
 
 		this.set('tooltip', tooltip);
-		this.render(hbs`{{wikia-ui-components/icon-button icon=icon title=tooltip click=action}}`);
+		await render(hbs`{{wikia-ui-components/icon-button icon=icon title=tooltip click=action}}`);
 
 		assert.equal(find(tagName).getAttribute('title'), tooltip);
 	});
 
-	test('clicking button triggers action', function (assert) {
-		this.render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
+	test('clicking button triggers action', async function (assert) {
+		await render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
 		find(tagName).click();
 
 		assert.equal(this.get('action').called, true);

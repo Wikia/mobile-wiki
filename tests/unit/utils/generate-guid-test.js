@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import sinon from 'sinon';
 import generateGuid from 'mobile-wiki/utils/generate-guid';
 
-module((hooks) => {
+module('Unit | Utility | generate guid', (hooks) => {
 	hooks.beforeEach(() => {
 		sinon.stub(Date, 'now').returns('1234');
 	});

@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import {module, test} from 'qunit';
 import require from 'require';
 
-module(() => {
+module('host-test', () => {
 	test('returns correct host', (assert) => {
 		const testCases = [
 			{

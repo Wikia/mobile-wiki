@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import require from 'require';
 
-module(() => {
+module('Unit | Utility | domain test', () => {
 	test('extracts domain from provided urls', (assert) => {
 		const testCasesForExtractDomainFromUrl = [
 			{

@@ -7,8 +7,7 @@ module('Unit | Component | featured content', (hooks) => {
 	test('detects if there are multiple items in the model', function (assert) {
 		const component = this.owner.factoryFor('component:featured-content').create();
 
-		component.currentItemIndexObserver = function () {
-		};
+		component.currentItemIndexObserver = function () {};
 
 		component.set('model', [{
 			title: 'Item 1'

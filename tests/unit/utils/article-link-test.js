@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import require from 'require';
 
-module(() => {
+module('Unit | Utility | article link', () => {
 	const getLinkInfo = require('mobile-wiki/utils/article-link').default,
 		isHashLink = require('mobile-wiki/utils/article-link').isHashLink;
 

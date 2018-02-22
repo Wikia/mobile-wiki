@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import {isContentNamespace} from 'mobile-wiki/utils/mediawiki-namespace';
 
-module(() => {
+module('Unit | Utility | mediawiki namespace', () => {
 	test('isContentNamespace', (assert) => {
 		const testCases = [
 			{
