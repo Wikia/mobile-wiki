@@ -4,12 +4,12 @@ import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
 import RenderComponentMixin from '../mixins/render-component';
 
+const computedWidth = typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
+
 export default Component.extend(
 	RenderComponentMixin,
 	{
-		computedWidth: computed(() => {
-			return typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
-		}),
+		computedWidth,
 
 		// @todo XW-1363 - keep it DRY
 		// or should it be the same as in portable-infobox-image-collection?
