@@ -386,10 +386,8 @@ export default Route.extend(
 			// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
 			const applicationInstance = getOwner(this);
 			const document = applicationInstance.lookup('service:-document');
-			const headBottomComponent = applicationInstance.lookup('component:fastboot-only/head-bottom');
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
-			headBottomComponent.appendTo(document.head);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}
