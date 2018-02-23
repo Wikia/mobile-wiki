@@ -9,8 +9,8 @@ export default Mixin.create({
 		if (isArray(media)) {
 			for (let i = 0; i < media.length; i++) {
 				if (media[i] && media[i].context === 'infobox-hero-image') {
-					media[i].url = 'http://project43.sandbox-content.wikia.com/vignette/starter/images/a/a9/Example.jpg/' +
-						'revision/latest/fixed-aspect-ratio/width/412/height';
+					media[i].url = 'http://harrypotter.sandbox-dedicated.wikia.com/vignette/harrypotter/images/2/2e/' +
+						'Locked_Out_of_the_House_Classics.png/revision/latest/top-crop/width/412/height/375?cb=20130302165514';
 					return media[i];
 				}
 			}
