@@ -8,7 +8,6 @@ import sinon from 'sinon';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import mockAdsService from '../../helpers/mock-ads-service';
 
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 
@@ -28,7 +27,6 @@ module('Integration | Component | article content', (hooks) => {
 	hooks.beforeEach(function () {
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
-		mockAdsService(this.owner);
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
@@ -44,8 +42,10 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {},
 			content,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
+
+		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
 
 		await render(hbs`{{#article-content
 			setupAdsContext=setupAdsContext
@@ -75,6 +75,8 @@ module('Integration | Component | article content', (hooks) => {
 			setupAdsContext: setupAdsContextSpy
 		});
 
+		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
+
 		await render(hbs`{{#article-content
 			setupAdsContext=setupAdsContext
 			content=content
@@ -103,6 +105,8 @@ module('Integration | Component | article content', (hooks) => {
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
+
+		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
 
 		await render(hbs`{{#article-content
 			setupAdsContext=setupAdsContext
