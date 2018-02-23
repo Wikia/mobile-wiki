@@ -27,7 +27,11 @@ module.exports = function (req, res, next) {
 	}
 
 	if (!vendorAssetPath) {
-		vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
+		try {
+			vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
+		} catch (exception) {
+			vendorAssetPath = 'assets/vendor.js';
+		}
 	}
 
 	res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
