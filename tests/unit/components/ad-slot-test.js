@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import {run} from '@ember/runloop';
 import sinon from 'sinon';
 import require from 'require';
 import {module, test} from 'qunit';
@@ -138,8 +139,10 @@ module('Unit | Component | ad slot', (hooks) => {
 			this.ads.set('noAds', testCase.noAds);
 
 			component.setProperties(testCase.properties);
-			component.didInsertElement();
-			component.didEnterViewport();
+			run(() => {
+				component.didInsertElement();
+				component.didEnterViewport();
+			});
 
 			assert.equal(
 				pushSlotSpy.called,

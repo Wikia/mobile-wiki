@@ -19,7 +19,7 @@ module('Unit | Model | article comments', (hooks) => {
 	});
 
 	test('url creates valid url to a resource', function (assert) {
-		const model = run(() => this.owner.lookup('service:store').createRecord('article-comments'));
+		const model = this.owner.factoryFor('model:article-comments').create();
 
 		model.set('host', 'wikia.com');
 		model.url(1, 1);
@@ -36,7 +36,7 @@ module('Unit | Model | article comments', (hooks) => {
 	});
 
 	test('reset, resets model properties', function (assert) {
-		const model = run(() => this.owner.lookup('service:store').createRecord('article-comments')),
+		const model = this.owner.factoryFor('model:article-comments').create(),
 			data = {
 				comments: 1,
 				pagesCount: 34

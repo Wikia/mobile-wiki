@@ -1,22 +1,26 @@
-import {find, findAll, fillIn, triggerEvent} from '@ember/test-helpers';
+import {find, findAll, fillIn, triggerEvent, visit, currentURL} from '@ember/test-helpers';
 import {setupApplicationTest} from 'ember-qunit';
-import {test} from 'qunit';
+import {module, test} from 'qunit';
+import mockFastbootService from '../helpers/mock-fastboot-service';
+import mockAdsService from '../helpers/mock-ads-service';
 
 module('Acceptance | search', (hooks) => {
 	setupApplicationTest(hooks);
+
+	hooks.beforeEach(function () {
+		mockFastbootService(this.owner);
+		mockAdsService(this.owner);
+	});
 
 	test('visiting /search', async (assert) => {
 		const searchInput = '.side-search__input',
 			enterKeyCode = 13,
 			testQuery = 'test query';
 
-		mockAdsService();
-		mockFastbootService();
-		await visit('/');
 		await visit('/search');
 
-
 		assert.equal(currentURL(), '/search');
+
 		await fillIn(searchInput, testQuery);
 		await triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
 

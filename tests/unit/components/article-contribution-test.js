@@ -17,7 +17,7 @@ function createComponent(testThis, editAllowed = true) {
 		title = 'hello world',
 		uploadFeatureEnabled = true;
 
-	return testThis.subject({
+	return testThis.owner.factoryFor('component:article-contribution').create({
 		section,
 		sectionId,
 		title,

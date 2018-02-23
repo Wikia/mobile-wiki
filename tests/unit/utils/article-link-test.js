@@ -1,7 +1,10 @@
 import {module, test} from 'qunit';
+import {setupTest} from 'ember-qunit';
 import require from 'require';
 
-module('Unit | Utility | article link', () => {
+module('Unit | Utility | article link', (hooks) => {
+	setupTest(hooks);
+
 	const getLinkInfo = require('mobile-wiki/utils/article-link').default,
 		isHashLink = require('mobile-wiki/utils/article-link').isHashLink;
 

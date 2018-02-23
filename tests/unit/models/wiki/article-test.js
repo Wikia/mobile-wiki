@@ -93,7 +93,7 @@ module('Integration | Model | wiki/article', (hooks) => {
 	setupTest(hooks);
 
 	test('setData with parametrized data', function (assert) {
-		const model = run(() => this.owner.lookup('service:store').createRecord('wiki/article'));
+		const model = this.owner.factoryFor('model:wiki/article').create();
 
 		model.setData(articleExample);
 		verifyArticle(model, articleExample, assert);

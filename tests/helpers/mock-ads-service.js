@@ -1,21 +1,16 @@
-import Service from '@ember/service';
-import {registerHelper} from '@ember/test';
+export default function (owner) {
+	let ads = owner.lookup('service:ads');
 
-export default registerHelper('mockAdsService', () => {
-	mockService(Service.extend({
+	ads.module = {
+		pushSlotToQueue() {},
+		onReady() {},
+		onTransition() {},
+		reload() {},
+		reloadAfterTransition() {},
+		removeSlot() {},
+		waitForUapResponse() {}
+	};
 
-		init() {
-			this.module = {
-				pushSlotToQueue() {},
-				onReady() {},
-				onTransition() {},
-				reload() {},
-				reloadAfterTransition() {},
-				removeSlot() {},
-				waitForUapResponse() {}
-			};
-		},
-		destroyAdSlotComponents() {},
-		pushAdSlotComponent() {}
-	}), 'ads');
-});
+	ads.destroyAdSlotComponents = () => {};
+	ads.pushAdSlotComponent = () => {};
+}

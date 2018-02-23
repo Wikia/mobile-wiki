@@ -15,7 +15,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 		title = 'hello world';
 
 	run(() => {
-		const component = testThis.subject({
+		const component = testThis.owner.factoryFor('component:article-wrapper').create({
 			section,
 			sectionId,
 			title,

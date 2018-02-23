@@ -113,7 +113,11 @@ module('Unit | Route | wiki page', (hooks) => {
 
 			if (handler) {
 				assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
-				assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+				assert.equal(
+					handler.controllerName,
+					expectedHandler.controllerName,
+					'controllerName is different than expected'
+				);
 			} else {
 				assert.equal(handler, expectedHandler, 'handler is not null');
 			}

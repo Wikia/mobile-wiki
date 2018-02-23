@@ -22,7 +22,7 @@ module('Integration | Component | icon button', (hooks) => {
 		this.set('action', sinon.spy());
 	});
 
-	test('render default icon button', async function (assert) {
+	test('render default icon button', async (assert) => {
 		await render(hbs`{{wikia-ui-components/icon-button icon=icon click=action}}`);
 
 		assert.equal(find(tagName).className.indexOf(defaultClassName) !== negativeIndex, true);

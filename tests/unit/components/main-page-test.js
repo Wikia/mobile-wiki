@@ -1,5 +1,6 @@
 import {Promise as EmberPromise} from 'rsvp';
 import Component from '@ember/component';
+import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 import require from 'require';
@@ -34,15 +35,16 @@ module('Unit | Component | main page', (hooks) => {
 				adsContext,
 				curatedContent: {},
 				currentUser: {
-					userModel: new EmberPromise(() => {
-					})
+					userModel: new EmberPromise(() => {})
 				},
 				injectMainPageAds: injectMainPageAdsSpy,
 				setupAdsContext: setupAdsContextSpy
 			});
 
 		component.get('ads.module').isLoaded = true;
-		this.render();
+		run(() => {
+			component.didInsertElement();
+		});
 
 		asset.ok(setupAdsContextSpy.calledOnce, 'setupAdsContextSpy called');
 		asset.ok(setupAdsContextSpy.calledWith(adsContext), 'setupAdsContextSpy called with ads context');
