@@ -5,7 +5,6 @@ GIT_IGNORE/
 # compiled output
 dist
 tmp
-vendor
 
 # dockerfiles
 Dockerfile

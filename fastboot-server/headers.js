@@ -1,6 +1,8 @@
 const onHeaders = require('on-headers');
 const config = require('../config/fastboot-server');
 
+let vendorAssetPath;
+
 function setResponseTime(res) {
 	const startAt = process.hrtime();
 
@@ -23,6 +25,17 @@ module.exports = function (req, res, next) {
 		const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
 		res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
 	}
+
+	if (!vendorAssetPath) {
+		try {
+			vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
+		} catch (exception) {
+			vendorAssetPath = 'assets/vendor.js';
+		}
+	}
+
+	res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
+
 	setResponseTime(res);
 	next();
 };
