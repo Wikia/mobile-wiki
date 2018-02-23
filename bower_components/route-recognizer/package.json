@@ -1,0 +1,36 @@
+{
+  "name": "route-recognizer",
+  "version": "0.1.11",
+  "description": "A lightweight JavaScript library that matches paths against registered routes.",
+  "author": "Yehuda Katz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tildeio/route-recognizer.git"
+  },
+  "devDependencies": {
+    "broccoli-compile-modules": "1.0.1",
+    "broccoli-concat": "0.0.12",
+    "broccoli-funnel": "^0.1.6",
+    "broccoli-jshint": "~0.5.1",
+    "broccoli-merge-trees": "^0.2.1",
+    "broccoli-string-replace": "~0.1.0",
+    "do-you-even-bench": "^1.0.2",
+    "ember-cli": "1.13.1",
+    "glob": "^6.0.4"
+  },
+  "main": "dist/route-recognizer.js",
+  "bugs": {
+    "url": "https://github.com/tildeio/route-recognizer/issues"
+  },
+  "homepage": "https://github.com/tildeio/route-recognizer",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "ember test",
+    "start": "ember test --server",
+    "build": "ember build",
+    "bench": "ember build && node ./bench/index.js"
+  },
+  "license": "MIT"
+}

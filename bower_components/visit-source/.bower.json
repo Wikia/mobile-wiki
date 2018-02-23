@@ -1,0 +1,25 @@
+{
+  "name": "visit-source",
+  "version": "0.1.1",
+  "main": [
+    "/dist/visit-source.amd.js",
+    "/dist/visit-source.cjs.js",
+    "/dist/visit-source.js",
+    "/dist/visit-source.d.ts"
+  ],
+  "ignore": [
+    "tests"
+  ],
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/Wikia/visit-source",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.1",
+    "commit": "0c94ea373bd979f8ee7bf9e12db96e882978e179"
+  },
+  "_source": "https://github.com/Wikia/visit-source.git",
+  "_target": "0.1.1",
+  "_originalSource": "Wikia/visit-source"
+}

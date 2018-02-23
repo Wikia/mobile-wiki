@@ -1,0 +1,15 @@
+{
+  "name": "visit-source",
+  "version": "0.1.1",
+  "main": [
+    "/dist/visit-source.amd.js",
+    "/dist/visit-source.cjs.js",
+    "/dist/visit-source.js",
+    "/dist/visit-source.d.ts"
+  ],
+  "ignore": [
+    "tests"
+  ],
+  "license": "MIT",
+  "private": true
+}

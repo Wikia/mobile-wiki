@@ -1,0 +1,14 @@
+{
+  "name": "vignette",
+  "version": "2.6.0",
+  "main": [
+    "/dist/vignette.amd.js",
+    "/dist/vignette.cjs.js",
+    "/dist/vignette.js"
+  ],
+  "ignore": [
+    "tests"
+  ],
+  "license": "MIT",
+  "private": true
+}

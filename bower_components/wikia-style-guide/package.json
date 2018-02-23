@@ -1,0 +1,38 @@
+{
+  "name": "wikia-style-guide",
+  "version": "1.8.3",
+  "description": "Wikia Style Guide ===========",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bump-major": "bower version major && git push --tags",
+    "bump-minor": "bower version minor && git push --tags",
+    "bump-patch": "bower version patch && git push --tags",
+    "build-dist": "gulp update-static && mkdir -p tmp && cd src && node ../node_modules/vulcanize/bin/vulcanize -p $PWD components/import.html > ../tmp/import-built.html && cd .. && gulp minify && rm -rf ./tmp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wikia/style-guide.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wikia/style-guide/issues"
+  },
+  "homepage": "https://github.com/Wikia/style-guide",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp-if": "^1.2.5",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-minify-inline": "^0.1.1",
+    "gulp-preprocess": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "^1.2.0",
+    "node-sass": "^3.2.0",
+    "vulcanize": "^1.10.3"
+  },
+  "dependencies": {
+    "gulp": "^3.8.10"
+  }
+}
