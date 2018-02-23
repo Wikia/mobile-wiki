@@ -1,6 +1,5 @@
 import EmberObject, {get} from '@ember/object';
 import {getOwner} from '@ember/application';
-import MediaModel from '../media';
 import extend from '../../utils/extend';
 
 /**
@@ -26,8 +25,6 @@ export default EmberObject.extend({
 	displayTitle: null,
 	htmlTitle: '',
 	id: null,
-	media: null,
-	mediaUsers: null,
 	ns: null,
 	redirectEmptyTarget: false,
 	title: null,
@@ -69,11 +66,7 @@ export default EmberObject.extend({
 				if (article.content && article.content.length > 0) {
 					extend(pageProperties, {
 						content: article.content,
-						mediaUsers: article.users,
 						redirectEmptyTarget: data.redirectEmptyTarget,
-					});
-					pageProperties.media = MediaModel.create(getOwner(this).ownerInjection(), {
-						media: article.media
 					});
 				}
 			}

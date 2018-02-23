@@ -6,7 +6,6 @@ import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 import {transparentImageBase64} from '../utils/thumbnail';
-import MediaModel from '../models/media';
 
 export default Component.extend(
 	ViewportMixin,
@@ -47,15 +46,6 @@ export default Component.extend(
 				action: trackActions.click,
 				category: 'main-page-trending-videos',
 				label: `open-item-${this.get('index')}`
-			});
-
-			const mediaModel = MediaModel.create(getOwner(this).ownerInjection(), {
-				media: this.get('video'),
-			});
-
-			this.get('onClick')({
-				media: mediaModel,
-				mediaRef: 0,
 			});
 
 			return false;

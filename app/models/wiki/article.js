@@ -81,15 +81,6 @@ export default BaseModel.extend({
 				}
 			}
 
-			if (data.relatedPages) {
-				/**
-				 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-				 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-				 * to handle this and never return malformed structures.
-				 */
-				articleProperties.relatedPages = data.relatedPages;
-			}
-
 			if (data.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
 				articleProperties.topContributors = data.topContributors;

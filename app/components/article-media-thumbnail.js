@@ -51,6 +51,7 @@ export default Component.extend(
 			if (!this.get('isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
 				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
 				// it can also be overriden when this component is rendered from a template instead of JS
+				// TODO: fix it
 				this.get('openLightbox')(this.get('ref'));
 
 				return false;

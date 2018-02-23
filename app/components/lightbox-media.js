@@ -4,7 +4,6 @@ import {htmlSafe} from '@ember/string';
 import {isArray} from '@ember/array';
 import {observer, computed} from '@ember/object';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import MediaModel from '../models/media';
 import {normalizeToUnderscore} from '../utils/string';
 import RenderComponentMixin from '../mixins/render-component';
 
@@ -49,16 +48,7 @@ export default Component.extend(
 		/**
 		 * gets current media from model
 		 */
-		current: computed('model.{media,mediaRef}', function () {
-			const mediaModel = this.get('model.media');
-
-			if (mediaModel instanceof MediaModel) {
-				return mediaModel.find(this.get('model.mediaRef'));
-			} else {
-				this.get('logger').error('Media model is not an instance of MediaModel');
-				return null;
-			}
-		}),
+		current: null, // TODO: figure out what to do with it
 
 		/**
 		 * gets current media or current media from gallery

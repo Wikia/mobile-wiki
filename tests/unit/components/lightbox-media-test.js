@@ -1,6 +1,5 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
-import mediaModel from 'mobile-wiki/models/media';
 import require from 'require';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -17,38 +16,7 @@ moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');
 
-		model = {
-			media: mediaModel.create({
-				media: [
-					{
-						title: 'test',
-						url: 'testurl',
-						caption: 'testcaption',
-						type: 'image'
-					},
-					{
-						title: 'test1',
-						url: 'testurl1',
-						caption: 'testcaption1',
-						type: 'image'
-					},
-					[
-						{
-							title: 'testgallery',
-							url: 'testgallery',
-							caption: 'testgallery',
-							type: 'image'
-						},
-						{
-							title: 'testgallery1',
-							url: 'testgallery1',
-							caption: 'testgallery1',
-							type: 'image'
-						}
-					]
-				]
-			})
-		};
+		model = {};
 	},
 
 	afterEach() {

@@ -2,9 +2,8 @@ import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 import require from 'require';
 
-const mediaModel = require('mobile-wiki/models/media').default;
 const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
-let createStub;
+
 let thumbnailerStub;
 
 moduleForComponent('trending-videos-item', 'Unit | Component | trending videos item', {
@@ -14,8 +13,6 @@ moduleForComponent('trending-videos-item', 'Unit | Component | trending videos i
 	],
 
 	beforeEach() {
-		createStub = sinon.stub(mediaModel, 'create');
-		createStub.returnsArg(1);
 
 		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
 			return `${url}/${options.mode}/${options.width}/${options.height}`;
@@ -23,7 +20,6 @@ moduleForComponent('trending-videos-item', 'Unit | Component | trending videos i
 	},
 
 	afterEach() {
-		createStub.restore();
 		thumbnailerStub.restore();
 	}
 });

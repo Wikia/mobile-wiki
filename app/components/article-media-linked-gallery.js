@@ -41,6 +41,7 @@ export default Component.extend(RenderComponentMixin, {
 	actions: {
 		openLightbox(galleryRef) {
 			// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
+			// TODO: fix it
 			this.get('openLightbox')(this.get('ref'), galleryRef);
 		},
 		showMore() {

@@ -2,7 +2,6 @@ import {inject as service} from '@ember/service';
 import {isEmpty} from '@ember/utils';
 import {alias, equal} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
-import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
 
@@ -194,10 +193,8 @@ export default Controller.extend(
 		 * @returns {void}
 		 */
 		openLightboxForMedia(file) {
-			const mediaModel = this.get('wikiPage.model.media'),
-				lightboxMediaRefs = mediaModel instanceof MediaModel ?
-					mediaModel.getRefsForLightboxByTitle(file) :
-					null;
+			// todo: fix it
+			const lightboxMediaRefs = null;
 
 			if (!isEmpty(lightboxMediaRefs)) {
 				this.send('openLightbox', 'media', {
