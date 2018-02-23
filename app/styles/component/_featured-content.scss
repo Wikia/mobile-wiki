@@ -8,7 +8,7 @@
 	width: 100%;
 
 	> .wds-icon {
-		fill: $white;
+		fill: $wds-color-white;
 		height: 100%;
 		position: absolute;
 		stroke: rgba(0, 0, 0, .5);
@@ -42,7 +42,7 @@
 		}
 
 		svg {
-			color: $color-white;
+			color: $wds-color-white;
 			height: 50%;
 			left: 25%;
 			position: absolute;
@@ -63,7 +63,7 @@
 		figcaption {
 			background: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(255, 255, 255, 0));
 			bottom: 0;
-			color: $white;
+			color: $wds-color-white;
 			font-size: 28px;
 			height: 120px;
 			line-height: $featured-content-caption-line-height;
@@ -88,7 +88,7 @@
 			padding: 5px;
 
 			> * {
-				border: 1px solid #ccc;
+				border: 1px solid $wds-color-light-c4;
 				border-radius: 4px;
 				display: block;
 				height: 9px;
@@ -96,8 +96,8 @@
 			}
 
 			&.current > * {
-				background-color: $white;
-				border: 1px solid $white;
+				background-color: $wds-color-white;
+				border: 1px solid $wds-color-white;
 			}
 		}
 	}
