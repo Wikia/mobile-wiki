@@ -1,5 +1,6 @@
 {{! This wrapper is required so the chevron is positioned correctly }}
 <div class="article-media-thumbnail-image-wrapper">
+	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 	{{#if isOgg}}
 		<a href="{{href}}">{{svg 'wds-icons-download' viewBox='0 0 24 24' class='wds-icon'}}</a>
 	{{else}}
@@ -20,7 +21,6 @@
 		</div>
 	{{/if}}
 
-	{{svg 'wds-icons-image' viewBox='0 0 24 24' role='img' class='wds-icon'}}
 </div>
 {{! Allow custom captions }}
 {{#if hasBlock}}

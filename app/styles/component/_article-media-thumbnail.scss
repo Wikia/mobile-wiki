@@ -18,18 +18,12 @@
 	}
 
 	&.is-loading {
-		img {
-			@include is-loading;
-		}
+		@include is-loading;
 	}
 
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
-		}
-
-		.image-placeholder {
-			display: none;
 		}
 	}
 
@@ -73,8 +67,13 @@
 .article-media-thumbnail-image-wrapper {
 	position: relative;
 
-	svg {
+	> svg {
 		@extend %image-placeholder;
+	}
+
+	a {
+		display: block;
+		position: relative;
 	}
 }
 
