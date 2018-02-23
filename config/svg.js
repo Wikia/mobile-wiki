@@ -14,6 +14,7 @@ const designSystemInlineSVGs = [
 const designSystemLazyLoadedSVGs = [
 	'wds-avatar-icon',
 	'wds-icons-arrow',
+	'wds-icons-arrow-small',
 	'wds-icons-article',
 	'wds-icons-circle-plus',
 	'wds-icons-clock',
