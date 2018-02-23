@@ -7,7 +7,7 @@ function deepExtend(out = {}) {
 		if (obj) {
 			for (key in obj) {
 				if (obj.hasOwnProperty(key)) {
-					if (typeof obj[key] === 'object') {
+					if (obj[key] && typeof obj[key] === 'object') {
 						if (!out[key] && Array.isArray(obj[key])) {
 							out[key] = [];
 						}
