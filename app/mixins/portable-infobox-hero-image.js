@@ -9,6 +9,8 @@ export default Mixin.create({
 		if (isArray(media)) {
 			for (let i = 0; i < media.length; i++) {
 				if (media[i] && media[i].context === 'infobox-hero-image') {
+					media[i].url = 'http://project43.sandbox-content.wikia.com/vignette/starter/images/a/a9/Example.jpg/' +
+						'revision/latest/fixed-aspect-ratio/width/412/height';
 					return media[i];
 				}
 			}
