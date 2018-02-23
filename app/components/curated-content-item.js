@@ -41,24 +41,13 @@ export default Component.extend(
 					category: 'grid',
 					video: 'play',
 					image: 'image',
-					blog: 'clock'
+					blog: 'clock',
+					section: 'grid'
 				};
-
-			let iconType;
-
-			if (typesWithDedicatedIcon[type]) {
-				iconType = typesWithDedicatedIcon[type];
-			} else if (type === 'section') {
-				// Sections use the same icons as categories
-				iconType = 'grid';
-			} else {
-				// Default icon
-				iconType = 'article';
-			}
 
 			// we use here following Design System icons
 			// wds-icons-grid, wds-icons-play, wds-icons-image, wds-icons-clock, wds-icons-article
-			return `wds-icons-${iconType}`;
+			return `wds-icons-${typesWithDedicatedIcon[type] || 'article'}`;
 		}),
 
 		/**
