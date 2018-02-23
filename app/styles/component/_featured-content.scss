@@ -14,7 +14,7 @@
 		stroke: rgba(0, 0, 0, .5);
 		stroke-width: .25;
 		top: 0;
-		z-index: 1;
+		z-index: $z-1;
 
 		&.left {
 			left: 0;

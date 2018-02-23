@@ -2,7 +2,7 @@
 <div class="article-media-thumbnail-image-wrapper">
 	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 	{{#if isOgg}}
-		<a href="{{href}}">{{svg 'wds-icons-download' viewBox='0 0 24 24' class='wds-icon'}}</a>
+		<a href="{{href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
 	{{else}}
 		<a href="{{href}}">
 			<img alt="{{title}}"
@@ -10,7 +10,7 @@
 				 height="{{if forcedHeight forcedHeight height}}"
 				 width="{{if forcedWidth forcedWidth width}}">
 			{{#if isLinkedByUser}}
-				{{svg 'wds-icons-menu-control' viewBox='0 0 12 12' class='wds-icon wds-icon-tiny wds-icons-tiny chevron'}}
+				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}
 		</a>
 	{{/if}}

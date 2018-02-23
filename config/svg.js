@@ -5,6 +5,7 @@ const designSystemInlineSVGs = [
 	'wds-company-logo-fandom',
 	'wds-icons-menu',
 	'wds-icons-magnifying-glass',
+	'wds-icons-magnifying-glass-small',
 	'wds-icons-image',
 ].map((name) => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
@@ -15,6 +16,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-avatar-icon',
 	'wds-icons-arrow',
 	'wds-icons-arrow-small',
+	'wds-icons-arrow-tiny',
 	'wds-icons-article',
 	'wds-icons-circle-plus',
 	'wds-icons-clock',
@@ -36,9 +38,11 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-play',
 	'wds-icons-reply',
 	'wds-icons-reply-small',
+	'wds-icons-reply-tiny',
 	'wds-icons-twitter',
 	'wds-icons-upvote',
 	'wds-icons-upvote-small',
+	'wds-icons-upvote-tiny',
 	'wds-icons-user',
 	'wds-icons-youtube',
 	'wds-player-icon-play'

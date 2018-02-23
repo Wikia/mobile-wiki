@@ -41,23 +41,23 @@
 	</span>
 	<span class="post-counters">
 		<span class="upvote-count">
-			{{svg 'wds-icons-upvote' viewBox='0 0 24 24' class='wds-icon wds-icon-tiny upvote'}}
+			{{svg 'wds-icons-upvote-tiny' class='wds-icon wds-icon-tiny upvote'}}
 			{{post.upvoteCount}}
 		</span>
 		<span class="reply-count">
-			{{svg 'wds-icons-reply' viewBox='0 0 24 24' class='wds-icon wds-icon-tiny replies'}}
+			{{svg 'wds-icons-reply-tiny' class='wds-icon wds-icon-tiny replies'}}
 			{{post.repliesCount}}
 		</span>
 	</span>
 </div>
 <ul class="post-actions">
 	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
-		{{svg 'wds-icons-upvote' viewBox='0 0 24 24' class='wds-icon wds-icon-small upvote'}}
+		{{svg 'wds-icons-upvote-small' class='wds-icon wds-icon-small upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
 	<li class="replies replies-area">
 		<a href="/d/p/{{post.threadId}}">
-			{{svg 'wds-icons-reply' viewBox='0 0 24 24' class='wds-icon wds-icon-small replies'}}
+			{{svg 'wds-icons-reply-small' class='wds-icon wds-icon-small replies'}}
 			{{i18n 'widget-discussions.post-actions-reply-label'}}
 		</a>
 	</li>
