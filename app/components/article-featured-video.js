@@ -93,6 +93,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			}
 			document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
 
+			// this.scrollHandler is from ember-responds-to - there is no public API to
+			// remove a scroll handler now
 			window.removeEventListener('scroll', this.scrollHandler);
 		}
 	},
