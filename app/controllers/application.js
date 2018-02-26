@@ -1,6 +1,6 @@
 import {inject as service} from '@ember/service';
 import {isEmpty} from '@ember/utils';
-import {alias, equal} from '@ember/object/computed';
+import {alias, equal, oneWay} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
 import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
@@ -21,9 +21,9 @@ export default Controller.extend(
 			{
 				noAds: 'noads'
 			},
-			// {
-			// 	fullPage: 'mobile-app'
-			// },
+			{
+				mobileApp: 'mobile-app'
+			},
 			// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 			{
 				commentsPage: 'comments_page'
@@ -50,14 +50,15 @@ export default Controller.extend(
 		drawerVisible: false,
 		drawerContent: null,
 		userMenuVisible: false,
-		fullPage: false,
 		lightboxType: null,
 		lightboxModel: null,
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
+		mobileApp: null,
 
-		noAds: alias('ads.noAdsQueryParam'),
+		fullPage: oneWay('mobileApp'),
 		isSearchPage: equal('currentRouteName', 'search'),
+		noAds: alias('ads.noAdsQueryParam'),
 
 		actions: {
 			/**
