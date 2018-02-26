@@ -89,6 +89,8 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
+				// this.scrollHandler is from ember-responds-to - there is no public API to
+				// remove a scroll handler now
 				window.removeEventListener('scroll', this.scrollHandler);
 			}
 		},
