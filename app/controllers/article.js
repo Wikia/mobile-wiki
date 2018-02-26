@@ -10,7 +10,8 @@ export default Controller.extend(WikiPageControllerMixin, {
 	commentsPage: alias('application.commentsPage'),
 	loadExternals: not('application.noExternals'),
 	isContLangEn: equal('wikiVariables.language.content', 'en'),
-	displayRecirculation: and('isContLangEn', 'loadExternals'),
+	applicationWrapperVisible: not('application.fullPage'),
+	displayRecirculation: and('isContLangEn', 'loadExternals', 'applicationWrapperVisible'),
 
 	actions: {
 		/**
