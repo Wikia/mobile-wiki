@@ -31,18 +31,18 @@
 	<div class="page-wrapper">
 		{{outlet}}
 	</div>
-	{{lightbox-wrapper
-			type=lightboxType
-			model=lightboxModel
-			isVisible=lightboxVisible
-			lightboxCloseButtonDelay=lightboxCloseButtonDelay
-			closeLightbox=closeLightbox
-			setQueryParam=setQueryParam
-	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}
 		{{global-footer/global-footer model=globalFooter}}
 	{{/if}}
 {{/if}}
+{{lightbox-wrapper
+	type=lightboxType
+	model=lightboxModel
+	isVisible=lightboxVisible
+	lightboxCloseButtonDelay=lightboxCloseButtonDelay
+	closeLightbox=closeLightbox
+	setQueryParam=setQueryParam
+}}
 {{alert-notifications alerts=alertNotifications}}
 {{wds-spinner active=isLoading}}
