@@ -9,10 +9,7 @@ export default Service.extend({
 	siteHeadOffset: 0,
 	noAdsQueryParam: null,
 	noAds: computed('noAdsQueryParam', function () {
-		return (this.get('noAdsQueryParam') !== null &&
-				this.get('noAdsQueryParam') !== '' &&
-				this.get('noAdsQueryParam') !== '0')
-			|| this.get('currentUser.isAuthenticated');
+		return ['0', null, ''].indexOf(this.get('noAdsQueryParam')) === -1 || this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: null,
 	adsUrl: computed('wikiVariables', function () {
