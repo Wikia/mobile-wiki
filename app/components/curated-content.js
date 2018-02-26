@@ -11,7 +11,8 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const navHeight = document.querySelector('.site-head-container').offsetHeight,
+			const siteHeadContainer = document.querySelector('.site-head-container'),
+				navHeight = siteHeadContainer ? siteHeadContainer.offsetHeight : 0,
 				scrollTop = offset(this.element).top - navHeight;
 
 			this.set('activeLabel', item.label);
