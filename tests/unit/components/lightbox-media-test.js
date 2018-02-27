@@ -64,7 +64,7 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 		componentMock.setProperties({
 			model,
-			targetObject: parentMock,
+			target: parentMock,
 			setFooter: parentMock.setFooter.bind(parentMock)
 		});
 
@@ -74,6 +74,7 @@ module('Unit | Component | lightbox media', (hooks) => {
 		componentMock.set('model.mediaRef', 1);
 		assert.equal(parentMock.footer, 'testcaption1');
 	});
+
 
 	test('sets correct header', function (assert) {
 		const parentMock = {
@@ -86,7 +87,7 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 		componentMock.setProperties({
 			model,
-			targetObject: parentMock,
+			target: parentMock,
 			setHeader: parentMock.setHeader.bind(parentMock)
 		});
 

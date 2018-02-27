@@ -3,13 +3,13 @@ import {htmlSafe} from '@ember/string';
 import {computed, observer} from '@ember/object';
 import {gt} from '@ember/object/computed';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
+import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import ImageLoader from '../mixins/image-loader';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
 	RenderComponentMixin,
-	ViewportMixin,
+	RespondsToResize,
 	ImageLoader,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
@@ -235,12 +235,6 @@ export default Component.extend(
 			},
 		}),
 
-		articleContentWidthObserver: observer('viewportDimensions.width', function () {
-			this.notifyPropertyChange('viewportSize');
-			this.notifyPropertyChange('imageWidth');
-			this.notifyPropertyChange('imageHeight');
-		}),
-
 		urlObserver: observer('model.url', function () {
 			this.loadUrl();
 		}),
@@ -275,6 +269,12 @@ export default Component.extend(
 			scheduleOnce('afterRender', this, () => {
 				this.loadUrl();
 			});
+		},
+
+		resize() {
+			this.notifyPropertyChange('viewportSize');
+			this.notifyPropertyChange('imageWidth');
+			this.notifyPropertyChange('imageHeight');
 		},
 
 		/**

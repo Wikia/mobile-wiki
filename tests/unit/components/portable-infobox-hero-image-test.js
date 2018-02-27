@@ -69,12 +69,11 @@ module('Unit | Component | portable-infobox-hero-image', (hooks) => {
 			const component = this.owner.factoryFor('component:portable-infobox-hero-image').create();
 
 			component.setProperties({
-				viewportDimensions: {
-					width: testCase.viewportWidth
-				},
+				computedWidth: testCase.viewportWidth,
 				height: testCase.imageHeight,
 				width: testCase.imageWidth
 			});
+			component.notifyPropertyChange('computedWidth');
 
 			assert.equal(component.get('cropMode'), testCase.expected, testCase.description);
 		});
@@ -144,12 +143,11 @@ module('Unit | Component | portable-infobox-hero-image', (hooks) => {
 			const component = this.owner.factoryFor('component:portable-infobox-hero-image').create();
 
 			component.setProperties({
-				viewportDimensions: {
-					width: testCase.viewportWidth
-				},
+				computedWidth: testCase.viewportWidth,
 				height: testCase.imageHeight,
 				width: testCase.imageWidth
 			});
+			component.notifyPropertyChange('computedWidth');
 
 			assert.equal(component.get('computedHeight'), testCase.expected, testCase.description);
 		});
