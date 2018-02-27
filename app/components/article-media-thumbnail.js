@@ -2,7 +2,6 @@ import {or, equal} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
-import ViewportMixin from '../mixins/viewport';
 import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
@@ -12,7 +11,6 @@ export default Component.extend(
 	RenderComponentMixin,
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
-	ViewportMixin,
 	{
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
@@ -35,11 +33,15 @@ export default Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
+		viewportWidth: computed(() => {
+			return typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
+		}),
+
 		/**
 		 * Check if image width is smaller than article container
 		 */
 		isSmall: computed('width', 'height', function () {
-			return this.get('width') <= this.get('viewportDimensions.width');
+			return this.get('width') <= this.get('viewportWidth');
 		}),
 
 		showTitle: computed('type', function () {
@@ -73,7 +75,7 @@ export default Component.extend(
 				width = originalWidth;
 				height = originalHeight;
 			} else {
-				width = this.get('forcedWidth') || normalizeThumbWidth(this.get('viewportDimensions.width'));
+				width = this.get('forcedWidth') || normalizeThumbWidth(this.get('viewportWidth'));
 				height = this.get('forcedHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}

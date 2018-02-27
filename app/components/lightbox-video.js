@@ -1,7 +1,7 @@
 import {observer, computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
+import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
 import RenderComponentMixin from '../mixins/render-component';
 
@@ -11,7 +11,7 @@ import RenderComponentMixin from '../mixins/render-component';
  */
 export default Component.extend(
 	RenderComponentMixin,
-	ViewportMixin,
+	RespondsToResize,
 	{
 		ads: service(),
 
@@ -33,12 +33,6 @@ export default Component.extend(
 		 */
 		videoLoader: computed('model.embed', 'ads.noAds', function () {
 			return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
-		}),
-
-		articleContentWidthObserver: observer('viewportDimensions.width', function () {
-			if (this.get('videoLoader')) {
-				this.get('videoLoader').onResize();
-			}
 		}),
 
 		/**
@@ -79,6 +73,12 @@ export default Component.extend(
 
 		preventDefault() {
 			return false;
+		},
+
+		resize() {
+			if (this.get('videoLoader')) {
+				this.get('videoLoader').onResize();
+			}
 		},
 
 		/**

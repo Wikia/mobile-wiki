@@ -1,7 +1,6 @@
 import {computed} from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import Thumbnailer from '../modules/thumbnailer';
-import ViewportMixin from '../mixins/viewport';
 import {transparentImageBase64} from '../utils/thumbnail';
 
 /**
@@ -12,7 +11,7 @@ import {transparentImageBase64} from '../utils/thumbnail';
  * @property {number} height
  */
 
-export default Mixin.create(ViewportMixin, {
+export default Mixin.create({
 	thumbnailer: Thumbnailer,
 	cropMode: Thumbnailer.mode.topCrop,
 	emptyGif: transparentImageBase64,
@@ -49,7 +48,7 @@ export default Mixin.create(ViewportMixin, {
 			options.yOffset2 = imageCrop.y + imageCrop.height;
 		} else if (this.get('isCommunityData')) {
 			// we need this dimensions only for displaying image here, we don't save it anywhere
-			options.width = this.get('viewportDimensions.width');
+			options.width = document.documentElement.clientWidth;
 			options.height = Math.round(options.width / this.get('aspectRatio'));
 			options.mode = Thumbnailer.mode.thumbnailDown;
 		} else {
