@@ -13,6 +13,7 @@ export default BaseModel.extend({
 	isCuratedMainPage: false,
 	isMainPage: false,
 	user: null,
+	heroImage: null,
 
 	/**
 	 * @returns {RSVP.Promise}
@@ -78,6 +79,10 @@ export default BaseModel.extend({
 
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
+				}
+
+				if (data.article.heroImage) {
+					articleProperties.heroImage = data.article.heroImage;
 				}
 			}
 
