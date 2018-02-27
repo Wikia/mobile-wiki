@@ -15,7 +15,6 @@ const articleExample = {
 			users: 'test'
 		},
 		ns: 'namespace',
-		relatedPages: ['anItem', 'anotherItem'],
 		userDetails: ['someItem', 'yetOneMore']
 	}
 };
@@ -77,12 +76,6 @@ function verifyArticle(model, article, assert) {
 		model.get('categories'),
 		articleData.categories,
 		`expected categories=${articleData.categories}, got ${model.get('categories')}`
-	);
-
-	assert.deepEqual(
-		model.get('relatedPages'),
-		articleData.relatedPages,
-		'correction ingested related pages'
 	);
 }
 
