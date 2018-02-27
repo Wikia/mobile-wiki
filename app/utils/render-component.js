@@ -54,7 +54,10 @@ export function queryPlaceholders(element) {
 			const name = componentElement.getAttribute('data-component'),
 				attrs = componentAttributes(componentElement);
 
-			components.push({attrs, name, element: componentElement});
+			// TODO: temporary condition, remove when XW-4715 is done
+			if (['article-media-thumbnail', 'article-media-gallery', 'article-media-linked-gallery'].indexOf(name) === -1) {
+				components.push({attrs, name, element: componentElement});
+			}
 		}
 	});
 

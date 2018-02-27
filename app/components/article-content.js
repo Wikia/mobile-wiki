@@ -57,6 +57,8 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
+					this.renderDataComponents(this.element);
+
 					this.loadIcons();
 					this.createContributionButtons();
 					this.handleTables();
@@ -264,6 +266,11 @@ export default Component.extend(
 			});
 		},
 
+		renderDataComponents(element) {
+			this.renderedComponents = this.renderedComponents.concat(
+				queryPlaceholders(element).map(this.renderComponent)
+			);
+		},
 		/**
 		 * @returns {void}
 		 */
@@ -398,6 +405,11 @@ export default Component.extend(
 
 			if (header.classList.toggle('open-section')) {
 				visible = 'true';
+
+				if (!header.hasAttribute('data-rendered')) {
+					this.renderDataComponents(section);
+					header.setAttribute('data-rendered', '');
+				}
 			}
 
 			section.setAttribute('aria-pressed', visible);
