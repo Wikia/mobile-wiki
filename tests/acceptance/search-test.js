@@ -1,50 +1,53 @@
-import {test} from 'qunit';
-import moduleForAcceptance from 'mobile-wiki/tests/helpers/module-for-acceptance';
-import {find, findAll, fillIn, triggerEvent} from 'ember-native-dom-helpers';
+import {find, findAll, fillIn, triggerEvent, visit, currentURL} from '@ember/test-helpers';
+import {setupApplicationTest} from 'ember-qunit';
+import {module, test} from 'qunit';
+import mockFastbootService from '../helpers/mock-fastboot-service';
+import mockAdsService from '../helpers/mock-ads-service';
 
-moduleForAcceptance('Acceptance | search');
+module('Acceptance | search', (hooks) => {
+	setupApplicationTest(hooks);
 
-test('visiting /search', (assert) => {
-	const searchInput = '.side-search__input',
-		enterKeyCode = 13,
-		testQuery = 'test query';
+	hooks.beforeEach(function () {
+		mockFastbootService(this.owner);
+		mockAdsService(this.owner);
+	});
 
-	mockAdsService();
-	mockFastbootService();
-	visit('/');
-	visit('/search');
+	test('visiting /search', async (assert) => {
+		const searchInput = '.side-search__input',
+			enterKeyCode = 13,
+			testQuery = 'test query';
 
-	andThen(() => {
+		await visit('/search');
+
 		assert.equal(currentURL(), '/search');
-		fillIn(searchInput, testQuery);
-		triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
 
-		andThen(() => {
-			assert.equal(currentURL(), '/search?query=test%20query');
+		await fillIn(searchInput, testQuery);
+		await triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
 
-			assert.equal(
-				findAll('.search-results__list .wikia-card').length,
-				4,
-				'Correct amount of result cards is displayed'
-			);
+		assert.equal(currentURL(), '/search?query=test%20query');
 
-			assert.equal(
-				find('.search-results__list .wikia-card__title').textContent.trim(),
-				'Result 1',
-				'First title is correctly displayed'
-			);
+		assert.equal(
+			findAll('.search-results__list .wikia-card').length,
+			4,
+			'Correct amount of result cards is displayed'
+		);
 
-			assert.equal(
-				find(searchInput).value,
-				testQuery,
-				'Search input still contains query'
-			);
+		assert.equal(
+			find('.search-results__list .wikia-card__title').textContent.trim(),
+			'Result 1',
+			'First title is correctly displayed'
+		);
 
-			assert.equal(
-				!!find('.wikia-search__clear svg'),
-				true,
-				'Clean query icon is visible'
-			);
-		});
+		assert.equal(
+			find(searchInput).value,
+			testQuery,
+			'Search input still contains query'
+		);
+
+		assert.equal(
+			!!find('.wikia-search__clear svg'),
+			true,
+			'Clean query icon is visible'
+		);
 	});
 });

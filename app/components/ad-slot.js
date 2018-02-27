@@ -98,8 +98,7 @@ export default Component.extend(
 						this.get('logger').info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);
 					},
-					() => {
-					}
+					() => {}
 				);
 			}
 		}

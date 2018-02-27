@@ -1,9 +1,8 @@
 import EmberObject from '@ember/object';
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | host', () => {
+module('host-test', () => {
 	test('returns correct host', (assert) => {
 		const testCases = [
 			{
