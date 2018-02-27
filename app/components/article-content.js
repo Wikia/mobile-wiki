@@ -7,7 +7,6 @@ import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
 
@@ -57,8 +56,6 @@ export default Component.extend(
 
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
-
-					this.renderDataComponents(this.element);
 
 					this.loadIcons();
 					this.createContributionButtons();
@@ -267,17 +264,6 @@ export default Component.extend(
 			});
 		},
 
-		renderDataComponents(element) {
-			this.renderedComponents = this.renderedComponents.concat(
-				queryPlaceholders(element)
-					.map(getAttributesForMedia, {
-						media: this.get('media'),
-						openLightbox: this.get('openLightbox')
-					})
-					.map(this.renderComponent)
-			);
-		},
-
 		/**
 		 * @returns {void}
 		 */
@@ -412,11 +398,6 @@ export default Component.extend(
 
 			if (header.classList.toggle('open-section')) {
 				visible = 'true';
-
-				if (!header.hasAttribute('data-rendered')) {
-					this.renderDataComponents(section);
-					header.setAttribute('data-rendered', '');
-				}
 			}
 
 			section.setAttribute('aria-pressed', visible);

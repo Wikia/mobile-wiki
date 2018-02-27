@@ -198,7 +198,7 @@ export default Controller.extend(
 
 			if (!isEmpty(lightboxMediaRefs)) {
 				this.send('openLightbox', 'media', {
-					media: mediaModel,
+					media: null, // todo: fix it
 					mediaRef: lightboxMediaRefs.mediaRef,
 					galleryRef: lightboxMediaRefs.galleryRef
 				});
