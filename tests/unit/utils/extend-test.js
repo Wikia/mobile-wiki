@@ -1,6 +1,5 @@
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
 module('Unit | Utility | extend', () => {
 	const extend = require('mobile-wiki/utils/extend').default;

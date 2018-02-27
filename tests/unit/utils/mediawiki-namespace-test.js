@@ -1,5 +1,4 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import {isContentNamespace} from 'mobile-wiki/utils/mediawiki-namespace';
 
 module('Unit | Utility | mediawiki namespace', () => {

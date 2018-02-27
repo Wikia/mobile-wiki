@@ -1,12 +1,11 @@
 import {computed} from '@ember/object';
 import {oneWay} from '@ember/object/computed';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 import {transparentImageBase64} from '../utils/thumbnail';
 
-export default Component.extend(ViewportMixin, {
+export default Component.extend({
 	tagName: 'a',
 	classNames: ['trending-articles-item'],
 	attributeBindings: ['href', 'style'],
