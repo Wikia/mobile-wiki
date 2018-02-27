@@ -1,6 +1,6 @@
 import {inject as service} from '@ember/service';
 import {isEmpty} from '@ember/utils';
-import {alias, equal} from '@ember/object/computed';
+import {alias, equal, oneWay} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import NoScrollMixin from '../mixins/no-scroll';
@@ -19,6 +19,9 @@ export default Controller.extend(
 		queryParams: ['file',
 			{
 				noAds: 'noads'
+			},
+			{
+				mobileApp: 'mobile-app'
 			},
 			// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 			{
@@ -40,20 +43,21 @@ export default Controller.extend(
 			this._super();
 		},
 
-		file: null,
-		commentsPage: null,
 		applicationWrapperClassNames: null,
-		drawerVisible: false,
+		commentsPage: null,
 		drawerContent: null,
-		userMenuVisible: false,
-		fullPage: false,
-		lightboxType: null,
-		lightboxModel: null,
-		lightboxVisible: false,
+		drawerVisible: false,
+		file: null,
 		lightboxCloseButtonDelay: 0,
+		lightboxModel: null,
+		lightboxType: null,
+		lightboxVisible: false,
+		mobileApp: null,
+		userMenuVisible: false,
 
-		noAds: alias('ads.noAdsQueryParam'),
+		fullPage: oneWay('mobileApp'),
 		isSearchPage: equal('currentRouteName', 'search'),
+		noAds: alias('ads.noAdsQueryParam'),
 
 		actions: {
 			/**
