@@ -1,21 +1,22 @@
+import {find, render} from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
-import {test, moduleForComponent} from 'ember-qunit';
-import {find} from 'ember-native-dom-helpers';
+import {module, test} from 'qunit';
+import {setupRenderingTest} from 'ember-qunit';
 
 const buttonSelector = '.wds-button';
 
-moduleForComponent('wikia-ui-components/wds-button', 'Integration | Component | wikia button', {
-	integration: true,
+module('Integration | Component | wikia button', (hooks) => {
+	setupRenderingTest(hooks);
 
-	beforeEach() {
+	hooks.beforeEach(function () {
 		this.set('action', sinon.spy());
-	}
-});
+	});
 
-test('clicking button triggers action', function (assert) {
-	this.render(hbs`{{wikia-ui-components/wds-button onClick=action}}`);
-	find(buttonSelector).click();
+	test('clicking button triggers action', async function (assert) {
+		await render(hbs`{{wikia-ui-components/wds-button onClick=action}}`);
+		find(buttonSelector).click();
 
-	assert.equal(this.get('action').called, true);
+		assert.equal(this.get('action').called, true);
+	});
 });

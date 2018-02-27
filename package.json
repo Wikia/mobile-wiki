@@ -53,6 +53,7 @@
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
+    "@ember/test-helpers": "0.7.18",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "2.0.0",
@@ -72,7 +73,7 @@
     "ember-cli-inject-live-reload": "1.7.0",
     "ember-cli-inline-content": "0.4.1",
     "ember-cli-mirage": "0.3.4",
-    "ember-cli-qunit": "^4.1.1",
+    "ember-cli-qunit": "4.3.2",
     "ember-cli-sass": "7.0.0",
     "ember-cli-sri": "2.1.1",
     "ember-cli-stylelint": "1.0.0",
