@@ -3,13 +3,13 @@ import {htmlSafe} from '@ember/string';
 import {computed, observer} from '@ember/object';
 import {gt} from '@ember/object/computed';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
+import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import ImageLoader from '../mixins/image-loader';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
 	RenderComponentMixin,
-	ViewportMixin,
+	RespondsToResize,
 	ImageLoader,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
@@ -156,28 +156,28 @@ export default Component.extend(
 		 * property that holds current image
 		 */
 		image: computed(function () {
-			return this.$('.current');
+			return this.element.querySelector('.current');
 		}),
 
 		imageWidth: computed('image', 'scale', function () {
-			const $image = this.get('image');
+			const image = this.get('image');
 
 			let imageWidth = 0;
 
-			if ($image) {
-				imageWidth = $image.width() * this.get('scale');
+			if (image) {
+				imageWidth = image.offsetWidth * this.get('scale');
 			}
 
 			return imageWidth;
 		}),
 
 		imageHeight: computed('image', 'scale', function () {
-			const $image = this.get('image');
+			const image = this.get('image');
 
 			let imageHeight = 0;
 
-			if ($image) {
-				imageHeight = this.get('image').height() * this.get('scale');
+			if (image) {
+				imageHeight = image.offsetHeight * this.get('scale');
 			}
 
 			return imageHeight;
@@ -235,12 +235,6 @@ export default Component.extend(
 			},
 		}),
 
-		articleContentWidthObserver: observer('viewportDimensions.width', function () {
-			this.notifyPropertyChange('viewportSize');
-			this.notifyPropertyChange('imageWidth');
-			this.notifyPropertyChange('imageHeight');
-		}),
-
 		urlObserver: observer('model.url', function () {
 			this.loadUrl();
 		}),
@@ -275,6 +269,12 @@ export default Component.extend(
 			scheduleOnce('afterRender', this, () => {
 				this.loadUrl();
 			});
+		},
+
+		resize() {
+			this.notifyPropertyChange('viewportSize');
+			this.notifyPropertyChange('imageWidth');
+			this.notifyPropertyChange('imageHeight');
 		},
 
 		/**

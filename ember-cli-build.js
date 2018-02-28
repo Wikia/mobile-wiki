@@ -22,7 +22,10 @@ EmberApp.prototype.addonTreesFor = function (type) {
 					tree,
 					'modules/ember-types/asserts/**/*.js',
 					'modules/ember-types/constants/*.js',
-					'modules/ember-types/property/*.js'
+					'modules/ember-types/property/*.js',
+					'ember-responds-to/mixins/responds-to-enter-keydown.js',
+					'ember-responds-to/mixins/responds-to-esc-keydown.js',
+					'ember-responds-to/mixins/responds-to-print.js'
 				);
 			}
 
@@ -51,25 +54,27 @@ module.exports = function (defaults) {
 			]
 		},
 		fingerprint: {
+			exclude: ['app.css'],
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
 			replaceExtensions: ['html', 'css', 'js', 'hbs']
 		},
 		inlineContent: {
 			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
-			'fastboot-inline-scripts-head': `node_modules/mercury-shared/dist/head.js`,
-			'fastboot-inline-scripts-head-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
+			'fastboot-inline-scripts': `node_modules/mercury-shared/dist/head.js`,
+			'fastboot-inline-scripts-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
+			'instant-globals': `${inlineScriptsPath}instant-globals.js`
 		},
 		outputPaths: {
 			app: {
 				css: {
 					app: '/assets/app.css',
+					lazy: '/assets/lazy.css',
 				},
 				html: 'index.html',
 			}
@@ -100,13 +105,8 @@ module.exports = function (defaults) {
 		},
 		vendorFiles: {
 			// This should be removed when ember-cli-shims is sunset
-			'app-shims.js': null
-		},
-		emberCliConcat: {
-			js: {
-				concat: true,
-				useAsync: true
-			}
+			'app-shims.js': null,
+			'jquery.js': null
 		}
 	});
 
@@ -123,13 +123,29 @@ module.exports = function (defaults) {
 		});
 
 	// Import files from node_modules, they will run both in FastBoot and browser
-	// If you need to load some files on browser only use lib/include-node-modules in-repo-addon
 	app.import('node_modules/vignette/dist/vignette.js');
+	app.import('vendor/polyfills.js', {prepend: true});
+
+	// These will run only in browser
+	app.import('node_modules/visit-source/dist/visit-source.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/scriptjs/dist/script.min.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/hammerjs/hammer.min.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/ember-hammer/ember-hammer.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/js-cookie/src/js.cookie.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
 
 	return app.toTree([
 		designSystemI18n,
 		designSystemAssets,
 		jwPlayerAssets
 	]);
-
 };

@@ -7,6 +7,8 @@
 	<meta name="theme-color" content="{{model.themeColor}}">
 {{/if}}
 
+<link rel="preconnect" href="https://vignette.wikia.nocookie.net">
+
 {{#unless model.noExternals}}
 	<link rel="dns-prefetch" href="http://edge.quantserve.com">
 	<link rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
@@ -87,3 +89,8 @@
 {{/if}}
 
 <script id="liftigniter-metadata" type="application/json">{"noIndex":"true"}</script>
+
+{{#if model.lazyCss}}
+	{{!- These styles will be added to head on front-end to lazy load them-}}
+	<link rel="stylesheet" href="/mobile-wiki/assets/lazy.css">
+{{/if}}

@@ -4,7 +4,7 @@ import Component from '@ember/component';
 import {on} from '@ember/object/evented';
 import {observer, computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
-import {throttle} from '@ember/runloop';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
 import {transparentImageBase64} from '../utils/thumbnail';
@@ -12,7 +12,7 @@ import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 
-export default Component.extend(JWPlayerMixin, {
+export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
 	logger: service(),
 	wikiVariables: service(),
@@ -66,8 +66,6 @@ export default Component.extend(JWPlayerMixin, {
 		this.set('onScrollVideoWrapper', this.element.querySelector('.article-featured-video__on-scroll-video-wrapper'));
 
 		this.setPlaceholderDimensions();
-		this.throttleOnScroll = this.throttleOnScroll.bind(this);
-		window.addEventListener('scroll', this.throttleOnScroll);
 		window.addEventListener('orientationchange', () => {
 			if (this.isInLandscapeMode()) {
 				this.onScrollStateChange('inactive');
@@ -83,7 +81,6 @@ export default Component.extend(JWPlayerMixin, {
 
 	willDestroyElement() {
 		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
-		window.removeEventListener('scroll', this.throttleOnScroll);
 	},
 
 	actions: {
@@ -96,7 +93,9 @@ export default Component.extend(JWPlayerMixin, {
 			}
 			document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
 
-			window.removeEventListener('scroll', this.throttleOnScroll);
+			// this.scrollHandler is from ember-responds-to - there is no public API to
+			// remove a scroll handler now
+			window.removeEventListener('scroll', this.scrollHandler);
 		}
 	},
 
@@ -149,8 +148,8 @@ export default Component.extend(JWPlayerMixin, {
 	initVideoPlayer() {
 		const model = this.get('model.embed'),
 			jsParams = {
-				autoplay: $.cookie(this.get('autoplayCookieName')) !== '0',
-				selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+				autoplay: window.Cookies.get(this.get('autoplayCookieName')) !== '0',
+				selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
@@ -176,7 +175,7 @@ export default Component.extend(JWPlayerMixin, {
 	},
 
 	setCookie(cookieName, cookieValue) {
-		$.cookie(cookieName, cookieValue, {
+		window.Cookies.set(cookieName, cookieValue, {
 			expires: this.get('playerCookieExpireDays'),
 			path: '/',
 			domain: config.cookieDomain
@@ -187,11 +186,7 @@ export default Component.extend(JWPlayerMixin, {
 		this.player.resize();
 	},
 
-	throttleOnScroll() {
-		throttle(this, this.onScrollHandler, null, 50, false);
-	},
-
-	onScrollHandler() {
+	scroll() {
 		if (!this.element) {
 			return;
 		}

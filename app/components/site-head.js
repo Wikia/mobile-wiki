@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
@@ -12,23 +11,22 @@ import {standalone} from '../utils/browser';
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
-		ads: service(),
 		notifications: service(),
 		smartBanner: service(),
 
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar'],
+		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
 		tagName: 'div',
 		themeBar: false,
 		closeIcon: 'close',
+		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
-
+		partnerSlot: readOnly('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-		offset: readOnly('ads.siteHeadOffset'),
 
 		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 
@@ -36,10 +34,6 @@ export default Component.extend(
 		wikiaHomepage: or('wikiaHomepageFromNav', 'defaultWikiHomePage'),
 
 		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
-
-		displayFandomBar: computed('isSearchPage', function () {
-			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
-		}),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';

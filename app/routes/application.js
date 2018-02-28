@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {getOwner} from '@ember/application';
-import {getWithDefault} from '@ember/object';
+import {getWithDefault, get} from '@ember/object';
 import Ember from 'ember';
 import {isEmpty} from '@ember/utils';
 import {run} from '@ember/runloop';
@@ -158,13 +158,26 @@ export default Route.extend(
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
 
-			if (fastboot.get('isFastBoot') &&
-				basePath !== `${fastboot.get('request.protocol')}//${model.wikiVariables.host}`) {
+			if (fastboot.get('isFastBoot')) {
+				const protocol = fastboot.get('request.headers').get('fastly-ssl')
+					? 'https:'
+					: fastboot.get('request.protocol');
 				const fastbootRequest = this.get('fastboot.request');
+
+				if (basePath === `${protocol}//${model.wikiVariables.host}`) {
+					return;
+				}
+
+				// PLATFORM-3351 - if x-wikia-wikiaappsid is present, allow https even if basePath is set to http.
+				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid') &&
+					basePath === `http://${model.wikiVariables.host}`
+				) {
+					return;
+				}
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${basePath}${fastbootRequest.get('path')}`
 				);
 				fastboot.set('response.statusCode', 301);
 
@@ -178,6 +191,12 @@ export default Route.extend(
 			controller.set('model', model);
 
 			if (!this.get('fastboot.isFastBoot')) {
+				// Prevent scrolling to the top of the page after Ember is loaded
+				// See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
+				const routerScroll = this.get('router.service');
+				routerScroll.set('key', get(window, 'history.state.uuid'));
+				routerScroll.update();
+
 				// Because application controller needs wiki-page controller
 				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
@@ -189,6 +208,9 @@ export default Route.extend(
 					} else if (!isEmpty(map)) {
 						controller.openLightboxForMap(map);
 					}
+
+					const scrollPosition = routerScroll.get('position');
+					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
 			}
 		},
@@ -364,13 +386,8 @@ export default Route.extend(
 			// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
 			const applicationInstance = getOwner(this);
 			const document = applicationInstance.lookup('service:-document');
-			const headBottomComponent = applicationInstance.lookup('component:fastboot-only/head-bottom');
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
-			headBottomComponent.set('wikiVariables', wikiVariables);
-			headBottomComponent.appendTo(document.head);
-
-			bodyBottomComponent.set('queryParams', queryParams);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}

@@ -127,18 +127,14 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	if (
-		typeof FastBoot !== 'undefined' ||
-		M.getFromShoebox('runtimeConfig.noExternals') ||
-		M.getFromShoebox('serverError')
-	) {
+	if (typeof FastBoot !== 'undefined' || M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
 	if (!window.location) {
 		return;
 	}
-	params = $.extend({
+	params = Object.assign({
 		ga_action: action,
 		ga_category: category,
 		ga_label: label,
@@ -161,7 +157,7 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		params = $.extend({}, context, params);
+		params = Object.assign({}, context, params);
 		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }
@@ -176,7 +172,7 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 		return;
 	}
 
-	const enableTracking = !M.getFromShoebox('runtimeConfig.noExternals') && !M.getFromShoebox('serverError');
+	const enableTracking = !M.getFromHeadDataStore('noExternals');
 
 	if (!isInitialPageView && enableTracking) {
 		// Defined in /app/inline-scripts/

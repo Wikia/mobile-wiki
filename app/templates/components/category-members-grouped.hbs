@@ -1,4 +1,3 @@
-{{! Keep the same HTML structure as in server/app/views/_partials/category-members-grouped.hbs }}
 {{#if prevPage}}
 	<div class="category-navigation">
 		{{wds-spinner
@@ -15,10 +14,10 @@
 {{#each-in membersGrouped as |firstLetter members|}}
 	<div>
 		<h3>{{firstLetter}}</h3>
-		<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content">
+		<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content" onclick={{action 'trackClick' 'category-page' 'open-link'}}>
 			{{#each members as |category|}}
 				<li class="{{if category.isCategory 'category-members-grouped__subcategory'}}">
-					<a href="{{category.url}}" {{action 'trackClick' 'category-page' 'open-link'}}>{{category.title}}</a>
+					<a href="{{category.url}}">{{category.title}}</a>
 				</li>
 			{{/each}}
 		</ul>

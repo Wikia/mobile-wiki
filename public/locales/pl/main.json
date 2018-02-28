@@ -4,13 +4,13 @@
     "cancel-label": "Anuluj", 
     "curated-content-editor-edit-main-page": "Edycja strony głównej", 
     "curated-content-load-more-items": "Załaduj więcej", 
-    "days-ago": "{days}d", 
+    "days-ago": "{days} d.", 
     "discussions-label": "Dyskusje", 
     "header-in-wiki-name-label-prefix": "na:", 
     "header-in-wiki-name-label-suffix": "", 
-    "hours-ago": "{hours}h", 
+    "hours-ago": "{hours} godz.", 
     "media-lightbox-error": "Nie znaleziono mediów", 
-    "minutes-ago": "{minutes}m", 
+    "minutes-ago": "{minutes} min.", 
     "now-label": "teraz", 
     "page-not-found-error": "Niestety nie możemy znaleźć strony, której szukasz.", 
     "page-not-found-message": "Użyj nawigacji lub wyszukiwarki", 
@@ -26,12 +26,12 @@
   "article": {
     "categories-list-label": "Kategorie", 
     "comments-label": "{count} komentarz", 
-    "comments-label_plural": "{count} komentarzy", 
+    "comments-label_plural": "{count} komentarzy(-e)", 
     "empty-label": "Niestety ten artykuł wydaje się być pusty!", 
     "error": "Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.", 
     "last-edit": "Ostatnio edytowane tydzień temu", 
     "last-edit_plural_0": "Ostatnio edytowane w tym tygodniu", 
-    "last-edit_plural_2": "Ostatnio edytowane {count} tygodni temu", 
+    "last-edit_plural_2": "Ostatnio edytowane {count} tygodni(e) temu", 
     "portable-infobox-image": "Obraz", 
     "redirect-empty-target": "Link jest przekierowaniem, ale strona do której kieruje nie istnieje.", 
     "replies-label": "Zobacz {count} odpowiedź", 
@@ -54,7 +54,7 @@
     "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
     "load-more": "Załaduj więcej", 
     "load-previous": "Załaduj poprzednie", 
-    "no-members": "Obecnie brak stron w tej kategorii.", 
+    "no-members": "Obecnie nie ma stron w tej kategorii.", 
     "subtitle": "Strona kategorii"
   }, 
   "edit": {
@@ -74,7 +74,7 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "dodany przez", 
+    "from": "z", 
     "watch": "obejrzyj"
   }, 
   "file-page": {

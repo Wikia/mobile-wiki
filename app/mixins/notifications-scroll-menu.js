@@ -1,37 +1,51 @@
 import Mixin from '@ember/object/mixin';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 
-export default Mixin.create({
+export default Mixin.create(RespondsToScroll, {
 	classNames: ['notifications-scroll-menu'],
 	classNameBindings: ['isLoadingNewResults'],
-	scrollableElement: '.scrolling-part',
 	almostBottom: 100,
 
-	bindScrollObserver: on('didRender', function () {
-		run.later(() => {
-			this.$(this.get('scrollableElement')).on('scroll', this.onScroll.bind(this));
-			this.$(this.get('scrollableElement')).on('mousewheel DOMMouseScroll', this.onMouseWheel);
-		}, 0);
-	}),
+	didInsertElement() {
+		this._super(arguments);
 
-	onScrollRemover: on('willDestroyElement', function () {
-		this.$(this.get('scrollableElement')).off('scroll', this.onScroll.bind(this));
-	}),
+		this.set('scrollableElement', this.element.querySelector('.scrolling-part'));
 
-	onScroll(event) {
-		const target = $(event.target);
+		this.onMouseWheelHandler = this.onMouseWheel.bind(this);
+		this.listeners('addEventListener');
+	},
 
+	willDestoryElement() {
+		this._super(arguments);
+
+		this.listeners('removeEventListener');
+	},
+
+	listeners(method) {
+		const scrollableElement = this.get('scrollableElement');
+
+		scrollableElement[method]('DOMMouseScroll', this.onMouseWheelHandler);
+		scrollableElement[method]('mousewheel', this.onMouseWheelHandler);
+	},
+
+	scroll({target}) {
 		if (this.hasAlmostScrolledToTheBottom(target)) {
 			this.get('notifications').loadNextPage();
 		}
 	},
 
-	onMouseWheel(e) {
-		const delta = -e.originalEvent.wheelDelta || e.originalEvent.detail,
-			scrollTop = this.scrollTop;
-		if ((delta < 0 && scrollTop === 0) || (delta > 0 && this.scrollHeight - this.clientHeight - scrollTop === 0)) {
-			e.preventDefault();
+	onMouseWheel(event) {
+		const scrollableElement = this.get('scrollableElement'),
+			delta = -event.wheelDelta || event.detail,
+			scrollTop = scrollableElement.scrollTop;
+
+		if (
+			(delta < 0 && scrollTop === 0) ||
+			(delta > 0 && scrollableElement.scrollHeight - scrollableElement.clientHeight - scrollTop === 0)
+		) {
+			event.preventDefault();
 		}
 	},
 
@@ -40,7 +54,7 @@ export default Mixin.create({
 	 * @private
 	 */
 	hasAlmostScrolledToTheBottom(element) {
-		return element[0].scrollHeight - this.get('almostBottom') <= element.scrollTop() + element.innerHeight();
+		return element.scrollHeight - this.almostBottom <= element.scrollTop + element.clientHeight;
 	}
 
 });

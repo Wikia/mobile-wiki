@@ -3,13 +3,12 @@ import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
 	classNames: ['widget-flite'],
-	layoutName: 'components/widget-flite',
 	data: null,
 
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.$().html(this.getScriptTag());
+		this.element.innerHTML = this.getScriptTag();
 	},
 
 	getScriptTag() {

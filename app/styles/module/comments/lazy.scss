@@ -1,6 +1,5 @@
-.page-btn {
-	background: rgb(250, 250, 250);
-	color: $anchor-font-color;
+.page-button {
+	box-sizing: border-box;
 	width: 100%;
 }
 
@@ -8,26 +7,6 @@
 	box-sizing: border-box;
 	margin-bottom: 20px;
 	width: 100%;
-}
-
-.show-comments-btn {
-	background: none;
-	border-top: 1px solid $secondary-color;
-	color: #333;
-	display: block;
-	font-weight: bold;
-	padding: 1rem 1.25rem;
-	position: relative;
-	text: {
-		align: left;
-		transform: uppercase;
-	}
-
-	.chevron {
-		margin-top: .3125rem;
-		position: absolute;
-		right: .625rem;
-	}
 }
 
 .comments {

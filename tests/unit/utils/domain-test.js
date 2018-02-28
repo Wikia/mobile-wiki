@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | domain', () => {
+module('Unit | Utility | domain test', () => {
 	test('extracts domain from provided urls', (assert) => {
 		const testCasesForExtractDomainFromUrl = [
 			{

@@ -28,7 +28,8 @@ export default Component.extend(
 		logger: service(),
 
 		classNames: ['recirculation-prefooter'],
-		isVisible: false,
+		classNameBindings: ['items:has-items'],
+
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.get('items').some((item) => item.presented_by);
 		}),
@@ -36,12 +37,19 @@ export default Component.extend(
 			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
 		}),
 
-		willRender() {
-			const viewportTolerance = 1000;
+		init() {
+			this._super(...arguments);
 
-			this.set('viewportTolerance', {
-				top: viewportTolerance,
-				bottom: viewportTolerance
+			const viewportTolerance = 100;
+
+			this.setProperties({
+				viewportTolerance: {
+					top: viewportTolerance,
+					bottom: viewportTolerance,
+					left: 0,
+					right: 0
+				},
+				intersectionThreshold: 0
 			});
 		},
 
@@ -94,33 +102,29 @@ export default Component.extend(
 		didEnterViewport() {
 			const liftigniter = this.get('liftigniter');
 
-			if (M.getFromShoebox('runtimeConfig.noExternals')) {
+			if (M.getFromHeadDataStore('noExternals')) {
 				return;
 			}
 
 			liftigniter
 				.getData(config)
 				.then((data) => {
-					this.setProperties({
-						isVisible: true,
-						items: data.items
-							.filter((item) => {
-								return item.hasOwnProperty('thumbnail') && item.thumbnail;
-							})
-							.slice(0, recircItemsCount)
-							.map((item) => {
-								item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
-									mode: Thumbnailer.mode.scaleToWidth,
-									width: normalizeThumbWidth(window.innerWidth)
-								});
+					this.set('items', data.items.filter((item) => {
+						return item.hasOwnProperty('thumbnail') && item.thumbnail;
+					})
+						.slice(0, recircItemsCount)
+						.map((item) => {
+							item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
+								mode: Thumbnailer.mode.scaleToWidth,
+								width: normalizeThumbWidth(window.innerWidth)
+							});
 
-								return item;
-							})
-					});
+							return item;
+						}));
 
 					run.scheduleOnce('afterRender', () => {
 						liftigniter.setupTracking(
-							this.$().find('.recirculation-prefooter__item'),
+							this.element.querySelectorAll('.recirculation-prefooter__item'),
 							config.widget,
 							'LI'
 						);

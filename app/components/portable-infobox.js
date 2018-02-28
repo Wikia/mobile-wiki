@@ -1,14 +1,12 @@
 import {computed} from '@ember/object';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
 import RenderComponentMixin from '../mixins/render-component';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
 	RenderComponentMixin,
-	ViewportMixin,
 	{
-		classNames: ['portable-infobox'],
+		classNames: ['portable-infobox', 'pi'],
 		classNameBindings: ['collapsed'],
 		expandButtonClass: 'pi-expand-button',
 		layoutName: 'components/portable-infobox',
@@ -19,19 +17,17 @@ export default Component.extend(
 		collapsed: false,
 
 		button: computed('expandButtonClass', function () {
-			return this.$(`.${this.get('expandButtonClass')}`)[0];
+			return this.element.querySelector(`.${this.get('expandButtonClass')}`);
 		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
 		 */
-		isLongInfobox: computed('collapsedHeight', 'height', {
-			get() {
-				const collapsedHeight = this.get('collapsedHeight'),
-					height = this.get('height');
+		isLongInfobox: computed('collapsedHeight', 'height', function () {
+			const collapsedHeight = this.get('collapsedHeight'),
+				height = this.get('height');
 
-				return height > collapsedHeight;
-			}
+			return height > collapsedHeight;
 		}),
 
 		/**
@@ -41,13 +37,12 @@ export default Component.extend(
 		 * We want to always show the image AND some other infobox informations to
 		 * indicate that this is infobox, not only an ordinary image.
 		 */
-		collapsedHeight: computed('viewportDimensions.{width,height}', function () {
-			const deviceWidth = this.get('viewportDimensions.width'),
-				deviceHeight = this.get('viewportDimensions.height'),
-				isLandscape = deviceWidth > deviceHeight,
-				calculatedHeight = Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+		collapsedHeight: computed(() => {
+			const deviceWidth = document.documentElement.clientWidth,
+				deviceHeight = document.documentElement.clientHeight,
+				isLandscape = deviceWidth > deviceHeight;
 
-			return calculatedHeight;
+			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 		}),
 
 		didInsertElement() {
@@ -84,12 +79,12 @@ export default Component.extend(
 
 		collapse() {
 			this.set('collapsed', true);
-			this.$().height(this.get('collapsedHeight'));
+			this.element.style.height = `${this.get('collapsedHeight')}px`;
 		},
 
 		expand() {
 			this.set('collapsed', false);
-			this.$().height('auto');
+			this.element.style.height = 'auto';
 		}
 	}
 );

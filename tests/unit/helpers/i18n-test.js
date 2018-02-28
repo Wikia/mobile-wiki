@@ -1,9 +1,8 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import I18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
-module('Unit | Helper | i18n', (hooks) => {
+module('Unit | helper | i18n', (hooks) => {
 	const tStub = sinon.stub();
 	let i18nHelper;
 
@@ -55,4 +54,5 @@ module('Unit | Helper | i18n', (hooks) => {
 
 		assert.ok(tStub.calledWith('main:string', i18nParams));
 	});
+}, () => {
 });

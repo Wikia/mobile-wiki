@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Component from '@ember/component';
 import {Promise} from 'rsvp';
 import jwPlayerAssets from '../modules/jwplayer-assets';
@@ -6,6 +5,7 @@ import {track} from '../utils/track';
 import JWPlayerMixin from '../mixins/jwplayer';
 import RenderComponentMixin from '../mixins/render-component';
 import config from '../config/environment';
+import fetch from 'fetch';
 
 export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
@@ -30,7 +30,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 	playerCreated(playerInstance) {
 		playerInstance.on('captionsSelected', ({selectedLang}) => {
-			$.cookie(this.get('captionsCookieName'), selectedLang, {
+			window.Cookies.set(this.get('captionsCookieName'), selectedLang, {
 				expires: this.get('playerCookieExpireDays'),
 				path: '/',
 				domain: config.cookieDomain
@@ -49,7 +49,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 					track(data);
 				},
 			},
-			selectedCaptionsLanguage: $.cookie(this.get('captionsCookieName')),
+			selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
 			settings: {
 				showCaptions: true
 			},
@@ -62,6 +62,6 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	},
 
 	getVideoData() {
-		return $.get(`${this.jwVideoDataUrl}${this.get('media-id')}`);
+		return fetch(`${this.jwVideoDataUrl}${this.get('media-id')}`).then((response) => response.json());
 	}
 });

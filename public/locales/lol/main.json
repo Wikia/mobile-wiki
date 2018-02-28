@@ -4,13 +4,13 @@
     "cancel-label": "crwdns57987:0crwdne57987:0", 
     "curated-content-editor-edit-main-page": "crwdns58203:0crwdne58203:0", 
     "curated-content-load-more-items": "crwdns58059:0crwdne58059:0", 
-    "days-ago": "crwdns76028:0{days}crwdne76028:0", 
+    "days-ago": "crwdns76217:0{days}crwdne76217:0", 
     "discussions-label": "crwdns58121:0crwdne58121:0", 
     "header-in-wiki-name-label-prefix": "crwdns58081:0crwdne58081:0", 
     "header-in-wiki-name-label-suffix": "crwdns58082:0crwdne58082:0", 
-    "hours-ago": "crwdns76027:0{hours}crwdne76027:0", 
+    "hours-ago": "crwdns76216:0{hours}crwdne76216:0", 
     "media-lightbox-error": "crwdns58093:0crwdne58093:0", 
-    "minutes-ago": "crwdns76026:0{minutes}crwdne76026:0", 
+    "minutes-ago": "crwdns76215:0{minutes}crwdne76215:0", 
     "now-label": "crwdns58103:0crwdne58103:0", 
     "page-not-found-error": "crwdns58104:0crwdne58104:0", 
     "page-not-found-message": "crwdns58105:0crwdne58105:0", 
@@ -72,6 +72,10 @@
   "fandom-app-banner": {
     "app-store": "crwdns71803:0crwdne71803:0", 
     "google-play": "crwdns71802:0crwdne71802:0"
+  }, 
+  "featured-video": {
+    "from": "crwdns76218:0crwdne76218:0", 
+    "watch": "crwdns76219:0crwdne76219:0"
   }, 
   "file-page": {
     "subtitle": "crwdns58236:0crwdne58236:0", 

@@ -1,4 +1,5 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import {module, test} from 'qunit';
+import {setupTest} from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
 
@@ -16,7 +17,7 @@ function createComponent(testThis, editAllowed = true) {
 		title = 'hello world',
 		uploadFeatureEnabled = true;
 
-	return testThis.subject({
+	return testThis.owner.factoryFor('component:article-contribution').create({
 		section,
 		sectionId,
 		title,
@@ -25,40 +26,36 @@ function createComponent(testThis, editAllowed = true) {
 	});
 }
 
-moduleForComponent('article-contribution', 'Unit | Component | article contribution', {
-	unit: true,
-	needs: [
-		'service:i18n',
-		'service:wiki-variables'
-	],
+module('Unit | Component | article contribution', (hooks) => {
+	setupTest(hooks);
 
-	beforeEach() {
+	hooks.beforeEach(() => {
 		trackStub = sinon.stub(trackModule, 'track');
-	},
+	});
 
-	afterEach() {
+	hooks.afterEach(() => {
 		trackStub.restore();
-	}
-});
+	});
 
-test('component is initialized', function (assert) {
-	const section = 3,
-		sectionId = 'myId',
-		title = 'hello world',
-		uploadFeatureEnabled = true,
-		component = createComponent(this);
+	test('component is initialized', function (assert) {
+		const section = 3,
+			sectionId = 'myId',
+			title = 'hello world',
+			uploadFeatureEnabled = true,
+			component = createComponent(this);
 
-	assert.equal(component.section, section);
-	assert.equal(component.sectionId, sectionId);
-	assert.equal(component.title, title);
-	assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
-});
+		assert.equal(component.section, section);
+		assert.equal(component.sectionId, sectionId);
+		assert.equal(component.title, title);
+		assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
+	});
 
-test('edit action without editAllowed redirects to login', function (assert) {
-	const openLocationSpy = sinon.spy(),
-		component = createComponent(this, false);
+	test('edit action without editAllowed redirects to login', function (assert) {
+		const openLocationSpy = sinon.spy(),
+			component = createComponent(this, false);
 
-	component.openLocation = openLocationSpy;
-	component.send('edit');
-	assert.ok(openLocationSpy.calledOnce);
+		component.openLocation = openLocationSpy;
+		component.send('edit');
+		assert.ok(openLocationSpy.calledOnce);
+	});
 });

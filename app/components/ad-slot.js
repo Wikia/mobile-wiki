@@ -65,8 +65,11 @@ export default Component.extend(
 			setProperties(this, {
 				viewportTolerance: {
 					top: 200,
-					bottom: 200
-				}
+					bottom: 200,
+					left: 0,
+					right: 0
+				},
+				intersectionThreshold: 0
 			});
 		},
 
@@ -95,8 +98,7 @@ export default Component.extend(
 						this.get('logger').info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);
 					},
-					() => {
-					}
+					() => {}
 				);
 			}
 		}

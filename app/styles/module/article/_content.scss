@@ -1,21 +1,29 @@
 .article-content {
 	margin-bottom: 2.5rem;
+	overflow-x: hidden;
+	padding: 0 $article-horizontal-padding;
 
 	h1,
 	h2,
 	h3,
 	h4,
 	h6 {
-		color: $primary-color;
+		&[section] {
+			color: $primary-color;
+		}
 	}
 
 	h1,
 	h2 {
-		padding-top: 2.5rem;
+		&[section] {
+			padding-top: 2.5rem;
+		}
 	}
 
 	h3 {
-		padding-top: 1rem;
+		&[section] {
+			padding-top: 1rem;
+		}
 	}
 
 	.article-media {

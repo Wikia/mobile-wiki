@@ -89,8 +89,7 @@ module.exports = function (environment) {
 				/.*\.wikia-staging.com/,
 				/.*\.wikia.com/,
 				/^localhost:\d+$/
-			],
-			shoeboxAppendTo: 'head'
+			]
 		},
 		fastbootOnly: {
 			helios: {
@@ -125,6 +124,7 @@ module.exports = function (environment) {
 		ENV.APP.LOG_VIEW_LOOKUPS = false;
 
 		ENV.APP.rootElement = '#ember-testing';
+		ENV.APP.autoboot = false;
 	}
 
 	if (process.env.IMAGE_VERSION) {

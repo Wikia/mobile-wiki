@@ -2,7 +2,7 @@ import {later, cancel} from '@ember/runloop';
 import {on} from '@ember/object/evented';
 import {isEmpty} from '@ember/utils';
 import {computed, observer} from '@ember/object';
-import {readOnly} from '@ember/object/computed';
+import {gt, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import {track, trackActions} from '../utils/track';
@@ -74,6 +74,7 @@ export default Component.extend(
 		},
 
 		showChevrons: readOnly('hasMultipleItems'),
+		hasMultipleItems: gt('model.length', 1),
 
 		screenEdgeWidthRatio: computed('hasMultipleItems', function () {
 			if (this.get('hasMultipleItems')) {
@@ -82,9 +83,6 @@ export default Component.extend(
 			return 0;
 		}),
 
-		hasMultipleItems: computed('model', function () {
-			return this.get('model.length') > 1;
-		}),
 
 		currentItem: computed('model', 'currentItemIndex', function () {
 			const model = this.get('model');
@@ -116,10 +114,15 @@ export default Component.extend(
 		},
 
 		updatePagination() {
-			const $pagination = this.$('.featured-content-pagination');
+			if (this.get('hasMultipleItems')) {
+				const pagination = this.element.querySelector('.featured-content-pagination');
+				const current = pagination.querySelector('.current');
 
-			$pagination.find('.current').removeClass('current');
-			$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
+				if (current) {
+					current.classList.remove('current');
+				}
+				pagination.querySelector(`li[data-index="${this.get('currentItemIndex')}"]`).classList.add('current');
+			}
 		},
 
 		/**
