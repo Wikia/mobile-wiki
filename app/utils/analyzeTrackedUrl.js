@@ -11,9 +11,13 @@ export default function analyzeTrackedUrl(params) {
 		return;
 	}
 
-	const page = tracker.get('page');
+	const gaPage = tracker.get('page');
+	const actualUrl = window.location.href;
 
-	if (window.location.href.indexOf(page) === -1) {
-		logEvent('GA url does not match window.location', params);
+	if (actualUrl.indexOf(gaPage) === -1) {
+		logEvent('GA url does not match window.location', Object.assign({
+			gaPage,
+			actualUrl
+		}, params));
 	}
 }
