@@ -7,11 +7,11 @@ import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
 import {track, trackActions} from '../utils/track';
 import {standalone} from '../utils/browser';
-import Ads from '../modules/ads';
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
+		ads: service(),
 		notifications: service(),
 		smartBanner: service(),
 
@@ -47,7 +47,6 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 
-			this.unstickImmediatelyTriggered = false;
 			this.closableDrawerStates = ['nav', 'user-profile'];
 			this.headroomOptions = {
 				classes: {
@@ -76,12 +75,6 @@ export default Component.extend(
 					this.get('setDrawerContent')(false);
 					this.get('toggleDrawer')(false);
 				} else {
-					if (!this.get('unstickImmediatelyTriggered')) {
-						this.set('unstickImmediatelyTriggered', true);
-						if (Ads.getInstance().adEngineBridge) {
-							Ads.getInstance().adEngineBridge.passSlotEvent('MOBILE_TOP_LEADERBOARD', 'unstickImmediately');
-						}
-					}
 					track({
 						action: trackActions.click,
 						category: 'side-nav',
@@ -90,6 +83,7 @@ export default Component.extend(
 
 					this.get('setDrawerContent')(icon);
 					this.get('toggleDrawer')(true);
+					this.get('ads.module').onMenuOpen();
 				}
 			},
 

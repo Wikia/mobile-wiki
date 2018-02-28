@@ -60,6 +60,7 @@ class Ads {
 		this.slotsQueue = [];
 		this.uapResult = false;
 		this.uapCalled = false;
+		this.uapUnsticked = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
@@ -500,6 +501,7 @@ class Ads {
 
 		this.uapCalled = false;
 		this.uapResult = false;
+		this.uapUnsticked = false;
 
 		this.uapCallbacks.forEach((callback) => {
 			window.removeEventListener('wikia.uap', callback);
@@ -526,6 +528,18 @@ class Ads {
 
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
+	}
+
+	/**
+	 * This method is called on menu or search open
+	 *
+	 * @returns {void}
+	 */
+	onMenuOpen() {
+		if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+			this.uapUnsticked = true;
+			this.adMercuryListenerModule.runOnMenuOpenCallbacks();
+		}
 	}
 
 	/**
