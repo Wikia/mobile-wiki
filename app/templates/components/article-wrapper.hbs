@@ -59,36 +59,36 @@
 </section>
 {{yield}}
 {{#if displayArticleWrapper}}
-<section class="article-footer">
-	{{wikia-users
-		users=model.topContributors
-	}}
-	{{#if showComments}}
-		{{article-comments
-			articleId=model.id
-			commentsCount=model.comments
-			page=commentsPage
+	<section class="article-footer">
+		{{wikia-users
+			users=model.topContributors
 		}}
-	{{/if}}
-	{{#if model.categories}}
-		{{#collapsible-menu
-			observe=model.displayTitle
-			ordered=false
-			showMenuIcon=false
-			tLabel='article.categories-list-label'
-			trackingEvent='category-menu'
-			click=(action 'trackClick' 'category-menu' 'open-category')
-			class="mw-content"
-		}}
-			{{#each model.categories as |category|}}
-				<li>
-					<a href="{{unbound category.url}}" title="{{unbound category.title}}">
-						<span>{{unbound category.title}}</span>
-						{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
-					</a>
-				</li>
-			{{/each}}
-		{{/collapsible-menu}}
-	{{/if}}
-</section>
+		{{#if showComments}}
+			{{article-comments
+				articleId=model.id
+				commentsCount=model.comments
+				page=commentsPage
+			}}
+		{{/if}}
+		{{#if model.categories}}
+			{{#collapsible-menu
+				observe=model.displayTitle
+				ordered=false
+				showMenuIcon=false
+				tLabel='article.categories-list-label'
+				trackingEvent='category-menu'
+				click=(action 'trackClick' 'category-menu' 'open-category')
+				class="mw-content"
+			}}
+				{{#each model.categories as |category|}}
+					<li>
+						<a href="{{unbound category.url}}" title="{{unbound category.title}}">
+							<span>{{unbound category.title}}</span>
+							{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
+						</a>
+					</li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+	</section>
 {{/if}}
