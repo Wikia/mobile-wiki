@@ -13,6 +13,10 @@
 
 	&__fixed-wrapper {
 		flex-grow: 0;
+
+		.wikia-nav__header {
+			justify-content: space-between;
+		}
 	}
 
 	&__back-link {
