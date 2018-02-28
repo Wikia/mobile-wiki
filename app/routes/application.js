@@ -205,8 +205,6 @@ export default Route.extend(
 
 					if (!isEmpty(file)) {
 						controller.openLightboxForMedia(file);
-					} else if (!isEmpty(map)) {
-						controller.openLightboxForMap(map);
 					}
 
 					const scrollPosition = routerScroll.get('position');
