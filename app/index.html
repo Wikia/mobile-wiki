@@ -24,6 +24,13 @@
 	})(window.M);
 </script>
 
+<script>
+	var link = document.createElement('link');
+	link.href = 'https://fonts.googleapis.com/css?family=Rubik:300,400,400i,700,700i&amp;subset=cyrillic,hebrew,latin-ext';
+	link.rel = 'stylesheet';
+	document.head.appendChild(link);
+</script>
+
 {{content-for 'instant-globals'}}
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
@@ -34,5 +41,6 @@
 {{content-for 'tracking-netzathleten'}}
 {{content-for 'tracking-liftigniter'}}
 {{content-for 'body-footer'}}
+
 </body>
 </html>
