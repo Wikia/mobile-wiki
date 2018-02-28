@@ -16,13 +16,14 @@ module('Acceptance | Blog post page', (hooks) => {
 		await visit('/');
 		await visit('/wiki/User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM');
 
-		assert.ok('.wiki-page-header__title', 'blog title is present');
-		assert.equal(document.getElementsByClassName(
-			'wiki-page-header__title')[0].textContent,
+		assert.ok(find('.wiki-page-header__title'), 'blog title is present');
+		assert.equal(
+			find('.wiki-page-header__title').textContent,
 			'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
-			'blog title is correct');
+			'blog title is correct'
+		);
 		assert.ok(find('.mw-content.collapsible-menu'), 'contains categories');
-		assert.equal(findAll('.mw-content.collapsible-menu li').length, 2, 'there are 2 categories')
+		assert.equal(findAll('.mw-content.collapsible-menu li').length, 2, 'there are 2 categories');
 	});
 });
 
