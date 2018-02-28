@@ -78,7 +78,9 @@ export default Component.extend(
 				} else {
 					if (!this.get('unstickImmediatelyTriggered')) {
 						this.set('unstickImmediatelyTriggered', true);
-						Ads.getInstance().adEngineBridge.passSlotEvent('MOBILE_TOP_LEADERBOARD', 'unstickImmediately');
+						if (Ads.getInstance().adEngineBridge) {
+							Ads.getInstance().adEngineBridge.passSlotEvent('MOBILE_TOP_LEADERBOARD', 'unstickImmediately');
+						}
 					}
 					track({
 						action: trackActions.click,
