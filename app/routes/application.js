@@ -200,13 +200,10 @@ export default Route.extend(
 				// Because application controller needs wiki-page controller
 				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file'),
-						map = controller.get('map');
+					const file = controller.get('file')
 
 					if (!isEmpty(file)) {
 						controller.openLightboxForMedia(file);
-					} else if (!isEmpty(map)) {
-						controller.openLightboxForMap(map);
 					}
 
 					const scrollPosition = routerScroll.get('position');
