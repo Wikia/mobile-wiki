@@ -108,11 +108,21 @@ $group-header-font-size: 16px;
 
 // infobox gallery
 .pi-image-collection {
+	-webkit-overflow-scrolling: touch;
+	overflow-x: auto;
+	overflow-y: hidden;
 	position: relative;
+	white-space: nowrap;
 
-	// @todo it's for old markup only, remove in XW-1225
+	img {
+		height: 195px;
+		// Fixes iOS Safari repaint bug when scrolling through gallery
+		transform: translate3d(0, 0, 0);
+	}
+
 	.pi-item {
-		display: none;
+		display: inline-block;
+		margin-right: 8px;
 
 		&.active {
 			display: block;
