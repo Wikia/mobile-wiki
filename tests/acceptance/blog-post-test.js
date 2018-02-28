@@ -16,7 +16,6 @@ module('Acceptance | Blog post page', (hooks) => {
 		await visit('/');
 		await visit('/wiki/User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM');
 
-		assert.ok(find('.wiki-page-header__title'), 'blog title is present');
 		assert.equal(
 			find('.wiki-page-header__title').textContent,
 			'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
