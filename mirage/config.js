@@ -1,4 +1,5 @@
 import filePageFixture from './fixtures/file-page';
+import blogPostPageFixture from './fixtures/blog-post';
 
 /**
  * @returns {void}
@@ -29,6 +30,10 @@ export default function () {
 			if (method === 'getPage' && title === 'File:Example.jpg') {
 				return filePageFixture;
 			}
+
+			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
+				return blogPostPageFixture;
+			}
 		}
 
 		if (controller === 'CuratedContent' && method === 'getData') {
@@ -48,6 +53,10 @@ export default function () {
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'File:Example.jpg') {
 				return filePageFixture;
+			}
+
+			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
+				return blogPostPageFixture;
 			}
 		}
 
