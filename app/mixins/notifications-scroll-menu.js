@@ -1,8 +1,9 @@
 import Mixin from '@ember/object/mixin';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 
-export default Mixin.create({
+export default Mixin.create(RespondsToScroll, {
 	classNames: ['notifications-scroll-menu'],
 	classNameBindings: ['isLoadingNewResults'],
 	almostBottom: 100,
@@ -12,7 +13,6 @@ export default Mixin.create({
 
 		this.set('scrollableElement', this.element.querySelector('.scrolling-part'));
 
-		this.onScrollHandler = this.onScroll.bind(this);
 		this.onMouseWheelHandler = this.onMouseWheel.bind(this);
 		this.listeners('addEventListener');
 	},
@@ -26,12 +26,11 @@ export default Mixin.create({
 	listeners(method) {
 		const scrollableElement = this.get('scrollableElement');
 
-		scrollableElement[method]('scroll', this.onScrollHandler);
 		scrollableElement[method]('DOMMouseScroll', this.onMouseWheelHandler);
 		scrollableElement[method]('mousewheel', this.onMouseWheelHandler);
 	},
 
-	onScroll({target}) {
+	scroll({target}) {
 		if (this.hasAlmostScrolledToTheBottom(target)) {
 			this.get('notifications').loadNextPage();
 		}

@@ -2,12 +2,10 @@ import {computed} from '@ember/object';
 import {oneWay, equal} from '@ember/object/computed';
 import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
 	CuratedContentThumbnailMixin,
-	ViewportMixin,
 	{
 		tagName: 'a',
 		attributeBindings: ['href'],

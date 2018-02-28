@@ -1,8 +1,7 @@
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | local storage adapter', () => {
+module('Unit | Utility | local storage conncetor', () => {
 	test('getItem/setItem works', (assert) => {
 		const localStorageAdapter = require('mobile-wiki/utils/local-storage-connector').localStorageAdapter;
 

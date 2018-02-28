@@ -1,6 +1,7 @@
 import {getOwner} from '@ember/application';
 import EmberObject from '@ember/object';
-import {moduleFor, test} from 'ember-qunit';
+import {module, test} from 'qunit';
+import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
 import require from 'require';
 import WikiPageHandlerMixin from 'mobile-wiki/mixins/wiki-page-handler';
@@ -18,17 +19,20 @@ let articleCreateStub,
 	fileSetDataStub,
 	isContentNamespaceStub;
 
-moduleFor('mixin:wiki-page-handler', 'Unit | Mixins | Wiki Page Handler', {
-	unit: true,
-	needs: [
-		'service:currentUser',
-		'service:fastboot',
-		'service:logger',
-		'service:wiki-variables',
-		'service:simple-store'
-	],
+module('Unit | Mixins | Wiki Page Handler', (hooks) => {
+	setupTest(hooks);
 
-	beforeEach() {
+	hooks.beforeEach(function () {
+		this.subject = function () {
+			const WikiPageHandlerObject = EmberObject.extend(WikiPageHandlerMixin);
+
+			this.owner.register('test-container:wiki-page-handler-object', WikiPageHandlerObject);
+
+			return this.owner.lookup('test-container:wiki-page-handler-object');
+		};
+	});
+
+	hooks.beforeEach(() => {
 		articleSetDataStub = sinon.stub();
 		articleCreateStub = sinon.stub(articleModel, 'create');
 		categorySetDataStub = sinon.stub();
@@ -36,127 +40,119 @@ moduleFor('mixin:wiki-page-handler', 'Unit | Mixins | Wiki Page Handler', {
 		fileSetDataStub = sinon.stub();
 		fileCreateStub = sinon.stub(fileModel, 'create');
 		isContentNamespaceStub = sinon.stub(mediawikiNamespace, 'isContentNamespace');
-	},
+	});
 
-	afterEach() {
+	hooks.afterEach(() => {
 		articleCreateStub.restore();
 		categoryCreateStub.restore();
 		fileCreateStub.restore();
 		isContentNamespaceStub.restore();
-	},
+	});
 
-	subject() {
-		const WikiPageHandlerObject = EmberObject.extend(WikiPageHandlerMixin);
+	test('getModelForNamespace - article', function (assert) {
+		const data = {
+				data: {
+					ns: 0
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = {
+				article: true,
+				setData: articleSetDataStub
+			};
 
-		this.register('test-container:wiki-page-handler-object', WikiPageHandlerObject);
+		articleCreateStub.returns(expected);
+		isContentNamespaceStub.returns(true);
 
-		return getOwner(this).lookup('test-container:wiki-page-handler-object');
-	}
-});
+		assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
+		assert.ok(articleCreateStub.called, 'model created');
+		assert.ok(articleSetDataStub.calledWith(data), 'model filled with data');
+	});
 
-test('getModelForNamespace - article', function (assert) {
-	const data = {
-			data: {
-				ns: 0
-			}
-		},
-		params = {
-			title: 'Test'
-		},
-		expected = {
-			article: true,
-			setData: articleSetDataStub
-		};
+	test('getModelForNamespace - main page in non-content namespace', function (assert) {
+		const data = {
+				data: {
+					ns: 999,
+					isMainPage: true
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = {
+				mainPage: true,
+				setData: articleSetDataStub
+			};
 
-	articleCreateStub.returns(expected);
-	isContentNamespaceStub.returns(true);
+		articleCreateStub.returns(expected);
+		isContentNamespaceStub.returns(true);
 
-	assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
-	assert.ok(articleCreateStub.called, 'model created');
-	assert.ok(articleSetDataStub.calledWith(data), 'model filled with data');
-});
+		assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
+		assert.ok(articleCreateStub.called, 'model created');
+		assert.ok(articleSetDataStub.calledWith(data), 'model filled with data');
+	});
 
-test('getModelForNamespace - main page in non-content namespace', function (assert) {
-	const data = {
-			data: {
-				ns: 999,
-				isMainPage: true
-			}
-		},
-		params = {
-			title: 'Test'
-		},
-		expected = {
-			mainPage: true,
-			setData: articleSetDataStub
-		};
+	test('getModelForNamespace - category', function (assert) {
+		const data = {
+				data: {
+					ns: 14
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = {
+				category: true,
+				setData: categorySetDataStub
+			};
 
-	articleCreateStub.returns(expected);
-	isContentNamespaceStub.returns(true);
+		categoryCreateStub.returns(expected);
+		isContentNamespaceStub.returns(false);
 
-	assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
-	assert.ok(articleCreateStub.called, 'model created');
-	assert.ok(articleSetDataStub.calledWith(data), 'model filled with data');
-});
+		assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
+		assert.ok(categoryCreateStub.called, 'model created');
+		assert.ok(categorySetDataStub.calledWith(data), 'model filled with data');
+	});
 
-test('getModelForNamespace - category', function (assert) {
-	const data = {
-			data: {
-				ns: 14
-			}
-		},
-		params = {
-			title: 'Test'
-		},
-		expected = {
-			category: true,
-			setData: categorySetDataStub
-		};
+	test('getModelForNamespace - file', function (assert) {
+		const data = {
+				data: {
+					ns: 6
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = {
+				file: true,
+				setData: fileSetDataStub
+			};
 
-	categoryCreateStub.returns(expected);
-	isContentNamespaceStub.returns(false);
+		fileCreateStub.returns(expected);
+		isContentNamespaceStub.returns(false);
 
-	assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
-	assert.ok(categoryCreateStub.called, 'model created');
-	assert.ok(categorySetDataStub.calledWith(data), 'model filled with data');
-});
+		assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
+		assert.ok(fileCreateStub.called, 'model created');
+		assert.ok(fileSetDataStub.calledWith(data), 'model filled with data');
+	});
 
-test('getModelForNamespace - file', function (assert) {
-	const data = {
-			data: {
-				ns: 6
-			}
-		},
-		params = {
-			title: 'Test'
-		},
-		expected = {
-			file: true,
-			setData: fileSetDataStub
-		};
+	test('getModelForNamespace - unsupported namespace', function (assert) {
+		const data = {
+				data: {
+					ns: 999
+				}
+			},
+			params = {
+				title: 'Test'
+			},
+			expected = EmberObject.create({
+				redirectTo: null
+			});
 
-	fileCreateStub.returns(expected);
-	isContentNamespaceStub.returns(false);
+		isContentNamespaceStub.returns(false);
 
-	assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'model returned');
-	assert.ok(fileCreateStub.called, 'model created');
-	assert.ok(fileSetDataStub.calledWith(data), 'model filled with data');
-});
-
-test('getModelForNamespace - unsupported namespace', function (assert) {
-	const data = {
-			data: {
-				ns: 999
-			}
-		},
-		params = {
-			title: 'Test'
-		},
-		expected = EmberObject.create({
-			redirectTo: null
-		});
-
-	isContentNamespaceStub.returns(false);
-
-	assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'empty Ember.Object returned');
+		assert.deepEqual(this.subject().getModelForNamespace(data, params), expected, 'empty Ember.Object returned');
+	});
 });

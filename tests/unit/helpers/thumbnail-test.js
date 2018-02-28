@@ -1,9 +1,8 @@
-import {test} from 'ember-qunit';
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import thumbnailHelper from 'mobile-wiki/helpers/thumbnail';
 import thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
-module('Unit | Helper | thumbnail', (hooks) => {
+module('Unit | helper | thumbnail', (hooks) => {
 	let originalThumbnailerGetThumbURL;
 
 	hooks.beforeEach(() => {
@@ -57,4 +56,5 @@ module('Unit | Helper | thumbnail', (hooks) => {
 		);
 	});
 
+}, () => {
 });

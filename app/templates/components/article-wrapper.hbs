@@ -58,6 +58,7 @@
 	}}
 </section>
 {{yield}}
+{{#if displayArticleWrapper}}
 <section class="article-footer">
 	{{wikia-users
 		users=model.topContributors
@@ -90,3 +91,4 @@
 		{{/collapsible-menu}}
 	{{/if}}
 </section>
+{{/if}}

@@ -1,6 +1,5 @@
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
 module('Unit | Utility | video loader', () => {
 	const VideoLoader = require('mobile-wiki/modules/video-loader').default;

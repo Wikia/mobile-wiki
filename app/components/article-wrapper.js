@@ -5,7 +5,6 @@ import Component from '@ember/component';
 import {computed} from '@ember/object';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
-import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 
@@ -21,13 +20,13 @@ import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
 export default Component.extend(
 	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
-	ViewportMixin,
 	{
 		currentUser: service(),
 		wikiVariables: service(),
 
 		classNames: ['article-wrapper'],
 		displayEmptyArticleInfo: true,
+		displayArticleWrapper: true,
 
 		/**
 		 * Checks if contribution component should be enabled
@@ -57,6 +56,7 @@ export default Component.extend(
 		 */
 		contributionEnabled: computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
+				this.get('displayArticleWrapper') &&
 				this.get('contributionEnabledForCommunity') &&
 				// @todo XW-1196: Enable article editing on blog, category and file pages
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.BLOG_ARTICLE &&
