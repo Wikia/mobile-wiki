@@ -154,7 +154,6 @@ class Ads {
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -182,7 +181,7 @@ class Ads {
 	}
 
 	/**
-	 * Dispatch adengine event
+	 * Dispatch AdEngine event
 	 *
 	 * @param {string} name
 	 * @param {Object} data
