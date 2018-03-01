@@ -24,6 +24,7 @@ export default Route.extend(
 		currentUser: service(),
 		fastboot: service(),
 		i18n: service(),
+		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
@@ -109,19 +110,20 @@ export default Route.extend(
 					 * lightboxVisible=false and then decide if we want to show it.
 					 */
 					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-						// TODO: fix it when lightbox is refactored
-						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-
 						if (!closeButtonDelay) {
 							closeButtonDelay = 0;
 						}
 
-						// this.send(actionName, 'ads', {contents}, closeButtonDelay);
+						if (lightboxVisible) {
+							this.get('lightbox').openLightbox('ads', {contents}, closeButtonDelay);
+						} else {
+							this.get('lightbox').createHiddenLightbox('ads', {contents}, closeButtonDelay);
+						}
 					};
 
 					// TODO: fix it when lightbox is refactored
 					adsModule.showLightbox = () => {
-						// this.send('showLightbox');
+						this.get('lightbox').showLightbox();
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
