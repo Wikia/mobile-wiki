@@ -45,7 +45,7 @@ export default Component.extend(RenderComponentMixin, {
 				footerExpanded: false
 			});
 
-			this.get('closeLightbox')();
+			// this.get('closeLightbox')();
 		},
 
 		/**

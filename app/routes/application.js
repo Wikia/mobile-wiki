@@ -116,12 +116,12 @@ export default Route.extend(
 							closeButtonDelay = 0;
 						}
 
-						this.send(actionName, 'ads', {contents}, closeButtonDelay);
+						// this.send(actionName, 'ads', {contents}, closeButtonDelay);
 					};
 
 					// TODO: fix it when lightbox is refactored
 					adsModule.showLightbox = () => {
-						this.send('showLightbox');
+						// this.send('showLightbox');
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
