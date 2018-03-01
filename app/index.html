@@ -24,6 +24,21 @@
 	})(window.M);
 </script>
 
+<script>
+	window.WebFontConfig = {
+		google: {
+			families: ['Rubik:300,400,400i,700,700i:cyrillic,hebrew,latin-ext']
+		}
+	};
+
+	(function(d) {
+		var wf = d.createElement('script'), s = d.scripts[0];
+		wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+		wf.async = true;
+		s.parentNode.insertBefore(wf, s);
+	})(document);
+</script>
+
 {{content-for 'instant-globals'}}
 <script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
