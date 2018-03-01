@@ -6,10 +6,14 @@ body {
 	background: $white;
 	color: $body-font-color;
 	cursor: auto;
-	font-family: 'Rubik', $wds-font-family;
+	font-family: $wds-font-family;
 	font-style: normal;
 	line-height: 150%;
 	overflow-y: scroll;
 	position: relative;
 	word-wrap: break-word;
+
+	&.rubik {
+		font-family: 'Rubik', $wds-font-family;
+	}
 }
