@@ -3,7 +3,7 @@ import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
-if (typeof Fastboot === 'undefined') {
+if (document) {
 	document.body.classList.add('rubik');
 }
 
