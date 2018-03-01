@@ -3,7 +3,7 @@ import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
-if (document) {
+if (window && window.document) {
 	document.body.classList.add('rubik');
 }
 
