@@ -109,6 +109,7 @@ export default Route.extend(
 					 * lightboxVisible=false and then decide if we want to show it.
 					 */
 					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+						// TODO: fix it when lightbox is refactored
 						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 						if (!closeButtonDelay) {
@@ -118,6 +119,7 @@ export default Route.extend(
 						this.send(actionName, 'ads', {contents}, closeButtonDelay);
 					};
 
+					// TODO: fix it when lightbox is refactored
 					adsModule.showLightbox = () => {
 						this.send('showLightbox');
 					};
@@ -197,15 +199,7 @@ export default Route.extend(
 				routerScroll.set('key', get(window, 'history.state.uuid'));
 				routerScroll.update();
 
-				// Because application controller needs wiki-page controller
-				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file');
-
-					if (!isEmpty(file)) {
-						controller.openLightboxForMedia(file);
-					}
-
 					const scrollPosition = routerScroll.get('position');
 					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
@@ -331,38 +325,6 @@ export default Route.extend(
 					.catch((err) => {
 						this.send('error', err);
 					});
-			},
-
-			// We need to proxy these actions because of the way Ember is bubbling them up through routes
-			// see http://emberjs.com/images/template-guide/action-bubbling.png
-			/**
-			 * @returns {void}
-			 */
-			handleLightbox() {
-				this.get('controller').send('handleLightbox');
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
-			 * @returns {void}
-			 */
-			createHiddenLightbox(lightboxType, lightboxModel) {
-				this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			showLightbox() {
-				this.get('controller').send('showLightbox');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			closeLightbox() {
-				this.get('controller').send('closeLightbox');
 			},
 
 			openNav() {

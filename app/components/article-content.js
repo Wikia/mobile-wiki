@@ -257,8 +257,7 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.get('displayTitle'),
-							openLightbox: this.get('openLightbox')
+							pageTitle: this.get('displayTitle')
 						},
 						element
 					})

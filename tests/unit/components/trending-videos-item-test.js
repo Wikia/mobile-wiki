@@ -40,26 +40,4 @@ module('Unit | Component | trending videos item', (hooks) => {
 
 		assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
 	});
-
-
-	test('handles openLightbox action properly', function (assert) {
-		const video = {
-				title: 'pretty video'
-			},
-			component = this.owner.factoryFor('component:trending-videos-item').create();
-
-		component.setProperties({
-			onClick(data) {
-				assert.deepEqual(data, {
-					media: {
-						media: video
-					},
-					mediaRef: 0
-				}, 'data is not correct');
-			},
-			video
-		});
-
-		component.click();
-	});
 });

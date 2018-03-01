@@ -48,18 +48,6 @@ export default Component.extend(
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
 		}),
 
-		click(event) {
-			// Don't open lightbox when image is linked by user or caption was clicked
-			if (!this.get('isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
-				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
-				// it can also be overriden when this component is rendered from a template instead of JS
-				// TODO: fix it
-				this.get('openLightbox')(this.get('ref'));
-
-				return false;
-			}
-		},
-
 		/**
 		 * @returns {{mode: string, height: number, width: number}}
 		 */
