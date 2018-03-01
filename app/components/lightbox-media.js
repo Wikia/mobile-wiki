@@ -3,8 +3,8 @@ import Component from '@ember/component';
 import {htmlSafe} from '@ember/string';
 import {isArray} from '@ember/array';
 import {observer, computed} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {normalizeToUnderscore} from '../utils/string';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
@@ -45,15 +45,10 @@ export default Component.extend(
 		setHeader() {},
 
 		/**
-		 * gets current media from model
-		 */
-		current: null, // TODO: figure out what to do with it
-
-		/**
 		 * gets current media or current media from gallery
 		 */
-		currentMedia: computed('current', 'isGallery', 'currentGalleryRef', function () {
-			const current = this.get('current');
+		currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
+			const current = this.get('model');
 
 			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 		}),

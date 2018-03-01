@@ -1,4 +1,5 @@
 import {or, equal} from '@ember/object/computed';
+import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
@@ -12,6 +13,8 @@ export default Component.extend(
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
 	{
+		lightbox: service(),
+
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
 		tagName: 'figure',
@@ -47,6 +50,26 @@ export default Component.extend(
 		showTitle: computed('type', function () {
 			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
 		}),
+
+		click(event) {
+			// Don't open lightbox when image is linked by user or caption was clicked
+			if (!this.get('isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
+				this.get('lightbox').openLightbox('media', {
+					fileUrl: this.get('fileUrl'),
+					height: this.get('height'),
+					href: this.get('href'),
+					isLinkedByUser: this.get('isLinkedByUser'),
+					mime: this.get('mime'),
+					title: this.get('title'),
+					type: this.get('type'),
+					url: this.get('url'),
+					user: this.get('user'),
+					width: this.get('width')
+				});
+
+				return false;
+			}
+		},
 
 		/**
 		 * @returns {{mode: string, height: number, width: number}}

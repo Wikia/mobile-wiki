@@ -29,6 +29,7 @@ export default Component.extend({
 	ads: service(),
 	currentUser: service(),
 	smartBanner: service(),
+	lightbox: service(),
 	logger: service(),
 	wikiVariables: service(),
 
@@ -152,6 +153,7 @@ export default Component.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match(`^${window.location.origin}/a/.*/comments$`)) {
+				this.get('lightbox.closeLightbox')();
 				this.get('handleLink', target)();
 			}
 		}
