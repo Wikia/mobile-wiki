@@ -25,15 +25,15 @@ export default Component.extend(
 		 */
 		itemContext: 'article',
 
-		hasFigcaption: or('caption', 'showTitle'),
+		hasFigcaption: or('model.caption', 'showTitle'),
 		isVideo: equal('type', 'video'),
 
-		isOgg: computed('mime', function () {
-			return this.get('mime') === 'application/ogg';
+		isOgg: computed('model.mime', function () {
+			return this.get('model.mime') === 'application/ogg';
 		}),
 
-		itemType: computed('itemContext', 'type', function () {
-			return `${this.get('itemContext')}-${this.get('type')}`;
+		itemType: computed('itemContext', 'model.type', function () {
+			return `${this.get('itemContext')}-${this.get('model.type')}`;
 		}),
 
 		viewportWidth: computed(() => {
@@ -43,29 +43,18 @@ export default Component.extend(
 		/**
 		 * Check if image width is smaller than article container
 		 */
-		isSmall: computed('width', 'height', function () {
-			return this.get('width') <= this.get('viewportWidth');
+		isSmall: computed('model.width', 'model.height', function () {
+			return this.get('model.width') <= this.get('viewportWidth');
 		}),
 
-		showTitle: computed('type', function () {
-			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
+		showTitle: computed('model.type', function () {
+			return (this.get('model.type') === 'video' || this.get('model.isOgg')) && this.get('model.title');
 		}),
 
 		click(event) {
 			// Don't open lightbox when image is linked by user or caption was clicked
-			if (!this.get('isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
-				this.get('lightbox').openLightbox('media', {
-					fileUrl: this.get('fileUrl'),
-					height: this.get('height'),
-					href: this.get('href'),
-					isLinkedByUser: this.get('isLinkedByUser'),
-					mime: this.get('mime'),
-					title: this.get('title'),
-					type: this.get('type'),
-					url: this.get('url'),
-					user: this.get('user'),
-					width: this.get('width')
-				});
+			if (!this.get('model.isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
+				this.get('lightbox').openLightbox('media', this.get('model'));
 
 				return false;
 			}
@@ -75,9 +64,9 @@ export default Component.extend(
 		 * @returns {{mode: string, height: number, width: number}}
 		 */
 		getThumbnailParams() {
-			const originalWidth = this.get('width'),
-				originalHeight = this.get('height'),
-				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
+			const originalWidth = this.get('model.width'),
+				originalHeight = this.get('model.height'),
+				mode = this.get('model.cropMode') || Thumbnailer.mode.thumbnailDown;
 
 			let height,
 				width;
@@ -87,8 +76,7 @@ export default Component.extend(
 				height = originalHeight;
 			} else {
 				width = this.get('forcedWidth') || normalizeThumbWidth(this.get('viewportWidth'));
-				height = this.get('forcedHeight') ||
-					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
+				height = this.get('forcedHeight') || this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
 
 			return {mode, height, width};
