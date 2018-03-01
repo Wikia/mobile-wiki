@@ -36,12 +36,6 @@
 		{{global-footer/global-footer model=globalFooter}}
 	{{/if}}
 {{/if}}
-{{lightbox-wrapper
-	type=lightboxType
-	model=lightboxModel
-	isVisible=lightboxVisible
-	lightboxCloseButtonDelay=lightboxCloseButtonDelay
-	setQueryParam=setQueryParam
-}}
+{{lightbox-wrapper}}
 {{alert-notifications alerts=alertNotifications}}
 {{wds-spinner active=isLoading}}

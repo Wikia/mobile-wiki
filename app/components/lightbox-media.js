@@ -42,7 +42,6 @@ export default Component.extend(
 		},
 
 		setFooter() {},
-		setQueryParam() {},
 		setHeader() {},
 
 		/**
@@ -183,8 +182,6 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
-
-			this.get('setQueryParam')('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

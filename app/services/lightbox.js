@@ -1,11 +1,13 @@
 import Service from '@ember/service';
+import NoScrollMixin from '../mixins/no-scroll';
+import {inject as controller} from '@ember/controller';
 
-export default Service.extend({
+export default Service.extend(NoScrollMixin, {
 	lightboxCloseButtonDelay: 0,
 	lightboxModel: null,
 	lightboxType: null,
 	lightboxVisible: false,
-	noScroll: false,
+	file: null,
 
 	/**
 	 * Sets controller properties that are passed to LightboxWrapperComponent.
@@ -17,6 +19,7 @@ export default Service.extend({
 	 * @returns {void}
 	 */
 	openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+		// todo: pass file
 		this.setProperties({
 			lightboxModel,
 			lightboxType,
@@ -49,7 +52,6 @@ export default Service.extend({
 			lightboxType: null,
 			lightboxVisible: false,
 			lightboxCloseButtonDelay: 0,
-			// TODO: is it needed at all?
 			file: null,
 			noScroll: false
 		});
