@@ -14,38 +14,38 @@ module('Unit | Component | site head', (hooks) => {
 				{
 					drawerVisible: true,
 					drawerContent: 'nav',
-					navIcon: 'close',
-					searchIcon: 'search'
+					navIcon: 'wds-icons-cross',
+					searchIcon: 'wds-icons-magnifying-glass'
 				},
 				{
 					drawerVisible: true,
 					drawerContent: 'search',
-					navIcon: 'nav',
-					searchIcon: 'close'
+					navIcon: 'wds-icons-menu',
+					searchIcon: 'wds-icons-cross'
 				},
 				{
 					drawerVisible: true,
 					drawerContent: null,
-					navIcon: 'nav',
-					searchIcon: 'search'
+					navIcon: 'wds-icons-menu',
+					searchIcon: 'wds-icons-magnifying-glass'
 				},
 				{
 					drawerVisible: false,
 					drawerContent: 'nav',
-					navIcon: 'nav',
-					searchIcon: 'search'
+					navIcon: 'wds-icons-menu',
+					searchIcon: 'wds-icons-magnifying-glass'
 				},
 				{
 					drawerVisible: false,
 					drawerContent: 'search',
-					navIcon: 'nav',
-					searchIcon: 'search'
+					navIcon: 'wds-icons-menu',
+					searchIcon: 'wds-icons-magnifying-glass'
 				},
 				{
 					drawerVisible: false,
 					drawerContent: null,
-					navIcon: 'nav',
-					searchIcon: 'search'
+					navIcon: 'wds-icons-menu',
+					searchIcon: 'wds-icons-magnifying-glass'
 				}
 			];
 

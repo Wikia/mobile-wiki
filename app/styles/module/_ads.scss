@@ -105,6 +105,7 @@ $closeButtonHeight: 40px;
 	z-index: $z-modal-dialog;
 
 	.close {
+		color: $wds-color-white;
 		cursor: pointer;
 	}
 
@@ -147,10 +148,6 @@ $closeButtonHeight: 40px;
 			width: $closeButtonHeight;
 			//This is needed to make sure that close button is always displayed above ad
 			z-index: $z-modal-dialog;
-
-			.close-button {
-				@extend %high-impact-close-icon;
-			}
 		}
 	}
 
@@ -189,10 +186,6 @@ $closeButtonHeight: 40px;
 
 		.close {
 			padding: 20px;
-
-			.close-button {
-				@extend %high-impact-close-icon;
-			}
 		}
 
 		.label {
