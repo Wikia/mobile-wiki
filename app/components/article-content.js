@@ -22,6 +22,7 @@ export default Component.extend(
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
+		lightbox: service(),
 		wikiVariables: service(),
 
 		tagName: 'article',
@@ -95,6 +96,8 @@ export default Component.extend(
 
 		click(event) {
 			const anchor = event.target.closest('a'),
+				figure = event.target.closest('figure'),
+				gallery = event.target.closest('.gallery'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
@@ -103,6 +106,20 @@ export default Component.extend(
 					category: 'article',
 					label
 				});
+			}
+
+			if (figure) {
+				let lightboxModel;
+
+				if (gallery) {
+					lightboxModel = JSON.parse(gallery.getAttribute('data-attrs'));
+				} else {
+					lightboxModel = JSON.parse(figure.getAttribute('data-attrs'));
+				}
+
+				this.get('lightbox').openLightbox('media', lightboxModel);
+
+				return false;
 			}
 		},
 

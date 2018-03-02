@@ -71,15 +71,15 @@ export default Component.extend(
 			},
 		}),
 
-		galleryLength: computed('isGallery', 'current', function () {
-			return this.get('isGallery') ? this.get('current').length : -1;
+		galleryLength: computed('isGallery', 'model', function () {
+			return this.get('isGallery') ? this.get('model').length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
-		isGallery: computed('current', function () {
-			return isArray(this.get('current'));
+		isGallery: computed('model', function () {
+			return isArray(this.get('model'));
 		}),
 
 		/**
