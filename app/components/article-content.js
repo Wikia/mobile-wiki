@@ -113,7 +113,7 @@ export default Component.extend(
 
 				if (gallery) {
 					lightboxModel = JSON.parse(gallery.getAttribute('data-attrs'));
-					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-gallery-ref'), 10);
+					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
 				} else {
 					lightboxModel = JSON.parse(figure.getAttribute('data-attrs'));
 				}
