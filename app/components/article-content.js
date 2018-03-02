@@ -401,11 +401,18 @@ export default Component.extend(
 					'li[id^="cite_note"] ' +
 					'a[href*="cite_ref"]'
 				),
-				citeNotesHeader = this.element.querySelectorAll('ol[class*="references"]')[0]
-					.closest('.mobile-hidden').previousElementSibling;
+				citeRefs = this.element.querySelectorAll('a[href*="cite_note"]'),
+				referencesList = this.element.querySelectorAll('ol[class*="references"]');
 
-			// If referenced section is closed, open it.
-			if (citeNotes.length) {
+			let citeNotesHeader = 0;
+
+			if (referencesList.length) {
+				citeNotesHeader = referencesList[0].closest('.mobile-hidden').previousElementSibling;
+			}
+
+			if (citeNotes.length && citeNotesHeader && citeRefs.length) {
+
+				// If referenced section is closed, open it.
 				citeNotes.forEach((element) => {
 					element.onclick = function () {
 						const currentCiteNote = document.getElementById(element.hash.slice(1, element.length));
@@ -419,19 +426,17 @@ export default Component.extend(
 						}
 					};
 				});
-			}
 
-			const citeRefs = this.element.querySelectorAll('a[href*="cite_note"]');
-
-			// If 'Notes and References' section is closed, open it.
-			if (citeRefs.length) {
-				citeRefs.forEach((element) => {
-					element.onclick = function () {
-						if (citeNotesHeader.className !== 'open-section') {
-							citeNotesHeader.click();
-						}
-					};
-				});
+				// If 'Notes and References' section is closed, open it.
+				if (citeRefs.length) {
+					citeRefs.forEach((element) => {
+						element.onclick = function () {
+							if (citeNotesHeader.className !== 'open-section') {
+								citeNotesHeader.click();
+							}
+						};
+					});
+				}
 			}
 		},
 
