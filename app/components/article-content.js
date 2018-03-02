@@ -60,7 +60,7 @@ export default Component.extend(
 
 					this.handleRefs();
 
-						this.renderDataComponents(this.element);
+					this.renderDataComponents(this.element);
 
 					this.loadIcons();
 					this.createContributionButtons();
@@ -365,7 +365,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleInfoboxes() {
-			debugger;
 			const shortClass = 'short',
 				infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody'),
 				body = window.document.body,
@@ -391,24 +390,48 @@ export default Component.extend(
 			}
 		},
 
+		/**
+		 * Handles opening sections when onclick event occurs on reference
+		 *
+		 * @returns {void}
+		 */
 		handleRefs() {
-			var references = this.element.querySelectorAll('ol[class*="references"] li[id^="cite_note"] sup a');
+			const citeNotes = this.element.querySelectorAll(
+					'ol[class*="references"] ' +
+					'li[id^="cite_note"] ' +
+					'a[href*="cite_ref"]'
+				),
+				citeNotesHeader = this.element.querySelectorAll('ol[class*="references"]')[0]
+					.closest('.mobile-hidden').previousElementSibling;
 
-			if(references.length) {
-				references.forEach((element) => {
-					element.onclick = function (event) {
-						debugger;
-						var header = document.getElementById(element.closest('.mobile-hidden').previousElementSibling.id);
+			// If referenced section is closed, open it.
+			if (citeNotes.length) {
+				citeNotes.forEach((element) => {
+					element.onclick = function () {
+						const currentCiteNote = document.getElementById(element.hash.slice(1, element.length));
+						const closest = currentCiteNote.closest('.mobile-hidden');
 
-						header.scrollIntoView();
-						header.click();
+						if (closest) {
+							let currentHeader = document.getElementById(closest.previousElementSibling.id);
+							if (currentHeader.className !== 'open-section') {
+								currentHeader.click();
+							}
+						}
 					};
 				});
+			}
 
+			const citeRefs = this.element.querySelectorAll('a[href*="cite_note"]');
 
-
-
-
+			// If 'Notes and References' section is closed, open it.
+			if (citeRefs.length) {
+				citeRefs.forEach((element) => {
+					element.onclick = function () {
+						if (citeNotesHeader.className !== 'open-section') {
+							citeNotesHeader.click();
+						}
+					};
+				});
 			}
 		},
 
