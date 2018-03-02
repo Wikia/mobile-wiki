@@ -4,7 +4,9 @@ import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
 if (window && window.document) {
-	document.body.classList.add('rubik');
+	document.fonts.ready.then(() => {
+		document.body.classList.add('rubik');
+	});
 }
 
 // to save kb we removed ember-cli-shims but in some places we still 'import Ember from 'ember'

@@ -2,6 +2,21 @@ html {
 	touch-action: manipulation;
 }
 
+html {
+	&::after {
+		font-family: 'Rubik', $wds-font-family;
+		content: '';
+		font-style: italic;
+	}
+
+	&::before {
+		font-family: 'Rubik', $wds-font-family;
+		content: '';
+		font-weight: bold;
+		font-style: italic;
+	}
+}
+
 body {
 	background: $white;
 	color: $body-font-color;
@@ -12,6 +27,17 @@ body {
 	overflow-y: scroll;
 	position: relative;
 	word-wrap: break-word;
+
+	&::after {
+		font-family: 'Rubik', $wds-font-family;
+		content: '';
+	}
+
+	&::before {
+		font-family: 'Rubik', $wds-font-family;
+		content: '';
+		font-weight: bold;
+	}
 
 	&.rubik {
 		font-family: 'Rubik', $wds-font-family;
