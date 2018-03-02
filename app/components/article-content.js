@@ -407,10 +407,13 @@ export default Component.extend(
 			let citeNotesHeader = 0;
 
 			if (referencesList.length) {
-				citeNotesHeader = referencesList[0].closest('.mobile-hidden').previousElementSibling;
+				const referencesListHead = referencesList[0].closest('.mobile-hidden');
+				if (referencesListHead) {
+					citeNotesHeader = referencesListHead.previousElementSibling;
+				}
 			}
 
-			if (citeNotes.length && citeNotesHeader && citeRefs.length) {
+			if (citeNotes.length && citeRefs.length) {
 
 				// If referenced section is closed, open it.
 				citeNotes.forEach((element) => {
@@ -428,7 +431,7 @@ export default Component.extend(
 				});
 
 				// If 'Notes and References' section is closed, open it.
-				if (citeRefs.length) {
+				if (citeRefs.length && citeNotesHeader) {
 					citeRefs.forEach((element) => {
 						element.onclick = function () {
 							if (citeNotesHeader.className !== 'open-section') {
