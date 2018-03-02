@@ -35,9 +35,5 @@ export default Component.extend(
 
 			return false;
 		},
-
-		init() {
-			this._super(...arguments);
-		}
 	}
 );
