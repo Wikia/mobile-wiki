@@ -4,6 +4,8 @@ import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
 if (window && window.document) {
+	document.body.classList.add('rubik-preload');
+
 	document.fonts.ready.then(() => {
 		document.body.classList.add('rubik');
 	});

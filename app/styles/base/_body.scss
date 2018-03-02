@@ -2,21 +2,6 @@ html {
 	touch-action: manipulation;
 }
 
-html {
-	&::after {
-		font-family: 'Rubik', $wds-font-family;
-		content: '';
-		font-style: italic;
-	}
-
-	&::before {
-		font-family: 'Rubik', $wds-font-family;
-		content: '';
-		font-weight: bold;
-		font-style: italic;
-	}
-}
-
 body {
 	background: $white;
 	color: $body-font-color;
@@ -28,18 +13,39 @@ body {
 	position: relative;
 	word-wrap: break-word;
 
-	&::after {
-		font-family: 'Rubik', $wds-font-family;
-		content: '';
-	}
-
-	&::before {
-		font-family: 'Rubik', $wds-font-family;
-		content: '';
-		font-weight: bold;
-	}
-
 	&.rubik {
 		font-family: 'Rubik', $wds-font-family;
+	}
+}
+
+.rubik-preload {
+	#rubik-font {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		span:nth-child(1) {
+			font-family: 'Rubik', $wds-font-family;
+			content: '';
+		}
+
+		span:nth-child(2) {
+			font-family: 'Rubik', $wds-font-family;
+			content: '';
+			font-weight: bold;
+		}
+
+		span:nth-child(3) {
+			font-family: 'Rubik', $wds-font-family;
+			content: '';
+			font-style: italic;
+		}
+
+		span:nth-child(4) {
+			font-family: 'Rubik', $wds-font-family;
+			content: '';
+			font-weight: bold;
+			font-style: italic;
+		}
 	}
 }
