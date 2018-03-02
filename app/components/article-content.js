@@ -58,7 +58,9 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
-					this.renderDataComponents(this.element);
+					this.handleRefs();
+
+						this.renderDataComponents(this.element);
 
 					this.loadIcons();
 					this.createContributionButtons();
@@ -363,6 +365,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleInfoboxes() {
+			debugger;
 			const shortClass = 'short',
 				infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody'),
 				body = window.document.body,
@@ -385,6 +388,27 @@ export default Component.extend(
 							}
 						});
 					});
+			}
+		},
+
+		handleRefs() {
+			var references = this.element.querySelectorAll('ol[class*="references"] li[id^="cite_note"] sup a');
+
+			if(references.length) {
+				references.forEach((element) => {
+					element.onclick = function (event) {
+						debugger;
+						var header = document.getElementById(element.closest('.mobile-hidden').previousElementSibling.id);
+
+						header.scrollIntoView();
+						header.click();
+					};
+				});
+
+
+
+
+
 			}
 		},
 
