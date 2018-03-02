@@ -7,7 +7,7 @@ import {setupRenderingTest} from 'ember-qunit';
 const icon = 'test-icon',
 	tagName = 'a',
 	defaultClassName = 'icon-button',
-	defaultSVGClassName = 'icon-button-icon',
+	defaultSVGClassName = 'wds-icon wds-icon-small',
 	svgSlector = 'svg',
 	svgUseSelector = `${svgSlector} use`,
 	defaultSize = 16,

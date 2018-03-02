@@ -31,11 +31,22 @@
 	}
 
 	.item-figure {
+		background-color: $wds-color-light-c4;
 		position: relative;
 	}
 
 	.item-image {
-		@extend %image-placeholder;
+		height: 0;
+		padding-bottom: 100%;
+		position: relative;
+
+		svg {
+			@extend %image-placeholder;
+		}
+
+		img {
+			position: relative;
+		}
 	}
 
 	.item-figcaption {
@@ -81,6 +92,7 @@
 				background: rgba(0, 0, 0, .4);
 				border-radius: 100px 0 0;
 				height: 50px;
+				position: relative;
 				text-align: center;
 				width: 50px;
 			}
@@ -107,7 +119,8 @@
 		font-style: italic;
 
 		svg {
-			margin-bottom: 3px;
+			margin: 0 3px 3px 0;
+			vertical-align: middle;
 		}
 	}
 

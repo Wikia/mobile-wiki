@@ -28,6 +28,11 @@ $border-bottom-height: 1px;
 
 	.wikia-search__clear {
 		width: $clear-icon-width;
+
+		svg {
+			fill: $wds-color-slate-gray;
+			transform: rotate(45deg);
+		}
 	}
 
 	&.wikia-search--focused {

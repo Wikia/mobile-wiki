@@ -11,7 +11,6 @@ export default Component.extend({
 	tagName: 'a',
 	classNames: ['trending-videos-item'],
 	attributeBindings: ['href'],
-	imageStyle: null,
 	video: null,
 	imageWidth: 250,
 	emptyGif: transparentImageBase64,
