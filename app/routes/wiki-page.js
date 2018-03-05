@@ -53,8 +53,6 @@ export default Route.extend(
 
 			const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
-			this.controllerFor('application').send('closeLightbox');
-
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
 			// This is caused by the transition below but doesn't mean any additional requests.
@@ -225,17 +223,7 @@ export default Route.extend(
 			 */
 			updateDynamicHeadTags() {
 				this.setDynamicHeadTags(this.get('controller.model'));
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
-			 * @param {number} [closeButtonDelay]
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
-				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
-			},
+			}
 		},
 
 		/**

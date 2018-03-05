@@ -3,8 +3,8 @@ import Component from '@ember/component';
 import {htmlSafe} from '@ember/string';
 import {isArray} from '@ember/array';
 import {observer, computed} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {normalizeToUnderscore} from '../utils/string';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
@@ -42,19 +42,13 @@ export default Component.extend(
 		},
 
 		setFooter() {},
-		setQueryParam() {},
 		setHeader() {},
-
-		/**
-		 * gets current media from model
-		 */
-		current: null, // TODO: figure out what to do with it
 
 		/**
 		 * gets current media or current media from gallery
 		 */
-		currentMedia: computed('current', 'isGallery', 'currentGalleryRef', function () {
-			const current = this.get('current');
+		currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
+			const current = this.get('model');
 
 			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 		}),
@@ -77,15 +71,15 @@ export default Component.extend(
 			},
 		}),
 
-		galleryLength: computed('isGallery', 'current', function () {
-			return this.get('isGallery') ? this.get('current').length : -1;
+		galleryLength: computed('isGallery', 'model', function () {
+			return this.get('isGallery') ? this.get('model').length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
-		isGallery: computed('current', function () {
-			return isArray(this.get('current'));
+		isGallery: computed('model', function () {
+			return isArray(this.get('model'));
 		}),
 
 		/**
@@ -183,8 +177,6 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
-
-			this.get('setQueryParam')('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

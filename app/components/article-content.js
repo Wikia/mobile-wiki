@@ -22,6 +22,7 @@ export default Component.extend(
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
+		lightbox: service(),
 		wikiVariables: service(),
 
 		tagName: 'article',
@@ -95,6 +96,8 @@ export default Component.extend(
 
 		click(event) {
 			const anchor = event.target.closest('a'),
+				figure = event.target.closest('figure'),
+				gallery = event.target.closest('.gallery'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
@@ -104,6 +107,34 @@ export default Component.extend(
 					label
 				});
 			}
+
+			if (figure) {
+				let lightboxModel;
+
+				if (gallery) {
+					lightboxModel = this.getLightboxModel(gallery);
+					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+				} else {
+					lightboxModel = this.getLightboxModel(figure);
+				}
+
+				this.get('lightbox').open('media', lightboxModel);
+
+				return false;
+			}
+		},
+
+		getLightboxModel(elem) {
+			let lightboxModel;
+
+			try {
+				lightboxModel = JSON.parse(elem.getAttribute('data-attrs'));
+			} catch (e) {
+				this.get('logger').error('error while loading media model', e);
+				lightboxModel = {};
+			}
+
+			return lightboxModel;
 		},
 
 		/**
@@ -257,8 +288,7 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.get('displayTitle'),
-							openLightbox: this.get('openLightbox')
+							pageTitle: this.get('displayTitle')
 						},
 						element
 					})

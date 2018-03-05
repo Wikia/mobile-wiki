@@ -1,4 +1,5 @@
 import {or, equal} from '@ember/object/computed';
+import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
@@ -12,6 +13,8 @@ export default Component.extend(
 	InViewportMixin,
 	MediaThumbnailUtilsMixin,
 	{
+		lightbox: service(),
+
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
 		tagName: 'figure',
@@ -22,15 +25,15 @@ export default Component.extend(
 		 */
 		itemContext: 'article',
 
-		hasFigcaption: or('caption', 'showTitle'),
+		hasFigcaption: or('model.caption', 'showTitle'),
 		isVideo: equal('type', 'video'),
 
-		isOgg: computed('mime', function () {
-			return this.get('mime') === 'application/ogg';
+		isOgg: computed('model.mime', function () {
+			return this.get('model.mime') === 'application/ogg';
 		}),
 
-		itemType: computed('itemContext', 'type', function () {
-			return `${this.get('itemContext')}-${this.get('type')}`;
+		itemType: computed('itemContext', 'model.type', function () {
+			return `${this.get('itemContext')}-${this.get('model.type')}`;
 		}),
 
 		viewportWidth: computed(() => {
@@ -40,21 +43,18 @@ export default Component.extend(
 		/**
 		 * Check if image width is smaller than article container
 		 */
-		isSmall: computed('width', 'height', function () {
-			return this.get('width') <= this.get('viewportWidth');
+		isSmall: computed('model.width', 'model.height', function () {
+			return this.get('model.width') <= this.get('viewportWidth');
 		}),
 
-		showTitle: computed('type', function () {
-			return (this.get('type') === 'video' || this.get('isOgg')) && this.get('title');
+		showTitle: computed('model.type', function () {
+			return (this.get('model.type') === 'video' || this.get('model.isOgg')) && this.get('model.title');
 		}),
 
 		click(event) {
 			// Don't open lightbox when image is linked by user or caption was clicked
-			if (!this.get('isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
-				// openLightbox is set in getAttributesForMedia() inside utils/article-media.js
-				// it can also be overriden when this component is rendered from a template instead of JS
-				// TODO: fix it
-				this.get('openLightbox')(this.get('ref'));
+			if (!this.get('model.isLinkedByUser') && !event.target.closest('figcaption') && !this.get('isOgg')) {
+				this.get('lightbox').open('media', this.get('model'));
 
 				return false;
 			}
@@ -64,9 +64,9 @@ export default Component.extend(
 		 * @returns {{mode: string, height: number, width: number}}
 		 */
 		getThumbnailParams() {
-			const originalWidth = this.get('width'),
-				originalHeight = this.get('height'),
-				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
+			const originalWidth = this.get('model.width'),
+				originalHeight = this.get('model.height'),
+				mode = this.get('model.cropMode') || Thumbnailer.mode.thumbnailDown;
 
 			let height,
 				width;
@@ -76,8 +76,7 @@ export default Component.extend(
 				height = originalHeight;
 			} else {
 				width = this.get('forcedWidth') || normalizeThumbWidth(this.get('viewportWidth'));
-				height = this.get('forcedHeight') ||
-					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
+				height = this.get('forcedHeight') || this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
 
 			return {mode, height, width};
