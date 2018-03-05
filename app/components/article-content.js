@@ -391,16 +391,15 @@ export default Component.extend(
 		},
 
 		/**
-		 * Handles opening sections when onclick event occurs on reference
+		 * Handles opening sections when click event occurs on reference
 		 *
 		 * @returns {void}
 		 */
 		handleReferences(event) {
 			if (event.target.closest('a[href^="#cite_ref-"]')) {
-
-				const element = event.target.closest('a[href^="#cite_ref-"]');
-				const currentCiteNote = document.getElementById(element.hash.slice(1, element.length));
-				const closest = currentCiteNote.closest('section[id*="section"]');
+				const element = event.target.closest('a[href^="#cite_ref-"]'),
+					currentCiteNote = document.getElementById(element.hash.slice(1, element.length)),
+					closest = currentCiteNote.closest('section[id*="section"]');
 
 				if (closest) {
 					let currentHeader = document.getElementById(closest.previousElementSibling.id);
