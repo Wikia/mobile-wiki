@@ -28,6 +28,12 @@
 	(function (M) {
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
+
+	document.body.classList.add('rubik-preload');
+
+	document.fonts.ready.then(() => {
+		document.body.classList.add('rubik');
+	});
 </script>
 
 {{content-for 'instant-globals'}}
