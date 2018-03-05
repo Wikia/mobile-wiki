@@ -31,7 +31,7 @@ export default Component.extend(
 		}),
 
 		click() {
-			this.get('lightbox').openLightbox('media', this.get('heroImage'));
+			this.get('lightbox').open('media', this.get('heroImage'));
 
 			return false;
 		},

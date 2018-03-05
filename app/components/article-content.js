@@ -128,7 +128,7 @@ export default Component.extend(
 					}
 				}
 
-				this.get('lightbox').openLightbox('media', lightboxModel);
+				this.get('lightbox').open('media', lightboxModel);
 
 				return false;
 			}

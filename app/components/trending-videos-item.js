@@ -48,7 +48,7 @@ export default Component.extend({
 			label: `open-item-${this.get('index')}`
 		});
 
-		this.get('lightbox').openLightbox('media', this.get('video'));
+		this.get('lightbox').open('media', this.get('video'));
 		return false;
 	},
 });

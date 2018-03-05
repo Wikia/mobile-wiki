@@ -3,11 +3,11 @@ import NoScrollMixin from '../mixins/no-scroll';
 import {inject as controller} from '@ember/controller';
 
 export default Service.extend(NoScrollMixin, {
-	lightboxCloseButtonDelay: 0,
-	lightboxModel: null,
-	lightboxType: null,
-	lightboxVisible: false,
+	closeButtonDelay: 0,
 	file: null,
+	isVisible: false,
+	lightboxType: null,
+	model: null,
 
 	/**
 	 * Sets controller properties that are passed to LightboxWrapperComponent.
@@ -18,13 +18,13 @@ export default Service.extend(NoScrollMixin, {
 	 * @param {number} [closeButtonDelay]
 	 * @returns {void}
 	 */
-	openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+	open(lightboxType, lightboxModel, closeButtonDelay) {
 		// todo: pass file
 		this.setProperties({
-			lightboxModel,
+			closeButtonDelay,
 			lightboxType,
-			lightboxVisible: true,
-			lightboxCloseButtonDelay: closeButtonDelay,
+			isVisible: true,
+			model: lightboxModel,
 			noScroll: true
 		});
 	},
@@ -34,9 +34,9 @@ export default Service.extend(NoScrollMixin, {
 	 *
 	 * @returns {void}
 	 */
-	showLightbox() {
+	show() {
 		this.setProperties({
-			lightboxVisible: true,
+			isVisible: true,
 			noScroll: true
 		});
 	},
@@ -46,13 +46,13 @@ export default Service.extend(NoScrollMixin, {
 	 *
 	 * @returns {void}
 	 */
-	closeLightbox() {
+	close() {
 		this.setProperties({
-			lightboxModel: null,
-			lightboxType: null,
-			lightboxVisible: false,
-			lightboxCloseButtonDelay: 0,
+			closeButtonDelay: 0,
 			file: null,
+			isVisible: false,
+			lightboxType: null,
+			model: null,
 			noScroll: false
 		});
 	},
@@ -66,12 +66,12 @@ export default Service.extend(NoScrollMixin, {
 	 * @param {number} [closeButtonDelay]
 	 * @returns {void}
 	 */
-	createHiddenLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+	createHidden(lightboxType, lightboxModel, closeButtonDelay) {
 		this.setProperties({
-			lightboxModel,
+			closeButtonDelay,
+			isVisible: false,
 			lightboxType,
-			lightboxVisible: false,
-			lightboxCloseButtonDelay: closeButtonDelay,
+			model: lightboxModel,
 			noScroll: false
 		});
 	},

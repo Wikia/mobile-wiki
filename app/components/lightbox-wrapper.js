@@ -20,10 +20,10 @@ export default Component.extend(RenderComponentMixin, {
 	footer: null,
 	closeButtonHidden: false,
 
-	isVisible: alias('lightbox.lightboxVisible'),
-	lightboxCloseButtonDelay: alias('lightbox.lightboxCloseButtonDelay'),
+	isVisible: alias('lightbox.isVisible'),
+	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
 	type: alias('lightbox.lightboxType'),
-	model: alias('lightbox.lightboxModel'),
+	model: alias('lightbox.model'),
 
 	closeAllowed: not('closeButtonHidden'),
 
@@ -48,7 +48,7 @@ export default Component.extend(RenderComponentMixin, {
 				footerExpanded: false
 			});
 
-			this.get('lightbox').closeLightbox();
+			this.get('lightbox').close();
 		},
 
 		/**

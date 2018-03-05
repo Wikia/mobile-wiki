@@ -115,15 +115,15 @@ export default Route.extend(
 						}
 
 						if (lightboxVisible) {
-							this.get('lightbox').openLightbox('ads', {contents}, closeButtonDelay);
+							this.get('lightbox').open('ads', {contents}, closeButtonDelay);
 						} else {
-							this.get('lightbox').createHiddenLightbox('ads', {contents}, closeButtonDelay);
+							this.get('lightbox').createHidden('ads', {contents}, closeButtonDelay);
 						}
 					};
 
 					// TODO: fix it when lightbox is refactored
 					adsModule.showLightbox = () => {
-						this.get('lightbox').showLightbox();
+						this.get('lightbox').show();
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
