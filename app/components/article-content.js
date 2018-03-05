@@ -58,8 +58,6 @@ export default Component.extend(
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
 
-					this.handleRefs();
-
 					this.renderDataComponents(this.element);
 
 					this.loadIcons();
@@ -97,9 +95,10 @@ export default Component.extend(
 		},
 
 		click(event) {
+			this.handleReferences(event);
+
 			const anchor = event.target.closest('a'),
 				label = this.getTrackingEventLabel(anchor);
-
 			if (label) {
 				track({
 					action: trackActions.click,
@@ -395,50 +394,28 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		handleRefs() {
-			const citeNotes = this.element.querySelectorAll(
-					'ol[class*="references"] ' +
-					'li[id^="cite_note"] ' +
-					'a[href*="cite_ref"]'
-				),
-				citeRefs = this.element.querySelectorAll('a[href*="cite_note"]'),
-				referencesList = this.element.querySelectorAll('ol[class*="references"]');
+		handleReferences(event) {
+			if (event.target.closest('a[href^="#cite_ref-"]')) {
 
-			let citeNotesHeader = 0;
+				const element = event.target.closest('a[href^="#cite_ref-"]');
+				const currentCiteNote = document.getElementById(element.hash.slice(1, element.length));
+				const closest = currentCiteNote.closest('section[id*="section"]');
 
-			if (referencesList.length) {
-				const referencesListHead = referencesList[0].closest('.mobile-hidden');
-				if (referencesListHead) {
-					citeNotesHeader = referencesListHead.previousElementSibling;
+				if (closest) {
+					let currentHeader = document.getElementById(closest.previousElementSibling.id);
+					if (currentHeader.className !== 'open-section') {
+						currentHeader.classList.add('open-section');
+					}
 				}
 			}
 
-			if (citeNotes.length && citeRefs.length) {
-
-				// If referenced section is closed, open it.
-				citeNotes.forEach((element) => {
-					element.onclick = function () {
-						const currentCiteNote = document.getElementById(element.hash.slice(1, element.length));
-						const closest = currentCiteNote.closest('.mobile-hidden');
-
-						if (closest) {
-							let currentHeader = document.getElementById(closest.previousElementSibling.id);
-							if (currentHeader.className !== 'open-section') {
-								currentHeader.click();
-							}
-						}
-					};
-				});
-
-				// If 'Notes and References' section is closed, open it.
-				if (citeRefs.length && citeNotesHeader) {
-					citeRefs.forEach((element) => {
-						element.onclick = function () {
-							if (citeNotesHeader.className !== 'open-section') {
-								citeNotesHeader.click();
-							}
-						};
-					});
+			if (event.target.closest('.reference a[href^="#cite_note-"]')) {
+				let header = this.element.querySelectorAll('ol.references');
+				if (header) {
+					header = header[0].closest('section[id*="section"]').previousElementSibling;
+					if (header.className !== 'open-section') {
+						header.classList.add('open-section');
+					}
 				}
 			}
 		},
