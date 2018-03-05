@@ -99,6 +99,7 @@ export default Component.extend(
 
 			const anchor = event.target.closest('a'),
 				label = this.getTrackingEventLabel(anchor);
+
 			if (label) {
 				track({
 					action: trackActions.click,
