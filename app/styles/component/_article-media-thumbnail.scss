@@ -60,6 +60,20 @@
 		top: calc(50% - 36px);
 		width: 100%;
 	}
+
+	a {
+		position: relative;
+	}
+
+	.video-icon-container {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
 }
 
 .article-media-placeholder {
