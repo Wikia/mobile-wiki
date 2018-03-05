@@ -11,6 +11,7 @@
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+{{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'fastboot-inline-scripts'}}
@@ -19,7 +20,6 @@
 
 <script>
 	(function (M) {
-		M.loadDOMResource('/mobile-wiki/assets/main.svg');
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
 </script>

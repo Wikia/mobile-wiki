@@ -3,7 +3,9 @@
 }
 
 .collapsible-menu .title,
-.show-comments-btn {
+.show-comments-btn,
+.portable-infobox,
+.open-section {
 	&:not(.collapsed) .chevron {
 		transform: scaleY(-1);
 	}
