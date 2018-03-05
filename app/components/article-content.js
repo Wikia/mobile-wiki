@@ -404,7 +404,7 @@ export default Component.extend(
 
 				if (closest) {
 					let currentHeader = document.getElementById(closest.previousElementSibling.id);
-					if (currentHeader.className !== 'open-section') {
+					if (!currentHeader.classList.contains('open-section')) {
 						currentHeader.classList.add('open-section');
 					}
 				}
@@ -414,7 +414,7 @@ export default Component.extend(
 				let header = this.element.querySelectorAll('ol.references');
 				if (header) {
 					header = header[0].closest('section[id*="section"]').previousElementSibling;
-					if (header.className !== 'open-section') {
+					if (!header.classList.contains('open-section')) {
 						header.classList.add('open-section');
 					}
 				}
