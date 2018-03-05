@@ -112,10 +112,20 @@ export default Component.extend(
 				let lightboxModel;
 
 				if (gallery) {
-					lightboxModel = JSON.parse(gallery.getAttribute('data-attrs'));
-					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+					try {
+						lightboxModel = JSON.parse(gallery.getAttribute('data-attrs'));
+						lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+					} catch (e) {
+						this.get('logger').error('error while loading gallery model', e);
+						lightboxModel = {};
+					}
 				} else {
-					lightboxModel = JSON.parse(figure.getAttribute('data-attrs'));
+					try {
+						lightboxModel = JSON.parse(figure.getAttribute('data-attrs'));
+					} catch (e) {
+						this.get('logger').error('error while loading media model', e);
+						lightboxModel = {};
+					}
 				}
 
 				this.get('lightbox').openLightbox('media', lightboxModel);
