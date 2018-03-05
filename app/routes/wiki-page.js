@@ -149,7 +149,7 @@ export default Route.extend(
 				}
 			} else {
 				this.get('logger').warn('Unsupported page');
-				logEvent('Model is missing (unsupported page)', {});
+				logEvent('Model is missing (unsupported page)');
 			}
 		},
 

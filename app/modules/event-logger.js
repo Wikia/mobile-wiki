@@ -3,7 +3,7 @@ import fetch from 'fetch';
 
 const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}/error`;
 
-export default function logEvent(name, description) {
+export default function logEvent(name, description = {}) {
 	if (config.environment === 'production') {
 		fetch(url, {
 			method: 'POST',
