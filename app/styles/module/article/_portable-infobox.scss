@@ -121,14 +121,14 @@ $group-header-font-size: 16px;
 	}
 
 	.pi-item {
+		@extend %position-play-icon;
+
 		display: inline-block;
 		margin-right: 8px;
 
 		&.active {
 			display: block;
 		}
-
-		@extend %position-play-icon;
 	}
 
 	.article-video::before {

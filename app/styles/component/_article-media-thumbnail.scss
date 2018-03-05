@@ -1,4 +1,6 @@
 .article-media-thumbnail {
+	@extend %position-play-icon;
+
 	margin: 40px 0;
 	text-align: center;
 
@@ -60,8 +62,6 @@
 		top: calc(50% - 36px);
 		width: 100%;
 	}
-
-	@extend %position-play-icon;
 }
 
 .article-media-placeholder {
