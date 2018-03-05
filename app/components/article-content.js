@@ -112,10 +112,10 @@ export default Component.extend(
 				let lightboxModel;
 
 				if (gallery) {
-					lightboxModel = this.getLlightboxModel(gallery);
+					lightboxModel = this.getLightboxModel(gallery);
 					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
 				} else {
-					lightboxModel = this.getLlightboxModel(figure);
+					lightboxModel = this.getLightboxModel(figure);
 				}
 
 				this.get('lightbox').open('media', lightboxModel);
@@ -124,7 +124,7 @@ export default Component.extend(
 			}
 		},
 
-		getLlightboxModel(elem) {
+		getLightboxModel(elem) {
 			let lightboxModel;
 
 			try {
