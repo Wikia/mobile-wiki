@@ -36,7 +36,7 @@ export default class JWPlayerVideoAds {
 			responseTimeout
 		);
 
-		// TODO: remove when new implementation of waitForResponse() will be deployed
+		// TODO ADEN-6812: remove when new implementation of waitForResponse() will be deployed
 		if (typeof result === 'object') {
 			result.then(() => a9.getSlotParams('FEATURED'))
 				.catch((error) => onError({}, error));
