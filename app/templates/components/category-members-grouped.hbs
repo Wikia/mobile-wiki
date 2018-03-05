@@ -17,6 +17,9 @@
 		<ul class="category-members-grouped__list wds-has-big-items wds-list mw-content" onclick={{action 'trackClick' 'category-page' 'open-link'}}>
 			{{#each members as |category|}}
 				<li class="{{if category.isCategory 'category-members-grouped__subcategory'}}">
+					{{#if category.isCategory}}
+						{{svg 'wds-icons-pages-small' class='wds-icon wds-icon-small'}}
+					{{/if}}
 					<a href="{{category.url}}">{{category.title}}</a>
 				</li>
 			{{/each}}

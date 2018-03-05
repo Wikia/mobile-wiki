@@ -2,36 +2,52 @@
 .featured-content {
 	$featured-content-caption-line-height: 32px;
 
+	height: 56.25vw;
 	margin-bottom: $featured-content-margin-bottom;
 	position: relative;
 	width: 100%;
 
-	.chevron {
-		fill: $white;
+	> .wds-icon {
+		fill: $wds-color-white;
 		height: 100%;
 		position: absolute;
 		stroke: rgba(0, 0, 0, .5);
 		stroke-width: .25;
 		top: 0;
+		z-index: $z-1;
 
-		&-left {
+		&.left {
 			left: 0;
-			transform: scaleX(-1);
+			transform: rotate(90deg);
 		}
 
-		&-right {
+		&.right {
 			right: 0;
+			transform: rotate(-90deg);
 		}
 	}
 
 	&-item {
 		display: block;
+		height: 100%;
 		background: {
 			color: rgb(223, 223, 223);
-			image: $brackets-svg-image;
 			position: center;
 			repeat: no-repeat;
 			size: contain;
+		}
+
+		img {
+			position: relative;
+		}
+
+		svg {
+			color: $wds-color-white;
+			height: 50%;
+			left: 25%;
+			position: absolute;
+			top: 25%;
+			width: 50%;
 		}
 
 		.clamp {
@@ -47,7 +63,7 @@
 		figcaption {
 			background: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(255, 255, 255, 0));
 			bottom: 0;
-			color: $white;
+			color: $wds-color-white;
 			font-size: 28px;
 			height: 120px;
 			line-height: $featured-content-caption-line-height;
@@ -60,12 +76,29 @@
 	&-pagination {
 		bottom: 15px;
 		left: 50%;
+		list-style: none;
+		margin: 0;
+		padding: 0;
 		position: absolute;
 		transform: translate(-50%, 0);
 
-		&.dot-pagination .current span {
-			background-color: $white;
-			border-color: $white;
+		li {
+			cursor: pointer;
+			float: left;
+			padding: 5px;
+
+			> * {
+				border: 1px solid $wds-color-light-c4;
+				border-radius: 4px;
+				display: block;
+				height: 9px;
+				width: 9px;
+			}
+
+			&.current > * {
+				background-color: $wds-color-white;
+				border: 1px solid $wds-color-white;
+			}
 		}
 	}
 }

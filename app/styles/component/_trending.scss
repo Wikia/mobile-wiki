@@ -13,9 +13,18 @@
 	}
 
 	.item-image {
-		@extend %image-placeholder;
+		background-color: $wds-color-light-c4;
+		padding-top: 56.25%;
+		position: relative;
 
-		line-height: 1.25rem;
+		svg {
+			@extend %image-placeholder;
+		}
+
+		img {
+			position: absolute;
+			top: 0;
+		}
 	}
 
 	.item-figcaption {

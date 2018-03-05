@@ -9,21 +9,22 @@
 					{{/if}}
 					<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
 				</figure>
-				{{currentUser.name}}
-				{{svg 'wds-icons-menu-control' viewBox='0 0 24 24' class='icon wds-menu-chevron'}}
+				<span>{{currentUser.name}}</span>
+				{{svg 'wds-icons-menu-control-small' class='wds-icon wds-menu-chevron wds-icon-small'}}
 			</a>
 		</div>
 	{{else}}
 		<a class="wikia-nav__header" role="link" {{action 'goToLogin'}}>
 			<figure class="wikia-nav__avatar">
-				{{svg 'avatar' class='wikia-nav--login'}}
+				{{svg 'wds-avatar-icon' class='wds-icon'}}
 			</figure>
 			{{i18n 'user-status.login-text'}} | {{i18n 'user-status.register-text'}}
 		</a>
 	{{/if}}
 {{else}}
 	<a class="wikia-nav__header wikia-nav__back" {{action 'goBack'}} href="#">
-		{{model.header}}
+		{{svg 'wds-icons-arrow' class='wds-icon'}}
+		<span>{{model.header}}</span>
 	</a>
 {{/if}}
 
