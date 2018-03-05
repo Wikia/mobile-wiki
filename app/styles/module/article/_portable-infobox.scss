@@ -128,19 +128,7 @@ $group-header-font-size: 16px;
 			display: block;
 		}
 
-		a {
-			position: relative;
-		}
-
-		.video-icon-container {
-			align-items: center;
-			display: flex;
-			height: 100%;
-			justify-content: center;
-			position: absolute;
-			top: 0;
-			width: 100%;
-		}
+		@extend %position-play-icon;
 	}
 
 	.article-video::before {
