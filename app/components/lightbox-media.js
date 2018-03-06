@@ -6,11 +6,13 @@ import {observer, computed} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import RenderComponentMixin from '../mixins/render-component';
+import {normalizeToUnderscore} from '../utils/string';
 
 export default Component.extend(
 	RenderComponentMixin,
 	ThirdsClickMixin,
 	{
+		lightbox: service(),
 		logger: service(),
 
 		classNames: ['lightbox-media', 'lightbox-content-inner'],
@@ -177,6 +179,7 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
+			this.get('lightbox').set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

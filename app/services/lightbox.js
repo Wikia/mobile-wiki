@@ -19,7 +19,6 @@ export default Service.extend(NoScrollMixin, {
 	 * @returns {void}
 	 */
 	open(lightboxType, lightboxModel, closeButtonDelay) {
-		// todo: pass file
 		this.setProperties({
 			closeButtonDelay,
 			lightboxType,
@@ -74,5 +73,5 @@ export default Service.extend(NoScrollMixin, {
 			model: lightboxModel,
 			noScroll: false
 		});
-	},
+	}
 });

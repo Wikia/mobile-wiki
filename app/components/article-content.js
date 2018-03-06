@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
-import {isBlank} from '@ember/utils';
+import {isBlank, isEmpty} from '@ember/utils';
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
@@ -78,6 +78,8 @@ export default Component.extend(
 						this.injectAds();
 					});
 				}
+
+				this.openLightboxIfNeeded();
 			});
 		})),
 
@@ -94,10 +96,21 @@ export default Component.extend(
 			this.destroyChildComponents();
 		},
 
+		openLightboxIfNeeded() {
+			const file = this.get('lightbox.file');
+
+			if (!isEmpty(file)) {
+				const figure = this.element.querySelector(`[data-file="${file}"]`);
+
+				if (figure) {
+					this.openLightbox(figure);
+				}
+			}
+		},
+
 		click(event) {
 			const anchor = event.target.closest('a'),
 				figure = event.target.closest('figure'),
-				gallery = event.target.closest('.gallery'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
@@ -109,19 +122,25 @@ export default Component.extend(
 			}
 
 			if (figure) {
-				let lightboxModel;
-
-				if (gallery) {
-					lightboxModel = this.getLightboxModel(gallery);
-					lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
-				} else {
-					lightboxModel = this.getLightboxModel(figure);
-				}
-
-				this.get('lightbox').open('media', lightboxModel);
+				this.openLightbox(figure);
 
 				return false;
 			}
+		},
+
+		openLightbox(figure) {
+			const gallery = figure.closest('.gallery');
+
+			let lightboxModel;
+
+			if (gallery) {
+				lightboxModel = this.getLightboxModel(gallery);
+				lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+			} else {
+				lightboxModel = this.getLightboxModel(figure);
+			}
+
+			this.get('lightbox').open('media', lightboxModel);
 		},
 
 		getLightboxModel(elem) {
