@@ -43,7 +43,7 @@ export default Component.extend(
 		/**
 		 * Check if image width is smaller than article container
 		 */
-		isSmall: computed('model.width', 'model.height', function () {
+		isSmall: computed('model.{width,height}', function () {
 			return this.get('model.width') <= this.get('viewportWidth');
 		}),
 
