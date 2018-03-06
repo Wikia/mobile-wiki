@@ -121,6 +121,8 @@ $group-header-font-size: 16px;
 	}
 
 	.pi-item {
+		@extend %position-play-icon;
+
 		display: inline-block;
 		margin-right: 8px;
 
