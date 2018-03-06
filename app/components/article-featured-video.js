@@ -11,6 +11,7 @@ import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
+import {run} from '@ember/runloop';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
@@ -25,6 +26,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	isOnScrollClosed: false,
 	bodyOnScrollActiveClass: 'featured-video-on-scroll-active',
 	onScrollVideoWrapper: null,
+	wasCloseButtonClicked: false,
 
 	initialVideoDetails: readOnly('model.embed.jsParams.playlist.0'),
 	currentVideoDetails: oneWay('initialVideoDetails'),
@@ -51,6 +53,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		this._super(...arguments);
 
 		this.set('videoContainerId', `jwplayer-article-video-${new Date().getTime()}`);
+
+		this.onTouchStart = this.onTouchStart.bind(this);
+		this.onTouchEnd = this.onTouchEnd.bind(this);
 	},
 
 	didInsertElement() {
@@ -64,6 +69,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		}
 
 		this.set('onScrollVideoWrapper', this.element.querySelector('.article-featured-video__on-scroll-video-wrapper'));
+		this.set('scrollCloseButton', this.element.querySelector('.article-featured-video__close-button'));
 
 		this.setPlaceholderDimensions();
 		window.addEventListener('orientationchange', () => {
@@ -72,6 +78,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			}
 		});
 		document.body.classList.add(this.get('bodyOnScrollActiveClass'));
+
+		// XW-4737 | This is how we detects clicks on onscroll close button
+		// We cannot do it directly on the close button, as Ads sometimes intercept the events
+		window.addEventListener('touchstart', this.onTouchStart, true);
+		window.addEventListener('touchend', this.onTouchEnd);
 	},
 
 	didUpdateAttrs() {
@@ -81,6 +92,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 	willDestroyElement() {
 		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
+
+		window.removeEventListener('touchstart', this.onTouchStart, true);
+		window.removeEventListener('touchend', this.onTouchEnd);
 	},
 
 	actions: {
@@ -97,6 +111,41 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			// remove a scroll handler now
 			window.removeEventListener('scroll', this.scrollHandler);
 		}
+	},
+
+
+	onTouchStart(evt) {
+		if (!this.get('isOnScrollActive')) {
+			return;
+		}
+
+		const close = this.get('scrollCloseButton');
+		const bounds = close.getBoundingClientRect();
+		const eventX = evt.targetTouches[0].pageX;
+		const eventY = evt.targetTouches[0].pageY;
+		const distanceFromTheTopOfTheViewport = bounds.top + window.scrollY;
+
+		if (
+			close &&
+			eventX > bounds.left &&
+			eventX < bounds.right &&
+			eventY > distanceFromTheTopOfTheViewport &&
+			eventY < distanceFromTheTopOfTheViewport + close.offsetHeight
+		) {
+			this.set('wasCloseButtonClicked', true);
+			evt.stopPropagation();
+			this.send('dismissPlayer');
+		}
+	},
+
+	onTouchEnd(evt) {
+		if (this.get('wasCloseButtonClicked')) {
+			evt.preventDefault();
+			evt.stopPropagation();
+
+			this.set('wasCloseButtonClicked', false);
+		}
+
 	},
 
 	/**
