@@ -179,7 +179,7 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
-			this.get('lightbox').setQueryParam(normalizeToUnderscore(this.get('currentMedia.title')));
+			this.get('lightbox').set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

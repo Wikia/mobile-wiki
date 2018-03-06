@@ -73,9 +73,5 @@ export default Service.extend(NoScrollMixin, {
 			model: lightboxModel,
 			noScroll: false
 		});
-	},
-
-	setQueryParam(value) {
-		this.set('file', value);
 	}
 });
