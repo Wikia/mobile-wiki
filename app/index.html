@@ -12,10 +12,9 @@
 </head>
 <body class="mobile-wiki">
 <div id="rubik-font">
-	<span></span>
-	<span></span>
-	<span></span>
-	<span></span>
+	<b><i></i></b>
+	<b></b>
+	<i></i>
 </div>
 {{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
@@ -31,7 +30,7 @@
 
 	document.body.classList.add('rubik-preload');
 
-	document.fonts.ready.then(function () {
+	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
 		document.body.classList.add('rubik');
 	});
 </script>
