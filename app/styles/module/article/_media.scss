@@ -7,6 +7,17 @@ img {
 	-ms-interpolation-mode: bicubic;
 	max-width: 100%;
 	vertical-align: middle;
+
+	&.lazyloading {
+		@include is-loading;
+	}
+
+	&.lazyloaded {
+		animation: lazyImage .3s;
+		background: none;
+		height: auto;
+		width: auto;
+	}
 }
 
 .media-component {
