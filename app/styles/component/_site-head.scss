@@ -113,19 +113,15 @@ body:not(.no-scroll) {
 	.site-head-icon {
 		position: relative;
 
-		.icon-button-icon {
-			fill: $color-blue-dark;
+		svg {
+			fill: $wds-color-dark-blue;
+			height: 24px;
+			width: 24px;
 		}
 
 		&-search,
 		&-nav {
 			flex: 0 0 48px;
-		}
-
-		&:hover {
-			.icon-button-icon {
-				fill: $color-blue-dark;
-			}
 		}
 	}
 

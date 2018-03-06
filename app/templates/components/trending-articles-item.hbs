@@ -1,9 +1,10 @@
 <figure>
-	<div class="item-image" style={{imageStyle}}>
+	<div class="item-image">
+		{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 		{{#if currentlyRenderedImageUrl}}
 			<img src="{{currentlyRenderedImageUrl}}" alt="{{title}}">
 		{{else}}
-			<img src="{{emptyGif}}" alt="{{title}}" style="width: 56%">
+			<img src="{{emptyGif}}" alt="{{title}}" style="width: 56.25%">
 		{{/if}}
 	</div>
 	<figcaption class="item-figcaption">{{title}}</figcaption>

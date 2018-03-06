@@ -4,10 +4,14 @@
 <link rel="stylesheet" href="/mobile-wiki/assets/app.css">
 <script src="/mobile-wiki/assets/vendor.js" defer></script>
 <script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
+<script>
+	window.M = {};
+</script>
 {{content-for 'head'}}
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+{{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'fastboot-inline-scripts'}}
@@ -16,7 +20,6 @@
 
 <script>
 	(function (M) {
-		M.loadDOMResource('/mobile-wiki/assets/main.svg');
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
 </script>
