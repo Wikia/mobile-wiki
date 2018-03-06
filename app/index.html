@@ -27,9 +27,7 @@
 	(function (M) {
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
-
-	document.body.classList.add('rubik-preload');
-
+	
 	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
 		document.body.classList.add('rubik');
 	});
