@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
-import {isBlank} from '@ember/utils';
+import {isBlank, isEmpty} from '@ember/utils';
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
@@ -78,6 +78,8 @@ export default Component.extend(
 						this.injectAds();
 					});
 				}
+
+				this.openLightboxIfNeeded();
 			});
 		})),
 
@@ -92,6 +94,20 @@ export default Component.extend(
 			this._super(...arguments);
 
 			this.destroyChildComponents();
+		},
+
+		openLightboxIfNeeded() {
+			const file = this.get('lightbox.file');
+
+			if (!isEmpty(file)) {
+				const el = this.element.querySelector(`[data-file="${file}"]`);
+
+				if (el) {
+					const lightboxModel = this.getLightboxModel(el);
+
+					this.get('lightbox').open('media', lightboxModel);
+				}
+			}
 		},
 
 		click(event) {

@@ -47,7 +47,7 @@ export default Controller.extend(
 		mobileApp: null,
 		userMenuVisible: false,
 
-		file: oneWay('lightbox.file'),
+		file: alias('lightbox.file'),
 		fullPage: oneWay('mobileApp'),
 		isSearchPage: equal('currentRouteName', 'search'),
 		noAds: alias('ads.noAdsQueryParam'),
