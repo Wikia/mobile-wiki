@@ -1,0 +1,16 @@
+// placeholder for setting up an image placeholder background
+%position-play-icon {
+	a {
+		position: relative;
+	}
+
+	.video-icon-container {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+}

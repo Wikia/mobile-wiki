@@ -14,8 +14,7 @@ const articleExample = {
 		},
 		categories: 'test',
 		article: {
-			content: 'TestContent',
-			users: 'test'
+			content: 'TestContent'
 		},
 		ns: 'namespace',
 		userDetails: ['someItem', 'yetOneMore']
@@ -61,12 +60,6 @@ function verifyArticle(model, article, assert) {
 		model.get('content'),
 		articleData.article.content,
 		`expected content=${articleData.article.content}, got ${model.get('content')}`
-	);
-
-	assert.equal(
-		model.get('mediaUsers'),
-		articleData.article.users,
-		`expected mediaUsers=${articleData.article.users}, got ${model.get('mediaUsers')}`
 	);
 
 	assert.equal(
