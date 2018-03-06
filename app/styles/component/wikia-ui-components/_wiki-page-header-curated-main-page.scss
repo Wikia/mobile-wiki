@@ -14,8 +14,6 @@
 }
 
 .wiki-page-title {
-	$icon-size: 16px;
-
 	@extend %header-section-title;
 
 	line-height: 2rem;
@@ -31,15 +29,8 @@
 		margin-top: 10px;
 		text-transform: initial;
 
-		.pencil {
-			fill: $color-blue-light;
-			height: $icon-size;
+		> .wds-icon {
 			margin-right: 10px;
-			width: $icon-size;
-		}
-
-		&:hover .pencil {
-			fill: $black;
 		}
 	}
 }

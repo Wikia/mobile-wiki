@@ -20,7 +20,6 @@
 {{/if}}
 
 <section class="article-body">
-	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP'}}
 	{{#if model.fileThumbnail}}
 		{{article-media-thumbnail
 			height=model.fileThumbnail.height
@@ -83,8 +82,8 @@
 				{{#each model.categories as |category|}}
 					<li>
 						<a href="{{unbound category.url}}" title="{{unbound category.title}}">
-							{{unbound category.title}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+							<span>{{unbound category.title}}</span>
+							{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
 						</a>
 					</li>
 				{{/each}}

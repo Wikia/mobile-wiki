@@ -1,6 +1,8 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew');
+	stew = require('broccoli-stew'),
+	SVGStore = require('broccoli-svgstore'),
+	lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -89,14 +91,6 @@ module.exports = function (defaults) {
 		stylelint: {
 			testFailingFiles: true
 		},
-		svgstore: {
-			files: [
-				{
-					sourceDirs: 'app/symbols/main',
-					outputFile: '/assets/main.svg'
-				},
-			]
-		},
 		eslint: {
 			testGenerator: 'qunit',
 			group: true,
@@ -110,8 +104,12 @@ module.exports = function (defaults) {
 		}
 	});
 
-	const designSystemAssets = new Funnel('node_modules/design-system/dist/svg/sprite.svg', {
-		destDir: 'assets/design-system.svg'
+	const designSystemIcons = new Funnel('node_modules/design-system/style-guide/assets', {
+		include: lazyloadedSVGs.map((icon) => `${icon.name}.svg`)
+	});
+	const svgStore = new SVGStore(designSystemIcons, {
+		outputFile: 'assets/design-system.svg',
+		svgstoreOpts: {}
 	});
 
 	// Assets which are lazy loaded
@@ -148,7 +146,7 @@ module.exports = function (defaults) {
 
 	return app.toTree([
 		designSystemI18n,
-		designSystemAssets,
+		svgStore,
 		jwPlayerAssets
 	]);
 };
