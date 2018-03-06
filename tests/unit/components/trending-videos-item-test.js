@@ -11,16 +11,12 @@ module('Unit | Component | trending videos item', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(() => {
-		createStub = sinon.stub(mediaModel, 'create');
-		createStub.returnsArg(1);
-
 		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
 			return `${url}/${options.mode}/${options.width}/${options.height}`;
 		});
 	});
 
 	hooks.afterEach(() => {
-		createStub.restore();
 		thumbnailerStub.restore();
 	});
 

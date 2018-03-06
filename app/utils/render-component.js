@@ -55,7 +55,13 @@ export function queryPlaceholders(element) {
 				attrs = componentAttributes(componentElement);
 
 			// TODO: temporary condition, remove when XW-4715 is done
-			if (['article-media-thumbnail', 'article-media-gallery', 'article-media-linked-gallery', 'portable-infobox-image-collection', 'portable-infobox-hero-image'].indexOf(name) === -1) {
+			if ([
+				'article-media-thumbnail',
+				'article-media-gallery',
+				'article-media-linked-gallery',
+				'portable-infobox-image-collection',
+				'portable-infobox-hero-image'
+			].indexOf(name) === -1) {
 				components.push({attrs, name, element: componentElement});
 			}
 		}
