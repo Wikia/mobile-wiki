@@ -69,7 +69,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		}
 
 		this.set('onScrollVideoWrapper', this.element.querySelector('.article-featured-video__on-scroll-video-wrapper'));
-		this.set('scrollCloseButton', this.element.querySelector('.article-featured-video__close-button'));
+		this.set('onScrollCloseButton', this.element.querySelector('.article-featured-video__close-button'));
 
 		this.setPlaceholderDimensions();
 		window.addEventListener('orientationchange', () => {
@@ -119,7 +119,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			return;
 		}
 
-		const close = this.get('scrollCloseButton');
+		const close = this.get('onScrollCloseButton');
 		const bounds = close.getBoundingClientRect();
 		const eventX = evt.targetTouches[0].pageX;
 		const eventY = evt.targetTouches[0].pageY;
@@ -140,12 +140,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 	onTouchEnd(evt) {
 		if (this.get('wasCloseButtonClicked')) {
-			evt.preventDefault();
 			evt.stopPropagation();
-
+			evt.preventDefault();
 			this.set('wasCloseButtonClicked', false);
 		}
-
 	},
 
 	/**
