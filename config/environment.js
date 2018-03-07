@@ -7,6 +7,7 @@ module.exports = function (environment) {
 		facebook: {
 			appId: '112328095453510'
 		},
+		wikiaBaseDomain: 'wikia.com',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
@@ -86,7 +87,6 @@ module.exports = function (environment) {
 			hostWhitelist: [
 				/mobile-wiki-.*\.(dev|prod|staging)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
 				/.*\.wikia-dev\.(pl|us)/,
-				/.*\.wikia-staging.com/,
 				/.*\.wikia.com/,
 				/^localhost:\d+$/
 			]
