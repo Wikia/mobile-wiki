@@ -15,14 +15,4 @@
 	&:hover {
 		background: inherit;
 	}
-
-	&:hover {
-		.icon-button-icon {
-			fill: $color-blue-gray-dark;
-		}
-	}
-}
-
-.icon-button-icon {
-	fill: $color-blue-gray;
 }

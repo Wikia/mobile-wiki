@@ -1,19 +1,15 @@
 .show-comments-btn {
+	align-items: center;
 	background: none;
 	border-top: 1px solid $secondary-color;
-	color: #333;
-	display: block;
+	color: $wds-color-light-c6;
+	display: flex;
 	font-weight: bold;
 	padding: 1rem 1.25rem;
 	position: relative;
-	text: {
-		align: left;
-		transform: uppercase;
-	}
+	text-transform: uppercase;
 
-	.chevron {
-		margin-top: .3125rem;
-		position: absolute;
-		right: .625rem;
+	> span {
+		flex: 1;
 	}
 }

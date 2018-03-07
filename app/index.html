@@ -11,6 +11,17 @@
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+<div id="rubik-font">
+	<b><i></i></b>
+	<b></b>
+	<i></i>
+</div>
+<script>
+	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
+		document.body.classList.add('rubik');
+	});
+</script>
+{{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
 {{content-for 'fastboot-inline-scripts'}}
@@ -19,7 +30,6 @@
 
 <script>
 	(function (M) {
-		M.loadDOMResource('/mobile-wiki/assets/main.svg');
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
 </script>

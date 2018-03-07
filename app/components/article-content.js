@@ -397,9 +397,9 @@ export default Component.extend(
 			toArray(tables)
 				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
 				.forEach((element) => {
-					const originalHTML = element.innerHTML;
+					const originalHTML = element.outerHTML;
 
-					element.innerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
 						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
 				});
 		},
