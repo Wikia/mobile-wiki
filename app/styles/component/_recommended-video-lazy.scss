@@ -1,0 +1,142 @@
+$recommended-video-extended-header-height: 44px;
+
+.recommended-video {
+	background-color: #fff;
+	bottom: 0;
+	box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.5);
+	display: block;
+	line-height: 1.2;
+	font-size: 12px;
+	padding: 12px;
+	position: fixed;
+	right: 0;
+	width: 225px;
+	z-index: $z-9;
+
+	.wds-icon-tiny {
+		fill: #ccc;
+	}
+
+	&.is-extended {
+		top: 0;
+		left: 0;
+		width: auto;
+		padding: 0;
+
+		header {
+			background-color: $wds-color-off-white;
+			height: $recommended-video-extended-header-height;
+			margin-bottom: 0;
+			padding: 0 9px;
+		}
+
+		.recommended-video__container {
+			bottom: 0;
+			overflow: auto;
+			padding-top: 12px;
+			position: fixed;
+			top: calc(56.25vw + #{$recommended-video-extended-header-height});
+		}
+
+		.recommended-video__title {
+			font-size: 14px;
+			margin: 12px 18px 0;
+			padding-bottom: 12px;
+		}
+
+		.recommended-video__upnext {
+			align-items: center;
+			color: #999;
+			display: flex;
+			font-size: 14px;
+			font-weight: normal;
+			margin: 6px 0 20px;
+			padding: 0 18px;
+
+			&::after {
+				background-color: #ccc;
+				content: '';
+				flex: 1;
+				height: 1px;
+				margin-left: 14px;
+			}
+		}
+
+		.recommended-video__playlist {
+			display: block;
+			list-style: none;
+			margin: 12px 18px 0;
+
+			li {
+				display: flex;
+				margin-bottom: 9px;
+
+				&.current {
+					.recommended-video__playlist-thumbnail {
+						padding: 0;
+
+						img {
+							border: 3px solid #00d6d6;
+						}
+					}
+				}
+			}
+		}
+
+		.recommended-video__playlist-thumbnail {
+			margin-right: 12px;
+			position: relative;
+			padding: 2px;
+
+			img {
+				border: 1px solid #ccc;
+				min-width: 96px;
+				width: 96px;
+				box-sizing: content-box;
+			}
+
+			.wds-player-icon-play-tiny {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+
+		.recommended-video__playlist-title {
+			font-weight: bold;
+			align-items: center;
+			display: flex;
+		}
+	}
+
+	header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+
+		h2 {
+			font-size: 12px;
+			margin: 0;
+			line-height: 1;
+
+			span:nth-child(2) {
+				font-weight: 300;
+			}
+		}
+	}
+
+	&__title {
+		font-weight: bold;
+		margin-top: 10px;
+	}
+
+	&__playlist {
+		display: none;
+	}
+
+	&__upnext {
+		display: none;
+	}
+}
