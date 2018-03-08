@@ -1,3 +1,6 @@
+import config from '../config/environment';
+import {escapeRegex} from './string';
+
 /**
  * @param {Object} request - FastBoot request
  * @returns {string}
@@ -12,7 +15,8 @@ export default function getHostFromRequest(request) {
 	let host = headers.get('x-original-host') || request.get('host');
 
 	if (headers.get('x-staging') === 'externaltest') {
-		host = host.replace(/\.(externaltest|showcase)\.wikia.com$/, '.wikia.com');
+		const stagingRegex = new RegExp(`\\.(externaltest|showcase)\\.${escapeRegex(config.wikiaBaseDomain)}$`);
+		host = host.replace(stagingRegex, `.${config.wikiaBaseDomain}`);
 	}
 
 	return host;

@@ -5,13 +5,14 @@ import {getWithDefault, get} from '@ember/object';
 import Ember from 'ember';
 import {isEmpty} from '@ember/utils';
 import {run} from '@ember/runloop';
+import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
-import {normalizeToUnderscore} from '../utils/string';
+import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
@@ -309,7 +310,8 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(-.*)?\.com.*\/.*$/)) {
+					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {
 						window.open(info.url);

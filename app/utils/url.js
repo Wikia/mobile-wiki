@@ -1,4 +1,5 @@
 import config from '../config/environment';
+import {escapeRegex} from './string';
 
 /**
  * Converting and escaping Querystring object to string.
@@ -36,23 +37,21 @@ export function getQueryString(query = {}) {
  * @returns {string} New host
  */
 function replaceWikiInHost(host, wiki) {
+	const domainRegex = escapeRegex(config.wikiaBaseDomain);
 	let match;
 
-	if ((match = host.match(/^(.+?)\.(sandbox-.+?|preview|verify)\.wikia\.com($|\/|:)/)) !== null) {
-		// (1) Sandbox, preview, or verify hosts on wikia.com
+	if ((match = host.match(new RegExp(`^(.+?)\\.(sandbox-.+?|preview|verify)\\.${domainRegex}($|\\/|:)`))) !== null) {
+		// Sandbox, preview, or verify hosts on wikia.com
 		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
-	} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-		// (2) Production wikia.com
+	} else if ((match = host.match(new RegExp(`^(.+?)\\.${domainRegex}($|\\/|:)`))) !== null) {
+		// Production wikia.com
 		// Domain is specified here in case subdomain is actually "wiki", "com", etc.
-		host = host.replace(`${match[1]}.wikia.com`, `${wiki}.wikia.com`);
-	} else if ((match = host.match(/^(.+?)\.wikia-staging\.com($|\/|:)/)) !== null) {
-		// (3) Staging env hosted on wikia-staging.com
-		host = host.replace(`${match[1]}.wikia-staging.com`, `${wiki}.wikia-staging.com`);
+		host = host.replace(`${match[1]}.${config.wikiaBaseDomain}`, `${wiki}.${config.wikiaBaseDomain}`);
 	} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-		// (4) Devbox hosted on wikia-dev.us, wikia-dev.pl, etc.
+		// Devbox hosted on wikia-dev.us, wikia-dev.pl, etc.
 		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
 	} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
-		// (5) Environment using xip.io
+		// Environment using xip.io
 		host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
 	}
 
