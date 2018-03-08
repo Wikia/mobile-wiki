@@ -11,6 +11,7 @@ import {standalone} from '../utils/browser';
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
 	{
+		ads: service(),
 		notifications: service(),
 		smartBanner: service(),
 
@@ -26,7 +27,6 @@ export default Component.extend(
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
-
 
 		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 
@@ -83,6 +83,7 @@ export default Component.extend(
 
 					this.get('setDrawerContent')(icon);
 					this.get('toggleDrawer')(true);
+					this.get('ads.module').onMenuOpen();
 				}
 			},
 

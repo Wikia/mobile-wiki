@@ -60,6 +60,7 @@ class Ads {
 		this.slotsQueue = [];
 		this.uapResult = false;
 		this.uapCalled = false;
+		this.uapUnsticked = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
@@ -154,7 +155,6 @@ class Ads {
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -182,7 +182,7 @@ class Ads {
 	}
 
 	/**
-	 * Dispatch adengine event
+	 * Dispatch AdEngine event
 	 *
 	 * @param {string} name
 	 * @param {Object} data
@@ -501,6 +501,7 @@ class Ads {
 
 		this.uapCalled = false;
 		this.uapResult = false;
+		this.uapUnsticked = false;
 
 		this.uapCallbacks.forEach((callback) => {
 			window.removeEventListener('wikia.uap', callback);
@@ -527,6 +528,18 @@ class Ads {
 
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
+	}
+
+	/**
+	 * This method is called on menu or search open
+	 *
+	 * @returns {void}
+	 */
+	onMenuOpen() {
+		if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+			this.uapUnsticked = true;
+			this.adMercuryListenerModule.runOnMenuOpenCallbacks();
+		}
 	}
 
 	/**
