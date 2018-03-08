@@ -392,6 +392,23 @@ export default Component.extend(
 		},
 
 		/**
+		 * Opens a parent section of passed element if it's closed
+		 *
+		 * @returns {void}
+		 */
+		openSection(element) {
+			if (element) {
+				const section = element.closest('section[id*="section"]');
+				if (section) {
+					const header = section.previousElementSibling;
+					if (header) {
+						header.classList.add('open-section');
+					}
+				}
+			}
+		},
+
+		/**
 		 * Handles opening sections when click event occurs on CiteNote
 		 *
 		 * @returns {void}
@@ -400,15 +417,7 @@ export default Component.extend(
 			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_ref-') === 0) {
 					const citeNote = this.element.querySelector(target.hash);
-					if (citeNote) {
-						let currentSection = citeNote.closest('section[id*="section"]');
-						if (currentSection) {
-							const currentHeader = currentSection.previousElementSibling;
-							if (currentHeader) {
-								currentHeader.classList.add('open-section');
-							}
-						}
-					}
+					this.openSection(citeNote);
 				}
 			}
 		},
@@ -422,15 +431,7 @@ export default Component.extend(
 			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_note-') === 0) {
 					const referenceListItem = this.element.querySelector(target.hash);
-					if (referenceListItem) {
-						const referencesSection = referenceListItem.closest('section[id*="section"]');
-						if (referencesSection) {
-							const referencesHeader = referencesSection.previousElementSibling;
-							if (referencesHeader) {
-								referencesHeader.classList.add('open-section');
-							}
-						}
-					}
+					this.openSection(referenceListItem);
 				}
 			}
 		},
