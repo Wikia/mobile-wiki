@@ -396,16 +396,12 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		handleCiteNotes(event) {
-			const {target} = event;
-
+		handleCiteNotes({target}) {
 			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_ref-') === 0) {
-					const citeNoteList = this.element.querySelectorAll(target.hash);
-					let currentSection = null;
-
-					if (citeNoteList.length === 1) {
-						currentSection = citeNoteList[0].closest('section[id*="section"]');
+					const citeNote = this.element.querySelector(target.hash);
+					if (citeNote) {
+						let currentSection = citeNote.closest('section[id*="section"]');
 						if (currentSection) {
 							const currentHeader = currentSection.previousElementSibling;
 							if (currentHeader) {
@@ -422,20 +418,17 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		handleCiteRefs(event) {
-			const {target} = event;
-
+		handleCiteRefs({target}) {
 			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_note-') === 0) {
-					const referenceListItem = this.element.querySelectorAll(target.hash);
-
-					if (referenceListItem.length === 1) {
-						const referencesSection = referenceListItem[0].parentElement.closest('section[id*="section"]');
-						let referencesHeader = null;
-
+					const referenceListItem = this.element.querySelector(target.hash);
+					if (referenceListItem) {
+						const referencesSection = referenceListItem.closest('section[id*="section"]');
 						if (referencesSection) {
-							referencesHeader = referencesSection.previousElementSibling;
-							referencesHeader.classList.add('open-section');
+							const referencesHeader = referencesSection.previousElementSibling;
+							if (referencesHeader) {
+								referencesHeader.classList.add('open-section');
+							}
 						}
 					}
 				}
