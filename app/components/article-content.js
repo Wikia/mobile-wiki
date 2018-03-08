@@ -406,12 +406,11 @@ export default Component.extend(
 
 					if (citeNoteList.length === 1) {
 						currentSection = citeNoteList[0].closest('section[id*="section"]');
-					}
-
-					if (currentSection) {
-						const currentHeader = currentSection.previousElementSibling;
-						if (currentHeader) {
-							currentHeader.classList.add('open-section');
+						if (currentSection) {
+							const currentHeader = currentSection.previousElementSibling;
+							if (currentHeader) {
+								currentHeader.classList.add('open-section');
+							}
 						}
 					}
 				}
