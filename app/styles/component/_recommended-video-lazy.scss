@@ -2,7 +2,7 @@ $recommended-video-extended-header-height: 44px;
 
 .recommended-video {
 	background-color: #fff;
-	bottom: 0;
+	bottom: -300px;
 	box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.5);
 	display: block;
 	line-height: 1.2;
@@ -10,8 +10,17 @@ $recommended-video-extended-header-height: 44px;
 	padding: 12px;
 	position: fixed;
 	right: 0;
+	transition: bottom 1s;
 	width: 225px;
 	z-index: $z-9;
+
+	&.is-ready {
+		bottom: 0;
+	}
+
+	&.is-closed {
+		display: none;
+	}
 
 	.wds-icon-tiny {
 		fill: #ccc;
@@ -137,6 +146,10 @@ $recommended-video-extended-header-height: 44px;
 	}
 
 	&__upnext {
+		display: none;
+	}
+
+	.jw-playlist-btn {
 		display: none;
 	}
 }

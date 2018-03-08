@@ -2,61 +2,29 @@
 	<h2>
 		<span>FANDOM</span><span>VIDEO</span>
 	</h2>
-	{{svg 'wds-icons-cross-tiny' class='wds-icon wds-icon-tiny'}}
+	<div class="recommended-video__close" {{action 'close'}}>
+		{{svg 'wds-icons-cross-tiny' class='wds-icon wds-icon-tiny'}}
+	</div>
 </header>
 <div class="recommended-video__player">
 	<div id="recommended-video-player"></div>
 </div>
 <div class="recommended-video__container">
-	<div class="recommended-video__title">‘Guardians of the Galaxy 3’ Could Star Mark Hamill?!</div>
+	<div class="recommended-video__title">{{playlistItem.title}}</div>
 	<h3 class="recommended-video__upnext">
 		Up Next
 	</h3>
 	<ul class="recommended-video__playlist">
-		<li>
-			<div class="recommended-video__playlist-thumbnail">
-				<img src="https://assets-jpcust.jwpsrv.com/thumbs/DSPS4iBZ-720.jpg">
-				{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
-			</div>
-			<div class="recommended-video__playlist-title">
-				"Damme Fit" Martial Arts Training - Backspin Kick
-			</div>
-		</li>
-		<li>
-			<div class="recommended-video__playlist-thumbnail">
-				<img src="https://assets-jpcust.jwpsrv.com/thumbs/DSPS4iBZ-720.jpg">
-				{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
-			</div>
-			<div class="recommended-video__playlist-title">
-				"Damme Fit" Martial Arts Training - Backspin Kick
-			</div>
-		</li>
-		<li>
-			<div class="recommended-video__playlist-thumbnail">
-				<img src="https://assets-jpcust.jwpsrv.com/thumbs/DSPS4iBZ-720.jpg">
-				{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
-			</div>
-			<div class="recommended-video__playlist-title">
-				"Damme Fit" Martial Arts Training - Backspin Kick
-			</div>
-		</li>
-		<li>
-			<div class="recommended-video__playlist-thumbnail">
-				<img src="https://assets-jpcust.jwpsrv.com/thumbs/DSPS4iBZ-720.jpg">
-				{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
-			</div>
-			<div class="recommended-video__playlist-title">
-				"Damme Fit" Martial Arts Training - Backspin Kick
-			</div>
-		</li>
-		<li>
-			<div class="recommended-video__playlist-thumbnail">
-				<img src="https://assets-jpcust.jwpsrv.com/thumbs/DSPS4iBZ-720.jpg">
-				{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
-			</div>
-			<div class="recommended-video__playlist-title">
-				"Damme Fit" Martial Arts Training - Backspin Kick
-			</div>
-		</li>
+		{{#each playlistItems as |item index|}}
+			<li class="{{if (equal playlistItem.mediaid item.mediaid) 'current'}}" {{action 'play' index}}>
+				<div class="recommended-video__playlist-thumbnail">
+					<img src="{{item.image}}">
+					{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
+				</div>
+				<div class="recommended-video__playlist-title">
+					{{item.title}}
+				</div>
+			</li>
+		{{/each}}
 	</ul>
 </div>

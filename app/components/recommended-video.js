@@ -6,26 +6,37 @@ import config from '../config/environment';
 
 export default Component.extend(NoScrollMixin, {
 	classNames: ['recommended-video'],
-	classNameBindings: ['isExtended'],
-	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
-	'media-id': 'FYykS9se',
+	classNameBindings: ['isExtended', 'isReady', 'isClosed'],
+	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/playlists/',
+	playlistItem: null,
+	playlistItems: null,
 
-	/**
-	 * @returns {void}
-	 */
-	didInsertElement() {
+	init() {
 		this._super(...arguments);
 
 		Promise.all([
 			jwPlayerAssets.load(),
 			this.getVideoData()
 		]).then(([, videoData]) => {
+			this.set('playlistItems', videoData.playlist);
+			this.set('playlistItem', videoData.playlist[0]);
 			window.wikiaJWPlayer(
 				'recommended-video-player',
 				this.getPlayerSetup(videoData),
 				this.playerCreated.bind(this)
 			);
 		});
+	},
+
+	actions: {
+		play(index) {
+			this.get('playerInstance').playlistItem(index);
+		},
+
+		close() {
+			this.set('isClosed', true);
+			this.set('noScroll', false);
+		}
 	},
 
 	playerCreated(playerInstance) {
@@ -41,13 +52,20 @@ export default Component.extend(NoScrollMixin, {
 			this.set('isExtended', true);
 			this.set('noScroll', true);
 		});
+
+		playerInstance.on('playlistItem', ({item}) => {
+			this.set('playlistItem', item);
+		});
+
+		this.set('isReady', true);
+		this.set('playerInstance', playerInstance);
 	},
 
 	getPlayerSetup(jwVideoData) {
 		return {
 			autoplay: true,
 			tracking: {
-				category: 'in-article-video',
+				category: 'recommended-video',
 				track(data) {
 					data.trackingMethod = 'both';
 
@@ -62,12 +80,14 @@ export default Component.extend(NoScrollMixin, {
 				description: jwVideoData.description,
 				title: jwVideoData.title,
 				playlist: jwVideoData.playlist
-			}
+			},
+			related: false,
+			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js'
 		};
 	},
 
 	getVideoData() {
-		return fetch(`${this.jwVideoDataUrl}${this.get('media-id')}`).then((response) => response.json());
+		return fetch(`${this.jwVideoDataUrl}${this.get('playlistId')}`).then((response) => response.json());
 	},
 
 	extendView() {
