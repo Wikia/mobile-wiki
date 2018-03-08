@@ -396,25 +396,31 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleReferences(event) {
-			if (event.target.closest('a[href^="#cite_ref-"]')) {
-				const element = event.target.closest('a[href^="#cite_ref-"]'),
-					currentCiteNote = document.getElementById(element.hash.slice(1, element.length)),
-					closest = currentCiteNote.closest('section[id*="section"]');
+			const {target} = event;
+			if (target.nodeName === 'A') {
+				if (target.hash.search('#cite_ref-') === 0) {
+					const citeNoteList = this.element.querySelectorAll(target.hash);
+					let currentSection = null;
 
-				if (closest) {
-					let currentHeader = document.getElementById(closest.previousElementSibling.id);
-					if (!currentHeader.classList.contains('open-section')) {
-						currentHeader.classList.add('open-section');
+					if (citeNoteList.length === 1) {
+						currentSection = citeNoteList[0].closest('section[id*="section"]');
+					}
+
+					if (currentSection) {
+						let currentHeader = currentSection.previousElementSibling;
+						if (currentHeader) {
+							currentHeader.classList.add('open-section');
+						}
 					}
 				}
-			}
 
-			if (event.target.closest('.reference a[href^="#cite_note-"]')) {
-				let header = this.element.querySelectorAll('ol.references');
-				if (header) {
-					header = header[0].closest('section[id*="section"]').previousElementSibling;
-					if (!header.classList.contains('open-section')) {
-						header.classList.add('open-section');
+				if (target.hash.search('#cite_note-') === 0) {
+					const referenceListItem = this.element.querySelectorAll(target.hash);
+
+					if (referenceListItem.length !== 0) {
+						const referencesSection = referenceListItem[0].parentElement.closest('section[id*="section"]');
+						const referencesHeader = referencesSection.previousElementSibling;
+						referencesHeader.classList.add('open-section');
 					}
 				}
 			}
