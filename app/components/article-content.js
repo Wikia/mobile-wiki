@@ -95,7 +95,8 @@ export default Component.extend(
 		},
 
 		click(event) {
-			this.handleReferences(event);
+			this.handleCiteRefs(event);
+			this.handleCiteNotes(event);
 
 			const anchor = event.target.closest('a'),
 				label = this.getTrackingEventLabel(anchor);
@@ -391,12 +392,13 @@ export default Component.extend(
 		},
 
 		/**
-		 * Handles opening sections when click event occurs on reference
+		 * Handles opening sections when click event occurs on CiteNote
 		 *
 		 * @returns {void}
 		 */
-		handleReferences(event) {
+		handleCiteNotes(event) {
 			const {target} = event;
+
 			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_ref-') === 0) {
 					const citeNoteList = this.element.querySelectorAll(target.hash);
@@ -407,20 +409,35 @@ export default Component.extend(
 					}
 
 					if (currentSection) {
-						let currentHeader = currentSection.previousElementSibling;
+						const currentHeader = currentSection.previousElementSibling;
 						if (currentHeader) {
 							currentHeader.classList.add('open-section');
 						}
 					}
 				}
+			}
+		},
 
+		/**
+		 * Handles opening sections when click event occurs on CiteRef
+		 *
+		 * @returns {void}
+		 */
+		handleCiteRefs(event) {
+			const {target} = event;
+
+			if (target.nodeName === 'A') {
 				if (target.hash.search('#cite_note-') === 0) {
 					const referenceListItem = this.element.querySelectorAll(target.hash);
 
 					if (referenceListItem.length === 1) {
 						const referencesSection = referenceListItem[0].parentElement.closest('section[id*="section"]');
-						const referencesHeader = referencesSection.previousElementSibling;
-						referencesHeader.classList.add('open-section');
+						let referencesHeader = null;
+
+						if (referencesSection) {
+							referencesHeader = referencesSection.previousElementSibling;
+							referencesHeader.classList.add('open-section');
+						}
 					}
 				}
 			}
