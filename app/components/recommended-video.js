@@ -28,6 +28,10 @@ export default Component.extend(NoScrollMixin, {
 		});
 	},
 
+	willDestroyElement() {
+		this.get('playerInstance').remove();
+	},
+
 	actions: {
 		play(index) {
 			this.get('playerInstance').playlistItem(index);
@@ -36,6 +40,7 @@ export default Component.extend(NoScrollMixin, {
 		close() {
 			this.set('isClosed', true);
 			this.set('noScroll', false);
+			this.get('playerInstance').remove();
 		}
 	},
 
