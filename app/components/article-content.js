@@ -417,7 +417,7 @@ export default Component.extend(
 				if (target.hash.search('#cite_note-') === 0) {
 					const referenceListItem = this.element.querySelectorAll(target.hash);
 
-					if (referenceListItem.length !== 0) {
+					if (referenceListItem.length === 1) {
 						const referencesSection = referenceListItem[0].parentElement.closest('section[id*="section"]');
 						const referencesHeader = referencesSection.previousElementSibling;
 						referencesHeader.classList.add('open-section');
