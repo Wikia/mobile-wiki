@@ -15,8 +15,6 @@ img {
 	&.lazyloaded {
 		animation: lazyImage .3s;
 		background: none;
-		height: auto;
-		width: auto;
 	}
 }
 

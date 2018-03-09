@@ -6,13 +6,6 @@
 		y: hidden;
 	}
 
-	img {
-		height: 195px;
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
-		width: 195px;
-	}
-
 	figcaption {
 		max-width: 195px;
 	}
@@ -24,6 +17,13 @@
 			left: 0;
 			right: 8px;
 			top: 20px;
+		}
+
+		img {
+			height: 195px;
+			// Fixes iOS Safari repaint bug when scrolling through gallery
+			transform: translate3d(0, 0, 0);
+			width: 195px;
 		}
 	}
 }

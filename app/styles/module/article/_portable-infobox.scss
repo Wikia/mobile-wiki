@@ -126,6 +126,11 @@ $group-header-font-size: 16px;
 		display: inline-block;
 		margin-right: 8px;
 
+		.article-media-placeholder {
+			width: 195px;
+			height: auto;
+		}
+
 		&.active {
 			display: block;
 		}
@@ -181,8 +186,9 @@ $group-header-font-size: 16px;
 	min-height: $min-hero-item-height;
 	position: relative;
 
-	> .media-component img {
-		width: 100%;
+	img {
+		margin-left: 50%;
+		transform: translate(-50%);
 	}
 }
 
