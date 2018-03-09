@@ -29,7 +29,10 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	willDestroyElement() {
-		this.get('playerInstance').remove();
+		const player = this.get('playerInstance');
+		if (player) {
+			player.remove();
+		}
 	},
 
 	actions: {
@@ -62,7 +65,10 @@ export default Component.extend(NoScrollMixin, {
 			this.set('playlistItem', item);
 		});
 
-		this.set('isReady', true);
+		playerInstance.once('ready', () => {
+			this.set('isReady', true);
+		});
+
 		this.set('playerInstance', playerInstance);
 	},
 
