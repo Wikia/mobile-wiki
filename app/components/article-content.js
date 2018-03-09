@@ -68,6 +68,8 @@ export default Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
+
+					window.lazySizes.init();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
