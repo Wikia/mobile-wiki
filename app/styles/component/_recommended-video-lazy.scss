@@ -4,10 +4,10 @@ $recommended-video-player-width: 200px;
 .recommended-video {
 	background-color: #fff;
 	bottom: -300px;
-	box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 2px 9px 0 rgba(0, 0, 0, .5);
 	display: block;
-	line-height: 1.2;
 	font-size: 12px;
+	line-height: 1.2;
 	padding: 12px;
 	position: fixed;
 	right: 0;
@@ -22,15 +22,11 @@ $recommended-video-player-width: 200px;
 		display: none;
 	}
 
-	.wds-icon-tiny {
-		fill: #ccc;
-	}
-
 	&.is-extended {
-		top: 0;
 		left: 0;
-		width: auto;
 		padding: 0;
+		top: 0;
+		width: auto;
 
 		header {
 			background-color: $wds-color-off-white;
@@ -39,92 +35,34 @@ $recommended-video-player-width: 200px;
 			padding: 0 9px;
 		}
 
-		.recommended-video__player {
-			height: auto;
-			width: auto;
-		}
-
-		.recommended-video__container {
-			width: auto;
-		}
-
-		.recommended-video__container {
-			bottom: 0;
-			overflow: auto;
-			padding-top: 12px;
-			position: fixed;
-			top: calc(56.25vw + #{$recommended-video-extended-header-height});
-		}
-
-		.recommended-video__title {
-			font-size: 14px;
-			margin: 12px 18px 0;
-			padding-bottom: 12px;
-		}
-
-		.recommended-video__upnext {
-			align-items: center;
-			color: #999;
-			display: flex;
-			font-size: 14px;
-			font-weight: normal;
-			margin: 6px 0 20px;
-			padding: 0 18px;
-
-			&::after {
-				background-color: #ccc;
-				content: '';
-				flex: 1;
-				height: 1px;
-				margin-left: 14px;
+		.recommended-video {
+			&__player {
+				height: auto;
+				width: auto;
 			}
-		}
 
-		.recommended-video__playlist {
-			display: block;
-			list-style: none;
-			margin: 12px 18px 0;
+			&__container {
+				bottom: 0;
+				overflow: auto;
+				padding-top: 12px;
+				position: fixed;
+				top: calc(56.25vw + #{$recommended-video-extended-header-height});
+				width: auto;
+			}
 
-			li {
+			&__upnext {
 				display: flex;
-				margin-bottom: 9px;
-
-				&.current {
-					.recommended-video__playlist-thumbnail {
-						padding: 0;
-
-						img {
-							border: 3px solid #00d6d6;
-						}
-					}
-				}
-			}
-		}
-
-		.recommended-video__playlist-thumbnail {
-			margin-right: 12px;
-			position: relative;
-			padding: 2px;
-
-			img {
-				border: 1px solid #ccc;
-				min-width: 96px;
-				width: 96px;
-				box-sizing: content-box;
 			}
 
-			.wds-player-icon-play-tiny {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
+			&__playlist {
+				display: block;
 			}
-		}
 
-		.recommended-video__playlist-title {
-			font-weight: bold;
-			align-items: center;
-			display: flex;
+			&__title {
+				font-size: 14px;
+				margin: 12px 18px 0;
+				padding-bottom: 12px;
+			}
 		}
 	}
 
@@ -134,10 +72,14 @@ $recommended-video-player-width: 200px;
 		justify-content: space-between;
 		margin-bottom: 10px;
 
+		.wds-icon-tiny {
+			fill: #ccc;
+		}
+
 		h2 {
 			font-size: 12px;
-			margin: 0;
 			line-height: 1;
+			margin: 0;
 
 			span:nth-child(2) {
 				font-weight: 300;
@@ -146,8 +88,8 @@ $recommended-video-player-width: 200px;
 	}
 
 	&__player {
-		width: $recommended-video-player-width;
 		height: $recommended-video-player-width * 9 / 16;
+		width: $recommended-video-player-width;
 	}
 
 	&__container {
@@ -161,10 +103,67 @@ $recommended-video-player-width: 200px;
 
 	&__playlist {
 		display: none;
+		list-style: none;
+		margin: 12px 18px 0;
+
+		li {
+			display: flex;
+			margin-bottom: 9px;
+
+			&.current {
+				.recommended-video__playlist-thumbnail {
+					padding: 0;
+
+					img {
+						border: 3px solid #00d6d6;
+					}
+				}
+			}
+		}
+	}
+
+	&__playlist-thumbnail {
+		margin-right: 12px;
+		padding: 2px;
+		position: relative;
+
+		img {
+			border: 1px solid #ccc;
+			box-sizing: content-box;
+			min-width: 96px;
+			width: 96px;
+		}
+
+		.wds-player-icon-play-tiny {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&__playlist-title {
+		align-items: center;
+		display: flex;
+		font-weight: bold;
 	}
 
 	&__upnext {
+		align-items: center;
+		color: #999;
 		display: none;
+		font-size: 14px;
+		font-weight: normal;
+		margin: 6px 0 20px;
+		padding: 0 18px;
+
+		&::after {
+			background-color: #ccc;
+			content: '';
+			flex: 1;
+			height: 1px;
+			margin-left: 14px;
+		}
 	}
 
 	.jw-playlist-btn {

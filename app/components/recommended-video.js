@@ -1,8 +1,10 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
+import {run} from '@ember/runloop';
 import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track} from '../utils/track';
+import extend from '../utils/extend';
 
 export default Component.extend(NoScrollMixin, {
 	logger: service(),
@@ -16,18 +18,9 @@ export default Component.extend(NoScrollMixin, {
 	init() {
 		this._super(...arguments);
 
-		Promise.all([
-			jwPlayerAssets.load(),
-			this.getVideoData()
-		]).then(([, videoData]) => {
-			this.set('playlistItems', videoData.playlist);
-			this.set('playlistItem', videoData.playlist[0]);
-			window.wikiaJWPlayer(
-				'recommended-video-player',
-				this.getPlayerSetup(videoData),
-				this.playerCreated.bind(this)
-			);
-		});
+		run.later(() => {
+			this.initRecommendedVideo();
+		}, 5000);
 	},
 
 	willDestroyElement() {
@@ -51,8 +44,26 @@ export default Component.extend(NoScrollMixin, {
 				isClosed: true,
 				noScroll: false
 			});
+			this.isClosed = true;
 			this.get('playerInstance').remove();
 		}
+	},
+
+	initRecommendedVideo() {
+		Promise.all([
+			jwPlayerAssets.load(),
+			this.getVideoData()
+		]).then(([, videoData]) => {
+			this.setProperties({
+				playlistItems: videoData.playlist,
+				playlistItem: videoData.playlist[0]
+			});
+			window.wikiaJWPlayer(
+				'recommended-video-player',
+				this.getPlayerSetup(videoData),
+				this.playerCreated.bind(this)
+			);
+		});
 	},
 
 	playerCreated(playerInstance) {
@@ -64,7 +75,7 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
-			this.set('playlistItem', item);
+			this.set('playlistItem', extend({}, item));
 		});
 
 		playerInstance.once('ready', () => {
@@ -86,8 +97,6 @@ export default Component.extend(NoScrollMixin, {
 				},
 			},
 			videoDetails: {
-				description: jwVideoData.description,
-				title: jwVideoData.title,
 				playlist: jwVideoData.playlist
 			},
 			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js'

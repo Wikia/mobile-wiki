@@ -18,7 +18,7 @@
 		{{#each playlistItems as |item index|}}
 			<li class="{{if (equal playlistItem.mediaid item.mediaid) 'current'}}" {{action 'play' index}}>
 				<div class="recommended-video__playlist-thumbnail">
-					<img src="{{item.image}}">
+					<img src="{{item.image}}" alt="{{item.title}}">
 					{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
 				</div>
 				<div class="recommended-video__playlist-title">
