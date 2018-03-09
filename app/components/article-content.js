@@ -95,8 +95,7 @@ export default Component.extend(
 		},
 
 		click(event) {
-			this.handleCiteRefs(event);
-			this.handleCiteNotes(event);
+			this.handleReferences(event);
 
 			const anchor = event.target.closest('a'),
 				label = this.getTrackingEventLabel(anchor);
@@ -409,28 +408,28 @@ export default Component.extend(
 		},
 
 		/**
-		 * Handles opening sections when click event occurs on CiteNote
+		 * Handles opening sections when click event occurs on references
 		 *
 		 * @returns {void}
 		 */
-		handleCiteNotes({target}) {
-			if (target.nodeName === 'A' && target.hash.search('#cite_ref-') === 0) {
-				const citeNote = this.element.querySelector(target.hash);
+		handleReferences(event) {
+			const {target} = event;
 
-				this.openSection(citeNote);
-			}
-		},
+			const citeNoteSelector = '#cite_note-';
+			const citeRefSelector = '#cite_ref-';
 
-		/**
-		 * Handles opening sections when click event occurs on CiteRef
-		 *
-		 * @returns {void}
-		 */
-		handleCiteRefs({target}) {
-			if (target.nodeName === 'A' && target.hash.search('#cite_note-') === 0) {
-				const referenceListItem = this.element.querySelector(target.hash);
+			if (target.nodeName === 'A' &&
+				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+			) {
+				event.preventDefault();
 
-				this.openSection(referenceListItem);
+				const reference = this.element.querySelector(target.hash);
+				const offsetY = reference.getBoundingClientRect().top + window.scrollY;
+				const siteHeaderHeight = 60;
+
+				this.openSection(reference);
+
+				window.scrollTo(0, offsetY - siteHeaderHeight);
 			}
 		},
 
