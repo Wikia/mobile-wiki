@@ -400,7 +400,7 @@ export default Component.extend(
 				const section = element.closest('section[id*="section"]');
 				if (section) {
 					const header = section.previousElementSibling;
-					debugger;
+
 					if (header && header.nodeName === 'H2') {
 						header.classList.add('open-section');
 					}
