@@ -45,6 +45,10 @@ $recommended-video-player-width: 200px;
 		}
 
 		.recommended-video__container {
+			width: auto;
+		}
+
+		.recommended-video__container {
 			bottom: 0;
 			overflow: auto;
 			padding-top: 12px;
@@ -144,6 +148,10 @@ $recommended-video-player-width: 200px;
 	&__player {
 		width: $recommended-video-player-width;
 		height: $recommended-video-player-width * 9 / 16;
+	}
+
+	&__container {
+		width: $recommended-video-player-width;
 	}
 
 	&__title {

@@ -1,13 +1,15 @@
+import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track} from '../utils/track';
-import config from '../config/environment';
 
 export default Component.extend(NoScrollMixin, {
+	logger: service(),
+
 	classNames: ['recommended-video'],
 	classNameBindings: ['isExtended', 'isReady', 'isClosed'],
-	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/playlists/',
+
 	playlistItem: null,
 	playlistItems: null,
 
@@ -31,7 +33,11 @@ export default Component.extend(NoScrollMixin, {
 	willDestroyElement() {
 		const player = this.get('playerInstance');
 		if (player) {
-			player.remove();
+			try {
+				player.remove();
+			} catch (e) {
+				this.get('logger').warn(e);
+			}
 		}
 	},
 
@@ -41,24 +47,20 @@ export default Component.extend(NoScrollMixin, {
 		},
 
 		close() {
-			this.set('isClosed', true);
-			this.set('noScroll', false);
+			this.setProperties({
+				isClosed: true,
+				noScroll: false
+			});
 			this.get('playerInstance').remove();
 		}
 	},
 
 	playerCreated(playerInstance) {
-		playerInstance.on('captionsSelected', ({selectedLang}) => {
-			window.Cookies.set(this.get('captionsCookieName'), selectedLang, {
-				expires: this.get('playerCookieExpireDays'),
-				path: '/',
-				domain: config.cookieDomain
-			});
-		});
-
 		playerInstance.once('mute', () => {
-			this.set('isExtended', true);
-			this.set('noScroll', true);
+			this.setProperties({
+				isExtended: true,
+				noScroll: true
+			});
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
@@ -83,25 +85,16 @@ export default Component.extend(NoScrollMixin, {
 					track(data);
 				},
 			},
-			selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
-			settings: {
-				showCaptions: true
-			},
 			videoDetails: {
 				description: jwVideoData.description,
 				title: jwVideoData.title,
 				playlist: jwVideoData.playlist
 			},
-			related: false,
 			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js'
 		};
 	},
 
 	getVideoData() {
-		return fetch(`${this.jwVideoDataUrl}${this.get('playlistId')}`).then((response) => response.json());
-	},
-
-	extendView() {
-
+		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}`).then((response) => response.json());
 	}
 });
