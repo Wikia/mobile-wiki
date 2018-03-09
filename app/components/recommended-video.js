@@ -44,7 +44,6 @@ export default Component.extend(NoScrollMixin, {
 				isClosed: true,
 				noScroll: false
 			});
-			this.isClosed = true;
 			this.get('playerInstance').remove();
 		}
 	},
@@ -75,6 +74,8 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
+			// we have to clone item because Ember change it to Ember Object and it caused exception
+			// when jwplayer try to set property on this object without using ember setter
 			this.set('playlistItem', extend({}, item));
 		});
 
@@ -96,6 +97,7 @@ export default Component.extend(NoScrollMixin, {
 					track(data);
 				},
 			},
+			showSmallPlayerControls: true,
 			videoDetails: {
 				playlist: jwVideoData.playlist
 			},
