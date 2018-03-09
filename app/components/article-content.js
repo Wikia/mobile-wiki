@@ -414,11 +414,10 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleCiteNotes({target}) {
-			if (target.nodeName === 'A') {
-				if (target.hash.search('#cite_ref-') === 0) {
-					const citeNote = this.element.querySelector(target.hash);
-					this.openSection(citeNote);
-				}
+			if (target.nodeName === 'A' && target.hash.search('#cite_ref-') === 0) {
+				const citeNote = this.element.querySelector(target.hash);
+
+				this.openSection(citeNote);
 			}
 		},
 
@@ -428,11 +427,10 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleCiteRefs({target}) {
-			if (target.nodeName === 'A') {
-				if (target.hash.search('#cite_note-') === 0) {
-					const referenceListItem = this.element.querySelector(target.hash);
-					this.openSection(referenceListItem);
-				}
+			if (target.nodeName === 'A' && target.hash.search('#cite_note-') === 0) {
+				const referenceListItem = this.element.querySelector(target.hash);
+
+				this.openSection(referenceListItem);
 			}
 		},
 
