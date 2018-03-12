@@ -50,9 +50,9 @@ export default Component.extend(NoScrollMixin, {
 
 	initRecommendedVideo() {
 		Promise.all([
-			jwPlayerAssets.load(),
-			this.getVideoData()
-		]).then(([, videoData]) => {
+			this.getVideoData(),
+			jwPlayerAssets.load()
+		]).then(([videoData]) => {
 			this.setProperties({
 				playlistItems: videoData.playlist,
 				playlistItem: videoData.playlist[0]
