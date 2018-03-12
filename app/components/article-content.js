@@ -398,6 +398,7 @@ export default Component.extend(
 		openSection(element) {
 			if (element) {
 				const section = element.closest('section[id*="section"]');
+
 				if (section) {
 					const header = section.previousElementSibling;
 
@@ -415,7 +416,6 @@ export default Component.extend(
 		 */
 		handleReferences(event) {
 			const {target} = event;
-
 			const citeNoteSelector = '#cite_note-';
 			const citeRefSelector = '#cite_ref-';
 
