@@ -425,11 +425,12 @@ export default Component.extend(
 				event.preventDefault();
 				const reference = this.element.querySelector(target.hash);
 
+				this.openSection(reference);
+
 				if (reference) {
 					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
 					const siteHeaderHeight = 60;
 
-					this.openSection(reference);
 					window.scrollTo(0, offsetY - siteHeaderHeight);
 				}
 			}
