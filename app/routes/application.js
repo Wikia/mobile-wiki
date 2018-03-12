@@ -88,13 +88,15 @@ export default Route.extend(
 
 			if (
 				!fastboot.get('isFastBoot') &&
-				this.get('ads.adsUrl') &&
+				// this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals
 			) {
-				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
-					if (wgSitewideDisableAdsOnMercury) {
-						return;
-					}
+			// 	window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
+			// 		if (wgSitewideDisableAdsOnMercury) {
+			// 			return;
+			// 		}
+
+				window.waitForAds(() => {
 
 					const adsModule = this.get('ads.module');
 

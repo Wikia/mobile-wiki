@@ -1,6 +1,8 @@
 (function () {
 	var gettersQueue = [];
+	var getterAdsQueue = [];
 	var isListening = false;
+	var isAdsListening = false;
 
 	window.onInstantGlobalsLoaded = function () {
 		window.document.dispatchEvent(new Event('instantGlobalsLoaded'));
@@ -29,6 +31,50 @@
 			if (!isListening) {
 				document.addEventListener('instantGlobalsLoaded', onInstantGlobalsLoaded, {once: true});
 				isListening = true;
+			}
+		}
+	};
+
+	window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
+		console.log('load ads');
+
+		if (wgSitewideDisableAdsOnMercury || (new URL(document.location)).searchParams.get('noexternals')) {
+			console.log(wgSitewideDisableAdsOnMercury, (new URL(document.location)).searchParams.get('noexternals'));
+
+			return;
+		}
+
+		const script = document.createElement('script');
+		const node = document.getElementsByTagName('script')[0];
+
+		script.async = true;
+		script.type = 'text/javascript';
+		script.src = 'https://slot1-images.wikia.nocookie.net/__am/1520610706/groups/-/mercury_ads_js';
+		script.onload = function() {
+			window.document.dispatchEvent(new Event('adsScriptLoaded'));
+		};
+
+
+		node.parentNode.insertBefore(script, node);
+	});
+
+	window.waitForAds = function (callback) {
+		function onAdsLoaded() {
+			getterAdsQueue.forEach(function (queuedCallback) {
+				queuedCallback();
+			});
+
+			getterAdsQueue = [];
+		}
+
+		if (window.require) {
+			callback();
+		} else {
+			getterAdsQueue.push(callback);
+
+			if (!isAdsListening) {
+				document.addEventListener('adsScriptLoaded', onAdsLoaded, {once: true});
+				isAdsListening = true;
 			}
 		}
 	};

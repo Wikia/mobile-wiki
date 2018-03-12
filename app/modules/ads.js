@@ -103,7 +103,7 @@ class Ads {
 		this.adsUrl = adsUrl;
 
 		// Load the ads code from MW
-		$script(adsUrl, () => {
+		// $script(adsUrl, () => {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
@@ -160,7 +160,7 @@ class Ads {
 				console.error('Looks like ads asset has not been loaded');
 			}
 			/* eslint-enable max-params */
-		});
+		// });
 	}
 
 	/**
