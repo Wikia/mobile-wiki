@@ -392,7 +392,7 @@ export default Component.extend(
 
 		/**
 		 * Opens a parent section of passed element if it's closed
-		 *
+		 * @param {Element} element
 		 * @returns {void}
 		 */
 		openSection(element) {
@@ -410,7 +410,7 @@ export default Component.extend(
 
 		/**
 		 * Handles opening sections when click event occurs on references
-		 *
+		 * @param {MouseEvent} event
 		 * @returns {void}
 		 */
 		handleReferences(event) {
@@ -423,14 +423,15 @@ export default Component.extend(
 				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
-
 				const reference = this.element.querySelector(target.hash);
-				const offsetY = reference.getBoundingClientRect().top + window.scrollY;
-				const siteHeaderHeight = 60;
 
-				this.openSection(reference);
+				if (reference) {
+					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
+					const siteHeaderHeight = 60;
 
-				window.scrollTo(0, offsetY - siteHeaderHeight);
+					this.openSection(reference);
+					window.scrollTo(0, offsetY - siteHeaderHeight);
+				}
 			}
 		},
 
