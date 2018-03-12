@@ -46,10 +46,11 @@
 
 		const script = document.createElement('script');
 		const node = document.getElementsByTagName('script')[0];
+		const wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
 
 		script.async = true;
 		script.type = 'text/javascript';
-		script.src = 'https://slot1-images.wikia.nocookie.net/__am/1520610706/groups/-/mercury_ads_js';
+		script.src = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
 		script.onload = function() {
 			window.document.dispatchEvent(new Event('adsScriptLoaded'));
 		};
