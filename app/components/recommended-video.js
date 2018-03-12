@@ -14,6 +14,7 @@ export default Component.extend(NoScrollMixin, {
 
 	playlistItem: null,
 	playlistItems: null,
+	secondPlay: false,
 
 	init() {
 		this._super(...arguments);
@@ -67,12 +68,17 @@ export default Component.extend(NoScrollMixin, {
 
 	playerCreated(playerInstance) {
 		playerInstance.once('mute', () => {
-			this.setProperties({
-				isExtended: true,
-				noScroll: true
-			});
+			this.expandPlayer(playerInstance);
+		});
 
-			playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
+		playerInstance.on('play', () => {
+			if (this.get('secondPlay')) {
+				this.expandPlayer(playerInstance);
+			}
+		});
+
+		playerInstance.on('pause', () => {
+			this.set('secondPlay', true)
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
@@ -109,5 +115,14 @@ export default Component.extend(NoScrollMixin, {
 
 	getVideoData() {
 		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}`).then((response) => response.json());
+	},
+
+	expandPlayer(playerInstance) {
+		this.setProperties({
+			isExtended: true,
+			noScroll: true
+		});
+
+		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
 	}
 });
