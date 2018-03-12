@@ -78,7 +78,7 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		playerInstance.on('pause', () => {
-			this.set('secondPlay', true)
+			this.set('secondPlay', true);
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
