@@ -109,7 +109,8 @@ export default Component.extend(NoScrollMixin, {
 			videoDetails: {
 				playlist: jwVideoData.playlist
 			},
-			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js'
+			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js',
+			repeat: true
 		};
 	},
 
