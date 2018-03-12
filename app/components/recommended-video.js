@@ -71,6 +71,8 @@ export default Component.extend(NoScrollMixin, {
 				isExtended: true,
 				noScroll: true
 			});
+
+			playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
