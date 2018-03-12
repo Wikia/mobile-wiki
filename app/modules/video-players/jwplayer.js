@@ -86,7 +86,7 @@ export default class JWPlayer extends BasePlayer {
 			this.params.onCreate.bind(this, bidParams)
 		);
 
-		window.M.loadScript(Ads.getInstance().jwPlayerMoat.pluginURL, true);
+		Ads.getInstance().jwPlayerMoat.loadTrackingPlugin();
 	}
 
 	/**
