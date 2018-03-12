@@ -8,12 +8,54 @@
 {{/if}}
 
 <link rel="preconnect" href="https://vignette.wikia.nocookie.net">
+{{! fallback to dns-prefetch for iOS where preconnect isn't supported yet}}
+<link rel="dns-prefetch" href="https://vignette.wikia.nocookie.net">
 
 {{#unless model.noExternals}}
 	<link rel="dns-prefetch" href="http://edge.quantserve.com">
 	<link rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
 	<link rel="dns-prefetch" href="http://b.scorecardresearch.com">
 	<link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
+	<link rel="preconnect" href="{{model.cdnRootUrl}}">
+	<link rel="dns-prefetch" href="{{model.cdnRootUrl}}">
+	<link rel="preconnect" href="https://beacon.wikia-services.com">
+	<link rel="dns-prefetch" href="https://beacon.wikia-services.com">
+
+	{{! Ads header bidding providers}}
+	{{! a9}}
+	<link rel="preconnect" href="//c.amazon-adsystem.com">
+	<link rel="dns-prefetch" href="//c.amazon-adsystem.com">
+	{{! rubicon}}
+	<link rel="preconnect" href="//fastlane.rubiconproject.com">
+	<link rel="dns-prefetch" href="//fastlane.rubiconproject.com">
+	<link rel="preconnect" href="//fastlane-adv.rubiconproject.com">
+	<link rel="dns-prefetch" href="//fastlane-adv.rubiconproject.com">
+	{{! pubmatic}}
+	<link rel="preconnect" href="//ads.pubmatic.com">
+	<link rel="dns-prefetch" href="//ads.pubmatic.com">
+	<link rel="preconnect" href="//gads.pubmatic.com">
+	<link rel="dns-prefetch" href="//gads.pubmatic.com">
+	{{! aol}}
+	<link rel="preconnect" href="//adserver-us.adtech.advertising.com">
+	<link rel="dns-prefetch" href="//adserver-us.adtech.advertising.com">
+	{{! oneMobile}}
+	<link rel="preconnect" href="//hb.nexage.com">
+	<link rel="dns-prefetch" href="//hb.nexage.com">
+	{{! indexExchange}}
+	<link rel="preconnect" href="http://as.casalemedia.com">
+	<link rel="dns-prefetch" href="http://as.casalemedia.com">
+	{{! appnexus}}
+	<link rel="preconnect" href="//ib.adnxs.com">
+	<link rel="dns-prefetch" href="//ib.adnxs.com">
+	{{! beachfront}}
+	<link rel="preconnect" href="//reachms.bfmio.com">
+	<link rel="dns-prefetch" href="//reachms.bfmio.com">
+	{{! openx}}
+	<link rel="preconnect" href="//wikia-d.openx.net">
+	<link rel="dns-prefetch" href="//wikia-d.openx.net">
+	{{! googletag gpt}}
+	<link rel="preconnect" href="//www.googletagservices.com">
+	<link rel="dns-prefetch" href="//www.googletagservices.com">
 
 	{{#if model.gaUrl}}
 		<link rel="dns-prefetch" href="{{model.gaUrl}}">

@@ -7,11 +7,9 @@ function getServicesDomain(wikiaEnv, datacenter) {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `services.wikia-dev.${devDomain}`;
-	} else if (wikiaEnv === 'staging') {
-		return 'services.wikia-staging.com';
-	} else {
-		return 'services.wikia.com';
 	}
+
+	return `services.${config.wikiaBaseDomain}`;
 }
 
 function getHeliosInfoURL(wikiaEnv, datacenter) {
@@ -19,8 +17,6 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 		const devEnvironment = (datacenter === 'poz') ? 'poz-dev' : 'sjc-dev';
 
 		return `http://dev.${devEnvironment}.k8s.wikia.net/helios/info`;
-	} else if (wikiaEnv === 'staging') {
-		return 'http://staging.helios.service.sjc.consul:9500/info';
 	}
 
 	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
@@ -31,11 +27,9 @@ function getCookieDomain(wikiaEnv, datacenter) {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `.wikia-dev.${devDomain}`;
-	} else if (wikiaEnv === 'staging') {
-		return '.wikia-staging.com';
-	} else {
-		return '.wikia.com';
 	}
+
+	return `.${config.wikiaBaseDomain}`;
 }
 
 export function initialize(applicationInstance) {

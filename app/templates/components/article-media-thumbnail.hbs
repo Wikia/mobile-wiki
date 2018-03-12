@@ -1,7 +1,8 @@
 {{! This wrapper is required so the chevron is positioned correctly }}
 <div class="article-media-thumbnail-image-wrapper">
+	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 	{{#if isOgg}}
-		<a href="{{model.href}}">{{svg 'wds-icons-download' viewBox='0 0 24 24' class='icon'}}</a>
+		<a href="{{model.href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
 	{{else}}
 		<a href="{{model.href}}">
 			<img alt="{{model.title}}"
@@ -9,7 +10,7 @@
 				 height="{{if forcedHeight forcedHeight model.height}}"
 				 width="{{if forcedWidth forcedWidth model.width}}">
 			{{#if isLinkedByUser}}
-				{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}
 		</a>
 	{{/if}}
@@ -19,6 +20,7 @@
 			{{svg 'wds-player-icon-play' class='wds-player-icon-play-medium'}}
 		</div>
 	{{/if}}
+
 </div>
 {{! Allow custom captions }}
 {{#if hasBlock}}
