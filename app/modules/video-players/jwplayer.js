@@ -22,7 +22,7 @@ export default class JWPlayer extends BasePlayer {
 
 			if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
 				adsInstance.jwPlayerAds(player, bidParams, slotTargeting);
-				adsInstance.jwPlayerMoat.track(player);
+				adsInstance.jwPlayerMoat(player);
 			}
 		};
 
@@ -85,8 +85,6 @@ export default class JWPlayer extends BasePlayer {
 			},
 			this.params.onCreate.bind(this, bidParams)
 		);
-
-		Ads.getInstance().jwPlayerMoat.loadTrackingPlugin();
 	}
 
 	/**
