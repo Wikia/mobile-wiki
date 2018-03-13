@@ -2,6 +2,7 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
 import {track, trackActions} from '../utils/track';
+import offset from '../utils/offset';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -51,6 +52,28 @@ export default Component.extend(
 			}
 
 			this._super(...arguments);
+		},
+
+		click(event) {
+			const galleryActionButton = event.target.closest('.image-collection-actions button');
+
+			// switching image in pi-image-collection
+			if (galleryActionButton) {
+				const galleryWrapper = galleryActionButton.closest('.pi-image-collection')
+
+				if (galleryActionButton.classList.contains('action-next')) {
+					const nextFigure = galleryActionButton.closest('figure').nextElementSibling;
+
+					galleryWrapper.scrollLeft += offset(nextFigure).left;
+				} else if (galleryActionButton.classList.contains('action-previous')) {
+					const previousFigure = galleryActionButton.closest('figure').previousElementSibling;
+
+					galleryWrapper.scrollLeft += offset(previousFigure).left;
+
+				}
+
+				return false;
+			}
 		},
 
 		actions: {

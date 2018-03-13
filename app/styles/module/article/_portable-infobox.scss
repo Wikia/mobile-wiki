@@ -102,27 +102,20 @@ $group-header-font-size: 16px;
 
 // infobox gallery
 .pi-image-collection {
-	-webkit-overflow-scrolling: touch;
-	overflow-x: auto;
-	overflow-y: hidden;
+	overflow: hidden;
 	position: relative;
 	white-space: nowrap;
-
-	img {
-		height: 195px;
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
-	}
 
 	.pi-item {
 		@extend %position-play-icon;
 
 		display: inline-block;
-		margin-right: 8px;
+		width: 100vw;
 
 		.article-media-placeholder {
 			height: auto;
-			width: 195px;
+			max-height: 100vw;
+			width: 100%;
 		}
 
 		&.active {
@@ -140,6 +133,21 @@ $group-header-font-size: 16px;
 
 	.image-collection-actions {
 		width: 100%;
+		position: absolute;
+		top: 0;
+		height: 100%;
+
+		.action-next {
+			right: 0;
+		}
+
+		.action-previous {
+			left: 0;
+
+			svg {
+				transform: rotate(90deg);
+			}
+		}
 
 		button {
 			background: transparent;
@@ -161,18 +169,6 @@ $group-header-font-size: 16px;
 			stroke-width: .5;
 			transform: rotate(-90deg);
 		}
-
-		.action-previous svg {
-			transform: rotate(90deg);
-		}
-	}
-
-	.action-next {
-		right: 0;
-	}
-
-	.action-previous {
-		left: 0;
 	}
 }
 
