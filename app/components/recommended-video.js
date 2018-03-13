@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
-import {track} from '../utils/track';
+import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
 
 export default Component.extend(NoScrollMixin, {
@@ -14,7 +14,6 @@ export default Component.extend(NoScrollMixin, {
 
 	playlistItem: null,
 	playlistItems: null,
-	secondPlay: false,
 
 	init() {
 		this._super(...arguments);
@@ -38,6 +37,12 @@ export default Component.extend(NoScrollMixin, {
 	actions: {
 		play(index) {
 			this.get('playerInstance').playlistItem(index);
+
+			track({
+				category: 'recommended-video',
+				label: 'recommended-video-click',
+				action: trackActions.click,
+			});
 		},
 
 		close() {
@@ -64,6 +69,12 @@ export default Component.extend(NoScrollMixin, {
 				this.playerCreated.bind(this)
 			);
 		});
+
+		track({
+			category: 'recommended-video',
+			label: 'recommended-video-revealed',
+			action: trackActions.view,
+		});
 	},
 
 	playerCreated(playerInstance) {
@@ -71,20 +82,22 @@ export default Component.extend(NoScrollMixin, {
 			this.expandPlayer(playerInstance);
 		});
 
-		playerInstance.on('play', () => {
-			if (this.get('secondPlay')) {
+		playerInstance.on('play', (data) => {
+			if (data.playReason === 'interaction') {
 				this.expandPlayer(playerInstance);
 			}
-		});
-
-		playerInstance.on('pause', () => {
-			this.set('secondPlay', true);
 		});
 
 		playerInstance.on('playlistItem', ({item}) => {
 			// we have to clone item because Ember change it to Ember Object and it caused exception
 			// when jwplayer try to set property on this object without using ember setter
 			this.set('playlistItem', extend({}, item));
+
+			track({
+				category: 'recommended-video',
+				label: 'playlist-item-start',
+				action: trackActions.view,
+			});
 		});
 
 		playerInstance.once('ready', () => {
@@ -125,5 +138,11 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
+
+		track({
+			category: 'recommended-video',
+			label: 'recommended-video-expanded',
+			action: trackActions.view,
+		});
 	}
 });
