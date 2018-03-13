@@ -7,6 +7,7 @@ export default Service.extend(NoScrollMixin, {
 	isVisible: false,
 	lightboxType: null,
 	model: null,
+	preserveScrollPosition: false,
 
 	/**
 	 * Sets controller properties that are passed to LightboxWrapperComponent.
@@ -23,7 +24,8 @@ export default Service.extend(NoScrollMixin, {
 			lightboxType,
 			isVisible: true,
 			model: lightboxModel,
-			noScroll: true
+			noScroll: true,
+			preserveScrollPosition: true
 		});
 	},
 
@@ -35,7 +37,8 @@ export default Service.extend(NoScrollMixin, {
 	show() {
 		this.setProperties({
 			isVisible: true,
-			noScroll: true
+			noScroll: true,
+			preserveScrollPosition: true
 		});
 	},
 
