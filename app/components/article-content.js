@@ -95,6 +95,8 @@ export default Component.extend(
 		},
 
 		click(event) {
+			this.handleReferences(event);
+
 			const anchor = event.target.closest('a'),
 				label = this.getTrackingEventLabel(anchor);
 
@@ -385,6 +387,52 @@ export default Component.extend(
 							}
 						});
 					});
+			}
+		},
+
+		/**
+		 * Opens a parent section of passed element if it's closed
+		 * @param {Element} element
+		 * @returns {void}
+		 */
+		openSection(element) {
+			if (element) {
+				const section = element.closest('section[id*="section"]');
+
+				if (section) {
+					const header = section.previousElementSibling;
+
+					if (header && header.nodeName === 'H2') {
+						header.classList.add('open-section');
+					}
+				}
+			}
+		},
+
+		/**
+		 * Handles opening sections when click event occurs on references
+		 * @param {MouseEvent} event
+		 * @returns {void}
+		 */
+		handleReferences(event) {
+			const {target} = event;
+			const citeNoteSelector = '#cite_note-';
+			const citeRefSelector = '#cite_ref-';
+
+			if (target.nodeName === 'A' &&
+				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+			) {
+				event.preventDefault();
+				const reference = this.element.querySelector(target.hash);
+
+				this.openSection(reference);
+
+				if (reference) {
+					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
+					const siteHeaderHeight = 60;
+
+					window.scrollTo(0, offsetY - siteHeaderHeight);
+				}
 			}
 		},
 
