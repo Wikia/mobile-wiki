@@ -1,6 +1,5 @@
 import Service from '@ember/service';
 import NoScrollMixin from '../mixins/no-scroll';
-import {inject as controller} from '@ember/controller';
 
 export default Service.extend(NoScrollMixin, {
 	closeButtonDelay: 0,

@@ -14,7 +14,6 @@ import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 export default Route.extend(
@@ -122,7 +121,6 @@ export default Route.extend(
 						}
 					};
 
-					// TODO: fix it when lightbox is refactored
 					adsModule.showLightbox = () => {
 						this.get('lightbox').show();
 					};
