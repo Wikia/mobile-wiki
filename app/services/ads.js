@@ -12,11 +12,6 @@ export default Service.extend({
 		return ['0', null, ''].indexOf(this.get('noAdsQueryParam')) === -1 || this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: null,
-	adsUrl: computed('wikiVariables', function () {
-		let {cdnRootUrl, cacheBuster} = this.get('wikiVariables');
-
-		return `${cdnRootUrl}/__am/${cacheBuster}/groups/-/mercury_ads_js`;
-	}),
 
 	init() {
 		this.adSlotComponents = {};
