@@ -4,7 +4,6 @@
 	var adsLoaded = false;
 
 	window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
-
 		if (wgSitewideDisableAdsOnMercury || (new URL(document.location)).searchParams.get('noexternals')) {
 			return;
 		}

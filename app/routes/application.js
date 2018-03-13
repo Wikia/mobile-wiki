@@ -92,7 +92,6 @@ export default Route.extend(
 			) {
 
 				window.waitForAds(() => {
-
 					const adsModule = this.get('ads.module');
 
 					adsModule.init();

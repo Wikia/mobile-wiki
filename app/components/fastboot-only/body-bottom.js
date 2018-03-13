@@ -33,7 +33,7 @@ export default Component.extend({
 			'cdnRootUrl',
 			'dbName',
 			'id',
-			'language',
+			'language'
 		);
 
 		return JSON.stringify(Object.assign({
