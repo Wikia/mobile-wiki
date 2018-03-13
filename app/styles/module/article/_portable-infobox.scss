@@ -110,6 +110,7 @@ $group-header-font-size: 16px;
 		@extend %position-play-icon;
 
 		display: inline-block;
+		position: relative;
 		width: 100vw;
 
 		.article-media-placeholder {
