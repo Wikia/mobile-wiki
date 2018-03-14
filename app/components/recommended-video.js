@@ -10,10 +10,11 @@ export default Component.extend(NoScrollMixin, {
 	logger: service(),
 
 	classNames: ['recommended-video'],
-	classNameBindings: ['isExtended', 'isReady', 'isClosed'],
+	classNameBindings: ['isExtended', 'isReady', 'isClosed', 'isClickToPlay'],
 
 	playlistItem: null,
 	playlistItems: null,
+	isClickToPlay: true,
 
 	init() {
 		this._super(...arguments);
@@ -109,7 +110,7 @@ export default Component.extend(NoScrollMixin, {
 
 	getPlayerSetup(jwVideoData) {
 		return {
-			autoplay: true,
+			autoplay: !this.get('isClickToPlay'),
 			tracking: {
 				category: 'recommended-video',
 				track(data) {
@@ -134,7 +135,8 @@ export default Component.extend(NoScrollMixin, {
 	expandPlayer(playerInstance) {
 		this.setProperties({
 			isExtended: true,
-			noScroll: true
+			noScroll: true,
+			isClickToPlay: false,
 		});
 
 		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');

@@ -170,3 +170,40 @@ $recommended-video-player-width: 200px;
 		display: none;
 	}
 }
+
+.is-click-to-play {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100px;
+	width: 100%;
+
+	header {
+		width: 100%;
+	}
+
+	> div:nth-child(2) {
+		width: 83.5px;
+		height: 52.3px;
+		margin-bottom: 12px;
+	}
+
+	> div:nth-child(3) {
+		margin-left: 12px;
+		height: 100%;
+
+		> div {
+			font-size: 14px;
+		}
+	}
+
+	.recommended-video__player {
+		display: none;
+	}
+
+	.recommended-video__playlist-thumbnail {
+		img {
+			min-width: unset;
+			width: 100%;
+		}
+	}
+}
