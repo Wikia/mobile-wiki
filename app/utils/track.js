@@ -120,23 +120,24 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
-	const isFandomApp = new URL(window.location).searchParams.get('mobile-app') === 'true';
-	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
-
-	const trackingMethod = params.trackingMethod || 'both',
-		action = params.action,
-		category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null,
-		label = params.label || '',
-		value = params.value || 0,
-		isNonInteractive = params.isNonInteractive !== false;
+	if (!window.location) {
+		return;
+	}
 
 	if (typeof FastBoot !== 'undefined' || M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
-	if (!window.location) {
-		return;
-	}
+	const isFandomApp = new URL(window.location).searchParams.get('mobile-app') === 'true';
+	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
+
+	const trackingMethod = params.trackingMethod || 'both';
+	const action = params.action;
+	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
+	const label = params.label || '';
+	const value = params.value || 0;
+	const isNonInteractive = params.isNonInteractive !== false;
+
 	params = Object.assign({
 		ga_action: action,
 		ga_category: category,
