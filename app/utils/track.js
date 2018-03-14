@@ -130,7 +130,6 @@ export function track(params) {
 
 	const isFandomApp = new URL(window.location).searchParams.get('mobile-app') === 'true';
 	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
-
 	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
 	const isNonInteractive = params.isNonInteractive !== false;
 	const {action, label = '', value = 0, trackingMethod = 'both'} = params;
