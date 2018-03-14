@@ -120,9 +120,12 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
+	const isFandomApp = new URL(window.location).searchParams.get('mobile-app');
+	const appOrMercury = (isFandomApp === 'true' ? 'fandom-app-' : 'mercury-');
+
 	const trackingMethod = params.trackingMethod || 'both',
 		action = params.action,
-		category = params.category ? `mercury-${params.category}` : null,
+		category = params.category ? appOrMercury + params.category : null,
 		label = params.label || '',
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
