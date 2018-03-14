@@ -96,8 +96,8 @@ export default Mixin.create({
 
 						shoebox.put('wikiPage', dataForShoebox);
 						shoebox.put('trackingData', {
-							articleId: dataForShoebox.data.details.id,
-							namespace: dataForShoebox.data.ns
+							articleId: get(dataForShoebox, 'data.details.id'),
+							namespace: get(dataForShoebox, 'data.ns')
 						});
 					}
 
