@@ -26,7 +26,7 @@
   "article": {
     "categories-list-label": "Kategorie", 
     "comments-label": "{count} komentarz", 
-    "comments-label_plural": "{count} komentarzy(-e)", 
+    "comments-label_plural": "{count} komentarzy", 
     "empty-label": "Niestety ten artykuł wydaje się być pusty!", 
     "error": "Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.", 
     "last-edit": "Ostatnio edytowane tydzień temu", 
