@@ -83,7 +83,7 @@ export default Component.extend(
 
 			// switching image in pi-image-collection
 			if (galleryActionButton) {
-				const galleryWrapper = galleryActionButton.closest('.pi-image-collection')
+				const galleryWrapper = galleryActionButton.closest('.pi-image-collection');
 
 				if (galleryActionButton.classList.contains('action-next')) {
 					const nextFigure = galleryActionButton.closest('figure').nextElementSibling;
