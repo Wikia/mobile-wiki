@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import NoScrollMixin from '../mixins/no-scroll';
+import {track, trackActions} from '../utils/track';
 
 export default Service.extend(NoScrollMixin, {
 	closeButtonDelay: 0,
@@ -27,6 +28,15 @@ export default Service.extend(NoScrollMixin, {
 			noScroll: true,
 			preserveScrollPosition: true
 		});
+
+		if (lightboxType === 'media') {
+			track({
+				action: trackActions.click,
+				category: 'media',
+				label: 'open'
+			});
+
+		}
 	},
 
 	/**
