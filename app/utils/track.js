@@ -121,11 +121,11 @@ function isPageView(category) {
  */
 export function track(params) {
 	const isFandomApp = new URL(window.location).searchParams.get('mobile-app') === 'true';
-	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app-' : 'mercury-');
+	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
 
 	const trackingMethod = params.trackingMethod || 'both',
 		action = params.action,
-		category = params.category ? trackingCategoryPrefix + params.category : null,
+		category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null,
 		label = params.label || '',
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
