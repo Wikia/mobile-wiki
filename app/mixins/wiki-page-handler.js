@@ -95,10 +95,9 @@ export default Mixin.create({
 						}
 
 						shoebox.put('wikiPage', dataForShoebox);
-						this.get('simpleStore').setProperties({
-							namespace: get(dataForShoebox, 'data.ns'),
+						shoebox.put('trackingData', {
 							articleId: get(dataForShoebox, 'data.details.id'),
-							isMainPage: get(dataForShoebox, 'data.isMainPage')
+							namespace: get(dataForShoebox, 'data.ns')
 						});
 					}
 
