@@ -25,7 +25,7 @@
   },
   "repository": "",
   "engines": {
-    "node": "^4.5 || 6.* || <= 7.*"
+    "node": "<= 8"
   },
   "author": "",
   "license": "MIT",
@@ -132,5 +132,11 @@
     "util",
     "proxying-agent"
   ],
-  "snyk": true
+  "snyk": true,
+  "greenkeeper": {
+    "ignore": [
+      "ember-cli",
+      "ember-source"
+    ]
+  }
 }
