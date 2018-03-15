@@ -64,7 +64,7 @@ export default Component.extend(
 		 */
 		willInsertElement() {
 			if (this.get('shouldShowFandomAppSmartBanner')) {
-				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+				// this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
 				// running this just after render is working too
 				run.scheduleOnce('afterRender', this, this.checkForHiding);
 			}
