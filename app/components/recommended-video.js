@@ -36,7 +36,7 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	actions: {
-		play(index) {
+		play(index = 0) {
 			this.get('playerInstance').playlistItem(index);
 
 			track({

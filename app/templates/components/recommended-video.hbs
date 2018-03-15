@@ -7,7 +7,7 @@
 	</div>
 </header>
 {{#if isClickToPlay}}
-	<div class="recommended-video__playlist-thumbnail" {{action 'play' index}}>
+	<div class="recommended-video__playlist-thumbnail" {{action 'play'}}>
 		<img src="{{playlistItems.0.image}}" alt="{{playlistItems.0.title}}">
 		{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
 	</div>
@@ -16,7 +16,7 @@
 	<div id="recommended-video-player"></div>
 </div>
 <div class="recommended-video__container">
-	<div class="recommended-video__title">{{playlistItem.title}}</div>
+	<div class="recommended-video__title" {{action 'play'}}>{{playlistItem.title}}</div>
 	<h3 class="recommended-video__upnext">
 		Up Next
 	</h3>
