@@ -110,7 +110,7 @@ export default Component.extend(NoScrollMixin, {
 
 	getPlayerSetup(jwVideoData) {
 		return {
-			autoplay: !this.get('isClickToPlay'),
+			autoplay: this.getABTestVariation(),
 			tracking: {
 				category: 'recommended-video',
 				track(data) {
@@ -146,5 +146,9 @@ export default Component.extend(NoScrollMixin, {
 			label: 'recommended-video-expanded',
 			action: trackActions.view,
 		});
+	},
+
+	getABTestVariation() {
+		return !this.get('isClickToPlay');
 	}
 });
