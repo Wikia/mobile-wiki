@@ -35,29 +35,29 @@
 		</div>
 	</a>
 {{/if}}
-<div class="row post-bottom-row">
+<div class="post-bottom-row">
 	<span class="post-category-name">
 		{{i18n 'widget-discussions.in-category-label' categoryName=post.categoryName}}
 	</span>
 	<span class="post-counters">
 		<span class="upvote-count">
-			{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+			{{svg 'wds-icons-upvote-tiny' class='wds-icon wds-icon-tiny upvote'}}
 			{{post.upvoteCount}}
 		</span>
 		<span class="reply-count">
-			{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
+			{{svg 'wds-icons-reply-tiny' class='wds-icon wds-icon-tiny replies'}}
 			{{post.repliesCount}}
 		</span>
 	</span>
 </div>
-<ul class="row post-actions">
-	<li class="small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
-		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+<ul class="post-actions">
+	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
+		{{svg 'wds-icons-upvote-small' class='wds-icon wds-icon-small upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
-	<li class="small-4 large-4 replies replies-area">
+	<li class="replies replies-area">
 		<a href="/d/p/{{post.threadId}}">
-			{{svg 'reply' viewBox='0 0 24 24' class='icon repliess'}}
+			{{svg 'wds-icons-reply-small' class='wds-icon wds-icon-small replies'}}
 			{{i18n 'widget-discussions.post-actions-reply-label'}}
 		</a>
 	</li>

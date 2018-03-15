@@ -1,0 +1,15 @@
+.show-comments-btn {
+	align-items: center;
+	background: none;
+	border-top: 1px solid $secondary-color;
+	color: $wds-color-light-c6;
+	display: flex;
+	font-weight: bold;
+	padding: 1rem 1.25rem;
+	position: relative;
+	text-transform: uppercase;
+
+	> span {
+		flex: 1;
+	}
+}

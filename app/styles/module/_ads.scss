@@ -1,7 +1,7 @@
 @import 'ads-floor';
 @import 'ads-mixin';
 @import 'ads-porvata';
-@import 'node_modules/ad-products/dist/styles';
+@import 'node_modules/@wikia/ad-products/dist/ad-products';
 
 $closeButtonHeight: 40px;
 
@@ -12,13 +12,10 @@ $closeButtonHeight: 40px;
 }
 
 .ad-slot {
-	margin: 0;
-	padding: 0;
 	text-align: center;
 
 	.provider-container {
 		margin: 20px auto;
-		padding: 0;
 	}
 }
 
@@ -108,6 +105,7 @@ $closeButtonHeight: 40px;
 	z-index: $z-modal-dialog;
 
 	.close {
+		color: $wds-color-white;
 		cursor: pointer;
 	}
 
@@ -150,18 +148,12 @@ $closeButtonHeight: 40px;
 			width: $closeButtonHeight;
 			//This is needed to make sure that close button is always displayed above ad
 			z-index: $z-modal-dialog;
-
-			.close-button {
-				@extend %high-impact-close-icon;
-			}
 		}
 	}
 
 	&.interstitial {
 		height: 100%;
 		left: 0;
-		margin: 0;
-		padding: 0;
 		top: 0;
 
 		.provider-container {
@@ -194,10 +186,6 @@ $closeButtonHeight: 40px;
 
 		.close {
 			padding: 20px;
-
-			.close-button {
-				@extend %high-impact-close-icon;
-			}
 		}
 
 		.label {

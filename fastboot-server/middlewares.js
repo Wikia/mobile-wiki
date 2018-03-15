@@ -46,9 +46,14 @@ module.exports = {
 				// Handle errors that don't go to FastBoot, like Bad Request etc.
 				const statusCode = Math.max(res.statusCode, err.statusCode || 500);
 				const level = levelFn(statusCode);
-				const logFn = req.log[level].bind(req.log);
 
-				logFn(err);
+				if (req.log) {
+					const logFn = req.log[level].bind(req.log);
+					logFn(err);
+				} else {
+					// eslint-disable-next-line no-console
+					console.error(err);
+				}
 
 				res.sendStatus(statusCode);
 			}

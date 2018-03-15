@@ -1,15 +1,4 @@
-// DO NOT CHANGE:
-// load order of files below is intentional
-@import "node_modules/wikia-style-guide/src/scss/normalize",
-	"node_modules/wikia-style-guide/src/scss/lib/components/global",
-	"node_modules/wikia-style-guide/src/scss/lib/components/buttons",
-	"node_modules/wikia-style-guide/src/scss/lib/components/dropdown",
-	"node_modules/wikia-style-guide/src/scss/lib/components/forms",
-	"node_modules/wikia-style-guide/src/scss/lib/components/imagery",
-	"node_modules/wikia-style-guide/src/scss/lib/components/pagination",
-	"node_modules/wikia-style-guide/src/scss/lib/components/type";
-@import 'node_modules/design-system/dist/scss/index';
-@import 'embedded-svgs';
+@import 'design-system';
 @import 'settings';
 @import 'wikia-variables';
 @import 'mixin/index';

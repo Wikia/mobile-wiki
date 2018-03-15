@@ -1,7 +1,6 @@
 import {inject as service} from '@ember/service';
-import {reads} from '@ember/object/computed';
+import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
-import $ from 'jquery';
 import {isBlank} from '@ember/utils';
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
@@ -10,7 +9,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
-import {inGroup} from '../modules/abtest';
+import toArray from '../utils/toArray';
 
 /**
  * HTMLElement
@@ -24,9 +23,11 @@ export default Component.extend(
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
+		wikiVariables: service(),
 
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
+		attributeBindings: ['lang', 'dir'],
 		adsContext: null,
 		content: null,
 		contributionEnabled: null,
@@ -35,6 +36,8 @@ export default Component.extend(
 		isPreview: false,
 		media: null,
 
+		lang: reads('wikiVariables.language.content'),
+		dir: reads('wikiVariables.language.contentDir'),
 		isFastBoot: reads('fastboot.isFastBoot'),
 
 		/* eslint ember/no-on-calls-in-components:0 */
@@ -61,10 +64,6 @@ export default Component.extend(
 					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
-
-					if (this.get('featuredVideo') && inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-						this.renderFeaturedVideo();
-					}
 
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
@@ -96,8 +95,10 @@ export default Component.extend(
 		},
 
 		click(event) {
-			const $anchor = $(event.target).closest('a'),
-				label = this.getTrackingEventLabel($anchor);
+			this.handleReferences(event);
+
+			const anchor = event.target.closest('a'),
+				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
 				track({
@@ -122,7 +123,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		hackIntoEmberRendering(content) {
-			this.$().html(content);
+			this.element.innerHTML = content;
 		},
 
 		/**
@@ -138,23 +139,22 @@ export default Component.extend(
 		},
 
 		/**
-		 * @param {jQuery[]} $element — array of jQuery objects of which context is to be checked
+		 * @param {Element} element
 		 * @returns {string}
 		 */
-		getTrackingEventLabel($element) {
-			if ($element && $element.length) {
-
+		getTrackingEventLabel(element) {
+			if (element) {
 				// Mind the order -- 'figcaption' check has to be done before '.article-image',
 				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
-				if ($element.closest('.portable-infobox').length) {
+				if (element.closest('.portable-infobox')) {
 					return 'portable-infobox-link';
-				} else if ($element.closest('.context-link').length) {
+				} else if (element.closest('.context-link')) {
 					return 'context-link';
-				} else if ($element.closest('blockquote').length) {
+				} else if (element.closest('blockquote')) {
 					return 'blockquote-link';
-				} else if ($element.closest('figcaption').length) {
+				} else if (element.closest('figcaption')) {
 					return 'caption-link';
-				} else if ($element.closest('.article-image').length) {
+				} else if (element.closest('.article-image')) {
 					return 'image-link';
 				}
 
@@ -183,8 +183,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		loadIcons() {
-			this.$('.article-media-icon[data-src]').each(function () {
-				this.src = this.getAttribute('data-src');
+			toArray(this.element.querySelectorAll('.article-media-icon[data-src]')).forEach((element) => {
+				element.src = element.getAttribute('data-src');
 			});
 		},
 
@@ -192,7 +192,7 @@ export default Component.extend(
 		 * @param {Node} placeholder
 		 * @param {number} section
 		 * @param {string} sectionId
-		 * @returns {JQuery}
+		 * @returns {void}
 		 */
 		renderArticleContributionComponent(placeholder, section, sectionId) {
 			this.renderedComponents.push(
@@ -216,7 +216,9 @@ export default Component.extend(
 		 */
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = [...this.element.querySelectorAll('h2[section]')].map((element) => {
+				const headers = toArray(
+					this.element.querySelectorAll('h2[section]')
+				).map((element) => {
 					if (element.textContent) {
 						return {
 							element,
@@ -251,15 +253,14 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('.portable-infobox').map((i, element) => {
+			toArray(this.element.querySelectorAll('.portable-infobox')).map((element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
 						attrs: {
 							infoboxHTML: element.innerHTML,
-							height: $(element).outerHeight(),
+							height: element.offsetHeight,
 							pageTitle: this.get('displayTitle'),
-							smallHeroImage: this.get('featuredVideo') && this.get('heroImage'),
 							openLightbox: this.get('openLightbox')
 						},
 						element
@@ -280,35 +281,6 @@ export default Component.extend(
 		},
 
 		/**
-		 * FIXME FEATURED VIDEO A/B TEST ONLY
-		 */
-		renderFeaturedVideo() {
-			const $infoboxes = this.$('.portable-infobox'),
-				$headers = this.$(':header'),
-				$placeholder = $('<div />');
-
-			if ($infoboxes.length) {
-				$infoboxes.first().after($placeholder);
-			} else if ($headers.length) {
-				$headers.first().after($placeholder);
-			} else {
-				this.get('forceFeaturedVideoVisibility')();
-			}
-
-			if ($infoboxes.length || $headers.length) {
-				this.renderedComponents.push(
-					this.renderComponent({
-						name: 'article-featured-video',
-						attrs: {
-							model: this.get('featuredVideo')
-						},
-						element: $placeholder.get(0)
-					})
-				);
-			}
-		},
-
-		/**
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetsWithComponents() {
@@ -317,7 +289,7 @@ export default Component.extend(
 			 * @param {Element} element
 			 * @returns {void}
 			 */
-			this.$('[data-wikia-widget]').map((i, element) => {
+			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
@@ -327,7 +299,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetWithComponent(element) {
-			const widgetData = $(element).data(),
+			const widgetData = element.dataset,
 				widgetType = widgetData.wikiaWidget,
 				componentName = this.getWidgetComponentName(widgetType);
 
@@ -382,10 +354,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleWikiaWidgetWrappers() {
-			this.$('script[type="x-wikia-widget"]').each(function () {
-				const $this = $(this);
-
-				$this.replaceWith($this.html());
+			toArray(this.element.querySelectorAll('script[type="x-wikia-widget"]')).forEach((element) => {
+				element.outerHTML = element.innerHTML;
 			});
 		},
 
@@ -396,28 +366,73 @@ export default Component.extend(
 		 */
 		handleInfoboxes() {
 			const shortClass = 'short',
-				$infoboxes = this.$('table[class*="infobox"] tbody'),
+				infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody'),
 				body = window.document.body,
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-			if ($infoboxes.length) {
-				$infoboxes
-					.filter(function () {
-						return this.rows.length > 6;
-					})
-					.addClass(shortClass)
-					.append(
-						`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
-						`<use xlink:href="#chevron"></use></svg></td></tr>`
-					)
-					.on('click', function (event) {
-						const $target = $(event.target),
-							$this = $(this);
+			if (infoboxes.length) {
+				toArray(infoboxes)
+					.filter((element) => element.rows.length > 6)
+					.forEach((element) => {
+						element.classList.add(shortClass);
+						element.insertAdjacentHTML('beforeend',
+							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
+							`<use xlink:href="#chevron"></use></svg></td></tr>`);
 
-						if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
-							scrollTo.apply($this.find('.infobox-expand')[0]);
-						}
+						element.addEventListener('click', (event) => {
+							const target = event.target;
+
+							if (!target.matches('a') && element.classList.toggle(shortClass)) {
+								scrollTo.apply(element.querySelector('.infobox-expand'));
+							}
+						});
 					});
+			}
+		},
+
+		/**
+		 * Opens a parent section of passed element if it's closed
+		 * @param {Element} element
+		 * @returns {void}
+		 */
+		openSection(element) {
+			if (element) {
+				const section = element.closest('section[id*="section"]');
+
+				if (section) {
+					const header = section.previousElementSibling;
+
+					if (header && header.nodeName === 'H2') {
+						header.classList.add('open-section');
+					}
+				}
+			}
+		},
+
+		/**
+		 * Handles opening sections when click event occurs on references
+		 * @param {MouseEvent} event
+		 * @returns {void}
+		 */
+		handleReferences(event) {
+			const {target} = event;
+			const citeNoteSelector = '#cite_note-';
+			const citeRefSelector = '#cite_ref-';
+
+			if (target.nodeName === 'A' &&
+				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+			) {
+				event.preventDefault();
+				const reference = this.element.querySelector(target.hash);
+
+				this.openSection(reference);
+
+				if (reference) {
+					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
+					const siteHeaderHeight = 60;
+
+					window.scrollTo(0, offsetY - siteHeaderHeight);
+				}
 			}
 		},
 
@@ -425,14 +440,15 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
-				.not('table table')
-				.each((index, element) => {
-					const $element = this.$(element),
-						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-							' portable-table-wrappper' : ''}"/>`;
+			const tables = this.element.querySelectorAll('table');
 
-					$element.wrap(wrapper);
+			toArray(tables)
+				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.forEach((element) => {
+					const originalHTML = element.outerHTML;
+
+					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
 				});
 		},
 
@@ -441,10 +457,8 @@ export default Component.extend(
 				section = header.nextElementSibling;
 			let visible = 'false';
 
-			if (header.classList.contains('open-section')) {
-				header.classList.remove('open-section');
-			} else {
-				header.classList.add('open-section');
+
+			if (header.classList.toggle('open-section')) {
 				visible = 'true';
 
 				if (!header.hasAttribute('data-rendered')) {
@@ -458,7 +472,7 @@ export default Component.extend(
 		},
 
 		handleCollapsibleSections() {
-			this.element.querySelectorAll('h2[section]')
+			toArray(this.element.querySelectorAll('h2[section]'))
 				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
 		}
 	}

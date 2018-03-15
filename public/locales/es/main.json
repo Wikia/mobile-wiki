@@ -2,25 +2,26 @@
   "app": {
     "advertisement-label": "Anuncio", 
     "cancel-label": "Cancelar", 
-    "curated-content-editor-edit-main-page": "Editar la portada", 
+    "curated-content-editor-edit-main-page": "Editar portada", 
     "curated-content-load-more-items": "Cargar más", 
+    "days-ago": "{days}d", 
     "discussions-label": "Discusiones", 
     "header-in-wiki-name-label-prefix": "en:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Mapa no encontrado", 
-    "media-lightbox-error": "No se ha encontrado el archivo multimedia", 
+    "hours-ago": "{hours}h", 
+    "media-lightbox-error": "Archivo multimedia no encontrado", 
+    "minutes-ago": "{minutes}m", 
     "now-label": "Ahora", 
     "page-not-found-error": "Lo sentimos, no podemos encontrar la página que estás buscando.", 
     "page-not-found-message": "Usar la navegación o la búsqueda", 
     "pages-label": "Páginas", 
-    "photos-label": "Fotos", 
+    "photos-label": "Imágenes", 
     "trending-articles-label": "Artículos en Tendencia", 
     "username-anonymous": "Un usuario de FANDOM", 
-    "videos-label": "Vídeos", 
+    "videos-label": "Videos", 
     "view-more": "Leer más", 
     "wiki-page-error": "Lo sentimos, no pudimos cargar la página. Por favor, inténtelo de nuevo.", 
-    "wiki-page-error-reload-button": "Actualizar", 
-    "wikia-map-view-map": "Ver"
+    "wiki-page-error-reload-button": "Actualizar"
   }, 
   "article": {
     "categories-list-label": "Categorías", 
@@ -66,11 +67,15 @@
     "publish-error-noedit": "No tienes permiso para editar páginas en este wiki.", 
     "publish-error-noedit-anon": "Los usuarios anónimos no pueden editar páginas.", 
     "publish-error-protectedpage": "No tienes permiso para editar esta página.", 
-    "success": "¡Página editada con éxito {pageTitle}!"
+    "success": "¡Página {pageTitle} editada con éxito!"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
   }, 
   "file-page": {
     "subtitle": "Página de archivo", 
@@ -78,9 +83,9 @@
     "usages-see-more-link-label": "Ver lista completa"
   }, 
   "navigation": {
-    "back-label": "Atrás", 
+    "back-label": "Volver", 
     "explore-wiki": "Explora {wikiName}", 
-    "random-page-label": "Página aleatoria", 
+    "random-page-label": "Página al azar", 
     "user-menu-log-out": "Cerrar sesión", 
     "user-menu-profile": "Perfil"
   }, 
@@ -88,18 +93,16 @@
     "trending-fandom-articles": "Artículos de FANDOM"
   }, 
   "smartbanner": {
-    "install-android": "Instalar", 
-    "price": "GRATIS", 
-    "store-android": "En Google Play"
+    "install-android": "Instalar"
   }, 
   "user-status": {
     "login-text": "Iniciar sesión", 
-    "register-text": "Regístrate"
+    "register-text": "Registrarse"
   }, 
   "widget-discussions": {
     "all-discussions-link-mobile": "Todas las discusiones", 
     "header-title": "Discusiones", 
-    "in-category-label": "{categoryName}", 
+    "in-category-label": "en {categoryName}", 
     "post-actions-reply-label": "Responder", 
     "post-actions-upvote-label": "Votar"
   }

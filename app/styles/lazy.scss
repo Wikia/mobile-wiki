@@ -1,0 +1,14 @@
+@import 'node_modules/design-system/dist/scss/wds-mixins/index';
+@import 'node_modules/design-system/dist/scss/wds-variables/index';
+@import 'node_modules/design-system/dist/scss/wds-components/avatar';
+@import 'node_modules/design-system/dist/scss/wds-components/avatar-stack';
+@import 'node_modules/design-system/dist/scss/wds-components/notifications';
+@import 'node_modules/design-system/dist/scss/wds-components/player';
+@import 'node_modules/design-system/dist/scss/wds-components/spinner';
+@import 'node_modules/design-system/dist/scss/wds-components/sign-out';
+@import 'settings';
+@import 'wikia-variables';
+@import 'mixin/link-interactions-color';
+@import 'placeholder/%list-reset';
+@import 'component/lazy';
+@import 'module/lazy';

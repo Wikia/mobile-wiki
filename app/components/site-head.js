@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {inject as service} from '@ember/service';
 import {alias, readOnly, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
@@ -17,18 +16,17 @@ export default Component.extend(
 		smartBanner: service(),
 
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar'],
+		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
 		tagName: 'div',
 		themeBar: false,
-		closeIcon: 'close',
+		closeIcon: 'wds-icons-cross',
+		offset: 0,
 
 		defaultWikiaHomePage: 'http://fandom.wikia.com',
-
+		partnerSlot: readOnly('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
-
-		offset: readOnly('ads.siteHeadOffset'),
 
 		unreadNotificationsCount: alias('notifications.model.unreadCount'),
 
@@ -37,17 +35,13 @@ export default Component.extend(
 
 		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
 
-		displayFandomBar: computed('isSearchPage', function () {
-			return Boolean(this.get('globalNavigation.logo.module.tagline')) && !this.get('isSearchPage');
-		}),
-
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'nav';
+			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'wds-icons-menu';
 		}),
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
-				this.get('closeIcon') : 'search';
+				this.get('closeIcon') : 'wds-icons-magnifying-glass';
 		}),
 
 		init() {
@@ -63,29 +57,6 @@ export default Component.extend(
 					notTop: 'site-head-headroom-not-top'
 				}
 			};
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		willInsertElement() {
-			if (this.get('shouldShowFandomAppSmartBanner')) {
-				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
-				// running this just after render is working too
-				run.scheduleOnce('afterRender', this, this.checkForHiding);
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		checkForHiding() {
-			const smartBannerService = this.get('smartBanner');
-
-			if (!standalone && !smartBannerService.isCookieSet()) {
-				smartBannerService.setVisibility(true);
-				smartBannerService.track(trackActions.impression);
-			}
 		},
 
 		actions: {
@@ -112,6 +83,7 @@ export default Component.extend(
 
 					this.get('setDrawerContent')(icon);
 					this.get('toggleDrawer')(true);
+					this.get('ads.module').onMenuOpen();
 				}
 			},
 
@@ -123,6 +95,29 @@ export default Component.extend(
 					action: trackActions.click,
 					category: 'wordmark'
 				});
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		willInsertElement() {
+			if (this.get('shouldShowFandomAppSmartBanner')) {
+				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+				// running this just after render is working too
+				run.scheduleOnce('afterRender', this, this.checkForHiding);
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		checkForHiding() {
+			const smartBannerService = this.get('smartBanner');
+
+			if (!standalone && !smartBannerService.isCookieSet()) {
+				smartBannerService.setVisibility(true);
+				smartBannerService.track(trackActions.impression);
 			}
 		},
 

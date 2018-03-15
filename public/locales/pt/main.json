@@ -4,11 +4,13 @@
     "cancel-label": "Cancelar", 
     "curated-content-editor-edit-main-page": "Editar a página principal", 
     "curated-content-load-more-items": "Carregar mais", 
+    "days-ago": "{days}d", 
     "discussions-label": "Discussões", 
     "header-in-wiki-name-label-prefix": "em:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Mapa não encontrado", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "Mídia não encontrada", 
+    "minutes-ago": "{minutes}m", 
     "now-label": "agora", 
     "page-not-found-error": "Desculpe, mas não conseguimos encontrar a página que você está procurando.", 
     "page-not-found-message": "Usar Navegação ou Busca", 
@@ -19,8 +21,7 @@
     "videos-label": "Vídeos", 
     "view-more": "Ver mais", 
     "wiki-page-error": "Não foi possível carregar a página. Por favor, tente novamente.", 
-    "wiki-page-error-reload-button": "Atualizar", 
-    "wikia-map-view-map": "Ver"
+    "wiki-page-error-reload-button": "Atualizar"
   }, 
   "article": {
     "categories-list-label": "Categorias", 
@@ -72,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "Página do arquivo", 
     "usages-header": "Aparece nestas páginas", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "Artigos do FANDOM em alta"
   }, 
   "smartbanner": {
-    "install-android": "Instalar", 
-    "price": "GRÁTIS", 
-    "store-android": "No Google Play"
+    "install-android": "Instalar"
   }, 
   "user-status": {
     "login-text": "Iniciar sessão", 

@@ -1,14 +1,6 @@
-{{#if smallHeroImage}}
-	{{portable-infobox-hero-image-small
-		heroImage=smallHeroImage
-		openLightbox=openLightbox
-	}}
-{{/if}}
 {{{infoboxHTML}}}
 {{#if isLongInfobox}}
 	<div role="button" class={{expandButtonClass}} {{action "toogleInfobox"}}>
-		<svg viewBox="0 0 12 7" class="icon pi-expand-icon">
-			<use xlink:href="#chevron"></use>
-		</svg>
+		{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 	</div>
 {{/if}}

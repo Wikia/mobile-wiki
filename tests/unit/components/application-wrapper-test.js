@@ -1,36 +1,39 @@
-import {test, moduleForComponent} from 'ember-qunit';
+import {module, test} from 'qunit';
+import {setupTest} from 'ember-qunit';
 
-moduleForComponent('application-wrapper', 'Unit | Component | application wrapper', {
-	unit: true,
-	needs: [
-		'service:ads',
-		'service:current-user',
-		'service:fastboot',
-		'service:logger',
-		'service:wiki-variables',
-		'service:smartBanner'
-	]
-});
+module('Unit | Component | application wrapper', (hooks) => {
+	setupTest(hooks);
 
-test('shouldHandleClick returns correct value', function (assert) {
-	const testCases = [
-		{
-			target: '<li class="mw-content"></li>',
-			expected: true
-		},
-		{
-			target: '<li></li>',
-			expected: false
-		},
-		{
-			target: '<div class="PDS_Poll"></div>',
-			expected: false
-		}
-	];
+	function createElement(tag, className) {
+		const element = document.createElement(tag),
+			parent = document.createElement('div');
 
-	testCases.forEach((testCase) => {
-		const component = this.subject();
+		element.className = className;
+		parent.appendChild(element);
 
-		assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
+		return element;
+	}
+
+	test('shouldHandleClick returns correct value', function (assert) {
+		const testCases = [
+			{
+				target: createElement('li', 'mw-content'),
+				expected: true
+			},
+			{
+				target: createElement('li'),
+				expected: null
+			},
+			{
+				target: createElement('div', 'PDS_Poll'),
+				expected: null
+			}
+		];
+
+		testCases.forEach((testCase) => {
+			const component = this.owner.factoryFor('component:application-wrapper').create();
+
+			assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
+		});
 	});
 });

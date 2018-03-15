@@ -1,12 +1,12 @@
 {
   "main": {
-    "load-more-results": "Load more", 
-    "search-error-general": "Can't connect, please try again", 
-    "search-error-general-action": "Click to retry", 
-    "search-error-not-found": "We couldn't find anything for {query}", 
-    "search-error-not-found-action": "Try Another Search", 
-    "search-input-label": "Search", 
-    "search-loading-msg": "Loading search results...", 
-    "total-results": "About {totalItems} results for {query}"
+    "load-more-results": "Tải thêm", 
+    "search-error-general": "Không thể kết nối, bạn vui lòng thử lại", 
+    "search-error-general-action": "Nhấp vào đây để thử lại", 
+    "search-error-not-found": "Chúng tôi không thể tìm thấy thông tin nào liên quan đến {query}", 
+    "search-error-not-found-action": "Thử tìm kiếm mục khác", 
+    "search-input-label": "Tìm kiếm", 
+    "search-loading-msg": "Đang tải các kết quả tìm kiếm...", 
+    "total-results": "Có {totalItems} kết quả cho {query}"
   }
 }

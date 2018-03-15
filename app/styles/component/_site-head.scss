@@ -5,10 +5,6 @@ $site-head-box-shadow-color: rgba(0, 0, 0, .15);
 $icon-button-size: 48px;
 $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
-.site-body {
-	margin-top: $icon-site-head-width;
-}
-
 .site-head-headroom-un-pinned .site-head {
 	box-shadow: $site-head-default-box-shadow;
 
@@ -33,6 +29,10 @@ body:not(.no-scroll) {
 	.fandom-app-smart-banner {
 		position: fixed;
 		top: 0;
+
+		.featured-video-on-scroll-active & {
+			position: static;
+		}
 	}
 }
 
@@ -46,14 +46,28 @@ body:not(.no-scroll) {
 	height: $site-head-height;
 }
 
+.has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-with-partner-slot-height;
+	}
+}
+
+.no-scroll .has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-height;
+	}
+}
+
 .site-head {
-	align-items: center;
+	align-items: flex-start;
 	background-color: $white;
 	border-bottom: 1px solid $vapor;
 	border-top: $site-head-top-border-height solid $color-blue-dark;
 	direction: ltr;
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
@@ -69,6 +83,10 @@ body:not(.no-scroll) {
 	width: 100%;
 	z-index: $z-site-head;
 
+	.featured-video-on-scroll-active & {
+		position: static;
+	}
+
 	.site-head-icon-search {
 		width: $icon-button-size;
 	}
@@ -79,7 +97,7 @@ body:not(.no-scroll) {
 		// beneath it.
 		height: 1.6rem;
 		//this is needed to center logo before app starts and we have just 'stub' of site head
-		margin: 0 auto;
+		margin: 12px auto 0;
 	}
 
 	.fandom-logo {
@@ -95,19 +113,15 @@ body:not(.no-scroll) {
 	.site-head-icon {
 		position: relative;
 
-		.icon-button-icon {
-			fill: $color-blue-dark;
+		svg {
+			fill: $wds-color-dark-blue;
+			height: 24px;
+			width: 24px;
 		}
 
 		&-search,
 		&-nav {
 			flex: 0 0 48px;
-		}
-
-		&:hover {
-			.icon-button-icon {
-				fill: $color-blue-dark;
-			}
 		}
 	}
 
@@ -129,18 +143,23 @@ body:not(.no-scroll) {
 	}
 }
 
-.side-nav-toggle {
-	display: inline-block;
-	float: left;
-	height: $icon-site-head-height;
-	padding-top: rem-calc(15);
-	position: relative;
-	width: $icon-site-head-width;
+.site-head__partner-slot {
+	flex-basis: 100%;
+}
 
-	svg {
-		display: block;
-		margin: auto;
+.site-head__partner-logo {
+	left: 50%;
+	position: absolute;
+	top: 37px;
+	transform: translateX(-10px);
+
+	img {
+		height: 18px;
 	}
+}
+
+.no-scroll .site-head__partner-logo {
+	display: none;
 }
 
 //Styles for BFAA

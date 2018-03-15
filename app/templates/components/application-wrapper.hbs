@@ -10,10 +10,9 @@
 		setDrawerContent=(action 'setDrawerContent')
 		themeBar=themeBar
 		toggleDrawer=toggleDrawer
+		offset=ads.siteHeadOffset
 	}}
-	{{#wikia-drawer
-		shouldBeVisible=drawerVisible
-	}}
+	{{#wikia-drawer shouldBeVisible=drawerVisible}}
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
@@ -29,26 +28,21 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
-	{{#unless shouldShowFandomAppSmartBanner}}
-		{{smart-banner-android
-			isVisible=smartBannerVisible
-		}}
-	{{/unless}}
-	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+	<div class="page-wrapper">
 		{{outlet}}
 	</div>
-	{{lightbox-wrapper
-		type=lightboxType
-		model=lightboxModel
-		isVisible=lightboxVisible
-		lightboxCloseButtonDelay=lightboxCloseButtonDelay
-		closeLightbox=closeLightbox
-		setQueryParam=setQueryParam
-	}}
 	{{wikia-in-your-lang}}
 	{{#if globalFooter}}
 		{{global-footer/global-footer model=globalFooter}}
 	{{/if}}
 {{/if}}
+{{lightbox-wrapper
+	type=lightboxType
+	model=lightboxModel
+	isVisible=lightboxVisible
+	lightboxCloseButtonDelay=lightboxCloseButtonDelay
+	closeLightbox=closeLightbox
+	setQueryParam=setQueryParam
+}}
 {{alert-notifications alerts=alertNotifications}}
 {{wds-spinner active=isLoading}}

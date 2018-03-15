@@ -2,21 +2,20 @@ import {readOnly} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
-import ViewportMixin from '../mixins/viewport';
 import RenderComponentMixin from '../mixins/render-component';
+
+const computedWidth = typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
 
 export default Component.extend(
 	RenderComponentMixin,
-	ViewportMixin,
 	{
-		// TODO it's not treated as custom property
-		imageAspectRatio: 16 / 9,
+		computedWidth,
 
 		// @todo XW-1363 - keep it DRY
 		// or should it be the same as in portable-infobox-image-collection?
-		cropMode: computed('viewportDimensions.width', function () {
-			const windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio'),
+		cropMode: computed('computedWidth', function () {
+			const windowWidth = this.get('computedWidth'),
+				imageAspectRatio = this.imageAspectRatio,
 				imageWidth = this.get('width') || windowWidth,
 				imageHeight = this.get('height'),
 				maxWidth = Math.floor(imageHeight * imageAspectRatio);
@@ -42,9 +41,9 @@ export default Component.extend(
 		}),
 
 		// @todo XW-1363 - keep it DRY
-		computedHeight: computed('viewportDimensions.width', function () {
-			const windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio'),
+		computedHeight: computed('computedWidth', function () {
+			const windowWidth = this.get('computedWidth'),
+				imageAspectRatio = this.imageAspectRatio,
 				imageWidth = this.get('width') || windowWidth,
 				imageHeight = this.get('height'),
 				maxWidth = Math.floor(imageHeight * imageAspectRatio);
@@ -69,6 +68,7 @@ export default Component.extend(
 			return computedHeight;
 		}),
 
-		computedWidth: readOnly('viewportDimensions.width')
+		// TODO it's not treated as custom property
+		imageAspectRatio: 16 / 9,
 	}
 );

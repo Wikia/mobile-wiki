@@ -1,20 +1,3 @@
-// component
-.wiki-page-header {
-	background: $color-blue-light;
-	color: #fff;
-}
-
-// component elements
-.wiki-page-header__wrapper {
-	display: flex;
-	padding: {
-		bottom: 12px;
-		left: $article-horizontal-padding;
-		right: $article-horizontal-padding;
-		top: 16px;
-	}
-}
-
 %wiki-page-header-element {
 	color: inherit;
 	font-weight: normal;
@@ -22,81 +5,86 @@
 	margin: 0;
 }
 
-.wiki-page-header__site-name-block {
-	@extend %wiki-page-header-element;
+// component
+.wiki-page-header {
+	background: $color-blue-light;
+	color: #fff;
 
-	font-size: 12px;
+	.contribution-container {
+		margin-bottom: -8px;
 
-	svg {
-		fill: #fff;
-		height: 16px;
-		vertical-align: middle;
-		width: 11px;
+		.icon {
+			fill: #fff;
+		}
 	}
 
-	a:hover svg {
-		fill: #081e3a;
+	&.has-hero-image {
+		background: {
+			color: transparent;
+			position: center center;
+			repeat: no-repeat;
+		}
+
+		position: relative;
+
+		.wiki-page-header__wrapper {
+			background: linear-gradient(to top, rgba(0, 0, 0, .6) 0, transparent 120px);
+			height: 100%;
+		}
+
+		.contribution-container {
+			align-items: flex-end;
+		}
 	}
-}
 
-.wiki-page-header__site-link {
-	color: inherit;
-}
-
-.wiki-page-header__site-name {
-	font-style: italic;
-	font-weight: bold;
-}
-
-.wiki-page-header__title {
-	@extend %wiki-page-header-element;
-
-	font-size: 26px;
-	font-weight: bold;
-	line-height: 32px;
-	word-break: break-word;
-}
-
-.wiki-page-header__site-name-block ~ .wiki-page-header__title {
-	margin-top: 3px;
-}
-
-.wiki-page-header__subtitle {
-	@extend %wiki-page-header-element;
-
-	font-size: 14px;
-	margin-top: 15px;
-}
-
-// component modifier-related changes to elements
-.wiki-page-header.has-hero-image {
-	background: {
-		color: #fff;
-		position: center center;
-		repeat: no-repeat;
+	&__wrapper {
+		display: flex;
+		padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
 	}
-}
 
-.wiki-page-header.has-hero-image.is-fastboot {
-	@extend %image-placeholder;
+	&__site-name-block {
+		@extend %wiki-page-header-element;
 
-	@include is-loading;
-}
+		font-size: 12px;
 
-.wiki-page-header.has-hero-image .wiki-page-header__wrapper {
-	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, .6) 100%);
-	height: 100%;
-}
+		.wds-icon {
+			position: relative;
+			top: 2px;
+			transform: rotate(180deg);
+		}
+	}
 
-.wiki-page-header__main {
-	align-self: flex-end;
-	flex: 1;
-}
+	&__site-link {
+		color: inherit;
+	}
 
-.wiki-page-header .contribution-container {
-	margin-bottom: -8px;
+	&__site-name {
+		font-style: italic;
+		font-weight: bold;
+	}
 
-	.icon {
-		fill: #fff;
+	&__title {
+		@extend %wiki-page-header-element;
+
+		font-size: 26px;
+		font-weight: bold;
+		line-height: 32px;
+		word-break: break-word;
+	}
+
+	&__site-name-block ~ &__title {
+		margin-top: 3px;
+	}
+
+	&__subtitle {
+		@extend %wiki-page-header-element;
+
+		font-size: 14px;
+		margin-top: 15px;
+	}
+
+	&__main {
+		align-self: flex-end;
+		flex: 1;
 	}
 }

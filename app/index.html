@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/mobile-wiki/assets/app.css">
+<script src="/mobile-wiki/assets/vendor.js" defer></script>
+<script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
+<script>
+	window.M = {};
+</script>
 {{content-for 'head'}}
-{{content-for 'fastboot-inline-scripts-head'}}
-{{content-for 'fastboot-inline-scripts-head-tracking'}}
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+<div id="rubik-font">
+	<b><i></i></b>
+	<b></b>
+	<i></i>
+</div>
+<script>
+	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
+		document.body.classList.add('rubik');
+	});
+</script>
+{{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
-{{content-for 'measure-first-render'}}
-
-<script>
-	(function (M) {
-		if (typeof FastBoot === 'undefined' && M.getFromShoebox('serverError')) {
-			// No need to load Ember in browser on server error page
-			return;
-		}
-		M.loadScript('/mobile-wiki/assets/vendor.js', false, false, 'anonymous');
-		M.loadScript('/mobile-wiki/assets/mobile-wiki.js', false, false, 'anonymous');
-	})(window.M);
-</script>
-
+{{content-for 'fastboot-inline-scripts'}}
+{{content-for 'fastboot-inline-scripts-tracking'}}
 {{content-for 'fastboot-inline-scripts-load-svg'}}
+
 <script>
 	(function (M) {
-		M.loadDOMResource('/mobile-wiki/assets/main.svg');
 		M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
 	})(window.M);
 </script>
 
-<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
-
-<script>
-	/**
-	 * FIXME FEATURED VIDEO A/B TEST ONLY
-	 *
-	 * This is the earliest moment when we can get AB group
-	 * Normally we prerender video placeholder, but in this specific variant of AB Testing video is
-	 * placed differently so we have to hide the prerendered placeholder.
-	 */
-	if (window.Wikia.AbTest.inGroup('FEATURED_VIDEO_VIEWABILITY_VARIANTS', 'PAGE_PLACEMENT')) {
-		var articleFeaturedVideo = document.querySelector('.article-featured-video');
-		if (articleFeaturedVideo) {
-			articleFeaturedVideo.style.display = 'none';
-		}
-	}
-</script>
+{{content-for 'instant-globals'}}
+<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
 
 {{content-for 'fastboot-inline-scripts-body-bottom'}}
 {{content-for 'tracking-ua'}}

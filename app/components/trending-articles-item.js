@@ -1,18 +1,17 @@
 import {computed} from '@ember/object';
 import {oneWay} from '@ember/object/computed';
 import Component from '@ember/component';
-import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
+import {transparentImageBase64} from '../utils/thumbnail';
 
-export default Component.extend(ViewportMixin, {
+export default Component.extend({
 	tagName: 'a',
 	classNames: ['trending-articles-item'],
 	attributeBindings: ['href', 'style'],
-	cropMode: Thumbnailer.mode.topCrop,
-	thumbnailer: Thumbnailer,
 	style: null,
 	imageWidth: 250,
+	emptyGif: transparentImageBase64,
 
 	href: oneWay('url'),
 
@@ -21,10 +20,10 @@ export default Component.extend(ViewportMixin, {
 			const options = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
-				mode: this.get('cropMode'),
+				mode: Thumbnailer.mode.topCrop,
 			};
 
-			return this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			return Thumbnailer.getThumbURL(this.get('imageUrl'), options);
 		} else {
 			return undefined;
 		}

@@ -13,14 +13,17 @@
 
 	&__fixed-wrapper {
 		flex-grow: 0;
+
+		.wikia-nav__header {
+			justify-content: space-between;
+		}
 	}
 
 	&__back-link {
 		line-height: 20px;
 
 		svg {
-			float: left;
-			margin-top: 5px;
+			fill: $wds-color-blue-gray;
 			transform: rotate(90deg);
 		}
 	}
@@ -67,8 +70,6 @@
 
 		.wds-notifications__mark-all-as-read {
 			line-height: 14px;
-			margin: 0;
-			padding: 0;
 			text-align: right;
 		}
 	}
@@ -76,8 +77,6 @@
 	&__notification-title {
 		font-size: $wds-typescale-size-minus-2;
 		line-height: 14px;
-		margin: 0;
-		padding: 0;
 		text-transform: uppercase;
 	}
 }

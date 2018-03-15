@@ -1,10 +1,10 @@
-<div role="button" {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
-	{{i18n 'article.comments-label' count=commentsCount}}
-	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+<div role="button" {{action 'toggleComments'}} class='show-comments-btn {{if isCollapsed 'collapsed'}}'>
+	<span>{{i18n 'article.comments-label' count=commentsCount}}</span>
+	{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='page-btn {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
+		<button class='wds-button page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
 			{{i18n 'article-comments.prev-button'}}
 		</button>
 		<ul class='comments {{if commentsHidden 'wds-is-hidden'}}'>
@@ -12,7 +12,7 @@
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='page-btn {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
+		<button class='wds-button page-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
 			{{i18n 'article-comments.next-button'}}
 		</button>
 	{{else}}

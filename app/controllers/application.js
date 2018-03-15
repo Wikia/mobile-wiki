@@ -1,7 +1,6 @@
 import {inject as service} from '@ember/service';
-import $ from 'jquery';
 import {isEmpty} from '@ember/utils';
-import {alias, equal} from '@ember/object/computed';
+import {alias, equal, oneWay} from '@ember/object/computed';
 import Controller, {inject as controller} from '@ember/controller';
 import MediaModel from '../models/media';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
@@ -18,9 +17,12 @@ export default Controller.extend(
 		logger: service(),
 		wikiVariables: service(),
 
-		queryParams: ['file', 'map',
+		queryParams: ['file',
 			{
 				noAds: 'noads'
+			},
+			{
+				mobileApp: 'mobile-app'
 			},
 			// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 			{
@@ -42,21 +44,21 @@ export default Controller.extend(
 			this._super();
 		},
 
-		file: null,
-		map: null,
-		commentsPage: null,
 		applicationWrapperClassNames: null,
-		drawerVisible: false,
+		commentsPage: null,
 		drawerContent: null,
-		userMenuVisible: false,
-		fullPage: false,
-		lightboxType: null,
-		lightboxModel: null,
-		lightboxVisible: false,
+		drawerVisible: false,
+		file: null,
 		lightboxCloseButtonDelay: 0,
+		lightboxModel: null,
+		lightboxType: null,
+		lightboxVisible: false,
+		mobileApp: null,
+		userMenuVisible: false,
 
-		noAds: alias('ads.noAdsQueryParam'),
+		fullPage: oneWay('mobileApp'),
 		isSearchPage: equal('currentRouteName', 'search'),
+		noAds: alias('ads.noAdsQueryParam'),
 
 		actions: {
 			/**
@@ -71,7 +73,6 @@ export default Controller.extend(
 					lightboxVisible: false,
 					lightboxCloseButtonDelay: 0,
 					file: null,
-					map: null,
 					noScroll: false
 				});
 			},
@@ -141,13 +142,11 @@ export default Controller.extend(
 			 * @returns {void}
 			 */
 			setQueryParam(name, value) {
-				const queryParamsWhitelist = ['file', 'map'];
-
-				if (queryParamsWhitelist.indexOf(name) === -1) {
+				if (name !== 'file') {
 					this.get('logger').error('Something tried to set query param that is not on the whitelist', {
 						name,
 						value,
-						whitelist: queryParamsWhitelist
+						whitelist: ['file']
 					});
 					return;
 				}
@@ -214,23 +213,6 @@ export default Controller.extend(
 				// If we can't display the lightbox let's remove this param from the URL
 				this.set('file', null);
 			}
-		},
-
-		/**
-		 * Find the map element in DOM by given map id and sends proper data to openLightbox action.
-		 *
-		 * @param {string} map
-		 * @returns {void}
-		 */
-		openLightboxForMap(map) {
-			const $map = $(`a[data-map-id=${map}]`);
-
-			this.send('openLightbox', 'map', {
-				title: $map.data('map-title'),
-				url: $map.data('map-url'),
-				id: $map.data('map-id')
-			});
-
 		}
 	}
 );

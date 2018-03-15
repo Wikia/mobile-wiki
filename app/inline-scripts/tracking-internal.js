@@ -1,10 +1,12 @@
 (function (M) {
-	if (M.getFromShoebox('runtimeConfig.noExternals') || M.getFromShoebox('serverError')) {
+	if (M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
+	const shoeboxTrackingData = JSON.parse(document.querySelector('#shoebox-trackingData').innerHTML);
+
 	M.tracker.Internal.trackPageView({
-		a: M.getFromShoebox('wikiPage.data.details.id'),
-		n: M.getFromShoebox('wikiPage.data.ns')
+		a: shoeboxTrackingData.articleId,
+		n: shoeboxTrackingData.namespace
 	});
 })(window.M);

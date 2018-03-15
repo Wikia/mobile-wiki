@@ -1,9 +1,9 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
-import $ from 'jquery';
 import {run} from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
+import offset from '../utils/offset';
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -30,11 +30,14 @@ export default Component.extend(
 
 				this.get('loadPage')(page)
 					.then(() => {
-						const navHeight = $('.site-head').outerHeight() + $('.site-head-fandom-bar').outerHeight(),
-							scrollTop = this.$().offset().top - navHeight;
+						const navHeight = document.querySelector('.site-head-wrapper').offsetHeight,
+							scrollTop = offset(this.element).top - navHeight;
 
 						run.scheduleOnce('afterRender', this, () => {
-							$('html, body').animate({scrollTop});
+							window.scroll({
+								top: scrollTop,
+								behavior: 'smooth'
+							});
 						});
 					})
 					.catch((error) => {
@@ -53,13 +56,16 @@ export default Component.extend(
 			/**
 			 * @param {string} category
 			 * @param {string} label
+			 * @param {Event} event
 			 */
-			trackClick(category, label) {
-				track({
-					action: trackActions.click,
-					category,
-					label
-				});
+			trackClick(category, label, event) {
+				if (event.target.matches('a')) {
+					track({
+						action: trackActions.click,
+						category,
+						label
+					});
+				}
 			}
 		}
 	}

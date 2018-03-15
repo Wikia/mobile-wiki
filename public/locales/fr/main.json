@@ -4,11 +4,13 @@
     "cancel-label": "Annuler", 
     "curated-content-editor-edit-main-page": "Modification de la page d'accueil", 
     "curated-content-load-more-items": "Importer plus", 
+    "days-ago": "{days}j", 
     "discussions-label": "Discussions", 
     "header-in-wiki-name-label-prefix": "dans :", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Carte non trouvée", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "Média non trouvé", 
+    "minutes-ago": "{minutes}min", 
     "now-label": "maintenant", 
     "page-not-found-error": "Désolés, nous n'avons pas pu trouver la page que vous cherchez.", 
     "page-not-found-message": "Utilisez Navigation ou Recherche", 
@@ -19,8 +21,7 @@
     "videos-label": "Vidéos", 
     "view-more": "Voir plus", 
     "wiki-page-error": "Nous n'avons pas pu charger la page. Veuillez réessayer.", 
-    "wiki-page-error-reload-button": "Actualiser", 
-    "wikia-map-view-map": "Afficher"
+    "wiki-page-error-reload-button": "Actualiser"
   }, 
   "article": {
     "categories-list-label": "Catégories", 
@@ -51,31 +52,35 @@
   }, 
   "category-page": {
     "load-error": "Désolé, un problème est survenu. Veuillez réessayer.", 
-    "load-more": "En charger plus", 
+    "load-more": "Importer plus", 
     "load-previous": "Charger la précédente", 
     "no-members": "Cette catégorie ne contient aucune page à l'heure actuelle.", 
     "subtitle": "Page de catégorie"
   }, 
   "edit": {
-    "load-error": "Désolés, il y a eu un problème. Merci de réessayer.", 
+    "load-error": "Désolé, un problème est survenu. Veuillez réessayer.", 
     "page-heading": "Modification :", 
     "page-publish": "Publier", 
-    "publish-error": "Désolés, il y a eu un problème. Merci de réessayer.", 
+    "publish-error": "Désolé, un problème est survenu. Veuillez réessayer.", 
     "publish-error-autoblockedtext": "Votre adresse IP a été automatiquement bloquée car elle a été utilisée par un utilisateur bloqué.", 
     "publish-error-blocked": "Vous ne pouvez plus faire de modifications.", 
     "publish-error-noedit": "Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wiki.", 
     "publish-error-noedit-anon": "Les utilisateurs anonymes ne peuvent pas modifier de pages.", 
     "publish-error-protectedpage": "Vous n'avez pas la permission de modifier cette page.", 
-    "success": "La page{pageTitle} a été modifiée avec succès !"
+    "success": "La page {pageTitle} a été modifiée avec succès !"
   }, 
   "fandom-app-banner": {
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "Fichier", 
-    "usages-header": "Apparaît sur ces pages", 
-    "usages-see-more-link-label": "Voir la liste complète"
+    "usages-header": "Affichée sur ces pages", 
+    "usages-see-more-link-label": "Afficher la liste"
   }, 
   "navigation": {
     "back-label": "Retour", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "Articles de FANDOM tendance"
   }, 
   "smartbanner": {
-    "install-android": "Installer", 
-    "price": "GRATUIT", 
-    "store-android": "Sur Google Play"
+    "install-android": "Installer"
   }, 
   "user-status": {
     "login-text": "Se connecter", 

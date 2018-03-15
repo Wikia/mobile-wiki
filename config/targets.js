@@ -1,8 +1,7 @@
-/* eslint-env node */
 module.exports = {
 	browsers: [
-		'last 2 version',
-		'last 3 iOS versions',
-		'> 1%'
+		'last 2 ChromeAndroid versions',
+		'iOS > 8',
+		'> 5%'
 	]
 };

@@ -1,27 +1,24 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {getOwner} from '@ember/application';
-import {getWithDefault} from '@ember/object';
+import {getWithDefault, get} from '@ember/object';
 import Ember from 'ember';
 import {isEmpty} from '@ember/utils';
 import {run} from '@ember/runloop';
+import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
-import {normalizeToUnderscore} from '../utils/string';
+import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
-const {
-	TargetActionSupport
-} = Ember;
-
 export default Route.extend(
-	TargetActionSupport,
+	Ember.TargetActionSupport,
 	HeadTagsStaticMixin,
 	{
 		ads: service(),
@@ -30,6 +27,7 @@ export default Route.extend(
 		i18n: service(),
 		logger: service(),
 		wikiVariables: service(),
+		smartBanner: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -82,8 +80,7 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {},
-				fastboot = this.get('fastboot');
+			const fastboot = this.get('fastboot');
 
 			this._super(...arguments);
 
@@ -92,38 +89,48 @@ export default Route.extend(
 			if (
 				!fastboot.get('isFastBoot') &&
 				this.get('ads.adsUrl') &&
-				!transition.queryParams.noexternals &&
-				!instantGlobals.wgSitewideDisableAdsOnMercury
+				!transition.queryParams.noexternals
 			) {
-				const adsModule = this.get('ads.module');
-
-				adsModule.init(this.get('ads.adsUrl'));
-
-				/*
-				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-				 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-				 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-				 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
-				 * lightboxVisible=false and then decide if we want to show it.
-				 */
-				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-
-					if (!closeButtonDelay) {
-						closeButtonDelay = 0;
+				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
+					if (wgSitewideDisableAdsOnMercury) {
+						return;
 					}
 
-					this.send(actionName, 'ads', {contents}, closeButtonDelay);
-				};
+					const adsModule = this.get('ads.module');
 
-				adsModule.showLightbox = () => {
-					this.send('showLightbox');
-				};
+					adsModule.init(this.get('ads.adsUrl'));
 
-				adsModule.setSiteHeadOffset = (offset) => {
-					this.set('ads.siteHeadOffset', offset);
-				};
+					/*
+					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+					 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
+					 * for a user.
+					 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+					 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+					 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+					 * lightboxVisible=false and then decide if we want to show it.
+					 */
+					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+
+						if (!closeButtonDelay) {
+							closeButtonDelay = 0;
+						}
+
+						this.send(actionName, 'ads', {contents}, closeButtonDelay);
+					};
+
+					adsModule.showLightbox = () => {
+						this.send('showLightbox');
+					};
+
+					adsModule.setSiteHeadOffset = (offset) => {
+						this.set('ads.siteHeadOffset', offset);
+					};
+
+					adsModule.hideSmartBanner = () => {
+						this.set('smartBanner.smartBannerVisible', false);
+					};
+				});
 			}
 
 			if (fastboot.get('isFastBoot')) {
@@ -152,13 +159,26 @@ export default Route.extend(
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
 
-			if (fastboot.get('isFastBoot') &&
-				basePath !== `${fastboot.get('request.protocol')}//${model.wikiVariables.host}`) {
+			if (fastboot.get('isFastBoot')) {
+				const protocol = fastboot.get('request.headers').get('fastly-ssl')
+					? 'https:'
+					: fastboot.get('request.protocol');
 				const fastbootRequest = this.get('fastboot.request');
+
+				if (basePath === `${protocol}//${model.wikiVariables.host}`) {
+					return;
+				}
+
+				// PLATFORM-3351 - if x-wikia-wikiaappsid is present, allow https even if basePath is set to http.
+				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid') &&
+					basePath === `http://${model.wikiVariables.host}`
+				) {
+					return;
+				}
 
 				fastboot.get('response.headers').set(
 					'location',
-					`${basePath}${fastbootRequest.get('path')}${getQueryString(fastbootRequest.get('queryParams'))}`
+					`${basePath}${fastbootRequest.get('path')}`
 				);
 				fastboot.set('response.statusCode', 301);
 
@@ -172,6 +192,12 @@ export default Route.extend(
 			controller.set('model', model);
 
 			if (!this.get('fastboot.isFastBoot')) {
+				// Prevent scrolling to the top of the page after Ember is loaded
+				// See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
+				const routerScroll = this.get('router.service');
+				routerScroll.set('key', get(window, 'history.state.uuid'));
+				routerScroll.update();
+
 				// Because application controller needs wiki-page controller
 				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
@@ -183,6 +209,9 @@ export default Route.extend(
 					} else if (!isEmpty(map)) {
 						controller.openLightboxForMap(map);
 					}
+
+					const scrollPosition = routerScroll.get('position');
+					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
 			}
 		},
@@ -281,7 +310,8 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(-.*)?\.com.*\/.*$/)) {
+					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {
 						window.open(info.url);
@@ -358,13 +388,8 @@ export default Route.extend(
 			// Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
 			const applicationInstance = getOwner(this);
 			const document = applicationInstance.lookup('service:-document');
-			const headBottomComponent = applicationInstance.lookup('component:fastboot-only/head-bottom');
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
-			headBottomComponent.set('wikiVariables', wikiVariables);
-			headBottomComponent.appendTo(document.head);
-
-			bodyBottomComponent.set('queryParams', queryParams);
 			bodyBottomComponent.appendTo(document.body);
 		}
 	}

@@ -16,22 +16,16 @@
 	}
 
 	&__subcategory {
-		$icon-size: 18px;
+		margin-left: -23px;
 
-		&::before {
-			background-image: $wds-icons-pages-small-svg;
-			content: '';
-			height: $icon-size;
-			left: -4px;
-			position: absolute;
-			width: $icon-size;
+		.wds-icon {
+			vertical-align: middle;
 		}
 	}
 
 	.wds-spinner {
 		display: none;
 		left: auto;
-		margin: 0;
 		position: static;
 		top: auto;
 	}
@@ -52,8 +46,4 @@
 	padding-bottom: 1.125rem;
 	position: relative;
 	text-align: center;
-
-	&__button {
-		margin: 0;
-	}
 }

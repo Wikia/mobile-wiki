@@ -4,7 +4,11 @@
 		{{#each users as |user|}}
 			<li>
 				<a href="{{unbound user.url}}" {{action 'trackClick' 'contributors' 'open-user' preventDefault=false}}>
-					{{thumbnail user.avatar width=100 height=100 mode=user.thumbMode alt=user.name}}
+					{{#if viewportEntered}}
+						{{thumbnail user.avatar mode=user.thumbMode alt=user.name}}
+					{{else}}
+						{{thumbnail}}
+					{{/if}}
 				</a>
 			</li>
 		{{/each}}

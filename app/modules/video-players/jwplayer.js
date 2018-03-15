@@ -10,15 +10,19 @@ export default class JWPlayer extends BasePlayer {
 		const originalOnCreate = params.onCreate;
 
 		super(provider, params);
+		this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
 
 		params.onCreate = (bidParams, player) => {
 			const adsInstance = Ads.getInstance();
+			const slotTargeting = {
+				plist: this.recommendedVideoPlaylist
+			};
 
 			originalOnCreate(player);
 
 			if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
-				adsInstance.jwPlayerAds(player, bidParams);
-				adsInstance.jwPlayerMoat(player);
+				adsInstance.jwPlayerAds(player, bidParams, slotTargeting);
+				adsInstance.jwPlayerMoat.track(player);
 			}
 		};
 
@@ -65,7 +69,7 @@ export default class JWPlayer extends BasePlayer {
 				mute: this.params.autoplay,
 				related: {
 					time: 3,
-					playlistId: this.params.recommendedVideoPlaylist || 'Y2RWCKuS',
+					playlistId: this.recommendedVideoPlaylist,
 					autoplay: true
 				},
 				videoDetails: {
@@ -81,6 +85,8 @@ export default class JWPlayer extends BasePlayer {
 			},
 			this.params.onCreate.bind(this, bidParams)
 		);
+
+		Ads.getInstance().jwPlayerMoat.loadTrackingPlugin();
 	}
 
 	/**

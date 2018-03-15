@@ -7,6 +7,7 @@ module.exports = function (environment) {
 		facebook: {
 			appId: '112328095453510'
 		},
+		wikiaBaseDomain: 'wikia.com',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
@@ -18,12 +19,6 @@ module.exports = function (environment) {
 			eventLogger: {
 				baseAPIPath: 'event-logger'
 			}
-		},
-		weppy: {
-			enabled: false,
-			host: 'https://speed.nocookie.net/__rum',
-			samplingRate: 0.1,
-			aggregationInterval: 1000
 		},
 		verticalColors: {
 			comics: '#ff5400',
@@ -92,11 +87,9 @@ module.exports = function (environment) {
 			hostWhitelist: [
 				/mobile-wiki-.*\.(dev|prod|staging)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
 				/.*\.wikia-dev\.(pl|us)/,
-				/.*\.wikia-staging.com/,
 				/.*\.wikia.com/,
 				/^localhost:\d+$/
-			],
-			shoeboxAppendTo: 'head'
+			]
 		},
 		fastbootOnly: {
 			helios: {
@@ -131,10 +124,7 @@ module.exports = function (environment) {
 		ENV.APP.LOG_VIEW_LOOKUPS = false;
 
 		ENV.APP.rootElement = '#ember-testing';
-	}
-
-	if (environment === 'production') {
-		ENV.weppy.enabled = true;
+		ENV.APP.autoboot = false;
 	}
 
 	if (process.env.IMAGE_VERSION) {

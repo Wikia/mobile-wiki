@@ -7,11 +7,31 @@
 	<meta itemprop="uploadDate" content="{{metadata.uploadDate}}">
 	<div class="article-featured-video__on-scroll-video-wrapper">
 		<div class="article-featured-video__video-content" style={{placeholderStyle}} id="{{videoContainerId}}"></div>
-		<div class="article-featured-video__close-button" {{action 'dismissPlayer'}}>
-			<svg class="wds-icon wds-icon-small">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wds-icons-cross"></use>
-			</svg>
+		{{! XW-4727 | We need touchstart here as Ad-related click events are using it as well }}
+		<div class="article-featured-video__close-button" {{action 'dismissPlayer' on="touchStart"}}>
+			{{svg 'wds-icons-cross-tiny' class='wds-icon wds-icon-tiny'}}
+		</div>
+		<div class="article-featured-video__details">
+			<div class="article-featured-video__label">
+				{{i18n 'featured-video.watch'}}
+				<span class="article-featured-video__time">{{videoDuration}}</span>
+			</div>
+			<div class="article-featured-video__title">{{currentVideoDetails.title}}</div>
 		</div>
 	</div>
 	<div class="article-featured-video__on-scroll-placeholder"></div>
 </div>
+{{#if hasAttribution}}
+	<div class="article-featured-video__attribution-container {{if hasPortableInfobox 'has-portable-infobox'}}">
+		<div class="article-featured-video__attribution-inner-container">
+			<a class="article-featured-video__attribution-link" href="{{currentVideoDetails.userUrl}}"
+				 target="_blank" rel="noopener">
+				<img class="article-featured-video__attribution-avatar" src="{{attributionAvatarUrl}}"
+						 alt="{{currentVideoDetails.username}}">
+				{{i18n 'featured-video.from'}}&nbsp;{{currentVideoDetails.username}}
+				{{svg 'wds-icons-out-arrow-tiny'
+							class='wds-icon wds-icon-tiny article-featured-video__attribution-icon'}}
+			</a>
+		</div>
+	</div>
+{{/if}}

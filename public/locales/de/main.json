@@ -1,33 +1,34 @@
 {
   "app": {
-    "advertisement-label": "Werbung", 
+    "advertisement-label": "Werbeanzeige", 
     "cancel-label": "Abbrechen", 
     "curated-content-editor-edit-main-page": "Hauptseite bearbeiten", 
     "curated-content-load-more-items": "Mehr anzeigen", 
+    "days-ago": "{days} T.", 
     "discussions-label": "Diskussionen", 
     "header-in-wiki-name-label-prefix": "in:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Keine Karten gefunden", 
+    "hours-ago": "{hours} Std.", 
     "media-lightbox-error": "Keine Medien gefunden", 
+    "minutes-ago": "{minutes} Min.", 
     "now-label": "gerade eben", 
     "page-not-found-error": "Wir können die von dir gesuchte Seite leider nicht finden :-(", 
     "page-not-found-message": "Benutze die Navigationsleiste oder die Suche", 
     "pages-label": "Seiten", 
-    "photos-label": "Fotos", 
+    "photos-label": "Bilder", 
     "trending-articles-label": "Beliebte Artikel", 
     "username-anonymous": "Ein FANDOM-Benutzer", 
     "videos-label": "Videos", 
     "view-more": "Mehr anzeigen", 
-    "wiki-page-error": "Sorry, wir konnten die Seite nicht laden. Bitte versuche es noch einmal.", 
-    "wiki-page-error-reload-button": "Aktualisieren", 
-    "wikia-map-view-map": "Anzeigen"
+    "wiki-page-error": "Entschuldige, wir konnten die Seite nicht laden. Bitte versuche es noch einmal.", 
+    "wiki-page-error-reload-button": "Aktualisieren"
   }, 
   "article": {
     "categories-list-label": "Kategorien", 
     "comments-label": "{count} Kommentar", 
     "comments-label_plural": "{count} Kommentare", 
-    "empty-label": "Sorry, aber dieser Artikel scheint (noch) nicht zu existieren.", 
-    "error": "Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal.", 
+    "empty-label": "Entschuldige, aber dieser Artikel scheint (noch) nicht zu existieren.", 
+    "error": "Entschuldige, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal.", 
     "last-edit": "Zuletzt vor einer Woche bearbeitet", 
     "last-edit_plural_0": "Zuletzt diese Woche bearbeitet", 
     "last-edit_plural_2": "Zuletzt vor {count} Wochen bearbeitet", 
@@ -37,7 +38,7 @@
     "replies-label_plural": "Zeige {count} Antworten", 
     "suggestions-label": "Mehr anzeigen", 
     "toc-label": "Inhaltsverzeichnis", 
-    "top-contributors-label": "Top-Autoren in diesem Artikel"
+    "top-contributors-label": "Top-Autoren dieses Artikels"
   }, 
   "article-comments": {
     "add-comment": "Kommentar hinzufügen", 
@@ -72,10 +73,14 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "Datei-Seite", 
-    "usages-header": "Erscheint auf diesen Seiten", 
-    "usages-see-more-link-label": "Vollständige Liste anzeigen"
+    "usages-header": "Wird in diesen Seiten verwendet", 
+    "usages-see-more-link-label": "Komplette Liste anzeigen"
   }, 
   "navigation": {
     "back-label": "Zurück", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "FANDOM-Artikel im Trend"
   }, 
   "smartbanner": {
-    "install-android": "Installieren", 
-    "price": "KOSTENLOS", 
-    "store-android": "In Google Play"
+    "install-android": "Installieren"
   }, 
   "user-status": {
     "login-text": "Anmelden", 

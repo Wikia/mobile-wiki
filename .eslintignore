@@ -1,7 +1,6 @@
 crowdin/
 dist/
 node_modules/
-public/moment
 tasks/
 tmp/
 vendor/
@@ -12,6 +11,3 @@ app/inline-scripts/tracking-ua-init.js
 
 # Vendor files
 app/inline-scripts/tracking-liftigniter.js
-
-# Ember files
-testem.js

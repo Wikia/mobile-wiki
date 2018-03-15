@@ -1,11 +1,9 @@
 import BasePlayer from './video-players/base';
-import OoyalaPlayer from './video-players/ooyala';
 import YouTubePlayer from './video-players/youtube';
 import JWPlayer from './video-players/jwplayer';
 
 const playerClassMap = {
 	base: BasePlayer,
-	ooyala: OoyalaPlayer,
 	youtube: YouTubePlayer,
 	jwplayer: JWPlayer
 };
@@ -25,23 +23,14 @@ export default class VideoLoader {
 	}
 
 	/**
-	 * @returns {boolean}
-	 */
-	isOoyalaV3() {
-		// We need to use regexp check because Ooyala provider name may contain 'ooyala/funimation' or
-		// other similar
-		return Boolean(this.data.provider.toLowerCase().match(/ooyala/));
-	}
-
-	/**
-	 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
+	 * Loads player for the video, currently either YouTubePlayer or BasePlayer (default)
 	 *
 	 * @returns {void}
 	 */
 	loadPlayerClass() {
 		const provider = this.getProviderName(),
 			playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider),
-			params = $.extend(this.data.jsParams, {
+			params = Object.assign({}, this.data.jsParams, {
 				/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 				size: {
 					height: this.data.height,
@@ -59,7 +48,7 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		return this.isOoyalaV3() ? 'ooyala' : this.data.provider;
+		return this.data.provider;
 	}
 
 	/**
@@ -75,7 +64,7 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
+	 * @returns {BasePlayer|YouTubePlayer}
 	 */
 	static createPlayer(playerClass, provider, params) {
 		return new playerClass(provider, params);

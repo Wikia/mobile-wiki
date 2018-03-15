@@ -4,23 +4,24 @@
     "cancel-label": "Anuluj", 
     "curated-content-editor-edit-main-page": "Edycja strony głównej", 
     "curated-content-load-more-items": "Załaduj więcej", 
+    "days-ago": "{days} d.", 
     "discussions-label": "Dyskusje", 
     "header-in-wiki-name-label-prefix": "na:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Nie odnaleziono mapy", 
+    "hours-ago": "{hours} godz.", 
     "media-lightbox-error": "Nie znaleziono mediów", 
+    "minutes-ago": "{minutes} min.", 
     "now-label": "teraz", 
     "page-not-found-error": "Niestety nie możemy znaleźć strony, której szukasz.", 
     "page-not-found-message": "Użyj nawigacji lub wyszukiwarki", 
-    "pages-label": "Stron", 
+    "pages-label": "Strony", 
     "photos-label": "Obrazy", 
     "trending-articles-label": "Popularne artykuły", 
     "username-anonymous": "Użytkownik FANDOMU", 
     "videos-label": "Filmy", 
     "view-more": "Zobacz więcej", 
     "wiki-page-error": "Przepraszamy, nie mogliśmy załadować strony. Spróbuj ponownie.", 
-    "wiki-page-error-reload-button": "Odśwież", 
-    "wikia-map-view-map": "Otwórz"
+    "wiki-page-error-reload-button": "Odśwież"
   }, 
   "article": {
     "categories-list-label": "Kategorie", 
@@ -30,12 +31,12 @@
     "error": "Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.", 
     "last-edit": "Ostatnio edytowane tydzień temu", 
     "last-edit_plural_0": "Ostatnio edytowane w tym tygodniu", 
-    "last-edit_plural_2": "Ostatnio edytowane {count} tygodni temu", 
+    "last-edit_plural_2": "Ostatnio edytowane {count} tygodni(e) temu", 
     "portable-infobox-image": "Obraz", 
     "redirect-empty-target": "Link jest przekierowaniem, ale strona do której kieruje nie istnieje.", 
     "replies-label": "Zobacz {count} odpowiedź", 
     "replies-label_plural": "Zobacz {count} odpowiedzi", 
-    "suggestions-label": "Czytaj dalej", 
+    "suggestions-label": "Załaduj więcej", 
     "toc-label": "Spis treści", 
     "top-contributors-label": "Najlepsi współtwórcy tego artykułu"
   }, 
@@ -53,13 +54,13 @@
     "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
     "load-more": "Załaduj więcej", 
     "load-previous": "Załaduj poprzednie", 
-    "no-members": "Obecnie brak stron w tej kategorii.", 
+    "no-members": "Obecnie nie ma stron w tej kategorii.", 
     "subtitle": "Strona kategorii"
   }, 
   "edit": {
     "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
     "page-heading": "Edycja:", 
-    "page-publish": "Opublikuj", 
+    "page-publish": "Publikuj", 
     "publish-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
     "publish-error-autoblockedtext": "Twój adres IP został automatycznie zablokowany, ponieważ był on używany przez zablokowanego użytkownika.", 
     "publish-error-blocked": "Możliwość edycji została zablokowana.", 
@@ -72,13 +73,17 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "z", 
+    "watch": "obejrzyj"
+  }, 
   "file-page": {
     "subtitle": "Strona pliku", 
     "usages-header": "Wykorzystanie na stronach", 
     "usages-see-more-link-label": "Zobacz pełną listę"
   }, 
   "navigation": {
-    "back-label": "Wstecz", 
+    "back-label": "Wróć", 
     "explore-wiki": "Przeglądaj {wikiName}", 
     "random-page-label": "Losowa strona", 
     "user-menu-log-out": "Wyloguj", 
@@ -88,9 +93,7 @@
     "trending-fandom-articles": "Popularne artykuły z FANDOMU"
   }, 
   "smartbanner": {
-    "install-android": "Zainstaluj", 
-    "price": "ZA DARMO", 
-    "store-android": "W Google Play"
+    "install-android": "Zainstaluj"
   }, 
   "user-status": {
     "login-text": "Zaloguj się", 

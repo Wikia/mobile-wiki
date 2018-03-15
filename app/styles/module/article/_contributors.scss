@@ -1,35 +1,23 @@
 .contributors {
-	@extend %list-reset;
-	@extend .clearfix;
-
 	background-color: $wds-color-off-white;
-	margin-bottom: rem-calc(40);
-	padding: rem-calc(20) rem-calc(13);
+	height: 125px;
+	margin-bottom: 2.5rem;
+	padding: 1.25rem .8125rem;
 
 	ul {
-		display: block;
+		display: flex;
 		margin: 0;
-		padding: 0;
 
 		li {
-			display: block;
-			float: left;
-			height: auto;
+			flex: 1;
 			list-style: none;
-			margin: 0;
-			padding: 0 .15625rem;
-			width: 20%;
-
-			&:nth-of-type(5n+1) {
-				clear: both;
-			}
+			max-width: 20%;
 
 			img {
-				@include square(rem-calc(44));
-
 				border-radius: 50%;
 				display: block;
 				margin: 0 auto;
+				width: 2.75rem;
 			}
 		}
 	}
@@ -37,7 +25,7 @@
 	.title {
 		font-size: $type-smallest;
 		font-weight: bold;
-		margin-left: rem-calc(10);
-		padding-bottom: rem-calc(15);
+		margin-left: .625rem;
+		padding-bottom: .9375rem;
 	}
 }

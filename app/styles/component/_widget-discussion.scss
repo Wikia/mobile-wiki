@@ -1,5 +1,5 @@
 .widget-discussions {
-	margin: 0 -$article-horizontal-padding;
+	margin: 0 #{-$article-horizontal-padding};
 
 	.heading-wrapper {
 		align-items: center;
@@ -10,10 +10,8 @@
 		padding-top: 0;
 
 		svg {
-			fill: $link-color;
-			height: 16px;
+			transform: rotate(180deg);
 			vertical-align: middle;
-			width: 11px;
 		}
 	}
 
@@ -49,6 +47,12 @@
 		.avatar {
 			display: inline-block;
 			margin-right: 5px;
+
+			img {
+				border: 2px solid $white;
+				border-radius: 50%;
+				width: 36px;
+			}
 		}
 
 		.avatar-username {
@@ -72,7 +76,7 @@
 		margin: 4px 0 6px;
 
 		.url {
-			color: $link-color;
+			color: $anchor-font-color;
 		}
 	}
 
@@ -178,5 +182,13 @@
 		color: $wds-color-light-gray;
 		font-size: $type-min;
 		line-height: $line-height-min;
+	}
+
+	.upvote {
+		margin-right: 3px;
+	}
+
+	.replies {
+		margin: 0 3px;
 	}
 }

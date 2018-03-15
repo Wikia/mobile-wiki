@@ -1,17 +1,12 @@
-import {module} from 'qunit';
+import {module, test} from 'qunit';
 import require from 'require';
-import {test} from 'ember-qunit';
 
-module('Unit | Utility | domain', () => {
+module('Unit | Utility | domain test', () => {
 	test('extracts domain from provided urls', (assert) => {
 		const testCasesForExtractDomainFromUrl = [
 			{
 				url: 'http://thelastofus.james.wikia-dev.us/wiki/MakerTest',
 				expected: 'thelastofus.james.wikia-dev.us',
-			},
-			{
-				url: 'http://starwars.wikia-staging.com/wiki/MakerTest',
-				expected: 'starwars.wikia-staging.com',
 			},
 			{
 				url: 'witcher.wikia.com',

@@ -6,12 +6,11 @@
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
 	{{/if}}
-	{{ad-slot isAboveTheFold=true name='NATIVE_PAID_ASSET_DROP' class='main-page-pad-slot'}}
 	{{#if featuredContent}}
 		{{featured-content model=featuredContent}}
 	{{/if}}
 	{{#if wikiDescription}}
-		{{wiki-description description=wikiDescription}}
+		<div class="wiki-description">{{wikiDescription}}</div>
 	{{/if}}
 	{{#if curatedContent}}
 		{{curated-content model=curatedContent}}

@@ -3,12 +3,14 @@ import {debounce} from '@ember/runloop';
 import EmberObject, {computed} from '@ember/object';
 import Component from '@ember/component';
 import InViewportMixin from 'ember-in-viewport';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import Thumbnailer from '../modules/thumbnailer';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
 	RenderComponentMixin,
 	InViewportMixin,
+	RespondsToScroll,
 	{
 		classNames: ['article-media-gallery'],
 
@@ -31,15 +33,6 @@ export default Component.extend(
 		 */
 		didReceiveAttrs() {
 			this.sanitizeItems();
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		didRender() {
-			this.$().on('scroll', () => {
-				debounce(this, 'onScroll', 100);
-			});
 		},
 
 		actions: {
@@ -79,9 +72,8 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		onScroll() {
-			const $this = this.$(),
-				scrollOffset = $this.scrollLeft() + $this.width(),
+		scroll() {
+			const scrollOffset = this.element.scrollLeft + this.element.offsetWidth,
 				numberOfItemsRendered = this.get('numberOfItemsRendered'),
 				totalNumberOfItems = this.get('items.length'),
 				// article-media-thumbnail width is the same as imageSize plus margin defined in CSS
@@ -97,7 +89,9 @@ export default Component.extend(
 				// Make sure that some math error above doesn't cause images to not load
 				this.set('numberOfItemsRendered', totalNumberOfItems);
 			} else {
-				$this.off('scroll');
+				// this.scrollHandler is from ember-responds-to - there is no public API to
+				// remove a scroll handler now
+				window.removeEventListener('scroll', this.scrollHandler);
 			}
 		},
 

@@ -10,17 +10,13 @@ export default Service.extend({
 
 	smartBannerVisible: false,
 	dayInMiliseconds: 86400000,
+	cookieName: 'fandom-sb-closed',
+	trackCategory: 'fandom-app-smart-banner',
 
 	dbName: readOnly('wikiVariables.dbName'),
 	isUserLangEn: equal('currentUser.language', 'en'),
 	shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
 	isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
-	trackCategory: computed('shouldShowFandomAppSmartBanner', function () {
-		return this.get('shouldShowFandomAppSmartBanner') ? 'fandom-app-smart-banner' : 'smart-banner';
-	}),
-	cookieName: computed('shouldShowFandomAppSmartBanner', function () {
-		return this.get('shouldShowFandomAppSmartBanner') ? 'fandom-sb-closed' : 'sb-closed';
-	}),
 
 	setVisibility(state) {
 		this.set('smartBannerVisible', state);
@@ -36,19 +32,16 @@ export default Service.extend({
 		const date = new Date(),
 			cookieOptions = {
 				expires: date,
-				path: '/'
+				path: '/',
+				domain: config.cookieDomain
 			};
 
-		if (this.get('shouldShowFandomAppSmartBanner')) {
-			cookieOptions.domain = config.cookieDomain;
-		}
-
 		date.setTime(date.getTime() + (days * this.get('dayInMiliseconds')));
-		$.cookie(this.get('cookieName'), 1, cookieOptions);
+		window.Cookies.set(this.get('cookieName'), 1, cookieOptions);
 	},
 
 	isCookieSet() {
-		return $.cookie(this.get('cookieName')) === '1';
+		return window.Cookies.get(this.get('cookieName')) === '1';
 	},
 
 	/**

@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 import config from '../config/environment';
 import {Promise} from 'rsvp';
+import offset from '../utils/offset';
 
 /**
  * @typedef {Object} SlotsContext
@@ -9,7 +10,12 @@ import {Promise} from 'rsvp';
  */
 
 /**
- * @typedef {Object} PageFairDetectionModule
+ * @typedef {Object} AdEngineBridge
+ * @property {Function} checkAdBlocking
+ */
+
+/**
+ * @typedef {Object} BabDetectionModule
  * @property {Function} initDetection
  */
 
@@ -31,7 +37,8 @@ import {Promise} from 'rsvp';
  * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
- * @property {PageFairDetectionModule} pageFairDetectionModule
+ * @property {AdEngineBridge} adEngineBridge
+ * @property {BabDetectionModule} babDetectionModule
  * @property {*} adConfigMobile
  * @property {SlotsContext} slotsContext
  * @property {AdMercuryListenerModule} adMercuryListenerModule
@@ -53,12 +60,13 @@ class Ads {
 		this.slotsQueue = [];
 		this.uapResult = false;
 		this.uapCalled = false;
+		this.uapUnsticked = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
-			pageFair: {
-				name: 'pagefair',
-				dimension: 7
+			babDetector: {
+				name: 'babdetector',
+				dimension: 6
 			}
 		};
 		this.adLogicPageParams = null;
@@ -99,6 +107,7 @@ class Ads {
 			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
+					'ext.wikia.adEngine.bridge',
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adEngineRunner',
 					'ext.wikia.adEngine.adLogicPageParams',
@@ -106,13 +115,14 @@ class Ads {
 					'ext.wikia.adEngine.context.slotsContext',
 					'ext.wikia.adEngine.lookup.a9',
 					'ext.wikia.adEngine.mobile.mercuryListener',
-					'ext.wikia.adEngine.pageFairDetection',
+					'ext.wikia.adEngine.babDetection',
 					'ext.wikia.adEngine.provider.gpt.googleTag',
 					'ext.wikia.adEngine.video.vastUrlBuilder',
 					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 					'wikia.krux'
 				], (
+					adEngineBridge,
 					adContextModule,
 					adEngineRunnerModule,
 					adLogicPageParams,
@@ -120,13 +130,14 @@ class Ads {
 					slotsContext,
 					a9,
 					adMercuryListener,
-					pageFairDetectionModule,
+					babDetectionModule,
 					googleTagModule,
 					vastUrlBuilder,
 					jwPlayerAds,
 					jwPlayerMoat,
 					krux
 				) => {
+					this.adEngineBridge = adEngineBridge;
 					this.adConfigMobile = adConfigMobile;
 					this.adContextModule = adContextModule;
 					this.slotsContext = slotsContext;
@@ -136,7 +147,7 @@ class Ads {
 					this.vastUrlBuilder = vastUrlBuilder;
 					this.krux = krux;
 					this.isLoaded = true;
-					this.pageFairDetectionModule = pageFairDetectionModule;
+					this.babDetectionModule = babDetectionModule;
 					this.adLogicPageParams = adLogicPageParams;
 					this.a9 = a9;
 					this.jwPlayerAds = jwPlayerAds;
@@ -144,7 +155,6 @@ class Ads {
 
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -172,7 +182,7 @@ class Ads {
 	}
 
 	/**
-	 * Dispatch adengine event
+	 * Dispatch AdEngine event
 	 *
 	 * @param {string} name
 	 * @param {Object} data
@@ -276,15 +286,15 @@ class Ads {
 		const GASettings = this.GASettings,
 			listenerSettings = [
 				{
-					name: 'pageFair',
-					eventName: 'pf.blocking',
+					name: 'babDetector',
+					eventName: 'bab.blocking',
 					value: true,
 				},
 				{
-					name: 'pageFair',
-					eventName: 'pf.not_blocking',
+					name: 'babDetector',
+					eventName: 'bab.not_blocking',
 					value: false,
-				}
+				},
 			];
 
 		listenerSettings.map((listenerSetting) => {
@@ -325,36 +335,39 @@ class Ads {
 	isTopLeaderboardApplicable() {
 		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
 			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = $('.wiki-page-header').length > 0,
-			hasPortableInfobox = $('.portable-infobox').length > 0;
+			hasPageHeader = !!document.querySelector('.wiki-page-header'),
+			hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
 
 	isInContentApplicable() {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $('.curated-content').length > 0;
+			return !!document.querySelector('.curated-content');
 		}
 
-		const $firstSection = $('.article-content > h2').first(),
-			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0;
+		const firstSection = document.querySelector('.article-content > h2'),
+			firstSectionTop = (
+				firstSection &&
+				offset(firstSection).top
+			) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}
 
 	isPrefooterApplicable(isInContentApplicable) {
 		if (this.getTargetingValue('pageType') === 'home') {
-			return $('.trending-articles').length > 0;
+			return !!document.querySelector('.trending-articles');
 		}
 
-		const numberOfSections = $('.article-content > h2').length,
-			hasArticleFooter = $('.article-footer').length > 0;
+		const numberOfSections = document.querySelectorAll('.article-content > h2').length,
+			hasArticleFooter = !!document.querySelector('.article-footer');
 
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
 
 	isBottomLeaderboardApplicable() {
-		return $('.wds-global-footer').length > 0;
+		return !!document.querySelector('.wds-global-footer');
 	}
 
 	setupSlotsContext() {
@@ -368,7 +381,9 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
 		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
+		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
 	}
 
 	isSlotApplicable(slotName) {
@@ -407,10 +422,11 @@ class Ads {
 					onContextLoadCallback();
 				}
 
-				if (Ads.previousDetectionResults.pageFair.exists) {
-					this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-				} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
-					this.pageFairDetectionModule.initDetection(adsContext);
+				if (Ads.previousDetectionResults.babDetector.exists) {
+					this.trackBlocking('babDetector', this.GASettings.babDetector,
+						Ads.previousDetectionResults.babDetector.value);
+				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
+					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
 				}
 
 				if (adsContext.opts) {
@@ -485,6 +501,7 @@ class Ads {
 
 		this.uapCalled = false;
 		this.uapResult = false;
+		this.uapUnsticked = false;
 
 		this.uapCallbacks.forEach((callback) => {
 			window.removeEventListener('wikia.uap', callback);
@@ -511,6 +528,18 @@ class Ads {
 
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
+	}
+
+	/**
+	 * This method is called on menu or search open
+	 *
+	 * @returns {void}
+	 */
+	onMenuOpen() {
+		if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+			this.uapUnsticked = true;
+			this.adMercuryListenerModule.runOnMenuOpenCallbacks();
+		}
 	}
 
 	/**
@@ -552,7 +581,7 @@ class Ads {
 
 Ads.instance = null;
 Ads.previousDetectionResults = {
-	pageFair: {
+	babDetector: {
 		exists: false,
 		value: null
 	}

@@ -2,12 +2,10 @@ import {computed} from '@ember/object';
 import {oneWay, equal} from '@ember/object/computed';
 import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/track';
 
 export default Component.extend(
 	CuratedContentThumbnailMixin,
-	ViewportMixin,
 	{
 		tagName: 'a',
 		attributeBindings: ['href'],
@@ -37,21 +35,17 @@ export default Component.extend(
 
 		icon: computed('type', function () {
 			const type = this.get('type'),
-				typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'];
+				typesWithDedicatedIcon = {
+					category: 'grid',
+					video: 'play',
+					image: 'image',
+					blog: 'clock',
+					section: 'grid'
+				};
 
-			let iconType;
-
-			if (typesWithDedicatedIcon.indexOf(type) > -1) {
-				iconType = type;
-			} else if (type === 'section') {
-				// Sections use the same icons as categories
-				iconType = 'category';
-			} else {
-				// Default icon
-				iconType = 'article';
-			}
-
-			return `namespace-${iconType}`;
+			// we use here following Design System icons
+			// wds-icons-grid, wds-icons-play, wds-icons-image, wds-icons-clock, wds-icons-article
+			return `wds-icons-${typesWithDedicatedIcon[type] || 'article'}`;
 		}),
 
 		/**

@@ -1,26 +1,27 @@
 {
   "app": {
     "advertisement-label": "Advertisement", 
-    "cancel-label": "Cancel", 
-    "curated-content-editor-edit-main-page": "Edit Main Page", 
-    "curated-content-load-more-items": "Load more", 
+    "cancel-label": "Hủy bỏ", 
+    "curated-content-editor-edit-main-page": "Sửa đổi Trang Chính", 
+    "curated-content-load-more-items": "Tải thêm", 
+    "days-ago": "{days}d", 
     "discussions-label": "Discussions", 
-    "header-in-wiki-name-label-prefix": "in:", 
+    "header-in-wiki-name-label-prefix": "trong:", 
     "header-in-wiki-name-label-suffix": "", 
-    "map-lightbox-error": "Map not found", 
+    "hours-ago": "{hours}h", 
     "media-lightbox-error": "Tập tin không được tìm thấy", 
+    "minutes-ago": "{minutes}m", 
     "now-label": "bây giờ", 
     "page-not-found-error": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.", 
     "page-not-found-message": "Sử dụng Danh mục hoặc Tìm kiếm", 
-    "pages-label": "Pages", 
-    "photos-label": "Photos", 
-    "trending-articles-label": "Trending Articles", 
-    "username-anonymous": "A FANDOM User", 
+    "pages-label": "Bài viết", 
+    "photos-label": "Hình ảnh", 
+    "trending-articles-label": "Bài viết có xu hướng", 
+    "username-anonymous": "Một người dùng FANDOM", 
     "videos-label": "Videos", 
     "view-more": "Xem thêm", 
-    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.", 
-    "wiki-page-error-reload-button": "Làm mới", 
-    "wikia-map-view-map": "View"
+    "wiki-page-error": "Xin lỗi, chúng tôi không thể tải trang. Bạn vui lòng thử lại.", 
+    "wiki-page-error-reload-button": "Làm mới"
   }, 
   "article": {
     "categories-list-label": "Thể loại", 
@@ -31,7 +32,7 @@
     "last-edit": "Được sửa đổi 1 tuần trước", 
     "last-edit_plural_0": "Đã được sửa đổi trong tuần này", 
     "last-edit_plural_2": "Được sửa đổi {count} tuần trước", 
-    "portable-infobox-image": "Image", 
+    "portable-infobox-image": "Hình ảnh", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
     "replies-label": "Xem {count} hồi âm", 
     "replies-label_plural": "Xem {count} hồi âm", 
@@ -47,11 +48,11 @@
     "prev-button": "Trang trước"
   }, 
   "blog-page": {
-    "subtitle": "User blog"
+    "subtitle": "Blog thành viên"
   }, 
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.", 
-    "load-more": "Load more", 
+    "load-more": "Tải thêm", 
     "load-previous": "Load previous", 
     "no-members": "This category currently contains no pages.", 
     "subtitle": "Category Page"
@@ -72,6 +73,10 @@
     "app-store": "App Store", 
     "google-play": "Google Play"
   }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
   "file-page": {
     "subtitle": "File Page", 
     "usages-header": "Appears on these pages", 
@@ -79,22 +84,20 @@
   }, 
   "navigation": {
     "back-label": "Trở lại", 
-    "explore-wiki": "Explore {wikiName}", 
+    "explore-wiki": "Khám phá {wikiName}", 
     "random-page-label": "Trang ngẫu nhiên", 
-    "user-menu-log-out": "Log out", 
+    "user-menu-log-out": "Đăng xuất", 
     "user-menu-profile": "Profile"
   }, 
   "recirculation": {
     "trending-fandom-articles": "Trending FANDOM Articles"
   }, 
   "smartbanner": {
-    "install-android": "Cài đặt", 
-    "price": "MIỄN PHÍ", 
-    "store-android": "Trong Trình chạy Google"
+    "install-android": "Cài đặt"
   }, 
   "user-status": {
-    "login-text": "Sign In", 
-    "register-text": "Register"
+    "login-text": "Đăng nhập", 
+    "register-text": "Đăng ký"
   }, 
   "widget-discussions": {
     "all-discussions-link-mobile": "All Discussions", 

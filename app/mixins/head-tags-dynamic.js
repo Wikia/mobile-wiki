@@ -37,7 +37,6 @@ export default Mixin.create({
 				canonical: data.canonical,
 				next: data.next,
 				prev: data.prev,
-				appId: this.get('wikiVariables.smartBanner.appId.ios'),
 				robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
 				keywords: `${this.get('wikiVariables.siteMessage')}` +
 				`,${this.get('wikiVariables.siteName')}` +
@@ -61,14 +60,6 @@ export default Mixin.create({
 
 		if (model.details && model.details.thumbnail) {
 			headData.pageImage = model.details.thumbnail;
-		}
-
-		if (!this.get('fastboot.isFastBoot') && headData.appId && !this.get('wikiVariables.enableFandomAppSmartBanner')) {
-			headData.appleItunesApp = `app-id=${headData.appId}`;
-
-			if (data.appArgument) {
-				headData.appleItunesApp += `, app-argument=${data.appArgument}`;
-			}
 		}
 
 		this.get('headData').setProperties(headData);

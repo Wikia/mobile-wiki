@@ -12,6 +12,7 @@ export default EmberObject.extend({
 	currentUser: service(),
 	fastboot: service(),
 	logger: service(),
+	simpleStore: service(),
 
 	fetch(title, uselangParam) {
 		const currentUser = this.get('currentUser'),
@@ -24,7 +25,7 @@ export default EmberObject.extend({
 				ownerInjection = getOwner(this).ownerInjection();
 
 			return all([
-				WikiVariablesModel.create(ownerInjection).fetch(host),
+				WikiVariablesModel.create(ownerInjection).fetch(host, accessToken),
 				UserModel.create(ownerInjection).getUserId(accessToken)
 			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
@@ -56,7 +57,7 @@ export default EmberObject.extend({
 					shoebox.put('applicationData', applicationData);
 
 					if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
-						shoebox.put('trackingDimensionsForFirstPage', trackingDimensions.value.dimensions);
+						this.get('simpleStore').set('trackingDimensions', trackingDimensions.value.dimensions);
 					}
 
 					return applicationData;

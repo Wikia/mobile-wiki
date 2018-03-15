@@ -7,11 +7,9 @@ function getServicesDomain(wikiaEnv, datacenter) {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `services.wikia-dev.${devDomain}`;
-	} else if (wikiaEnv === 'staging') {
-		return 'services.wikia-staging.com';
-	} else {
-		return 'services.wikia.com';
 	}
+
+	return `services.${config.wikiaBaseDomain}`;
 }
 
 function getHeliosInfoURL(wikiaEnv, datacenter) {
@@ -19,8 +17,6 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 		const devEnvironment = (datacenter === 'poz') ? 'poz-dev' : 'sjc-dev';
 
 		return `http://dev.${devEnvironment}.k8s.wikia.net/helios/info`;
-	} else if (wikiaEnv === 'staging') {
-		return 'http://staging.helios.service.sjc.consul:9500/info';
 	}
 
 	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
@@ -31,11 +27,9 @@ function getCookieDomain(wikiaEnv, datacenter) {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `.wikia-dev.${devDomain}`;
-	} else if (wikiaEnv === 'staging') {
-		return '.wikia-staging.com';
-	} else {
-		return '.wikia.com';
 	}
+
+	return `.${config.wikiaBaseDomain}`;
 }
 
 export function initialize(applicationInstance) {
@@ -48,7 +42,6 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env,
 			wikiaEnv = env.WIKIA_ENVIRONMENT,
-			buckySampling = fastboot.get('request.queryParams.buckysampling'),
 			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
@@ -65,17 +58,6 @@ export function initialize(applicationInstance) {
 			internalUrl: getHeliosInfoURL(wikiaEnv, env.WIKIA_DATACENTER)
 		};
 
-		if (!isBlank(buckySampling)) {
-			const buckySamplingInt = parseInt(buckySampling, 10);
-
-			if (buckySamplingInt >= 0 && buckySamplingInt <= 100) {
-				// Convert percent to 0-1 scale
-				runtimeConfig.weppy = {
-					samplingRate: buckySamplingInt / 100
-				};
-			}
-		}
-
 		if (!isBlank(noExternals)) {
 			runtimeConfig.noExternals = Boolean(noExternals);
 		}
@@ -84,7 +66,7 @@ export function initialize(applicationInstance) {
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);
 
 		// variables below won't be available on the front end
-		extend(runtimeConfig.fastbootOnly, {
+		extend(config.fastbootOnly, {
 			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER

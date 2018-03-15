@@ -1,11 +1,13 @@
-import $ from 'jquery';
 import Component from '@ember/component';
 import {Promise} from 'rsvp';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track} from '../utils/track';
+import JWPlayerMixin from '../mixins/jwplayer';
 import RenderComponentMixin from '../mixins/render-component';
+import config from '../config/environment';
+import fetch from 'fetch';
 
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
 	/**
@@ -20,8 +22,19 @@ export default Component.extend(RenderComponentMixin, {
 		]).then(([, videoData]) => {
 			window.wikiaJWPlayer(
 				this.get('element-id'),
-				this.getPlayerSetup(videoData)
+				this.getPlayerSetup(videoData),
+				this.playerCreated.bind(this)
 			);
+		});
+	},
+
+	playerCreated(playerInstance) {
+		playerInstance.on('captionsSelected', ({selectedLang}) => {
+			window.Cookies.set(this.get('captionsCookieName'), selectedLang, {
+				expires: this.get('playerCookieExpireDays'),
+				path: '/',
+				domain: config.cookieDomain
+			});
 		});
 	},
 
@@ -36,6 +49,10 @@ export default Component.extend(RenderComponentMixin, {
 					track(data);
 				},
 			},
+			selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
+			settings: {
+				showCaptions: true
+			},
 			videoDetails: {
 				description: jwVideoData.description,
 				title: jwVideoData.title,
@@ -45,6 +62,6 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	getVideoData() {
-		return $.get(`${this.jwVideoDataUrl}${this.get('media-id')}`);
+		return fetch(`${this.jwVideoDataUrl}${this.get('media-id')}`).then((response) => response.json());
 	}
 });

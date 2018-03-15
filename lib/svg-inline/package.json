@@ -1,0 +1,7 @@
+{
+  "name": "svg-inline",
+  "main": "index.js",
+  "keywords": [
+    "ember-addon"
+  ]
+}
