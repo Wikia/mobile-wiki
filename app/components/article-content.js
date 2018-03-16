@@ -115,6 +115,7 @@ export default Component.extend(
 
 			const anchor = event.target.closest('a'),
 				figure = event.target.closest('figure:not(.is-ogg)'),
+				galleryViewMore = event.target.closest('button.article-media-linked-gallery__view-more'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
@@ -127,6 +128,12 @@ export default Component.extend(
 
 			if (figure) {
 				this.openLightbox(figure);
+
+				return false;
+			}
+
+			if (galleryViewMore) {
+				this.uncollapseLinkedGallery(galleryViewMore);
 
 				return false;
 			}
@@ -158,6 +165,14 @@ export default Component.extend(
 			}
 
 			return lightboxModel;
+		},
+
+		uncollapseLinkedGallery(galleryViewMore) {
+			const gallery = galleryViewMore.closest('.article-media-linked-gallery');
+
+			if (gallery) {
+				gallery.classList.remove('article-media-linked-gallery__collapsed');
+			}
 		},
 
 		/**

@@ -7,4 +7,20 @@
 		vertical-align: top;
 		width: 49%;
 	}
+
+	&__view-more {
+		display: none;
+	}
+
+	&__collapsed {
+		.article-media-thumbnail:nth-child(n+5) {
+			display: none;
+		}
+
+		.article-media-linked-gallery__view-more {
+			display: block;
+			margin-left: 50%;
+			transform: translate(-50%);
+		}
+	}
 }
