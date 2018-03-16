@@ -33,7 +33,9 @@ export default Component.extend(
 		/**
 		 * Check if image width is smaller than article container
 		 */
-		isSmall: lte('model.width', this.get('viewportWidth')),
+		isSmall: computed('model.width', function () {
+			return this.get('model.width') <= this.get('viewportWidth');
+		}),
 
 		itemType: computed('itemContext', 'model.type', function () {
 			return `${this.get('itemContext')}-${this.get('model.type')}`;
