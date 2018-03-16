@@ -26,6 +26,13 @@ export default Controller.extend(
 			}
 		],
 
+		applicationWrapperClassNames: null,
+		commentsPage: null,
+		drawerContent: null,
+		drawerVisible: false,
+		mobileApp: null,
+		userMenuVisible: false,
+
 		/**
 		 * @returns {void}
 		 */
@@ -39,13 +46,6 @@ export default Controller.extend(
 
 			this._super();
 		},
-
-		applicationWrapperClassNames: null,
-		commentsPage: null,
-		drawerContent: null,
-		drawerVisible: false,
-		mobileApp: null,
-		userMenuVisible: false,
 
 		file: alias('lightbox.file'),
 		fullPage: oneWay('mobileApp'),
