@@ -39,7 +39,7 @@ export default Component.extend(NoScrollMixin, {
 			this.get('playerInstance').playlistItem(index);
 
 			track({
-				category: 'recommended-video',
+				category: 'related-video-module',
 				label: 'recommended-video-click',
 				action: trackActions.click,
 			});
@@ -71,7 +71,7 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		track({
-			category: 'recommended-video',
+			category: 'related-video-module',
 			label: 'recommended-video-revealed',
 			action: trackActions.view,
 		});
@@ -94,7 +94,7 @@ export default Component.extend(NoScrollMixin, {
 			this.set('playlistItem', extend({}, item));
 
 			track({
-				category: 'recommended-video',
+				category: 'related-video-module',
 				label: 'playlist-item-start',
 				action: trackActions.view,
 			});
@@ -111,7 +111,7 @@ export default Component.extend(NoScrollMixin, {
 		return {
 			autoplay: true,
 			tracking: {
-				category: 'recommended-video',
+				category: 'related-video-module',
 				track(data) {
 					data.trackingMethod = 'both';
 
@@ -140,7 +140,7 @@ export default Component.extend(NoScrollMixin, {
 		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
 
 		track({
-			category: 'recommended-video',
+			category: 'related-video-module',
 			label: 'recommended-video-expanded',
 			action: trackActions.view,
 		});
