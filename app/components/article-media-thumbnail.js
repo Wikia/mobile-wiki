@@ -1,4 +1,4 @@
-import {or, equal} from '@ember/object/computed';
+import {or, equal, lte} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
@@ -28,9 +28,12 @@ export default Component.extend(
 		hasFigcaption: or('model.caption', 'showTitle'),
 		isVideo: equal('type', 'video'),
 
-		isOgg: computed('model.mime', function () {
-			return this.get('model.mime') === 'application/ogg';
-		}),
+		isOgg: equal('model.mime', 'application/ogg'),
+
+		/**
+		 * Check if image width is smaller than article container
+		 */
+		isSmall: lte('model.width', this.get('viewportWidth')),
 
 		itemType: computed('itemContext', 'model.type', function () {
 			return `${this.get('itemContext')}-${this.get('model.type')}`;
@@ -38,13 +41,6 @@ export default Component.extend(
 
 		viewportWidth: computed(() => {
 			return typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
-		}),
-
-		/**
-		 * Check if image width is smaller than article container
-		 */
-		isSmall: computed('model.{width,height}', function () {
-			return this.get('model.width') <= this.get('viewportWidth');
 		}),
 
 		showTitle: computed('model.type', function () {
