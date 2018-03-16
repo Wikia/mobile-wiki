@@ -114,7 +114,7 @@ export default Component.extend(
 			this.handleReferences(event);
 
 			const anchor = event.target.closest('a'),
-				figure = event.target.closest('figure'),
+				figure = event.target.closest('figure:not(.is-ogg)'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
