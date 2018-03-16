@@ -30,6 +30,18 @@ export default Controller.extend(
 			}
 		],
 
+		applicationWrapperClassNames: null,
+		commentsPage: null,
+		drawerContent: null,
+		drawerVisible: false,
+		file: null,
+		lightboxCloseButtonDelay: 0,
+		lightboxModel: null,
+		lightboxType: null,
+		lightboxVisible: false,
+		mobileApp: null,
+		userMenuVisible: false,
+
 		/**
 		 * @returns {void}
 		 */
@@ -43,18 +55,6 @@ export default Controller.extend(
 
 			this._super();
 		},
-
-		applicationWrapperClassNames: null,
-		commentsPage: null,
-		drawerContent: null,
-		drawerVisible: false,
-		file: null,
-		lightboxCloseButtonDelay: 0,
-		lightboxModel: null,
-		lightboxType: null,
-		lightboxVisible: false,
-		mobileApp: null,
-		userMenuVisible: false,
 
 		fullPage: oneWay('mobileApp'),
 		isSearchPage: equal('currentRouteName', 'search'),
