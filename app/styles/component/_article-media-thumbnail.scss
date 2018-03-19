@@ -19,6 +19,11 @@
 		width: 100%;
 	}
 
+	a {
+		display: block;
+		position: relative;
+	}
+
 	&.is-loading {
 		@include is-loading;
 	}
@@ -71,11 +76,6 @@
 
 	> svg {
 		@extend %image-placeholder;
-	}
-
-	a {
-		display: block;
-		position: relative;
 	}
 }
 

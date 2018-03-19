@@ -114,8 +114,6 @@ export default Component.extend(
 			this.handleReferences(event);
 
 			const anchor = event.target.closest('a'),
-				figure = event.target.closest('figure:not(.is-ogg)'),
-				galleryViewMore = event.target.closest('button.article-media-linked-gallery__view-more'),
 				label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
@@ -126,7 +124,19 @@ export default Component.extend(
 				});
 			}
 
-			if (figure) {
+			if (!this.handleImageClick(event)) {
+				return false;
+			}
+		},
+
+		handleImageClick(event) {
+			const figure = event.target.closest('figure:not(.is-ogg)'),
+				figCaption = event.target.closest('figcaption'),
+				imageLinkedByUser = figure ? figure.getAttribute('data-linkedbyuser') : false,
+				galleryViewMore = event.target.closest('button.article-media-linked-gallery__view-more');
+
+
+			if (figure && !figCaption && !imageLinkedByUser) {
 				this.openLightbox(figure);
 
 				return false;
@@ -137,6 +147,8 @@ export default Component.extend(
 
 				return false;
 			}
+
+			return true;
 		},
 
 		openLightbox(figure) {

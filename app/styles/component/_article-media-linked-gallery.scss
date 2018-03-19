@@ -6,10 +6,6 @@
 		margin: 0 0 20px;
 		vertical-align: top;
 		width: 49%;
-
-		&:nth-child(2n) {
-			margin-left: 1%;
-		}
 	}
 
 	&__view-more {
@@ -27,4 +23,8 @@
 			transform: translate(-50%);
 		}
 	}
+}
+
+:not(.pi-data-value) > .article-media-linked-gallery .article-media-thumbnail:nth-child(2n) {
+	margin-left: 1%;
 }
