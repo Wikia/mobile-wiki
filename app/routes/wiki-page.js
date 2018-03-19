@@ -34,6 +34,7 @@ export default Route.extend(
 		logger: service(),
 		wikiVariables: service(),
 		liftigniter: service(),
+		lightbox: service(),
 
 		queryParams: {
 			page: {
@@ -185,6 +186,7 @@ export default Route.extend(
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
 				this.get('ads').destroyAdSlotComponents();
+				this.get('lightbox').close();
 			},
 
 			/**
