@@ -21,7 +21,7 @@ export default Component.extend(NoScrollMixin, {
 
 		run.later(() => {
 			this.initRecommendedVideo();
-		}, 5000);
+		}, 3000);
 	},
 
 	willDestroyElement() {
@@ -40,8 +40,8 @@ export default Component.extend(NoScrollMixin, {
 			this.get('playerInstance').playlistItem(index);
 
 			track({
-				category: 'recommended-video',
-				label: 'recommended-video-click',
+				category: 'related-video-module',
+				label: 'playlist-item',
 				action: trackActions.click,
 			});
 		},
@@ -52,6 +52,12 @@ export default Component.extend(NoScrollMixin, {
 				noScroll: false
 			});
 			this.get('playerInstance').remove();
+
+			track({
+				category: 'related-video-module',
+				label: 'close',
+				action: trackActions.click,
+			});
 		}
 	},
 
@@ -72,8 +78,8 @@ export default Component.extend(NoScrollMixin, {
 		});
 
 		track({
-			category: 'recommended-video',
-			label: 'recommended-video-revealed',
+			category: 'related-video-module',
+			label: 'revealed',
 			action: trackActions.view,
 		});
 	},
@@ -95,7 +101,7 @@ export default Component.extend(NoScrollMixin, {
 			this.set('playlistItem', extend({}, item));
 
 			track({
-				category: 'recommended-video',
+				category: 'related-video-module',
 				label: 'playlist-item-start',
 				action: trackActions.view,
 			});
@@ -112,7 +118,7 @@ export default Component.extend(NoScrollMixin, {
 		return {
 			autoplay: this.getABTestVariation(),
 			tracking: {
-				category: 'recommended-video',
+				category: 'related-video-module',
 				track(data) {
 					data.trackingMethod = 'both';
 
@@ -142,8 +148,8 @@ export default Component.extend(NoScrollMixin, {
 		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
 
 		track({
-			category: 'recommended-video',
-			label: 'recommended-video-expanded',
+			category: 'related-video-module',
+			label: 'expanded',
 			action: trackActions.view,
 		});
 	},
