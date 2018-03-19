@@ -53,7 +53,7 @@
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
-    "@ember/test-helpers": "0.7.18",
+    "@ember/test-helpers": "0.7.20",
     "broccoli-asset-rev": "2.6.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "3.0.0",
