@@ -109,8 +109,7 @@ export default Mixin.create({
 		}
 
 		if (globalFooter) {
-			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter
-			);
+			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();
