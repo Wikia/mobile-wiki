@@ -6,6 +6,10 @@
 		margin: 0 0 20px;
 		vertical-align: top;
 		width: 49%;
+
+		&:nth-child(2n) {
+			margin-left: 1%;
+		}
 	}
 
 	&__view-more {
