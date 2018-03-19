@@ -4,9 +4,10 @@ import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
-	fetch(host, accessToken) {
+	fetch(protocol, host, accessToken) {
 		const url = buildUrl({
 			host,
+			protocol,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',
