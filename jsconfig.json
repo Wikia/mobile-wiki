@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "experimentalDecorators": true,
+        "checkJs": true
+    },
+    "exclude": [
+        "node_modules",
+        "bower_components",
+        "tmp",
+        "temp",
+        "vendor",
+        ".git",
+        "dist"
+    ]
+}
