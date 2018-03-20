@@ -16,7 +16,7 @@
 
 	img {
 		display: inline-block;
-		width: 100%;
+		width: auto;
 	}
 
 	a {
@@ -31,12 +31,6 @@
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
-		}
-	}
-
-	&.is-small {
-		img {
-			width: auto;
 		}
 	}
 

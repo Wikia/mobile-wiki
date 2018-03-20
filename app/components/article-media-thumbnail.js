@@ -16,7 +16,7 @@ export default Component.extend(
 		lightbox: service(),
 
 		classNames: ['article-media-thumbnail'],
-		classNameBindings: ['itemType', 'isLoading', 'isSmall', 'isOgg'],
+		classNameBindings: ['itemType', 'isLoading', 'isOgg'],
 		tagName: 'figure',
 
 		/**
