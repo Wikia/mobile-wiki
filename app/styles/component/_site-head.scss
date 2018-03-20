@@ -31,7 +31,7 @@ body:not(.no-scroll) {
 		top: 0;
 
 		.featured-video-on-scroll-active & {
-			position: relative;
+			position: static;
 		}
 	}
 }
@@ -84,7 +84,7 @@ body:not(.no-scroll) {
 	z-index: $z-site-head;
 
 	.featured-video-on-scroll-active & {
-		position: static;
+		position: relative;
 	}
 
 	.site-head-icon-search {
