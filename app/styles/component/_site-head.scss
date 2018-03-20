@@ -83,8 +83,8 @@ body:not(.no-scroll) {
 	width: 100%;
 	z-index: $z-site-head;
 
-	.featured-video-on-scroll-active & {
-		position: relative;
+	.featured-video-on-scroll-active:not(.no-scroll) & {
+		position: static;
 	}
 
 	.site-head-icon-search {
