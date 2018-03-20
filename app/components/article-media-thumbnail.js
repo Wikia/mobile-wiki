@@ -42,7 +42,7 @@ export default Component.extend(
 		}),
 
 		viewportWidth: computed(() => {
-			return typeof Fastboot !== 'undefined' ? null : document.documentElement.clientWidth;
+			return typeof FastBoot !== 'undefined' ? null : document.documentElement.clientWidth;
 		}),
 
 		showTitle: computed('model.type', function () {
