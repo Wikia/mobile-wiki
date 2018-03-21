@@ -50,7 +50,7 @@ setupNpm() {
 		cp -R $sourceTarget
 		updateGit "Setup" pending "updating node modules in .${1}"
 		cd ".${1}"
-		npm install || error=true
+		npm install --no-save || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
