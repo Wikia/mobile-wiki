@@ -34,6 +34,7 @@ export default Route.extend(
 		logger: service(),
 		wikiVariables: service(),
 		liftigniter: service(),
+		lightbox: service(),
 
 		queryParams: {
 			page: {
@@ -53,8 +54,6 @@ export default Route.extend(
 			this._super(transition);
 
 			const title = transition.params['wiki-page'].title.replace('wiki/', '');
-
-			this.controllerFor('application').send('closeLightbox');
 
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
@@ -187,6 +186,7 @@ export default Route.extend(
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
 				this.get('ads').destroyAdSlotComponents();
+				this.get('lightbox').close();
 			},
 
 			/**
@@ -227,17 +227,7 @@ export default Route.extend(
 			 */
 			updateDynamicHeadTags() {
 				this.setDynamicHeadTags(this.get('controller.model'));
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
-			 * @param {number} [closeButtonDelay]
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
-				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
-			},
+			}
 		},
 
 		/**

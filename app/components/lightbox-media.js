@@ -3,15 +3,16 @@ import Component from '@ember/component';
 import {htmlSafe} from '@ember/string';
 import {isArray} from '@ember/array';
 import {observer, computed} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import MediaModel from '../models/media';
-import {normalizeToUnderscore} from '../utils/string';
 import RenderComponentMixin from '../mixins/render-component';
+import {normalizeToUnderscore} from '../utils/string';
 
 export default Component.extend(
 	RenderComponentMixin,
 	ThirdsClickMixin,
 	{
+		lightbox: service(),
 		logger: service(),
 
 		classNames: ['lightbox-media', 'lightbox-content-inner'],
@@ -43,28 +44,13 @@ export default Component.extend(
 		},
 
 		setFooter() {},
-		setQueryParam() {},
 		setHeader() {},
-
-		/**
-		 * gets current media from model
-		 */
-		current: computed('model.{media,mediaRef}', function () {
-			const mediaModel = this.get('model.media');
-
-			if (mediaModel instanceof MediaModel) {
-				return mediaModel.find(this.get('model.mediaRef'));
-			} else {
-				this.get('logger').error('Media model is not an instance of MediaModel');
-				return null;
-			}
-		}),
 
 		/**
 		 * gets current media or current media from gallery
 		 */
-		currentMedia: computed('current', 'isGallery', 'currentGalleryRef', function () {
-			const current = this.get('current');
+		currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
+			const current = this.get('model');
 
 			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 		}),
@@ -87,15 +73,15 @@ export default Component.extend(
 			},
 		}),
 
-		galleryLength: computed('isGallery', 'current', function () {
-			return this.get('isGallery') ? this.get('current').length : -1;
+		galleryLength: computed('isGallery', 'model', function () {
+			return this.get('isGallery') ? this.get('model').length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
-		isGallery: computed('current', function () {
-			return isArray(this.get('current'));
+		isGallery: computed('model', function () {
+			return isArray(this.get('model'));
 		}),
 
 		/**
@@ -193,8 +179,7 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
-
-			this.get('setQueryParam')('file', normalizeToUnderscore(this.get('currentMedia.title')));
+			this.get('lightbox').set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

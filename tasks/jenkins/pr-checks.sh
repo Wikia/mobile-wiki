@@ -39,8 +39,8 @@ failTests() {
 # $1 - directory
 setupNpm() {
 	oldPath=$(pwd)
-	md5old=$(md5sum ${dependenciesDir}${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum .${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5old=$(md5sum ${dependenciesDir}${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum .${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
 	sourceTarget="${dependenciesDir}${1}node_modules .${1}node_modules"
 
 	if [ "$md5new" = "$md5old" ]
@@ -59,6 +59,8 @@ setupNpm() {
 			failTests && exit 1
 		fi
 	fi
+
+	npm install -g greenkeeper-lockfile@1
 }
 
 ### Set pending status to all tasks
@@ -82,6 +84,8 @@ fi
 
 ### Tests - running
 updateGit "Tests" pending running
+# create new package-lock.json
+greenkeeper-lockfile-update
 TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 
@@ -109,6 +113,8 @@ else
 fi
 
 ### Finish
+# upload new package-lock.json
+greenkeeper-lockfile-upload
 if [ -z $failJob ]
 then
     updateGit "Jenkins job" success finished $BUILD_URL"console"

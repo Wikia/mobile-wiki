@@ -1,7 +1,6 @@
 import {get} from '@ember/object';
 import {getOwner} from '@ember/application';
 import BaseModel from './base';
-import MediaModel from '../media';
 import {extractEncodedTitle} from '../../utils/url';
 
 export default BaseModel.extend({
@@ -27,12 +26,7 @@ export default BaseModel.extend({
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(this.prepareFileUsageItem),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				fileThumbnail: media,
-				fileMedia: {
-					// This is for lightbox only
-					media: MediaModel.create(getOwner(this).ownerInjection(), {media}),
-					mediaRef: 0
-				}
+				fileThumbnail: media
 			};
 		}
 

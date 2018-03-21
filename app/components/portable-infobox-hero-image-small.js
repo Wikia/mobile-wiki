@@ -1,3 +1,4 @@
+import {inject as service} from '@ember/service';
 import {readOnly} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
@@ -9,6 +10,8 @@ import Thumbnailer from '../modules/thumbnailer';
 export default Component.extend(
 	ImageLoader,
 	{
+		lightbox: service(),
+
 		classNames: ['pi', 'pi-hero-small-wrapper'],
 
 		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
@@ -27,12 +30,10 @@ export default Component.extend(
 			return htmlSafe(`padding-top: ${percent}%`);
 		}),
 
-		lightboxModel: computed('heroImage', function () {
-			return {url: this.get('heroImage.url')};
-		}),
+		click() {
+			this.get('lightbox').open('media', this.get('heroImage'));
 
-		init() {
-			this._super(...arguments);
-		}
+			return false;
+		},
 	}
 );
