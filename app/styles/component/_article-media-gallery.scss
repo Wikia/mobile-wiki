@@ -1,4 +1,6 @@
 .article-media-gallery {
+	align-items: flex-start;
+	display: flex;
 	-webkit-overflow-scrolling: touch;
 	white-space: nowrap;
 	overflow: {
@@ -6,20 +8,24 @@
 		y: hidden;
 	}
 
-	img {
-		height: 195px;
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
-		width: 195px;
+	figcaption {
+		max-width: 195px;
 	}
 
 	.article-media-thumbnail {
-		display: inline-block;
+		flex-shrink: 0;
 		margin: {
 			bottom: 20px;
 			left: 0;
 			right: 8px;
 			top: 20px;
+		}
+
+		img {
+			height: 195px;
+			// Fixes iOS Safari repaint bug when scrolling through gallery
+			transform: translate3d(0, 0, 0);
+			width: 195px;
 		}
 	}
 }

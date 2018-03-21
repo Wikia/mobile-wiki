@@ -3,25 +3,20 @@ import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
 import require from 'require';
 
-const mediaModel = require('mobile-wiki/models/media').default;
 const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
-let createStub;
+
 let thumbnailerStub;
 
 module('Unit | Component | trending videos item', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(() => {
-		createStub = sinon.stub(mediaModel, 'create');
-		createStub.returnsArg(1);
-
 		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
 			return `${url}/${options.mode}/${options.width}/${options.height}`;
 		});
 	});
 
 	hooks.afterEach(() => {
-		createStub.restore();
 		thumbnailerStub.restore();
 	});
 
@@ -40,27 +35,5 @@ module('Unit | Component | trending videos item', (hooks) => {
 		});
 
 		assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
-	});
-
-
-	test('handles openLightbox action properly', function (assert) {
-		const video = {
-				title: 'pretty video'
-			},
-			component = this.owner.factoryFor('component:trending-videos-item').create();
-
-		component.setProperties({
-			onClick(data) {
-				assert.deepEqual(data, {
-					media: {
-						media: video
-					},
-					mediaRef: 0
-				}, 'data is not correct');
-			},
-			video
-		});
-
-		component.click();
 	});
 });
