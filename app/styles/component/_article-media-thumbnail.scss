@@ -1,4 +1,6 @@
 .article-media-thumbnail {
+	@extend %position-play-icon;
+
 	margin: 40px 0;
 	text-align: center;
 
@@ -14,7 +16,11 @@
 
 	img {
 		display: inline-block;
-		width: 100%;
+	}
+
+	a {
+		display: block;
+		position: relative;
 	}
 
 	&.is-loading {
@@ -24,12 +30,6 @@
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
-		}
-	}
-
-	&.is-small {
-		img {
-			width: auto;
 		}
 	}
 
@@ -61,7 +61,6 @@
 
 .article-media-placeholder {
 	display: inline-block;
-	width: 100%;
 }
 
 .article-media-thumbnail-image-wrapper {
@@ -69,11 +68,6 @@
 
 	> svg {
 		@extend %image-placeholder;
-	}
-
-	a {
-		display: block;
-		position: relative;
 	}
 }
 
