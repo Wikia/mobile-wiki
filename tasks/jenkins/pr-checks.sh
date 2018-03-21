@@ -39,8 +39,8 @@ failTests() {
 # $1 - directory
 setupNpm() {
 	oldPath=$(pwd)
-	md5old=$(md5sum ${dependenciesDir}${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum .${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5old=$(md5sum ${dependenciesDir}${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum .${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
 	sourceTarget="${dependenciesDir}${1}node_modules .${1}node_modules"
 
 	if [ "$md5new" = "$md5old" ]
