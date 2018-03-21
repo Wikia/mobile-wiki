@@ -22,6 +22,10 @@ $recommended-video-player-width: 200px;
 		display: none;
 	}
 
+	&:not(.is-extended) .jw-text-track-container {
+		display: none;
+	}
+
 	&.is-extended {
 		left: 0;
 		padding: 0;
@@ -64,6 +68,13 @@ $recommended-video-player-width: 200px;
 				padding-bottom: 12px;
 			}
 		}
+	}
+
+	&__close {
+		padding: 15px;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 
 	header {
@@ -168,5 +179,42 @@ $recommended-video-player-width: 200px;
 
 	.jw-playlist-btn {
 		display: none;
+	}
+}
+
+.is-click-to-play {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100px;
+	width: 100%;
+
+	header {
+		width: 100%;
+	}
+
+	> div:nth-child(2) {
+		height: 52.3px;
+		margin-bottom: 12px;
+		width: 83.5px;
+	}
+
+	> div:nth-child(3) {
+		height: 100%;
+		margin-left: 12px;
+
+		> div {
+			font-size: 14px;
+		}
+	}
+
+	.recommended-video__player {
+		display: none;
+	}
+
+	.recommended-video__playlist-thumbnail {
+		img {
+			min-width: unset;
+			width: 100%;
+		}
 	}
 }

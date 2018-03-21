@@ -10,17 +10,18 @@ export default Component.extend(NoScrollMixin, {
 	logger: service(),
 
 	classNames: ['recommended-video'],
-	classNameBindings: ['isExtended', 'isReady', 'isClosed'],
+	classNameBindings: ['isExtended', 'isReady', 'isClosed', 'isClickToPlay'],
 
 	playlistItem: null,
 	playlistItems: null,
+	isClickToPlay: true,
 
 	init() {
 		this._super(...arguments);
 
 		run.later(() => {
 			this.initRecommendedVideo();
-		}, 5000);
+		}, 3000);
 	},
 
 	willDestroyElement() {
@@ -35,12 +36,12 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	actions: {
-		play(index) {
+		play(index = 0) {
 			this.get('playerInstance').playlistItem(index);
 
 			track({
 				category: 'related-video-module',
-				label: 'recommended-video-click',
+				label: 'playlist-item',
 				action: trackActions.click,
 			});
 		},
@@ -51,6 +52,12 @@ export default Component.extend(NoScrollMixin, {
 				noScroll: false
 			});
 			this.get('playerInstance').remove();
+
+			track({
+				category: 'related-video-module',
+				label: 'close',
+				action: trackActions.click,
+			});
 		}
 	},
 
@@ -72,7 +79,7 @@ export default Component.extend(NoScrollMixin, {
 
 		track({
 			category: 'related-video-module',
-			label: 'recommended-video-revealed',
+			label: 'revealed',
 			action: trackActions.view,
 		});
 	},
@@ -110,7 +117,7 @@ export default Component.extend(NoScrollMixin, {
 
 	getPlayerSetup(jwVideoData) {
 		return {
-			autoplay: true,
+			autoplay: this.getABTestVariation(),
 			tracking: {
 				category: 'related-video-module',
 				track(data) {
@@ -135,15 +142,20 @@ export default Component.extend(NoScrollMixin, {
 	expandPlayer(playerInstance) {
 		this.setProperties({
 			isExtended: true,
-			noScroll: true
+			noScroll: true,
+			isClickToPlay: false,
 		});
 
 		playerInstance.getContainer().classList.remove('wikia-jw-small-player-controls');
 
 		track({
 			category: 'related-video-module',
-			label: 'recommended-video-expanded',
+			label: 'expanded',
 			action: trackActions.view,
 		});
+	},
+
+	getABTestVariation() {
+		return !this.get('isClickToPlay');
 	}
 });
