@@ -14,7 +14,6 @@ import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 export default Route.extend(
@@ -25,6 +24,7 @@ export default Route.extend(
 		currentUser: service(),
 		fastboot: service(),
 		i18n: service(),
+		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
@@ -110,17 +110,19 @@ export default Route.extend(
 					 * lightboxVisible=false and then decide if we want to show it.
 					 */
 					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-
 						if (!closeButtonDelay) {
 							closeButtonDelay = 0;
 						}
 
-						this.send(actionName, 'ads', {contents}, closeButtonDelay);
+						if (lightboxVisible) {
+							this.get('lightbox').open('ads', {contents}, closeButtonDelay);
+						} else {
+							this.get('lightbox').createHidden('ads', {contents}, closeButtonDelay);
+						}
 					};
 
 					adsModule.showLightbox = () => {
-						this.send('showLightbox');
+						this.get('lightbox').show();
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
@@ -198,18 +200,7 @@ export default Route.extend(
 				routerScroll.set('key', get(window, 'history.state.uuid'));
 				routerScroll.update();
 
-				// Because application controller needs wiki-page controller
-				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file'),
-						map = controller.get('map');
-
-					if (!isEmpty(file)) {
-						controller.openLightboxForMedia(file);
-					} else if (!isEmpty(map)) {
-						controller.openLightboxForMap(map);
-					}
-
 					const scrollPosition = routerScroll.get('position');
 					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
@@ -336,38 +327,6 @@ export default Route.extend(
 					.catch((err) => {
 						this.send('error', err);
 					});
-			},
-
-			// We need to proxy these actions because of the way Ember is bubbling them up through routes
-			// see http://emberjs.com/images/template-guide/action-bubbling.png
-			/**
-			 * @returns {void}
-			 */
-			handleLightbox() {
-				this.get('controller').send('handleLightbox');
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
-			 * @returns {void}
-			 */
-			createHiddenLightbox(lightboxType, lightboxModel) {
-				this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			showLightbox() {
-				this.get('controller').send('showLightbox');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			closeLightbox() {
-				this.get('controller').send('closeLightbox');
 			},
 
 			openNav() {

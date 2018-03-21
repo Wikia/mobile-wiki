@@ -1,26 +1,29 @@
-import {not} from '@ember/object/computed';
+import {alias, not} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
+import {inject as service} from '@ember/service';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
+	lightbox: service(),
+
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
-	isVisible: false,
-	closeButtonHidden: false,
-	lightboxCloseButtonDelay: 0,
 	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
 	header: null,
 	footer: null,
+	closeButtonHidden: false,
 
-	type: null,
-	model: null,
+	isVisible: alias('lightbox.isVisible'),
+	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
+	type: alias('lightbox.lightboxType'),
+	model: alias('lightbox.model'),
 
 	closeAllowed: not('closeButtonHidden'),
 
@@ -45,7 +48,7 @@ export default Component.extend(RenderComponentMixin, {
 				footerExpanded: false
 			});
 
-			this.get('closeLightbox')();
+			this.get('lightbox').close();
 		},
 
 		/**

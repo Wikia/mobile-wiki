@@ -46,6 +46,9 @@ function getURL(params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
+	// TODO: remove with https://wikia-inc.atlassian.net/browse/XW-4719
+	query.simplifyRendering = 'true';
+
 	return buildUrl({
 		host: params.host,
 		path: '/wikia.php',
