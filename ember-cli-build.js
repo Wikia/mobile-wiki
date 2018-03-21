@@ -70,7 +70,8 @@ module.exports = function (defaults) {
 			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'instant-globals': `${inlineScriptsPath}instant-globals.js`
+			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
+			lazysizes: `${inlineScriptsPath}lazysizes.js`
 		},
 		outputPaths: {
 			app: {
@@ -138,6 +139,9 @@ module.exports = function (defaults) {
 		using: [{transformation: 'fastbootShim'}]
 	});
 	app.import('node_modules/js-cookie/src/js.cookie.js', {
+		using: [{transformation: 'fastbootShim'}]
+	});
+	app.import('node_modules/lazysizes/lazysizes.js', {
 		using: [{transformation: 'fastbootShim'}]
 	});
 

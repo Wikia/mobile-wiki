@@ -14,11 +14,9 @@ const articleExample = {
 		},
 		categories: 'test',
 		article: {
-			content: 'TestContent',
-			users: 'test'
+			content: 'TestContent'
 		},
 		ns: 'namespace',
-		relatedPages: ['anItem', 'anotherItem'],
 		userDetails: ['someItem', 'yetOneMore']
 	}
 };
@@ -65,12 +63,6 @@ function verifyArticle(model, article, assert) {
 	);
 
 	assert.equal(
-		model.get('mediaUsers'),
-		articleData.article.users,
-		`expected mediaUsers=${articleData.article.users}, got ${model.get('mediaUsers')}`
-	);
-
-	assert.equal(
 		model.get('user'),
 		articleData.article.user,
 		`expected user=${articleData.article.user}, got ${model.get('user')}`
@@ -80,12 +72,6 @@ function verifyArticle(model, article, assert) {
 		model.get('categories'),
 		articleData.categories,
 		`expected categories=${articleData.categories}, got ${model.get('categories')}`
-	);
-
-	assert.deepEqual(
-		model.get('relatedPages'),
-		articleData.relatedPages,
-		'correction ingested related pages'
 	);
 }
 
