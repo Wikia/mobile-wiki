@@ -13,6 +13,7 @@ export default BaseModel.extend({
 	isCuratedMainPage: false,
 	isMainPage: false,
 	user: null,
+	heroImage: null,
 
 	/**
 	 * @returns {RSVP.Promise}
@@ -79,15 +80,10 @@ export default BaseModel.extend({
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
 				}
-			}
 
-			if (data.relatedPages) {
-				/**
-				 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-				 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-				 * to handle this and never return malformed structures.
-				 */
-				articleProperties.relatedPages = data.relatedPages;
+				if (data.article.heroImage) {
+					articleProperties.heroImage = data.article.heroImage;
+				}
 			}
 
 			if (data.topContributors) {

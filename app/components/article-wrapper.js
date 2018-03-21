@@ -102,21 +102,6 @@ export default Component.extend(
 		},
 
 		actions: {
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} lightboxData
-			 * @returns {void}
-			 */
-			openLightbox(lightboxType, lightboxData) {
-				track({
-					action: trackActions.click,
-					category: 'media',
-					label: 'open'
-				});
-
-				this.get('openLightbox')(lightboxType, lightboxData);
-			},
-
 			trackClick(category, label) {
 				track({
 					action: trackActions.click,

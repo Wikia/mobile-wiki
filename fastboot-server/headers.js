@@ -34,7 +34,9 @@ module.exports = function (req, res, next) {
 		}
 	}
 
-	res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
+	if (!req.path.startsWith('/mobile-wiki/assets')) {
+		res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
+	}
 
 	setResponseTime(res);
 	next();
