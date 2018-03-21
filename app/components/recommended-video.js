@@ -91,6 +91,7 @@ export default Component.extend(NoScrollMixin, {
 
 		playerInstance.on('play', (data) => {
 			if (data.playReason === 'interaction') {
+				playerInstance.setMute(false);
 				this.expandPlayer(playerInstance);
 			}
 		});
