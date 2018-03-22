@@ -2,16 +2,17 @@ import {computed} from '@ember/object';
 import {oneWay} from '@ember/object/computed';
 import Component from '@ember/component';
 import {getOwner} from '@ember/application';
+import {inject as service} from '@ember/service';
 import Thumbnailer from '../modules/thumbnailer';
 import {track, trackActions} from '../utils/track';
 import {transparentImageBase64} from '../utils/thumbnail';
-import MediaModel from '../models/media';
 
 export default Component.extend({
+	lightbox: service(),
+
 	tagName: 'a',
 	classNames: ['trending-videos-item'],
 	attributeBindings: ['href'],
-	imageStyle: null,
 	video: null,
 	imageWidth: 250,
 	emptyGif: transparentImageBase64,
@@ -46,15 +47,8 @@ export default Component.extend({
 			label: `open-item-${this.get('index')}`
 		});
 
-		const mediaModel = MediaModel.create(getOwner(this).ownerInjection(), {
-			media: this.get('video'),
-		});
-
-		this.get('onClick')({
-			media: mediaModel,
-			mediaRef: 0,
-		});
-
+		this.get('lightbox').open('media', this.get('video'));
 		return false;
 	},
 });
+

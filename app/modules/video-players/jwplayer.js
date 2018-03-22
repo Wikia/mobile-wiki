@@ -22,7 +22,7 @@ export default class JWPlayer extends BasePlayer {
 
 			if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
 				adsInstance.jwPlayerAds(player, bidParams, slotTargeting);
-				adsInstance.jwPlayerMoat(player);
+				adsInstance.jwPlayerMoat.track(player);
 			}
 		};
 
@@ -64,6 +64,7 @@ export default class JWPlayer extends BasePlayer {
 					showAutoplayToggle: true,
 					showCaptions: true
 				},
+				sharing: true,
 				selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
 				autoplay: this.params.autoplay,
 				mute: this.params.autoplay,
@@ -85,6 +86,8 @@ export default class JWPlayer extends BasePlayer {
 			},
 			this.params.onCreate.bind(this, bidParams)
 		);
+
+		Ads.getInstance().jwPlayerMoat.loadTrackingPlugin();
 	}
 
 	/**

@@ -42,13 +42,6 @@ export default Service.extend({
 	bunyanInstance: null,
 	requestContext: null,
 
-	init() {
-		if (this.get('fastboot.isFastBoot')) {
-			this.setupRequestDetails();
-			this.setupBunyan();
-		}
-	},
-
 	setupRequestDetails() {
 		const request = this.get('fastboot.request');
 		const headers = request.get('headers');
@@ -68,6 +61,15 @@ export default Service.extend({
 				wiki_id: this.get('wikiVariables.id')
 			}
 		});
+	},
+
+	init() {
+		this._super(...arguments);
+
+		if (this.get('fastboot.isFastBoot')) {
+			this.setupRequestDetails();
+			this.setupBunyan();
+		}
 	},
 
 	setupBunyan() {

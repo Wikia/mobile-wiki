@@ -16,15 +16,10 @@
 	}
 
 	&__subcategory {
-		$icon-size: 18px;
+		margin-left: -23px;
 
-		&::before {
-			background-image: $wds-icons-pages-small-svg;
-			content: '';
-			height: $icon-size;
-			left: -4px;
-			position: absolute;
-			width: $icon-size;
+		.wds-icon {
+			vertical-align: middle;
 		}
 	}
 

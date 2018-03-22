@@ -1,4 +1,6 @@
 .article-media-thumbnail {
+	@extend %position-play-icon;
+
 	margin: 40px 0;
 	text-align: center;
 
@@ -13,28 +15,21 @@
 	}
 
 	img {
-		@extend %image-placeholder;
-
 		display: inline-block;
-		width: 100%;
+	}
+
+	a {
+		display: block;
+		position: relative;
 	}
 
 	&.is-loading {
-		img {
-			@include is-loading;
-		}
+		@include is-loading;
 	}
 
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
-			background: none;
-		}
-	}
-
-	&.is-small {
-		img {
-			width: auto;
 		}
 	}
 
@@ -45,13 +40,15 @@
 	}
 
 	.chevron {
-		background-color: #fff;
+		background: $wds-color-white;
 		bottom: 0;
 		height: 20px;
+		min-width: 20px;
+		padding: 4px;
 		position: absolute;
 		right: 0;
+		transform: rotate(-90deg);
 		width: 20px;
-		z-index: $z-1;
 	}
 
 	&__play-icon {
@@ -63,14 +60,15 @@
 }
 
 .article-media-placeholder {
-	@extend %image-placeholder;
-
 	display: inline-block;
-	width: 100%;
 }
 
 .article-media-thumbnail-image-wrapper {
 	position: relative;
+
+	> svg {
+		@extend %image-placeholder;
+	}
 }
 
 @keyframes lazyImage {
