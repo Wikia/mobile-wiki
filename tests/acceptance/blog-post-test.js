@@ -22,6 +22,10 @@ module('Acceptance | Blog post page', (hooks) => {
 			'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
 			'blog title is correct'
 		);
+
+		assert.ok(find('.wiki-page-header__subtitle'), 'blog subtitle is present');
+		assert.equal(find('.wiki-page-header__subtitle').textContent, 'User blog', 'blog title is correct');
+		assert.equal(find('.article-content').textContent, 'Fifteen years ago I started editing my first wiki and it’s been a fun journey');
 		assert.ok(find('.mw-content.collapsible-menu'), 'contains categories');
 		assert.equal(findAll('.mw-content.collapsible-menu li').length, 2, 'there are 2 categories');
 	});
