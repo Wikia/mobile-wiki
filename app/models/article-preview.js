@@ -23,7 +23,8 @@ export default EmberObject.extend({
 				query: {
 					controller: 'MercuryApi',
 					method: 'getArticleFromMarkup',
-					title
+					title,
+					simplifyRendering: 'true'
 				}
 			}),
 			formData = new FastBoot.require('form-data')();
