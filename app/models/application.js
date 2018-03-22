@@ -20,12 +20,15 @@ export default EmberObject.extend({
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
+			const protocol = fastboot.get('request.headers').get('fastly-ssl')
+				? 'https'
+				: fastboot.get('request.protocol').replace(':', '');
 			const host = getHostFromRequest(fastboot.get('request')),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 
 			return all([
-				WikiVariablesModel.create(ownerInjection).fetch(host, accessToken),
+				WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),
 				UserModel.create(ownerInjection).getUserId(accessToken)
 			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);

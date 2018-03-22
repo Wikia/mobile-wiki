@@ -14,6 +14,7 @@ export default Service.extend({
 	adSlotComponents: null,
 
 	init() {
+		this._super(...arguments);
 		this.adSlotComponents = {};
 	},
 
