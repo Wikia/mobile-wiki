@@ -1,12 +1,17 @@
-figure img {
-	width: 100%;
-}
-
 img {
 	height: auto;
 	-ms-interpolation-mode: bicubic;
 	max-width: 100%;
 	vertical-align: middle;
+
+	&.lazyloading {
+		@include is-loading;
+	}
+
+	&.lazyloaded {
+		animation: lazyImage .3s;
+		background: none;
+	}
 }
 
 .article-image,
