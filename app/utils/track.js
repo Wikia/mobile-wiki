@@ -2,6 +2,7 @@
 
 import Ads from '../modules/ads';
 import {getGroup} from '../modules/abtest';
+import analyzeTrackedUrl from './analyzeTrackedUrl';
 
 /**
  * @typedef {Object} TrackContext
@@ -119,20 +120,20 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
-	const trackingMethod = params.trackingMethod || 'both',
-		action = params.action,
-		category = params.category ? `mercury-${params.category}` : null,
-		label = params.label || '',
-		value = params.value || 0,
-		isNonInteractive = params.isNonInteractive !== false;
+	if (!window.location) {
+		return;
+	}
 
 	if (typeof FastBoot !== 'undefined' || M.getFromHeadDataStore('noExternals')) {
 		return;
 	}
 
-	if (!window.location) {
-		return;
-	}
+	const isFandomApp = window.location.search.includes('mobile-app=true');
+	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
+	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
+	const isNonInteractive = params.isNonInteractive !== false;
+	const {action, label = '', value = 0, trackingMethod = 'both'} = params;
+
 	params = Object.assign({
 		ga_action: action,
 		ga_category: category,
@@ -150,6 +151,9 @@ export function track(params) {
 		}
 
 		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
+
+		// XW-4311 Added to determine if we're updating GA urls properly
+		analyzeTrackedUrl(params);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {

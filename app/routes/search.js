@@ -16,12 +16,12 @@ export default Route.extend(
 			}
 		},
 
+		applicationWrapperClassNames: null,
+
 		init() {
 			this._super(...arguments);
 			this.applicationWrapperClassNames = ['search-result-page'];
 		},
-
-		applicationWrapperClassNames: null,
 
 		model(params) {
 			return SearchModel

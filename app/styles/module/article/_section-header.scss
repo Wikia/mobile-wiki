@@ -3,10 +3,6 @@ h2[section] {
 	display: flex;
 
 	&.open-section {
-		.chevron {
-			transform: scaleY(-1);
-		}
-
 		.contribution-container {
 			visibility: visible;
 		}

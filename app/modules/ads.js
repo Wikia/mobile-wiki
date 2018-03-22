@@ -60,6 +60,7 @@ class Ads {
 		this.slotsQueue = [];
 		this.uapResult = false;
 		this.uapCalled = false;
+		this.uapUnsticked = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
 		this.GASettings = {
@@ -92,75 +93,68 @@ class Ads {
 	/**
 	 * Initializes the Ad module
 	 *
-	 * @param {string} adsUrl - Url for the ads script
 	 * @returns {void}
 	 */
-	init(adsUrl) {
+	init() {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
-		this.adsUrl = adsUrl;
+		/* eslint-disable max-params */
+		if (window.require) {
+			window.require([
+				'ext.wikia.adEngine.bridge',
+				'ext.wikia.adEngine.adContext',
+				'ext.wikia.adEngine.adEngineRunner',
+				'ext.wikia.adEngine.adLogicPageParams',
+				'ext.wikia.adEngine.config.mobile',
+				'ext.wikia.adEngine.context.slotsContext',
+				'ext.wikia.adEngine.lookup.a9',
+				'ext.wikia.adEngine.mobile.mercuryListener',
+				'ext.wikia.adEngine.babDetection',
+				'ext.wikia.adEngine.provider.gpt.googleTag',
+				'ext.wikia.adEngine.video.vastUrlBuilder',
+				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
+				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
+				'wikia.krux'
+			], (
+				adEngineBridge,
+				adContextModule,
+				adEngineRunnerModule,
+				adLogicPageParams,
+				adConfigMobile,
+				slotsContext,
+				a9,
+				adMercuryListener,
+				babDetectionModule,
+				googleTagModule,
+				vastUrlBuilder,
+				jwPlayerAds,
+				jwPlayerMoat,
+				krux
+			) => {
+				this.adEngineBridge = adEngineBridge;
+				this.adConfigMobile = adConfigMobile;
+				this.adContextModule = adContextModule;
+				this.slotsContext = slotsContext;
+				this.adEngineRunnerModule = adEngineRunnerModule;
+				this.adMercuryListenerModule = adMercuryListener;
+				this.googleTagModule = googleTagModule;
+				this.vastUrlBuilder = vastUrlBuilder;
+				this.krux = krux;
+				this.isLoaded = true;
+				this.babDetectionModule = babDetectionModule;
+				this.adLogicPageParams = adLogicPageParams;
+				this.a9 = a9;
+				this.jwPlayerAds = jwPlayerAds;
+				this.jwPlayerMoat = jwPlayerMoat;
 
-		// Load the ads code from MW
-		$script(adsUrl, () => {
-			/* eslint-disable max-params */
-			if (window.require) {
-				window.require([
-					'ext.wikia.adEngine.bridge',
-					'ext.wikia.adEngine.adContext',
-					'ext.wikia.adEngine.adEngineRunner',
-					'ext.wikia.adEngine.adLogicPageParams',
-					'ext.wikia.adEngine.config.mobile',
-					'ext.wikia.adEngine.context.slotsContext',
-					'ext.wikia.adEngine.lookup.a9',
-					'ext.wikia.adEngine.mobile.mercuryListener',
-					'ext.wikia.adEngine.babDetection',
-					'ext.wikia.adEngine.provider.gpt.googleTag',
-					'ext.wikia.adEngine.video.vastUrlBuilder',
-					window.require.optional('wikia.articleVideo.featuredVideo.ads'),
-					window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
-					'wikia.krux'
-				], (
-					adEngineBridge,
-					adContextModule,
-					adEngineRunnerModule,
-					adLogicPageParams,
-					adConfigMobile,
-					slotsContext,
-					a9,
-					adMercuryListener,
-					babDetectionModule,
-					googleTagModule,
-					vastUrlBuilder,
-					jwPlayerAds,
-					jwPlayerMoat,
-					krux
-				) => {
-					this.adEngineBridge = adEngineBridge;
-					this.adConfigMobile = adConfigMobile;
-					this.adContextModule = adContextModule;
-					this.slotsContext = slotsContext;
-					this.adEngineRunnerModule = adEngineRunnerModule;
-					this.adMercuryListenerModule = adMercuryListener;
-					this.googleTagModule = googleTagModule;
-					this.vastUrlBuilder = vastUrlBuilder;
-					this.krux = krux;
-					this.isLoaded = true;
-					this.babDetectionModule = babDetectionModule;
-					this.adLogicPageParams = adLogicPageParams;
-					this.a9 = a9;
-					this.jwPlayerAds = jwPlayerAds;
-					this.jwPlayerMoat = jwPlayerMoat;
-
-					this.addDetectionListeners();
-					this.reloadWhenReady();
-
-				});
-			} else {
-				console.error('Looks like ads asset has not been loaded');
-			}
-			/* eslint-enable max-params */
-		});
+				this.addDetectionListeners();
+				this.reloadWhenReady();
+			});
+		} else {
+			console.error('Looks like ads asset has not been loaded');
+		}
+		/* eslint-enable max-params */
 	}
 
 	/**
@@ -182,7 +176,7 @@ class Ads {
 	}
 
 	/**
-	 * Dispatch adengine event
+	 * Dispatch AdEngine event
 	 *
 	 * @param {string} name
 	 * @param {Object} data
@@ -380,7 +374,6 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
-		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
@@ -501,6 +494,7 @@ class Ads {
 
 		this.uapCalled = false;
 		this.uapResult = false;
+		this.uapUnsticked = false;
 
 		this.uapCallbacks.forEach((callback) => {
 			window.removeEventListener('wikia.uap', callback);
@@ -527,6 +521,18 @@ class Ads {
 
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
+	}
+
+	/**
+	 * This method is called on menu or search open
+	 *
+	 * @returns {void}
+	 */
+	onMenuOpen() {
+		if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+			this.uapUnsticked = true;
+			this.adMercuryListenerModule.runOnMenuOpenCallbacks();
+		}
 	}
 
 	/**

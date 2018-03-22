@@ -83,7 +83,7 @@ body:not(.no-scroll) {
 	width: 100%;
 	z-index: $z-site-head;
 
-	.featured-video-on-scroll-active & {
+	.featured-video-on-scroll-active:not(.no-scroll) & {
 		position: static;
 	}
 
@@ -113,19 +113,15 @@ body:not(.no-scroll) {
 	.site-head-icon {
 		position: relative;
 
-		.icon-button-icon {
-			fill: $color-blue-dark;
+		svg {
+			fill: $wds-color-dark-blue;
+			height: 24px;
+			width: 24px;
 		}
 
 		&-search,
 		&-nav {
 			flex: 0 0 48px;
-		}
-
-		&:hover {
-			.icon-button-icon {
-				fill: $color-blue-dark;
-			}
 		}
 	}
 
@@ -176,7 +172,9 @@ body:not(.no-scroll) {
 }
 
 .no-scroll {
-	.site-head {
-		position: fixed;
+	.bfaa-template {
+		.site-head {
+			position: fixed;
+		}
 	}
 }

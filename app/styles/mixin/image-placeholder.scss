@@ -1,10 +1,8 @@
-// placeholder for setting up an image placeholder background
 %image-placeholder {
-	background: {
-		color: $gainsboro;
-		image: $brackets-svg-image;
-		position: center;
-		repeat: no-repeat;
-		size: contain;
-	}
+	color: $wds-color-white;
+	height: 50%;
+	left: 25%;
+	position: absolute;
+	top: 25%;
+	width: 50%;
 }

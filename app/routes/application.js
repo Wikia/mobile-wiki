@@ -5,15 +5,15 @@ import {getWithDefault, get} from '@ember/object';
 import Ember from 'ember';
 import {isEmpty} from '@ember/utils';
 import {run} from '@ember/runloop';
+import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
-import {normalizeToUnderscore} from '../utils/string';
+import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {getQueryString} from '../utils/url';
 import ApplicationModel from '../models/application';
 
 export default Route.extend(
@@ -24,6 +24,7 @@ export default Route.extend(
 		currentUser: service(),
 		fastboot: service(),
 		i18n: service(),
+		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
@@ -87,17 +88,13 @@ export default Route.extend(
 
 			if (
 				!fastboot.get('isFastBoot') &&
-				this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals
 			) {
-				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
-					if (wgSitewideDisableAdsOnMercury) {
-						return;
-					}
 
+				window.waitForAds(() => {
 					const adsModule = this.get('ads.module');
 
-					adsModule.init(this.get('ads.adsUrl'));
+					adsModule.init();
 
 					/*
 					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -109,17 +106,19 @@ export default Route.extend(
 					 * lightboxVisible=false and then decide if we want to show it.
 					 */
 					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-						const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-
 						if (!closeButtonDelay) {
 							closeButtonDelay = 0;
 						}
 
-						this.send(actionName, 'ads', {contents}, closeButtonDelay);
+						if (lightboxVisible) {
+							this.get('lightbox').open('ads', {contents}, closeButtonDelay);
+						} else {
+							this.get('lightbox').createHidden('ads', {contents}, closeButtonDelay);
+						}
 					};
 
 					adsModule.showLightbox = () => {
-						this.send('showLightbox');
+						this.get('lightbox').show();
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
@@ -197,18 +196,7 @@ export default Route.extend(
 				routerScroll.set('key', get(window, 'history.state.uuid'));
 				routerScroll.update();
 
-				// Because application controller needs wiki-page controller
-				// we can't be sure that media model will be ready when aplication controller is ready
 				run.scheduleOnce('afterRender', () => {
-					const file = controller.get('file'),
-						map = controller.get('map');
-
-					if (!isEmpty(file)) {
-						controller.openLightboxForMedia(file);
-					} else if (!isEmpty(map)) {
-						controller.openLightboxForMap(map);
-					}
-
 					const scrollPosition = routerScroll.get('position');
 					window.scrollTo(scrollPosition.x, scrollPosition.y);
 				});
@@ -309,7 +297,8 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(-.*)?\.com.*\/.*$/)) {
+					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {
 						window.open(info.url);
@@ -334,38 +323,6 @@ export default Route.extend(
 					.catch((err) => {
 						this.send('error', err);
 					});
-			},
-
-			// We need to proxy these actions because of the way Ember is bubbling them up through routes
-			// see http://emberjs.com/images/template-guide/action-bubbling.png
-			/**
-			 * @returns {void}
-			 */
-			handleLightbox() {
-				this.get('controller').send('handleLightbox');
-			},
-
-			/**
-			 * @param {string} lightboxType
-			 * @param {*} [lightboxModel]
-			 * @returns {void}
-			 */
-			createHiddenLightbox(lightboxType, lightboxModel) {
-				this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			showLightbox() {
-				this.get('controller').send('showLightbox');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			closeLightbox() {
-				this.get('controller').send('closeLightbox');
 			},
 
 			openNav() {

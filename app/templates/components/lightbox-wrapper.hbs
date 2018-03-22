@@ -4,7 +4,7 @@
 			{{#if closeButtonHidden}}
 				{{lightboxCloseButtonDelay}}
 			{{else}}
-				{{svg 'close' role='img' class='lightbox-close-button'}}
+				{{svg 'wds-icons-cross-tiny' role='img' class='wds-icon wds-icon-tiny lightbox-close-button'}}
 			{{/if}}
 		</div>
 		<div class="lightbox-header-title">{{header}}</div>
@@ -16,7 +16,6 @@
 			setFooter=(action 'setFooter')
 			setHeader=(action 'setHeader')
 			setCloseButtonHidden=(action 'setCloseButtonHidden')
-			setQueryParam=(action setQueryParam)
 		}}
 	</div>
 	{{#if footer}}

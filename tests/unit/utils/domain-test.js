@@ -9,10 +9,6 @@ module('Unit | Utility | domain test', () => {
 				expected: 'thelastofus.james.wikia-dev.us',
 			},
 			{
-				url: 'http://starwars.wikia-staging.com/wiki/MakerTest',
-				expected: 'starwars.wikia-staging.com',
-			},
-			{
 				url: 'witcher.wikia.com',
 				expected: 'witcher.wikia.com',
 			},
