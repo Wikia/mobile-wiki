@@ -20,7 +20,14 @@ export default Component.extend(NoScrollMixin, {
 		this._super(...arguments);
 
 		run.later(() => {
-			this.initRecommendedVideo();
+			track({
+				category: 'related-video-module',
+				label: 'reveal-point',
+				action: trackActions.impression,
+			});
+
+			// Uncomment after XW-4771 test is done
+			// this.initRecommendedVideo();
 		}, 3000);
 	},
 
