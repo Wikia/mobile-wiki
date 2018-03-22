@@ -88,17 +88,13 @@ export default Route.extend(
 
 			if (
 				!fastboot.get('isFastBoot') &&
-				this.get('ads.adsUrl') &&
 				!transition.queryParams.noexternals
 			) {
-				window.getInstantGlobal('wgSitewideDisableAdsOnMercury', (wgSitewideDisableAdsOnMercury) => {
-					if (wgSitewideDisableAdsOnMercury) {
-						return;
-					}
 
+				window.waitForAds(() => {
 					const adsModule = this.get('ads.module');
 
-					adsModule.init(this.get('ads.adsUrl'));
+					adsModule.init();
 
 					/*
 					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
