@@ -21,9 +21,6 @@ metadata:
   name: mobile-wiki-prod
   namespace: prod
 spec:
-  selector:
-    matchLabels:
-      app: mobile-wiki-prod
   replicas: 8
   selector:
     matchLabels:
