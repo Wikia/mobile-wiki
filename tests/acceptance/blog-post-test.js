@@ -24,7 +24,7 @@ module('Acceptance | Blog post page', (hooks) => {
 		);
 
 		assert.ok(find('.wiki-page-header__subtitle'), 'blog subtitle is present');
-		assert.equal(find('.wiki-page-header__subtitle').textContent, 'User blog', 'blog title is correct');
+		assert.equal(find('.wiki-page-header__subtitle').textContent, 'blog-page.subtitle', 'blog i18n key is correct');
 		assert.equal(find('.article-content').textContent, 'Test blog page');
 		assert.ok(find('.mw-content.collapsible-menu'), 'contains categories');
 		assert.equal(findAll('.mw-content.collapsible-menu li').length, 2, 'there are 2 categories');
