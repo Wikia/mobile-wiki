@@ -6,6 +6,7 @@
 
 	background-color: $vapor;
 	padding-bottom: $card-vertical-margin;
+	margin: 0;
 
 	.wikia-card {
 		@include link-interactions-color(inherit);
