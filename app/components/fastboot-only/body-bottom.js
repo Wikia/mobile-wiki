@@ -29,6 +29,8 @@ export default Component.extend({
 			'isMainPage'
 		);
 		const wikiVariables = this.get('wikiVariables').getProperties(
+			'cacheBuster',
+			'cdnRootUrl',
 			'dbName',
 			'id',
 			'language'

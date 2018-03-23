@@ -4,7 +4,7 @@
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" >
 				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
-				<a href="#" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
+				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
 					<div class="recirculation-prefooter__item-thumbnail">
 						<img src="{{post.thumbnail}}" alt="{{post.title}}">
 						{{#if post.isVideo}}
