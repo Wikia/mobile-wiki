@@ -38,7 +38,6 @@ export default Component.extend(
 
 		lang: reads('wikiVariables.language.content'),
 		dir: reads('wikiVariables.language.contentDir'),
-		isFastBoot: reads('fastboot.isFastBoot'),
 
 		init() {
 			this._super(...arguments);
