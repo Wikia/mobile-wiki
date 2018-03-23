@@ -10,7 +10,7 @@ node('docker-daemon') {
     def imageExists = false
     def imageName = ""
 
-   stage('Clone sources') {
+    stage('Clone sources') {
         checkout scm
 
         println "imageName: ${imageName}"
@@ -37,7 +37,7 @@ node('docker-daemon') {
     }
 
 
-   stage('Build and push image') {
+    stage('Build and push image') {
        if ( !imageExists ) {
             if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
