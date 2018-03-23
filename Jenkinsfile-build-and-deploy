@@ -37,14 +37,12 @@ node('docker-daemon') {
     }
 
 
-    if ( !imageExists ) {
-        if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
-            stage('Build and push image'){
+   stage('Build and push image') {
+       if ( !imageExists ) {
+            if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
-           }
-        } else {
-            stage('Build and push image') {
+            } else {
                 if (params.crowdin_branch != null) {
                     sh """#!/bin/sh
                     ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
@@ -53,10 +51,7 @@ node('docker-daemon') {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
             }
-       }
-    } else {
-        stage('Build and push image') {}
-        stage('Build developement image') {}
+        }
     }
 
     withDockerContainer(deployenv) {
