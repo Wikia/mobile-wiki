@@ -5,6 +5,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
+import {inGroup} from '../modules/abtest';
 
 export default Component.extend(NoScrollMixin, {
 	logger: service(),
@@ -18,17 +19,9 @@ export default Component.extend(NoScrollMixin, {
 
 	init() {
 		this._super(...arguments);
+		this.setup = this.setup.bind(this);
 
-		run.later(() => {
-			track({
-				category: 'related-video-module',
-				label: 'reveal-point',
-				action: trackActions.impression,
-			});
-
-			// Uncomment after XW-4771 test is done
-			// this.initRecommendedVideo();
-		}, 3000);
+		window.waitForInstantGlobals(this.setup);
 	},
 
 	willDestroyElement() {
@@ -66,6 +59,25 @@ export default Component.extend(NoScrollMixin, {
 				action: trackActions.click,
 			});
 		}
+	},
+
+	setup() {
+		run.later(() => {
+			track({
+				category: 'related-video-module',
+				label: 'reveal-point',
+				action: trackActions.impression,
+			});
+
+			const isClickToPlay = inGroup('RECOMMENDED_VIDEO_AB', 'CLICK_TO_PLAY');
+			const isAutoPlay = inGroup('RECOMMENDED_VIDEO_AB', 'AUTOPLAY');
+
+			this.set('isClickToPlay', isClickToPlay);
+
+			if (isAutoPlay || isClickToPlay) {
+				this.initRecommendedVideo();
+			}
+		}, 3000);
 	},
 
 	initRecommendedVideo() {

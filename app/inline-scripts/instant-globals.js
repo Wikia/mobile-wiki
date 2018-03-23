@@ -32,4 +32,8 @@
 			}
 		}
 	};
+
+	window.waitForInstantGlobals = function (callback) {
+		return window.getInstantGlobal('', callback);
+	};
 })();
