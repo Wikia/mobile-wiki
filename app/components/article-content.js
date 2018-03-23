@@ -81,7 +81,7 @@ export default Component.extend(
 
 			this.openLightboxIfNeeded();
 		},
-		
+
 		willUpdate() {
 			this._super(...arguments);
 
