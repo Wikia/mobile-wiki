@@ -44,7 +44,7 @@ node('docker-daemon') {
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
            }
         } else {
-            stage('Build developement image') {
+            stage('Build and push image') {
                 if (params.crowdin_branch != null) {
                     sh """#!/bin/sh
                     ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
