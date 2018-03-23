@@ -1,4 +1,4 @@
-import {currentURL, visit, find, findAll} from '@ember/test-helpers';
+import {visit} from '@ember/test-helpers';
 import {test, module} from 'qunit';
 import {setupApplicationTest} from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
