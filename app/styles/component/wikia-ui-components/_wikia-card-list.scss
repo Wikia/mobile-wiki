@@ -5,8 +5,8 @@
 	$card-padding: 12px;
 
 	background-color: $vapor;
-	padding-bottom: $card-vertical-margin;
 	margin: 0;
+	padding-bottom: $card-vertical-margin;
 
 	.wikia-card {
 		@include link-interactions-color(inherit);
