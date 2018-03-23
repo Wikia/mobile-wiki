@@ -19,7 +19,6 @@ import toArray from '../utils/toArray';
 export default Component.extend(
 	AdsMixin,
 	{
-		fastboot: service(),
 		i18n: service(),
 		logger: service(),
 		lightbox: service(),
