@@ -16,18 +16,13 @@ module('Acceptance | Blog post page', (hooks) => {
 		await visit('/');
 		await visit('/wiki/User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM');
 
-		assert.ok(find('.wiki-page-header__title'), 'blog title is present');
-		assert.equal(
-			find('.wiki-page-header__title').textContent,
-			'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
-			'blog title is correct'
-		);
-
-		assert.ok(find('.wiki-page-header__subtitle'), 'blog subtitle is present');
-		assert.equal(find('.wiki-page-header__subtitle').textContent, 'blog-page.subtitle', 'blog i18n key is correct');
-		assert.equal(find('.article-content').textContent, 'Test blog page');
-		assert.ok(find('.mw-content.collapsible-menu'), 'contains categories');
-		assert.equal(findAll('.mw-content.collapsible-menu li').length, 2, 'there are 2 categories');
+		assert.dom('.wiki-page-header__title').exists();
+		assert.dom('.wiki-page-header__title').hasText('TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM');
+		assert.dom('.wiki-page-header__subtitle').exists();
+		assert.dom('.wiki-page-header__subtitle').hasText('blog-page.subtitle');
+		assert.dom('.article-content').hasText('Test blog page');
+		assert.dom('.mw-content.collapsible-menu').exists();
+		assert.dom('.mw-content.collapsible-menu li').exists({ count: 2 }, "Categories section has 2 items");
 	});
 });
 
