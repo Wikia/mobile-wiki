@@ -26,6 +26,7 @@ spec:
     matchLabels:
       app: mobile-wiki-verify
   strategy:
+      rollingUpdate: null
       type: Recreate
   template:
     metadata:
