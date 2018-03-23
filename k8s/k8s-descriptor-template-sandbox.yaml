@@ -21,13 +21,12 @@ metadata:
   name: mobile-wiki-${env}
   namespace: prod
 spec:
-  selector:
-    matchLabels:
-      app: mobile-wiki-${env}
   replicas: 1
   selector:
     matchLabels:
       app: mobile-wiki-${env}
+  strategy:
+      type: Recreate
   template:
     metadata:
       labels:
