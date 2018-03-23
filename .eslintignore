@@ -4,6 +4,7 @@ node_modules/
 tasks/
 tmp/
 vendor/
+coverage/
 
 
 # Script copied from Google documentation
