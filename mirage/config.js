@@ -1,5 +1,6 @@
 import filePageFixture from './fixtures/file-page';
 import blogPostPageFixture from './fixtures/blog-post';
+import articleFixture from './fixtures/article';
 
 /**
  * @returns {void}
@@ -34,6 +35,10 @@ export default function () {
 			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
 				return blogPostPageFixture;
 			}
+
+			if (method === 'getPage' && title === 'Test') {
+				return articleFixture;
+			}
 		}
 
 		if (controller === 'CuratedContent' && method === 'getData') {
@@ -57,6 +62,10 @@ export default function () {
 
 			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
 				return blogPostPageFixture;
+			}
+
+			if (method === 'getPage' && title === 'Test') {
+				return articleFixture;
 			}
 		}
 
