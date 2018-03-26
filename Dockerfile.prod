@@ -19,9 +19,12 @@ RUN addgroup -S mobile-wiki && \
 # install missing stuff
     apk add --no-cache --virtual .gyp python make g++ git && \
 
+    npm cache clean --force && \
+    rm -rf node_modules/ && \
+    rm package-lock.json && \
+
 # install all dependencies
     npm set progress=false && \
-    npm run clean && \
     npm run setup && \
 
 # cleanup
