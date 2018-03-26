@@ -267,7 +267,7 @@ $group-header-font-size: 16px;
 
 	// remove margins on all elements inside data value
 	// leave the chevrons in peace
-	*:not('.chevron') {
+	*:not(.chevron) {
 		margin: 0;
 	}
 

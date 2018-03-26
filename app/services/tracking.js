@@ -2,6 +2,7 @@ import Service, {inject as service} from '@ember/service';
 import {set, get} from '@ember/object';
 import baseConfig from '../config/environment';
 import extend from '../utils/extend';
+import getHostFromRequest from '../utils/host';
 
 export default Service.extend({
 	fastboot: service(),
@@ -30,7 +31,8 @@ export default Service.extend({
 	setupComscore(config) {
 		if (get(config, 'comscore.c7Value')) {
 			const request = this.get('fastboot.request');
-			const requestUrl = `${request.get('protocol')}://${request.get('host')}${request.get('path')}`;
+			const host = getHostFromRequest(request);
+			const requestUrl = `${request.get('protocol')}://${host}${request.get('path')}`;
 			const c7 = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
 				`${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
 
