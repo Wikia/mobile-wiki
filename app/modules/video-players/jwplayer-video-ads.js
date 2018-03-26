@@ -30,11 +30,17 @@ export default class JWPlayerVideoAds {
 			onError({}, 'A9 bidder not found');
 		}
 
-		a9.waitForResponseCallbacks(
-			() => onSuccess(a9.getSlotParams('FEATURED')),
-			() => onError({}, 'Connection timed out'),
-			responseTimeout
-		);
+		if (a9.waitForResponseCallbacks) {
+			a9.waitForResponseCallbacks(
+				() => onSuccess(a9.getSlotParams('FEATURED')),
+				() => onError({}, 'Connection timed out'),
+				responseTimeout
+			);
+		} else {
+			// TODO ADEN-6812: remove when new implementation of waitForResponse() will be deployed
+			a9.waitForResponse.then(() => a9.getSlotParams('FEATURED'))
+				.catch((error) => onError({}, error));
+		}
 	}
 
 	isA9VideoEnabled() {
