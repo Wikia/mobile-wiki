@@ -26,6 +26,9 @@ export default Mixin.create({
 	init() {
 		this._super(...arguments);
 		this.renderAdComponent = getRenderComponentFor(this);
+
+		// Set proper UAP language
+		window.wgContentLanguage = this.get('wikiVariables.language.content');
 	},
 
 	/**
