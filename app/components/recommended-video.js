@@ -21,6 +21,9 @@ export default Component.extend(NoScrollMixin, {
 		this._super(...arguments);
 		this.setup = this.setup.bind(this);
 
+		// FixMe: Remove this method from instant-globals.js
+		// when productizing RecommendedVideo (this is a hacky way to
+		// wait for the ABTest which is loaded with InstantGlobals)
 		window.waitForInstantGlobals(this.setup);
 	},
 
