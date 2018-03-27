@@ -9,6 +9,8 @@ export default Controller.extend({
 	i18n: service(),
 	wikiVariables: service(),
 
+	isPublishing: false,
+
 	init() {
 		this._super(...arguments);
 
@@ -21,8 +23,6 @@ export default Controller.extend({
 			protectedpage: 'edit.publish-error-protectedpage'
 		};
 	},
-
-	isPublishing: false,
 
 	publishDisabled: computed('isPublishing', 'model.isDirty', function () {
 		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);

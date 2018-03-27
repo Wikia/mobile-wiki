@@ -71,7 +71,7 @@ $group-header-font-size: 16px;
 .pi-data-label,
 .pi-hero-title,
 .pi-hero-caption,
-.article-media-thumbnail {
+.portable-infobox .article-media-thumbnail {
 	margin: 0;
 	padding: 0;
 }
@@ -101,11 +101,22 @@ $group-header-font-size: 16px;
 
 // infobox gallery
 .pi-image-collection {
+	overflow: hidden;
 	position: relative;
+	white-space: nowrap;
 
-	// @todo it's for old markup only, remove in XW-1225
 	.pi-item {
-		display: none;
+		@extend %position-play-icon;
+
+		display: inline-block;
+		position: relative;
+		width: 100vw;
+
+		.article-media-placeholder {
+			height: auto;
+			max-height: 100vw;
+			width: 100%;
+		}
 
 		&.active {
 			display: block;
@@ -121,7 +132,22 @@ $group-header-font-size: 16px;
 	}
 
 	.image-collection-actions {
+		height: 100%;
+		position: absolute;
+		top: 0;
 		width: 100%;
+
+		.action-next {
+			right: 0;
+		}
+
+		.action-previous {
+			left: 0;
+
+			svg {
+				transform: rotate(90deg);
+			}
+		}
 
 		button {
 			background: transparent;
@@ -143,18 +169,6 @@ $group-header-font-size: 16px;
 			stroke-width: .5;
 			transform: rotate(-90deg);
 		}
-
-		.action-previous svg {
-			transform: rotate(90deg);
-		}
-	}
-
-	.action-next {
-		right: 0;
-	}
-
-	.action-previous {
-		left: 0;
 	}
 }
 
@@ -162,6 +176,11 @@ $group-header-font-size: 16px;
 .pi-hero {
 	min-height: $min-hero-item-height;
 	position: relative;
+
+	img {
+		margin-left: 50%;
+		transform: translate(-50%);
+	}
 }
 
 .pi-hero-title-wrapper {
@@ -248,7 +267,7 @@ $group-header-font-size: 16px;
 
 	// remove margins on all elements inside data value
 	// leave the chevrons in peace
-	*:not('.chevron') {
+	*:not(.chevron) {
 		margin: 0;
 	}
 

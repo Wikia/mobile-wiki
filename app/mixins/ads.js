@@ -9,10 +9,6 @@ export default Mixin.create({
 				// ATF slot is pushed immediately (without any delay/in single request with other slots)
 				isAboveTheFold: true
 			},
-			// TODO remove in ADEN-6719
-			MOBILE_BOTTOM_LEADERBOARD: {
-				disableManualInsert: true
-			},
 			MOBILE_PREFOOTER: {
 				disableManualInsert: true
 			}
@@ -20,8 +16,6 @@ export default Mixin.create({
 		bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
 		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
 		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-		// TODO remove in ADEN-6719
-		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
@@ -97,12 +91,6 @@ export default Mixin.create({
 			adsData = this.get('adsData'),
 			globalFooter = document.querySelector('.wds-global-footer');
 
-		// TODO ADEN-6719 remove while removing MBLB leftovers
-		this.set(
-			'adsData.additionalConfig.MOBILE_PREFOOTER.disableManualInsert',
-			this.get('ads.module.adsContext.opts.isBLBOnMobileEnabled')
-		);
-
 		if (pi) {
 			// inject top mobileTopLeaderBoard below infobox
 			this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pi);
@@ -121,14 +109,7 @@ export default Mixin.create({
 		}
 
 		if (globalFooter) {
-			this.appendAd(
-				// TODO ADEN-6719 Remove MBLB
-				this.get('ads.module.adsContext.opts.isBLBOnMobileEnabled') ?
-					adsData.bottomLeaderBoard :
-					adsData.mobileBottomLeaderBoard,
-				'beforebegin',
-				globalFooter
-			);
+			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();
@@ -148,12 +129,6 @@ export default Mixin.create({
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer');
 
-		// TODO ADEN-6719 remove while removing MBLB leftovers
-		this.set(
-			'adsData.additionalConfig.MOBILE_PREFOOTER.disableManualInsert',
-			this.get('ads.module.adsContext.opts.isBLBOnMobileEnabled')
-		);
-
 		if (curatedContent) {
 			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
@@ -163,14 +138,7 @@ export default Mixin.create({
 		}
 
 		if (globalFooter) {
-			this.appendAd(
-				// TODO ADEN-6719 Remove MBLB
-				this.get('ads.module.adsContext.opts.isBLBOnMobileEnabled') ?
-					adsData.bottomLeaderBoard :
-					adsData.mobileBottomLeaderBoard,
-				'beforebegin',
-				globalFooter
-			);
+			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
 		this.appendHighImpactAd();

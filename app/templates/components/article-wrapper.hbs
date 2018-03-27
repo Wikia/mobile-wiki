@@ -22,22 +22,13 @@
 <section class="article-body">
 	{{#if model.fileThumbnail}}
 		{{article-media-thumbnail
-			height=model.fileThumbnail.height
-			href=model.fileThumbnail.url
-			itemContext='file'
-			mime=model.fileThumbnail.mime
-			openLightbox=(action 'openLightbox' 'media' model.fileMedia)
+			model=model.fileThumbnail
 			shouldBeLoaded=true
-			title=model.fileThumbnail.title
-			type=model.fileThumbnail.type
-			url=model.fileThumbnail.url
-			width=model.fileThumbnail.width
 		}}
 	{{/if}}
 	{{#if smallHeroImage}}
 		{{portable-infobox-hero-image-small
 			heroImage=smallHeroImage
-			openLightbox=(action 'openLightbox')
 		}}
 	{{/if}}
 	{{article-content
@@ -53,7 +44,6 @@
 		forceFeaturedVideoVisibility=(action 'forceFeaturedVideoVisibility')
 		heroImage=heroImage
 		media=model.media
-		openLightbox=(action 'openLightbox')
 	}}
 </section>
 {{yield}}

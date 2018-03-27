@@ -14,8 +14,8 @@ export default Mixin.create(InViewportMixin, {
 	isLoading: false,
 	loadingError: false,
 
-	thumbnailUrl: computed('url', 'shouldBeLoaded', function () {
-		const url = this.get('url');
+	thumbnailUrl: computed('model.url', 'shouldBeLoaded', function () {
+		const url = this.get('model.url');
 
 		this.setProperties({
 			isLoaded: false,
@@ -51,7 +51,7 @@ export default Mixin.create(InViewportMixin, {
 	 */
 	didEnterViewport() {
 		this.set('shouldBeLoaded', true);
-		if (this.get('url')) {
+		if (this.get('model.url')) {
 			this.set('isLoading', true);
 		}
 	},
