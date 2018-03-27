@@ -21,7 +21,8 @@
     "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "lint:js": "eslint ./*.js app config lib server tests",
-    "test": "ember test"
+    "test": "ember test",
+    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
   },
   "repository": "",
   "engines": {
