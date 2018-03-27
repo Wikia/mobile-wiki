@@ -11,3 +11,8 @@
 {{#if displayRecirculation}}
 	{{recirculation-prefooter}}
 {{/if}}
+{{#if model.recommendedVideoPlaylist}}
+	{{recommended-video
+		playlistId=model.recommendedVideoPlaylist
+	}}
+{{/if}}
