@@ -60,8 +60,6 @@ Some tips if you develop outside of devbox:
 * `npm run lint:js`
 * `npm run lint:js -- --fix`
 
-### Building
-
 ### Shoebox
 To improve frontend performance we avoid making the same requests on backend and frontend. [Shoebox](https://ember-fastboot.com/docs/user-guide#the-shoebox) helps us passing data from server to browser. Shoebox serilize data to JSON and puts it as script tag in HTML. In the browser shoebox reads data from HTML and uses it in Ember application.
 
