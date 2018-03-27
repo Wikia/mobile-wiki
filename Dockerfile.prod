@@ -21,7 +21,7 @@ RUN addgroup -S mobile-wiki && \
 
 # related to upgrading ember to 3.0
     npm run nuke
-    TODO: remove later
+#   TODO: remove later
 
 # install all dependencies
     npm set progress=false && \
