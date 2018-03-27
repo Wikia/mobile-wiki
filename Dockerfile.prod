@@ -23,6 +23,7 @@ RUN addgroup -S mobile-wiki && \
     npm cache clean --force && \
     rm -rf node_modules/ && \
     rm package-lock.json && \
+# todo remove later | https://wikia-inc.atlassian.net/browse/XW-4817
 
 # install all dependencies
     npm set progress=false && \
