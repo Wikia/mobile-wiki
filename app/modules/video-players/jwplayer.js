@@ -11,11 +11,13 @@ export default class JWPlayer extends BasePlayer {
 
 		super(provider, params);
 		this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
+		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
 			const adsInstance = Ads.getInstance();
 			const slotTargeting = {
-				plist: this.recommendedVideoPlaylist
+				plist: this.recommendedVideoPlaylist,
+				vtags: this.videoTags
 			};
 
 			originalOnCreate(player);

@@ -374,7 +374,6 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
-		this.slotsContext.setStatus('MOBILE_BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
