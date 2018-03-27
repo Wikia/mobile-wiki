@@ -50,14 +50,18 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
+		const containerId = this.params.containerId;
+
 		window.wikiaJWPlayer(
-			this.params.containerId,
+			containerId,
 			{
 				tracking: {
 					track(data) {
 						data.trackingMethod = 'both';
 
-						track(data);
+						if (document.getElementById(containerId)) {
+							track(data);
+						}
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
 					comscore: config.environment === 'production'
@@ -108,4 +112,3 @@ export default class JWPlayer extends BasePlayer {
 		this.createPlayer();
 	}
 }
-
