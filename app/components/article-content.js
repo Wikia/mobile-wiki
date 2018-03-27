@@ -1,13 +1,12 @@
 import {inject as service} from '@ember/service';
 import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
-import {isBlank} from '@ember/utils';
+import {isBlank, isEmpty} from '@ember/utils';
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import getAttributesForMedia from '../utils/article-media';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
 
@@ -23,6 +22,7 @@ export default Component.extend(
 		fastboot: service(),
 		i18n: service(),
 		logger: service(),
+		lightbox: service(),
 		wikiVariables: service(),
 
 		tagName: 'article',
@@ -68,6 +68,8 @@ export default Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
+
+					window.lazySizes.init();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
@@ -78,6 +80,8 @@ export default Component.extend(
 						this.injectAds();
 					});
 				}
+
+				this.openLightboxIfNeeded();
 			});
 		})),
 
@@ -94,6 +98,18 @@ export default Component.extend(
 			this.destroyChildComponents();
 		},
 
+		openLightboxIfNeeded() {
+			const file = this.get('lightbox.file');
+
+			if (!isEmpty(file)) {
+				const figure = this.element.querySelector(`[data-file="${file}"]`);
+
+				if (figure) {
+					this.openLightbox(figure);
+				}
+			}
+		},
+
 		click(event) {
 			this.handleReferences(event);
 
@@ -106,6 +122,68 @@ export default Component.extend(
 					category: 'article',
 					label
 				});
+			}
+
+			if (!this.handleImageClick(event)) {
+				return false;
+			}
+		},
+
+		handleImageClick(event) {
+			const figure = event.target.closest('figure:not(.is-ogg)'),
+				figCaption = event.target.closest('figcaption'),
+				imageLinkedByUser = figure ? figure.getAttribute('data-linkedbyuser') : false,
+				galleryViewMore = event.target.closest('button.article-media-linked-gallery__view-more');
+
+
+			if (figure && !figCaption && !imageLinkedByUser) {
+				this.openLightbox(figure);
+
+				return false;
+			}
+
+			if (galleryViewMore) {
+				this.uncollapseLinkedGallery(galleryViewMore);
+
+				return false;
+			}
+
+			return true;
+		},
+
+		openLightbox(figure) {
+			const gallery = figure.closest('.gallery');
+
+			let lightboxModel;
+
+			if (gallery) {
+				lightboxModel = this.getLightboxModel(gallery);
+				lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+			} else {
+				lightboxModel = this.getLightboxModel(figure);
+			}
+
+			this.get('lightbox').open('media', lightboxModel);
+		},
+
+		getLightboxModel(elem) {
+			let lightboxModel;
+
+			try {
+				lightboxModel = JSON.parse(elem.getAttribute('data-attrs'));
+			} catch (e) {
+				this.get('logger').error('error while loading media model', e);
+				lightboxModel = {};
+			}
+
+			return lightboxModel;
+		},
+
+		uncollapseLinkedGallery(galleryViewMore) {
+			const gallery = galleryViewMore.closest('.article-media-linked-gallery');
+
+			if (gallery) {
+				gallery.classList.remove('article-media-linked-gallery__collapsed');
 			}
 		},
 
@@ -260,8 +338,7 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.get('displayTitle'),
-							openLightbox: this.get('openLightbox')
+							pageTitle: this.get('displayTitle')
 						},
 						element
 					})
@@ -271,15 +348,9 @@ export default Component.extend(
 
 		renderDataComponents(element) {
 			this.renderedComponents = this.renderedComponents.concat(
-				queryPlaceholders(element)
-					.map(getAttributesForMedia, {
-						media: this.get('media'),
-						openLightbox: this.get('openLightbox')
-					})
-					.map(this.renderComponent)
+				queryPlaceholders(element).map(this.renderComponent)
 			);
 		},
-
 		/**
 		 * @returns {void}
 		 */

@@ -2,13 +2,13 @@
 <div class="article-media-thumbnail-image-wrapper">
 	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 	{{#if isOgg}}
-		<a href="{{href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
+		<a href="{{model.href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
 	{{else}}
-		<a href="{{href}}">
-			<img alt="{{title}}"
+		<a href="{{model.href}}">
+			<img alt="{{model.title}}"
 				 src="{{thumbnailUrl}}"
-				 height="{{if forcedHeight forcedHeight height}}"
-				 width="{{if forcedWidth forcedWidth width}}">
+				 height="{{if forcedHeight forcedHeight model.height}}"
+				 width="{{if forcedWidth forcedWidth model.width}}">
 			{{#if isLinkedByUser}}
 				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}
@@ -29,9 +29,9 @@
 	{{#if hasFigcaption}}
 		<figcaption>
 			{{#if showTitle}}
-				<div>{{title}}</div>
+				<div>{{model.title}}</div>
 			{{/if}}
-			{{{caption}}}
+			{{{model.caption}}}
 		</figcaption>
 	{{/if}}
 {{/if}}

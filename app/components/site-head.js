@@ -59,6 +59,17 @@ export default Component.extend(
 			};
 		},
 
+		/**
+		 * @returns {void}
+		 */
+		willInsertElement() {
+			if (this.get('shouldShowFandomAppSmartBanner')) {
+				// this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
+				// running this just after render is working too
+				run.scheduleOnce('afterRender', this, this.checkForHiding);
+			}
+		},
+
 		actions: {
 			/**
 			 * @param {String} icon
@@ -95,17 +106,6 @@ export default Component.extend(
 					action: trackActions.click,
 					category: 'wordmark'
 				});
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		willInsertElement() {
-			if (this.get('shouldShowFandomAppSmartBanner')) {
-				// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
-				// running this just after render is working too
-				run.scheduleOnce('afterRender', this, this.checkForHiding);
 			}
 		},
 
