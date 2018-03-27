@@ -21,13 +21,13 @@ metadata:
   name: mobile-wiki-stable
   namespace: prod
 spec:
-  selector:
-    matchLabels:
-      app: mobile-wiki-stable
   replicas: 1 #TODO: adjust
   selector:
     matchLabels:
       app: mobile-wiki-stable
+  strategy:
+      rollingUpdate: null
+      type: Recreate
   template:
     metadata:
       labels:

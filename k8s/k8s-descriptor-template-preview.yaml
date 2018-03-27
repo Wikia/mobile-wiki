@@ -21,13 +21,13 @@ metadata:
   name: mobile-wiki-preview
   namespace: prod
 spec:
-  selector:
-    matchLabels:
-      app: mobile-wiki-preview
   replicas: 1 #TODO: adjust - tests on preview may kill single instance
   selector:
     matchLabels:
       app: mobile-wiki-preview
+  strategy:
+    rollingUpdate: null
+    type: Recreate
   template:
     metadata:
       labels:
