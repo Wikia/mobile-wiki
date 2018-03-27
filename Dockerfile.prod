@@ -19,6 +19,8 @@ RUN addgroup -S mobile-wiki && \
 # install missing stuff
     apk add --no-cache --virtual .gyp python make g++ git && \
 
+# related to upgrading ember to 3.0
+    TODO: remove later
     npm cache clean --force && \
     rm -rf node_modules/ && \
     rm package-lock.json && \
