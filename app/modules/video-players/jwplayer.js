@@ -59,6 +59,10 @@ export default class JWPlayer extends BasePlayer {
 					track(data) {
 						data.trackingMethod = 'both';
 
+						/**
+						 * this function is called by third party lib asynchrounosly
+						 * so if video playre is not in DOM, do not call tracking function
+						 */
 						if (document.getElementById(containerId)) {
 							track(data);
 						}
