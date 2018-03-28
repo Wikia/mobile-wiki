@@ -1,7 +1,7 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
-import Thumbnailer from '../modules/thumbnailer';
+import toArray from '../utils/toArray';
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -43,7 +43,7 @@ export default Component.extend({
 	}),
 
 	didInsertElement() {
-		this.element.querySelectorAll('figure img').forEach((element) => {
+		toArray(this.element.querySelectorAll('figure img')).forEach((element) => {
 			element.setAttribute('src', element.getAttribute('data-src'));
 		});
 	},

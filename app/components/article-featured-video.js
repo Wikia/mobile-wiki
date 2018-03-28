@@ -81,6 +81,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 	willDestroyElement() {
 		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
+		this.destroyVideoPlayer();
 	},
 
 	actions: {
