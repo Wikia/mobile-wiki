@@ -265,12 +265,6 @@ $group-header-font-size: 16px;
 		padding-left: $tabular-layout-padding;
 	}
 
-	// remove margins on all elements inside data value
-	// leave the chevrons in peace
-	*:not(.chevron) {
-		margin: 0;
-	}
-
 	dl,
 	ol,
 	ul,
