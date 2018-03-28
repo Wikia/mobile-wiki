@@ -20,11 +20,13 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			jwPlayerAssets.load(),
 			this.getVideoData()
 		]).then(([, videoData]) => {
-			window.wikiaJWPlayer(
-				this.get('element-id'),
-				this.getPlayerSetup(videoData),
-				this.playerCreated.bind(this)
-			);
+			if (!this.get('isDestroyed')) {
+				window.wikiaJWPlayer(
+					this.get('element-id'),
+					this.getPlayerSetup(videoData),
+					this.playerCreated.bind(this)
+				);
+			}
 		});
 	},
 
