@@ -50,7 +50,7 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
-		if (!document.querySelector(`#${this.params.containerId}`)) {
+		if (!document.getElementById(this.params.containerId)) {
 			return;
 		}
 
