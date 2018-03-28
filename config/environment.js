@@ -53,12 +53,6 @@ module.exports = function (environment) {
 				c7: '',
 				c7Value: ''
 			},
-			nielsen: {
-				apid: 'FIXME',
-				dbName: '',
-				section: '',
-				enabled: false
-			},
 			krux: {
 				mobileId: 'JTKzTN3f'
 			},
