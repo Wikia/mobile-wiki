@@ -50,6 +50,10 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
+		if (!document.getElementById(this.params.containerId)) {
+			return;
+		}
+
 		window.wikiaJWPlayer(
 			this.params.containerId,
 			{
