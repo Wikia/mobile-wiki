@@ -73,15 +73,17 @@ export default Component.extend(NoScrollMixin, {
 			this.getVideoData(),
 			jwPlayerAssets.load()
 		]).then(([videoData]) => {
-			this.setProperties({
-				playlistItems: videoData.playlist,
-				playlistItem: videoData.playlist[0]
-			});
-			window.wikiaJWPlayer(
-				'recommended-video-player',
-				this.getPlayerSetup(videoData),
-				this.playerCreated.bind(this)
-			);
+			if (!this.get('isDestroyed')) {
+				this.setProperties({
+					playlistItems: videoData.playlist,
+					playlistItem: videoData.playlist[0]
+				});
+				window.wikiaJWPlayer(
+					'recommended-video-player',
+					this.getPlayerSetup(videoData),
+					this.playerCreated.bind(this)
+				);
+			}
 		});
 
 		track({
