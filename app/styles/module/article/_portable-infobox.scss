@@ -35,9 +35,6 @@ $hero-caption-font-size: 12px;
 $hero-caption-line-height: 18px;
 $group-header-font-size: 16px;
 
-// `.portable-infobox` selector can be removed after parser cache invalidation
-// https://github.com/Wikia/app/pull/14783
-.portable-infobox,
 .pi {
 	background-color: $infobox-background;
 	font-size: $infobox-default-font-size;
