@@ -50,18 +50,27 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
-		if (!document.getElementById(this.params.containerId)) {
+		const containerId = this.params.containerId;
+
+		if (!document.getElementById(containerId)) {
 			return;
 		}
 
 		window.wikiaJWPlayer(
-			this.params.containerId,
+			containerId,
 			{
 				tracking: {
 					track(data) {
 						data.trackingMethod = 'both';
 
-						track(data);
+						/**
+						 * this function is called by a third party lib (jwplayer) asynchrounosly
+						 * if video player is not in DOM - probably user navigated to another page
+						 * do not call tracking function in such case
+						 */
+						if (document.getElementById(containerId)) {
+							track(data);
+						}
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
 					comscore: config.environment === 'production'
@@ -112,4 +121,3 @@ export default class JWPlayer extends BasePlayer {
 		this.createPlayer();
 	}
 }
-
