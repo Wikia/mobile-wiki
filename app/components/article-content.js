@@ -77,7 +77,9 @@ export default Component.extend(
 				if (!this.get('isPreview')) {
 					this.setupAdsContext(this.get('adsContext'));
 					this.get('ads.module').onReady(() => {
-						this.injectAds();
+						if (!this.get('isDestroyed')) {
+							this.injectAds();
+						}
 					});
 				}
 
@@ -494,7 +496,7 @@ export default Component.extend(
 				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
-				const reference = this.element.querySelector(target.hash);
+				const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
 
 				this.openSection(reference);
 

@@ -30,51 +30,20 @@ export function getQueryString(query = {}) {
 }
 
 /**
- * Substitutes the wiki name in a host string with a new wiki name
- *
- * @param {string} host - A host string (may include port number) from any Wikia environment
- * @param {string} wiki - The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
- * @returns {string} New host
- */
-function replaceWikiInHost(host, wiki) {
-	const domainRegex = escapeRegex(config.wikiaBaseDomain);
-	let match;
-
-	if ((match = host.match(new RegExp(`^(.+?)\\.(sandbox-.+?|preview|verify)\\.${domainRegex}($|\\/|:)`))) !== null) {
-		// Sandbox, preview, or verify hosts on wikia.com
-		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
-	} else if ((match = host.match(new RegExp(`^(.+?)\\.${domainRegex}($|\\/|:)`))) !== null) {
-		// Production wikia.com
-		// Domain is specified here in case subdomain is actually "wiki", "com", etc.
-		host = host.replace(`${match[1]}.${config.wikiaBaseDomain}`, `${wiki}.${config.wikiaBaseDomain}`);
-	} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-		// Devbox hosted on wikia-dev.us, wikia-dev.pl, etc.
-		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
-	} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
-		// Environment using xip.io
-		host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
-	}
-
-	// At this point, in the case of an unknown local host where the wiki is not in the
-	// host string (ie. "mobile-wiki-s1:7001"), it will be left unmodified and returned as-is.
-	return host;
-}
-
-/**
  * This function constructs a URL given pieces of a typical Wikia URL. All URL
  * parts are optional. Passing in empty params will output the root index URL
  * of the current host.
  *
  * Some example parameters and results:
  *
- *   {wiki: 'www', path: '/login', query: {redirect: '/somepage'}}
+ *   {host: 'glee.wikia.com', path: '/login', query: {redirect: '/somepage'}}
  *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
  *
- *   {wiki: 'glee', title: 'Jeff'}
+ *   {host: 'glee.wikia.com', title: 'Jeff'}
  *   ...returns 'http://glee.wikia.com/wiki/Jeff'
  *
- *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
- *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
+ *   {host: 'glee.wikia.com', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
+ *   ...returns 'http://glee.wikia.com/wiki/User:JaneDoe/preferences'
  *
  * @param {Object} urlParams
  * @returns {string}
@@ -97,13 +66,7 @@ export function buildUrl(urlParams = {}) {
 	let url = '';
 
 	if (!urlParams.relative) {
-		url += `${urlParams.protocol}://`;
-
-		if (urlParams.wiki) {
-			url += replaceWikiInHost(host, urlParams.wiki);
-		} else {
-			url += host;
-		}
+		url += `${urlParams.protocol}://${host}`;
 	}
 
 	if (urlParams.title) {

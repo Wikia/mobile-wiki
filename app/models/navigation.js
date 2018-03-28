@@ -7,8 +7,8 @@ export default EmberObject.extend({
 	fetchAll(host, wikiId, language) {
 		const url = buildUrl({
 			host,
-			path: `/api/v1/design-system/wikis/${wikiId}/${language}/`,
-			wiki: 'www'
+			/* eslint-disable-next-line max-len */
+			path: `/wikia.php?controller=DesignSystemApi&method=getAllElements&product=wikis&id=${wikiId}&lang=${language}`
 		});
 
 		return fetch(url)
