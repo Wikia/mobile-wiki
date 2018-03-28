@@ -26,7 +26,9 @@ export default Component.extend(
 			run.scheduleOnce('afterRender', this, () => {
 				this.setupAdsContext(this.get('adsContext'));
 				this.get('ads.module').onReady(() => {
-					this.injectMainPageAds();
+					if (!this.get('isDestroyed')) {
+						this.injectMainPageAds();
+					}
 				});
 			});
 		},
