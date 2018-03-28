@@ -85,7 +85,7 @@
     "ember-cli-svgstore": "0.4.1",
     "ember-cli-template-lint": "0.7.5",
     "ember-cli-test-loader": "2.2.0",
-    "ember-cli-uglify": "2.0.2",
+    "ember-cli-uglify": "2.1.0",
     "ember-derequire": "0.2.0",
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-exex": "0.1.13",
