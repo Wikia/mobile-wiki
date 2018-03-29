@@ -21,7 +21,9 @@ export default Component.extend(NoScrollMixin, {
 	init() {
 		this._super(...arguments);
 		this.setup = this.setup.bind(this);
+	},
 
+	didInsertElement() {
 		// FixMe: Remove this method from instant-globals.js
 		// when productizing RecommendedVideo (this is a hacky way to
 		// wait for the ABTest which is loaded with InstantGlobals)
@@ -148,6 +150,7 @@ export default Component.extend(NoScrollMixin, {
 	getPlayerSetup(jwVideoData) {
 		return {
 			autoplay: this.getABTestVariation(),
+			mute: true,
 			tracking: {
 				category: 'related-video-module',
 				track(data) {
