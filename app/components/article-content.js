@@ -455,7 +455,7 @@ export default Component.extend(
 				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
-				const reference = this.element.querySelector(target.hash);
+				const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
 
 				this.openSection(reference);
 
