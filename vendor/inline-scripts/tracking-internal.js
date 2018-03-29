@@ -3,14 +3,10 @@
 		return;
 	}
 
-	const trackingDataShoebox = document.querySelector('#shoebox-trackingData');
+	const shoeboxTrackingData = JSON.parse(document.querySelector('#shoebox-trackingData').innerHTML);
 
-	if (trackingDataShoebox) {
-		const trackingData = JSON.parse(trackingDataShoebox.innerHTML);
-
-		M.tracker.Internal.trackPageView({
-			a: trackingData.articleId,
-			n: trackingData.namespace
-		});
-	}
+	M.tracker.Internal.trackPageView({
+		a: shoeboxTrackingData.articleId,
+		n: shoeboxTrackingData.namespace
+	});
 })(window.M);
