@@ -1,6 +1,7 @@
 table:not([class*=infobox]):not(.dirbox):not(.pi-horizontal-group) {
 	border: 1px solid $border-color-light;
 	border-collapse: collapse;
+	display: block;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	width: 100%;
