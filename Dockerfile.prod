@@ -43,6 +43,8 @@ RUN npm run linter && \
 # npm run tests && \
     npm run build-prod
 
+RUN cp glimmer-error-tmp/vendor-72de4867b97746795b5991d2e94b5aab.js dist/mobile-wiki/assets/
+
 # 8001 is for prod
 EXPOSE 8001
 
