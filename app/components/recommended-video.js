@@ -16,6 +16,7 @@ export default Component.extend(NoScrollMixin, {
 	playlistItem: null,
 	playlistItems: null,
 	isClickToPlay: true,
+	isInitialPlay: true,
 
 	init() {
 		this._super(...arguments);
@@ -107,12 +108,16 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	playerCreated(playerInstance) {
-		playerInstance.once('mute', () => {
-			this.expandPlayer(playerInstance);
-		});
+		if (!this.get('isClickToPlay')) {
+			playerInstance.once('mute', () => {
+				if (!this.get('isExtended')) {
+					this.expandPlayer(playerInstance);
+				}
+			});
+		}
 
 		playerInstance.on('play', (data) => {
-			if (data.playReason === 'interaction') {
+			if (data.playReason === 'interaction' && !this.get('isExtended')) {
 				playerInstance.setMute(false);
 				this.expandPlayer(playerInstance);
 			}
@@ -123,11 +128,14 @@ export default Component.extend(NoScrollMixin, {
 			// when jwplayer try to set property on this object without using ember setter
 			this.set('playlistItem', extend({}, item));
 
-			track({
-				category: 'related-video-module',
-				label: 'playlist-item-start',
-				action: trackActions.view,
-			});
+			// We need this to not track first playlist-item-start when player is folded in click-to-play
+			if (!this.get('isClickToPlay') || !this.get('isInitialPlay')) {
+				track({
+					category: 'related-video-module',
+					label: 'playlist-item-start',
+					action: trackActions.view,
+				});
+			}
 		});
 
 		playerInstance.once('ready', () => {
@@ -162,6 +170,18 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	expandPlayer(playerInstance) {
+		if (this.get('isClickToPlay') && this.get('isInitialPlay')) {
+			this.set('isInitialPlay', false);
+
+			if (this.get('isClickToPlay')) {
+				track({
+					category: 'related-video-module',
+					label: 'playlist-item-start',
+					action: trackActions.view,
+				});
+			}
+		}
+
 		this.setProperties({
 			isExtended: true,
 			noScroll: true,
