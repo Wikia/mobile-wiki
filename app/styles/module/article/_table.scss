@@ -1,17 +1,14 @@
-.article-table-wrapper {
+table:not([class*=infobox]):not(.dirbox):not(.pi-horizontal-group) {
 	border: 1px solid $border-color-light;
+	border-collapse: collapse;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
+	width: 100%;
 
-	table {
-		border-collapse: collapse;
-		width: 100%;
-
-		&.infobox {
-			th,
-			td {
-				width: 50%;
-			}
+	&.infobox {
+		th,
+		td {
+			width: 50%;
 		}
 	}
 
