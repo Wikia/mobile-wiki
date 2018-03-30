@@ -1,6 +1,7 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
 import Ads from '../modules/ads';
+import logEvent from '../modules/event-logger';
 
 export default Service.extend({
 	module: Ads.getInstance(),
@@ -26,7 +27,11 @@ export default Service.extend({
 		const adSlotComponents = this.get('adSlotComponents');
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
-			adSlotComponents[slotName].destroy();
+			try {
+				adSlotComponents[slotName].destroy();
+			} catch (e) {
+				logEvent('destroyAdSlotComponents error', e);
+			}
 		});
 
 		this.set('adSlotComponents', {});
