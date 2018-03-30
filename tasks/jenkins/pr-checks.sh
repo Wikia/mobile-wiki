@@ -60,7 +60,7 @@ setupNpm() {
 		fi
 	fi
 
-	npm install -g greenkeeper-lockfile@1
+	npm install greenkeeper-lockfile@1
 }
 
 ### Set pending status to all tasks
