@@ -43,16 +43,6 @@ node('docker-daemon') {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
 
-            } else {
-                if (params.crowdin_branch != null) {
-                    sh """#!/bin/sh
-                    ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
-                }
-
-                sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
-
-
                 def vault_secrets = [
                     [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'SJC_ACCESS_KEY', vaultKey: 'access_key'],
@@ -70,6 +60,14 @@ node('docker-daemon') {
                         ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY \$RES_SECRET_KEY"""
                 }
 
+            } else {
+                if (params.crowdin_branch != null) {
+                    sh """#!/bin/sh
+                    ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
+                }
+
+                sh """#!/bin/sh
+                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
             }
         }
     }
