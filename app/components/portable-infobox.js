@@ -43,7 +43,7 @@ export default Component.extend(
 				deviceHeight = document.documentElement.clientHeight,
 				isLandscape = deviceWidth > deviceHeight;
 
-			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100 + 1;
 		}),
 
 		didInsertElement() {
