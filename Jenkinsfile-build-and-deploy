@@ -42,6 +42,7 @@ node('docker-daemon') {
             if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+
             } else {
                 if (params.crowdin_branch != null) {
                     sh """#!/bin/sh
@@ -50,6 +51,25 @@ node('docker-daemon') {
 
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+
+
+                def vault_secrets = [
+                    [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
+                            [$class: 'VaultSecretValue', envVar: 'SJC_ACCESS_KEY', vaultKey: 'access_key'],
+                            [$class: 'VaultSecretValue', envVar: 'SJC_SECRET_KEY', vaultKey: 'secret_key']
+                        ]
+                    ],
+                    [$class: 'VaultSecret', path: 'secret/chef/s3/res/prod', secretValues: [
+                            [$class: 'VaultSecretValue', envVar: 'RES_ACCESS_KEY', vaultKey: 'access_key'],
+                            [$class: 'VaultSecretValue', envVar: 'RES_SECRET_KEY', vaultKey: 'secret_key']
+                        ]
+                    ]
+                ]
+                wrap([$class: 'VaultBuildWrapper', vaultSecrets: vault_secrets]) {
+                    sh """#!/bin/sh
+                        ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY \$RES_SECRET_KEY"""
+                }
+
             }
         }
     }
