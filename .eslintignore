@@ -4,10 +4,11 @@ node_modules/
 tasks/
 tmp/
 vendor/
+coverage/
 
 
 # Script copied from Google documentation
-app/inline-scripts/tracking-ua-init.js
+vendor/inline-scripts/tracking-ua-init.js
 
 # Vendor files
-app/inline-scripts/tracking-liftigniter.js
+vendor/inline-scripts/tracking-liftigniter.js

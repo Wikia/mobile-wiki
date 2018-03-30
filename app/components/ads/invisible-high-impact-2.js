@@ -21,7 +21,7 @@ export default Component.extend(RenderComponentMixin, {
 
 		this.get('ads.module').onReady(() => {
 			window.getInstantGlobal('wgAdDriverHighImpact2SlotCountries', (highImpactCountries) => {
-				if (this.isEnabled(highImpactCountries)) {
+				if (this.isEnabled(highImpactCountries) && !this.get('isDestroyed')) {
 					this.set('isVisible', true);
 					this.get('ads.module').pushSlotToQueue(this.get('name'));
 				}

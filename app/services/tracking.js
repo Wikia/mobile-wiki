@@ -2,6 +2,7 @@ import Service, {inject as service} from '@ember/service';
 import {set, get} from '@ember/object';
 import baseConfig from '../config/environment';
 import extend from '../utils/extend';
+import getHostFromRequest from '../utils/host';
 
 export default Service.extend({
 	fastboot: service(),
@@ -20,7 +21,6 @@ export default Service.extend({
 		let config = extend({}, baseConfig.tracking, this.get('wikiVariables.tracking'));
 
 		config = this.setupComscore(config);
-		config = this.setupNielsen(config);
 
 		this.get('fastboot.shoebox').put('tracking', config);
 
@@ -30,7 +30,8 @@ export default Service.extend({
 	setupComscore(config) {
 		if (get(config, 'comscore.c7Value')) {
 			const request = this.get('fastboot.request');
-			const requestUrl = `${request.get('protocol')}://${request.get('host')}${request.get('path')}`;
+			const host = getHostFromRequest(request);
+			const requestUrl = `${request.get('protocol')}://${host}${request.get('path')}`;
 			const c7 = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
 				`${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
 
@@ -39,11 +40,4 @@ export default Service.extend({
 
 		return config;
 	},
-
-	setupNielsen(config) {
-		set(config, 'nielsen.section', get(config, 'vertical'));
-		set(config, 'nielsen.dbName', this.get('wikiVariables.dbName'));
-
-		return config;
-	}
 });

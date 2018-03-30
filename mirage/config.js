@@ -1,4 +1,5 @@
 import filePageFixture from './fixtures/file-page';
+import blogPostPageFixture from './fixtures/blog-post';
 
 /**
  * @returns {void}
@@ -12,6 +13,7 @@ export default function () {
 	this.passthrough('/wikia.php');
 	this.passthrough('/api.php');
 	this.passthrough('https://speed.nocookie.net/**');
+	this.passthrough('/write-coverage');
 
 	// We have /front/main/assets prefix hardcoded in route and testem use /assets
 	// This is a quick (hopefully temporary) fix
@@ -28,6 +30,10 @@ export default function () {
 
 			if (method === 'getPage' && title === 'File:Example.jpg') {
 				return filePageFixture;
+			}
+
+			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
+				return blogPostPageFixture;
 			}
 		}
 
@@ -48,6 +54,10 @@ export default function () {
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'File:Example.jpg') {
 				return filePageFixture;
+			}
+
+			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
+				return blogPostPageFixture;
 			}
 		}
 
