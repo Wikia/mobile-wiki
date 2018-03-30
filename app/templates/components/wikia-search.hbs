@@ -23,13 +23,11 @@
 			}}
 		</div>
 	</div>
-	<div class="wikia-search__suggestions-wrapper"
-			 role="button"
-			 onclick={{action 'onSuggestionsWrapperClick'}}>
+	<div class="wikia-search__suggestions-wrapper" role="button">
 		<ul class="wikia-search__suggestions">
 			{{#each suggestions as |suggestion|}}
 				<li class="wikia-search__item wikia-search__search-suggestion mw-content">
-					{{#link-to 'wiki-page' suggestion.uri}}
+					{{#link-to 'wiki-page' suggestion.uri action=(action 'onSuggestionClick')}}
 						{{{suggestion.text}}}
 					{{/link-to}}
 				</li>
