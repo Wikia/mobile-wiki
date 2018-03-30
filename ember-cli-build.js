@@ -67,7 +67,6 @@ module.exports = function (defaults) {
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
-			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
 			'instant-globals': `${inlineScriptsPath}instant-globals.js`,

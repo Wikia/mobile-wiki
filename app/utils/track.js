@@ -178,7 +178,6 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 		// Defined in /vendor/inline-scripts/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
-		window.trackNielsenPageView();
 		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
