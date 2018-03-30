@@ -2,6 +2,7 @@
 import config from '../config/environment';
 import {Promise} from 'rsvp';
 import offset from '../utils/offset';
+import logEvent from './event-logger';
 
 /**
  * @typedef {Object} SlotsContext
@@ -476,7 +477,11 @@ class Ads {
 	 */
 	removeSlot(name) {
 		if (this.googleTagModule) {
-			this.googleTagModule.destroySlots([name]);
+			try {
+				this.googleTagModule.destroySlots([name]);
+			} catch (e) {
+				logEvent('removeSlot error', e);
+			}
 		}
 	}
 
