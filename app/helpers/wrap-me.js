@@ -14,8 +14,7 @@ import Ember from 'ember';
  * - target - target attribute to be added to wrapping tag
  *
  * @example
- * {{{i18n 'main.search-error-not-found'
- * 	ns='search'
+ * {{{intl 'main.search-error-not-found'
  * 	query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
  * }}}
  *

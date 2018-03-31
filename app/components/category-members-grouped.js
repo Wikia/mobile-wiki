@@ -8,7 +8,7 @@ import offset from '../utils/offset';
 export default Component.extend(
 	AlertNotificationsMixin,
 	{
-		i18n: service(),
+		intl: service(),
 		logger: service(),
 		classNames: ['category-members-grouped'],
 		classNameBindings: ['isLoading'],
@@ -42,7 +42,7 @@ export default Component.extend(
 					})
 					.catch((error) => {
 						this.addAlert({
-							message: this.get('i18n').t('category-page.load-error'),
+							message: this.get('intl').t('category-page.load-error'),
 							type: 'alert'
 						});
 

@@ -2,6 +2,6 @@
 <form method="POST" action="/signout">
 	{{input type="hidden" name="redirect" value="/"}}
 	<button type="submit" class="wds-sign-out__button" {{action 'trackClick' preventDefault=false}}>
-		{{i18n title ns='design-system'}}
+		{{t title ns='design-system'}}
 	</button>
 </form>

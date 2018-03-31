@@ -4,7 +4,7 @@ import {computed} from '@ember/object';
 import {buildUrl} from '../utils/url';
 
 export default Component.extend({
-	i18n: service(),
+	intl: service(),
 
 	classNames: ['user-avatar'],
 	shouldWrapInHref: true,
@@ -26,6 +26,6 @@ export default Component.extend({
 		});
 	}),
 	displayName: computed('profileName', function () {
-		return this.get('anonymous') ? this.get('i18n').t('app.username-anonymous') : this.get('profileName');
+		return this.get('anonymous') ? this.get('intl').t('app.username-anonymous') : this.get('profileName');
 	}),
 });

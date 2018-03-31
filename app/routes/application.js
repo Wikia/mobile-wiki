@@ -23,7 +23,7 @@ export default Route.extend(
 		ads: service(),
 		currentUser: service(),
 		fastboot: service(),
-		i18n: service(),
+		intl: service(),
 		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
@@ -84,7 +84,7 @@ export default Route.extend(
 
 			this._super(...arguments);
 
-			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
+			this.get('intl').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
 				!fastboot.get('isFastBoot') &&

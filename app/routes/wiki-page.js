@@ -29,7 +29,7 @@ export default Route.extend(
 		ads: service(),
 		currentUser: service(),
 		fastboot: service(),
-		i18n: service(),
+		intl: service(),
 		initialPageView: service(),
 		logger: service(),
 		wikiVariables: service(),
@@ -195,7 +195,7 @@ export default Route.extend(
 			didTransition() {
 				if (this.get('redirectEmptyTarget')) {
 					this.controllerFor('application').addAlert({
-						message: this.get('i18n').t('article.redirect-empty-target'),
+						message: this.get('intl').t('article.redirect-empty-target'),
 						type: 'warning'
 					});
 				}

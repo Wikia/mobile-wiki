@@ -6,7 +6,7 @@ import {normalizeToUnderscore} from '../utils/string';
 
 export default Controller.extend({
 	application: controller(),
-	i18n: service(),
+	intl: service(),
 	wikiVariables: service(),
 
 	isPublishing: false,
@@ -73,7 +73,7 @@ export default Controller.extend({
 
 		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
-				message: this.get('i18n').t('edit.success', {
+				message: this.get('intl').t('edit.success', {
 					pageTitle: title
 				}),
 				type: 'success'
@@ -97,7 +97,7 @@ export default Controller.extend({
 			errorMsg = this.errorCodeMap[error] || 'edit.publish-error';
 
 		appController.addAlert({
-			message: this.get('i18n').t(errorMsg),
+			message: this.get('intl').t(errorMsg),
 			type: 'alert'
 		});
 

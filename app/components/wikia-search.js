@@ -9,6 +9,7 @@ import fetch from '../utils/mediawiki-fetch';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
+import {translationMacro as t} from 'ember-intl';
 
 /**
  * Type for search suggestion
@@ -23,7 +24,7 @@ import {buildUrl} from '../utils/url';
 export default Component.extend(
 	NoScrollMixin,
 	{
-		i18n: service(),
+		intl: service(),
 		logger: service(),
 		wikiVariables: service(),
 		router: service(),
@@ -46,9 +47,7 @@ export default Component.extend(
 		noScroll: oneWay('hasSuggestions'),
 		phrase: oneWay('query'),
 
-		searchPlaceholderLabel: computed(function () {
-			return this.get('i18n').t('search:main.search-input-label');
-		}),
+		searchPlaceholderLabel: t('search.search-input-label'),
 
 		/**
 		 * Wrapper for search suggestions performing, that also checks the cache

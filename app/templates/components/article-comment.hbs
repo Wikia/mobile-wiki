@@ -15,7 +15,7 @@
 	{{{comment.text}}}
 	{{#if comment.comments}}
 		<button class='show-reply-btn wds-button wds-is-secondary' {{action 'toggleExpand'}}>
-			{{i18n 'article.replies-label' count=comment.comments.length}}
+			{{t 'article.replies-label' count=comment.comments.length}}
 		</button>
 		<ul class='{{if isExpanded 'expanded'}}'>
 			{{#each comment.comments as |comment|}}

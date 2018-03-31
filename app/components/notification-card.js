@@ -17,7 +17,7 @@ export default Component.extend(
 	MarkAsReadNotificationMixin,
 	{
 		currentUser: service(),
-		i18n: service(),
+		intl: service(),
 		logger: service(),
 		notifications: service(),
 
@@ -118,12 +118,12 @@ export default Component.extend(
 
 		getTranslatedMessage(key, context) {
 			const fullContext = Object.assign({}, {
-				// TODO: XW-1685 fix i18n for User's language
+				// TODO: XW-1685 fix intl for User's language
 				// lng: this.get('userLanguage'),
 				ns: 'design-system',
 			}, context);
 
-			return this.get('i18n').t(key, fullContext);
+			return this.get('intl').t(key, fullContext);
 		}
 	}
 );

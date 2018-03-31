@@ -7,11 +7,11 @@
 			showComments=false
 			siteName=siteName
 			toggleDrawer=(action 'toggleDrawer' target=application)
-			wikiPageHeaderSubtitle=(i18n 'category-page.subtitle')
+			wikiPageHeaderSubtitle=(t 'category-page.subtitle')
 	}}
 		{{#if model.trendingArticles}}
 			{{trending-articles
-				header=(i18n 'app.trending-articles-label')
+				header=(t 'app.trending-articles-label')
 				model=model.trendingArticles
 			}}
 		{{/if}}

@@ -6,7 +6,7 @@ import {trackActions} from '../utils/track';
 import {system} from '../utils/browser';
 
 export default Component.extend({
-	i18n: service(),
+	intl: service(),
 	smartBanner: service(),
 
 	classNames: ['fandom-app-smart-banner'],
@@ -23,8 +23,8 @@ export default Component.extend({
 
 	storeName: computed(function () {
 		return system === 'ios'
-			? this.get('i18n').t('fandom-app-banner.app-store')
-			: this.get('i18n').t('fandom-app-banner.google-play');
+			? this.get('intl').t('fandom-app-banner.app-store')
+			: this.get('intl').t('fandom-app-banner.google-play');
 	}),
 
 	init() {

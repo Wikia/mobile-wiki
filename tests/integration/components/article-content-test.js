@@ -17,7 +17,7 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 		return dasherize(this.get('name').toLowerCase());
 	})
 });
-const i18nService = Service.extend({
+const intlService = Service.extend({
 	t() {}
 });
 
@@ -26,7 +26,7 @@ module('Integration | Component | article content', (hooks) => {
 
 	hooks.beforeEach(function () {
 		this.owner.register('component:ad-slot', adSlotComponentStub);
-		this.owner.register('service:i18n', i18nService);
+		this.owner.register('service:intl', intlService);
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';

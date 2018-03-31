@@ -12,31 +12,31 @@ import Helper from '@ember/component/helper';
  * @returns {string}
  */
 export default Helper.extend({
-	i18n: service(),
+	intl: service(),
 	compute([unixTimestamp]) {
 		const date = new Date(unixTimestamp * 1000),
 			now = new Date(),
 			diffInSeconds = (now - date) / 1000,
-			i18n = this.get('i18n');
+			intl = this.get('intl');
 
 		if (diffInSeconds > 432000) {
 			// more than 5 days ago - show date
 			return date.toLocaleDateString();
 		} else if (diffInSeconds > 86400) {
 			// more than a day ago
-			return i18n.t('main:app.days-ago', {
+			return intl.t('app.days-ago', {
 				days: Math.round(diffInSeconds / 60 / 60 / 24)
 			});
 		} else if (diffInSeconds > 3600) {
 			// more than an hour ago
-			return i18n.t('main:app.hours-ago', {
+			return intl.t('main:app.hours-ago', {
 				hours: Math.round(diffInSeconds / 60 / 60)
 			});
 		} else if (diffInSeconds < 60) {
 			// less than a minute ago
-			return i18n.t('main:app.now-label');
+			return intl.t('app.now-label');
 		} else {
-			return i18n.t('main:app.minutes-ago', {
+			return intl.t('main:app.minutes-ago', {
 				minutes: Math.round(diffInSeconds / 60)
 			});
 		}

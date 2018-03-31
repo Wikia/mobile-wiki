@@ -37,7 +37,7 @@
 {{/if}}
 <div class="post-bottom-row">
 	<span class="post-category-name">
-		{{i18n 'widget-discussions.in-category-label' categoryName=post.categoryName}}
+		{{t 'widget-discussions.in-category-label' categoryName=post.categoryName}}
 	</span>
 	<span class="post-counters">
 		<span class="upvote-count">
@@ -53,12 +53,12 @@
 <ul class="post-actions">
 	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
 		{{svg 'wds-icons-upvote-small' class='wds-icon wds-icon-small upvote'}}
-		{{i18n 'widget-discussions.post-actions-upvote-label'}}
+		{{t 'widget-discussions.post-actions-upvote-label'}}
 	</li>
 	<li class="replies replies-area">
 		<a href="/d/p/{{post.threadId}}">
 			{{svg 'wds-icons-reply-small' class='wds-icon wds-icon-small replies'}}
-			{{i18n 'widget-discussions.post-actions-reply-label'}}
+			{{t 'widget-discussions.post-actions-reply-label'}}
 		</a>
 	</li>
 </ul>

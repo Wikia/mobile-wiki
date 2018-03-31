@@ -24,7 +24,7 @@ export default Component.extend(
 	InViewportMixin,
 	{
 		liftigniter: service(),
-		i18n: service(),
+		intl: service(),
 		logger: service(),
 
 		classNames: ['recirculation-prefooter'],

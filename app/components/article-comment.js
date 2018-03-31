@@ -12,7 +12,7 @@ import toArray from '../utils/toArray';
  */
 
 export default Component.extend({
-	i18n: service(),
+	intl: service(),
 	wikiVariables: service(),
 	tagName: 'li',
 	classNames: ['article-comment'],
@@ -36,7 +36,7 @@ export default Component.extend({
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 
 		if (regex.test(userName)) {
-			return this.get('i18n').t('app.username-anonymous');
+			return this.get('intl').t('app.username-anonymous');
 		} else {
 			return userName;
 		}

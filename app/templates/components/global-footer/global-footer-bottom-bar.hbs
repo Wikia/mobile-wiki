@@ -1,9 +1,9 @@
 <div class="wds-global-footer__bottom-bar">
 	<div class="wds-global-footer__bottom-bar-row wds-has-padding">
-		{{{i18n
+		{{{t
 			model.licensing_and_vertical.description.key
 			sitename=model.licensing_and_vertical.description.params.sitename.value
-			vertical=(i18n model.licensing_and_vertical.description.params.vertical.key ns='design-system')
+			vertical=(t model.licensing_and_vertical.description.params.vertical.key ns='design-system')
 			license=(wrap-me
 				model.licensing_and_vertical.description.params.license.title.value
 				tagName='a'
@@ -15,7 +15,7 @@
 	</div>
 	<div class="wds-global-footer__bottom-bar-row wds-has-border-top global-footer-full-site-link-wrapper">
 		<a {{action 'fullSiteClicked' preventDefault=false}} href="?useskin=oasis" rel="nofollow" class="wds-global-footer__button-link">
-			{{i18n 'global-footer-full-site-link' ns='design-system'}}
+			{{t 'global-footer-full-site-link' ns='design-system'}}
 		</a>
 	</div>
 </div>

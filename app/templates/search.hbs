@@ -12,8 +12,7 @@
 <div class="search-results">
 	{{#if model.totalItems}}
 		<div class="search-results__total">
-			{{{i18n 'main.total-results'
-				ns='search'
+			{{{t 'main.total-results'
 				totalItems=model.totalItems
 				query=(wrap-me model.query tagName='strong')
 			}}}
@@ -36,7 +35,7 @@
 {{#if model.canLoadMore}}
 	<div class="search-results__load-more-wrapper">
 		{{wikia-ui-components/wds-button
-			text=(i18n 'main.load-more-results' ns='search')
+			text=(t 'main.load-more-results' ns='search')
 			onClick=(action 'onLoadMore')
 			trackLabel='search-load-more'
 			isText=true

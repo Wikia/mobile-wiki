@@ -1,11 +1,11 @@
 <div role="button" {{action 'toggleComments'}} class='show-comments-btn {{if isCollapsed 'collapsed'}}'>
-	<span>{{i18n 'article.comments-label' count=commentsCount}}</span>
+	<span>{{t 'article.comments-label' count=commentsCount}}</span>
 	{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
 		<button class='wds-button page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
-			{{i18n 'article-comments.prev-button'}}
+			{{t 'article-comments.prev-button'}}
 		</button>
 		<ul class='comments {{if commentsHidden 'wds-is-hidden'}}'>
 			{{#each model.comments as |comment|}}
@@ -13,19 +13,19 @@
 			{{/each}}
 		</ul>
 		<button class='wds-button page-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
-			{{i18n 'article-comments.next-button'}}
+			{{t 'article-comments.next-button'}}
 		</button>
 	{{else}}
 		<div class="comments__no-comments">
 			{{svg 'wds-icons-reply' class='wds-icon comments__reply-icon'}}
-			<div>{{i18n 'article-comments.no-comments'}}</div>
+			<div>{{t 'article-comments.no-comments'}}</div>
 		</div>
 	{{/if}}
 
 	<div class='comments__add-comment'>
 		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary wds-is-squished'>
-			{{i18n 'article-comments.add-comment'}}
+			{{t 'article-comments.add-comment'}}
 		</a>
-		<div class='comments__message'>{{i18n 'article-comments.desktop-warning'}}</div>
+		<div class='comments__message'>{{t 'article-comments.desktop-warning'}}</div>
 	</div>
 {{/if}}

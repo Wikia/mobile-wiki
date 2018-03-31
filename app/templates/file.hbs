@@ -6,12 +6,12 @@
 		model=model
 		showComments=false
 		siteName=siteName
-		wikiPageHeaderSubtitle=(i18n 'file-page.subtitle')
+		wikiPageHeaderSubtitle=(t 'file-page.subtitle')
 		edit=(action 'edit' target=article)
 	}}
 		{{#if model.fileUsageList}}
 			<nav class="file-usage">
-				<div class="file-usage__header">{{i18n 'file-page.usages-header'}}</div>
+				<div class="file-usage__header">{{t 'file-page.usages-header'}}</div>
 				{{wikia-ui-components/wikia-card-list
 					classNames="file-usage__list"
 					items=model.fileUsageList
@@ -20,7 +20,7 @@
 				}}
 				{{#if model.fileUsageListSeeMoreUrl}}
 					<div class="file-usage__more">
-						<a class="wds-button wds-is-text" href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'file-page.usages-see-more-link-label'}}</a>
+						<a class="wds-button wds-is-text" href="{{model.fileUsageListSeeMoreUrl}}">{{t 'file-page.usages-see-more-link-label'}}</a>
 					</div>
 				{{/if}}
 			</nav>

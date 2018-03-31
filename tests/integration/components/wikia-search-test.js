@@ -13,7 +13,7 @@ const wikiaSearchDivSelector = '.wikia-search',
 	focusedInputClass = 'wikia-search--focused',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
 
-const i18nStub = Service.extend({
+const intlStub = Service.extend({
 	t(key) {
 		return key;
 	}
@@ -24,8 +24,8 @@ module('Integration | Component | wikia search', (hooks) => {
 
 	hooks.beforeEach(function () {
 		trackStub = sinon.stub(trackModule, 'track');
-		this.owner.register('service:i18n', i18nStub);
-		this.i18nService = this.owner.lookup('service:i18n');
+		this.owner.register('service:intl', intlStub);
+		this.intlService = this.owner.lookup('service:intl');
 	});
 
 	hooks.afterEach(() => {

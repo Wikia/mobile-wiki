@@ -19,7 +19,7 @@ import toArray from '../utils/toArray';
 export default Component.extend(
 	AdsMixin,
 	{
-		i18n: service(),
+		intl: service(),
 		logger: service(),
 		lightbox: service(),
 		wikiVariables: service(),
@@ -66,7 +66,7 @@ export default Component.extend(
 
 				window.lazySizes.init();
 			} else if (this.get('displayEmptyArticleInfo')) {
-				this.set('content', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
+				this.set('content', `<p>${this.get('intl').t('article.empty-label')}</p>`);
 			}
 
 			if (!this.get('isPreview')) {

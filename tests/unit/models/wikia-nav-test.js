@@ -39,7 +39,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikisLabel: '',
 					discussionsEnabled: false,
 					wikiName: '',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -66,7 +66,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					discussionsEnabled: false,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -124,7 +124,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					discussionsEnabled: true,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -189,7 +189,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikisLabel: exploreWikisLabelMock,
 					discussionsEnabled: false,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -248,7 +248,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikisLabel: exploreWikisLabelMock,
 					discussionsEnabled: false,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -309,7 +309,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -345,7 +345,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -402,7 +402,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -463,7 +463,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}
@@ -493,7 +493,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
 					wikiName: 'Test',
-					i18n: {
+					intl: {
 						t(key) {
 							return key;
 						}

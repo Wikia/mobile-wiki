@@ -12,7 +12,7 @@ export default Route.extend(
 	HeadTagsDynamicMixin,
 	{
 		wikiVariables: service(),
-		i18n: service(),
+		intl: service(),
 		/**
 		 * @param {*} params
 		 * @returns {Ember.RSVP.Promise}
@@ -38,7 +38,7 @@ export default Route.extend(
 			 */
 			error() {
 				this.controllerFor('application').addAlert({
-					message: this.get('i18n').t('edit.load-error'),
+					message: this.get('intl').t('edit.load-error'),
 					type: 'alert'
 				});
 
