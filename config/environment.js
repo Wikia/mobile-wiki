@@ -29,7 +29,6 @@ module.exports = function (environment) {
 			music: '#c819ad',
 			tv: '#00b7e0'
 		},
-		translationsNamespaces: ['main', 'search', 'design-system'],
 		tracking: {
 			ua: {
 				primary: {

@@ -1,0 +1,9 @@
+{
+	"name": "design-system-i18n",
+	"keywords": [
+		"ember-addon"
+	],
+	"ember-addon": {
+		"translationPath": "../../node_modules/design-system-i18n/i18n/"
+	}
+}

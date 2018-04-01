@@ -7,8 +7,8 @@
 		</figure>
 		<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
 	</div>
-	<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
-		&bull; {{time-ago post.creationTimestamp}}
+	<span class="timestamp" title="{{format-date post.creationTimestamp}}">
+		&bull; {{format-relative post.creationTimestamp}}
 	</span>
 </div>
 <div class="discussion-content">

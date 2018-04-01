@@ -1,12 +1,9 @@
 ## Updating translations
-Localization is handled by [i18next](http://i18next.com/) JavaScript library and [CrowdIn](https://crowdin.com/) service. i18next is a part (module) of the Mercury and loads files from `front/common/public/locales` directory. CrowdIn is an external service which is responsible only for providing translations for the keys' values from the source file `front/common/public/locales/en/<namespace>.json`. Wikia has its own CrowdIn client which is already installed on your dev-box.
-
-### Adding a new i18n file
-You may want to add a new i18n file that creates a new translations namespace. To load the file add its name of the file to the `translationFiles` property in  [settings.base.js](https://github.com/Wikia/mercury/blob/dev/server/config/settings.base.js).
+Localization is handled by [ember-intl](https://github.com/ember-intl/ember-intl) JavaScript library and [CrowdIn](https://crowdin.com/) service. Ember Intl loads files from `translations/` directory. Crowdin is an external service which is responsible only for providing translations for the keys' values from the source file `translations/<lang>.json`. Wikia has its own Crowdin client which is already installed on your dev-box.
 
 ### Uploading new keys/updating key values in the source file
 If during the development process you've added new keys to the `front/common/public/locales/en/<namespace>.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.
-* go to your dev-box and clone the Mercury project (or just upload the `crowdin.conf` (`main.conf`, `auth.conf`, ...) file, but this approach needs more flirting with the configuration, manual updating and command line switches → not recommended)
+* go to your dev-box and clone the Mercury project (or just upload the `crowdin.conf` (`main.conf`) file, but this approach needs more flirting with the configuration, manual updating and command line switches → not recommended)
 * checkout the branch with the desired changes (or just upload the new source file - all `.conf` files should be placed in `/crowdin` directory)
 * from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf download` to make sure you'll not override someones' else changes
 * from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf upload` to upload your translation file to CrowdIn

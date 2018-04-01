@@ -8,10 +8,6 @@
 		"header-in-wiki-name-label-prefix": "in:",
 		"header-in-wiki-name-label-suffix": "",
 		"media-lightbox-error": "Media not found",
-		"now-label": "now",
-		"minutes-ago": "{minutes}m",
-		"hours-ago": "{hours}h",
-		"days-ago": "{days}d",
 		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
 		"page-not-found-message": "Use Navigation or Search",
 		"pages-label": "Pages",
@@ -25,16 +21,12 @@
 	},
 	"article": {
 		"categories-list-label": "Categories",
-		"comments-label": "{count} comment",
-		"comments-label_plural": "{count} comments",
+		"comments-label": "{count, plural, one {# comment} other {# comments}}",
 		"empty-label": "Sorry, this article seems to be empty!",
 		"error": "Sorry, we couldn't load the article. Please try again.",
-		"last-edit": "Last edited a week ago",
-		"last-edit_plural_0": "Last edited this week",
-		"last-edit_plural_2": "Last edited {count} weeks ago",
+		"last-edit": "Last edited {count, plural, =0 {this week} one {a week ago} other {# weeks ago}",
 		"redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
-		"replies-label": "View {count} reply",
-		"replies-label_plural": "View {count} replies",
+		"replies-label": "View {count, plural, one {# reply} other {# replies}}",
 		"suggestions-label": "Read More",
 		"toc-label": "Table of Contents",
 		"top-contributors-label": "Top Contributors to this article",
@@ -114,6 +106,6 @@
 		"search-error-not-found-action": "Try Another Search",
 		"search-input-label": "Search",
 		"search-loading-msg": "Loading search results...",
-		"total-results": "About {totalItems} results for {query}"
+		"total-results": "About {totalItems, plural, one {# result} other {# results} for {query}"
 	}
 }

@@ -122,6 +122,7 @@
   },
   "ember-addon": {
     "paths": [
+      "lib/design-system-i18n",
       "lib/fastboot-require",
       "lib/fastboot-server",
       "lib/svg-inline"
