@@ -1,21 +1,21 @@
 <div class="wds-global-footer__bottom-bar">
 	<div class="wds-global-footer__bottom-bar-row wds-has-padding">
-		{{{t
+		{{t
 			model.licensing_and_vertical.description.key
 			sitename=model.licensing_and_vertical.description.params.sitename.value
-			vertical=(t model.licensing_and_vertical.description.params.vertical.key ns='design-system')
+			vertical=(t model.licensing_and_vertical.description.params.vertical.key)
 			license=(wrap-me
 				model.licensing_and_vertical.description.params.license.title.value
 				tagName='a'
 				href=model.licensing_and_vertical.description.params.license.href
 				trackingLabel=model.licensing_and_vertical.description.params.license.tracking_label
+				htmlSafe=tru
 			)
-			ns='design-system'
-		}}}
+		}}
 	</div>
 	<div class="wds-global-footer__bottom-bar-row wds-has-border-top global-footer-full-site-link-wrapper">
 		<a {{action 'fullSiteClicked' preventDefault=false}} href="?useskin=oasis" rel="nofollow" class="wds-global-footer__button-link">
-			{{t 'global-footer-full-site-link' ns='design-system'}}
+			{{t 'global-footer-full-site-link'}}
 		</a>
 	</div>
 </div>

@@ -84,7 +84,7 @@ export default Route.extend(
 
 			this._super(...arguments);
 
-			this.get('intl').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
+			this.get('intl').setLocale([transition.queryParams.uselang || model.wikiVariables.language.content]);
 
 			if (
 				!fastboot.get('isFastBoot') &&

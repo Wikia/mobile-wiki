@@ -24,7 +24,7 @@
 		"comments-label": "{count, plural, one {# comment} other {# comments}}",
 		"empty-label": "Sorry, this article seems to be empty!",
 		"error": "Sorry, we couldn't load the article. Please try again.",
-		"last-edit": "Last edited {count, plural, =0 {this week} one {a week ago} other {# weeks ago}",
+		"last-edit": "Last edited {count, plural, =0 {this week} one {a week ago} other {# weeks ago}}",
 		"redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
 		"replies-label": "View {count, plural, one {# reply} other {# replies}}",
 		"suggestions-label": "Read More",
@@ -106,6 +106,6 @@
 		"search-error-not-found-action": "Try Another Search",
 		"search-input-label": "Search",
 		"search-loading-msg": "Loading search results...",
-		"total-results": "About {totalItems, plural, one {# result} other {# results} for {query}"
+		"total-results": "About {totalItems, plural, one {# result} other {# results}} for {query}"
 	}
 }
