@@ -24,13 +24,34 @@ export default Service.extend({
 	},
 
 	destroyAdSlotComponents() {
-		const adSlotComponents = this.get('adSlotComponents');
+		const adSlotComponents = this.get('adSlotComponents'),
+			adSlotsData = [];
+
+		Object.keys(adSlotComponents).forEach((slotName) => {
+			const element = adSlotComponents[slotName].element,
+				creativeElement = element && element.querySelector(['[data-gpt-line-item-id]']);
+
+			if (creativeElement) {
+				const lineItemId = creativeElement.getAttribute('data-gpt-line-item-id'),
+					creativeId = creativeElement.getAttribute('data-gpt-creative-id');
+
+				adSlotsData.push({
+					slotName,
+					lineItemId,
+					creativeId
+				});
+			}
+		});
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
 			try {
 				adSlotComponents[slotName].destroy();
-			} catch (e) {
-				logEvent('destroyAdSlotComponents error', e);
+			} catch (error) {
+				logEvent('destroyAdSlotComponents error', {
+					error,
+					adSlotsData,
+					slotName
+				});
 			}
 		});
 
