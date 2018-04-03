@@ -46,6 +46,9 @@ function getURL(params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
+	// cache buster for showing non supported on mobile templates within article
+	query.hiddenTemplates = Math.random();
+
 	return buildUrl({
 		host: params.host,
 		path: '/wikia.php',
