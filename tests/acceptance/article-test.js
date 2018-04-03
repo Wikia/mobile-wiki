@@ -1,30 +1,25 @@
 import {currentURL, visit, find, findAll} from '@ember/test-helpers';
 import {test, module} from 'qunit';
 import {setupApplicationTest} from 'ember-qunit';
-import sinon from 'sinon';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
 
-module('Acceptance | article page', (hooks) => {
+module('Acceptance | Article page', (hooks) => {
 	setupApplicationTest(hooks);
-
-	const originalImage = window.Image;
 
 	hooks.beforeEach(function () {
 		mockFastbootService(this.owner);
 		mockAdsService(this.owner);
-		window.Image = sinon.stub();
-	});
-
-	hooks.afterEach(() => {
-		window.Image = originalImage;
 	});
 
 	test('visiting Article Page', async (assert) => {
 		await visit('/');
-		await visit('/wiki/Test');
-		assert.ok(true)
-		debugger;
+		await visit('/wiki/Test_article_name');
+
+		assert.dom('.wiki-page-header__title').exists();
+		assert.dom('.wiki-page-header__title').hasText('Test_article');
+		assert.dom('.edit-section').exists();
+		// assert.dom('.section-header-label').exists();
 	});
 });
 

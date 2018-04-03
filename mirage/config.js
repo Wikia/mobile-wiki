@@ -36,7 +36,7 @@ export default function () {
 				return blogPostPageFixture;
 			}
 
-			if (method === 'getPage' && title === 'Test') {
+			if (method === 'getPage' && title === 'Test_article') {
 				return articleFixture;
 			}
 		}
@@ -64,7 +64,7 @@ export default function () {
 				return blogPostPageFixture;
 			}
 
-			if (method === 'getPage' && title === 'Test') {
+			if (method === 'getPage' && title === 'Test_article') {
 				return articleFixture;
 			}
 		}
