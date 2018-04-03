@@ -506,13 +506,13 @@ export default Component.extend(
 			const tables = this.element.querySelectorAll('table');
 
 			toArray(tables)
-			.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
-			.forEach((element) => {
-				const originalHTML = element.outerHTML;
+				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.forEach((element) => {
+					const originalHTML = element.outerHTML;
 
-				element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-					' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
-			});
+					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
+				});
 		},
 
 		handleCollapsibleSectionHeaderClick(event) {
