@@ -23,6 +23,11 @@ $portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 	th:not(:last-child) {
 		border-right: 0;
 	}
+}
+
+// portable table styles
+table[data-portable="true"] {
+	font-size: $type-smallest;
 
 	// overrides default img styles for proper rendering inside tables
 	img {
