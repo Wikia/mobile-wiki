@@ -32,8 +32,8 @@ export default Service.extend({
 				creativeElement = element && element.querySelector(['[data-gpt-line-item-id]']);
 
 			if (creativeElement) {
-				const lineItemId = creativeElement && creativeElement.getAttribute('data-gpt-line-item-id'),
-					creativeId = creativeElement && creativeElement.getAttribute('data-gpt-creative-id');
+				const lineItemId = creativeElement.getAttribute('data-gpt-line-item-id'),
+					creativeId = creativeElement.getAttribute('data-gpt-creative-id');
 
 				adSlotsData.push({
 					slotName,
