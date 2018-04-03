@@ -175,10 +175,9 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 	const enableTracking = !M.getFromHeadDataStore('noExternals');
 
 	if (!isInitialPageView && enableTracking) {
-		// Defined in /app/inline-scripts/
+		// Defined in /vendor/inline-scripts/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
-		window.trackNielsenPageView();
 		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}

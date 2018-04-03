@@ -75,7 +75,6 @@ export default function (owner) {
 					"tracking": {
 						"vertical": "games",
 						"comscore": {"c7Value": "wikiacsid_games"},
-						"nielsen": {"enabled": false, "apid": "FIXME"},
 						"netzathleten": {
 							"enabled": true,
 							"url": "//s.adadapter.netzathleten-media.de/API-1.0/NA-828433-1/naMediaAd.js"

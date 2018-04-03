@@ -19,7 +19,6 @@ import toArray from '../utils/toArray';
 export default Component.extend(
 	AdsMixin,
 	{
-		fastboot: service(),
 		i18n: service(),
 		logger: service(),
 		lightbox: service(),
@@ -38,52 +37,6 @@ export default Component.extend(
 
 		lang: reads('wikiVariables.language.content'),
 		dir: reads('wikiVariables.language.contentDir'),
-		isFastBoot: reads('fastboot.isFastBoot'),
-
-		/* eslint ember/no-on-calls-in-components:0 */
-		articleContentObserver: on('didInsertElement', observer('content', function () {
-			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
-			if (this.get('isFastBoot')) {
-				return;
-			}
-
-			this.destroyChildComponents();
-
-			run.scheduleOnce('afterRender', this, () => {
-				const rawContent = this.get('content');
-
-				if (!isBlank(rawContent)) {
-					this.hackIntoEmberRendering(rawContent);
-
-					this.handleInfoboxes();
-					this.replaceInfoboxesWithInfoboxComponents();
-
-					this.renderDataComponents(this.element);
-
-					this.loadIcons();
-					this.createContributionButtons();
-					this.handleTables();
-					this.replaceWikiaWidgetsWithComponents();
-
-					this.handleWikiaWidgetWrappers();
-					this.handleJumpLink();
-					this.handleCollapsibleSections();
-
-					window.lazySizes.init();
-				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
-				}
-
-				if (!this.get('isPreview')) {
-					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
-						this.injectAds();
-					});
-				}
-
-				this.openLightboxIfNeeded();
-			});
-		})),
 
 		init() {
 			this._super(...arguments);
@@ -92,7 +45,41 @@ export default Component.extend(
 			this.renderedComponents = [];
 		},
 
-		willDestroyElement() {
+		didRender() {
+			this._super(...arguments);
+
+			const rawContent = this.get('content');
+
+			if (!isBlank(rawContent)) {
+				this.handleInfoboxes();
+				this.replaceInfoboxesWithInfoboxComponents();
+
+				this.renderDataComponents(this.element);
+
+				this.loadIcons();
+				this.createContributionButtons();
+				this.replaceWikiaWidgetsWithComponents();
+
+				this.handleWikiaWidgetWrappers();
+				this.handleJumpLink();
+				this.handleCollapsibleSections();
+
+				window.lazySizes.init();
+			} else if (this.get('displayEmptyArticleInfo')) {
+				this.set('content', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
+			}
+
+			if (!this.get('isPreview')) {
+				this.setupAdsContext(this.get('adsContext'));
+				this.get('ads.module').onReady(() => {
+					this.injectAds();
+				});
+			}
+
+			this.openLightboxIfNeeded();
+		},
+
+		willUpdate() {
 			this._super(...arguments);
 
 			this.destroyChildComponents();
@@ -185,23 +172,6 @@ export default Component.extend(
 			if (gallery) {
 				gallery.classList.remove('article-media-linked-gallery__collapsed');
 			}
-		},
-
-		/**
-		 * This is due to the fact that we send whole article
-		 * as an HTML and then we have to modify it in the DOM
-		 *
-		 * Ember+Glimmer are not fan of this as they would like to have
-		 * full control over the DOM and rendering
-		 *
-		 * In perfect world articles would come as Handlebars templates
-		 * so Ember+Glimmer could handle all the rendering
-		 *
-		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
-		 */
-		hackIntoEmberRendering(content) {
-			this.element.innerHTML = content;
 		},
 
 		/**
@@ -326,11 +296,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxesWithInfoboxComponents() {
-			/**
-			 * @param {number} i
-			 * @param {Element} element
-			 * @returns {void}
-			 */
 			toArray(this.element.querySelectorAll('.portable-infobox')).map((element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
@@ -355,11 +320,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetsWithComponents() {
-			/**
-			 * @param {number} i
-			 * @param {Element} element
-			 * @returns {void}
-			 */
 			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
@@ -494,7 +454,7 @@ export default Component.extend(
 				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
-				const reference = this.element.querySelector(target.hash);
+				const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
 
 				this.openSection(reference);
 
@@ -507,27 +467,10 @@ export default Component.extend(
 			}
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		handleTables() {
-			const tables = this.element.querySelectorAll('table');
-
-			toArray(tables)
-				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
-				.forEach((element) => {
-					const originalHTML = element.outerHTML;
-
-					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
-				});
-		},
-
 		handleCollapsibleSectionHeaderClick(event) {
 			const header = event.currentTarget,
 				section = header.nextElementSibling;
 			let visible = 'false';
-
 
 			if (header.classList.toggle('open-section')) {
 				visible = 'true';
