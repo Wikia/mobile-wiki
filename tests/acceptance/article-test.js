@@ -14,12 +14,12 @@ module('Acceptance | Article page', (hooks) => {
 
 	test('visiting Article Page', async (assert) => {
 		await visit('/');
-		await visit('/wiki/Test_article_name');
+		await visit('/wiki/Qaga2');
 
 		assert.dom('.wiki-page-header__title').exists();
 		assert.dom('.wiki-page-header__title').hasText('Test_article');
 		assert.dom('.edit-section').exists();
-		// assert.dom('.section-header-label').exists();
+		assert.dom('.section-header-label').exists();
 	});
 });
 
