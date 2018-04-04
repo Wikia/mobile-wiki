@@ -5,6 +5,7 @@ module.exports = {
 	extends: 'recommended',
 
 	rules: {
+		'bare-strings': true,
 		'block-indentation': 'tab',
 		'deprecated-each-syntax': true,
 		'eol-last': 'always',
