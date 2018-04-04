@@ -26,7 +26,9 @@ export default Service.extend({
 		const adSlotComponents = this.get('adSlotComponents');
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
-			adSlotComponents[slotName].destroy();
+			if (!adSlotComponents[slotName].get('isDestroyed')) {
+				adSlotComponents[slotName].destroy();
+			}
 		});
 
 		this.set('adSlotComponents', {});
