@@ -22,11 +22,10 @@ import RenderComponentMixin from '../mixins/render-component';
  */
 
 export default Component.extend(
-	RenderComponentMixin,
 	WidgetScriptStateMixin,
 	{
-		classNames: ['widget-twitter'],
 		data: null,
+		tagName: '',
 
 		scriptLoadedObserver: observer('scriptLoaded.twitter', function () {
 			this.createTimeline();
@@ -62,7 +61,7 @@ export default Component.extend(
 			if (this.get('scriptLoaded.twitter')) {
 				const data = this.get('data');
 
-				window.twttr.widgets.createTimeline(data.widgetId, this.element, data);
+				window.twttr.widgets.createTimeline(data.widgetId, this._placeholderElement.querySelector('.twitter'), data);
 			}
 		},
 	}

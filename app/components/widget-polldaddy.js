@@ -1,11 +1,9 @@
 import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(RenderComponentMixin, {
-	classNames: ['widget-polldaddy'],
-	layoutName: 'components/widget-polldaddy',
+export default Component.extend({
 	data: null,
-
+	tagName: '',
 	/**
 	 * @returns {void}
 	 */
