@@ -28,6 +28,7 @@ export default Service.extend({
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
 			const adSlot = adSlotComponents[slotName];
+
 			if (!adSlot.get('isDestroyed')) {
 				try {
 					adSlot.destroy();
