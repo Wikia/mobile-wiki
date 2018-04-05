@@ -9,7 +9,7 @@ export default {
 
 					script.type = 'text/javascript';
 					script.async = true;
-					script.src = '//s3.amazonaws.com/ki.js/52510/fCN.js';
+					script.src = '//s3.amazonaws.com/ki.js/52510/bgJ.js';
 					document.body.appendChild(script);
 				}
 			});
