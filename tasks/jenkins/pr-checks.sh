@@ -7,6 +7,7 @@ mkdir jenkins || rm -rf jenkins/* && true
 echo "githubToken=Authorization: token $GITHUB_TOKEN" > jenkins/params
 echo "githubUrl=https://api.github.com/repos/Wikia/mobile-wiki/statuses/$GIT_COMMIT" >> jenkins/params
 dependenciesDir="/var/lib/jenkins/workspace/mobile-wiki-update-dependencies"
+PATH=$PATH:./node_modules/.bin
 
 # $1 - context
 # $2 - state
@@ -60,7 +61,7 @@ setupNpm() {
 		fi
 	fi
 
-	npm install -g greenkeeper-lockfile@1
+	npm install greenkeeper-lockfile@1 --no-save
 }
 
 ### Set pending status to all tasks
