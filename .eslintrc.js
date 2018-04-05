@@ -108,6 +108,13 @@ module.exports = {
 				"import/newline-after-import": 0,
 				"no-restricted-globals": 0
 			}
+		},
+		{
+			files: ['mirage/fixtures/*.js'],
+			rules: {
+				"max-len": 0,
+				"no-useless-escape": 0
+			}
 		}
 	]
 };

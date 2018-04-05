@@ -1,4 +1,4 @@
-import {currentURL, visit, find, findAll} from '@ember/test-helpers';
+import {visit, click} from '@ember/test-helpers';
 import {test, module} from 'qunit';
 import {setupApplicationTest} from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
@@ -17,9 +17,15 @@ module('Acceptance | Article page', (hooks) => {
 		await visit('/wiki/Qaga2');
 
 		assert.dom('.wiki-page-header__title').exists();
-		assert.dom('.wiki-page-header__title').hasText('Test_article');
-		assert.dom('.edit-section').exists();
+		assert.dom('.wiki-page-header__title').hasText('Qaga2');
+		assert.dom('.wiki-page-header__wrapper .edit-section').exists();
 		assert.dom('.section-header-label').exists();
+		assert.dom('#Test_1').doesNotHaveClass('open-section');
+		// assert.dom('.section-header-label .edit-section').isNotVisible();
+
+		await click('.section-header-label');
+		assert.dom('#Test_1').hasClass('open-section');
+
 	});
 });
 
