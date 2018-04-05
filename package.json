@@ -92,7 +92,7 @@
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-exex": "0.1.13",
     "ember-export-application-global": "2.0.0",
-    "ember-fetch": "3.4.4",
+    "ember-fetch": "3.4.5",
     "ember-headroom": "1.1.1",
     "ember-in-viewport": "github:Wikia/ember-in-viewport#dd669efd9af1bd9188359c68aedfc45122371ed7",
     "ember-inline-css": "0.0.10",
