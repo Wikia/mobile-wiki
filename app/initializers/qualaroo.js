@@ -9,7 +9,7 @@ export default {
 
 					script.type = 'text/javascript';
 					script.async = true;
-					script.src = '//s3.amazonaws.com/ki.js/52510/bgJ.js';
+					script.src = window.M.getFromHeadDataStore('wikiVariables.qualarooUrl');
 					document.body.appendChild(script);
 				}
 			});
