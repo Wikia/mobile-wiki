@@ -21,7 +21,8 @@
     "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "lint:js": "eslint ./*.js app config lib server tests",
-    "test": "ember test"
+    "test": "ember test",
+    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
   },
   "repository": "",
   "engines": {
@@ -61,8 +62,8 @@
     "broccoli-merge-trees": "3.0.0",
     "broccoli-stew": "1.5.0",
     "design-system-i18n": "github:wikia/design-system-i18n#1.0.1",
+    "ember-cli": "~3.0.2",
     "ember-browserify": "1.2.2",
-    "ember-cli": "~2.18.2",
     "ember-cli-app-version": "3.1.3",
     "ember-cli-autoprefixer": "0.8.1",
     "ember-cli-babel": "6.12.0",
@@ -97,12 +98,11 @@
     "ember-inline-css": "0.0.10",
     "ember-load-initializers": "1.0.0",
     "ember-maybe-import-regenerator": "0.1.6",
-    "ember-native-dom-event-dispatcher": "0.6.4",
     "ember-resolver": "4.5.5",
     "ember-responds-to": "1.5.0",
     "ember-router-scroll": "0.6.0",
     "ember-sinon": "2.1.0",
-    "ember-source": "~2.18.0",
+    "ember-source": "~3.0.0",
     "ember-test-selectors": "0.3.8",
     "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
