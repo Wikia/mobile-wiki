@@ -28,6 +28,7 @@ export default Route.extend(
 		logger: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
+		router: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -153,6 +154,16 @@ export default Route.extend(
 			}
 		},
 
+		activate() {
+			// Qualaroo custom parameters
+			if (!this.get('fastboot.isFastBoot') && window._kiq) {
+				window._kiq.push(['set', {
+					isLoggedIn: this.get('currentUser.isAuthenticated'),
+					contentLanguage: this.get('wikiVariables.language.content')
+				}]);
+			}
+		},
+
 		redirect(model) {
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
@@ -218,6 +229,11 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				// sets number of page views for Qualaroo
+				if (window._kiq) {
+					window._kiq.push(['set', {page_views: this.get('router._routerMicrolib.currentSequence')}]);
+				}
 			},
 
 			error(error, transition) {
