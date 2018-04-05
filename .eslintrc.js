@@ -73,6 +73,21 @@ module.exports = {
 		"wrap-iife": [2, "inside"],
 		"strict": 0,
 
+		"ember/avoid-leaking-state-in-components": [2, [
+			'gestures'
+		]],
+		"ember/avoid-leaking-state-in-ember-objects": [2, [
+			'gestures',
+			'classNames',
+			'classNameBindings',
+			'actions',
+			'concatenatedProperties',
+			'mergedProperties',
+			'positionalParams',
+			'attributeBindings',
+			'queryParams',
+			'attrs'
+		]],
 		"ember/no-jquery": 2,
 		"ember/order-in-components": 1,
 		"ember/order-in-controllers": 1,
