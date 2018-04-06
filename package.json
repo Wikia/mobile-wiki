@@ -46,7 +46,7 @@
     "fastboot-app-server": "1.1.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.0",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.4.0",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#dcd86363912d459906e16840a97d192db2a42ed4",
     "lazysizes": "4.0.1",
     "method-override": "2.3.10",
     "on-headers": "1.0.1",

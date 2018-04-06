@@ -11,7 +11,7 @@ import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
-import logEvent from '../modules/event-logger';
+import {logError} from '../modules/event-logger';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
@@ -148,7 +148,7 @@ export default Route.extend(
 				}
 			} else {
 				this.get('logger').warn('Unsupported page');
-				logEvent('Model is missing (unsupported page)');
+				logError('Model is missing (unsupported page)');
 			}
 		},
 
