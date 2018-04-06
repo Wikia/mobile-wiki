@@ -100,7 +100,7 @@
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-resolver": "4.5.5",
     "ember-responds-to": "1.5.0",
-    "ember-router-scroll": "0.5.0",
+    "ember-router-scroll": "0.6.0",
     "ember-sinon": "2.1.0",
     "ember-source": "~3.0.0",
     "ember-test-selectors": "0.3.8",
