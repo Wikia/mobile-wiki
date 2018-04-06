@@ -73,9 +73,6 @@ module.exports = {
 		"wrap-iife": [2, "inside"],
 		"strict": 0,
 
-		"ember/avoid-leaking-state-in-components": [2, [
-			'gestures'
-		]],
 		"ember/avoid-leaking-state-in-ember-objects": [2, [
 			'gestures',
 			'classNames',
