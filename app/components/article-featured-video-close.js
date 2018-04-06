@@ -4,7 +4,6 @@ import {scheduleOnce} from '@ember/runloop';
 export default Component.extend({
 	classNames: ['article-featured-video__close-button'],
 
-	/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 	gestures: {
 		/**
 		 * XW-4727 | We need tap (touchstart) here as Ad-related click events are using it as well
