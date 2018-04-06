@@ -8,7 +8,7 @@
 	.curated-content-items {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-evenly;
+		justify-content: space-between;
 
 		// this pseudoelement lets the last inline item to be justified to the right if it's even
 		&::after {
