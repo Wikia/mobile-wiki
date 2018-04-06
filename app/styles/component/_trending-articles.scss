@@ -8,8 +8,7 @@ $trending-articles-image-spacing: 8px;
 	// this pseudoelement lets the last inline item to be justified to the right if it's even
 	&::after {
 		content: '';
-		display: inline-block;
-		width: 100%;
+		width: calc(50% - #{$trending-articles-image-spacing / 2});
 	}
 }
 
