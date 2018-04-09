@@ -291,7 +291,7 @@ export default Route.extend(
 			// update UA dimensions
 			if (model.adsContext) {
 				uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-				uaDimensions[14] = model.adsContext.opts.showAds ? 'Yes' : 'No';
+				uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
 			}
 			if (articleType) {
 				uaDimensions[19] = articleType;
@@ -301,8 +301,8 @@ export default Route.extend(
 			}
 
 			uaDimensions[21] = model.get('id');
-			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
-			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
+			uaDimensions[28] = model.get('hasPortableInfobox') ? 'yes' : 'no';
+			uaDimensions[29] = model.get('featuredVideo') ? 'yes' : 'no';
 
 			setTrackContext({
 				a: model.get('id'),
