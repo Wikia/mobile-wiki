@@ -11,6 +11,6 @@ module.exports = function (/* env */) {
 		* @type {Boolean}
 		* @default "false"
 		*/
-		publicOnly: false
+		publicOnly: true
 	};
 };
