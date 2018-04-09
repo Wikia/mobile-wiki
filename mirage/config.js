@@ -14,6 +14,7 @@ export default function () {
 	this.passthrough('/wikia.php');
 	this.passthrough('/api.php');
 	this.passthrough('https://speed.nocookie.net/**');
+	this.passthrough('/write-coverage');
 
 	// We have /front/main/assets prefix hardcoded in route and testem use /assets
 	// This is a quick (hopefully temporary) fix

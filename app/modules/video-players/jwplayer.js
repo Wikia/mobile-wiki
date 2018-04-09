@@ -11,11 +11,13 @@ export default class JWPlayer extends BasePlayer {
 
 		super(provider, params);
 		this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
+		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
 			const adsInstance = Ads.getInstance();
 			const slotTargeting = {
-				plist: this.recommendedVideoPlaylist
+				plist: this.recommendedVideoPlaylist,
+				vtags: this.videoTags
 			};
 
 			originalOnCreate(player);
@@ -48,14 +50,27 @@ export default class JWPlayer extends BasePlayer {
 	}
 
 	initializePlayer(bidParams) {
+		const containerId = this.params.containerId;
+
+		if (!document.getElementById(containerId)) {
+			return;
+		}
+
 		window.wikiaJWPlayer(
-			this.params.containerId,
+			containerId,
 			{
 				tracking: {
 					track(data) {
 						data.trackingMethod = 'both';
 
-						track(data);
+						/**
+						 * this function is called by a third party lib (jwplayer) asynchrounosly
+						 * if video player is not in DOM - probably user navigated to another page
+						 * do not call tracking function in such case
+						 */
+						if (document.getElementById(containerId)) {
+							track(data);
+						}
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
 					comscore: config.environment === 'production'
@@ -106,4 +121,3 @@ export default class JWPlayer extends BasePlayer {
 		this.createPlayer();
 	}
 }
-
