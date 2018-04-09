@@ -140,23 +140,21 @@ export default Component.extend(
 				this.set('inputFocused', false);
 			},
 
-			onSuggestionsWrapperClick() {
+			onSuggestionsWrapperClick(event) {
 				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
+
+				if (event.target.closest('.wikia-search__search-suggestion')) {
+					track({
+						action: trackActions.click,
+						category: 'side-nav',
+						label: 'search-open-suggestion-link'
+					});
+				}
 
 				this.setSearchSuggestionItems();
 				if (outsideSuggestionsClickAction) {
-					outsideSuggestionsClickAction();
+					outsideSuggestionsClickAction(event);
 				}
-
-				return true;
-			},
-
-			onSuggestionClick() {
-				track({
-					action: trackActions.click,
-					category: 'side-nav',
-					label: 'search-open-suggestion-link'
-				});
 			}
 		},
 
