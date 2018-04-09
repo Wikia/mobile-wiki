@@ -43,7 +43,7 @@ setupNpm() {
 
 	if [[ ! -z $error ]]
 	then
-		updateGit "Setup" failure "failed on: updating node modules in .${1}"
+		updateGit "Setup" failure "failed on: updating node modules"
 		failTests && exit 1
 	fi
 
