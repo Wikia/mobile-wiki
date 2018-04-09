@@ -5,12 +5,7 @@ export default {
 			window._kiq = [];
 			window.getInstantGlobal('wgMobileQualaroo', (wgMobileQualaroo) => {
 				if (wgMobileQualaroo) {
-					const script = document.createElement('script');
-
-					script.type = 'text/javascript';
-					script.async = true;
-					script.src = window.M.getFromHeadDataStore('wikiVariables.qualarooUrl');
-					document.body.appendChild(script);
+					$script(window.M.getFromHeadDataStore('wikiVariables.qualarooUrl'));
 				}
 			});
 		}
