@@ -1,6 +1,7 @@
 import filePageFixture from './fixtures/file-page';
 import blogPostPageFixture from './fixtures/blog-post';
 import articleFixture from './fixtures/article';
+import jwplayerVideoFixture from './fixtures/jwplayer-video';
 
 /**
  * @returns {void}
@@ -75,5 +76,9 @@ export default function () {
 		}
 
 		throw new Error(`Controller or method response isn't yet mocked`);
+	});
+
+	this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => {
+		return jwplayerVideoFixture;
 	});
 }
