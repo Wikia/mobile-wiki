@@ -69,7 +69,7 @@ module.exports = function (defaults) {
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
+			'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
 			lazysizes: `${inlineScriptsPath}lazysizes.js`,
 			'load-ads': `${inlineScriptsPath}load-ads.js`
 		},

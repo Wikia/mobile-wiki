@@ -11,7 +11,6 @@ import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
-import logEvent from '../modules/event-logger';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
@@ -148,7 +147,6 @@ export default Route.extend(
 				}
 			} else {
 				this.get('logger').warn('Unsupported page');
-				logEvent('Model is missing (unsupported page)');
 			}
 		},
 
@@ -293,7 +291,7 @@ export default Route.extend(
 			// update UA dimensions
 			if (model.adsContext) {
 				uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-				uaDimensions[14] = model.adsContext.opts.showAds ? 'Yes' : 'No';
+				uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
 			}
 			if (articleType) {
 				uaDimensions[19] = articleType;
@@ -303,8 +301,8 @@ export default Route.extend(
 			}
 
 			uaDimensions[21] = model.get('id');
-			uaDimensions[28] = model.get('hasPortableInfobox') ? 'Yes' : 'No';
-			uaDimensions[29] = model.get('featuredVideo') ? 'Yes' : 'No';
+			uaDimensions[28] = model.get('hasPortableInfobox') ? 'yes' : 'no';
+			uaDimensions[29] = model.get('featuredVideo') ? 'yes' : 'no';
 
 			setTrackContext({
 				a: model.get('id'),

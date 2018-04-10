@@ -1,4 +1,4 @@
-import logEvent from '../modules/event-logger';
+import {logError} from '../modules/event-logger';
 import Ember from 'ember';
 
 const whitelistErrorMessages = [
@@ -11,7 +11,7 @@ export function initialize(/* appInstance */) {
 	}
 	Ember.onerror = function (error) {
 		if (whitelistErrorMessages.indexOf(error.message) === -1) {
-			logEvent('Ember.onerror', {
+			logError('Ember.onerror', {
 				message: error.message,
 				stack: error.stack,
 			});
