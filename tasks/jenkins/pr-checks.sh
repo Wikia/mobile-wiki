@@ -48,6 +48,14 @@ setupNpm() {
 	fi
 }
 
+# $1 - command
+greenkeeper() {
+	if [[ $branch = "greenkeeper/"* ]]; then
+		npm install greenkeeper-lockfile@1 --no-save
+		npx greenkeeper-lockfile-${1}
+	fi
+}
+
 ### Set pending status to all tasks
 updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
@@ -69,13 +77,6 @@ else
 	saveState "setupState" "Setup" failure "failed on: setting up application" $BUILD_URL"artifact/jenkins/setup.log"
 	failTests && exit 1
 fi
-
-greenkeeper() {
-	if [[ $branch = "greenkeeper/"* ]]; then
-		npm install greenkeeper-lockfile@1 --no-save
-		npx greenkeeper-lockfile-${1}
-	fi
-}
 
 ### Tests - running
 updateGit "Tests" pending running
