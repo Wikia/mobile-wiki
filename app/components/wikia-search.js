@@ -256,7 +256,7 @@ export default Component.extend(
 							 * Also, we don't want to show the suggestion results after a real search
 							 * will be finished, what will happen if search request is still in progress.
 							 */
-							if ((!this.get('searchRequestInProgress') && phrase === this.get('phrase'))) {
+							if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
 								this.setSearchSuggestionItems(suggestions);
 							}
 
