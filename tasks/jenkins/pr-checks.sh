@@ -68,10 +68,10 @@ else
 fi
 
 greenkeeper() {
-	echo $branch
-	
-	npm install greenkeeper-lockfile@1 --no-save
-	npx greenkeeper-lockfile-${1}
+	if [[ $branch = "greenkeeper/"* ]]; then
+		npm install greenkeeper-lockfile@1 --no-save
+		npx greenkeeper-lockfile-${1}
+	fi
 }
 
 ### Tests - running
