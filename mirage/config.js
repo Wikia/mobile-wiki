@@ -42,6 +42,7 @@ export default function () {
 
 			if (method === 'getPage' && title === 'TestA') {
 				return testAFixture;
+			}
 
 			if (method === 'getPage' && title === 'Qaga2') {
 				return articleFixture;
@@ -78,10 +79,10 @@ export default function () {
 			if (method === 'getPage' && title === 'Qaga2') {
 				return articleFixture;
 			}
-      
-      if (method === 'getSearchSuggestions') {
-        return searchSuggestionsFixture(query);
-      }
+
+			if (method === 'getSearchSuggestions') {
+				return searchSuggestionsFixture(query);
+			}
 		}
 
 		if (controller === 'SearchApi' && method === 'getList') {
