@@ -71,8 +71,8 @@ spec:
             value: ${dc}
           - name: MEDIAWIKI_DOMAIN
             value: prod.icache.service.${dc}.consul
-          - name: EXPERIMENTAL_RENDER_MODE_SERIALIZE
-            value: true
+          - name: "EXPERIMENTAL_RENDER_MODE_SERIALIZE"
+            value: "true"
         resources:
           requests:
             cpu: 0.4
