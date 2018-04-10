@@ -38,7 +38,7 @@ failTests() {
 
 # $1 - directory
 setupNpm() {
-	updateGit "Setup" pending "updating node modules in .${1}"
+	updateGit "Setup" pending "updating node modules"
 	npm install --no-save || error=true
 
 	if [[ ! -z $error ]]
@@ -67,18 +67,17 @@ else
 	failTests && exit 1
 fi
 
+greenkeeper() {
+	echo $branch
+	
+	npm install greenkeeper-lockfile@1 --no-save
+	npx greenkeeper-lockfile-${1}
+}
+
 ### Tests - running
 updateGit "Tests" pending running
 # create new package-lock.json
-npm install greenkeeper-lockfile@1 --no-save
-
-pwd
-ls
-
-npx greenkeeper-lockfile-update
-
-ls
-pwd
+greenkeeper "update"
 
 COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
@@ -108,8 +107,8 @@ fi
 
 ### Finish
 # upload new package-lock.json
-npm install greenkeeper-lockfile@1 --no-save
-npx greenkeeper-lockfile-upload
+greenkeeper "upload"
+
 if [ -z $failJob ]
 then
     updateGit "Jenkins job" success finished $BUILD_URL"console"
