@@ -276,7 +276,7 @@ export default Component.extend(
 				.catch((reason) => this.get('logger').error('Search suggestions error', reason))
 				.finally(() => {
 					// We have a response, so we're no longer loading the results
-					if (phrase === this.get('phrase') || !this.get('isDestroyed')) {
+					if (phrase === this.get('phrase') && !this.get('isDestroyed')) {
 						this.set('isLoadingResultsSuggestions', false);
 					}
 
