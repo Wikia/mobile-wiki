@@ -2,8 +2,10 @@ import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
+import getLanguageCodeFromRequest from '../../utils/language';
 
 export default BaseModel.extend({
+	fastboot: service(),
 	wikiVariables: service(),
 	comments: 0,
 	content: null,
@@ -22,6 +24,7 @@ export default BaseModel.extend({
 	getArticleRandomTitle() {
 		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
+			langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 			path: '/api.php',
 			query: {
 				action: 'query',
