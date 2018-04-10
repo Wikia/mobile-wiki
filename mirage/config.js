@@ -2,6 +2,8 @@ import filePageFixture from './fixtures/file-page';
 import blogPostPageFixture from './fixtures/blog-post';
 import searchSuggestionsFixture from './fixtures/search-suggestion';
 import testAFixture from './fixtures/test-page';
+import articleFixture from './fixtures/article';
+import jwplayerVideoFixture from './fixtures/jwplayer-video';
 
 /**
  * @returns {void}
@@ -40,6 +42,9 @@ export default function () {
 
 			if (method === 'getPage' && title === 'TestA') {
 				return testAFixture;
+
+			if (method === 'getPage' && title === 'Qaga2') {
+				return articleFixture;
 			}
 		}
 
@@ -70,9 +75,13 @@ export default function () {
 				return testAFixture;
 			}
 
-			if (method === 'getSearchSuggestions') {
-				return searchSuggestionsFixture(query);
+			if (method === 'getPage' && title === 'Qaga2') {
+				return articleFixture;
 			}
+      
+      if (method === 'getSearchSuggestions') {
+        return searchSuggestionsFixture(query);
+      }
 		}
 
 		if (controller === 'SearchApi' && method === 'getList') {
@@ -80,5 +89,9 @@ export default function () {
 		}
 
 		throw new Error(`Controller or method response isn't yet mocked`);
+	});
+
+	this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => {
+		return jwplayerVideoFixture;
 	});
 }
