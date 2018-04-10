@@ -13,9 +13,10 @@
 			ns='design-system'
 		}}}
 	</div>
+
 	<div class="wds-global-footer__bottom-bar-row wds-has-border-top">
-		<a {{action 'fullSiteClicked' preventDefault=false}} href rel="nofollow" class="wds-global-footer__button-link">
+		<div role="button" {{action 'fullSiteClicked' preventDefault=false}} rel="nofollow" class="wds-global-footer__button-link wds-is-text wds-button">
 			{{i18n 'global-footer-full-site-link' ns='design-system'}}
-		</a>
+		</div>
 	</div>
 </div>
