@@ -13,7 +13,7 @@ export default function getHostFromRequest(request) {
 	const headers = request.get('headers');
 	// One of our layers cuts out sandbox-* prefix from the host, use x-original-host instead
 	let host = headers.get('x-original-host') || request.get('host');
-
+	
 	if (headers.get('x-staging') === 'externaltest') {
 		const stagingRegex = new RegExp(`\\.(externaltest|showcase)\\.${escapeRegex(config.wikiaBaseDomain)}$`);
 		host = host.replace(stagingRegex, `.${config.wikiaBaseDomain}`);

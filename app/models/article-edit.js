@@ -3,6 +3,7 @@ import EmberObject, {get, computed} from '@ember/object';
 import getEditToken from '../utils/edit-token';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	content: null,
@@ -12,6 +13,7 @@ export default EmberObject.extend({
 	sectionIndex: null,
 
 	wikiVariables: service(),
+	fastBoot: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
@@ -59,6 +61,7 @@ export default EmberObject.extend({
 	load(title, sectionIndex) {
 		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
+			langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 			path: '/api.php',
 			query: {
 				action: 'query',

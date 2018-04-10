@@ -1,27 +1,40 @@
 import EmberRouter from '@ember/routing/router';
 import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
+import getLanguageCodeFromRequest from './utils/language';
 
 const Router = EmberRouter.extend(RouterScroll, {
 	location: config.locationType,
 	rootURL: config.rootURL
 });
 
-Router.map(function () {
-	this.route('article-preview');
+function applyLangPath(path) {
+	let langPath = '/:lang_path';
+	if (typeof FastBoot === 'undefined') {
+		langPath = `/${getLanguageCodeFromRequest()}`;
+	}
+	return `${langPath}${path}`;
+}
 
-	this.route('search');
+Router.map(function () {
+	this.route('article-preview', {
+		path: applyLangPath('/article-preview')
+	});
+
+	this.route('search', {
+		path: applyLangPath('/search')
+	});
 
 	this.route('main-page-redirect', {
-		path: '/wiki/'
+		path: applyLangPath('/wiki/')
 	});
 
 	this.route('wiki-page', {
-		path: '/wiki/*title'
+		path: applyLangPath('/wiki/*title')
 	});
 
 	this.route('article-edit', {
-		path: '/wiki/edit/:title/:section_index'
+		path: applyLangPath('/wiki/edit/:title/:section_index')
 	});
 });
 

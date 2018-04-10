@@ -3,6 +3,7 @@ import EmberObject from '@ember/object';
 import {all, hashSettled, resolve} from 'rsvp';
 import {getOwner} from '@ember/application';
 import getHostFromRequest from '../utils/host';
+import getLanguageCodeFromRequest from '../utils/language';
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariablesModel from './wiki-variables';
@@ -24,26 +25,29 @@ export default EmberObject.extend({
 				? 'https'
 				: fastboot.get('request.protocol').replace(':', '');
 			const host = getHostFromRequest(fastboot.get('request')),
+				langPath = getLanguageCodeFromRequest(fastboot.get('request')),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 
 			return all([
-				WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),
-				UserModel.create(ownerInjection).getUserId(accessToken)
+				WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken, langPath),
+				UserModel.create(ownerInjection).getUserId(accessToken, langPath)
 			]).then(([wikiVariablesData, userId]) => {
 				shoebox.put('userId', userId);
 
 				return hashSettled({
-					currentUser: currentUser.initializeUserData(userId, host),
+					currentUser: currentUser.initializeUserData(userId, host, langPath),
 					navigation: NavigationModel.create(ownerInjection).fetchAll(
 						host,
 						wikiVariablesData.id,
-						uselangParam || wikiVariablesData.language.content
+						uselangParam || wikiVariablesData.language.content,
+						langPath
 					),
 					trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
 						!userId,
 						host,
-						title
+						title,
+						langPath
 					),
 					wikiVariablesData
 				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {

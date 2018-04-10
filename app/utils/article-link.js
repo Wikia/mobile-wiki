@@ -47,7 +47,7 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 			 *     3: "Kermit_the_Frog"
 			 *     4: "#Kermit_on_Sesame_Street"
 			 */
-			article = local.match(/^(\/(wiki))\/([^#]+)(#.*)?$/);
+			article = local.match(/^(\/[\w]{2,3}(-[\w]{2,3})?)?(\/(wiki))\/([^#]+)(#.*)?$/);
 
 		let comparison;
 
@@ -61,9 +61,9 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 
 		if (article) {
 			try {
-				comparison = decodeURIComponent(article[3]);
+				comparison = decodeURIComponent(article[5]);
 			} catch (e) {
-				comparison = article[3];
+				comparison = article[5];
 			}
 
 			if (comparison === title && hash) {
@@ -74,9 +74,9 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 			}
 
 			return {
-				article: article[3],
+				article: article[5],
 				url: null,
-				hash: article[4] ? hash : null
+				hash: article[6] ? hash : null
 			};
 		}
 	}

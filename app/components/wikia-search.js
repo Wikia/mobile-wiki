@@ -9,6 +9,7 @@ import fetch from '../utils/mediawiki-fetch';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import {buildUrl} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  * Type for search suggestion
@@ -25,6 +26,7 @@ export default Component.extend(
 	{
 		i18n: service(),
 		logger: service(),
+		fastboot: service(),
 		wikiVariables: service(),
 		router: service(),
 
@@ -198,6 +200,7 @@ export default Component.extend(
 		getSearchURI(phrase) {
 			return buildUrl({
 				host: this.get('wikiVariables.host'),
+				langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

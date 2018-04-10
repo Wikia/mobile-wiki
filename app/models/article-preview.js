@@ -2,9 +2,11 @@ import {inject as service} from '@ember/service';
 import EmberObject from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	wikiVariables: service(),
+	fastboot: service(),
 
 	/**
 	 * prepare POST request body before sending to API
@@ -19,6 +21,7 @@ export default EmberObject.extend({
 	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = buildUrl({
 				host: this.get('wikiVariables.host'),
+				langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

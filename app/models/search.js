@@ -3,6 +3,7 @@ import {A} from '@ember/array';
 import EmberObject, {computed} from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	batch: 1,
@@ -14,6 +15,7 @@ export default EmberObject.extend({
 	totalItems: 0,
 	totalBatches: 0,
 	wikiVariables: service(),
+	fastboot: service(),
 	logger: service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
@@ -57,6 +59,7 @@ export default EmberObject.extend({
 
 		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
+			langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 			path: '/wikia.php',
 			query: {
 				controller: 'SearchApi',

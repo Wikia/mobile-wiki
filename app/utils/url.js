@@ -79,6 +79,10 @@ export function buildUrl(urlParams = {}) {
 		url += urlParams.articlePath + urlParams.wikiPage;
 	}
 
+	if (urlParams.langPath) {
+		url += urlParams.langPath;
+	}
+
 	if (urlParams.path) {
 		url += urlParams.path;
 	}

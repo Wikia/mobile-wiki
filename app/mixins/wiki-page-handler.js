@@ -11,6 +11,7 @@ import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
 import {buildUrl} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  *
@@ -49,6 +50,7 @@ function getURL(params) {
 	return buildUrl({
 		host: params.host,
 		path: '/wikia.php',
+		langPath: params.langPath,
 		query
 	});
 }
@@ -67,6 +69,7 @@ export default Mixin.create({
 		if (isFastBoot || !isInitialPageView) {
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
+			params.langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
 
 			const url = getURL(params);
 

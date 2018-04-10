@@ -8,9 +8,10 @@ export default EmberObject.extend({
 	fastboot: service(),
 	logger: service(),
 
-	fetch(isAnon, host, title) {
+	fetch(isAnon, host, title, langPath) {
 		const url = buildUrl({
 			host,
+			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

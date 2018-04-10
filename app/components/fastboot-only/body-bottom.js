@@ -3,9 +3,11 @@ import {computed} from '@ember/object';
 import {bool, equal} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import config from '../../config/environment';
+import getLanguageCodeFromRequest from '../../utils/language';
 
 export default Component.extend({
 	currentUser: service(),
+	fastboot: service(),
 	tracking: service(),
 	simpleStore: service(),
 	wikiVariables: service(),
@@ -45,6 +47,13 @@ export default Component.extend({
 			wikiaEnv,
 			wikiVariables
 		}, simpleStore));
+	}),
+
+	asyncScriptsPath: computed(function () {
+		const langPath = getLanguageCodeFromRequest(this.get('fastboot.request')),
+			path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
+
+		return langPath ? `${langPath}${path}` : path;
 	}),
 
 	inContextTranslationsEnabled: config.inContextTranslationsEnabled,

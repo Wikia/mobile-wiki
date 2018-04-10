@@ -8,6 +8,7 @@ import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
 import {buildUrl, getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
+import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	defaultAvatarSize: 100,
@@ -57,11 +58,12 @@ export default EmberObject.extend({
 		const avatarSize = params.avatarSize || this.defaultAvatarSize,
 			userId = params.userId,
 			host = params.host,
-			accessToken = params.accessToken || '';
+			accessToken = params.accessToken || '',
+			langPath = params.langPath;
 
 		return all([
-			this.loadDetails(host, userId, avatarSize),
-			this.loadUserInfo(host, accessToken, userId),
+			this.loadDetails(host, userId, avatarSize, langPath),
+			this.loadUserInfo(host, accessToken, userId, langPath),
 		]).then(([userDetails, userInfo]) => {
 			const userLanguage = userInfo && userInfo.query.userinfo.options.language;
 
@@ -98,9 +100,10 @@ export default EmberObject.extend({
 	 * @param {number} avatarSize
 	 * @returns {RSVP.Promise}
 	 */
-	loadDetails(host, userId, avatarSize) {
+	loadDetails(host, userId, avatarSize, langPath) {
 		const url = buildUrl({
 			host,
+			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'UserApi',
@@ -138,11 +141,13 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {string} accessToken
 	 * @param {number} userId
+	 * @param {string} langPath
 	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserInfo(host, accessToken, userId) {
+	loadUserInfo(host, accessToken, userId, langPath) {
 		const url = buildUrl({
 			host,
+			langPath,
 			path: '/api.php',
 			query: {
 				action: 'query',

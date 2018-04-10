@@ -4,11 +4,18 @@ import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
 
 export default EmberObject.extend({
-	fetchAll(host, wikiId, language) {
+	fetchAll(host, wikiId, language, langPath) {
 		const url = buildUrl({
 			host,
-			/* eslint-disable-next-line max-len */
-			path: `/wikia.php?controller=DesignSystemApi&method=getAllElements&product=wikis&id=${wikiId}&lang=${language}`
+			langPath,
+			path: '/wikia.php',
+			query: {
+				controller: 'DesignSystemApi',
+				method: 'getAllElements',
+				product: 'wikis',
+				id: wikiId,
+				lang: language
+			}
 		});
 
 		return fetch(url)
