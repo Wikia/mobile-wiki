@@ -60,7 +60,7 @@ setupNpm() {
 		fi
 	fi
 
-	npm install -g greenkeeper-lockfile@1
+	npm install greenkeeper-lockfile@1 --no-save
 }
 
 ### Set pending status to all tasks
@@ -85,7 +85,7 @@ fi
 ### Tests - running
 updateGit "Tests" pending running
 # create new package-lock.json
-greenkeeper-lockfile-update
+$(npm bin)/greenkeeper-lockfile-update
 COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 
@@ -114,7 +114,7 @@ fi
 
 ### Finish
 # upload new package-lock.json
-greenkeeper-lockfile-upload
+$(npm bin)/greenkeeper-lockfile-upload
 if [ -z $failJob ]
 then
     updateGit "Jenkins job" success finished $BUILD_URL"console"
