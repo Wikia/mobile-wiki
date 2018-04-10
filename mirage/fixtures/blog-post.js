@@ -4,9 +4,9 @@ export default {
 		isMainPage: false,
 		details: {
 			id: 1400451,
-			title: 'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
+			title: 'Test title for blog page',
 			ns: 500,
-			url: '/wiki/User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM',
+			url: '/wiki/Test title for blog page',
 			revision: {
 				id: 2424825,
 				user: 'TimmyQuivy',
@@ -63,9 +63,9 @@ export default {
 			},
 			forcedProvider: null
 		},
-		htmlTitle: 'User blog:TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
+		htmlTitle: 'Test title for blog page',
 		article: {
-			content: 'Test blog page',
+			content: 'Test content on blog page',
 			media: [],
 			users: {}
 		},
@@ -79,7 +79,7 @@ export default {
 				url: '/wiki/Category:Blog_posts'
 			}
 		],
-		displayTitle: 'TimmyQuivy/Bots: An Overview Of How They Are Used on FANDOM',
+		displayTitle: 'Test title for blog page',
 		hasPortableInfobox: false
 	},
 	topContributors: [

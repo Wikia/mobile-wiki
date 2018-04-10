@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import logEvent from '../modules/event-logger';
+import {logError} from '../modules/event-logger';
 import {inject as service} from '@ember/service';
 
 export default Route.extend(
@@ -12,7 +12,7 @@ export default Route.extend(
 		 */
 		renderTemplate(controller, error) {
 			if (!this.get('fastboot.isFastBoot')) {
-				logEvent('Wiki-page route error substate', error);
+				logError('Wiki-page route error substate', error);
 			}
 
 			switch (error.code) {
