@@ -128,7 +128,7 @@ export function track(params) {
 		return;
 	}
 
-	const isFandomApp = window.location.search.includes('mobile-app=true');
+	const isFandomApp = window.location.search.match(/([?&])mobile-app=.+/);
 	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
 	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
 	const isNonInteractive = params.isNonInteractive !== false;
@@ -178,7 +178,6 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 		// Defined in /vendor/inline-scripts/
 		window.trackQuantcastPageView();
 		window.trackComscorePageView();
-		window.trackNielsenPageView();
 		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
 	}
