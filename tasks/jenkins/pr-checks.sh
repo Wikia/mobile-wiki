@@ -54,6 +54,9 @@ updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
 
+### create new package-lock.json
+greenkeeper "update"
+
 ### Setup - node_modules
 setupNpm
 
@@ -76,8 +79,6 @@ greenkeeper() {
 
 ### Tests - running
 updateGit "Tests" pending running
-# create new package-lock.json
-greenkeeper "update"
 
 COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
