@@ -17,9 +17,9 @@ module('Acceptance | search', (hooks) => {
 			enterKeyCode = 13,
 			testQuery = 'test query';
 
-		await visit('/search?query=test');
+		await visit('/search');
 
-		assert.equal(currentURL(), '/search?query=test');
+		assert.equal(currentURL(), '/search');
 
 		await fillIn(searchInput, testQuery);
 		await triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
