@@ -1,11 +1,11 @@
 import config from '../config/environment';
 import fetch from 'fetch';
 
-const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}/error`;
+const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}`;
 
-export default function logEvent(name, description = {}) {
+function logEvent(resource, name, description = {}) {
 	if (config.environment === 'production') {
-		fetch(url, {
+		fetch(`${url}/${resource}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -20,4 +20,12 @@ export default function logEvent(name, description = {}) {
 			})
 		});
 	}
+}
+
+export function logDebug(name, description) {
+	logEvent('debug', name, description);
+}
+
+export function logError(name, description) {
+	logEvent('error', name, description);
 }

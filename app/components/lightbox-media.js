@@ -22,7 +22,6 @@ export default Component.extend(
 		tabindex: 0,
 		videoPlayer: null,
 
-		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {void}
