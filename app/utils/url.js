@@ -69,6 +69,10 @@ export function buildUrl(urlParams = {}) {
 		url += `${urlParams.protocol}://${host}`;
 	}
 
+	if (urlParams.langPath) {
+		url += urlParams.langPath;
+	}
+
 	if (urlParams.title) {
 		url += urlParams.articlePath +
 			(urlParams.namespace ? `${urlParams.namespace}:` : '') +
@@ -77,10 +81,6 @@ export function buildUrl(urlParams = {}) {
 
 	if (urlParams.wikiPage) {
 		url += urlParams.articlePath + urlParams.wikiPage;
-	}
-
-	if (urlParams.langPath) {
-		url += urlParams.langPath;
 	}
 
 	if (urlParams.path) {

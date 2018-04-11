@@ -13,19 +13,24 @@ export default EmberObject.extend({
 	sectionIndex: null,
 
 	wikiVariables: service(),
-	fastBoot: service(),
+	fastboot: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
+	}),
+
+	langPath: computed('fastboot', function () {
+		return getLanguageCodeFromRequest(this.get('fastboot.request'));
 	}),
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	publish() {
-		const host = this.get('wikiVariables.host');
+		const host = this.get('wikiVariables.host'),
+			langPath = this.get('langPath');
 
-		return getEditToken(host, this.get('title'))
+		return getEditToken(host, this.get('title'), langPath)
 			.then((token) => {
 				const formData = new FormData();
 
@@ -36,7 +41,7 @@ export default EmberObject.extend({
 				formData.append('token', token);
 				formData.append('format', 'json');
 
-				return fetch(buildUrl({host, path: '/api.php'}), {
+				return fetch(buildUrl({host, langPath, path: '/api.php'}), {
 					method: 'POST',
 					body: formData,
 				})
@@ -61,7 +66,7 @@ export default EmberObject.extend({
 	load(title, sectionIndex) {
 		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
-			langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
+			langPath: this.get('langPath'),
 			path: '/api.php',
 			query: {
 				action: 'query',

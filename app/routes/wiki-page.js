@@ -20,6 +20,7 @@ import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
+import getLanguageCodeFromRequest from '../utils/language';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -128,8 +129,11 @@ export default Route.extend(
 					handler.afterModel(this, ...arguments);
 				} else {
 					if (!redirectTo) {
+						const langPath = getLanguageCodeFromRequest(fastboot.get('request'));
+
 						redirectTo = buildUrl({
 							host: this.get('wikiVariables.host'),
+							langPath,
 							wikiPage: get(transition, 'params.wiki-page.title'),
 							query: extend(
 								{},

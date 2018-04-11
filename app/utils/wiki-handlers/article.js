@@ -1,6 +1,7 @@
 import {getOwner} from '@ember/application';
 import fetch from '../mediawiki-fetch';
 import {buildUrl} from '../url';
+import getLanguageCodeFromRequest from '../language';
 
 /**
  * @param {Ember.Route} route
@@ -24,9 +25,10 @@ function afterModel(route, model) {
  * @param {Ember.Object} model
  * @param {String} host
  */
-function sendLyricsPageView({model, host}) {
+function sendLyricsPageView({model, host, langPath}) {
 	fetch(buildUrl({
 		host,
+		langPath,
 		path: '/wikia.php',
 		query: {
 			controller: 'LyricFind',
@@ -62,7 +64,9 @@ function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
  */
 function afterTransition({model, wikiId, host, fastboot}) {
 	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
-		sendLyricsPageView({model, host});
+		const langPath = getLanguageCodeFromRequest(fastboot.get('request'));
+
+		sendLyricsPageView({model, host, langPath});
 	}
 }
 

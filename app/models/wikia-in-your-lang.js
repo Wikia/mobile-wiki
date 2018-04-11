@@ -5,6 +5,7 @@ import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl} from '../utils/url';
+import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  * @param {string} lang
@@ -34,6 +35,7 @@ function getFromCache(browserLang) {
 
 export default EmberObject.extend(LanguagesMixin, {
 	wikiVariables: service(),
+	fastboot: service(),
 
 	message: null,
 	nativeDomain: null,
@@ -43,7 +45,8 @@ export default EmberObject.extend(LanguagesMixin, {
 	 */
 	load() {
 		const browserLang = this.getBrowserLanguage(),
-			model = getFromCache(browserLang);
+			model = getFromCache(browserLang),
+			langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
 
 		if (model) {
 			return resolve(model);
@@ -52,6 +55,7 @@ export default EmberObject.extend(LanguagesMixin, {
 		return fetch(
 			buildUrl({
 				host: this.get('wikiVariables.host'),
+				langPath,
 				path: '/wikia.php',
 				query: {
 					controller: 'WikiaInYourLangController',

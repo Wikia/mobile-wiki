@@ -7,9 +7,10 @@ import {buildUrl} from '../utils/url';
  * @param {string} title
  * @returns {Ember.RSVP.Promise}
  */
-export default function (host, title) {
+export default function (host, title, langPath) {
 	return fetch(buildUrl({
 		host,
+		langPath,
 		path: '/api.php',
 		query: {
 			action: 'query',
