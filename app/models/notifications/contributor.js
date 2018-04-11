@@ -1,7 +1,11 @@
 import EmberObject from '@ember/object';
+import {inject as service} from '@ember/service';
 import {buildUrl} from '../../utils/url';
+import getLanguageCodeFromRequest from '../../utils/language';
 
 const DiscussionContributor = EmberObject.extend({
+	fastboot: service(),
+
 	avatarUrl: null,
 	badgePermission: null,
 	host: null,
@@ -17,7 +21,10 @@ DiscussionContributor.reopenClass({
 	 * @returns {string}
 	 */
 	getProfileUrl(name) {
+		const langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
+
 		return buildUrl({
+			langPath,
 			namespace: 'User',
 			relative: true,
 			title: name

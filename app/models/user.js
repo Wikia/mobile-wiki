@@ -75,7 +75,7 @@ export default EmberObject.extend({
 			};
 
 			if (userDetails) {
-				out = extend(out, this.sanitizeDetails(userDetails));
+				out = extend(out, this.sanitizeDetails(userDetails, langPath));
 			}
 
 			if (userLanguage) {
@@ -98,6 +98,7 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {number} userId
 	 * @param {number} avatarSize
+	 * @param {string|null} langPath
 	 * @returns {RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize, langPath) {
@@ -141,7 +142,7 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {string} accessToken
 	 * @param {number} userId
-	 * @param {string} langPath
+	 * @param {string|null} langPath
 	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId, langPath) {
@@ -180,13 +181,15 @@ export default EmberObject.extend({
 
 	/**
 	 * @param {*} userData
+	 * @param {string|null} langPath
 	 * @returns {Object}
 	 */
-	sanitizeDetails(userData) {
+	sanitizeDetails(userData, langPath) {
 		const data = {
 			name: userData.name,
 			avatarPath: userData.avatar,
 			profileUrl: buildUrl({
+				langPath,
 				namespace: 'User',
 				relative: true,
 				title: userData.name

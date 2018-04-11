@@ -3,7 +3,7 @@ import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
-import getLanguageCodeFromRequest from '../utils/language';
+import getLanguageCodeFromRequest from '../../utils/language';
 
 export default BaseModel.extend({
 	fastboot: service(),

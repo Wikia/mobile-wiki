@@ -1,10 +1,11 @@
 import {inject as service} from '@ember/service';
-import EmberObject, {getWithDefault, get} from '@ember/object';
+import EmberObject, {getWithDefault, get, computed} from '@ember/object';
 import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
 import {buildUrl, getQueryString} from '../utils/url';
 import fetch from 'fetch';
+import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  * @param {string} [path='']
@@ -17,6 +18,12 @@ function getDiscussionServiceUrl(path = '') {
 export default EmberObject.extend(
 	{
 		wikiVariables: service(),
+		fastboot: service(),
+
+		langPath: computed('fastboot', function () {
+			return getLanguageCodeFromRequest(this.get('fastboot.request'));
+		}),
+
 		/**
 		 * @param {array|string} [categories=[]]
 		 * @param {string} [sortBy='trending']
@@ -42,6 +49,7 @@ export default EmberObject.extend(
 		normalizePostData(threadData) {
 			const creationDate = threadData.creationDate,
 				createdBy = threadData.createdBy,
+				langPath = this.get('langPath'),
 				post = EmberObject.create({
 					categoryName: threadData.forumName,
 					contentImages: null,
@@ -51,6 +59,7 @@ export default EmberObject.extend(
 						id: createdBy.id,
 						name: createdBy.name,
 						profileUrl: buildUrl({
+							langPath,
 							namespace: 'User',
 							title: createdBy.name,
 							relative: true,
