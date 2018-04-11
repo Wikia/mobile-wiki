@@ -4,11 +4,7 @@
 			<div class="wikia-card__title">
 				{{item.title}}
 			</div>
-			{{#if rawSnippet}}
-				<div class="wikia-card__snippet">{{{item.snippet}}}</div>
-			{{else}}
-				<div class="wikia-card__snippet">{{item.snippet}}</div>
-			{{/if}}
+			<div class="wikia-card__snippet">{{item.snippet}}</div>
 		{{/link-to}}
 	</li>
 {{/each}}
