@@ -24,7 +24,7 @@ module('Acceptance | Footer', (hooks) => {
 			.hasText('global-footer-fandom-overview-link-vertical-movies');
 		assert.dom('.wds-is-tv').hasTextContaining('tv');
 		// assert.dom('.wds-global-footer__bottom-bar-row a[href*="Licensing"]').exists();
-		assert.dom('div[role="button"].wds_is_text').hasText('global-footer-full-site-link');
+		assert.dom('div[role="button"].wds-is-text').hasText('global-footer-full-site-link');
 
 	});
 });
