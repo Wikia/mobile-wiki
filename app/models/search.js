@@ -38,6 +38,8 @@ export default EmberObject.extend({
 		if (query) {
 			return this.fetch(query);
 		}
+
+		return this;
 	},
 
 	loadMore() {
