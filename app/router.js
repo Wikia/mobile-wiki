@@ -1,22 +1,34 @@
 import EmberRouter from '@ember/routing/router';
+import {getOwner} from '@ember/application';
 import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 import getLanguageCodeFromRequest from './utils/language';
 
 const Router = EmberRouter.extend(RouterScroll, {
 	location: config.locationType,
-	rootURL: config.rootURL
+	rootURL: config.rootURL,
+
+	_buildDSL() {
+		const dsl = this._super(...arguments);
+		dsl.options.__owner = getOwner(this);
+
+		return dsl;
+	}
 });
 
-function applyLangPath(path) {
-	let langPath = '/:lang_path';
-	if (typeof FastBoot === 'undefined') {
-		langPath = `/${getLanguageCodeFromRequest()}`;
-	}
-	return `${langPath}${path}`;
-}
 
 Router.map(function () {
+	const fastboot = this.options.__owner.lookup('service:fastboot'),
+		applyLangPath = (path) => {
+			const langPath = getLanguageCodeFromRequest(fastboot.get('request'));
+
+			if (langPath) {
+				return `/${langPath}${path}`;
+			}
+
+			return path;
+		};
+
 	this.route('article-preview', {
 		path: applyLangPath('/article-preview')
 	});
