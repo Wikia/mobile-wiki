@@ -7,7 +7,7 @@ import {escapeRegex} from './string';
  */
 export default function getLanguageCodeFromRequest(request = null) {
 	const path = request ? request.get('path') : window.location.pathname,
-		matches = path.match(/^(\/[\w]{2,3}(-[\w]{2,3})?)\//);
+		matches = path.match(/^\/([a-z]{2,3}(?:-[a-z-]{2,12})?)/);
 
 	return matches && matches[1];
 }
