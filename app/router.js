@@ -16,7 +16,6 @@ const Router = EmberRouter.extend(RouterScroll, {
 	}
 });
 
-
 Router.map(function () {
 	const fastboot = this.options.__owner.lookup('service:fastboot'),
 		applyLangPath = (path) => {
