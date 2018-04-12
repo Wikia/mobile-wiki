@@ -61,9 +61,9 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 
 		if (article) {
 			try {
-				comparison = decodeURIComponent(article[5]);
+				comparison = decodeURIComponent(article[4]);
 			} catch (e) {
-				comparison = article[5];
+				comparison = article[4];
 			}
 
 			if (comparison === title && hash) {
@@ -74,9 +74,9 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 			}
 
 			return {
-				article: article[5],
+				article: article[4],
 				url: null,
-				hash: article[6] ? hash : null
+				hash: article[5] ? hash : null
 			};
 		}
 	}
