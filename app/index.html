@@ -18,9 +18,14 @@
 	<i></i>
 </div>
 <script>
-	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
+	if (localStorage.getItem('hasRubikFont')) {
 		document.body.classList.add('rubik');
-	});
+	} else {
+		document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
+			document.body.classList.add('rubik');
+			localStorage.setItem('hasRubikFont', 'true')
+		});
+	}
 </script>
 {{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
