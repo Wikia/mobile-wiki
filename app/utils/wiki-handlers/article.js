@@ -1,7 +1,4 @@
-import {getOwner} from '@ember/application';
 import fetch from '../mediawiki-fetch';
-import {buildUrl} from '../url';
-import getLanguageCodeFromRequest from '../language';
 
 /**
  * @param {Ember.Route} route

@@ -17,7 +17,6 @@ function getDiscussionServiceUrl(path = '') {
 export default EmberObject.extend(
 	{
 		wikiVariables: service(),
-		fastboot: service(),
 		buildUrl: service(),
 
 		/**

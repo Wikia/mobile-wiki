@@ -12,7 +12,6 @@ export default EmberObject.extend({
 	sectionIndex: null,
 
 	wikiVariables: service(),
-	fastboot: service(),
 	buildUrl: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
