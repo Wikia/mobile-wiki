@@ -8,8 +8,6 @@ import wrapMeHelper from '../helpers/wrap-me';
 import fetch from '../utils/mediawiki-fetch';
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
-import {buildUrl} from '../utils/url';
-import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  * Type for search suggestion
@@ -26,7 +24,7 @@ export default Component.extend(
 	{
 		i18n: service(),
 		logger: service(),
-		fastboot: service(),
+		buildUrl: service(),
 		wikiVariables: service(),
 		router: service(),
 
@@ -205,9 +203,8 @@ export default Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(phrase) {
-			return buildUrl({
+			return this.get('buildUrl').build({
 				host: this.get('wikiVariables.host'),
-				langPath: getLanguageCodeFromRequest(this.get('fastboot.request')),
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

@@ -14,12 +14,10 @@ import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
-import {buildUrl} from '../utils/url';
 import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
-import getLanguageCodeFromRequest from '../utils/language';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -35,6 +33,7 @@ export default Route.extend(
 		wikiVariables: service(),
 		liftigniter: service(),
 		lightbox: service(),
+		buildUrl: service(),
 
 		queryParams: {
 			page: {
@@ -100,6 +99,7 @@ export default Route.extend(
 
 			if (model) {
 				const fastboot = this.get('fastboot');
+				const buildUrl = this.get('buildUrl');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -118,7 +118,8 @@ export default Route.extend(
 								model,
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host'),
-								fastboot
+								fastboot,
+								buildUrl
 							});
 						}
 					});
@@ -128,11 +129,8 @@ export default Route.extend(
 					handler.afterModel(this, ...arguments);
 				} else {
 					if (!redirectTo) {
-						const langPath = getLanguageCodeFromRequest(fastboot.get('request'));
-
-						redirectTo = buildUrl({
+						redirectTo = buildUrl.build({
 							host: this.get('wikiVariables.host'),
-							langPath,
 							wikiPage: get(transition, 'params.wiki-page.title'),
 							query: extend(
 								{},

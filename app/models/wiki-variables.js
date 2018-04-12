@@ -1,13 +1,14 @@
 import EmberObject from '@ember/object';
+import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
-	fetch(protocol, host, accessToken, langPath) {
-		const url = buildUrl({
+	buildUrl: service(),
+
+	fetch(protocol, host, accessToken) {
+		const url = this.get('buildUrl').build({
 			host,
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

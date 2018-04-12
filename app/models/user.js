@@ -6,13 +6,13 @@ import config from '../config/environment';
 import fetch from 'fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
-import {buildUrl, getQueryString} from '../utils/url';
+import {getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
-import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	defaultAvatarSize: 100,
 	logger: service(),
+	buildUrl: service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -58,12 +58,11 @@ export default EmberObject.extend({
 		const avatarSize = params.avatarSize || this.defaultAvatarSize,
 			userId = params.userId,
 			host = params.host,
-			accessToken = params.accessToken || '',
-			langPath = params.langPath;
+			accessToken = params.accessToken || '';
 
 		return all([
-			this.loadDetails(host, userId, avatarSize, langPath),
-			this.loadUserInfo(host, accessToken, userId, langPath),
+			this.loadDetails(host, userId, avatarSize),
+			this.loadUserInfo(host, accessToken, userId),
 		]).then(([userDetails, userInfo]) => {
 			const userLanguage = userInfo && userInfo.query.userinfo.options.language;
 
@@ -75,7 +74,7 @@ export default EmberObject.extend({
 			};
 
 			if (userDetails) {
-				out = extend(out, this.sanitizeDetails(userDetails, langPath));
+				out = extend(out, this.sanitizeDetails(userDetails));
 			}
 
 			if (userLanguage) {
@@ -98,13 +97,11 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {number} userId
 	 * @param {number} avatarSize
-	 * @param {string|null} langPath
 	 * @returns {RSVP.Promise}
 	 */
-	loadDetails(host, userId, avatarSize, langPath) {
-		const url = buildUrl({
+	loadDetails(host, userId, avatarSize) {
+		const url = this.get('buildUrl').build({
 			host,
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'UserApi',
@@ -142,13 +139,11 @@ export default EmberObject.extend({
 	 * @param {string} host
 	 * @param {string} accessToken
 	 * @param {number} userId
-	 * @param {string|null} langPath
 	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserInfo(host, accessToken, userId, langPath) {
-		const url = buildUrl({
+	loadUserInfo(host, accessToken, userId) {
+		const url = this.get('buildUrl').build({
 			host,
-			langPath,
 			path: '/api.php',
 			query: {
 				action: 'query',
@@ -181,15 +176,13 @@ export default EmberObject.extend({
 
 	/**
 	 * @param {*} userData
-	 * @param {string|null} langPath
 	 * @returns {Object}
 	 */
-	sanitizeDetails(userData, langPath) {
+	sanitizeDetails(userData) {
 		const data = {
 			name: userData.name,
 			avatarPath: userData.avatar,
-			profileUrl: buildUrl({
-				langPath,
+			profileUrl: this.get('buildUrl').build({
 				namespace: 'User',
 				relative: true,
 				title: userData.name

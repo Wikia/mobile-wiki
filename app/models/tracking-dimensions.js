@@ -2,16 +2,15 @@ import {inject as service} from '@ember/service';
 import EmberObject from '@ember/object';
 import {getFetchErrorMessage, TrackingDimensionsFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
 
 export default EmberObject.extend({
 	fastboot: service(),
 	logger: service(),
+	buildUrl: service(),
 
-	fetch(isAnon, host, title, langPath) {
-		const url = buildUrl({
+	fetch(isAnon, host, title) {
+		const url = this.get('buildUrl').build({
 			host,
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

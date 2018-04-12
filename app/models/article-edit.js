@@ -1,9 +1,8 @@
 import {inject as service} from '@ember/service';
 import EmberObject, {get, computed} from '@ember/object';
-import getEditToken from '../utils/edit-token';
+import {getOwner} from '@ember/application';
+import EditTokenModel from './edit-token';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
-import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
 	content: null,
@@ -14,23 +13,19 @@ export default EmberObject.extend({
 
 	wikiVariables: service(),
 	fastboot: service(),
+	buildUrl: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
-	}),
-
-	langPath: computed('fastboot', function () {
-		return getLanguageCodeFromRequest(this.get('fastboot.request'));
 	}),
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	publish() {
-		const host = this.get('wikiVariables.host'),
-			langPath = this.get('langPath');
+		const host = this.get('wikiVariables.host');
 
-		return getEditToken(host, this.get('title'), langPath)
+		return EditTokenModel.create(getOwner(this).ownerInjection()).fetch(host, this.get('title'))
 			.then((token) => {
 				const formData = new FormData();
 
@@ -41,7 +36,7 @@ export default EmberObject.extend({
 				formData.append('token', token);
 				formData.append('format', 'json');
 
-				return fetch(buildUrl({host, langPath, path: '/api.php'}), {
+				return fetch(this.get('buildUrl').build({host, path: '/api.php'}), {
 					method: 'POST',
 					body: formData,
 				})
@@ -64,9 +59,8 @@ export default EmberObject.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(title, sectionIndex) {
-		return fetch(buildUrl({
+		return fetch(this.get('buildUrl').build({
 			host: this.get('wikiVariables.host'),
-			langPath: this.get('langPath'),
 			path: '/api.php',
 			query: {
 				action: 'query',

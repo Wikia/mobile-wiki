@@ -24,11 +24,11 @@ function afterModel(route, model) {
  *
  * @param {Ember.Object} model
  * @param {String} host
+ * @param {Ember.Service} buildUrl
  */
-function sendLyricsPageView({model, host, langPath}) {
-	fetch(buildUrl({
+function sendLyricsPageView({model, host, buildUrl}) {
+	fetch(buildUrl.build({
 		host,
-		langPath,
 		path: '/wikia.php',
 		query: {
 			controller: 'LyricFind',
@@ -61,12 +61,11 @@ function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
  * @param {number} wikiId
  * @param {String} host
  * @param {{get}} fastboot
+ * @param {Ember.Service} buildUrl
  */
-function afterTransition({model, wikiId, host, fastboot}) {
+function afterTransition({model, wikiId, host, fastboot, buildUrl}) {
 	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
-		const langPath = getLanguageCodeFromRequest(fastboot.get('request'));
-
-		sendLyricsPageView({model, host, langPath});
+		sendLyricsPageView({model, host, buildUrl});
 	}
 }
 

@@ -41,7 +41,7 @@ export default Service.extend({
 	/**
 	 * @returns {RSVP}
 	 */
-	initializeUserData(userId, host = null, langPath) {
+	initializeUserData(userId, host = null) {
 		this.set('userId', userId);
 
 		if (userId !== null) {
@@ -53,8 +53,7 @@ export default Service.extend({
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
-						host,
-						langPath
+						host
 					})
 					.then((userModelData) => {
 						if (userModelData) {

@@ -10,15 +10,14 @@ import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/medi
 import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
-import {buildUrl} from '../utils/url';
-import getLanguageCodeFromRequest from '../utils/language';
 
 /**
  *
+ * @param {Object} buildUrl
  * @param {Object} params
  * @returns {string}
  */
-function getURL(params) {
+function getURL(buildUrl, params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
@@ -47,10 +46,9 @@ function getURL(params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
-	return buildUrl({
+	return buildUrl.build({
 		host: params.host,
 		path: '/wikia.php',
-		langPath: params.langPath,
 		query
 	});
 }
@@ -59,6 +57,7 @@ export default Mixin.create({
 	fastboot: service(),
 	wikiVariables: service(),
 	simpleStore: service(),
+	buildUrl: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -69,9 +68,8 @@ export default Mixin.create({
 		if (isFastBoot || !isInitialPageView) {
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
-			params.langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
 
-			const url = getURL(params);
+			const url = getURL(this.get('buildUrl'), params);
 
 			return fetch(url)
 				.then((response) => {

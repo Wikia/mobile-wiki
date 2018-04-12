@@ -2,11 +2,9 @@ import {isEmpty} from '@ember/utils';
 import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
-import {buildUrl} from '../../utils/url';
-import getLanguageCodeFromRequest from '../../utils/language';
 
 export default BaseModel.extend({
-	fastboot: service(),
+	buildUrl: service(),
 
 	host: null,
 	hasArticle: false,
@@ -22,11 +20,8 @@ export default BaseModel.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPage(page) {
-		const langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
-
-		return fetch(buildUrl({
+		return fetch(this.get('buildUrl').build({
 			host: this.get('host'),
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

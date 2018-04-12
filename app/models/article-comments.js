@@ -1,11 +1,9 @@
 import EmberObject, {observer, get} from '@ember/object';
 import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
-import getLanguageCodeFromRequest from '../utils/language';
 
 export default EmberObject.extend({
-	fastboot: service(),
+	buildUrl: service(),
 
 	articleId: null,
 	host: null,
@@ -48,11 +46,8 @@ export default EmberObject.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		const langPath = getLanguageCodeFromRequest(this.get('fastboot.request'));
-
-		return buildUrl({
+		return this.get('buildUrl').build({
 			host: this.get('host'),
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

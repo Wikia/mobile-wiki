@@ -1,13 +1,14 @@
 import EmberObject from '@ember/object';
+import {inject as service} from '@ember/service';
 import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
 
 export default EmberObject.extend({
-	fetchAll(host, wikiId, language, langPath) {
-		const url = buildUrl({
+	buildUrl: service(),
+
+	fetchAll(host, wikiId, language) {
+		const url = this.get('buildUrl').build({
 			host,
-			langPath,
 			path: '/wikia.php',
 			query: {
 				controller: 'DesignSystemApi',
