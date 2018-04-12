@@ -37,6 +37,7 @@ module('Unit | Component | local wikia search', (hooks) => {
 			assert.ok(
 				buildUrlStub.calledWith({
 					host: 'wikia.com',
+					langPath: null,
 					path: '/wikia.php',
 					query: {
 						controller: 'MercuryApi',

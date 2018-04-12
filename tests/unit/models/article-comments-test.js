@@ -25,6 +25,7 @@ module('Unit | Model | article comments', (hooks) => {
 		model.url(1, 1);
 		assert.ok(stub.calledWith({
 			host: 'wikia.com',
+			langPath: null,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',
