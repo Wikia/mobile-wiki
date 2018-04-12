@@ -2,6 +2,7 @@ import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
+import {htmlSafe} from '@ember/string';
 
 module('Unit | Model | search result page', (hooks) => {
 	setupTest(hooks);
@@ -39,17 +40,17 @@ module('Unit | Model | search result page', (hooks) => {
 				expected: [
 					{
 						prefixedTitle: 'Test',
-						snippet: '<div>html</div>test',
+						snippet: htmlSafe('<div>html</div>test'),
 						title: 'test'
 					},
 					{
 						prefixedTitle: 'Test/1',
-						snippet: '<div>html</div>test',
+						snippet: htmlSafe('<div>html</div>test'),
 						title: 'test sub dir'
 					},
 					{
 						prefixedTitle: 'test_2',
-						snippet: '<div>html</div>test',
+						snippet: htmlSafe('<div>html</div>test'),
 						title: 'test not canonical'
 					}
 				]
@@ -141,7 +142,7 @@ module('Unit | Model | search result page', (hooks) => {
 		assert.deepEqual(search.items, [
 			{
 				prefixedTitle: 'Test',
-				snippet: '<div>html</div>test',
+				snippet: htmlSafe('<div>html</div>test'),
 				title: '1'
 			}
 		]);
@@ -165,17 +166,17 @@ module('Unit | Model | search result page', (hooks) => {
 		assert.deepEqual(search.items, [
 			{
 				prefixedTitle: 'Test',
-				snippet: '<div>html</div>test',
+				snippet: htmlSafe('<div>html</div>test'),
 				title: '1'
 			},
 			{
 				prefixedTitle: 'Test/1',
-				snippet: '<div>html</div>test',
+				snippet: htmlSafe('<div>html</div>test'),
 				title: '2'
 			},
 			{
 				prefixedTitle: 'Test_2',
-				snippet: '<div>html</div>test',
+				snippet: htmlSafe('<div>html</div>test'),
 				title: '3'
 			}
 		]);

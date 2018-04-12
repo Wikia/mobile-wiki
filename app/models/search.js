@@ -4,6 +4,7 @@ import EmberObject, {computed} from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 import {buildUrl, extractEncodedTitle} from '../utils/url';
 import getLanguageCodeFromRequest from '../utils/language';
+import {htmlSafe} from '@ember/string';
 
 export default EmberObject.extend({
 	batch: 1,
@@ -39,6 +40,8 @@ export default EmberObject.extend({
 		if (query) {
 			return this.fetch(query);
 		}
+
+		return this;
 	},
 
 	loadMore() {
@@ -97,7 +100,7 @@ export default EmberObject.extend({
 			items: this.get('items').concat(state.items.map((item) => {
 				return {
 					title: item.title,
-					snippet: item.snippet,
+					snippet: htmlSafe(item.snippet),
 					prefixedTitle: extractEncodedTitle(item.url)
 				};
 			})),

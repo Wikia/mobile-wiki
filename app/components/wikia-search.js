@@ -57,9 +57,10 @@ export default Component.extend(
 		 */
 		updateSuggestions: observer('phrase', function () {
 			// disable suggestions
-			if (!this.get('suggestionsEnabled')) {
+			if (!this.get('suggestionsEnabled') || this.get('isDestroyed')) {
 				return;
 			}
+
 			const phrase = this.get('phrase');
 
 			this.setProperties({
@@ -143,21 +144,23 @@ export default Component.extend(
 				this.set('inputFocused', false);
 			},
 
-			onSuggestionsWrapperClick(event) {
+			onSuggestionsWrapperClick() {
 				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
-
-				if (event.target.closest('.wikia-search__search-suggestion')) {
-					track({
-						action: trackActions.click,
-						category: 'side-nav',
-						label: 'search-open-suggestion-link'
-					});
-				}
 
 				this.setSearchSuggestionItems();
 				if (outsideSuggestionsClickAction) {
-					outsideSuggestionsClickAction(event);
+					outsideSuggestionsClickAction();
 				}
+
+				return true;
+			},
+
+			onSuggestionClick() {
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'search-open-suggestion-link'
+				});
 			}
 		},
 
@@ -166,6 +169,10 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions = []) {
+			if (this.get('isDestroyed')) {
+				return;
+			}
+
 			const phrase = this.get('phrase'),
 				highlightRegexp = new RegExp(`(${escapeRegex(phrase)})`, 'ig'),
 				highlighted = wrapMeHelper.compute(['$1'], {
@@ -226,7 +233,7 @@ export default Component.extend(
 			 * we just ignore this request because the search fn already put the cached
 			 * value into the window.
 			 */
-			if (!phrase || this.hasCachedResult(phrase) || this.requestInProgress(phrase)) {
+			if (!phrase || this.hasCachedResult(phrase) || this.requestInProgress(phrase) || this.get('isDestroyed')) {
 				return;
 			}
 
@@ -235,6 +242,10 @@ export default Component.extend(
 			fetch(uri)
 				.then((response) => {
 					if (response.ok) {
+						if (this.get('isDestroyed')) {
+							return;
+						}
+
 						return response.json().then((data) => {
 							const suggestions = data.items.map((suggestion) => {
 								return EmberObject.create(suggestion);
@@ -268,7 +279,7 @@ export default Component.extend(
 				.catch((reason) => this.get('logger').error('Search suggestions error', reason))
 				.finally(() => {
 					// We have a response, so we're no longer loading the results
-					if (phrase === this.get('phrase')) {
+					if (phrase === this.get('phrase') && !this.get('isDestroyed')) {
 						this.set('isLoadingResultsSuggestions', false);
 					}
 
