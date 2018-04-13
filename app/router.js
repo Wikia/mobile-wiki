@@ -8,6 +8,8 @@ const Router = EmberRouter.extend(RouterScroll, {
 	location: config.locationType,
 	rootURL: config.rootURL,
 
+	// we need to use ember internal API to pass fastboot service to ember Router.map function
+	// it is needed to support wiki language paths
 	_buildDSL() {
 		const dsl = this._super(...arguments);
 		dsl.options.__owner = getOwner(this);
