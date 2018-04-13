@@ -1,21 +1,26 @@
 import {module, test} from 'qunit';
+import Service from '@ember/service';
 import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
-import require from 'require';
-
 import {run} from '@ember/runloop';
 
 let stub;
 
+const buildUrlServiceStub = Service.extend({
+	build() {}
+});
+
 module('Unit | Model | article comments', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(() => {
-		stub = sinon.stub(require('mobile-wiki/utils/url'), 'buildUrl');
+	hooks.beforeEach(function () {
+		this.owner.register('service:buildUrl', buildUrlServiceStub);
+		const buildUrlService = this.owner.lookup('service:buildUrl');
+		stub = sinon.stub(buildUrlService, 'build');
 	});
 
 	hooks.afterEach(() => {
-		require('mobile-wiki/utils/url').buildUrl.restore();
+		stub.restore();
 	});
 
 	test('url creates valid url to a resource', function (assert) {
@@ -25,7 +30,6 @@ module('Unit | Model | article comments', (hooks) => {
 		model.url(1, 1);
 		assert.ok(stub.calledWith({
 			host: 'wikia.com',
-			langPath: null,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

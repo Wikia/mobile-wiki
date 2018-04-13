@@ -1,23 +1,29 @@
 import EmberObject from '@ember/object';
+import Service from '@ember/service';
 import sinon from 'sinon';
 import require from 'require';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');
-const urlModule = require('mobile-wiki/utils/url');
-let trackStub, buildUrlStub, component;
+let trackStub, component, buildUrlStub;
+
+const buildUrlServiceStub = Service.extend({
+	build() {}
+});
 
 module('Unit | Component | local wikia search', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
-		buildUrlStub = sinon.stub(urlModule, 'buildUrl');
 		trackStub = sinon.stub(trackModule, 'track');
 		component = this.owner.factoryFor('component:wikia-search').create();
 		component.set('wikiVariables', {
 			host: 'wikia.com'
 		});
+		this.owner.register('service:buildUrl', buildUrlServiceStub);
+		const buildUrlService = this.owner.lookup('service:buildUrl');
+		buildUrlStub = sinon.stub(buildUrlService, 'build');
 	});
 
 	hooks.afterEach(() => {
@@ -37,7 +43,6 @@ module('Unit | Component | local wikia search', (hooks) => {
 			assert.ok(
 				buildUrlStub.calledWith({
 					host: 'wikia.com',
-					langPath: null,
 					path: '/wikia.php',
 					query: {
 						controller: 'MercuryApi',
