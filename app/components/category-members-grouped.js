@@ -31,7 +31,9 @@ export default Component.extend(
 				this.get('loadPage')(page)
 					.then(() => {
 						run.scheduleOnce('afterRender', this, () => {
-							scrollToTop(this.element);
+							if (!this.get('isDestroyed')) {
+								scrollToTop(this.element);
+							}
 						});
 					})
 					.catch((error) => {

@@ -1,9 +1,12 @@
 import offset from './offset';
 
-export default function (el) {
+/**
+ * Utility to scroll page in such way that provided element is at the top of the screen
+ */
+export default function (element) {
 	const siteHeadContainer = document.querySelector('.site-head-container'),
 		navHeight = siteHeadContainer ? siteHeadContainer.offsetHeight : 0,
-		scrollTop = offset(el).top - navHeight;
+		scrollTop = offset(element).top - navHeight;
 
 	window.scrollTo({
 		top: parseInt(scrollTop, 10),
