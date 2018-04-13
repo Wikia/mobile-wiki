@@ -8,12 +8,12 @@
 	.curated-content-items {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		justify-content: space-around;
 
 		// this pseudoelement lets the last inline item to be justified to the right if it's even
 		&::after {
 			content: '';
-			width: calc(50% - 8px);
+			width: calc(50% - $curated-content-image-spacing);
 		}
 	}
 
