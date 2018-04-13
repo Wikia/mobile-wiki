@@ -6,7 +6,7 @@ import {run} from '@ember/runloop';
 import {getOwner} from '@ember/application';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../utils/track';
-import offset from '../utils/offset';
+import scrollToTop from '../utils/scroll-to-top';
 
 /**
  * Component that displays article comments
@@ -65,7 +65,7 @@ export default Component.extend(
 		 */
 		commentsObserver: observer('model.comments', function () {
 			if (this.get('model.comments')) {
-				this.scrollToTop();
+				scrollToTop(this.element);
 			}
 		}),
 
@@ -109,7 +109,7 @@ export default Component.extend(
 
 			if (page) {
 				this.set('model.page', page);
-				this.scrollToTop();
+				scrollToTop(this.element);
 			}
 		},
 
@@ -141,15 +141,6 @@ export default Component.extend(
 					label: this.get('page') ? 'expanded' : 'collapsed'
 				});
 			}
-		},
-
-		/**
-		 * scrolls to top of article's container, used for pagination
-		 *
-		 * @returns {void}
-		 */
-		scrollToTop() {
-			window.scrollTo(0, offset(this.element).top);
-		},
+		}
 	}
 );
