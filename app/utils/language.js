@@ -1,5 +1,4 @@
-import config from '../config/environment';
-import {escapeRegex} from './string';
+export const langPathRegexp = '(/[a-z]{2,3}(?:-[a-z-]{2,12})?)';
 
 /**
  * @param {Object} request - FastBoot request
@@ -7,7 +6,7 @@ import {escapeRegex} from './string';
  */
 export default function getLanguageCodeFromRequest(request = null) {
 	const path = request ? request.get('path') : window.location.pathname,
-		matches = path.match(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)/);
+		matches = path.match(new RegExp(`^${langPathRegexp}/`));
 
 	return matches && matches[1];
 }

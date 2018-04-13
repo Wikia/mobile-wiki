@@ -1,3 +1,4 @@
+import {langPathRegexp} from './language';
 /**
  * Library to parse links in an article and return information about how to process a given link.
  */
@@ -47,7 +48,7 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 			 *     3: "Kermit_the_Frog"
 			 *     4: "#Kermit_on_Sesame_Street"
 			 */
-			article = local.match(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?(\/(wiki))\/([^#]+)(#.*)?$/);
+			article = local.match(new RegExp(`^${langPathRegexp}?(/(wiki))/([^#]+)(#.*)?$`));
 
 		let comparison;
 

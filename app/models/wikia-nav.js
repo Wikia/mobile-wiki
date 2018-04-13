@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import {reads, or, bool} from '@ember/object/computed';
 import {A} from '@ember/array';
 import EmberObject, {get, computed} from '@ember/object';
+import {langPathRegexp} from '../utils/language';
 
 export default EmberObject.extend({
 	i18n: service(),
@@ -175,7 +176,7 @@ export default EmberObject.extend({
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
-					href: item.href.replace(/^((\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/wiki)?\//i, ''),
+					href: item.href.replace(new RegExp(`^(${langPathRegexp}?/wiki)?/`, 'i'), ''),
 					route: 'wiki-page',
 					name: item.text,
 					index: index + 1,
