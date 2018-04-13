@@ -10,7 +10,11 @@ const Router = EmberRouter.extend(RouterScroll, {
 
 	location: config.locationType,
 	rootURL: computed(function () {
-		return `${this.get('buildUrl.langPath')}/`;
+		const langPath = this.get('buildUrl.langPath');
+		if (langPath) {
+			return `/${langPath}/`;
+		}
+		return '/';
 	})
 });
 
