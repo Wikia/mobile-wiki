@@ -53,6 +53,7 @@
 		}
 
 		.clamp {
+			/* autoprefixer: off */
 			@include clamp(2);
 
 			bottom: 40px;
