@@ -1,5 +1,5 @@
 import {inject as service} from '@ember/service';
-import EmberObject, {getWithDefault, get, computed} from '@ember/object';
+import EmberObject, {getWithDefault, get} from '@ember/object';
 import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';

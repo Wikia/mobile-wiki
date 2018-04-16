@@ -1,4 +1,4 @@
-import EmberObject, {get, computed} from '@ember/object';
+import EmberObject, {get} from '@ember/object';
 import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 
