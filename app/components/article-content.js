@@ -74,7 +74,7 @@ export default Component.extend(
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
 
-				if (!this.get('isPreview')) {
+				if (!this.get('isPreview') && this.get('adsContext')) {
 					this.setupAdsContext(this.get('adsContext'));
 					this.get('ads.module').onReady(() => {
 						if (!this.get('isDestroyed')) {
