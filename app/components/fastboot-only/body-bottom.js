@@ -6,6 +6,7 @@ import config from '../../config/environment';
 import getLanguageCodeFromRequest from '../../utils/language';
 
 export default Component.extend({
+	buildUrl: service(),
 	currentUser: service(),
 	fastboot: service(),
 	tracking: service(),
@@ -50,7 +51,7 @@ export default Component.extend({
 	}),
 
 	asyncScriptsPath: computed(function () {
-		const langPath = getLanguageCodeFromRequest(this.get('fastboot.request')),
+		const langPath = this.get('buildUrl.langPath'),
 			path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
 
 		return langPath ? `${langPath}${path}` : path;

@@ -7,7 +7,7 @@ export default Service.extend({
 	fastboot: service(),
 
 	langPath: computed('fastboot.request', function () {
-		return getLanguageCodeFromRequest(this.get('fastboot.request'));
+		return getLanguageCodeFromRequest(this.get('fastboot.request') || window.location.pathname);
 	}),
 
 	/**
