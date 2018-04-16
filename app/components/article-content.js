@@ -224,8 +224,8 @@ export default Component.extend(
 		 */
 		getTrackingEventLabel(element) {
 			if (element) {
-				// Mind the order -- 'figcaption' check has to be done before '.article-image',
-				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
+				// Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
+				// as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
 				if (element.closest('.portable-infobox')) {
 					return 'portable-infobox-link';
 				} else if (element.closest('.context-link')) {
@@ -234,7 +234,7 @@ export default Component.extend(
 					return 'blockquote-link';
 				} else if (element.closest('figcaption')) {
 					return 'caption-link';
-				} else if (element.closest('.article-image')) {
+				} else if (element.closest('.article-media-thumbnail')) {
 					return 'image-link';
 				}
 
