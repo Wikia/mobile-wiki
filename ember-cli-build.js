@@ -37,7 +37,7 @@ EmberApp.prototype.addonTreesFor = function (type) {
 };
 
 module.exports = function (defaults) {
-	const inlineScriptsPath = 'app/inline-scripts/';
+	const inlineScriptsPath = 'vendor/inline-scripts/';
 	const app = new EmberApp(defaults, {
 		autoprefixer: {
 			cascade: false,
@@ -67,10 +67,9 @@ module.exports = function (defaults) {
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
-			'tracking-nielsen': `${inlineScriptsPath}tracking-nielsen.js`,
 			'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
 			'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
-			'instant-globals': `${inlineScriptsPath}instant-globals.js`,
+			'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
 			lazysizes: `${inlineScriptsPath}lazysizes.js`,
 			'load-ads': `${inlineScriptsPath}load-ads.js`
 		},

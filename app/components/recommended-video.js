@@ -24,10 +24,7 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	didInsertElement() {
-		// FixMe: Remove this method from instant-globals.js
-		// when productizing RecommendedVideo (this is a hacky way to
-		// wait for the ABTest which is loaded with InstantGlobals)
-		window.waitForInstantGlobals(this.setup);
+		window.onABTestLoaded(this.setup);
 	},
 
 	willDestroyElement() {
@@ -91,15 +88,19 @@ export default Component.extend(NoScrollMixin, {
 			this.getVideoData(),
 			jwPlayerAssets.load()
 		]).then(([videoData]) => {
-			this.setProperties({
-				playlistItems: videoData.playlist,
-				playlistItem: videoData.playlist[0]
-			});
-			window.wikiaJWPlayer(
-				'recommended-video-player',
-				this.getPlayerSetup(videoData),
-				this.playerCreated.bind(this)
-			);
+			if (!this.get('isDestroyed')) {
+				const shuffledPlaylist = videoData.playlist.sort(() => 0.5 - Math.random());
+				videoData.playlist = shuffledPlaylist.slice(0, 5);
+				this.setProperties({
+					playlistItems: videoData.playlist,
+					playlistItem: videoData.playlist[0]
+				});
+				window.wikiaJWPlayer(
+					'recommended-video-player',
+					this.getPlayerSetup(videoData),
+					this.playerCreated.bind(this)
+				);
+			}
 		});
 
 		track({
@@ -169,7 +170,7 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	getVideoData() {
-		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}`).then((response) => response.json());
+		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`).then((response) => response.json());
 	},
 
 	expandPlayer(playerInstance) {

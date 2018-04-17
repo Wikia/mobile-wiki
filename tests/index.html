@@ -19,6 +19,7 @@
 
 </head>
 <body>
+{{content-for 'svg-inline'}}
 {{content-for 'body'}}
 {{content-for 'test-body'}}
 <script type="x-head-data-store" id="head-data-store">{}</script>
@@ -26,7 +27,6 @@
 
 <script>
 	window.trackQuantcastPageView = function () {};
-	window.trackNielsenPageView = function () {};
 	window.trackComscorePageView = function () {};
 	window.Wikia = {};
 	window.M.tracker = {};
@@ -41,6 +41,7 @@
 	window.getInstantGlobal = function() {};
 	window.waitForInstantGlobals = function() {};
 	window.waitForAds = function() {};
+	window.liftigniter = function() {};
 </script>
 
 <script src="testem.js" integrity=""></script>

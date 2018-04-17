@@ -11,8 +11,9 @@
 {{#if displayRecirculation}}
 	{{recirculation-prefooter}}
 {{/if}}
-{{#if model.recommendedVideoPlaylist}}
+{{#if wikiVariables.recommendedVideoPlaylist}}
 	{{recommended-video
-		playlistId=model.recommendedVideoPlaylist
+		playlistId=wikiVariables.recommendedVideoPlaylist
+		relatedMediaId=wikiVariables.recommendedVideoRelatedMediaId
 	}}
 {{/if}}
