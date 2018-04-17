@@ -2,6 +2,7 @@ import Service, {inject as service} from '@ember/service';
 import config from '../config/environment';
 import ErrorDescriptor from '../utils/error-descriptor';
 import extend from '../utils/extend';
+import getHostFromRequest from '../utils/host';
 
 /**
  * Elastic Search doesn't play well with arrays of objects
@@ -51,7 +52,7 @@ export default Service.extend({
 				app_version: config.APP.version,
 				datacenter: config.fastbootOnly.wikiaDatacenter,
 				environment: config.wikiaEnv,
-				http_url_domain: request.get('host'),
+				http_url_domain: getHostFromRequest(request),
 				http_url_path: request.get('path'),
 				client_beacon_id: headers.get('x-beacon'),
 				logged_in: headers.get('x-logged-in'),
