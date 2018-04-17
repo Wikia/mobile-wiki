@@ -16,49 +16,40 @@ import {langPathRegexp} from './language';
  * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
  *
  * @param {string} basePath - the base url of the wiki without trailing slash
- *   i.e. http://lastofus.wikia.com or http://halo.bisaacs.wikia-dev
+ *   i.e. http://lastofus.wikia.com or http://halo.bisaacs.wikia-dev.pl
  * @param {string} title - the title of the article, such as David_Michael_Vigil
- * @param {string} hash - jumplink, either '#something' (to indicate
- *   there is a jumplink) or '' or undefined
+ * @param {string} hash - jumplink, either '#something' (to indicate there is a jumplink) or '' or undefined
  * @param {string} uri - the absolute link
  * @param {string} queryString - the query string
  *
  * @returns {LinkInfo}
  */
 export default function getLinkInfo(basePath, title, hash, uri, queryString) {
-	const localPathMatch = uri.match(`^${window.location.origin}(.*)$`);
+	const localPathMatch = uri.match(`^${basePath}(.*)$`);
 
 	// We treat local URLs with query params that aren't handled elsewhere
 	// as external links rather than as articles
 	if (localPathMatch && !queryString) {
-		const local = localPathMatch[1],
+		const local = localPathMatch[1];
 
-			/**
-			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
-			 * because the url will be in that form and there will be a hash
-			 *
-			 * @todo We currently don't handle links to other pages with jump links appended. If input is a
-			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
-			 * there is a #jumplink appended to it.
-			 *
-			 * Example match array for http://muppet.wikia.com/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
-			 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
-			 *     1: "/wiki"
-			 *     2: "wiki"
-			 *     3: "Kermit_the_Frog"
-			 *     4: "#Kermit_on_Sesame_Street"
-			 */
-			article = local.match(new RegExp(`^${langPathRegexp}?(/(wiki))/([^#]+)(#.*)?$`));
+		/**
+		 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
+		 * because the url will be in that form and there will be a hash
+		 *
+		 * @todo We currently don't handle links to other pages with jump links appended. If input is a
+		 * link to another page, we'll simply transition to the top of that page regardless of whether or not
+		 * there is a #jumplink appended to it.
+		 *
+		 * Example match array for http://muppet.wikia.com/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+		 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+		 *     1: "/wiki"
+		 *     2: "wiki"
+		 *     3: "Kermit_the_Frog"
+		 *     4: "#Kermit_on_Sesame_Street"
+		 */
+		const article = local.match(new RegExp(`^${langPathRegexp}?(/(wiki))/([^#]+)(#.*)?$`));
 
 		let comparison;
-
-		// Handle links to main page
-		if (local === '/') {
-			return {
-				article: '',
-				url: basePath + local
-			};
-		}
 
 		if (article) {
 			try {

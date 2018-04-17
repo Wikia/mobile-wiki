@@ -28,6 +28,29 @@ module('Unit | Utility | article link', (hooks) => {
 		});
 	});
 
+	test('getLinkInfo main page (/) links', (assert) => {
+		const testCases = [{
+			basePath: 'https://gta.wikia.com',
+			uri: 'https://gta.wikia.com/',
+			expectedUrl: 'https://gta.wikia.com/'
+		}, {
+			basePath: 'https://gta.wikia.com',
+			uri: 'https://gta.wikia.com/de/',
+			expectedUrl: 'https://gta.wikia.com/de/'
+		}];
+
+		assert.expect(testCases.length);
+
+		testCases.forEach(({basePath, uri, expectedUrl}) => {
+			const info = getLinkInfo(basePath, 'OtherPage', null, uri);
+
+			assert.deepEqual(info, {
+				article: null,
+				url: expectedUrl
+			});
+		});
+	});
+
 	test('getLinkInfo /wiki/ links', (assert) => {
 		// These tests must be in the form current base path + /wiki/name
 		const tests = [

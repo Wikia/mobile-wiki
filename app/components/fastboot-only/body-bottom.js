@@ -3,7 +3,6 @@ import {computed} from '@ember/object';
 import {bool, equal} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import config from '../../config/environment';
-import getLanguageCodeFromRequest from '../../utils/language';
 
 export default Component.extend({
 	buildUrl: service(),
