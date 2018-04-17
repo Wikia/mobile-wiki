@@ -9,6 +9,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
+import scrollToTop from '../utils/scroll-to-top';
 
 /**
  * HTMLElement
@@ -491,10 +492,7 @@ export default Component.extend(
 				this.openSection(reference);
 
 				if (reference) {
-					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
-					const siteHeaderHeight = 60;
-
-					window.scrollTo(0, offsetY - siteHeaderHeight);
+					scrollToTop(reference);
 				}
 			}
 		},
