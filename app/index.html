@@ -18,14 +18,18 @@
 	<i></i>
 </div>
 <script>
-	if (localStorage.getItem('hasRubikFont')) {
-		document.body.classList.add('rubik');
-	} else {
-		document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
-			document.body.classList.add('rubik');
-			localStorage.setItem('hasRubikFont', 'true')
-		});
-	}
+	document.cookie = 'hasRubikFont=true';
+	console.log(document.fonts);
+
+	// if (localStorage.getItem('hasRubikFont')) {
+	// 	document.body.classList.add('rubik');
+	// } else {
+	// 	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
+	// 		document.body.classList.add('rubik');
+	// 		localStorage.setItem('hasRubikFont', 'true');
+	// 		document.cookie = 'hasRubikFont=true';
+	// 	});
+	// }
 </script>
 {{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
