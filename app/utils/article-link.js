@@ -40,12 +40,13 @@ export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 		 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 		 * there is a #jumplink appended to it.
 		 *
-		 * Example match array for http://muppet.wikia.com/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
-		 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
-		 *     1: "/wiki"
-		 *     2: "wiki"
-		 *     3: "Kermit_the_Frog"
-		 *     4: "#Kermit_on_Sesame_Street"
+		 * Example match array for http://muppet.wikia.com/de/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+		 *     0: "/de/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+		 *     1: "/de"
+		 *     2: "/wiki"
+		 *     3: "wiki"
+		 *     4: "Kermit_the_Frog"
+		 *     5: "#Kermit_on_Sesame_Street"
 		 */
 		const article = local.match(new RegExp(`^${langPathRegexp}?(/(wiki))/([^#]+)(#.*)?$`));
 
