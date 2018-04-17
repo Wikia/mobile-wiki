@@ -147,7 +147,10 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	getVideoData() {
-		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`).then((response) => response.json());
+		/* eslint-disable-next-line max-len */
+		const url = `https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`;
+
+		return fetch(url).then((response) => response.json());
 	},
 
 	expandPlayer(playerInstance) {
