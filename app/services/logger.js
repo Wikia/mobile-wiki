@@ -90,10 +90,11 @@ export default Service.extend({
 		this.set('bunyanInstance', instance);
 	},
 
-	addContext(object, message) {
+	addContext(object, message, logLevel) {
 		return extend({
 			'@message': message,
-			event: object
+			event: object,
+			severity: logLevel
 		}, this.get('requestContext'));
 	},
 
@@ -114,7 +115,7 @@ export default Service.extend({
 		if (this.get('fastboot.isFastBoot')) {
 			const extendedObject = logLevel === 'error' ?
 				this.extendError(object, message) :
-				this.addContext(object, message);
+				this.addContext(object, message, logLevel);
 
 			this.get('bunyanInstance')[logLevel](extendedObject, message);
 		} else {
