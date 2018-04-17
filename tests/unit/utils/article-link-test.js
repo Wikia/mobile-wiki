@@ -54,19 +54,24 @@ module('Unit | Utility | article link', (hooks) => {
 	test('getLinkInfo /wiki/ links', (assert) => {
 		// These tests must be in the form current base path + /wiki/name
 		const tests = [
-				'Ellie',
-				'David_Michael_Vigil',
-				'Category:Characters',
-				'Portal:Main',
-				'Special:Videos'
-			],
-			prefix = '/wiki/';
+			'Ellie',
+			'David_Michael_Vigil',
+			'Category:Characters',
+			'Portal:Main',
+			'Special:Videos'
+		];
+		const prefix = '/wiki/';
+		const basePath = 'http://lastofus.wikia.com';
 
 		assert.expect(tests.length * 2);
 		tests.forEach((test) => {
 			// 'pageTitle' is distinct from the tests, we're transitioning from a different page
-			const res = getLinkInfo('http://lastofus.wikia.com', 'pageTitle', '',
-				`${window.location.origin}${prefix}${test}`);
+			const res = getLinkInfo(
+				basePath,
+				'pageTitle',
+				'',
+				`${basePath}${prefix}${test}`
+			);
 
 			assert.equal(res.article, test, 'article should match article passed in');
 			assert.equal(res.url, null, 'url should be null');
@@ -74,31 +79,37 @@ module('Unit | Utility | article link', (hooks) => {
 	});
 
 	test('getLinkInfo links with query params', (assert) => {
-		const linkTitle = 'article',
-			linkHref = `${window.location.origin}/wiki/${linkTitle}`,
-			testCases = [
-				{
-					queryString: '',
-					expectedArticle: linkTitle,
-					expectedUri: null
-				},
-				{
-					queryString: '?action=history',
-					expectedArticle: null,
-					expectedUri: `${linkHref}?action=history`
-				},
-				{
-					queryString: '?curid=509986&diff=6318659&oldid=6318638',
-					expectedArticle: null,
-					expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`
-				}
-			];
+		const basePath = 'http://lastofus.wikia.com';
+		const linkTitle = 'article';
+		const linkHref = `${basePath}/wiki/${linkTitle}`;
+		const testCases = [
+			{
+				queryString: '',
+				expectedArticle: linkTitle,
+				expectedUri: null
+			},
+			{
+				queryString: '?action=history',
+				expectedArticle: null,
+				expectedUri: `${linkHref}?action=history`
+			},
+			{
+				queryString: '?curid=509986&diff=6318659&oldid=6318638',
+				expectedArticle: null,
+				expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`
+			}
+		];
 
 		assert.expect(testCases.length * 2);
 		testCases.forEach((testCase) => {
 			// 'pageTitle' is distinct from the tests, we're transitioning from a different page
-			const result = getLinkInfo('http://lastofus.wikia.com', 'pageTitle', '',
-				`${linkHref}${testCase.queryString}`, testCase.queryString);
+			const result = getLinkInfo(
+				basePath,
+				'pageTitle',
+				'',
+				`${linkHref}${testCase.queryString}`,
+				testCase.queryString
+			);
 
 			assert.equal(result.article, testCase.expectedArticle);
 			assert.equal(result.url, testCase.expectedUri);
@@ -106,9 +117,10 @@ module('Unit | Utility | article link', (hooks) => {
 	});
 
 	test('getLinkInfo jump links', (assert) => {
+		const basePath = 'http://lastofus.wikia.com';
 		const res = getLinkInfo(
-			'http://lastofus.wikia.com',
-			'article', '#hash', `${window.location.origin}/wiki/article#hash`
+			basePath,
+			'article', '#hash', `${basePath}/wiki/article#hash`
 		);
 
 		assert.expect(2);
