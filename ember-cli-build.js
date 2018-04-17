@@ -126,7 +126,7 @@ module.exports = function (defaults) {
 		destDir: 'assets/adengine'
 	});
 	const adProductsAssets = new Funnel('node_modules/@wikia/ad-products/dist', {
-		include: ['*.global.js', '*.css'],
+		include: ['*.global.js'],
 		destDir: 'assets/adengine'
 	});
 

@@ -1,61 +1,25 @@
 import {Promise} from 'rsvp';
 
+const loadScript = (url) => new Promise((resolve) => $script(url, resolve));
+
 export const assetUrls = {
 	adEngineScript: '/mobile-wiki/assets/adengine/ad-engine.global.js',
 	adProductsScript: '/mobile-wiki/assets/adengine/ad-products.global.js',
-	geoScript: '/mobile-wiki/assets/adengine/geo.global.js',
-	adProductsStyles: '/mobile-wiki/assets/adengine/ad-products.css'
+	geoScript: '/mobile-wiki/assets/adengine/geo.global.js'
 };
 
-/**
- * @class JWPlayerAssets
- */
-class AdEngineAssets {
-	constructor() {
-		this.wasStyleLoadInitialized = false;
-		this.scriptsPromise = null;
-	}
+export default {
+	scriptsPromise: null,
 
-	loadStyles() {
-		if (!this.wasStyleLoadInitialized) {
-			const styles = document.createElement('link');
-
-			styles.rel = 'stylesheet';
-			styles.href = assetUrls.adProductsStyles;
-			document.head.appendChild(styles);
-
-			this.wasStyleLoadInitialized = true;
-		}
-	}
-
-	loadScript(url) {
-		return new Promise((resolve) => {
-			window.M.loadScript(url, true, (data) => {
-				resolve(data);
-			});
-		});
-	}
-
-	loadScripts() {
+	load() {
 		if (!this.scriptsPromise) {
-			this.scriptsPromise = Promise.race([
-				this.loadScript(assetUrls.adEngineScript)
-					.then((adEngineData) => Promise.all([
-						Promise.resolve(adEngineData),
-						this.loadScript(assetUrls.adProductsScript)
-					])),
-				this.loadScript(assetUrls.geoScript)
+			this.scriptsPromise = Promise.all([
+				loadScript(assetUrls.adEngineScript)
+					.then(() => loadScript(assetUrls.adProductsScript)),
+				loadScript(assetUrls.geoScript)
 			]);
 		}
 
 		return this.scriptsPromise;
 	}
-
-	load() {
-		this.loadStyles();
-
-		return this.loadScripts();
-	}
-}
-
-export default new AdEngineAssets();
+};
