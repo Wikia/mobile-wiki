@@ -121,6 +121,15 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
+	const adEngineAssets = new Funnel('node_modules/@wikia/ad-engine/dist', {
+		include: ['*.global.js'],
+		destDir: 'assets/adengine'
+	});
+	const adProductsAssets = new Funnel('node_modules/@wikia/ad-products/dist', {
+		include: ['*.global.js', '*.css'],
+		destDir: 'assets/adengine'
+	});
+
 	// Import files from node_modules, they will run both in FastBoot and browser
 	app.import('node_modules/vignette/dist/vignette.js');
 	app.import('vendor/polyfills.js', {prepend: true});
@@ -148,6 +157,8 @@ module.exports = function (defaults) {
 	return app.toTree([
 		designSystemI18n,
 		svgStore,
-		jwPlayerAssets
+		jwPlayerAssets,
+		adEngineAssets,
+		adProductsAssets
 	]);
 };
