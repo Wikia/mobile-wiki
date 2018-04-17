@@ -74,6 +74,8 @@ export default Component.extend(NoScrollMixin, {
 			jwPlayerAssets.load()
 		]).then(([videoData]) => {
 			if (!this.get('isDestroyed')) {
+				const shuffledPlaylist = videoData.playlist.sort(() => 0.5 - Math.random());
+				videoData.playlist = shuffledPlaylist.slice(0, 5);
 				this.setProperties({
 					playlistItems: videoData.playlist,
 					playlistItem: videoData.playlist[0]
@@ -145,7 +147,7 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	getVideoData() {
-		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}`).then((response) => response.json());
+		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`).then((response) => response.json());
 	},
 
 	expandPlayer(playerInstance) {
