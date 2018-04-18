@@ -13,7 +13,7 @@
     "clean": "rm -rf node_modules/ dist/ tmp/",
     "crowdin": "bash ./tasks/download-translations.sh",
     "dev": "ember serve",
-    "fastboot-debug": "ember build && node --inspect --debug-brk ./node_modules/.bin/ember serve --no-build",
+    "fastboot-debug": "bash ./fastboot-debug.sh",
     "fastboot-server": "node fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
