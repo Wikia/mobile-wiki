@@ -10,9 +10,9 @@
 	{{content-for 'head'}}
 	{{content-for 'test-head'}}
 
-	<link rel="stylesheet" href="assets/test-support.css">
-	<link rel="stylesheet" href="assets/app.css">
-	<link rel="stylesheet" href="assets/lazy.css">
+	<link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+	<link rel="stylesheet" href="{{rootURL}}assets/app.css">
+	<link rel="stylesheet" href="{{rootURL}}assets/lazy.css">
 
 	{{content-for 'head-footer'}}
 	{{content-for 'test-head-footer'}}
@@ -43,8 +43,8 @@
 	window.liftigniter = function() {};
 </script>
 
-<script src="testem.js" integrity=""></script>
-<script src="assets/vendor.js"></script>
+<script src="/testem.js" integrity=""></script>
+<script src="{{rootURL}}assets/vendor.js"></script>
 <script>
 	/**
 	 * This is required as tests do use define/require
@@ -54,9 +54,9 @@
 	window.mefine = window.define;
 	window.mequire = window.require;
 </script>
-<script src="assets/test-support.js"></script>
-<script src="assets/mobile-wiki.js"></script>
-<script src="assets/tests.js"></script>
+<script src="{{rootURL}}assets/test-support.js"></script>
+<script src="{{rootURL}}assets/mobile-wiki.js"></script>
+<script src="{{rootURL}}assets/tests.js"></script>
 
 {{content-for 'body-footer'}}
 {{content-for 'test-body-footer'}}
