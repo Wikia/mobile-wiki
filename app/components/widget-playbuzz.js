@@ -12,6 +12,11 @@ export default Component.extend(RenderComponentMixin, {
 		this._super(...arguments);
 
 		const script = document.createElement('script');
+		const playbuzzSDK = document.getElementById('playbuzz-sdk');
+
+		if (playbuzzSDK) {
+			playbuzzSDK.parentNode.removeChild(playbuzzSDK);
+		}
 
 		script.src = 'https://cdn.playbuzz.com/widget/feed.js';
 		document.head.appendChild(script);
