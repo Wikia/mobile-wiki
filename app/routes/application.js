@@ -72,6 +72,8 @@ export default Route.extend(
 							error.additionalData[0].redirectLocation
 						);
 						fastboot.set('response.statusCode', 302);
+					} else {
+						this.get('logger').warn(`wikiVariables error: ${error}`);
 					}
 
 					throw error;
