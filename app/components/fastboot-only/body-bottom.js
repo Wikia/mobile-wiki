@@ -35,7 +35,8 @@ export default Component.extend({
 			'cdnRootUrl',
 			'dbName',
 			'id',
-			'language'
+			'language',
+			'recommendedVideoPlaylist'
 		);
 
 		return JSON.stringify(Object.assign({

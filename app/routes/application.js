@@ -66,13 +66,14 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
-					this.get('logger').warn(`wikiVariables error: ${error}`);
 					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
 							error.additionalData[0].redirectLocation
 						);
 						fastboot.set('response.statusCode', 302);
+					} else {
+						this.get('logger').warn(`wikiVariables error: ${error}`);
 					}
 
 					throw error;
