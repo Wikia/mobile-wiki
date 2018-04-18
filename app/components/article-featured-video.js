@@ -11,6 +11,7 @@ import {transparentImageBase64} from '../utils/thumbnail';
 import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
+import {inGroup} from '../modules/abtest';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
@@ -149,7 +150,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	initVideoPlayer() {
 		const model = this.get('model.embed'),
 			jsParams = {
-				autoplay: window.Cookies.get(this.get('autoplayCookieName')) !== '0',
+				autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY') &&
+							window.Cookies.get(this.get('autoplayCookieName')) !== '0',
 				selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
