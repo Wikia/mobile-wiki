@@ -132,6 +132,7 @@ export function track(params) {
 	const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
 	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
 	const isNonInteractive = params.isNonInteractive !== false;
+	const pvUID = window.pvUID;
 	const {action, label = '', value = 0, trackingMethod = 'both'} = params;
 
 	params = Object.assign({
@@ -139,7 +140,8 @@ export function track(params) {
 		ga_category: category,
 		ga_label: label,
 		ga_value: value,
-		ga_is_nonInteractive: isNonInteractive
+		ga_is_nonInteractive: isNonInteractive,
+		pv_unique_id: pvUID
 	}, params);
 
 	// We rely on ga_* params in both trackers
