@@ -9,6 +9,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
+import scrollToTop from '../utils/scroll-to-top';
 
 /**
  * HTMLElement
@@ -74,7 +75,7 @@ export default Component.extend(
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
 
-				if (!this.get('isPreview')) {
+				if (!this.get('isPreview') && this.get('adsContext')) {
 					this.setupAdsContext(this.get('adsContext'));
 					this.get('ads.module').onReady(() => {
 						if (!this.get('isDestroyed')) {
@@ -224,8 +225,8 @@ export default Component.extend(
 		 */
 		getTrackingEventLabel(element) {
 			if (element) {
-				// Mind the order -- 'figcaption' check has to be done before '.article-image',
-				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
+				// Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
+				// as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
 				if (element.closest('.portable-infobox')) {
 					return 'portable-infobox-link';
 				} else if (element.closest('.context-link')) {
@@ -234,7 +235,7 @@ export default Component.extend(
 					return 'blockquote-link';
 				} else if (element.closest('figcaption')) {
 					return 'caption-link';
-				} else if (element.closest('.article-image')) {
+				} else if (element.closest('.article-media-thumbnail')) {
 					return 'image-link';
 				}
 
@@ -491,10 +492,7 @@ export default Component.extend(
 				this.openSection(reference);
 
 				if (reference) {
-					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
-					const siteHeaderHeight = 60;
-
-					window.scrollTo(0, offsetY - siteHeaderHeight);
+					scrollToTop(reference);
 				}
 			}
 		},

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import offset from '../utils/offset';
+import scrollToTop from '../utils/scroll-to-top';
 
 export default Component.extend({
 	classNames: ['curated-content', 'mw-content'],
@@ -11,15 +11,8 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		openSection(item) {
-			const siteHeadContainer = document.querySelector('.site-head-container'),
-				navHeight = siteHeadContainer ? siteHeadContainer.offsetHeight : 0,
-				scrollTop = offset(this.element).top - navHeight;
-
 			this.set('activeLabel', item.label);
-			window.scroll({
-				top: scrollTop,
-				behavior: 'smooth'
-			});
+			scrollToTop(this.element);
 		},
 
 		closeSection() {
