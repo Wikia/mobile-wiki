@@ -1,0 +1,12 @@
+<h2 section="1" {{action 'openSection'}} class="{{sectionState}}">
+	<div class="section-header-label">
+		{{i18n 'app.view-more'}}
+	</div>
+	{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-small chevron'}}
+</h2>
+<section class="article-content mobile-hidden">
+	{{article-content
+			displayEmptyArticleInfo=false
+			content=fullMainPageContent
+	}}
+</section>
