@@ -8,9 +8,17 @@ export default Component.extend(RenderComponentMixin, {
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement() {
+	didRender() {
 		this._super(...arguments);
 
-		$script(`https://cdn.playbuzz.com/widget/feed.js`);
+		const script = document.createElement('script');
+		const playbuzzSDK = document.getElementById('playbuzz-sdk');
+
+		if (playbuzzSDK) {
+			playbuzzSDK.parentNode.removeChild(playbuzzSDK);
+		}
+
+		script.src = 'https://cdn.playbuzz.com/widget/feed.js';
+		document.head.appendChild(script);
 	}
 });
