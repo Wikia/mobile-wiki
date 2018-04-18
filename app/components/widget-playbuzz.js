@@ -11,6 +11,9 @@ export default Component.extend(RenderComponentMixin, {
 	didRender() {
 		this._super(...arguments);
 
-		$script(`https://cdn.playbuzz.com/widget/feed.js`);
+		const script = document.createElement('script');
+
+		script.src = 'https://cdn.playbuzz.com/widget/feed.js';
+		document.head.appendChild(script);
 	}
 });
