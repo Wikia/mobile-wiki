@@ -28,15 +28,23 @@ module('Unit | Utility | article link', (hooks) => {
 		});
 	});
 
-	test('getLinkInfo main page (/) links', (assert) => {
+	test('getLinkInfo main page links', (assert) => {
 		const testCases = [{
 			basePath: 'https://gta.wikia.com',
 			uri: 'https://gta.wikia.com/',
 			expectedUrl: 'https://gta.wikia.com/'
 		}, {
 			basePath: 'https://gta.wikia.com',
+			uri: 'https://gta.wikia.com/wiki/',
+			expectedUrl: 'https://gta.wikia.com/wiki/'
+		}, {
+			basePath: 'https://gta.wikia.com',
 			uri: 'https://gta.wikia.com/de/',
 			expectedUrl: 'https://gta.wikia.com/de/'
+		}, {
+			basePath: 'https://gta.wikia.com',
+			uri: 'https://gta.wikia.com/de/wiki/',
+			expectedUrl: 'https://gta.wikia.com/de/wiki/'
 		}];
 
 		assert.expect(testCases.length);
