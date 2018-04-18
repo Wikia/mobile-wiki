@@ -8,7 +8,7 @@ export default Component.extend(RenderComponentMixin, {
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement() {
+	didRender() {
 		this._super(...arguments);
 
 		$script(`https://cdn.playbuzz.com/widget/feed.js`);
