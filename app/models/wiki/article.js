@@ -72,10 +72,6 @@ export default BaseModel.extend({
 			if (data.article) {
 				articleProperties.content = data.article.content;
 
-				if (data.article.featuredVideo) {
-					articleProperties.featuredVideo = data.article.featuredVideo;
-				}
-
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
 				}

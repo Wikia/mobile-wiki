@@ -68,6 +68,10 @@ export default EmberObject.extend({
 						redirectEmptyTarget: data.redirectEmptyTarget,
 					});
 				}
+
+				if (data.article.featuredVideo) {
+					pageProperties.featuredVideo = data.article.featuredVideo;
+				}
 			}
 
 			if (data.adsContext) {
