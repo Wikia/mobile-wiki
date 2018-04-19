@@ -179,7 +179,7 @@
 }
 
 // #rubik-font div allows us to lazy load needed fonts
-div.rubik,
+body.rubik,
 #rubik-font {
 	font-family: 'Rubik', $wds-font-family;
 }

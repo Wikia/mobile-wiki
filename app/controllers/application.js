@@ -33,25 +33,13 @@ export default Controller.extend(
 		drawerVisible: false,
 		mobileApp: null,
 		userMenuVisible: false,
-		rubikFont() {
-			const fastboot = this.get('fastboot');
-			const shoebox = fastboot.get('shoebox');
-
-			if (fastboot.get('isFastBoot') && fastboot.get('request.cookies.hasRubikFont')) {
-				shoebox.put('hasRubikFont', true);
-				return 'rubik';
-			} else if (!fastboot.get('isFastBoot') && shoebox.retrieve('hasRubikFont')) {
-				document.cookie = 'hasRubikFont=true';
-				return 'rubik';
-			}
-		},
 
 		/**
 		 * @returns {void}
 		 */
 		init() {
 			this.setProperties({
-				applicationWrapperClassNames: [this.rubikFont()],
+				applicationWrapperClassNames: [],
 				domain: this.get('wikiVariables.dbName') ||
 				window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: this.get('wikiVariables.language')
