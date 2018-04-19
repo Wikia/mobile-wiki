@@ -3,11 +3,13 @@ import {setupTest} from 'ember-qunit';
 
 module('Unit | Service | wiki-urls', (hooks) => {
 	let service;
+	let wikiVariables;
 
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
-		service = this.owner.lookup('service:wiki-urls');
+		service = this.owner.lookup('service:wiki-urls', {signleton: false});
+		wikiVariables = this.owner.lookup('service:wiki-variables');
 	});
 
 	test('test getLanguageCodeFromRequest', (assert) => {
@@ -49,7 +51,9 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 	module('getLinkInfo', () => {
 		test('external paths', (assert) => {
-			// These tests need to not contain the current base path (in the test, that's http://localhost:9876)
+			const basePath = 'http://lastofus.wikia.com';
+			wikiVariables.set('basePath', basePath);
+
 			const tests = [
 				'https://www.google.com/?search=goats',
 				'http://www.ign.com/skrup',
@@ -61,7 +65,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				const match = link.match(/^.*(#.*)$/);
 				// setting hash to mimic the way application route calls this function
 				const hash = match ? match[1] : '';
-				const info = service.getLinkInfo('http://lastofus.wikia.com', 'Ellie', hash, link);
+				const info = service.getLinkInfo('Ellie', hash, link, '');
 
 				assert.equal(info.article, null, 'on external link, article should always be null');
 				assert.equal(info.url, link, 'on external link output url should always be the same as input');
@@ -90,7 +94,8 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			assert.expect(testCases.length);
 
 			testCases.forEach(({basePath, uri, expectedUrl}) => {
-				const info = service.getLinkInfo(basePath, 'OtherPage', null, uri);
+				wikiVariables.set('basePath', basePath);
+				const info = service.getLinkInfo('OtherPage', '', uri, '');
 
 				assert.deepEqual(info, {
 					article: null,
@@ -110,15 +115,16 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			];
 			const prefix = '/wiki/';
 			const basePath = 'http://lastofus.wikia.com';
+			wikiVariables.set('basePath', basePath);
 
 			assert.expect(tests.length * 2);
 			tests.forEach((test) => {
 				// 'pageTitle' is distinct from the tests, we're transitioning from a different page
 				const res = service.getLinkInfo(
-					basePath,
 					'pageTitle',
 					'',
-					`${basePath}${prefix}${test}`
+					`${basePath}${prefix}${test}`,
+					''
 				);
 
 				assert.equal(res.article, test, 'article should match article passed in');
@@ -147,12 +153,12 @@ module('Unit | Service | wiki-urls', (hooks) => {
 					expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`
 				}
 			];
+			wikiVariables.set('basePath', basePath);
 
 			assert.expect(testCases.length * 2);
 			testCases.forEach((testCase) => {
 				// 'pageTitle' is distinct from the tests, we're transitioning from a different page
 				const result = service.getLinkInfo(
-					basePath,
 					'pageTitle',
 					'',
 					`${linkHref}${testCase.queryString}`,
@@ -166,9 +172,10 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 		test('jump links', (assert) => {
 			const basePath = 'http://lastofus.wikia.com';
+			wikiVariables.set('basePath', basePath);
+
 			const res = service.getLinkInfo(
-				basePath,
-				'article', '#hash', `${basePath}/wiki/article#hash`
+				'article', '#hash', `${basePath}/wiki/article#hash`, ''
 			);
 
 			assert.expect(2);

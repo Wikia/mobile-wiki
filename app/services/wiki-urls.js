@@ -4,6 +4,7 @@ import {getQueryString} from '../utils/url';
 
 export default Service.extend({
 	fastboot: service(),
+	wikiVariables: service(),
 
 	langPath: computed('fastboot.request', function () {
 		return this.getLanguageCodeFromRequest(this.get('fastboot.request.path') || window.location.pathname);
@@ -96,16 +97,15 @@ export default Service.extend({
 	 * non-null, then the application should transition to that article. If url is non-null, then the application should
 	 * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
 	 *
-	 * @param {string} basePath - the base url of the wiki without trailing slash
-	 *   i.e. http://lastofus.wikia.com or http://halo.bisaacs.wikia-dev.pl
-	 * @param {string} title - the title of the article, such as David_Michael_Vigil
+	 * @param {string} currentTitle - the title of the current article, such as David_Michael_Vigil
 	 * @param {string} hash - jumplink, either '#something' (to indicate there is a jumplink) or '' or undefined
 	 * @param {string} uri - the absolute link
 	 * @param {string} queryString - the query string
 	 *
 	 * @returns {LinkInfo}
 	 */
-	getLinkInfo(basePath, title, hash, uri, queryString) {
+	getLinkInfo(currentTitle, hash, uri, queryString) {
+		const basePath = this.get('wikiVariables.basePath');
 		const localPathMatch = uri.match(`^${basePath}(.*)$`);
 
 		// We treat local URLs with query params that aren't handled elsewhere
@@ -121,26 +121,23 @@ export default Service.extend({
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 *
-			 * Example match array for http://muppet.wikia.com/de/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
-			 *     0: "/de/wiki/Kermit_the_Frog#Kermit on Sesame Street"
-			 *     1: "/de"
-			 *     2: "/wiki"
-			 *     3: "wiki"
-			 *     4: "Kermit_the_Frog"
-			 *     5: "#Kermit_on_Sesame_Street"
+			 * Example match array for /wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+			 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+			 *     1: "Kermit_the_Frog"
+			 *     2: "#Kermit_on_Sesame_Street"
 			 */
-			const article = local.match(new RegExp(`^${this.get('langPathRegexp')}?(/(wiki))/([^#]+)(#.*)?$`));
+			const article = local.match(new RegExp(`^(?:/wiki)/([^#]+)(#.*)?$`));
 
 			let comparison;
 
 			if (article) {
 				try {
-					comparison = decodeURIComponent(article[4]);
+					comparison = decodeURIComponent(article[1]);
 				} catch (e) {
-					comparison = article[4];
+					comparison = article[1];
 				}
 
-				if (comparison === title && hash) {
+				if (comparison === currentTitle && hash) {
 					return {
 						article: null,
 						url: hash
@@ -148,9 +145,9 @@ export default Service.extend({
 				}
 
 				return {
-					article: article[4],
+					article: article[1],
 					url: null,
-					hash: article[5] ? hash : null
+					hash: article[2] ? hash : null
 				};
 			}
 		}

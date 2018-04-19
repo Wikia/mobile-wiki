@@ -266,7 +266,6 @@ export default Route.extend(
 
 				trackingCategory = target.dataset.trackingCategory;
 				info = this.get('wikiUrls').getLinkInfo(
-					this.get('wikiVariables.basePath'),
 					title,
 					target.hash,
 					target.href,
