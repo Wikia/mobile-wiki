@@ -106,7 +106,7 @@ export default Service.extend({
 	 */
 	getLinkInfo(currentTitle, hash, uri, queryString) {
 		const basePath = this.get('wikiVariables.basePath');
-		const localPathMatch = uri.match(`^${basePath}(.*)$`);
+		const localPathMatch = uri.match(`^${basePath}(?:${this.get('langPath')})(.*)$`);
 
 		// We treat local URLs with query params that aren't handled elsewhere
 		// as external links rather than as articles

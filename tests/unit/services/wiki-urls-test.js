@@ -50,14 +50,15 @@ module('Unit | Service | wiki-urls', (hooks) => {
 	});
 
 	module('getLinkInfo', () => {
-		test('external paths', (assert) => {
+		function testExternalLinks(assert) {
 			const basePath = 'http://lastofus.wikia.com';
 			wikiVariables.set('basePath', basePath);
 
 			const tests = [
 				'https://www.google.com/?search=goats',
 				'http://www.ign.com/skrup',
-				'yahoo.com#yrddd'
+				'yahoo.com#yrddd',
+				'http://lastofus.wikia.com/pl/wiki/Polska_Wiki'
 			];
 
 			assert.expect(tests.length * 2);
@@ -70,25 +71,17 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				assert.equal(info.article, null, 'on external link, article should always be null');
 				assert.equal(info.url, link, 'on external link output url should always be the same as input');
 			});
-		});
+		}
 
-		test('main page links', (assert) => {
+		function testSlashLinks(assert, langPath = '') {
 			const testCases = [{
 				basePath: 'https://gta.wikia.com',
-				uri: 'https://gta.wikia.com/',
-				expectedUrl: 'https://gta.wikia.com/'
+				uri: `https://gta.wikia.com/${langPath}`,
+				expectedUrl: `https://gta.wikia.com/${langPath}`
 			}, {
 				basePath: 'https://gta.wikia.com',
-				uri: 'https://gta.wikia.com/wiki/',
-				expectedUrl: 'https://gta.wikia.com/wiki/'
-			}, {
-				basePath: 'https://gta.wikia.com',
-				uri: 'https://gta.wikia.com/de/',
-				expectedUrl: 'https://gta.wikia.com/de/'
-			}, {
-				basePath: 'https://gta.wikia.com',
-				uri: 'https://gta.wikia.com/de/wiki/',
-				expectedUrl: 'https://gta.wikia.com/de/wiki/'
+				uri: `https://gta.wikia.com/wiki/${langPath}`,
+				expectedUrl: `https://gta.wikia.com/wiki/${langPath}`
 			}];
 
 			assert.expect(testCases.length);
@@ -102,40 +95,37 @@ module('Unit | Service | wiki-urls', (hooks) => {
 					url: expectedUrl
 				});
 			});
-		});
+		}
 
-		test('/wiki/ links', (assert) => {
-			// These tests must be in the form current base path + /wiki/name
-			const tests = [
+		function testLocalLinks(assert, langPath = '') {
+			const testCases = [
 				'Ellie',
 				'David_Michael_Vigil',
 				'Category:Characters',
 				'Portal:Main',
 				'Special:Videos'
 			];
-			const prefix = '/wiki/';
 			const basePath = 'http://lastofus.wikia.com';
 			wikiVariables.set('basePath', basePath);
 
-			assert.expect(tests.length * 2);
-			tests.forEach((test) => {
-				// 'pageTitle' is distinct from the tests, we're transitioning from a different page
+			assert.expect(testCases.length * 2);
+			testCases.forEach((title) => {
 				const res = service.getLinkInfo(
-					'pageTitle',
+					'OtherPage',
 					'',
-					`${basePath}${prefix}${test}`,
+					`${basePath}${langPath}/wiki/${title}`,
 					''
 				);
 
-				assert.equal(res.article, test, 'article should match article passed in');
+				assert.equal(res.article, title, 'article should match title passed in');
 				assert.equal(res.url, null, 'url should be null');
 			});
-		});
+		}
 
-		test('links with query params', (assert) => {
+		function testLinksWithQueryParams(assert, langPath = '') {
 			const basePath = 'http://lastofus.wikia.com';
 			const linkTitle = 'article';
-			const linkHref = `${basePath}/wiki/${linkTitle}`;
+			const linkHref = `${basePath}${langPath}/wiki/${linkTitle}`;
 			const testCases = [
 				{
 					queryString: '',
@@ -168,19 +158,69 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				assert.equal(result.article, testCase.expectedArticle);
 				assert.equal(result.url, testCase.expectedUri);
 			});
-		});
+		}
 
-		test('jump links', (assert) => {
+		function testJumpLinks(assert, langPath = '') {
 			const basePath = 'http://lastofus.wikia.com';
 			wikiVariables.set('basePath', basePath);
 
 			const res = service.getLinkInfo(
-				'article', '#hash', `${basePath}/wiki/article#hash`, ''
+				'article', '#hash', `${basePath}${langPath}/wiki/article#hash`, ''
 			);
 
 			assert.expect(2);
 			assert.equal(res.article, null, 'for jump links article should be null');
 			assert.equal(res.url, '#hash', 'for jump links the url should just be the jump link');
+		}
+
+		module('Wikis without lang path', () => {
+			test('external links', (assert) => {
+				testExternalLinks(assert);
+			});
+
+			test('main slash links', (assert) => {
+				testSlashLinks(assert);
+			});
+
+			test('local links', (assert) => {
+				testLocalLinks(assert);
+			});
+
+			test('links with query params', (assert) => {
+				testLinksWithQueryParams(assert);
+			});
+
+			test('jump links', (assert) => {
+				testJumpLinks(assert);
+			});
+		});
+
+		module('Wikis with lang path', (hooks) => {
+			const langPath = '/zh-hans';
+
+			hooks.beforeEach(function () {
+				service.set('langPath', langPath);
+			});
+
+			test('external links', (assert) => {
+				testExternalLinks(assert);
+			});
+
+			test('main slash links', (assert) => {
+				testSlashLinks(assert, langPath);
+			});
+
+			test('local links', (assert) => {
+				testLocalLinks(assert, langPath);
+			});
+
+			test('links with query params', (assert) => {
+				testLinksWithQueryParams(assert, langPath);
+			});
+
+			test('jump links', (assert) => {
+				testJumpLinks(assert, langPath);
+			});
 		});
 	});
 });
