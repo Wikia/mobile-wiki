@@ -15,7 +15,6 @@ export default EmberObject.extend({
 	totalItems: 0,
 	totalBatches: 0,
 	wikiVariables: service(),
-	fastboot: service(),
 	logger: service(),
 	wikiUrls: service(),
 
