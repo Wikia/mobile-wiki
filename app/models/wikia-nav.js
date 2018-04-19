@@ -178,7 +178,7 @@ export default EmberObject.extend({
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
-					href: item.href.replace(new RegExp(`^(${this.get('wikiUrls.langPathRegexp')}?/wiki)?/`, 'i'), ''),
+					href: item.href.replace(new RegExp(`^(${this.get('wikiUrls.langPathRegexp')}?(/wiki)?)?/`, 'i'), ''),
 					route: 'wiki-page',
 					name: item.text,
 					index: index + 1,

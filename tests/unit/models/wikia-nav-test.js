@@ -42,7 +42,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 
 	const exploreWikisLabelMock = 'global-navigation-wikis-header';
 
-	test('test zero state with values from api', function (assert) {
+	function testZeroState(assert, langPath = '') {
 		const cases = [
 			{
 				mock: {
@@ -73,7 +73,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1'
+						href: `${langPath}/wiki/Test_1`
 					}],
 					exploreWikis: exploreWikisMock,
 					discussionsEnabled: false,
@@ -131,7 +131,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1'
+						href: `${langPath}/wiki/Test_1`
 					}],
 					exploreWikis: exploreWikisMock,
 					discussionsEnabled: true,
@@ -169,7 +169,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					},
 					{
 						type: 'nav-menu-external',
-						href: '/d/f',
+						href: `${langPath}/d/f`,
 						name: 'app.discussions-label',
 						trackCategory: 'discussion',
 						trackLabel: 'local-nav'
@@ -196,7 +196,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: [],
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1'
+						href: `${langPath}/wiki/Test_1`
 					}],
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
@@ -247,7 +247,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: [],
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1'
+						href: `${langPath}/wiki/Test_1`
 					}],
 					exploreWikis: {
 						links: [{
@@ -310,16 +310,16 @@ module('Unit | Model | wikia nav', (hooks) => {
 
 			assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 		});
-	});
+	}
 
-	test('test local sub nav transitions', function (assert) {
+	function testLocalSuvNavTransition(assert, langPath = '') {
 		const cases = [
 			{
 				mock: {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1'
+						href: `${langPath}/wiki/Test_1`
 					}],
 					exploreWikis: exploreWikisMock,
 					exploreWikisLabel: exploreWikisLabelMock,
@@ -346,14 +346,14 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2'
+								href: `${langPath}/wiki/Test_2`
 							}, {
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -392,25 +392,25 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2',
+								href: `${langPath}/wiki/Test_2`,
 								children: [
 									{
 										text: 'Test 2.1',
-										href: '/wiki/Test_2.1'
+										href: `${langPath}/wiki/Test_2.1`
 									},
 									{
 										text: 'Test 2.2',
-										href: '/Test_2.2'
+										href: `${langPath}/Test_2.2`
 									}
 								]
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -456,24 +456,24 @@ module('Unit | Model | wikia nav', (hooks) => {
 			});
 			assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 		});
-	});
+	}
 
-	test('Header value', function (assert) {
+	function testHeaderValue(assert, langPath = '') {
 		const cases = [
 			{
 				mock: {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2'
+								href: `${langPath}/wiki/Test_2`
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -495,15 +495,15 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2'
+								href: `${langPath}/wiki/Test_2`
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -533,24 +533,24 @@ module('Unit | Model | wikia nav', (hooks) => {
 
 			assert.deepEqual(nav.get('header'), testCase.expected, testCase.message);
 		});
-	});
+	}
 
-	test('Parent value', function (assert) {
+	function testParentValue(assert, langPath = '') {
 		const cases = [
 			{
 				mock: {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2'
+								href: `${langPath}/wiki/Test_2`
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -570,15 +570,15 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2'
+								href: `${langPath}/wiki/Test_2`
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -595,25 +595,25 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2',
+								href: `${langPath}/wiki/Test_2`,
 								children: [
 									{
 										text: 'Test 2.1',
-										href: '/wiki/Test_2.1'
+										href: `${langPath}/wiki/Test_2.1`
 									},
 									{
 										text: 'Test 2.2',
-										href: '/Test_2.2'
+										href: `${langPath}/Test_2.2`
 									}
 								]
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -624,25 +624,25 @@ module('Unit | Model | wikia nav', (hooks) => {
 				path: [1],
 				expected: {
 					text: 'Test 1',
-					href: '/wiki/Test_1',
+					href: `${langPath}/wiki/Test_1`,
 					children: [
 						{
 							text: 'Test 2',
-							href: '/wiki/Test_2',
+							href: `${langPath}/wiki/Test_2`,
 							children: [
 								{
 									text: 'Test 2.1',
-									href: '/wiki/Test_2.1'
+									href: `${langPath}/wiki/Test_2.1`
 								},
 								{
 									text: 'Test 2.2',
-									href: '/Test_2.2'
+									href: `${langPath}/Test_2.2`
 								}
 							]
 						},
 						{
 							text: 'Test 3',
-							href: '/wiki/Test_3'
+							href: `${langPath}/wiki/Test_3`
 						}
 					]
 				},
@@ -653,25 +653,25 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2',
+								href: `${langPath}/wiki/Test_2`,
 								children: [
 									{
 										text: 'Test 2.1',
-										href: '/wiki/Test_2.1'
+										href: `${langPath}/wiki/Test_2.1`
 									},
 									{
 										text: 'Test 2.2',
-										href: '/Test_2.2'
+										href: `${langPath}/Test_2.2`
 									}
 								]
 							},
 							{
 								text: 'Test 3',
-								href: '/wiki/Test_3'
+								href: `${langPath}/wiki/Test_3`
 							}
 						]
 					}],
@@ -682,15 +682,15 @@ module('Unit | Model | wikia nav', (hooks) => {
 				path: [1, 1],
 				expected: {
 					text: 'Test 2',
-					href: '/wiki/Test_2',
+					href: `${langPath}/wiki/Test_2`,
 					children: [
 						{
 							text: 'Test 2.1',
-							href: '/wiki/Test_2.1'
+							href: `${langPath}/wiki/Test_2.1`
 						},
 						{
 							text: 'Test 2.2',
-							href: '/Test_2.2'
+							href: `${langPath}/Test_2.2`
 						}
 					]
 				},
@@ -701,35 +701,35 @@ module('Unit | Model | wikia nav', (hooks) => {
 					hubsLinks: hubsLinksMock,
 					localLinks: [{
 						text: 'Test 1',
-						href: '/wiki/Test_1',
+						href: `${langPath}/wiki/Test_1`,
 						children: [
 							{
 								text: 'Test 2',
-								href: '/wiki/Test_2',
+								href: `${langPath}/wiki/Test_2`,
 								children: [
 									{
 										text: 'Test 3',
-										href: '/wiki/Test_3',
+										href: `${langPath}/wiki/Test_3`,
 										children: [
 											{
 												text: 'Test 3.1',
-												href: '/wiki/Test_3.1'
+												href: `${langPath}/wiki/Test_3.1`
 											},
 											{
 												text: 'Test 3.2',
-												href: '/Test_3.2'
+												href: `${langPath}/Test_3.2`
 											}
 										]
 									},
 									{
 										text: 'Test 4',
-										href: '/Test_4'
+										href: `${langPath}/Test_4`
 									}
 								]
 							},
 							{
 								text: 'Test 5',
-								href: '/wiki/Test_5'
+								href: `${langPath}/wiki/Test_5`
 							}
 						]
 					}],
@@ -740,15 +740,15 @@ module('Unit | Model | wikia nav', (hooks) => {
 				path: [1, 1, 1],
 				expected: {
 					text: 'Test 3',
-					href: '/wiki/Test_3',
+					href: `${langPath}/wiki/Test_3`,
 					children: [
 						{
 							text: 'Test 3.1',
-							href: '/wiki/Test_3.1'
+							href: `${langPath}/wiki/Test_3.1`
 						},
 						{
 							text: 'Test 3.2',
-							href: '/Test_3.2'
+							href: `${langPath}/Test_3.2`
 						}
 					]
 				},
@@ -766,6 +766,49 @@ module('Unit | Model | wikia nav', (hooks) => {
 			});
 
 			assert.deepEqual(nav.get('currentLocalNav'), testCase.expected, testCase.message);
+		});
+	}
+
+	module('Wiki without lang path', () => {
+		test('Zero state with values from api', function (assert) {
+			testZeroState.call(this, assert);
+		});
+
+		test('Local sub nav transitions', function (assert) {
+			testLocalSuvNavTransition.call(this, assert);
+		});
+
+		test('Header value', function (assert) {
+			testHeaderValue.call(this, assert);
+		});
+
+		test('Parent value', function (assert) {
+			testParentValue.call(this, assert);
+		});
+	});
+
+	module('Wiki with lang path', (hooks) => {
+		const langPath = '/zh-hans';
+
+		hooks.beforeEach(function () {
+			const wikiUrlsService = this.owner.lookup('service:wiki-urls');
+			wikiUrlsService.set('langPath', langPath);
+		});
+
+		test('Zero state with values from api', function (assert) {
+			testZeroState.call(this, assert, langPath);
+		});
+
+		test('Local sub nav transitions', function (assert) {
+			testLocalSuvNavTransition.call(this, assert, langPath);
+		});
+
+		test('Header value', function (assert) {
+			testHeaderValue.call(this, assert, langPath);
+		});
+
+		test('Parent value', function (assert) {
+			testParentValue.call(this, assert, langPath);
 		});
 	});
 });
