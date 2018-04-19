@@ -13,16 +13,19 @@ module('Acceptance | lang path', (hooks) => {
 
 	hooks.beforeEach(function () {
 		mockFastbootService(this.owner);
-		this.owner.register('service:wikiUrls', wikiUrlsServiceStub);
+		this.owner.register('service:wiki-urls', wikiUrlsServiceStub);
 	});
 
 	test('visiting /pl/wiki/test', async (assert) => {
 		const result = await visit('/pl/wiki/test');
 		assert.ok(result);
+		// Lang path is set as router's rootURL and it should be stripped
+		assert.equal(currentURL(), '/wiki/test');
 	});
 
 	test('visiting /pl/search', async (assert) => {
 		const result = await visit('/pl/search');
 		assert.ok(result);
+		assert.equal(currentURL(), '/search');
 	});
 });
