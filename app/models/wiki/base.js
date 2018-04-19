@@ -59,8 +59,7 @@ export default EmberObject.extend({
 				article = data.article;
 
 				extend(pageProperties, {
-					displayTitle: get(data, 'article.displayTitle'),
-					user: get(data, 'details.revision.user_id')
+					displayTitle: get(data, 'article.displayTitle')
 				});
 
 				if (article.content && article.content.length > 0) {
