@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 import {buildUrl} from '../../utils/url';
+import {logDebug} from '../../modules/event-logger';
 
 export default BaseModel.extend({
 	wikiVariables: service(),
@@ -72,7 +73,19 @@ export default BaseModel.extend({
 			}
 
 			if (data.article) {
-				articleProperties.content = data.article.content;
+				if (typeof FastBoot !== 'undefined') {
+					const process = FastBoot.require('process');
+					const hrstart = process.hrtime();
+					const JSDOM = FastBoot.require("jsdom").JSDOM;
+					const dom = new JSDOM(`<body></body>`);
+					const div = dom.window.document.createElement('div');
+					div.innerHTML = data.article.content;
+					articleProperties.content = div.innerHTML;
+					const hrend = process.hrtime(hrstart);
+					logDebug('jsdom time', hrend[1] / 1000000);
+				} else {
+					articleProperties.content = data.article.content;
+				}
 
 				if (data.article.featuredVideo) {
 					articleProperties.featuredVideo = data.article.featuredVideo;
