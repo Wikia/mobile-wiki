@@ -198,7 +198,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 		module('Wikis with lang path', (hooks) => {
 			const langPath = '/zh-hans';
 
-			hooks.beforeEach(function () {
+			hooks.beforeEach(() => {
 				service.set('langPath', langPath);
 			});
 
