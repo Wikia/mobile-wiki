@@ -4,7 +4,7 @@ import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	wikiVariables: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	/**
 	 * prepare POST request body before sending to API
@@ -17,7 +17,7 @@ export default EmberObject.extend({
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
-		const url = this.get('buildUrl').build({
+		const url = this.get('wikiUrls').build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {

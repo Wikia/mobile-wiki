@@ -4,10 +4,10 @@ import fetch from '../utils/mediawiki-fetch';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	fetch(protocol, host, accessToken) {
-		const url = this.get('buildUrl').build({
+		const url = this.get('wikiUrls').build({
 			host,
 			path: '/wikia.php',
 			query: {

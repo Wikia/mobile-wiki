@@ -24,7 +24,7 @@ export default Component.extend(
 	{
 		i18n: service(),
 		logger: service(),
-		buildUrl: service(),
+		wikiUrls: service(),
 		wikiVariables: service(),
 		router: service(),
 
@@ -203,7 +203,7 @@ export default Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(phrase) {
-			return this.get('buildUrl').build({
+			return this.get('wikiUrls').build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {

@@ -3,10 +3,10 @@ import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	fetch(host, title) {
-		return fetch(this.get('buildUrl').build({
+		return fetch(this.get('wikiUrls').build({
 			host,
 			path: '/api.php',
 			query: {

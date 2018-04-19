@@ -6,11 +6,11 @@ import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 
 const Router = EmberRouter.extend(RouterScroll, {
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	location: config.locationType,
 	rootURL: computed(function () {
-		const langPath = this.get('buildUrl.langPath');
+		const langPath = this.get('wikiUrls.langPath');
 		if (langPath) {
 			return `${langPath}/`;
 		}

@@ -8,7 +8,6 @@ import {run} from '@ember/runloop';
 import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
@@ -26,6 +25,7 @@ export default Route.extend(
 		i18n: service(),
 		lightbox: service(),
 		logger: service(),
+		wikiUrls: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
 
@@ -265,7 +265,7 @@ export default Route.extend(
 				}
 
 				trackingCategory = target.dataset.trackingCategory;
-				info = getLinkInfo(
+				info = this.get('wikiUrls').getLinkInfo(
 					this.get('wikiVariables.basePath'),
 					title,
 					target.hash,

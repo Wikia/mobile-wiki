@@ -17,7 +17,7 @@ export default EmberObject.extend({
 	wikiVariables: service(),
 	fastboot: service(),
 	logger: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -60,7 +60,7 @@ export default EmberObject.extend({
 			loading: true
 		});
 
-		return fetch(this.get('buildUrl').build({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('wikiVariables.host'),
 			path: '/wikia.php',
 			query: {

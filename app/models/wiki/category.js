@@ -4,7 +4,7 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	host: null,
 	hasArticle: false,
@@ -20,7 +20,7 @@ export default BaseModel.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPage(page) {
-		return fetch(this.get('buildUrl').build({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('host'),
 			path: '/wikia.php',
 			query: {

@@ -3,7 +3,7 @@ import {find, findAll, fillIn, triggerEvent, visit, currentURL} from '@ember/tes
 import {setupApplicationTest} from 'ember-qunit';
 import {module, test} from 'qunit';
 
-const buildUrlServiceStub = Service.extend({
+const wikiUrlsServiceStub = Service.extend({
 	langPath: '/pl'
 });
 
@@ -11,7 +11,7 @@ module('Acceptance | lang path', (hooks) => {
 	setupApplicationTest(hooks);
 
 	hooks.beforeEach(function () {
-		this.owner.register('service:buildUrl', buildUrlServiceStub);
+		this.owner.register('service:wikiUrls', wikiUrlsServiceStub);
 	});
 
 	test('visiting /pl/wiki/test', async (assert) => {

@@ -1,5 +1,4 @@
 import config from '../config/environment';
-import {escapeRegex} from './string';
 
 /**
  * Converting and escaping Querystring object to string.
@@ -31,6 +30,15 @@ export function getQueryString(query = {}) {
 
 export function extractEncodedTitle(url) {
 	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
+}
+
+/**
+ * @param {EventTarget} target
+ * @returns {Boolean}
+ */
+export function isHashLink(target) {
+	// We need to use getAttribute because target.href returns whole resolved URL instead of the original value
+	return target.hasAttribute('href') && target.getAttribute('href').indexOf('#') === 0;
 }
 
 export function getOnSiteNotificationsServiceUrl(path = '') {

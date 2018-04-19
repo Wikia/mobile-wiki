@@ -3,7 +3,7 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 	wikiVariables: service(),
 	comments: 0,
 	content: null,
@@ -20,7 +20,7 @@ export default BaseModel.extend({
 	 * @returns {RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		return fetch(this.get('buildUrl').build({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {

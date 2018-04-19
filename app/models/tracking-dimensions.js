@@ -6,10 +6,10 @@ import fetch from '../utils/mediawiki-fetch';
 export default EmberObject.extend({
 	fastboot: service(),
 	logger: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	fetch(isAnon, host, title) {
-		const url = this.get('buildUrl').build({
+		const url = this.get('wikiUrls').build({
 			host,
 			path: '/wikia.php',
 			query: {

@@ -33,7 +33,7 @@ export default Route.extend(
 		wikiVariables: service(),
 		liftigniter: service(),
 		lightbox: service(),
-		buildUrl: service(),
+		wikiUrls: service(),
 
 		queryParams: {
 			page: {
@@ -99,7 +99,7 @@ export default Route.extend(
 
 			if (model) {
 				const fastboot = this.get('fastboot');
-				const buildUrl = this.get('buildUrl');
+				const wikiUrls = this.get('wikiUrls');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -119,7 +119,7 @@ export default Route.extend(
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host'),
 								fastboot,
-								buildUrl
+								wikiUrls
 							});
 						}
 					});
@@ -129,7 +129,7 @@ export default Route.extend(
 					handler.afterModel(this, ...arguments);
 				} else {
 					if (!redirectTo) {
-						redirectTo = buildUrl.build({
+						redirectTo = wikiUrls.build({
 							host: this.get('wikiVariables.host'),
 							wikiPage: get(transition, 'params.wiki-page.title'),
 							query: extend(

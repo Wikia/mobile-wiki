@@ -33,7 +33,7 @@ function getFromCache(browserLang) {
 
 export default EmberObject.extend(LanguagesMixin, {
 	wikiVariables: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	message: null,
 	nativeDomain: null,
@@ -50,7 +50,7 @@ export default EmberObject.extend(LanguagesMixin, {
 		}
 
 		return fetch(
-			this.get('buildUrl').build({
+			this.get('wikiUrls').build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {

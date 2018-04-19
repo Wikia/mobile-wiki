@@ -17,7 +17,7 @@ function getDiscussionServiceUrl(path = '') {
 export default EmberObject.extend(
 	{
 		wikiVariables: service(),
-		buildUrl: service(),
+		wikiUrls: service(),
 
 		/**
 		 * @param {array|string} [categories=[]]
@@ -52,7 +52,7 @@ export default EmberObject.extend(
 						badgePermission: createdBy.badgePermission,
 						id: createdBy.id,
 						name: createdBy.name,
-						profileUrl: this.get('buildUrl').build({
+						profileUrl: this.get('wikiUrls').build({
 							namespace: 'User',
 							title: createdBy.name,
 							relative: true,

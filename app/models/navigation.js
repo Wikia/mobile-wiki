@@ -4,10 +4,10 @@ import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	fetchAll(host, wikiId, language) {
-		const url = this.get('buildUrl').build({
+		const url = this.get('wikiUrls').build({
 			host,
 			path: '/wikia.php',
 			query: {

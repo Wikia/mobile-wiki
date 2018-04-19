@@ -1,3 +1,4 @@
+import {getOwner} from '@ember/application';
 import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
@@ -6,30 +7,42 @@ import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 module('Unit | Model | wikia nav', (hooks) => {
 	setupTest(hooks);
 
-	const hubsLinksMock = [{
-			title: {
-				key: 'global-navigation-fandom-overview-link-vertical-games'
-			},
-			href: 'http://fandom.wikia.com/games',
-			brand: 'games'
-		}],
-		exploreWikisMock = {
-			header: {
-				title: {
-					key: 'global-navigation-wikis-header'
-				}
-			},
-			links: [{
-				title: {
-					key: 'global-navigation-wikis-explore'
-				},
-				href: 'http://fandom.wikia.com/explore',
-				trackingLabel: 'global-navigation-wikis-explore'
-			}]
-		},
-		exploreWikisLabelMock = 'global-navigation-wikis-header';
+	hooks.beforeEach(function () {
+		this.owner.register('test-container:wikia-nav-model', WikiaNavModel, {
+			singleton: false
+		});
 
-	test('test zero state with values from api', (assert) => {
+		this.subject = function () {
+			return this.owner.lookup('test-container:wikia-nav-model');
+		};
+	});
+
+	const hubsLinksMock = [{
+		title: {
+			key: 'global-navigation-fandom-overview-link-vertical-games'
+		},
+		href: 'http://fandom.wikia.com/games',
+		brand: 'games'
+	}];
+
+	const exploreWikisMock = {
+		header: {
+			title: {
+				key: 'global-navigation-wikis-header'
+			}
+		},
+		links: [{
+			title: {
+				key: 'global-navigation-wikis-explore'
+			},
+			href: 'http://fandom.wikia.com/explore',
+			trackingLabel: 'global-navigation-wikis-explore'
+		}]
+	};
+
+	const exploreWikisLabelMock = 'global-navigation-wikis-header';
+
+	test('test zero state with values from api', function (assert) {
 		const cases = [
 			{
 				mock: {
@@ -291,13 +304,15 @@ module('Unit | Model | wikia nav', (hooks) => {
 		];
 
 		cases.forEach((testCase) => {
-			const nav = WikiaNavModel.create(testCase.mock);
+			const nav = this.subject();
+
+			nav.setProperties(testCase.mock);
 
 			assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 		});
 	});
 
-	test('test local sub nav transitions', (assert) => {
+	test('test local sub nav transitions', function (assert) {
 		const cases = [
 			{
 				mock: {
@@ -432,7 +447,9 @@ module('Unit | Model | wikia nav', (hooks) => {
 		];
 
 		cases.forEach((testCase) => {
-			const nav = WikiaNavModel.create(testCase.mock);
+			const nav = this.subject();
+
+			nav.setProperties(testCase.mock);
 
 			testCase.path.forEach((i) => {
 				nav.goToSubNav(i);
@@ -441,7 +458,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 		});
 	});
 
-	test('Header value', (assert) => {
+	test('Header value', function (assert) {
 		const cases = [
 			{
 				mock: {
@@ -506,7 +523,9 @@ module('Unit | Model | wikia nav', (hooks) => {
 		];
 
 		cases.forEach((testCase) => {
-			const nav = WikiaNavModel.create(testCase.mock);
+			const nav = this.subject();
+
+			nav.setProperties(testCase.mock);
 
 			testCase.path.forEach((i) => {
 				nav.goToSubNav(i);
@@ -516,7 +535,7 @@ module('Unit | Model | wikia nav', (hooks) => {
 		});
 	});
 
-	test('Parent value', (assert) => {
+	test('Parent value', function (assert) {
 		const cases = [
 			{
 				mock: {
@@ -738,7 +757,9 @@ module('Unit | Model | wikia nav', (hooks) => {
 		];
 
 		cases.forEach((testCase) => {
-			const nav = WikiaNavModel.create(testCase.mock);
+			const nav = this.subject();
+
+			nav.setProperties(testCase.mock);
 
 			testCase.path.forEach((i) => {
 				nav.goToSubNav(i);

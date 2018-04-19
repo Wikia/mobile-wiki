@@ -21,10 +21,10 @@ function afterModel(route, model) {
  *
  * @param {Ember.Object} model
  * @param {String} host
- * @param {Ember.Service} buildUrl
+ * @param {Ember.Service} wikiUrls
  */
-function sendLyricsPageView({model, host, buildUrl}) {
-	fetch(buildUrl.build({
+function sendLyricsPageView({model, host, wikiUrls}) {
+	fetch(wikiUrls.build({
 		host,
 		path: '/wikia.php',
 		query: {
@@ -58,11 +58,11 @@ function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
  * @param {number} wikiId
  * @param {String} host
  * @param {{get}} fastboot
- * @param {Ember.Service} buildUrl
+ * @param {Ember.Service} wikiUrls
  */
-function afterTransition({model, wikiId, host, fastboot, buildUrl}) {
+function afterTransition({model, wikiId, host, fastboot, wikiUrls}) {
 	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
-		sendLyricsPageView({model, host, buildUrl});
+		sendLyricsPageView({model, host, wikiUrls});
 	}
 }
 

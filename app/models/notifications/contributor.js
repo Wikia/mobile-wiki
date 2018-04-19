@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import {inject as service} from '@ember/service';
 
 const DiscussionContributor = EmberObject.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	avatarUrl: null,
 	badgePermission: null,
@@ -19,7 +19,7 @@ DiscussionContributor.reopenClass({
 	 * @returns {string}
 	 */
 	getProfileUrl(name) {
-		return this.get('buildUrl').build({
+		return this.get('wikiUrls').build({
 			namespace: 'User',
 			relative: true,
 			title: name

@@ -3,7 +3,7 @@ import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	articleId: null,
 	host: null,
@@ -46,7 +46,7 @@ export default EmberObject.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return this.get('buildUrl').build({
+		return this.get('wikiUrls').build({
 			host: this.get('host'),
 			path: '/wikia.php',
 			query: {

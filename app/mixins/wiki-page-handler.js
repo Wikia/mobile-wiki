@@ -13,11 +13,11 @@ import extend from '../utils/extend';
 
 /**
  *
- * @param {Object} buildUrl
+ * @param {Object} wikiUrls
  * @param {Object} params
  * @returns {string}
  */
-function getURL(buildUrl, params) {
+function getURL(wikiUrls, params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
@@ -46,7 +46,7 @@ function getURL(buildUrl, params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
-	return buildUrl.build({
+	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',
 		query
@@ -57,7 +57,7 @@ export default Mixin.create({
 	fastboot: service(),
 	wikiVariables: service(),
 	simpleStore: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -69,7 +69,7 @@ export default Mixin.create({
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
 
-			const url = getURL(this.get('buildUrl'), params);
+			const url = getURL(this.get('wikiUrls'), params);
 
 			return fetch(url)
 				.then((response) => {

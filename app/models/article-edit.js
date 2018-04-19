@@ -12,7 +12,7 @@ export default EmberObject.extend({
 	sectionIndex: null,
 
 	wikiVariables: service(),
-	buildUrl: service(),
+	wikiUrls: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
@@ -35,7 +35,7 @@ export default EmberObject.extend({
 				formData.append('token', token);
 				formData.append('format', 'json');
 
-				return fetch(this.get('buildUrl').build({host, path: '/api.php'}), {
+				return fetch(this.get('wikiUrls').build({host, path: '/api.php'}), {
 					method: 'POST',
 					body: formData,
 				})
@@ -58,7 +58,7 @@ export default EmberObject.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(title, sectionIndex) {
-		return fetch(this.get('buildUrl').build({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {

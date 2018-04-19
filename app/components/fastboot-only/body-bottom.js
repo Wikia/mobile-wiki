@@ -5,7 +5,7 @@ import {inject as service} from '@ember/service';
 import config from '../../config/environment';
 
 export default Component.extend({
-	buildUrl: service(),
+	wikiUrls: service(),
 	currentUser: service(),
 	fastboot: service(),
 	tracking: service(),
@@ -51,7 +51,7 @@ export default Component.extend({
 	}),
 
 	asyncScriptsPath: computed(function () {
-		const langPath = this.get('buildUrl.langPath'),
+		const langPath = this.get('wikiUrls.langPath'),
 			path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
 
 		return langPath ? `${langPath}${path}` : path;

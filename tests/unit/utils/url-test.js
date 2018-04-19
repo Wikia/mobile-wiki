@@ -61,4 +61,34 @@ module('Unit | Utility | url', (hooks) => {
 	test('wiki as title', (assert) => {
 		assert.equal(extractEncodedTitle('/wiki'), 'wiki');
 	});
+
+	test('isHashLink', (assert) => {
+		const testCases = [
+			{
+				href: 'http://google.com',
+				expected: false
+			},
+			{
+				href: '#Section',
+				expected: true
+			},
+			{
+				href: '/wiki/Kermit#Section',
+				expected: false
+			},
+			{
+				expected: false
+			}
+		];
+		const isHashLink = require('mobile-wiki/utils/url').isHashLink;
+
+		testCases.forEach((testCase) => {
+			const result = isHashLink({
+				hasAttribute: () => testCase.hasOwnProperty('href'),
+				getAttribute: () => testCase.href
+			});
+
+			assert.equal(result, testCase.expected);
+		});
+	});
 });
