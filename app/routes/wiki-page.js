@@ -83,7 +83,11 @@ export default Route.extend(
 			};
 
 			if (params.page) {
-				modelParams.page = params.page;
+				if (params.page <= 0) {
+					modelParams.page = 1;
+				} else {
+					modelParams.page = params.page;
+				}
 			}
 
 			return resolve(this.getPageModel(modelParams));
