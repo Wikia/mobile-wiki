@@ -3,9 +3,10 @@ import {computed} from '@ember/object';
 
 export default Component.extend({
 	classNames: ['full-main-page-content'],
+	openSection: false,
 	actions: {
 		openSection() {
-			this.set('openSection', !this.get('openSection'));
+			this.toggleProperty('openSection');
 		},
 	}
 });
