@@ -51,6 +51,7 @@ export default class JWPlayer extends BasePlayer {
 
 	initializePlayer(bidParams) {
 		const containerId = this.params.containerId;
+		const initialPath = window.location.pathname;
 
 		if (!document.getElementById(containerId)) {
 			return;
@@ -61,6 +62,8 @@ export default class JWPlayer extends BasePlayer {
 			{
 				tracking: {
 					track(data) {
+						const path = window.location.pathname;
+
 						data.trackingMethod = 'both';
 
 						/**
@@ -68,7 +71,7 @@ export default class JWPlayer extends BasePlayer {
 						 * if video player is not in DOM - probably user navigated to another page
 						 * do not call tracking function in such case
 						 */
-						if (document.getElementById(containerId)) {
+						if (document.getElementById(containerId) && path === initialPath) {
 							track(data);
 						}
 					},
