@@ -15,10 +15,7 @@ module('Unit | Component | article comments', (hooks) => {
 				model: {
 					pagesCount: 3
 				},
-				page: 2,
-
-				scrollToTop() {
-				}
+				page: 2
 			});
 		});
 
