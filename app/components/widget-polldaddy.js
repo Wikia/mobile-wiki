@@ -9,7 +9,7 @@ export default Component.extend(RenderComponentMixin, {
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement() {
+	didRender() {
 		this._super(...arguments);
 
 		/**
@@ -25,7 +25,9 @@ export default Component.extend(RenderComponentMixin, {
 	 */
 	loadScript() {
 		const id = this.get('data.id');
+		const script = document.createElement('script');
 
-		$script(`//static.polldaddy.com/p/${id}.js`);
+		script.src = `//static.polldaddy.com/p/${id}.js`;
+		document.head.appendChild(script);
 	},
 });
