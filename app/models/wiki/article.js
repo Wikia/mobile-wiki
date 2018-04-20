@@ -10,7 +10,6 @@ export default BaseModel.extend({
 	curatedMainPageData: null,
 	featuredVideo: null,
 	hasPortableInfobox: false,
-	recommendedVideoPlaylist: null,
 	isCuratedMainPage: false,
 	isMainPage: false,
 	user: null,
@@ -66,7 +65,6 @@ export default BaseModel.extend({
 
 				articleProperties = {
 					comments: details.comments,
-					user: details.revision.user_id,
 					details
 				};
 			}
@@ -74,16 +72,8 @@ export default BaseModel.extend({
 			if (data.article) {
 				articleProperties.content = data.article.content;
 
-				if (data.article.featuredVideo) {
-					articleProperties.featuredVideo = data.article.featuredVideo;
-				}
-
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
-				}
-
-				if (data.article.recommendedVideoPlaylist) {
-					articleProperties.recommendedVideoPlaylist = data.article.recommendedVideoPlaylist;
 				}
 
 				if (data.article.heroImage) {

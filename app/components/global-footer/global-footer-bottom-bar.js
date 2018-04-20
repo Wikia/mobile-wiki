@@ -14,6 +14,8 @@ export default Component.extend({
 				domain: config.cookieDomain,
 				path: '/'
 			});
+
+			window.location.reload();
 		}
 	}
 });

@@ -41,7 +41,8 @@ module.exports = function (defaults) {
 	const app = new EmberApp(defaults, {
 		autoprefixer: {
 			cascade: false,
-			map: false
+			map: false,
+			remove: false
 		},
 		derequire: {
 			patterns: [
