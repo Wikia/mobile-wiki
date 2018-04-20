@@ -62,12 +62,6 @@ function verifyArticle(model, article, assert) {
 		`expected content=${articleData.article.content}, got ${model.get('content')}`
 	);
 
-	assert.equal(
-		model.get('user'),
-		articleData.article.user,
-		`expected user=${articleData.article.user}, got ${model.get('user')}`
-	);
-
 	assert.deepEqual(
 		model.get('categories'),
 		articleData.categories,
