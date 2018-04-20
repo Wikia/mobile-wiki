@@ -65,17 +65,12 @@ export default BaseModel.extend({
 
 				articleProperties = {
 					comments: details.comments,
-					user: details.revision.user_id,
 					details
 				};
 			}
 
 			if (data.article) {
 				articleProperties.content = data.article.content;
-
-				if (data.article.featuredVideo) {
-					articleProperties.featuredVideo = data.article.featuredVideo;
-				}
 
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
