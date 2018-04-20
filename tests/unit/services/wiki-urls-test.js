@@ -51,7 +51,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 	module('buildUrl', (hooks) => {
 		hooks.beforeEach(() => {
-			wikiVariables.set('host', 'glee.wikia.com');
+			wikiUrls.getCurrentHost = () => 'glee.wikia.com';
 		});
 
 		function testBuildUrl(assert, langPath = '') {

@@ -12,6 +12,10 @@ export default Service.extend({
 
 	langPathRegexp: '(/[a-z]{2,3}(?:-[a-z-]{2,12})?)',
 
+	getCurrentHost() {
+		return this.get('fastboot.request.host') || window.location.hostname;
+	},
+
 	getLanguageCodeFromRequest(path) {
 		const matches = path.match(new RegExp(`^${this.get('langPathRegexp')}/`));
 
@@ -40,7 +44,7 @@ export default Service.extend({
 	build(urlParams) {
 		const host = urlParams.host;
 		const langPath = this.get('langPath');
-		const currentHost = this.get('wikiVariables.host');
+		const currentHost = this.getCurrentHost();
 
 		if (!urlParams.protocol) {
 			if (window && window.location && window.location.protocol) {
