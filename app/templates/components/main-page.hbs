@@ -15,6 +15,9 @@
 	{{#if curatedContent}}
 		{{curated-content model=curatedContent}}
 	{{/if}}
+	{{#if fullMainPageContent}}
+		{{full-main-page-content content=fullMainPageContent}}
+	{{/if}}
 	{{#if trendingArticles}}
 		{{trending-articles
 			header=(i18n 'app.trending-articles-label')
@@ -23,9 +26,5 @@
 	{{/if}}
 	{{#if trendingVideos}}
 		{{trending-videos model=trendingVideos}}
-	{{/if}}
-
-	{{#if fullMainPageContent}}
-		{{full-main-page-content content=fullMainPageContent}}
 	{{/if}}
 </div>
