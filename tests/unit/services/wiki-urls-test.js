@@ -2,13 +2,13 @@ import {module, test} from 'qunit';
 import {setupTest} from 'ember-qunit';
 
 module('Unit | Service | wiki-urls', (hooks) => {
-	let service;
+	let wikiUrls;
 	let wikiVariables;
 
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
-		service = this.owner.lookup('service:wiki-urls', {signleton: false});
+		wikiUrls = this.owner.lookup('service:wiki-urls', {singleton: false});
 		wikiVariables = this.owner.lookup('service:wiki-variables');
 	});
 
@@ -45,7 +45,127 @@ module('Unit | Service | wiki-urls', (hooks) => {
 		];
 
 		testCases.forEach((testCase) => {
-			assert.equal(service.getLanguageCodeFromRequest(testCase.path), testCase.expectedLangPath);
+			assert.equal(wikiUrls.getLanguageCodeFromRequest(testCase.path), testCase.expectedLangPath);
+		});
+	});
+
+	module('buildUrl', (hooks) => {
+		hooks.beforeEach(() => {
+			wikiVariables.set('host', 'glee.wikia.com');
+		});
+
+		function testBuildUrl(assert, langPath = '') {
+			const testCases = [
+				{
+					urlParams: {
+						host: 'glee.wikia.com'
+					},
+					expectedOutput: `http://glee.wikia.com${langPath}`
+				},
+				{
+					urlParams: {
+						host: 'www.wikia.com',
+						path: '/login'
+					},
+					expectedOutput: 'http://www.wikia.com/login'
+				},
+				{
+					urlParams: {
+						host: 'www.wikia.com',
+						path: '/login',
+						query: {
+							abc: '123',
+							redirect: '/somePage'
+						}
+					},
+					expectedOutput: 'http://www.wikia.com/login?abc=123&redirect=%2FsomePage'
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						namespace: 'User',
+						title: 'Testusername'
+					},
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:Testusername`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						title: 'Jeff'
+					},
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/Jeff`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						protocol: 'https',
+					},
+					expectedOutput: `https://glee.wikia.com${langPath}`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						namespace: 'User',
+						title: 'IsDamian??'
+					},
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:IsDamian%3F%3F`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						protocol: 'https',
+						namespace: 'Special',
+						title: 'NewFiles'
+					},
+					expectedOutput: `https://glee.wikia.com${langPath}/wiki/Special:NewFiles`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						protocol: 'https',
+						path: '/uno/due/tre'
+					},
+					expectedOutput: `https://glee.wikia.com${langPath}/uno/due/tre`
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						protocol: 'https',
+						path: '/sratatata',
+						query: {
+							simple: 'string',
+							complex: '1yry3!@##@$4234_423 423zo42&56'
+						}
+					},
+					expectedOutput: `https://glee.wikia.com${langPath}/sratatata?simple=` +
+									'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
+				},
+				{
+					urlParams: {
+						host: 'glee.wikia.com',
+						query: {
+							'Gzeg?zolka': '& &'
+						}
+					},
+					expectedOutput: `http://glee.wikia.com${langPath}?Gzeg%3Fzolka=%26%20%26`
+				}
+			];
+
+			testCases.forEach((testCase) => {
+				assert.equal(
+					wikiUrls.build(testCase.urlParams),
+					testCase.expectedOutput
+				);
+			});
+		}
+
+		test('Wikis without lang path', (assert) => {
+			testBuildUrl(assert);
+		});
+
+		test('Wikis with lang path', (assert) => {
+			wikiUrls.set('langPath', '/zh-hans');
+			testBuildUrl(assert, '/zh-hans');
 		});
 	});
 
@@ -66,7 +186,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				const match = link.match(/^.*(#.*)$/);
 				// setting hash to mimic the way application route calls this function
 				const hash = match ? match[1] : '';
-				const info = service.getLinkInfo('Ellie', hash, link, '');
+				const info = wikiUrls.getLinkInfo('Ellie', hash, link, '');
 
 				assert.equal(info.article, null, 'on external link, article should always be null');
 				assert.equal(info.url, link, 'on external link output url should always be the same as input');
@@ -88,7 +208,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 			testCases.forEach(({basePath, uri, expectedUrl}) => {
 				wikiVariables.set('basePath', basePath);
-				const info = service.getLinkInfo('OtherPage', '', uri, '');
+				const info = wikiUrls.getLinkInfo('OtherPage', '', uri, '');
 
 				assert.deepEqual(info, {
 					article: null,
@@ -110,7 +230,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 			assert.expect(testCases.length * 2);
 			testCases.forEach((title) => {
-				const res = service.getLinkInfo(
+				const res = wikiUrls.getLinkInfo(
 					'OtherPage',
 					'',
 					`${basePath}${langPath}/wiki/${title}`,
@@ -148,7 +268,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			assert.expect(testCases.length * 2);
 			testCases.forEach((testCase) => {
 				// 'pageTitle' is distinct from the tests, we're transitioning from a different page
-				const result = service.getLinkInfo(
+				const result = wikiUrls.getLinkInfo(
 					'pageTitle',
 					'',
 					`${linkHref}${testCase.queryString}`,
@@ -164,7 +284,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			const basePath = 'http://lastofus.wikia.com';
 			wikiVariables.set('basePath', basePath);
 
-			const res = service.getLinkInfo(
+			const res = wikiUrls.getLinkInfo(
 				'article', '#hash', `${basePath}${langPath}/wiki/article#hash`, ''
 			);
 
@@ -199,7 +319,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			const langPath = '/zh-hans';
 
 			hooks.beforeEach(() => {
-				service.set('langPath', langPath);
+				wikiUrls.set('langPath', langPath);
 			});
 
 			test('external links', (assert) => {

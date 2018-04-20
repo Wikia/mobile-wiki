@@ -40,6 +40,7 @@ export default Service.extend({
 	build(urlParams) {
 		const host = urlParams.host;
 		const langPath = this.get('langPath');
+		const currentHost = this.get('wikiVariables.host');
 
 		if (!urlParams.protocol) {
 			if (window && window.location && window.location.protocol) {
@@ -59,7 +60,7 @@ export default Service.extend({
 			url += `${urlParams.protocol}://${host}`;
 		}
 
-		if (langPath) {
+		if (host === currentHost && langPath) {
 			url += langPath;
 		}
 
