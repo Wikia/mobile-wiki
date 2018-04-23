@@ -83,7 +83,7 @@ export default Route.extend(
 			};
 
 			if (params.page) {
-				modelParams.page = params.page;
+				modelParams.page = Math.max(1, params.page);
 			}
 
 			return resolve(this.getPageModel(modelParams));
