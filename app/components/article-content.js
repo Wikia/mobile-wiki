@@ -546,7 +546,12 @@ export default Component.extend(
 		},
 
 		uncollapseSections() {
-			toArray(this.element.querySelectorAll('h2[section]')).forEach((header) => this.toogleCollapsibleSection(header));
+			toArray(this.element.querySelectorAll('h2[section]'))
+				.forEach((header) => {
+					if (!header.classList.contains('open-section')) {
+						this.toogleCollapsibleSection(header);
+					}
+				});
 		}
 	}
 );
