@@ -3,6 +3,8 @@ import config from '../config/environment';
 import extend from '../utils/extend';
 
 function getBaseDomain(wikiaEnv, request) {
+	// x-staging is e.g. 'sandbox-s1' or 'preview'
+	// it's set in https://github.com/Wikia/wikia-vcl/blob/master/wikia.com/control-stage.vcl
 	const staging = request.get('headers').get('x-staging');
 
 	if (wikiaEnv === 'dev') {

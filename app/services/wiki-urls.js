@@ -20,9 +20,8 @@ export default Service.extend({
 	},
 
 	/**
-	 * This function constructs a URL given pieces of a typical Wikia URL. All URL
-	 * parts are optional. Passing in empty params will output the root index URL
-	 * of the current host.
+	 * This function constructs a URL given pieces of a typical Wikia URL.
+	 * If the current wiki has a lang path (e.g. glee.wikia.com/pl/) then it will be added to all local URLs
 	 *
 	 * Some example parameters and results:
 	 *
