@@ -17,11 +17,7 @@
 	<b></b>
 	<i></i>
 </div>
-<script>
-	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
-		document.body.classList.add('rubik');
-	});
-</script>
+{{content-for 'rubik-font'}}
 {{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
