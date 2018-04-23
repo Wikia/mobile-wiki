@@ -364,6 +364,10 @@ class Ads {
 		return !!document.querySelector('.wds-global-footer');
 	}
 
+	isArticleSectionCollapsed() {
+		return this.adsContext && this.adsContext.opts && this.adsContext.opts.mobileSectionsCollapse;
+	}
+
 	setupSlotsContext() {
 		if (!this.slotsContext) {
 			return;
