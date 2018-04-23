@@ -2,18 +2,16 @@ import {isBlank} from '@ember/utils';
 import config from '../config/environment';
 import extend from '../utils/extend';
 
-const productionBaseDomain = config.wikiaBaseDomain;
-
 function getBaseDomain(wikiaEnv, request) {
 	const staging = request.get('headers').get('x-staging');
 
 	if (wikiaEnv === 'dev') {
 		return FastBoot.require('process').env.WIKIA_DEV_DOMAIN;
 	} else if (staging) {
-		return `${staging}.${productionBaseDomain}`;
+		return `${staging}.${config.productionBaseDomain}`;
 	}
 
-	return productionBaseDomain;
+	return config.productionBaseDomain;
 }
 
 function getServicesDomain(wikiaEnv, datacenter) {
@@ -23,7 +21,7 @@ function getServicesDomain(wikiaEnv, datacenter) {
 		return `services.wikia-dev.${devDomain}`;
 	}
 
-	return `services.${productionBaseDomain}`;
+	return `services.${config.productionBaseDomain}`;
 }
 
 function getHeliosInfoURL(wikiaEnv, datacenter) {

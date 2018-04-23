@@ -7,7 +7,7 @@ module.exports = function (environment) {
 		facebook: {
 			appId: '112328095453510'
 		},
-		wikiaBaseDomain: 'wikia.com',
+		productionBaseDomain: 'wikia.com',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {

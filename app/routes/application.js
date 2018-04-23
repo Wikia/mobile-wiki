@@ -297,7 +297,10 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					const domainRegex = new RegExp(
+						`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.productionBaseDomain)}\\/.*$`
+					);
+
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {
