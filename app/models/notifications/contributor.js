@@ -7,7 +7,6 @@ export default EmberObject.extend({
 
 	avatarUrl: null,
 	badgePermission: null,
-	host: null,
 	id: null,
 	name: null,
 	profileUrl: null,
