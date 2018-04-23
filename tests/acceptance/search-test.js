@@ -1,4 +1,4 @@
-import {find, findAll, fillIn, triggerEvent, visit, currentURL} from '@ember/test-helpers';
+import {find, findAll, fillIn, triggerKeyEvent, visit, currentURL} from '@ember/test-helpers';
 import {setupApplicationTest} from 'ember-qunit';
 import {module, test} from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
@@ -13,41 +13,25 @@ module('Acceptance | search', (hooks) => {
 	});
 
 	test('visiting /search', async (assert) => {
-		const searchInput = '.side-search__input',
-			enterKeyCode = 13,
-			testQuery = 'test query';
+		const searchInput = '.side-search__input';
+		const testQuery = 'test query';
 
 		await visit('/search');
 
 		assert.equal(currentURL(), '/search');
 
 		await fillIn(searchInput, testQuery);
-		await triggerEvent(searchInput, 'keyup', {key: enterKeyCode});
+		await triggerKeyEvent(searchInput, 'keyup', 'Enter');
 
 		assert.equal(currentURL(), '/search?query=test%20query');
 
-		assert.equal(
-			findAll('.search-results__list .wikia-card').length,
-			4,
-			'Correct amount of result cards is displayed'
-		);
-
-		assert.equal(
-			find('.search-results__list .wikia-card__title').textContent.trim(),
+		assert.dom('.search-results__list .wikia-card').exists({count: 4});
+		assert.dom('.search-results__list .wikia-card__title').hasText(
 			'Result 1',
 			'First title is correctly displayed'
 		);
 
-		assert.equal(
-			find(searchInput).value,
-			testQuery,
-			'Search input still contains query'
-		);
-
-		assert.equal(
-			!!find('.wikia-search__clear svg'),
-			true,
-			'Clean query icon is visible'
-		);
+		assert.dom(searchInput).hasValue(testQuery, 'Search input still contains query');
+		assert.dom('.wikia-search__clear svg').exists();
 	});
 });
