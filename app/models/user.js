@@ -13,6 +13,7 @@ export default EmberObject.extend({
 	defaultAvatarSize: 100,
 	logger: service(),
 	wikiUrls: service(),
+	wikiVariables: service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -179,17 +180,15 @@ export default EmberObject.extend({
 	 * @returns {Object}
 	 */
 	sanitizeDetails(userData) {
-		const data = {
+		return {
 			name: userData.name,
 			avatarPath: userData.avatar,
 			profileUrl: this.get('wikiUrls').build({
+				host: this.get('wikiVariables.host'),
 				namespace: 'User',
-				relative: true,
 				title: userData.name
 			})
 		};
-
-		return data;
 	},
 
 	/**

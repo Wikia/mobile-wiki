@@ -5,6 +5,7 @@ import {computed} from '@ember/object';
 export default Component.extend({
 	i18n: service(),
 	wikiUrls: service(),
+	wikiVariables: service(),
 
 	classNames: ['user-avatar'],
 	shouldWrapInHref: true,
@@ -20,8 +21,8 @@ export default Component.extend({
 	 */
 	profileUrl: computed('profileName', function () {
 		return this.get('wikiUrls').build({
+			host: this.get('wikiVariables.host'),
 			namespace: 'User',
-			relative: true,
 			title: this.get('profileName'),
 		});
 	}),

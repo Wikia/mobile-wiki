@@ -1,5 +1,6 @@
 import Service, {inject as service} from '@ember/service';
 import {computed} from '@ember/object';
+import config from '../config/environment';
 import {getQueryString} from '../utils/url';
 
 export default Service.extend({
@@ -11,10 +12,6 @@ export default Service.extend({
 	}),
 
 	langPathRegexp: '(/[a-z]{2,3}(?:-[a-z-]{2,12})?)',
-
-	getCurrentHost() {
-		return this.get('fastboot.request.host') || window.location.hostname;
-	},
 
 	getLanguageCodeFromRequest(path) {
 		const matches = path.match(new RegExp(`^${this.get('langPathRegexp')}/`));
@@ -29,7 +26,7 @@ export default Service.extend({
 	 *
 	 * Some example parameters and results:
 	 *
-	 *   {host: 'glee.wikia.com', path: '/login', query: {redirect: '/somepage'}}
+	 *   {host: 'www.wikia.com', path: '/login', query: {redirect: '/somepage'}}
 	 *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
 	 *
 	 *   {host: 'glee.wikia.com', title: 'Jeff'}
@@ -43,8 +40,6 @@ export default Service.extend({
 	 */
 	build(urlParams) {
 		const host = urlParams.host;
-		const langPath = this.get('langPath');
-		const currentHost = this.getCurrentHost();
 
 		if (!urlParams.protocol) {
 			if (window && window.location && window.location.protocol) {
@@ -58,13 +53,15 @@ export default Service.extend({
 			urlParams.articlePath = '/wiki/';
 		}
 
-		let url = '';
+		let url = `${urlParams.protocol}://${host}`;
+		let langPath = this.get('langPath');
 
-		if (!urlParams.relative) {
-			url += `${urlParams.protocol}://${host}`;
+		// You can override langPath for external links, e.g. www.wikia.com
+		if (typeof urlParams.langPath !== 'undefined') {
+			langPath = urlParams.langPath;
 		}
 
-		if (host === currentHost && langPath) {
+		if (langPath) {
 			url += langPath;
 		}
 
@@ -161,5 +158,24 @@ export default Service.extend({
 			article: null,
 			url: uri
 		};
+	},
+
+	/**
+	 * Opens the login page preserving current page as a redirect
+	 * and adding a language code to the querystring
+	 * @returns {void}
+	 */
+	goToLogin(redirectUrl) {
+		const url = redirectUrl || window.location.href;
+
+		window.location.href = this.build({
+			host: `www.${config.baseDomain}`,
+			langPath: '',
+			path: '/join',
+			query: {
+				redirect: url,
+				uselang: this.get('wikiVariables.language.content')
+			}
+		});
 	}
 });

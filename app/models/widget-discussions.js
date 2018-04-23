@@ -53,12 +53,12 @@ export default EmberObject.extend(
 						id: createdBy.id,
 						name: createdBy.name,
 						profileUrl: this.get('wikiUrls').build({
+							host: this.get('wikiVariables.host'),
 							namespace: 'User',
-							title: createdBy.name,
-							relative: true,
 							query: {
 								useskin: 'oasis'
-							}
+							},
+							title: createdBy.name
 						})
 					},
 					creationTimestamp: typeof creationDate === 'string' ?
