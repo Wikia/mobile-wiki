@@ -49,11 +49,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 		});
 	});
 
-	module('buildUrl', (hooks) => {
-		hooks.beforeEach(() => {
-			wikiUrls.getCurrentHost = () => 'glee.wikia.com';
-		});
-
+	module('buildUrl', () => {
 		function testBuildUrl(assert, langPath = '') {
 			const testCases = [
 				{
@@ -65,6 +61,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				{
 					urlParams: {
 						host: 'www.wikia.com',
+						langPath: '',
 						path: '/login'
 					},
 					expectedOutput: 'http://www.wikia.com/login'
@@ -72,6 +69,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				{
 					urlParams: {
 						host: 'www.wikia.com',
+						langPath: '',
 						path: '/login',
 						query: {
 							abc: '123',
