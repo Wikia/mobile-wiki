@@ -34,8 +34,12 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
 }
 
-function getCookieDomain(wikiaEnv, request) {
-	return `.${getBaseDomain(wikiaEnv, request)}`;
+function getCookieDomain(wikiaEnv) {
+	if (wikiaEnv === 'dev') {
+		return `.${FastBoot.require('process').env.WIKIA_DEV_DOMAIN}`;
+	}
+
+	return `.${config.productionBaseDomain}`;
 }
 
 export function initialize(applicationInstance) {
@@ -51,7 +55,7 @@ export function initialize(applicationInstance) {
 
 		runtimeConfig = {
 			baseDomain: getBaseDomain(wikiaEnv, fastboot.get('request')),
-			cookieDomain: getCookieDomain(wikiaEnv, fastboot.get('request')),
+			cookieDomain: getCookieDomain(wikiaEnv),
 			wikiaEnv,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
