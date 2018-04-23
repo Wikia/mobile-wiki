@@ -97,7 +97,7 @@
     "ember-headroom": "1.1.2",
     "ember-in-viewport": "github:Wikia/ember-in-viewport#dd669efd9af1bd9188359c68aedfc45122371ed7",
     "ember-inline-css": "0.0.10",
-    "ember-load-initializers": "1.0.0",
+    "ember-load-initializers": "1.1.0",
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-resolver": "4.5.5",
     "ember-responds-to": "1.5.0",
