@@ -365,7 +365,7 @@ class Ads {
 	}
 
 	isArticleSectionCollapsed() {
-		return this.adsContext && this.adsContext.opts && this.adsContext.opts.mobileSectionsCollapse;
+		return this.adContextModule && this.adContextModule.get('opts.mobileSectionsCollapse');
 	}
 
 	setupSlotsContext() {
