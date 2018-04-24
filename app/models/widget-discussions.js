@@ -3,7 +3,7 @@ import EmberObject, {getWithDefault, get} from '@ember/object';
 import extractDomainFromUrl from '../utils/domain';
 import {track} from '../utils/track';
 import config from '../config/environment';
-import {buildUrl, getQueryString} from '../utils/url';
+import {getQueryString} from '../utils/url';
 import fetch from 'fetch';
 
 /**
@@ -17,6 +17,8 @@ function getDiscussionServiceUrl(path = '') {
 export default EmberObject.extend(
 	{
 		wikiVariables: service(),
+		wikiUrls: service(),
+
 		/**
 		 * @param {array|string} [categories=[]]
 		 * @param {string} [sortBy='trending']
@@ -50,13 +52,13 @@ export default EmberObject.extend(
 						badgePermission: createdBy.badgePermission,
 						id: createdBy.id,
 						name: createdBy.name,
-						profileUrl: buildUrl({
+						profileUrl: this.get('wikiUrls').build({
+							host: this.get('wikiVariables.host'),
 							namespace: 'User',
-							title: createdBy.name,
-							relative: true,
 							query: {
 								useskin: 'oasis'
-							}
+							},
+							title: createdBy.name
 						})
 					},
 					creationTimestamp: typeof creationDate === 'string' ?
