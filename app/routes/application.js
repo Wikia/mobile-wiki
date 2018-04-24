@@ -154,16 +154,6 @@ export default Route.extend(
 			}
 		},
 
-		activate() {
-			// Qualaroo custom parameters
-			if (!this.get('fastboot.isFastBoot') && window._kiq) {
-				window._kiq.push(['set', {
-					isLoggedIn: this.get('currentUser.isAuthenticated'),
-					contentLanguage: this.get('wikiVariables.language.content')
-				}]);
-			}
-		},
-
 		redirect(model) {
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
@@ -194,6 +184,16 @@ export default Route.extend(
 				// TODO XW-3198
 				// We throw error to stop Ember and redirect immediately
 				throw new DontLogMeError();
+			}
+		},
+
+		activate() {
+			// Qualaroo custom parameters
+			if (!this.get('fastboot.isFastBoot') && window._kiq) {
+				window._kiq.push(['set', {
+					isLoggedIn: this.get('currentUser.isAuthenticated'),
+					contentLanguage: this.get('wikiVariables.language.content')
+				}]);
 			}
 		},
 
