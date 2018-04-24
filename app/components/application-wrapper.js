@@ -2,7 +2,7 @@ import {inject as service} from '@ember/service';
 import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
-import {isHashLink} from '../utils/article-link';
+import {isHashLink} from '../utils/url';
 
 /**
  * HTMLMouseEvent
