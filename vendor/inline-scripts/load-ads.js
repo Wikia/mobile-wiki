@@ -13,11 +13,17 @@
 	}
 
 	window.getInstantGlobal('wgSitewideDisableAdsOnMercury', function (wgSitewideDisableAdsOnMercury) {
-		if (wgSitewideDisableAdsOnMercury || (new URL(document.location)).searchParams.get('noexternals')) {
+		var noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+
+		if (
+			wgSitewideDisableAdsOnMercury ||
+			noExternalsSearchParam === '1' ||
+			noExternalsSearchParam === 'true'
+		) {
 			return;
 		}
 
-		const wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
+		var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
 
 		window.M.loadScript(
 			wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js',
