@@ -20,8 +20,8 @@ export default Component.extend(RenderComponentMixin, {
 		this._super(...arguments);
 
 		this.get('ads.module').onReady(() => {
-			window.getInstantGlobal('wgAdDriverHighImpact2SlotCountries', (highImpactCountries) => {
-				if (this.isEnabled(highImpactCountries) && !this.get('isDestroyed')) {
+			this.isEnabled().then((isEnabled) => {
+				if (isEnabled && !this.get('isDestroyed')) {
 					this.set('isVisible', true);
 					this.get('ads.module').pushSlotToQueue(this.get('name'));
 				}
@@ -37,12 +37,8 @@ export default Component.extend(RenderComponentMixin, {
 		}
 	},
 
-	isProperGeo(param) {
-		const isProperGeo = get(Wikia, 'geo.isProperGeo');
-		return typeof isProperGeo === 'function' && isProperGeo(param);
-	},
-
-	isEnabled(highImpactCountries) {
-		return this.isProperGeo(highImpactCountries);
+	isEnabled() {
+		return this.get('ads.module').getInstantGlobal('wgAdDriverHighImpact2SlotCountries')
+			.then(this.get('ads.module').isProperGeo);
 	}
 });

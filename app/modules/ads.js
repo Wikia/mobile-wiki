@@ -1,4 +1,6 @@
 /* eslint no-console: 0 */
+
+import {AdEngine, context} from '@wikia/ad-engine';
 import config from '../config/environment';
 import {Promise} from 'rsvp';
 import offset from '../utils/offset';
@@ -53,6 +55,8 @@ import offset from '../utils/offset';
  */
 class Ads {
 	constructor() {
+		this.engine = new AdEngine();
+
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
@@ -98,6 +102,7 @@ class Ads {
 	init() {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
+		this.engine.init();
 
 		/* eslint-disable max-params */
 		if (window.require) {
@@ -111,7 +116,7 @@ class Ads {
 				'ext.wikia.adEngine.lookup.a9',
 				'ext.wikia.adEngine.mobile.mercuryListener',
 				'ext.wikia.adEngine.babDetection',
-				'ext.wikia.adEngine.provider.gpt.googleTag',
+				window.require.optional('ext.wikia.adEngine.provider.gpt.googleTag'),
 				'ext.wikia.adEngine.video.vastUrlBuilder',
 				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
@@ -148,6 +153,14 @@ class Ads {
 				this.jwPlayerAds = jwPlayerAds;
 				this.jwPlayerMoat = jwPlayerMoat;
 
+				this.getInstantGlobal('wgAdDriverAdEngine3Countries')
+					.then(this.isProperGeo)
+					.then((isEnabled) => {
+						if (isEnabled) {
+							this.overrideModules();
+						}
+					});
+
 				this.addDetectionListeners();
 				this.reloadWhenReady();
 			});
@@ -155,6 +168,19 @@ class Ads {
 			console.error('Looks like ads asset has not been loaded');
 		}
 		/* eslint-enable max-params */
+	}
+
+	overrideModules() {
+		this.googleTagModule = this.engine.getProvider('gpt');
+	}
+
+	getInstantGlobal(name) {
+		return new Promise((resolve) => window.getInstantGlobal(name, resolve));
+	}
+
+	isProperGeo(param) {
+		const isProperGeo = Wikia && Wikia.geo && Wikia.geo.isProperGeo;
+		return typeof isProperGeo === 'function' && isProperGeo(param);
 	}
 
 	/**
