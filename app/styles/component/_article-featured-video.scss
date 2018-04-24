@@ -1,6 +1,6 @@
 .article-featured-video {
 	$on-scroll-padding: 12px;
-	$videoHeight: 56.25vw; // 100vw * (16 / 9)
+	$videoHeight: 56.25vw; // 100vw * (9 / 16)
 
 	height: $videoHeight;
 	position: relative;
