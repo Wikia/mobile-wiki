@@ -1,21 +1,26 @@
 import {module, test} from 'qunit';
+import Service from '@ember/service';
 import {setupTest} from 'ember-qunit';
 import sinon from 'sinon';
-import require from 'require';
-
 import {run} from '@ember/runloop';
 
-let stub;
+let wikiUrlsBuildStub;
+
+const wikiUrlsServiceStub = Service.extend({
+	build() {}
+});
 
 module('Unit | Model | article comments', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(() => {
-		stub = sinon.stub(require('mobile-wiki/utils/url'), 'buildUrl');
+	hooks.beforeEach(function () {
+		this.owner.register('service:wikiUrls', wikiUrlsServiceStub);
+		const wikiUrlsService = this.owner.lookup('service:wikiUrls');
+		wikiUrlsBuildStub = sinon.stub(wikiUrlsService, 'build');
 	});
 
 	hooks.afterEach(() => {
-		require('mobile-wiki/utils/url').buildUrl.restore();
+		wikiUrlsBuildStub.restore();
 	});
 
 	test('url creates valid url to a resource', function (assert) {
@@ -23,7 +28,7 @@ module('Unit | Model | article comments', (hooks) => {
 
 		model.set('host', 'wikia.com');
 		model.url(1, 1);
-		assert.ok(stub.calledWith({
+		assert.ok(wikiUrlsBuildStub.calledWith({
 			host: 'wikia.com',
 			path: '/wikia.php',
 			query: {

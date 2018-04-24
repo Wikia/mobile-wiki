@@ -2,7 +2,7 @@ import {inject as service} from '@ember/service';
 import {A} from '@ember/array';
 import EmberObject, {computed} from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl, extractEncodedTitle} from '../utils/url';
+import {extractEncodedTitle} from '../utils/url';
 import {htmlSafe} from '@ember/string';
 
 export default EmberObject.extend({
@@ -16,6 +16,7 @@ export default EmberObject.extend({
 	totalBatches: 0,
 	wikiVariables: service(),
 	logger: service(),
+	wikiUrls: service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -58,7 +59,7 @@ export default EmberObject.extend({
 			loading: true
 		});
 
-		return fetch(buildUrl({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('wikiVariables.host'),
 			path: '/wikia.php',
 			query: {

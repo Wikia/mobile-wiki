@@ -1,10 +1,10 @@
 import {inject as service} from '@ember/service';
 import EmberObject from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
 
 export default EmberObject.extend({
 	wikiVariables: service(),
+	wikiUrls: service(),
 
 	/**
 	 * prepare POST request body before sending to API
@@ -17,7 +17,7 @@ export default EmberObject.extend({
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
-		const url = buildUrl({
+		const url = this.get('wikiUrls').build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
