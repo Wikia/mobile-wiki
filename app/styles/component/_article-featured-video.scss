@@ -1,6 +1,8 @@
 .article-featured-video {
 	$on-scroll-padding: 12px;
+	$videoHeight: 56.25vw; // 100vw * (16 / 19)
 
+	height: $videoHeight;
 	position: relative;
 
 	&.is-on-scroll-active {
@@ -51,7 +53,7 @@
 	&__video-content {
 		background-color: $wds-color-black;
 		background-size: contain;
-		height: calc(100vw * 9 / 16);
+		height: $videoHeight;
 
 		.article-body .page-placement-variant & {
 			// 1.125rem is the size of article's side padding
