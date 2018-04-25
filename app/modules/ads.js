@@ -1,9 +1,9 @@
 /* eslint no-console: 0 */
 
-import {AdEngine, context} from '@wikia/ad-engine';
 import config from '../config/environment';
 import {Promise} from 'rsvp';
 import offset from '../utils/offset';
+import ads from './ad-engine/ads';
 
 /**
  * @typedef {Object} SlotsContext
@@ -55,8 +55,6 @@ import offset from '../utils/offset';
  */
 class Ads {
 	constructor() {
-		this.engine = new AdEngine();
-
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
@@ -102,7 +100,6 @@ class Ads {
 	init() {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
-		this.engine.init();
 
 		/* eslint-disable max-params */
 		if (window.require) {
@@ -153,14 +150,6 @@ class Ads {
 				this.jwPlayerAds = jwPlayerAds;
 				this.jwPlayerMoat = jwPlayerMoat;
 
-				this.getInstantGlobal('wgAdDriverAdEngine3Countries')
-					.then(this.isProperGeo)
-					.then((isEnabled) => {
-						if (isEnabled) {
-							this.overrideModules();
-						}
-					});
-
 				this.addDetectionListeners();
 				this.reloadWhenReady();
 			});
@@ -176,6 +165,17 @@ class Ads {
 
 	getInstantGlobal(name) {
 		return new Promise((resolve) => window.getInstantGlobal(name, resolve));
+	}
+
+	getInstantGlobals() {
+		return new Promise((resolve) => window.getInstantGlobals(resolve));
+	}
+
+	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule() {
+		this.getInstantGlobals()
+			.then((instantGlobals) => {
+				ads.setupAdContext({}, instantGlobals);
+			});
 	}
 
 	isProperGeo(param) {
