@@ -61,6 +61,7 @@ updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
+updateGit "Assets size" pending pending
 
 ### create new package-lock.json
 greenkeeper "update"
@@ -105,6 +106,53 @@ then
 else
 	updateGit "Linter" failure failure
 	saveState "linterState" "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
+fi
+
+### Assets size - running
+updateGit "Assets size" pending running
+asd=$'app.css 72\nmobile-wiki.js 100\nvendor.js 609\n'
+while read line ;
+do
+  lineArray=($line)
+  fileNames[$i]=${lineArray[0]}
+  maxFileSizes[$i]=${lineArray[1]}
+  i=$((i + 1))
+done <<< "$asd"
+
+buildprod=$(npm run build-prod)
+while read line ;
+do
+  for (( i=0; i<=${#fileNames[*]}; i++ ))
+  do
+    fileName="$(cut -d'.' -f1 <<<${fileNames[$i]})"
+    fileExt="$(cut -d'.' -f2 <<<${fileNames[$i]})"
+    fileNameRegexp="$fileName(-[a-f0-9]+)?.$fileExt"
+    regexp="dist/mobile-wiki/assets/$fileNameRegexp: ([0-9]+)"
+
+    if [[ $line =~ $regexp ]]
+    then
+      filesize="${BASH_REMATCH[2]}"
+      maxsize=${maxFileSizes[$i]}
+
+      echo "Current size: " $filesize "KB";
+      echo "Allowed size: " $maxsize "KB";
+
+      if [ "$filesize" -gt "$maxsize" ];then
+        echo "It's bigger! Not good :(";
+        assetsSizeError=true
+        failJob=true
+      else
+        echo "It's smaller! NICE!";
+      fi
+    fi
+  done
+done <<< "$buildprod"
+
+if [ -z assetsSizeError ]
+then
+	updateGit "Assets size" success success
+else
+	updateGit "Assets size" failure failure
 fi
 
 ### Finish
