@@ -41,6 +41,7 @@ module.exports = {
 		}));
 
 		app.use('/mobile-wiki', cors(), staticAssets);
+		app.use('/mobile-wiki-assets', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
 	},
 
