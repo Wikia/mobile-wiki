@@ -111,44 +111,47 @@ fi
 ### Assets size - running
 assetsSizeLogFile="jenkins/assets-size.log"
 updateGit "Assets size" pending running
-asd=$'app.css 80\nmobile-wiki.js 360\nvendor.js 610\n'
-while read line ;
-do
-  lineArray=($line)
-  fileNames[$i]=${lineArray[0]}
-  maxFileSizes[$i]=${lineArray[1]}
-  i=$((i + 1))
-done <<< "$asd"
+#asd=$'app.css 80\nmobile-wiki.js 360\nvendor.js 610\n'
+#while read line ;
+#do
+#  lineArray=($line)
+#  fileNames[$i]=${lineArray[0]}
+#  maxFileSizes[$i]=${lineArray[1]}
+#  i=$((i + 1))
+#done <<< "$asd"
+#
+#buildprod=$(npm run build-prod)
+#while read line ;
+#do
+#  for (( i=0; i<=${#fileNames[*]}; i++ ))
+#  do
+#    fileName="$(cut -d'.' -f1 <<<${fileNames[$i]})"
+#    fileExt="$(cut -d'.' -f2 <<<${fileNames[$i]})"
+#    fileNameRegexp="$fileName(-[a-f0-9]+)?.$fileExt"
+#    regexp="dist/mobile-wiki/assets/$fileNameRegexp: ([0-9]+)"
+#
+#    if [[ $line =~ $regexp ]]
+#    then
+#      filesize="${BASH_REMATCH[2]}"
+#      maxsize=${maxFileSizes[$i]}
+#
+#      echo "Checking ${fileNames[$i]}" >> $assetsSizeLogFile;
+#      echo "Current size: " $filesize "KB" >> $assetsSizeLogFile;
+#      echo "Allowed size: " $maxsize "KB" >> $assetsSizeLogFile;
+#
+#      if [ "$filesize" -gt "$maxsize" ];then
+#        echo "Failure. Current file-size is greater than allowed file-size." >> $assetsSizeLogFile;
+#        assetsSizeError=true
+#        failJob=true
+#      else
+#        echo "Success! Current file-size is less than allowed file-size." >> $assetsSizeLogFile;
+#      fi
+#    fi
+#  done
+#done <<< "$buildprod"
 
-buildprod=$(npm run build-prod)
-while read line ;
-do
-  for (( i=0; i<=${#fileNames[*]}; i++ ))
-  do
-    fileName="$(cut -d'.' -f1 <<<${fileNames[$i]})"
-    fileExt="$(cut -d'.' -f2 <<<${fileNames[$i]})"
-    fileNameRegexp="$fileName(-[a-f0-9]+)?.$fileExt"
-    regexp="dist/mobile-wiki/assets/$fileNameRegexp: ([0-9]+)"
-
-    if [[ $line =~ $regexp ]]
-    then
-      filesize="${BASH_REMATCH[2]}"
-      maxsize=${maxFileSizes[$i]}
-
-      echo "Checking ${fileNames[$i]}" >> $assetsSizeLogFile;
-      echo "Current size: " $filesize "KB" >> $assetsSizeLogFile;
-      echo "Allowed size: " $maxsize "KB" >> $assetsSizeLogFile;
-
-      if [ "$filesize" -gt "$maxsize" ];then
-        echo "Failure. Current file-size is greater than allowed file-size." >> $assetsSizeLogFile;
-        assetsSizeError=true
-        failJob=true
-      else
-        echo "Success! Current file-size is less than allowed file-size." >> $assetsSizeLogFile;
-      fi
-    fi
-  done
-done <<< "$buildprod"
+npm run assets-size 2>&1 > /dev/null | tee $assetsSizeLogFile || { assetsSizeError=true && failJob=true; }
+vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
 
 if [ -z $assetsSizeError ]
 then
