@@ -36,6 +36,7 @@ module.exports = {
 			return 'GET';
 		}));
 
+		// XF-242 remove /mobile-wiki path after full migration to serving assets from DFS
 		app.use('/mobile-wiki', cors(), staticAssets);
 		app.use('/mobile-wiki-assets', cors(), staticAssets);
 		app.use('/heartbeat', heartbeat);
