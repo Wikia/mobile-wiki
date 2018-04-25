@@ -17,11 +17,7 @@
 	<b></b>
 	<i></i>
 </div>
-<script>
-	document.fonts && document.fonts.ready && document.fonts.ready.then(function () {
-		document.body.classList.add('rubik');
-	});
-</script>
+{{content-for 'rubik-font'}}
 {{content-for 'svg-inline'}}
 <div id="ember-container">{{content-for 'body'}}</div>
 
@@ -35,8 +31,7 @@
 	})(window.M);
 </script>
 
-{{content-for 'instant-globals'}}
-<script src="/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest" onload="onInstantGlobalsLoaded()" onerror="onInstantGlobalsError()" defer></script>
+{{content-for 'mediawiki-scripts-handlers'}}
 
 {{content-for 'load-ads'}}
 {{content-for 'fastboot-inline-scripts-body-bottom'}}

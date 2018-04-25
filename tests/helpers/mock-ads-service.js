@@ -12,7 +12,8 @@ export default function (owner) {
 				reload() {},
 				reloadAfterTransition() {},
 				removeSlot() {},
-				waitForUapResponse() {}
+				waitForUapResponse() {},
+				onMenuOpen() {}
 			};
 		},
 		destroyAdSlotComponents() {},

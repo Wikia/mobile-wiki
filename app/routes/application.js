@@ -8,7 +8,6 @@ import {run} from '@ember/runloop';
 import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
@@ -26,6 +25,7 @@ export default Route.extend(
 		i18n: service(),
 		lightbox: service(),
 		logger: service(),
+		wikiUrls: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
 
@@ -66,13 +66,14 @@ export default Route.extend(
 					return applicationData;
 				})
 				.catch((error) => {
-					this.get('logger').warn(`wikiVariables error: ${error}`);
 					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
 							error.additionalData[0].redirectLocation
 						);
 						fastboot.set('response.statusCode', 302);
+					} else {
+						this.get('logger').warn(`wikiVariables error: ${error}`);
 					}
 
 					throw error;
@@ -264,8 +265,7 @@ export default Route.extend(
 				}
 
 				trackingCategory = target.dataset.trackingCategory;
-				info = getLinkInfo(
-					this.get('wikiVariables.basePath'),
+				info = this.get('wikiUrls').getLinkInfo(
 					title,
 					target.hash,
 					target.href,
@@ -297,7 +297,10 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					const domainRegex = new RegExp(
+						`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.productionBaseDomain)}\\/.*$`
+					);
+
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {
