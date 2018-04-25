@@ -1,4 +1,6 @@
 $qualaroo-height: 280px;
+$qualaroo-width-small: 310px;
+$qualaroo-width-large: 350px;
 
 .mobile-wiki {
 	div#qual_ol {
@@ -10,94 +12,111 @@ $qualaroo-height: 280px;
 			color: #000;
 			font-family: $font-family-with-rubik;
 			height: $qualaroo-height;
-			left: 5px;
-			right: 5px;
+			left: calc(50% - #{$qualaroo-width-small} / 2);
 			top: calc(50% - #{$qualaroo-height} / 2);
+			width: $qualaroo-width-small;
+
+			@media only screen and (min-width: 360px) {
+				left: calc(50% - #{$qualaroo-width-large} / 2);
+				width: $qualaroo-width-large;
+			}
 		}
 
-		div.qual_ol_box {
-			align-items: center;
-			display: flex;
-		}
+		.qual {
+			&_x_close {
+				background: transparent;
+				border: 0;
+				right: 0;
+				top: 0;
+			}
 
-		.qual_x_close {
-			background: transparent;
-			border: 0;
-			right: 0;
-			top: 0;
-		}
+			&_x_svg_x {
+				display: none !important;
+			}
 
-		.qual_ol_nps_ul {
-			display: flex;
-			justify-content: center;
-			padding: 0;
-
-			li {
+			&_x_close {
 				align-items: center;
-				border: 1px solid #999;
-				border-radius: 3px;
-				color: #002a32;
 				display: flex;
-				font-size: 16px;
-				font-weight: bold;
-				height: 34px;
 				justify-content: center;
-				line-height: 1;
-				margin-right: 3px;
-				width: 24px;
 
-				&:last-child {
-					border-radius: 3px;
-					margin-right: 0;
+				&:hover {
+					background-color: transparent;
 				}
 
-				&:first-child {
-					border-radius: 3px;
+				.fandom-close-icon {
+					display: block;
+					fill: #999;
+					height: 12px;
+					min-width: 12px;
+					position: static;
+					stroke: none;
+					width: 12px;
 				}
 			}
-		}
 
-		.qual_ol_stuff {
-			text-align: center;
+			&_ol {
+				&_box {
+					align-items: center;
+					display: flex;
+					height: 100%;
+					position: static;
+				}
 
-			.fandom-logo {
-				@extend %fandom-logo;
-			}
-		}
+				&_nps {
+					margin: 0;
+				}
 
-		.qual_ol_qtitle {
-			font-size: 18px;
-			line-height: 1.28;
-			margin: 30px 10px;
-		}
+				&_nps_ul {
+					display: flex;
+					justify-content: space-between;
+					padding: 0;
 
-		.qual_ol_nps_labels {
-			font-size: 12px;
-			font-weight: bold;
-			margin: 15px 0;
-		}
+					li {
+						align-items: center;
+						border: 1px solid #999;
+						border-radius: 3px;
+						color: #002a32;
+						display: flex;
+						font-size: 16px;
+						font-weight: bold;
+						height: 34px;
+						justify-content: center;
+						line-height: 1;
+						margin: 0;
+						width: 8.5%;
 
-		.qual_x_svg_x {
-			display: none !important;
-		}
+						&:last-child {
+							border-radius: 3px;
+							margin-right: 0;
+						}
 
-		.qual_x_close {
-			align-items: center;
-			display: flex;
-			justify-content: center;
+						&:first-child {
+							border-radius: 3px;
+						}
+					}
+				}
 
-			&:hover {
-				background-color: transparent;
-			}
+				&_nps_labels {
+					font-size: 12px;
+					font-weight: bold;
+					margin: 15px 0;
+				}
 
-			.fandom-close-icon {
-				display: block;
-				fill: #999;
-				height: 12px;
-				min-width: 12px;
-				position: static;
-				stroke: none;
-				width: 12px;
+				&_stuff {
+					padding: 10px;
+					text-align: center;
+					width: 100%;
+
+					.fandom-logo {
+						@extend %fandom-logo;
+					}
+				}
+
+				&_qtitle {
+					font-size: 18px;
+					line-height: 1.28;
+					margin: 30px 10px;
+				}
 			}
 		}
 	}
