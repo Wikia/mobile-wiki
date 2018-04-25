@@ -150,6 +150,7 @@ updateGit "Assets size" pending running
 #  done
 #done <<< "$buildprod"
 
+npm run build-prod
 cat "dist/mobile-wiki/assets/assetMap.json"
 
 npm run assets-size 2>&1 > /dev/null | tee $assetsSizeLogFile || { assetsSizeError=true && failJob=true; }
