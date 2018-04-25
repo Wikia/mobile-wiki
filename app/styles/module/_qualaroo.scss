@@ -93,6 +93,10 @@ $qualaroo-width-large: 350px;
 						&:first-child {
 							border-radius: 3px;
 						}
+
+						@media only screen and (min-width: 360px) {
+							height: 41px
+						}
 					}
 				}
 
@@ -103,7 +107,7 @@ $qualaroo-width-large: 350px;
 				}
 
 				&_stuff {
-					padding: 10px;
+					padding: 4px;
 					text-align: center;
 					width: 100%;
 
@@ -116,6 +120,10 @@ $qualaroo-width-large: 350px;
 					font-size: 18px;
 					line-height: 1.28;
 					margin: 30px 10px;
+
+					@media only screen and (min-width: 360px) {
+						font-size: 20px;
+					}
 				}
 			}
 		}
