@@ -60,7 +60,6 @@ export default Component.extend(
 	</script>`);
 
 				$script('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML', () => {
-					// console.log('MathJax loaded');
 					this.set('scriptLoaded.mathjax', true);
 				});
 			}
@@ -70,7 +69,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		renderMath() {
-			// console.log('renderMath', this.data, this.element, this.get('scriptLoaded.mathjax'));
 			if (this.get('scriptLoaded.mathjax')) {
 				window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.element]);
 			}
