@@ -17,7 +17,7 @@ export default Component.extend({
 	itemContext: 'article',
 
 	hasFigcaption: or('model.caption', 'showTitle'),
-	isVideo: equal('type', 'video'),
+	isVideo: equal('model.type', 'video'),
 
 	isOgg: equal('model.mime', 'application/ogg'),
 
@@ -28,6 +28,10 @@ export default Component.extend({
 	showTitle: computed('model.type', function () {
 		return (this.get('model.type') === 'video' || this.get('model.isOgg')) && this.get('model.title');
 	}),
+
+	didRender() {
+		window.lazySizes.init();
+	},
 
 	click(event) {
 		// Don't open lightbox when image is linked by user or caption was clicked
