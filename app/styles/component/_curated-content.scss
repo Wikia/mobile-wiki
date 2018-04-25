@@ -1,27 +1,9 @@
-.curated-content {
-	$curated-content-image-spacing: 8px;
-	$curated-content-grid-icon-size: 22px;
+$curated-content-image-spacing: 8px;
+$curated-content-grid-icon-size: 22px;
 
+.curated-content {
 	margin: 0 0 2rem;
 	padding: 0 $article-horizontal-padding / 3;
-
-	.curated-content-items {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-
-		// this pseudoelement lets the last inline item to be justified to the right if it's even
-		&::after {
-			content: '';
-			width: calc(50% - #{$curated-content-image-spacing});
-		}
-	}
-
-	.curated-content-item {
-		margin-bottom: 5px;
-		max-width: 300px;
-		width: calc(50% - 8px);
-	}
 
 	.item-figure {
 		background-color: $wds-color-light-c4;
@@ -124,10 +106,36 @@
 	[data-ember-action] {
 		display: inline-block;
 	}
+}
 
-	.load-more-items {
-		display: block;
-		margin: 0 auto;
-		width: 80%;
+.curated-content-items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
+	// this pseudoelement lets the last inline item to be justified to the right if it's even
+	&::after {
+		content: '';
+		width: calc(50% - #{$curated-content-image-spacing});
+	}
+}
+
+.curated-content-item {
+	margin-bottom: 5px;
+	max-width: 300px;
+	width: calc(50% - 8px);
+}
+
+.curated-content-section__header {
+	padding: 0 18px;
+}
+
+.curated-content-section__back {
+	color: inherit;
+	font-style: italic;
+
+	svg {
+		margin: 0 3px 3px 0;
+		vertical-align: middle;
 	}
 }
