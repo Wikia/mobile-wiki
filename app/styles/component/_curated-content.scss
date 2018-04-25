@@ -99,13 +99,6 @@ $curated-content-grid-icon-size: 22px;
 			vertical-align: middle;
 		}
 	}
-
-	//Ember by default adds div when certain action is bound to an element
-	//we don't want to have div with 100% because we can't style grid elements to be next to each other
-	//using float wouldn't work because items have to be centered.
-	[data-ember-action] {
-		display: inline-block;
-	}
 }
 
 .curated-content-items {
