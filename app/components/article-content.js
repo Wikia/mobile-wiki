@@ -70,8 +70,6 @@ export default Component.extend(
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
 
-					this.handleMath();
-
 					window.lazySizes.init();
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
@@ -408,6 +406,9 @@ export default Component.extend(
 				case 'playbuzz':
 					componentName = 'widget-playbuzz';
 					break;
+				case 'math':
+					componentName = 'widget-math';
+					break;
 				default:
 					this.get('logger').warn(`Can't create widget with type '${widgetType}'`);
 					return null;
@@ -453,43 +454,6 @@ export default Component.extend(
 							}
 						});
 					});
-			}
-		},
-
-		/**
-		 * handles client-side rendering of <math> tags with TeX syntax
-		 *
-		 * @see SUS-4529
-		 * @returns {void}
-		 */
-		handleMath() {
-			const math = this.element.querySelectorAll('.tex');
-
-			if (math.length) {
-				// let's inject a node with MathJax config
-				document.head.insertAdjacentHTML('beforeend', `
-	<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-		extensions: ["tex2jax.js"],
-		jax: ["input/TeX", "output/HTML-CSS"],
-		// we will render only specific nodes
-		skipStartupTypeset: true,
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-			processEscapes: true
-		},
-		"HTML-CSS": { fonts: ["TeX"] }
-	});
-
-	// cast NodeList to an array
-	var elements = [].slice.call(window.document.body.querySelectorAll('.tex'));
-
-	MathJax.Hub.Queue(["Typeset", MathJax.Hub, elements]);
-	</script>`);
-
-				// and load MathJax
-				$script('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML');
 			}
 		},
 
