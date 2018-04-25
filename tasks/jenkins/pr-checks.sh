@@ -110,7 +110,7 @@ fi
 
 ### Assets size - running
 updateGit "Assets size" pending running
-asd=$'app.css 72\nmobile-wiki.js 100\nvendor.js 609\n'
+asd=$'app.css 80\nmobile-wiki.js 360\nvendor.js 609\n'
 while read line ;
 do
   lineArray=($line)
