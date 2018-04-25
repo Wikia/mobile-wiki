@@ -148,7 +148,7 @@ do
   done
 done <<< "$buildprod"
 
-if [ -z assetsSizeError ]
+if [ -z $assetsSizeError ]
 then
 	updateGit "Assets size" success success
 else
