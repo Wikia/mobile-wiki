@@ -1,4 +1,3 @@
-import {observer} from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
@@ -16,7 +15,8 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
 export default Component.extend(
 	WidgetScriptStateMixin,
 	{
-		classNames: ['tex'],
+		tagName: 'span',
+		classNames: ['widget-math'],
 		data: null,
 
 		/**
@@ -54,13 +54,13 @@ export default Component.extend(
 	});
 
 	// cast NodeList to an array
-	var elements = [].slice.call(window.document.body.querySelectorAll('.tex')); console.log(elements);
+	var elements = [].slice.call(window.document.body.querySelectorAll('.tex'));
 
 	window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, elements]);
 	</script>`);
 
 				$script('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML', () => {
-					console.log('MathJax loaded');
+					// console.log('MathJax loaded');
 					this.set('scriptLoaded.mathjax', true);
 				});
 			}
@@ -70,6 +70,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		renderMath() {
+			// console.log('renderMath', this.data, this.element, this.get('scriptLoaded.mathjax'));
 			if (this.get('scriptLoaded.mathjax')) {
 				window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.element]);
 			}
