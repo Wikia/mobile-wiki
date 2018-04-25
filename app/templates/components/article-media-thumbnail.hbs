@@ -6,9 +6,10 @@
 	{{else}}
 		<a href="{{model.href}}">
 			<img alt="{{model.title}}"
-				 src="{{thumbnailUrl}}"
-				 height="{{if forcedHeight forcedHeight model.height}}"
-				 width="{{if forcedWidth forcedWidth model.width}}">
+				 src="{{model.thumbnailUrl}}"
+				 srcset="{{model.srcset}}"
+				 height="{{model.height}}"
+				 width="{{model.width}}">
 			{{#if isLinkedByUser}}
 				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}
