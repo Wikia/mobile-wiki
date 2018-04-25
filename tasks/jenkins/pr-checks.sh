@@ -88,7 +88,7 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 if [ -z $error1 ]
 then
 	updateGit "Tests" success success
-	saveState "frontTestsState" "Tests" success success $BUILD_URL"artifact/jenkins/tests.log"
+	saveState "testsState" "Tests" success success $BUILD_URL"artifact/jenkins/tests.log"
 else
 	updateGit "Tests" failure failure
 	saveState "testsState" "Tests" failure failure $BUILD_URL"artifact/jenkins/tests.log"
@@ -109,6 +109,7 @@ else
 fi
 
 ### Assets size - running
+assetsSizeLogFile="jenkins/assets-size.log"
 updateGit "Assets size" pending running
 asd=$'app.css 80\nmobile-wiki.js 360\nvendor.js 610\n'
 while read line ;
@@ -134,15 +135,16 @@ do
       filesize="${BASH_REMATCH[2]}"
       maxsize=${maxFileSizes[$i]}
 
-      echo "Current size: " $filesize "KB";
-      echo "Allowed size: " $maxsize "KB";
+      echo "Checking ${fileNames[$i]}" >> $assetsSizeLogFile;
+      echo "Current size: " $filesize "KB" >> $assetsSizeLogFile;
+      echo "Allowed size: " $maxsize "KB" >> $assetsSizeLogFile;
 
       if [ "$filesize" -gt "$maxsize" ];then
-        echo "It's bigger! Not good :(";
+        echo "Failure. Current file-size is greater than allowed file-size." >> $assetsSizeLogFile;
         assetsSizeError=true
         failJob=true
       else
-        echo "It's smaller! NICE!";
+        echo "Success! Current file-size is less than allowed file-size." >> $assetsSizeLogFile;
       fi
     fi
   done
@@ -150,9 +152,11 @@ done <<< "$buildprod"
 
 if [ -z $assetsSizeError ]
 then
-	updateGit "Assets size" success success
+  updateGit "Assets size" success success
+  saveState "assetsSizeState" "Assets size" success success $BUILD_URL"artifact/$assetsSizeLogFile"
 else
-	updateGit "Assets size" failure failure
+  updateGit "Assets size" failure failure
+  saveState "assetsSizeState" "Assets size" failure failure $BUILD_URL"artifact/$assetsSizeLogFile"
 fi
 
 ### Finish
