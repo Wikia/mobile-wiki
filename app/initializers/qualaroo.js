@@ -16,9 +16,14 @@ export default {
 			window._kiq = [];
 			window.getInstantGlobal('wgMobileQualaroo', (wgMobileQualaroo) => {
 				if (wgMobileQualaroo) {
+					const renderedNudges = {};
 					$script(window.M.getFromHeadDataStore('wikiVariables.qualarooUrl'));
-					window._kiq.push(['eventHandler', 'nodeRendered', () => {
-						const svgNS = 'http://www.w3.org/2000/svg';
+					window._kiq.push(['eventHandler', 'nodeRendered', (nudgeId) => {
+						if (renderedNudges[nudgeId]) {
+							return;
+						}
+
+						renderedNudges[nudgeId] = true;
 						const qualarooElement = document.getElementById('qual_ol');
 						const stuffElement = qualarooElement.querySelector('.qual_ol_stuff');
 						const closeElement = qualarooElement.querySelector('.qual_x_close');
