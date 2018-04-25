@@ -150,6 +150,8 @@ updateGit "Assets size" pending running
 #  done
 #done <<< "$buildprod"
 
+cat "dist/mobile-wiki/assets/assetMap.json"
+
 npm run assets-size 2>&1 > /dev/null | tee $assetsSizeLogFile || { assetsSizeError=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
 
