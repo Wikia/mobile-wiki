@@ -40,6 +40,7 @@ module.exports = {
 		app.use('/heartbeat', heartbeat);
 	},
 
+
 	after(app) {
 		app.use((err, req, res, next) => {
 			if (err) {
