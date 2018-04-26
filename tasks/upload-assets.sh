@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 # uploads mobile-wiki assets from provided image to dfs buckets (res and sjc)
 # usage ./docker-build.sh <image-name> <sjc-access-key> <sjc-secret-key> <res-access-key> <res-secret-key>
 
@@ -22,4 +22,4 @@ echo "Uploading assets to sjc"
 docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c sjc --access_key=asd --secret_key=${SJC_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets
 
 echo "Uploading assets to res"
-docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c res --access_key=asd --secret_key=${RES_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets
+docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c res --access_key=asd --secret_key=${RES_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets; echo $?
