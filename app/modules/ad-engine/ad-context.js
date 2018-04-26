@@ -6,6 +6,7 @@ export default {
 		'{custom.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
 	custom: {
 		dfpId: '5441',
+		wikiIdentifier: '_not_a_top1k_wiki'
 	},
 	events: {},
 	listeners: {

@@ -61,10 +61,11 @@ function setupAdContext(adsContext, instantGlobals) {
 		context.set('src', 'test');
 	}
 
-	const wikiIdentifier = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : '_not_a_top1k_wiki';
-	context.set('custom.wikiIdentifier', wikiIdentifier);
+	if (adsContext.targeting.wikiIsTop1000) {
+		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
+	}
 
-	const labradorCountriesVariable = 'wgAdDriverLABradorTestF2Countries';
+	const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
 	isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
 	context.set('slots', slots.getContext());
