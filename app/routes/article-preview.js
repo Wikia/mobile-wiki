@@ -49,7 +49,7 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error, transition) {
-				this.get('logger').error(error);
+				this.get('logger').error('Article preview route error', error);
 
 				if (transition) {
 					transition.abort();

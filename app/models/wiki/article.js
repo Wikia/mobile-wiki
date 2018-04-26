@@ -1,16 +1,15 @@
 import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
-import {buildUrl} from '../../utils/url';
 
 export default BaseModel.extend({
+	wikiUrls: service(),
 	wikiVariables: service(),
 	comments: 0,
 	content: null,
 	curatedMainPageData: null,
 	featuredVideo: null,
 	hasPortableInfobox: false,
-	recommendedVideoPlaylist: null,
 	isCuratedMainPage: false,
 	isMainPage: false,
 	user: null,
@@ -20,7 +19,7 @@ export default BaseModel.extend({
 	 * @returns {RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		return fetch(buildUrl({
+		return fetch(this.get('wikiUrls').build({
 			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {
@@ -66,7 +65,6 @@ export default BaseModel.extend({
 
 				articleProperties = {
 					comments: details.comments,
-					user: details.revision.user_id,
 					details
 				};
 			}
@@ -74,16 +72,8 @@ export default BaseModel.extend({
 			if (data.article) {
 				articleProperties.content = data.article.content;
 
-				if (data.article.featuredVideo) {
-					articleProperties.featuredVideo = data.article.featuredVideo;
-				}
-
 				if (data.article.hasPortableInfobox) {
 					articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
-				}
-
-				if (data.article.recommendedVideoPlaylist) {
-					articleProperties.recommendedVideoPlaylist = data.article.recommendedVideoPlaylist;
 				}
 
 				if (data.article.heroImage) {

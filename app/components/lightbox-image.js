@@ -23,7 +23,6 @@ export default Component.extend(
 
 		loadingError: false,
 
-		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {boolean}

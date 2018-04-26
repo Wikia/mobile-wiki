@@ -2,5 +2,3 @@
 {{#each model as |article index|}}
 	{{trending-articles-item title=article.title index=index url=article.url imageUrl=article.thumbnail}}
 {{/each}}
-
-{{! the empty newline above lets the last inline item to be justified to the right if it's even }}

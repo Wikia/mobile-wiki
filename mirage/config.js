@@ -1,5 +1,9 @@
 import filePageFixture from './fixtures/file-page';
 import blogPostPageFixture from './fixtures/blog-post';
+import searchSuggestionsFixture from './fixtures/search-suggestion';
+import testAFixture from './fixtures/test-page';
+import articleFixture from './fixtures/article';
+import jwplayerVideoFixture from './fixtures/jwplayer-video';
 
 /**
  * @returns {void}
@@ -35,6 +39,14 @@ export default function () {
 			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
 				return blogPostPageFixture;
 			}
+
+			if (method === 'getPage' && title === 'TestA') {
+				return testAFixture;
+			}
+
+			if (method === 'getPage' && title === 'Qaga2') {
+				return articleFixture;
+			}
 		}
 
 		if (controller === 'CuratedContent' && method === 'getData') {
@@ -49,7 +61,7 @@ export default function () {
 	});
 
 	this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
-		const {controller, method, title} = request.queryParams;
+		const {controller, method, title, query} = request.queryParams;
 
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'File:Example.jpg') {
@@ -59,6 +71,18 @@ export default function () {
 			if (method === 'getPage' && title === 'User_blog:TimmyQuivy/Bots:_An_Overview_Of_How_They_Are_Used_on_FANDOM') {
 				return blogPostPageFixture;
 			}
+
+			if (method === 'getPage' && title === 'testA') {
+				return testAFixture;
+			}
+
+			if (method === 'getPage' && title === 'Qaga2') {
+				return articleFixture;
+			}
+
+			if (method === 'getSearchSuggestions') {
+				return searchSuggestionsFixture(query);
+			}
 		}
 
 		if (controller === 'SearchApi' && method === 'getList') {
@@ -66,5 +90,9 @@ export default function () {
 		}
 
 		throw new Error(`Controller or method response isn't yet mocked`);
+	});
+
+	this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => {
+		return jwplayerVideoFixture;
 	});
 }
