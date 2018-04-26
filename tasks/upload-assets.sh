@@ -19,7 +19,7 @@ docker rm ${CONTAINER_ID}
 echo "Assets copied"
 
 echo "Uploading assets to sjc"
-docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c sjc --access_key=${SJC_ACCESS_KEY} --secret_key=${SJC_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets
+docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c sjc --access_key=asd --secret_key=${SJC_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets
 
 echo "Uploading assets to res"
 docker run --rm -v ${TEMP_PATH}:/assets artifactory.wikia-inc.com/xwing/s3cmd-alpine:0.0.2 s3cmd -c res --access_key=${RES_ACCESS_KEY} --secret_key=${RES_SECRET_KEY} put --acl-public --recursive --stop-on-error /assets s3://mobile-wiki-assets
