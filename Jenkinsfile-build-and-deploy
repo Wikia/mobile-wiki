@@ -82,9 +82,7 @@ node('docker-daemon') {
                     ]
                 ]
                 wrap([$class: 'VaultBuildWrapper', vaultSecrets: vault_secrets]) {
-                	def assetsStatus = sh(script: "#!/bin/sh
-                        ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY
-                        \$RES_SECRET_KEY", returnStdout: true).trim()
+                	def assetsStatus = sh(script: "#!/bin/sh ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY \$RES_SECRET_KEY", returnStdout: true).trim()
                     println "Assets stdout: ${assetsStatus}"
                 }
             }
