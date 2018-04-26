@@ -52,7 +52,12 @@ export default Component.extend(
 			displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
 			processEscapes: true
 		},
-		"HTML-CSS": { fonts: ["TeX"] }
+		"HTML-CSS": {
+			availableFonts: ["STIX","TeX"],
+			webFont: "TeX",
+			imageFont: "TeX",
+			undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif",
+		}
 	});
 
 	// From https://en.wikipedia.org/wiki/User:Nageh/mathJax/config/TeX-AMS-texvc_HTML.js
