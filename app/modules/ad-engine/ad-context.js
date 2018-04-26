@@ -1,7 +1,9 @@
 window.adsQueue = window.adsQueue || [];
 
 export default {
-	adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotName}',
+	adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
+	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
+		'{custom.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
 	custom: {
 		dfpId: '5441',
 	},
@@ -12,9 +14,9 @@ export default {
 	},
 	slots: {},
 	vast: {
-		adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotName}',
-		megaAdUnitId: '/{custom.dfpId}/wka1a.{adGroup}/{adProduct}{audioSegment}/{custom.device}/' +
-			'{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}'
+		adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
+		megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
+			'{custom.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}'
 	},
 	targeting: {
 		outstream: 'none',

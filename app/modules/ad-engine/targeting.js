@@ -158,8 +158,6 @@ export default {
 	getPageLevelTargeting(adsContext = {}) {
 		adsContext.targeting = adsContext.targeting || {};
 
-		console.log(adsContext);
-
 		const zone = getZone(adsContext);
 		const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
 

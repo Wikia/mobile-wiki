@@ -1,9 +1,17 @@
 import slots from './slots';
 import targeting from './targeting';
 
+const pageTypes = {
+	article: 'a',
+	home: 'h'
+};
+
 function getPageTypeShortcut() {
-	// TODO
-	return '';
+	// Global imports:
+	const context = window.Wikia.adEngine.context;
+	// End of imports
+
+	return pageTypes[context.get('targeting.s2')] || 'x';
 }
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
@@ -22,23 +30,18 @@ function setupSlotIdentificator() {
 	const context = window.Wikia.adEngine.context;
 	// End of imports
 
-	// Per-slot targeting
 	const pageTypeParam = getPageTypeShortcut();
-	const skinParam = 'm';
-	const srcParam = '1';
+	const slotsDefinition = context.get('slots');
 
 	// Wikia Page Identificator
-	context.set('targeting.wsi', `${skinParam}x${pageTypeParam}${srcParam}`);
-
-	// Wikia Slot Identificator
-	// TODO:
-	// context.forEach('slots', (slot) => {
-	// 	const slotParam = slot.slotShortcut || 'x';
-	// 	slot.targeting.wsi = skinParam + slotParam + pageTypeParam + srcParam;
-	// });
+	context.set('targeting.wsi', `mx${pageTypeParam}1`);
+	Object.keys(slotsDefinition).forEach((key) => {
+		const slotParam = slotsDefinition[key].slotShortcut || 'x';
+		context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`)
+	});
 }
 
-function setupAdContext(mediaWikiAdsContext, instantGlobals) {
+function setupAdContext(adsContext, instantGlobals) {
 	// Global imports:
 	const adEngine = window.Wikia.adEngine;
 	const adProductsGeo = window.Wikia.adProductsGeo;
@@ -51,8 +54,14 @@ function setupAdContext(mediaWikiAdsContext, instantGlobals) {
 	}
 	// End of imports
 
-	// TODO: context.set('src', getSrcBasedOnEnv());
-	const labradorCountriesVariable = '';
+	if (adsContext.opts.isAdTestWiki) {
+		context.set('src', 'test');
+	}
+
+	const wikiIdentifier = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : '_not_a_top1k_wiki';
+	context.set('custom.wikiIdentifier', wikiIdentifier);
+
+	const labradorCountriesVariable = 'wgAdDriverLABradorTestF2Countries';
 	isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
 	context.set('slots', slots.getContext());
@@ -83,12 +92,11 @@ function setupAdContext(mediaWikiAdsContext, instantGlobals) {
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverVideoMoatTrackingSampling);
 	context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
-	// TODO: Enable MEGA ad unit
-	// if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-	// 	context.set(`slots.bottom-leaderboard.adUnit`, displayMegaAdUnitId);
-	// }
+	if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
+		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
+	}
 
-	setupPageLevelTargeting(mediaWikiAdsContext);
+	setupPageLevelTargeting(adsContext);
 	setupSlotIdentificator();
 }
 
