@@ -9,7 +9,7 @@ const pageTypes = {
 
 function getPageTypeShortcut() {
 	// Global imports:
-	const context = window.Wikia.adEngine.context;
+	const {context} = window.Wikia.adEngine;
 	// End of imports
 
 	return pageTypes[context.get('targeting.s2')] || 'x';
@@ -17,7 +17,7 @@ function getPageTypeShortcut() {
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	// Global imports:
-	const context = window.Wikia.adEngine.context;
+	const {context} = window.Wikia.adEngine;
 	// End of imports
 
 	const pageLevelParams = targeting.getPageLevelTargeting(mediaWikiAdsContext);
@@ -28,7 +28,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 
 function setupSlotIdentificator() {
 	// Global imports:
-	const context = window.Wikia.adEngine.context;
+	const {context} = window.Wikia.adEngine;
 	// End of imports
 
 	const pageTypeParam = getPageTypeShortcut();
@@ -44,11 +44,8 @@ function setupSlotIdentificator() {
 
 function setupAdContext(adsContext, instantGlobals) {
 	// Global imports:
-	const adEngine = window.Wikia.adEngine;
-	const adProductsGeo = window.Wikia.adProductsGeo;
-	const context = adEngine.context;
-	const utils = adEngine.utils;
-	const isProperGeo = adProductsGeo.isProperGeo;
+	const {context, utils} = window.Wikia.adEngine;
+	const {isProperGeo} = window.Wikia.adProductsGeo;
 
 	function isGeoEnabled(instantGlobalKey) {
 		return isProperGeo(instantGlobals[instantGlobalKey]);
@@ -103,9 +100,8 @@ function setupAdContext(adsContext, instantGlobals) {
 // TODO
 export function setupSlotVideoAdUnit(adSlot, params) {
 	// Global imports:
-	const context = window.Wikia.adEngine.context;
-	const getAdProductInfo = window.Wikia.adProducts.getAdProductInfo;
-	const utils = window.Wikia.adEngine.utils;
+	const {context, utils} = window.Wikia.adEngine;
+	const {getAdProductInfo} = window.Wikia.adProducts;
 	// End of imports
 
 	if (params.isVideoMegaEnabled) {

@@ -1,9 +1,10 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
-import Ads from '../modules/ads';
+import LegacyAds from '../modules/legacyAds';
+import Ads from '../modules/ad-engine/module';
 
 export default Service.extend({
-	module: Ads.getInstance(),
+	module: null,
 	wikiVariables: service(),
 	currentUser: service(),
 	siteHeadOffset: 0,
@@ -16,6 +17,9 @@ export default Service.extend({
 	init() {
 		this._super(...arguments);
 		this.adSlotComponents = {};
+		window.waitForAds((isAdEngine3Enabled) => {
+			this.module = isAdEngine3Enabled ? Ads.getInstance() : LegacyAds.getInstance();
+		});
 	},
 
 	pushAdSlotComponent(slotName, adSlotComponent) {

@@ -1,9 +1,7 @@
 /* eslint no-console: 0 */
-
 import config from '../config/environment';
 import {Promise} from 'rsvp';
 import offset from '../utils/offset';
-import ads from './ad-engine/ads';
 
 /**
  * @typedef {Object} SlotsContext
@@ -113,7 +111,7 @@ class Ads {
 				'ext.wikia.adEngine.lookup.a9',
 				'ext.wikia.adEngine.mobile.mercuryListener',
 				'ext.wikia.adEngine.babDetection',
-				window.require.optional('ext.wikia.adEngine.provider.gpt.googleTag'),
+				'ext.wikia.adEngine.provider.gpt.googleTag',
 				'ext.wikia.adEngine.video.vastUrlBuilder',
 				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
@@ -157,30 +155,6 @@ class Ads {
 			console.error('Looks like ads asset has not been loaded');
 		}
 		/* eslint-enable max-params */
-	}
-
-	overrideModules() {
-		this.googleTagModule = this.engine.getProvider('gpt');
-	}
-
-	getInstantGlobal(name) {
-		return new Promise((resolve) => window.getInstantGlobal(name, resolve));
-	}
-
-	getInstantGlobals() {
-		return new Promise((resolve) => window.getInstantGlobals(resolve));
-	}
-
-	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(mediaWikiAdsContext = {}) {
-		this.getInstantGlobals()
-			.then((instantGlobals) => {
-				ads.setupAdContext(mediaWikiAdsContext, instantGlobals);
-			});
-	}
-
-	isProperGeo(param) {
-		const isProperGeo = Wikia && Wikia.geo && Wikia.geo.isProperGeo;
-		return typeof isProperGeo === 'function' && isProperGeo(param);
 	}
 
 	/**

@@ -93,13 +93,13 @@ export default Route.extend(
 			) {
 
 				window.waitForAds((adEngine3Loaded) => {
+					const adsModule = this.get('ads.module');
+
+					adsModule.init(model.adsContext);
+
 					if (adEngine3Loaded) {
 						return;
 					}
-
-					const adsModule = this.get('ads.module');
-
-					adsModule.init();
 
 					/*
 					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads

@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import Ads from '../modules/ads';
+import LegacyAds from '../modules/legacyAds';
 import {getGroup} from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
 
@@ -185,7 +185,7 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 	}
 
 	if (enableTracking) {
-		Ads.getInstance().trackKruxPageView();
+		LegacyAds.getInstance().trackKruxPageView();
 	}
 }
 
