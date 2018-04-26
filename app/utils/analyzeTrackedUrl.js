@@ -1,4 +1,4 @@
-import logEvent from '../modules/event-logger';
+import {logDebug} from '../modules/event-logger';
 
 export default function analyzeTrackedUrl(params) {
 	if (!window.ga || typeof window.ga.getAll !== 'function') {
@@ -15,7 +15,7 @@ export default function analyzeTrackedUrl(params) {
 	const actualUrl = window.location.href;
 
 	if (actualUrl.indexOf(gaPage) === -1) {
-		logEvent('GA url does not match window.location', Object.assign({
+		logDebug('GA url does not match window.location', Object.assign({
 			gaPage,
 			actualUrl
 		}, params));

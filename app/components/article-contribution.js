@@ -1,12 +1,13 @@
 import Component from '@ember/component';
-import LanguagesMixin from '../mixins/languages';
+import {inject as service} from '@ember/service';
 import {track, trackActions} from '../utils/track';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
 	RenderComponentMixin,
-	LanguagesMixin,
 	{
+		wikiUrls: service(),
+
 		classNames: ['contribution-container'],
 		layoutName: 'components/article-contribution',
 		section: null,
@@ -32,37 +33,15 @@ export default Component.extend(
 					});
 					this.get('edit')(this.get('title'), section);
 				} else {
-					this.redirectToLogin('edit-section-no-auth');
+					track({
+						action: trackActions.click,
+						category: 'sectioneditor',
+						label: 'edit-section-no-auth',
+						value: this.get('section')
+					});
+					this.get('wikiUrls').goToLogin(`${window.location.href}#${this.get('sectionId')}`);
 				}
 			},
-		},
-
-		openLocation(href) {
-			window.location.href = href;
-		},
-
-		/**
-		 * Redirect the user to login page
-		 * @param {string} trackingLabel use for tracking of event
-		 * @returns {void}
-		 */
-		redirectToLogin(trackingLabel) {
-			const sectionId = this.get('sectionId');
-			let href = `/join?redirect=${encodeURIComponent(window.location.href)}`;
-
-			if (sectionId) {
-				href += encodeURIComponent(`#${sectionId}`);
-			}
-			href += this.getUselangParam();
-
-			track({
-				action: trackActions.click,
-				category: 'sectioneditor',
-				label: trackingLabel,
-				value: this.get('section')
-			});
-
-			this.openLocation(href);
-		},
+		}
 	}
 );

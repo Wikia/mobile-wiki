@@ -38,29 +38,22 @@ failTests() {
 
 # $1 - directory
 setupNpm() {
-	oldPath=$(pwd)
-	md5old=$(md5sum ${dependenciesDir}${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum .${1}package-lock.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="${dependenciesDir}${1}node_modules .${1}node_modules"
+	updateGit "Setup" pending "updating node modules"
+	npm install --no-save || error=true
 
-	if [ "$md5new" = "$md5old" ]
+	if [[ ! -z $error ]]
 	then
-		ln -s $sourceTarget
-	else
-		cp -R $sourceTarget
-		updateGit "Setup" pending "updating node modules in .${1}"
-		cd ".${1}"
-		npm install --no-save || error=true
-		cd $oldPath
-
-		if [[ ! -z $error ]]
-		then
-			updateGit "Setup" failure "failed on: updating node modules in .${1}"
-			failTests && exit 1
-		fi
+		updateGit "Setup" failure "failed on: updating node modules"
+		failTests && exit 1
 	fi
+}
 
-	npm install -g greenkeeper-lockfile@1
+# $1 - command
+greenkeeper() {
+	if [[ $branch = "greenkeeper/"* ]]; then
+		npm install greenkeeper-lockfile@1 --no-save
+		npx greenkeeper-lockfile-${1}
+	fi
 }
 
 ### Set pending status to all tasks
@@ -69,8 +62,11 @@ updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
 
+### create new package-lock.json
+greenkeeper "update"
+
 ### Setup - node_modules
-setupNpm "/"
+setupNpm
 
 if [ -z $error ]
 then
@@ -84,8 +80,7 @@ fi
 
 ### Tests - running
 updateGit "Tests" pending running
-# create new package-lock.json
-greenkeeper-lockfile-update
+
 COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 
@@ -114,7 +109,8 @@ fi
 
 ### Finish
 # upload new package-lock.json
-greenkeeper-lockfile-upload
+greenkeeper "upload"
+
 if [ -z $failJob ]
 then
     updateGit "Jenkins job" success finished $BUILD_URL"console"

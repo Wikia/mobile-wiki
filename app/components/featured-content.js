@@ -46,7 +46,6 @@ export default Component.extend(
 		// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 		cycleInterval: 6250,
 
-		/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 		gestures: {
 			/**
 			 * @returns {void}

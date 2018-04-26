@@ -9,6 +9,7 @@ import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
+import scrollToTop from '../utils/scroll-to-top';
 
 /**
  * HTMLElement
@@ -19,6 +20,7 @@ import toArray from '../utils/toArray';
 export default Component.extend(
 	AdsMixin,
 	{
+		fastboot: service(),
 		i18n: service(),
 		logger: service(),
 		lightbox: service(),
@@ -37,6 +39,54 @@ export default Component.extend(
 
 		lang: reads('wikiVariables.language.content'),
 		dir: reads('wikiVariables.language.contentDir'),
+		isFastBoot: reads('fastboot.isFastBoot'),
+
+		/* eslint ember/no-on-calls-in-components:0 */
+		articleContentObserver: on('didInsertElement', observer('content', function () {
+			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
+			if (this.get('isFastBoot')) {
+				return;
+			}
+
+			this.destroyChildComponents();
+
+			run.scheduleOnce('afterRender', this, () => {
+				const rawContent = this.get('content');
+
+				if (!isBlank(rawContent)) {
+					this.hackIntoEmberRendering(rawContent);
+
+					this.handleInfoboxes();
+					this.replaceInfoboxesWithInfoboxComponents();
+
+					this.renderDataComponents(this.element);
+
+					this.loadIcons();
+					this.createContributionButtons();
+					this.handleTables();
+					this.replaceWikiaWidgetsWithComponents();
+
+					this.handleWikiaWidgetWrappers();
+					this.handleJumpLink();
+					this.handleCollapsibleSections();
+
+					window.lazySizes.init();
+				} else if (this.get('displayEmptyArticleInfo')) {
+					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
+				}
+
+				if (!this.get('isPreview') && this.get('adsContext')) {
+					this.setupAdsContext(this.get('adsContext'));
+					this.get('ads.module').onReady(() => {
+						if (!this.get('isDestroyed')) {
+							this.injectAds();
+						}
+					});
+				}
+
+				this.openLightboxIfNeeded();
+			});
+		})),
 
 		init() {
 			this._super(...arguments);
@@ -45,41 +95,7 @@ export default Component.extend(
 			this.renderedComponents = [];
 		},
 
-		didRender() {
-			this._super(...arguments);
-
-			const rawContent = this.get('content');
-
-			if (!isBlank(rawContent)) {
-				this.handleInfoboxes();
-				this.replaceInfoboxesWithInfoboxComponents();
-
-				this.renderDataComponents(this.element);
-
-				this.loadIcons();
-				this.createContributionButtons();
-				this.replaceWikiaWidgetsWithComponents();
-
-				this.handleWikiaWidgetWrappers();
-				this.handleJumpLink();
-				this.handleCollapsibleSections();
-
-				window.lazySizes.init();
-			} else if (this.get('displayEmptyArticleInfo')) {
-				this.set('content', `<p>${this.get('i18n').t('article.empty-label')}</p>`);
-			}
-
-			if (!this.get('isPreview')) {
-				this.setupAdsContext(this.get('adsContext'));
-				this.get('ads.module').onReady(() => {
-					this.injectAds();
-				});
-			}
-
-			this.openLightboxIfNeeded();
-		},
-
-		willUpdate() {
+		willDestroyElement() {
 			this._super(...arguments);
 
 			this.destroyChildComponents();
@@ -175,6 +191,23 @@ export default Component.extend(
 		},
 
 		/**
+		 * This is due to the fact that we send whole article
+		 * as an HTML and then we have to modify it in the DOM
+		 *
+		 * Ember+Glimmer are not fan of this as they would like to have
+		 * full control over the DOM and rendering
+		 *
+		 * In perfect world articles would come as Handlebars templates
+		 * so Ember+Glimmer could handle all the rendering
+		 *
+		 * @param {string} content - HTML containing whole article
+		 * @returns {void}
+		 */
+		hackIntoEmberRendering(content) {
+			this.element.innerHTML = content;
+		},
+
+		/**
 		 * Native browser implementation of location hash often gets clobbered by custom rendering,
 		 * so ensure it happens here.
 		 *
@@ -192,8 +225,8 @@ export default Component.extend(
 		 */
 		getTrackingEventLabel(element) {
 			if (element) {
-				// Mind the order -- 'figcaption' check has to be done before '.article-image',
-				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
+				// Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
+				// as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
 				if (element.closest('.portable-infobox')) {
 					return 'portable-infobox-link';
 				} else if (element.closest('.context-link')) {
@@ -202,7 +235,7 @@ export default Component.extend(
 					return 'blockquote-link';
 				} else if (element.closest('figcaption')) {
 					return 'caption-link';
-				} else if (element.closest('.article-image')) {
+				} else if (element.closest('.article-media-thumbnail')) {
 					return 'image-link';
 				}
 
@@ -459,12 +492,25 @@ export default Component.extend(
 				this.openSection(reference);
 
 				if (reference) {
-					const offsetY = reference.getBoundingClientRect().top + window.scrollY;
-					const siteHeaderHeight = 60;
-
-					window.scrollTo(0, offsetY - siteHeaderHeight);
+					scrollToTop(reference);
 				}
 			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		handleTables() {
+			const tables = this.element.querySelectorAll('table');
+
+			toArray(tables)
+				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.forEach((element) => {
+					const originalHTML = element.outerHTML;
+
+					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
+				});
 		},
 
 		handleCollapsibleSectionHeaderClick(event) {

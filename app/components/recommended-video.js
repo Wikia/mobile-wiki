@@ -5,6 +5,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import {track, trackActions} from '../utils/track';
 import extend from '../utils/extend';
+import {inGroup} from '../modules/abtest';
 
 export default Component.extend(NoScrollMixin, {
 	logger: service(),
@@ -15,20 +16,15 @@ export default Component.extend(NoScrollMixin, {
 	playlistItem: null,
 	playlistItems: null,
 	isClickToPlay: true,
+	isInitialPlay: true,
 
 	init() {
 		this._super(...arguments);
+		this.setup = this.setup.bind(this);
+	},
 
-		run.later(() => {
-			track({
-				category: 'related-video-module',
-				label: 'reveal-point',
-				action: trackActions.impression,
-			});
-
-			// Uncomment after XW-4771 test is done
-			// this.initRecommendedVideo();
-		}, 3000);
+	didInsertElement() {
+		window.onABTestLoaded(this.setup);
 	},
 
 	willDestroyElement() {
@@ -68,12 +64,33 @@ export default Component.extend(NoScrollMixin, {
 		}
 	},
 
+	setup() {
+		run.later(() => {
+			track({
+				category: 'related-video-module',
+				label: 'reveal-point',
+				action: trackActions.impression,
+			});
+
+			const isClickToPlay = inGroup('RECOMMENDED_VIDEO_AB', 'CLICK_TO_PLAY');
+			const isAutoPlay = inGroup('RECOMMENDED_VIDEO_AB', 'AUTOPLAY');
+
+			this.set('isClickToPlay', isClickToPlay);
+
+			if (isAutoPlay || isClickToPlay) {
+				this.initRecommendedVideo();
+			}
+		}, 3000);
+	},
+
 	initRecommendedVideo() {
 		Promise.all([
 			this.getVideoData(),
 			jwPlayerAssets.load()
 		]).then(([videoData]) => {
 			if (!this.get('isDestroyed')) {
+				const shuffledPlaylist = videoData.playlist.sort(() => 0.5 - Math.random());
+				videoData.playlist = shuffledPlaylist.slice(0, 5);
 				this.setProperties({
 					playlistItems: videoData.playlist,
 					playlistItem: videoData.playlist[0]
@@ -94,12 +111,16 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	playerCreated(playerInstance) {
-		playerInstance.once('mute', () => {
-			this.expandPlayer(playerInstance);
-		});
+		if (!this.get('isClickToPlay')) {
+			playerInstance.once('mute', () => {
+				if (!this.get('isExtended')) {
+					this.expandPlayer(playerInstance);
+				}
+			});
+		}
 
 		playerInstance.on('play', (data) => {
-			if (data.playReason === 'interaction') {
+			if (data.playReason === 'interaction' && !this.get('isExtended')) {
 				playerInstance.setMute(false);
 				this.expandPlayer(playerInstance);
 			}
@@ -110,11 +131,14 @@ export default Component.extend(NoScrollMixin, {
 			// when jwplayer try to set property on this object without using ember setter
 			this.set('playlistItem', extend({}, item));
 
-			track({
-				category: 'related-video-module',
-				label: 'playlist-item-start',
-				action: trackActions.view,
-			});
+			// We need this to not track first playlist-item-start when player is folded in click-to-play
+			if (!this.get('isClickToPlay') || !this.get('isInitialPlay')) {
+				track({
+					category: 'related-video-module',
+					label: 'playlist-item-start',
+					action: trackActions.view,
+				});
+			}
 		});
 
 		playerInstance.once('ready', () => {
@@ -127,6 +151,7 @@ export default Component.extend(NoScrollMixin, {
 	getPlayerSetup(jwVideoData) {
 		return {
 			autoplay: this.getABTestVariation(),
+			mute: true,
 			tracking: {
 				category: 'related-video-module',
 				track(data) {
@@ -145,10 +170,25 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	getVideoData() {
-		return fetch(`https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}`).then((response) => response.json());
+		/* eslint-disable-next-line max-len */
+		const url = `https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`;
+
+		return fetch(url).then((response) => response.json());
 	},
 
 	expandPlayer(playerInstance) {
+		if (this.get('isClickToPlay') && this.get('isInitialPlay')) {
+			this.set('isInitialPlay', false);
+
+			if (this.get('isClickToPlay')) {
+				track({
+					category: 'related-video-module',
+					label: 'playlist-item-start',
+					action: trackActions.view,
+				});
+			}
+		}
+
 		this.setProperties({
 			isExtended: true,
 			noScroll: true,

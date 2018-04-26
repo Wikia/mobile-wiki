@@ -14,74 +14,13 @@ img {
 	}
 }
 
-.article-image,
-.linked-gallery-image,
-.gallery-video {
-	position: relative;
-
-	&.is-small .chevron {
-		display: none;
-	}
-
-	figcaption {
-		@include ellipsis;
-
-		height: 50px;
-		pointer-events: auto;
-	}
-}
-
 figcaption {
 	color: #999;
 	padding: 5px 0;
 	text-align: left;
 }
 
-.article-gallery {
-	-webkit-overflow-scrolling: touch;
-
-	&:not(.linked-gallery) {
-		white-space: nowrap;
-		overflow: {
-			x: auto;
-			y: hidden;
-		}
-	}
-
-	img {
-		height: auto;
-		margin-right: 8px;
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
-		width: 195px;
-	}
-
-	.gallery-video {
-		display: inline-block;
-	}
-
-	&.linked-gallery {
-		margin: auto;
-
-		figcaption {
-			height: 30px;
-		}
-
-		figure {
-			display: inline-block;
-			margin: 0 0 20px;
-			vertical-align: top;
-			width: 49%;
-		}
-
-		img {
-			margin-right: 6px;
-		}
-	}
-}
-
-.article-video,
-.file-video {
+.article-video {
 	position: relative;
 
 	&::after {
@@ -118,10 +57,6 @@ figcaption {
 	}
 }
 
-.comment-video {
-	position: relative;
-}
-
 @keyframes lazyImage {
 	0% {
 		opacity: 0;
@@ -134,17 +69,4 @@ figcaption {
 
 iframe {
 	max-width: 100%;
-}
-
-.is-icon {
-	display: inline-block;
-	vertical-align: text-bottom;
-
-	img {
-		margin-right: 6px;
-	}
-
-	.chevron {
-		display: none;
-	}
 }

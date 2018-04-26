@@ -123,11 +123,13 @@ export default Component.extend(
 						}));
 
 					run.scheduleOnce('afterRender', () => {
-						liftigniter.setupTracking(
-							this.element.querySelectorAll('.recirculation-prefooter__item'),
-							config.widget,
-							'LI'
-						);
+						if (!this.get('isDestroyed')) {
+							liftigniter.setupTracking(
+								this.element.querySelectorAll('.recirculation-prefooter__item'),
+								config.widget,
+								'LI'
+							);
+						}
 					});
 
 					if (this.get('shouldShowPlista')) {

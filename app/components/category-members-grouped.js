@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import {track, trackActions} from '../utils/track';
-import offset from '../utils/offset';
+import scrollToTop from '../utils/scroll-to-top';
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -30,14 +30,10 @@ export default Component.extend(
 
 				this.get('loadPage')(page)
 					.then(() => {
-						const navHeight = document.querySelector('.site-head-wrapper').offsetHeight,
-							scrollTop = offset(this.element).top - navHeight;
-
 						run.scheduleOnce('afterRender', this, () => {
-							window.scroll({
-								top: scrollTop,
-								behavior: 'smooth'
-							});
+							if (!this.get('isDestroyed')) {
+								scrollToTop(this.element);
+							}
 						});
 					})
 					.catch((error) => {
