@@ -92,7 +92,13 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				window.waitForAds(() => {
+				window.waitForAds((adEngine3Loaded) => {
+					if (adEngine3Loaded) {
+						this.get('ads.module').setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(model.wikiVariables);
+
+						return;
+					}
+
 					const adsModule = this.get('ads.module');
 
 					adsModule.init();

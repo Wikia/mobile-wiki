@@ -15,7 +15,11 @@
 
 	function onAsyncScriptsLoaded() {
 		gettersQueue.forEach(function (getter) {
-			getter.callback(window.Wikia.InstantGlobals[getter.key]);
+			if (getter.key) {
+				getter.callback(window.Wikia.InstantGlobals[getter.key]);
+			} else {
+				getter.callback(window.Wikia.InstantGlobals);
+			}
 		});
 
 		callbacksQueue.forEach(function (callback) {
@@ -38,6 +42,15 @@
 			callback(window.Wikia.InstantGlobals[key]);
 		} else {
 			gettersQueue.push({key: key, callback: callback});
+			waitForAsyncScripts();
+		}
+	};
+
+	window.getInstantGlobals = function (callback) {
+		if (window.Wikia && window.Wikia.InstantGlobals) {
+			callback(window.Wikia.InstantGlobals);
+		} else {
+			gettersQueue.push({callback: callback});
 			waitForAsyncScripts();
 		}
 	};
