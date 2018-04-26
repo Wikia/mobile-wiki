@@ -2,8 +2,11 @@
 	$on-scroll-padding: 12px;
 	$videoHeight: 56.25vw; // 100vw * (9 / 16)
 
-	height: $videoHeight;
 	position: relative;
+
+	&__player {
+		height: $videoHeight;
+	}
 
 	&.is-on-scroll-active {
 		z-index: $z-site-head + 1;
