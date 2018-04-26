@@ -55,6 +55,16 @@ export default Component.extend(
 		"HTML-CSS": { fonts: ["TeX"] }
 	});
 
+	// From https://en.wikipedia.org/wiki/User:Nageh/mathJax/config/TeX-AMS-texvc_HTML.js
+	var MML = MathJax.ElementJax.mml;
+
+	MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions,{
+		mathchar0mi: {
+			part:         ['2202',{mathvariant: MML.VARIANT.NORMAL}],  // partial
+			infin:        ['221E',{mathvariant: MML.VARIANT.NORMAL}],  // infty
+		}
+	});
+
 	// cast NodeList to an array
 	var elements = [].slice.call(window.document.body.querySelectorAll('.tex'));
 
