@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import RenderComponentMixin from '../mixins/render-component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
 /**
@@ -13,6 +14,7 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
  */
 
 export default Component.extend(
+	RenderComponentMixin,
 	WidgetScriptStateMixin,
 	{
 		tagName: 'span',
