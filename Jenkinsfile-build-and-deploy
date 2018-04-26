@@ -1,3 +1,4 @@
+#@IgnoreInspection BashAddShebang
 def deployenv = 'artifactory.wikia-inc.com/platform/alpine:3.6-curl'
 def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12'
 
@@ -68,6 +69,25 @@ node('docker-daemon') {
 
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+
+                def vault_secrets = [
+                    [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
+                            [$class: 'VaultSecretValue', envVar: 'SJC_ACCESS_KEY', vaultKey: 'access_key'],
+                            [$class: 'VaultSecretValue', envVar: 'SJC_SECRET_KEY', vaultKey: 'secret_key']
+                        ]
+                    ],
+                    [$class: 'VaultSecret', path: 'secret/chef/s3/res/prod', secretValues: [
+                            [$class: 'VaultSecretValue', envVar: 'RES_ACCESS_KEY', vaultKey: 'access_key'],
+                            [$class: 'VaultSecretValue', envVar: 'RES_SECRET_KEY', vaultKey: 'secret_key']
+                        ]
+                    ]
+                ]
+                wrap([$class: 'VaultBuildWrapper', vaultSecrets: vault_secrets]) {
+                	assetsStatus = sh(script: "#!/bin/sh
+                        ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY
+                        \$RES_SECRET_KEY", returnStdout: true).trim()
+                    println "Assets stdout: ${assetsStatus}"
+                }
             }
         }
     }
