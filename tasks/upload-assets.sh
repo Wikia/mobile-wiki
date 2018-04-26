@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 # uploads mobile-wiki assets from provided image to dfs buckets (res and sjc)
 # usage ./docker-build.sh <image-name> <sjc-access-key> <sjc-secret-key> <res-access-key> <res-secret-key>
 
