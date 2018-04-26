@@ -3,6 +3,7 @@ export default {
 		return {
 			'top-leaderboard': {
 				aboveTheFold: true,
+				adProduct: 'mobile_top_leaderboard',
 				group: 'LB',
 				options: {},
 				slotName: 'MOBILE_TOP_LEADERBOARD',
@@ -14,6 +15,7 @@ export default {
 				}
 			},
 			'incontent-boxad': {
+				adProduct: 'mobile_in_content',
 				group: 'HiVi',
 				options: {},
 				slotName: 'MOBILE_IN_CONTENT',
@@ -25,6 +27,7 @@ export default {
 				}
 			},
 			'bottom-boxad': {
+				adProduct: 'mobile_prefooter',
 				disabled: true,
 				group: 'PF',
 				options: {},
@@ -37,6 +40,7 @@ export default {
 				}
 			},
 			'bottom-leaderboard': {
+				adProduct: 'bottom_leaderboard',
 				group: 'PF',
 				options: {},
 				slotName: 'BOTTOM_LEADERBOARD',
@@ -54,6 +58,7 @@ export default {
 				}
 			},
 			'featured-video': {
+				adProduct: 'featured',
 				audioSegment: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
@@ -65,6 +70,7 @@ export default {
 				trackingKey: 'featured-video',
 			},
 			'inline-video': {
+				adProduct: 'video',
 				audioSegment: '',
 				nonUapSlot: true,
 				group: 'VIDEO',

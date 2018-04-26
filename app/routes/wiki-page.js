@@ -122,6 +122,17 @@ export default Route.extend(
 						}
 					});
 
+					if (
+						!fastboot.get('isFastBoot') &&
+						!transition.queryParams.noexternals
+					) {
+						window.waitForAds((adEngine3Loaded) => {
+							if (adEngine3Loaded) {
+								this.get('ads.module').setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(model.adsContext);
+							}
+						});
+					}
+
 					this.set('wikiHandler', handler);
 
 					handler.afterModel(this, ...arguments);
