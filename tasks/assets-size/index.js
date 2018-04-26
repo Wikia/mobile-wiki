@@ -4,7 +4,7 @@ const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 const assetsSizes = {
 	'app.css': 75,
 	'mobile-wiki.js': 360,
-	'vendor.js': 611
+	'vendor.js': 609
 };
 
 function getFileSize(path) {
