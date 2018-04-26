@@ -47,6 +47,8 @@ export default EmberObject.extend({
 					),
 					wikiVariablesData
 				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {
+					this.get('logger').error('trackingDimensions data', JSON.stringify(trackingDimensions));
+
 					// We only want to fail application if we don't have the navigation data
 					if (navigation.state === 'rejected') {
 						throw navigation.reason;

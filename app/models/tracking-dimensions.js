@@ -21,6 +21,8 @@ export default EmberObject.extend({
 			}
 		});
 
+		this.get('logger').error('trackingDimensions url', url);
+
 		return fetch(url)
 			.then((response) => {
 				if (response.ok) {
