@@ -2,9 +2,9 @@ const fs = require('fs');
 const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 
 const assetsSizes = {
-	'app.css': 74,
+	'app.css': 75,
 	'mobile-wiki.js': 360,
-	'vendor.js': 610
+	'vendor.js': 611
 };
 
 function getFileSize(path) {
@@ -25,7 +25,8 @@ Object.keys(assetsSizes).forEach((fileName) => {
 	console.log(`Allowed size: ${assetsSizes[fileName]} KB`);
 
 	if (fileSize > assetsSizes[fileName]) {
-		console.error('Failure. Current file-size is greater than allowed file-size.');
+		console.error('Failure');
+		console.log('Failure. Current file-size is greater than allowed file-size.');
 	} else {
 		console.log('Success! Current file-size is less than allowed file-size.');
 	}

@@ -151,9 +151,9 @@ updateGit "Assets size" pending running
 #done <<< "$buildprod"
 
 npm run build-prod
-cat "dist/mobile-wiki/assets/assetMap.json"
 
-npm run assets-size 2>&1 > /dev/null | tee $assetsSizeLogFile || { assetsSizeError=true && failJob=true; }
+assetsSizeError=$(npm run assets-size 2>&1 >$assetsSizeLogFile)
+cat $assetsSizeLogFile
 vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
 
 if [ -z $assetsSizeError ]
@@ -161,6 +161,7 @@ then
   updateGit "Assets size" success success
   saveState "assetsSizeState" "Assets size" success success $BUILD_URL"artifact/$assetsSizeLogFile"
 else
+  failJob=true
   updateGit "Assets size" failure failure
   saveState "assetsSizeState" "Assets size" failure failure $BUILD_URL"artifact/$assetsSizeLogFile"
 fi
