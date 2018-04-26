@@ -94,8 +94,6 @@ export default Route.extend(
 
 				window.waitForAds((adEngine3Loaded) => {
 					if (adEngine3Loaded) {
-						this.get('ads.module').setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(model.wikiVariables);
-
 						return;
 					}
 

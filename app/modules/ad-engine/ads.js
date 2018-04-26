@@ -1,32 +1,19 @@
 import slots from './slots';
+import targeting from './targeting';
 
 function getPageTypeShortcut() {
 	// TODO
 	return '';
 }
 
-function setupPageLevelTargeting(baseConfig) {
+function setupPageLevelTargeting(mediaWikiAdsContext) {
 	// Global imports:
 	const context = window.Wikia.adEngine.context;
 	// End of imports
 
-	// TODO: Page level targeting
-	const targeting = {
-		host: window.location.hostname,
-		// ksg: get(window, 'Krux.segments'),
-		// kuid: get(window, 'Krux.user'),
-		lang: 'en',
-		outstream: 'none',
-		post_id: '-1',
-		s0: 'fandom',
-		s1: '_fandom',
-		s2: 'todo',
-		esrb: 'teen',
-	};
-
-
-	Object.keys(targeting).forEach((key) => {
-		context.set(`targeting.${key}`, targeting[key]);
+	const pageLevelParams = targeting.getPageLevelTargeting(mediaWikiAdsContext);
+	Object.keys(pageLevelParams).forEach((key) => {
+		context.set(`targeting.${key}`, pageLevelParams[key]);
 	});
 }
 
@@ -51,8 +38,7 @@ function setupSlotIdentificator() {
 	// });
 }
 
-function setupAdContext(baseConfig, instantGlobals) {
-	console.log(Object.keys(window.Wikia));
+function setupAdContext(mediaWikiAdsContext, instantGlobals) {
 	// Global imports:
 	const adEngine = window.Wikia.adEngine;
 	const adProductsGeo = window.Wikia.adProductsGeo;
@@ -102,7 +88,7 @@ function setupAdContext(baseConfig, instantGlobals) {
 	// 	context.set(`slots.bottom-leaderboard.adUnit`, displayMegaAdUnitId);
 	// }
 
-	setupPageLevelTargeting(baseConfig);
+	setupPageLevelTargeting(mediaWikiAdsContext);
 	setupSlotIdentificator();
 }
 

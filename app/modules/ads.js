@@ -171,10 +171,10 @@ class Ads {
 		return new Promise((resolve) => window.getInstantGlobals(resolve));
 	}
 
-	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule() {
+	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(mediaWikiAdsContext = {}) {
 		this.getInstantGlobals()
 			.then((instantGlobals) => {
-				ads.setupAdContext({}, instantGlobals);
+				ads.setupAdContext(mediaWikiAdsContext, instantGlobals);
 			});
 	}
 
