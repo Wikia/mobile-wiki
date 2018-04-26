@@ -1,6 +1,7 @@
 const fs = require('fs');
 const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 
+// set maximum allowed sizes for each asset in kilobytes
 const assetsSizes = {
 	'app.css': 75,
 	'mobile-wiki.js': 360,
@@ -31,4 +32,3 @@ Object.keys(assetsSizes).forEach((fileName) => {
 		console.log('Success! Current file-size is less than allowed file-size.');
 	}
 });
-
