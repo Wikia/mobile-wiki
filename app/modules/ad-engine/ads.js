@@ -1,3 +1,4 @@
+import basicContext from './ad-context';
 import slots from './slots';
 import targeting from './targeting';
 
@@ -54,6 +55,8 @@ function setupAdContext(adsContext, instantGlobals) {
 	}
 	// End of imports
 
+	context.extend(basicContext);
+
 	if (adsContext.opts.isAdTestWiki) {
 		context.set('src', 'test');
 	}
@@ -74,10 +77,6 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.video.adsOnNextVideoFrequency', instantGlobals['wgAdDriverPlayAdsOnNextVideoFrequency']);
 	context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverVideoMidrollCountries'));
 	context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverVideoPostrollCountries'));
-
-	context.set('options.porvata.audio.exposeToSlot', true);
-	context.set('options.porvata.audio.segment', '-audio');
-	context.set('options.porvata.audio.key', 'audio');
 
 	// TODO: context.push('delayModules', featuredVideoDelay);
 	// context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverF2DelayTimeout || 2000);
