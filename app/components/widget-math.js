@@ -80,7 +80,7 @@ export default Component.extend(
 	window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, elements]);
 	</script>`);
 
-				$script('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML', () => {
+				$script('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML-full', () => {
 					this.set('scriptLoaded.mathjax', true);
 				});
 			}
