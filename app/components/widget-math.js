@@ -60,8 +60,12 @@ export default Component.extend(
 
 	MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions,{
 		mathchar0mi: {
-			part:         ['2202',{mathvariant: MML.VARIANT.NORMAL}],  // partial
+			C:            ['0043',{mathvariant: MML.VARIANT.DOUBLESTRUCK}],
+			N:            ['004E',{mathvariant: MML.VARIANT.DOUBLESTRUCK}],
+			R:            ['0052',{mathvariant: MML.VARIANT.DOUBLESTRUCK}],
+			Z:            ['005A',{mathvariant: MML.VARIANT.DOUBLESTRUCK}],
 			infin:        ['221E',{mathvariant: MML.VARIANT.NORMAL}],  // infty
+			part:         ['2202',{mathvariant: MML.VARIANT.NORMAL}],  // partial
 		}
 	});
 
