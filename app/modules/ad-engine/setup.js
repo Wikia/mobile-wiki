@@ -58,10 +58,6 @@ function setupAdContext(adsContext, instantGlobals) {
 		context.set('src', 'test');
 	}
 
-	if (adsContext.targeting.wikiIsTop1000) {
-		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
-	}
-
 	const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
 	isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
@@ -94,6 +90,11 @@ function setupAdContext(adsContext, instantGlobals) {
 	}
 
 	setupPageLevelTargeting(adsContext);
+
+	if (adsContext.targeting.wikiIsTop1000) {
+		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
+	}
+
 	setupSlotIdentificator();
 }
 
