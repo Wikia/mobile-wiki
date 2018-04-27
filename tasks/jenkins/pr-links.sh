@@ -25,3 +25,8 @@ if [[ ! -z "$linterState" ]]
 then
     sendCurl "$linterState"
 fi
+
+if [[ ! -z "$assetsSizeState" ]]
+then
+    sendCurl "$assetsSizeState"
+fi
