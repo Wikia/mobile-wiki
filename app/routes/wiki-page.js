@@ -52,7 +52,11 @@ export default Route.extend(
 		beforeModel(transition) {
 			this._super(transition);
 
-			const title = transition.params['wiki-page'].title.replace('wiki/', '');
+			if (!transition.data.title) {
+				transition.data.title = decodeURIComponent(transition.params['wiki-page'].title);
+			}
+
+			const title = transition.data.title;
 
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
@@ -73,12 +77,12 @@ export default Route.extend(
 		 * @param {*} params
 		 * @returns {RSVP.Promise}
 		 */
-		model(params) {
+		model(params, transition) {
 			const wikiVariables = this.get('wikiVariables');
 			const host = wikiVariables.get('host');
 			const modelParams = {
 				host,
-				title: params.title,
+				title: transition.data.title,
 				wiki: wikiVariables.get('dbName')
 			};
 
