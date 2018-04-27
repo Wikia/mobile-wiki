@@ -86,7 +86,7 @@ module.exports = function (defaults) {
 		},
 		sassOptions: {
 			includePaths: [
-				'node_modules/design-system/dist/scss',
+				'node_modules/design-system/style-guide/styles',
 				'node_modules/@wikia/ad-products/dist'
 			],
 			onlyIncluded: true
