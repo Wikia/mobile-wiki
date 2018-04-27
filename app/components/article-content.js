@@ -410,6 +410,9 @@ export default Component.extend(
 				case 'playbuzz':
 					componentName = 'widget-playbuzz';
 					break;
+				case 'math':
+					componentName = 'widget-math';
+					break;
 				default:
 					this.get('logger').warn(`Can't create widget with type '${widgetType}'`);
 					return null;
