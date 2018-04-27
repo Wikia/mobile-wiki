@@ -6,6 +6,7 @@ export default Mixin.create({
 	 * It's used to load external scripts only once even if there are multiple instances of a single component.
 	 */
 	scriptLoadInitialized: {
+		mathjax: false,
 		twitter: false,
 		vk: false,
 	},
@@ -16,6 +17,7 @@ export default Mixin.create({
 	 */
 	scriptLoaded: {
 		apester: false,
+		mathjax: false,
 		twitter: false,
 		vk: false,
 	},
