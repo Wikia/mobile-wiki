@@ -8,16 +8,16 @@ const trackingRouteName = 'special/adengadinfo';
  */
 function prepareData(slot, data) {
 	// Global imports:
-	const context = window.Wikia.adEngine.context;
-	const geo = window.Wikia.adProductsGeo;
-	const utils = window.Wikia.adProducts.utils;
+	const {context} = window.Wikia.adEngine;
+	const {getCountryCode} = window.Wikia.adProductsGeo;
+	const {utils} = window.Wikia.adProducts;
 	// End of imports
 
 	return {
 		pv_unique_id: window.pvUID,
 		pv: window.pvNumber,
 		browser: data.browser,
-		country: geo.getCountryCode(),
+		country: getCountryCode(),
 		time_bucket: data.time_bucket,
 		timestamp: data.timestamp,
 		ad_load_time: data.timestamp - window.performance.timing.connectStart,
@@ -57,7 +57,7 @@ export default {
 	 */
 	isEnabled() {
 		// Global imports:
-		const context = window.Wikia.adEngine.context;
+		const {context} = window.Wikia.adEngine;
 		// End of imports
 
 		return context.get('options.tracking.kikimora.slot');

@@ -7,7 +7,7 @@ export default {
 	 */
 	isEnabled() {
 		// Global imports:
-		const context = window.Wikia.adEngine.context;
+		const {context} = window.Wikia.adEngine;
 		// End of imports
 
 		return context.get('options.tracking.kikimora.player');
@@ -22,16 +22,15 @@ export default {
 	 */
 	onEvent(eventName, playerParams, data) {
 		// Global imports:
-		const context = window.Wikia.adEngine.context;
-		const geo = window.Wikia.adProductsGeo;
-		const slotService = window.Wikia.adEngine.slotService;
+		const {context, slotService} = window.Wikia.adEngine;
+		const {getCountryCode} = window.Wikia.adProductsGeo;
 		// End of imports
 
 		const slot = slotService.getBySlotName(data.position);
 		const trackingData = Object.assign(data, {
 			pv_unique_id: window.pvUID,
 			pv_number: window.pvNumber,
-			country: geo.getCountryCode(),
+			country: getCountryCode(),
 			skin: context.get('targeting.skin'),
 			wsi: slot.getTargeting().wsi || '',
 		});

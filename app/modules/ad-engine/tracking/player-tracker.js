@@ -10,11 +10,8 @@ const trackingRouteName = 'special/adengplayerinfo';
  */
 function prepareData(data, playerName, eventName, errorCode = 0) {
 	// Global imports:
-	const adEngine = window.Wikia.adEngine;
-	const geo = window.Wikia.adProductsGeo;
-	const context = adEngine.context;
-	const slotService = adEngine.slotService;
-	const utils = adEngine.utils;
+	const {context, slotService, utils} = window.Wikia.adEngine;
+	const {getCountryCode} = window.Wikia.adProductsGeo;
 	// End of imports
 
 	const slot = slotService.getBySlotName(data.slotName);
@@ -22,7 +19,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 	return {
 		pv_unique_id: window.pvUID,
 		pv_number: window.pvNumber,
-		country: geo.getCountryCode(),
+		country: getCountryCode(),
 		skin: context.get('targeting.skin'),
 		wsi: slot.getTargeting().wsi || '',
 		player: playerName,
@@ -58,7 +55,7 @@ export default class PlayerTracker {
 		}
 
 		// Global imports:
-		const context = awindow.Wikia.adEngine.context;
+		const {context} = window.Wikia.adEngine;
 		// End of imports
 
 		if (context.get('options.tracking.kikimora.player')) {
