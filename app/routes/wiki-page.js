@@ -127,7 +127,9 @@ export default Route.extend(
 						!transition.queryParams.noexternals
 					) {
 						window.waitForAds(() => {
-							this.get('ads.module').init(model.adsContext);
+							if (this.get('ads').isAdEngine3ModuleLoaded()) {
+								this.get('ads.module').init(model.adsContext);
+							}
 						});
 					}
 

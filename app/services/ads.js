@@ -1,7 +1,7 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
 import LegacyAds from '../modules/legacyAds';
-import getAdsModule from '../modules/ads';
+import getAdsModule, {isAdEngine3Module} from '../modules/ads';
 
 export default Service.extend({
 	module: null,
@@ -20,6 +20,10 @@ export default Service.extend({
 		getAdsModule().then((adsModule) => {
 			this.module = adsModule;
 		});
+	},
+
+	isAdEngine3ModuleLoaded() {
+		return isAdEngine3Module(this.module);
 	},
 
 	pushAdSlotComponent(slotName, adSlotComponent) {

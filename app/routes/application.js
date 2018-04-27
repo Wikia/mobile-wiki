@@ -93,10 +93,10 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				window.waitForAds((adEngine3Loaded) => {
+				window.waitForAds(() => {
 					const adsModule = this.get('ads.module');
 
-					if (adEngine3Loaded) {
+					if (this.get('ads').isAdEngine3ModuleLoaded()) {
 						return;
 					}
 
