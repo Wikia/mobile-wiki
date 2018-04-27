@@ -61,6 +61,7 @@ updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
+updateGit "Assets size" pending pending
 
 ### create new package-lock.json
 greenkeeper "update"
@@ -87,7 +88,7 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 if [ -z $error1 ]
 then
 	updateGit "Tests" success success
-	saveState "frontTestsState" "Tests" success success $BUILD_URL"artifact/jenkins/tests.log"
+	saveState "testsState" "Tests" success success $BUILD_URL"artifact/jenkins/tests.log"
 else
 	updateGit "Tests" failure failure
 	saveState "testsState" "Tests" failure failure $BUILD_URL"artifact/jenkins/tests.log"
@@ -105,6 +106,26 @@ then
 else
 	updateGit "Linter" failure failure
 	saveState "linterState" "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
+fi
+
+### Assets size - running
+assetsSizeLogFile="jenkins/assets-size.log"
+updateGit "Assets size" pending running
+
+npm run build-prod
+
+assetsSizeError=$(npm run assets-size 2>&1 >$assetsSizeLogFile)
+cat $assetsSizeLogFile
+vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
+
+if [ -z $assetsSizeError ]
+then
+  updateGit "Assets size" success success
+  saveState "assetsSizeState" "Assets size" success success $BUILD_URL"artifact/$assetsSizeLogFile"
+else
+  failJob=true
+  updateGit "Assets size" failure failure
+  saveState "assetsSizeState" "Assets size" failure failure $BUILD_URL"artifact/$assetsSizeLogFile"
 fi
 
 ### Finish
