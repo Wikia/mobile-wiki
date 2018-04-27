@@ -15,7 +15,7 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
-import { isAdEngine3Module } from '../modules/ads/index';
+import {isAdEngine3Module} from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -93,7 +93,7 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				window.waitForAds(() => {
+				window.waitForAds(() => setTimeout(() => {
 					const adsModule = this.get('ads.module');
 
 					if (this.get('ads').isAdEngine3ModuleLoaded()) {
@@ -134,7 +134,7 @@ export default Route.extend(
 					adsModule.hideSmartBanner = () => {
 						this.set('smartBanner.smartBannerVisible', false);
 					};
-				});
+				}, 0));
 			}
 
 			if (fastboot.get('isFastBoot')) {

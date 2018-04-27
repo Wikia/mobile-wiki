@@ -8,13 +8,9 @@
 	var getterAdsQueue = [];
 	var adsLoaded = false;
 	var adEngine3Loaded = false;
-	var loadScript = function (url) {
-		// TODO: Don't use this promise here
-		return new Promise(function (resolve) {
-			window.M.loadScript(url, true, resolve);
-		});
+	var loadScript = function (url, cb) {
+		window.M.loadScript(url, true, cb);
 	};
-
 
 	function onAdsLoaded() {
 		adsLoaded = true;
@@ -27,9 +23,13 @@
 	}
 
 	window.getInstantGlobals(function (instantGlobals) {
-		var adsDisabled = instantGlobals.wgSitewideDisableAdsOnMercury;
+		var noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
 
-		if (adsDisabled || (new URL(document.location)).searchParams.get('noexternals')) {
+		if (
+			instantGlobals.wgSitewideDisableAdsOnMercury ||
+			noExternalsSearchParam === '1' ||
+			noExternalsSearchParam === 'true'
+		) {
 			return;
 		}
 
@@ -40,27 +40,23 @@
 		// Note that at this point we don't have geo module
 		// TODO#2: load adProducts* script in parallel
 		if (true) {
-			loadScript(assetUrls.adEngineScript)
-				.then(function () {
-					return loadScript(assetUrls.adProductsScript)
-				})
-				.then(function () {
-					return loadScript(assetUrls.geoScript)
-				})
-				.then(function () {
-					adEngine3Loaded = true;
-					onAdsLoaded();
+			loadScript(assetUrls.adEngineScript, function onEngineLoaded() {
+				loadScript(assetUrls.adProductsScript, function onProductsLoaded() {
+					loadScript(assetUrls.geoScript, function onGeoLoaded() {
+						adEngine3Loaded = true;
+						onAdsLoaded();
+					});
 				});
+			});
 		} else {
-			var url = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
-			loadScript(url)
-				.then(onAdsLoaded);
+			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
+			loadScript(mercuryAdsJsUrl, onAdsLoaded);
 		}
 	});
 
 	window.waitForAds = function (callback) {
 		if (adsLoaded) {
-			callback(adEngine3Loaded);
+			window.setTimeout(callback, 0, adEngine3Loaded);
 		} else {
 			getterAdsQueue.push(callback);
 		}

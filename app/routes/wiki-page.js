@@ -126,11 +126,11 @@ export default Route.extend(
 						!fastboot.get('isFastBoot') &&
 						!transition.queryParams.noexternals
 					) {
-						window.waitForAds(() => {
+						window.waitForAds(() => setTimeout(() => {
 							if (this.get('ads').isAdEngine3ModuleLoaded()) {
 								this.get('ads.module').init(model.adsContext);
 							}
-						});
+						}, 0));
 					}
 
 					this.set('wikiHandler', handler);

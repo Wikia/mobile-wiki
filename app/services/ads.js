@@ -1,6 +1,5 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
-import LegacyAds from '../modules/legacyAds';
 import getAdsModule, {isAdEngine3Module} from '../modules/ads';
 
 export default Service.extend({
