@@ -125,5 +125,6 @@ function init() {
 
 export default {
 	configure,
-	init
+	init,
+	setupAdContext
 };
