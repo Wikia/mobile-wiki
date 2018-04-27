@@ -108,8 +108,8 @@ class Ads {
 		this.reloadWhenReady();
 		this.getInstantGlobals()
 			.then((instantGlobals) => {
-				adsSetup.setupAdContext(mediaWikiAdsContext, instantGlobals);
-				this.engine = new AdEngine();
+				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+				this.engine = new AdEngine(); // TODO: adsSetup.init()?
 			});
 	}
 

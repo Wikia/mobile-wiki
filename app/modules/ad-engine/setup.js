@@ -1,6 +1,9 @@
 import basicContext from './ad-context';
+import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
+import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
+import ViewabilityTracker from './tracking/viewability-tracker';
 
 const pageTypes = {
 	article: 'a',
@@ -38,7 +41,7 @@ function setupSlotIdentificator() {
 	context.set('targeting.wsi', `mx${pageTypeParam}1`);
 	Object.keys(slotsDefinition).forEach((key) => {
 		const slotParam = slotsDefinition[key].slotShortcut || 'x';
-		context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`)
+		context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
 	});
 }
 
@@ -65,10 +68,10 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('state.deviceType', utils.client.getDeviceType());
 
 	context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
-	context.set('options.video.moatTracking.sampling', instantGlobals['wgAdDriverPorvataMoatTrackingSampling']);
+	context.set('options.video.moatTracking.sampling', instantGlobals.wgAdDriverPorvataMoatTrackingSampling);
 
 	context.set('options.video.playAdsOnNextVideo', isGeoEnabled('wgAdDriverPlayAdsOnNextVideoCountries'));
-	context.set('options.video.adsOnNextVideoFrequency', instantGlobals['wgAdDriverPlayAdsOnNextVideoFrequency']);
+	context.set('options.video.adsOnNextVideoFrequency', instantGlobals.wgAdDriverPlayAdsOnNextVideoFrequency);
 	context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverVideoMidrollCountries'));
 	context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverVideoPostrollCountries'));
 
@@ -98,29 +101,32 @@ function setupAdContext(adsContext, instantGlobals) {
 	setupSlotIdentificator();
 }
 
-// TODO
-export function setupSlotVideoAdUnit(adSlot, params) {
+function configure(adsContext, instantGlobals) {
 	// Global imports:
-	const {context, utils} = window.Wikia.adEngine;
-	const {getAdProductInfo} = window.Wikia.adProducts;
+	const {context} = window.Wikia.adEngine;
 	// End of imports
 
-	if (params.isVideoMegaEnabled) {
-		const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
-		const adUnit = utils.stringBuilder.build(
-			context.get('vast.megaAdUnitId'), {
-				slotConfig: {
-					group: adProductInfo.adGroup,
-					lowerSlotName: adProductInfo.adProduct,
-				},
-			}
-		);
+	setupAdContext(adsContext, instantGlobals);
 
-		context.set(`slots.${adSlot.location}-${adSlot.type}.videoAdUnit`, adUnit);
-	}
+	context.push('listeners.porvata', PorvataTracker);
+	context.push('listeners.slot', SlotTracker);
+	context.push('listeners.slot', ViewabilityTracker);
+}
+
+function init() {
+	// Global imports:
+	const {AdEngine} = window.Wikia.adEngine;
+	// End of imports
+
+	const engine = new AdEngine();
+
+	engine.init();
+
+	return engine;
 }
 
 export default {
-	setupAdContext,
-	setupSlotVideoAdUnit,
+	configure,
+	init,
+	setupAdContext // TODO: re-setupAdContext on page transition (with new mediaWikiContext)
 };
