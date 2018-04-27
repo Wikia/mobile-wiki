@@ -27,7 +27,7 @@
 	}
 
 	window.getInstantGlobals(function (instantGlobals) {
-		var adsDisabled = instantGlobals.wgSitewideDisableAdsOnMercury
+		var adsDisabled = instantGlobals.wgSitewideDisableAdsOnMercury;
 
 		if (adsDisabled || (new URL(document.location)).searchParams.get('noexternals')) {
 			return;

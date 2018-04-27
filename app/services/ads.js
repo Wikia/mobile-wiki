@@ -1,7 +1,7 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
 import LegacyAds from '../modules/legacyAds';
-import Ads from '../modules/ad-engine/module';
+import getAdsModule from '../modules/ads';
 
 export default Service.extend({
 	module: null,
@@ -17,8 +17,8 @@ export default Service.extend({
 	init() {
 		this._super(...arguments);
 		this.adSlotComponents = {};
-		window.waitForAds((isAdEngine3Enabled) => {
-			this.module = isAdEngine3Enabled ? Ads.getInstance() : LegacyAds.getInstance();
+		getAdsModule().then((adsModule) => {
+			this.module = adsModule;
 		});
 	},
 

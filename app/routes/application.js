@@ -15,6 +15,7 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
+import { isAdEngine3Module } from '../modules/ads/index';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -99,7 +100,7 @@ export default Route.extend(
 						return;
 					}
 
-					adsModule.init(model.adsContext);
+					adsModule.init();
 
 					/*
 					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads

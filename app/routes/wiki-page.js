@@ -126,11 +126,8 @@ export default Route.extend(
 						!fastboot.get('isFastBoot') &&
 						!transition.queryParams.noexternals
 					) {
-						window.waitForAds((adEngine3Loaded) => {
-							if (adEngine3Loaded) {
-								// TODO
-								this.get('ads.module').init(model.adsContext);
-							}
+						window.waitForAds(() => {
+							this.get('ads.module').init(model.adsContext);
 						});
 					}
 
