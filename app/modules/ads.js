@@ -174,7 +174,7 @@ class Ads {
 	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(mediaWikiAdsContext = {}) {
 		this.getInstantGlobals()
 			.then((instantGlobals) => {
-				ads.setupAdContext(mediaWikiAdsContext, instantGlobals);
+				ads.configure(mediaWikiAdsContext, instantGlobals);
 			});
 	}
 
