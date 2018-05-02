@@ -1,6 +1,8 @@
-@import 'collapsible-menu-variables';
-
 .collapsible-menu {
+	$collapsible-menu-border-color: #d0d0d0;
+	$collapsible-menu-title-color: $body-font-color;
+	$collapsible-menu-list-link-color: $color-black;
+
 	border-bottom: 1px solid $collapsible-menu-border-color;
 	border-top: 1px solid $collapsible-menu-border-color;
 
@@ -29,5 +31,34 @@
 	.collapsed + ul,
 	.collapsed + ol {
 		display: none;
+	}
+
+	ol,
+	ul {
+		list-style: none;
+		margin: 0;
+
+		li {
+			border-top: 1px solid $collapsible-menu-border-color;
+			padding: .625rem 1.25rem .625rem 2.5rem;
+
+			a {
+				align-items: center;
+				color: $collapsible-menu-list-link-color;
+				display: flex;
+
+				> span {
+					flex: 1;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+				> .wds-icon {
+					margin-left: 6px;
+					transform: rotate(-90deg);
+				}
+			}
+		}
 	}
 }

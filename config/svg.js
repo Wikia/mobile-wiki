@@ -47,8 +47,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-youtube',
 	'wds-player-icon-play',
 	'wds-company-store-appstore',
-	'wds-company-store-googleplay',
-	'wds-company-logo-fandom-powered-by-wikia-two-lines',
+	'wds-company-store-googleplay'
 ].map((name) => {
 	return {name, path: `${designSystemAssetsPath}${name}.svg`};
 });

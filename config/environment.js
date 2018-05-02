@@ -7,7 +7,7 @@ module.exports = function (environment) {
 		facebook: {
 			appId: '112328095453510'
 		},
-		productionBaseDomain: 'wikia.com',
+		wikiaBaseDomain: 'wikia.com',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
@@ -110,7 +110,7 @@ module.exports = function (environment) {
 
 	if (environment === 'test') {
 		// Testem prefers this...
-		ENV.rootURL = '/';
+		ENV.baseURL = '/';
 		ENV.locationType = 'none';
 
 		// keep test console output quieter

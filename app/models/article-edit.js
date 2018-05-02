@@ -1,8 +1,8 @@
 import {inject as service} from '@ember/service';
 import EmberObject, {get, computed} from '@ember/object';
-import {getOwner} from '@ember/application';
-import EditTokenModel from './edit-token';
+import getEditToken from '../utils/edit-token';
 import fetch from '../utils/mediawiki-fetch';
+import {buildUrl} from '../utils/url';
 
 export default EmberObject.extend({
 	content: null,
@@ -12,7 +12,6 @@ export default EmberObject.extend({
 	sectionIndex: null,
 
 	wikiVariables: service(),
-	wikiUrls: service(),
 
 	isDirty: computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
@@ -24,7 +23,7 @@ export default EmberObject.extend({
 	publish() {
 		const host = this.get('wikiVariables.host');
 
-		return EditTokenModel.create(getOwner(this).ownerInjection()).fetch(host, this.get('title'))
+		return getEditToken(host, this.get('title'))
 			.then((token) => {
 				const formData = new FormData();
 
@@ -35,7 +34,7 @@ export default EmberObject.extend({
 				formData.append('token', token);
 				formData.append('format', 'json');
 
-				return fetch(this.get('wikiUrls').build({host, path: '/api.php'}), {
+				return fetch(buildUrl({host, path: '/api.php'}), {
 					method: 'POST',
 					body: formData,
 				})
@@ -58,7 +57,7 @@ export default EmberObject.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(title, sectionIndex) {
-		return fetch(this.get('wikiUrls').build({
+		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {

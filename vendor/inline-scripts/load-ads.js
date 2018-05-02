@@ -22,11 +22,11 @@
 		getterAdsQueue = [];
 	}
 
-	window.getInstantGlobal('wgSitewideDisableAdsOnMercury', function (wgSitewideDisableAdsOnMercury) {
+	window.getInstantGlobals(function (instantGlobals) {
 		var noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
 
 		if (
-			wgSitewideDisableAdsOnMercury ||
+			instantGlobals.wgSitewideDisableAdsOnMercury ||
 			noExternalsSearchParam === '1' ||
 			noExternalsSearchParam === 'true'
 		) {

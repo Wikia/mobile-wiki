@@ -5,9 +5,7 @@ import {inject as service} from '@ember/service';
 import config from '../../config/environment';
 
 export default Component.extend({
-	wikiUrls: service(),
 	currentUser: service(),
-	fastboot: service(),
 	tracking: service(),
 	simpleStore: service(),
 	wikiVariables: service(),
@@ -35,8 +33,7 @@ export default Component.extend({
 			'cdnRootUrl',
 			'dbName',
 			'id',
-			'language',
-			'qualarooUrl'
+			'language'
 		);
 
 		return JSON.stringify(Object.assign({
@@ -48,13 +45,6 @@ export default Component.extend({
 			wikiaEnv,
 			wikiVariables
 		}, simpleStore));
-	}),
-
-	asyncScriptsPath: computed(function () {
-		const langPath = this.get('wikiUrls.langPath'),
-			path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
-
-		return langPath ? `${langPath}${path}` : path;
 	}),
 
 	inContextTranslationsEnabled: config.inContextTranslationsEnabled,

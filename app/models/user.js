@@ -6,14 +6,12 @@ import config from '../config/environment';
 import fetch from 'fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
-import {getQueryString} from '../utils/url';
+import {buildUrl, getQueryString} from '../utils/url';
 import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
 	defaultAvatarSize: 100,
 	logger: service(),
-	wikiUrls: service(),
-	wikiVariables: service(),
 
 	getUserId(accessToken) {
 		if (!accessToken) {
@@ -101,7 +99,7 @@ export default EmberObject.extend({
 	 * @returns {RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
-		const url = this.get('wikiUrls').build({
+		const url = buildUrl({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -143,7 +141,7 @@ export default EmberObject.extend({
 	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		const url = this.get('wikiUrls').build({
+		const url = buildUrl({
 			host,
 			path: '/api.php',
 			query: {
@@ -180,15 +178,17 @@ export default EmberObject.extend({
 	 * @returns {Object}
 	 */
 	sanitizeDetails(userData) {
-		return {
+		const data = {
 			name: userData.name,
 			avatarPath: userData.avatar,
-			profileUrl: this.get('wikiUrls').build({
-				host: this.get('wikiVariables.host'),
+			profileUrl: buildUrl({
 				namespace: 'User',
+				relative: true,
 				title: userData.name
 			})
 		};
+
+		return data;
 	},
 
 	/**

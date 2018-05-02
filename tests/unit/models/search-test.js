@@ -188,10 +188,8 @@ module('Unit | Model | search result page', (hooks) => {
 		assert.equal(search.loadMore(), false);
 	});
 
-	test('test load more batch increase', function (assert) {
-		const model = this.owner.factoryFor('model:search');
-
-		const search = model.create({
+	test('test load more batch increase', (assert) => {
+		const search = SearchModel.create({
 				wikiVariables: {
 					host: 'fallout.wikia.com',
 				},

@@ -6,11 +6,8 @@ import EmberObject, {get, computed} from '@ember/object';
 export default EmberObject.extend({
 	i18n: service(),
 	logger: service(),
-	wikiUrls: service(),
 	wikiVariables: service(),
-
 	dsGlobalNavigation: null,
-
 	hubsLinks: computed(function () {
 		return this.get('dsGlobalNavigation.fandom_overview.links');
 	}),
@@ -166,7 +163,7 @@ export default EmberObject.extend({
 			this.get('discussionsEnabled') &&
 			[{
 				type: 'nav-menu-external',
-				href: `${this.get('wikiUrls.langPath')}/d/f`,
+				href: '/d/f',
 				name: this.get('i18n').t('app.discussions-label'),
 				trackCategory: 'discussion',
 				trackLabel: 'local-nav'
@@ -178,7 +175,7 @@ export default EmberObject.extend({
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
-					href: item.href.replace(new RegExp(`^(${this.get('wikiUrls.langPathRegexp')}?(/wiki)?)?/`, 'i'), ''),
+					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,
 					index: index + 1,

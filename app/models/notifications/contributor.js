@@ -1,22 +1,48 @@
 import EmberObject from '@ember/object';
-import {inject as service} from '@ember/service';
+import {buildUrl} from '../../utils/url';
 
-export default EmberObject.extend({
-	wikiUrls: service(),
-	wikiVariables: service(),
-
+const DiscussionContributor = EmberObject.extend({
 	avatarUrl: null,
 	badgePermission: null,
+	host: null,
 	id: null,
 	name: null,
 	profileUrl: null,
-
-	init() {
-		this._super(...arguments);
-		this.set('profileUrl', this.get('wikiUrls').build({
-			host: this.get('wikiVariables.host'),
-			namespace: 'User',
-			title: this.get('name')
-		}));
-	}
 });
+
+DiscussionContributor.reopenClass({
+	/**
+	 * @param {string} name
+	 *
+	 * @returns {string}
+	 */
+	getProfileUrl(name) {
+		return buildUrl({
+			namespace: 'User',
+			relative: true,
+			title: name
+		});
+	},
+	/**
+	 * @param {*} ownerInjection
+	 * @param {object} data
+	 *
+	 * @returns {Ember.Object}
+	 */
+	create(ownerInjection, data) {
+		let result = null;
+
+		if (data) {
+			result = this._super(ownerInjection, {
+				avatarUrl: data.avatarUrl,
+				badgePermission: data.badgePermission,
+				id: data.id,
+				name: data.name,
+				profileUrl: DiscussionContributor.getProfileUrl(data.name)
+			});
+		}
+		return result;
+	},
+});
+
+export default DiscussionContributor;

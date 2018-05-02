@@ -2,20 +2,6 @@ import {isBlank} from '@ember/utils';
 import config from '../config/environment';
 import extend from '../utils/extend';
 
-function getBaseDomain(wikiaEnv, request) {
-	// x-staging is e.g. 'sandbox-s1' or 'preview'
-	// it's set in https://github.com/Wikia/wikia-vcl/blob/master/wikia.com/control-stage.vcl
-	const staging = request.get('headers').get('x-staging');
-
-	if (wikiaEnv === 'dev') {
-		return FastBoot.require('process').env.WIKIA_DEV_DOMAIN;
-	} else if (staging) {
-		return `${staging}.${config.productionBaseDomain}`;
-	}
-
-	return config.productionBaseDomain;
-}
-
 function getServicesDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
@@ -23,7 +9,7 @@ function getServicesDomain(wikiaEnv, datacenter) {
 		return `services.wikia-dev.${devDomain}`;
 	}
 
-	return `services.${config.productionBaseDomain}`;
+	return `services.${config.wikiaBaseDomain}`;
 }
 
 function getHeliosInfoURL(wikiaEnv, datacenter) {
@@ -36,34 +22,40 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
 }
 
-function getCookieDomain(wikiaEnv) {
+function getCookieDomain(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
-		return `.${FastBoot.require('process').env.WIKIA_DEV_DOMAIN}`;
+		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
+
+		return `.wikia-dev.${devDomain}`;
 	}
 
-	return `.${config.productionBaseDomain}`;
+	return `.${config.wikiaBaseDomain}`;
 }
 
 export function initialize(applicationInstance) {
-	let fastboot = applicationInstance.lookup('service:fastboot');
-	let shoebox = fastboot.get('shoebox');
-	let runtimeConfig;
-	let runtimeServicesConfig;
+	let fastboot = applicationInstance.lookup('service:fastboot'),
+		shoebox = fastboot.get('shoebox'),
+		runtimeConfig,
+		runtimeServicesConfig,
+		runtimeHeliosConfig;
 
 	if (fastboot.get('isFastBoot')) {
-		const env = FastBoot.require('process').env;
-		const wikiaEnv = env.WIKIA_ENVIRONMENT;
-		const noExternals = fastboot.get('request.queryParams.noexternals');
+		const env = FastBoot.require('process').env,
+			wikiaEnv = env.WIKIA_ENVIRONMENT,
+			noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
-			baseDomain: getBaseDomain(wikiaEnv, fastboot.get('request')),
-			cookieDomain: getCookieDomain(wikiaEnv),
+			cookieDomain: getCookieDomain(wikiaEnv, env.WIKIA_DATACENTER),
 			wikiaEnv,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
 
 		runtimeServicesConfig = {
 			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
+		};
+
+		runtimeHeliosConfig = {
+			internalUrl: getHeliosInfoURL(wikiaEnv, env.WIKIA_DATACENTER)
 		};
 
 		if (!isBlank(noExternals)) {
@@ -76,12 +68,11 @@ export function initialize(applicationInstance) {
 		// variables below won't be available on the front end
 		extend(config.fastbootOnly, {
 			gaUserSalt: env.SECRET_CHEF_GOOGLE_ANALYTICS_USER_ID_SALT,
-			helios: {
-				internalUrl: getHeliosInfoURL(wikiaEnv, env.WIKIA_DATACENTER)
-			},
 			mediawikiDomain: env.MEDIAWIKI_DOMAIN,
 			wikiaDatacenter: env.WIKIA_DATACENTER
 		});
+
+		extend(config.fastbootOnly.helios, runtimeHeliosConfig);
 	} else {
 		runtimeConfig = shoebox.retrieve('runtimeConfig');
 		runtimeServicesConfig = shoebox.retrieve('runtimeServicesConfig');

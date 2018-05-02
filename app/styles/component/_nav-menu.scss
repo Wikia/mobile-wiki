@@ -64,6 +64,14 @@ $nav-padding-horizontal: 6px;
 			}
 		}
 
+		&.nav-menu--comics::before {
+			background: $color-hub-comics;
+		}
+
+		&.nav-menu--books::before {
+			background: $color-hub-books;
+		}
+
 		&.nav-menu--games::before {
 			background: $color-hub-games;
 		}
@@ -72,7 +80,16 @@ $nav-padding-horizontal: 6px;
 			background: $color-hub-movies;
 		}
 
-		&.nav-menu--tv::before {
+		&.nav-menu--lifestyle::before {
+			background: $color-hub-lifestyle;
+		}
+
+		&.nav-menu--music::before {
+			background: $color-hub-music;
+		}
+
+		&.nav-menu--tv::before,
+		&.nav-menu--entertainment::before {
 			background: $color-hub-tv;
 		}
 

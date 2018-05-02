@@ -1,9 +1,27 @@
-$curated-content-image-spacing: 8px;
-$curated-content-grid-icon-size: 22px;
-
 .curated-content {
+	$curated-content-image-spacing: 8px;
+	$curated-content-grid-icon-size: 22px;
+
 	margin: 0 0 2rem;
 	padding: 0 $article-horizontal-padding / 3;
+
+	.curated-content-items {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+
+		// this pseudoelement lets the last inline item to be justified to the right if it's even
+		&::after {
+			content: '';
+			width: calc(50% - #{$curated-content-image-spacing});
+		}
+	}
+
+	.curated-content-item {
+		margin-bottom: 5px;
+		max-width: 300px;
+		width: calc(50% - 8px);
+	}
 
 	.item-figure {
 		background-color: $wds-color-light-c4;
@@ -85,36 +103,31 @@ $curated-content-grid-icon-size: 22px;
 			}
 		}
 	}
-}
 
-.curated-content-items {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-
-	// this pseudoelement lets the last inline item to be justified to the right if it's even
-	&::after {
-		content: '';
-		width: calc(50% - #{$curated-content-image-spacing});
+	.curated-content-section__header {
+		padding: 0 18px;
 	}
-}
 
-.curated-content-item {
-	margin-bottom: 5px;
-	max-width: 300px;
-	width: calc(50% - 8px);
-}
+	.curated-content-section__back {
+		color: inherit;
+		font-style: italic;
 
-.curated-content-section__header {
-	padding: 0 18px;
-}
+		svg {
+			margin: 0 3px 3px 0;
+			vertical-align: middle;
+		}
+	}
 
-.curated-content-section__back {
-	color: inherit;
-	font-style: italic;
+	//Ember by default adds div when certain action is bound to an element
+	//we don't want to have div with 100% because we can't style grid elements to be next to each other
+	//using float wouldn't work because items have to be centered.
+	[data-ember-action] {
+		display: inline-block;
+	}
 
-	svg {
-		margin: 0 3px 3px 0;
-		vertical-align: middle;
+	.load-more-items {
+		display: block;
+		margin: 0 auto;
+		width: 80%;
 	}
 }

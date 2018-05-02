@@ -159,10 +159,8 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		const eventName = params.eventName || 'trackingevent';
-
 		params = Object.assign({}, context, params);
-		M.tracker.Internal.track(isPageView(category) ? 'view' : `special/${eventName}`, params);
+		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }
 

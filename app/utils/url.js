@@ -1,4 +1,5 @@
 import config from '../config/environment';
+import {escapeRegex} from './string';
 
 /**
  * Converting and escaping Querystring object to string.
@@ -28,17 +29,69 @@ export function getQueryString(query = {}) {
 	return queryString;
 }
 
-export function extractEncodedTitle(url) {
-	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
+/**
+ * This function constructs a URL given pieces of a typical Wikia URL. All URL
+ * parts are optional. Passing in empty params will output the root index URL
+ * of the current host.
+ *
+ * Some example parameters and results:
+ *
+ *   {host: 'glee.wikia.com', path: '/login', query: {redirect: '/somepage'}}
+ *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
+ *
+ *   {host: 'glee.wikia.com', title: 'Jeff'}
+ *   ...returns 'http://glee.wikia.com/wiki/Jeff'
+ *
+ *   {host: 'glee.wikia.com', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
+ *   ...returns 'http://glee.wikia.com/wiki/User:JaneDoe/preferences'
+ *
+ * @param {Object} urlParams
+ * @returns {string}
+ */
+export function buildUrl(urlParams = {}) {
+	const host = urlParams.host;
+
+	if (!urlParams.protocol) {
+		if (window && window.location && window.location.protocol) {
+			urlParams.protocol = window.location.protocol.replace(':', '');
+		} else {
+			urlParams.protocol = 'http';
+		}
+	}
+
+	if (!urlParams.articlePath) {
+		urlParams.articlePath = '/wiki/';
+	}
+
+	let url = '';
+
+	if (!urlParams.relative) {
+		url += `${urlParams.protocol}://${host}`;
+	}
+
+	if (urlParams.title) {
+		url += urlParams.articlePath +
+			(urlParams.namespace ? `${urlParams.namespace}:` : '') +
+			encodeURIComponent(urlParams.title);
+	}
+
+	if (urlParams.wikiPage) {
+		url += urlParams.articlePath + urlParams.wikiPage;
+	}
+
+	if (urlParams.path) {
+		url += urlParams.path;
+	}
+
+	if (urlParams.query) {
+		url += getQueryString(urlParams.query);
+	}
+
+	return url;
 }
 
-/**
- * @param {EventTarget} target
- * @returns {Boolean}
- */
-export function isHashLink(target) {
-	// We need to use getAttribute because target.href returns whole resolved URL instead of the original value
-	return target.hasAttribute('href') && target.getAttribute('href').indexOf('#') === 0;
+export function extractEncodedTitle(url) {
+	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
 }
 
 export function getOnSiteNotificationsServiceUrl(path = '') {

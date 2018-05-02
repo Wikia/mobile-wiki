@@ -1,9 +1,9 @@
 import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
+import {buildUrl} from '../../utils/url';
 
 export default BaseModel.extend({
-	wikiUrls: service(),
 	wikiVariables: service(),
 	comments: 0,
 	content: null,
@@ -19,7 +19,7 @@ export default BaseModel.extend({
 	 * @returns {RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		return fetch(this.get('wikiUrls').build({
+		return fetch(buildUrl({
 			host: this.get('wikiVariables.host'),
 			path: '/api.php',
 			query: {

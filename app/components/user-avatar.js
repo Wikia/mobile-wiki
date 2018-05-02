@@ -1,11 +1,10 @@
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
+import {buildUrl} from '../utils/url';
 
 export default Component.extend({
 	i18n: service(),
-	wikiUrls: service(),
-	wikiVariables: service(),
 
 	classNames: ['user-avatar'],
 	shouldWrapInHref: true,
@@ -20,9 +19,9 @@ export default Component.extend({
 	 * @returns {string}
 	 */
 	profileUrl: computed('profileName', function () {
-		return this.get('wikiUrls').build({
-			host: this.get('wikiVariables.host'),
+		return buildUrl({
 			namespace: 'User',
+			relative: true,
 			title: this.get('profileName'),
 		});
 	}),

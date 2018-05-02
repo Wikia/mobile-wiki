@@ -1,11 +1,9 @@
 import {isEmpty} from '@ember/utils';
-import {inject as service} from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
+import {buildUrl} from '../../utils/url';
 
 export default BaseModel.extend({
-	wikiUrls: service(),
-
 	host: null,
 	hasArticle: false,
 	membersGrouped: null,
@@ -20,7 +18,7 @@ export default BaseModel.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPage(page) {
-		return fetch(this.get('wikiUrls').build({
+		return fetch(buildUrl({
 			host: this.get('host'),
 			path: '/wikia.php',
 			query: {

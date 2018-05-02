@@ -26,17 +26,13 @@ module.exports = {
 		app.use(logger);
 
 		app.use(headers);
-
 		/**
 		 * Special handling for article-preview route.
 		 * Fastboot doesn't support POST requests so we rewrite them on express to GET
 		 * Additionally we have to enable POST body parser for this route to get data that was posted
 		 */
-		app.use(
-			/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/,
-			bodyParser.urlencoded({extended: true, limit: '10mb'})
-		);
-		app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => {
+		app.use('/article-preview', bodyParser.urlencoded({extended: true, limit: '10mb'}));
+		app.use('/article-preview', methodOverride(() => {
 			return 'GET';
 		}));
 
