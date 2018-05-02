@@ -101,8 +101,7 @@ body:not(.no-scroll) {
 	}
 
 	.fandom-logo {
-		height: 28px;
-		width: 130px;
+		@extend %fandom-logo;
 	}
 
 	.wikia-org-logo {
@@ -133,13 +132,6 @@ body:not(.no-scroll) {
 		left: initial;
 		pointer-events: none;
 		right: 0;
-	}
-
-	.avatar {
-		float: right;
-		position: relative;
-		right: 6px;
-		top: 6px;
 	}
 }
 

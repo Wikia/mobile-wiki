@@ -14,11 +14,11 @@ import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import extend from '../utils/extend';
 import {normalizeToUnderscore} from '../utils/string';
 import {setTrackContext, trackPageView} from '../utils/track';
-import {buildUrl} from '../utils/url';
 import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
+import {logError} from '../modules/event-logger';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -34,6 +34,7 @@ export default Route.extend(
 		wikiVariables: service(),
 		liftigniter: service(),
 		lightbox: service(),
+		wikiUrls: service(),
 
 		queryParams: {
 			page: {
@@ -99,6 +100,7 @@ export default Route.extend(
 
 			if (model) {
 				const fastboot = this.get('fastboot');
+				const wikiUrls = this.get('wikiUrls');
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -117,7 +119,8 @@ export default Route.extend(
 								model,
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host'),
-								fastboot
+								fastboot,
+								wikiUrls
 							});
 						}
 					});
@@ -138,7 +141,7 @@ export default Route.extend(
 					handler.afterModel(this, ...arguments);
 				} else {
 					if (!redirectTo) {
-						redirectTo = buildUrl({
+						redirectTo = wikiUrls.build({
 							host: this.get('wikiVariables.host'),
 							wikiPage: get(transition, 'params.wiki-page.title'),
 							query: extend(
@@ -194,7 +197,13 @@ export default Route.extend(
 				// notify a property change on soon to be stale model for observers (like
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
-				this.get('ads').destroyAdSlotComponents();
+
+				try {
+					this.get('ads').destroyAdSlotComponents();
+				} catch (e) {
+					logError('destroyAdSlotComponents', e);
+				}
+
 				this.get('lightbox').close();
 			},
 

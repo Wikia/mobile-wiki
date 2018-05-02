@@ -1,6 +1,4 @@
-import {getOwner} from '@ember/application';
 import fetch from '../mediawiki-fetch';
-import {buildUrl} from '../url';
 
 /**
  * @param {Ember.Route} route
@@ -23,9 +21,10 @@ function afterModel(route, model) {
  *
  * @param {Ember.Object} model
  * @param {String} host
+ * @param {Ember.Service} wikiUrls
  */
-function sendLyricsPageView({model, host}) {
-	fetch(buildUrl({
+function sendLyricsPageView({model, host, wikiUrls}) {
+	fetch(wikiUrls.build({
 		host,
 		path: '/wikia.php',
 		query: {
@@ -59,10 +58,11 @@ function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
  * @param {number} wikiId
  * @param {String} host
  * @param {{get}} fastboot
+ * @param {Ember.Service} wikiUrls
  */
-function afterTransition({model, wikiId, host, fastboot}) {
+function afterTransition({model, wikiId, host, fastboot, wikiUrls}) {
 	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
-		sendLyricsPageView({model, host});
+		sendLyricsPageView({model, host, wikiUrls});
 	}
 }
 
