@@ -56,6 +56,7 @@ import adsSetup from './setup';
 class Ads {
 	constructor() {
 		this.engine = null;
+		this.events = null;
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
@@ -99,7 +100,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	init(mediaWikiAdsContext = {}) {
-		const {AdEngine} = window.Wikia.adEngine;
+		const {events} = window.Wikia.adEngine;
 
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
@@ -109,6 +110,7 @@ class Ads {
 		this.getInstantGlobals()
 			.then((instantGlobals) => {
 				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+				this.events = events;
 				this.engine = adsSetup.init();
 			});
 	}
@@ -371,7 +373,8 @@ class Ads {
 				});
 			}
 			if (adsContext) {
-				this.adContextModule.setContext(adsContext);
+				adsSetup.setupAdContext(adsContext);
+
 
 				this.onReadyCallbacks.forEach((callback) => callback());
 				this.onReadyCallbacks = [];
@@ -384,14 +387,14 @@ class Ads {
 					this.trackBlocking('babDetector', this.GASettings.babDetector,
 						Ads.previousDetectionResults.babDetector.value);
 				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
-					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
+					//this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
 				}
 
 				if (adsContext.opts) {
 					delayEnabled = Boolean(adsContext.opts.delayEngine);
 				}
 
-				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+				//this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 			}
 		}
 	}
@@ -403,8 +406,7 @@ class Ads {
 	 */
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext, () => {
-			this.adMercuryListenerModule.startOnLoadQueue();
-			this.trackKruxPageView();
+			this.events.onLoad();
 		});
 	}
 
@@ -417,9 +419,7 @@ class Ads {
 	 */
 	reloadAfterTransition(adsContext) {
 		this.reload(adsContext, () => {
-			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
-				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
-			}
+			this.events.afterPageWithAdsRender();
 		});
 	}
 
@@ -494,7 +494,6 @@ class Ads {
 	onMenuOpen() {
 		if (!this.uapUnsticked) {
 			this.uapUnsticked = true;
-			this.adMercuryListenerModule.runOnMenuOpenCallbacks();
 			this.events.menuOpen();
 		}
 	}
