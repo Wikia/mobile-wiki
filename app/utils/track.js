@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import LegacyAds from '../modules/legacyAds';
+import LegacyAds from '../modules/ads/legacyModule';
 import {getGroup} from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
 
