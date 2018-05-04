@@ -66,7 +66,8 @@ export default EmberObject.extend({
 				response.data.host = host;
 
 				// Make sure basePath is using https if the current request from the client was made over https.
-				if (response.data.basePath && protocol === 'https') {
+				// accessToken check is needed because we still want to downgrade logged in users that didn't opt in
+				if (!accessToken && response.data.basePath && protocol === 'https') {
 					response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
 				}
 
