@@ -40,9 +40,7 @@ export default EmberObject.extend({
 				const contentType = response.headers.get('content-type');
 
 				if (contentType && contentType.indexOf('application/json') !== -1) {
-
 					return response.json();
-
 				} else if (url !== response.url) {
 					// API was redirected to non-json page
 					throw new WikiVariablesRedirectError().withAdditionalData({
