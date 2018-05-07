@@ -76,8 +76,8 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverVideoMidrollCountries'));
 	context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverVideoPostrollCountries'));
 
+	context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
 	// TODO: context.push('delayModules', featuredVideoDelay);
-	// context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverF2DelayTimeout || 2000);
 	// context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
 	// context.set('options.exposeFeaturedVideoUapKeyValue', isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'));
 

@@ -21,6 +21,12 @@ export default Service.extend({
 		});
 	},
 
+	onReady(callback) {
+		getAdsModule().then((adsModule) => {
+			adsModule.onReady(callback);
+		});
+	},
+
 	isAdEngine3ModuleLoaded() {
 		return isAdEngine3Module(this.module);
 	},

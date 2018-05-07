@@ -94,6 +94,15 @@ class Ads {
 		return Ads.instance;
 	}
 
+	loadGoogleTag() {
+		var script = document.createElement('script');
+
+		script.async = true;
+		script.src = '//www.googletagservices.com/tag/js/gpt.js';
+
+		document.head.appendChild(script);
+	}
+
 	/**
 	 * Initializes the Ad module
 	 *
@@ -102,16 +111,13 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		const {events} = window.Wikia.adEngine;
 
-		// Required by ads tracking code
-		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
-
-		this.addDetectionListeners();
-		this.reloadWhenReady();
 		this.getInstantGlobals()
 			.then((instantGlobals) => {
 				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
 				this.events = events;
 				this.engine = adsSetup.init();
+
+				this.loadGoogleTag();
 			});
 	}
 
@@ -122,6 +128,15 @@ class Ads {
 	isProperGeo(param) {
 		const isProperGeo = Wikia && Wikia.geo && Wikia.geo.isProperGeo;
 		return typeof isProperGeo === 'function' && isProperGeo(param);
+	}
+
+	/**
+	 * Execute when ads package is ready to use
+	 *
+	 * @param {function} callback
+	 */
+	onReady(callback) {
+		callback();
 	}
 
 	/**
@@ -469,19 +484,6 @@ class Ads {
 		this.noUapCallbacks = [];
 	}
 
-	/**
-	 * Execute when ads package is ready to use
-	 *
-	 * @param {function} callback
-	 */
-	onReady(callback) {
-		if (this.isLoaded) {
-			callback();
-		} else {
-			this.onReadyCallbacks.push(callback);
-		}
-	}
-
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
 	}
@@ -496,42 +498,6 @@ class Ads {
 			this.uapUnsticked = true;
 			this.events.menuOpen();
 		}
-	}
-
-	/**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
-	createLightbox() {
-	}
-
-	/**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
-	showLightbox() {
-	}
-
-	/**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
-	setSiteHeadOffset() {
-	}
-
-	/**
-	 * Retrieves the ads context
-	 *
-	 * @returns {Object|null}
-	 */
-	getContext() {
-		return this.adsContext;
 	}
 }
 

@@ -18,7 +18,7 @@ export default Mixin.create({
 		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+		mobileTopLeaderBoard: 'gpt-top-leaderboard'
 	},
 	ads: service(),
 	currentUser: service(),
@@ -112,7 +112,8 @@ export default Mixin.create({
 			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
-		this.appendHighImpactAd();
+		// TODO
+		// this.appendHighImpactAd();
 	},
 
 	/**

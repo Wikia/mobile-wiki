@@ -6,6 +6,7 @@ import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
+import getAdsModule from '../modules/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
@@ -75,9 +76,9 @@ export default Component.extend(
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
 
-				if (this.get('ads.module') && !this.get('isPreview') && this.get('adsContext')) {
-					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
+				if (!this.get('isPreview') && this.get('adsContext')) {
+					this.get('ads').onReady(() => {
+						this.setupAdsContext(this.get('adsContext'));
 						if (!this.get('isDestroyed')) {
 							this.injectAds();
 						}
