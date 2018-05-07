@@ -18,6 +18,7 @@ import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
+import {logError} from '../modules/event-logger';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -189,7 +190,13 @@ export default Route.extend(
 				// notify a property change on soon to be stale model for observers (like
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
-				this.get('ads').destroyAdSlotComponents();
+
+				try {
+					this.get('ads').destroyAdSlotComponents();
+				} catch (e) {
+					logError('destroyAdSlotComponents', e);
+				}
+
 				this.get('lightbox').close();
 			},
 
