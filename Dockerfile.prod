@@ -49,6 +49,8 @@ RUN npm run linter && \
 # npm run tests && \
     npm run build-prod
 
+RUN cp removeChild-vendor-tmp/vendor-0bfd3a1f18276be1e44cacdea2d6e43c.js dist/mobile-wiki/assets/
+
 # 8001 is for prod
 EXPOSE 8001
 
