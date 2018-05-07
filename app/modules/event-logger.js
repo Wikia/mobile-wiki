@@ -29,5 +29,3 @@ export function logDebug(name, description) {
 export function logError(name, description) {
 	logEvent('error', name, description);
 }
-
-window.wikiaLogError = logError;
