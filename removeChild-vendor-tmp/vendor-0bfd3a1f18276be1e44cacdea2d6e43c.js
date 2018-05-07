@@ -383,7 +383,7 @@ s=n}return null}function ue(e) {
 					});
 				}
 			} catch (e) {
-				window.wikiaLogError('removeChild error logging failure');
+				window.wikiaLogError('removeChild error logging failure', e);
 			}
 			n.removeChild(o);
 			if (o === i) {
