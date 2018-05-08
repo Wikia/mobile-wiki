@@ -116,6 +116,7 @@ class Ads {
 				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
 				this.events = events;
 				this.engine = adsSetup.init();
+				this.googleTagModule = this.engine.getProvider('gpt');
 
 				this.loadGoogleTag();
 			});
@@ -382,35 +383,33 @@ class Ads {
 
 		if (this.isLoaded) {
 			this.setupSlotsContext();
-			if (this.adMercuryListenerModule) {
-				this.adMercuryListenerModule.onPageChange(() => {
-					this.googleTagModule.updateCorrelator();
-				});
+			this.events.once(this.events.PAGE_CHANGE_EVENT, () => this.googleTagModule.updateCorrelator());
+
+			if (!adsContext) {
+				return;
 			}
-			if (adsContext) {
-				adsSetup.setupAdContext(adsContext);
 
+			adsSetup.setupAdContext(adsContext);
 
-				this.onReadyCallbacks.forEach((callback) => callback());
-				this.onReadyCallbacks = [];
+			this.onReadyCallbacks.forEach((callback) => callback());
+			this.onReadyCallbacks = [];
 
-				if (typeof onContextLoadCallback === 'function') {
-					onContextLoadCallback();
-				}
-
-				if (Ads.previousDetectionResults.babDetector.exists) {
-					this.trackBlocking('babDetector', this.GASettings.babDetector,
-						Ads.previousDetectionResults.babDetector.value);
-				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
-					//this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
-				}
-
-				if (adsContext.opts) {
-					delayEnabled = Boolean(adsContext.opts.delayEngine);
-				}
-
-				//this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+			if (typeof onContextLoadCallback === 'function') {
+				onContextLoadCallback();
 			}
+
+			if (Ads.previousDetectionResults.babDetector.exists) {
+				this.trackBlocking('babDetector', this.GASettings.babDetector,
+					Ads.previousDetectionResults.babDetector.value);
+			} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
+				//this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
+			}
+
+			if (adsContext.opts) {
+				delayEnabled = Boolean(adsContext.opts.delayEngine);
+			}
+
+			//this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
 	}
 
