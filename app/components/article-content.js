@@ -77,11 +77,13 @@ export default Component.extend(
 				}
 
 				if (!this.get('isPreview') && this.get('adsContext')) {
-					this.get('ads').onReady(() => {
+					this.get('ads').onAdsModuleReady(() => {
 						this.setupAdsContext(this.get('adsContext'));
-						if (!this.get('isDestroyed')) {
-							this.injectAds();
-						}
+						this.get('ads.module').onReady(() => {
+							if (!this.get('isDestroyed')) {
+								this.injectAds();
+							}
+						});
 					});
 				}
 

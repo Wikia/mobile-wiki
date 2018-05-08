@@ -15,7 +15,6 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
-import {isAdEngine3Module} from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,

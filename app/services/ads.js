@@ -12,19 +12,19 @@ export default Service.extend({
 		return ['0', null, ''].indexOf(this.get('noAdsQueryParam')) === -1 || this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: null,
+	adsModuleReadyCallbacks: [],
 
 	init() {
 		this._super(...arguments);
 		this.adSlotComponents = {};
 		getAdsModule().then((adsModule) => {
 			this.module = adsModule;
+			this.adsModuleReadyCallbacks.forEach((callback) => callback());
 		});
 	},
 
-	onReady(callback) {
-		getAdsModule().then((adsModule) => {
-			adsModule.onReady(callback);
-		});
+	onAdsModuleReady(callback) {
+		this.adsModuleReadyCallbacks.push(callback);
 	},
 
 	isAdEngine3ModuleLoaded() {

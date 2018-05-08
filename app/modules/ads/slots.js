@@ -72,7 +72,7 @@ export default {
 				slotName: 'MOBILE_TOP_LEADERBOARD',
 				slotShortcut: 'l',
 				sizes: [],
-				defaultSizes: [[2, 2], [320, 50], [320, 100], [300, 50]],
+				defaultSizes: [/*[2, 2], */ [320, 50], [320, 100], [300, 50]],
 				targeting: {
 					loc: 'top',
 					rv: 1
@@ -118,7 +118,7 @@ export default {
 						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]]
 					}
 				],
-				defaultSizes: [[2, 2], [320, 50], [300, 250], [300, 50]],
+				defaultSizes: [/*[2, 2], */[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'footer',
 					pos: ['BOTTOM_LEADERBOARD', 'MOBILE_PREFOOTER'],
