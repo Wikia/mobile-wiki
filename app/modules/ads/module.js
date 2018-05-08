@@ -13,10 +13,7 @@ class Ads {
 	constructor() {
 		this.engine = null;
 		this.events = null;
-		this.adsContext = null;
-		this.currentAdsContext = null;
 		this.isLoaded = false;
-		this.slotsQueue = [];
 		this.onReadyCallbacks = [];
 	}
 
@@ -106,8 +103,6 @@ class Ads {
 
 	onTransition() {
 		this.events.pageChange();
-
-		this.slotsQueue = [];
 	}
 
 	waitForReady() {
@@ -115,10 +110,7 @@ class Ads {
 	}
 
 	onMenuOpen() {
-		if (!this.uapUnsticked) {
-			this.uapUnsticked = true;
-			this.events.menuOpen();
-		}
+		this.events.menuOpen();
 	}
 }
 
