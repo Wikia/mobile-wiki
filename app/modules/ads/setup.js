@@ -1,4 +1,3 @@
-import adBlockDetection from './tracking/adblock-detection';
 import basicContext from './ad-context';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -78,8 +77,6 @@ function configure(adsContext, instantGlobals) {
 	const {context} = window.Wikia.adEngine;
 
 	setupAdContext(adsContext, instantGlobals);
-	// TODO: run tracking on each pv (result is already stored, just call adBlockDetection.track() method)
-	adBlockDetection.track();
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);

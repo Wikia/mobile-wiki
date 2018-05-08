@@ -1,7 +1,6 @@
-/* eslint no-console: 0 */
-
 import {Promise} from 'rsvp';
 import adsSetup from './setup';
+import adBlockDetection from "./tracking/adblock-detection";
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',
@@ -93,9 +92,10 @@ class Ads {
 		context.push('state.adStack', {id: slotId});
 	}
 
-	reloadAfterTransition(mediaWikiAdsContext) {
+	afterTransition(mediaWikiAdsContext) {
 		// FIXME
 		// this.events.afterPageWithAdsRender();
+		adBlockDetection.track();
 	}
 
 	removeSlot(name) {

@@ -138,6 +138,6 @@ export default Mixin.create({
 		adsContext.user = {
 			isAuthenticated: this.get('currentUser.isAuthenticated')
 		};
-		this.get('ads.module').reloadAfterTransition(adsContext);
+		this.get('ads.module').afterTransition(adsContext);
 	}
 });

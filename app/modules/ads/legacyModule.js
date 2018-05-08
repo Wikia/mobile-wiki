@@ -470,7 +470,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	reloadAfterTransition(adsContext) {
+	afterTransition(adsContext) {
 		this.reload(adsContext, () => {
 			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
 				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
