@@ -1,5 +1,6 @@
 import getAdsModule from '../ads';
 import BasePlayer from './base';
+import jwPlayerAds from './jwplayer-fv';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
 import config from '../../config/environment';
@@ -20,6 +21,8 @@ export default class JWPlayer extends BasePlayer {
 					plist: this.recommendedVideoPlaylist,
 					vtags: this.videoTags
 				};
+
+				jwPlayerAds.init(player, {featured: true}, slotTargeting);
 
 				originalOnCreate(player);
 
