@@ -5,18 +5,87 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
+import offset from "../../utils/offset";
 
-const pageTypes = {
+const MIN_ZEROTH_SECTION_LENGTH = 700;
+const MIN_NUMBER_OF_SECTIONS = 4;
+const PAGE_TYPES = {
 	article: 'a',
 	home: 'h'
 };
+
+function setSlotState(slotName, state) {
+	const slotService = Wikia.adEngine.slotService;
+
+	if (state) {
+		slotService.enable(slotName);
+	} else {
+		slotService.disable(slotName);
+	}
+}
+
+function isTopLeaderboardApplicable() {
+	const context = Wikia.adEngine.context;
+
+	const hasFeaturedVideo = context.get('custom.hasFeaturedVideo'),
+		isHome = context.get('custom.pageType') === 'home',
+		hasPageHeader = !!document.querySelector('.wiki-page-header'),
+		hasPortableInfobox = !!document.querySelector('.portable-infobox');
+
+	return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
+}
+
+function isInContentApplicable() {
+	const context = Wikia.adEngine.context;
+
+	if (context.get('custom.pageType') === 'home') {
+		return !!document.querySelector('.curated-content');
+	}
+
+	const firstSection = document.querySelector('.article-content > h2'),
+		firstSectionTop = (
+			firstSection &&
+			offset(firstSection).top
+		) || 0;
+
+	return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
+}
+
+function isPrefooterApplicable(isInContentApplicable) {
+	const context = Wikia.adEngine.context;
+
+	if (context.get('custom.pageType') === 'home') {
+		return !!document.querySelector('.trending-articles');
+	}
+
+	const numberOfSections = document.querySelectorAll('.article-content > h2').length,
+		hasArticleFooter = !!document.querySelector('.article-footer');
+
+	return hasArticleFooter && !isInContentApplicable || numberOfSections > MIN_NUMBER_OF_SECTIONS;
+}
+
+function isBottomLeaderboardApplicable() {
+	return !!document.querySelector('.wds-global-footer');
+}
+
+function setupSlotsStates() {
+	const context = Wikia.adEngine.context;
+
+	const incontentState = isInContentApplicable();
+
+	setSlotState('MOBILE_TOP_LEADERBOARD', isTopLeaderboardApplicable());
+	setSlotState('MOBILE_IN_CONTENT', incontentState);
+	setSlotState('MOBILE_PREFOOTER', isPrefooterApplicable(incontentState));
+	setSlotState('BOTTOM_LEADERBOARD', isBottomLeaderboardApplicable());
+	setSlotState('FEATURED', context.get('custom.hasFeaturedVideo'));
+}
 
 function getPageTypeShortcut() {
 	// Global imports:
 	const {context} = window.Wikia.adEngine;
 	// End of imports
 
-	return pageTypes[context.get('targeting.s2')] || 'x';
+	return PAGE_TYPES[context.get('targeting.s2')] || 'x';
 }
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
@@ -98,8 +167,12 @@ function setupAdContext(adsContext, instantGlobals) {
 	if (adsContext.targeting.wikiIsTop1000) {
 		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
 	}
+	context.set('custom.hasFeaturedVideo', adsContext.targeting.hasFeaturedVideo);
+	context.set('custom.hasPortableInfobox', adsContext.targeting.hasPortableInfobox);
+	context.set('custom.pageType', adsContext.targeting.pageType);
 
 	setupSlotIdentificator();
+	setupSlotsStates();
 }
 
 function configure(adsContext, instantGlobals) {

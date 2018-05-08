@@ -69,6 +69,15 @@ class Ads {
 				dimension: 6
 			}
 		};
+		this.adSlotsConfig = {
+			MOBILE_TOP_LEADERBOARD: {
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
+				isAboveTheFold: true
+			},
+			MOBILE_PREFOOTER: {
+				disableManualInsert: true
+			}
+		};
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
@@ -429,6 +438,17 @@ class Ads {
 				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 			}
 		}
+	}
+
+	getAdSlotComponentAttributes(slotName) {
+		const config = this.adSlotsConfig[slotName] || {};
+
+		return {
+			disableManualInsert: !!config.disableManualInsert,
+			isAboveTheFold: !!config.isAboveTheFold,
+			name: slotName,
+			hiddenClassName: 'hidden'
+		};
 	}
 
 	/**

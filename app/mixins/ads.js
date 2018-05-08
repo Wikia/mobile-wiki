@@ -4,21 +4,12 @@ import {getRenderComponentFor} from '../utils/render-component';
 
 export default Mixin.create({
 	adsData: {
-		additionalConfig: {
-			MOBILE_TOP_LEADERBOARD: {
-				// ATF slot is pushed immediately (without any delay/in single request with other slots)
-				isAboveTheFold: true
-			},
-			MOBILE_PREFOOTER: {
-				disableManualInsert: true
-			}
-		},
 		bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
 		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
 		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-		mobileTopLeaderBoard: 'gpt-top-leaderboard'
+		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
 	},
 	ads: service(),
 	currentUser: service(),
@@ -39,20 +30,16 @@ export default Mixin.create({
 			return;
 		}
 
-		const adsData = this.get('adsData'),
-			config = adsData.additionalConfig[adSlotName] || {},
-			placeholder = document.createElement('div');
+		const placeholder = document.createElement('div');
+		const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
 		element.insertAdjacentElement(place, placeholder);
 
+		attributes.pageHasFeaturedVideo = this.get('featuredVideo');
+
 		this.get('ads').pushAdSlotComponent(adSlotName, this.renderAdComponent({
 			name: 'ad-slot',
-			attrs: {
-				disableManualInsert: !!config.disableManualInsert,
-				pageHasFeaturedVideo: this.get('featuredVideo'),
-				isAboveTheFold: !!config.isAboveTheFold,
-				name: adSlotName
-			},
+			attrs: attributes,
 			element: placeholder
 		}));
 	},
@@ -74,7 +61,6 @@ export default Mixin.create({
 					})
 				);
 			}
-
 
 			this.appendAd(this.get('adsData.invisibleHighImpact'), 'afterend', wikiContainer);
 		}
@@ -112,8 +98,7 @@ export default Mixin.create({
 			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
 		}
 
-		// TODO
-		// this.appendHighImpactAd();
+		this.appendHighImpactAd();
 	},
 
 	/**
