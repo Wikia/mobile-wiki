@@ -32,7 +32,7 @@ Router.map(function () {
 	});
 
 	this.route('article-edit', {
-		path: '/wiki/edit/:title/:section_index'
+		path: '/wiki/edit/*title/:section_index'
 	});
 });
 

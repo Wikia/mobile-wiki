@@ -13,14 +13,25 @@ export default Route.extend(
 	{
 		wikiVariables: service(),
 		i18n: service(),
+
+		/**
+		 * @param transition
+		 */
+		beforeModel(transition) {
+			if (!transition.data.title) {
+				transition.data.title = decodeURIComponent(transition.params['article-edit'].title);
+			}
+		},
+
 		/**
 		 * @param {*} params
+		 * @param transition
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		model(params) {
+		model(params, transition) {
 			return ArticleEditModel
 				.create(getOwner(this).ownerInjection())
-				.load(params.title, params.section_index);
+				.load(transition.data.title, params.section_index);
 		},
 
 		/**
