@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 
 import {Promise} from 'rsvp';
-import offset from '../../utils/offset';
 import adsSetup from './setup';
 
 const SLOT_NAME_MAP = {
@@ -68,10 +67,7 @@ class Ads {
 	}
 
 	isSlotApplicable(slotName) {
-		const name = SLOT_NAME_MAP[slotName] || slotName;
-		const slotDefinition = Wikia.adEngine.context.get(`slots.${name}`);
-
-		return !!slotDefinition && !slotDefinition.disabled;
+		return !!SLOT_NAME_MAP[slotName];
 	}
 
 	getAdSlotComponentAttributes(slotName) {
