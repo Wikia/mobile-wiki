@@ -92,7 +92,7 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				window.waitForAds(() => setTimeout(() => {
+				this.get('ads').onAdsModuleReady(() => {
 					const adsModule = this.get('ads.module');
 
 					if (this.get('ads').isAdEngine3ModuleLoaded()) {
@@ -133,7 +133,7 @@ export default Route.extend(
 					adsModule.hideSmartBanner = () => {
 						this.set('smartBanner.smartBannerVisible', false);
 					};
-				}, 0));
+				});
 			}
 
 			if (fastboot.get('isFastBoot')) {

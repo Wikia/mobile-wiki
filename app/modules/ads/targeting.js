@@ -184,7 +184,7 @@ export default {
 			targeting.pv = window.pvNumber.toString();
 		}
 
-		// TODO fixme
+		// TODO Implement Krux integration
 		// targeting.u = krux.getUser();
 		// targeting.ksgmnt = krux.getSegments();
 

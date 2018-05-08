@@ -67,7 +67,7 @@
 
 	window.waitForAds = function (callback) {
 		if (adsLoaded) {
-			window.setTimeout(callback, 0, adEngine3Loaded);
+			callback();
 		} else {
 			getterAdsQueue.push(callback);
 		}
