@@ -128,6 +128,8 @@ export default Route.extend(
 					) {
 						this.get('ads').onAdsModuleReady(() => {
 							if (this.get('ads').isAdEngine3ModuleLoaded()) {
+								model.adsContext.user = model.adsContext.user || {};
+								model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 								this.get('ads.module').init(model.adsContext);
 							}
 						});

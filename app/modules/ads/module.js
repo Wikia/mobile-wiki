@@ -40,18 +40,20 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		const {events} = window.Wikia.adEngine;
 
-		this.getInstantGlobals()
-			.then((instantGlobals) => {
-				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-				this.events = events;
-				this.engine = adsSetup.init();
+		if (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated) {
+			this.getInstantGlobals()
+				.then((instantGlobals) => {
+					adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+					this.events = events;
+					this.engine = adsSetup.init();
 
-				this.isLoaded = true;
-				this.onReadyCallbacks.forEach((callback) => callback());
-				this.onReadyCallbacks = [];
+					this.isLoaded = true;
+					this.onReadyCallbacks.forEach((callback) => callback());
+					this.onReadyCallbacks = [];
 
-				Ads.loadGoogleTag();
-			});
+					Ads.loadGoogleTag();
+				});
+		}
 	}
 
 	getInstantGlobals() {
@@ -91,18 +93,9 @@ class Ads {
 		context.push('state.adStack', {id: slotId});
 	}
 
-	turnOffAdsForLoggedInUsers() {
+	reloadAfterTransition(mediaWikiAdsContext) {
 		// FIXME
-	}
-
-	reload(adsContext, onContextLoadCallback = null) {
-		console.error('FIXME reload context called');
-	}
-
-	reloadAfterTransition(adsContext) {
-		this.reload(adsContext, () => {
-			this.events.afterPageWithAdsRender();
-		});
+		// this.events.afterPageWithAdsRender();
 	}
 
 	removeSlot(name) {
