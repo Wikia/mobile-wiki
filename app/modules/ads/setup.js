@@ -68,6 +68,7 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('custom.hasFeaturedVideo', adsContext.targeting.hasFeaturedVideo);
 	context.set('custom.hasPortableInfobox', adsContext.targeting.hasPortableInfobox);
 	context.set('custom.pageType', adsContext.targeting.pageType);
+	context.set('custom.isAuthenticated', adsContext.user.isAuthenticated);
 
 	slots.setupIdentificators();
 	slots.setupStates();
