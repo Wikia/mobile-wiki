@@ -36,7 +36,7 @@ class JWPlayerAssets {
 		}
 
 		return this.scriptsPromise;
-	}}
+	}
 
 	load() {
 		this.loadStyles();
