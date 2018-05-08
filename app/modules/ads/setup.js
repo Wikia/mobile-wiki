@@ -6,23 +6,8 @@ import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 
-const pageTypes = {
-	article: 'a',
-	home: 'h'
-};
-
-function getPageTypeShortcut() {
-	// Global imports:
-	const {context} = window.Wikia.adEngine;
-	// End of imports
-
-	return pageTypes[context.get('targeting.s2')] || 'x';
-}
-
 function setupPageLevelTargeting(mediaWikiAdsContext) {
-	// Global imports:
 	const {context} = window.Wikia.adEngine;
-	// End of imports
 
 	const pageLevelParams = targeting.getPageLevelTargeting(mediaWikiAdsContext);
 	Object.keys(pageLevelParams).forEach((key) => {
@@ -30,31 +15,13 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 	});
 }
 
-function setupSlotIdentificator() {
-	// Global imports:
-	const {context} = window.Wikia.adEngine;
-	// End of imports
-
-	const pageTypeParam = getPageTypeShortcut();
-	const slotsDefinition = context.get('slots');
-
-	// Wikia Page Identificator
-	context.set('targeting.wsi', `mx${pageTypeParam}1`);
-	Object.keys(slotsDefinition).forEach((key) => {
-		const slotParam = slotsDefinition[key].slotShortcut || 'x';
-		context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
-	});
-}
-
 function setupAdContext(adsContext, instantGlobals) {
-	// Global imports:
 	const {context, utils} = window.Wikia.adEngine;
 	const {isProperGeo} = window.Wikia.adProductsGeo;
 
 	function isGeoEnabled(instantGlobalKey) {
 		return isProperGeo(instantGlobals[instantGlobalKey]);
 	}
-	// End of imports
 
 	context.extend(basicContext);
 
@@ -76,8 +43,8 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverVideoMidrollCountries'));
 	context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverVideoPostrollCountries'));
 
+	context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
 	// TODO: context.push('delayModules', featuredVideoDelay);
-	// context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverF2DelayTimeout || 2000);
 	// context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
 	// context.set('options.exposeFeaturedVideoUapKeyValue', isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'));
 
@@ -98,14 +65,16 @@ function setupAdContext(adsContext, instantGlobals) {
 	if (adsContext.targeting.wikiIsTop1000) {
 		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
 	}
+	context.set('custom.hasFeaturedVideo', adsContext.targeting.hasFeaturedVideo);
+	context.set('custom.hasPortableInfobox', adsContext.targeting.hasPortableInfobox);
+	context.set('custom.pageType', adsContext.targeting.pageType);
 
-	setupSlotIdentificator();
+	slots.setupIdentificators();
+	slots.setupStates();
 }
 
 function configure(adsContext, instantGlobals) {
-	// Global imports:
 	const {context} = window.Wikia.adEngine;
-	// End of imports
 
 	setupAdContext(adsContext, instantGlobals);
 	// TODO: run tracking on each pv (result is already stored, just call adBlockDetection.track() method)
@@ -117,9 +86,7 @@ function configure(adsContext, instantGlobals) {
 }
 
 function init() {
-	// Global imports:
 	const {AdEngine} = window.Wikia.adEngine;
-	// End of imports
 
 	const engine = new AdEngine();
 

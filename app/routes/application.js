@@ -15,7 +15,6 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
-import {isAdEngine3Module} from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -220,7 +219,9 @@ export default Route.extend(
 			},
 
 			didTransition() {
-				this.get('ads.module').onTransition();
+				if (this.get('ads.module')) {
+					this.get('ads.module').onTransition();
+				}
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();

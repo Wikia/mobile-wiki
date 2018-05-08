@@ -24,11 +24,13 @@ export default Component.extend(
 			this._super(...arguments);
 
 			run.scheduleOnce('afterRender', this, () => {
-				this.setupAdsContext(this.get('adsContext'));
-				this.get('ads.module').onReady(() => {
-					if (!this.get('isDestroyed')) {
-						this.injectMainPageAds();
-					}
+				this.get('ads').onAdsModuleReady(() => {
+					this.setupAdsContext(this.get('adsContext'));
+					this.get('ads.module').onReady(() => {
+						if (!this.get('isDestroyed')) {
+							this.injectMainPageAds();
+						}
+					});
 				});
 			});
 		},

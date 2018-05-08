@@ -36,6 +36,15 @@ $closeButtonHeight: 40px;
 	}
 }
 
+.gpt-top-leaderboard .ad-slot {
+	position: relative;
+	z-index: $z-ads-top-leaderboard;
+
+	& > div {
+		margin: 10px auto;
+	}
+}
+
 .ad-slot {
 	&.slot-animation {
 		overflow: hidden;

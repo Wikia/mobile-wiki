@@ -12,6 +12,20 @@
 		window.M.loadScript(url, true, cb);
 	};
 
+	// TODO: Remove once we turn on AdEngine3 everywhere
+	// This is temporary, simple method to check geo code
+	// At this moment we don't have geo module from adProducts / mercury_ads_js
+	function isProperGeo(countries) {
+		try {
+			var cookie = window.Cookies.get('Geo');
+			var geo = JSON.parse(cookie) || {};
+
+			return countries.indexOf(geo.country) !== -1 || countries.indexOf('XX') !== -1;
+		} catch (e) {
+			return false;
+		}
+	}
+
 	function onAdsLoaded() {
 		adsLoaded = true;
 
@@ -33,13 +47,8 @@
 			return;
 		}
 
-		var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
-
-		// TODO#1: use instant global
-		// Possibly easiest check for proper geo
-		// Note that at this point we don't have geo module
-		// TODO#2: load adProducts* script in parallel
-		if (true) {
+		// TODO: load adProducts* script in parallel
+		if (isProperGeo(instantGlobals.wgAdDriverAdEngine3Countries)) {
 			loadScript(assetUrls.adEngineScript, function onEngineLoaded() {
 				loadScript(assetUrls.adProductsScript, function onProductsLoaded() {
 					loadScript(assetUrls.geoScript, function onGeoLoaded() {
@@ -49,7 +58,9 @@
 				});
 			});
 		} else {
+			var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
 			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
+
 			loadScript(mercuryAdsJsUrl, onAdsLoaded);
 		}
 	});

@@ -20,6 +20,7 @@ function prepareData(slot, data) {
 		country: getCountryCode(),
 		time_bucket: data.time_bucket,
 		timestamp: data.timestamp,
+		device: context.get('state.deviceType'),
 		ad_load_time: data.timestamp - window.performance.timing.connectStart,
 		product_lineitem_id: data.line_item_id,
 		creative_id: data.creative_id,
