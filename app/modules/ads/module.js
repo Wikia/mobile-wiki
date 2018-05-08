@@ -4,10 +4,10 @@ import {Promise} from 'rsvp';
 import adsSetup from './setup';
 
 const SLOT_NAME_MAP = {
-	'MOBILE_TOP_LEADERBOARD': 'top-leaderboard',
-	'MOBILE_IN_CONTENT': 'incontent-boxad',
-	'MOBILE_PREFOOTER': 'bottom-boxad',
-	'BOTTOM_LEADERBOARD': 'bottom-leaderboard'
+	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',
+	MOBILE_IN_CONTENT: 'incontent-boxad',
+	MOBILE_PREFOOTER: 'bottom-boxad',
+	BOTTOM_LEADERBOARD: 'bottom-leaderboard'
 };
 
 class Ads {
@@ -86,8 +86,9 @@ class Ads {
 
 	pushSlotToQueue(name) {
 		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
+		const context = Wikia.adEngine.context;
 
-		window.adsQueue.push({ id: slotId });
+		context.push('state.adStack', {id: slotId});
 	}
 
 	turnOffAdsForLoggedInUsers() {

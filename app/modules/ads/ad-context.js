@@ -1,5 +1,3 @@
-window.adsQueue = window.adsQueue || [];
-
 export default {
 	adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
 	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
@@ -26,7 +24,7 @@ export default {
 	},
 	src: 'mobile',
 	state: {
-		adStack: window.adsQueue,
+		adStack: [],
 		isMobile: true
 	},
 	options: {
