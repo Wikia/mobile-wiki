@@ -1,6 +1,6 @@
 import {Promise} from 'rsvp';
 import adsSetup from './setup';
-import adBlockDetection from "./tracking/adblock-detection";
+import adBlockDetection from './tracking/adblock-detection';
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',

@@ -12,11 +12,12 @@ export default Service.extend({
 		return ['0', null, ''].indexOf(this.get('noAdsQueryParam')) === -1 || this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: null,
-	adsModuleReadyCallbacks: [],
+	adsModuleReadyCallbacks: null,
 
 	init() {
 		this._super(...arguments);
 		this.adSlotComponents = {};
+		this.adsModuleReadyCallbacks = [];
 		getAdsModule().then((adsModule) => {
 			this.module = adsModule;
 			this.adsModuleReadyCallbacks.forEach((callback) => callback());
