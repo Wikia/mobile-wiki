@@ -7,7 +7,6 @@
 
 	var getterAdsQueue = [];
 	var adsLoaded = false;
-	var adEngine3Loaded = false;
 	var loadScript = function (url, cb) {
 		window.M.loadScript(url, true, cb);
 	};
@@ -26,7 +25,7 @@
 		}
 	}
 
-	function onAdsLoaded() {
+	function onAdsLoaded(adEngine3Loaded) {
 		adsLoaded = true;
 
 		getterAdsQueue.forEach(function (queuedCallback) {
@@ -52,8 +51,7 @@
 			loadScript(assetUrls.adEngineScript, function onEngineLoaded() {
 				loadScript(assetUrls.adProductsScript, function onProductsLoaded() {
 					loadScript(assetUrls.geoScript, function onGeoLoaded() {
-						adEngine3Loaded = true;
-						onAdsLoaded();
+						onAdsLoaded(true);
 					});
 				});
 			});
@@ -61,7 +59,9 @@
 			var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
 			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
 
-			loadScript(mercuryAdsJsUrl, onAdsLoaded);
+			loadScript(mercuryAdsJsUrl, function () {
+				onAdsLoaded(false);
+			});
 		}
 	});
 
