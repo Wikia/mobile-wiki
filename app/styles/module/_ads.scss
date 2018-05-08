@@ -17,6 +17,10 @@ $closeButtonHeight: 40px;
 	.provider-container {
 		margin: 20px auto;
 	}
+
+	&.hide {
+		display: none !important;
+	}
 }
 
 .invisible-high-impact {
