@@ -1,15 +1,6 @@
 (function () {
-	var assetUrls = {
-		adEngineScript: '/mobile-wiki/assets/adengine/ad-engine.global.js',
-		adProductsScript: '/mobile-wiki/assets/adengine/ad-products.global.js',
-		geoScript: '/mobile-wiki/assets/adengine/geo.global.js'
-	};
-
 	var getterAdsQueue = [];
 	var adsLoaded = false;
-	var loadScript = function (url, cb) {
-		window.M.loadScript(url, true, cb);
-	};
 
 	// TODO: Remove once we turn on AdEngine3 everywhere
 	// This is temporary, simple method to check geo code
@@ -46,20 +37,17 @@
 			return;
 		}
 
-		// TODO: load adProducts* script in parallel
 		if (isProperGeo(instantGlobals.wgAdDriverAdEngine3Countries)) {
-			loadScript(assetUrls.adEngineScript, function onEngineLoaded() {
-				loadScript(assetUrls.adProductsScript, function onProductsLoaded() {
-					loadScript(assetUrls.geoScript, function onGeoLoaded() {
-						onAdsLoaded(true);
-					});
-				});
+			var adsJsUrl = '/mobile-wiki/assets/wikia-ae3/global-bundle.js';
+
+			window.M.loadScript(adsJsUrl, true, function () {
+				onAdsLoaded(true);
 			});
 		} else {
 			var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
 			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
 
-			loadScript(mercuryAdsJsUrl, function () {
+			window.M.loadScript(mercuryAdsJsUrl, true, function () {
 				onAdsLoaded(false);
 			});
 		}

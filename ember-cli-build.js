@@ -123,13 +123,9 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
-	const adEngineAssets = new Funnel('node_modules/@wikia/ad-engine/dist', {
-		include: ['*.global.js'],
-		destDir: 'assets/adengine'
-	});
-	const adProductsAssets = new Funnel('node_modules/@wikia/ad-products/dist', {
-		include: ['*.global.js'],
-		destDir: 'assets/adengine'
+	const adEngine3Assets = new Funnel('node_modules/@wikia/ad-products/dist', {
+		include: ['global-bundle.js'],
+		destDir: 'assets/wikia-ae3'
 	});
 
 	// Import files from node_modules, they will run both in FastBoot and browser
@@ -160,7 +156,6 @@ module.exports = function (defaults) {
 		designSystemI18n,
 		svgStore,
 		jwPlayerAssets,
-		adEngineAssets,
-		adProductsAssets
+		adEngine3Assets
 	]);
 };
