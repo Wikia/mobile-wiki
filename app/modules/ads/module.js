@@ -25,12 +25,7 @@ class Ads {
 	}
 
 	static loadGoogleTag() {
-		const script = document.createElement('script');
-
-		script.async = true;
-		script.src = '//www.googletagservices.com/tag/js/gpt.js';
-
-		document.head.appendChild(script);
+		window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
 	}
 
 	init(mediaWikiAdsContext = {}) {
