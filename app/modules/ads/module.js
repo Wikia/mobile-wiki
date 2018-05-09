@@ -11,6 +11,7 @@ const SLOT_NAME_MAP = {
 
 class Ads {
 	constructor() {
+		this.instantGlobals = null;
 		this.engine = null;
 		this.events = null;
 		this.isLoaded = false;
@@ -35,6 +36,7 @@ class Ads {
 			this.getInstantGlobals()
 				.then((instantGlobals) => {
 					adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+					this.instantGlobals = instantGlobals;
 					this.events = events;
 					this.engine = adsSetup.init();
 
@@ -64,7 +66,7 @@ class Ads {
 	}
 
 	getAdSlotComponentAttributes(slotName) {
-		const context = Wikia.adEngine.context;
+		const {context} = Wikia.adEngine;
 
 		const name = SLOT_NAME_MAP[slotName] || slotName;
 		const slotDefinition = context.get(`slots.${name}`);
@@ -78,21 +80,30 @@ class Ads {
 	}
 
 	pushSlotToQueue(name) {
+		const {context} = Wikia.adEngine;
 		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
-		const context = Wikia.adEngine.context;
 
 		context.push('state.adStack', {id: slotId});
 	}
 
 	afterTransition(mediaWikiAdsContext) {
-		// FIXME
-		// this.events.afterPageWithAdsRender();
+		const gptProvider = this.engine.getProvider('gpt');
+
+		adsSetup.setupAdContext(mediaWikiAdsContext, this.instantGlobals);
+
+		if (gptProvider) {
+			gptProvider.updateCorrelator();
+		}
+
 		adBlockDetection.track();
+		this.events.afterPageWithAdsRender();
 	}
 
 	removeSlot(name) {
-		if (this.googleTagModule) {
-			this.googleTagModule.destroySlots([name]);
+		const gptProvider = this.engine.getProvider('gpt');
+
+		if (gptProvider) {
+			gptProvider.destroySlots([name]);
 		}
 	}
 
