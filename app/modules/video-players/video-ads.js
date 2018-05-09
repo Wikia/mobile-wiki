@@ -1,14 +1,3 @@
-// import {
-// 	AdSlot,
-// 	buildVastUrl,
-// 	context,
-// 	slotService,
-// 	vastDebugger,
-// 	vastParser,
-// 	btfBlockerService
-// } from '@wikia/ad-engine';
-
-// import featuredVideoDelay from '../ads/delay/featured-video-delay';
 import JWPlayerTracker from '../ads/tracking/jwplayer-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
@@ -144,7 +133,6 @@ function init(player, options, slotTargeting) {
 
 	if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
 		player.on('adImpression', (event) => {
-			console.log('IMPRESSION', window.moatjw);
 			if (window.moatjw) {
 				window.moatjw.add({
 					adImpressionEvent: event,
