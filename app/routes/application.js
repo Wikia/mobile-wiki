@@ -15,6 +15,7 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
+import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -92,10 +93,8 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				this.get('ads').onAdsModuleReady(() => {
-					const adsModule = this.get('ads.module');
-
-					if (this.get('ads').isAdEngine3ModuleLoaded()) {
+				getAdsModule().then((adsModule) => {
+					if (isAdEngine3Loaded()) {
 						return;
 					}
 

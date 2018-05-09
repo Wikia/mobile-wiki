@@ -19,6 +19,7 @@ import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
+import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -126,11 +127,12 @@ export default Route.extend(
 						!fastboot.get('isFastBoot') &&
 						!transition.queryParams.noexternals
 					) {
-						this.get('ads').onAdsModuleReady(() => {
-							if (this.get('ads').isAdEngine3ModuleLoaded()) {
+						getAdsModule().then((adsModule) => {
+							if (isAdEngine3Loaded(adsModule)) {
 								model.adsContext.user = model.adsContext.user || {};
 								model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-								this.get('ads.module').init(model.adsContext);
+
+								adsModule.init(model.adsContext);
 							}
 						});
 					}
