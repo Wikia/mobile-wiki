@@ -4,7 +4,7 @@
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='wds-button page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
+		<button class='wds-button page-button prev-page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
 			{{i18n 'article-comments.prev-button'}}
 		</button>
 		<ul class='comments {{if commentsHidden 'wds-is-hidden'}}'>
@@ -23,7 +23,7 @@
 	{{/if}}
 
 	<div class='comments__add-comment'>
-		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary wds-is-squished'>
+		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary'>
 			{{i18n 'article-comments.add-comment'}}
 		</a>
 		<div class='comments__message'>{{i18n 'article-comments.desktop-warning'}}</div>
