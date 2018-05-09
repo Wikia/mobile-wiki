@@ -49,6 +49,12 @@ class Ads {
 		}
 	}
 
+	finishAtfQueue() {
+		const {btfBlockerService} = window.Wikia.adEngine;
+
+		btfBlockerService.finishAtfQueue();
+	}
+
 	getInstantGlobals() {
 		return new Promise((resolve) => window.getInstantGlobals(resolve));
 	}

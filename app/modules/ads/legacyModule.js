@@ -451,6 +451,10 @@ class Ads {
 		};
 	}
 
+	finishAtfQueue() {
+		// Do nothing
+	}
+
 	/**
 	 * This is callback that is run after script is loaded
 	 *
