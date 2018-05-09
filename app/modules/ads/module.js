@@ -1,6 +1,7 @@
 import {Promise} from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import jwPlayerAds from '../video-players/jwplayer-fv';
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',
@@ -9,12 +10,17 @@ const SLOT_NAME_MAP = {
 	BOTTOM_LEADERBOARD: 'bottom-leaderboard'
 };
 
+const MOAT_JWPLAYER_PLUGIN_URL = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
+
 class Ads {
 	constructor() {
 		this.engine = null;
 		this.events = null;
 		this.isLoaded = false;
 		this.onReadyCallbacks = [];
+		this.jwPlayerMoat = {
+			loadTrackingPlugin: () => window.M.loadScript(MOAT_JWPLAYER_PLUGIN_URL, true)
+		}
 	}
 
 	static getInstance() {
@@ -107,6 +113,11 @@ class Ads {
 	onMenuOpen() {
 		this.events.menuOpen();
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		jwPlayerAds.init(player, {featured: true}, slotTargeting);
+	}
+
 }
 
 Ads.instance = null;

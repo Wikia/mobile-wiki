@@ -9,7 +9,7 @@
 // } from '@wikia/ad-engine';
 
 // import featuredVideoDelay from '../ads/delay/featured-video-delay';
-import JWPlayerTracker from '../ad-engine/tracking/jwplayer-tracker';
+import JWPlayerTracker from '../ads/tracking/jwplayer-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
 
@@ -62,7 +62,6 @@ function shouldPlayPreroll(videoDepth) {
  */
 function shouldPlayMidroll(videoDepth) {
 	const {context} = window.Wikia.adEngine;
-	console.log(context.get('options.video.isMidrollEnabled'));
 	return context.get('options.video.isMidrollEnabled') && canAdBePlayed(videoDepth);
 }
 
@@ -145,6 +144,7 @@ function init(player, options, slotTargeting) {
 
 	if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
 		player.on('adImpression', (event) => {
+			console.log('IMPRESSION', window.moatjw);
 			if (window.moatjw) {
 				window.moatjw.add({
 					adImpressionEvent: event,
@@ -194,7 +194,6 @@ function init(player, options, slotTargeting) {
 	});
 
 	player.on('videoMidPoint', () => {
-		console.log('MID');
 		if (shouldPlayMidroll(depth)) {
 			tracker.updateType(`${adProduct}-midroll`);
 			player.playAd(getVastUrl(slot, 'midroll', depth, correlator, targeting));

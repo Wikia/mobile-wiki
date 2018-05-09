@@ -1,6 +1,5 @@
-import getAdsModule from '../ads';
+import getAdsModule, {onAdsModuleReady} from '../ads';
 import BasePlayer from './base';
-import jwPlayerAds from './jwplayer-fv';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
 import config from '../../config/environment';
@@ -16,20 +15,15 @@ export default class JWPlayer extends BasePlayer {
 		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
-			getAdsModule().then((adsModule) => {
+			getAdsModule().then(adsModule => {
 				const slotTargeting = {
 					plist: this.recommendedVideoPlaylist,
 					vtags: this.videoTags
 				};
 
-				jwPlayerAds.init(player, {featured: true}, slotTargeting);
-
 				originalOnCreate(player);
 
-				if (adsModule.jwPlayerAds && adsModule.jwPlayerMoat) {
-					adsModule.jwPlayerAds(player, bidParams, slotTargeting);
-					adsModule.jwPlayerMoat.track(player);
-				}
+				adsModule.initJWPlayer(player, bidParams, slotTargeting);
 			});
 		};
 
@@ -112,9 +106,7 @@ export default class JWPlayer extends BasePlayer {
 			this.params.onCreate.bind(this, bidParams)
 		);
 
-		getAdsModule().then((adsModule) => {
-			adsModule.jwPlayerMoat.loadTrackingPlugin();
-		});
+		getAdsModule().then(adsModule => adsModule.jwPlayerMoat.loadTrackingPlugin());
 	}
 
 	/**

@@ -105,7 +105,6 @@ class Ads {
 	 * @returns {void}
 	 */
 	init() {
-		console.log('LEGACY INIT');
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
@@ -165,33 +164,6 @@ class Ads {
 			console.error('Looks like ads asset has not been loaded');
 		}
 		/* eslint-enable max-params */
-	}
-
-	overrideModules() {
-		this.googleTagModule = this.engine.getProvider('gpt');
-	}
-
-	getInstantGlobal(name) {
-		return new Promise((resolve) => window.getInstantGlobal(name, resolve));
-	}
-
-	getInstantGlobals() {
-		return new Promise((resolve) => window.getInstantGlobals(resolve));
-	}
-
-	setupAdEngine3_ThisMethodShouldBeDefinedInOtherModule(mediaWikiAdsContext = {}) {
-		this.getInstantGlobals()
-			.then((instantGlobals) => {
-				ads.configure(mediaWikiAdsContext, instantGlobals);
-				ads.init();
-			})
-			.then(() => this.onReadyCallbacks.map((callback) => callback(ads)))
-			.then(() => this.onReadyCallbacks = []);
-	}
-
-	isProperGeo(param) {
-		const isProperGeo = Wikia && Wikia.geo && Wikia.geo.isProperGeo;
-		return typeof isProperGeo === 'function' && isProperGeo(param);
 	}
 
 	/**
@@ -618,6 +590,14 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		if (this.jwPlayerAds && this.jwPlayerMoat) {
+			this.jwPlayerAds(player, bidParams, slotTargeting);
+			this.jwPlayerMoat.track(player);
+		}
+	}
+
 }
 
 Ads.instance = null;
