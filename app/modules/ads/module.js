@@ -39,6 +39,7 @@ class Ads {
 					this.instantGlobals = instantGlobals;
 					this.events = events;
 					this.engine = adsSetup.init();
+					this.events.registerEvent('MENU_OPEN_EVENT');
 
 					this.isLoaded = true;
 					this.onReadyCallbacks.forEach((callback) => callback());
@@ -86,17 +87,17 @@ class Ads {
 		context.push('state.adStack', {id: slotId});
 	}
 
-	afterTransition(mediaWikiAdsContext) {
-		const gptProvider = this.engine.getProvider('gpt');
+	onTransition(options) {
+		this.events.pageChange(options);
+	}
 
-		adsSetup.setupAdContext(mediaWikiAdsContext, this.instantGlobals);
-
-		if (gptProvider) {
-			gptProvider.updateCorrelator();
-		}
-
+	afterTransition(mediaWikiAdsContext, instantGlobals) {
+		this.instantGlobals = instantGlobals || this.instantGlobals;
 		adBlockDetection.track();
-		this.events.afterPageWithAdsRender();
+		this.events.pageRender({
+			adContext: mediaWikiAdsContext,
+			instantGlobals: this.instantGlobals
+		});
 	}
 
 	removeSlot(name) {
@@ -107,16 +108,12 @@ class Ads {
 		}
 	}
 
-	onTransition() {
-		this.events.pageChange();
-	}
-
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
 	}
 
 	onMenuOpen() {
-		this.events.menuOpen();
+		this.events.emit(this.events.MENU_OPEN_EVENT);
 	}
 }
 
