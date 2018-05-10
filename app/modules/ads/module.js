@@ -10,17 +10,13 @@ const SLOT_NAME_MAP = {
 	BOTTOM_LEADERBOARD: 'bottom-leaderboard'
 };
 
-const MOAT_JWPLAYER_PLUGIN_URL = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
-
 class Ads {
 	constructor() {
 		this.engine = null;
 		this.events = null;
 		this.isLoaded = false;
 		this.onReadyCallbacks = [];
-		this.jwPlayerMoat = {
-			loadTrackingPlugin: () => window.M.loadScript(MOAT_JWPLAYER_PLUGIN_URL, true)
-		}
+		this.jwPlayerMoat = videoAds.jwPlayerMOAT
 	}
 
 	static getInstance() {

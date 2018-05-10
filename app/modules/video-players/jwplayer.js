@@ -1,4 +1,4 @@
-import getAdsModule, {onAdsModuleReady} from '../ads';
+import getAdsModule from '../ads';
 import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';

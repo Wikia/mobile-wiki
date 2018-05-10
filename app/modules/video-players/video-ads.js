@@ -221,6 +221,12 @@ function init(player, options, slotTargeting) {
 	tracker.register(player);
 }
 
+const jwPlayerMOAT = {
+	MOAT_JWPLAYER_PLUGIN_URL: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
+	loadTrackingPlugin: () => window.M.loadScript(this.MOAT_JWPLAYER_PLUGIN_URL, true)
+};
+
 export default {
 	init,
+	jwPlayerMOAT
 };
