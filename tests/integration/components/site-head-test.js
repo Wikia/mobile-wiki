@@ -4,17 +4,26 @@ import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
+import Service from '@ember/service';
 
 const trackModule = require('mobile-wiki/utils/track'),
 	searchIconSelector = '.site-head-icon-search .site-head-icon',
 	navIconSelector = '.site-head-icon-nav';
 let trackStub;
 
+const adsService = Service.extend({
+	module: {
+		onMenuOpen: () => {},
+		isSlotApplicable: () => true
+	}
+});
+
 module('Integration | Component | site head', (hooks) => {
 	setupRenderingTest(hooks);
 
 	hooks.beforeEach(() => {
 		trackStub = sinon.stub(trackModule, 'track');
+		this.owner.register('service:ads', adsService);
 	});
 
 	hooks.afterEach(() => {
