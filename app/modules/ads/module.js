@@ -37,8 +37,8 @@ class Ads {
 				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
 				this.instantGlobals = instantGlobals;
 				this.events = events;
-				this.engine = adsSetup.init();
 				this.events.registerEvent('MENU_OPEN_EVENT');
+				this.engine = adsSetup.init();
 
 				this.isLoaded = true;
 				this.onReadyCallbacks.forEach((callback) => callback());
@@ -72,7 +72,7 @@ class Ads {
 	}
 
 	getAdSlotComponentAttributes(slotName) {
-		const {context} = Wikia.adEngine;
+		const {context} = window.Wikia.adEngine;
 
 		const name = SLOT_NAME_MAP[slotName] || slotName;
 		const slotDefinition = context.get(`slots.${name}`);
@@ -86,15 +86,19 @@ class Ads {
 	}
 
 	pushSlotToQueue(name) {
-		const {context} = Wikia.adEngine;
+		const {context} = window.Wikia.adEngine;
 		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
 
 		context.push('state.adStack', {id: slotId});
 	}
 
 	onTransition(options) {
+		const defaultOptions = {
+			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
+		};
+
 		if (this.events) {
-			this.events.pageChange(options);
+			this.events.pageChange(Object.assign(defaultOptions, options));
 		}
 	}
 
