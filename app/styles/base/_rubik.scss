@@ -181,5 +181,14 @@
 // #rubik-font div allows us to lazy load needed fonts
 body.rubik,
 #rubik-font {
-	font-family: 'Rubik', $wds-font-family;
+	font-family: $font-family-with-rubik;
+}
+
+body.rubik {
+	input,
+	textarea,
+	select,
+	button {
+		font-family: $font-family-with-rubik;
+	}
 }

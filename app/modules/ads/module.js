@@ -87,6 +87,12 @@ class Ads {
 		};
 	}
 
+	isArticleSectionCollapsed() {
+		const {context} = window.Wikia.adEngine;
+
+		return context.get('options.mobileSectionsCollapse');
+	}
+
 	pushSlotToQueue(name) {
 		const {context} = window.Wikia.adEngine;
 		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
