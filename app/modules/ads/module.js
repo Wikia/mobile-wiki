@@ -32,20 +32,20 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		const {events} = window.Wikia.adEngine;
 
-		if (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated) {
-			this.getInstantGlobals()
-				.then((instantGlobals) => {
-					adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-					this.instantGlobals = instantGlobals;
-					this.events = events;
-					this.engine = adsSetup.init();
+		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
+			this.getInstantGlobals().then((instantGlobals) => {
+				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+				this.instantGlobals = instantGlobals;
+				this.events = events;
+				this.engine = adsSetup.init();
+				this.events.registerEvent('MENU_OPEN_EVENT');
 
-					this.isLoaded = true;
-					this.onReadyCallbacks.forEach((callback) => callback());
-					this.onReadyCallbacks = [];
+				this.isLoaded = true;
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
 
-					Ads.loadGoogleTag();
-				});
+				Ads.loadGoogleTag();
+			});
 		}
 	}
 
@@ -92,17 +92,22 @@ class Ads {
 		context.push('state.adStack', {id: slotId});
 	}
 
-	afterTransition(mediaWikiAdsContext) {
-		const gptProvider = this.engine.getProvider('gpt');
-
-		adsSetup.setupAdContext(mediaWikiAdsContext, this.instantGlobals);
-
-		if (gptProvider) {
-			gptProvider.updateCorrelator();
+	onTransition(options) {
+		if (this.events) {
+			this.events.pageChange(options);
 		}
+	}
 
+	afterTransition(mediaWikiAdsContext, instantGlobals) {
+		this.instantGlobals = instantGlobals || this.instantGlobals;
 		adBlockDetection.track();
-		this.events.afterPageWithAdsRender();
+
+		if (this.events) {
+			this.events.pageRender({
+				adContext: mediaWikiAdsContext,
+				instantGlobals: this.instantGlobals
+			});
+		}
 	}
 
 	removeSlot(name) {
@@ -113,16 +118,12 @@ class Ads {
 		}
 	}
 
-	onTransition() {
-		this.events.pageChange();
-	}
-
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
 	}
 
 	onMenuOpen() {
-		this.events.menuOpen();
+		this.events.emit(this.events.MENU_OPEN_EVENT);
 	}
 }
 
