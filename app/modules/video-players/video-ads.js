@@ -1,6 +1,7 @@
 import JWPlayerTracker from '../ads/tracking/jwplayer-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
+const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
 
 /**
  * Calculate depth
@@ -222,8 +223,7 @@ function init(player, options, slotTargeting) {
 }
 
 const jwPlayerMOAT = {
-	MOAT_JWPLAYER_PLUGIN_URL: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
-	loadTrackingPlugin: () => window.M.loadScript(this.MOAT_JWPLAYER_PLUGIN_URL, true)
+	loadTrackingPlugin: () => window.M.loadScript(moatJwplayerPluginUrl, true)
 };
 
 export default {

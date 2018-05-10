@@ -54,7 +54,7 @@ class Ads {
 	finishAtfQueue() {
 		const {btfBlockerService} = window.Wikia.adEngine;
 
-		btfBlockerService.finishAtfQueue();
+		btfBlockerService.finishAboveTheFold();
 	}
 
 	getInstantGlobals() {
