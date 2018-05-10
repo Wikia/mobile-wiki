@@ -590,6 +590,14 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		if (this.jwPlayerAds && this.jwPlayerMoat) {
+			this.jwPlayerAds(player, bidParams, slotTargeting);
+			this.jwPlayerMoat.track(player);
+		}
+	}
+
 }
 
 Ads.instance = null;

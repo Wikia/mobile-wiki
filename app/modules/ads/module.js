@@ -1,6 +1,7 @@
 import {Promise} from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import videoAds from '../video-players/video-ads';
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',
@@ -16,6 +17,7 @@ class Ads {
 		this.events = null;
 		this.isLoaded = false;
 		this.onReadyCallbacks = [];
+		this.jwPlayerMoat = videoAds.jwPlayerMOAT
 	}
 
 	static getInstance() {
@@ -118,6 +120,11 @@ class Ads {
 	onMenuOpen() {
 		this.events.menuOpen();
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		videoAds.init(player, {featured: true}, slotTargeting);
+	}
+
 }
 
 Ads.instance = null;
