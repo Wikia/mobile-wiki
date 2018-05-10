@@ -15,7 +15,7 @@ export default class JWPlayer extends BasePlayer {
 		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
-			getAdsModule().then(adsModule => {
+			getAdsModule().then((adsModule) => {
 				const slotTargeting = {
 					plist: this.recommendedVideoPlaylist,
 					vtags: this.videoTags
@@ -106,7 +106,7 @@ export default class JWPlayer extends BasePlayer {
 			this.params.onCreate.bind(this, bidParams)
 		);
 
-		getAdsModule().then(adsModule => adsModule.jwPlayerMoat.loadTrackingPlugin());
+		getAdsModule().then((adsModule) => adsModule.jwPlayerMoat.loadTrackingPlugin());
 	}
 
 	/**

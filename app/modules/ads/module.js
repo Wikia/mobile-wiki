@@ -17,7 +17,7 @@ class Ads {
 		this.events = null;
 		this.isLoaded = false;
 		this.onReadyCallbacks = [];
-		this.jwPlayerMoat = videoAds.jwPlayerMOAT
+		this.jwPlayerMoat = videoAds.jwPlayerMOAT;
 	}
 
 	static getInstance() {
