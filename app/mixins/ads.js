@@ -117,6 +117,8 @@ export default Mixin.create({
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer');
 
+		this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
+
 		if (curatedContent) {
 			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
