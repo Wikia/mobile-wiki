@@ -34,21 +34,27 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		const {events} = window.Wikia.adEngine;
 
-		if (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated) {
-			this.getInstantGlobals()
-				.then((instantGlobals) => {
-					adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-					this.instantGlobals = instantGlobals;
-					this.events = events;
-					this.engine = adsSetup.init();
+		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
+			this.getInstantGlobals().then((instantGlobals) => {
+				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+				this.instantGlobals = instantGlobals;
+				this.events = events;
+				this.events.registerEvent('MENU_OPEN_EVENT');
+				this.engine = adsSetup.init();
 
-					this.isLoaded = true;
-					this.onReadyCallbacks.forEach((callback) => callback());
-					this.onReadyCallbacks = [];
+				this.isLoaded = true;
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
 
-					Ads.loadGoogleTag();
-				});
+				Ads.loadGoogleTag();
+			});
 		}
+	}
+
+	finishAtfQueue() {
+		const {btfBlockerService} = window.Wikia.adEngine;
+
+		btfBlockerService.finishAtfQueue();
 	}
 
 	getInstantGlobals() {
@@ -68,7 +74,7 @@ class Ads {
 	}
 
 	getAdSlotComponentAttributes(slotName) {
-		const {context} = Wikia.adEngine;
+		const {context} = window.Wikia.adEngine;
 
 		const name = SLOT_NAME_MAP[slotName] || slotName;
 		const slotDefinition = context.get(`slots.${name}`);
@@ -82,23 +88,32 @@ class Ads {
 	}
 
 	pushSlotToQueue(name) {
-		const {context} = Wikia.adEngine;
+		const {context} = window.Wikia.adEngine;
 		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
 
 		context.push('state.adStack', {id: slotId});
 	}
 
-	afterTransition(mediaWikiAdsContext) {
-		const gptProvider = this.engine.getProvider('gpt');
+	onTransition(options) {
+		const defaultOptions = {
+			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
+		};
 
-		adsSetup.setupAdContext(mediaWikiAdsContext, this.instantGlobals);
-
-		if (gptProvider) {
-			gptProvider.updateCorrelator();
+		if (this.events) {
+			this.events.pageChange(Object.assign(defaultOptions, options));
 		}
+	}
 
+	afterTransition(mediaWikiAdsContext, instantGlobals) {
+		this.instantGlobals = instantGlobals || this.instantGlobals;
 		adBlockDetection.track();
-		this.events.afterPageWithAdsRender();
+
+		if (this.events) {
+			this.events.pageRender({
+				adContext: mediaWikiAdsContext,
+				instantGlobals: this.instantGlobals
+			});
+		}
 	}
 
 	removeSlot(name) {
@@ -109,16 +124,12 @@ class Ads {
 		}
 	}
 
-	onTransition() {
-		this.events.pageChange();
-	}
-
 	waitForReady() {
 		return new Promise((resolve) => this.onReady(resolve));
 	}
 
 	onMenuOpen() {
-		this.events.menuOpen();
+		this.events.emit(this.events.MENU_OPEN_EVENT);
 	}
 
 	initJWPlayer(player, bidParams, slotTargeting) {

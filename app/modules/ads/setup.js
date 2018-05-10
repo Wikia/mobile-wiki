@@ -84,10 +84,11 @@ function configure(adsContext, instantGlobals) {
 }
 
 function init() {
-	const {AdEngine} = window.Wikia.adEngine;
+	const {AdEngine, events} = window.Wikia.adEngine;
 
 	const engine = new AdEngine();
 
+	events.on(events.PAGE_RENDER_EVENT, ({adContext, instantGlobals}) => setupAdContext(adContext, instantGlobals));
 	engine.init();
 
 	return engine;
@@ -95,6 +96,5 @@ function init() {
 
 export default {
 	configure,
-	init,
-	setupAdContext // TODO: re-setupAdContext on page transition (with new mediaWikiContext)
+	init
 };
