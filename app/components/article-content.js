@@ -80,6 +80,10 @@ export default Component.extend(
 					this.get('ads.module').onReady(() => {
 						if (!this.get('isDestroyed')) {
 							this.injectAds();
+
+							if (!this.get('ads.module').isArticleSectionCollapsed()) {
+								this.uncollapseSections();
+							}
 						}
 					});
 				}
@@ -517,8 +521,13 @@ export default Component.extend(
 		},
 
 		handleCollapsibleSectionHeaderClick(event) {
-			const header = event.currentTarget,
-				section = header.nextElementSibling;
+			const header = event.currentTarget;
+
+			this.toogleCollapsibleSection(header);
+		},
+
+		toogleCollapsibleSection(header) {
+			const section = header.nextElementSibling;
 			let visible = 'false';
 
 			if (header.classList.toggle('open-section')) {
@@ -537,6 +546,11 @@ export default Component.extend(
 		handleCollapsibleSections() {
 			toArray(this.element.querySelectorAll('h2[section]'))
 				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
+		},
+
+		uncollapseSections() {
+			toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
+				.forEach((header) => this.toogleCollapsibleSection(header));
 		}
 	}
 );

@@ -21,9 +21,7 @@ function getURL(wikiUrls, params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
-		// We need to decode title because MW sends encoded content
-		// It's only necessary in case of in-content links
-		title: decodeURIComponent(params.title),
+		title: params.title,
 	};
 
 	if (params.redirect) {
