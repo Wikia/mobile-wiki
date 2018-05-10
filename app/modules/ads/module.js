@@ -32,21 +32,20 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		const {events} = window.Wikia.adEngine;
 
-		if (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated) {
-			this.getInstantGlobals()
-				.then((instantGlobals) => {
-					adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-					this.instantGlobals = instantGlobals;
-					this.events = events;
-					this.engine = adsSetup.init();
-					this.events.registerEvent('MENU_OPEN_EVENT');
+		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
+			this.getInstantGlobals().then((instantGlobals) => {
+				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+				this.instantGlobals = instantGlobals;
+				this.events = events;
+				this.engine = adsSetup.init();
+				this.events.registerEvent('MENU_OPEN_EVENT');
 
-					this.isLoaded = true;
-					this.onReadyCallbacks.forEach((callback) => callback());
-					this.onReadyCallbacks = [];
+				this.isLoaded = true;
+				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks = [];
 
-					Ads.loadGoogleTag();
-				});
+				Ads.loadGoogleTag();
+			});
 		}
 	}
 
@@ -88,16 +87,21 @@ class Ads {
 	}
 
 	onTransition(options) {
-		this.events.pageChange(options);
+		if (this.events) {
+			this.events.pageChange(options);
+		}
 	}
 
 	afterTransition(mediaWikiAdsContext, instantGlobals) {
 		this.instantGlobals = instantGlobals || this.instantGlobals;
 		adBlockDetection.track();
-		this.events.pageRender({
-			adContext: mediaWikiAdsContext,
-			instantGlobals: this.instantGlobals
-		});
+
+		if (this.events) {
+			this.events.pageRender({
+				adContext: mediaWikiAdsContext,
+				instantGlobals: this.instantGlobals
+			});
+		}
 	}
 
 	removeSlot(name) {
