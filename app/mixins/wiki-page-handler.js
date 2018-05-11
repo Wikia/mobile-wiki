@@ -10,20 +10,18 @@ import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/medi
 import fetch from '../utils/mediawiki-fetch';
 import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
 import extend from '../utils/extend';
-import {buildUrl} from '../utils/url';
 
 /**
  *
+ * @param {Object} wikiUrls
  * @param {Object} params
  * @returns {string}
  */
-function getURL(params) {
+function getURL(wikiUrls, params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
-		// We need to decode title because MW sends encoded content
-		// It's only necessary in case of in-content links
-		title: decodeURIComponent(params.title),
+		title: params.title,
 	};
 
 	if (params.redirect) {
@@ -46,7 +44,7 @@ function getURL(params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
-	return buildUrl({
+	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',
 		query
@@ -57,6 +55,7 @@ export default Mixin.create({
 	fastboot: service(),
 	wikiVariables: service(),
 	simpleStore: service(),
+	wikiUrls: service(),
 
 	getPageModel(params) {
 		const isFastBoot = this.get('fastboot.isFastBoot'),
@@ -68,7 +67,7 @@ export default Mixin.create({
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
 
-			const url = getURL(params);
+			const url = getURL(this.get('wikiUrls'), params);
 
 			return fetch(url)
 				.then((response) => {

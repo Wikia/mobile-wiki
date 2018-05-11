@@ -5,17 +5,18 @@ import sinon from 'sinon';
 
 const trackModule = require('mobile-wiki/utils/track');
 let trackStub;
+let goToLoginStub;
 
 /**
  * @param {object} testThis
- * @param {bool} editAllowed
+ * @param {boolean} editAllowed
  * @returns {*} instance of article-contribution component
  */
 function createComponent(testThis, editAllowed = true) {
-	const section = 3,
-		sectionId = 'myId',
-		title = 'hello world',
-		uploadFeatureEnabled = true;
+	const section = 3;
+	const sectionId = 'myId';
+	const title = 'hello world';
+	const uploadFeatureEnabled = true;
 
 	return testThis.owner.factoryFor('component:article-contribution').create({
 		section,
@@ -29,7 +30,10 @@ function createComponent(testThis, editAllowed = true) {
 module('Unit | Component | article contribution', (hooks) => {
 	setupTest(hooks);
 
-	hooks.beforeEach(() => {
+	hooks.beforeEach(function () {
+		const wikiUrlsService = this.owner.lookup('service:wiki-urls');
+
+		goToLoginStub = sinon.stub(wikiUrlsService, 'goToLogin');
 		trackStub = sinon.stub(trackModule, 'track');
 	});
 
@@ -38,11 +42,11 @@ module('Unit | Component | article contribution', (hooks) => {
 	});
 
 	test('component is initialized', function (assert) {
-		const section = 3,
-			sectionId = 'myId',
-			title = 'hello world',
-			uploadFeatureEnabled = true,
-			component = createComponent(this);
+		const section = 3;
+		const sectionId = 'myId';
+		const title = 'hello world';
+		const uploadFeatureEnabled = true;
+		const component = createComponent(this);
 
 		assert.equal(component.section, section);
 		assert.equal(component.sectionId, sectionId);
@@ -51,11 +55,9 @@ module('Unit | Component | article contribution', (hooks) => {
 	});
 
 	test('edit action without editAllowed redirects to login', function (assert) {
-		const openLocationSpy = sinon.spy(),
-			component = createComponent(this, false);
+		const component = createComponent(this, false);
 
-		component.openLocation = openLocationSpy;
 		component.send('edit');
-		assert.ok(openLocationSpy.calledOnce);
+		assert.ok(goToLoginStub.calledOnce);
 	});
 });

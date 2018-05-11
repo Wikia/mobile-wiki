@@ -8,7 +8,6 @@ import {run} from '@ember/runloop';
 import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
-import getLinkInfo from '../utils/article-link';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
 import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
@@ -27,8 +26,10 @@ export default Route.extend(
 		i18n: service(),
 		lightbox: service(),
 		logger: service(),
+		wikiUrls: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
+		router: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -43,17 +44,17 @@ export default Route.extend(
 		},
 		noexternals: null,
 
+		beforeModel(transition) {
+			this._super(transition);
+
+			if (['wiki-page', 'article-edit'].indexOf(transition.targetName) > -1) {
+				transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
+			}
+		},
+
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
-
-			// We need the wiki page title for setting tracking dimensions in ApplicationModel.
-			// Instead of waiting for the wiki page model to resolve,
-			// let's just use the value from route params.
-			let wikiPageTitle;
-
-			if (transition.targetName === 'wiki-page') {
-				wikiPageTitle = transition.params['wiki-page'].title;
-			}
+			const wikiPageTitle = transition.data.title;
 
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
@@ -190,6 +191,16 @@ export default Route.extend(
 			}
 		},
 
+		activate() {
+			// Qualaroo custom parameters
+			if (!this.get('fastboot.isFastBoot') && window._kiq) {
+				window._kiq.push(['set', {
+					isLoggedIn: this.get('currentUser.isAuthenticated'),
+					contentLanguage: this.get('wikiVariables.language.content')
+				}]);
+			}
+		},
+
 		setupController(controller, model) {
 			controller.set('model', model);
 
@@ -224,6 +235,11 @@ export default Route.extend(
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				// sets number of page views for Qualaroo
+				if (window._kiq) {
+					window._kiq.push(['set', {page_views: this.get('router._routerMicrolib.currentSequence')}]);
+				}
 			},
 
 			error(error, transition) {
@@ -270,8 +286,7 @@ export default Route.extend(
 				}
 
 				trackingCategory = target.dataset.trackingCategory;
-				info = getLinkInfo(
-					this.get('wikiVariables.basePath'),
+				info = this.get('wikiUrls').getLinkInfo(
 					title,
 					target.hash,
 					target.href,
@@ -303,7 +318,10 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
-					const domainRegex = new RegExp(`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.wikiaBaseDomain)}\\/.*$`);
+					const domainRegex = new RegExp(
+						`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.productionBaseDomain)}\\/.*$`
+					);
+
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
 						window.location.assign(info.url);
 					} else {

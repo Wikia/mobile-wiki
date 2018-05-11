@@ -55,6 +55,8 @@ function setupAdContext(adsContext, instantGlobals) {
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverVideoMoatTrackingSampling);
 	context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
+	context.set('options.mobileSectionsCollapse', adsContext.opts.mobileSectionsCollapse);
+
 	if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
 		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}

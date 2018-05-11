@@ -54,7 +54,7 @@ class Ads {
 	finishAtfQueue() {
 		const {btfBlockerService} = window.Wikia.adEngine;
 
-		btfBlockerService.finishAtfQueue();
+		btfBlockerService.finishAboveTheFold();
 	}
 
 	getInstantGlobals() {
@@ -85,6 +85,12 @@ class Ads {
 			name: `gpt-${name}`,
 			hiddenClassName: 'hide'
 		};
+	}
+
+	isArticleSectionCollapsed() {
+		const {context} = window.Wikia.adEngine;
+
+		return context.get('options.mobileSectionsCollapse');
 	}
 
 	pushSlotToQueue(name) {
