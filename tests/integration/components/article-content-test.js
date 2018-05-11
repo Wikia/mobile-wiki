@@ -12,11 +12,7 @@ import hbs from 'htmlbars-inline-precompile';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 
 import * as adsModule from 'mobile-wiki/modules/ads';
-import Ads from 'mobile-wiki/modules/ads/legacyModule';
-
-let instance = Ads.getInstance();
-instance.isLoaded = true;
-sinon.stub(adsModule, 'default').returns({then: (cb) => cb(instance)});
+import mockAdsService, {getAdsModuleMock} from '../../helpers/mock-ads-service';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
@@ -28,19 +24,15 @@ const i18nService = Service.extend({
 	t() {}
 });
 
-const adsService = Service.extend({
-	module: {
-		onMenuOpen: () => {}
-	}
-});
-
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);
 
 	hooks.beforeEach(function () {
+		sinon.stub(adsModule, 'default').returns({then: (cb) => cb(getAdsModuleMock())});
+
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
-		this.owner.register('service:ads', adsService);
+		mockAdsService(this.owner);
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
@@ -68,11 +60,11 @@ module('Integration | Component | article content', (hooks) => {
 		}}{{/article-content}}`);
 
 		assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
-		// assert.equal(
-		// 	find(mobileTopLeaderboardSelector).previousSibling,
-		// 	find('.portable-infobox'),
-		// 	'previous element is an infobox'
-		// );
+		assert.equal(
+			find(mobileTopLeaderboardSelector).previousSibling,
+			find('.portable-infobox'),
+			'previous element is an infobox'
+		);
 	});
 
 	test('ad is injected below page header', async function (assert) {
