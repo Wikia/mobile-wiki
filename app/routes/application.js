@@ -49,11 +49,20 @@ export default Route.extend(
 			if (['wiki-page', 'article-edit'].indexOf(transition.targetName) > -1) {
 				transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
 			}
+
+			this.get('logger').warn('application before model', {
+				transitionDataTitle: transition.data.title,
+				paramTitle: transition.params[transition.targetName].title,
+			});
 		},
 
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
 			const wikiPageTitle = transition.data.title;
+
+			this.get('logger').warn('application model', {
+				wikiPageTitle
+			});
 
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
