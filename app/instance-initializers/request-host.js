@@ -5,7 +5,7 @@ import {escapeRegex} from '../utils/string';
  * @param {Object} request - FastBoot request
  * @returns {string}
  */
-function getHostFromRequest(request) {
+export function getHostFromRequest(request) {
 	// We use two special domain prefixes for Ad Operations and Sales reasons
 	// Their purpose is to allow separate targeting by having a different domain in the browser
 	// We still want to call production API with non-prefixed host
