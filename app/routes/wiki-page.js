@@ -61,7 +61,9 @@ export default Route.extend(
 
 			logDebug('wiki-page beforeModel', {
 				title,
-				normalizedTitle: normalizeToUnderscore(title)
+				normalizedTitle: normalizeToUnderscore(title),
+				host: this.get('fastboot.request.headers.host'),
+				xOriginalHost: this.get('fastboot.request.headers.x-original-host'),
 			});
 
 			this.get('logger').warn('wiki-page before model');
