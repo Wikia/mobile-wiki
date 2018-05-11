@@ -2,7 +2,6 @@ import {inject as service} from '@ember/service';
 import EmberObject from '@ember/object';
 import {all, hashSettled, resolve} from 'rsvp';
 import {getOwner} from '@ember/application';
-import getHostFromRequest from '../utils/host';
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariablesModel from './wiki-variables';
@@ -23,7 +22,7 @@ export default EmberObject.extend({
 			const protocol = fastboot.get('request.headers').get('fastly-ssl')
 				? 'https'
 				: fastboot.get('request.protocol').replace(':', '');
-			const host = getHostFromRequest(fastboot.get('request')),
+			const host = fastboot.get('request.host'),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
 
