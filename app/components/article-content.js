@@ -75,14 +75,12 @@ export default Component.extend(
 				} else if (this.get('displayEmptyArticleInfo')) {
 					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
 				}
+
 				if (!this.get('isPreview') && this.get('adsContext')) {
 					getAdsModule().then((adsModule) => {
-				console.log('3');
 						this.setupAdsContext(this.get('adsContext'));
 						adsModule.onReady(() => {
-				console.log('4');
 							if (!this.get('isDestroyed')) {
-				console.log('5');
 								this.injectAds();
 
 								if (!this.get('ads.module').isArticleSectionCollapsed()) {
