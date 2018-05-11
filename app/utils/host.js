@@ -13,6 +13,11 @@ export default function getHostFromRequest(request) {
 	// See https://github.com/Wikia/wikia-vcl/blob/master/wikia.com/control-stage.vcl
 	const headers = request.get('headers');
 
+	if (!headers.get('x-original-host')) {
+		const error = new Error();
+		logDebug('host stacktrace', { stacktrace: error.stack });
+	}
+
 	logDebug('host', {
 		xOriginalHost: headers.get('x-original-host'),
 		host: request.get('host'),
