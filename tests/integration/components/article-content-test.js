@@ -23,16 +23,16 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 const i18nService = Service.extend({
 	t() {}
 });
+sinon.stub(adsModule, 'default').returns({then: (cb) => cb(getAdsModuleMock())});
 
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);
 
 	hooks.beforeEach(function () {
-		sinon.stub(adsModule, 'default').returns({then: (cb) => cb(getAdsModuleMock())});
 
-		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
 		mockAdsService(this.owner);
+		this.owner.register('component:ad-slot', adSlotComponentStub);
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
