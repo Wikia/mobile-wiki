@@ -2,6 +2,7 @@
 import config from '../config/environment';
 import {Promise} from 'rsvp';
 import offset from '../utils/offset';
+import {track} from '../utils/track';
 
 /**
  * @typedef {Object} SlotsContext
@@ -422,6 +423,14 @@ class Ads {
 				if (Ads.previousDetectionResults.babDetector.exists) {
 					this.trackBlocking('babDetector', this.GASettings.babDetector,
 						Ads.previousDetectionResults.babDetector.value);
+
+					track({
+						category: 'ads-babdetector-detection',
+						action: 'impression',
+						label: Ads.previousDetectionResults.babDetector.value ? 'Yes' : 'No',
+						value: 0,
+						trackingMethod: 'internal'
+					});
 				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
 					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
 				}
