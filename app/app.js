@@ -13,9 +13,6 @@ mefine('ember', function () {
 });
 
 const App = Application.extend({
-	LOG_TRANSITIONS: true, //TODO remove me
-	LOG_TRANSITIONS_INTERNAL: true, //TODO remove me 
-
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
 	// putting blocking scripts before our content
 	rootElement: '#ember-container',
