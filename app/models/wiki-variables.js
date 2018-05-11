@@ -2,6 +2,7 @@ import EmberObject from '@ember/object';
 import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
+import {logDebug} from '../modules/event-logger';
 
 export default EmberObject.extend({
 	wikiUrls: service(),
@@ -46,6 +47,10 @@ export default EmberObject.extend({
 				if (contentType && contentType.indexOf('application/json') !== -1) {
 					return response.json();
 				} else if (url !== response.url) {
+					logDebug('wikiVariables redirect error', {
+						redirectLocation: response.url,
+						url,
+					});
 					// API was redirected to non-json page
 					throw new WikiVariablesRedirectError().withAdditionalData({
 						redirectLocation: response.url

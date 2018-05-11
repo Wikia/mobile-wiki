@@ -7,6 +7,7 @@ import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariablesModel from './wiki-variables';
 import TrackingDimensionsModel from './tracking-dimensions';
+import {logDebug} from '../modules/event-logger';
 
 export default EmberObject.extend({
 	currentUser: service(),
@@ -23,9 +24,15 @@ export default EmberObject.extend({
 			const protocol = fastboot.get('request.headers').get('fastly-ssl')
 				? 'https'
 				: fastboot.get('request.protocol').replace(':', '');
+
 			const host = getHostFromRequest(fastboot.get('request')),
 				accessToken = fastboot.get('request.cookies.access_token'),
 				ownerInjection = getOwner(this).ownerInjection();
+
+			logDebug('application model fetch', {
+				title,
+				host,
+			});
 
 			return all([
 				WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),
