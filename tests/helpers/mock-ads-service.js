@@ -1,17 +1,5 @@
 import Service from '@ember/service';
 
-export default function (owner) {
-	owner.register('service:ads', Service.extend({
-		init() {
-			this._super(...arguments);
-
-			this.module = getAdsModuleMock();
-		},
-		destroyAdSlotComponents() {},
-		pushAdSlotComponent() {}
-	}));
-}
-
 export function getAdsModuleMock() {
 	return {
 		init() {},
@@ -27,11 +15,23 @@ export function getAdsModuleMock() {
 		getAdSlotComponentAttributes: (name) => {
 			return {
 				name,
-				hiddenClassName: "hidden",
+				hiddenClassName: 'hidden',
 				disableManualInsert: false,
 				isAboveTheFold: false
 			};
 		},
 		isArticleSectionCollapsed: () => true
 	};
+}
+
+export default function (owner) {
+	owner.register('service:ads', Service.extend({
+		init() {
+			this._super(...arguments);
+
+			this.module = getAdsModuleMock();
+		},
+		destroyAdSlotComponents() {},
+		pushAdSlotComponent() {}
+	}));
 }
