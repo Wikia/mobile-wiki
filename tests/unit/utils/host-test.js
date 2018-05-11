@@ -43,7 +43,7 @@ module('host-test', () => {
 				host: testCase.host
 			});
 
-			assert.strictEqual(require('mobile-wiki/utils/host').default(request), testCase.expected);
+			assert.strictEqual(require('mobile-wiki/instance-initializers/request-host').getHostFromRequest(request), testCase.expected);
 		});
 	});
 });
