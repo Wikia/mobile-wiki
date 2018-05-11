@@ -78,7 +78,7 @@ export default Route.extend(
 					title,
 					normalizedTitle: normalizeToUnderscore(title),
 				});
-				this.transitionTo('wiki-page', normalizeToUnderscore(title));
+				this.replaceWith('wiki-page', normalizeToUnderscore(title));
 			}
 
 			// if title is empty, we want to redirect to main page
