@@ -60,12 +60,17 @@ export default Route.extend(
 				normalizedTitle: normalizeToUnderscore(title)
 			});
 
+			this.get('logger').warn('wiki-page before model');
+
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
 			// This is caused by the transition below but doesn't mean any additional requests.
 			// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 			// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 			if (title.indexOf(' ') > -1) {
+				this.get('logger').warn('wiki-page before model title with spaces', {
+					title
+				});
 				this.transitionTo('wiki-page', normalizeToUnderscore(title));
 			}
 

@@ -55,6 +55,10 @@ export default Route.extend(
 				wikiPageTitle = transition.params['wiki-page'].title;
 			}
 
+			this.get('logger').warn('application model', {
+				wikiPageTitle
+			});
+
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
 				.then((applicationData) => {
