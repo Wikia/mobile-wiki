@@ -168,6 +168,8 @@ export default Route.extend(
 			const fastboot = this.get('fastboot'),
 				basePath = model.wikiVariables.basePath;
 
+			this.get('logger').warn(`application model redirect: ${basePath}`);
+
 			if (fastboot.get('isFastBoot')) {
 				const protocol = fastboot.get('request.headers').get('fastly-ssl')
 					? 'https:'
@@ -184,6 +186,7 @@ export default Route.extend(
 				) {
 					return;
 				}
+
 
 				fastboot.get('response.headers').set(
 					'location',
