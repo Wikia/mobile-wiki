@@ -1,5 +1,6 @@
 import config from '../config/environment';
 import {escapeRegex} from './string';
+import {logDebug} from '../modules/event-logger';
 
 /**
  * @param {Object} request - FastBoot request
@@ -11,6 +12,12 @@ export default function getHostFromRequest(request) {
 	// We still want to call production API with non-prefixed host
 	// See https://github.com/Wikia/wikia-vcl/blob/master/wikia.com/control-stage.vcl
 	const headers = request.get('headers');
+
+	logDebug('host', {
+		xOriginalHost: headers.get('x-original-host'),
+		host: request.get('host'),
+	});
+
 	// One of our layers cuts out sandbox-* prefix from the host, use x-original-host instead
 	let host = headers.get('x-original-host') || request.get('host');
 

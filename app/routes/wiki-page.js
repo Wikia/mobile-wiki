@@ -18,7 +18,7 @@ import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
-import {logError} from '../modules/event-logger';
+import {logError, logDebug} from '../modules/event-logger';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -58,6 +58,11 @@ export default Route.extend(
 			}
 
 			const title = transition.data.title;
+
+			logDebug('wiki-page beforeModel', {
+				title,
+				normalizedTitle: normalizeToUnderscore(title)
+			});
 
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
