@@ -55,7 +55,7 @@ function setupAdContext(adsContext, instantGlobals) {
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
 	context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
-	context.set('options.mobileSectionsCollapse', adsContext.opts.mobileSectionsCollapse);
+	context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
 	if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
 		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
@@ -66,10 +66,10 @@ function setupAdContext(adsContext, instantGlobals) {
 	if (adsContext.targeting.wikiIsTop1000) {
 		context.set('custom.wikiIdentifier', context.get('targeting.s1'));
 	}
-	context.set('custom.hasFeaturedVideo', adsContext.targeting.hasFeaturedVideo);
-	context.set('custom.hasPortableInfobox', adsContext.targeting.hasPortableInfobox);
-	context.set('custom.pageType', adsContext.targeting.pageType);
-	context.set('custom.isAuthenticated', adsContext.user.isAuthenticated);
+	context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
+	context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
+	context.set('custom.pageType', adsContext.targeting.pageType || null);
+	context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
 
 	slots.setupIdentificators();
 	slots.setupStates();
