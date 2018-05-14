@@ -67,6 +67,7 @@ export default {
 			'top-leaderboard': {
 				aboveTheFold: true,
 				adProduct: 'mobile_top_leaderboard',
+				audioSegment: '',
 				group: 'LB',
 				options: {},
 				slotName: 'MOBILE_TOP_LEADERBOARD',
@@ -80,6 +81,7 @@ export default {
 			},
 			'incontent-boxad': {
 				adProduct: 'mobile_in_content',
+				audioSegment: '',
 				group: 'HiVi',
 				options: {},
 				slotName: 'MOBILE_IN_CONTENT',
@@ -93,6 +95,7 @@ export default {
 			},
 			'bottom-boxad': {
 				adProduct: 'mobile_prefooter',
+				audioSegment: '',
 				disabled: true,
 				disableManualInsert: true,
 				group: 'PF',
@@ -108,6 +111,7 @@ export default {
 			},
 			'bottom-leaderboard': {
 				adProduct: 'bottom_leaderboard',
+				audioSegment: '',
 				group: 'PF',
 				options: {},
 				slotName: 'BOTTOM_LEADERBOARD',
