@@ -61,6 +61,9 @@ function setupAdContext(adsContext, instantGlobals) {
 		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}
 
+	context.set('slots.inline-video.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.featured-video.videoAdUnit', context.get('megaAdUnitId'));
+
 	setupPageLevelTargeting(adsContext);
 
 	if (adsContext.targeting.wikiIsTop1000) {
