@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
 import config from '../../config/environment';
 import {Promise} from 'rsvp';
-import offset from '../utils/offset';
-import {track} from '../utils/track';
+import offset from '../../utils/offset';
+import {track} from '../../utils/track';
 
 /**
  * @typedef {Object} SlotsContext
