@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
-import config from '../config/environment';
+import config from '../../config/environment';
 import {Promise} from 'rsvp';
-import offset from '../utils/offset';
-import {track} from '../utils/track';
+import offset from '../../utils/offset';
+import {track} from '../../utils/track';
 
 /**
  * @typedef {Object} SlotsContext
@@ -68,6 +68,15 @@ class Ads {
 			babDetector: {
 				name: 'babdetector',
 				dimension: 6
+			}
+		};
+		this.adSlotsConfig = {
+			MOBILE_TOP_LEADERBOARD: {
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
+				isAboveTheFold: true
+			},
+			MOBILE_PREFOOTER: {
+				disableManualInsert: true
 			}
 		};
 		this.adLogicPageParams = null;
@@ -444,6 +453,21 @@ class Ads {
 		}
 	}
 
+	getAdSlotComponentAttributes(slotName) {
+		const config = this.adSlotsConfig[slotName] || {};
+
+		return {
+			disableManualInsert: !!config.disableManualInsert,
+			isAboveTheFold: !!config.isAboveTheFold,
+			name: slotName,
+			hiddenClassName: 'hidden'
+		};
+	}
+
+	finishAtfQueue() {
+		// Do nothing
+	}
+
 	/**
 	 * This is callback that is run after script is loaded
 	 *
@@ -463,7 +487,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	reloadAfterTransition(adsContext) {
+	afterTransition(adsContext) {
 		this.reload(adsContext, () => {
 			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
 				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
@@ -583,6 +607,14 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		if (this.jwPlayerAds && this.jwPlayerMoat) {
+			this.jwPlayerAds(player, bidParams, slotTargeting);
+			this.jwPlayerMoat.track(player);
+		}
+	}
+
 }
 
 Ads.instance = null;

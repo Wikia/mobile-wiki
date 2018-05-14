@@ -123,6 +123,11 @@ module.exports = function (defaults) {
 			destDir: 'assets/jwplayer'
 		});
 
+	const adEngine3Assets = new Funnel('node_modules/@wikia/ad-products/dist', {
+		include: ['global-bundle.js'],
+		destDir: 'assets/wikia-ae3'
+	});
+
 	// Import files from node_modules, they will run both in FastBoot and browser
 	app.import('node_modules/vignette/dist/vignette.js');
 	app.import('vendor/polyfills.js', {prepend: true});
@@ -150,6 +155,7 @@ module.exports = function (defaults) {
 	return app.toTree([
 		designSystemI18n,
 		svgStore,
-		jwPlayerAssets
+		jwPlayerAssets,
+		adEngine3Assets
 	]);
 };
