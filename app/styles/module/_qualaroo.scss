@@ -1,0 +1,140 @@
+$qualaroo-height: 280px;
+$qualaroo-width-small: 310px;
+$qualaroo-width-large: 350px;
+
+.mobile-wiki {
+	// these are styles for Qualaroo NPS surveys
+	// we customised it to make it nicer
+	div#qual_ol {
+		&.qual_ol {
+			background-color: #fff;
+			border: 0;
+			border-radius: 4px;
+			box-shadow: 2px 3px 7px 1px rgba(0, 0, 0, .46);
+			color: #000;
+			font-family: $font-family-with-rubik;
+			height: $qualaroo-height;
+			left: calc(50% - #{$qualaroo-width-small} / 2);
+			top: calc(50% - #{$qualaroo-height} / 2);
+			width: $qualaroo-width-small;
+
+			@media only screen and (min-width: 360px) {
+				left: calc(50% - #{$qualaroo-width-large} / 2);
+				width: $qualaroo-width-large;
+			}
+		}
+
+		.qual {
+			&_x_close {
+				background: transparent;
+				border: 0;
+				right: 0;
+				top: 0;
+				z-index: 1;
+			}
+
+			&_x_svg_x {
+				display: none !important;
+			}
+
+			&_x_close {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+
+				&:hover {
+					background-color: transparent;
+				}
+
+				.fandom-close-icon {
+					display: block;
+					fill: #999;
+					height: 12px;
+					min-width: 12px;
+					position: static;
+					stroke: none;
+					width: 12px;
+				}
+			}
+
+			&_ol {
+				&_box {
+					align-items: center;
+					display: flex;
+					height: 100%;
+					position: static;
+				}
+
+				&_nps {
+					margin: 0;
+				}
+
+				&_nps_ul {
+					display: flex;
+					justify-content: space-between;
+					padding: 0;
+
+					li {
+						align-items: center;
+						border: 1px solid #999;
+						border-radius: 3px;
+						color: #002a32;
+						display: flex;
+						font-size: 16px;
+						font-weight: bold;
+						height: 34px;
+						justify-content: center;
+						line-height: 1;
+						margin: 0;
+						-webkit-tap-highlight-color: rgba($wds-fandom-color-aqua, .5);
+						width: 8.25%;
+
+						&:last-child {
+							border-radius: 3px;
+							margin-right: 0;
+						}
+
+						&:first-child {
+							border-radius: 3px;
+						}
+
+						@media only screen and (min-width: 360px) {
+							height: 41px;
+						}
+					}
+				}
+
+				&_nps_labels {
+					font-size: 12px;
+					font-weight: bold;
+					margin: 15px 0;
+				}
+
+				&_stuff {
+					padding: 4px;
+					text-align: center;
+					width: 100%;
+
+					.fandom-logo {
+						@extend %fandom-logo;
+					}
+				}
+
+				&_qtitle {
+					font-size: 18px;
+					line-height: 1.28;
+					margin: 30px 10px;
+
+					@media only screen and (min-width: 360px) {
+						font-size: 20px;
+					}
+				}
+
+				&_check_svg_bg {
+					fill: $wds-fandom-color-aqua;
+					stroke: $wds-fandom-color-aqua;
+				}
+			}
+		}
+	}
+}

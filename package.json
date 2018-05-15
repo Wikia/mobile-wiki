@@ -22,7 +22,8 @@
     "svgo": "bash ./tasks/optimize-svg.sh",
     "lint:js": "eslint ./*.js app config lib server tests",
     "test": "ember test",
-    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
+    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json",
+    "assets-size": "node tasks/assets-size/index.js"
   },
   "repository": "",
   "engines": {
@@ -31,13 +32,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v5.5.0",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v5.8.3",
     "body-parser": "1.18.2",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.2",
     "cors": "2.8.4",
     "deep-extend": "0.5.0",
-    "design-system": "github:wikia/design-system#9.0.1",
+    "design-system": "github:Wikia/design-system#11.1.1",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-native-dom-helpers": "0.6.2",
@@ -46,7 +47,7 @@
     "fastboot-app-server": "1.1.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.0",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.4.1",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.4.2",
     "lazysizes": "4.0.1",
     "method-override": "2.3.10",
     "on-headers": "1.0.1",

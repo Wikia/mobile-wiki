@@ -18,6 +18,8 @@ import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
+import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
+import {logError} from '../modules/event-logger';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -52,7 +54,11 @@ export default Route.extend(
 		beforeModel(transition) {
 			this._super(transition);
 
-			const title = transition.params['wiki-page'].title.replace('wiki/', '');
+			if (!transition.data.title) {
+				transition.data.title = decodeURIComponent(transition.params['wiki-page'].title);
+			}
+
+			const title = transition.data.title;
 
 			// If you try to access article with not-yet-sanitized title you can see in logs:
 			// `Transition #1: detected abort.`
@@ -73,12 +79,12 @@ export default Route.extend(
 		 * @param {*} params
 		 * @returns {RSVP.Promise}
 		 */
-		model(params) {
+		model(params, transition) {
 			const wikiVariables = this.get('wikiVariables');
 			const host = wikiVariables.get('host');
 			const modelParams = {
 				host,
-				title: params.title,
+				title: transition.data.title,
 				wiki: wikiVariables.get('dbName')
 			};
 
@@ -123,6 +129,20 @@ export default Route.extend(
 							});
 						}
 					});
+
+					if (
+						!fastboot.get('isFastBoot') &&
+						!transition.queryParams.noexternals
+					) {
+						getAdsModule().then((adsModule) => {
+							if (isAdEngine3Loaded(adsModule)) {
+								model.adsContext.user = model.adsContext.user || {};
+								model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+
+								adsModule.init(model.adsContext);
+							}
+						});
+					}
 
 					this.set('wikiHandler', handler);
 
@@ -185,7 +205,13 @@ export default Route.extend(
 				// notify a property change on soon to be stale model for observers (like
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
-				this.get('ads').destroyAdSlotComponents();
+
+				try {
+					this.get('ads').destroyAdSlotComponents();
+				} catch (e) {
+					logError('destroyAdSlotComponents', e);
+				}
+
 				this.get('lightbox').close();
 			},
 

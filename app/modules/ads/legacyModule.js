@@ -1,7 +1,8 @@
 /* eslint no-console: 0 */
-import config from '../config/environment';
+import config from '../../config/environment';
 import {Promise} from 'rsvp';
-import offset from '../utils/offset';
+import offset from '../../utils/offset';
+import {track} from '../../utils/track';
 
 /**
  * @typedef {Object} SlotsContext
@@ -67,6 +68,15 @@ class Ads {
 			babDetector: {
 				name: 'babdetector',
 				dimension: 6
+			}
+		};
+		this.adSlotsConfig = {
+			MOBILE_TOP_LEADERBOARD: {
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
+				isAboveTheFold: true
+			},
+			MOBILE_PREFOOTER: {
+				disableManualInsert: true
 			}
 		};
 		this.adLogicPageParams = null;
@@ -364,6 +374,10 @@ class Ads {
 		return !!document.querySelector('.wds-global-footer');
 	}
 
+	isArticleSectionCollapsed() {
+		return this.adContextModule && this.adContextModule.get('opts.mobileSectionsCollapse');
+	}
+
 	setupSlotsContext() {
 		if (!this.slotsContext) {
 			return;
@@ -418,6 +432,14 @@ class Ads {
 				if (Ads.previousDetectionResults.babDetector.exists) {
 					this.trackBlocking('babDetector', this.GASettings.babDetector,
 						Ads.previousDetectionResults.babDetector.value);
+
+					track({
+						category: 'ads-babdetector-detection',
+						action: 'impression',
+						label: Ads.previousDetectionResults.babDetector.value ? 'Yes' : 'No',
+						value: 0,
+						trackingMethod: 'internal'
+					});
 				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
 					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
 				}
@@ -429,6 +451,21 @@ class Ads {
 				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 			}
 		}
+	}
+
+	getAdSlotComponentAttributes(slotName) {
+		const config = this.adSlotsConfig[slotName] || {};
+
+		return {
+			disableManualInsert: !!config.disableManualInsert,
+			isAboveTheFold: !!config.isAboveTheFold,
+			name: slotName,
+			hiddenClassName: 'hidden'
+		};
+	}
+
+	finishAtfQueue() {
+		// Do nothing
 	}
 
 	/**
@@ -450,7 +487,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	reloadAfterTransition(adsContext) {
+	afterTransition(adsContext) {
 		this.reload(adsContext, () => {
 			if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
 				this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
@@ -570,6 +607,14 @@ class Ads {
 	getContext() {
 		return this.adsContext;
 	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		if (this.jwPlayerAds && this.jwPlayerMoat) {
+			this.jwPlayerAds(player, bidParams, slotTargeting);
+			this.jwPlayerMoat.track(player);
+		}
+	}
+
 }
 
 Ads.instance = null;

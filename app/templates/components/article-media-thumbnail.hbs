@@ -5,10 +5,14 @@
 		<a href="{{model.href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
 	{{else}}
 		<a href="{{model.href}}">
-			<img alt="{{model.title}}"
-				 src="{{thumbnailUrl}}"
-				 height="{{if forcedHeight forcedHeight model.height}}"
-				 width="{{if forcedWidth forcedWidth model.width}}">
+			<img class="article-media-placeholder lazyload"
+				 alt="{{model.title}}"
+				 src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 {{model.width}} {{model.height}}'%2F%3E"
+				 data-src="{{model.thumbnailUrl}}"
+				 data-srcset="{{model.srcset}}"
+				 data-sizes="auto"
+				 height="{{model.height}}"
+				 width="{{model.width}}">
 			{{#if isLinkedByUser}}
 				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}

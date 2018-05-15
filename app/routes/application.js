@@ -14,6 +14,7 @@ import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '
 import {escapeRegex, normalizeToUnderscore} from '../utils/string';
 import {track, trackActions} from '../utils/track';
 import ApplicationModel from '../models/application';
+import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -28,6 +29,7 @@ export default Route.extend(
 		wikiUrls: service(),
 		wikiVariables: service(),
 		smartBanner: service(),
+		router: service(),
 
 		queryParams: {
 			commentsPage: {
@@ -42,17 +44,17 @@ export default Route.extend(
 		},
 		noexternals: null,
 
+		beforeModel(transition) {
+			this._super(transition);
+
+			if (['wiki-page', 'article-edit'].indexOf(transition.targetName) > -1) {
+				transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
+			}
+		},
+
 		model(params, transition) {
 			const fastboot = this.get('fastboot');
-
-			// We need the wiki page title for setting tracking dimensions in ApplicationModel.
-			// Instead of waiting for the wiki page model to resolve,
-			// let's just use the value from route params.
-			let wikiPageTitle;
-
-			if (transition.targetName === 'wiki-page') {
-				wikiPageTitle = transition.params['wiki-page'].title;
-			}
+			const wikiPageTitle = transition.data.title;
 
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
@@ -92,8 +94,10 @@ export default Route.extend(
 				!transition.queryParams.noexternals
 			) {
 
-				window.waitForAds(() => {
-					const adsModule = this.get('ads.module');
+				getAdsModule().then((adsModule) => {
+					if (isAdEngine3Loaded()) {
+						return;
+					}
 
 					adsModule.init();
 
@@ -187,6 +191,16 @@ export default Route.extend(
 			}
 		},
 
+		activate() {
+			// Qualaroo custom parameters
+			if (!this.get('fastboot.isFastBoot') && window._kiq) {
+				window._kiq.push(['set', {
+					isLoggedIn: this.get('currentUser.isAuthenticated'),
+					contentLanguage: this.get('wikiVariables.language.content')
+				}]);
+			}
+		},
+
 		setupController(controller, model) {
 			controller.set('model', model);
 
@@ -215,10 +229,17 @@ export default Route.extend(
 			},
 
 			didTransition() {
-				this.get('ads.module').onTransition();
+				if (this.get('ads.module')) {
+					this.get('ads.module').onTransition();
+				}
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
+
+				// sets number of page views for Qualaroo
+				if (window._kiq) {
+					window._kiq.push(['set', {page_views: this.get('router._routerMicrolib.currentSequence')}]);
+				}
 			},
 
 			error(error, transition) {

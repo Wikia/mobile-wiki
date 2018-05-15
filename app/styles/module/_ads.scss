@@ -17,6 +17,10 @@ $closeButtonHeight: 40px;
 	.provider-container {
 		margin: 20px auto;
 	}
+
+	&.hide {
+		display: none !important;
+	}
 }
 
 .invisible-high-impact {
@@ -32,6 +36,15 @@ $closeButtonHeight: 40px;
 	z-index: $z-ads-top-leaderboard;
 
 	.provider-container {
+		margin: 10px auto;
+	}
+}
+
+.gpt-top-leaderboard .ad-slot {
+	position: relative;
+	z-index: $z-ads-top-leaderboard;
+
+	& > div {
 		margin: 10px auto;
 	}
 }
