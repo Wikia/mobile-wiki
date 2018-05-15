@@ -43,6 +43,7 @@ function getURL(wikiUrls, params) {
 	// this is pseudo-versioning query param for collapsible sections (XW-4393)
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
+	query.cb = Math.random();
 
 	return wikiUrls.build({
 		host: params.host,
