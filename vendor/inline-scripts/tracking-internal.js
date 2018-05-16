@@ -8,9 +8,9 @@
 	if (trackingDataShoebox) {
 		const trackingData = JSON.parse(trackingDataShoebox.innerHTML);
 
-		M.tracker.Internal.trackPageView({
+		M.trackingQueue.push(() => M.tracker.Internal.trackPageView({
 			a: trackingData.articleId,
 			n: trackingData.namespace
-		});
+		}));
 	}
 })(window.M);

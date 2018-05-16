@@ -64,7 +64,7 @@ module.exports = function (defaults) {
 		inlineContent: {
 			'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
 			'fastboot-inline-scripts': `node_modules/mercury-shared/dist/head.js`,
-			'fastboot-inline-scripts-tracking': `node_modules/mercury-shared/dist/head-tracking.js`,
+			'fastboot-inline-scripts-tracking': `node_modules/mercury-shared/dist/tracking.js`,
 			'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
 			'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
 			'tracking-liftigniter': `${inlineScriptsPath}tracking-liftigniter.js`,
@@ -73,7 +73,7 @@ module.exports = function (defaults) {
 			'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
 			lazysizes: `${inlineScriptsPath}lazysizes.js`,
 			'load-ads': `${inlineScriptsPath}load-ads.js`,
-			'rubik-font': `${inlineScriptsPath}rubik-font.js`
+			'rubik-font': `${inlineScriptsPath}rubik-font.js`,
 		},
 		outputPaths: {
 			app: {
@@ -128,6 +128,11 @@ module.exports = function (defaults) {
 		destDir: 'assets/wikia-ae3'
 	});
 
+	const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
+		// String `/assets/tracking-` is blocked by EasyPrivacy list
+		destDir: 'assets/wikia-opt-in.min.js'
+	});
+
 	// Import files from node_modules, they will run both in FastBoot and browser
 	app.import('node_modules/vignette/dist/vignette.js');
 	app.import('vendor/polyfills.js', {prepend: true});
@@ -151,14 +156,12 @@ module.exports = function (defaults) {
 	app.import('node_modules/lazysizes/lazysizes.js', {
 		using: [{transformation: 'fastbootShim'}]
 	});
-	app.import('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
-		using: [{transformation: 'fastbootShim'}]
-	});
 
 	return app.toTree([
 		designSystemI18n,
 		svgStore,
 		jwPlayerAssets,
-		adEngine3Assets
+		adEngine3Assets,
+		trackingOptIn
 	]);
 };
