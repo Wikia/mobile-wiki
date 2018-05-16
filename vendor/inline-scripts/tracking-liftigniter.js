@@ -1,6 +1,7 @@
 (function (M) {
 	M.trackingQueue.push(function (isOptedIn) {
 		if (isOptedIn) {
+			// THIS SCRIPT IS COPIED FROM LIFTIGNITER DOCUMENTATION
 			(function (w, d, s, p, v, e, r) {
 				if (document.location.search.indexOf('noexternals=1') === -1) {
 					w.$igniter_var = v;
