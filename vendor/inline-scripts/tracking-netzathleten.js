@@ -12,7 +12,7 @@
 				script.src = config.url;
 				script.addEventListener('load', function () {
 					window.naMediaAd.setValue('homesite',
-											  Boolean(M.getFromHeadDataStore('isMainPage')));
+						Boolean(M.getFromHeadDataStore('isMainPage')));
 				});
 				document.head.appendChild(script);
 			}

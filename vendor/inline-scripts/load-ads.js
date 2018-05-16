@@ -45,7 +45,8 @@
 			});
 		} else {
 			var wikiVariables = window.M.getFromHeadDataStore('wikiVariables');
-			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster + '/groups/-/mercury_ads_js';
+			var mercuryAdsJsUrl = wikiVariables.cdnRootUrl + '/__am/' + wikiVariables.cacheBuster
+				+ '/groups/-/mercury_ads_js';
 
 			window.M.loadScript(mercuryAdsJsUrl, true, function () {
 				onAdsLoaded(false);
