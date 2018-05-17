@@ -24,7 +24,7 @@ export default EmberObject.extend({
 						comments: get(data, 'payload.comments'),
 						users: get(data, 'payload.users'),
 						pagesCount: get(data, 'pagesCount'),
-						basePath: get(data, 'basePath')
+						basePath: get(data, 'basePath') // remove? this is not https-ready and looks unused
 					});
 
 					return this;
