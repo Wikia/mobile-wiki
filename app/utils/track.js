@@ -188,7 +188,9 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 		M.trackingQueue.push((isOptedIn) => {
 			M.tracker.Internal.trackPageView(context, isOptedIn);
 		});
-		M.trackingQueue.push(M.tracker.UniversalAnalytics.trackPageView(uaDimensions));
+		M.trackingQueue.push(() => {
+			M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
+		});
 	}
 
 	if (enableTracking) {
