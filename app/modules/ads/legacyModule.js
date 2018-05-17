@@ -448,7 +448,9 @@ class Ads {
 					delayEnabled = Boolean(adsContext.opts.delayEngine);
 				}
 
-				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
+				M.trackingQueue.push(
+					() => this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled)
+				);
 			}
 		}
 	}
