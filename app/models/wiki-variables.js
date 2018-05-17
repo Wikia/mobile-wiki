@@ -24,10 +24,6 @@ export default EmberObject.extend({
 			options.headers.Cookie = `access_token=${accessToken}`;
 		}
 
-		if (protocol === 'https') {
-			options.headers['Fastly-SSL'] = '1';
-		}
-
 		return fetch(url, options)
 			.then((response) => {
 				if (!response.ok) {
@@ -68,6 +64,12 @@ export default EmberObject.extend({
 				}
 
 				response.data.host = host;
+
+				// Make sure basePath is using https if the current request from the client was made over https.
+				// accessToken check is needed because we still want to downgrade logged in users that didn't opt in
+				if (!accessToken && response.data.basePath && protocol === 'https') {
+					response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
+				}
 
 				return response.data;
 			})

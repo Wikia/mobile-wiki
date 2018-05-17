@@ -28,14 +28,14 @@ module.exports = function (req, res, next) {
 
 	if (!vendorAssetPath) {
 		try {
-			vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
+			vendorAssetPath = require('../dist/mobile-wiki-assets/assets/assetMap.json').assets['assets/vendor.js'];
 		} catch (exception) {
 			vendorAssetPath = 'assets/vendor.js';
 		}
 	}
 
-	if (!req.path.startsWith('/mobile-wiki/assets')) {
-		res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
+	if (!req.path.startsWith('/mobile-wiki-assets/assets')) {
+		res.setHeader('link', `</mobile-wiki-assets/${vendorAssetPath}>; rel=preload; as=script`);
 	}
 
 	setResponseTime(res);
