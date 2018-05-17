@@ -183,3 +183,12 @@ body.rubik,
 #rubik-font {
 	font-family: $font-family-with-rubik;
 }
+
+body.rubik {
+	input,
+	textarea,
+	select,
+	button {
+		font-family: $font-family-with-rubik;
+	}
+}
