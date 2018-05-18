@@ -28,7 +28,7 @@ module.exports = function (req, res, next) {
 
 	if (!vendorAssetPath) {
 		try {
-			vendorAssetPath = require('../dist/mobile-wiki-assets/assets/assetMap.json').assets['assets/vendor.js'];
+			vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
 		} catch (exception) {
 			vendorAssetPath = 'assets/vendor.js';
 		}
