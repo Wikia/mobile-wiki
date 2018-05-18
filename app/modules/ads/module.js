@@ -50,11 +50,10 @@ class Ads {
 	init(mediaWikiAdsContext = {}) {
 		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
 			this.getInstantGlobals()
-				.then(instantGlobals => {
+				.then((instantGlobals) => {
 					M.trackingQueue.push(() => this.setupAdEngine(mediaWikiAdsContext, instantGlobals));
 				});
 		}
-
 	}
 
 	finishAtfQueue() {
