@@ -106,6 +106,10 @@ class Ads {
 	 * @returns {void}
 	 */
 	init() {
+		M.trackingQueue.push(() => this.loadLegacyModules());
+	}
+
+	loadLegacyModules() {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
@@ -448,9 +452,7 @@ class Ads {
 					delayEnabled = Boolean(adsContext.opts.delayEngine);
 				}
 
-				M.trackingQueue.push(
-					() => this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled)
-				);
+				this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 			}
 		}
 	}
