@@ -31,23 +31,28 @@ class Ads {
 		window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
 	}
 
-	init(mediaWikiAdsContext = {}) {
+	setupAdEngine(mediaWikiAdsContext, instantGlobals) {
 		const {events} = window.Wikia.adEngine;
 
+		adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+		this.instantGlobals = instantGlobals;
+		this.events = events;
+		this.events.registerEvent('MENU_OPEN_EVENT');
+		this.engine = adsSetup.init();
+
+		this.isLoaded = true;
+		this.onReadyCallbacks.forEach((callback) => callback());
+		this.onReadyCallbacks = [];
+
+		Ads.loadGoogleTag();
+	}
+
+	init(mediaWikiAdsContext = {}) {
 		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
-			this.getInstantGlobals().then((instantGlobals) => {
-				adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-				this.instantGlobals = instantGlobals;
-				this.events = events;
-				this.events.registerEvent('MENU_OPEN_EVENT');
-				this.engine = adsSetup.init();
-
-				this.isLoaded = true;
-				this.onReadyCallbacks.forEach((callback) => callback());
-				this.onReadyCallbacks = [];
-
-				Ads.loadGoogleTag();
-			});
+			this.getInstantGlobals()
+				.then((instantGlobals) => {
+					M.trackingQueue.push(() => this.setupAdEngine(mediaWikiAdsContext, instantGlobals));
+				});
 		}
 	}
 
