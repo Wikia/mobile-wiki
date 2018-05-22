@@ -15,19 +15,23 @@ export default class JWPlayer extends BasePlayer {
 		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
-			getAdsModule().then((adsModule) => {
-				const slotTargeting = {
-					plist: this.recommendedVideoPlaylist,
-					vtags: this.videoTags
-				};
-
-				originalOnCreate(player);
-
-				adsModule.initJWPlayer(player, bidParams, slotTargeting);
+			M.trackingQueue.push(() => {
+				getAdsModule()
+					.then((adsModule) => {
+						originalOnCreate(player);
+						adsModule.initJWPlayer(player, bidParams, this.getSlotTargeting());
+					});
 			});
 		};
 
 		this.adTrackingParams = params.adTrackingParams || {};
+	}
+
+	getSlotTargeting() {
+		return {
+			plist: this.recommendedVideoPlaylist,
+			vtags: this.videoTags
+		};
 	}
 
 	setupPlayer() {
