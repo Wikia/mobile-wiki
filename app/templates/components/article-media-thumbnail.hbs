@@ -1,9 +1,8 @@
 {{! This wrapper is required so the chevron is positioned correctly }}
 <div class="article-media-thumbnail-image-wrapper">
 	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
-	{{#if isOgg}}
-		<a href="{{model.href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
-	{{else}}
+
+	{{#if model.width}}
 		<a href="{{model.href}}">
 			<img class="article-media-placeholder lazyload"
 				 alt="{{model.title}}"
@@ -17,12 +16,14 @@
 				{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
 			{{/if}}
 		</a>
-	{{/if}}
 
-	{{#if isVideo}}
-		<div class="article-media-thumbnail__play-icon">
-			{{svg 'wds-player-icon-play' class='wds-player-icon-play-medium'}}
-		</div>
+		{{#if isVideo}}
+			<div class="article-media-thumbnail__play-icon">
+				{{svg 'wds-player-icon-play' class='wds-player-icon-play-medium'}}
+			</div>
+		{{/if}}
+	{{else}}
+		<a href="{{model.href}}">{{svg 'wds-icons-download' class='wds-icon'}}</a>
 	{{/if}}
 
 </div>
