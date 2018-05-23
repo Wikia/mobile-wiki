@@ -28,7 +28,21 @@
 <script>
 	window.trackQuantcastPageView = function () {};
 	window.trackComscorePageView = function () {};
-	window.Wikia = {};
+	window.Wikia = {
+		adEngine: {
+			context: {
+				get: () => undefined
+            }
+        },
+		adProductsGeo: {
+			getCountryCode: () => false
+        },
+		adProducts: {
+			utils: {
+				getSamplingResults: () => []
+            }
+		}
+	};
 	window.M.tracker = {};
 	window.M.trackingQueue = {
 		push: function () {}

@@ -1,7 +1,7 @@
 const trackingRouteName = 'special/adengadinfo';
 
 function getPosParameter({pos = ''}) {
-	return (Array.isArray(pos) ? pos : pos.split(',')).shift();
+	return (Array.isArray(pos) ? pos : pos.split(','))[0];
 }
 
 /**
