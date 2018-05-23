@@ -66,7 +66,7 @@
     "design-system-i18n": "github:wikia/design-system-i18n#1.2.0",
     "ember-browserify": "1.2.2",
     "ember-cli": "~3.0.2",
-    "ember-cli-app-version": "3.1.3",
+    "ember-cli-app-version": "3.2.0",
     "ember-cli-autoprefixer": "0.8.1",
     "ember-cli-babel": "6.12.0",
     "ember-cli-code-coverage": "0.4.2",
