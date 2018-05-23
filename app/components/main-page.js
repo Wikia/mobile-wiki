@@ -3,6 +3,7 @@ import {reads, and} from '@ember/object/computed';
 import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
+import getAdsModule from '../modules/ads';
 
 export default Component.extend(
 	AdsMixin,
@@ -24,11 +25,13 @@ export default Component.extend(
 			this._super(...arguments);
 
 			run.scheduleOnce('afterRender', this, () => {
-				this.setupAdsContext(this.get('adsContext'));
-				this.get('ads.module').onReady(() => {
-					if (!this.get('isDestroyed')) {
-						this.injectMainPageAds();
-					}
+				getAdsModule().then((adsModule) => {
+					this.setupAdsContext(this.get('adsContext'));
+					adsModule.onReady(() => {
+						if (!this.get('isDestroyed')) {
+							this.injectMainPageAds();
+						}
+					});
 				});
 			});
 		},

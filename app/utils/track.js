@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import Ads from '../modules/ads';
+import LegacyAds from '../modules/ads/legacyModule';
 import {getGroup} from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
 
@@ -152,15 +152,20 @@ export function track(params) {
 			throw new Error('Missing required GA params');
 		}
 
-		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
-
+		M.trackingQueue.push(() => {
+			M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
+		});
 		// XW-4311 Added to determine if we're updating GA urls properly
 		analyzeTrackedUrl(params);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
+		const eventName = params.eventName || 'trackingevent';
+
 		params = Object.assign({}, context, params);
-		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
+		M.trackingQueue.push((isOptedIn) => {
+			M.tracker.Internal.track(isPageView(category) ? 'view' : `special/${eventName}`, params, isOptedIn);
+		});
 	}
 }
 
@@ -178,14 +183,18 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 
 	if (!isInitialPageView && enableTracking) {
 		// Defined in /vendor/inline-scripts/
-		window.trackQuantcastPageView();
-		window.trackComscorePageView();
-		M.tracker.Internal.trackPageView(context);
-		M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
+		M.trackingQueue.push(window.trackQuantcastPageView);
+		M.trackingQueue.push(window.trackComscorePageView);
+		M.trackingQueue.push((isOptedIn) => {
+			M.tracker.Internal.trackPageView(context, isOptedIn);
+		});
+		M.trackingQueue.push(() => {
+			M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
+		});
 	}
 
 	if (enableTracking) {
-		Ads.getInstance().trackKruxPageView();
+		LegacyAds.getInstance().trackKruxPageView();
 	}
 }
 

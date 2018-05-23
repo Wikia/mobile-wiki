@@ -1,11 +1,13 @@
 import EmberObject from '@ember/object';
+import {inject as service} from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
-import {buildUrl} from '../utils/url';
 import {WikiVariablesRedirectError, WikiVariablesFetchError} from '../utils/errors';
 
 export default EmberObject.extend({
+	wikiUrls: service(),
+
 	fetch(protocol, host, accessToken) {
-		const url = buildUrl({
+		const url = this.get('wikiUrls').build({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -20,10 +22,6 @@ export default EmberObject.extend({
 
 		if (accessToken) {
 			options.headers.Cookie = `access_token=${accessToken}`;
-		}
-
-		if (protocol === 'https') {
-			options.headers['Fastly-SSL'] = '1';
 		}
 
 		return fetch(url, options)
@@ -66,6 +64,12 @@ export default EmberObject.extend({
 				}
 
 				response.data.host = host;
+
+				// Make sure basePath is using https if the current request from the client was made over https.
+				// accessToken check is needed because we still want to downgrade logged in users that didn't opt in
+				if (!accessToken && response.data.basePath && protocol === 'https') {
+					response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
+				}
 
 				return response.data;
 			})

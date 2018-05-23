@@ -1,9 +1,10 @@
 import {computed} from '@ember/object';
 import Service, {inject as service} from '@ember/service';
-import Ads from '../modules/ads';
+import getAdsModule from '../modules/ads';
 
 export default Service.extend({
-	module: Ads.getInstance(),
+	module: null,
+	fastboot: service(),
 	wikiVariables: service(),
 	currentUser: service(),
 	siteHeadOffset: 0,
@@ -16,6 +17,11 @@ export default Service.extend({
 	init() {
 		this._super(...arguments);
 		this.adSlotComponents = {};
+		if (!this.get('fastboot.isFastBoot')) {
+			getAdsModule().then((adsModule) => {
+				this.module = adsModule;
+			});
+		}
 	},
 
 	pushAdSlotComponent(slotName, adSlotComponent) {
