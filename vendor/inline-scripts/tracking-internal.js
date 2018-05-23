@@ -3,14 +3,16 @@
 		return;
 	}
 
-	const trackingDataShoebox = document.querySelector('#shoebox-trackingData');
+	var trackingDataShoebox = document.querySelector('#shoebox-trackingData');
 
 	if (trackingDataShoebox) {
-		const trackingData = JSON.parse(trackingDataShoebox.innerHTML);
+		var trackingData = JSON.parse(trackingDataShoebox.innerHTML);
 
-		M.tracker.Internal.trackPageView({
-			a: trackingData.articleId,
-			n: trackingData.namespace
+		M.trackingQueue.push(function () {
+			M.tracker.Internal.trackPageView({
+				a: trackingData.articleId,
+				n: trackingData.namespace
+			});
 		});
 	}
 })(window.M);

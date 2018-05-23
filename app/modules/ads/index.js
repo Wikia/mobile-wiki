@@ -10,12 +10,14 @@ export default function getAdsModule() {
 		return adsPromise;
 	}
 
-	adsPromise = new Promise((resolve) => {
+	adsPromise = new Promise((resolve, reject) => {
 		if (typeof window.waitForAds === 'function') {
 			window.waitForAds((isAdEngine3Loaded) => {
 				isAdEngine3 = isAdEngine3Loaded;
 				resolve(isAdEngine3Loaded ? Ads.getInstance() : LegacyAds.getInstance());
 			});
+		} else {
+			reject();
 		}
 	});
 
