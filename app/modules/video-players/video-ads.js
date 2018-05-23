@@ -1,4 +1,5 @@
 import JWPlayerTracker from '../ads/tracking/jwplayer-tracker';
+import slotTracker from '../ads/tracking/slot-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
 const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
@@ -220,6 +221,7 @@ function init(player, options, slotTargeting) {
 	});
 
 	tracker.register(player);
+	slotTracker.onRenderEnded(slot, {});
 }
 
 const jwPlayerMOAT = {
