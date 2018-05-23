@@ -4,15 +4,6 @@ import {getRenderComponentFor} from '../utils/render-component';
 
 export default Mixin.create({
 	adsData: {
-		additionalConfig: {
-			MOBILE_TOP_LEADERBOARD: {
-				// ATF slot is pushed immediately (without any delay/in single request with other slots)
-				isAboveTheFold: true
-			},
-			MOBILE_PREFOOTER: {
-				disableManualInsert: true
-			}
-		},
 		bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
 		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
 		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
@@ -39,20 +30,16 @@ export default Mixin.create({
 			return;
 		}
 
-		const adsData = this.get('adsData'),
-			config = adsData.additionalConfig[adSlotName] || {},
-			placeholder = document.createElement('div');
+		const placeholder = document.createElement('div');
+		const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
 		element.insertAdjacentElement(place, placeholder);
 
+		attributes.pageHasFeaturedVideo = this.get('featuredVideo');
+
 		this.get('ads').pushAdSlotComponent(adSlotName, this.renderAdComponent({
 			name: 'ad-slot',
-			attrs: {
-				disableManualInsert: !!config.disableManualInsert,
-				pageHasFeaturedVideo: this.get('featuredVideo'),
-				isAboveTheFold: !!config.isAboveTheFold,
-				name: adSlotName
-			},
+			attrs: attributes,
 			element: placeholder
 		}));
 	},
@@ -74,7 +61,6 @@ export default Mixin.create({
 					})
 				);
 			}
-
 
 			this.appendAd(this.get('adsData.invisibleHighImpact'), 'afterend', wikiContainer);
 		}
@@ -98,6 +84,8 @@ export default Mixin.create({
 			// inject top mobileTopLeaderBoard below article header
 			// only if there is no featured video embedded
 			this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
+		} else {
+			this.get('ads.module').finishAtfQueue();
 		}
 
 		if (firstSection) {
@@ -129,6 +117,8 @@ export default Mixin.create({
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer');
 
+		this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
+
 		if (curatedContent) {
 			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
@@ -152,6 +142,6 @@ export default Mixin.create({
 		adsContext.user = {
 			isAuthenticated: this.get('currentUser.isAuthenticated')
 		};
-		this.get('ads.module').reloadAfterTransition(adsContext);
+		this.get('ads.module').afterTransition(adsContext);
 	}
 });

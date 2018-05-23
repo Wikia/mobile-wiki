@@ -57,8 +57,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.destroyVideoPlayer();
-		this.initVideoPlayer();
+		M.trackingQueue.push(() => {
+			this.destroyVideoPlayer();
+			this.initVideoPlayer();
+		});
 
 		if (this.get('hasAttribution')) {
 			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));

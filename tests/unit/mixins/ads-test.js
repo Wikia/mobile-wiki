@@ -9,8 +9,7 @@ import sinon from 'sinon';
 const adsStub = Service.extend({
 	module: (function () {
 		return {
-			reloadAfterTransition: () => {
-			}
+			afterTransition: () => {}
 		};
 	})()
 });
@@ -38,8 +37,7 @@ module('Unit | Mixin | ads', (hooks) => {
 				a: 1
 			},
 			mixin = this.subject(),
-			reloadSpy = sinon.spy(mixin.get('ads.module'), 'reloadAfterTransition');
-
+			reloadSpy = sinon.spy(mixin.get('ads.module'), 'afterTransition');
 
 		mixin.setupAdsContext(context);
 
