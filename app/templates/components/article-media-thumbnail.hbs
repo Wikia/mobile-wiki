@@ -2,7 +2,7 @@
 <div class="article-media-thumbnail-image-wrapper">
 	{{svg 'wds-icons-image' role='img' class='wds-icon'}}
 
-	{{#if model.width}}
+	{{#if hasThumbnail}}
 		<a href="{{model.href}}">
 			<img class="article-media-placeholder lazyload"
 				 alt="{{model.title}}"
