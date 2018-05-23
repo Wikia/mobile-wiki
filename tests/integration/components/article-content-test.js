@@ -11,6 +11,9 @@ import hbs from 'htmlbars-inline-precompile';
 
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 
+import * as adsModule from 'mobile-wiki/modules/ads';
+import mockAdsService, {getAdsModuleMock} from '../../helpers/mock-ads-service';
+
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
 	nameLowerCase: computed('name', function () {
@@ -20,6 +23,7 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 const i18nService = Service.extend({
 	t() {}
 });
+sinon.stub(adsModule, 'default').returns({then: (cb) => cb(getAdsModuleMock())});
 
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);
@@ -27,6 +31,7 @@ module('Integration | Component | article content', (hooks) => {
 	hooks.beforeEach(function () {
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
+		mockAdsService(this.owner);
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';

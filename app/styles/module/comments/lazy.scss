@@ -3,6 +3,10 @@
 	width: 100%;
 }
 
+.prev-page-button {
+	margin-bottom: 20px;
+}
+
 .show-reply-btn {
 	box-sizing: border-box;
 	margin-bottom: 20px;
@@ -77,7 +81,6 @@
 
 	.avatar {
 		float: left;
-		padding-left: .9375rem;
 		text-align: left;
 		width: 25%;
 
@@ -88,7 +91,6 @@
 
 	.content {
 		float: left;
-		padding-right: 1.25rem;
 		width: 75%;
 
 		.content {

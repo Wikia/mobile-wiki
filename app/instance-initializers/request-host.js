@@ -1,11 +1,11 @@
 import config from '../config/environment';
-import {escapeRegex} from './string';
+import {escapeRegex} from '../utils/string';
 
 /**
  * @param {Object} request - FastBoot request
  * @returns {string}
  */
-export default function getHostFromRequest(request) {
+export function getHostFromRequest(request) {
 	// We use two special domain prefixes for Ad Operations and Sales reasons
 	// Their purpose is to allow separate targeting by having a different domain in the browser
 	// We still want to call production API with non-prefixed host
@@ -21,3 +21,24 @@ export default function getHostFromRequest(request) {
 
 	return host;
 }
+
+export function initialize(applicationInstance) {
+	let fastboot = applicationInstance.lookup('service:fastboot');
+
+	if (fastboot.get('isFastBoot')) {
+		const request = fastboot.get('request');
+		const host = getHostFromRequest(request);
+
+		// FastBoot uses request host for redirect location
+		// See https://github.com/ember-fastboot/ember-cli-fastboot/blob/master/app/locations/none.js
+		// After deploy the host is sth like http://mobile-wiki-prod.prod.sjc.k8s.wikia.net
+		// To fix the redirects we override the host with the original one
+		request.set('host', host);
+	}
+}
+
+
+export default {
+	name: 'request-host',
+	initialize
+};

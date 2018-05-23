@@ -109,6 +109,20 @@ module.exports = {
 			}
 		},
 
+		// inline scripts files
+		{
+			files: [
+				'vendor/**/*.js'
+			],
+			parserOptions: {
+				sourceType: 'script',
+				ecmaVersion: 5
+			},
+			env: {
+				browser: true,
+			}
+		},
+
 		// test files
 		{
 			files: ['tests/**/*.js'],
