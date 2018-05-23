@@ -157,7 +157,8 @@ module('Unit | Route | wiki page', (hooks) => {
 				'wiki-page': {
 					title: 'foo'
 				}
-			}
+			},
+			data: {}
 		});
 
 		assert.notEqual(window.wgNow, null);

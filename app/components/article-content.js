@@ -10,6 +10,7 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {track, trackActions} from '../utils/track';
 import toArray from '../utils/toArray';
 import scrollToTop from '../utils/scroll-to-top';
+import getAdsModule from '../modules/ads';
 
 /**
  * HTMLElement
@@ -76,15 +77,17 @@ export default Component.extend(
 				}
 
 				if (!this.get('isPreview') && this.get('adsContext')) {
-					this.setupAdsContext(this.get('adsContext'));
-					this.get('ads.module').onReady(() => {
-						if (!this.get('isDestroyed')) {
-							this.injectAds();
+					getAdsModule().then((adsModule) => {
+						this.setupAdsContext(this.get('adsContext'));
+						adsModule.onReady(() => {
+							if (!this.get('isDestroyed')) {
+								this.injectAds();
 
-							if (!this.get('ads.module').isArticleSectionCollapsed()) {
-								this.uncollapseSections();
+								if (!this.get('ads.module').isArticleSectionCollapsed()) {
+									this.uncollapseSections();
+								}
 							}
-						}
+						});
 					});
 				}
 

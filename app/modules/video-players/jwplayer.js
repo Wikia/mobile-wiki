@@ -1,4 +1,4 @@
-import Ads from '../ads';
+import getAdsModule from '../ads';
 import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
 import {track} from '../../utils/track';
@@ -15,21 +15,23 @@ export default class JWPlayer extends BasePlayer {
 		this.videoTags = params.videoTags || '';
 
 		params.onCreate = (bidParams, player) => {
-			const adsInstance = Ads.getInstance();
-			const slotTargeting = {
-				plist: this.recommendedVideoPlaylist,
-				vtags: this.videoTags
-			};
-
-			originalOnCreate(player);
-
-			if (adsInstance.jwPlayerAds && adsInstance.jwPlayerMoat) {
-				adsInstance.jwPlayerAds(player, bidParams, slotTargeting);
-				adsInstance.jwPlayerMoat.track(player);
-			}
+			M.trackingQueue.push(() => {
+				getAdsModule()
+					.then((adsModule) => {
+						originalOnCreate(player);
+						adsModule.initJWPlayer(player, bidParams, this.getSlotTargeting());
+					});
+			});
 		};
 
 		this.adTrackingParams = params.adTrackingParams || {};
+	}
+
+	getSlotTargeting() {
+		return {
+			plist: this.recommendedVideoPlaylist,
+			vtags: this.videoTags
+		};
 	}
 
 	setupPlayer() {
@@ -44,10 +46,12 @@ export default class JWPlayer extends BasePlayer {
 	 * @returns {void}
 	 */
 	createPlayer() {
-		Ads.getInstance()
-			.waitForReady()
-			.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
-			.then(this.initializePlayer.bind(this));
+		getAdsModule().then((adsModule) => {
+			adsModule
+				.waitForReady()
+				.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
+				.then(this.initializePlayer.bind(this));
+		});
 	}
 
 	initializePlayer(bidParams) {
@@ -106,7 +110,7 @@ export default class JWPlayer extends BasePlayer {
 			this.params.onCreate.bind(this, bidParams)
 		);
 
-		Ads.getInstance().jwPlayerMoat.loadTrackingPlugin();
+		getAdsModule().then((adsModule) => adsModule.jwPlayerMoat.loadTrackingPlugin());
 	}
 
 	/**
