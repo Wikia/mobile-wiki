@@ -21,6 +21,7 @@ module('Acceptance | file page', (hooks) => {
 	});
 
 	test('visiting File Page', async (assert) => {
+		await visit('/');
 		await visit('/wiki/File:Example.jpg');
 
 		assert.equal(currentURL(), '/wiki/File:Example.jpg');
@@ -28,7 +29,7 @@ module('Acceptance | file page', (hooks) => {
 		assert.ok(find('.file-usage__header'), 'Appears on header is visible');
 		assert.ok(find('.file-usage__more a'), 'Appears on see more link is visible');
 		assert.equal(find('.file-usage__more a').getAttribute('href'), '/wiki/Special:WhatLinksHere/File:Example.jpg');
-		assert.equal(findAll('.file-usage__list .wikia-card').length, 3, 'Appears on had right number of items');
+		assert.equal(findAll('.file-usage__list .wikia-card').length, 1, 'Appears on had right number of items');
 	});
 });
 

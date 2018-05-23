@@ -24,10 +24,12 @@ export default {
 				type: 'image',
 				url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 				fileUrl: 'http://muppet.igor.wikia-dev.pl/wiki/File:Kerm.jpg',
-				title: 'Kerm.jpg',
+				title: 'jb vjbvhv .jpg',
 				user: 'Scarecroe',
 				width: 250,
-				height: 123
+				height: 123,
+				srcset: 'https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/284?cb=20171130071700 284w,https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/340?cb=20171130071700 340w',
+				thumbnailUrl: 'https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/340?cb=20171130071700',
 			}
 		},
 		details: {
