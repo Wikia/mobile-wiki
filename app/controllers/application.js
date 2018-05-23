@@ -12,6 +12,8 @@ export default Controller.extend(
 		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
+		trackingStatus: service(),
+		fastboot: service(),
 
 		queryParams: ['file',
 			{
@@ -43,6 +45,12 @@ export default Controller.extend(
 				window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 				language: this.get('wikiVariables.language')
 			});
+
+			if (!this.get('fastboot.isFastBoot')) {
+				M.trackingQueue.push((isOptedIn) => {
+					this.get('trackingStatus').setUserTackingConsent(isOptedIn);
+				});
+			}
 
 			this._super();
 		},

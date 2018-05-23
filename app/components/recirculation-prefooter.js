@@ -26,6 +26,7 @@ export default Component.extend(
 		liftigniter: service(),
 		i18n: service(),
 		logger: service(),
+		trackingStatus: service(),
 
 		classNames: ['recirculation-prefooter'],
 		classNameBindings: ['items:has-items'],
@@ -102,7 +103,7 @@ export default Component.extend(
 		didEnterViewport() {
 			const liftigniter = this.get('liftigniter');
 
-			if (M.getFromHeadDataStore('noExternals')) {
+			if (M.getFromHeadDataStore('noExternals') || !this.get('trackingStatus.hasUserTrackingConsent')) {
 				return;
 			}
 
