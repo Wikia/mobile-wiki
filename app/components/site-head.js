@@ -94,7 +94,9 @@ export default Component.extend(
 
 					this.get('setDrawerContent')(icon);
 					this.get('toggleDrawer')(true);
-					this.get('ads.module').onMenuOpen();
+					if (this.get('ads.module')) {
+						this.get('ads.module').onMenuOpen();
+					}
 				}
 			},
 

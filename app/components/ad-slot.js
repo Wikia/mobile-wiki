@@ -29,8 +29,9 @@ export default Component.extend(
 			return dasherize(this.get('name').toLowerCase());
 		}),
 
-		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', function () {
-			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold'));
+		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
+			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold')) &&
+				this.get('name').indexOf('gpt-') !== 0; // Don't wait for UAP when AE3 is loaded
 		}),
 
 		didInsertElement() {
@@ -50,8 +51,7 @@ export default Component.extend(
 
 			if (this.get('shouldWaitForUapResponse')) {
 				ads.waitForUapResponse(
-					() => {
-					},
+					() => {},
 					() => {
 						this.get('logger').info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
