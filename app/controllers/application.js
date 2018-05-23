@@ -12,7 +12,6 @@ export default Controller.extend(
 		lightbox: service(),
 		logger: service(),
 		wikiVariables: service(),
-		trackingStatus: service(),
 
 		queryParams: ['file',
 			{
