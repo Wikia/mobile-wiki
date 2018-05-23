@@ -7,6 +7,7 @@ import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import {normalizeThumbWidth} from '../utils/thumbnail';
 import {track, trackActions} from '../utils/track';
+import {task} from 'ember-concurrency';
 
 const recircItemsCount = 10,
 	config = {
@@ -26,7 +27,6 @@ export default Component.extend(
 		liftigniter: service(),
 		i18n: service(),
 		logger: service(),
-		trackingStatus: service(),
 
 		classNames: ['recirculation-prefooter'],
 		classNameBindings: ['items:has-items'],
@@ -100,63 +100,65 @@ export default Component.extend(
 			}
 		},
 
-		didEnterViewport() {
+		fetchLiftIgniterData: task(function* () {
 			const liftigniter = this.get('liftigniter');
 
-			if (M.getFromHeadDataStore('noExternals') || !this.get('trackingStatus.hasUserTrackingConsent')) {
-				return;
-			}
+			const data = yield liftigniter.getData(config);
 
-			liftigniter
-				.getData(config)
-				.then((data) => {
-					this.set('items', data.items.filter((item) => {
-						return item.hasOwnProperty('thumbnail') && item.thumbnail;
-					})
-						.slice(0, recircItemsCount)
-						.map((item) => {
-							item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
-								mode: Thumbnailer.mode.scaleToWidth,
-								width: normalizeThumbWidth(window.innerWidth)
-							});
-
-							return item;
-						}));
-
-					run.scheduleOnce('afterRender', () => {
-						if (!this.get('isDestroyed')) {
-							liftigniter.setupTracking(
-								this.element.querySelectorAll('.recirculation-prefooter__item'),
-								config.widget,
-								'LI'
-							);
-						}
+			this.set('items', data.items.filter((item) => {
+				return item.hasOwnProperty('thumbnail') && item.thumbnail;
+			})
+				.slice(0, recircItemsCount)
+				.map((item) => {
+					item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
+						mode: Thumbnailer.mode.scaleToWidth,
+						width: normalizeThumbWidth(window.innerWidth)
 					});
 
-					if (this.get('shouldShowPlista')) {
-						this.fetchPlista()
-							.then(this.mapPlista)
-							.then((item) => {
-								if (item.thumbnail) {
-									let newItems = this.get('items');
+					return item;
+				}));
 
-									newItems.splice(1, 0, item);
-									newItems.pop();
-									this.set('items', newItems);
-									this.notifyPropertyChange('items');
-								}
-							})
-							.catch((error) => {
-								this.get('logger').info('Plista fetch failed', error);
-							});
-					}
-				});
+			run.scheduleOnce('afterRender', () => {
+				if (!this.get('isDestroyed')) {
+					liftigniter.setupTracking(
+						this.element.querySelectorAll('.recirculation-prefooter__item'),
+						config.widget,
+						'LI'
+					);
+				}
+			});
+
+			if (this.get('shouldShowPlista')) {
+				this.fetchPlista()
+					.then(this.mapPlista)
+					.then((item) => {
+						if (item.thumbnail) {
+							let newItems = this.get('items');
+
+							newItems.splice(1, 0, item);
+							newItems.pop();
+							this.set('items', newItems);
+							this.notifyPropertyChange('items');
+						}
+					})
+					.catch((error) => {
+						this.get('logger').info('Plista fetch failed', error);
+					});
+			}
 
 			track({
 				action: trackActions.impression,
 				category: 'recirculation',
 				label: 'footer'
 			});
+		}).drop(),
+
+		didEnterViewport() {
+			if (M.getFromHeadDataStore('noExternals') || !this.get('trackingStatus.hasUserTrackingConsent')) {
+				return;
+			}
+
+			this.fetchLiftIgniterData();
 		},
 	}
 );
