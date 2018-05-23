@@ -106,6 +106,10 @@ class Ads {
 	 * @returns {void}
 	 */
 	init() {
+		M.trackingQueue.push(() => this.loadLegacyModules());
+	}
+
+	loadLegacyModules() {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
