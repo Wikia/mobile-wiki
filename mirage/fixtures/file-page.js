@@ -24,7 +24,7 @@ export default {
 				type: 'image',
 				url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 				fileUrl: 'http://muppet.igor.wikia-dev.pl/wiki/File:Kerm.jpg',
-				title: 'jb vjbvhv .jpg',
+				title: 'Kerm.jpg',
 				user: 'Scarecroe',
 				width: 250,
 				height: 123,
