@@ -202,14 +202,30 @@ function init(player, options, slotTargeting) {
 	});
 
 	player.on('adRequest', (event) => {
-		const vastParams = vastParser.parse(event.tag, {
-			imaAd: event.ima && event.ima.ad,
-		});
+		const timeStamp = Math.round(window.performance && window.performance.now && window.performance.timing &&
+			window.performance.timing.navigationStart ? window.performance.now() +
+			window.performance.timing.navigationStart : Date.now()),
+			vastParams = vastParser.parse(event.tag, {
+				imaAd: event.ima && event.ima.ad,
+			});
 		vastDebugger.setVastAttributes(videoContainer, 'success', vastParams);
 
 		if (options.featured) {
 			// featuredVideoDelay.markAsReady(vastParams.lineItemId);
 		}
+
+		slotTracker.onRenderEnded(
+			slot,
+			{
+				timestamp: timeStamp,
+				line_item_id: vastParams.lineItemId,
+				creative_id: vastParams.creativeId,
+				creative_size: vastParams.size,
+				status: 'success',
+				page_width: videoContainer.clientWidth,
+				viewport_height: videoContainer.scrollTop
+			}
+		);
 	});
 
 	player.on('adError', (event) => {
@@ -221,7 +237,6 @@ function init(player, options, slotTargeting) {
 	});
 
 	tracker.register(player);
-	slotTracker.onRenderEnded(slot, {});
 }
 
 const jwPlayerMOAT = {
