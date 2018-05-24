@@ -1,5 +1,9 @@
 const trackingRouteName = 'special/adengadinfo';
 
+function getPosParameter({pos = ''}) {
+	return (Array.isArray(pos) ? pos : pos.split(','))[0];
+}
+
 /**
  * Prepare data for render ended tracking
  * @param {Object} slot
@@ -30,7 +34,7 @@ function prepareData(slot, data) {
 		page_width: data.page_width,
 		viewport_height: data.viewport_height,
 		kv_skin: context.get('targeting.skin'),
-		kv_pos: slot.getTargeting().pos || '',
+		kv_pos: getPosParameter(slot.getTargeting()),
 		kv_wsi: slot.getTargeting().wsi || '',
 		kv_rv: slot.getTargeting().rv || '',
 		kv_lang: context.get('targeting.lang') || '',
