@@ -202,13 +202,11 @@ function init(player, options, slotTargeting) {
 	});
 
 	player.on('adRequest', (event) => {
-		const timeStamp = Math.round(window.performance && window.performance.now && window.performance.timing &&
-			window.performance.timing.navigationStart ? window.performance.now() +
-			window.performance.timing.navigationStart : Date.now()),
-			vastParams = vastParser.parse(event.tag, {
-				imaAd: event.ima && event.ima.ad,
-			});
-		vastDebugger.setVastAttributes(videoContainer, 'success', vastParams);
+		const vastParams = vastParser.parse(event.tag, {
+			imaAd: event.ima && event.ima.ad,
+		});
+
+		vastDebugger.setVastAttributesFromVastParams(videoContainer, 'success', vastParams);
 
 		if (options.featured) {
 			// featuredVideoDelay.markAsReady(vastParams.lineItemId);
@@ -217,7 +215,7 @@ function init(player, options, slotTargeting) {
 		slotTracker.onRenderEnded(
 			slot,
 			{
-				timestamp: timeStamp,
+				timestamp: Date.now(),
 				line_item_id: vastParams.lineItemId,
 				creative_id: vastParams.creativeId,
 				creative_size: vastParams.size,
@@ -234,6 +232,16 @@ function init(player, options, slotTargeting) {
 		if (options.featured) {
 			// featuredVideoDelay.markAsReady();
 		}
+
+		slotTracker.onRenderEnded(
+			slot,
+			{
+				timestamp: Date.now(),
+				status: 'error',
+				page_width: videoContainer.clientWidth,
+				viewport_height: videoContainer.scrollTop
+			}
+		);
 	});
 
 	tracker.register(player);
