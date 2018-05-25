@@ -92,7 +92,7 @@ export default class JWPlayer extends BasePlayer {
 					comscore: config.environment === 'production'
 				},
 				settings: {
-					showAutoplayToggle: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
+					showAutoplayToggle: !isForcedClickToPlay && !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
 					showCaptions: true
 				},
 				sharing: true,
