@@ -14,7 +14,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 	});
 }
 
-function setupAdContext(adsContext, instantGlobals) {
+function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	const {context, utils} = window.Wikia.adEngine;
 	const {isProperGeo} = window.Wikia.adProductsGeo;
 
@@ -50,6 +50,7 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
 	context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
 	context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
+	context.set('options.trackingOptIn', isOptedIn);
 
 	const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries') &&
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
@@ -78,10 +79,12 @@ function setupAdContext(adsContext, instantGlobals) {
 	slots.setupStates();
 }
 
-function configure(adsContext, instantGlobals) {
+function configure(adsContext, instantGlobals, isOptedIn) {
 	const {context} = window.Wikia.adEngine;
+	const {utils: adProductsUtils} = window.Wikia.adProducts;
 
-	setupAdContext(adsContext, instantGlobals);
+	setupAdContext(adsContext, instantGlobals, isOptedIn);
+	adProductsUtils.setupNpaContext();
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);
