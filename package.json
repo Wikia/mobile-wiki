@@ -44,7 +44,7 @@
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-native-dom-helpers": "0.6.2",
     "express-bunyan-logger": "1.3.3",
-    "fastboot": "1.1.3",
+    "fastboot": "1.2.0",
     "fastboot-app-server": "1.1.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.0",
