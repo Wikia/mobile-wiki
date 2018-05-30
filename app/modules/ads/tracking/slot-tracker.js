@@ -74,7 +74,7 @@ export default {
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	onRenderEnded(adSlot, data) {
+	onStatusChanged(adSlot, data) {
 		M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
 	},
 };

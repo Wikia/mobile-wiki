@@ -26,7 +26,7 @@ export default {
 		const {getCountryCode} = window.Wikia.adProductsGeo;
 		// End of imports
 
-		const slot = slotService.getBySlotName(data.position);
+		const slot = slotService.get(data.position);
 		const trackingData = Object.assign(data, {
 			pv_unique_id: window.pvUID,
 			pv_number: window.pvNumber,

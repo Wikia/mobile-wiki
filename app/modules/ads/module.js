@@ -3,12 +3,12 @@ import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
 
-const SLOT_NAME_MAP = {
-	MOBILE_TOP_LEADERBOARD: 'top-leaderboard',
-	MOBILE_IN_CONTENT: 'incontent-boxad',
-	MOBILE_PREFOOTER: 'bottom-boxad',
-	BOTTOM_LEADERBOARD: 'bottom-leaderboard'
-};
+const SUPPORTED_SLOTS = [
+	'mobile_top_leaderboard',
+	'mobile_in_content',
+	'mobile_prefooter',
+	'bottom_leaderboard'
+];
 
 class Ads {
 	constructor() {
@@ -75,19 +75,20 @@ class Ads {
 	}
 
 	isSlotApplicable(slotName) {
-		return !!SLOT_NAME_MAP[slotName];
+		// TODO Handle incontent_boxad_X support
+
+		return SUPPORTED_SLOTS.indexOf(slotName) !== -1;
 	}
 
 	getAdSlotComponentAttributes(slotName) {
 		const {context} = window.Wikia.adEngine;
 
-		const name = SLOT_NAME_MAP[slotName] || slotName;
-		const slotDefinition = context.get(`slots.${name}`);
+		const slotDefinition = context.get(`slots.${slotName}`);
 
 		return {
 			disableManualInsert: slotDefinition.disableManualInsert,
 			isAboveTheFold: slotDefinition.aboveTheFold,
-			name: `gpt-${name}`,
+			name: slotName,
 			hiddenClassName: 'hide'
 		};
 	}
@@ -98,11 +99,12 @@ class Ads {
 		return context.get('options.mobileSectionsCollapse');
 	}
 
-	pushSlotToQueue(name) {
+	pushSlotToQueue(slotName) {
 		const {context} = window.Wikia.adEngine;
-		const slotId = SLOT_NAME_MAP[name] ? `gpt-${SLOT_NAME_MAP[name]}` : name;
 
-		context.push('state.adStack', {id: slotId});
+		context.push('state.adStack', {
+			id: slotName
+		});
 	}
 
 	onTransition(options) {

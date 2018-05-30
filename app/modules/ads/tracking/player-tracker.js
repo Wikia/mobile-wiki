@@ -14,7 +14,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 	const {getCountryCode} = window.Wikia.adProductsGeo;
 	// End of imports
 
-	const slot = slotService.getBySlotName(data.slotName);
+	const slot = slotService.get(data.slotName);
 
 	return {
 		pv_unique_id: window.pvUID,
