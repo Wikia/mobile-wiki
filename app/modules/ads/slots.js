@@ -107,7 +107,7 @@ export default {
 						'targeting.rv': '{slotConfig.repeat.index}'
 					}
 				},
-				slotShortcut: 'i',
+				slotShortcut: 'f',
 				sizes: [
 					{
 						viewportSize: [375, 627],
