@@ -66,6 +66,9 @@ export default Route.extend(
 			// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 			// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 			if (title.indexOf(' ') > -1) {
+				// title needs to be encoded here because it may be redirected to https later and url with this title
+				// is put into location header. If it's not encoded and contains utf characters, then
+				// "TypeError: The header content contains invalid characters" is thrown
 				this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
 			}
 
