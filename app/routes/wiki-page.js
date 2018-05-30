@@ -66,7 +66,7 @@ export default Route.extend(
 			// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 			// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 			if (title.indexOf(' ') > -1) {
-				this.transitionTo('wiki-page', normalizeToUnderscore(title));
+				this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
 			}
 
 			// if title is empty, we want to redirect to main page
