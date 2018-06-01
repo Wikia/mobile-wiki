@@ -20,6 +20,7 @@ export default Service.extend({
 		if (!this.get('fastboot.isFastBoot')) {
 			getAdsModule().then((adsModule) => {
 				this.module = adsModule;
+				this.module.showAds = !this.get('noAds');
 			});
 		}
 	},

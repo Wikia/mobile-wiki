@@ -1,4 +1,5 @@
 import JWPlayerTracker from '../ads/tracking/jwplayer-tracker';
+import slotTracker from '../ads/tracking/slot-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
 const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
@@ -204,11 +205,25 @@ function init(player, options, slotTargeting) {
 		const vastParams = vastParser.parse(event.tag, {
 			imaAd: event.ima && event.ima.ad,
 		});
-		vastDebugger.setVastAttributes(videoContainer, 'success', vastParams);
+
+		vastDebugger.setVastAttributesFromVastParams(videoContainer, 'success', vastParams);
 
 		if (options.featured) {
 			// featuredVideoDelay.markAsReady(vastParams.lineItemId);
 		}
+
+		slotTracker.onRenderEnded(
+			slot,
+			{
+				timestamp: Date.now(),
+				line_item_id: vastParams.lineItemId,
+				creative_id: vastParams.creativeId,
+				creative_size: vastParams.size,
+				status: 'success',
+				page_width: videoContainer.clientWidth,
+				viewport_height: videoContainer.scrollTop
+			}
+		);
 	});
 
 	player.on('adError', (event) => {
@@ -217,6 +232,16 @@ function init(player, options, slotTargeting) {
 		if (options.featured) {
 			// featuredVideoDelay.markAsReady();
 		}
+
+		slotTracker.onRenderEnded(
+			slot,
+			{
+				timestamp: Date.now(),
+				status: 'error',
+				page_width: videoContainer.clientWidth,
+				viewport_height: videoContainer.scrollTop
+			}
+		);
 	});
 
 	tracker.register(player);

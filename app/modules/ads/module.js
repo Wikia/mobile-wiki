@@ -12,12 +12,13 @@ const SUPPORTED_SLOTS = [
 
 class Ads {
 	constructor() {
-		this.instantGlobals = null;
 		this.engine = null;
 		this.events = null;
+		this.instantGlobals = null;
 		this.isLoaded = false;
-		this.onReadyCallbacks = [];
 		this.jwPlayerMoat = videoAds.jwPlayerMOAT;
+		this.onReadyCallbacks = [];
+		this.showAds = true;
 	}
 
 	static getInstance() {
@@ -31,24 +32,8 @@ class Ads {
 		window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
 	}
 
-	setupAdEngine(mediaWikiAdsContext, instantGlobals) {
-		const {events} = window.Wikia.adEngine;
-
-		adsSetup.configure(mediaWikiAdsContext, instantGlobals);
-		this.instantGlobals = instantGlobals;
-		this.events = events;
-		this.events.registerEvent('MENU_OPEN_EVENT');
-		this.engine = adsSetup.init();
-
-		this.isLoaded = true;
-		this.onReadyCallbacks.forEach((callback) => callback());
-		this.onReadyCallbacks = [];
-
-		Ads.loadGoogleTag();
-	}
-
 	init(mediaWikiAdsContext = {}) {
-		if (!this.isLoaded && (!mediaWikiAdsContext.user || !mediaWikiAdsContext.user.isAuthenticated)) {
+		if (!this.isLoaded) {
 			this.getInstantGlobals()
 				.then((instantGlobals) => {
 					M.trackingQueue.push(() => this.setupAdEngine(mediaWikiAdsContext, instantGlobals));
@@ -56,10 +41,40 @@ class Ads {
 		}
 	}
 
+	setupAdEngine(mediaWikiAdsContext, instantGlobals) {
+		const {events} = window.Wikia.adEngine;
+
+		adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+		this.instantGlobals = instantGlobals;
+		this.events = events;
+		this.events.registerEvent('MENU_OPEN_EVENT');
+
+		this.startAdEngine();
+
+		this.isLoaded = true;
+		this.onReadyCallbacks.forEach((callback) => callback());
+		this.onReadyCallbacks = [];
+	}
+
+	startAdEngine() {
+		if (this.showAds) {
+			this.engine = adsSetup.init();
+			Ads.loadGoogleTag();
+		}
+	}
+
 	finishAtfQueue() {
 		const {btfBlockerService} = window.Wikia.adEngine;
 
-		btfBlockerService.finishAboveTheFold();
+		if (this.showAds) {
+			btfBlockerService.finishAboveTheFold();
+		}
+	}
+
+	initJWPlayer(player, bidParams, slotTargeting) {
+		if (this.showAds) {
+			videoAds.init(player, {featured: true}, slotTargeting);
+		}
 	}
 
 	getInstantGlobals() {
@@ -144,11 +159,6 @@ class Ads {
 	onMenuOpen() {
 		this.events.emit(this.events.MENU_OPEN_EVENT);
 	}
-
-	initJWPlayer(player, bidParams, slotTargeting) {
-		videoAds.init(player, {featured: true}, slotTargeting);
-	}
-
 }
 
 Ads.instance = null;
