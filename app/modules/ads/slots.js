@@ -103,7 +103,7 @@ export default {
 					limit: null,
 					slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
 					updateProperties: {
-						'adProduct': '{slotConfig.slotName}',
+						adProduct: '{slotConfig.slotName}',
 						'targeting.rv': '{slotConfig.repeat.index}'
 					}
 				},
