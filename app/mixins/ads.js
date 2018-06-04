@@ -1,7 +1,6 @@
 import {inject as service} from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import {getRenderComponentFor} from '../utils/render-component';
-import {isAdEngine3Loaded} from '../modules/ads';
 
 export default Mixin.create({
 	adsData: {
@@ -18,15 +17,6 @@ export default Mixin.create({
 	init() {
 		this._super(...arguments);
 		this.renderAdComponent = getRenderComponentFor(this);
-
-		if (isAdEngine3Loaded()) {
-			this.set('adsData', {
-				bottomLeaderBoard: 'bottom_leaderboard',
-				mobileInContent: 'incontent_boxad_1',
-				mobilePreFooter: 'mobile_prefooter',
-				mobileTopLeaderBoard: 'mobile_top_leaderboard'
-			});
-		}
 	},
 
 	/**
