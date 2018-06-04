@@ -75,6 +75,7 @@ export default {
 				defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'top',
+					pos: 'MOBILE_TOP_LEADERBOARD',
 					rv: 1
 				}
 			},
@@ -88,6 +89,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
 				targeting: {
 					loc: 'middle',
+					pos: 'MOBILE_IN_CONTENT',
 					rv: 1
 				}
 			},
@@ -162,6 +164,7 @@ export default {
 				group: 'VIDEO',
 				lowerSlotName: 'featured',
 				targeting: {
+					pos: 'FEATURED',
 					uap: 'none',
 				},
 				trackingKey: 'featured-video',
@@ -173,6 +176,7 @@ export default {
 				group: 'VIDEO',
 				lowerSlotName: 'video',
 				targeting: {
+					pos: 'VIDEO',
 					uap: 'none',
 				},
 				trackingKey: 'video',

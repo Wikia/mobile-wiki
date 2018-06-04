@@ -74,7 +74,20 @@ export default {
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	onStatusChanged(adSlot, data) {
+	onRenderEnded(adSlot, data) {
 		M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+	},
+
+	/**
+	 * Track status changed event (other than success and collapse) to data warehouse
+	 * @param {Object} adSlot
+	 * @param {Object} data
+	 * @returns {void}
+	 */
+	onStatusChanged(adSlot, data) {
+		const status = adSlot.getStatus();
+		if (status !== 'success' && status !== 'collapse') {
+			M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+		}
 	},
 };
