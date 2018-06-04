@@ -50,17 +50,25 @@ export default class JWPlayer extends BasePlayer {
 			adsModule
 				.waitForReady()
 				.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
-				.then(this.initializePlayer.bind(this));
+				.then((bidParams) => {
+					return this.initializePlayer(adsModule, bidParams);
+				});
 		});
 	}
 
-	initializePlayer(bidParams) {
+	initializePlayer(adsModule, bidParams) {
 		const containerId = this.params.containerId;
 		const initialPath = window.location.pathname;
+		const isForcedClickToPlay = adsModule && adsModule.adContextModule ?
+			adsModule.adContextModule.get('rabbits.ctpMobile') : false;
 
 		if (!document.getElementById(containerId)) {
 			return;
 		}
+
+		// Check whether autoplay is disabled by AdEng experiment
+		// It's handled here because we need to have properly configured adContext
+		this.params.autoplay = !isForcedClickToPlay && this.params.autoplay;
 
 		window.wikiaJWPlayer(
 			containerId,
@@ -84,7 +92,7 @@ export default class JWPlayer extends BasePlayer {
 					comscore: config.environment === 'production'
 				},
 				settings: {
-					showAutoplayToggle: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
+					showAutoplayToggle: !isForcedClickToPlay && !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
 					showCaptions: true
 				},
 				sharing: true,
