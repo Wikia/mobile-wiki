@@ -3,6 +3,7 @@ const designSystemAssetsPath = 'node_modules/design-system/style-guide/assets/';
 // DS icons which should be returned in bottom of body
 const designSystemInlineSVGs = [
 	'wds-company-logo-fandom',
+	'wds-company-logo-wikia-org',
 	'wds-icons-menu',
 	'wds-icons-magnifying-glass',
 	'wds-icons-magnifying-glass-small',

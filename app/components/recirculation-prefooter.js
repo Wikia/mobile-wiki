@@ -99,12 +99,8 @@ export default Component.extend(
 			}
 		},
 
-		didEnterViewport() {
+		fetchLiftIgniterData() {
 			const liftigniter = this.get('liftigniter');
-
-			if (M.getFromHeadDataStore('noExternals')) {
-				return;
-			}
 
 			liftigniter
 				.getData(config)
@@ -155,6 +151,18 @@ export default Component.extend(
 				action: trackActions.impression,
 				category: 'recirculation',
 				label: 'footer'
+			});
+		},
+
+		didEnterViewport() {
+			if (M.getFromHeadDataStore('noExternals')) {
+				return;
+			}
+
+			M.trackingQueue.push((isOptedIn) => {
+				if (isOptedIn) {
+					this.fetchLiftIgniterData();
+				}
 			});
 		},
 	}
