@@ -115,7 +115,7 @@
     "form-data": "2.3.2",
     "i18next": "10.5.0",
     "loader.js": "4.7.0",
-    "mercury-shared": "github:wikia/mercury-shared#a5833b666564221a4163b1dc6bbcd7dfbd655ee4",
+    "mercury-shared": "github:wikia/mercury-shared#6f9e571b277dc9bdd09fbb8295bc36acc3052ece",
     "proxying-agent": "2.2.1",
     "qunit-dom": "0.6.3",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
