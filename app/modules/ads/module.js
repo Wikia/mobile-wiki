@@ -4,10 +4,10 @@ import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
 
 const SLOT_NAME_MAP = {
-		MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
-		MOBILE_IN_CONTENT: 'mobile_in_content',
-		MOBILE_PREFOOTER: 'mobile_prefooter',
-		BOTTOM_LEADERBOARD: 'bottom_leaderboard'
+	MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
+	MOBILE_IN_CONTENT: 'mobile_in_content',
+	MOBILE_PREFOOTER: 'mobile_prefooter',
+	BOTTOM_LEADERBOARD: 'bottom_leaderboard'
 };
 
 class Ads {
@@ -107,7 +107,7 @@ class Ads {
 		return {
 			disableManualInsert: slotDefinition.disableManualInsert,
 			isAboveTheFold: slotDefinition.aboveTheFold,
-			name: name,
+			name,
 			hiddenClassName: 'hide'
 		};
 	}
