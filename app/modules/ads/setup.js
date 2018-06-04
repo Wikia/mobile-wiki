@@ -52,6 +52,7 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
 
 	context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
+	context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
 
 	const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries') &&
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
@@ -60,11 +61,11 @@ function setupAdContext(adsContext, instantGlobals) {
 	context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
 	if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
+		context.set(`slots.bottom_leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}
 
-	context.set('slots.inline-video.videoAdUnit', context.get('megaAdUnitId'));
-	context.set('slots.featured-video.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.video.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.featured.videoAdUnit', context.get('megaAdUnitId'));
 
 	setupPageLevelTargeting(adsContext);
 
