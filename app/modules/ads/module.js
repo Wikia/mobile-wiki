@@ -36,15 +36,15 @@ class Ads {
 		if (!this.isLoaded) {
 			this.getInstantGlobals()
 				.then((instantGlobals) => {
-					M.trackingQueue.push(() => this.setupAdEngine(mediaWikiAdsContext, instantGlobals));
+					M.trackingQueue.push((isOptedIn) => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
 				});
 		}
 	}
 
-	setupAdEngine(mediaWikiAdsContext, instantGlobals) {
+	setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
 		const {events} = window.Wikia.adEngine;
 
-		adsSetup.configure(mediaWikiAdsContext, instantGlobals);
+		adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 		this.instantGlobals = instantGlobals;
 		this.events = events;
 		this.events.registerEvent('MENU_OPEN_EVENT');
