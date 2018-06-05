@@ -16,7 +16,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 
 function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	const {context, utils} = window.Wikia.adEngine;
-	const {isProperGeo} = window.Wikia.adProductsGeo;
+	const {isProperGeo} = window.Wikia.adProducts.utils;
 
 	function isGeoEnabled(instantGlobalKey) {
 		return isProperGeo(instantGlobals[instantGlobalKey]);

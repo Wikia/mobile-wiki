@@ -13,7 +13,6 @@ function getPosParameter({pos = ''}) {
 function prepareData(slot, data) {
 	// Global imports:
 	const {context} = window.Wikia.adEngine;
-	const {getCountryCode} = window.Wikia.adProductsGeo;
 	const {utils} = window.Wikia.adProducts;
 	// End of imports
 
@@ -21,7 +20,7 @@ function prepareData(slot, data) {
 		pv_unique_id: window.pvUID,
 		pv: window.pvNumber,
 		browser: data.browser,
-		country: getCountryCode(),
+		country: utils.getCountryCode(),
 		time_bucket: data.time_bucket,
 		timestamp: data.timestamp,
 		device: context.get('state.deviceType'),

@@ -11,7 +11,7 @@ const trackingRouteName = 'special/adengplayerinfo';
 function prepareData(data, playerName, eventName, errorCode = 0) {
 	// Global imports:
 	const {context, slotService, utils} = window.Wikia.adEngine;
-	const {getCountryCode} = window.Wikia.adProductsGeo;
+	const {getCountryCode} = window.Wikia.adProducts.utils;
 	// End of imports
 
 	const slot = slotService.get(data.slotName);
@@ -50,7 +50,7 @@ export default class PlayerTracker {
 	 * @returns {void}
 	 */
 	static track(data, playerName, eventName, errorCode) {
-		if (!window.Wikia.adEngine || !window.Wikia.adProductsGeo || !data.adProduct || !playerName || !eventName) {
+		if (!window.Wikia.adEngine || !window.Wikia.adProducts || !data.adProduct || !playerName || !eventName) {
 			return;
 		}
 

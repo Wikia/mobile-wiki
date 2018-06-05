@@ -23,7 +23,7 @@ export default {
 	onEvent(eventName, playerParams, data) {
 		// Global imports:
 		const {context, slotService} = window.Wikia.adEngine;
-		const {getCountryCode} = window.Wikia.adProductsGeo;
+		const {getCountryCode} = window.Wikia.adProducts.utils;
 		// End of imports
 
 		const slot = slotService.get(data.position);
