@@ -35,16 +35,8 @@ $closeButtonHeight: 40px;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
 
+	& > div,
 	.provider-container {
-		margin: 10px auto;
-	}
-}
-
-.gpt-top-leaderboard .ad-slot {
-	position: relative;
-	z-index: $z-ads-top-leaderboard;
-
-	& > div {
 		margin: 10px auto;
 	}
 }
@@ -80,6 +72,7 @@ $closeButtonHeight: 40px;
 		position: relative;
 		transition: height .4s ease;
 
+		& > div,
 		.provider-container {
 			margin: 0;
 		}
@@ -96,6 +89,7 @@ $closeButtonHeight: 40px;
 }
 
 .bfab-template.ad-slot {
+	& > div,
 	.provider-container {
 		margin: 0;
 	}

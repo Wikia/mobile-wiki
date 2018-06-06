@@ -6,7 +6,12 @@ export default {
 		dfpId: '5441',
 		wikiIdentifier: '_not_a_top1k_wiki'
 	},
-	events: {},
+	events: {
+		pushOnScroll: {
+			ids: []
+		},
+		threshold: 100
+	},
 	listeners: {
 		porvata: [],
 		slot: []
