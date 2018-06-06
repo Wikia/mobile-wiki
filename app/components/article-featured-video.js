@@ -12,7 +12,7 @@ import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 import {inGroup} from '../modules/abtest';
-import {track} from '../utils/track';
+import {track, trackActions} from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
@@ -105,9 +105,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 		clickAttribution() {
 			track({
-				action: this.get('currentVideoDetails.username'),
+				action: trackActions.click,
 				category: 'featured-video',
-				label: this.get('currentVideoDetails.userUrl'),
+				label: this.get('currentVideoDetails.username'),
 			});
 		}
 	},
