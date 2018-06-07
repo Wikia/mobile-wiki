@@ -12,6 +12,7 @@ import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 import {inGroup} from '../modules/abtest';
+import {track, trackActions} from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
@@ -100,6 +101,14 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			// this.scrollHandler is from ember-responds-to - there is no public API to
 			// remove a scroll handler now
 			window.removeEventListener('scroll', this.scrollHandler);
+		},
+
+		clickAttribution() {
+			track({
+				action: trackActions.click,
+				category: 'featured-video',
+				label: this.get('currentVideoDetails.username'),
+			});
 		}
 	},
 
