@@ -6,6 +6,7 @@ import {on} from '@ember/object/evented';
 import {setProperties, computed} from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
+import {isAdEngine3Loaded} from '../modules/ads';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -31,7 +32,7 @@ export default Component.extend(
 
 		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
 			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold')) &&
-				this.get('name').indexOf('gpt-') !== 0; // Don't wait for UAP when AE3 is loaded
+				!isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
 		}),
 
 		didInsertElement() {

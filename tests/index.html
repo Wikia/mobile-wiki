@@ -32,15 +32,13 @@
 		adEngine: {
 			context: {
 				get: () => undefined
-            }
-        },
-		adProductsGeo: {
-			getCountryCode: () => false
-        },
+			}
+		},
 		adProducts: {
 			utils: {
-				getSamplingResults: () => []
-            }
+				getSamplingResults: () => [],
+				getCountryCode: () => false
+			}
 		}
 	};
 	window.M.tracker = {};

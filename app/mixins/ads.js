@@ -45,15 +45,16 @@ export default Mixin.create({
 	},
 
 	appendHighImpactAd() {
-		const placeholder = document.createElement('div'),
+		const adsData = this.get('adsData'),
+			placeholder = document.createElement('div'),
 			wikiContainer = document.getElementById('wikiContainer');
 
 		if (wikiContainer) {
 			wikiContainer.insertAdjacentElement('afterend', placeholder);
 
-			if (this.get('ads.module').isSlotApplicable(this.get('adsData.invisibleHighImpact2'))) {
+			if (this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
 				this.get('ads').pushAdSlotComponent(
-					this.get('adsData.invisibleHighImpact2'),
+					adsData.invisibleHighImpact2,
 					this.renderAdComponent({
 						name: 'ads/invisible-high-impact-2',
 						attrs: {},
@@ -62,7 +63,7 @@ export default Mixin.create({
 				);
 			}
 
-			this.appendAd(this.get('adsData.invisibleHighImpact'), 'afterend', wikiContainer);
+			this.appendAd(adsData.invisibleHighImpact, 'afterend', wikiContainer);
 		}
 	},
 
