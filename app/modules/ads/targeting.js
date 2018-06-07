@@ -177,7 +177,7 @@ export default {
 			wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
 			ref: getRefParam(),
 			esrb: adsContext.targeting.esrbRating,
-			geo: window.Wikia.adProductsGeo.getCountryCode() || 'none'
+			geo: window.Wikia.adProducts.utils.getCountryCode() || 'none'
 		};
 
 		if (window.pvNumber) {
