@@ -184,6 +184,12 @@ export default {
 			targeting.pv = window.pvNumber.toString();
 		}
 
+		const cid = window.Wikia.adEngine.utils.queryString.get('cid');
+
+		if (cid !== undefined) {
+			targeting.cid = cid;
+		}
+
 		// TODO Implement Krux integration
 		// targeting.u = krux.getUser();
 		// targeting.ksgmnt = krux.getSegments();
