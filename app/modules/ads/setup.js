@@ -84,9 +84,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
 	const {context} = window.Wikia.adEngine;
+	const {utils: adProductsUtils} = window.Wikia.adProducts;
 
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
-	context.set('targeting.npa', isOptedIn ? '0' : '1');
+	adProductsUtils.setupNpaContext();
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);
