@@ -6,10 +6,14 @@ import offset from './offset';
 export default function (element) {
 	const siteHeadContainer = document.querySelector('.site-head-container'),
 		navHeight = siteHeadContainer ? siteHeadContainer.offsetHeight : 0,
-		scrollTop = offset(element).top - navHeight;
+		scrollTop = parseInt(offset(element).top - navHeight, 10);
 
-	window.scrollTo({
-		top: parseInt(scrollTop, 10),
-		behavior: 'smooth'
-	});
+	if ('scrollBehavior' in document.documentElement.style) {
+		window.scrollTo({
+			top: scrollTop,
+			behavior: 'smooth'
+		});
+	} else {
+		window.scrollTo(0, scrollTop);
+	}
 }

@@ -64,43 +64,72 @@ function isBottomLeaderboardApplicable() {
 export default {
 	getContext() {
 		return {
-			'top-leaderboard': {
+			mobile_top_leaderboard: {
 				aboveTheFold: true,
 				adProduct: 'mobile_top_leaderboard',
 				audioSegment: '',
 				group: 'LB',
 				options: {},
-				slotName: 'MOBILE_TOP_LEADERBOARD',
 				slotShortcut: 'l',
 				sizes: [],
 				defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'top',
+					pos: 'MOBILE_TOP_LEADERBOARD',
 					rv: 1
 				}
 			},
-			'incontent-boxad': {
+			mobile_in_content: {
 				adProduct: 'mobile_in_content',
 				audioSegment: '',
 				group: 'HiVi',
 				options: {},
-				slotName: 'MOBILE_IN_CONTENT',
 				slotShortcut: 'i',
 				sizes: [],
 				defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
 				targeting: {
 					loc: 'middle',
+					pos: 'MOBILE_IN_CONTENT',
 					rv: 1
 				}
 			},
-			'bottom-boxad': {
+			incontent_boxad_1: {
+				adProduct: 'incontent_boxad_1',
+				audioSegment: '',
+				group: 'HiVi',
+				options: {},
+				repeat: {
+					additionalClasses: 'hide',
+					index: 1,
+					insertBeforeSelector: '.article-body h2',
+					limit: null,
+					slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
+					updateProperties: {
+						adProduct: '{slotConfig.slotName}',
+						'targeting.rv': '{slotConfig.repeat.index}'
+					}
+				},
+				slotShortcut: 'f',
+				sizes: [
+					{
+						viewportSize: [375, 627],
+						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]]
+					}
+				],
+				defaultSizes: [[320, 50], [300, 250], [300, 50]],
+				targeting: {
+					loc: 'middle',
+					pos: ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT'],
+					rv: 1
+				}
+			},
+			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
 				audioSegment: '',
 				disabled: true,
 				disableManualInsert: true,
 				group: 'PF',
 				options: {},
-				slotName: 'MOBILE_PREFOOTER',
 				slotShortcut: 'p',
 				sizes: [],
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
@@ -109,12 +138,11 @@ export default {
 					rv: 1
 				}
 			},
-			'bottom-leaderboard': {
+			bottom_leaderboard: {
 				adProduct: 'bottom_leaderboard',
 				audioSegment: '',
 				group: 'PF',
 				options: {},
-				slotName: 'BOTTOM_LEADERBOARD',
 				slotShortcut: 'b',
 				sizes: [
 					{
@@ -129,26 +157,26 @@ export default {
 					rv: 1
 				}
 			},
-			'featured-video': {
+			featured: {
 				adProduct: 'featured',
 				audioSegment: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
-				slotName: 'FEATURED',
 				lowerSlotName: 'featured',
 				targeting: {
+					pos: 'FEATURED',
 					uap: 'none',
 				},
 				trackingKey: 'featured-video',
 			},
-			'inline-video': {
+			video: {
 				adProduct: 'video',
 				audioSegment: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
-				slotName: 'VIDEO',
 				lowerSlotName: 'video',
 				targeting: {
+					pos: 'VIDEO',
 					uap: 'none',
 				},
 				trackingKey: 'video',

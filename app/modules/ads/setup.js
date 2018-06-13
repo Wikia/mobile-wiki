@@ -16,7 +16,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 
 function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	const {context, utils} = window.Wikia.adEngine;
-	const {isProperGeo} = window.Wikia.adProductsGeo;
+	const {isProperGeo} = window.Wikia.adProducts.utils;
 
 	function isGeoEnabled(instantGlobalKey) {
 		return isProperGeo(instantGlobals[instantGlobalKey]);
@@ -52,6 +52,9 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
 	context.set('options.trackingOptIn', isOptedIn);
 
+	context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
+	context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
+
 	const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries') &&
 		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
 	context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
@@ -59,11 +62,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
 	if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-		context.set(`slots.bottom-leaderboard.adUnit`, context.get('megaAdUnitId'));
+		context.set(`slots.bottom_leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}
 
-	context.set('slots.inline-video.videoAdUnit', context.get('megaAdUnitId'));
-	context.set('slots.featured-video.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.video.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.featured.videoAdUnit', context.get('megaAdUnitId'));
 
 	setupPageLevelTargeting(adsContext);
 
@@ -81,9 +84,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
 	const {context} = window.Wikia.adEngine;
+	const {utils: adProductsUtils} = window.Wikia.adProducts;
 
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
-	context.set('targeting.npa', isOptedIn ? '0' : '1');
+	adProductsUtils.setupNpaContext();
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);

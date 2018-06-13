@@ -177,11 +177,17 @@ export default {
 			wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
 			ref: getRefParam(),
 			esrb: adsContext.targeting.esrbRating,
-			geo: window.Wikia.adProductsGeo.getCountryCode() || 'none'
+			geo: window.Wikia.adProducts.utils.getCountryCode() || 'none'
 		};
 
 		if (window.pvNumber) {
 			targeting.pv = window.pvNumber.toString();
+		}
+
+		const cid = window.Wikia.adEngine.utils.queryString.get('cid');
+
+		if (cid !== undefined) {
+			targeting.cid = cid;
 		}
 
 		// TODO Implement Krux integration

@@ -1,4 +1,3 @@
-import {isBlank} from '@ember/utils';
 import config from '../config/environment';
 import extend from '../utils/extend';
 
@@ -53,7 +52,6 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env;
 		const wikiaEnv = env.WIKIA_ENVIRONMENT;
-		const noExternals = fastboot.get('request.queryParams.noexternals');
 
 		runtimeConfig = {
 			baseDomain: getBaseDomain(wikiaEnv, fastboot.get('request')),
@@ -65,10 +63,6 @@ export function initialize(applicationInstance) {
 		runtimeServicesConfig = {
 			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
 		};
-
-		if (!isBlank(noExternals)) {
-			runtimeConfig.noExternals = Boolean(noExternals);
-		}
 
 		shoebox.put('runtimeConfig', runtimeConfig);
 		shoebox.put('runtimeServicesConfig', runtimeServicesConfig);

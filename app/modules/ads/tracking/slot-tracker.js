@@ -13,7 +13,6 @@ function getPosParameter({pos = ''}) {
 function prepareData(slot, data) {
 	// Global imports:
 	const {context} = window.Wikia.adEngine;
-	const {getCountryCode} = window.Wikia.adProductsGeo;
 	const {utils} = window.Wikia.adProducts;
 	// End of imports
 
@@ -21,15 +20,15 @@ function prepareData(slot, data) {
 		pv_unique_id: window.pvUID,
 		pv: window.pvNumber,
 		browser: data.browser,
-		country: getCountryCode(),
+		country: utils.getCountryCode(),
 		time_bucket: data.time_bucket,
 		timestamp: data.timestamp,
 		device: context.get('state.deviceType'),
 		ad_load_time: data.timestamp - window.performance.timing.connectStart,
-		product_lineitem_id: data.line_item_id,
-		creative_id: data.creative_id,
-		creative_size: data.creative_size,
-		slot_size: data.creative_size,
+		product_lineitem_id: data.line_item_id || '',
+		creative_id: data.creative_id || '',
+		creative_size: data.creative_size || '',
+		slot_size: data.creative_size || '',
 		ad_status: data.status,
 		page_width: data.page_width,
 		viewport_height: data.viewport_height,
@@ -76,5 +75,18 @@ export default {
 	 */
 	onRenderEnded(adSlot, data) {
 		M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+	},
+
+	/**
+	 * Track status changed event (other than success and collapse) to data warehouse
+	 * @param {Object} adSlot
+	 * @param {Object} data
+	 * @returns {void}
+	 */
+	onStatusChanged(adSlot, data) {
+		const status = adSlot.getStatus();
+		if (status !== 'success' && status !== 'collapse') {
+			M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+		}
 	},
 };

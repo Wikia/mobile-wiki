@@ -15,6 +15,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
 	function getSlot(targeting) {
 		return {
+			getStatus: () => 'success',
 			getTargeting: () => (targeting)
 		};
 	}

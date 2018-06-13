@@ -103,8 +103,8 @@ function init(player, options, slotTargeting) {
 		vastParser
 	} = window.Wikia.adEngine;
 
-	const slotId = options.featured ? 'gpt-featured-video' : 'gpt-inline-video';
-	const slot = slotService.get(slotId) || new AdSlot({id: slotId});
+	const slotName = options.featured ? 'featured' : 'video';
+	const slot = slotService.get(slotName) || new AdSlot({id: slotName});
 	const adProduct = slot.config.trackingKey;
 	const videoElement = player && player.getContainer && player.getContainer();
 	const videoContainer = videoElement && videoElement.parentNode;
@@ -129,7 +129,7 @@ function init(player, options, slotTargeting) {
 		slot.config.targeting[key] = player.getMute() ? 'no' : 'yes';
 	}
 
-	if (!slotService.get(slotId)) {
+	if (!slotService.get(slotName)) {
 		slotService.add(slot);
 	}
 
