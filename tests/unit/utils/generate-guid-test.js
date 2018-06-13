@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 import generateGuid from 'mobile-wiki/utils/generate-guid';
 

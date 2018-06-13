@@ -29,4 +29,4 @@ function isSafariMinVer(version) {
 	return match && parseInt(match[1], 10) >= version;
 }
 
-export {isSafariMinVer, system, standalone};
+export { isSafariMinVer, system, standalone };

@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
 
@@ -17,7 +17,7 @@ export default EmberObject.extend({
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
-		const url = this.get('wikiUrls').build({
+		const url = this.wikiUrls.build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
@@ -39,7 +39,7 @@ export default EmberObject.extend({
 			body: formData
 		})
 			.then((response) => response.json())
-			.then(({data}) => {
+			.then(({ data }) => {
 				// Make sure media is in the same format as on article page
 				// otherwise hero image won't work correctly
 				data.article.media = {

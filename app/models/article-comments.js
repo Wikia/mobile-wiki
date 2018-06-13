@@ -1,5 +1,5 @@
-import EmberObject, {observer, get} from '@ember/object';
-import {inject as service} from '@ember/service';
+import EmberObject, { observer, get } from '@ember/object';
+import { inject as service } from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
@@ -13,8 +13,8 @@ export default EmberObject.extend({
 	page: 0,
 
 	fetch: observer('page', 'articleId', function () {
-		const page = this.get('page'),
-			articleId = this.get('articleId');
+		const page = this.page,
+			articleId = this.articleId;
 
 		if (page && page >= 0 && articleId) {
 			return fetch(this.url(articleId, page))
@@ -46,8 +46,8 @@ export default EmberObject.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return this.get('wikiUrls').build({
-			host: this.get('host'),
+		return this.wikiUrls.build({
+			host: this.host,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',

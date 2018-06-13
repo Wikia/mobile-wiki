@@ -1,12 +1,12 @@
-import {inject as service} from '@ember/service';
-import {alias, readOnly, or} from '@ember/object/computed';
-import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { alias, readOnly, or } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
 import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
-import {track, trackActions} from '../utils/track';
-import {standalone} from '../utils/browser';
+import { track, trackActions } from '../utils/track';
+import { standalone } from '../utils/browser';
 
 export default Component.extend(
 	HeadroomMixin, NotificationsUnreadCountMixin,
@@ -36,12 +36,12 @@ export default Component.extend(
 		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
 
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.isDrawerInClosableState() ? this.get('closeIcon') : 'wds-icons-menu';
+			return this.drawerVisible && this.isDrawerInClosableState() ? this.closeIcon : 'wds-icons-menu';
 		}),
 
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ?
-				this.get('closeIcon') : 'wds-icons-magnifying-glass';
+			return this.drawerVisible && this.drawerContent === 'search' ?
+				this.closeIcon : 'wds-icons-magnifying-glass';
 		}),
 
 		init() {
@@ -63,7 +63,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		willInsertElement() {
-			if (this.get('shouldShowFandomAppSmartBanner')) {
+			if (this.shouldShowFandomAppSmartBanner) {
 				// this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
 				// running this just after render is working too
 				run.scheduleOnce('afterRender', this, this.checkForHiding);
@@ -76,15 +76,15 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			siteHeadIconClick(icon) {
-				if (this.get('drawerVisible') && this.canBeClosed(icon)) {
+				if (this.drawerVisible && this.canBeClosed(icon)) {
 					track({
 						action: trackActions.click,
 						category: 'side-nav',
 						label: `${icon}-collapsed`
 					});
 
-					this.get('setDrawerContent')(false);
-					this.get('toggleDrawer')(false);
+					this.setDrawerContent(false);
+					this.toggleDrawer(false);
 				} else {
 					track({
 						action: trackActions.click,
@@ -92,8 +92,8 @@ export default Component.extend(
 						label: `${icon}-expanded`
 					});
 
-					this.get('setDrawerContent')(icon);
-					this.get('toggleDrawer')(true);
+					this.setDrawerContent(icon);
+					this.toggleDrawer(true);
 					if (this.get('ads.module')) {
 						this.get('ads.module').onMenuOpen();
 					}
@@ -115,7 +115,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		checkForHiding() {
-			const smartBannerService = this.get('smartBanner');
+			const smartBannerService = this.smartBanner;
 
 			if (!standalone && !smartBannerService.isCookieSet()) {
 				smartBannerService.setVisibility(true);
@@ -124,11 +124,11 @@ export default Component.extend(
 		},
 
 		isDrawerInClosableState() {
-			return this.get('closableDrawerStates').indexOf(this.get('drawerContent')) !== -1;
+			return this.closableDrawerStates.indexOf(this.drawerContent) !== -1;
 		},
 
 		canBeClosed(icon) {
-			const drawerContent = this.get('drawerContent');
+			const drawerContent = this.drawerContent;
 
 			return icon === this.getPrimaryDrawerState(drawerContent);
 		},

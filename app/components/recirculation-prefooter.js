@@ -1,12 +1,12 @@
 import fetch from 'fetch';
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
-import {normalizeThumbWidth} from '../utils/thumbnail';
-import {track, trackActions} from '../utils/track';
+import { normalizeThumbWidth } from '../utils/thumbnail';
+import { track, trackActions } from '../utils/track';
 
 const recircItemsCount = 10,
 	config = {
@@ -31,10 +31,10 @@ export default Component.extend(
 		classNameBindings: ['items:has-items'],
 
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
-			return !this.get('items').some((item) => item.presented_by);
+			return !this.items.some((item) => item.presented_by);
 		}),
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.get('hasNoLiftigniterSponsoredItem');
+			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.hasNoLiftigniterSponsoredItem;
 		}),
 
 		init() {
@@ -100,7 +100,7 @@ export default Component.extend(
 		},
 
 		fetchLiftIgniterData() {
-			const liftigniter = this.get('liftigniter');
+			const liftigniter = this.liftigniter;
 
 			liftigniter
 				.getData(config)
@@ -119,7 +119,7 @@ export default Component.extend(
 						}));
 
 					run.scheduleOnce('afterRender', () => {
-						if (!this.get('isDestroyed')) {
+						if (!this.isDestroyed) {
 							liftigniter.setupTracking(
 								this.element.querySelectorAll('.recirculation-prefooter__item'),
 								config.widget,
@@ -128,12 +128,12 @@ export default Component.extend(
 						}
 					});
 
-					if (this.get('shouldShowPlista')) {
+					if (this.shouldShowPlista) {
 						this.fetchPlista()
 							.then(this.mapPlista)
 							.then((item) => {
 								if (item.thumbnail) {
-									let newItems = this.get('items');
+									let newItems = this.items;
 
 									newItems.splice(1, 0, item);
 									newItems.pop();
@@ -142,7 +142,7 @@ export default Component.extend(
 								}
 							})
 							.catch((error) => {
-								this.get('logger').info('Plista fetch failed', error);
+								this.logger.info('Plista fetch failed', error);
 							});
 					}
 				});

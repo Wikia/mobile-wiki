@@ -1,10 +1,10 @@
-import {find, findAll, render} from '@ember/test-helpers';
+import { find, findAll, render } from '@ember/test-helpers';
 import Service from '@ember/service';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
-import {module, test} from 'qunit';
-import {setupRenderingTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');
 let trackStub;

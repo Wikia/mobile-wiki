@@ -1,7 +1,7 @@
-import {inject as service} from '@ember/service';
-import {reads, or, bool} from '@ember/object/computed';
-import {A} from '@ember/array';
-import EmberObject, {get, computed} from '@ember/object';
+import { inject as service } from '@ember/service';
+import { reads, or, bool } from '@ember/object/computed';
+import { A } from '@ember/array';
+import EmberObject, { get, computed } from '@ember/object';
 
 export default EmberObject.extend({
 	i18n: service(),
@@ -18,7 +18,7 @@ export default EmberObject.extend({
 		return this.get('dsGlobalNavigation.wikis');
 	}),
 	exploreWikisLabel: computed(function () {
-		return this.get('i18n').t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
+		return this.i18n.t(this.get('dsGlobalNavigation.wikis.header.title.key'), {
 			ns: 'design-system'
 		});
 	}),
@@ -33,11 +33,11 @@ export default EmberObject.extend({
 	 * @returns {Object} currentLocalNav
 	 */
 	currentLocalNav: computed('state.[]', 'localLinks', function () {
-		const state = this.get('state');
-		let localNav = this.get('localLinks'),
+		const state = this.state;
+		let localNav = this.localLinks,
 			parent, node;
 
-		if (!this.get('inExploreNav')) {
+		if (!this.inExploreNav) {
 			for (let i = 0; i < state.length; i++) {
 				// local nav indexes are shifted by 1,
 				// 0 is reserved for exploration nav
@@ -47,7 +47,7 @@ export default EmberObject.extend({
 					parent = node;
 					localNav = node.children;
 				} else {
-					this.get('logger').error('Incorrect navigation state');
+					this.logger.error('Incorrect navigation state');
 					return {};
 				}
 			}
@@ -61,7 +61,7 @@ export default EmberObject.extend({
 	header: or('currentLocalNav.text', 'exploreWikisLabel'),
 
 	inExploreNav: computed('state.[]', function () {
-		const state = this.get('state');
+		const state = this.state;
 
 		return state.length && state[0] === 0;
 	}),
@@ -69,33 +69,33 @@ export default EmberObject.extend({
 	inSubNav: bool('currentLocalNav.children.length'),
 
 	inRoot: computed('inSubNav', 'inExploreNav', function () {
-		return !this.get('inSubNav') && !this.get('inExploreNav');
+		return !this.inSubNav && !this.inExploreNav;
 	}),
 
 	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
 		'discussionItem', 'localItems', 'randomPageItem', function () {
 			return [].concat(
-				this.get('exploreItems'),
-				this.get('globalItems'),
-				this.get('exploreSubMenuItem'),
-				this.get('localNavHeaderItem'),
-				this.get('discussionItem'),
-				this.get('localItems'),
-				this.get('randomPageItem')
+				this.exploreItems,
+				this.globalItems,
+				this.exploreSubMenuItem,
+				this.localNavHeaderItem,
+				this.discussionItem,
+				this.localItems,
+				this.randomPageItem
 			);
 		}),
 
 	exploreItems: computed('inExploreNav', 'exploreWikis', function () {
-		const wikis = this.get('exploreWikis');
+		const wikis = this.exploreWikis;
 
-		return this.get('inExploreNav') &&
+		return this.inExploreNav &&
 			get(wikis, 'links.length') &&
 			get(wikis, 'links').map((item) => {
 				return {
 					type: 'nav-menu-external',
 					href: item.href,
-					name: this.get('i18n').t(item.title.key, {
+					name: this.i18n.t(item.title.key, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-${item.title.key}`
@@ -104,14 +104,14 @@ export default EmberObject.extend({
 	}),
 
 	globalItems: computed('inRoot', 'hubsLinks', function () {
-		return this.get('inRoot') &&
+		return this.inRoot &&
 			this.get('hubsLinks.length') &&
-			this.get('hubsLinks').map((item) => {
+			this.hubsLinks.map((item) => {
 				return {
 					type: 'nav-menu-external',
 					className: `nav-menu--external nav-menu--${item.brand}`,
 					href: item.href,
-					name: this.get('i18n').t(item.title.key, {
+					name: this.i18n.t(item.title.key, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-hub-${item.title.key}`
@@ -120,15 +120,15 @@ export default EmberObject.extend({
 	}),
 
 	exploreSubMenuItem: computed('inRoot', 'exploreWikis', function () {
-		const wikis = this.get('exploreWikis');
+		const wikis = this.exploreWikis;
 
-		if (this.get('inRoot') && get(wikis, 'links.length')) {
+		if (this.inRoot && get(wikis, 'links.length')) {
 			if (wikis.header) {
 				return [{
 					type: 'nav-menu-root',
 					className: 'nav-menu--explore',
 					index: 0,
-					name: this.get('exploreWikisLabel'),
+					name: this.exploreWikisLabel,
 					trackLabel: `open-${wikis.header.title.key}`
 				}];
 			} else {
@@ -139,7 +139,7 @@ export default EmberObject.extend({
 					type: 'nav-menu-external',
 					className: 'nav-menu--external',
 					href: firstLink.href,
-					name: this.get('i18n').t(messageKey, {
+					name: this.i18n.t(messageKey, {
 						ns: 'design-system'
 					}),
 					trackLabel: `open-${messageKey}`
@@ -151,31 +151,31 @@ export default EmberObject.extend({
 	}),
 
 	localNavHeaderItem: computed('inRoot', 'wikiName', function () {
-		return this.get('inRoot') &&
-			this.get('wikiName') &&
+		return this.inRoot &&
+			this.wikiName &&
 			[{
 				type: 'nav-menu-header',
 				route: 'wiki-page',
-				href: this.get('mainPageTitle'),
-				name: this.get('i18n').t('navigation.explore-wiki', {wikiName: this.get('wikiName')})
+				href: this.mainPageTitle,
+				name: this.i18n.t('navigation.explore-wiki', { wikiName: this.wikiName })
 			}] || [];
 	}),
 
 	discussionItem: computed('inRoot', 'discussionsEnabled', function () {
-		return this.get('inRoot') &&
-			this.get('discussionsEnabled') &&
+		return this.inRoot &&
+			this.discussionsEnabled &&
 			[{
 				type: 'nav-menu-external',
 				href: `${this.get('wikiUrls.langPath')}/d/f`,
-				name: this.get('i18n').t('app.discussions-label'),
+				name: this.i18n.t('app.discussions-label'),
 				trackCategory: 'discussion',
 				trackLabel: 'local-nav'
 			}] || [];
 	}),
 
 	localItems: computed('inExploreNav', 'currentLocalLinks', function () {
-		return !this.get('inExploreNav') &&
-			this.get('currentLocalLinks').map((item, index) => {
+		return !this.inExploreNav &&
+			this.currentLocalLinks.map((item, index) => {
 				return {
 					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
 					href: item.href.replace(new RegExp(`^(${this.get('wikiUrls.langPathRegexp')}?(/wiki)?)?/`, 'i'), ''),
@@ -188,10 +188,10 @@ export default EmberObject.extend({
 	}),
 
 	randomPageItem: computed('inRoot', function () {
-		return this.get('inRoot') &&
+		return this.inRoot &&
 			[{
 				type: 'nav-menu-item',
-				name: this.get('i18n').t('navigation.random-page-label'),
+				name: this.i18n.t('navigation.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'
 			}] || [];
@@ -208,7 +208,7 @@ export default EmberObject.extend({
 	},
 
 	goBack() {
-		this.get('state').popObject();
+		this.state.popObject();
 	},
 
 	/**
@@ -218,6 +218,6 @@ export default EmberObject.extend({
 	 * @returns {void}
 	 */
 	goToSubNav(index) {
-		this.get('state').pushObject(index);
+		this.state.pushObject(index);
 	}
 });

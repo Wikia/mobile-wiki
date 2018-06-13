@@ -1,8 +1,8 @@
-import {computed} from '@ember/object';
-import {oneWay, equal} from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { oneWay, equal } from '@ember/object/computed';
 import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
 	CuratedContentThumbnailMixin,
@@ -26,15 +26,15 @@ export default Component.extend(
 			if (this.get('model.imageUrl')) {
 				return this.generateThumbUrl(
 					this.get('model.imageUrl'),
-					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+					this.get(`model.imageCrop.${this.aspectRatioName}`)
 				);
 			} else {
-				return this.get('emptyGif');
+				return this.emptyGif;
 			}
 		}),
 
 		icon: computed('type', function () {
-			const type = this.get('type'),
+			const type = this.type,
 				typesWithDedicatedIcon = {
 					category: 'grid',
 					video: 'play',
@@ -52,16 +52,16 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		click() {
-			const itemType = this.get('type');
+			const itemType = this.type;
 
 			track({
 				action: trackActions.click,
 				category: 'main-page-curated-content',
-				label: `open-item-${this.get('index')}`
+				label: `open-item-${this.index}`
 			});
 
 			if (itemType && itemType === 'section') {
-				this.get('openSection')(this.get('model'));
+				this.openSection(this.model);
 				return false;
 			}
 		}

@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import CurrentUrlMixin from '../mixins/current-url';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
 	CurrentUrlMixin,
@@ -14,8 +14,8 @@ export default Component.extend(
 			trackClick() {
 				track({
 					action: trackActions.click,
-					category: this.get('trackingCategory'),
-					label: this.get('trackingLabel')
+					category: this.trackingCategory,
+					label: this.trackingLabel
 				});
 			},
 		}

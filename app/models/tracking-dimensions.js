@@ -1,6 +1,9 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import {getFetchErrorMessage, TrackingDimensionsFetchError} from '../utils/errors';
+import {
+	getFetchErrorMessage,
+	TrackingDimensionsFetchError
+} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
@@ -9,7 +12,7 @@ export default EmberObject.extend({
 	wikiUrls: service(),
 
 	fetch(isAnon, host, title) {
-		const url = this.get('wikiUrls').build({
+		const url = this.wikiUrls.build({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -36,6 +39,6 @@ export default EmberObject.extend({
 					});
 				}
 			})
-			.catch((error) => this.get('logger').error('getTrackingDimensions error: ', error));
+			.catch((error) => this.logger.error('getTrackingDimensions error: ', error));
 	}
 });

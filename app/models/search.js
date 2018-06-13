@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
-import {A} from '@ember/array';
-import EmberObject, {computed} from '@ember/object';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
+import EmberObject, { computed } from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
-import {extractEncodedTitle} from '../utils/url';
-import {htmlSafe} from '@ember/string';
+import { extractEncodedTitle } from '../utils/url';
+import { htmlSafe } from '@ember/string';
 
 export default EmberObject.extend({
 	batch: 1,
@@ -19,7 +19,7 @@ export default EmberObject.extend({
 	wikiUrls: service(),
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
-		return this.get('batch') < this.get('totalBatches');
+		return this.batch < this.totalBatches;
 	}),
 
 	init() {
@@ -44,10 +44,10 @@ export default EmberObject.extend({
 	},
 
 	loadMore() {
-		if (this.get('canLoadMore')) {
-			this.set('batch', this.get('batch') + 1);
+		if (this.canLoadMore) {
+			this.set('batch', this.batch + 1);
 
-			return this.fetch(this.get('query'));
+			return this.fetch(this.query);
 		}
 
 		return false;
@@ -59,14 +59,14 @@ export default EmberObject.extend({
 			loading: true
 		});
 
-		return fetch(this.get('wikiUrls').build({
+		return fetch(this.wikiUrls.build({
 			host: this.get('wikiVariables.host'),
 			path: '/wikia.php',
 			query: {
 				controller: 'SearchApi',
 				method: 'getList',
 				query,
-				batch: this.get('batch')
+				batch: this.batch
 			}
 		}))
 			.then((response) => {
@@ -80,7 +80,7 @@ export default EmberObject.extend({
 					if (response.status === 404) {
 						this.set('error', 'search-error-not-found');
 					} else {
-						this.get('logger').error('Search request error', response);
+						this.logger.error('Search request error', response);
 					}
 
 					return this;
@@ -95,7 +95,7 @@ export default EmberObject.extend({
 
 	update(state) {
 		this.setProperties({
-			items: this.get('items').concat(state.items.map((item) => {
+			items: this.items.concat(state.items.map((item) => {
 				return {
 					title: item.title,
 					snippet: htmlSafe(item.snippet),

@@ -1,5 +1,5 @@
-import Controller, {inject as controller} from '@ember/controller';
-import {Promise} from 'rsvp';
+import Controller, { inject as controller } from '@ember/controller';
+import { Promise } from 'rsvp';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
 
 export default Controller.extend(
@@ -19,16 +19,16 @@ export default Controller.extend(
 					return Promise.reject(new Error('Page was not provided'));
 				}
 
-				return this.get('model').loadPage(page)
+				return this.model.loadPage(page)
 					.then(() => {
 						// Documentation says we should do `this.set('page', page)` but it doesn't update the URL
 						// It's the same issue as HG-815, but here we bypass it in a better way
 						// TODO figure out how to remove the param instead of going to ?page=1
 						this.transitionToRoute({
-							queryParams: {page}
+							queryParams: { page }
 						});
 
-						this.get('target').send('updateDynamicHeadTags');
+						this.target.send('updateDynamicHeadTags');
 					});
 			}
 		}

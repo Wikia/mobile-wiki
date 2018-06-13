@@ -28,7 +28,7 @@ export default {
 	 */
 	isEnabled() {
 		// Global imports:
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 		// End of imports
 
 		return context.get('options.tracking.kikimora.viewability');

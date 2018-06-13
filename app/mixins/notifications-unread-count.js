@@ -1,6 +1,6 @@
-import {gt} from '@ember/object/computed';
+import { gt } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Mixin.create({
 	unreadCount: computed('notifications.model.unreadCount', function () {

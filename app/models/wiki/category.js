@@ -1,5 +1,5 @@
-import {isEmpty} from '@ember/utils';
-import {inject as service} from '@ember/service';
+import { isEmpty } from '@ember/utils';
+import { inject as service } from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 
@@ -20,19 +20,19 @@ export default BaseModel.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPage(page) {
-		return fetch(this.get('wikiUrls').build({
-			host: this.get('host'),
+		return fetch(this.wikiUrls.build({
+			host: this.host,
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',
 				method: 'getCategoryMembers',
-				title: this.get('title'),
+				title: this.title,
 				categoryMembersPage: page,
 				format: 'json'
 			}
 		}))
 			.then((response) => response.json())
-			.then(({data}) => {
+			.then(({ data }) => {
 				if (isEmpty(data) || isEmpty(data.membersGrouped)) {
 					throw new Error('Unexpected response from server');
 				}
@@ -45,7 +45,7 @@ export default BaseModel.extend({
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData({data}) {
+	setData({ data }) {
 		this._super(...arguments);
 
 		if (data && data.nsSpecificContent) {

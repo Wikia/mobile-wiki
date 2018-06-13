@@ -23,7 +23,7 @@ function afterModel(route, model) {
  * @param {String} host
  * @param {Ember.Service} wikiUrls
  */
-function sendLyricsPageView({model, host, wikiUrls}) {
+function sendLyricsPageView({ model, host, wikiUrls }) {
 	fetch(wikiUrls.build({
 		host,
 		path: '/wikia.php',
@@ -45,7 +45,7 @@ function sendLyricsPageView({model, host, wikiUrls}) {
  *
  * @returns {boolean}
  */
-function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
+function shouldSendLyricFindRequest({ model, wikiId, fastboot }) {
 	const lyricWikiId = 43339;
 
 	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
@@ -60,9 +60,9 @@ function shouldSendLyricFindRequest({model, wikiId, fastboot}) {
  * @param {{get}} fastboot
  * @param {Ember.Service} wikiUrls
  */
-function afterTransition({model, wikiId, host, fastboot, wikiUrls}) {
-	if (shouldSendLyricFindRequest({model, wikiId, fastboot})) {
-		sendLyricsPageView({model, host, wikiUrls});
+function afterTransition({ model, wikiId, host, fastboot, wikiUrls }) {
+	if (shouldSendLyricFindRequest({ model, wikiId, fastboot })) {
+		sendLyricsPageView({ model, host, wikiUrls });
 	}
 }
 

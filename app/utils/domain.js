@@ -1,4 +1,4 @@
-import {isArray} from '@ember/array';
+import { isArray } from '@ember/array';
 
 /**
  * @param {string} url

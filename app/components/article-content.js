@@ -1,13 +1,16 @@
-import {inject as service} from '@ember/service';
-import {reads, and} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import {isBlank, isEmpty} from '@ember/utils';
-import {observer} from '@ember/object';
-import {on} from '@ember/object/evented';
-import {run} from '@ember/runloop';
+import { isBlank, isEmpty } from '@ember/utils';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
+import { run } from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
-import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {track, trackActions} from '../utils/track';
+import {
+	getRenderComponentFor,
+	queryPlaceholders
+} from '../utils/render-component';
+import { track, trackActions } from '../utils/track';
 import toArray from '../utils/toArray';
 import scrollToTop from '../utils/scroll-to-top';
 import getAdsModule from '../modules/ads';
@@ -45,14 +48,14 @@ export default Component.extend(
 		/* eslint ember/no-on-calls-in-components:0 */
 		articleContentObserver: on('didInsertElement', observer('content', function () {
 			// Our hacks don't work in FastBoot, so we just inject raw HTML in the template
-			if (this.get('isFastBoot')) {
+			if (this.isFastBoot) {
 				return;
 			}
 
 			this.destroyChildComponents();
 
 			run.scheduleOnce('afterRender', this, () => {
-				const rawContent = this.get('content');
+				const rawContent = this.content;
 
 				if (!isBlank(rawContent)) {
 					this.hackIntoEmberRendering(rawContent);
@@ -72,15 +75,15 @@ export default Component.extend(
 					this.handleCollapsibleSections();
 
 					window.lazySizes.init();
-				} else if (this.get('displayEmptyArticleInfo')) {
-					this.hackIntoEmberRendering(`<p>${this.get('i18n').t('article.empty-label')}</p>`);
+				} else if (this.displayEmptyArticleInfo) {
+					this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
 				}
 
-				if (!this.get('isPreview') && this.get('adsContext')) {
+				if (!this.isPreview && this.adsContext) {
 					getAdsModule().then((adsModule) => {
-						this.setupAdsContext(this.get('adsContext'));
+						this.setupAdsContext(this.adsContext);
 						adsModule.onReady(() => {
-							if (!this.get('isDestroyed')) {
+							if (!this.isDestroyed) {
 								this.injectAds();
 
 								if (!this.get('ads.module').isArticleSectionCollapsed()) {
@@ -173,7 +176,7 @@ export default Component.extend(
 				lightboxModel = this.getLightboxModel(figure);
 			}
 
-			this.get('lightbox').open('media', lightboxModel);
+			this.lightbox.open('media', lightboxModel);
 		},
 
 		getLightboxModel(elem) {
@@ -182,7 +185,7 @@ export default Component.extend(
 			try {
 				lightboxModel = JSON.parse(elem.getAttribute('data-attrs'));
 			} catch (e) {
-				this.get('logger').error('error while loading media model', e);
+				this.logger.error('error while loading media model', e);
 				lightboxModel = {};
 			}
 
@@ -289,10 +292,10 @@ export default Component.extend(
 					attrs: {
 						section,
 						sectionId,
-						title: this.get('displayTitle'),
-						edit: this.get('edit'),
-						editIconVisible: this.get('editIconVisible'),
-						editAllowed: this.get('editAllowed'),
+						title: this.displayTitle,
+						edit: this.edit,
+						editIconVisible: this.editIconVisible,
+						editAllowed: this.editAllowed,
 					},
 					element: placeholder
 				})
@@ -303,7 +306,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		createContributionButtons() {
-			if (this.get('contributionEnabled')) {
+			if (this.contributionEnabled) {
 				const headers = toArray(
 					this.element.querySelectorAll('h2[section]')
 				).map((element) => {
@@ -343,7 +346,7 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.get('displayTitle')
+							pageTitle: this.displayTitle
 						},
 						element
 					})
@@ -417,7 +420,7 @@ export default Component.extend(
 					componentName = 'widget-math';
 					break;
 				default:
-					this.get('logger').warn(`Can't create widget with type '${widgetType}'`);
+					this.logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
 
@@ -489,7 +492,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleReferences(event) {
-			const {target} = event;
+			const { target } = event;
 			const citeNoteSelector = '#cite_note-';
 			const citeRefSelector = '#cite_ref-';
 

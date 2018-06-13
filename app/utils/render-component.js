@@ -1,6 +1,6 @@
-import {scheduleOnce} from '@ember/runloop';
-import {assert} from '@ember/debug';
-import {getOwner} from '@ember/application';
+import { scheduleOnce } from '@ember/runloop';
+import { assert } from '@ember/debug';
+import { getOwner } from '@ember/application';
 
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
@@ -25,7 +25,7 @@ function lookupComponent(owner, name) {
 export function getRenderComponentFor(parent) {
 	const owner = getOwner(parent);
 
-	return function renderComponent({name, attrs, element: placeholderElement}) {
+	return function renderComponent({ name, attrs, element: placeholderElement }) {
 		const component = lookupComponent(owner, name);
 
 		assert(`Component named "${name}" doesn't exist.`, component);
@@ -54,7 +54,7 @@ export function queryPlaceholders(element) {
 			const name = componentElement.getAttribute('data-component'),
 				attrs = componentAttributes(componentElement);
 
-			components.push({attrs, name, element: componentElement});
+			components.push({ attrs, name, element: componentElement });
 		}
 	});
 

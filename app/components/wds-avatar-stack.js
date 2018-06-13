@@ -1,5 +1,5 @@
-import {gt} from '@ember/object/computed';
-import {computed} from '@ember/object';
+import { gt } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -10,11 +10,11 @@ export default Component.extend({
 	showAvatarOverflow: gt('avatarOverflow', 0),
 
 	avatars: computed('users', function () {
-		return this.get('users').slice(0, this.get('displayLimit'));
+		return this.users.slice(0, this.displayLimit);
 	}),
 
 	avatarOverflow: computed('users', 'totalCount', function () {
-		return this.get('totalCount') - this.get('avatars.length');
+		return this.totalCount - this.get('avatars.length');
 	}),
 
 	init() {

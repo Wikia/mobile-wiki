@@ -1,13 +1,13 @@
-import {inject as service} from '@ember/service';
-import {oneWay, alias} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { oneWay, alias } from '@ember/object/computed';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import wrapMeHelper from '../helpers/wrap-me';
 import NewReplyNotificationMixin from '../mixins/new-reply-notification';
 import PostUpvoteNotificationMixin from '../mixins/post-upvote-notification';
 import ReplyUpvoteNotificationMixin from '../mixins/reply-upvote-notification';
 import MarkAsReadNotificationMixin from '../mixins/mark-as-read-notification';
-import {trackClick, trackImpression} from '../utils/notifications-tracker';
+import { trackClick, trackImpression } from '../utils/notifications-tracker';
 import notificationTypes from '../utils/notification-types';
 
 export default Component.extend(
@@ -74,7 +74,7 @@ export default Component.extend(
 		}),
 
 		text: computed('model', function () {
-			const model = this.get('model'),
+			const model = this.model,
 				type = model.type;
 
 			if (this.isDiscussionReply(type)) {
@@ -86,17 +86,17 @@ export default Component.extend(
 			} else if (this.isAnnouncement(type)) {
 				return model.title;
 			} else {
-				this.get('logger').warn('No type found for a notification', model);
+				this.logger.warn('No type found for a notification', model);
 			}
 		}),
 
 		didInsertElement() {
-			trackImpression(this.get('model'));
+			trackImpression(this.model);
 		},
 
 		actions: {
 			onNotificationClicked() {
-				trackClick(this.get('model'));
+				trackClick(this.model);
 			}
 		},
 
@@ -123,7 +123,7 @@ export default Component.extend(
 				ns: 'design-system',
 			}, context);
 
-			return this.get('i18n').t(key, fullContext);
+			return this.i18n.t(key, fullContext);
 		}
 	}
 );

@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import thumbnailHelper from 'mobile-wiki/helpers/thumbnail';
 import thumbnailer from 'mobile-wiki/modules/thumbnailer';
 
@@ -8,7 +8,7 @@ module('Unit | helper | thumbnail', (hooks) => {
 	hooks.beforeEach(() => {
 		originalThumbnailerGetThumbURL = thumbnailer.getThumbURL;
 
-		thumbnailer.getThumbURL = function (url, {mode, width, height}) {
+		thumbnailer.getThumbURL = function (url, { mode, width, height }) {
 			return `${url}/${mode}/${width}/${height}`;
 		};
 	});

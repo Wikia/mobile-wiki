@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import config from '../config/environment';
 import i18n from 'npm:i18next';
 
@@ -8,7 +8,7 @@ export default Service.extend({
 	i18nextInstance: null,
 
 	initialize(language) {
-		const fastboot = this.get('fastboot'),
+		const fastboot = this.fastboot,
 			shoebox = fastboot.get('shoebox');
 
 		let translations = {};
@@ -28,7 +28,7 @@ export default Service.extend({
 						return true;
 					} catch (exception) {
 						if (lang === 'en') {
-							this.get('logger').error(`Translation for default language not found`, {
+							this.logger.error(`Translation for default language not found`, {
 								lang,
 								namespace,
 								path: translationPath,
@@ -64,6 +64,6 @@ export default Service.extend({
 	},
 
 	t() {
-		return this.get('i18nextInstance').t(...arguments);
+		return this.i18nextInstance.t(...arguments);
 	}
 });

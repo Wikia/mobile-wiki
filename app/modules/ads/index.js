@@ -1,4 +1,4 @@
-import {Promise} from 'rsvp';
+import { Promise } from 'rsvp';
 import Ads from './module';
 import LegacyAds from './legacyModule';
 

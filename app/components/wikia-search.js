@@ -1,13 +1,13 @@
-import {inject as service} from '@ember/service';
-import {oneWay, not, notEmpty} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { oneWay, not, notEmpty } from '@ember/object/computed';
 import Component from '@ember/component';
-import EmberObject, {observer, computed} from '@ember/object';
-import {run} from '@ember/runloop';
+import EmberObject, { observer, computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import NoScrollMixin from '../mixins/no-scroll';
 import wrapMeHelper from '../helpers/wrap-me';
 import fetch from '../utils/mediawiki-fetch';
-import {escapeRegex, normalizeToUnderscore} from '../utils/string';
-import {track, trackActions} from '../utils/track';
+import { escapeRegex, normalizeToUnderscore } from '../utils/string';
+import { track, trackActions } from '../utils/track';
 
 /**
  * Type for search suggestion
@@ -47,7 +47,7 @@ export default Component.extend(
 		phrase: oneWay('query'),
 
 		searchPlaceholderLabel: computed(function () {
-			return this.get('i18n').t('search:main.search-input-label');
+			return this.i18n.t('search:main.search-input-label');
 		}),
 
 		/**
@@ -55,11 +55,11 @@ export default Component.extend(
 		 */
 		updateSuggestions: observer('phrase', function () {
 			// disable suggestions
-			if (!this.get('suggestionsEnabled') || this.get('isDestroyed')) {
+			if (!this.suggestionsEnabled || this.isDestroyed) {
 				return;
 			}
 
-			const phrase = this.get('phrase');
+			const phrase = this.phrase;
 
 			this.setProperties({
 				suggestions: [],
@@ -67,7 +67,7 @@ export default Component.extend(
 			});
 
 			// If the phrase string is empty or shorter than the minimal length, return to leave the view blank
-			if (!phrase || phrase.length < this.get('phraseMinimalLength')) {
+			if (!phrase || phrase.length < this.phraseMinimalLength) {
 				/**
 				 * Even if there are pending search API ajax requests, we don't care about
 				 * them anymore because the phrase string has been cleared.
@@ -77,7 +77,7 @@ export default Component.extend(
 				this.setSearchSuggestionItems(this.getCachedResult(phrase));
 			} else {
 				this.set('isLoadingResultsSuggestions', true);
-				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
+				run.debounce(this, this.searchWithoutDebounce, this.debounceDuration);
 			}
 		}),
 
@@ -106,8 +106,8 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 
-			if (this.get('focusInput')) {
-				this.element.querySelector(this.get('inputSearchSelector')).focus();
+			if (this.focusInput) {
+				this.element.querySelector(this.inputSearchSelector).focus();
 			}
 
 		},
@@ -120,18 +120,18 @@ export default Component.extend(
 					label: 'search-open-special-search'
 				});
 
-				this.element.querySelector(this.get('inputSearchSelector')).blur();
+				this.element.querySelector(this.inputSearchSelector).blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
-				this.get('onEnterHandler')(value);
-				this.get('router').transitionTo('search', {
-					queryParams: {query: value}
+				this.onEnterHandler(value);
+				this.router.transitionTo('search', {
+					queryParams: { query: value }
 				});
 			},
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.element.querySelector(this.get('inputSearchSelector')).focus();
+				this.element.querySelector(this.inputSearchSelector).focus();
 			},
 
 			onInputFocus() {
@@ -143,7 +143,7 @@ export default Component.extend(
 			},
 
 			onSuggestionsWrapperClick() {
-				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
+				const outsideSuggestionsClickAction = this.outsideSuggestionsClickAction;
 
 				this.setSearchSuggestionItems();
 				if (outsideSuggestionsClickAction) {
@@ -167,11 +167,11 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions = []) {
-			if (this.get('isDestroyed')) {
+			if (this.isDestroyed) {
 				return;
 			}
 
-			const phrase = this.get('phrase'),
+			const phrase = this.phrase,
 				highlightRegexp = new RegExp(`(${escapeRegex(phrase)})`, 'ig'),
 				highlighted = wrapMeHelper.compute(['$1'], {
 					className: 'wikia-search__suggestion-highlighted'
@@ -203,7 +203,7 @@ export default Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(phrase) {
-			return this.get('wikiUrls').build({
+			return this.wikiUrls.build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {
@@ -220,7 +220,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		searchWithoutDebounce() {
-			const phrase = this.get('phrase'),
+			const phrase = this.phrase,
 				uri = this.getSearchURI(phrase);
 
 			/**
@@ -230,7 +230,7 @@ export default Component.extend(
 			 * we just ignore this request because the search fn already put the cached
 			 * value into the window.
 			 */
-			if (!phrase || this.hasCachedResult(phrase) || this.requestInProgress(phrase) || this.get('isDestroyed')) {
+			if (!phrase || this.hasCachedResult(phrase) || this.requestInProgress(phrase) || this.isDestroyed) {
 				return;
 			}
 
@@ -239,7 +239,7 @@ export default Component.extend(
 			fetch(uri)
 				.then((response) => {
 					if (response.ok) {
-						if (this.get('isDestroyed')) {
+						if (this.isDestroyed) {
 							return;
 						}
 
@@ -256,7 +256,7 @@ export default Component.extend(
 							 * Also, we don't want to show the suggestion results after a real search
 							 * will be finished, what will happen if search request is still in progress.
 							 */
-							if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
+							if (!this.searchRequestInProgress && phrase === this.phrase) {
 								this.setSearchSuggestionItems(suggestions);
 							}
 
@@ -264,19 +264,19 @@ export default Component.extend(
 						});
 					} else if (response.status === 404) {
 						// When we get a 404, it means there were no results
-						if (phrase === this.get('phrase')) {
+						if (phrase === this.phrase) {
 							this.setSearchSuggestionItems();
 						}
 
 						this.cacheResult(phrase);
 					} else {
-						this.get('logger').error('Search suggestions error', response);
+						this.logger.error('Search suggestions error', response);
 					}
 				})
-				.catch((reason) => this.get('logger').error('Search suggestions error', reason))
+				.catch((reason) => this.logger.error('Search suggestions error', reason))
 				.finally(() => {
 					// We have a response, so we're no longer loading the results
-					if (phrase === this.get('phrase') && !this.get('isDestroyed')) {
+					if (phrase === this.phrase && !this.isDestroyed) {
 						this.set('isLoadingResultsSuggestions', false);
 					}
 
@@ -296,7 +296,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		startedRequest(phrase) {
-			this.get('requestsInProgress')[phrase] = true;
+			this.requestsInProgress[phrase] = true;
 		},
 
 		/**
@@ -306,7 +306,7 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		requestInProgress(phrase) {
-			return this.get('requestsInProgress').hasOwnProperty(phrase);
+			return this.requestsInProgress.hasOwnProperty(phrase);
 		},
 
 		/**
@@ -316,7 +316,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		endedRequest(phrase) {
-			delete this.get('requestsInProgress')[phrase];
+			delete this.requestsInProgress[phrase];
 		},
 
 		/**
@@ -342,7 +342,7 @@ export default Component.extend(
 			// phrase string to evict
 			const toEvict = this.cachedResultsQueue.shift();
 
-			delete this.get('cachedResults')[toEvict];
+			delete this.cachedResults[toEvict];
 		},
 
 		/**
@@ -357,8 +357,8 @@ export default Component.extend(
 				this.evictCachedResult();
 			}
 
-			this.get('cachedResultsQueue').push(phrase);
-			this.get('cachedResults')[phrase] = suggestions || [];
+			this.cachedResultsQueue.push(phrase);
+			this.cachedResults[phrase] = suggestions || [];
 		},
 
 		/**
@@ -368,7 +368,7 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		hasCachedResult(phrase) {
-			return this.get('cachedResults').hasOwnProperty(phrase);
+			return this.cachedResults.hasOwnProperty(phrase);
 		},
 
 		/**
@@ -378,7 +378,7 @@ export default Component.extend(
 		 * @returns {*}
 		 */
 		getCachedResult(phrase) {
-			return this.get('cachedResults')[phrase];
+			return this.cachedResults[phrase];
 		}
 	}
 );

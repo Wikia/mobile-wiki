@@ -1,8 +1,8 @@
-import {htmlSafe} from '@ember/string';
-import {getWithDefault, get} from '@ember/object';
-import {helper} from '@ember/component/helper';
+import { htmlSafe } from '@ember/string';
+import { getWithDefault, get } from '@ember/object';
+import { helper } from '@ember/component/helper';
 import Thumbnailer from '../modules/thumbnailer';
-import {transparentImageBase64} from '../utils/thumbnail';
+import { transparentImageBase64 } from '../utils/thumbnail';
 import Ember from 'ember';
 
 /**

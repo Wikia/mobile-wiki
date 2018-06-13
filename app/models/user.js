@@ -1,13 +1,17 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import {all} from 'rsvp';
-import {isArray} from '@ember/array';
+import { all } from 'rsvp';
+import { isArray } from '@ember/array';
 import config from '../config/environment';
 import fetch from 'fetch';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
-import {getQueryString} from '../utils/url';
-import {getFetchErrorMessage, UserLoadDetailsFetchError, UserLoadInfoFetchError} from '../utils/errors';
+import { getQueryString } from '../utils/url';
+import {
+	getFetchErrorMessage,
+	UserLoadDetailsFetchError,
+	UserLoadInfoFetchError
+} from '../utils/errors';
 
 export default EmberObject.extend({
 	defaultAvatarSize: 100,
@@ -23,28 +27,28 @@ export default EmberObject.extend({
 		const queryString = getQueryString({
 			code: accessToken
 		});
-		const {fastbootOnly: {helios}} = config;
+		const { fastbootOnly: { helios } } = config;
 
 		return fetch(`${helios.internalUrl}${queryString}`, {
-			headers: {'X-Wikia-Internal-Request': '1'},
+			headers: { 'X-Wikia-Internal-Request': '1' },
 			timeout: helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
 				return response.json().then((data) => data.user_id);
 			} else {
 				if (response.status === 401) {
-					this.get('logger').info('Token not authorized by Helios');
+					this.logger.info('Token not authorized by Helios');
 				} else {
-					this.get('logger').error('Helios connection error: ', response);
+					this.logger.error('Helios connection error: ', response);
 				}
 
 				return null;
 			}
 		}).catch((reason) => {
 			if (reason.type === 'request-timeout') {
-				this.get('logger').error('Helios timeout error: ', reason);
+				this.logger.error('Helios timeout error: ', reason);
 			} else {
-				this.get('logger').error('Helios connection error: ', reason);
+				this.logger.error('Helios connection error: ', reason);
 			}
 
 			return null;
@@ -101,7 +105,7 @@ export default EmberObject.extend({
 	 * @returns {RSVP.Promise}
 	 */
 	loadDetails(host, userId, avatarSize) {
-		const url = this.get('wikiUrls').build({
+		const url = this.wikiUrls.build({
 			host,
 			path: '/wikia.php',
 			query: {
@@ -143,7 +147,7 @@ export default EmberObject.extend({
 	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(host, accessToken, userId) {
-		const url = this.get('wikiUrls').build({
+		const url = this.wikiUrls.build({
 			host,
 			path: '/api.php',
 			query: {
@@ -183,7 +187,7 @@ export default EmberObject.extend({
 		return {
 			name: userData.name,
 			avatarPath: userData.avatar,
-			profileUrl: this.get('wikiUrls').build({
+			profileUrl: this.wikiUrls.build({
 				host: this.get('wikiVariables.host'),
 				namespace: 'User',
 				title: userData.name
@@ -195,7 +199,7 @@ export default EmberObject.extend({
 	 * @param {QueryUserInfoResponse} query
 	 * @returns {Object}
 	 */
-	getUserRights({query}) {
+	getUserRights({ query }) {
 		const rights = {},
 			rightsArray = query.userinfo.rights;
 

@@ -1,12 +1,12 @@
-import {inject as service} from '@ember/service';
-import {not, oneWay, bool, equal, gte, and} from '@ember/object/computed';
-import {scheduleOnce} from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { not, oneWay, bool, equal, gte, and } from '@ember/object/computed';
+import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
-import {track, trackActions} from '../utils/track';
-import {namespace as mediawikiNamespace} from '../utils/mediawiki-namespace';
+import { track, trackActions } from '../utils/track';
+import { namespace as mediawikiNamespace } from '../utils/mediawiki-namespace';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -56,8 +56,8 @@ export default Component.extend(
 		 */
 		contributionEnabled: computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
-				this.get('displayArticleWrapper') &&
-				this.get('contributionEnabledForCommunity') &&
+				this.displayArticleWrapper &&
+				this.contributionEnabledForCommunity &&
 				// @todo XW-1196: Enable article editing on blog, category and file pages
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.BLOG_ARTICLE &&
 				this.getWithDefault('model.ns', 0) !== mediawikiNamespace.CATEGORY &&

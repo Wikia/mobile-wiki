@@ -1,14 +1,20 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
-import EmberObject, {get} from '@ember/object';
-import {getOwner} from '@ember/application';
+import EmberObject, { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
-import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
+import {
+	namespace as MediawikiNamespace,
+	isContentNamespace
+} from '../utils/mediawiki-namespace';
 import fetch from '../utils/mediawiki-fetch';
-import {getFetchErrorMessage, WikiPageFetchError} from '../utils/errors';
+import {
+	getFetchErrorMessage,
+	WikiPageFetchError
+} from '../utils/errors';
 import extend from '../utils/extend';
 
 /**
@@ -61,13 +67,13 @@ export default Mixin.create({
 		const isFastBoot = this.get('fastboot.isFastBoot'),
 			shoebox = this.get('fastboot.shoebox'),
 			contentNamespaces = this.get('wikiVariables.contentNamespaces'),
-			isInitialPageView = this.get('initialPageView').isInitialPageView();
+			isInitialPageView = this.initialPageView.isInitialPageView();
 
 		if (isFastBoot || !isInitialPageView) {
 			params.noads = this.get('fastboot.request.queryParams.noads');
 			params.noexternals = this.get('fastboot.request.queryParams.noexternals');
 
-			const url = getURL(this.get('wikiUrls'), params);
+			const url = getURL(this.wikiUrls, params);
 
 			return fetch(url)
 				.then((response) => {
@@ -105,7 +111,7 @@ export default Mixin.create({
 				.catch((error) => {
 					if (isFastBoot) {
 						shoebox.put('wikiPageError', error);
-						this.get('fastboot').set('response.statusCode', error.code || 503);
+						this.fastboot.set('response.statusCode', error.code || 503);
 					}
 
 					throw error;

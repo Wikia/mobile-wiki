@@ -14,12 +14,12 @@ export default Mixin.create({
 		if (hasTitle) {
 			if (hasMultipleUsers) {
 				return this.getTranslatedMessage('notifications-reply-upvote-multiple-users-with-title', {
-					postTitle: this.get('postTitleMarkup'),
+					postTitle: this.postTitleMarkup,
 					number: totalUniqueActors - 1
 				});
 			} else {
 				return this.getTranslatedMessage('notifications-reply-upvote-single-user-with-title', {
-					postTitle: this.get('postTitleMarkup'),
+					postTitle: this.postTitleMarkup,
 				});
 			}
 		} else if (hasMultipleUsers) {

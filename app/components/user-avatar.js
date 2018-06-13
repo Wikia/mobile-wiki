@@ -1,6 +1,6 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Component.extend({
 	i18n: service(),
@@ -11,7 +11,7 @@ export default Component.extend({
 	shouldWrapInHref: true,
 
 	profileName: computed('username', function () {
-		const userName = this.get('username') || '';
+		const userName = this.username || '';
 
 		return userName.trim();
 	}),
@@ -20,13 +20,13 @@ export default Component.extend({
 	 * @returns {string}
 	 */
 	profileUrl: computed('profileName', function () {
-		return this.get('wikiUrls').build({
+		return this.wikiUrls.build({
 			host: this.get('wikiVariables.host'),
 			namespace: 'User',
-			title: this.get('profileName'),
+			title: this.profileName,
 		});
 	}),
 	displayName: computed('profileName', function () {
-		return this.get('anonymous') ? this.get('i18n').t('app.username-anonymous') : this.get('profileName');
+		return this.anonymous ? this.i18n.t('app.username-anonymous') : this.profileName;
 	}),
 });

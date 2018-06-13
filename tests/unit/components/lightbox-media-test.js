@@ -1,6 +1,6 @@
 import sinon from 'sinon';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import trackModule from 'mobile-wiki/utils/track';
 
 let model,

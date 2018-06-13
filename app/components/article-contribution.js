@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import {inject as service} from '@ember/service';
-import {track, trackActions} from '../utils/track';
+import { inject as service } from '@ember/service';
+import { track, trackActions } from '../utils/track';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
@@ -22,24 +22,24 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			edit() {
-				const section = this.get('section');
+				const section = this.section;
 
-				if (this.get('editAllowed')) {
+				if (this.editAllowed) {
 					track({
 						action: trackActions.click,
 						category: 'sectioneditor',
 						label: 'edit',
 						value: section
 					});
-					this.get('edit')(this.get('title'), section);
+					this.edit(this.title, section);
 				} else {
 					track({
 						action: trackActions.click,
 						category: 'sectioneditor',
 						label: 'edit-section-no-auth',
-						value: this.get('section')
+						value: this.section
 					});
-					this.get('wikiUrls').goToLogin(`${window.location.href}#${this.get('sectionId')}`);
+					this.wikiUrls.goToLogin(`${window.location.href}#${this.sectionId}`);
 				}
 			},
 		}

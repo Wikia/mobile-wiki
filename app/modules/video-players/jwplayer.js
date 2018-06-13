@@ -1,10 +1,10 @@
 import getAdsModule from '../ads';
 import BasePlayer from './base';
 import JWPlayerVideoAds from './jwplayer-video-ads';
-import {track} from '../../utils/track';
+import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
-import {inGroup} from '../abtest';
+import { inGroup } from '../abtest';
 
 export default class JWPlayer extends BasePlayer {
 	constructor(provider, params) {

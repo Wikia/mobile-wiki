@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import {scheduleOnce} from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 
 export default Component.extend({
 	classNames: ['article-featured-video__close-button'],
@@ -13,7 +13,7 @@ export default Component.extend({
 		 */
 		tap() {
 			scheduleOnce('afterRender', () => {
-				this.get('onTap')();
+				this.onTap();
 			});
 		}
 	}

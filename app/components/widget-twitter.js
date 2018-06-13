@@ -1,4 +1,4 @@
-import {observer} from '@ember/object';
+import { observer } from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
@@ -60,7 +60,7 @@ export default Component.extend(
 		 */
 		createTimeline() {
 			if (this.get('scriptLoaded.twitter')) {
-				const data = this.get('data');
+				const data = this.data;
 
 				window.twttr.widgets.createTimeline(data.widgetId, this.element, data);
 			}

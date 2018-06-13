@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
-import {oneWay} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 import WikiaNavModel from '../models/wikia-nav';
 import NoScrollMixin from '../mixins/no-scroll';
 import UnreadCountMixin from '../mixins/notifications-unread-count';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
 	NoScrollMixin, UnreadCountMixin,
@@ -24,7 +24,7 @@ export default Component.extend(
 		init() {
 			this._super(...arguments);
 			this.model = WikiaNavModel.create(getOwner(this).ownerInjection(), {
-				dsGlobalNavigation: this.get('globalNavigation'),
+				dsGlobalNavigation: this.globalNavigation,
 			});
 			this.clickHandlers = {
 				onRandomPageClick: 'loadRandomArticle'
@@ -49,7 +49,7 @@ export default Component.extend(
 					category: item.trackCategory ? item.trackCategory : 'side-nav',
 					label: item.trackLabel
 				});
-				this.get('closeDrawer')();
+				this.closeDrawer();
 				// reset state
 				this.send('goRoot');
 				if (item.actionId) {
@@ -61,19 +61,19 @@ export default Component.extend(
 
 			onUsernameClicked() {
 				this.send('trackClick', 'side-nav', 'open-user-profile');
-				this.get('setDrawerContent')('user-profile');
+				this.setDrawerContent('user-profile');
 			},
 
 			goRoot() {
-				this.get('model').goRoot();
+				this.model.goRoot();
 			},
 
 			goBack() {
-				this.get('model').goBack();
+				this.model.goBack();
 			},
 
 			goToSubNav(index) {
-				this.get('model').goToSubNav(index);
+				this.model.goToSubNav(index);
 			},
 
 			goToLogin() {
@@ -84,7 +84,7 @@ export default Component.extend(
 					label: 'join-link',
 				});
 
-				this.get('wikiUrls').goToLogin();
+				this.wikiUrls.goToLogin();
 			},
 
 			/**

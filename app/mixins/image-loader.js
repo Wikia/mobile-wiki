@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import {Promise} from 'rsvp';
+import { Promise } from 'rsvp';
 
 export default Mixin.create({
 	/**

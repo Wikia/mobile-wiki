@@ -1,12 +1,12 @@
-import {inject as service} from '@ember/service';
-import {A} from '@ember/array';
-import {reject} from 'rsvp';
-import EmberObject, {get} from '@ember/object';
-import {getOwner} from '@ember/application';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
+import { reject } from 'rsvp';
+import EmberObject, { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import Notification from './notification';
 import fetch from 'fetch';
-import {convertToIsoString} from '../../utils/iso-date-time';
-import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
+import { convertToIsoString } from '../../utils/iso-date-time';
+import { getOnSiteNotificationsServiceUrl } from '../../utils/url';
 
 export default EmberObject.extend({
 	unreadCount: 0,
@@ -25,13 +25,13 @@ export default EmberObject.extend({
 	 * @return {Promise}
 	 */
 	loadUnreadNotificationCount() {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), {credentials: 'include'})
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications/unread-count'), { credentials: 'include' })
 			.then((response) => response.json())
 			.then((result) => {
 				this.set('unreadCount', result.unreadCount);
 			}).catch((error) => {
 				this.set('unreadCount', 0);
-				this.get('logger').error('Setting notifications unread count to 0 because of the API fetch error');
+				this.logger.error('Setting notifications unread count to 0 because of the API fetch error');
 			});
 	},
 
@@ -39,7 +39,7 @@ export default EmberObject.extend({
 	 * @return {Promise.<string>}
 	 */
 	loadFirstPageReturningNextPageLink() {
-		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), {credentials: 'include'})
+		return fetch(getOnSiteNotificationsServiceUrl('/notifications'), { credentials: 'include' })
 			.then((response) => response.json())
 			.then((data) => {
 				this.addNotifications(data.notifications);
@@ -82,12 +82,12 @@ export default EmberObject.extend({
 
 		return fetch(getOnSiteNotificationsServiceUrl(`/notifications/mark-all-as-read`), {
 			method: 'POST',
-			body: JSON.stringify({since}),
+			body: JSON.stringify({ since }),
 			credentials: 'include',
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 		})
 			.then(() => {
-				this.get('data').setEach('isUnread', false);
+				this.data.setEach('isUnread', false);
 				this.set('unreadCount', 0);
 			});
 	},
@@ -97,6 +97,6 @@ export default EmberObject.extend({
 			return Notification.create(getOwner(this).ownerInjection(), notificationApiData);
 		});
 
-		this.get('data').pushObjects(notificationModels);
+		this.data.pushObjects(notificationModels);
 	}
 });

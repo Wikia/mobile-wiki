@@ -1,6 +1,6 @@
-import {visit} from '@ember/test-helpers';
-import {setupApplicationTest} from 'ember-qunit';
-import {module, test} from 'qunit';
+import { visit } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
 

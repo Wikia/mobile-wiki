@@ -1,5 +1,5 @@
-import {observer, computed} from '@ember/object';
-import {inject as service} from '@ember/service';
+import { observer, computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
@@ -23,7 +23,7 @@ export default Component.extend(
 		 * @returns string
 		 */
 		provider: computed('videoLoader', function () {
-			const videoLoader = this.get('videoLoader');
+			const videoLoader = this.videoLoader;
 
 			return `video-provider-${videoLoader.getProviderName()}`;
 		}),
@@ -60,7 +60,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = this.get('videoLoader');
+			const videoLoader = this.videoLoader;
 
 			/**
 			 * This loads and creates a player
@@ -76,8 +76,8 @@ export default Component.extend(
 		},
 
 		resize() {
-			if (this.get('videoLoader')) {
-				this.get('videoLoader').onResize();
+			if (this.videoLoader) {
+				this.videoLoader.onResize();
 			}
 		},
 

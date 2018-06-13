@@ -1,7 +1,7 @@
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 import Thumbnailer from '../modules/thumbnailer';
-import {transparentImageBase64} from '../utils/thumbnail';
+import { transparentImageBase64 } from '../utils/thumbnail';
 
 /**
  * @typedef {Object} ImageCropData
@@ -17,15 +17,15 @@ export default Mixin.create({
 	emptyGif: transparentImageBase64,
 
 	aspectRatio: computed('block', function () {
-		return ['featured', 'community'].indexOf(this.get('block')) !== -1 ? 16 / 9 : 1;
+		return ['featured', 'community'].indexOf(this.block) !== -1 ? 16 / 9 : 1;
 	}),
 
 	aspectRatioName: computed('aspectRatio', function () {
-		return this.get('aspectRatio') === 16 / 9 ? 'landscape' : 'square';
+		return this.aspectRatio === 16 / 9 ? 'landscape' : 'square';
 	}),
 
 	imageHeight: computed('aspectRatio', 'imageWidth', function () {
-		return Math.round(this.get('imageWidth') / this.get('aspectRatio'));
+		return Math.round(this.imageWidth / this.aspectRatio);
 	}),
 
 	/**
@@ -37,7 +37,7 @@ export default Mixin.create({
 	 */
 	generateThumbUrl(imageUrl, imageCrop = null) {
 		const options = {
-			width: this.get('imageWidth')
+			width: this.imageWidth
 		};
 
 		if (imageCrop) {
@@ -46,14 +46,14 @@ export default Mixin.create({
 			options.yOffset1 = imageCrop.y;
 			options.xOffset2 = imageCrop.x + imageCrop.width;
 			options.yOffset2 = imageCrop.y + imageCrop.height;
-		} else if (this.get('isCommunityData')) {
+		} else if (this.isCommunityData) {
 			// we need this dimensions only for displaying image here, we don't save it anywhere
 			options.width = document.documentElement.clientWidth;
-			options.height = Math.round(options.width / this.get('aspectRatio'));
+			options.height = Math.round(options.width / this.aspectRatio);
 			options.mode = Thumbnailer.mode.thumbnailDown;
 		} else {
-			options.mode = this.get('cropMode');
-			options.height = this.get('imageHeight');
+			options.mode = this.cropMode;
+			options.height = this.imageHeight;
 		}
 
 		return this.thumbnailer.getThumbURL(imageUrl, options);

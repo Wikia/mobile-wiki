@@ -11,7 +11,7 @@ const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatp
  * @returns {number}
  */
 function calculateRV(depth) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 
 	const capping = context.get('options.video.adsOnNextVideoFrequency');
 
@@ -23,7 +23,7 @@ function calculateRV(depth) {
  * @returns {boolean}
  */
 function shouldPlayAdOnNextVideo(depth) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 	const capping = context.get('options.video.adsOnNextVideoFrequency');
 
 	return context.get('options.video.playAdsOnNextVideo') && capping > 0 && (depth - 1) % capping === 0;
@@ -52,7 +52,7 @@ function shouldPlayPreroll(videoDepth) {
  * @returns {boolean}
  */
 function shouldPlayMidroll(videoDepth) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 	return context.get('options.video.isMidrollEnabled') && canAdBePlayed(videoDepth);
 }
 
@@ -61,7 +61,7 @@ function shouldPlayMidroll(videoDepth) {
  * @returns {boolean}
  */
 function shouldPlayPostroll(videoDepth) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 	return context.get('options.video.isPostrollEnabled') && canAdBePlayed(videoDepth);
 }
 
@@ -74,7 +74,7 @@ function shouldPlayPostroll(videoDepth) {
  * @returns {string}
  */
 function getVastUrl(slot, position, depth, correlator, slotTargeting) {
-	const {buildVastUrl} = window.Wikia.adEngine;
+	const { buildVastUrl } = window.Wikia.adEngine;
 	return buildVastUrl(16 / 9, slot.getSlotName(), {
 		correlator,
 		vpos: position,
@@ -104,7 +104,7 @@ function init(player, options, slotTargeting) {
 	} = window.Wikia.adEngine;
 
 	const slotName = options.featured ? 'featured' : 'video';
-	const slot = slotService.get(slotName) || new AdSlot({id: slotName});
+	const slot = slotService.get(slotName) || new AdSlot({ id: slotName });
 	const adProduct = slot.config.trackingKey;
 	const videoElement = player && player.getContainer && player.getContainer();
 	const videoContainer = videoElement && videoElement.parentNode;

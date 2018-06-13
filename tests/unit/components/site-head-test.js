@@ -1,11 +1,11 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Component | site head', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
-		this.owner.register('service:currentUser', window.document, {instantiate: false});
+		this.owner.register('service:currentUser', window.document, { instantiate: false });
 	});
 
 	test('correct icons returned', function (assert) {

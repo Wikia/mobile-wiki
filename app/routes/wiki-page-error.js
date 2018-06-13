@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
-import {logError} from '../modules/event-logger';
-import {inject as service} from '@ember/service';
+import { logError } from '../modules/event-logger';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(
 	{

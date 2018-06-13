@@ -1,5 +1,5 @@
-import EmberObject, {get} from '@ember/object';
-import {getOwner} from '@ember/application';
+import EmberObject, { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import CuratedContentModel from '../../models/curated-content';
 
 /**

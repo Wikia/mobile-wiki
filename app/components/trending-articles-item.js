@@ -1,9 +1,9 @@
-import {computed} from '@ember/object';
-import {oneWay} from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import Thumbnailer from '../modules/thumbnailer';
-import {track, trackActions} from '../utils/track';
-import {transparentImageBase64} from '../utils/thumbnail';
+import { track, trackActions } from '../utils/track';
+import { transparentImageBase64 } from '../utils/thumbnail';
 
 export default Component.extend({
 	tagName: 'a',
@@ -16,21 +16,21 @@ export default Component.extend({
 	href: oneWay('url'),
 
 	currentlyRenderedImageUrl: computed('imageUrl', function () {
-		if (this.get('imageUrl')) {
+		if (this.imageUrl) {
 			const options = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
+				width: this.imageWidth,
+				height: this.imageHeight,
 				mode: Thumbnailer.mode.topCrop,
 			};
 
-			return Thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			return Thumbnailer.getThumbURL(this.imageUrl, options);
 		} else {
 			return undefined;
 		}
 	}),
 
 	imageHeight: computed('imageWidth', function () {
-		return Math.floor(this.get('imageWidth') * 9 / 16);
+		return Math.floor(this.imageWidth * 9 / 16);
 	}),
 
 	/**
@@ -40,7 +40,7 @@ export default Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'main-page-trending-articles',
-			label: `open-item-${this.get('index')}`
+			label: `open-item-${this.index}`
 		});
 	}
 });

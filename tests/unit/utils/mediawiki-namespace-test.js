@@ -1,5 +1,5 @@
-import {module, test} from 'qunit';
-import {isContentNamespace} from 'mobile-wiki/utils/mediawiki-namespace';
+import { module, test } from 'qunit';
+import { isContentNamespace } from 'mobile-wiki/utils/mediawiki-namespace';
 
 module('Unit | Utility | mediawiki namespace', () => {
 	test('isContentNamespace', (assert) => {
@@ -23,7 +23,7 @@ module('Unit | Utility | mediawiki namespace', () => {
 			}
 		];
 
-		testCases.forEach(({contentNamespaces, namespace, expected}) => {
+		testCases.forEach(({ contentNamespaces, namespace, expected }) => {
 			assert.equal(isContentNamespace(namespace, contentNamespaces), expected);
 		});
 	});
