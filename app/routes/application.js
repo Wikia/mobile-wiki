@@ -215,7 +215,7 @@ export default Route.extend(
 			if (!this.get('fastboot.isFastBoot')) {
 				// Prevent scrolling to the top of the page after Ember is loaded
 				// See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
-				const routerScroll = this.get('router.service');
+				const routerScroll = this.get('_router.service');
 				routerScroll.set('key', get(window, 'history.state.uuid'));
 				routerScroll.update();
 
