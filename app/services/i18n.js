@@ -15,14 +15,9 @@ export default Service.extend({
 
 		if (fastboot.get('isFastBoot')) {
 			const fs = FastBoot.require('fs');
-			// Per MediaWiki's /languages/messages/MessagesZh_*.php
-			const traditionalChineseLanguages = ['zh-hk', 'zh-mo', 'zh-tw'];
 
 			config.translationsNamespaces.forEach((namespace) => {
 				[language, language.split('-')[0], 'en'].some((lang) => {
-					if (traditionalChineseLanguages.indexOf(lang) > -1) {
-						lang = 'zh-hant';
-					}
 					const translationPath = `dist/mobile-wiki/locales/${lang}/${namespace}.json`;
 
 					try {
