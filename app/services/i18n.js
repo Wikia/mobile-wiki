@@ -16,8 +16,27 @@ export default Service.extend({
 		if (fastboot.get('isFastBoot')) {
 			const fs = FastBoot.require('fs');
 
+			// Per MediaWiki's /languages/messages/MessagesZh_*.php
+			const langMap = {
+				'zh-hk': 'zh-hant',
+				'zh-mo': 'zh-hant',
+				'zh-tw': 'zh-hant',
+				// zh differs from MW per Keiko's request in IRIS-6105
+				zh: 'zh-hant',
+				// zh is simplified chinese per crowdin conf files
+				// it would be better to name it zh-hans
+				// but would require updating design-system-i18n and all its clients
+				'zh-cn': 'zh',
+				'zh-my': 'zh',
+				'zh-sg': 'zh'
+			};
+
 			config.translationsNamespaces.forEach((namespace) => {
-				[language, language.split('-')[0], 'en'].some((lang) => {
+				[
+					langMap[language] || language,
+					language.split('-')[0],
+					'en'
+				].some((lang) => {
 					const translationPath = `dist/mobile-wiki/locales/${lang}/${namespace}.json`;
 
 					try {
