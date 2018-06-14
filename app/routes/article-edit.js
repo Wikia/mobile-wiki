@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
-import {getOwner} from '@ember/application';
+import { inject as service } from '@ember/service';
+import { getOwner } from '@ember/application';
 import Route from '@ember/routing/route';
 import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 
@@ -49,7 +49,7 @@ export default Route.extend(
 			 */
 			error() {
 				this.controllerFor('application').addAlert({
-					message: this.get('i18n').t('edit.load-error'),
+					message: this.i18n.t('edit.load-error'),
 					type: 'alert'
 				});
 
@@ -69,7 +69,7 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model) {
-			this._super(model, {robots: 'noindex,follow'});
+			this._super(model, { robots: 'noindex,follow' });
 		}
 	}
 );

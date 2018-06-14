@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
-import EmberObject, {getWithDefault, get} from '@ember/object';
+import { inject as service } from '@ember/service';
+import EmberObject, { getWithDefault, get } from '@ember/object';
 import extractDomainFromUrl from '../utils/domain';
-import {track} from '../utils/track';
+import { track } from '../utils/track';
 import config from '../config/environment';
-import {getQueryString} from '../utils/url';
+import { getQueryString } from '../utils/url';
 import fetch from 'fetch';
 
 /**
@@ -52,7 +52,7 @@ export default EmberObject.extend(
 						badgePermission: createdBy.badgePermission,
 						id: createdBy.id,
 						name: createdBy.name,
-						profileUrl: this.get('wikiUrls').build({
+						profileUrl: this.wikiUrls.build({
 							host: this.get('wikiVariables.host'),
 							namespace: 'User',
 							query: {

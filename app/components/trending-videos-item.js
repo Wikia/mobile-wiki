@@ -1,11 +1,11 @@
-import {computed} from '@ember/object';
-import {oneWay} from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
-import {getOwner} from '@ember/application';
-import {inject as service} from '@ember/service';
+import { getOwner } from '@ember/application';
+import { inject as service } from '@ember/service';
 import Thumbnailer from '../modules/thumbnailer';
-import {track, trackActions} from '../utils/track';
-import {transparentImageBase64} from '../utils/thumbnail';
+import { track, trackActions } from '../utils/track';
+import { transparentImageBase64 } from '../utils/thumbnail';
 
 export default Component.extend({
 	lightbox: service(),
@@ -19,13 +19,13 @@ export default Component.extend({
 	href: oneWay('video.fileUrl'),
 
 	imageHeight: computed('imageWidth', function () {
-		return Math.floor(this.get('imageWidth') * 9 / 16);
+		return Math.floor(this.imageWidth * 9 / 16);
 	}),
 
 	thumbUrl: computed('video.url', function () {
 		const options = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
+				width: this.imageWidth,
+				height: this.imageHeight,
 				mode: Thumbnailer.mode.topCrop
 			},
 			videoUrl = this.get('video.url');
@@ -44,10 +44,10 @@ export default Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'main-page-trending-videos',
-			label: `open-item-${this.get('index')}`
+			label: `open-item-${this.index}`
 		});
 
-		this.get('lightbox').open('media', this.get('video'));
+		this.lightbox.open('media', this.video);
 		return false;
 	},
 });

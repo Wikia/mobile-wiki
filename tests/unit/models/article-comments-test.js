@@ -1,8 +1,8 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import Service from '@ember/service';
-import {setupTest} from 'ember-qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
-import {run} from '@ember/runloop';
+import { run } from '@ember/runloop';
 
 let wikiUrlsBuildStub;
 

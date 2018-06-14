@@ -1,6 +1,9 @@
 import Controller from '@ember/controller';
-import {computed} from '@ember/object';
-import {getProductionErrorMessage, canAttemptRefresh} from '../utils/errors';
+import { computed } from '@ember/object';
+import {
+	getProductionErrorMessage,
+	canAttemptRefresh
+} from '../utils/errors';
 
 export default Controller.extend({
 	additionalData: computed(function () {

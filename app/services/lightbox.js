@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import NoScrollMixin from '../mixins/no-scroll';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Service.extend(NoScrollMixin, {
 	closeButtonDelay: 0,

@@ -1,4 +1,4 @@
-import {Promise} from 'rsvp';
+import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
@@ -42,7 +42,7 @@ class Ads {
 	}
 
 	setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-		const {events} = window.Wikia.adEngine;
+		const { events } = window.Wikia.adEngine;
 
 		adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 		this.instantGlobals = instantGlobals;
@@ -64,7 +64,7 @@ class Ads {
 	}
 
 	finishAtfQueue() {
-		const {btfBlockerService} = window.Wikia.adEngine;
+		const { btfBlockerService } = window.Wikia.adEngine;
 
 		if (this.showAds) {
 			btfBlockerService.finishAboveTheFold();
@@ -73,7 +73,7 @@ class Ads {
 
 	initJWPlayer(player, bidParams, slotTargeting) {
 		if (this.showAds) {
-			videoAds.init(player, {featured: true}, slotTargeting);
+			videoAds.init(player, { featured: true }, slotTargeting);
 		}
 	}
 
@@ -94,7 +94,7 @@ class Ads {
 	}
 
 	getAdSlotComponentAttributes(slotName) {
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 
 		let name = SLOT_NAME_MAP[slotName] || slotName;
 
@@ -113,13 +113,13 @@ class Ads {
 	}
 
 	isArticleSectionCollapsed() {
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 
 		return context.get('options.mobileSectionsCollapse');
 	}
 
 	pushSlotToQueue(name) {
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 
 		const slotId = SLOT_NAME_MAP[name] || name;
 

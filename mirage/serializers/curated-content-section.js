@@ -1,7 +1,7 @@
 import BaseSerializer from './application';
 
 export default BaseSerializer.extend({
-	serialize({attrs}) {
+	serialize({ attrs }) {
 		return attrs;
 	}
 });

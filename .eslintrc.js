@@ -60,7 +60,7 @@ module.exports = {
 		"no-underscore-dangle": 0,
 		"no-unneeded-ternary": 0,
 		"no-unused-vars": 0,
-		"object-curly-spacing": [2, "never"],
+		"object-curly-spacing": [2, "always"],
 		"object-curly-newline": 0,
 		"object-shorthand": [2, 'always'],
 		"one-var": 0,
@@ -96,6 +96,7 @@ module.exports = {
 			files: [
 				'testem.js',
 				'ember-cli-build.js',
+				'blueprints/*/index.js',
 				'config/**/*.js',
 				'lib/*/index.js'
 			],

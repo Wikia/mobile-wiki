@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {run} from '@ember/runloop';
+import { run } from '@ember/runloop';
 import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import extend from '../utils/extend';
-import {inGroup} from '../modules/abtest';
+import { inGroup } from '../modules/abtest';
 
 export default Component.extend(NoScrollMixin, {
 	logger: service(),
@@ -28,19 +28,19 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	willDestroyElement() {
-		const player = this.get('playerInstance');
+		const player = this.playerInstance;
 		if (player) {
 			try {
 				player.remove();
 			} catch (e) {
-				this.get('logger').warn(e);
+				this.logger.warn(e);
 			}
 		}
 	},
 
 	actions: {
 		play(index = 0) {
-			this.get('playerInstance').playlistItem(index);
+			this.playerInstance.playlistItem(index);
 
 			track({
 				category: 'related-video-module',
@@ -54,7 +54,7 @@ export default Component.extend(NoScrollMixin, {
 				isClosed: true,
 				noScroll: false
 			});
-			this.get('playerInstance').remove();
+			this.playerInstance.remove();
 
 			track({
 				category: 'related-video-module',
@@ -88,7 +88,7 @@ export default Component.extend(NoScrollMixin, {
 			this.getVideoData(),
 			jwPlayerAssets.load()
 		]).then(([videoData]) => {
-			if (!this.get('isDestroyed')) {
+			if (!this.isDestroyed) {
 				const shuffledPlaylist = videoData.playlist.sort(() => 0.5 - Math.random());
 				videoData.playlist = shuffledPlaylist.slice(0, 5);
 				this.setProperties({
@@ -111,28 +111,28 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	playerCreated(playerInstance) {
-		if (!this.get('isClickToPlay')) {
+		if (!this.isClickToPlay) {
 			playerInstance.once('mute', () => {
-				if (!this.get('isExtended')) {
+				if (!this.isExtended) {
 					this.expandPlayer(playerInstance);
 				}
 			});
 		}
 
 		playerInstance.on('play', (data) => {
-			if (data.playReason === 'interaction' && !this.get('isExtended')) {
+			if (data.playReason === 'interaction' && !this.isExtended) {
 				playerInstance.setMute(false);
 				this.expandPlayer(playerInstance);
 			}
 		});
 
-		playerInstance.on('playlistItem', ({item}) => {
+		playerInstance.on('playlistItem', ({ item }) => {
 			// we have to clone item because Ember change it to Ember Object and it caused exception
 			// when jwplayer try to set property on this object without using ember setter
 			this.set('playlistItem', extend({}, item));
 
 			// We need this to not track first playlist-item-start when player is folded in click-to-play
-			if (!this.get('isClickToPlay') || !this.get('isInitialPlay')) {
+			if (!this.isClickToPlay || !this.isInitialPlay) {
 				track({
 					category: 'related-video-module',
 					label: 'playlist-item-start',
@@ -171,16 +171,16 @@ export default Component.extend(NoScrollMixin, {
 
 	getVideoData() {
 		/* eslint-disable-next-line max-len */
-		const url = `https://cdn.jwplayer.com/v2/playlists/${this.get('playlistId')}?related_media_id=${this.get('relatedMediaId')}`;
+		const url = `https://cdn.jwplayer.com/v2/playlists/${this.playlistId}?related_media_id=${this.relatedMediaId}`;
 
 		return fetch(url).then((response) => response.json());
 	},
 
 	expandPlayer(playerInstance) {
-		if (this.get('isClickToPlay') && this.get('isInitialPlay')) {
+		if (this.isClickToPlay && this.isInitialPlay) {
 			this.set('isInitialPlay', false);
 
-			if (this.get('isClickToPlay')) {
+			if (this.isClickToPlay) {
 				track({
 					category: 'related-video-module',
 					label: 'playlist-item-start',
@@ -205,6 +205,6 @@ export default Component.extend(NoScrollMixin, {
 	},
 
 	getABTestVariation() {
-		return !this.get('isClickToPlay');
+		return !this.isClickToPlay;
 	}
 });

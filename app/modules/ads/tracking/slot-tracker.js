@@ -1,6 +1,6 @@
 const trackingRouteName = 'special/adengadinfo';
 
-function getPosParameter({pos = ''}) {
+function getPosParameter({ pos = '' }) {
 	return (Array.isArray(pos) ? pos : pos.split(','))[0];
 }
 
@@ -12,8 +12,8 @@ function getPosParameter({pos = ''}) {
  */
 function prepareData(slot, data) {
 	// Global imports:
-	const {context} = window.Wikia.adEngine;
-	const {utils} = window.Wikia.adProducts;
+	const { context } = window.Wikia.adEngine;
+	const { utils } = window.Wikia.adProducts;
 	// End of imports
 
 	return {
@@ -61,7 +61,7 @@ export default {
 	 */
 	isEnabled() {
 		// Global imports:
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 		// End of imports
 
 		return context.get('options.tracking.kikimora.slot');

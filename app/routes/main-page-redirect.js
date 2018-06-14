@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 
 export default Route.extend(
@@ -8,7 +8,7 @@ export default Route.extend(
 
 		beforeModel() {
 			if (this.get('fastboot.isFastBoot')) {
-				this.get('fastboot').set('response.statusCode', 301);
+				this.fastboot.set('response.statusCode', 301);
 				this.get('fastboot.response.headers').set(
 					'location',
 					this.get('wikiVariables.basePath') +

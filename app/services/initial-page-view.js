@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 
 export default Service.extend({
 	isInitialPageView() {

@@ -1,13 +1,16 @@
 import EmberObject from '@ember/object';
-import {inject as service} from '@ember/service';
-import {getFetchErrorMessage, DesignSystemFetchError} from '../utils/errors';
+import { inject as service } from '@ember/service';
+import {
+	getFetchErrorMessage,
+	DesignSystemFetchError
+} from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	wikiUrls: service(),
 
 	fetchAll(host, wikiId, language) {
-		const url = this.get('wikiUrls').build({
+		const url = this.wikiUrls.build({
 			host,
 			path: '/wikia.php',
 			query: {

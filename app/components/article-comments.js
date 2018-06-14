@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
-import {bool} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { bool } from '@ember/object/computed';
 import Component from '@ember/component';
-import {observer} from '@ember/object';
-import {run} from '@ember/runloop';
-import {getOwner} from '@ember/application';
+import { observer } from '@ember/object';
+import { run } from '@ember/runloop';
+import { getOwner } from '@ember/application';
 import ArticleCommentsModel from '../models/article-comments';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
 
 /**
@@ -35,7 +35,7 @@ export default Component.extend(
 		 */
 		pageObserver: observer('page', 'model.comments', function () {
 			run.scheduleOnce('afterRender', this, () => {
-				const page = this.get('page'),
+				const page = this.page,
 					count = this.get('model.pagesCount');
 
 				let currentPage = page,
@@ -74,7 +74,7 @@ export default Component.extend(
 		 */
 		articleIdObserver: observer('articleId', function () {
 			this.setProperties({
-				'model.articleId': this.get('articleId'),
+				'model.articleId': this.articleId,
 				page: null
 			});
 
@@ -90,7 +90,7 @@ export default Component.extend(
 			this._super(...arguments);
 
 			this.set('model', ArticleCommentsModel.create(getOwner(this).ownerInjection(), {
-				articleId: this.get('articleId'),
+				articleId: this.articleId,
 				host: this.get('wikiVariables.host')
 			}));
 		},
@@ -103,7 +103,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
-			const page = this.get('page');
+			const page = this.page;
 
 			this._super(...arguments);
 
@@ -132,13 +132,13 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			toggleComments() {
-				this.set('page', this.get('page') ? null : 1);
+				this.set('page', this.page ? null : 1);
 				this.toggleProperty('isCollapsed');
 
 				track({
 					action: trackActions.click,
 					category: 'comments',
-					label: this.get('page') ? 'expanded' : 'collapsed'
+					label: this.page ? 'expanded' : 'collapsed'
 				});
 			}
 		}

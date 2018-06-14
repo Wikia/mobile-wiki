@@ -1,8 +1,8 @@
-import {inject as service} from '@ember/service';
-import {reads, bool, equal, and, readOnly} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { reads, bool, equal, and, readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {isHashLink} from '../utils/url';
+import { computed } from '@ember/object';
+import { isHashLink } from '../utils/url';
 
 /**
  * HTMLMouseEvent
@@ -49,7 +49,7 @@ export default Component.extend({
 	bfaaTemplate: bool('ads.siteHeadOffset'),
 
 	drawerContentComponent: computed('activeDrawerContent', function () {
-		return `wikia-${this.get('activeDrawerContent')}`;
+		return `wikia-${this.activeDrawerContent}`;
 	}),
 
 	verticalClass: computed('wikiVariables', function () {
@@ -69,7 +69,7 @@ export default Component.extend({
 
 		closeDrawer() {
 			this.set('activeDrawerContent', null);
-			this.get('toggleDrawer')(false);
+			this.toggleDrawer(false);
 		}
 	},
 
@@ -139,7 +139,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	handleLink(target) {
-		this.get('logger').debug('Handling link with href:', target.href);
+		this.logger.debug('Handling link with href:', target.href);
 
 		/**
 		 * If either the target or the target's parent is an anchor (and thus target == true),
@@ -153,8 +153,8 @@ export default Component.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match(`^${window.location.origin}/a/.*/comments$`)) {
-				this.get('lightbox').close();
-				this.get('handleLink', target)();
+				this.lightbox.close();
+				this.handleLink();
 			}
 		}
 	}

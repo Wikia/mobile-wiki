@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Helper from '@ember/component/helper';
 
 
@@ -17,7 +17,7 @@ export default Helper.extend({
 		const date = new Date(unixTimestamp * 1000),
 			now = new Date(),
 			diffInSeconds = (now - date) / 1000,
-			i18n = this.get('i18n');
+			i18n = this.i18n;
 
 		if (diffInSeconds > 432000) {
 			// more than 5 days ago - show date

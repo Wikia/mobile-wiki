@@ -1,6 +1,6 @@
-import {visit} from '@ember/test-helpers';
-import {test, module} from 'qunit';
-import {setupApplicationTest} from 'ember-qunit';
+import { visit } from '@ember/test-helpers';
+import { test, module } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
 
@@ -22,7 +22,7 @@ module('Acceptance | Blog post page', (hooks) => {
 		assert.dom('.wiki-page-header__subtitle').hasText('blog-page.subtitle');
 		assert.dom('.article-content').hasText('Test content on blog page');
 		assert.dom('.mw-content.collapsible-menu').exists();
-		assert.dom('.mw-content.collapsible-menu li').exists({count: 2}, 'Categories section has 2 items');
+		assert.dom('.mw-content.collapsible-menu li').exists({ count: 2 }, 'Categories section has 2 items');
 	});
 });
 

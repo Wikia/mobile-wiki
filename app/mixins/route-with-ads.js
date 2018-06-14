@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
@@ -13,7 +13,7 @@ export default Mixin.create({
 	beforeModel() {
 		this._super();
 
-		const isInitialPageView = this.get('initialPageView').isInitialPageView();
+		const isInitialPageView = this.initialPageView.isInitialPageView();
 
 		if (!this.get('fastboot.isFastBoot') && !isInitialPageView) {
 			window.wgNow = new Date();

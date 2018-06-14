@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import {track, trackActions} from '../../utils/track';
+import { track, trackActions } from '../../utils/track';
 
 export default Component.extend({
 	tagName: '',

@@ -1,5 +1,5 @@
 import BasePlayer from './base';
-import {trackActions} from '../../utils/track';
+import { trackActions } from '../../utils/track';
 
 /**
  * @typedef {Object} YouTubeEvent

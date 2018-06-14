@@ -1,4 +1,4 @@
-import {helper} from '@ember/component/helper';
+import { helper } from '@ember/component/helper';
 
 /**
  * Helper to convert unix timestamp to date

@@ -1,4 +1,4 @@
-import {track as mercuryTrack} from '../utils/track';
+import { track as mercuryTrack } from '../utils/track';
 
 const labels = {
 		'discussion-upvote-reply': 'discussion-upvote-reply',

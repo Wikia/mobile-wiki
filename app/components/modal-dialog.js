@@ -1,5 +1,5 @@
-import {inject as service} from '@ember/service';
-import {alias} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -20,9 +20,9 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			if (this.get('closeOnOverlayClick')) {
+			if (this.closeOnOverlayClick) {
 				this.set('isVisible', false);
-				this.get('modalDialog').close();
+				this.modalDialog.close();
 				this.onOverlayClose();
 			}
 		},

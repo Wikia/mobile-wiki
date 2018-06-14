@@ -1,5 +1,5 @@
 import LinkComponent from '@ember/routing/link-component';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 /**
  * @returns {void}
@@ -18,9 +18,9 @@ export function initialize() {
 		 * @returns {boolean}
 		 */
 		_invoke(event) {
-			const action = this.get('action'),
-				trackingCategory = this.get('trackingCategory'),
-				trackingLabel = this.get('trackingLabel');
+			const action = this.action,
+				trackingCategory = this.trackingCategory,
+				trackingLabel = this.trackingLabel;
 
 			if (action) {
 				// There was an action specified (in handlebars) so take custom action
@@ -29,7 +29,7 @@ export function initialize() {
 				}
 
 				// trigger the action on the controller
-				action(this.get('actionParam'));
+				action(this.actionParam);
 			}
 
 			if (trackingCategory) {

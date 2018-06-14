@@ -1,18 +1,18 @@
-import {find, findAll, render} from '@ember/test-helpers';
+import { find, findAll, render } from '@ember/test-helpers';
 import Component from '@ember/component';
 import Service from '@ember/service';
-import {dasherize} from '@ember/string';
-import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
+import { dasherize } from '@ember/string';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import sinon from 'sinon';
-import {module, test} from 'qunit';
-import {setupRenderingTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 
 import * as adsModule from 'mobile-wiki/modules/ads';
-import mockAdsService, {getAdsModuleMock} from '../../helpers/mock-ads-service';
+import mockAdsService, { getAdsModuleMock } from '../../helpers/mock-ads-service';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
@@ -23,7 +23,7 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 const i18nService = Service.extend({
 	t() {}
 });
-sinon.stub(adsModule, 'default').returns({then: (cb) => cb(getAdsModuleMock())});
+sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);

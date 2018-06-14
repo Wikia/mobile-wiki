@@ -1,10 +1,10 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import {getOwner} from '@ember/application';
-import {scheduleOnce} from '@ember/runloop';
+import { getOwner } from '@ember/application';
+import { scheduleOnce } from '@ember/runloop';
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import SearchModel from '../models/search';
-import {track, trackActions, trackPageView} from '../utils/track';
+import { track, trackActions, trackPageView } from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 export default Route.extend(
@@ -39,7 +39,7 @@ export default Route.extend(
 			 */
 			didTransition() {
 				scheduleOnce('afterRender', this, () => {
-					trackPageView(this.get('initialPageView').isInitialPageView());
+					trackPageView(this.initialPageView.isInitialPageView());
 
 					track({
 						action: trackActions.impression,
@@ -54,7 +54,7 @@ export default Route.extend(
 
 		setDynamicHeadTags(model) {
 			const data = {
-				htmlTitle: this.get('i18n').t('main.search-input-label', {ns: 'search'})
+				htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' })
 			};
 
 			this._super(model, data);

@@ -7,7 +7,7 @@ export default {
 	 */
 	isEnabled() {
 		// Global imports:
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 		// End of imports
 
 		return context.get('options.tracking.kikimora.player');
@@ -22,8 +22,8 @@ export default {
 	 */
 	onEvent(eventName, playerParams, data) {
 		// Global imports:
-		const {context, slotService} = window.Wikia.adEngine;
-		const {getCountryCode} = window.Wikia.adProducts.utils;
+		const { context, slotService } = window.Wikia.adEngine;
+		const { getCountryCode } = window.Wikia.adProducts.utils;
 		// End of imports
 
 		const slot = slotService.get(data.position);

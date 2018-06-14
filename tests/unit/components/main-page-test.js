@@ -1,8 +1,8 @@
-import {Promise as EmberPromise} from 'rsvp';
+import { Promise as EmberPromise } from 'rsvp';
 import Component from '@ember/component';
-import {run} from '@ember/runloop';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { run } from '@ember/runloop';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
 

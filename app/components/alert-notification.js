@@ -1,4 +1,4 @@
-import {later, cancel} from '@ember/runloop';
+import { later, cancel } from '@ember/runloop';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -30,7 +30,7 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	willDestroyElement() {
-		cancel(this.get('timeout'));
+		cancel(this.timeout);
 	},
 
 	actions: {
@@ -52,6 +52,6 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	dismissNotification() {
-		this.get('action')(this.get('alert'));
+		this.action(this.alert);
 	},
 });

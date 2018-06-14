@@ -1,7 +1,7 @@
-import {or, equal, lte, bool, not} from '@ember/object/computed';
-import {inject as service} from '@ember/service';
+import { or, equal, lte, bool, not } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Component.extend({
 	lightbox: service(),
@@ -24,11 +24,11 @@ export default Component.extend({
 	downloadable: not('hasThumbnail'),
 
 	itemType: computed('itemContext', 'model.type', function () {
-		return `${this.get('itemContext')}-${this.get('model.type')}`;
+		return `${this.itemContext}-${this.get('model.type')}`;
 	}),
 
 	showTitle: computed('model', 'hasThumbnail', function () {
-		return (this.get('model.type') === 'video' || !this.get('hasThumbnail')) && this.get('model.title');
+		return (this.get('model.type') === 'video' || !this.hasThumbnail) && this.get('model.title');
 	}),
 
 	didRender() {
@@ -37,8 +37,8 @@ export default Component.extend({
 
 	click(event) {
 		// Don't open lightbox when image is linked by user or caption was clicked
-		if (!this.get('model.isLinkedByUser') && !event.target.closest('figcaption') && this.get('hasThumbnail')) {
-			this.get('lightbox').open('media', this.get('model'));
+		if (!this.get('model.isLinkedByUser') && !event.target.closest('figcaption') && this.hasThumbnail) {
+			this.lightbox.open('media', this.model);
 
 			return false;
 		}

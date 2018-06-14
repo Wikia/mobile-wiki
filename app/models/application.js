@@ -1,7 +1,7 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import {all, hashSettled, resolve} from 'rsvp';
-import {getOwner} from '@ember/application';
+import { all, hashSettled, resolve } from 'rsvp';
+import { getOwner } from '@ember/application';
 import UserModel from './user';
 import NavigationModel from './navigation';
 import WikiVariablesModel from './wiki-variables';
@@ -14,8 +14,8 @@ export default EmberObject.extend({
 	simpleStore: service(),
 
 	fetch(title, uselangParam) {
-		const currentUser = this.get('currentUser'),
-			fastboot = this.get('fastboot'),
+		const currentUser = this.currentUser,
+			fastboot = this.fastboot,
 			shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
@@ -45,7 +45,7 @@ export default EmberObject.extend({
 						title
 					),
 					wikiVariablesData
-				}).then(({navigation, wikiVariablesData, trackingDimensions}) => {
+				}).then(({ navigation, wikiVariablesData, trackingDimensions }) => {
 					// We only want to fail application if we don't have the navigation data
 					if (navigation.state === 'rejected') {
 						throw navigation.reason;
@@ -59,7 +59,7 @@ export default EmberObject.extend({
 					shoebox.put('applicationData', applicationData);
 
 					if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
-						this.get('simpleStore').set('trackingDimensions', trackingDimensions.value.dimensions);
+						this.simpleStore.set('trackingDimensions', trackingDimensions.value.dimensions);
 					}
 
 					return applicationData;

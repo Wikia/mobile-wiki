@@ -1,8 +1,8 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import {resolve} from 'rsvp';
-import {get} from '@ember/object';
-import {scheduleOnce} from '@ember/runloop';
+import { resolve } from 'rsvp';
+import { get } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
@@ -12,14 +12,14 @@ import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import extend from '../utils/extend';
-import {normalizeToUnderscore} from '../utils/string';
-import {setTrackContext, trackPageView} from '../utils/track';
+import { normalizeToUnderscore } from '../utils/string';
+import { setTrackContext, trackPageView } from '../utils/track';
 import {
 	namespace as mediawikiNamespace,
 	isContentNamespace
 } from '../utils/mediawiki-namespace';
-import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
-import {logError} from '../modules/event-logger';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
+import { logError } from '../modules/event-logger';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -83,7 +83,7 @@ export default Route.extend(
 		 * @returns {RSVP.Promise}
 		 */
 		model(params, transition) {
-			const wikiVariables = this.get('wikiVariables');
+			const wikiVariables = this.wikiVariables;
 			const host = wikiVariables.get('host');
 			const modelParams = {
 				host,
@@ -107,8 +107,8 @@ export default Route.extend(
 			this._super(...arguments);
 
 			if (model) {
-				const fastboot = this.get('fastboot');
-				const wikiUrls = this.get('wikiUrls');
+				const fastboot = this.fastboot;
+				const wikiUrls = this.wikiUrls;
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
@@ -120,7 +120,7 @@ export default Route.extend(
 					});
 
 					transition.then(() => {
-						this.get('liftigniter').initLiftigniter(model.adsContext);
+						this.liftigniter.initLiftigniter(model.adsContext);
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
@@ -158,7 +158,7 @@ export default Route.extend(
 							query: extend(
 								{},
 								transition.state.queryParams,
-								{useskin: 'oasis'}
+								{ useskin: 'oasis' }
 							)
 						});
 					}
@@ -171,7 +171,7 @@ export default Route.extend(
 					}
 				}
 			} else {
-				this.get('logger').warn('Unsupported page');
+				this.logger.warn('Unsupported page');
 			}
 		},
 
@@ -181,7 +181,7 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		renderTemplate(controller, model) {
-			const handler = this.get('wikiHandler');
+			const handler = this.wikiHandler;
 
 			if (handler) {
 				this.render(handler.viewName, {
@@ -210,21 +210,21 @@ export default Route.extend(
 				this.notifyPropertyChange('displayTitle');
 
 				try {
-					this.get('ads').destroyAdSlotComponents();
+					this.ads.destroyAdSlotComponents();
 				} catch (e) {
 					logError('destroyAdSlotComponents', e);
 				}
 
-				this.get('lightbox').close();
+				this.lightbox.close();
 			},
 
 			/**
 			 * @returns {boolean}
 			 */
 			didTransition() {
-				if (this.get('redirectEmptyTarget')) {
+				if (this.redirectEmptyTarget) {
 					this.controllerFor('application').addAlert({
-						message: this.get('i18n').t('article.redirect-empty-target'),
+						message: this.i18n.t('article.redirect-empty-target'),
 						type: 'warning'
 					});
 				}
@@ -242,7 +242,7 @@ export default Route.extend(
 			 */
 			error(error) {
 				if (this.get('fastboot.isFastBoot') && (!error.code || error.code !== 404)) {
-					this.get('logger').error('Wiki page error', error);
+					this.logger.error('Wiki page error', error);
 				}
 
 				this.intermediateTransitionTo('wiki-page_error', error);
@@ -277,7 +277,7 @@ export default Route.extend(
 			} else if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
 				return BlogHandler;
 			} else {
-				this.get('logger').debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+				this.logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
 				return null;
 			}
 		},
@@ -288,7 +288,7 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model) {
-			const handler = this.get('wikiHandler'),
+			const handler = this.wikiHandler,
 				pageUrl = model.get('url'),
 				pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`,
 				data = {
@@ -340,7 +340,7 @@ export default Route.extend(
 				n: namespace
 			});
 
-			trackPageView(this.get('initialPageView').isInitialPageView(), uaDimensions);
+			trackPageView(this.initialPageView.isInitialPageView(), uaDimensions);
 		}
 	}
 );

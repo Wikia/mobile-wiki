@@ -1,8 +1,8 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {run} from '@ember/runloop';
+import { run } from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
 
 export default Component.extend(
@@ -28,21 +28,21 @@ export default Component.extend(
 					label: `load-${label}`
 				});
 
-				this.get('loadPage')(page)
+				this.loadPage(page)
 					.then(() => {
 						run.scheduleOnce('afterRender', this, () => {
-							if (!this.get('isDestroyed')) {
+							if (!this.isDestroyed) {
 								scrollToTop(this.element);
 							}
 						});
 					})
 					.catch((error) => {
 						this.addAlert({
-							message: this.get('i18n').t('category-page.load-error'),
+							message: this.i18n.t('category-page.load-error'),
 							type: 'alert'
 						});
 
-						this.get('logger').error(error);
+						this.logger.error(error);
 					})
 					.finally(() => {
 						this.set('isLoading', false);

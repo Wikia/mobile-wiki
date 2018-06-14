@@ -1,6 +1,6 @@
-import {run} from '@ember/runloop';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { run } from '@ember/runloop';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Component | loading spinner', (hooks) => {
 	setupTest(hooks);

@@ -2,8 +2,8 @@ import EmberObject from '@ember/object';
 import Service from '@ember/service';
 import sinon from 'sinon';
 import require from 'require';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track');
 let trackStub, component, wikiUrlsBuildStub;

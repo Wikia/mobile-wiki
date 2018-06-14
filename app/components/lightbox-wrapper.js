@@ -1,7 +1,7 @@
-import {alias, not} from '@ember/object/computed';
-import {computed} from '@ember/object';
+import { alias, not } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
@@ -28,7 +28,7 @@ export default Component.extend(RenderComponentMixin, {
 	closeAllowed: not('closeButtonHidden'),
 
 	lightboxComponent: computed('type', function () {
-		const type = this.get('type');
+		const type = this.type;
 
 		return type ? `lightbox-${type}` : null;
 	}),
@@ -38,7 +38,7 @@ export default Component.extend(RenderComponentMixin, {
 		 * @returns {void}
 		 */
 		close() {
-			if (!this.get('closeAllowed')) {
+			if (!this.closeAllowed) {
 				return;
 			}
 
@@ -48,7 +48,7 @@ export default Component.extend(RenderComponentMixin, {
 				footerExpanded: false
 			});
 
-			this.get('lightbox').close();
+			this.lightbox.close();
 		},
 
 		/**
@@ -112,7 +112,7 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	keyDown(event) {
-		if (this.get('closeAllowed') && event.keyCode === 27) {
+		if (this.closeAllowed && event.keyCode === 27) {
 			this.send('close');
 		}
 	},

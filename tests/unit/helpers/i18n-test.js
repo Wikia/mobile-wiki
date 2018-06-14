@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import I18nHelper from 'mobile-wiki/helpers/i18n';
 import sinon from 'sinon';
 
@@ -8,7 +8,7 @@ module('Unit | helper | i18n', (hooks) => {
 
 	hooks.beforeEach(() => {
 		i18nHelper = new I18nHelper();
-		i18nHelper.set('i18n', {t: tStub});
+		i18nHelper.set('i18n', { t: tStub });
 	});
 
 	test('i18n helper is exported', (assert) => {

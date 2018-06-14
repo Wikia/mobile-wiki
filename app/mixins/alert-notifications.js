@@ -1,4 +1,4 @@
-import {A} from '@ember/array';
+import { A } from '@ember/array';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
@@ -17,7 +17,7 @@ export default Mixin.create({
 		callbacks = {},
 		persistent = {}
 	}) {
-		this.get('alertNotifications').pushObject({
+		this.alertNotifications.pushObject({
 			message,
 			type,
 			expiry,
@@ -28,7 +28,7 @@ export default Mixin.create({
 	},
 
 	clearNotifications() {
-		const notifications = this.get('alertNotifications'),
+		const notifications = this.alertNotifications,
 			updatedNotifications = notifications.filter((item) => item.persistent);
 
 		this.set('alertNotifications', updatedNotifications);
