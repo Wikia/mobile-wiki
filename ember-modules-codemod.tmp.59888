@@ -1,2 +1,0 @@
-[2, 'Handlebars', 26, 'app/components/widget-discussions-post.js', '\n\tparsedContent: computed(\'post.rawContent\', function () {\n\t\tlet escapedContent = Ember.Handlebars.Utils.escapeExpression(\n\t\t\tthis.get(\'post.rawContent\')\n\t\t).trim();']
-	[2, 'TargetActionSupport', 20, 'app/routes/application.js', '\nexport default Route.extend(\n\tEmber.TargetActionSupport,\n\tHeadTagsStaticMixin,\n\t{'];
