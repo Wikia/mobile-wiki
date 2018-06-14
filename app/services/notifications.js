@@ -42,6 +42,8 @@ export default Service.extend({
 		// fetches the model from the API at first attempt to use the data
 		// then a singleton service will keep the data until page reloads
 		this.set('model', NotificationsModel.create(getOwner(this).ownerInjection()));
+		// eslint-disable-next-line
+		this.modelLoader;
 	},
 
 	loadFirstPage() {
