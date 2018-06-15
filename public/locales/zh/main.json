@@ -1,108 +1,108 @@
 {
-    "category-page": {
-        "no-members": "\u5f53\u524d\u7c7b\u522b\u4e0d\u5305\u542b\u4efb\u4f55\u9875\u9762\u3002", 
-        "load-more": "\u52a0\u8f7d\u66f4\u591a", 
-        "subtitle": "\u5206\u7c7b\u9875\u9762", 
-        "load-error": "\u51fa\u73b0\u9519\u8bef\uff0c\u5bf9\u4e0d\u8d77\uff0c\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002", 
-        "load-previous": "\u52a0\u8f7d\u524d\u4e00\u4e2a"
-    }, 
-    "featured-video": {
-        "from": "from", 
-        "watch": "watch"
-    }, 
-    "widget-discussions": {
-        "header-title": "\u8ba8\u8bba\u7248", 
-        "in-category-label": "{categoryName}", 
-        "post-actions-reply-label": "\u7b54\u590d", 
-        "post-actions-upvote-label": "\u8d5e", 
-        "all-discussions-link-mobile": "\u6240\u6709\u8ba8\u8bba"
-    }, 
-    "edit": {
-        "publish-error-blocked": "\u60a8\u5df2\u88ab\u5c4f\u853d\uff0c\u65e0\u6cd5\u8fdb\u884c\u7f16\u8f91\u3002", 
-        "success": "\u5df2\u7f16\u8f91\u6210\u529f\u7684\u9875\u9762{pageTitle}!", 
-        "page-heading": "\u7f16\u8f91\uff1a", 
-        "publish-error": "\u51fa\u73b0\u9519\u8bef\uff0c\u5bf9\u4e0d\u8d77\uff0c\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002", 
-        "publish-error-protectedpage": "\u60a8\u6ca1\u6709\u7f16\u8f91\u6b64\u9875\u9762\u7684\u6743\u9650\u3002", 
-        "publish-error-noedit": "\u60a8\u6ca1\u6709\u8fd9\u4e2a\u7ef4\u57fa\u9875\u9762\u7684\u7f16\u8f91\u6743\u9650\u3002", 
-        "load-error": "\u51fa\u73b0\u9519\u8bef\uff0c\u5bf9\u4e0d\u8d77\uff0c\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002", 
-        "publish-error-noedit-anon": "\u533f\u540d\u7528\u6237\u65e0\u6cd5\u7f16\u8f91\u9875\u9762\u3002", 
-        "publish-error-autoblockedtext": "\u60a8\u7684IP\u5730\u5740\u5df2\u88ab\u5c4f\u853d\uff0c\u56e0\u4e3a\u5b83\u66fe\u7531\u88ab\u5c4f\u853d\u7684\u7528\u6237\u4f7f\u7528\u3002", 
-        "page-publish": "\u53d1\u5e03"
-    }, 
-    "smartbanner": {
-        "install-android": "\u5b89\u88c5"
-    }, 
-    "recirculation": {
-        "trending-fandom-articles": "\u7c89\u4e1d\u6d41\u884c\u539f\u521b\u6587\u7ae0"
-    }, 
-    "file-page": {
-        "usages-header": "\u51fa\u73b0\u5728\u8fd9\u4e9b\u9875\u9762\u4e0a", 
-        "subtitle": "\u6587\u4ef6\u9875\u9762", 
-        "usages-see-more-link-label": "\u67e5\u770b\u5b8c\u6574\u5217\u8868"
-    }, 
-    "blog-page": {
-        "subtitle": "\u7528\u6237\u535a\u5ba2"
-    }, 
-    "article-comments": {
-        "desktop-warning": "* \u4f60\u5c06\u88ab\u8f6c\u5230\u6d4f\u89c8\u5668\u6a21\u5f0f\u6dfb\u52a0\u8bc4\u8bba", 
-        "no-comments": "\u8fd8\u6ca1\u6709\u8bc4\u8bba\uff01", 
-        "next-button": "\u4e0b\u4e00\u9875", 
-        "add-comment": "\u6dfb\u52a0\u8bc4\u8bba", 
-        "prev-button": "\u4e0a\u4e00\u9875"
-    }, 
-    "user-status": {
-        "register-text": "\u6ce8\u518c", 
-        "login-text": "\u767b\u5165"
-    }, 
-    "article": {
-        "suggestions-label": "\u9605\u8bfb\u66f4\u591a", 
-        "comments-label_plural": "{count} \u6b21\u8bc4\u8bba", 
-        "comments-label": "{count} \u6b21\u8bc4\u8bba", 
-        "error": "\u5bf9\u4e0d\u8d77\uff0c\u6211\u4eec\u65e0\u6cd5\u52a0\u8f7d\u8fd9\u7bc7\u6587\u7ae0\u3002\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002", 
-        "categories-list-label": "\u5206\u7c7b", 
-        "replies-label_plural": "\u67e5\u770b {count} \u4e2a\u56de\u590d", 
-        "empty-label": "\u5bf9\u4e0d\u8d77\uff0c\u8fd9\u7bc7\u6587\u7ae0\u4f3c\u4e4e\u6c92\u6709\u5167\u5bb9\uff01", 
-        "last-edit": "\u4e0a\u6b21\u7f16\u8f91\u4e3a1\u5468\u524d", 
-        "toc-label": "\u5185\u5bb9\u5217\u8868", 
-        "top-contributors-label": "\u8fd9\u7bc7\u6587\u7ae0\u7684\u6770\u51fa\u7f16\u8f91\u8005", 
-        "last-edit_plural_0": "\u8fd9\u661f\u671f\u8fdb\u884c\u7f16\u8f91\u8fc7", 
-        "last-edit_plural_2": "\u4e0a\u6b21\u7f16\u8f91\u5728 {count} \u5468\u524d", 
-        "replies-label": "\u67e5\u770b {count} \u4e2a\u56de\u590d", 
-        "portable-infobox-image": "\u56fe\u7247", 
-        "redirect-empty-target": "\u60a8\u5173\u6ce8\u7684\u94fe\u63a5\u662f\u4e00\u4e2a\u91cd\u5b9a\u5411\uff0c\u4f46\u662f\u91cd\u5b9a\u5411\u7684\u9875\u9762\u4e0d\u5b58\u5728\u3002"
-    }, 
-    "navigation": {
-        "back-label": "\u8fd4\u56de", 
-        "random-page-label": "\u968f\u673a\u9875\u9762", 
-        "user-menu-log-out": "\u9000\u51fa\u767b\u5f55", 
-        "explore-wiki": "\u6d4f\u89c8{wikiName}", 
-        "user-menu-profile": "\u7528\u6237\u4fe1\u606f"
-    }, 
-    "app": {
-        "hours-ago": "{hours}\u5c0f\u65f6", 
-        "page-not-found-message": "\u4f7f\u7528\u5bfc\u822a\u6216\u641c\u7d22", 
-        "wiki-page-error-reload-button": "\u5237\u65b0", 
-        "now-label": "\u73b0\u5728", 
-        "pages-label": "\u9875\u9762", 
-        "media-lightbox-error": "\u65e0\u6cd5\u627e\u5230\u5a92\u4f53\u5185\u5bb9", 
-        "videos-label": "\u89c6\u9891", 
-        "wiki-page-error": "\u5bf9\u4e0d\u8d77\uff0c\u6211\u4eec\u65e0\u6cd5\u52a0\u8f7d\u9875\u9762\u3002\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002", 
-        "curated-content-load-more-items": "\u52a0\u8f7d\u66f4\u591a", 
-        "minutes-ago": "{minutes}\u5206\u949f", 
-        "days-ago": "{days}\u5929", 
-        "photos-label": "\u56fe\u7247", 
-        "curated-content-editor-edit-main-page": "\u7f16\u8f91\u4e3b\u9875", 
-        "cancel-label": "\u53d6\u6d88", 
-        "page-not-found-error": "\u5bf9\u4e0d\u8d77\uff0c\u6211\u4eec\u627e\u4e0d\u5230\u60a8\u6b63\u5728\u67e5\u627e\u7684\u9875\u9762\u3002", 
-        "advertisement-label": "\u5e7f\u544a", 
-        "view-more": "\u67e5\u770b\u66f4\u591a", 
-        "header-in-wiki-name-label-prefix": "\u6765\u6e90:", 
-        "trending-articles-label": "\u6d41\u884c\u6587\u7ae0", 
-        "username-anonymous": "FANDOM\u7528\u6237", 
-        "discussions-label": "\u8ba8\u8bba\u7248"
-    }, 
-    "fandom-app-banner": {
-        "app-store": "\u82f9\u679c\u5546\u5e97", 
-        "google-play": "Google Play"
-    }
+  "app": {
+    "advertisement-label": "广告", 
+    "cancel-label": "取消", 
+    "curated-content-editor-edit-main-page": "编辑主页", 
+    "curated-content-load-more-items": "加载更多", 
+    "days-ago": "{days}天", 
+    "discussions-label": "讨论版", 
+    "header-in-wiki-name-label-prefix": "来源:", 
+    "hours-ago": "{hours}小时", 
+    "media-lightbox-error": "无法找到媒体内容", 
+    "minutes-ago": "{minutes}分钟", 
+    "now-label": "现在", 
+    "page-not-found-error": "对不起，我们找不到您正在查找的页面。", 
+    "page-not-found-message": "使用导航或搜索", 
+    "pages-label": "页面", 
+    "photos-label": "图片", 
+    "trending-articles-label": "流行文章", 
+    "username-anonymous": "FANDOM用户", 
+    "videos-label": "视频", 
+    "view-more": "查看更多", 
+    "wiki-page-error": "对不起，我们无法加载页面。请再试一次。", 
+    "wiki-page-error-reload-button": "刷新"
+  }, 
+  "article": {
+    "categories-list-label": "分类", 
+    "comments-label": "{count} 次评论", 
+    "comments-label_plural": "{count} 次评论", 
+    "empty-label": "对不起，这篇文章似乎沒有內容！", 
+    "error": "对不起，我们无法加载这篇文章。请再试一次。", 
+    "last-edit": "上次编辑为1周前", 
+    "last-edit_plural_0": "这星期进行编辑过", 
+    "last-edit_plural_2": "上次编辑在 {count} 周前", 
+    "portable-infobox-image": "图片", 
+    "redirect-empty-target": "您关注的链接是一个重定向，但是重定向的页面不存在。", 
+    "replies-label": "查看 {count} 个回复", 
+    "replies-label_plural": "查看 {count} 个回复", 
+    "suggestions-label": "阅读更多", 
+    "toc-label": "内容列表", 
+    "top-contributors-label": "这篇文章的杰出编辑者"
+  }, 
+  "article-comments": {
+    "add-comment": "添加评论", 
+    "desktop-warning": "* 你将被转到浏览器模式添加评论", 
+    "next-button": "下一页", 
+    "no-comments": "还没有评论！", 
+    "prev-button": "上一页"
+  }, 
+  "blog-page": {
+    "subtitle": "用户博客"
+  }, 
+  "category-page": {
+    "load-error": "出现错误，对不起，请再试一次。", 
+    "load-more": "加载更多", 
+    "load-previous": "加载前一个", 
+    "no-members": "当前类别不包含任何页面。", 
+    "subtitle": "分类页面"
+  }, 
+  "edit": {
+    "load-error": "出现错误，对不起，请再试一次。", 
+    "page-heading": "编辑：", 
+    "page-publish": "发布", 
+    "publish-error": "出现错误，对不起，请再试一次。", 
+    "publish-error-autoblockedtext": "您的IP地址已被屏蔽，因为它曾由被屏蔽的用户使用。", 
+    "publish-error-blocked": "您已被屏蔽，无法进行编辑。", 
+    "publish-error-noedit": "您没有这个维基页面的编辑权限。", 
+    "publish-error-noedit-anon": "匿名用户无法编辑页面。", 
+    "publish-error-protectedpage": "您没有编辑此页面的权限。", 
+    "success": "已编辑成功的页面{pageTitle}!"
+  }, 
+  "fandom-app-banner": {
+    "app-store": "苹果商店", 
+    "google-play": "Google Play"
+  }, 
+  "featured-video": {
+    "from": "from", 
+    "watch": "watch"
+  }, 
+  "file-page": {
+    "subtitle": "文件页面", 
+    "usages-header": "出现在这些页面上", 
+    "usages-see-more-link-label": "查看完整列表"
+  }, 
+  "navigation": {
+    "back-label": "返回", 
+    "explore-wiki": "浏览{wikiName}", 
+    "random-page-label": "随机页面", 
+    "user-menu-log-out": "退出登录", 
+    "user-menu-profile": "用户信息"
+  }, 
+  "recirculation": {
+    "trending-fandom-articles": "粉丝流行原创文章"
+  }, 
+  "smartbanner": {
+    "install-android": "安装"
+  }, 
+  "user-status": {
+    "login-text": "登入", 
+    "register-text": "注册"
+  }, 
+  "widget-discussions": {
+    "all-discussions-link-mobile": "所有讨论", 
+    "header-title": "讨论版", 
+    "in-category-label": "{categoryName}", 
+    "post-actions-reply-label": "答复", 
+    "post-actions-upvote-label": "赞"
+  }
 }
