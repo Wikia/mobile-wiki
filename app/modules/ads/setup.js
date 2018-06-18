@@ -4,6 +4,7 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
+import biddersDelay from './bidders-delay';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
@@ -16,10 +17,10 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 
 function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	const { context, utils } = window.Wikia.adEngine;
-	const { isProperGeo } = window.Wikia.adProducts.utils;
+	const { bidders, utils: adProductsUtils } = window.Wikia.adProducts;
 
 	function isGeoEnabled(instantGlobalKey) {
-		return isProperGeo(instantGlobals[instantGlobalKey]);
+		return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey]);
 	}
 
 	context.extend(basicContext);
@@ -29,7 +30,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	}
 
 	const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
-	isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
+	adProductsUtils.isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
 	context.set('slots', slots.getContext());
 	context.set('state.deviceType', utils.client.getDeviceType());
@@ -42,8 +43,16 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverFVMidrollCountries'));
 	context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverFVPostrollCountries'));
 
+	if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
+		context.set('options.prebidEnabled', true);
+		context.push('delayModules', biddersDelay);
+
+		bidders.requestBids({
+			responseListener: biddersDelay.markAsReady
+		});
+	}
+
 	context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
-	// TODO: context.push('delayModules', featuredVideoDelay);
 	// context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
 	// context.set('options.exposeFeaturedVideoUapKeyValue', isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'));
 
