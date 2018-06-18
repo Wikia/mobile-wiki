@@ -1,3 +1,4 @@
+import { Promise } from 'rsvp';
 import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -20,15 +21,28 @@ const recircItemsCount = 10,
 		}
 	};
 
+function Deferred() {
+	this.promise = new Promise((resolve, reject) => {
+		this.resolve = resolve;
+		this.reject = reject;
+	});
+
+	this.then = this.promise.then.bind(this.promise);
+	this.catch = this.promise.catch.bind(this.promise);
+}
+
 export default Component.extend(
 	InViewportMixin,
 	{
 		liftigniter: service(),
 		i18n: service(),
 		logger: service(),
+		ads: service(),
 
 		classNames: ['recirculation-prefooter'],
 		classNameBindings: ['items:has-items'],
+
+		listRendered: null,
 
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.items.some((item) => item.presented_by);
@@ -51,6 +65,9 @@ export default Component.extend(
 				},
 				intersectionThreshold: 0
 			});
+
+			this.listRendered = new Deferred();
+			this.get('ads').waitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.listRendered.promise);
 		},
 
 		actions: {
@@ -125,6 +142,7 @@ export default Component.extend(
 								config.widget,
 								'LI'
 							);
+							this.listRendered.resolve();
 						}
 					});
 
