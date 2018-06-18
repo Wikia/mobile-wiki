@@ -21,13 +21,13 @@
  * {{/wikia-ui-components/wiki-page-header}}
  */
 
-import {inject as service} from '@ember/service';
-import {reads} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
-import {htmlSafe} from '@ember/string';
-import {computed} from '@ember/object';
-import {isEmpty} from '@ember/utils';
-import {track, trackActions} from '../../utils/track';
+import { htmlSafe } from '@ember/string';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
+import { track, trackActions } from '../../utils/track';
 import HeroImage from '../../modules/hero-image';
 import Thumbnailer from '../../modules/thumbnailer';
 
@@ -42,7 +42,7 @@ export default Component.extend(
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
 		style: computed('heroImage', function () {
-			const heroImage = this.get('heroImage');
+			const heroImage = this.heroImage;
 
 			if (isEmpty(heroImage)) {
 				return '';

@@ -1,5 +1,5 @@
-import {computed} from '@ember/object';
-import Service, {inject as service} from '@ember/service';
+import { computed } from '@ember/object';
+import Service, { inject as service } from '@ember/service';
 import getAdsModule from '../modules/ads';
 
 export default Service.extend({
@@ -10,7 +10,7 @@ export default Service.extend({
 	siteHeadOffset: 0,
 	noAdsQueryParam: null,
 	noAds: computed('noAdsQueryParam', function () {
-		return ['0', null, ''].indexOf(this.get('noAdsQueryParam')) === -1 || this.get('currentUser.isAuthenticated');
+		return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1 || this.get('currentUser.isAuthenticated');
 	}),
 	adSlotComponents: null,
 
@@ -20,17 +20,17 @@ export default Service.extend({
 		if (!this.get('fastboot.isFastBoot')) {
 			getAdsModule().then((adsModule) => {
 				this.module = adsModule;
-				this.module.showAds = !this.get('noAds');
+				this.module.showAds = !this.noAds;
 			});
 		}
 	},
 
 	pushAdSlotComponent(slotName, adSlotComponent) {
-		this.get('adSlotComponents')[slotName] = adSlotComponent;
+		this.adSlotComponents[slotName] = adSlotComponent;
 	},
 
 	destroyAdSlotComponents() {
-		const adSlotComponents = this.get('adSlotComponents');
+		const adSlotComponents = this.adSlotComponents;
 
 		Object.keys(adSlotComponents).forEach((slotName) => {
 			adSlotComponents[slotName].destroy();

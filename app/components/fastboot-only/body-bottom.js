@@ -1,7 +1,7 @@
 import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {bool} from '@ember/object/computed';
-import {inject as service} from '@ember/service';
+import { computed } from '@ember/object';
+import { bool } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import config from '../../config/environment';
 
 export default Component.extend({
@@ -18,21 +18,21 @@ export default Component.extend({
 
 	data: computed(function () {
 		const cookieDomain = config.cookieDomain;
-		const currentUser = this.get('currentUser');
+		const currentUser = this.currentUser;
 		// We have to anonymize user id before sending it to Google
 		// It's faster to do the hashing server side and pass to the front-end, ready to use
 		const gaUserIdHash = currentUser.getGaUserIdHash();
-		const noExternals = this.get('noExternals');
+		const noExternals = this.noExternals;
 		const tracking = this.get('tracking.config');
 		const isAuthenticated = currentUser.get('isAuthenticated');
 		const wikiaEnv = config.wikiaEnv;
-		const simpleStore = this.get('simpleStore').getProperties(
+		const simpleStore = this.simpleStore.getProperties(
 			'trackingDimensions',
 			'articleId',
 			'namespace',
 			'isMainPage'
 		);
-		const wikiVariables = this.get('wikiVariables').getProperties(
+		const wikiVariables = this.wikiVariables.getProperties(
 			'cacheBuster',
 			'cdnRootUrl',
 			'dbName',

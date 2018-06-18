@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import ArticlePreviewModel from '../models/article-preview';
-import {disableCache} from '../utils/fastboot-caching';
+import { disableCache } from '../utils/fastboot-caching';
 
 /**
  * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
@@ -30,7 +30,7 @@ export default Route.extend(
 
 				const model = ArticlePreviewModel.create(getOwner(this).ownerInjection());
 
-				disableCache(this.get('fastboot'));
+				disableCache(this.fastboot);
 
 				return model.articleFromMarkup(requestBody.title, requestBody.wikitext, requestBody.CKmarkup)
 					.then((articleData) => {
@@ -49,7 +49,7 @@ export default Route.extend(
 			 * @returns {boolean}
 			 */
 			error(error, transition) {
-				this.get('logger').error('Article preview route error', error);
+				this.logger.error('Article preview route error', error);
 
 				if (transition) {
 					transition.abort();

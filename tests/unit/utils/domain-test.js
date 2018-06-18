@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
 
 module('Unit | Utility | domain test', () => {

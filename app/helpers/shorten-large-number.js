@@ -1,4 +1,4 @@
-import {helper} from '@ember/component/helper';
+import { helper } from '@ember/component/helper';
 
 /**
  * Shorten number to thousands, millions, billions, etc.

@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import config from '../config/environment';
 
@@ -28,7 +28,7 @@ export default Mixin.create({
 			return;
 		}
 
-		this.get('headData').setProperties({
+		this.headData.setProperties({
 			appleTouchIcon: model.wikiVariables.appleTouchIcon,
 			cdnRootUrl: model.wikiVariables.cdnRootUrl,
 			favicon: model.wikiVariables.favicon,

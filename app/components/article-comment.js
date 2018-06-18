@@ -1,6 +1,6 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import toArray from '../utils/toArray';
 
 /**
@@ -23,7 +23,7 @@ export default Component.extend({
 	thumbnailWidth: 480,
 
 	user: computed('users', function () {
-		const users = this.get('users');
+		const users = this.users;
 
 		if (users) {
 			return users[this.get('comment.userName')] || {};
@@ -36,7 +36,7 @@ export default Component.extend({
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 
 		if (regex.test(userName)) {
-			return this.get('i18n').t('app.username-anonymous');
+			return this.i18n.t('app.username-anonymous');
 		} else {
 			return userName;
 		}

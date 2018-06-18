@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
-import {trackActions} from '../utils/track';
-import {system} from '../utils/browser';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
+import { trackActions } from '../utils/track';
+import { system } from '../utils/browser';
 
 export default Component.extend({
 	i18n: service(),
@@ -23,8 +23,8 @@ export default Component.extend({
 
 	storeName: computed(function () {
 		return system === 'ios'
-			? this.get('i18n').t('fandom-app-banner.app-store')
-			: this.get('i18n').t('fandom-app-banner.google-play');
+			? this.i18n.t('fandom-app-banner.app-store')
+			: this.i18n.t('fandom-app-banner.google-play');
 	}),
 
 	init() {
@@ -43,19 +43,19 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterClose'));
-			this.get('smartBanner').setVisibility(false);
-			this.get('smartBanner').track(trackActions.close);
+			this.smartBanner.setCookie(this.get('options.daysHiddenAfterClose'));
+			this.smartBanner.setVisibility(false);
+			this.smartBanner.track(trackActions.close);
 		}
 	},
 
 	click(event) {
-		if (event.target === this.element.querySelector(this.get('closeButtonSelector'))) {
+		if (event.target === this.element.querySelector(this.closeButtonSelector)) {
 			return;
 		}
 
-		this.get('smartBanner').track(trackActions.install);
-		this.get('smartBanner').setVisibility(false);
-		this.get('smartBanner').setCookie(this.get('options.daysHiddenAfterView'));
+		this.smartBanner.track(trackActions.install);
+		this.smartBanner.setVisibility(false);
+		this.smartBanner.setCookie(this.get('options.daysHiddenAfterView'));
 	}
 });

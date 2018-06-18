@@ -1,12 +1,12 @@
-import {inject as service} from '@ember/service';
-import {readOnly} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
-import {dasherize} from '@ember/string';
-import {on} from '@ember/object/evented';
-import {setProperties, computed} from '@ember/object';
+import { dasherize } from '@ember/string';
+import { on } from '@ember/object/evented';
+import { setProperties, computed } from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
-import {isAdEngine3Loaded} from '../modules/ads';
+import { isAdEngine3Loaded } from '../modules/ads';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -27,11 +27,11 @@ export default Component.extend(
 		noAds: readOnly('ads.noAds'),
 
 		nameLowerCase: computed('name', function () {
-			return dasherize(this.get('name').toLowerCase());
+			return dasherize(this.name.toLowerCase());
 		}),
 
 		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
-			return !(this.get('pageHasFeaturedVideo') || this.get('isAboveTheFold')) &&
+			return !(this.pageHasFeaturedVideo || this.isAboveTheFold) &&
 				!isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
 		}),
 
@@ -39,27 +39,27 @@ export default Component.extend(
 			this._super(...arguments);
 
 			const ads = this.get('ads.module'),
-				name = this.get('name');
+				name = this.name;
 
-			if (this.get('disableManualInsert')) {
+			if (this.disableManualInsert) {
 				return;
 			}
 
-			if (this.get('noAds')) {
-				this.get('logger').info('Ad disabled for:', name);
+			if (this.noAds) {
+				this.logger.info('Ad disabled for:', name);
 				return;
 			}
 
-			if (this.get('shouldWaitForUapResponse')) {
+			if (this.shouldWaitForUapResponse) {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
-						this.get('logger').info('Injected ad:', name);
+						this.logger.info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
 					}
 				);
 			} else {
-				this.get('logger').info('Injected ad', name);
+				this.logger.info('Injected ad', name);
 				ads.pushSlotToQueue(name);
 			}
 
@@ -75,9 +75,9 @@ export default Component.extend(
 		},
 
 		willDestroyElement() {
-			const name = this.get('name');
+			const name = this.name;
 
-			this.get('logger').info('Will destroy ad:', name);
+			this.logger.info('Will destroy ad:', name);
 			this.get('ads.module').removeSlot(name);
 		},
 
@@ -86,17 +86,17 @@ export default Component.extend(
 		 */
 		didEnterViewport() {
 			const ads = this.get('ads.module'),
-				name = this.get('name');
+				name = this.name;
 
-			if (this.get('noAds')) {
-				this.get('logger').info('Ad disabled for:', name);
+			if (this.noAds) {
+				this.logger.info('Ad disabled for:', name);
 				return;
 			}
 
-			if (this.get('shouldWaitForUapResponse')) {
+			if (this.shouldWaitForUapResponse) {
 				ads.waitForUapResponse(
 					() => {
-						this.get('logger').info('Injected ad on scroll:', name);
+						this.logger.info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);
 					},
 					() => {}

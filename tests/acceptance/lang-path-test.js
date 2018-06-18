@@ -1,7 +1,14 @@
 import Service from '@ember/service';
-import {find, findAll, fillIn, triggerEvent, visit, currentURL} from '@ember/test-helpers';
-import {setupApplicationTest} from 'ember-qunit';
-import {module, test} from 'qunit';
+import {
+	find,
+	findAll,
+	fillIn,
+	triggerEvent,
+	visit,
+	currentURL
+} from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 
 const wikiUrlsServiceStub = Service.extend({

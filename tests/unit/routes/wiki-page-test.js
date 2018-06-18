@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import Service from '@ember/service';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 
 const model = EmberObject.create({
@@ -108,7 +108,7 @@ module('Unit | Route | wiki page', (hooks) => {
 			contentNamespaces: [0, 112]
 		});
 
-		testCases.forEach(({expectedHandler, model}) => {
+		testCases.forEach(({ expectedHandler, model }) => {
 			const handler = mock.getHandler(model);
 
 			if (handler) {

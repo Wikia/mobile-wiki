@@ -1,7 +1,7 @@
-import {inject as service} from '@ember/service';
-import {isEmpty} from '@ember/utils';
-import {alias, equal, oneWay} from '@ember/object/computed';
-import Controller, {inject as controller} from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
+import { alias, equal, oneWay } from '@ember/object/computed';
+import Controller, { inject as controller } from '@ember/controller';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 
 export default Controller.extend(
@@ -60,7 +60,7 @@ export default Controller.extend(
 			 * @returns {void}
 			 */
 			handleLink(target) {
-				this.get('target').send('handleLink', target);
+				this.target.send('handleLink', target);
 			},
 
 			/**
@@ -69,7 +69,7 @@ export default Controller.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.get('target').send('loadRandomArticle');
+				this.target.send('loadRandomArticle');
 			},
 
 			/**

@@ -1,6 +1,6 @@
-import {notEmpty} from '@ember/object/computed';
+import { notEmpty } from '@ember/object/computed';
 import Component from '@ember/component';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import InViewportMixin from 'ember-in-viewport';
 
 export default Component.extend(InViewportMixin, {
@@ -13,7 +13,7 @@ export default Component.extend(InViewportMixin, {
 	 * Reset InViewPort when new users recieved
 	 */
 	didUpdateAttrs() {
-		if (this.get('viewportEntered')) {
+		if (this.viewportEntered) {
 			this.set('viewportEntered', false);
 			this._startListening();
 		}

@@ -1,4 +1,4 @@
-import {helper} from '@ember/component/helper';
+import { helper } from '@ember/component/helper';
 
 /**
  * Check if two arguments are equals

@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import svgHelper from 'mobile-wiki/helpers/svg';
 
 module('Unit | helper | svg', () => {

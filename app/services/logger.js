@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import config from '../config/environment';
 import ErrorDescriptor from '../utils/error-descriptor';
 import extend from '../utils/extend';
@@ -94,11 +94,11 @@ export default Service.extend({
 			'@message': message,
 			event: object,
 			severity: logLevel
-		}, this.get('requestContext'));
+		}, this.requestContext);
 	},
 
 	extendError(error, message) {
-		const errorDescriptor = ErrorDescriptor.create({error});
+		const errorDescriptor = ErrorDescriptor.create({ error });
 
 		return extend({
 			'@message': `FastBoot error - ${message} - ${errorDescriptor.get('normalizedMessage')}`,
@@ -107,7 +107,7 @@ export default Service.extend({
 				additionalData: additionalDataSerializer(error.additionalData),
 				previous: previousErrorSerializer(error.previous)
 			}
-		}, this.get('requestContext'));
+		}, this.requestContext);
 	},
 
 	log(logLevel, message, object) {
@@ -116,7 +116,7 @@ export default Service.extend({
 				this.extendError(object, message) :
 				this.addContext(object, message, logLevel);
 
-			this.get('bunyanInstance')[logLevel](extendedObject, message);
+			this.bunyanInstance[logLevel](extendedObject, message);
 		} else {
 			// eslint-disable-next-line no-console
 			console[logLevel](message, object);

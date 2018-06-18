@@ -1,5 +1,5 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Component | curated content item', (hooks) => {
 	setupTest(hooks);

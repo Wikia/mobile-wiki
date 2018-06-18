@@ -1,6 +1,6 @@
-import {getOwner} from '@ember/application';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { getOwner } from '@ember/application';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 import WikiaNavModel from 'mobile-wiki/models/wikia-nav';
 

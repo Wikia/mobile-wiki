@@ -1,8 +1,8 @@
-import {not} from '@ember/object/computed';
-import {computed} from '@ember/object';
-import {getOwner} from '@ember/application';
-import {reject} from 'rsvp';
-import Service, {inject as service} from '@ember/service';
+import { not } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
+import { reject } from 'rsvp';
+import Service, { inject as service } from '@ember/service';
 import NotificationsModel from '../models/notifications/notifications';
 
 export default Service.extend({
@@ -24,12 +24,12 @@ export default Service.extend({
 		if (this.get('fastboot.isFastBoot')) {
 			return;
 		}
-		if (this.get('isUserAnonymous') === true) {
+		if (this.isUserAnonymous === true) {
 			return reject();
 		}
-		return this.get('model').loadUnreadNotificationCount()
+		return this.model.loadUnreadNotificationCount()
 			.catch((err) => {
-				this.get('logger').warn('Couldn\'t load notification count', err);
+				this.logger.warn('Couldn\'t load notification count', err);
 				this.set('isLoading', false);
 			});
 	}),
@@ -42,23 +42,24 @@ export default Service.extend({
 		// fetches the model from the API at first attempt to use the data
 		// then a singleton service will keep the data until page reloads
 		this.set('model', NotificationsModel.create(getOwner(this).ownerInjection()));
-		this.get('modelLoader');
+		// eslint-disable-next-line
+		this.modelLoader;
 	},
 
 	loadFirstPage() {
-		if (this.get('isUserAnonymous') === true
-			|| this.get('isLoading') === true
-			|| this.get('nextPage') !== null) {
+		if (this.isUserAnonymous === true
+			|| this.isLoading === true
+			|| this.nextPage !== null) {
 			return;
 		}
 		this.set('isLoading', true);
-		this.get('model')
+		this.model
 			.loadFirstPageReturningNextPageLink()
 			.then((nextPage) => {
 				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
-				this.get('logger').warn('Couldn\'t load first page', err);
+				this.logger.warn('Couldn\'t load first page', err);
 			})
 			.finally(() => {
 				this.set('isLoading', false);
@@ -66,19 +67,19 @@ export default Service.extend({
 	},
 
 	loadNextPage() {
-		if (this.get('isUserAnonymous') === true
-			|| this.get('isLoading') === true
-			|| this.get('nextPage') === null) {
+		if (this.isUserAnonymous === true
+			|| this.isLoading === true
+			|| this.nextPage === null) {
 			return;
 		}
 		this.set('isLoading', true);
-		this.get('model')
-			.loadPageReturningNextPageLink(this.get('nextPage'))
+		this.model
+			.loadPageReturningNextPageLink(this.nextPage)
 			.then((nextPage) => {
 				this.set('nextPage', nextPage);
 			})
 			.catch((err) => {
-				this.get('logger').warn('Couldn\'t load more notifications', err);
+				this.logger.warn('Couldn\'t load more notifications', err);
 			})
 			.finally(() => {
 				this.set('isLoading', false);
@@ -86,11 +87,11 @@ export default Service.extend({
 	},
 
 	markAllAsRead() {
-		this.get('model').markAllAsRead();
+		this.model.markAllAsRead();
 	},
 
 	markAsRead(notification) {
-		this.get('model').markAsRead(notification);
+		this.model.markAsRead(notification);
 	},
 
 	getUnreadCount() {

@@ -1,8 +1,8 @@
-import {find, render} from '@ember/test-helpers';
+import { find, render } from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
-import {module, test} from 'qunit';
-import {setupRenderingTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 
 const buttonSelector = '.wds-button';
 

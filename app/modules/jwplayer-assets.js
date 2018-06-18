@@ -1,4 +1,4 @@
-import {Promise} from 'rsvp';
+import { Promise } from 'rsvp';
 
 export const assetUrls = {
 	styles: '/mobile-wiki-assets/assets/jwplayer/index.css',

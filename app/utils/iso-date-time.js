@@ -18,4 +18,4 @@ function convertToIsoString(timestamp) {
 }
 
 
-export {convertToTimestamp, convertToIsoString};
+export { convertToTimestamp, convertToIsoString };

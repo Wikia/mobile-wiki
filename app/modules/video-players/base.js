@@ -1,5 +1,5 @@
 import containerSize from '../../utils/calculation';
-import {track} from '../../utils/track';
+import { track } from '../../utils/track';
 
 export default class BasePlayer {
 	/**

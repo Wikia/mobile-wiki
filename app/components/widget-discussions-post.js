@@ -1,7 +1,7 @@
-import {or} from '@ember/object/computed';
+import { or } from '@ember/object/computed';
 import Component from '@ember/component';
-import {htmlSafe} from '@ember/string';
-import {computed} from '@ember/object';
+import { htmlSafe } from '@ember/string';
+import { computed } from '@ember/object';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
 import Ember from 'ember';

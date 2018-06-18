@@ -1,7 +1,7 @@
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import offset from '../utils/offset';
 
 export default Component.extend(
@@ -18,15 +18,15 @@ export default Component.extend(
 		collapsed: false,
 
 		button: computed('expandButtonClass', function () {
-			return this.element.querySelector(`.${this.get('expandButtonClass')}`);
+			return this.element.querySelector(`.${this.expandButtonClass}`);
 		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
 		 */
 		isLongInfobox: computed('collapsedHeight', 'height', function () {
-			const collapsedHeight = this.get('collapsedHeight'),
-				height = this.get('height');
+			const collapsedHeight = this.collapsedHeight,
+				height = this.height;
 
 			return height > collapsedHeight;
 		}),
@@ -47,7 +47,7 @@ export default Component.extend(
 		}),
 
 		didInsertElement() {
-			if (this.get('isLongInfobox')) {
+			if (this.isLongInfobox) {
 				this.collapse();
 			}
 
@@ -56,7 +56,7 @@ export default Component.extend(
 
 		actions: {
 			toogleInfobox() {
-				if (!this.get('collapsed')) {
+				if (!this.collapsed) {
 					const body = window.document.body,
 						scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
@@ -66,7 +66,7 @@ export default Component.extend(
 						category: 'portable-infobox',
 						label: 'collapsed-by-button'
 					});
-					scrollTo.apply(this.get('button'));
+					scrollTo.apply(this.button);
 				} else {
 					this.expand();
 					track({
@@ -105,7 +105,7 @@ export default Component.extend(
 
 		collapse() {
 			this.set('collapsed', true);
-			this.element.style.height = `${this.get('collapsedHeight')}px`;
+			this.element.style.height = `${this.collapsedHeight}px`;
 		},
 
 		expand() {

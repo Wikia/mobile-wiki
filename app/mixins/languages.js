@@ -1,8 +1,8 @@
-import {inject as service} from '@ember/service';
-import {equal} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { equal } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
-import {dasherize} from '@ember/string';
-import {computed} from '@ember/object';
+import { dasherize } from '@ember/string';
+import { computed } from '@ember/object';
 
 export default Mixin.create({
 	wikiVariables: service(),
@@ -17,7 +17,7 @@ export default Mixin.create({
 		let lang = navigator.language || navigator.browserLanguage;
 
 		if (!lang) {
-			return this.get('defaultLanguage');
+			return this.defaultLanguage;
 		} else {
 			lang = dasherize(lang);
 

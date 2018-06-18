@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import truncateHelper from 'mobile-wiki/helpers/truncate';
 
 

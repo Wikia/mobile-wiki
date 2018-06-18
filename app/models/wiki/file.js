@@ -1,7 +1,7 @@
-import {get} from '@ember/object';
-import {getOwner} from '@ember/application';
+import { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import BaseModel from './base';
-import {extractEncodedTitle} from '../../utils/url';
+import { extractEncodedTitle } from '../../utils/url';
 
 export default BaseModel.extend({
 	hasArticle: false,
@@ -13,7 +13,7 @@ export default BaseModel.extend({
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData({data}) {
+	setData({ data }) {
 		this._super(...arguments);
 		let pageProperties;
 
@@ -33,7 +33,7 @@ export default BaseModel.extend({
 		this.setProperties(pageProperties);
 	},
 
-	prepareFileUsageItem({titleText: title, snippet, url}) {
+	prepareFileUsageItem({ titleText: title, snippet, url }) {
 		return {
 			title,
 			snippet,

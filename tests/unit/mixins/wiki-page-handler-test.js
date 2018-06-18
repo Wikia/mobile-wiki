@@ -1,7 +1,7 @@
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 import EmberObject from '@ember/object';
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 import require from 'require';
 import WikiPageHandlerMixin from 'mobile-wiki/mixins/wiki-page-handler';

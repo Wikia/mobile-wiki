@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
 	AlertNotificationsMixin,
@@ -57,7 +57,7 @@ export default Component.extend(
 				unsafe: true,
 				callbacks: {
 					onInsertElement: (alert) => {
-						alert.addEventListener('click', ({target}) => {
+						alert.addEventListener('click', ({ target }) => {
 							if (target.closest('a:not(.close)')) {
 								track({
 									action: trackActions.click,
@@ -68,7 +68,7 @@ export default Component.extend(
 						});
 					},
 					onCloseAlert: () => {
-						localStorageConnector.setItem(this.get('alertKey'), new Date().getTime().toString());
+						localStorageConnector.setItem(this.alertKey, new Date().getTime().toString());
 						track({
 							action: trackActions.click,
 							category: 'wikiaInYourLangAlert',
@@ -85,7 +85,7 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		shouldShowWikiaInYourLang() {
-			const value = localStorageConnector.getItem(this.get('alertKey')),
+			const value = localStorageConnector.getItem(this.alertKey),
 				now = new Date().getTime(),
 				/**
 				 * 2,592,000,000 = 30 days

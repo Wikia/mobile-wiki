@@ -1,10 +1,10 @@
-import {A} from '@ember/array';
-import EmberObject, {get} from '@ember/object';
+import { A } from '@ember/array';
+import EmberObject, { get } from '@ember/object';
 import DiscussionContributor from './contributor';
 import fetch from 'fetch';
-import {convertToTimestamp} from '../../utils/iso-date-time';
+import { convertToTimestamp } from '../../utils/iso-date-time';
 import notificationTypes from '../../utils/notification-types';
-import {getOnSiteNotificationsServiceUrl} from '../../utils/url';
+import { getOnSiteNotificationsServiceUrl } from '../../utils/url';
 
 const avatar = 'https://static.wikia.nocookie.net/messaging/' +
 	'images/1/19/Avatar.jpg/revision/latest/scale-to-width-down/50';
@@ -23,9 +23,9 @@ const NotificationModel = EmberObject.extend({
 	markAsRead() {
 		return fetch(getOnSiteNotificationsServiceUrl(`/notifications/mark-as-read/by-uri`), {
 			method: 'POST',
-			body: JSON.stringify([this.get('uri')]),
+			body: JSON.stringify([this.uri]),
 			credentials: 'include',
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 		}).then(() => {
 			this.set('isUnread', false);
 		});

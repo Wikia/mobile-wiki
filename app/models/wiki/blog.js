@@ -7,7 +7,7 @@ export default BaseModel.extend({
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData({data}) {
+	setData({ data }) {
 		this._super(...arguments);
 
 		if (data && data.details) {

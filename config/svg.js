@@ -9,7 +9,7 @@ const designSystemInlineSVGs = [
 	'wds-icons-magnifying-glass-small',
 	'wds-icons-image',
 ].map((name) => {
-	return {name, path: `${designSystemAssetsPath}${name}.svg`};
+	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
 
 // DS icons which should be lazy loaded
@@ -51,7 +51,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-company-store-googleplay',
 	'wds-company-logo-fandom-powered-by-wikia-two-lines',
 ].map((name) => {
-	return {name, path: `${designSystemAssetsPath}${name}.svg`};
+	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
 
 const inlineSVGs = [...designSystemInlineSVGs];

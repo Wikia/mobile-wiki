@@ -40,7 +40,7 @@ export default class JWPlayerTracker {
 			return;
 		}
 
-		const {vastParser} = window.Wikia.adEngine;
+		const { vastParser } = window.Wikia.adEngine;
 		// End of imports
 
 		this.track('init');
