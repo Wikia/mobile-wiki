@@ -19,16 +19,18 @@ export default Service.extend({
 
 	init() {
 		this._super(...arguments);
-		this.adSlotComponents = {};
-		this.waits = {};
-		this.slotNames = {
-			bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
-			invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
-			invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-			mobileInContent: 'MOBILE_IN_CONTENT',
-			mobilePreFooter: 'MOBILE_PREFOOTER',
-			mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
-		};
+		this.setProperties({
+			adSlotComponents: {},
+			waits: {},
+			slotNames: {
+				bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
+				invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
+				invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
+				mobileInContent: 'MOBILE_IN_CONTENT',
+				mobilePreFooter: 'MOBILE_PREFOOTER',
+				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+			}
+		});
 
 		if (!this.get('fastboot.isFastBoot')) {
 			getAdsModule().then((adsModule) => {
@@ -52,7 +54,7 @@ export default Service.extend({
 		this.set('adSlotComponents', {});
 	},
 
-	waitFor(slotName, promise) {
+	addWaitFor(slotName, promise) {
 		this.waits[slotName] = this.waits[slotName] || [];
 		this.waits[slotName].push(promise);
 	},

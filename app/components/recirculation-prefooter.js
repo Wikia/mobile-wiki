@@ -1,4 +1,4 @@
-import { Promise } from 'rsvp';
+import { defer } from 'rsvp';
 import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -20,16 +20,6 @@ const recircItemsCount = 10,
 			domainType: 'fandom.wikia.com'
 		}
 	};
-
-function Deferred() {
-	this.promise = new Promise((resolve, reject) => {
-		this.resolve = resolve;
-		this.reject = reject;
-	});
-
-	this.then = this.promise.then.bind(this.promise);
-	this.catch = this.promise.catch.bind(this.promise);
-}
 
 export default Component.extend(
 	InViewportMixin,
@@ -63,11 +53,11 @@ export default Component.extend(
 					left: 0,
 					right: 0
 				},
-				intersectionThreshold: 0
+				intersectionThreshold: 0,
+				listRendered: defer()
 			});
 
-			this.listRendered = new Deferred();
-			this.get('ads').waitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.listRendered.promise);
+			this.get('ads').addWaitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.get('listRendered.promise'));
 		},
 
 		actions: {
@@ -142,7 +132,7 @@ export default Component.extend(
 								config.widget,
 								'LI'
 							);
-							this.listRendered.resolve();
+							this.get('listRendered').resolve();
 						}
 					});
 
