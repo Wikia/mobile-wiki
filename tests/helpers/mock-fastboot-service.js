@@ -519,14 +519,6 @@ export default function (owner) {
 								},
 								"href": "http://fandom.wikia.com/contact",
 								"tracking_label": "company-overview.contact"
-							}, {
-								"type": "link-text",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-footer-company-overview-link-wikia-org"
-								},
-								"href": "http://wikia.org",
-								"tracking_label": "company-overview.wikia-org"
 							}]
 						},
 						"site_overview": {
