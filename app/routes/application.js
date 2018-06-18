@@ -191,7 +191,13 @@ export default Route.extend(
 					'location',
 					`${basePath}${fastbootRequest.get('path')}`
 				);
-				fastboot.set('response.statusCode', 301);
+
+				// Use a 302 redirect for HTTPS downgrades to match the behaviour on Fastly for now (PLATFORM-3523)
+				if (protocol === 'https:' && basePath === `http://${model.wikiVariables.host}`) {
+					fastboot.set('response.statusCode', 302);
+				} else {
+					fastboot.set('response.statusCode', 301);
+				}
 
 				// TODO XW-3198
 				// We throw error to stop Ember and redirect immediately
