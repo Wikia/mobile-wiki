@@ -3,9 +3,29 @@ export default {
 	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
 		'{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
 	bidders: {
+		timeout: 2000,
+		a9: {
+			enabled: false,
+			videoEnabled: false,
+			slots: {
+				mobile_top_leaderboard: [
+					[320, 50]
+				],
+				mobile_in_content: [
+					[300, 250],
+					[320, 480]
+				],
+				bottom_leaderboard: [
+					[320, 50],
+					[300, 250]
+				]
+			},
+			slotsVideo: ['featured']
+		},
 		prebid: {
+			lazyLoadingEnabled: false,
 			aol: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -34,7 +54,7 @@ export default {
 				}
 			},
 			appnexus: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -61,7 +81,7 @@ export default {
 				}
 			},
 			appnexusAst: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_in_content: {
 						placementId: '11543173'
@@ -69,7 +89,7 @@ export default {
 				}
 			},
 			appnexusWebads: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						placementId: '13104396',
@@ -96,7 +116,7 @@ export default {
 				}
 			},
 			audienceNetwork: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -119,7 +139,7 @@ export default {
 				}
 			},
 			beachfront: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_in_content: {
 						appId: 'f377a8b1-c5c0-4108-f932-0102a81ff43d'
@@ -127,7 +147,7 @@ export default {
 				}
 			},
 			indexExchange: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -152,7 +172,7 @@ export default {
 				}
 			},
 			onemobile: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						size: [320, 50],
@@ -169,7 +189,7 @@ export default {
 				}
 			},
 			openx: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -194,7 +214,7 @@ export default {
 				}
 			},
 			pubmatic: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -227,7 +247,7 @@ export default {
 				}
 			},
 			rubicon: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					featured: {
 						siteId: '147980',
@@ -244,7 +264,7 @@ export default {
 				}
 			},
 			rubiconDisplay: {
-				enabled: true,
+				enabled: false,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -300,11 +320,7 @@ export default {
 					mobile_in_content: {}
 				}
 			}
-		},
-		a9: {
-			foo: 'bar'
-		},
-		timeout: 2000
+		}
 	},
 	custom: {
 		dfpId: '5441',

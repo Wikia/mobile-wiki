@@ -2,6 +2,7 @@ import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
+import biddersDelay from './bidders-delay';
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
@@ -42,18 +43,31 @@ class Ads {
 	}
 
 	setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-		const { events } = window.Wikia.adEngine;
+		const { context, events } = window.Wikia.adEngine;
 
 		adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 		this.instantGlobals = instantGlobals;
 		this.events = events;
 		this.events.registerEvent('MENU_OPEN_EVENT');
 
+		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
+		this.callBidders();
+
 		this.startAdEngine();
 
 		this.isLoaded = true;
 		this.onReadyCallbacks.forEach((callback) => callback());
 		this.onReadyCallbacks = [];
+	}
+
+	callBidders() {
+		const { context } = window.Wikia.adEngine;
+		const { bidders } = window.Wikia.adProducts;
+
+		context.push('delayModules', biddersDelay);
+		bidders.requestBids({
+			responseListener: biddersDelay.markAsReady
+		});
 	}
 
 	startAdEngine() {
