@@ -108,7 +108,7 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectMainPageAds() {
-		const adsData = this.adsData,
+		const adsData = this.get('ads.slotNames'),
 			curatedContent = this.element.querySelector('.curated-content'),
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer');
