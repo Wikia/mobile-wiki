@@ -4,7 +4,6 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
-import biddersDelay from './bidders-delay';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
