@@ -3,14 +3,6 @@ import Mixin from '@ember/object/mixin';
 import { getRenderComponentFor } from '../utils/render-component';
 
 export default Mixin.create({
-	adsData: {
-		bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
-		invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
-		invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-		mobileInContent: 'MOBILE_IN_CONTENT',
-		mobilePreFooter: 'MOBILE_PREFOOTER',
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
-	},
 	ads: service(),
 	currentUser: service(),
 
@@ -30,22 +22,25 @@ export default Mixin.create({
 			return;
 		}
 
-		const placeholder = document.createElement('div');
-		const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
+		this.get('ads').getWaits(adSlotName).then(() => {
+			const placeholder = document.createElement('div');
+			const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
-		element.insertAdjacentElement(place, placeholder);
+			element.insertAdjacentElement(place, placeholder);
 
-		attributes.pageHasFeaturedVideo = this.featuredVideo;
+			attributes.pageHasFeaturedVideo = this.featuredVideo;
 
-		this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({
-			name: 'ad-slot',
-			attrs: attributes,
-			element: placeholder
-		}));
+			this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({
+				name: 'ad-slot',
+				attrs: attributes,
+				element: placeholder
+			}));
+		});
+		this.get('ads').clearWaits(adSlotName);
 	},
 
 	appendHighImpactAd() {
-		const adsData = this.adsData,
+		const adsData = this.get('ads.slotNames'),
 			placeholder = document.createElement('div'),
 			wikiContainer = document.getElementById('wikiContainer');
 
@@ -75,7 +70,7 @@ export default Mixin.create({
 			articleFooter = document.querySelector('.article-footer'),
 			pi = document.querySelector('.portable-infobox'),
 			pageHeader = document.querySelector('.wiki-page-header'),
-			adsData = this.adsData,
+			adsData = this.get('ads.slotNames'),
 			globalFooter = document.querySelector('.wds-global-footer');
 
 		if (pi) {
@@ -113,7 +108,7 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectMainPageAds() {
-		const adsData = this.adsData,
+		const adsData = this.get('ads.slotNames'),
 			curatedContent = this.element.querySelector('.curated-content'),
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer');
