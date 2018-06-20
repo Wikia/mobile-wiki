@@ -20,7 +20,11 @@ export default {
 					[300, 250]
 				]
 			},
-			slotsVideo: ['featured']
+			slotsVideo: ['featured'],
+			gdpr: {
+				enabled: false,
+				consent: ''
+			}
 		},
 		prebid: {
 			lazyLoadingEnabled: false,
