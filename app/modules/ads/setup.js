@@ -71,7 +71,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set('custom.isCMPEnabled', isGeoEnabled('wgEnableCMPCountries'));
 	}
 
-	context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 5000);
+	context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
 	// context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
 	// context.set('options.exposeFeaturedVideoUapKeyValue', isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'));
 

@@ -7,6 +7,7 @@ export default {
 		a9: {
 			enabled: false,
 			videoEnabled: false,
+			amazonId: '3115',
 			slots: {
 				mobile_top_leaderboard: [
 					[320, 50]
@@ -30,6 +31,7 @@ export default {
 			lazyLoadingEnabled: false,
 			aol: {
 				enabled: false,
+				network: '9435.1',
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -86,6 +88,7 @@ export default {
 			},
 			appnexusAst: {
 				enabled: false,
+				debugPlacementId: '5768085',
 				slots: {
 					mobile_in_content: {
 						placementId: '11543173'
@@ -144,6 +147,7 @@ export default {
 			},
 			beachfront: {
 				enabled: false,
+				debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
 				slots: {
 					mobile_in_content: {
 						appId: 'f377a8b1-c5c0-4108-f932-0102a81ff43d'
@@ -177,6 +181,7 @@ export default {
 			},
 			onemobile: {
 				enabled: false,
+				siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
 				slots: {
 					mobile_top_leaderboard: {
 						size: [320, 50],
@@ -194,6 +199,7 @@ export default {
 			},
 			openx: {
 				enabled: false,
+				delDomain: 'wikia-d.openx.net',
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -219,6 +225,7 @@ export default {
 			},
 			pubmatic: {
 				enabled: false,
+				publisherId: '156260',
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
@@ -252,6 +259,7 @@ export default {
 			},
 			rubicon: {
 				enabled: false,
+				accountId: 7450,
 				slots: {
 					featured: {
 						siteId: '147980',
@@ -269,6 +277,7 @@ export default {
 			},
 			rubiconDisplay: {
 				enabled: false,
+				accountId: 7450,
 				slots: {
 					mobile_top_leaderboard: {
 						sizes: [
