@@ -1,6 +1,7 @@
 const trackingRouteName = 'special/adengadinfo';
 
 const onChangeStatusToTrack = [
+	'error',
 	'viewport-conflict'
 ];
 
