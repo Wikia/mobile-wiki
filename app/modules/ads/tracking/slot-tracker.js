@@ -4,7 +4,7 @@ const onChangeStatusToTrack = [
 	'viewport-conflict'
 ];
 
-function getPosParameter({pos = ''}) {
+function getPosParameter({ pos = '' }) {
 	return (Array.isArray(pos) ? pos : pos.split(','))[0].toLowerCase();
 }
 
