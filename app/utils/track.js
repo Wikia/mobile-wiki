@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
 import LegacyAds from '../modules/ads/legacyModule';
-import {getGroup} from '../modules/abtest';
+import { getGroup } from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
 
 /**
@@ -133,7 +133,7 @@ export function track(params) {
 	const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
 	const isNonInteractive = params.isNonInteractive !== false;
 	const pvUID = window.pvUID;
-	const {action, label = '', value = 0, trackingMethod = 'both'} = params;
+	const { action, label = '', value = 0, trackingMethod = 'both' } = params;
 
 	params = Object.assign({
 		ga_action: action,
@@ -222,4 +222,4 @@ export function setTrackContext(data) {
 	context = data;
 }
 
-export {trackActions};
+export { trackActions };

@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
@@ -62,6 +62,6 @@ export default Mixin.create({
 			headData.pageImage = model.details.thumbnail;
 		}
 
-		this.get('headData').setProperties(headData);
+		this.headData.setProperties(headData);
 	}
 });

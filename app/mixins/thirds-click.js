@@ -1,4 +1,4 @@
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 
 /**
@@ -45,9 +45,9 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	callClickHandler(event, preventDefault = false) {
-		const viewportWidth = this.get('viewportWidth'),
+		const viewportWidth = this.viewportWidth,
 			x = event.clientX,
-			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),
+			screenEdgeWidth = viewportWidth * this.screenEdgeWidthRatio,
 			screenCenterWidth = viewportWidth - screenEdgeWidth * 2;
 
 		if (x < screenEdgeWidth) {

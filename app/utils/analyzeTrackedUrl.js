@@ -1,4 +1,4 @@
-import {logDebug} from '../modules/event-logger';
+import { logDebug } from '../modules/event-logger';
 
 export default function analyzeTrackedUrl(params) {
 	if (!window.ga || typeof window.ga.getAll !== 'function') {

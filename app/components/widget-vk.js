@@ -1,4 +1,4 @@
-import {observer} from '@ember/object';
+import { observer } from '@ember/object';
 import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
@@ -60,8 +60,8 @@ export default Component.extend(
 		 */
 		createWidget() {
 			if (this.get('scriptLoaded.vk')) {
-				const elementId = this.get('elementId'),
-					data = this.get('data');
+				const elementId = this.elementId,
+					data = this.data;
 
 				window.VK.Widgets.Group(elementId, data, data.groupId);
 			}

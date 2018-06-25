@@ -1,8 +1,8 @@
-import {bool} from '@ember/object/computed';
-import {computed} from '@ember/object';
-import {getOwner} from '@ember/application';
-import Service, {inject as service} from '@ember/service';
-import {resolve} from 'rsvp';
+import { bool } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
+import Service, { inject as service } from '@ember/service';
+import { resolve } from 'rsvp';
 import UserModel from '../models/user';
 import config from '../config/environment';
 
@@ -64,7 +64,7 @@ export default Service.extend({
 					})
 					.catch((err) => {
 						if (err.code !== 404) {
-							this.get('logger').error('Couldn\'t load current user model', err);
+							this.logger.error('Couldn\'t load current user model', err);
 						}
 					});
 			} else {
@@ -77,7 +77,7 @@ export default Service.extend({
 
 	getGaUserIdHash() {
 		const Crypto = FastBoot.require('crypto');
-		const rawString = `${this.get('userId')}${config.fastbootOnly.gaUserSalt}`;
+		const rawString = `${this.userId}${config.fastbootOnly.gaUserSalt}`;
 
 		return Crypto.createHash('md5').update(rawString).digest('hex');
 	}

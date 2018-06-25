@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import wrapMeHelper from 'mobile-wiki/helpers/wrap-me';
 
 module('Unit | helper | wrap me', () => {

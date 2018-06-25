@@ -1,6 +1,6 @@
 import Mixin from '@ember/object/mixin';
-import {on} from '@ember/object/evented';
-import {run} from '@ember/runloop';
+import { on } from '@ember/object/evented';
+import { run } from '@ember/runloop';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 
 export default Mixin.create(RespondsToScroll, {
@@ -24,20 +24,20 @@ export default Mixin.create(RespondsToScroll, {
 	},
 
 	listeners(method) {
-		const scrollableElement = this.get('scrollableElement');
+		const scrollableElement = this.scrollableElement;
 
 		scrollableElement[method]('DOMMouseScroll', this.onMouseWheelHandler);
 		scrollableElement[method]('mousewheel', this.onMouseWheelHandler);
 	},
 
-	scroll({target}) {
+	scroll({ target }) {
 		if (this.hasAlmostScrolledToTheBottom(target)) {
-			this.get('notifications').loadNextPage();
+			this.notifications.loadNextPage();
 		}
 	},
 
 	onMouseWheel(event) {
-		const scrollableElement = this.get('scrollableElement'),
+		const scrollableElement = this.scrollableElement,
 			delta = -event.wheelDelta || event.detail,
 			scrollTop = scrollableElement.scrollTop;
 

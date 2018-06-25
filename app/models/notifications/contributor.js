@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default EmberObject.extend({
 	wikiUrls: service(),
@@ -13,10 +13,10 @@ export default EmberObject.extend({
 
 	init() {
 		this._super(...arguments);
-		this.set('profileUrl', this.get('wikiUrls').build({
+		this.set('profileUrl', this.wikiUrls.build({
 			host: this.get('wikiVariables.host'),
 			namespace: 'User',
-			title: this.get('name')
+			title: this.name
 		}));
 	}
 });

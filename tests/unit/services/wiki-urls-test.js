@@ -1,5 +1,5 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Service | wiki-urls', (hooks) => {
 	let wikiUrls;
@@ -8,7 +8,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(function () {
-		wikiUrls = this.owner.lookup('service:wiki-urls', {singleton: false});
+		wikiUrls = this.owner.lookup('service:wiki-urls', { singleton: false });
 		wikiVariables = this.owner.lookup('service:wiki-variables');
 	});
 
@@ -204,7 +204,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 			assert.expect(testCases.length);
 
-			testCases.forEach(({basePath, uri, expectedUrl}) => {
+			testCases.forEach(({ basePath, uri, expectedUrl }) => {
 				wikiVariables.set('basePath', basePath);
 				const info = wikiUrls.getLinkInfo('OtherPage', '', uri, '');
 

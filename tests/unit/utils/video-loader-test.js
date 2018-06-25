@@ -1,4 +1,4 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import require from 'require';
 
 module('Unit | Utility | video loader', () => {
@@ -14,7 +14,7 @@ module('Unit | Utility | video loader', () => {
 
 		assert.expect(testCases.length);
 		testCases.forEach((testCase) => {
-			const data = {provider: testCase.provider};
+			const data = { provider: testCase.provider };
 			const videoLoader = new VideoLoader(data);
 
 			assert.equal(videoLoader.getProviderName(), testCase.expected);

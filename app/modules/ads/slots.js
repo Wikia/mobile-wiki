@@ -8,7 +8,7 @@ const PAGE_TYPES = {
 };
 
 function setSlotState(slotName, state) {
-	const {slotService} = window.Wikia.adEngine;
+	const { slotService } = window.Wikia.adEngine;
 
 	if (state) {
 		slotService.enable(slotName);
@@ -18,7 +18,7 @@ function setSlotState(slotName, state) {
 }
 
 function isTopLeaderboardApplicable() {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 
 	const hasFeaturedVideo = context.get('custom.hasFeaturedVideo'),
 		isHome = context.get('custom.pageType') === 'home',
@@ -29,7 +29,7 @@ function isTopLeaderboardApplicable() {
 }
 
 function isInContentApplicable() {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 
 	if (context.get('custom.pageType') === 'home') {
 		return !!document.querySelector('.curated-content');
@@ -45,7 +45,7 @@ function isInContentApplicable() {
 }
 
 function isPrefooterApplicable(isInContentApplicable) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 
 	if (context.get('custom.pageType') === 'home') {
 		return !!document.querySelector('.trending-articles');
@@ -185,7 +185,7 @@ export default {
 	},
 
 	setupStates() {
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 
 		const incontentState = isInContentApplicable();
 
@@ -197,7 +197,7 @@ export default {
 	},
 
 	setupIdentificators() {
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 
 		const pageTypeParam = PAGE_TYPES[context.get('targeting.s2')] || 'x';
 		const slotsDefinition = context.get('slots');

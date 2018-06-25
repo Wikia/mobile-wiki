@@ -6,7 +6,7 @@ import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
-	const {context} = window.Wikia.adEngine;
+	const { context } = window.Wikia.adEngine;
 
 	const pageLevelParams = targeting.getPageLevelTargeting(mediaWikiAdsContext);
 	Object.keys(pageLevelParams).forEach((key) => {
@@ -15,8 +15,8 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 }
 
 function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
-	const {context, utils} = window.Wikia.adEngine;
-	const {isProperGeo} = window.Wikia.adProducts.utils;
+	const { context, utils } = window.Wikia.adEngine;
+	const { isProperGeo } = window.Wikia.adProducts.utils;
 
 	function isGeoEnabled(instantGlobalKey) {
 		return isProperGeo(instantGlobals[instantGlobalKey]);
@@ -83,8 +83,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
-	const {context} = window.Wikia.adEngine;
-	const {utils: adProductsUtils} = window.Wikia.adProducts;
+	const { context } = window.Wikia.adEngine;
+	const { utils: adProductsUtils } = window.Wikia.adProducts;
 
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
 	adProductsUtils.setupNpaContext();
@@ -95,11 +95,11 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 }
 
 function init() {
-	const {AdEngine, events} = window.Wikia.adEngine;
+	const { AdEngine, events } = window.Wikia.adEngine;
 
 	const engine = new AdEngine();
 
-	events.on(events.PAGE_RENDER_EVENT, ({adContext, instantGlobals}) => setupAdContext(adContext, instantGlobals));
+	events.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals));
 	engine.init();
 
 	return engine;

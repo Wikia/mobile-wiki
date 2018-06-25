@@ -3,10 +3,10 @@
  * - https://github.com/janmisek/ember-types
  * - https://github.com/janmisek/ember-error-handler
  */
-import EmberObject, {computed} from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import Ember from 'ember';
 
-const {NAME_KEY} = Ember;
+const { NAME_KEY } = Ember;
 const unknownFunction = 'UnknownFunction';
 const unknownObject = 'UnknownObject';
 
@@ -42,12 +42,12 @@ export default EmberObject.extend({
 	error: null,
 
 	normalizedName: computed(function () {
-		const error = this.get('error');
+		const error = this.error;
 		return extractErrorName(error) || String(error) || 'Unknown error';
 	}),
 
 	normalizedMessage: computed(function () {
-		const error = this.get('error');
+		const error = this.error;
 
 		if (typeof error === 'undefined') {
 			return 'undefined thrown as error';
@@ -65,14 +65,14 @@ export default EmberObject.extend({
 			return error;
 		}
 
-		return error.message ? error.message : this.get('normalizedName');
+		return error.message ? error.message : this.normalizedName;
 	}),
 
 	normalizedStack: computed(function () {
 		let stack = this.get('error.stack');
 
 		const parsed = (stack || '').replace(new RegExp('\\r', 'g'), '').split('\n');
-		const message = this.get('normalizedMessage');
+		const message = this.normalizedMessage;
 
 		const firstLine = parsed[0];
 		const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
@@ -88,7 +88,7 @@ export default EmberObject.extend({
 
 	additionalData: computed(function () {
 		const namesUsed = [];
-		const error = this.get('error');
+		const error = this.error;
 		let collected = null;
 
 		const getErrorName = (error) => {

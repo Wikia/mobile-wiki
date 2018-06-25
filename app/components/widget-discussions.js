@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import {getOwner} from '@ember/application';
+import { getOwner } from '@ember/application';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussions';
 import RenderComponentMixin from '../mixins/render-component';
@@ -18,7 +18,7 @@ export default Component.extend(InViewportMixin, RenderComponentMixin, {
 
 	actions: {
 		upvote(post) {
-			this.get('model').upvote(post);
+			this.model.upvote(post);
 		},
 	},
 
@@ -26,10 +26,10 @@ export default Component.extend(InViewportMixin, RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	didEnterViewport() {
-		this.get('model').find(
+		this.model.find(
 			this.getWithDefault('categoryIds', []),
-			this.get('show'),
-			this.get('itemCount')
+			this.show,
+			this.itemCount
 		).then((posts) => {
 			this.setProperties({
 				posts,

@@ -1,7 +1,7 @@
-import {scheduleOnce} from '@ember/runloop';
-import {htmlSafe} from '@ember/string';
-import {computed, observer} from '@ember/object';
-import {gt} from '@ember/object/computed';
+import { scheduleOnce } from '@ember/runloop';
+import { htmlSafe } from '@ember/string';
+import { computed, observer } from '@ember/object';
+import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import ImageLoader from '../mixins/image-loader';
@@ -28,14 +28,14 @@ export default Component.extend(
 			 * @returns {boolean}
 			 */
 			swipeLeft() {
-				return !this.get('isZoomed');
+				return !this.isZoomed;
 			},
 
 			/**
 			 * @returns {boolean}
 			 */
 			swipeRight() {
-				return !this.get('isZoomed');
+				return !this.isZoomed;
 			},
 
 			/**
@@ -43,11 +43,11 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			pan(event) {
-				const scale = this.get('scale');
+				const scale = this.scale;
 
 				this.setProperties({
-					limitedNewX: this.get('lastX') + event.deltaX / scale,
-					limitedNewY: this.get('lastY') + event.deltaY / scale,
+					limitedNewX: this.lastX + event.deltaX / scale,
+					limitedNewY: this.lastY + event.deltaY / scale,
 				});
 
 				this.notifyPropertyChange('style');
@@ -58,8 +58,8 @@ export default Component.extend(
 			 */
 			panEnd() {
 				this.setProperties({
-					lastX: this.get('newX'),
-					lastY: this.get('newY')
+					lastX: this.newX,
+					lastY: this.newY
 				});
 			},
 
@@ -70,8 +70,8 @@ export default Component.extend(
 			doubleTap(event) {
 				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 				if (
-					!this.get('isZoomed') &&
-					(!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center)
+					!this.isZoomed &&
+					(!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
 				) {
 					const scale = 3;
 
@@ -91,12 +91,12 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			pinchMove(event) {
-				const scale = this.get('scale');
+				const scale = this.scale;
 
 				this.setProperties({
-					limitedScale: this.get('lastScale') * event.scale,
-					limitedNewX: this.get('lastX') + event.deltaX / scale,
-					limitedNewY: this.get('lastY') + event.deltaY / scale,
+					limitedScale: this.lastScale * event.scale,
+					limitedNewX: this.lastX + event.deltaX / scale,
+					limitedNewY: this.lastY + event.deltaY / scale,
 				});
 
 				this.notifyPropertyChange('style');
@@ -107,7 +107,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			pinchEnd(event) {
-				this.set('lastScale', this.get('lastScale') * event.scale);
+				this.set('lastScale', this.lastScale * event.scale);
 			},
 		},
 
@@ -117,9 +117,9 @@ export default Component.extend(
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 		 */
 		style: computed(function () {
-			const scale = this.get('scale').toFixed(2),
-				x = this.get('newX').toFixed(2),
-				y = this.get('newY').toFixed(2),
+			const scale = this.scale.toFixed(2),
+				x = this.newX.toFixed(2),
+				y = this.newY.toFixed(2),
 				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
 			return htmlSafe(`-webkit-${transform}${transform}`);
@@ -137,7 +137,7 @@ export default Component.extend(
 		 */
 		limitedScale: computed('scale', {
 			get() {
-				return this.get('scale');
+				return this.scale;
 			},
 
 			set(key, value) {
@@ -159,24 +159,24 @@ export default Component.extend(
 		}),
 
 		imageWidth: computed('image', 'scale', function () {
-			const image = this.get('image');
+			const image = this.image;
 
 			let imageWidth = 0;
 
 			if (image) {
-				imageWidth = image.offsetWidth * this.get('scale');
+				imageWidth = image.offsetWidth * this.scale;
 			}
 
 			return imageWidth;
 		}),
 
 		imageHeight: computed('image', 'scale', function () {
-			const image = this.get('image');
+			const image = this.image;
 
 			let imageHeight = 0;
 
 			if (image) {
-				imageHeight = image.offsetHeight * this.get('scale');
+				imageHeight = image.offsetHeight * this.scale;
 			}
 
 			return imageHeight;
@@ -186,14 +186,14 @@ export default Component.extend(
 		 * used to set X boundaries for panning image in media lightbox
 		 */
 		maxX: computed('viewportSize', 'imageWidth', 'scale', function () {
-			return Math.abs(this.get('viewportSize.width') - this.get('imageWidth')) / 2 / this.get('scale');
+			return Math.abs(this.get('viewportSize.width') - this.imageWidth) / 2 / this.scale;
 		}),
 
 		/**
 		 * used to set Y boundaries for panning image in media lightbox
 		 */
 		maxY: computed('viewportSize', 'imageHeight', 'scale', function () {
-			return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
+			return Math.abs(this.viewportSize.height - this.imageHeight) / 2 / this.scale;
 		}),
 
 		/**
@@ -201,14 +201,14 @@ export default Component.extend(
 		 */
 		limitedNewX: computed('newX', 'viewportSize', 'imageWidth', {
 			get() {
-				return this.get('newX');
+				return this.newX;
 			},
 
 			set(key, value) {
 				let newX = 0;
 
-				if (this.get('imageWidth') > this.get('viewportSize.width')) {
-					newX = this.limit(value, this.get('maxX'));
+				if (this.imageWidth > this.get('viewportSize.width')) {
+					newX = this.limit(value, this.maxX);
 				}
 
 				this.set('newX', newX);
@@ -220,14 +220,14 @@ export default Component.extend(
 		 */
 		limitedNewY: computed('newY', 'viewportSize', 'imageHeight', {
 			get() {
-				return this.get('newY');
+				return this.newY;
 			},
 
 			set(key, value) {
 				let newY = 0;
 
-				if (this.get('imageHeight') > this.get('viewportSize.height')) {
-					newY = this.limit(value, this.get('maxY'));
+				if (this.imageHeight > this.get('viewportSize.height')) {
+					newY = this.limit(value, this.maxY);
 				}
 
 				this.set('newY', newY);
@@ -255,7 +255,7 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 
-			const hammerInstance = this.get('_hammerInstance');
+			const hammerInstance = this._hammerInstance;
 
 			hammerInstance.get('pinch').set({
 				enable: true
@@ -300,7 +300,7 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		click() {
-			return !this.get('isZoomed');
+			return !this.isZoomed;
 		},
 
 		/**
@@ -344,7 +344,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		update(imageSrc, loadingError = false) {
-			if (!this.get('isDestroyed')) {
+			if (!this.isDestroyed) {
 				this.setProperties({
 					imageSrc,
 					isLoading: false,

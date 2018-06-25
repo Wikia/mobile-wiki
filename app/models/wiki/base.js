@@ -1,5 +1,5 @@
-import EmberObject, {get} from '@ember/object';
-import {getOwner} from '@ember/application';
+import EmberObject, { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import extend from '../../utils/extend';
 
 /**
@@ -9,7 +9,7 @@ import extend from '../../utils/extend';
  * @param {string} type
  * @returns string
  */
-function getType({isMainPage, details: {type}}) {
+function getType({ isMainPage, details: { type } }) {
 	if (isMainPage) {
 		return 'website';
 	} else {
@@ -36,7 +36,7 @@ export default EmberObject.extend({
 	 * @param {Object} data
 	 * @returns {void}
 	 */
-	setData({data}) {
+	setData({ data }) {
 		let pageProperties, article;
 
 		if (data) {

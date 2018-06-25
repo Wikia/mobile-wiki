@@ -1,20 +1,28 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import {getOwner} from '@ember/application';
-import {getWithDefault, get} from '@ember/object';
+import { getOwner } from '@ember/application';
+import { getWithDefault, get } from '@ember/object';
 import Ember from 'ember';
-import {isEmpty} from '@ember/utils';
-import {run} from '@ember/runloop';
+import { isEmpty } from '@ember/utils';
+import { run } from '@ember/runloop';
 import config from '../config/environment';
 import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {WikiVariablesRedirectError, DontLogMeError} from '../utils/errors';
-import {disableCache, setResponseCaching, CachingInterval, CachingPolicy} from '../utils/fastboot-caching';
-import {escapeRegex, normalizeToUnderscore} from '../utils/string';
-import {track, trackActions} from '../utils/track';
+import {
+	WikiVariablesRedirectError,
+	DontLogMeError
+} from '../utils/errors';
+import {
+	disableCache,
+	setResponseCaching,
+	CachingInterval,
+	CachingPolicy
+} from '../utils/fastboot-caching';
+import { escapeRegex, normalizeToUnderscore } from '../utils/string';
+import { track, trackActions } from '../utils/track';
 import ApplicationModel from '../models/application';
-import getAdsModule, {isAdEngine3Loaded} from '../modules/ads';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 
 export default Route.extend(
 	Ember.TargetActionSupport,
@@ -53,13 +61,13 @@ export default Route.extend(
 		},
 
 		model(params, transition) {
-			const fastboot = this.get('fastboot');
+			const fastboot = this.fastboot;
 			const wikiPageTitle = transition.data.title;
 
 			return ApplicationModel.create(getOwner(this).ownerInjection())
 				.fetch(wikiPageTitle, transition.queryParams.uselang)
 				.then((applicationData) => {
-					this.get('wikiVariables').setProperties(applicationData.wikiVariables);
+					this.wikiVariables.setProperties(applicationData.wikiVariables);
 
 					if (fastboot.get('isFastBoot')) {
 						this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
@@ -75,7 +83,7 @@ export default Route.extend(
 						);
 						fastboot.set('response.statusCode', 302);
 					} else {
-						this.get('logger').warn(`wikiVariables error: ${error}`);
+						this.logger.warn(`wikiVariables error: ${error}`);
 					}
 
 					throw error;
@@ -83,11 +91,11 @@ export default Route.extend(
 		},
 
 		afterModel(model, transition) {
-			const fastboot = this.get('fastboot');
+			const fastboot = this.fastboot;
 
 			this._super(...arguments);
 
-			this.get('i18n').initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
+			this.i18n.initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
 				!fastboot.get('isFastBoot') &&
@@ -116,14 +124,14 @@ export default Route.extend(
 						}
 
 						if (lightboxVisible) {
-							this.get('lightbox').open('ads', {contents}, closeButtonDelay);
+							this.lightbox.open('ads', { contents }, closeButtonDelay);
 						} else {
-							this.get('lightbox').createHidden('ads', {contents}, closeButtonDelay);
+							this.lightbox.createHidden('ads', { contents }, closeButtonDelay);
 						}
 					};
 
 					adsModule.showLightbox = () => {
-						this.get('lightbox').show();
+						this.lightbox.show();
 					};
 
 					adsModule.setSiteHeadOffset = (offset) => {
@@ -159,7 +167,7 @@ export default Route.extend(
 		},
 
 		redirect(model) {
-			const fastboot = this.get('fastboot'),
+			const fastboot = this.fastboot,
 				basePath = model.wikiVariables.basePath;
 
 			if (fastboot.get('isFastBoot')) {
@@ -183,7 +191,13 @@ export default Route.extend(
 					'location',
 					`${basePath}${fastbootRequest.get('path')}`
 				);
-				fastboot.set('response.statusCode', 301);
+
+				// Use a 302 redirect for HTTPS downgrades to match the behaviour on Fastly for now (PLATFORM-3523)
+				if (protocol === 'https:' && basePath === `http://${model.wikiVariables.host}`) {
+					fastboot.set('response.statusCode', 302);
+				} else {
+					fastboot.set('response.statusCode', 301);
+				}
 
 				// TODO XW-3198
 				// We throw error to stop Ember and redirect immediately
@@ -207,7 +221,7 @@ export default Route.extend(
 			if (!this.get('fastboot.isFastBoot')) {
 				// Prevent scrolling to the top of the page after Ember is loaded
 				// See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
-				const routerScroll = this.get('router.service');
+				const routerScroll = this.get('_router.service');
 				routerScroll.set('key', get(window, 'history.state.uuid'));
 				routerScroll.update();
 
@@ -238,12 +252,12 @@ export default Route.extend(
 
 				// sets number of page views for Qualaroo
 				if (window._kiq) {
-					window._kiq.push(['set', {page_views: this.get('router._routerMicrolib.currentSequence')}]);
+					window._kiq.push(['set', { page_views: this.get('router._routerMicrolib.currentSequence') }]);
 				}
 			},
 
 			error(error, transition) {
-				const fastboot = this.get('fastboot');
+				const fastboot = this.fastboot;
 
 				// TODO XW-3198
 				// Don't handle special type of errors. Currently we use them hack Ember and stop executing application
@@ -251,7 +265,7 @@ export default Route.extend(
 					return false;
 				}
 
-				this.get('logger').error('Application error', error);
+				this.logger.error('Application error', error);
 				if (fastboot.get('isFastBoot')) {
 					fastboot.get('shoebox').put('serverError', true);
 					fastboot.set('response.statusCode', getWithDefault(error, 'code', 503));
@@ -260,7 +274,7 @@ export default Route.extend(
 					// We can't use the built-in mechanism to render error substates.
 					// When FastBoot sees that application route sends error, it dies.
 					// Instead, we transition to the error substate manually.
-					const errorDescriptor = ErrorDescriptor.create({error});
+					const errorDescriptor = ErrorDescriptor.create({ error });
 					this.intermediateTransitionTo('application_error', errorDescriptor);
 					return false;
 				}
@@ -286,7 +300,7 @@ export default Route.extend(
 				}
 
 				trackingCategory = target.dataset.trackingCategory;
-				info = this.get('wikiUrls').getLinkInfo(
+				info = this.wikiUrls.getLinkInfo(
 					title,
 					target.hash,
 					target.href,
@@ -329,7 +343,7 @@ export default Route.extend(
 					}
 				} else {
 					// Reaching this clause means something is probably wrong.
-					this.get('logger').error('Unable to open link', target.href);
+					this.logger.error('Unable to open link', target.href);
 				}
 			},
 
@@ -337,7 +351,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.get('controller').send('toggleDrawer', false);
+				this.controller.send('toggleDrawer', false);
 
 				ArticleModel.create(getOwner(this).ownerInjection())
 					.getArticleRandomTitle()
@@ -350,7 +364,7 @@ export default Route.extend(
 			},
 
 			openNav() {
-				this.get('controller').setProperties({
+				this.controller.setProperties({
 					drawerContent: 'nav',
 					drawerVisible: true
 				});

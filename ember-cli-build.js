@@ -135,26 +135,26 @@ module.exports = function (defaults) {
 
 	// Import files from node_modules, they will run both in FastBoot and browser
 	app.import('node_modules/vignette/dist/vignette.js');
-	app.import('vendor/polyfills.js', {prepend: true});
+	app.import('vendor/polyfills.js', { prepend: true });
 
 	// These will run only in browser
 	app.import('node_modules/visit-source/dist/visit-source.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 	app.import('node_modules/scriptjs/dist/script.min.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 	app.import('node_modules/hammerjs/hammer.min.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 	app.import('node_modules/ember-hammer/ember-hammer.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 	app.import('node_modules/js-cookie/src/js.cookie.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 	app.import('node_modules/lazysizes/lazysizes.js', {
-		using: [{transformation: 'fastbootShim'}]
+		using: [{ transformation: 'fastbootShim' }]
 	});
 
 	return app.toTree([

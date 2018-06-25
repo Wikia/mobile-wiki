@@ -32,7 +32,7 @@
 
 	function waitForAsyncScripts() {
 		if (!isListening) {
-			document.addEventListener('asyncScriptsLoaded', onAsyncScriptsLoaded, {once: true});
+			document.addEventListener('asyncScriptsLoaded', onAsyncScriptsLoaded, { once: true });
 			isListening = true;
 		}
 	}
@@ -41,7 +41,7 @@
 		if (window.Wikia && window.Wikia.InstantGlobals) {
 			callback(window.Wikia.InstantGlobals[key]);
 		} else {
-			gettersQueue.push({key: key, callback: callback});
+			gettersQueue.push({ key: key, callback: callback });
 			waitForAsyncScripts();
 		}
 	};
@@ -50,7 +50,7 @@
 		if (window.Wikia && window.Wikia.InstantGlobals) {
 			callback(window.Wikia.InstantGlobals);
 		} else {
-			gettersQueue.push({callback: callback});
+			gettersQueue.push({ callback: callback });
 			waitForAsyncScripts();
 		}
 	};

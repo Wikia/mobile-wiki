@@ -1,3 +1,4 @@
+import { Promise } from 'rsvp';
 import Service from '@ember/service';
 
 export function getAdsModuleMock() {
@@ -30,8 +31,21 @@ export default function (owner) {
 			this._super(...arguments);
 
 			this.module = getAdsModuleMock();
+			this.slotNames = {
+				bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
+				invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
+				invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
+				mobileInContent: 'MOBILE_IN_CONTENT',
+				mobilePreFooter: 'MOBILE_PREFOOTER',
+				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+			};
 		},
 		destroyAdSlotComponents() {},
-		pushAdSlotComponent() {}
+		pushAdSlotComponent() {},
+		addWaitFor() {},
+		getWaits() {
+			return Promise.resolve();
+		},
+		clearWaits() {}
 	}));
 }

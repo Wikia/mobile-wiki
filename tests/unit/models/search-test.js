@@ -1,8 +1,8 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
-import {htmlSafe} from '@ember/string';
+import { htmlSafe } from '@ember/string';
 
 module('Unit | Model | search result page', (hooks) => {
 	setupTest(hooks);

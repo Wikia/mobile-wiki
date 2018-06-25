@@ -1,8 +1,8 @@
-import {inject as service} from '@ember/service';
-import Controller, {inject as controller} from '@ember/controller';
-import {computed} from '@ember/object';
-import {track, trackActions} from '../utils/track';
-import {normalizeToUnderscore} from '../utils/string';
+import { inject as service } from '@ember/service';
+import Controller, { inject as controller } from '@ember/controller';
+import { computed } from '@ember/object';
+import { track, trackActions } from '../utils/track';
+import { normalizeToUnderscore } from '../utils/string';
 
 export default Controller.extend({
 	application: controller(),
@@ -25,7 +25,7 @@ export default Controller.extend({
 	},
 
 	publishDisabled: computed('isPublishing', 'model.isDirty', function () {
-		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
+		return this.isPublishing === true || this.get('model.isDirty') === false;
 	}),
 
 	actions: {
@@ -34,9 +34,9 @@ export default Controller.extend({
 		 */
 		publish() {
 			this.set('isPublishing', true);
-			this.get('application').set('isLoading', true);
+			this.application.set('isLoading', true);
 
-			this.get('model').publish().then(
+			this.model.publish().then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
@@ -56,7 +56,7 @@ export default Controller.extend({
 				action: trackActions.click,
 				category: 'sectioneditor',
 				label: 'back',
-				value: this.get('publishDisabled')
+				value: this.publishDisabled
 			});
 		}
 	},
@@ -72,8 +72,8 @@ export default Controller.extend({
 		}
 
 		this.transitionToRoute('wiki-page', title).then(() => {
-			this.get('application').addAlert({
-				message: this.get('i18n').t('edit.success', {
+			this.application.addAlert({
+				message: this.i18n.t('edit.success', {
 					pageTitle: title
 				}),
 				type: 'success'
@@ -93,11 +93,11 @@ export default Controller.extend({
 	 * @returns {void}
 	 */
 	handlePublishError(error) {
-		const appController = this.get('application'),
+		const appController = this.application,
 			errorMsg = this.errorCodeMap[error] || 'edit.publish-error';
 
 		appController.addAlert({
-			message: this.get('i18n').t(errorMsg),
+			message: this.i18n.t(errorMsg),
 			type: 'alert'
 		});
 

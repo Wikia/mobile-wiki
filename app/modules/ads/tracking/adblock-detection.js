@@ -18,7 +18,7 @@ function trackBlocking(isAdBlockDetected) {
 
 function track() {
 	// Global imports:
-	const {utils} = window.Wikia.adEngine;
+	const { utils } = window.Wikia.adEngine;
 	// End of imports
 
 	if (!detectionCompleted) {

@@ -1,5 +1,5 @@
 import config from '../config/environment';
-import {escapeRegex} from '../utils/string';
+import { escapeRegex } from '../utils/string';
 
 /**
  * @param {Object} request - FastBoot request

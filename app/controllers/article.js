@@ -1,8 +1,8 @@
-import {alias, and, equal, not} from '@ember/object/computed';
-import Controller, {inject as controller} from '@ember/controller';
+import { alias, and, equal, not } from '@ember/object/computed';
+import Controller, { inject as controller } from '@ember/controller';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
-import {track, trackActions} from '../utils/track';
-import {inject as service} from '@ember/service';
+import { track, trackActions } from '../utils/track';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend(WikiPageControllerMixin, {
 	application: controller(),

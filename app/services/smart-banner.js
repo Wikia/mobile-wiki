@@ -1,7 +1,7 @@
-import {computed} from '@ember/object';
-import {and, equal, readOnly} from '@ember/object/computed';
-import Service, {inject as service} from '@ember/service';
-import {track} from '../utils/track';
+import { computed } from '@ember/object';
+import { and, equal, readOnly } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
+import { track } from '../utils/track';
 import config from '../config/environment';
 
 export default Service.extend({
@@ -36,12 +36,12 @@ export default Service.extend({
 				domain: config.cookieDomain
 			};
 
-		date.setTime(date.getTime() + (days * this.get('dayInMiliseconds')));
-		window.Cookies.set(this.get('cookieName'), 1, cookieOptions);
+		date.setTime(date.getTime() + (days * this.dayInMiliseconds));
+		window.Cookies.set(this.cookieName, 1, cookieOptions);
 	},
 
 	isCookieSet() {
-		return window.Cookies.get(this.get('cookieName')) === '1';
+		return window.Cookies.get(this.cookieName) === '1';
 	},
 
 	/**
@@ -51,8 +51,8 @@ export default Service.extend({
 	track(action) {
 		track({
 			action,
-			category: this.get('trackCategory'),
-			label: this.get('dbName')
+			category: this.trackCategory,
+			label: this.dbName
 		});
 	},
 });

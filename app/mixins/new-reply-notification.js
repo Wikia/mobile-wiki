@@ -16,7 +16,7 @@ export default Mixin.create({
 		if (hasTitle) {
 			if (hasThreeOrMoreUsers) {
 				return this.getTranslatedMessage('notifications-replied-by-multiple-users-with-title', {
-					postTitle: this.get('postTitleMarkup'),
+					postTitle: this.postTitleMarkup,
 					mostRecentUser: firstReplierName,
 					number: totalUniqueActors - 1
 				});
@@ -24,17 +24,17 @@ export default Mixin.create({
 				return this.getTranslatedMessage('notifications-replied-by-two-users-with-title', {
 					firstUser: firstReplierName,
 					secondUser: model.get('latestActors.1.name'),
-					postTitle: this.get('postTitleMarkup'),
+					postTitle: this.postTitleMarkup,
 				});
 			} else {
 				return this.getTranslatedMessage('notifications-replied-by-with-title', {
 					user: firstReplierName,
-					postTitle: this.get('postTitleMarkup'),
+					postTitle: this.postTitleMarkup,
 				});
 			}
 		} else if (hasThreeOrMoreUsers) {
 			return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {
-				username: this.get('usernameMarkup'),
+				username: this.usernameMarkup,
 				mostRecentUser: firstReplierName,
 				number: totalUniqueActors - 1
 			});

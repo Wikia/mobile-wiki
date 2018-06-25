@@ -9,7 +9,7 @@
  */
 
 import Component from '@ember/component';
-import {track, trackActions} from '../../utils/track';
+import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
 	{
@@ -29,11 +29,11 @@ export default Component.extend(
 		 */
 		click(event) {
 			this.trackClick();
-			this.get('onClick')(event);
+			this.onClick(event);
 		},
 
 		trackClick() {
-			const trackLabel = this.get('trackLabel');
+			const trackLabel = this.trackLabel;
 
 			if (trackLabel) {
 				track({

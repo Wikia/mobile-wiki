@@ -1,11 +1,11 @@
-import {later, cancel} from '@ember/runloop';
-import {on} from '@ember/object/evented';
-import {isEmpty} from '@ember/utils';
-import {computed, observer} from '@ember/object';
-import {gt, readOnly} from '@ember/object/computed';
+import { later, cancel } from '@ember/runloop';
+import { on } from '@ember/object/evented';
+import { isEmpty } from '@ember/utils';
+import { computed, observer } from '@ember/object';
+import { gt, readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 /**
  * ImageCropData
@@ -76,7 +76,7 @@ export default Component.extend(
 		hasMultipleItems: gt('model.length', 1),
 
 		screenEdgeWidthRatio: computed('hasMultipleItems', function () {
-			if (this.get('hasMultipleItems')) {
+			if (this.hasMultipleItems) {
 				return (1 / 6);
 			}
 			return 0;
@@ -84,10 +84,10 @@ export default Component.extend(
 
 
 		currentItem: computed('model', 'currentItemIndex', function () {
-			const model = this.get('model');
+			const model = this.model;
 
 			if (!isEmpty(model)) {
-				return this.get('model')[this.get('currentItemIndex')];
+				return this.model[this.currentItemIndex];
 			}
 
 			return null;
@@ -113,14 +113,14 @@ export default Component.extend(
 		},
 
 		updatePagination() {
-			if (this.get('hasMultipleItems')) {
+			if (this.hasMultipleItems) {
 				const pagination = this.element.querySelector('.featured-content-pagination');
 				const current = pagination.querySelector('.current');
 
 				if (current) {
 					current.classList.remove('current');
 				}
-				pagination.querySelector(`li[data-index="${this.get('currentItemIndex')}"]`).classList.add('current');
+				pagination.querySelector(`li[data-index="${this.currentItemIndex}"]`).classList.add('current');
 			}
 		},
 
@@ -128,9 +128,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		prevItem() {
-			if (this.get('hasMultipleItems')) {
-				if (this.get('currentItemIndex') === 0) {
-					this.set('currentItemIndex', this.get('lastIndex'));
+			if (this.hasMultipleItems) {
+				if (this.currentItemIndex === 0) {
+					this.set('currentItemIndex', this.lastIndex);
 				} else {
 					this.decrementProperty('currentItemIndex');
 				}
@@ -142,8 +142,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		nextItem() {
-			if (this.get('hasMultipleItems')) {
-				if (this.get('currentItemIndex') >= this.get('lastIndex')) {
+			if (this.hasMultipleItems) {
+				if (this.currentItemIndex >= this.lastIndex) {
 					this.set('currentItemIndex', 0);
 				} else {
 					this.incrementProperty('currentItemIndex');
@@ -208,7 +208,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		cycleThroughItems() {
-			if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
+			if (this.hasMultipleItems && !this.isTimeoutHandleSet) {
 				this.set('cycleTimeoutHandle', later(this, () => {
 					this.set('isTimeoutHandleSet', false);
 					this.nextItem();
@@ -222,8 +222,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		stopCyclingThroughItems() {
-			if (this.get('hasMultipleItems')) {
-				cancel(this.get('cycleTimeoutHandle'));
+			if (this.hasMultipleItems) {
+				cancel(this.cycleTimeoutHandle);
 				this.set('isTimeoutHandleSet', false);
 			}
 		},
@@ -232,7 +232,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		resetCycleTimeout() {
-			if (this.get('hasMultipleItems')) {
+			if (this.hasMultipleItems) {
 				this.stopCyclingThroughItems();
 				this.cycleThroughItems();
 			}

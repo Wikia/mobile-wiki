@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import config from '../config/environment';
 import i18n from 'npm:i18next';
 
@@ -8,7 +8,7 @@ export default Service.extend({
 	i18nextInstance: null,
 
 	initialize(language) {
-		const fastboot = this.get('fastboot'),
+		const fastboot = this.fastboot,
 			shoebox = fastboot.get('shoebox');
 
 		let translations = {};
@@ -16,8 +16,27 @@ export default Service.extend({
 		if (fastboot.get('isFastBoot')) {
 			const fs = FastBoot.require('fs');
 
+			// Per MediaWiki's /languages/messages/MessagesZh_*.php
+			const langMap = {
+				'zh-hk': 'zh-hant',
+				'zh-mo': 'zh-hant',
+				'zh-tw': 'zh-hant',
+				// zh differs from MW per Keiko's request in IRIS-6105
+				zh: 'zh-hant',
+				// zh is simplified chinese per crowdin conf files
+				// it would be better to name it zh-hans
+				// but would require updating design-system-i18n and all its clients
+				'zh-cn': 'zh',
+				'zh-my': 'zh',
+				'zh-sg': 'zh'
+			};
+
 			config.translationsNamespaces.forEach((namespace) => {
-				[language, language.split('-')[0], 'en'].some((lang) => {
+				[
+					langMap[language] || language,
+					language.split('-')[0],
+					'en'
+				].some((lang) => {
 					const translationPath = `dist/mobile-wiki/locales/${lang}/${namespace}.json`;
 
 					try {
@@ -28,7 +47,7 @@ export default Service.extend({
 						return true;
 					} catch (exception) {
 						if (lang === 'en') {
-							this.get('logger').error(`Translation for default language not found`, {
+							this.logger.error(`Translation for default language not found`, {
 								lang,
 								namespace,
 								path: translationPath,
@@ -64,6 +83,6 @@ export default Service.extend({
 	},
 
 	t() {
-		return this.get('i18nextInstance').t(...arguments);
+		return this.i18nextInstance.t(...arguments);
 	}
 });

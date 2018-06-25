@@ -1,18 +1,18 @@
-import {inject as service} from '@ember/service';
-import {readOnly, reads, oneWay, and} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { readOnly, reads, oneWay, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import {on} from '@ember/object/evented';
-import {observer, computed} from '@ember/object';
-import {htmlSafe} from '@ember/string';
+import { on } from '@ember/object/evented';
+import { observer, computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import VideoLoader from '../modules/video-loader';
 import extend from '../utils/extend';
-import {transparentImageBase64} from '../utils/thumbnail';
+import { transparentImageBase64 } from '../utils/thumbnail';
 import config from '../config/environment';
 import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
-import {inGroup} from '../modules/abtest';
-import {track, trackActions} from '../utils/track';
+import { inGroup } from '../modules/abtest';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	ads: service(),
@@ -38,7 +38,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	videoDuration: computed('currentVideoDetails', function () {
 		const currentVideoDuration = this.get('currentVideoDetails.duration');
 
-		if (this.get('currentVideoDetails') === this.get('initialVideoDetails')) {
+		if (this.currentVideoDetails === this.initialVideoDetails) {
 			return duration(currentVideoDuration);
 		}
 
@@ -46,7 +46,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	}),
 
 	placeholderStyle: computed('placeholderImage', function () {
-		return htmlSafe(`background-image: url(${this.get('placeholderImage')})`);
+		return htmlSafe(`background-image: url(${this.placeholderImage})`);
 	}),
 
 	init() {
@@ -63,7 +63,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			this.initVideoPlayer();
 		});
 
-		if (this.get('hasAttribution')) {
+		if (this.hasAttribution) {
 			this.set('attributionAvatarUrl', this.get('currentVideoDetails.userAvatarUrl'));
 		}
 
@@ -75,7 +75,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 				this.onScrollStateChange('inactive');
 			}
 		});
-		document.body.classList.add(this.get('bodyOnScrollActiveClass'));
+		document.body.classList.add(this.bodyOnScrollActiveClass);
 	},
 
 	didUpdateAttrs() {
@@ -84,7 +84,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	},
 
 	willDestroyElement() {
-		document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
+		document.body.classList.remove(this.bodyOnScrollActiveClass);
 		this.destroyVideoPlayer();
 	},
 
@@ -96,7 +96,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			if (this.player) {
 				this.player.setMute(true);
 			}
-			document.body.classList.remove(this.get('bodyOnScrollActiveClass'));
+			document.body.classList.remove(this.bodyOnScrollActiveClass);
 
 			// this.scrollHandler is from ember-responds-to - there is no public API to
 			// remove a scroll handler now
@@ -119,40 +119,40 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	onCreate(player) {
 		this.player = player;
 
-		this.player.on('autoplayToggle', ({enabled}) => {
-			this.setCookie(this.get('autoplayCookieName'), (enabled ? '1' : '0'));
+		this.player.on('autoplayToggle', ({ enabled }) => {
+			this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'));
 		});
 
-		this.player.on('captionsSelected', ({selectedLang}) => {
-			this.setCookie(this.get('captionsCookieName'), selectedLang);
+		this.player.on('captionsSelected', ({ selectedLang }) => {
+			this.setCookie(this.captionsCookieName, selectedLang);
 		});
 
-		this.player.on('relatedVideoPlay', ({item}) => {
+		this.player.on('relatedVideoPlay', ({ item }) => {
 			this.set('currentVideoDetails', item);
 		});
 
 		// this is a hack to fix pause/play issue while scrolling down and on scroll is active on iOS 10.3.2
-		this.player.on('pause', ({pauseReason, viewable}) => {
-			if (pauseReason === 'autostart' && viewable === 0 && this.get('isOnScrollActive')) {
+		this.player.on('pause', ({ pauseReason, viewable }) => {
+			if (pauseReason === 'autostart' && viewable === 0 && this.isOnScrollActive) {
 				this.player.play();
 			}
 		});
 
-		this.player.on('adPause', ({viewable}) => {
-			if (viewable === 0 && this.get('isOnScrollActive')) {
+		this.player.on('adPause', ({ viewable }) => {
+			if (viewable === 0 && this.isOnScrollActive) {
 				this.player.play();
 			}
 		});
 
 		// to make sure custom dimension is set and tracking event is sent
-		let onScrollState = this.get('isOnScrollActive') ? 'active' : 'inactive';
-		if (this.get('isOnScrollClosed')) {
+		let onScrollState = this.isOnScrollActive ? 'active' : 'inactive';
+		if (this.isOnScrollClosed) {
 			onScrollState = 'closed';
 		}
 		this.onScrollStateChange(onScrollState);
 
 		this.resizeVideo = this.resizeVideo.bind(this);
-		this.get('onScrollVideoWrapper').addEventListener('transitionend', this.resizeVideo);
+		this.onScrollVideoWrapper.addEventListener('transitionend', this.resizeVideo);
 	},
 
 	/**
@@ -162,18 +162,18 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		const model = this.get('model.embed'),
 			jsParams = {
 				autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY') &&
-							window.Cookies.get(this.get('autoplayCookieName')) !== '0',
-				selectedCaptionsLanguage: window.Cookies.get(this.get('captionsCookieName')),
+							window.Cookies.get(this.autoplayCookieName) !== '0',
+				selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
 				adTrackingParams: {
 					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
 					slotName: 'FEATURED'
 				},
-				containerId: this.get('videoContainerId'),
+				containerId: this.videoContainerId,
 				noAds: this.get('ads.noAds'),
 				onCreate: this.onCreate.bind(this),
 				lang: this.get('wikiVariables.language.content')
 			},
-			data = extend({}, model, {jsParams}),
+			data = extend({}, model, { jsParams }),
 			videoLoader = new VideoLoader(data);
 
 		videoLoader.loadPlayerClass();
@@ -189,14 +189,14 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			try {
 				this.player.remove();
 			} catch (e) {
-				this.get('logger').warn(e);
+				this.logger.warn(e);
 			}
 		}
 	},
 
 	setCookie(cookieName, cookieValue) {
 		window.Cookies.set(cookieName, cookieValue, {
-			expires: this.get('playerCookieExpireDays'),
+			expires: this.playerCookieExpireDays,
 			path: '/',
 			domain: config.cookieDomain
 		});
@@ -213,7 +213,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 		const currentScrollPosition = window.pageYOffset,
 			requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY,
-			isOnScrollActive = this.get('isOnScrollActive'),
+			isOnScrollActive = this.isOnScrollActive,
 			isInLandscapeMode = this.isInLandscapeMode();
 
 		if (!isInLandscapeMode) {
@@ -236,7 +236,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	onScrollStateChange(state) {
 		this.set('isOnScrollActive', state === 'active');
 		if (this.player) {
-			this.player.trigger('onScrollStateChanged', {state});
+			this.player.trigger('onScrollStateChanged', { state });
 		}
 	},
 

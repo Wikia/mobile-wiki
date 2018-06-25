@@ -1,5 +1,5 @@
-import {observer} from '@ember/object';
-import {on} from '@ember/object/evented';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
 import Mixin from '@ember/object/mixin';
 import Headroom from 'headroom';
 
@@ -10,13 +10,13 @@ export default Mixin.create({
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.initHeadroom(this.get('headroomOptions'), this.get('offset'));
+		this.initHeadroom(this.headroomOptions, this.offset);
 	},
 
 	didUpdateAttrs() {
 		this._super(...arguments);
 
-		this.initHeadroom(this.get('headroomOptions'), this.get('offset'));
+		this.initHeadroom(this.headroomOptions, this.offset);
 	},
 
 	/**
@@ -25,11 +25,11 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	initHeadroom(headroomOptions, offset) {
-		if (this.get('headroomEnabled') === false) {
+		if (this.headroomEnabled === false) {
 			return;
 		}
 
-		let headroom = this.get('headroom');
+		let headroom = this.headroom;
 
 		if (headroom) {
 			headroom.destroy();
@@ -45,12 +45,12 @@ export default Mixin.create({
 			},
 			offset,
 			onPin: () => {
-				if (!this.get('isDestroyed')) {
+				if (!this.isDestroyed) {
 					this.set('pinned', true);
 				}
 			},
 			onUnpin: () => {
-				if (!this.get('isDestroyed')) {
+				if (!this.isDestroyed) {
 					this.set('pinned', false);
 				}
 			}

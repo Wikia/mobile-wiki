@@ -1,12 +1,12 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import {htmlSafe} from '@ember/string';
-import {isArray} from '@ember/array';
-import {observer, computed} from '@ember/object';
-import {alias} from '@ember/object/computed';
+import { htmlSafe } from '@ember/string';
+import { isArray } from '@ember/array';
+import { observer, computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import RenderComponentMixin from '../mixins/render-component';
-import {normalizeToUnderscore} from '../utils/string';
+import { normalizeToUnderscore } from '../utils/string';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -27,7 +27,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			swipeLeft() {
-				if (this.get('isGallery')) {
+				if (this.isGallery) {
 					this.nextMedia();
 				}
 			},
@@ -36,7 +36,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			swipeRight() {
-				if (this.get('isGallery')) {
+				if (this.isGallery) {
 					this.prevMedia();
 				}
 			},
@@ -49,9 +49,9 @@ export default Component.extend(
 		 * gets current media or current media from gallery
 		 */
 		currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
-			const current = this.get('model');
+			const current = this.model;
 
-			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
+			return this.isGallery ? current[this.currentGalleryRef] : current;
 		}),
 
 		currentGalleryRef: computed('model.galleryRef', {
@@ -60,7 +60,7 @@ export default Component.extend(
 			},
 
 			set(key, value) {
-				const galleryLength = this.get('galleryLength') - 1;
+				const galleryLength = this.galleryLength - 1;
 
 				if (value < 0) {
 					return galleryLength;
@@ -73,21 +73,21 @@ export default Component.extend(
 		}),
 
 		galleryLength: computed('isGallery', 'model', function () {
-			return this.get('isGallery') ? this.get('model').length : -1;
+			return this.isGallery ? this.model.length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
 		isGallery: computed('model', function () {
-			return isArray(this.get('model'));
+			return isArray(this.model);
 		}),
 
 		/**
 		 * checks if current media is a video or image and which lightbox component to render
 		 */
 		lightboxComponent: computed('currentMedia', function () {
-			const currentMedia = this.get('currentMedia');
+			const currentMedia = this.currentMedia;
 
 			return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
 		}),
@@ -109,7 +109,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		click(event) {
-			if (this.get('isGallery')) {
+			if (this.isGallery) {
 				this.callClickHandler(event, true);
 			} else {
 				this._super(event);
@@ -121,7 +121,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		keyDown(event) {
-			if (this.get('isGallery')) {
+			if (this.isGallery) {
 				if (event.keyCode === 39) {
 					// handle right arrow
 					this.nextMedia();
@@ -178,7 +178,7 @@ export default Component.extend(
 		updateState() {
 			this.updateHeader();
 			this.updateFooter();
-			this.get('lightbox').set('file', normalizeToUnderscore(this.get('currentMedia.title')));
+			this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**
@@ -187,23 +187,23 @@ export default Component.extend(
 		updateHeader() {
 			let header = null;
 
-			if (this.get('isGallery')) {
-				header = `${(this.get('currentGalleryRef') + 1)} / ${this.get('galleryLength')}`;
+			if (this.isGallery) {
+				header = `${(this.currentGalleryRef + 1)} / ${this.galleryLength}`;
 			}
 
-			this.get('setHeader')(header);
+			this.setHeader(header);
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		updateFooter() {
-			const currentMedia = this.get('currentMedia');
+			const currentMedia = this.currentMedia;
 
 			if (currentMedia && currentMedia.caption) {
-				this.get('setFooter')(htmlSafe(currentMedia.caption));
+				this.setFooter(htmlSafe(currentMedia.caption));
 			} else {
-				this.get('setFooter')(null);
+				this.setFooter(null);
 			}
 		},
 	}

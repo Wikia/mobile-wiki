@@ -1,6 +1,6 @@
-import {addObserver, removeObserver} from '@ember/object/observers';
+import { addObserver, removeObserver } from '@ember/object/observers';
 import Component from '@ember/component';
-import {track, trackActions} from '../utils/track';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
 	{
@@ -39,8 +39,8 @@ export default Component.extend(
 				if (this.trackingEvent !== null) {
 					track({
 						action: trackActions.click,
-						category: this.get('trackingEvent'),
-						label: this.get('isCollapsed') ? 'collapsed' : 'expanded'
+						category: this.trackingEvent,
+						label: this.isCollapsed ? 'collapsed' : 'expanded'
 					});
 				}
 			}
@@ -50,7 +50,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		titleDidChange() {
-			if (!this.get('isCollapsed')) {
+			if (!this.isCollapsed) {
 				this.set('isCollapsed', true);
 			}
 		},

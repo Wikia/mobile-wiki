@@ -1,6 +1,6 @@
-import {inject as service} from '@ember/service';
-import {equal, alias} from '@ember/object/computed';
-import Controller, {inject as controller} from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { equal, alias } from '@ember/object/computed';
+import Controller, { inject as controller } from '@ember/controller';
 
 export default Controller.extend({
 	application: controller(),
@@ -26,7 +26,7 @@ export default Controller.extend({
 		},
 
 		onLoadMore() {
-			this.get('model').loadMore();
+			this.model.loadMore();
 		}
 	}
 });

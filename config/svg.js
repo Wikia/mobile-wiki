@@ -3,13 +3,12 @@ const designSystemAssetsPath = 'node_modules/design-system/style-guide/assets/';
 // DS icons which should be returned in bottom of body
 const designSystemInlineSVGs = [
 	'wds-company-logo-fandom',
-	'wds-company-logo-wikia-org',
 	'wds-icons-menu',
 	'wds-icons-magnifying-glass',
 	'wds-icons-magnifying-glass-small',
 	'wds-icons-image',
 ].map((name) => {
-	return {name, path: `${designSystemAssetsPath}${name}.svg`};
+	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
 
 // DS icons which should be lazy loaded
@@ -51,7 +50,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-company-store-googleplay',
 	'wds-company-logo-fandom-powered-by-wikia-two-lines',
 ].map((name) => {
-	return {name, path: `${designSystemAssetsPath}${name}.svg`};
+	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
 
 const inlineSVGs = [...designSystemInlineSVGs];

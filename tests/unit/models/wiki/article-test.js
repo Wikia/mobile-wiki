@@ -1,7 +1,7 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-import {run} from '@ember/runloop';
+import { run } from '@ember/runloop';
 
 const articleExample = {
 	data: {

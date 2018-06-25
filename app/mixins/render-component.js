@@ -1,4 +1,4 @@
-import {on} from '@ember/object/evented';
+import { on } from '@ember/object/evented';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({

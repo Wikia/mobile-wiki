@@ -22,7 +22,7 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		dismissAlert(alert) {
-			this.get('alerts').removeObject(alert);
+			this.alerts.removeObject(alert);
 		},
 	},
 });

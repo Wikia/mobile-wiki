@@ -1,4 +1,4 @@
-import {defineError} from 'ember-exex/error';
+import { defineError } from 'ember-exex/error';
 
 const errorsMap = {
 	403: 'You do not have permissions to view this page.',

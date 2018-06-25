@@ -1,5 +1,5 @@
-import {form, json} from 'mobile-wiki/utils/content-type';
-import {module, test} from 'qunit';
+import { form, json } from 'mobile-wiki/utils/content-type';
+import { module, test } from 'qunit';
 
 module('Unit | Utility | content type', () => {
 	test('it works', (assert) => {

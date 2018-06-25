@@ -1,11 +1,11 @@
 import Mixin from '@ember/object/mixin';
-import {on} from '@ember/object/evented';
+import { on } from '@ember/object/evented';
 
 export default Mixin.create({
 	addBodyClassOnActivate: on('activate', function () {
 		const controller = this.controllerFor('application');
-		const classNames = this.get('applicationWrapperClassNames') || [];
-		const applicationWrapperClassNames = controller.get('applicationWrapperClassNames');
+		const classNames = this.applicationWrapperClassNames || [];
+		const applicationWrapperClassNames = controller.applicationWrapperClassNames;
 
 		controller.set(
 			'applicationWrapperClassNames',
@@ -15,8 +15,8 @@ export default Mixin.create({
 
 	removeBodyClassOnDeactivate: on('deactivate', function () {
 		const controller = this.controllerFor('application');
-		const classNames = this.get('applicationWrapperClassNames') || [];
-		const applicationWrapperClassNames = controller.get('applicationWrapperClassNames');
+		const classNames = this.applicationWrapperClassNames || [];
+		const applicationWrapperClassNames = controller.applicationWrapperClassNames;
 
 		controller.set(
 			'applicationWrapperClassNames',

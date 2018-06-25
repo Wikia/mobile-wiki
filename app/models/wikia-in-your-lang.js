@@ -1,6 +1,6 @@
-import {inject as service} from '@ember/service';
+import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import {resolve} from 'rsvp';
+import { resolve } from 'rsvp';
 import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
@@ -50,7 +50,7 @@ export default EmberObject.extend(LanguagesMixin, {
 		}
 
 		return fetch(
-			this.get('wikiUrls').build({
+			this.wikiUrls.build({
 				host: this.get('wikiVariables.host'),
 				path: '/wikia.php',
 				query: {

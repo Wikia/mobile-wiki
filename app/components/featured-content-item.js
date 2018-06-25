@@ -1,5 +1,5 @@
-import {computed} from '@ember/object';
-import {oneWay} from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import Thumbnailer from '../modules/thumbnailer';
@@ -20,11 +20,11 @@ export default Component.extend(
 			if (imageUrl) {
 				return this.generateThumbUrl(
 					imageUrl,
-					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+					this.get(`model.imageCrop.${this.aspectRatioName}`)
 				);
 			}
 
-			return this.get('emptyGif');
+			return this.emptyGif;
 		}),
 
 		// TODO it's not treated as valid property

@@ -10,8 +10,8 @@ const trackingRouteName = 'special/adengplayerinfo';
  */
 function prepareData(data, playerName, eventName, errorCode = 0) {
 	// Global imports:
-	const {context, slotService, utils} = window.Wikia.adEngine;
-	const {getCountryCode} = window.Wikia.adProducts.utils;
+	const { context, slotService, utils } = window.Wikia.adEngine;
+	const { getCountryCode } = window.Wikia.adProducts.utils;
 	// End of imports
 
 	const slot = slotService.get(data.slotName);
@@ -55,7 +55,7 @@ export default class PlayerTracker {
 		}
 
 		// Global imports:
-		const {context} = window.Wikia.adEngine;
+		const { context } = window.Wikia.adEngine;
 		// End of imports
 
 		if (context.get('options.tracking.kikimora.player')) {

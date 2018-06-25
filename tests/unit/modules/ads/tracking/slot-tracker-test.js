@@ -1,6 +1,6 @@
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
-import {setupTest} from 'ember-qunit';
+import { setupTest } from 'ember-qunit';
 import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 
 module('Unit | Module | ads | tracking', (hooks) => {
@@ -21,14 +21,14 @@ module('Unit | Module | ads | tracking', (hooks) => {
 	}
 
 	test('tracker send correct pos value', (assert) => {
-		const adSlot = getSlot({pos: 'BOTTOM_LEADERBOARD'});
+		const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
 		SlotTracker.onRenderEnded(adSlot, {});
 		assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
 	});
 
 	test('tracker send correct pos value for multi pos value', (assert) => {
-		const adSlot = getSlot({pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS'});
+		const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS' });
 
 		SlotTracker.onRenderEnded(adSlot, {});
 		assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');

@@ -1,7 +1,7 @@
-import Service, {inject as service} from '@ember/service';
-import {computed} from '@ember/object';
+import Service, { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import config from '../config/environment';
-import {getQueryString} from '../utils/url';
+import { getQueryString } from '../utils/url';
 
 export default Service.extend({
 	fastboot: service(),
@@ -14,7 +14,7 @@ export default Service.extend({
 	langPathRegexp: '(/[a-z]{2,3}(?:-[a-z-]{2,12})?)',
 
 	getLanguageCodeFromRequest(path) {
-		const matches = path.match(new RegExp(`^${this.get('langPathRegexp')}/`));
+		const matches = path.match(new RegExp(`^${this.langPathRegexp}/`));
 
 		return matches && matches[1] || '';
 	},
@@ -53,7 +53,7 @@ export default Service.extend({
 		}
 
 		let url = `${urlParams.protocol}://${host}`;
-		let langPath = this.get('langPath');
+		let langPath = this.langPath;
 
 		// You can override langPath for external links, e.g. www.wikia.com
 		if (typeof urlParams.langPath !== 'undefined') {
@@ -107,7 +107,7 @@ export default Service.extend({
 	 */
 	getLinkInfo(currentTitle, hash, uri, queryString) {
 		const basePath = this.get('wikiVariables.basePath');
-		const localPathMatch = uri.match(`^${basePath}(?:${this.get('langPath')})(.*)$`);
+		const localPathMatch = uri.match(`^${basePath}(?:${this.langPath})(.*)$`);
 
 		// We treat local URLs with query params that aren't handled elsewhere
 		// as external links rather than as articles

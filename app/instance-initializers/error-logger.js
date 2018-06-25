@@ -1,4 +1,4 @@
-import {logError} from '../modules/event-logger';
+import { logError } from '../modules/event-logger';
 import Ember from 'ember';
 
 const whitelistErrorMessages = [
