@@ -24,7 +24,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 		wsi: slot.getTargeting().wsi || '',
 		player: playerName,
 		ad_product: data.adProduct,
-		position: data.slotName || '',
+		position: (data.slotName || '').toLowerCase(),
 		event_name: eventName,
 		ad_error_code: errorCode,
 		content_type: data.contentType,
