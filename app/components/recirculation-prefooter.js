@@ -1,3 +1,4 @@
+import { defer } from 'rsvp';
 import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -26,9 +27,12 @@ export default Component.extend(
 		liftigniter: service(),
 		i18n: service(),
 		logger: service(),
+		ads: service(),
 
 		classNames: ['recirculation-prefooter'],
 		classNameBindings: ['items:has-items'],
+
+		listRendered: null,
 
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
 			return !this.items.some((item) => item.presented_by);
@@ -49,8 +53,11 @@ export default Component.extend(
 					left: 0,
 					right: 0
 				},
-				intersectionThreshold: 0
+				intersectionThreshold: 0,
+				listRendered: defer()
 			});
+
+			this.get('ads').addWaitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.get('listRendered.promise'));
 		},
 
 		actions: {
@@ -125,6 +132,7 @@ export default Component.extend(
 								config.widget,
 								'LI'
 							);
+							this.get('listRendered').resolve();
 						}
 					});
 
