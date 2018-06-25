@@ -102,11 +102,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
 		context.set('bidders.prebid.rubiconDisplay.enabled', isGeoEnabled('wgAdDriverRubiconDisplayPrebidCountries'));
 
-		const provider = context.get('state.isMobile') ? 'mobile' : 'gpt';
 		const s1 = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : 'not a top1k wiki';
 
 		context.set('bidders.prebid.targeting', {
-			src: [provider],
+			src: ['mobile'],
 			s0: [context.get('targeting.s0') || ''],
 			s1: [s1],
 			s2: [context.get('targeting.s2') || ''],
