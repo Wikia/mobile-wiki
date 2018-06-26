@@ -62,7 +62,7 @@ class Ads {
 
 	callBidders() {
 		const { context } = window.Wikia.adEngine;
-		const { bidders } = window.Wikia.adProducts;
+		const { bidders } = window.Wikia.adProductsBidders;
 
 		context.push('delayModules', biddersDelay);
 		bidders.requestBids({

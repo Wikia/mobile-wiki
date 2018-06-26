@@ -20,7 +20,7 @@ export default {
 	},
 
 	markAsReady() {
-		const { bidders } = window.Wikia.adProducts;
+		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.updateSlotsTargeting();
 		ready = true;
