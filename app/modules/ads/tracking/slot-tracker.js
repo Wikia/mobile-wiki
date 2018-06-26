@@ -14,7 +14,24 @@ function prepareData(slot, data) {
 	// Global imports:
 	const { context } = window.Wikia.adEngine;
 	const { utils } = window.Wikia.adProducts;
+	const { bidders } = window.Wikia.adProductsBidders;
 	// End of imports
+
+	const slotName = slot.getSlotName();
+	const realSlotPrices = bidders.getDfpSlotPrices(slotName);
+	const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
+
+	function transformBidderPrice(bidderName) {
+		if (realSlotPrices && realSlotPrices[bidderName]) {
+			return realSlotPrices[bidderName];
+		}
+
+		if (currentSlotPrices && currentSlotPrices[bidderName]) {
+			return currentSlotPrices[bidderName] + 'not_used';
+		}
+
+		return '';
+	}
 
 	return {
 		pv_unique_id: window.pvUID,
@@ -32,6 +49,19 @@ function prepareData(slot, data) {
 		ad_status: data.status,
 		page_width: data.page_width,
 		viewport_height: data.viewport_height,
+		bidder_1: transformBidderPrice('indexExchange'),
+		bidder_2: transformBidderPrice('appnexus'),
+		bidder_4: transformBidderPrice('rubicon'),
+		bidder_6: transformBidderPrice('aol'),
+		bidder_7: transformBidderPrice('audienceNetwork'),
+		bidder_9: transformBidderPrice('openx'),
+		bidder_10: transformBidderPrice('appnexusAst'),
+		bidder_11: transformBidderPrice('rubicon_display'),
+		bidder_12: transformBidderPrice('a9'),
+		bidder_13: transformBidderPrice('onemobile'),
+		bidder_14: transformBidderPrice('pubmatic'),
+		bidder_15: transformBidderPrice('beachfront'),
+		bidder_16: transformBidderPrice('appnexusWebAds'),
 		kv_skin: context.get('targeting.skin'),
 		kv_pos: getPosParameter(slot.getTargeting()),
 		kv_wsi: slot.getTargeting().wsi || '',
@@ -47,7 +77,7 @@ function prepareData(slot, data) {
 		kv_top: context.get('targeting.top'),
 		labrador: utils.getSamplingResults().join(';')
 		// Missing:
-		// bidder_won, bidder_won_price, bidder_X, page_layout, rabbit, scroll_y, product_chosen
+		// bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
 	};
 }
 
