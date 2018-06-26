@@ -1,12 +1,12 @@
 const logGroup = 'bidders-delay';
-let ready = false;
+
 let resolvePromise;
 
 export default {
 	isEnabled() {
 		const { context } = window.Wikia.adEngine;
 
-		return !ready && context.get('options.prebidEnabled');
+		return context.get('options.prebidEnabled');
 	},
 
 	getName() {
@@ -23,7 +23,6 @@ export default {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.updateSlotsTargeting();
-		ready = true;
 
 		if (resolvePromise) {
 			resolvePromise();
