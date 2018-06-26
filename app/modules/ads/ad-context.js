@@ -3,6 +3,7 @@ export default {
 	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
 		'{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
 	bidders: {
+		enabled: false,
 		timeout: 2000,
 		a9: {
 			enabled: false,
@@ -28,6 +29,7 @@ export default {
 			}
 		},
 		prebid: {
+			enabled: false,
 			lazyLoadingEnabled: false,
 			aol: {
 				enabled: false,

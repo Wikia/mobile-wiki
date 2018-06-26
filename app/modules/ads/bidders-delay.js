@@ -6,7 +6,7 @@ export default {
 	isEnabled() {
 		const { context } = window.Wikia.adEngine;
 
-		return context.get('options.prebidEnabled');
+		return context.get('bidders.enabled');
 	},
 
 	getName() {
