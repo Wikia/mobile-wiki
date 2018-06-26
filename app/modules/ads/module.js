@@ -143,12 +143,15 @@ class Ads {
 	}
 
 	onTransition(options) {
+		const { context } = window.Wikia.adEngine;
 		const defaultOptions = {
 			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
 		if (this.events) {
+			context.set('state.adStack', []);
 			this.events.pageChange(Object.assign(defaultOptions, options));
+			this.engine.runAdQueue();
 		}
 	}
 
