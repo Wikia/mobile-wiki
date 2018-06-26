@@ -22,11 +22,13 @@ export default {
 	markAsReady() {
 		const { bidders } = window.Wikia.adProductsBidders;
 
-		bidders.updateSlotsTargeting();
+		if (bidders.hasAllResponses()) {
+			bidders.updateSlotsTargeting();
 
-		if (resolvePromise) {
-			resolvePromise();
-			resolvePromise = null;
+			if (resolvePromise) {
+				resolvePromise();
+				resolvePromise = null;
+			}
 		}
 	},
 };
