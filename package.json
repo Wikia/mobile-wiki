@@ -32,7 +32,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v7.1.5",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v7.1.6",
     "@wikia/tracking-opt-in": "1.0.33",
     "body-parser": "1.18.3",
     "bunyan-prettystream": "0.1.3",
