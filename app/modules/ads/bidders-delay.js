@@ -23,8 +23,6 @@ export default {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		if (bidders.hasAllResponses()) {
-			bidders.updateSlotsTargeting();
-
 			if (resolvePromise) {
 				resolvePromise();
 				resolvePromise = null;
