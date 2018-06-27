@@ -6,6 +6,12 @@ import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 module('Unit | Module | ads | tracking', (hooks) => {
 
 	hooks.beforeEach(() => {
+		window.Wikia.adProductsBidders = {
+			bidders: {
+				getCurrentSlotPrices: () => { return {}; },
+				getDfpSlotPrices: () => { return {}; }
+			}
+		};
 		sinon.spy(M.tracker.Internal, 'track');
 	});
 
@@ -15,6 +21,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
 	function getSlot(targeting) {
 		return {
+			getSlotName: () => 'BOTTOM_LEADERBOARD',
 			getStatus: () => 'success',
 			getTargeting: () => (targeting)
 		};

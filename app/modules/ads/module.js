@@ -2,6 +2,7 @@ import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
+import biddersDelay from './bidders-delay';
 
 const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
@@ -42,6 +43,7 @@ class Ads {
 	}
 
 	setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
+		const { context } = window.Wikia.adEngine;
 		const { events } = window.Wikia.adEngine;
 
 		adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
@@ -49,11 +51,23 @@ class Ads {
 		this.events = events;
 		this.events.registerEvent('MENU_OPEN_EVENT');
 
+		context.push('delayModules', biddersDelay);
+		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
+		this.callBidders();
+
 		this.startAdEngine();
 
 		this.isLoaded = true;
 		this.onReadyCallbacks.forEach((callback) => callback());
 		this.onReadyCallbacks = [];
+	}
+
+	callBidders() {
+		const { bidders } = window.Wikia.adProductsBidders;
+
+		bidders.requestBids({
+			responseListener: biddersDelay.markAsReady
+		});
 	}
 
 	startAdEngine() {
@@ -129,12 +143,15 @@ class Ads {
 	}
 
 	onTransition(options) {
+		const { context } = window.Wikia.adEngine;
 		const defaultOptions = {
 			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
 		if (this.events) {
+			context.set('state.adStack', []);
 			this.events.pageChange(Object.assign(defaultOptions, options));
+			this.engine.runAdQueue();
 		}
 	}
 
