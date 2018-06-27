@@ -43,8 +43,7 @@ class Ads {
 	}
 
 	setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-		const { context } = window.Wikia.adEngine;
-		const { events } = window.Wikia.adEngine;
+		const { context, events } = window.Wikia.adEngine;
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
