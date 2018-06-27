@@ -1,7 +1,12 @@
 const trackingRouteName = 'special/adengadinfo';
 
+const onChangeStatusToTrack = [
+	'error',
+	'viewport-conflict'
+];
+
 function getPosParameter({ pos = '' }) {
-	return (Array.isArray(pos) ? pos : pos.split(','))[0];
+	return (Array.isArray(pos) ? pos : pos.split(','))[0].toLowerCase();
 }
 
 /**
@@ -115,7 +120,8 @@ export default {
 	 */
 	onStatusChanged(adSlot, data) {
 		const status = adSlot.getStatus();
-		if (status !== 'success' && status !== 'collapse') {
+
+		if (onChangeStatusToTrack.indexOf(status) !== -1) {
 			M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
 		}
 	},
