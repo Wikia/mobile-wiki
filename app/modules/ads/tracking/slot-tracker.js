@@ -27,7 +27,7 @@ function prepareData(slot, data) {
 		}
 
 		if (currentSlotPrices && currentSlotPrices[bidderName]) {
-			return currentSlotPrices[bidderName] + 'not_used';
+			return `${currentSlotPrices[bidderName]}not_used`;
 		}
 
 		return '';
