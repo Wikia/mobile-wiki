@@ -8,6 +8,7 @@ import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	wikiUrls: service(),
+	fastboot: service(),
 
 	fetchAll(host, wikiId, language) {
 		const url = this.wikiUrls.build({
@@ -23,7 +24,11 @@ export default EmberObject.extend({
 			}
 		});
 
-		return fetch(url)
+		return fetch(url, {
+			headers: {
+				Cookie: `access_token=${this.get('fastboot.request.cookies.access_token')}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
