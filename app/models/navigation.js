@@ -18,7 +18,8 @@ export default EmberObject.extend({
 				method: 'getAllElements',
 				product: 'wikis',
 				id: wikiId,
-				lang: language
+				lang: language,
+				version: 2
 			}
 		});
 

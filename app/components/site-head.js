@@ -57,5 +57,22 @@ export default Component.extend(
 				smartBannerService.track(trackActions.impression);
 			}
 		},
+
+		track() {
+			// TODO: implement track callback for global-nav
+			console.log('track');
+		},
+
+		onSearchSuggestionChosen() {
+			// TODO: implement
+		},
+
+		goToSearchResults() {
+			// TODO: implement
+		},
+
+		onSearchToggleClicked() {
+			// TODO: implement
+		}
 	}
 );
