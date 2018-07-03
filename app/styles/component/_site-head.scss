@@ -13,7 +13,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 
 	.featured-video-on-scroll-active:not(.no-scroll) & {
-		position: static;
+		position: relative;
 	}
 }
 
@@ -25,11 +25,17 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
-body:not(.no-scroll) {
-	.with-fandom-app-smart-banner {
-		.wds-global-navigation {
-			top: 85px;
-		}
+.has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-with-partner-slot-height;
+	}
+}
+
+.no-scroll .has-partner-slot {
+	.site-head-wrapper,
+	.site-head {
+		height: $site-head-height;
 	}
 }
 
@@ -62,7 +68,7 @@ body:not(.no-scroll) {
 .bfaa-template {
 	.site-head-headroom-top {
 		.wds-global-navigation {
-			position: static;
+			position: relative;
 		}
 	}
 }

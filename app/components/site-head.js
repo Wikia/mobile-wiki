@@ -14,10 +14,12 @@ export default Component.extend(
 		smartBanner: service(),
 
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar'],
+		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
 		tagName: 'div',
 		themeBar: false,
 		offset: 0,
+
+		partnerSlot: readOnly('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
