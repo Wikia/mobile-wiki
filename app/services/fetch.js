@@ -6,8 +6,8 @@ export default fetch.extend({
 	init() {
 		this.config = {
 			internalCache: config.fastbootOnly.mediawikiDomain,
-			servicesExternalHost: config.services.domain,
-			servicesInternalHost: config.services.domain
+			servicesExternalHost: `https://${config.services.domain}`,
+			servicesInternalHost: `https://${config.services.domain}`
 		};
 
 		this._super(...arguments);
