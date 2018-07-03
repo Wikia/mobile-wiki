@@ -351,8 +351,6 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.controller.send('toggleDrawer', false);
-
 				ArticleModel.create(getOwner(this).ownerInjection())
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
@@ -364,10 +362,7 @@ export default Route.extend(
 			},
 
 			openNav() {
-				this.controller.setProperties({
-					drawerContent: 'nav',
-					drawerVisible: true
-				});
+				// TODO: implement this
 			}
 		},
 

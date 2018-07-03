@@ -48,30 +48,11 @@ export default Component.extend({
 
 	bfaaTemplate: bool('ads.siteHeadOffset'),
 
-	drawerContentComponent: computed('activeDrawerContent', function () {
-		return `wikia-${this.activeDrawerContent}`;
-	}),
-
 	verticalClass: computed('wikiVariables', function () {
 		const vertical = this.get('wikiVariables.vertical');
 
 		return `${vertical}-vertical`;
 	}),
-
-	actions: {
-		/**
-		 * @param {string} content
-		 * @returns {void}
-		 */
-		setDrawerContent(content) {
-			this.set('activeDrawerContent', content);
-		},
-
-		closeDrawer() {
-			this.set('activeDrawerContent', null);
-			this.toggleDrawer(false);
-		}
-	},
 
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
