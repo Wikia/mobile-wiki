@@ -5,6 +5,18 @@ $site-head-box-shadow-color: rgba(0, 0, 0, .15);
 $icon-button-size: 48px;
 $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
+.wds-global-navigation {
+	z-index: $z-site-head;
+
+	.wds-global-navigation__modal {
+		z-index: $z-site-head;
+	}
+
+	.featured-video-on-scroll-active:not(.no-scroll) & {
+		position: static;
+	}
+}
+
 .site-head-headroom-un-pinned .site-head {
 	box-shadow: $site-head-default-box-shadow;
 
@@ -15,7 +27,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 body:not(.no-scroll) {
 	.with-fandom-app-smart-banner {
-		.site-head {
+		.wds-global-navigation {
 			top: 85px;
 		}
 	}
@@ -49,7 +61,7 @@ body:not(.no-scroll) {
 //Styles for BFAA
 .bfaa-template {
 	.site-head-headroom-top {
-		.site-head {
+		.wds-global-navigation {
 			position: static;
 		}
 	}
@@ -57,7 +69,7 @@ body:not(.no-scroll) {
 
 .no-scroll {
 	.bfaa-template {
-		.site-head {
+		.wds-global-navigation {
 			position: fixed;
 		}
 	}
