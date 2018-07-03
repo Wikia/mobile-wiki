@@ -152,9 +152,8 @@ export default Route.extend(
 				const surrogateKey = model.wikiVariables.surrogateKey;
 				if (surrogateKey) {
 					fastboot.get('response.headers').set('Surrogate-Key',
-						[surrogateKey, surrogateKey + '-mobile-wiki'].join(' '));
+						[surrogateKey, `${surrogateKey}-mobile-wiki`].join(' '));
 				}
-
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
 				// and we can purge the category pages
