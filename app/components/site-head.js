@@ -4,50 +4,26 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
-import NotificationsUnreadCountMixin from '../mixins/notifications-unread-count';
-import { track, trackActions } from '../utils/track';
+import { trackActions } from '../utils/track';
 import { standalone } from '../utils/browser';
 
 export default Component.extend(
-	HeadroomMixin, NotificationsUnreadCountMixin,
+	HeadroomMixin,
 	{
 		ads: service(),
-		notifications: service(),
 		smartBanner: service(),
 
 		classNames: ['site-head-container'],
-		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
+		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
-		closeIcon: 'wds-icons-cross',
 		offset: 0,
-
-		defaultWikiaHomePage: 'http://fandom.wikia.com',
-		partnerSlot: readOnly('globalNavigation.partner_slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
-		unreadNotificationsCount: alias('notifications.model.unreadCount'),
-
-		wikiaHomepageFromNav: alias('globalNavigation.logo.module.main.href'),
-		wikiaHomepage: or('wikiaHomepageFromNav', 'defaultWikiHomePage'),
-
-		svgName: alias('globalNavigation.logo.module.main.image-data.name'),
-
-		navIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.drawerVisible && this.isDrawerInClosableState() ? this.closeIcon : 'wds-icons-menu';
-		}),
-
-		searchIcon: computed('drawerContent', 'drawerVisible', function () {
-			return this.drawerVisible && this.drawerContent === 'search' ?
-				this.closeIcon : 'wds-icons-magnifying-glass';
-		}),
-
 		init() {
 			this._super(...arguments);
-
-			this.closableDrawerStates = ['nav', 'user-profile'];
 			this.headroomOptions = {
 				classes: {
 					initial: 'site-head-headroom',
@@ -70,47 +46,6 @@ export default Component.extend(
 			}
 		},
 
-		actions: {
-			/**
-			 * @param {String} icon
-			 * @returns {void}
-			 */
-			siteHeadIconClick(icon) {
-				if (this.drawerVisible && this.canBeClosed(icon)) {
-					track({
-						action: trackActions.click,
-						category: 'side-nav',
-						label: `${icon}-collapsed`
-					});
-
-					this.setDrawerContent(false);
-					this.toggleDrawer(false);
-				} else {
-					track({
-						action: trackActions.click,
-						category: 'side-nav',
-						label: `${icon}-expanded`
-					});
-
-					this.setDrawerContent(icon);
-					this.toggleDrawer(true);
-					if (this.get('ads.module')) {
-						this.get('ads.module').onMenuOpen();
-					}
-				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			trackWordmarkClick() {
-				track({
-					action: trackActions.click,
-					category: 'wordmark'
-				});
-			}
-		},
-
 		/**
 		 * @returns {void}
 		 */
@@ -122,19 +57,5 @@ export default Component.extend(
 				smartBannerService.track(trackActions.impression);
 			}
 		},
-
-		isDrawerInClosableState() {
-			return this.closableDrawerStates.indexOf(this.drawerContent) !== -1;
-		},
-
-		canBeClosed(icon) {
-			const drawerContent = this.drawerContent;
-
-			return icon === this.getPrimaryDrawerState(drawerContent);
-		},
-
-		getPrimaryDrawerState(state) {
-			return state === 'user-profile' ? 'nav' : state;
-		}
 	}
 );

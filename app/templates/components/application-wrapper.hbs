@@ -12,22 +12,6 @@
 		toggleDrawer=toggleDrawer
 		offset=ads.siteHeadOffset
 	}}
-	{{#wikia-drawer shouldBeVisible=drawerVisible}}
-		{{#if activeDrawerContent}}
-			{{component
-				drawerContentComponent
-				onEnterHandler=(action 'closeDrawer')
-				suggestionClickAction=(action 'closeDrawer')
-				setDrawerContent=(action 'setDrawerContent')
-				closeDrawer=(action 'closeDrawer')
-				outsideSuggestionsClickAction=(action 'closeDrawer')
-				loadRandomArticle=loadRandomArticle
-				globalNavigation=globalNavigation
-				noScroll=true
-				focusInput=true
-			}}
-		{{/if}}
-	{{/wikia-drawer}}
 	<div class="page-wrapper">
 		{{outlet}}
 	</div>
