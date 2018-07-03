@@ -149,10 +149,14 @@ export default Route.extend(
 				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
 				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
 				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
-				const surrogateKey = model.wikiVariables.surrogateKey;
+
+				// Send per-wiki surrogate key header
+				let surrogateKey = model.wikiVariables.surrogateKey;
 				if (surrogateKey) {
-					fastboot.get('response.headers').set('Surrogate-Key',
-						[surrogateKey, `${surrogateKey}-mobile-wiki`].join(' '));
+					// append mobile-wiki specific key
+					surrogateKey = `${surrogateKey} ${surrogateKey}-mobile-wiki`;
+					fastboot.get('response.headers').set('Surrogate-Key', surrogateKey);
+					fastboot.get('response.headers').set('X-Surrogate-Key', surrogateKey);
 				}
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
