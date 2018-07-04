@@ -12,12 +12,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		z-index: $z-site-head;
 	}
 
-	.featured-video-on-scroll-active:not(.no-scroll) & {
+	.featured-video-on-scroll-active:not(.wds-no-scroll) & {
 		position: static;
 	}
 }
 
-body:not(.no-scroll) {
+body:not(.wds-no-scroll) {
 	.with-fandom-app-smart-banner {
 		.wds-global-navigation {
 			top: 85px;
@@ -39,7 +39,7 @@ body:not(.no-scroll) {
 	}
 }
 
-.no-scroll .has-partner-slot {
+.wds-no-scroll .has-partner-slot {
 	.site-head-wrapper,
 	.wds-global-navigation {
 		height: $site-head-height;
@@ -80,7 +80,7 @@ body:not(.no-scroll) {
 	}
 }
 
-.no-scroll {
+.wds-no-scroll {
 	.bfaa-template {
 		.wds-global-navigation {
 			position: fixed;
