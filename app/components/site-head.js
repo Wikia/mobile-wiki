@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import Component from '@ember/component';
 import HeadroomMixin from '../mixins/headroom';
-import { trackActions } from '../utils/track';
+import { track, trackActions } from '../utils/track';
 import { standalone } from '../utils/browser';
 
 export default Component.extend(
@@ -12,6 +12,7 @@ export default Component.extend(
 	{
 		ads: service(),
 		smartBanner: service(),
+		router: service(),
 
 		classNames: ['site-head-container'],
 		classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
@@ -60,21 +61,18 @@ export default Component.extend(
 			}
 		},
 
-		track() {
-			// TODO: implement track callback for global-nav
-			console.log('track');
+		track(data) {
+			track(data);
 		},
 
-		onSearchSuggestionChosen() {
-			// TODO: implement
+		onSearchSuggestionChosen({ uri }) {
+			this.router.transitionTo('wiki-page', uri);
 		},
 
-		goToSearchResults() {
-			// TODO: implement
-		},
-
-		onSearchToggleClicked() {
-			// TODO: implement
+		goToSearchResults(value) {
+			this.router.transitionTo('search', {
+				queryParams: { query: value }
+			});
 		}
 	}
 );
