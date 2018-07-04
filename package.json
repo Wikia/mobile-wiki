@@ -117,7 +117,7 @@
     "loader.js": "4.7.0",
     "mercury-shared": "github:wikia/mercury-shared#6f9e571b277dc9bdd09fbb8295bc36acc3052ece",
     "proxying-agent": "2.2.1",
-    "qunit-dom": "0.6.3",
+    "qunit-dom": "0.7.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.9.1",
