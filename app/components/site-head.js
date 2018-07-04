@@ -19,7 +19,7 @@ export default Component.extend(
 		themeBar: false,
 		offset: 0,
 
-		partnerSlot: readOnly('globalNavigation.partner_slot'),
+		partnerSlot: readOnly('globalNavigation.partner-slot'),
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
