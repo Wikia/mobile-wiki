@@ -13,11 +13,18 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 
 	.featured-video-on-scroll-active:not(.no-scroll) & {
-		position: relative;
+		position: static;
 	}
 }
 
-.site-head-headroom-un-pinned .site-head {
+body:not(.no-scroll) {
+	.with-fandom-app-smart-banner {
+		.wds-global-navigation {
+			top: 85px;
+		}
+	}
+}
+.site-head-headroom-un-pinned .wds-global-navigation {
 	box-shadow: $site-head-default-box-shadow;
 
 	&.no-shadow {
@@ -27,14 +34,14 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 .has-partner-slot {
 	.site-head-wrapper,
-	.site-head {
+	.wds-global-navigation {
 		height: $site-head-with-partner-slot-height;
 	}
 }
 
 .no-scroll .has-partner-slot {
 	.site-head-wrapper,
-	.site-head {
+	.wds-global-navigation {
 		height: $site-head-height;
 	}
 }
@@ -68,7 +75,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 .bfaa-template {
 	.site-head-headroom-top {
 		.wds-global-navigation {
-			position: relative;
+			position: static;
 		}
 	}
 }
