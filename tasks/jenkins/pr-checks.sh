@@ -40,7 +40,6 @@ failTests() {
 setupNpm() {
 	updateGit "Setup" pending "updating node modules"
 
-	npm run nuke
 	git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf ssh://git@github.com/
 	npm install --no-save || error=true
 
