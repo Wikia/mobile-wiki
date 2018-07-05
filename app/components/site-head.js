@@ -73,6 +73,8 @@ export default Component.extend(
 			this.router.transitionTo('search', {
 				queryParams: { query: value }
 			});
-		}
+		},
+
+		onLinkClicked() {}
 	}
 );

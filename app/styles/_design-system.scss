@@ -4,9 +4,16 @@
 @import 'node_modules/design-system/dist/scss/wds-components/is-hidden';
 @import 'node_modules/design-system/dist/scss/wds-components/menu-chevron';
 @import 'node_modules/design-system/dist/scss/wds-components/icons';
+@import 'node_modules/design-system/dist/scss/wds-components/dropdowns';
 @import 'node_modules/design-system/dist/scss/wds-components/lists';
 @import 'node_modules/design-system/dist/scss/wds-components/global-footer/common';
 @import 'node_modules/design-system/dist/scss/wds-components/global-footer/breakpoint-l-down';
 @import 'node_modules/design-system/dist/scss/wds-components/global-navigation';
+@import 'node_modules/design-system/dist/scss/wds-components/community-bar';
+
+.wds-community-bar__navigation .wds-dropdown {
+	display: block;
+}
+
 @import 'node_modules/design-system/dist/scss/wds-components/avatar';
 @import 'node_modules/design-system/dist/scss/wds-components/no-scroll';
