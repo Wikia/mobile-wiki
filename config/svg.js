@@ -10,7 +10,8 @@ const designSystemInlineSVGs = [
 	'wds-icons-image',
 	'wds-icons-menu-small',
 	'wds-icons-reply-small',
-	'wds-icons-dropdown-tiny'
+	'wds-icons-dropdown-tiny',
+	'wds-company-logo-fandom-heart'
 ].map((name) => {
 	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
