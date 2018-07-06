@@ -1,0 +1,12 @@
+.wds-community-bar {
+	.wds-dropdown {
+		&::before,
+		&::after {
+			z-index: $z-9;
+		}
+
+		&__content {
+			z-index: $z-9;
+		}
+	}
+}
