@@ -13,7 +13,7 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 
 	.featured-video-on-scroll-active:not(.wds-no-scroll) & {
-		position: static;
+		position: relative;
 	}
 }
 
@@ -76,7 +76,7 @@ body:not(.wds-no-scroll) {
 .bfaa-template {
 	.site-head-headroom-top {
 		.wds-global-navigation {
-			position: static;
+			position: relative;
 		}
 	}
 }
