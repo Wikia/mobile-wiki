@@ -40,7 +40,7 @@
     "compression": "1.7.2",
     "cors": "2.8.4",
     "deep-extend": "0.5.1",
-    "design-system": "github:Wikia/design-system#f6d384225e7bd504ac449938e24143bbd38ea3a0",
+    "design-system": "github:Wikia/design-system#57723e2562502d26404f8d1da39346c8e216b2b7",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
