@@ -24,6 +24,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 	context.extend(basicContext);
 
+	if (adsContext.targeting.hasFeaturedVideo) {
+		context.set('src', 'premium');
+	}
+
 	if (adsContext.opts.isAdTestWiki) {
 		context.set('src', 'test');
 	}
