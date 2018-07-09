@@ -150,6 +150,15 @@ export default Route.extend(
 				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
 				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
 
+				// Send per-wiki surrogate key header
+				let surrogateKey = model.wikiVariables.surrogateKey;
+				if (surrogateKey) {
+					// append mobile-wiki specific key
+					surrogateKey = `${surrogateKey} ${surrogateKey}-mobile-wiki`;
+					fastboot.get('response.headers').set('Surrogate-Key', surrogateKey);
+					fastboot.get('response.headers').set('X-Surrogate-Key', surrogateKey);
+				}
+
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
 				// and we can purge the category pages
 				if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
