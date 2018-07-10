@@ -85,6 +85,10 @@
 		&.has-portable-infobox {
 			background-color: $infobox-background;
 		}
+
+		.is-on-scroll-active & {
+			visibility: hidden;
+		}
 	}
 
 	&__attribution-inner-container {
