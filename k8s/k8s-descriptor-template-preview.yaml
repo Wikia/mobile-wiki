@@ -33,6 +33,7 @@ spec:
       labels:
         app: mobile-wiki-preview
     spec:
+      serviceAccountName: k8s-pod
       initContainers:
       - args:
         - secret/chef/google/analytics
@@ -40,12 +41,9 @@ spec:
         - name: VAULT_ADDR # This isn't required in prod but must be set for dev
           value: active.vault.service.${dc}.consul:8200
         name: secrets
-        image: artifactory.wikia-inc.com/ops/init-vault:0.0.14
+        image: artifactory.wikia-inc.com/ops/init-vault:0.0.27
         imagePullPolicy: Always
         volumeMounts: # vault auth cert is read from here
-        - name: host-chef
-          mountPath: /etc/chef/
-          readOnly: true
         - name: secrets-dir # secrets are stored here
           mountPath: /var/lib/secrets
       containers:
@@ -88,9 +86,6 @@ spec:
         - name: secrets-dir # secrets will be stored here
           emptyDir:
             medium: Memory
-        - name: host-chef # the init container uses client certs to auth against vault
-          hostPath:
-            path: /etc/chef
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
