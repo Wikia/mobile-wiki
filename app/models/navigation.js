@@ -47,7 +47,8 @@ export default EmberObject.extend({
 			.then((navigationData) => {
 				return {
 					globalFooter: navigationData['global-footer'],
-					globalNavigation: navigationData['global-navigation']
+					globalNavigation: navigationData['global-navigation'],
+					communityHeader: navigationData['community-header']
 				};
 			});
 	}

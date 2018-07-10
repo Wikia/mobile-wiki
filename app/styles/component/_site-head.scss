@@ -12,12 +12,12 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 		z-index: $z-site-head;
 	}
 
-	.featured-video-on-scroll-active:not(.wds-no-scroll) & {
-		position: static;
+	.featured-video-on-scroll-active:not(.wds-no-scroll):not(.fandom-app-smart-banner-passed) .with-fandom-app-smart-banner & {
+		position: relative;
 	}
 }
 
-body:not(.wds-no-scroll) {
+body:not(.wds-no-scroll):not(.featured-video-on-scroll-active) {
 	.with-fandom-app-smart-banner {
 		.wds-global-navigation {
 			top: 85px;
@@ -76,7 +76,7 @@ body:not(.wds-no-scroll) {
 .bfaa-template {
 	.site-head-headroom-top {
 		.wds-global-navigation {
-			position: static;
+			position: relative;
 		}
 	}
 }

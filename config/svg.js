@@ -8,6 +8,10 @@ const designSystemInlineSVGs = [
 	'wds-icons-magnifying-glass',
 	'wds-icons-magnifying-glass-small',
 	'wds-icons-image',
+	'wds-icons-menu-small',
+	'wds-icons-reply-small',
+	'wds-icons-dropdown-tiny',
+	'wds-company-logo-fandom-heart'
 ].map((name) => {
 	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
@@ -24,7 +28,6 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-cross',
 	'wds-icons-cross-tiny',
 	'wds-icons-download',
-	'wds-icons-dropdown-tiny',
 	'wds-icons-facebook',
 	'wds-icons-grid',
 	'wds-icons-instagram',
@@ -39,7 +42,6 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-pencil-small',
 	'wds-icons-play',
 	'wds-icons-reply',
-	'wds-icons-reply-small',
 	'wds-icons-reply-tiny',
 	'wds-icons-twitter',
 	'wds-icons-upvote',

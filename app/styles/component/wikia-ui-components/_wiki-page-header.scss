@@ -43,18 +43,6 @@
 		padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
 	}
 
-	&__site-name-block {
-		@extend %wiki-page-header-element;
-
-		font-size: 12px;
-
-		.wds-icon {
-			position: relative;
-			top: 2px;
-			transform: rotate(180deg);
-		}
-	}
-
 	&__site-link {
 		color: inherit;
 	}
@@ -71,10 +59,6 @@
 		font-weight: bold;
 		line-height: 32px;
 		word-break: break-word;
-	}
-
-	&__site-name-block ~ &__title {
-		margin-top: 3px;
 	}
 
 	&__subtitle {
