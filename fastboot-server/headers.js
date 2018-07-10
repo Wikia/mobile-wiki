@@ -21,7 +21,8 @@ module.exports = function (req, res, next) {
 	if (req.headers['fastly-ssl']) {
 		const cspPolicy = 'default-src https: \'self\' data: blob:; ' +
 			'script-src https: \'self\' data: \'unsafe-inline\' \'unsafe-eval\' blob:; ' +
-			'style-src https: \'self\' \'unsafe-inline\' blob:; ';
+			'style-src https: \'self\' \'unsafe-inline\' blob:; '+
+			'frame-ancestors https://*.' + config.servicesDomain + ';';
 		const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
 		res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
 	}
