@@ -3,9 +3,11 @@ import require from 'require';
 
 module('Unit | Utility | url', (hooks) => {
 	let extractEncodedTitle;
+	let addQueryParams;
 
 	hooks.beforeEach(() => {
 		extractEncodedTitle = require('mobile-wiki/utils/url').extractEncodedTitle;
+		addQueryParams = require('mobile-wiki/utils/url').addQueryParams;
 	});
 
 	test('test empty string', (assert) => {
@@ -87,6 +89,33 @@ module('Unit | Utility | url', (hooks) => {
 				hasAttribute: () => testCase.hasOwnProperty('href'),
 				getAttribute: () => testCase.href
 			});
+
+			assert.equal(result, testCase.expected);
+		});
+	});
+
+	test('add correctly query param', (assert) => {
+		const testCases = [
+			{
+				href: 'http://google.com',
+				params: {
+					q1: 'aa',
+					q2: 'bb'
+				},
+				expected: 'http://google.com?q1=aa&q2=bb'
+			},
+			{
+				href: 'http://google.com?someinitialqp=asdf',
+				params: {
+					q1: 'aa',
+					q2: 'bb'
+				},
+				expected: 'http://google.com?someinitialqp=asdf&q1=aa&q2=bb'
+			},
+		];
+
+		testCases.forEach((testCase) => {
+			const result = addQueryParams(testCase.href, testCase.params);
 
 			assert.equal(result, testCase.expected);
 		});
