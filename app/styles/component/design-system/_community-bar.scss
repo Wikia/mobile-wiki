@@ -9,4 +9,8 @@
 			z-index: $z-6;
 		}
 	}
+
+	.site-head-headroom-not-top & {
+		margin-top: 85px;
+	}
 }
