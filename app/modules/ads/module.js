@@ -54,6 +54,7 @@ class Ads {
 		context.push('delayModules', biddersDelay);
 		events.on(events.AD_SLOT_CREATED, (slot) => {
 			bidders.updateSlotTargeting(slot.getSlotName());
+			bidders.refreshBids(slot.config);
 		});
 		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
 		this.callBidders();
