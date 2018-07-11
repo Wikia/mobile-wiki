@@ -10,6 +10,26 @@ function getPosParameter({ pos = '' }) {
 	return (Array.isArray(pos) ? pos : pos.split(','))[0].toLowerCase();
 }
 
+function checkOptIn() {
+	let geoRequires = true;
+
+	if (window.M === 'undefined') {
+		geoRequires = true;
+	} else if (typeof window.M.geoRequiresConsent !== 'undefined') {
+		geoRequires = window.M.geoRequiresConsent;
+	} else if (typeof window.M.continent !== 'undefined') {
+		geoRequires = window.M.continent === 'EU';
+	}
+
+	if (geoRequires) {
+		const { context } = window.Wikia.adEngine;
+
+		return context.get('options.trackingOptIn') ? 'yes' : 'no';
+	}
+
+	return '';
+}
+
 /**
  * Prepare data for render ended tracking
  * @param {Object} slot
@@ -81,7 +101,8 @@ function prepareData(slot, data) {
 		kv_esrb: context.get('targeting.esrb'),
 		kv_ref: context.get('targeting.ref'),
 		kv_top: context.get('targeting.top'),
-		labrador: utils.getSamplingResults().join(';')
+		labrador: utils.getSamplingResults().join(';'),
+		opt_in: checkOptIn()
 		// Missing:
 		// bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
 	};
