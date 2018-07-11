@@ -96,6 +96,7 @@ export default {
 			incontent_boxad_1: {
 				adProduct: 'incontent_boxad_1',
 				audioSegment: '',
+				bidderAlias: 'mobile_in_content',
 				group: 'HiVi',
 				options: {},
 				repeat: {
