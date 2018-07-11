@@ -142,7 +142,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 }
 
 function init() {
-	const { AdEngine, events } = window.Wikia.adEngine;
+	const { AdEngine, context, events } = window.Wikia.adEngine;
 
 	const engine = new AdEngine();
 
