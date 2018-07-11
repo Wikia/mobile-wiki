@@ -25,6 +25,10 @@ body:not(.wds-no-scroll):not(.featured-video-on-scroll-active) {
 	}
 }
 
+body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-head-headroom-not-top .wds-community-bar {
+	margin-top: 85px;
+}
+
 .site-head-headroom-un-pinned .wds-global-navigation {
 	box-shadow: $site-head-default-box-shadow;
 
