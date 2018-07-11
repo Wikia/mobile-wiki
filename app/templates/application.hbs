@@ -1,12 +1,11 @@
 {{head-layout}}
 {{#application-wrapper
-	activeDrawerContent=drawerContent
 	alertNotifications=alertNotifications
 	class=applicationWrapperClassNames
-	drawerVisible=drawerVisible
 	fullPage=fullPage
 	globalNavigation=model.navigation.globalNavigation
 	globalFooter=model.navigation.globalFooter
+	communityHeader=model.navigation.communityHeader
 	handleLink=(action 'handleLink')
 	isLoading=isLoading
 	isSearchPage=isSearchPage
@@ -14,9 +13,7 @@
 	loadRandomArticle=(action 'loadRandomArticle')
 	siteHeadNoShadow=siteHeadNoShadow
 	themeBar=themeBar
-	toggleDrawer=(action 'toggleDrawer')
 	toggleSiteHeadShadow=(action 'toggleSiteHeadShadow')
-	toggleUserMenu=(action 'toggleUserMenu')
 	userMenuVisible=userMenuVisible
 }}
 	{{outlet}}

@@ -475,8 +475,8 @@ export default function (owner) {
 								"type": "wds-svg",
 								"name": "wds-company-logo-fandom-powered-by-wikia-two-lines"
 							},
-							"href": "http://fandom.wikia.com",
-							"title": {"type": "text", "value": "Fandom powered by Wikia"},
+							"href": "\/\/fandom.wikia.com\/",
+							"title": { "type": "text", "value": "Fandom powered by Wikia" },
 							"tracking_label": "logo"
 						},
 						"company_overview": {
@@ -493,7 +493,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-company-overview-link-about"
 								},
-								"href": "http://www.wikia.com/about",
+								"href": "\/\/www.wikia.com\/about",
 								"tracking_label": "company-overview.about"
 							}, {
 								"type": "link-text",
@@ -501,7 +501,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-company-overview-link-careers"
 								},
-								"href": "http://careers.wikia.com",
+								"href": "https:\/\/careers.wikia.com",
 								"tracking_label": "company-overview.careers"
 							}, {
 								"type": "link-text",
@@ -509,7 +509,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-company-overview-link-press"
 								},
-								"href": "http://fandom.wikia.com/press",
+								"href": "\/\/fandom.wikia.com\/press",
 								"tracking_label": "company-overview.press"
 							}, {
 								"type": "link-text",
@@ -517,7 +517,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-company-overview-link-contact"
 								},
-								"href": "http://fandom.wikia.com/contact",
+								"href": "\/\/fandom.wikia.com\/about#contact",
 								"tracking_label": "company-overview.contact"
 							}]
 						},
@@ -528,7 +528,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-site-overview-link-terms-of-use"
 								},
-								"href": "http://www.wikia.com/Terms_of_use",
+								"href": "\/\/www.wikia.com\/Terms_of_use",
 								"tracking_label": "site-overview.terms-of-use"
 							}, {
 								"type": "link-text",
@@ -536,7 +536,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-site-overview-link-privacy-policy"
 								},
-								"href": "http://www.wikia.com/Privacy_Policy",
+								"href": "\/\/www.wikia.com\/Privacy_Policy",
 								"tracking_label": "site-overview.privacy-policy"
 							}, {
 								"type": "link-text",
@@ -544,7 +544,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-site-overview-link-global-sitemap"
 								},
-								"href": "http://www.wikia.com/Sitemap",
+								"href": "\/\/www.wikia.com\/Sitemap",
 								"tracking_label": "site-overview.global-sitemap"
 							}, {
 								"type": "link-text",
@@ -552,7 +552,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-site-overview-link-local-sitemap"
 								},
-								"href": "/wiki/Local_Sitemap",
+								"href": "\/wiki\/Local_Sitemap",
 								"tracking_label": "site-overview.local-sitemap"
 							}]
 						},
@@ -567,7 +567,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-create-wiki-link-start-wikia"
 								},
-								"href": "http://www.wikia.com/Special:CreateNewWiki",
+								"href": "\/\/www.wikia.com\/Special:CreateNewWiki",
 								"tracking_label": "start-a-wiki"
 							}]
 						},
@@ -576,32 +576,38 @@ export default function (owner) {
 								"type": "line-text",
 								"title": {
 									"type": "translatable-text",
-									"key": "global-footer-community-apps-header"
+									"key": "global-footer-fandom-app-header"
 								}
 							},
 							"description": {
 								"type": "translatable-text",
-								"key": "global-footer-community-apps-description"
+								"key": "global-footer-fandom-app-description"
 							},
 							"links": [{
 								"type": "link-image",
 								"image": "wds-company-store-appstore",
-								"image-data": {"type": "wds-svg", "name": "wds-company-store-appstore"},
+								"image-data": {
+									"type": "wds-svg",
+									"name": "wds-company-store-appstore"
+								},
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-community-apps-link-app-store"
 								},
-								"href": "https://itunes.apple.com/developer/wikia-inc./id422467077",
+								"href": "https:\/\/itunes.apple.com\/us\/app\/fandom-videos-news-reviews\/id1230063803?ls=1&mt=8",
 								"tracking_label": "community-apps.app-store"
 							}, {
 								"type": "link-image",
 								"image": "wds-company-store-googleplay",
-								"image-data": {"type": "wds-svg", "name": "wds-company-store-googleplay"},
+								"image-data": {
+									"type": "wds-svg",
+									"name": "wds-company-store-googleplay"
+								},
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-community-apps-link-google-play"
 								},
-								"href": "https://play.google.com/store/apps/developer?id=Fandom+powered+by+Wikia",
+								"href": "https:\/\/play.google.com\/store\/apps\/details?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dglobalfooter",
 								"tracking_label": "community-apps.google-play"
 							}]
 						},
@@ -610,18 +616,28 @@ export default function (owner) {
 								"type": "translatable-text",
 								"key": "global-footer-licensing-and-vertical-description",
 								"params": {
-									"sitename": {"type": "text", "value": "Wikia"},
+									"sitename": {
+										"type": "text",
+										"value": "Harry Potter Wiki"
+									},
 									"vertical": {
 										"type": "translatable-text",
-										"key": "global-footer-licensing-and-vertical-description-param-vertical-games"
+										"key": "global-footer-licensing-and-vertical-description-param-vertical-books"
 									},
 									"license": {
 										"type": "link-text",
-										"title": {"type": "text", "value": "CC-BY-SA"},
-										"href": "http://www.wikia.com/Licensing",
+										"title": { "type": "text", "value": "CC-BY-SA" },
+										"href": "http:\/\/www.wikia.com\/Licensing",
 										"tracking_label": "license"
 									}
 								}
+							}
+						},
+						"mobile_site_button": {
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-footer-mobile-site-link"
 							}
 						},
 						"fandom_overview": {
@@ -632,7 +648,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-fandom-overview-link-vertical-games"
 								},
-								"href": "http://fandom.wikia.com/games",
+								"href": "\/\/fandom.wikia.com\/games",
 								"tracking_label": "fandom-overview.games"
 							}, {
 								"type": "link-branded",
@@ -641,7 +657,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-fandom-overview-link-vertical-movies"
 								},
-								"href": "http://fandom.wikia.com/movies",
+								"href": "\/\/fandom.wikia.com\/movies",
 								"tracking_label": "fandom-overview.movies"
 							}, {
 								"type": "link-branded",
@@ -650,7 +666,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-fandom-overview-link-vertical-tv"
 								},
-								"href": "http://fandom.wikia.com/tv",
+								"href": "\/\/fandom.wikia.com\/tv",
 								"tracking_label": "fandom-overview.tv"
 							}, {
 								"type": "link-branded",
@@ -659,64 +675,67 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-fandom-overview-link-explore-wikis"
 								},
-								"href": "http://fandom.wikia.com/explore",
+								"href": "\/\/fandom.wikia.com\/explore",
 								"tracking_label": "fandom-overview.explore-wikis"
 							}]
 						},
 						"follow_us": {
 							"header": {
 								"type": "line-text",
-								"title": {"type": "translatable-text", "key": "global-footer-follow-us-header"}
+								"title": {
+									"type": "translatable-text",
+									"key": "global-footer-follow-us-header"
+								}
 							},
 							"links": [{
 								"type": "link-image",
 								"image": "wds-icons-facebook",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-facebook"},
+								"image-data": { "type": "wds-svg", "name": "wds-icons-facebook" },
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-follow-us-link-facebook"
 								},
-								"href": "https://www.facebook.com/getfandom",
+								"href": "https:\/\/www.facebook.com\/getfandom",
 								"tracking_label": "follow-us.facebook"
 							}, {
 								"type": "link-image",
 								"image": "wds-icons-twitter",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-twitter"},
+								"image-data": { "type": "wds-svg", "name": "wds-icons-twitter" },
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-follow-us-link-twitter"
 								},
-								"href": "https://twitter.com/getfandom",
+								"href": "https:\/\/twitter.com\/getfandom",
 								"tracking_label": "follow-us.twitter"
 							}, {
 								"type": "link-image",
 								"image": "wds-icons-youtube",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-youtube"},
+								"image-data": { "type": "wds-svg", "name": "wds-icons-youtube" },
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-follow-us-link-youtube"
 								},
-								"href": "https://www.youtube.com/channel/UC988qTQImTjO7lUdPfYabgQ",
+								"href": "https:\/\/www.youtube.com\/channel\/UC988qTQImTjO7lUdPfYabgQ",
 								"tracking_label": "follow-us.youtube"
 							}, {
 								"type": "link-image",
 								"image": "wds-icons-instagram",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-instagram"},
+								"image-data": { "type": "wds-svg", "name": "wds-icons-instagram" },
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-follow-us-link-instagram"
 								},
-								"href": "https://www.instagram.com/getfandom/",
+								"href": "https:\/\/www.instagram.com\/getfandom\/",
 								"tracking_label": "follow-us.instagram"
 							}, {
 								"type": "link-image",
 								"image": "wds-icons-linkedin",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-linkedin"},
+								"image-data": { "type": "wds-svg", "name": "wds-icons-linkedin" },
 								"title": {
 									"type": "translatable-text",
 									"key": "global-footer-follow-us-link-linkedin"
 								},
-								"href": "https://www.linkedin.com/company/157252",
+								"href": "https:\/\/www.linkedin.com\/company\/157252",
 								"tracking_label": "follow-us.linkedin"
 							}]
 						},
@@ -734,7 +753,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-community-link-community-central"
 								},
-								"href": "http://community.wikia.com/wiki/Community_Central",
+								"href": "\/\/community.wikia.com\/wiki\/Community_Central",
 								"tracking_label": "community.community-central"
 							}, {
 								"type": "link-text",
@@ -742,7 +761,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-community-link-support"
 								},
-								"href": "http://community.wikia.com/wiki/Special:Contact",
+								"href": "\/\/community.wikia.com\/wiki\/Special:Contact",
 								"tracking_label": "community.support"
 							}, {
 								"type": "link-text",
@@ -750,7 +769,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-community-link-fan-contributor-program"
 								},
-								"href": "http://fandom.wikia.com/fan-contributor",
+								"href": "\/\/fandom.wikia.com\/fan-contributor",
 								"tracking_label": "community.fan-contributor"
 							}, {
 								"type": "link-text",
@@ -758,7 +777,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-community-link-wam-score"
 								},
-								"href": "http://www.wikia.com/WAM",
+								"href": "\/\/www.wikia.com\/WAM",
 								"tracking_label": "community.wam"
 							}, {
 								"type": "link-text",
@@ -766,14 +785,17 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-community-link-help"
 								},
-								"href": "http://community.wikia.com/wiki/Help:Contents",
+								"href": "\/\/community.wikia.com\/wiki\/Help:Contents",
 								"tracking_label": "community.help"
 							}]
 						},
 						"advertise": {
 							"header": {
 								"type": "line-text",
-								"title": {"type": "translatable-text", "key": "global-footer-advertise-header"}
+								"title": {
+									"type": "translatable-text",
+									"key": "global-footer-advertise-header"
+								}
 							},
 							"links": [{
 								"type": "link-text",
@@ -781,7 +803,7 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-advertise-link-media-kit"
 								},
-								"href": "http://www.wikia.com/mediakit",
+								"href": "\/\/fandom.wikia.com\/mediakit",
 								"tracking_label": "advertise.media-kit"
 							}, {
 								"type": "link-text",
@@ -789,184 +811,830 @@ export default function (owner) {
 									"type": "translatable-text",
 									"key": "global-footer-advertise-link-contact"
 								},
-								"href": "http://www.wikia.com/mediakit/contact",
+								"href": "\/\/fandom.wikia.com\/mediakit#contact",
 								"tracking_label": "advertise.contact"
 							}]
 						}
 					},
 					"globalNavigation": {
 						"logo": {
-							"header": {
-								"type": "link-image",
-								"href": "http://fandom.wikia.com",
-								"image": "wds-company-logo-fandom-powered-by-wikia",
-								"image-data": {
-									"type": "wds-svg",
-									"name": "wds-company-logo-fandom-powered-by-wikia"
-								},
-								"title": {"type": "text", "value": "Fandom powered by Wikia"},
-								"tracking_label": "logo"
+							"type": "link-image",
+							"href": "\/\/fandom.wikia.com\/",
+							"image-data": {
+								"type": "wds-svg",
+								"name": "wds-company-logo-fandom-white"
 							},
-							"module": {
-								"type": "logo",
-								"main": {
-									"type": "link-image",
-									"href": "http://fandom.wikia.com",
-									"image": "wds-company-logo-fandom",
-									"image-data": {"type": "wds-svg", "name": "wds-company-logo-fandom"},
-									"title": {"type": "text", "value": "Fandom powered by Wikia"},
-									"tracking_label": "logo"
-								},
-								"tagline": {
-									"type": "link-image",
-									"href": "http://fandom.wikia.com",
-									"image-data": {
-										"type": "wds-svg",
-										"name": "wds-company-logo-powered-by-wikia"
-									},
-									"title": {"type": "text", "value": "Fandom powered by Wikia"},
-									"tracking_label": "logo-tagline"
-								}
-							}
+							"tracking-label": "logo"
 						},
 						"search": {
-							"module": {
-								"type": "search",
-								"results": {
-									"url": "http://fallout.wikia.com/wiki/Special:Search?fulltext=Search",
-									"param-name": "query",
-									"tracking_label": "search"
-								},
-								"placeholder-inactive": {
-									"type": "translatable-text",
-									"key": "global-navigation-search-placeholder-inactive"
-								},
-								"placeholder-active": {
-									"type": "translatable-text",
-									"key": "global-navigation-search-placeholder-in-wiki",
-									"params": {"sitename": {"type": "text", "value": "Wikia"}}
-								},
-								"suggestions": {
-									"url": "/index.php?action=ajax\u0026rs=getLinkSuggest\u0026format=json",
-									"param-name": "query",
-									"tracking_label": "search-suggestion"
-								}
-							}
-						},
-						"create_wiki": {
-							"header": {
-								"type": "link-text",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-create-wiki-link-start-wikia"
-								},
-								"href": "http://www.wikia.com/Special:CreateNewWiki",
-								"tracking_label": "start-a-wiki"
-							}
-						},
-						"fandom_overview": {
-							"links": [{
-								"type": "link-branded",
-								"brand": "games",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-fandom-overview-link-vertical-games"
-								},
-								"href": "http://fandom.wikia.com/games",
-								"tracking_label": "link.games"
-							}, {
-								"type": "link-branded",
-								"brand": "movies",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-fandom-overview-link-vertical-movies"
-								},
-								"href": "http://fandom.wikia.com/movies",
-								"tracking_label": "link.movies"
-							}, {
-								"type": "link-branded",
-								"brand": "tv",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-fandom-overview-link-vertical-tv"
-								},
-								"href": "http://fandom.wikia.com/tv",
-								"tracking_label": "link.tv"
-							}]
-						},
-						"wikis": {
-							"header": {
-								"type": "line-text",
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-wikis-header"
-								},
-								"tracking_label": "link.wikis"
+							"type": "search",
+							"results": {
+								"tracking-label": "search",
+								"param-name": "query",
+								"url": "\/\/harrypotter.wikia.com\/wiki\/Special:Search"
 							},
-							"links": [{
+							"placeholder-inactive": {
+								"type": "translatable-text",
+								"key": "global-navigation-search-placeholder-inactive"
+							},
+							"placeholder-active": {
+								"type": "translatable-text",
+								"key": "global-navigation-search-placeholder-in-wiki",
+								"params": {
+									"sitename": {
+										"type": "text",
+										"value": "Harry Potter Wiki"
+									}
+								}
+							},
+							"suggestions": {
+								"url": "\/\/harrypotter.wikia.com\/index.php?action=ajax&rs=getLinkSuggest&format=json",
+								"param-name": "query",
+								"tracking-label": "search-suggestion"
+							}
+						},
+						"create-wiki": {
+							"type": "link-button",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-create-wiki-link-start-wikia"
+							},
+							"href": "\/\/www.wikia.com\/Special:CreateNewWiki",
+							"tracking-label": "start-a-wiki"
+						},
+						"main-navigation": [{
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-fandom-overview-link-vertical-games"
+							},
+							"href": "\/\/fandom.wikia.com\/topics\/games",
+							"tracking-label": "link.games"
+						}, {
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-fandom-overview-link-vertical-movies"
+							},
+							"href": "\/\/fandom.wikia.com\/topics\/movies",
+							"tracking-label": "link.movies"
+						}, {
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-fandom-overview-link-vertical-tv"
+							},
+							"href": "\/\/fandom.wikia.com\/topics\/tv",
+							"tracking-label": "link.tv"
+						}, {
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-fandom-overview-link-video"
+							},
+							"href": "\/\/fandom.wikia.com\/video",
+							"tracking-label": "link.video"
+						}, {
+							"type": "link-group",
+							"title": {
+								"type": "translatable-text",
+								"key": "global-navigation-wikis-header"
+							},
+							"tracking-label": "link.wikis",
+							"items": [{
 								"type": "link-text",
 								"title": {
 									"type": "translatable-text",
 									"key": "global-navigation-wikis-explore"
 								},
-								"href": "http://fandom.wikia.com/explore",
-								"tracking_label": "link.explore"
+								"href": "\/\/fandom.wikia.com\/explore",
+								"tracking-label": "link.explore"
 							}, {
 								"type": "link-text",
 								"title": {
 									"type": "translatable-text",
 									"key": "global-navigation-wikis-community-central"
 								},
-								"href": "http://community.wikia.com/wiki/Community_Central",
-								"tracking_label": "link.community-central"
+								"href": "\/\/community.wikia.com\/wiki\/Community_Central",
+								"tracking-label": "link.community-central"
 							}, {
-								"type": "link-text",
+								"type": "link-button",
 								"title": {
 									"type": "translatable-text",
-									"key": "global-navigation-wikis-fandom-university"
+									"key": "global-navigation-create-wiki-link-start-wikia"
 								},
-								"href": "http://community.wikia.com/wiki/Fandom_University",
-								"tracking_label": "link.fandom-university"
+								"href": "\/\/www.wikia.com\/Special:CreateNewWiki",
+								"tracking-label": "link.start-a-wiki"
 							}]
-						},
+						}],
 						"anon": {
-							"header": {
-								"type": "line-image",
-								"image": "wds-icons-user",
-								"image-data": {"type": "wds-svg", "name": "wds-icons-user"},
-								"title": {
-									"type": "translatable-text",
-									"key": "global-navigation-anon-my-account"
-								},
-								"subtitle": {
-									"type": "translatable-text",
-									"key": "global-navigation-anon-my-account"
-								},
-								"tracking_label": "account"
-							},
-							"links": [{
+							"signin": {
 								"type": "link-authentication",
 								"title": {
 									"type": "translatable-text",
 									"key": "global-navigation-anon-sign-in"
 								},
-								"href": "http://www.wikia.com/signin",
+								"href": "https:\/\/www.wikia.com\/signin",
 								"param-name": "redirect",
-								"tracking_label": "account.sign-in"
-							}, {
+								"tracking-label": "account.sign-in"
+							},
+							"register": {
 								"type": "link-authentication",
 								"title": {
 									"type": "translatable-text",
 									"key": "global-navigation-anon-register"
 								},
-								"subtitle": {
-									"type": "translatable-text",
-									"key": "global-navigation-anon-register-description"
-								},
-								"href": "http://www.wikia.com/register",
+								"href": "https:\/\/www.wikia.com\/register",
 								"param-name": "redirect",
-								"tracking_label": "account.register"
+								"tracking-label": "account.register"
+							}
+						},
+						"services-domain": "https:\/\/services.wikia.com\/"
+					},
+					"communityHeader": {
+						"sitename": {
+							"type": "link-text",
+							"title": { "type": "text", "value": "Harry Potter Wiki" },
+							"href": "\/\/harrypotter.wikia.com\/wiki\/Main_Page",
+							"tracking_label": "sitename"
+						},
+						"navigation": [{
+							"type": "dropdown",
+							"title": { "type": "text", "value": "Books" },
+							"href": "\/wiki\/Category:Books_(real-world)",
+							"tracking_label": "custom-level-1",
+							"items": [{
+								"type": "dropdown",
+								"title": { "type": "text", "value": "The Seven Novels" },
+								"href": "\/wiki\/Harry_Potter_(book_series)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Philosopher's Stone"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Philosopher%27s_Stone",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Chamber of Secrets"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Chamber_of_Secrets",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Prisoner of Azkaban"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Prisoner_of_Azkaban",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Goblet of Fire"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Goblet_of_Fire",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Order of the Phoenix"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Order_of_the_Phoenix",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Half-Blood Prince"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Half-Blood_Prince",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Deathly Hallows"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Deathly_Hallows",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": {
+									"type": "text",
+									"value": "Rowling's Companion Writings"
+								},
+								"href": "\/wiki\/Category:Books_(real-world)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Fantastic Beasts and Where to Find Them"
+									},
+									"href": "\/wiki\/Fantastic_Beasts_and_Where_to_Find_Them_(real)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Quidditch Through the Ages"
+									},
+									"href": "\/wiki\/Quidditch_Through_the_Ages_(real)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "The Tales of Beedle the Bard"
+									},
+									"href": "\/wiki\/The_Tales_of_Beedle_the_Bard_(real)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Harry Potter Prequel" },
+									"href": "\/wiki\/Harry_Potter_Prequel",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Pottermore" },
+									"href": "\/wiki\/Pottermore",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Other Written Works" },
+								"href": "\/wiki\/Category:Books_(real-world)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter: A Pop-Up Book"
+									},
+									"href": "\/wiki\/Harry_Potter:_A_Pop-Up_Book",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter Film Wizardry"
+									},
+									"href": "\/wiki\/Harry_Potter_Film_Wizardry",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter Page to Screen: The Complete Filmmaking Journey"
+									},
+									"href": "\/wiki\/Harry_Potter_Page_to_Screen:_The_Complete_Filmmaking_Journey",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "LEGO Harry Potter: Building the Magical World"
+									},
+									"href": "\/wiki\/LEGO_Harry_Potter:_Building_the_Magical_World",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "LEGO Harry Potter: Characters of the Magical World"
+									},
+									"href": "\/wiki\/LEGO_Harry_Potter:_Characters_of_the_Magical_World",
+									"tracking_label": "custom-level-3"
+								}]
 							}]
+						}, {
+							"type": "dropdown",
+							"title": { "type": "text", "value": "Films" },
+							"href": "\/wiki\/Category:Films_(real-world)",
+							"tracking_label": "custom-level-1",
+							"items": [{
+								"type": "dropdown",
+								"title": { "type": "text", "value": "The Eight Films" },
+								"href": "\/wiki\/Harry_Potter_(film_series)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Philosopher's Stone"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Philosopher%27s_Stone_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Chamber of Secrets"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Chamber_of_Secrets_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Prisoner of Azkaban"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Prisoner_of_Azkaban_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Goblet of Fire"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Goblet_of_Fire_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Order of the Phoenix"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Order_of_the_Phoenix_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Half-Blood Prince"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Half-Blood_Prince_(film)",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Deathly Hallows: Part 1"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Deathly_Hallows:_Part_1",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Harry Potter and the Deathly Hallows: Part 2"
+									},
+									"href": "\/wiki\/Harry_Potter_and_the_Deathly_Hallows:_Part_2",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Other films\/documentaries" },
+								"href": "\/wiki\/Category:Films_(real-world)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Harry Potter and Me" },
+									"href": "\/wiki\/Harry_Potter_and_Me",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "The Queen's Handbag" },
+									"href": "\/wiki\/The_Queen%27s_Handbag",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "J.K. Rowling: A Year in the Life"
+									},
+									"href": "\/wiki\/J.K._Rowling:_A_Year_in_the_Life",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Magic Beyond Words: The J.K. Rowling Story"
+									},
+									"href": "\/wiki\/Magic_Beyond_Words:_The_J.K._Rowling_Story",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": {
+										"type": "text",
+										"value": "Fantastic Beasts and Where to Find Them"
+									},
+									"href": "\/wiki\/Fantastic_Beasts_and_Where_to_Find_Them_(film_trilogy)",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Actors" },
+								"href": "\/wiki\/Category:Actors_(real-world)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Daniel Radcliffe" },
+									"href": "\/wiki\/Daniel_Radcliffe",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Rupert Grint" },
+									"href": "\/wiki\/Rupert_Grint",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Emma Watson" },
+									"href": "\/wiki\/Emma_Watson",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Tom Felton" },
+									"href": "\/wiki\/Tom_Felton",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Ralph Fiennes" },
+									"href": "\/wiki\/Ralph_Fiennes",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Alan Rickman" },
+									"href": "\/wiki\/Alan_Rickman",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Maggie Smith" },
+									"href": "\/wiki\/Maggie_Smith",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Michael Gambon" },
+									"href": "\/wiki\/Michael_Gambon",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Directors" },
+								"href": "\/wiki\/Category:Directors_(real-world)",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Chris Columbus" },
+									"href": "\/wiki\/Chris_Columbus",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Alfonso Cuar\u00f3n" },
+									"href": "\/wiki\/Alfonso_Cuar%C3%B3n",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Mike Newell" },
+									"href": "\/wiki\/Mike_Newell",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "David Yates" },
+									"href": "\/wiki\/David_Yates",
+									"tracking_label": "custom-level-3"
+								}]
+							}]
+						}, {
+							"type": "dropdown",
+							"title": { "type": "text", "value": "Characters" },
+							"href": "\/wiki\/Category:Individuals",
+							"tracking_label": "custom-level-1",
+							"items": [{
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Students" },
+								"href": "\/wiki\/Category:Hogwarts_students",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Harry Potter" },
+									"href": "\/wiki\/Harry_Potter",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Hermione Granger" },
+									"href": "\/wiki\/Hermione_Granger",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Ronald Weasley" },
+									"href": "\/wiki\/Ronald_Weasley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Ginny Weasley" },
+									"href": "\/wiki\/Ginevra_Weasley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Neville Longbottom" },
+									"href": "\/wiki\/Neville_Longbottom",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Luna Lovegood" },
+									"href": "\/wiki\/Luna_Lovegood",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Teachers" },
+								"href": "\/wiki\/Category:Hogwarts_employees",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Minerva McGonagall" },
+									"href": "\/wiki\/Minerva_McGonagall",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Severus Snape" },
+									"href": "\/wiki\/Severus_Snape",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Filius Flitwick" },
+									"href": "\/wiki\/Filius_Flitwick",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Pomona Sprout" },
+									"href": "\/wiki\/Pomona_Sprout",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Horace Slughorn" },
+									"href": "\/wiki\/Horace_Slughorn",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Rubeus Hagrid" },
+									"href": "\/wiki\/Rubeus_Hagrid",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Order of the Phoenix" },
+								"href": "\/wiki\/Category:Order_of_the_Phoenix",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Albus Dumbledore" },
+									"href": "\/wiki\/Albus_Dumbledore",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Alastor Moody" },
+									"href": "\/wiki\/Alastor_Moody",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Kingsley Shacklebolt" },
+									"href": "\/wiki\/Kingsley_Shacklebolt",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Sirius Black" },
+									"href": "\/wiki\/Sirius_Black",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Remus Lupin" },
+									"href": "\/wiki\/Remus_Lupin",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Nymphadora Tonks" },
+									"href": "\/wiki\/Nymphadora_Tonks",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Ministry of Magic" },
+								"href": "\/wiki\/Category:Ministry_of_Magic_employees",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Rufus Scrimgeour" },
+									"href": "\/wiki\/Rufus_Scrimgeour",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Cornelius Fudge" },
+									"href": "\/wiki\/Cornelius_Fudge",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Dolores Umbridge" },
+									"href": "\/wiki\/Dolores_Umbridge",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Pius Thicknesse" },
+									"href": "\/wiki\/Pius_Thicknesse",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Barty Crouch Sr." },
+									"href": "\/wiki\/Bartemius_Crouch_Sr.",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Arthur Weasley" },
+									"href": "\/wiki\/Arthur_Weasley",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Death Eaters" },
+								"href": "\/wiki\/Category:Death_Eaters",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Lord Voldemort" },
+									"href": "\/wiki\/Tom_Riddle",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Bellatrix Lestrange" },
+									"href": "\/wiki\/Bellatrix_Lestrange",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Lucius Malfoy" },
+									"href": "\/wiki\/Lucius_Malfoy",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Draco Malfoy" },
+									"href": "\/wiki\/Draco_Malfoy",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Peter Pettigrew" },
+									"href": "\/wiki\/Peter_Pettigrew",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Antonin Dolohov" },
+									"href": "\/wiki\/Antonin_Dolohov",
+									"tracking_label": "custom-level-3"
+								}]
+							}, {
+								"type": "dropdown",
+								"title": { "type": "text", "value": "Muggles" },
+								"href": "\/wiki\/Category:Muggles",
+								"tracking_label": "custom-level-2",
+								"items": [{
+									"type": "link-text",
+									"title": { "type": "text", "value": "Vernon Dursley" },
+									"href": "\/wiki\/Vernon_Dursley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Petunia Dursley" },
+									"href": "\/wiki\/Petunia_Dursley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Dudley Dursley" },
+									"href": "\/wiki\/Dudley_Dursley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Marjorie Dursley" },
+									"href": "\/wiki\/Marjorie_Dursley",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Frank Bryce" },
+									"href": "\/wiki\/Frank_Bryce",
+									"tracking_label": "custom-level-3"
+								}, {
+									"type": "link-text",
+									"title": { "type": "text", "value": "Tom Riddle Sr." },
+									"href": "\/wiki\/Tom_Riddle_Sr.",
+									"tracking_label": "custom-level-3"
+								}]
+							}]
+						}, {
+							"type": "dropdown",
+							"title": { "type": "text", "value": "Community" },
+							"href": "\/wiki\/Harry_Potter_Wiki:Community_portal",
+							"tracking_label": "custom-level-1",
+							"items": [{
+								"type": "link-text",
+								"title": { "type": "text", "value": "Forums" },
+								"href": "\/wiki\/Forum:Harry_Potter_Wiki_Forums",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Chat" },
+								"href": "\/wiki\/Harry_Potter_Wiki:IRC",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Policies" },
+								"href": "\/wiki\/Harry_Potter_Wiki:Policy",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Administrators" },
+								"href": "\/wiki\/Harry_Potter_Wiki:Administrators",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Help" },
+								"href": "\/wiki\/Help:Editing",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Sandbox" },
+								"href": "\/wiki\/Harry_Potter_Wiki:Sandbox",
+								"tracking_label": "custom-level-2"
+							}, {
+								"type": "link-text",
+								"title": { "type": "text", "value": "Recent changes" },
+								"href": "\/wiki\/Special:RecentChanges",
+								"tracking_label": "custom-level-2"
+							}]
+						}, {
+							"type": "dropdown",
+							"title": {
+								"type": "translatable-text",
+								"key": "community-header-explore"
+							},
+							"image-data": { "type": "wds-svg", "name": "wds-icons-explore-tiny" },
+							"items": [{
+								"type": "link-text",
+								"title": {
+									"type": "translatable-text",
+									"key": "community-header-wiki-activity"
+								},
+								"href": "\/\/harrypotter.wikia.com\/wiki\/Special:WikiActivity",
+								"tracking_label": "explore-activity"
+							}, {
+								"type": "link-text",
+								"title": {
+									"type": "translatable-text",
+									"key": "community-header-random-page"
+								},
+								"href": "\/\/harrypotter.wikia.com\/wiki\/Special:Random",
+								"tracking_label": "explore-random"
+							}, {
+								"type": "link-text",
+								"title": {
+									"type": "translatable-text",
+									"key": "community-header-community"
+								},
+								"href": "\/\/harrypotter.wikia.com\/wiki\/Special:Community",
+								"tracking_label": "explore-community"
+							}, {
+								"type": "link-text",
+								"title": {
+									"type": "translatable-text",
+									"key": "community-header-videos"
+								},
+								"href": "\/\/harrypotter.wikia.com\/wiki\/Special:Videos",
+								"tracking_label": "explore-videos"
+							}, {
+								"type": "link-text",
+								"title": {
+									"type": "translatable-text",
+									"key": "community-header-images"
+								},
+								"href": "\/\/harrypotter.wikia.com\/wiki\/Special:Images",
+								"tracking_label": "explore-images"
+							}]
+						}, {
+							"type": "link-text",
+							"title": {
+								"type": "translatable-text",
+								"key": "community-header-discuss"
+							},
+							"href": "\/d\/f",
+							"tracking_label": "discuss",
+							"image-data": { "type": "wds-svg", "name": "wds-icons-reply-small" }
+						}],
+						"wordmark": {
+							"type": "link-image",
+							"href": "\/\/harrypotter.wikia.com\/wiki\/Main_Page",
+							"image-data": {
+								"type": "image-external",
+								"url": "https:\/\/vignette4.wikia.nocookie.net\/harrypotter\/images\/8\/89\/Wiki-wordmark.png\/revision\/latest?cb=20170307181250",
+								"width": "250",
+								"height": "65"
+							},
+							"title": { "type": "text", "value": "Harry Potter Wiki" },
+							"tracking_label": "wordmark-image"
 						}
 					}
 				}

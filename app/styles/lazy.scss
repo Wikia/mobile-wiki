@@ -1,12 +1,13 @@
 @import 'node_modules/design-system/dist/scss/wds-mixins/index';
 @import 'node_modules/design-system/dist/scss/wds-variables/index';
-@import 'node_modules/design-system/dist/scss/wds-components/avatar';
 @import 'node_modules/design-system/dist/scss/wds-components/avatar-stack';
-@import 'node_modules/design-system/dist/scss/wds-components/notifications';
+@import 'node_modules/design-system/dist/scss/wds-components/on-site-notifications';
 @import 'node_modules/design-system/dist/scss/wds-components/player';
 @import 'node_modules/design-system/dist/scss/wds-components/spinner';
-@import 'node_modules/design-system/dist/scss/wds-components/sign-out';
 @import 'node_modules/design-system/dist/scss/wds-components/toggles';
+@import 'node_modules/design-system/dist/scss/wds-components/global-navigation/user-modal';
+@import 'node_modules/design-system/dist/scss/wds-components/search-modal';
+@import 'node_modules/design-system/dist/scss/wds-components/global-navigation-search';
 @import 'settings';
 @import 'wikia-variables';
 @import 'mixin/index';
