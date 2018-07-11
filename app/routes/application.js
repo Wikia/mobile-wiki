@@ -1,3 +1,4 @@
+
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
@@ -368,10 +369,6 @@ export default Route.extend(
 					.catch((err) => {
 						this.send('error', err);
 					});
-			},
-
-			openNav() {
-				// TODO: implement this
 			}
 		},
 

@@ -74,13 +74,14 @@ body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-h
 
 .site-head-wrapper {
 	height: $site-head-height;
+	position: relative;
 }
 
 //Styles for BFAA
 .bfaa-template {
 	.site-head-headroom-top {
 		.wds-global-navigation {
-			position: relative;
+			position: static;
 		}
 	}
 }

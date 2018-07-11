@@ -41,14 +41,6 @@ export default Component.extend(RespondsToScroll, {
 		};
 	},
 
-	scroll() {
-		if (window.pageYOffset >= this.fandomAppSmartBannerHeight) {
-			document.body.classList.add('fandom-app-smart-banner-passed');
-		} else {
-			document.body.classList.remove('fandom-app-smart-banner-passed');
-		}
-	},
-
 	actions: {
 		/**
 		 * @returns {void}
@@ -68,5 +60,13 @@ export default Component.extend(RespondsToScroll, {
 		this.smartBanner.track(trackActions.install);
 		this.smartBanner.setVisibility(false);
 		this.smartBanner.setCookie(this.get('options.daysHiddenAfterView'));
+	},
+
+	scroll() {
+		if (window.pageYOffset >= this.fandomAppSmartBannerHeight) {
+			document.body.classList.add('fandom-app-smart-banner-passed');
+		} else {
+			document.body.classList.remove('fandom-app-smart-banner-passed');
+		}
 	}
 });
