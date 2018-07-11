@@ -122,11 +122,11 @@ function init(player, options, slotTargeting) {
 	slot.element = videoContainer;
 
 	if (context.get('options.jwplayer.audio.exposeToSlot')) {
-		const key = context.get('options.jwplayer.audio.key');
-		const segment = context.get('options.jwplayer.audio.segment');
+		slot.setConfigProperty('audio', !player.getMute());
+	}
 
-		slot.config.audioSegment = player.getMute() ? '' : segment;
-		slot.config.targeting[key] = player.getMute() ? 'no' : 'yes';
+	if (context.get('options.jwplayer.autoplay.exposeToSlot')) {
+		slot.setConfigProperty('autoplay', player.getConfig().autostart);
 	}
 
 	if (!slotService.get(slotName)) {

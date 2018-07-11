@@ -147,6 +147,11 @@ function init() {
 	const engine = new AdEngine();
 
 	events.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals));
+	events.on(events.AD_SLOT_CREATED, (slot) => {
+		context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
+		context.onChange(`slots.${slot.getSlotName()}.autoplay`, () => slots.setupSlotParameters(slot));
+	});
+
 	engine.init();
 
 	return engine;

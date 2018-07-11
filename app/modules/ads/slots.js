@@ -67,7 +67,7 @@ export default {
 			mobile_top_leaderboard: {
 				aboveTheFold: true,
 				adProduct: 'mobile_top_leaderboard',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'LB',
 				options: {},
 				slotShortcut: 'l',
@@ -81,7 +81,7 @@ export default {
 			},
 			mobile_in_content: {
 				adProduct: 'mobile_in_content',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'HiVi',
 				options: {},
 				slotShortcut: 'i',
@@ -95,7 +95,7 @@ export default {
 			},
 			incontent_boxad_1: {
 				adProduct: 'incontent_boxad_1',
-				audioSegment: '',
+				slotNameSuffix: '',
 				bidderAlias: 'mobile_in_content',
 				group: 'HiVi',
 				options: {},
@@ -126,7 +126,7 @@ export default {
 			},
 			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
-				audioSegment: '',
+				slotNameSuffix: '',
 				disabled: true,
 				disableManualInsert: true,
 				group: 'PF',
@@ -141,7 +141,7 @@ export default {
 			},
 			bottom_leaderboard: {
 				adProduct: 'bottom_leaderboard',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'PF',
 				options: {},
 				slotShortcut: 'b',
@@ -160,7 +160,7 @@ export default {
 			},
 			featured: {
 				adProduct: 'featured',
-				audioSegment: '',
+				slotNameSuffix: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
 				lowerSlotName: 'featured',
@@ -172,7 +172,7 @@ export default {
 			},
 			video: {
 				adProduct: 'video',
-				audioSegment: '',
+				slotNameSuffix: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
 				lowerSlotName: 'video',
@@ -183,6 +183,15 @@ export default {
 				trackingKey: 'video',
 			},
 		};
+	},
+
+	setupSlotParameters(slot) {
+		const audioSuffix = slot.getConfigProperty('audio') === true ? '-audio' : '',
+			clickToPlaySuffix = slot.getConfigProperty('autoplay') === false ? '-ctp' : '';
+
+		slot.setConfigProperty('slotNameSuffix', clickToPlaySuffix || audioSuffix || '');
+		slot.setConfigProperty('targeting.audio', audioSuffix ? 'yes' : 'no');
+		slot.setConfigProperty('targeting.ctp', clickToPlaySuffix ? 'yes' : 'no');
 	},
 
 	setupStates() {
