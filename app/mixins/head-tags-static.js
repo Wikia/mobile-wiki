@@ -33,7 +33,6 @@ export default Mixin.create({
 			cdnRootUrl: model.wikiVariables.cdnRootUrl,
 			favicon: model.wikiVariables.favicon,
 			siteName: model.wikiVariables.siteName,
-			themeColor: config.verticalColors[model.wikiVariables.vertical],
 			gaUrl: config.tracking.ua.scriptUrl,
 			noExternals,
 			facebookAppId: config.facebook.appId,
