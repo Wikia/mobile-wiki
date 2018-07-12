@@ -7,7 +7,7 @@ import {
 	currentURL
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
 
@@ -19,7 +19,7 @@ module('Acceptance | search', (hooks) => {
 		mockAdsService(this.owner);
 	});
 
-	test('visiting /search', async (assert) => {
+	skip('visiting /search', async (assert) => {
 		const searchInput = '.side-search__input';
 		const testQuery = 'test query';
 

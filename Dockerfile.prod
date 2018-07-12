@@ -4,7 +4,9 @@ WORKDIR /app
 
 # passes IMAGE_VERSION build-arg to environment variable to use it in application
 ARG IMAGE_VERSION
+ARG GITHUB_TOKEN
 ENV IMAGE_VERSION ${IMAGE_VERSION}
+ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 # move files to cache installing of dependencies
 COPY .npmrc .
@@ -18,6 +20,9 @@ RUN addgroup -S mobile-wiki && \
 
 # install missing stuff
     apk add --no-cache --virtual .gyp python make g++ git && \
+
+# override github's auth type
+    git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # related to upgrading ember to 3.0
     npm cache clean --force && \

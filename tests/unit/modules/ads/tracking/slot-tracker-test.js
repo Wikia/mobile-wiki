@@ -6,6 +6,11 @@ import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 module('Unit | Module | ads | tracking', (hooks) => {
 
 	hooks.beforeEach(() => {
+		window.Wikia.adEngine = {
+			context: {
+				get: () => { return true; },
+			}
+		};
 		window.Wikia.adProductsBidders = {
 			bidders: {
 				getCurrentSlotPrices: () => { return {}; },
@@ -39,5 +44,12 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
 		SlotTracker.onRenderEnded(adSlot, {});
 		assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
+	});
+
+	test('tracker send correct opt-in value', (assert) => {
+		const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
+
+		SlotTracker.onRenderEnded(adSlot, {});
+		assert.equal(M.tracker.Internal.track.getCall(0).args[1].opt_in, 'yes');
 	});
 });

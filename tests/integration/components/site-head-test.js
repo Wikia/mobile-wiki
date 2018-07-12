@@ -2,7 +2,7 @@ import { find, render } from '@ember/test-helpers';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import require from 'require';
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 const trackModule = require('mobile-wiki/utils/track'),
@@ -21,7 +21,7 @@ module('Integration | Component | site head', (hooks) => {
 		trackStub.restore();
 	});
 
-	test('click search icon when already in search and drawer visible - hide menu', async function (assert) {
+	skip('click search icon when already in search and drawer visible - hide menu', async function (assert) {
 		this.set('toggleDrawer', (value) => {
 			assert.equal(value, false);
 		});
@@ -41,7 +41,7 @@ module('Integration | Component | site head', (hooks) => {
 		find(searchIconSelector).click();
 	});
 
-	test('click search icon when already in search but drawer not visible - show search', async function (assert) {
+	skip('click search icon when already in search but drawer not visible - show search', async function (assert) {
 		this.set('toggleDrawer', (value) => {
 			assert.equal(value, true);
 		});
@@ -61,7 +61,7 @@ module('Integration | Component | site head', (hooks) => {
 		find(searchIconSelector).click();
 	});
 
-	test('click search icon when already visible is navigation - show search', async function (assert) {
+	skip('click search icon when already visible is navigation - show search', async function (assert) {
 		this.set('toggleDrawer', (value) => {
 			assert.equal(value, true);
 		});
@@ -81,7 +81,7 @@ module('Integration | Component | site head', (hooks) => {
 		find(searchIconSelector).click();
 	});
 
-	test('click nav icon when already visible is search - show nav', async function (assert) {
+	skip('click nav icon when already visible is search - show nav', async function (assert) {
 		this.set('toggleDrawer', (value) => {
 			assert.equal(value, true);
 		});

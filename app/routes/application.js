@@ -1,3 +1,4 @@
+
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
@@ -360,8 +361,6 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.controller.send('toggleDrawer', false);
-
 				ArticleModel.create(getOwner(this).ownerInjection())
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
@@ -370,13 +369,6 @@ export default Route.extend(
 					.catch((err) => {
 						this.send('error', err);
 					});
-			},
-
-			openNav() {
-				this.controller.setProperties({
-					drawerContent: 'nav',
-					drawerVisible: true
-				});
 			}
 		},
 
