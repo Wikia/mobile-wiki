@@ -31,6 +31,10 @@ export default {
 		prebid: {
 			enabled: false,
 			lazyLoadingEnabled: false,
+			bidsRefreshing: {
+				enabled: false,
+				slots: ['mobile_in_content']
+			},
 			aol: {
 				enabled: false,
 				network: '9435.1',
