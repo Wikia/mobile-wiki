@@ -186,8 +186,8 @@ export default {
 	},
 
 	setupSlotParameters(slot) {
-		const audioSuffix = slot.getConfigProperty('audio') === true ? '-audio' : '',
-			clickToPlaySuffix = slot.getConfigProperty('autoplay') === false ? '-ctp' : '';
+		const audioSuffix = slot.config.audio === true ? '-audio' : '',
+			clickToPlaySuffix = slot.config.autoplay === false ? '-ctp' : '';
 
 		slot.setConfigProperty('slotNameSuffix', clickToPlaySuffix || audioSuffix || '');
 		slot.setConfigProperty('targeting.audio', audioSuffix ? 'yes' : 'no');
