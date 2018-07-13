@@ -20,6 +20,6 @@ module('Acceptance | Head meta tags', (hooks) => {
 		assert.equal(document.querySelectorAll('meta[name="viewport"]')[1]
 			.getAttribute('content'), 'user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui');
 		assert.equal(document.querySelector('meta[name="theme-color"]')
-			.getAttribute('content'), '#94d11f');
+			.getAttribute('content'), '#002a32');
 	});
 });

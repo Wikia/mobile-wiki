@@ -20,15 +20,6 @@ module.exports = function (environment) {
 				baseAPIPath: 'event-logger'
 			}
 		},
-		verticalColors: {
-			comics: '#ff5400',
-			games: '#94d11f',
-			books: '#ff7f26',
-			movies: '#09d3bf',
-			lifestyle: '#ffd000',
-			music: '#c819ad',
-			tv: '#00b7e0'
-		},
 		translationsNamespaces: ['main', 'search', 'design-system'],
 		tracking: {
 			ua: {
