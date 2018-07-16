@@ -31,6 +31,7 @@ export default EmberObject.extend({
 	url: null,
 	user: null,
 	wiki: null,
+	isRandomPage: false,
 
 	/**
 	 * @param {Object} data
