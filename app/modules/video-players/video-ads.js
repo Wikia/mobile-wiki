@@ -121,16 +121,16 @@ function init(player, options, slotTargeting) {
 
 	slot.element = videoContainer;
 
+	if (!slotService.get(slotName)) {
+		slotService.add(slot);
+	}
+
 	if (context.get('options.jwplayer.audio.exposeToSlot')) {
 		slot.setConfigProperty('audio', !player.getMute());
 	}
 
 	if (context.get('options.jwplayer.autoplay.exposeToSlot')) {
 		slot.setConfigProperty('autoplay', player.getConfig().autostart);
-	}
-
-	if (!slotService.get(slotName)) {
-		slotService.add(slot);
 	}
 
 	if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
