@@ -6,7 +6,7 @@ import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
-import SpecialRandom from '../models/wiki/special-random'
+import SpecialRandom from '../models/wiki/special-random';
 import {
 	namespace as MediawikiNamespace,
 	isContentNamespace

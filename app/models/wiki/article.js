@@ -1,6 +1,4 @@
-import { inject as service } from '@ember/service';
 import BaseModel from './base';
-import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
 	comments: 0,
