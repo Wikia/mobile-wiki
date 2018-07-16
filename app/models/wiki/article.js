@@ -3,8 +3,6 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
-	wikiUrls: service(),
-	wikiVariables: service(),
 	comments: 0,
 	content: null,
 	curatedMainPageData: null,
@@ -14,40 +12,6 @@ export default BaseModel.extend({
 	isMainPage: false,
 	user: null,
 	heroImage: null,
-
-	/**
-	 * @returns {RSVP.Promise}
-	 */
-	getArticleRandomTitle() {
-		return fetch(this.wikiUrls.build({
-			host: this.get('wikiVariables.host'),
-			path: '/api.php',
-			query: {
-				action: 'query',
-				generator: 'random',
-				grnnamespace: 0,
-				format: 'json'
-			}
-		}), {
-			cache: 'no-store'
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.query && data.query.pages) {
-					const articleId = Object.keys(data.query.pages)[0],
-						pageData = data.query.pages[articleId];
-
-					if (pageData.title) {
-						return pageData.title;
-					}
-				}
-
-				throw new Error({
-					message: 'Data from server misshaped',
-					data
-				});
-			});
-	},
 
 	/**
 	 * @param {Object} data

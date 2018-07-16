@@ -6,6 +6,7 @@ import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
 import FileModel from '../models/wiki/file';
+import SpecialRandom from '../models/wiki/special-random'
 import {
 	namespace as MediawikiNamespace,
 	isContentNamespace
@@ -170,6 +171,10 @@ export default Mixin.create({
 			model.setData(data);
 
 			return model;
+		} else if (currentNamespace === MediawikiNamespace.SPECIAL && data.data.isSpecialRandom) {
+			model = SpecialRandom.create(ownerInjection);
+
+			return model.getArticleRandomTitle();
 		} else {
 			return EmberObject.create({
 				redirectTo: data.data.redirectTo || null
