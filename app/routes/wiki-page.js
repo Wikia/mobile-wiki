@@ -112,10 +112,6 @@ export default Route.extend(
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
-				if (model.isRandomPage) {
-					this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
-				}
-
 				if (handler) {
 					scheduleOnce('afterRender', () => {
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
@@ -154,7 +150,7 @@ export default Route.extend(
 					this.set('wikiHandler', handler);
 
 					handler.afterModel(this, ...arguments);
-				} else {
+				} else if (!model.isRandomPage) {
 					if (!redirectTo) {
 						redirectTo = wikiUrls.build({
 							host: this.get('wikiVariables.host'),
@@ -176,6 +172,12 @@ export default Route.extend(
 				}
 			} else {
 				this.logger.warn('Unsupported page');
+			}
+		},
+
+		redirect(model, transition) {
+			if (model.isRandomPage) {
+				this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
 			}
 		},
 
