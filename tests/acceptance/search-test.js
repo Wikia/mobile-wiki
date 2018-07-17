@@ -20,7 +20,7 @@ module('Acceptance | search', (hooks) => {
 		mockAdsService(this.owner);
 	});
 
-	test('visiting /search', async (assert) => {
+	test('visiting search result page with correct query displays search results', async (assert) => {
 		await visit('/search?query=test%20query');
 
 		assert.dom('.search-results__list .wikia-card').exists({ count: 4 });
