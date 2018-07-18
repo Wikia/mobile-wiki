@@ -37,12 +37,12 @@ class JWPlayerAssets {
 					if (window.wikiaJWPlayer !== 'function') {
 						fetch(assetUrls.script).then((data) => {
 							data.text().then((scriptText) => {
-								logError('wikiaJWPlayer not a function',{
+								logError('wikiaJWPlayer not a function', {
 									script: scriptText,
 									url: assetUrls.script
-								})
-							}))
-						})
+								});
+							}));
+						});
 					}
 				});
 			});
