@@ -24,7 +24,7 @@ const recircItemsCount = 10,
 export default Component.extend(
 	InViewportMixin,
 	{
-		liftigniter: service(),
+		wdsLiftigniter: service(),
 		i18n: service(),
 		logger: service(),
 		ads: service(),
@@ -107,11 +107,12 @@ export default Component.extend(
 		},
 
 		fetchLiftIgniterData() {
-			const liftigniter = this.liftigniter;
-
+			const liftigniter = this.wdsLiftigniter;
+debugger;
 			liftigniter
 				.getData(config)
 				.then((data) => {
+				debugger;
 					this.set('items', data.items.filter((item) => {
 						return item.hasOwnProperty('thumbnail') && item.thumbnail;
 					})
