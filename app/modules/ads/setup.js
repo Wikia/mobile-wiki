@@ -14,7 +14,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 	});
 }
 
-function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
+function setupAdContext(adsContext, instantGlobals) {
 	const { context, utils } = window.Wikia.adEngine;
 	const { utils: adProductsUtils } = window.Wikia.adProducts;
 
@@ -54,7 +54,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
 	context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
 	context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
-	context.set('options.trackingOptIn', isOptedIn);
 
 	context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 	context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
@@ -130,11 +129,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	slots.setupStates();
 }
 
-function configure(adsContext, instantGlobals, isOptedIn) {
+function configure(adsContext, instantGlobals) {
 	const { context } = window.Wikia.adEngine;
 	const { utils: adProductsUtils } = window.Wikia.adProducts;
 
-	setupAdContext(adsContext, instantGlobals, isOptedIn);
+	setupAdContext(adsContext, instantGlobals);
 	adProductsUtils.setupNpaContext();
 
 	context.push('listeners.porvata', PorvataTracker);
