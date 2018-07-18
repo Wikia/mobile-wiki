@@ -1,6 +1,7 @@
 import { inject as service } from '@ember/service';
 import { equal, alias } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
+import { track, trackActions } from '../utils/track';
 
 export default Controller.extend({
 	application: controller(),
@@ -25,7 +26,13 @@ export default Controller.extend({
 			}
 		},
 
-		onLoadMore() {
+		onLoadMore(trackLabel) {
+			track({
+				action: trackActions.click,
+				category: 'wikia-button',
+				label: trackLabel
+			});
+
 			this.model.loadMore();
 		}
 	}

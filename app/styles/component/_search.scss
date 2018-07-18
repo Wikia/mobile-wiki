@@ -1,11 +1,11 @@
-$search-horizontal-padding: 18px;
+
 $search-total-font-size: 12px;
 $search-total-line-height: 16px;
-$search-vertical-padding: 12px;
+
 $search-load-more-bottom-padding: 20px;
 
 .search-result-page {
-	background-color: $vapor;
+	background-color: $wds-color-light-c2;
 }
 
 .search-results__list .searchmatch {
@@ -15,15 +15,17 @@ $search-load-more-bottom-padding: 20px;
 .search-results__total {
 	font-size: $search-total-font-size;
 	line-height: $search-total-line-height;
-	padding: $search-vertical-padding $search-horizontal-padding;
+	padding: 20px 12px 0;
 }
 
 .search-results__load-more-wrapper {
-	padding-bottom: $search-load-more-bottom-padding;
+	padding: 0 12px $search-load-more-bottom-padding;
 	text-align: center;
-}
 
-.search-result-page .site-head-headroom-un-pinned .site-head {
-	// removing site-head bottom shadow
-	box-shadow: none;
+	.wds-button {
+		@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
+
+		box-sizing: border-box;
+		width: 100%;
+	}
 }

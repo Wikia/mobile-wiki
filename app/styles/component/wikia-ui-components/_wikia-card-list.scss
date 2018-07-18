@@ -1,20 +1,19 @@
 .wikia-card-list {
-	$card-horizontal-margin: 6px;
-	$card-vertical-margin: 10px;
+	$card-horizontal-margin: 12px;
 	$card-title-margin: 4px;
-	$card-padding: 12px;
+	$card-padding: 24px 0;
 
-	background-color: $vapor;
+	background-color: $wds-fandom-color-light-gray;
 	margin: 0;
-	padding-bottom: $card-vertical-margin;
+	padding-bottom: 24px;
 
 	.wikia-card {
 		@include link-interactions-color(inherit);
 
-		background: white;
-		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+		background: $wds-fandom-color-light-gray;
+		border-bottom: 1px solid $wds-fandom-color-middle-gray;
 		display: block;
-		margin: 0 $card-horizontal-margin $card-vertical-margin;
+		margin: 0 $card-horizontal-margin;
 
 		&:last-child {
 			margin-bottom: 0;
