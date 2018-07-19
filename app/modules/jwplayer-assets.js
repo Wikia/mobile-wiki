@@ -41,7 +41,7 @@ class JWPlayerAssets {
 									script: scriptText,
 									url: assetUrls.script
 								});
-							}));
+							});
 						});
 					}
 				});
