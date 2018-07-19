@@ -1,23 +1,28 @@
 blockquote {
-	border-left: .25rem solid rgba(26, 94, 184, .3);
-	color: #3a3a3a;
-	font-size: 1rem;
+	font-size: 16px;
 	font-style: italic;
-	font-weight: $font-weight-normal;
-	line-height: $line-height-base;
+	font-weight: $wds-fandom-font-weight-regular;
+	line-height: 26px;
 	margin-bottom: 1rem;
 	padding: .25rem 0 .25rem 1rem;
 
-	cite {
+	&::before {
+		content: "“";
+		color: $wds-fandom-color-aqua;
 		display: block;
-		font-size: .875rem;
+		font-size: 150px;
 		font-style: normal;
-		line-height: 1.25rem;
-		padding-top: .875rem;
+		line-height: 75px;
+		margin-bottom: -45px;
+		margin-top: 18px;
+	}
 
-		&::before {
-			content: "\2014 \0020";
-		}
+	cite {
+		color: $wds-fandom-color-aqua;
+		display: block;
+		font-style: normal;
+		margin-top: 26px;
+		text-transform: uppercase;
 	}
 }
 
@@ -26,8 +31,6 @@ ol {
 	margin-left: 1.1rem;
 }
 
-
-// changed:
 h1,
 h2,
 h3,
