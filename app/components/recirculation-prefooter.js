@@ -108,11 +108,10 @@ export default Component.extend(
 
 		fetchLiftIgniterData() {
 			const liftigniter = this.wdsLiftigniter;
-debugger;
+
 			liftigniter
 				.getData(config)
 				.then((data) => {
-				debugger;
 					this.set('items', data.items.filter((item) => {
 						return item.hasOwnProperty('thumbnail') && item.thumbnail;
 					})
