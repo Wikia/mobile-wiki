@@ -21,53 +21,70 @@ blockquote {
 	}
 }
 
-a {
-	color: $color-blue-light;
-	line-height: inherit;
-	text-decoration: none;
+ul,
+ol {
+	margin-left: 1.1rem;
 }
 
+
+// changed:
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	margin-bottom: 1.4rem;
-}
-
-ul,
-ol {
-	margin-left: 1.1rem;
+	margin-bottom: 18px;
 }
 
 h1 {
-	font-size: $wds-typescale-size-plus-4;
-	line-height: $wds-typescale-size-plus-4;
+	font-size: 28px;
+	font-weight: $wds-fandom-font-weight-bold;
 }
 
 h2 {
-	font-size: $wds-typescale-size-plus-3;
-	line-height: 2rem;
+	font-size: 24px;
+	font-weight: $wds-fandom-font-weight-regular;
 }
 
 h3 {
-	font-size: $wds-typescale-size-plus-2;
-	line-height: $wds-typescale-size-plus-2;
+	font-size: 18px;
+	font-weight: $wds-fandom-font-weight-medium;
 }
 
 h4 {
-	font-size: $wds-typescale-size-plus-1;
-	line-height: $wds-typescale-size-plus-1;
+	font-size: 16px;
+	font-weight: $wds-fandom-font-weight-medium;
 }
 
 h5,
 h6 {
-	font-size: $wds-typescale-size-plus-1;
-	line-height: $wds-typescale-size-plus-1;
+	font-size: 14px;
+	font-weight: $wds-fandom-font-weight-medium;
+}
+
+section, p {
+	font-size: 16px;
+	font-weight: $wds-fandom-font-weight-light;
+	line-height: 28px;
+}
+
+section {
+	margin-bottom: 32px;
 }
 
 p {
-	line-height: 1.6;
-	margin: 1rem 0;
+	margin: 16px 0;
+}
+
+a {
+	color: inherit;
+	line-height: inherit;
+	text-decoration: none;
+}
+
+/* TODO: should this be done in a such way? or should we go case by case and reset this style? */
+/* what about <a><img/></a>? */
+article a {
+	border-bottom: 3px solid $wds-fandom-color-aqua;
 }
