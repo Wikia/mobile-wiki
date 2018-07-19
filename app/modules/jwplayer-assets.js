@@ -34,7 +34,7 @@ class JWPlayerAssets {
 				window.M.loadScript(assetUrls.script, true, (data) => {
 					resolve(data);
 
-					if (window.wikiaJWPlayer !== 'function') {
+					if (typeof window.wikiaJWPlayer !== 'function') {
 						fetch(assetUrls.script).then((data) => {
 							data.text().then((scriptText) => {
 								logError('wikiaJWPlayer not a function', {
