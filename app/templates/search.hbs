@@ -29,12 +29,6 @@
 </div>
 {{#if model.canLoadMore}}
 	<div class="search-results__load-more-wrapper">
-{{!--	{{wikia-ui-components/wds-button
-        text=(i18n 'main.load-more-results' ns='search')
-        onClick=(action 'onLoadMore')
-        trackLabel='search-load-more'
-        isText=true
-    }}--}}
     	{{#wds-button
 			click=(action 'onLoadMore' 'search-load-more')
 			data-tracking-label='search-load-more'
