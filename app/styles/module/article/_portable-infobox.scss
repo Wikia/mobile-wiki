@@ -1,18 +1,18 @@
 // background colors
-$page-background-color: $white;
+$page-background-color: $wds-color-white;
 
 // 10% button color, 5% black and 85% white
-$tabular-layout-stripe-background: mix(mix($color-blue-light, $black, 66%), $page-background-color, 15%);
+$tabular-layout-stripe-background: mix(mix($wds-color-light-blue, black, 66%), $page-background-color, 15%);
 
 // secondary fields colors
-$infobox-secondary-background: $color-blue-light;
-$infobox-secondary-font-color: $white;
-$infobox-secondary-color: $color-blue-gray-light;
+$infobox-secondary-background: $wds-color-light-blue;
+$infobox-secondary-font-color: $wds-color-white;
+$infobox-secondary-color: $wds-color-blue-gray;
 
 // hero module colors
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: $white;
+$infobox-hero-font-color: $wds-color-white;
 
 // spacing
 $infobox-item-margin: 6px;
@@ -234,7 +234,7 @@ $hero-caption-line-height: 18px;
 // infobox images
 .pi-image {
 	figcaption {
-		color: $black;
+		color: $wds-color-black;
 		height: auto;
 		padding: $infobox-item-margin * 2 $article-horizontal-padding;
 	}

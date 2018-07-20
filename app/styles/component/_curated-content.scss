@@ -43,7 +43,7 @@ $curated-content-grid-icon-size: 22px;
 
 	.item-caption {
 		&.label {
-			color: $white;
+			color: $wds-color-white;
 			display: table-cell;
 			left: 0;
 			line-height: $line-height-smallest;
@@ -73,12 +73,12 @@ $curated-content-grid-icon-size: 22px;
 
 			svg {
 				bottom: 10px;
-				fill: $white;
+				fill: $wds-color-white;
 				height: $curated-content-grid-icon-size;
 				opacity: .7;
 				position: absolute;
 				right: 10px;
-				stroke: $white;
+				stroke: $wds-color-white;
 				width: $curated-content-grid-icon-size;
 			}
 		}

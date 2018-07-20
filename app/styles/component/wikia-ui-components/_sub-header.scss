@@ -9,8 +9,8 @@ $title-padding-large: 0 21px;
 
 .sub-head {
 	align-items: center;
-	background: $color-blue-light;
-	color: $white;
+	background: $wds-color-light-blue;
+	color: $wds-color-white;
 	display: flex;
 	height: $wikia-ui-components-sub-head-height;
 	left: 0;
@@ -50,7 +50,7 @@ $title-padding-large: 0 21px;
 	};
 
 	svg {
-		fill: $white;
+		fill: $wds-color-white;
 		height: $back-arrow-size;
 		width: $back-arrow-size;
 	}

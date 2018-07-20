@@ -6,9 +6,9 @@
 }
 
 .alert-box {
-	background-color: $color-blue-dark;
+	background-color: $wds-color-dark-blue;
 	border: 1px solid #081e3a;
-	color: $white;
+	color: $wds-color-white;
 	display: block;
 	margin-bottom: 1.25rem;
 	padding: .875rem 1.5rem .875rem .875rem;
@@ -17,7 +17,7 @@
 
 	.close {
 		background: inherit;
-		color: $oil;
+		color: $wds-color-light-c6;
 		line-height: .9;
 		margin-top: -.6875rem;
 		opacity: .3;
