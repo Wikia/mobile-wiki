@@ -1,10 +1,6 @@
 .search-error-not-found {
 	color: $wds-color-light-c5;
 
-	&__query {
-		text-transform: uppercase;
-	}
-
 	&__action {
 		color: $anchor-font-color;
 		padding: 6px;
