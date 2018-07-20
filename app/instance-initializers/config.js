@@ -15,11 +15,11 @@ function getBaseDomain(wikiaEnv, request) {
 	return config.productionBaseDomain;
 }
 
-function getServicesDomain(wikiaEnv, datacenter) {
+function getServicesDomain(wikiaEnv, datacenter, request) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
-
-		return `services.wikia-dev.${devDomain}`;
+		const devStack = (request.get('host').match(/\.(wikia-dev)\.(pl|us)$/gi)) ? 'wikia-dev' : 'fandom-dev';
+		return `services.${devStack}.${devDomain}`;
 	}
 
 	return `services.${config.productionBaseDomain}`;
@@ -52,6 +52,7 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env;
 		const wikiaEnv = env.WIKIA_ENVIRONMENT;
+		const request = fastboot.get('request');
 
 		runtimeConfig = {
 			baseDomain: getBaseDomain(wikiaEnv, fastboot.get('request')),
@@ -61,7 +62,7 @@ export function initialize(applicationInstance) {
 		};
 
 		runtimeServicesConfig = {
-			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
+			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER, request)
 		};
 
 		shoebox.put('runtimeConfig', runtimeConfig);
