@@ -5,15 +5,15 @@
 				<img alt="user avatar" src="{{post.createdBy.avatarUrl}}">
 			</a>
 		</figure>
-		<a class="avatar-username" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
+		<a class="avatar-username wds-font-size-s" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
 	</div>
-	<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
+	<span class="timestamp wds-font-size-xs wds-font-weight-bold" title="{{timestamp-to-date post.creationTimestamp}}">
 		&bull; {{time-ago post.creationTimestamp}}
 	</span>
 </div>
-<div class="discussion-content">
+<div class="discussion-content wds-font-size-s">
 	{{#if post.title}}
-		<h2 class="post-title">
+		<h2 class="post-title wds-font-size-l wds-font-weight-medium">
 			<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
 		</h2>
 	{{/if}}
@@ -26,16 +26,16 @@
 		{{/if}}
 
 		<div class="og-texts">
-			<span class="og-title">
+			<span class="og-title wds-font-size-s">
 				{{post.openGraph.title}}
 			</span>
-			<span class="og-site-name">
+			<span class="og-site-name wds-font-size-xs">
 				{{openGraphSiteName}}
 			</span>
 		</div>
 	</a>
 {{/if}}
-<div class="post-bottom-row">
+<div class="post-bottom-row wds-font-size-xs">
 	<span class="post-category-name">
 		{{i18n 'widget-discussions.in-category-label' categoryName=post.categoryName}}
 	</span>
@@ -51,11 +51,11 @@
 	</span>
 </div>
 <ul class="post-actions">
-	<li class="upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
+	<li class="upvote-area upvote wds-font-size-xs {{if post.userData.hasUpvoted 'has-upvoted'}}" role="button" {{action upvote post}}>
 		{{svg 'wds-icons-upvote-small' class='wds-icon wds-icon-small upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
-	<li class="replies replies-area">
+	<li class="replies replies-area wds-font-size-xs wds-font-weight-medium">
 		<a href="/d/p/{{post.threadId}}">
 			{{svg 'wds-icons-reply-small' class='wds-icon wds-icon-small replies'}}
 			{{i18n 'widget-discussions.post-actions-reply-label'}}

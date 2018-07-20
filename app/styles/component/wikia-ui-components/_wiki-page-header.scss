@@ -1,6 +1,5 @@
 %wiki-page-header-element {
 	color: inherit;
-	font-weight: normal;
 	line-height: 1;
 	margin: 0;
 }
@@ -43,20 +42,9 @@
 		padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
 	}
 
-	&__site-link {
-		color: inherit;
-	}
-
-	&__site-name {
-		font-style: italic;
-		font-weight: bold;
-	}
-
 	&__title {
 		@extend %wiki-page-header-element;
 
-		font-size: 26px;
-		font-weight: bold;
 		line-height: 32px;
 		word-break: break-word;
 	}
@@ -64,7 +52,6 @@
 	&__subtitle {
 		@extend %wiki-page-header-element;
 
-		font-size: 14px;
 		margin-top: 15px;
 	}
 

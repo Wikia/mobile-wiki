@@ -21,14 +21,12 @@
 
 		&__item {
 			display: block;
-			font-size: $type-smallest;
 			line-height: $line-height-min;
 			padding: $card-padding;
 		}
 
 		&__title {
 			color: $wds-color-link;
-			font-weight: bold;
 			margin-bottom: $card-title-margin;
 		}
 	}

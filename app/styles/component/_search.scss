@@ -1,7 +1,4 @@
-
-$search-total-font-size: 12px;
 $search-total-line-height: 16px;
-
 $search-load-more-bottom-padding: 20px;
 
 .search-result-page {
@@ -9,11 +6,10 @@ $search-load-more-bottom-padding: 20px;
 }
 
 .search-results__list .searchmatch {
-	font-weight: bold;
+	@extend .wds-font-weight-bold;
 }
 
 .search-results__total {
-	font-size: $search-total-font-size;
 	line-height: $search-total-line-height;
 	padding: 20px 12px 0;
 }

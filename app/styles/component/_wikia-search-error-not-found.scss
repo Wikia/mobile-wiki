@@ -1,8 +1,8 @@
 .search-error-not-found {
-	color: $aluminum;
+	color: $wds-color-light-c5;
 
-	&__query {
-		font-weight: bold;
-		text-transform: uppercase;
+	&__action {
+		color: $anchor-font-color;
+		padding: 6px;
 	}
 }
