@@ -41,7 +41,7 @@ figcaption {
 
 	figcaption {
 		@include ellipsis;
-		@extend .wds-text-sm;
+		@extend .wds-font-size-s;
 
 		bottom: 0;
 		color: white;

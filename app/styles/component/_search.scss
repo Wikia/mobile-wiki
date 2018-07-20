@@ -8,7 +8,7 @@ $search-load-more-bottom-padding: 20px;
 }
 
 .search-results__list .searchmatch {
-	@extend .wds-font-bold;
+	@extend .wds-font-weight-bold;
 }
 
 .search-results__total {

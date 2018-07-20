@@ -10,7 +10,7 @@ import { inGroup } from '../modules/abtest';
 export default Component.extend(NoScrollMixin, {
 	logger: service(),
 
-	classNames: ['recommended-video', 'wds-text-xs'],
+	classNames: ['recommended-video', 'wds-font-size-xs'],
 	classNameBindings: ['isExtended', 'isReady', 'isClosed', 'isClickToPlay'],
 
 	playlistItem: null,

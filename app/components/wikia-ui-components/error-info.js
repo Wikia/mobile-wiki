@@ -10,5 +10,5 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-	classNames: ['error-info', 'wds-text-sm']
+	classNames: ['error-info', 'wds-font-size-s']
 });

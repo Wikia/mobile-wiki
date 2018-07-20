@@ -75,8 +75,8 @@ $qualaroo-width-large: 350px;
 					padding: 0;
 
 					li {
-						@extend .wds-text-base;
-						@extend .wds-font-bold;
+						@extend .wds-font-size-base;
+						@extend .wds-font-weight-bold;
 
 						align-items: center;
 						border: 1px solid #999;
@@ -106,8 +106,8 @@ $qualaroo-width-large: 350px;
 				}
 
 				&_nps_labels {
-					@extend .wds-text-xs;
-					@extend .wds-font-bold;
+					@extend .wds-font-size-xs;
+					@extend .wds-font-weight-bold;
 
 					margin: 15px 0;
 				}
@@ -123,7 +123,7 @@ $qualaroo-width-large: 350px;
 				}
 
 				&_qtitle {
-					@extend .wds-text-lg;
+					@extend .wds-font-size-l;
 
 					line-height: 1.28;
 					margin: 30px 10px;
