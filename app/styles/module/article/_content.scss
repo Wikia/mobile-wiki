@@ -13,19 +13,6 @@
 		}
 	}
 
-	h1,
-	h2 {
-		&[section] {
-			padding-top: 2.5rem;
-		}
-	}
-
-	h3 {
-		&[section] {
-			padding-top: 1rem;
-		}
-	}
-
 	.article-media {
 		& ~ h1,
 		& ~ h2 {
