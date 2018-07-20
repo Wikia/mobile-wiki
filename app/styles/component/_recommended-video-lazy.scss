@@ -6,7 +6,6 @@ $recommended-video-player-width: 200px;
 	bottom: -300px;
 	box-shadow: 0 2px 9px 0 rgba(0, 0, 0, .5);
 	display: block;
-	font-size: 12px;
 	line-height: 1.2;
 	padding: 12px;
 	position: fixed;
@@ -63,7 +62,6 @@ $recommended-video-player-width: 200px;
 			}
 
 			&__title {
-				font-size: 14px;
 				margin: 12px 18px 0;
 				padding-bottom: 12px;
 			}
@@ -88,7 +86,6 @@ $recommended-video-player-width: 200px;
 		}
 
 		h2 {
-			font-size: 12px;
 			line-height: 1;
 			margin: 0;
 
@@ -163,7 +160,6 @@ $recommended-video-player-width: 200px;
 		align-items: center;
 		color: $wds-color-light-gray;
 		display: none;
-		font-size: 14px;
 		font-weight: normal;
 		margin: 6px 0 20px;
 		padding: 0 18px;
@@ -203,7 +199,7 @@ $recommended-video-player-width: 200px;
 		margin-left: 12px;
 
 		> div {
-			font-size: 14px;
+			@extend .wds-text-sm;
 		}
 	}
 

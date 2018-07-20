@@ -27,7 +27,7 @@ $portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 
 // portable table styles
 table[data-portable="true"] {
-	font-size: $type-smallest;
+	@extend .wds-text-sm;
 
 	// overrides default img styles for proper rendering inside tables
 	img {

@@ -55,7 +55,6 @@
 	&__title {
 		@extend %wiki-page-header-element;
 
-		font-size: 26px;
 		font-weight: bold;
 		line-height: 32px;
 		word-break: break-word;
@@ -64,7 +63,6 @@
 	&__subtitle {
 		@extend %wiki-page-header-element;
 
-		font-size: 14px;
 		margin-top: 15px;
 	}
 

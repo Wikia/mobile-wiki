@@ -41,10 +41,10 @@ figcaption {
 
 	figcaption {
 		@include ellipsis;
+		@extend .wds-text-sm;
 
 		bottom: 0;
 		color: white;
-		font-size: .9rem;
 		line-height: 1rem;
 		padding: 10px;
 		position: absolute;

@@ -75,12 +75,13 @@ $qualaroo-width-large: 350px;
 					padding: 0;
 
 					li {
+						@extend .wds-text-base;
+
 						align-items: center;
 						border: 1px solid #999;
 						border-radius: 3px;
 						color: #002a32;
 						display: flex;
-						font-size: 16px;
 						font-weight: bold;
 						height: 34px;
 						justify-content: center;
@@ -105,7 +106,8 @@ $qualaroo-width-large: 350px;
 				}
 
 				&_nps_labels {
-					font-size: 12px;
+					@extend .wds-text-xs;
+
 					font-weight: bold;
 					margin: 15px 0;
 				}
@@ -121,7 +123,8 @@ $qualaroo-width-large: 350px;
 				}
 
 				&_qtitle {
-					font-size: 18px;
+					@extend .wds-text-lg;
+
 					line-height: 1.28;
 					margin: 30px 10px;
 

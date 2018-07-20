@@ -2,17 +2,6 @@
 	margin-top: 2rem;
 }
 
-.wiki-title {
-	@extend %header-section-title;
-
-	font-size: $type-smallest;
-	margin: 2rem 1rem 1.25em;
-
-	a {
-		display: block;
-	}
-}
-
 .wiki-page-title {
 	@extend %header-section-title;
 
@@ -23,7 +12,6 @@
 	.main-page-edit {
 		align-items: center;
 		display: inline-flex;
-		font-size: 14px;
 		font-weight: initial;
 		justify-content: center;
 		margin-top: 10px;

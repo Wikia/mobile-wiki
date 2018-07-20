@@ -25,19 +25,15 @@ $min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
 //fonts used in infobox
-$infobox-title-font-size: 20px;
 $infobox-title-line-height: 24px;
-$infobox-default-font-size: $type-smallest;
 $infobox-default-line-height: $line-height-smallest;
-$hero-title-font-size: $type-small;
 $hero-title-line-height: $line-height-small;
-$hero-caption-font-size: 12px;
 $hero-caption-line-height: 18px;
-$group-header-font-size: 16px;
 
 .pi {
+	@extend .wds-text-lg;
+
 	background-color: $infobox-background;
-	font-size: $infobox-default-font-size;
 	height: auto;
 	line-height: $infobox-default-line-height;
 	margin: 0 #{-$article-horizontal-padding};
@@ -88,7 +84,6 @@ $group-header-font-size: 16px;
 }
 
 .pi-secondary-font {
-	font-size: inherit;
 	font-weight: bold;
 	line-height: inherit;
 	margin-top: 0;
@@ -194,7 +189,8 @@ $group-header-font-size: 16px;
 }
 
 .pi-hero-title {
-	font-size: $hero-title-font-size;
+	@extend .wds-text-xl;
+
 	line-height: $hero-title-line-height;
 }
 
@@ -213,7 +209,8 @@ $group-header-font-size: 16px;
 }
 
 .pi-hero-caption {
-	font-size: $hero-caption-font-size;
+	@extend .wds-text-xs;
+
 	font-weight: normal;
 	line-height: $hero-caption-line-height;
 	padding-top: $infobox-item-margin;
@@ -221,11 +218,12 @@ $group-header-font-size: 16px;
 
 // infobox title
 .pi-title {
+	@extend .wds-text-lg;
+
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
 	display: flex;
 	flex-direction: column;
-	font-size: $infobox-title-font-size;
 	justify-content: center;
 	line-height: $infobox-title-line-height;
 	min-height: $infobox-title-cell-height;
@@ -267,7 +265,6 @@ $group-header-font-size: 16px;
 	ol,
 	ul,
 	p {
-		font-size: inherit;
 		line-height: inherit;
 		list-style-position: inside;
 	}
@@ -286,7 +283,8 @@ $group-header-font-size: 16px;
 
 // infobox group
 .pi-group .pi-header {
-	font-size: $group-header-font-size;
+	@extend .wds-text-base;
+
 	text-align: center;
 }
 
@@ -298,7 +296,8 @@ $group-header-font-size: 16px;
 	width: 100%;
 
 	.pi-header {
-		font-size: $group-header-font-size;
+		@extend .wds-text-base;
+
 		text-align: center;
 	}
 

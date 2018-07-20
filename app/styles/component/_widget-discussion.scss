@@ -5,7 +5,6 @@
 		align-items: center;
 		background-color: $wds-color-off-white;
 		display: flex;
-		font-size: $type-min;
 		min-height: 70px;
 		padding-top: 0;
 
@@ -16,7 +15,6 @@
 	}
 
 	.heading {
-		font-size: $type-large;
 		padding: 18px 0 0 18px;
 	}
 
@@ -59,20 +57,17 @@
 			@include ellipsis;
 
 			display: inline-block;
-			font-size: $type-smallest;
 			max-width: 140px;
 			vertical-align: middle;
 		}
 
 		.timestamp {
 			color: $wds-color-light-gray;
-			font-size: $type-min;
 			font-weight: $font-weight-bold;
 		}
 	}
 
 	.discussion-content {
-		font-size: $type-smallest;
 		margin: 4px 0 6px;
 
 		.url {
@@ -81,7 +76,6 @@
 	}
 
 	.post-title {
-		font-size: $type-smaller;
 		font-weight: 600;
 		line-height: $line-height-smaller;
 		margin-bottom: 5px;
@@ -94,7 +88,6 @@
 	.post-bottom-row {
 		color: $wds-color-light-gray;
 		display: flex;
-		font-size: $type-min;
 		justify-content: space-between;
 		padding-bottom: 14px;
 	}
@@ -144,7 +137,6 @@
 		cursor: pointer;
 		display: flex;
 		flex-grow: 1;
-		font-size: $type-min;
 		font-weight: $font-weight-medium;
 		height: 33px;
 		justify-content: center;
@@ -175,12 +167,10 @@
 	.og-title {
 		color: $wds-color-dark-gray;
 		display: block;
-		font-size: $type-smallest;
 	}
 
 	.og-site-name {
 		color: $wds-color-light-gray;
-		font-size: $type-min;
 		line-height: $line-height-min;
 	}
 

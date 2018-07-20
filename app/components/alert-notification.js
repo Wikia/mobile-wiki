@@ -2,7 +2,7 @@ import { later, cancel } from '@ember/runloop';
 import Component from '@ember/component';
 
 export default Component.extend({
-	classNames: ['alert-notification', 'alert-box'],
+	classNames: ['alert-notification', 'alert-box', 'wds-text-xs'],
 	classNameBindings: ['alert.type'],
 
 	alert: null,
