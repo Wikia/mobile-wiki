@@ -76,11 +76,6 @@ $hero-caption-line-height: 18px;
 .pi-secondary-background {
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
-
-	a {
-		color: inherit;
-		text-decoration: underline;
-	}
 }
 
 .pi-secondary-font {
@@ -201,12 +196,6 @@ $hero-caption-line-height: 18px;
 
 	color: $infobox-hero-font-color;
 	text-shadow: 0 0 3px $infobox-hero-outline-color;
-
-	a {
-		color: inherit;
-		pointer-events: auto;
-		text-decoration: underline;
-	}
 }
 
 .pi-hero-caption {
@@ -370,11 +359,6 @@ $hero-caption-line-height: 18px;
 
 	background-color: inherit;
 	color: inherit;
-
-	a {
-		color: $anchor-font-color;
-		text-decoration: none;
-	}
 }
 
 // styles for infobox collapse / expand UI
