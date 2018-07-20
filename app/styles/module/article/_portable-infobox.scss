@@ -84,7 +84,8 @@ $hero-caption-line-height: 18px;
 }
 
 .pi-secondary-font {
-	font-weight: bold;
+	@extend .wds-font-bold;
+
 	line-height: inherit;
 	margin-top: 0;
 }
@@ -210,8 +211,8 @@ $hero-caption-line-height: 18px;
 
 .pi-hero-caption {
 	@extend .wds-text-xs;
+	@extend .wds-font-normal;
 
-	font-weight: normal;
 	line-height: $hero-caption-line-height;
 	padding-top: $infobox-item-margin;
 }
@@ -365,9 +366,10 @@ $hero-caption-line-height: 18px;
 
 // infobox navigation
 .pi-navigation {
+	@extend .wds-font-normal;
+
 	background-color: inherit;
 	color: inherit;
-	font-weight: normal;
 
 	a {
 		color: $anchor-font-color;

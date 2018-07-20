@@ -63,7 +63,6 @@
 
 		.timestamp {
 			color: $wds-color-light-gray;
-			font-weight: $font-weight-bold;
 		}
 	}
 
@@ -76,7 +75,6 @@
 	}
 
 	.post-title {
-		font-weight: 600;
 		line-height: $line-height-smaller;
 		margin-bottom: 5px;
 	}
@@ -137,7 +135,6 @@
 		cursor: pointer;
 		display: flex;
 		flex-grow: 1;
-		font-weight: $font-weight-medium;
 		height: 33px;
 		justify-content: center;
 	}

@@ -79,8 +79,6 @@
 	}
 
 	&__attribution-container {
-		font-weight: bold;
-
 		&.has-portable-infobox {
 			background-color: $infobox-background;
 		}
@@ -121,7 +119,6 @@
 
 	&__label {
 		color: #999;
-		font-weight: bold;
 		line-height: 1;
 		margin-top: 9px;
 		text-transform: uppercase;
@@ -134,7 +131,6 @@
 
 	&__title {
 		color: #000;
-		font-weight: bold;
 		line-height: 1.14em;
 		margin-top: 4px;
 	}

@@ -1,6 +1,6 @@
 <header>
 	<h2 class="wds-text-xs">
-		<span>FANDOM</span><span>VIDEO</span>
+		<span>FANDOM</span><span class="wds-font-light">VIDEO</span>
 	</h2>
 	<div class="recommended-video__close" {{action 'close'}}>
 		{{svg 'wds-icons-cross-tiny' class='wds-icon wds-icon-tiny'}}
@@ -16,8 +16,8 @@
 	<div id="recommended-video-player"></div>
 </div>
 <div class="recommended-video__container">
-	<div class="recommended-video__title wds-text-sm" {{action 'play'}}>{{playlistItem.title}}</div>
-	<h3 class="recommended-video__upnext wds-text-sm">
+	<div class="recommended-video__title wds-text-sm wds-font-bold" {{action 'play'}}>{{playlistItem.title}}</div>
+	<h3 class="recommended-video__upnext wds-text-sm wds-font-normal">
 		Up Next
 	</h3>
 	<ul class="recommended-video__playlist">
@@ -27,7 +27,7 @@
 					<img src="{{item.image}}" alt="{{item.title}}">
 					{{svg 'wds-player-icon-play' class='wds-player-icon-play-tiny'}}
 				</div>
-				<div class="recommended-video__playlist-title">
+				<div class="recommended-video__playlist-title wds-font-bold">
 					{{item.title}}
 				</div>
 			</li>

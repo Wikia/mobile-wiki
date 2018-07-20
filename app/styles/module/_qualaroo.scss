@@ -76,13 +76,13 @@ $qualaroo-width-large: 350px;
 
 					li {
 						@extend .wds-text-base;
+						@extend .wds-font-bold;
 
 						align-items: center;
 						border: 1px solid #999;
 						border-radius: 3px;
 						color: #002a32;
 						display: flex;
-						font-weight: bold;
 						height: 34px;
 						justify-content: center;
 						line-height: 1;
@@ -107,8 +107,8 @@ $qualaroo-width-large: 350px;
 
 				&_nps_labels {
 					@extend .wds-text-xs;
+					@extend .wds-font-bold;
 
-					font-weight: bold;
 					margin: 15px 0;
 				}
 

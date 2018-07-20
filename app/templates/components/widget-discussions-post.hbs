@@ -7,13 +7,13 @@
 		</figure>
 		<a class="avatar-username wds-text-sm" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
 	</div>
-	<span class="timestamp wds-text-xs" title="{{timestamp-to-date post.creationTimestamp}}">
+	<span class="timestamp wds-text-xs wds-font-bold" title="{{timestamp-to-date post.creationTimestamp}}">
 		&bull; {{time-ago post.creationTimestamp}}
 	</span>
 </div>
 <div class="discussion-content wds-text-sm">
 	{{#if post.title}}
-		<h2 class="post-title wds-text-lg">
+		<h2 class="post-title wds-text-lg wds-font-medium">
 			<a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
 		</h2>
 	{{/if}}
@@ -55,7 +55,7 @@
 		{{svg 'wds-icons-upvote-small' class='wds-icon wds-icon-small upvote'}}
 		{{i18n 'widget-discussions.post-actions-upvote-label'}}
 	</li>
-	<li class="replies replies-area wds-text-xs">
+	<li class="replies replies-area wds-text-xs wds-font-medium">
 		<a href="/d/p/{{post.threadId}}">
 			{{svg 'wds-icons-reply-small' class='wds-icon wds-icon-small replies'}}
 			{{i18n 'widget-discussions.post-actions-reply-label'}}

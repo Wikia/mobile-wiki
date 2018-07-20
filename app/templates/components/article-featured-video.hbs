@@ -11,17 +11,17 @@
 			onTap=(action 'dismissPlayer')
 		}}
 		<div class="article-featured-video__details">
-			<div class="article-featured-video__label wds-text-2xs">
+			<div class="article-featured-video__label wds-text-2xs wds-font-bold">
 				{{i18n 'featured-video.watch'}}
 				<span class="article-featured-video__time">{{videoDuration}}</span>
 			</div>
-			<div class="article-featured-video__title wds-text-sm">{{currentVideoDetails.title}}</div>
+			<div class="article-featured-video__title wds-text-sm wds-font-bold">{{currentVideoDetails.title}}</div>
 		</div>
 	</div>
 	<div class="article-featured-video__on-scroll-placeholder"></div>
 </div>
 {{#if hasAttribution}}
-	<div class="article-featured-video__attribution-container wds-text-xs {{if hasPortableInfobox 'has-portable-infobox'}}">
+	<div class="article-featured-video__attribution-container wds-text-xs wds-font-bold {{if hasPortableInfobox 'has-portable-infobox'}}">
 		<div class="article-featured-video__attribution-inner-container">
 			<a class="article-featured-video__attribution-link" href="{{currentVideoDetails.userUrl}}"
 				 target="_blank" rel="noopener" {{action 'clickAttribution' preventDefault=false}}>

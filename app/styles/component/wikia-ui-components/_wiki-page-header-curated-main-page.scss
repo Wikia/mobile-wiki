@@ -3,16 +3,15 @@
 }
 
 .wiki-page-title {
-	@extend %header-section-title;
-
 	line-height: 2rem;
 	margin: 1rem;
+	text-align: center;
+	text-transform: uppercase;
 	word-break: break-word;
 
 	.main-page-edit {
 		align-items: center;
 		display: inline-flex;
-		font-weight: initial;
 		justify-content: center;
 		margin-top: 10px;
 		text-transform: initial;
