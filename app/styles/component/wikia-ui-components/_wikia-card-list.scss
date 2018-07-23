@@ -26,8 +26,11 @@
 		}
 
 		&__title {
-			color: $wds-color-link;
 			margin-bottom: $card-title-margin;
+		}
+
+		&__snippet {
+			color: $wds-color-light-c6;
 		}
 	}
 }
