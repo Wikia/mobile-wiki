@@ -38,7 +38,6 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-menu-control-tiny',
 	'wds-icons-out-arrow-tiny',
 	'wds-icons-pages-small',
-	'wds-icons-pencil',
 	'wds-icons-pencil-small',
 	'wds-icons-play',
 	'wds-icons-reply',

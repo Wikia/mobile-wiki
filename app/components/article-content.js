@@ -35,7 +35,6 @@ export default Component.extend(
 		attributeBindings: ['lang', 'dir'],
 		adsContext: null,
 		content: null,
-		contributionEnabled: null,
 		displayEmptyArticleInfo: true,
 		displayTitle: null,
 		isPreview: false,
@@ -66,7 +65,6 @@ export default Component.extend(
 					this.renderDataComponents(this.element);
 
 					this.loadIcons();
-					this.createContributionButtons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 
@@ -277,62 +275,6 @@ export default Component.extend(
 			toArray(this.element.querySelectorAll('.article-media-icon[data-src]')).forEach((element) => {
 				element.src = element.getAttribute('data-src');
 			});
-		},
-
-		/**
-		 * @param {Node} placeholder
-		 * @param {number} section
-		 * @param {string} sectionId
-		 * @returns {void}
-		 */
-		renderArticleContributionComponent(placeholder, section, sectionId) {
-			this.renderedComponents.push(
-				this.renderComponent({
-					name: 'article-contribution',
-					attrs: {
-						section,
-						sectionId,
-						title: this.displayTitle,
-						edit: this.edit,
-						editIconVisible: this.editIconVisible,
-						editAllowed: this.editAllowed,
-					},
-					element: placeholder
-				})
-			);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		createContributionButtons() {
-			if (this.contributionEnabled) {
-				const headers = toArray(
-					this.element.querySelectorAll('h2[section]')
-				).map((element) => {
-					if (element.textContent) {
-						return {
-							element,
-							level: element.tagName,
-							name: element.textContent,
-							id: element.id,
-							section: element.getAttribute('section'),
-						};
-					}
-				});
-
-				headers.forEach((header) => {
-					if (header) {
-						const placeholder = document.createElement('div'),
-							sectionHeaderLabel = header.element.querySelector('.section-header-label');
-
-						if (sectionHeaderLabel) {
-							sectionHeaderLabel.appendChild(placeholder);
-							this.renderArticleContributionComponent(placeholder, header.section, header.id);
-						}
-					}
-				});
-			}
 		},
 
 		/**

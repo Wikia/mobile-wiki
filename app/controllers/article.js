@@ -17,22 +17,6 @@ export default Controller.extend(WikiPageControllerMixin, {
 	displayRecirculation: and('isContLangEn', 'loadExternals', 'applicationWrapperVisible'),
 
 	actions: {
-		/**
-		 * @param {string} title
-		 * @param {number} sectionIndex
-		 * @returns {void}
-		 */
-		edit(title, sectionIndex) {
-			this.transitionToRoute('article-edit', title, sectionIndex);
-
-			track({
-				action: trackActions.click,
-				category: 'sectioneditor',
-				label: 'edit',
-				value: sectionIndex
-			});
-		},
-
 		trackClick(category, label) {
 			track({
 				action: trackActions.click,

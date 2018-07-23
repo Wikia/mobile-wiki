@@ -9,14 +9,6 @@
 	background: $wds-color-white;
 	color: $wds-fandom-color-black;
 
-	.contribution-container {
-		margin-bottom: -8px;
-
-		.icon {
-			fill: #fff;
-		}
-	}
-
 	&.has-hero-image {
 		background: {
 			color: transparent;
@@ -30,10 +22,6 @@
 		.wiki-page-header__wrapper {
 			background: linear-gradient(to top, rgba(0, 0, 0, .6) 0, transparent 120px);
 			height: 100%;
-		}
-
-		.contribution-container {
-			align-items: flex-end;
 		}
 	}
 
