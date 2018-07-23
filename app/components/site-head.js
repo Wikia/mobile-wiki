@@ -1,5 +1,5 @@
 import { inject as service } from '@ember/service';
-import { alias, readOnly, or } from '@ember/object/computed';
+import { alias, readOnly, or, equal } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import Component from '@ember/component';
@@ -24,6 +24,7 @@ export default Component.extend(
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+		canShowContentRecommendations: equal('language', 'en'),
 
 		init() {
 			this._super(...arguments);
