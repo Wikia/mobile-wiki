@@ -3,17 +3,18 @@
 	$card-title-margin: 4px;
 	$card-padding: 24px 0;
 
-	background-color: $wds-fandom-color-light-gray;
 	margin: 0;
 	padding-bottom: 24px;
 
 	.wikia-card {
 		@include link-interactions-color(inherit);
 
-		background: $wds-fandom-color-light-gray;
-		border-bottom: 1px solid $wds-fandom-color-middle-gray;
 		display: block;
 		margin: 0 $card-horizontal-margin;
+
+		&:not(:only-child) {
+			border-bottom: 1px solid $wds-fandom-color-middle-gray;
+		}
 
 		&:last-child {
 			margin-bottom: 0;

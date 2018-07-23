@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	background: $wds-color-white;
+	background-image: linear-gradient(to bottom, rgba($wds-color-white, 0), rgba($wds-color-white, 0) 105px, $wds-color-light-c2 450px, $wds-color-light-c2 100%);
 	color: $body-font-color;
 	cursor: auto;
 	font-family: $wds-font-family;

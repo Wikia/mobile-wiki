@@ -1,10 +1,6 @@
 $search-total-line-height: 16px;
 $search-load-more-bottom-padding: 20px;
 
-.search-result-page {
-	background-color: $wds-color-light-c2;
-}
-
 .search-results__list .searchmatch {
 	@extend .wds-font-weight-bold;
 }
