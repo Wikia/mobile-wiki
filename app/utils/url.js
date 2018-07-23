@@ -52,10 +52,6 @@ export function addQueryParams(url, params = {}) {
 	return `${url}${paramsString}`;
 }
 
-export function extractEncodedTitle(url) {
-	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
-}
-
 /**
  * @param {EventTarget} target
  * @returns {Boolean}
