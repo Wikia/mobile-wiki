@@ -124,7 +124,9 @@ export default Route.extend(
 					});
 
 					transition.then(() => {
-						this.wdsLiftigniter.initLiftigniter(model.adsContext);
+						if (!this.get('fastboot.isFastBoot')) {
+							this.wdsLiftigniter.initLiftigniter(model.adsContext);
+						}
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
