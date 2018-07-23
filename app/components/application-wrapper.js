@@ -54,6 +54,8 @@ export default Component.extend({
 		return `${vertical}-vertical`;
 	}),
 
+	contentLanguage: readOnly('wikiVariables.language.content'),
+
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open

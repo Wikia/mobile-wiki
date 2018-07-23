@@ -24,7 +24,7 @@ export default Component.extend(
 		smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
 		shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
 		isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
-		canShowContentRecommendations: equal('language', 'en'),
+		canShowContentRecommendations: equal('contentLanguage', 'en'),
 
 		init() {
 			this._super(...arguments);
