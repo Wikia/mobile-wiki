@@ -12,13 +12,6 @@
  *   title=<title>
  *   subtitle=<subtitle>
  *   heroImage=<hero image url>}}
- *
- * @example
- * {{#wikia-ui-components/wiki-page-header isMainPage=true}}
- *   {{#link-to '<route>' trackingCategory='<category>' trackingLabel='<label>' bubbles=false}}
- *     {{svg 'pencil' role='img' class='icon pencil'}}
- *   {{/link-to}}
- * {{/wikia-ui-components/wiki-page-header}}
  */
 
 import { inject as service } from '@ember/service';
@@ -36,7 +29,6 @@ export default Component.extend(
 		wikiVariables: service(),
 		classNames: ['wiki-page-header'],
 		classNameBindings: ['heroImage:has-hero-image'],
-		attributeBindings: ['style'],
 		isMainPage: false,
 		siteName: reads('wikiVariables.siteName'),
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
@@ -51,7 +43,7 @@ export default Component.extend(
 			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCrop : Thumbnailer.mode.fixedAspectRatio,
 				heroImageHelper = new HeroImage(heroImage, mode);
 
-			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px`); // eslint-disable-line max-len
+			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px;`); // eslint-disable-line max-len
 		}),
 
 		actions: {
