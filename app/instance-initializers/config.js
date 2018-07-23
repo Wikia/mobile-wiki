@@ -37,7 +37,9 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 
 function getCookieDomain(wikiaEnv) {
 	if (wikiaEnv === 'dev') {
-		return `.${FastBoot.require('process').env.WIKIA_DEV_DOMAIN}`;
+		const devDomains = FastBoot.require('process').env.WIKIA_DEV_DOMAIN.split(',');
+
+		return `.${devDomains[0]}`;
 	}
 
 	return `.${config.productionBaseDomain}`;
