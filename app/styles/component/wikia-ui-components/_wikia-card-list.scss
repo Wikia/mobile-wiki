@@ -1,8 +1,4 @@
 .wikia-card-list {
-	$card-horizontal-margin: 12px;
-	$card-title-margin: 4px;
-	$card-padding: 24px 0;
-
 	margin: 0;
 	padding-bottom: 24px;
 
@@ -10,7 +6,7 @@
 		@include link-interactions-color(inherit);
 
 		display: block;
-		margin: 0 $card-horizontal-margin;
+		margin: 0 12px;
 
 		&:not(:only-child) {
 			border-bottom: 1px solid $wds-fandom-color-middle-gray;
@@ -23,11 +19,11 @@
 		&__item {
 			display: block;
 			line-height: $line-height-min;
-			padding: $card-padding;
+			padding: 24px 0;
 		}
 
 		&__title {
-			margin-bottom: $card-title-margin;
+			margin-bottom: 4px;
 		}
 
 		&__snippet {

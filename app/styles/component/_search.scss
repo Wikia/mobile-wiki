@@ -1,17 +1,14 @@
-$search-total-line-height: 16px;
-$search-load-more-bottom-padding: 20px;
-
 .search-results__list .searchmatch {
 	@extend .wds-font-weight-bold;
 }
 
 .search-results__total {
-	line-height: $search-total-line-height;
+	line-height: 16px;
 	padding: 20px 12px 0;
 }
 
 .search-results__load-more-wrapper {
-	padding: 0 12px $search-load-more-bottom-padding;
+	padding: 0 12px 20px;
 	text-align: center;
 
 	.wds-button {
