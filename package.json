@@ -94,7 +94,7 @@
     "ember-cli-uglify": "2.1.0",
     "ember-derequire": "0.2.0",
     "ember-disable-proxy-controllers": "1.0.1",
-    "ember-exex": "0.1.13",
+    "ember-exex": "0.2.0",
     "ember-export-application-global": "2.0.0",
     "ember-fetch": "5.0.0",
     "ember-hbs-minifier": "0.3.0",
