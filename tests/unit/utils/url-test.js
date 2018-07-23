@@ -64,6 +64,52 @@ module('Unit | Utility | url', (hooks) => {
 		assert.equal(extractEncodedTitle('/wiki'), 'wiki');
 	});
 
+	test('Language path full url with params', (assert) => {
+		assert.equal(
+			extractEncodedTitle(
+				'http://test.wikia.com/szl/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+			),
+			'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+		);
+	});
+
+	test('Language path partial url', (assert) => {
+		assert.equal(extractEncodedTitle('/szl/wiki/Test article name'), 'Test article name');
+	});
+
+	test('Language path full url no params', (assert) => {
+		assert.equal(extractEncodedTitle('http://test.wikia.com/szl/wiki/Test'), 'Test');
+	});
+
+	test('Language path url with no wiki', (assert) => {
+		assert.equal(extractEncodedTitle('http://test.wikia.com/szl/Test'), 'Test');
+	});
+
+	test('Language path full url with many wikis', (assert) => {
+		assert.equal(
+			extractEncodedTitle(
+				'http://test.wikia.com/szl/wiki/Wiki/szl/wiki/wiki/wiki'
+			),
+			'Wiki/szl/wiki/wiki/wiki'
+		);
+	});
+
+	test('Language path partial url with many wikis', (assert) => {
+		assert.equal(extractEncodedTitle('/szl/wiki/Wiki/wiki/wiki/wiki'), 'Wiki/wiki/wiki/wiki');
+	});
+
+	test('Language path only title', (assert) => {
+		assert.equal(extractEncodedTitle('/szl/Title'), 'Title');
+	});
+
+	test('Language path Wiki as title', (assert) => {
+		assert.equal(extractEncodedTitle('/szl/Wiki'), 'Wiki');
+	});
+
+	test('Language path wiki as title', (assert) => {
+		assert.equal(extractEncodedTitle('/szl/wiki'), 'wiki');
+	});
+
 	test('isHashLink', (assert) => {
 		const testCases = [
 			{

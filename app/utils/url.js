@@ -53,7 +53,7 @@ export function addQueryParams(url, params = {}) {
 }
 
 export function extractEncodedTitle(url) {
-	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
+	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/[a-z]{2,3}(-[a-z-]{2,12})?)?(\/wiki)?\//, '') : '';
 }
 
 /**
