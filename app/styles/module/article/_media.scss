@@ -40,8 +40,8 @@ figcaption {
 	}
 
 	figcaption {
-		@include ellipsis;
 		@extend .wds-font-size-s;
+		@include ellipsis;
 
 		bottom: 0;
 		color: white;
