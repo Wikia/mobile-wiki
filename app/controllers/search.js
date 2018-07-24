@@ -1,6 +1,7 @@
 import { inject as service } from '@ember/service';
 import { equal, alias } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
+import { track, trackActions } from '../utils/track';
 
 export default Controller.extend({
 	application: controller(),
@@ -11,21 +12,13 @@ export default Controller.extend({
 	inputPhrase: alias('query'),
 
 	actions: {
-		onSearchEnter(query) {
-			this.set('inputPhrase', query);
-			this.set('query', query);
-		},
+		onLoadMore(trackLabel) {
+			track({
+				action: trackActions.click,
+				category: 'wikia-button',
+				label: trackLabel
+			});
 
-		onErrorPageClick() {
-			const input = document.querySelector('.side-search__input');
-
-			this.set('inputPhrase', '');
-			if (input) {
-				input.focus();
-			}
-		},
-
-		onLoadMore() {
 			this.model.loadMore();
 		}
 	}
