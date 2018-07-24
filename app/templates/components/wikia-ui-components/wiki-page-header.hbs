@@ -1,15 +1,15 @@
-<div class="wiki-page-header__wrapper">
-	<div class="wiki-page-header__main">
-		{{#if isMainPage}}
-			<h1 class="wiki-page-header__title">{{siteName}}</h1>
-		{{else}}
-			<h1 class="wiki-page-header__title">{{title}}</h1>
-			{{#if subtitle}}
-				<div class="wiki-page-header__subtitle wds-font-size-s wds-font-weight-normal">{{subtitle}}</div>
-			{{/if}}
+<div class="wiki-page-header__title-wrapper">
+	{{#if isMainPage}}
+		<h1 class="wiki-page-header__title wds-midlight">{{siteName}}</h1>
+	{{else}}
+		<h1 class="wiki-page-header__title wds-midlight">{{title}}</h1>
+		{{#if subtitle}}
+			<div class="wiki-page-header__subtitle wds-font-size-s wds-font-weight-normal">{{subtitle}}</div>
 		{{/if}}
-	</div>
-	{{#if hasBlock}}
-		{{yield}}
 	{{/if}}
 </div>
+
+{{#if heroImage}}
+	<div class="wiki-page-header__hero-image" style="{{style}}"></div>
+{{/if}}
+

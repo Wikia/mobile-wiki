@@ -1,16 +1,4 @@
-{{#if contributionEnabled}}
-	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
-		{{article-contribution
-			edit=edit
-			editAllowed=editAllowed
-			editIconVisible=editIconVisible
-			section=0
-			title=model.displayTitle
-		}}
-	{{/wikia-ui-components/wiki-page-header}}
-{{else}}
-	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
-{{/if}}
+{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImageInHeader}}
 
 {{#if hasFeaturedVideo}}
 	{{article-featured-video
@@ -34,12 +22,8 @@
 	{{article-content
 		adsContext=model.adsContext
 		content=model.content
-		contributionEnabled=contributionEnabled
 		displayEmptyArticleInfo=displayEmptyArticleInfo
 		displayTitle=model.displayTitle
-		edit=(action edit)
-		editAllowed=editAllowed
-		editIconVisible=editIconVisible
 		featuredVideo=model.featuredVideo
 		forceFeaturedVideoVisibility=(action 'forceFeaturedVideoVisibility')
 		heroImage=heroImage

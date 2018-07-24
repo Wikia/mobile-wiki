@@ -30,10 +30,6 @@ Router.map(function () {
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
-
-	this.route('article-edit', {
-		path: '/wiki/edit/*title/:section_index'
-	});
 });
 
 export default Router;

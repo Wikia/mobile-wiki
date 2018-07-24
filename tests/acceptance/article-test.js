@@ -18,10 +18,8 @@ module('Acceptance | Article page', (hooks) => {
 
 		assert.dom('.wiki-page-header__title').exists();
 		assert.dom('.wiki-page-header__title').hasText('Qaga2');
-		assert.dom('.wiki-page-header__wrapper .edit-section').exists();
 		assert.dom('.section-header-label').exists();
 		assert.dom('#Test_1').doesNotHaveClass('open-section');
-		// assert.dom('.section-header-label .edit-section').isNotVisible();
 
 		await click('.section-header-label');
 		assert.dom('#Test_1').hasClass('open-section');
