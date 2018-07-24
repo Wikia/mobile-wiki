@@ -45,7 +45,11 @@ module('Integration | Component | article content', (hooks) => {
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy,
 		});
@@ -75,7 +79,11 @@ module('Integration | Component | article content', (hooks) => {
 			setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
@@ -106,7 +114,11 @@ module('Integration | Component | article content', (hooks) => {
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});

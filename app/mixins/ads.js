@@ -88,12 +88,22 @@ export default Mixin.create({
 			this.appendAd(adsData.mobileInContent, 'beforebegin', firstSection);
 		}
 
-		if (articleFooter) {
-			this.appendAd(adsData.mobilePreFooter, 'beforebegin', articleFooter);
-		}
+		if (this.adsContext.opts.preFooterAndBLBSwitched) {
+			if (articleFooter) {
+				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', articleFooter);
+			}
 
-		if (globalFooter) {
-			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			if (globalFooter) {
+				this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter);
+			}
+		} else {
+			if (articleFooter) {
+				this.appendAd(adsData.mobilePreFooter, 'beforebegin', articleFooter);
+			}
+
+			if (globalFooter) {
+				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			}
 		}
 
 		this.appendHighImpactAd();
@@ -119,12 +129,22 @@ export default Mixin.create({
 			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
 
-		if (trendingArticles) {
-			this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
-		}
+		if (this.adsContext.opts.preFooterAndBLBSwitched) {
+			if (trendingArticles) {
+				this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
+			}
 
-		if (globalFooter) {
-			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			if (globalFooter) {
+				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			}
+		} else {
+			if (trendingArticles) {
+				this.appendAd(adsData.bottomLeaderBoard, 'afterend', trendingArticles);
+			}
+
+			if (globalFooter) {
+				this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter);
+			}
 		}
 
 		this.appendHighImpactAd();
