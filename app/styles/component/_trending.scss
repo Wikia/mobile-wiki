@@ -4,7 +4,6 @@
 	padding: 0 $article-horizontal-padding / 3;
 
 	h2 {
-		line-height: $line-height-smaller;
 		margin: .5rem 0;
 		padding: 0 $article-horizontal-padding / 3;
 		text-align: left;
@@ -28,7 +27,6 @@
 
 	.item-figcaption {
 		color: $wds-color-dark-blue-gray;
-		line-height: $line-height-smallest;
 		padding: .25rem;
 	}
 }

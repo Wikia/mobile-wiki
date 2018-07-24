@@ -24,18 +24,11 @@ $infobox-title-cell-height: 54px;
 $min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
-//fonts used in infobox
-$infobox-title-line-height: 24px;
-$infobox-default-line-height: $line-height-smallest;
-$hero-title-line-height: $line-height-small;
-$hero-caption-line-height: 18px;
-
 .pi {
 	@extend .wds-font-size-l;
 
 	background-color: $infobox-background;
 	height: auto;
-	line-height: $infobox-default-line-height;
 	margin: 0 #{-$article-horizontal-padding};
 
 	.article-gallery {
@@ -81,7 +74,6 @@ $hero-caption-line-height: 18px;
 .pi-secondary-font {
 	@extend .wds-font-weight-bold;
 
-	line-height: inherit;
 	margin-top: 0;
 }
 
@@ -186,8 +178,7 @@ $hero-caption-line-height: 18px;
 
 .pi-hero-title {
 	@extend .wds-font-size-xl;
-
-	line-height: $hero-title-line-height;
+	@extend .wds-font-size-xxl;
 }
 
 .pi-hero-title,
@@ -201,21 +192,21 @@ $hero-caption-line-height: 18px;
 .pi-hero-caption {
 	@extend .wds-font-size-xs;
 	@extend .wds-font-weight-normal;
+	@extend .wds-line-height-base;
 
-	line-height: $hero-caption-line-height;
 	padding-top: $infobox-item-margin;
 }
 
 // infobox title
 .pi-title {
 	@extend .wds-font-size-l;
+	@extend .wds-line-height-l;
 
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	line-height: $infobox-title-line-height;
 	min-height: $infobox-title-cell-height;
 	text-align: center;
 }
@@ -255,7 +246,6 @@ $hero-caption-line-height: 18px;
 	ol,
 	ul,
 	p {
-		line-height: inherit;
 		list-style-position: inside;
 	}
 
