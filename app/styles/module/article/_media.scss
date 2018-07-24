@@ -40,12 +40,13 @@ figcaption {
 	}
 
 	figcaption {
-		@include ellipsis;
 		@extend .wds-font-size-s;
+		@extend .wds-line-height-s;
+
+		@include ellipsis;
 
 		bottom: 0;
 		color: white;
-		line-height: 1rem;
 		padding: 10px;
 		position: absolute;
 		width: 100%;
