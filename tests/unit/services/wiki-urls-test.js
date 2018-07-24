@@ -341,4 +341,93 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			});
 		});
 	});
+
+	test('test getEncodedTitleFromURL', (assert) => {
+		const testCases = [
+			{
+				url: '',
+				expectedTitle: ''
+			},
+			{
+				url: 'http://test.wikia.com/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
+				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+			},
+			{
+				url: '/wiki/Test article name',
+				expectedTitle: 'Test article name'
+			},
+			{
+				url: 'http://test.wikia.com/wiki/Test',
+				expectedTitle: 'Test'
+			},
+			{
+				url: 'http://test.wikia.com/Test',
+				expectedTitle: 'Test'
+			},
+			{
+				url: 'http://test.wikia.com/wiki/Wiki/wiki/wiki/wiki',
+				expectedTitle: 'Wiki/wiki/wiki/wiki'
+			},
+			{
+				url: '/wiki/Wiki/wiki/wiki/wiki',
+				expectedTitle: 'Wiki/wiki/wiki/wiki'
+			},
+			{
+				url: 'Title',
+				expectedTitle: 'Title'
+			},
+			{
+				url: '/Title',
+				expectedTitle: 'Title'
+			},
+			{
+				url: '/Wiki',
+				expectedTitle: 'Wiki'
+			},
+			{
+				url: '/wiki',
+				expectedTitle: 'wiki'
+			},
+			{
+				url: 'http://test.wikia.com/szl/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
+				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+			},
+			{
+				url: '/szl/wiki/Test article name',
+				expectedTitle: 'Test article name'
+			},
+			{
+				url: 'http://test.wikia.com/szl/wiki/Test',
+				expectedTitle: 'Test'
+			},
+			{
+				url: 'http://test.wikia.com/szl/Test',
+				expectedTitle: 'Test'
+			},
+			{
+				url: 'http://test.wikia.com/szl/wiki/Wiki/szl/wiki/wiki/wiki',
+				expectedTitle: 'Wiki/szl/wiki/wiki/wiki'
+			},
+			{
+				url: '/szl/wiki/Wiki/wiki/wiki/wiki',
+				expectedTitle: 'Wiki/wiki/wiki/wiki'
+			},
+			{
+				url: '/szl/Title',
+				expectedTitle: 'Title'
+			},
+			{
+				url: '/szl/Wiki',
+				expectedTitle: 'Wiki'
+			},
+			{
+				url: '/szl/wiki',
+				expectedTitle: 'wiki'
+			},
+		];
+
+		testCases.forEach((testCase) => {
+			assert.equal(wikiUrls.getEncodedTitleFromURL(testCase.url), testCase.expectedTitle);
+		});
+	});
 });
