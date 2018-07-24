@@ -26,7 +26,7 @@ $infobox-image-collection-button-width: 60px;
 
 
 .pi {
-	@extend .wds-font-size-l;
+	@extend %wds-font-size-l;
 
 	background-color: $infobox-background;
 	height: auto;
@@ -73,7 +73,7 @@ $infobox-image-collection-button-width: 60px;
 }
 
 .pi-secondary-font {
-	@extend .wds-font-weight-bold;
+	@extend %wds-font-weight-bold;
 
 	margin-top: 0;
 }
@@ -178,8 +178,8 @@ $infobox-image-collection-button-width: 60px;
 }
 
 .pi-hero-title {
-	@extend .wds-font-size-xl;
-	@extend .wds-font-size-xxl;
+	@extend %wds-font-size-xl;
+	@extend %wds-font-size-xxl;
 }
 
 .pi-hero-title,
@@ -191,17 +191,17 @@ $infobox-image-collection-button-width: 60px;
 }
 
 .pi-hero-caption {
-	@extend .wds-font-size-xs;
-	@extend .wds-font-weight-normal;
-	@extend .wds-line-height-base;
+	@extend %wds-font-size-xs;
+	@extend %wds-font-weight-normal;
+	@extend %wds-line-height-base;
 
 	padding-top: $infobox-item-margin;
 }
 
 // infobox title
 .pi-title {
-	@extend .wds-font-size-l;
-	@extend .wds-line-height-l;
+	@extend %wds-font-size-l;
+	@extend %wds-line-height-l;
 
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
@@ -264,7 +264,7 @@ $infobox-image-collection-button-width: 60px;
 
 // infobox group
 .pi-group .pi-header {
-	@extend .wds-font-size-base;
+	@extend %wds-font-size-base;
 
 	text-align: center;
 }
@@ -277,7 +277,7 @@ $infobox-image-collection-button-width: 60px;
 	width: 100%;
 
 	.pi-header {
-		@extend .wds-font-size-base;
+		@extend %wds-font-size-base;
 
 		text-align: center;
 	}
@@ -346,7 +346,7 @@ $infobox-image-collection-button-width: 60px;
 
 // infobox navigation
 .pi-navigation {
-	@extend .wds-font-weight-normal;
+	@extend %wds-font-weight-normal;
 
 	background-color: inherit;
 	color: inherit;
