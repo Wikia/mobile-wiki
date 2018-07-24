@@ -1,18 +1,18 @@
 // background colors
-$page-background-color: $white;
+$page-background-color: $wds-color-white;
 
 // 10% button color, 5% black and 85% white
-$tabular-layout-stripe-background: mix(mix($color-blue-light, $black, 66%), $page-background-color, 15%);
+$tabular-layout-stripe-background: mix(mix($wds-color-light-blue, black, 66%), $page-background-color, 15%);
 
 // secondary fields colors
-$infobox-secondary-background: $color-blue-light;
-$infobox-secondary-font-color: $white;
-$infobox-secondary-color: $color-blue-gray-light;
+$infobox-secondary-background: $wds-color-light-blue;
+$infobox-secondary-font-color: $wds-color-white;
+$infobox-secondary-color: $wds-color-blue-gray;
 
 // hero module colors
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: $white;
+$infobox-hero-font-color: $wds-color-white;
 
 // spacing
 $infobox-item-margin: 6px;
@@ -24,22 +24,12 @@ $infobox-title-cell-height: 54px;
 $min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
-//fonts used in infobox
-$infobox-title-font-size: 20px;
-$infobox-title-line-height: 24px;
-$infobox-default-font-size: $type-smallest;
-$infobox-default-line-height: $line-height-smallest;
-$hero-title-font-size: $type-small;
-$hero-title-line-height: $line-height-small;
-$hero-caption-font-size: 12px;
-$hero-caption-line-height: 18px;
-$group-header-font-size: 16px;
 
 .pi {
+	@extend .wds-font-size-l;
+
 	background-color: $infobox-background;
-	font-size: $infobox-default-font-size;
 	height: auto;
-	line-height: $infobox-default-line-height;
 	margin: 0 #{-$article-horizontal-padding};
 
 	.article-gallery {
@@ -80,17 +70,11 @@ $group-header-font-size: 16px;
 .pi-secondary-background {
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
-
-	a {
-		color: inherit;
-		text-decoration: underline;
-	}
 }
 
 .pi-secondary-font {
-	font-size: inherit;
-	font-weight: bold;
-	line-height: inherit;
+	@extend .wds-font-weight-bold;
+
 	margin-top: 0;
 }
 
@@ -194,8 +178,8 @@ $group-header-font-size: 16px;
 }
 
 .pi-hero-title {
-	font-size: $hero-title-font-size;
-	line-height: $hero-title-line-height;
+	@extend .wds-font-size-xl;
+	@extend .wds-font-size-xxl;
 }
 
 .pi-hero-title,
@@ -204,30 +188,26 @@ $group-header-font-size: 16px;
 
 	color: $infobox-hero-font-color;
 	text-shadow: 0 0 3px $infobox-hero-outline-color;
-
-	a {
-		color: inherit;
-		pointer-events: auto;
-		text-decoration: underline;
-	}
 }
 
 .pi-hero-caption {
-	font-size: $hero-caption-font-size;
-	font-weight: normal;
-	line-height: $hero-caption-line-height;
+	@extend .wds-font-size-xs;
+	@extend .wds-font-weight-normal;
+	@extend .wds-line-height-base;
+
 	padding-top: $infobox-item-margin;
 }
 
 // infobox title
 .pi-title {
+	@extend .wds-font-size-l;
+	@extend .wds-line-height-l;
+
 	background-color: $infobox-secondary-background;
 	color: $infobox-secondary-font-color;
 	display: flex;
 	flex-direction: column;
-	font-size: $infobox-title-font-size;
 	justify-content: center;
-	line-height: $infobox-title-line-height;
 	min-height: $infobox-title-cell-height;
 	text-align: center;
 }
@@ -235,7 +215,7 @@ $group-header-font-size: 16px;
 // infobox images
 .pi-image {
 	figcaption {
-		color: $black;
+		color: $wds-color-black;
 		height: auto;
 		padding: $infobox-item-margin * 2 $article-horizontal-padding;
 	}
@@ -267,8 +247,6 @@ $group-header-font-size: 16px;
 	ol,
 	ul,
 	p {
-		font-size: inherit;
-		line-height: inherit;
 		list-style-position: inside;
 	}
 
@@ -286,7 +264,8 @@ $group-header-font-size: 16px;
 
 // infobox group
 .pi-group .pi-header {
-	font-size: $group-header-font-size;
+	@extend .wds-font-size-base;
+
 	text-align: center;
 }
 
@@ -298,7 +277,8 @@ $group-header-font-size: 16px;
 	width: 100%;
 
 	.pi-header {
-		font-size: $group-header-font-size;
+		@extend .wds-font-size-base;
+
 		text-align: center;
 	}
 
@@ -366,14 +346,10 @@ $group-header-font-size: 16px;
 
 // infobox navigation
 .pi-navigation {
+	@extend .wds-font-weight-normal;
+
 	background-color: inherit;
 	color: inherit;
-	font-weight: normal;
-
-	a {
-		color: $anchor-font-color;
-		text-decoration: none;
-	}
 }
 
 // styles for infobox collapse / expand UI

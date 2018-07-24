@@ -5,11 +5,11 @@
 }}
 <div class="search-results">
 	{{#if model.totalItems}}
-		<div class="search-results__total">
+		<div class="search-results__total wds-font-size-s wds-line-height-s">
 			{{{i18n 'main.total-results'
 				ns='search'
 				totalItems=model.totalItems
-				query=(wrap-me model.query tagName='strong')
+				query=(wrap-me model.query tagName='strong' className='wds-font-weight-bold')
 			}}}
 		</div>
 		{{wikia-ui-components/wikia-card-list
@@ -22,18 +22,18 @@
 		{{#wikia-ui-components/error-info}}
 			{{wikia-search-error-not-found
 				erroneousQuery=model.erroneousQuery
-				onErrorPageClick=(action 'onErrorPageClick')
 			}}
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
 </div>
 {{#if model.canLoadMore}}
 	<div class="search-results__load-more-wrapper">
-		{{wikia-ui-components/wds-button
-			text=(i18n 'main.load-more-results' ns='search')
-			onClick=(action 'onLoadMore')
-			trackLabel='search-load-more'
-			isText=true
+		{{#wds-button
+			click=(action 'onLoadMore' 'search-load-more')
+			data-tracking-label='search-load-more'
+			secondary=true
 		}}
+			{{i18n 'main.load-more-results' ns='search'}}
+		{{/wds-button}}
 	</div>
 {{/if}}

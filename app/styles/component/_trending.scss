@@ -4,12 +4,9 @@
 	padding: 0 $article-horizontal-padding / 3;
 
 	h2 {
-		font-size: $type-smaller;
-		line-height: $line-height-smaller;
 		margin: .5rem 0;
 		padding: 0 $article-horizontal-padding / 3;
 		text-align: left;
-		text-transform: uppercase;
 		width: 100%;
 	}
 
@@ -29,10 +26,7 @@
 	}
 
 	.item-figcaption {
-		color: $color-gray-dark;
-		font-size: $type-smallest;
-		font-weight: bold;
-		line-height: $line-height-smallest;
+		color: $wds-color-dark-blue-gray;
 		padding: .25rem;
 	}
 }

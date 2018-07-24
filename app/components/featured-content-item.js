@@ -9,7 +9,7 @@ export default Component.extend(
 	{
 		tagName: 'a',
 		attributeBindings: ['href', 'style'],
-		classNames: ['featured-content-item'],
+		classNames: ['featured-content-item', 'wds-font-size-xxl'],
 
 		imageWidth: 400,
 		href: oneWay('model.url'),

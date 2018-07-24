@@ -9,8 +9,8 @@ $portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 
 	table {
 		border: 0;
-		border-left: $article-horizontal-padding solid $color-white;
-		border-right: $article-horizontal-padding solid $color-white;
+		border-left: $article-horizontal-padding solid transparent;
+		border-right: $article-horizontal-padding solid transparent;
 	}
 
 	// overwrite styles from _tables.scss
@@ -27,7 +27,7 @@ $portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 
 // portable table styles
 table[data-portable="true"] {
-	font-size: $type-smallest;
+	@extend .wds-font-size-s;
 
 	// overrides default img styles for proper rendering inside tables
 	img {
@@ -49,11 +49,11 @@ table[data-portable="true"] {
 	}
 
 	th {
-		background-color: $color-blue-gray-light;
+		background-color: $wds-color-blue-gray;
 		vertical-align: top;
 	}
 
 	tr:nth-child(odd) td {
-		background-color: $color-gray-light;
+		background-color: $wds-color-faint-blue-gray;
 	}
 }

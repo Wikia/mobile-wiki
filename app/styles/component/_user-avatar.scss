@@ -1,9 +1,5 @@
 .user-avatar {
 	display: inline-block;
-
-	.avatar-username {
-		font-size: 1rem;
-	}
 }
 
 @media #{$wds-breakpoint-m-down} {

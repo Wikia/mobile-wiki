@@ -9,10 +9,9 @@ $title-padding-large: 0 21px;
 
 .sub-head {
 	align-items: center;
-	background: $color-blue-light;
-	color: $white;
+	background: $wds-color-light-blue;
+	color: $wds-color-white;
 	display: flex;
-	font-size: $type-smallest;
 	height: $wikia-ui-components-sub-head-height;
 	left: 0;
 	margin: 0 auto;
@@ -21,7 +20,6 @@ $title-padding-large: 0 21px;
 	z-index: $z-site-head;
 
 	@media #{$wds-breakpoint-m-down} {
-		font-size: 16px;
 		height: $wikia-ui-components-sub-head-height-large;
 	}
 }
@@ -52,7 +50,7 @@ $title-padding-large: 0 21px;
 	};
 
 	svg {
-		fill: $white;
+		fill: $wds-color-white;
 		height: $back-arrow-size;
 		width: $back-arrow-size;
 	}
@@ -95,11 +93,9 @@ $title-padding-large: 0 21px;
 	color: inherit;
 	cursor: pointer;
 	font: inherit;
-	font-weight: bolder;
 	height: $wikia-ui-components-sub-head-height;
 	order: 3;
 	padding: 0 $article-horizontal-padding;
-	text-transform: none;
 
 	&:disabled {
 		background: inherit;

@@ -7,7 +7,7 @@ import RenderComponentMixin from '../mixins/render-component';
 export default Component.extend(RenderComponentMixin, {
 	lightbox: service(),
 
-	classNames: ['lightbox-wrapper'],
+	classNames: ['lightbox-wrapper', 'wds-font-size-xs', 'wds-line-height-xs'],
 	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
