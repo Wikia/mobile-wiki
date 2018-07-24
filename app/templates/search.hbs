@@ -5,11 +5,11 @@
 }}
 <div class="search-results">
 	{{#if model.totalItems}}
-		<div class="search-results__total wds-font-size-s">
+		<div class="search-results__total wds-font-size-s wds-line-height-s">
 			{{{i18n 'main.total-results'
 				ns='search'
 				totalItems=model.totalItems
-				query=(wrap-me model.query tagName='strong')
+				query=(wrap-me model.query tagName='strong' className='wds-font-weight-bold')
 			}}}
 		</div>
 		{{wikia-ui-components/wikia-card-list
