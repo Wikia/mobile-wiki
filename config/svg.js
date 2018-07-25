@@ -2,11 +2,16 @@ const designSystemAssetsPath = 'node_modules/design-system/style-guide/assets/';
 
 // DS icons which should be returned in bottom of body
 const designSystemInlineSVGs = [
-	'wds-company-logo-fandom',
+	'wds-avatar-icon-user',
+	'wds-company-logo-fandom-white',
 	'wds-icons-menu',
 	'wds-icons-magnifying-glass',
 	'wds-icons-magnifying-glass-small',
 	'wds-icons-image',
+	'wds-icons-menu-small',
+	'wds-icons-reply-small',
+	'wds-icons-dropdown-tiny',
+	'wds-company-logo-fandom-heart'
 ].map((name) => {
 	return { name, path: `${designSystemAssetsPath}${name}.svg` };
 });
@@ -37,7 +42,6 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-pencil-small',
 	'wds-icons-play',
 	'wds-icons-reply',
-	'wds-icons-reply-small',
 	'wds-icons-reply-tiny',
 	'wds-icons-twitter',
 	'wds-icons-upvote',

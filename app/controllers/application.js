@@ -28,8 +28,6 @@ export default Controller.extend(
 
 		applicationWrapperClassNames: null,
 		commentsPage: null,
-		drawerContent: null,
-		drawerVisible: false,
 		mobileApp: null,
 		userMenuVisible: false,
 
@@ -61,31 +59,6 @@ export default Controller.extend(
 			 */
 			handleLink(target) {
 				this.target.send('handleLink', target);
-			},
-
-			/**
-			 * Bubbles up to ApplicationRoute
-			 *
-			 * @returns {void}
-			 */
-			loadRandomArticle() {
-				this.target.send('loadRandomArticle');
-			},
-
-			/**
-			 * @param {boolean} visible
-			 * @returns {void}
-			 */
-			toggleDrawer(visible) {
-				this.set('drawerVisible', visible);
-			},
-
-			/**
-			 * @param {boolean} visible
-			 * @returns {void}
-			 */
-			toggleUserMenu(visible) {
-				this.set('userMenuVisible', visible);
 			},
 
 			toggleSiteHeadShadow(visible) {

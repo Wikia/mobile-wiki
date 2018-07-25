@@ -41,7 +41,7 @@ node('docker-daemon') {
        if ( !imageExists ) {
             if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
 
                 def vault_secrets = [
                     [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
@@ -67,7 +67,7 @@ node('docker-daemon') {
                 }
 
                 sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
             }
         }
     }

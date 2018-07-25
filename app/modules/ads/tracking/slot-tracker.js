@@ -1,7 +1,33 @@
 const trackingRouteName = 'special/adengadinfo';
 
+const onChangeStatusToTrack = [
+	'blocked',
+	'error',
+	'viewport-conflict'
+];
+
 function getPosParameter({ pos = '' }) {
-	return (Array.isArray(pos) ? pos : pos.split(','))[0];
+	return (Array.isArray(pos) ? pos : pos.split(','))[0].toLowerCase();
+}
+
+function checkOptIn() {
+	let geoRequires = true;
+
+	if (window.M === 'undefined') {
+		geoRequires = true;
+	} else if (typeof window.M.geoRequiresConsent !== 'undefined') {
+		geoRequires = window.M.geoRequiresConsent;
+	} else if (typeof window.M.continent !== 'undefined') {
+		geoRequires = window.M.continent === 'EU';
+	}
+
+	if (geoRequires) {
+		const { context } = window.Wikia.adEngine;
+
+		return context.get('options.trackingOptIn') ? 'yes' : 'no';
+	}
+
+	return '';
 }
 
 /**
@@ -14,7 +40,24 @@ function prepareData(slot, data) {
 	// Global imports:
 	const { context } = window.Wikia.adEngine;
 	const { utils } = window.Wikia.adProducts;
+	const { bidders } = window.Wikia.adProductsBidders;
 	// End of imports
+
+	const slotName = slot.getSlotName();
+	const realSlotPrices = bidders.getDfpSlotPrices(slotName);
+	const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
+
+	function transformBidderPrice(bidderName) {
+		if (realSlotPrices && realSlotPrices[bidderName]) {
+			return realSlotPrices[bidderName];
+		}
+
+		if (currentSlotPrices && currentSlotPrices[bidderName]) {
+			return `${currentSlotPrices[bidderName]}not_used`;
+		}
+
+		return '';
+	}
 
 	return {
 		pv_unique_id: window.pvUID,
@@ -32,6 +75,19 @@ function prepareData(slot, data) {
 		ad_status: data.status,
 		page_width: data.page_width,
 		viewport_height: data.viewport_height,
+		bidder_1: transformBidderPrice('indexExchange'),
+		bidder_2: transformBidderPrice('appnexus'),
+		bidder_4: transformBidderPrice('rubicon'),
+		bidder_6: transformBidderPrice('aol'),
+		bidder_7: transformBidderPrice('audienceNetwork'),
+		bidder_9: transformBidderPrice('openx'),
+		bidder_10: transformBidderPrice('appnexusAst'),
+		bidder_11: transformBidderPrice('rubicon_display'),
+		bidder_12: transformBidderPrice('a9'),
+		bidder_13: transformBidderPrice('onemobile'),
+		bidder_14: transformBidderPrice('pubmatic'),
+		bidder_15: transformBidderPrice('beachfront'),
+		bidder_16: transformBidderPrice('appnexusWebAds'),
 		kv_skin: context.get('targeting.skin'),
 		kv_pos: getPosParameter(slot.getTargeting()),
 		kv_wsi: slot.getTargeting().wsi || '',
@@ -45,9 +101,10 @@ function prepareData(slot, data) {
 		kv_esrb: context.get('targeting.esrb'),
 		kv_ref: context.get('targeting.ref'),
 		kv_top: context.get('targeting.top'),
-		labrador: utils.getSamplingResults().join(';')
+		labrador: utils.getSamplingResults().join(';'),
+		opt_in: checkOptIn()
 		// Missing:
-		// bidder_won, bidder_won_price, bidder_X, page_layout, rabbit, scroll_y, product_chosen
+		// bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
 	};
 }
 
@@ -85,7 +142,8 @@ export default {
 	 */
 	onStatusChanged(adSlot, data) {
 		const status = adSlot.getStatus();
-		if (status !== 'success' && status !== 'collapse') {
+
+		if (onChangeStatusToTrack.indexOf(status) !== -1) {
 			M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
 		}
 	},

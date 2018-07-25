@@ -2,32 +2,14 @@
 	{{outlet}}
 {{else}}
 	{{site-head
-		drawerContent=activeDrawerContent
-		drawerVisible=drawerVisible
 		globalNavigation=globalNavigation
+		communityHeader=communityHeader
+		contentLanguage=contentLanguage
 		isSearchPage=isSearchPage
 		shadow=siteHeadShadow
-		setDrawerContent=(action 'setDrawerContent')
 		themeBar=themeBar
-		toggleDrawer=toggleDrawer
 		offset=ads.siteHeadOffset
 	}}
-	{{#wikia-drawer shouldBeVisible=drawerVisible}}
-		{{#if activeDrawerContent}}
-			{{component
-				drawerContentComponent
-				onEnterHandler=(action 'closeDrawer')
-				suggestionClickAction=(action 'closeDrawer')
-				setDrawerContent=(action 'setDrawerContent')
-				closeDrawer=(action 'closeDrawer')
-				outsideSuggestionsClickAction=(action 'closeDrawer')
-				loadRandomArticle=loadRandomArticle
-				globalNavigation=globalNavigation
-				noScroll=true
-				focusInput=true
-			}}
-		{{/if}}
-	{{/wikia-drawer}}
 	<div class="page-wrapper">
 		{{outlet}}
 	</div>

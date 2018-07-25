@@ -8,6 +8,7 @@ import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	wikiUrls: service(),
+	fastboot: service(),
 
 	fetchAll(host, wikiId, language) {
 		const url = this.wikiUrls.build({
@@ -18,11 +19,16 @@ export default EmberObject.extend({
 				method: 'getAllElements',
 				product: 'wikis',
 				id: wikiId,
-				lang: language
+				lang: language,
+				version: 2
 			}
 		});
 
-		return fetch(url)
+		return fetch(url, {
+			headers: {
+				Cookie: `access_token=${this.get('fastboot.request.cookies.access_token')}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
@@ -41,7 +47,8 @@ export default EmberObject.extend({
 			.then((navigationData) => {
 				return {
 					globalFooter: navigationData['global-footer'],
-					globalNavigation: navigationData['global-navigation']
+					globalNavigation: navigationData['global-navigation'],
+					communityHeader: navigationData['community-header']
 				};
 			});
 	}

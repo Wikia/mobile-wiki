@@ -4,13 +4,16 @@ import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import { trackActions } from '../utils/track';
 import { system } from '../utils/browser';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 
-export default Component.extend({
+export default Component.extend(RespondsToScroll, {
 	i18n: service(),
 	smartBanner: service(),
 
 	classNames: ['fandom-app-smart-banner'],
 	dayInMiliseconds: 86400000,
+	// sync with scss variable $fandom-app-smart-banner-height
+	fandomAppSmartBannerHeight: 85,
 
 	closeButtonSelector: '.fandom-app-smart-banner__close',
 
@@ -57,5 +60,13 @@ export default Component.extend({
 		this.smartBanner.track(trackActions.install);
 		this.smartBanner.setVisibility(false);
 		this.smartBanner.setCookie(this.get('options.daysHiddenAfterView'));
+	},
+
+	scroll() {
+		if (window.pageYOffset >= this.fandomAppSmartBannerHeight) {
+			document.body.classList.add('fandom-app-smart-banner-passed');
+		} else {
+			document.body.classList.remove('fandom-app-smart-banner-passed');
+		}
 	}
 });

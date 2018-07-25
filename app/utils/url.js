@@ -4,19 +4,23 @@ import config from '../config/environment';
  * Converting and escaping Querystring object to string.
  *
  * @param {Object} [query={}] Querystring object
+ * @param {getQueryStringOptions} options
  * @returns {string}
  */
-export function getQueryString(query = {}) {
+export function getQueryString(query = {}, { useBrackets = true, skipQuestionMark = false } = {}) {
 	const queryArray = Object.keys(query);
+	const brackets = useBrackets ? '[]' : '';
 
 	let queryString = '';
 
 	if (queryArray.length > 0) {
-		queryString = `?${queryArray.map((key) => {
+		const start = skipQuestionMark ? '' : '?';
+
+		queryString = `${start}${queryArray.map((key) => {
 			if (query[key] instanceof Array) {
 				if (query[key].length) {
 					return query[key]
-						.map((item) => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`)
+						.map((item) => `${encodeURIComponent(key)}${brackets}=${encodeURIComponent(item)}`)
 						.join('&');
 				}
 			} else {
@@ -28,8 +32,24 @@ export function getQueryString(query = {}) {
 	return queryString;
 }
 
-export function extractEncodedTitle(url) {
-	return url ? url.replace(/^(https?:\/\/[^/]+)?(\/wiki)?\//, '') : '';
+
+/**
+ * @param {string} url
+ * @param {Object} [params={}]
+ * @returns {string}
+ */
+export function addQueryParams(url, params = {}) {
+	const paramsString = getQueryString(params, { skipQuestionMark: true });
+
+	if (paramsString.length > 0) {
+		if (url.indexOf('?') === -1) {
+			url = `${url}?`;
+		} else {
+			url = `${url}&`;
+		}
+	}
+
+	return `${url}${paramsString}`;
 }
 
 /**

@@ -1,3 +1,4 @@
+
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
@@ -149,6 +150,15 @@ export default Route.extend(
 				// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
 				fastboot.get('response.headers').set('vary', 'cookie,accept-encoding');
 				fastboot.get('response.headers').set('Content-Language', model.wikiVariables.language.content);
+
+				// Send per-wiki surrogate key header
+				let surrogateKey = model.wikiVariables.surrogateKey;
+				if (surrogateKey) {
+					// append mobile-wiki specific key
+					surrogateKey = `${surrogateKey} ${surrogateKey}-mobile-wiki`;
+					fastboot.get('response.headers').set('Surrogate-Key', surrogateKey);
+					fastboot.get('response.headers').set('X-Surrogate-Key', surrogateKey);
+				}
 
 				// TODO remove `transition.queryParams.page`when icache supports surrogate keys
 				// and we can purge the category pages
@@ -345,29 +355,6 @@ export default Route.extend(
 					// Reaching this clause means something is probably wrong.
 					this.logger.error('Unable to open link', target.href);
 				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			loadRandomArticle() {
-				this.controller.send('toggleDrawer', false);
-
-				ArticleModel.create(getOwner(this).ownerInjection())
-					.getArticleRandomTitle()
-					.then((articleTitle) => {
-						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
-					})
-					.catch((err) => {
-						this.send('error', err);
-					});
-			},
-
-			openNav() {
-				this.controller.setProperties({
-					drawerContent: 'nav',
-					drawerVisible: true
-				});
 			}
 		},
 

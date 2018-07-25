@@ -124,9 +124,9 @@ class Ads {
 				'ext.wikia.adEngine.context.slotsContext',
 				'ext.wikia.adEngine.lookup.a9',
 				'ext.wikia.adEngine.mobile.mercuryListener',
-				'ext.wikia.adEngine.babDetection',
 				'ext.wikia.adEngine.provider.gpt.googleTag',
 				'ext.wikia.adEngine.video.vastUrlBuilder',
+				'ext.wikia.adEngine.wad.babDetection',
 				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
 				'wikia.krux'
@@ -139,9 +139,9 @@ class Ads {
 				slotsContext,
 				a9,
 				adMercuryListener,
-				babDetectionModule,
 				googleTagModule,
 				vastUrlBuilder,
+				babDetectionModule,
 				jwPlayerAds,
 				jwPlayerMoat,
 				krux

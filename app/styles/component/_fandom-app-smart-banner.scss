@@ -7,7 +7,6 @@
 	height: $fandom-app-smart-banner-height;
 	justify-content: flex-start;
 	width: 100%;
-	// one less than drawer as it cannot be visible when drawer opens
 	z-index: $z-site-head - 2;
 
 	&__link {
