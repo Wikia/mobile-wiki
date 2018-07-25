@@ -391,18 +391,19 @@ section {
 }
 
 .pi-hero-small-wrapper {
-	padding: 0 $article-horizontal-padding;
+	display: flex;
+	justify-content: space-around;
+	margin: 24px $article-horizontal-padding 0;
 }
 
 .pi-hero-small {
 	display: block;
 	position: relative;
+	margin-top: -12px;
+	width: 50%;
 
-	> img {
-		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 0;
+	img {
+		border-radius: 4px;
 		width: 100%;
 	}
 }

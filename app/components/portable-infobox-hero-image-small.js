@@ -25,11 +25,6 @@ export default Component.extend(
 			return new HeroImage(heroImage, Thumbnailer.mode.topCropDown, maxWidth);
 		}),
 
-		linkStyle: computed('heroImageHelper', function () {
-			const percent = this.get('heroImageHelper.computedHeight') / this.maxWidth * 100;
-			return htmlSafe(`padding-top: ${percent}%`);
-		}),
-
 		click() {
 			this.lightbox.open('media', this.heroImage);
 

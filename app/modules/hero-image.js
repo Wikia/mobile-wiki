@@ -7,7 +7,7 @@ const HERO_IMAGE_ASPECT_RATIO = 375 / MAX_WIDTH;
 export default class HeroImage {
 
 	constructor(heroImage, tallImageCropMode, width = MAX_WIDTH) {
-		const imageAspectRatio = 16 / 9,
+		const imageAspectRatio = 5 / 4,
 			imageWidth = heroImage.width || width,
 			imageHeight = heroImage.height,
 			maxWidth = Math.floor(imageHeight * imageAspectRatio);
@@ -15,7 +15,7 @@ export default class HeroImage {
 		let computedHeight = imageHeight,
 			cropMode = tallImageCropMode;
 
-		// wide image - crop images wider than 16:9 aspect ratio to 16:9
+		// wide image - crop images wider than 5:4 aspect ratio to 5:4
 		if (imageWidth > maxWidth) {
 			cropMode = Thumbnailer.mode.zoomCrop;
 			computedHeight = Math.floor(width / imageAspectRatio);
