@@ -33,7 +33,7 @@ export default Route.extend(
 		initialPageView: service(),
 		logger: service(),
 		wikiVariables: service(),
-		liftigniter: service(),
+		wdsLiftigniter: service(),
 		lightbox: service(),
 		wikiUrls: service(),
 
@@ -112,6 +112,10 @@ export default Route.extend(
 				const handler = this.getHandler(model);
 				let redirectTo = model.get('redirectTo');
 
+				if (model.isRandomPage) {
+					this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
+				}
+
 				if (handler) {
 					scheduleOnce('afterRender', () => {
 						// Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
@@ -120,7 +124,9 @@ export default Route.extend(
 					});
 
 					transition.then(() => {
-						this.liftigniter.initLiftigniter(model.adsContext);
+						if (!this.get('fastboot.isFastBoot')) {
+							this.wdsLiftigniter.initLiftigniter(model.adsContext);
+						}
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({

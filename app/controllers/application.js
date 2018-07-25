@@ -61,15 +61,6 @@ export default Controller.extend(
 				this.target.send('handleLink', target);
 			},
 
-			/**
-			 * Bubbles up to ApplicationRoute
-			 *
-			 * @returns {void}
-			 */
-			loadRandomArticle() {
-				this.target.send('loadRandomArticle');
-			},
-
 			toggleSiteHeadShadow(visible) {
 				this.set('siteHeadShadow', visible);
 			}

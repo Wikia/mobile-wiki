@@ -1,4 +1,6 @@
 import { Promise } from 'rsvp';
+import { logError } from './event-logger';
+import fetch from 'fetch';
 
 export const assetUrls = {
 	styles: '/mobile-wiki-assets/assets/jwplayer/index.css',
@@ -31,6 +33,17 @@ class JWPlayerAssets {
 			this.scriptsPromise = new Promise((resolve) => {
 				window.M.loadScript(assetUrls.script, true, (data) => {
 					resolve(data);
+
+					if (typeof window.wikiaJWPlayer !== 'function') {
+						fetch(assetUrls.script).then((data) => {
+							data.text().then((scriptText) => {
+								logError('wikiaJWPlayer not a function', {
+									script: scriptText,
+									url: assetUrls.script
+								});
+							});
+						});
+					}
 				});
 			});
 		}
