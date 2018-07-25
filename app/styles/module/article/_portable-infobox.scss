@@ -4,11 +4,6 @@ $page-background-color: $wds-color-white;
 // 10% button color, 5% black and 85% white
 $tabular-layout-stripe-background: mix(mix($wds-color-light-blue, black, 66%), $page-background-color, 15%);
 
-// secondary fields colors
-$infobox-secondary-background: $wds-color-light-blue;
-$infobox-secondary-font-color: $wds-color-white;
-$infobox-secondary-color: $wds-color-blue-gray;
-
 // hero module colors
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
@@ -25,12 +20,15 @@ $min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
 
-.pi {
-	@extend .wds-font-size-l;
+$pi-border-radius: 4px;
 
+.pi {
 	background-color: $infobox-background;
+	border-radius: $pi-border-radius;
 	height: auto;
-	margin: 0 #{-$article-horizontal-padding};
+
+	// margin-top: -2px to hide border radius behind hero image if such is present
+	margin: -$pi-border-radius/2 0 0;
 
 	.article-gallery {
 		// position:relative needed here for proper setting the
@@ -44,7 +42,6 @@ $infobox-image-collection-button-width: 60px;
 
 		.pi-expand-button {
 			bottom: 0;
-			padding-top: 45px;
 			position: absolute;
 		}
 	}
@@ -65,11 +62,6 @@ $infobox-image-collection-button-width: 60px;
 
 .pi-item-spacing {
 	padding: $infobox-item-margin * 2 $article-horizontal-padding;
-}
-
-.pi-secondary-background {
-	background-color: $infobox-secondary-background;
-	color: $infobox-secondary-font-color;
 }
 
 .pi-secondary-font {
@@ -203,8 +195,6 @@ $infobox-image-collection-button-width: 60px;
 	@extend .wds-font-size-l;
 	@extend .wds-line-height-l;
 
-	background-color: $infobox-secondary-background;
-	color: $infobox-secondary-font-color;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -354,8 +344,10 @@ $infobox-image-collection-button-width: 60px;
 
 // styles for infobox collapse / expand UI
 .pi-expand-button {
-	background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
-	padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
+	background: $wds-color-white;
+	border-bottom-left-radius: $pi-border-radius;
+	border-bottom-right-radius: $pi-border-radius;
+
 	text-align: center;
 	width: 100%;
 	z-index: $z-1;

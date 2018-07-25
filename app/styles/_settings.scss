@@ -1,18 +1,3 @@
-$anchor-font-color: $wds-color-light-blue;
 $body-font-color: $wds-fandom-color-black;
 
-// Type Scale inspired by Medium's CSS
-// @source https : //medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
-$line-height-base: 1.625rem;
-$line-height-max: 3.375rem;
-$line-height-largest: 2.5rem;
-$line-height-larger: 2.25rem;
-$line-height-large: 2rem;
-$line-height-small: 1.75rem;
-$line-height-smaller: 1.75rem;
-$line-height-smallest: 1.25rem;
-$line-height-min: 1.125rem;
-
-// we are using the same page mix as on desktop infoboxes
-// 5% button color, 5% black and 90% white
-$infobox-background: mix(mix($wds-color-light-blue, black, 50%), $wds-color-white, 10%);
+$infobox-background: $wds-color-white
