@@ -347,10 +347,16 @@ $pi-border-radius: 4px;
 	background: $wds-color-white;
 	border-bottom-left-radius: $pi-border-radius;
 	border-bottom-right-radius: $pi-border-radius;
-
+	border-top: solid 1px $wds-fandom-color-mid-light-gray;
+	color: $wds-fandom-color-aqua;
+	padding: 5px 0 4px;
 	text-align: center;
 	width: 100%;
 	z-index: $z-1;
+
+	span {
+		margin-right: 5px;
+	}
 }
 
 .pi-hero,

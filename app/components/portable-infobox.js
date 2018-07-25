@@ -3,10 +3,13 @@ import Component from '@ember/component';
 import RenderComponentMixin from '../mixins/render-component';
 import { track, trackActions } from '../utils/track';
 import offset from '../utils/offset';
+import { inject as service } from '@ember/service';
 
 export default Component.extend(
 	RenderComponentMixin,
 	{
+		i18n: service(),
+
 		classNames: ['portable-infobox', 'pi'],
 		classNameBindings: ['collapsed'],
 		expandButtonClass: 'pi-expand-button',
@@ -19,6 +22,10 @@ export default Component.extend(
 
 		button: computed('expandButtonClass', function () {
 			return this.element.querySelector(`.${this.expandButtonClass}`);
+		}),
+
+		buttonLabel: computed('collapsed', function() {
+			return this.get('collapsed') ? this.i18n.t('app.more') : this.i18n.t('app.less');
 		}),
 
 		/**
