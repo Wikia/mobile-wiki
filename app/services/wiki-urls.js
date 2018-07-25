@@ -160,6 +160,16 @@ export default Service.extend({
 	},
 
 	/**
+	 * Extracts the page title from a URL by stripping the host and article path.
+	 *
+	 * @param  {string} url - URL from which to extract the title
+	 * @return {string}
+	 */
+	getEncodedTitleFromURL(url) {
+		return url ? url.replace(new RegExp(`^(https?://[^/]+)?${this.langPathRegexp}?(/wiki)?/`), '') : '';
+	},
+
+	/**
 	 * Opens the login page preserving current page as a redirect
 	 * and adding a language code to the querystring
 	 * @returns {void}

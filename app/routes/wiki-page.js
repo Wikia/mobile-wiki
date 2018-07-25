@@ -33,7 +33,7 @@ export default Route.extend(
 		initialPageView: service(),
 		logger: service(),
 		wikiVariables: service(),
-		liftigniter: service(),
+		wdsLiftigniter: service(),
 		lightbox: service(),
 		wikiUrls: service(),
 
@@ -124,7 +124,9 @@ export default Route.extend(
 					});
 
 					transition.then(() => {
-						this.liftigniter.initLiftigniter(model.adsContext);
+						if (!this.get('fastboot.isFastBoot')) {
+							this.wdsLiftigniter.initLiftigniter(model.adsContext);
+						}
 
 						if (typeof handler.afterTransition === 'function') {
 							handler.afterTransition({
