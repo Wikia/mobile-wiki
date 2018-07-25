@@ -186,13 +186,10 @@ section {
 
 // infobox title
 .pi-title {
-	@extend .wds-font-size-l;
-	@extend .wds-line-height-l;
+	@extend .wds-font-size-xl;
+	@extend .wds-font-weight-medium;
+	@extend .wds-line-height-xl;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	min-height: $infobox-title-cell-height;
 	text-align: center;
 }
 
@@ -262,7 +259,8 @@ section {
 		border-top: 1px solid $wds-fandom-color-middle-gray;
 	}
 
-	.pi-image + & {
+	.pi-image + &,
+	.pi-title + & {
 		border-top: none;
 	}
 
