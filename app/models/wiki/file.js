@@ -1,13 +1,14 @@
 import { get } from '@ember/object';
 import { getOwner } from '@ember/application';
+import { inject as service } from '@ember/service';
 import BaseModel from './base';
-import { extractEncodedTitle } from '../../utils/url';
 
 export default BaseModel.extend({
 	hasArticle: false,
 	heroImage: null,
 	fileUsageList: null,
 	fileUsageListSeeMoreUrl: null,
+	wikiUrls: service(),
 
 	/**
 	 * @param {Object} data
@@ -24,7 +25,7 @@ export default BaseModel.extend({
 			pageProperties = {
 				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
-					.map(this.prepareFileUsageItem),
+					.map((item) => this.prepareFileUsageItem(item)),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				fileThumbnail: media
 			};
@@ -37,7 +38,7 @@ export default BaseModel.extend({
 		return {
 			title,
 			snippet,
-			prefixedTitle: extractEncodedTitle(url)
+			prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(url)
 		};
 	}
 });

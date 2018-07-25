@@ -112,6 +112,7 @@ $group-header-font-size: 16px;
 		.article-media-placeholder {
 			height: auto;
 			max-height: 100vw;
+			object-fit: contain;
 			width: 100%;
 		}
 
