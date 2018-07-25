@@ -24,6 +24,7 @@ $pi-border-radius: 4px;
 .pi {
 	background-color: $infobox-background;
 	border-radius: $pi-border-radius;
+	box-shadow: 0 6px 10px 0 rgba($wds-color-black, 0.1);
 	height: auto;
 
 	// margin-top: -2px to hide border radius behind hero image if such is present
@@ -397,9 +398,10 @@ section {
 }
 
 .pi-hero-small {
+	box-shadow: 0 8px 13px 0 rgba($wds-color-black, 0.04);
 	display: block;
-	position: relative;
 	margin-top: -12px;
+	position: relative;
 	width: 50%;
 
 	img {
