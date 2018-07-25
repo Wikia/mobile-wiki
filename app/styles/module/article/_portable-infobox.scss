@@ -11,7 +11,6 @@ $infobox-hero-font-color: $wds-color-white;
 
 // spacing
 $infobox-item-margin: 6px;
-$tabular-layout-data-padding: 12px;
 $tabular-layout-padding: 14px;
 
 // field dimensions
@@ -251,6 +250,25 @@ $pi-border-radius: 4px;
 			margin-bottom: 8px;
 			margin-left: 10px;
 		}
+	}
+}
+
+.pi-group {
+	margin: 0 $infobox-item-margin * 2;
+	padding-top: $infobox-item-margin * 2;
+	padding-bottom: $infobox-item-margin * 2;
+
+	&:not(:first-child) {
+		border-top: 1px solid $wds-fandom-color-middle-gray;
+	}
+
+	.pi-image + & {
+		border-top: none;
+	}
+
+	.pi-item {
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
