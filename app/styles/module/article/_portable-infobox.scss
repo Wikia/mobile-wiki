@@ -64,12 +64,6 @@ $pi-border-radius: 4px;
 	padding: $infobox-item-margin * 2 $article-horizontal-padding;
 }
 
-.pi-secondary-font {
-	@extend .wds-font-weight-bold;
-
-	margin-top: 0;
-}
-
 //////////// Specific styles for each of the infobox elements starts here ////////////
 
 // infobox gallery
@@ -220,11 +214,19 @@ $pi-border-radius: 4px;
 }
 
 .pi-data-label {
+	@extend .wds-font-size-xs;
+	@extend .wds-line-height-xs;
+	@extend .wds-font-weight-bold;
+
 	flex-basis: 30%;
 	hyphens: auto;
 }
 
 .pi-data-value {
+	@extend .wds-font-size-s;
+	@extend .wds-font-weight-light;
+	@extend .wds-line-height-base;
+
 	overflow: auto;
 	padding-left: 0;
 
@@ -252,9 +254,18 @@ $pi-border-radius: 4px;
 	}
 }
 
-// infobox group
-.pi-group .pi-header {
-	@extend .wds-font-size-base;
+// infobox group header
+.pi-header {
+	@extend .wds-font-size-l;
+	@extend .wds-line-height-l;
+	@extend .wds-font-weight-medium;
+	@extend .wds-text-transform-uppercase;
+
+	// TODO: group headers should have midlight effect, however to make it work we need wrap h2 tags within div tag to
+	// be able to both, use display:inline from wds-midlight (which is required to make it work) and center the header
+	// text. We can adjust infobox parser easily to do it, however parser cache is 1 week long, so we need to style it in
+	// a way to support non-midlight headers when there is only h2 and midlight effect when there is div > h2
+	//@extend .wds-midlight;
 
 	text-align: center;
 }
@@ -265,12 +276,6 @@ $pi-border-radius: 4px;
 	table-layout: fixed;
 	text-align: left;
 	width: 100%;
-
-	.pi-header {
-		@extend .wds-font-size-base;
-
-		text-align: center;
-	}
 
 	.pi-horizontal-group-item {
 		vertical-align: top;
