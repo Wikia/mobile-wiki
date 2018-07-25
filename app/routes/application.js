@@ -355,20 +355,6 @@ export default Route.extend(
 					// Reaching this clause means something is probably wrong.
 					this.logger.error('Unable to open link', target.href);
 				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			loadRandomArticle() {
-				ArticleModel.create(getOwner(this).ownerInjection())
-					.getArticleRandomTitle()
-					.then((articleTitle) => {
-						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
-					})
-					.catch((err) => {
-						this.send('error', err);
-					});
 			}
 		},
 

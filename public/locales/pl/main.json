@@ -64,7 +64,7 @@
     "publish-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
     "publish-error-autoblockedtext": "Twój adres IP został automatycznie zablokowany, ponieważ był on używany przez zablokowanego użytkownika.", 
     "publish-error-blocked": "Możliwość edycji została zablokowana.", 
-    "publish-error-noedit": "Nie masz uprawnień do edycji stron na tym wiki.", 
+    "publish-error-noedit": "Nie masz uprawnień do edycji stron na tej wiki.", 
     "publish-error-noedit-anon": "Anonimowi użytkownicy nie mogą edytować stron.", 
     "publish-error-protectedpage": "Nie posiadasz uprawnień do edytowania tej strony.", 
     "success": "Dokonano edycji strony {pageTitle}!"
