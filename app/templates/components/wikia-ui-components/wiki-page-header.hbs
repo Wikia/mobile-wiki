@@ -10,11 +10,9 @@
 </div>
 
 {{#if heroImage}}
-	<img class="wiki-page-header__hero-image article-media-placeholder lazyload"
-		 src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 {{heroImage.thumbnailWidth}} {{heroImage.thumbnailHeight}}'%2F%3E"
-		 data-src="{{heroImage.thumbnail}}"
-		 data-srcset="{{heroImage.thumbnail}}, {{heroImage.thumbnail2x}} 2x"
-		 data-sizes="auto"
+	<img class="wiki-page-header__hero-image"
+		 src="{{heroImage.thumbnail}}"
+		 srcset="{{heroImage.thumbnail}}, {{heroImage.thumbnail2x}} 2x"
 		 width="{{heroImage.thumbnailWidth}}"
 		 height="{{heroImage.thumbnailHeight}}"
 		 alt="{{heroImage.title}}"
