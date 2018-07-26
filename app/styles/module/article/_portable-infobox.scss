@@ -1,24 +1,19 @@
-// background colors
-$page-background-color: $wds-color-white;
-
-// 10% button color, 5% black and 85% white
-$tabular-layout-stripe-background: mix(mix($wds-color-light-blue, black, 66%), $page-background-color, 15%);
-
-// hero module colors
+// hero module settings
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
 $infobox-hero-font-color: $wds-color-white;
+$hero-image-small-offset: 12px;
+$hero-image-small-box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
 
 // spacing
 $infobox-item-margin: 6px;
 $tabular-layout-padding: 12px;
 
 // field dimensions
-$infobox-title-cell-height: 54px;
 $infobox-image-collection-button-width: 60px;
 
-$pi-border-radius: 4px;
-$hero-image-small-offset: 12px;
+$infobox-border-radius: 4px;
+$infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
 .portable-infobox-wrapper {
 	position: relative;
@@ -26,12 +21,12 @@ $hero-image-small-offset: 12px;
 
 .pi {
 	background-color: $infobox-background;
-	border-radius: $pi-border-radius;
-	box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
+	border-radius: $infobox-border-radius;
+	box-shadow: $infobox-box-shadow;
 	height: auto;
 
 	// margin-top: -2px to hide border radius behind hero image if such is present
-	margin: -$pi-border-radius/2 0 0;
+	margin: -$infobox-border-radius/2 0 0;
 
 	.article-gallery {
 		// position:relative needed here for proper setting the
@@ -45,6 +40,7 @@ $hero-image-small-offset: 12px;
 
 	&.collapsed ~ .pi-expand-button {
 		bottom: 0;
+		box-shadow: none;
 		position: absolute;
 
 		svg {
@@ -53,7 +49,7 @@ $hero-image-small-offset: 12px;
 	}
 
 	img {
-		border-radius: $pi-border-radius;
+		border-radius: $infobox-border-radius;
 	}
 }
 
@@ -165,7 +161,7 @@ section {
 		top: -$hero-image-small-offset;
 
 		img {
-			box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
+			box-shadow: $hero-image-small-box-shadow;
 		}
 	}
 }
@@ -367,9 +363,10 @@ section {
 // styles for infobox collapse / expand UI
 .pi-expand-button {
 	background: $wds-color-white;
-	border-bottom-left-radius: $pi-border-radius;
-	border-bottom-right-radius: $pi-border-radius;
+	border-bottom-left-radius: $infobox-border-radius;
+	border-bottom-right-radius: $infobox-border-radius;
 	border-top: solid 1px $wds-fandom-color-mid-light-gray;
+	box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 	color: $wds-fandom-color-aqua;
 	padding: 5px 0 4px;
 	text-align: center;
@@ -401,7 +398,7 @@ section {
 }
 
 .pi-hero-small {
-	box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
+	box-shadow: $hero-image-small-box-shadow;
 	display: block;
 	margin-top: -$hero-image-small-offset;
 	position: relative;
