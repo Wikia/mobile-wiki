@@ -35,8 +35,8 @@
 			}
 
 			.jw-controlbar {
-				pointer-events: none;
 				opacity: 0;
+				pointer-events: none;
 			}
 		}
 
@@ -70,7 +70,7 @@
 		display: none;
 		height: 36px;
 		justify-content: center;
-		opacity: 0.98;
+		opacity: .98;
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -176,11 +176,12 @@
 	&.is-on-scroll-active &__time {
 		@extend %wds-font-size-xs;
 		@extend %wds-font-weight-medium;
+
 		background: #272727;
 		border-radius: 3px;
 		color: $wds-color-white;
 		line-height: 1;
-		opacity: 0.9;
+		opacity: .9;
 		padding: 3px 5px;
 	}
 
@@ -202,8 +203,8 @@
 		justify-content: space-between;
 		left: 0;
 		padding: 13px 12px 15px;
-		transition: transform .3s;
 		transform: translate(0, 0);
+		transition: transform .3s;
 	}
 
 	.jw-button-container {
@@ -217,6 +218,7 @@
 		.jw-text-duration {
 			@extend %wds-font-size-s;
 			@extend %wds-font-weight-medium;
+
 			color: $wds-color-white !important;
 		}
 
@@ -238,6 +240,6 @@
 	}
 
 	:not(.jw-state-paused) .jw-svg-icon-pause {
-		opacity: 0.5;
+		opacity: .5;
 	}
 }
