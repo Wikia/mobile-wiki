@@ -10,12 +10,14 @@
 </div>
 
 {{#if heroImage}}
-	<img class="wiki-page-header__hero-image"
-		 src="{{heroImage.thumbnail}}"
-		 srcset="{{heroImage.thumbnail}}, {{heroImage.thumbnail2x}} 2x"
-		 width="{{heroImage.thumbnailWidth}}"
-		 height="{{heroImage.thumbnailHeight}}"
-		 alt="{{heroImage.title}}"
-	/>
+	<a href="{{heroImage.url}}">
+		<img class="wiki-page-header__hero-image"
+			 src="{{heroImage.thumbnail4by5}}"
+			 srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
+			 width="{{heroImage.thumbnail4by5Width}}"
+			 height="{{heroImage.thumbnail4by5Height}}"
+			 alt="{{heroImage.title}}"
+		/>
+	</a>
 {{/if}}
 

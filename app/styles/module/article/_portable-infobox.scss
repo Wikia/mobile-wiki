@@ -422,5 +422,6 @@ section {
 
 	img {
 		width: 100%;
+		height: calc(50vw - #{$article-horizontal-padding});
 	}
 }

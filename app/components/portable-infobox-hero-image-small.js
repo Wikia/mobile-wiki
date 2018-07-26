@@ -14,17 +14,6 @@ export default Component.extend(
 
 		classNames: ['pi', 'pi-hero-small-wrapper'],
 
-		imageSrc: readOnly('heroImageHelper.thumbnailUrl'),
-
-		maxWidth: Math.floor(MAX_WIDTH * 0.7),
-
-		heroImageHelper: computed('heroImage', 'maxWidth', function () {
-			const heroImage = this.heroImage,
-				maxWidth = this.maxWidth;
-
-			return new HeroImage(heroImage, Thumbnailer.mode.topCropDown, maxWidth);
-		}),
-
 		click() {
 			this.lightbox.open('media', this.heroImage);
 
