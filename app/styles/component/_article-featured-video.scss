@@ -24,6 +24,7 @@
 		display: none;
 		height: 36px;
 		justify-content: center;
+		opacity: 0.98;
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -34,7 +35,7 @@
 		}
 
 		.wds-icon {
-			fill: $wds-color-light-c4;
+			fill: $wds-fandom-color-dark-gray;
 		}
 	}
 
@@ -46,7 +47,6 @@
 
 		.is-on-scroll-active & {
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
-			padding: $on-scroll-padding;
 			position: fixed;
 			top: 55px;
 			width: 100%;
@@ -132,5 +132,36 @@
 		color: #000;
 		line-height: 1.14em;
 		margin-top: 4px;
+	}
+
+	.jw-button-container {
+		.jw-icon {
+			svg {
+				fill: $wds-color-light-c5;
+			}
+		}
+
+		.jw-text-elapsed,
+		.jw-text-duration {
+			@extend %wds-font-size-s;
+			@extend %wds-font-weight-medium;
+			color: $wds-color-white !important;
+		}
+
+		.jw-text-elapsed {
+			width: 42px;
+		}
+
+		.jw-text-duration {
+			margin-left: 10px;
+
+			&::before {
+				display: none;
+			}
+		}
+
+		div[button=wikiaSharing] {
+			display: none;
+		}
 	}
 }
