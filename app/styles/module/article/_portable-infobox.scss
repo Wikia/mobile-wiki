@@ -216,7 +216,7 @@ section {
 	@extend .wds-line-height-xs;
 	@extend .wds-font-weight-bold;
 
-	flex-basis: 30%;
+	flex-basis: 40%;
 	hyphens: auto;
 }
 
@@ -228,7 +228,7 @@ section {
 	padding-left: 0;
 
 	&:not(:first-child) {
-		flex-basis: 70%;
+		flex-basis: 60%;
 		padding-left: $tabular-layout-padding;
 	}
 
