@@ -15,10 +15,14 @@ $tabular-layout-padding: 12px;
 
 // field dimensions
 $infobox-title-cell-height: 54px;
-$min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
 $pi-border-radius: 4px;
+$hero-image-small-offset: 12px;
+
+.portable-infobox-wrapper {
+	position: relative;
+}
 
 .pi {
 	background-color: $infobox-background;
@@ -37,12 +41,19 @@ $pi-border-radius: 4px;
 
 	&.collapsed {
 		overflow: hidden;
-		position: relative;
+	}
 
-		.pi-expand-button {
-			bottom: 0;
-			position: absolute;
+	&.collapsed ~ .pi-expand-button {
+		bottom: 0;
+		position: absolute;
+
+		svg {
+			transform: none;
 		}
+	}
+
+	img {
+		border-radius: $pi-border-radius;
 	}
 }
 
@@ -142,55 +153,43 @@ section {
 
 // infobox hero
 .pi-hero {
-	min-height: $min-hero-item-height;
-	position: relative;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	padding-top: calc(50vw - #{$article-horizontal-padding});
 
-	img {
-		margin-left: 50%;
-		transform: translate(-50%);
+	> figure {
+		order: 1;
+		position: absolute;
+		max-width: 50%;
+		top: -$hero-image-small-offset;
+
+		img {
+			box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
+		}
 	}
 }
 
 .pi-hero-title-wrapper {
-	background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
-	bottom: 0;
-	left: 0;
-	padding-bottom: 15px;
-	padding-top: $infobox-item-margin * 8;
-	pointer-events: none;
-	position: absolute;
-	width: 100%;
-	z-index: 1;
-}
-
-.pi-hero-title {
-	@extend %wds-font-size-xl;
-	@extend %wds-font-size-xxl;
-}
-
-.pi-hero-title,
-.pi-hero-caption {
-	@include ellipsis;
-
-	color: $infobox-hero-font-color;
-	text-shadow: 0 0 3px $infobox-hero-outline-color;
+	order: 2;
 }
 
 .pi-hero-caption {
-	@extend %wds-font-size-xs;
-	@extend %wds-font-weight-normal;
-	@extend %wds-line-height-base;
-
-	padding-top: $infobox-item-margin;
+	display: none;
 }
 
 // infobox title
+.pi-hero-title,
 .pi-title {
 	@extend %wds-font-size-xl;
-	@extend %wds-font-weight-medium;
+	@extend %wds-font-weight-normal;
 	@extend %wds-line-height-xl;
 
 	text-align: center;
+}
+
+.pi-title:first-child {
+	margin-top: 2* $infobox-item-margin;
 }
 
 // infobox images
@@ -380,6 +379,10 @@ section {
 	span {
 		margin-right: 5px;
 	}
+
+	svg {
+		transform: rotate(180deg);
+	}
 }
 
 .pi-hero,
@@ -400,12 +403,11 @@ section {
 .pi-hero-small {
 	box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
 	display: block;
-	margin-top: -12px;
+	margin-top: -$hero-image-small-offset;
 	position: relative;
 	width: 50%;
 
 	img {
-		border-radius: 4px;
 		width: 100%;
 	}
 }

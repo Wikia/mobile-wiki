@@ -10,11 +10,8 @@ export default Component.extend(
 	{
 		i18n: service(),
 
-		classNames: ['portable-infobox', 'pi'],
-		classNameBindings: ['collapsed'],
+		classNames: ['portable-infobox-wrapper'],
 		expandButtonClass: 'pi-expand-button',
-		layoutName: 'components/portable-infobox',
-		tagName: 'aside',
 
 		height: null,
 		infoboxHTML: '',
@@ -113,11 +110,13 @@ export default Component.extend(
 		collapse() {
 			this.set('collapsed', true);
 			this.element.style.height = `${this.collapsedHeight}px`;
+			this.element.querySelector('aside').style.height = `${this.collapsedHeight}px`;
 		},
 
 		expand() {
 			this.set('collapsed', false);
 			this.element.style.height = 'auto';
+			this.element.querySelector('aside').style.height = 'auto';
 		}
 	}
 );
