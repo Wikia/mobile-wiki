@@ -190,10 +190,11 @@ section {
 
 // infobox images
 .pi-image {
+	padding-left: $infobox-item-margin * 2;
+	padding-right: $infobox-item-margin * 2;
+
 	figcaption {
-		color: $wds-color-black;
-		height: auto;
-		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+		display: none;
 	}
 }
 
