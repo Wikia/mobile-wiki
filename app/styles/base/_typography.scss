@@ -10,6 +10,7 @@ blockquote {
 
 	&::before {
 		@extend %wds-font-style-normal;
+
 		color: $wds-fandom-color-aqua;
 		content: "“";
 		display: block;
@@ -21,6 +22,7 @@ blockquote {
 
 	cite {
 		@extend %wds-font-style-normal;
+
 		color: $wds-fandom-color-aqua;
 		display: block;
 		margin-top: 20px;
