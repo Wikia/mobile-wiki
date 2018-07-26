@@ -160,8 +160,27 @@ section {
 		max-width: 50%;
 		top: -$hero-image-small-offset;
 
+		a {
+			display: block;
+			position: relative;
+		}
+
 		img {
 			box-shadow: $hero-image-small-box-shadow;
+		}
+
+		.video-icon-container {
+			align-items: center;
+			display: flex;
+			justify-content: space-around;
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			width: 100%;
+		}
+
+		.wds-player-icon-play-medium {
+			@include square(50px);
 		}
 	}
 }
