@@ -33,19 +33,6 @@ export default Component.extend(
 		siteName: reads('wikiVariables.siteName'),
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
-		style: computed('heroImage', function () {
-			const heroImage = this.heroImage;
-
-			if (isEmpty(heroImage)) {
-				return '';
-			}
-
-			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCrop : Thumbnailer.mode.fixedAspectRatio,
-				heroImageHelper = new HeroImage(heroImage, mode);
-
-			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px;`); // eslint-disable-line max-len
-		}),
-
 		actions: {
 			trackClick() {
 				track({

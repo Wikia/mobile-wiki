@@ -152,7 +152,7 @@ section {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	padding-top: calc(50vw - #{$article-horizontal-padding});
+	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
 	> figure {
 		order: 1;
@@ -177,10 +177,6 @@ section {
 			top: 50%;
 			transform: translate(0, -50%);
 			width: 100%;
-		}
-
-		.wds-player-icon-play-medium {
-			@include square(50px);
 		}
 	}
 }
