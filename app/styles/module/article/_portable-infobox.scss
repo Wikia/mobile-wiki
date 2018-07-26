@@ -18,7 +18,6 @@ $infobox-title-cell-height: 54px;
 $min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
-
 $pi-border-radius: 4px;
 
 .pi {
@@ -165,8 +164,8 @@ section {
 }
 
 .pi-hero-title {
-	@extend .wds-font-size-xl;
-	@extend .wds-font-size-xxl;
+	@extend %wds-font-size-xl;
+	@extend %wds-font-size-xxl;
 }
 
 .pi-hero-title,
@@ -178,18 +177,18 @@ section {
 }
 
 .pi-hero-caption {
-	@extend .wds-font-size-xs;
-	@extend .wds-font-weight-normal;
-	@extend .wds-line-height-base;
+	@extend %wds-font-size-xs;
+	@extend %wds-font-weight-normal;
+	@extend %wds-line-height-base;
 
 	padding-top: $infobox-item-margin;
 }
 
 // infobox title
 .pi-title {
-	@extend .wds-font-size-xl;
-	@extend .wds-font-weight-medium;
-	@extend .wds-line-height-xl;
+	@extend %wds-font-size-xl;
+	@extend %wds-font-weight-medium;
+	@extend %wds-line-height-xl;
 
 	text-align: center;
 }
@@ -212,18 +211,18 @@ section {
 }
 
 .pi-data-label {
-	@extend .wds-font-size-xs;
-	@extend .wds-line-height-xs;
-	@extend .wds-font-weight-bold;
+	@extend %wds-font-size-xs;
+	@extend %wds-line-height-xs;
+	@extend %wds-font-weight-bold;
 
 	flex-basis: 40%;
 	hyphens: auto;
 }
 
 .pi-data-value {
-	@extend .wds-font-size-s;
-	@extend .wds-font-weight-light;
-	@extend .wds-line-height-base;
+	@extend %wds-font-size-s;
+	@extend %wds-font-weight-light;
+	@extend %wds-line-height-base;
 
 	padding-left: 0;
 
@@ -274,10 +273,10 @@ section {
 
 // infobox group header
 .pi-header {
-	@extend .wds-font-size-l;
-	@extend .wds-line-height-l;
-	@extend .wds-font-weight-medium;
-	@extend .wds-text-transform-uppercase;
+	@extend %wds-font-size-l;
+	@extend %wds-line-height-l;
+	@extend %wds-font-weight-medium;
+	@extend %wds-text-transform-uppercase;
 
 	// TODO: group headers should have midlight effect, however to make it work we need wrap h2 tags within div tag to
 	// be able to both, use display:inline from wds-midlight (which is required to make it work) and center the header
@@ -359,8 +358,8 @@ section {
 // infobox navigation
 .pi-navigation,
 .pi-navigation pre {
-	@extend .wds-font-size-s;
-	@extend .wds-font-weight-normal;
+	@extend %wds-font-size-s;
+	@extend %wds-font-weight-normal;
 
 	background-color: inherit;
 	color: inherit;
