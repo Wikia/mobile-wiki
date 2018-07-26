@@ -21,8 +21,6 @@ import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { track, trackActions } from '../../utils/track';
-import HeroImage from '../../modules/hero-image';
-import Thumbnailer from '../../modules/thumbnailer';
 
 export default Component.extend(
 	{
