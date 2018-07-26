@@ -5,6 +5,8 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
+import { getAdsModuleMock } from '../../helpers/mock-ads-service';
+import * as adsModule from 'mobile-wiki/modules/ads';
 
 const trackModule = require('mobile-wiki/utils/track'),
 	adSlotComponentStub = Component.extend({});
@@ -13,8 +15,10 @@ let setTrackContextStub,
 
 module('Unit | Component | main page', (hooks) => {
 	setupTest(hooks);
+	let adsModuleStub;
 
 	hooks.beforeEach(function () {
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 		setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
 		trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
 		this.owner.register('component:ad-slot', adSlotComponentStub);
@@ -23,9 +27,10 @@ module('Unit | Component | main page', (hooks) => {
 	hooks.afterEach(() => {
 		setTrackContextStub.restore();
 		trackPageViewStub.restore();
+		adsModuleStub.restore();
 	});
 
-	test('injects ads', function (asset) {
+	test('injects ads', function (assert) {
 		const adsContext = {
 				valid: true
 			},
@@ -46,8 +51,8 @@ module('Unit | Component | main page', (hooks) => {
 			component.didInsertElement();
 		});
 
-		asset.ok(setupAdsContextSpy.calledOnce, 'setupAdsContextSpy called');
-		asset.ok(setupAdsContextSpy.calledWith(adsContext), 'setupAdsContextSpy called with ads context');
-		asset.ok(injectMainPageAdsSpy.calledOnce, 'injectMainPageAds called');
+		assert.ok(setupAdsContextSpy.calledOnce, 'setupAdsContextSpy called');
+		assert.ok(setupAdsContextSpy.calledWith(adsContext), 'setupAdsContextSpy called with ads context');
+		assert.ok(injectMainPageAdsSpy.calledOnce, 'injectMainPageAds called');
 	});
 });
