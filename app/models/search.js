@@ -2,7 +2,6 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import fetch from '../utils/mediawiki-fetch';
-import { extractEncodedTitle } from '../utils/url';
 import { htmlSafe } from '@ember/string';
 
 export default EmberObject.extend({
@@ -99,7 +98,7 @@ export default EmberObject.extend({
 				return {
 					title: item.title,
 					snippet: htmlSafe(item.snippet),
-					prefixedTitle: extractEncodedTitle(item.url)
+					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url)
 				};
 			})),
 			loading: false,

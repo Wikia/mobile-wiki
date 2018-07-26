@@ -44,27 +44,32 @@ h6 {
 h1 {
 	@extend %wds-font-size-xxl;
 	font-weight: $wds-fandom-font-weight-bold;
+	line-height: 30px;
 }
 
 h2 {
 	@extend %wds-font-size-xl;
 	font-weight: $wds-fandom-font-weight-regular;
+	line-height: 26px;
 }
 
 h3 {
 	@extend %wds-font-size-l;
 	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 20px;
 }
 
 h4 {
 	@extend %wds-font-size-base;
 	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 18px;
 }
 
 h5,
 h6 {
 	@extend %wds-font-size-s;
 	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 16px;
 }
 
 section,

@@ -3,6 +3,7 @@ import { setupTest } from 'ember-qunit';
 import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
 import { htmlSafe } from '@ember/string';
+import { getContext } from '@ember/test-helpers';
 
 module('Unit | Model | search result page', (hooks) => {
 	setupTest(hooks);
@@ -58,7 +59,7 @@ module('Unit | Model | search result page', (hooks) => {
 		];
 
 		cases.forEach((testCase) => {
-			const search = SearchModel.create();
+			const search = getContext().owner.lookup('model:search');
 
 			search.update(testCase.mock);
 
@@ -95,7 +96,7 @@ module('Unit | Model | search result page', (hooks) => {
 	});
 
 	test('test a new query state reset', (assert) => {
-		const search = SearchModel.create();
+		const search = getContext().owner.lookup('model:search');
 
 		search.fetch = sinon.stub();
 
@@ -126,7 +127,7 @@ module('Unit | Model | search result page', (hooks) => {
 	});
 
 	test('update state with load more results', (assert) => {
-		const search = SearchModel.create();
+		const search = getContext().owner.lookup('model:search');
 
 		search.update({
 			total: 3,

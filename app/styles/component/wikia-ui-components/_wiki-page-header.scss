@@ -1,62 +1,32 @@
-%wiki-page-header-element {
-	color: inherit;
-	line-height: 1;
-	margin: 0;
-}
-
-// component
 .wiki-page-header {
-	background: $wds-color-white;
-	color: $wds-fandom-color-black;
+	color: $wds-fandom-color-navy;
+	display: flex;
+	flex-direction: column;
+	margin: 16px 12px 0;
+	text-align: center;
 
-	.contribution-container {
-		margin-bottom: -8px;
-
-		.icon {
-			fill: #fff;
-		}
-	}
-
-	&.has-hero-image {
+	&__hero-image {
 		background: {
 			color: transparent;
 			position: center center;
 			repeat: no-repeat;
 		}
 
-		color: $wds-color-white;
-		position: relative;
-
-		.wiki-page-header__wrapper {
-			background: linear-gradient(to top, rgba(0, 0, 0, .6) 0, transparent 120px);
-			height: 100%;
-		}
-
-		.contribution-container {
-			align-items: flex-end;
-		}
-	}
-
-	&__wrapper {
-		display: flex;
-		padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		width: 100%;
 	}
 
 	&__title {
-		@extend %wiki-page-header-element;
-
-		line-height: 32px;
 		word-break: break-word;
 	}
 
 	&__subtitle {
-		@extend %wiki-page-header-element;
-
-		margin-top: 15px;
+		margin-top: 8px;
 	}
 
-	&__main {
-		align-self: flex-end;
-		flex: 1;
+	&__title-wrapper {
+		margin-bottom: 28px;
+		width: 100%;
 	}
 }
