@@ -23,7 +23,7 @@ $pi-border-radius: 4px;
 .pi {
 	background-color: $infobox-background;
 	border-radius: $pi-border-radius;
-	box-shadow: 0 6px 10px 0 rgba($wds-color-black, 0.1);
+	box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 	height: auto;
 
 	// margin-top: -2px to hide border radius behind hero image if such is present
@@ -253,8 +253,8 @@ section {
 
 .pi-group {
 	margin: 0 $infobox-item-margin * 2;
-	padding-top: $infobox-item-margin * 2;
 	padding-bottom: $infobox-item-margin * 2;
+	padding-top: $infobox-item-margin * 2;
 
 	&:not(:first-child) {
 		border-top: 1px solid $wds-fandom-color-middle-gray;
@@ -299,7 +299,7 @@ section {
 		vertical-align: top;
 
 		&:not(:last-child) {
-			border-right: 1px solid $wds-fandom-color-middle-gray
+			border-right: 1px solid $wds-fandom-color-middle-gray;
 		}
 	}
 
@@ -398,7 +398,7 @@ section {
 }
 
 .pi-hero-small {
-	box-shadow: 0 8px 13px 0 rgba($wds-color-black, 0.04);
+	box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
 	display: block;
 	margin-top: -12px;
 	position: relative;

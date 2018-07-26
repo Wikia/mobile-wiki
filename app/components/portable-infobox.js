@@ -24,7 +24,7 @@ export default Component.extend(
 			return this.element.querySelector(`.${this.expandButtonClass}`);
 		}),
 
-		buttonLabel: computed('collapsed', function() {
+		buttonLabel: computed('collapsed', function () {
 			return this.get('collapsed') ? this.i18n.t('app.more') : this.i18n.t('app.less');
 		}),
 
