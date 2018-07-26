@@ -89,7 +89,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
 				targeting: {
 					loc: 'middle',
-					pos: 'MOBILE_IN_CONTENT',
+					pos: ['MOBILE_IN_CONTENT', 'INCONTENT_PLAYER'],
 					rv: 1
 				}
 			},
@@ -107,7 +107,8 @@ export default {
 					slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
 					updateProperties: {
 						adProduct: '{slotConfig.slotName}',
-						'targeting.rv': '{slotConfig.repeat.index}'
+						'targeting.rv': '{slotConfig.repeat.index}',
+						'targeting.pos': ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD']
 					}
 				},
 				slotShortcut: 'f',
@@ -120,7 +121,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'middle',
-					pos: ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT'],
+					pos: ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD', 'INCONTENT_PLAYER'],
 					rv: 1
 				}
 			},
