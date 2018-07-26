@@ -232,6 +232,9 @@
 		background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
 	}
 
+	:not(.jw-state-paused) .jw-svg-icon-pause {
+		opacity: 0.5;
+	}
 
 	&__details-wrapper {
 		background: $wds-color-white;
