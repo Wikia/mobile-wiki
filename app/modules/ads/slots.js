@@ -121,7 +121,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'middle',
-					pos: ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD', 'INCONTENT_PLAYER'],
+					pos: ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD'],
 					rv: 1
 				}
 			},
@@ -210,5 +210,21 @@ export default {
 			const slotParam = slotsDefinition[key].slotShortcut || 'x';
 			context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
 		});
+	},
+
+	setupIncontentPlayer() {
+		const { context } = window.Wikia.adEngine;
+		const slots = ['incontent_boxad_1'];
+
+		// ToDo: don't set up player if is UAP loaded
+		if (!context.get('custom.hasFeaturedVideo')) {
+			slots.forEach((slot) => {
+				const pos = context.get(`slots.${slot}.targeting.pos`);
+
+				pos.push('INCONTENT_PLAYER');
+
+				context.set(`slots.${slot}.targeting.pos`, pos);
+			});
+		}
 	}
 };

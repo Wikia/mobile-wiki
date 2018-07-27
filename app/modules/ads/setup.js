@@ -25,7 +25,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.extend(basicContext);
 
 	if (adsContext.targeting.hasFeaturedVideo) {
-		context.set('src', 'premium');
+		context.set('src', ['premium', 'mobile']);
 	}
 
 	if (adsContext.opts.isAdTestWiki) {
@@ -128,6 +128,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 	slots.setupIdentificators();
 	slots.setupStates();
+	slots.setupIncontentPlayer();
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
