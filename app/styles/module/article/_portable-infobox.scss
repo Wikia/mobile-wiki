@@ -155,9 +155,9 @@ section {
 	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
 	> figure {
+		max-width: 50%;
 		order: 1;
 		position: absolute;
-		max-width: 50%;
 		top: -$hero-image-small-offset;
 
 		a {
@@ -421,7 +421,7 @@ section {
 	width: 50%;
 
 	img {
-		width: 100%;
 		height: calc(50vw - #{$article-horizontal-padding});
+		width: 100%;
 	}
 }
