@@ -10,9 +10,9 @@
 </div>
 
 {{#if heroImage}}
-	<figure data-file="{{heroImage.fileName}}">
+	<figure data-file="{{heroImage.fileName}}" class="wiki-page-header__hero-image">
 		<a href="{{heroImage.url}}" {{action 'heroImageClick'}}>
-			<img class="wiki-page-header__hero-image"
+			<img class="article-media-placeholder"
 				 src="{{heroImage.thumbnail4by5}}"
 				 srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
 				 width="{{heroImage.thumbnail4by5Width}}"
@@ -22,6 +22,11 @@
 			<noscript>
 				<img src="{{heroImage.url}}" alt="{{heroImage.title}}" width="{{heroImage.thumbnail4by5Width}}" height="{{heroImage.thumbnail4by5Height}}">
 			</noscript>
+			{{#if heroImage.isVideo}}
+				<div class="video-icon-container">
+					{{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}
+				</div>
+			{{/if}}
 		</a>
 	</figure>
 {{/if}}

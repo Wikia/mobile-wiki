@@ -155,6 +155,8 @@ section {
 	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
 	> figure {
+		@extend %position-play-icon;
+
 		max-width: 50%;
 		order: 1;
 		position: absolute;
@@ -162,21 +164,10 @@ section {
 
 		a {
 			display: block;
-			position: relative;
 		}
 
 		img {
 			box-shadow: $hero-image-small-box-shadow;
-		}
-
-		.video-icon-container {
-			align-items: center;
-			display: flex;
-			justify-content: space-around;
-			position: absolute;
-			top: 50%;
-			transform: translate(0, -50%);
-			width: 100%;
 		}
 	}
 }
@@ -414,6 +405,8 @@ section {
 }
 
 .pi-hero-small {
+	@extend %position-play-icon;
+
 	box-shadow: $hero-image-small-box-shadow;
 	display: block;
 	margin-top: -$hero-image-small-offset;
