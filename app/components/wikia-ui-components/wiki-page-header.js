@@ -24,6 +24,7 @@ import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
 	{
+		lightbox: service(),
 		wikiVariables: service(),
 		classNames: ['wiki-page-header'],
 		classNameBindings: ['heroImage:has-hero-image'],
@@ -38,6 +39,12 @@ export default Component.extend(
 					category: 'wikiname',
 					label: ''
 				});
+			},
+
+			heroImageClick() {
+				this.lightbox.open('media', this.heroImage);
+
+				return false;
 			}
 		}
 	}

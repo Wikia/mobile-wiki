@@ -10,7 +10,7 @@
 </div>
 
 {{#if heroImage}}
-	<a href="{{heroImage.url}}">
+	<a href="{{heroImage.url}}" {{action 'heroImageClick'}}>
 		<img class="wiki-page-header__hero-image"
 			 src="{{heroImage.thumbnail4by5}}"
 			 srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
