@@ -1,8 +1,8 @@
 import { Promise } from 'rsvp';
 import Service from '@ember/service';
 
-export function getAdsModuleMock() {
-	return {
+export function getAdsModuleMock(adsContext) {
+	let context = {
 		init() {},
 		pushSlotToQueue() {},
 		onReady: (cb) => cb(),
@@ -21,8 +21,15 @@ export function getAdsModuleMock() {
 				isAboveTheFold: false
 			};
 		},
-		isArticleSectionCollapsed: () => true
+		isArticleSectionCollapsed: () => true,
+		waitForReady(cb) {
+			cb();
+		},
 	};
+	if (adsContext) {
+		context = Object.assign({}, context, { adsContext });
+	}
+	return context;
 }
 
 export default function (owner) {
