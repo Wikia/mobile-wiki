@@ -10,14 +10,19 @@
 </div>
 
 {{#if heroImage}}
-	<a href="{{heroImage.url}}" {{action 'heroImageClick'}}>
-		<img class="wiki-page-header__hero-image"
-			 src="{{heroImage.thumbnail4by5}}"
-			 srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
-			 width="{{heroImage.thumbnail4by5Width}}"
-			 height="{{heroImage.thumbnail4by5Height}}"
-			 alt="{{heroImage.title}}"
-		/>
-	</a>
+	<figure data-file="{{heroImage.fileName}}">
+		<a href="{{heroImage.url}}" {{action 'heroImageClick'}}>
+			<img class="wiki-page-header__hero-image"
+				 src="{{heroImage.thumbnail4by5}}"
+				 srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
+				 width="{{heroImage.thumbnail4by5Width}}"
+				 height="{{heroImage.thumbnail4by5Height}}"
+				 alt="{{heroImage.title}}"
+			/>
+			<noscript>
+				<img src="{{heroImage.url}}" alt="{{heroImage.title}}" width="{{heroImage.thumbnail4by5Width}}" height="{{heroImage.thumbnail4by5Height}}"/>
+			</noscript>
+		</a>
+	</figure>
 {{/if}}
 
