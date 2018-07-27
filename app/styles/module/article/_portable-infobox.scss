@@ -92,10 +92,6 @@ section {
 			object-fit: contain;
 			width: 100%;
 		}
-
-		&.active {
-			display: block;
-		}
 	}
 
 	.article-video::before {
@@ -103,47 +99,7 @@ section {
 	}
 
 	.pi-hero-title-wrapper {
-		text-align: left;
-	}
-
-	.image-collection-actions {
-		height: 100%;
-		position: absolute;
-		top: 0;
-		width: 100%;
-
-		.action-next {
-			right: 0;
-		}
-
-		.action-previous {
-			left: 0;
-
-			svg {
-				transform: rotate(90deg);
-			}
-		}
-
-		button {
-			background: transparent;
-			border: none;
-			bottom: 0;
-			display: block;
-			height: auto;
-			margin: 0;
-			padding: 0;
-			position: absolute;
-			top: 0;
-			width: $infobox-image-collection-button-width;
-			z-index: $z-portable-infobox-collapse;
-		}
-
-		svg {
-			fill: $infobox-hero-font-color;
-			stroke: $infobox-hero-overlay-color;
-			stroke-width: .5;
-			transform: rotate(-90deg);
-		}
+		display: none;
 	}
 }
 
