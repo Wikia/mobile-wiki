@@ -1,3 +1,4 @@
+
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
@@ -354,29 +355,6 @@ export default Route.extend(
 					// Reaching this clause means something is probably wrong.
 					this.logger.error('Unable to open link', target.href);
 				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			loadRandomArticle() {
-				this.controller.send('toggleDrawer', false);
-
-				ArticleModel.create(getOwner(this).ownerInjection())
-					.getArticleRandomTitle()
-					.then((articleTitle) => {
-						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
-					})
-					.catch((err) => {
-						this.send('error', err);
-					});
-			},
-
-			openNav() {
-				this.controller.setProperties({
-					drawerContent: 'nav',
-					drawerVisible: true
-				});
 			}
 		},
 

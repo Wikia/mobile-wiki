@@ -4,42 +4,13 @@
 	}}
 {{/if}}
 <div class="site-head-wrapper">
-	<nav class="site-head{{unless shadow ' no-shadow'}}">
-		<div class="site-head__nav-icon-wrapper">
-			{{wikia-ui-components/icon-button
-				click=(action 'siteHeadIconClick' 'nav')
-				class='site-head-icon site-head-icon-nav'
-				icon=navIcon
-				iconSize=24
-			}}
-			{{#unless drawerVisible}}
-				{{#if unreadCount}}
-					<span class="wds-notifications__unread-mark">{{unreadCount}}</span>
-				{{/if}}
-			{{/unless}}
-		</div>
-		<div class="site-logo">
-			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
-				{{svg svgName role='img' class='fandom-logo'}}
-			</a>
-		</div>
-		<div class="site-head-icon-search">
-			{{wikia-ui-components/icon-button
-				click=(action 'siteHeadIconClick' 'search')
-				class='site-head-icon'
-				icon=searchIcon
-				iconSize=24
-				isVisible=(if isSearchPage false true)
-				data-test-open-search-suggestions=true
-			}}
-		</div>
-		{{#if partnerSlot}}
-			<div class="site-head__partner-slot">
-				<a class="site-head__partner-logo" href="{{partnerSlot.href}}" {{action 'trackClick' partnerSlot.tracking_label preventDefault=false}}>
-					<img class="site-head__partner-logo-img" src="{{partnerSlot.image-data.url}}"
-						 alt="{{partnerSlot.title.value}}">
-				</a>
-			</div>
-		{{/if}}
-	</nav>
+	{{wds-global-navigation
+		model=globalNavigation
+		sitename=communityHeader.sitename
+		canShowContentRecommendations=canShowContentRecommendations
+		track=(action track)
+		onSearchSuggestionChosen=(action onSearchSuggestionChosen)
+		goToSearchResults=(action goToSearchResults)
+	}}
 </div>
+{{wds-community-bar model=communityHeader track=(action track) onLinkClicked=(action onLinkClicked)}}

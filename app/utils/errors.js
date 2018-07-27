@@ -10,6 +10,11 @@ const DesignSystemFetchError = defineError({
 	message: `Design System data couldn't be fetched`
 });
 
+const FetchError = defineError({
+	name: 'FetchError',
+	message: 'fetch failed to execute'
+});
+
 const DontLogMeError = defineError({
 	name: 'DontLogMeError',
 	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
@@ -72,6 +77,7 @@ const getProductionErrorMessage = function (errorCode) {
 export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
+	FetchError,
 	DontLogMeError,
 	FandomPostsError,
 	WikiVariablesRedirectError,

@@ -118,6 +118,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 			lang: [context.get('targeting.wikiLanguage') || 'en']
 		});
 
+		context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
 		context.set('custom.rubiconInFV',
 			isGeoEnabled('wgAdDriverRubiconVideoInFeaturedVideoCountries') && hasFeaturedVideo);
 		context.set('custom.isCMPEnabled', isGeoEnabled('wgEnableCMPCountries'));

@@ -1,5 +1,5 @@
 def deployenv = 'artifactory.wikia-inc.com/platform/alpine:3.6-curl'
-def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.12'
+def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.15'
 
 node('docker-daemon') {
     def namespace = params.namespace
@@ -41,7 +41,7 @@ node('docker-daemon') {
        if ( !imageExists ) {
             if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
 
                 def vault_secrets = [
                     [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
@@ -67,7 +67,7 @@ node('docker-daemon') {
                 }
 
                 sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion}"""
+                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
             }
         }
     }

@@ -37,9 +37,9 @@ export default Mixin.create({
 		this.set('noScrollState.state', current);
 
 		if (current) {
-			document.body.classList.add('no-scroll');
+			document.body.classList.add('wds-no-scroll');
 		} else {
-			document.body.classList.remove('no-scroll');
+			document.body.classList.remove('wds-no-scroll');
 		}
 	}
 });

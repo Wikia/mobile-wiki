@@ -7,8 +7,8 @@
 
 // component
 .wiki-page-header {
-	background: $color-blue-light;
-	color: #fff;
+	background: $wds-color-white;
+	color: $wds-fandom-color-black;
 
 	.contribution-container {
 		margin-bottom: -8px;
@@ -25,6 +25,7 @@
 			repeat: no-repeat;
 		}
 
+		color: $wds-color-white;
 		position: relative;
 
 		.wiki-page-header__wrapper {
@@ -40,18 +41,6 @@
 	&__wrapper {
 		display: flex;
 		padding: 16px $article-horizontal-padding 12px $article-horizontal-padding;
-	}
-
-	&__site-name-block {
-		@extend %wiki-page-header-element;
-
-		font-size: 12px;
-
-		.wds-icon {
-			position: relative;
-			top: 2px;
-			transform: rotate(180deg);
-		}
 	}
 
 	&__site-link {
@@ -70,10 +59,6 @@
 		font-weight: bold;
 		line-height: 32px;
 		word-break: break-word;
-	}
-
-	&__site-name-block ~ &__title {
-		margin-top: 3px;
 	}
 
 	&__subtitle {
