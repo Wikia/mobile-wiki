@@ -10,12 +10,11 @@
 		{{article-featured-video-close
 			onTap=(action 'dismissPlayer')
 		}}
-		<div class="article-featured-video__details">
-			<div class="article-featured-video__label wds-font-size-xxs wds-font-weight-bold wds-text-transform-uppercase">
-				{{i18n 'featured-video.watch'}}
+		<div class="article-featured-video__details-wrapper">
+			<div class="article-featured-video__details">
+				<h2 class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{currentVideoDetails.title}}</h2>
 				<span class="article-featured-video__time">{{videoDuration}}</span>
 			</div>
-			<div class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{currentVideoDetails.title}}</div>
 		</div>
 	</div>
 	<div class="article-featured-video__on-scroll-placeholder"></div>

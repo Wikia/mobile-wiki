@@ -4,11 +4,13 @@ blockquote {
 	@extend %wds-line-height-xl;
 	@extend %wds-font-style-italic;
 	@extend %wds-font-weight-normal;
+
 	margin-bottom: 16px;
 	padding: 4px 0 4px 16px;
 
 	&::before {
 		@extend %wds-font-style-normal;
+
 		color: $wds-fandom-color-aqua;
 		content: "“";
 		display: block;
@@ -20,6 +22,7 @@ blockquote {
 
 	cite {
 		@extend %wds-font-style-normal;
+
 		color: $wds-fandom-color-aqua;
 		display: block;
 		margin-top: 20px;
@@ -43,24 +46,28 @@ h6 {
 
 h1 {
 	@extend %wds-font-size-xxl;
+
 	font-weight: $wds-fandom-font-weight-bold;
 	line-height: 30px;
 }
 
 h2 {
 	@extend %wds-font-size-xl;
+
 	font-weight: $wds-fandom-font-weight-regular;
 	line-height: 26px;
 }
 
 h3 {
 	@extend %wds-font-size-l;
+
 	font-weight: $wds-fandom-font-weight-medium;
 	line-height: 20px;
 }
 
 h4 {
 	@extend %wds-font-size-base;
+
 	font-weight: $wds-fandom-font-weight-medium;
 	line-height: 18px;
 }
@@ -68,6 +75,7 @@ h4 {
 h5,
 h6 {
 	@extend %wds-font-size-s;
+
 	font-weight: $wds-fandom-font-weight-medium;
 	line-height: 16px;
 }
