@@ -64,7 +64,6 @@
 
 	&__close-button {
 		align-items: center;
-		background-color: $wds-color-white;
 		display: none;
 		height: 36px;
 		justify-content: center;
@@ -79,7 +78,7 @@
 		}
 
 		.wds-icon {
-			fill: $wds-fandom-color-dark-gray;
+			fill: $wds-color-white;
 		}
 	}
 

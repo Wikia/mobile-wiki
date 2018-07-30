@@ -101,8 +101,6 @@ a {
 	text-decoration: none;
 }
 
-/* TODO: should this be done in a such way? or should we go case by case and reset this style?
-   what about <a><img/></a>? */
 article a {
 	@extend %wds-underline-aqua;
 
