@@ -41,6 +41,10 @@ $closeButtonHeight: 40px;
 	}
 }
 
+.bottom-leaderboard .ad-slot {
+	z-index: $z-ads-bottom-leaderboard;
+}
+
 .ad-slot {
 	&.slot-animation {
 		overflow: hidden;

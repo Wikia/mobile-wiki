@@ -15,14 +15,15 @@ export default Mixin.create({
 	 * @param {string} adSlotName
 	 * @param {string} place
 	 * @param {Element} element
+	 * @param {string} waitKey
 	 * @returns {void}
 	 */
-	appendAd(adSlotName, place, element) {
+	appendAd(adSlotName, place, element, waitKey = '') {
 		if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
 			return;
 		}
 
-		this.get('ads').getWaits(adSlotName).then(() => {
+		this.get('ads').getWaits(waitKey).then(() => {
 			const placeholder = document.createElement('div');
 			const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -71,7 +72,10 @@ export default Mixin.create({
 			pi = document.querySelector('.portable-infobox'),
 			pageHeader = document.querySelector('.wiki-page-header'),
 			adsData = this.get('ads.slotNames'),
-			globalFooter = document.querySelector('.wds-global-footer');
+			globalFooter = document.querySelector('.wds-global-footer'),
+			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
+			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		if (pi) {
 			// inject top mobileTopLeaderBoard below infobox
@@ -88,22 +92,12 @@ export default Mixin.create({
 			this.appendAd(adsData.mobileInContent, 'beforebegin', firstSection);
 		}
 
-		if (this.adsContext.opts.preFooterAndBLBSwitched) {
-			if (articleFooter) {
-				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', articleFooter);
-			}
+		if (articleFooter) {
+			this.appendAd(afterArticleSlotName, 'beforebegin', articleFooter);
+		}
 
-			if (globalFooter) {
-				this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter);
-			}
-		} else {
-			if (articleFooter) {
-				this.appendAd(adsData.mobilePreFooter, 'beforebegin', articleFooter);
-			}
-
-			if (globalFooter) {
-				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
-			}
+		if (globalFooter) {
+			this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
 		}
 
 		this.appendHighImpactAd();
@@ -121,7 +115,10 @@ export default Mixin.create({
 		const adsData = this.get('ads.slotNames'),
 			curatedContent = this.element.querySelector('.curated-content'),
 			trendingArticles = this.element.querySelector('.trending-articles'),
-			globalFooter = document.querySelector('.wds-global-footer');
+			globalFooter = document.querySelector('.wds-global-footer'),
+			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
+			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
 
@@ -129,22 +126,12 @@ export default Mixin.create({
 			this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);
 		}
 
-		if (this.adsContext.opts.preFooterAndBLBSwitched) {
-			if (trendingArticles) {
-				this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
-			}
+		if (trendingArticles) {
+			this.appendAd(afterArticleSlotName, 'afterend', trendingArticles);
+		}
 
-			if (globalFooter) {
-				this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
-			}
-		} else {
-			if (trendingArticles) {
-				this.appendAd(adsData.bottomLeaderBoard, 'afterend', trendingArticles);
-			}
-
-			if (globalFooter) {
-				this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter);
-			}
+		if (globalFooter) {
+			this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
 		}
 
 		this.appendHighImpactAd();

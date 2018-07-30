@@ -58,17 +58,7 @@ export default Component.extend(
 				listRendered: defer()
 			});
 
-			if (!this.get('fastboot.isFastBoot')) {
-				getAdsModule().then((adsModule) => {
-					adsModule.waitForReady(() => {
-						let adSlotLoadedAfterList = 'ads.slotNames.bottomLeaderBoard';
-						if (adsModule.adsContext.opts.preFooterAndBLBSwitched) {
-							adSlotLoadedAfterList = 'ads.slotNames.mobilePreFooter';
-						}
-						this.get('ads').addWaitFor(this.get(adSlotLoadedAfterList), this.get('listRendered.promise'));
-					});
-				});
-			}
+			this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
 		},
 
 		actions: {
