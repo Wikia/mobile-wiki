@@ -185,6 +185,17 @@ export default {
 					}
 				}
 			},
+			kargo: {
+				enabled: false,
+				slots: {
+					mobile_in_content: {
+						sizes: [
+							[300, 250]
+						],
+						placementId: '_cGWUgEUv0T'
+					},
+				}
+			},
 			onemobile: {
 				enabled: false,
 				siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
