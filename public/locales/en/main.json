@@ -7,7 +7,9 @@
     "discussions-label": "Discussions",
     "header-in-wiki-name-label-prefix": "in:",
     "header-in-wiki-name-label-suffix": "",
+    "less": "Less",
     "media-lightbox-error": "Media not found",
+    "more": "More",
     "now-label": "now",
     "minutes-ago": "{minutes}m",
     "hours-ago": "{hours}h",
@@ -38,8 +40,7 @@
     "replies-label_plural": "View {count} replies",
     "suggestions-label": "Read More",
     "toc-label": "Table of Contents",
-    "top-contributors-label": "Top Contributors to this article",
-    "portable-infobox-image": "Image"
+    "top-contributors-label": "Top Contributors to this article"
   },
   "article-comments": {
     "next-button": "Next page",

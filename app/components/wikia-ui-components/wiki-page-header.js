@@ -21,30 +21,16 @@ import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { track, trackActions } from '../../utils/track';
-import HeroImage from '../../modules/hero-image';
-import Thumbnailer from '../../modules/thumbnailer';
 
 export default Component.extend(
 	{
+		lightbox: service(),
 		wikiVariables: service(),
 		classNames: ['wiki-page-header'],
 		classNameBindings: ['heroImage:has-hero-image'],
 		isMainPage: false,
 		siteName: reads('wikiVariables.siteName'),
 		mainPageTitle: reads('wikiVariables.mainPageTitle'),
-
-		style: computed('heroImage', function () {
-			const heroImage = this.heroImage;
-
-			if (isEmpty(heroImage)) {
-				return '';
-			}
-
-			const mode = heroImage.width >= 300 ? Thumbnailer.mode.topCrop : Thumbnailer.mode.fixedAspectRatio,
-				heroImageHelper = new HeroImage(heroImage, mode);
-
-			return htmlSafe(`background-image: url(${heroImageHelper.thumbnailUrl}); height: ${heroImageHelper.computedHeight}px;`); // eslint-disable-line max-len
-		}),
 
 		actions: {
 			trackClick() {
@@ -53,6 +39,12 @@ export default Component.extend(
 					category: 'wikiname',
 					label: ''
 				});
+			},
+
+			heroImageClick() {
+				this.lightbox.open('media', this.heroImage);
+
+				return false;
 			}
 		}
 	}
