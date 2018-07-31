@@ -54,16 +54,16 @@ export default Service.extend({
 		this.set('adSlotComponents', {});
 	},
 
-	addWaitFor(slotName, promise) {
-		this.waits[slotName] = this.waits[slotName] || [];
-		this.waits[slotName].push(promise);
+	addWaitFor(key, promise) {
+		this.waits[key] = this.waits[key] || [];
+		this.waits[key].push(promise);
 	},
 
-	getWaits(slotName) {
-		return Promise.all(this.waits[slotName] || []);
+	getWaits(key) {
+		return Promise.all(this.waits[key] || []);
 	},
 
-	clearWaits(slotName) {
-		this.waits[slotName] = [];
+	clearWaits(key) {
+		this.waits[key] = [];
 	}
 });
