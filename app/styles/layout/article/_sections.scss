@@ -1,0 +1,11 @@
+article {
+	h2 {
+		&:not(.open-section) {
+			padding-bottom: 12px;
+		}
+	}
+
+	section {
+		padding-bottom: 12px;
+	}
+}
