@@ -79,12 +79,20 @@ section {
 	position: relative;
 	white-space: nowrap;
 
+	&__images-wrapper {
+		overflow-x: auto;
+	}
+
 	.pi-item {
 		@extend %position-play-icon;
 
 		display: inline-block;
 		position: relative;
-		width: 100vw;
+		width: 222px;
+
+		&:not(:last-child) {
+			margin-right: 12px;
+		}
 
 		.article-media-placeholder {
 			height: auto;
