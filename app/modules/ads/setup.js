@@ -94,6 +94,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set('bidders.prebid.appnexusWebads.enabled', isGeoEnabled('wgAdDriverAppNexusWebAdsBidderCountries'));
 		context.set('bidders.prebid.audienceNetwork.enabled', isGeoEnabled('wgAdDriverAudienceNetworkBidderCountries'));
 		context.set('bidders.prebid.indexExchange.enabled', isGeoEnabled('wgAdDriverIndexExchangeBidderCountries'));
+		context.set('bidders.prebid.kargo.enabled', isGeoEnabled('wgAdDriverKargoBidderCountries'));
 		context.set('bidders.prebid.onemobile.enabled', isGeoEnabled('wgAdDriverAolOneMobileBidderCountries'));
 		context.set('bidders.prebid.openx.enabled', isGeoEnabled('wgAdDriverOpenXPrebidBidderCountries'));
 		context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
@@ -143,11 +144,16 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 }
 
 function init() {
-	const { AdEngine, events } = window.Wikia.adEngine;
+	const { AdEngine, context, events } = window.Wikia.adEngine;
 
 	const engine = new AdEngine();
 
 	events.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals));
+	events.on(events.AD_SLOT_CREATED, (slot) => {
+		context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
+		context.onChange(`slots.${slot.getSlotName()}.autoplay`, () => slots.setupSlotParameters(slot));
+	});
+
 	engine.init();
 
 	return engine;

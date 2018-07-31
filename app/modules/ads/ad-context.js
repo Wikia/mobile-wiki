@@ -1,6 +1,6 @@
 export default {
 	adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
+	megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/' +
 		'{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
 	bidders: {
 		enabled: false,
@@ -185,6 +185,17 @@ export default {
 					}
 				}
 			},
+			kargo: {
+				enabled: false,
+				slots: {
+					mobile_in_content: {
+						sizes: [
+							[300, 250]
+						],
+						placementId: '_cGWUgEUv0T'
+					},
+				}
+			},
 			onemobile: {
 				enabled: false,
 				siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
@@ -358,7 +369,7 @@ export default {
 	slots: {},
 	vast: {
 		adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-		megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.audioSegment}/' +
+		megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/' +
 			'{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}'
 	},
 	targeting: {
@@ -391,9 +402,10 @@ export default {
 		},
 		jwplayer: {
 			audio: {
-				exposeToSlot: true,
-				segment: '-audio',
-				key: 'audio'
+				exposeToSlot: true
+			},
+			autoplay: {
+				exposeToSlot: true
 			}
 		}
 	}

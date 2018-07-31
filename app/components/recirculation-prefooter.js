@@ -5,6 +5,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
+import getAdsModule from '../modules/ads';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
@@ -57,7 +58,17 @@ export default Component.extend(
 				listRendered: defer()
 			});
 
-			this.get('ads').addWaitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.get('listRendered.promise'));
+			if (!this.get('fastboot.isFastBoot')) {
+				getAdsModule().then((adsModule) => {
+					adsModule.waitForReady(() => {
+						let adSlotLoadedAfterList = 'ads.slotNames.bottomLeaderBoard';
+						if (adsModule.adsContext.opts.preFooterAndBLBSwitched) {
+							adSlotLoadedAfterList = 'ads.slotNames.mobilePreFooter';
+						}
+						this.get('ads').addWaitFor(this.get(adSlotLoadedAfterList), this.get('listRendered.promise'));
+					});
+				});
+			}
 		},
 
 		actions: {
