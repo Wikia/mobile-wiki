@@ -74,8 +74,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "from", 
-    "watch": "watch"
+    "from": "作成：", 
+    "watch": "再生時間"
   }, 
   "file-page": {
     "subtitle": "ファイルページ", 
