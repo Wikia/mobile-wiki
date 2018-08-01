@@ -125,7 +125,11 @@ export default Route.extend(
 
 					transition.then(() => {
 						if (!this.get('fastboot.isFastBoot')) {
-							this.wdsLiftigniter.initLiftigniter(model.adsContext);
+							M.trackingQueue.push((isOptedIn) => {
+								if (isOptedIn) {
+									this.wdsLiftigniter.initLiftigniter(model.adsContext);
+								}
+							});
 						}
 
 						if (typeof handler.afterTransition === 'function') {
