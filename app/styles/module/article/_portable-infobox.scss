@@ -79,12 +79,15 @@ section {
 	position: relative;
 	white-space: nowrap;
 
+	&__images-wrapper {
+		overflow-x: scroll;
+	}
+
 	.pi-item {
 		@extend %position-play-icon;
 
 		display: inline-block;
 		height: auto;
-		overflow-x: scroll;
 		position: relative;
 		width: 222px;
 
