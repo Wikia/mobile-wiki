@@ -91,6 +91,10 @@ section {
 		position: relative;
 		width: 222px;
 
+		&:not(:last-child) {
+			margin-right: 12px;
+		}
+
 		.article-media-placeholder {
 			height: auto;
 			max-height: 100vw;
