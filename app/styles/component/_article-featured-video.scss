@@ -78,9 +78,8 @@
 		}
 
 		.wds-icon {
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
 			fill: $wds-color-white;
-			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-
 		}
 	}
 
@@ -105,7 +104,7 @@
 
 	&__video-content {
 		background-color: $wds-color-black;
-		background-size: contain;
+		background-size: cover;
 		height: $videoHeight;
 
 		.article-body .page-placement-variant & {
@@ -163,7 +162,8 @@
 		margin-left: 6px;
 	}
 
-	&:not(.is-on-scroll-active) &__details {
+	&:not(.is-on-scroll-active) &__details-wrapper,
+	.jw-state-idle ~ .article-featured-video__details-wrapper {
 		display: none;
 	}
 
