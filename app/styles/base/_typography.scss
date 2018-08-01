@@ -102,5 +102,7 @@ a {
 }
 
 article a {
+	@extend %wds-font-weight-normal;
+
 	color: $wds-fandom-color-link;
 }
