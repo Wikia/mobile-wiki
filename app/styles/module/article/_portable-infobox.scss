@@ -83,8 +83,10 @@ section {
 		@extend %position-play-icon;
 
 		display: inline-block;
+		height: auto;
+		overflow-x: scroll;
 		position: relative;
-		width: 100vw;
+		width: 222px;
 
 		.article-media-placeholder {
 			height: auto;
