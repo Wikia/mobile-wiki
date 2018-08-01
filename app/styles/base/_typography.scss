@@ -102,9 +102,5 @@ a {
 }
 
 article a {
-	@extend %wds-underline-aqua;
-
-	&:hover {
-		@extend %wds-underline-navy;
-	}
+	color: $wds-fandom-color-link;
 }
