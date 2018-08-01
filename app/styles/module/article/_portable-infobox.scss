@@ -97,6 +97,8 @@ section {
 		}
 
 		.article-media-placeholder {
+			border-bottom: 1px solid #bed1cf;
+			border-radius: 4px;
 			height: auto;
 			max-height: 100vw;
 			object-fit: contain;
@@ -374,6 +376,8 @@ section {
 .pi-hero-small {
 	@extend %position-play-icon;
 
+	border-bottom: 1px solid #bed1cf;
+	border-radius: 4px;
 	box-shadow: $hero-image-small-box-shadow;
 	display: block;
 	margin-top: -$hero-image-small-offset;
