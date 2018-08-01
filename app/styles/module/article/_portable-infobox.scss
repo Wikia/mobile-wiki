@@ -14,6 +14,7 @@ $infobox-image-collection-button-width: 60px;
 
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
+$infobox-img-border-bottom: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
 	position: relative;
@@ -97,8 +98,8 @@ section {
 		}
 
 		.article-media-placeholder {
-			border-bottom: 1px solid #bed1cf;
-			border-radius: 4px;
+			border-bottom: $infobox-img-border-bottom;
+			border-radius: $infobox-border-radius;
 			height: auto;
 			max-height: 100vw;
 			object-fit: contain;
@@ -376,8 +377,8 @@ section {
 .pi-hero-small {
 	@extend %position-play-icon;
 
-	border-bottom: 1px solid #bed1cf;
-	border-radius: 4px;
+	border-bottom: $infobox-img-border-bottom;
+	border-radius: $infobox-border-radius;
 	box-shadow: $hero-image-small-box-shadow;
 	display: block;
 	margin-top: -$hero-image-small-offset;
