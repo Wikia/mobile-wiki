@@ -1,8 +1,10 @@
 article {
-	h2 {
-		&:not(.open-section) {
-			padding-bottom: 12px;
-		}
+	h2:not(.open-section) {
+		padding-bottom: 12px;
+	}
+
+	.pi h2:not(.open-section) {
+		padding-bottom: 0;
 	}
 
 	section {

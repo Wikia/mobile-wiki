@@ -63,7 +63,6 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 // reset inherited margins and paddings
 .pi-title,
-.pi-header,
 .pi-data-label,
 .pi-hero-title,
 .pi-hero-caption,
@@ -71,6 +70,12 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 section {
 	margin: 0;
 	padding: 0;
+}
+
+.pi-header {
+	margin: 0;
+	padding-bottom: 0;
+	padding-top: 0;
 }
 
 .pi-item-spacing {
@@ -247,7 +252,7 @@ section {
 		border-top: none;
 	}
 
-	.pi-item {
+	.pi-item:not(.pi-header) {
 		padding-left: 0;
 		padding-right: 0;
 	}
@@ -266,10 +271,6 @@ section {
 
 .pi-header-wrapper {
 	text-align: center;
-
-	.pi-header {
-		padding: 0;
-	}
 }
 
 // infobox horizontal group
@@ -334,6 +335,14 @@ section {
 		&:not(:last-child) {
 			border-right: 1px solid $wds-fandom-color-middle-gray;
 		}
+	}
+
+	.pi-smart-data-label {
+		padding-bottom: 12px;
+	}
+
+	section {
+		padding-bottom: 0;
 	}
 }
 
