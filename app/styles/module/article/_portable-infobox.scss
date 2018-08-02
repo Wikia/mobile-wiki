@@ -29,10 +29,15 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	// margin-top: -2px to hide border radius behind hero image if such is present
 	margin: -$infobox-border-radius/2 0 0;
 
-	.article-gallery {
+	.article-media-gallery {
 		// position:relative needed here for proper setting the
 		// offsetParent property for images in galleries in infoboxes
 		position: relative;
+
+		.article-media-thumbnail {
+			margin: 0, $infobox-item-margin;
+			padding: 0;
+		}
 	}
 
 	& > *:first-child {
@@ -54,6 +59,11 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 		}
 	}
 
+	figure {
+		border: $infobox-img-border;
+		border-radius: $infobox-border-radius;
+	}
+
 	img {
 		border-radius: $infobox-border-radius;
 	}
@@ -66,7 +76,6 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 .pi-data-label,
 .pi-hero-title,
 .pi-hero-caption,
-.portable-infobox .article-media-thumbnail,
 section {
 	margin: 0;
 	padding: 0;
@@ -101,8 +110,6 @@ section {
 	.pi-item {
 		@extend %position-play-icon;
 
-		border: $infobox-img-border;
-		border-radius: $infobox-border-radius;
 		display: inline-block;
 		height: auto;
 		margin-left: $infobox-item-margin * 2;
