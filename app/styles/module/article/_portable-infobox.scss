@@ -14,7 +14,7 @@ $infobox-image-collection-button-width: 60px;
 
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
-$infobox-img-border-bottom: 1px solid $wds-fandom-color-middle-gray;
+$infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
 	position: relative;
@@ -33,6 +33,10 @@ $infobox-img-border-bottom: 1px solid $wds-fandom-color-middle-gray;
 		// position:relative needed here for proper setting the
 		// offsetParent property for images in galleries in infoboxes
 		position: relative;
+	}
+
+	& > *:first-child {
+		margin-top: $infobox-border-radius/2;
 	}
 
 	&.collapsed {
@@ -87,15 +91,16 @@ section {
 	.pi-item {
 		@extend %position-play-icon;
 
-		border: $infobox-img-border-bottom;
+		border: $infobox-img-border;
 		border-radius: $infobox-border-radius;
 		display: inline-block;
 		height: auto;
+		margin-left: $infobox-item-margin * 2;
 		position: relative;
 		width: 222px;
 
-		&:not(:last-child) {
-			margin-right: 12px;
+		&:last-child {
+			margin-right: $infobox-item-margin * 2;
 		}
 
 		.article-media-placeholder {
@@ -382,7 +387,7 @@ section {
 .pi-hero-small {
 	@extend %position-play-icon;
 
-	border-bottom: $infobox-img-border-bottom;
+	border: $infobox-img-border;
 	border-radius: $infobox-border-radius;
 	box-shadow: $hero-image-small-box-shadow;
 	display: block;
