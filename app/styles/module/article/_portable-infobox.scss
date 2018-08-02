@@ -36,6 +36,7 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	}
 
 	& > *:first-child {
+		// prevent content of first child to be cut by negative margin from above
 		margin-top: $infobox-border-radius/2;
 	}
 
