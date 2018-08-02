@@ -77,7 +77,7 @@ $qualaroo-width-large: 350px;
 					li {
 						@extend %wds-font-size-base;
 						@extend %wds-font-weight-bold;
-						@extend %wds-line-height-s;
+						@extend %wds-leading-none;
 
 						align-items: center;
 						border: 1px solid #999;

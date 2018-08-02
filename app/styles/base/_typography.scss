@@ -1,7 +1,7 @@
 // TODO: move it to DS when all styles are set
 blockquote {
 	@extend %wds-font-size-base;
-	@extend %wds-line-height-xl;
+	@extend %wds-leading-loose;
 	@extend %wds-font-style-italic;
 	@extend %wds-font-weight-normal;
 
@@ -84,7 +84,7 @@ section,
 p {
 	@extend %wds-font-size-base;
 	@extend %wds-font-weight-light;
-	@extend %wds-line-height-paragraph;
+	@extend %wds-leading-loose;
 }
 
 section {

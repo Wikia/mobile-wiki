@@ -154,7 +154,7 @@ section {
 .pi-title {
 	@extend %wds-font-size-xl;
 	@extend %wds-font-weight-normal;
-	@extend %wds-line-height-xl;
+	@extend %wds-leading-tight;
 
 	text-align: center;
 }
@@ -183,7 +183,7 @@ section {
 
 .pi-data-label {
 	@extend %wds-font-size-xs;
-	@extend %wds-line-height-xs;
+	@extend %wds-leading-tight;
 	@extend %wds-font-weight-bold;
 	@extend %wds-text-transform-uppercase;
 
@@ -194,7 +194,7 @@ section {
 .pi-data-value {
 	@extend %wds-font-size-s;
 	@extend %wds-font-weight-light;
-	@extend %wds-line-height-base;
+	@extend %wds-leading-tight;
 
 	padding-left: 0;
 
@@ -246,7 +246,7 @@ section {
 // infobox group header
 .pi-header {
 	@extend %wds-font-size-l;
-	@extend %wds-line-height-l;
+	@extend %wds-leading-tight;
 	@extend %wds-font-weight-medium;
 	@extend %wds-text-transform-uppercase;
 

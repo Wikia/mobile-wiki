@@ -41,7 +41,7 @@ figcaption {
 
 	figcaption {
 		@extend %wds-font-size-s;
-		@extend %wds-line-height-s;
+		@extend %wds-leading-none;
 
 		@include ellipsis;
 
