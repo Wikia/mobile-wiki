@@ -89,6 +89,10 @@ section {
 		overflow-x: scroll;
 	}
 
+	&:first-child .pi-item {
+		width: calc((100vw - 2 * #{$article-horizontal-padding}) * .75);
+	}
+
 	.pi-item {
 		@extend %position-play-icon;
 
@@ -98,7 +102,7 @@ section {
 		height: auto;
 		margin-left: $infobox-item-margin * 2;
 		position: relative;
-		width: 222px;
+		width: calc(50vw - #{$article-horizontal-padding});
 
 		&:last-child {
 			margin-right: $infobox-item-margin * 2;
