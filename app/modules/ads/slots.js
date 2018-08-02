@@ -108,7 +108,7 @@ export default {
 					updateProperties: {
 						adProduct: '{slotConfig.slotName}',
 						'targeting.rv': '{slotConfig.repeat.index}',
-						'targeting.pos': ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD']
+						'targeting.pos': ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT']
 					}
 				},
 				slotShortcut: 'f',
@@ -121,7 +121,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'middle',
-					pos: ['MOBILE_IN_CONTENT', 'INCONTENT_BOXAD'],
+					pos: ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT'],
 					rv: 1
 				}
 			},
