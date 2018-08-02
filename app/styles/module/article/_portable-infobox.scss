@@ -254,6 +254,14 @@ section {
 	text-align: center;
 }
 
+.pi-header-wrapper {
+	text-align: center;
+
+	.pi-header {
+		padding: 0;
+	}
+}
+
 // infobox horizontal group
 .pi-horizontal-group {
 	border-spacing: 0;
