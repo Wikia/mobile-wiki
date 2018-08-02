@@ -396,6 +396,8 @@ section {
 }
 
 .pi-hero-small-wrapper {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 	display: flex;
 	justify-content: space-around;
 	margin: 24px $article-horizontal-padding 0;
