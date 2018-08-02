@@ -249,12 +249,7 @@ section {
 	@extend %wds-leading-tight;
 	@extend %wds-font-weight-medium;
 	@extend %wds-text-transform-uppercase;
-
-	// TODO: group headers should have midlight effect, however to make it work we need wrap h2 tags within div tag to
-	// be able to both, use display:inline from wds-midlight (which is required to make it work) and center the header
-	// text. We can adjust infobox parser easily to do it, however parser cache is 1 week long, so we need to style it in
-	// a way to support non-midlight headers when there is only h2 and midlight effect when there is div > h2
-	//@extend .wds-midlight;
+	@extend %wds-midlight-navy;
 
 	text-align: center;
 }
