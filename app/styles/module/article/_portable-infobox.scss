@@ -281,10 +281,12 @@ section {
 
 		&:first-child {
 			padding-left: $article-horizontal-padding;
+			text-align: center;
 		}
 
 		&:last-child {
 			padding-right: $article-horizontal-padding;
+			text-align: center;
 		}
 	}
 }
