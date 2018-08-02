@@ -87,7 +87,8 @@ section {
 	.pi-item {
 		@extend %position-play-icon;
 
-		border-radius: 3px;
+		border: $infobox-img-border-bottom;
+		border-radius: $infobox-border-radius;
 		display: inline-block;
 		height: auto;
 		position: relative;
@@ -98,8 +99,6 @@ section {
 		}
 
 		.article-media-placeholder {
-			border-bottom: $infobox-img-border-bottom;
-			border-radius: $infobox-border-radius;
 			height: auto;
 			max-height: 100vw;
 			object-fit: contain;
@@ -233,6 +232,7 @@ section {
 	}
 
 	.pi-image + &,
+	.pi-image-collection + &,
 	.pi-title + & {
 		border-top: none;
 	}
