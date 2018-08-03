@@ -17,10 +17,11 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
+	margin-bottom: 12px;
 	position: relative;
 
 	&:nth-of-type(n + 2) {
-		margin-top: 6px;
+		margin-top: 12px;
 	}
 }
 
@@ -59,7 +60,6 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	}
 
 	figure {
-		border: $infobox-img-border;
 		border-radius: $infobox-border-radius;
 	}
 
@@ -114,6 +114,7 @@ section {
 	.pi-item {
 		@extend %position-play-icon;
 
+		border: $infobox-img-border;
 		display: inline-block;
 		height: auto;
 		margin-left: $infobox-item-margin * 2;
@@ -146,12 +147,13 @@ section {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	margin-top: 18px;
+	margin-top: 24px;
 	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
 	> figure {
 		@extend %position-play-icon;
 
+		border: $infobox-img-border;
 		max-width: 50%;
 		order: 1;
 		position: absolute;
@@ -194,6 +196,7 @@ section {
 	padding-left: $infobox-item-margin * 2;
 	padding-right: $infobox-item-margin * 2;
 
+	border: $infobox-img-border;
 	figcaption {
 		display: none;
 	}
@@ -250,6 +253,10 @@ section {
 
 	p {
 		line-height: inherit;
+	}
+
+	figure {
+		border: $infobox-img-border;
 	}
 }
 
@@ -374,10 +381,6 @@ section {
 
 	background-color: inherit;
 	color: inherit;
-
-	.article-media-thumbnail {
-		border: none;
-	}
 }
 
 // styles for infobox collapse / expand UI
