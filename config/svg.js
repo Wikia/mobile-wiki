@@ -1,4 +1,4 @@
-const designSystemAssetsPath = 'node_modules/design-system/style-guide/assets/';
+const designSystemAssetsPath = 'node_modules/design-system/dist/svg/';
 
 // DS icons which should be returned in bottom of body
 const designSystemInlineSVGs = [

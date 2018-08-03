@@ -39,7 +39,9 @@ module('Integration | Component | article content', (hooks) => {
 	test('ad is injected below portable infobox with no page header', async function (assert) {
 		const content =
 			'<p>some content</p>' +
+			'<div class="portable-infobox-wrapper">' +
 			'<aside class="portable-infobox"></aside>' +
+			'</div>' +
 			'<section>Article body</section>' +
 			'<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
@@ -61,7 +63,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
-			find('.portable-infobox'),
+			find('.portable-infobox-wrapper'),
 			'previous element is an infobox'
 		);
 	});
@@ -100,7 +102,9 @@ module('Integration | Component | article content', (hooks) => {
 		const content =
 			'<p>some content</p>' +
 			'<div class="wiki-page-header"></div>' +
+			'<div class="portable-infobox-wrapper">' +
 			'<aside class="portable-infobox"></aside>' +
+			'</div>' +
 			'<section>Article body</section>' +
 			'<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
@@ -122,7 +126,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(findAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
-			find('.portable-infobox'),
+			find('.portable-infobox-wrapper'),
 			'previous element is an infobox'
 		);
 	});
