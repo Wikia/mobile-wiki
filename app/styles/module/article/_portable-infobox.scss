@@ -324,6 +324,7 @@ section {
 .pi-smart-group {
 	display: flex;
 	flex-direction: column;
+	text-align: center;
 
 	&:not(:last-child) {
 		padding-bottom: $infobox-item-margin * 2;
