@@ -105,6 +105,10 @@ section {
 
 	&:first-child .pi-item {
 		width: calc((100vw - 2 * #{$article-horizontal-padding}) * .75);
+
+		.has-featured-video & {
+			width: calc(50vw - #{$article-horizontal-padding});
+		}
 	}
 
 	.pi-item {

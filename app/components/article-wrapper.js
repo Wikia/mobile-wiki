@@ -24,6 +24,7 @@ export default Component.extend(
 		wikiVariables: service(),
 
 		classNames: ['article-wrapper'],
+		classNameBindings: ['hasFeaturedVideo'],
 		displayEmptyArticleInfo: true,
 		displayArticleWrapper: true,
 
