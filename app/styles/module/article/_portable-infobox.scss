@@ -61,6 +61,34 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	img {
 		border-radius: $infobox-border-radius;
 	}
+
+	dl,
+	ol,
+	ul,
+	p {
+		list-style-position: inside;
+	}
+
+	ol,
+	ul {
+		line-height: 24px;
+		margin-left: 6px;
+		text-align: left;
+
+		> li {
+			list-style-position: outside;
+			margin-bottom: 8px;
+			margin-left: 10px;
+		}
+	}
+
+	p {
+		line-height: inherit;
+	}
+
+	figure {
+		border: $infobox-img-border;
+	}
 }
 
 //////////// General classes and rules used across infobox ////////////
@@ -228,29 +256,6 @@ section {
 	&:not(:first-child) {
 		flex-basis: 60%;
 		padding-left: $tabular-layout-padding;
-	}
-
-	dl,
-	ol,
-	ul,
-	p {
-		list-style-position: inside;
-	}
-
-	ol,
-	ul {
-		line-height: 24px;
-		margin-left: 6px;
-
-		> li {
-			list-style-position: outside;
-			margin-bottom: 8px;
-			margin-left: 10px;
-		}
-	}
-
-	p {
-		line-height: inherit;
 	}
 
 	figure {
