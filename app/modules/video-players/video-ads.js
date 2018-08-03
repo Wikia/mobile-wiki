@@ -125,6 +125,7 @@ function init(player, options, slotTargeting) {
 		slotService.add(slot);
 	}
 
+	slot.setConfigProperty('videoDepth', depth);
 	if (context.get('options.jwplayer.audio.exposeToSlot')) {
 		slot.setConfigProperty('audio', !player.getMute());
 	}
