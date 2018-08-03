@@ -256,6 +256,10 @@ section {
 	figure {
 		border: $infobox-img-border;
 	}
+
+	figcaption {
+		display: none;
+	}
 }
 
 .pi-group {
