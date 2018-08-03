@@ -67,7 +67,7 @@ export default {
 			mobile_top_leaderboard: {
 				aboveTheFold: true,
 				adProduct: 'mobile_top_leaderboard',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'LB',
 				options: {},
 				slotShortcut: 'l',
@@ -81,7 +81,7 @@ export default {
 			},
 			mobile_in_content: {
 				adProduct: 'mobile_in_content',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'HiVi',
 				options: {},
 				slotShortcut: 'i',
@@ -89,13 +89,13 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
 				targeting: {
 					loc: 'middle',
-					pos: 'MOBILE_IN_CONTENT',
+					pos: ['MOBILE_IN_CONTENT'],
 					rv: 1
 				}
 			},
 			incontent_boxad_1: {
 				adProduct: 'incontent_boxad_1',
-				audioSegment: '',
+				slotNameSuffix: '',
 				bidderAlias: 'mobile_in_content',
 				group: 'HiVi',
 				options: {},
@@ -107,7 +107,8 @@ export default {
 					slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
 					updateProperties: {
 						adProduct: '{slotConfig.slotName}',
-						'targeting.rv': '{slotConfig.repeat.index}'
+						'targeting.rv': '{slotConfig.repeat.index}',
+						'targeting.pos': ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT']
 					}
 				},
 				slotShortcut: 'f',
@@ -126,7 +127,7 @@ export default {
 			},
 			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
-				audioSegment: '',
+				slotNameSuffix: '',
 				disabled: true,
 				disableManualInsert: true,
 				group: 'PF',
@@ -141,7 +142,7 @@ export default {
 			},
 			bottom_leaderboard: {
 				adProduct: 'bottom_leaderboard',
-				audioSegment: '',
+				slotNameSuffix: '',
 				group: 'PF',
 				options: {},
 				slotShortcut: 'b',
@@ -160,7 +161,7 @@ export default {
 			},
 			featured: {
 				adProduct: 'featured',
-				audioSegment: '',
+				slotNameSuffix: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
 				lowerSlotName: 'featured',
@@ -172,7 +173,7 @@ export default {
 			},
 			video: {
 				adProduct: 'video',
-				audioSegment: '',
+				slotNameSuffix: '',
 				nonUapSlot: true,
 				group: 'VIDEO',
 				lowerSlotName: 'video',
@@ -183,6 +184,15 @@ export default {
 				trackingKey: 'video',
 			},
 		};
+	},
+
+	setupSlotParameters(slot) {
+		const audioSuffix = slot.config.audio === true ? '-audio' : '',
+			clickToPlaySuffix = slot.config.autoplay === false ? '-ctp' : '';
+
+		slot.setConfigProperty('slotNameSuffix', clickToPlaySuffix || audioSuffix || '');
+		slot.setConfigProperty('targeting.audio', audioSuffix ? 'yes' : 'no');
+		slot.setConfigProperty('targeting.ctp', clickToPlaySuffix ? 'yes' : 'no');
 	},
 
 	setupStates() {
@@ -209,5 +219,21 @@ export default {
 			const slotParam = slotsDefinition[key].slotShortcut || 'x';
 			context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
 		});
+	},
+
+	setupIncontentPlayer() {
+		const { context } = window.Wikia.adEngine;
+		const slots = ['mobile_in_content', 'incontent_boxad_1'];
+
+		// ToDo: don't set up player if is UAP loaded
+		if (!context.get('custom.hasFeaturedVideo')) {
+			slots.forEach((slot) => {
+				const pos = context.get(`slots.${slot}.targeting.pos`);
+
+				pos.push('INCONTENT_PLAYER');
+
+				context.set(`slots.${slot}.targeting.pos`, pos);
+			});
+		}
 	}
 };

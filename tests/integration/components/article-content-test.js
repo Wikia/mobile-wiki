@@ -23,15 +23,20 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 const i18nService = Service.extend({
 	t() {}
 });
-sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);
+	let adsModuleStub;
 
 	hooks.beforeEach(function () {
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
 		mockAdsService(this.owner);
+	});
+
+	hooks.afterEach(() => {
+		adsModuleStub.restore();
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
@@ -47,7 +52,11 @@ module('Integration | Component | article content', (hooks) => {
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy,
 		});
@@ -77,7 +86,11 @@ module('Integration | Component | article content', (hooks) => {
 			setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
@@ -110,7 +123,11 @@ module('Integration | Component | article content', (hooks) => {
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
