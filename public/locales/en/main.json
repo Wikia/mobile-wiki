@@ -40,7 +40,8 @@
     "replies-label_plural": "View {count} replies",
     "suggestions-label": "Read More",
     "toc-label": "Table of Contents",
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors",
+    "article-information": "Article Information"
   },
   "article-comments": {
     "next-button": "Next page",

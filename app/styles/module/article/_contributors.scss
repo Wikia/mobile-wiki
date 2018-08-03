@@ -1,14 +1,13 @@
 .contributors {
-	height: 125px;
-	margin-bottom: 2.5rem;
-	padding: 1.25rem .8125rem;
-
-	.title {
-		margin-left: .625rem;
-		padding-bottom: .9375rem;
-	}
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
 
 	.wds-avatar {
 		@include wds-avatar(30px, $wds-fandom-color-middle-gray);
+	}
+
+	.wds-avatar-stack {
+		margin: 0;
 	}
 }

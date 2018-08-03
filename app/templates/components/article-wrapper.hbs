@@ -34,8 +34,14 @@
 {{yield}}
 {{#if displayArticleWrapper}}
 	<section class="article-footer">
+		<div class="article-information-header article-footer-item">
+			<h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">
+				{{i18n 'article.article-information'}}
+			</h2>
+		</div>
 		{{wikia-users
 			users=model.topContributors
+			class='article-footer-item'
 		}}
 		{{#if showComments}}
 			{{article-comments
