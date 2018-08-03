@@ -125,14 +125,8 @@ function init(player, options, slotTargeting) {
 		slotService.add(slot);
 	}
 
-	slot.setConfigProperty('videoDepth', depth);
-	if (context.get('options.jwplayer.audio.exposeToSlot')) {
-		slot.setConfigProperty('audio', !player.getMute());
-	}
-
-	if (context.get('options.jwplayer.autoplay.exposeToSlot')) {
-		slot.setConfigProperty('autoplay', player.getConfig().autostart);
-	}
+	slot.setConfigProperty('audio', !player.getMute());
+	slot.setConfigProperty('autoplay', player.getConfig().autostart);
 
 	if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
 		player.on('adImpression', (event) => {
@@ -162,6 +156,7 @@ function init(player, options, slotTargeting) {
 		// tracker.updateType(adProduct);
 		correlator = Math.round(Math.random() * 10000000000);
 		depth += 1;
+		slot.setConfigProperty('videoDepth', depth);
 
 		if (shouldPlayPreroll(depth)) {
 			/**

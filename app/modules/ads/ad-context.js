@@ -399,14 +399,6 @@ export default {
 				segment: '-audio',
 				key: 'audio'
 			}
-		},
-		jwplayer: {
-			audio: {
-				exposeToSlot: true
-			},
-			autoplay: {
-				exposeToSlot: true
-			}
 		}
 	}
 };
