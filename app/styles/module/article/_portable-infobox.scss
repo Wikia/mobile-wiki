@@ -18,6 +18,10 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
 	position: relative;
+
+	&:nth-of-type(n + 2) {
+		margin-top: 6px;
+	}
 }
 
 .pi {
@@ -138,6 +142,7 @@ section {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
+	margin-top: 18px;
 	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
 	> figure {
@@ -387,15 +392,6 @@ section {
 
 	svg {
 		transform: rotate(180deg);
-	}
-}
-
-.pi-hero,
-.pi-image-collection {
-	.article-media-placeholder {
-		// in case of long image (longer than wider)
-		// we want to crop its height to equal its width (which takes 100% of screen width)
-		max-height: 100vw;
 	}
 }
 
