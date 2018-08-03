@@ -290,10 +290,10 @@ section {
 	border-spacing: 0;
 	margin-bottom: 12px;
 	table-layout: fixed;
-	text-align: left;
 	width: 100%;
 
 	.pi-horizontal-group-item {
+		text-align: center;
 		vertical-align: top;
 
 		&:not(:last-child) {
@@ -312,12 +312,10 @@ section {
 
 		&:first-child {
 			padding-left: $article-horizontal-padding;
-			text-align: center;
 		}
 
 		&:last-child {
 			padding-right: $article-horizontal-padding;
-			text-align: center;
 		}
 	}
 }
