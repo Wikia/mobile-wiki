@@ -362,6 +362,10 @@ section {
 
 	background-color: inherit;
 	color: inherit;
+
+	.article-media-thumbnail {
+		border: none;
+	}
 }
 
 // styles for infobox collapse / expand UI
