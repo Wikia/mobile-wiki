@@ -25,8 +25,8 @@ export default Component.extend(
 		model: null,
 		isCollapsed: true,
 
-		nextButtonShown: false,
-		prevButtonShown: false,
+		nextButtonDisabled: true,
+		prevButtonDisabled: true,
 		showComments: bool('page'),
 
 		/**
@@ -51,8 +51,8 @@ export default Component.extend(
 				isFirstPage = currentPageInteger === 1;
 
 				this.setProperties({
-					nextButtonShown: (isFirstPage || currentPageInteger < count) && count > 1,
-					prevButtonShown: !isFirstPage && (currentPageInteger > 1),
+					nextButtonDisabled: currentPageInteger >= count,
+					prevButtonDisabled: isFirstPage,
 					page: currentPage
 				});
 

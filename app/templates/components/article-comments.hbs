@@ -10,13 +10,25 @@
 			{{/each}}
 		</ul>
 		<div class="comments__navigation">
-			<button class='wds-button wds-is-square wds-is-secondary page-button prev-page-button {{unless prevButtonShown 'wds-is-disabled'}}' {{action 'prevPage'}}>
-				{{!--{{i18n 'article-comments.prev-button'}}--}}
+			{{#wds-button
+				class='page-button prev-page-button'
+				click=(action 'prevPage')
+				disabled=prevButtonDisabled
+				secondary=true
+				square=true
+			}}
 				{{wds-icon name='menu-control-tiny' size='tiny'}}
-			</button>
-			<button class='wds-button wds-is-square wds-is-secondary page-button next-page-button {{unless nextButtonShown 'wds-is-disabled'}}' {{action 'nextPage'}}>
+			{{/wds-button}}
+
+			{{#wds-button
+				class='page-button next-page-button'
+				click=(action 'nextPage')
+				disabled=nextButtonDisabled
+				secondary=true
+				square=true
+			}}
 				{{wds-icon name='menu-control-tiny' size='tiny'}}
-			</button>
+			{{/wds-button}}
 		</div>
 	{{else}}
 		<div class="comments__no-comments wds-font-size-s">
