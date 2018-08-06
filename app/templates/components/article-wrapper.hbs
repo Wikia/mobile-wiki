@@ -48,6 +48,7 @@
 				articleId=model.id
 				commentsCount=model.comments
 				page=commentsPage
+				class='article-footer-item'
 			}}
 		{{/if}}
 		{{#if model.categories}}
@@ -58,7 +59,7 @@
 				tLabel='article.categories-list-label'
 				trackingEvent='category-menu'
 				click=(action 'trackClick' 'category-menu' 'open-category')
-				class="mw-content"
+				class='article-categories-list article-footer-item'
 			}}
 				{{#each model.categories as |category|}}
 					<li>

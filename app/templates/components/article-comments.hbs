@@ -1,6 +1,6 @@
-<div role="button" {{action 'toggleComments'}} class='show-comments-btn wds-font-weight-bold wds-text-transform-uppercase {{if isCollapsed 'collapsed'}}'>
+<div role="button" {{action 'toggleComments'}} class='show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if isCollapsed 'collapsed'}}'>
 	<span>{{i18n 'article.comments-label' count=commentsCount}}</span>
-	{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
+	{{wds-icon name='menu-control-tiny' size='tiny' class='chevron'}}
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}

@@ -15,5 +15,11 @@ $article-footer-skewY: 5deg;
 
 	.article-footer-item {
 		margin-bottom: 18px;
+		padding-right: 6px;
+	}
+
+	.chevron {
+		color: $wds-fandom-color-dark-gray;
+		margin-right: 4px;
 	}
 }
