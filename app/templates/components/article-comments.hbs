@@ -4,17 +4,20 @@
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='wds-button page-button prev-page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
-			{{i18n 'article-comments.prev-button'}}
-		</button>
 		<ul class='comments wds-font-size-xs {{if commentsHidden 'wds-is-hidden'}}'>
 			{{#each model.comments as |comment|}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='wds-button page-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
-			{{i18n 'article-comments.next-button'}}
-		</button>
+		<div class="comments__navigation">
+			<button class='wds-button wds-is-square wds-is-secondary page-button prev-page-button {{unless prevButtonShown 'wds-is-disabled'}}' {{action 'prevPage'}}>
+				{{!--{{i18n 'article-comments.prev-button'}}--}}
+				{{wds-icon name='menu-control-tiny' size='tiny'}}
+			</button>
+			<button class='wds-button wds-is-square wds-is-secondary page-button next-page-button {{unless nextButtonShown 'wds-is-disabled'}}' {{action 'nextPage'}}>
+				{{wds-icon name='menu-control-tiny' size='tiny'}}
+			</button>
+		</div>
 	{{else}}
 		<div class="comments__no-comments wds-font-size-s">
 			{{svg 'wds-icons-reply' class='wds-icon comments__reply-icon'}}

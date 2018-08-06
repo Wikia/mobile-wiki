@@ -4,7 +4,17 @@
 }
 
 .prev-page-button {
-	margin-bottom: 20px;
+	margin-right: 36px;
+
+	svg {
+		transform: rotate(90deg);
+	}
+}
+
+.next-page-button {
+	svg {
+		transform: rotate(-90deg);
+	}
 }
 
 .show-reply-btn {
@@ -49,6 +59,13 @@
 		margin-top: 12px;
 		max-width: 200px;
 		text-align: center;
+	}
+
+	&__navigation {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+		width: 100%;
 	}
 }
 
