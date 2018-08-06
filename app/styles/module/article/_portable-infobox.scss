@@ -27,6 +27,7 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 	// margin-top: -2px to hide border radius behind hero image if such is present
 	margin: -$infobox-border-radius/2 0 0;
+	padding-bottom: 6px;
 
 	.article-media-gallery {
 		// position:relative needed here for proper setting the
@@ -82,6 +83,7 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	}
 
 	p {
+		@extend %wds-font-size-s;
 		line-height: inherit;
 	}
 }
