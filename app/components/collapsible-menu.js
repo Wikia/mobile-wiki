@@ -6,12 +6,10 @@ export default Component.extend(
 	{
 		tagName: 'nav',
 		classNames: ['collapsible-menu'],
-		classNameBindings: ['additionalClasses'],
 		additionalClasses: null,
 		isCollapsed: true,
 		observe: null,
 		ordered: false,
-		showMenuIcon: true,
 		tLabel: '',
 		trackingEvent: null,
 

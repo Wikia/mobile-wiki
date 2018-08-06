@@ -1,31 +1,25 @@
-@import 'collapsible-menu-variables';
-
 .collapsible-menu {
 	ol,
 	ul {
+		display: block;
 		list-style: none;
-		margin: 0;
+		margin: 22px 0 0 0;
 
 		li {
-			border-top: 1px solid $collapsible-menu-border-color;
-			padding: .625rem 1.25rem .625rem 2.5rem;
+			display: inline;
+
+			&::after {
+				content: ", ";
+			}
+
+			&:last-child::after {
+				content: "";
+			}
 
 			a {
-				align-items: center;
-				color: $collapsible-menu-list-link-color;
-				display: flex;
+				@extend %wds-font-weight-normal;
 
-				> span {
-					flex: 1;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-				}
-
-				> .wds-icon {
-					margin-left: 6px;
-					transform: rotate(-90deg);
-				}
+				color: $wds-fandom-color-link;
 			}
 		}
 	}
