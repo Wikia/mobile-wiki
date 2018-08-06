@@ -44,8 +44,6 @@
     "article-information": "Article Information"
   },
   "article-comments": {
-    "next-button": "Next page",
-    "prev-button": "Previous page",
     "no-comments": "No Comments Yet",
     "add-comment": "Add comment",
     "desktop-warning": "* You will be directed to the desktop experience to add a comment"
