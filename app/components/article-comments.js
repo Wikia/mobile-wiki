@@ -109,6 +109,7 @@ export default Component.extend(
 
 			if (page) {
 				this.set('model.page', page);
+				this.set('isCollapsed', false);
 				scrollToTop(this.element);
 			}
 		},
