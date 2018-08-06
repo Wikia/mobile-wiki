@@ -56,7 +56,7 @@ export default Route.extend(
 		beforeModel(transition) {
 			this._super(transition);
 
-			if (['wiki-page', 'article-edit'].indexOf(transition.targetName) > -1) {
+			if (transition.targetName === 'wiki-page') {
 				transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
 			}
 		},

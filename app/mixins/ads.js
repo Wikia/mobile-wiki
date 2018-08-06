@@ -69,7 +69,7 @@ export default Mixin.create({
 	injectAds() {
 		const firstSection = this.element.parentNode.querySelector('.article-content > h2'),
 			articleFooter = document.querySelector('.article-footer'),
-			pi = document.querySelector('.portable-infobox'),
+			pi = document.querySelector('.portable-infobox-wrapper'),
 			pageHeader = document.querySelector('.wiki-page-header'),
 			adsData = this.get('ads.slotNames'),
 			globalFooter = document.querySelector('.wds-global-footer'),

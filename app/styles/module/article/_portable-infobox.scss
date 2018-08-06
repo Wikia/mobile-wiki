@@ -1,62 +1,91 @@
-// background colors
-$page-background-color: $white;
-
-// 10% button color, 5% black and 85% white
-$tabular-layout-stripe-background: mix(mix($color-blue-light, $black, 66%), $page-background-color, 15%);
-
-// secondary fields colors
-$infobox-secondary-background: $color-blue-light;
-$infobox-secondary-font-color: $white;
-$infobox-secondary-color: $color-blue-gray-light;
-
-// hero module colors
-$infobox-hero-overlay-color: rgba(0, 0, 0, .6);
-$infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: $white;
+// hero module settings
+$hero-image-small-offset: 12px;
+$hero-image-small-box-shadow: 0 8px 13px 0 rgba($wds-color-black, .04);
 
 // spacing
 $infobox-item-margin: 6px;
-$tabular-layout-data-padding: 12px;
-$tabular-layout-padding: 14px;
+$tabular-layout-padding: 12px;
 
-// field dimensions
-$infobox-title-cell-height: 54px;
-$min-hero-item-height: 110px;
-$infobox-image-collection-button-width: 60px;
+$infobox-border-radius: 4px;
+$infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
+$infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
-//fonts used in infobox
-$infobox-title-font-size: 20px;
-$infobox-title-line-height: 24px;
-$infobox-default-font-size: $type-smallest;
-$infobox-default-line-height: $line-height-smallest;
-$hero-title-font-size: $type-small;
-$hero-title-line-height: $line-height-small;
-$hero-caption-font-size: 12px;
-$hero-caption-line-height: 18px;
-$group-header-font-size: 16px;
+.portable-infobox-wrapper {
+	margin-bottom: 12px;
+	position: relative;
+
+	&:nth-of-type(n + 2) {
+		margin-top: 36px;
+	}
+}
 
 .pi {
 	background-color: $infobox-background;
-	font-size: $infobox-default-font-size;
+	border-radius: $infobox-border-radius;
+	box-shadow: $infobox-box-shadow;
 	height: auto;
-	line-height: $infobox-default-line-height;
-	margin: 0 #{-$article-horizontal-padding};
 
-	.article-gallery {
+	// margin-top: -2px to hide border radius behind hero image if such is present
+	margin: -$infobox-border-radius/2 0 0;
+	padding-bottom: 6px;
+
+	.article-media-gallery {
 		// position:relative needed here for proper setting the
 		// offsetParent property for images in galleries in infoboxes
 		position: relative;
+
+		.article-media-thumbnail {
+			margin: 0 $infobox-item-margin;
+			padding: 0;
+		}
 	}
 
 	&.collapsed {
 		overflow: hidden;
-		position: relative;
+	}
 
-		.pi-expand-button {
-			bottom: 0;
-			padding-top: 45px;
-			position: absolute;
+	&.collapsed ~ .pi-expand-button {
+		bottom: 0;
+		box-shadow: none;
+		position: absolute;
+
+		svg {
+			transform: none;
 		}
+	}
+
+	figure {
+		border-radius: $infobox-border-radius;
+	}
+
+	img {
+		border-radius: $infobox-border-radius;
+	}
+
+	dl,
+	ol,
+	ul,
+	p {
+		list-style-position: inside;
+	}
+
+	ol,
+	ul {
+		line-height: 24px;
+		margin-left: 6px;
+		text-align: left;
+
+		> li {
+			list-style-position: outside;
+			margin-bottom: 8px;
+			margin-left: 10px;
+		}
+	}
+
+	p {
+		@extend %wds-font-size-s;
+
+		line-height: inherit;
 	}
 }
 
@@ -64,60 +93,64 @@ $group-header-font-size: 16px;
 
 // reset inherited margins and paddings
 .pi-title,
-.pi-header,
 .pi-data-label,
 .pi-hero-title,
 .pi-hero-caption,
-.portable-infobox .article-media-thumbnail {
+section {
 	margin: 0;
 	padding: 0;
+}
+
+.pi-header {
+	margin: 0;
+	padding-bottom: 0;
+	padding-top: 0;
 }
 
 .pi-item-spacing {
 	padding: $infobox-item-margin * 2 $article-horizontal-padding;
 }
 
-.pi-secondary-background {
-	background-color: $infobox-secondary-background;
-	color: $infobox-secondary-font-color;
-
-	a {
-		color: inherit;
-		text-decoration: underline;
-	}
-}
-
-.pi-secondary-font {
-	font-size: inherit;
-	font-weight: bold;
-	line-height: inherit;
-	margin-top: 0;
-}
-
 //////////// Specific styles for each of the infobox elements starts here ////////////
 
 // infobox gallery
 .pi-image-collection {
+	margin-top: $infobox-border-radius/2;
 	overflow: hidden;
 	position: relative;
 	white-space: nowrap;
 
+	&__images-wrapper {
+		overflow-x: scroll;
+	}
+
+	&:first-child .pi-item {
+		width: calc((100vw - 2 * #{$article-horizontal-padding}) * .75);
+
+		.has-featured-video & {
+			width: calc(50vw - #{$article-horizontal-padding});
+		}
+	}
+
 	.pi-item {
 		@extend %position-play-icon;
 
+		border: $infobox-img-border;
 		display: inline-block;
+		height: auto;
+		margin-left: $infobox-item-margin * 2;
 		position: relative;
-		width: 100vw;
+		width: calc(50vw - #{$article-horizontal-padding});
+
+		&:last-child {
+			margin-right: $infobox-item-margin * 2;
+		}
 
 		.article-media-placeholder {
 			height: auto;
 			max-height: 100vw;
 			object-fit: contain;
 			width: 100%;
-		}
-
-		&.active {
-			display: block;
 		}
 	}
 
@@ -126,118 +159,70 @@ $group-header-font-size: 16px;
 	}
 
 	.pi-hero-title-wrapper {
-		text-align: left;
-	}
-
-	.image-collection-actions {
-		height: 100%;
-		position: absolute;
-		top: 0;
-		width: 100%;
-
-		.action-next {
-			right: 0;
-		}
-
-		.action-previous {
-			left: 0;
-
-			svg {
-				transform: rotate(90deg);
-			}
-		}
-
-		button {
-			background: transparent;
-			border: none;
-			bottom: 0;
-			display: block;
-			height: auto;
-			margin: 0;
-			padding: 0;
-			position: absolute;
-			top: 0;
-			width: $infobox-image-collection-button-width;
-			z-index: $z-portable-infobox-collapse;
-		}
-
-		svg {
-			fill: $infobox-hero-font-color;
-			stroke: $infobox-hero-overlay-color;
-			stroke-width: .5;
-			transform: rotate(-90deg);
-		}
+		display: none;
 	}
 }
 
 // infobox hero
 .pi-hero {
-	min-height: $min-hero-item-height;
-	position: relative;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-top: 24px;
+	padding-top: calc(50vw - 2 * #{$article-horizontal-padding});
 
-	img {
-		margin-left: 50%;
-		transform: translate(-50%);
+	> figure {
+		@extend %position-play-icon;
+
+		border: $infobox-img-border;
+		max-width: 50%;
+		order: 1;
+		position: absolute;
+		top: -$hero-image-small-offset;
+
+		a {
+			display: block;
+		}
+
+		img {
+			box-shadow: $hero-image-small-box-shadow;
+		}
 	}
 }
 
 .pi-hero-title-wrapper {
-	background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
-	bottom: 0;
-	left: 0;
-	padding-bottom: 15px;
-	padding-top: $infobox-item-margin * 8;
-	pointer-events: none;
-	position: absolute;
-	width: 100%;
-	z-index: 1;
-}
-
-.pi-hero-title {
-	font-size: $hero-title-font-size;
-	line-height: $hero-title-line-height;
-}
-
-.pi-hero-title,
-.pi-hero-caption {
-	@include ellipsis;
-
-	color: $infobox-hero-font-color;
-	text-shadow: 0 0 3px $infobox-hero-outline-color;
-
-	a {
-		color: inherit;
-		pointer-events: auto;
-		text-decoration: underline;
-	}
+	order: 2;
 }
 
 .pi-hero-caption {
-	font-size: $hero-caption-font-size;
-	font-weight: normal;
-	line-height: $hero-caption-line-height;
-	padding-top: $infobox-item-margin;
+	display: none;
 }
 
 // infobox title
+.pi-hero-title,
 .pi-title {
-	background-color: $infobox-secondary-background;
-	color: $infobox-secondary-font-color;
-	display: flex;
-	flex-direction: column;
-	font-size: $infobox-title-font-size;
-	justify-content: center;
-	line-height: $infobox-title-line-height;
-	min-height: $infobox-title-cell-height;
+	@extend %wds-font-size-xl;
+	@extend %wds-font-weight-normal;
+	@extend %wds-leading-tight;
+
 	text-align: center;
+}
+
+.pi-title:first-child {
+	margin-top: 2* $infobox-item-margin;
 }
 
 // infobox images
 .pi-image {
+	padding-left: $infobox-item-margin * 2;
+	padding-right: $infobox-item-margin * 2;
+
+	figure {
+		border: $infobox-img-border;
+	}
+
 	figcaption {
-		color: $black;
-		height: auto;
-		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+		display: none;
 	}
 }
 
@@ -250,69 +235,90 @@ $group-header-font-size: 16px;
 }
 
 .pi-data-label {
-	flex-basis: 30%;
+	@extend %wds-font-size-xs;
+	@extend %wds-leading-tight;
+	@extend %wds-font-weight-bold;
+	@extend %wds-text-transform-uppercase;
+
+	flex-basis: 40%;
 	hyphens: auto;
 }
 
 .pi-data-value {
-	overflow: auto;
+	@extend %wds-font-size-s;
+	@extend %wds-font-weight-light;
+	@extend %wds-leading-normal;
+
 	padding-left: 0;
 
 	&:not(:first-child) {
-		flex-basis: 70%;
+		flex-basis: 60%;
 		padding-left: $tabular-layout-padding;
 	}
 
-	dl,
-	ol,
-	ul,
-	p {
-		font-size: inherit;
-		line-height: inherit;
-		list-style-position: inside;
+	figure {
+		border: $infobox-img-border;
 	}
 
-	ol,
-	ul {
-		margin-left: 6px;
-
-		> li {
-			list-style-position: outside;
-			margin-bottom: 8px;
-			margin-left: 10px;
-		}
+	figcaption {
+		display: none;
 	}
 }
 
-// infobox group
-.pi-group .pi-header {
-	font-size: $group-header-font-size;
+.pi-group {
+	margin: 0 $infobox-item-margin * 2;
+	padding-bottom: $infobox-item-margin * 2;
+	padding-top: $infobox-item-margin * 2;
+
+	&:not(:first-child) {
+		border-top: 1px solid $wds-fandom-color-middle-gray;
+	}
+
+	.pi-image + &,
+	.pi-image-collection + &,
+	.pi-title + & {
+		border-top: none;
+	}
+
+	.pi-item:not(.pi-header) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+// infobox group header
+.pi-header {
+	@extend %wds-font-size-l;
+	@extend %wds-leading-tight;
+	@extend %wds-font-weight-medium;
+	@extend %wds-text-transform-uppercase;
+	@extend %wds-midlight-navy;
+
+	text-align: center;
+}
+
+.pi-header-wrapper {
 	text-align: center;
 }
 
 // infobox horizontal group
 .pi-horizontal-group {
 	border-spacing: 0;
+	margin-bottom: 12px;
 	table-layout: fixed;
-	text-align: left;
 	width: 100%;
 
-	.pi-header {
-		font-size: $group-header-font-size;
-		text-align: center;
-	}
-
 	.pi-horizontal-group-item {
+		text-align: center;
 		vertical-align: top;
+
+		&:not(:last-child) {
+			border-right: 1px solid $wds-fandom-color-middle-gray;
+		}
 	}
 
 	.pi-data-label {
 		padding-bottom: 0;
-	}
-
-	.pi-data-value:nth-child(even),
-	.pi-data-label:nth-child(even) {
-		background-color: $tabular-layout-stripe-background;
 	}
 
 	.pi-data-value,
@@ -334,28 +340,36 @@ $group-header-font-size: 16px;
 .pi-smart-group {
 	display: flex;
 	flex-direction: column;
+	text-align: center;
 
-	.pi-smart-data-label {
-		padding-bottom: 0;
+	&:not(:last-child) {
+		padding-bottom: $infobox-item-margin * 2;
+	}
+
+	.pi-smart-group-head:first-child {
+		margin-top: 12px;
+	}
+
+	.pi-smart-group-body {
+		margin-bottom: 12px;
 	}
 
 	.pi-smart-data-label,
 	.pi-smart-data-value {
 		flex-basis: auto;
-		padding-left: $tabular-layout-padding;
-		padding-right: $tabular-layout-padding;
+		padding: 0 $tabular-layout-padding;
 
-		&:nth-child(even) {
-			background-color: $tabular-layout-stripe-background;
+		&:not(:last-child) {
+			border-right: 1px solid $wds-fandom-color-middle-gray;
 		}
+	}
 
-		&:first-child {
-			padding-left: $article-horizontal-padding;
-		}
+	.pi-smart-data-label {
+		padding-bottom: 12px;
+	}
 
-		&:last-child {
-			padding-right: $article-horizontal-padding;
-		}
+	section {
+		padding-bottom: 0;
 	}
 }
 
@@ -365,48 +379,58 @@ $group-header-font-size: 16px;
 }
 
 // infobox navigation
-.pi-navigation {
+.pi-navigation,
+.pi-navigation pre {
+	@extend %wds-font-size-s;
+	@extend %wds-font-weight-normal;
+
 	background-color: inherit;
 	color: inherit;
-	font-weight: normal;
-
-	a {
-		color: $anchor-font-color;
-		text-decoration: none;
-	}
 }
 
 // styles for infobox collapse / expand UI
 .pi-expand-button {
-	background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
-	padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
+	background: $wds-color-white;
+	border-bottom-left-radius: $infobox-border-radius;
+	border-bottom-right-radius: $infobox-border-radius;
+	border-top: solid 1px $wds-fandom-color-mid-light-gray;
+	box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
+	color: $wds-fandom-color-aqua;
+	padding: 5px 0 4px;
 	text-align: center;
 	width: 100%;
 	z-index: $z-1;
-}
 
-.pi-hero,
-.pi-image-collection {
-	.article-media-placeholder {
-		// in case of long image (longer than wider)
-		// we want to crop its height to equal its width (which takes 100% of screen width)
-		max-height: 100vw;
+	span {
+		margin-right: 5px;
+	}
+
+	svg {
+		transform: rotate(180deg);
 	}
 }
 
 .pi-hero-small-wrapper {
-	padding: 0 $article-horizontal-padding;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	display: flex;
+	justify-content: space-around;
+	margin: 12px $article-horizontal-padding 0;
 }
 
 .pi-hero-small {
-	display: block;
-	position: relative;
+	@extend %position-play-icon;
 
-	> img {
-		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 0;
+	border: $infobox-img-border;
+	border-radius: $infobox-border-radius;
+	box-shadow: $hero-image-small-box-shadow;
+	display: block;
+	margin-top: -$hero-image-small-offset;
+	position: relative;
+	width: 50%;
+
+	img {
+		height: calc(50vw - #{$article-horizontal-padding});
 		width: 100%;
 	}
 }

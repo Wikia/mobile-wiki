@@ -8,13 +8,11 @@ $file-usage-bottom-padding: 30px;
 }
 
 .file-usage {
-	background-color: $vapor;
+	background-color: $wds-color-light-c2;
 	padding-bottom: $file-usage-bottom-padding;
 
 	&__header {
-		font-size: $wds-typescale-size-plus-1;
-		font-weight: bold;
-		padding: $file-large-padding $file-large-padding 0;
+		padding: $file-large-padding $file-medium-padding 0;
 	}
 
 	&__list {

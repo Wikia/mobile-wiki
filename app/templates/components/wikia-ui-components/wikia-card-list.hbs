@@ -1,10 +1,10 @@
 {{#each items as |item|}}
 	<li class="wikia-card">
-		{{#link-to 'wiki-page' item.prefixedTitle trackingCategory=trackingCategory trackingLabel=trackingLabel classNames="wikia-card__item"}}
-			<div class="wikia-card__title">
+		{{#link-to 'wiki-page' item.prefixedTitle trackingCategory=trackingCategory trackingLabel=trackingLabel classNames="wikia-card__item wds-font-size-s wds-leading-tight"}}
+			<div class="wikia-card__title wds-font-weight-medium">
 				{{item.title}}
 			</div>
-			<div class="wikia-card__snippet">{{item.snippet}}</div>
+			<div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
 		{{/link-to}}
 	</li>
 {{/each}}

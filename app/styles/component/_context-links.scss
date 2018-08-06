@@ -1,4 +1,5 @@
 .context-link {
-	font-style: italic;
+	@extend %wds-font-style-italic;
+
 	padding: 30px;
 }

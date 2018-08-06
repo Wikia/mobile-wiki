@@ -1,30 +1,38 @@
+// TODO: move it to DS when all styles are set
 blockquote {
-	border-left: .25rem solid rgba(26, 94, 184, .3);
-	color: #3a3a3a;
-	font-size: 1rem;
-	font-style: italic;
-	font-weight: $font-weight-normal;
-	line-height: $line-height-base;
-	margin-bottom: 1rem;
-	padding: .25rem 0 .25rem 1rem;
+	@extend %wds-font-size-base;
+	@extend %wds-leading-loose;
+	@extend %wds-font-style-italic;
+	@extend %wds-font-weight-normal;
+
+	margin-bottom: 16px;
+	padding: 4px 0 4px 16px;
+
+	&::before {
+		@extend %wds-font-style-normal;
+
+		color: $wds-fandom-color-aqua;
+		content: "“";
+		display: block;
+		font-size: 150px;
+		line-height: 75px;
+		margin-bottom: -52px;
+		margin-top: 20px;
+	}
 
 	cite {
-		display: block;
-		font-size: .875rem;
-		font-style: normal;
-		line-height: 1.25rem;
-		padding-top: .875rem;
+		@extend %wds-font-style-normal;
 
-		&::before {
-			content: "\2014 \0020";
-		}
+		color: $wds-fandom-color-aqua;
+		display: block;
+		margin-top: 20px;
+		text-transform: uppercase;
 	}
 }
 
-a {
-	color: $color-blue-light;
-	line-height: inherit;
-	text-decoration: none;
+ul,
+ol {
+	margin-left: 18px;
 }
 
 h1,
@@ -33,41 +41,68 @@ h3,
 h4,
 h5,
 h6 {
-	margin-bottom: 1.4rem;
-}
-
-ul,
-ol {
-	margin-left: 1.1rem;
+	margin-bottom: 18px;
 }
 
 h1 {
-	font-size: $wds-typescale-size-plus-4;
-	line-height: $wds-typescale-size-plus-4;
+	@extend %wds-font-size-xxl;
+
+	font-weight: $wds-fandom-font-weight-bold;
+	line-height: 30px;
 }
 
 h2 {
-	font-size: $wds-typescale-size-plus-3;
-	line-height: 2rem;
+	@extend %wds-font-size-xl;
+
+	font-weight: $wds-fandom-font-weight-regular;
+	line-height: 26px;
 }
 
 h3 {
-	font-size: $wds-typescale-size-plus-2;
-	line-height: $wds-typescale-size-plus-2;
+	@extend %wds-font-size-l;
+
+	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 20px;
 }
 
 h4 {
-	font-size: $wds-typescale-size-plus-1;
-	line-height: $wds-typescale-size-plus-1;
+	@extend %wds-font-size-base;
+
+	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 18px;
 }
 
 h5,
 h6 {
-	font-size: $wds-typescale-size-plus-1;
-	line-height: $wds-typescale-size-plus-1;
+	@extend %wds-font-size-s;
+
+	font-weight: $wds-fandom-font-weight-medium;
+	line-height: 16px;
+}
+
+section,
+p {
+	@extend %wds-font-size-base;
+	@extend %wds-font-weight-light;
+	@extend %wds-leading-loose;
+}
+
+section {
+	margin-bottom: 32px;
 }
 
 p {
-	line-height: 1.6;
-	margin: 1rem 0;
+	margin: 16px 0;
+}
+
+a {
+	color: inherit;
+	line-height: inherit;
+	text-decoration: none;
+}
+
+article a {
+	@extend %wds-font-weight-normal;
+
+	color: $wds-fandom-color-link;
 }

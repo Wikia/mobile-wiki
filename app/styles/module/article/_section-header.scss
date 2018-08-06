@@ -3,17 +3,9 @@ h2[section] {
 	display: flex;
 
 	&.open-section {
-		.contribution-container {
-			visibility: visible;
-		}
-
 		+ .mobile-hidden {
 			display: block;
 		}
-	}
-
-	.contribution-container {
-		visibility: hidden;
 	}
 }
 
