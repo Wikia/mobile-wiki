@@ -148,6 +148,7 @@ function init(player, options, slotTargeting) {
 		const currentMedia = player.getPlaylistItem() || {};
 
 		targeting.v1 = currentMedia.mediaid;
+		tracker.updateVideoId(currentMedia.mediaid);
 
 		if (prerollPositionReached) {
 			return;
