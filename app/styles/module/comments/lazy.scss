@@ -13,6 +13,12 @@
 	width: 100%;
 }
 
+.article-comments {
+	.wds-button {
+		@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
+	}
+}
+
 .comments {
 	@extend %list-reset;
 
@@ -24,7 +30,7 @@
 	}
 
 	&__no-comments {
-		color: $wds-color-slate-gray;
+		color: $wds-fandom-color-dark-gray;
 		padding: 20px 0;
 	}
 
@@ -33,13 +39,13 @@
 	}
 
 	&__reply-icon {
-		color: $wds-color-slate-gray;
+		color: $wds-fandom-color-dark-gray;
 		height: 40px;
 		width: 40px;
 	}
 
 	&__message {
-		color: $wds-color-slate-gray;
+		color: $wds-fandom-color-dark-gray;
 		margin-top: 12px;
 		max-width: 200px;
 		text-align: center;

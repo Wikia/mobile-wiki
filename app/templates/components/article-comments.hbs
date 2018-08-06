@@ -23,9 +23,8 @@
 	{{/if}}
 
 	<div class='comments__add-comment'>
-		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary'>
-			{{i18n 'article-comments.add-comment'}}
-		</a>
+		{{#wds-button href='?useskin=oasis#WikiaArticleComments'}}{{i18n 'article-comments.add-comment'}}{{/wds-button}}
+
 		<div class='comments__message wds-font-size-xs wds-font-style-italic wds-leading-tight'>{{i18n 'article-comments.desktop-warning'}}</div>
 	</div>
 {{/if}}
