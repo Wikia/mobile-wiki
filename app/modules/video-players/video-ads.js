@@ -156,6 +156,7 @@ function init(player, options, slotTargeting) {
 		// tracker.updateType(adProduct);
 		correlator = Math.round(Math.random() * 10000000000);
 		depth += 1;
+		slot.setConfigProperty('audio', !player.getMute());
 		slot.setConfigProperty('videoDepth', depth);
 
 		if (shouldPlayPreroll(depth)) {
@@ -182,6 +183,7 @@ function init(player, options, slotTargeting) {
 	player.on('videoMidPoint', () => {
 		if (shouldPlayMidroll(depth)) {
 			tracker.updateType(`${adProduct}-midroll`);
+			slot.setConfigProperty('audio', !player.getMute());
 			player.playAd(getVastUrl(slot, 'midroll', depth, correlator, targeting));
 		}
 	});
@@ -189,6 +191,7 @@ function init(player, options, slotTargeting) {
 	player.on('beforeComplete', () => {
 		if (shouldPlayPostroll(depth)) {
 			tracker.updateType(`${adProduct}-postroll`);
+			slot.setConfigProperty('audio', !player.getMute());
 			player.playAd(getVastUrl(slot, 'postroll', depth, correlator, targeting));
 		}
 	});
