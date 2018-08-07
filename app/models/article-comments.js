@@ -53,7 +53,9 @@ export default EmberObject.extend({
 				controller: 'MercuryApi',
 				method: 'getArticleComments',
 				id: articleId,
-				page
+				page,
+				// TODO: clean me after premium bottom of page is released and icache expired
+				premiumBottom: true,
 			}
 		});
 	}

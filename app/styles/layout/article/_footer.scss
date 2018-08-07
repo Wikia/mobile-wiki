@@ -22,4 +22,8 @@ $article-footer-skewY: 5deg;
 		color: $wds-fandom-color-dark-gray;
 		margin-right: 4px;
 	}
+
+	.wds-avatar {
+		@include wds-avatar(30px, $wds-fandom-color-middle-gray);
+	}
 }

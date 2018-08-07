@@ -3,10 +3,6 @@
 	display: flex;
 	justify-content: space-between;
 
-	.wds-avatar {
-		@include wds-avatar(30px, $wds-fandom-color-middle-gray);
-	}
-
 	.wds-avatar-stack {
 		margin: 0;
 	}

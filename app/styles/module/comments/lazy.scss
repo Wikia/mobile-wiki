@@ -32,6 +32,8 @@
 .comments {
 	@extend %list-reset;
 
+	margin-top: 16px;
+
 	&__no-comments,
 	&__add-comment {
 		align-items: center;
@@ -70,11 +72,15 @@
 }
 
 .article-comment {
-	&::before,
-	&::after {
-		clear: both;
-		content: " ";
-		display: table;
+	border-bottom: 1px solid $wds-fandom-color-middle-gray;
+	padding: 18px 0;
+
+	p:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
 	}
 
 	ul {
@@ -90,34 +96,33 @@
 		&.expanded {
 			display: block;
 		}
+	}
 
-		.avatar img {
-			margin-left: -.625rem;
+	.metadata {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+
+		.wds-avatar {
+			margin-right: 6px;
 		}
 	}
 
-	.avatar {
-		float: left;
-		text-align: left;
-		width: 25%;
-
-		img {
-			border-radius: 100%;
-		}
-	}
-
-	.content {
-		float: left;
-		width: 75%;
-
-		.content {
-			padding-right: 0;
-		}
+	.username {
+		color: $wds-fandom-color-navy;
 	}
 
 	.timestamp {
-		color: $wds-color-slate-gray;
-		float: right;
+		color: $wds-fandom-color-dark-gray;
+	}
+
+	.separator {
+		color: $wds-fandom-color-dark-gray;
+		margin: 0 6px;
+	}
+
+	.content {
+		padding-top: 6px;
 	}
 
 	figure {
