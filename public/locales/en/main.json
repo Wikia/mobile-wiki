@@ -36,8 +36,8 @@
     "last-edit_plural_2": "Last edited {count} weeks ago",
 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
-    "replies-label": "View {count} reply",
-    "replies-label_plural": "View {count} replies",
+    "replies-label": "{count} reply",
+    "replies-label_plural": "{count} replies",
     "suggestions-label": "Read More",
     "toc-label": "Table of Contents",
     "top-contributors-label": "Top Contributors",
