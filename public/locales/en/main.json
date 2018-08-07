@@ -31,6 +31,7 @@
     "comments-label_plural": "comments ({count})",
     "empty-label": "Sorry, this article seems to be empty!",
     "error": "Sorry, we couldn't load the article. Please try again.",
+    "language-links-label": "Other Languages",
     "last-edit": "Last edited a week ago",
     "last-edit_plural_0": "Last edited this week",
     "last-edit_plural_2": "Last edited {count} weeks ago",

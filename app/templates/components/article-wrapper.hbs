@@ -62,8 +62,25 @@
 			}}
 				{{#each model.categories as |category|}}
 					<li>
-						<a href="{{unbound category.url}}" title="{{unbound category.title}}" class="wds-font-size-s wds-leading-loose">
+						<a href="{{unbound category.url}}" title="{{unbound category.title}}" class="wds-font-size-s wds-text-transform-capitalize wds-leading-loose">
 							{{unbound category.title}}
+						</a>
+					</li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+		{{#if model.languageLinks}}
+			{{#collapsible-menu
+					observe=model.displayTitle
+					ordered=false
+					tLabel='article.language-links-label'
+					trackingEvent='language-links'
+					class='article-language-links-list article-footer-item'
+			}}
+				{{#each model.languageLinks as |lang|}}
+					<li>
+						<a href="{{unbound lang.href}}" title="{{unbound lang.text}}" class="wds-font-size-s wds-text-transform-capitalize wds-leading-loose">
+							{{unbound lang.text}}
 						</a>
 					</li>
 				{{/each}}

@@ -14,13 +14,16 @@ $article-footer-skewY: 5deg;
 	}
 
 	.article-footer-item {
-		margin-bottom: 18px;
-		padding-right: 6px;
+		padding: 14px 6px 14px 0;
 	}
 
 	.chevron {
 		color: $wds-fandom-color-dark-gray;
 		margin-right: 4px;
+	}
+
+	.article-language-links-list {
+		border-top: 1px solid $wds-fandom-color-middle-gray;
 	}
 
 	.wds-avatar {
