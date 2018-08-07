@@ -4,6 +4,7 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
+import {getConfig as getPorvataConfig} from './templates/porvata-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
@@ -141,7 +142,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
 	adProductsUtils.setupNpaContext();
 
-	templateService.register(PorvataTemplate, {});
+	templateService.register(PorvataTemplate, getPorvataConfig());
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);
