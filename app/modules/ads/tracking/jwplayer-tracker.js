@@ -92,6 +92,15 @@ export default class JWPlayerTracker {
 	}
 
 	/**
+	 * Update video id
+	 * @param {string} videoId
+	 * @returns {void}
+	 */
+	updateVideoId(videoId) {
+		this.trackingParams.videoId = videoId;
+	}
+
+	/**
 	 * Update creative details
 	 * @param {Object} params
 	 * @returns {void}
