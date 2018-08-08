@@ -45,7 +45,8 @@ export default Route.extend(
 				replace: true,
 			},
 			commentsPage: {
-				replace: true
+				replace: true,
+				refreshModel: false,
 			},
 			noexternals: {
 				replace: true

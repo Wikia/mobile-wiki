@@ -9,7 +9,7 @@ export default EmberObject.extend({
 	host: null,
 	comments: 0,
 	users: null,
-	pagesCount: 0,
+	pagesCount: null,
 	page: 0,
 
 	fetch: observer('page', 'articleId', function () {
@@ -24,7 +24,6 @@ export default EmberObject.extend({
 						comments: get(data, 'payload.comments'),
 						users: get(data, 'payload.users'),
 						pagesCount: get(data, 'pagesCount'),
-						basePath: get(data, 'basePath') // remove? this is not https-ready and looks unused
 					});
 
 					return this;

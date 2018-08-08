@@ -10,8 +10,6 @@ import scrollToTop from '../utils/scroll-to-top';
 
 /**
  * Component that displays article comments
- *
- * Subject to refactor as it uses observers instead of computed properties
  */
 export default Component.extend(
 	{
@@ -53,7 +51,8 @@ export default Component.extend(
 		articleIdObserver: observer('articleId', function () {
 			this.setProperties({
 				'model.articleId': this.articleId,
-				page: null
+				page: null,
+				isCollapsed: true,
 			});
 
 			this.rerender();
@@ -88,8 +87,6 @@ export default Component.extend(
 			if (page) {
 				this.set('model.page', this.get('currentPage'));
 				this.set('isCollapsed', false);
-				// TODO: uncomment it when didRender will be invoked only once after togling comments menu
-				// scrollToTop(this.element);
 			}
 		},
 
