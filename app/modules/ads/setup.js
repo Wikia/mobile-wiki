@@ -4,7 +4,7 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
-import {getConfig as getPorvataConfig} from './templates/porvata-config';
+import { getConfig as getPorvataConfig } from './templates/porvata-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
