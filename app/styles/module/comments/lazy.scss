@@ -35,8 +35,6 @@
 .comments {
 	@extend %list-reset;
 
-	margin-top: 16px;
-
 	&__no-comments,
 	&__add-comment {
 		align-items: center;
@@ -83,7 +81,7 @@
 		margin-top: 0;
 	}
 
-	p:last-child {
+	p:last-of-type {
 		margin-bottom: 0;
 	}
 
@@ -116,7 +114,10 @@
 	}
 
 	.username {
+		@include ellipsis();
+
 		color: $wds-fandom-color-navy;
+		max-width: 140px;
 	}
 
 	.timestamp {

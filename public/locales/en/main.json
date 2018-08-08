@@ -47,7 +47,7 @@
   "article-comments": {
     "no-comments": "No Comments Yet",
     "add-comment": "Add comment",
-    "desktop-warning": "* You will be directed to the desktop experience to add a comment"
+    "desktop-warning": "You will be directed to the desktop experience to add a comment"
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",
