@@ -34,7 +34,7 @@ export default Component.extend(
 		 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
 		 * and updates model, so it can load a page of comments
 		 */
-		pageObserver: observer('page', 'model.comments', function () {
+		pageObserver: observer('page', 'model.pagesCount', function () {
 			run.scheduleOnce('afterRender', this, () => {
 				const page = this.page,
 					count = this.get('model.pagesCount');
@@ -59,15 +59,6 @@ export default Component.extend(
 
 				this.set('model.page', currentPage);
 			});
-		}),
-
-		/**
-		 * watches changes to model, and scrolls to top of comments
-		 */
-		commentsObserver: observer('model.comments', function () {
-			if (this.get('model.comments')) {
-				scrollToTop(this.element);
-			}
 		}),
 
 		/**
@@ -111,7 +102,8 @@ export default Component.extend(
 			if (page) {
 				this.set('model.page', page);
 				this.set('isCollapsed', false);
-				scrollToTop(this.element);
+				// TODO: uncomment it when didRender will be invoked only once after togling comments menu
+				// scrollToTop(this.element);
 			}
 		},
 
@@ -120,9 +112,9 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			nextPage() {
-				// TODO: scroll to top only in didInsertElement, here and in prevPage
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.incrementProperty('page');
+				scrollToTop(this.element);
 			},
 
 			/**
@@ -131,6 +123,7 @@ export default Component.extend(
 			prevPage() {
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.decrementProperty('page');
+				scrollToTop(this.element);
 			},
 
 			/**
