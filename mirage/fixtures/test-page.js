@@ -64,7 +64,6 @@ export default {
 				hasPortableInfobox: true
 			},
 			providers: {
-				evolve2: true,
 				audienceNetwork: true
 			},
 			slots: {
