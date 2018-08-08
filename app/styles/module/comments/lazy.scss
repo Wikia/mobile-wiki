@@ -67,7 +67,7 @@
 	&__navigation {
 		display: flex;
 		justify-content: center;
-		margin: 34px 0 20px 0;
+		margin: 34px 0 20px;
 		width: 100%;
 	}
 }
@@ -136,8 +136,8 @@
 	figure {
 		@extend %position-play-icon;
 
-		max-width: 100%;
 		margin: 1rem auto;
+		max-width: 100%;
 
 		.thumbnail-play-icon {
 			max-width: 50px;
