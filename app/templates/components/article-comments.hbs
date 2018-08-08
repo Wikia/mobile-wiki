@@ -5,8 +5,8 @@
 {{#if showComments}}
 	{{#if commentsCount}}
 		<ul class='comments wds-font-size-xs {{if commentsHidden 'wds-is-hidden'}}'>
-			{{#each model.comments as |comment|}}
-				{{article-comment comment=comment users=model.users}}
+			{{#each comments as |comment|}}
+				{{article-comment comment=comment users=users}}
 			{{/each}}
 		</ul>
 		<div class="comments__navigation">

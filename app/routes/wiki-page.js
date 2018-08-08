@@ -208,7 +208,6 @@ export default Route.extend(
 		 */
 		resetController(controller) {
 			controller.set('preserveScrollPosition', false);
-			controller.set('commentsPage', null);
 		},
 
 		actions: {
