@@ -4,6 +4,7 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
+import { getConfig as getPorvataConfig } from './templates/porvata-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
@@ -69,6 +70,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set(`slots.bottom_leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}
 
+	context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));
 	context.set('slots.video.videoAdUnit', context.get('megaAdUnitId'));
 	context.set('slots.featured.videoAdUnit', context.get('megaAdUnitId'));
 
@@ -133,11 +136,13 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
-	const { context } = window.Wikia.adEngine;
-	const { utils: adProductsUtils } = window.Wikia.adProducts;
+	const { context, templateService } = window.Wikia.adEngine;
+	const { utils: adProductsUtils, PorvataTemplate } = window.Wikia.adProducts;
 
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
 	adProductsUtils.setupNpaContext();
+
+	templateService.register(PorvataTemplate, getPorvataConfig());
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);
