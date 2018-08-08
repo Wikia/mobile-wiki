@@ -17,6 +17,7 @@ import scrollToTop from '../utils/scroll-to-top';
  */
 export default Component.extend(
 	{
+		preserveScroll: service(),
 		wikiVariables: service(),
 		page: null,
 		articleId: null,
@@ -119,6 +120,8 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			nextPage() {
+				// TODO: scroll to top only in didInsertElement, here and in prevPage
+				this.set('preserveScroll.preserveScrollPosition', true);
 				this.incrementProperty('page');
 			},
 
@@ -126,6 +129,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			prevPage() {
+				this.set('preserveScroll.preserveScrollPosition', true);
 				this.decrementProperty('page');
 			},
 
@@ -133,6 +137,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			toggleComments() {
+				this.set('preserveScroll.preserveScrollPosition', true);
 				this.set('page', this.page ? null : 1);
 				this.toggleProperty('isCollapsed');
 
