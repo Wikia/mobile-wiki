@@ -22,11 +22,7 @@ export default {
 					[300, 250]
 				]
 			},
-			slotsVideo: ['featured'],
-			gdpr: {
-				enabled: false,
-				consent: ''
-			}
+			slotsVideo: ['featured']
 		},
 		prebid: {
 			enabled: false,
@@ -96,6 +92,9 @@ export default {
 				enabled: false,
 				debugPlacementId: '5768085',
 				slots: {
+					featured: {
+						placementId: '13705871'
+					},
 					mobile_in_content: {
 						placementId: '11543173'
 					}
