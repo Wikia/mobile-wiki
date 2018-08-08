@@ -22,11 +22,7 @@ export default {
 					[300, 250]
 				]
 			},
-			slotsVideo: ['featured'],
-			gdpr: {
-				enabled: false,
-				consent: ''
-			}
+			slotsVideo: ['featured']
 		},
 		prebid: {
 			enabled: false,
