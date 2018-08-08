@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
-import { bool } from '@ember/object/computed';
+import { bool, equal } from '@ember/object/computed';
 import Component from '@ember/component';
-import { observer } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import { getOwner } from '@ember/application';
 import ArticleCommentsModel from '../models/article-comments';
@@ -12,8 +12,6 @@ import scrollToTop from '../utils/scroll-to-top';
  * Component that displays article comments
  *
  * Subject to refactor as it uses observers instead of computed properties
- *
- * TODO: Great refactor XW-1237
  */
 export default Component.extend(
 	{
@@ -26,39 +24,27 @@ export default Component.extend(
 		model: null,
 		isCollapsed: true,
 
-		nextButtonDisabled: true,
-		prevButtonDisabled: true,
 		showComments: bool('page'),
+		prevButtonDisabled: equal('page', 1),
+		nextButtonDisabled: computed('page', 'model.pagesCount', function () {
+			return this.get('page') >= this.get('model.pagesCount');
+		}),
+		currentPage: computed('page', 'model.pagesCount', function () {
+			const page = this.get('page'),
+				count = this.get('model.pagesCount');
 
-		/**
-		 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
-		 * and updates model, so it can load a page of comments
-		 */
-		pageObserver: observer('page', 'model.pagesCount', function () {
-			run.scheduleOnce('afterRender', this, () => {
-				const page = this.page,
-					count = this.get('model.pagesCount');
+			let currentPage = page;
 
-				let currentPage = page,
-					currentPageInteger,
-					isFirstPage;
+			// since those can be null we intentionally correct the types
+			if (page !== null && count !== null) {
+				currentPage = Math.max(Math.min(page, count), 1);
+			}
 
-				// since those can be null we intentionally correct the types
-				if (page !== null && count !== null) {
-					currentPage = Math.max(Math.min(page, count), 1);
-				}
+			if (page !== currentPage) {
+				this.set('page', currentPage);
+			}
 
-				currentPageInteger = parseInt(currentPage, 10);
-				isFirstPage = currentPageInteger === 1;
-
-				this.setProperties({
-					nextButtonDisabled: currentPageInteger >= count,
-					prevButtonDisabled: isFirstPage,
-					page: currentPage
-				});
-
-				this.set('model.page', currentPage);
-			});
+			return currentPage;
 		}),
 
 		/**
@@ -100,7 +86,7 @@ export default Component.extend(
 			this._super(...arguments);
 
 			if (page) {
-				this.set('model.page', page);
+				this.set('model.page', this.get('currentPage'));
 				this.set('isCollapsed', false);
 				// TODO: uncomment it when didRender will be invoked only once after togling comments menu
 				// scrollToTop(this.element);
@@ -114,6 +100,7 @@ export default Component.extend(
 			nextPage() {
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.incrementProperty('page');
+				this.set('model.page', this.get('currentPage'));
 				scrollToTop(this.element);
 			},
 
@@ -123,6 +110,7 @@ export default Component.extend(
 			prevPage() {
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.decrementProperty('page');
+				this.set('model.page', this.get('currentPage'));
 				scrollToTop(this.element);
 			},
 
@@ -132,6 +120,7 @@ export default Component.extend(
 			toggleComments() {
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.set('page', this.page ? null : 1);
+				this.set('model.page', this.get('currentPage'));
 				this.toggleProperty('isCollapsed');
 
 				track({
