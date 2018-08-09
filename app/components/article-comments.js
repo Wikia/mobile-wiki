@@ -2,7 +2,7 @@ import { inject as service } from '@ember/service';
 import { bool, equal, not } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed, observer, get } from '@ember/object';
-import { run } from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 import { getOwner } from '@ember/application';
 import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
@@ -67,6 +67,10 @@ export default Component.extend(
 			if (page !== null) {
 				this.set('isCollapsed', false);
 				this.fetchComments(parseInt(page, 10));
+
+				scheduleOnce('afterRender', this, () => {
+					this.scrollTop();
+				});
 			}
 		},
 
