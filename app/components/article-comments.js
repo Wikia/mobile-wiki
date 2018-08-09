@@ -79,7 +79,7 @@ export default Component.extend(
 
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.fetchComments(page + 1);
-				scrollToTop(this.element);
+				this.scrollTop();
 			},
 
 			/**
@@ -90,7 +90,7 @@ export default Component.extend(
 
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.fetchComments(page - 1);
-				scrollToTop(this.element);
+				this.scrollTop();
 			},
 
 			/**
@@ -116,6 +116,10 @@ export default Component.extend(
 			}
 		},
 
+		scrollTop() {
+			scrollToTop(this.element);
+		},
+
 		fetchComments(page) {
 			const articleId = this.get('articleId');
 
@@ -135,9 +139,9 @@ export default Component.extend(
 							comments: get(data, 'payload.comments'),
 							users: get(data, 'payload.users'),
 							pagesCount: get(data, 'pagesCount'),
-							page,
 						});
 					});
+				this.set('page', page);
 			}
 		},
 

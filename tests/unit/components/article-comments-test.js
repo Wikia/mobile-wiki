@@ -12,6 +12,16 @@ module('Unit | Component | article comments', (hooks) => {
 
 		run(() => {
 			component.setProperties({
+				articleId: 10,
+				url(id, page) {
+					return 'http://fallout.wikia.com/wikia.php?controller=MercuryApi&method=getSearchSuggestions&id=10';
+				},
+				scrollTop() {},
+			});
+		});
+
+		run(() => {
+			component.setProperties({
 				pagesCount: 3,
 				page: 2
 			});
