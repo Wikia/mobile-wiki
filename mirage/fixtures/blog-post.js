@@ -55,7 +55,6 @@ export default {
 				]
 			},
 			providers: {
-				evolve2: true,
 				audienceNetwork: true
 			},
 			slots: {
