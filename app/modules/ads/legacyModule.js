@@ -122,6 +122,7 @@ class Ads {
 				'ext.wikia.adEngine.adLogicPageParams',
 				'ext.wikia.adEngine.config.mobile',
 				'ext.wikia.adEngine.context.slotsContext',
+				'ext.wikia.adEngine.lookup.a9',
 				'ext.wikia.adEngine.mobile.mercuryListener',
 				'ext.wikia.adEngine.provider.gpt.googleTag',
 				'ext.wikia.adEngine.video.vastUrlBuilder',
@@ -136,6 +137,7 @@ class Ads {
 				adLogicPageParams,
 				adConfigMobile,
 				slotsContext,
+				a9,
 				adMercuryListener,
 				googleTagModule,
 				vastUrlBuilder,
@@ -156,6 +158,7 @@ class Ads {
 				this.isLoaded = true;
 				this.babDetectionModule = babDetectionModule;
 				this.adLogicPageParams = adLogicPageParams;
+				this.a9 = a9;
 				this.jwPlayerAds = jwPlayerAds;
 				this.jwPlayerMoat = jwPlayerMoat;
 
