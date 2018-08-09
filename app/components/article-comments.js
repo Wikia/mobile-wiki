@@ -34,7 +34,7 @@ export default Component.extend(
 			return parseInt(this.get('page'), 10) === 1;
 		}),
 		nextButtonDisabled: computed('page', 'pagesCount', function () {
-			return this.get('page') >= this.get('pagesCount');
+			return parseInt(this.get('page'), 10) >= this.get('pagesCount');
 		}),
 
 		/**
@@ -75,7 +75,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			nextPage() {
-				const page = this.get('page');
+				const page = parseInt(this.get('page'), 10);
 
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.fetchComments(page + 1);
@@ -86,7 +86,7 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			prevPage() {
-				const page = this.get('page');
+				const page = parseInt(this.get('page'), 10);
 
 				this.set('preserveScroll.preserveScrollPosition', true);
 				this.fetchComments(page - 1);
