@@ -5,6 +5,7 @@ export default {
 	bidders: {
 		enabled: false,
 		timeout: 2000,
+		disabledSlots: [],
 		a9: {
 			enabled: false,
 			videoEnabled: false,
