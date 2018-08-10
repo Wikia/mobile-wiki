@@ -125,6 +125,21 @@ export default {
 					rv: 1
 				}
 			},
+			incontent_player: {
+				adProduct: 'incontent_player',
+				avoidConflictWith: '.ad-slot',
+				insertBeforeSelector: '.article-body h2',
+				slotNameSuffix: '',
+				bidderAlias: 'mobile_in_content',
+				group: 'HiVi',
+				slotShortcut: 'i',
+				defaultSizes: [[1, 1]],
+				targeting: {
+					loc: 'middle',
+					pos: ['incontent_player'],
+					rv: 1
+				}
+			},
 			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
 				slotNameSuffix: '',
