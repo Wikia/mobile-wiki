@@ -9,6 +9,7 @@ const trackingEventsMap = {
 	adError: 'error',
 	adImpression: 'impression',
 	adStarted: 'started',
+	adViewableImpression: 'viewable_impression',
 	adFirstQuartile: 'first_quartile',
 	adMidPoint: 'midpoint',
 	adThirdQuartile: 'third_quartile',
