@@ -5,10 +5,12 @@ import { run } from '@ember/runloop';
 import { trackActions } from '../utils/track';
 import { system } from '../utils/browser';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
+import { inGroup } from '../modules/abtest';
 
 export default Component.extend(RespondsToScroll, {
 	i18n: service(),
 	smartBanner: service(),
+	wikiVariables: service(),
 
 	classNames: ['fandom-app-smart-banner'],
 	dayInMiliseconds: 86400000,
@@ -16,6 +18,12 @@ export default Component.extend(RespondsToScroll, {
 	fandomAppSmartBannerHeight: 85,
 
 	closeButtonSelector: '.fandom-app-smart-banner__close',
+
+	customText: computed('wikiVariables.fandomAppSmartBannerText', function () {
+		return inGroup('SMARTBANNERCOPY', 'CUSTOM') && this.get('wikiVariables.fandomAppSmartBannerText')
+			? this.get('wikiVariables.fandomAppSmartBannerText')
+			: null;
+	}),
 
 	link: computed(() => {
 		return system === 'ios'
