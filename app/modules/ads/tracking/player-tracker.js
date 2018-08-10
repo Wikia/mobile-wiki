@@ -34,6 +34,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 		price: '',
 		browser: `${utils.client.getOperatingSystem()} ${utils.client.getBrowser()}`,
 		audio: data.withAudio ? 1 : 0,
+		video_id: data.videoId || '',
 	};
 }
 

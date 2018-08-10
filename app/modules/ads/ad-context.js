@@ -22,11 +22,7 @@ export default {
 					[300, 250]
 				]
 			},
-			slotsVideo: ['featured'],
-			gdpr: {
-				enabled: false,
-				consent: ''
-			}
+			slotsVideo: ['featured']
 		},
 		prebid: {
 			enabled: false,
@@ -398,14 +394,6 @@ export default {
 				exposeToSlot: true,
 				segment: '-audio',
 				key: 'audio'
-			}
-		},
-		jwplayer: {
-			audio: {
-				exposeToSlot: true
-			},
-			autoplay: {
-				exposeToSlot: true
 			}
 		}
 	}

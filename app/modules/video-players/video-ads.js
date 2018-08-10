@@ -125,13 +125,8 @@ function init(player, options, slotTargeting) {
 		slotService.add(slot);
 	}
 
-	if (context.get('options.jwplayer.audio.exposeToSlot')) {
-		slot.setConfigProperty('audio', !player.getMute());
-	}
-
-	if (context.get('options.jwplayer.autoplay.exposeToSlot')) {
-		slot.setConfigProperty('autoplay', player.getConfig().autostart);
-	}
+	slot.setConfigProperty('audio', !player.getMute());
+	slot.setConfigProperty('autoplay', player.getConfig().autostart);
 
 	if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
 		player.on('adImpression', (event) => {
@@ -153,6 +148,7 @@ function init(player, options, slotTargeting) {
 		const currentMedia = player.getPlaylistItem() || {};
 
 		targeting.v1 = currentMedia.mediaid;
+		tracker.updateVideoId(currentMedia.mediaid);
 
 		if (prerollPositionReached) {
 			return;
@@ -161,6 +157,8 @@ function init(player, options, slotTargeting) {
 		// tracker.updateType(adProduct);
 		correlator = Math.round(Math.random() * 10000000000);
 		depth += 1;
+		slot.setConfigProperty('audio', !player.getMute());
+		slot.setConfigProperty('videoDepth', depth);
 
 		if (shouldPlayPreroll(depth)) {
 			/**
@@ -186,6 +184,7 @@ function init(player, options, slotTargeting) {
 	player.on('videoMidPoint', () => {
 		if (shouldPlayMidroll(depth)) {
 			tracker.updateType(`${adProduct}-midroll`);
+			slot.setConfigProperty('audio', !player.getMute());
 			player.playAd(getVastUrl(slot, 'midroll', depth, correlator, targeting));
 		}
 	});
@@ -193,6 +192,7 @@ function init(player, options, slotTargeting) {
 	player.on('beforeComplete', () => {
 		if (shouldPlayPostroll(depth)) {
 			tracker.updateType(`${adProduct}-postroll`);
+			slot.setConfigProperty('audio', !player.getMute());
 			player.playAd(getVastUrl(slot, 'postroll', depth, correlator, targeting));
 		}
 	});

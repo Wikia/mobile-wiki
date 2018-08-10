@@ -75,7 +75,6 @@ export default {
 				defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'top',
-					pos: 'MOBILE_TOP_LEADERBOARD',
 					rv: 1
 				}
 			},
@@ -89,7 +88,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
 				targeting: {
 					loc: 'middle',
-					pos: ['MOBILE_IN_CONTENT'],
+					pos: ['mobile_in_content'],
 					rv: 1
 				}
 			},
@@ -108,7 +107,7 @@ export default {
 					updateProperties: {
 						adProduct: '{slotConfig.slotName}',
 						'targeting.rv': '{slotConfig.repeat.index}',
-						'targeting.pos': ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT']
+						'targeting.pos': ['incontent_boxad', 'mobile_in_content']
 					}
 				},
 				slotShortcut: 'f',
@@ -121,7 +120,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'middle',
-					pos: ['INCONTENT_BOXAD', 'MOBILE_IN_CONTENT'],
+					pos: ['incontent_boxad', 'mobile_in_content'],
 					rv: 1
 				}
 			},
@@ -155,7 +154,7 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'footer',
-					pos: ['BOTTOM_LEADERBOARD', 'MOBILE_PREFOOTER'],
+					pos: ['bottom_leaderboard', 'mobile_prefooter'],
 					rv: 1
 				}
 			},
@@ -166,7 +165,6 @@ export default {
 				group: 'VIDEO',
 				lowerSlotName: 'featured',
 				targeting: {
-					pos: 'FEATURED',
 					uap: 'none',
 				},
 				trackingKey: 'featured-video',
@@ -178,7 +176,6 @@ export default {
 				group: 'VIDEO',
 				lowerSlotName: 'video',
 				targeting: {
-					pos: 'VIDEO',
 					uap: 'none',
 				},
 				trackingKey: 'video',
@@ -187,8 +184,8 @@ export default {
 	},
 
 	setupSlotParameters(slot) {
-		const audioSuffix = slot.config.audio === true ? '-audio' : '',
-			clickToPlaySuffix = slot.config.autoplay === false ? '-ctp' : '';
+		const audioSuffix = slot.config.audio === true ? '-audio' : '';
+		const clickToPlaySuffix = slot.config.autoplay === true || slot.config.videoDepth > 1 ? '' : '-ctp';
 
 		slot.setConfigProperty('slotNameSuffix', clickToPlaySuffix || audioSuffix || '');
 		slot.setConfigProperty('targeting.audio', audioSuffix ? 'yes' : 'no');
