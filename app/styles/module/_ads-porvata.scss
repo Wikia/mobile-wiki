@@ -105,7 +105,6 @@ $controls-z-index: 11;
 		z-index: $controls-z-index;
 	}
 
-	.ima-mute-div,
 	.volume-control {
 		bottom: 0;
 		padding: $player-button-click-area $player-button-border-space 10px $player-button-click-area;
@@ -130,21 +129,10 @@ $controls-z-index: 11;
 }
 
 .ad-slot.porvata-outstream {
-	&::before {
-		content: attr(data-label);
-		display: block;
-		font-size: .625rem;
-		font-weight: 700;
-		line-height: .75rem;
-		margin-top: 20px;
-		padding-bottom: 6px;
-		padding-top: 6px;
-		text-align: center;
-		text-transform: uppercase;
-	}
+	margin-bottom: 20px;
 
-	.video-overlay {
-		background: #000;
+	&::before {
+		display: none;
 	}
 
 	.video-player {
@@ -168,6 +156,16 @@ $controls-z-index: 11;
 				&.mute {
 					background: url($outstream-button-sound-off) no-repeat left bottom;
 				}
+			}
+		}
+
+		.volume-button {
+			height: auto;
+			padding: 14px 12px 7px 7px;
+			width: auto;
+
+			svg {
+				position: static;
 			}
 		}
 	}

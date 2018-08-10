@@ -1,7 +1,6 @@
 .lightbox-wrapper {
 	bottom: 0;
 	color: $modal-text-color;
-	font-size: .8rem;
 	left: 0;
 	overflow: hidden;
 	position: fixed;
@@ -36,7 +35,6 @@
 
 .lightbox-header {
 	height: 40px;
-	line-height: 15px;
 	position: absolute;
 	width: 100%;
 	z-index: $z-lightbox-header;
@@ -89,10 +87,8 @@
 .lightbox-footer {
 	background-color: rgba(black, .8);
 	bottom: 0;
-	font-weight: 300;
 	height: auto;
 	left: 0;
-	line-height: 1rem;
 	max-height: 3rem;
 	padding: 15px 13px;
 	position: absolute;

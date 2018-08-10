@@ -23,15 +23,20 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 const i18nService = Service.extend({
 	t() {}
 });
-sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 
 module('Integration | Component | article content', (hooks) => {
 	setupRenderingTest(hooks);
+	let adsModuleStub;
 
 	hooks.beforeEach(function () {
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
 		mockAdsService(this.owner);
+	});
+
+	hooks.afterEach(() => {
+		adsModuleStub.restore();
 	});
 
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
@@ -39,13 +44,19 @@ module('Integration | Component | article content', (hooks) => {
 	test('ad is injected below portable infobox with no page header', async function (assert) {
 		const content =
 			'<p>some content</p>' +
+			'<div class="portable-infobox-wrapper">' +
 			'<aside class="portable-infobox"></aside>' +
+			'</div>' +
 			'<section>Article body</section>' +
 			'<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy,
 		});
@@ -61,7 +72,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
-			find('.portable-infobox'),
+			find('.portable-infobox-wrapper'),
 			'previous element is an infobox'
 		);
 	});
@@ -75,7 +86,11 @@ module('Integration | Component | article content', (hooks) => {
 			setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
@@ -100,13 +115,19 @@ module('Integration | Component | article content', (hooks) => {
 		const content =
 			'<p>some content</p>' +
 			'<div class="wiki-page-header"></div>' +
+			'<div class="portable-infobox-wrapper">' +
 			'<aside class="portable-infobox"></aside>' +
+			'</div>' +
 			'<section>Article body</section>' +
 			'<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
-			adsContext: {},
+			adsContext: {
+				opts: {
+					preFooterAndBLBSwitched: false
+				}
+			},
 			content,
 			setupAdsContext: setupAdsContextSpy
 		});
@@ -122,7 +143,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(findAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
-			find('.portable-infobox'),
+			find('.portable-infobox-wrapper'),
 			'previous element is an infobox'
 		);
 	});

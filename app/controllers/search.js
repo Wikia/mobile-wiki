@@ -12,20 +12,6 @@ export default Controller.extend({
 	inputPhrase: alias('query'),
 
 	actions: {
-		onSearchEnter(query) {
-			this.set('inputPhrase', query);
-			this.set('query', query);
-		},
-
-		onErrorPageClick() {
-			const input = document.querySelector('.side-search__input');
-
-			this.set('inputPhrase', '');
-			if (input) {
-				input.focus();
-			}
-		},
-
 		onLoadMore(trackLabel) {
 			track({
 				action: trackActions.click,

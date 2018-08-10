@@ -88,6 +88,7 @@ function prepareData(slot, data) {
 		bidder_14: transformBidderPrice('pubmatic'),
 		bidder_15: transformBidderPrice('beachfront'),
 		bidder_16: transformBidderPrice('appnexusWebAds'),
+		bidder_17: transformBidderPrice('kargo'),
 		kv_skin: context.get('targeting.skin'),
 		kv_pos: getPosParameter(slot.getTargeting()),
 		kv_wsi: slot.getTargeting().wsi || '',

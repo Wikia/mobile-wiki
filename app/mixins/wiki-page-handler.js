@@ -51,6 +51,9 @@ function getURL(wikiUrls, params) {
 	// should be removed after all App caches are invalidated
 	query.collapsibleSections = 1;
 
+	// TODO: clean me after new premium look and feel is released and icache expired
+	query.premiumLayout = true;
+
 	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',

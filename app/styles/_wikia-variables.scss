@@ -8,6 +8,7 @@ $font-family-with-rubik: 'Rubik', $wds-font-family;
 // z-min
 // z-1
 $z-ads-top-leaderboard: $z-1;
+$z-ads-bottom-leaderboard: $z-1;
 $z-spinner-before: $z-1;
 $z-portable-infobox-collapse: $z-1;
 // z-2
@@ -32,7 +33,7 @@ $z-modal-dialog: $z-9;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Article horizontal padding
-$article-horizontal-padding: 1.125rem;
+$article-horizontal-padding: 12px;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
@@ -44,10 +45,10 @@ $article-horizontal-padding: 1.125rem;
 $overlay-background-color: rgba(0, 0, 0, .5);
 $box-shadow-color: rgba(0, 0, 0, .3);
 
-$border-color-light: $color-gray-light;
+$border-color-light: $wds-color-faint-blue-gray;
 
-$modal-background: $color-gray-dark;
-$modal-text-color: $color-white;
+$modal-background: $wds-color-dark-blue-gray;
+$modal-text-color: $wds-color-white;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables

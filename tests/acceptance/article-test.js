@@ -2,7 +2,10 @@ import { visit, click } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import mockAdsService from '../helpers/mock-ads-service';
+import mockAdsService, { getAdsModuleMock } from '../helpers/mock-ads-service';
+import sinon from 'sinon';
+
+import * as adsModule from 'mobile-wiki/modules/ads';
 
 module('Acceptance | Article page', (hooks) => {
 	setupApplicationTest(hooks);
@@ -10,7 +13,20 @@ module('Acceptance | Article page', (hooks) => {
 	hooks.beforeEach(function () {
 		mockFastbootService(this.owner);
 		mockAdsService(this.owner);
+
+		sinon.stub(adsModule, 'default').returns({
+			then: (cb) => cb(getAdsModuleMock({
+				opts: {
+					preFooterAndBLBSwitched: true,
+				},
+			}))
+		});
 	});
+
+	hooks.afterEach(() => {
+		adsModule.default.restore();
+	});
+
 
 	test('visiting Article Page', async (assert) => {
 		await visit('/');
@@ -18,10 +34,8 @@ module('Acceptance | Article page', (hooks) => {
 
 		assert.dom('.wiki-page-header__title').exists();
 		assert.dom('.wiki-page-header__title').hasText('Qaga2');
-		assert.dom('.wiki-page-header__wrapper .edit-section').exists();
 		assert.dom('.section-header-label').exists();
 		assert.dom('#Test_1').doesNotHaveClass('open-section');
-		// assert.dom('.section-header-label .edit-section').isNotVisible();
 
 		await click('.section-header-label');
 		assert.dom('#Test_1').hasClass('open-section');

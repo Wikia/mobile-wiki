@@ -8,8 +8,10 @@
     "discussions-label": "討論版", 
     "header-in-wiki-name-label-prefix": "來自：", 
     "hours-ago": "{hours}小時前", 
+    "less": "較少", 
     "media-lightbox-error": "無法找到媒體內容", 
     "minutes-ago": "{minutes}分鐘前", 
+    "more": "更多", 
     "now-label": "現在", 
     "page-not-found-error": "對不起，我們找不到您要查找的頁面。", 
     "page-not-found-message": "使用導航或搜索", 
@@ -73,8 +75,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "from", 
-    "watch": "watch"
+    "from": "來自", 
+    "watch": "觀看"
   }, 
   "file-page": {
     "subtitle": "檔案頁面", 

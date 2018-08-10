@@ -5,6 +5,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
+import getAdsModule from '../modules/ads';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
@@ -24,7 +25,7 @@ const recircItemsCount = 10,
 export default Component.extend(
 	InViewportMixin,
 	{
-		liftigniter: service(),
+		wdsLiftigniter: service(),
 		i18n: service(),
 		logger: service(),
 		ads: service(),
@@ -57,7 +58,7 @@ export default Component.extend(
 				listRendered: defer()
 			});
 
-			this.get('ads').addWaitFor(this.get('ads.slotNames.bottomLeaderBoard'), this.get('listRendered.promise'));
+			this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
 		},
 
 		actions: {
@@ -107,7 +108,7 @@ export default Component.extend(
 		},
 
 		fetchLiftIgniterData() {
-			const liftigniter = this.liftigniter;
+			const liftigniter = this.wdsLiftigniter;
 
 			liftigniter
 				.getData(config)

@@ -4,6 +4,7 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
+import { getConfig as getPorvataConfig } from './templates/porvata-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
 	const { context } = window.Wikia.adEngine;
@@ -25,7 +26,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.extend(basicContext);
 
 	if (adsContext.targeting.hasFeaturedVideo) {
-		context.set('src', 'premium');
+		context.set('src', ['premium', 'mobile']);
 	}
 
 	if (adsContext.opts.isAdTestWiki) {
@@ -69,6 +70,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set(`slots.bottom_leaderboard.adUnit`, context.get('megaAdUnitId'));
 	}
 
+	context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
+	context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));
 	context.set('slots.video.videoAdUnit', context.get('megaAdUnitId'));
 	context.set('slots.featured.videoAdUnit', context.get('megaAdUnitId'));
 
@@ -94,6 +97,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 		context.set('bidders.prebid.appnexusWebads.enabled', isGeoEnabled('wgAdDriverAppNexusWebAdsBidderCountries'));
 		context.set('bidders.prebid.audienceNetwork.enabled', isGeoEnabled('wgAdDriverAudienceNetworkBidderCountries'));
 		context.set('bidders.prebid.indexExchange.enabled', isGeoEnabled('wgAdDriverIndexExchangeBidderCountries'));
+		context.set('bidders.prebid.kargo.enabled', isGeoEnabled('wgAdDriverKargoBidderCountries'));
 		context.set('bidders.prebid.onemobile.enabled', isGeoEnabled('wgAdDriverAolOneMobileBidderCountries'));
 		context.set('bidders.prebid.openx.enabled', isGeoEnabled('wgAdDriverOpenXPrebidBidderCountries'));
 		context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
@@ -128,14 +132,17 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 	slots.setupIdentificators();
 	slots.setupStates();
+	slots.setupIncontentPlayer();
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
-	const { context } = window.Wikia.adEngine;
-	const { utils: adProductsUtils } = window.Wikia.adProducts;
+	const { context, templateService } = window.Wikia.adEngine;
+	const { utils: adProductsUtils, PorvataTemplate } = window.Wikia.adProducts;
 
 	setupAdContext(adsContext, instantGlobals, isOptedIn);
 	adProductsUtils.setupNpaContext();
+
+	templateService.register(PorvataTemplate, getPorvataConfig());
 
 	context.push('listeners.porvata', PorvataTracker);
 	context.push('listeners.slot', SlotTracker);
@@ -143,11 +150,16 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 }
 
 function init() {
-	const { AdEngine, events } = window.Wikia.adEngine;
+	const { AdEngine, context, events } = window.Wikia.adEngine;
 
 	const engine = new AdEngine();
 
 	events.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals));
+	events.on(events.AD_SLOT_CREATED, (slot) => {
+		context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
+		context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
+	});
+
 	engine.init();
 
 	return engine;

@@ -9,6 +9,7 @@ const trackingEventsMap = {
 	adError: 'error',
 	adImpression: 'impression',
 	adStarted: 'started',
+	adViewableImpression: 'viewable_impression',
 	adFirstQuartile: 'first_quartile',
 	adMidPoint: 'midpoint',
 	adThirdQuartile: 'third_quartile',
@@ -88,6 +89,15 @@ export default class JWPlayerTracker {
 	 */
 	updateType(type) {
 		this.trackingParams.adProduct = type;
+	}
+
+	/**
+	 * Update video id
+	 * @param {string} videoId
+	 * @returns {void}
+	 */
+	updateVideoId(videoId) {
+		this.trackingParams.videoId = videoId;
 	}
 
 	/**

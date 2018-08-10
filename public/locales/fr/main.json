@@ -9,8 +9,10 @@
     "header-in-wiki-name-label-prefix": "dans :", 
     "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours}h", 
+    "less": "Moins", 
     "media-lightbox-error": "Média non trouvé", 
     "minutes-ago": "{minutes}min", 
+    "more": "Plus", 
     "now-label": "maintenant", 
     "page-not-found-error": "Désolés, nous n'avons pas pu trouver la page que vous cherchez.", 
     "page-not-found-message": "Utilisez Navigation ou Recherche", 
@@ -74,8 +76,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "from", 
-    "watch": "watch"
+    "from": "de", 
+    "watch": "regarder"
   }, 
   "file-page": {
     "subtitle": "Fichier", 

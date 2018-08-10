@@ -8,8 +8,10 @@
     "discussions-label": "讨论版", 
     "header-in-wiki-name-label-prefix": "来源:", 
     "hours-ago": "{hours}小时", 
+    "less": "折叠", 
     "media-lightbox-error": "无法找到媒体内容", 
     "minutes-ago": "{minutes}分钟", 
+    "more": "更多", 
     "now-label": "现在", 
     "page-not-found-error": "对不起，我们找不到您正在查找的页面。", 
     "page-not-found-message": "使用导航或搜索", 
@@ -73,8 +75,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "from", 
-    "watch": "watch"
+    "from": "来源", 
+    "watch": "观看"
   }, 
   "file-page": {
     "subtitle": "文件页面", 

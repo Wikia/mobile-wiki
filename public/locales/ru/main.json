@@ -9,8 +9,10 @@
     "header-in-wiki-name-label-prefix": "в:", 
     "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours} ч.", 
+    "less": "Меньше", 
     "media-lightbox-error": "Файлы не найдены", 
     "minutes-ago": "{minutes} мин.", 
+    "more": "Больше", 
     "now-label": "сейчас", 
     "page-not-found-error": "К сожалению, мы не можем найти страницу, которую вы ищете.", 
     "page-not-found-message": "Используйте навигацию или поиск", 
@@ -74,8 +76,8 @@
     "google-play": "Google Play"
   }, 
   "featured-video": {
-    "from": "from", 
-    "watch": "watch"
+    "from": "от", 
+    "watch": "длительность"
   }, 
   "file-page": {
     "subtitle": "Страница файла", 

@@ -32,8 +32,6 @@
 		align-items: center;
 		color: #007aff;
 		display: flex;
-		font-size: 17px;
-		font-weight: 500;
 		margin-right: 24px;
 		text-align: center;
 	}
@@ -57,22 +55,16 @@
 
 	&__title {
 		color: #191919;
-		font-size: 16px;
-		font-weight: bold;
 		letter-spacing: .4px;
 		margin-bottom: 3px;
 	}
 
 	&__description {
 		color: #4a4a4a;
-		font-size: 14px;
-		line-height: 1;
 	}
 
 	&__store {
 		color: #4a4a4a;
-		font-size: 14px;
-		line-height: 1;
 		margin-bottom: 5px;
 	}
 }

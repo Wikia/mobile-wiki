@@ -10,5 +10,4 @@ coverage/
 vendor/inline-scripts/tracking-ua-init.js
 
 # Vendor files
-vendor/inline-scripts/tracking-liftigniter.js
 /blueprints/*/files/**/*.js

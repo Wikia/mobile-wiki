@@ -16,8 +16,6 @@
 .comments {
 	@extend %list-reset;
 
-	font-size: .8125rem;
-
 	&__no-comments,
 	&__add-comment {
 		align-items: center;
@@ -27,7 +25,6 @@
 
 	&__no-comments {
 		color: $wds-color-slate-gray;
-		font-size: $wds-typescale-size-minus-1;
 		padding: 20px 0;
 	}
 
@@ -43,9 +40,6 @@
 
 	&__message {
 		color: $wds-color-slate-gray;
-		font-size: $wds-typescale-size-minus-2;
-		font-style: italic;
-		line-height: $wds-line-height;
 		margin-top: 12px;
 		max-width: 200px;
 		text-align: center;
@@ -99,12 +93,8 @@
 	}
 
 	.timestamp {
-		color: $color-blue-gray-dark;
+		color: $wds-color-slate-gray;
 		float: right;
-	}
-
-	.username {
-		font-weight: bold;
 	}
 
 	figure {

@@ -1697,7 +1697,7 @@ export default function (owner) {
 							"wikiVertical": "games",
 							"newWikiCategories": ["gaming"]
 						},
-						"providers": {"evolve2": true, "rubiconFastlane": true},
+						"providers": {"rubiconFastlane": true},
 						"slots": {
 							"exitstitial": true,
 							"exitstitialRedirectDelay": 30,

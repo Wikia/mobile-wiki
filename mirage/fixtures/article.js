@@ -54,9 +54,7 @@ export default {
 					'life'
 				]
 			},
-			providers: {
-				evolve2: true
-			},
+			providers: {},
 			slots: {
 				invisibleHighImpact: true
 			},

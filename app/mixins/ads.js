@@ -15,14 +15,15 @@ export default Mixin.create({
 	 * @param {string} adSlotName
 	 * @param {string} place
 	 * @param {Element} element
+	 * @param {string} waitKey
 	 * @returns {void}
 	 */
-	appendAd(adSlotName, place, element) {
+	appendAd(adSlotName, place, element, waitKey = '') {
 		if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
 			return;
 		}
 
-		this.get('ads').getWaits(adSlotName).then(() => {
+		this.get('ads').getWaits(waitKey).then(() => {
 			const placeholder = document.createElement('div');
 			const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -68,10 +69,13 @@ export default Mixin.create({
 	injectAds() {
 		const firstSection = this.element.parentNode.querySelector('.article-content > h2'),
 			articleFooter = document.querySelector('.article-footer'),
-			pi = document.querySelector('.portable-infobox'),
+			pi = document.querySelector('.portable-infobox-wrapper'),
 			pageHeader = document.querySelector('.wiki-page-header'),
 			adsData = this.get('ads.slotNames'),
-			globalFooter = document.querySelector('.wds-global-footer');
+			globalFooter = document.querySelector('.wds-global-footer'),
+			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
+			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		if (pi) {
 			// inject top mobileTopLeaderBoard below infobox
@@ -89,11 +93,11 @@ export default Mixin.create({
 		}
 
 		if (articleFooter) {
-			this.appendAd(adsData.mobilePreFooter, 'beforebegin', articleFooter);
+			this.appendAd(afterArticleSlotName, 'beforebegin', articleFooter);
 		}
 
 		if (globalFooter) {
-			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
 		}
 
 		this.appendHighImpactAd();
@@ -111,7 +115,10 @@ export default Mixin.create({
 		const adsData = this.get('ads.slotNames'),
 			curatedContent = this.element.querySelector('.curated-content'),
 			trendingArticles = this.element.querySelector('.trending-articles'),
-			globalFooter = document.querySelector('.wds-global-footer');
+			globalFooter = document.querySelector('.wds-global-footer'),
+			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
+			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
 
@@ -120,11 +127,11 @@ export default Mixin.create({
 		}
 
 		if (trendingArticles) {
-			this.appendAd(adsData.mobilePreFooter, 'afterend', trendingArticles);
+			this.appendAd(afterArticleSlotName, 'afterend', trendingArticles);
 		}
 
 		if (globalFooter) {
-			this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', globalFooter);
+			this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
 		}
 
 		this.appendHighImpactAd();
