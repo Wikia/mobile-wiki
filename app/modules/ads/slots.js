@@ -129,6 +129,7 @@ export default {
 				adProduct: 'incontent_player',
 				avoidConflictWith: '.ad-slot',
 				insertBeforeSelector: '.article-body h2',
+				disabled: true,
 				slotNameSuffix: '',
 				bidderAlias: 'mobile_in_content',
 				group: 'HiVi',
@@ -243,10 +244,11 @@ export default {
 			slots.forEach((slot) => {
 				const pos = context.get(`slots.${slot}.targeting.pos`);
 
-				pos.push('INCONTENT_PLAYER');
+				pos.push('incontent_player');
 
 				context.set(`slots.${slot}.targeting.pos`, pos);
 			});
+			setSlotState('incontent_player', true);
 		}
 	}
 };
