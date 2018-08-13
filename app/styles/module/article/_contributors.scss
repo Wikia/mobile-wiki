@@ -1,29 +1,9 @@
 .contributors {
-	background-color: $wds-color-off-white;
-	height: 125px;
-	margin-bottom: 2.5rem;
-	padding: 1.25rem .8125rem;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
 
-	ul {
-		display: flex;
+	.wds-avatar-stack {
 		margin: 0;
-
-		li {
-			flex: 1;
-			list-style: none;
-			max-width: 20%;
-
-			img {
-				border-radius: 50%;
-				display: block;
-				margin: 0 auto;
-				width: 2.75rem;
-			}
-		}
-	}
-
-	.title {
-		margin-left: .625rem;
-		padding-bottom: .9375rem;
 	}
 }

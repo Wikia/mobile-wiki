@@ -32,7 +32,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v7.7.1",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v7.7.2",
     "@wikia/tracking-opt-in": "1.0.36",
     "@wikia/ember-fandom": "Wikia/ember-fandom#7b07ef1eb7c72cb2e70bb6ed5f8bfe4eea3faa6d",
     "body-parser": "1.18.3",
@@ -40,7 +40,7 @@
     "compression": "1.7.3",
     "cors": "2.8.4",
     "deep-extend": "0.5.1",
-    "design-system": "github:Wikia/design-system#13.5.0",
+    "design-system": "github:Wikia/design-system#13.6.0",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
