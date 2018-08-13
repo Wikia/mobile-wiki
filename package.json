@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@ember/test-helpers": "0.7.25",
-    "broccoli-asset-rev": "2.7.0",
+    "broccoli-asset-rev": "3.0.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "3.0.0",
     "broccoli-stew": "2.0.0",
