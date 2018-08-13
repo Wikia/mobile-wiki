@@ -7,6 +7,7 @@
     "days-ago": "{days}天", 
     "discussions-label": "讨论版", 
     "header-in-wiki-name-label-prefix": "来源:", 
+    "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours}小时", 
     "less": "折叠", 
     "media-lightbox-error": "无法找到媒体内容", 
@@ -25,25 +26,27 @@
     "wiki-page-error-reload-button": "刷新"
   }, 
   "article": {
+    "article-information": "文章信息", 
     "categories-list-label": "分类", 
-    "comments-label": "{count} 次评论", 
-    "comments-label_plural": "{count} 次评论", 
+    "comments-label": "评论({count})", 
+    "comments-label_plural": "评论({count})", 
     "empty-label": "对不起，这篇文章似乎沒有內容！", 
     "error": "对不起，我们无法加载这篇文章。请再试一次。", 
+    "language-links-label": "其他语言", 
     "last-edit": "上次编辑为1周前", 
     "last-edit_plural_0": "这星期进行编辑过", 
     "last-edit_plural_2": "上次编辑在 {count} 周前", 
     "portable-infobox-image": "图片", 
     "redirect-empty-target": "您关注的链接是一个重定向，但是重定向的页面不存在。", 
-    "replies-label": "查看 {count} 个回复", 
-    "replies-label_plural": "查看 {count} 个回复", 
+    "replies-label": "{count}个回复", 
+    "replies-label_plural": "{count}个回复", 
     "suggestions-label": "阅读更多", 
     "toc-label": "内容列表", 
-    "top-contributors-label": "这篇文章的杰出编辑者"
+    "top-contributors-label": "贡献者排名"
   }, 
   "article-comments": {
     "add-comment": "添加评论", 
-    "desktop-warning": "* 你将被转到浏览器模式添加评论", 
+    "desktop-warning": "你将被转到浏览器模式添加评论", 
     "next-button": "下一页", 
     "no-comments": "还没有评论！", 
     "prev-button": "上一页"

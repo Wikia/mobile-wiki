@@ -1,6 +1,7 @@
 import filePageFixture from './fixtures/file-page';
 import blogPostPageFixture from './fixtures/blog-post';
 import searchSuggestionsFixture from './fixtures/search-suggestion';
+import articleCommentsFixture from './fixtures/article-comments';
 import testAFixture from './fixtures/test-page';
 import articleFixture from './fixtures/article';
 import jwplayerVideoFixture from './fixtures/jwplayer-video';
@@ -24,7 +25,7 @@ export default function () {
 	this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
 
 	this.get('/wikia.php', (schema, request) => {
-		const { controller, method, title } = request.queryParams;
+		const { controller, method, title, id } = request.queryParams;
 
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'Mercury_CC_Wikia') {
@@ -61,7 +62,7 @@ export default function () {
 	});
 
 	this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
-		const { controller, method, title, query } = request.queryParams;
+		const { controller, method, title, query, id } = request.queryParams;
 
 		if (controller === 'MercuryApi') {
 			if (method === 'getPage' && title === 'File:Example.jpg') {
@@ -82,6 +83,10 @@ export default function () {
 
 			if (method === 'getSearchSuggestions') {
 				return searchSuggestionsFixture(query);
+			}
+
+			if (method === 'getArticleComments' && id === '10') {
+				return articleCommentsFixture;
 			}
 		}
 

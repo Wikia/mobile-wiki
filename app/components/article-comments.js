@@ -1,99 +1,56 @@
 import { inject as service } from '@ember/service';
-import { bool } from '@ember/object/computed';
+import { bool, equal, not } from '@ember/object/computed';
 import Component from '@ember/component';
-import { observer } from '@ember/object';
-import { run } from '@ember/runloop';
+import { computed, observer, get } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
 import { getOwner } from '@ember/application';
-import ArticleCommentsModel from '../models/article-comments';
 import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
+import fetch from '../utils/mediawiki-fetch';
 
 /**
  * Component that displays article comments
- *
- * Subject to refactor as it uses observers instead of computed properties
- *
- * TODO: Great refactor XW-1237
  */
 export default Component.extend(
 	{
+		preserveScroll: service(),
 		wikiVariables: service(),
+		wikiUrls: service(),
+
+		classNames: ['article-comments', 'mw-content'],
+
 		page: null,
 		articleId: null,
 		commentsCount: null,
-		classNames: ['article-comments', 'mw-content'],
 		model: null,
 		isCollapsed: true,
 
-		nextButtonShown: false,
-		prevButtonShown: false,
-		showComments: bool('page'),
+		comments: null,
+		users: null,
+		pagesCount: null,
 
-		/**
-		 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
-		 * and updates model, so it can load a page of comments
-		 */
-		pageObserver: observer('page', 'model.comments', function () {
-			run.scheduleOnce('afterRender', this, () => {
-				const page = this.page,
-					count = this.get('model.pagesCount');
-
-				let currentPage = page,
-					currentPageInteger,
-					isFirstPage;
-
-				// since those can be null we intentionally correct the types
-				if (page !== null && count !== null) {
-					currentPage = Math.max(Math.min(page, count), 1);
-				}
-
-				currentPageInteger = parseInt(currentPage, 10);
-				isFirstPage = currentPageInteger === 1;
-
-				this.setProperties({
-					nextButtonShown: (isFirstPage || currentPageInteger < count) && count > 1,
-					prevButtonShown: !isFirstPage && (currentPageInteger > 1),
-					page: currentPage
-				});
-
-				this.set('model.page', currentPage);
-			});
+		showComments: not('isCollapsed'),
+		prevButtonDisabled: computed('page', function () {
+			return parseInt(this.get('page'), 10) === 1;
+		}),
+		nextButtonDisabled: computed('page', 'pagesCount', function () {
+			return parseInt(this.get('page'), 10) >= this.get('pagesCount');
 		}),
 
 		/**
-		 * watches changes to model, and scrolls to top of comments
-		 */
-		commentsObserver: observer('model.comments', function () {
-			if (this.get('model.comments')) {
-				scrollToTop(this.element);
-			}
-		}),
-
-		/**
-		 * if articleId changes, updates model
+		 * if articleId changes, resets component state
 		 */
 		articleIdObserver: observer('articleId', function () {
 			this.setProperties({
-				'model.articleId': this.articleId,
-				page: null
+				page: null,
+				isCollapsed: true,
+				comments: null,
+				users: null,
+				pagesCount: null,
 			});
 
 			this.rerender();
 		}),
-
-		/**
-		 * Sets model when we get new articleId
-		 *
-		 * @returns {void}
-		 */
-		init() {
-			this._super(...arguments);
-
-			this.set('model', ArticleCommentsModel.create(getOwner(this).ownerInjection(), {
-				articleId: this.articleId,
-				host: this.get('wikiVariables.host')
-			}));
-		},
 
 		/**
 		 * If we recieved page on didRender
@@ -102,14 +59,18 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		didRender() {
-			const page = this.page;
+		didInsertElement() {
+			const page = this.get('page');
 
 			this._super(...arguments);
 
-			if (page) {
-				this.set('model.page', page);
-				scrollToTop(this.element);
+			if (page !== null) {
+				this.set('isCollapsed', false);
+				this.fetchComments(parseInt(page, 10));
+
+				scheduleOnce('afterRender', this, () => {
+					this.scrollTop();
+				});
 			}
 		},
 
@@ -118,22 +79,38 @@ export default Component.extend(
 			 * @returns {void}
 			 */
 			nextPage() {
-				this.incrementProperty('page');
+				const page = parseInt(this.get('page'), 10);
+
+				this.set('preserveScroll.preserveScrollPosition', true);
+				this.fetchComments(page + 1);
+				this.scrollTop();
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			prevPage() {
-				this.decrementProperty('page');
+				const page = parseInt(this.get('page'), 10);
+
+				this.set('preserveScroll.preserveScrollPosition', true);
+				this.fetchComments(page - 1);
+				this.scrollTop();
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			toggleComments() {
-				this.set('page', this.page ? null : 1);
+				const page = this.get('page');
+
+				this.set('preserveScroll.preserveScrollPosition', true);
 				this.toggleProperty('isCollapsed');
+
+				if (page !== null) {
+					this.set('page', null);
+				} else {
+					this.fetchComments(1);
+				}
 
 				track({
 					action: trackActions.click,
@@ -141,6 +118,50 @@ export default Component.extend(
 					label: this.page ? 'expanded' : 'collapsed'
 				});
 			}
-		}
+		},
+
+		scrollTop() {
+			scrollToTop(this.element);
+		},
+
+		fetchComments(page) {
+			const articleId = this.get('articleId');
+
+			if (this.get('pagesCount') !== null && page !== null && page > this.get('pagesCount')) {
+				page = this.get('pagesCount');
+			}
+
+			if (page !== null && page < 1) {
+				page = 1;
+			}
+
+			if (page && articleId) {
+				fetch(this.url(articleId, page))
+					.then((response) => response.json())
+					.then((data) => {
+						this.setProperties({
+							comments: get(data, 'payload.comments'),
+							users: get(data, 'payload.users'),
+							pagesCount: get(data, 'pagesCount'),
+						});
+					});
+				this.set('page', page);
+			}
+		},
+
+		url(articleId, page = 0) {
+			return this.wikiUrls.build({
+				host: this.get('wikiVariables.host'),
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getArticleComments',
+					id: articleId,
+					page,
+					// TODO: clean me after premium bottom of page is released and icache expired
+					premiumBottom: true,
+				}
+			});
+		},
 	}
 );

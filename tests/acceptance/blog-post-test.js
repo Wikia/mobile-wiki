@@ -21,8 +21,8 @@ module('Acceptance | Blog post page', (hooks) => {
 		assert.dom('.wiki-page-header__subtitle').exists();
 		assert.dom('.wiki-page-header__subtitle').hasText('blog-page.subtitle');
 		assert.dom('.article-content').hasText('Test content on blog page');
-		assert.dom('.mw-content.collapsible-menu').exists();
-		assert.dom('.mw-content.collapsible-menu li').exists({ count: 2 }, 'Categories section has 2 items');
+		assert.dom('.article-categories-list.collapsible-menu').exists();
+		assert.dom('.article-categories-list.collapsible-menu li').exists({ count: 2 }, 'Categories section has 2 items');
 	});
 });
 

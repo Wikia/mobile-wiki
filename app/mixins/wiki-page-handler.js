@@ -54,6 +54,9 @@ function getURL(wikiUrls, params) {
 	// TODO: clean me after new premium look and feel is released and icache expired
 	query.premiumLayout = true;
 
+	// TODO: clean me after new mobile bottom of a page is released and icache expired
+	query.premiumBottom = true;
+
 	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',

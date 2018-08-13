@@ -1,31 +1,45 @@
-<div role="button" {{action 'toggleComments'}} class='show-comments-btn wds-font-weight-bold wds-text-transform-uppercase {{if isCollapsed 'collapsed'}}'>
+<div role="button" {{action 'toggleComments'}} class='show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if isCollapsed 'collapsed'}}'>
 	<span>{{i18n 'article.comments-label' count=commentsCount}}</span>
-	{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
+	{{wds-icon name='menu-control-tiny' size='tiny' class='chevron'}}
 </div>
 {{#if showComments}}
 	{{#if commentsCount}}
-		<button class='wds-button page-button prev-page-button {{unless prevButtonShown 'wds-is-hidden'}}' {{action 'prevPage'}}>
-			{{i18n 'article-comments.prev-button'}}
-		</button>
 		<ul class='comments wds-font-size-xs {{if commentsHidden 'wds-is-hidden'}}'>
-			{{#each model.comments as |comment|}}
-				{{article-comment comment=comment users=model.users}}
+			{{#each comments as |comment|}}
+				{{article-comment comment=comment users=users}}
 			{{/each}}
 		</ul>
-		<button class='wds-button page-button {{unless nextButtonShown 'wds-is-hidden'}}' {{action 'nextPage'}}>
-			{{i18n 'article-comments.next-button'}}
-		</button>
+		<div class="comments__navigation">
+			{{#wds-button
+				class='page-button prev-page-button'
+				click=(action 'prevPage')
+				disabled=prevButtonDisabled
+				secondary=true
+				square=true
+			}}
+				{{wds-icon name='menu-control-tiny' size='tiny'}}
+			{{/wds-button}}
+
+			{{#wds-button
+				class='page-button next-page-button'
+				click=(action 'nextPage')
+				disabled=nextButtonDisabled
+				secondary=true
+				square=true
+			}}
+				{{wds-icon name='menu-control-tiny' size='tiny'}}
+			{{/wds-button}}
+		</div>
 	{{else}}
 		<div class="comments__no-comments wds-font-size-s">
-			{{svg 'wds-icons-reply' class='wds-icon comments__reply-icon'}}
+			{{wds-icon name='reply' class='comments__reply-icon'}}
 			<div>{{i18n 'article-comments.no-comments'}}</div>
 		</div>
 	{{/if}}
 
 	<div class='comments__add-comment'>
-		<a href='?useskin=oasis#WikiaArticleComments' class='wds-button wds-is-secondary'>
-			{{i18n 'article-comments.add-comment'}}
-		</a>
+		{{#wds-button href='?useskin=oasis#WikiaArticleComments'}}{{i18n 'article-comments.add-comment'}}{{/wds-button}}
+
 		<div class='comments__message wds-font-size-xs wds-font-style-italic wds-leading-tight'>{{i18n 'article-comments.desktop-warning'}}</div>
 	</div>
 {{/if}}

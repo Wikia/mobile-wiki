@@ -1,3 +1,37 @@
+$article-footer-skewY: 5deg;
+
 .article-footer {
-	margin-bottom: 2.5rem;
+	background-image: linear-gradient(to bottom, rgba($wds-color-white, 1), rgba($wds-color-white, 0) 130px);
+	padding: 24px $article-horizontal-padding 0;
+	transform: skewY(-$article-footer-skewY);
+
+	& > * {
+		transform: skewY($article-footer-skewY);
+	}
+
+	.article-information-header {
+		padding: 4px 0 12px;
+		text-align: center;
+	}
+
+	.article-footer-item {
+		padding: 4px 0 18px;
+	}
+
+	.article-language-links-list {
+		padding: 12px 0 18px;
+	}
+
+	.chevron {
+		color: $wds-fandom-color-dark-gray;
+		margin-right: 4px;
+	}
+
+	.article-language-links-list {
+		border-top: 1px solid $wds-fandom-color-middle-gray;
+	}
+
+	.wds-avatar {
+		@include wds-avatar(30px, $wds-fandom-color-middle-gray);
+	}
 }

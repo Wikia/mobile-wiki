@@ -12,55 +12,63 @@ module('Unit | Component | article comments', (hooks) => {
 
 		run(() => {
 			component.setProperties({
-				model: {
-					pagesCount: 3
+				articleId: 10,
+				url(id, page) {
+					return 'http://fallout.wikia.com/wikia.php?controller=MercuryApi&method=getSearchSuggestions&id=10';
 				},
+				scrollTop() {},
+			});
+		});
+
+		run(() => {
+			component.setProperties({
+				pagesCount: 3,
 				page: 2
 			});
 		});
 
 		assert.equal(component.get('page'), 2);
-		assert.equal(component.get('nextButtonShown'), true);
-		assert.equal(component.get('prevButtonShown'), true);
+		assert.equal(component.get('nextButtonDisabled'), false);
+		assert.equal(component.get('prevButtonDisabled'), false);
 
 		run(() => {
 			component.send('nextPage');
 		});
 
 		assert.equal(component.get('page'), 3);
-		assert.equal(component.get('nextButtonShown'), false);
-		assert.equal(component.get('prevButtonShown'), true);
+		assert.equal(component.get('nextButtonDisabled'), true);
+		assert.equal(component.get('prevButtonDisabled'), false);
 
 		run(() => {
 			component.send('nextPage');
 		});
 
 		assert.equal(component.get('page'), 3);
-		assert.equal(component.get('nextButtonShown'), false);
-		assert.equal(component.get('prevButtonShown'), true);
+		assert.equal(component.get('nextButtonDisabled'), true);
+		assert.equal(component.get('prevButtonDisabled'), false);
 
 		run(() => {
 			component.send('prevPage');
 		});
 
 		assert.equal(component.get('page'), 2);
-		assert.equal(component.get('nextButtonShown'), true);
-		assert.equal(component.get('prevButtonShown'), true);
+		assert.equal(component.get('nextButtonDisabled'), false);
+		assert.equal(component.get('prevButtonDisabled'), false);
 
 		run(() => {
 			component.send('prevPage');
 		});
 
 		assert.equal(component.get('page'), 1);
-		assert.equal(component.get('nextButtonShown'), true);
-		assert.equal(component.get('prevButtonShown'), false);
+		assert.equal(component.get('nextButtonDisabled'), false);
+		assert.equal(component.get('prevButtonDisabled'), true);
 
 		run(() => {
 			component.send('prevPage');
 		});
 
 		assert.equal(component.get('page'), 1);
-		assert.equal(component.get('nextButtonShown'), true);
-		assert.equal(component.get('prevButtonShown'), false);
+		assert.equal(component.get('nextButtonDisabled'), false);
+		assert.equal(component.get('prevButtonDisabled'), true);
 	});
 });
