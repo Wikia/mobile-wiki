@@ -26,25 +26,27 @@
     "wiki-page-error-reload-button": "새로 고침"
   }, 
   "article": {
+    "article-information": "Article Information", 
     "categories-list-label": "분류", 
-    "comments-label": "댓글 {count}개", 
-    "comments-label_plural": "댓글 {count}개", 
+    "comments-label": "comment ({count})", 
+    "comments-label_plural": "comments ({count})", 
     "empty-label": "이 문서는 비어 있습니다.", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
+    "language-links-label": "Other Languages", 
     "last-edit": "1주일 전에 마지막으로 편집됨", 
     "last-edit_plural_0": "이번 주에 마지막으로 편집됨", 
     "last-edit_plural_2": "{count}주일 전에 마지막으로 편집됨", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
-    "replies-label": "답글 {count}개 보기", 
-    "replies-label_plural": "답글 {count}개 보기", 
+    "replies-label": "{count} reply", 
+    "replies-label_plural": "{count} replies", 
     "suggestions-label": "더 보기", 
     "toc-label": "목차", 
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors"
   }, 
   "article-comments": {
     "add-comment": "Add comment", 
-    "desktop-warning": "* You will be directed to the desktop experience to add a comment", 
+    "desktop-warning": "You will be directed to the desktop experience to add a comment", 
     "next-button": "다음 페이지", 
     "no-comments": "No Comments Yet", 
     "prev-button": "이전 페이지"

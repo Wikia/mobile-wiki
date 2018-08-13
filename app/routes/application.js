@@ -41,8 +41,12 @@ export default Route.extend(
 		router: service(),
 
 		queryParams: {
+			file: {
+				replace: true,
+			},
 			commentsPage: {
-				replace: true
+				replace: true,
+				refreshModel: false,
 			},
 			noexternals: {
 				replace: true

@@ -28,25 +28,27 @@
     "wikia-map-view-map": "View"
   }, 
   "article": {
+    "article-information": "Article Information", 
     "categories-list-label": "Kategorier", 
-    "comments-label": "{count} kommentar", 
-    "comments-label_plural": "{count} kommentarer", 
+    "comments-label": "comment ({count})", 
+    "comments-label_plural": "comments ({count})", 
     "empty-label": "Sorry, this article seems to be empty!", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
+    "language-links-label": "Other Languages", 
     "last-edit": "Senast redigerad 1 vecka sedan", 
     "last-edit_plural_0": "Senast redigerad den här veckan", 
     "last-edit_plural_2": "Senast redigerad {count} veckor sedan", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
-    "replies-label": "Visa {count} svar", 
-    "replies-label_plural": "Visa {count} svar", 
+    "replies-label": "{count} reply", 
+    "replies-label_plural": "{count} replies", 
     "suggestions-label": "Läs mer", 
     "toc-label": "Innehållsförteckning", 
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors"
   }, 
   "article-comments": {
     "add-comment": "Add comment", 
-    "desktop-warning": "* You will be directed to the desktop experience to add a comment", 
+    "desktop-warning": "You will be directed to the desktop experience to add a comment", 
     "next-button": "Nästa sida", 
     "no-comments": "No Comments Yet", 
     "prev-button": "Föregående sida"
