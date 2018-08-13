@@ -26,25 +26,27 @@
     "wiki-page-error-reload-button": "Päivitä"
   }, 
   "article": {
+    "article-information": "Article Information", 
     "categories-list-label": "Luokat", 
-    "comments-label": "{count} kommentti", 
-    "comments-label_plural": "{count} kommenttia", 
+    "comments-label": "comment ({count})", 
+    "comments-label_plural": "comments ({count})", 
     "empty-label": "Pahoittelut, tämä artikkeli näyttäisi olevan tyhjä!", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
+    "language-links-label": "Other Languages", 
     "last-edit": "Muokattu viimeksi viikko sitten", 
     "last-edit_plural_0": "Muokattu viimeksi tällä viikolla", 
     "last-edit_plural_2": "Viimeksi muokattu {count} viikkoa sitten", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
-    "replies-label": "Näytä vastaus", 
-    "replies-label_plural": "Näytä vastaukset ({count})", 
+    "replies-label": "{count} reply", 
+    "replies-label_plural": "{count} replies", 
     "suggestions-label": "Lue lisää", 
     "toc-label": "Sisällysluettelo", 
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors"
   }, 
   "article-comments": {
     "add-comment": "Add comment", 
-    "desktop-warning": "* You will be directed to the desktop experience to add a comment", 
+    "desktop-warning": "You will be directed to the desktop experience to add a comment", 
     "next-button": "Seuraava sivu", 
     "no-comments": "No Comments Yet", 
     "prev-button": "Edellinen sivu"
