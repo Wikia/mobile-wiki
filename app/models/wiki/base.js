@@ -45,6 +45,7 @@ export default EmberObject.extend({
 			pageProperties = {
 				articleType: get(data, 'articleType'),
 				categories: get(data, 'categories'),
+				languageLinks: get(data, 'languageLinks'),
 				description: get(data, 'details.description'),
 				hasArticle: get(data, 'article.content.length') > 0,
 				htmlTitle: get(data, 'htmlTitle'),

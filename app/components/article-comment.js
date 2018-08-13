@@ -2,6 +2,7 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import toArray from '../utils/toArray';
+import { isIpAddress } from '../utils/string';
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -31,11 +32,9 @@ export default Component.extend({
 	}),
 
 	userName: computed('comment.userName', function () {
-		// Checks for an IP address to identify an anonymous user. This is very crude and obviously doesn't check IPv6.
-		const userName = this.get('comment.userName'),
-			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+		const userName = this.get('comment.userName');
 
-		if (regex.test(userName)) {
+		if (isIpAddress(userName)) {
 			return this.i18n.t('app.username-anonymous');
 		} else {
 			return userName;

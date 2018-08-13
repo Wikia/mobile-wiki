@@ -47,14 +47,13 @@ export default Component.extend({
 	isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
 
 	bfaaTemplate: bool('ads.siteHeadOffset'),
+	contentLanguage: readOnly('wikiVariables.language.content'),
 
 	verticalClass: computed('wikiVariables', function () {
 		const vertical = this.get('wikiVariables.vertical');
 
 		return `${vertical}-vertical`;
 	}),
-
-	contentLanguage: readOnly('wikiVariables.language.content'),
 
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't

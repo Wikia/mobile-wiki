@@ -1,14 +1,14 @@
-import Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import NoScrollMixin from '../mixins/no-scroll';
 import { track, trackActions } from '../utils/track';
 
 export default Service.extend(NoScrollMixin, {
+	preserveScroll: service(),
 	closeButtonDelay: 0,
 	file: null,
 	isVisible: false,
 	lightboxType: null,
 	model: null,
-	preserveScrollPosition: false,
 
 	/**
 	 * Sets controller properties that are passed to LightboxWrapperComponent.
@@ -26,7 +26,7 @@ export default Service.extend(NoScrollMixin, {
 			isVisible: true,
 			model: lightboxModel,
 			noScroll: true,
-			preserveScrollPosition: true
+			'preserveScroll.preserveScrollPosition': true,
 		});
 
 		if (lightboxType === 'media') {
@@ -48,7 +48,7 @@ export default Service.extend(NoScrollMixin, {
 		this.setProperties({
 			isVisible: true,
 			noScroll: true,
-			preserveScrollPosition: true
+			'preserveScroll.preserveScrollPosition': true,
 		});
 	},
 

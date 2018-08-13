@@ -1,22 +1,7 @@
-@import 'collapsible-menu-variables';
-
 .collapsible-menu {
-	border-bottom: 1px solid $collapsible-menu-border-color;
-	border-top: 1px solid $collapsible-menu-border-color;
-
-	+ .collapsible-menu {
-		border-top: 0;
-	}
-
 	.title {
 		align-items: center;
-		background: none;
-		color: $collapsible-menu-title-color;
 		display: flex;
-		line-height: 2.4rem;
-		padding: .3125rem 1.25rem;
-		position: relative;
-		text-align: left;
 		width: 100%;
 
 		> span {

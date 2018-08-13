@@ -1,16 +1,4 @@
 {{#if users.length}}
-	<div class="title wds-font-size-s wds-font-weight-bold">{{i18n 'article.top-contributors-label'}}</div>
-	<ul>
-		{{#each users as |user|}}
-			<li>
-				<a href="{{unbound user.url}}" {{action 'trackClick' 'contributors' 'open-user' preventDefault=false}}>
-					{{#if viewportEntered}}
-						{{thumbnail user.avatar mode=user.thumbMode alt=user.name}}
-					{{else}}
-						{{thumbnail}}
-					{{/if}}
-				</a>
-			</li>
-		{{/each}}
-	</ul>
+	<div class="title wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize">{{i18n 'article.top-contributors-label'}}</div>
+	{{wds-avatar-stack avatars=avatars maxStackSize=5 hideOverflow=true}}
 {{/if}}
