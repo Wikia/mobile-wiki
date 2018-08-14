@@ -54,7 +54,7 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,
@@ -88,7 +88,7 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,
@@ -125,7 +125,7 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,
