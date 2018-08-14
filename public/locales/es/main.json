@@ -26,25 +26,27 @@
     "wiki-page-error-reload-button": "Actualizar"
   }, 
   "article": {
+    "article-information": "Información del artículo", 
     "categories-list-label": "Categorías", 
-    "comments-label": "{count} comentario", 
-    "comments-label_plural": "{count} comentarios", 
+    "comments-label": "comentario ({count})", 
+    "comments-label_plural": "comentarios ({count})", 
     "empty-label": "¡Lo sentimos, este artículo parece estar vacío!", 
     "error": "Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.", 
+    "language-links-label": "Otros idiomas", 
     "last-edit": "Editado por última vez hace una semana", 
     "last-edit_plural_0": "Editado por última vez esta semana", 
     "last-edit_plural_2": "Editado por última vez hace {count} semanas", 
     "portable-infobox-image": "Imagen", 
     "redirect-empty-target": "El enlace que has seguido es una redirección, pero la página a la que redirige no existe.", 
-    "replies-label": "Ver {count} respuesta", 
-    "replies-label_plural": "Ver {count} respuestas", 
+    "replies-label": "{count} respuesta", 
+    "replies-label_plural": "{count} respuestas", 
     "suggestions-label": "Leer más", 
     "toc-label": "Tabla de contenidos", 
-    "top-contributors-label": "Principales editores de este artículo"
+    "top-contributors-label": "Top Colaboradores"
   }, 
   "article-comments": {
     "add-comment": "Añadir un comentario", 
-    "desktop-warning": "*Serás redirigido a la vista en escritorio para añadir un comentario", 
+    "desktop-warning": "Serás redirigido a la vista en escritorio para añadir un comentario", 
     "next-button": "Página siguiente", 
     "no-comments": "Aún no hay comentarios", 
     "prev-button": "Página anterior"

@@ -34,31 +34,53 @@
 {{yield}}
 {{#if displayArticleWrapper}}
 	<section class="article-footer">
+		<div class="article-information-header">
+			<h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">
+				{{i18n 'article.article-information'}}
+			</h2>
+		</div>
 		{{wikia-users
 			users=model.topContributors
+			class='article-footer-item'
 		}}
 		{{#if showComments}}
 			{{article-comments
 				articleId=model.id
 				commentsCount=model.comments
 				page=commentsPage
+				class='article-footer-item'
 			}}
 		{{/if}}
 		{{#if model.categories}}
 			{{#collapsible-menu
 				observe=model.displayTitle
 				ordered=false
-				showMenuIcon=false
 				tLabel='article.categories-list-label'
 				trackingEvent='category-menu'
 				click=(action 'trackClick' 'category-menu' 'open-category')
-				class="mw-content"
+				class='article-categories-list article-footer-item'
 			}}
 				{{#each model.categories as |category|}}
 					<li>
-						<a href="{{unbound category.url}}" title="{{unbound category.title}}">
-							<span>{{unbound category.title}}</span>
-							{{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny'}}
+						<a href="{{unbound category.url}}" title="{{unbound category.title}}" class="wds-font-size-s wds-text-transform-capitalize wds-leading-loose">
+							{{unbound category.title}}
+						</a>
+					</li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+		{{#if model.languageLinks}}
+			{{#collapsible-menu
+					observe=model.displayTitle
+					ordered=false
+					tLabel='article.language-links-label'
+					trackingEvent='language-links'
+					class='article-language-links-list article-footer-item'
+			}}
+				{{#each model.languageLinks as |lang|}}
+					<li>
+						<a href="{{unbound lang.href}}" title="{{unbound lang.text}}" class="wds-font-size-s wds-text-transform-capitalize wds-leading-loose">
+							{{unbound lang.text}}
 						</a>
 					</li>
 				{{/each}}

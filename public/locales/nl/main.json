@@ -26,25 +26,27 @@
     "wiki-page-error-reload-button": "Vernieuwen"
   }, 
   "article": {
+    "article-information": "Article Information", 
     "categories-list-label": "Categorieën", 
-    "comments-label": "{count} reactie", 
-    "comments-label_plural": "{count} reacties", 
+    "comments-label": "comment ({count})", 
+    "comments-label_plural": "comments ({count})", 
     "empty-label": "Sorry, dit artikel lijkt leeg te zijn!", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
+    "language-links-label": "Other Languages", 
     "last-edit": "Laatst bewerkt 1 week geleden", 
     "last-edit_plural_0": "Laatst bewerkt deze week", 
     "last-edit_plural_2": "Laatst bewerkt {count} weken geleden", 
     "portable-infobox-image": "Image", 
     "redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.", 
-    "replies-label": "{count} antwoord weergeven", 
-    "replies-label_plural": "{count} antwoorden weergeven", 
+    "replies-label": "{count} reply", 
+    "replies-label_plural": "{count} replies", 
     "suggestions-label": "Meer lezen", 
     "toc-label": "Inhoudsopgave", 
-    "top-contributors-label": "Top Contributors to this article"
+    "top-contributors-label": "Top Contributors"
   }, 
   "article-comments": {
     "add-comment": "Add comment", 
-    "desktop-warning": "* You will be directed to the desktop experience to add a comment", 
+    "desktop-warning": "You will be directed to the desktop experience to add a comment", 
     "next-button": "Volgende pagina", 
     "no-comments": "No Comments Yet", 
     "prev-button": "Vorige pagina"
