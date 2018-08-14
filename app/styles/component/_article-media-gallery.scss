@@ -1,31 +1,47 @@
+$gallery-item-margin: 8px;
+
 .article-media-gallery {
-	align-items: flex-start;
-	display: flex;
-	-webkit-overflow-scrolling: touch;
-	white-space: nowrap;
-	overflow: {
-		x: auto;
-		y: hidden;
+	&__row {
+		margin-bottom: $gallery-item-margin;
 	}
 
-	figcaption {
-		max-width: 195px;
+	&__row-2 {
+		display: flex;
+
+		.article-media-thumbnail:first-child {
+			margin-right: $gallery-item-margin;
+		}
 	}
 
-	.article-media-thumbnail {
-		flex-shrink: 0;
-		margin: {
-			bottom: 20px;
-			left: 0;
-			right: 8px;
-			top: 20px;
+	&__row-3 {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__column {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		&:first-child {
+			align-items: flex-start;
+			margin-right: $gallery-item-margin / 2;
 		}
 
-		img {
-			height: 195px;
-			// Fixes iOS Safari repaint bug when scrolling through gallery
-			transform: translate3d(0, 0, 0);
-			width: 195px;
+		&:last-child {
+			align-items: flex-end;
 		}
+
+		&:not(.article-media-gallery__column-big) {
+			width: 33.333%;
+
+			.article-media-thumbnail {
+				width: calc(100% - #{$gallery-item-margin/2});
+			}
+		}
+	}
+
+	&__column-big {
+		width: 66.666%;
 	}
 }
