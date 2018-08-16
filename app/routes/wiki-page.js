@@ -20,6 +20,7 @@ import {
 } from '../utils/mediawiki-namespace';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import { logError } from '../modules/event-logger';
+import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
 	WikiPageHandlerMixin,
@@ -154,6 +155,10 @@ export default Route.extend(
 
 								adsModule.init(model.adsContext);
 							}
+						});
+
+						feedsAndPosts.getModule().then((fpModule) => {
+							feedsAndPosts.loadFeed(fpModule);
 						});
 					}
 
