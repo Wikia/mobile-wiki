@@ -142,10 +142,9 @@ export default Component.extend(
 
 		handleImageClick(event) {
 			const figure = event.target.closest('figure:not(.is-ogg)'),
-				figCaption = event.target.closest('figcaption'),
-				imageLinkedByUser = figure ? figure.getAttribute('data-linkedbyuser') : false;
+				figCaption = event.target.closest('figcaption');
 
-			if (figure && !figCaption && !imageLinkedByUser) {
+			if (figure && !figCaption) {
 				this.openLightbox(figure);
 
 				return false;
