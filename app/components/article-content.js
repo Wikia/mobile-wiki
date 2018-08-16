@@ -143,18 +143,10 @@ export default Component.extend(
 		handleImageClick(event) {
 			const figure = event.target.closest('figure:not(.is-ogg)'),
 				figCaption = event.target.closest('figcaption'),
-				imageLinkedByUser = figure ? figure.getAttribute('data-linkedbyuser') : false,
-				galleryViewMore = event.target.closest('button.article-media-linked-gallery__view-more');
-
+				imageLinkedByUser = figure ? figure.getAttribute('data-linkedbyuser') : false;
 
 			if (figure && !figCaption && !imageLinkedByUser) {
 				this.openLightbox(figure);
-
-				return false;
-			}
-
-			if (galleryViewMore) {
-				this.uncollapseLinkedGallery(galleryViewMore);
 
 				return false;
 			}
@@ -188,14 +180,6 @@ export default Component.extend(
 			}
 
 			return lightboxModel;
-		},
-
-		uncollapseLinkedGallery(galleryViewMore) {
-			const gallery = galleryViewMore.closest('.article-media-linked-gallery');
-
-			if (gallery) {
-				gallery.classList.remove('article-media-linked-gallery__collapsed');
-			}
 		},
 
 		/**
