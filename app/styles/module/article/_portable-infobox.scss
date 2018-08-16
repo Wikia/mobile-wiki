@@ -8,7 +8,6 @@ $tabular-layout-padding: 12px;
 
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
-$infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
 	margin-bottom: 12px;
@@ -52,14 +51,6 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 		svg {
 			transform: none;
 		}
-	}
-
-	figure {
-		border-radius: $infobox-border-radius;
-	}
-
-	img {
-		border-radius: $infobox-border-radius;
 	}
 
 	dl,
@@ -135,7 +126,6 @@ section {
 	.pi-item {
 		@extend %position-play-icon;
 
-		border: $infobox-img-border;
 		display: inline-block;
 		height: auto;
 		margin-left: $infobox-item-margin * 2;
@@ -174,7 +164,6 @@ section {
 	> figure {
 		@extend %position-play-icon;
 
-		border: $infobox-img-border;
 		max-width: 50%;
 		order: 1;
 		position: absolute;
@@ -217,10 +206,6 @@ section {
 	padding-left: $infobox-item-margin * 2;
 	padding-right: $infobox-item-margin * 2;
 
-	figure {
-		border: $infobox-img-border;
-	}
-
 	figcaption {
 		display: none;
 	}
@@ -254,10 +239,6 @@ section {
 	&:not(:first-child) {
 		flex-basis: 60%;
 		padding-left: $tabular-layout-padding;
-	}
-
-	figure {
-		border: $infobox-img-border;
 	}
 
 	figcaption {
@@ -421,8 +402,6 @@ section {
 .pi-hero-small {
 	@extend %position-play-icon;
 
-	border: $infobox-img-border;
-	border-radius: $infobox-border-radius;
 	box-shadow: $hero-image-small-box-shadow;
 	display: block;
 	margin-top: -$hero-image-small-offset;

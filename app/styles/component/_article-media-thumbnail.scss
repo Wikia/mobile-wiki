@@ -6,15 +6,11 @@
 	figcaption {
 		@include ellipsis;
 
-		color: #999;
+		color: $wds-color-light-c5;
 		max-height: 60px;
 		padding: 5px 0;
 		pointer-events: none;
 		text-align: left;
-	}
-
-	img {
-		display: inline-block;
 	}
 
 	a {
@@ -38,6 +34,8 @@
 }
 
 .article-media-placeholder {
+	border: 1px solid $wds-fandom-color-middle-gray;
+	border-radius: 4px;
 	display: inline-block;
 }
 
