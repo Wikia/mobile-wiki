@@ -157,7 +157,8 @@ export default Route.extend(
 							}
 						});
 
-						if (this.get('wikiVariables.enableFeedsAndPosts')) {
+						// If it's an article page and the extension is enabled, load the Feeds & Posts module
+						if (model.type === 'article' && this.get('wikiVariables.enableFeedsAndPosts')) {
 							feedsAndPosts.getModule().then((fpModule) => {
 								feedsAndPosts.loadFeed(fpModule);
 							});
