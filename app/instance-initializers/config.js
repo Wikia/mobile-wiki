@@ -1,7 +1,7 @@
 import config from '../config/environment';
 import extend from '../utils/extend';
 
-function getBaseDomain(wikiaEnv, request) {
+function getBaseDomain(wikiaEnv, request, productionBaseDomain) {
 	// x-staging is e.g. 'sandbox-s1' or 'preview'
 	// it's set in https://github.com/Wikia/wikia-vcl/blob/master/wikia.com/control-stage.vcl
 	const staging = request.get('headers').get('x-staging');
@@ -9,25 +9,26 @@ function getBaseDomain(wikiaEnv, request) {
 	if (wikiaEnv === 'dev') {
 		return FastBoot.require('process').env.WIKIA_DEV_DOMAIN;
 	} else if (staging) {
-		return `${staging}.${config.productionBaseDomain}`;
+		return `${staging}.${productionBaseDomain}`;
 	}
 
-	return config.productionBaseDomain;
+	return productionBaseDomain;
 }
 
-function getServicesDomain(wikiaEnv, datacenter) {
+function getServicesDomain(wikiaEnv, datacenter, productionBaseDomain) {
 	if (wikiaEnv === 'dev') {
 		const devDomain = (datacenter === 'poz') ? 'pl' : 'us';
 
 		return `services.wikia-dev.${devDomain}`;
 	}
 
-	return `services.${config.productionBaseDomain}`;
+	return `services.${productionBaseDomain}`;
 }
 
 function getProductionBaseDomain(request) {
 	const host = request.get('headers').get('x-original-host') || request.get('host');
 
+	// Support both wikia.com and fandom.com domains during the migration period
 	if (host.indexOf(`.${config.alternateBaseDomain}`) > -1) {
 		return config.alternateBaseDomain;
 	}
@@ -45,12 +46,12 @@ function getHeliosInfoURL(wikiaEnv, datacenter) {
 	return `http://prod.${datacenter}.k8s.wikia.net/helios/info`;
 }
 
-function getCookieDomain(wikiaEnv) {
+function getCookieDomain(wikiaEnv, productionBaseDomain) {
 	if (wikiaEnv === 'dev') {
 		return `.${FastBoot.require('process').env.WIKIA_DEV_DOMAIN}`;
 	}
 
-	return `.${config.productionBaseDomain}`;
+	return `.${productionBaseDomain}`;
 }
 
 export function initialize(applicationInstance) {
@@ -63,19 +64,17 @@ export function initialize(applicationInstance) {
 		const env = FastBoot.require('process').env;
 		const wikiaEnv = env.WIKIA_ENVIRONMENT;
 		const request = fastboot.get('request');
-
-		// Support both wikia.com and fandom.com domains during the migration period
-		config.productionBaseDomain = getProductionBaseDomain(request);
+		const productionBaseDomain = getProductionBaseDomain(request);
 
 		runtimeConfig = {
-			baseDomain: getBaseDomain(wikiaEnv, request),
-			cookieDomain: getCookieDomain(wikiaEnv),
+			baseDomain: getBaseDomain(wikiaEnv, request, productionBaseDomain),
+			cookieDomain: getCookieDomain(wikiaEnv, productionBaseDomain),
 			wikiaEnv,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
 		};
 
 		runtimeServicesConfig = {
-			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER)
+			domain: getServicesDomain(wikiaEnv, env.WIKIA_DATACENTER, productionBaseDomain)
 		};
 
 		shoebox.put('runtimeConfig', runtimeConfig);

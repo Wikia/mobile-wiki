@@ -9,6 +9,7 @@ module.exports = function (environment) {
 		},
 		productionBaseDomain: 'wikia.com',
 		alternateBaseDomain: 'fandom.com',
+		baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
