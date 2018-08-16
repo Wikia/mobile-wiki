@@ -367,6 +367,11 @@ section {
 
 	background-color: inherit;
 	color: inherit;
+
+	img {
+		border: none;
+		border-radius: 0;
+	}
 }
 
 // styles for infobox collapse / expand UI
