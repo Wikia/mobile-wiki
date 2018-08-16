@@ -94,14 +94,15 @@ export default {
 			},
 			incontent_boxad_1: {
 				adProduct: 'incontent_boxad_1',
+				avoidConflictWith: '.ad-slot,#incontent_player',
 				slotNameSuffix: '',
 				bidderAlias: 'mobile_in_content',
 				group: 'HiVi',
 				options: {},
+				insertBeforeSelector: '.article-body h2',
 				repeat: {
 					additionalClasses: 'hide',
 					index: 1,
-					insertBeforeSelector: '.article-body h2',
 					limit: null,
 					slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
 					updateProperties: {
