@@ -157,9 +157,11 @@ export default Route.extend(
 							}
 						});
 
-						feedsAndPosts.getModule().then((fpModule) => {
-							feedsAndPosts.loadFeed(fpModule);
-						});
+						if (this.get('wikiVariables.enableFeedsAndPosts')) {
+							feedsAndPosts.getModule().then((fpModule) => {
+								feedsAndPosts.loadFeed(fpModule);
+							});
+						}
 					}
 
 					this.set('wikiHandler', handler);
