@@ -8,6 +8,7 @@ module.exports = function (environment) {
 			appId: '112328095453510'
 		},
 		productionBaseDomain: 'wikia.com',
+		alternateBaseDomain: 'fandom.com',
 		services: {
 			domain: 'services.wikia.com',
 			discussions: {
@@ -71,8 +72,9 @@ module.exports = function (environment) {
 		fastboot: {
 			hostWhitelist: [
 				/mobile-wiki-.*\.(dev|prod|staging)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
-				/.*\.wikia-dev\.(pl|us)/,
-				/.*\.wikia.com/,
+				/.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
+				/.*\.wikia\.com/,
+				/.*\.fandom\.com/,
 				/^localhost:\d+$/
 			]
 		},

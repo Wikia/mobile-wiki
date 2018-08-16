@@ -25,6 +25,16 @@ function getServicesDomain(wikiaEnv, datacenter) {
 	return `services.${config.productionBaseDomain}`;
 }
 
+function getProductionBaseDomain(request) {
+	const host = request.get('headers').get('x-original-host') || request.get('host');
+
+	if (host.indexOf(`.${config.alternateBaseDomain}`) > -1) {
+		return config.alternateBaseDomain;
+	}
+
+	return config.productionBaseDomain;
+}
+
 function getHeliosInfoURL(wikiaEnv, datacenter) {
 	if (wikiaEnv === 'dev') {
 		const devEnvironment = (datacenter === 'poz') ? 'poz-dev' : 'sjc-dev';
@@ -52,9 +62,13 @@ export function initialize(applicationInstance) {
 	if (fastboot.get('isFastBoot')) {
 		const env = FastBoot.require('process').env;
 		const wikiaEnv = env.WIKIA_ENVIRONMENT;
+		const request = fastboot.get('request');
+
+		// Support both wikia.com and fandom.com domains during the migration period
+		config.productionBaseDomain = getProductionBaseDomain(request);
 
 		runtimeConfig = {
-			baseDomain: getBaseDomain(wikiaEnv, fastboot.get('request')),
+			baseDomain: getBaseDomain(wikiaEnv, request),
 			cookieDomain: getCookieDomain(wikiaEnv),
 			wikiaEnv,
 			inContextTranslationsEnabled: env.MOBILE_WIKI_INCONTEXT_ENABLED === 'true',
