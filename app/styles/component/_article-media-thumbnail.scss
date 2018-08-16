@@ -22,33 +22,11 @@
 		position: relative;
 	}
 
-	&.is-loading {
-		@include is-loading;
-	}
-
-	&.is-loaded {
-		img {
-			animation: lazyImage .3s;
-		}
-	}
-
 	&.downloadable figcaption,
 	&.is-ogg figcaption {
 		height: auto;
 		text-align: center;
 		white-space: normal;
-	}
-
-	.chevron {
-		background: $wds-color-white;
-		bottom: 0;
-		height: 20px;
-		min-width: 20px;
-		padding: 4px;
-		position: absolute;
-		right: 0;
-		transform: rotate(-90deg);
-		width: 20px;
 	}
 
 	&__play-icon {
@@ -68,15 +46,5 @@
 
 	> svg {
 		@extend %image-placeholder;
-	}
-}
-
-@keyframes lazyImage {
-	0% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
 	}
 }
