@@ -354,9 +354,9 @@ export default {
 	},
 	events: {
 		pushOnScroll: {
-			ids: []
-		},
-		threshold: 100
+			ids: [],
+			threshold: 100
+		}
 	},
 	listeners: {
 		porvata: [],
