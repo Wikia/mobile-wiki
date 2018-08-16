@@ -344,7 +344,6 @@ export default Route.extend(
 					/**
 					 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
 					 * so that it will replace whatever is currently in the window.
-					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
 					const domainRegex = new RegExp(
 						`^https?:\\/\\/[^\\/]+\\.${config.baseDomainRegex}\\/.*$`
