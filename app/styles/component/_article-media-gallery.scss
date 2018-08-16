@@ -1,4 +1,4 @@
-$gallery-item-margin: 8px;
+$gallery-item-margin: 12px;
 
 .article-media-gallery {
 	max-width: 450px;
@@ -46,5 +46,14 @@ $gallery-item-margin: 8px;
 
 	&__column-big {
 		width: 66.666%;
+	}
+
+	&__view-more {
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.row-hidden {
+		display: none;
 	}
 }
