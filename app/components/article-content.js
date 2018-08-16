@@ -135,7 +135,7 @@ export default Component.extend(
 				});
 			}
 
-			if (!this.handleImageClick(event)) {
+			if (!this.handleImageClick(event) || !this.handleGalleryViewMore(event)) {
 				return false;
 			}
 		},
@@ -180,6 +180,24 @@ export default Component.extend(
 			}
 
 			return lightboxModel;
+		},
+
+		handleGalleryViewMore(event) {
+			const button = event.target.closest('.article-media-gallery__view-more');
+
+			if (button) {
+				const hiddenRows = button.closest('.article-media-gallery').querySelectorAll('.row-hidden');
+
+				hiddenRows.forEach((el, index) => {
+					// 8 rows ~ 20 images
+					if (index < 8) {
+						el.classList.remove('row-hidden');
+					}
+				});
+
+				return false;
+			}
+			return true;
 		},
 
 		/**
