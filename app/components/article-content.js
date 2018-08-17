@@ -185,12 +185,16 @@ export default Component.extend(
 			const button = event.target.closest('.article-media-gallery__view-more');
 
 			if (button) {
-				const hiddenRows = button.closest('.article-media-gallery').querySelectorAll('.row-hidden');
+				const hiddenRows = button.closest('.article-media-gallery').querySelectorAll('.wds-is-hidden');
+
+				if (hiddenRows.length <= 8) {
+					button.classList.add('wds-is-hidden');
+				}
 
 				hiddenRows.forEach((el, index) => {
 					// 8 rows ~ 20 images
 					if (index < 8) {
-						el.classList.remove('row-hidden');
+						el.classList.remove('wds-is-hidden');
 					}
 				});
 
