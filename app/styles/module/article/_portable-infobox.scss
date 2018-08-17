@@ -11,7 +11,7 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 
 .portable-infobox-wrapper {
-	margin-bottom: 12px;
+	margin-bottom: 2rem;
 	position: relative;
 
 	&:nth-of-type(n + 2) {
@@ -28,6 +28,10 @@ $infobox-img-border: 1px solid $wds-fandom-color-middle-gray;
 	// margin-top: -2px to hide border radius behind hero image if such is present
 	margin: -$infobox-border-radius/2 0 0;
 	padding-bottom: 6px;
+
+	.article-media-thumbnail {
+		margin-bottom: 0;
+	}
 
 	.article-media-gallery {
 		// position:relative needed here for proper setting the
