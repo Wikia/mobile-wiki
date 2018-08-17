@@ -462,7 +462,7 @@ export default function (owner) {
 					"specialRobotPolicy": "noindex,nofollow",
 					"htmlTitle": {
 						"separator": " | ",
-						"parts": ["\u0026lt;wikia-pagetitle-sitename\u0026gt;", "\u0026lt;wikia-pagetitle-brand\u0026gt;"]
+						"parts": ["Fallout Wiki", "FANDOM"]
 					},
 					"host": "fallout.wikia.com"
 				},
