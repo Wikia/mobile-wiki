@@ -1,11 +1,10 @@
-// TODO: move it to DS when all styles are set
 blockquote {
 	@extend %wds-font-size-base;
 	@extend %wds-leading-loose;
 	@extend %wds-font-style-italic;
 	@extend %wds-font-weight-normal;
 
-	margin-bottom: 16px;
+	margin-bottom: 1.125rem;
 	padding: 4px 0 4px 16px;
 
 	&::before {
@@ -25,7 +24,7 @@ blockquote {
 
 		color: $wds-fandom-color-aqua;
 		display: block;
-		margin-top: 20px;
+		margin-top: 1.125rem;
 		text-transform: uppercase;
 	}
 }
@@ -41,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-	margin-bottom: 18px;
+	margin-bottom: 1.125rem;
 }
 
 h1 {
@@ -92,7 +91,7 @@ section {
 }
 
 p {
-	margin: 16px 0;
+	margin: 0 0 1.125rem;
 }
 
 a {
