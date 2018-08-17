@@ -50,6 +50,8 @@ $gallery-item-margin: 12px;
 
 	&__view-more {
 		box-sizing: border-box;
+		display: block; // fixes bug in iOS 9 where text was left aligned
+		text-align: center;
 		width: 100%;
 	}
 }

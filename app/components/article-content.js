@@ -185,7 +185,7 @@ export default Component.extend(
 			const button = event.target.closest('.article-media-gallery__view-more');
 
 			if (button) {
-				const hiddenRows = button.closest('.article-media-gallery').querySelectorAll('.wds-is-hidden');
+				const hiddenRows = Array.from(button.closest('.article-media-gallery').querySelectorAll('.wds-is-hidden'));
 
 				if (hiddenRows.length <= 8) {
 					button.classList.add('wds-is-hidden');
