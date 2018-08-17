@@ -36,7 +36,8 @@ export default Mixin.create({
 			gaUrl: config.tracking.ua.scriptUrl,
 			noExternals,
 			facebookAppId: config.facebook.appId,
-			lazyCss: !this.get('fastboot.isFastBoot')
+			lazyCss: !this.get('fastboot.isFastBoot'),
+			twitterSite: model.wikiVariables.twitterAccount || '@getfandom'
 		});
 	}
 });

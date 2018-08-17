@@ -1,6 +1,7 @@
 .article-media-thumbnail {
 	@extend %position-play-icon;
 
+	margin-bottom: 1.125rem;
 	text-align: center;
 
 	figcaption {
@@ -15,11 +16,6 @@
 
 	img {
 		display: inline-block;
-	}
-
-	a {
-		display: block;
-		position: relative;
 	}
 
 	&.is-loading {
