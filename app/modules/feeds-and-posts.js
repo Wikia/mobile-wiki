@@ -15,16 +15,30 @@ function getModule() {
 	fpPromise = new Promise((resolve, reject) => {
 		const fpScript = document.createElement('script');
 		fpScript.onload = () => {
-			resolve(window.fp);
+			if (window.fp) {
+				resolve(window.fp);
+			} else {
+				reject();
+			}
 		};
 		fpScript.onerror = () => {
 			reject();
 		};
-		fpScript.src = '/feeds-and-posts/public/dist/lib.min.js';
+		fpScript.src = `/feeds-and-posts/public/dist/lib.min.js?${version()}`;
 		document.querySelector('head').appendChild(fpScript);
 	});
 
 	return fpPromise;
+}
+
+/**
+ * Creates a version string for cache busting
+ *
+ * @returns {string}
+ */
+function version() {
+	// Use number of hours passed since Jan. 1, 1970. That way cache is busted at most every hour.
+	return Math.floor((new Date()).getTime() / (60 * 60 * 1000));
 }
 
 /**
