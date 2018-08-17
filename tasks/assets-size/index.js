@@ -5,11 +5,11 @@ const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 const assetsSizes = {
 	'app.css': 87,
 	'design-system.svg': 34,
-	'lazy.css': 64,
-	'mobile-wiki.js': 440,
+	'lazy.css': 62,
+	'mobile-wiki.js': 430,
 	'vendor.js': 680,
 	'jwplayer/index.css': 19,
-	'jwplayer/wikiajwplayer.js': 58
+	'jwplayer/wikiajwplayer.js': 55
 };
 
 function getFileSize(path) {

@@ -73,7 +73,7 @@ export default Mixin.create({
 			pageHeader = document.querySelector('.wiki-page-header'),
 			adsData = this.get('ads.slotNames'),
 			globalFooter = document.querySelector('.wds-global-footer'),
-			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled,
 			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
 			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
@@ -116,7 +116,7 @@ export default Mixin.create({
 			curatedContent = this.element.querySelector('.curated-content'),
 			trendingArticles = this.element.querySelector('.trending-articles'),
 			globalFooter = document.querySelector('.wds-global-footer'),
-			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
+			slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled,
 			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
 			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
