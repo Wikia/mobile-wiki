@@ -32,9 +32,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#ADEN-7568",
     "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v8.1.1",
-    "@wikia/tracking-opt-in": "1.0.36",
     "@wikia/ember-fandom": "Wikia/ember-fandom#7b07ef1eb7c72cb2e70bb6ed5f8bfe4eea3faa6d",
+    "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.3",
