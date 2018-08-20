@@ -1,21 +1,15 @@
 {{#if type}}
 	<div class="lightbox-header {{if headerHidden 'wds-is-hidden'}}">
 		<div class="lightbox-close-wrapper">
-			{{#if closeButtonHidden}}
-				{{lightboxCloseButtonDelay}}
-			{{else}}
-				{{svg 'wds-icons-cross-tiny' role='img' class='wds-icon wds-icon-tiny lightbox-close-button'}}
-			{{/if}}
+			{{svg 'wds-icons-cross-tiny' role='img' class='wds-icon wds-icon-tiny lightbox-close-button'}}
 		</div>
 		<div class="lightbox-header-title">{{header}}</div>
 	</div>
 	<div class="lightbox-content">
 		{{component lightboxComponent
 			model=model
-			lightboxCloseButtonDelay=lightboxCloseButtonDelay
 			setFooter=(action 'setFooter')
 			setHeader=(action 'setHeader')
-			setCloseButtonHidden=(action 'setCloseButtonHidden')
 		}}
 	</div>
 	{{#if footer}}
