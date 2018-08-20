@@ -114,31 +114,6 @@ export default Route.extend(
 
 					adsModule.init();
 
-					/*
-					 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-					 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
-					 * for a user.
-					 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-					 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-					 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
-					 * lightboxVisible=false and then decide if we want to show it.
-					 */
-					adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-						if (!closeButtonDelay) {
-							closeButtonDelay = 0;
-						}
-
-						if (lightboxVisible) {
-							this.lightbox.open('ads', { contents }, closeButtonDelay);
-						} else {
-							this.lightbox.createHidden('ads', { contents }, closeButtonDelay);
-						}
-					};
-
-					adsModule.showLightbox = () => {
-						this.lightbox.show();
-					};
-
 					adsModule.setSiteHeadOffset = (offset) => {
 						this.set('ads.siteHeadOffset', offset);
 					};

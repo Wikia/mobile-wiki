@@ -18,14 +18,10 @@ export default Component.extend(RenderComponentMixin, {
 	headerHidden: false,
 	header: null,
 	footer: null,
-	closeButtonHidden: false,
 
 	isVisible: alias('lightbox.isVisible'),
-	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
 	type: alias('lightbox.lightboxType'),
 	model: alias('lightbox.model'),
-
-	closeAllowed: not('closeButtonHidden'),
 
 	lightboxComponent: computed('type', function () {
 		const type = this.type;
@@ -38,10 +34,6 @@ export default Component.extend(RenderComponentMixin, {
 		 * @returns {void}
 		 */
 		close() {
-			if (!this.closeAllowed) {
-				return;
-			}
-
 			this.setProperties({
 				footer: null,
 				header: null,
@@ -65,14 +57,6 @@ export default Component.extend(RenderComponentMixin, {
 		 */
 		setHeader(header) {
 			this.set('header', header);
-		},
-
-		/**
-		 * @param {boolean} hidden
-		 * @returns {void}
-		 */
-		setCloseButtonHidden(hidden) {
-			this.set('closeButtonHidden', hidden);
 		},
 
 		/**
@@ -112,7 +96,7 @@ export default Component.extend(RenderComponentMixin, {
 	 * @returns {void}
 	 */
 	keyDown(event) {
-		if (this.closeAllowed && event.keyCode === 27) {
+		if (event.keyCode === 27) {
 			this.send('close');
 		}
 	},
