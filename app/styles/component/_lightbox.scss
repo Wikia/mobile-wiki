@@ -46,12 +46,8 @@
 }
 
 .lightbox-close-wrapper {
-	box-sizing: content-box;
-	fill: white;
 	float: right;
-	height: 15px;
-	padding: 13px 13px 33px;
-	width: 15px;
+	padding: 16px;
 }
 
 .lightbox-close-button {
@@ -59,7 +55,7 @@
 }
 
 .lightbox-content {
-	background-color: $modal-background;
+	background-color: $wds-fandom-color-black;
 	height: 100%;
 	overflow: hidden;
 	width: 100%;
