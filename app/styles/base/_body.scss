@@ -13,3 +13,7 @@ body {
 	position: relative;
 	word-wrap: break-word;
 }
+
+.wds-button {
+	@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
+}

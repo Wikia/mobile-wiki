@@ -18,18 +18,14 @@
 }
 
 .article-comments {
-	.wds-button {
-		@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
-
-		&.show-reply-btn {
-			background-color: $wds-color-light-c2;
-			bottom: -16px;
-			box-sizing: border-box;
-			left: 50%;
-			position: absolute;
-			transform: translate(-50%);
-			z-index: 1;
-		}
+	.wds-button.show-reply-btn {
+		background-color: $wds-color-light-c2;
+		bottom: -16px;
+		box-sizing: border-box;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%);
+		z-index: 1;
 	}
 }
 
