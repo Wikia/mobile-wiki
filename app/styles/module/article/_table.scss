@@ -1,5 +1,7 @@
 .article-table-wrapper {
-	border: 1px solid $border-color-light;
+	background-color: $wds-color-white;
+	border: 1px solid $wds-fandom-color-mid-light-gray;
+	box-shadow: 0 6px 10px 0 rgba(26, 26, 26, .1);;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 
@@ -17,6 +19,10 @@
 
 	th,
 	td {
+		@extend %wds-font-size-s;
+		@extend %wds-leading-normal;
+
+		max-width: 224px;
 		padding: 10px;
 
 		figure {
@@ -35,6 +41,9 @@
 	}
 
 	th {
+		background: $wds-fandom-color-light-gray;
+		border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
+		border-right: 0;
 		text-align: left;
 		vertical-align: top;
 	}
