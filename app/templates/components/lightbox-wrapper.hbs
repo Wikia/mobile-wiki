@@ -17,8 +17,15 @@
 			setHeader=(action 'setHeader')
 			setCloseButtonHidden=(action 'setCloseButtonHidden')
 		}}
+		{{#if footer}}
+			<div class="lightbox-footer wds-font-size-s {{if footerHidden 'wds-is-hidden'}}">
+				{{#if footerHead}}
+					<div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{footerHead}}</div>
+				{{/if}}
+				<div class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if footerExpanded 'expanded'}}">
+					{{footer}}
+				</div>
+			</div>
+		{{/if}}
 	</div>
-	{{#if footer}}
-		<div class="lightbox-footer mw-content wds-font-weight-light {{if footerExpanded 'expanded'}} {{if footerHidden 'wds-is-hidden'}}">{{footer}}</div>
-	{{/if}}
 {{/if}}

@@ -43,7 +43,6 @@ export default Component.extend(
 		},
 
 		setFooter() {},
-		setHeader() {},
 
 		/**
 		 * gets current media or current media from gallery
@@ -176,7 +175,6 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		updateState() {
-			this.updateHeader();
 			this.updateFooter();
 			this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
@@ -184,26 +182,14 @@ export default Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		updateHeader() {
-			let header = null;
-
-			if (this.isGallery) {
-				header = `${(this.currentGalleryRef + 1)} / ${this.galleryLength}`;
-			}
-
-			this.setHeader(header);
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		updateFooter() {
 			const currentMedia = this.currentMedia;
+			let footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
 
 			if (currentMedia && currentMedia.caption) {
-				this.setFooter(htmlSafe(currentMedia.caption));
+				this.setFooter(htmlSafe(currentMedia.caption), footerHead);
 			} else {
-				this.setFooter(null);
+				this.setFooter(null, footerHead);
 			}
 		},
 	}

@@ -18,6 +18,7 @@ export default Component.extend(RenderComponentMixin, {
 	headerHidden: false,
 	header: null,
 	footer: null,
+	footerHead: '',
 	closeButtonHidden: false,
 
 	isVisible: alias('lightbox.isVisible'),
@@ -53,10 +54,12 @@ export default Component.extend(RenderComponentMixin, {
 
 		/**
 		 * @param {string} footer
+		 * @param {string} footerHead
 		 * @returns {void}
 		 */
-		setFooter(footer) {
+		setFooter(footer, footerHead) {
 			this.set('footer', footer);
+			this.set('footerHead', footerHead);
 		},
 
 		/**
@@ -98,7 +101,7 @@ export default Component.extend(RenderComponentMixin, {
 	click(event) {
 		const target = event.target;
 
-		if (target.classList.contains('lightbox-footer')) {
+		if (target.classList.contains('lightbox-footer-content')) {
 			this.send('toggleFooter');
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');

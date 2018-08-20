@@ -58,6 +58,7 @@
 	background-color: $wds-fandom-color-black;
 	height: 100%;
 	overflow: hidden;
+	position: relative;
 	width: 100%;
 
 	img {
@@ -81,28 +82,34 @@
 }
 
 .lightbox-footer {
-	background-color: rgba(black, .8);
 	bottom: 0;
-	height: auto;
 	left: 0;
-	max-height: 3rem;
-	padding: 15px 13px;
+	padding: 15px 18px;
 	position: absolute;
 	width: 100%;
 	z-index: $z-lightbox-footer;
+}
+
+.lightbox-footer-head {
+	margin-bottom: 6px;
+}
+
+.lightbox-footer-content {
+	height: auto;
+	max-height: 3rem;
 
 	&.expanded {
 		max-height: none;
 	}
+}
 
-	&::after {
-		background: linear-gradient(to bottom, transparent 10%, black 100%);
-		bottom: 0;
-		content: '';
-		display: block;
-		height: 15px;
-		left: 0;
-		position: absolute;
-		right: 0;
-	}
+.lightbox-media.lightbox-content-inner::after {
+	background-image: linear-gradient(to top, $wds-fandom-color-black, rgba($wds-fandom-color-black, 0));
+	bottom: 0;
+	content: ' ';
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	z-index: $z-lightbox-footer - 1;
 }
