@@ -237,17 +237,9 @@ export default {
 
 	setupIncontentPlayer() {
 		const { context } = window.Wikia.adEngine;
-		const slots = ['mobile_in_content', 'incontent_boxad_1'];
 
 		// ToDo: don't set up player if is UAP loaded
 		if (!context.get('custom.hasFeaturedVideo')) {
-			slots.forEach((slot) => {
-				const pos = context.get(`slots.${slot}.targeting.pos`);
-
-				pos.push('incontent_player');
-
-				context.set(`slots.${slot}.targeting.pos`, pos);
-			});
 			setSlotState('incontent_player', true);
 		}
 	}
