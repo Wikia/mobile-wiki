@@ -96,14 +96,17 @@
 
 .lightbox-footer-content {
 	height: auto;
-	max-height: 3rem;
+	max-height: 3.7em;
+	overflow: hidden;
 
 	&.expanded {
 		max-height: none;
 	}
 }
 
-.lightbox-media.lightbox-content-inner::after {
+// TODO: remove overlay when footer and header are hidden
+.lightbox-image.lightbox-content-inner::after,
+.lightbox-video.lightbox-content-inner::after {
 	background-image: linear-gradient(to top, $wds-fandom-color-black, rgba($wds-fandom-color-black, 0));
 	bottom: 0;
 	content: ' ';
@@ -112,4 +115,8 @@
 	right: 0;
 	top: 50%;
 	z-index: $z-lightbox-footer - 1;
+
+	.lightbox-ui-hidden & {
+		display: none;
+	}
 }

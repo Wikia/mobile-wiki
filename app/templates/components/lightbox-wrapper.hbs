@@ -1,5 +1,5 @@
 {{#if type}}
-	<div class="lightbox-header {{if headerHidden 'wds-is-hidden'}}">
+	<div class="lightbox-header {{if uiHidden 'wds-is-hidden'}}">
 		<div class="lightbox-close-wrapper">
 			{{#if closeButtonHidden}}
 				{{lightboxCloseButtonDelay}}
@@ -18,7 +18,7 @@
 			setCloseButtonHidden=(action 'setCloseButtonHidden')
 		}}
 		{{#if footer}}
-			<div class="lightbox-footer wds-font-size-s {{if footerHidden 'wds-is-hidden'}}">
+			<div class="lightbox-footer wds-font-size-s {{if uiHidden 'wds-is-hidden'}}">
 				{{#if footerHead}}
 					<div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{footerHead}}</div>
 				{{/if}}

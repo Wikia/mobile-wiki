@@ -8,14 +8,13 @@ export default Component.extend(RenderComponentMixin, {
 	lightbox: service(),
 
 	classNames: ['lightbox-wrapper', 'wds-font-size-xs', 'wds-leading-tight'],
-	classNameBindings: ['isVisible:open'],
+	classNameBindings: ['isVisible:open', 'uiHidden:lightbox-ui-hidden'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
 	footerExpanded: false,
-	footerHidden: false,
-	headerHidden: false,
+	uiHidden: false,
 	header: null,
 	footer: null,
 	footerHead: '',
@@ -89,8 +88,7 @@ export default Component.extend(RenderComponentMixin, {
 		 * @returns {void}
 		 */
 		toggleUI() {
-			this.toggleProperty('footerHidden');
-			this.toggleProperty('headerHidden');
+			this.toggleProperty('uiHidden');
 		},
 	},
 
