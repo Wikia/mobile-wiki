@@ -85,13 +85,13 @@ export default Component.extend(
 		 * @returns {boolean}
 		 */
 		shouldShowWikiaInYourLang() {
-			const value = localStorageConnector.getItem(this.alertKey),
-				now = new Date().getTime(),
-				/**
-				 * 2,592,000,000 = 30 days
-				 */
-				notDismissed = !value || (now - value > 2592000000),
-				notSameLanguage = this.isUserLangDifferentFromWikiLang();
+			const value = localStorageConnector.getItem(this.alertKey);
+			const now = new Date().getTime();
+			/**
+			 * 2,592,000,000 = 30 days
+			*/
+			const notDismissed = !value || (now - value > 2592000000);
+			const notSameLanguage = this.isUserLangDifferentFromWikiLang();
 
 			return notDismissed && notSameLanguage;
 		},
@@ -100,8 +100,8 @@ export default Component.extend(
 		 * @return {boolean}
 		 */
 		isUserLangDifferentFromWikiLang() {
-			const userLang = this.getBrowserLanguage(),
-				eligibleCountries = ['zh', 'ko', 'vi', 'ru', 'ja'];
+			const userLang = this.getBrowserLanguage();
+			const eligibleCountries = ['zh', 'ko', 'vi', 'ru', 'ja'];
 			let isDifferent = false;
 
 			if (eligibleCountries.indexOf(userLang) !== -1) {

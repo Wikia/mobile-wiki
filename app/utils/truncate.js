@@ -6,8 +6,8 @@
 export default function truncate(text, maxLength = 48) {
 	const ellipsisCharacter = '\u2026';
 
-	let truncatedString,
-		lastWhiteSpacePos;
+	let truncatedString;
+	let lastWhiteSpacePos;
 
 	if (typeof text !== 'string') {
 		return null;

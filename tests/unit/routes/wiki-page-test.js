@@ -26,14 +26,14 @@ module('Unit | Route | wiki page', (hooks) => {
 	});
 
 	test('set head tags for correct model', function (assert) {
-		const mock = this.owner.lookup('route:wikiPage'),
-			expectedHeadTags = {
-				canonical: 'http://muppet.wikia.com/wiki/Kermit',
-				description: 'Article about Kermit',
-				htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
-				robots: 'index,follow',
-				keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
-			};
+		const mock = this.owner.lookup('route:wikiPage');
+		const expectedHeadTags = {
+			canonical: 'http://muppet.wikia.com/wiki/Kermit',
+			description: 'Article about Kermit',
+			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
+			robots: 'index,follow',
+			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
+		};
 
 		let headData;
 
@@ -67,42 +67,40 @@ module('Unit | Route | wiki page', (hooks) => {
 	});
 
 	test('get correct handler based on model namespace', function (assert) {
-		const mock = this.owner.lookup('route:wikiPage'),
-			testCases = [
-				{
-					expectedHandler: {
-						viewName: 'article',
-						controllerName: 'article'
-					},
-					model: EmberObject.create({
-						ns: 0
-					})
-				},
-				{
-					expectedHandler: {
-						viewName: 'article',
-						controllerName: 'article'
-					},
-					model: EmberObject.create({
-						ns: 112
-					})
-				},
-				{
-					expectedHandler: {
-						viewName: 'category',
-						controllerName: 'category'
-					},
-					model: EmberObject.create({
-						ns: 14
-					})
-				},
-				{
-					expectedHandler: null,
-					model: EmberObject.create({
-						ns: 200
-					})
-				}
-			];
+		const mock = this.owner.lookup('route:wikiPage');
+		const testCases = [{
+			expectedHandler: {
+				viewName: 'article',
+				controllerName: 'article'
+			},
+			model: EmberObject.create({
+				ns: 0
+			})
+		},
+		{
+			expectedHandler: {
+				viewName: 'article',
+				controllerName: 'article'
+			},
+			model: EmberObject.create({
+				ns: 112
+			})
+		},
+		{
+			expectedHandler: {
+				viewName: 'category',
+				controllerName: 'category'
+			},
+			model: EmberObject.create({
+				ns: 14
+			})
+		},
+		{
+			expectedHandler: null,
+			model: EmberObject.create({
+				ns: 200
+			})
+		}];
 
 		mock.set('wikiVariables', {
 			contentNamespaces: [0, 112]
@@ -125,11 +123,11 @@ module('Unit | Route | wiki page', (hooks) => {
 	});
 
 	test('get correct handler based on model isCuratedMainPage', function (assert) {
-		const mock = this.owner.lookup('route:wikiPage'),
-			expectedHandler = {
-				viewName: 'main-page',
-				controllerName: 'main-page'
-			};
+		const mock = this.owner.lookup('route:wikiPage');
+		const expectedHandler = {
+			viewName: 'main-page',
+			controllerName: 'main-page'
+		};
 
 		let handler;
 

@@ -42,39 +42,38 @@ export default EmberObject.extend(
 		},
 
 		normalizePostData(threadData) {
-			const creationDate = threadData.creationDate,
-				createdBy = threadData.createdBy,
-				post = EmberObject.create({
-					categoryName: threadData.forumName,
-					contentImages: null,
-					createdBy: {
-						avatarUrl: createdBy.avatarUrl,
-						badgePermission: createdBy.badgePermission,
-						id: createdBy.id,
-						name: createdBy.name,
-						profileUrl: this.wikiUrls.build({
-							host: this.get('wikiVariables.host'),
-							namespace: 'User',
-							query: {
-								useskin: 'oasis'
-							},
-							title: createdBy.name
-						})
-					},
-					creationTimestamp: typeof creationDate === 'string' ?
-						(new Date(creationDate)).getTime() / 1000 :
-						creationDate.epochSecond,
-					id: threadData.firstPostId,
-					openGraph: null,
-					rawContent: threadData.rawContent,
-					repliesCount: parseInt(threadData.postCount, 10),
-					title: threadData.title,
-					threadId: threadData.id,
-					upvoteCount: parseInt(threadData.upvoteCount, 10),
-					userData: null,
-				}),
-				userData = get(threadData, '_embedded.userData.0'),
-				openGraphData = get(threadData, '_embedded.openGraph.0');
+			const creationDate = threadData.creationDate;
+			const createdBy = threadData.createdBy;
+			const post = EmberObject.create({
+				categoryName: threadData.forumName,
+				contentImages: null,
+				createdBy: {
+					avatarUrl: createdBy.avatarUrl,
+					badgePermission: createdBy.badgePermission,
+					id: createdBy.id,
+					name: createdBy.name,
+					profileUrl: this.wikiUrls.build({
+						host: this.get('wikiVariables.host'),
+						namespace: 'User',
+						query: {
+							useskin: 'oasis'
+						},
+						title: createdBy.name
+					})
+				},
+				creationTimestamp: typeof creationDate === 'string' ?
+					(new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
+				id: threadData.firstPostId,
+				openGraph: null,
+				rawContent: threadData.rawContent,
+				repliesCount: parseInt(threadData.postCount, 10),
+				title: threadData.title,
+				threadId: threadData.id,
+				upvoteCount: parseInt(threadData.upvoteCount, 10),
+				userData: null,
+			});
+			const userData = get(threadData, '_embedded.userData.0');
+			const openGraphData = get(threadData, '_embedded.openGraph.0');
 
 			if (userData) {
 				post.set('userData', EmberObject.create({
@@ -104,8 +103,8 @@ export default EmberObject.extend(
 		 * @returns {void}
 		 */
 		upvote(post) {
-			const hasUpvoted = post.get('userData.hasUpvoted'),
-				method = hasUpvoted ? 'delete' : 'post';
+			const hasUpvoted = post.get('userData.hasUpvoted');
+			const method = hasUpvoted ? 'delete' : 'post';
 
 			// Update frontend immediately. If error occurs then we revert state
 			post.set('userData.hasUpvoted', !hasUpvoted);

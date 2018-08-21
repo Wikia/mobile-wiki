@@ -6,18 +6,18 @@ import sinon from 'sinon';
 import require from 'require';
 import WikiPageHandlerMixin from 'mobile-wiki/mixins/wiki-page-handler';
 
-const articleModel = require('mobile-wiki/models/wiki/article').default,
-	categoryModel = require('mobile-wiki/models/wiki/category').default,
-	fileModel = require('mobile-wiki/models/wiki/file').default,
-	mediawikiNamespace = require('mobile-wiki/utils/mediawiki-namespace').default;
+const articleModel = require('mobile-wiki/models/wiki/article').default;
+const categoryModel = require('mobile-wiki/models/wiki/category').default;
+const fileModel = require('mobile-wiki/models/wiki/file').default;
+const mediawikiNamespace = require('mobile-wiki/utils/mediawiki-namespace').default;
 
-let articleCreateStub,
-	articleSetDataStub,
-	categoryCreateStub,
-	categorySetDataStub,
-	fileCreateStub,
-	fileSetDataStub,
-	isContentNamespaceStub;
+let articleCreateStub;
+let articleSetDataStub;
+let categoryCreateStub;
+let categorySetDataStub;
+let fileCreateStub;
+let fileSetDataStub;
+let isContentNamespaceStub;
 
 module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	setupTest(hooks);
@@ -51,17 +51,17 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
 	test('getModelForNamespace - article', function (assert) {
 		const data = {
-				data: {
-					ns: 0
-				}
-			},
-			params = {
-				title: 'Test'
-			},
-			expected = {
-				article: true,
-				setData: articleSetDataStub
-			};
+			data: {
+				ns: 0
+			}
+		};
+		const params = {
+			title: 'Test'
+		};
+		const expected = {
+			article: true,
+			setData: articleSetDataStub
+		};
 
 		articleCreateStub.returns(expected);
 		isContentNamespaceStub.returns(true);
@@ -73,18 +73,18 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
 	test('getModelForNamespace - main page in non-content namespace', function (assert) {
 		const data = {
-				data: {
-					ns: 999,
-					isMainPage: true
-				}
-			},
-			params = {
-				title: 'Test'
-			},
-			expected = {
-				mainPage: true,
-				setData: articleSetDataStub
-			};
+			data: {
+				ns: 999,
+				isMainPage: true
+			}
+		};
+		const params = {
+			title: 'Test'
+		};
+		const expected = {
+			mainPage: true,
+			setData: articleSetDataStub
+		};
 
 		articleCreateStub.returns(expected);
 		isContentNamespaceStub.returns(true);
@@ -96,17 +96,17 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
 	test('getModelForNamespace - category', function (assert) {
 		const data = {
-				data: {
-					ns: 14
-				}
-			},
-			params = {
-				title: 'Test'
-			},
-			expected = {
-				category: true,
-				setData: categorySetDataStub
-			};
+			data: {
+				ns: 14
+			}
+		};
+		const params = {
+			title: 'Test'
+		};
+		const expected = {
+			category: true,
+			setData: categorySetDataStub
+		};
 
 		categoryCreateStub.returns(expected);
 		isContentNamespaceStub.returns(false);
@@ -118,17 +118,17 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
 	test('getModelForNamespace - file', function (assert) {
 		const data = {
-				data: {
-					ns: 6
-				}
-			},
-			params = {
-				title: 'Test'
-			},
-			expected = {
-				file: true,
-				setData: fileSetDataStub
-			};
+			data: {
+				ns: 6
+			}
+		};
+		const params = {
+			title: 'Test'
+		};
+		const expected = {
+			file: true,
+			setData: fileSetDataStub
+		};
 
 		fileCreateStub.returns(expected);
 		isContentNamespaceStub.returns(false);
@@ -140,16 +140,16 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
 	test('getModelForNamespace - unsupported namespace', function (assert) {
 		const data = {
-				data: {
-					ns: 999
-				}
-			},
-			params = {
-				title: 'Test'
-			},
-			expected = EmberObject.create({
-				redirectTo: null
-			});
+			data: {
+				ns: 999
+			}
+		};
+		const params = {
+			title: 'Test'
+		};
+		const expected = EmberObject.create({
+			redirectTo: null
+		});
 
 		isContentNamespaceStub.returns(false);
 

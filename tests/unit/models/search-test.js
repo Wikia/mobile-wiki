@@ -193,13 +193,13 @@ module('Unit | Model | search result page', (hooks) => {
 		const model = this.owner.factoryFor('model:search');
 
 		const search = model.create({
-				wikiVariables: {
-					host: 'fallout.wikia.com',
-				},
-				totalBatches: 2,
-				query: 'testQuery'
-			}),
-			fetchSpy = sinon.spy(search, 'fetch');
+			wikiVariables: {
+				host: 'fallout.wikia.com',
+			},
+			totalBatches: 2,
+			query: 'testQuery'
+		});
+		const fetchSpy = sinon.spy(search, 'fetch');
 
 		search.loadMore();
 
