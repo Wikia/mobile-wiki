@@ -1,7 +1,9 @@
 <figure class="item-figure">
 	<div class="item-image" style={{style}}>
-		{{svg 'wds-icons-image' role='img' class='wds-icon'}}
-		<img src="{{thumbUrl}}" alt="{{model.label}}">
+		{{#unless imageLoaded}}
+			{{wds-icon name='image'}}
+		{{/unless}}
+		<img src="{{thumbUrl}}" alt="{{model.label}}" onload={{action (mut imageLoaded) true}}>
 	</div>
 	<figcaption class="item-figcaption">
 		<div class="item-caption-row">

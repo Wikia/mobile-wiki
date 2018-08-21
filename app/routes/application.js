@@ -20,7 +20,7 @@ import {
 	CachingInterval,
 	CachingPolicy
 } from '../utils/fastboot-caching';
-import { escapeRegex, normalizeToUnderscore } from '../utils/string';
+import { normalizeToUnderscore } from '../utils/string';
 import { track, trackActions } from '../utils/track';
 import ApplicationModel from '../models/application';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
@@ -344,10 +344,9 @@ export default Route.extend(
 					/**
 					 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
 					 * so that it will replace whatever is currently in the window.
-					 * TODO: this regex is alright for dev environment, but doesn't work well with production
 					 */
 					const domainRegex = new RegExp(
-						`^https?:\\/\\/[^\\/]+\\.${escapeRegex(config.productionBaseDomain)}\\/.*$`
+						`^https?:\\/\\/[^\\/]+\\.${config.baseDomainRegex}\\/.*$`
 					);
 
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {

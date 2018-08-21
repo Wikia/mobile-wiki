@@ -15,8 +15,13 @@ export function getHostFromRequest(request) {
 	let host = headers.get('x-original-host') || request.get('host');
 
 	if (headers.get('x-staging') === 'externaltest') {
-		const stagingRegex = new RegExp(`\\.(externaltest|showcase)\\.${escapeRegex(config.productionBaseDomain)}$`);
-		host = host.replace(stagingRegex, `.${config.productionBaseDomain}`);
+		// Support both wikia.com and fandom.com domains during the migration period
+		let baseDomain = config.productionBaseDomain;
+		if (host.indexOf(`.${config.alternateBaseDomain}`) > -1) {
+			baseDomain = config.alternateBaseDomain;
+		}
+		const stagingRegex = new RegExp(`\\.(externaltest|showcase)\\.${escapeRegex(baseDomain)}$`);
+		host = host.replace(stagingRegex, `.${baseDomain}`);
 	}
 
 	return host;
