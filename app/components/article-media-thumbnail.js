@@ -37,7 +37,7 @@ export default Component.extend({
 
 	click(event) {
 		// Don't open lightbox when image is linked by user or caption was clicked
-		if (!this.get('model.isLinkedByUser') && !event.target.closest('figcaption') && this.hasThumbnail) {
+		if (!event.target.closest('figcaption') && this.hasThumbnail) {
 			this.lightbox.open('media', this.model);
 
 			return false;
