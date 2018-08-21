@@ -1,6 +1,6 @@
-import { computed } from '@ember/object';
-import { oneWay, equal } from '@ember/object/computed';
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { equal, oneWay } from '@ember/object/computed';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import { track, trackActions } from '../utils/track';
 
@@ -14,6 +14,7 @@ export default Component.extend(
 
 		aspectRatio: 1,
 		imageWidth: 200,
+		imageLoaded: false,
 
 		openSection() {},
 
