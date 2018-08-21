@@ -16,9 +16,9 @@ export function getHostFromRequest(request) {
 
 	if (headers.get('x-staging') === 'externaltest') {
 		// Support both wikia.com and fandom.com domains during the migration period
-		let baseDomain = config.productionBaseDomain;
-		if (host.indexOf(`.${config.alternateBaseDomain}`) > -1) {
-			baseDomain = config.alternateBaseDomain;
+		let baseDomain = config.APP.productionBaseDomain;
+		if (host.indexOf(`.${config.APP.alternateBaseDomain}`) > -1) {
+			baseDomain = config.APP.alternateBaseDomain;
 		}
 		const stagingRegex = new RegExp(`\\.(externaltest|showcase)\\.${escapeRegex(baseDomain)}$`);
 		host = host.replace(stagingRegex, `.${baseDomain}`);

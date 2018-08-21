@@ -67,7 +67,7 @@ spec:
             value: prod
           - name: WIKIA_DATACENTER
             value: sjc
-          - name: MEDIAWIKI_DOMAIN
+          - name: INTERNAL_CACHE_HOST
             value: prod.icache.service.sjc.consul
         resources:
           requests:

@@ -178,7 +178,7 @@ export default Service.extend({
 		const url = redirectUrl || window.location.href;
 
 		window.location.href = this.build({
-			host: `www.${config.baseDomain}`,
+			host: `www.${config.APP.baseDomain}`,
 			langPath: '',
 			path: '/join',
 			query: {

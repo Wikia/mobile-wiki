@@ -346,7 +346,7 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 */
 					const domainRegex = new RegExp(
-						`^https?:\\/\\/[^\\/]+\\.${config.baseDomainRegex}\\/.*$`
+						`^https?:\\/\\/[^\\/]+\\.${config.APP.baseDomainRegex}\\/.*$`
 					);
 
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {

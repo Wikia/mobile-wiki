@@ -33,7 +33,7 @@ export default Service.extend({
 			cookieOptions = {
 				expires: date,
 				path: '/',
-				domain: config.cookieDomain
+				domain: config.APP.cookieDomain
 			};
 
 		date.setTime(date.getTime() + (days * this.dayInMiliseconds));

@@ -11,7 +11,7 @@ import fetch from 'fetch';
  * @returns {string}
  */
 function getDiscussionServiceUrl(path = '') {
-	return `https://${config.services.domain}/${config.services.discussions.baseAPIPath}${path}`;
+	return `${config.APP.servicesExternalHost}/discussion${path}`;
 }
 
 export default EmberObject.extend(

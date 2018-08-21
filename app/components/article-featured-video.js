@@ -198,7 +198,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		window.Cookies.set(cookieName, cookieValue, {
 			expires: this.playerCookieExpireDays,
 			path: '/',
-			domain: config.cookieDomain
+			domain: config.APP.cookieDomain
 		});
 	},
 

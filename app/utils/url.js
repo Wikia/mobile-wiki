@@ -1,5 +1,3 @@
-import config from '../config/environment';
-
 /**
  * Converting and escaping Querystring object to string.
  *
@@ -32,26 +30,6 @@ export function getQueryString(query = {}, { useBrackets = true, skipQuestionMar
 	return queryString;
 }
 
-
-/**
- * @param {string} url
- * @param {Object} [params={}]
- * @returns {string}
- */
-export function addQueryParams(url, params = {}) {
-	const paramsString = getQueryString(params, { skipQuestionMark: true });
-
-	if (paramsString.length > 0) {
-		if (url.indexOf('?') === -1) {
-			url = `${url}?`;
-		} else {
-			url = `${url}&`;
-		}
-	}
-
-	return `${url}${paramsString}`;
-}
-
 /**
  * @param {EventTarget} target
  * @returns {Boolean}
@@ -59,8 +37,4 @@ export function addQueryParams(url, params = {}) {
 export function isHashLink(target) {
 	// We need to use getAttribute because target.href returns whole resolved URL instead of the original value
 	return target.hasAttribute('href') && target.getAttribute('href').indexOf('#') === 0;
-}
-
-export function getOnSiteNotificationsServiceUrl(path = '') {
-	return `https://${config.services.domain}/${config.services.onSiteNotifications.baseAPIPath}${path}`;
 }

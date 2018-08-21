@@ -1,7 +1,7 @@
 import config from '../config/environment';
 import fetch from 'fetch';
 
-const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}`;
+const url = `${config.APP.servicesExternalHost}/event-logger`;
 
 function logEvent(resource, name, description = {}) {
 	if (config.environment === 'production') {
