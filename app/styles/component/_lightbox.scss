@@ -84,7 +84,7 @@
 .lightbox-footer {
 	bottom: 0;
 	left: 0;
-	padding: 18px;
+	padding: 18px 0 3px 18px;
 	position: absolute;
 	width: 100%;
 	z-index: $z-lightbox-footer;
@@ -94,14 +94,38 @@
 	margin-bottom: 6px;
 }
 
+.lightbox-footer-content-wrapper {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+}
+
 .lightbox-footer-content {
 	height: auto;
+	margin-bottom: 12px;
 	max-height: 3.7em;
 	overflow: hidden;
 	transition: max-height .3s;
 
 	&.expanded {
 		max-height: 10em;
+	}
+
+	&:last-child {
+		padding-right: 18px;
+	}
+}
+
+.lightbox-footer-link {
+	@include square(44px);
+
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	margin-right: 4px;
+
+	svg {
+		transform: rotate(-45deg);
 	}
 }
 

@@ -13,12 +13,13 @@ export default Component.extend(RenderComponentMixin, {
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
+	closeButtonHidden: false,
 	footerExpanded: false,
-	uiHidden: false,
-	header: null,
 	footer: null,
 	footerHead: '',
-	closeButtonHidden: false,
+	footerLink: null,
+	header: null,
+	uiHidden: false,
 
 	isVisible: alias('lightbox.isVisible'),
 	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
@@ -56,9 +57,10 @@ export default Component.extend(RenderComponentMixin, {
 		 * @param {string} footerHead
 		 * @returns {void}
 		 */
-		setFooter(footer, footerHead) {
+		setFooter(footer, footerHead, footerLink) {
 			this.set('footer', footer);
 			this.set('footerHead', footerHead);
+			this.set('footerLink', footerLink);
 		},
 
 		/**

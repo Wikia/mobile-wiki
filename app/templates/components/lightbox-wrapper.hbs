@@ -22,8 +22,11 @@
 				{{#if footerHead}}
 					<div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{footerHead}}</div>
 				{{/if}}
-				<div class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if footerExpanded 'expanded'}}">
-					{{footer}}
+				<div class="lightbox-footer-content-wrapper">
+					<div class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if footerExpanded 'expanded'}}">{{footer}}</div>
+					{{#if footerLink}}
+						<div class="lightbox-footer-link"><a href="{{footerLink}}">{{svg 'wds-icons-link' class='wds-icon wds-icon-small'}}</a></div>
+					{{/if}}
 				</div>
 			</div>
 		{{/if}}
