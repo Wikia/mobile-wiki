@@ -84,7 +84,7 @@
 .lightbox-footer {
 	bottom: 0;
 	left: 0;
-	padding: 15px 18px;
+	padding: 18px;
 	position: absolute;
 	width: 100%;
 	z-index: $z-lightbox-footer;
@@ -98,13 +98,13 @@
 	height: auto;
 	max-height: 3.7em;
 	overflow: hidden;
+	transition: max-height .3s;
 
 	&.expanded {
-		max-height: none;
+		max-height: 10em;
 	}
 }
 
-// TODO: remove overlay when footer and header are hidden
 .lightbox-image.lightbox-content-inner::after,
 .lightbox-video.lightbox-content-inner::after {
 	background-image: linear-gradient(to top, $wds-fandom-color-black, rgba($wds-fandom-color-black, 0));
