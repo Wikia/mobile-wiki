@@ -44,12 +44,12 @@ node('docker-daemon') {
                 ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
 
                 def vault_secrets = [
-                    [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
+                    [$class: 'VaultSecret', path: '/app/prod/static-assets/ceph_tokens_sjc', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'SJC_ACCESS_KEY', vaultKey: 'access_key'],
                             [$class: 'VaultSecretValue', envVar: 'SJC_SECRET_KEY', vaultKey: 'secret_key']
                         ]
                     ],
-                    [$class: 'VaultSecret', path: 'secret/chef/s3/res/prod', secretValues: [
+                    [$class: 'VaultSecret', path: '/app/prod/static-assets/ceph_tokens_res', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'RES_ACCESS_KEY', vaultKey: 'access_key'],
                             [$class: 'VaultSecretValue', envVar: 'RES_SECRET_KEY', vaultKey: 'secret_key']
                         ]
