@@ -1,4 +1,4 @@
-import { alias, not } from '@ember/object/computed';
+import { alias, not, or } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
@@ -7,7 +7,7 @@ export default Component.extend({
 	lightbox: service(),
 
 	classNames: ['lightbox-wrapper', 'wds-font-size-xs', 'wds-leading-tight'],
-	classNameBindings: ['isVisible:open', 'uiHidden:lightbox-ui-hidden'],
+	classNameBindings: ['isVisible:open', 'uiHidden:lightbox-ui-hidden', 'hasFooter:has-footer'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
@@ -27,6 +27,7 @@ export default Component.extend({
 	model: alias('lightbox.model'),
 
 	closeAllowed: not('closeButtonHidden'),
+	hasFooter: or('footer', 'footerHead', 'footerLink'),
 
 	lightboxComponent: computed('type', function () {
 		const type = this.type;
