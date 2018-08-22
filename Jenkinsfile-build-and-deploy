@@ -38,7 +38,6 @@ node('docker-daemon') {
 
 
     stage('Build and push image') {
-       if ( !imageExists ) {
             if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
@@ -69,7 +68,6 @@ node('docker-daemon') {
                 sh """#!/bin/sh
                 ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
             }
-        }
     }
 
     withDockerContainer(deployenv) {
