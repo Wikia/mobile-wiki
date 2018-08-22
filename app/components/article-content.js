@@ -69,9 +69,9 @@ export default Component.extend(
 
 					if (!this.disableWidgets) {
 						this.replaceWikiaWidgetsWithComponents();
+						this.handleWikiaWidgetWrappers();
 					}
 
-					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
 
