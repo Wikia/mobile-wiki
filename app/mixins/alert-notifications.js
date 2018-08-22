@@ -28,8 +28,8 @@ export default Mixin.create({
 	},
 
 	clearNotifications() {
-		const notifications = this.alertNotifications,
-			updatedNotifications = notifications.filter((item) => item.persistent);
+		const notifications = this.alertNotifications;
+		const updatedNotifications = notifications.filter((item) => item.persistent);
 
 		this.set('alertNotifications', updatedNotifications);
 	}

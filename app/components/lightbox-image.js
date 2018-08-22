@@ -117,10 +117,10 @@ export default Component.extend(
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 		 */
 		style: computed(function () {
-			const scale = this.scale.toFixed(2),
-				x = this.newX.toFixed(2),
-				y = this.newY.toFixed(2),
-				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
+			const scale = this.scale.toFixed(2);
+			const x = this.newX.toFixed(2);
+			const y = this.newY.toFixed(2);
+			const transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
 			return htmlSafe(`-webkit-${transform}${transform}`);
 		}),
@@ -361,9 +361,9 @@ export default Component.extend(
 		 * @returns {number}
 		 */
 		getScreenArea(event) {
-			const viewportWidth = this.get('viewportSize.width'),
-				x = event.center.x,
-				thirdPartOfScreen = viewportWidth / 3;
+			const viewportWidth = this.get('viewportSize.width');
+			const x = event.center.x;
+			const thirdPartOfScreen = viewportWidth / 3;
 
 			if (x < thirdPartOfScreen) {
 				return this.screenAreas.left;

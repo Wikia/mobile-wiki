@@ -181,8 +181,8 @@ export default Route.extend(
 		},
 
 		redirect(model) {
-			const fastboot = this.fastboot,
-				basePath = model.wikiVariables.basePath;
+			const fastboot = this.fastboot;
+			const basePath = model.wikiVariables.basePath;
 
 			if (fastboot.get('isFastBoot')) {
 				const protocol = fastboot.get('request.headers').get('fastly-ssl')
@@ -303,9 +303,9 @@ export default Route.extend(
 			handleLink(target) {
 				const currentRoute = this.router.get('currentRouteName');
 
-				let title,
-					trackingCategory,
-					info;
+				let title;
+				let trackingCategory;
+				let info;
 
 				if (currentRoute === 'wiki-page') {
 					title = this.controllerFor('wikiPage').get('model').get('title');

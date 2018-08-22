@@ -6,8 +6,8 @@ import truncate from '../utils/truncate';
  * @returns {string}
  */
 export default helper((params) => {
-	const text = params[0],
-		maxLength = params[1];
+	const text = params[0];
+	const maxLength = params[1];
 
 	return truncate(text, maxLength);
 });

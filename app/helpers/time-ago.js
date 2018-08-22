@@ -14,10 +14,10 @@ import Helper from '@ember/component/helper';
 export default Helper.extend({
 	i18n: service(),
 	compute([unixTimestamp]) {
-		const date = new Date(unixTimestamp * 1000),
-			now = new Date(),
-			diffInSeconds = (now - date) / 1000,
-			i18n = this.i18n;
+		const date = new Date(unixTimestamp * 1000);
+		const now = new Date();
+		const diffInSeconds = (now - date) / 1000;
+		const i18n = this.i18n;
 
 		if (diffInSeconds > 432000) {
 			// more than 5 days ago - show date

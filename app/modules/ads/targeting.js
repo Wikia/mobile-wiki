@@ -60,8 +60,8 @@ function getDomain() {
 }
 
 function getHostnamePrefix() {
-	const hostname = window.location.hostname.toLowerCase(),
-		match = /(^|.)(showcase|externaltest|preview|verify|stable|sandbox-[^.]+)\./.exec(hostname);
+	const hostname = window.location.hostname.toLowerCase();
+	const match = /(^|.)(showcase|externaltest|preview|verify|stable|sandbox-[^.]+)\./.exec(hostname);
 
 	if (match && match.length > 2) {
 		return match[2];

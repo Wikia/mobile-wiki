@@ -12,10 +12,10 @@ export default Component.extend(RenderComponentMixin, {
 	},
 
 	getScriptTag() {
-		const src = '//s.flite.com/syndication/combo.js',
-			guid = this.get('data.guid'),
-			width = this.get('data.width'),
-			height = this.get('data.height');
+		const src = '//s.flite.com/syndication/combo.js';
+		const guid = this.get('data.guid');
+		const width = this.get('data.width');
+		const height = this.get('data.height');
 
 		// make sure globl configuration for this widget is initialized
 		this.setUpConfig(guid);

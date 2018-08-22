@@ -18,9 +18,9 @@ export function initialize() {
 		 * @returns {boolean}
 		 */
 		_invoke(event) {
-			const action = this.action,
-				trackingCategory = this.trackingCategory,
-				trackingLabel = this.trackingLabel;
+			const action = this.action;
+			const trackingCategory = this.trackingCategory;
+			const trackingLabel = this.trackingLabel;
 
 			if (action) {
 				// There was an action specified (in handlebars) so take custom action

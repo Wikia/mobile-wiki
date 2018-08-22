@@ -1,8 +1,8 @@
-const EmberApp = require('ember-cli/lib/broccoli/ember-app'),
-	Funnel = require('broccoli-funnel'),
-	stew = require('broccoli-stew'),
-	SVGStore = require('broccoli-svgstore'),
-	lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Funnel = require('broccoli-funnel');
+const stew = require('broccoli-stew');
+const SVGStore = require('broccoli-svgstore');
+const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 
 /**
  * We override Ember's private method to remove files from the final build
@@ -117,11 +117,12 @@ module.exports = function (defaults) {
 
 	// Assets which are lazy loaded
 	const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
-			destDir: 'locales'
-		}),
-		jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
-			destDir: 'assets/jwplayer'
-		});
+		destDir: 'locales'
+	});
+
+	const jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
+		destDir: 'assets/jwplayer'
+	});
 
 	const adEngine3Assets = new Funnel('node_modules/@wikia/ad-products/dist', {
 		include: ['global-bundle.js'],

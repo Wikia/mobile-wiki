@@ -159,22 +159,24 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	 * @returns {void}
 	 */
 	initVideoPlayer() {
-		const model = this.get('model.embed'),
-			jsParams = {
-				autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY') &&
-							window.Cookies.get(this.autoplayCookieName) !== '0',
-				selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
-				adTrackingParams: {
-					adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
-					slotName: 'FEATURED'
-				},
-				containerId: this.videoContainerId,
-				noAds: this.get('ads.noAds'),
-				onCreate: this.onCreate.bind(this),
-				lang: this.get('wikiVariables.language.content')
+		const model = this.get('model.embed');
+		const jsParams = {
+			autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY') &&
+				window.Cookies.get(this.autoplayCookieName) !== '0',
+			selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
+			adTrackingParams: {
+				adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
+				slotName: 'FEATURED'
 			},
-			data = extend({}, model, { jsParams }),
-			videoLoader = new VideoLoader(data);
+			containerId: this.videoContainerId,
+			noAds: this.get('ads.noAds'),
+			onCreate: this.onCreate.bind(this),
+			lang: this.get('wikiVariables.language.content')
+		};
+		const data = extend({}, model, {
+			jsParams
+		});
+		const videoLoader = new VideoLoader(data);
 
 		videoLoader.loadPlayerClass();
 	},
@@ -211,12 +213,12 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			return;
 		}
 
-		const currentScrollPosition = window.pageYOffset,
-			// keep in sync with wds-global-navigation height
-			globalNavigationHeight = 55,
-			requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight,
-			isOnScrollActive = this.isOnScrollActive,
-			isInLandscapeMode = this.isInLandscapeMode();
+		const currentScrollPosition = window.pageYOffset;
+		// keep in sync with wds-global-navigation height
+		const globalNavigationHeight = 55;
+		const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
+		const isOnScrollActive = this.isOnScrollActive;
+		const isInLandscapeMode = this.isInLandscapeMode();
 
 		if (!isInLandscapeMode) {
 			if (currentScrollPosition >= requiredScrollDelimiter && !isOnScrollActive) {
@@ -228,8 +230,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	},
 
 	setPlaceholderDimensions() {
-		const placeHolder = this.element.querySelector('.article-featured-video__on-scroll-placeholder'),
-			videoContainer = this.element.children[0];
+		const placeHolder = this.element.querySelector('.article-featured-video__on-scroll-placeholder');
+		const videoContainer = this.element.children[0];
 
 		placeHolder.style.height = `${videoContainer.offsetHeight}px`;
 		placeHolder.style.width = `${videoContainer.offsetWidth}px`;

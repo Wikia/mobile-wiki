@@ -38,7 +38,8 @@ export default EmberObject.extend({
 	 * @returns {void}
 	 */
 	setData({ data }) {
-		let pageProperties, article;
+		let pageProperties;
+		let article;
 
 		if (data) {
 			// This data should always be set
