@@ -1,4 +1,3 @@
-
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
@@ -6,8 +5,9 @@ import { getWithDefault, get } from '@ember/object';
 import Ember from 'ember';
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
+import redirect from '@wikia/ember-fandom/utils/application-redirect';
+
 import config from '../config/environment';
-import ArticleModel from '../models/wiki/article';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
@@ -20,7 +20,6 @@ import {
 	CachingInterval,
 	CachingPolicy
 } from '../utils/fastboot-caching';
-import { normalizeToUnderscore } from '../utils/string';
 import { track, trackActions } from '../utils/track';
 import ApplicationModel from '../models/application';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
@@ -181,42 +180,7 @@ export default Route.extend(
 		},
 
 		redirect(model) {
-			const fastboot = this.fastboot;
-			const basePath = model.wikiVariables.basePath;
-
-			if (fastboot.get('isFastBoot')) {
-				const protocol = fastboot.get('request.headers').get('fastly-ssl')
-					? 'https:'
-					: fastboot.get('request.protocol');
-				const fastbootRequest = this.get('fastboot.request');
-
-				if (basePath === `${protocol}//${model.wikiVariables.host}`) {
-					return;
-				}
-
-				// PLATFORM-3351 - if x-wikia-wikiaappsid is present, allow https even if basePath is set to http.
-				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid') &&
-					basePath === `http://${model.wikiVariables.host}`
-				) {
-					return;
-				}
-
-				fastboot.get('response.headers').set(
-					'location',
-					`${basePath}${fastbootRequest.get('path')}`
-				);
-
-				// Use a 302 redirect for HTTPS downgrades to match the behaviour on Fastly for now (PLATFORM-3523)
-				if (protocol === 'https:' && basePath === `http://${model.wikiVariables.host}`) {
-					fastboot.set('response.statusCode', 302);
-				} else {
-					fastboot.set('response.statusCode', 301);
-				}
-
-				// TODO XW-3198
-				// We throw error to stop Ember and redirect immediately
-				throw new DontLogMeError();
-			}
+			redirect(model, this.fastboot);
 		},
 
 		activate() {
