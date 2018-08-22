@@ -171,3 +171,17 @@
 .lightbox-thumbnail-active {
 	border: 2px solid $wds-fandom-color-aqua;
 }
+
+.lightbox-image .loading {
+	@include is-loading;
+}
+
+@keyframes lazyImage {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
