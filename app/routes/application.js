@@ -6,14 +6,12 @@ import Ember from 'ember';
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import redirect from '@wikia/ember-fandom/utils/application-redirect';
+import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
 
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ErrorDescriptor from '../utils/error-descriptor';
-import {
-	WikiVariablesRedirectError,
-	DontLogMeError
-} from '../utils/errors';
+import { WikiVariablesRedirectError } from '../utils/errors';
 import {
 	disableCache,
 	setResponseCaching,
