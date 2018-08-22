@@ -162,6 +162,8 @@
 	@include square(44px);
 
 	border-radius: 4px;
+	border: 2px solid transparent;
+	box-sizing: content-box;
 
 	&:not(:first-child) {
 		margin-left: 6px;
