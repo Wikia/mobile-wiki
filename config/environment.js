@@ -20,8 +20,6 @@ module.exports = function (environment) {
 				appId: '112328095453510'
 			},
 			heliosTimeout: 3000,
-			productionBaseDomain: 'wikia.com',
-			alternateBaseDomain: 'fandom.com',
 			baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
 			tracking: {
 				ua: {
