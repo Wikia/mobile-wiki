@@ -14,17 +14,17 @@ export default EmberObject.extend({
 	simpleStore: service(),
 
 	fetch(title, uselangParam) {
-		const currentUser = this.currentUser,
-			fastboot = this.fastboot,
-			shoebox = fastboot.get('shoebox');
+		const currentUser = this.currentUser;
+		const fastboot = this.fastboot;
+		const shoebox = fastboot.get('shoebox');
 
 		if (fastboot.get('isFastBoot')) {
 			const protocol = fastboot.get('request.headers').get('fastly-ssl')
 				? 'https'
 				: fastboot.get('request.protocol').replace(':', '');
-			const host = fastboot.get('request.host'),
-				accessToken = fastboot.get('request.cookies.access_token'),
-				ownerInjection = getOwner(this).ownerInjection();
+			const host = fastboot.get('request.host');
+			const accessToken = fastboot.get('request.cookies.access_token');
+			const ownerInjection = getOwner(this).ownerInjection();
 
 			return all([
 				WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),

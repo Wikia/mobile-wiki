@@ -206,17 +206,17 @@ class Ads {
 
 	waitForUapResponse(uapCallback, noUapCallback) {
 		const wrappedUapCallback = () => {
-				this.uapCalled = true;
-				this.uapResult = true;
+			this.uapCalled = true;
+			this.uapResult = true;
 
-				uapCallback();
-			},
-			wrappedNoUapCallback = () => {
-				this.uapCalled = true;
-				this.uapResult = false;
+			uapCallback();
+		};
+		const wrappedNoUapCallback = () => {
+			this.uapCalled = true;
+			this.uapResult = false;
 
-				noUapCallback();
-			};
+			noUapCallback();
+		};
 
 		this.uapCallbacks.push(wrappedUapCallback);
 		this.noUapCallbacks.push(wrappedNoUapCallback);
@@ -291,19 +291,18 @@ class Ads {
 	 * @returns {void}
 	 */
 	addDetectionListeners() {
-		const GASettings = this.GASettings,
-			listenerSettings = [
-				{
-					name: 'babDetector',
-					eventName: 'bab.blocking',
-					value: true,
-				},
-				{
-					name: 'babDetector',
-					eventName: 'bab.not_blocking',
-					value: false,
-				},
-			];
+		const GASettings = this.GASettings;
+		const listenerSettings = [{
+			name: 'babDetector',
+			eventName: 'bab.blocking',
+			value: true,
+		},
+		{
+			name: 'babDetector',
+			eventName: 'bab.not_blocking',
+			value: false,
+		},
+		];
 
 		listenerSettings.map((listenerSetting) => {
 			document.addEventListener(listenerSetting.eventName, () => {
@@ -341,10 +340,10 @@ class Ads {
 	}
 
 	isTopLeaderboardApplicable() {
-		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo'),
-			isHome = this.getTargetingValue('pageType') === 'home',
-			hasPageHeader = !!document.querySelector('.wiki-page-header'),
-			hasPortableInfobox = !!document.querySelector('.portable-infobox');
+		const hasFeaturedVideo = this.getTargetingValue('hasFeaturedVideo');
+		const isHome = this.getTargetingValue('pageType') === 'home';
+		const hasPageHeader = !!document.querySelector('.wiki-page-header');
+		const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
 		return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 	}
@@ -354,11 +353,11 @@ class Ads {
 			return !!document.querySelector('.curated-content');
 		}
 
-		const firstSection = document.querySelector('.article-content > h2'),
-			firstSectionTop = (
-				firstSection &&
-				offset(firstSection).top
-			) || 0;
+		const firstSection = document.querySelector('.article-content > h2');
+		const firstSectionTop = (
+			firstSection &&
+			offset(firstSection).top
+		) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
 	}
@@ -368,8 +367,8 @@ class Ads {
 			return !!document.querySelector('.trending-articles');
 		}
 
-		const numberOfSections = document.querySelectorAll('.article-content > h2').length,
-			hasArticleFooter = !!document.querySelector('.article-footer');
+		const numberOfSections = document.querySelectorAll('.article-content > h2').length;
+		const hasArticleFooter = !!document.querySelector('.article-footer');
 
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
@@ -426,7 +425,7 @@ class Ads {
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
 
-				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks.forEach(callback => callback());
 				this.onReadyCallbacks = [];
 
 				if (typeof onContextLoadCallback === 'function') {
@@ -561,7 +560,7 @@ class Ads {
 	}
 
 	waitForReady() {
-		return new Promise((resolve) => this.onReady(resolve));
+		return new Promise(resolve => this.onReady(resolve));
 	}
 
 	/**

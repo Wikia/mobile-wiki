@@ -28,16 +28,16 @@ export default class VideoLoader {
 	 * @returns {void}
 	 */
 	loadPlayerClass() {
-		const provider = this.getProviderName(),
-			playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider),
-			params = Object.assign({}, this.data.jsParams, {
-				/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
-				size: {
-					height: this.data.height,
-					width: this.data.width
-				},
-				noAds: this.data.noAds,
-			});
+		const provider = this.getProviderName();
+		const playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider);
+		const params = Object.assign({}, this.data.jsParams, {
+			/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
+			size: {
+				height: this.data.height,
+				width: this.data.width
+			},
+			noAds: this.data.noAds,
+		});
 
 		this.player = VideoLoader.createPlayer(playerClass, provider, params);
 		this.player.setupPlayer();

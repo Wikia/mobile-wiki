@@ -124,8 +124,8 @@ export default Component.extend(
 		click(event) {
 			this.handleReferences(event);
 
-			const anchor = event.target.closest('a'),
-				label = this.getTrackingEventLabel(anchor);
+			const anchor = event.target.closest('a');
+			const label = this.getTrackingEventLabel(anchor);
 
 			if (label) {
 				track({
@@ -141,8 +141,8 @@ export default Component.extend(
 		},
 
 		handleImageClick(event) {
-			const figure = event.target.closest('figure:not(.is-ogg)'),
-				figCaption = event.target.closest('figcaption');
+			const figure = event.target.closest('figure:not(.is-ogg)');
+			const figCaption = event.target.closest('figcaption');
 
 			if (figure && !figCaption) {
 				this.openLightbox(figure);
@@ -320,9 +320,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetWithComponent(element) {
-			const widgetData = element.dataset,
-				widgetType = widgetData.wikiaWidget,
-				componentName = this.getWidgetComponentName(widgetType);
+			const widgetData = element.dataset;
+			const widgetType = widgetData.wikiaWidget;
+			const componentName = this.getWidgetComponentName(widgetType);
 
 			if (componentName) {
 				this.renderedComponents.push(
@@ -389,14 +389,14 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		handleInfoboxes() {
-			const shortClass = 'short',
-				infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody'),
-				body = window.document.body,
-				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+			const shortClass = 'short';
+			const infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody');
+			const body = window.document.body;
+			const scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 			if (infoboxes.length) {
 				toArray(infoboxes)
-					.filter((element) => element.rows.length > 6)
+					.filter(element => element.rows.length > 6)
 					.forEach((element) => {
 						element.classList.add(shortClass);
 						element.insertAdjacentHTML('beforeend',
@@ -464,7 +464,7 @@ export default Component.extend(
 			const tables = this.element.querySelectorAll('table');
 
 			toArray(tables)
-				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.filter(table => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
 				.forEach((element) => {
 					const originalHTML = element.outerHTML;
 
@@ -498,12 +498,12 @@ export default Component.extend(
 
 		handleCollapsibleSections() {
 			toArray(this.element.querySelectorAll('h2[section]'))
-				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
+				.forEach(header => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
 		},
 
 		uncollapseSections() {
 			toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
-				.forEach((header) => this.toogleCollapsibleSection(header));
+				.forEach(header => this.toogleCollapsibleSection(header));
 		}
 	}
 );

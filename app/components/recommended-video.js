@@ -173,7 +173,7 @@ export default Component.extend(NoScrollMixin, {
 		/* eslint-disable-next-line max-len */
 		const url = `https://cdn.jwplayer.com/v2/playlists/${this.playlistId}?related_media_id=${this.relatedMediaId}`;
 
-		return fetch(url).then((response) => response.json());
+		return fetch(url).then(response => response.json());
 	},
 
 	expandPlayer(playerInstance) {

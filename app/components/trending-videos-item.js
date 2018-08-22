@@ -24,11 +24,11 @@ export default Component.extend({
 
 	thumbUrl: computed('video.url', function () {
 		const options = {
-				width: this.imageWidth,
-				height: this.imageHeight,
-				mode: Thumbnailer.mode.topCrop
-			},
-			videoUrl = this.get('video.url');
+			width: this.imageWidth,
+			height: this.imageHeight,
+			mode: Thumbnailer.mode.topCrop
+		};
+		const videoUrl = this.get('video.url');
 
 		if (videoUrl) {
 			return Thumbnailer.getThumbURL(videoUrl, options);

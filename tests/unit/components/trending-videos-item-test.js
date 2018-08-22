@@ -21,10 +21,10 @@ module('Unit | Component | trending videos item', (hooks) => {
 	});
 
 	test('computes thumb url properly', function (assert) {
-		const imageWidth = 250,
-			// 16:9 ratio
-			imageHeight = 140,
-			componentMock = this.owner.factoryFor('component:trending-videos-item').create();
+		const imageWidth = 250;
+		// 16:9 ratio
+		const imageHeight = 140;
+		const componentMock = this.owner.factoryFor('component:trending-videos-item').create();
 
 		componentMock.setProperties({
 			imageWidth,

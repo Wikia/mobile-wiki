@@ -50,9 +50,10 @@ const serializers = {
 			return req;
 		}
 
-		const serializedReq = {},
-			allowedHeaders = ['accept', 'accept-language', 'fastly-client-ip', 'fastly-orig-accept-encoding',
-				'fastly-ssl', 'host', 'user-agent', 'x-beacon', 'x-forwarded-for'];
+		const serializedReq = {};
+		const allowedHeaders = ['accept', 'accept-language', 'fastly-client-ip', 'fastly-orig-accept-encoding',
+			'fastly-ssl', 'host', 'user-agent', 'x-beacon', 'x-forwarded-for'
+		];
 
 		allowedHeaders.forEach((field) => {
 			if (typeof req[field] !== 'undefined') {

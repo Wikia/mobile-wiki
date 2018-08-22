@@ -51,8 +51,8 @@ export function queryPlaceholders(element) {
 	Array.prototype.forEach.call(componentElements, (componentElement) => {
 		// if component is visible
 		if (componentElement.offsetParent) {
-			const name = componentElement.getAttribute('data-component'),
-				attrs = componentAttributes(componentElement);
+			const name = componentElement.getAttribute('data-component');
+			const attrs = componentAttributes(componentElement);
 
 			components.push({ attrs, name, element: componentElement });
 		}

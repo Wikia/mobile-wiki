@@ -1,5 +1,7 @@
 function deepExtend(out = {}) {
-	let i, key, obj;
+	let i;
+	let key;
+	let obj;
 
 	for (i = 1; i < arguments.length; i++) {
 		obj = arguments[i];

@@ -3,8 +3,8 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import trackModule from 'mobile-wiki/utils/track';
 
-let model,
-	trackStub;
+let model;
+let trackStub;
 
 module('Unit | Component | lightbox media', (hooks) => {
 	setupTest(hooks);

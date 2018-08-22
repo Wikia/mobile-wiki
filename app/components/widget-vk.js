@@ -60,8 +60,8 @@ export default Component.extend(
 		 */
 		createWidget() {
 			if (this.get('scriptLoaded.vk')) {
-				const elementId = this.elementId,
-					data = this.data;
+				const elementId = this.elementId;
+				const data = this.data;
 
 				window.VK.Widgets.Group(elementId, data, data.groupId);
 			}
