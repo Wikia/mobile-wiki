@@ -3,14 +3,12 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
-import RenderComponentMixin from '../mixins/render-component';
 
 /**
  * Component that is used inside ligthbox-media component
  * to handle displaying video
  */
 export default Component.extend(
-	RenderComponentMixin,
 	RespondsToResize,
 	{
 		ads: service(),

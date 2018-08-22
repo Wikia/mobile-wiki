@@ -2,9 +2,8 @@ import { alias, not } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend({
 	lightbox: service(),
 
 	classNames: ['lightbox-wrapper', 'wds-font-size-xs', 'wds-leading-tight'],

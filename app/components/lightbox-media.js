@@ -4,174 +4,170 @@ import { htmlSafe } from '@ember/string';
 import { isArray } from '@ember/array';
 import { observer, computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import RenderComponentMixin from '../mixins/render-component';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeToUnderscore } from '../utils/string';
 
-export default Component.extend(
-	RenderComponentMixin,
-	{
-		lightbox: service(),
-		logger: service(),
+export default Component.extend({
+	lightbox: service(),
+	logger: service(),
 
-		classNames: ['lightbox-media', 'lightbox-content-inner'],
-		// This is needed for keyDown event to work
-		attributeBindings: ['tabindex'],
+	classNames: ['lightbox-media', 'lightbox-content-inner'],
+	// This is needed for keyDown event to work
+	attributeBindings: ['tabindex'],
 
-		tabindex: 0,
-		videoPlayer: null,
+	tabindex: 0,
+	videoPlayer: null,
 
-		gestures: {
-			/**
-			 * @returns {void}
-			 */
-			swipeLeft() {
-				if (this.isGallery) {
-					this.nextMedia();
-				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			swipeRight() {
-				if (this.isGallery) {
-					this.prevMedia();
-				}
-			},
-		},
-
-		setFooter() {},
-		setThumbnails() {},
-
+	gestures: {
 		/**
-		 * gets current media or current media from gallery
-		 */
-		currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
-			const current = this.model;
-
-			return this.isGallery ? current[this.currentGalleryRef] : current;
-		}),
-
-		currentGalleryRef: computed('model.galleryRef', {
-			get() {
-				return this.get('model.galleryRef') || 0;
-			},
-
-			set(key, value) {
-				const galleryLength = this.galleryLength - 1;
-
-				if (value < 0) {
-					return galleryLength;
-				} else if (value > galleryLength) {
-					return 0;
-				}
-
-				this.set('model.galleryRef', value);
-
-				return value;
-			},
-		}),
-
-		galleryLength: computed('isGallery', 'model', function () {
-			return this.isGallery ? this.model.length : -1;
-		}),
-
-		/**
-		 * checks if current displayed media is a gallery
-		 */
-		isGallery: computed('model', function () {
-			return isArray(this.model);
-		}),
-
-		/**
-		 * checks if current media is a video or image and which lightbox component to render
-		 */
-		lightboxComponent: computed('currentMedia', function () {
-			const currentMedia = this.currentMedia;
-
-			return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
-		}),
-
-		currentMediaObserver: observer('currentMedia', function () {
-			this.updateState();
-		}),
-
-		didInsertElement() {
-			this._super(...arguments);
-
-			this.updateState();
-			this.updateThumbnails();
-		},
-
-		/**
-		 * @param {Event} event
 		 * @returns {void}
 		 */
-		keyDown(event) {
+		swipeLeft() {
 			if (this.isGallery) {
-				if (event.keyCode === 39) {
-					// handle right arrow
-					this.nextMedia();
-				} else if (event.keyCode === 37) {
-					// handle left arrow
-					this.prevMedia();
-				}
-			}
-
-			this._super(event);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		nextMedia() {
-			this.incrementProperty('currentGalleryRef');
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		prevMedia() {
-			this.decrementProperty('currentGalleryRef');
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		updateState() {
-			this.updateFooter();
-			this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		updateFooter() {
-			const currentMedia = this.currentMedia;
-			let footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
-			let footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
-
-			if (currentMedia && currentMedia.caption) {
-				this.setFooter(htmlSafe(currentMedia.caption), footerHead, footerLink);
-			} else {
-				this.setFooter(null, footerHead, footerLink);
+				this.nextMedia();
 			}
 		},
 
-		updateThumbnails() {
-			if (this.get('isGallery')) {
-				const currentGalleryRef = this.get('currentGalleryRef');
-				const thumbnails = this.get('model').map((item, index) => {
-					return {
-						url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
-						ref: index,
-						active: index === currentGalleryRef,
-					};
-				});
+		/**
+		 * @returns {void}
+		 */
+		swipeRight() {
+			if (this.isGallery) {
+				this.prevMedia();
+			}
+		},
+	},
 
-				this.setThumbnails(thumbnails);
+	setFooter() {},
+	setThumbnails() {},
+
+	/**
+	 * gets current media or current media from gallery
+	 */
+	currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
+		const current = this.model;
+
+		return this.isGallery ? current[this.currentGalleryRef] : current;
+	}),
+
+	currentGalleryRef: computed('model.galleryRef', {
+		get() {
+			return this.get('model.galleryRef') || 0;
+		},
+
+		set(key, value) {
+			const galleryLength = this.galleryLength - 1;
+
+			if (value < 0) {
+				return galleryLength;
+			} else if (value > galleryLength) {
+				return 0;
+			}
+
+			this.set('model.galleryRef', value);
+
+			return value;
+		},
+	}),
+
+	galleryLength: computed('isGallery', 'model', function () {
+		return this.isGallery ? this.model.length : -1;
+	}),
+
+	/**
+	 * checks if current displayed media is a gallery
+	 */
+	isGallery: computed('model', function () {
+		return isArray(this.model);
+	}),
+
+	/**
+	 * checks if current media is a video or image and which lightbox component to render
+	 */
+	lightboxComponent: computed('currentMedia', function () {
+		const currentMedia = this.currentMedia;
+
+		return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
+	}),
+
+	currentMediaObserver: observer('currentMedia', function () {
+		this.updateState();
+	}),
+
+	didInsertElement() {
+		this._super(...arguments);
+
+		this.updateState();
+		this.updateThumbnails();
+	},
+
+	/**
+	 * @param {Event} event
+	 * @returns {void}
+	 */
+	keyDown(event) {
+		if (this.isGallery) {
+			if (event.keyCode === 39) {
+				// handle right arrow
+				this.nextMedia();
+			} else if (event.keyCode === 37) {
+				// handle left arrow
+				this.prevMedia();
 			}
 		}
+
+		this._super(event);
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	nextMedia() {
+		this.incrementProperty('currentGalleryRef');
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	prevMedia() {
+		this.decrementProperty('currentGalleryRef');
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	updateState() {
+		this.updateFooter();
+		this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	updateFooter() {
+		const currentMedia = this.currentMedia;
+		let footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
+		let footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
+
+		if (currentMedia && currentMedia.caption) {
+			this.setFooter(htmlSafe(currentMedia.caption), footerHead, footerLink);
+		} else {
+			this.setFooter(null, footerHead, footerLink);
+		}
+	},
+
+	updateThumbnails() {
+		if (this.get('isGallery')) {
+			const currentGalleryRef = this.get('currentGalleryRef');
+			const thumbnails = this.get('model').map((item, index) => {
+				return {
+					url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
+					ref: index,
+					active: index === currentGalleryRef,
+				};
+			});
+
+			this.setThumbnails(thumbnails);
+		}
 	}
-);
+});
