@@ -231,11 +231,11 @@ export default Route.extend(
 				// the Table of Contents menu) can reset appropriately
 				this.notifyPropertyChange('displayTitle');
 
-				// try {
-				// 	this.ads.destroyAdSlotComponents();
-				// } catch (e) {
-				// 	logError('destroyAdSlotComponents', e);
-				// }
+				try {
+					this.ads.destroyAdSlotComponents();
+				} catch (e) {
+					logError('destroyAdSlotComponents', e);
+				}
 
 				this.lightbox.close();
 			},
