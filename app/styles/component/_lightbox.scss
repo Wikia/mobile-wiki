@@ -81,6 +81,10 @@
 	height: 100%;
 	justify-content: center;
 	width: 100%;
+
+	&:focus {
+		outline: none;
+	}
 }
 
 .lightbox-footer {

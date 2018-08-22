@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import RenderComponentMixin from '../mixins/render-component';
+import scrollIntoView from '../utils/scroll-into-view';
 
 export default Component.extend(RenderComponentMixin, {
 	lightbox: service(),
@@ -131,7 +132,8 @@ export default Component.extend(RenderComponentMixin, {
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');
 		} else if (target.classList.contains('lightbox-thumbnail') || target.closest('.lightbox-thumbnails-container')) {
-			this.set('model.galleryRef', parseInt(target.getAttribute('data-ref'), 10))
+			this.set('model.galleryRef', parseInt(target.getAttribute('data-ref'), 10));
+			scrollIntoView(target, { block: 'end', inline: 'nearest', behavior: 'smooth' });
 		} else {
 			this.send('toggleUI');
 		}
