@@ -33,7 +33,7 @@ export default EmberObject.extend(
 			});
 
 			return fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/threads${queryString}`))
-				.then((response) => response.json())
+				.then(response => response.json())
 				.then(this.normalizeData.bind(this));
 		},
 

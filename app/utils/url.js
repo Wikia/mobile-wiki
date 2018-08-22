@@ -18,7 +18,7 @@ export function getQueryString(query = {}, { useBrackets = true, skipQuestionMar
 			if (query[key] instanceof Array) {
 				if (query[key].length) {
 					return query[key]
-						.map((item) => `${encodeURIComponent(key)}${brackets}=${encodeURIComponent(item)}`)
+						.map(item => `${encodeURIComponent(key)}${brackets}=${encodeURIComponent(item)}`)
 						.join('&');
 				}
 			} else {

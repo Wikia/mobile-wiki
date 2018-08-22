@@ -425,7 +425,7 @@ class Ads {
 			if (adsContext) {
 				this.adContextModule.setContext(adsContext);
 
-				this.onReadyCallbacks.forEach((callback) => callback());
+				this.onReadyCallbacks.forEach(callback => callback());
 				this.onReadyCallbacks = [];
 
 				if (typeof onContextLoadCallback === 'function') {
@@ -560,7 +560,7 @@ class Ads {
 	}
 
 	waitForReady() {
-		return new Promise((resolve) => this.onReady(resolve));
+		return new Promise(resolve => this.onReady(resolve));
 	}
 
 	/**

@@ -33,7 +33,7 @@ export default EmberObject.extend({
 			timeout: config.APP.heliosTimeout,
 		}).then((response) => {
 			if (response.ok) {
-				return response.json().then((data) => data.user_id);
+				return response.json().then(data => data.user_id);
 			} else {
 				if (response.status === 401) {
 					this.logger.info('Token not authorized by Helios');
