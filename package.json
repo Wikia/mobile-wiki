@@ -34,7 +34,7 @@
   "dependencies": {
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.0",
     "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v8.2.0",
-    "@wikia/ember-fandom": "Wikia/ember-fandom#a7c16658a3736686a504f6e7bcd2603be85e3f50",
+    "@wikia/ember-fandom": "Wikia/ember-fandom#85b753bee91093617309aab087a1dfe73d3ec7b9",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
     "bunyan-prettystream": "0.1.3",
