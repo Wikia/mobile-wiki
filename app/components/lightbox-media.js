@@ -96,12 +96,6 @@ export default Component.extend(
 			this.updateState();
 		}),
 
-		currentGalleryRefObserver: observer('currentGalleryRef', function () {
-			if (this.get('isGallery')) {
-				this.setCurrentThumbnail(this.get('currentGalleryRef'));
-			}
-		}),
-
 		didInsertElement() {
 			this._super(...arguments);
 
@@ -146,6 +140,9 @@ export default Component.extend(
 		 */
 		updateState() {
 			this.updateFooter();
+			if (this.get('isGallery')) {
+				this.setCurrentThumbnail(this.get('currentGalleryRef'));
+			}
 			this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
