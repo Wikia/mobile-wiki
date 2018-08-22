@@ -3,7 +3,9 @@ const trackingRouteName = 'special/adengadinfo';
 const onChangeStatusToTrack = [
 	'blocked',
 	'error',
-	'viewport-conflict'
+	'viewport-conflict',
+	'sticked',
+	'unsticked',
 ];
 
 function getPosParameter({ pos = '' }) {
