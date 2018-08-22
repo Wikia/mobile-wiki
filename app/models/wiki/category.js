@@ -31,7 +31,7 @@ export default BaseModel.extend({
 				format: 'json'
 			}
 		}))
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then(({ data }) => {
 				if (isEmpty(data) || isEmpty(data.membersGrouped)) {
 					throw new Error('Unexpected response from server');

@@ -61,7 +61,7 @@ export default EmberObject.extend(LanguagesMixin, {
 				}
 			})
 		)
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then((resp) => {
 				let out = null;
 

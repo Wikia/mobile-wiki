@@ -29,7 +29,7 @@ module('Integration | Component | article content', (hooks) => {
 	let adsModuleStub;
 
 	hooks.beforeEach(function () {
-		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: cb => cb(getAdsModuleMock()) });
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
 		mockAdsService(this.owner);
