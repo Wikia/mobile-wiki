@@ -82,8 +82,8 @@ module('Integration | Component | article content', (hooks) => {
 			'<p>some content</p>' +
 			'<aside class="wiki-page-header"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>',
-			setupAdsContextSpy = sinon.spy();
+			'<div>more content</div>';
+		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
 			adsContext: {

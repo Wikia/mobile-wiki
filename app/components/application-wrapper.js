@@ -70,8 +70,8 @@ export default Component.extend({
 		 * because if the user clicks the part of the link in the <i></i> then
 		 * target.tagName will register as 'I' and not 'A'.
 		 */
-		const anchor = event.target.closest('a'),
-			target = anchor || event.target;
+		const anchor = event.target.closest('a');
+		const target = anchor || event.target;
 		let tagName;
 
 		if (target && this.shouldHandleClick(target)) {

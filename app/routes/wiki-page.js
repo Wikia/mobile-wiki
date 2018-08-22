@@ -310,16 +310,16 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model) {
-			const handler = this.wikiHandler,
-				pageUrl = model.get('url'),
-				pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`,
-				data = {
-					htmlTitle: model.get('htmlTitle'),
-					description: model.get('description'),
-					robots: 'index,follow',
-					canonical: pageFullUrl,
-					amphtml: model.get('amphtml')
-				};
+			const handler = this.wikiHandler;
+			const pageUrl = model.get('url');
+			const pageFullUrl = `${this.get('wikiVariables.basePath')}${pageUrl}`;
+			const data = {
+				htmlTitle: model.get('htmlTitle'),
+				description: model.get('description'),
+				robots: 'index,follow',
+				canonical: pageFullUrl,
+				amphtml: model.get('amphtml')
+			};
 
 			if (pageUrl) {
 				data.appArgument = pageFullUrl;
@@ -337,9 +337,9 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		trackPageView(model) {
-			const articleType = model.get('articleType'),
-				namespace = model.get('ns'),
-				uaDimensions = {};
+			const articleType = model.get('articleType');
+			const namespace = model.get('ns');
+			const uaDimensions = {};
 
 			// update UA dimensions
 			if (model.adsContext) {

@@ -20,22 +20,22 @@
  */
 
 export const CachingPolicy = {
-		Private: 'private',
-		Public: 'public'
-	},
-	// Caching expire intervals
-	CachingInterval = {
-		// 30 days in seconds
-		long: 2.592e+6,
-		// 24h in seconds
-		standard: 8.64e+4,
-		// 3h in seconds
-		short: 1.08e+4,
-		// disabled
-		disabled: 0,
-		// default
-		default: -1
-	};
+	Private: 'private',
+	Public: 'public'
+};
+// Caching expire intervals
+export const CachingInterval = {
+	// 30 days in seconds
+	long: 2.592e+6,
+	// 24h in seconds
+	standard: 8.64e+4,
+	// 3h in seconds
+	short: 1.08e+4,
+	// disabled
+	disabled: 0,
+	// default
+	default: -1
+};
 
 /**
  * Disables use of cache in the response

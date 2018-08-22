@@ -29,8 +29,8 @@ export default Component.extend(
 		 * determines if this infobox is a short one or a long one (needs collapsing)
 		 */
 		isLongInfobox: computed('collapsedHeight', 'height', function () {
-			const collapsedHeight = this.collapsedHeight,
-				height = this.height;
+			const collapsedHeight = this.collapsedHeight;
+			const height = this.height;
 
 			return height > collapsedHeight;
 		}),
@@ -43,9 +43,9 @@ export default Component.extend(
 		 * indicate that this is infobox, not only an ordinary image.
 		 */
 		collapsedHeight: computed(() => {
-			const deviceWidth = document.documentElement.clientWidth,
-				deviceHeight = document.documentElement.clientHeight,
-				isLandscape = deviceWidth > deviceHeight;
+			const deviceWidth = document.documentElement.clientWidth;
+			const deviceHeight = document.documentElement.clientHeight;
+			const isLandscape = deviceWidth > deviceHeight;
 
 			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 		}),
@@ -61,8 +61,8 @@ export default Component.extend(
 		actions: {
 			toogleInfobox() {
 				if (!this.collapsed) {
-					const body = window.document.body,
-						scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+					const body = window.document.body;
+					const scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 					this.collapse();
 					track({

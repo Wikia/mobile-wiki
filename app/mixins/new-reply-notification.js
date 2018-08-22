@@ -7,11 +7,11 @@ export default Mixin.create({
 	 * @returns {string}
 	 */
 	getReplyMessageBody(model) {
-		const hasTitle = model.get('title'),
-			totalUniqueActors = model.get('totalUniqueActors'),
-			hasTwoUsers = totalUniqueActors === 2,
-			hasThreeOrMoreUsers = totalUniqueActors > 2,
-			firstReplierName = model.get('latestActors.0.name');
+		const hasTitle = model.get('title');
+		const totalUniqueActors = model.get('totalUniqueActors');
+		const hasTwoUsers = totalUniqueActors === 2;
+		const hasThreeOrMoreUsers = totalUniqueActors > 2;
+		const firstReplierName = model.get('latestActors.0.name');
 
 		if (hasTitle) {
 			if (hasThreeOrMoreUsers) {

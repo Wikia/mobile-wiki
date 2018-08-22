@@ -57,15 +57,15 @@ export default class BasePlayer {
 		const container = document.querySelector(containerSelector);
 
 		if (container) {
-			const lightbox = document.querySelector('.lightbox-wrapper'),
-				lightboxWidth = lightbox ? lightbox.offsetWidth : null,
-				lightboxHeight = lightbox ? lightbox.offsetHeight : null,
-				targetSize = containerSize(
-					lightboxWidth,
-					lightboxHeight,
-					this.videoWidth,
-					this.videoHeight
-				);
+			const lightbox = document.querySelector('.lightbox-wrapper');
+			const lightboxWidth = lightbox ? lightbox.offsetWidth : null;
+			const lightboxHeight = lightbox ? lightbox.offsetHeight : null;
+			const targetSize = containerSize(
+				lightboxWidth,
+				lightboxHeight,
+				this.videoWidth,
+				this.videoHeight
+			);
 
 			let sanitizedSize;
 
@@ -91,8 +91,8 @@ export default class BasePlayer {
 	 * @returns {string}
 	 */
 	static createUniqueId(id) {
-		const element = document.getElementById(id),
-			newId = id + new Date().getTime();
+		const element = document.getElementById(id);
+		const newId = id + new Date().getTime();
 
 		if (element) {
 			element.id = newId;

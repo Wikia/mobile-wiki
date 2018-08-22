@@ -20,10 +20,10 @@ function setSlotState(slotName, state) {
 function isTopLeaderboardApplicable() {
 	const { context } = window.Wikia.adEngine;
 
-	const hasFeaturedVideo = context.get('custom.hasFeaturedVideo'),
-		isHome = context.get('custom.pageType') === 'home',
-		hasPageHeader = !!document.querySelector('.wiki-page-header'),
-		hasPortableInfobox = !!document.querySelector('.portable-infobox');
+	const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
+	const isHome = context.get('custom.pageType') === 'home';
+	const hasPageHeader = !!document.querySelector('.wiki-page-header');
+	const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
 	return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
 }
@@ -35,11 +35,11 @@ function isInContentApplicable() {
 		return !!document.querySelector('.curated-content');
 	}
 
-	const firstSection = document.querySelector('.article-content > h2'),
-		firstSectionTop = (
-			firstSection &&
-			offset(firstSection).top
-		) || 0;
+	const firstSection = document.querySelector('.article-content > h2');
+	const firstSectionTop = (
+		firstSection &&
+		offset(firstSection).top
+	) || 0;
 
 	return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
 }
@@ -51,8 +51,8 @@ function isPrefooterApplicable(isInContentApplicable) {
 		return !!document.querySelector('.trending-articles');
 	}
 
-	const numberOfSections = document.querySelectorAll('.article-content > h2').length,
-		hasArticleFooter = !!document.querySelector('.article-footer');
+	const numberOfSections = document.querySelectorAll('.article-content > h2').length;
+	const hasArticleFooter = !!document.querySelector('.article-footer');
 
 	return hasArticleFooter && !isInContentApplicable || numberOfSections > MIN_NUMBER_OF_SECTIONS;
 }

@@ -20,10 +20,10 @@ module('Unit | Component | trending articles item', (hooks) => {
 	});
 
 	test('sets proper url for the image', function (asset) {
-		const imageWidth = 250,
-			// 16:9 ratio
-			imageHeight = 140,
-			componentMock = this.owner.factoryFor('component:trending-articles-item').create();
+		const imageWidth = 250;
+		// 16:9 ratio
+		const imageHeight = 140;
+		const componentMock = this.owner.factoryFor('component:trending-articles-item').create();
 
 		componentMock.setProperties({
 			imageWidth,

@@ -1,9 +1,9 @@
 import ArticleHandler from './article';
 
 function getDynamicHeadTags(model) {
-	const nextPageUrl = model.get('nextPageUrl'),
-		prevPageUrl = model.get('prevPageUrl'),
-		data = {};
+	const nextPageUrl = model.get('nextPageUrl');
+	const prevPageUrl = model.get('prevPageUrl');
+	const data = {};
 
 	if (nextPageUrl) {
 		data.next = nextPageUrl;
