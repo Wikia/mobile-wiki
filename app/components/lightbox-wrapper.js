@@ -20,6 +20,7 @@ export default Component.extend(RenderComponentMixin, {
 	footerLink: null,
 	header: null,
 	uiHidden: false,
+	thumbnails: null,
 
 	isVisible: alias('lightbox.isVisible'),
 	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
@@ -45,8 +46,13 @@ export default Component.extend(RenderComponentMixin, {
 
 			this.setProperties({
 				footer: null,
+				footerHead: '',
+				footerLink: null,
 				header: null,
-				footerExpanded: false
+				footerExpanded: false,
+				uiHidden: false,
+				thumbnails: null,
+				closeButtonHidden: false,
 			});
 
 			this.lightbox.close();
@@ -80,6 +86,25 @@ export default Component.extend(RenderComponentMixin, {
 		},
 
 		/**
+		 * @param {array} thumbnails: array of thumb urls
+		 * @param {int} currentThumbnail: index of active thumbnail
+		 */
+		setThumbnails(thumbnails) {
+			this.set('thumbnails', thumbnails);
+		},
+
+		setCurrentThumbnail(index) {
+			this.element.querySelectorAll('.lightbox-thumbnail-active').forEach((item) => {
+				item.classList.remove('lightbox-thumbnail-active');
+			});
+
+			const activeThumbnail = this.element.querySelector(`[data-ref="${index}"]`);
+			if (activeThumbnail) {
+				activeThumbnail.classList.add('lightbox-thumbnail-active');
+			}
+		},
+
+		/**
 		 * @returns {void}
 		 */
 		toggleFooter() {
@@ -105,6 +130,8 @@ export default Component.extend(RenderComponentMixin, {
 			this.send('toggleFooter');
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');
+		} else if (target.classList.contains('lightbox-thumbnail') || target.closest('.lightbox-thumbnails-container')) {
+			this.set('model.galleryRef', parseInt(target.getAttribute('data-ref'), 10))
 		} else {
 			this.send('toggleUI');
 		}

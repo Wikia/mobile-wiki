@@ -4,13 +4,12 @@ import { htmlSafe } from '@ember/string';
 import { isArray } from '@ember/array';
 import { observer, computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import ThirdsClickMixin from '../mixins/thirds-click';
 import RenderComponentMixin from '../mixins/render-component';
+import Thumbnailer from '../modules/thumbnailer';
 import { normalizeToUnderscore } from '../utils/string';
 
 export default Component.extend(
 	RenderComponentMixin,
-	ThirdsClickMixin,
 	{
 		lightbox: service(),
 		logger: service(),
@@ -43,6 +42,8 @@ export default Component.extend(
 		},
 
 		setFooter() {},
+		setThumbnails() {},
+		setCurrentThumbnail() {},
 
 		/**
 		 * gets current media or current media from gallery
@@ -91,28 +92,21 @@ export default Component.extend(
 			return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
 		}),
 
-		modelObserver: observer('model', 'currentMedia', function () {
+		currentMediaObserver: observer('currentMedia', function () {
 			this.updateState();
 		}),
 
-		/**
-		 * @returns {void}
-		 */
-		didRender() {
-			this._super(...arguments);
-			this.updateState();
-		},
-
-		/**
-		 * @param {MouseEvent} event
-		 * @returns {void}
-		 */
-		click(event) {
-			if (this.isGallery) {
-				this.callClickHandler(event, true);
-			} else {
-				this._super(event);
+		currentGalleryRefObserver: observer('currentGalleryRef', function () {
+			if (this.get('isGallery')) {
+				this.setCurrentThumbnail(this.get('currentGalleryRef'));
 			}
+		}),
+
+		didInsertElement() {
+			this._super(...arguments);
+
+			this.updateState();
+			this.updateThumbnails();
 		},
 
 		/**
@@ -131,30 +125,6 @@ export default Component.extend(
 			}
 
 			this._super(event);
-		},
-
-		/**
-		 * @returns {boolean}
-		 */
-		rightClickHandler() {
-			this.nextMedia();
-			return true;
-		},
-
-		/**
-		 * @returns {boolean}
-		 */
-		leftClickHandler() {
-			this.prevMedia();
-			return true;
-		},
-
-		/**
-		 * @returns {boolean}
-		 */
-		centerClickHandler() {
-			// Bubble up
-			return false;
 		},
 
 		/**
@@ -193,5 +163,20 @@ export default Component.extend(
 				this.setFooter(null, footerHead, footerLink);
 			}
 		},
+
+		updateThumbnails() {
+			if (this.get('isGallery')) {
+				const currentGalleryRef = this.get('currentGalleryRef');
+				const thumbnails = this.get('model').map((item, index) => {
+					return {
+						url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
+						ref: index,
+						active: index === currentGalleryRef,
+					};
+				});
+
+				this.setThumbnails(thumbnails);
+			}
+		}
 	}
 );

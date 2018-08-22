@@ -1,6 +1,9 @@
 .lightbox-wrapper {
+	background-color: $wds-fandom-color-black;
 	bottom: 0;
 	color: $modal-text-color;
+	display: flex;
+	flex-direction: column;
 	left: 0;
 	overflow: hidden;
 	position: fixed;
@@ -55,7 +58,6 @@
 }
 
 .lightbox-content {
-	background-color: $wds-fandom-color-black;
 	height: 100%;
 	overflow: hidden;
 	position: relative;
@@ -143,4 +145,29 @@
 	.lightbox-ui-hidden & {
 		display: none;
 	}
+}
+
+.lightbox-thumbnails-container {
+	align-items: center;
+	display: flex;
+	flex-wrap: nowrap;
+	height: 80px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0 18px;
+	width: 100%;
+}
+
+.lightbox-thumbnail {
+	@include square(44px);
+
+	border-radius: 4px;
+
+	&:not(:first-child) {
+		margin-left: 6px;
+	}
+}
+
+.lightbox-thumbnail-active {
+	border: 2px solid $wds-fandom-color-aqua;
 }
