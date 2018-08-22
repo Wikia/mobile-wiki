@@ -68,7 +68,6 @@ export default Component.extend(
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
-
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
 
