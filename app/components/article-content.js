@@ -66,7 +66,10 @@ export default Component.extend(
 
 					this.loadIcons();
 					this.handleTables();
-					this.replaceWikiaWidgetsWithComponents();
+
+					if (!this.disableWidgets) {
+						this.replaceWikiaWidgetsWithComponents();
+					}
 
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
