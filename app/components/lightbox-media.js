@@ -43,7 +43,6 @@ export default Component.extend(
 
 		setFooter() {},
 		setThumbnails() {},
-		setCurrentThumbnail() {},
 
 		/**
 		 * gets current media or current media from gallery
@@ -67,6 +66,8 @@ export default Component.extend(
 				} else if (value > galleryLength) {
 					return 0;
 				}
+
+				this.set('model.galleryRef', value);
 
 				return value;
 			},
@@ -140,9 +141,6 @@ export default Component.extend(
 		 */
 		updateState() {
 			this.updateFooter();
-			if (this.get('isGallery')) {
-				this.setCurrentThumbnail(this.get('currentGalleryRef'));
-			}
 			this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
