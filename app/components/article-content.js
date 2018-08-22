@@ -463,8 +463,7 @@ export default Component.extend(
 				.forEach((element) => {
 					const originalHTML = element.outerHTML;
 
-					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
+					element.outerHTML = `<div class="article-table-wrapper"/>${originalHTML}</div>`;
 				});
 		},
 
