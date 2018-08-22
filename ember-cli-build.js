@@ -108,7 +108,7 @@ module.exports = function (defaults) {
 	});
 
 	const designSystemIcons = new Funnel('node_modules/design-system/style-guide/assets', {
-		include: lazyloadedSVGs.map((icon) => `${icon.name}.svg`)
+		include: lazyloadedSVGs.map(icon => `${icon.name}.svg`)
 	});
 	const svgStore = new SVGStore(designSystemIcons, {
 		outputFile: 'assets/design-system.svg',

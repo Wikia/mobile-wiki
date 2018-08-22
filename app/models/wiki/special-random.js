@@ -25,7 +25,7 @@ export default BaseModel.extend({
 		}), {
 			cache: 'no-store'
 		})
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then((data) => {
 				if (data.query && data.query.pages) {
 					const articleId = Object.keys(data.query.pages)[0],

@@ -36,7 +36,7 @@ export default Component.extend(
 		listRendered: null,
 
 		hasNoLiftigniterSponsoredItem: computed('items', function () {
-			return !this.items.some((item) => item.presented_by);
+			return !this.items.some(item => item.presented_by);
 		}),
 		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
 			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.hasNoLiftigniterSponsoredItem;
@@ -84,7 +84,7 @@ export default Component.extend(
 			const plistaURL = `https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
 				+ `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
 			return fetch(plistaURL)
-				.then((response) => response.json())
+				.then(response => response.json())
 				.then((data) => {
 					if (data.length) {
 						return data[0];

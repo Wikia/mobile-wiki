@@ -43,7 +43,7 @@ export default helper((params, options) => {
 	}
 
 	otherOptionsCombined = Object.keys(otherOptions).map(
-		(key) => (options[key] ? ` ${key}="${options[key]}"` : '')
+		key => (options[key] ? ` ${key}="${options[key]}"` : '')
 	).join('');
 
 	return htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();

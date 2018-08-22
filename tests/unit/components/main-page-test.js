@@ -18,7 +18,7 @@ module('Unit | Component | main page', (hooks) => {
 	let adsModuleStub;
 
 	hooks.beforeEach(function () {
-		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: cb => cb(getAdsModuleMock()) });
 		setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
 		trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
 		this.owner.register('component:ad-slot', adSlotComponentStub);

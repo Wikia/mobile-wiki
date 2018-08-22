@@ -25,7 +25,7 @@ export default BaseModel.extend({
 			pageProperties = {
 				articleType: 'file',
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
-					.map((item) => this.prepareFileUsageItem(item)),
+					.map(item => this.prepareFileUsageItem(item)),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
 				fileThumbnail: media
 			};

@@ -26,7 +26,6 @@ module.exports = {
 		Wikia: true
 	},
 	rules: {
-		"arrow-parens": [2, "always"],
 		"array-callback-return": 0,
 		"arrow-body-style": 0,
 		"class-methods-use-this": 0,
