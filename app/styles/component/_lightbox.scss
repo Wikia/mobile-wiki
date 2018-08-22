@@ -165,8 +165,8 @@
 .lightbox-thumbnail {
 	@include square(44px);
 
-	border-radius: 4px;
 	border: 2px solid transparent;
+	border-radius: 4px;
 	box-sizing: content-box;
 
 	&:not(:first-child) {

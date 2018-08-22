@@ -60,6 +60,7 @@ export default Component.extend({
 		/**
 		 * @param {string} footer
 		 * @param {string} footerHead
+		 * @param {string} footerLink
 		 * @returns {void}
 		 */
 		setFooter(footer, footerHead, footerLink) {
