@@ -64,6 +64,6 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	},
 
 	getVideoData() {
-		return fetch(`${this.jwVideoDataUrl}${this['media-id']}`).then((response) => response.json());
+		return fetch(`${this.jwVideoDataUrl}${this['media-id']}`).then(response => response.json());
 	}
 });

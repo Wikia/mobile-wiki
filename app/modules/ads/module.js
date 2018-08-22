@@ -37,7 +37,7 @@ class Ads {
 		if (!this.isLoaded) {
 			this.getInstantGlobals()
 				.then((instantGlobals) => {
-					M.trackingQueue.push((isOptedIn) => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
+					M.trackingQueue.push(isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
 				});
 		}
 	}
@@ -61,7 +61,7 @@ class Ads {
 		this.startAdEngine();
 
 		this.isLoaded = true;
-		this.onReadyCallbacks.forEach((callback) => callback());
+		this.onReadyCallbacks.forEach(callback => callback());
 		this.onReadyCallbacks = [];
 	}
 
@@ -95,7 +95,7 @@ class Ads {
 	}
 
 	getInstantGlobals() {
-		return new Promise((resolve) => window.getInstantGlobals(resolve));
+		return new Promise(resolve => window.getInstantGlobals(resolve));
 	}
 
 	onReady(callback) {
@@ -179,7 +179,7 @@ class Ads {
 	}
 
 	waitForReady() {
-		return new Promise((resolve) => this.onReady(resolve));
+		return new Promise(resolve => this.onReady(resolve));
 	}
 
 	onMenuOpen() {

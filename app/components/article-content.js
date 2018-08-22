@@ -395,7 +395,7 @@ export default Component.extend(
 
 			if (infoboxes.length) {
 				toArray(infoboxes)
-					.filter((element) => element.rows.length > 6)
+					.filter(element => element.rows.length > 6)
 					.forEach((element) => {
 						element.classList.add(shortClass);
 						element.insertAdjacentHTML('beforeend',
@@ -463,7 +463,7 @@ export default Component.extend(
 			const tables = this.element.querySelectorAll('table');
 
 			toArray(tables)
-				.filter((table) => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
+				.filter(table => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
 				.forEach((element) => {
 					const originalHTML = element.outerHTML;
 
@@ -497,12 +497,12 @@ export default Component.extend(
 
 		handleCollapsibleSections() {
 			toArray(this.element.querySelectorAll('h2[section]'))
-				.forEach((header) => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
+				.forEach(header => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
 		},
 
 		uncollapseSections() {
 			toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
-				.forEach((header) => this.toogleCollapsibleSection(header));
+				.forEach(header => this.toogleCollapsibleSection(header));
 		}
 	}
 );

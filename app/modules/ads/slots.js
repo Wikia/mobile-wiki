@@ -125,6 +125,22 @@ export default {
 					rv: 1
 				}
 			},
+			incontent_player: {
+				adProduct: 'incontent_player',
+				avoidConflictWith: '.ad-slot',
+				insertBeforeSelector: '.article-body h2',
+				disabled: true,
+				slotNameSuffix: '',
+				bidderAlias: 'mobile_in_content',
+				group: 'HiVi',
+				slotShortcut: 'i',
+				defaultSizes: [[1, 1]],
+				targeting: {
+					loc: 'middle',
+					pos: ['incontent_player'],
+					rv: 1
+				}
+			},
 			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
 				slotNameSuffix: '',
@@ -221,17 +237,10 @@ export default {
 
 	setupIncontentPlayer() {
 		const { context } = window.Wikia.adEngine;
-		const slots = ['mobile_in_content', 'incontent_boxad_1'];
 
 		// ToDo: don't set up player if is UAP loaded
 		if (!context.get('custom.hasFeaturedVideo')) {
-			slots.forEach((slot) => {
-				const pos = context.get(`slots.${slot}.targeting.pos`);
-
-				pos.push('INCONTENT_PLAYER');
-
-				context.set(`slots.${slot}.targeting.pos`, pos);
-			});
+			setSlotState('incontent_player', true);
 		}
 	}
 };

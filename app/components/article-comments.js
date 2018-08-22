@@ -137,7 +137,7 @@ export default Component.extend(
 
 			if (page && articleId) {
 				fetch(this.url(articleId, page))
-					.then((response) => response.json())
+					.then(response => response.json())
 					.then((data) => {
 						this.setProperties({
 							comments: get(data, 'payload.comments'),
