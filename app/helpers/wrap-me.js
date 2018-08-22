@@ -26,13 +26,13 @@ import Ember from 'ember';
 
 export default helper((params, options) => {
 	const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
-	let tagName = 'span',
-		className = '',
-		otherOptions = {
-			href: '',
-			target: '',
-		},
-		otherOptionsCombined;
+	let tagName = 'span';
+	let className = '';
+	let otherOptions = {
+		href: '',
+		target: '',
+	};
+	let otherOptionsCombined;
 
 	if (options.tagName) {
 		tagName = options.tagName;

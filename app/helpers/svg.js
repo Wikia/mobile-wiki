@@ -19,13 +19,13 @@ import { helper } from '@ember/component/helper';
  */
 export default helper((params, options) => {
 	const optionalParams = [
-			'class',
-			'role',
-			'viewBox',
-			'width',
-			'height'
-		],
-		name = params[0];
+		'class',
+		'role',
+		'viewBox',
+		'width',
+		'height'
+	];
+	const name = params[0];
 
 	let ret = '<svg';
 

@@ -62,7 +62,6 @@ module.exports = {
 		"object-curly-spacing": [2, "always"],
 		"object-curly-newline": 0,
 		"object-shorthand": [2, 'always'],
-		"one-var": 0,
 		"one-var-declaration-per-line": 0,
 		"padded-blocks": 0,
 		"prefer-destructuring": 0,

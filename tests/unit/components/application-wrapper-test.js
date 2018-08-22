@@ -5,8 +5,8 @@ module('Unit | Component | application wrapper', (hooks) => {
 	setupTest(hooks);
 
 	function createElement(tag, className) {
-		const element = document.createElement(tag),
-			parent = document.createElement('div');
+		const element = document.createElement(tag);
+		const parent = document.createElement('div');
 
 		element.className = className;
 		parent.appendChild(element);

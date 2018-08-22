@@ -11,17 +11,17 @@ export default Component.extend(RenderComponentMixin, {
 	didInsertElement() {
 		this._super(...arguments);
 
-		const closeButtonDelay = this.lightboxCloseButtonDelay || 0,
-			showCloseButtonAfterCountDown = () => {
-				if (this.lightboxCloseButtonDelay > 0) {
-					later(this, () => {
-						this.decrementProperty('lightboxCloseButtonDelay');
-						showCloseButtonAfterCountDown();
-					}, 1000);
-				} else {
-					this.setCloseButtonHidden(false);
-				}
-			};
+		const closeButtonDelay = this.lightboxCloseButtonDelay || 0;
+		const showCloseButtonAfterCountDown = () => {
+			if (this.lightboxCloseButtonDelay > 0) {
+				later(this, () => {
+					this.decrementProperty('lightboxCloseButtonDelay');
+					showCloseButtonAfterCountDown();
+				}, 1000);
+			} else {
+				this.setCloseButtonHidden(false);
+			}
+		};
 
 		this.setHeader('Advertisement');
 

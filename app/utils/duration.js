@@ -1,7 +1,7 @@
 export default function duration(value) {
-	const hours = Math.floor(value / 3600),
-		minutes = Math.floor((value - (hours * 3600)) / 60),
-		seconds = Math.floor(value - (hours * 3600) - (minutes * 60));
+	const hours = Math.floor(value / 3600);
+	const minutes = Math.floor((value - (hours * 3600)) / 60);
+	const seconds = Math.floor(value - (hours * 3600) - (minutes * 60));
 
 	let duration = '';
 

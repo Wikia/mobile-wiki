@@ -8,8 +8,8 @@ export default Service.extend({
 	i18nextInstance: null,
 
 	initialize(language) {
-		const fastboot = this.fastboot,
-			shoebox = fastboot.get('shoebox');
+		const fastboot = this.fastboot;
+		const shoebox = fastboot.get('shoebox');
 
 		let translations = {};
 

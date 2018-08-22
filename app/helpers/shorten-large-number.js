@@ -28,9 +28,9 @@ import { helper } from '@ember/component/helper';
  * @returns {string}
  */
 export default helper((params) => {
-	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
-		number = params[0],
-		digits = params[1];
+	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+	const number = params[0];
+	const digits = params[1];
 
 	for (let i = units.length - 1; i >= 0; i--) {
 		const decimal = Math.pow(1000, i + 1);

@@ -5,16 +5,16 @@ import sinon from 'sinon';
 
 module('Unit | Mixin | thirds click', () => {
 	test('calls proper handlers on click', (assert) => {
-		const mixin = EmberObject.extend(ThirdsClicksMixin).create(),
-			clickEventLeft = {
-				clientX: 80
-			},
-			clickEventRight = {
-				clientX: 400
-			},
-			clickEventCenter = {
-				clientX: 200
-			};
+		const mixin = EmberObject.extend(ThirdsClicksMixin).create();
+		const clickEventLeft = {
+			clientX: 80
+		};
+		const clickEventRight = {
+			clientX: 400
+		};
+		const clickEventCenter = {
+			clientX: 200
+		};
 
 		mixin.leftClickHandler = sinon.stub();
 		mixin.rightClickHandler = sinon.stub();

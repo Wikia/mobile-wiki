@@ -7,16 +7,16 @@ module('Unit | Component | alert notifications', (hooks) => {
 
 	test('Dismissing alert', function (assert) {
 		const alertOne = {
-				type: 'success',
-				message: 'Success message',
-				callbacks: {}
-			},
-			alertTwo = {
-				type: 'error',
-				message: 'Error message',
-				callbacks: {}
-			},
-			component = this.owner.factoryFor('component:alert-notifications').create();
+			type: 'success',
+			message: 'Success message',
+			callbacks: {}
+		};
+		const alertTwo = {
+			type: 'error',
+			message: 'Error message',
+			callbacks: {}
+		};
+		const component = this.owner.factoryFor('component:alert-notifications').create();
 
 		component.setProperties({
 			alerts: A([

@@ -8,10 +8,10 @@ import sinon from 'sinon';
 import { getAdsModuleMock } from '../../helpers/mock-ads-service';
 import * as adsModule from 'mobile-wiki/modules/ads';
 
-const trackModule = require('mobile-wiki/utils/track'),
-	adSlotComponentStub = Component.extend({});
-let setTrackContextStub,
-	trackPageViewStub;
+const trackModule = require('mobile-wiki/utils/track');
+const adSlotComponentStub = Component.extend({});
+let setTrackContextStub;
+let trackPageViewStub;
 
 module('Unit | Component | main page', (hooks) => {
 	setupTest(hooks);
@@ -32,19 +32,19 @@ module('Unit | Component | main page', (hooks) => {
 
 	test('injects ads', function (assert) {
 		const adsContext = {
-				valid: true
+			valid: true
+		};
+		const injectMainPageAdsSpy = sinon.spy();
+		const setupAdsContextSpy = sinon.spy();
+		const component = this.owner.factoryFor('component:main-page').create({
+			adsContext,
+			curatedContent: {},
+			currentUser: {
+				userModel: new EmberPromise(() => {})
 			},
-			injectMainPageAdsSpy = sinon.spy(),
-			setupAdsContextSpy = sinon.spy(),
-			component = this.owner.factoryFor('component:main-page').create({
-				adsContext,
-				curatedContent: {},
-				currentUser: {
-					userModel: new EmberPromise(() => {})
-				},
-				injectMainPageAds: injectMainPageAdsSpy,
-				setupAdsContext: setupAdsContextSpy
-			});
+			injectMainPageAds: injectMainPageAdsSpy,
+			setupAdsContext: setupAdsContextSpy
+		});
 
 		component.get('ads.module').isLoaded = true;
 		run(() => {
