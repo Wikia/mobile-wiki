@@ -55,6 +55,7 @@ export default Service.extend({
 							});
 						}
 					}
+					return false;
 				});
 			});
 
