@@ -144,8 +144,15 @@
     "proxying-agent"
   ],
   "snyk": true,
-  "greenkeeper": {
-    "ignore": [
+  "renovate": {
+    "extends": [
+      "config:base"
+    ],
+    "automerge": true,
+    "major": {
+      "automerge": false
+    },
+    "ignoreDeps": [
       "ember-cli",
       "ember-source"
     ]
