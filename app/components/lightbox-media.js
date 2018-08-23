@@ -165,6 +165,7 @@ export default Component.extend({
 					url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
 					ref: index,
 					active: index === currentGalleryRef,
+					isVideo: item.isVideo,
 				};
 			});
 

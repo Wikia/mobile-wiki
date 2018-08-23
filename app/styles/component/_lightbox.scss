@@ -164,11 +164,25 @@
 }
 
 .lightbox-thumbnail {
-	@include square(44px);
+	@extend %position-play-icon;
 
 	border: 2px solid transparent;
 	border-radius: 4px;
 	box-sizing: content-box;
+
+	img {
+		@include square(44px);
+
+		border-radius: 4px;
+	}
+
+	.lazyloading {
+		@include is-loading;
+	}
+
+	.lazyloaded {
+		animation: lazyImage .3s;
+	}
 
 	&:not(:first-child) {
 		margin-left: 6px;
