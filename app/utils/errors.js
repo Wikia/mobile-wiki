@@ -1,7 +1,7 @@
 import { defineError } from 'ember-exex/error';
 
 // TODO remove redundant errors from this file and use ones from ember-fandom across app
-import errors from '@wikia/ember-fandom/utils/errors';
+import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
 
 const errorsMap = {
 	403: 'You do not have permissions to view this page.',
@@ -26,7 +26,7 @@ const FandomPostsError = defineError({
 const WikiVariablesRedirectError = defineError({
 	name: 'WikiVariablesRedirectError',
 	message: `The API response was in incorrect format`,
-	extends: errors.DontLogMeError
+	extends: DontLogMeError
 });
 
 const UserLoadDetailsFetchError = defineError({
