@@ -59,9 +59,9 @@ export default Component.extend({
 			const galleryLength = this.galleryLength - 1;
 
 			if (value < 0) {
-				return galleryLength;
+				value = galleryLength;
 			} else if (value > galleryLength) {
-				return 0;
+				value = 0;
 			}
 
 			this.set('model.galleryRef', value);
