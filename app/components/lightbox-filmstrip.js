@@ -1,11 +1,15 @@
-import { alias, not } from '@ember/object/computed';
-import { computed, observer } from '@ember/object';
+import { alias, filter } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 
 import scrollIntoView from '../utils/scroll-into-view';
 
 export default Component.extend({
 	classNames: ['lightbox-thumbnails-container'],
+
+	displayedThumbnails: filter('thumbnails', (item, index) => {
+		return index < 100;
+	}),
 
 	didRender() {
 		this._super(...arguments);
