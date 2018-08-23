@@ -67,7 +67,6 @@ export default Component.extend(
 					this.loadIcons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
-
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
@@ -286,7 +285,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxesWithInfoboxComponents() {
-			toArray(this.element.querySelectorAll('.portable-infobox')).map((element) => {
+			toArray(this.element.querySelectorAll('.portable-infobox')).forEach((element) => {
 				this.renderedComponents.push(
 					this.renderComponent({
 						name: 'portable-infobox',
@@ -310,7 +309,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		replaceWikiaWidgetsWithComponents() {
-			toArray(this.element.querySelectorAll('[data-wikia-widget]')).map((element) => {
+			toArray(this.element.querySelectorAll('[data-wikia-widget]')).forEach((element) => {
 				this.replaceWikiaWidgetWithComponent(element);
 			});
 		},
