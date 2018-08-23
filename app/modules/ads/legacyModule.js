@@ -304,11 +304,10 @@ class Ads {
 		},
 		];
 
-		listenerSettings.map((listenerSetting) => {
+		listenerSettings.forEach((listenerSetting) => {
 			document.addEventListener(listenerSetting.eventName, () => {
 				this.trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
 			});
-			return false;
 		});
 	}
 
