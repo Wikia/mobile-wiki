@@ -119,13 +119,14 @@ export default Component.extend({
 	 */
 	click(event) {
 		const target = event.target;
+		const filmstripThumbnail = target.closest('.lightbox-thumbnail');
 
 		if (target.classList.contains('lightbox-footer-content')) {
 			this.send('toggleFooter');
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');
-		} else if (target.classList.contains('lightbox-thumbnail') || target.closest('.lightbox-thumbnails-container')) {
-			this.set('model.galleryRef', parseInt(target.getAttribute('data-ref'), 10));
+		} else if (filmstripThumbnail || target.closest('.lightbox-thumbnails-container')) {
+			this.set('model.galleryRef', parseInt(filmstripThumbnail.getAttribute('data-ref'), 10));
 		} else {
 			this.send('toggleUI');
 		}

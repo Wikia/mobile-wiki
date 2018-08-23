@@ -166,14 +166,14 @@
 .lightbox-thumbnail {
 	@extend %position-play-icon;
 
-	border: 2px solid transparent;
-	border-radius: 4px;
-	box-sizing: content-box;
+	position: relative;
 
 	img {
 		@include square(44px);
 
+		border: 2px solid transparent;
 		border-radius: 4px;
+		box-sizing: content-box;
 	}
 
 	.lazyloading {
@@ -189,7 +189,7 @@
 	}
 }
 
-.lightbox-thumbnail-active {
+.lightbox-thumbnail-active img {
 	border: 2px solid $wds-fandom-color-aqua;
 }
 
