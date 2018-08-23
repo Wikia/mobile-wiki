@@ -20,6 +20,7 @@ export default Component.extend({
 	header: null,
 	uiHidden: false,
 	thumbnails: null,
+	displayFilmstrip: false,
 
 	isVisible: alias('lightbox.isVisible'),
 	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
@@ -53,6 +54,7 @@ export default Component.extend({
 				uiHidden: false,
 				thumbnails: null,
 				closeButtonHidden: false,
+				displayFilmstrip: false,
 			});
 
 			this.lightbox.close();
@@ -92,6 +94,7 @@ export default Component.extend({
 		 */
 		setThumbnails(thumbnails) {
 			this.set('thumbnails', thumbnails);
+			this.set('displayFilmstrip', !!thumbnails);
 		},
 
 		/**

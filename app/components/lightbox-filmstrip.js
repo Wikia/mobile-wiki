@@ -16,7 +16,10 @@ export default Component.extend({
 		this._super(...arguments);
 
 		if (!this.displayedThumbnails) {
-			this.set('displayedThumbnails', this.thumbnails.splice(0, displayedThumbnailsBatchSize));
+			this.set(
+				'displayedThumbnails',
+				this.thumbnails.splice(0, this.activeThumbnailRef + displayedThumbnailsBatchSize)
+			);
 		}
 
 		this.onScroll = this.onScroll.bind(this);
