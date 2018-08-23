@@ -40,6 +40,7 @@ export default Component.extend({
 
 	setFooter() {},
 	setThumbnails() {},
+	updateGalleryRef() {},
 
 	/**
 	 * gets current media or current media from gallery
@@ -64,7 +65,7 @@ export default Component.extend({
 				value = 0;
 			}
 
-			this.set('model.galleryRef', value);
+			this.updateGalleryRef(value);
 
 			return value;
 		},

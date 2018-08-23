@@ -107,6 +107,10 @@ export default Component.extend({
 		toggleUI() {
 			this.toggleProperty('uiHidden');
 		},
+
+		updateGalleryRef(value) {
+			this.set('model.galleryRef', value);
+		}
 	},
 
 	/**
