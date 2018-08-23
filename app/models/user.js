@@ -34,7 +34,7 @@ export default EmberObject.extend({
 			timeout: helios.timeout,
 		}).then((response) => {
 			if (response.ok) {
-				return response.json().then((data) => data.user_id);
+				return response.json().then(data => data.user_id);
 			} else {
 				if (response.status === 401) {
 					this.logger.info('Token not authorized by Helios');
@@ -60,10 +60,10 @@ export default EmberObject.extend({
 	 * @returns {RSVP.Promise<UserModel>}
 	 */
 	find(params) {
-		const avatarSize = params.avatarSize || this.defaultAvatarSize,
-			userId = params.userId,
-			host = params.host,
-			accessToken = params.accessToken || '';
+		const avatarSize = params.avatarSize || this.defaultAvatarSize;
+		const userId = params.userId;
+		const host = params.host;
+		const accessToken = params.accessToken || '';
 
 		return all([
 			this.loadDetails(host, userId, avatarSize),
@@ -200,8 +200,8 @@ export default EmberObject.extend({
 	 * @returns {Object}
 	 */
 	getUserRights({ query }) {
-		const rights = {},
-			rightsArray = query.userinfo.rights;
+		const rights = {};
+		const rightsArray = query.userinfo.rights;
 
 		if (isArray(rightsArray)) {
 			// TODO - we could use contains instead of making an object out of an array

@@ -6,8 +6,8 @@
 
 const userAgent = window.navigator && navigator.userAgent;
 
-let system,
-	standalone;
+let system;
+let standalone;
 
 if (/iPad|iPhone|iPod/i.test(userAgent)) {
 	system = 'ios';
@@ -23,8 +23,8 @@ standalone = window.navigator && navigator.standalone;
  * @returns {boolean}
  */
 function isSafariMinVer(version) {
-	const pattern = /OS (\d+)/,
-		match = window.navigator.userAgent.match(pattern);
+	const pattern = /OS (\d+)/;
+	const match = window.navigator.userAgent.match(pattern);
 
 	return match && parseInt(match[1], 10) >= version;
 }

@@ -45,10 +45,10 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	callClickHandler(event, preventDefault = false) {
-		const viewportWidth = this.viewportWidth,
-			x = event.clientX,
-			screenEdgeWidth = viewportWidth * this.screenEdgeWidthRatio,
-			screenCenterWidth = viewportWidth - screenEdgeWidth * 2;
+		const viewportWidth = this.viewportWidth;
+		const x = event.clientX;
+		const screenEdgeWidth = viewportWidth * this.screenEdgeWidthRatio;
+		const screenCenterWidth = viewportWidth - screenEdgeWidth * 2;
 
 		if (x < screenEdgeWidth) {
 			if (this.leftClickHandler(event) && preventDefault) {

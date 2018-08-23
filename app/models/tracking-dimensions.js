@@ -39,6 +39,6 @@ export default EmberObject.extend({
 					});
 				}
 			})
-			.catch((error) => this.logger.error('getTrackingDimensions error: ', error));
+			.catch(error => this.logger.error('getTrackingDimensions error: ', error));
 	}
 });

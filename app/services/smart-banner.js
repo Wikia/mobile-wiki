@@ -29,12 +29,12 @@ export default Service.extend({
 	 * @returns {void}
 	 */
 	setCookie(days) {
-		const date = new Date(),
-			cookieOptions = {
-				expires: date,
-				path: '/',
-				domain: config.cookieDomain
-			};
+		const date = new Date();
+		const cookieOptions = {
+			expires: date,
+			path: '/',
+			domain: config.cookieDomain
+		};
 
 		date.setTime(date.getTime() + (days * this.dayInMiliseconds));
 		window.Cookies.set(this.cookieName, 1, cookieOptions);

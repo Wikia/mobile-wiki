@@ -18,15 +18,15 @@ export default EmberObject.extend({
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = this.wikiUrls.build({
-				host: this.get('wikiVariables.host'),
-				path: '/wikia.php',
-				query: {
-					controller: 'MercuryApi',
-					method: 'getArticleFromMarkup',
-					title
-				}
-			}),
-			formData = new FastBoot.require('form-data')();
+			host: this.get('wikiVariables.host'),
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getArticleFromMarkup',
+				title
+			}
+		});
+		const formData = new FastBoot.require('form-data')();
 
 		if (wikitext) {
 			formData.append('wikitext', wikitext);
@@ -38,7 +38,7 @@ export default EmberObject.extend({
 			method: 'POST',
 			body: formData
 		})
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then(({ data }) => {
 				// Make sure media is in the same format as on article page
 				// otherwise hero image won't work correctly

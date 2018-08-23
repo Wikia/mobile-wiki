@@ -3,8 +3,8 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import trackModule from 'mobile-wiki/utils/track';
 
-let model,
-	trackStub;
+let model;
+let trackStub;
 
 module('Unit | Component | lightbox media', (hooks) => {
 	setupTest(hooks);
@@ -48,12 +48,12 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 	test('sets correct footer', function (assert) {
 		const parentMock = {
-				footer: null,
-				setFooter(footer) {
-					this.footer = footer;
-				}
-			},
-			componentMock = this.owner.factoryFor('component:lightbox-media').create();
+			footer: null,
+			setFooter(footer) {
+				this.footer = footer;
+			}
+		};
+		const componentMock = this.owner.factoryFor('component:lightbox-media').create();
 
 		componentMock.setProperties({
 			model: model[0],
@@ -70,12 +70,12 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 	test('sets correct header', function (assert) {
 		const parentMock = {
-				header: null,
-				setHeader(header) {
-					this.header = header;
-				}
-			},
-			componentMock = this.owner.factoryFor('component:lightbox-media').create();
+			header: null,
+			setHeader(header) {
+				this.header = header;
+			}
+		};
+		const componentMock = this.owner.factoryFor('component:lightbox-media').create();
 
 		componentMock.setProperties({
 			model: model[0],

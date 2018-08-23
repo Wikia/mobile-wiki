@@ -12,8 +12,8 @@ export default Component.extend({
 	openGraphSiteName: or('post.openGraph.domain', 'post.openGraph.siteName'),
 
 	openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
-		const imageWidth = 525,
-			imageHeight = parseInt(imageWidth * 9 / 16, 10);
+		const imageWidth = 525;
+		const imageHeight = parseInt(imageWidth * 9 / 16, 10);
 
 		if (!this.get('post.openGraph.imageUrl')) {
 			return '';

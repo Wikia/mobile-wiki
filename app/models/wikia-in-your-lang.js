@@ -18,10 +18,10 @@ function getCacheKey(lang) {
  * @returns {object}
  */
 function getFromCache(browserLang) {
-	const key = getCacheKey(browserLang),
-		valueJson = localStorageConnector.getItem(key) || '{}',
-		value = JSON.parse(valueJson),
-		now = new Date().getTime();
+	const key = getCacheKey(browserLang);
+	const valueJson = localStorageConnector.getItem(key) || '{}';
+	const value = JSON.parse(valueJson);
+	const now = new Date().getTime();
 
 	// we cache for 30 days (2592000000)
 	if (!value.model || now - value.timestamp > 2592000000) {
@@ -42,8 +42,8 @@ export default EmberObject.extend(LanguagesMixin, {
 	 * @returns {RSVP.Promise}
 	 */
 	load() {
-		const browserLang = this.getBrowserLanguage(),
-			model = getFromCache(browserLang);
+		const browserLang = this.getBrowserLanguage();
+		const model = getFromCache(browserLang);
 
 		if (model) {
 			return resolve(model);
@@ -61,7 +61,7 @@ export default EmberObject.extend(LanguagesMixin, {
 				}
 			})
 		)
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then((resp) => {
 				let out = null;
 

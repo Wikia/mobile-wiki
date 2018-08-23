@@ -57,6 +57,9 @@ function getURL(wikiUrls, params) {
 	// TODO: clean me after new mobile bottom of a page is released and icache expired
 	query.premiumBottom = true;
 
+	// TODO: clean me after new galleries are released and icache expired
+	query.premiumGalleries = true;
+
 	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',
@@ -71,10 +74,10 @@ export default Mixin.create({
 	wikiUrls: service(),
 
 	getPageModel(params) {
-		const isFastBoot = this.get('fastboot.isFastBoot'),
-			shoebox = this.get('fastboot.shoebox'),
-			contentNamespaces = this.get('wikiVariables.contentNamespaces'),
-			isInitialPageView = this.initialPageView.isInitialPageView();
+		const isFastBoot = this.get('fastboot.isFastBoot');
+		const shoebox = this.get('fastboot.shoebox');
+		const contentNamespaces = this.get('wikiVariables.contentNamespaces');
+		const isInitialPageView = this.initialPageView.isInitialPageView();
 
 		if (isFastBoot || !isInitialPageView) {
 			params.noads = this.get('fastboot.request.queryParams.noads');
@@ -124,8 +127,8 @@ export default Mixin.create({
 					throw error;
 				});
 		} else {
-			const wikiPageData = shoebox.retrieve('wikiPage'),
-				wikiPageError = shoebox.retrieve('wikiPageError');
+			const wikiPageData = shoebox.retrieve('wikiPage');
+			const wikiPageError = shoebox.retrieve('wikiPageError');
 
 			// There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
 			if (wikiPageError && isInitialPageView) {
@@ -148,8 +151,8 @@ export default Mixin.create({
 	 * @returns {Object}
 	 */
 	getModelForNamespace(data, params, contentNamespaces) {
-		const currentNamespace = data.data.ns,
-			ownerInjection = getOwner(this).ownerInjection();
+		const currentNamespace = data.data.ns;
+		const ownerInjection = getOwner(this).ownerInjection();
 		let model;
 
 		// Main pages can live in namespaces which are not marked as content

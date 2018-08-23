@@ -14,8 +14,8 @@ export default Component.extend({
 	 * @returns {void}
 	 */
 	didInsertElement() {
-		const expiry = this.get('alert.expiry'),
-			onInsertElement = this.get('alert.callbacks.onInsertElement');
+		const expiry = this.get('alert.expiry');
+		const onInsertElement = this.get('alert.callbacks.onInsertElement');
 
 		if (expiry > 0) {
 			this.set('timeout', later(this, this.dismissNotification, expiry));
