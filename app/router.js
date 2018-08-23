@@ -18,6 +18,7 @@ const Router = EmberRouter.extend(RouterScroll, {
 	})
 });
 
+/* eslint array-callback-return: 0 */
 Router.map(function () {
 	this.route('article-preview');
 
@@ -30,8 +31,6 @@ Router.map(function () {
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
-
-	return false;
 });
 
 export default Router;
