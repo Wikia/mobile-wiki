@@ -181,7 +181,7 @@
 	}
 
 	.lazyloaded {
-		animation: lazyImage .3s;
+		animation: fadeInFromNone .3s;
 	}
 
 	&:not(:first-child) {
@@ -195,14 +195,4 @@
 
 .lightbox-image .loading {
 	@include is-loading;
-}
-
-@keyframes lazyImage {
-	0% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
 }
