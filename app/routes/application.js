@@ -5,7 +5,7 @@ import { getWithDefault, get } from '@ember/object';
 import Ember from 'ember';
 import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
-import redirect from '@wikia/ember-fandom/utils/application-redirect';
+import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
 
 import config from '../config/environment';
@@ -178,7 +178,7 @@ export default Route.extend(
 		},
 
 		redirect(model) {
-			redirect(model, this.fastboot);
+			applicationRedirect(model, this.fastboot);
 		},
 
 		activate() {
