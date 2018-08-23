@@ -356,6 +356,11 @@ export default {
 		pushOnScroll: {
 			ids: [],
 			threshold: 100
+		},
+		pushAfterRendered: {
+			incontent_boxad_1: [
+				'incontent_player'
+			]
 		}
 	},
 	listeners: {
