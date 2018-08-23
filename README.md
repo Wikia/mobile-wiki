@@ -1,6 +1,9 @@
-## Overview
+[![renovate-app badge][renovate-badge]][renovate-app]
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Wikia/mobile-wiki.svg)](https://greenkeeper.io/)
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
+
+## Overview
 Mobile Wiki is an application built on top of [Ember](https://emberjs.com/) and [Ember FastBoot](https://ember-fastboot.com/). This combination allows us serve server side rendered application to end client (The same code is executed on frontend and backend).
 
 ## Setup
@@ -45,7 +48,7 @@ Mobile Wiki application currently supports three types of configuration.
 Some tips if you develop outside of devbox:
  * The devboxDomain must have your devbox name (without the dev- prefix) in it
  * If you want to test with consul, use `mediawikiDomain: 'consul.service.sjc-dev.consul'` or `mediawikiDomain: 'consul.service.poz-dev.consul'`
- 
+
 ## Development
 
 ### FastBoot and Server side funtionality
@@ -70,7 +73,7 @@ let data;
 
 if (this.get('fastboot.isFastBoot')) {
   data = this.get('model').fetchData();
-  
+
   shoebox.put('unique-key', data);
 } else {
   data = shoebox.retrieve('unique-key');
