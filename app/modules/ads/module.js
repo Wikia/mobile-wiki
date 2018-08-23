@@ -151,7 +151,7 @@ class Ads {
 			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
-		if (this.events) {
+		if (this.events && this.showAds) {
 			context.set('state.adStack', []);
 			this.events.pageChange(Object.assign(defaultOptions, options));
 			this.engine.runAdQueue();

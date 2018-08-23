@@ -30,9 +30,10 @@ EmberApp.prototype.addonTreesFor = function (type) {
 					'ember-responds-to/mixins/responds-to-print.js'
 				);
 			}
-
 			return tree;
 		}
+
+		return false;
 	}).filter(Boolean);
 };
 
