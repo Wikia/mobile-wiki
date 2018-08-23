@@ -15,9 +15,9 @@ module('Acceptance | Article page', (hooks) => {
 		mockAdsService(this.owner);
 
 		sinon.stub(adsModule, 'default').returns({
-			then: (cb) => cb(getAdsModuleMock({
+			then: cb => cb(getAdsModuleMock({
 				opts: {
-					preFooterAndBLBSwitched: true,
+					areMobileStickyAndSwapEnabled: true,
 				},
 			}))
 		});

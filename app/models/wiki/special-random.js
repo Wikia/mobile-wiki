@@ -25,11 +25,11 @@ export default BaseModel.extend({
 		}), {
 			cache: 'no-store'
 		})
-			.then((response) => response.json())
+			.then(response => response.json())
 			.then((data) => {
 				if (data.query && data.query.pages) {
-					const articleId = Object.keys(data.query.pages)[0],
-						pageData = data.query.pages[articleId];
+					const articleId = Object.keys(data.query.pages)[0];
+					const pageData = data.query.pages[articleId];
 
 					if (pageData.title) {
 						this.set('title', pageData.title);

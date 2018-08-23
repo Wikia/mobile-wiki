@@ -29,7 +29,7 @@ module('Integration | Component | article content', (hooks) => {
 	let adsModuleStub;
 
 	hooks.beforeEach(function () {
-		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: (cb) => cb(getAdsModuleMock()) });
+		adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: cb => cb(getAdsModuleMock()) });
 		this.owner.register('component:ad-slot', adSlotComponentStub);
 		this.owner.register('service:i18n', i18nService);
 		mockAdsService(this.owner);
@@ -54,7 +54,7 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,
@@ -82,13 +82,13 @@ module('Integration | Component | article content', (hooks) => {
 			'<p>some content</p>' +
 			'<aside class="wiki-page-header"></aside>' +
 			'<section>Article body</section>' +
-			'<div>more content</div>',
-			setupAdsContextSpy = sinon.spy();
+			'<div>more content</div>';
+		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,
@@ -125,7 +125,7 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					preFooterAndBLBSwitched: false
+					areMobileStickyAndSwapEnabled: false
 				}
 			},
 			content,

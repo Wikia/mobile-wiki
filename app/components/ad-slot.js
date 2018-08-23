@@ -38,8 +38,8 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 
-			const ads = this.get('ads.module'),
-				name = this.name;
+			const ads = this.get('ads.module');
+			const name = this.name;
 
 			if (this.disableManualInsert) {
 				return;
@@ -85,8 +85,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		didEnterViewport() {
-			const ads = this.get('ads.module'),
-				name = this.name;
+			const ads = this.get('ads.module');
+			const name = this.name;
 
 			if (this.noAds) {
 				this.logger.info('Ad disabled for:', name);

@@ -7,8 +7,6 @@
 	text-align: center;
 
 	.wds-button {
-		@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
-
 		box-sizing: border-box;
 		width: 100%;
 	}

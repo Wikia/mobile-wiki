@@ -1,5 +1,6 @@
 import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
+import truncate from '../utils/truncate';
 
 export default Mixin.create({
 	headData: service(),
@@ -29,21 +30,21 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model, data = {}) {
-		const htmlTitleSettings = this.get('wikiVariables.htmlTitle'),
-			wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator),
-			headData = {
-				htmlTitle: wikiHtmlTitle,
-				description: data.description,
-				canonical: data.canonical,
-				next: data.next,
-				prev: data.prev,
-				robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
-				keywords: `${this.get('wikiVariables.siteMessage')}` +
-				`,${this.get('wikiVariables.siteName')}` +
-				`,${this.get('wikiVariables.dbName')}`,
-				appleItunesApp: '',
-				amphtml: data.amphtml
-			};
+		const htmlTitleSettings = this.get('wikiVariables.htmlTitle');
+		const wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator);
+		const headData = {
+			htmlTitle: wikiHtmlTitle,
+			description: data.description,
+			canonical: data.canonical,
+			next: data.next,
+			prev: data.prev,
+			robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
+			keywords: `${this.get('wikiVariables.siteMessage')}` +
+			`,${this.get('wikiVariables.siteName')}` +
+			`,${this.get('wikiVariables.dbName')}`,
+			appleItunesApp: '',
+			amphtml: data.amphtml
+		};
 
 		if (data.htmlTitle) {
 			headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
@@ -61,6 +62,9 @@ export default Mixin.create({
 		if (model.details && model.details.thumbnail) {
 			headData.pageImage = model.details.thumbnail;
 		}
+
+		headData.twitterTitle = truncate(headData.htmlTitle, 70);
+		headData.twitterDescription = truncate(data.description || headData.htmlTitle, 200);
 
 		this.headData.setProperties(headData);
 	}

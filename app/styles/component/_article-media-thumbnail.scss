@@ -1,35 +1,21 @@
 .article-media-thumbnail {
 	@extend %position-play-icon;
 
+	margin-bottom: 1.125rem;
 	text-align: center;
 
 	figcaption {
 		@include ellipsis;
 
-		color: #999;
+		color: $wds-color-light-c5;
 		max-height: 60px;
 		padding: 5px 0;
 		pointer-events: none;
 		text-align: left;
 	}
 
-	img {
-		display: inline-block;
-	}
-
 	a {
 		display: block;
-		position: relative;
-	}
-
-	&.is-loading {
-		@include is-loading;
-	}
-
-	&.is-loaded {
-		img {
-			animation: lazyImage .3s;
-		}
 	}
 
 	&.downloadable figcaption,
@@ -38,45 +24,10 @@
 		text-align: center;
 		white-space: normal;
 	}
-
-	.chevron {
-		background: $wds-color-white;
-		bottom: 0;
-		height: 20px;
-		min-width: 20px;
-		padding: 4px;
-		position: absolute;
-		right: 0;
-		transform: rotate(-90deg);
-		width: 20px;
-	}
-
-	&__play-icon {
-		position: absolute;
-		// 50% - 36px bc play icon is 72px high in total
-		top: calc(50% - 36px);
-		width: 100%;
-	}
 }
 
 .article-media-placeholder {
+	border: 1px solid $wds-fandom-color-middle-gray;
+	border-radius: 4px;
 	display: inline-block;
-}
-
-.article-media-thumbnail-image-wrapper {
-	position: relative;
-
-	> svg {
-		@extend %image-placeholder;
-	}
-}
-
-@keyframes lazyImage {
-	0% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
 }

@@ -41,9 +41,9 @@ export default Mixin.create({
 	},
 
 	appendHighImpactAd() {
-		const adsData = this.get('ads.slotNames'),
-			placeholder = document.createElement('div'),
-			wikiContainer = document.getElementById('wikiContainer');
+		const adsData = this.get('ads.slotNames');
+		const placeholder = document.createElement('div');
+		const wikiContainer = document.getElementById('wikiContainer');
 
 		if (wikiContainer) {
 			wikiContainer.insertAdjacentElement('afterend', placeholder);
@@ -67,15 +67,15 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectAds() {
-		const firstSection = this.element.parentNode.querySelector('.article-content > h2'),
-			articleFooter = document.querySelector('.article-footer'),
-			pi = document.querySelector('.portable-infobox-wrapper'),
-			pageHeader = document.querySelector('.wiki-page-header'),
-			adsData = this.get('ads.slotNames'),
-			globalFooter = document.querySelector('.wds-global-footer'),
-			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
-			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
-			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
+		const firstSection = this.element.parentNode.querySelector('.article-content > h2');
+		const articleFooter = document.querySelector('.article-footer');
+		const pi = document.querySelector('.portable-infobox-wrapper');
+		const pageHeader = document.querySelector('.wiki-page-header');
+		const adsData = this.get('ads.slotNames');
+		const globalFooter = document.querySelector('.wds-global-footer');
+		const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
+		const afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
+		const beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		if (pi) {
 			// inject top mobileTopLeaderBoard below infobox
@@ -112,13 +112,13 @@ export default Mixin.create({
 	 * @returns {void}
 	 */
 	injectMainPageAds() {
-		const adsData = this.get('ads.slotNames'),
-			curatedContent = this.element.querySelector('.curated-content'),
-			trendingArticles = this.element.querySelector('.trending-articles'),
-			globalFooter = document.querySelector('.wds-global-footer'),
-			slotsSwitched = this.adsContext.opts.preFooterAndBLBSwitched,
-			afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter,
-			beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
+		const adsData = this.get('ads.slotNames');
+		const curatedContent = this.element.querySelector('.curated-content');
+		const trendingArticles = this.element.querySelector('.trending-articles');
+		const globalFooter = document.querySelector('.wds-global-footer');
+		const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
+		const afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
+		const beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
 		this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
 

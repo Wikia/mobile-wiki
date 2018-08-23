@@ -10,8 +10,8 @@ export default Helper.extend({
 	i18n: service(),
 
 	compute(params, options) {
-		const i18nParams = {},
-			value = params.join('.');
+		const i18nParams = {};
+		const value = params.join('.');
 
 		let namespace = 'main';
 

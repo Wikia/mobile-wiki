@@ -5,7 +5,7 @@ export function getAdsModuleMock(adsContext) {
 	let context = {
 		init() {},
 		pushSlotToQueue() {},
-		onReady: (cb) => cb(),
+		onReady: cb => cb(),
 		onTransition() {},
 		reload() {},
 		afterTransition() {},

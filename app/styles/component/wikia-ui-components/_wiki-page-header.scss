@@ -11,6 +11,8 @@
 		border-bottom: 1px solid $wds-fandom-color-middle-gray;
 
 		img {
+			border: none;
+			border-radius: unset;
 			border-top-left-radius: 4px;
 			border-top-right-radius: 4px;
 			box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
@@ -28,7 +30,7 @@
 	}
 
 	&__title-wrapper {
-		margin-bottom: 28px;
+		margin-bottom: 1.875rem;
 		width: 100%;
 	}
 }

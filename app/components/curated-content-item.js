@@ -1,6 +1,6 @@
-import { computed } from '@ember/object';
-import { oneWay, equal } from '@ember/object/computed';
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { equal, oneWay } from '@ember/object/computed';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import { track, trackActions } from '../utils/track';
 
@@ -14,6 +14,7 @@ export default Component.extend(
 
 		aspectRatio: 1,
 		imageWidth: 200,
+		imageLoaded: false,
 
 		openSection() {},
 
@@ -34,14 +35,14 @@ export default Component.extend(
 		}),
 
 		icon: computed('type', function () {
-			const type = this.type,
-				typesWithDedicatedIcon = {
-					category: 'grid',
-					video: 'play',
-					image: 'image',
-					blog: 'clock',
-					section: 'grid'
-				};
+			const type = this.type;
+			const typesWithDedicatedIcon = {
+				category: 'grid',
+				video: 'play',
+				image: 'image',
+				blog: 'clock',
+				section: 'grid'
+			};
 
 			// we use here following Design System icons
 			// wds-icons-grid, wds-icons-play, wds-icons-image, wds-icons-clock, wds-icons-article

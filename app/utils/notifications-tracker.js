@@ -1,14 +1,14 @@
 import { track as mercuryTrack } from '../utils/track';
 
 const labels = {
-		'discussion-upvote-reply': 'discussion-upvote-reply',
-		'discussion-upvote-post': 'discussion-upvote-post',
-		'discussion-reply': 'discussion-reply',
-		markAllAsRead: 'mark-all-as-read',
-		markAsRead: 'mark-as-read',
-		openMenu: 'open-menu',
-	},
-	gaCategory = 'on-site-notifications';
+	'discussion-upvote-reply': 'discussion-upvote-reply',
+	'discussion-upvote-post': 'discussion-upvote-post',
+	'discussion-reply': 'discussion-reply',
+	markAllAsRead: 'mark-all-as-read',
+	markAsRead: 'mark-as-read',
+	openMenu: 'open-menu',
+};
+const gaCategory = 'on-site-notifications';
 
 /**
  * @param {string} label

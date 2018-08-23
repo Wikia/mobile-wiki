@@ -18,8 +18,8 @@ export default BaseModel.extend({
 	setData({ data }) {
 		this._super(...arguments);
 
-		let articleProperties = {},
-			details;
+		let articleProperties = {};
+		let details;
 
 		if (data) {
 			if (data.details) {

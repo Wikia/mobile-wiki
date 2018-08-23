@@ -87,9 +87,9 @@ module('Unit | Component | ad slot', (hooks) => {
 		];
 
 		testCases.forEach((testCase) => {
-			const ads = new LegacyAdsModule(),
-				spyUap = sinon.spy(),
-				spyNoUap = sinon.spy();
+			const ads = new LegacyAdsModule();
+			const spyUap = sinon.spy();
+			const spyNoUap = sinon.spy();
 
 			ads.waitForUapResponse(spyUap, spyNoUap);
 			window.dispatchEvent(new Event(testCase.eventName));
@@ -132,8 +132,8 @@ module('Unit | Component | ad slot', (hooks) => {
 		];
 
 		testCases.forEach((testCase) => {
-			const component = this.owner.factoryFor('component:ad-slot').create(),
-				pushSlotSpy = sinon.spy(component.get('ads.module'), 'pushSlotToQueue');
+			const component = this.owner.factoryFor('component:ad-slot').create();
+			const pushSlotSpy = sinon.spy(component.get('ads.module'), 'pushSlotToQueue');
 
 			this.ads.set('noAds', testCase.noAds);
 

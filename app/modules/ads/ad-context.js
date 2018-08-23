@@ -359,9 +359,14 @@ export default {
 	},
 	events: {
 		pushOnScroll: {
-			ids: []
+			ids: [],
+			threshold: 100
 		},
-		threshold: 100
+		pushAfterRendered: {
+			incontent_boxad_1: [
+				'incontent_player'
+			]
+		}
 	},
 	listeners: {
 		porvata: [],
