@@ -30,6 +30,8 @@ Router.map(function () {
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});
+
+	return false;
 });
 
 export default Router;
