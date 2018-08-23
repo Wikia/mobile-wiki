@@ -50,23 +50,12 @@ setupNpm() {
 	fi
 }
 
-# $1 - command
-greenkeeper() {
-	if [[ $branch = "greenkeeper/"* ]]; then
-		npm install greenkeeper-lockfile@1 --no-save
-		npx greenkeeper-lockfile-${1}
-	fi
-}
-
 ### Set pending status to all tasks
 updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Setup" pending pending
 updateGit "Tests" pending pending
 updateGit "Linter" pending pending
 updateGit "Assets size" pending pending
-
-### create new package-lock.json
-greenkeeper "update"
 
 ### Setup - node_modules
 setupNpm
@@ -131,8 +120,6 @@ else
 fi
 
 ### Finish
-# upload new package-lock.json
-greenkeeper "upload"
 
 if [ -z $failJob ]
 then
