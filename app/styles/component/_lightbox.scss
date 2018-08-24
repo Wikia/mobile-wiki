@@ -21,6 +21,21 @@
 	}
 }
 
+// Browsers which partially support CSS Environment variables (iOS 11.0-11.2).
+@supports (padding-bottom: constant(safe-area-inset-bottom)) {
+	.lightbox-wrapper {
+		--safe-area-inset-bottom: constant(safe-area-inset-bottom);
+		padding-bottom: var(--safe-area-inset-bottom);
+	}
+}
+// Browsers which fully support CSS Environment variables (iOS 11.2+).
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+	.lightbox-wrapper {
+		--safe-area-inset-bottom: env(safe-area-inset-bottom);
+		padding-bottom: var(--safe-area-inset-bottom);
+	}
+}
+
 // This is needed because we can't transform opacity from display: hidden in a regular way
 @keyframes fadeInFromNone {
 	0% {
@@ -157,10 +172,9 @@
 	display: flex;
 	flex-wrap: nowrap;
 	height: 80px;
-	margin-bottom: 16px;
 	overflow-x: auto;
 	overflow-y: hidden;
-	padding: 0 18px;
+	padding: 0 18px 18px;
 	width: 100%;
 }
 
