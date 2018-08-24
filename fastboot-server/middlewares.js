@@ -1,11 +1,11 @@
 const compression = require('compression');
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
-const methodOverride = require('method-override');
-const bodyParser = require('body-parser');
 
 function levelFn(status) {
 	if (status >= 500) {
