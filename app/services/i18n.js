@@ -1,5 +1,5 @@
 import Service, { inject as service } from '@ember/service';
-import i18n from 'npm:i18next';
+import i18n from 'i18next';
 import config from '../config/environment';
 
 export default Service.extend({

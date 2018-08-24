@@ -57,6 +57,20 @@ module.exports = function (defaults) {
 				}
 			]
 		},
+		replace: {
+			files: [
+				'**/*.js'
+			],
+			patterns: [{
+				match: 'window.define',
+				replacement: 'window.mefine'
+			},
+			{
+				match: 'window.require',
+				replacement: 'window.mequire'
+			}],
+			usePrefix: false
+		},
 		fingerprint: {
 			exclude: ['app.css'],
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
