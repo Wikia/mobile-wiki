@@ -2,6 +2,8 @@
 import { Promise } from 'rsvp';
 import config from '../../config/environment';
 import offset from '../../utils/offset';
+/* eslint import/no-cycle: 0 */
+// legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
 /**

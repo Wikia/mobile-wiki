@@ -84,9 +84,8 @@ export default EmberObject.extend({
 
 					return this;
 				} else {
-					return response.json().then(data =>
-						// update state on success
-						this.update(data));
+					// update state on success
+					return response.json().then(data => this.update(data));
 				}
 			});
 	},

@@ -10,8 +10,10 @@ module('Unit | Component | trending articles item', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(() => {
-		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) =>
-			`${url}/${options.mode}/${options.width}/${options.height}`);
+		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => `${url}/
+		${options.mode}/
+		${options.width}/
+		${options.height}`);
 	});
 
 	hooks.afterEach(() => {
