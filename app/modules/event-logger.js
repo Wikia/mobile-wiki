@@ -1,5 +1,5 @@
-import config from '../config/environment';
 import fetch from 'fetch';
+import config from '../config/environment';
 
 const url = `${config.APP.servicesExternalHost}/event-logger`;
 

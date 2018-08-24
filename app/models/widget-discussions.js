@@ -1,10 +1,10 @@
 import { inject as service } from '@ember/service';
 import EmberObject, { getWithDefault, get } from '@ember/object';
+import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
 import config from '../config/environment';
 import { getQueryString } from '../utils/url';
-import fetch from 'fetch';
 
 /**
  * @param {string} [path='']
@@ -61,8 +61,8 @@ export default EmberObject.extend(
 						title: createdBy.name
 					})
 				},
-				creationTimestamp: typeof creationDate === 'string' ?
-					(new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
+				creationTimestamp: typeof creationDate === 'string'
+					? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
 				id: threadData.firstPostId,
 				openGraph: null,
 				rawContent: threadData.rawContent,

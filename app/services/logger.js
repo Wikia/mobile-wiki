@@ -112,9 +112,9 @@ export default Service.extend({
 
 	log(logLevel, message, object) {
 		if (this.get('fastboot.isFastBoot')) {
-			const extendedObject = logLevel === 'error' ?
-				this.extendError(object, message) :
-				this.addContext(object, message, logLevel);
+			const extendedObject = logLevel === 'error'
+				? this.extendError(object, message)
+				: this.addContext(object, message, logLevel);
 
 			this.bunyanInstance[logLevel](extendedObject, message);
 		} else {

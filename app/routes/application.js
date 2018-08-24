@@ -100,8 +100,8 @@ export default Route.extend(
 			this.i18n.initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
-				!fastboot.get('isFastBoot') &&
-				!transition.queryParams.noexternals
+				!fastboot.get('isFastBoot')
+				&& !transition.queryParams.noexternals
 			) {
 
 				getAdsModule().then((adsModule) => {

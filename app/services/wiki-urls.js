@@ -65,9 +65,9 @@ export default Service.extend({
 		}
 
 		if (urlParams.title) {
-			url += urlParams.articlePath +
-				(urlParams.namespace ? `${urlParams.namespace}:` : '') +
-				encodeURIComponent(urlParams.title);
+			url += urlParams.articlePath
+				+ (urlParams.namespace ? `${urlParams.namespace}:` : '')
+				+ encodeURIComponent(urlParams.title);
 		}
 
 		if (urlParams.wikiPage) {

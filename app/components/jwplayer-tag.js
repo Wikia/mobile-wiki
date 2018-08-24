@@ -1,11 +1,11 @@
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
+import fetch from 'fetch';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import { track } from '../utils/track';
 import JWPlayerMixin from '../mixins/jwplayer';
 import RenderComponentMixin from '../mixins/render-component';
 import config from '../config/environment';
-import fetch from 'fetch';
 
 export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',

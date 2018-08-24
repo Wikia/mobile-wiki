@@ -1,7 +1,9 @@
 /* eslint no-console: 0 */
-import config from '../../config/environment';
 import { Promise } from 'rsvp';
+import config from '../../config/environment';
 import offset from '../../utils/offset';
+/* eslint import/no-cycle: 0 */
+// legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
 /**
@@ -355,8 +357,8 @@ class Ads {
 
 		const firstSection = document.querySelector('.article-content > h2');
 		const firstSectionTop = (
-			firstSection &&
-			offset(firstSection).top
+			firstSection
+			&& offset(firstSection).top
 		) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;

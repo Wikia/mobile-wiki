@@ -161,8 +161,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 	initVideoPlayer() {
 		const model = this.get('model.embed');
 		const jsParams = {
-			autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY') &&
-				window.Cookies.get(this.autoplayCookieName) !== '0',
+			autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
+				&& window.Cookies.get(this.autoplayCookieName) !== '0',
 			selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
 			adTrackingParams: {
 				adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',

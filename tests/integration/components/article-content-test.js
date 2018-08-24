@@ -42,13 +42,12 @@ module('Integration | Component | article content', (hooks) => {
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
 
 	test('ad is injected below portable infobox with no page header', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<div class="portable-infobox-wrapper">' +
-			'<aside class="portable-infobox"></aside>' +
-			'</div>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<div class="portable-infobox-wrapper">'
+			+ '<aside class="portable-infobox"></aside>'
+			+ '</div>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
@@ -78,11 +77,10 @@ module('Integration | Component | article content', (hooks) => {
 	});
 
 	test('ad is injected below page header', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<aside class="wiki-page-header"></aside>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<aside class="wiki-page-header"></aside>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
@@ -112,14 +110,13 @@ module('Integration | Component | article content', (hooks) => {
 	});
 
 	test('ad is injected below portable infobox', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<div class="wiki-page-header"></div>' +
-			'<div class="portable-infobox-wrapper">' +
-			'<aside class="portable-infobox"></aside>' +
-			'</div>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<div class="wiki-page-header"></div>'
+			+ '<div class="portable-infobox-wrapper">'
+			+ '<aside class="portable-infobox"></aside>'
+			+ '</div>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
