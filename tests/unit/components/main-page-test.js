@@ -5,8 +5,8 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
-import { getAdsModuleMock } from '../../helpers/mock-ads-service';
 import * as adsModule from 'mobile-wiki/modules/ads';
+import { getAdsModuleMock } from '../../helpers/mock-ads-service';
 
 const trackModule = require('mobile-wiki/utils/track');
 const adSlotComponentStub = Component.extend({});

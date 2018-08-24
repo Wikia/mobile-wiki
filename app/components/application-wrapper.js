@@ -94,11 +94,11 @@ export default Component.extend({
 		const isReference = this.targetIsReference(target);
 
 		return (
-			target.closest('.mw-content') &&
+			target.closest('.mw-content')
 			// ignore polldaddy content
-			!target.closest('.PDS_Poll') &&
+			&& !target.closest('.PDS_Poll')
 			// don't need special logic for article references
-			!isReference
+			&& !isReference
 		);
 	},
 
@@ -111,8 +111,8 @@ export default Component.extend({
 	 */
 	targetIsReference(target) {
 		return Boolean(
-			target.closest('.references') ||
-			(target.parentNode && target.parentNode.matches('.reference'))
+			target.closest('.references')
+			|| (target.parentNode && target.parentNode.matches('.reference'))
 		);
 	},
 

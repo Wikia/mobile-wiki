@@ -1,8 +1,8 @@
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
-import fetch from '../utils/mediawiki-fetch';
 import { htmlSafe } from '@ember/string';
+import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	batch: 1,

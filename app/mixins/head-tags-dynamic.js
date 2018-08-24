@@ -39,9 +39,9 @@ export default Mixin.create({
 			next: data.next,
 			prev: data.prev,
 			robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
-			keywords: `${this.get('wikiVariables.siteMessage')}` +
-			`,${this.get('wikiVariables.siteName')}` +
-			`,${this.get('wikiVariables.dbName')}`,
+			keywords: `${this.get('wikiVariables.siteMessage')}`
+			+ `,${this.get('wikiVariables.siteName')}`
+			+ `,${this.get('wikiVariables.dbName')}`,
 			appleItunesApp: '',
 			amphtml: data.amphtml
 		};

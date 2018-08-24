@@ -37,8 +37,8 @@ function isInContentApplicable() {
 
 	const firstSection = document.querySelector('.article-content > h2');
 	const firstSectionTop = (
-		firstSection &&
-		offset(firstSection).top
+		firstSection
+		&& offset(firstSection).top
 	) || 0;
 
 	return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;

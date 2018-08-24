@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
-import config from '../../config/environment';
 import { Promise } from 'rsvp';
+import config from '../../config/environment';
 import offset from '../../utils/offset';
 import { track } from '../../utils/track';
 
@@ -355,8 +355,8 @@ class Ads {
 
 		const firstSection = document.querySelector('.article-content > h2');
 		const firstSectionTop = (
-			firstSection &&
-			offset(firstSection).top
+			firstSection
+			&& offset(firstSection).top
 		) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;

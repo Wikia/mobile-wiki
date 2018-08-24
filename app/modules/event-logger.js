@@ -1,5 +1,5 @@
-import config from '../config/environment';
 import fetch from 'fetch';
+import config from '../config/environment';
 
 const url = `https://${config.services.domain}/${config.services.eventLogger.baseAPIPath}`;
 

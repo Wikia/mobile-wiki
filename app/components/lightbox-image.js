@@ -70,8 +70,8 @@ export default Component.extend(
 			doubleTap(event) {
 				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 				if (
-					!this.isZoomed &&
-					(!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
+					!this.isZoomed
+					&& (!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
 				) {
 					const scale = 3;
 
