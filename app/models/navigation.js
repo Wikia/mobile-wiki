@@ -44,12 +44,12 @@ export default EmberObject.extend({
 					});
 				}
 			})
-			.then((navigationData) => {
-				return {
+			.then(navigationData => (
+				{
 					globalFooter: navigationData['global-footer'],
 					globalNavigation: navigationData['global-navigation'],
 					communityHeader: navigationData['community-header']
-				};
-			});
+				}
+			));
 	}
 });

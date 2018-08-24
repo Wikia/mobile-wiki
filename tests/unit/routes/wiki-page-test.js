@@ -143,12 +143,12 @@ module('Unit | Route | wiki page', (hooks) => {
 		isInitialPageViewStub.returns(false);
 
 		const mock = this.owner.lookup('route:wikiPage');
-		mock.controllerFor = () => {
-			return {
+		mock.controllerFor = () => (
+			{
 				send: () => {
 				}
-			};
-		};
+			}
+		);
 
 		mock.beforeModel({
 			params: {
