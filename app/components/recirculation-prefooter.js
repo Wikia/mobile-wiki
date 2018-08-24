@@ -57,7 +57,7 @@ export default Component.extend(
 		actions: {
 			postClick(post, index) {
 
-				const labelParts = ['footer', `slot-${index + 1}`, post.source, post.isVideo ? 'video' : 'not-video'];
+				const labelParts = ['footer', `slot-${index + 1}`, post.source];
 
 				track({
 					action: trackActions.click,

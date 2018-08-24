@@ -5,9 +5,6 @@
 			<li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
 				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
 				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
-					{{#if post.isVideo}}
-						{{svg 'wds-player-icon-play' class='wds-player-icon-play-small recirculation-prefooter__item-is-video'}}
-					{{/if}}
 					<p class="recirculation-prefooter__title">{{post.title}}</p>
 					<p class="recirculation-prefooter__subtitle">{{post.site_name}}</p>
 					{{#if post.presented_by}}

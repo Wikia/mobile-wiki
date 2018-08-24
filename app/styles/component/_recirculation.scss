@@ -19,15 +19,6 @@
 			height: 100%;
 			justify-content: flex-end;
 		}
-
-		&-is-video {
-			bottom: 0;
-			margin-bottom: 12px;
-			margin-right: 12px;
-			position: absolute;
-			right: 0;
-			z-index: 1;
-		}
 	}
 
 	&__badge-sponsored {
