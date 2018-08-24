@@ -2,6 +2,7 @@
 	background-color: $wds-color-white;
 	border: 1px solid $wds-fandom-color-mid-light-gray;
 	box-shadow: 0 6px 10px 0 rgba(26, 26, 26, .1);
+	margin-bottom: 24px;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 
@@ -41,11 +42,17 @@
 	}
 
 	th {
+		@extend %wds-leading-tight;
+
 		background: $wds-fandom-color-light-gray;
 		border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
 		border-right: 0;
 		text-align: left;
 		vertical-align: top;
+
+		&:first-of-type {
+			border-right: 1px solid $wds-fandom-color-mid-light-gray;
+		}
 	}
 
 	td:empty {
@@ -54,10 +61,10 @@
 
 	td:not(:last-child),
 	th:not(:last-child) {
-		border-right: 1px solid $border-color-light;
+		border-right: 1px solid $wds-fandom-color-mid-light-gray;
 	}
 
 	tr:not(:last-of-type) {
-		border-bottom: 1px solid $border-color-light;
+		border-bottom: 1px solid $wds-fandom-color-mid-light-gray;
 	}
 }
