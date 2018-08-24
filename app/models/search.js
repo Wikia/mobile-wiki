@@ -84,23 +84,22 @@ export default EmberObject.extend({
 
 					return this;
 				} else {
-					return response.json().then((data) => {
+					return response.json().then(data =>
 						// update state on success
-						return this.update(data);
-					});
+						this.update(data));
 				}
 			});
 	},
 
 	update(state) {
 		this.setProperties({
-			items: this.items.concat(state.items.map((item) => {
-				return {
+			items: this.items.concat(state.items.map(item => (
+				{
 					title: item.title,
 					snippet: htmlSafe(item.snippet),
 					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url)
-				};
-			})),
+				}
+			))),
 			loading: false,
 			totalItems: state.total,
 			totalBatches: state.batches,

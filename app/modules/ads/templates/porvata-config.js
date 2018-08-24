@@ -4,12 +4,12 @@ function getNavbarHeight() {
 	return navbar ? navbar.offsetHeight : 0;
 }
 
-export const getConfig = () => {
-	return {
+export const getConfig = () => (
+	{
 		inViewportOffsetTop: getNavbarHeight(),
 		isFloatingEnabled: false
-	};
-};
+	}
+);
 
 export default {
 	getConfig,

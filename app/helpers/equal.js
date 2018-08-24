@@ -6,6 +6,4 @@ import { helper } from '@ember/component/helper';
  * @param {Array} params
  * @returns {string}
  */
-export default helper((params) => {
-	return params[0] === params[1];
-});
+export default helper(params => params[0] === params[1]);

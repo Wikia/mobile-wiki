@@ -13,14 +13,14 @@ export function getAdsModuleMock(adsContext) {
 		waitForUapResponse() {},
 		onMenuOpen() {},
 		isSlotApplicable: () => true,
-		getAdSlotComponentAttributes: (name) => {
-			return {
+		getAdSlotComponentAttributes: name => (
+			{
 				name,
 				hiddenClassName: 'hidden',
 				disableManualInsert: false,
 				isAboveTheFold: false
-			};
-		},
+			}
+		),
 		isArticleSectionCollapsed: () => true,
 		waitForReady(cb) {
 			cb();

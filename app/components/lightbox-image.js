@@ -125,12 +125,12 @@ export default Component.extend(
 			return htmlSafe(`-webkit-${transform}${transform}`);
 		}),
 
-		viewportSize: computed(() => {
-			return {
+		viewportSize: computed(() => (
+			{
 				width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 				height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-			};
-		}),
+			}
+		)),
 
 		/**
 		 * calculates current scale for zooming

@@ -8,13 +8,13 @@ export default Component.extend(InViewportMixin, {
 	users: null,
 
 	isVisible: notEmpty('users'),
-	avatars: map('users', (user) => {
-		return {
+	avatars: map('users', user => (
+		{
 			src: user.avatar,
 			alt: user.name,
 			link: user.url,
-		};
-	}),
+		}
+	)),
 
 	init() {
 		this._super(...arguments);
