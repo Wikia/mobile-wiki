@@ -1,24 +1,22 @@
-export default (query) => {
-	return {
-		items: [
-			{
-				title: `${query}A`
-			},
-			{
-				title: `${query}B`
-			},
-			{
-				title: `${query}C`
-			},
-			{
-				title: `${query}D`
-			},
-			{
-				title: `${query}E`
-			},
-			{
-				title: `${query}F`
-			}
-		]
-	};
-};
+export default query => ({
+	items: [
+		{
+			title: `${query}A`
+		},
+		{
+			title: `${query}B`
+		},
+		{
+			title: `${query}C`
+		},
+		{
+			title: `${query}D`
+		},
+		{
+			title: `${query}E`
+		},
+		{
+			title: `${query}F`
+		}
+	]
+});

@@ -8,13 +8,13 @@ module('Unit | Module | ads | tracking', (hooks) => {
 	hooks.beforeEach(() => {
 		window.Wikia.adEngine = {
 			context: {
-				get: () => { return true; },
+				get: () => true
 			}
 		};
 		window.Wikia.adProductsBidders = {
 			bidders: {
-				getCurrentSlotPrices: () => { return {}; },
-				getDfpSlotPrices: () => { return {}; }
+				getCurrentSlotPrices: () => {},
+				getDfpSlotPrices: () => {}
 			}
 		};
 		sinon.spy(M.tracker.Internal, 'track');

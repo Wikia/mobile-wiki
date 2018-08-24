@@ -24,6 +24,7 @@ export function getQueryString(query = {}, { useBrackets = true, skipQuestionMar
 			} else {
 				return `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`;
 			}
+			return false;
 		}).join('&')}`;
 	}
 
