@@ -90,7 +90,6 @@ export default Component.extend({
 
 		/**
 		 * @param {array} thumbnails: array of thumb urls
-		 * @param {int} currentThumbnail: index of active thumbnail
 		 */
 		setThumbnails(thumbnails) {
 			this.set('thumbnails', thumbnails);

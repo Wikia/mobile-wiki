@@ -154,7 +154,7 @@ export default Component.extend(
 		},
 
 		openLightbox(figure) {
-			const gallery = figure.closest('.article-media-gallery,.gallery');
+			const gallery = figure.closest('.article-media-gallery, .gallery');
 
 			let lightboxModel;
 

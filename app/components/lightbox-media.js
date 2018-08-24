@@ -159,15 +159,12 @@ export default Component.extend({
 
 	updateThumbnails() {
 		if (this.get('isGallery')) {
-			const currentGalleryRef = this.get('currentGalleryRef');
-			const thumbnails = this.get('model').map((item, index) => {
-				return {
-					url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
-					ref: index,
-					active: index === currentGalleryRef,
-					isVideo: item.isVideo,
-				};
-			});
+			const thumbnails = this.model.map((item, index) => ({
+				url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
+				ref: index,
+				active: index === this.currentGalleryRef,
+				isVideo: item.isVideo,
+			}));
 
 			this.setThumbnails(thumbnails);
 		}
