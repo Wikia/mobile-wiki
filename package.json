@@ -23,7 +23,9 @@
     "lint:js": "eslint ./*.js app fastboot-server config lib tests ember-cli-build.js fastboot-server.js",
     "test": "ember test",
     "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json",
-    "assets-size": "node tasks/assets-size/index.js"
+    "assets-size": "node tasks/assets-size/index.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": "",
   "engines": {
@@ -56,7 +58,7 @@
     "method-override": "3.0.0",
     "on-headers": "1.0.1",
     "scriptjs": "2.5.8",
-    "snyk": "1.89.0",
+    "snyk": "^1.93.0",
     "vignette": "github:wikia/vignette-js#2.6.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
