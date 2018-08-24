@@ -62,12 +62,12 @@ module.exports = function (defaults) {
 				'**/*.js'
 			],
 			patterns: [{
-				match: 'window.define',
-				replacement: 'window.mefine'
+				match: 'w.define',
+				replacement: 'w.mefine'
 			},
 			{
-				match: 'window.require',
-				replacement: 'window.mequire'
+				match: 'w.require',
+				replacement: 'w.mequire'
 			}],
 			usePrefix: false
 		},
