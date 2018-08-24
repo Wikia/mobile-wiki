@@ -26,7 +26,6 @@ module.exports = {
 		Wikia: true
 	},
 	rules: {
-		//"class-methods-use-this": 0,
 		"comma-dangle": 0,
 		"consistent-return": 0,
 		"func-names": 0,
