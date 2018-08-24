@@ -2,7 +2,7 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li class="recirculation-prefooter__item" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url({{post.thumbnail}});">
+			<li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
 				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
 				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
 					{{#if post.isVideo}}
