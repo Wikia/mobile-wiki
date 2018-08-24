@@ -19,16 +19,15 @@ const stringify = (value) => {
 	return value;
 };
 
-const extractClassName = (subject) => {
-	return subject[NAME_KEY] || subject.modelName || subject.name ||
-		stringify(subject) || unknownFunction;
-};
+const extractClassName = subject => (
+	subject[NAME_KEY] || subject.modelName || subject.name || stringify(subject) || unknownFunction
+);
 
-const extractInstanceName = (subject) => {
-	return subject._debugContainerKey || subject.modelName ||
-		(subject.constructor ? extractClassName(subject.constructor) : false) ||
-		stringify(subject) || unknownObject;
-};
+const extractInstanceName = subject => (
+	subject._debugContainerKey || subject.modelName ||
+	(subject.constructor ? extractClassName(subject.constructor) : false) ||
+	stringify(subject) || unknownObject
+);
 
 const extractErrorName = (subject) => {
 	if (typeof subject === 'function') {
