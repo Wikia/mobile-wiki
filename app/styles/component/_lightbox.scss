@@ -25,25 +25,17 @@
 // Browsers which partially support CSS Environment variables (iOS 11.0-11.2).
 @supports (padding-bottom: constant(safe-area-inset-bottom)) {
 	.lightbox-wrapper {
-		--safe-area-inset-bottom: constant(safe-area-inset-bottom);
-		--safe-area-inset-left: constant(safe-area-inset-left);
-		--safe-area-inset-right: constant(safe-area-inset-right);
-
-		padding-bottom: var(--safe-area-inset-bottom);
-		padding-left: var(--safe-area-inset-left);
-		padding-right: var(--safe-area-inset-right);
+		padding-bottom: constant(safe-area-inset-bottom);
+		padding-left: constant(safe-area-inset-left);
+		padding-right: constant(safe-area-inset-right);
 	}
 }
 // Browsers which fully support CSS Environment variables (iOS 11.2+).
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
 	.lightbox-wrapper {
-		--safe-area-inset-bottom: env(safe-area-inset-bottom);
-		--safe-area-inset-left: env(safe-area-inset-left);
-		--safe-area-inset-right: env(safe-area-inset-right);
-
-		padding-bottom: var(--safe-area-inset-bottom);
-		padding-left: var(--safe-area-inset-left);
-		padding-right: var(--safe-area-inset-right);
+		padding-bottom: env(safe-area-inset-bottom);
+		padding-left: env(safe-area-inset-left);
+		padding-right: env(safe-area-inset-right);
 	}
 }
 
