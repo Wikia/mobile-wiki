@@ -50,9 +50,7 @@ export default class JWPlayer extends BasePlayer {
 			adsModule
 				.waitForReady()
 				.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
-				.then((bidParams) => {
-					return this.initializePlayer(adsModule, bidParams);
-				});
+				.then(bidParams => this.initializePlayer(adsModule, bidParams));
 		});
 	}
 
