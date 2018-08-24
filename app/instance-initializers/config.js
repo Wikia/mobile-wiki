@@ -1,5 +1,5 @@
-import config from '../config/environment';
 import initializeConfig from '@wikia/ember-fandom/instance-initializers/config';
+import config from '../config/environment';
 
 export function initialize(applicationInstance) {
 	initializeConfig(applicationInstance, config);
