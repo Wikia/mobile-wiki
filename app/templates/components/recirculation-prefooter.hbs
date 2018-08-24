@@ -2,27 +2,19 @@
 	<h3>{{i18n 'recirculation.trending-fandom-articles'}}</h3>
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
-			<li class="recirculation-prefooter__item" >
+			<li class="recirculation-prefooter__item" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url({{post.thumbnail}});">
 				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
 				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
-					<div class="recirculation-prefooter__item-thumbnail">
-						<img src="{{post.thumbnail}}" alt="{{post.title}}">
-						{{#if post.isVideo}}
-							<img alt="play button" src="https://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
-								 class="recirculation-prefooter__item-is-video">
-						{{/if}}
-					</div>
-					{{#if post.presented_by}}
-						<span class="recirculation-prefooter__badge recirculation-prefooter__badge-sponsored wds-font-size-xs wds-font-weight-bold">Sponsored</span>
+					{{#if post.isVideo}}
+						<img alt="play button" src="https://vignette.wikia.nocookie.net/6857d275-0eb0-4e97-9401-3d23da474ed0"
+							 class="recirculation-prefooter__item-is-video">
 					{{/if}}
 					<p class="recirculation-prefooter__title">{{post.title}}</p>
+					<p class="recirculation-prefooter__subtitle">{{post.site_name}}</p>
+					{{#if post.presented_by}}
+						<span class="recirculation-prefooter__badge-sponsored">Sponsored</span>
+					{{/if}}
 				</a>
-				{{#if post.isPlista}}
-					<a class="recirculation-prefooter__badge recirculation-prefooter__badge-plista wds-font-size-xs"
-					   href="https://www.plista.com/au">
-						<img alt="plista badge" src="https://static.plista.com/images/powered_by_plista_logo.png">
-					</a>
-				{{/if}}
 			</li>
 		{{/each}}
 	</ul>

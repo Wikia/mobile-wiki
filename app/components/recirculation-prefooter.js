@@ -35,13 +35,6 @@ export default Component.extend(
 
 		listRendered: null,
 
-		hasNoLiftigniterSponsoredItem: computed('items', function () {
-			return !this.items.some(item => item.presented_by);
-		}),
-		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.hasNoLiftigniterSponsoredItem;
-		}),
-
 		init() {
 			this._super(...arguments);
 
@@ -78,35 +71,6 @@ export default Component.extend(
 			}
 		},
 
-		fetchPlista() {
-			const width = normalizeThumbWidth(window.innerWidth);
-			const height = Math.round(width / (16 / 9));
-			const plistaURL = `https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
-				+ `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
-			return fetch(plistaURL)
-				.then(response => response.json())
-				.then((data) => {
-					if (data.length) {
-						return data[0];
-					} else {
-						throw new Error('We haven\'t got Plista!');
-					}
-				});
-		},
-
-		mapPlista(item) {
-			if (item) {
-				return {
-					meta: 'wikia-impactfooter',
-					thumbnail: item.img,
-					title: item.title,
-					url: item.url,
-					presented_by: 'Plista',
-					isPlista: true
-				};
-			}
-		},
-
 		fetchLiftIgniterData() {
 			const liftigniter = this.wdsLiftigniter;
 
@@ -136,24 +100,6 @@ export default Component.extend(
 							this.get('listRendered').resolve();
 						}
 					});
-
-					if (this.shouldShowPlista) {
-						this.fetchPlista()
-							.then(this.mapPlista)
-							.then((item) => {
-								if (item.thumbnail) {
-									let newItems = this.items;
-
-									newItems.splice(1, 0, item);
-									newItems.pop();
-									this.set('items', newItems);
-									this.notifyPropertyChange('items');
-								}
-							})
-							.catch((error) => {
-								this.logger.info('Plista fetch failed', error);
-							});
-					}
 				});
 
 			track({
