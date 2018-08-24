@@ -6,6 +6,6 @@ import { helper } from '@ember/component/helper';
  * @param {string} thumbnail
  * @returns {string}
  */
-export default helper((thumbnail) => {
-	return `background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url(${thumbnail});`;
-});
+export default helper(
+	thumbnail => `background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url(${thumbnail});`
+);
