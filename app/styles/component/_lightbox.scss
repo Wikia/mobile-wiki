@@ -163,6 +163,10 @@
 	width: 100%;
 }
 
+.lightbox-filmstrip-hidden {
+	visibility: hidden;
+}
+
 .lightbox-thumbnail {
 	@extend %position-play-icon;
 
