@@ -128,8 +128,10 @@ export default Component.extend({
 			this.send('toggleFooter');
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');
-		} else if (filmstripThumbnail || target.closest('.lightbox-thumbnails-container')) {
+		} else if (filmstripThumbnail) {
 			this.set('model.galleryRef', parseInt(filmstripThumbnail.getAttribute('data-ref'), 10));
+		} else if (target.closest('.lightbox-thumbnails-container')) {
+			// intentionally do nothing
 		} else {
 			this.send('toggleUI');
 		}
