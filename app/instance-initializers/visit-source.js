@@ -9,8 +9,8 @@ export function initialize() {
 	}
 
 	if (typeof VisitSource === 'function') {
-		(new VisitSource('WikiaSessionSource', config.cookieDomain)).checkAndStore();
-		(new VisitSource('WikiaLifetimeSource', config.cookieDomain, false)).checkAndStore();
+		(new VisitSource('WikiaSessionSource', config.APP.cookieDomain)).checkAndStore();
+		(new VisitSource('WikiaLifetimeSource', config.APP.cookieDomain, false)).checkAndStore();
 	}
 }
 
