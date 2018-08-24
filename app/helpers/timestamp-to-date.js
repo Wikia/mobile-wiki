@@ -7,6 +7,4 @@ import { helper } from '@ember/component/helper';
  * @param {int} unixTimestamp
  * @returns {string}
  */
-export default helper((unixTimestamp) => {
-	return new Date(unixTimestamp * 1000).toLocaleDateString();
-});
+export default helper(unixTimestamp => new Date(unixTimestamp * 1000).toLocaleDateString());
