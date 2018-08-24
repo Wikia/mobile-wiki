@@ -32,6 +32,16 @@ export default Component.extend({
 		this.updateActiveThumbnail();
 	},
 
+	click(event) {
+		const filmstripThumbnail = event.target.closest('.lightbox-thumbnail');
+
+		if (filmstripThumbnail) {
+			this.set('activeThumbnailRef', parseInt(filmstripThumbnail.getAttribute('data-ref'), 10));
+		}
+
+		return false;
+	},
+
 	updateActiveThumbnail() {
 		this.element.querySelectorAll('.lightbox-thumbnail-active').forEach((item) => {
 			item.classList.remove('lightbox-thumbnail-active');
