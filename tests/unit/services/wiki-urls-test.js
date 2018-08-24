@@ -135,8 +135,8 @@ module('Unit | Service | wiki-urls', (hooks) => {
 							complex: '1yry3!@##@$4234_423 423zo42&56'
 						}
 					},
-					expectedOutput: `https://glee.wikia.com${langPath}/sratatata?simple=` +
-									'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
+					expectedOutput: `https://glee.wikia.com${langPath}/sratatata?simple=`
+									+ 'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
 				},
 				{
 					urlParams: {

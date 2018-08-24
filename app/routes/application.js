@@ -103,8 +103,8 @@ export default Route.extend(
 			this.i18n.initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
 			if (
-				!fastboot.get('isFastBoot') &&
-				!transition.queryParams.noexternals
+				!fastboot.get('isFastBoot')
+				&& !transition.queryParams.noexternals
 			) {
 
 				getAdsModule().then((adsModule) => {
@@ -195,8 +195,8 @@ export default Route.extend(
 				}
 
 				// PLATFORM-3351 - if x-wikia-wikiaappsid is present, allow https even if basePath is set to http.
-				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid') &&
-					basePath === `http://${model.wikiVariables.host}`
+				if (fastbootRequest.get('headers').get('x-wikia-wikiaappsid')
+					&& basePath === `http://${model.wikiVariables.host}`
 				) {
 					return;
 				}

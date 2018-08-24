@@ -1,5 +1,5 @@
-import getAdsModule from '../ads';
 import { Promise } from 'rsvp';
+import getAdsModule from '../ads';
 
 export default class JWPlayerVideoAds {
 	constructor(params) {
@@ -44,10 +44,9 @@ export default class JWPlayerVideoAds {
 	}
 
 	isA9VideoEnabled() {
-		return getAdsModule().then(ads =>
-			ads.a9 &&
-			ads.currentAdsContext &&
-			ads.currentAdsContext.bidders &&
-			ads.currentAdsContext.bidders.a9Video);
+		return getAdsModule().then(ads => ads.a9
+			&& ads.currentAdsContext
+			&& ads.currentAdsContext.bidders
+			&& ads.currentAdsContext.bidders.a9Video);
 	}
 }

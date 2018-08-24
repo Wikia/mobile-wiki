@@ -1,6 +1,6 @@
 import Service, { inject as service } from '@ember/service';
-import config from '../config/environment';
 import i18n from 'npm:i18next';
+import config from '../config/environment';
 
 export default Service.extend({
 	fastboot: service(),

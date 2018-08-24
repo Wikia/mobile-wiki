@@ -20,9 +20,9 @@ export default Component.extend(RenderComponentMixin, {
 		// make sure globl configuration for this widget is initialized
 		this.setUpConfig(guid);
 
-		return `<script src="${src}" async="async" ` +
-			`data-instance="${guid}" data-width="${width}" data-height="${height}"></` +
-			'script>';
+		return `<script src="${src}" async="async" `
+			+ `data-instance="${guid}" data-width="${width}" data-height="${height}"></`
+			+ 'script>';
 	},
 
 	/**

@@ -31,8 +31,8 @@ export default Component.extend(
 		}),
 
 		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
-			return !(this.pageHasFeaturedVideo || this.isAboveTheFold) &&
-				!isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
+			return !(this.pageHasFeaturedVideo || this.isAboveTheFold)
+				&& !isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
 		}),
 
 		didInsertElement() {
