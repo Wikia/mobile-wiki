@@ -25,6 +25,7 @@
 
 		max-width: 224px;
 		padding: 10px;
+		vertical-align: top;
 
 		figure {
 			&:not(.is-ogg) {
@@ -48,7 +49,6 @@
 		border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
 		border-right: 0;
 		text-align: left;
-		vertical-align: top;
 
 		&:first-of-type {
 			border-right: 1px solid $wds-fandom-color-mid-light-gray;
