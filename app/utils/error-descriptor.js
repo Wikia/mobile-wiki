@@ -24,9 +24,9 @@ const extractClassName = subject => (
 );
 
 const extractInstanceName = subject => (
-	subject._debugContainerKey || subject.modelName ||
-	(subject.constructor ? extractClassName(subject.constructor) : false) ||
-	stringify(subject) || unknownObject
+	subject._debugContainerKey || subject.modelName
+	|| (subject.constructor ? extractClassName(subject.constructor) : false)
+	|| stringify(subject) || unknownObject
 );
 
 const extractErrorName = (subject) => {

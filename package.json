@@ -20,7 +20,7 @@
     "stylelint": "stylelint 'app/styles/**/*.scss'",
     "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
-    "lint:js": "eslint ./*.js app fastboot-server config lib tests ember-cli-build.js fastboot-server.js",
+    "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests ember-cli-build.js fastboot-server.js",
     "test": "ember test",
     "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json",
     "assets-size": "node tasks/assets-size/index.js"
@@ -110,7 +110,7 @@
     "ember-source": "~3.1.0",
     "ember-test-selectors": "1.0.0",
     "eslint": "5.4.0",
-    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-ember": "5.2.0",
     "eslint-plugin-import": "2.14.0",
     "fastboot-transform": "0.1.3",

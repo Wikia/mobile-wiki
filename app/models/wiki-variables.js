@@ -69,9 +69,9 @@ export default EmberObject.extend({
 				response.data.host = host;
 
 				// Make sure basePath is using https if the current request from the client was made over https
-				if ((accessToken || response.data.disableHTTPSDowngrade) &&
-					response.data.basePath &&
-					protocol === 'https'
+				if ((accessToken || response.data.disableHTTPSDowngrade)
+					&& response.data.basePath
+					&& protocol === 'https'
 				) {
 					response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
 				}

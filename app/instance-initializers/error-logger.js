@@ -1,5 +1,5 @@
-import { logError } from '../modules/event-logger';
 import Ember from 'ember';
+import { logError } from '../modules/event-logger';
 
 const whitelistErrorMessages = [
 	'Attempt to use history.pushState() more than 100 times per 30.000000 seconds'

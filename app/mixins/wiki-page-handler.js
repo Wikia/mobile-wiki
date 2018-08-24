@@ -172,9 +172,9 @@ export default Mixin.create({
 
 			return model;
 		} else if (
-			currentNamespace === MediawikiNamespace.BLOG_ARTICLE &&
+			currentNamespace === MediawikiNamespace.BLOG_ARTICLE
 			// User blog listing has BLOG_ARTICLE namespace but no article
-			data.data.article
+			&& data.data.article
 		) {
 			model = BlogModel.create(ownerInjection, params);
 			model.setData(data);

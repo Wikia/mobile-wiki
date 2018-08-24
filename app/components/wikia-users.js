@@ -1,7 +1,7 @@
 import { notEmpty, map } from '@ember/object/computed';
 import Component from '@ember/component';
-import { track, trackActions } from '../utils/track';
 import InViewportMixin from 'ember-in-viewport';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(InViewportMixin, {
 	classNames: ['contributors'],
