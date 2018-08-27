@@ -5,7 +5,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
-import getAdsModule from '../modules/ads';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
@@ -35,13 +34,6 @@ export default Component.extend(
 
 		listRendered: null,
 
-		hasNoLiftigniterSponsoredItem: computed('items', function () {
-			return !this.items.some(item => item.presented_by);
-		}),
-		shouldShowPlista: computed('hasNoLiftigniterSponsoredItem', function () {
-			return M.geo && ['AU', 'NZ'].indexOf(M.geo.country) > -1 && this.hasNoLiftigniterSponsoredItem;
-		}),
-
 		init() {
 			this._super(...arguments);
 
@@ -64,7 +56,7 @@ export default Component.extend(
 		actions: {
 			postClick(post, index) {
 
-				const labelParts = ['footer', `slot-${index + 1}`, post.source, post.isVideo ? 'video' : 'not-video'];
+				const labelParts = ['footer', `slot-${index + 1}`, post.source];
 
 				track({
 					action: trackActions.click,
@@ -105,6 +97,8 @@ export default Component.extend(
 					isPlista: true,
 				};
 			}
+
+			return undefined;
 		},
 
 		fetchLiftIgniterData() {
@@ -134,24 +128,6 @@ export default Component.extend(
 							this.get('listRendered').resolve();
 						}
 					});
-
-					if (this.shouldShowPlista) {
-						this.fetchPlista()
-							.then(this.mapPlista)
-							.then((item) => {
-								if (item.thumbnail) {
-									let newItems = this.items;
-
-									newItems.splice(1, 0, item);
-									newItems.pop();
-									this.set('items', newItems);
-									this.notifyPropertyChange('items');
-								}
-							})
-							.catch((error) => {
-								this.logger.info('Plista fetch failed', error);
-							});
-					}
 				});
 
 			track({

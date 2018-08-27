@@ -1761,6 +1761,6 @@ export default function (owner) {
 			};
 			/* eslint-enable */
 		}
+		return undefined;
 	};
 }
-

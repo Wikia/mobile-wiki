@@ -45,7 +45,7 @@ const availableTargets = {
 };
 
 const serializers = {
-	'req-headers'(req) {
+	'req-headers': function (req) {
 		if (!req) {
 			return req;
 		}

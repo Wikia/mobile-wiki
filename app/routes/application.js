@@ -297,10 +297,8 @@ export default Route.extend(
 				 * handle links that are external to the application
 				 */
 				if (target.className.indexOf('external') > -1) {
-					return window.location.assign(target.href);
-				}
-
-				if (info.article) {
+					window.location.assign(target.href);
+				} else if (info.article) {
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
