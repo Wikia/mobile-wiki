@@ -19,7 +19,7 @@ module('Acceptance | Head meta tags', (hooks) => {
 		// set something in head of a test runner document
 		assert.equal(
 			document.querySelectorAll('meta[name="viewport"]')[1].getAttribute('content'),
-			'user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui',
+			'user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover',
 		);
 		assert.equal(
 			document.querySelector('meta[name="theme-color"]').getAttribute('content'),

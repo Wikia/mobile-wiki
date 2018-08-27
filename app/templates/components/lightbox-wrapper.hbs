@@ -1,10 +1,10 @@
 {{#if type}}
-	<div class="lightbox-header {{if headerHidden 'wds-is-hidden'}}">
+	<div class="lightbox-header {{if uiHidden 'wds-is-hidden'}}">
 		<div class="lightbox-close-wrapper">
 			{{#if closeButtonHidden}}
 				{{lightboxCloseButtonDelay}}
 			{{else}}
-				{{svg 'wds-icons-cross-tiny' role='img' class='wds-icon wds-icon-tiny lightbox-close-button'}}
+				{{svg 'wds-icons-cross' role='img' class='wds-icon wds-icon-small lightbox-close-button'}}
 			{{/if}}
 		</div>
 		<div class="lightbox-header-title">{{header}}</div>
@@ -16,9 +16,27 @@
 			setFooter=(action 'setFooter')
 			setHeader=(action 'setHeader')
 			setCloseButtonHidden=(action 'setCloseButtonHidden')
+			setThumbnails=(action 'setThumbnails')
+			updateGalleryRef=(action 'updateGalleryRef')
 		}}
 	</div>
-	{{#if footer}}
-		<div class="lightbox-footer mw-content wds-font-weight-light {{if footerExpanded 'expanded'}} {{if footerHidden 'wds-is-hidden'}}">{{footer}}</div>
-	{{/if}}
+
+	<div class="lightbox-footer wds-font-size-s {{if uiHidden 'wds-is-hidden'}}">
+		{{#if footerHead}}
+			<div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{footerHead}}</div>
+		{{/if}}
+		<div class="lightbox-footer-content-wrapper">
+			<div class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if footerExpanded 'expanded'}}">{{footer}}</div>
+			{{#if footerLink}}
+				<div class="lightbox-footer-link"><a href="{{footerLink}}">{{svg 'wds-icons-link' class='wds-icon wds-icon-small'}}</a></div>
+			{{/if}}
+		</div>
+		{{#if displayFilmstrip}}
+			{{lightbox-filmstrip
+					thumbnails=thumbnails
+					activeThumbnailRef=model.galleryRef
+					class=(if uiHidden 'lightbox-filmstrip-hidden' '')
+			}}
+		{{/if}}
+	</div>
 {{/if}}
