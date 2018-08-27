@@ -195,7 +195,7 @@ export default EmberObject.extend({
 	},
 
 	/**
-	 * @param {QueryUserInfoResponse} query
+	 * @param {{query: {userinfo: {rights: array}}}} query
 	 * @returns {Object}
 	 */
 	getUserRights({ query }) {
@@ -210,5 +210,7 @@ export default EmberObject.extend({
 
 			return rights;
 		}
+
+		return undefined;
 	},
 });

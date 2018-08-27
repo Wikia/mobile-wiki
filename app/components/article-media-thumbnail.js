@@ -42,5 +42,7 @@ export default Component.extend({
 
 			return false;
 		}
+
+		return undefined;
 	},
 });

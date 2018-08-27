@@ -22,7 +22,7 @@ export default Service.extend({
 
 	modelLoader: computed('isUserAnonymous', function () {
 		if (this.get('fastboot.isFastBoot')) {
-			return;
+			return undefined;
 		}
 		if (this.isUserAnonymous === true) {
 			return reject();
