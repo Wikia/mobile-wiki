@@ -16,7 +16,7 @@ export default Controller.extend({
 		const stackTrace = (this.get('model.normalizedStack') || '')
 			.replace(new RegExp('\\n', 'g'), '<br />');
 
-		return stackTrace ? stackTrace : 'No stack trace available';
+		return stackTrace || 'No stack trace available';
 	}),
 
 	productionErrorContext: computed(function () {

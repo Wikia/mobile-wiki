@@ -11,7 +11,7 @@ const adsStub = Service.extend({
 		return {
 			afterTransition: () => {},
 		};
-	})(),
+	}()),
 });
 
 module('Unit | Mixin | ads', (hooks) => {

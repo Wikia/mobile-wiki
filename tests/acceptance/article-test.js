@@ -42,4 +42,3 @@ module('Acceptance | Article page', (hooks) => {
 
 	});
 });
-

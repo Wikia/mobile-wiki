@@ -6,4 +6,3 @@ import config from '../config/environment';
 setApplication(Application.create(config.APP));
 
 start();
-

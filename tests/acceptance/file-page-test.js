@@ -32,4 +32,3 @@ module('Acceptance | file page', (hooks) => {
 		assert.equal(findAll('.file-usage__list .wikia-card').length, 1, 'Appears on had right number of items');
 	});
 });
-
