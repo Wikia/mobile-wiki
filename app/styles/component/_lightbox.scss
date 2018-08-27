@@ -170,7 +170,7 @@ $lightbox-filmstrip-height: 80px;
 
 .has-footer .is-gallery .lightbox-image.lightbox-content-inner::after,
 .has-footer .is-gallery .lightbox-video.lightbox-content-inner::after {
-	bottom: $lightbox-filmstrip-height;
+	background-image: linear-gradient(to top, $wds-fandom-color-black, $wds-fandom-color-black $lightbox-filmstrip-height, rgba($wds-fandom-color-black, 0));
 }
 
 .lightbox-ui-hidden.has-footer .lightbox-image.lightbox-content-inner::after,
