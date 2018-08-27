@@ -6,6 +6,6 @@ import Component from '@ember/component';
 export default Component.extend({
 	currentUser: service(),
 	tagName: '',
-	servicesDomain: computed(() => config.app.servicesExternalHost),
+	servicesDomain: computed(() => config.APP.servicesExternalHost),
 	isCookieSet: (typeof $.cookie('tracking-opt-in-status') === 'undefined' ? false : true)
 });
