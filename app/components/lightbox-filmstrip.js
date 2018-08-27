@@ -18,7 +18,7 @@ export default Component.extend({
 		if (!this.displayedThumbnails) {
 			this.set(
 				'displayedThumbnails',
-				this.thumbnails.splice(0, this.activeThumbnailRef + displayedThumbnailsBatchSize)
+				this.thumbnails.splice(0, this.activeThumbnailRef + displayedThumbnailsBatchSize),
 			);
 		}
 
