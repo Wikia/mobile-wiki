@@ -7,5 +7,5 @@ export default Component.extend({
 	currentUser: service(),
 	tagName: '',
 	servicesDomain: computed(() => config.APP.servicesExternalHost),
-	isCookieSet: (typeof window.Cookies.get('tracking-opt-in-status') === 'undefined' ? false : true)
+	isCookieSet: window.Cookies.get('tracking-opt-in-status') !== 'undefined'
 });
