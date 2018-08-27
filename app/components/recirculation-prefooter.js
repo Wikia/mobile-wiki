@@ -5,7 +5,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
-import getAdsModule from '../modules/ads';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
@@ -69,6 +68,37 @@ export default Component.extend(
 					window.location.assign(post.url);
 				}, 200);
 			},
+		},
+
+		fetchPlista() {
+			const width = normalizeThumbWidth(window.innerWidth);
+			const height = Math.round(width / (16 / 9));
+			const plistaURL = `https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
+				+ `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
+			return fetch(plistaURL)
+				.then(response => response.json())
+				.then((data) => {
+					if (data.length) {
+						return data[0];
+					} else {
+						throw new Error('We haven\'t got Plista!');
+					}
+				});
+		},
+
+		mapPlista(item) {
+			if (item) {
+				return {
+					meta: 'wikia-impactfooter',
+					thumbnail: item.img,
+					title: item.title,
+					url: item.url,
+					presented_by: 'Plista',
+					isPlista: true,
+				};
+			}
+
+			return undefined;
 		},
 
 		fetchLiftIgniterData() {

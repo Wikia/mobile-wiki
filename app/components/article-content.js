@@ -137,6 +137,8 @@ export default Component.extend(
 			if (!this.handleImageClick(event) || !this.handleGalleryViewMore(event)) {
 				return false;
 			}
+
+			return undefined;
 		},
 
 		handleImageClick(event) {
