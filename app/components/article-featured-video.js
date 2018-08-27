@@ -214,8 +214,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		}
 
 		const currentScrollPosition = window.pageYOffset;
-		// keep in sync with wds-global-navigation height
-		const globalNavigationHeight = 55;
+		const globalNavigationHeight = document.querySelector('.wds-global-navigation').offsetHeight;
 		const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
 		const isOnScrollActive = this.isOnScrollActive;
 		const isInLandscapeMode = this.isInLandscapeMode();
