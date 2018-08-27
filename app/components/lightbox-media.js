@@ -12,6 +12,7 @@ export default Component.extend({
 	logger: service(),
 
 	classNames: ['lightbox-media', 'lightbox-content-inner'],
+	classNameBindings: ['isGallery'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 

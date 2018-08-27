@@ -1,3 +1,6 @@
+$lightbox-footer-padding: 18px;
+$lightbox-filmstrip-height: 80px;
+
 .lightbox-wrapper {
 	background-color: $wds-fandom-color-black;
 	bottom: 0;
@@ -108,14 +111,14 @@
 .lightbox-footer {
 	bottom: 0;
 	left: 0;
-	padding: 18px 0 3px 18px;
+	padding: $lightbox-footer-padding 0 3px;
 	position: absolute;
 	width: 100%;
 	z-index: $z-lightbox-footer;
 }
 
 .lightbox-footer-head {
-	margin-bottom: 6px;
+	margin: 0 0 6px $lightbox-footer-padding;
 }
 
 .lightbox-footer-content-wrapper {
@@ -126,7 +129,7 @@
 
 .lightbox-footer-content {
 	height: auto;
-	margin-bottom: 12px;
+	margin: 0 0 12px $lightbox-footer-padding;
 	max-height: 3.7em;
 	overflow: hidden;
 	transition: max-height .3s;
@@ -136,7 +139,7 @@
 	}
 
 	&:last-child {
-		padding-right: 18px;
+		padding-right: $lightbox-footer-padding;
 	}
 }
 
@@ -165,6 +168,11 @@
 	z-index: $z-lightbox-footer - 1;
 }
 
+.has-footer .is-gallery .lightbox-image.lightbox-content-inner::after,
+.has-footer .is-gallery .lightbox-video.lightbox-content-inner::after {
+	bottom: $lightbox-filmstrip-height;
+}
+
 .lightbox-ui-hidden.has-footer .lightbox-image.lightbox-content-inner::after,
 .lightbox-ui-hidden.has-footer .lightbox-video.lightbox-content-inner::after {
 	display: none;
@@ -174,10 +182,10 @@
 	align-items: center;
 	display: flex;
 	flex-wrap: nowrap;
-	height: 80px;
+	height: $lightbox-filmstrip-height;
 	overflow-x: auto;
 	overflow-y: hidden;
-	padding: 0 18px 18px;
+	padding: 0 $lightbox-footer-padding $lightbox-footer-padding;
 	width: 100%;
 }
 
