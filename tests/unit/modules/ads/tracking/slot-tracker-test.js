@@ -16,6 +16,10 @@ module('Unit | Module | ads | tracking', (hooks) => {
 				getCurrentSlotPrices: () => {},
 				getDfpSlotPrices: () => {},
 			},
+			utils: {
+				getCountryCode: () => {},
+				getSamplingResults: () => [],
+			},
 		};
 		sinon.spy(M.tracker.Internal, 'track');
 	});
