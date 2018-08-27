@@ -77,7 +77,7 @@ export default Service.extend({
 
 	getGaUserIdHash() {
 		const Crypto = FastBoot.require('crypto');
-		const rawString = `${this.userId}${config.fastbootOnly.gaUserSalt}`;
+		const rawString = `${this.userId}${config.APP.gaUserSalt}`;
 
 		return Crypto.createHash('md5').update(rawString).digest('hex');
 	}

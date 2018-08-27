@@ -35,7 +35,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			window.Cookies.set(this.captionsCookieName, selectedLang, {
 				expires: this.playerCookieExpireDays,
 				path: '/',
-				domain: config.cookieDomain
+				domain: config.APP.cookieDomain
 			});
 		});
 	},

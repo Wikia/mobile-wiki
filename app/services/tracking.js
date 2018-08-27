@@ -17,7 +17,7 @@ export default Service.extend({
 
 		// Extend defaults from the config file with config from wiki variables
 		// It's enough for most trackers
-		let config = extend({}, baseConfig.tracking, this.get('wikiVariables.tracking'));
+		let config = extend({}, baseConfig.APP.tracking, this.get('wikiVariables.tracking'));
 
 		config = this.setupComscore(config);
 
