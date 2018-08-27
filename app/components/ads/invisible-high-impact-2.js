@@ -44,5 +44,5 @@ export default Component.extend(RenderComponentMixin, {
 
 	isEnabled(highImpactCountries) {
 		return this.isProperGeo(highImpactCountries);
-	}
+	},
 });

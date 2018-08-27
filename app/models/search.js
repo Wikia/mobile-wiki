@@ -1,8 +1,8 @@
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
-import fetch from '../utils/mediawiki-fetch';
 import { htmlSafe } from '@ember/string';
+import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	batch: 1,
@@ -32,7 +32,7 @@ export default EmberObject.extend({
 			totalItems: 0,
 			totalBatches: 0,
 			query,
-			items: A([])
+			items: A([]),
 		});
 
 		if (query) {
@@ -55,7 +55,7 @@ export default EmberObject.extend({
 	fetch(query) {
 		this.setProperties({
 			error: '',
-			loading: true
+			loading: true,
 		});
 
 		return fetch(this.wikiUrls.build({
@@ -65,15 +65,15 @@ export default EmberObject.extend({
 				controller: 'SearchApi',
 				method: 'getList',
 				query,
-				batch: this.batch
-			}
+				batch: this.batch,
+			},
 		}))
 			.then((response) => {
 				if (!response.ok) {
 					this.setProperties({
 						error: 'search-error-general',
 						erroneousQuery: query,
-						loading: false
+						loading: false,
 					});
 
 					if (response.status === 404) {
@@ -84,28 +84,26 @@ export default EmberObject.extend({
 
 					return this;
 				} else {
-					return response.json().then((data) => {
-						// update state on success
-						return this.update(data);
-					});
+					// update state on success
+					return response.json().then(data => this.update(data));
 				}
 			});
 	},
 
 	update(state) {
 		this.setProperties({
-			items: this.items.concat(state.items.map((item) => {
-				return {
+			items: this.items.concat(state.items.map(item => (
+				{
 					title: item.title,
 					snippet: htmlSafe(item.snippet),
-					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url)
-				};
-			})),
+					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
+				}
+			))),
 			loading: false,
 			totalItems: state.total,
 			totalBatches: state.batches,
 		});
 
 		return this;
-	}
+	},
 });

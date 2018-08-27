@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
@@ -8,7 +9,7 @@ const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
 	MOBILE_IN_CONTENT: 'mobile_in_content',
 	MOBILE_PREFOOTER: 'mobile_prefooter',
-	BOTTOM_LEADERBOARD: 'bottom_leaderboard'
+	BOTTOM_LEADERBOARD: 'bottom_leaderboard',
 };
 
 class Ads {
@@ -69,7 +70,7 @@ class Ads {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.requestBids({
-			responseListener: biddersDelay.markAsReady
+			responseListener: biddersDelay.markAsReady,
 		});
 	}
 
@@ -125,7 +126,7 @@ class Ads {
 			disableManualInsert: slotDefinition.disableManualInsert,
 			isAboveTheFold: slotDefinition.aboveTheFold,
 			name,
-			hiddenClassName: 'hide'
+			hiddenClassName: 'hide',
 		};
 	}
 
@@ -141,14 +142,14 @@ class Ads {
 		const slotId = SLOT_NAME_MAP[name] || name;
 
 		context.push('state.adStack', {
-			id: slotId
+			id: slotId,
 		});
 	}
 
 	onTransition(options) {
 		const { context } = window.Wikia.adEngine;
 		const defaultOptions = {
-			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
+			doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
 		if (this.events && this.showAds) {
@@ -165,7 +166,7 @@ class Ads {
 		if (this.events) {
 			this.events.pageRender({
 				adContext: mediaWikiAdsContext,
-				instantGlobals: this.instantGlobals
+				instantGlobals: this.instantGlobals,
 			});
 		}
 	}

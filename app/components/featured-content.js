@@ -54,7 +54,7 @@ export default Component.extend(
 				track({
 					category: 'main-page-featured-content',
 					label: 'next',
-					action: trackActions.swipe
+					action: trackActions.swipe,
 				});
 				this.nextItem();
 			},
@@ -66,10 +66,10 @@ export default Component.extend(
 				track({
 					category: 'main-page-featured-content',
 					label: 'previous',
-					action: trackActions.swipe
+					action: trackActions.swipe,
 				});
 				this.prevItem();
-			}
+			},
 		},
 
 		showChevrons: readOnly('hasMultipleItems'),
@@ -159,7 +159,7 @@ export default Component.extend(
 			track({
 				action: trackActions.click,
 				category: 'main-page-featured-content',
-				label: 'next'
+				label: 'next',
 			});
 			this.nextItem();
 			this.resetCycleTimeout();
@@ -174,7 +174,7 @@ export default Component.extend(
 			track({
 				action: trackActions.click,
 				category: 'main-page-featured-content',
-				label: 'previous'
+				label: 'previous',
 			});
 			this.prevItem();
 			this.resetCycleTimeout();
@@ -189,7 +189,7 @@ export default Component.extend(
 			track({
 				action: trackActions.click,
 				category: 'main-page-featured-content',
-				label: 'open'
+				label: 'open',
 			});
 			this.stopCyclingThroughItems();
 
@@ -236,6 +236,6 @@ export default Component.extend(
 				this.stopCyclingThroughItems();
 				this.cycleThroughItems();
 			}
-		}
-	}
+		},
+	},
 );

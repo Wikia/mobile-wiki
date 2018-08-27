@@ -11,10 +11,10 @@ const designSystemInlineSVGs = [
 	'wds-icons-menu-small',
 	'wds-icons-reply-small',
 	'wds-icons-dropdown-tiny',
-	'wds-company-logo-fandom-heart'
-].map((name) => {
-	return { name, path: `${designSystemAssetsPath}${name}.svg` };
-});
+	'wds-company-logo-fandom-heart',
+].map(name => (
+	{ name, path: `${designSystemAssetsPath}${name}.svg` }
+));
 
 // DS icons which should be lazy loaded
 const designSystemLazyLoadedSVGs = [
@@ -31,6 +31,7 @@ const designSystemLazyLoadedSVGs = [
 	'wds-icons-facebook',
 	'wds-icons-grid',
 	'wds-icons-instagram',
+	'wds-icons-link',
 	'wds-icons-linkedin',
 	'wds-icons-megaphone',
 	'wds-icons-menu-control',
@@ -52,9 +53,9 @@ const designSystemLazyLoadedSVGs = [
 	'wds-company-store-appstore',
 	'wds-company-store-googleplay',
 	'wds-company-logo-fandom-powered-by-wikia-two-lines',
-].map((name) => {
-	return { name, path: `${designSystemAssetsPath}${name}.svg` };
-});
+].map(name => (
+	{ name, path: `${designSystemAssetsPath}${name}.svg` }
+));
 
 const inlineSVGs = [...designSystemInlineSVGs];
 
@@ -62,5 +63,5 @@ const lazyloadedSVGs = [...designSystemLazyLoadedSVGs];
 
 module.exports = {
 	inlineSVGs,
-	lazyloadedSVGs
+	lazyloadedSVGs,
 };

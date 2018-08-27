@@ -2,7 +2,7 @@ import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
 import {
 	getFetchErrorMessage,
-	TrackingDimensionsFetchError
+	TrackingDimensionsFetchError,
 } from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 
@@ -20,8 +20,8 @@ export default EmberObject.extend({
 				method: 'getTrackingDimensions',
 				title,
 				isanon: isAnon,
-				format: 'json'
-			}
+				format: 'json',
+			},
 		});
 
 		return fetch(url)
@@ -31,14 +31,14 @@ export default EmberObject.extend({
 				} else {
 					return getFetchErrorMessage(response).then(() => {
 						throw new TrackingDimensionsFetchError({
-							code: response.status
+							code: response.status,
 						}).withAdditionalData({
 							requestUrl: url,
-							responseUrl: response.url
+							responseUrl: response.url,
 						});
 					});
 				}
 			})
 			.catch(error => this.logger.error('getTrackingDimensions error: ', error));
-	}
+	},
 });

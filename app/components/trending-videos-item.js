@@ -26,7 +26,7 @@ export default Component.extend({
 		const options = {
 			width: this.imageWidth,
 			height: this.imageHeight,
-			mode: Thumbnailer.mode.topCrop
+			mode: Thumbnailer.mode.topCrop,
 		};
 		const videoUrl = this.get('video.url');
 
@@ -44,7 +44,7 @@ export default Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'main-page-trending-videos',
-			label: `open-item-${this.index}`
+			label: `open-item-${this.index}`,
 		});
 
 		this.lightbox.open('media', this.video);

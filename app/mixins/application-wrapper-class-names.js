@@ -9,7 +9,7 @@ export default Mixin.create({
 
 		controller.set(
 			'applicationWrapperClassNames',
-			applicationWrapperClassNames.concat(classNames)
+			applicationWrapperClassNames.concat(classNames),
 		);
 	}),
 
@@ -20,9 +20,7 @@ export default Mixin.create({
 
 		controller.set(
 			'applicationWrapperClassNames',
-			applicationWrapperClassNames.filter((item) => {
-				return classNames.indexOf(item) === -1;
-			})
+			applicationWrapperClassNames.filter(item => classNames.indexOf(item) === -1),
 		);
-	})
+	}),
 });

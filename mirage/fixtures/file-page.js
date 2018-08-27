@@ -15,9 +15,9 @@ export default {
 					articleId: 122215,
 					imageUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 					url: 'http://muppet.damian.wikia-dev.pl/wiki/Jim_Henson:_A_Man_and_His_Frog',
-					snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;' +
-					'ellipsis&gt;'
-				}
+					snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;'
+					+ 'ellipsis&gt;',
+				},
 			],
 			fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg',
 			media: {
@@ -30,7 +30,7 @@ export default {
 				height: 123,
 				srcset: 'https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/284?cb=20171130071700 284w,https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/340?cb=20171130071700 340w',
 				thumbnailUrl: 'https://vignette.wikia-dev.pl/muppet/images/4/48/LizHara.jpg/revision/latest/scale-to-width-down/340?cb=20171130071700',
-			}
+			},
 		},
 		details: {
 			id: 122203,
@@ -41,7 +41,7 @@ export default {
 				id: 530721,
 				user: 'Kermie1',
 				user_id: 128112,
-				timestamp: '1279738256'
+				timestamp: '1279738256',
 			},
 			comments: 0,
 			type: 'image',
@@ -49,17 +49,17 @@ export default {
 			thumbnail: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			original_dimensions: {
 				width: '300',
-				height: '400'
+				height: '400',
 			},
-			description: ''
+			description: '',
 		},
 		adsContext: {
 			opts: {
-				showAds: false
+				showAds: false,
 			},
 			targeting: {
-				wikiVertical: 'tv'
-			}
-		}
-	}
+				wikiVertical: 'tv',
+			},
+		},
+	},
 };

@@ -1,3 +1,4 @@
 module.exports = {
-	reporters: ['cobertura', 'lcov']
+	reporters: ['cobertura', 'lcov'],
+	useBabelInstrumenter: true,
 };

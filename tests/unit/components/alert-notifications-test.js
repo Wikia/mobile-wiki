@@ -9,20 +9,20 @@ module('Unit | Component | alert notifications', (hooks) => {
 		const alertOne = {
 			type: 'success',
 			message: 'Success message',
-			callbacks: {}
+			callbacks: {},
 		};
 		const alertTwo = {
 			type: 'error',
 			message: 'Error message',
-			callbacks: {}
+			callbacks: {},
 		};
 		const component = this.owner.factoryFor('component:alert-notifications').create();
 
 		component.setProperties({
 			alerts: A([
 				alertOne,
-				alertTwo
-			])
+				alertTwo,
+			]),
 		});
 
 		component.send('dismissAlert', alertOne);

@@ -13,14 +13,14 @@ export function getAdsModuleMock(adsContext) {
 		waitForUapResponse() {},
 		onMenuOpen() {},
 		isSlotApplicable: () => true,
-		getAdSlotComponentAttributes: (name) => {
-			return {
+		getAdSlotComponentAttributes: name => (
+			{
 				name,
 				hiddenClassName: 'hidden',
 				disableManualInsert: false,
-				isAboveTheFold: false
-			};
-		},
+				isAboveTheFold: false,
+			}
+		),
 		isArticleSectionCollapsed: () => true,
 		waitForReady(cb) {
 			cb();
@@ -44,7 +44,7 @@ export default function (owner) {
 				invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 				mobileInContent: 'MOBILE_IN_CONTENT',
 				mobilePreFooter: 'MOBILE_PREFOOTER',
-				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 			};
 		},
 		destroyAdSlotComponents() {},
@@ -53,6 +53,6 @@ export default function (owner) {
 		getWaits() {
 			return Promise.resolve();
 		},
-		clearWaits() {}
+		clearWaits() {},
 	}));
 }

@@ -8,7 +8,7 @@ import { run } from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {
 	getRenderComponentFor,
-	queryPlaceholders
+	queryPlaceholders,
 } from '../utils/render-component';
 import { track, trackActions } from '../utils/track';
 import toArray from '../utils/toArray';
@@ -130,7 +130,7 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'article',
-					label
+					label,
 				});
 			}
 
@@ -153,7 +153,7 @@ export default Component.extend(
 		},
 
 		openLightbox(figure) {
-			const gallery = figure.closest('.article-media-gallery');
+			const gallery = figure.closest('.article-media-gallery, .gallery');
 
 			let lightboxModel;
 
@@ -292,17 +292,17 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.displayTitle
+							pageTitle: this.displayTitle,
 						},
-						element
-					})
+						element,
+					}),
 				);
 			});
 		},
 
 		renderDataComponents(element) {
 			this.renderedComponents = this.renderedComponents.concat(
-				queryPlaceholders(element).map(this.renderComponent)
+				queryPlaceholders(element).map(this.renderComponent),
 			);
 		},
 		/**
@@ -328,10 +328,10 @@ export default Component.extend(
 					this.renderComponent({
 						name: componentName,
 						attrs: {
-							data: widgetData
+							data: widgetData,
 						},
-						element
-					})
+						element,
+					}),
 				);
 			}
 		},
@@ -399,8 +399,8 @@ export default Component.extend(
 					.forEach((element) => {
 						element.classList.add(shortClass);
 						element.insertAdjacentHTML('beforeend',
-							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
-							`<use xlink:href="#chevron"></use></svg></td></tr>`);
+							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">`
+							+ `<use xlink:href="#chevron"></use></svg></td></tr>`);
 
 						element.addEventListener('click', (event) => {
 							const target = event.target;
@@ -442,8 +442,8 @@ export default Component.extend(
 			const citeNoteSelector = '#cite_note-';
 			const citeRefSelector = '#cite_ref-';
 
-			if (target.nodeName === 'A' &&
-				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+			if (target.nodeName === 'A'
+				&& (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
 				const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
@@ -467,8 +467,7 @@ export default Component.extend(
 				.forEach((element) => {
 					const originalHTML = element.outerHTML;
 
-					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
+					element.outerHTML = `<div class="article-table-wrapper"/>${originalHTML}</div>`;
 				});
 		},
 
@@ -503,6 +502,6 @@ export default Component.extend(
 		uncollapseSections() {
 			toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
 				.forEach(header => this.toogleCollapsibleSection(header));
-		}
-	}
+		},
+	},
 );

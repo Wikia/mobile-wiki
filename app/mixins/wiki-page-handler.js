@@ -9,12 +9,12 @@ import FileModel from '../models/wiki/file';
 import SpecialRandom from '../models/wiki/special-random';
 import {
 	namespace as MediawikiNamespace,
-	isContentNamespace
+	isContentNamespace,
 } from '../utils/mediawiki-namespace';
 import fetch from '../utils/mediawiki-fetch';
 import {
 	getFetchErrorMessage,
-	WikiPageFetchError
+	WikiPageFetchError,
 } from '../utils/errors';
 import extend from '../utils/extend';
 
@@ -63,7 +63,7 @@ function getURL(wikiUrls, params) {
 	return wikiUrls.build({
 		host: params.host,
 		path: '/wikia.php',
-		query
+		query,
 	});
 }
 
@@ -92,10 +92,10 @@ export default Mixin.create({
 					} else {
 						return getFetchErrorMessage(response).then(() => {
 							throw new WikiPageFetchError({
-								code: response.status || 503
+								code: response.status || 503,
 							}).withAdditionalData({
 								requestUrl: url,
-								responseUrl: response.url
+								responseUrl: response.url,
 							});
 						});
 					}
@@ -112,7 +112,7 @@ export default Mixin.create({
 						shoebox.put('wikiPage', dataForShoebox);
 						shoebox.put('trackingData', {
 							articleId: get(dataForShoebox, 'data.details.id'),
-							namespace: get(dataForShoebox, 'data.ns')
+							namespace: get(dataForShoebox, 'data.ns'),
 						});
 					}
 
@@ -172,9 +172,9 @@ export default Mixin.create({
 
 			return model;
 		} else if (
-			currentNamespace === MediawikiNamespace.BLOG_ARTICLE &&
+			currentNamespace === MediawikiNamespace.BLOG_ARTICLE
 			// User blog listing has BLOG_ARTICLE namespace but no article
-			data.data.article
+			&& data.data.article
 		) {
 			model = BlogModel.create(ownerInjection, params);
 			model.setData(data);
@@ -186,8 +186,8 @@ export default Mixin.create({
 			return model.getArticleRandomTitle();
 		} else {
 			return EmberObject.create({
-				redirectTo: data.data.redirectTo || null
+				redirectTo: data.data.redirectTo || null,
 			});
 		}
-	}
+	},
 });

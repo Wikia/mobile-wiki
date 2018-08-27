@@ -60,8 +60,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 	context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 	context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
 
-	const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries') &&
-		utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
+	const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
+		&& utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
 	context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
 	context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
@@ -119,7 +119,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 			s0: [context.get('targeting.s0') || ''],
 			s1: [s1],
 			s2: [context.get('targeting.s2') || ''],
-			lang: [context.get('targeting.wikiLanguage') || 'en']
+			lang: [context.get('targeting.wikiLanguage') || 'en'],
 		});
 
 		context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
@@ -167,5 +167,5 @@ function init() {
 
 export default {
 	configure,
-	init
+	init,
 };

@@ -1,9 +1,9 @@
 import { computed } from '@ember/object';
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import RenderComponentMixin from '../mixins/render-component';
 import { track, trackActions } from '../utils/track';
 import offset from '../utils/offset';
-import { inject as service } from '@ember/service';
 
 export default Component.extend(
 	RenderComponentMixin,
@@ -68,7 +68,7 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category: 'portable-infobox',
-						label: 'collapsed-by-button'
+						label: 'collapsed-by-button',
 					});
 					scrollTo.apply(this.button);
 				} else {
@@ -76,10 +76,10 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category: 'portable-infobox',
-						label: 'expanded-by-button'
+						label: 'expanded-by-button',
 					});
 				}
-			}
+			},
 		},
 
 		click(event) {
@@ -117,6 +117,6 @@ export default Component.extend(
 			this.set('collapsed', false);
 			this.element.style.height = 'auto';
 			this.element.querySelector('aside').style.height = 'auto';
-		}
-	}
+		},
+	},
 );

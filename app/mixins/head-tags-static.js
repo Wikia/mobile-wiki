@@ -33,11 +33,11 @@ export default Mixin.create({
 			cdnRootUrl: model.wikiVariables.cdnRootUrl,
 			favicon: model.wikiVariables.favicon,
 			siteName: model.wikiVariables.siteName,
-			gaUrl: config.tracking.ua.scriptUrl,
+			gaUrl: config.APP.tracking.ua.scriptUrl,
 			noExternals,
-			facebookAppId: config.facebook.appId,
+			facebookAppId: config.APP.facebook.appId,
 			lazyCss: !this.get('fastboot.isFastBoot'),
-			twitterSite: model.wikiVariables.twitterAccount || '@getfandom'
+			twitterSite: model.wikiVariables.twitterAccount || '@getfandom',
 		});
-	}
+	},
 });

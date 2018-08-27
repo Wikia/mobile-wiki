@@ -1,11 +1,11 @@
 import { visit, click } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+import sinon from 'sinon';
+import * as adsModule from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService, { getAdsModuleMock } from '../helpers/mock-ads-service';
-import sinon from 'sinon';
 
-import * as adsModule from 'mobile-wiki/modules/ads';
 
 module('Acceptance | Article page', (hooks) => {
 	setupApplicationTest(hooks);
@@ -19,7 +19,7 @@ module('Acceptance | Article page', (hooks) => {
 				opts: {
 					areMobileStickyAndSwapEnabled: true,
 				},
-			}))
+			})),
 		});
 	});
 

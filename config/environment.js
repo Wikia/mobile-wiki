@@ -4,71 +4,57 @@ module.exports = function (environment) {
 		environment,
 		locationType: 'router-scroll',
 		historySupportMiddleware: true,
-		facebook: {
-			appId: '112328095453510'
-		},
-		productionBaseDomain: 'wikia.com',
-		alternateBaseDomain: 'fandom.com',
-		baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
-		services: {
-			domain: 'services.wikia.com',
-			discussions: {
-				baseAPIPath: 'discussion'
-			},
-			onSiteNotifications: {
-				baseAPIPath: 'on-site-notifications'
-			},
-			eventLogger: {
-				baseAPIPath: 'event-logger'
-			}
-		},
-		translationsNamespaces: ['main', 'search', 'design-system'],
-		tracking: {
-			ua: {
-				primary: {
-					id: 'UA-32129070-1',
-					sampleRate: 100
-				},
-				ads: {
-					prefix: 'ads',
-					id: 'UA-32129071-1',
-					sampleRate: 100
-				},
-				scriptUrl: 'https://www.google-analytics.com/analytics.js'
-			},
-			quantcast: {
-				id: 'p-8bG6eLqkH6Avk',
-				labels: 'Category.MobileWeb.Mercury'
-			},
-			comscore: {
-				keyword: 'comscorekw',
-				id: '6177433',
-				c7: '',
-				c7Value: ''
-			},
-			krux: {
-				mobileId: 'JTKzTN3f'
-			},
-			netzathleten: {
-				enabled: false,
-				url: '',
-				isMainPage: false
-			}
-		},
 		EmberENV: {
 			EXTEND_PROTOTYPES: {
 				Array: true,
 				String: false,
-				Function: false
+				Function: false,
 			},
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build
 				// e.g. 'with-controller': true
-			}
+			},
 		},
 		APP: {
-			// Here you can pass flags/options to your application instance
-			// when it is created
+			facebook: {
+				appId: '112328095453510',
+			},
+			heliosTimeout: 3000,
+			baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
+			tracking: {
+				ua: {
+					primary: {
+						id: 'UA-32129070-1',
+						sampleRate: 100,
+					},
+					ads: {
+						prefix: 'ads',
+						id: 'UA-32129071-1',
+						sampleRate: 100,
+					},
+					scriptUrl: 'https://www.google-analytics.com/analytics.js',
+				},
+				quantcast: {
+					id: 'p-8bG6eLqkH6Avk',
+					labels: 'Category.MobileWeb.Mercury',
+				},
+				comscore: {
+					keyword: 'comscorekw',
+					id: '6177433',
+					c7: '',
+					c7Value: '',
+				},
+				krux: {
+					mobileId: 'JTKzTN3f',
+				},
+				netzathleten: {
+					enabled: false,
+					url: '',
+					isMainPage: false,
+				},
+			},
+			translationsNamespaces: ['main', 'search', 'design-system'],
+			translationsPath: 'dist/mobile-wiki/locales',
 		},
 		fastboot: {
 			hostWhitelist: [
@@ -76,15 +62,9 @@ module.exports = function (environment) {
 				/.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
 				/.*\.wikia\.com/,
 				/.*\.fandom\.com/,
-				/^localhost:\d+$/
-			]
+				/^localhost:\d+$/,
+			],
 		},
-		fastbootOnly: {
-			helios: {
-				internalUrl: 'http://prod.sjc.k8s.wikia.net/helios/info',
-				timeout: 3000
-			}
-		}
 	};
 
 	if (environment === 'development') {
@@ -94,11 +74,10 @@ module.exports = function (environment) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-		ENV.fastbootOnly.helios.internalUrl = 'http://dev.sjc-dev.k8s.wikia.net/helios/info';
-		ENV.facebook.appId = '881967318489580';
+		ENV.APP.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {
-			enabled: false
+			enabled: false,
 		};
 	}
 
@@ -115,7 +94,7 @@ module.exports = function (environment) {
 		ENV.APP.autoboot = false;
 
 		ENV['ember-cli-mirage'] = {
-			autostart: true
+			autostart: true,
 		};
 	}
 

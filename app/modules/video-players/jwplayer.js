@@ -30,7 +30,7 @@ export default class JWPlayer extends BasePlayer {
 	getSlotTargeting() {
 		return {
 			plist: this.recommendedVideoPlaylist,
-			vtags: this.videoTags
+			vtags: this.videoTags,
 		};
 	}
 
@@ -50,17 +50,15 @@ export default class JWPlayer extends BasePlayer {
 			adsModule
 				.waitForReady()
 				.then(() => (new JWPlayerVideoAds(this.params)).getConfig())
-				.then((bidParams) => {
-					return this.initializePlayer(adsModule, bidParams);
-				});
+				.then(bidParams => this.initializePlayer(adsModule, bidParams));
 		});
 	}
 
 	initializePlayer(adsModule, bidParams) {
 		const containerId = this.params.containerId;
 		const initialPath = window.location.pathname;
-		const isForcedClickToPlay = adsModule && adsModule.adContextModule ?
-			adsModule.adContextModule.get('rabbits.ctpMobile') : false;
+		const isForcedClickToPlay = adsModule && adsModule.adContextModule
+			? adsModule.adContextModule.get('rabbits.ctpMobile') : false;
 
 		if (!document.getElementById(containerId)) {
 			return;
@@ -89,11 +87,11 @@ export default class JWPlayer extends BasePlayer {
 						}
 					},
 					setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
-					comscore: config.environment === 'production'
+					comscore: config.environment === 'production',
 				},
 				settings: {
 					showAutoplayToggle: !isForcedClickToPlay && !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
-					showCaptions: true
+					showCaptions: true,
 				},
 				sharing: true,
 				selectedCaptionsLanguage: this.params.selectedCaptionsLanguage,
@@ -102,20 +100,20 @@ export default class JWPlayer extends BasePlayer {
 				related: {
 					time: 3,
 					playlistId: this.recommendedVideoPlaylist,
-					autoplay: true
+					autoplay: true,
 				},
 				videoDetails: {
 					description: this.params.playlist[0].description,
 					title: this.params.playlist[0].title,
-					playlist: this.params.playlist
+					playlist: this.params.playlist,
 				},
 				logger: {
 					clientName: 'mobile-wiki',
-					clientVersion: config.APP.version
+					clientVersion: config.APP.version,
 				},
-				lang: this.params.lang
+				lang: this.params.lang,
 			},
-			this.params.onCreate.bind(this, bidParams)
+			this.params.onCreate.bind(this, bidParams),
 		);
 
 		getAdsModule().then(adsModule => adsModule.jwPlayerMoat.loadTrackingPlugin());

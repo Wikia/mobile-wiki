@@ -4,7 +4,7 @@ import config from '../config/environment';
 export default Route.extend(
 	{
 		renderTemplate() {
-			if (config.wikiaEnv === 'dev') {
+			if (config.APP.wikiaEnv === 'dev') {
 				this.render('errors/application-dev');
 			} else {
 				this.render('errors/application');
@@ -14,7 +14,7 @@ export default Route.extend(
 		actions: {
 			reloadPage() {
 				window.location.reload();
-			}
-		}
-	}
+			},
+		},
+	},
 );

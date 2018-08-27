@@ -34,8 +34,8 @@ export default Component.extend(
 					pinned: 'site-head-headroom-pinned',
 					unpinned: 'site-head-headroom-un-pinned',
 					top: 'site-head-headroom-top',
-					notTop: 'site-head-headroom-not-top'
-				}
+					notTop: 'site-head-headroom-not-top',
+				},
 			};
 		},
 
@@ -72,7 +72,7 @@ export default Component.extend(
 
 		goToSearchResults(value) {
 			this.router.transitionTo('search', {
-				queryParams: { query: value }
+				queryParams: { query: value },
 			});
 		},
 
@@ -83,6 +83,6 @@ export default Component.extend(
 			} else {
 				window.location = href;
 			}
-		}
-	}
+		},
+	},
 );

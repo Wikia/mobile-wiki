@@ -19,11 +19,11 @@ module('Unit | Utility | generate guid', (hooks) => {
 		const testCases = [
 			{
 				prefix: 'label',
-				expected: 'label1234'
+				expected: 'label1234',
 			},
 			{
-				expected: '1234'
-			}
+				expected: '1234',
+			},
 		];
 
 		testCases.forEach((testCase) => {

@@ -8,12 +8,12 @@ const model = EmberObject.create({
 	url: '/wiki/Kermit',
 	description: 'Article about Kermit',
 	displayTitle: 'Kermit The Frog',
-	htmlTitle: 'Kermit The Frog'
+	htmlTitle: 'Kermit The Frog',
 });
 
 const isInitialPageViewStub = sinon.stub();
 const initialPageViewStub = Service.extend({
-	isInitialPageView: isInitialPageViewStub
+	isInitialPageView: isInitialPageViewStub,
 });
 
 module('Unit | Route | wiki page', (hooks) => {
@@ -32,7 +32,7 @@ module('Unit | Route | wiki page', (hooks) => {
 			description: 'Article about Kermit',
 			htmlTitle: 'Kermit The Frog | Muppet Wiki | Fandom powered by Wikia',
 			robots: 'index,follow',
-			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog'
+			keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog',
 		};
 
 		let headData;
@@ -47,13 +47,13 @@ module('Unit | Route | wiki page', (hooks) => {
 				basePath: 'http://muppet.wikia.com',
 				htmlTitle: {
 					parts: ['Muppet Wiki', 'Fandom powered by Wikia'],
-					separator: ' | '
+					separator: ' | ',
 				},
 				siteMessage: 'The Fallout wiki - Fallout: New Vegas and more',
 				siteName: 'MediaWiki',
 				dbName: 'fallout',
-				specialRobotPolicy: 'index,follow'
-			}
+				specialRobotPolicy: 'index,follow',
+			},
 		});
 
 		mock.setDynamicHeadTags(model);
@@ -71,39 +71,39 @@ module('Unit | Route | wiki page', (hooks) => {
 		const testCases = [{
 			expectedHandler: {
 				viewName: 'article',
-				controllerName: 'article'
+				controllerName: 'article',
 			},
 			model: EmberObject.create({
-				ns: 0
-			})
+				ns: 0,
+			}),
 		},
 		{
 			expectedHandler: {
 				viewName: 'article',
-				controllerName: 'article'
+				controllerName: 'article',
 			},
 			model: EmberObject.create({
-				ns: 112
-			})
+				ns: 112,
+			}),
 		},
 		{
 			expectedHandler: {
 				viewName: 'category',
-				controllerName: 'category'
+				controllerName: 'category',
 			},
 			model: EmberObject.create({
-				ns: 14
-			})
+				ns: 14,
+			}),
 		},
 		{
 			expectedHandler: null,
 			model: EmberObject.create({
-				ns: 200
-			})
+				ns: 200,
+			}),
 		}];
 
 		mock.set('wikiVariables', {
-			contentNamespaces: [0, 112]
+			contentNamespaces: [0, 112],
 		});
 
 		testCases.forEach(({ expectedHandler, model }) => {
@@ -114,7 +114,7 @@ module('Unit | Route | wiki page', (hooks) => {
 				assert.equal(
 					handler.controllerName,
 					expectedHandler.controllerName,
-					'controllerName is different than expected'
+					'controllerName is different than expected',
 				);
 			} else {
 				assert.equal(handler, expectedHandler, 'handler is not null');
@@ -126,7 +126,7 @@ module('Unit | Route | wiki page', (hooks) => {
 		const mock = this.owner.lookup('route:wikiPage');
 		const expectedHandler = {
 			viewName: 'main-page',
-			controllerName: 'main-page'
+			controllerName: 'main-page',
 		};
 
 		let handler;
@@ -143,20 +143,20 @@ module('Unit | Route | wiki page', (hooks) => {
 		isInitialPageViewStub.returns(false);
 
 		const mock = this.owner.lookup('route:wikiPage');
-		mock.controllerFor = () => {
-			return {
+		mock.controllerFor = () => (
+			{
 				send: () => {
-				}
-			};
-		};
+				},
+			}
+		);
 
 		mock.beforeModel({
 			params: {
 				'wiki-page': {
-					title: 'foo'
-				}
+					title: 'foo',
+				},
 			},
-			data: {}
+			data: {},
 		});
 
 		assert.notEqual(window.wgNow, null);

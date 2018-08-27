@@ -1,8 +1,7 @@
 import { later } from '@ember/runloop';
 import Component from '@ember/component';
-import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend({
 	classNames: ['lightbox-ads', 'lightbox-content-inner'],
 
 	/**
@@ -29,5 +28,5 @@ export default Component.extend(RenderComponentMixin, {
 			this.setCloseButtonHidden(true);
 			showCloseButtonAfterCountDown();
 		}
-	}
+	},
 });

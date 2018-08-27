@@ -6,5 +6,5 @@ export default Service.extend({
 		const router = getOwner(this).lookup('router:main')._routerMicrolib;
 
 		return router.currentSequence === 1;
-	}
+	},
 });

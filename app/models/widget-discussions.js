@@ -1,17 +1,17 @@
 import { inject as service } from '@ember/service';
 import EmberObject, { getWithDefault, get } from '@ember/object';
+import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
 import config from '../config/environment';
 import { getQueryString } from '../utils/url';
-import fetch from 'fetch';
 
 /**
  * @param {string} [path='']
  * @returns {string}
  */
 function getDiscussionServiceUrl(path = '') {
-	return `https://${config.services.domain}/${config.services.discussions.baseAPIPath}${path}`;
+	return `${config.APP.servicesExternalHost}/discussion${path}`;
 }
 
 export default EmberObject.extend(
@@ -29,7 +29,7 @@ export default EmberObject.extend(
 			const queryString = getQueryString({
 				forumId: categories instanceof Array ? categories : [categories],
 				limit,
-				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
+				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date',
 			});
 
 			return fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/threads${queryString}`))
@@ -56,13 +56,13 @@ export default EmberObject.extend(
 						host: this.get('wikiVariables.host'),
 						namespace: 'User',
 						query: {
-							useskin: 'oasis'
+							useskin: 'oasis',
 						},
-						title: createdBy.name
-					})
+						title: createdBy.name,
+					}),
 				},
-				creationTimestamp: typeof creationDate === 'string' ?
-					(new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
+				creationTimestamp: typeof creationDate === 'string'
+					? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
 				id: threadData.firstPostId,
 				openGraph: null,
 				rawContent: threadData.rawContent,
@@ -124,8 +124,8 @@ export default EmberObject.extend(
 			track({
 				category: 'MobileWebDiscussions',
 				action: hasUpvoted ? 'UndoUpvotePost' : 'UpvotePost',
-				label: window.location.origin
+				label: window.location.origin,
 			});
-		}
-	}
+		},
+	},
 );

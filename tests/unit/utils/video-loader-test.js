@@ -8,7 +8,7 @@ module('Unit | Utility | video loader', () => {
 		const testCases = [
 			{
 				provider: 'youtube',
-				expected: 'youtube'
+				expected: 'youtube',
 			},
 		];
 
@@ -26,12 +26,12 @@ module('Unit | Utility | video loader', () => {
 		const testCases = [
 			{
 				provider: 'youtube',
-				expected: 'YouTubePlayer'
+				expected: 'YouTubePlayer',
 			},
 			{
 				provider: 'realgravity',
-				expected: 'BasePlayer'
-			}
+				expected: 'BasePlayer',
+			},
 		];
 
 		assert.expect(testCases.length);

@@ -11,11 +11,11 @@ export default Component.extend({
 		fullSiteClicked() {
 			this.track('full-site-link');
 			window.Cookies.set('useskin', this.getWithDefault('wikiVariables.defaultSkin', 'oasis'), {
-				domain: config.cookieDomain,
-				path: '/'
+				domain: config.APP.cookieDomain,
+				path: '/',
 			});
 
 			window.location.reload();
-		}
-	}
+		},
+	},
 });

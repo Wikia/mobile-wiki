@@ -3,7 +3,9 @@ const trackingRouteName = 'special/adengadinfo';
 const onChangeStatusToTrack = [
 	'blocked',
 	'error',
-	'viewport-conflict'
+	'viewport-conflict',
+	'sticked',
+	'unsticked',
 ];
 
 function getPosParameter({ pos = '' }) {
@@ -103,7 +105,7 @@ function prepareData(slot, data) {
 		kv_ref: context.get('targeting.ref'),
 		kv_top: context.get('targeting.top'),
 		labrador: utils.getSamplingResults().join(';'),
-		opt_in: checkOptIn()
+		opt_in: checkOptIn(),
 		// Missing:
 		// bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
 	};

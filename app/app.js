@@ -1,6 +1,6 @@
 import Application from '@ember/application';
-import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
+import Resolver from './resolver';
 import config from './config/environment';
 
 // to save kb we removed ember-cli-shims but in some places we still 'import Ember from 'ember'
@@ -18,7 +18,7 @@ const App = Application.extend({
 	rootElement: '#ember-container',
 	modulePrefix: config.modulePrefix,
 	podModulePrefix: config.podModulePrefix,
-	Resolver
+	Resolver,
 });
 
 loadInitializers(App, config.modulePrefix);

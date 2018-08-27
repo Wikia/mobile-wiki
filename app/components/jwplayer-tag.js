@@ -1,11 +1,11 @@
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
+import fetch from 'fetch';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import { track } from '../utils/track';
 import JWPlayerMixin from '../mixins/jwplayer';
 import RenderComponentMixin from '../mixins/render-component';
 import config from '../config/environment';
-import fetch from 'fetch';
 
 export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 	jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
@@ -18,13 +18,13 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 
 		Promise.all([
 			jwPlayerAssets.load(),
-			this.getVideoData()
+			this.getVideoData(),
 		]).then(([, videoData]) => {
 			if (!this.isDestroyed) {
 				window.wikiaJWPlayer(
 					this['element-id'],
 					this.getPlayerSetup(videoData),
-					this.playerCreated.bind(this)
+					this.playerCreated.bind(this),
 				);
 			}
 		});
@@ -35,7 +35,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			window.Cookies.set(this.captionsCookieName, selectedLang, {
 				expires: this.playerCookieExpireDays,
 				path: '/',
-				domain: config.cookieDomain
+				domain: config.APP.cookieDomain,
 			});
 		});
 	},
@@ -53,17 +53,17 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
 			},
 			selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
 			settings: {
-				showCaptions: true
+				showCaptions: true,
 			},
 			videoDetails: {
 				description: jwVideoData.description,
 				title: jwVideoData.title,
-				playlist: jwVideoData.playlist
-			}
+				playlist: jwVideoData.playlist,
+			},
 		};
 	},
 
 	getVideoData() {
 		return fetch(`${this.jwVideoDataUrl}${this['media-id']}`).then(response => response.json());
-	}
+	},
 });

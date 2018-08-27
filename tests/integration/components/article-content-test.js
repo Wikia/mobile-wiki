@@ -18,10 +18,10 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
 	nameLowerCase: computed('name', function () {
 		return dasherize(this.get('name').toLowerCase());
-	})
+	}),
 });
 const i18nService = Service.extend({
-	t() {}
+	t() {},
 });
 
 module('Integration | Component | article content', (hooks) => {
@@ -42,20 +42,19 @@ module('Integration | Component | article content', (hooks) => {
 	const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
 
 	test('ad is injected below portable infobox with no page header', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<div class="portable-infobox-wrapper">' +
-			'<aside class="portable-infobox"></aside>' +
-			'</div>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<div class="portable-infobox-wrapper">'
+			+ '<aside class="portable-infobox"></aside>'
+			+ '</div>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
 			setupAdsContext: setupAdsContextSpy,
@@ -73,26 +72,25 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.portable-infobox-wrapper'),
-			'previous element is an infobox'
+			'previous element is an infobox',
 		);
 	});
 
 	test('ad is injected below page header', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<aside class="wiki-page-header"></aside>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<aside class="wiki-page-header"></aside>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
 
 		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
@@ -107,29 +105,28 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.wiki-page-header'),
-			'previous element is site header'
+			'previous element is site header',
 		);
 	});
 
 	test('ad is injected below portable infobox', async function (assert) {
-		const content =
-			'<p>some content</p>' +
-			'<div class="wiki-page-header"></div>' +
-			'<div class="portable-infobox-wrapper">' +
-			'<aside class="portable-infobox"></aside>' +
-			'</div>' +
-			'<section>Article body</section>' +
-			'<div>more content</div>';
+		const content =	'<p>some content</p>'
+			+ '<div class="wiki-page-header"></div>'
+			+ '<div class="portable-infobox-wrapper">'
+			+ '<aside class="portable-infobox"></aside>'
+			+ '</div>'
+			+ '<section>Article body</section>'
+			+ '<div>more content</div>';
 		const setupAdsContextSpy = sinon.spy();
 
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
 
 		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
@@ -144,7 +141,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.portable-infobox-wrapper'),
-			'previous element is an infobox'
+			'previous element is an infobox',
 		);
 	});
 });

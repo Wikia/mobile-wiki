@@ -11,9 +11,9 @@ module('Unit | Component | trending videos item', (hooks) => {
 	setupTest(hooks);
 
 	hooks.beforeEach(() => {
-		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => {
-			return `${url}/${options.mode}/${options.width}/${options.height}`;
-		});
+		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => (
+			`${url}/${options.mode}/${options.width}/${options.height}`
+		));
 	});
 
 	hooks.afterEach(() => {
@@ -30,8 +30,8 @@ module('Unit | Component | trending videos item', (hooks) => {
 			imageWidth,
 			mode: 'top-crop',
 			video: {
-				url: 'http://vignette/image.jpg'
-			}
+				url: 'http://vignette/image.jpg',
+			},
 		});
 
 		assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);

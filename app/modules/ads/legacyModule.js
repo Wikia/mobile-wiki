@@ -1,7 +1,10 @@
+/* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
-import config from '../../config/environment';
 import { Promise } from 'rsvp';
+import config from '../../config/environment';
 import offset from '../../utils/offset';
+/* eslint import/no-cycle: 0 */
+// legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
 /**
@@ -67,24 +70,24 @@ class Ads {
 		this.GASettings = {
 			babDetector: {
 				name: 'babdetector',
-				dimension: 6
-			}
+				dimension: 6,
+			},
 		};
 		this.adSlotsConfig = {
 			MOBILE_TOP_LEADERBOARD: {
 				// ATF slot is pushed immediately (without any delay/in single request with other slots)
-				isAboveTheFold: true
+				isAboveTheFold: true,
 			},
 			MOBILE_PREFOOTER: {
-				disableManualInsert: true
-			}
+				disableManualInsert: true,
+			},
 		};
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
 		this.adsData = {
 			minZerothSectionLength: 700,
-			minNumberOfSections: 4
+			minNumberOfSections: 4,
 		};
 	}
 
@@ -129,7 +132,7 @@ class Ads {
 				'ext.wikia.adEngine.wad.babDetection',
 				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
-				'wikia.krux'
+				'wikia.krux',
 			], (
 				adEngineBridge,
 				adContextModule,
@@ -144,7 +147,7 @@ class Ads {
 				babDetectionModule,
 				jwPlayerAds,
 				jwPlayerMoat,
-				krux
+				krux,
 			) => {
 				this.adEngineBridge = adEngineBridge;
 				this.adConfigMobile = adConfigMobile;
@@ -262,7 +265,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(config.tracking.krux.mobileId);
+			this.krux.load(config.APP.tracking.krux.mobileId);
 		}
 	}
 
@@ -355,8 +358,8 @@ class Ads {
 
 		const firstSection = document.querySelector('.article-content > h2');
 		const firstSectionTop = (
-			firstSection &&
-			offset(firstSection).top
+			firstSection
+			&& offset(firstSection).top
 		) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
@@ -441,7 +444,7 @@ class Ads {
 						action: 'impression',
 						label: Ads.previousDetectionResults.babDetector.value ? 'Yes' : 'No',
 						value: 0,
-						trackingMethod: 'internal'
+						trackingMethod: 'internal',
 					});
 				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
 					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
@@ -463,7 +466,7 @@ class Ads {
 			disableManualInsert: !!config.disableManualInsert,
 			isAboveTheFold: !!config.isAboveTheFold,
 			name: slotName,
-			hiddenClassName: 'hidden'
+			hiddenClassName: 'hidden',
 		};
 	}
 
@@ -624,8 +627,8 @@ Ads.instance = null;
 Ads.previousDetectionResults = {
 	babDetector: {
 		exists: false,
-		value: null
-	}
+		value: null,
+	},
 };
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.

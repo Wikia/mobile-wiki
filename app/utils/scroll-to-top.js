@@ -11,7 +11,7 @@ export default function (element) {
 	if ('scrollBehavior' in document.documentElement.style) {
 		window.scrollTo({
 			top: scrollTop,
-			behavior: 'smooth'
+			behavior: 'smooth',
 		});
 	} else {
 		window.scrollTo(0, scrollTop);

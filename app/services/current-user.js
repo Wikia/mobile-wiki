@@ -53,7 +53,7 @@ export default Service.extend({
 					.find({
 						accessToken: this.get('fastboot.request.cookies.access_token'),
 						userId,
-						host
+						host,
 					})
 					.then((userModelData) => {
 						if (userModelData) {
@@ -77,8 +77,8 @@ export default Service.extend({
 
 	getGaUserIdHash() {
 		const Crypto = FastBoot.require('crypto');
-		const rawString = `${this.userId}${config.fastbootOnly.gaUserSalt}`;
+		const rawString = `${this.userId}${config.APP.gaUserSalt}`;
 
 		return Crypto.createHash('md5').update(rawString).digest('hex');
-	}
+	},
 });

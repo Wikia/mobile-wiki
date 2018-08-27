@@ -1,11 +1,11 @@
 const compression = require('compression');
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
-const methodOverride = require('method-override');
-const bodyParser = require('body-parser');
 
 function levelFn(status) {
 	if (status >= 500) {
@@ -34,11 +34,9 @@ module.exports = {
 		 */
 		app.use(
 			/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/,
-			bodyParser.urlencoded({ extended: true, limit: '10mb' })
+			bodyParser.urlencoded({ extended: true, limit: '10mb' }),
 		);
-		app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => {
-			return 'GET';
-		}));
+		app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => 'GET'));
 
 		// XF-242 remove /mobile-wiki path after full migration to serving assets from DFS
 		app.use('/mobile-wiki', cors(), staticAssets);
@@ -64,5 +62,5 @@ module.exports = {
 				res.sendStatus(statusCode);
 			}
 		});
-	}
+	},
 };

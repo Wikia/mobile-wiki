@@ -17,79 +17,33 @@ module('Unit | Component | lightbox media', (hooks) => {
 				title: 'test',
 				url: 'testurl',
 				caption: 'testcaption',
-				type: 'image'
+				type: 'image',
 			},
 			{
 				title: 'test1',
 				url: 'testurl1',
 				caption: 'testcaption1',
-				type: 'image'
+				type: 'image',
 			},
 			[
 				{
 					title: 'testgallery',
 					url: 'testgallery',
 					caption: 'testgallery',
-					type: 'image'
+					type: 'image',
 				},
 				{
 					title: 'testgallery1',
 					url: 'testgallery1',
 					caption: 'testgallery1',
-					type: 'image'
-				}
-			]
+					type: 'image',
+				},
+			],
 		];
 	});
 
 	hooks.afterEach(() => {
 		trackStub.restore();
-	});
-
-	test('sets correct footer', function (assert) {
-		const parentMock = {
-			footer: null,
-			setFooter(footer) {
-				this.footer = footer;
-			}
-		};
-		const componentMock = this.owner.factoryFor('component:lightbox-media').create();
-
-		componentMock.setProperties({
-			model: model[0],
-			target: parentMock,
-			setFooter: parentMock.setFooter.bind(parentMock)
-		});
-
-		assert.equal(parentMock.footer, 'testcaption');
-
-		componentMock.set('model', model[1]);
-		assert.equal(parentMock.footer, 'testcaption1');
-	});
-
-
-	test('sets correct header', function (assert) {
-		const parentMock = {
-			header: null,
-			setHeader(header) {
-				this.header = header;
-			}
-		};
-		const componentMock = this.owner.factoryFor('component:lightbox-media').create();
-
-		componentMock.setProperties({
-			model: model[0],
-			target: parentMock,
-			setHeader: parentMock.setHeader.bind(parentMock)
-		});
-
-		assert.equal(parentMock.header, null);
-
-		componentMock.set('model', model[1]);
-		assert.equal(parentMock.header, null);
-
-		componentMock.set('model', model[2]);
-		assert.equal(parentMock.header, '1 / 2');
 	});
 
 	test('checks if current media is gallery', function (assert) {
@@ -117,7 +71,7 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 		componentMock.set('model', model[2]);
 		componentMock.setProperties({
-			currentGalleryRef: 0
+			currentGalleryRef: 0,
 		});
 		assert.equal(componentMock.get('currentGalleryRef'), 0);
 

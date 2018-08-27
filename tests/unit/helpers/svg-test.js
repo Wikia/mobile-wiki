@@ -15,7 +15,7 @@ module('Unit | helper | svg', () => {
 
 	test('generate html with one hash parameter', (assert) => {
 		const options = {
-			viewBox: '0 0 12 7'
+			viewBox: '0 0 12 7',
 		};
 		const html = svgHelper.compute(['nameOfSvg'], options);
 
@@ -26,18 +26,18 @@ module('Unit | helper | svg', () => {
 		const options = {
 			viewBox: '0 0 12 7',
 			class: 'css classes here',
-			role: 'img'
+			role: 'img',
 		};
 		const html = svgHelper.compute(['nameOfSvg'], options);
 
 		// The helper iterates through hash parameters alphabetically
-		assert.equal(html, '<svg class="css classes here" role="img" viewBox="0 0 12 7">' +
-			'<use xlink:href="#nameOfSvg"></use></svg>');
+		assert.equal(html, '<svg class="css classes here" role="img" viewBox="0 0 12 7">'
+							+ '<use xlink:href="#nameOfSvg"></use></svg>');
 	});
 
 	test('generate html with extraneous parameter (ignores the param)', (assert) => {
 		const options = {
-			notAValidSVGParam: 'nope'
+			notAValidSVGParam: 'nope',
 		};
 		const html = svgHelper.compute(['nameOfSvg'], options);
 

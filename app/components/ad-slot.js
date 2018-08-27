@@ -31,8 +31,8 @@ export default Component.extend(
 		}),
 
 		shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
-			return !(this.pageHasFeaturedVideo || this.isAboveTheFold) &&
-				!isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
+			return !(this.pageHasFeaturedVideo || this.isAboveTheFold)
+				&& !isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
 		}),
 
 		didInsertElement() {
@@ -56,7 +56,7 @@ export default Component.extend(
 					() => {
 						this.logger.info('Injected ad:', name);
 						ads.pushSlotToQueue(name);
-					}
+					},
 				);
 			} else {
 				this.logger.info('Injected ad', name);
@@ -68,9 +68,9 @@ export default Component.extend(
 					top: 200,
 					bottom: 200,
 					left: 0,
-					right: 0
+					right: 0,
 				},
-				intersectionThreshold: 0
+				intersectionThreshold: 0,
 			});
 		},
 
@@ -99,9 +99,9 @@ export default Component.extend(
 						this.logger.info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);
 					},
-					() => {}
+					() => {},
 				);
 			}
-		}
-	}
+		},
+	},
 );

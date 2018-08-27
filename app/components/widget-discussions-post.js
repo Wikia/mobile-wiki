@@ -2,9 +2,9 @@ import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
+import Ember from 'ember';
 import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
-import Ember from 'ember';
 
 export default Component.extend({
 	classNames: ['post-detail'],
@@ -24,12 +24,12 @@ export default Component.extend({
 
 	parsedContent: computed('post.rawContent', function () {
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
-			this.get('post.rawContent')
+			this.get('post.rawContent'),
 		).trim();
 
 		escapedContent = truncate(escapedContent, 148);
 		escapedContent = nl2br(escapedContent);
 
 		return htmlSafe(escapedContent);
-	})
+	}),
 });

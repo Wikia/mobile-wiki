@@ -65,9 +65,9 @@ export default Service.extend({
 		}
 
 		if (urlParams.title) {
-			url += urlParams.articlePath +
-				(urlParams.namespace ? `${urlParams.namespace}:` : '') +
-				encodeURIComponent(urlParams.title);
+			url += urlParams.articlePath
+				+ (urlParams.namespace ? `${urlParams.namespace}:` : '')
+				+ encodeURIComponent(urlParams.title);
 		}
 
 		if (urlParams.wikiPage) {
@@ -141,21 +141,21 @@ export default Service.extend({
 				if (comparison === currentTitle && hash) {
 					return {
 						article: null,
-						url: hash
+						url: hash,
 					};
 				}
 
 				return {
 					article: article[1],
 					url: null,
-					hash: article[2] ? hash : null
+					hash: article[2] ? hash : null,
 				};
 			}
 		}
 
 		return {
 			article: null,
-			url: uri
+			url: uri,
 		};
 	},
 
@@ -178,13 +178,13 @@ export default Service.extend({
 		const url = redirectUrl || window.location.href;
 
 		window.location.href = this.build({
-			host: `www.${config.baseDomain}`,
+			host: `www.${config.APP.baseDomain}`,
 			langPath: '',
 			path: '/join',
 			query: {
 				redirect: url,
-				uselang: this.get('wikiVariables.language.content')
-			}
+				uselang: this.get('wikiVariables.language.content'),
+			},
 		});
-	}
+	},
 });

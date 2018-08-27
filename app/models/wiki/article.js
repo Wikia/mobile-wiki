@@ -27,7 +27,7 @@ export default BaseModel.extend({
 
 				articleProperties = {
 					comments: details.comments,
-					details
+					details,
 				};
 			}
 
@@ -58,5 +58,5 @@ export default BaseModel.extend({
 		}
 
 		this.setProperties(articleProperties);
-	}
+	},
 });

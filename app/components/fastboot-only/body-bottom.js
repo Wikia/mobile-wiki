@@ -14,23 +14,21 @@ export default Component.extend({
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
 
-	noExternals: bool('fastboot.request.queryParams.noexternals'),
-
 	data: computed(function () {
-		const cookieDomain = config.cookieDomain;
+		const cookieDomain = config.APP.cookieDomain;
 		const currentUser = this.currentUser;
 		// We have to anonymize user id before sending it to Google
 		// It's faster to do the hashing server side and pass to the front-end, ready to use
 		const gaUserIdHash = currentUser.getGaUserIdHash();
-		const noExternals = this.noExternals;
+		const noExternals = config.APP.noExternals;
 		const tracking = this.get('tracking.config');
 		const isAuthenticated = currentUser.get('isAuthenticated');
-		const wikiaEnv = config.wikiaEnv;
+		const wikiaEnv = config.APP.wikiaEnv;
 		const simpleStore = this.simpleStore.getProperties(
 			'trackingDimensions',
 			'articleId',
 			'namespace',
-			'isMainPage'
+			'isMainPage',
 		);
 		const wikiVariables = this.wikiVariables.getProperties(
 			'cacheBuster',
@@ -38,7 +36,7 @@ export default Component.extend({
 			'dbName',
 			'id',
 			'language',
-			'qualarooUrl'
+			'qualarooUrl',
 		);
 
 		return JSON.stringify(Object.assign({
@@ -48,7 +46,7 @@ export default Component.extend({
 			tracking,
 			isAuthenticated,
 			wikiaEnv,
-			wikiVariables
+			wikiVariables,
 		}, simpleStore));
 	}),
 
@@ -58,6 +56,4 @@ export default Component.extend({
 
 		return langPath ? `${langPath}${path}` : path;
 	}),
-
-	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
 });

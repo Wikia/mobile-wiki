@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
 import {
 	WikiVariablesRedirectError,
-	WikiVariablesFetchError
+	WikiVariablesFetchError,
 } from '../utils/errors';
 
 export default EmberObject.extend({
@@ -16,11 +16,11 @@ export default EmberObject.extend({
 			query: {
 				controller: 'MercuryApi',
 				method: 'getWikiVariables',
-				format: 'json'
-			}
+				format: 'json',
+			},
 		});
 		let options = {
-			headers: {}
+			headers: {},
 		};
 
 		if (accessToken) {
@@ -32,10 +32,10 @@ export default EmberObject.extend({
 				if (!response.ok) {
 					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
-							code: response.status || 503
+							code: response.status || 503,
 						}).withAdditionalData({
 							host,
-							url
+							url,
 						});
 					});
 				}
@@ -47,16 +47,16 @@ export default EmberObject.extend({
 				} else if (url !== response.url) {
 					// API was redirected to non-json page
 					throw new WikiVariablesRedirectError().withAdditionalData({
-						redirectLocation: response.url
+						redirectLocation: response.url,
 					});
 				} else {
 					// non-json API response
 					return response.text().then(() => {
 						throw new WikiVariablesFetchError({
-							code: response.status || 503
+							code: response.status || 503,
 						}).withAdditionalData({
 							host,
-							url
+							url,
 						});
 					});
 				}
@@ -69,9 +69,9 @@ export default EmberObject.extend({
 				response.data.host = host;
 
 				// Make sure basePath is using https if the current request from the client was made over https
-				if ((accessToken || response.data.disableHTTPSDowngrade) &&
-					response.data.basePath &&
-					protocol === 'https'
+				if ((accessToken || response.data.disableHTTPSDowngrade)
+					&& response.data.basePath
+					&& protocol === 'https'
 				) {
 					response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
 				}
@@ -84,11 +84,11 @@ export default EmberObject.extend({
 				}
 
 				throw new WikiVariablesFetchError({
-					code: error.code || 503
+					code: error.code || 503,
 				}).withAdditionalData({
 					host,
-					url
+					url,
 				}).withPreviousError(error);
 			});
-	}
+	},
 });

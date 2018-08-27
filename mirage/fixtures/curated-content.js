@@ -7,63 +7,63 @@ export default {
 				items: [
 					{
 						label: 'Categories',
-						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/3/3e/Burton-jane-' +
-						'ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg/revision/latest' +
-						'?cb=20150706160548',
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/3/3e/Burton-jane-'
+						+ 'ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg/revision/latest'
+						+ '?cb=20150706160548',
 						type: 'section',
 						items: [
 							{
 								label: 'Articles label',
-								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
-								'/revision/latest?cb=20150708092401',
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg'
+								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Articles',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Blogs label',
-								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
-								'/revision/latest?cb=20150708092401',
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg'
+								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Blog_posts',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Photos label',
-								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
-								'/revision/latest?cb=20150708092401',
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg'
+								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Images',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Videos label',
-								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
-								'/revision/latest?cb=20150708092401',
+								imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg'
+								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Videos',
-								imageCrop: null
-							}
+								imageCrop: null,
+							},
 						],
-						imageCrop: null
+						imageCrop: null,
 					},
 					{
 						label: 'Templates label',
-						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg' +
-						'/revision/latest?cb=20150708092401',
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/Red.jpg'
+						+ '/revision/latest?cb=20150708092401',
 						type: 'category',
 						url: '/wiki/Category:Templates',
-						imageCrop: null
+						imageCrop: null,
 					},
 					{
 						label: 'Broken',
-						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/57/UC39.jpg' +
-						'/revision/latest?cb=20150715133441',
+						imageUrl: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/57/UC39.jpg'
+						+ '/revision/latest?cb=20150715133441',
 						type: 'category',
 						url: '/wiki/Category:Broken',
-						imageCrop: null
-					}
-				]
+						imageCrop: null,
+					},
+				],
 			},
 			wikiaStats: {
 				edits: 910,
@@ -73,8 +73,8 @@ export default {
 				activeUsers: 0,
 				images: 67,
 				videos: 6,
-				admins: 3
-			}
+				admins: 3,
+			},
 		},
 		details: {
 			id: 1461,
@@ -85,17 +85,17 @@ export default {
 				id: 4077,
 				user: 'Tomasz.napieralski',
 				user_id: 25832797,
-				timestamp: 1436194543
+				timestamp: 1436194543,
 			},
 			comments: 0,
 			type: 'article',
-			abstract: 'About Mercury CC Write a description about your topic.' +
-				' Let your readers know what your topic is...',
+			abstract: 'About Mercury CC Write a description about your topic.'
+				+ ' Let your readers know what your topic is...',
 			thumbnail: null,
 			original_dimensions: null,
-			description: 'Mercury CC Wikia is a community site that anyone can contribute to.' +
-				' Discover, share and add your knowledge!'
+			description: 'Mercury CC Wikia is a community site that anyone can contribute to.'
+				+ ' Discover, share and add your knowledge!',
 		},
-		articleType: 'other'
-	}
+		articleType: 'other',
+	},
 };

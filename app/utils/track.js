@@ -1,5 +1,5 @@
-/* eslint no-console: 0 */
-
+/* eslint import/no-cycle: 0 */
+// legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import LegacyAds from '../modules/ads/legacyModule';
 import { getGroup } from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
@@ -87,12 +87,12 @@ const trackActions = {
 	// Action to take a survey
 	takeSurvey: 'take-survey',
 	// View
-	view: 'view'
+	view: 'view',
 };
 
 let context = {
 	a: null,
-	n: null
+	n: null,
 };
 
 /**
@@ -141,7 +141,7 @@ export function track(params) {
 		ga_label: label,
 		ga_value: value,
 		ga_is_nonInteractive: isNonInteractive,
-		pv_unique_id: pvUID
+		pv_unique_id: pvUID,
 	}, params);
 
 	// We rely on ga_* params in both trackers

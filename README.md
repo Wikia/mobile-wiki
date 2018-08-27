@@ -42,7 +42,7 @@ Or use `curl -H "Host:muppet.yourname.wikia-dev.pl" "http://dev-yourname:7001/wi
 
 Mobile Wiki application currently supports three types of configuration.
 * Ember & FastBoot configuration computed at build time `config/environment.js`
-* Ember & FastBoot runtime configuration `app/instance-initializers/config.js` which has access to environment variables
+* Ember & FastBoot runtime configuration [`app/instance-initializers/config.js`](https://github.com/Wikia/ember-fandom/blob/master/app/instance-initializers/config.js) which has access to environment variables
 * Express server configuration (middleware in front of FastBoot server) `config/fastboot-server.js`
 
 Some tips if you develop outside of devbox:
@@ -81,6 +81,13 @@ if (this.get('fastboot.isFastBoot')) {
 
 // use your data
 ```
+### Sandboxes
+Mobile-wiki is deployed to sandboxes using the [mobile-wiki-deploy-sandbox](http://jenkins.wikia-prod:8080/job/mobile-wiki-deploy-sandbox/) jenkins job.
+
+If you're in the #iris-tech channel, you can also make use of `sandbot` which is a chat bot with the following commands:
+- `sandbot status` - current status
+- `sandbot taking <name of sandbox>` to reserve one
+- `sandbot releasing <name-of sandbox>` to release one
 
 ## See also
 

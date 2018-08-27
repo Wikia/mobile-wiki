@@ -18,8 +18,8 @@ const config = {
 	source: 'fandom',
 	opts: {
 		resultType: 'cross-domain',
-		domainType: 'fandom.wikia.com'
-	}
+		domainType: 'fandom.wikia.com',
+	},
 };
 
 export default Component.extend(
@@ -52,10 +52,10 @@ export default Component.extend(
 					top: viewportTolerance,
 					bottom: viewportTolerance,
 					left: 0,
-					right: 0
+					right: 0,
 				},
 				intersectionThreshold: 0,
-				listRendered: defer()
+				listRendered: defer(),
 			});
 
 			this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
@@ -69,13 +69,13 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'recirculation',
-					label: labelParts.join('=')
+					label: labelParts.join('='),
 				});
 
 				run.later(() => {
 					window.location.assign(post.url);
 				}, 200);
-			}
+			},
 		},
 
 		fetchPlista() {
@@ -102,7 +102,7 @@ export default Component.extend(
 					title: item.title,
 					url: item.url,
 					presented_by: 'Plista',
-					isPlista: true
+					isPlista: true,
 				};
 			}
 		},
@@ -113,14 +113,12 @@ export default Component.extend(
 			liftigniter
 				.getData(config)
 				.then((data) => {
-					this.set('items', data.items.filter((item) => {
-						return item.hasOwnProperty('thumbnail') && item.thumbnail;
-					})
+					this.set('items', data.items.filter(item => item.hasOwnProperty('thumbnail') && item.thumbnail)
 						.slice(0, recircItemsCount)
 						.map((item) => {
 							item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
 								mode: Thumbnailer.mode.scaleToWidth,
-								width: normalizeThumbWidth(window.innerWidth)
+								width: normalizeThumbWidth(window.innerWidth),
 							});
 
 							return item;
@@ -131,7 +129,7 @@ export default Component.extend(
 							liftigniter.setupTracking(
 								this.element.querySelectorAll('.recirculation-prefooter__item'),
 								config.widget,
-								'LI'
+								'LI',
 							);
 							this.get('listRendered').resolve();
 						}
@@ -159,7 +157,7 @@ export default Component.extend(
 			track({
 				action: trackActions.impression,
 				category: 'recirculation',
-				label: 'footer'
+				label: 'footer',
 			});
 		},
 
@@ -174,5 +172,5 @@ export default Component.extend(
 				}
 			});
 		},
-	}
+	},
 );

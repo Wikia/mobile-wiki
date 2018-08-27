@@ -1,59 +1,57 @@
 import { defineError } from 'ember-exex/error';
 
+// TODO remove redundant errors from this file and use ones from ember-fandom across app
+import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
+
 const errorsMap = {
 	403: 'You do not have permissions to view this page.',
-	default: 'Sorry, we couldn\'t load the page. Please try again.'
+	default: 'Sorry, we couldn\'t load the page. Please try again.',
 };
 
 const DesignSystemFetchError = defineError({
 	name: 'DesignSystemFetchError',
-	message: `Design System data couldn't be fetched`
+	message: `Design System data couldn't be fetched`,
 });
 
 const FetchError = defineError({
 	name: 'FetchError',
-	message: 'fetch failed to execute'
-});
-
-const DontLogMeError = defineError({
-	name: 'DontLogMeError',
-	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
+	message: 'fetch failed to execute',
 });
 
 const FandomPostsError = defineError({
 	name: 'FandomPostsError',
-	message: `Fandom posts couldn't be fetched`
+	message: `Fandom posts couldn't be fetched`,
 });
 
 const WikiVariablesRedirectError = defineError({
 	name: 'WikiVariablesRedirectError',
 	message: `The API response was in incorrect format`,
-	extends: DontLogMeError
+	extends: DontLogMeError,
 });
 
 const UserLoadDetailsFetchError = defineError({
 	name: 'UserLoadDetailsFetchError',
-	message: `User details couldn't be fetched`
+	message: `User details couldn't be fetched`,
 });
 
 const UserLoadInfoFetchError = defineError({
 	name: 'UserLoadInfoFetchError',
-	message: `User info couldn't be fetched`
+	message: `User info couldn't be fetched`,
 });
 
 const TrackingDimensionsFetchError = defineError({
 	name: 'TrackingDimensionsFetchError',
-	message: `Tracking dimensions couldn't be fetched`
+	message: `Tracking dimensions couldn't be fetched`,
 });
 
 const WikiPageFetchError = defineError({
 	name: 'WikiPageFetchError',
-	message: `Wiki page couldn't be fetched`
+	message: `Wiki page couldn't be fetched`,
 });
 
 const WikiVariablesFetchError = defineError({
 	name: 'WikiVariablesFetchError',
-	message: `Wiki variables couldn't be fetched`
+	message: `Wiki variables couldn't be fetched`,
 });
 
 const getFetchErrorMessage = function (response) {
@@ -78,7 +76,6 @@ export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
 	FetchError,
-	DontLogMeError,
 	FandomPostsError,
 	WikiVariablesRedirectError,
 	UserLoadDetailsFetchError,
@@ -87,5 +84,5 @@ export {
 	WikiPageFetchError,
 	WikiVariablesFetchError,
 	canAttemptRefresh,
-	getProductionErrorMessage
+	getProductionErrorMessage,
 };
