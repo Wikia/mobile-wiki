@@ -11,7 +11,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 				get: () => true,
 			},
 		};
-		window.Wikia.adProductsBidders = {
+		window.Wikia.adProducts = {
 			bidders: {
 				getCurrentSlotPrices: () => {},
 				getDfpSlotPrices: () => {},
