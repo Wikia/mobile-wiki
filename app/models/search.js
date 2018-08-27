@@ -32,7 +32,7 @@ export default EmberObject.extend({
 			totalItems: 0,
 			totalBatches: 0,
 			query,
-			items: A([])
+			items: A([]),
 		});
 
 		if (query) {
@@ -55,7 +55,7 @@ export default EmberObject.extend({
 	fetch(query) {
 		this.setProperties({
 			error: '',
-			loading: true
+			loading: true,
 		});
 
 		return fetch(this.wikiUrls.build({
@@ -65,15 +65,15 @@ export default EmberObject.extend({
 				controller: 'SearchApi',
 				method: 'getList',
 				query,
-				batch: this.batch
-			}
+				batch: this.batch,
+			},
 		}))
 			.then((response) => {
 				if (!response.ok) {
 					this.setProperties({
 						error: 'search-error-general',
 						erroneousQuery: query,
-						loading: false
+						loading: false,
 					});
 
 					if (response.status === 404) {
@@ -96,7 +96,7 @@ export default EmberObject.extend({
 				{
 					title: item.title,
 					snippet: htmlSafe(item.snippet),
-					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url)
+					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
 				}
 			))),
 			loading: false,
@@ -105,5 +105,5 @@ export default EmberObject.extend({
 		});
 
 		return this;
-	}
+	},
 });

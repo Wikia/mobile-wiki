@@ -20,7 +20,7 @@ export default Component.extend(
 			if (imageUrl) {
 				return this.generateThumbUrl(
 					imageUrl,
-					this.get(`model.imageCrop.${this.aspectRatioName}`)
+					this.get(`model.imageCrop.${this.aspectRatioName}`),
 				);
 			}
 
@@ -29,6 +29,6 @@ export default Component.extend(
 
 		// TODO it's not treated as valid property
 		aspectRatio: 16 / 9,
-		cropMode: Thumbnailer.mode.zoomCrop
-	}
+		cropMode: Thumbnailer.mode.zoomCrop,
+	},
 );

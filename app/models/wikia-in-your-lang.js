@@ -57,9 +57,9 @@ export default EmberObject.extend(LanguagesMixin, {
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',
 					format: 'json',
-					targetLanguage: browserLang
-				}
-			})
+					targetLanguage: browserLang,
+				},
+			}),
 		)
 			.then(response => response.json())
 			.then((resp) => {
@@ -68,7 +68,7 @@ export default EmberObject.extend(LanguagesMixin, {
 				if (resp.success) {
 					out = {
 						nativeDomain: resp.nativeDomain,
-						message: resp.messageMobile
+						message: resp.messageMobile,
 					};
 				}
 
@@ -77,8 +77,8 @@ export default EmberObject.extend(LanguagesMixin, {
 					getCacheKey(browserLang),
 					JSON.stringify({
 						model: out,
-						timestamp: new Date().getTime()
-					})
+						timestamp: new Date().getTime(),
+					}),
 				);
 
 				return out;

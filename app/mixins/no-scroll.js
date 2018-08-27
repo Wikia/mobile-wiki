@@ -41,5 +41,5 @@ export default Mixin.create({
 		} else {
 			document.body.classList.remove('wds-no-scroll');
 		}
-	}
+	},
 });

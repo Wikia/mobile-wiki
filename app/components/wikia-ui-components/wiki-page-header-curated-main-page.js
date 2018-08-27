@@ -15,10 +15,10 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'main-page',
-					label: trackingLabel
+					label: trackingLabel,
 				});
-			}
-		}
-	}
+			},
+		},
+	},
 );
 

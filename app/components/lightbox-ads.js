@@ -29,5 +29,5 @@ export default Component.extend(RenderComponentMixin, {
 			this.setCloseButtonHidden(true);
 			showCloseButtonAfterCountDown();
 		}
-	}
+	},
 });

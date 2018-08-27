@@ -7,5 +7,5 @@ export default Controller.extend(WikiPageControllerMixin, {
 	article: controller(),
 	wikiPage: controller(),
 
-	commentsPage: alias('application.commentsPage')
+	commentsPage: alias('application.commentsPage'),
 });

@@ -19,7 +19,7 @@ module('Acceptance | Article page', (hooks) => {
 				opts: {
 					areMobileStickyAndSwapEnabled: true,
 				},
-			}))
+			})),
 		});
 	});
 

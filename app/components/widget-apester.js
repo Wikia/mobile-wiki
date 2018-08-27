@@ -32,6 +32,6 @@ export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
 		if (this.get('scriptLoaded.apester')) {
 			window.APESTER.reload();
 		}
-	}
+	},
 
 });

@@ -8,7 +8,7 @@ function logEvent(resource, name, description = {}) {
 		fetch(`${url}/${resource}`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
 			// sends cookie with request, allows for logging beaconId and sessionId
 			credentials: 'include',
@@ -16,8 +16,8 @@ function logEvent(resource, name, description = {}) {
 				name,
 				description: JSON.stringify(description),
 				client: 'mobile-wiki',
-				client_version: config.APP.version
-			})
+				client_version: config.APP.version,
+			}),
 		});
 	}
 }

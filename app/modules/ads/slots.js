@@ -4,7 +4,7 @@ const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
 const PAGE_TYPES = {
 	article: 'a',
-	home: 'h'
+	home: 'h',
 };
 
 function setSlotState(slotName, state) {
@@ -75,8 +75,8 @@ export default {
 				defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'top',
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			mobile_in_content: {
 				adProduct: 'mobile_in_content',
@@ -89,8 +89,8 @@ export default {
 				targeting: {
 					loc: 'middle',
 					pos: ['mobile_in_content'],
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			incontent_boxad_1: {
 				adProduct: 'incontent_boxad_1',
@@ -108,22 +108,22 @@ export default {
 					updateProperties: {
 						adProduct: '{slotConfig.slotName}',
 						'targeting.rv': '{slotConfig.repeat.index}',
-						'targeting.pos': ['incontent_boxad', 'mobile_in_content']
-					}
+						'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
+					},
 				},
 				slotShortcut: 'f',
 				sizes: [
 					{
 						viewportSize: [375, 627],
-						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]]
-					}
+						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
+					},
 				],
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'middle',
 					pos: ['incontent_boxad', 'mobile_in_content'],
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			incontent_player: {
 				adProduct: 'incontent_player',
@@ -138,8 +138,8 @@ export default {
 				targeting: {
 					loc: 'middle',
 					pos: ['incontent_player'],
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			mobile_prefooter: {
 				adProduct: 'mobile_prefooter',
@@ -153,8 +153,8 @@ export default {
 				defaultSizes: [[320, 50], [300, 250], [300, 50]],
 				targeting: {
 					loc: 'footer',
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			bottom_leaderboard: {
 				adProduct: 'bottom_leaderboard',
@@ -165,15 +165,15 @@ export default {
 				sizes: [
 					{
 						viewportSize: [375, 627],
-						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]]
-					}
+						sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
+					},
 				],
 				defaultSizes: [[320, 50], [300, 250], [300, 50]], // Add [2, 2] for UAP
 				targeting: {
 					loc: 'footer',
 					pos: ['bottom_leaderboard', 'mobile_prefooter'],
-					rv: 1
-				}
+					rv: 1,
+				},
 			},
 			featured: {
 				adProduct: 'featured',
@@ -242,5 +242,5 @@ export default {
 		if (!context.get('custom.hasFeaturedVideo')) {
 			setSlotState('incontent_player', true);
 		}
-	}
+	},
 };

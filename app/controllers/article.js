@@ -21,8 +21,8 @@ export default Controller.extend(WikiPageControllerMixin, {
 			track({
 				action: trackActions.click,
 				category,
-				label
+				label,
 			});
-		}
-	}
+		},
+	},
 });

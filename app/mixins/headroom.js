@@ -41,7 +41,7 @@ export default Mixin.create({
 				pinned: 'pinned',
 				unpinned: 'un-pinned',
 				top: 'headroom-top',
-				notTop: 'headroom-not-top'
+				notTop: 'headroom-not-top',
 			},
 			offset,
 			onPin: () => {
@@ -53,7 +53,7 @@ export default Mixin.create({
 				if (!this.isDestroyed) {
 					this.set('pinned', false);
 				}
-			}
+			},
 		};
 
 		if (headroomOptions) {
@@ -65,5 +65,5 @@ export default Mixin.create({
 		headroom.init();
 
 		this.set('headroom', headroom);
-	}
+	},
 });

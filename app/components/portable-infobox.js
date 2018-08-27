@@ -68,7 +68,7 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category: 'portable-infobox',
-						label: 'collapsed-by-button'
+						label: 'collapsed-by-button',
 					});
 					scrollTo.apply(this.button);
 				} else {
@@ -76,10 +76,10 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category: 'portable-infobox',
-						label: 'expanded-by-button'
+						label: 'expanded-by-button',
 					});
 				}
-			}
+			},
 		},
 
 		click(event) {
@@ -117,6 +117,6 @@ export default Component.extend(
 			this.set('collapsed', false);
 			this.element.style.height = 'auto';
 			this.element.querySelector('aside').style.height = 'auto';
-		}
-	}
+		},
+	},
 );

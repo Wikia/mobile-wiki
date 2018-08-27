@@ -206,5 +206,5 @@ export default Component.extend(
 				this.setFooter(null);
 			}
 		},
-	}
+	},
 );

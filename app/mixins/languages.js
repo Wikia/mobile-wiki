@@ -28,5 +28,5 @@ export default Mixin.create({
 
 			return lang;
 		}
-	}
+	},
 });

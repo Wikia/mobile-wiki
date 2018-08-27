@@ -18,5 +18,5 @@ export default Mixin.create({
 		if (!this.get('fastboot.isFastBoot') && !isInitialPageView) {
 			window.wgNow = new Date();
 		}
-	}
+	},
 });

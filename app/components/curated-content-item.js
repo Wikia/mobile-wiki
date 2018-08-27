@@ -27,7 +27,7 @@ export default Component.extend(
 			if (this.get('model.imageUrl')) {
 				return this.generateThumbUrl(
 					this.get('model.imageUrl'),
-					this.get(`model.imageCrop.${this.aspectRatioName}`)
+					this.get(`model.imageCrop.${this.aspectRatioName}`),
 				);
 			} else {
 				return this.emptyGif;
@@ -41,7 +41,7 @@ export default Component.extend(
 				video: 'play',
 				image: 'image',
 				blog: 'clock',
-				section: 'grid'
+				section: 'grid',
 			};
 
 			// we use here following Design System icons
@@ -58,13 +58,13 @@ export default Component.extend(
 			track({
 				action: trackActions.click,
 				category: 'main-page-curated-content',
-				label: `open-item-${this.index}`
+				label: `open-item-${this.index}`,
 			});
 
 			if (itemType && itemType === 'section') {
 				this.openSection(this.model);
 				return false;
 			}
-		}
-	}
+		},
+	},
 );

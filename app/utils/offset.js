@@ -3,6 +3,6 @@ export default function (el) {
 
 	return {
 		top: rect.top + (window.pageYOffset || document.documentElement.scrollTop),
-		left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft)
+		left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft),
 	};
 }
