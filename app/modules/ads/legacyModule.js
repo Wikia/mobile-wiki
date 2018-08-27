@@ -319,7 +319,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	setContext(adsContext) {
-		this.adsContext = adsContext ? adsContext : null;
+		this.adsContext = adsContext || null;
 	}
 
 	getTargetingValue(key) {

@@ -1764,4 +1764,3 @@ export default function (owner) {
 		return undefined;
 	};
 }
-

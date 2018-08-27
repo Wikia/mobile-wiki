@@ -25,4 +25,3 @@ module('Acceptance | Blog post page', (hooks) => {
 		assert.dom('.article-categories-list.collapsible-menu li').exists({ count: 2 }, 'Categories section has 2 items');
 	});
 });
-
