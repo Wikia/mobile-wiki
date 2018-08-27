@@ -8,5 +8,5 @@ export default Component.extend({
 		const usersGroup = getGroup(experiment);
 
 		this.set('group', usersGroup);
-	}
+	},
 });

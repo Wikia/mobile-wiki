@@ -8,7 +8,7 @@ export default {
 			type: 'category',
 			image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
 				+ 'Red.jpg/revision/latest?cb=20150708092401',
-			article_local_url: '/wiki/Category:Articles'
+			article_local_url: '/wiki/Category:Articles',
 		}, {
 			title: 'Category:Blog_posts',
 			label: 'Blogs label',
@@ -17,7 +17,7 @@ export default {
 			type: 'category',
 			image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
 				+ 'Red.jpg/revision/latest?cb=20150708092401',
-			article_local_url: '/wiki/Category:Blog_posts'
+			article_local_url: '/wiki/Category:Blog_posts',
 		}, {
 			title: 'Category:Images',
 			label: 'Photos label',
@@ -26,7 +26,7 @@ export default {
 			type: 'category',
 			image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
 				+ 'Red.jpg/revision/latest?cb=20150708092401',
-			article_local_url: '/wiki/Category:Images'
+			article_local_url: '/wiki/Category:Images',
 		}, {
 			title: 'Category:Videos',
 			label: 'Videos label',
@@ -35,7 +35,7 @@ export default {
 			type: 'category',
 			image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
 				+ 'Red.jpg/revision/latest?cb=20150708092401',
-			article_local_url: '/wiki/Category:Videos'
-		}
-	]
+			article_local_url: '/wiki/Category:Videos',
+		},
+	],
 };

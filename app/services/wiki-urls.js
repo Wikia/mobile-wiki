@@ -141,21 +141,21 @@ export default Service.extend({
 				if (comparison === currentTitle && hash) {
 					return {
 						article: null,
-						url: hash
+						url: hash,
 					};
 				}
 
 				return {
 					article: article[1],
 					url: null,
-					hash: article[2] ? hash : null
+					hash: article[2] ? hash : null,
 				};
 			}
 		}
 
 		return {
 			article: null,
-			url: uri
+			url: uri,
 		};
 	},
 
@@ -183,8 +183,8 @@ export default Service.extend({
 			path: '/join',
 			query: {
 				redirect: url,
-				uselang: this.get('wikiVariables.language.content')
-			}
+				uselang: this.get('wikiVariables.language.content'),
+			},
 		});
-	}
+	},
 });

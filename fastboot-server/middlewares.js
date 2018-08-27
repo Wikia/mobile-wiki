@@ -34,7 +34,7 @@ module.exports = {
 		 */
 		app.use(
 			/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/,
-			bodyParser.urlencoded({ extended: true, limit: '10mb' })
+			bodyParser.urlencoded({ extended: true, limit: '10mb' }),
 		);
 		app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => 'GET'));
 
@@ -62,5 +62,5 @@ module.exports = {
 				res.sendStatus(statusCode);
 			}
 		});
-	}
+	},
 };

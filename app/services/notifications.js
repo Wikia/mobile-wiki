@@ -96,6 +96,6 @@ export default Service.extend({
 
 	getUnreadCount() {
 		return this.get('model.unreadCount');
-	}
+	},
 
 });

@@ -8,5 +8,5 @@ export default {
 	viewName: 'file',
 	controllerName: 'file',
 	// hooks
-	afterModel: ArticleHandler.afterModel
+	afterModel: ArticleHandler.afterModel,
 };

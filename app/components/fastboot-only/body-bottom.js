@@ -28,7 +28,7 @@ export default Component.extend({
 			'trackingDimensions',
 			'articleId',
 			'namespace',
-			'isMainPage'
+			'isMainPage',
 		);
 		const wikiVariables = this.wikiVariables.getProperties(
 			'cacheBuster',
@@ -36,7 +36,7 @@ export default Component.extend({
 			'dbName',
 			'id',
 			'language',
-			'qualarooUrl'
+			'qualarooUrl',
 		);
 
 		return JSON.stringify(Object.assign({
@@ -46,7 +46,7 @@ export default Component.extend({
 			tracking,
 			isAuthenticated,
 			wikiaEnv,
-			wikiVariables
+			wikiVariables,
 		}, simpleStore));
 	}),
 
@@ -55,5 +55,5 @@ export default Component.extend({
 		const path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
 
 		return langPath ? `${langPath}${path}` : path;
-	})
+	}),
 });

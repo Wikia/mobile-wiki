@@ -31,7 +31,7 @@ export default Route.extend(
 			 */
 			reloadPage() {
 				window.location.reload();
-			}
-		}
-	}
+			},
+		},
+	},
 );

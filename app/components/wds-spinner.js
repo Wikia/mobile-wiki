@@ -35,5 +35,5 @@ export default Component.extend({
 
 	strokeLength: computed('radius', function () {
 		return 2 * Math.PI * this.radius;
-	})
+	}),
 });

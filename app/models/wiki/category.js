@@ -28,8 +28,8 @@ export default BaseModel.extend({
 				method: 'getCategoryMembers',
 				title: this.title,
 				categoryMembersPage: page,
-				format: 'json'
-			}
+				format: 'json',
+			},
 		}))
 			.then(response => response.json())
 			.then(({ data }) => {
@@ -51,5 +51,5 @@ export default BaseModel.extend({
 		if (data && data.nsSpecificContent) {
 			this.setProperties(data.nsSpecificContent);
 		}
-	}
+	},
 });

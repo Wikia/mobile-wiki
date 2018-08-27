@@ -40,7 +40,7 @@ export default Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'main-page-trending-articles',
-			label: `open-item-${this.index}`
+			label: `open-item-${this.index}`,
 		});
-	}
+	},
 });

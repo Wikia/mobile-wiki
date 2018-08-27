@@ -65,7 +65,7 @@ export default class BasePlayer {
 				lightboxWidth,
 				lightboxHeight,
 				this.videoWidth,
-				this.videoHeight
+				this.videoHeight,
 			);
 
 			let sanitizedSize;
@@ -74,12 +74,12 @@ export default class BasePlayer {
 			if (targetSize.width > 0 && targetSize.height > 0) {
 				sanitizedSize = {
 					width: `${targetSize.width}px`,
-					height: `${targetSize.height}px`
+					height: `${targetSize.height}px`,
 				};
 			} else {
 				sanitizedSize = {
 					width: '100%',
-					height: '100%'
+					height: '100%',
 				};
 			}
 

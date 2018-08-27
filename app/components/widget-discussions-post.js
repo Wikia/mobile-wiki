@@ -24,12 +24,12 @@ export default Component.extend({
 
 	parsedContent: computed('post.rawContent', function () {
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
-			this.get('post.rawContent')
+			this.get('post.rawContent'),
 		).trim();
 
 		escapedContent = truncate(escapedContent, 148);
 		escapedContent = nl2br(escapedContent);
 
 		return htmlSafe(escapedContent);
-	})
+	}),
 });

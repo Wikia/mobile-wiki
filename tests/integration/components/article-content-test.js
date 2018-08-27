@@ -18,10 +18,10 @@ const adSlotComponentStub = Component.extend(RenderComponentMixin, {
 	classNameBindings: ['nameLowerCase'],
 	nameLowerCase: computed('name', function () {
 		return dasherize(this.get('name').toLowerCase());
-	})
+	}),
 });
 const i18nService = Service.extend({
-	t() {}
+	t() {},
 });
 
 module('Integration | Component | article content', (hooks) => {
@@ -53,8 +53,8 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
 			setupAdsContext: setupAdsContextSpy,
@@ -72,7 +72,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.portable-infobox-wrapper'),
-			'previous element is an infobox'
+			'previous element is an infobox',
 		);
 	});
 
@@ -86,11 +86,11 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
 
 		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
@@ -105,7 +105,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.wiki-page-header'),
-			'previous element is site header'
+			'previous element is site header',
 		);
 	});
 
@@ -122,11 +122,11 @@ module('Integration | Component | article content', (hooks) => {
 		this.setProperties({
 			adsContext: {
 				opts: {
-					areMobileStickyAndSwapEnabled: false
-				}
+					areMobileStickyAndSwapEnabled: false,
+				},
 			},
 			content,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
 
 		this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
@@ -141,7 +141,7 @@ module('Integration | Component | article content', (hooks) => {
 		assert.equal(
 			find(mobileTopLeaderboardSelector).previousSibling,
 			find('.portable-infobox-wrapper'),
-			'previous element is an infobox'
+			'previous element is an infobox',
 		);
 	});
 });

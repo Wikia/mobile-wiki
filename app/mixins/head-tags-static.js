@@ -37,7 +37,7 @@ export default Mixin.create({
 			noExternals,
 			facebookAppId: config.APP.facebook.appId,
 			lazyCss: !this.get('fastboot.isFastBoot'),
-			twitterSite: model.wikiVariables.twitterAccount || '@getfandom'
+			twitterSite: model.wikiVariables.twitterAccount || '@getfandom',
 		});
-	}
+	},
 });

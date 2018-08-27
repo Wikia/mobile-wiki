@@ -7,13 +7,13 @@ module('Unit | Mixin | thirds click', () => {
 	test('calls proper handlers on click', (assert) => {
 		const mixin = EmberObject.extend(ThirdsClicksMixin).create();
 		const clickEventLeft = {
-			clientX: 80
+			clientX: 80,
 		};
 		const clickEventRight = {
-			clientX: 400
+			clientX: 400,
 		};
 		const clickEventCenter = {
-			clientX: 200
+			clientX: 200,
 		};
 
 		mixin.leftClickHandler = sinon.stub();

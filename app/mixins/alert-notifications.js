@@ -15,7 +15,7 @@ export default Mixin.create({
 		expiry = 10000,
 		unsafe = false,
 		callbacks = {},
-		persistent = {}
+		persistent = {},
 	}) {
 		this.alertNotifications.pushObject({
 			message,
@@ -23,7 +23,7 @@ export default Mixin.create({
 			expiry,
 			unsafe,
 			callbacks,
-			persistent
+			persistent,
 		});
 	},
 
@@ -31,5 +31,5 @@ export default Mixin.create({
 		const updatedNotifications = this.alertNotifications.filter(item => item.persistent);
 
 		this.set('alertNotifications', updatedNotifications);
-	}
+	},
 });

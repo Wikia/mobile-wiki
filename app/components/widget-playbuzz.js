@@ -20,5 +20,5 @@ export default Component.extend(RenderComponentMixin, {
 
 		script.src = 'https://cdn.playbuzz.com/widget/feed.js';
 		document.head.appendChild(script);
-	}
+	},
 });

@@ -7,7 +7,7 @@ export default Mixin.create(
 			markAllAsRead() {
 				trackMarkAllAsRead();
 				this.notifications.markAllAsRead();
-			}
-		}
-	}
+			},
+		},
+	},
 );

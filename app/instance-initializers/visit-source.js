@@ -17,5 +17,5 @@ export function initialize() {
 export default {
 	after: 'config',
 	name: 'visit-source',
-	initialize
+	initialize,
 };

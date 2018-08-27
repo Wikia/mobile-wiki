@@ -25,7 +25,7 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'category-page',
-					label: `load-${label}`
+					label: `load-${label}`,
 				});
 
 				this.loadPage(page)
@@ -39,7 +39,7 @@ export default Component.extend(
 					.catch((error) => {
 						this.addAlert({
 							message: this.i18n.t('category-page.load-error'),
-							type: 'alert'
+							type: 'alert',
 						});
 
 						this.logger.error(error);
@@ -59,10 +59,10 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category,
-						label
+						label,
 					});
 				}
-			}
-		}
-	}
+			},
+		},
+	},
 );

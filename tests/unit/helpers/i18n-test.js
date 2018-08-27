@@ -23,7 +23,7 @@ module('Unit | helper | i18n', (hooks) => {
 
 	test('namespace param works', (assert) => {
 		i18nHelper.compute(['string'], {
-			ns: 'discussion'
+			ns: 'discussion',
 		});
 
 		assert.ok(tStub.calledWith('discussion:string', {}));
@@ -37,7 +37,7 @@ module('Unit | helper | i18n', (hooks) => {
 
 	test('extra i18n params work', (assert) => {
 		const i18nParams = {
-			count: '5'
+			count: '5',
 		};
 
 		i18nHelper.compute(['string'], i18nParams);
@@ -47,7 +47,7 @@ module('Unit | helper | i18n', (hooks) => {
 
 	test('extra i18n int params work', (assert) => {
 		const i18nParams = {
-			count: 5
+			count: 5,
 		};
 
 		i18nHelper.compute(['string'], i18nParams);

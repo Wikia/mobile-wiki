@@ -8,16 +8,16 @@ module.exports = function (environment) {
 			EXTEND_PROTOTYPES: {
 				Array: true,
 				String: false,
-				Function: false
+				Function: false,
 			},
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build
 				// e.g. 'with-controller': true
-			}
+			},
 		},
 		APP: {
 			facebook: {
-				appId: '112328095453510'
+				appId: '112328095453510',
 			},
 			heliosTimeout: 3000,
 			baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
@@ -25,36 +25,36 @@ module.exports = function (environment) {
 				ua: {
 					primary: {
 						id: 'UA-32129070-1',
-						sampleRate: 100
+						sampleRate: 100,
 					},
 					ads: {
 						prefix: 'ads',
 						id: 'UA-32129071-1',
-						sampleRate: 100
+						sampleRate: 100,
 					},
-					scriptUrl: 'https://www.google-analytics.com/analytics.js'
+					scriptUrl: 'https://www.google-analytics.com/analytics.js',
 				},
 				quantcast: {
 					id: 'p-8bG6eLqkH6Avk',
-					labels: 'Category.MobileWeb.Mercury'
+					labels: 'Category.MobileWeb.Mercury',
 				},
 				comscore: {
 					keyword: 'comscorekw',
 					id: '6177433',
 					c7: '',
-					c7Value: ''
+					c7Value: '',
 				},
 				krux: {
-					mobileId: 'JTKzTN3f'
+					mobileId: 'JTKzTN3f',
 				},
 				netzathleten: {
 					enabled: false,
 					url: '',
-					isMainPage: false
-				}
+					isMainPage: false,
+				},
 			},
 			translationsNamespaces: ['main', 'search', 'design-system'],
-			translationsPath: 'dist/mobile-wiki/locales'
+			translationsPath: 'dist/mobile-wiki/locales',
 		},
 		fastboot: {
 			hostWhitelist: [
@@ -62,8 +62,8 @@ module.exports = function (environment) {
 				/.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
 				/.*\.wikia\.com/,
 				/.*\.fandom\.com/,
-				/^localhost:\d+$/
-			]
+				/^localhost:\d+$/,
+			],
 		},
 	};
 
@@ -77,7 +77,7 @@ module.exports = function (environment) {
 		ENV.APP.facebook.appId = '881967318489580';
 
 		ENV['ember-cli-mirage'] = {
-			enabled: false
+			enabled: false,
 		};
 	}
 
@@ -94,7 +94,7 @@ module.exports = function (environment) {
 		ENV.APP.autoboot = false;
 
 		ENV['ember-cli-mirage'] = {
-			autostart: true
+			autostart: true,
 		};
 	}
 

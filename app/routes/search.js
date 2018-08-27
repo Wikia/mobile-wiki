@@ -16,8 +16,8 @@ export default Route.extend(
 
 		queryParams: {
 			query: {
-				refreshModel: true
-			}
+				refreshModel: true,
+			},
 		},
 
 		applicationWrapperClassNames: null,
@@ -44,20 +44,20 @@ export default Route.extend(
 					track({
 						action: trackActions.impression,
 						category: 'app',
-						label: 'search'
+						label: 'search',
 					});
 				});
 
 				return true;
-			}
+			},
 		},
 
 		setDynamicHeadTags(model) {
 			const data = {
-				htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' })
+				htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' }),
 			};
 
 			this._super(model, data);
 		},
-	}
+	},
 );

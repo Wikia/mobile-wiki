@@ -52,15 +52,15 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	test('getModelForNamespace - article', function (assert) {
 		const data = {
 			data: {
-				ns: 0
-			}
+				ns: 0,
+			},
 		};
 		const params = {
-			title: 'Test'
+			title: 'Test',
 		};
 		const expected = {
 			article: true,
-			setData: articleSetDataStub
+			setData: articleSetDataStub,
 		};
 
 		articleCreateStub.returns(expected);
@@ -75,15 +75,15 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 		const data = {
 			data: {
 				ns: 999,
-				isMainPage: true
-			}
+				isMainPage: true,
+			},
 		};
 		const params = {
-			title: 'Test'
+			title: 'Test',
 		};
 		const expected = {
 			mainPage: true,
-			setData: articleSetDataStub
+			setData: articleSetDataStub,
 		};
 
 		articleCreateStub.returns(expected);
@@ -97,15 +97,15 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	test('getModelForNamespace - category', function (assert) {
 		const data = {
 			data: {
-				ns: 14
-			}
+				ns: 14,
+			},
 		};
 		const params = {
-			title: 'Test'
+			title: 'Test',
 		};
 		const expected = {
 			category: true,
-			setData: categorySetDataStub
+			setData: categorySetDataStub,
 		};
 
 		categoryCreateStub.returns(expected);
@@ -119,15 +119,15 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	test('getModelForNamespace - file', function (assert) {
 		const data = {
 			data: {
-				ns: 6
-			}
+				ns: 6,
+			},
 		};
 		const params = {
-			title: 'Test'
+			title: 'Test',
 		};
 		const expected = {
 			file: true,
-			setData: fileSetDataStub
+			setData: fileSetDataStub,
 		};
 
 		fileCreateStub.returns(expected);
@@ -141,14 +141,14 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 	test('getModelForNamespace - unsupported namespace', function (assert) {
 		const data = {
 			data: {
-				ns: 999
-			}
+				ns: 999,
+			},
 		};
 		const params = {
-			title: 'Test'
+			title: 'Test',
 		};
 		const expected = EmberObject.create({
-			redirectTo: null
+			redirectTo: null,
 		});
 
 		isContentNamespaceStub.returns(false);
