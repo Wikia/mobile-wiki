@@ -31,7 +31,6 @@ module.exports = {
 		"import/no-extraneous-dependencies": 0,
 		"import/no-mutable-exports": 0,
 		"import/no-unresolved": 0,
-		"indent": [2, "tab", {"VariableDeclarator": 1, "SwitchCase": 1, "CallExpression": {"arguments": 1}}],
 		"max-len": [2, 120, 2],
 		"new-cap": 0,
 		"no-else-return": 0,

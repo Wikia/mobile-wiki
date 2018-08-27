@@ -7,5 +7,5 @@ import { helper } from '@ember/component/helper';
  * @returns {string}
  */
 export default helper(
-	thumbnail => `background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url(${thumbnail});`,
+  thumbnail => `background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000), url(${thumbnail});`,
 );

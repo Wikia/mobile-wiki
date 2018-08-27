@@ -10,9 +10,9 @@ let system;
 let standalone;
 
 if (/iPad|iPhone|iPod/i.test(userAgent)) {
-	system = 'ios';
+  system = 'ios';
 } else if (/Android/i.test(userAgent)) {
-	system = 'android';
+  system = 'android';
 }
 
 standalone = window.navigator && navigator.standalone;
@@ -23,10 +23,10 @@ standalone = window.navigator && navigator.standalone;
  * @returns {boolean}
  */
 function isSafariMinVer(version) {
-	const pattern = /OS (\d+)/;
-	const match = window.navigator.userAgent.match(pattern);
+  const pattern = /OS (\d+)/;
+  const match = window.navigator.userAgent.match(pattern);
 
-	return match && parseInt(match[1], 10) >= version;
+  return match && parseInt(match[1], 10) >= version;
 }
 
 export { isSafariMinVer, system, standalone };

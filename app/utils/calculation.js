@@ -18,18 +18,18 @@
  * @returns {ContainerSize}
  */
 export default function containerSize(maxWidth, maxHeight, contentWidth, contentHeight) {
-	const targetSize = {
-		width: 0,
-		height: 0,
-	};
+  const targetSize = {
+    width: 0,
+    height: 0,
+  };
 
-	if (maxWidth < maxHeight) {
-		targetSize.width = maxWidth;
-		targetSize.height = Math.min(maxHeight, Math.floor(maxWidth * contentHeight / contentWidth));
-	} else {
-		targetSize.width = Math.min(maxWidth, Math.floor(maxHeight * contentWidth / contentHeight));
-		targetSize.height = maxHeight;
-	}
+  if (maxWidth < maxHeight) {
+    targetSize.width = maxWidth;
+    targetSize.height = Math.min(maxHeight, Math.floor(maxWidth * contentHeight / contentWidth));
+  } else {
+    targetSize.width = Math.min(maxWidth, Math.floor(maxHeight * contentWidth / contentHeight));
+    targetSize.height = maxHeight;
+  }
 
-	return targetSize;
+  return targetSize;
 }

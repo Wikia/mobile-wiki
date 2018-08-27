@@ -5,13 +5,13 @@ import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
 
 export default Component.extend({
-	lightbox: service(),
+  lightbox: service(),
 
-	classNames: ['pi', 'pi-hero-small-wrapper'],
+  classNames: ['pi', 'pi-hero-small-wrapper'],
 
-	click() {
-		this.lightbox.open('media', this.heroImage);
+  click() {
+    this.lightbox.open('media', this.heroImage);
 
-		return false;
-	},
+    return false;
+  },
 });

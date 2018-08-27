@@ -7,26 +7,26 @@ import Helper from '@ember/component/helper';
  * @returns {string}
  */
 export default Helper.extend({
-	i18n: service(),
+  i18n: service(),
 
-	compute(params, options) {
-		const i18nParams = {};
-		const value = params.join('.');
+  compute(params, options) {
+    const i18nParams = {};
+    const value = params.join('.');
 
-		let namespace = 'main';
+    let namespace = 'main';
 
-		/**
+    /**
 		 * @param {string} key
 		 * @returns {void}
 		 */
-		Object.keys(options).forEach((key) => {
-			if (key === 'ns') {
-				namespace = options[key];
-			} else if (options[key] !== undefined) {
-				i18nParams[key] = options[key];
-			}
-		});
+    Object.keys(options).forEach((key) => {
+      if (key === 'ns') {
+        namespace = options[key];
+      } else if (options[key] !== undefined) {
+        i18nParams[key] = options[key];
+      }
+    });
 
-		return this.i18n.t(`${namespace}:${value}`, i18nParams);
-	},
+    return this.i18n.t(`${namespace}:${value}`, i18nParams);
+  },
 });

@@ -23,29 +23,29 @@ import { isEmpty } from '@ember/utils';
 import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
-	{
-		lightbox: service(),
-		wikiVariables: service(),
-		classNames: ['wiki-page-header'],
-		classNameBindings: ['heroImage:has-hero-image'],
-		isMainPage: false,
-		siteName: reads('wikiVariables.siteName'),
-		mainPageTitle: reads('wikiVariables.mainPageTitle'),
+  {
+    lightbox: service(),
+    wikiVariables: service(),
+    classNames: ['wiki-page-header'],
+    classNameBindings: ['heroImage:has-hero-image'],
+    isMainPage: false,
+    siteName: reads('wikiVariables.siteName'),
+    mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
-		actions: {
-			trackClick() {
-				track({
-					action: trackActions.click,
-					category: 'wikiname',
-					label: '',
-				});
-			},
+    actions: {
+      trackClick() {
+        track({
+          action: trackActions.click,
+          category: 'wikiname',
+          label: '',
+        });
+      },
 
-			heroImageClick() {
-				this.lightbox.open('media', this.heroImage);
+      heroImageClick() {
+        this.lightbox.open('media', this.heroImage);
 
-				return false;
-			},
-		},
-	},
+        return false;
+      },
+    },
+  },
 );

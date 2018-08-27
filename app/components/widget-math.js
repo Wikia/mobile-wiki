@@ -14,33 +14,33 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
  */
 
 export default Component.extend(
-	RenderComponentMixin,
-	WidgetScriptStateMixin,
-	{
-		tagName: 'span',
-		classNames: ['widget-math'],
-		data: null,
+  RenderComponentMixin,
+  WidgetScriptStateMixin,
+  {
+    tagName: 'span',
+    classNames: ['widget-math'],
+    data: null,
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			this._super(...arguments);
+    didInsertElement() {
+      this._super(...arguments);
 
-			this.loadScript();
-			this.renderMath();
-		},
+      this.loadScript();
+      this.renderMath();
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		loadScript() {
-			if (!this.get('scriptLoadInitialized.mathjax')) {
-				// initialize the loading of MathJax just once
-				this.set('scriptLoadInitialized.mathjax', true);
+    loadScript() {
+      if (!this.get('scriptLoadInitialized.mathjax')) {
+        // initialize the loading of MathJax just once
+        this.set('scriptLoadInitialized.mathjax', true);
 
-				// let's inject a node with MathJax config
-				document.head.insertAdjacentHTML('beforeend', `
+        // let's inject a node with MathJax config
+        document.head.insertAdjacentHTML('beforeend', `
 	<script type="text/x-mathjax-config">
 	MathJax.Hub.Config({
 		extensions: ["tex2jax.js"],
@@ -80,19 +80,19 @@ export default Component.extend(
 	window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, elements]);
 	</script>`);
 
-				$script('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML-full', () => {
-					this.set('scriptLoaded.mathjax', true);
-				});
-			}
-		},
+        $script('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML-full', () => {
+          this.set('scriptLoaded.mathjax', true);
+        });
+      }
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		renderMath() {
-			if (this.get('scriptLoaded.mathjax')) {
-				window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.element]);
-			}
-		},
-	},
+    renderMath() {
+      if (this.get('scriptLoaded.mathjax')) {
+        window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.element]);
+      }
+    },
+  },
 );
