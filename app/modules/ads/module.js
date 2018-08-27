@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
@@ -35,7 +36,7 @@ class Ads {
 
 	init(mediaWikiAdsContext = {}) {
 		if (!this.isLoaded) {
-			Ads.getInstantGlobals()
+			this.getInstantGlobals()
 				.then((instantGlobals) => {
 					M.trackingQueue.push(isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
 				});
@@ -55,8 +56,8 @@ class Ads {
 		events.on(events.AD_SLOT_CREATED, (slot) => {
 			bidders.updateSlotTargeting(slot.getSlotName());
 		});
-		events.on(events.PAGE_CHANGE_EVENT, Ads.callBidders);
-		Ads.callBidders();
+		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
+		this.callBidders();
 
 		this.startAdEngine();
 
@@ -65,7 +66,7 @@ class Ads {
 		this.onReadyCallbacks = [];
 	}
 
-	static callBidders() {
+	callBidders() {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.requestBids({
@@ -94,7 +95,7 @@ class Ads {
 		}
 	}
 
-	static getInstantGlobals() {
+	getInstantGlobals() {
 		return new Promise(resolve => window.getInstantGlobals(resolve));
 	}
 
@@ -106,11 +107,11 @@ class Ads {
 		}
 	}
 
-	static isSlotApplicable(slotName) {
+	isSlotApplicable(slotName) {
 		return !!SLOT_NAME_MAP[slotName];
 	}
 
-	static getAdSlotComponentAttributes(slotName) {
+	getAdSlotComponentAttributes(slotName) {
 		const { context } = window.Wikia.adEngine;
 
 		let name = SLOT_NAME_MAP[slotName] || slotName;
@@ -129,13 +130,13 @@ class Ads {
 		};
 	}
 
-	static isArticleSectionCollapsed() {
+	isArticleSectionCollapsed() {
 		const { context } = window.Wikia.adEngine;
 
 		return context.get('options.mobileSectionsCollapse');
 	}
 
-	static pushSlotToQueue(name) {
+	pushSlotToQueue(name) {
 		const { context } = window.Wikia.adEngine;
 
 		const slotId = SLOT_NAME_MAP[name] || name;
