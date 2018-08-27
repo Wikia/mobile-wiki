@@ -14,18 +14,16 @@ export default Component.extend({
 	tagName: '',
 	layoutName: 'components/fastboot-only/body-bottom',
 
-	noExternals: bool('fastboot.request.queryParams.noexternals'),
-
 	data: computed(function () {
-		const cookieDomain = config.cookieDomain;
+		const cookieDomain = config.APP.cookieDomain;
 		const currentUser = this.currentUser;
 		// We have to anonymize user id before sending it to Google
 		// It's faster to do the hashing server side and pass to the front-end, ready to use
 		const gaUserIdHash = currentUser.getGaUserIdHash();
-		const noExternals = this.noExternals;
+		const noExternals = config.APP.noExternals;
 		const tracking = this.get('tracking.config');
 		const isAuthenticated = currentUser.get('isAuthenticated');
-		const wikiaEnv = config.wikiaEnv;
+		const wikiaEnv = config.APP.wikiaEnv;
 		const simpleStore = this.simpleStore.getProperties(
 			'trackingDimensions',
 			'articleId',
@@ -57,7 +55,5 @@ export default Component.extend({
 		const path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
 
 		return langPath ? `${langPath}${path}` : path;
-	}),
-
-	inContextTranslationsEnabled: config.inContextTranslationsEnabled,
+	})
 });
