@@ -21,7 +21,7 @@ function getTrackingContext(label, action, params) {
 	return Object.assign({}, {
 		action,
 		category: gaCategory,
-		label: labels[label]
+		label: labels[label],
 	}, params);
 }
 
@@ -38,7 +38,7 @@ function getGAValueFromUnreadStatus(isUnread) {
  */
 export function track(label, action, params = null) {
 	mercuryTrack(
-		getTrackingContext(label, action, params)
+		getTrackingContext(label, action, params),
 	);
 }
 
@@ -47,8 +47,8 @@ export function trackImpression(notification) {
 		labels[notification.get('type')],
 		'impression',
 		{
-			value: getGAValueFromUnreadStatus(notification.get('isUnread'))
-		}
+			value: getGAValueFromUnreadStatus(notification.get('isUnread')),
+		},
 	);
 }
 
@@ -57,22 +57,22 @@ export function trackClick(notification) {
 		labels[notification.get('type')],
 		'click',
 		{
-			value: getGAValueFromUnreadStatus(notification.get('isUnread'))
-		}
+			value: getGAValueFromUnreadStatus(notification.get('isUnread')),
+		},
 	);
 }
 
 export function trackMarkAsRead(notification) {
 	track(
 		`${labels.markAsRead}-${labels[notification.get('type')]}`,
-		'click'
+		'click',
 	);
 }
 
 export function trackMarkAllAsRead() {
 	track(
 		labels.markAllAsRead,
-		'click'
+		'click',
 	);
 }
 
@@ -81,7 +81,7 @@ export function trackOpenMenu(unreadCount) {
 		labels.openMenu,
 		'click',
 		{
-			value: unreadCount
-		}
+			value: unreadCount,
+		},
 	);
 }

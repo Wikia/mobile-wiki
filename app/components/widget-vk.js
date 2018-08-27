@@ -66,5 +66,5 @@ export default Component.extend(
 				window.VK.Widgets.Group(elementId, data, data.groupId);
 			}
 		},
-	}
+	},
 );

@@ -38,10 +38,10 @@ export default Component.extend(
 					track({
 						action: trackActions.click,
 						category: this.trackingEvent,
-						label: this.isCollapsed ? 'collapsed' : 'expanded'
+						label: this.isCollapsed ? 'collapsed' : 'expanded',
 					});
 				}
-			}
+			},
 		},
 
 		/**
@@ -52,5 +52,5 @@ export default Component.extend(
 				this.set('isCollapsed', true);
 			}
 		},
-	}
+	},
 );

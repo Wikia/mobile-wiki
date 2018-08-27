@@ -169,5 +169,5 @@ export default Component.extend({
 
 			this.setThumbnails(thumbnails);
 		}
-	}
+	},
 });

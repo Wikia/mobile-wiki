@@ -8,5 +8,5 @@ export default Component.extend({
 		openSection() {
 			this.toggleProperty('openSection');
 		},
-	}
+	},
 });

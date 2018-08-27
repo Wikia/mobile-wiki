@@ -5,7 +5,7 @@ import JWPlayer from './video-players/jwplayer';
 const playerClassMap = {
 	base: BasePlayer,
 	youtube: YouTubePlayer,
-	jwplayer: JWPlayer
+	jwplayer: JWPlayer,
 };
 
 /**
@@ -34,7 +34,7 @@ export default class VideoLoader {
 			/* eslint ember/avoid-leaking-state-in-ember-objects:0 */
 			size: {
 				height: this.data.height,
-				width: this.data.width
+				width: this.data.width,
 			},
 			noAds: this.data.noAds,
 		});

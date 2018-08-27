@@ -14,7 +14,7 @@ export default Route.extend(
 		actions: {
 			reloadPage() {
 				window.location.reload();
-			}
-		}
-	}
+			},
+		},
+	},
 );

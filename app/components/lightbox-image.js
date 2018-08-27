@@ -57,7 +57,7 @@ export default Component.extend(
 			panEnd() {
 				this.setProperties({
 					lastX: this.newX,
-					lastY: this.newY
+					lastY: this.newY,
 				});
 			},
 
@@ -75,7 +75,7 @@ export default Component.extend(
 
 					this.setProperties({
 						limitedScale: scale,
-						lastScale: scale
+						lastScale: scale,
 					});
 				} else {
 					this.resetZoom();
@@ -256,11 +256,11 @@ export default Component.extend(
 			const hammerInstance = this._hammerInstance;
 
 			hammerInstance.get('pinch').set({
-				enable: true
+				enable: true,
 			});
 
 			hammerInstance.get('pan').set({
-				direction: Hammer.DIRECTION_ALL
+				direction: Hammer.DIRECTION_ALL,
 			});
 
 			scheduleOnce('afterRender', this, () => {
@@ -380,5 +380,5 @@ export default Component.extend(
 				return this.screenAreas.center;
 			}
 		},
-	}
+	},
 );

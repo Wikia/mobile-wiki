@@ -1,22 +1,22 @@
 export default query => ({
 	items: [
 		{
-			title: `${query}A`
+			title: `${query}A`,
 		},
 		{
-			title: `${query}B`
+			title: `${query}B`,
 		},
 		{
-			title: `${query}C`
+			title: `${query}C`,
 		},
 		{
-			title: `${query}D`
+			title: `${query}D`,
 		},
 		{
-			title: `${query}E`
+			title: `${query}E`,
 		},
 		{
-			title: `${query}F`
-		}
-	]
+			title: `${query}F`,
+		},
+	],
 });

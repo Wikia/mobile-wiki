@@ -29,12 +29,12 @@ export default Component.extend(InViewportMixin, RenderComponentMixin, {
 		this.model.find(
 			this.getWithDefault('categoryIds', []),
 			this.show,
-			this.itemCount
+			this.itemCount,
 		).then((posts) => {
 			this.setProperties({
 				posts,
 				isLoading: false,
 			});
 		});
-	}
+	},
 });

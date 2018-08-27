@@ -18,7 +18,7 @@ export default {
 								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Articles',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Blogs label',
@@ -26,7 +26,7 @@ export default {
 								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Blog_posts',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Photos label',
@@ -34,7 +34,7 @@ export default {
 								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Images',
-								imageCrop: null
+								imageCrop: null,
 							},
 							{
 								label: 'Videos label',
@@ -42,10 +42,10 @@ export default {
 								+ '/revision/latest?cb=20150708092401',
 								type: 'category',
 								url: '/wiki/Category:Videos',
-								imageCrop: null
-							}
+								imageCrop: null,
+							},
 						],
-						imageCrop: null
+						imageCrop: null,
 					},
 					{
 						label: 'Templates label',
@@ -53,7 +53,7 @@ export default {
 						+ '/revision/latest?cb=20150708092401',
 						type: 'category',
 						url: '/wiki/Category:Templates',
-						imageCrop: null
+						imageCrop: null,
 					},
 					{
 						label: 'Broken',
@@ -61,9 +61,9 @@ export default {
 						+ '/revision/latest?cb=20150715133441',
 						type: 'category',
 						url: '/wiki/Category:Broken',
-						imageCrop: null
-					}
-				]
+						imageCrop: null,
+					},
+				],
 			},
 			wikiaStats: {
 				edits: 910,
@@ -73,8 +73,8 @@ export default {
 				activeUsers: 0,
 				images: 67,
 				videos: 6,
-				admins: 3
-			}
+				admins: 3,
+			},
 		},
 		details: {
 			id: 1461,
@@ -85,7 +85,7 @@ export default {
 				id: 4077,
 				user: 'Tomasz.napieralski',
 				user_id: 25832797,
-				timestamp: 1436194543
+				timestamp: 1436194543,
 			},
 			comments: 0,
 			type: 'article',
@@ -94,8 +94,8 @@ export default {
 			thumbnail: null,
 			original_dimensions: null,
 			description: 'Mercury CC Wikia is a community site that anyone can contribute to.'
-				+ ' Discover, share and add your knowledge!'
+				+ ' Discover, share and add your knowledge!',
 		},
-		articleType: 'other'
-	}
+		articleType: 'other',
+	},
 };

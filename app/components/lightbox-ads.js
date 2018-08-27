@@ -28,5 +28,5 @@ export default Component.extend({
 			this.setCloseButtonHidden(true);
 			showCloseButtonAfterCountDown();
 		}
-	}
+	},
 });

@@ -9,8 +9,8 @@ export default Component.extend({
 			track({
 				action: trackActions.click,
 				category: 'footer',
-				label: trackingLabel
+				label: trackingLabel,
 			});
-		}
-	}
+		},
+	},
 });

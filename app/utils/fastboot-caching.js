@@ -21,7 +21,7 @@
 
 export const CachingPolicy = {
 	Private: 'private',
-	Public: 'public'
+	Public: 'public',
 };
 // Caching expire intervals
 export const CachingInterval = {
@@ -34,7 +34,7 @@ export const CachingInterval = {
 	// disabled
 	disabled: 0,
 	// default
-	default: -1
+	default: -1,
 };
 
 /**
@@ -85,7 +85,7 @@ export function setResponseCaching(fastboot, cachingSettings) {
 		if (cachingSettings.browserTTL > 0) {
 			fastboot.get('response.headers').set(
 				'X-Pass-Cache-Control',
-				`${cachingSettings.cachingPolicy}, max-age=${cachingSettings.browserTTL}`
+				`${cachingSettings.cachingPolicy}, max-age=${cachingSettings.browserTTL}`,
 			);
 		}
 	}

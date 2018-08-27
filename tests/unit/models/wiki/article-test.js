@@ -7,18 +7,18 @@ const articleExample = {
 	data: {
 		details: {
 			revision: {
-				timestamp: 123
+				timestamp: 123,
 			},
 			comments: 123,
-			id: 123
+			id: 123,
 		},
 		categories: 'test',
 		article: {
-			content: 'TestContent'
+			content: 'TestContent',
 		},
 		ns: 'namespace',
-		userDetails: ['someItem', 'yetOneMore']
-	}
+		userDetails: ['someItem', 'yetOneMore'],
+	},
 };
 
 /**
@@ -35,37 +35,37 @@ function verifyArticle(model, article, assert) {
 	assert.equal(
 		model.get('ns'),
 		articleData.ns,
-		`expected namespace=${articleData.details.ns}, got ${model.get('ns')}`
+		`expected namespace=${articleData.details.ns}, got ${model.get('ns')}`,
 	);
 
 	assert.equal(
 		model.get('displayTitle'),
 		articleData.details.title,
-		`expected title=${articleData.details.title}, got ${model.get('displayTitle')}`
+		`expected title=${articleData.details.title}, got ${model.get('displayTitle')}`,
 	);
 
 	assert.equal(
 		model.get('comments'),
 		articleData.details.comments,
-		'correctly ingested comments'
+		'correctly ingested comments',
 	);
 
 	assert.equal(
 		model.get('id'),
 		articleData.details.id,
-		`expected article ID=${articleData.details.id}, got ${model.get('id')}`
+		`expected article ID=${articleData.details.id}, got ${model.get('id')}`,
 	);
 
 	assert.equal(
 		model.get('content'),
 		articleData.article.content,
-		`expected content=${articleData.article.content}, got ${model.get('content')}`
+		`expected content=${articleData.article.content}, got ${model.get('content')}`,
 	);
 
 	assert.deepEqual(
 		model.get('categories'),
 		articleData.categories,
-		`expected categories=${articleData.categories}, got ${model.get('categories')}`
+		`expected categories=${articleData.categories}, got ${model.get('categories')}`,
 	);
 }
 

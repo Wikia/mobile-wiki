@@ -18,7 +18,7 @@ export default Mixin.create({
 				return this.getTranslatedMessage('notifications-replied-by-multiple-users-with-title', {
 					postTitle: this.postTitleMarkup,
 					mostRecentUser: firstReplierName,
-					number: totalUniqueActors - 1
+					number: totalUniqueActors - 1,
 				});
 			} else if (hasTwoUsers) {
 				return this.getTranslatedMessage('notifications-replied-by-two-users-with-title', {
@@ -36,7 +36,7 @@ export default Mixin.create({
 			return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {
 				username: this.usernameMarkup,
 				mostRecentUser: firstReplierName,
-				number: totalUniqueActors - 1
+				number: totalUniqueActors - 1,
 			});
 		} else if (hasTwoUsers) {
 			return this.getTranslatedMessage('notifications-replied-by-two-users-no-title', {
@@ -48,5 +48,5 @@ export default Mixin.create({
 				user: firstReplierName,
 			});
 		}
-	}
+	},
 });

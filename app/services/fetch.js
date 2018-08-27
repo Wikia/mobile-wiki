@@ -6,9 +6,9 @@ export default fetch.extend({
 		this.config = {
 			internalCache: config.APP.internalCache,
 			servicesExternalHost: config.APP.servicesExternalHost,
-			servicesInternalHost: config.APP.servicesInternalHost
+			servicesInternalHost: config.APP.servicesInternalHost,
 		};
 
 		this._super(...arguments);
-	}
+	},
 });

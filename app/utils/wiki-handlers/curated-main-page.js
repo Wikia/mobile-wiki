@@ -13,7 +13,7 @@ function getCuratedContentModel(mainPageModel) {
 	if (curatedContent) {
 		return CuratedContentModel.create(getOwner(mainPageModel).ownerInjection(), {
 			type: 'section',
-			items: curatedContent.items
+			items: curatedContent.items,
 		});
 	}
 
@@ -41,5 +41,5 @@ export default {
 	controllerName: 'main-page',
 	viewName: 'main-page',
 	// hooks
-	afterModel
+	afterModel,
 };

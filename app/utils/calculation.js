@@ -20,7 +20,7 @@
 export default function containerSize(maxWidth, maxHeight, contentWidth, contentHeight) {
 	const targetSize = {
 		width: 0,
-		height: 0
+		height: 0,
 	};
 
 	if (maxWidth < maxHeight) {

@@ -93,5 +93,5 @@ export default Component.extend(
 		insertVideoPlayerHtml() {
 			this.element.querySelector(this.wrapperClass).innerHTML = this.get('model.embed.html');
 		},
-	}
+	},
 );

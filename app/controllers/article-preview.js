@@ -5,5 +5,5 @@ import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image
 export default Controller.extend(
 	FullPageMixin,
 	PortableInfoboxHeroImageMixin,
-	{}
+	{},
 );

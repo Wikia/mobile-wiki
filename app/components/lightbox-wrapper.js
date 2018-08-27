@@ -112,7 +112,7 @@ export default Component.extend({
 
 		updateGalleryRef(value) {
 			this.set('model.galleryRef', value);
-		}
+		},
 	},
 
 	/**

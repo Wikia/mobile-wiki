@@ -33,7 +33,7 @@ export default Service.extend(NoScrollMixin, {
 			track({
 				action: trackActions.click,
 				category: 'media',
-				label: 'open'
+				label: 'open',
 			});
 
 		}
@@ -64,7 +64,7 @@ export default Service.extend(NoScrollMixin, {
 			isVisible: false,
 			lightboxType: null,
 			model: null,
-			noScroll: false
+			noScroll: false,
 		});
 	},
 
@@ -83,7 +83,7 @@ export default Service.extend(NoScrollMixin, {
 			isVisible: false,
 			lightboxType,
 			model: lightboxModel,
-			noScroll: false
+			noScroll: false,
 		});
-	}
+	},
 });

@@ -11,7 +11,7 @@ const designSystemInlineSVGs = [
 	'wds-icons-menu-small',
 	'wds-icons-reply-small',
 	'wds-icons-dropdown-tiny',
-	'wds-company-logo-fandom-heart'
+	'wds-company-logo-fandom-heart',
 ].map(name => (
 	{ name, path: `${designSystemAssetsPath}${name}.svg` }
 ));
@@ -63,5 +63,5 @@ const lazyloadedSVGs = [...designSystemLazyLoadedSVGs];
 
 module.exports = {
 	inlineSVGs,
-	lazyloadedSVGs
+	lazyloadedSVGs,
 };

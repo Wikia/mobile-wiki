@@ -13,7 +13,7 @@ module('Unit | Component | wikia-in-your-lang', (hooks) => {
 
 		componentMock.createAlert({
 			message: 'hello',
-			nativeDomain: 'wikia.com'
+			nativeDomain: 'wikia.com',
 		});
 		assert.equal(componentMock.alertNotifications.length, 1, 'should have 1 alert');
 		assert.equal(componentMock.alertNotifications[0].message, 'hello', 'should be the created alert');

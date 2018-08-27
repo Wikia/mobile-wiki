@@ -17,28 +17,28 @@ module('Unit | Component | lightbox media', (hooks) => {
 				title: 'test',
 				url: 'testurl',
 				caption: 'testcaption',
-				type: 'image'
+				type: 'image',
 			},
 			{
 				title: 'test1',
 				url: 'testurl1',
 				caption: 'testcaption1',
-				type: 'image'
+				type: 'image',
 			},
 			[
 				{
 					title: 'testgallery',
 					url: 'testgallery',
 					caption: 'testgallery',
-					type: 'image'
+					type: 'image',
 				},
 				{
 					title: 'testgallery1',
 					url: 'testgallery1',
 					caption: 'testgallery1',
-					type: 'image'
-				}
-			]
+					type: 'image',
+				},
+			],
 		];
 	});
 
@@ -71,7 +71,7 @@ module('Unit | Component | lightbox media', (hooks) => {
 
 		componentMock.set('model', model[2]);
 		componentMock.setProperties({
-			currentGalleryRef: 0
+			currentGalleryRef: 0,
 		});
 		assert.equal(componentMock.get('currentGalleryRef'), 0);
 

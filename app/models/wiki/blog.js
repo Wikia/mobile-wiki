@@ -13,5 +13,5 @@ export default BaseModel.extend({
 		if (data && data.details) {
 			this.set('comments', data.details.comments);
 		}
-	}
+	},
 });

@@ -25,20 +25,20 @@ export default Helper.extend({
 		} else if (diffInSeconds > 86400) {
 			// more than a day ago
 			return i18n.t('main:app.days-ago', {
-				days: Math.round(diffInSeconds / 60 / 60 / 24)
+				days: Math.round(diffInSeconds / 60 / 60 / 24),
 			});
 		} else if (diffInSeconds > 3600) {
 			// more than an hour ago
 			return i18n.t('main:app.hours-ago', {
-				hours: Math.round(diffInSeconds / 60 / 60)
+				hours: Math.round(diffInSeconds / 60 / 60),
 			});
 		} else if (diffInSeconds < 60) {
 			// less than a minute ago
 			return i18n.t('main:app.now-label');
 		} else {
 			return i18n.t('main:app.minutes-ago', {
-				minutes: Math.round(diffInSeconds / 60)
+				minutes: Math.round(diffInSeconds / 60),
 			});
 		}
-	}
+	},
 });

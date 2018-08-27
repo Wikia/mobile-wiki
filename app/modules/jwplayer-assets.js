@@ -4,7 +4,7 @@ import { logError } from './event-logger';
 
 export const assetUrls = {
 	styles: '/mobile-wiki-assets/assets/jwplayer/index.css',
-	script: '/mobile-wiki-assets/assets/jwplayer/wikiajwplayer.js'
+	script: '/mobile-wiki-assets/assets/jwplayer/wikiajwplayer.js',
 };
 
 /**
@@ -39,7 +39,7 @@ class JWPlayerAssets {
 							data.text().then((scriptText) => {
 								logError('wikiaJWPlayer not a function', {
 									script: scriptText,
-									url: assetUrls.script
+									url: assetUrls.script,
 								});
 							});
 						});

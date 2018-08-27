@@ -32,7 +32,7 @@ module('Unit | Component | main page', (hooks) => {
 
 	test('injects ads', function (assert) {
 		const adsContext = {
-			valid: true
+			valid: true,
 		};
 		const injectMainPageAdsSpy = sinon.spy();
 		const setupAdsContextSpy = sinon.spy();
@@ -40,10 +40,10 @@ module('Unit | Component | main page', (hooks) => {
 			adsContext,
 			curatedContent: {},
 			currentUser: {
-				userModel: new EmberPromise(() => {})
+				userModel: new EmberPromise(() => {}),
 			},
 			injectMainPageAds: injectMainPageAdsSpy,
-			setupAdsContext: setupAdsContextSpy
+			setupAdsContext: setupAdsContextSpy,
 		});
 
 		component.get('ads.module').isLoaded = true;

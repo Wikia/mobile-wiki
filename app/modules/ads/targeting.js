@@ -95,7 +95,7 @@ function getRefParam() {
 	const wikiDomains = [
 		'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 		'memory-alpha.org', 'uncyclopedia.org',
-		'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
+		'websitewiki.de', 'wowwiki.com', 'yoyowiki.org',
 	];
 	const wikiDomainsRegex = new RegExp(`(^|\\.)(${wikiDomains.join('|').replace(/\./g, '\\.')})$`);
 
@@ -143,14 +143,14 @@ function getZone(adsContext) {
 		return {
 			site: 'hub',
 			name: `_${adsContext.targeting.mappedVerticalName}_hub`,
-			pageType: 'hub'
+			pageType: 'hub',
 		};
 	}
 
 	return {
 		site: adsContext.targeting.mappedVerticalName,
 		name: getRawDbName(adsContext),
-		pageType: getAdLayout(adsContext)
+		pageType: getAdLayout(adsContext),
 	};
 }
 
@@ -177,7 +177,7 @@ export default {
 			wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
 			ref: getRefParam(),
 			esrb: adsContext.targeting.esrbRating,
-			geo: window.Wikia.adProducts.utils.getCountryCode() || 'none'
+			geo: window.Wikia.adProducts.utils.getCountryCode() || 'none',
 		};
 
 		if (window.pvNumber) {
@@ -203,5 +203,5 @@ export default {
 		}
 
 		return targeting;
-	}
+	},
 };

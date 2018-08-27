@@ -16,32 +16,32 @@ module('Unit | Service | wiki-urls', (hooks) => {
 		const testCases = [
 			{
 				path: '/wiki/TestArticle',
-				expectedLangPath: ''
+				expectedLangPath: '',
 			},
 			{
 				path: '/article-preview',
-				expectedLangPath: ''
+				expectedLangPath: '',
 			},
 			{
 				path: '/test-path',
-				expectedLangPath: ''
+				expectedLangPath: '',
 			},
 			{
 				path: '/tes-tpath/test',
-				expectedLangPath: '/tes-tpath'
+				expectedLangPath: '/tes-tpath',
 			},
 			{
 				path: '/pl/wiki/TestArticle',
-				expectedLangPath: '/pl'
+				expectedLangPath: '/pl',
 			},
 			{
 				path: '/pt-br/wiki/TestArticle',
-				expectedLangPath: '/pt-br'
+				expectedLangPath: '/pt-br',
 			},
 			{
 				path: '/nl-informal/wiki/TestArticle',
-				expectedLangPath: '/nl-informal'
-			}
+				expectedLangPath: '/nl-informal',
+			},
 		];
 
 		testCases.forEach((testCase) => {
@@ -54,17 +54,17 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			const testCases = [
 				{
 					urlParams: {
-						host: 'glee.wikia.com'
+						host: 'glee.wikia.com',
 					},
-					expectedOutput: `http://glee.wikia.com${langPath}`
+					expectedOutput: `http://glee.wikia.com${langPath}`,
 				},
 				{
 					urlParams: {
 						host: 'www.wikia.com',
 						langPath: '',
-						path: '/login'
+						path: '/login',
 					},
-					expectedOutput: 'http://www.wikia.com/login'
+					expectedOutput: 'http://www.wikia.com/login',
 				},
 				{
 					urlParams: {
@@ -73,57 +73,57 @@ module('Unit | Service | wiki-urls', (hooks) => {
 						path: '/login',
 						query: {
 							abc: '123',
-							redirect: '/somePage'
-						}
+							redirect: '/somePage',
+						},
 					},
-					expectedOutput: 'http://www.wikia.com/login?abc=123&redirect=%2FsomePage'
+					expectedOutput: 'http://www.wikia.com/login?abc=123&redirect=%2FsomePage',
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						namespace: 'User',
-						title: 'Testusername'
+						title: 'Testusername',
 					},
-					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:Testusername`
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:Testusername`,
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
-						title: 'Jeff'
+						title: 'Jeff',
 					},
-					expectedOutput: `http://glee.wikia.com${langPath}/wiki/Jeff`
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/Jeff`,
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						protocol: 'https',
 					},
-					expectedOutput: `https://glee.wikia.com${langPath}`
+					expectedOutput: `https://glee.wikia.com${langPath}`,
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						namespace: 'User',
-						title: 'IsDamian??'
+						title: 'IsDamian??',
 					},
-					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:IsDamian%3F%3F`
+					expectedOutput: `http://glee.wikia.com${langPath}/wiki/User:IsDamian%3F%3F`,
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						protocol: 'https',
 						namespace: 'Special',
-						title: 'NewFiles'
+						title: 'NewFiles',
 					},
-					expectedOutput: `https://glee.wikia.com${langPath}/wiki/Special:NewFiles`
+					expectedOutput: `https://glee.wikia.com${langPath}/wiki/Special:NewFiles`,
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						protocol: 'https',
-						path: '/uno/due/tre'
+						path: '/uno/due/tre',
 					},
-					expectedOutput: `https://glee.wikia.com${langPath}/uno/due/tre`
+					expectedOutput: `https://glee.wikia.com${langPath}/uno/due/tre`,
 				},
 				{
 					urlParams: {
@@ -132,27 +132,27 @@ module('Unit | Service | wiki-urls', (hooks) => {
 						path: '/sratatata',
 						query: {
 							simple: 'string',
-							complex: '1yry3!@##@$4234_423 423zo42&56'
-						}
+							complex: '1yry3!@##@$4234_423 423zo42&56',
+						},
 					},
 					expectedOutput: `https://glee.wikia.com${langPath}/sratatata?simple=`
-									+ 'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
+									+ 'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656',
 				},
 				{
 					urlParams: {
 						host: 'glee.wikia.com',
 						query: {
-							'Gzeg?zolka': '& &'
-						}
+							'Gzeg?zolka': '& &',
+						},
 					},
-					expectedOutput: `http://glee.wikia.com${langPath}?Gzeg%3Fzolka=%26%20%26`
-				}
+					expectedOutput: `http://glee.wikia.com${langPath}?Gzeg%3Fzolka=%26%20%26`,
+				},
 			];
 
 			testCases.forEach((testCase) => {
 				assert.equal(
 					wikiUrls.build(testCase.urlParams),
-					testCase.expectedOutput
+					testCase.expectedOutput,
 				);
 			});
 		}
@@ -176,7 +176,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				'https://www.google.com/?search=goats',
 				'http://www.ign.com/skrup',
 				'yahoo.com#yrddd',
-				'http://lastofus.wikia.com/pl/wiki/Polska_Wiki'
+				'http://lastofus.wikia.com/pl/wiki/Polska_Wiki',
 			];
 
 			assert.expect(tests.length * 2);
@@ -195,11 +195,11 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			const testCases = [{
 				basePath: 'https://gta.wikia.com',
 				uri: `https://gta.wikia.com/${langPath}`,
-				expectedUrl: `https://gta.wikia.com/${langPath}`
+				expectedUrl: `https://gta.wikia.com/${langPath}`,
 			}, {
 				basePath: 'https://gta.wikia.com',
 				uri: `https://gta.wikia.com/wiki/${langPath}`,
-				expectedUrl: `https://gta.wikia.com/wiki/${langPath}`
+				expectedUrl: `https://gta.wikia.com/wiki/${langPath}`,
 			}];
 
 			assert.expect(testCases.length);
@@ -210,7 +210,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 
 				assert.deepEqual(info, {
 					article: null,
-					url: expectedUrl
+					url: expectedUrl,
 				});
 			});
 		}
@@ -221,7 +221,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				'David_Michael_Vigil',
 				'Category:Characters',
 				'Portal:Main',
-				'Special:Videos'
+				'Special:Videos',
 			];
 			const basePath = 'http://lastofus.wikia.com';
 			wikiVariables.set('basePath', basePath);
@@ -232,7 +232,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 					'OtherPage',
 					'',
 					`${basePath}${langPath}/wiki/${title}`,
-					''
+					'',
 				);
 
 				assert.equal(res.article, title, 'article should match title passed in');
@@ -248,18 +248,18 @@ module('Unit | Service | wiki-urls', (hooks) => {
 				{
 					queryString: '',
 					expectedArticle: linkTitle,
-					expectedUri: null
+					expectedUri: null,
 				},
 				{
 					queryString: '?action=history',
 					expectedArticle: null,
-					expectedUri: `${linkHref}?action=history`
+					expectedUri: `${linkHref}?action=history`,
 				},
 				{
 					queryString: '?curid=509986&diff=6318659&oldid=6318638',
 					expectedArticle: null,
-					expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`
-				}
+					expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`,
+				},
 			];
 			wikiVariables.set('basePath', basePath);
 
@@ -270,7 +270,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 					'pageTitle',
 					'',
 					`${linkHref}${testCase.queryString}`,
-					testCase.queryString
+					testCase.queryString,
 				);
 
 				assert.equal(result.article, testCase.expectedArticle);
@@ -283,7 +283,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
 			wikiVariables.set('basePath', basePath);
 
 			const res = wikiUrls.getLinkInfo(
-				'article', '#hash', `${basePath}${langPath}/wiki/article#hash`, ''
+				'article', '#hash', `${basePath}${langPath}/wiki/article#hash`, '',
 			);
 
 			assert.expect(2);
@@ -346,83 +346,83 @@ module('Unit | Service | wiki-urls', (hooks) => {
 		const testCases = [
 			{
 				url: '',
-				expectedTitle: ''
+				expectedTitle: '',
 			},
 			{
 				url: 'http://test.wikia.com/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
-				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
 			},
 			{
 				url: '/wiki/Test article name',
-				expectedTitle: 'Test article name'
+				expectedTitle: 'Test article name',
 			},
 			{
 				url: 'http://test.wikia.com/wiki/Test',
-				expectedTitle: 'Test'
+				expectedTitle: 'Test',
 			},
 			{
 				url: 'http://test.wikia.com/Test',
-				expectedTitle: 'Test'
+				expectedTitle: 'Test',
 			},
 			{
 				url: 'http://test.wikia.com/wiki/Wiki/wiki/wiki/wiki',
-				expectedTitle: 'Wiki/wiki/wiki/wiki'
+				expectedTitle: 'Wiki/wiki/wiki/wiki',
 			},
 			{
 				url: '/wiki/Wiki/wiki/wiki/wiki',
-				expectedTitle: 'Wiki/wiki/wiki/wiki'
+				expectedTitle: 'Wiki/wiki/wiki/wiki',
 			},
 			{
 				url: 'Title',
-				expectedTitle: 'Title'
+				expectedTitle: 'Title',
 			},
 			{
 				url: '/Title',
-				expectedTitle: 'Title'
+				expectedTitle: 'Title',
 			},
 			{
 				url: '/Wiki',
-				expectedTitle: 'Wiki'
+				expectedTitle: 'Wiki',
 			},
 			{
 				url: '/wiki',
-				expectedTitle: 'wiki'
+				expectedTitle: 'wiki',
 			},
 			{
 				url: 'http://test.wikia.com/szl/wiki/File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
-				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury'
+				expectedTitle: 'File:Bug_Jungle_Tree_On_Ocean.png?useskin=mercury',
 			},
 			{
 				url: '/szl/wiki/Test article name',
-				expectedTitle: 'Test article name'
+				expectedTitle: 'Test article name',
 			},
 			{
 				url: 'http://test.wikia.com/szl/wiki/Test',
-				expectedTitle: 'Test'
+				expectedTitle: 'Test',
 			},
 			{
 				url: 'http://test.wikia.com/szl/Test',
-				expectedTitle: 'Test'
+				expectedTitle: 'Test',
 			},
 			{
 				url: 'http://test.wikia.com/szl/wiki/Wiki/szl/wiki/wiki/wiki',
-				expectedTitle: 'Wiki/szl/wiki/wiki/wiki'
+				expectedTitle: 'Wiki/szl/wiki/wiki/wiki',
 			},
 			{
 				url: '/szl/wiki/Wiki/wiki/wiki/wiki',
-				expectedTitle: 'Wiki/wiki/wiki/wiki'
+				expectedTitle: 'Wiki/wiki/wiki/wiki',
 			},
 			{
 				url: '/szl/Title',
-				expectedTitle: 'Title'
+				expectedTitle: 'Title',
 			},
 			{
 				url: '/szl/Wiki',
-				expectedTitle: 'Wiki'
+				expectedTitle: 'Wiki',
 			},
 			{
 				url: '/szl/wiki',
-				expectedTitle: 'wiki'
+				expectedTitle: 'wiki',
 			},
 		];
 

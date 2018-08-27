@@ -10,14 +10,14 @@ module('Unit | Component | featured content', (hooks) => {
 		component.currentItemIndexObserver = function () {};
 
 		component.set('model', [{
-			title: 'Item 1'
+			title: 'Item 1',
 		}]);
 		assert.equal(component.get('hasMultipleItems'), false);
 
 		component.set('model', [{
-			title: 'Item 1'
+			title: 'Item 1',
 		}, {
-			title: 'Item 2'
+			title: 'Item 2',
 		}]);
 		assert.equal(component.get('hasMultipleItems'), true);
 	});
@@ -29,19 +29,19 @@ module('Unit | Component | featured content', (hooks) => {
 		};
 
 		component.set('model', [{
-			title: 'Item 1'
+			title: 'Item 1',
 		}, {
-			title: 'Item 2'
+			title: 'Item 2',
 		}]);
 
 		component.set('currentItemIndex', 0);
 		assert.deepEqual(component.get('currentItem'), {
-			title: 'Item 1'
+			title: 'Item 1',
 		});
 
 		component.set('currentItemIndex', 1);
 		assert.deepEqual(component.get('currentItem'), {
-			title: 'Item 2'
+			title: 'Item 2',
 		});
 	});
 
@@ -52,11 +52,11 @@ module('Unit | Component | featured content', (hooks) => {
 		};
 
 		component.set('model', [{
-			title: 'Item 1'
+			title: 'Item 1',
 		}, {
-			title: 'Item 2'
+			title: 'Item 2',
 		}, {
-			title: 'Item 3'
+			title: 'Item 3',
 		}]);
 
 		component.prevItem();
@@ -76,11 +76,11 @@ module('Unit | Component | featured content', (hooks) => {
 		};
 
 		component.set('model', [{
-			title: 'Item 1'
+			title: 'Item 1',
 		}, {
-			title: 'Item 2'
+			title: 'Item 2',
 		}, {
-			title: 'Item 3'
+			title: 'Item 3',
 		}]);
 
 		component.nextItem();

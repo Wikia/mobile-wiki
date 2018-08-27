@@ -10,7 +10,7 @@ import { getQueryString } from '../utils/url';
 import {
 	getFetchErrorMessage,
 	UserLoadDetailsFetchError,
-	UserLoadInfoFetchError
+	UserLoadInfoFetchError,
 } from '../utils/errors';
 
 export default EmberObject.extend({
@@ -25,7 +25,7 @@ export default EmberObject.extend({
 		}
 
 		const queryString = getQueryString({
-			code: accessToken
+			code: accessToken,
 		});
 
 		return fetch(`${config.APP.heliosInternalUrl}${queryString}`, {
@@ -74,7 +74,7 @@ export default EmberObject.extend({
 				avatarPath: null,
 				name: null,
 				powerUserTypes: null,
-				rights: null
+				rights: null,
 			};
 
 			if (userDetails) {
@@ -111,8 +111,8 @@ export default EmberObject.extend({
 				controller: 'UserApi',
 				method: 'getDetails',
 				ids: userId,
-				size: avatarSize
-			}
+				size: avatarSize,
+			},
 		});
 
 		return mediawikiFetch(url)
@@ -122,10 +122,10 @@ export default EmberObject.extend({
 				} else {
 					return getFetchErrorMessage(response).then(() => {
 						throw new UserLoadDetailsFetchError({
-							code: response.status
+							code: response.status,
 						}).withAdditionalData({
 							requestUrl: url,
-							responseUrl: response.url
+							responseUrl: response.url,
 						});
 					});
 				}
@@ -154,13 +154,13 @@ export default EmberObject.extend({
 				meta: 'userinfo',
 				uiprop: 'rights|options|blockinfo',
 				format: 'json',
-				ids: userId
-			}
+				ids: userId,
+			},
 		});
 
 		return mediawikiFetch(url, {
 			headers: {
-				Cookie: `access_token=${accessToken}`
+				Cookie: `access_token=${accessToken}`,
 			},
 		}).then((response) => {
 			if (response.ok) {
@@ -168,10 +168,10 @@ export default EmberObject.extend({
 			} else {
 				return getFetchErrorMessage(response).then(() => {
 					throw new UserLoadInfoFetchError({
-						code: response.status
+						code: response.status,
 					}).withAdditionalData({
 						requestUrl: url,
-						responseUrl: response.url
+						responseUrl: response.url,
 					});
 				});
 			}
@@ -189,8 +189,8 @@ export default EmberObject.extend({
 			profileUrl: this.wikiUrls.build({
 				host: this.get('wikiVariables.host'),
 				namespace: 'User',
-				title: userData.name
-			})
+				title: userData.name,
+			}),
 		};
 	},
 

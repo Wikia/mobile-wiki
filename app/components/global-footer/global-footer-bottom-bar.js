@@ -12,10 +12,10 @@ export default Component.extend({
 			this.track('full-site-link');
 			window.Cookies.set('useskin', this.getWithDefault('wikiVariables.defaultSkin', 'oasis'), {
 				domain: config.APP.cookieDomain,
-				path: '/'
+				path: '/',
 			});
 
 			window.location.reload();
-		}
-	}
+		},
+	},
 });

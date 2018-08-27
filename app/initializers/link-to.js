@@ -36,7 +36,7 @@ export function initialize() {
 				track({
 					action: trackActions.click,
 					category: trackingCategory,
-					label: trackingLabel
+					label: trackingLabel,
 				});
 			}
 
@@ -48,5 +48,5 @@ export function initialize() {
 
 export default {
 	name: 'link-to',
-	initialize
+	initialize,
 };

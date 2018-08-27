@@ -15,7 +15,7 @@ const Router = EmberRouter.extend(RouterScroll, {
 			return `${langPath}/`;
 		}
 		return '/';
-	})
+	}),
 });
 
 /* eslint array-callback-return: 0 */
@@ -25,11 +25,11 @@ Router.map(function () {
 	this.route('search');
 
 	this.route('main-page-redirect', {
-		path: '/wiki/'
+		path: '/wiki/',
 	});
 
 	this.route('wiki-page', {
-		path: '/wiki/*title'
+		path: '/wiki/*title',
 	});
 });
 

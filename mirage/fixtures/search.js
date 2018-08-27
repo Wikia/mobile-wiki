@@ -10,7 +10,7 @@ export default {
 			url: 'http://mlp.wikia.com/wiki/Result_1',
 			ns: 0,
 			quality: 99,
-			snippet: ''
+			snippet: '',
 		},
 		{
 			id: 13339,
@@ -18,7 +18,7 @@ export default {
 			url: 'http://mlp.wikia.com/wiki/Result_2',
 			ns: 0,
 			quality: 81,
-			snippet: ''
+			snippet: '',
 		},
 		{
 			id: 676713,
@@ -26,7 +26,7 @@ export default {
 			url: 'http://mlp.wikia.com/wiki/Result_3',
 			ns: 0,
 			quality: 95,
-			snippet: ''
+			snippet: '',
 		},
 		{
 			id: 704409,
@@ -34,7 +34,7 @@ export default {
 			url: 'http://mlp.wikia.com/wiki/Result_4',
 			ns: 0,
 			quality: 92,
-			snippet: ''
-		}
-	]
+			snippet: '',
+		},
+	],
 };

@@ -18,7 +18,7 @@ const config = require('../config/fastboot-server');
 function createDefaultLogStream(minLogLevel = 'info') {
 	return {
 		level: minLogLevel,
-		stream: process.stdout
+		stream: process.stdout,
 	};
 }
 
@@ -35,13 +35,13 @@ function createConsoleStream(minLogLevel) {
 
 	return {
 		level: minLogLevel,
-		stream: prettyStdOut
+		stream: prettyStdOut,
 	};
 }
 
 const availableTargets = {
 	default: createDefaultLogStream,
-	console: createConsoleStream
+	console: createConsoleStream,
 };
 
 const serializers = {
@@ -52,7 +52,7 @@ const serializers = {
 
 		const serializedReq = {};
 		const allowedHeaders = ['accept', 'accept-language', 'fastly-client-ip', 'fastly-orig-accept-encoding',
-			'fastly-ssl', 'host', 'user-agent', 'x-beacon', 'x-forwarded-for'
+			'fastly-ssl', 'host', 'user-agent', 'x-beacon', 'x-forwarded-for',
 		];
 
 		allowedHeaders.forEach((field) => {
@@ -70,7 +70,7 @@ const serializers = {
 		}
 
 		return serializedReq;
-	}
+	},
 };
 
 /**
@@ -110,10 +110,10 @@ function createLogger(loggerConfig) {
 			'req',
 			'res',
 			'response-hrtime',
-			'user-agent'
+			'user-agent',
 		],
 		serializers,
-		streams
+		streams,
 	});
 }
 

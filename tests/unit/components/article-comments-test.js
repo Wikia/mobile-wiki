@@ -23,7 +23,7 @@ module('Unit | Component | article comments', (hooks) => {
 		run(() => {
 			component.setProperties({
 				pagesCount: 3,
-				page: 2
+				page: 2,
 			});
 		});
 

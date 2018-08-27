@@ -34,7 +34,7 @@ export default Mixin.create({
 			this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({
 				name: 'ad-slot',
 				attrs: attributes,
-				element: placeholder
+				element: placeholder,
 			}));
 		});
 		this.get('ads').clearWaits(adSlotName);
@@ -54,8 +54,8 @@ export default Mixin.create({
 					this.renderAdComponent({
 						name: 'ads/invisible-high-impact-2',
 						attrs: {},
-						element: placeholder
-					})
+						element: placeholder,
+					}),
 				);
 			}
 
@@ -143,8 +143,8 @@ export default Mixin.create({
 	 */
 	setupAdsContext(adsContext) {
 		adsContext.user = {
-			isAuthenticated: this.get('currentUser.isAuthenticated')
+			isAuthenticated: this.get('currentUser.isAuthenticated'),
 		};
 		this.get('ads.module').afterTransition(adsContext);
-	}
+	},
 });

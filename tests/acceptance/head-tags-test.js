@@ -19,11 +19,11 @@ module('Acceptance | Head meta tags', (hooks) => {
 		// set something in head of a test runner document
 		assert.equal(
 			document.querySelectorAll('meta[name="viewport"]')[1].getAttribute('content'),
-			'user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover'
+			'user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover',
 		);
 		assert.equal(
 			document.querySelector('meta[name="theme-color"]').getAttribute('content'),
-			'#002a32'
+			'#002a32',
 		);
 	});
 
@@ -32,27 +32,27 @@ module('Acceptance | Head meta tags', (hooks) => {
 
 		assert.equal(
 			document.querySelector('meta[name="twitter:card"]').getAttribute('content'),
-			'summary'
+			'summary',
 		);
 
 		assert.equal(
 			document.querySelector('meta[name="twitter:site"]').getAttribute('content'),
-			'@getfandom'
+			'@getfandom',
 		);
 
 		assert.equal(
 			document.querySelector('meta[name="twitter:url"]').getAttribute('content'),
-			'http://fallout.wikia.com/wiki/File:Example.jpg'
+			'http://fallout.wikia.com/wiki/File:Example.jpg',
 		);
 
 		assert.equal(
 			document.querySelector('meta[name="twitter:title"]').getAttribute('content'),
-			'Image - Example.jpg | Fallout Wiki | FANDOM'
+			'Image - Example.jpg | Fallout Wiki | FANDOM',
 		);
 
 		assert.equal(
 			document.querySelector('meta[name="twitter:description"]').getAttribute('content'),
-			'Licensing This file was taken from the video game Fallout: New Vegas or from websites created...'
+			'Licensing This file was taken from the video game Fallout: New Vegas or from websites created...',
 		);
 	});
 });

@@ -20,5 +20,5 @@ export default Mixin.create({
 		}
 
 		return this.getProperties(keys);
-	}
+	},
 });

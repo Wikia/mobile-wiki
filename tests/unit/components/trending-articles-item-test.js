@@ -26,12 +26,12 @@ module('Unit | Component | trending articles item', (hooks) => {
 
 		componentMock.setProperties({
 			imageWidth,
-			imageUrl: 'http://vignette/image.jpg'
+			imageUrl: 'http://vignette/image.jpg',
 		});
 
 		asset.equal(
 			componentMock.get('currentlyRenderedImageUrl'),
-			`http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`
+			`http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`,
 		);
 	});
 });
