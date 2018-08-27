@@ -49,8 +49,8 @@ export default Service.extend({
 		this.set('requestContext', {
 			'@fields': {
 				app_version: config.APP.version,
-				datacenter: config.fastbootOnly.wikiaDatacenter,
-				environment: config.wikiaEnv,
+				datacenter: config.APP.wikiaDatacenter,
+				environment: config.APP.wikiaEnv,
 				http_url_domain: request.get('host'),
 				http_url_path: request.get('path'),
 				client_beacon_id: headers.get('x-beacon'),
@@ -112,9 +112,9 @@ export default Service.extend({
 
 	log(logLevel, message, object) {
 		if (this.get('fastboot.isFastBoot')) {
-			const extendedObject = logLevel === 'error' ?
-				this.extendError(object, message) :
-				this.addContext(object, message, logLevel);
+			const extendedObject = logLevel === 'error'
+				? this.extendError(object, message)
+				: this.addContext(object, message, logLevel);
 
 			this.bunyanInstance[logLevel](extendedObject, message);
 		} else {

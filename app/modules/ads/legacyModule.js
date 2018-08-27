@@ -1,7 +1,9 @@
 /* eslint no-console: 0 */
-import config from '../../config/environment';
 import { Promise } from 'rsvp';
+import config from '../../config/environment';
 import offset from '../../utils/offset';
+/* eslint import/no-cycle: 0 */
+// legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
 /**
@@ -197,7 +199,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	dispatchEvent(name, data) {
+	static dispatchEvent(name, data) {
 		const event = document.createEvent('CustomEvent');
 
 		event.initCustomEvent(`adengine.${name}`, true, true, data || {});
@@ -262,7 +264,7 @@ class Ads {
 			console.info('Track pageView: Krux');
 
 			// @todo XW-123 add logging to kibana how many times failed to load
-			this.krux.load(config.tracking.krux.mobileId);
+			this.krux.load(config.APP.tracking.krux.mobileId);
 		}
 	}
 
@@ -329,7 +331,7 @@ class Ads {
 	 * @param {*} adsContext
 	 * @returns {void}
 	 */
-	turnOffAdsForLoggedInUsers(adsContext) {
+	static turnOffAdsForLoggedInUsers(adsContext) {
 		// TODO: Refactor/remove while working on ADEN-2189
 		adsContext = adsContext || {};
 		if (adsContext.user && adsContext.user.isAuthenticated) {
@@ -355,8 +357,8 @@ class Ads {
 
 		const firstSection = document.querySelector('.article-content > h2');
 		const firstSectionTop = (
-			firstSection &&
-			offset(firstSection).top
+			firstSection
+			&& offset(firstSection).top
 		) || 0;
 
 		return firstSectionTop > this.adsData.minZerothSectionLength;
@@ -373,7 +375,7 @@ class Ads {
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
 
-	isBottomLeaderboardApplicable() {
+	static isBottomLeaderboardApplicable() {
 		return !!document.querySelector('.wds-global-footer');
 	}
 
@@ -391,7 +393,7 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
-		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
+		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', Ads.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
 	}
@@ -410,7 +412,7 @@ class Ads {
 	reload(adsContext, onContextLoadCallback = null) {
 		let delayEnabled = false;
 
-		this.turnOffAdsForLoggedInUsers(adsContext);
+		Ads.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;
@@ -467,7 +469,7 @@ class Ads {
 		};
 	}
 
-	finishAtfQueue() {
+	static finishAtfQueue() {
 		// Do nothing
 	}
 
@@ -581,7 +583,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	createLightbox() {
+	static createLightbox() {
 	}
 
 	/**
@@ -590,7 +592,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	showLightbox() {
+	static showLightbox() {
 	}
 
 	/**
@@ -599,7 +601,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	setSiteHeadOffset() {
+	static setSiteHeadOffset() {
 	}
 
 	/**

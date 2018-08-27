@@ -65,9 +65,9 @@ export default Service.extend({
 		}
 
 		if (urlParams.title) {
-			url += urlParams.articlePath +
-				(urlParams.namespace ? `${urlParams.namespace}:` : '') +
-				encodeURIComponent(urlParams.title);
+			url += urlParams.articlePath
+				+ (urlParams.namespace ? `${urlParams.namespace}:` : '')
+				+ encodeURIComponent(urlParams.title);
 		}
 
 		if (urlParams.wikiPage) {
@@ -178,7 +178,7 @@ export default Service.extend({
 		const url = redirectUrl || window.location.href;
 
 		window.location.href = this.build({
-			host: `www.${config.baseDomain}`,
+			host: `www.${config.APP.baseDomain}`,
 			langPath: '',
 			path: '/join',
 			query: {

@@ -1,6 +1,6 @@
 import { Promise } from 'rsvp';
-import { logError } from './event-logger';
 import fetch from 'fetch';
+import { logError } from './event-logger';
 
 export const assetUrls = {
 	styles: '/mobile-wiki-assets/assets/jwplayer/index.css',

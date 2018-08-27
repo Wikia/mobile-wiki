@@ -1,5 +1,5 @@
-import getAdsModule from '../ads';
 import { Promise } from 'rsvp';
+import getAdsModule from '../ads';
 
 export default class JWPlayerVideoAds {
 	constructor(params) {
@@ -11,10 +11,10 @@ export default class JWPlayerVideoAds {
 			return Promise.resolve(this.params);
 		}
 
-		return this.isA9VideoEnabled().then((isA9VideoEnabled) => {
+		return JWPlayerVideoAds.isA9VideoEnabled().then((isA9VideoEnabled) => {
 			if (isA9VideoEnabled) {
 				return new Promise((resolve) => {
-					this.parseBidderParameters(resolve, (params, error) => {
+					JWPlayerVideoAds.parseBidderParameters(resolve, (params, error) => {
 						/* eslint no-console: 0 */
 						console.error('JWPlayer: Error while receiving bidder parameters:', error);
 						resolve(params);
@@ -26,7 +26,7 @@ export default class JWPlayerVideoAds {
 		});
 	}
 
-	parseBidderParameters(onSuccess, onError) {
+	static parseBidderParameters(onSuccess, onError) {
 		getAdsModule().then((adsModule) => {
 			const a9 = adsModule.a9;
 			const responseTimeout = 2000;
@@ -43,11 +43,10 @@ export default class JWPlayerVideoAds {
 		});
 	}
 
-	isA9VideoEnabled() {
-		return getAdsModule().then(ads =>
-			ads.a9 &&
-			ads.currentAdsContext &&
-			ads.currentAdsContext.bidders &&
-			ads.currentAdsContext.bidders.a9Video);
+	static isA9VideoEnabled() {
+		return getAdsModule().then(ads => ads.a9
+			&& ads.currentAdsContext
+			&& ads.currentAdsContext.bidders
+			&& ads.currentAdsContext.bidders.a9Video);
 	}
 }

@@ -57,8 +57,8 @@ export default class JWPlayer extends BasePlayer {
 	initializePlayer(adsModule, bidParams) {
 		const containerId = this.params.containerId;
 		const initialPath = window.location.pathname;
-		const isForcedClickToPlay = adsModule && adsModule.adContextModule ?
-			adsModule.adContextModule.get('rabbits.ctpMobile') : false;
+		const isForcedClickToPlay = adsModule && adsModule.adContextModule
+			? adsModule.adContextModule.get('rabbits.ctpMobile') : false;
 
 		if (!document.getElementById(containerId)) {
 			return;

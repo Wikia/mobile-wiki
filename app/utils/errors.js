@@ -1,5 +1,8 @@
 import { defineError } from 'ember-exex/error';
 
+// TODO remove redundant errors from this file and use ones from ember-fandom across app
+import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
+
 const errorsMap = {
 	403: 'You do not have permissions to view this page.',
 	default: 'Sorry, we couldn\'t load the page. Please try again.'
@@ -13,11 +16,6 @@ const DesignSystemFetchError = defineError({
 const FetchError = defineError({
 	name: 'FetchError',
 	message: 'fetch failed to execute'
-});
-
-const DontLogMeError = defineError({
-	name: 'DontLogMeError',
-	message: `Hack: this error was created only to stop executing Ember and redirect immediately`
 });
 
 const FandomPostsError = defineError({
@@ -78,7 +76,6 @@ export {
 	getFetchErrorMessage,
 	DesignSystemFetchError,
 	FetchError,
-	DontLogMeError,
 	FandomPostsError,
 	WikiVariablesRedirectError,
 	UserLoadDetailsFetchError,
