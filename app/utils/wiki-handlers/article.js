@@ -33,8 +33,8 @@ function sendLyricsPageView({ model, host, wikiUrls }) {
 			title: model.get('title'),
 			amgid: 0,
 			gracenoteid: 0,
-			rand: (`${Math.random()}`).substr(2, 8)
-		}
+			rand: (`${Math.random()}`).substr(2, 8),
+		},
 	}));
 }
 
@@ -74,5 +74,5 @@ export default {
 	controllerName: 'article',
 	viewName: 'article',
 	afterModel,
-	afterTransition
+	afterTransition,
 };

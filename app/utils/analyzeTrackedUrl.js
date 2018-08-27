@@ -17,7 +17,7 @@ export default function analyzeTrackedUrl(params) {
 	if (actualUrl.indexOf(gaPage) === -1) {
 		logDebug('GA url does not match window.location', Object.assign({
 			gaPage,
-			actualUrl
+			actualUrl,
 		}, params));
 	}
 }

@@ -5,9 +5,9 @@ export default i18n.extend({
 	init() {
 		this.config = {
 			translationsNamespaces: config.APP.translationsNamespaces,
-			translationsPath: config.APP.translationsPath
+			translationsPath: config.APP.translationsPath,
 		};
 
 		this._super(...arguments);
-	}
+	},
 });

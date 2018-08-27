@@ -7,8 +7,8 @@ export default Mixin.create(
 			markAsRead(notification) {
 				trackMarkAsRead(notification);
 				this.notifications.markAsRead(notification);
-			}
-		}
-	}
+			},
+		},
+	},
 );
 

@@ -4,5 +4,5 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
 	preserveScroll: service(),
-	preserveScrollPosition: alias('preserveScroll.preserveScrollPosition')
+	preserveScrollPosition: alias('preserveScroll.preserveScrollPosition'),
 });

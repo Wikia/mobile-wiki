@@ -11,22 +11,22 @@ module('Unit | Component | article comment', (hooks) => {
 
 		component.setProperties({
 			users: {
-				test: 'test'
+				test: 'test',
 			},
 			comment: {
-				userName: 'test'
-			}
+				userName: 'test',
+			},
 		});
 
 		assert.equal(component.get('user'), 'test');
 
 		component.setProperties({
 			users: {
-				test: 'test'
+				test: 'test',
 			},
 			comment: {
-				userName: 'nope'
-			}
+				userName: 'nope',
+			},
 		});
 
 		assert.deepEqual(component.get('user'), {});

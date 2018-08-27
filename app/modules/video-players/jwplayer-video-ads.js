@@ -38,7 +38,7 @@ export default class JWPlayerVideoAds {
 			a9.waitForResponseCallbacks(
 				() => onSuccess(a9.getSlotParams('FEATURED')),
 				() => onError({}, 'Connection timed out'),
-				responseTimeout
+				responseTimeout,
 			);
 		});
 	}

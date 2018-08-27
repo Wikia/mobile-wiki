@@ -87,12 +87,12 @@ const trackActions = {
 	// Action to take a survey
 	takeSurvey: 'take-survey',
 	// View
-	view: 'view'
+	view: 'view',
 };
 
 let context = {
 	a: null,
-	n: null
+	n: null,
 };
 
 /**
@@ -141,7 +141,7 @@ export function track(params) {
 		ga_label: label,
 		ga_value: value,
 		ga_is_nonInteractive: isNonInteractive,
-		pv_unique_id: pvUID
+		pv_unique_id: pvUID,
 	}, params);
 
 	// We rely on ga_* params in both trackers

@@ -15,7 +15,7 @@ export default Mixin.create({
 			if (hasMultipleUsers) {
 				return this.getTranslatedMessage('notifications-reply-upvote-multiple-users-with-title', {
 					postTitle: this.postTitleMarkup,
-					number: totalUniqueActors - 1
+					number: totalUniqueActors - 1,
 				});
 			} else {
 				return this.getTranslatedMessage('notifications-reply-upvote-single-user-with-title', {
@@ -24,7 +24,7 @@ export default Mixin.create({
 			}
 		} else if (hasMultipleUsers) {
 			return this.getTranslatedMessage('notifications-reply-upvote-multiple-users-no-title', {
-				number: totalUniqueActors
+				number: totalUniqueActors,
 			});
 		} else {
 			return this.getTranslatedMessage('notifications-reply-upvote-single-user-no-title');

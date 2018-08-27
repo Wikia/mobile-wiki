@@ -17,6 +17,6 @@ export default Component.extend({
 
 		closeSection() {
 			this.set('activeLabel', null);
-		}
-	}
+		},
+	},
 });

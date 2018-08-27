@@ -12,19 +12,19 @@ export default {
 					title: 'Category:Test',
 					type: 'category',
 					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-					node_type: 'item'
-				}
+					node_type: 'item',
+				},
 			],
 			image_crop: {
 				square: {
 					x: 92,
 					y: 0,
 					width: 412,
-					height: 412
-				}
+					height: 412,
+				},
 			},
 			image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-			node_type: 'section'
+			node_type: 'section',
 		},
 		{
 			label: 'Section 2',
@@ -38,19 +38,19 @@ export default {
 					title: 'Category:Test2',
 					type: 'category',
 					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-					node_type: 'item'
-				}
+					node_type: 'item',
+				},
 			],
 			image_crop: {
 				square: {
 					x: 114,
 					y: 0,
 					width: 381,
-					height: 381
-				}
+					height: 381,
+				},
 			},
 			image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-			node_type: 'section'
+			node_type: 'section',
 		},
 		{
 			label: 'Featured Content',
@@ -64,19 +64,19 @@ export default {
 							x: 0,
 							y: 699,
 							width: 2344,
-							height: 1319
-						}
+							height: 1319,
+						},
 					},
 					items: '',
 					label: 'Featured item',
 					title: 'Test',
 					type: 'article',
 					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-					node_type: 'item'
-				}
+					node_type: 'item',
+				},
 			],
 			featured: 'true',
-			node_type: 'section'
+			node_type: 'section',
 		},
 		{
 			label: '',
@@ -90,18 +90,18 @@ export default {
 							x: 0,
 							y: 0,
 							width: 620,
-							height: 620
-						}
+							height: 620,
+						},
 					},
 					items: '',
 					label: 'Optional category',
 					title: 'Category:Test3',
 					type: 'category',
 					image_url: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-					node_type: 'item'
-				}
+					node_type: 'item',
+				},
 			],
-			node_type: 'section'
-		}
-	]
+			node_type: 'section',
+		},
+	],
 };

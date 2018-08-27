@@ -27,7 +27,7 @@ export default BaseModel.extend({
 				fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
 					.map(item => this.prepareFileUsageItem(item)),
 				fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
-				fileThumbnail: media
+				fileThumbnail: media,
 			};
 		}
 
@@ -38,7 +38,7 @@ export default BaseModel.extend({
 		return {
 			title,
 			snippet,
-			prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(url)
+			prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(url),
 		};
-	}
+	},
 });

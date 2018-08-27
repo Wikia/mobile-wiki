@@ -33,7 +33,7 @@ export default Service.extend({
 		const cookieOptions = {
 			expires: date,
 			path: '/',
-			domain: config.APP.cookieDomain
+			domain: config.APP.cookieDomain,
 		};
 
 		date.setTime(date.getTime() + (days * this.dayInMiliseconds));
@@ -52,7 +52,7 @@ export default Service.extend({
 		track({
 			action,
 			category: this.trackCategory,
-			label: this.dbName
+			label: this.dbName,
 		});
 	},
 });

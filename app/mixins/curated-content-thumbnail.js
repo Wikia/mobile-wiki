@@ -37,7 +37,7 @@ export default Mixin.create({
 	 */
 	generateThumbUrl(imageUrl, imageCrop = null) {
 		const options = {
-			width: this.imageWidth
+			width: this.imageWidth,
 		};
 
 		if (imageCrop) {
@@ -57,5 +57,5 @@ export default Mixin.create({
 		}
 
 		return this.thumbnailer.getThumbURL(imageUrl, options);
-	}
+	},
 });

@@ -62,7 +62,7 @@ export default Route.extend(
 			didTransition() {
 				this.controllerFor('application').set('fullPage', true);
 				return true;
-			}
-		}
-	}
+			},
+		},
+	},
 );

@@ -20,10 +20,10 @@ export default BaseModel.extend({
 				action: 'query',
 				generator: 'random',
 				grnnamespace: 0,
-				format: 'json'
-			}
+				format: 'json',
+			},
 		}), {
-			cache: 'no-store'
+			cache: 'no-store',
 		})
 			.then(response => response.json())
 			.then((data) => {
@@ -40,7 +40,7 @@ export default BaseModel.extend({
 
 				throw new Error({
 					message: 'Data from server misshaped',
-					data
+					data,
 				});
 			});
 	},

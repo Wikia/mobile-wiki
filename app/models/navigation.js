@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
 import {
 	getFetchErrorMessage,
-	DesignSystemFetchError
+	DesignSystemFetchError,
 } from '../utils/errors';
 import fetch from '../utils/mediawiki-fetch';
 
@@ -20,14 +20,14 @@ export default EmberObject.extend({
 				product: 'wikis',
 				id: wikiId,
 				lang: language,
-				version: 2
-			}
+				version: 2,
+			},
 		});
 
 		return fetch(url, {
 			headers: {
-				Cookie: `access_token=${this.get('fastboot.request.cookies.access_token')}`
-			}
+				Cookie: `access_token=${this.get('fastboot.request.cookies.access_token')}`,
+			},
 		})
 			.then((response) => {
 				if (response.ok) {
@@ -35,11 +35,11 @@ export default EmberObject.extend({
 				} else {
 					return getFetchErrorMessage(response).then(() => {
 						throw new DesignSystemFetchError({
-							code: 503
+							code: 503,
 						}).withAdditionalData({
 							responseStatus: response.status,
 							requestUrl: url,
-							responseUrl: response.url
+							responseUrl: response.url,
 						});
 					});
 				}
@@ -48,8 +48,8 @@ export default EmberObject.extend({
 				{
 					globalFooter: navigationData['global-footer'],
 					globalNavigation: navigationData['global-navigation'],
-					communityHeader: navigationData['community-header']
+					communityHeader: navigationData['community-header'],
 				}
 			));
-	}
+	},
 });

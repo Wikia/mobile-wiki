@@ -15,7 +15,7 @@ module('Unit | helper | wrap me', () => {
 
 	test('generate html with passed content and one parameter', (assert) => {
 		const options = {
-			tagName: 'table'
+			tagName: 'table',
 		};
 		const html = wrapMeHelper.compute(['some text'], options);
 
@@ -25,7 +25,7 @@ module('Unit | helper | wrap me', () => {
 	test('generate html with passed content and two parameters', (assert) => {
 		const options = {
 			tagName: 'div',
-			className: 'my-class and another'
+			className: 'my-class and another',
 		};
 		const html = wrapMeHelper.compute(['some text'], options);
 
@@ -34,7 +34,7 @@ module('Unit | helper | wrap me', () => {
 
 	test('generate html with passed content and extraneous parameter (ignores the param)', (assert) => {
 		const options = {
-			notAValidParam: 'nope'
+			notAValidParam: 'nope',
 		};
 		const html = wrapMeHelper.compute(['some text'], options);
 

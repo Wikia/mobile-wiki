@@ -51,5 +51,5 @@ export default Component.extend({
 		toggleExpand() {
 			this.toggleProperty('isExpanded');
 		},
-	}
+	},
 });

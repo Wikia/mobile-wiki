@@ -30,8 +30,8 @@ module('Unit | Component | trending videos item', (hooks) => {
 			imageWidth,
 			mode: 'top-crop',
 			video: {
-				url: 'http://vignette/image.jpg'
-			}
+				url: 'http://vignette/image.jpg',
+			},
 		});
 
 		assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);

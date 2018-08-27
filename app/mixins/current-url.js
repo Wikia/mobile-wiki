@@ -10,7 +10,7 @@ export default Mixin.create({
 	currentURL: computed('routing.router.currentURL', function () {
 		return this.wikiUrls.build({
 			host: this.get('wikiVariables.host'),
-			path: this.get('routing.router.currentURL')
+			path: this.get('routing.router.currentURL'),
 		});
-	})
+	}),
 });

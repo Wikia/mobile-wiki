@@ -100,7 +100,7 @@ function init(player, options, slotTargeting) {
 		context,
 		slotService,
 		vastDebugger,
-		vastParser
+		vastParser,
 	} = window.Wikia.adEngine;
 
 	const slotName = options.featured ? 'featured' : 'video';
@@ -221,8 +221,8 @@ function init(player, options, slotTargeting) {
 				creative_size: vastParams.size,
 				status: 'success',
 				page_width: videoContainer.clientWidth,
-				viewport_height: videoContainer.scrollTop
-			}
+				viewport_height: videoContainer.scrollTop,
+			},
 		);
 	});
 
@@ -239,8 +239,8 @@ function init(player, options, slotTargeting) {
 				timestamp: Date.now(),
 				status: 'error',
 				page_width: videoContainer.clientWidth,
-				viewport_height: videoContainer.scrollTop
-			}
+				viewport_height: videoContainer.scrollTop,
+			},
 		);
 	});
 
@@ -248,10 +248,10 @@ function init(player, options, slotTargeting) {
 }
 
 const jwPlayerMOAT = {
-	loadTrackingPlugin: () => window.M.loadScript(moatJwplayerPluginUrl, true)
+	loadTrackingPlugin: () => window.M.loadScript(moatJwplayerPluginUrl, true),
 };
 
 export default {
 	init,
-	jwPlayerMOAT
+	jwPlayerMOAT,
 };

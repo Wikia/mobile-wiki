@@ -6,5 +6,5 @@ module.exports = express.static(config.distPath, {
 		res.set('Cache-Control', `s-maxage=${config.staticAssetsTTL}`);
 		res.set('X-Pass-Cache-Control', `public, max-age=${config.staticAssetsTTL}`);
 		res.set('Vary', 'accept-encoding');
-	}
+	},
 });

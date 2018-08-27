@@ -24,7 +24,7 @@ export const namespace = {
 	CATEGORY_TALK: 15,
 	IMAGE: 6,
 	IMAGE_TALK: 7,
-	BLOG_ARTICLE: 500
+	BLOG_ARTICLE: 500,
 };
 
 /**
@@ -36,6 +36,6 @@ export const namespace = {
 export function isContentNamespace(ns, contentNamespaces = []) {
 	return ns === namespace.MAIN || Boolean(contentNamespaces.some(
 		// custom namespaces can be in a string format
-		contentNamespace => parseInt(contentNamespace, 10) === ns
+		contentNamespace => parseInt(contentNamespace, 10) === ns,
 	));
 }

@@ -18,16 +18,16 @@ module('Unit | Component | application wrapper', (hooks) => {
 		const testCases = [
 			{
 				target: createElement('li', 'mw-content'),
-				expected: true
+				expected: true,
 			},
 			{
 				target: createElement('li'),
-				expected: null
+				expected: null,
 			},
 			{
 				target: createElement('div', 'PDS_Poll'),
-				expected: null
-			}
+				expected: null,
+			},
 		];
 
 		testCases.forEach((testCase) => {

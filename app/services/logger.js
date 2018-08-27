@@ -58,8 +58,8 @@ export default Service.extend({
 				trace_id: headers.get('x-trace-id'),
 				user_agent: headers.get('user-agent'),
 				wiki_dbname: this.get('wikiVariables.dbName'),
-				wiki_id: this.get('wikiVariables.id')
-			}
+				wiki_id: this.get('wikiVariables.id'),
+			},
 		});
 	},
 
@@ -82,8 +82,8 @@ export default Service.extend({
 			loggerName: 'services/logger.js',
 			streams: [{
 				level: 'warn',
-				stream: process.stdout
-			}]
+				stream: process.stdout,
+			}],
 		});
 
 		this.set('bunyanInstance', instance);
@@ -93,7 +93,7 @@ export default Service.extend({
 		return extend({
 			'@message': message,
 			event: object,
-			severity: logLevel
+			severity: logLevel,
 		}, this.requestContext);
 	},
 
@@ -105,8 +105,8 @@ export default Service.extend({
 			'@stack_trace': errorDescriptor.get('normalizedStack').substring(0, 500),
 			event: {
 				additionalData: additionalDataSerializer(error.additionalData),
-				previous: previousErrorSerializer(error.previous)
-			}
+				previous: previousErrorSerializer(error.previous),
+			},
 		}, this.requestContext);
 	},
 
@@ -137,5 +137,5 @@ export default Service.extend({
 
 	error(message, object) {
 		this.log('error', message, object);
-	}
+	},
 });

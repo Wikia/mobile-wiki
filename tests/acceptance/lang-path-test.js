@@ -5,14 +5,14 @@ import {
 	fillIn,
 	triggerEvent,
 	visit,
-	currentURL
+	currentURL,
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 
 const wikiUrlsServiceStub = Service.extend({
-	langPath: '/pl'
+	langPath: '/pl',
 });
 
 module('Acceptance | lang path', (hooks) => {

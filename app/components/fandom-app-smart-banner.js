@@ -55,7 +55,7 @@ export default Component.extend(RespondsToScroll, {
 			this.smartBanner.setCookie(this.get('options.daysHiddenAfterClose'));
 			this.smartBanner.setVisibility(false);
 			this.smartBanner.track(trackActions.close);
-		}
+		},
 	},
 
 	click(event) {
@@ -74,5 +74,5 @@ export default Component.extend(RespondsToScroll, {
 		} else {
 			document.body.classList.remove('fandom-app-smart-banner-passed');
 		}
-	}
+	},
 });

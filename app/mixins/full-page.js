@@ -17,5 +17,5 @@ export default Mixin.create({
 	 */
 	deactivate() {
 		this.controllerFor('application').set('fullPage', false);
-	}
+	},
 });

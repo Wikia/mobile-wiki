@@ -27,7 +27,7 @@ export default Component.extend({
 				url: '/d/f',
 				trackingLabel: 'discussions-clicked',
 				value: this.get('model.discussions'),
-			}
+			},
 		];
 	}),
 	actions: {
@@ -35,8 +35,8 @@ export default Component.extend({
 			track({
 				action: trackActions.click,
 				category: 'main-page',
-				label: trackingLabel
+				label: trackingLabel,
 			});
-		}
-	}
+		},
+	},
 });

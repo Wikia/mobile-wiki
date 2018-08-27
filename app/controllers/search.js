@@ -16,10 +16,10 @@ export default Controller.extend({
 			track({
 				action: trackActions.click,
 				category: 'wikia-button',
-				label: trackLabel
+				label: trackLabel,
 			});
 
 			this.model.loadMore();
-		}
-	}
+		},
+	},
 });

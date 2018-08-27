@@ -3,10 +3,10 @@ module.exports = {
 	disable_watching: true,
 	reporter: 'dot',
 	launch_in_ci: [
-		'Chrome'
+		'Chrome',
 	],
 	launch_in_dev: [
-		'Chrome'
+		'Chrome',
 	],
 	browser_args: {
 		Chrome: {
@@ -18,8 +18,8 @@ module.exports = {
 				'--disable-gpu',
 				'--headless',
 				'--remote-debugging-port=0',
-				'--window-size=1440,900'
-			].filter(Boolean)
-		}
-	}
+				'--window-size=1440,900',
+			].filter(Boolean),
+		},
+	},
 };

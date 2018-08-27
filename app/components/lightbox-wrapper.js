@@ -45,7 +45,7 @@ export default Component.extend(RenderComponentMixin, {
 			this.setProperties({
 				footer: null,
 				header: null,
-				footerExpanded: false
+				footerExpanded: false,
 			});
 
 			this.lightbox.close();

@@ -115,5 +115,5 @@ export default EmberObject.extend({
 		collectAdditionalData(error);
 
 		return collected;
-	})
+	}),
 });

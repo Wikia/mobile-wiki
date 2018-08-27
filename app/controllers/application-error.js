@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import {
 	getProductionErrorMessage,
-	canAttemptRefresh
+	canAttemptRefresh,
 } from '../utils/errors';
 
 export default Controller.extend({
@@ -24,7 +24,7 @@ export default Controller.extend({
 
 		return {
 			message: getProductionErrorMessage(errorCode),
-			canAttemptRefresh: canAttemptRefresh(errorCode)
+			canAttemptRefresh: canAttemptRefresh(errorCode),
 		};
-	})
+	}),
 });
