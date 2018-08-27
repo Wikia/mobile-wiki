@@ -28,5 +28,5 @@ export function inGroup(experimentName, groupName) {
 		return AbTest.inGroup(experimentName, groupName);
 	}
 
-	return undefined;
+	return false;
 }
