@@ -2,8 +2,8 @@ import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
 import { all } from 'rsvp';
 import { isArray } from '@ember/array';
-import config from '../config/environment';
 import fetch from 'fetch';
+import config from '../config/environment';
 import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
 import { getQueryString } from '../utils/url';
@@ -27,11 +27,10 @@ export default EmberObject.extend({
 		const queryString = getQueryString({
 			code: accessToken
 		});
-		const { fastbootOnly: { helios } } = config;
 
-		return fetch(`${helios.internalUrl}${queryString}`, {
+		return fetch(`${config.APP.heliosInternalUrl}${queryString}`, {
 			headers: { 'X-Wikia-Internal-Request': '1' },
-			timeout: helios.timeout,
+			timeout: config.APP.heliosTimeout,
 		}).then((response) => {
 			if (response.ok) {
 				return response.json().then(data => data.user_id);

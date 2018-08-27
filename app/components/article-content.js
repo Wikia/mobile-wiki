@@ -67,7 +67,6 @@ export default Component.extend(
 					this.loadIcons();
 					this.handleTables();
 					this.replaceWikiaWidgetsWithComponents();
-
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.handleCollapsibleSections();
@@ -400,8 +399,8 @@ export default Component.extend(
 					.forEach((element) => {
 						element.classList.add(shortClass);
 						element.insertAdjacentHTML('beforeend',
-							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
-							`<use xlink:href="#chevron"></use></svg></td></tr>`);
+							`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">`
+							+ `<use xlink:href="#chevron"></use></svg></td></tr>`);
 
 						element.addEventListener('click', (event) => {
 							const target = event.target;
@@ -443,8 +442,8 @@ export default Component.extend(
 			const citeNoteSelector = '#cite_note-';
 			const citeRefSelector = '#cite_ref-';
 
-			if (target.nodeName === 'A' &&
-				(target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+			if (target.nodeName === 'A'
+				&& (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
 			) {
 				event.preventDefault();
 				const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
@@ -468,8 +467,7 @@ export default Component.extend(
 				.forEach((element) => {
 					const originalHTML = element.outerHTML;
 
-					element.outerHTML = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
-						' portable-table-wrappper' : ''}"/>${originalHTML}</div>`;
+					element.outerHTML = `<div class="article-table-wrapper"/>${originalHTML}</div>`;
 				});
 		},
 

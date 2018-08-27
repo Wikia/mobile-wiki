@@ -1,3 +1,4 @@
+/* eslint class-methods-use-this: 0 */
 import containerSize from '../../utils/calculation';
 import { track } from '../../utils/track';
 

@@ -1,6 +1,6 @@
+import { inject as service } from '@ember/service';
 import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
-import { inject as service } from '@ember/service';
 import { namespace as mediawikiNamespace } from '../../utils/mediawiki-namespace';
 
 export default BaseModel.extend({

@@ -35,7 +35,7 @@ class Ads {
 
 	init(mediaWikiAdsContext = {}) {
 		if (!this.isLoaded) {
-			this.getInstantGlobals()
+			Ads.getInstantGlobals()
 				.then((instantGlobals) => {
 					M.trackingQueue.push(isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
 				});
@@ -55,8 +55,8 @@ class Ads {
 		events.on(events.AD_SLOT_CREATED, (slot) => {
 			bidders.updateSlotTargeting(slot.getSlotName());
 		});
-		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
-		this.callBidders();
+		events.on(events.PAGE_CHANGE_EVENT, Ads.callBidders);
+		Ads.callBidders();
 
 		this.startAdEngine();
 
@@ -65,7 +65,7 @@ class Ads {
 		this.onReadyCallbacks = [];
 	}
 
-	callBidders() {
+	static callBidders() {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.requestBids({
@@ -94,7 +94,7 @@ class Ads {
 		}
 	}
 
-	getInstantGlobals() {
+	static getInstantGlobals() {
 		return new Promise(resolve => window.getInstantGlobals(resolve));
 	}
 
@@ -106,11 +106,11 @@ class Ads {
 		}
 	}
 
-	isSlotApplicable(slotName) {
+	static isSlotApplicable(slotName) {
 		return !!SLOT_NAME_MAP[slotName];
 	}
 
-	getAdSlotComponentAttributes(slotName) {
+	static getAdSlotComponentAttributes(slotName) {
 		const { context } = window.Wikia.adEngine;
 
 		let name = SLOT_NAME_MAP[slotName] || slotName;
@@ -129,13 +129,13 @@ class Ads {
 		};
 	}
 
-	isArticleSectionCollapsed() {
+	static isArticleSectionCollapsed() {
 		const { context } = window.Wikia.adEngine;
 
 		return context.get('options.mobileSectionsCollapse');
 	}
 
-	pushSlotToQueue(name) {
+	static pushSlotToQueue(name) {
 		const { context } = window.Wikia.adEngine;
 
 		const slotId = SLOT_NAME_MAP[name] || name;
@@ -151,7 +151,7 @@ class Ads {
 			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
-		if (this.events) {
+		if (this.events && this.showAds) {
 			context.set('state.adStack', []);
 			this.events.pageChange(Object.assign(defaultOptions, options));
 			this.engine.runAdQueue();

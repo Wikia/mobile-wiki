@@ -1,20 +1,20 @@
 import { notEmpty, map } from '@ember/object/computed';
 import Component from '@ember/component';
-import { track, trackActions } from '../utils/track';
 import InViewportMixin from 'ember-in-viewport';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(InViewportMixin, {
 	classNames: ['contributors'],
 	users: null,
 
 	isVisible: notEmpty('users'),
-	avatars: map('users', (user) => {
-		return {
+	avatars: map('users', user => (
+		{
 			src: user.avatar,
 			alt: user.name,
 			link: user.url,
-		};
-	}),
+		}
+	)),
 
 	init() {
 		this._super(...arguments);

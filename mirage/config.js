@@ -1,10 +1,10 @@
-import filePageFixture from './fixtures/file-page';
-import blogPostPageFixture from './fixtures/blog-post';
-import searchSuggestionsFixture from './fixtures/search-suggestion';
-import articleCommentsFixture from './fixtures/article-comments';
-import testAFixture from './fixtures/test-page';
 import articleFixture from './fixtures/article';
+import articleCommentsFixture from './fixtures/article-comments';
+import blogPostPageFixture from './fixtures/blog-post';
+import filePageFixture from './fixtures/file-page';
 import jwplayerVideoFixture from './fixtures/jwplayer-video';
+import searchSuggestionsFixture from './fixtures/search-suggestion';
+import testAFixture from './fixtures/test-page';
 
 /**
  * @returns {void}
@@ -97,7 +97,5 @@ export default function () {
 		throw new Error(`Controller or method response isn't yet mocked`);
 	});
 
-	this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => {
-		return jwplayerVideoFixture;
-	});
+	this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);
 }

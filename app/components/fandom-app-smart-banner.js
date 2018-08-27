@@ -2,9 +2,9 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
+import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import { trackActions } from '../utils/track';
 import { system } from '../utils/browser';
-import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import { inGroup } from '../modules/abtest';
 
 export default Component.extend(RespondsToScroll, {
@@ -25,12 +25,10 @@ export default Component.extend(RespondsToScroll, {
 			: null;
 	}),
 
-	link: computed(() => {
-		return system === 'ios'
-			? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
-			: 'https://play.google.com/store/apps/details'
-			+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner';
-	}),
+	link: computed(() => (system === 'ios'
+		? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
+		: 'https://play.google.com/store/apps/details'
+			+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
 
 	storeName: computed(function () {
 		return system === 'ios'

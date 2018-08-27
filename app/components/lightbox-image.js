@@ -68,8 +68,8 @@ export default Component.extend(
 			doubleTap(event) {
 				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 				if (
-					!this.isZoomed &&
-					(!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
+					!this.isZoomed
+					&& (!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
 				) {
 					const scale = 3;
 
@@ -123,12 +123,12 @@ export default Component.extend(
 			return htmlSafe(`-webkit-${transform}${transform}`);
 		}),
 
-		viewportSize: computed(() => {
-			return {
+		viewportSize: computed(() => (
+			{
 				width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 				height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-			};
-		}),
+			}
+		)),
 
 		/**
 		 * calculates current scale for zooming

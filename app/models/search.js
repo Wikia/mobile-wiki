@@ -1,8 +1,8 @@
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
-import fetch from '../utils/mediawiki-fetch';
 import { htmlSafe } from '@ember/string';
+import fetch from '../utils/mediawiki-fetch';
 
 export default EmberObject.extend({
 	batch: 1,
@@ -84,23 +84,21 @@ export default EmberObject.extend({
 
 					return this;
 				} else {
-					return response.json().then((data) => {
-						// update state on success
-						return this.update(data);
-					});
+					// update state on success
+					return response.json().then(data => this.update(data));
 				}
 			});
 	},
 
 	update(state) {
 		this.setProperties({
-			items: this.items.concat(state.items.map((item) => {
-				return {
+			items: this.items.concat(state.items.map(item => (
+				{
 					title: item.title,
 					snippet: htmlSafe(item.snippet),
 					prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url)
-				};
-			})),
+				}
+			))),
 			loading: false,
 			totalItems: state.total,
 			totalBatches: state.batches,
