@@ -81,6 +81,13 @@ if (this.get('fastboot.isFastBoot')) {
 
 // use your data
 ```
+### Sandboxes
+Mobile-wiki is deployed to sandboxes using the [mobile-wiki-deploy-sandbox](http://jenkins.wikia-prod:8080/job/mobile-wiki-deploy-sandbox/) jenkins job.
+
+If you're in the #iris-tech channel, you can also make use of `sandot` which is a chat bot with the following commands:
+- `sandbot status` - current status
+- `sandbot taking <name of sandbox>` to reserve one
+- `sandbot releasing <name-of sandbox>` to release one
 
 ## See also
 
