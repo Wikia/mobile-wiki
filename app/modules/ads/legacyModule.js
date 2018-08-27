@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import config from '../../config/environment';
