@@ -3,13 +3,13 @@ const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 
 // set maximum allowed sizes for each asset in kilobytes
 const assetsSizes = {
-	'app.css': 85,
-	'design-system.svg': 33,
-	'lazy.css': 63,
-	'mobile-wiki.js': 436,
-	'vendor.js': 678,
+	'app.css': 84,
+	'design-system.svg': 31,
+	'lazy.css': 61,
+	'mobile-wiki.js': 426,
+	'vendor.js': 643,
 	'jwplayer/index.css': 19,
-	'jwplayer/wikiajwplayer.js': 55
+	'jwplayer/wikiajwplayer.js': 54
 };
 
 function getFileSize(path) {
