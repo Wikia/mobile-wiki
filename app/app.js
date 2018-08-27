@@ -18,7 +18,7 @@ const App = Application.extend({
 	rootElement: '#ember-container',
 	modulePrefix: config.modulePrefix,
 	podModulePrefix: config.podModulePrefix,
-	Resolver
+	Resolver,
 });
 
 loadInitializers(App, config.modulePrefix);

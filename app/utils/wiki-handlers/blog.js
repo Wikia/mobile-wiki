@@ -8,5 +8,5 @@ export default {
 	viewName: 'blog',
 	controllerName: 'blog',
 	// hooks
-	afterModel: ArticleHandler.afterModel
+	afterModel: ArticleHandler.afterModel,
 };

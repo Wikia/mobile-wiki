@@ -7,20 +7,20 @@ module('Unit | Utility | mediawiki namespace', () => {
 			{
 				contentNamespaces: [0, 112],
 				namespace: 112,
-				expected: true
+				expected: true,
 			}, {
 				contentNamespaces: [0, 112],
 				namespace: 14,
-				expected: false
+				expected: false,
 			}, {
 				contentNamespaces: [0, '112'],
 				namespace: 112,
-				expected: true
+				expected: true,
 			}, {
 				contentNamespaces: [0, 112],
 				namespace: 0,
-				expected: true
-			}
+				expected: true,
+			},
 		];
 
 		testCases.forEach(({ contentNamespaces, namespace, expected }) => {

@@ -18,8 +18,8 @@ const config = {
 	source: 'fandom',
 	opts: {
 		resultType: 'cross-domain',
-		domainType: 'fandom.wikia.com'
-	}
+		domainType: 'fandom.wikia.com',
+	},
 };
 
 export default Component.extend(
@@ -45,10 +45,10 @@ export default Component.extend(
 					top: viewportTolerance,
 					bottom: viewportTolerance,
 					left: 0,
-					right: 0
+					right: 0,
 				},
 				intersectionThreshold: 0,
-				listRendered: defer()
+				listRendered: defer(),
 			});
 
 			this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
@@ -62,13 +62,13 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'recirculation',
-					label: labelParts.join('=')
+					label: labelParts.join('='),
 				});
 
 				run.later(() => {
 					window.location.assign(post.url);
 				}, 200);
-			}
+			},
 		},
 
 		fetchLiftIgniterData() {
@@ -82,7 +82,7 @@ export default Component.extend(
 						.map((item) => {
 							item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
 								mode: Thumbnailer.mode.scaleToWidth,
-								width: normalizeThumbWidth(window.innerWidth)
+								width: normalizeThumbWidth(window.innerWidth),
 							});
 
 							return item;
@@ -93,7 +93,7 @@ export default Component.extend(
 							liftigniter.setupTracking(
 								this.element.querySelectorAll('.recirculation-prefooter__item'),
 								config.widget,
-								'LI'
+								'LI',
 							);
 							this.get('listRendered').resolve();
 						}
@@ -103,7 +103,7 @@ export default Component.extend(
 			track({
 				action: trackActions.impression,
 				category: 'recirculation',
-				label: 'footer'
+				label: 'footer',
 			});
 		},
 
@@ -118,5 +118,5 @@ export default Component.extend(
 				}
 			});
 		},
-	}
+	},
 );

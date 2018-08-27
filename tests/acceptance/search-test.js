@@ -4,7 +4,7 @@ import {
 	fillIn,
 	triggerKeyEvent,
 	visit,
-	currentURL
+	currentURL,
 
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
@@ -26,7 +26,7 @@ module('Acceptance | search', (hooks) => {
 		assert.dom('.search-results__list .wikia-card').exists({ count: 4 });
 		assert.dom('.search-results__list .wikia-card__title').hasText(
 			'Result 1',
-			'First title is correctly displayed'
+			'First title is correctly displayed',
 		);
 	});
 });

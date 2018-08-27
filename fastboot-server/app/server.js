@@ -9,7 +9,7 @@ const server = new FastBootAppServer({
 	beforeMiddleware: middlewares.before,
 	afterMiddleware: middlewares.after,
 	distPath: config.distPath,
-	gzip: true
+	gzip: true,
 });
 
 server.start();

@@ -16,7 +16,7 @@ import {
 	disableCache,
 	setResponseCaching,
 	CachingInterval,
-	CachingPolicy
+	CachingPolicy,
 } from '../utils/fastboot-caching';
 import { track, trackActions } from '../utils/track';
 import ApplicationModel from '../models/application';
@@ -46,11 +46,11 @@ export default Route.extend(
 				refreshModel: false,
 			},
 			noexternals: {
-				replace: true
+				replace: true,
 			},
 			uselang: {
-				replace: true
-			}
+				replace: true,
+			},
 		},
 		noexternals: null,
 
@@ -81,7 +81,7 @@ export default Route.extend(
 					if (error instanceof WikiVariablesRedirectError) {
 						fastboot.get('response.headers').set(
 							'location',
-							error.additionalData[0].redirectLocation
+							error.additionalData[0].redirectLocation,
 						);
 						fastboot.set('response.statusCode', 302);
 					} else {
@@ -171,7 +171,7 @@ export default Route.extend(
 						enabled: true,
 						cachingPolicy: CachingPolicy.Public,
 						varnishTTL: CachingInterval.standard,
-						browserTTL: CachingInterval.disabled
+						browserTTL: CachingInterval.disabled,
 					});
 				}
 			}
@@ -186,7 +186,7 @@ export default Route.extend(
 			if (!this.get('fastboot.isFastBoot') && window._kiq) {
 				window._kiq.push(['set', {
 					isLoggedIn: this.get('currentUser.isAuthenticated'),
-					contentLanguage: this.get('wikiVariables.language.content')
+					contentLanguage: this.get('wikiVariables.language.content'),
 				}]);
 			}
 		},
@@ -280,7 +280,7 @@ export default Route.extend(
 					title,
 					target.hash,
 					target.href,
-					target.search
+					target.search,
 				);
 
 				/**
@@ -289,7 +289,7 @@ export default Route.extend(
 				if (trackingCategory) {
 					track({
 						action: trackActions.click,
-						category: trackingCategory
+						category: trackingCategory,
 					});
 				}
 
@@ -308,7 +308,7 @@ export default Route.extend(
 					 * so that it will replace whatever is currently in the window.
 					 */
 					const domainRegex = new RegExp(
-						`^https?:\\/\\/[^\\/]+\\.${config.APP.baseDomainRegex}\\/.*$`
+						`^https?:\\/\\/[^\\/]+\\.${config.APP.baseDomainRegex}\\/.*$`,
 					);
 
 					if (info.url.charAt(0) === '#' || info.url.match(domainRegex)) {
@@ -320,7 +320,7 @@ export default Route.extend(
 					// Reaching this clause means something is probably wrong.
 					this.logger.error('Unable to open link', target.href);
 				}
-			}
+			},
 		},
 
 		injectScriptsFastbootOnly(wikiVariables, queryParams) {
@@ -336,6 +336,6 @@ export default Route.extend(
 			const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');
 
 			bodyBottomComponent.appendTo(document.body);
-		}
-	}
+		},
+	},
 );

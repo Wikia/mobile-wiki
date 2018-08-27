@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
@@ -8,7 +9,7 @@ const SLOT_NAME_MAP = {
 	MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
 	MOBILE_IN_CONTENT: 'mobile_in_content',
 	MOBILE_PREFOOTER: 'mobile_prefooter',
-	BOTTOM_LEADERBOARD: 'bottom_leaderboard'
+	BOTTOM_LEADERBOARD: 'bottom_leaderboard',
 };
 
 class Ads {
@@ -35,7 +36,7 @@ class Ads {
 
 	init(mediaWikiAdsContext = {}) {
 		if (!this.isLoaded) {
-			Ads.getInstantGlobals()
+			this.getInstantGlobals()
 				.then((instantGlobals) => {
 					M.trackingQueue.push(isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
 				});
@@ -55,8 +56,8 @@ class Ads {
 		events.on(events.AD_SLOT_CREATED, (slot) => {
 			bidders.updateSlotTargeting(slot.getSlotName());
 		});
-		events.on(events.PAGE_CHANGE_EVENT, Ads.callBidders);
-		Ads.callBidders();
+		events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
+		this.callBidders();
 
 		this.startAdEngine();
 
@@ -65,11 +66,11 @@ class Ads {
 		this.onReadyCallbacks = [];
 	}
 
-	static callBidders() {
+	callBidders() {
 		const { bidders } = window.Wikia.adProductsBidders;
 
 		bidders.requestBids({
-			responseListener: biddersDelay.markAsReady
+			responseListener: biddersDelay.markAsReady,
 		});
 	}
 
@@ -94,7 +95,7 @@ class Ads {
 		}
 	}
 
-	static getInstantGlobals() {
+	getInstantGlobals() {
 		return new Promise(resolve => window.getInstantGlobals(resolve));
 	}
 
@@ -106,11 +107,11 @@ class Ads {
 		}
 	}
 
-	static isSlotApplicable(slotName) {
+	isSlotApplicable(slotName) {
 		return !!SLOT_NAME_MAP[slotName];
 	}
 
-	static getAdSlotComponentAttributes(slotName) {
+	getAdSlotComponentAttributes(slotName) {
 		const { context } = window.Wikia.adEngine;
 
 		let name = SLOT_NAME_MAP[slotName] || slotName;
@@ -125,30 +126,30 @@ class Ads {
 			disableManualInsert: slotDefinition.disableManualInsert,
 			isAboveTheFold: slotDefinition.aboveTheFold,
 			name,
-			hiddenClassName: 'hide'
+			hiddenClassName: 'hide',
 		};
 	}
 
-	static isArticleSectionCollapsed() {
+	isArticleSectionCollapsed() {
 		const { context } = window.Wikia.adEngine;
 
 		return context.get('options.mobileSectionsCollapse');
 	}
 
-	static pushSlotToQueue(name) {
+	pushSlotToQueue(name) {
 		const { context } = window.Wikia.adEngine;
 
 		const slotId = SLOT_NAME_MAP[name] || name;
 
 		context.push('state.adStack', {
-			id: slotId
+			id: slotId,
 		});
 	}
 
 	onTransition(options) {
 		const { context } = window.Wikia.adEngine;
 		const defaultOptions = {
-			doNotDestroyGptSlots: true // allow mobile-wiki to destroy GPT slots on one's own
+			doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
 		};
 
 		if (this.events && this.showAds) {
@@ -165,7 +166,7 @@ class Ads {
 		if (this.events) {
 			this.events.pageRender({
 				adContext: mediaWikiAdsContext,
-				instantGlobals: this.instantGlobals
+				instantGlobals: this.instantGlobals,
 			});
 		}
 	}

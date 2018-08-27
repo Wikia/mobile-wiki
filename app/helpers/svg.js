@@ -23,7 +23,7 @@ export default helper((params, options) => {
 		'role',
 		'viewBox',
 		'width',
-		'height'
+		'height',
 	];
 	const name = params[0];
 

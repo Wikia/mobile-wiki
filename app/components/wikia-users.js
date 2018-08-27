@@ -42,7 +42,7 @@ export default Component.extend(InViewportMixin, {
 		track({
 			action: trackActions.click,
 			category: 'contributors',
-			label: 'open-user'
+			label: 'open-user',
 		});
-	}
+	},
 });

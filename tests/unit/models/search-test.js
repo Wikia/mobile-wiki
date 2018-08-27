@@ -24,38 +24,38 @@ module('Unit | Model | search result page', (hooks) => {
 						{
 							title: 'test',
 							snippet: '<div>html</div>test',
-							url: 'http://test.wikia.com/wiki/Test'
+							url: 'http://test.wikia.com/wiki/Test',
 						},
 						{
 							title: 'test sub dir',
 							snippet: '<div>html</div>test',
-							url: 'http://test.wikia.com/wiki/Test/1'
+							url: 'http://test.wikia.com/wiki/Test/1',
 						},
 						{
 							title: 'test not canonical',
 							snippet: '<div>html</div>test',
-							url: 'http://test.wikia.com/test_2'
-						}
-					]
+							url: 'http://test.wikia.com/test_2',
+						},
+					],
 				},
 				expected: [
 					{
 						prefixedTitle: 'Test',
 						snippet: htmlSafe('<div>html</div>test'),
-						title: 'test'
+						title: 'test',
 					},
 					{
 						prefixedTitle: 'Test/1',
 						snippet: htmlSafe('<div>html</div>test'),
-						title: 'test sub dir'
+						title: 'test sub dir',
 					},
 					{
 						prefixedTitle: 'test_2',
 						snippet: htmlSafe('<div>html</div>test'),
-						title: 'test not canonical'
-					}
-				]
-			}
+						title: 'test not canonical',
+					},
+				],
+			},
 		];
 
 		cases.forEach((testCase) => {
@@ -73,18 +73,18 @@ module('Unit | Model | search result page', (hooks) => {
 				mock: {
 					total: 0,
 					batches: 1,
-					items: []
+					items: [],
 				},
-				expected: false
+				expected: false,
 			},
 			{
 				mock: {
 					total: 0,
 					batches: 2,
-					items: []
+					items: [],
 				},
-				expected: true
-			}
+				expected: true,
+			},
 		];
 		const search = SearchModel.create();
 
@@ -107,19 +107,19 @@ module('Unit | Model | search result page', (hooks) => {
 				{
 					title: 'test',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/wiki/Test'
+					url: 'http://test.wikia.com/wiki/Test',
 				},
 				{
 					title: 'test sub dir',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/wiki/Test/1'
+					url: 'http://test.wikia.com/wiki/Test/1',
 				},
 				{
 					title: 'test not canonical',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/test_2'
-				}
-			]
+					url: 'http://test.wikia.com/test_2',
+				},
+			],
 		});
 		search.search('test');
 
@@ -136,16 +136,16 @@ module('Unit | Model | search result page', (hooks) => {
 				{
 					title: '1',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/wiki/Test'
-				}
-			]
+					url: 'http://test.wikia.com/wiki/Test',
+				},
+			],
 		});
 		assert.deepEqual(search.items, [
 			{
 				prefixedTitle: 'Test',
 				snippet: htmlSafe('<div>html</div>test'),
-				title: '1'
-			}
+				title: '1',
+			},
 		]);
 
 		search.update({
@@ -155,31 +155,31 @@ module('Unit | Model | search result page', (hooks) => {
 				{
 					title: '2',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/wiki/Test/1'
+					url: 'http://test.wikia.com/wiki/Test/1',
 				},
 				{
 					title: '3',
 					snippet: '<div>html</div>test',
-					url: 'http://test.wikia.com/wiki/Test_2'
-				}
-			]
+					url: 'http://test.wikia.com/wiki/Test_2',
+				},
+			],
 		});
 		assert.deepEqual(search.items, [
 			{
 				prefixedTitle: 'Test',
 				snippet: htmlSafe('<div>html</div>test'),
-				title: '1'
+				title: '1',
 			},
 			{
 				prefixedTitle: 'Test/1',
 				snippet: htmlSafe('<div>html</div>test'),
-				title: '2'
+				title: '2',
 			},
 			{
 				prefixedTitle: 'Test_2',
 				snippet: htmlSafe('<div>html</div>test'),
-				title: '3'
-			}
+				title: '3',
+			},
 		]);
 	});
 
@@ -197,7 +197,7 @@ module('Unit | Model | search result page', (hooks) => {
 				host: 'fallout.wikia.com',
 			},
 			totalBatches: 2,
-			query: 'testQuery'
+			query: 'testQuery',
 		});
 		const fetchSpy = sinon.spy(search, 'fetch');
 

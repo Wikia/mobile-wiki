@@ -16,7 +16,7 @@ import { normalizeToUnderscore } from '../utils/string';
 import { setTrackContext, trackPageView } from '../utils/track';
 import {
 	namespace as mediawikiNamespace,
-	isContentNamespace
+	isContentNamespace,
 } from '../utils/mediawiki-namespace';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import { logError } from '../modules/event-logger';
@@ -41,8 +41,8 @@ export default Route.extend(
 		queryParams: {
 			page: {
 				// See controllers/category#actions.loadPage
-				refreshModel: false
-			}
+				refreshModel: false,
+			},
 		},
 
 		redirectEmptyTarget: false,
@@ -89,7 +89,7 @@ export default Route.extend(
 			const modelParams = {
 				host,
 				title: transition.data.title,
-				wiki: wikiVariables.get('dbName')
+				wiki: wikiVariables.get('dbName'),
 			};
 
 			if (params.page) {
@@ -148,7 +148,7 @@ export default Route.extend(
 								wikiId: this.get('wikiVariables.id'),
 								host: this.get('wikiVariables.host'),
 								fastboot,
-								wikiUrls
+								wikiUrls,
 							});
 						}
 					});
@@ -178,8 +178,8 @@ export default Route.extend(
 							query: extend(
 								{},
 								transition.state.queryParams,
-								{ useskin: 'oasis' }
-							)
+								{ useskin: 'oasis' },
+							),
 						});
 					}
 
@@ -206,7 +206,7 @@ export default Route.extend(
 			if (handler) {
 				this.render(handler.viewName, {
 					controller: handler.controllerName,
-					model
+					model,
 				});
 			}
 		},
@@ -245,7 +245,7 @@ export default Route.extend(
 				if (this.redirectEmptyTarget) {
 					this.controllerFor('application').addAlert({
 						message: this.i18n.t('article.redirect-empty-target'),
-						type: 'warning'
+						type: 'warning',
 					});
 				}
 
@@ -276,7 +276,7 @@ export default Route.extend(
 			 */
 			updateDynamicHeadTags() {
 				this.setDynamicHeadTags(this.get('controller.model'));
-			}
+			},
 		},
 
 		/**
@@ -316,7 +316,7 @@ export default Route.extend(
 				description: model.get('description'),
 				robots: 'index,follow',
 				canonical: pageFullUrl,
-				amphtml: model.get('amphtml')
+				amphtml: model.get('amphtml'),
 			};
 
 			if (pageUrl) {
@@ -357,10 +357,10 @@ export default Route.extend(
 
 			setTrackContext({
 				a: model.get('id'),
-				n: namespace
+				n: namespace,
 			});
 
 			trackPageView(this.initialPageView.isInitialPageView(), uaDimensions);
-		}
-	}
+		},
+	},
 );

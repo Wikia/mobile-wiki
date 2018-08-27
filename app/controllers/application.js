@@ -15,15 +15,15 @@ export default Controller.extend(
 
 		queryParams: ['file',
 			{
-				noAds: 'noads'
+				noAds: 'noads',
 			},
 			{
-				mobileApp: 'mobile-app'
+				mobileApp: 'mobile-app',
 			},
 			// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 			{
-				commentsPage: 'comments_page'
-			}
+				commentsPage: 'comments_page',
+			},
 		],
 
 		applicationWrapperClassNames: null,
@@ -39,7 +39,7 @@ export default Controller.extend(
 				applicationWrapperClassNames: [],
 				domain: this.get('wikiVariables.dbName')
 				|| window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-				language: this.get('wikiVariables.language')
+				language: this.get('wikiVariables.language'),
 			});
 
 			this._super();
@@ -63,7 +63,7 @@ export default Controller.extend(
 
 			toggleSiteHeadShadow(visible) {
 				this.set('siteHeadShadow', visible);
-			}
-		}
-	}
+			},
+		},
+	},
 );

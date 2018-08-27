@@ -23,8 +23,8 @@ export default EmberObject.extend({
 			query: {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup',
-				title
-			}
+				title,
+			},
 		});
 		const formData = new FastBoot.require('form-data')();
 
@@ -36,25 +36,25 @@ export default EmberObject.extend({
 
 		return fetch(url, {
 			method: 'POST',
-			body: formData
+			body: formData,
 		})
 			.then(response => response.json())
 			.then(({ data }) => {
 				// Make sure media is in the same format as on article page
 				// otherwise hero image won't work correctly
 				data.article.media = {
-					media: data.article.media
+					media: data.article.media,
 				};
 				data.article.details = {
 					ns: 0,
 					title,
 					revision: {},
 					type: 'article',
-					comments: 0
+					comments: 0,
 				};
 				data.article.displayTitle = title;
 
 				return data.article;
 			});
-	}
+	},
 });

@@ -119,7 +119,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 			s0: [context.get('targeting.s0') || ''],
 			s1: [s1],
 			s2: [context.get('targeting.s2') || ''],
-			lang: [context.get('targeting.wikiLanguage') || 'en']
+			lang: [context.get('targeting.wikiLanguage') || 'en'],
 		});
 
 		context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
@@ -167,5 +167,5 @@ function init() {
 
 export default {
 	configure,
-	init
+	init,
 };

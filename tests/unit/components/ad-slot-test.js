@@ -6,7 +6,7 @@ import { setupTest } from 'ember-qunit';
 import LegacyAdsModule from 'mobile-wiki/modules/ads/legacyModule';
 
 const adsStub = Service.extend({
-	module: LegacyAdsModule.getInstance()
+	module: LegacyAdsModule.getInstance(),
 });
 
 module('Unit | Component | ad slot', (hooks) => {
@@ -22,28 +22,28 @@ module('Unit | Component | ad slot', (hooks) => {
 			{
 				name: 'test',
 				expected: 'test',
-				description: 'No change'
+				description: 'No change',
 			},
 			{
 				name: 'Test',
 				expected: 'test',
-				description: 'Lower case'
+				description: 'Lower case',
 			},
 			{
 				name: 'Test ',
 				expected: 'test-',
-				description: 'Trailing space'
+				description: 'Trailing space',
 			},
 			{
 				name: 'Кириллица с пробелами',
 				expected: 'кириллица-с-пробелами',
-				description: 'Cyrillic with spaces'
+				description: 'Cyrillic with spaces',
 			},
 			{
 				name: 'ويكيا العربية',
 				expected: 'ويكيا-العربية',
-				description: 'Arabic'
-			}
+				description: 'Arabic',
+			},
 		];
 
 		testCases.forEach((testCase) => {
@@ -61,29 +61,29 @@ module('Unit | Component | ad slot', (hooks) => {
 				callTwice: false,
 				uapCallbackCount: 1,
 				noUapCallbackCount: 0,
-				message: 'uap callback called once'
+				message: 'uap callback called once',
 			},
 			{
 				eventName: 'wikia.not_uap',
 				callTwice: false,
 				uapCallbackCount: 0,
 				noUapCallbackCount: 1,
-				message: 'no uap callback called once'
+				message: 'no uap callback called once',
 			},
 			{
 				eventName: 'wikia.uap',
 				callTwice: true,
 				uapCallbackCount: 2,
 				noUapCallbackCount: 0,
-				message: 'uap callback called twice'
+				message: 'uap callback called twice',
 			},
 			{
 				eventName: 'wikia.not_uap',
 				callTwice: true,
 				uapCallbackCount: 0,
 				noUapCallbackCount: 2,
-				message: 'no uap callback called twice'
-			}
+				message: 'no uap callback called twice',
+			},
 		];
 
 		testCases.forEach((testCase) => {
@@ -108,10 +108,10 @@ module('Unit | Component | ad slot', (hooks) => {
 			{
 				properties: {
 					isAboveTheFold: true,
-					name: 'Test ad 1'
+					name: 'Test ad 1',
 				},
 				expectedResult: true,
-				message: 'Element added to slot because no noAds property was passed'
+				message: 'Element added to slot because no noAds property was passed',
 			}, {
 				properties: {
 					isAboveTheFold: true,
@@ -119,7 +119,7 @@ module('Unit | Component | ad slot', (hooks) => {
 				},
 				noAds: true,
 				expectedResult: false,
-				message: 'Element not added to slot because of noAds property value set to true'
+				message: 'Element not added to slot because of noAds property value set to true',
 			}, {
 				properties: {
 					isAboveTheFold: true,
@@ -127,8 +127,8 @@ module('Unit | Component | ad slot', (hooks) => {
 				},
 				noAds: false,
 				expectedResult: true,
-				message: 'Element added to slot because of noAds property value set to false'
-			}
+				message: 'Element added to slot because of noAds property value set to false',
+			},
 		];
 
 		testCases.forEach((testCase) => {
@@ -146,7 +146,7 @@ module('Unit | Component | ad slot', (hooks) => {
 			assert.equal(
 				pushSlotSpy.called,
 				testCase.expectedResult,
-				testCase.message
+				testCase.message,
 			);
 
 			component.get('ads.module').pushSlotToQueue.restore();

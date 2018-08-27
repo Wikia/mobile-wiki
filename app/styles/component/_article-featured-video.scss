@@ -97,6 +97,11 @@
 			width: 100%;
 		}
 
+		// Global nav with partner slot is higher
+		.has-partner-slot ~ .page-wrapper .is-on-scroll-active & {
+			top: 75px;
+		}
+
 		.jw-state-paused & {
 			background-color: transparent;
 			box-shadow: none;

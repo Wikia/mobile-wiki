@@ -65,5 +65,5 @@ export default Component.extend(
 				window.twttr.widgets.createTimeline(data.widgetId, this.element, data);
 			}
 		},
-	}
+	},
 );

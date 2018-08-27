@@ -29,7 +29,7 @@ export default EmberObject.extend(
 			const queryString = getQueryString({
 				forumId: categories instanceof Array ? categories : [categories],
 				limit,
-				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date'
+				sortKey: sortBy === 'trending' ? 'trending' : 'creation_date',
 			});
 
 			return fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/threads${queryString}`))
@@ -56,10 +56,10 @@ export default EmberObject.extend(
 						host: this.get('wikiVariables.host'),
 						namespace: 'User',
 						query: {
-							useskin: 'oasis'
+							useskin: 'oasis',
 						},
-						title: createdBy.name
-					})
+						title: createdBy.name,
+					}),
 				},
 				creationTimestamp: typeof creationDate === 'string'
 					? (new Date(creationDate)).getTime() / 1000 : creationDate.epochSecond,
@@ -124,8 +124,8 @@ export default EmberObject.extend(
 			track({
 				category: 'MobileWebDiscussions',
 				action: hasUpvoted ? 'UndoUpvotePost' : 'UpvotePost',
-				label: window.location.origin
+				label: window.location.origin,
 			});
-		}
-	}
+		},
+	},
 );

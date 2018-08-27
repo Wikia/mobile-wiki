@@ -8,7 +8,7 @@ import { run } from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
 import {
 	getRenderComponentFor,
-	queryPlaceholders
+	queryPlaceholders,
 } from '../utils/render-component';
 import { track, trackActions } from '../utils/track';
 import toArray from '../utils/toArray';
@@ -130,7 +130,7 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'article',
-					label
+					label,
 				});
 			}
 
@@ -153,7 +153,7 @@ export default Component.extend(
 		},
 
 		openLightbox(figure) {
-			const gallery = figure.closest('.article-media-gallery');
+			const gallery = figure.closest('.article-media-gallery, .gallery');
 
 			let lightboxModel;
 
@@ -292,17 +292,17 @@ export default Component.extend(
 						attrs: {
 							infoboxHTML: element.innerHTML,
 							height: element.offsetHeight,
-							pageTitle: this.displayTitle
+							pageTitle: this.displayTitle,
 						},
-						element
-					})
+						element,
+					}),
 				);
 			});
 		},
 
 		renderDataComponents(element) {
 			this.renderedComponents = this.renderedComponents.concat(
-				queryPlaceholders(element).map(this.renderComponent)
+				queryPlaceholders(element).map(this.renderComponent),
 			);
 		},
 		/**
@@ -328,10 +328,10 @@ export default Component.extend(
 					this.renderComponent({
 						name: componentName,
 						attrs: {
-							data: widgetData
+							data: widgetData,
 						},
-						element
-					})
+						element,
+					}),
 				);
 			}
 		},
@@ -502,6 +502,6 @@ export default Component.extend(
 		uncollapseSections() {
 			toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
 				.forEach(header => this.toogleCollapsibleSection(header));
-		}
-	}
+		},
+	},
 );

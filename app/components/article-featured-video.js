@@ -109,7 +109,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 				category: 'featured-video',
 				label: this.get('currentVideoDetails.username'),
 			});
-		}
+		},
 	},
 
 	/**
@@ -166,15 +166,15 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 			selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
 			adTrackingParams: {
 				adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
-				slotName: 'FEATURED'
+				slotName: 'FEATURED',
 			},
 			containerId: this.videoContainerId,
 			noAds: this.get('ads.noAds'),
 			onCreate: this.onCreate.bind(this),
-			lang: this.get('wikiVariables.language.content')
+			lang: this.get('wikiVariables.language.content'),
 		};
 		const data = extend({}, model, {
-			jsParams
+			jsParams,
 		});
 		const videoLoader = new VideoLoader(data);
 
@@ -200,7 +200,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		window.Cookies.set(cookieName, cookieValue, {
 			expires: this.playerCookieExpireDays,
 			path: '/',
-			domain: config.APP.cookieDomain
+			domain: config.APP.cookieDomain,
 		});
 	},
 
@@ -214,8 +214,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 		}
 
 		const currentScrollPosition = window.pageYOffset;
-		// keep in sync with wds-global-navigation height
-		const globalNavigationHeight = 55;
+		const globalNavigationHeight = document.querySelector('.wds-global-navigation').offsetHeight;
 		const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
 		const isOnScrollActive = this.isOnScrollActive;
 		const isInLandscapeMode = this.isInLandscapeMode();
@@ -246,5 +245,5 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
 	isInLandscapeMode() {
 		return Math.abs(window.orientation) === 90;
-	}
+	},
 });

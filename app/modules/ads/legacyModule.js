@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import config from '../../config/environment';
@@ -69,24 +70,24 @@ class Ads {
 		this.GASettings = {
 			babDetector: {
 				name: 'babdetector',
-				dimension: 6
-			}
+				dimension: 6,
+			},
 		};
 		this.adSlotsConfig = {
 			MOBILE_TOP_LEADERBOARD: {
 				// ATF slot is pushed immediately (without any delay/in single request with other slots)
-				isAboveTheFold: true
+				isAboveTheFold: true,
 			},
 			MOBILE_PREFOOTER: {
-				disableManualInsert: true
-			}
+				disableManualInsert: true,
+			},
 		};
 		this.adLogicPageParams = null;
 		this.googleTagModule = null;
 		this.onReadyCallbacks = [];
 		this.adsData = {
 			minZerothSectionLength: 700,
-			minNumberOfSections: 4
+			minNumberOfSections: 4,
 		};
 	}
 
@@ -131,7 +132,7 @@ class Ads {
 				'ext.wikia.adEngine.wad.babDetection',
 				window.require.optional('wikia.articleVideo.featuredVideo.ads'),
 				window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
-				'wikia.krux'
+				'wikia.krux',
 			], (
 				adEngineBridge,
 				adContextModule,
@@ -146,7 +147,7 @@ class Ads {
 				babDetectionModule,
 				jwPlayerAds,
 				jwPlayerMoat,
-				krux
+				krux,
 			) => {
 				this.adEngineBridge = adEngineBridge;
 				this.adConfigMobile = adConfigMobile;
@@ -199,7 +200,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	static dispatchEvent(name, data) {
+	dispatchEvent(name, data) {
 		const event = document.createEvent('CustomEvent');
 
 		event.initCustomEvent(`adengine.${name}`, true, true, data || {});
@@ -331,7 +332,7 @@ class Ads {
 	 * @param {*} adsContext
 	 * @returns {void}
 	 */
-	static turnOffAdsForLoggedInUsers(adsContext) {
+	turnOffAdsForLoggedInUsers(adsContext) {
 		// TODO: Refactor/remove while working on ADEN-2189
 		adsContext = adsContext || {};
 		if (adsContext.user && adsContext.user.isAuthenticated) {
@@ -375,7 +376,7 @@ class Ads {
 		return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
 	}
 
-	static isBottomLeaderboardApplicable() {
+	isBottomLeaderboardApplicable() {
 		return !!document.querySelector('.wds-global-footer');
 	}
 
@@ -393,7 +394,7 @@ class Ads {
 		this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
 		this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
 		this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
-		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', Ads.isBottomLeaderboardApplicable());
+		this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());
 		this.slotsContext.setStatus('INVISIBLE_HIGH_IMPACT_2', !this.getTargetingValue('hasFeaturedVideo'));
 		this.slotsContext.setStatus('FEATURED', this.getTargetingValue('hasFeaturedVideo'));
 	}
@@ -412,7 +413,7 @@ class Ads {
 	reload(adsContext, onContextLoadCallback = null) {
 		let delayEnabled = false;
 
-		Ads.turnOffAdsForLoggedInUsers(adsContext);
+		this.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;
@@ -443,7 +444,7 @@ class Ads {
 						action: 'impression',
 						label: Ads.previousDetectionResults.babDetector.value ? 'Yes' : 'No',
 						value: 0,
-						trackingMethod: 'internal'
+						trackingMethod: 'internal',
 					});
 				} else if (adsContext.opts && adsContext.opts.babDetectionMobile) {
 					this.adEngineBridge.checkAdBlocking(this.babDetectionModule);
@@ -465,11 +466,11 @@ class Ads {
 			disableManualInsert: !!config.disableManualInsert,
 			isAboveTheFold: !!config.isAboveTheFold,
 			name: slotName,
-			hiddenClassName: 'hidden'
+			hiddenClassName: 'hidden',
 		};
 	}
 
-	static finishAtfQueue() {
+	finishAtfQueue() {
 		// Do nothing
 	}
 
@@ -583,7 +584,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	static createLightbox() {
+	createLightbox() {
 	}
 
 	/**
@@ -592,7 +593,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	static showLightbox() {
+	showLightbox() {
 	}
 
 	/**
@@ -601,7 +602,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	static setSiteHeadOffset() {
+	setSiteHeadOffset() {
 	}
 
 	/**
@@ -626,8 +627,8 @@ Ads.instance = null;
 Ads.previousDetectionResults = {
 	babDetector: {
 		exists: false,
-		value: null
-	}
+		value: null,
+	},
 };
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.

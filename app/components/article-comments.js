@@ -115,9 +115,9 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'comments',
-					label: this.page ? 'expanded' : 'collapsed'
+					label: this.page ? 'expanded' : 'collapsed',
 				});
-			}
+			},
 		},
 
 		scrollTop() {
@@ -160,8 +160,8 @@ export default Component.extend(
 					page,
 					// TODO: clean me after premium bottom of page is released and icache expired
 					premiumBottom: true,
-				}
+				},
 			});
 		},
-	}
+	},
 );

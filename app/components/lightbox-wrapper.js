@@ -1,24 +1,26 @@
-import { alias, not } from '@ember/object/computed';
+import { alias, not, or } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import RenderComponentMixin from '../mixins/render-component';
 
-export default Component.extend(RenderComponentMixin, {
+export default Component.extend({
 	lightbox: service(),
 
 	classNames: ['lightbox-wrapper', 'wds-font-size-xs', 'wds-leading-tight'],
-	classNameBindings: ['isVisible:open'],
+	classNameBindings: ['isVisible:open', 'uiHidden:lightbox-ui-hidden', 'hasFooter:has-footer'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
-	footerExpanded: false,
-	footerHidden: false,
-	headerHidden: false,
-	header: null,
-	footer: null,
 	closeButtonHidden: false,
+	footerExpanded: false,
+	footer: null,
+	footerHead: '',
+	footerLink: null,
+	header: null,
+	uiHidden: false,
+	thumbnails: null,
+	displayFilmstrip: false,
 
 	isVisible: alias('lightbox.isVisible'),
 	lightboxCloseButtonDelay: alias('lightbox.closeButtonDelay'),
@@ -26,6 +28,7 @@ export default Component.extend(RenderComponentMixin, {
 	model: alias('lightbox.model'),
 
 	closeAllowed: not('closeButtonHidden'),
+	hasFooter: or('footer', 'footerHead', 'footerLink'),
 
 	lightboxComponent: computed('type', function () {
 		const type = this.type;
@@ -44,8 +47,14 @@ export default Component.extend(RenderComponentMixin, {
 
 			this.setProperties({
 				footer: null,
+				footerHead: '',
+				footerLink: null,
 				header: null,
-				footerExpanded: false
+				footerExpanded: false,
+				uiHidden: false,
+				thumbnails: null,
+				closeButtonHidden: false,
+				displayFilmstrip: false,
 			});
 
 			this.lightbox.close();
@@ -53,10 +62,14 @@ export default Component.extend(RenderComponentMixin, {
 
 		/**
 		 * @param {string} footer
+		 * @param {string} footerHead
+		 * @param {string} footerLink
 		 * @returns {void}
 		 */
-		setFooter(footer) {
+		setFooter(footer, footerHead, footerLink) {
 			this.set('footer', footer);
+			this.set('footerHead', footerHead);
+			this.set('footerLink', footerLink);
 		},
 
 		/**
@@ -76,6 +89,14 @@ export default Component.extend(RenderComponentMixin, {
 		},
 
 		/**
+		 * @param {array} thumbnails: array of thumb urls
+		 */
+		setThumbnails(thumbnails) {
+			this.set('thumbnails', thumbnails);
+			this.set('displayFilmstrip', !!thumbnails);
+		},
+
+		/**
 		 * @returns {void}
 		 */
 		toggleFooter() {
@@ -86,8 +107,11 @@ export default Component.extend(RenderComponentMixin, {
 		 * @returns {void}
 		 */
 		toggleUI() {
-			this.toggleProperty('footerHidden');
-			this.toggleProperty('headerHidden');
+			this.toggleProperty('uiHidden');
+		},
+
+		updateGalleryRef(value) {
+			this.set('model.galleryRef', value);
 		},
 	},
 
@@ -98,7 +122,7 @@ export default Component.extend(RenderComponentMixin, {
 	click(event) {
 		const target = event.target;
 
-		if (target.classList.contains('lightbox-footer')) {
+		if (target.classList.contains('lightbox-footer-content')) {
 			this.send('toggleFooter');
 		} else if (target.classList.contains('lightbox-close-wrapper')) {
 			this.send('close');

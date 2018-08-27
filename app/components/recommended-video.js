@@ -52,7 +52,7 @@ export default Component.extend(NoScrollMixin, {
 		close() {
 			this.setProperties({
 				isClosed: true,
-				noScroll: false
+				noScroll: false,
 			});
 			this.playerInstance.remove();
 
@@ -61,7 +61,7 @@ export default Component.extend(NoScrollMixin, {
 				label: 'close',
 				action: trackActions.click,
 			});
-		}
+		},
 	},
 
 	setup() {
@@ -86,19 +86,19 @@ export default Component.extend(NoScrollMixin, {
 	initRecommendedVideo() {
 		Promise.all([
 			this.getVideoData(),
-			jwPlayerAssets.load()
+			jwPlayerAssets.load(),
 		]).then(([videoData]) => {
 			if (!this.isDestroyed) {
 				const shuffledPlaylist = videoData.playlist.sort(() => 0.5 - Math.random());
 				videoData.playlist = shuffledPlaylist.slice(0, 5);
 				this.setProperties({
 					playlistItems: videoData.playlist,
-					playlistItem: videoData.playlist[0]
+					playlistItem: videoData.playlist[0],
 				});
 				window.wikiaJWPlayer(
 					'recommended-video-player',
 					this.getPlayerSetup(videoData),
-					this.playerCreated.bind(this)
+					this.playerCreated.bind(this),
 				);
 			}
 		});
@@ -162,10 +162,10 @@ export default Component.extend(NoScrollMixin, {
 			},
 			showSmallPlayerControls: true,
 			videoDetails: {
-				playlist: jwVideoData.playlist
+				playlist: jwVideoData.playlist,
 			},
 			playerURL: 'https://content.jwplatform.com/libraries/h6Nc84Oe.js',
-			repeat: true
+			repeat: true,
 		};
 	},
 
@@ -206,5 +206,5 @@ export default Component.extend(NoScrollMixin, {
 
 	getABTestVariation() {
 		return !this.isClickToPlay;
-	}
+	},
 });

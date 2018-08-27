@@ -28,5 +28,5 @@ export default Helper.extend({
 		});
 
 		return this.i18n.t(`${namespace}:${value}`, i18nParams);
-	}
+	},
 });

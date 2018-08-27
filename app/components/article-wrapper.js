@@ -45,7 +45,7 @@ export default Component.extend(
 					 * hammer.js sets it to 'none' by default so we have to override
 					 */
 					touchCallout: 'default',
-				}
+				},
 			};
 		},
 
@@ -54,13 +54,13 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category,
-					label
+					label,
 				});
 			},
 
 			forceFeaturedVideoVisibility() {
 				this.set('hasFeaturedVideo', true);
-			}
+			},
 		},
-	}
+	},
 );

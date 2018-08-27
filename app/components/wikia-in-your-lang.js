@@ -33,14 +33,14 @@ export default Component.extend(
 							track({
 								action: trackActions.impression,
 								category: 'wikiaInYourLangAlert',
-								label: 'shown'
+								label: 'shown',
 							});
 						}
 					}, (err) => {
 						track({
 							action: trackActions.impression,
 							category: 'wikiaInYourLangAlert',
-							label: err || 'error'
+							label: err || 'error',
 						});
 					});
 			}
@@ -62,7 +62,7 @@ export default Component.extend(
 								track({
 									action: trackActions.click,
 									category: 'wikiaInYourLangAlert',
-									label: 'link'
+									label: 'link',
 								});
 							}
 						});
@@ -72,10 +72,10 @@ export default Component.extend(
 						track({
 							action: trackActions.click,
 							category: 'wikiaInYourLangAlert',
-							label: 'close'
+							label: 'close',
 						});
-					}
-				}
+					},
+				},
 			};
 
 			this.addAlert(alertData);
@@ -109,6 +109,6 @@ export default Component.extend(
 			}
 
 			return isDifferent;
-		}
-	}
+		},
+	},
 );

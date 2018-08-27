@@ -1,6 +1,6 @@
 const googleAnalyticsSettings = {
 	name: 'babdetector',
-	dimension: 6
+	dimension: 6,
 };
 
 let status = false;
@@ -24,7 +24,7 @@ function track() {
 	if (!detectionCompleted) {
 		utils.client.checkBlocking(
 			() => trackBlocking(true),
-			() => trackBlocking(false)
+			() => trackBlocking(false),
 		);
 	} else {
 		trackBlocking(status);

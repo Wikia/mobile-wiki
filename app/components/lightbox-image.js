@@ -5,10 +5,8 @@ import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import ImageLoader from '../mixins/image-loader';
-import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(
-	RenderComponentMixin,
 	RespondsToResize,
 	ImageLoader,
 	{
@@ -59,7 +57,7 @@ export default Component.extend(
 			panEnd() {
 				this.setProperties({
 					lastX: this.newX,
-					lastY: this.newY
+					lastY: this.newY,
 				});
 			},
 
@@ -77,7 +75,7 @@ export default Component.extend(
 
 					this.setProperties({
 						limitedScale: scale,
-						lastScale: scale
+						lastScale: scale,
 					});
 				} else {
 					this.resetZoom();
@@ -258,11 +256,11 @@ export default Component.extend(
 			const hammerInstance = this._hammerInstance;
 
 			hammerInstance.get('pinch').set({
-				enable: true
+				enable: true,
 			});
 
 			hammerInstance.get('pan').set({
-				direction: Hammer.DIRECTION_ALL
+				direction: Hammer.DIRECTION_ALL,
 			});
 
 			scheduleOnce('afterRender', this, () => {
@@ -281,6 +279,16 @@ export default Component.extend(
 		 */
 		loadUrl() {
 			const url = this.get('model.url');
+
+			this.setProperties({
+				imageSrc: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' 
+							viewBox='-12 -12 48 48' fill='%23fff' width='${this.get('model.width')}' 
+							height='${this.get('model.height')}'%3e%3cg fill-rule='evenodd'%3e%3cpath 
+							d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0 
+							0-1.146 0L3 14.626V4zm19-2H2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V3a1 1 0 0 0-1-
+							1z'/%3e%3cpath d='M9 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2'/%3e%3c/g%3e%3c/svg%3e`,
+				isLoading: true,
+			});
 
 			if (url) {
 				this.load(url).then((imageSrc) => {
@@ -349,7 +357,6 @@ export default Component.extend(
 					imageSrc,
 					isLoading: false,
 					loadingError,
-					visible: true
 				});
 			}
 		},
@@ -373,5 +380,5 @@ export default Component.extend(
 				return this.screenAreas.center;
 			}
 		},
-	}
+	},
 );

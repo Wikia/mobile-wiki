@@ -38,7 +38,7 @@ export default Component.extend({
 		'smartBannerVisible',
 		'verticalClass',
 		'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
-		'bfaaTemplate'
+		'bfaaTemplate',
 	],
 	scrollLocation: null,
 
@@ -112,7 +112,7 @@ export default Component.extend({
 	targetIsReference(target) {
 		return Boolean(
 			target.closest('.references')
-			|| (target.parentNode && target.parentNode.matches('.reference'))
+			|| (target.parentNode && target.parentNode.matches('.reference')),
 		);
 	},
 
@@ -139,5 +139,5 @@ export default Component.extend({
 				this.handleLink();
 			}
 		}
-	}
+	},
 });

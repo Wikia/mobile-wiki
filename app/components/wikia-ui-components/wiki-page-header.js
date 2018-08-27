@@ -37,7 +37,7 @@ export default Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wikiname',
-					label: ''
+					label: '',
 				});
 			},
 
@@ -45,7 +45,7 @@ export default Component.extend(
 				this.lightbox.open('media', this.heroImage);
 
 				return false;
-			}
-		}
-	}
+			},
+		},
+	},
 );

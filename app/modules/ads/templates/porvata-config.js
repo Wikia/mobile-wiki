@@ -7,7 +7,7 @@ function getNavbarHeight() {
 export const getConfig = () => (
 	{
 		inViewportOffsetTop: getNavbarHeight(),
-		isFloatingEnabled: false
+		isFloatingEnabled: false,
 	}
 );
 

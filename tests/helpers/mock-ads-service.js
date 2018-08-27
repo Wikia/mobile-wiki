@@ -18,7 +18,7 @@ export function getAdsModuleMock(adsContext) {
 				name,
 				hiddenClassName: 'hidden',
 				disableManualInsert: false,
-				isAboveTheFold: false
+				isAboveTheFold: false,
 			}
 		),
 		isArticleSectionCollapsed: () => true,
@@ -44,7 +44,7 @@ export default function (owner) {
 				invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
 				mobileInContent: 'MOBILE_IN_CONTENT',
 				mobilePreFooter: 'MOBILE_PREFOOTER',
-				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD'
+				mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 			};
 		},
 		destroyAdSlotComponents() {},
@@ -53,6 +53,6 @@ export default function (owner) {
 		getWaits() {
 			return Promise.resolve();
 		},
-		clearWaits() {}
+		clearWaits() {},
 	}));
 }

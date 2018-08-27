@@ -25,5 +25,5 @@ export default {
 	controllerName: 'category',
 	// hooks
 	afterModel: ArticleHandler.afterModel,
-	getDynamicHeadTags
+	getDynamicHeadTags,
 };
