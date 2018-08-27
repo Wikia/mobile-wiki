@@ -16,18 +16,15 @@ module('Unit | Component | lightbox wrapper', (hooks) => {
 		assert.equal(componentMock.get('footerExpanded'), false);
 	});
 
-	test('toggleUI method toggles footerHidden and headerHidden', function (assert) {
+	test('toggleUI method toggles uiHidden', function (assert) {
 		const componentMock = this.owner.factoryFor('component:lightbox-wrapper').create();
 
-		assert.equal(componentMock.get('footerHidden'), false);
-		assert.equal(componentMock.get('headerHidden'), false);
+		assert.equal(componentMock.get('uiHidden'), false);
 
 		componentMock.send('toggleUI');
-		assert.equal(componentMock.get('footerHidden'), true);
-		assert.equal(componentMock.get('headerHidden'), true);
+		assert.equal(componentMock.get('uiHidden'), true);
 
 		componentMock.send('toggleUI');
-		assert.equal(componentMock.get('footerHidden'), false);
-		assert.equal(componentMock.get('headerHidden'), false);
+		assert.equal(componentMock.get('uiHidden'), false);
 	});
 });
