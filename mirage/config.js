@@ -56,7 +56,7 @@ export default function () {
 
 		// fixme probably it shouldn't look like this - it just to have mirage working for backend-less development
 		if (controller === 'UserApi') {
-			return;
+			return undefined;
 		}
 		throw new Error(`Controller or method response isn't yet mocked`);
 	});

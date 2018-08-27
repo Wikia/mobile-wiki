@@ -65,6 +65,8 @@ export default Component.extend(
 				this.openSection(this.model);
 				return false;
 			}
+
+			return undefined;
 		},
 	},
 );

@@ -72,6 +72,8 @@ function getHostnamePrefix() {
 	if (pieces.length) {
 		return pieces[0];
 	}
+
+	return undefined;
 }
 
 function getPageCategories(adsContext) {
@@ -83,6 +85,8 @@ function getPageCategories(adsContext) {
 
 		return outCategories.join('|').toLowerCase().replace(/ /g, '_').split('|');
 	}
+
+	return undefined;
 }
 
 function getRawDbName(adsContext) {

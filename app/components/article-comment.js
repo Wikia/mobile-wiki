@@ -29,6 +29,8 @@ export default Component.extend({
 		if (users) {
 			return users[this.get('comment.userName')] || {};
 		}
+
+		return undefined;
 	}),
 
 	userName: computed('comment.userName', function () {

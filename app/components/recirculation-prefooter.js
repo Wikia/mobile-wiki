@@ -5,7 +5,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
-import getAdsModule from '../modules/ads';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
@@ -105,6 +104,8 @@ export default Component.extend(
 					isPlista: true,
 				};
 			}
+
+			return undefined;
 		},
 
 		fetchLiftIgniterData() {

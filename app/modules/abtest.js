@@ -10,6 +10,8 @@ export function getGroup(experimentName) {
 	if (AbTest && typeof AbTest.getGroup === 'function') {
 		return AbTest.getGroup(experimentName);
 	}
+
+	return undefined;
 }
 
 /**
@@ -24,7 +26,7 @@ export function inGroup(experimentName, groupName) {
 
 	if (AbTest && typeof AbTest.inGroup === 'function') {
 		return AbTest.inGroup(experimentName, groupName);
-	} else {
-		return false;
 	}
+
+	return false;
 }
