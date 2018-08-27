@@ -1,9 +1,9 @@
 import fetch from 'fetch';
 import config from '../config/environment';
 
-const url = `${config.APP.servicesExternalHost}/event-logger`;
-
 function logEvent(resource, name, description = {}) {
+	const url = `${config.APP.servicesExternalHost}/event-logger`;
+
 	if (config.environment === 'production') {
 		fetch(`${url}/${resource}`, {
 			method: 'POST',
