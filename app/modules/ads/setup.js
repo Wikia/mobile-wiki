@@ -58,7 +58,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.trackingOptIn', isOptedIn);
 
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
-  context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
+  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
   && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
@@ -67,7 +67,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
   if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-    context.set(`slots.bottom_leaderboard.adUnit`, context.get('megaAdUnitId'));
+    context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
   }
 
   context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));

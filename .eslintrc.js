@@ -42,13 +42,9 @@ module.exports = {
     "no-shadow": 0,
     "no-underscore-dangle": 0,
     "no-unused-vars": 0,
-    "object-curly-newline": 0,
     "prefer-destructuring": 0,
     "prefer-const": 0,
     "prefer-rest-params": 0,
-    "quotes": [2, "single", {
-      "allowTemplateLiterals": true
-    }],
     "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [

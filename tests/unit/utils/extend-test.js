@@ -16,8 +16,23 @@ module('Unit | Utility | extend', () => {
   });
 
   test('deep object extend', (assert) => {
-    const obj = { a: { b: 1, c: { d: 1, f: null, g: undefined, h: true, i: false } } };
-    const expected = { a: { b: 1, c: { d: 1, f: null, g: undefined, h: true, i: false }, e: 2 } };
+    const obj = {
+      a: {
+        b: 1,
+        c: {
+          d: 1, f: null, g: undefined, h: true, i: false,
+        },
+      },
+    };
+    const expected = {
+      a: {
+        b: 1,
+        c: {
+          d: 1, f: null, g: undefined, h: true, i: false,
+        },
+        e: 2,
+      },
+    };
     const result = extend({ a: { e: 2 } }, obj);
 
     assert.deepEqual(result, expected);

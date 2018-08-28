@@ -405,8 +405,8 @@ export default Component.extend(
           .forEach((element) => {
             element.classList.add(shortClass);
             element.insertAdjacentHTML('beforeend',
-              `<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">`
-       + `<use xlink:href="#chevron"></use></svg></td></tr>`);
+              '<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">'
+       + '<use xlink:href="#chevron"></use></svg></td></tr>');
 
             element.addEventListener('click', (event) => {
               const target = event.target;
