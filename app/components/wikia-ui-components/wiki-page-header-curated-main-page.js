@@ -1,14 +1,24 @@
 import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
 import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
   {
-    wikiVariables: service(),
     classNames: ['wiki-page-header-curated-main-page'],
-    siteName: reads('wikiVariables.siteName'),
+
+    wikiUrls: service(),
+    wikiVariables: service(),
+
+    mainPageEditorUrl: computed(function () {
+      return this.wikiUrls.build({
+        host: this.wikiVariables.host,
+        path: '/main/edit'
+      });
+    }),
     mainPageTitle: reads('wikiVariables.mainPageTitle'),
+    siteName: reads('wikiVariables.siteName'),
 
     actions: {
       trackClick(trackingLabel) {
