@@ -133,7 +133,9 @@ export function track(params) {
   const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
   const isNonInteractive = params.isNonInteractive !== false;
   const pvUID = window.pvUID;
-  const { action, label = '', value = 0, trackingMethod = 'both' } = params;
+  const {
+    action, label = '', value = 0, trackingMethod = 'both',
+  } = params;
 
   params = Object.assign({
     ga_action: action,

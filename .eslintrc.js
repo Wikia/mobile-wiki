@@ -43,7 +43,6 @@ module.exports = {
     "no-shadow": 0,
     "no-underscore-dangle": 0,
     "no-unused-vars": 0,
-    "object-curly-newline": 0,
     "padded-blocks": 0,
     "prefer-destructuring": 0,
     "prefer-const": 0,

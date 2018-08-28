@@ -1,5 +1,7 @@
 import { inject as service } from '@ember/service';
-import { readOnly, reads, oneWay, and } from '@ember/object/computed';
+import {
+  readOnly, reads, oneWay, and,
+} from '@ember/object/computed';
 import Component from '@ember/component';
 import { on } from '@ember/object/evented';
 import { observer, computed } from '@ember/object';
