@@ -75,7 +75,13 @@ export default Component.extend(
         }, 200);
       },
 
-      articleClick(title) {
+      articleClick(title, index) {
+        track({
+          action: trackActions.click,
+          category: 'recirculation',
+          label: `more-wiki-${index}`,
+        });
+
         this.get('router').transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
       },
     },
