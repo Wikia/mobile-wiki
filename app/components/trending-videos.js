@@ -1,5 +1,5 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-	classNames: ['trending', 'trending-videos', 'mw-content'],
+  classNames: ['trending', 'trending-videos', 'mw-content'],
 });

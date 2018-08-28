@@ -5,17 +5,17 @@ import Mixin from '@ember/object/mixin';
  * better solution is created with Jira ticket XW-247
  */
 export default Mixin.create({
-	/**
+  /**
 	 * @returns {void}
 	 */
-	activate() {
-		this.controllerFor('application').set('fullPage', true);
-	},
+  activate() {
+    this.controllerFor('application').set('fullPage', true);
+  },
 
-	/**
+  /**
 	 * @returns {void}
 	 */
-	deactivate() {
-		this.controllerFor('application').set('fullPage', false);
-	},
+  deactivate() {
+    this.controllerFor('application').set('fullPage', false);
+  },
 });

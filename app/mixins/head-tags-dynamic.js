@@ -3,24 +3,24 @@ import Mixin from '@ember/object/mixin';
 import truncate from '../utils/truncate';
 
 export default Mixin.create({
-	headData: service(),
-	wikiVariables: service(),
-	fastboot: service(),
+  headData: service(),
+  wikiVariables: service(),
+  fastboot: service(),
 
-	/**
+  /**
 	 * @param {Object} model
 	 * @param {Ember.Transition} transition
 	 * @returns {void}
 	 */
-	afterModel(model, transition) {
-		this._super(...arguments);
+  afterModel(model, transition) {
+    this._super(...arguments);
 
-		transition.then(() => {
-			this.setDynamicHeadTags(model);
-		});
-	},
+    transition.then(() => {
+      this.setDynamicHeadTags(model);
+    });
+  },
 
-	/**
+  /**
 	 * This function updates dynamic tags defined in templates/head.hbs
 	 * This is for head tags which could be changed on different routes
 	 *
@@ -29,43 +29,43 @@ export default Mixin.create({
 	 * @param {Object} [data={}], object where you can pass data from custom implementation of this function
 	 * @returns {void}
 	 */
-	setDynamicHeadTags(model, data = {}) {
-		const htmlTitleSettings = this.get('wikiVariables.htmlTitle');
-		const wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator);
-		const headData = {
-			htmlTitle: wikiHtmlTitle,
-			description: data.description,
-			canonical: data.canonical,
-			next: data.next,
-			prev: data.prev,
-			robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
-			keywords: `${this.get('wikiVariables.siteMessage')}`
+  setDynamicHeadTags(model, data = {}) {
+    const htmlTitleSettings = this.get('wikiVariables.htmlTitle');
+    const wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator);
+    const headData = {
+      htmlTitle: wikiHtmlTitle,
+      description: data.description,
+      canonical: data.canonical,
+      next: data.next,
+      prev: data.prev,
+      robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
+      keywords: `${this.get('wikiVariables.siteMessage')}`
 			+ `,${this.get('wikiVariables.siteName')}`
 			+ `,${this.get('wikiVariables.dbName')}`,
-			appleItunesApp: '',
-			amphtml: data.amphtml,
-		};
+      appleItunesApp: '',
+      amphtml: data.amphtml,
+    };
 
-		if (data.htmlTitle) {
-			headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
-			headData.keywords += `,${data.htmlTitle}`;
-		}
+    if (data.htmlTitle) {
+      headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
+      headData.keywords += `,${data.htmlTitle}`;
+    }
 
-		if (model.title) {
-			headData.title = model.title;
-		}
+    if (model.title) {
+      headData.title = model.title;
+    }
 
-		if (model.type) {
-			headData.type = model.type;
-		}
+    if (model.type) {
+      headData.type = model.type;
+    }
 
-		if (model.details && model.details.thumbnail) {
-			headData.pageImage = model.details.thumbnail;
-		}
+    if (model.details && model.details.thumbnail) {
+      headData.pageImage = model.details.thumbnail;
+    }
 
-		headData.twitterTitle = truncate(headData.htmlTitle, 70);
-		headData.twitterDescription = truncate(data.description || headData.htmlTitle, 200);
+    headData.twitterTitle = truncate(headData.htmlTitle, 70);
+    headData.twitterDescription = truncate(data.description || headData.htmlTitle, 200);
 
-		this.headData.setProperties(headData);
-	},
+    this.headData.setProperties(headData);
+  },
 });

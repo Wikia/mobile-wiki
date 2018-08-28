@@ -25,26 +25,26 @@ import Ember from 'ember';
  */
 
 export default helper((params, options) => {
-	const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
-	let tagName = 'span';
-	let className = '';
-	let otherOptions = {
-		href: '',
-		target: '',
-	};
-	let otherOptionsCombined;
+  const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
+  let tagName = 'span';
+  let className = '';
+  let otherOptions = {
+    href: '',
+    target: '',
+  };
+  let otherOptionsCombined;
 
-	if (options.tagName) {
-		tagName = options.tagName;
-	}
+  if (options.tagName) {
+    tagName = options.tagName;
+  }
 
-	if (options.className) {
-		className = ` class="${options.className}"`;
-	}
+  if (options.className) {
+    className = ` class="${options.className}"`;
+  }
 
-	otherOptionsCombined = Object.keys(otherOptions).map(
-		key => (options[key] ? ` ${key}="${options[key]}"` : ''),
-	).join('');
+  otherOptionsCombined = Object.keys(otherOptions).map(
+    key => (options[key] ? ` ${key}="${options[key]}"` : ''),
+  ).join('');
 
-	return htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
+  return htmlSafe(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });

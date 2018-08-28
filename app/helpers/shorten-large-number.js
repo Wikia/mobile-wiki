@@ -28,17 +28,17 @@ import { helper } from '@ember/component/helper';
  * @returns {string}
  */
 export default helper((params) => {
-	const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
-	const number = params[0];
-	const digits = params[1];
+  const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+  const number = params[0];
+  const digits = params[1];
 
-	for (let i = units.length - 1; i >= 0; i--) {
-		const decimal = 1000 ** (i + 1);
+  for (let i = units.length - 1; i >= 0; i--) {
+    const decimal = 1000 ** (i + 1);
 
-		if (number <= -decimal || number >= decimal) {
-			return (Number(number / decimal)).toFixed(digits) + units[i];
-		}
-	}
+    if (number <= -decimal || number >= decimal) {
+      return (Number(number / decimal)).toFixed(digits) + units[i];
+    }
+  }
 
-	return number.toString();
+  return number.toString();
 });

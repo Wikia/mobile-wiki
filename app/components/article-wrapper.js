@@ -17,50 +17,50 @@ import { track, trackActions } from '../utils/track';
  */
 
 export default Component.extend(
-	PortableInfoboxHeroImageMixin,
-	LanguagesMixin,
-	{
-		currentUser: service(),
-		wikiVariables: service(),
+  PortableInfoboxHeroImageMixin,
+  LanguagesMixin,
+  {
+    currentUser: service(),
+    wikiVariables: service(),
 
-		classNames: ['article-wrapper'],
-		classNameBindings: ['hasFeaturedVideo'],
-		displayEmptyArticleInfo: true,
-		displayArticleWrapper: true,
+    classNames: ['article-wrapper'],
+    classNameBindings: ['hasFeaturedVideo'],
+    displayEmptyArticleInfo: true,
+    displayArticleWrapper: true,
 
-		showComments: gte('model.comments', 0),
-		hasFeaturedVideo: bool('model.featuredVideo'),
-		smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
+    showComments: gte('model.comments', 0),
+    hasFeaturedVideo: bool('model.featuredVideo'),
+    smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
 
-		init() {
-			this._super(...arguments);
+    init() {
+      this._super(...arguments);
 
-			this.hammerOptions = {
-				touchAction: 'auto',
-				cssProps: {
-					/**
+      this.hammerOptions = {
+        touchAction: 'auto',
+        cssProps: {
+          /**
 					 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
 					 * 'default' displays the callout
 					 * 'none' disables the callout
 					 * hammer.js sets it to 'none' by default so we have to override
 					 */
-					touchCallout: 'default',
-				},
-			};
-		},
+          touchCallout: 'default',
+        },
+      };
+    },
 
-		actions: {
-			trackClick(category, label) {
-				track({
-					action: trackActions.click,
-					category,
-					label,
-				});
-			},
+    actions: {
+      trackClick(category, label) {
+        track({
+          action: trackActions.click,
+          category,
+          label,
+        });
+      },
 
-			forceFeaturedVideoVisibility() {
-				this.set('hasFeaturedVideo', true);
-			},
-		},
-	},
+      forceFeaturedVideoVisibility() {
+        this.set('hasFeaturedVideo', true);
+      },
+    },
+  },
 );

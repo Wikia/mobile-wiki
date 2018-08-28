@@ -2,33 +2,33 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
 module('Unit | Component | article comment', (hooks) => {
-	setupTest(hooks);
+  setupTest(hooks);
 
-	test('users is correctly fetched', function (assert) {
-		const component = this.owner.factoryFor('component:article-comment').create();
+  test('users is correctly fetched', function (assert) {
+    const component = this.owner.factoryFor('component:article-comment').create();
 
-		assert.expect(2);
+    assert.expect(2);
 
-		component.setProperties({
-			users: {
-				test: 'test',
-			},
-			comment: {
-				userName: 'test',
-			},
-		});
+    component.setProperties({
+      users: {
+        test: 'test',
+      },
+      comment: {
+        userName: 'test',
+      },
+    });
 
-		assert.equal(component.get('user'), 'test');
+    assert.equal(component.get('user'), 'test');
 
-		component.setProperties({
-			users: {
-				test: 'test',
-			},
-			comment: {
-				userName: 'nope',
-			},
-		});
+    component.setProperties({
+      users: {
+        test: 'test',
+      },
+      comment: {
+        userName: 'nope',
+      },
+    });
 
-		assert.deepEqual(component.get('user'), {});
-	});
+    assert.deepEqual(component.get('user'), {});
+  });
 });

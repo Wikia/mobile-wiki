@@ -1,9 +1,9 @@
 export default function (owner) {
-	let fastboot = owner.lookup('service:fastboot');
+  let fastboot = owner.lookup('service:fastboot');
 
-	fastboot.shoebox.retrieve = function (key) {
-		if (key === 'applicationData') {
-			/* eslint-disable */
+  fastboot.shoebox.retrieve = function (key) {
+    if (key === 'applicationData') {
+      /* eslint-disable */
 			return {
 				"wikiVariables": {
 					"cacheBuster": 1492171378,
@@ -1640,8 +1640,9 @@ export default function (owner) {
 				}
 			};
 			/* eslint-enable */
-		} else if (key === 'wikiPage') {
-			/* eslint-disable */
+    }
+    if (key === 'wikiPage') {
+      /* eslint-disable */
 			return {
 				"data": {
 					"ns": 6,
@@ -1760,7 +1761,7 @@ export default function (owner) {
 				}
 			};
 			/* eslint-enable */
-		}
-		return undefined;
-	};
+    }
+    return undefined;
+  };
 }

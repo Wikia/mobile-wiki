@@ -1,16 +1,16 @@
 function getNavbarHeight() {
-	const navbar = document.querySelector('.site-head-wrapper');
+  const navbar = document.querySelector('.site-head-wrapper');
 
-	return navbar ? navbar.offsetHeight : 0;
+  return navbar ? navbar.offsetHeight : 0;
 }
 
 export const getConfig = () => (
-	{
-		inViewportOffsetTop: getNavbarHeight(),
-		isFloatingEnabled: false,
-	}
+  {
+    inViewportOffsetTop: getNavbarHeight(),
+    isFloatingEnabled: false,
+  }
 );
 
 export default {
-	getConfig,
+  getConfig,
 };

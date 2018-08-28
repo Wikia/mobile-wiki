@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-	classNames: ['wikia-card-list'],
-	tagName: 'ul',
+  classNames: ['wikia-card-list'],
+  tagName: 'ul',
 });

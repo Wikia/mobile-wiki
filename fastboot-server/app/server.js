@@ -6,10 +6,10 @@ const middlewares = require('../middlewares');
 process.env.PORT = config.port;
 
 const server = new FastBootAppServer({
-	beforeMiddleware: middlewares.before,
-	afterMiddleware: middlewares.after,
-	distPath: config.distPath,
-	gzip: true,
+  beforeMiddleware: middlewares.before,
+  afterMiddleware: middlewares.after,
+  distPath: config.distPath,
+  gzip: true,
 });
 
 server.start();

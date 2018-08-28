@@ -5,13 +5,13 @@
  * @returns {String|void}
  */
 export function getGroup(experimentName) {
-	const AbTest = window.Wikia && window.Wikia.AbTest;
+  const AbTest = window.Wikia && window.Wikia.AbTest;
 
-	if (AbTest && typeof AbTest.getGroup === 'function') {
-		return AbTest.getGroup(experimentName);
-	}
+  if (AbTest && typeof AbTest.getGroup === 'function') {
+    return AbTest.getGroup(experimentName);
+  }
 
-	return undefined;
+  return undefined;
 }
 
 /**
@@ -22,11 +22,11 @@ export function getGroup(experimentName) {
  * @returns {Boolean}
  */
 export function inGroup(experimentName, groupName) {
-	const AbTest = window.Wikia && window.Wikia.AbTest;
+  const AbTest = window.Wikia && window.Wikia.AbTest;
 
-	if (AbTest && typeof AbTest.inGroup === 'function') {
-		return AbTest.inGroup(experimentName, groupName);
-	}
+  if (AbTest && typeof AbTest.inGroup === 'function') {
+    return AbTest.inGroup(experimentName, groupName);
+  }
 
-	return false;
+  return false;
 }

@@ -6,10 +6,10 @@ import fetch from '../mediawiki-fetch';
  * @returns {void}
  */
 function afterModel(route, model) {
-	// Reset query parameters
-	model.set('commentsPage', null);
+  // Reset query parameters
+  model.set('commentsPage', null);
 
-	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+  route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 }
 
 /**
@@ -24,18 +24,18 @@ function afterModel(route, model) {
  * @param {Ember.Service} wikiUrls
  */
 function sendLyricsPageView({ model, host, wikiUrls }) {
-	fetch(wikiUrls.build({
-		host,
-		path: '/wikia.php',
-		query: {
-			controller: 'LyricFind',
-			method: 'track',
-			title: model.get('title'),
-			amgid: 0,
-			gracenoteid: 0,
-			rand: (`${Math.random()}`).substr(2, 8),
-		},
-	}));
+  fetch(wikiUrls.build({
+    host,
+    path: '/wikia.php',
+    query: {
+      controller: 'LyricFind',
+      method: 'track',
+      title: model.get('title'),
+      amgid: 0,
+      gracenoteid: 0,
+      rand: (`${Math.random()}`).substr(2, 8),
+    },
+  }));
 }
 
 /**
@@ -46,9 +46,9 @@ function sendLyricsPageView({ model, host, wikiUrls }) {
  * @returns {boolean}
  */
 function shouldSendLyricFindRequest({ model, wikiId, fastboot }) {
-	const lyricWikiId = 43339;
+  const lyricWikiId = 43339;
 
-	return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
+  return wikiId === lyricWikiId && !model.get('isMainPage') && !fastboot.get('isFastBoot');
 }
 
 /**
@@ -61,18 +61,18 @@ function shouldSendLyricFindRequest({ model, wikiId, fastboot }) {
  * @param {Ember.Service} wikiUrls
  */
 function afterTransition({ model, wikiId, host, fastboot, wikiUrls }) {
-	if (shouldSendLyricFindRequest({ model, wikiId, fastboot })) {
-		sendLyricsPageView({ model, host, wikiUrls });
-	}
+  if (shouldSendLyricFindRequest({ model, wikiId, fastboot })) {
+    sendLyricsPageView({ model, host, wikiUrls });
+  }
 }
 
 /**
  * Export Article handler
  */
 export default {
-	// template's and controller's name
-	controllerName: 'article',
-	viewName: 'article',
-	afterModel,
-	afterTransition,
+  // template's and controller's name
+  controllerName: 'article',
+  viewName: 'article',
+  afterModel,
+  afterTransition,
 };
