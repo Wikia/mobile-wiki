@@ -1,6 +1,7 @@
 {{#if displayLiftigniterRecirculation}}
 	<div class="recirculation-prefooter__header">
-		<h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">{{i18n 'recirculation.trending-fandom-articles'}}</h2>
+		<h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">{{i18n
+				'recirculation.trending-fandom-articles'}}</h2>
 	</div>
 {{/if}}
 
@@ -12,7 +13,8 @@
 		<ul class="recirculation-prefooter__wiki-articles-list">
 			{{#each topArticles as |article index|}}
 				<li class="recirculation-prefooter__wiki-article" {{action 'articleClick' article.title (sum index 1)}}>
-					<span class="recirculation-prefooter__wiki-article-circle wds-font-size-l wds-font-weight-bold wds-leading-none">{{sum index 1}}</span>
+					<span class="recirculation-prefooter__wiki-article-circle wds-font-size-l wds-font-weight-bold wds-leading-none">{{sum
+							index 1}}</span>
 					<span class="recirculation-prefooter__wiki-article-title wds-font-weight-medium">{{article.title}}</span>
 				</li>
 			{{/each}}
@@ -25,7 +27,8 @@
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
 				{{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
-				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
+				<a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index
+																							 preventDefault=true}}>
 					<p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">{{post.title}}</p>
 					<p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">{{post.site_name}}</p>
 					{{#if post.presented_by}}
