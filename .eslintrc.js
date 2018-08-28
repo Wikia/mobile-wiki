@@ -45,7 +45,6 @@ module.exports = {
     "no-unused-vars": 0,
     "padded-blocks": 0,
     "prefer-destructuring": 0,
-    "prefer-const": 0,
     "prefer-rest-params": 0,
     "quotes": [2, "single", {
       "allowTemplateLiterals": true

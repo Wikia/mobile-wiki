@@ -148,8 +148,8 @@ export default Component.extend({
   */
   updateFooter() {
     const currentMedia = this.currentMedia;
-    let footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
-    let footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
+    const footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
+    const footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
 
     if (currentMedia && currentMedia.caption) {
       this.setFooter(htmlSafe(currentMedia.caption), footerHead, footerLink);

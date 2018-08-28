@@ -276,7 +276,7 @@ class Ads {
   * @returns {void}
   */
   trackBlocking(name, GAOption, isAdBlockDetected) {
-    let value = isAdBlockDetected ? 'Yes' : 'No';
+    const value = isAdBlockDetected ? 'Yes' : 'No';
 
     Ads.setPreviousDetectionResult(name, isAdBlockDetected);
     M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
