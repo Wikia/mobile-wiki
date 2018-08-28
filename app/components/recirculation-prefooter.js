@@ -2,7 +2,7 @@ import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { reads } from '@ember/object/computed';
+import { reads, not, equal, and, bool } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
@@ -38,6 +38,9 @@ export default Component.extend(
     classNameBindings: ['items:has-items'],
 
     listRendered: null,
+    isContLangEn: equal('wikiVariables.language.content', 'en'),
+    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
+
     wikiName: reads('wikiVariables.siteName'),
 
     init() {
@@ -101,9 +104,9 @@ export default Component.extend(
             this.set('topArticles', []);
 
             return this;
-          } else {
-            return response.json().then(data => this.set('topArticles', data));
           }
+          return response.json().then(data => this.set('topArticles', data));
+
         });
     },
 
@@ -144,17 +147,19 @@ export default Component.extend(
     },
 
     didEnterViewport() {
+      this.fetchTopArticles();
+
       if (M.getFromHeadDataStore('noExternals')) {
         return;
       }
 
-      M.trackingQueue.push((isOptedIn) => {
-        if (isOptedIn) {
-          this.fetchLiftIgniterData();
-        }
-      });
-
-      this.fetchTopArticles();
+      if (this.displayLiftigniterRecirculation) {
+        M.trackingQueue.push((isOptedIn) => {
+          if (isOptedIn) {
+            this.fetchLiftIgniterData();
+          }
+        });
+      }
     },
   },
 );

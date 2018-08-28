@@ -11,10 +11,7 @@ export default Controller.extend(WikiPageControllerMixin, {
   wikiVariables: service(),
 
   commentsPage: alias('application.commentsPage'),
-  loadExternals: not('application.noExternals'),
-  isContLangEn: equal('wikiVariables.language.content', 'en'),
   applicationWrapperVisible: not('application.fullPage'),
-  displayRecirculation: and('isContLangEn', 'loadExternals', 'applicationWrapperVisible'),
 
   actions: {
     trackClick(category, label) {

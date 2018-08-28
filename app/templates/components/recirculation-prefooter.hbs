@@ -1,4 +1,4 @@
-{{#if items.length}}
+{{#if displayLiftigniterRecirculation}}
 	<div class="recirculation-prefooter__header">
 		<h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">{{i18n 'recirculation.trending-fandom-articles'}}</h2>
 	</div>
@@ -21,7 +21,7 @@
 	</div>
 {{/if}}
 
-{{#if items.length}}
+{{#if displayLiftigniterRecirculation}}
 	<ul class="recirculation-prefooter__list">
 		{{#each items as |post index|}}
 			<li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
