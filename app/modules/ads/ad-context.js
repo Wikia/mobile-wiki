@@ -96,7 +96,7 @@ export default {
             placementId: '13705871',
             context: 'instream',
           },
-          mobile_in_content: {
+          incontent_player: {
             placementId: '11543173',
             context: 'outstream',
           },
