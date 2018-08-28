@@ -1,4 +1,4 @@
-import offset from './offset';
+import offset from '@wikia/ember-fandom/utils/offset';
 
 /**
  * Utility to scroll page in such way that provided element is at the top of the screen

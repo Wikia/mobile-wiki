@@ -1,4 +1,4 @@
-import offset from '../../utils/offset';
+import offset from '@wikia/ember-fandom/utils/offset';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
