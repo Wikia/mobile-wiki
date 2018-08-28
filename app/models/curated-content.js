@@ -25,7 +25,7 @@ import EmberObject from '@ember/object';
  */
 
 export default EmberObject.extend({
-	title: null,
-	type: null,
-	items: null,
+  title: null,
+  type: null,
+  items: null,
 });

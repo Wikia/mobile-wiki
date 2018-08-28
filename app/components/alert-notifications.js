@@ -12,17 +12,17 @@ import Component from '@ember/component';
  */
 
 export default Component.extend({
-	classNames: ['alert-notifications'],
+  classNames: ['alert-notifications'],
 
-	alerts: null,
+  alerts: null,
 
-	actions: {
-		/**
+  actions: {
+    /**
 		 * @param {AlertNotification} alert
 		 * @returns {void}
 		 */
-		dismissAlert(alert) {
-			this.alerts.removeObject(alert);
-		},
-	},
+    dismissAlert(alert) {
+      this.alerts.removeObject(alert);
+    },
+  },
 });

@@ -8,16 +8,16 @@ import CuratedContentModel from '../../models/curated-content';
  * @returns {Object}
  */
 function getCuratedContentModel(mainPageModel) {
-	const curatedContent = get(mainPageModel, 'curatedMainPageData.curatedContent');
+  const curatedContent = get(mainPageModel, 'curatedMainPageData.curatedContent');
 
-	if (curatedContent) {
-		return CuratedContentModel.create(getOwner(mainPageModel).ownerInjection(), {
-			type: 'section',
-			items: curatedContent.items,
-		});
-	}
+  if (curatedContent) {
+    return CuratedContentModel.create(getOwner(mainPageModel).ownerInjection(), {
+      type: 'section',
+      items: curatedContent.items,
+    });
+  }
 
-	return EmberObject.create();
+  return EmberObject.create();
 }
 
 /**
@@ -26,20 +26,20 @@ function getCuratedContentModel(mainPageModel) {
  * @returns {Object}
  */
 function afterModel(route, model) {
-	model.set('curatedContent', getCuratedContentModel(model));
+  model.set('curatedContent', getCuratedContentModel(model));
 
-	route.controllerFor('main-page').setProperties({
-		adsContext: model.get('adsContext'),
-		ns: model.get('ns'),
-	});
+  route.controllerFor('main-page').setProperties({
+    adsContext: model.get('adsContext'),
+    ns: model.get('ns'),
+  });
 
-	return model;
+  return model;
 }
 
 export default {
-	// template's and controller's name
-	controllerName: 'main-page',
-	viewName: 'main-page',
-	// hooks
-	afterModel,
+  // template's and controller's name
+  controllerName: 'main-page',
+  viewName: 'main-page',
+  // hooks
+  afterModel,
 };

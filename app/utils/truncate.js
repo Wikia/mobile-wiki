@@ -4,25 +4,25 @@
  * @returns {string}
  */
 export default function truncate(text, maxLength = 48) {
-	const ellipsisCharacter = '\u2026';
+  const ellipsisCharacter = '\u2026';
 
-	let truncatedString;
-	let lastWhiteSpacePos;
+  let truncatedString;
+  let lastWhiteSpacePos;
 
-	if (typeof text !== 'string') {
-		return null;
-	}
+  if (typeof text !== 'string') {
+    return null;
+  }
 
-	if (text.length <= maxLength) {
-		return text;
-	}
+  if (text.length <= maxLength) {
+    return text;
+  }
 
-	truncatedString = text.substr(0, maxLength);
-	lastWhiteSpacePos = truncatedString.search(/\s[^\s]*$/);
+  truncatedString = text.substr(0, maxLength);
+  lastWhiteSpacePos = truncatedString.search(/\s[^\s]*$/);
 
-	if (lastWhiteSpacePos < 0) {
-		return truncatedString + ellipsisCharacter;
-	}
+  if (lastWhiteSpacePos < 0) {
+    return truncatedString + ellipsisCharacter;
+  }
 
-	return truncatedString.substr(0, lastWhiteSpacePos) + ellipsisCharacter;
+  return truncatedString.substr(0, lastWhiteSpacePos) + ellipsisCharacter;
 }

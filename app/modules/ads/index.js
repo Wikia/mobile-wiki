@@ -6,24 +6,24 @@ let adsPromise = null;
 let isAdEngine3 = false;
 
 export default function getAdsModule() {
-	if (adsPromise) {
-		return adsPromise;
-	}
+  if (adsPromise) {
+    return adsPromise;
+  }
 
-	adsPromise = new Promise((resolve, reject) => {
-		if (typeof window.waitForAds === 'function') {
-			window.waitForAds((isAdEngine3Loaded) => {
-				isAdEngine3 = isAdEngine3Loaded;
-				resolve(isAdEngine3Loaded ? Ads.getInstance() : LegacyAds.getInstance());
-			});
-		} else {
-			reject();
-		}
-	});
+  adsPromise = new Promise((resolve, reject) => {
+    if (typeof window.waitForAds === 'function') {
+      window.waitForAds((isAdEngine3Loaded) => {
+        isAdEngine3 = isAdEngine3Loaded;
+        resolve(isAdEngine3Loaded ? Ads.getInstance() : LegacyAds.getInstance());
+      });
+    } else {
+      reject();
+    }
+  });
 
-	return adsPromise;
+  return adsPromise;
 }
 
 export function isAdEngine3Loaded() {
-	return isAdEngine3;
+  return isAdEngine3;
 }
