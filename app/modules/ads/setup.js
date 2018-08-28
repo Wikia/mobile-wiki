@@ -110,7 +110,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
       isGeoEnabled('wgAdDriverAppNexusAstBidderCountries') && !hasFeaturedVideo);
     // context.set('bidders.prebid.beachfront.enabled',
     // 	isGeoEnabled('wgAdDriverBeachfrontBidderCountries') && !hasFeaturedVideo);
-    context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
+    context.set('bidders.prebid.rubicon.enabled',
+      isGeoEnabled('wgAdDriverRubiconPrebidCountries') && !hasFeaturedVideo);
 
     const s1 = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : 'not a top1k wiki';
 
