@@ -2,10 +2,10 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   /**
-	 * Constructs a localized reply upvote notification body
-	 * @param {Ember.Object} model
-	 * @returns {string}
-	 */
+  * Constructs a localized reply upvote notification body
+  * @param {Ember.Object} model
+  * @returns {string}
+  */
   getReplyUpvoteMessageBody(model) {
     const hasTitle = model.get('title');
     const totalUniqueActors = model.get('totalUniqueActors');

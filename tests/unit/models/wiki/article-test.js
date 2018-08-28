@@ -22,13 +22,13 @@ const articleExample = {
 };
 
 /**
- * @desc Helper function for tests below which checks the validity of the data stored in the model
- * @param {Object} model The ArticleModel that data has been loaded into which should be tested
- * @param {Object} article The reference data
- * @param {{equal: function, deepEqual: function}} assert
- *
- * @returns {void}
- */
+  * @desc Helper function for tests below which checks the validity of the data stored in the model
+  * @param {Object} model The ArticleModel that data has been loaded into which should be tested
+  * @param {Object} article The reference data
+  * @param {{equal: function, deepEqual: function}} assert
+  *
+  * @returns {void}
+  */
 function verifyArticle(model, article, assert) {
   const articleData = article.data;
 

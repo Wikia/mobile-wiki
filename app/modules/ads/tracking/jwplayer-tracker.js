@@ -20,21 +20,21 @@ const trackingEventsMap = {
 };
 
 /**
- * Ads tracker for JWPlayer
- */
+  * Ads tracker for JWPlayer
+  */
 export default class JWPlayerTracker {
   /**
-	 * @param {Object} params
-	 */
+  * @param {Object} params
+  */
   constructor(params = {}) {
     this.trackingParams = params;
   }
 
   /**
-	 * Register event listeners on player
-	 * @param {Object} player
-	 * @returns {void}
-	 */
+  * Register event listeners on player
+  * @param {Object} player
+  * @returns {void}
+  */
   register(player) {
     // Global imports:
     if (!window.Wikia.adEngine) {
@@ -73,38 +73,38 @@ export default class JWPlayerTracker {
   }
 
   /**
-	 * Track single event
-	 * @param {string} eventName
-	 * @param {int} errorCode
-	 * @returns {void}
-	 */
+  * Track single event
+  * @param {string} eventName
+  * @param {int} errorCode
+  * @returns {void}
+  */
   track(eventName, errorCode = 0) {
     PlayerTracker.track(this.trackingParams, playerName, eventName, errorCode);
   }
 
   /**
-	 * Update type of tracking data
-	 * @param {string} type
-	 * @returns {void}
-	 */
+  * Update type of tracking data
+  * @param {string} type
+  * @returns {void}
+  */
   updateType(type) {
     this.trackingParams.adProduct = type;
   }
 
   /**
-	 * Update video id
-	 * @param {string} videoId
-	 * @returns {void}
-	 */
+  * Update video id
+  * @param {string} videoId
+  * @returns {void}
+  */
   updateVideoId(videoId) {
     this.trackingParams.videoId = videoId;
   }
 
   /**
-	 * Update creative details
-	 * @param {Object} params
-	 * @returns {void}
-	 */
+  * Update creative details
+  * @param {Object} params
+  * @returns {void}
+  */
   updateCreativeData(params = {}) {
     this.trackingParams.lineItemId = params.lineItemId;
     this.trackingParams.creativeId = params.creativeId;

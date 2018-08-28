@@ -15,7 +15,7 @@ export default {
       },
       abstract: 'Fifteen years ago I started editing my first wiki and it’s been a fun journey ever since ...',
       thumbnail: 'https://vignette.wikia.nocookie.net/central/images/f/fb/IRobotStaffBlog.jpg/revision/latest'
-			+ '/window-crop/width/200/x-offset/369/y-offset/0/window-width/545/window-height/544?cb=20180221225443',
+   + '/window-crop/width/200/x-offset/369/y-offset/0/window-width/545/window-height/544?cb=20180221225443',
       original_dimensions: {
         width: '1280',
         height: '544',
@@ -30,7 +30,7 @@ export default {
         enableAdsInMaps: true,
         pageType: 'no_ads',
         pageFairDetectionUrl: '/load.php?cb=1519726424&debug=false&lang=en&'
-				+ 'modules=f44fa7d1d368e62c20841e661cf5074b&only=scripts&skin=wikiamobile&*',
+    + 'modules=f44fa7d1d368e62c20841e661cf5074b&only=scripts&skin=wikiamobile&*',
         prebidBidderUrl: [
           'https://slot1-images.wikia.nocookie.net/__am/1519726424/group/-/pr3b1d_prod_js',
         ],
@@ -46,7 +46,7 @@ export default {
         skin: 'mercury',
         wikiCategory: 'life',
         wikiCustomKeyValues: 'sex=m;sex=f;age=under18;age=13-17;age=18-24;age=25-34;age=18-34;age=34-44;'
-				+ 'age=45-54;age=teen;age=yadult;esrb=everyone;',
+    + 'age=45-54;age=teen;age=yadult;esrb=everyone;',
         wikiDbName: 'wikia',
         wikiLanguage: 'en',
         wikiVertical: 'other',

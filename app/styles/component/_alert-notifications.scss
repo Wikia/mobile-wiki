@@ -1,50 +1,50 @@
 .alert-notifications {
-	bottom: 0;
-	position: fixed;
-	width: 100%;
-	z-index: $z-alert-notification;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: $z-alert-notification;
 }
 
 .alert-box {
-	background-color: $wds-color-dark-blue;
-	border: 1px solid #081e3a;
-	color: $wds-color-white;
-	display: block;
-	margin-bottom: 1.25rem;
-	padding: .875rem 1.5rem .875rem .875rem;
-	position: relative;
-	transition: opacity 300ms ease-out;
+  background-color: $wds-color-dark-blue;
+  border: 1px solid #081e3a;
+  color: $wds-color-white;
+  display: block;
+  margin-bottom: 1.25rem;
+  padding: .875rem 1.5rem .875rem .875rem;
+  position: relative;
+  transition: opacity 300ms ease-out;
 
-	.close {
-		background: inherit;
-		color: $wds-color-light-c6;
-		line-height: .9;
-		margin-top: -.6875rem;
-		opacity: .3;
-		padding: 0 6px 4px;
-		position: absolute;
-		right: .25rem;
-		top: 50%;
+  .close {
+    background: inherit;
+    color: $wds-color-light-c6;
+    line-height: .9;
+    margin-top: -.6875rem;
+    opacity: .3;
+    padding: 0 6px 4px;
+    position: absolute;
+    right: .25rem;
+    top: 50%;
 
-		&:hover,
-		&:focus {
-			opacity: .5;
-		}
-	}
+    &:hover,
+    &:focus {
+      opacity: .5;
+    }
+  }
 
-	&.success {
-		background-color: #43ac6a;
-		border-color: #3a945b;
-	}
+  &.success {
+    background-color: #43ac6a;
+    border-color: #3a945b;
+  }
 
-	&.warning {
-		background-color: #f08a24;
-		border-color: #de770f;
-	}
+  &.warning {
+    background-color: #f08a24;
+    border-color: #de770f;
+  }
 
-	&.info {
-		background-color: #a0d3e8;
-		border-color: #74bfdd;
-		color: #4f4f4f;
-	}
+  &.info {
+    background-color: #a0d3e8;
+    border-color: #74bfdd;
+    color: #4f4f4f;
+  }
 }

@@ -3,8 +3,8 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   /**
-	 * @returns {Object}
-	 */
+  * @returns {Object}
+  */
   toPlainObject() {
     const keys = [];
 

@@ -8,33 +8,33 @@ import ThirdsClickMixin from '../mixins/thirds-click';
 import { track, trackActions } from '../utils/track';
 
 /**
- * ImageCropData
- * @typedef {Object} ImageCropData
- * @property {number} x
- * @property {number} y
- * @property {number} width
- * @property {number} height
- */
+  * ImageCropData
+  * @typedef {Object} ImageCropData
+  * @property {number} x
+  * @property {number} y
+  * @property {number} width
+  * @property {number} height
+*/
 
 /**
- * ImageCrop
- * @typedef {Object} ImageCrop
- * @property {ImageCropData} landscape
- * @property {ImageCropData} square
- */
+  * ImageCrop
+  * @typedef {Object} ImageCrop
+  * @property {ImageCropData} landscape
+  * @property {ImageCropData} square
+*/
 
 /**
- * FeaturedContentItem
- * @typedef {Object} FeaturedContentItem
- * @property {string} title
- * @property {string} label
- * @property {string} image_id
- * @property {number} article_id
- * @property {string} type
- * @property {string} image_url
- * @property {ImageCrop} [image_crop]
- * @property {string} article_local_url
- */
+  * FeaturedContentItem
+  * @typedef {Object} FeaturedContentItem
+  * @property {string} title
+  * @property {string} label
+  * @property {string} image_id
+  * @property {number} article_id
+  * @property {string} type
+  * @property {string} image_url
+  * @property {ImageCrop} [image_crop]
+  * @property {string} article_local_url
+*/
 
 export default Component.extend(
   ThirdsClickMixin,
@@ -48,8 +48,8 @@ export default Component.extend(
 
     gestures: {
       /**
-			 * @returns {void}
-			 */
+        * @returns {void}
+      */
       swipeLeft() {
         track({
           category: 'main-page-featured-content',
@@ -60,8 +60,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+        * @returns {void}
+      */
       swipeRight() {
         track({
           category: 'main-page-featured-content',
@@ -98,16 +98,16 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     didInsertElement() {
       this.cycleThroughItems();
       this.updatePagination();
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     willDestroyElement() {
       this.stopCyclingThroughItems();
     },
@@ -125,8 +125,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     prevItem() {
       if (this.hasMultipleItems) {
         if (this.currentItemIndex === 0) {
@@ -139,8 +139,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     nextItem() {
       if (this.hasMultipleItems) {
         if (this.currentItemIndex >= this.lastIndex) {
@@ -153,8 +153,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {boolean}
-		 */
+     * @returns {boolean}
+    */
     rightClickHandler() {
       track({
         action: trackActions.click,
@@ -168,8 +168,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {boolean}
-		 */
+      * @returns {boolean}
+    */
     leftClickHandler() {
       track({
         action: trackActions.click,
@@ -183,8 +183,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {boolean}
-		 */
+      * @returns {boolean}
+    */
     centerClickHandler() {
       track({
         action: trackActions.click,
@@ -197,16 +197,16 @@ export default Component.extend(
     },
 
     /**
-		 * @param {MouseEvent|Touch} event
-		 * @returns {void}
-		 */
+      * @param {MouseEvent|Touch} event
+      * @returns {void}
+    */
     click(event) {
       this.callClickHandler(event, true);
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     cycleThroughItems() {
       if (this.hasMultipleItems && !this.isTimeoutHandleSet) {
         this.set('cycleTimeoutHandle', later(this, () => {
@@ -219,8 +219,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     stopCyclingThroughItems() {
       if (this.hasMultipleItems) {
         cancel(this.cycleTimeoutHandle);
@@ -229,8 +229,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     resetCycleTimeout() {
       if (this.hasMultipleItems) {
         this.stopCyclingThroughItems();

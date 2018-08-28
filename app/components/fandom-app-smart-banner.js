@@ -28,7 +28,7 @@ export default Component.extend(RespondsToScroll, {
   link: computed(() => (system === 'ios'
     ? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
     : 'https://play.google.com/store/apps/details'
-			+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
+   + '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
 
   storeName: computed(function () {
     return system === 'ios'
@@ -49,8 +49,8 @@ export default Component.extend(RespondsToScroll, {
 
   actions: {
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     close() {
       this.smartBanner.setCookie(this.get('options.daysHiddenAfterClose'));
       this.smartBanner.setVisibility(false);

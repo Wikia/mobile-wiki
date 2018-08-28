@@ -2,10 +2,10 @@ import { inject as service } from '@ember/service';
 import Helper from '@ember/component/helper';
 
 /**
- * @param {Array} params
- * @param {Object} options
- * @returns {string}
- */
+  * @param {Array} params
+  * @param {Object} options
+  * @returns {string}
+  */
 export default Helper.extend({
   i18n: service(),
 
@@ -16,9 +16,9 @@ export default Helper.extend({
     let namespace = 'main';
 
     /**
-		 * @param {string} key
-		 * @returns {void}
-		 */
+   * @param {string} key
+   * @returns {void}
+   */
     Object.keys(options).forEach((key) => {
       if (key === 'ns') {
         namespace = options[key];

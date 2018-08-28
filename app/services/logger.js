@@ -4,12 +4,12 @@ import ErrorDescriptor from '../utils/error-descriptor';
 import extend from '../utils/extend';
 
 /**
- * Elastic Search doesn't play well with arrays of objects
- * Convert additionalData to an object with objects
- *
- * @param {Object} additionalData
- * @returns {Object}
- */
+  * Elastic Search doesn't play well with arrays of objects
+  * Convert additionalData to an object with objects
+  *
+  * @param {Object} additionalData
+  * @returns {Object}
+  */
 const additionalDataSerializer = (additionalData) => {
   if (additionalData && Array.isArray(additionalData)) {
     return Object.assign({}, additionalData);
@@ -19,12 +19,12 @@ const additionalDataSerializer = (additionalData) => {
 };
 
 /**
- * Elastic Search doesn't play well with arrays of objects
- * Convert previousError.additionalData to an object with objects
- *
- * @param {Object} previousError
- * @returns {Object}
- */
+  * Elastic Search doesn't play well with arrays of objects
+  * Convert previousError.additionalData to an object with objects
+  *
+  * @param {Object} previousError
+  * @returns {Object}
+  */
 const previousErrorSerializer = (previousError) => {
   if (previousError && previousError.additionalData) {
     const serialized = Object.assign({}, previousError);

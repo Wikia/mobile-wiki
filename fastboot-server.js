@@ -7,6 +7,6 @@ We do have hardcoded path to server/app/server in chef repo though
 so to enable us to be able to change name of the 'server' folder
 I need to have a single file that would work for both cases
 to be able to change that in chef repo
- */
+  */
 
 require('./fastboot-server/app/server');

@@ -1,17 +1,17 @@
 import config from '../config/environment';
 
 /**
- * @param {*} applicationInstance
- *
- * @returns {void}
- */
+  * @param {*} applicationInstance
+  *
+  * @returns {void}
+  */
 export function initialize(applicationInstance) {
   const fastboot = applicationInstance.lookup('service:fastboot');
   let debug = config.environment === 'development';
 
   // turn on debugging with querystring ?debug=1
   if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1')
-		|| !fastboot.get('isFastBoot') && window.location.search.match(/debug=1/)
+  || !fastboot.get('isFastBoot') && window.location.search.match(/debug=1/)
   ) {
     debug = true;
   }

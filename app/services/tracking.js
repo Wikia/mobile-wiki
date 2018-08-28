@@ -32,7 +32,7 @@ export default Service.extend({
       const host = request.get('host');
       const requestUrl = `${request.get('protocol')}://${host}${request.get('path')}`;
       const c7 = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}`
-				+ `${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
+    + `${get(config, 'comscore.keyword')}=${get(config, 'comscore.c7Value')}`;
 
       set(config, 'comscore.c7', encodeURIComponent(c7));
     }

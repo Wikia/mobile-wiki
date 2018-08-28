@@ -4,22 +4,22 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
 
 /**
- * Widgets
- * @typedef {Object} Widgets
- * @property {Function} Group
- */
+  * Widgets
+  * @typedef {Object} Widgets
+  * @property {Function} Group
+  */
 
 /**
- * VK
- * @typedef {Object} VK
- * @property {Widgets} [Widgets]
- */
+  * VK
+  * @typedef {Object} VK
+  * @property {Widgets} [Widgets]
+  */
 
 /**
- * Window
- * @typedef {Object} Window
- * @property {VK} [VK]
- */
+  * Window
+  * @typedef {Object} Window
+  * @property {VK} [VK]
+  */
 
 export default Component.extend(
   RenderComponentMixin,
@@ -33,8 +33,8 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this._super(...arguments);
 
@@ -43,8 +43,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     loadScript() {
       if (!this.get('scriptLoadInitialized.vk')) {
         this.set('scriptLoadInitialized.vk', true);
@@ -56,8 +56,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     createWidget() {
       if (this.get('scriptLoaded.vk')) {
         const elementId = this.elementId;

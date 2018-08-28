@@ -16,8 +16,8 @@ export default Service.extend({
   wikiVariables: service(),
 
   /**
-	 * @private
-	 */
+  * @private
+  */
   isUserAnonymous: not('currentUser.isAuthenticated'),
 
   modelLoader: computed('isUserAnonymous', function () {
@@ -35,21 +35,21 @@ export default Service.extend({
   }),
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   init() {
     this._super(...arguments);
     // fetches the model from the API at first attempt to use the data
     // then a singleton service will keep the data until page reloads
     this.set('model', NotificationsModel.create(getOwner(this).ownerInjection()));
     // eslint-disable-next-line
-		this.modelLoader;
+  this.modelLoader;
   },
 
   loadFirstPage() {
     if (this.isUserAnonymous === true
-			|| this.isLoading === true
-			|| this.nextPage !== null) {
+   || this.isLoading === true
+   || this.nextPage !== null) {
       return;
     }
     this.set('isLoading', true);
@@ -68,8 +68,8 @@ export default Service.extend({
 
   loadNextPage() {
     if (this.isUserAnonymous === true
-			|| this.isLoading === true
-			|| this.nextPage === null) {
+   || this.isLoading === true
+   || this.nextPage === null) {
       return;
     }
     this.set('isLoading', true);

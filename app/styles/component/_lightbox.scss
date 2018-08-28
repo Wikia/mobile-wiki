@@ -2,227 +2,227 @@ $lightbox-footer-padding: 18px;
 $lightbox-filmstrip-height: 80px;
 
 .lightbox-wrapper {
-	background-color: $wds-fandom-color-black;
-	bottom: 0;
-	color: $modal-text-color;
-	display: flex;
-	flex-direction: column;
-	left: 0;
-	overflow: hidden;
-	position: fixed;
-	right: 0;
-	-webkit-tap-highlight-color: transparent;
-	top: 0;
-	z-index: $z-lightbox-wrapper;
+  background-color: $wds-fandom-color-black;
+  bottom: 0;
+  color: $modal-text-color;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  -webkit-tap-highlight-color: transparent;
+  top: 0;
+  z-index: $z-lightbox-wrapper;
 
-	&.open {
-		animation: fadeInFromNone .3s;
-	}
+  &.open {
+    animation: fadeInFromNone .3s;
+  }
 
-	&:focus {
-		outline: 0;
-	}
+  &:focus {
+    outline: 0;
+  }
 }
 
 // To avoid conflict with iPhoneX gesture and notch area:
 // Browsers which partially support CSS Environment variables (iOS 11.0-11.2).
 @supports (padding-bottom: constant(safe-area-inset-bottom)) {
-	.lightbox-wrapper {
-		padding-bottom: constant(safe-area-inset-bottom);
-		padding-left: constant(safe-area-inset-left);
-		padding-right: constant(safe-area-inset-right);
-	}
+  .lightbox-wrapper {
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-left: constant(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+  }
 }
 // Browsers which fully support CSS Environment variables (iOS 11.2+).
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-	.lightbox-wrapper {
-		padding-bottom: env(safe-area-inset-bottom);
-		padding-left: env(safe-area-inset-left);
-		padding-right: env(safe-area-inset-right);
-	}
+  .lightbox-wrapper {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 // This is needed because we can't transform opacity from display: hidden in a regular way
 @keyframes fadeInFromNone {
-	0% {
-		opacity: 0;
-	}
+  0% {
+    opacity: 0;
+  }
 
-	1% {
-		opacity: 0;
-	}
+  1% {
+    opacity: 0;
+  }
 
-	100% {
-		opacity: 1;
-	}
+  100% {
+    opacity: 1;
+  }
 }
 
 .lightbox-header {
-	height: 40px;
-	position: absolute;
-	width: 100%;
-	z-index: $z-lightbox-header;
+  height: 40px;
+  position: absolute;
+  width: 100%;
+  z-index: $z-lightbox-header;
 }
 
 .lightbox-header-title {
-	float: left;
-	padding: 15px 13px;
+  float: left;
+  padding: 15px 13px;
 }
 
 .lightbox-close-wrapper {
-	float: right;
-	padding: 16px;
+  float: right;
+  padding: 16px;
 }
 
 .lightbox-close-button {
-	pointer-events: none;
+  pointer-events: none;
 }
 
 .lightbox-content {
-	height: 100%;
-	overflow: hidden;
-	position: relative;
-	width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 
-	img {
-		max-height: 100%;
-		max-width: 100%;
-		opacity: 0;
-		transition: .01s opacity .3s;
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    transition: .01s opacity .3s;
 
-		.open & {
-			opacity: 1;
-		}
-	}
+    .open & {
+      opacity: 1;
+    }
+  }
 }
 
 .lightbox-content-inner {
-	align-items: center;
-	display: flex;
-	height: 100%;
-	justify-content: center;
-	width: 100%;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 
-	&:focus {
-		outline: none;
-	}
+  &:focus {
+    outline: none;
+  }
 }
 
 .lightbox-footer {
-	bottom: 0;
-	left: 0;
-	padding: $lightbox-footer-padding 0 3px;
-	position: absolute;
-	width: 100%;
-	z-index: $z-lightbox-footer;
+  bottom: 0;
+  left: 0;
+  padding: $lightbox-footer-padding 0 3px;
+  position: absolute;
+  width: 100%;
+  z-index: $z-lightbox-footer;
 }
 
 .lightbox-footer-head {
-	margin: 0 0 6px $lightbox-footer-padding;
+  margin: 0 0 6px $lightbox-footer-padding;
 }
 
 .lightbox-footer-content-wrapper {
-	align-items: flex-end;
-	display: flex;
-	justify-content: space-between;
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
 }
 
 .lightbox-footer-content {
-	height: auto;
-	margin: 0 0 12px $lightbox-footer-padding;
-	max-height: 3.7em;
-	overflow: hidden;
-	transition: max-height .3s;
+  height: auto;
+  margin: 0 0 12px $lightbox-footer-padding;
+  max-height: 3.7em;
+  overflow: hidden;
+  transition: max-height .3s;
 
-	&.expanded {
-		max-height: 10em;
-	}
+  &.expanded {
+    max-height: 10em;
+  }
 
-	&:last-child {
-		padding-right: $lightbox-footer-padding;
-	}
+  &:last-child {
+    padding-right: $lightbox-footer-padding;
+  }
 }
 
 .lightbox-footer-link {
-	@include square(44px);
+  @include square(44px);
 
-	align-items: center;
-	display: flex;
-	justify-content: space-around;
-	margin-right: 4px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 4px;
 
-	svg {
-		transform: rotate(-45deg);
-	}
+  svg {
+    transform: rotate(-45deg);
+  }
 }
 
 .has-footer .lightbox-image.lightbox-content-inner::after,
 .has-footer .lightbox-video.lightbox-content-inner::after {
-	background-image: linear-gradient(to top, $wds-fandom-color-black, rgba($wds-fandom-color-black, 0));
-	bottom: 0;
-	content: ' ';
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	z-index: $z-lightbox-footer - 1;
+  background-image: linear-gradient(to top, $wds-fandom-color-black, rgba($wds-fandom-color-black, 0));
+  bottom: 0;
+  content: ' ';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: $z-lightbox-footer - 1;
 }
 
 .has-footer .is-gallery .lightbox-image.lightbox-content-inner::after,
 .has-footer .is-gallery .lightbox-video.lightbox-content-inner::after {
-	background-image: linear-gradient(to top, $wds-fandom-color-black, $wds-fandom-color-black $lightbox-filmstrip-height, rgba($wds-fandom-color-black, 0));
+  background-image: linear-gradient(to top, $wds-fandom-color-black, $wds-fandom-color-black $lightbox-filmstrip-height, rgba($wds-fandom-color-black, 0));
 }
 
 .lightbox-ui-hidden.has-footer .lightbox-image.lightbox-content-inner::after,
 .lightbox-ui-hidden.has-footer .lightbox-video.lightbox-content-inner::after {
-	display: none;
+  display: none;
 }
 
 .lightbox-thumbnails-container {
-	align-items: center;
-	display: flex;
-	flex-wrap: nowrap;
-	height: $lightbox-filmstrip-height;
-	overflow-x: auto;
-	overflow-y: hidden;
-	padding: 0 $lightbox-footer-padding $lightbox-footer-padding;
-	width: 100%;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  height: $lightbox-filmstrip-height;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 $lightbox-footer-padding $lightbox-footer-padding;
+  width: 100%;
 }
 
 .lightbox-filmstrip-hidden {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 .lightbox-thumbnail {
-	@extend %position-play-icon;
+  @extend %position-play-icon;
 
-	position: relative;
+  position: relative;
 
-	img {
-		@include square(44px);
+  img {
+    @include square(44px);
 
-		border: 2px solid transparent;
-		border-radius: 4px;
-		box-sizing: content-box;
-	}
+    border: 2px solid transparent;
+    border-radius: 4px;
+    box-sizing: content-box;
+  }
 
-	.lazyloading {
-		@include is-loading;
-	}
+  .lazyloading {
+    @include is-loading;
+  }
 
-	.lazyloaded {
-		animation: fadeInFromNone .3s;
-	}
+  .lazyloaded {
+    animation: fadeInFromNone .3s;
+  }
 
-	&:not(:first-child) {
-		margin-left: 6px;
-	}
+  &:not(:first-child) {
+    margin-left: 6px;
+  }
 }
 
 .lightbox-thumbnail-active img {
-	border: 2px solid $wds-fandom-color-aqua;
+  border: 2px solid $wds-fandom-color-aqua;
 }
 
 .lightbox-image .loading {
-	@include is-loading;
+  @include is-loading;
 }

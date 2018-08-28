@@ -7,7 +7,7 @@ export default {
       article_id: 0,
       type: 'category',
       image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
-				+ 'Red.jpg/revision/latest?cb=20150708092401',
+    + 'Red.jpg/revision/latest?cb=20150708092401',
       article_local_url: '/wiki/Category:Articles',
     }, {
       title: 'Category:Blog_posts',
@@ -16,7 +16,7 @@ export default {
       article_id: 2126,
       type: 'category',
       image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
-				+ 'Red.jpg/revision/latest?cb=20150708092401',
+    + 'Red.jpg/revision/latest?cb=20150708092401',
       article_local_url: '/wiki/Category:Blog_posts',
     }, {
       title: 'Category:Images',
@@ -25,7 +25,7 @@ export default {
       article_id: 2127,
       type: 'category',
       image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
-				+ 'Red.jpg/revision/latest?cb=20150708092401',
+    + 'Red.jpg/revision/latest?cb=20150708092401',
       article_local_url: '/wiki/Category:Images',
     }, {
       title: 'Category:Videos',
@@ -34,7 +34,7 @@ export default {
       article_id: 0,
       type: 'category',
       image_url: 'https://vignette.wikia.nocookie.net/mercurycc/images/5/5a/'
-				+ 'Red.jpg/revision/latest?cb=20150708092401',
+    + 'Red.jpg/revision/latest?cb=20150708092401',
       article_local_url: '/wiki/Category:Videos',
     },
   ],

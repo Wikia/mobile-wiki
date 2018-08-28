@@ -29,8 +29,8 @@ export default Component.extend(InViewportMixin, {
   },
 
   /**
-	 * Reset InViewPort when new users recieved
-	 */
+  * Reset InViewPort when new users recieved
+  */
   didUpdateAttrs() {
     if (this.viewportEntered) {
       this.set('viewportEntered', false);

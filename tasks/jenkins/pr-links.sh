@@ -5,10 +5,10 @@ set -x
 # $1 - state
 sendCurl() {
 curl -s \
-	-X POST  \
-	-H "$githubToken" \
-	-d "$1" \
-	$githubUrl
+  -X POST  \
+  -H "$githubToken" \
+  -d "$1" \
+  $githubUrl
 }
 
 if [[ ! -z "$buildState" ]]

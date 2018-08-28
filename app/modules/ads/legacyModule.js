@@ -8,53 +8,53 @@ import offset from '../../utils/offset';
 import { track } from '../../utils/track';
 
 /**
- * @typedef {Object} SlotsContext
- * @property {Function} isApplicable
- * @property {Function} setStatus
- */
+  * @typedef {Object} SlotsContext
+  * @property {Function} isApplicable
+  * @property {Function} setStatus
+  */
 
 /**
- * @typedef {Object} AdEngineBridge
- * @property {Function} checkAdBlocking
- */
+  * @typedef {Object} AdEngineBridge
+  * @property {Function} checkAdBlocking
+  */
 
 /**
- * @typedef {Object} BabDetectionModule
- * @property {Function} initDetection
- */
+  * @typedef {Object} BabDetectionModule
+  * @property {Function} initDetection
+  */
 
 /**
- * @typedef {Object} VastUrlBuilder
- * @property {Function} build
- */
+  * @typedef {Object} VastUrlBuilder
+  * @property {Function} build
+  */
 
 /**
- * @typedef {Object} AdMercuryListenerModule
- * @property {Function} startOnLoadQueue
- */
+  * @typedef {Object} AdMercuryListenerModule
+  * @property {Function} startOnLoadQueue
+  */
 
 /**
- * @class Ads
- *
- * @property {Ads} instance
- * @property {Object} adsContext
- * @property {Object} previousDetectionResults
- * @property {*} adEngineRunnerModule
- * @property {*} adContextModule
- * @property {AdEngineBridge} adEngineBridge
- * @property {BabDetectionModule} babDetectionModule
- * @property {*} adConfigMobile
- * @property {SlotsContext} slotsContext
- * @property {AdMercuryListenerModule} adMercuryListenerModule
- * @property {Object} GASettings
- * @property {VastUrlBuilder} vastUrlBuilder
- * @property {Krux} krux
- * @property {Object} currentAdsContext
- * @property {Object} googleTag
- * @property {boolean} isLoaded
- * @property {Array<string[]>} slotsQueue
- * @property {Object} a9
- */
+  * @class Ads
+  *
+  * @property {Ads} instance
+  * @property {Object} adsContext
+  * @property {Object} previousDetectionResults
+  * @property {*} adEngineRunnerModule
+  * @property {*} adContextModule
+  * @property {AdEngineBridge} adEngineBridge
+  * @property {BabDetectionModule} babDetectionModule
+  * @property {*} adConfigMobile
+  * @property {SlotsContext} slotsContext
+  * @property {AdMercuryListenerModule} adMercuryListenerModule
+  * @property {Object} GASettings
+  * @property {VastUrlBuilder} vastUrlBuilder
+  * @property {Krux} krux
+  * @property {Object} currentAdsContext
+  * @property {Object} googleTag
+  * @property {boolean} isLoaded
+  * @property {Array<string[]>} slotsQueue
+  * @property {Object} a9
+  */
 class Ads {
   constructor() {
     this.adsContext = null;
@@ -92,10 +92,10 @@ class Ads {
   }
 
   /**
-	 * Returns instance of Ads object
-	 *
-	 * @returns {Ads}
-	 */
+  * Returns instance of Ads object
+  *
+  * @returns {Ads}
+  */
   static getInstance() {
     if (Ads.instance === null) {
       Ads.instance = new Ads();
@@ -104,10 +104,10 @@ class Ads {
   }
 
   /**
-	 * Initializes the Ad module
-	 *
-	 * @returns {void}
-	 */
+  * Initializes the Ad module
+  *
+  * @returns {void}
+  */
   init() {
     M.trackingQueue.push(() => this.loadLegacyModules());
   }
@@ -175,14 +175,14 @@ class Ads {
   }
 
   /**
-	 * Build VAST url for video players
-	 *
-	 * @param {number} aspectRatio
-	 * @param {Object} slotParams
-	 * @param {Object} options
-	 *
-	 * @returns {string}
-	 */
+  * Build VAST url for video players
+  *
+  * @param {number} aspectRatio
+  * @param {Object} slotParams
+  * @param {Object} options
+  *
+  * @returns {string}
+  */
   buildVastUrl(aspectRatio, slotParams, options) {
     if (!this.vastUrlBuilder) {
       console.warn('Can not build VAST url.');
@@ -193,13 +193,13 @@ class Ads {
   }
 
   /**
-	 * Dispatch AdEngine event
-	 *
-	 * @param {string} name
-	 * @param {Object} data
-	 *
-	 * @returns {void}
-	 */
+  * Dispatch AdEngine event
+  *
+  * @param {string} name
+  * @param {Object} data
+  *
+  * @returns {void}
+  */
   dispatchEvent(name, data) {
     const event = document.createEvent('CustomEvent');
 
@@ -235,12 +235,12 @@ class Ads {
   }
 
   /**
-	 * Method for sampling and pushing ads-related events
-	 * @arguments coming from ads tracking request
-	 * It's called by track() method in wikia.tracker fetched from app by ads code
-	 *
-	 * @returns {void}
-	 */
+  * Method for sampling and pushing ads-related events
+  * @arguments coming from ads tracking request
+  * It's called by track() method in wikia.tracker fetched from app by ads code
+  *
+  * @returns {void}
+  */
   static gaTrackAdEvent() {
     // Percentage of all the track requests to go through
     const adHitSample = 1;
@@ -253,13 +253,13 @@ class Ads {
   }
 
   /**
-	 * Track pageview in Krux (imported from Oasis/MediaWiki)
-	 *
-	 * mobileId variable is the ID referencing to the mobile site
-	 * (see ads_run.js and krux.js in app repository)
-	 *
-	 * @returns {void}
-	 */
+  * Track pageview in Krux (imported from Oasis/MediaWiki)
+  *
+  * mobileId variable is the ID referencing to the mobile site
+  * (see ads_run.js and krux.js in app repository)
+  *
+  * @returns {void}
+  */
   trackKruxPageView() {
     if (this.krux && typeof this.krux.load === 'function') {
       console.info('Track pageView: Krux');
@@ -270,11 +270,11 @@ class Ads {
   }
 
   /**
-	 * @param {String} name
-	 * @param {Object} GAOption
-	 * @param {Boolean} isAdBlockDetected
-	 * @returns {void}
-	 */
+  * @param {String} name
+  * @param {Object} GAOption
+  * @param {Boolean} isAdBlockDetected
+  * @returns {void}
+  */
   trackBlocking(name, GAOption, isAdBlockDetected) {
     let value = isAdBlockDetected ? 'Yes' : 'No';
 
@@ -291,8 +291,8 @@ class Ads {
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   addDetectionListeners() {
     const GASettings = this.GASettings;
     const listenerSettings = [{
@@ -315,9 +315,9 @@ class Ads {
   }
 
   /**
-	 * @param {*} adsContext
-	 * @returns {void}
-	 */
+  * @param {*} adsContext
+  * @returns {void}
+  */
   setContext(adsContext) {
     this.adsContext = adsContext || null;
   }
@@ -327,11 +327,11 @@ class Ads {
   }
 
   /**
-	 * Turns off all ads for logged in user
-	 *
-	 * @param {*} adsContext
-	 * @returns {void}
-	 */
+  * Turns off all ads for logged in user
+  *
+  * @param {*} adsContext
+  * @returns {void}
+  */
   turnOffAdsForLoggedInUsers(adsContext) {
     // TODO: Refactor/remove while working on ADEN-2189
     adsContext = adsContext || {};
@@ -359,7 +359,7 @@ class Ads {
     const firstSection = document.querySelector('.article-content > h2');
     const firstSectionTop = (
       firstSection
-			&& offset(firstSection).top
+   && offset(firstSection).top
     ) || 0;
 
     return firstSectionTop > this.adsData.minZerothSectionLength;
@@ -404,12 +404,12 @@ class Ads {
   }
 
   /**
-	 * Reloads the ads with the provided adsContext
-	 *
-	 * @param {*} adsContext
-	 * @param {function?} onContextLoadCallback
-	 * @returns {void}
-	 */
+  * Reloads the ads with the provided adsContext
+  *
+  * @param {*} adsContext
+  * @param {function?} onContextLoadCallback
+  * @returns {void}
+  */
   reload(adsContext, onContextLoadCallback = null) {
     let delayEnabled = false;
 
@@ -475,10 +475,10 @@ class Ads {
   }
 
   /**
-	 * This is callback that is run after script is loaded
-	 *
-	 * @returns {void}
-	 */
+  * This is callback that is run after script is loaded
+  *
+  * @returns {void}
+  */
   reloadWhenReady() {
     this.reload(this.currentAdsContext, () => {
       this.adMercuryListenerModule.startOnLoadQueue();
@@ -487,12 +487,12 @@ class Ads {
   }
 
   /**
-	 * This is a callback that is run after transition (when article is already loaded)
-	 *
-	 * @param {*} adsContext
-	 *
-	 * @returns {void}
-	 */
+  * This is a callback that is run after transition (when article is already loaded)
+  *
+  * @param {*} adsContext
+  *
+  * @returns {void}
+  */
   afterTransition(adsContext) {
     this.reload(adsContext, () => {
       if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
@@ -502,21 +502,21 @@ class Ads {
   }
 
   /**
-	 * Push slot to the current queue (refresh ad in given slot)
-	 *
-	 * @param {string} name - name of the slot
-	 * @returns {void}
-	 */
+  * Push slot to the current queue (refresh ad in given slot)
+  *
+  * @param {string} name - name of the slot
+  * @returns {void}
+  */
   pushSlotToQueue(name) {
     this.slotsQueue.push([name]);
   }
 
   /**
-	 * Removes ad slot by name
-	 *
-	 * @param {string} name - Name of ths slot to remove
-	 * @returns {void}
-	 */
+  * Removes ad slot by name
+  *
+  * @param {string} name - Name of ths slot to remove
+  * @returns {void}
+  */
   removeSlot(name) {
     if (this.googleTagModule) {
       this.googleTagModule.destroySlots([name]);
@@ -524,10 +524,10 @@ class Ads {
   }
 
   /**
-	 * This method is called on each transition
-	 *
-	 * @returns {void}
-	 */
+  * This method is called on each transition
+  *
+  * @returns {void}
+  */
   onTransition() {
     if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
       this.adMercuryListenerModule.runOnPageChangeCallbacks();
@@ -550,10 +550,10 @@ class Ads {
   }
 
   /**
-	 * Execute when ads package is ready to use
-	 *
-	 * @param {function} callback
-	 */
+  * Execute when ads package is ready to use
+  *
+  * @param {function} callback
+  */
   onReady(callback) {
     if (this.isLoaded) {
       callback();
@@ -567,10 +567,10 @@ class Ads {
   }
 
   /**
-	 * This method is called on menu or search open
-	 *
-	 * @returns {void}
-	 */
+  * This method is called on menu or search open
+  *
+  * @returns {void}
+  */
   onMenuOpen() {
     if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
       this.uapUnsticked = true;
@@ -579,37 +579,37 @@ class Ads {
   }
 
   /**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
+  * This method is being overwritten in ApplicationRoute for ads needs.
+  * To learn more check routes/application.js file.
+  *
+  * @returns {void}
+  */
   createLightbox() {
   }
 
   /**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
+  * This method is being overwritten in ApplicationRoute for ads needs.
+  * To learn more check routes/application.js file.
+  *
+  * @returns {void}
+  */
   showLightbox() {
   }
 
   /**
-	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check routes/application.js file.
-	 *
-	 * @returns {void}
-	 */
+  * This method is being overwritten in ApplicationRoute for ads needs.
+  * To learn more check routes/application.js file.
+  *
+  * @returns {void}
+  */
   setSiteHeadOffset() {
   }
 
   /**
-	 * Retrieves the ads context
-	 *
-	 * @returns {Object|null}
-	 */
+  * Retrieves the ads context
+  *
+  * @returns {Object|null}
+  */
   getContext() {
     return this.adsContext;
   }

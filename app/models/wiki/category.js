@@ -16,9 +16,9 @@ export default BaseModel.extend({
 
 
   /**
-	 * @param {number} page
-	 * @returns {Ember.RSVP.Promise}
-	 */
+  * @param {number} page
+  * @returns {Ember.RSVP.Promise}
+  */
   loadPage(page) {
     return fetch(this.wikiUrls.build({
       host: this.host,
@@ -42,9 +42,9 @@ export default BaseModel.extend({
   },
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     this._super(...arguments);
 

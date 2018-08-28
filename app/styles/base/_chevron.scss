@@ -1,11 +1,11 @@
 .chevron {
-	transition: .25s transform ease-in-out;
+  transition: .25s transform ease-in-out;
 }
 
 .collapsible-menu .title,
 .show-comments-btn,
 .open-section {
-	&:not(.collapsed) .chevron {
-		transform: scaleY(-1);
-	}
+  &:not(.collapsed) .chevron {
+    transform: scaleY(-1);
+  }
 }

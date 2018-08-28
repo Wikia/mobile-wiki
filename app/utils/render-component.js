@@ -31,9 +31,9 @@ export function getRenderComponentFor(parent) {
     assert(`Component named "${name}" doesn't exist.`, component);
 
     /**
-		 * layoutName - for dynamically created components we need to tell Ember where is it's template
-		 * @type {string}
-		 */
+   * layoutName - for dynamically created components we need to tell Ember where is it's template
+   * @type {string}
+   */
     attrs.layoutName = `components/${name}`;
     attrs._placeholderElement = placeholderElement;
 

@@ -22,8 +22,8 @@ export default {
       type: 'article',
       abstract: 'TestA',
       thumbnail: 'https://vignette.wikia.nocookie.net/fallout/images/d/d8/FO3_psycho.png/'
-				+ 'revision/latest/window-crop/width/200/x-offset/0/y-offset/0/window-width/525/'
-				+ 'window-height/525?cb=20110305205908',
+    + 'revision/latest/window-crop/width/200/x-offset/0/y-offset/0/window-width/525/'
+    + 'window-height/525?cb=20110305205908',
       original_dimensions: {
         width: '525',
         height: '924',

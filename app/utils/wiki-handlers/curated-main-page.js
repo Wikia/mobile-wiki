@@ -3,10 +3,10 @@ import { getOwner } from '@ember/application';
 import CuratedContentModel from '../../models/curated-content';
 
 /**
- * Set curatedContent data if main page has curated content set
- * @param {Object} mainPageModel
- * @returns {Object}
- */
+  * Set curatedContent data if main page has curated content set
+  * @param {Object} mainPageModel
+  * @returns {Object}
+  */
 function getCuratedContentModel(mainPageModel) {
   const curatedContent = get(mainPageModel, 'curatedMainPageData.curatedContent');
 
@@ -21,10 +21,10 @@ function getCuratedContentModel(mainPageModel) {
 }
 
 /**
- * @param {Ember.Route} route
- * @param {Object} model
- * @returns {Object}
- */
+  * @param {Ember.Route} route
+  * @param {Object} model
+  * @returns {Object}
+  */
 function afterModel(route, model) {
   model.set('curatedContent', getCuratedContentModel(model));
 

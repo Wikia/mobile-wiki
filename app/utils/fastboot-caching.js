@@ -1,23 +1,23 @@
 /**
- * @typedef {Object} CachingIntervals
- * @property {number} long
- * @property {number} standard
- * @property {number} short
- * @property {number} disabled
- * @property {number} default
- */
+  * @typedef {Object} CachingIntervals
+  * @property {number} long
+  * @property {number} standard
+  * @property {number} short
+  * @property {number} disabled
+  * @property {number} default
+  */
 
 /**
- * @typedef {Object} CachingPolicy
- */
+  * @typedef {Object} CachingPolicy
+  */
 
 /**
- * @typedef {Object} CachingSettings
- * @property {boolean} enabled
- * @property {CachingPolicy} cachingPolicy
- * @property {number} varnishTTL
- * @property {number} browserTTL
- */
+  * @typedef {Object} CachingSettings
+  * @property {boolean} enabled
+  * @property {CachingPolicy} cachingPolicy
+  * @property {number} varnishTTL
+  * @property {number} browserTTL
+  */
 
 export const CachingPolicy = {
   Private: 'private',
@@ -38,11 +38,11 @@ export const CachingInterval = {
 };
 
 /**
- * Disables use of cache in the response
- *
- * @param {FastBoot} fastboot
- * @returns {void}
- */
+  * Disables use of cache in the response
+  *
+  * @param {FastBoot} fastboot
+  * @returns {void}
+  */
 export function disableCache(fastboot) {
   if (!fastboot.get('isFastBoot')) {
     return;
@@ -52,14 +52,14 @@ export function disableCache(fastboot) {
 }
 
 /**
- * Sets proper headers to the response object
- *
- * Ported from https://github.com/Wikia/app/blob/dev/includes/wikia/nirvana/WikiaResponse.class.php#L309
- *
- * @param {FastBoot} fastboot
- * @param {CachingSettings} cachingSettings
- * @returns {void}
- */
+  * Sets proper headers to the response object
+  *
+  * Ported from https://github.com/Wikia/app/blob/dev/includes/wikia/nirvana/WikiaResponse.class.php#L309
+  *
+  * @param {FastBoot} fastboot
+  * @param {CachingSettings} cachingSettings
+  * @returns {void}
+  */
 export function setResponseCaching(fastboot, cachingSettings) {
   if (!fastboot.get('isFastBoot')) {
     return;

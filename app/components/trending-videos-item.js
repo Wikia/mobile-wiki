@@ -37,8 +37,8 @@ export default Component.extend({
   }),
 
   /**
-	 * @returns {boolean}
-	 */
+  * @returns {boolean}
+  */
   click() {
     track({
       action: trackActions.click,

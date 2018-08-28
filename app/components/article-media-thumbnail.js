@@ -11,9 +11,9 @@ export default Component.extend({
   tagName: 'figure',
 
   /**
-	 * Default is `article`
-	 * It can be overridden when rendering from another component, e.g. from article-media-gallery
-	 */
+  * Default is `article`
+  * It can be overridden when rendering from another component, e.g. from article-media-gallery
+  */
   itemContext: 'article',
 
   hasFigcaption: or('model.caption', 'showTitle'),

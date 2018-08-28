@@ -11,8 +11,8 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
   jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didInsertElement() {
     this._super(...arguments);
 

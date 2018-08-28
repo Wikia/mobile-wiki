@@ -40,8 +40,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     willInsertElement() {
       if (this.shouldShowFandomAppSmartBanner) {
         // this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
@@ -51,8 +51,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     checkForHiding() {
       const smartBannerService = this.smartBanner;
 

@@ -15,7 +15,7 @@ export default {
       },
       abstract: '04:04 I am Maru. The strangest cat on the planet! 03:48 Smolik Kev Fox - Run (Official Audio...',
       thumbnail: 'https://vignette.wikia.nocookie.net/agas/images/9/95/Harajuku_Girl.jpg/revision/latest/'
-			+ 'window-crop/width/200/x-offset/84/y-offset/0/window-width/335/window-height/334?cb=20140512132255',
+   + 'window-crop/width/200/x-offset/84/y-offset/0/window-width/335/window-height/334?cb=20140512132255',
       original_dimensions: {
         width: '500',
         height: '334',
@@ -31,7 +31,7 @@ export default {
         pageType: 'all_ads',
         showAds: true,
         pageFairDetectionUrl: '/load.php?cb=1521720057&debug=false&lang=en&modules='
-				+ '6704ffcaede8f70b2a9d20ace3b81d77&only=scripts&skin=wikiamobile&*',
+    + '6704ffcaede8f70b2a9d20ace3b81d77&only=scripts&skin=wikiamobile&*',
         prebidBidderUrl: [
           '//slot1.preview.wikia.com/__am/1521720057/group/-/pr3b1d_prod_js',
         ],
