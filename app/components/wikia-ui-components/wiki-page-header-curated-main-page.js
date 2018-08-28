@@ -6,19 +6,20 @@ import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
   {
-    classNames: ['wiki-page-header-curated-main-page'],
-
     wikiUrls: service(),
     wikiVariables: service(),
+
+    classNames: ['wiki-page-header-curated-main-page'],
+
+    mainPageTitle: reads('wikiVariables.mainPageTitle'),
+    siteName: reads('wikiVariables.siteName'),
 
     mainPageEditorUrl: computed(function () {
       return this.wikiUrls.build({
         host: this.wikiVariables.host,
-        path: '/main/edit'
+        path: '/main/edit',
       });
     }),
-    mainPageTitle: reads('wikiVariables.mainPageTitle'),
-    siteName: reads('wikiVariables.siteName'),
 
     actions: {
       trackClick(trackingLabel) {
