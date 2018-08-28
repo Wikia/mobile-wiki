@@ -16,7 +16,7 @@ export default Service.extend({
   getLanguageCodeFromRequest(path) {
     const matches = path.match(new RegExp(`^${this.langPathRegexp}/`));
 
-    return matches && matches[1] || '';
+    return (matches && matches[1]) || '';
   },
 
   /**

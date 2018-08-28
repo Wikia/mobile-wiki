@@ -38,7 +38,7 @@ export default Controller.extend(
       this.setProperties({
         applicationWrapperClassNames: [],
         domain: this.get('wikiVariables.dbName')
-    || window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+        || (window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1]),
         language: this.get('wikiVariables.language'),
       });
 
