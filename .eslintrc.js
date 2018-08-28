@@ -47,9 +47,6 @@ module.exports = {
     "prefer-destructuring": 0,
     "prefer-const": 0,
     "prefer-rest-params": 0,
-    "quotes": [2, "single", {
-      "allowTemplateLiterals": true
-    }],
     "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [

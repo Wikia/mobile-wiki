@@ -60,7 +60,7 @@ export default function () {
     if (controller === 'UserApi') {
       return undefined;
     }
-    throw new Error(`Controller or method response isn't yet mocked`);
+    throw new Error('Controller or method response isn\'t yet mocked');
   });
 
   this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
@@ -98,7 +98,7 @@ export default function () {
       return schema.searches.first();
     }
 
-    throw new Error(`Controller or method response isn't yet mocked`);
+    throw new Error('Controller or method response isn\'t yet mocked');
   });
 
   this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);
