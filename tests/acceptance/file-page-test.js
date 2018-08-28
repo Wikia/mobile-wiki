@@ -1,4 +1,6 @@
-import { currentURL, visit, find, findAll } from '@ember/test-helpers';
+import {
+  currentURL, visit, find, findAll,
+} from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
