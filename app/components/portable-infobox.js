@@ -105,7 +105,6 @@ export default Component.extend(
         const previousFigure = galleryActionButton.closest('figure').previousElementSibling;
 
         galleryWrapper.scrollLeft += offset(previousFigure).left;
-
       }
     },
 

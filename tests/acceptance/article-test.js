@@ -39,6 +39,5 @@ module('Acceptance | Article page', (hooks) => {
 
     await click('.section-header-label');
     assert.dom('#Test_1').hasClass('open-section');
-
   });
 });

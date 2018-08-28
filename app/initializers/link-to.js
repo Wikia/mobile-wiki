@@ -43,7 +43,6 @@ export function initialize() {
       return this._super(event);
     },
   });
-
 }
 
 export default {
