@@ -243,13 +243,17 @@ export default Component.extend(
         // as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
         if (element.closest('.portable-infobox')) {
           return 'portable-infobox-link';
-        } if (element.closest('.context-link')) {
+        }
+        if (element.closest('.context-link')) {
           return 'context-link';
-        } if (element.closest('blockquote')) {
+        }
+        if (element.closest('blockquote')) {
           return 'blockquote-link';
-        } if (element.closest('figcaption')) {
+        }
+        if (element.closest('figcaption')) {
           return 'caption-link';
-        } if (element.closest('.article-media-thumbnail')) {
+        }
+        if (element.closest('.article-media-thumbnail')) {
           return 'image-link';
         }
 

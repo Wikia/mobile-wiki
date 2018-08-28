@@ -126,6 +126,7 @@ export default Mixin.create({
           throw error;
         });
     }
+
     const wikiPageData = shoebox.retrieve('wikiPage');
     const wikiPageError = shoebox.retrieve('wikiPageError');
 
