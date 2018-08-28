@@ -3,11 +3,9 @@ import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { getWithDefault, get } from '@ember/object';
 import Ember from 'ember';
-import { isEmpty } from '@ember/utils';
 import { run } from '@ember/runloop';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
-
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ErrorDescriptor from '../utils/error-descriptor';
@@ -101,9 +99,8 @@ export default Route.extend(
 
       if (
         !fastboot.get('isFastBoot')
-    && !transition.queryParams.noexternals
+        && !transition.queryParams.noexternals
       ) {
-
         getAdsModule().then((adsModule) => {
           if (isAdEngine3Loaded()) {
             return;
@@ -112,14 +109,14 @@ export default Route.extend(
           adsModule.init();
 
           /*
-      * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-      * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
-      * for a user.
-      * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-      * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-      * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
-      * lightboxVisible=false and then decide if we want to show it.
-      */
+          * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+          * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
+          * for a user.
+          * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+          * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+          * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+          * lightboxVisible=false and then decide if we want to show it.
+          */
           adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
             if (!closeButtonDelay) {
               closeButtonDelay = 0;
@@ -266,8 +263,6 @@ export default Route.extend(
         const currentRoute = this.router.get('currentRouteName');
 
         let title;
-        let trackingCategory;
-        let info;
 
         if (currentRoute === 'wiki-page') {
           title = this.controllerFor('wikiPage').get('model').get('title');
@@ -275,17 +270,17 @@ export default Route.extend(
           title = '';
         }
 
-        trackingCategory = target.dataset.trackingCategory;
-        info = this.wikiUrls.getLinkInfo(
+        const trackingCategory = target.dataset.trackingCategory;
+        const info = this.wikiUrls.getLinkInfo(
           title,
           target.hash,
           target.href,
           target.search,
         );
 
-        /**
-     * Handle tracking
-     */
+        /*
+        * Handle tracking
+        */
         if (trackingCategory) {
           track({
             action: trackActions.click,
@@ -293,18 +288,18 @@ export default Route.extend(
           });
         }
 
-        /**
-     * handle links that are external to the application
-     */
+        /*
+        * handle links that are external to the application
+        */
         if (target.className.indexOf('external') > -1) {
           window.location.assign(target.href);
         } else if (info.article) {
           this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
         } else if (info.url) {
           /**
-      * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
-      * so that it will replace whatever is currently in the window.
-      */
+          * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
+          * so that it will replace whatever is currently in the window.
+          */
           const domainRegex = new RegExp(
             `^https?:\\/\\/[^\\/]+\\.${config.APP.baseDomainRegex}\\/.*$`,
           );
@@ -328,7 +323,8 @@ export default Route.extend(
         return;
       }
 
-      // Render components into FastBoot's HTML, outside of the Ember app so they're not touched when Ember starts
+      // Render components into FastBoot's HTML,
+      // outside of the Ember app so they're not touched when Ember starts
       const applicationInstance = getOwner(this);
       const document = applicationInstance.lookup('service:-document');
       const bodyBottomComponent = applicationInstance.lookup('component:fastboot-only/body-bottom');

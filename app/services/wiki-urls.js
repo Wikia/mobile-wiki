@@ -16,7 +16,7 @@ export default Service.extend({
   getLanguageCodeFromRequest(path) {
     const matches = path.match(new RegExp(`^${this.langPathRegexp}/`));
 
-    return matches && matches[1] || '';
+    return (matches && matches[1]) || '';
   },
 
   /**
@@ -127,7 +127,7 @@ export default Service.extend({
     *     1: "Kermit_the_Frog"
     *     2: "#Kermit_on_Sesame_Street"
     */
-      const article = local.match(new RegExp(`^(?:/wiki)/([^#]+)(#.*)?$`));
+      const article = local.match(new RegExp('^(?:/wiki)/([^#]+)(#.*)?$'));
 
       let comparison;
 

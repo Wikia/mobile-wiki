@@ -1,4 +1,6 @@
-import { or, equal, lte, bool, not } from '@ember/object/computed';
+import {
+  or, equal, lte, bool, not,
+} from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';

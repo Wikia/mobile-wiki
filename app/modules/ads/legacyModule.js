@@ -276,7 +276,7 @@ class Ads {
   * @returns {void}
   */
   trackBlocking(name, GAOption, isAdBlockDetected) {
-    let value = isAdBlockDetected ? 'Yes' : 'No';
+    const value = isAdBlockDetected ? 'Yes' : 'No';
 
     Ads.setPreviousDetectionResult(name, isAdBlockDetected);
     M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
@@ -359,7 +359,7 @@ class Ads {
     const firstSection = document.querySelector('.article-content > h2');
     const firstSectionTop = (
       firstSection
-   && offset(firstSection).top
+      && offset(firstSection).top
     ) || 0;
 
     return firstSectionTop > this.adsData.minZerothSectionLength;
@@ -373,7 +373,7 @@ class Ads {
     const numberOfSections = document.querySelectorAll('.article-content > h2').length;
     const hasArticleFooter = !!document.querySelector('.article-footer');
 
-    return hasArticleFooter && !isInContentApplicable || numberOfSections > this.adsData.minNumberOfSections;
+    return (hasArticleFooter && !isInContentApplicable) || (numberOfSections > this.adsData.minNumberOfSections);
   }
 
   isBottomLeaderboardApplicable() {
@@ -620,7 +620,6 @@ class Ads {
       this.jwPlayerMoat.track(player);
     }
   }
-
 }
 
 Ads.instance = null;

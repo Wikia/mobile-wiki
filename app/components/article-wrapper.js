@@ -1,5 +1,7 @@
 import { inject as service } from '@ember/service';
-import { not, oneWay, bool, equal, gte, and } from '@ember/object/computed';
+import {
+  not, oneWay, bool, equal, gte, and,
+} from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
 import { computed } from '@ember/object';

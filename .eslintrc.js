@@ -19,7 +19,6 @@ module.exports = {
     $script: true,
     Ember: true,
     FastBoot: true,
-    ga: true,
     Hammer: true,
     M: true,
     VisitSource: true,
@@ -33,7 +32,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "max-len": [2, 120, 2],
     "new-cap": 0,
-    "no-mixed-operators": 0,
     "no-param-reassign": 0,
     "no-plusplus": [2, {
       "allowForLoopAfterthoughts": true
@@ -43,14 +41,8 @@ module.exports = {
     "no-shadow": 0,
     "no-underscore-dangle": 0,
     "no-unused-vars": 0,
-    "object-curly-newline": 0,
-    "padded-blocks": 0,
     "prefer-destructuring": 0,
-    "prefer-const": 0,
     "prefer-rest-params": 0,
-    "quotes": [2, "single", {
-      "allowTemplateLiterals": true
-    }],
     "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [
