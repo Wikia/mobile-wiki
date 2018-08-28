@@ -17,17 +17,17 @@ export default Mixin.create({
           postTitle: this.postTitleMarkup,
           number: totalUniqueActors - 1,
         });
-      } else {
-        return this.getTranslatedMessage('notifications-reply-upvote-single-user-with-title', {
-          postTitle: this.postTitleMarkup,
-        });
       }
-    } else if (hasMultipleUsers) {
+      return this.getTranslatedMessage('notifications-reply-upvote-single-user-with-title', {
+        postTitle: this.postTitleMarkup,
+      });
+
+    }
+    if (hasMultipleUsers) {
       return this.getTranslatedMessage('notifications-reply-upvote-multiple-users-no-title', {
         number: totalUniqueActors,
       });
-    } else {
-      return this.getTranslatedMessage('notifications-reply-upvote-single-user-no-title');
     }
+    return this.getTranslatedMessage('notifications-reply-upvote-single-user-no-title');
   },
 });

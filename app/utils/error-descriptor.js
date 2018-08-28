@@ -32,9 +32,8 @@ const extractInstanceName = subject => (
 const extractErrorName = (subject) => {
   if (typeof subject === 'function') {
     return `Class ${extractClassName(subject)}`;
-  } else {
-    return `Instance of ${extractInstanceName(subject)}`;
   }
+  return `Instance of ${extractInstanceName(subject)}`;
 };
 
 export default EmberObject.extend({

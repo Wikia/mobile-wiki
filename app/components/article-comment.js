@@ -38,9 +38,8 @@ export default Component.extend({
 
     if (isIpAddress(userName)) {
       return this.i18n.t('app.username-anonymous');
-    } else {
-      return userName;
     }
+    return userName;
   }),
 
   didInsertElement() {

@@ -288,18 +288,21 @@ export default Route.extend(
 
       if (model.isCuratedMainPage) {
         return CuratedMainPageHandler;
-      } else if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
-        return ArticleHandler;
-      } else if (currentNamespace === mediawikiNamespace.CATEGORY) {
-        return CategoryHandler;
-      } else if (currentNamespace === mediawikiNamespace.FILE) {
-        return FileHandler;
-      } else if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
-        return BlogHandler;
-      } else {
-        this.logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
-        return null;
       }
+      if (isContentNamespace(currentNamespace, this.get('wikiVariables.contentNamespaces'))) {
+        return ArticleHandler;
+      }
+      if (currentNamespace === mediawikiNamespace.CATEGORY) {
+        return CategoryHandler;
+      }
+      if (currentNamespace === mediawikiNamespace.FILE) {
+        return FileHandler;
+      }
+      if (currentNamespace === mediawikiNamespace.BLOG_ARTICLE) {
+        return BlogHandler;
+      }
+      this.logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+      return null;
     },
 
     /**

@@ -32,17 +32,16 @@ export default EmberObject.extend({
       .then((response) => {
         if (response.ok) {
           return response.json();
-        } else {
-          return getFetchErrorMessage(response).then(() => {
-            throw new DesignSystemFetchError({
-              code: 503,
-            }).withAdditionalData({
-              responseStatus: response.status,
-              requestUrl: url,
-              responseUrl: response.url,
-            });
-          });
         }
+        return getFetchErrorMessage(response).then(() => {
+          throw new DesignSystemFetchError({
+            code: 503,
+          }).withAdditionalData({
+            responseStatus: response.status,
+            requestUrl: url,
+            responseUrl: response.url,
+          });
+        });
       })
       .then(navigationData => (
         {

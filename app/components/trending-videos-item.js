@@ -32,9 +32,8 @@ export default Component.extend({
 
     if (videoUrl) {
       return Thumbnailer.getThumbURL(videoUrl, options);
-    } else {
-      return undefined;
     }
+    return undefined;
   }),
 
   /**

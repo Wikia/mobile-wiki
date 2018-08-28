@@ -24,9 +24,8 @@ export default Component.extend({
       };
 
       return Thumbnailer.getThumbURL(this.imageUrl, options);
-    } else {
-      return undefined;
     }
+    return undefined;
   }),
 
   imageHeight: computed('imageWidth', function () {
