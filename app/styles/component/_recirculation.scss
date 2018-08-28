@@ -50,4 +50,55 @@
 		opacity: .5;
 		padding-left: 16px;
 	}
+
+	&__wiki-articles {
+		background-color: $wds-color-white;
+		border-radius: 4px;
+		box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .1);
+		margin-bottom: .75rem;
+		width: 100%;
+	}
+
+	&__wiki-articles-header {
+		background-color: $wds-fandom-color-aqua;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		color: $wds-color-white;
+		padding: 16px;
+		text-align: center;
+	}
+
+	&__wiki-articles-list {
+		@extend %list-reset;
+
+		padding: 0 18px;
+	}
+
+	&__wiki-article {
+		align-items: center;
+		display: flex;
+		height: 80px;
+
+		&:not(:last-child) {
+			border-bottom: 1px solid $wds-fandom-color-mid-light-gray;
+		}
+	}
+
+	&__wiki-article-circle {
+		@include square(36px);
+
+		align-items: center;
+		background-color: $wds-fandom-color-middle-gray;
+		border-radius: 50%;
+		color: $wds-color-white;
+		display: flex;
+		justify-content: center;
+	}
+
+	&__wiki-article-title {
+		margin-left: .75rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }
