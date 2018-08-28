@@ -1,5 +1,4 @@
 import EmberObject, { get } from '@ember/object';
-import { getOwner } from '@ember/application';
 import extend from '../../utils/extend';
 
 /**

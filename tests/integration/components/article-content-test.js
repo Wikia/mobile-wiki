@@ -11,8 +11,6 @@ import { module, test } from 'qunit';
 import sinon from 'sinon';
 import mockAdsService, { getAdsModuleMock } from '../../helpers/mock-ads-service';
 
-
-
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
   classNameBindings: ['nameLowerCase'],
   nameLowerCase: computed('name', function () {

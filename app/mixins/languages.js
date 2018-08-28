@@ -1,8 +1,6 @@
-import { inject as service } from '@ember/service';
-import { equal } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
+import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
-import { computed } from '@ember/object';
 
 export default Mixin.create({
   wikiVariables: service(),

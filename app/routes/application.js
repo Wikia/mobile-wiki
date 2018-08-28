@@ -1,24 +1,21 @@
-import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
-import { getWithDefault, get } from '@ember/object';
-import Ember from 'ember';
+import { get, getWithDefault } from '@ember/object';
+import Route from '@ember/routing/route';
 import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
+import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import ApplicationModel from '../models/application';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import { WikiVariablesRedirectError } from '../utils/errors';
 import {
-  disableCache,
-  setResponseCaching,
-  CachingInterval,
-  CachingPolicy,
+  CachingInterval, CachingPolicy, disableCache, setResponseCaching,
 } from '../utils/fastboot-caching';
 import { track, trackActions } from '../utils/track';
-import ApplicationModel from '../models/application';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 
 export default Route.extend(
   Ember.TargetActionSupport,
@@ -316,7 +313,7 @@ export default Route.extend(
       },
     },
 
-    injectScriptsFastbootOnly(wikiVariables, queryParams) {
+    injectScriptsFastbootOnly() {
       this._super(...arguments);
 
       if (!this.get('fastboot.isFastBoot')) {
