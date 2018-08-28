@@ -1,9 +1,8 @@
-import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
+import { computed, setProperties } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
-import { on } from '@ember/object/evented';
-import { setProperties, computed } from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
 import { isAdEngine3Loaded } from '../modules/ads';

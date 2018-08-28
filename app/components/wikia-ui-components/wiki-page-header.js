@@ -14,12 +14,9 @@
   *   heroImage=<hero image url>}}
 */
 
-import { inject as service } from '@ember/service';
-import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
-import { computed } from '@ember/object';
-import { isEmpty } from '@ember/utils';
+import { reads } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(

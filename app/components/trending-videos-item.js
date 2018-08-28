@@ -1,11 +1,10 @@
+import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
-import Component from '@ember/component';
-import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 import Thumbnailer from '../modules/thumbnailer';
-import { track, trackActions } from '../utils/track';
 import { transparentImageBase64 } from '../utils/thumbnail';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend({
   lightbox: service(),

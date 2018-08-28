@@ -25,9 +25,7 @@ export default function () {
   this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
 
   this.get('/wikia.php', (schema, request) => {
-    const {
-      controller, method, title, id,
-    } = request.queryParams;
+    const { controller, method, title } = request.queryParams;
 
     if (controller === 'MercuryApi') {
       if (method === 'getPage' && title === 'Mercury_CC_Wikia') {

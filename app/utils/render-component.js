@@ -1,6 +1,5 @@
-import { scheduleOnce } from '@ember/runloop';
-import { assert } from '@ember/debug';
 import { getOwner } from '@ember/application';
+import { assert } from '@ember/debug';
 
 function componentAttributes(element) {
   const attrsJSON = element.getAttribute('data-attrs');

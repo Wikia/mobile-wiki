@@ -1,19 +1,16 @@
-import { inject as service } from '@ember/service';
-import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import { isBlank, isEmpty } from '@ember/utils';
 import { observer } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { isBlank, isEmpty } from '@ember/utils';
 import AdsMixin from '../mixins/ads';
-import {
-  getRenderComponentFor,
-  queryPlaceholders,
-} from '../utils/render-component';
-import { track, trackActions } from '../utils/track';
-import toArray from '../utils/toArray';
-import scrollToTop from '../utils/scroll-to-top';
 import getAdsModule from '../modules/ads';
+import { getRenderComponentFor, queryPlaceholders } from '../utils/render-component';
+import scrollToTop from '../utils/scroll-to-top';
+import toArray from '../utils/toArray';
+import { track, trackActions } from '../utils/track';
 
 /**
   * HTMLElement

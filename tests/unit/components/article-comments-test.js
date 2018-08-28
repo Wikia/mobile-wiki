@@ -1,6 +1,6 @@
 import { run } from '@ember/runloop';
-import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 
 module('Unit | Component | article comments', (hooks) => {
   setupTest(hooks);
@@ -13,7 +13,7 @@ module('Unit | Component | article comments', (hooks) => {
     run(() => {
       component.setProperties({
         articleId: 10,
-        url(id, page) {
+        url() {
           return 'http://fallout.wikia.com/wikia.php?controller=MercuryApi&method=getSearchSuggestions&id=10';
         },
         scrollTop() {},

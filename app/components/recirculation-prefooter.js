@@ -2,7 +2,6 @@ import { defer } from 'rsvp';
 import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';

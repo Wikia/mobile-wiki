@@ -1,19 +1,16 @@
-import { inject as service } from '@ember/service';
-import {
-  readOnly, reads, oneWay, and,
-} from '@ember/object/computed';
 import Component from '@ember/component';
-import { on } from '@ember/object/evented';
-import { observer, computed } from '@ember/object';
+import { computed } from '@ember/object';
+import { and, oneWay, readOnly, reads } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import VideoLoader from '../modules/video-loader';
-import extend from '../utils/extend';
-import { transparentImageBase64 } from '../utils/thumbnail';
 import config from '../config/environment';
-import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 import { inGroup } from '../modules/abtest';
+import VideoLoader from '../modules/video-loader';
+import duration from '../utils/duration';
+import extend from '../utils/extend';
+import { transparentImageBase64 } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
