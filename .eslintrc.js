@@ -33,7 +33,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "max-len": [2, 120, 2],
     "new-cap": 0,
-    "no-mixed-operators": 0,
     "no-param-reassign": 0,
     "no-plusplus": [2, {
       "allowForLoopAfterthoughts": true

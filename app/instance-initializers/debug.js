@@ -11,7 +11,7 @@ export function initialize(applicationInstance) {
 
   // turn on debugging with querystring ?debug=1
   if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1')
-  || !fastboot.get('isFastBoot') && window.location.search.match(/debug=1/)
+  || (!fastboot.get('isFastBoot') && window.location.search.match(/debug=1/))
   ) {
     debug = true;
   }
