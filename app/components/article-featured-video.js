@@ -113,9 +113,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-  * @param {Object} player
-  * @returns {void}
-  */
+	 * @param {Object} player
+	 * @returns {void}
+	 */
   onCreate(player) {
     this.player = player;
 
@@ -156,13 +156,13 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-  * @returns {void}
-  */
+	 * @returns {void}
+	 */
   initVideoPlayer() {
     const model = this.get('model.embed');
     const jsParams = {
       autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
-    && window.Cookies.get(this.autoplayCookieName) !== '0',
+				&& window.Cookies.get(this.autoplayCookieName) !== '0',
       selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
       adTrackingParams: {
         adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
@@ -182,8 +182,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-  * @returns {void}
-  */
+	 * @returns {void}
+	 */
   destroyVideoPlayer() {
     if (this.player) {
       // FIXME this is temporary solution to fix nested glimmer transaction exception which causes application break
@@ -214,7 +214,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
 
     const currentScrollPosition = window.pageYOffset;
-    const globalNavigationHeight = document.querySelector('.wds-global-navigation').offsetHeight;
+    const globalNavigationElement = document.querySelector('.wds-global-navigation');
+    const globalNavigationHeight = globalNavigationElement ? globalNavigationElement.offsetHeight : 0;
     const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
     const isOnScrollActive = this.isOnScrollActive;
     const isInLandscapeMode = this.isInLandscapeMode();
