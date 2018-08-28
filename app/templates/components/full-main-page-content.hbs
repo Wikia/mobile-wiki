@@ -1,11 +1,9 @@
 <h2 section="1" {{action 'openSection'}} class="{{if openSection 'open-section'}}">
-	<div class="section-header-label">
-		{{i18n 'app.view-more'}}
-	</div>
-	{{wds-icon name='menu-control' size='small' class='chevron'}}
+  <div class="section-header-label">
+    {{i18n 'app.view-more'}}
+  </div>
+  {{wds-icon name='menu-control' size='small' class='chevron'}}
 </h2>
 <section class="article-content mobile-hidden">
-	{{article-content
-		content=content
-	}}
+  {{article-content content=content }}
 </section>

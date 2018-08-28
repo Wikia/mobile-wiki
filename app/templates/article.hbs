@@ -1,18 +1,18 @@
 <div id="wikiContainer" class="wiki-container">
-	{{article-wrapper
-		displayArticleWrapper=applicationWrapperVisible
-		commentsPage=commentsPage
-		model=model
-		siteName=siteName
-		toggleSiteHeadShadow=(action 'toggleSiteHeadShadow' target=application)
-	}}
+  {{article-wrapper
+    displayArticleWrapper=applicationWrapperVisible
+    commentsPage=commentsPage
+    model=model
+    siteName=siteName
+    toggleSiteHeadShadow=(action 'toggleSiteHeadShadow' target=application)
+  }}
 </div>
 {{#if displayRecirculation}}
-	{{recirculation-prefooter}}
+  {{recirculation-prefooter}}
 {{/if}}
 {{#if wikiVariables.recommendedVideoPlaylist}}
-	{{recommended-video
-		playlistId=wikiVariables.recommendedVideoPlaylist
-		relatedMediaId=wikiVariables.recommendedVideoRelatedMediaId
-	}}
+  {{recommended-video
+    playlistId=wikiVariables.recommendedVideoPlaylist
+    relatedMediaId=wikiVariables.recommendedVideoRelatedMediaId
+  }}
 {{/if}}

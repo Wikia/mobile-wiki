@@ -1,11 +1,11 @@
 <figure>
-	<div class="item-image">
-		{{svg 'wds-icons-image' role='img' class='wds-icon'}}
-		{{#if currentlyRenderedImageUrl}}
-			<img src="{{currentlyRenderedImageUrl}}" alt="{{title}}">
-		{{else}}
-			<img src="{{emptyGif}}" alt="{{title}}" style="width: 56.25%">
-		{{/if}}
-	</div>
-	<figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{title}}</figcaption>
+  <div class="item-image">
+    {{svg 'wds-icons-image' role='img' class='wds-icon'}}
+    {{#if currentlyRenderedImageUrl}}
+      <img src="{{currentlyRenderedImageUrl}}" alt="{{title}}">
+    {{else}}
+      <img src="{{emptyGif}}" alt="{{title}}" style="width: 56.25%">
+    {{/if}}
+  </div>
+  <figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{title}}</figcaption>
 </figure>

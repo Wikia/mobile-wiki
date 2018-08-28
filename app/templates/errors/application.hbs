@@ -1,14 +1,14 @@
 <div class="site-head-wrapper">
-	<nav class="site-head">
-		<div class="site-logo">
-			{{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
-		</div>
-	</nav>
+  <nav class="site-head">
+    <div class="site-logo">
+      {{svg 'wds-company-logo-fandom' role='img' class='fandom-logo'}}
+    </div>
+  </nav>
 </div>
 <div class="show-error-container">
-	<h1>Error</h1>
-	<div>{{productionErrorContext.message}}</div>
-	{{#if productionErrorContext.canAttemptRefresh}}
-		<button class="wds-button" onclick="window.location.reload()">Refresh</button>
-	{{/if}}
+  <h1>Error</h1>
+  <div>{{productionErrorContext.message}}</div>
+  {{#if productionErrorContext.canAttemptRefresh}}
+    <button class="wds-button" onclick="window.location.reload()">Refresh</button>
+  {{/if}}
 </div>
