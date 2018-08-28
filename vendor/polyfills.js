@@ -3,7 +3,6 @@ if (window && window.Element) {
     Element.prototype.matches = Element.prototype.msMatchesSelector;
   }
 
-
   if (!Element.prototype.closest) {
     Element.prototype.closest = function (selector) {
       var element = this;
