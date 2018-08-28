@@ -20,7 +20,7 @@ export default {
   },
 
   markAsReady() {
-    const { bidders } = window.Wikia.adProductsBidders;
+    const { bidders } = window.Wikia.adProducts;
 
     if (bidders.hasAllResponses()) {
       if (resolvePromise) {

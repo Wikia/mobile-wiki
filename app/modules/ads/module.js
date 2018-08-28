@@ -45,7 +45,7 @@ class Ads {
 
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
-    const { bidders } = window.Wikia.adProductsBidders;
+    const { bidders } = window.Wikia.adProducts;
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
     this.instantGlobals = instantGlobals;
@@ -67,7 +67,7 @@ class Ads {
   }
 
   callBidders() {
-    const { bidders } = window.Wikia.adProductsBidders;
+    const { bidders } = window.Wikia.adProducts;
 
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
