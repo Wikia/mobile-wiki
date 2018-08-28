@@ -6,43 +6,43 @@ import { computed, get } from '@ember/object';
 import RenderComponentMixin from '../../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
-	ads: service(),
+  ads: service(),
 
-	isVisible: false,
-	name: 'INVISIBLE_HIGH_IMPACT_2',
+  isVisible: false,
+  name: 'INVISIBLE_HIGH_IMPACT_2',
 
-	noAds: readOnly('ads.noAds'),
-	nameLowerCase: computed('name', function () {
-		return dasherize(this.name.toLowerCase());
-	}),
+  noAds: readOnly('ads.noAds'),
+  nameLowerCase: computed('name', function () {
+    return dasherize(this.name.toLowerCase());
+  }),
 
-	didInsertElement() {
-		this._super(...arguments);
+  didInsertElement() {
+    this._super(...arguments);
 
-		this.get('ads.module').onReady(() => {
-			window.getInstantGlobal('wgAdDriverHighImpact2SlotCountries', (highImpactCountries) => {
-				if (this.isEnabled(highImpactCountries) && !this.isDestroyed) {
-					this.set('isVisible', true);
-					this.get('ads.module').pushSlotToQueue(this.name);
-				}
-			});
-		});
-	},
+    this.get('ads.module').onReady(() => {
+      window.getInstantGlobal('wgAdDriverHighImpact2SlotCountries', (highImpactCountries) => {
+        if (this.isEnabled(highImpactCountries) && !this.isDestroyed) {
+          this.set('isVisible', true);
+          this.get('ads.module').pushSlotToQueue(this.name);
+        }
+      });
+    });
+  },
 
-	willDestroyElement() {
-		this._super(...arguments);
+  willDestroyElement() {
+    this._super(...arguments);
 
-		if (this.isEnabled()) {
-			this.get('ads.module').removeSlot(this.name);
-		}
-	},
+    if (this.isEnabled()) {
+      this.get('ads.module').removeSlot(this.name);
+    }
+  },
 
-	isProperGeo(param) {
-		const isProperGeo = get(Wikia, 'geo.isProperGeo');
-		return typeof isProperGeo === 'function' && isProperGeo(param);
-	},
+  isProperGeo(param) {
+    const isProperGeo = get(Wikia, 'geo.isProperGeo');
+    return typeof isProperGeo === 'function' && isProperGeo(param);
+  },
 
-	isEnabled(highImpactCountries) {
-		return this.isProperGeo(highImpactCountries);
-	},
+  isEnabled(highImpactCountries) {
+    return this.isProperGeo(highImpactCountries);
+  },
 });

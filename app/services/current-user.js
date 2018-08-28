@@ -27,58 +27,58 @@ import config from '../config/environment';
  */
 
 export default Service.extend({
-	fastboot: service(),
-	logger: service(),
-	wikiVariables: service(),
-	rights: null,
-	isAuthenticated: bool('userId'),
-	language: computed('wikiVariables', function () {
-		return this.get('wikiVariables.language.content') || 'en';
-	}),
+  fastboot: service(),
+  logger: service(),
+  wikiVariables: service(),
+  rights: null,
+  isAuthenticated: bool('userId'),
+  language: computed('wikiVariables', function () {
+    return this.get('wikiVariables.language.content') || 'en';
+  }),
 
-	userId: null,
+  userId: null,
 
-	/**
+  /**
 	 * @returns {RSVP}
 	 */
-	initializeUserData(userId, host = null) {
-		this.set('userId', userId);
+  initializeUserData(userId, host = null) {
+    this.set('userId', userId);
 
-		if (userId !== null) {
-			const shoebox = this.get('fastboot.shoebox');
+    if (userId !== null) {
+      const shoebox = this.get('fastboot.shoebox');
 
-			if (this.get('fastboot.isFastBoot')) {
+      if (this.get('fastboot.isFastBoot')) {
 
-				return UserModel.create(getOwner(this).ownerInjection())
-					.find({
-						accessToken: this.get('fastboot.request.cookies.access_token'),
-						userId,
-						host,
-					})
-					.then((userModelData) => {
-						if (userModelData) {
-							this.setProperties(userModelData);
+        return UserModel.create(getOwner(this).ownerInjection())
+          .find({
+            accessToken: this.get('fastboot.request.cookies.access_token'),
+            userId,
+            host,
+          })
+          .then((userModelData) => {
+            if (userModelData) {
+              this.setProperties(userModelData);
 
-							shoebox.put('userData', userModelData);
-						}
-					})
-					.catch((err) => {
-						if (err.code !== 404) {
-							this.logger.error('Couldn\'t load current user model', err);
-						}
-					});
-			} else {
-				this.setProperties(shoebox.retrieve('userData'));
-			}
-		}
+              shoebox.put('userData', userModelData);
+            }
+          })
+          .catch((err) => {
+            if (err.code !== 404) {
+              this.logger.error('Couldn\'t load current user model', err);
+            }
+          });
+      } else {
+        this.setProperties(shoebox.retrieve('userData'));
+      }
+    }
 
-		return resolve();
-	},
+    return resolve();
+  },
 
-	getGaUserIdHash() {
-		const Crypto = FastBoot.require('crypto');
-		const rawString = `${this.userId}${config.APP.gaUserSalt}`;
+  getGaUserIdHash() {
+    const Crypto = FastBoot.require('crypto');
+    const rawString = `${this.userId}${config.APP.gaUserSalt}`;
 
-		return Crypto.createHash('md5').update(rawString).digest('hex');
-	},
+    return Crypto.createHash('md5').update(rawString).digest('hex');
+  },
 });

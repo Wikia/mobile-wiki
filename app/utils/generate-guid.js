@@ -5,5 +5,5 @@
  * @returns {string} unique string
  */
 export default function generateGuid(prefix = '') {
-	return `${prefix}${Date.now()}`;
+  return `${prefix}${Date.now()}`;
 }

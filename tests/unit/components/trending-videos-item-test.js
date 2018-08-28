@@ -8,32 +8,32 @@ const thumbnailer = require('mobile-wiki/modules/thumbnailer').default;
 let thumbnailerStub;
 
 module('Unit | Component | trending videos item', (hooks) => {
-	setupTest(hooks);
+  setupTest(hooks);
 
-	hooks.beforeEach(() => {
-		thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => (
-			`${url}/${options.mode}/${options.width}/${options.height}`
-		));
-	});
+  hooks.beforeEach(() => {
+    thumbnailerStub = sinon.stub(thumbnailer, 'getThumbURL').callsFake((url, options) => (
+      `${url}/${options.mode}/${options.width}/${options.height}`
+    ));
+  });
 
-	hooks.afterEach(() => {
-		thumbnailerStub.restore();
-	});
+  hooks.afterEach(() => {
+    thumbnailerStub.restore();
+  });
 
-	test('computes thumb url properly', function (assert) {
-		const imageWidth = 250;
-		// 16:9 ratio
-		const imageHeight = 140;
-		const componentMock = this.owner.factoryFor('component:trending-videos-item').create();
+  test('computes thumb url properly', function (assert) {
+    const imageWidth = 250;
+    // 16:9 ratio
+    const imageHeight = 140;
+    const componentMock = this.owner.factoryFor('component:trending-videos-item').create();
 
-		componentMock.setProperties({
-			imageWidth,
-			mode: 'top-crop',
-			video: {
-				url: 'http://vignette/image.jpg',
-			},
-		});
+    componentMock.setProperties({
+      imageWidth,
+      mode: 'top-crop',
+      video: {
+        url: 'http://vignette/image.jpg',
+      },
+    });
 
-		assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
-	});
+    assert.equal(componentMock.get('thumbUrl'), `http://vignette/image.jpg/top-crop/${imageWidth}/${imageHeight}`);
+  });
 });

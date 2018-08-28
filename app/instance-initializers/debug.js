@@ -6,27 +6,27 @@ import config from '../config/environment';
  * @returns {void}
  */
 export function initialize(applicationInstance) {
-	const fastboot = applicationInstance.lookup('service:fastboot');
-	let debug = config.environment === 'development';
+  const fastboot = applicationInstance.lookup('service:fastboot');
+  let debug = config.environment === 'development';
 
-	// turn on debugging with querystring ?debug=1
-	if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1')
+  // turn on debugging with querystring ?debug=1
+  if ((fastboot.get('isFastBoot') && fastboot.get('request.queryParams.debug') === '1')
 		|| !fastboot.get('isFastBoot') && window.location.search.match(/debug=1/)
-	) {
-		debug = true;
-	}
+  ) {
+    debug = true;
+  }
 
-	applicationInstance.setProperties({
-		LOG_ACTIVE_GENERATION: debug,
-		LOG_VIEW_LOOKUPS: debug,
-		LOG_TRANSITIONS: debug,
-		LOG_TRANSITIONS_INTERNAL: debug,
-		LOG_RESOLVER: debug,
-	});
+  applicationInstance.setProperties({
+    LOG_ACTIVE_GENERATION: debug,
+    LOG_VIEW_LOOKUPS: debug,
+    LOG_TRANSITIONS: debug,
+    LOG_TRANSITIONS_INTERNAL: debug,
+    LOG_RESOLVER: debug,
+  });
 }
 
 export default {
-	after: 'config',
-	name: 'debug',
-	initialize,
+  after: 'config',
+  name: 'debug',
+  initialize,
 };

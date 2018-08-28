@@ -9,77 +9,77 @@ import VideoLoader from '../modules/video-loader';
  * to handle displaying video
  */
 export default Component.extend(
-	RespondsToResize,
-	{
-		ads: service(),
+  RespondsToResize,
+  {
+    ads: service(),
 
-		classNames: ['lightbox-video', 'lightbox-content-inner'],
-		classNameBindings: ['provider'],
-		wrapperClass: '.video-player-wrapper',
+    classNames: ['lightbox-video', 'lightbox-content-inner'],
+    classNameBindings: ['provider'],
+    wrapperClass: '.video-player-wrapper',
 
-		/**
+    /**
 		 * @returns string
 		 */
-		provider: computed('videoLoader', function () {
-			const videoLoader = this.videoLoader;
+    provider: computed('videoLoader', function () {
+      const videoLoader = this.videoLoader;
 
-			return `video-provider-${videoLoader.getProviderName()}`;
-		}),
+      return `video-provider-${videoLoader.getProviderName()}`;
+    }),
 
-		/**
+    /**
 		 * @returns VideoLoader
 		 */
-		videoLoader: computed('model.embed', 'ads.noAds', function () {
-			return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
-		}),
+    videoLoader: computed('model.embed', 'ads.noAds', function () {
+      return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
+    }),
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		didRender() {
-			this._super(...arguments);
+    didRender() {
+      this._super(...arguments);
 
-			this.insertVideoPlayerHtml();
-			this.initVideoPlayer();
-		},
+      this.insertVideoPlayerHtml();
+      this.initVideoPlayer();
+    },
 
-		/**
+    /**
 		 * Unbind all click events
 		 *
 		 * @returns {void}
 		 */
-		willDestroyElement() {
-			this.element.querySelector(this.wrapperClass).removeEventListener('click', this.preventDefault);
-		},
+    willDestroyElement() {
+      this.element.querySelector(this.wrapperClass).removeEventListener('click', this.preventDefault);
+    },
 
-		/**
+    /**
 		 * Used to instantiate a video player
 		 *
 		 * @returns {void}
 		 */
-		initVideoPlayer() {
-			const videoLoader = this.videoLoader;
+    initVideoPlayer() {
+      const videoLoader = this.videoLoader;
 
-			/**
+      /**
 			 * This loads and creates a player
 			 */
-			videoLoader.loadPlayerClass();
+      videoLoader.loadPlayerClass();
 
-			// Stop bubbling it up to the lightbox
-			this.element.querySelector(this.wrapperClass).addEventListener('click', this.preventDefault);
-		},
+      // Stop bubbling it up to the lightbox
+      this.element.querySelector(this.wrapperClass).addEventListener('click', this.preventDefault);
+    },
 
-		preventDefault() {
-			return false;
-		},
+    preventDefault() {
+      return false;
+    },
 
-		resize() {
-			if (this.videoLoader) {
-				this.videoLoader.onResize();
-			}
-		},
+    resize() {
+      if (this.videoLoader) {
+        this.videoLoader.onResize();
+      }
+    },
 
-		/**
+    /**
 		 * Since we don't use Ember to inject video HTML
 		 *
 		 * Video code does interact with the DOM and brakes binding for Ember templates
@@ -90,8 +90,8 @@ export default Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		insertVideoPlayerHtml() {
-			this.element.querySelector(this.wrapperClass).innerHTML = this.get('model.embed.html');
-		},
-	},
+    insertVideoPlayerHtml() {
+      this.element.querySelector(this.wrapperClass).innerHTML = this.get('model.embed.html');
+    },
+  },
 );

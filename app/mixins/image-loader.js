@@ -2,27 +2,27 @@ import Mixin from '@ember/object/mixin';
 import { Promise } from 'rsvp';
 
 export default Mixin.create({
-	/**
+  /**
 	 * @param url string
 	 * @returns Promise
 	 */
-	load(url) {
-		return new Promise((resolve, reject) => {
-			const image = new Image();
+  load(url) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
 
-			image.src = url;
+      image.src = url;
 
-			if (image.complete) {
-				resolve(url);
-			} else {
-				image.addEventListener('load', () => {
-					resolve(url);
-				});
+      if (image.complete) {
+        resolve(url);
+      } else {
+        image.addEventListener('load', () => {
+          resolve(url);
+        });
 
-				image.addEventListener('error', () => {
-					reject();
-				});
-			}
-		});
-	},
+        image.addEventListener('error', () => {
+          reject();
+        });
+      }
+    });
+  },
 });

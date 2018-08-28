@@ -5,41 +5,41 @@ import EmberObject, { observer } from '@ember/object';
 const NoScrollState = EmberObject.extend().reopenClass({ state: false });
 
 export default Mixin.create({
-	// global state
-	noScrollState: NoScrollState,
-	// current component state
-	noScroll: false,
+  // global state
+  noScrollState: NoScrollState,
+  // current component state
+  noScroll: false,
 
-	noScrollObserver: observer('noScroll', function () {
-		this.setNoScroll(this.noScroll);
-	}),
+  noScrollObserver: observer('noScroll', function () {
+    this.setNoScroll(this.noScroll);
+  }),
 
-	init() {
-		this._super(...arguments);
-		// initialise with value
-		this.setNoScroll(this.noScroll);
-	},
+  init() {
+    this._super(...arguments);
+    // initialise with value
+    this.setNoScroll(this.noScroll);
+  },
 
-	willDestroyElement() {
-		this._super(...arguments);
-		// turn off scroll on destroy
-		this.setNoScroll(false);
-	},
+  willDestroyElement() {
+    this._super(...arguments);
+    // turn off scroll on destroy
+    this.setNoScroll(false);
+  },
 
-	setNoScroll(current) {
-		if (!window.location) {
-			return;
-		}
+  setNoScroll(current) {
+    if (!window.location) {
+      return;
+    }
 
-		if (this.get('noScrollState.state') && current) {
-			throw Error('No-scroll already applied, turn it off first');
-		}
-		this.set('noScrollState.state', current);
+    if (this.get('noScrollState.state') && current) {
+      throw Error('No-scroll already applied, turn it off first');
+    }
+    this.set('noScrollState.state', current);
 
-		if (current) {
-			document.body.classList.add('wds-no-scroll');
-		} else {
-			document.body.classList.remove('wds-no-scroll');
-		}
-	},
+    if (current) {
+      document.body.classList.add('wds-no-scroll');
+    } else {
+      document.body.classList.remove('wds-no-scroll');
+    }
+  },
 });

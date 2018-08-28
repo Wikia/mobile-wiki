@@ -3,54 +3,54 @@ import Component from '@ember/component';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
-	{
-		tagName: 'nav',
-		classNames: ['collapsible-menu'],
-		additionalClasses: null,
-		isCollapsed: true,
-		observe: null,
-		ordered: false,
-		tLabel: '',
-		trackingEvent: null,
+  {
+    tagName: 'nav',
+    classNames: ['collapsible-menu'],
+    additionalClasses: null,
+    isCollapsed: true,
+    observe: null,
+    ordered: false,
+    tLabel: '',
+    trackingEvent: null,
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			addObserver(this, 'observe', this, this.titleDidChange);
-		},
+    didInsertElement() {
+      addObserver(this, 'observe', this, this.titleDidChange);
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		willDestroyElement() {
-			removeObserver(this, 'observe', this, this.titleDidChange);
-		},
+    willDestroyElement() {
+      removeObserver(this, 'observe', this, this.titleDidChange);
+    },
 
-		actions: {
-			/**
+    actions: {
+      /**
 			 * @returns {void}
 			 */
-			toggleMenu() {
-				this.toggleProperty('isCollapsed');
+      toggleMenu() {
+        this.toggleProperty('isCollapsed');
 
-				if (this.trackingEvent !== null) {
-					track({
-						action: trackActions.click,
-						category: this.trackingEvent,
-						label: this.isCollapsed ? 'collapsed' : 'expanded',
-					});
-				}
-			},
-		},
+        if (this.trackingEvent !== null) {
+          track({
+            action: trackActions.click,
+            category: this.trackingEvent,
+            label: this.isCollapsed ? 'collapsed' : 'expanded',
+          });
+        }
+      },
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		titleDidChange() {
-			if (!this.isCollapsed) {
-				this.set('isCollapsed', true);
-			}
-		},
-	},
+    titleDidChange() {
+      if (!this.isCollapsed) {
+        this.set('isCollapsed', true);
+      }
+    },
+  },
 );

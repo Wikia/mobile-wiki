@@ -22,49 +22,49 @@ import RenderComponentMixin from '../mixins/render-component';
  */
 
 export default Component.extend(
-	RenderComponentMixin,
-	WidgetScriptStateMixin,
-	{
-		classNames: ['widget-vk'],
-		data: null,
+  RenderComponentMixin,
+  WidgetScriptStateMixin,
+  {
+    classNames: ['widget-vk'],
+    data: null,
 
-		scriptLoadedObserver: observer('scriptLoaded.vk', function () {
-			this.createWidget();
-		}),
+    scriptLoadedObserver: observer('scriptLoaded.vk', function () {
+      this.createWidget();
+    }),
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			this._super(...arguments);
+    didInsertElement() {
+      this._super(...arguments);
 
-			this.loadScript();
-			this.createWidget();
-		},
+      this.loadScript();
+      this.createWidget();
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		loadScript() {
-			if (!this.get('scriptLoadInitialized.vk')) {
-				this.set('scriptLoadInitialized.vk', true);
+    loadScript() {
+      if (!this.get('scriptLoadInitialized.vk')) {
+        this.set('scriptLoadInitialized.vk', true);
 
-				$script('//vk.com/js/api/openapi.js', () => {
-					this.set('scriptLoaded.vk', true);
-				});
-			}
-		},
+        $script('//vk.com/js/api/openapi.js', () => {
+          this.set('scriptLoaded.vk', true);
+        });
+      }
+    },
 
-		/**
+    /**
 		 * @returns {void}
 		 */
-		createWidget() {
-			if (this.get('scriptLoaded.vk')) {
-				const elementId = this.elementId;
-				const data = this.data;
+    createWidget() {
+      if (this.get('scriptLoaded.vk')) {
+        const elementId = this.elementId;
+        const data = this.data;
 
-				window.VK.Widgets.Group(elementId, data, data.groupId);
-			}
-		},
-	},
+        window.VK.Widgets.Group(elementId, data, data.groupId);
+      }
+    },
+  },
 );
