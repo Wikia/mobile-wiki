@@ -18,9 +18,9 @@ export default Component.extend({
 
   actions: {
     /**
-		 * @param {AlertNotification} alert
-		 * @returns {void}
-		 */
+   * @param {AlertNotification} alert
+   * @returns {void}
+   */
     dismissAlert(alert) {
       this.alerts.removeObject(alert);
     },

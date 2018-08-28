@@ -38,8 +38,8 @@ export default Component.extend(
     }),
 
     /**
-		 * if articleId changes, resets component state
-		 */
+   * if articleId changes, resets component state
+   */
     articleIdObserver: observer('articleId', function () {
       this.setProperties({
         page: null,
@@ -53,12 +53,12 @@ export default Component.extend(
     }),
 
     /**
-		 * If we recieved page on didRender
-		 * that means there is a query param comments_page
-		 * and we should load comments and scroll to them
-		 *
-		 * @returns {void}
-		 */
+   * If we recieved page on didRender
+   * that means there is a query param comments_page
+   * and we should load comments and scroll to them
+   *
+   * @returns {void}
+   */
     didInsertElement() {
       const page = this.get('page');
 
@@ -76,8 +76,8 @@ export default Component.extend(
 
     actions: {
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       nextPage() {
         const page = parseInt(this.get('page'), 10);
 
@@ -87,8 +87,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       prevPage() {
         const page = parseInt(this.get('page'), 10);
 
@@ -98,8 +98,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       toggleComments() {
         const page = this.get('page');
 

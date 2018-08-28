@@ -1,105 +1,105 @@
 
 .featured-content {
-	$featured-content-caption-line-height: 32px;
+  $featured-content-caption-line-height: 32px;
 
-	height: 56.25vw;
-	margin-bottom: $featured-content-margin-bottom;
-	overflow: hidden;
-	position: relative;
-	width: 100%;
+  height: 56.25vw;
+  margin-bottom: $featured-content-margin-bottom;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 
-	> .wds-icon {
-		fill: $wds-color-white;
-		height: 100%;
-		position: absolute;
-		stroke: rgba(0, 0, 0, .5);
-		stroke-width: .25;
-		top: 0;
-		z-index: $z-1;
+  > .wds-icon {
+    fill: $wds-color-white;
+    height: 100%;
+    position: absolute;
+    stroke: rgba(0, 0, 0, .5);
+    stroke-width: .25;
+    top: 0;
+    z-index: $z-1;
 
-		&.left {
-			left: 0;
-			transform: rotate(90deg);
-		}
+    &.left {
+      left: 0;
+      transform: rotate(90deg);
+    }
 
-		&.right {
-			right: 0;
-			transform: rotate(-90deg);
-		}
-	}
+    &.right {
+      right: 0;
+      transform: rotate(-90deg);
+    }
+  }
 
-	&-item {
-		display: block;
-		height: 100%;
-		background: {
-			color: rgb(223, 223, 223);
-			position: center;
-			repeat: no-repeat;
-			size: contain;
-		}
+  &-item {
+    display: block;
+    height: 100%;
+    background: {
+      color: rgb(223, 223, 223);
+      position: center;
+      repeat: no-repeat;
+      size: contain;
+    }
 
-		img {
-			position: relative;
-			width: 100%;
-		}
+    img {
+      position: relative;
+      width: 100%;
+    }
 
-		svg {
-			color: $wds-color-white;
-			height: 50%;
-			left: 25%;
-			position: absolute;
-			top: 25%;
-			width: 50%;
-		}
+    svg {
+      color: $wds-color-white;
+      height: 50%;
+      left: 25%;
+      position: absolute;
+      top: 25%;
+      width: 50%;
+    }
 
-		.clamp {
-			@include clamp(2);
+    .clamp {
+      @include clamp(2);
 
-			bottom: 40px;
-			max-height: 2 * $featured-content-caption-line-height;
-			padding: 0 10px;
-			position: absolute;
-			width: 100%;
-		}
+      bottom: 40px;
+      max-height: 2 * $featured-content-caption-line-height;
+      padding: 0 10px;
+      position: absolute;
+      width: 100%;
+    }
 
-		figcaption {
-			background: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(255, 255, 255, 0));
-			bottom: 0;
-			color: $wds-color-white;
-			height: 120px;
-			line-height: $featured-content-caption-line-height;
-			position: absolute;
-			text-align: center;
-			width: 100%;
-		}
-	}
+    figcaption {
+      background: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(255, 255, 255, 0));
+      bottom: 0;
+      color: $wds-color-white;
+      height: 120px;
+      line-height: $featured-content-caption-line-height;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+    }
+  }
 
-	&-pagination {
-		bottom: 15px;
-		left: 50%;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		position: absolute;
-		transform: translate(-50%, 0);
+  &-pagination {
+    bottom: 15px;
+    left: 50%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    transform: translate(-50%, 0);
 
-		li {
-			cursor: pointer;
-			float: left;
-			padding: 5px;
+    li {
+      cursor: pointer;
+      float: left;
+      padding: 5px;
 
-			> * {
-				border: 1px solid $wds-color-light-c4;
-				border-radius: 4px;
-				display: block;
-				height: 9px;
-				width: 9px;
-			}
+      > * {
+        border: 1px solid $wds-color-light-c4;
+        border-radius: 4px;
+        display: block;
+        height: 9px;
+        width: 9px;
+      }
 
-			&.current > * {
-				background-color: $wds-color-white;
-				border: 1px solid $wds-color-white;
-			}
-		}
-	}
+      &.current > * {
+        background-color: $wds-color-white;
+        border: 1px solid $wds-color-white;
+      }
+    }
+  }
 }

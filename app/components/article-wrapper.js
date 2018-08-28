@@ -39,11 +39,11 @@ export default Component.extend(
         touchAction: 'auto',
         cssProps: {
           /**
-					 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
-					 * 'default' displays the callout
-					 * 'none' disables the callout
-					 * hammer.js sets it to 'none' by default so we have to override
-					 */
+      * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+      * 'default' displays the callout
+      * 'none' disables the callout
+      * hammer.js sets it to 'none' by default so we have to override
+      */
           touchCallout: 'default',
         },
       };

@@ -38,8 +38,8 @@ export default Component.extend({
 
   actions: {
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     close() {
       if (!this.closeAllowed) {
         return;
@@ -61,11 +61,11 @@ export default Component.extend({
     },
 
     /**
-		 * @param {string} footer
-		 * @param {string} footerHead
-		 * @param {string} footerLink
-		 * @returns {void}
-		 */
+   * @param {string} footer
+   * @param {string} footerHead
+   * @param {string} footerLink
+   * @returns {void}
+   */
     setFooter(footer, footerHead, footerLink) {
       this.set('footer', footer);
       this.set('footerHead', footerHead);
@@ -73,39 +73,39 @@ export default Component.extend({
     },
 
     /**
-		 * @param {string} header
-		 * @returns {void}
-		 */
+   * @param {string} header
+   * @returns {void}
+   */
     setHeader(header) {
       this.set('header', header);
     },
 
     /**
-		 * @param {boolean} hidden
-		 * @returns {void}
-		 */
+   * @param {boolean} hidden
+   * @returns {void}
+   */
     setCloseButtonHidden(hidden) {
       this.set('closeButtonHidden', hidden);
     },
 
     /**
-		 * @param {array} thumbnails: array of thumb urls
-		 */
+   * @param {array} thumbnails: array of thumb urls
+   */
     setThumbnails(thumbnails) {
       this.set('thumbnails', thumbnails);
       this.set('displayFilmstrip', !!thumbnails);
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     toggleFooter() {
       this.toggleProperty('footerExpanded');
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     toggleUI() {
       this.toggleProperty('uiHidden');
     },
@@ -116,9 +116,9 @@ export default Component.extend({
   },
 
   /**
-	 * @param {MouseEvent} event
-	 * @returns {void}
-	 */
+  * @param {MouseEvent} event
+  * @returns {void}
+  */
   click(event) {
     const target = event.target;
 
@@ -132,9 +132,9 @@ export default Component.extend({
   },
 
   /**
-	 * @param {KeyboardEvent} event
-	 * @returns {void}
-	 */
+  * @param {KeyboardEvent} event
+  * @returns {void}
+  */
   keyDown(event) {
     if (this.closeAllowed && event.keyCode === 27) {
       this.send('close');

@@ -143,12 +143,12 @@ export default Mixin.create({
   },
 
   /**
-	 *
-	 * @param {Object} data
-	 * @param {Object} params
-	 * @param {Array} contentNamespaces
-	 * @returns {Object}
-	 */
+  *
+  * @param {Object} data
+  * @param {Object} params
+  * @param {Array} contentNamespaces
+  * @returns {Object}
+  */
   getModelForNamespace(data, params, contentNamespaces) {
     const currentNamespace = data.data.ns;
     const ownerInjection = getOwner(this).ownerInjection();
@@ -175,8 +175,8 @@ export default Mixin.create({
     }
     if (
       currentNamespace === MediawikiNamespace.BLOG_ARTICLE
-			// User blog listing has BLOG_ARTICLE namespace but no article
-			&& data.data.article
+   // User blog listing has BLOG_ARTICLE namespace but no article
+   && data.data.article
     ) {
       model = BlogModel.create(ownerInjection, params);
       model.setData(data);

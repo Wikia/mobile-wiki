@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Main Tests</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Main Tests</title>
+ <meta name="description" content="">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	{{content-for 'head'}}
-	{{content-for 'test-head'}}
+ {{content-for 'head'}}
+ {{content-for 'test-head'}}
 
-	<link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
-	<link rel="stylesheet" href="{{rootURL}}assets/app.css">
-	<link rel="stylesheet" href="{{rootURL}}assets/lazy.css">
+ <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+ <link rel="stylesheet" href="{{rootURL}}assets/app.css">
+ <link rel="stylesheet" href="{{rootURL}}assets/lazy.css">
 
-	{{content-for 'head-footer'}}
-	{{content-for 'test-head-footer'}}
+ {{content-for 'head-footer'}}
+ {{content-for 'test-head-footer'}}
 
 </head>
 <body>
@@ -26,48 +26,48 @@
 {{content-for 'fastboot-inline-scripts'}}
 
 <script>
-	window.trackQuantcastPageView = function () {};
-	window.trackComscorePageView = function () {};
-	window.Wikia = {
-		adEngine: {
-			context: {
-				get: () => undefined
-			}
-		},
-		adProducts: {
-			utils: {
-				getSamplingResults: () => [],
-				getCountryCode: () => false
-			}
-		}
-	};
-	window.M.tracker = {};
-	window.M.trackingQueue = {
-		push: function () {}
-	};
-	window.M.tracker.Internal = {
-		track: function () {},
-		trackPageView: function () {}
-	};
-	window.M.tracker.UniversalAnalytics = {
-		track: function () {},
-		trackPageView: function () {}
-	};
-	window.getInstantGlobal = function() {};
-	window.waitForAds = function() {};
-	window.liftigniter = function() {};
+ window.trackQuantcastPageView = function () {};
+ window.trackComscorePageView = function () {};
+ window.Wikia = {
+  adEngine: {
+   context: {
+    get: () => undefined
+   }
+  },
+  adProducts: {
+   utils: {
+    getSamplingResults: () => [],
+    getCountryCode: () => false
+   }
+  }
+ };
+ window.M.tracker = {};
+ window.M.trackingQueue = {
+  push: function () {}
+ };
+ window.M.tracker.Internal = {
+  track: function () {},
+  trackPageView: function () {}
+ };
+ window.M.tracker.UniversalAnalytics = {
+  track: function () {},
+  trackPageView: function () {}
+ };
+ window.getInstantGlobal = function() {};
+ window.waitForAds = function() {};
+ window.liftigniter = function() {};
 </script>
 
 <script src="/testem.js" integrity=""></script>
 <script src="{{rootURL}}assets/vendor.js"></script>
 <script>
-	/**
-	 * This is required as tests do use define/require
-	 * so to simplify build step both are available in tests files
-	 * import/export though is a recommended way to consume dependencies
-	 */
-	window.mefine = window.define;
-	window.mequire = window.require;
+ /**
+  * This is required as tests do use define/require
+  * so to simplify build step both are available in tests files
+  * import/export though is a recommended way to consume dependencies
+  */
+ window.mefine = window.define;
+ window.mequire = window.require;
 </script>
 <script src="{{rootURL}}assets/test-support.js"></script>
 <script src="{{rootURL}}assets/mobile-wiki.js"></script>

@@ -115,9 +115,9 @@ function prepareData(slot, data) {
  */
 export default {
   /**
-	 * Checks whether tracker is enabled via instant global
-	 * @returns {boolean}
-	 */
+  * Checks whether tracker is enabled via instant global
+  * @returns {boolean}
+  */
   isEnabled() {
     // Global imports:
     const { context } = window.Wikia.adEngine;
@@ -127,21 +127,21 @@ export default {
   },
 
   /**
-	 * Track render ended event to data warehouse
-	 * @param {Object} adSlot
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Track render ended event to data warehouse
+  * @param {Object} adSlot
+  * @param {Object} data
+  * @returns {void}
+  */
   onRenderEnded(adSlot, data) {
     M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
   },
 
   /**
-	 * Track status changed event (other than success and collapse) to data warehouse
-	 * @param {Object} adSlot
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Track status changed event (other than success and collapse) to data warehouse
+  * @param {Object} adSlot
+  * @param {Object} data
+  * @returns {void}
+  */
   onStatusChanged(adSlot, data) {
     const status = adSlot.getStatus();
 

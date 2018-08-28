@@ -1,24 +1,24 @@
 .trending-videos-item {
-	display: block;
-	margin: 0 0 1.5rem;
-	width: 100%;
+  display: block;
+  margin: 0 0 1.5rem;
+  width: 100%;
 
-	img {
-		width: 100%;
-	}
+  img {
+    width: 100%;
+  }
 
-	.item-image {
-		position: relative;
-	}
+  .item-image {
+    position: relative;
+  }
 
-	.item-image__play-icon {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-	}
+  .item-image__play-icon {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }

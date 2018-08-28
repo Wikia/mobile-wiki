@@ -32,7 +32,7 @@ module('Unit | helper | svg', () => {
 
     // The helper iterates through hash parameters alphabetically
     assert.equal(html, '<svg class="css classes here" role="img" viewBox="0 0 12 7">'
-							+ '<use xlink:href="#nameOfSvg"></use></svg>');
+       + '<use xlink:href="#nameOfSvg"></use></svg>');
   });
 
   test('generate html with extraneous parameter (ignores the param)', (assert) => {

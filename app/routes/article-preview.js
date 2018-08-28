@@ -43,10 +43,10 @@ export default Route.extend(
 
     actions: {
       /**
-			 * @param {*} error
-			 * @param {EmberStates.Transition} transition
-			 * @returns {boolean}
-			 */
+    * @param {*} error
+    * @param {EmberStates.Transition} transition
+    * @returns {boolean}
+    */
       error(error, transition) {
         this.logger.error('Article preview route error', error);
 
@@ -56,8 +56,8 @@ export default Route.extend(
       },
 
       /**
-			 * @returns {Boolean} returns true
-			 */
+    * @returns {Boolean} returns true
+    */
       didTransition() {
         this.controllerFor('application').set('fullPage', true);
         return true;

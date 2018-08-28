@@ -16,9 +16,9 @@ export default Helper.extend({
     let namespace = 'main';
 
     /**
-		 * @param {string} key
-		 * @returns {void}
-		 */
+   * @param {string} key
+   * @returns {void}
+   */
     Object.keys(options).forEach((key) => {
       if (key === 'ns') {
         namespace = options[key];

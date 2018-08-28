@@ -15,8 +15,8 @@ import Ember from 'ember';
  *
  * @example
  * {{{i18n 'main.search-error-not-found'
- * 	ns='search'
- * 	query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
+ *  ns='search'
+ *  query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
  * }}}
  *
  * @param {Array} params

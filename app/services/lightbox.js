@@ -11,14 +11,14 @@ export default Service.extend(NoScrollMixin, {
   model: null,
 
   /**
-	 * Sets controller properties that are passed to LightboxWrapperComponent.
-	 * Also blocks scrolling.
-	 *
-	 * @param {string} lightboxType
-	 * @param {Object} [lightboxModel]
-	 * @param {number} [closeButtonDelay]
-	 * @returns {void}
-	 */
+  * Sets controller properties that are passed to LightboxWrapperComponent.
+  * Also blocks scrolling.
+  *
+  * @param {string} lightboxType
+  * @param {Object} [lightboxModel]
+  * @param {number} [closeButtonDelay]
+  * @returns {void}
+  */
   open(lightboxType, lightboxModel, closeButtonDelay) {
     this.setProperties({
       closeButtonDelay,
@@ -40,10 +40,10 @@ export default Service.extend(NoScrollMixin, {
   },
 
   /**
-	 * Sets lightbox visibility to true.
-	 *
-	 * @returns {void}
-	 */
+  * Sets lightbox visibility to true.
+  *
+  * @returns {void}
+  */
   show() {
     this.setProperties({
       isVisible: true,
@@ -53,10 +53,10 @@ export default Service.extend(NoScrollMixin, {
   },
 
   /**
-	 * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
-	 *
-	 * @returns {void}
-	 */
+  * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
+  *
+  * @returns {void}
+  */
   close() {
     this.setProperties({
       closeButtonDelay: 0,
@@ -69,14 +69,14 @@ export default Service.extend(NoScrollMixin, {
   },
 
   /**
-	 * Sets lightbox type and model but doesn't show it. This method is used by Ads Module to
-	 * prevent showing lightbox when there is no ad to display.
-	 *
-	 * @param {string} lightboxType
-	 * @param {Object} [lightboxModel]
-	 * @param {number} [closeButtonDelay]
-	 * @returns {void}
-	 */
+  * Sets lightbox type and model but doesn't show it. This method is used by Ads Module to
+  * prevent showing lightbox when there is no ad to display.
+  *
+  * @param {string} lightboxType
+  * @param {Object} [lightboxModel]
+  * @param {number} [closeButtonDelay]
+  * @returns {void}
+  */
   createHidden(lightboxType, lightboxModel, closeButtonDelay) {
     this.setProperties({
       closeButtonDelay,

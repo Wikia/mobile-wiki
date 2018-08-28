@@ -1,19 +1,19 @@
 html {
-	touch-action: manipulation;
+  touch-action: manipulation;
 }
 
 body {
-	background-image: linear-gradient(to bottom, rgba($wds-color-white, 0), rgba($wds-color-white, 0) 55px, $wds-color-light-c2 100vh, $wds-color-light-c2 100%);
-	color: $body-font-color;
-	cursor: auto;
-	font-family: $wds-font-family;
-	font-style: normal;
-	line-height: 150%;
-	overflow-y: scroll;
-	position: relative;
-	word-wrap: break-word;
+  background-image: linear-gradient(to bottom, rgba($wds-color-white, 0), rgba($wds-color-white, 0) 55px, $wds-color-light-c2 100vh, $wds-color-light-c2 100%);
+  color: $body-font-color;
+  cursor: auto;
+  font-family: $wds-font-family;
+  font-style: normal;
+  line-height: 150%;
+  overflow-y: scroll;
+  position: relative;
+  word-wrap: break-word;
 }
 
 .wds-button {
-	@include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
+  @include button-theming($wds-fandom-color-link, $wds-color-white, $wds-fandom-color-link, "darker");
 }

@@ -39,8 +39,8 @@ export default Service.extend({
   userId: null,
 
   /**
-	 * @returns {RSVP}
-	 */
+  * @returns {RSVP}
+  */
   initializeUserData(userId, host = null) {
     this.set('userId', userId);
 

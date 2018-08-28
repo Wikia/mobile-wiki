@@ -33,9 +33,9 @@ export default EmberObject.extend({
   isRandomPage: false,
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     let pageProperties;
     let article;

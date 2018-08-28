@@ -9,10 +9,10 @@ import { trackActions } from '../../utils/track';
 
 export default class YouTubePlayer extends BasePlayer {
   /**
-	 * @param {string} provider
-	 * @param {*} params
-	 * @returns {void}
-	 */
+  * @param {string} provider
+  * @param {*} params
+  * @returns {void}
+  */
   constructor(provider, params) {
     super(provider, params);
     this.started = false;
@@ -23,8 +23,8 @@ export default class YouTubePlayer extends BasePlayer {
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   setupPlayer() {
     this.params.events = {
       onReady: (...args) => this.onPlayerReady(...args),
@@ -42,24 +42,24 @@ export default class YouTubePlayer extends BasePlayer {
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   createPlayer() {
     this.player = new window.YT.Player(this.containerId, this.params);
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   onPlayerReady() {
     this.onResize();
     this.track(trackActions.success, 'player-loaded');
   }
 
   /**
-	 * @param {YouTubeEvent} event
-	 * @returns {void}
-	 */
+  * @param {YouTubeEvent} event
+  * @returns {void}
+  */
   onPlayerStateChange(event) {
     if (!this.started && event.data === 1) {
       this.track(trackActions.playVideo, 'content-begin');

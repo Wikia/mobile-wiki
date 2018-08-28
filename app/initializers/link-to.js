@@ -14,9 +14,9 @@ export function initialize() {
     action: null,
 
     /**
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
+   * @param {Event} event
+   * @returns {boolean}
+   */
     _invoke(event) {
       const action = this.action;
       const trackingCategory = this.trackingCategory;

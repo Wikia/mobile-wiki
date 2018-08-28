@@ -43,13 +43,13 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
  */
 export default class PlayerTracker {
   /**
-	 * Track single event
-	 * @param {Object} data
-	 * @param {string} playerName
-	 * @param {string} eventName
-	 * @param {int} errorCode
-	 * @returns {void}
-	 */
+  * Track single event
+  * @param {Object} data
+  * @param {string} playerName
+  * @param {string} eventName
+  * @param {int} errorCode
+  * @returns {void}
+  */
   static track(data, playerName, eventName, errorCode) {
     if (!window.Wikia.adEngine || !window.Wikia.adProducts || !data.adProduct || !playerName || !eventName) {
       return;

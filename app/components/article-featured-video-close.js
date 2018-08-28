@@ -6,11 +6,11 @@ export default Component.extend({
 
   gestures: {
     /**
-		 * XW-4727 | We need tap (touchstart) here as Ad-related click events are using it as well
-		 * Why afterRender? Because this fires on "touchstart" and hides featured video
-		 * triggered normally it would close FV and then trigger 'click' handlers on
-		 * what's under it -> e.g. search button in site head
-		 */
+   * XW-4727 | We need tap (touchstart) here as Ad-related click events are using it as well
+   * Why afterRender? Because this fires on "touchstart" and hides featured video
+   * triggered normally it would close FV and then trigger 'click' handlers on
+   * what's under it -> e.g. search button in site head
+   */
     tap() {
       scheduleOnce('afterRender', () => {
         this.onTap();

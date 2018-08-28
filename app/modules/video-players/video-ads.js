@@ -162,9 +162,9 @@ function init(player, options, slotTargeting) {
 
     if (shouldPlayPreroll(depth)) {
       /**
-			 * Fill in slot handle
-			 * @returns {void}
-			 */
+    * Fill in slot handle
+    * @returns {void}
+    */
       const fillInSlot = () => {
         player.playAd(getVastUrl(slot, 'preroll', depth, correlator, targeting));
       };

@@ -9,10 +9,10 @@ export default Mixin.create({
   defaultLanguage: 'en',
 
   /**
-	 * Returns navigator language with fallback to a default language
-	 * defined at the top of this object
-	 * @returns {string}
-	 */
+  * Returns navigator language with fallback to a default language
+  * defined at the top of this object
+  * @returns {string}
+  */
   getBrowserLanguage() {
     let lang = navigator.language || navigator.browserLanguage;
 

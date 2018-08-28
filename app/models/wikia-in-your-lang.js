@@ -39,8 +39,8 @@ export default EmberObject.extend(LanguagesMixin, {
   nativeDomain: null,
 
   /**
-	 * @returns {RSVP.Promise}
-	 */
+  * @returns {RSVP.Promise}
+  */
   load() {
     const browserLang = this.getBrowserLanguage();
     const model = getFromCache(browserLang);

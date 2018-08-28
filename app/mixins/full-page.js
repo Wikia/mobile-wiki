@@ -6,15 +6,15 @@ import Mixin from '@ember/object/mixin';
  */
 export default Mixin.create({
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   activate() {
     this.controllerFor('application').set('fullPage', true);
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   deactivate() {
     this.controllerFor('application').set('fullPage', false);
   },

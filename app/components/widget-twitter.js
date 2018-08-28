@@ -33,8 +33,8 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this._super(...arguments);
 
@@ -43,8 +43,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     loadScript() {
       if (!this.get('scriptLoadInitialized.twitter')) {
         this.set('scriptLoadInitialized.twitter', true);
@@ -56,8 +56,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     createTimeline() {
       if (this.get('scriptLoaded.twitter')) {
         const data = this.data;

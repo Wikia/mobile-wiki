@@ -23,11 +23,11 @@ export default Service.extend({
   },
 
   /**
-	 * Sets smart banner cookie for given number of days
-	 *
-	 * @param {number} days
-	 * @returns {void}
-	 */
+  * Sets smart banner cookie for given number of days
+  *
+  * @param {number} days
+  * @returns {void}
+  */
   setCookie(days) {
     const date = new Date();
     const cookieOptions = {
@@ -45,9 +45,9 @@ export default Service.extend({
   },
 
   /**
-	 * @param {string} action
-	 * @returns {void}
-	 */
+  * @param {string} action
+  * @returns {void}
+  */
   track(action) {
     track({
       action,

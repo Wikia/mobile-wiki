@@ -83,9 +83,9 @@ function createLogger(loggerConfig) {
   const streams = [];
 
   /**
-	 * @param {string} loggerType
-	 * @returns {void}
-	 */
+  * @param {string} loggerType
+  * @returns {void}
+  */
   Object.keys(loggerConfig).forEach((loggerType) => {
     if (!availableTargets.hasOwnProperty(loggerType)) {
       throw new Error(`Unknown logger type ${loggerType}`);

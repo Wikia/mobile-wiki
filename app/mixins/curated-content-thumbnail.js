@@ -29,12 +29,12 @@ export default Mixin.create({
   }),
 
   /**
-	 * @see The same logic implemented on server side:
-	 * fastboot-server/app/facets/operations/prepare-curated-main-page-data.js
-	 * @param {string} imageUrl
-	 * @param {ImageCropData} [imageCrop=null]
-	 * @returns {string}
-	 */
+  * @see The same logic implemented on server side:
+  * fastboot-server/app/facets/operations/prepare-curated-main-page-data.js
+  * @param {string} imageUrl
+  * @param {ImageCropData} [imageCrop=null]
+  * @returns {string}
+  */
   generateThumbUrl(imageUrl, imageCrop = null) {
     const options = {
       width: this.imageWidth,

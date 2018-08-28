@@ -3,7 +3,7 @@
  *
  * @example
  * {{#wikia-ui-components/error-info}}
- * 	<div {{action 'onClick'}}>Some content</div>
+ *  <div {{action 'onClick'}}>Some content</div>
  * {{/wikia-ui-components/error-info}}
  */
 

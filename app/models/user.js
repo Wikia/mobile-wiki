@@ -53,9 +53,9 @@ export default EmberObject.extend({
   },
 
   /**
-	 * @param {UserModelFindParams} params
-	 * @returns {RSVP.Promise<UserModel>}
-	 */
+  * @param {UserModelFindParams} params
+  * @returns {RSVP.Promise<UserModel>}
+  */
   find(params) {
     const avatarSize = params.avatarSize || this.defaultAvatarSize;
     const userId = params.userId;
@@ -96,11 +96,11 @@ export default EmberObject.extend({
   },
 
   /**
-	 * @param {string} host
-	 * @param {number} userId
-	 * @param {number} avatarSize
-	 * @returns {RSVP.Promise}
-	 */
+  * @param {string} host
+  * @param {number} userId
+  * @param {number} avatarSize
+  * @returns {RSVP.Promise}
+  */
   loadDetails(host, userId, avatarSize) {
     const url = this.wikiUrls.build({
       host,
@@ -138,11 +138,11 @@ export default EmberObject.extend({
   },
 
   /**
-	 * @param {string} host
-	 * @param {string} accessToken
-	 * @param {number} userId
-	 * @returns {RSVP.Promise<QueryUserInfoResponse>}
-	 */
+  * @param {string} host
+  * @param {string} accessToken
+  * @param {number} userId
+  * @returns {RSVP.Promise<QueryUserInfoResponse>}
+  */
   loadUserInfo(host, accessToken, userId) {
     const url = this.wikiUrls.build({
       host,
@@ -177,9 +177,9 @@ export default EmberObject.extend({
   },
 
   /**
-	 * @param {*} userData
-	 * @returns {Object}
-	 */
+  * @param {*} userData
+  * @returns {Object}
+  */
   sanitizeDetails(userData) {
     return {
       name: userData.name,
@@ -193,9 +193,9 @@ export default EmberObject.extend({
   },
 
   /**
-	 * @param {{query: {userinfo: {rights: array}}}} query
-	 * @returns {Object}
-	 */
+  * @param {{query: {userinfo: {rights: array}}}} query
+  * @returns {Object}
+  */
   getUserRights({ query }) {
     const rights = {};
     const rightsArray = query.userinfo.rights;
