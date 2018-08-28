@@ -61,7 +61,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set(`slots.incontent_boxad_1.adUnit`, context.get('megaAdUnitId'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
-		&& utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
+    && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
   context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
@@ -103,14 +103,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
     context.set('bidders.prebid.rubiconDisplay.enabled', isGeoEnabled('wgAdDriverRubiconDisplayPrebidCountries'));
 
-    // TODO: Handle video bidders
+    // TODO: Enable all bidders or just Rubicon and AppnexusAst?
     // context.set('bidders.a9.videoBidderEnabled',
     // 	!areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
-    // context.set('bidders.prebid.appnexusAst.enabled',
-    // 	isGeoEnabled('wgAdDriverAppNexusAstBidderCountries') && !hasFeaturedVideo);
+    context.set('bidders.prebid.appnexusAst.enabled',
+      isGeoEnabled('wgAdDriverAppNexusAstBidderCountries') && !hasFeaturedVideo);
     // context.set('bidders.prebid.beachfront.enabled',
     // 	isGeoEnabled('wgAdDriverBeachfrontBidderCountries') && !hasFeaturedVideo);
-    // context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
+    context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
 
     const s1 = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : 'not a top1k wiki';
 

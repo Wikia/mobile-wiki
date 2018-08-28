@@ -285,7 +285,7 @@ export default {
             zoneId: '699374',
             position: 'btf',
           },
-          mobile_in_content: {
+          incontent_player: {
             siteId: '55412',
             sizeId: '203',
             zoneId: '563110',
@@ -348,7 +348,7 @@ export default {
         enabled: false,
         slots: {
           featured: {},
-          mobile_in_content: {},
+          incontent_player: {},
         },
       },
     },
@@ -356,6 +356,8 @@ export default {
   custom: {
     dfpId: '5441',
     wikiIdentifier: '_not_a_top1k_wiki',
+    appnexusDfp: true,
+    rubiconDfp: true,
   },
   events: {
     pushOnScroll: {
