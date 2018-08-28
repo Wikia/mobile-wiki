@@ -41,8 +41,7 @@ function checkOptIn() {
 function prepareData(slot, data) {
   // Global imports:
   const { context } = window.Wikia.adEngine;
-  const { utils } = window.Wikia.adProducts;
-  const { bidders } = window.Wikia.adProductsBidders;
+  const { bidders, utils } = window.Wikia.adProducts;
   // End of imports
 
   const slotName = slot.getSlotName();

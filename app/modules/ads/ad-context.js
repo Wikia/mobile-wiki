@@ -92,8 +92,13 @@ export default {
         enabled: false,
         debugPlacementId: '5768085',
         slots: {
+          featured: {
+            placementId: '13705871',
+            context: 'instream',
+          },
           mobile_in_content: {
             placementId: '11543173',
+            context: 'outstream',
           },
         },
       },

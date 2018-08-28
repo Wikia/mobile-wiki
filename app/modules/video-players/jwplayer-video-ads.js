@@ -30,7 +30,7 @@ export default class JWPlayerVideoAds {
       const a9 = adsModule.a9;
       const responseTimeout = 2000;
 
-      if (!a9) {
+      if (!a9 || !a9.waitForResponseCallbacks) {
         onError({}, 'A9 bidder not found');
       }
 
