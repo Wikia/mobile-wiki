@@ -37,9 +37,8 @@ export default Route.extend(
             shoebox.put('articleData', articleData);
             return articleData;
           });
-      } else {
-        return shoebox.retrieve('articleData');
       }
+      return shoebox.retrieve('articleData');
     },
 
     actions: {

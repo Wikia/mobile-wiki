@@ -28,16 +28,15 @@ export default EmberObject.extend({
       .then((response) => {
         if (response.ok) {
           return response.json();
-        } else {
-          return getFetchErrorMessage(response).then(() => {
-            throw new TrackingDimensionsFetchError({
-              code: response.status,
-            }).withAdditionalData({
-              requestUrl: url,
-              responseUrl: response.url,
-            });
-          });
         }
+        return getFetchErrorMessage(response).then(() => {
+          throw new TrackingDimensionsFetchError({
+            code: response.status,
+          }).withAdditionalData({
+            requestUrl: url,
+            responseUrl: response.url,
+          });
+        });
       })
       .catch(error => this.logger.error('getTrackingDimensions error: ', error));
   },

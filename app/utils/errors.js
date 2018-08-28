@@ -59,9 +59,8 @@ const getFetchErrorMessage = function (response) {
 
   if (contentType && contentType.indexOf('application/json') !== -1) {
     return response.json();
-  } else {
-    return response.text();
   }
+  return response.text();
 };
 
 const canAttemptRefresh = function (errorCode) {

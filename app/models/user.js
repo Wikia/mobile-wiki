@@ -34,22 +34,19 @@ export default EmberObject.extend({
     }).then((response) => {
       if (response.ok) {
         return response.json().then(data => data.user_id);
-      } else {
-        if (response.status === 401) {
-          this.logger.info('Token not authorized by Helios');
-        } else {
-          this.logger.error('Helios connection error: ', response);
-        }
-
-        return null;
       }
+      if (response.status === 401) {
+        this.logger.info('Token not authorized by Helios');
+      }
+      this.logger.error('Helios connection error: ', response);
+      return null;
+
     }).catch((reason) => {
       if (reason.type === 'request-timeout') {
         this.logger.error('Helios timeout error: ', reason);
       } else {
         this.logger.error('Helios connection error: ', reason);
       }
-
       return null;
     });
   },
@@ -119,23 +116,23 @@ export default EmberObject.extend({
       .then((response) => {
         if (response.ok) {
           return response.json();
-        } else {
-          return getFetchErrorMessage(response).then(() => {
-            throw new UserLoadDetailsFetchError({
-              code: response.status,
-            }).withAdditionalData({
-              requestUrl: url,
-              responseUrl: response.url,
-            });
-          });
         }
+        return getFetchErrorMessage(response).then(() => {
+          throw new UserLoadDetailsFetchError({
+            code: response.status,
+          }).withAdditionalData({
+            requestUrl: url,
+            responseUrl: response.url,
+          });
+        });
+
       })
       .then((result) => {
         if (isArray(result.items)) {
           return result.items[0];
-        } else {
-          throw new Error(result);
         }
+        throw new Error(result);
+
       });
   },
 
@@ -165,16 +162,16 @@ export default EmberObject.extend({
     }).then((response) => {
       if (response.ok) {
         return response.json();
-      } else {
-        return getFetchErrorMessage(response).then(() => {
-          throw new UserLoadInfoFetchError({
-            code: response.status,
-          }).withAdditionalData({
-            requestUrl: url,
-            responseUrl: response.url,
-          });
-        });
       }
+      return getFetchErrorMessage(response).then(() => {
+        throw new UserLoadInfoFetchError({
+          code: response.status,
+        }).withAdditionalData({
+          requestUrl: url,
+          responseUrl: response.url,
+        });
+      });
+
     });
   },
 

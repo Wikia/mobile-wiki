@@ -80,9 +80,8 @@ export default Component.extend(
         .then((data) => {
           if (data.length) {
             return data[0];
-          } else {
-            throw new Error('We haven\'t got Plista!');
           }
+          throw new Error('We haven\'t got Plista!');
         });
     },
 

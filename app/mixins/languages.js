@@ -18,15 +18,15 @@ export default Mixin.create({
 
     if (!lang) {
       return this.defaultLanguage;
-    } else {
-      lang = dasherize(lang);
-
-      // pt-br is the only one supported share-feature language with dash and 5 characters
-      if (lang !== 'pt-br') {
-        lang = lang.split('-')[0];
-      }
-
-      return lang;
     }
+
+    lang = dasherize(lang);
+
+    // pt-br is the only one supported share-feature language with dash and 5 characters
+    if (lang !== 'pt-br') {
+      lang = lang.split('-')[0];
+    }
+
+    return lang;
   },
 });

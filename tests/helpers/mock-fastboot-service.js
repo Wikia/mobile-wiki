@@ -1640,7 +1640,8 @@ export default function (owner) {
 				}
 			};
 			/* eslint-enable */
-    } else if (key === 'wikiPage') {
+    }
+    if (key === 'wikiPage') {
       /* eslint-disable */
 			return {
 				"data": {

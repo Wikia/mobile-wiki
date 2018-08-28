@@ -89,16 +89,15 @@ export default Mixin.create({
         .then((response) => {
           if (response.ok) {
             return response.json();
-          } else {
-            return getFetchErrorMessage(response).then(() => {
-              throw new WikiPageFetchError({
-                code: response.status || 503,
-              }).withAdditionalData({
-                requestUrl: url,
-                responseUrl: response.url,
-              });
-            });
           }
+          return getFetchErrorMessage(response).then(() => {
+            throw new WikiPageFetchError({
+              code: response.status || 503,
+            }).withAdditionalData({
+              requestUrl: url,
+              responseUrl: response.url,
+            });
+          });
         })
         .then((data) => {
           if (isFastBoot) {
@@ -126,21 +125,20 @@ export default Mixin.create({
 
           throw error;
         });
-    } else {
-      const wikiPageData = shoebox.retrieve('wikiPage');
-      const wikiPageError = shoebox.retrieve('wikiPageError');
-
-      // There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
-      if (wikiPageError && isInitialPageView) {
-        throw wikiPageError;
-      }
-
-      if (get(wikiPageData, 'data.article')) {
-        wikiPageData.data.article.content = document.querySelector('.article-content').innerHTML;
-      }
-
-      return this.getModelForNamespace(wikiPageData, params, contentNamespaces);
     }
+    const wikiPageData = shoebox.retrieve('wikiPage');
+    const wikiPageError = shoebox.retrieve('wikiPageError');
+
+    // There is no way to remove stuff from shoebox, so ignore it on the consecutive page views
+    if (wikiPageError && isInitialPageView) {
+      throw wikiPageError;
+    }
+
+    if (get(wikiPageData, 'data.article')) {
+      wikiPageData.data.article.content = document.querySelector('.article-content').innerHTML;
+    }
+
+    return this.getModelForNamespace(wikiPageData, params, contentNamespaces);
   },
 
   /**
@@ -161,17 +159,20 @@ export default Mixin.create({
       model.setData(data);
 
       return model;
-    } else if (currentNamespace === MediawikiNamespace.CATEGORY) {
+    }
+    if (currentNamespace === MediawikiNamespace.CATEGORY) {
       model = CategoryModel.create(ownerInjection, params);
       model.setData(data);
 
       return model;
-    } else if (currentNamespace === MediawikiNamespace.FILE) {
+    }
+    if (currentNamespace === MediawikiNamespace.FILE) {
       model = FileModel.create(ownerInjection, params);
       model.setData(data);
 
       return model;
-    } else if (
+    }
+    if (
       currentNamespace === MediawikiNamespace.BLOG_ARTICLE
 			// User blog listing has BLOG_ARTICLE namespace but no article
 			&& data.data.article
@@ -180,14 +181,14 @@ export default Mixin.create({
       model.setData(data);
 
       return model;
-    } else if (currentNamespace === MediawikiNamespace.SPECIAL && data.data.isSpecialRandom) {
+    }
+    if (currentNamespace === MediawikiNamespace.SPECIAL && data.data.isSpecialRandom) {
       model = SpecialRandom.create(ownerInjection);
 
       return model.getArticleRandomTitle();
-    } else {
-      return EmberObject.create({
-        redirectTo: data.data.redirectTo || null,
-      });
     }
+    return EmberObject.create({
+      redirectTo: data.data.redirectTo || null,
+    });
   },
 });

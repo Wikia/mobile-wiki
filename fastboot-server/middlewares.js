@@ -11,7 +11,8 @@ function levelFn(status) {
   if (status >= 500) {
     // fastboot-server internal error or error
     return 'error';
-  } else if (status >= 400) {
+  }
+  if (status >= 400) {
     // client error
     return 'warn';
   }
