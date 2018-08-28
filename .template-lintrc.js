@@ -5,7 +5,7 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'block-indentation': 'tab',
+    'block-indentation': true,
     'deprecated-each-syntax': true,
     'eol-last': 'always',
     'inline-link-to': true,
