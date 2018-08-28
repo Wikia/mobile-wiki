@@ -37,10 +37,11 @@ export default EmberObject.extend({
       }
       if (response.status === 401) {
         this.logger.info('Token not authorized by Helios');
+      } else {
+        this.logger.error('Helios connection error: ', response);
       }
-      this.logger.error('Helios connection error: ', response);
-      return null;
 
+      return null;
     }).catch((reason) => {
       if (reason.type === 'request-timeout') {
         this.logger.error('Helios timeout error: ', reason);
