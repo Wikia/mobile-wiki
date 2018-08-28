@@ -620,7 +620,6 @@ class Ads {
       this.jwPlayerMoat.track(player);
     }
   }
-
 }
 
 Ads.instance = null;

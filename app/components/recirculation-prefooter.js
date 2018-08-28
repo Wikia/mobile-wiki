@@ -55,7 +55,6 @@ export default Component.extend(
 
     actions: {
       postClick(post, index) {
-
         const labelParts = ['footer', `slot-${index + 1}`, post.source];
 
         track({

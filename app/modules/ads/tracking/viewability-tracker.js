@@ -7,7 +7,6 @@ const trackingRouteName = 'special/adengviewability';
   * @returns {Object}
   */
 function prepareData(slot, data) {
-
   return {
     pv_unique_id: window.pvUID,
     wsi: slot.getTargeting().wsi || '',

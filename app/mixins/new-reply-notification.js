@@ -32,7 +32,6 @@ export default Mixin.create({
         user: firstReplierName,
         postTitle: this.postTitleMarkup,
       });
-
     }
     if (hasThreeOrMoreUsers) {
       return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {

@@ -3,7 +3,6 @@ import truncateHelper from 'mobile-wiki/helpers/truncate';
 
 
 module('Unit | helper | truncate', () => {
-
   test('Truncate helper is exported', (assert) => {
     assert.ok(truncateHelper.compute);
   });

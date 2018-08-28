@@ -60,8 +60,6 @@ export default EmberObject.extend({
             url,
           });
         });
-
-
       }).then((response) => {
         if (!response.data.siteName) {
           response.data.siteName = 'Fandom powered by Wikia';

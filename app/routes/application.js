@@ -103,7 +103,6 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
     && !transition.queryParams.noexternals
       ) {
-
         getAdsModule().then((adsModule) => {
           if (isAdEngine3Loaded()) {
             return;

@@ -327,7 +327,6 @@ export default Component.extend(
         return Math.max(value, -max);
       }
       return Math.min(value, max);
-
     },
 
     /**

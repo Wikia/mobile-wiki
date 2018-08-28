@@ -48,7 +48,6 @@ export default Service.extend({
       const shoebox = this.get('fastboot.shoebox');
 
       if (this.get('fastboot.isFastBoot')) {
-
         return UserModel.create(getOwner(this).ownerInjection())
           .find({
             accessToken: this.get('fastboot.request.cookies.access_token'),
