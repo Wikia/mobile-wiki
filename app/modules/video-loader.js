@@ -9,8 +9,8 @@ const playerClassMap = {
 };
 
 /**
- * @class VideoLoader
- */
+  * @class VideoLoader
+  */
 export default class VideoLoader {
   /**
   * @param {*} data

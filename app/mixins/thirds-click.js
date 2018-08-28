@@ -2,13 +2,13 @@ import { computed } from '@ember/object';
 import Mixin from '@ember/object/mixin';
 
 /**
- * PreventableClickEvent
- * @typedef {Object} PreventableClickEvent
- * @implements {MouseEvent}
- * @implements {Touch}
- * @property {Function} preventDefault
- * @property {Function} stopPropagation
- */
+  * PreventableClickEvent
+  * @typedef {Object} PreventableClickEvent
+  * @implements {MouseEvent}
+  * @implements {Touch}
+  * @property {Function} preventDefault
+  * @property {Function} stopPropagation
+  */
 
 export default Mixin.create({
   leftClickHandler() {},

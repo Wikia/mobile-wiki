@@ -4,12 +4,12 @@ import Thumbnailer from '../modules/thumbnailer';
 import { transparentImageBase64 } from '../utils/thumbnail';
 
 /**
- * @typedef {Object} ImageCropData
- * @property {number} x
- * @property {number} y
- * @property {number} width
- * @property {number} height
- */
+  * @typedef {Object} ImageCropData
+  * @property {number} x
+  * @property {number} y
+  * @property {number} width
+  * @property {number} height
+  */
 
 export default Mixin.create({
   thumbnailer: Thumbnailer,

@@ -5,25 +5,25 @@ import { computed } from '@ember/object';
 import { isHashLink } from '../utils/url';
 
 /**
- * HTMLMouseEvent
- * @typedef {Object} HTMLMouseEvent
- * @extends {MouseEvent}
- * @property {HTMLElement} target
- */
+  * HTMLMouseEvent
+  * @typedef {Object} HTMLMouseEvent
+  * @extends {MouseEvent}
+  * @property {HTMLElement} target
+*/
 
 /**
- * DOMStringMap
- * @typedef {Object} DOMStringMap
- * @property {string} galleryRef
- * @property {string} ref
- * @property {string} trackingCategory
- */
+  * DOMStringMap
+  * @typedef {Object} DOMStringMap
+  * @property {string} galleryRef
+  * @property {string} ref
+  * @property {string} trackingCategory
+*/
 
 /**
- * EventTarget
- * @typedef {Object} EventTarget
- * @property {string} tagName
- */
+  * EventTarget
+  * @typedef {Object} EventTarget
+  * @property {string} tagName
+*/
 
 export default Component.extend({
   ads: service(),

@@ -1,8 +1,8 @@
 module.exports = {
- env: {
+  env: {
   es6: false
- },
- rules: {
+  },
+  rules: {
   "no-console": 0,
   "no-var": 0,
   "object-shorthand": 0,
@@ -11,5 +11,5 @@ module.exports = {
   "vars-on-top": 0,
   "no-empty": 0,
   "no-inner-declarations": 0
- }
+  }
 };

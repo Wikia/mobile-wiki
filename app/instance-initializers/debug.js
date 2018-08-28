@@ -1,10 +1,10 @@
 import config from '../config/environment';
 
 /**
- * @param {*} applicationInstance
- *
- * @returns {void}
- */
+  * @param {*} applicationInstance
+  *
+  * @returns {void}
+  */
 export function initialize(applicationInstance) {
   const fastboot = applicationInstance.lookup('service:fastboot');
   let debug = config.environment === 'development';

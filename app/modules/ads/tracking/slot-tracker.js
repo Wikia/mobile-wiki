@@ -33,11 +33,11 @@ function checkOptIn() {
 }
 
 /**
- * Prepare data for render ended tracking
- * @param {Object} slot
- * @param {Object} data
- * @returns {Object}
- */
+  * Prepare data for render ended tracking
+  * @param {Object} slot
+  * @param {Object} data
+  * @returns {Object}
+  */
 function prepareData(slot, data) {
   // Global imports:
   const { context } = window.Wikia.adEngine;
@@ -111,8 +111,8 @@ function prepareData(slot, data) {
 }
 
 /**
- * Wrapper for player data warehouse tracking
- */
+  * Wrapper for player data warehouse tracking
+  */
 export default {
   /**
   * Checks whether tracker is enabled via instant global

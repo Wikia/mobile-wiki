@@ -1,6 +1,6 @@
 /**
- * This list is taken from MediaWiki:app/includes/Defines.php
- */
+  * This list is taken from MediaWiki:app/includes/Defines.php
+  */
 export const namespace = {
   // virtual namespaces
   MEDIA: -2,
@@ -28,11 +28,11 @@ export const namespace = {
 };
 
 /**
- * @param {number} ns
- *
- * @param {string[]} contentNamespaces
- * @returns {boolean}
- */
+  * @param {number} ns
+  *
+  * @param {string[]} contentNamespaces
+  * @returns {boolean}
+  */
 export function isContentNamespace(ns, contentNamespaces = []) {
   return ns === namespace.MAIN || Boolean(contentNamespaces.some(
     // custom namespaces can be in a string format

@@ -2,8 +2,8 @@ import LinkComponent from '@ember/routing/link-component';
 import { track, trackActions } from '../utils/track';
 
 /**
- * @returns {void}
- */
+  * @returns {void}
+  */
 export function initialize() {
   if (typeof FastBoot !== 'undefined') {
     return;

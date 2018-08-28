@@ -1,5 +1,5 @@
 (function (M) {
- M.trackingQueue.push(function (isOptedIn) {
+  M.trackingQueue.push(function (isOptedIn) {
   if (M.getFromHeadDataStore('noExternals')) {
    return;
   }
@@ -20,5 +20,5 @@
     }
    });
   }
- });
+  });
 })(window.M);

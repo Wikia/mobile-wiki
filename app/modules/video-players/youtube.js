@@ -2,10 +2,10 @@ import BasePlayer from './base';
 import { trackActions } from '../../utils/track';
 
 /**
- * @typedef {Object} YouTubeEvent
- * @property {number} data
- * @property {*} target
- */
+  * @typedef {Object} YouTubeEvent
+  * @property {number} data
+  * @property {*} target
+  */
 
 export default class YouTubePlayer extends BasePlayer {
   /**

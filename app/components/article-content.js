@@ -16,10 +16,10 @@ import scrollToTop from '../utils/scroll-to-top';
 import getAdsModule from '../modules/ads';
 
 /**
- * HTMLElement
- * @typedef {Object} HTMLElement
- * @property {Function} scrollIntoViewIfNeeded
- */
+  * HTMLElement
+  * @typedef {Object} HTMLElement
+  * @property {Function} scrollIntoViewIfNeeded
+*/
 
 export default Component.extend(
   AdsMixin,

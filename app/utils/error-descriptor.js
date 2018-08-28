@@ -1,8 +1,8 @@
 /**
- * This is a mix of useful parts from:
- * - https://github.com/janmisek/ember-types
- * - https://github.com/janmisek/ember-error-handler
- */
+  * This is a mix of useful parts from:
+  * - https://github.com/janmisek/ember-types
+  * - https://github.com/janmisek/ember-error-handler
+  */
 import EmberObject, { computed } from '@ember/object';
 import Ember from 'ember';
 
@@ -25,8 +25,8 @@ const extractClassName = subject => (
 
 const extractInstanceName = subject => (
   subject._debugContainerKey || subject.modelName
- || (subject.constructor ? extractClassName(subject.constructor) : false)
- || stringify(subject) || unknownObject
+  || (subject.constructor ? extractClassName(subject.constructor) : false)
+  || stringify(subject) || unknownObject
 );
 
 const extractErrorName = (subject) => {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 while getopts ":f:t:ug" opt; do
- case $opt in
+  case $opt in
   f)
    FROM=$OPTARG
    ;;
@@ -16,19 +16,19 @@ while getopts ":f:t:ug" opt; do
    echo "Option -$OPTARG requires an argument."
    exit 1
    ;;
- esac
+  esac
 done
 
 if [ -z "$FROM" ]
 then
- FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -2 | tail -1)
- FROM="release-"$FROM
+  FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -2 | tail -1)
+  FROM="release-"$FROM
 fi
 
 if [ -z "$TO" ]
 then
- TO=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
- TO="release-"$TO
+  TO=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+  TO="release-"$TO
 fi
 
 

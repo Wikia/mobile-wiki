@@ -20,8 +20,8 @@ const trackingEventsMap = {
 };
 
 /**
- * Ads tracker for JWPlayer
- */
+  * Ads tracker for JWPlayer
+  */
 export default class JWPlayerTracker {
   /**
   * @param {Object} params

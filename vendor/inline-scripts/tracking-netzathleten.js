@@ -1,5 +1,5 @@
 (function () {
- M.trackingQueue.push(function (isOptedIn) {
+  M.trackingQueue.push(function (isOptedIn) {
   if (isOptedIn) {
    var geo = M.geo || {};
    var config = M.getFromHeadDataStore('tracking.netzathleten') || {};
@@ -37,5 +37,5 @@
     });
    }
   }
- });
+  });
 })();

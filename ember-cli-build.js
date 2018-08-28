@@ -5,13 +5,13 @@ const SVGStore = require('broccoli-svgstore');
 const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 
 /**
- * We override Ember's private method to remove files from the final build
- * which are added by addons but not used by us
- *
- * HEADS UP!
- * If you update ember-cli and something breaks,
- * the first thing you should try is to comment this out
- */
+  * We override Ember's private method to remove files from the final build
+  * which are added by addons but not used by us
+  *
+  * HEADS UP!
+  * If you update ember-cli and something breaks,
+  * the first thing you should try is to comment this out
+  */
 EmberApp.prototype.addonTreesFor = function (type) {
   return this.project.addons.map((addon) => {
     if (addon.treeFor) {

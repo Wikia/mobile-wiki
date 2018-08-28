@@ -7,8 +7,8 @@ import searchSuggestionsFixture from './fixtures/search-suggestion';
 import testAFixture from './fixtures/test-page';
 
 /**
- * @returns {void}
- */
+  * @returns {void}
+  */
 export default function () {
   this.passthrough('https://localhost/**');
 

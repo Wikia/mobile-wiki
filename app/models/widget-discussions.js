@@ -7,9 +7,9 @@ import config from '../config/environment';
 import { getQueryString } from '../utils/url';
 
 /**
- * @param {string} [path='']
- * @returns {string}
- */
+  * @param {string} [path='']
+  * @returns {string}
+  */
 function getDiscussionServiceUrl(path = '') {
   return `${config.APP.servicesExternalHost}/discussion${path}`;
 }

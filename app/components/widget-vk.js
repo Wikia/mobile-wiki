@@ -4,22 +4,22 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
 
 /**
- * Widgets
- * @typedef {Object} Widgets
- * @property {Function} Group
- */
+  * Widgets
+  * @typedef {Object} Widgets
+  * @property {Function} Group
+  */
 
 /**
- * VK
- * @typedef {Object} VK
- * @property {Widgets} [Widgets]
- */
+  * VK
+  * @typedef {Object} VK
+  * @property {Widgets} [Widgets]
+  */
 
 /**
- * Window
- * @typedef {Object} Window
- * @property {VK} [VK]
- */
+  * Window
+  * @typedef {Object} Window
+  * @property {VK} [VK]
+  */
 
 export default Component.extend(
   RenderComponentMixin,

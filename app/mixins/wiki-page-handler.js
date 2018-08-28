@@ -19,11 +19,11 @@ import {
 import extend from '../utils/extend';
 
 /**
- *
- * @param {Object} wikiUrls
- * @param {Object} params
- * @returns {string}
- */
+  *
+  * @param {Object} wikiUrls
+  * @param {Object} params
+  * @returns {string}
+  */
 function getURL(wikiUrls, params) {
   const query = {
     controller: 'MercuryApi',

@@ -8,8 +8,8 @@ export const assetUrls = {
 };
 
 /**
- * @class JWPlayerAssets
- */
+  * @class JWPlayerAssets
+  */
 class JWPlayerAssets {
   constructor() {
     this.wasStyleLoadInitialized = false;

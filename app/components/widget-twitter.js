@@ -4,22 +4,22 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
 
 /**
- * Widgets
- * @typedef {Object} Widgets
- * @property {Function} createTimeline
- */
+  * Widgets
+  * @typedef {Object} Widgets
+  * @property {Function} createTimeline
+  */
 
 /**
- * Twttr
- * @typedef {Object} Twttr
- * @property {Widgets} [widgets]
- */
+  * Twttr
+  * @typedef {Object} Twttr
+  * @property {Widgets} [widgets]
+  */
 
 /**
- * Window
- * @typedef {Object} Window
- * @property {Twttr} [twttr]
- */
+  * Window
+  * @typedef {Object} Window
+  * @property {Twttr} [twttr]
+  */
 
 export default Component.extend(
   RenderComponentMixin,

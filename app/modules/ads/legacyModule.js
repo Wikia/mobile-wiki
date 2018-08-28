@@ -8,53 +8,53 @@ import offset from '../../utils/offset';
 import { track } from '../../utils/track';
 
 /**
- * @typedef {Object} SlotsContext
- * @property {Function} isApplicable
- * @property {Function} setStatus
- */
+  * @typedef {Object} SlotsContext
+  * @property {Function} isApplicable
+  * @property {Function} setStatus
+  */
 
 /**
- * @typedef {Object} AdEngineBridge
- * @property {Function} checkAdBlocking
- */
+  * @typedef {Object} AdEngineBridge
+  * @property {Function} checkAdBlocking
+  */
 
 /**
- * @typedef {Object} BabDetectionModule
- * @property {Function} initDetection
- */
+  * @typedef {Object} BabDetectionModule
+  * @property {Function} initDetection
+  */
 
 /**
- * @typedef {Object} VastUrlBuilder
- * @property {Function} build
- */
+  * @typedef {Object} VastUrlBuilder
+  * @property {Function} build
+  */
 
 /**
- * @typedef {Object} AdMercuryListenerModule
- * @property {Function} startOnLoadQueue
- */
+  * @typedef {Object} AdMercuryListenerModule
+  * @property {Function} startOnLoadQueue
+  */
 
 /**
- * @class Ads
- *
- * @property {Ads} instance
- * @property {Object} adsContext
- * @property {Object} previousDetectionResults
- * @property {*} adEngineRunnerModule
- * @property {*} adContextModule
- * @property {AdEngineBridge} adEngineBridge
- * @property {BabDetectionModule} babDetectionModule
- * @property {*} adConfigMobile
- * @property {SlotsContext} slotsContext
- * @property {AdMercuryListenerModule} adMercuryListenerModule
- * @property {Object} GASettings
- * @property {VastUrlBuilder} vastUrlBuilder
- * @property {Krux} krux
- * @property {Object} currentAdsContext
- * @property {Object} googleTag
- * @property {boolean} isLoaded
- * @property {Array<string[]>} slotsQueue
- * @property {Object} a9
- */
+  * @class Ads
+  *
+  * @property {Ads} instance
+  * @property {Object} adsContext
+  * @property {Object} previousDetectionResults
+  * @property {*} adEngineRunnerModule
+  * @property {*} adContextModule
+  * @property {AdEngineBridge} adEngineBridge
+  * @property {BabDetectionModule} babDetectionModule
+  * @property {*} adConfigMobile
+  * @property {SlotsContext} slotsContext
+  * @property {AdMercuryListenerModule} adMercuryListenerModule
+  * @property {Object} GASettings
+  * @property {VastUrlBuilder} vastUrlBuilder
+  * @property {Krux} krux
+  * @property {Object} currentAdsContext
+  * @property {Object} googleTag
+  * @property {boolean} isLoaded
+  * @property {Array<string[]>} slotsQueue
+  * @property {Object} a9
+  */
 class Ads {
   constructor() {
     this.adsContext = null;

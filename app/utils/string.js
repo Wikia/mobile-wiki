@@ -1,16 +1,16 @@
 /**
- * We need to support links like:
- * /wiki/Rachel Berry
- * /wiki/Rachel  Berry
- * /wiki/Rachel__Berry
- *
- * but we want them to be displayed normalized in URL bar
- */
+  * We need to support links like:
+  * /wiki/Rachel Berry
+  * /wiki/Rachel  Berry
+  * /wiki/Rachel__Berry
+  *
+  * but we want them to be displayed normalized in URL bar
+  */
 
 /**
- * @param {string} [title='']
- * @returns {string}
- */
+  * @param {string} [title='']
+  * @returns {string}
+  */
 export function normalizeToUnderscore(title = '') {
   return title
     .replace(/\s/g, '_')
@@ -18,9 +18,9 @@ export function normalizeToUnderscore(title = '') {
 }
 
 /**
- * @param {string} [str='']
- * @returns {string}
- */
+  * @param {string} [str='']
+  * @returns {string}
+  */
 export function normalizeToWhitespace(str = '') {
   return str
     .replace(/_/g, ' ')
@@ -28,10 +28,10 @@ export function normalizeToWhitespace(str = '') {
 }
 
 /**
- * Get last url from input text
- * @param {string} text
- * @returns {string}
- */
+  * Get last url from input text
+  * @param {string} text
+  * @returns {string}
+  */
 export function getLastUrlFromText(text) {
   let urls;
 
@@ -45,9 +45,9 @@ export function getLastUrlFromText(text) {
 }
 
 /**
- * @param  {string} text
- * @return {string}
- */
+  * @param  {string} text
+  * @return {string}
+  */
 export function escapeRegex(text) {
   return text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 }
