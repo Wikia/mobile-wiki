@@ -26,13 +26,13 @@ import Ember from 'ember';
 
 export default helper((params, options) => {
   const content = Ember.Handlebars.Utils.escapeExpression(params[0] || '');
-  let tagName = 'span';
-  let className = '';
-  let otherOptions = {
+  const otherOptions = {
     href: '',
     target: '',
   };
-  let otherOptionsCombined;
+
+  let className = '';
+  let tagName = 'span';
 
   if (options.tagName) {
     tagName = options.tagName;
@@ -42,7 +42,7 @@ export default helper((params, options) => {
     className = ` class="${options.className}"`;
   }
 
-  otherOptionsCombined = Object.keys(otherOptions).map(
+  const otherOptionsCombined = Object.keys(otherOptions).map(
     key => (options[key] ? ` ${key}="${options[key]}"` : ''),
   ).join('');
 

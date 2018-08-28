@@ -1,5 +1,5 @@
 export default function (owner) {
-  let fastboot = owner.lookup('service:fastboot');
+  const fastboot = owner.lookup('service:fastboot');
 
   fastboot.shoebox.retrieve = function (key) {
     if (key === 'applicationData') {

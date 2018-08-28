@@ -19,7 +19,7 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
-    let options = {
+    const options = {
       headers: {},
     };
 
