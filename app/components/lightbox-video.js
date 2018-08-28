@@ -5,9 +5,9 @@ import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
 
 /**
- * Component that is used inside ligthbox-media component
- * to handle displaying video
- */
+  * Component that is used inside ligthbox-media component
+  * to handle displaying video
+*/
 export default Component.extend(
   RespondsToResize,
   {
@@ -18,8 +18,8 @@ export default Component.extend(
     wrapperClass: '.video-player-wrapper',
 
     /**
-		 * @returns string
-		 */
+      * @returns string
+    */
     provider: computed('videoLoader', function () {
       const videoLoader = this.videoLoader;
 
@@ -27,15 +27,15 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns VideoLoader
-		 */
+      * @returns VideoLoader
+    */
     videoLoader: computed('model.embed', 'ads.noAds', function () {
       return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
     }),
 
     /**
-		 * @returns {void}
-		 */
+      * @returns {void}
+    */
     didRender() {
       this._super(...arguments);
 
@@ -44,25 +44,25 @@ export default Component.extend(
     },
 
     /**
-		 * Unbind all click events
-		 *
-		 * @returns {void}
-		 */
+     * Unbind all click events
+     *
+     * @returns {void}
+    */
     willDestroyElement() {
       this.element.querySelector(this.wrapperClass).removeEventListener('click', this.preventDefault);
     },
 
     /**
-		 * Used to instantiate a video player
-		 *
-		 * @returns {void}
-		 */
+     * Used to instantiate a video player
+     *
+     * @returns {void}
+    */
     initVideoPlayer() {
       const videoLoader = this.videoLoader;
 
       /**
-			 * This loads and creates a player
-			 */
+        * This loads and creates a player
+      */
       videoLoader.loadPlayerClass();
 
       // Stop bubbling it up to the lightbox
@@ -80,16 +80,16 @@ export default Component.extend(
     },
 
     /**
-		 * Since we don't use Ember to inject video HTML
-		 *
-		 * Video code does interact with the DOM and brakes binding for Ember templates
-		 * therefore whenever video changes in lightbox
-		 * Ember would not know what to update
-		 *
-		 * because of that we have to manage it manually
-		 *
-		 * @returns {void}
-		 */
+     * Since we don't use Ember to inject video HTML
+     *
+     * Video code does interact with the DOM and brakes binding for Ember templates
+     * therefore whenever video changes in lightbox
+     * Ember would not know what to update
+     *
+     * because of that we have to manage it manually
+     *
+     * @returns {void}
+     */
     insertVideoPlayerHtml() {
       this.element.querySelector(this.wrapperClass).innerHTML = this.get('model.embed.html');
     },

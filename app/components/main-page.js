@@ -19,8 +19,8 @@ export default Component.extend(
     curatedContentToolButtonVisible: and('currentUser.rights.curatedcontent'),
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this._super(...arguments);
 

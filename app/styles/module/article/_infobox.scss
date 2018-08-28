@@ -1,68 +1,68 @@
 table[class*='infobox'] {
-	@extend %wds-font-size-s;
+  @extend %wds-font-size-s;
 
-	border-collapse: collapse;
-	border-spacing: 0;
-	margin: 2.5rem auto;
-	width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 2.5rem auto;
+  width: 100%;
 
-	figure {
-		margin: 0 auto;
-	}
+  figure {
+    margin: 0 auto;
+  }
 
-	th {
-		text-align: left;
-	}
+  th {
+    text-align: left;
+  }
 
-	tr:not(:first-of-type) {
-		border-bottom: 1px solid $border-color-light;
-	}
+  tr:not(:first-of-type) {
+    border-bottom: 1px solid $border-color-light;
+  }
 
-	tr:last-of-type {
-		border-bottom: none;
-	}
+  tr:last-of-type {
+    border-bottom: none;
+  }
 
-	//There is already enough spacing
-	ul,
-	ol {
-		padding: 0;
-	}
+  //There is already enough spacing
+  ul,
+  ol {
+    padding: 0;
+  }
 
-	th {
-		width: 100px;
-	}
+  th {
+    width: 100px;
+  }
 
-	th,
-	td {
-		padding: 5px;
-		vertical-align: top;
+  th,
+  td {
+    padding: 5px;
+    vertical-align: top;
 
-		&[colspan='2'] {
-			padding: 0;
-			text-align: center;
+    &[colspan='2'] {
+      padding: 0;
+      text-align: center;
 
-			b {
-				display: inline-block;
-				margin: 5px;
-			}
-		}
-	}
+      b {
+        display: inline-block;
+        margin: 5px;
+      }
+    }
+  }
 
-	.short tr:nth-of-type(n+6):not(.infobox-expand) {
-		display: none;
-	}
+  .short tr:nth-of-type(n+6):not(.infobox-expand) {
+    display: none;
+  }
 
-	& tbody:not(.short) svg {
-		transform: rotate(180deg);
-	}
+  & tbody:not(.short) svg {
+    transform: rotate(180deg);
+  }
 }
 
 .infobox-expand {
-	td {
-		line-height: 2rem;
-	}
+  td {
+    line-height: 2rem;
+  }
 
-	svg {
-		height: 12px;
-	}
+  svg {
+    height: 12px;
+  }
 }

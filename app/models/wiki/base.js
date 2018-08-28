@@ -3,12 +3,12 @@ import { getOwner } from '@ember/application';
 import extend from '../../utils/extend';
 
 /**
- * get type for open graph, website is for main page even if API returns 'article'
- *
- * @param {bool} isMainPage
- * @param {string} type
- * @returns string
- */
+  * get type for open graph, website is for main page even if API returns 'article'
+  *
+  * @param {bool} isMainPage
+  * @param {string} type
+  * @returns string
+  */
 function getType({ isMainPage, details: { type } }) {
   if (isMainPage) {
     return 'website';
@@ -33,9 +33,9 @@ export default EmberObject.extend({
   isRandomPage: false,
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     let pageProperties;
     let article;

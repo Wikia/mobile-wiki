@@ -1,70 +1,70 @@
 .fandom-app-smart-banner {
-	align-items: center;
-	background: $wds-fandom-color-light-gray;
-	background-size: auto 100%;
-	display: flex;
-	-webkit-font-smoothing: antialiased;
-	height: $fandom-app-smart-banner-height;
-	justify-content: flex-start;
-	width: 100%;
-	z-index: $z-site-head - 2;
+  align-items: center;
+  background: $wds-fandom-color-light-gray;
+  background-size: auto 100%;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  height: $fandom-app-smart-banner-height;
+  justify-content: flex-start;
+  width: 100%;
+  z-index: $z-site-head - 2;
 
-	&__link {
-		display: flex;
-		flex: 1;
-	}
+  &__link {
+    display: flex;
+    flex: 1;
+  }
 
-	&__close {
-		align-self: center;
-		margin: 0 18px;
+  &__close {
+    align-self: center;
+    margin: 0 18px;
 
-		svg {
-			height: 18px;
-			pointer-events: none;
+    svg {
+      height: 18px;
+      pointer-events: none;
 
-			path {
-				fill: #773;
-			}
-		}
-	}
+      path {
+        fill: #773;
+      }
+    }
+  }
 
-	&__install {
-		align-items: center;
-		color: #007aff;
-		display: flex;
-		margin-right: 24px;
-		text-align: center;
-	}
+  &__install {
+    align-items: center;
+    color: #007aff;
+    display: flex;
+    margin-right: 24px;
+    text-align: center;
+  }
 
-	&__info {
-		align-items: center;
-		display: flex;
-		flex-grow: 1;
-	}
+  &__info {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+  }
 
-	&__icon {
-		height: 64px;
-		width: 64px;
-	}
+  &__icon {
+    height: 64px;
+    width: 64px;
+  }
 
-	&__meta {
-		display: flex;
-		flex-direction: column;
-		margin-left: 8px;
-	}
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+  }
 
-	&__title {
-		color: #191919;
-		letter-spacing: .4px;
-		margin-bottom: 3px;
-	}
+  &__title {
+    color: #191919;
+    letter-spacing: .4px;
+    margin-bottom: 3px;
+  }
 
-	&__description {
-		color: #4a4a4a;
-	}
+  &__description {
+    color: #4a4a4a;
+  }
 
-	&__store {
-		color: #4a4a4a;
-		margin-bottom: 5px;
-	}
+  &__store {
+    color: #4a4a4a;
+    margin-bottom: 5px;
+  }
 }

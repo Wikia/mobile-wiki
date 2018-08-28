@@ -20,10 +20,10 @@ export default Mixin.create({
   },
 
   /**
-	 * @param {*} headroomOptions
-	 * @param {number} offset
-	 * @returns {void}
-	 */
+  * @param {*} headroomOptions
+  * @param {number} offset
+  * @returns {void}
+  */
   initHeadroom(headroomOptions, offset) {
     if (this.headroomEnabled === false) {
       return;

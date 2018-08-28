@@ -1,10 +1,10 @@
 /**
- * Converting and escaping Querystring object to string.
- *
- * @param {Object} [query={}] Querystring object
- * @param {getQueryStringOptions} options
- * @returns {string}
- */
+  * Converting and escaping Querystring object to string.
+  *
+  * @param {Object} [query={}] Querystring object
+  * @param {getQueryStringOptions} options
+  * @returns {string}
+  */
 export function getQueryString(query = {}, { useBrackets = true, skipQuestionMark = false } = {}) {
   const queryArray = Object.keys(query);
   const brackets = useBrackets ? '[]' : '';
@@ -32,9 +32,9 @@ export function getQueryString(query = {}, { useBrackets = true, skipQuestionMar
 }
 
 /**
- * @param {EventTarget} target
- * @returns {Boolean}
- */
+  * @param {EventTarget} target
+  * @returns {Boolean}
+  */
 export function isHashLink(target) {
   // We need to use getAttribute because target.href returns whole resolved URL instead of the original value
   return target.hasAttribute('href') && target.getAttribute('href').indexOf('#') === 0;

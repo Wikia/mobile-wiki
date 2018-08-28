@@ -1,8 +1,8 @@
 /**
- * Initializer for Ember Hammer
- *
- * @returns {void}
- */
+  * Initializer for Ember Hammer
+  *
+  * @returns {void}
+  */
 export function initialize() {
   if (typeof FastBoot !== 'undefined') {
     return;

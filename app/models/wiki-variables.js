@@ -19,7 +19,7 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
-    let options = {
+    const options = {
       headers: {},
     };
 
@@ -60,8 +60,6 @@ export default EmberObject.extend({
             url,
           });
         });
-
-
       }).then((response) => {
         if (!response.data.siteName) {
           response.data.siteName = 'Fandom powered by Wikia';
@@ -71,8 +69,8 @@ export default EmberObject.extend({
 
         // Make sure basePath is using https if the current request from the client was made over https
         if ((accessToken || response.data.disableHTTPSDowngrade)
-					&& response.data.basePath
-					&& protocol === 'https'
+     && response.data.basePath
+     && protocol === 'https'
         ) {
           response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
         }

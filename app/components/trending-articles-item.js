@@ -33,8 +33,8 @@ export default Component.extend({
   }),
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   click() {
     track({
       action: trackActions.click,

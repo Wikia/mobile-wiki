@@ -1,13 +1,13 @@
 <figure>
-	<div class="item-image">
-		{{#if thumbUrl}}
-			<img src="{{thumbUrl}}" alt="{{video.title}}">
-		{{else}}
-			<img src="{{emptyGif}}" alt="{{video.title}}">
-		{{/if}}
-		<div class="item-image__play-icon">
-			{{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}
-		</div>
-	</div>
-	<figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{video.title}}</figcaption>
+  <div class="item-image">
+    {{#if thumbUrl}}
+      <img src="{{thumbUrl}}" alt="{{video.title}}">
+    {{else}}
+      <img src="{{emptyGif}}" alt="{{video.title}}">
+    {{/if}}
+    <div class="item-image__play-icon">
+      {{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}
+    </div>
+  </div>
+  <figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{video.title}}</figcaption>
 </figure>

@@ -1,22 +1,22 @@
 /**
- * Library with generic calculation functions
- */
+  * Library with generic calculation functions
+  */
 
 /**
- * @typedef {Object} ContainerSize
- * @property {number} width
- * @property {number} height
- */
+  * @typedef {Object} ContainerSize
+  * @property {number} width
+  * @property {number} height
+  */
 
 /**
- * Calculate container size based on max dimensions and aspect ratio of the content
- *
- * @param {number} maxWidth
- * @param {number} maxHeight
- * @param {number} contentWidth
- * @param {number} contentHeight
- * @returns {ContainerSize}
- */
+  * Calculate container size based on max dimensions and aspect ratio of the content
+  *
+  * @param {number} maxWidth
+  * @param {number} maxHeight
+  * @param {number} contentWidth
+  * @param {number} contentHeight
+  * @returns {ContainerSize}
+  */
 export default function containerSize(maxWidth, maxHeight, contentWidth, contentHeight) {
   const targetSize = {
     width: 0,

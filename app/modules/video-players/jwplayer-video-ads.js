@@ -44,8 +44,8 @@ export default class JWPlayerVideoAds {
 
   static isA9VideoEnabled() {
     return getAdsModule().then(ads => ads.a9
-			&& ads.currentAdsContext
-			&& ads.currentAdsContext.bidders
-			&& ads.currentAdsContext.bidders.a9Video);
+   && ads.currentAdsContext
+   && ads.currentAdsContext.bidders
+   && ads.currentAdsContext.bidders.a9Video);
   }
 }

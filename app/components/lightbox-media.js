@@ -21,8 +21,8 @@ export default Component.extend({
 
   gestures: {
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     swipeLeft() {
       if (this.isGallery) {
         this.nextMedia();
@@ -30,8 +30,8 @@ export default Component.extend({
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     swipeRight() {
       if (this.isGallery) {
         this.prevMedia();
@@ -44,8 +44,8 @@ export default Component.extend({
   updateGalleryRef() {},
 
   /**
-	 * gets current media or current media from gallery
-	 */
+  * gets current media or current media from gallery
+  */
   currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
     const current = this.model;
 
@@ -77,15 +77,15 @@ export default Component.extend({
   }),
 
   /**
-	 * checks if current displayed media is a gallery
-	 */
+  * checks if current displayed media is a gallery
+  */
   isGallery: computed('model', function () {
     return isArray(this.model);
   }),
 
   /**
-	 * checks if current media is a video or image and which lightbox component to render
-	 */
+  * checks if current media is a video or image and which lightbox component to render
+  */
   lightboxComponent: computed('currentMedia', function () {
     const currentMedia = this.currentMedia;
 
@@ -104,9 +104,9 @@ export default Component.extend({
   },
 
   /**
-	 * @param {Event} event
-	 * @returns {void}
-	 */
+  * @param {Event} event
+  * @returns {void}
+  */
   keyDown(event) {
     if (this.isGallery) {
       if (event.keyCode === 39) {
@@ -122,34 +122,34 @@ export default Component.extend({
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   nextMedia() {
     this.incrementProperty('currentGalleryRef');
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   prevMedia() {
     this.decrementProperty('currentGalleryRef');
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   updateState() {
     this.updateFooter();
     this.lightbox.set('file', normalizeToUnderscore(this.get('currentMedia.title')));
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   updateFooter() {
     const currentMedia = this.currentMedia;
-    let footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
-    let footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
+    const footerHead = this.isGallery ? `${(this.currentGalleryRef + 1)}/${this.galleryLength}` : null;
+    const footerLink = currentMedia.isLinkedByUser ? currentMedia.href : null;
 
     if (currentMedia && currentMedia.caption) {
       this.setFooter(htmlSafe(currentMedia.caption), footerHead, footerLink);

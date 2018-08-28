@@ -31,13 +31,13 @@ export function getRenderComponentFor(parent) {
     assert(`Component named "${name}" doesn't exist.`, component);
 
     /**
-		 * layoutName - for dynamically created components we need to tell Ember where is it's template
-		 * @type {string}
-		 */
+   * layoutName - for dynamically created components we need to tell Ember where is it's template
+   * @type {string}
+   */
     attrs.layoutName = `components/${name}`;
     attrs._placeholderElement = placeholderElement;
 
-    let componentInstance = component.create(attrs);
+    const componentInstance = component.create(attrs);
     componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
     return componentInstance;
@@ -46,7 +46,7 @@ export function getRenderComponentFor(parent) {
 
 export function queryPlaceholders(element) {
   const components = [];
-  let componentElements = element.querySelectorAll('[data-component]');
+  const componentElements = element.querySelectorAll('[data-component]');
 
   Array.prototype.forEach.call(componentElements, (componentElement) => {
     // if component is visible

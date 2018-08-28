@@ -11,9 +11,9 @@ export default Controller.extend(
 
     actions: {
       /**
-			 * @param {number} page
-			 * @returns {Promise}
-			 */
+    * @param {number} page
+    * @returns {Promise}
+    */
       loadPage(page) {
         if (page === null) {
           return Promise.reject(new Error('Page was not provided'));

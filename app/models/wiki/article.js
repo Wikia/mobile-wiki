@@ -12,9 +12,9 @@ export default BaseModel.extend({
   heroImage: null,
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     this._super(...arguments);
 

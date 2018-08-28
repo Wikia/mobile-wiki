@@ -1,20 +1,20 @@
 <figure class="avatar">
-	{{#if avatarUrl}}
-		{{#if shouldWrapInHref}}
-			<a class="user-avatar__link" href="{{profileUrl}}">
-				<img class="user-avatar__image" src="{{avatarUrl}}" title="{{displayName}}" alt="{{displayName}}">
-			</a>
-		{{else}}
-			<img src="{{avatarUrl}}" title="{{displayName}}" alt="{{displayName}}">
-		{{/if}}
-	{{else}}
-		{{svg 'wds-avatar-icon' viewBox='0 0 40 40' class='wds-icon'}}
-	{{/if}}
+  {{#if avatarUrl}}
+    {{#if shouldWrapInHref}}
+      <a class="user-avatar__link" href="{{profileUrl}}">
+        <img class="user-avatar__image" src="{{avatarUrl}}" title="{{displayName}}" alt="{{displayName}}">
+      </a>
+    {{else}}
+      <img src="{{avatarUrl}}" title="{{displayName}}" alt="{{displayName}}">
+    {{/if}}
+  {{else}}
+    {{svg 'wds-avatar-icon' viewBox='0 0 40 40' class='wds-icon'}}
+  {{/if}}
 </figure>
 {{#if displayProfileName}}
-	{{#if shouldWrapInHref}}
-		<a href="{{profileUrl}}" class="avatar-username wds-font-size-base">{{displayName}}</a>
-	{{else}}
-		<span class="avatar-username wds-font-size-base">{{displayName}}</span>
-	{{/if}}
+  {{#if shouldWrapInHref}}
+    <a href="{{profileUrl}}" class="avatar-username wds-font-size-base">{{displayName}}</a>
+  {{else}}
+    <span class="avatar-username wds-font-size-base">{{displayName}}</span>
+  {{/if}}
 {{/if}}

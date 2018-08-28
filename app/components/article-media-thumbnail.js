@@ -1,4 +1,6 @@
-import { or, equal, lte, bool, not } from '@ember/object/computed';
+import {
+  or, equal, lte, bool, not,
+} from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
@@ -11,9 +13,9 @@ export default Component.extend({
   tagName: 'figure',
 
   /**
-	 * Default is `article`
-	 * It can be overridden when rendering from another component, e.g. from article-media-gallery
-	 */
+  * Default is `article`
+  * It can be overridden when rendering from another component, e.g. from article-media-gallery
+  */
   itemContext: 'article',
 
   hasFigcaption: or('model.caption', 'showTitle'),

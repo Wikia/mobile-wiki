@@ -21,14 +21,14 @@ export default Component.extend(RenderComponentMixin, {
     this.setUpConfig(guid);
 
     return `<script src="${src}" async="async" `
-			+ `data-instance="${guid}" data-width="${width}" data-height="${height}"></`
-			+ 'script>';
+   + `data-instance="${guid}" data-width="${width}" data-height="${height}"></`
+   + 'script>';
   },
 
   /**
-	 * @param {string} guid
-	 * @return {void}
-	 */
+  * @param {string} guid
+  * @return {void}
+  */
   setUpConfig(guid) {
     window.FLITE = window.FLITE || {};
     window.FLITE.config = window.FLITE.config || {};

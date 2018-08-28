@@ -18,7 +18,6 @@ module('Unit | Utility | video loader', () => {
       const videoLoader = new VideoLoader(data);
 
       assert.equal(videoLoader.getProviderName(), testCase.expected);
-
     });
   });
 
@@ -39,6 +38,4 @@ module('Unit | Utility | video loader', () => {
       assert.equal(VideoLoader.getPlayerClassBasedOnProvider(testCase.provider).name, testCase.expected);
     });
   });
-
-
 });
