@@ -41,6 +41,7 @@ export default Component.extend({
     'verticalClass',
     'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
     'bfaaTemplate',
+    'fullPage:is-full-page',
   ],
   scrollLocation: null,
 
