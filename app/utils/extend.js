@@ -28,7 +28,6 @@ function deepExtend(out = {}) {
 export default function () {
   if (typeof FastBoot !== 'undefined') {
     return FastBoot.require('deep-extend')(...arguments);
-  } else {
-    return deepExtend(...arguments);
   }
+  return deepExtend(...arguments);
 }

@@ -77,8 +77,7 @@ export default class VideoLoader {
   static getPlayerClassBasedOnProvider(provider) {
     if (playerClassMap.hasOwnProperty(provider)) {
       return playerClassMap[provider];
-    } else {
-      return playerClassMap.base;
     }
+    return playerClassMap.base;
   }
 }

@@ -44,22 +44,23 @@ export default EmberObject.extend({
 
         if (contentType && contentType.indexOf('application/json') !== -1) {
           return response.json();
-        } else if (url !== response.url) {
+        }
+        if (url !== response.url) {
           // API was redirected to non-json page
           throw new WikiVariablesRedirectError().withAdditionalData({
             redirectLocation: response.url,
           });
-        } else {
-          // non-json API response
-          return response.text().then(() => {
-            throw new WikiVariablesFetchError({
-              code: response.status || 503,
-            }).withAdditionalData({
-              host,
-              url,
-            });
-          });
         }
+        // non-json API response
+        return response.text().then(() => {
+          throw new WikiVariablesFetchError({
+            code: response.status || 503,
+          }).withAdditionalData({
+            host,
+            url,
+          });
+        });
+
 
       }).then((response) => {
         if (!response.data.siteName) {

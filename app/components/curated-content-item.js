@@ -29,9 +29,8 @@ export default Component.extend(
           this.get('model.imageUrl'),
           this.get(`model.imageCrop.${this.aspectRatioName}`),
         );
-      } else {
-        return this.emptyGif;
       }
+      return this.emptyGif;
     }),
 
     icon: computed('type', function () {

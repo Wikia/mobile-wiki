@@ -20,9 +20,8 @@ export default class JWPlayerVideoAds {
             resolve(params);
           });
         });
-      } else {
-        return Promise.resolve({});
       }
+      return Promise.resolve({});
     });
   }
 

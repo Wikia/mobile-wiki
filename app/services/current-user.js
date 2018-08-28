@@ -67,9 +67,8 @@ export default Service.extend({
               this.logger.error('Couldn\'t load current user model', err);
             }
           });
-      } else {
-        this.setProperties(shoebox.retrieve('userData'));
       }
+      this.setProperties(shoebox.retrieve('userData'));
     }
 
     return resolve();

@@ -12,9 +12,8 @@ import extend from '../../utils/extend';
 function getType({ isMainPage, details: { type } }) {
   if (isMainPage) {
     return 'website';
-  } else {
-    return type;
   }
+  return type;
 }
 
 export default EmberObject.extend({

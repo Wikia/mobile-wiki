@@ -325,9 +325,9 @@ export default Component.extend(
     limit(value, max) {
       if (value < 0) {
         return Math.max(value, -max);
-      } else {
-        return Math.min(value, max);
       }
+      return Math.min(value, max);
+
     },
 
     /**
@@ -374,11 +374,11 @@ export default Component.extend(
 
       if (x < thirdPartOfScreen) {
         return this.screenAreas.left;
-      } else if (x > viewportWidth - thirdPartOfScreen) {
-        return this.screenAreas.right;
-      } else {
-        return this.screenAreas.center;
       }
+      if (x > viewportWidth - thirdPartOfScreen) {
+        return this.screenAreas.right;
+      }
+      return this.screenAreas.center;
     },
   },
 );
