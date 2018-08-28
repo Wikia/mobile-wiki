@@ -60,7 +60,9 @@ function shouldSendLyricFindRequest({ model, wikiId, fastboot }) {
   * @param {{get}} fastboot
   * @param {Ember.Service} wikiUrls
   */
-function afterTransition({ model, wikiId, host, fastboot, wikiUrls }) {
+function afterTransition({
+  model, wikiId, host, fastboot, wikiUrls,
+}) {
   if (shouldSendLyricFindRequest({ model, wikiId, fastboot })) {
     sendLyricsPageView({ model, host, wikiUrls });
   }
