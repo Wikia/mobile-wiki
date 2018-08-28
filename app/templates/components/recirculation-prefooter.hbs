@@ -13,8 +13,8 @@
 		<ul class="recirculation-prefooter__wiki-articles-list">
 			{{#each topArticles as |article index|}}
 				<li class="recirculation-prefooter__wiki-article" {{action 'articleClick' article.title}}>
-						<span class="recirculation-prefooter__wiki-article-circle wds-font-size-l wds-font-weight-bold wds-leading-none">{{sum index 1}}</span>
-						<span class="recirculation-prefooter__wiki-article-title wds-font-weight-medium">{{article.title}}</span>
+					<span class="recirculation-prefooter__wiki-article-circle wds-font-size-l wds-font-weight-bold wds-leading-none">{{sum index 1}}</span>
+					<span class="recirculation-prefooter__wiki-article-title wds-font-weight-medium">{{article.title}}</span>
 				</li>
 			{{/each}}
 		</ul>

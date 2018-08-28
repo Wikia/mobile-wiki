@@ -93,6 +93,8 @@ export default Component.extend(
           if (!response.ok) {
             this.logger.error('Can not fetch topArticles', response);
             this.set('topArticles', []);
+
+            return this;
           } else {
             return response.json().then(data => this.set('topArticles', data));
           }
