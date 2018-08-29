@@ -8,56 +8,56 @@ import { track, trackActions, trackPageView } from '../utils/track';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 export default Route.extend(
-	ApplicationWrapperClassNamesMixin,
-	HeadTagsDynamicMixin,
-	{
-		initialPageView: service(),
-		i18n: service(),
+  ApplicationWrapperClassNamesMixin,
+  HeadTagsDynamicMixin,
+  {
+    initialPageView: service(),
+    i18n: service(),
 
-		queryParams: {
-			query: {
-				refreshModel: true,
-			},
-		},
+    queryParams: {
+      query: {
+        refreshModel: true,
+      },
+    },
 
-		applicationWrapperClassNames: null,
+    applicationWrapperClassNames: null,
 
-		init() {
-			this._super(...arguments);
-			this.applicationWrapperClassNames = ['search-result-page'];
-		},
+    init() {
+      this._super(...arguments);
+      this.applicationWrapperClassNames = ['search-result-page'];
+    },
 
-		model(params) {
-			return SearchModel
-				.create(getOwner(this).ownerInjection())
-				.search(params.query);
-		},
+    model(params) {
+      return SearchModel
+        .create(getOwner(this).ownerInjection())
+        .search(params.query);
+    },
 
-		actions: {
-			/**
-			 * @returns {boolean}
-			 */
-			didTransition() {
-				scheduleOnce('afterRender', this, () => {
-					trackPageView(this.initialPageView.isInitialPageView());
+    actions: {
+      /**
+    * @returns {boolean}
+    */
+      didTransition() {
+        scheduleOnce('afterRender', this, () => {
+          trackPageView(this.initialPageView.isInitialPageView());
 
-					track({
-						action: trackActions.impression,
-						category: 'app',
-						label: 'search',
-					});
-				});
+          track({
+            action: trackActions.impression,
+            category: 'app',
+            label: 'search',
+          });
+        });
 
-				return true;
-			},
-		},
+        return true;
+      },
+    },
 
-		setDynamicHeadTags(model) {
-			const data = {
-				htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' }),
-			};
+    setDynamicHeadTags(model) {
+      const data = {
+        htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' }),
+      };
 
-			this._super(model, data);
-		},
-	},
+      this._super(model, data);
+    },
+  },
 );

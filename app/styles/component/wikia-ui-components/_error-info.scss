@@ -4,13 +4,13 @@ $error-info-text-bubble-border-radius: 8px;
 $error-info-text-bubble-margin-vertical: 60px;
 
 .error-info {
-	padding: 0 $error-info-side-padding;
+  padding: 0 $error-info-side-padding;
 }
 
 .error-info__text-bubble {
-	background-color: $wds-color-white;
-	border-radius: $error-info-text-bubble-border-radius;
-	margin: $error-info-text-bubble-margin-vertical auto;
-	padding: $error-info-text-bubble-padding;
-	text-align: center;
+  background-color: $wds-color-white;
+  border-radius: $error-info-text-bubble-border-radius;
+  margin: $error-info-text-bubble-margin-vertical auto;
+  padding: $error-info-text-bubble-padding;
+  text-align: center;
 }

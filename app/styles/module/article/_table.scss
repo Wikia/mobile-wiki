@@ -1,70 +1,70 @@
 .article-table-wrapper {
-	background-color: $wds-color-white;
-	border: 1px solid $wds-fandom-color-mid-light-gray;
-	box-shadow: 0 6px 10px 0 rgba(26, 26, 26, .1);
-	margin-bottom: 24px;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
+  background-color: $wds-color-white;
+  border: 1px solid $wds-fandom-color-mid-light-gray;
+  box-shadow: 0 6px 10px 0 rgba(26, 26, 26, .1);
+  margin-bottom: 24px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
-	table {
-		border-collapse: collapse;
-		width: 100%;
+  table {
+    border-collapse: collapse;
+    width: 100%;
 
-		&.infobox {
-			th,
-			td {
-				width: 50%;
-			}
-		}
-	}
+    &.infobox {
+      th,
+      td {
+        width: 50%;
+      }
+    }
+  }
 
-	th,
-	td {
-		@extend %wds-font-size-s;
-		@extend %wds-leading-normal;
+  th,
+  td {
+    @extend %wds-font-size-s;
+    @extend %wds-leading-normal;
 
-		max-width: 224px;
-		padding: 10px;
-		vertical-align: top;
+    max-width: 224px;
+    padding: 10px;
+    vertical-align: top;
 
-		figure {
-			&:not(.is-ogg) {
-				display: inline-block;
+    figure {
+      &:not(.is-ogg) {
+        display: inline-block;
 
-				figcaption {
-					display: none;
-				}
-			}
+        figcaption {
+          display: none;
+        }
+      }
 
-			&.has-caption .chevron {
-				margin-bottom: 0;
-			}
-		}
-	}
+      &.has-caption .chevron {
+        margin-bottom: 0;
+      }
+    }
+  }
 
-	th {
-		@extend %wds-leading-tight;
+  th {
+    @extend %wds-leading-tight;
 
-		background: $wds-fandom-color-light-gray;
-		border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
-		border-right: 0;
-		text-align: left;
+    background: $wds-fandom-color-light-gray;
+    border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
+    border-right: 0;
+    text-align: left;
 
-		&:first-of-type {
-			border-right: 1px solid $wds-fandom-color-mid-light-gray;
-		}
-	}
+    &:first-of-type {
+      border-right: 1px solid $wds-fandom-color-mid-light-gray;
+    }
+  }
 
-	td:empty {
-		display: none;
-	}
+  td:empty {
+    display: none;
+  }
 
-	td:not(:last-child),
-	th:not(:last-child) {
-		border-right: 1px solid $wds-fandom-color-mid-light-gray;
-	}
+  td:not(:last-child),
+  th:not(:last-child) {
+    border-right: 1px solid $wds-fandom-color-mid-light-gray;
+  }
 
-	tr:not(:last-of-type) {
-		border-bottom: 1px solid $wds-fandom-color-mid-light-gray;
-	}
+  tr:not(:last-of-type) {
+    border-bottom: 1px solid $wds-fandom-color-mid-light-gray;
+  }
 }

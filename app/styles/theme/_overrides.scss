@@ -2,14 +2,14 @@
 // Temporary overrides in lieu of final treatments for legacy MW/Wikia views
 
 :not(.article-table) {
-	> .navbox {
-		display: none;
-	}
+  > .navbox {
+    display: none;
+  }
 }
 
 /* Polls don't display correctly with style attributes stripped out
    for mobile experience. Additionally, poll submission is broken in Mobile Wiki.
 */
 .ajax-poll {
-	display: none;
+  display: none;
 }

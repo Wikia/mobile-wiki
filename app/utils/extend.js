@@ -1,34 +1,28 @@
-function deepExtend(out = {}) {
-	let i;
-	let key;
-	let obj;
+function deepExtend(out = {}, ...rest) {
+  rest.forEach((obj) => {
+    if (obj) {
+      Object.entries(obj).forEach((property) => {
+        const key = property[0];
+        const value = property[1];
 
-	for (i = 1; i < arguments.length; i++) {
-		obj = arguments[i];
+        if (value && typeof value === 'object') {
+          if (!out[key] && Array.isArray(value)) {
+            out[key] = [];
+          }
+          out[key] = deepExtend(out[key], value);
+        } else {
+          out[key] = value;
+        }
+      });
+    }
+  });
 
-		if (obj) {
-			for (key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					if (obj[key] && typeof obj[key] === 'object') {
-						if (!out[key] && Array.isArray(obj[key])) {
-							out[key] = [];
-						}
-						out[key] = deepExtend(out[key], obj[key]);
-					} else {
-						out[key] = obj[key];
-					}
-				}
-			}
-		}
-	}
-
-	return out;
+  return out;
 }
 
 export default function () {
-	if (typeof FastBoot !== 'undefined') {
-		return FastBoot.require('deep-extend')(...arguments);
-	} else {
-		return deepExtend(...arguments);
-	}
+  if (typeof FastBoot !== 'undefined') {
+    return FastBoot.require('deep-extend')(...arguments);
+  }
+  return deepExtend(...arguments);
 }

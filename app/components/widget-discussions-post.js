@@ -7,29 +7,29 @@ import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
 
 export default Component.extend({
-	classNames: ['post-detail'],
+  classNames: ['post-detail'],
 
-	openGraphSiteName: or('post.openGraph.domain', 'post.openGraph.siteName'),
+  openGraphSiteName: or('post.openGraph.domain', 'post.openGraph.siteName'),
 
-	openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
-		const imageWidth = 525;
-		const imageHeight = parseInt(imageWidth * 9 / 16, 10);
+  openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
+    const imageWidth = 525;
+    const imageHeight = parseInt(imageWidth * 9 / 16, 10);
 
-		if (!this.get('post.openGraph.imageUrl')) {
-			return '';
-		}
+    if (!this.get('post.openGraph.imageUrl')) {
+      return '';
+    }
 
-		return `${this.get('post.openGraph.imageUrl')}/zoom-crop/width/${imageWidth}/height/${imageHeight}`;
-	}),
+    return `${this.get('post.openGraph.imageUrl')}/zoom-crop/width/${imageWidth}/height/${imageHeight}`;
+  }),
 
-	parsedContent: computed('post.rawContent', function () {
-		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
-			this.get('post.rawContent'),
-		).trim();
+  parsedContent: computed('post.rawContent', function () {
+    let escapedContent = Ember.Handlebars.Utils.escapeExpression(
+      this.get('post.rawContent'),
+    ).trim();
 
-		escapedContent = truncate(escapedContent, 148);
-		escapedContent = nl2br(escapedContent);
+    escapedContent = truncate(escapedContent, 148);
+    escapedContent = nl2br(escapedContent);
 
-		return htmlSafe(escapedContent);
-	}),
+    return htmlSafe(escapedContent);
+  }),
 });

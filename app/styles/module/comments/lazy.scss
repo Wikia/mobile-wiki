@@ -1,143 +1,143 @@
 .page-button {
-	box-sizing: border-box;
-	width: 100%;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .prev-page-button {
-	margin-right: 36px;
+  margin-right: 36px;
 
-	svg {
-		transform: rotate(90deg);
-	}
+  svg {
+    transform: rotate(90deg);
+  }
 }
 
 .next-page-button {
-	svg {
-		transform: rotate(-90deg);
-	}
+  svg {
+    transform: rotate(-90deg);
+  }
 }
 
 .article-comments {
-	.wds-button.show-reply-btn {
-		background-color: $wds-color-light-c2;
-		bottom: -16px;
-		box-sizing: border-box;
-		left: 50%;
-		position: absolute;
-		transform: translate(-50%);
-		z-index: 1;
-	}
+  .wds-button.show-reply-btn {
+    background-color: $wds-color-light-c2;
+    bottom: -16px;
+    box-sizing: border-box;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%);
+    z-index: 1;
+  }
 }
 
 .comments {
-	@extend %list-reset;
+  @extend %list-reset;
 
-	&__no-comments,
-	&__add-comment {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-	}
+  &__no-comments,
+  &__add-comment {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
 
-	&__no-comments {
-		color: $wds-fandom-color-dark-gray;
-		padding: 20px 0;
-	}
+  &__no-comments {
+    color: $wds-fandom-color-dark-gray;
+    padding: 20px 0;
+  }
 
-	&__add-comment {
-		padding: 10px 0 20px;
-	}
+  &__add-comment {
+    padding: 10px 0 20px;
+  }
 
-	&__reply-icon {
-		color: $wds-fandom-color-dark-gray;
-		height: 40px;
-		width: 40px;
-	}
+  &__reply-icon {
+    color: $wds-fandom-color-dark-gray;
+    height: 40px;
+    width: 40px;
+  }
 
-	&__message {
-		color: $wds-fandom-color-dark-gray;
-		margin-top: 12px;
-		max-width: 200px;
-		text-align: center;
-	}
+  &__message {
+    color: $wds-fandom-color-dark-gray;
+    margin-top: 12px;
+    max-width: 200px;
+    text-align: center;
+  }
 
-	&__navigation {
-		display: flex;
-		justify-content: center;
-		margin: 34px 0 20px;
-		width: 100%;
-	}
+  &__navigation {
+    display: flex;
+    justify-content: center;
+    margin: 34px 0 20px;
+    width: 100%;
+  }
 }
 
 .article-comment {
-	border-bottom: 1px solid $wds-fandom-color-middle-gray;
-	padding: 18px 0;
-	position: relative;
+  border-bottom: 1px solid $wds-fandom-color-middle-gray;
+  padding: 18px 0;
+  position: relative;
 
-	p:first-child {
-		margin-top: 0;
-	}
+  p:first-child {
+    margin-top: 0;
+  }
 
-	p:last-of-type {
-		margin-bottom: 0;
-	}
+  p:last-of-type {
+    margin-bottom: 0;
+  }
 
-	ul {
-		@extend %list-reset;
+  ul {
+    @extend %list-reset;
 
-		display: none;
+    display: none;
 
-		&.expanded {
-			display: block;
-		}
-	}
+    &.expanded {
+      display: block;
+    }
+  }
 
-	// replies
-	.article-comment {
-		border-bottom: none;
-		border-left: 1px solid $wds-fandom-color-middle-gray;
-		margin: 32px 0 18px $article-horizontal-padding;
-		padding: 0 0 0 14px;
-	}
+  // replies
+  .article-comment {
+    border-bottom: none;
+    border-left: 1px solid $wds-fandom-color-middle-gray;
+    margin: 32px 0 18px $article-horizontal-padding;
+    padding: 0 0 0 14px;
+  }
 
-	.metadata {
-		align-items: center;
-		display: flex;
-		justify-content: flex-start;
+  .metadata {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
 
-		.wds-avatar {
-			margin-right: 6px;
-		}
-	}
+    .wds-avatar {
+      margin-right: 6px;
+    }
+  }
 
-	.username {
-		@include ellipsis();
+  .username {
+    @include ellipsis();
 
-		color: $wds-fandom-color-navy;
-		max-width: 140px;
-	}
+    color: $wds-fandom-color-navy;
+    max-width: 140px;
+  }
 
-	.timestamp {
-		color: $wds-fandom-color-dark-gray;
-	}
+  .timestamp {
+    color: $wds-fandom-color-dark-gray;
+  }
 
-	.separator {
-		color: $wds-fandom-color-dark-gray;
-		margin: 0 6px;
-	}
+  .separator {
+    color: $wds-fandom-color-dark-gray;
+    margin: 0 6px;
+  }
 
-	.content {
-		padding-top: 6px;
-	}
+  .content {
+    padding-top: 6px;
+  }
 
-	figure {
-		@extend %position-play-icon;
+  figure {
+    @extend %position-play-icon;
 
-		margin: 1rem auto;
-		max-width: 100%;
+    margin: 1rem auto;
+    max-width: 100%;
 
-		.thumbnail-play-icon {
-			max-width: 50px;
-		}
-	}
+    .thumbnail-play-icon {
+      max-width: 50px;
+    }
+  }
 }

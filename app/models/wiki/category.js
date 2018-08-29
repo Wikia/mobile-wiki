@@ -4,52 +4,52 @@ import BaseModel from './base';
 import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
-	wikiUrls: service(),
+  wikiUrls: service(),
 
-	host: null,
-	hasArticle: false,
-	membersGrouped: null,
-	nextPage: null,
-	pages: null,
-	prevPage: null,
-	trendingArticles: null,
+  host: null,
+  hasArticle: false,
+  membersGrouped: null,
+  nextPage: null,
+  pages: null,
+  prevPage: null,
+  trendingArticles: null,
 
 
-	/**
-	 * @param {number} page
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	loadPage(page) {
-		return fetch(this.wikiUrls.build({
-			host: this.host,
-			path: '/wikia.php',
-			query: {
-				controller: 'MercuryApi',
-				method: 'getCategoryMembers',
-				title: this.title,
-				categoryMembersPage: page,
-				format: 'json',
-			},
-		}))
-			.then(response => response.json())
-			.then(({ data }) => {
-				if (isEmpty(data) || isEmpty(data.membersGrouped)) {
-					throw new Error('Unexpected response from server');
-				}
+  /**
+  * @param {number} page
+  * @returns {Ember.RSVP.Promise}
+  */
+  loadPage(page) {
+    return fetch(this.wikiUrls.build({
+      host: this.host,
+      path: '/wikia.php',
+      query: {
+        controller: 'MercuryApi',
+        method: 'getCategoryMembers',
+        title: this.title,
+        categoryMembersPage: page,
+        format: 'json',
+      },
+    }))
+      .then(response => response.json())
+      .then(({ data }) => {
+        if (isEmpty(data) || isEmpty(data.membersGrouped)) {
+          throw new Error('Unexpected response from server');
+        }
 
-				this.setProperties(data);
-			});
-	},
+        this.setProperties(data);
+      });
+  },
 
-	/**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
-	setData({ data }) {
-		this._super(...arguments);
+  /**
+  * @param {Object} data
+  * @returns {void}
+  */
+  setData({ data }) {
+    this._super(...arguments);
 
-		if (data && data.nsSpecificContent) {
-			this.setProperties(data.nsSpecificContent);
-		}
-	},
+    if (data && data.nsSpecificContent) {
+      this.setProperties(data.nsSpecificContent);
+    }
+  },
 });

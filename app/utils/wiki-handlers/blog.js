@@ -1,12 +1,12 @@
 import ArticleHandler from './article';
 
 /**
- * Export File handler
- */
+  * Export File handler
+  */
 export default {
-	// template's and controller's name
-	viewName: 'blog',
-	controllerName: 'blog',
-	// hooks
-	afterModel: ArticleHandler.afterModel,
+  // template's and controller's name
+  viewName: 'blog',
+  controllerName: 'blog',
+  // hooks
+  afterModel: ArticleHandler.afterModel,
 };

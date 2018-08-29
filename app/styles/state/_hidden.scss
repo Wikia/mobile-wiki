@@ -3,5 +3,5 @@
 * we can't use wds-is-hidden there as ads set/unset hidden class
 */
 .hidden {
-	@extend .wds-is-hidden;
+  @extend .wds-is-hidden;
 }

@@ -1,62 +1,61 @@
-import { scheduleOnce } from '@ember/runloop';
-import { assert } from '@ember/debug';
 import { getOwner } from '@ember/application';
+import { assert } from '@ember/debug';
 
 function componentAttributes(element) {
-	const attrsJSON = element.getAttribute('data-attrs');
+  const attrsJSON = element.getAttribute('data-attrs');
 
-	let attrs;
+  let attrs;
 
-	if (attrsJSON) {
-		attrs = JSON.parse(attrsJSON);
-	} else {
-		attrs = {};
-	}
+  if (attrsJSON) {
+    attrs = JSON.parse(attrsJSON);
+  } else {
+    attrs = {};
+  }
 
-	return attrs;
+  return attrs;
 }
 
 function lookupComponent(owner, name) {
-	const componentLookupKey = `component:${name}`;
+  const componentLookupKey = `component:${name}`;
 
-	return owner.factoryFor(componentLookupKey);
+  return owner.factoryFor(componentLookupKey);
 }
 
 export function getRenderComponentFor(parent) {
-	const owner = getOwner(parent);
+  const owner = getOwner(parent);
 
-	return function renderComponent({ name, attrs, element: placeholderElement }) {
-		const component = lookupComponent(owner, name);
+  return function renderComponent({ name, attrs, element: placeholderElement }) {
+    const component = lookupComponent(owner, name);
 
-		assert(`Component named "${name}" doesn't exist.`, component);
+    assert(`Component named "${name}" doesn't exist.`, component);
 
-		/**
-		 * layoutName - for dynamically created components we need to tell Ember where is it's template
-		 * @type {string}
-		 */
-		attrs.layoutName = `components/${name}`;
-		attrs._placeholderElement = placeholderElement;
+    /**
+   * layoutName - for dynamically created components we need to tell Ember where is it's template
+   * @type {string}
+   */
+    attrs.layoutName = `components/${name}`;
+    attrs._placeholderElement = placeholderElement;
 
-		let componentInstance = component.create(attrs);
-		componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
+    const componentInstance = component.create(attrs);
+    componentInstance.renderer.appendTo(componentInstance, placeholderElement.parentNode);
 
-		return componentInstance;
-	};
+    return componentInstance;
+  };
 }
 
 export function queryPlaceholders(element) {
-	const components = [];
-	let componentElements = element.querySelectorAll('[data-component]');
+  const components = [];
+  const componentElements = element.querySelectorAll('[data-component]');
 
-	Array.prototype.forEach.call(componentElements, (componentElement) => {
-		// if component is visible
-		if (componentElement.offsetParent) {
-			const name = componentElement.getAttribute('data-component');
-			const attrs = componentAttributes(componentElement);
+  Array.prototype.forEach.call(componentElements, (componentElement) => {
+    // if component is visible
+    if (componentElement.offsetParent) {
+      const name = componentElement.getAttribute('data-component');
+      const attrs = componentAttributes(componentElement);
 
-			components.push({ attrs, name, element: componentElement });
-		}
-	});
+      components.push({ attrs, name, element: componentElement });
+    }
+  });
 
-	return components;
+  return components;
 }

@@ -5,36 +5,36 @@ import WidgetDiscussionsModel from '../models/widget-discussions';
 import RenderComponentMixin from '../mixins/render-component';
 
 export default Component.extend(InViewportMixin, RenderComponentMixin, {
-	classNames: ['widget-discussions'],
-	layoutName: 'components/widget-discussions',
-	isLoading: true,
-	model: null,
+  classNames: ['widget-discussions'],
+  layoutName: 'components/widget-discussions',
+  isLoading: true,
+  model: null,
 
-	init() {
-		this._super(...arguments);
+  init() {
+    this._super(...arguments);
 
-		this.set('model', WidgetDiscussionsModel.create(getOwner(this).ownerInjection()));
-	},
+    this.set('model', WidgetDiscussionsModel.create(getOwner(this).ownerInjection()));
+  },
 
-	actions: {
-		upvote(post) {
-			this.model.upvote(post);
-		},
-	},
+  actions: {
+    upvote(post) {
+      this.model.upvote(post);
+    },
+  },
 
-	/**
-	 * @returns {void}
-	 */
-	didEnterViewport() {
-		this.model.find(
-			this.getWithDefault('categoryIds', []),
-			this.show,
-			this.itemCount,
-		).then((posts) => {
-			this.setProperties({
-				posts,
-				isLoading: false,
-			});
-		});
-	},
+  /**
+  * @returns {void}
+  */
+  didEnterViewport() {
+    this.model.find(
+      this.getWithDefault('categoryIds', []),
+      this.show,
+      this.itemCount,
+    ).then((posts) => {
+      this.setProperties({
+        posts,
+        isLoading: false,
+      });
+    });
+  },
 });

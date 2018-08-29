@@ -1,37 +1,37 @@
 blockquote {
-	@extend %wds-font-size-base;
-	@extend %wds-leading-loose;
-	@extend %wds-font-style-italic;
-	@extend %wds-font-weight-normal;
+  @extend %wds-font-size-base;
+  @extend %wds-leading-loose;
+  @extend %wds-font-style-italic;
+  @extend %wds-font-weight-normal;
 
-	margin-bottom: 1.125rem;
-	padding: 4px 0 4px 16px;
+  margin-bottom: 1.125rem;
+  padding: 4px 0 4px 16px;
 
-	&::before {
-		@extend %wds-font-style-normal;
+  &::before {
+    @extend %wds-font-style-normal;
 
-		color: $wds-fandom-color-aqua;
-		content: "“";
-		display: block;
-		font-size: 150px;
-		line-height: 75px;
-		margin-bottom: -52px;
-		margin-top: 20px;
-	}
+    color: $wds-fandom-color-aqua;
+    content: "“";
+    display: block;
+    font-size: 150px;
+    line-height: 75px;
+    margin-bottom: -52px;
+    margin-top: 20px;
+  }
 
-	cite {
-		@extend %wds-font-style-normal;
+  cite {
+    @extend %wds-font-style-normal;
 
-		color: $wds-fandom-color-aqua;
-		display: block;
-		margin-top: 1.125rem;
-		text-transform: uppercase;
-	}
+    color: $wds-fandom-color-aqua;
+    display: block;
+    margin-top: 1.125rem;
+    text-transform: uppercase;
+  }
 }
 
 ul,
 ol {
-	margin-left: 18px;
+  margin-left: 18px;
 }
 
 h1,
@@ -40,68 +40,68 @@ h3,
 h4,
 h5,
 h6 {
-	margin-bottom: 1.125rem;
+  margin-bottom: 1.125rem;
 }
 
 h1 {
-	@extend %wds-font-size-xxl;
+  @extend %wds-font-size-xxl;
 
-	font-weight: $wds-fandom-font-weight-bold;
-	line-height: 30px;
+  font-weight: $wds-fandom-font-weight-bold;
+  line-height: 30px;
 }
 
 h2 {
-	@extend %wds-font-size-xl;
+  @extend %wds-font-size-xl;
 
-	font-weight: $wds-fandom-font-weight-regular;
-	line-height: 26px;
+  font-weight: $wds-fandom-font-weight-regular;
+  line-height: 26px;
 }
 
 h3 {
-	@extend %wds-font-size-l;
+  @extend %wds-font-size-l;
 
-	font-weight: $wds-fandom-font-weight-medium;
-	line-height: 20px;
+  font-weight: $wds-fandom-font-weight-medium;
+  line-height: 20px;
 }
 
 h4 {
-	@extend %wds-font-size-base;
+  @extend %wds-font-size-base;
 
-	font-weight: $wds-fandom-font-weight-medium;
-	line-height: 18px;
+  font-weight: $wds-fandom-font-weight-medium;
+  line-height: 18px;
 }
 
 h5,
 h6 {
-	@extend %wds-font-size-s;
+  @extend %wds-font-size-s;
 
-	font-weight: $wds-fandom-font-weight-medium;
-	line-height: 16px;
+  font-weight: $wds-fandom-font-weight-medium;
+  line-height: 16px;
 }
 
 section,
 p {
-	@extend %wds-font-size-base;
-	@extend %wds-font-weight-light;
-	@extend %wds-leading-loose;
+  @extend %wds-font-size-base;
+  @extend %wds-font-weight-light;
+  @extend %wds-leading-loose;
 }
 
 section {
-	margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 p {
-	margin: 0 0 1.125rem;
+  margin: 0 0 1.125rem;
 }
 
 a {
-	color: inherit;
-	line-height: inherit;
-	text-decoration: none;
+  color: inherit;
+  line-height: inherit;
+  text-decoration: none;
 }
 
 article a {
-	@extend %wds-font-weight-normal;
+  @extend %wds-font-weight-normal;
 
-	color: $wds-fandom-color-link;
+  color: $wds-fandom-color-link;
 }

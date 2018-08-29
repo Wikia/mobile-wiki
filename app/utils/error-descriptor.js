@@ -1,8 +1,8 @@
 /**
- * This is a mix of useful parts from:
- * - https://github.com/janmisek/ember-types
- * - https://github.com/janmisek/ember-error-handler
- */
+  * This is a mix of useful parts from:
+  * - https://github.com/janmisek/ember-types
+  * - https://github.com/janmisek/ember-error-handler
+  */
 import EmberObject, { computed } from '@ember/object';
 import Ember from 'ember';
 
@@ -11,109 +11,108 @@ const unknownFunction = 'UnknownFunction';
 const unknownObject = 'UnknownObject';
 
 const stringify = (value) => {
-	try {
-		value = String(value);
-	} catch (e) {
-		value = 'unrecognized';
-	}
-	return value;
+  try {
+    value = String(value);
+  } catch (e) {
+    value = 'unrecognized';
+  }
+  return value;
 };
 
 const extractClassName = subject => (
-	subject[NAME_KEY] || subject.modelName || subject.name || stringify(subject) || unknownFunction
+  subject[NAME_KEY] || subject.modelName || subject.name || stringify(subject) || unknownFunction
 );
 
 const extractInstanceName = subject => (
-	subject._debugContainerKey || subject.modelName
-	|| (subject.constructor ? extractClassName(subject.constructor) : false)
-	|| stringify(subject) || unknownObject
+  subject._debugContainerKey || subject.modelName
+  || (subject.constructor ? extractClassName(subject.constructor) : false)
+  || stringify(subject) || unknownObject
 );
 
 const extractErrorName = (subject) => {
-	if (typeof subject === 'function') {
-		return `Class ${extractClassName(subject)}`;
-	} else {
-		return `Instance of ${extractInstanceName(subject)}`;
-	}
+  if (typeof subject === 'function') {
+    return `Class ${extractClassName(subject)}`;
+  }
+  return `Instance of ${extractInstanceName(subject)}`;
 };
 
 export default EmberObject.extend({
-	error: null,
+  error: null,
 
-	normalizedName: computed(function () {
-		const error = this.error;
-		return extractErrorName(error) || String(error) || 'Unknown error';
-	}),
+  normalizedName: computed(function () {
+    const error = this.error;
+    return extractErrorName(error) || String(error) || 'Unknown error';
+  }),
 
-	normalizedMessage: computed(function () {
-		const error = this.error;
+  normalizedMessage: computed(function () {
+    const error = this.error;
 
-		if (typeof error === 'undefined') {
-			return 'undefined thrown as error';
-		}
+    if (typeof error === 'undefined') {
+      return 'undefined thrown as error';
+    }
 
-		if (error === null) {
-			return 'null thrown as error';
-		}
+    if (error === null) {
+      return 'null thrown as error';
+    }
 
-		if (typeof error === 'boolean') {
-			return `boolean thrown as error (${error ? 'true' : 'false'})`;
-		}
+    if (typeof error === 'boolean') {
+      return `boolean thrown as error (${error ? 'true' : 'false'})`;
+    }
 
-		if (typeof error === 'string' || typeof error === 'number') {
-			return error;
-		}
+    if (typeof error === 'string' || typeof error === 'number') {
+      return error;
+    }
 
-		return error.message ? error.message : this.normalizedName;
-	}),
+    return error.message ? error.message : this.normalizedName;
+  }),
 
-	normalizedStack: computed(function () {
-		let stack = this.get('error.stack');
+  normalizedStack: computed(function () {
+    let stack = this.get('error.stack');
 
-		const parsed = (stack || '').replace(new RegExp('\\r', 'g'), '').split('\n');
-		const message = this.normalizedMessage;
+    const parsed = (stack || '').replace(new RegExp('\\r', 'g'), '').split('\n');
+    const message = this.normalizedMessage;
 
-		const firstLine = parsed[0];
-		const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
+    const firstLine = parsed[0];
+    const doesStackIncludeMessage = firstLine && firstLine.indexOf(message) !== -1;
 
-		if (!doesStackIncludeMessage) {
-			parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
-			parsed[0] += message;
-			stack = parsed.join('\n');
-		}
+    if (!doesStackIncludeMessage) {
+      parsed[0] = parsed[0] ? `${parsed[0]}:` : parsed[0];
+      parsed[0] += message;
+      stack = parsed.join('\n');
+    }
 
-		return stack;
-	}),
+    return stack;
+  }),
 
-	additionalData: computed(function () {
-		const namesUsed = [];
-		const error = this.error;
-		let collected = null;
+  additionalData: computed(function () {
+    const namesUsed = [];
+    const error = this.error;
+    let collected = null;
 
-		const getErrorName = (error) => {
-			const root = error.name || 'error';
-			let name;
-			let index = 0;
-			do {
-				name = `${root}:${index}`;
-				index += 1;
-			} while (namesUsed.indexOf(name) !== -1);
+    const getErrorName = (error) => {
+      const root = error.name || 'error';
+      let name;
+      let index = 0;
+      do {
+        name = `${root}:${index}`;
+        index += 1;
+      } while (namesUsed.indexOf(name) !== -1);
 
-			return name;
-		};
+      return name;
+    };
 
-		const collectAdditionalData = (error) => {
-			if (error && error.additionalData) {
-				collected = collected || {};
-				collected[getErrorName(error)] = error.additionalData;
-				if (error.previous) {
-					collectAdditionalData(error.previous);
-				}
-			}
-		};
+    const collectAdditionalData = (error) => {
+      if (error && error.additionalData) {
+        collected = collected || {};
+        collected[getErrorName(error)] = error.additionalData;
+        if (error.previous) {
+          collectAdditionalData(error.previous);
+        }
+      }
+    };
 
-		collectAdditionalData(error);
+    collectAdditionalData(error);
 
-		return collected;
-	}),
+    return collected;
+  }),
 });

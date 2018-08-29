@@ -2,12 +2,12 @@ import { helper } from '@ember/component/helper';
 import truncate from '../utils/truncate';
 
 /**
- * @param {Array} params
- * @returns {string}
- */
+  * @param {Array} params
+  * @returns {string}
+  */
 export default helper((params) => {
-	const text = params[0];
-	const maxLength = params[1];
+  const text = params[0];
+  const maxLength = params[1];
 
-	return truncate(text, maxLength);
+  return truncate(text, maxLength);
 });

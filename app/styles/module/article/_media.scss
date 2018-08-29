@@ -1,72 +1,72 @@
 img {
-	height: auto;
-	-ms-interpolation-mode: bicubic;
-	max-width: 100%;
-	vertical-align: middle;
+  height: auto;
+  -ms-interpolation-mode: bicubic;
+  max-width: 100%;
+  vertical-align: middle;
 
-	&.lazyloading {
-		@include is-loading;
-	}
+  &.lazyloading {
+    @include is-loading;
+  }
 
-	&.lazyloaded {
-		animation: lazyImage .3s;
-	}
+  &.lazyloaded {
+    animation: lazyImage .3s;
+  }
 }
 
 figcaption {
-	color: #999;
-	padding: 5px 0;
-	text-align: left;
+  color: #999;
+  padding: 5px 0;
+  text-align: left;
 }
 
 .article-video {
-	position: relative;
+  position: relative;
 
-	&::after {
-		@include square(100%);
+  &::after {
+    @include square(100%);
 
-		background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
-		content: '';
-		left: 0;
-		position: absolute;
-		top: 0;
-	}
+    background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
 
-	&.visible {
-		img {
-			width: 100%;
-		}
-	}
+  &.visible {
+    img {
+      width: 100%;
+    }
+  }
 
-	figcaption {
-		@extend %wds-font-size-s;
-		@extend %wds-leading-none;
+  figcaption {
+    @extend %wds-font-size-s;
+    @extend %wds-leading-none;
 
-		@include ellipsis;
+    @include ellipsis;
 
-		bottom: 0;
-		color: white;
-		padding: 10px;
-		position: absolute;
-		width: 100%;
-		z-index: 1;
+    bottom: 0;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
 
-		div {
-			@include ellipsis;
-		}
-	}
+    div {
+      @include ellipsis;
+    }
+  }
 }
 
 @keyframes lazyImage {
-	0% {
-		opacity: 0;
-	}
+  0% {
+    opacity: 0;
+  }
 
-	100% {
-		opacity: 1;
-	}
+  100% {
+    opacity: 1;
+  }
 }
 
 iframe {
-	max-width: 100%;
+  max-width: 100%;
 }

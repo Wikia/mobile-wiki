@@ -1,22 +1,22 @@
 {{#if fullPage}}
-	{{outlet}}
+  {{outlet}}
 {{else}}
-	{{site-head
-		globalNavigation=globalNavigation
-		communityHeader=communityHeader
-		contentLanguage=contentLanguage
-		isSearchPage=isSearchPage
-		shadow=siteHeadShadow
-		themeBar=themeBar
-		offset=ads.siteHeadOffset
-	}}
-	<div class="page-wrapper">
-		{{outlet}}
-	</div>
-	{{wikia-in-your-lang}}
-	{{#if globalFooter}}
-		{{global-footer/global-footer model=globalFooter}}
-	{{/if}}
+  {{site-head
+    globalNavigation=globalNavigation
+    communityHeader=communityHeader
+    contentLanguage=contentLanguage
+    isSearchPage=isSearchPage
+    shadow=siteHeadShadow
+    themeBar=themeBar
+    offset=ads.siteHeadOffset
+  }}
+  <div class="page-wrapper">
+    {{outlet}}
+  </div>
+  {{wikia-in-your-lang}}
+  {{#if globalFooter}}
+    {{global-footer/global-footer model=globalFooter}}
+  {{/if}}
 {{/if}}
 {{lightbox-wrapper}}
 {{alert-notifications alerts=alertNotifications}}

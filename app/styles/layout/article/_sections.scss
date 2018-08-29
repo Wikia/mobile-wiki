@@ -1,13 +1,13 @@
 article {
-	h2:not(.open-section) {
-		padding-bottom: 1.125rem;
-	}
+  h2:not(.open-section) {
+    padding-bottom: 1.125rem;
+  }
 
-	.pi h2:not(.open-section) {
-		padding-bottom: 0;
-	}
+  .pi h2:not(.open-section) {
+    padding-bottom: 0;
+  }
 
-	section {
-		padding-bottom: 1.125rem;
-	}
+  section {
+    padding-bottom: 1.125rem;
+  }
 }

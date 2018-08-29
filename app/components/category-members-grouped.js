@@ -6,63 +6,63 @@ import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
 
 export default Component.extend(
-	AlertNotificationsMixin,
-	{
-		i18n: service(),
-		logger: service(),
-		classNames: ['category-members-grouped'],
-		classNameBindings: ['isLoading'],
-		isLoading: false,
+  AlertNotificationsMixin,
+  {
+    i18n: service(),
+    logger: service(),
+    classNames: ['category-members-grouped'],
+    classNameBindings: ['isLoading'],
+    isLoading: false,
 
-		actions: {
-			/**
-			 * @param {number} page
-			 * @param {string} label
-			 */
-			loadPage(page, label) {
-				this.set('isLoading', true);
+    actions: {
+      /**
+    * @param {number} page
+    * @param {string} label
+    */
+      loadPage(page, label) {
+        this.set('isLoading', true);
 
-				track({
-					action: trackActions.click,
-					category: 'category-page',
-					label: `load-${label}`,
-				});
+        track({
+          action: trackActions.click,
+          category: 'category-page',
+          label: `load-${label}`,
+        });
 
-				this.loadPage(page)
-					.then(() => {
-						run.scheduleOnce('afterRender', this, () => {
-							if (!this.isDestroyed) {
-								scrollToTop(this.element);
-							}
-						});
-					})
-					.catch((error) => {
-						this.addAlert({
-							message: this.i18n.t('category-page.load-error'),
-							type: 'alert',
-						});
+        this.loadPage(page)
+          .then(() => {
+            run.scheduleOnce('afterRender', this, () => {
+              if (!this.isDestroyed) {
+                scrollToTop(this.element);
+              }
+            });
+          })
+          .catch((error) => {
+            this.addAlert({
+              message: this.i18n.t('category-page.load-error'),
+              type: 'alert',
+            });
 
-						this.logger.error(error);
-					})
-					.finally(() => {
-						this.set('isLoading', false);
-					});
-			},
+            this.logger.error(error);
+          })
+          .finally(() => {
+            this.set('isLoading', false);
+          });
+      },
 
-			/**
-			 * @param {string} category
-			 * @param {string} label
-			 * @param {Event} event
-			 */
-			trackClick(category, label, event) {
-				if (event.target.matches('a')) {
-					track({
-						action: trackActions.click,
-						category,
-						label,
-					});
-				}
-			},
-		},
-	},
+      /**
+    * @param {string} category
+    * @param {string} label
+    * @param {Event} event
+    */
+      trackClick(category, label, event) {
+        if (event.target.matches('a')) {
+          track({
+            action: trackActions.click,
+            category,
+            label,
+          });
+        }
+      },
+    },
+  },
 );

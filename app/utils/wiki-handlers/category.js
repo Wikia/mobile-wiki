@@ -1,29 +1,29 @@
 import ArticleHandler from './article';
 
 function getDynamicHeadTags(model) {
-	const nextPageUrl = model.get('nextPageUrl');
-	const prevPageUrl = model.get('prevPageUrl');
-	const data = {};
+  const nextPageUrl = model.get('nextPageUrl');
+  const prevPageUrl = model.get('prevPageUrl');
+  const data = {};
 
-	if (nextPageUrl) {
-		data.next = nextPageUrl;
-	}
+  if (nextPageUrl) {
+    data.next = nextPageUrl;
+  }
 
-	if (prevPageUrl) {
-		data.prev = prevPageUrl;
-	}
+  if (prevPageUrl) {
+    data.prev = prevPageUrl;
+  }
 
-	return data;
+  return data;
 }
 
 /**
- * Export Category handler
- */
+  * Export Category handler
+  */
 export default {
-	// template's and controller's name
-	viewName: 'category',
-	controllerName: 'category',
-	// hooks
-	afterModel: ArticleHandler.afterModel,
-	getDynamicHeadTags,
+  // template's and controller's name
+  viewName: 'category',
+  controllerName: 'category',
+  // hooks
+  afterModel: ArticleHandler.afterModel,
+  getDynamicHeadTags,
 };
