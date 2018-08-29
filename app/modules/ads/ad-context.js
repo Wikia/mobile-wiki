@@ -26,6 +26,7 @@ export default {
     },
     prebid: {
       enabled: false,
+      libraryUrl: '/mobile-wiki-assets/assets/wikia-ae3/prebid.min.js',
       lazyLoadingEnabled: false,
       bidsRefreshing: {
         enabled: false,
