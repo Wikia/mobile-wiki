@@ -2,7 +2,7 @@ function deepExtend(out = {}, ...rest) {
   rest.forEach((obj) => {
     if (obj) {
       for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
           if (obj[key] && typeof obj[key] === 'object') {
             if (!out[key] && Array.isArray(obj[key])) {
               out[key] = [];

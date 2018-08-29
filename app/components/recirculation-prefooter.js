@@ -104,7 +104,9 @@ export default Component.extend(
       liftigniter
         .getData(config)
         .then((data) => {
-          this.set('items', data.items.filter(item => item.hasOwnProperty('thumbnail') && item.thumbnail)
+          this.set('items', data.items.filter(
+            item => Object.prototype.hasOwnProperty.call(item, 'thumbnail') && item.thumbnail,
+          )
             .slice(0, recircItemsCount)
             .map((item) => {
               item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {

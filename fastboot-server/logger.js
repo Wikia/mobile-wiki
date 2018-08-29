@@ -87,7 +87,7 @@ function createLogger(loggerConfig) {
   * @returns {void}
   */
   Object.keys(loggerConfig).forEach((loggerType) => {
-    if (!availableTargets.hasOwnProperty(loggerType)) {
+    if (!Object.prototype.hasOwnProperty.call(availableTargets, loggerType)) {
       throw new Error(`Unknown logger type ${loggerType}`);
     }
 
