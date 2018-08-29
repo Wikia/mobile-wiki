@@ -1,9 +1,8 @@
-import { inject as service } from '@ember/service';
-import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
 import { isArray } from '@ember/array';
-import { observer, computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { htmlSafe } from '@ember/string';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeToUnderscore } from '../utils/string';
 

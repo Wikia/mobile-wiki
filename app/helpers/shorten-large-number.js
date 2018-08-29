@@ -32,7 +32,7 @@ export default helper((params) => {
   const number = params[0];
   const digits = params[1];
 
-  for (let i = units.length - 1; i >= 0; i--) {
+  for (let i = units.length - 1; i >= 0; i -= 1) {
     const decimal = 1000 ** (i + 1);
 
     if (number <= -decimal || number >= decimal) {

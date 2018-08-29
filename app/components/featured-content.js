@@ -1,9 +1,8 @@
-import { later, cancel } from '@ember/runloop';
-import { on } from '@ember/object/evented';
-import { isEmpty } from '@ember/utils';
-import { computed, observer } from '@ember/object';
-import { gt, readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { gt, readOnly } from '@ember/object/computed';
+import { cancel, later } from '@ember/runloop';
+import { isEmpty } from '@ember/utils';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import { track, trackActions } from '../utils/track';
 

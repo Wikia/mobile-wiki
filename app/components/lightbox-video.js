@@ -1,6 +1,6 @@
-import { observer, computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
 

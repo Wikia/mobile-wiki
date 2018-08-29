@@ -1,9 +1,7 @@
-import { inject as service } from '@ember/service';
-import {
-  reads, bool, equal, and, readOnly,
-} from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { bool, readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
 
 /**

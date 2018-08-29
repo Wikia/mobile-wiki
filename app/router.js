@@ -1,7 +1,6 @@
-import EmberRouter from '@ember/routing/router';
-import { getOwner } from '@ember/application';
-import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import EmberRouter from '@ember/routing/router';
+import { inject as service } from '@ember/service';
 import RouterScroll from 'ember-router-scroll';
 import config from './config/environment';
 

@@ -1,11 +1,10 @@
-import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import { trackActions } from '../utils/track';
-import { system } from '../utils/browser';
 import { inGroup } from '../modules/abtest';
+import { system } from '../utils/browser';
+import { trackActions } from '../utils/track';
 
 export default Component.extend(RespondsToScroll, {
   i18n: service(),

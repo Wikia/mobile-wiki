@@ -1,12 +1,11 @@
-import { inject as service } from '@ember/service';
-import { bool, equal, not } from '@ember/object/computed';
 import Component from '@ember/component';
-import { computed, observer, get } from '@ember/object';
+import { computed, get, observer } from '@ember/object';
+import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
-import { getOwner } from '@ember/application';
-import { track, trackActions } from '../utils/track';
-import scrollToTop from '../utils/scroll-to-top';
+import { inject as service } from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
+import scrollToTop from '../utils/scroll-to-top';
+import { track, trackActions } from '../utils/track';
 
 /**
   * Component that displays article comments
