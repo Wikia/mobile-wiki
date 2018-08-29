@@ -1,18 +1,16 @@
 function deepExtend(out = {}, ...rest) {
   rest.forEach((obj) => {
     if (obj) {
-      for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (obj[key] && typeof obj[key] === 'object') {
-            if (!out[key] && Array.isArray(obj[key])) {
-              out[key] = [];
-            }
-            out[key] = deepExtend(out[key], obj[key]);
-          } else {
-            out[key] = obj[key];
+      Object.entries(obj).forEach(([key, value]) => {
+        if (value && typeof value === 'object') {
+          if (!out[key] && Array.isArray(value)) {
+            out[key] = [];
           }
+          out[key] = deepExtend(out[key], value);
+        } else {
+          out[key] = value;
         }
-      }
+      });
     }
   });
 

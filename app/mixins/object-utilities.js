@@ -6,18 +6,14 @@ export default Mixin.create({
   * @returns {Object}
   */
   toPlainObject() {
-    const keys = [];
-
-    for (const key in this) {
-      if (this.hasOwnProperty(key)) {
-        const value = this[key];
-
-        // ignore useless items
-        if (value !== 'toString' && typeOf(value) !== 'function' && typeof value !== 'function') {
-          keys.push(key);
-        }
+    const keys = Object.entries(this).map(([key, value]) => {
+      // ignore useless items
+      if (value !== 'toString' && typeOf(value) !== 'function' && typeof value !== 'function') {
+        return key;
       }
-    }
+
+      return false;
+    });
 
     return this.getProperties(keys);
   },
