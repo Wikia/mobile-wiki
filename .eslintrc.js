@@ -111,7 +111,6 @@ module.exports = {
     {
       files: ['**/mirage/fixtures/*.js'],
       rules: {
-        "max-len": 0,
         "no-useless-escape": 0
       }
     }
