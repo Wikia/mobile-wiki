@@ -38,7 +38,7 @@
     }
 
     if (isProperGeo(instantGlobals.wgAdDriverAdEngine3Countries)) {
-      var adsJsUrl = '/mobile-wiki/assets/wikia-ae3/global-bundle.js';
+      var adsJsUrl = '/mobile-wiki-assets/assets/wikia-ae3/global-bundle.js'
 
       window.M.loadScript(adsJsUrl, true, function () {
         onAdsLoaded(true);
