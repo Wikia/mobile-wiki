@@ -9,6 +9,6 @@ export default Component.extend({
   servicesDomain: computed(() => config.APP.servicesExternalHost),
 
   cookieSyncEnabled: computed(() => {
-    window.Cookies.get('autologin_done') !== '1' && this.currentUser.isAuthenticated;
+    return window.Cookies.get('autologin_done') !== '1' && this.currentUser.isAuthenticated;
   }),
 });
