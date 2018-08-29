@@ -160,7 +160,10 @@ export default Component.extend({
   updateThumbnails() {
     if (this.get('isGallery')) {
       const thumbnails = this.model.map((item, index) => ({
-        url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
+        url: Thumbnailer.getThumbURL(
+          item.url,
+          { width: 40, height: 40, mode: Thumbnailer.mode.topCrop },
+        ),
         ref: index,
         active: index === this.currentGalleryRef,
         isVideo: item.isVideo,

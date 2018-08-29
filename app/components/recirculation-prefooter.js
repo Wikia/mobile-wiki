@@ -10,7 +10,8 @@ import { track, trackActions } from '../utils/track';
 
 const recircItemsCount = 10;
 const config = {
-  // we load twice as many items as we want to display because we need to filter out those without thumbnail
+  // we load twice as many items as we want to display
+  // because we need to filter out those without thumbnail
   max: recircItemsCount * 2,
   widget: 'wikia-impactfooter',
   source: 'fandom',

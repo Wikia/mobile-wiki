@@ -13,7 +13,8 @@ function afterModel(route, model) {
 }
 
 /**
-  * This function, along with shouldSendLyricFindRequest, tracks page view only on articles on Lyrics Wiki (id: 43339).
+  * This function, along with shouldSendLyricFindRequest,
+  * tracks page view only on articles on Lyrics Wiki (id: 43339).
   * Notice that params amgid and gracenoteid are set to 0, those params are not important,
   * but to be consistent with Oasis we send them
   *
