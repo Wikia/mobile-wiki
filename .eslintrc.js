@@ -32,16 +32,12 @@ module.exports = {
     "prefer-rest-params": 0,
     "no-underscore-dangle": 0,
     "func-names": 0,
-    
-    "global-require": 0,
+
     "import/no-extraneous-dependencies": 0,
-    "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
-    "new-cap": 0,
     "no-param-reassign": 0,
     "no-shadow": 0,
     "prefer-destructuring": 0,
-    "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
@@ -112,7 +108,6 @@ module.exports = {
     {
       files: ['**/mirage/fixtures/*.js'],
       rules: {
-        "max-len": 0,
         "no-useless-escape": 0
       }
     }
