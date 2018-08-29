@@ -32,12 +32,11 @@ module.exports = {
     "prefer-rest-params": 0,
     "no-underscore-dangle": 0,
     "func-names": 0,
-    
+
     "global-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
-    "new-cap": 0,
     "no-param-reassign": 0,
     "no-prototype-builtins": 0,
     "no-restricted-syntax": 0,
