@@ -132,7 +132,6 @@ export default {
         insertBeforeSelector: '.article-body h2',
         disabled: true,
         slotNameSuffix: '',
-        bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         slotShortcut: 'i',
         defaultSizes: [[1, 1]],
