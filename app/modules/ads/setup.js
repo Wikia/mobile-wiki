@@ -50,8 +50,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
   // TODO: context.push('delayModules', featuredVideoDelay);
   // context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
-  // context.set('options.exposeFeaturedVideoUapKeyValue', isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'));
-
+  /* context.set(
+    'options.exposeFeaturedVideoUapKeyValue',
+     isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'),
+    );
+  */
   context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
   context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
@@ -155,7 +158,10 @@ function init() {
 
   const engine = new AdEngine();
 
-  events.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals));
+  events.on(
+    events.PAGE_RENDER_EVENT,
+    ({ adContext, instantGlobals }) => setupAdContext(adContext, instantGlobals),
+  );
   events.on(events.AD_SLOT_CREATED, (slot) => {
     context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
     context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));

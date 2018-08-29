@@ -25,20 +25,20 @@ module.exports = {
     Wikia: true
   },
   rules: {
+    "prefer-rest-params": 0,
+    "no-underscore-dangle": 0,
     "func-names": 0,
+    
     "global-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
-    "max-len": [2, 120, 2],
     "new-cap": 0,
     "no-param-reassign": 0,
     "no-prototype-builtins": 0,
     "no-restricted-syntax": 0,
     "no-shadow": 0,
-    "no-underscore-dangle": 0,
     "prefer-destructuring": 0,
-    "prefer-rest-params": 0,
     "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [

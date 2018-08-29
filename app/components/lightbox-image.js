@@ -112,7 +112,8 @@ export default Component.extend(
     isZoomed: gt('scale', 1),
 
     /**
-   * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
+   * This is performance critical place,
+   * we will update property 'manually' by calling notifyPropertyChange
    */
     style: computed(function () {
       const scale = this.scale.toFixed(2);
