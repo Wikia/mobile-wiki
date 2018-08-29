@@ -1,19 +1,16 @@
-import { inject as service } from '@ember/service';
-import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import { isBlank, isEmpty } from '@ember/utils';
 import { observer } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { isBlank, isEmpty } from '@ember/utils';
 import AdsMixin from '../mixins/ads';
-import {
-  getRenderComponentFor,
-  queryPlaceholders,
-} from '../utils/render-component';
-import { track, trackActions } from '../utils/track';
-import toArray from '../utils/toArray';
-import scrollToTop from '../utils/scroll-to-top';
 import getAdsModule from '../modules/ads';
+import { getRenderComponentFor, queryPlaceholders } from '../utils/render-component';
+import scrollToTop from '../utils/scroll-to-top';
+import toArray from '../utils/toArray';
+import { track, trackActions } from '../utils/track';
 
 /**
   * HTMLElement
@@ -240,7 +237,8 @@ export default Component.extend(
     getTrackingEventLabel(element) {
       if (element) {
         // Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
-        // as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
+        // as the 'figcaption' is contained in the 'figure' element
+        // which has the '.article-media-thumbnail' class.
         if (element.closest('.portable-infobox')) {
           return 'portable-infobox-link';
         }
@@ -276,7 +274,8 @@ export default Component.extend(
 
     /**
    * Creating components for small icons isn't good solution because of performance overhead
-   * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+   * Putting all icons in HTML isn't good solution neither
+   * because there are articles with a lot of them
    * Thus we load them all after the article is rendered
    *
    * @returns {void}

@@ -1,5 +1,4 @@
 import { get } from '@ember/object';
-import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 import BaseModel from './base';
 

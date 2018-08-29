@@ -1,24 +1,21 @@
-import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
-import { getWithDefault, get } from '@ember/object';
-import Ember from 'ember';
+import { get, getWithDefault } from '@ember/object';
+import Route from '@ember/routing/route';
 import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
+import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import ApplicationModel from '../models/application';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import { WikiVariablesRedirectError } from '../utils/errors';
 import {
-  disableCache,
-  setResponseCaching,
-  CachingInterval,
-  CachingPolicy,
+  CachingInterval, CachingPolicy, disableCache, setResponseCaching,
 } from '../utils/fastboot-caching';
 import { track, trackActions } from '../utils/track';
-import ApplicationModel from '../models/application';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 
 export default Route.extend(
   Ember.TargetActionSupport,
@@ -101,7 +98,6 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-
         getAdsModule().then((adsModule) => {
           if (isAdEngine3Loaded()) {
             return;
@@ -110,12 +106,16 @@ export default Route.extend(
           adsModule.init();
 
           /*
-          * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-          * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit
+          * This global function is being used by our AdEngine code
+          * to provide prestitial/interstitial ads
+          * It works in similar way on Oasis: we call ads server (DFP)
+          * to check if there is targeted ad unit
           * for a user.
-          * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+          * If there is and it's in a form of prestitial/interstitial
+          * the ad server calls our exposed JS function to
           * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-          * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+          * Created lightbox might be empty in case of lack of ads,
+          * so we want to create lightbox with argument
           * lightboxVisible=false and then decide if we want to show it.
           */
           adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
@@ -234,7 +234,8 @@ export default Route.extend(
         const fastboot = this.fastboot;
 
         // TODO XW-3198
-        // Don't handle special type of errors. Currently we use them hack Ember and stop executing application
+        // Don't handle special type of errors.
+        // Currently we use them hack Ember and stop executing application
         if (error instanceof DontLogMeError) {
           return false;
         }
@@ -298,7 +299,8 @@ export default Route.extend(
           this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
         } else if (info.url) {
           /**
-          * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
+          * If it's a jump link or a link to something in a Wikia domain,
+          * treat it like a normal link
           * so that it will replace whatever is currently in the window.
           */
           const domainRegex = new RegExp(
@@ -317,7 +319,7 @@ export default Route.extend(
       },
     },
 
-    injectScriptsFastbootOnly(wikiVariables, queryParams) {
+    injectScriptsFastbootOnly() {
       this._super(...arguments);
 
       if (!this.get('fastboot.isFastBoot')) {

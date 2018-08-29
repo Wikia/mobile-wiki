@@ -26,7 +26,8 @@ export default EmberObject.extend({
         title,
       },
     });
-    const formData = new FastBoot.require('form-data')();
+    const FormDataClass = FastBoot.require('form-data');
+    const formData = new FormDataClass();
 
     if (wikitext) {
       formData.append('wikitext', wikitext);

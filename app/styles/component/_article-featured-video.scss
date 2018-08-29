@@ -102,6 +102,11 @@
       top: 75px;
     }
 
+    // fandom app does not have global nav at all
+    .is-full-page .is-on-scroll-active & {
+      top: 0;
+    }
+
     .jw-state-paused & {
       background-color: transparent;
       box-shadow: none;

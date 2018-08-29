@@ -1,8 +1,7 @@
-import { computed } from '@ember/object';
 import { and, equal, readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
-import { track } from '../utils/track';
 import config from '../config/environment';
+import { track } from '../utils/track';
 
 export default Service.extend({
   currentUser: service(),

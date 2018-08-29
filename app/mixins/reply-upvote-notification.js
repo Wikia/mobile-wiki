@@ -21,7 +21,6 @@ export default Mixin.create({
       return this.getTranslatedMessage('notifications-reply-upvote-single-user-with-title', {
         postTitle: this.postTitleMarkup,
       });
-
     }
     if (hasMultipleUsers) {
       return this.getTranslatedMessage('notifications-reply-upvote-multiple-users-no-title', {

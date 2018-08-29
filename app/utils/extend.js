@@ -1,26 +1,21 @@
-function deepExtend(out = {}) {
-  let i;
-  let key;
-  let obj;
-
-  for (i = 1; i < arguments.length; i++) {
-    obj = arguments[i];
-
+function deepExtend(out = {}, ...rest) {
+  rest.forEach((obj) => {
     if (obj) {
-      for (key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (obj[key] && typeof obj[key] === 'object') {
-            if (!out[key] && Array.isArray(obj[key])) {
-              out[key] = [];
-            }
-            out[key] = deepExtend(out[key], obj[key]);
-          } else {
-            out[key] = obj[key];
+      Object.entries(obj).forEach((property) => {
+        const key = property[0];
+        const value = property[1];
+
+        if (value && typeof value === 'object') {
+          if (!out[key] && Array.isArray(value)) {
+            out[key] = [];
           }
+          out[key] = deepExtend(out[key], value);
+        } else {
+          out[key] = value;
         }
-      }
+      });
     }
-  }
+  });
 
   return out;
 }

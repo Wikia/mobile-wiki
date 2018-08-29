@@ -67,7 +67,8 @@ export default Route.extend(
       // TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
       // Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
       if (title.indexOf(' ') > -1) {
-        // title needs to be encoded here because it may be redirected to https later and url with this title
+        // title needs to be encoded here
+        // because it may be redirected to https later and url with this title
         // is put into location header. If it's not encoded and contains utf characters, then
         // "TypeError: The header content contains invalid characters" is thrown
         this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
@@ -119,7 +120,8 @@ export default Route.extend(
 
         if (handler) {
           scheduleOnce('afterRender', () => {
-            // Tracking has to happen after transition is done. Otherwise we track to fast and url isn't
+            // Tracking has to happen after transition is done.
+            // Otherwise we track to fast and url isn't
             // updated yet. `didTransition` hook is called too fast.
             this.trackPageView(model);
             // If it's an article page and the extension is enabled, load the Feeds & Posts module

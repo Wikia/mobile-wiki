@@ -1,9 +1,8 @@
-import { inject as service } from '@ember/service';
-import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
 import { isArray } from '@ember/array';
-import { observer, computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { htmlSafe } from '@ember/string';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeToUnderscore } from '../utils/string';
 
@@ -161,7 +160,10 @@ export default Component.extend({
   updateThumbnails() {
     if (this.get('isGallery')) {
       const thumbnails = this.model.map((item, index) => ({
-        url: Thumbnailer.getThumbURL(item.url, { width: 40, height: 40, mode: Thumbnailer.mode.topCrop }),
+        url: Thumbnailer.getThumbURL(
+          item.url,
+          { width: 40, height: 40, mode: Thumbnailer.mode.topCrop },
+        ),
         ref: index,
         active: index === this.currentGalleryRef,
         isVideo: item.isVideo,

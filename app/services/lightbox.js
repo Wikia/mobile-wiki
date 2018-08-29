@@ -35,7 +35,6 @@ export default Service.extend(NoScrollMixin, {
         category: 'media',
         label: 'open',
       });
-
     }
   },
 

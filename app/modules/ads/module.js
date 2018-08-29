@@ -38,7 +38,9 @@ class Ads {
     if (!this.isLoaded) {
       this.getInstantGlobals()
         .then((instantGlobals) => {
-          M.trackingQueue.push(isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn));
+          M.trackingQueue.push(
+            isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
+          );
         });
     }
   }

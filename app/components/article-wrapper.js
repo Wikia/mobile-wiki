@@ -1,10 +1,6 @@
-import { inject as service } from '@ember/service';
-import {
-  not, oneWay, bool, equal, gte, and,
-} from '@ember/object/computed';
-import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { and, bool, gte } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import { track, trackActions } from '../utils/track';

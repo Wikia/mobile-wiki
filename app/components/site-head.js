@@ -1,13 +1,10 @@
-import { inject as service } from '@ember/service';
-import {
-  alias, readOnly, or, equal,
-} from '@ember/object/computed';
-import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
 import Component from '@ember/component';
+import { equal, readOnly } from '@ember/object/computed';
+import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import HeadroomMixin from '../mixins/headroom';
-import { track, trackActions } from '../utils/track';
 import { standalone } from '../utils/browser';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
   HeadroomMixin,

@@ -1,3 +1,7 @@
+const {
+  DEFAULT_IGNORED_PROPERTIES
+} = require('eslint-plugin-ember/lib/rules/avoid-leaking-state-in-ember-objects');
+
 module.exports = {
   root: true,
   parserOptions: {
@@ -19,50 +23,30 @@ module.exports = {
     $script: true,
     Ember: true,
     FastBoot: true,
-    ga: true,
     Hammer: true,
     M: true,
     VisitSource: true,
     Wikia: true
   },
   rules: {
-    "func-names": 0,
-    "global-require": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-mutable-exports": 0,
-    "import/no-unresolved": 0,
-    "max-len": [2, 120, 2],
-    "new-cap": 0,
-    "no-param-reassign": 0,
-    "no-plusplus": [2, {
-      "allowForLoopAfterthoughts": true
-    }],
-    "no-prototype-builtins": 0,
-    "no-restricted-syntax": 0,
-    "no-shadow": 0,
-    "no-underscore-dangle": 0,
-    "no-unused-vars": 0,
-    "padded-blocks": 0,
-    "prefer-destructuring": 0,
     "prefer-rest-params": 0,
-    "strict": 0,
+    "no-underscore-dangle": 0,
+    "func-names": 0,
+
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "no-param-reassign": 0,
+    "no-shadow": 0,
+    "prefer-destructuring": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [
+      ...DEFAULT_IGNORED_PROPERTIES,
       'gestures',
-      'classNames',
-      'classNameBindings',
-      'actions',
-      'concatenatedProperties',
-      'mergedProperties',
-      'positionalParams',
-      'attributeBindings',
-      'queryParams',
-      'attrs'
     ]],
     "ember/no-jquery": 2,
-    "ember/order-in-components": 1,
-    "ember/order-in-controllers": 1,
-    "ember/order-in-routes": 1
+    "ember/order-in-components": 2,
+    "ember/order-in-controllers": 2,
+    "ember/order-in-routes": 2
   },
   overrides: [
     // node files
@@ -124,7 +108,6 @@ module.exports = {
     {
       files: ['**/mirage/fixtures/*.js'],
       rules: {
-        "max-len": 0,
         "no-useless-escape": 0
       }
     }

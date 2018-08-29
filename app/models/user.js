@@ -126,14 +126,12 @@ export default EmberObject.extend({
             responseUrl: response.url,
           });
         });
-
       })
       .then((result) => {
         if (isArray(result.items)) {
           return result.items[0];
         }
         throw new Error(result);
-
       });
   },
 
@@ -172,7 +170,6 @@ export default EmberObject.extend({
           responseUrl: response.url,
         });
       });
-
     });
   },
 
