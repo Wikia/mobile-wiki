@@ -9,7 +9,7 @@ export default Mixin.create({
     const keys = [];
 
     for (const key in this) {
-      if (this.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(this, key)) {
         const value = this[key];
 
         // ignore useless items
