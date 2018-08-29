@@ -75,7 +75,7 @@ export default class VideoLoader {
   * @returns {class}
   */
   static getPlayerClassBasedOnProvider(provider) {
-    if (Object.prototype.hasOwnProperty.call(playerClassMap, provider)) {
+    if (playerClassMap[provider]) {
       return playerClassMap[provider];
     }
     return playerClassMap.base;
