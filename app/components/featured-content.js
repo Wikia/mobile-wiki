@@ -42,7 +42,8 @@ export default Component.extend(
     currentItemIndex: 0,
     isTimeoutHandleSet: false,
     cycleTimeoutHandle: null,
-    // This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
+    // This is how long it takes to read the item caption out loud ~2.5 times,
+    // based on guidelines from movie credits
     cycleInterval: 6250,
 
     gestures: {

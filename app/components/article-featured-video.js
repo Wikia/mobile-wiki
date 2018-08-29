@@ -132,7 +132,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       this.set('currentVideoDetails', item);
     });
 
-    // this is a hack to fix pause/play issue while scrolling down and on scroll is active on iOS 10.3.2
+    // this is a hack to fix pause/play issue
+    // while scrolling down and on scroll is active on iOS 10.3.2
     this.player.on('pause', ({ pauseReason, viewable }) => {
       if (pauseReason === 'autostart' && viewable === 0 && this.isOnScrollActive) {
         this.player.play();
@@ -187,7 +188,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
    */
   destroyVideoPlayer() {
     if (this.player) {
-      // FIXME this is temporary solution to fix nested glimmer transaction exception which causes application break
+      // FIXME this is temporary solution
+      // to fix nested glimmer transaction exception which causes application break
       // more info in XW-4600
       try {
         this.player.remove();
@@ -216,8 +218,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
     const currentScrollPosition = window.pageYOffset;
     const globalNavigationElement = document.querySelector('.wds-global-navigation');
-    const globalNavigationHeight = globalNavigationElement ? globalNavigationElement.offsetHeight : 0;
-    const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
+    const globalNavigationHeight = globalNavigationElement
+      ? globalNavigationElement.offsetHeight : 0;
+    const requiredScrollDelimiter = this.element.getBoundingClientRect().top
+      + window.scrollY - globalNavigationHeight;
     const isOnScrollActive = this.isOnScrollActive;
     const isInLandscapeMode = this.isInLandscapeMode();
 

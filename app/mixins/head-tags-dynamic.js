@@ -26,7 +26,8 @@ export default Mixin.create({
   *
   * @param {Object} model, this is model object from route::afterModel() hook,
   * it should be used ONLY in custom implementation of this function
-  * @param {Object} [data={}], object where you can pass data from custom implementation of this function
+  * @param {Object} [data={}],
+  * object where you can pass data from custom implementation of this function
   * @returns {void}
   */
   setDynamicHeadTags(model, data = {}) {

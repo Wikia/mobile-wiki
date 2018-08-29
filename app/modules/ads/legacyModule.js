@@ -245,7 +245,8 @@ class Ads {
     // Percentage of all the track requests to go through
     const adHitSample = 1;
 
-    // Sampling on GA side will kill the performance as we need to allocate object each time we track
+    // Sampling on GA side will kill the performance
+    // as we need to allocate object each time we track
     // ToDo: Optimize object allocation for tracking all events
     if (Math.random() * 100 <= adHitSample) {
       M.tracker.UniversalAnalytics.trackAds(...arguments);
@@ -309,7 +310,10 @@ class Ads {
 
     listenerSettings.forEach((listenerSetting) => {
       document.addEventListener(listenerSetting.eventName, () => {
-        this.trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
+        this.trackBlocking(
+          listenerSetting.name,
+          GASettings[listenerSetting.name], listenerSetting.value,
+        );
       });
     });
   }
@@ -373,7 +377,9 @@ class Ads {
     const numberOfSections = document.querySelectorAll('.article-content > h2').length;
     const hasArticleFooter = !!document.querySelector('.article-footer');
 
-    return (hasArticleFooter && !isInContentApplicable) || (numberOfSections > this.adsData.minNumberOfSections);
+    return (
+      hasArticleFooter && !isInContentApplicable)
+      || (numberOfSections > this.adsData.minNumberOfSections);
   }
 
   isBottomLeaderboardApplicable() {
@@ -495,7 +501,9 @@ class Ads {
   */
   afterTransition(adsContext) {
     this.reload(adsContext, () => {
-      if (this.adMercuryListenerModule && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
+      if (
+        this.adMercuryListenerModule
+        && this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks) {
         this.adMercuryListenerModule.runAfterPageWithAdsRenderCallbacks();
       }
     });
@@ -572,7 +580,9 @@ class Ads {
   * @returns {void}
   */
   onMenuOpen() {
-    if (!this.uapUnsticked && this.adMercuryListenerModule && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+    if (
+      !this.uapUnsticked && this.adMercuryListenerModule
+      && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
       this.uapUnsticked = true;
       this.adMercuryListenerModule.runOnMenuOpenCallbacks();
     }
