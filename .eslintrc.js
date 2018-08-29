@@ -33,7 +33,6 @@ module.exports = {
     "max-len": [2, 120, 2],
     "new-cap": 0,
     "no-param-reassign": 0,
-    "no-prototype-builtins": 0,
     "no-restricted-syntax": 0,
     "no-shadow": 0,
     "no-underscore-dangle": 0,
