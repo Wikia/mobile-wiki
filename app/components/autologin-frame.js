@@ -9,6 +9,7 @@ export default Component.extend({
 	tagName: '',
 	servicesDomain: computed(() => config.APP.servicesExternalHost),
 
-	isUserLoggedIn: readOnly('currentUser.isAuthenticated'),
-	cookieSyncEnabled: computed(() => window.Cookies.get('autologin_done') !== '1')
+	cookieSyncEnabled: computed(() => {
+		window.Cookies.get('autologin_done') !== '1' && this.currentUser.isAuthenticated
+	})
 });
