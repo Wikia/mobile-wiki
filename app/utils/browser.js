@@ -3,30 +3,18 @@
 *
 * @returns {string}
 */
+const system = ((userAgent) => {
+  if (/iPad|iPhone|iPod/i.test(userAgent)) {
+    return 'ios';
+  }
 
-const userAgent = window.navigator && navigator.userAgent;
+  if (/Android/i.test(userAgent)) {
+    return 'android';
+  }
 
-let system;
-
-if (/iPad|iPhone|iPod/i.test(userAgent)) {
-  system = 'ios';
-} else if (/Android/i.test(userAgent)) {
-  system = 'android';
-}
+  return null;
+})(window.navigator && navigator.userAgent);
 
 const standalone = window.navigator && navigator.standalone;
 
-/**
-* Checks if current browser is Safari of version higher or equal to provided
-*
-* @param {number} version Full version number without decimals
-* @returns {boolean}
-*/
-function isSafariMinVer(version) {
-  const pattern = /OS (\d+)/;
-  const match = window.navigator.userAgent.match(pattern);
-
-  return match && parseInt(match[1], 10) >= version;
-}
-
-export { isSafariMinVer, system, standalone };
+export { system, standalone };

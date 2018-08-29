@@ -34,7 +34,6 @@ module.exports = {
     "func-names": 0,
 
     "import/no-extraneous-dependencies": 0,
-    "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
     "no-param-reassign": 0,
     "no-prototype-builtins": 0,
