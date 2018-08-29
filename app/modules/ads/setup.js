@@ -52,7 +52,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   // context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
   /* context.set(
     'options.exposeFeaturedVideoUapKeyValue',
-     isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries')
+     isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'),
     );
   */
   context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));

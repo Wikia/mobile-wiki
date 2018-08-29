@@ -312,7 +312,8 @@ class Ads {
       document.addEventListener(listenerSetting.eventName, () => {
         this.trackBlocking(
           listenerSetting.name,
-          GASettings[listenerSetting.name], listenerSetting.value,
+          GASettings[listenerSetting.name],
+          listenerSetting.value,
         );
       });
     });
@@ -582,7 +583,8 @@ class Ads {
   onMenuOpen() {
     if (
       !this.uapUnsticked && this.adMercuryListenerModule
-      && this.adMercuryListenerModule.runOnMenuOpenCallbacks) {
+      && this.adMercuryListenerModule.runOnMenuOpenCallbacks
+    ) {
       this.uapUnsticked = true;
       this.adMercuryListenerModule.runOnMenuOpenCallbacks();
     }

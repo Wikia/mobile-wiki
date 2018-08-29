@@ -51,8 +51,12 @@ export default class PlayerTracker {
   * @returns {void}
   */
   static track(data, playerName, eventName, errorCode) {
-    if (!window.Wikia.adEngine || !window.Wikia.adProducts
-      || !data.adProduct || !playerName || !eventName) {
+    if (
+      !window.Wikia.adEngine
+      || !window.Wikia.adProducts
+      || !data.adProduct
+      || !playerName
+      || !eventName) {
       return;
     }
 
