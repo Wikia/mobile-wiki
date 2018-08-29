@@ -7,7 +7,7 @@ import Component from '@ember/component';
 export default Component.extend({
 	currentUser: service(),
 	tagName: '',
-	servicesDomain: computed(() => config.services.domain),
+	servicesDomain: computed(() => config.APP.servicesExternalHost),
 
 	isUserLoggedIn: readOnly('currentUser.isAuthenticated')
 });
