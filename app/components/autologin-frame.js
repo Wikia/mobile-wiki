@@ -1,13 +1,13 @@
-import {inject as service} from '@ember/service';
-import {readOnly} from '@ember/object/computed';
-import {computed} from '@ember/object';
-import config from '../config/environment';
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
+import config from '../config/environment';
 
 export default Component.extend({
-	currentUser: service(),
-	tagName: '',
-	servicesDomain: computed(() => config.APP.servicesExternalHost),
+  currentUser: service(),
+  tagName: '',
+  servicesDomain: computed(() => config.APP.servicesExternalHost),
 
-	isUserLoggedIn: readOnly('currentUser.isAuthenticated')
+  isUserLoggedIn: readOnly('currentUser.isAuthenticated'),
 });
