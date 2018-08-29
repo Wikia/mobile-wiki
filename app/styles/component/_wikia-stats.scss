@@ -1,22 +1,22 @@
 .wikia-stats {
-	text-align: center;
+  text-align: center;
 }
 
 .wikia-stats-container {
-	border-top: 1px solid $wds-color-faint-blue-gray;
-	display: inline-table;
-	margin-bottom: 32px;
+  border-top: 1px solid $wds-color-faint-blue-gray;
+  display: inline-table;
+  margin-bottom: 32px;
 }
 
 .wikia-stats-item {
-	display: table-cell;
-	padding: 8px 15px;
+  display: table-cell;
+  padding: 8px 15px;
 }
 
 .wikia-stats-link {
-	color: $body-font-color;
+  color: $body-font-color;
 }
 
 .wikia-stats-value {
-	letter-spacing: -2px;
+  letter-spacing: -2px;
 }

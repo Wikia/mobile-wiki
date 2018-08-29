@@ -25,7 +25,7 @@ function isTopLeaderboardApplicable() {
   const hasPageHeader = !!document.querySelector('.wiki-page-header');
   const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
-  return isHome || hasPortableInfobox || (hasPageHeader > 0 && !hasFeaturedVideo);
+  return isHome || hasPortableInfobox || ((hasPageHeader > 0) && (!hasFeaturedVideo));
 }
 
 function isInContentApplicable() {
@@ -38,7 +38,7 @@ function isInContentApplicable() {
   const firstSection = document.querySelector('.article-content > h2');
   const firstSectionTop = (
     firstSection
-		&& offset(firstSection).top
+  && offset(firstSection).top
   ) || 0;
 
   return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
@@ -54,7 +54,8 @@ function isPrefooterApplicable(isInContentApplicable) {
   const numberOfSections = document.querySelectorAll('.article-content > h2').length;
   const hasArticleFooter = !!document.querySelector('.article-footer');
 
-  return hasArticleFooter && !isInContentApplicable || numberOfSections > MIN_NUMBER_OF_SECTIONS;
+  return (hasArticleFooter && !isInContentApplicable)
+    || (numberOfSections > MIN_NUMBER_OF_SECTIONS);
 }
 
 function isBottomLeaderboardApplicable() {
@@ -110,6 +111,7 @@ export default {
             'targeting.rv': '{slotConfig.repeat.index}',
             'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
           },
+          injectBelowConflictingElements: true,
         },
         slotShortcut: 'f',
         sizes: [
@@ -131,7 +133,6 @@ export default {
         insertBeforeSelector: '.article-body h2',
         disabled: true,
         slotNameSuffix: '',
-        bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         slotShortcut: 'i',
         defaultSizes: [[1, 1]],

@@ -3,14 +3,14 @@ import Helper from '@ember/component/helper';
 
 
 /**
- * Helper to give textual representation of time interval between past date
- * and the current time/date in the form
- * {{time-ago unixTimestamp}}
- * which returns something like '2d' if interval is below 5 days or formated param date
- *
- * @param {int} unixTimestamp
- * @returns {string}
- */
+  * Helper to give textual representation of time interval between past date
+  * and the current time/date in the form
+  * {{time-ago unixTimestamp}}
+  * which returns something like '2d' if interval is below 5 days or formated param date
+  *
+  * @param {int} unixTimestamp
+  * @returns {string}
+  */
 export default Helper.extend({
   i18n: service(),
   compute([unixTimestamp]) {

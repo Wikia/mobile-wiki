@@ -5,8 +5,8 @@ export default Component.extend({
   classNames: ['lightbox-ads', 'lightbox-content-inner'],
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didInsertElement() {
     this._super(...arguments);
 

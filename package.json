@@ -20,7 +20,7 @@
     "stylelint": "stylelint 'app/styles/**/*.scss'",
     "setup": "npm install",
     "svgo": "bash ./tasks/optimize-svg.sh",
-    "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests ember-cli-build.js fastboot-server.js",
+    "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
     "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json",
     "assets-size": "node tasks/assets-size/index.js"
@@ -32,8 +32,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.1",
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v8.5.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.2",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v8.5.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#1cc39e875e9a6c637eacd5f9434b7ff0b1359b38",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",

@@ -7,9 +7,9 @@ export default Component.extend({
 
   actions: {
     /**
-		 * @param {CuratedContentItem} item
-		 * @returns {void}
-		 */
+   * @param {CuratedContentItem} item
+   * @returns {void}
+   */
     openSection(item) {
       this.set('activeLabel', item.label);
       scrollToTop(this.element);

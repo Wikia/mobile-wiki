@@ -16,7 +16,7 @@ export default {
           imageUrl: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
           url: 'http://muppet.damian.wikia-dev.pl/wiki/Jim_Henson:_A_Man_and_His_Frog',
           snippet: 'Jim Henson: A Man and His Frog was an exhibit at the Center for Puppetry Arts that&lt;'
-					+ 'ellipsis&gt;',
+     + 'ellipsis&gt;',
         },
       ],
       fileUsageListSeeMoreUrl: '/wiki/Special:WhatLinksHere/File:Example.jpg',

@@ -2,90 +2,90 @@ $site-head-box-shadow-color: rgba(0, 0, 0, .15);
 $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 .wds-global-navigation {
-	z-index: $z-site-head;
+  z-index: $z-site-head;
 
-	.wds-global-navigation__modal {
-		z-index: $z-site-head;
-	}
+  .wds-global-navigation__modal {
+    z-index: $z-site-head;
+  }
 
-	.featured-video-on-scroll-active:not(.wds-no-scroll):not(.fandom-app-smart-banner-passed) .with-fandom-app-smart-banner & {
-		position: relative;
-	}
+  .featured-video-on-scroll-active:not(.wds-no-scroll):not(.fandom-app-smart-banner-passed) .with-fandom-app-smart-banner & {
+    position: relative;
+  }
 }
 
 body:not(.wds-no-scroll):not(.featured-video-on-scroll-active) {
-	.with-fandom-app-smart-banner {
-		.wds-global-navigation {
-			top: 85px;
-		}
-	}
+  .with-fandom-app-smart-banner {
+    .wds-global-navigation {
+      top: 85px;
+    }
+  }
 }
 
 body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-head-headroom-not-top .wds-community-bar {
-	margin-top: 85px;
+  margin-top: 85px;
 }
 
 .site-head-headroom-un-pinned .wds-global-navigation {
-	box-shadow: $site-head-default-box-shadow;
+  box-shadow: $site-head-default-box-shadow;
 
-	&.no-shadow {
-		box-shadow: 0 0 0 0 $site-head-box-shadow-color;
-	}
+  &.no-shadow {
+    box-shadow: 0 0 0 0 $site-head-box-shadow-color;
+  }
 }
 
 .has-partner-slot {
-	.site-head-wrapper,
-	.wds-global-navigation {
-		height: $site-head-with-partner-slot-height;
-	}
+  .site-head-wrapper,
+  .wds-global-navigation {
+    height: $site-head-with-partner-slot-height;
+  }
 }
 
 .wds-no-scroll .has-partner-slot {
-	.site-head-wrapper,
-	.wds-global-navigation {
-		height: $site-head-height;
-	}
+  .site-head-wrapper,
+  .wds-global-navigation {
+    height: $site-head-height;
+  }
 }
 
 .site-head-container {
-	min-height: $site-head-height;
+  min-height: $site-head-height;
 }
 
 .site-head-headroom-not-top {
-	.fandom-app-smart-banner {
-		position: fixed;
-		top: 0;
+  .fandom-app-smart-banner {
+    position: fixed;
+    top: 0;
 
-		.featured-video-on-scroll-active & {
-			position: static;
-		}
-	}
+    .featured-video-on-scroll-active & {
+      position: static;
+    }
+  }
 }
 
 .with-fandom-app-smart-banner {
-	.site-head-container {
-		min-height: 140px;
-	}
+  .site-head-container {
+    min-height: 140px;
+  }
 }
 
 .site-head-wrapper {
-	height: $site-head-height;
-	position: relative;
+  height: $site-head-height;
+  position: relative;
 }
 
 //Styles for BFAA
 .bfaa-template {
-	.site-head-headroom-top {
-		.wds-global-navigation {
-			position: static;
-		}
-	}
+  .site-head-headroom-top {
+    .wds-global-navigation {
+      position: static;
+    }
+  }
 }
 
 .wds-no-scroll {
-	.bfaa-template {
-		.wds-global-navigation {
-			position: fixed;
-		}
-	}
+  .bfaa-template {
+    .wds-global-navigation {
+      position: fixed;
+    }
+  }
 }

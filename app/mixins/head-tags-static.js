@@ -7,8 +7,8 @@ export default Mixin.create({
   fastboot: service(),
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   afterModel(resolvedModel, transition) {
     this._super(...arguments);
 
@@ -16,11 +16,11 @@ export default Mixin.create({
   },
 
   /**
-	 * This function sets static head tags defined in templates/head.hbs
-	 * This is for head tags which are set only once
-	 *
-	 * @returns {void}
-	 */
+  * This function sets static head tags defined in templates/head.hbs
+  * This is for head tags which are set only once
+  *
+  * @returns {void}
+  */
   setStaticHeadTags(noExternals) {
     const model = this.modelFor('application');
 

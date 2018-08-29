@@ -1,7 +1,6 @@
-import { inject as service } from '@ember/service';
-import { isEmpty } from '@ember/utils';
-import { alias, equal, oneWay } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
+import { alias, equal, oneWay } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 
 export default Controller.extend(
@@ -32,13 +31,13 @@ export default Controller.extend(
     userMenuVisible: false,
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     init() {
       this.setProperties({
         applicationWrapperClassNames: [],
         domain: this.get('wikiVariables.dbName')
-				|| window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+        || (window.location && window.location.href.match(/^https?:\/\/(.*?)\./)[1]),
         language: this.get('wikiVariables.language'),
       });
 
@@ -52,11 +51,11 @@ export default Controller.extend(
 
     actions: {
       /**
-			 * Bubbles up to ApplicationRoute
-			 *
-			 * @param {HTMLAnchorElement} target
-			 * @returns {void}
-			 */
+    * Bubbles up to ApplicationRoute
+    *
+    * @param {HTMLAnchorElement} target
+    * @returns {void}
+    */
       handleLink(target) {
         this.target.send('handleLink', target);
       },

@@ -6,8 +6,8 @@ export default Component.extend(RenderComponentMixin, {
   data: null,
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didRender() {
     this._super(...arguments);
 

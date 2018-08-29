@@ -35,8 +35,8 @@ export default Route.extend(
 
     actions: {
       /**
-			 * @returns {boolean}
-			 */
+    * @returns {boolean}
+    */
       didTransition() {
         scheduleOnce('afterRender', this, () => {
           trackPageView(this.initialPageView.isInitialPageView());

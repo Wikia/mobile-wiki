@@ -1,8 +1,8 @@
 import config from '../config/environment';
 
 /**
- * @returns {void}
- */
+  * @returns {void}
+  */
 export function initialize() {
   if (typeof FastBoot !== 'undefined') {
     return;

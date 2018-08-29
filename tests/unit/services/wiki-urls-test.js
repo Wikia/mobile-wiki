@@ -136,7 +136,7 @@ module('Unit | Service | wiki-urls', (hooks) => {
             },
           },
           expectedOutput: `https://glee.wikia.com${langPath}/sratatata?simple=`
-									+ 'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656',
+         + 'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656',
         },
         {
           urlParams: {

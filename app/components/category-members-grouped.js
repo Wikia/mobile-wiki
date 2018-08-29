@@ -16,9 +16,9 @@ export default Component.extend(
 
     actions: {
       /**
-			 * @param {number} page
-			 * @param {string} label
-			 */
+    * @param {number} page
+    * @param {string} label
+    */
       loadPage(page, label) {
         this.set('isLoading', true);
 
@@ -50,10 +50,10 @@ export default Component.extend(
       },
 
       /**
-			 * @param {string} category
-			 * @param {string} label
-			 * @param {Event} event
-			 */
+    * @param {string} category
+    * @param {string} label
+    * @param {Event} event
+    */
       trackClick(category, label, event) {
         if (event.target.matches('a')) {
           track({

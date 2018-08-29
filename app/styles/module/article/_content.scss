@@ -1,26 +1,26 @@
 .article-content {
-	margin-bottom: 1.5rem;
-	overflow-x: hidden;
-	padding: 0 $article-horizontal-padding;
+  margin-bottom: 1.5rem;
+  overflow-x: hidden;
+  padding: 0 $article-horizontal-padding;
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h6 {
-		&[section] {
-			color: $wds-color-dark-blue;
-		}
-	}
+  h1,
+  h2,
+  h3,
+  h4,
+  h6 {
+    &[section] {
+      color: $wds-color-dark-blue;
+    }
+  }
 
-	.article-media {
-		& ~ h1,
-		& ~ h2 {
-			margin-bottom: 0;
-		}
-	}
+  .article-media {
+    & ~ h1,
+    & ~ h2 {
+      margin-bottom: 0;
+    }
+  }
 
-	pre {
-		overflow: auto;
-	}
+  pre {
+    overflow: auto;
+  }
 }

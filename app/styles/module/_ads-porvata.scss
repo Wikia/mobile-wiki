@@ -17,156 +17,156 @@ $vpaid-z-index: 10;
 $controls-z-index: 11;
 
 .ad-slot {
-	.video-overlay {
-		@include absolute-fill();
-	}
+  .video-overlay {
+    @include absolute-fill();
+  }
 
-	.video-display-wrapper {
-		position: relative;
+  .video-display-wrapper {
+    position: relative;
 
-		video,
-		&.vpaid-enabled > div {
-			@include absolute-fill();
-		}
+    video,
+    &.vpaid-enabled > div {
+      @include absolute-fill();
+    }
 
-		&.vpaid-enabled {
-			.video-player > div {
-				pointer-events: none;
+    &.vpaid-enabled {
+      .video-player > div {
+        pointer-events: none;
 
-				video {
-					pointer-events: auto;
-				}
-			}
+        video {
+          pointer-events: auto;
+        }
+      }
 
-			& > div {
-				left: 50%;
-				transform: translate(-50%, 0);
-			}
-		}
+      & > div {
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
 
-		.video-player {
-			background: #000;
-			left: 50%;
-			margin: 0 auto;
-			pointer-events: auto;
-			transform: translate(-50%, 0);
-		}
-	}
+    .video-player {
+      background: #000;
+      left: 50%;
+      margin: 0 auto;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+  }
 }
 
 .video-player {
-	position: relative;
+  position: relative;
 
-	video {
-		left: 0;
-	}
+  video {
+    left: 0;
+  }
 
-	& > iframe {
-		z-index: -1;
-	}
+  & > iframe {
+    z-index: -1;
+  }
 
-	.progress-bar {
-		background: $uap-progress-bar-color;
-		bottom: 0;
-		height: 8px;
-		left: 0;
-		position: absolute;
-		width: 100%;
-		z-index: $controls-z-index;
-	}
+  .progress-bar {
+    background: $uap-progress-bar-color;
+    bottom: 0;
+    height: 8px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: $controls-z-index;
+  }
 
-	.current-time {
-		background: $uap-progress-bar-current-time-color;
-		height: 100%;
-		max-width: 100%;
-		transition: width linear;
-		width: 0;
-		z-index: $controls-z-index;
-	}
+  .current-time {
+    background: $uap-progress-bar-current-time-color;
+    height: 100%;
+    max-width: 100%;
+    transition: width linear;
+    width: 0;
+    z-index: $controls-z-index;
+  }
 
-	.pause-overlay {
-		cursor: pointer;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		z-index: $controls-z-index;
-	}
+  .pause-overlay {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: $controls-z-index;
+  }
 
-	.close-ad {
-		background-image: url($player-button-collapse);
-		cursor: pointer;
-		height: $player-button-size;
-		margin: $player-button-border-space $player-button-border-space $player-button-click-area $player-button-click-area;
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: $player-button-size;
-		z-index: $controls-z-index;
-	}
+  .close-ad {
+    background-image: url($player-button-collapse);
+    cursor: pointer;
+    height: $player-button-size;
+    margin: $player-button-border-space $player-button-border-space $player-button-click-area $player-button-click-area;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: $player-button-size;
+    z-index: $controls-z-index;
+  }
 
-	.volume-control {
-		bottom: 0;
-		padding: $player-button-click-area $player-button-border-space 10px $player-button-click-area;
-		position: absolute;
-		right: 0;
-		text-align: right;
-		z-index: $controls-z-index;
+  .volume-control {
+    bottom: 0;
+    padding: $player-button-click-area $player-button-border-space 10px $player-button-click-area;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    z-index: $controls-z-index;
 
-		.speaker {
-			background-image: url($player-button-sound-on);
-			display: inline-block;
-			height: $player-button-size;
-			overflow: hidden;
-			position: relative;
-			width: $player-button-size;
+    .speaker {
+      background-image: url($player-button-sound-on);
+      display: inline-block;
+      height: $player-button-size;
+      overflow: hidden;
+      position: relative;
+      width: $player-button-size;
 
-			&.mute {
-				background-image: url($player-button-sound-off);
-			}
-		}
-	}
+      &.mute {
+        background-image: url($player-button-sound-off);
+      }
+    }
+  }
 }
 
 .ad-slot.porvata-outstream {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 
-	&::before {
-		display: none;
-	}
+  &::before {
+    display: none;
+  }
 
-	.video-player {
-		.progress-bar {
-			background: $outstream-progress-bar-color;
-			height: 5px;
-		}
+  .video-player {
+    .progress-bar {
+      background: $outstream-progress-bar-color;
+      height: 5px;
+    }
 
-		.current-time {
-			background: $outstream-progress-bar-current-time-color;
-		}
+    .current-time {
+      background: $outstream-progress-bar-current-time-color;
+    }
 
-		.volume-control {
-			bottom: 14px;
-			padding: $player-button-click-area 5px 0 $player-button-click-area;
-			right: 7px;
+    .volume-control {
+      bottom: 14px;
+      padding: $player-button-click-area 5px 0 $player-button-click-area;
+      right: 7px;
 
-			.speaker {
-				background: url($outstream-button-sound-on) no-repeat left bottom;
+      .speaker {
+        background: url($outstream-button-sound-on) no-repeat left bottom;
 
-				&.mute {
-					background: url($outstream-button-sound-off) no-repeat left bottom;
-				}
-			}
-		}
+        &.mute {
+          background: url($outstream-button-sound-off) no-repeat left bottom;
+        }
+      }
+    }
 
-		.volume-button {
-			height: auto;
-			padding: 14px 12px 7px 7px;
-			width: auto;
+    .volume-button {
+      height: auto;
+      padding: 14px 12px 7px 7px;
+      width: auto;
 
-			svg {
-				position: static;
-			}
-		}
-	}
+      svg {
+        position: static;
+      }
+    }
+  }
 }

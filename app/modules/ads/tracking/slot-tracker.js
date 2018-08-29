@@ -33,11 +33,11 @@ function checkOptIn() {
 }
 
 /**
- * Prepare data for render ended tracking
- * @param {Object} slot
- * @param {Object} data
- * @returns {Object}
- */
+  * Prepare data for render ended tracking
+  * @param {Object} slot
+  * @param {Object} data
+  * @returns {Object}
+  */
 function prepareData(slot, data) {
   // Global imports:
   const { context } = window.Wikia.adEngine;
@@ -111,13 +111,13 @@ function prepareData(slot, data) {
 }
 
 /**
- * Wrapper for player data warehouse tracking
- */
+  * Wrapper for player data warehouse tracking
+  */
 export default {
   /**
-	 * Checks whether tracker is enabled via instant global
-	 * @returns {boolean}
-	 */
+  * Checks whether tracker is enabled via instant global
+  * @returns {boolean}
+  */
   isEnabled() {
     // Global imports:
     const { context } = window.Wikia.adEngine;
@@ -127,21 +127,21 @@ export default {
   },
 
   /**
-	 * Track render ended event to data warehouse
-	 * @param {Object} adSlot
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Track render ended event to data warehouse
+  * @param {Object} adSlot
+  * @param {Object} data
+  * @returns {void}
+  */
   onRenderEnded(adSlot, data) {
     M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
   },
 
   /**
-	 * Track status changed event (other than success and collapse) to data warehouse
-	 * @param {Object} adSlot
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Track status changed event (other than success and collapse) to data warehouse
+  * @param {Object} adSlot
+  * @param {Object} data
+  * @returns {void}
+  */
   onStatusChanged(adSlot, data) {
     const status = adSlot.getStatus();
 

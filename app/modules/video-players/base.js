@@ -4,10 +4,10 @@ import { track } from '../../utils/track';
 
 export default class BasePlayer {
   /**
-	 * @param {string} provider
-	 * @param {*} params
-	 * @returns {void}
-	 */
+  * @param {string} provider
+  * @param {*} params
+  * @returns {void}
+  */
   constructor(provider, params) {
     if (!provider) {
       throw new Error('VideoPlayer requires a provider as the first argument');
@@ -23,14 +23,14 @@ export default class BasePlayer {
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   setupPlayer() {
   }
 
   /**
-	 * @returns {*}
-	 */
+  * @returns {*}
+  */
   loadPlayer() {
     return $script(this.resourceURI, () => {
       // called once player is loaded
@@ -39,21 +39,21 @@ export default class BasePlayer {
   }
 
   /**
-	 * Intentionally a no-op, documentation that this hook is implemented
-	 * and to not error when called by loadPlayer*
-	 *
-	 * @returns {void}
-	 */
+  * Intentionally a no-op, documentation that this hook is implemented
+  * and to not error when called by loadPlayer*
+  *
+  * @returns {void}
+  */
   playerDidLoad() {
   }
 
   /**
-	 * Sets CSS width and height for the video container.
-	 * Container selector is can be overriden by the inheriting class
-	 *
-	 * @param {string} [containerSelector] - selector of the video container
-	 * @returns {void}
-	 */
+  * Sets CSS width and height for the video container.
+  * Container selector is can be overriden by the inheriting class
+  *
+  * @param {string} [containerSelector] - selector of the video container
+  * @returns {void}
+  */
   onResize(containerSelector = this.containerSelector) {
     const container = document.querySelector(containerSelector);
 
@@ -88,9 +88,9 @@ export default class BasePlayer {
   }
 
   /**
-	 * @param {string} id
-	 * @returns {string}
-	 */
+  * @param {string} id
+  * @returns {string}
+  */
   static createUniqueId(id) {
     const element = document.getElementById(id);
     const newId = id + new Date().getTime();
@@ -103,10 +103,10 @@ export default class BasePlayer {
   }
 
   /**
-	 * @param {string} action
-	 * @param {string} event
-	 * @returns {void}
-	 */
+  * @param {string} action
+  * @param {string} event
+  * @returns {void}
+  */
   track(action, event) {
     return track({
       action,

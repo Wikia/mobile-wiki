@@ -23,23 +23,23 @@ export default Component.extend(
 
     gestures: {
       /**
-			 * @returns {boolean}
-			 */
+    * @returns {boolean}
+    */
       swipeLeft() {
         return !this.isZoomed;
       },
 
       /**
-			 * @returns {boolean}
-			 */
+    * @returns {boolean}
+    */
       swipeRight() {
         return !this.isZoomed;
       },
 
       /**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
+    * @param {HammerInput} event
+    * @returns {void}
+    */
       pan(event) {
         const scale = this.scale;
 
@@ -52,8 +52,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       panEnd() {
         this.setProperties({
           lastX: this.newX,
@@ -62,14 +62,14 @@ export default Component.extend(
       },
 
       /**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
+    * @param {HammerInput} event
+    * @returns {void}
+    */
       doubleTap(event) {
         // Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
         if (
           !this.isZoomed
-					&& (!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
+     && (!this.isGallery || this.getScreenArea(event) === this.screenAreas.center)
         ) {
           const scale = 3;
 
@@ -85,9 +85,9 @@ export default Component.extend(
       },
 
       /**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
+    * @param {HammerInput} event
+    * @returns {void}
+    */
       pinchMove(event) {
         const scale = this.scale;
 
@@ -101,9 +101,9 @@ export default Component.extend(
       },
 
       /**
-			 * @param {HammerInput} event
-			 * @returns {void}
-			 */
+    * @param {HammerInput} event
+    * @returns {void}
+    */
       pinchEnd(event) {
         this.set('lastScale', this.lastScale * event.scale);
       },
@@ -112,8 +112,9 @@ export default Component.extend(
     isZoomed: gt('scale', 1),
 
     /**
-		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
-		 */
+   * This is performance critical place,
+   * we will update property 'manually' by calling notifyPropertyChange
+   */
     style: computed(function () {
       const scale = this.scale.toFixed(2);
       const x = this.newX.toFixed(2);
@@ -131,8 +132,8 @@ export default Component.extend(
     )),
 
     /**
-		 * calculates current scale for zooming
-		 */
+   * calculates current scale for zooming
+   */
     limitedScale: computed('scale', {
       get() {
         return this.scale;
@@ -150,8 +151,8 @@ export default Component.extend(
     }),
 
     /**
-		 * property that holds current image
-		 */
+   * property that holds current image
+   */
     image: computed(function () {
       return this.element.querySelector('.current');
     }),
@@ -181,22 +182,22 @@ export default Component.extend(
     }),
 
     /**
-		 * used to set X boundaries for panning image in media lightbox
-		 */
+   * used to set X boundaries for panning image in media lightbox
+   */
     maxX: computed('viewportSize', 'imageWidth', 'scale', function () {
       return Math.abs(this.get('viewportSize.width') - this.imageWidth) / 2 / this.scale;
     }),
 
     /**
-		 * used to set Y boundaries for panning image in media lightbox
-		 */
+   * used to set Y boundaries for panning image in media lightbox
+   */
     maxY: computed('viewportSize', 'imageHeight', 'scale', function () {
       return Math.abs(this.viewportSize.height - this.imageHeight) / 2 / this.scale;
     }),
 
     /**
-		 * calculates X for panning with respect to maxX
-		 */
+   * calculates X for panning with respect to maxX
+   */
     limitedNewX: computed('newX', 'viewportSize', 'imageWidth', {
       get() {
         return this.newX;
@@ -214,8 +215,8 @@ export default Component.extend(
     }),
 
     /**
-		 * calculates Y for panning with respect to maxY
-		 */
+   * calculates Y for panning with respect to maxY
+   */
     limitedNewY: computed('newY', 'viewportSize', 'imageHeight', {
       get() {
         return this.newY;
@@ -248,8 +249,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this._super(...arguments);
 
@@ -275,18 +276,18 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     loadUrl() {
       const url = this.get('model.url');
 
       this.setProperties({
         imageSrc: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' 
-							viewBox='-12 -12 48 48' fill='%23fff' width='${this.get('model.width')}' 
-							height='${this.get('model.height')}'%3e%3cg fill-rule='evenodd'%3e%3cpath 
-							d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0 
-							0-1.146 0L3 14.626V4zm19-2H2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V3a1 1 0 0 0-1-
-							1z'/%3e%3cpath d='M9 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2'/%3e%3c/g%3e%3c/svg%3e`,
+       viewBox='-12 -12 48 48' fill='%23fff' width='${this.get('model.width')}' 
+       height='${this.get('model.height')}'%3e%3cg fill-rule='evenodd'%3e%3cpath 
+       d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0 
+       0-1.146 0L3 14.626V4zm19-2H2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V3a1 1 0 0 0-1-
+       1z'/%3e%3cpath d='M9 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2'/%3e%3c/g%3e%3c/svg%3e`,
         isLoading: true,
       });
 
@@ -302,37 +303,36 @@ export default Component.extend(
     },
 
     /**
-		 * Handle click and prevent bubbling
-		 * if the image is zoomed
-		 *
-		 * @returns {boolean}
-		 */
+   * Handle click and prevent bubbling
+   * if the image is zoomed
+   *
+   * @returns {boolean}
+   */
     click() {
       return !this.isZoomed;
     },
 
     /**
-		 * returns limited value for given max ie.
-		 * value = 5, max = 6, return 5
-		 * value = 6, max = 3, return 3
-		 * value = -5, max = -6, return -5
-		 * value = -6, max = -3, return -3
-		 *
-		 * @param {number} value
-		 * @param {number} max
-		 * @returns {number}
-		 */
+   * returns limited value for given max ie.
+   * value = 5, max = 6, return 5
+   * value = 6, max = 3, return 3
+   * value = -5, max = -6, return -5
+   * value = -6, max = -3, return -3
+   *
+   * @param {number} value
+   * @param {number} max
+   * @returns {number}
+   */
     limit(value, max) {
       if (value < 0) {
         return Math.max(value, -max);
       }
       return Math.min(value, max);
-
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     resetZoom() {
       this.setProperties({
         scale: 1,
@@ -345,12 +345,12 @@ export default Component.extend(
     },
 
     /**
-		 * Updates img with its src or displays error
-		 *
-		 * @param {string} imageSrc
-		 * @param {boolean} [loadingError=false]
-		 * @returns {void}
-		 */
+   * Updates img with its src or displays error
+   *
+   * @param {string} imageSrc
+   * @param {boolean} [loadingError=false]
+   * @returns {void}
+   */
     update(imageSrc, loadingError = false) {
       if (!this.isDestroyed) {
         this.setProperties({
@@ -362,11 +362,11 @@ export default Component.extend(
     },
 
     /**
-		 * Checks on which area on the screen an event took place
-		 *
-		 * @param {HammerInput} event
-		 * @returns {number}
-		 */
+   * Checks on which area on the screen an event took place
+   *
+   * @param {HammerInput} event
+   * @returns {number}
+   */
     getScreenArea(event) {
       const viewportWidth = this.get('viewportSize.width');
       const x = event.center.x;

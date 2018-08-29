@@ -17,8 +17,8 @@ function getDynamicHeadTags(model) {
 }
 
 /**
- * Export Category handler
- */
+  * Export Category handler
+  */
 export default {
   // template's and controller's name
   viewName: 'category',

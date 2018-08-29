@@ -1,13 +1,12 @@
 const trackingRouteName = 'special/adengviewability';
 
 /**
- * Prepare data for render ended tracking
- * @param {Object} slot
- * @param {Object} data
- * @returns {Object}
- */
+  * Prepare data for render ended tracking
+  * @param {Object} slot
+  * @param {Object} data
+  * @returns {Object}
+  */
 function prepareData(slot, data) {
-
   return {
     pv_unique_id: window.pvUID,
     wsi: slot.getTargeting().wsi || '',
@@ -19,13 +18,13 @@ function prepareData(slot, data) {
 }
 
 /**
- * Wrapper for player data warehouse tracking
- */
+  * Wrapper for player data warehouse tracking
+  */
 export default {
   /**
-	 * Checks whether tracker is enabled via instant global
-	 * @returns {boolean}
-	 */
+  * Checks whether tracker is enabled via instant global
+  * @returns {boolean}
+  */
   isEnabled() {
     // Global imports:
     const { context } = window.Wikia.adEngine;
@@ -35,11 +34,11 @@ export default {
   },
 
   /**
-	 * Track viewabiltiy impression to data warehouse
-	 * @param {Object} adSlot
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Track viewabiltiy impression to data warehouse
+  * @param {Object} adSlot
+  * @param {Object} data
+  * @returns {void}
+  */
   onImpressionViewable(adSlot, data) {
     M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
   },

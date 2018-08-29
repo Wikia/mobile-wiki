@@ -7,8 +7,8 @@ export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
   data: null,
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didInsertElement() {
     this._super(...arguments);
 
@@ -17,8 +17,8 @@ export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   loadScript() {
     $script('//static.apester.com/js/sdk/v2.0/apester-javascript-sdk.min.js', () => {
       this.set('scriptLoaded.apester', true);
@@ -26,8 +26,8 @@ export default Component.extend(WidgetScriptStateMixin, RenderComponentMixin, {
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   createWidget() {
     if (this.get('scriptLoaded.apester')) {
       window.APESTER.reload();

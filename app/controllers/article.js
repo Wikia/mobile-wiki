@@ -1,4 +1,6 @@
-import { alias, and, equal, not } from '@ember/object/computed';
+import {
+  alias, and, equal, not,
+} from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';

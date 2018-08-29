@@ -1,8 +1,7 @@
-import { computed } from '@ember/object';
 import { and, equal, readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
-import { track } from '../utils/track';
 import config from '../config/environment';
+import { track } from '../utils/track';
 
 export default Service.extend({
   currentUser: service(),
@@ -23,11 +22,11 @@ export default Service.extend({
   },
 
   /**
-	 * Sets smart banner cookie for given number of days
-	 *
-	 * @param {number} days
-	 * @returns {void}
-	 */
+  * Sets smart banner cookie for given number of days
+  *
+  * @param {number} days
+  * @returns {void}
+  */
   setCookie(days) {
     const date = new Date();
     const cookieOptions = {
@@ -45,9 +44,9 @@ export default Service.extend({
   },
 
   /**
-	 * @param {string} action
-	 * @returns {void}
-	 */
+  * @param {string} action
+  * @returns {void}
+  */
   track(action) {
     track({
       action,

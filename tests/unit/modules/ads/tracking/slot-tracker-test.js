@@ -1,10 +1,8 @@
 import { module, test } from 'qunit';
 import sinon from 'sinon';
-import { setupTest } from 'ember-qunit';
 import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 
 module('Unit | Module | ads | tracking', (hooks) => {
-
   hooks.beforeEach(() => {
     window.Wikia.adEngine = {
       context: {

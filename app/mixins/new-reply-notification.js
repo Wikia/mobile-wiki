@@ -2,10 +2,10 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   /**
-	 * Constructs a localized reply notification body
-	 * @param {Ember.Object} model
-	 * @returns {string}
-	 */
+  * Constructs a localized reply notification body
+  * @param {Ember.Object} model
+  * @returns {string}
+  */
   getReplyMessageBody(model) {
     const hasTitle = model.get('title');
     const totalUniqueActors = model.get('totalUniqueActors');
@@ -32,7 +32,6 @@ export default Mixin.create({
         user: firstReplierName,
         postTitle: this.postTitleMarkup,
       });
-
     }
     if (hasThreeOrMoreUsers) {
       return this.getTranslatedMessage('notifications-replied-by-multiple-users-no-title', {

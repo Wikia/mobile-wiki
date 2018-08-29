@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { bool } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import config from '../../config/environment';
 
