@@ -33,7 +33,6 @@ module.exports = {
     "no-underscore-dangle": 0,
     "func-names": 0,
 
-    "global-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
@@ -42,7 +41,6 @@ module.exports = {
     "no-restricted-syntax": 0,
     "no-shadow": 0,
     "prefer-destructuring": 0,
-    "strict": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
