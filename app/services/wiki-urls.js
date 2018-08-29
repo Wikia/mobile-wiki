@@ -21,7 +21,8 @@ export default Service.extend({
 
   /**
   * This function constructs a URL given pieces of a typical Wikia URL.
-  * If the current wiki has a lang path (e.g. glee.wikia.com/pl/) then it will be added to all local URLs
+  * If the current wiki has a lang path (e.g. glee.wikia.com/pl/)
+  * then it will be added to all local URLs
   *
   * Some example parameters and results:
   *
@@ -95,11 +96,13 @@ export default Service.extend({
   /**
   * Parse links in an article and return information about how to process a given link.
   * Only one of article or url will be non-null. If article is
-  * non-null, then the application should transition to that article. If url is non-null, then the application should
+  * non-null, then the application should transition to that article.
+  * If url is non-null, then the application should
   * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
   *
   * @param {string} currentTitle - the title of the current article, such as David_Michael_Vigil
-  * @param {string} hash - jumplink, either '#something' (to indicate there is a jumplink) or '' or undefined
+  * @param {string} hash - jumplink, either '#something'
+  * (to indicate there is a jumplink) or '' or undefined
   * @param {string} uri - the absolute link
   * @param {string} queryString - the query string
   *
@@ -115,11 +118,13 @@ export default Service.extend({
       const local = localPathMatch[1];
 
       /**
-    * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
+    * Here we test if its an article link.
+    * We also have to check for /wiki/something for the jump links,
     * because the url will be in that form and there will be a hash
     *
     * @todo We currently don't handle links to other pages with jump links appended. If input is a
-    * link to another page, we'll simply transition to the top of that page regardless of whether or not
+    * link to another page,
+    * we'll simply transition to the top of that page regardless of whether or not
     * there is a #jumplink appended to it.
     *
     * Example match array for /wiki/Kermit_the_Frog#Kermit_on_Sesame_Street

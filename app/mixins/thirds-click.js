@@ -15,10 +15,14 @@ export default Mixin.create({
   rightClickHandler() {},
   centerClickHandler() {},
 
-  viewportWidth: computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
+  viewportWidth: computed(() => Math.max(
+    document.documentElement.clientWidth,
+    window.innerWidth || 0,
+  )),
 
   /**
-  * This can be overriden to change how wide should be areas that leftClickHandler & rightClickHandler respond to.
+  * This can be overriden to change how wide should be areas
+  * that leftClickHandler & rightClickHandler respond to.
   * For example if it's 1/5 then:
   * - click on the left side (less than 20% of screen width) will trigger leftClickHandler
   * - click on the center (between 20% and 80% of screen width) will trigger centerClickHandler

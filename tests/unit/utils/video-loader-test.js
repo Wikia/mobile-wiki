@@ -35,7 +35,11 @@ module('Unit | Utility | video loader', () => {
 
     assert.expect(testCases.length);
     testCases.forEach((testCase) => {
-      assert.equal(VideoLoader.getPlayerClassBasedOnProvider(testCase.provider).name, testCase.expected);
+      assert
+        .equal(
+          VideoLoader.getPlayerClassBasedOnProvider(testCase.provider).name,
+          testCase.expected,
+        );
     });
   });
 });

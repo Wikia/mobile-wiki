@@ -74,8 +74,10 @@ export default Mixin.create({
     const adsData = this.get('ads.slotNames');
     const globalFooter = document.querySelector('.wds-global-footer');
     const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
-    const afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
-    const beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
+    const afterArticleSlotName = slotsSwitched
+      ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
+    const beforeFooterSlotName = slotsSwitched
+      ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
     if (pi) {
       // inject top mobileTopLeaderBoard below infobox
@@ -117,8 +119,10 @@ export default Mixin.create({
     const trendingArticles = this.element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
     const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
-    const afterArticleSlotName = slotsSwitched ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
-    const beforeFooterSlotName = slotsSwitched ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
+    const afterArticleSlotName = slotsSwitched
+      ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
+    const beforeFooterSlotName = slotsSwitched
+      ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
     this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
 

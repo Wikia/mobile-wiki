@@ -60,7 +60,10 @@ export default Component.extend({
   },
 
   appendThumbnailsIfNeeded() {
-    const appendTreshold = thumbnailSize * this.displayedThumbnails.length - window.innerWidth - appendBuffer;
+    const appendTreshold = thumbnailSize
+      * this.displayedThumbnails.length
+      - window.innerWidth
+      - appendBuffer;
 
     if (this.element.scrollLeft > appendTreshold) {
       const newBatch = this.thumbnails.splice(0, displayedThumbnailsBatchSize);

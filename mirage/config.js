@@ -54,7 +54,8 @@ export default function () {
       return schema.curatedContentEditorItems.first();
     }
 
-    // fixme probably it shouldn't look like this - it just to have mirage working for backend-less development
+    /* fixme probably it shouldn't look like this
+    - it just to have mirage working for backend-less development */
     if (controller === 'UserApi') {
       return undefined;
     }

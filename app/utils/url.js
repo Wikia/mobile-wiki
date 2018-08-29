@@ -36,6 +36,7 @@ export function getQueryString(query = {}, { useBrackets = true, skipQuestionMar
   * @returns {Boolean}
   */
 export function isHashLink(target) {
-  // We need to use getAttribute because target.href returns whole resolved URL instead of the original value
+  // We need to use getAttribute
+  // because target.href returns whole resolved URL instead of the original value
   return target.hasAttribute('href') && target.getAttribute('href').indexOf('#') === 0;
 }

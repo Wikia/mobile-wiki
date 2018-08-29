@@ -237,7 +237,8 @@ export default Component.extend(
     getTrackingEventLabel(element) {
       if (element) {
         // Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
-        // as the 'figcaption' is contained in the 'figure' element which has the '.article-media-thumbnail' class.
+        // as the 'figcaption' is contained in the 'figure' element
+        // which has the '.article-media-thumbnail' class.
         if (element.closest('.portable-infobox')) {
           return 'portable-infobox-link';
         }
@@ -273,7 +274,8 @@ export default Component.extend(
 
     /**
    * Creating components for small icons isn't good solution because of performance overhead
-   * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+   * Putting all icons in HTML isn't good solution neither
+   * because there are articles with a lot of them
    * Thus we load them all after the article is rendered
    *
    * @returns {void}

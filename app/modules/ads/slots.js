@@ -54,7 +54,8 @@ function isPrefooterApplicable(isInContentApplicable) {
   const numberOfSections = document.querySelectorAll('.article-content > h2').length;
   const hasArticleFooter = !!document.querySelector('.article-footer');
 
-  return (hasArticleFooter && !isInContentApplicable) || (numberOfSections > MIN_NUMBER_OF_SECTIONS);
+  return (hasArticleFooter && !isInContentApplicable)
+    || (numberOfSections > MIN_NUMBER_OF_SECTIONS);
 }
 
 function isBottomLeaderboardApplicable() {
