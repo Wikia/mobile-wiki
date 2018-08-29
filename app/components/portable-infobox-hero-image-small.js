@@ -1,8 +1,5 @@
-import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
-import { computed } from '@ember/object';
 import Component from '@ember/component';
-import { htmlSafe } from '@ember/string';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
   lightbox: service(),

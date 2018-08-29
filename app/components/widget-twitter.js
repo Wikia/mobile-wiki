@@ -4,22 +4,22 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
 
 /**
- * Widgets
- * @typedef {Object} Widgets
- * @property {Function} createTimeline
- */
+  * Widgets
+  * @typedef {Object} Widgets
+  * @property {Function} createTimeline
+  */
 
 /**
- * Twttr
- * @typedef {Object} Twttr
- * @property {Widgets} [widgets]
- */
+  * Twttr
+  * @typedef {Object} Twttr
+  * @property {Widgets} [widgets]
+  */
 
 /**
- * Window
- * @typedef {Object} Window
- * @property {Twttr} [twttr]
- */
+  * Window
+  * @typedef {Object} Window
+  * @property {Twttr} [twttr]
+  */
 
 export default Component.extend(
   RenderComponentMixin,
@@ -33,8 +33,8 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this._super(...arguments);
 
@@ -43,8 +43,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     loadScript() {
       if (!this.get('scriptLoadInitialized.twitter')) {
         this.set('scriptLoadInitialized.twitter', true);
@@ -56,8 +56,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     createTimeline() {
       if (this.get('scriptLoaded.twitter')) {
         const data = this.data;

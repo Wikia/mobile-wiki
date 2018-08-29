@@ -49,8 +49,8 @@ export default Component.extend(
     }),
 
     /**
-		 * @returns {boolean}
-		 */
+   * @returns {boolean}
+   */
     click() {
       const itemType = this.type;
 

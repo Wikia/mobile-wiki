@@ -1,7 +1,6 @@
 import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { reads, equal, and } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
@@ -13,7 +12,8 @@ import fetch from '../utils/mediawiki-fetch';
 
 const recircItemsCount = 10;
 const config = {
-  // we load twice as many items as we want to display because we need to filter out those without thumbnail
+  // we load twice as many items as we want to display
+  // because we need to filter out those without thumbnail
   max: recircItemsCount * 2,
   widget: 'wikia-impactfooter',
   source: 'fandom',
@@ -65,7 +65,6 @@ export default Component.extend(
 
     actions: {
       postClick(post, index) {
-
         const labelParts = ['footer', `slot-${index + 1}`, post.source];
 
         track({
@@ -107,7 +106,6 @@ export default Component.extend(
             return this;
           }
           return response.json().then(data => this.set('topArticles', data));
-
         });
     },
 
@@ -117,7 +115,7 @@ export default Component.extend(
       liftigniter
         .getData(config)
         .then((data) => {
-          this.set('items', data.items.filter(item => item.hasOwnProperty('thumbnail') && item.thumbnail)
+          this.set('items', data.items.filter(item => item.thumbnail)
             .slice(0, recircItemsCount)
             .map((item) => {
               item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {

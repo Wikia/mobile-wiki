@@ -16,9 +16,9 @@ export default Component.extend({
     return userName.trim();
   }),
   /**
-	 * Returns link to the post author's user page
-	 * @returns {string}
-	 */
+  * Returns link to the post author's user page
+  * @returns {string}
+  */
   profileUrl: computed('profileName', function () {
     return this.wikiUrls.build({
       host: this.get('wikiVariables.host'),

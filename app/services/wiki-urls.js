@@ -16,27 +16,28 @@ export default Service.extend({
   getLanguageCodeFromRequest(path) {
     const matches = path.match(new RegExp(`^${this.langPathRegexp}/`));
 
-    return matches && matches[1] || '';
+    return (matches && matches[1]) || '';
   },
 
   /**
-	 * This function constructs a URL given pieces of a typical Wikia URL.
-	 * If the current wiki has a lang path (e.g. glee.wikia.com/pl/) then it will be added to all local URLs
-	 *
-	 * Some example parameters and results:
-	 *
-	 *   {host: 'www.wikia.com', path: '/login', query: {redirect: '/somepage'}}
-	 *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
-	 *
-	 *   {host: 'glee.wikia.com', title: 'Jeff'}
-	 *   ...returns 'http://glee.wikia.com/wiki/Jeff'
-	 *
-	 *   {host: 'glee.wikia.com', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
-	 *   ...returns 'http://glee.wikia.com/wiki/User:JaneDoe/preferences'
-	 *
-	 * @param {Object} urlParams
-	 * @returns {string}
-	 */
+  * This function constructs a URL given pieces of a typical Wikia URL.
+  * If the current wiki has a lang path (e.g. glee.wikia.com/pl/)
+  * then it will be added to all local URLs
+  *
+  * Some example parameters and results:
+  *
+  *   {host: 'www.wikia.com', path: '/login', query: {redirect: '/somepage'}}
+  *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
+  *
+  *   {host: 'glee.wikia.com', title: 'Jeff'}
+  *   ...returns 'http://glee.wikia.com/wiki/Jeff'
+  *
+  *   {host: 'glee.wikia.com', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
+  *   ...returns 'http://glee.wikia.com/wiki/User:JaneDoe/preferences'
+  *
+  * @param {Object} urlParams
+  * @returns {string}
+  */
   build(urlParams) {
     const host = urlParams.host;
 
@@ -66,8 +67,8 @@ export default Service.extend({
 
     if (urlParams.title) {
       url += urlParams.articlePath
-				+ (urlParams.namespace ? `${urlParams.namespace}:` : '')
-				+ encodeURIComponent(urlParams.title);
+    + (urlParams.namespace ? `${urlParams.namespace}:` : '')
+    + encodeURIComponent(urlParams.title);
     }
 
     if (urlParams.wikiPage) {
@@ -86,25 +87,27 @@ export default Service.extend({
   },
 
   /**
-	 * @typedef {Object} LinkInfo
-	 * @property {string|null} article
-	 * @property {string|null} url
-	 * @property {string|null} [hash]
-	 */
+  * @typedef {Object} LinkInfo
+  * @property {string|null} article
+  * @property {string|null} url
+  * @property {string|null} [hash]
+  */
 
   /**
-	 * Parse links in an article and return information about how to process a given link.
-	 * Only one of article or url will be non-null. If article is
-	 * non-null, then the application should transition to that article. If url is non-null, then the application should
-	 * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
-	 *
-	 * @param {string} currentTitle - the title of the current article, such as David_Michael_Vigil
-	 * @param {string} hash - jumplink, either '#something' (to indicate there is a jumplink) or '' or undefined
-	 * @param {string} uri - the absolute link
-	 * @param {string} queryString - the query string
-	 *
-	 * @returns {LinkInfo}
-	 */
+  * Parse links in an article and return information about how to process a given link.
+  * Only one of article or url will be non-null. If article is
+  * non-null, then the application should transition to that article.
+  * If url is non-null, then the application should
+  * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
+  *
+  * @param {string} currentTitle - the title of the current article, such as David_Michael_Vigil
+  * @param {string} hash - jumplink, either '#something'
+  * (to indicate there is a jumplink) or '' or undefined
+  * @param {string} uri - the absolute link
+  * @param {string} queryString - the query string
+  *
+  * @returns {LinkInfo}
+  */
   getLinkInfo(currentTitle, hash, uri, queryString) {
     const basePath = this.get('wikiVariables.basePath');
     const localPathMatch = uri.match(`^${basePath}(?:${this.langPath})(.*)$`);
@@ -115,19 +118,21 @@ export default Service.extend({
       const local = localPathMatch[1];
 
       /**
-			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
-			 * because the url will be in that form and there will be a hash
-			 *
-			 * @todo We currently don't handle links to other pages with jump links appended. If input is a
-			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
-			 * there is a #jumplink appended to it.
-			 *
-			 * Example match array for /wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
-			 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
-			 *     1: "Kermit_the_Frog"
-			 *     2: "#Kermit_on_Sesame_Street"
-			 */
-      const article = local.match(new RegExp(`^(?:/wiki)/([^#]+)(#.*)?$`));
+    * Here we test if its an article link.
+    * We also have to check for /wiki/something for the jump links,
+    * because the url will be in that form and there will be a hash
+    *
+    * @todo We currently don't handle links to other pages with jump links appended. If input is a
+    * link to another page,
+    * we'll simply transition to the top of that page regardless of whether or not
+    * there is a #jumplink appended to it.
+    *
+    * Example match array for /wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+    *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+    *     1: "Kermit_the_Frog"
+    *     2: "#Kermit_on_Sesame_Street"
+    */
+      const article = local.match(new RegExp('^(?:/wiki)/([^#]+)(#.*)?$'));
 
       let comparison;
 
@@ -160,20 +165,20 @@ export default Service.extend({
   },
 
   /**
-	 * Extracts the page title from a URL by stripping the host and article path.
-	 *
-	 * @param  {string} url - URL from which to extract the title
-	 * @return {string}
-	 */
+  * Extracts the page title from a URL by stripping the host and article path.
+  *
+  * @param  {string} url - URL from which to extract the title
+  * @return {string}
+  */
   getEncodedTitleFromURL(url) {
     return url ? url.replace(new RegExp(`^(https?://[^/]+)?${this.langPathRegexp}?(/wiki)?/`), '') : '';
   },
 
   /**
-	 * Opens the login page preserving current page as a redirect
-	 * and adding a language code to the querystring
-	 * @returns {void}
-	 */
+  * Opens the login page preserving current page as a redirect
+  * and adding a language code to the querystring
+  * @returns {void}
+  */
   goToLogin(redirectUrl) {
     const url = redirectUrl || window.location.href;
 

@@ -1,32 +1,32 @@
 .wikia-card-list {
-	margin: 0;
-	padding-bottom: 24px;
+  margin: 0;
+  padding-bottom: 24px;
 
-	.wikia-card {
-		@include link-interactions-color(inherit);
+  .wikia-card {
+    @include link-interactions-color(inherit);
 
-		display: block;
-		margin: 0 12px;
+    display: block;
+    margin: 0 12px;
 
-		&:not(:only-child) {
-			border-bottom: 1px solid $wds-fandom-color-middle-gray;
-		}
+    &:not(:only-child) {
+      border-bottom: 1px solid $wds-fandom-color-middle-gray;
+    }
 
-		&:last-child {
-			margin-bottom: 0;
-		}
+    &:last-child {
+      margin-bottom: 0;
+    }
 
-		&__item {
-			display: block;
-			padding: 18px 0;
-		}
+    &__item {
+      display: block;
+      padding: 18px 0;
+    }
 
-		&__title {
-			margin-bottom: 4px;
-		}
+    &__title {
+      margin-bottom: 4px;
+    }
 
-		&__snippet {
-			color: $wds-color-light-c6;
-		}
-	}
+    &__snippet {
+      color: $wds-color-light-c6;
+    }
+  }
 }

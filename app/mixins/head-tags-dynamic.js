@@ -8,10 +8,10 @@ export default Mixin.create({
   fastboot: service(),
 
   /**
-	 * @param {Object} model
-	 * @param {Ember.Transition} transition
-	 * @returns {void}
-	 */
+  * @param {Object} model
+  * @param {Ember.Transition} transition
+  * @returns {void}
+  */
   afterModel(model, transition) {
     this._super(...arguments);
 
@@ -21,14 +21,15 @@ export default Mixin.create({
   },
 
   /**
-	 * This function updates dynamic tags defined in templates/head.hbs
-	 * This is for head tags which could be changed on different routes
-	 *
-	 * @param {Object} model, this is model object from route::afterModel() hook,
-	 * it should be used ONLY in custom implementation of this function
-	 * @param {Object} [data={}], object where you can pass data from custom implementation of this function
-	 * @returns {void}
-	 */
+  * This function updates dynamic tags defined in templates/head.hbs
+  * This is for head tags which could be changed on different routes
+  *
+  * @param {Object} model, this is model object from route::afterModel() hook,
+  * it should be used ONLY in custom implementation of this function
+  * @param {Object} [data={}],
+  * object where you can pass data from custom implementation of this function
+  * @returns {void}
+  */
   setDynamicHeadTags(model, data = {}) {
     const htmlTitleSettings = this.get('wikiVariables.htmlTitle');
     const wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator);
@@ -40,8 +41,8 @@ export default Mixin.create({
       prev: data.prev,
       robots: this.get('wikiVariables.specialRobotPolicy') || data.robots || 'index,follow',
       keywords: `${this.get('wikiVariables.siteMessage')}`
-			+ `,${this.get('wikiVariables.siteName')}`
-			+ `,${this.get('wikiVariables.dbName')}`,
+   + `,${this.get('wikiVariables.siteName')}`
+   + `,${this.get('wikiVariables.dbName')}`,
       appleItunesApp: '',
       amphtml: data.amphtml,
     };

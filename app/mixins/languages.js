@@ -1,18 +1,16 @@
-import { inject as service } from '@ember/service';
-import { equal } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
+import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
-import { computed } from '@ember/object';
 
 export default Mixin.create({
   wikiVariables: service(),
   defaultLanguage: 'en',
 
   /**
-	 * Returns navigator language with fallback to a default language
-	 * defined at the top of this object
-	 * @returns {string}
-	 */
+  * Returns navigator language with fallback to a default language
+  * defined at the top of this object
+  * @returns {string}
+  */
   getBrowserLanguage() {
     let lang = navigator.language || navigator.browserLanguage;
 

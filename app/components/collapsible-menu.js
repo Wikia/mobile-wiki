@@ -14,23 +14,23 @@ export default Component.extend(
     trackingEvent: null,
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       addObserver(this, 'observe', this, this.titleDidChange);
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     willDestroyElement() {
       removeObserver(this, 'observe', this, this.titleDidChange);
     },
 
     actions: {
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       toggleMenu() {
         this.toggleProperty('isCollapsed');
 
@@ -45,8 +45,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     titleDidChange() {
       if (!this.isCollapsed) {
         this.set('isCollapsed', true);

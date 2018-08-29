@@ -15,15 +15,15 @@ export default Component.extend(
     alertKey: 'wikiaInYourLang.alertDismissed',
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didInsertElement() {
       this.handleWikiaInYourLang();
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     handleWikiaInYourLang() {
       if (this.shouldShowWikiaInYourLang()) {
         WikiaInYourLangModel.create(getOwner(this).ownerInjection()).load()
@@ -47,9 +47,9 @@ export default Component.extend(
     },
 
     /**
-		 * @param {object} modelData
-		 * @returns {void}
-		 */
+   * @param {object} modelData
+   * @returns {void}
+   */
     createAlert(modelData) {
       const alertData = {
         message: modelData.message,
@@ -82,14 +82,14 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {boolean}
-		 */
+   * @returns {boolean}
+   */
     shouldShowWikiaInYourLang() {
       const value = localStorageConnector.getItem(this.alertKey);
       const now = new Date().getTime();
       /**
-			 * 2,592,000,000 = 30 days
-			*/
+    * 2,592,000,000 = 30 days
+   */
       const notDismissed = !value || (now - value > 2592000000);
       const notSameLanguage = this.isUserLangDifferentFromWikiLang();
 
@@ -97,8 +97,8 @@ export default Component.extend(
     },
 
     /**
-		 * @return {boolean}
-		 */
+   * @return {boolean}
+   */
     isUserLangDifferentFromWikiLang() {
       const userLang = this.getBrowserLanguage();
       const eligibleCountries = ['zh', 'ko', 'vi', 'ru', 'ja'];

@@ -2,9 +2,10 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   /**
-	 * This state is shared between objects that use the mixin.
-	 * It's used to load external scripts only once even if there are multiple instances of a single component.
-	 */
+  * This state is shared between objects that use the mixin.
+  * It's used to load external scripts only once
+  * even if there are multiple instances of a single component.
+  */
   scriptLoadInitialized: {
     mathjax: false,
     twitter: false,
@@ -12,9 +13,9 @@ export default Mixin.create({
   },
 
   /**
-	 * This state is shared between objects that use the mixin.
-	 * It's used to update every instance of given component after external script is loaded.
-	 */
+  * This state is shared between objects that use the mixin.
+  * It's used to update every instance of given component after external script is loaded.
+  */
   scriptLoaded: {
     apester: false,
     mathjax: false,

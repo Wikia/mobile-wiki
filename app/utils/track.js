@@ -5,34 +5,34 @@ import { getGroup } from '../modules/abtest';
 import analyzeTrackedUrl from './analyzeTrackedUrl';
 
 /**
- * @typedef {Object} TrackContext
- * @property {string} a
- * @property {number} n
- */
+  * @typedef {Object} TrackContext
+  * @property {string} a
+  * @property {number} n
+  */
 
 /**
- * @typedef {Object} TrackingParams
- * @property {string} category
- * @property {string} [action]
- * @property {string} [label]
- * @property {number} [value]
- * @property {string} [trackingMethod]
- * @property {boolean} [isNonInteractive]
- * @property {string} [sourceUrl]
- */
+  * @typedef {Object} TrackingParams
+  * @property {string} category
+  * @property {string} [action]
+  * @property {string} [label]
+  * @property {number} [value]
+  * @property {string} [trackingMethod]
+  * @property {boolean} [isNonInteractive]
+  * @property {string} [sourceUrl]
+  */
 
 /**
- * @typedef {Object} TrackerInstance
- * @property {Function} track
- * @property {Function} trackPageView
- * @property {boolean} usesAdsContext
- */
+  * @typedef {Object} TrackerInstance
+  * @property {Function} track
+  * @property {Function} trackPageView
+  * @property {boolean} usesAdsContext
+  */
 
 /**
- * These actions were ported over from legacy Wikia app code:
- * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
- * The property keys were modified to fit style rules
- */
+  * These actions were ported over from legacy Wikia app code:
+  * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
+  * The property keys were modified to fit style rules
+  */
 const trackActions = {
   // Generic add
   add: 'add',
@@ -96,9 +96,9 @@ let context = {
 };
 
 /**
- * @param {TrackingParams} params
- * @returns {void}
- */
+  * @param {TrackingParams} params
+  * @returns {void}
+  */
 function pruneParams(params) {
   delete params.action;
   delete params.label;
@@ -108,17 +108,17 @@ function pruneParams(params) {
 }
 
 /**
- * @param {string} category
- * @returns {boolean}
- */
+  * @param {string} category
+  * @returns {boolean}
+  */
 function isPageView(category) {
   return category.toLowerCase() === 'view';
 }
 
 /**
- * @param {TrackingParams} params
- * @returns {void}
- */
+  * @param {TrackingParams} params
+  * @returns {void}
+  */
 export function track(params) {
   if (!window.location) {
     return;
@@ -133,7 +133,9 @@ export function track(params) {
   const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
   const isNonInteractive = params.isNonInteractive !== false;
   const pvUID = window.pvUID;
-  const { action, label = '', value = 0, trackingMethod = 'both' } = params;
+  const {
+    action, label = '', value = 0, trackingMethod = 'both',
+  } = params;
 
   params = Object.assign({
     ga_action: action,
@@ -170,10 +172,10 @@ export function track(params) {
 }
 
 /**
- * @param {Boolean} isInitialPageView
- * @param {UniversalAnalyticsDimensions} [uaDimensions]
- * @returns {void}
- */
+  * @param {Boolean} isInitialPageView
+  * @param {UniversalAnalyticsDimensions} [uaDimensions]
+  * @returns {void}
+  */
 export function trackPageView(isInitialPageView, uaDimensions) {
   if (typeof FastBoot !== 'undefined') {
     return;
@@ -199,14 +201,14 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 }
 
 /**
- * Function to track an experiment specific event. This is currently
- * done due to limitations in the DW when it comes to segmentation
- * of events based on experiment groups
- *
- * @param {String} experiment
- * @param {TrackingParams} params
- * @returns {void}
- */
+  * Function to track an experiment specific event. This is currently
+  * done due to limitations in the DW when it comes to segmentation
+  * of events based on experiment groups
+  *
+  * @param {String} experiment
+  * @param {TrackingParams} params
+  * @returns {void}
+  */
 export function trackExperiment(experiment, params) {
   const group = getGroup(experiment) || 'CONTROL';
 
@@ -215,9 +217,9 @@ export function trackExperiment(experiment, params) {
 }
 
 /**
- * @param {TrackContext} data
- * @returns {void}
- */
+  * @param {TrackContext} data
+  * @returns {void}
+  */
 export function setTrackContext(data) {
   context = data;
 }

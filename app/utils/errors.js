@@ -10,7 +10,7 @@ const errorsMap = {
 
 const DesignSystemFetchError = defineError({
   name: 'DesignSystemFetchError',
-  message: `Design System data couldn't be fetched`,
+  message: 'Design System data couldn\'t be fetched',
 });
 
 const FetchError = defineError({
@@ -20,38 +20,38 @@ const FetchError = defineError({
 
 const FandomPostsError = defineError({
   name: 'FandomPostsError',
-  message: `Fandom posts couldn't be fetched`,
+  message: 'Fandom posts couldn\'t be fetched',
 });
 
 const WikiVariablesRedirectError = defineError({
   name: 'WikiVariablesRedirectError',
-  message: `The API response was in incorrect format`,
+  message: 'The API response was in incorrect format',
   extends: DontLogMeError,
 });
 
 const UserLoadDetailsFetchError = defineError({
   name: 'UserLoadDetailsFetchError',
-  message: `User details couldn't be fetched`,
+  message: 'User details couldn\'t be fetched',
 });
 
 const UserLoadInfoFetchError = defineError({
   name: 'UserLoadInfoFetchError',
-  message: `User info couldn't be fetched`,
+  message: 'User info couldn\'t be fetched',
 });
 
 const TrackingDimensionsFetchError = defineError({
   name: 'TrackingDimensionsFetchError',
-  message: `Tracking dimensions couldn't be fetched`,
+  message: 'Tracking dimensions couldn\'t be fetched',
 });
 
 const WikiPageFetchError = defineError({
   name: 'WikiPageFetchError',
-  message: `Wiki page couldn't be fetched`,
+  message: 'Wiki page couldn\'t be fetched',
 });
 
 const WikiVariablesFetchError = defineError({
   name: 'WikiVariablesFetchError',
-  message: `Wiki variables couldn't be fetched`,
+  message: 'Wiki variables couldn\'t be fetched',
 });
 
 const getFetchErrorMessage = function (response) {

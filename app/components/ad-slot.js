@@ -1,9 +1,8 @@
-import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
+import { computed, setProperties } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
-import { on } from '@ember/object/evented';
-import { setProperties, computed } from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
 import { isAdEngine3Loaded } from '../modules/ads';
@@ -32,7 +31,7 @@ export default Component.extend(
 
     shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
       return !(this.pageHasFeaturedVideo || this.isAboveTheFold)
-				&& !isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
+    && !isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
     }),
 
     didInsertElement() {
@@ -82,8 +81,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     didEnterViewport() {
       const ads = this.get('ads.module');
       const name = this.name;

@@ -6,9 +6,10 @@ import ArticlePreviewModel from '../models/article-preview';
 import { disableCache } from '../utils/fastboot-caching';
 
 /**
- * Important: This route won't work when running `ember fastboot`, for details see `fastboot-server.js`
- * In order to enable this route you need to run `npm run build` and `npm run fastboot-server`
- */
+  * Important: This route won't work when running `ember fastboot`,
+  * for details see `fastboot-server.js`
+  * In order to enable this route you need to run `npm run build` and `npm run fastboot-server`
+  */
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   {
@@ -32,7 +33,11 @@ export default Route.extend(
 
         disableCache(this.fastboot);
 
-        return model.articleFromMarkup(requestBody.title, requestBody.wikitext, requestBody.CKmarkup)
+        return model.articleFromMarkup(
+          requestBody.title,
+          requestBody.wikitext,
+          requestBody.CKmarkup,
+        )
           .then((articleData) => {
             shoebox.put('articleData', articleData);
             return articleData;
@@ -43,10 +48,10 @@ export default Route.extend(
 
     actions: {
       /**
-			 * @param {*} error
-			 * @param {EmberStates.Transition} transition
-			 * @returns {boolean}
-			 */
+    * @param {*} error
+    * @param {EmberStates.Transition} transition
+    * @returns {boolean}
+    */
       error(error, transition) {
         this.logger.error('Article preview route error', error);
 
@@ -56,8 +61,8 @@ export default Route.extend(
       },
 
       /**
-			 * @returns {Boolean} returns true
-			 */
+    * @returns {Boolean} returns true
+    */
       didTransition() {
         this.controllerFor('application').set('fullPage', true);
         return true;

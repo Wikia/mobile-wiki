@@ -11,12 +11,12 @@ const labels = {
 const gaCategory = 'on-site-notifications';
 
 /**
- * @param {string} label
- * @param {string} action
- * @param {Object} params
- *
- * @returns {Object}
- */
+  * @param {string} label
+  * @param {string} action
+  * @param {Object} params
+  *
+  * @returns {Object}
+  */
 function getTrackingContext(label, action, params) {
   return Object.assign({}, {
     action,
@@ -30,12 +30,12 @@ function getGAValueFromUnreadStatus(isUnread) {
 }
 
 /**
- * @param {string} label
- * @param {string} action
- * @param {Object} params
- *
- * @returns {void}
- */
+  * @param {string} label
+  * @param {string} action
+  * @param {Object} params
+  *
+  * @returns {void}
+  */
 export function track(label, action, params = null) {
   mercuryTrack(
     getTrackingContext(label, action, params),

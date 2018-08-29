@@ -6,8 +6,8 @@ root = true
 [**.js]
 charset = utf-8
 end_of_line = lf
-indent_size = tab
-indent_style = tab
+indent_size = 2
+indent_style = space
 insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true
@@ -29,8 +29,8 @@ wrap_line_length = 0
 [**.html]
 charset = utf-8
 end_of_line = lf
-indent_style = tab
-indent_size = tab
+indent_style = space
+indent_size = 2
 insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true
@@ -47,27 +47,17 @@ trim_trailing_whitespace = true
 [**.scss]
 charset = utf-8
 end_of_line = lf
-indent_style = tab
-indent_size = tab
+indent_style = space
+indent_size = 2
 insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true
-
-[**.ts]
-charset = utf-8
-end_of_line = lf
-indent_size = tab
-indent_style = tab
-insert_final_newline = true
-max_line_length = 120 # Vim
-trim_trailing_whitespace = true
-break_chained_methods = false
 
 [**.hbs]
 charset = utf-8
 end_of_line = lf
-indent_style = tab
-indent_size = tab
+indent_style = space
+indent_size = 2
 insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true

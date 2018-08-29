@@ -1,4 +1,3 @@
-import { isArray } from '@ember/array';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';

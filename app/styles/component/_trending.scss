@@ -1,31 +1,31 @@
 .trending {
-	line-height: 0;
-	padding: 0 $article-horizontal-padding / 3;
+  line-height: 0;
+  padding: 0 $article-horizontal-padding / 3;
 
-	h2 {
-		margin: .5rem 0;
-		padding: 0 $article-horizontal-padding / 3;
-		text-align: left;
-		width: 100%;
-	}
+  h2 {
+    margin: .5rem 0;
+    padding: 0 $article-horizontal-padding / 3;
+    text-align: left;
+    width: 100%;
+  }
 
-	.item-image {
-		background-color: $wds-color-light-c4;
-		padding-top: 56.25%;
-		position: relative;
+  .item-image {
+    background-color: $wds-color-light-c4;
+    padding-top: 56.25%;
+    position: relative;
 
-		svg {
-			@extend %image-placeholder;
-		}
+    svg {
+      @extend %image-placeholder;
+    }
 
-		img {
-			position: absolute;
-			top: 0;
-		}
-	}
+    img {
+      position: absolute;
+      top: 0;
+    }
+  }
 
-	.item-figcaption {
-		color: $wds-color-dark-blue-gray;
-		padding: .25rem;
-	}
+  .item-figcaption {
+    color: $wds-color-dark-blue-gray;
+    padding: .25rem;
+  }
 }

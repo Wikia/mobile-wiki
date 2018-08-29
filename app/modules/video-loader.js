@@ -9,24 +9,24 @@ const playerClassMap = {
 };
 
 /**
- * @class VideoLoader
- */
+  * @class VideoLoader
+  */
 export default class VideoLoader {
   /**
-	 * @param {*} data
-	 * @param noAds bool
-	 * @returns {void}
-	 */
+  * @param {*} data
+  * @param noAds bool
+  * @returns {void}
+  */
   constructor(data, noAds = false) {
     data.noAds = noAds;
     this.data = data;
   }
 
   /**
-	 * Loads player for the video, currently either YouTubePlayer or BasePlayer (default)
-	 *
-	 * @returns {void}
-	 */
+  * Loads player for the video, currently either YouTubePlayer or BasePlayer (default)
+  *
+  * @returns {void}
+  */
   loadPlayerClass() {
     const provider = this.getProviderName();
     const playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider);
@@ -45,37 +45,37 @@ export default class VideoLoader {
   }
 
   /**
-	 * @returns {string}
-	 */
+  * @returns {string}
+  */
   getProviderName() {
     return this.data.provider;
   }
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   onResize() {
     this.player.onResize();
   }
 
   /**
-	 * Creates instance of given class
-	 *
-	 * @param {string} playerClass
-	 * @param {string} provider
-	 * @param {Object} params
-	 * @returns {BasePlayer|YouTubePlayer}
-	 */
+  * Creates instance of given class
+  *
+  * @param {string} playerClass
+  * @param {string} provider
+  * @param {Object} params
+  * @returns {BasePlayer|YouTubePlayer}
+  */
   static createPlayer(playerClass, provider, params) {
     return new playerClass(provider, params);
   }
 
   /**
-	 * @param {string} provider
-	 * @returns {class}
-	 */
+  * @param {string} provider
+  * @returns {class}
+  */
   static getPlayerClassBasedOnProvider(provider) {
-    if (playerClassMap.hasOwnProperty(provider)) {
+    if (playerClassMap[provider]) {
       return playerClassMap[provider];
     }
     return playerClassMap.base;

@@ -1,13 +1,13 @@
 const trackingRouteName = 'special/adengplayerinfo';
 
 /**
- * Prepare data for tracking
- * @param {Object} data
- * @param {string} playerName
- * @param {string} eventName
- * @param {int} errorCode
- * @returns {Object}
- */
+  * Prepare data for tracking
+  * @param {Object} data
+  * @param {string} playerName
+  * @param {string} eventName
+  * @param {int} errorCode
+  * @returns {Object}
+  */
 function prepareData(data, playerName, eventName, errorCode = 0) {
   // Global imports:
   const { context, slotService, utils } = window.Wikia.adEngine;
@@ -39,19 +39,24 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 }
 
 /**
- * Wrapper for player data warehouse tracking
- */
+  * Wrapper for player data warehouse tracking
+  */
 export default class PlayerTracker {
   /**
-	 * Track single event
-	 * @param {Object} data
-	 * @param {string} playerName
-	 * @param {string} eventName
-	 * @param {int} errorCode
-	 * @returns {void}
-	 */
+  * Track single event
+  * @param {Object} data
+  * @param {string} playerName
+  * @param {string} eventName
+  * @param {int} errorCode
+  * @returns {void}
+  */
   static track(data, playerName, eventName, errorCode) {
-    if (!window.Wikia.adEngine || !window.Wikia.adProducts || !data.adProduct || !playerName || !eventName) {
+    if (
+      !window.Wikia.adEngine
+      || !window.Wikia.adProducts
+      || !data.adProduct
+      || !playerName
+      || !eventName) {
       return;
     }
 
