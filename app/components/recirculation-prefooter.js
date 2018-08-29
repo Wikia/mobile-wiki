@@ -40,13 +40,14 @@ export default Component.extend(
     listRendered: null,
     isContLangEn: equal('wikiVariables.language.content', 'en'),
     displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
+    displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
 
     init() {
       this._super(...arguments);
 
-      const viewportTolerance = 100;
+      const viewportTolerance = 200;
 
       this.setProperties({
         viewportTolerance: {
@@ -147,7 +148,9 @@ export default Component.extend(
     },
 
     didEnterViewport() {
-      this.fetchTopArticles();
+      if (this.applicationWrapperVisible) {
+        this.fetchTopArticles();
+      }
 
       if (M.getFromHeadDataStore('noExternals')) {
         return;
