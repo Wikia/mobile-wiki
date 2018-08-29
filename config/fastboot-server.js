@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (function () {
   const config = {
     distPath: 'dist/mobile-wiki',
