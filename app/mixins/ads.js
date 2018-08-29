@@ -12,12 +12,12 @@ export default Mixin.create({
   },
 
   /**
-	 * @param {string} adSlotName
-	 * @param {string} place
-	 * @param {Element} element
-	 * @param {string} waitKey
-	 * @returns {void}
-	 */
+  * @param {string} adSlotName
+  * @param {string} place
+  * @param {Element} element
+  * @param {string} waitKey
+  * @returns {void}
+  */
   appendAd(adSlotName, place, element, waitKey = '') {
     if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
       return;
@@ -64,8 +64,8 @@ export default Mixin.create({
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   injectAds() {
     const firstSection = this.element.parentNode.querySelector('.article-content > h2');
     const articleFooter = document.querySelector('.article-footer');
@@ -104,13 +104,13 @@ export default Mixin.create({
   },
 
   /**
-	 * Load ads for main page.
-	 * InContent ad should be displayed below curated content only when it's available.
-	 * Prefooter ad should be loaded above footer
-	 * only when trending articles and/or trending videos are loaded.
-	 *
-	 * @returns {void}
-	 */
+  * Load ads for main page.
+  * InContent ad should be displayed below curated content only when it's available.
+  * Prefooter ad should be loaded above footer
+  * only when trending articles and/or trending videos are loaded.
+  *
+  * @returns {void}
+  */
   injectMainPageAds() {
     const adsData = this.get('ads.slotNames');
     const curatedContent = this.element.querySelector('.curated-content');
@@ -138,9 +138,9 @@ export default Mixin.create({
   },
 
   /**
-	 * @param {*} adsContext
-	 * @returns {void}
-	 */
+  * @param {*} adsContext
+  * @returns {void}
+  */
   setupAdsContext(adsContext) {
     adsContext.user = {
       isAuthenticated: this.get('currentUser.isAuthenticated'),

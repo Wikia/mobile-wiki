@@ -7,8 +7,8 @@ import searchSuggestionsFixture from './fixtures/search-suggestion';
 import testAFixture from './fixtures/test-page';
 
 /**
- * @returns {void}
- */
+  * @returns {void}
+  */
 export default function () {
   this.passthrough('https://localhost/**');
 
@@ -25,7 +25,7 @@ export default function () {
   this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
 
   this.get('/wikia.php', (schema, request) => {
-    const { controller, method, title, id } = request.queryParams;
+    const { controller, method, title } = request.queryParams;
 
     if (controller === 'MercuryApi') {
       if (method === 'getPage' && title === 'Mercury_CC_Wikia') {
@@ -58,11 +58,13 @@ export default function () {
     if (controller === 'UserApi') {
       return undefined;
     }
-    throw new Error(`Controller or method response isn't yet mocked`);
+    throw new Error('Controller or method response isn\'t yet mocked');
   });
 
   this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
-    const { controller, method, title, query, id } = request.queryParams;
+    const {
+      controller, method, title, query, id,
+    } = request.queryParams;
 
     if (controller === 'MercuryApi') {
       if (method === 'getPage' && title === 'File:Example.jpg') {
@@ -94,7 +96,7 @@ export default function () {
       return schema.searches.first();
     }
 
-    throw new Error(`Controller or method response isn't yet mocked`);
+    throw new Error('Controller or method response isn\'t yet mocked');
   });
 
   this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);

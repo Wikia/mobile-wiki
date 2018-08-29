@@ -5,12 +5,12 @@ import toArray from '../utils/toArray';
 import { isIpAddress } from '../utils/string';
 
 /**
- * @typedef {Object} ArticleCommentThumbnailData
- * @property {string} name
- * @property {string} full
- * @property {string} [capt]
- * @property {string} [type]
- */
+  * @typedef {Object} ArticleCommentThumbnailData
+  * @property {string} name
+  * @property {string} full
+  * @property {string} [capt]
+  * @property {string} [type]
+*/
 
 export default Component.extend({
   i18n: service(),

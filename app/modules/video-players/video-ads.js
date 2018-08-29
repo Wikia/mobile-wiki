@@ -5,11 +5,11 @@ const moatTrackingPartnerCode = 'wikiajwint101173217941';
 const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
 
 /**
- * Calculate depth
- *
- * @param {number} depth
- * @returns {number}
- */
+  * Calculate depth
+  *
+  * @param {number} depth
+  * @returns {number}
+  */
 function calculateRV(depth) {
   const { context } = window.Wikia.adEngine;
 
@@ -19,9 +19,9 @@ function calculateRV(depth) {
 }
 
 /**
- * @param {number} depth
- * @returns {boolean}
- */
+  * @param {number} depth
+  * @returns {boolean}
+  */
 function shouldPlayAdOnNextVideo(depth) {
   const { context } = window.Wikia.adEngine;
   const capping = context.get('options.video.adsOnNextVideoFrequency');
@@ -30,9 +30,9 @@ function shouldPlayAdOnNextVideo(depth) {
 }
 
 /**
- * @param {number} depth
- * @returns {boolean}
- */
+  * @param {number} depth
+  * @returns {boolean}
+  */
 function canAdBePlayed(depth) {
   const isReplay = depth > 1;
 
@@ -40,39 +40,39 @@ function canAdBePlayed(depth) {
 }
 
 /**
- * @param {number} videoDepth
- * @returns {boolean}
- */
+  * @param {number} videoDepth
+  * @returns {boolean}
+  */
 function shouldPlayPreroll(videoDepth) {
   return canAdBePlayed(videoDepth);
 }
 
 /**
- * @param {number} videoDepth
- * @returns {boolean}
- */
+  * @param {number} videoDepth
+  * @returns {boolean}
+  */
 function shouldPlayMidroll(videoDepth) {
   const { context } = window.Wikia.adEngine;
   return context.get('options.video.isMidrollEnabled') && canAdBePlayed(videoDepth);
 }
 
 /**
- * @param {number} videoDepth
- * @returns {boolean}
- */
+  * @param {number} videoDepth
+  * @returns {boolean}
+  */
 function shouldPlayPostroll(videoDepth) {
   const { context } = window.Wikia.adEngine;
   return context.get('options.video.isPostrollEnabled') && canAdBePlayed(videoDepth);
 }
 
 /**
- * @param {Object} slot
- * @param {string} position
- * @param {number} depth
- * @param {number} correlator
- * @param {Object} slotTargeting
- * @returns {string}
- */
+  * @param {Object} slot
+  * @param {string} position
+  * @param {number} depth
+  * @param {number} correlator
+  * @param {Object} slotTargeting
+  * @returns {string}
+  */
 function getVastUrl(slot, position, depth, correlator, slotTargeting) {
   const { buildVastUrl } = window.Wikia.adEngine;
   return buildVastUrl(16 / 9, slot.getSlotName(), {
@@ -86,13 +86,13 @@ function getVastUrl(slot, position, depth, correlator, slotTargeting) {
 }
 
 /**
- * Setup ad events for jw player
- *
- * @param {Object} player
- * @param {Object} options
- * @param {Object} slotTargeting
- * @returns {void}
- */
+  * Setup ad events for jw player
+  *
+  * @param {Object} player
+  * @param {Object} options
+  * @param {Object} slotTargeting
+  * @returns {void}
+  */
 function init(player, options, slotTargeting) {
   const {
     AdSlot,
@@ -162,9 +162,9 @@ function init(player, options, slotTargeting) {
 
     if (shouldPlayPreroll(depth)) {
       /**
-			 * Fill in slot handle
-			 * @returns {void}
-			 */
+    * Fill in slot handle
+    * @returns {void}
+    */
       const fillInSlot = () => {
         player.playAd(getVastUrl(slot, 'preroll', depth, correlator, targeting));
       };

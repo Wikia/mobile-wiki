@@ -1,17 +1,18 @@
-import { inject as service } from '@ember/service';
-import { readOnly, reads, oneWay, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import { on } from '@ember/object/evented';
-import { observer, computed } from '@ember/object';
+import { computed } from '@ember/object';
+import {
+  and, oneWay, readOnly, reads,
+} from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import VideoLoader from '../modules/video-loader';
-import extend from '../utils/extend';
-import { transparentImageBase64 } from '../utils/thumbnail';
 import config from '../config/environment';
-import duration from '../utils/duration';
 import JWPlayerMixin from '../mixins/jwplayer';
 import { inGroup } from '../modules/abtest';
+import VideoLoader from '../modules/video-loader';
+import duration from '../utils/duration';
+import extend from '../utils/extend';
+import { transparentImageBase64 } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
@@ -113,9 +114,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-	 * @param {Object} player
-	 * @returns {void}
-	 */
+   * @param {Object} player
+   * @returns {void}
+   */
   onCreate(player) {
     this.player = player;
 
@@ -156,13 +157,13 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-	 * @returns {void}
-	 */
+   * @returns {void}
+   */
   initVideoPlayer() {
     const model = this.get('model.embed');
     const jsParams = {
       autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
-				&& window.Cookies.get(this.autoplayCookieName) !== '0',
+       && window.Cookies.get(this.autoplayCookieName) !== '0',
       selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
       adTrackingParams: {
         adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
@@ -182,8 +183,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   /**
-	 * @returns {void}
-	 */
+   * @returns {void}
+   */
   destroyVideoPlayer() {
     if (this.player) {
       // FIXME this is temporary solution to fix nested glimmer transaction exception which causes application break
@@ -214,7 +215,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
 
     const currentScrollPosition = window.pageYOffset;
-    const globalNavigationHeight = document.querySelector('.wds-global-navigation').offsetHeight;
+    const globalNavigationElement = document.querySelector('.wds-global-navigation');
+    const globalNavigationHeight = globalNavigationElement ? globalNavigationElement.offsetHeight : 0;
     const requiredScrollDelimiter = this.element.getBoundingClientRect().top + window.scrollY - globalNavigationHeight;
     const isOnScrollActive = this.isOnScrollActive;
     const isInLandscapeMode = this.isInLandscapeMode();

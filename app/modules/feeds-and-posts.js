@@ -3,20 +3,20 @@ import { Promise } from 'rsvp';
 let fpPromise = null;
 
 /**
- * Creates a version string for cache busting
- *
- * @returns {string}
- */
+  * Creates a version string for cache busting
+  *
+  * @returns {string}
+  */
 function version() {
   // Use number of hours passed since Jan. 1, 1970. That way cache is busted at most every hour.
   return Math.floor((new Date()).getTime() / (60 * 60 * 1000));
 }
 
 /**
- * Gets the Feeds & Posts ES Module, by first appending the F&P library to the page
- *
- * @returns {Promise} Promise of module
- */
+  * Gets the Feeds & Posts ES Module, by first appending the F&P library to the page
+  *
+  * @returns {Promise} Promise of module
+  */
 function getModule() {
   if (fpPromise) {
     return fpPromise;
@@ -42,10 +42,10 @@ function getModule() {
 }
 
 /**
- * Loads the feed onto an article page
- *
- * @param {Module} module
- */
+  * Loads the feed onto an article page
+  *
+  * @param {Module} module
+  */
 function loadFeed(module) {
   const container = document.createElement('div');
   container.setAttribute('class', 'feed-posts-module');

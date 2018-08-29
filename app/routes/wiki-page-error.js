@@ -6,10 +6,10 @@ export default Route.extend(
   {
     fastboot: service(),
     /**
-		 * @param {Ember.Controller} controller
-		 * @param {EmberError} error
-		 * @returns {void}
-		 */
+   * @param {Ember.Controller} controller
+   * @param {EmberError} error
+   * @returns {void}
+   */
     renderTemplate(controller, error) {
       switch (error.code) {
         case 404:
@@ -27,8 +27,8 @@ export default Route.extend(
 
     actions: {
       /**
-			 * @returns {void}
-			 */
+    * @returns {void}
+    */
       reloadPage() {
         window.location.reload();
       },

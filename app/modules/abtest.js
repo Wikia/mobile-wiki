@@ -1,9 +1,9 @@
 /**
- * Get the users group for an experiment
- *
- * @param {String} experimentName
- * @returns {String|void}
- */
+  * Get the users group for an experiment
+  *
+  * @param {String} experimentName
+  * @returns {String|void}
+  */
 export function getGroup(experimentName) {
   const AbTest = window.Wikia && window.Wikia.AbTest;
 
@@ -15,12 +15,12 @@ export function getGroup(experimentName) {
 }
 
 /**
- * Check if a user is in a group for an experiment
- *
- * @param {String} experimentName
- * @param {String} groupName
- * @returns {Boolean}
- */
+  * Check if a user is in a group for an experiment
+  *
+  * @param {String} experimentName
+  * @param {String} groupName
+  * @returns {Boolean}
+  */
 export function inGroup(experimentName, groupName) {
   const AbTest = window.Wikia && window.Wikia.AbTest;
 

@@ -1,25 +1,22 @@
-import { inject as service } from '@ember/service';
-import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
-import { isBlank, isEmpty } from '@ember/utils';
 import { observer } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { isBlank, isEmpty } from '@ember/utils';
 import AdsMixin from '../mixins/ads';
-import {
-  getRenderComponentFor,
-  queryPlaceholders,
-} from '../utils/render-component';
-import { track, trackActions } from '../utils/track';
-import toArray from '../utils/toArray';
-import scrollToTop from '../utils/scroll-to-top';
 import getAdsModule from '../modules/ads';
+import { getRenderComponentFor, queryPlaceholders } from '../utils/render-component';
+import scrollToTop from '../utils/scroll-to-top';
+import toArray from '../utils/toArray';
+import { track, trackActions } from '../utils/track';
 
 /**
- * HTMLElement
- * @typedef {Object} HTMLElement
- * @property {Function} scrollIntoViewIfNeeded
- */
+  * HTMLElement
+  * @typedef {Object} HTMLElement
+  * @property {Function} scrollIntoViewIfNeeded
+*/
 
 export default Component.extend(
   AdsMixin,
@@ -205,28 +202,28 @@ export default Component.extend(
     },
 
     /**
-		 * This is due to the fact that we send whole article
-		 * as an HTML and then we have to modify it in the DOM
-		 *
-		 * Ember+Glimmer are not fan of this as they would like to have
-		 * full control over the DOM and rendering
-		 *
-		 * In perfect world articles would come as Handlebars templates
-		 * so Ember+Glimmer could handle all the rendering
-		 *
-		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
-		 */
+   * This is due to the fact that we send whole article
+   * as an HTML and then we have to modify it in the DOM
+   *
+   * Ember+Glimmer are not fan of this as they would like to have
+   * full control over the DOM and rendering
+   *
+   * In perfect world articles would come as Handlebars templates
+   * so Ember+Glimmer could handle all the rendering
+   *
+   * @param {string} content - HTML containing whole article
+   * @returns {void}
+   */
     hackIntoEmberRendering(content) {
       this.element.innerHTML = content;
     },
 
     /**
-		 * Native browser implementation of location hash often gets clobbered by custom rendering,
-		 * so ensure it happens here.
-		 *
-		 * @returns {void}
-		 */
+   * Native browser implementation of location hash often gets clobbered by custom rendering,
+   * so ensure it happens here.
+   *
+   * @returns {void}
+   */
     handleJumpLink() {
       if (window.location.hash) {
         window.location.assign(window.location.hash);
@@ -234,9 +231,9 @@ export default Component.extend(
     },
 
     /**
-		 * @param {Element} element
-		 * @returns {string}
-		 */
+   * @param {Element} element
+   * @returns {string}
+   */
     getTrackingEventLabel(element) {
       if (element) {
         // Mind the order -- 'figcaption' check has to be done before '.article-media-thumbnail',
@@ -264,8 +261,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     destroyChildComponents() {
       this.renderedComponents.forEach((renderedComponent) => {
         renderedComponent.destroy();
@@ -275,12 +272,12 @@ export default Component.extend(
     },
 
     /**
-		 * Creating components for small icons isn't good solution because of performance overhead
-		 * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
-		 * Thus we load them all after the article is rendered
-		 *
-		 * @returns {void}
-		 */
+   * Creating components for small icons isn't good solution because of performance overhead
+   * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+   * Thus we load them all after the article is rendered
+   *
+   * @returns {void}
+   */
     loadIcons() {
       toArray(this.element.querySelectorAll('.article-media-icon[data-src]')).forEach((element) => {
         element.src = element.getAttribute('data-src');
@@ -288,8 +285,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     replaceInfoboxesWithInfoboxComponents() {
       toArray(this.element.querySelectorAll('.portable-infobox')).forEach((element) => {
         this.renderedComponents.push(
@@ -312,8 +309,8 @@ export default Component.extend(
       );
     },
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     replaceWikiaWidgetsWithComponents() {
       toArray(this.element.querySelectorAll('[data-wikia-widget]')).forEach((element) => {
         this.replaceWikiaWidgetWithComponent(element);
@@ -321,9 +318,9 @@ export default Component.extend(
     },
 
     /**
-		 * @param {Element} element
-		 * @returns {void}
-		 */
+   * @param {Element} element
+   * @returns {void}
+   */
     replaceWikiaWidgetWithComponent(element) {
       const widgetData = element.dataset;
       const widgetType = widgetData.wikiaWidget;
@@ -343,9 +340,9 @@ export default Component.extend(
     },
 
     /**
-		 * @param {string} widgetType
-		 * @returns {string|null}
-		 */
+   * @param {string} widgetType
+   * @returns {string|null}
+   */
     getWidgetComponentName(widgetType) {
       let componentName;
 
@@ -380,8 +377,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     handleWikiaWidgetWrappers() {
       toArray(this.element.querySelectorAll('script[type="x-wikia-widget"]')).forEach((element) => {
         element.outerHTML = element.innerHTML;
@@ -389,10 +386,10 @@ export default Component.extend(
     },
 
     /**
-		 * handles expanding long tables, code taken from WikiaMobile
-		 *
-		 * @returns {void}
-		 */
+   * handles expanding long tables, code taken from WikiaMobile
+   *
+   * @returns {void}
+   */
     handleInfoboxes() {
       const shortClass = 'short';
       const infoboxes = this.element.querySelectorAll('table[class*="infobox"] tbody');
@@ -405,8 +402,8 @@ export default Component.extend(
           .forEach((element) => {
             element.classList.add(shortClass);
             element.insertAdjacentHTML('beforeend',
-              `<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">`
-							+ `<use xlink:href="#chevron"></use></svg></td></tr>`);
+              '<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">'
+       + '<use xlink:href="#chevron"></use></svg></td></tr>');
 
             element.addEventListener('click', (event) => {
               const target = event.target;
@@ -420,10 +417,10 @@ export default Component.extend(
     },
 
     /**
-		 * Opens a parent section of passed element if it's closed
-		 * @param {Element} element
-		 * @returns {void}
-		 */
+   * Opens a parent section of passed element if it's closed
+   * @param {Element} element
+   * @returns {void}
+   */
     openSection(element) {
       if (element) {
         const section = element.closest('section[id*="section"]');
@@ -439,17 +436,17 @@ export default Component.extend(
     },
 
     /**
-		 * Handles opening sections when click event occurs on references
-		 * @param {MouseEvent} event
-		 * @returns {void}
-		 */
+   * Handles opening sections when click event occurs on references
+   * @param {MouseEvent} event
+   * @returns {void}
+   */
     handleReferences(event) {
       const { target } = event;
       const citeNoteSelector = '#cite_note-';
       const citeRefSelector = '#cite_ref-';
 
       if (target.nodeName === 'A'
-				&& (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+    && (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
       ) {
         event.preventDefault();
         const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));
@@ -463,8 +460,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     handleTables() {
       const tables = this.element.querySelectorAll('table');
 

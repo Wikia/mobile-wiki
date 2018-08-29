@@ -11,8 +11,8 @@ export default Component.extend({
   action() {},
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didInsertElement() {
     const expiry = this.get('alert.expiry');
     const onInsertElement = this.get('alert.callbacks.onInsertElement');
@@ -27,16 +27,16 @@ export default Component.extend({
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   willDestroyElement() {
     cancel(this.timeout);
   },
 
   actions: {
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     close() {
       const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
 
@@ -49,8 +49,8 @@ export default Component.extend({
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   dismissNotification() {
     this.action(this.alert);
   },

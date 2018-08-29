@@ -6,17 +6,17 @@ import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 
 /**
- * @param {string} lang
- * @returns {string}
- */
+  * @param {string} lang
+  * @returns {string}
+  */
 function getCacheKey(lang) {
   return `${lang}-WikiaInYourLang`;
 }
 
 /**
- * @param {string} browserLang
- * @returns {object}
- */
+  * @param {string} browserLang
+  * @returns {object}
+  */
 function getFromCache(browserLang) {
   const key = getCacheKey(browserLang);
   const valueJson = localStorageConnector.getItem(key) || '{}';
@@ -39,8 +39,8 @@ export default EmberObject.extend(LanguagesMixin, {
   nativeDomain: null,
 
   /**
-	 * @returns {RSVP.Promise}
-	 */
+  * @returns {RSVP.Promise}
+  */
   load() {
     const browserLang = this.getBrowserLanguage();
     const model = getFromCache(browserLang);

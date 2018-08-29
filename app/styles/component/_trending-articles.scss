@@ -1,22 +1,22 @@
 $trending-articles-image-spacing: 8px;
 
 .trending-articles {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-	// this pseudoelement lets the last inline item to be justified to the right if it's even
-	&::after {
-		content: '';
-		width: calc(50% - #{$trending-articles-image-spacing / 2});
-	}
+  // this pseudoelement lets the last inline item to be justified to the right if it's even
+  &::after {
+    content: '';
+    width: calc(50% - #{$trending-articles-image-spacing / 2});
+  }
 }
 
 .trending-articles-item {
-	margin: 0 0 1.5rem;
-	width: calc(50% - #{$trending-articles-image-spacing / 2});
+  margin: 0 0 1.5rem;
+  width: calc(50% - #{$trending-articles-image-spacing / 2});
 
-	img {
-		width: 100%;
-	}
+  img {
+    width: 100%;
+  }
 }

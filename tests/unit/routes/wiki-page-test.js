@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import Service from '@ember/service';
-import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
 const model = EmberObject.create({
@@ -35,8 +35,6 @@ module('Unit | Route | wiki page', (hooks) => {
       keywords: 'The Fallout wiki - Fallout: New Vegas and more,MediaWiki,fallout,Kermit The Frog',
     };
 
-    let headData;
-
     mock.setProperties({
       removeServerTags() {
       },
@@ -57,7 +55,7 @@ module('Unit | Route | wiki page', (hooks) => {
     });
 
     mock.setDynamicHeadTags(model);
-    headData = mock.get('headData');
+    const headData = mock.get('headData');
 
     assert.equal(headData.canonical, expectedHeadTags.canonical);
     assert.equal(headData.description, expectedHeadTags.description);
@@ -129,11 +127,9 @@ module('Unit | Route | wiki page', (hooks) => {
       controllerName: 'main-page',
     };
 
-    let handler;
-
     model.isCuratedMainPage = true;
 
-    handler = mock.getHandler(model);
+    const handler = mock.getHandler(model);
 
     assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
     assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
@@ -145,8 +141,7 @@ module('Unit | Route | wiki page', (hooks) => {
     const mock = this.owner.lookup('route:wikiPage');
     mock.controllerFor = () => (
       {
-        send: () => {
-        },
+        send() {},
       }
     );
 

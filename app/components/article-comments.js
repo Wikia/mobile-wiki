@@ -1,16 +1,15 @@
-import { inject as service } from '@ember/service';
-import { bool, equal, not } from '@ember/object/computed';
 import Component from '@ember/component';
-import { computed, observer, get } from '@ember/object';
+import { computed, get, observer } from '@ember/object';
+import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
-import { getOwner } from '@ember/application';
-import { track, trackActions } from '../utils/track';
-import scrollToTop from '../utils/scroll-to-top';
+import { inject as service } from '@ember/service';
 import fetch from '../utils/mediawiki-fetch';
+import scrollToTop from '../utils/scroll-to-top';
+import { track, trackActions } from '../utils/track';
 
 /**
- * Component that displays article comments
- */
+  * Component that displays article comments
+*/
 export default Component.extend(
   {
     preserveScroll: service(),
@@ -38,8 +37,8 @@ export default Component.extend(
     }),
 
     /**
-		 * if articleId changes, resets component state
-		 */
+      * if articleId changes, resets component state
+    */
     articleIdObserver: observer('articleId', function () {
       this.setProperties({
         page: null,
@@ -53,12 +52,12 @@ export default Component.extend(
     }),
 
     /**
-		 * If we recieved page on didRender
-		 * that means there is a query param comments_page
-		 * and we should load comments and scroll to them
-		 *
-		 * @returns {void}
-		 */
+     * If we recieved page on didRender
+     * that means there is a query param comments_page
+     * and we should load comments and scroll to them
+     *
+     * @returns {void}
+    */
     didInsertElement() {
       const page = this.get('page');
 
@@ -76,8 +75,8 @@ export default Component.extend(
 
     actions: {
       /**
-			 * @returns {void}
-			 */
+        * @returns {void}
+      */
       nextPage() {
         const page = parseInt(this.get('page'), 10);
 
@@ -87,8 +86,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+        * @returns {void}
+      */
       prevPage() {
         const page = parseInt(this.get('page'), 10);
 
@@ -98,8 +97,8 @@ export default Component.extend(
       },
 
       /**
-			 * @returns {void}
-			 */
+        * @returns {void}
+      */
       toggleComments() {
         const page = this.get('page');
 

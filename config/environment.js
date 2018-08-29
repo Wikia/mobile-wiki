@@ -1,5 +1,5 @@
 module.exports = function (environment) {
-  let ENV = {
+  const ENV = {
     modulePrefix: 'mobile-wiki',
     environment,
     locationType: 'router-scroll',

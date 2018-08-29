@@ -1,15 +1,15 @@
 .user-avatar {
-	display: inline-block;
+  display: inline-block;
 }
 
 @media #{$wds-breakpoint-m-down} {
-	.user-avatar {
-		.avatar-username {
-			@include ellipsis;
+  .user-avatar {
+    .avatar-username {
+      @include ellipsis;
 
-			display: inline-block;
-			max-width: 140px;
-			vertical-align: middle;
-		}
-	}
+      display: inline-block;
+      max-width: 140px;
+      vertical-align: middle;
+    }
+  }
 }

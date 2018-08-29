@@ -1,11 +1,10 @@
-import { inject as service } from '@ember/service';
-import { alias, readOnly, or, equal } from '@ember/object/computed';
-import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
 import Component from '@ember/component';
+import { equal, readOnly } from '@ember/object/computed';
+import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import HeadroomMixin from '../mixins/headroom';
-import { track, trackActions } from '../utils/track';
 import { standalone } from '../utils/browser';
+import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
   HeadroomMixin,
@@ -40,8 +39,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     willInsertElement() {
       if (this.shouldShowFandomAppSmartBanner) {
         // this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
@@ -51,8 +50,8 @@ export default Component.extend(
     },
 
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     checkForHiding() {
       const smartBannerService = this.smartBanner;
 

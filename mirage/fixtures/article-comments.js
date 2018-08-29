@@ -6,12 +6,16 @@ export default {
         text: '<p>fdfghtwfgfd<\/p>',
         created: 1533551733,
         userName: 'Ryba777',
-      }, { id: 463, text: '<p>fdsafdsafdsafdsa<\/p>', created: 1533551718, userName: 'Ryba777' }, {
+      }, {
+        id: 463, text: '<p>fdsafdsafdsafdsa<\/p>', created: 1533551718, userName: 'Ryba777',
+      }, {
         id: 462,
         text: '<p>fdsfadsfsafdsa<\/p>',
         created: 1533551690,
         userName: 'Ryba777',
-      }, { id: 461, text: '<p>fdsafdsafdsa<\/p>', created: 1533551679, userName: 'Ryba777' }, {
+      }, {
+        id: 461, text: '<p>fdsafdsafdsa<\/p>', created: 1533551679, userName: 'Ryba777',
+      }, {
         id: 460,
         text: '<p>fdasfdasfdsa<\/p>',
         created: 1533551669,
@@ -21,7 +25,9 @@ export default {
         text: '<p>fdsafdsafds<\/p>',
         created: 1533551646,
         userName: 'Ryba777',
-        comments: [{ id: 459, text: '<p>dfsafdsafdsa<\/p>', created: 1533551658, userName: 'Ryba777' }],
+        comments: [{
+          id: 459, text: '<p>dfsafdsafdsa<\/p>', created: 1533551658, userName: 'Ryba777',
+        }],
       }, {
         id: 454,
         text: '<p>dsafdsa<\/p>',
@@ -32,7 +38,9 @@ export default {
           text: '<p>fdsafdsafdsaf<\/p>',
           created: 1533551596,
           userName: 'Ryba777',
-        }, { id: 456, text: '<p>fdsafdsafdsa<\/p>', created: 1533551610, userName: 'Ryba777' }, {
+        }, {
+          id: 456, text: '<p>fdsafdsafdsa<\/p>', created: 1533551610, userName: 'Ryba777',
+        }, {
           id: 457,
           text: '<p>fdsafdsafdsafsda<\/p>',
           created: 1533551621,

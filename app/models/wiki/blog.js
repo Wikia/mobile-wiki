@@ -4,9 +4,9 @@ export default BaseModel.extend({
   comments: 0,
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     this._super(...arguments);
 

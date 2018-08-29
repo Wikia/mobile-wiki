@@ -7,24 +7,24 @@ import UserModel from '../models/user';
 import config from '../config/environment';
 
 /**
- * @typedef {Object} QueryUserInfoResponse
- * @property {QueryUserInfoResponseQuery} query
- */
+  * @typedef {Object} QueryUserInfoResponse
+  * @property {QueryUserInfoResponseQuery} query
+  */
 
 /**
- * @typedef {Object} QueryUserInfoResponseQuery
- * @property {QueryUserInfoResponseQueryUserInfo} userinfo
- */
+  * @typedef {Object} QueryUserInfoResponseQuery
+  * @property {QueryUserInfoResponseQueryUserInfo} userinfo
+  */
 
 /**
- * @typedef {Object} QueryUserInfoResponseQueryUserInfo
- * @property {string} [anon]
- * @property {number} id
- * @property {string} name
- * @property {string[]} rights
- * @property {Ember.Object} permissions
- * @property {*} options
- */
+  * @typedef {Object} QueryUserInfoResponseQueryUserInfo
+  * @property {string} [anon]
+  * @property {number} id
+  * @property {string} name
+  * @property {string[]} rights
+  * @property {Ember.Object} permissions
+  * @property {*} options
+  */
 
 export default Service.extend({
   fastboot: service(),
@@ -39,8 +39,8 @@ export default Service.extend({
   userId: null,
 
   /**
-	 * @returns {RSVP}
-	 */
+  * @returns {RSVP}
+  */
   initializeUserData(userId, host = null) {
     this.set('userId', userId);
 
@@ -48,7 +48,6 @@ export default Service.extend({
       const shoebox = this.get('fastboot.shoebox');
 
       if (this.get('fastboot.isFastBoot')) {
-
         return UserModel.create(getOwner(this).ownerInjection())
           .find({
             accessToken: this.get('fastboot.request.cookies.access_token'),

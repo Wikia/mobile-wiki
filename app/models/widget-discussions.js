@@ -7,9 +7,9 @@ import config from '../config/environment';
 import { getQueryString } from '../utils/url';
 
 /**
- * @param {string} [path='']
- * @returns {string}
- */
+  * @param {string} [path='']
+  * @returns {string}
+  */
 function getDiscussionServiceUrl(path = '') {
   return `${config.APP.servicesExternalHost}/discussion${path}`;
 }
@@ -20,11 +20,11 @@ export default EmberObject.extend(
     wikiUrls: service(),
 
     /**
-		 * @param {array|string} [categories=[]]
-		 * @param {string} [sortBy='trending']
-		 * @param {integer} [limit=20]
-		 * @returns {Ember.RSVP.Promise}
-		 */
+   * @param {array|string} [categories=[]]
+   * @param {string} [sortBy='trending']
+   * @param {integer} [limit=20]
+   * @returns {Ember.RSVP.Promise}
+   */
     find(categories = [], sortBy = 'trending', limit = 20) {
       const queryString = getQueryString({
         forumId: categories instanceof Array ? categories : [categories],
@@ -99,9 +99,9 @@ export default EmberObject.extend(
     },
 
     /**
-		 * @param {*} post
-		 * @returns {void}
-		 */
+   * @param {*} post
+   * @returns {void}
+   */
     upvote(post) {
       const hasUpvoted = post.get('userData.hasUpvoted');
       const method = hasUpvoted ? 'delete' : 'post';
