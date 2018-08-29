@@ -1,3 +1,3 @@
-{{#if isUserLoggedIn}}
+{{#if isUserLoggedIn && cookieSyncEnabled}}
 	<iframe src="https://{{servicesDomain}}/autologin/frame"></iframe>
 {{/if}}
