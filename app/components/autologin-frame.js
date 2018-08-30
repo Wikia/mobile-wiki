@@ -15,6 +15,6 @@ export default Component.extend({
       return false;
     }
 
-    return typeof window.Cookies.get('autologin_done') !== 'undefined' && this.currentUser.isAuthenticated;
+    return typeof window.Cookies.get('autologin_done') === 'undefined' && this.currentUser.isAuthenticated;
   }),
 });
