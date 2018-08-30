@@ -9,7 +9,7 @@ export default Component.extend({
 	tagName: '',
 	servicesDomain: computed(() => config.APP.servicesExternalHost),
 
-	cookieSyncEnabled: computed(() => {
+	cookieSyncEnabled: computed(function () {
 		if (this.fastboot.isFastBoot) {
 			// Don't create iframe in fastboot to avoid duplicate service call
 			return false;
