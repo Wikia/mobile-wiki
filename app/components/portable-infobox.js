@@ -1,9 +1,9 @@
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import offset from '@wikia/ember-fandom/utils/offset';
 import RenderComponentMixin from '../mixins/render-component';
 import { track, trackActions } from '../utils/track';
-import offset from '../utils/offset';
 
 export default Component.extend(
   RenderComponentMixin,

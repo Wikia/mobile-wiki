@@ -46,7 +46,7 @@ module.exports = {
   },
 
   after(app) {
-    app.use((err, req, res) => {
+    app.use((err, req, res, next) => {
       if (err) {
         // Handle errors that don't go to FastBoot, like Bad Request etc.
         const statusCode = Math.max(res.statusCode, err.statusCode || 500);
@@ -61,6 +61,8 @@ module.exports = {
         }
 
         res.sendStatus(statusCode);
+      } else {
+        next();
       }
     });
   },
