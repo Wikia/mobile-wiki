@@ -29,23 +29,22 @@ export default EmberObject.extend({
       return all([
         WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),
         UserModel.create(ownerInjection).getUserId(accessToken),
-      ]).then(([wikiVariablesData, userId]) => {
+      ]).then(([wikiVariables, userId]) => {
         shoebox.put('userId', userId);
 
         return hashSettled({
           currentUser: currentUser.initializeUserData(userId, host),
           navigation: NavigationModel.create(ownerInjection).fetchAll(
             host,
-            wikiVariablesData.id,
-            uselangParam || wikiVariablesData.language.content,
+            wikiVariables.id,
+            uselangParam || wikiVariables.language.content,
           ),
           trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
             !userId,
             host,
             title,
           ),
-          wikiVariablesData,
-        }).then(({ navigation, wikiVariablesData, trackingDimensions }) => {
+        }).then(({ navigation, trackingDimensions }) => {
           // We only want to fail application if we don't have the navigation data
           if (navigation.state === 'rejected') {
             throw navigation.reason;
@@ -53,7 +52,7 @@ export default EmberObject.extend({
 
           const applicationData = {
             navigation: navigation.value,
-            wikiVariables: wikiVariablesData.value,
+            wikiVariables,
           };
 
           shoebox.put('applicationData', applicationData);
