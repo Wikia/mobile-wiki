@@ -33,7 +33,8 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     timestamp: new Date().getTime(),
     price: '',
     browser: `${utils.client.getOperatingSystem()} ${utils.client.getBrowser()}`,
-    audio: data.withAudio ? 1 : 0,
+    ctp: data.withCtp !== undefined ? data.withCtp : '',
+    audio: data.withAudio !== undefined ? data.withAudio : '',
     video_id: data.videoId || '',
   };
 }

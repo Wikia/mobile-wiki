@@ -63,6 +63,24 @@ export default class JWPlayerTracker {
     Object.keys(trackingEventsMap).forEach((playerEvent) => {
       player.on(playerEvent, (event) => {
         let errorCode;
+        const vastParams = event.tag ? vastParser.parse(event.tag) : null;
+
+        if (vastParams && vastParams.customParams) {
+          if (
+            this.trackingParams.withCtp === undefined
+            && vastParams.customParams.ctp !== undefined
+          ) {
+            this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes' ? 1 : 0;
+          }
+
+          if (
+            this.trackingParams.withAudio === undefined
+            && vastParams.customParams.audio !== undefined
+          ) {
+            this.trackingParams.withAudio = vastParams.customParams.audio === 'yes' ? 1 : 0;
+          }
+        }
+
         if (playerEvent === 'adError') {
           errorCode = event && event.code;
         }
