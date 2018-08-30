@@ -5,10 +5,16 @@ import config from '../config/environment';
 
 export default Component.extend({
   currentUser: service(),
+  fastboot: service(),
   tagName: '',
   servicesDomain: computed(() => config.APP.servicesExternalHost),
 
   cookieSyncEnabled: computed(() => {
-    return window.Cookies.get('autologin_done') !== '1' && this.currentUser.isAuthenticated;
+	if (this.fastboot.isFastBoot) {
+		// Don't create iframe in fastboot to avoid duplicate service call
+		return false;
+	  }
+
+	  return typeof window.Cookies.get('autologin_done') !== 'undefined' && this.currentUser.isAuthenticated;
   }),
 });
