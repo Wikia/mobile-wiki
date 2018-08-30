@@ -28,6 +28,8 @@ module.exports = function (req, res, next) {
 
   if (!vendorAssetPath) {
     try {
+      // We do want to load this file in runtime and have a fallback if it does not exist
+      /* eslint global-require: 0 */
       vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
     } catch (exception) {
       vendorAssetPath = 'assets/vendor.js';
