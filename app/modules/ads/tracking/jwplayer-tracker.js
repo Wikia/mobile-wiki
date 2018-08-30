@@ -67,17 +67,17 @@ export default class JWPlayerTracker {
 
         if (vastParams && vastParams.customParams) {
           if (
-            this.trackingParams.withCtp === undefined
-            && vastParams.customParams.ctp !== undefined
+            vastParams.customParams.ctp !== undefined
+            && this.trackingParams.withCtp !== (vastParams.customParams.ctp === 'yes')
           ) {
-            this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes' ? 1 : 0;
+            this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes';
           }
 
           if (
-            this.trackingParams.withAudio === undefined
-            && vastParams.customParams.audio !== undefined
+            vastParams.customParams.audio !== undefined
+            && this.trackingParams.withAudio !== (vastParams.customParams.audio === 'yes')
           ) {
-            this.trackingParams.withAudio = vastParams.customParams.audio === 'yes' ? 1 : 0;
+            this.trackingParams.withAudio = vastParams.customParams.audio === 'yes';
           }
         }
 
