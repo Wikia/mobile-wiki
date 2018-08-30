@@ -134,6 +134,15 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
+  // Need to be placed always after all lABrador wgVars checks
+  const labradorDfp = adProductsUtils.getDfpLabradorKeyvals(
+    instantGlobals.wgAdDriverLABradorDfpKeyvals,
+  );
+
+  if (labradorDfp) {
+    context.set('targeting.labrador', labradorDfp);
+  }
+
   slots.setupIdentificators();
   slots.setupStates();
   slots.setupIncontentPlayer();
