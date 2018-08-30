@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { throttle } from '@ember/runloop';
 
 import scrollIntoView from '../utils/scroll-into-view';
+import toArray from '../utils/toArray';
 
 const displayedThumbnailsBatchSize = 60;
 const thumbnailSize = 54;
@@ -43,7 +44,7 @@ export default Component.extend({
   },
 
   updateActiveThumbnail() {
-    this.element.querySelectorAll('.lightbox-thumbnail-active').forEach((item) => {
+    toArray(this.element.querySelectorAll('.lightbox-thumbnail-active')).forEach((item) => {
       item.classList.remove('lightbox-thumbnail-active');
     });
 
