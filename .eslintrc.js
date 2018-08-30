@@ -50,11 +50,16 @@ module.exports = {
     "import/no-extraneous-dependencies": 0,
 
     /*
-     not all imports that we have fully map to folder structure
-     biggest offenders are tests that do use absolute path to a test that is being tested
+     not all imports that we have, fully map to the folder structure
+     biggest offenders are tests that do use absolute paths to a module that is being tested
     */
     "import/no-unresolved": 0,
     "no-param-reassign": 0,
+    /*
+     Destructurring arrays adds .5kb per module
+     We should enable it when we drop support for ios 9
+     as ios10 supports param destructuring
+    */
     "prefer-destructuring": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [

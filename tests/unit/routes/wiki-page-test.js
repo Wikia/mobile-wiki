@@ -71,7 +71,7 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'article',
         controllerName: 'article',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 0,
       }),
     },
@@ -80,7 +80,7 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'article',
         controllerName: 'article',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 112,
       }),
     },
@@ -89,13 +89,13 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'category',
         controllerName: 'category',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 14,
       }),
     },
     {
       expectedHandler: null,
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 200,
       }),
     }];
