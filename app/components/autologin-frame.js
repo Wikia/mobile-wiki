@@ -10,9 +10,9 @@ export default Component.extend({
   servicesDomain: computed(() => config.APP.servicesExternalHost),
 
   cookieSyncEnabled: computed(() => {
-	if (this.fastboot.isFastBoot) {
-		// Don't create iframe in fastboot to avoid duplicate service call
-		return false;
+    if (this.fastboot.isFastBoot) {
+      // Don't create iframe in fastboot to avoid duplicate service call
+      return false;
 	  }
 
 	  return typeof window.Cookies.get('autologin_done') !== 'undefined' && this.currentUser.isAuthenticated;
