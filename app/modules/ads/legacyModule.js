@@ -467,11 +467,11 @@ class Ads {
   }
 
   getAdSlotComponentAttributes(slotName) {
-    const config = this.adSlotsConfig[slotName] || {};
+    const adSlotConfig = this.adSlotsConfig[slotName] || {};
 
     return {
-      disableManualInsert: !!config.disableManualInsert,
-      isAboveTheFold: !!config.isAboveTheFold,
+      disableManualInsert: !!adSlotConfig.disableManualInsert,
+      isAboveTheFold: !!adSlotConfig.isAboveTheFold,
       name: slotName,
       hiddenClassName: 'hidden',
     };

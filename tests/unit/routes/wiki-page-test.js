@@ -104,8 +104,8 @@ module('Unit | Route | wiki page', (hooks) => {
       contentNamespaces: [0, 112],
     });
 
-    testCases.forEach(({ expectedHandler, model }) => {
-      const handler = mock.getHandler(model);
+    testCases.forEach(({ expectedHandler, testModel }) => {
+      const handler = mock.getHandler(testModel);
 
       if (handler) {
         assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');

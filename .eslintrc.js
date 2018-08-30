@@ -29,14 +29,32 @@ module.exports = {
     Wikia: true
   },
   rules: {
+    /*
+     It is common in Ember world to do
+     this._super(...arguments);
+     therefore we can't enable prefer-rest-params and no-underscore-dangle
+    */
     "prefer-rest-params": 0,
     "no-underscore-dangle": 0,
+
+    /*
+     This certainly helps with debugging but would make code very verbose now
+     I think this should be enabled when ember-decorators or ember-typescript is used
+    */
     "func-names": 0,
 
+    /*
+     in Ember world there are some wrapper packages that would violate this rule
+     e.g. you install ember-sinon but you can import it via sinon name
+    */
     "import/no-extraneous-dependencies": 0,
+
+    /*
+     not all imports that we have fully map to folder structure
+     biggest offenders are tests that do use absolute path to a test that is being tested
+    */
     "import/no-unresolved": 0,
     "no-param-reassign": 0,
-    "no-shadow": 0,
     "prefer-destructuring": 0,
 
     "ember/avoid-leaking-state-in-ember-objects": [2, [
