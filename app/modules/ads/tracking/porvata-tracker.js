@@ -2,9 +2,9 @@ const trackingRouteName = 'special/adengplayerinfo';
 
 export default {
   /**
-	 * Checks whether tracker is enabled via instant global
-	 * @returns {boolean}
-	 */
+  * Checks whether tracker is enabled via instant global
+  * @returns {boolean}
+  */
   isEnabled() {
     // Global imports:
     const { context } = window.Wikia.adEngine;
@@ -14,12 +14,12 @@ export default {
   },
 
   /**
-	 * Porvata event callback
-	 * @param {string} eventName
-	 * @param {Object} playerParams
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * Porvata event callback
+  * @param {string} eventName
+  * @param {Object} playerParams
+  * @param {Object} data
+  * @returns {void}
+  */
   onEvent(eventName, playerParams, data) {
     // Global imports:
     const { context, slotService } = window.Wikia.adEngine;

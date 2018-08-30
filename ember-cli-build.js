@@ -1,3 +1,5 @@
+'use strict';
+
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const stew = require('broccoli-stew');
@@ -5,13 +7,13 @@ const SVGStore = require('broccoli-svgstore');
 const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 
 /**
- * We override Ember's private method to remove files from the final build
- * which are added by addons but not used by us
- *
- * HEADS UP!
- * If you update ember-cli and something breaks,
- * the first thing you should try is to comment this out
- */
+  * We override Ember's private method to remove files from the final build
+  * which are added by addons but not used by us
+  *
+  * HEADS UP!
+  * If you update ember-cli and something breaks,
+  * the first thing you should try is to comment this out
+  */
 EmberApp.prototype.addonTreesFor = function (type) {
   return this.project.addons.map((addon) => {
     if (addon.treeFor) {
@@ -63,12 +65,12 @@ module.exports = function (defaults) {
       replaceExtensions: ['html', 'css', 'js', 'hbs'],
     },
     inlineContent: {
-      'fastboot-inline-scripts-body-bottom': `node_modules/mercury-shared/dist/body-bottom.js`,
-      'fastboot-inline-scripts': `node_modules/mercury-shared/dist/head.js`,
-      'fastboot-inline-scripts-tracking': `node_modules/mercury-shared/dist/tracking.js`,
-      'fastboot-inline-scripts-load-svg': `node_modules/mercury-shared/dist/load-svg.js`,
+      'fastboot-inline-scripts-body-bottom': 'node_modules/mercury-shared/dist/body-bottom.js',
+      'fastboot-inline-scripts': 'node_modules/mercury-shared/dist/head.js',
+      'fastboot-inline-scripts-tracking': 'node_modules/mercury-shared/dist/tracking.js',
+      'fastboot-inline-scripts-load-svg': 'node_modules/mercury-shared/dist/load-svg.js',
       'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
-      'tracking-liftigniter': `node_modules/design-system/vendor/inline-scripts/tracking-liftigniter.js`,
+      'tracking-liftigniter': 'node_modules/design-system/vendor/inline-scripts/tracking-liftigniter.js',
       'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,

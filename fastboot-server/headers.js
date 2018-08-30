@@ -21,14 +21,16 @@ module.exports = function (req, res, next) {
   if (req.headers['fastly-ssl']) {
     res.setHeader('content-security-policy', 'upgrade-insecure-requests');
     const cspPolicy = 'default-src https: \'self\' data: blob:; '
-			+ 'script-src https: \'self\' data: \'unsafe-inline\' \'unsafe-eval\' blob:; '
-			+ 'style-src https: \'self\' \'unsafe-inline\' blob:; ';
+   + 'script-src https: \'self\' data: \'unsafe-inline\' \'unsafe-eval\' blob:; '
+   + 'style-src https: \'self\' \'unsafe-inline\' blob:; ';
     const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
     res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
   }
 
   if (!vendorAssetPath) {
     try {
+      // We do want to load this file in runtime and have a fallback if it does not exist
+      /* eslint global-require: 0 */
       vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
     } catch (exception) {
       vendorAssetPath = 'assets/vendor.js';

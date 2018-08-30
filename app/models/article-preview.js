@@ -7,15 +7,15 @@ export default EmberObject.extend({
   wikiUrls: service(),
 
   /**
-	 * prepare POST request body before sending to API
-	 * Encode all params to be able to retrieve correct
-	 * values from the text containing for example '&'
-	 *
-	 * @param {string} title title of edited article
-	 * @param {string} wikitext editor wikitext
-	 * @param {string} CKmarkup CK editor markup
-	 * @returns {Promise}
-	 */
+  * prepare POST request body before sending to API
+  * Encode all params to be able to retrieve correct
+  * values from the text containing for example '&'
+  *
+  * @param {string} title title of edited article
+  * @param {string} wikitext editor wikitext
+  * @param {string} CKmarkup CK editor markup
+  * @returns {Promise}
+  */
   articleFromMarkup(title, wikitext, CKmarkup) {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
@@ -26,7 +26,8 @@ export default EmberObject.extend({
         title,
       },
     });
-    const formData = new FastBoot.require('form-data')();
+    const FormDataClass = FastBoot.require('form-data');
+    const formData = new FormDataClass();
 
     if (wikitext) {
       formData.append('wikitext', wikitext);

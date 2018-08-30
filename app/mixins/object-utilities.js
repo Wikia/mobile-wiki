@@ -3,21 +3,20 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   /**
-	 * @returns {Object}
-	 */
+  * @returns {Object}
+  */
   toPlainObject() {
-    const keys = [];
+    const keys = Object.entries(this).map((property) => {
+      const key = property[0];
+      const value = property[1];
 
-    for (const key in this) {
-      if (this.hasOwnProperty(key)) {
-        const value = this[key];
-
-        // ignore useless items
-        if (value !== 'toString' && typeOf(value) !== 'function' && typeof value !== 'function') {
-          keys.push(key);
-        }
+      // ignore useless items
+      if (value !== 'toString' && typeOf(value) !== 'function' && typeof value !== 'function') {
+        return key;
       }
-    }
+
+      return false;
+    });
 
     return this.getProperties(keys);
   },

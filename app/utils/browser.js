@@ -1,32 +1,20 @@
 /**
- * Detects if user is using iOS or Android system
- *
- * @returns {string}
- */
+* Detects if user is using iOS or Android system
+*
+* @returns {string}
+*/
+const system = ((userAgent) => {
+  if (/iPad|iPhone|iPod/i.test(userAgent)) {
+    return 'ios';
+  }
 
-const userAgent = window.navigator && navigator.userAgent;
+  if (/Android/i.test(userAgent)) {
+    return 'android';
+  }
 
-let system;
-let standalone;
+  return null;
+})(window.navigator && navigator.userAgent);
 
-if (/iPad|iPhone|iPod/i.test(userAgent)) {
-  system = 'ios';
-} else if (/Android/i.test(userAgent)) {
-  system = 'android';
-}
+const standalone = window.navigator && navigator.standalone;
 
-standalone = window.navigator && navigator.standalone;
-
-/**
- * Checks if current browser is Safari of version higher or equal to provided
- * @param {int} version Full version number without decimals
- * @returns {boolean}
- */
-function isSafariMinVer(version) {
-  const pattern = /OS (\d+)/;
-  const match = window.navigator.userAgent.match(pattern);
-
-  return match && parseInt(match[1], 10) >= version;
-}
-
-export { isSafariMinVer, system, standalone };
+export { system, standalone };

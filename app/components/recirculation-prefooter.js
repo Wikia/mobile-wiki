@@ -2,7 +2,6 @@ import { defer } from 'rsvp';
 import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
@@ -11,7 +10,8 @@ import { track, trackActions } from '../utils/track';
 
 const recircItemsCount = 10;
 const config = {
-  // we load twice as many items as we want to display because we need to filter out those without thumbnail
+  // we load twice as many items as we want to display
+  // because we need to filter out those without thumbnail
   max: recircItemsCount * 2,
   widget: 'wikia-impactfooter',
   source: 'fandom',
@@ -55,7 +55,6 @@ export default Component.extend(
 
     actions: {
       postClick(post, index) {
-
         const labelParts = ['footer', `slot-${index + 1}`, post.source];
 
         track({
@@ -73,8 +72,8 @@ export default Component.extend(
     fetchPlista() {
       const width = normalizeThumbWidth(window.innerWidth);
       const height = Math.round(width / (16 / 9));
-      const plistaURL = `https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api`
-				+ `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
+      const plistaURL = 'https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api'
+        + `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
       return fetch(plistaURL)
         .then(response => response.json())
         .then((data) => {
@@ -106,7 +105,7 @@ export default Component.extend(
       liftigniter
         .getData(config)
         .then((data) => {
-          this.set('items', data.items.filter(item => item.hasOwnProperty('thumbnail') && item.thumbnail)
+          this.set('items', data.items.filter(item => item.thumbnail)
             .slice(0, recircItemsCount)
             .map((item) => {
               item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {

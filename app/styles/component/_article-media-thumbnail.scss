@@ -1,33 +1,33 @@
 .article-media-thumbnail {
-	@extend %position-play-icon;
+  @extend %position-play-icon;
 
-	margin-bottom: 1.125rem;
-	text-align: center;
+  margin-bottom: 1.125rem;
+  text-align: center;
 
-	figcaption {
-		@include ellipsis;
+  figcaption {
+    @include ellipsis;
 
-		color: $wds-color-light-c5;
-		max-height: 60px;
-		padding: 5px 0;
-		pointer-events: none;
-		text-align: left;
-	}
+    color: $wds-color-light-c5;
+    max-height: 60px;
+    padding: 5px 0;
+    pointer-events: none;
+    text-align: left;
+  }
 
-	a {
-		display: block;
-	}
+  a {
+    display: block;
+  }
 
-	&.downloadable figcaption,
-	&.is-ogg figcaption {
-		height: auto;
-		text-align: center;
-		white-space: normal;
-	}
+  &.downloadable figcaption,
+  &.is-ogg figcaption {
+    height: auto;
+    text-align: center;
+    white-space: normal;
+  }
 }
 
 .article-media-placeholder {
-	border: 1px solid $wds-fandom-color-middle-gray;
-	border-radius: 4px;
-	display: inline-block;
+  border: 1px solid $wds-fandom-color-middle-gray;
+  border-radius: 4px;
+  display: inline-block;
 }

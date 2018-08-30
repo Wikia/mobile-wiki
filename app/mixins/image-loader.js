@@ -3,9 +3,9 @@ import { Promise } from 'rsvp';
 
 export default Mixin.create({
   /**
-	 * @param url string
-	 * @returns Promise
-	 */
+  * @param url string
+  * @returns Promise
+  */
   load(url) {
     return new Promise((resolve, reject) => {
       const image = new Image();

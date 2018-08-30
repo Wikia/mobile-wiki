@@ -1,11 +1,10 @@
-import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import { trackActions } from '../utils/track';
-import { system } from '../utils/browser';
 import { inGroup } from '../modules/abtest';
+import { system } from '../utils/browser';
+import { trackActions } from '../utils/track';
 
 export default Component.extend(RespondsToScroll, {
   i18n: service(),
@@ -28,7 +27,7 @@ export default Component.extend(RespondsToScroll, {
   link: computed(() => (system === 'ios'
     ? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
     : 'https://play.google.com/store/apps/details'
-			+ '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
+   + '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
 
   storeName: computed(function () {
     return system === 'ios'
@@ -49,8 +48,8 @@ export default Component.extend(RespondsToScroll, {
 
   actions: {
     /**
-		 * @returns {void}
-		 */
+   * @returns {void}
+   */
     close() {
       this.smartBanner.setCookie(this.get('options.daysHiddenAfterClose'));
       this.smartBanner.setVisibility(false);

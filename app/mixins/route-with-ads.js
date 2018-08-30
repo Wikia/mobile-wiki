@@ -6,10 +6,10 @@ export default Mixin.create({
   initialPageView: service(),
 
   /**
-	 * Reset AdEngine variables before article load
-	 *
-	 * @returns {void}
-	 */
+  * Reset AdEngine variables before article load
+  *
+  * @returns {void}
+  */
   beforeModel() {
     this._super();
 

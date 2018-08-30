@@ -23,8 +23,8 @@ export default Component.extend(InViewportMixin, RenderComponentMixin, {
   },
 
   /**
-	 * @returns {void}
-	 */
+  * @returns {void}
+  */
   didEnterViewport() {
     this.model.find(
       this.getWithDefault('categoryIds', []),

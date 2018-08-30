@@ -1,9 +1,9 @@
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import offset from '@wikia/ember-fandom/utils/offset';
 import RenderComponentMixin from '../mixins/render-component';
 import { track, trackActions } from '../utils/track';
-import offset from '../utils/offset';
 
 export default Component.extend(
   RenderComponentMixin,
@@ -26,8 +26,8 @@ export default Component.extend(
     }),
 
     /**
-		 * determines if this infobox is a short one or a long one (needs collapsing)
-		 */
+   * determines if this infobox is a short one or a long one (needs collapsing)
+   */
     isLongInfobox: computed('collapsedHeight', 'height', function () {
       const collapsedHeight = this.collapsedHeight;
       const height = this.height;
@@ -36,12 +36,12 @@ export default Component.extend(
     }),
 
     /**
-		 * return height which should have the collapsed infobox,
-		 * basing on the viewport width.
-		 * It's taken from 9/16 proportions of screen (width * 16 / 9 + 100px).
-		 * We want to always show the image AND some other infobox informations to
-		 * indicate that this is infobox, not only an ordinary image.
-		 */
+   * return height which should have the collapsed infobox,
+   * basing on the viewport width.
+   * It's taken from 9/16 proportions of screen (width * 16 / 9 + 100px).
+   * We want to always show the image AND some other infobox informations to
+   * indicate that this is infobox, not only an ordinary image.
+   */
     collapsedHeight: computed(() => {
       const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
@@ -105,7 +105,6 @@ export default Component.extend(
         const previousFigure = galleryActionButton.closest('figure').previousElementSibling;
 
         galleryWrapper.scrollLeft += offset(previousFigure).left;
-
       }
     },
 

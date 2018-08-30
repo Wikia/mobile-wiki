@@ -1,5 +1,4 @@
 import { get } from '@ember/object';
-import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 import BaseModel from './base';
 
@@ -11,9 +10,9 @@ export default BaseModel.extend({
   wikiUrls: service(),
 
   /**
-	 * @param {Object} data
-	 * @returns {void}
-	 */
+  * @param {Object} data
+  * @returns {void}
+  */
   setData({ data }) {
     this._super(...arguments);
     let pageProperties;

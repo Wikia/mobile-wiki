@@ -1,17 +1,17 @@
 .collapsible-menu {
-	.title {
-		align-items: center;
-		display: flex;
-		width: 100%;
+  .title {
+    align-items: center;
+    display: flex;
+    width: 100%;
 
-		> span {
-			flex: 1;
-		}
-	}
+    > span {
+      flex: 1;
+    }
+  }
 
-	//Takes care of hiding a menu
-	.collapsed + ul,
-	.collapsed + ol {
-		display: none;
-	}
+  //Takes care of hiding a menu
+  .collapsed + ul,
+  .collapsed + ol {
+    display: none;
+  }
 }

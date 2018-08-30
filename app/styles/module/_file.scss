@@ -4,22 +4,22 @@ $file-usage-bottom-padding: 30px;
 
 .file-image,
 .file-video {
-	margin: $file-large-padding;
+  margin: $file-large-padding;
 }
 
 .file-usage {
-	background-color: $wds-color-light-c2;
-	padding-bottom: $file-usage-bottom-padding;
+  background-color: $wds-color-light-c2;
+  padding-bottom: $file-usage-bottom-padding;
 
-	&__header {
-		padding: $file-large-padding $file-medium-padding 0;
-	}
+  &__header {
+    padding: $file-large-padding $file-medium-padding 0;
+  }
 
-	&__list {
-		padding-top: $file-medium-padding;
-	}
+  &__list {
+    padding-top: $file-medium-padding;
+  }
 
-	&__more {
-		text-align: center;
-	}
+  &__more {
+    text-align: center;
+  }
 }

@@ -11,9 +11,9 @@ export default Controller.extend(
 
     actions: {
       /**
-			 * @param {number} page
-			 * @returns {Promise}
-			 */
+    * @param {number} page
+    * @returns {Promise}
+    */
       loadPage(page) {
         if (page === null) {
           return Promise.reject(new Error('Page was not provided'));
@@ -21,7 +21,8 @@ export default Controller.extend(
 
         return this.model.loadPage(page)
           .then(() => {
-            // Documentation says we should do `this.set('page', page)` but it doesn't update the URL
+            // Documentation says we should do `this.set('page', page)`
+            // but it doesn't update the URL
             // It's the same issue as HG-815, but here we bypass it in a better way
             // TODO figure out how to remove the param instead of going to ?page=1
             this.transitionToRoute({

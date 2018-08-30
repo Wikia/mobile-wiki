@@ -10,8 +10,8 @@ export default BaseModel.extend({
   wikiVariables: service(),
 
   /**
-	 * @returns {RSVP.Promise}
-	 */
+  * @returns {RSVP.Promise}
+  */
   getArticleRandomTitle() {
     return fetch(this.wikiUrls.build({
       host: this.get('wikiVariables.host'),

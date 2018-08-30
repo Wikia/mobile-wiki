@@ -43,11 +43,12 @@ export default Component.extend({
   },
 
   updateActiveThumbnail() {
-    this.element.querySelectorAll('.lightbox-thumbnail-active').forEach((item) => {
-      item.classList.remove('lightbox-thumbnail-active');
-    });
-
+    const previousActiveThumbnail = this.element.querySelector('.lightbox-thumbnail-active');
     const activeThumbnail = this.element.querySelector(`[data-ref="${this.activeThumbnailRef}"]`);
+
+    if (previousActiveThumbnail) {
+      previousActiveThumbnail.classList.remove('lightbox-thumbnail-active');
+    }
 
     if (activeThumbnail) {
       activeThumbnail.classList.add('lightbox-thumbnail-active');
@@ -60,7 +61,10 @@ export default Component.extend({
   },
 
   appendThumbnailsIfNeeded() {
-    const appendTreshold = thumbnailSize * this.displayedThumbnails.length - window.innerWidth - appendBuffer;
+    const appendTreshold = thumbnailSize
+      * this.displayedThumbnails.length
+      - window.innerWidth
+      - appendBuffer;
 
     if (this.element.scrollLeft > appendTreshold) {
       const newBatch = this.thumbnails.splice(0, displayedThumbnailsBatchSize);

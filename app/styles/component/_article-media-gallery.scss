@@ -1,61 +1,61 @@
 $gallery-item-margin: 12px;
 
 .article-media-gallery {
-	margin: 0 auto;
-	max-width: 450px;
+  margin: 0 auto;
+  max-width: 450px;
 
-	&__row {
-		margin-bottom: $gallery-item-margin;
-	}
+  &__row {
+    margin-bottom: $gallery-item-margin;
+  }
 
-	&__row-2 {
-		display: flex;
+  &__row-2 {
+    display: flex;
 
-		.article-media-thumbnail:first-child {
-			margin-right: $gallery-item-margin;
-		}
-	}
+    .article-media-thumbnail:first-child {
+      margin-right: $gallery-item-margin;
+    }
+  }
 
-	&__row-3 {
-		display: flex;
-		justify-content: space-between;
-	}
+  &__row-3 {
+    display: flex;
+    justify-content: space-between;
+  }
 
-	&__column {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
+  &__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-		&:first-child {
-			align-items: flex-start;
-			margin-right: $gallery-item-margin / 2;
-		}
+    &:first-child {
+      align-items: flex-start;
+      margin-right: $gallery-item-margin / 2;
+    }
 
-		&:last-child {
-			align-items: flex-end;
-		}
+    &:last-child {
+      align-items: flex-end;
+    }
 
-		&:not(.article-media-gallery__column-big) {
-			width: 33.333%;
+    &:not(.article-media-gallery__column-big) {
+      width: 33.333%;
 
-			.article-media-thumbnail {
-				width: calc(100% - #{$gallery-item-margin/2});
-			}
-		}
-	}
+      .article-media-thumbnail {
+        width: calc(100% - #{$gallery-item-margin/2});
+      }
+    }
+  }
 
-	&__column-big {
-		width: 66.666%;
-	}
+  &__column-big {
+    width: 66.666%;
+  }
 
-	&__view-more {
-		box-sizing: border-box;
-		display: block; // fixes bug in iOS 9 where text was left aligned
-		text-align: center;
-		width: 100%;
-	}
+  &__view-more {
+    box-sizing: border-box;
+    display: block; // fixes bug in iOS 9 where text was left aligned
+    text-align: center;
+    width: 100%;
+  }
 
-	.article-media-thumbnail {
-		margin-bottom: 0;
-	}
+  .article-media-thumbnail {
+    margin-bottom: 0;
+  }
 }
