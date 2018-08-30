@@ -46,7 +46,8 @@ module.exports = {
   },
 
   after(app) {
-    app.use((err, req, res) => {
+    // eslint-disable-next-line no-unused-vars
+    app.use((err, req, res, next) => {
       if (err) {
         // Handle errors that don't go to FastBoot, like Bad Request etc.
         const statusCode = Math.max(res.statusCode, err.statusCode || 500);
