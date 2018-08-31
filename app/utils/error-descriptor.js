@@ -10,37 +10,56 @@ const { NAME_KEY } = Ember;
 const unknownFunction = 'UnknownFunction';
 const unknownObject = 'UnknownObject';
 
-const stringify = (value) => {
+function stringify(value) {
   try {
     value = String(value);
   } catch (e) {
     value = 'unrecognized';
   }
   return value;
-};
+}
 
-const extractClassName = subject => (
-  subject[NAME_KEY] || subject.modelName || subject.name || stringify(subject) || unknownFunction
-);
+function extractClassName(subject) {
+  return subject[NAME_KEY]
+    || subject.modelName
+    || subject.name
+    || stringify(subject)
+    || unknownFunction;
+}
 
-const extractInstanceName = subject => (
-  subject._debugContainerKey || subject.modelName
-  || (subject.constructor ? extractClassName(subject.constructor) : false)
-  || stringify(subject) || unknownObject
-);
+function extractInstanceName(subject) {
+  return subject._debugContainerKey
+    || subject.modelName
+    || (subject.constructor ? extractClassName(subject.constructor) : false)
+    || stringify(subject)
+    || unknownObject;
+}
 
-const extractErrorName = (subject) => {
+function extractErrorName(subject) {
   if (typeof subject === 'function') {
     return `Class ${extractClassName(subject)}`;
   }
   return `Instance of ${extractInstanceName(subject)}`;
-};
+}
+
+function getErrorName({ root = 'error' }, namesUsed) {
+  let name;
+  let index = 0;
+
+  do {
+    name = `${root}:${index}`;
+    index += 1;
+  } while (namesUsed.indexOf(name) !== -1);
+
+  return name;
+}
 
 export default EmberObject.extend({
   error: null,
 
   normalizedName: computed(function () {
     const error = this.error;
+
     return extractErrorName(error) || String(error) || 'Unknown error';
   }),
 
@@ -85,33 +104,18 @@ export default EmberObject.extend({
   }),
 
   additionalData: computed(function () {
+    const collected = {};
     const namesUsed = [];
-    const error = this.error;
-    let collected = null;
 
-    const getErrorName = (error) => {
-      const root = error.name || 'error';
-      let name;
-      let index = 0;
-      do {
-        name = `${root}:${index}`;
-        index += 1;
-      } while (namesUsed.indexOf(name) !== -1);
+    let currentError = this.error;
 
-      return name;
-    };
-
-    const collectAdditionalData = (error) => {
-      if (error && error.additionalData) {
-        collected = collected || {};
-        collected[getErrorName(error)] = error.additionalData;
-        if (error.previous) {
-          collectAdditionalData(error.previous);
-        }
+    do {
+      if (currentError && currentError.additionalData) {
+        collected[getErrorName(currentError, namesUsed)] = currentError.additionalData;
       }
-    };
 
-    collectAdditionalData(error);
+      currentError = currentError.previous;
+    } while (currentError);
 
     return collected;
   }),

@@ -71,7 +71,7 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'article',
         controllerName: 'article',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 0,
       }),
     },
@@ -80,7 +80,7 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'article',
         controllerName: 'article',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 112,
       }),
     },
@@ -89,13 +89,13 @@ module('Unit | Route | wiki page', (hooks) => {
         viewName: 'category',
         controllerName: 'category',
       },
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 14,
       }),
     },
     {
       expectedHandler: null,
-      model: EmberObject.create({
+      testModel: EmberObject.create({
         ns: 200,
       }),
     }];
@@ -104,8 +104,8 @@ module('Unit | Route | wiki page', (hooks) => {
       contentNamespaces: [0, 112],
     });
 
-    testCases.forEach(({ expectedHandler, model }) => {
-      const handler = mock.getHandler(model);
+    testCases.forEach(({ expectedHandler, testModel }) => {
+      const handler = mock.getHandler(testModel);
 
       if (handler) {
         assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
