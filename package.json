@@ -33,7 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.2",
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v8.5.1",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v9.0.0",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#1cc39e875e9a6c637eacd5f9434b7ff0b1359b38",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
@@ -123,7 +123,7 @@
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.11.0",
-    "typescript": "3.0.1"
+    "typescript": "3.0.3"
   },
   "ember-addon": {
     "paths": [
