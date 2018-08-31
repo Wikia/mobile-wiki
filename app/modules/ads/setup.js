@@ -1,3 +1,4 @@
+import track from '../../utils/track';
 import basicContext from './ad-context';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -88,6 +89,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', !!instantGlobals.wgDisableIncontentPlayer);
+
+  if (context.get('custom.isIncontentPlayerDisabled')) {
+    track({
+      action: 'disable',
+      category: 'wgDisableIncontentPlayer',
+      label: true,
+    });
+  }
 
   const areDelayServicesBlocked = isGeoEnabled('wgAdDriverBlockDelayServicesCountries');
   context.set('bidders.a9.enabled', !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9BidderCountries'));
