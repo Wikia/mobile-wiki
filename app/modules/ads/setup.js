@@ -1,4 +1,4 @@
-import track from '../../utils/track';
+import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -92,7 +92,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
-      action: 'disable',
+      action: trackActions.disable,
       category: 'wgDisableIncontentPlayer',
       label: true,
     });
