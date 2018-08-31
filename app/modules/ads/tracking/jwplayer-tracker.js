@@ -28,6 +28,7 @@ export default class JWPlayerTracker {
   */
   constructor(params = {}) {
     this.trackingParams = params;
+    this.skipCtpAudioUpdate = false;
   }
 
   /**
@@ -63,26 +64,22 @@ export default class JWPlayerTracker {
     Object.keys(trackingEventsMap).forEach((playerEvent) => {
       player.on(playerEvent, (event) => {
         let errorCode;
-        const vastParams = event.tag ? vastParser.parse(event.tag) : null;
 
-        if (vastParams && vastParams.customParams) {
-          if (
-            vastParams.customParams.ctp !== undefined
-            && this.trackingParams.withCtp !== (vastParams.customParams.ctp === 'yes')
-          ) {
-            this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes';
+        if (['adRequest', 'adError', 'ready', 'videoStart'].indexOf(playerEvent) !== -1) {
+          if (this.skipCtpAudioUpdate) {
+            this.skipCtpAudioUpdate = false;
+          } else {
+            this.trackingParams.withCtp = !player.getConfig().autostart;
+            this.trackingParams.withAudio = !player.getConfig().mute;
           }
 
-          if (
-            vastParams.customParams.audio !== undefined
-            && this.trackingParams.withAudio !== (vastParams.customParams.audio === 'yes')
-          ) {
-            this.trackingParams.withAudio = vastParams.customParams.audio === 'yes';
+          if (playerEvent === 'adRequest' || playerEvent === 'adError') {
+            this.skipCtpAudioUpdate = true;
           }
-        }
 
-        if (playerEvent === 'adError') {
-          errorCode = event && event.code;
+          if (playerEvent === 'adError') {
+            errorCode = event && event.code;
+          }
         }
 
         this.track(trackingEventsMap[playerEvent], errorCode);
