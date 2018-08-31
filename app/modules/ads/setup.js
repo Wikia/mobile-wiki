@@ -137,7 +137,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   // Need to be placed always after all lABrador wgVars checks
   context.set(
     'targeting.labrador',
-    adProductsUtils.getDfpLabradorKeyvals(instantGlobals.wgAdDriverLABradorDfpKeyvals),
+    adProductsUtils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals),
   );
 
   slots.setupIdentificators();
