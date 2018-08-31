@@ -213,13 +213,18 @@ export default {
   setupStates() {
     const { context } = window.Wikia.adEngine;
 
+    const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
     const incontentState = isInContentApplicable();
+    const isHome = context.get('custom.pageType') === 'home';
 
-    setSlotState('MOBILE_TOP_LEADERBOARD', isTopLeaderboardApplicable());
-    setSlotState('MOBILE_IN_CONTENT', incontentState);
-    setSlotState('MOBILE_PREFOOTER', isPrefooterApplicable(incontentState));
-    setSlotState('BOTTOM_LEADERBOARD', isBottomLeaderboardApplicable());
-    setSlotState('FEATURED', context.get('custom.hasFeaturedVideo'));
+    setSlotState('mobile_top_leaderboard', isTopLeaderboardApplicable());
+    setSlotState('mobile_in_content', incontentState);
+    setSlotState('incontent_boxad_1', incontentState);
+    setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
+    setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
+
+    setSlotState('featured', hasFeaturedVideo);
+    setSlotState('incontent_player', !hasFeaturedVideo && !isHome);
   },
 
   setupIdentificators() {
