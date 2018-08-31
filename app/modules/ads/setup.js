@@ -88,7 +88,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
-  context.set('custom.isIncontentPlayerDisabled', !!instantGlobals.wgDisableIncontentPlayer);
+  context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
