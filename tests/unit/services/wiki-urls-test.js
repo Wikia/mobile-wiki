@@ -1,13 +1,13 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Service | wiki-urls', (hooks) => {
+module('Unit | Service | wiki-urls', (moduleHooks) => {
   let wikiUrls;
   let wikiVariables;
 
-  setupTest(hooks);
+  setupTest(moduleHooks);
 
-  hooks.beforeEach(function () {
+  moduleHooks.beforeEach(function () {
     wikiUrls = this.owner.lookup('service:wiki-urls', { singleton: false });
     wikiVariables = this.owner.lookup('service:wiki-variables');
   });

@@ -77,11 +77,11 @@ export default class JWPlayer extends BasePlayer {
 
             data.trackingMethod = 'both';
 
-            /**
-       * this function is called by a third party lib (jwplayer) asynchrounosly
-       * if video player is not in DOM - probably user navigated to another page
-       * do not call tracking function in such case
-       */
+            /*
+             this function is called by a third party lib (jwplayer) asynchrounosly
+             if video player is not in DOM - probably user navigated to another page
+             do not call tracking function in such case
+            */
             if (document.getElementById(containerId) && path === initialPath) {
               track(data);
             }
@@ -116,7 +116,7 @@ export default class JWPlayer extends BasePlayer {
       this.params.onCreate.bind(this, bidParams),
     );
 
-    getAdsModule().then(adsModule => adsModule.jwPlayerMoat.loadTrackingPlugin());
+    adsModule.jwPlayerMoat.loadTrackingPlugin();
   }
 
   /**
