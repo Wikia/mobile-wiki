@@ -60,7 +60,7 @@ module.exports = function (environment) {
     },
     fastboot: {
       hostWhitelist: [
-        /mobile-wiki-.*\.(dev|prod|staging)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
+        /mobile-wiki-.*\.(dev|prod)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
         /.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
         /.*\.wikia\.com/,
         /.*\.fandom\.com/,
