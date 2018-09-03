@@ -94,7 +94,8 @@
     "user-menu-profile": "用户信息"
   }, 
   "recirculation": {
-    "trending-fandom-articles": "粉丝流行原创文章"
+    "popular-wiki-articles-header": "更多 {wikiName}", 
+    "trending-fandom-articles": "粉丝原创"
   }, 
   "smartbanner": {
     "install-android": "安装"
