@@ -30,7 +30,7 @@ class JWPlayerAssets {
     if (!this.scriptsPromise) {
       this.scriptsPromise = new Promise((resolve, reject) => {
         window.M.loadScript(assetUrls.script, true, (data) => {
-          if (typeof window.wikiaJWPlayer !== 'function') {
+          if (typeof window.wikiaJWPlayer === 'function') {
             resolve(data);
           } else {
             /*
