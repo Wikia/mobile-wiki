@@ -1,12 +1,14 @@
 import { defer } from 'rsvp';
-import fetch from 'fetch';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
+import { reads, equal, and } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
+import { normalizeToUnderscore } from '../utils/string';
+import fetch from '../utils/mediawiki-fetch';
 
 const recircItemsCount = 10;
 const config = {
@@ -28,16 +30,24 @@ export default Component.extend(
     i18n: service(),
     logger: service(),
     ads: service(),
+    router: service(),
+    wikiVariables: service(),
+    wikiUrls: service(),
 
     classNames: ['recirculation-prefooter'],
     classNameBindings: ['items:has-items'],
 
     listRendered: null,
+    isContLangEn: equal('wikiVariables.language.content', 'en'),
+    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
+    displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
+
+    wikiName: reads('wikiVariables.siteName'),
 
     init() {
       this._super(...arguments);
 
-      const viewportTolerance = 100;
+      const viewportTolerance = 200;
 
       this.setProperties({
         viewportTolerance: {
@@ -67,36 +77,36 @@ export default Component.extend(
           window.location.assign(post.url);
         }, 200);
       },
-    },
 
-    fetchPlista() {
-      const width = normalizeThumbWidth(window.innerWidth);
-      const height = Math.round(width / (16 / 9));
-      const plistaURL = 'https://farm.plista.com/recommendation/?publickey=845c651d11cf72a0f766713f&widgetname=api'
-        + `&count=1&adcount=1&image[width]=${width}&image[height]=${height}`;
-      return fetch(plistaURL)
-        .then(response => response.json())
-        .then((data) => {
-          if (data.length) {
-            return data[0];
-          }
-          throw new Error('We haven\'t got Plista!');
+      articleClick(title, index) {
+        track({
+          action: trackActions.click,
+          category: 'recirculation',
+          label: `more-wiki-${index}`,
         });
+
+        this.get('router').transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+      },
     },
 
-    mapPlista(item) {
-      if (item) {
-        return {
-          meta: 'wikia-impactfooter',
-          thumbnail: item.img,
-          title: item.title,
-          url: item.url,
-          presented_by: 'Plista',
-          isPlista: true,
-        };
-      }
+    fetchTopArticles() {
+      fetch(this.wikiUrls.build({
+        host: this.get('wikiVariables.host'),
+        path: '/wikia.php',
+        query: {
+          controller: 'RecirculationApiController',
+          method: 'getPopularWikiArticles',
+        },
+      }))
+        .then((response) => {
+          if (!response.ok) {
+            this.logger.error('Can not fetch topArticles', response);
+            this.set('topArticles', []);
 
-      return undefined;
+            return this;
+          }
+          return response.json().then(data => this.set('topArticles', data));
+        });
     },
 
     fetchLiftIgniterData() {
@@ -136,15 +146,21 @@ export default Component.extend(
     },
 
     didEnterViewport() {
+      if (this.applicationWrapperVisible) {
+        this.fetchTopArticles();
+      }
+
       if (M.getFromHeadDataStore('noExternals')) {
         return;
       }
 
-      M.trackingQueue.push((isOptedIn) => {
-        if (isOptedIn) {
-          this.fetchLiftIgniterData();
-        }
-      });
+      if (this.displayLiftigniterRecirculation) {
+        M.trackingQueue.push((isOptedIn) => {
+          if (isOptedIn) {
+            this.fetchLiftIgniterData();
+          }
+        });
+      }
     },
   },
 );
