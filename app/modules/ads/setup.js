@@ -1,3 +1,4 @@
+import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -87,6 +88,15 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
+  context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
+
+  if (context.get('custom.isIncontentPlayerDisabled')) {
+    track({
+      action: trackActions.disable,
+      category: 'wgDisableIncontentPlayer',
+      label: true,
+    });
+  }
 
   const areDelayServicesBlocked = isGeoEnabled('wgAdDriverBlockDelayServicesCountries');
   context.set('bidders.a9.enabled', !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9BidderCountries'));
@@ -142,7 +152,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   slots.setupIdentificators();
   slots.setupStates();
-  slots.setupIncontentPlayer();
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
