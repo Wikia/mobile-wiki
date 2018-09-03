@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
+import offset from '@wikia/ember-fandom/utils/offset';
 import config from '../../config/environment';
-import offset from '../../utils/offset';
 /* eslint import/no-cycle: 0 */
 // legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
@@ -467,11 +467,11 @@ class Ads {
   }
 
   getAdSlotComponentAttributes(slotName) {
-    const config = this.adSlotsConfig[slotName] || {};
+    const adSlotConfig = this.adSlotsConfig[slotName] || {};
 
     return {
-      disableManualInsert: !!config.disableManualInsert,
-      isAboveTheFold: !!config.isAboveTheFold,
+      disableManualInsert: !!adSlotConfig.disableManualInsert,
+      isAboveTheFold: !!adSlotConfig.isAboveTheFold,
       name: slotName,
       hiddenClassName: 'hidden',
     };
