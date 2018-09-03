@@ -62,6 +62,16 @@ function isBottomLeaderboardApplicable() {
   return !!document.querySelector('.wds-global-footer');
 }
 
+/**
+ * Decides if incontent_player slot should be active.
+ *
+ * @param {object} context
+ * @returns {boolean}
+ */
+function isIncontentPlayerApplicable(context) {
+  return !context.get('custom.hasFeaturedVideo') && !context.get('custom.isIncontentPlayerDisabled');
+}
+
 export default {
   getContext() {
     return {
@@ -220,6 +230,7 @@ export default {
     setSlotState('MOBILE_PREFOOTER', isPrefooterApplicable(incontentState));
     setSlotState('BOTTOM_LEADERBOARD', isBottomLeaderboardApplicable());
     setSlotState('FEATURED', context.get('custom.hasFeaturedVideo'));
+    setSlotState('incontent_player', isIncontentPlayerApplicable(context));
   },
 
   setupIdentificators() {
@@ -234,14 +245,5 @@ export default {
       const slotParam = slotsDefinition[key].slotShortcut || 'x';
       context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
     });
-  },
-
-  setupIncontentPlayer() {
-    const { context } = window.Wikia.adEngine;
-
-    // ToDo: don't set up player if is UAP loaded
-    if (!context.get('custom.hasFeaturedVideo')) {
-      setSlotState('incontent_player', true);
-    }
   },
 };
