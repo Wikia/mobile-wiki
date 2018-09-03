@@ -69,12 +69,22 @@ export default class JWPlayerTracker {
           if (this.skipCtpAudioUpdate) {
             this.skipCtpAudioUpdate = false;
           } else {
-            this.trackingParams.withCtp = !player.getConfig().autostart;
-            this.trackingParams.withAudio = !player.getConfig().mute;
+            if (this.trackingParams.withCtp) {
+              this.trackingParams.withCtp = !player.getConfig().autostart;
+            }
+
+            this.trackingParams.withAudio = !player.getMute();
           }
 
           if (playerEvent === 'adRequest' || playerEvent === 'adError') {
             this.skipCtpAudioUpdate = true;
+
+            const vastParams = event.tag ? vastParser.parse(event.tag) : null;
+
+            if (vastParams && vastParams.customParams) {
+              this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes';
+              this.trackingParams.withAudio = vastParams.customParams.audio === 'yes';
+            }
           }
 
           if (playerEvent === 'adError') {
