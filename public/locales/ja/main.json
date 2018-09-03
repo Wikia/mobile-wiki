@@ -94,7 +94,8 @@
     "user-menu-profile": "プロフィール"
   }, 
   "recirculation": {
-    "trending-fandom-articles": "人気のFANDOM記事"
+    "popular-wiki-articles-header": "{wikiName}のその他のコンテンツ", 
+    "trending-fandom-articles": "ファン・フィード"
   }, 
   "smartbanner": {
     "install-android": "インストール"
