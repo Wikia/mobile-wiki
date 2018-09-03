@@ -1,4 +1,4 @@
-import offset from '../../utils/offset';
+import offset from '@wikia/ember-fandom/utils/offset';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
@@ -44,7 +44,7 @@ function isInContentApplicable() {
   return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
 }
 
-function isPrefooterApplicable(isInContentApplicable) {
+function isPrefooterApplicable(inContentApplicable) {
   const { context } = window.Wikia.adEngine;
 
   if (context.get('custom.pageType') === 'home') {
@@ -54,7 +54,7 @@ function isPrefooterApplicable(isInContentApplicable) {
   const numberOfSections = document.querySelectorAll('.article-content > h2').length;
   const hasArticleFooter = !!document.querySelector('.article-footer');
 
-  return (hasArticleFooter && !isInContentApplicable)
+  return (hasArticleFooter && !inContentApplicable)
     || (numberOfSections > MIN_NUMBER_OF_SECTIONS);
 }
 

@@ -41,7 +41,7 @@
     "compression": "1.7.3",
     "cors": "2.8.4",
     "deep-extend": "0.6.0",
-    "design-system": "github:Wikia/design-system#13.8.1",
+    "design-system": "github:Wikia/design-system#13.8.3",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
@@ -61,6 +61,7 @@
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
+    "@ember/optional-features": "0.6.4",
     "@ember/test-helpers": "0.7.25",
     "broccoli-asset-rev": "3.0.0",
     "broccoli-funnel": "2.0.1",
@@ -123,7 +124,7 @@
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.11.0",
-    "typescript": "3.0.1"
+    "typescript": "3.0.3"
   },
   "ember-addon": {
     "paths": [
