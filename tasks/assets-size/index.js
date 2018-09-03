@@ -5,8 +5,8 @@ const assetMap = require('../../dist/mobile-wiki/assets/assetMap').assets;
 const assetsSizes = {
   'app.css': 85,
   'design-system.svg': 32,
-  'lazy.css': 63,
-  'mobile-wiki.js': 431,
+  'lazy.css': 64,
+  'mobile-wiki.js': 433,
   'vendor.js': 644,
   'jwplayer/index.css': 19,
   'jwplayer/wikiajwplayer.js': 54

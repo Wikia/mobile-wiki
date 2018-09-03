@@ -136,7 +136,7 @@ export default Route.extend(
           });
 
           transition.then(() => {
-            if (!this.get('fastboot.isFastBoot')) {
+            if (!this.get('fastboot.isFastBoot') && !transition.queryParams.noexternals) {
               M.trackingQueue.push((isOptedIn) => {
                 if (isOptedIn) {
                   this.wdsLiftigniter.initLiftigniter(model.adsContext);
