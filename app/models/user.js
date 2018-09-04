@@ -114,7 +114,9 @@ export default EmberObject.extend({
       },
     });
 
-    return mediawikiFetch(url)
+    return mediawikiFetch(url, {
+      internalCache: this.runtimeConfig.internalCache,
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -159,6 +161,7 @@ export default EmberObject.extend({
       headers: {
         Cookie: `access_token=${accessToken}`,
       },
+      internalCache: this.runtimeConfig.internalCache,
     }).then((response) => {
       if (response.ok) {
         return response.json();
