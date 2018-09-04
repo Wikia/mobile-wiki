@@ -38,7 +38,7 @@ export default EmberObject.extend(
     },
 
     normalizeData(data) {
-      return getWithDefault(data, '_embedded.threads', []).map(this.normalizePostData.bind(this));
+      return getWithDefault(data, '_embedded.threads', []).map(this.normalizePostData, this);
     },
 
     normalizePostData(threadData) {
