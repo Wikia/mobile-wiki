@@ -32,8 +32,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#ADEN-7613",
-    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#ADEN-7613",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.2",
+    "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v9.0.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#1cc39e875e9a6c637eacd5f9434b7ff0b1359b38",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
@@ -41,7 +41,7 @@
     "compression": "1.7.3",
     "cors": "2.8.4",
     "deep-extend": "0.6.0",
-    "design-system": "github:Wikia/design-system#13.8.2",
+    "design-system": "github:Wikia/design-system#13.8.3",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
@@ -61,6 +61,7 @@
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
+    "@ember/optional-features": "0.6.4",
     "@ember/test-helpers": "0.7.25",
     "broccoli-asset-rev": "3.0.0",
     "broccoli-funnel": "2.0.1",

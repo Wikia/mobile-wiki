@@ -62,6 +62,18 @@ function isBottomLeaderboardApplicable() {
   return !!document.querySelector('.wds-global-footer');
 }
 
+/**
+ * Decides if incontent_player slot should be active.
+ *
+ * @param {object} context
+ * @returns {boolean}
+ */
+function isIncontentPlayerApplicable(context) {
+  return context.get('custom.pageType') !== 'home' &&
+    !context.get('custom.hasFeaturedVideo') &&
+    !context.get('custom.isIncontentPlayerDisabled');
+}
+
 export default {
   getContext() {
     return {
@@ -213,9 +225,7 @@ export default {
   setupStates() {
     const { context } = window.Wikia.adEngine;
 
-    const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
     const incontentState = isInContentApplicable();
-    const isHome = context.get('custom.pageType') === 'home';
 
     setSlotState('mobile_top_leaderboard', isTopLeaderboardApplicable());
     setSlotState('mobile_in_content', incontentState);
@@ -223,8 +233,8 @@ export default {
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
-    setSlotState('featured', hasFeaturedVideo);
-    setSlotState('incontent_player', !hasFeaturedVideo && !isHome);
+    setSlotState('featured', context.get('custom.hasFeaturedVideo'));
+    setSlotState('incontent_player', isIncontentPlayerApplicable(context));
   },
 
   setupIdentificators() {
@@ -239,14 +249,5 @@ export default {
       const slotParam = slotsDefinition[key].slotShortcut || 'x';
       context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
     });
-  },
-
-  setupIncontentPlayer() {
-    const { context } = window.Wikia.adEngine;
-
-    // ToDo: don't set up player if is UAP loaded
-    if (!context.get('custom.hasFeaturedVideo')) {
-      setSlotState('incontent_player', true);
-    }
   },
 };
