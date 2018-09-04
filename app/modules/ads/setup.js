@@ -21,7 +21,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const { utils: adProductsUtils } = window.Wikia.adProducts;
 
   function isGeoEnabled(instantGlobalKey) {
-    return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey]);
+    return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
   }
 
   context.extend(basicContext);
