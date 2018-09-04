@@ -1,5 +1,6 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
+import window from 'ember-window-mock';
 
 export default Component.extend({
   runtimeConfig: service(),
