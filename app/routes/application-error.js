@@ -1,10 +1,12 @@
 import Route from '@ember/routing/route';
-import config from '../config/environment';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(
   {
+    runtimeConfig: service(),
+
     renderTemplate() {
-      if (config.APP.wikiaEnv === 'dev') {
+      if (this.runtimeConfig.wikiaEnv === 'dev') {
         this.render('errors/application-dev');
       } else {
         this.render('errors/application');

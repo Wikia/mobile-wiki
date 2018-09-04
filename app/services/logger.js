@@ -38,6 +38,7 @@ const previousErrorSerializer = (previousError) => {
 export default Service.extend({
   fastboot: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   bunyanInstance: null,
   requestContext: null,
@@ -49,8 +50,8 @@ export default Service.extend({
     this.set('requestContext', {
       '@fields': {
         app_version: config.APP.version,
-        datacenter: config.APP.wikiaDatacenter,
-        environment: config.APP.wikiaEnv,
+        datacenter: this.runtimeConfig.wikiaDatacenter,
+        environment: this.runtimeConfig.wikiaEnv,
         http_url_domain: request.get('host'),
         http_url_path: request.get('path'),
         client_beacon_id: headers.get('x-beacon'),
