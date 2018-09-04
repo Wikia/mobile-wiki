@@ -25,7 +25,6 @@ export function initialize(appInstance) {
 }
 
 export default {
-  after: 'config',
   name: 'error-logger',
   initialize,
 };
