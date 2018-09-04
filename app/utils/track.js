@@ -2,7 +2,6 @@
 // legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import LegacyAds from '../modules/ads/legacyModule';
 import { getGroup } from '../modules/abtest';
-import analyzeTrackedUrl from './analyzeTrackedUrl';
 
 /**
   * @typedef {Object} TrackContext
@@ -157,8 +156,6 @@ export function track(params) {
     M.trackingQueue.push(() => {
       M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
     });
-    // XW-4311 Added to determine if we're updating GA urls properly
-    analyzeTrackedUrl(params);
   }
 
   if (trackingMethod === 'both' || trackingMethod === 'internal') {
