@@ -18,6 +18,7 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   getUserId(accessToken) {
     if (!accessToken) {
@@ -28,7 +29,7 @@ export default EmberObject.extend({
       code: accessToken,
     });
 
-    return fetch(`${config.APP.heliosInternalUrl}${queryString}`, {
+    return fetch(`${this.runtimeConfig.heliosInternalUrl}${queryString}`, {
       headers: { 'X-Wikia-Internal-Request': '1' },
       timeout: config.APP.heliosTimeout,
     }).then((response) => {

@@ -1,16 +1,16 @@
-import config from '../config/environment';
-
 /**
   * @returns {void}
   */
-export function initialize() {
+export function initialize(applicationInstance) {
+  const runtimeConfig = applicationInstance.lookup('service:runtimeConfig');
+
   if (typeof FastBoot !== 'undefined') {
     return;
   }
 
   if (typeof VisitSource === 'function') {
-    (new VisitSource('WikiaSessionSource', config.APP.cookieDomain)).checkAndStore();
-    (new VisitSource('WikiaLifetimeSource', config.APP.cookieDomain, false)).checkAndStore();
+    (new VisitSource('WikiaSessionSource', runtimeConfig.cookieDomain)).checkAndStore();
+    (new VisitSource('WikiaLifetimeSource', runtimeConfig.cookieDomain, false)).checkAndStore();
   }
 }
 
