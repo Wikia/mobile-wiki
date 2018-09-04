@@ -1,13 +1,15 @@
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import { Promise } from 'rsvp';
 import fetch from 'fetch';
 import jwPlayerAssets from '../modules/jwplayer-assets';
 import { track } from '../utils/track';
 import JWPlayerMixin from '../mixins/jwplayer';
 import RenderComponentMixin from '../mixins/render-component';
-import config from '../config/environment';
 
 export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
+  runtimeConfig: service(),
+
   jwVideoDataUrl: 'https://cdn.jwplayer.com/v2/media/',
 
   /**
@@ -35,7 +37,7 @@ export default Component.extend(RenderComponentMixin, JWPlayerMixin, {
       window.Cookies.set(this.captionsCookieName, selectedLang, {
         expires: this.playerCookieExpireDays,
         path: '/',
-        domain: config.APP.cookieDomain,
+        domain: this.runtimeConfig.cookieDomain,
       });
     });
   },

@@ -37,6 +37,7 @@ export default Route.extend(
     wdsLiftigniter: service(),
     lightbox: service(),
     wikiUrls: service(),
+    runtimeConfig: service(),
 
     queryParams: {
       page: {
@@ -234,7 +235,7 @@ export default Route.extend(
         try {
           this.ads.destroyAdSlotComponents();
         } catch (e) {
-          logError('destroyAdSlotComponents', e);
+          logError(this.runtimeConfig.servicesExternalHost, 'destroyAdSlotComponents', e);
         }
 
         this.lightbox.close();
