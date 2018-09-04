@@ -69,9 +69,9 @@ function isBottomLeaderboardApplicable() {
  * @returns {boolean}
  */
 function isIncontentPlayerApplicable(context) {
-  return context.get('custom.pageType') !== 'home' &&
-    !context.get('custom.hasFeaturedVideo') &&
-    !context.get('custom.isIncontentPlayerDisabled');
+  return context.get('custom.pageType') !== 'home'
+    && !context.get('custom.hasFeaturedVideo')
+    && !context.get('custom.isIncontentPlayerDisabled');
 }
 
 export default {
