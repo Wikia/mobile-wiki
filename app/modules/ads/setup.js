@@ -21,7 +21,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const { utils: adProductsUtils } = window.Wikia.adProducts;
 
   function isGeoEnabled(instantGlobalKey) {
-    return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey]);
+    return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
   }
 
   context.extend(basicContext);
@@ -143,6 +143,12 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
+
+  // Need to be placed always after all lABrador wgVars checks
+  context.set(
+    'targeting.labrador',
+    adProductsUtils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals),
+  );
 
   slots.setupIdentificators();
   slots.setupStates();
