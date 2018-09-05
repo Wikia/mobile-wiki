@@ -42,15 +42,11 @@
   .post-header {
     padding-top: 12px;
 
-    .avatar {
-      display: inline-block;
-      margin-right: 5px;
+    .wds-avatar {
+      @include wds-avatar(30px, $wds-fandom-color-middle-gray);
 
-      img {
-        border: 2px solid $wds-color-white;
-        border-radius: 50%;
-        width: 36px;
-      }
+      margin-right: 5px;
+      vertical-align: middle;
     }
 
     .avatar-username {
