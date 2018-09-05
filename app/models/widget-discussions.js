@@ -3,21 +3,21 @@ import EmberObject, { getWithDefault, get } from '@ember/object';
 import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
-import config from '../config/environment';
 import { getQueryString } from '../utils/url';
 
 /**
   * @param {string} [path='']
   * @returns {string}
   */
-function getDiscussionServiceUrl(path = '') {
-  return `${config.APP.servicesExternalHost}/discussion${path}`;
+function getDiscussionServiceUrl(servicesExternalHost, path = '') {
+  return `${servicesExternalHost}/discussion${path}`;
 }
 
 export default EmberObject.extend(
   {
     wikiVariables: service(),
     wikiUrls: service(),
+    runtimeConfig: service(),
 
     /**
    * @param {array|string} [categories=[]]
@@ -32,7 +32,7 @@ export default EmberObject.extend(
         sortKey: sortBy === 'trending' ? 'trending' : 'creation_date',
       });
 
-      return fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/threads${queryString}`))
+      return fetch(getDiscussionServiceUrl(this.runtimeConfig.servicesExternalHost, `/${this.get('wikiVariables.id')}/threads${queryString}`))
         .then(response => response.json())
         .then(this.normalizeData.bind(this));
     },
@@ -109,7 +109,7 @@ export default EmberObject.extend(
       // Update frontend immediately. If error occurs then we revert state
       post.set('userData.hasUpvoted', !hasUpvoted);
 
-      fetch(getDiscussionServiceUrl(`/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
+      fetch(getDiscussionServiceUrl(this.runtimeConfig.servicesExternalHost, `/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
         method,
       }).then((response) => {
         if (response.ok) {

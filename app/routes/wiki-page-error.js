@@ -5,6 +5,8 @@ import { logError } from '../modules/event-logger';
 export default Route.extend(
   {
     fastboot: service(),
+    runtimeConfig: service(),
+
     /**
    * @param {Ember.Controller} controller
    * @param {EmberError} error
@@ -19,7 +21,7 @@ export default Route.extend(
           this.render('errors/other');
 
           if (!this.get('fastboot.isFastBoot')) {
-            logError('Wiki-page route error substate', error);
+            logError(this.runtimeConfig.servicesExternalHost, 'Wiki-page route error substate', error);
           }
           break;
       }

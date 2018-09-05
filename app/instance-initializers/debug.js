@@ -26,7 +26,6 @@ export function initialize(applicationInstance) {
 }
 
 export default {
-  after: 'config',
   name: 'debug',
   initialize,
 };

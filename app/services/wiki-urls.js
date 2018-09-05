@@ -1,11 +1,11 @@
 import Service, { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
-import config from '../config/environment';
 import { getQueryString } from '../utils/url';
 
 export default Service.extend({
   fastboot: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   langPath: computed(function () {
     return this.getLanguageCodeFromRequest(this.get('fastboot.request.path') || window.location.pathname);
@@ -183,7 +183,7 @@ export default Service.extend({
     const url = redirectUrl || window.location.href;
 
     window.location.href = this.build({
-      host: `www.${config.APP.baseDomain}`,
+      host: `www.${this.runtimeConfig.baseDomain}`,
       langPath: '',
       path: '/join',
       query: {
