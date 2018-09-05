@@ -28,6 +28,7 @@ export default class JWPlayerTracker {
   */
   constructor(params = {}) {
     this.trackingParams = params;
+    this.skipCtpAudioUpdate = false;
   }
 
   /**
@@ -41,7 +42,7 @@ export default class JWPlayerTracker {
       return;
     }
 
-    const { vastParser } = window.Wikia.adEngine;
+    const { slotService, vastParser } = window.Wikia.adEngine;
     // End of imports
 
     this.track('init');
@@ -63,8 +64,32 @@ export default class JWPlayerTracker {
     Object.keys(trackingEventsMap).forEach((playerEvent) => {
       player.on(playerEvent, (event) => {
         let errorCode;
-        if (playerEvent === 'adError') {
-          errorCode = event && event.code;
+
+        if (['adRequest', 'adError', 'ready', 'videoStart'].indexOf(playerEvent) !== -1) {
+          if (this.skipCtpAudioUpdate) {
+            this.skipCtpAudioUpdate = false;
+          } else {
+            if (this.trackingParams.withCtp) {
+              this.trackingParams.withCtp = !player.getConfig().autostart;
+            }
+
+            this.trackingParams.withAudio = !player.getMute();
+          }
+
+          if (playerEvent === 'adRequest' || playerEvent === 'adError') {
+            this.skipCtpAudioUpdate = true;
+
+            const slot = slotService.get(this.trackingParams.slotName);
+
+            if (slot && slot.getTargeting()) {
+              this.trackingParams.withCtp = slot.getTargeting().ctp === 'yes';
+              this.trackingParams.withAudio = slot.getTargeting().audio === 'yes';
+            }
+          }
+
+          if (playerEvent === 'adError') {
+            errorCode = event && event.code;
+          }
         }
 
         this.track(trackingEventsMap[playerEvent], errorCode);
