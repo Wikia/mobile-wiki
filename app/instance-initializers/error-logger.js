@@ -5,13 +5,15 @@ const whitelistErrorMessages = [
   'Attempt to use history.pushState() more than 100 times per 30.000000 seconds',
 ];
 
-export function initialize(/* appInstance */) {
+export function initialize(appInstance) {
+  const runtimeConfig = appInstance.lookup('service:runtimeConfig');
+
   if (typeof FastBoot !== 'undefined') {
     return;
   }
   Ember.onerror = function (error) {
     if (whitelistErrorMessages.indexOf(error.message) === -1) {
-      logError('Ember.onerror', {
+      logError(runtimeConfig.servicesExternalHost, 'Ember.onerror', {
         message: error.message,
         stack: error.stack,
       });
@@ -23,7 +25,6 @@ export function initialize(/* appInstance */) {
 }
 
 export default {
-  after: 'config',
   name: 'error-logger',
   initialize,
 };

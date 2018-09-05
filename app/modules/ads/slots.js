@@ -69,7 +69,9 @@ function isBottomLeaderboardApplicable() {
  * @returns {boolean}
  */
 function isIncontentPlayerApplicable(context) {
-  return !context.get('custom.hasFeaturedVideo') && !context.get('custom.isIncontentPlayerDisabled');
+  return context.get('custom.pageType') !== 'home'
+    && !context.get('custom.hasFeaturedVideo')
+    && !context.get('custom.isIncontentPlayerDisabled');
 }
 
 export default {
@@ -225,11 +227,13 @@ export default {
 
     const incontentState = isInContentApplicable();
 
-    setSlotState('MOBILE_TOP_LEADERBOARD', isTopLeaderboardApplicable());
-    setSlotState('MOBILE_IN_CONTENT', incontentState);
-    setSlotState('MOBILE_PREFOOTER', isPrefooterApplicable(incontentState));
-    setSlotState('BOTTOM_LEADERBOARD', isBottomLeaderboardApplicable());
-    setSlotState('FEATURED', context.get('custom.hasFeaturedVideo'));
+    setSlotState('mobile_top_leaderboard', isTopLeaderboardApplicable());
+    setSlotState('mobile_in_content', incontentState);
+    setSlotState('incontent_boxad_1', incontentState);
+    setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
+    setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
+
+    setSlotState('featured', context.get('custom.hasFeaturedVideo'));
     setSlotState('incontent_player', isIncontentPlayerApplicable(context));
   },
 

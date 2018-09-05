@@ -1,11 +1,11 @@
 import { and, equal, readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
-import config from '../config/environment';
 import { track } from '../utils/track';
 
 export default Service.extend({
   currentUser: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   smartBannerVisible: false,
   dayInMiliseconds: 86400000,
@@ -32,7 +32,7 @@ export default Service.extend({
     const cookieOptions = {
       expires: date,
       path: '/',
-      domain: config.APP.cookieDomain,
+      domain: this.runtimeConfig.cookieDomain,
     };
 
     date.setTime(date.getTime() + (days * this.dayInMiliseconds));
