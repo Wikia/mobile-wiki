@@ -43,8 +43,6 @@
     padding-top: 12px;
 
     .wds-avatar {
-      @include wds-avatar(30px, $wds-fandom-color-middle-gray);
-
       margin-right: 5px;
       vertical-align: middle;
     }

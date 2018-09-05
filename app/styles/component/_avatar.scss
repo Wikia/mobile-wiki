@@ -1,3 +1,7 @@
+.wds-avatar {
+  @include wds-avatar(30px, $wds-fandom-color-middle-gray);
+}
+
 .user-avatar {
   display: inline-block;
 }
