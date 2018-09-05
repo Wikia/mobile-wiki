@@ -25,14 +25,16 @@ module.exports = function (environment) {
       baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
       tracking: {
         ua: {
-          primary: {
-            id: 'UA-32129070-1',
-            sampleRate: 100,
-          },
-          ads: {
-            prefix: 'ads',
-            id: 'UA-32129071-1',
-            sampleRate: 100,
+          accounts: {
+            primary: {
+              id: 'UA-32129070-1',
+              sampleRate: 100,
+            },
+            ads: {
+              prefix: 'ads',
+              id: 'UA-32129071-1',
+              sampleRate: 100,
+            },
           },
           scriptUrl: 'https://www.google-analytics.com/analytics.js',
         },
@@ -60,7 +62,7 @@ module.exports = function (environment) {
     },
     fastboot: {
       hostWhitelist: [
-        /mobile-wiki-.*\.(dev|prod|staging)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
+        /mobile-wiki-.*\.(dev|prod)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
         /.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
         /.*\.wikia\.com/,
         /.*\.fandom\.com/,
