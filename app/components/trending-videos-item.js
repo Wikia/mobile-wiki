@@ -9,9 +9,8 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend({
   lightbox: service(),
 
-  tagName: 'a',
+  tagName: 'figure',
   classNames: ['trending-videos-item'],
-  attributeBindings: ['href'],
   video: null,
   imageWidth: 250,
   emptyGif: transparentImageBase64,
