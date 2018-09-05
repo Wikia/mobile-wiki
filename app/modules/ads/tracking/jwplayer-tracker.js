@@ -42,7 +42,7 @@ export default class JWPlayerTracker {
       return;
     }
 
-    const { vastParser } = window.Wikia.adEngine;
+    const { slotService, vastParser } = window.Wikia.adEngine;
     // End of imports
 
     this.track('init');
@@ -79,11 +79,11 @@ export default class JWPlayerTracker {
           if (playerEvent === 'adRequest' || playerEvent === 'adError') {
             this.skipCtpAudioUpdate = true;
 
-            const vastParams = event.tag ? vastParser.parse(event.tag) : null;
+            const slot = slotService.get(this.trackingParams.slotName);
 
-            if (vastParams && vastParams.customParams) {
-              this.trackingParams.withCtp = vastParams.customParams.ctp === 'yes';
-              this.trackingParams.withAudio = vastParams.customParams.audio === 'yes';
+            if (slot && slot.getTargeting()) {
+              this.trackingParams.withCtp = slot.getTargeting().ctp === 'yes';
+              this.trackingParams.withAudio = slot.getTargeting().audio === 'yes';
             }
           }
 
