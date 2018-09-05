@@ -1,8 +1,8 @@
 import fetch from 'fetch';
 import config from '../config/environment';
 
-function logEvent(resource, name, description = {}) {
-  const url = `${config.APP.servicesExternalHost}/event-logger`;
+function logEvent(host, resource, name, description = {}) {
+  const url = `${host}/event-logger`;
 
   if (config.environment === 'production') {
     fetch(`${url}/${resource}`, {
@@ -22,10 +22,10 @@ function logEvent(resource, name, description = {}) {
   }
 }
 
-export function logDebug(name, description) {
-  logEvent('debug', name, description);
+export function logDebug(host, name, description) {
+  logEvent(host, 'debug', name, description);
 }
 
-export function logError(name, description) {
-  logEvent('error', name, description);
+export function logError(host, name, description) {
+  logEvent(host, 'error', name, description);
 }

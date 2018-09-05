@@ -4,7 +4,6 @@ import { getOwner } from '@ember/application';
 import Service, { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
 import UserModel from '../models/user';
-import config from '../config/environment';
 
 /**
   * @typedef {Object} QueryUserInfoResponse
@@ -30,6 +29,7 @@ export default Service.extend({
   fastboot: service(),
   logger: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
   rights: null,
   isAuthenticated: bool('userId'),
   language: computed('wikiVariables', function () {
@@ -75,7 +75,7 @@ export default Service.extend({
 
   getGaUserIdHash() {
     const Crypto = FastBoot.require('crypto');
-    const rawString = `${this.userId}${config.APP.gaUserSalt}`;
+    const rawString = `${this.userId}${this.runtimeConfig.gaUserSalt}`;
 
     return Crypto.createHash('md5').update(rawString).digest('hex');
   },
