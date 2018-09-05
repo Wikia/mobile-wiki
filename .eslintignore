@@ -1,13 +1,26 @@
 crowdin/
-dist/
 node_modules/
 tasks/
-tmp/
-coverage/
-
 
 # Script copied from Google documentation
 vendor/inline-scripts/tracking-ua-init.js
 
 # Vendor files
 /blueprints/*/files/**/*.js
+
+# unconventional js
+/blueprints/*/files/
+/vendor/
+
+# compiled output
+/dist/
+/tmp/
+
+# dependencies
+/bower_components/
+
+# misc
+/coverage/
+
+# ember-try
+/.node_modules.ember-try/
