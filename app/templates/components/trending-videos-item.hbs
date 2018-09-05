@@ -1,15 +1,14 @@
-<figure class="positon-play-icon">
-  <a href="{{thumbUrl}}">
-    <div class="item-image">
-      {{#if thumbUrl}}
-        <img src="{{thumbUrl}}" alt="{{video.title}}">
-      {{else}}
-        <img src="{{emptyGif}}" alt="{{video.title}}">
-      {{/if}}
-      <div class="item-image__play-icon">
-        {{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}
-      </div>
-    </div>
-    <figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{video.title}}</figcaption>
-  </a>
-</figure>
+<a href="{{href}}">
+  <div class="item-image">
+    {{#if thumbUrl}}
+      <img src="{{thumbUrl}}" alt="{{video.title}}" width="600" height="338">
+    {{else}}
+      <img src="{{emptyGif}}" alt="{{video.title}}">
+    {{/if}}
+  </div>
+  <div class="video-icon-container">
+    {{svg 'wds-player-icon-play' class='wds-player-icon-play-large'}}
+  </div>
+</a>
+<figcaption class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight">{{video.title}}</figcaption>
+
