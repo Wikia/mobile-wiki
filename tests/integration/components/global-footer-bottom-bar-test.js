@@ -11,13 +11,14 @@ const i18nService = Service.extend({
 });
 
 module('Integration | Component | global-footer-bottom-bar', (hooks) => {
-  setupRenderingTest(hooks);
   setupWindowMock(hooks);
+  setupRenderingTest(hooks);
 
   let oldCookies;
 
   hooks.beforeEach(function () {
     this.owner.register('service:i18n', i18nService);
+
     oldCookies = window.Cookies;
     window.Cookies = {
       set() {},
@@ -28,22 +29,24 @@ module('Integration | Component | global-footer-bottom-bar', (hooks) => {
     window.Cookies = oldCookies;
   });
 
-  test('it correctly works when full site link is clicked', async function (assert) {
+  test('works when full site link is clicked', async function (assert) {
     const trackStub = sinon.stub();
     this.set('track', trackStub);
     this.set('model', {});
 
     const cookiesSetStub = sinon.stub(window.Cookies, 'set');
     const reloadStub = sinon.stub(window.location, 'reload');
+    this.owner.lookup('service:runtimeConfig').cookieDomain = 'test.domain.com';
 
     await render(hbs`{{global-footer/global-footer-bottom-bar model=model track=track}}`);
     await click('.wds-global-footer__button-link');
 
     assert.ok(trackStub.calledWith('full-site-link'), 'this.track is called');
-    assert.ok(cookiesSetStub.calledWith('useskin', 'oasis', {
-      domain: undefined,
+
+    assert.deepEqual(cookiesSetStub.args[0], ['useskin', 'oasis', {
+      domain: 'test.domain.com',
       path: '/',
-    }), 'correct cookie is set');
+    }], 'Cookies called with correct params');
     assert.ok(reloadStub.calledOnce, 'window.location.reload is called');
   });
 });
