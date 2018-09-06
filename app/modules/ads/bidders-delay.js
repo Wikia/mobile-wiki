@@ -21,7 +21,7 @@ export default {
   getPromise() {
     if (delayPromise === null) {
       delayPromise = new Promise((resolve) => {
-          resolvePromise = resolve;
+        resolvePromise = resolve;
       });
     }
 
