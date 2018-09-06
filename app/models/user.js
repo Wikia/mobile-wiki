@@ -30,7 +30,7 @@ export default EmberObject.extend({
     });
 
     return fetch(`${this.runtimeConfig.heliosInternalUrl}${queryString}`, {
-      headers: { 'X-Wikia-Internal-Request': this.runtimeConfig.environment.appName },
+      headers: { 'X-Wikia-Internal-Request': config.appName },
       timeout: config.APP.heliosTimeout,
     }).then((response) => {
       if (response.ok) {
