@@ -71,9 +71,25 @@ class Ads {
   callBidders() {
     const { bidders } = window.Wikia.adProducts;
 
+    biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
+  }
+
+  waitForVideoBidders() {
+    const { utils } = window.Wikia.adEngine;
+
+    if (!this.showAds) {
+      return Promise.resolve();
+    }
+
+    // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
+    // because we don't need to pass bidder parameters here because they are set on slot create
+    return biddersDelay.getPromise()
+      .then(() => {
+        utils.logger('featured-video', 'resolving featured video delay');
+      });
   }
 
   startAdEngine() {
