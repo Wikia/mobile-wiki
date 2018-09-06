@@ -1,14 +1,27 @@
-<div class="article-featured-video__player" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-  <meta itemprop="name" content="{{metadata.name}}">
-  <meta itemprop="duration" content="{{metadata.duration}}">
-  <meta itemprop="description" content="{{metadata.description}}">
-  <meta itemprop="thumbnailUrl" content="{{metadata.thumbnailUrl}}">
-  <meta itemprop="contentURL" content="{{metadata.contentUrl}}">
-  <meta itemprop="uploadDate" content="{{metadata.uploadDate}}">
-  <div class="article-featured-video__on-scroll-video-wrapper">
-    <div class="article-featured-video__video-content" style={{placeholderStyle}} id="{{videoContainerId}}"></div>
+<div
+  class="article-featured-video__player"
+  itemprop="video"
+  itemtype="http://schema.org/VideoObject"
+  itemscope
+>
+  <meta itemprop="name" content={{metadata.name}}>
+  <meta itemprop="duration" content={{metadata.duration}}>
+  <meta itemprop="description" content={{metadata.description}}>
+  <meta itemprop="thumbnailUrl" content={{metadata.thumbnailUrl}}>
+  <meta itemprop="contentURL" content={{metadata.contentUrl}}>
+  <meta itemprop="uploadDate" content={{metadata.uploadDate}}>
+  <div
+    class="article-featured-video__on-scroll-video-wrapper"
+  >
+    {{! template-lint-disable no-inline-styles }}
+    <div
+      class="article-featured-video__video-content"
+      style={{placeholderStyle}}
+      id={{videoContainerId}}
+    >
+    </div>
     {{article-featured-video-close
-      onTap=(action 'dismissPlayer')
+      onTap=(action "dismissPlayer")
     }}
     <div class="article-featured-video__details-wrapper">
       <div class="article-featured-video__details">
@@ -20,15 +33,26 @@
   <div class="article-featured-video__on-scroll-placeholder"></div>
 </div>
 {{#if hasAttribution}}
-  <div class="article-featured-video__attribution-container wds-font-size-xs wds-font-weight-bold {{if hasPortableInfobox 'has-portable-infobox'}}">
+  <div
+    class="article-featured-video__attribution-container wds-font-size-xs wds-font-weight-bold {{if hasPortableInfobox "has-portable-infobox"}}"
+  >
     <div class="article-featured-video__attribution-inner-container">
-      <a class="article-featured-video__attribution-link" href="{{currentVideoDetails.userUrl}}"
-         target="_blank" rel="noopener" {{action 'clickAttribution' preventDefault=false}}>
-        <img class="article-featured-video__attribution-avatar" src="{{attributionAvatarUrl}}"
-             alt="{{currentVideoDetails.username}}">
-        {{i18n 'featured-video.from'}}&nbsp;{{currentVideoDetails.username}}
-        {{svg 'wds-icons-out-arrow-tiny'
-              class='wds-icon wds-icon-tiny article-featured-video__attribution-icon'}}
+      <a {{action "clickAttribution" preventDefault=false}}
+        class="article-featured-video__attribution-link"
+        href={{currentVideoDetails.userUrl}}
+        target="_blank"
+        rel="noopener"
+      >
+        <img
+          class="article-featured-video__attribution-avatar"
+          src={{attributionAvatarUrl}}
+          alt={{currentVideoDetails.username}}
+        >
+        {{i18n "featured-video.from"}}&nbsp;{{currentVideoDetails.username}}
+        {{svg
+          "wds-icons-out-arrow-tiny"
+          class="wds-icon wds-icon-tiny article-featured-video__attribution-icon"
+        }}
       </a>
     </div>
   </div>

@@ -1,21 +1,21 @@
 <div id="wikiContainer" class="wiki-container">
   {{#article-wrapper
-      displayEmptyArticleInfo=false
-      mainPageTitle=mainPageTitle
-      model=model
-      showComments=false
-      siteName=siteName
-      wikiPageHeaderSubtitle=(i18n 'category-page.subtitle')
+    displayEmptyArticleInfo=false
+    mainPageTitle=mainPageTitle
+    model=model
+    showComments=false
+    siteName=siteName
+    wikiPageHeaderSubtitle=(i18n "category-page.subtitle")
   }}
     {{#if model.trendingArticles}}
       {{trending-articles
-        header=(i18n 'app.trending-articles-label')
+        header=(i18n "app.trending-articles-label")
         model=model.trendingArticles
       }}
     {{/if}}
     {{#if model.membersGrouped}}
       {{category-members-grouped
-        loadPage=(action 'loadPage')
+        loadPage=(action "loadPage")
         membersGrouped=model.membersGrouped
         nextPage=model.nextPage
         nextPageUrl=model.nextPageUrl

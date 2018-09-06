@@ -1,3 +1,6 @@
-<a href="{{@model.href}}" class="wds-global-footer__link" {{action @track @model.tracking_label preventDefault=false}}>
-  {{svg @model.image-data.name class='wds-global-footer__image wds-icon' }}
+<a {{action @track @model.tracking_label preventDefault=false}}
+  href={{@model.href}}
+  class="wds-global-footer__link"
+>
+  {{svg @model.image-data.name class="wds-global-footer__image wds-icon" }}
 </a>

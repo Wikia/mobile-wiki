@@ -92,7 +92,6 @@ module.exports = function (defaults) {
         'node_modules/design-system/dist/scss',
         'node_modules/@wikia/ad-products/dist',
       ],
-      onlyIncluded: true,
     },
     stylelint: {
       testFailingFiles: true,
