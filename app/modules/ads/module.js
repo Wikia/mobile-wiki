@@ -89,7 +89,7 @@ class Ads {
     });
 
     // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
-    // because we don't need to pass bidder parameters here because they are set on slot create
+    //       we don't need to pass bidder parameters here because they are set on slot create
     return Promise.race([
       biddersDelay.getPromise(),
       timeout,
