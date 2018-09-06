@@ -98,8 +98,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     });
   }
 
-  const areDelayServicesBlocked = isGeoEnabled('wgAdDriverBlockDelayServicesCountries');
-  context.set('bidders.a9.enabled', !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9BidderCountries'));
+  context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
@@ -116,8 +115,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
     context.set('bidders.prebid.rubiconDisplay.enabled', isGeoEnabled('wgAdDriverRubiconDisplayPrebidCountries'));
 
-    context.set('bidders.a9.videoEnabled',
-      !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
+    context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
     context.set('bidders.prebid.appnexusAst.enabled', isGeoEnabled('wgAdDriverAppNexusAstBidderCountries'));
     context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
 
