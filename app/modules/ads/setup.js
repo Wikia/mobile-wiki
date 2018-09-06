@@ -116,9 +116,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
     context.set('bidders.prebid.rubiconDisplay.enabled', isGeoEnabled('wgAdDriverRubiconDisplayPrebidCountries'));
 
-    // TODO: Enable all bidders or just Rubicon and AppnexusAst?
-    // context.set('bidders.a9.videoBidderEnabled',
-    //   !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
+    context.set('bidders.a9.videoEnabled',
+      !areDelayServicesBlocked && isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
     context.set('bidders.prebid.appnexusAst.enabled',
       isGeoEnabled('wgAdDriverAppNexusAstBidderCountries') && !hasFeaturedVideo);
     // context.set('bidders.prebid.beachfront.enabled',
