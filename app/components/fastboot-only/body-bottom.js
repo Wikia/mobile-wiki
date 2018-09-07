@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import config from '../../config/environment';
 
 export default Component.extend({
+  runtimeConfig: service(),
   wikiUrls: service(),
   currentUser: service(),
   fastboot: service(),
@@ -14,15 +14,15 @@ export default Component.extend({
   layoutName: 'components/fastboot-only/body-bottom',
 
   data: computed(function () {
-    const cookieDomain = config.APP.cookieDomain;
+    const cookieDomain = this.runtimeConfig.cookieDomain;
     const currentUser = this.currentUser;
     // We have to anonymize user id before sending it to Google
     // It's faster to do the hashing server side and pass to the front-end, ready to use
     const gaUserIdHash = currentUser.getGaUserIdHash();
-    const noExternals = config.APP.noExternals;
+    const noExternals = this.runtimeConfig.noExternals;
     const tracking = this.get('tracking.config');
     const isAuthenticated = currentUser.get('isAuthenticated');
-    const wikiaEnv = config.APP.wikiaEnv;
+    const wikiaEnv = this.runtimeConfig.wikiaEnv;
     const simpleStore = this.simpleStore.getProperties(
       'trackingDimensions',
       'articleId',

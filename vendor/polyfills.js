@@ -1,3 +1,5 @@
+'use strict';
+
 if (window && window.Element) {
   if (!Element.prototype.matches) {
     Element.prototype.matches = Element.prototype.msMatchesSelector;
@@ -18,6 +20,17 @@ if (window && window.Element) {
       } while (element !== null && element.nodeType === 1);
 
       return null;
+    };
+  }
+
+  if (!Object.entries) {
+    Object.entries = function (obj) {
+      var ownProps = Object.keys(obj);
+      var i = ownProps.length;
+      var resArray = new Array(i); // preallocate the Array
+      /* eslint-disable-next-line no-plusplus */
+      while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
+      return resArray;
     };
   }
 }
