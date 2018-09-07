@@ -1,5 +1,11 @@
 {{#if loadingError}}
-  {{i18n 'app.media-lightbox-error'}}
+  {{i18n "app.media-lightbox-error"}}
 {{else}}
-  <img alt="{{model.title}}" class="current {{if isLoading 'loading'}}" src="{{imageSrc}}" style={{style}}>
+  {{! template-lint-disable no-inline-styles }}
+  <img
+    alt={{model.title}}
+    class="current {{if isLoading "loading"}}"
+    src={{imageSrc}}
+    style={{style}}
+  >
 {{/if}}

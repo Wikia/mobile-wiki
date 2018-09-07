@@ -6,8 +6,8 @@ const assetsSizes = {
   'app.css': 85,
   'design-system.svg': 32,
   'lazy.css': 64,
-  'mobile-wiki.js': 433,
-  'vendor.js': 644,
+  'mobile-wiki.js': 423,
+  'vendor.js': 654,
   'jwplayer/index.css': 19,
   'jwplayer/wikiajwplayer.js': 54
 };

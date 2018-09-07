@@ -4,13 +4,13 @@
 **/node_modules/
 
 # compiled output
-/dist
-/tmp
+/dist/
+/tmp/
 
 # misc
 /.sass-cache
 /connect.lock
-/coverage/*
+/coverage/
 /libpeerconnection.log
 npm-debug.log
 testem.log
@@ -23,3 +23,12 @@ testem.log
 *.log
 *.iml
 .vscode
+
+/npm-debug.log*
+/testem.log
+/yarn-error.log
+
+# ember-try
+/.node_modules.ember-try/
+/bower.json.ember-try
+/package.json.ember-try

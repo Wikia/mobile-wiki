@@ -6,10 +6,12 @@
 <div class="search-results">
   {{#if model.totalItems}}
     <div class="search-results__total wds-font-size-s wds-leading-tight">
-      {{{i18n 'main.total-results'
-        ns='search'
+      {{! template-lint-disable attribute-indentation }}
+      {{{i18n
+        "main.total-results"
+        ns="search"
         totalItems=model.totalItems
-        query=(wrap-me model.query tagName='strong' className='wds-font-weight-bold')
+        query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
       }}}
     </div>
     {{wikia-ui-components/wikia-card-list
@@ -28,11 +30,11 @@
 {{#if model.canLoadMore}}
   <div class="search-results__load-more-wrapper">
     {{#wds-button
-      click=(action 'onLoadMore' 'search-load-more')
-      data-tracking-label='search-load-more'
+      click=(action "onLoadMore" "search-load-more")
+      data-tracking-label="search-load-more"
       secondary=true
     }}
-      {{i18n 'main.load-more-results' ns='search'}}
+      {{i18n "main.load-more-results" ns="search"}}
     {{/wds-button}}
   </div>
 {{/if}}
