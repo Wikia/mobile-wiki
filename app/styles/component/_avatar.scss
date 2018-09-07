@@ -1,15 +1,3 @@
-.user-avatar {
-  display: inline-block;
-}
-
-@media #{$wds-breakpoint-m-down} {
-  .user-avatar {
-    .avatar-username {
-      @include ellipsis;
-
-      display: inline-block;
-      max-width: 140px;
-      vertical-align: middle;
-    }
-  }
+.wds-avatar {
+  @include wds-avatar(30px, $wds-fandom-color-middle-gray);
 }
