@@ -25,20 +25,22 @@ module('Unit | Component | lightbox media', (hooks) => {
         caption: 'testcaption1',
         type: 'image',
       },
-      [
-        {
-          title: 'testgallery',
-          url: 'testgallery',
-          caption: 'testgallery',
-          type: 'image',
-        },
-        {
-          title: 'testgallery1',
-          url: 'testgallery1',
-          caption: 'testgallery1',
-          type: 'image',
-        },
-      ],
+      {
+        items: [
+          {
+            title: 'testgallery',
+            url: 'testgallery',
+            caption: 'testgallery',
+            type: 'image',
+          },
+          {
+            title: 'testgallery1',
+            url: 'testgallery1',
+            caption: 'testgallery1',
+            type: 'image',
+          },
+        ],
+      },
     ];
   });
 
