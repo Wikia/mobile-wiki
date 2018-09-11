@@ -32,7 +32,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wikia/ember-fandom": "github:Wikia/ember-fandom#bd9c07bef0cbee123fe85f8aa8dc6650d95ba7ca",
+    "@wikia/ember-fandom": "github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b",
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v13.1.5",
     "@wikia/ad-products": "git+https://github.com/Wikia/ad-products.git#v9.2.2",
     "@wikia/tracking-opt-in": "1.0.36",
