@@ -7,9 +7,9 @@ const assetsSizes = {
   'design-system.svg': 32,
   'lazy.css': 64,
   'mobile-wiki.js': 429,
-  'vendor.js': 655,
+  'vendor.js': 664,
   'jwplayer/index.css': 19,
-  'jwplayer/wikiajwplayer.js': 54
+  'jwplayer/wikiajwplayer.js': 55
 };
 
 function getFileSize(path) {
