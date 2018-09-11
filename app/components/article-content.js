@@ -157,10 +157,20 @@ export default Component.extend(
       let lightboxModel;
 
       if (gallery) {
-        lightboxModel = this.getLightboxModel(gallery);
-        lightboxModel.galleryRef = parseInt(figure.getAttribute('data-ref'), 10);
+        lightboxModel = {
+          items: this.getLightboxModel(gallery),
+          galleryRef: parseInt(figure.getAttribute('data-ref'), 10),
+        };
       } else {
+        const figcaption = figure.querySelector('figcaption');
+
         lightboxModel = this.getLightboxModel(figure);
+        if (figcaption) {
+          // for single images, caption stored within data-attrs attribute contains not fully
+          // parsed links, therefore it is better to get it directly from html. For galleries
+          // it is not the case
+          lightboxModel.caption = figcaption.innerHTML;
+        }
       }
 
       this.lightbox.open('media', lightboxModel);
