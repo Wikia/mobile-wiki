@@ -48,7 +48,7 @@ export default Component.extend({
   currentMedia: computed('model', 'isGallery', 'currentGalleryRef', function () {
     const current = this.model;
 
-    return this.isGallery ? current[this.currentGalleryRef] : current;
+    return this.isGallery ? current.items[this.currentGalleryRef] : current;
   }),
 
   currentGalleryRef: computed('model.galleryRef', {
@@ -72,14 +72,14 @@ export default Component.extend({
   }),
 
   galleryLength: computed('isGallery', 'model', function () {
-    return this.isGallery ? this.model.length : -1;
+    return this.isGallery ? this.model.items.length : -1;
   }),
 
   /**
   * checks if current displayed media is a gallery
   */
   isGallery: computed('model', function () {
-    return isArray(this.model);
+    return isArray(this.model.items);
   }),
 
   /**
@@ -159,7 +159,7 @@ export default Component.extend({
 
   updateThumbnails() {
     if (this.get('isGallery')) {
-      const thumbnails = this.model.map((item, index) => ({
+      const thumbnails = this.model.items.map((item, index) => ({
         url: Thumbnailer.getThumbURL(
           item.url,
           { width: 40, height: 40, mode: Thumbnailer.mode.topCrop },
