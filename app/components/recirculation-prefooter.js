@@ -1,7 +1,12 @@
 import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { reads, equal, and, not } from '@ember/object/computed';
+import {
+  reads,
+  equal,
+  and,
+  not,
+} from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import Thumbnailer from '../modules/thumbnailer';
@@ -39,7 +44,8 @@ export default Component.extend(
 
     listRendered: null,
     isContLangEn: equal('wikiVariables.language.content', 'en'),
-    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible') && not('wikiVariables.enableFeedsAndPosts'),
+    isFeedsAndPostsDisabled: not('wikiVariables.enableFeedsAndPosts'),
+    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
@@ -154,7 +160,7 @@ export default Component.extend(
         return;
       }
 
-      if (this.displayLiftigniterRecirculation) {
+      if (this.displayLiftigniterRecirculation && this.isFeedsAndPostsDisabled) {
         M.trackingQueue.push((isOptedIn) => {
           if (isOptedIn) {
             this.fetchLiftIgniterData();
