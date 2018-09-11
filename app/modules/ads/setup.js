@@ -98,10 +98,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     });
   }
 
+  const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
+  context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries') && hasFeaturedVideo);
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
-    const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
 
     context.set('bidders.prebid.enabled', true);
     context.set('bidders.prebid.aol.enabled', isGeoEnabled('wgAdDriverAolBidderCountries'));
@@ -115,7 +116,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.pubmatic.enabled', isGeoEnabled('wgAdDriverPubMaticBidderCountries'));
     context.set('bidders.prebid.rubiconDisplay.enabled', isGeoEnabled('wgAdDriverRubiconDisplayPrebidCountries'));
 
-    context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries'));
     context.set('bidders.prebid.appnexusAst.enabled', isGeoEnabled('wgAdDriverAppNexusAstBidderCountries'));
     context.set('bidders.prebid.rubicon.enabled', isGeoEnabled('wgAdDriverRubiconPrebidCountries'));
 
