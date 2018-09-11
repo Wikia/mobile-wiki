@@ -156,6 +156,8 @@ export default Component.extend({
         method: 'getArticleComments',
         id: articleId,
         page,
+        // TODO: clean me after premium bottom of page is released and icache expired
+        premiumBottom: true,
       },
     });
   },
