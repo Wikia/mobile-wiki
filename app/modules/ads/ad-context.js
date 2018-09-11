@@ -93,12 +93,10 @@ export default {
         debugPlacementId: '5768085',
         slots: {
           featured: {
-            placementId: '13705871',
-            context: 'instream',
+            placementId: '13705871'
           },
           incontent_player: {
-            placementId: '11543173',
-            context: 'outstream',
+            placementId: '11543173'
           },
         },
       },
