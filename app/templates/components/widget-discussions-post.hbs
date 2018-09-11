@@ -1,10 +1,6 @@
 <div class="post-header">
   <div class="user-avatar">
-    <figure class="avatar">
-      <a href="{{post.createdBy.profileUrl}}">
-        <img alt="user avatar" src="{{post.createdBy.avatarUrl}}">
-      </a>
-    </figure>
+    {{wds-avatar src=post.createdBy.avatarUrl alt=post.createdBy.name}}
     <a class="avatar-username wds-font-size-s" href="{{post.createdBy.profileUrl}}">{{post.createdBy.name}}</a>
   </div>
   <span class="timestamp wds-font-size-xs wds-font-weight-bold" title="{{timestamp-to-date post.creationTimestamp}}">

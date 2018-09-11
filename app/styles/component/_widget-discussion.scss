@@ -42,15 +42,9 @@
   .post-header {
     padding-top: 12px;
 
-    .avatar {
-      display: inline-block;
+    .wds-avatar {
       margin-right: 5px;
-
-      img {
-        border: 2px solid $wds-color-white;
-        border-radius: 50%;
-        width: 36px;
-      }
+      vertical-align: middle;
     }
 
     .avatar-username {

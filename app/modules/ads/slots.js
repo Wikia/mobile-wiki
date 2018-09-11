@@ -142,6 +142,8 @@ export default {
       incontent_player: {
         adProduct: 'incontent_player',
         avoidConflictWith: '.ad-slot',
+        autoplay: true,
+        audio: false,
         insertBeforeSelector: '.article-body h2',
         disabled: true,
         slotNameSuffix: '',
