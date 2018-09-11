@@ -1,52 +1,140 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover">
-<meta name="theme-color" content="#002a32">
-<link rel="preconnect" href="https://vignette.wikia.nocookie.net">
-<!-- fallback to dns-prefetch for iOS where preconnect isn't supported yet -->
-<link rel="dns-prefetch" href="https://vignette.wikia.nocookie.net">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover">
+  <meta name="theme-color" content="#002a32">
+  <link rel="preconnect" href="https://vignette.wikia.nocookie.net">
+  <!-- fallback to dns-prefetch for iOS where preconnect isn't supported yet -->
+  <link rel="dns-prefetch" href="https://vignette.wikia.nocookie.net">
 
-<link rel="stylesheet" href="/mobile-wiki-assets/assets/app.css">
-<script src="/mobile-wiki-assets/assets/vendor.js" defer></script>
-<script src="/mobile-wiki-assets/assets/mobile-wiki.js" defer></script>
-<script>
-  window.M = {};
-</script>
-{{content-for 'head'}}
-{{content-for 'lazysizes'}}
-{{content-for 'head-footer'}}
+  <link rel="stylesheet" href="/mobile-wiki-assets/assets/app.css">
+  <script src="/mobile-wiki-assets/assets/vendor.js" defer></script>
+  <script src="/mobile-wiki-assets/assets/mobile-wiki.js" defer></script>
+  <script>
+    window.M = {};
+  </script>
+  {{content-for 'head'}}
+  {{content-for 'lazysizes'}}
+  {{content-for 'head-footer'}}
 </head>
+
 <body class="mobile-wiki">
-<div id="rubik-font">
-  <b><i></i></b>
-  <b></b>
-  <i></i>
-</div>
-{{content-for 'rubik-font'}}
-{{content-for 'svg-inline'}}
-{{content-for 'body'}}
-<script src="/mobile-wiki-assets/assets/wikia-opt-in.min.js"></script>
-{{content-for 'fastboot-inline-scripts'}}
-{{content-for 'fastboot-inline-scripts-tracking'}}
-{{content-for 'fastboot-inline-scripts-load-svg'}}
+  <div id="rubik-font">
+    <b><i></i></b>
+    <b></b>
+    <i></i>
+  </div>
+  {{content-for 'rubik-font'}}
+  {{content-for 'svg-inline'}}
+  {{content-for 'body'}}
+  <script src="/mobile-wiki-assets/assets/wikia-opt-in.min.js"></script>
+  <script>
+    // objects needed for Oasis
+    window.Wikia = {};
+    window.Mercury = {};
 
-<script>
-  (function (M) {
-    M.loadDOMResource('/mobile-wiki-assets/assets/design-system.svg');
-  })(window.M);
-</script>
+    // objects needed for AdEngine
+    window.mw = {
+      loader: {
+        state: function () {
+        }
+      }
+    };
+    window.wgNow = new Date();
 
-{{content-for 'mediawiki-scripts-handlers'}}
+    if (typeof window.M === 'undefined') {
+      window.M = {};
+    }
+    (function (M) {
+      let cookieValue = '; ' + document.cookie;
+      let cookieParts = cookieValue.split('; Geo=');
+      let geoCookie;
 
-{{content-for 'load-ads'}}
-{{content-for 'fastboot-inline-scripts-body-bottom'}}
-{{content-for 'tracking-ua'}}
-{{content-for 'tracking-internal'}}
-{{content-for 'tracking-netzathleten'}}
-{{content-for 'tracking-liftigniter'}}
-{{content-for 'body-footer'}}
+      // Normally we would use $.cookie but jQuery isn't loaded yet
+      if (cookieParts.length === 2) {
+        geoCookie = decodeURIComponent(cookieParts.pop().split(';').shift());
+      }
+
+      if (geoCookie) {
+        M.geo = JSON.parse(geoCookie);
+      } else if (M.getFromHeadDataStore('wikiaEnv') === 'dev') {
+        M.geo = {
+          country: 'wikia-dev-country',
+          continent: 'wikia-dev-continent'
+        };
+      } else {
+        console.debug('Geo cookie is not set');
+      }
+    })(window.M);
+    (function (M) {
+      M.loadScript = function (src, async, onload, crossorigin) {
+        const firstScriptInDocument = document.getElementsByTagName('script')[0];
+        const scriptTag = document.createElement('script');
+
+        scriptTag.src = src;
+        scriptTag.async = async;
+
+        if (typeof onload === 'function') {
+          scriptTag.onload = onload;
+        }
+
+        if (typeof crossorigin !== 'undefined') {
+          scriptTag.crossOrigin = crossorigin;
+        }
+
+        firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+      };
+    })(window.M);
+    (function (M) {
+      const element = document.querySelector('#head-data-store');
+      const data = JSON.parse(element.textContent.replace(/<!--[^>]*-->/g, ''));
+
+      M.getFromHeadDataStore = function (path) {
+        const parts = path.split('.');
+        let value = data;
+        let i;
+        let length;
+
+        if (parts.length > 1) {
+          length = parts.length;
+
+          for (i = 0; i < length; i++) {
+            if (!value.hasOwnProperty(parts[i])) {
+              return;
+            }
+
+            value = value[parts[i]];
+          }
+
+          return value;
+        }
+
+        return data[path];
+      };
+
+    })(window.M);
+  </script>
+  {{content-for 'fastboot-inline-scripts-tracking'}}
+  {{content-for 'fastboot-inline-scripts-load-svg'}}
+
+  <script>
+    (function (M) {
+      M.loadDOMResource('/mobile-wiki-assets/assets/design-system.svg');
+    })(window.M);
+  </script>
+
+  {{content-for 'mediawiki-scripts-handlers'}}
+
+  {{content-for 'load-ads'}}
+  {{content-for 'fastboot-inline-scripts-body-bottom'}}
+  {{content-for 'tracking-ua'}}
+  {{content-for 'tracking-internal'}}
+  {{content-for 'tracking-netzathleten'}}
+  {{content-for 'tracking-liftigniter'}}
+  {{content-for 'body-footer'}}
 </body>
+
 </html>

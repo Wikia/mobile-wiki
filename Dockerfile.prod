@@ -8,6 +8,8 @@ ARG GITHUB_TOKEN
 ENV IMAGE_VERSION ${IMAGE_VERSION}
 ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
+ENV EXPERIMENTAL_RENDER_MODE_SERIALIZE true
+
 # move files to cache installing of dependencies
 COPY .npmrc .
 COPY package-lock.json .
