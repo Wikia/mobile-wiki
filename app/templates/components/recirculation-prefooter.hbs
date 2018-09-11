@@ -17,20 +17,18 @@
 {{/if}}
 
 {{#if displayLiftigniterRecirculation}}
-  {{#if isFeedsAndPostsDisabled}}
-    <ul class="recirculation-prefooter__list">
-      {{#each items as |post index|}}
-        <li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
-          {{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
-          <a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
-            <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">{{post.title}}</p>
-            <p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">{{post.site_name}}</p>
-            {{#if post.presented_by}}
-              <span class="recirculation-prefooter__badge-sponsored wds-font-size-xs wds-font-weight-bold">Sponsored</span>
-            {{/if}}
-          </a>
-        </li>
-      {{/each}}
-    </ul>
-  {{/if}}
+  <ul class="recirculation-prefooter__list">
+    {{#each items as |post index|}}
+      <li class="recirculation-prefooter__item" style={{concat-background post.thumbnail}}>
+        {{! This 'a' tag is required by liftigniter's js lib in order to properly set tracking for elements }}
+        <a href="{{post.url}}" class="recirculation-prefooter__item-anchor" {{action 'postClick' post index preventDefault=true}}>
+          <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">{{post.title}}</p>
+          <p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">{{post.site_name}}</p>
+          {{#if post.presented_by}}
+            <span class="recirculation-prefooter__badge-sponsored wds-font-size-xs wds-font-weight-bold">Sponsored</span>
+          {{/if}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
 {{/if}}

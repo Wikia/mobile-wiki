@@ -44,8 +44,9 @@ export default Component.extend(
 
     listRendered: null,
     isContLangEn: equal('wikiVariables.language.content', 'en'),
+    canDisplayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
     isFeedsAndPostsDisabled: not('wikiVariables.enableFeedsAndPosts'),
-    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
+    displayLiftigniterRecirculation: and('canDisplayLiftigniterRecirculation', 'isFeedsAndPostsDisabled'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
@@ -160,7 +161,7 @@ export default Component.extend(
         return;
       }
 
-      if (this.displayLiftigniterRecirculation && this.isFeedsAndPostsDisabled) {
+      if (this.displayLiftigniterRecirculation) {
         M.trackingQueue.push((isOptedIn) => {
           if (isOptedIn) {
             this.fetchLiftIgniterData();
