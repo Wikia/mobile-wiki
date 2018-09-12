@@ -65,10 +65,11 @@ function isBottomLeaderboardApplicable() {
 /**
  * Decides if incontent_player slot should be active.
  *
- * @param {object} context
  * @returns {boolean}
  */
-function isIncontentPlayerApplicable(context) {
+function isIncontentPlayerApplicable() {
+  const { context } = window.Wikia.adEngine;
+
   return context.get('custom.pageType') !== 'home'
     && !context.get('custom.hasFeaturedVideo')
     && !context.get('custom.isIncontentPlayerDisabled');
@@ -236,7 +237,7 @@ export default {
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
-    setSlotState('incontent_player', isIncontentPlayerApplicable(context));
+    setSlotState('incontent_player', isIncontentPlayerApplicable());
   },
 
   setupIdentificators() {
