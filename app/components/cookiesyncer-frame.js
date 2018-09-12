@@ -14,6 +14,7 @@ export default Component.extend({
       return false;
     }
 
-    return typeof window.Cookies.get('tracking-opt-in-status') !== 'undefined';
+    return typeof window.Cookies.get('tracking-opt-in-status') !== 'undefined'
+      && typeof window.Cookies.get('cookiesync_done') === 'undefined';
   }),
 });
