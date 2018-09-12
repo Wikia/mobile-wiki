@@ -15,7 +15,7 @@ export default EmberObject.extend({
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',
-        method: 'getWikiVariables',
+        method: 'getMobileWikiVariables',
         format: 'json',
       },
     });
