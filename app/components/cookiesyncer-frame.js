@@ -15,6 +15,6 @@ export default Component.extend({
     }
 
     return typeof window.Cookies.get('tracking-opt-in-status') !== 'undefined'
-      && typeof window.Cookies.get('cookiesync_done') === 'undefined';
+      && window.Cookies.get('cookiesync_done') !== '1';
   }),
 });
