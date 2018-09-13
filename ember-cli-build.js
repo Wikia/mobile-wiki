@@ -90,7 +90,7 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: [
         'node_modules/design-system/dist/scss',
-        'node_modules/@wikia/ad-products/dist',
+        'node_modules/@wikia/ad-engine/dist',
       ],
       onlyIncluded: true,
     },
@@ -127,7 +127,7 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  const adEngine3Assets = new Funnel('node_modules/@wikia/ad-products/dist', {
+  const adEngine3Assets = new Funnel('node_modules/@wikia/ad-engine/dist', {
     include: ['global-bundle.js'],
     destDir: 'assets/wikia-ae3',
   });
