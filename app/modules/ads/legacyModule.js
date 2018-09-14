@@ -427,13 +427,16 @@ class Ads {
 
     if (this.isLoaded) {
       this.setupSlotsContext();
+
       if (this.adMercuryListenerModule) {
         this.adMercuryListenerModule.onPageChange(() => {
           this.googleTagModule.updateCorrelator();
         });
       }
+
       if (adsContext) {
         this.adContextModule.setContext(adsContext);
+        this.adContextModule.trackLabrador();
 
         this.onReadyCallbacks.forEach(callback => callback());
         this.onReadyCallbacks = [];
