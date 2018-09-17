@@ -2,7 +2,6 @@ import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
-import PageTracker from './tracking/page-tracker';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
@@ -144,13 +143,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     'targeting.labrador',
     adProductsUtils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals),
   );
-
-  // Track Labrador values to DW
-  const labradorPropValue = adProductsUtils.getSamplingResults().join(';');
-
-  if (PageTracker.isEnabled() && labradorPropValue) {
-    PageTracker.trackProp('labrador', labradorPropValue);
-  }
 
   slots.setupIdentificators();
   slots.setupStates();

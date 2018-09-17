@@ -2,6 +2,7 @@
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
 
@@ -61,6 +62,9 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
     this.callBidders();
 
+    events.on(events.PAGE_CHANGE_EVENT, this.trackLabrador);
+    this.trackLabrador();
+
     this.startAdEngine();
 
     this.isLoaded = true;
@@ -77,6 +81,17 @@ class Ads {
     });
   }
 
+  trackLabrador() {
+    const { utils: adProductsUtils } = window.Wikia.adProducts;
+
+    // Track Labrador values to DW
+    const labradorPropValue = adProductsUtils.getSamplingResults().join(';');
+
+    if (PageTracker.isEnabled() && labradorPropValue) {
+      PageTracker.trackProp('labrador', labradorPropValue);
+    }
+  }
+
   waitForVideoBidders() {
     const { context, utils } = window.Wikia.adEngine;
 
@@ -89,7 +104,7 @@ class Ads {
     });
 
     // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
-    //       we don't need to pass bidder parameters here because they are set on slot create
+    // we don't need to pass bidder parameters here because they are set on slot create
     return Promise.race([
       biddersDelay.getPromise(),
       timeout,

@@ -436,7 +436,6 @@ class Ads {
 
       if (adsContext) {
         this.adContextModule.setContext(adsContext);
-        this.adContextModule.trackLabrador();
 
         this.onReadyCallbacks.forEach(callback => callback());
         this.onReadyCallbacks = [];
