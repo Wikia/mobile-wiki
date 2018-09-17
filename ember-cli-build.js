@@ -42,6 +42,9 @@ EmberApp.prototype.addonTreesFor = function (type) {
 module.exports = function (defaults) {
   const inlineScriptsPath = 'vendor/inline-scripts/';
   const app = new EmberApp(defaults, {
+    'ember-fetch': {
+      preferNative: true,
+    },
     autoprefixer: {
       cascade: false,
       map: false,
