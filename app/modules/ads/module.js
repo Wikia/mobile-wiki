@@ -51,7 +51,7 @@ class Ads {
 
     biddersDelay.resetPromise();
     bidders.requestBids({
-        responseListener: biddersDelay.markAsReady,
+      responseListener: biddersDelay.markAsReady,
     });
 
     krux.call();

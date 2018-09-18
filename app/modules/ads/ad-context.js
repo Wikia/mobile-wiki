@@ -375,8 +375,8 @@ export default {
   services: {
     krux: {
       enabled: false,
-      id: 'JTKzTN3f'
-    }
+      id: 'JTKzTN3f',
+    },
   },
   slots: {},
   vast: {
