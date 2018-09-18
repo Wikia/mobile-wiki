@@ -18,10 +18,9 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 
 function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const { context, utils } = window.Wikia.adEngine;
-  const { utils: adProductsUtils } = window.Wikia.adProducts;
 
   function isGeoEnabled(instantGlobalKey) {
-    return adProductsUtils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
+    return utils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
   }
 
   context.extend(basicContext);
@@ -35,7 +34,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
-  adProductsUtils.isProperGeo(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
+  isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
   context.set('slots', slots.getContext());
   context.set('state.deviceType', utils.client.getDeviceType());
@@ -139,10 +138,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
   // Need to be placed always after all lABrador wgVars checks
-  context.set(
-    'targeting.labrador',
-    adProductsUtils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals),
-  );
+  context.set('targeting.labrador', utils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals));
 
   slots.setupIdentificators();
   slots.setupStates();
