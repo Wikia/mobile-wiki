@@ -1,12 +1,14 @@
 import fetch from '@wikia/ember-fandom/services/fetch';
-import config from '../config/environment';
+import { inject as service } from '@ember/service';
 
 export default fetch.extend({
+  runtimeConfig: service(),
+
   init() {
     this.config = {
-      internalCache: config.APP.internalCache,
-      servicesExternalHost: config.APP.servicesExternalHost,
-      servicesInternalHost: config.APP.servicesInternalHost,
+      internalCache: this.runtimeConfig.internalCache,
+      servicesExternalHost: this.runtimeConfig.servicesExternalHost,
+      servicesInternalHost: this.runtimeConfig.servicesInternalHost,
     };
 
     this._super(...arguments);

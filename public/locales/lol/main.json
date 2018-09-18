@@ -94,7 +94,8 @@
     "user-menu-profile": "crwdns58243:0crwdne58243:0"
   }, 
   "recirculation": {
-    "trending-fandom-articles": "crwdns68294:0crwdne68294:0"
+    "popular-wiki-articles-header": "crwdns80721:0{wikiName}crwdne80721:0", 
+    "trending-fandom-articles": "crwdns80720:0crwdne80720:0"
   }, 
   "smartbanner": {
     "install-android": "crwdns58244:0crwdne58244:0"

@@ -94,7 +94,8 @@
     "user-menu-profile": "Perfil"
   }, 
   "recirculation": {
-    "trending-fandom-articles": "Artículos de FANDOM"
+    "popular-wiki-articles-header": "MÁS {wikiName}", 
+    "trending-fandom-articles": "FEED PARA LOS FANS"
   }, 
   "smartbanner": {
     "install-android": "Instalar"

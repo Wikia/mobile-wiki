@@ -12,9 +12,9 @@ export default function getAdsModule() {
 
   adsPromise = new Promise((resolve, reject) => {
     if (typeof window.waitForAds === 'function') {
-      window.waitForAds((isAdEngine3Loaded) => {
-        isAdEngine3 = isAdEngine3Loaded;
-        resolve(isAdEngine3Loaded ? Ads.getInstance() : LegacyAds.getInstance());
+      window.waitForAds((adEngine3Loaded) => {
+        isAdEngine3 = adEngine3Loaded;
+        resolve(isAdEngine3 ? Ads.getInstance() : LegacyAds.getInstance());
       });
     } else {
       reject();

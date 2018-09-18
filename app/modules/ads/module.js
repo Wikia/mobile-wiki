@@ -2,6 +2,7 @@
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
 
@@ -47,7 +48,7 @@ class Ads {
 
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
-    const { bidders } = window.Wikia.adProducts;
+    const { bidders } = window.Wikia.adBidders;
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
     this.instantGlobals = instantGlobals;
@@ -61,6 +62,9 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
     this.callBidders();
 
+    events.on(events.PAGE_CHANGE_EVENT, this.trackLabrador);
+    this.trackLabrador();
+
     this.startAdEngine();
 
     this.isLoaded = true;
@@ -69,10 +73,43 @@ class Ads {
   }
 
   callBidders() {
-    const { bidders } = window.Wikia.adProducts;
+    const { bidders } = window.Wikia.adBidders;
 
+    biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
+    });
+  }
+
+  trackLabrador() {
+    const { utils: adProductsUtils } = window.Wikia.adProducts;
+
+    // Track Labrador values to DW
+    const labradorPropValue = adProductsUtils.getSamplingResults().join(';');
+
+    if (PageTracker.isEnabled() && labradorPropValue) {
+      PageTracker.trackProp('labrador', labradorPropValue);
+    }
+  }
+
+  waitForVideoBidders() {
+    const { context, utils } = window.Wikia.adEngine;
+
+    if (!this.showAds) {
+      return Promise.resolve();
+    }
+
+    const timeout = new Promise((resolve) => {
+      setTimeout(resolve, context.get('options.maxDelayTimeout'));
+    });
+
+    // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
+    // we don't need to pass bidder parameters here because they are set on slot create
+    return Promise.race([
+      biddersDelay.getPromise(),
+      timeout,
+    ]).then(() => {
+      utils.logger('featured-video', 'resolving featured video delay');
     });
   }
 

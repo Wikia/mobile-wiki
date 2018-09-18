@@ -7,9 +7,10 @@
     toggleSiteHeadShadow=(action 'toggleSiteHeadShadow' target=application)
   }}
 </div>
-{{#if displayRecirculation}}
-  {{recirculation-prefooter}}
-{{/if}}
+{{recirculation-prefooter
+  applicationWrapperVisible=applicationWrapperVisible
+}}
+
 {{#if wikiVariables.recommendedVideoPlaylist}}
   {{recommended-video
     playlistId=wikiVariables.recommendedVideoPlaylist

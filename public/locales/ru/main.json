@@ -94,7 +94,8 @@
     "user-menu-profile": "Профайл"
   }, 
   "recirculation": {
-    "trending-fandom-articles": "Популярные статьи с ФЭНДОМА"
+    "popular-wiki-articles-header": "ЕЩЕ ПО ТЕМЕ {wikiName}", 
+    "trending-fandom-articles": "НОВОСТНАЯ ЛЕНТА"
   }, 
   "smartbanner": {
     "install-android": "Установить"

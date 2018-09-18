@@ -75,9 +75,10 @@ export default Component.extend(
       });
     },
 
-    onLinkClicked(href) {
-      // FIXME XW-5099
-      if (href.substr(0, 6) === '/wiki/' && href.indexOf(':') === -1) {
+    onLinkClicked(href, event) {
+      event.preventDefault();
+
+      if (href.substr(0, 6) === '/wiki/') {
         this.router.transitionTo('wiki-page', href.substr(6));
       } else {
         window.location = href;

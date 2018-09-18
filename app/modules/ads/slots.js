@@ -1,4 +1,4 @@
-import offset from '../../utils/offset';
+import offset from '@wikia/ember-fandom/utils/offset';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
@@ -44,7 +44,7 @@ function isInContentApplicable() {
   return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
 }
 
-function isPrefooterApplicable(isInContentApplicable) {
+function isPrefooterApplicable(inContentApplicable) {
   const { context } = window.Wikia.adEngine;
 
   if (context.get('custom.pageType') === 'home') {
@@ -54,12 +54,25 @@ function isPrefooterApplicable(isInContentApplicable) {
   const numberOfSections = document.querySelectorAll('.article-content > h2').length;
   const hasArticleFooter = !!document.querySelector('.article-footer');
 
-  return (hasArticleFooter && !isInContentApplicable)
+  return (hasArticleFooter && !inContentApplicable)
     || (numberOfSections > MIN_NUMBER_OF_SECTIONS);
 }
 
 function isBottomLeaderboardApplicable() {
   return !!document.querySelector('.wds-global-footer');
+}
+
+/**
+ * Decides if incontent_player slot should be active.
+ *
+ * @returns {boolean}
+ */
+function isIncontentPlayerApplicable() {
+  const { context } = window.Wikia.adEngine;
+
+  return context.get('custom.pageType') !== 'home'
+    && !context.get('custom.hasFeaturedVideo')
+    && !context.get('custom.isIncontentPlayerDisabled');
 }
 
 export default {
@@ -130,6 +143,8 @@ export default {
       incontent_player: {
         adProduct: 'incontent_player',
         avoidConflictWith: '.ad-slot',
+        autoplay: true,
+        audio: false,
         insertBeforeSelector: '.article-body h2',
         disabled: true,
         slotNameSuffix: '',
@@ -215,11 +230,14 @@ export default {
 
     const incontentState = isInContentApplicable();
 
-    setSlotState('MOBILE_TOP_LEADERBOARD', isTopLeaderboardApplicable());
-    setSlotState('MOBILE_IN_CONTENT', incontentState);
-    setSlotState('MOBILE_PREFOOTER', isPrefooterApplicable(incontentState));
-    setSlotState('BOTTOM_LEADERBOARD', isBottomLeaderboardApplicable());
-    setSlotState('FEATURED', context.get('custom.hasFeaturedVideo'));
+    setSlotState('mobile_top_leaderboard', isTopLeaderboardApplicable());
+    setSlotState('mobile_in_content', incontentState);
+    setSlotState('incontent_boxad_1', incontentState);
+    setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
+    setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
+
+    setSlotState('featured', context.get('custom.hasFeaturedVideo'));
+    setSlotState('incontent_player', isIncontentPlayerApplicable());
   },
 
   setupIdentificators() {
@@ -234,14 +252,5 @@ export default {
       const slotParam = slotsDefinition[key].slotShortcut || 'x';
       context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
     });
-  },
-
-  setupIncontentPlayer() {
-    const { context } = window.Wikia.adEngine;
-
-    // ToDo: don't set up player if is UAP loaded
-    if (!context.get('custom.hasFeaturedVideo')) {
-      setSlotState('incontent_player', true);
-    }
   },
 };

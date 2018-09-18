@@ -1,5 +1,6 @@
 const logGroup = 'bidders-delay';
 
+let delayPromise = null;
 let resolvePromise;
 
 export default {
@@ -13,14 +14,22 @@ export default {
     return logGroup;
   },
 
+  resetPromise() {
+    delayPromise = null;
+  },
+
   getPromise() {
-    return new Promise((resolve) => {
-      resolvePromise = resolve;
-    });
+    if (delayPromise === null) {
+      delayPromise = new Promise((resolve) => {
+        resolvePromise = resolve;
+      });
+    }
+
+    return delayPromise;
   },
 
   markAsReady() {
-    const { bidders } = window.Wikia.adProducts;
+    const { bidders } = window.Wikia.adBidders;
 
     if (bidders.hasAllResponses()) {
       if (resolvePromise) {

@@ -15,10 +15,12 @@
   </div>
   {{wikia-in-your-lang}}
   {{#if globalFooter}}
-    {{global-footer/global-footer model=globalFooter}}
+    {{wds-global-footer model=globalFooter}}
+    {{global-footer-bottom}}
   {{/if}}
 {{/if}}
 {{lightbox-wrapper}}
 {{alert-notifications alerts=alertNotifications}}
 {{cookiesyncer-frame}}
+{{autologin-frame}}
 {{wds-spinner active=isLoading}}

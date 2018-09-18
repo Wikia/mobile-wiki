@@ -1,7 +1,7 @@
 @import 'ads-floor';
 @import 'ads-mixin';
 @import 'ads-porvata';
-@import 'node_modules/@wikia/ad-products/dist/ad-products';
+@import 'node_modules/@wikia/ad-engine/src/ad-products/styles/styles';
 
 $closeButtonHeight: 40px;
 
@@ -12,6 +12,7 @@ $closeButtonHeight: 40px;
 }
 
 .ad-slot {
+  margin: 0 0 1.125rem;
   text-align: center;
 
   .provider-container {

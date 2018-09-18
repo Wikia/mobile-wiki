@@ -1,6 +1,4 @@
 import { Promise } from 'rsvp';
-import fetch from 'fetch';
-import { logError } from './event-logger';
 
 export const assetUrls = {
   styles: '/mobile-wiki-assets/assets/jwplayer/index.css',
@@ -30,19 +28,17 @@ class JWPlayerAssets {
 
   loadScripts() {
     if (!this.scriptsPromise) {
-      this.scriptsPromise = new Promise((resolve) => {
+      this.scriptsPromise = new Promise((resolve, reject) => {
         window.M.loadScript(assetUrls.script, true, (data) => {
-          resolve(data);
-
-          if (typeof window.wikiaJWPlayer !== 'function') {
-            fetch(assetUrls.script).then((data) => {
-              data.text().then((scriptText) => {
-                logError('wikiaJWPlayer not a function', {
-                  script: scriptText,
-                  url: assetUrls.script,
-                });
-              });
-            });
+          if (typeof window.wikiaJWPlayer === 'function') {
+            resolve(data);
+          } else {
+            /*
+             Some ISP wrap ajax request with their own script loaders
+             that introduces a race condition that is hard to win
+             this issue will be resolved when we switch fully to HTTPS
+            */
+            reject();
           }
         });
       });
