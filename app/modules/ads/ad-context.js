@@ -372,6 +372,12 @@ export default {
     porvata: [],
     slot: [],
   },
+  services: {
+    krux: {
+      enabled: false,
+      id: 'JTKzTN3f'
+    }
+  },
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',

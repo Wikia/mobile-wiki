@@ -45,6 +45,18 @@ class Ads {
     }
   }
 
+  callServices() {
+    const { bidders } = window.Wikia.adBidders;
+    const { krux } = window.Wikia.adServices;
+
+    biddersDelay.resetPromise();
+    bidders.requestBids({
+        responseListener: biddersDelay.markAsReady,
+    });
+
+    krux.call();
+  }
+
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
@@ -58,23 +70,14 @@ class Ads {
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
-    this.callBidders();
+    events.on(events.PAGE_CHANGE_EVENT, this.callServices);
+    this.callServices();
 
     this.startAdEngine();
 
     this.isLoaded = true;
     this.onReadyCallbacks.forEach(callback => callback());
     this.onReadyCallbacks = [];
-  }
-
-  callBidders() {
-    const { bidders } = window.Wikia.adBidders;
-
-    biddersDelay.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
-    });
   }
 
   waitForVideoBidders() {
