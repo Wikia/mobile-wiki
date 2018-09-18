@@ -45,7 +45,7 @@ class Ads {
     }
   }
 
-  callServices() {
+  callExternals() {
     const { bidders } = window.Wikia.adBidders;
     const { krux } = window.Wikia.adServices;
 
@@ -70,8 +70,8 @@ class Ads {
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.PAGE_CHANGE_EVENT, this.callServices);
-    this.callServices();
+    events.on(events.PAGE_CHANGE_EVENT, this.callExternals);
+    this.callExternals();
 
     this.startAdEngine();
 
