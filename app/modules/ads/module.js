@@ -85,7 +85,7 @@ class Ads {
     const { utils: adProductsUtils } = window.Wikia.adProducts;
 
     // Track Labrador values to DW
-    const labradorPropValue = '';
+    const labradorPropValue = adProductsUtils.getSamplingResults().join(';');
 
     if (PageTracker.isEnabled() && labradorPropValue) {
       PageTracker.trackProp('labrador', labradorPropValue);
