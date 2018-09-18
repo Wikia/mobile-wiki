@@ -94,11 +94,9 @@ export default {
         slots: {
           featured: {
             placementId: '13705871',
-            context: 'instream',
           },
           incontent_player: {
             placementId: '11543173',
-            context: 'outstream',
           },
         },
       },

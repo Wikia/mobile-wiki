@@ -11,7 +11,7 @@ const trackingRouteName = 'special/adengplayerinfo';
 function prepareData(data, playerName, eventName, errorCode = 0) {
   // Global imports:
   const { context, slotService, utils } = window.Wikia.adEngine;
-  const { getCountryCode } = window.Wikia.adProducts.utils;
+  const { getCountryCode } = window.Wikia.adEngine.utils;
   // End of imports
 
   const slot = slotService.get(data.slotName);
@@ -33,6 +33,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     timestamp: new Date().getTime(),
     price: '',
     browser: `${utils.client.getOperatingSystem()} ${utils.client.getBrowser()}`,
+    ctp: data.withCtp ? 1 : 0,
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
   };

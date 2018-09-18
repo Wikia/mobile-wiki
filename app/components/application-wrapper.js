@@ -55,7 +55,6 @@ export default Component.extend({
 
     return `${vertical}-vertical`;
   }),
-
   /**
   * Necessary because presently, we open external links in new pages, so if we didn't
   * cancel the click event on the current page, then the mouseUp handler would open
@@ -96,10 +95,10 @@ export default Component.extend({
 
     return (
       target.closest('.mw-content')
-   // ignore polldaddy content
-   && !target.closest('.PDS_Poll')
-   // don't need special logic for article references
-   && !isReference
+      // ignore polldaddy content
+      && !target.closest('.PDS_Poll')
+      // don't need special logic for article references
+      && !isReference
     );
   },
 

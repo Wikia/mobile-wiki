@@ -1,5 +1,9 @@
 const trackingRouteName = 'special/adengadinfo';
 
+const onRenderEndedStatusToTrack = [
+  'collapse',
+  'success',
+];
 const onChangeStatusToTrack = [
   'blocked',
   'error',
@@ -40,8 +44,8 @@ function checkOptIn() {
   */
 function prepareData(slot, data) {
   // Global imports:
-  const { context } = window.Wikia.adEngine;
-  const { bidders, utils } = window.Wikia.adProducts;
+  const { context, utils } = window.Wikia.adEngine;
+  const { bidders } = window.Wikia.adBidders;
   // End of imports
 
   const slotName = slot.getSlotName();
@@ -133,7 +137,13 @@ export default {
   * @returns {void}
   */
   onRenderEnded(adSlot, data) {
-    M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    const status = adSlot.getStatus();
+
+    if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
+      M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    } else if (status === 'manual') {
+      adSlot.trackOnStatusChanged = true;
+    }
   },
 
   /**
@@ -145,8 +155,9 @@ export default {
   onStatusChanged(adSlot, data) {
     const status = adSlot.getStatus();
 
-    if (onChangeStatusToTrack.indexOf(status) !== -1) {
+    if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
       M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+      delete adSlot.trackOnStatusChanged;
     }
   },
 };

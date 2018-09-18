@@ -18,6 +18,7 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   getUserId(accessToken) {
     if (!accessToken) {
@@ -28,8 +29,8 @@ export default EmberObject.extend({
       code: accessToken,
     });
 
-    return fetch(`${config.APP.heliosInternalUrl}${queryString}`, {
-      headers: { 'X-Wikia-Internal-Request': '1' },
+    return fetch(`${this.runtimeConfig.heliosInternalUrl}${queryString}`, {
+      headers: { 'X-Wikia-Internal-Request': config.appName },
       timeout: config.APP.heliosTimeout,
     }).then((response) => {
       if (response.ok) {
@@ -113,7 +114,9 @@ export default EmberObject.extend({
       },
     });
 
-    return mediawikiFetch(url)
+    return mediawikiFetch(url, {
+      internalCache: this.runtimeConfig.internalCache,
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -158,6 +161,7 @@ export default EmberObject.extend({
       headers: {
         Cookie: `access_token=${accessToken}`,
       },
+      internalCache: this.runtimeConfig.internalCache,
     }).then((response) => {
       if (response.ok) {
         return response.json();

@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
+import offset from '@wikia/ember-fandom/utils/offset';
 import config from '../../config/environment';
-import offset from '../../utils/offset';
 /* eslint import/no-cycle: 0 */
 // legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
@@ -467,11 +467,11 @@ class Ads {
   }
 
   getAdSlotComponentAttributes(slotName) {
-    const config = this.adSlotsConfig[slotName] || {};
+    const adSlotConfig = this.adSlotsConfig[slotName] || {};
 
     return {
-      disableManualInsert: !!config.disableManualInsert,
-      isAboveTheFold: !!config.isAboveTheFold,
+      disableManualInsert: !!adSlotConfig.disableManualInsert,
+      isAboveTheFold: !!adSlotConfig.isAboveTheFold,
       name: slotName,
       hiddenClassName: 'hidden',
     };
@@ -631,6 +631,41 @@ class Ads {
       this.jwPlayerAds(player, bidParams, slotTargeting);
       this.jwPlayerMoat.track(player);
     }
+  }
+
+  waitForVideoBidders() {
+    const isA9VideoEnabled = this.a9
+      && this.currentAdsContext
+      && this.currentAdsContext.bidders
+      && this.currentAdsContext.bidders.a9Video;
+
+    if (isA9VideoEnabled) {
+      return new Promise((resolve) => {
+        this.parseBidderParameters(resolve, (params, error) => {
+          /* eslint no-console: 0 */
+          console.error('JWPlayer: Error while receiving bidder parameters:', error);
+          resolve(params);
+        });
+      });
+    }
+
+    return Promise.resolve({});
+  }
+
+  parseBidderParameters(onSuccess, onError) {
+    const a9 = this.a9;
+    const responseTimeout = 2000;
+
+    if (!a9 || !a9.waitForResponseCallbacks) {
+      console.warn('a9 disabled');
+      onError({}, 'A9 bidder not found');
+    }
+
+    a9.waitForResponseCallbacks(
+      () => onSuccess(a9.getSlotParams('FEATURED')),
+      () => onError({}, 'Connection timed out'),
+      responseTimeout,
+    );
   }
 }
 

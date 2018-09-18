@@ -6,7 +6,6 @@ import {
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import config from '../config/environment';
 import JWPlayerMixin from '../mixins/jwplayer';
 import { inGroup } from '../modules/abtest';
 import VideoLoader from '../modules/video-loader';
@@ -19,6 +18,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   ads: service(),
   logger: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   classNames: ['article-featured-video'],
   classNameBindings: ['isOnScrollActive'],
@@ -203,7 +203,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     window.Cookies.set(cookieName, cookieValue, {
       expires: this.playerCookieExpireDays,
       path: '/',
-      domain: config.APP.cookieDomain,
+      domain: this.runtimeConfig.cookieDomain,
     });
   },
 

@@ -111,7 +111,8 @@ function init(player, options, slotTargeting) {
   const tracker = new JWPlayerTracker({
     adProduct,
     slotName: slot.getSlotName(),
-    withAudio: !player.getMute(),
+    withCtp: !player.getConfig().autostart,
+    withAudio: !player.getConfig().mute,
   });
   const targeting = slotTargeting;
 

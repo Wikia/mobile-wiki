@@ -1,5 +1,5 @@
 import {
-  currentURL, visit, find, findAll,
+  currentURL, visit,
 } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
@@ -27,10 +27,10 @@ module('Acceptance | file page', (hooks) => {
     await visit('/wiki/File:Example.jpg');
 
     assert.equal(currentURL(), '/wiki/File:Example.jpg');
-    assert.ok(find('.article-media-thumbnail img'), 'Hero image is visible');
-    assert.ok(find('.file-usage__header'), 'Appears on header is visible');
-    assert.ok(find('.file-usage__more a'), 'Appears on see more link is visible');
-    assert.equal(find('.file-usage__more a').getAttribute('href'), '/wiki/Special:WhatLinksHere/File:Example.jpg');
-    assert.equal(findAll('.file-usage__list .wikia-card').length, 1, 'Appears on had right number of items');
+    assert.dom('.article-media-thumbnail img').exists('Hero image is visible');
+    assert.dom('.file-usage__header').exists('Appears on header is visible');
+    assert.dom('.file-usage__more a').exists('Appears on see more link is visible');
+    assert.dom('.file-usage__more a').hasAttribute('href', '/wiki/Special:WhatLinksHere/File:Example.jpg');
+    assert.dom('.wikia-card').exists();
   });
 });
