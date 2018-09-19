@@ -13,5 +13,7 @@ module.exports = {
     'no-trailing-spaces': true,
     //we can't enable it for now as we have too many places where we 'need' it
     'no-triple-curlies': false,
+    // need styles there and there
+    'no-inline-styles': false,
     }
 };
