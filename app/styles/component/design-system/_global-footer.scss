@@ -6,8 +6,7 @@
   line-height: normal;
 
   h2 {
-    @extend %wds-font-size-xl;
-
+    font-size: $wds-font-size-xl;
     line-height: normal;
   }
 

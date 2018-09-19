@@ -75,17 +75,16 @@ $qualaroo-width-large: 350px;
           padding: 0;
 
           li {
-            @extend %wds-font-size-base;
-            @extend %wds-font-weight-bold;
-            @extend %wds-leading-none;
-
             align-items: center;
             border: 1px solid #999;
             border-radius: 3px;
             color: #002a32;
             display: flex;
+            font-size: $wds-font-size-base;
+            font-weight: $wds-font-weight-bold;
             height: 34px;
             justify-content: center;
+            line-height: $wds-line-height-none;
             margin: 0;
             -webkit-tap-highlight-color: rgba($wds-fandom-color-aqua, .5);
             width: 8.25%;
@@ -106,9 +105,8 @@ $qualaroo-width-large: 350px;
         }
 
         &_nps_labels {
-          @extend %wds-font-size-xs;
-          @extend %wds-font-weight-bold;
-
+          font-size: $wds-font-size-xs;
+          font-weight: $wds-font-weight-bold;
           margin: 15px 0;
         }
 
@@ -123,8 +121,7 @@ $qualaroo-width-large: 350px;
         }
 
         &_qtitle {
-          @extend %wds-font-size-l;
-
+          font-size: $wds-font-size-l;
           line-height: 1.28;
           margin: 30px 10px;
 

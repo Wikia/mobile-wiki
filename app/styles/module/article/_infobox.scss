@@ -1,8 +1,7 @@
 table[class*='infobox'] {
-  @extend %wds-font-size-s;
-
   border-collapse: collapse;
   border-spacing: 0;
+  font-size: $wds-font-size-s;
   margin: 2.5rem auto;
   width: 100%;
 

@@ -78,8 +78,7 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   }
 
   p {
-    @extend %wds-font-size-s;
-
+    font-size: $wds-font-size-s;
     line-height: inherit;
   }
 }
@@ -194,10 +193,9 @@ section {
 // infobox title
 .pi-hero-title,
 .pi-title {
-  @extend %wds-font-size-xl;
-  @extend %wds-font-weight-normal;
-  @extend %wds-leading-tight;
-
+  font-size: $wds-font-size-xl;
+  font-weight: $wds-font-weight-normal;
+  line-height: $wds-line-height-tight;
   text-align: center;
 }
 
@@ -224,20 +222,18 @@ section {
 }
 
 .pi-data-label {
-  @extend %wds-font-size-xs;
-  @extend %wds-leading-tight;
-  @extend %wds-font-weight-bold;
-  @extend %wds-text-transform-uppercase;
-
   flex-basis: 40%;
+  font-size: $wds-font-size-xs;
+  font-weight: $wds-font-weight-bold;
   hyphens: auto;
+  line-height: $wds-line-height-tight;
+  text-transform: uppercase;
 }
 
 .pi-data-value {
-  @extend %wds-font-size-s;
-  @extend %wds-font-weight-light;
-  @extend %wds-leading-normal;
-
+  font-size: $wds-font-size-s;
+  font-weight: $wds-font-weight-light;
+  line-height: $wds-line-height-normal;
   padding-left: 0;
 
   &:not(:first-child) {
@@ -273,13 +269,13 @@ section {
 
 // infobox group header
 .pi-header {
-  @extend %wds-font-size-l;
-  @extend %wds-leading-tight;
-  @extend %wds-font-weight-medium;
-  @extend %wds-text-transform-uppercase;
-  @extend %wds-midlight-navy;
+  @include wds-midlight(rgba($wds-fandom-color-navy, .1));
 
+  font-size: $wds-font-size-l;
+  font-weight: $wds-font-weight-medium;
+  line-height: $wds-line-height-tight;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .pi-header-wrapper {
@@ -366,11 +362,10 @@ section {
 // infobox navigation
 .pi-navigation,
 .pi-navigation pre {
-  @extend %wds-font-size-s;
-  @extend %wds-font-weight-normal;
-
   background-color: inherit;
   color: inherit;
+  font-size: $wds-font-size-s;
+  font-weight: $wds-font-weight-normal;
 
   img {
     border: none;
