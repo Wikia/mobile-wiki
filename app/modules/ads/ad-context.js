@@ -383,6 +383,16 @@ export default {
     skin: 'mercury',
     uap: 'none',
   },
+  services: {
+    billTheLizard: {
+      enabled: true,
+      host: 'https://services.wikia.com',
+      endpoint: 'bill-the-lizard/predict',
+      projects: {},
+      parameters: {},
+      timeout: 2000,
+    },
+  },
   src: 'mobile',
   state: {
     adStack: [],

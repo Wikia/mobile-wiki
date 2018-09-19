@@ -4,6 +4,7 @@ import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
+import targeting from './targeting';
 
 const SLOT_NAME_MAP = {
   MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
@@ -61,6 +62,8 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
     this.callBidders();
 
+    this.configureCheshireCat(instantGlobals);
+
     this.startAdEngine();
 
     this.isLoaded = true;
@@ -75,6 +78,55 @@ class Ads {
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
+  }
+
+  configureCheshireCat(instantGlobals) {
+    const { context } = window.Wikia.adEngine;
+    const { billTheLizard } = window.Wikia.adServices;
+
+    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
+      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', () => {
+        const config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
+        const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
+
+        context.set('services.billTheLizard.projects', config.projects);
+        context.set('services.billTheLizard.timeout', config.timeout || 0);
+        context.set('services.billTheLizard.parameters.cheshire_cat', {
+          bids: [
+            bidderPrices.bidder_1 || 0,
+            bidderPrices.bidder_2 || 0,
+            0,
+            bidderPrices.bidder_4 || 0,
+            0,
+            bidderPrices.bidder_6 || 0,
+            bidderPrices.bidder_7 || 0,
+            0,
+            bidderPrices.bidder_9 || 0,
+            bidderPrices.bidder_10 || 0,
+            bidderPrices.bidder_11 || 0,
+            bidderPrices.bidder_12 || 0,
+            bidderPrices.bidder_13 || 0,
+            bidderPrices.bidder_14 || 0,
+            bidderPrices.bidder_15 || 0,
+            bidderPrices.bidder_16 || 0,
+          ].join(';'),
+        });
+
+        billTheLizard.projectsHandler.enable('cheshire_cat');
+        billTheLizard.executor.register('catlapseFMR', (model, prediction) => {
+          if (prediction === 1) {
+            const slots = document.querySelectorAll("[id^='incontent_boxad_']");
+
+            if (slots.length > 0) {
+              const slot = slots[slots.length - 1];
+              context.set(`slots.${slot.id}.catlapsed`, true);
+            }
+          }
+        });
+
+        billTheLizard.call('cheshire_cat');
+      });
+    }
   }
 
   waitForVideoBidders() {
