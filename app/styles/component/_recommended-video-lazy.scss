@@ -192,7 +192,7 @@ $recommended-video-player-width: 200px;
     margin-left: 12px;
 
     > div {
-      @extend %wds-font-size-s;
+      font-size: $wds-font-size-s;
     }
   }
 
