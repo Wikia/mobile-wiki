@@ -33,7 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b",
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v14.0.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v14.0.1",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
     "bunyan-prettystream": "0.1.3",
@@ -56,7 +56,7 @@
     "on-headers": "1.0.1",
     "scriptjs": "2.5.8",
     "snyk": "1.94.0",
-    "vignette": "github:wikia/vignette-js#2.6.0",
+    "vignette": "github:wikia/vignette-js#2.7.1",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
@@ -85,7 +85,7 @@
     "ember-cli-inline-content": "0.4.1",
     "ember-cli-mirage": "0.4.9",
     "ember-cli-qunit": "4.3.2",
-    "ember-cli-sass": "7.2.0",
+    "ember-cli-sass": "8.0.1",
     "ember-cli-shims": "1.2.0",
     "ember-cli-sri": "2.1.1",
     "ember-cli-stylelint": "2.1.0",
@@ -105,7 +105,7 @@
     "ember-load-initializers": "1.1.0",
     "ember-resolver": "5.0.1",
     "ember-responds-to": "1.5.0",
-    "ember-router-scroll": "0.8.0",
+    "ember-router-scroll": "1.0.0",
     "ember-sinon": "2.2.0",
     "ember-source": "~3.3.0",
     "ember-test-selectors": "1.0.0",
@@ -121,6 +121,7 @@
     "mercury-shared": "github:wikia/mercury-shared#40de3acaca023a73e1cd2d02b3b3c4883392daf2",
     "proxying-agent": "2.2.1",
     "qunit-dom": "0.8.0",
+    "sass": "1.13.4",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.11.0",
