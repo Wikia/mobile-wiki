@@ -1,13 +1,15 @@
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import config from '../config/environment';
 
 export default Component.extend({
   currentUser: service(),
   fastboot: service(),
+  runtimeConfig: service(),
   tagName: '',
-  servicesDomain: computed(() => config.APP.servicesExternalHost),
+  servicesDomain: oneWay('runtimeConfig.servicesExternalHost'),
 
   cookieSyncEnabled: computed(function () {
     if (this.fastboot.isFastBoot) {
