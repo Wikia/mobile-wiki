@@ -1,4 +1,4 @@
-import targeting from './../targeting';
+import targeting from '../targeting';
 
 const trackingRouteName = 'special/adengadinfo';
 
