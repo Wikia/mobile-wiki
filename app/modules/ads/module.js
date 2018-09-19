@@ -82,7 +82,7 @@ class Ads {
   }
 
   trackLabrador() {
-    const { utils } = window.Wikia.adProducts;
+    const { utils } = window.Wikia.adEngine;
 
     // Track Labrador values to DW
     const labradorPropValue = utils.getSamplingResults().join(';');
