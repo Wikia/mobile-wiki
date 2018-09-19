@@ -1,18 +1,24 @@
 <figure class="item-figure">
   <div class="item-image" style={{style}}>
     {{#unless imageLoaded}}
-      {{wds-icon name='image'}}
+      {{wds-icon name="image"}}
     {{/unless}}
-    <img src="{{thumbUrl}}" alt="{{model.label}}" onload={{action (mut imageLoaded) true}}>
+    <img
+      src={{thumbUrl}}
+      alt={{model.label}}
+      onload={{action (mut imageLoaded) true}}
+    >
   </div>
   <figcaption class="item-figcaption">
     <div class="item-caption-row">
-      <div class="item-caption label wds-font-size-s wds-font-weight-bold wds-leading-none">
+      <div
+        class="item-caption label wds-font-size-s wds-font-weight-bold wds-leading-none"
+      >
         <div class="item-caption clamp">{{truncate model.label 48}}</div>
       </div>
       <div class="item-caption grid-icon">
         <div class="grid-icon-container">
-          {{svg icon role='img' viewBox='0 0 22 22'}}
+          {{svg icon role="img" viewBox="0 0 22 22"}}
         </div>
       </div>
     </div>
