@@ -8,15 +8,15 @@ module('Unit | Module | ads | tracking', (hooks) => {
       context: {
         get: () => true,
       },
-    };
-    window.Wikia.adProducts = {
-      bidders: {
-        getCurrentSlotPrices: () => {},
-        getDfpSlotPrices: () => {},
-      },
       utils: {
         getCountryCode: () => {},
         getSamplingResults: () => [],
+      },
+    };
+    window.Wikia.adBidders = {
+      bidders: {
+        getCurrentSlotPrices: () => {},
+        getDfpSlotPrices: () => {},
       },
     };
     sinon.spy(M.tracker.Internal, 'track');

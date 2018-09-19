@@ -29,7 +29,7 @@ export default {
   },
 
   markAsReady() {
-    const { bidders } = window.Wikia.adProducts;
+    const { bidders } = window.Wikia.adBidders;
 
     if (bidders.hasAllResponses()) {
       if (resolvePromise) {
