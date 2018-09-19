@@ -184,12 +184,11 @@
   }
 
   &__time {
-    @extend %wds-font-size-xs;
-    @extend %wds-font-weight-medium;
-
     background: #272727;
     border-radius: 3px;
     color: $wds-color-white;
+    font-size: $wds-font-size-xs;
+    font-weight: $wds-font-weight-medium;
     line-height: 1;
     opacity: .9;
     padding: 3px 5px;
@@ -227,10 +226,9 @@
 
     .jw-text-elapsed,
     .jw-text-duration {
-      @extend %wds-font-size-s;
-      @extend %wds-font-weight-medium;
-
       color: $wds-color-white !important;
+      font-size: $wds-font-size-s;
+      font-weight: $wds-font-weight-medium;
     }
 
     .jw-text-elapsed {

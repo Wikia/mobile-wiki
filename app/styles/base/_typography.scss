@@ -1,29 +1,26 @@
 blockquote {
-  @extend %wds-font-size-base;
-  @extend %wds-leading-loose;
-  @extend %wds-font-style-italic;
-  @extend %wds-font-weight-normal;
-
+  font-size: $wds-font-size-base;
+  font-style: italic;
+  font-weight: $wds-font-weight-normal;
+  line-height: $wds-line-height-loose;
   margin-bottom: 1.125rem;
   padding: 4px 0 4px 16px;
 
   &::before {
-    @extend %wds-font-style-normal;
-
     color: $wds-fandom-color-aqua;
     content: "“";
     display: block;
     font-size: 150px;
+    font-style: normal;
     line-height: 75px;
     margin-bottom: -52px;
     margin-top: 20px;
   }
 
   cite {
-    @extend %wds-font-style-normal;
-
     color: $wds-fandom-color-aqua;
     display: block;
+    font-style: normal;
     margin-top: 1.125rem;
     text-transform: uppercase;
   }
@@ -44,46 +41,41 @@ h6 {
 }
 
 h1 {
-  @extend %wds-font-size-xxl;
-
+  font-size: $wds-font-size-xxl;
   font-weight: $wds-fandom-font-weight-bold;
   line-height: 30px;
 }
 
 h2 {
-  @extend %wds-font-size-xl;
-
+  font-size: $wds-font-size-xl;
   font-weight: $wds-fandom-font-weight-regular;
   line-height: 26px;
 }
 
 h3 {
-  @extend %wds-font-size-l;
-
+  font-size: $wds-font-size-l;
   font-weight: $wds-fandom-font-weight-medium;
   line-height: 20px;
 }
 
 h4 {
-  @extend %wds-font-size-base;
-
+  font-size: $wds-font-size-base;
   font-weight: $wds-fandom-font-weight-medium;
   line-height: 18px;
 }
 
 h5,
 h6 {
-  @extend %wds-font-size-s;
-
+  font-size: $wds-font-size-s;
   font-weight: $wds-fandom-font-weight-medium;
   line-height: 16px;
 }
 
 section,
 p {
-  @extend %wds-font-size-base;
-  @extend %wds-font-weight-light;
-  @extend %wds-leading-loose;
+  font-size: $wds-font-size-base;
+  font-weight: $wds-font-weight-light;
+  line-height: $wds-line-height-loose;
 }
 
 section {
@@ -101,7 +93,6 @@ a {
 }
 
 article a {
-  @extend %wds-font-weight-normal;
-
   color: $wds-fandom-color-link;
+  font-weight: $wds-font-weight-normal;
 }
