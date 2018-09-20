@@ -129,15 +129,13 @@ class Ads {
         });
 
         billTheLizard.projectsHandler.enable('cheshirecat');
-        billTheLizard.executor.register('catlapseFMR', (model, prediction) => {
-          if (prediction === 1) {
-            const slots = Object.keys(context.get('slots'))
-              .filter(slotName => slotName.indexOf('incontent_boxad_') === 0);
+        billTheLizard.executor.register('catlapseIncontentBoxad', () => {
+          const slots = Object.keys(context.get('slots'))
+            .filter(slotName => slotName.indexOf('incontent_boxad_') === 0);
 
-            if (slots.length > 0) {
-              const slot = slots[slots.length - 1];
-              slotService.disable(slot, 'catlapsed');
-            }
+          if (slots.length > 0) {
+            const slot = slots[slots.length - 1];
+            slotService.disable(slot, 'catlapsed');
           }
         });
 

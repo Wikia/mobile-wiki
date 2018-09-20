@@ -8,6 +8,7 @@ const onRenderEndedStatusToTrack = [
 ];
 const onChangeStatusToTrack = [
   'blocked',
+  'catlapsed',
   'error',
   'viewport-conflict',
   'sticked',
