@@ -1,4 +1,4 @@
-import track from '../../../utils/track';
+import { track } from '../../../utils/track';
 
 /**
   * Prepare data for tracking
