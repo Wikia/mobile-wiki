@@ -61,7 +61,6 @@
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
-    "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "0.7.0",
     "@ember/test-helpers": "0.7.25",
     "broccoli-asset-rev": "3.0.0",

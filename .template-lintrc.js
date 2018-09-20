@@ -15,5 +15,6 @@ module.exports = {
     'no-triple-curlies': false,
     // need styles there and there
     'no-inline-styles': false,
+    'no-outlet-outside-routes': false,
     }
 };

@@ -109,7 +109,6 @@ module.exports = function (defaults) {
     vendorFiles: {
       // This should be removed when ember-cli-shims is sunset
       'app-shims.js': null,
-      'jquery.js': null,
     },
   });
 
