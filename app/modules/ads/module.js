@@ -2,6 +2,7 @@
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
 
@@ -45,6 +46,19 @@ class Ads {
     }
   }
 
+  callExternals() {
+    const { bidders } = window.Wikia.adBidders;
+    const { krux } = window.Wikia.adServices;
+
+    biddersDelay.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelay.markAsReady,
+    });
+
+    krux.call();
+    this.trackLabrador();
+  }
+
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
@@ -58,8 +72,8 @@ class Ads {
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
-    this.callBidders();
+    events.on(events.PAGE_CHANGE_EVENT, this.callExternals);
+    this.callExternals();
 
     this.startAdEngine();
 
@@ -68,13 +82,15 @@ class Ads {
     this.onReadyCallbacks = [];
   }
 
-  callBidders() {
-    const { bidders } = window.Wikia.adBidders;
+  trackLabrador() {
+    const { utils } = window.Wikia.adEngine;
 
-    biddersDelay.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
-    });
+    // Track Labrador values to DW
+    const labradorPropValue = utils.getSamplingResults().join(';');
+
+    if (PageTracker.isEnabled() && labradorPropValue) {
+      PageTracker.trackProp('labrador', labradorPropValue);
+    }
   }
 
   waitForVideoBidders() {
@@ -89,7 +105,7 @@ class Ads {
     });
 
     // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
-    //       we don't need to pass bidder parameters here because they are set on slot create
+    // we don't need to pass bidder parameters here because they are set on slot create
     return Promise.race([
       biddersDelay.getPromise(),
       timeout,
