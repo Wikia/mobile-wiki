@@ -20,9 +20,8 @@
 
   th,
   td {
-    @extend %wds-font-size-s;
-    @extend %wds-leading-normal;
-
+    font-size: $wds-font-size-s;
+    line-height: $wds-line-height-normal;
     max-width: 224px;
     padding: 10px;
     vertical-align: top;
@@ -43,11 +42,10 @@
   }
 
   th {
-    @extend %wds-leading-tight;
-
     background: $wds-fandom-color-light-gray;
     border-bottom: solid 1px $wds-fandom-color-mid-light-gray;
     border-right: 0;
+    line-height: $wds-line-height-tight;
     text-align: left;
 
     &:first-of-type {
