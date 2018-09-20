@@ -372,12 +372,6 @@ export default {
     porvata: [],
     slot: [],
   },
-  services: {
-    krux: {
-      enabled: false,
-      id: 'JTKzTN3f',
-    },
-  },
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
@@ -398,6 +392,10 @@ export default {
       projects: {},
       parameters: {},
       timeout: 2000,
+    },
+    krux: {
+      enabled: false,
+      id: 'JTKzTN3f',
     },
   },
   src: 'mobile',

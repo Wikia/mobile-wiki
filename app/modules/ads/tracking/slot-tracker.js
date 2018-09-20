@@ -50,9 +50,8 @@ function prepareData(slot, data) {
   // End of imports
 
   const slotName = slot.getSlotName();
-  const bidderPrices = targeting.getBiddersPrices(slotName);
 
-  return {
+  return Object.assign({
     pv_unique_id: window.pvUID,
     pv: window.pvNumber,
     browser: data.browser,
@@ -68,20 +67,6 @@ function prepareData(slot, data) {
     ad_status: data.status,
     page_width: data.page_width,
     viewport_height: data.viewport_height,
-    bidder_1: bidderPrices.bidder_1,
-    bidder_2: bidderPrices.bidder_2,
-    bidder_4: bidderPrices.bidder_4,
-    bidder_6: bidderPrices.bidder_6,
-    bidder_7: bidderPrices.bidder_7,
-    bidder_9: bidderPrices.bidder_9,
-    bidder_10: bidderPrices.bidder_10,
-    bidder_11: bidderPrices.bidder_11,
-    bidder_12: bidderPrices.bidder_12,
-    bidder_13: bidderPrices.bidder_13,
-    bidder_14: bidderPrices.bidder_14,
-    bidder_15: bidderPrices.bidder_15,
-    bidder_16: bidderPrices.bidder_16,
-    bidder_17: bidderPrices.bidder_17,
     kv_skin: context.get('targeting.skin'),
     kv_pos: getPosParameter(slot.getTargeting()),
     kv_wsi: slot.getTargeting().wsi || '',
@@ -99,7 +84,7 @@ function prepareData(slot, data) {
     opt_in: checkOptIn(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
-  };
+  }, targeting.getBiddersPrices(slotName));
 }
 
 /**

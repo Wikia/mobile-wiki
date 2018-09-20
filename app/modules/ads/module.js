@@ -76,7 +76,7 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals);
     this.callExternals();
 
-    this.configureCheshireCat(instantGlobals);
+    this.configureBillTheLizard(instantGlobals);
 
     this.startAdEngine();
 
@@ -96,8 +96,8 @@ class Ads {
     }
   }
 
-  configureCheshireCat(instantGlobals) {
-    const { context } = window.Wikia.adEngine;
+  configureBillTheLizard(instantGlobals) {
+    const { context, slotService } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
@@ -107,7 +107,7 @@ class Ads {
 
         context.set('services.billTheLizard.projects', config.projects);
         context.set('services.billTheLizard.timeout', config.timeout || 0);
-        context.set('services.billTheLizard.parameters.cheshire_cat', {
+        context.set('services.billTheLizard.parameters.cheshirecat', {
           bids: [
             bidderPrices.bidder_1 || 0,
             bidderPrices.bidder_2 || 0,
@@ -128,19 +128,20 @@ class Ads {
           ].join(';'),
         });
 
-        billTheLizard.projectsHandler.enable('cheshire_cat');
+        billTheLizard.projectsHandler.enable('cheshirecat');
         billTheLizard.executor.register('catlapseFMR', (model, prediction) => {
           if (prediction === 1) {
-            const slots = document.querySelectorAll("[id^='incontent_boxad_']");
+            const slots = Object.keys(context.get('slots'))
+              .filter(slotName => slotName.indexOf('incontent_boxad_') === 0);
 
             if (slots.length > 0) {
               const slot = slots[slots.length - 1];
-              context.set(`slots.${slot.id}.catlapsed`, true);
+              slotService.disable(slot, 'catlapsed');
             }
           }
         });
 
-        billTheLizard.call('cheshire_cat');
+        billTheLizard.call(['cheshirecat']);
       });
     }
   }
