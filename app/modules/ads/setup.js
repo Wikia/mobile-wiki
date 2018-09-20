@@ -25,10 +25,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.extend(basicContext);
 
-  if (adsContext.targeting.hasFeaturedVideo) {
-    context.set('src', ['premium', 'mobile']);
-  }
-
   if (adsContext.opts.isAdTestWiki) {
     context.set('src', 'test');
   }
@@ -63,6 +59,9 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
+
+  context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
+    && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);

@@ -372,6 +372,12 @@ export default {
     porvata: [],
     slot: [],
   },
+  services: {
+    krux: {
+      enabled: false,
+      id: 'JTKzTN3f',
+    },
+  },
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
@@ -379,6 +385,7 @@ export default {
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   },
   targeting: {
+    ae3: '1',
     outstream: 'none',
     skin: 'mercury',
     uap: 'none',
