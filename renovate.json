@@ -2,9 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "statusCheckVerify": true,
   "ignoreDeps": [
-    "ember-cli",
-    "ember-source"
+    "ember-cli"
   ]
 }
