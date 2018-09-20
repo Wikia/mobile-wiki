@@ -8,7 +8,6 @@ import { track } from '../../../utils/track';
   */
 function prepareData(slot, data) {
   return {
-    pv_unique_id: window.pvUID,
     wsi: slot.getTargeting().wsi || '',
     line_item_id: data.line_item_id,
     creative_id: data.creative_id,
