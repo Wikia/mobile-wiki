@@ -129,7 +129,7 @@ export function track(params) {
 
   const isFandomApp = window.location.search.match(/([?&])mobile-app=.+/);
   const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
-  const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : null;
+  const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : '';
   const isNonInteractive = params.isNonInteractive !== false;
   const pvUID = window.pvUID;
   const {
