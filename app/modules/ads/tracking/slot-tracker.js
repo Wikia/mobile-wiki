@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengadinfo';
+import track from '../../../utils/track';
 
 const onRenderEndedStatusToTrack = [
   'collapse',
@@ -65,7 +65,6 @@ function prepareData(slot, data) {
   }
 
   return {
-    pv_unique_id: window.pvUID,
     pv: window.pvNumber,
     browser: data.browser,
     country: utils.getCountryCode(),
@@ -140,7 +139,11 @@ export default {
     const status = adSlot.getStatus();
 
     if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
-      M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+      track({
+        eventName: 'adengadinfo',
+        trackingMethod: 'internal',
+        params: prepareData(adSlot, data),
+      });
     } else if (status === 'manual') {
       adSlot.trackOnStatusChanged = true;
     }
@@ -156,7 +159,11 @@ export default {
     const status = adSlot.getStatus();
 
     if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
-      M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+      track({
+        eventName: 'adengadinfo',
+        trackingMethod: 'internal',
+        params: prepareData(adSlot, data),
+      });
       delete adSlot.trackOnStatusChanged;
     }
   },

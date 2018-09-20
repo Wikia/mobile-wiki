@@ -163,7 +163,11 @@ export function track(params) {
 
     params = Object.assign({}, context, params);
     M.trackingQueue.push((isOptedIn) => {
-      M.tracker.Internal.track(isPageView(category) ? 'view' : `special/${eventName}`, params, isOptedIn);
+      M.tracker.Internal.track(
+        isPageView(category) ? 'view' : `special/${eventName}`,
+        params,
+        isOptedIn,
+      );
     });
   }
 }

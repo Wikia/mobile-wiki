@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengviewability';
+import track from '../../../utils/track';
 
 /**
   * Prepare data for render ended tracking
@@ -40,6 +40,10 @@ export default {
   * @returns {void}
   */
   onImpressionViewable(adSlot, data) {
-    M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    track({
+      eventName: 'adengviewability',
+      trackingMethod: 'internal',
+      params: prepareData(adSlot, data),
+    });
   },
 };
