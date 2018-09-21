@@ -1,18 +1,18 @@
 {{#if posts}}
   <div class="heading-wrapper">
     <h2 class="heading wds-font-size-xxl">
-      {{i18n 'widget-discussions.header-title'}}
+      {{i18n "widget-discussions.header-title"}}
     </h2>
-    <a href="/d/f" class='heading-viewall wds-font-size-xs'>
-      {{i18n 'widget-discussions.all-discussions-link-mobile'}}
-      {{svg 'wds-icons-arrow-tiny' class='wds-icon wds-icon-tiny'}}
+    <a href="/d/f" class="heading-viewall wds-font-size-xs">
+      {{i18n "widget-discussions.all-discussions-link-mobile"}}
+      {{svg "wds-icons-arrow-tiny" class="wds-icon wds-icon-tiny"}}
     </a>
   </div>
 {{/if}}
 {{#each posts as |post|}}
   {{widget-discussions-post
     post=post
-    upvote=(action 'upvote')
+    upvote=(action "upvote")
   }}
 {{else}}
   {{#if isLoading}}

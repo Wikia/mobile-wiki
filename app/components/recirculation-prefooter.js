@@ -60,7 +60,7 @@ export default Component.extend(
         listRendered: defer(),
       });
 
-      this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
+      this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
     },
 
     actions: {
@@ -85,7 +85,7 @@ export default Component.extend(
           label: `more-wiki-${index}`,
         });
 
-        this.get('router').transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+        this.router.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
       },
     },
 
@@ -133,7 +133,7 @@ export default Component.extend(
                 config.widget,
                 'LI',
               );
-              this.get('listRendered').resolve();
+              this.listRendered.resolve();
             }
           });
         });
