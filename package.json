@@ -69,7 +69,7 @@
     "broccoli-stew": "2.0.0",
     "design-system-i18n": "github:wikia/design-system-i18n#2.0.2",
     "ember-browserify": "1.2.2",
-    "ember-cli": "~3.4.2",
+    "ember-cli": "3.4.3",
     "ember-cli-app-version": "3.2.0",
     "ember-cli-autoprefixer": "0.8.1",
     "ember-cli-babel": "6.17.2",
