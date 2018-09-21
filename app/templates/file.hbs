@@ -6,11 +6,11 @@
     model=model
     showComments=false
     siteName=siteName
-    wikiPageHeaderSubtitle=(i18n 'file-page.subtitle')
+    wikiPageHeaderSubtitle=(i18n "file-page.subtitle")
   }}
     {{#if model.fileUsageList}}
       <nav class="file-usage">
-        <div class="file-usage__header wds-font-size-l wds-font-weight-bold">{{i18n 'file-page.usages-header'}}</div>
+        <div class="file-usage__header wds-font-size-l wds-font-weight-bold">{{i18n "file-page.usages-header"}}</div>
         {{wikia-ui-components/wikia-card-list
           items=model.fileUsageList
           trackingCategory="file-page"
@@ -18,7 +18,7 @@
         }}
         {{#if model.fileUsageListSeeMoreUrl}}
           <div class="file-usage__more">
-            <a class="wds-button wds-is-text" href="{{model.fileUsageListSeeMoreUrl}}">{{i18n 'file-page.usages-see-more-link-label'}}</a>
+            <a class="wds-button wds-is-text" href={{model.fileUsageListSeeMoreUrl}}>{{i18n "file-page.usages-see-more-link-label"}}</a>
           </div>
         {{/if}}
       </nav>

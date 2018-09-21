@@ -1,31 +1,34 @@
-<div class='metadata'>
-  {{wds-avatar src=(unbound user.avatar) alt=userName}}
-  <span class='username wds-font-size-xs wds-font-weight-medium'>
+<div class="metadata">
+  {{wds-avatar src=user.avatar alt=userName}}
+  <span class="username wds-font-size-xs wds-font-weight-medium">
     {{#if user.url}}
-      <a href='{{unbound user.url}}'>{{unbound userName}}</a>
+      <a href={{user.url}}>{{userName}}</a>
     {{else}}
-      {{unbound userName}}
+      {{userName}}
     {{/if}}
   </span>
   <span class="separator wds-font-size-xs wds-font-weight-light">•</span>
-  <span class="timestamp wds-font-size-xs wds-font-weight-light" title="{{timestamp-to-date comment.created}}">
+  <span
+    class="timestamp wds-font-size-xs wds-font-weight-light"
+    title={{timestamp-to-date comment.created}}
+  >
     {{time-ago comment.created}}
   </span>
 </div>
-<div class='content wds-font-size-base wds-leading-loose wds-font-weight-light'>
+<div class="content wds-font-size-base wds-leading-loose wds-font-weight-light">
   {{{comment.text}}}
   {{#if comment.comments}}
     {{#unless isExpanded}}
       {{#wds-button
-          text=true
-          click=(action 'toggleExpand')
-          class='show-reply-btn'
+        text=true
+        click=(action "toggleExpand")
+        class="show-reply-btn"
       }}
-        {{i18n 'article.replies-label' count=comment.comments.length}}
+        {{i18n "article.replies-label" count=comment.comments.length}}
       {{/wds-button}}
     {{/unless}}
 
-    <ul class='{{if isExpanded 'expanded'}}'>
+    <ul class={{if isExpanded "expanded"}}>
       {{#each comment.comments as |comment|}}
         {{article-comment comment=comment users=users}}
       {{/each}}
