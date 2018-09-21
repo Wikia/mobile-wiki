@@ -47,7 +47,7 @@ export default Controller.extend(
     fullPage: oneWay('mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
     noAds: alias('ads.noAdsQueryParam'),
-    mobileApp: alias('ads.adsInMobileApp'),
+    mobileApp: alias('ads.noAdsQueryParam'),
 
     actions: {
       /**
