@@ -28,6 +28,8 @@ figcaption {
     background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
     content: '';
     left: 0;
+    // Fixes bug on iOS where pseudo element captures the click.
+    pointer-events: none;
     position: absolute;
     top: 0;
   }

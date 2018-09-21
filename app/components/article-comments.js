@@ -29,10 +29,10 @@ export default Component.extend({
 
   showComments: not('isCollapsed'),
   prevButtonDisabled: computed('page', function () {
-    return parseInt(this.get('page'), 10) === 1;
+    return parseInt(this.page, 10) === 1;
   }),
   nextButtonDisabled: computed('page', 'pagesCount', function () {
-    return parseInt(this.get('page'), 10) >= this.get('pagesCount');
+    return parseInt(this.page, 10) >= this.pagesCount;
   }),
 
   /**
@@ -58,7 +58,7 @@ export default Component.extend({
    * @returns {void}
   */
   didInsertElement() {
-    const page = this.get('page');
+    const page = this.page;
 
     this._super(...arguments);
 
@@ -77,7 +77,7 @@ export default Component.extend({
       * @returns {void}
     */
     nextPage() {
-      const page = parseInt(this.get('page'), 10);
+      const page = parseInt(this.page, 10);
 
       this.set('preserveScroll.preserveScrollPosition', true);
       this.fetchComments(page + 1);
@@ -88,7 +88,7 @@ export default Component.extend({
       * @returns {void}
     */
     prevPage() {
-      const page = parseInt(this.get('page'), 10);
+      const page = parseInt(this.page, 10);
 
       this.set('preserveScroll.preserveScrollPosition', true);
       this.fetchComments(page - 1);
@@ -99,7 +99,7 @@ export default Component.extend({
       * @returns {void}
     */
     toggleComments() {
-      const page = this.get('page');
+      const page = this.page;
 
       this.set('preserveScroll.preserveScrollPosition', true);
       this.toggleProperty('isCollapsed');
@@ -123,10 +123,10 @@ export default Component.extend({
   },
 
   fetchComments(page) {
-    const articleId = this.get('articleId');
+    const articleId = this.articleId;
 
-    if (this.get('pagesCount') !== null && page !== null && page > this.get('pagesCount')) {
-      page = this.get('pagesCount');
+    if (this.pagesCount !== null && page !== null && page > this.pagesCount) {
+      page = this.pagesCount;
     }
 
     if (page !== null && page < 1) {

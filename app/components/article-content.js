@@ -7,7 +7,10 @@ import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
 import AdsMixin from '../mixins/ads';
 import getAdsModule from '../modules/ads';
-import { getRenderComponentFor, queryPlaceholders } from '../utils/render-component';
+import {
+  getRenderComponentFor,
+  queryPlaceholders,
+} from '../utils/render-component';
 import scrollToTop from '../utils/scroll-to-top';
 import toArray from '../utils/toArray';
 import { track, trackActions } from '../utils/track';

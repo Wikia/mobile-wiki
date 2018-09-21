@@ -23,7 +23,7 @@ export default Mixin.create({
       return;
     }
 
-    this.get('ads').getWaits(waitKey).then(() => {
+    this.ads.getWaits(waitKey).then(() => {
       const placeholder = document.createElement('div');
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -37,7 +37,7 @@ export default Mixin.create({
         element: placeholder,
       }));
     });
-    this.get('ads').clearWaits(adSlotName);
+    this.ads.clearWaits(adSlotName);
   },
 
   appendHighImpactAd() {

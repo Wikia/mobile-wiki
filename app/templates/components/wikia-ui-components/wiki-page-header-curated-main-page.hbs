@@ -2,9 +2,12 @@
   {{title}}
   {{#if showButtons}}
     <div>
-      <a href="{{mainPageEditorUrl}}" class="main-page-edit wds-font-size-s wds-font-weight-normal wds-text-transform-none" {{action 'trackClick' 'open-editor' preventDefault=false}}>
-        {{svg 'wds-icons-pencil-small' role='img' class='wds-icon wds-icon-small'}}
-        {{i18n 'app.curated-content-editor-edit-main-page'}}
+      <a {{action "trackClick" "open-editor" preventDefault=false}}
+        href={{mainPageEditorUrl}}
+        class="main-page-edit wds-font-size-s wds-font-weight-normal wds-text-transform-none"
+      >
+        {{svg "wds-icons-pencil-small" role="img" class="wds-icon wds-icon-small"}}
+        {{i18n "app.curated-content-editor-edit-main-page"}}
       </a>
     </div>
   {{/if}}

@@ -3,7 +3,10 @@
     {{#if item.value}}
       <div class="wikia-stats-item">
         {{#if item.url}}
-          <a href="{{item.url}}" class="wikia-stats-link" {{action 'trackClick' item.trackingLabel preventDefault=false}} >
+          <a {{action "trackClick" item.trackingLabel preventDefault=false}}
+            href={{item.url}}
+            class="wikia-stats-link"
+          >
             <div class="wikia-stats-label wds-font-size-xxs wds-text-transform-uppercase">{{item.label}}</div>
             <div class="wikia-stats-value wds-font-size-xl">{{shorten-large-number item.value}}</div>
           </a>

@@ -61,7 +61,7 @@ module.exports = {
      as ios10 supports param destructuring
     */
     "prefer-destructuring": 0,
-
+    
     "ember/avoid-leaking-state-in-ember-objects": [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
       'gestures',
@@ -75,6 +75,8 @@ module.exports = {
     // node files
     {
       files: [
+        '.template-lintrc.js',
+        'ember-cli-build.js',
         'testem.js',
         'ember-cli-build.js',
         'blueprints/*/index.js',
