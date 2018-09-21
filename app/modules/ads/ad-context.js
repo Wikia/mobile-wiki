@@ -372,12 +372,6 @@ export default {
     porvata: [],
     slot: [],
   },
-  services: {
-    krux: {
-      enabled: false,
-      id: 'JTKzTN3f',
-    },
-  },
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
@@ -389,6 +383,20 @@ export default {
     outstream: 'none',
     skin: 'mercury',
     uap: 'none',
+  },
+  services: {
+    billTheLizard: {
+      enabled: true,
+      host: 'https://services.wikia.com',
+      endpoint: 'bill-the-lizard/predict',
+      projects: {},
+      parameters: {},
+      timeout: 2000,
+    },
+    krux: {
+      enabled: false,
+      id: 'JTKzTN3f',
+    },
   },
   src: 'mobile',
   state: {
