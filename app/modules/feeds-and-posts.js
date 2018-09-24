@@ -45,8 +45,9 @@ function getModule() {
   * Loads the feed onto an article page
   *
   * @param {Module} module
+  * @param {Object} [options]
   */
-function loadFeed(module) {
+function loadFeed(module, options = {}) {
   const container = document.createElement('div');
   container.setAttribute('class', 'feed-posts-module');
 
@@ -62,7 +63,7 @@ function loadFeed(module) {
   }
 
   insertBeforeNode.parentNode.insertBefore(container, insertBeforeNode);
-  module.default(container);
+  module.default(container, options);
 }
 
 export default {
