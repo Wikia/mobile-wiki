@@ -133,7 +133,7 @@ export default Route.extend(
               const fpOptions = {
                 communityId: this.get('wikiVariables.id'),
                 communityName: this.get('wikiVariables.siteName'),
-                dbName: this.get('wikiVariables.dbName')
+                dbName: this.get('wikiVariables.dbName'),
               };
               feedsAndPosts.getModule().then((fpModule) => {
                 feedsAndPosts.loadFeed(fpModule, fpOptions);
