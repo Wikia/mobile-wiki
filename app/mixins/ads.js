@@ -9,6 +9,7 @@ export default Mixin.create({
   init() {
     this._super(...arguments);
     this.renderAdComponent = getRenderComponentFor(this);
+    this.waitingSlots = {};
   },
 
   /**
@@ -19,11 +20,12 @@ export default Mixin.create({
   * @returns {void}
   */
   appendAd(adSlotName, place, element, waitKey = '') {
-    if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
-      return;
-    }
+    // Save waiting slots so queue can be cleared on transition
+    this.waitingSlots[adSlotName] = () => {
+      if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
+        return;
+      }
 
-    this.ads.getWaits(waitKey).then(() => {
       const placeholder = document.createElement('div');
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -36,8 +38,15 @@ export default Mixin.create({
         attrs: attributes,
         element: placeholder,
       }));
+    };
+
+    this.ads.getWaits(waitKey).then(() => {
+      if (this.waitingSlots[adSlotName]) {
+        this.waitingSlots[adSlotName]();
+        delete this.waitingSlots[adSlotName];
+      }
+      this.ads.clearWaits(adSlotName);
     });
-    this.ads.clearWaits(adSlotName);
   },
 
   appendHighImpactAd() {
@@ -149,6 +158,7 @@ export default Mixin.create({
     adsContext.user = {
       isAuthenticated: this.get('currentUser.isAuthenticated'),
     };
+    this.waitingSlots = {};
     this.get('ads.module').afterTransition(adsContext);
   },
 });
