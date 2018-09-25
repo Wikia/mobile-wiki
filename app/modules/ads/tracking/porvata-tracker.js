@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengplayerinfo';
+import { track } from '../../../utils/track';
 
 export default {
   /**
@@ -27,14 +27,16 @@ export default {
     // End of imports
 
     const slot = slotService.get(data.position);
-    const trackingData = Object.assign(data, {
-      pv_unique_id: window.pvUID,
-      pv_number: window.pvNumber,
-      country: getCountryCode(),
-      skin: context.get('targeting.skin'),
-      wsi: slot.getTargeting().wsi || '',
-    });
 
-    M.tracker.Internal.track(trackingRouteName, trackingData);
+    track({
+      eventName: 'adengplayerinfo',
+      trackingMethod: 'internal',
+      params: Object.assign(data, {
+        pv_number: window.pvNumber,
+        country: getCountryCode(),
+        skin: context.get('targeting.skin'),
+        wsi: slot.getTargeting().wsi || '',
+      }),
+    });
   },
 };
