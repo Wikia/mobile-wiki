@@ -237,15 +237,16 @@ class Ads {
     });
   }
 
+  beforeTransition() {
+    this.events.beforePageChange();
+  }
+
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
-    const defaultOptions = {
-      doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
-    };
 
     if (this.events && this.showAds) {
       context.set('state.adStack', []);
-      this.events.pageChange(Object.assign(defaultOptions, options));
+      this.events.pageChange(options);
       this.engine.runAdQueue();
     }
   }
@@ -262,12 +263,8 @@ class Ads {
     }
   }
 
-  removeSlot(name) {
-    const gptProvider = this.engine.getProvider('gpt');
-
-    if (gptProvider) {
-      gptProvider.destroySlots([name]);
-    }
+  removeSlot() {
+    // TODO: This method is not needed once we remove legacyModule.js
   }
 
   waitForReady() {
