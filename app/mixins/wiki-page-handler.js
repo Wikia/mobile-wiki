@@ -127,23 +127,27 @@ export default Mixin.create({
           });
       } else {
         const temporaryTitle = params.title.replace(/_/g, ' ');
-        const categoryBeforeColon = new RegExp('^.*(?=(\:))');
+        const textBeforeColon = new RegExp('^.*(?=(\:))');
         const colonInTitle = new RegExp('/d\:1/');
-        const categoryFromParams = params.title.match(categoryBeforeColon)[0];
-        const matchCatToNamespace = getKeyByValue(this.wikiVariables.namespaces, categoryFromParams);
-
+        const categoryFromParams = params.title.match(textBeforeColon)[0];
+        const namespaceNumber = getKeyByValue(
+          this.wikiVariables.namespaces,
+           categoryFromParams,
+        );
+        debugger;
+        // if(!params.title.search(colonInTitle)) {}
+          
         const model = this.getModelForNamespace({
           data: {
-            ns: Number(matchCatToNamespace),
+            ns: Number(namespaceNumber),
             htmlTitle: 'Fake article title',
             details: {
               title: temporaryTitle,
-              ns: Number(matchCatToNamespace),
+              ns: Number(namespaceNumber),
             },
             article: {
               content: '<p>please wait...</p>',
             },
-            articleType: 'character',
             nsSpecificContent: '',
           },
         }, params, contentNamespaces);
@@ -177,7 +181,6 @@ export default Mixin.create({
                 namespace: get(dataForShoebox, 'data.ns'),
               });
             }
-            debugger;
             model.setData(data);
             debugger;
           })
@@ -193,7 +196,7 @@ export default Mixin.create({
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve(model);
-          }, 500);
+          }, 300);
         });
       }
     }
