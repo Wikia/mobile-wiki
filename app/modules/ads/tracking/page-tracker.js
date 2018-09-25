@@ -1,4 +1,4 @@
-const trackingPropRouteName = 'special/adengpageinfo_props';
+import { track } from '../../../utils/track';
 
 /**
   * Wrapper for page info warehouse tracking
@@ -23,11 +23,14 @@ export default {
   * @returns {void}
   */
   trackProp(name, value) {
-    M.tracker.Internal.track(trackingPropRouteName, {
-      pv_unique_id: window.pvUID,
-      prop_name: name,
-      prop_value: value,
-      timestamp: (new Date()).getTime(),
+    track({
+      eventName: 'adengpageinfo_props',
+      trackingMethod: 'internal',
+      params: {
+        prop_name: name,
+        prop_value: value,
+        timestamp: (new Date()).getTime(),
+      },
     });
   },
 };

@@ -11,8 +11,11 @@ export default Service.extend({
   siteHeadOffset: 0,
   slotNames: null,
   noAdsQueryParam: null,
+  disableAdsInMobileApp: null,
   noAds: computed('noAdsQueryParam', function () {
-    return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1 || this.get('currentUser.isAuthenticated');
+    return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1
+      || ['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1
+      || this.get('currentUser.isAuthenticated');
   }),
   adSlotComponents: null,
   waits: null,
