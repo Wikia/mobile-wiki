@@ -127,11 +127,16 @@ export default Route.extend(
             this.trackPageView(model);
             // If it's an article page and the extension is enabled, load the Feeds & Posts module
             if (!fastboot.get('isFastBoot')
-       && isContentNamespace(model.ns, this.get('wikiVariables.contentNamespaces'))
-       && this.get('wikiVariables.enableFeedsAndPosts')
+              && isContentNamespace(model.ns, this.get('wikiVariables.contentNamespaces'))
+              && this.get('wikiVariables.enableFeedsAndPosts')
             ) {
+              const fpOptions = {
+                communityId: this.get('wikiVariables.id'),
+                communityName: this.get('wikiVariables.siteName'),
+                dbName: this.get('wikiVariables.dbName'),
+              };
               feedsAndPosts.getModule().then((fpModule) => {
-                feedsAndPosts.loadFeed(fpModule);
+                feedsAndPosts.loadFeed(fpModule, fpOptions);
               });
             }
           });

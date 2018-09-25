@@ -94,7 +94,7 @@
     "user-menu-profile": "Profil"
   }, 
   "recirculation": {
-    "popular-wiki-articles-header": "WIĘCEJ {wikiName}", 
+    "popular-wiki-articles-header": "WIĘCEJ Z {wikiName}", 
     "trending-fandom-articles": "Kanał informacji dla fanów"
   }, 
   "smartbanner": {
