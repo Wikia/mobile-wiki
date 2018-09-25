@@ -1,7 +1,14 @@
-import { inject as service } from '@ember/service';
+import {
+  inject as service,
+} from '@ember/service';
 import Mixin from '@ember/object/mixin';
-import EmberObject, { get } from '@ember/object';
-import { getOwner } from '@ember/application';
+import EmberObject, {
+  get,
+} from '@ember/object';
+import {
+  getOwner,
+} from '@ember/application';
+import { Promise, resolve } from 'rsvp';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
@@ -19,11 +26,15 @@ import {
 import extend from '../utils/extend';
 
 /**
-  *
-  * @param {Object} wikiUrls
-  * @param {Object} params
-  * @returns {string}
-  */
+ *
+ * @param {Object} wikiUrls
+ * @param {Object} params
+ * @returns {string}
+ */
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+} 
+
 function getURL(wikiUrls, params) {
   const query = {
     controller: 'MercuryApi',
@@ -118,6 +129,76 @@ export default Mixin.create({
         });
     }
 
+    // new functionality in progress
+    if (isFastBoot) {
+      const url = getURL(this.wikiUrls, params);
+
+      const temporaryTitle = params.title.replace(/_/g, ' ');
+      const categoryBeforeColon = new RegExp('^.*(?=(:))');
+      const colonInTitle = new RegExp('/d:1/');
+      const categoryFromParams = params.title.match(categoryBeforeColon)[0];
+      const matchCatToNamespace = getKeyByValue(this.wikiVariables.namespaces, categoryFromParams);
+
+      const model = this.getModelForNamespace({
+        data: {
+          ns: Number(matchCatToNamespace),
+          htmlTitle: 'Fake article title',
+          details: {
+            title: temporaryTitle,
+            ns: Number(matchCatToNamespace),
+          },
+          article: {
+            content: '<p>please wait...</p>',
+          },
+          nsSpecificContent: '',
+        },
+      }, params, contentNamespaces);
+
+      fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return getFetchErrorMessage(response).then(() => {
+            throw new WikiPageFetchError({
+              code: response.status || 503,
+            }).withAdditionalData({
+              requestUrl: url,
+              responseUrl: response.url,
+            });
+          });
+        })
+        .then((data) => {
+          if (isFastBoot) {
+            const dataForShoebox = extend({}, data);
+
+            if (dataForShoebox.data && dataForShoebox.data.article) {
+              // Remove article content so it's not duplicated in shoebox and HTML
+              delete dataForShoebox.data.article.content;
+            }
+
+            shoebox.put('wikiPage', dataForShoebox);
+            shoebox.put('trackingData', {
+              articleId: get(dataForShoebox, 'data.details.id'),
+              namespace: get(dataForShoebox, 'data.ns'),
+            });
+          }
+          model.setData(data);
+          debugger;
+        })
+        .catch((error) => {
+          if (isFastBoot) {
+            shoebox.put('wikiPageError', error);
+            this.fastboot.set('response.statusCode', error.code || 503);
+          }
+
+          throw error;
+        });
+
+      return model;
+    }
+    // end of new functionality
+
     const wikiPageData = shoebox.retrieve('wikiPage');
     const wikiPageError = shoebox.retrieve('wikiPageError');
 
@@ -134,12 +215,12 @@ export default Mixin.create({
   },
 
   /**
-  *
-  * @param {Object} data
-  * @param {Object} params
-  * @param {Array} contentNamespaces
-  * @returns {Object}
-  */
+   *
+   * @param {Object} data
+   * @param {Object} params
+   * @param {Array} contentNamespaces
+   * @returns {Object}
+   */
   getModelForNamespace(data, params, contentNamespaces) {
     const currentNamespace = data.data.ns;
     const ownerInjection = getOwner(this).ownerInjection();
@@ -166,8 +247,9 @@ export default Mixin.create({
     }
     if (
       currentNamespace === MediawikiNamespace.BLOG_ARTICLE
-   // User blog listing has BLOG_ARTICLE namespace but no article
-   && data.data.article
+      // User blog listing has BLOG_ARTICLE namespace but no article
+      &&
+      data.data.article
     ) {
       model = BlogModel.create(ownerInjection, params);
       model.setData(data);

@@ -57,6 +57,11 @@ export default Controller.extend(
     * @returns {void}
     */
       handleLink(target) {
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
         this.target.send('handleLink', target);
       },
 
