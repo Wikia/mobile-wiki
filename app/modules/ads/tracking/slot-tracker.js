@@ -112,11 +112,13 @@ export default {
     const status = adSlot.getStatus();
 
     if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
-      track({
-        eventName: 'adengadinfo',
-        trackingMethod: 'internal',
-        params: prepareData(adSlot, data),
-      });
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
     } else if (status === 'manual') {
       adSlot.trackOnStatusChanged = true;
     }
@@ -132,11 +134,13 @@ export default {
     const status = adSlot.getStatus();
 
     if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
-      track({
-        eventName: 'adengadinfo',
-        trackingMethod: 'internal',
-        params: prepareData(adSlot, data),
-      });
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
       delete adSlot.trackOnStatusChanged;
     }
   },

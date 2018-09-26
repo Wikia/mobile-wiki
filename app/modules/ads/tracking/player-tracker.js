@@ -65,11 +65,13 @@ export default class PlayerTracker {
     // End of imports
 
     if (context.get('options.tracking.kikimora.player')) {
-      track({
-        eventName: 'adengplayerinfo',
-        trackingMethod: 'internal',
-        params: prepareData(data, playerName, eventName, errorCode),
-      });
+      track(Object.assign(
+        {
+          eventName: 'adengplayerinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(data, playerName, eventName, errorCode),
+      ));
     }
   }
 }

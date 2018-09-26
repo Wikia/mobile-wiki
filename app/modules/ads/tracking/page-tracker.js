@@ -26,11 +26,9 @@ export default {
     track({
       eventName: 'adengpageinfo_props',
       trackingMethod: 'internal',
-      params: {
-        prop_name: name,
-        prop_value: value,
-        timestamp: (new Date()).getTime(),
-      },
+      prop_name: name,
+      prop_value: value,
+      timestamp: (new Date()).getTime(),
     });
   },
 };
