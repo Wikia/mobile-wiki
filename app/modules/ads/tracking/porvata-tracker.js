@@ -28,15 +28,17 @@ export default {
 
     const slot = slotService.get(data.position);
 
-    track({
-      eventName: 'adengplayerinfo',
-      trackingMethod: 'internal',
-      params: Object.assign(data, {
+    track(Object.assign(
+      {
+        eventName: 'adengplayerinfo',
+        trackingMethod: 'internal',
+      },
+      Object.assign(data, {
         pv_number: window.pvNumber,
         country: getCountryCode(),
         skin: context.get('targeting.skin'),
         wsi: slot.getTargeting().wsi || '',
       }),
-    });
+    ));
   },
 };

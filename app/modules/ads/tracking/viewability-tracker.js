@@ -39,10 +39,12 @@ export default {
   * @returns {void}
   */
   onImpressionViewable(adSlot, data) {
-    track({
-      eventName: 'adengviewability',
-      trackingMethod: 'internal',
-      params: prepareData(adSlot, data),
-    });
+    track(Object.assign(
+      {
+        eventName: 'adengviewability',
+        trackingMethod: 'internal',
+      },
+      prepareData(adSlot, data),
+    ));
   },
 };
