@@ -33,7 +33,7 @@ import extend from '../utils/extend';
  */
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
-} 
+}
 
 function getURL(wikiUrls, params) {
   const query = {
@@ -85,6 +85,7 @@ export default Mixin.create({
       params.noads = this.get('fastboot.request.queryParams.noads');
       params.noexternals = this.get('fastboot.request.queryParams.noexternals');
       const url = getURL(this.wikiUrls, params);
+      debugger;
       if (isFastBoot) {
         return fetch(url)
           .then((response) => {
@@ -126,6 +127,7 @@ export default Mixin.create({
             throw error;
           });
       } else {
+
         const temporaryTitle = params.title.replace(/_/g, ' ');
         const textBeforeColon = new RegExp('^.*(?=(\:))');
         const colonInTitle = new RegExp('/d\:1/');
@@ -134,26 +136,27 @@ export default Mixin.create({
           this.wikiVariables.namespaces,
            categoryFromParams,
         );
-        debugger;
-        // if(!params.title.search(colonInTitle)) {}
-          
+
         const model = this.getModelForNamespace({
           data: {
             ns: Number(namespaceNumber),
-            htmlTitle: 'Fake article title',
+            htmlTitle: temporaryTitle,
             details: {
               title: temporaryTitle,
               ns: Number(namespaceNumber),
-            },
-            article: {
-              content: '<p>please wait...</p>',
+              type: '',
             },
             nsSpecificContent: '',
           },
         }, params, contentNamespaces);
-
+        /*
+        if(params.title.search(colonInTitle) == 0) {
+          model.setData( data.ns = 0 );
+        }
+        */
         fetch(url)
           .then((response) => {
+            debugger;
             if (response.ok) {
               return response.json();
             }
@@ -193,9 +196,9 @@ export default Mixin.create({
             throw error;
           });
 
-        return new Promise((resolve) => {
+        return new Promise((res) => {
           setTimeout(() => {
-            resolve(model);
+            res(model);
           }, 300);
         });
       }
