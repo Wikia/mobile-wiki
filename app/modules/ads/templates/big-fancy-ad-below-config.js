@@ -26,6 +26,7 @@ export function getConfig() {
     unstickInstantlyBelowPosition: getUnstickThreshold(),
     topThreshold: getNavbarHeight(),
     onInit(adSlot, params) {
+      this.adSlot = adSlot;
       context.set(`slots.${adSlot.getSlotName()}.options.isVideoMegaEnabled`, params.isVideoMegaEnabled);
     },
   };

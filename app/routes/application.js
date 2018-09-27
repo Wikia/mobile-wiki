@@ -100,6 +100,18 @@ export default Route.extend(
       ) {
         getAdsModule().then((adsModule) => {
           if (isAdEngine3Loaded()) {
+            const { events } = window.Wikia.adEngine;
+
+            events.registerEvent('HEAD_OFFSET_CHANGE');
+            events.registerEvent('SMART_BANNER_CHANGE');
+
+            events.on(events.HEAD_OFFSET_CHANGE, (offset) => {
+              this.set('ads.siteHeadOffset', offset);
+            });
+            events.on(events.SMART_BANNER_CHANGE, (visibility) => {
+              this.set('smartBanner.smartBannerVisible', visibility);
+            });
+
             return;
           }
 

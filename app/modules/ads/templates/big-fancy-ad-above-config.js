@@ -1,19 +1,28 @@
+// TODO list:
+// 1. Load BTF slots on scroll (set disableManualInsert flag)
+// 2. Handle waitForUapResponse in ad-slot.js
+// 3. Make sure that UAP styles work properly with and without AE3
+// 4. Make sure videos are requested with MEGA
+// 5. Handle doubled slotName in slot-service (make BFAB work properly with pos=blb,mpf)
+
 export const getConfig = () => ({
-  adsModule: null,
   adSlot: null,
   slotParams: null,
   navbarElement: null,
   slotsToEnable: [
-    'MOBILE_IN_CONTENT',
-    'MOBILE_PREFOOTER',
-    'BOTTOM_LEADERBOARD'
+    'incontent_boxad_1',
+    'mobile_in_content',
+    'mobile_prefooter',
+    'bottom_leaderboard'
   ],
 
   adjustPadding(iframe, { aspectRatio }) {
+    const { events } = window.Wikia.adEngine;
+
     const viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const height = aspectRatio ? viewPortWidth / aspectRatio : iframe.contentWindow.document.body.offsetHeight;
 
-    this.adsModule.setSiteHeadOffset(height);
+    events.emit(events.HEAD_OFFSET_CHANGE, height);
   },
 
   onReady(iframe) {
@@ -34,31 +43,30 @@ export const getConfig = () => ({
       document.body.classList.remove('vuap-loaded');
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
-      this.adsModule.setSiteHeadOffset(0);
+      events.emit(events.HEAD_OFFSET_CHANGE, 0);
       window.removeEventListener('resize', onResize);
     });
   },
 
   onInit(adSlot, params) {
-    const { context, slotTweaker } = window.Wikia.adEngine;
+    const { context, events, slotTweaker } = window.Wikia.adEngine;
 
     this.adSlot = adSlot;
     this.slotParams = params;
-    this.adsModule = window.Mercury.Modules.Ads.getInstance();
     this.navbarElement = document.querySelector('.site-head-container .site-head, .wds-global-navigation');
 
     const wrapper = document.querySelector('.mobile-top-leaderboard');
 
     context.set(`slots.${adSlot.getSlotName()}.options.isVideoMegaEnabled`, params.isVideoMegaEnabled);
+    context.set(`slots.incontent_boxad_1.repeat`, null);
+    context.set(`slots.bottom_leaderboard.defaultSizes`, [[2, 2]]);
     wrapper.style.opacity = '0';
     slotTweaker.onReady(adSlot).then((iframe) => {
       wrapper.style.opacity = '';
       this.onReady(iframe);
     });
 
-    if (this.adsModule.hideSmartBanner) {
-      this.adsModule.hideSmartBanner();
-    }
+    events.emit(events.SMART_BANNER_CHANGE, false);
   },
 
   onBeforeUnstickBfaaCallback() {

@@ -38,7 +38,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('slots', slots.getContext());
   if (!adsContext.targeting.hasFeaturedVideo) {
     context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
-    context.push('slots.bottom_leaderboard.defaultSizes', [2, 2]);
   }
 
   context.set('state.deviceType', utils.client.getDeviceType());

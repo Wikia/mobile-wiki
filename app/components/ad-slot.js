@@ -21,6 +21,7 @@ export default Component.extend(
     disableManualInsert: false,
     isAboveTheFold: false,
     name: null,
+    adEngine3ClassName: 'gpt-ad',
     pageHasFeaturedVideo: false,
 
     noAds: readOnly('ads.noAds'),
