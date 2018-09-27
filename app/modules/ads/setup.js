@@ -6,6 +6,7 @@ import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
+import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -145,12 +146,13 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
   const { context, templateService } = window.Wikia.adEngine;
-  const { utils: adProductsUtils, PorvataTemplate } = window.Wikia.adProducts;
+  const { utils: adProductsUtils, PorvataTemplate, Roadblock } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
   adProductsUtils.setupNpaContext();
 
   templateService.register(PorvataTemplate, getPorvataConfig());
+  templateService.register(Roadblock, getRoadblockConfig());
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
