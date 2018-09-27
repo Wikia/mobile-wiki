@@ -64,10 +64,10 @@ class Ads {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    this.instantGlobals = instantGlobals;
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
+    this.instantGlobals = instantGlobals;
+    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {

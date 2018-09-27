@@ -7,6 +7,8 @@ import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
+import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
+import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -34,6 +36,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
   context.set('slots', slots.getContext());
+  if (!adsContext.targeting.hasFeaturedVideo) {
+    context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
+    context.push('slots.bottom_leaderboard.defaultSizes', [2, 2]);
+  }
+
   context.set('state.deviceType', utils.client.getDeviceType());
 
   context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
@@ -146,11 +153,19 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
   const { context, templateService } = window.Wikia.adEngine;
-  const { utils: adProductsUtils, PorvataTemplate, Roadblock } = window.Wikia.adProducts;
+  const {
+    utils: adProductsUtils,
+    BigFancyAdAbove,
+    BigFancyAdBelow,
+    PorvataTemplate,
+    Roadblock
+  } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
   adProductsUtils.setupNpaContext();
 
+  templateService.register(BigFancyAdAbove, getBfaaConfig());
+  templateService.register(BigFancyAdBelow, getBfabConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
 

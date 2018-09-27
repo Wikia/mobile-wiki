@@ -86,7 +86,7 @@ export default {
         options: {},
         slotShortcut: 'l',
         sizes: [],
-        defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
+        defaultSizes: [[320, 50], [320, 100], [300, 50]],
         targeting: {
           loc: 'top',
           rv: 1,
@@ -184,7 +184,7 @@ export default {
             sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
           },
         ],
-        defaultSizes: [[320, 50], [300, 250], [300, 50]], // Add [2, 2] for UAP
+        defaultSizes: [[320, 50], [300, 250], [300, 50]],
         targeting: {
           loc: 'footer',
           pos: ['bottom_leaderboard', 'mobile_prefooter'],
