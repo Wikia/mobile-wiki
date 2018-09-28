@@ -4,3 +4,7 @@ export const getConfig = () => ({
     'mobile_in_content',
   ],
 });
+
+export default {
+  getConfig,
+};
