@@ -33,7 +33,7 @@ export default {
         },
         featured: {
           slotoId: 'FEATURED',
-          type: 'video'
+          type: 'video',
         },
       },
     },
