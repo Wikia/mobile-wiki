@@ -32,7 +32,7 @@ export default {
           ],
         },
         featured: {
-          slotoId: 'FEATURED',
+          slotId: 'FEATURED',
           type: 'video',
         },
       },
