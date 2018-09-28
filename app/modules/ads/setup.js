@@ -101,6 +101,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
+  context.set('bidders.a9.dealsEnabled', isGeoEnabled('wgAdDriverA9BidderDealsCountries'));
   context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries') && hasFeaturedVideo);
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
