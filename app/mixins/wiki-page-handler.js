@@ -1,13 +1,7 @@
-import {
-  inject as service,
-} from '@ember/service';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
-import EmberObject, {
-  get,
-} from '@ember/object';
-import {
-  getOwner,
-} from '@ember/application';
+import EmberObject, { get } from '@ember/object';
+import { getOwner } from '@ember/application';
 import { Promise, resolve } from 'rsvp';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
@@ -31,7 +25,7 @@ import extend from '../utils/extend';
  * @param {Object} params
  * @returns {string}
  */
-function getKeyByValue(object, value) {
+function getNamespaceNumber(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
@@ -81,11 +75,11 @@ export default Mixin.create({
     const contentNamespaces = this.get('wikiVariables.contentNamespaces');
     const isInitialPageView = this.initialPageView.isInitialPageView();
 
+    /* eslint no-else-return: 0 */
     if (isFastBoot || !isInitialPageView) {
       params.noads = this.get('fastboot.request.queryParams.noads');
       params.noexternals = this.get('fastboot.request.queryParams.noexternals');
       const url = getURL(this.wikiUrls, params);
-      debugger;
       if (isFastBoot) {
         return fetch(url)
           .then((response) => {
@@ -129,14 +123,18 @@ export default Mixin.create({
       } else {
 
         const temporaryTitle = params.title.replace(/_/g, ' ');
-        const textBeforeColon = new RegExp('^.*(?=(\:))');
-        const colonInTitle = new RegExp('/d\:1/');
-        const categoryFromParams = params.title.match(textBeforeColon)[0];
-        const namespaceNumber = getKeyByValue(
-          this.wikiVariables.namespaces,
-           categoryFromParams,
-        );
+        const testIfColonExist = /\:/.test(temporaryTitle);
+        let namespaceNumber = 0;
+        debugger;
 
+        if (testIfColonExist) {
+          const textBeforeColon = new RegExp('^.*(?=(\:))');
+          const categoryFromParams = params.title.match(textBeforeColon)[0];
+          namespaceNumber = getNamespaceNumber(
+            this.wikiVariables.namespaces,
+            categoryFromParams,
+          );
+        }
         const model = this.getModelForNamespace({
           data: {
             ns: Number(namespaceNumber),
@@ -149,11 +147,7 @@ export default Mixin.create({
             nsSpecificContent: '',
           },
         }, params, contentNamespaces);
-        /*
-        if(params.title.search(colonInTitle) == 0) {
-          model.setData( data.ns = 0 );
-        }
-        */
+
         fetch(url)
           .then((response) => {
             debugger;
@@ -196,9 +190,9 @@ export default Mixin.create({
             throw error;
           });
 
-        return new Promise((res) => {
+        return new Promise((resolve) => {
           setTimeout(() => {
-            res(model);
+            resolve(model);
           }, 300);
         });
       }
@@ -253,8 +247,7 @@ export default Mixin.create({
     if (
       currentNamespace === MediawikiNamespace.BLOG_ARTICLE
       // User blog listing has BLOG_ARTICLE namespace but no article
-      &&
-      data.data.article
+      && data.data.article
     ) {
       model = BlogModel.create(ownerInjection, params);
       model.setData(data);
