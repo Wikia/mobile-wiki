@@ -100,6 +100,10 @@ class Ads {
     const { context, slotService } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
+    function getNextIncontentId() {
+      return `incontent_boxad_${Object.keys(this.cheshirecatPredictions).length + 2}`;
+    }
+
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       this.cheshirecatPredictions = {};
 
@@ -132,7 +136,7 @@ class Ads {
 
         billTheLizard.projectsHandler.enable('cheshirecat');
         billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-          const slot = `incontent_boxad_${Object.keys(this.cheshirecatPredictions).length + 2}`;
+          const slot = getNextIncontentId();
 
           if (slot) {
             slotService.disable(slot, 'catlapsed');
@@ -141,7 +145,7 @@ class Ads {
 
         billTheLizard.call(['cheshirecat'])
           .then((predictions) => {
-            const identifier = `incontent_boxad_${Object.keys(this.cheshirecatPredictions).length + 2}`;
+            const identifier = getNextIncontentId();
             const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
 
             this.cheshirecatPredictions[identifier] = prediction;
