@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: mobile-wiki-preview
+        stage: mobile-wiki-preview
     spec:
       serviceAccountName: k8s-pod
       initContainers:
