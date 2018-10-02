@@ -54,7 +54,6 @@ const designSystemLazyLoadedSVGs = [
   'wds-player-icon-play',
   'wds-company-store-appstore',
   'wds-company-store-googleplay',
-  'wds-company-logo-fandom-powered-by-wikia-two-lines',
 ].map(name => (
   { name, path: `${designSystemAssetsPath}${name}.svg` }
 ));

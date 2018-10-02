@@ -27,7 +27,6 @@ export default Controller.extend(
 
     applicationWrapperClassNames: null,
     commentsPage: null,
-    mobileApp: null,
     userMenuVisible: false,
 
     /**
@@ -48,6 +47,7 @@ export default Controller.extend(
     fullPage: oneWay('mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
     noAds: alias('ads.noAdsQueryParam'),
+    mobileApp: alias('ads.disableAdsInMobileApp'),
 
     actions: {
       /**

@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengplayerinfo';
+import { track } from '../../../utils/track';
 
 /**
   * Prepare data for tracking
@@ -17,7 +17,6 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
   const slot = slotService.get(data.slotName);
 
   return {
-    pv_unique_id: window.pvUID,
     pv_number: window.pvNumber,
     country: getCountryCode(),
     skin: context.get('targeting.skin'),
@@ -66,9 +65,13 @@ export default class PlayerTracker {
     // End of imports
 
     if (context.get('options.tracking.kikimora.player')) {
-      const trackingData = prepareData(data, playerName, eventName, errorCode);
-
-      M.tracker.Internal.track(trackingRouteName, trackingData);
+      track(Object.assign(
+        {
+          eventName: 'adengplayerinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(data, playerName, eventName, errorCode),
+      ));
     }
   }
 }

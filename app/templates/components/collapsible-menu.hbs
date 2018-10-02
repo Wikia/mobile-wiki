@@ -1,6 +1,9 @@
-<div role="button" {{action 'toggleMenu'}} class="{{if isCollapsed 'collapsed'}} title wds-font-size-s wds-font-weight-medium">
+<div {{action "toggleMenu"}}
+  role="button"
+  class="{{if isCollapsed "collapsed"}} title wds-font-size-s wds-font-weight-medium"
+>
   <span>{{i18n tLabel count=tCount}}</span>
-  {{svg 'wds-icons-menu-control-tiny' class='wds-icon wds-icon-tiny chevron'}}
+  {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny chevron"}}
 </div>
 {{#if ordered}}
   <ol>

@@ -6,6 +6,7 @@ import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
+import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -24,10 +25,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   context.extend(basicContext);
-
-  if (adsContext.targeting.hasFeaturedVideo) {
-    context.set('src', ['premium', 'mobile']);
-  }
 
   if (adsContext.opts.isAdTestWiki) {
     context.set('src', 'test');
@@ -63,6 +60,9 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
+
+  context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
+    && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
@@ -101,6 +101,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
+  context.set('bidders.a9.dealsEnabled', isGeoEnabled('wgAdDriverA9DealsCountries'));
   context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries') && hasFeaturedVideo);
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
@@ -146,12 +147,13 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
   const { context, templateService } = window.Wikia.adEngine;
-  const { utils: adProductsUtils, PorvataTemplate } = window.Wikia.adProducts;
+  const { utils: adProductsUtils, PorvataTemplate, Roadblock } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
   adProductsUtils.setupNpaContext();
 
   templateService.register(PorvataTemplate, getPorvataConfig());
+  templateService.register(Roadblock, getRoadblockConfig());
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);

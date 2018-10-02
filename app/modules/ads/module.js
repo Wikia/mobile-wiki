@@ -2,8 +2,10 @@
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import adBlockDetection from './tracking/adblock-detection';
+import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
+import targeting from './targeting';
 
 const SLOT_NAME_MAP = {
   MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
@@ -45,6 +47,19 @@ class Ads {
     }
   }
 
+  callExternals() {
+    const { bidders } = window.Wikia.adBidders;
+    const { krux } = window.Wikia.adServices;
+
+    biddersDelay.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelay.markAsReady,
+    });
+
+    krux.call();
+    this.trackLabrador();
+  }
+
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
@@ -58,8 +73,10 @@ class Ads {
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
-    this.callBidders();
+    events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
+    this.callExternals();
+
+    this.configureBillTheLizard(instantGlobals);
 
     this.startAdEngine();
 
@@ -68,13 +85,63 @@ class Ads {
     this.onReadyCallbacks = [];
   }
 
-  callBidders() {
-    const { bidders } = window.Wikia.adBidders;
+  trackLabrador() {
+    const { utils } = window.Wikia.adEngine;
 
-    biddersDelay.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
-    });
+    // Track Labrador values to DW
+    const labradorPropValue = utils.getSamplingResults().join(';');
+
+    if (PageTracker.isEnabled() && labradorPropValue) {
+      PageTracker.trackProp('labrador', labradorPropValue);
+    }
+  }
+
+  configureBillTheLizard(instantGlobals) {
+    const { context, slotService } = window.Wikia.adEngine;
+    const { billTheLizard } = window.Wikia.adServices;
+
+    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
+      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', () => {
+        const config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
+        const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
+
+        context.set('services.billTheLizard.projects', config.projects);
+        context.set('services.billTheLizard.timeout', config.timeout || 0);
+        context.set('services.billTheLizard.parameters.cheshirecat', {
+          bids: [
+            bidderPrices.bidder_1 || 0,
+            bidderPrices.bidder_2 || 0,
+            0,
+            bidderPrices.bidder_4 || 0,
+            0,
+            bidderPrices.bidder_6 || 0,
+            bidderPrices.bidder_7 || 0,
+            0,
+            bidderPrices.bidder_9 || 0,
+            bidderPrices.bidder_10 || 0,
+            bidderPrices.bidder_11 || 0,
+            bidderPrices.bidder_12 || 0,
+            bidderPrices.bidder_13 || 0,
+            bidderPrices.bidder_14 || 0,
+            bidderPrices.bidder_15 || 0,
+            bidderPrices.bidder_16 || 0,
+          ].join(';'),
+        });
+
+        billTheLizard.projectsHandler.enable('cheshirecat');
+        billTheLizard.executor.register('catlapseIncontentBoxad', () => {
+          const slots = Object.keys(context.get('slots'))
+            .filter(slotName => slotName.indexOf('incontent_boxad_') === 0);
+
+          if (slots.length > 0) {
+            const slot = slots[slots.length - 1];
+            slotService.disable(slot, 'catlapsed');
+          }
+        });
+
+        billTheLizard.call(['cheshirecat']);
+      });
+    }
   }
 
   waitForVideoBidders() {
@@ -89,7 +156,7 @@ class Ads {
     });
 
     // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
-    //       we don't need to pass bidder parameters here because they are set on slot create
+    // we don't need to pass bidder parameters here because they are set on slot create
     return Promise.race([
       biddersDelay.getPromise(),
       timeout,
@@ -170,15 +237,16 @@ class Ads {
     });
   }
 
+  beforeTransition() {
+    this.events.beforePageChange();
+  }
+
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
-    const defaultOptions = {
-      doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
-    };
 
     if (this.events && this.showAds) {
       context.set('state.adStack', []);
-      this.events.pageChange(Object.assign(defaultOptions, options));
+      this.events.pageChange(options);
       this.engine.runAdQueue();
     }
   }
@@ -195,12 +263,8 @@ class Ads {
     }
   }
 
-  removeSlot(name) {
-    const gptProvider = this.engine.getProvider('gpt');
-
-    if (gptProvider) {
-      gptProvider.destroySlots([name]);
-    }
+  removeSlot() {
+    // TODO: This method is not needed once we remove legacyModule.js
   }
 
   waitForReady() {

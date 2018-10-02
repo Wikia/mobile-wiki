@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
+import trackModule from 'mobile-wiki/utils/track';
 
 module('Unit | Module | ads | tracking', (hooks) => {
   hooks.beforeEach(() => {
@@ -19,11 +20,11 @@ module('Unit | Module | ads | tracking', (hooks) => {
         getDfpSlotPrices: () => {},
       },
     };
-    sinon.spy(M.tracker.Internal, 'track');
+    sinon.spy(trackModule, 'track');
   });
 
   hooks.afterEach(() => {
-    M.tracker.Internal.track.restore();
+    trackModule.track.restore();
   });
 
   function getSlot(targeting) {
@@ -38,20 +39,20 @@ module('Unit | Module | ads | tracking', (hooks) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct pos value for multi pos value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct opt-in value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].opt_in, 'yes');
+    assert.equal(trackModule.track.getCall(0).args[0].opt_in, 'yes');
   });
 });
