@@ -13,7 +13,7 @@ export const getConfig = () => (
     onInit: (adSlot, params) => {
       params.isVideoMegaEnabled = true;
       slots.setupSlotVideoAdUnit(adSlot, params);
-    }
+    },
   }
 );
 
