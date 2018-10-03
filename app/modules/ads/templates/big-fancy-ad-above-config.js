@@ -15,8 +15,8 @@ export const getConfig = () => ({
     const { events } = window.Wikia.adEngine;
 
     const viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const height = aspectRatio ?
-      viewPortWidth / aspectRatio : iframe.contentWindow.document.body.offsetHeight;
+    const creativeHeight = iframe.contentWindow.document.body.offsetHeight;
+    const height = aspectRatio ? viewPortWidth / aspectRatio : creativeHeight;
 
     events.emit(events.HEAD_OFFSET_CHANGE, height);
   },
