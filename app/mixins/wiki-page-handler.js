@@ -121,7 +121,7 @@ export default Mixin.create({
             throw error;
           });
       } else {
-        const temporaryTitle = params.title.replace(/_/g, ' ');
+        let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
         let namespaceNumber = 0;
 
@@ -132,7 +132,9 @@ export default Mixin.create({
             this.wikiVariables.namespaces,
             categoryFromParams,
           );
+          temporaryTitle = temporaryTitle.split(':').pop();
         }
+
         const model = this.getModelForNamespace({
           data: {
             ns: Number(namespaceNumber),
@@ -149,7 +151,6 @@ export default Mixin.create({
 
         model.set('fullyLoaded', false);
         model.set('spinnerLoading', true);
-        // debugger;
 
         fetch(url)
           .then((response) => {
