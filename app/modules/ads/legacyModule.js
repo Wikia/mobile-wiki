@@ -479,7 +479,7 @@ class Ads {
     };
   }
 
-  finishAtfQueue() {
+  finishFirstCall() {
     // Do nothing
   }
 
