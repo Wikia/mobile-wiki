@@ -121,14 +121,12 @@ export default Mixin.create({
             throw error;
           });
       } else {
-
         const temporaryTitle = params.title.replace(/_/g, ' ');
-        const testIfColonExist = /\:/.test(temporaryTitle);
+        const IfColonExist = /:/.test(temporaryTitle);
         let namespaceNumber = 0;
-        debugger;
 
-        if (testIfColonExist) {
-          const textBeforeColon = new RegExp('^.*(?=(\:))');
+        if (IfColonExist) {
+          const textBeforeColon = new RegExp('^.*(?=(:))');
           const categoryFromParams = params.title.match(textBeforeColon)[0];
           namespaceNumber = getNamespaceNumber(
             this.wikiVariables.namespaces,
@@ -146,11 +144,15 @@ export default Mixin.create({
             },
             nsSpecificContent: '',
           },
+          
         }, params, contentNamespaces);
+
+        model.set('fullyLoaded', false);
+        model.set('spinnerLoading', true);
+        // debugger;
 
         fetch(url)
           .then((response) => {
-            debugger;
             if (response.ok) {
               return response.json();
             }
@@ -179,7 +181,9 @@ export default Mixin.create({
               });
             }
             model.setData(data);
-            debugger;
+            model.set('fullyLoaded', true);
+            model.set('spinnerLoading', false);
+            // debugger;
           })
           .catch((error) => {
             if (isFastBoot) {

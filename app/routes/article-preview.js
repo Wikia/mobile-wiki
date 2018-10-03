@@ -43,6 +43,7 @@ export default Route.extend(
             return articleData;
           });
       }
+
       return shoebox.retrieve('articleData');
     },
 
