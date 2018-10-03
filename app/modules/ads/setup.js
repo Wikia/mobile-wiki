@@ -1,5 +1,6 @@
 import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
+import fanTakeoverResolver from './fan-takeover-resolver';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
@@ -51,13 +52,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverFVPostrollCountries'));
 
   context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
-  // TODO: context.push('delayModules', featuredVideoDelay);
-  // context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
-  /* context.set(
-    'options.exposeFeaturedVideoUapKeyValue',
-     isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'),
-    );
-  */
   context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
   context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
@@ -171,6 +165,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
+  context.push('listeners.slot', fanTakeoverResolver);
   context.push('listeners.slot', ViewabilityTracker);
 }
 

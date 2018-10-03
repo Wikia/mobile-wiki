@@ -1,3 +1,5 @@
+import slots from '../slots';
+
 function getNavbarHeight() {
   const navbar = document.querySelector('.site-head-wrapper');
 
@@ -15,19 +17,16 @@ function getUnstickThreshold() {
 }
 
 export function getConfig() {
-  const { context } = window.Wikia.adEngine;
-
   return {
     autoPlayAllowed: true,
     defaultStateAllowed: true,
     fullscreenAllowed: true,
     stickinessAllowed: false,
-    bfaaSlotName: 'MOBILE_TOP_LEADERBOARD',
+    bfaaSlotName: 'mobile_top_leaderboard',
     unstickInstantlyBelowPosition: getUnstickThreshold(),
     topThreshold: getNavbarHeight(),
     onInit(adSlot, params) {
-      this.adSlot = adSlot;
-      context.set(`slots.${adSlot.getSlotName()}.options.isVideoMegaEnabled`, params.isVideoMegaEnabled);
+      slots.setupSlotVideoAdUnit(adSlot, params);
     },
   };
 }

@@ -1,9 +1,4 @@
-// TODO list:
-// 1. Load BTF slots on scroll (set disableManualInsert flag)
-// 2. Handle waitForUapResponse in ad-slot.js
-// 3. Make sure that UAP styles work properly with and without AE3
-// 4. Make sure videos are requested with MEGA
-// 5. Handle doubled slotName in slot-service (make BFAB work properly with pos=blb,mpf)
+import slots from '../slots';
 
 export const getConfig = () => ({
   adSlot: null,
@@ -57,7 +52,7 @@ export const getConfig = () => ({
 
     const wrapper = document.querySelector('.mobile-top-leaderboard');
 
-    context.set(`slots.${adSlot.getSlotName()}.options.isVideoMegaEnabled`, params.isVideoMegaEnabled);
+    slots.setupSlotVideoAdUnit(adSlot, params);
     context.set(`slots.incontent_boxad_1.repeat`, null);
     context.set(`slots.bottom_leaderboard.defaultSizes`, [[2, 2]]);
     wrapper.style.opacity = '0';
