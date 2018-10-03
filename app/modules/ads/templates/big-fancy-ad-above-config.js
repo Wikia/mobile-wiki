@@ -8,14 +8,15 @@ export const getConfig = () => ({
     'incontent_boxad_1',
     'mobile_in_content',
     'mobile_prefooter',
-    'bottom_leaderboard'
+    'bottom_leaderboard',
   ],
 
   adjustPadding(iframe, { aspectRatio }) {
     const { events } = window.Wikia.adEngine;
 
     const viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const height = aspectRatio ? viewPortWidth / aspectRatio : iframe.contentWindow.document.body.offsetHeight;
+    const height = aspectRatio ?
+      viewPortWidth / aspectRatio : iframe.contentWindow.document.body.offsetHeight;
 
     events.emit(events.HEAD_OFFSET_CHANGE, height);
   },
@@ -32,15 +33,21 @@ export const getConfig = () => ({
     this.adjustPadding(iframe, this.slotParams);
     window.addEventListener('resize', onResize);
 
-    events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
+    const menuCallback = () => this.adSlot.emit('unstickImmediately');
+    const pageChangeCallback = () => {
       page.classList.remove('bfaa-template');
       document.body.classList.remove('vuap-loaded');
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
       events.emit(events.HEAD_OFFSET_CHANGE, 0);
       window.removeEventListener('resize', onResize);
-    });
+
+      events.removeListener(events.MENU_OPEN_EVENT, menuCallback);
+      events.removeListener(events.PAGE_CHANGE_EVENT, pageChangeCallback);
+    };
+
+    events.on(events.MENU_OPEN_EVENT, menuCallback);
+    events.on(events.PAGE_CHANGE_EVENT, pageChangeCallback);
   },
 
   onInit(adSlot, params) {
@@ -53,8 +60,8 @@ export const getConfig = () => ({
     const wrapper = document.querySelector('.mobile-top-leaderboard');
 
     slots.setupSlotVideoAdUnit(adSlot, params);
-    context.set(`slots.incontent_boxad_1.repeat`, null);
-    context.set(`slots.bottom_leaderboard.defaultSizes`, [[2, 2]]);
+    context.set('slots.incontent_boxad_1.repeat', null);
+    context.set('slots.bottom_leaderboard.defaultSizes', [[2, 2]]);
     wrapper.style.opacity = '0';
     slotTweaker.onReady(adSlot).then((iframe) => {
       wrapper.style.opacity = '';
@@ -70,19 +77,25 @@ export const getConfig = () => ({
 
     Object.assign(this.navbarElement.style, {
       transition: `top ${SLIDE_OUT_TIME}ms ${CSS_TIMING_EASE_IN_CUBIC}`,
-      top: '0'
+      top: '0',
     });
   },
 
   onAfterUnstickBfaaCallback() {
     Object.assign(this.navbarElement.style, {
       transition: '',
-      top: ''
+      top: '',
     });
   },
 
   moveNavbar(offset) {
-    window.Mercury.Modules.Ads.getInstance().setSiteHeadOffset(offset || this.adSlot.getElement().clientHeight);
+    const { events } = window.Wikia.adEngine;
+
+    events.emit(events.HEAD_OFFSET_CHANGE, offset || this.adSlot.getElement().clientHeight);
     this.navbarElement.style.top = offset ? `${offset}px` : '';
   },
 });
+
+export default {
+  getConfig,
+};

@@ -152,7 +152,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     BigFancyAdAbove,
     BigFancyAdBelow,
     PorvataTemplate,
-    Roadblock
+    Roadblock,
   } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);

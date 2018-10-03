@@ -3,7 +3,7 @@ import { defer } from 'rsvp';
 let fanTakeoverDeferred;
 let resolved;
 
-function reset () {
+function reset() {
   fanTakeoverDeferred = defer();
   resolved = false;
 }
@@ -36,5 +36,5 @@ export default {
     if (!this.isResolved()) {
       this.resolve();
     }
-  }
+  },
 };

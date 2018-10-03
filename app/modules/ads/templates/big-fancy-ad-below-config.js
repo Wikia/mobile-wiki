@@ -16,17 +16,19 @@ function getUnstickThreshold() {
   return (viewportWidth * 9 / 16 + getNavbarHeight()) * 2;
 }
 
-export function getConfig() {
-  return {
-    autoPlayAllowed: true,
-    defaultStateAllowed: true,
-    fullscreenAllowed: true,
-    stickinessAllowed: false,
-    bfaaSlotName: 'mobile_top_leaderboard',
-    unstickInstantlyBelowPosition: getUnstickThreshold(),
-    topThreshold: getNavbarHeight(),
-    onInit(adSlot, params) {
-      slots.setupSlotVideoAdUnit(adSlot, params);
-    },
-  };
-}
+export const getConfig = () => ({
+  autoPlayAllowed: true,
+  defaultStateAllowed: true,
+  fullscreenAllowed: true,
+  stickinessAllowed: false,
+  bfaaSlotName: 'mobile_top_leaderboard',
+  unstickInstantlyBelowPosition: getUnstickThreshold(),
+  topThreshold: getNavbarHeight(),
+  onInit(adSlot, params) {
+    slots.setupSlotVideoAdUnit(adSlot, params);
+  },
+});
+
+export default {
+  getConfig,
+};
