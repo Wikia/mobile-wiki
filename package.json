@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v16.0.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v18.0.0",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
@@ -56,13 +56,13 @@
     "method-override": "3.0.0",
     "on-headers": "1.0.1",
     "scriptjs": "2.5.8",
-    "snyk": "1.99.0",
+    "snyk": "1.99.1",
     "vignette": "github:wikia/vignette-js#2.7.1",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
-    "@ember/test-helpers": "0.7.25",
+    "@ember/test-helpers": "0.7.26",
     "broccoli-asset-rev": "3.0.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "3.0.1",
@@ -125,7 +125,7 @@
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.11.0",
-    "typescript": "3.0.3"
+    "typescript": "3.1.1"
   },
   "ember-addon": {
     "paths": [

@@ -96,7 +96,7 @@ export default Mixin.create({
       // only if there is no featured video embedded
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
     } else {
-      this.get('ads.module').finishAtfQueue();
+      this.get('ads.module').finishFirstCall();
     }
 
     if (firstSection) {
