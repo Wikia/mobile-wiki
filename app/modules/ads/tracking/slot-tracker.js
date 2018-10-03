@@ -80,6 +80,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
+    btl: context.get(`services.billTheLizard.parameters.cheshirecatSlotResponses.${slotName}`) || '',
     opt_in: checkOptIn(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
