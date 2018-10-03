@@ -183,11 +183,11 @@ class Ads {
     }
   }
 
-  finishAtfQueue() {
+  finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
     if (this.showAds) {
-      btfBlockerService.finishAboveTheFold();
+      btfBlockerService.finishFirstCall();
     }
   }
 
