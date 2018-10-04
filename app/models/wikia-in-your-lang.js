@@ -1,8 +1,8 @@
 import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
+import localStorageConnector from '@wikia/ember-fandom/utils/local-storage-connector';
 import LanguagesMixin from '../mixins/languages';
-import localStorageConnector from '../utils/local-storage-connector';
 import fetch from '../utils/mediawiki-fetch';
 
 /**
