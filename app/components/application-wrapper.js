@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { bool, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
@@ -36,7 +35,6 @@ export default Component.extend({
   classNames: ['application-wrapper'],
   classNameBindings: [
     'smartBannerVisible',
-    'verticalClass',
     'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
@@ -50,11 +48,6 @@ export default Component.extend({
   bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
 
-  verticalClass: computed('wikiVariables', function () {
-    const vertical = this.get('wikiVariables.vertical');
-
-    return `${vertical}-vertical`;
-  }),
   /**
   * Necessary because presently, we open external links in new pages, so if we didn't
   * cancel the click event on the current page, then the mouseUp handler would open
