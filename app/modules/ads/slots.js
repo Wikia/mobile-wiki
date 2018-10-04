@@ -80,6 +80,7 @@ export default {
     return {
       mobile_top_leaderboard: {
         aboveTheFold: true,
+        firstCall: true,
         adProduct: 'mobile_top_leaderboard',
         slotNameSuffix: '',
         group: 'LB',
