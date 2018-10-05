@@ -23,6 +23,7 @@ export default Route.extend(
   {
     ads: service(),
     currentUser: service(),
+    fandomComMigration: service(),
     fastboot: service(),
     i18n: service(),
     lightbox: service(),
@@ -185,6 +186,8 @@ export default Route.extend(
           });
         }
       }
+
+      this.fandomComMigration.showNotification();
     },
 
     redirect(model) {

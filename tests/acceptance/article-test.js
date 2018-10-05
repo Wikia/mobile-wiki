@@ -17,7 +17,7 @@ module('Acceptance | Article page', (hooks) => {
     sinon.stub(adsModule, 'default').returns({
       then: cb => cb(getAdsModuleMock({
         opts: {
-          areMobileStickyAndSwapEnabled: true,
+          isMobileBottomLeaderboardSwapEnabled: true,
         },
       })),
     });
