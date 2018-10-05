@@ -163,9 +163,10 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Roadblock, getRoadblockConfig());
 
   if (context.get('templates.stickyAdLines').length) {
-    /*templateService.register(StickyAd, {
+    templateService.register(StickyAd, {
       navbarWrapperSelector: '.site-head-wrapper',
-    });*/
+      smartBannerSelector: '.fandom-app-smart-banner',
+    });
   }
 
   context.push('listeners.porvata', PorvataTracker);
