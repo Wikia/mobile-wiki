@@ -20,7 +20,6 @@ import { track, trackActions } from '../utils/track';
   * @typedef {Object} HTMLElement
   * @property {Function} scrollIntoViewIfNeeded
 */
-
 export default Component.extend(
   AdsMixin,
   {
@@ -100,6 +99,20 @@ export default Component.extend(
 
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
+    },
+    didRender() {
+      const articleContent = document.querySelector('.article-wrapper');
+      articleContent.animate([
+        // keyframes
+        { opacity: 0 },
+        { opacity: 0.33 },
+        { opacity: 0.66 },
+        { opacity: 1 },
+      ], {
+        // timing options
+        duration: 500,
+        easing: 'linear',
+      });
     },
 
     willDestroyElement() {

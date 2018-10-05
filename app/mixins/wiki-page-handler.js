@@ -146,7 +146,6 @@ export default Mixin.create({
             },
             nsSpecificContent: '',
           },
-          
         }, params, contentNamespaces);
 
         model.set('fullyLoaded', false);
