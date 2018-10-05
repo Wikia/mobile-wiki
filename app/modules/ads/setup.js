@@ -91,6 +91,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
 
+  context.set('templates.stickyAdLines', instantGlobals.wgAdDriverStickySlotsLines || []);
+
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
       action: trackActions.disable,
@@ -147,13 +149,24 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
   const { context, templateService } = window.Wikia.adEngine;
-  const { utils: adProductsUtils, PorvataTemplate, Roadblock } = window.Wikia.adProducts;
+  const {
+    utils: adProductsUtils,
+    PorvataTemplate,
+    Roadblock,
+    StickyAd,
+  } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
   adProductsUtils.setupNpaContext();
 
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
+
+  if (context.get('templates.stickyAdLines').length) {
+    /*templateService.register(StickyAd, {
+      navbarWrapperSelector: '.site-head-wrapper',
+    });*/
+  }
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
