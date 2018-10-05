@@ -27,8 +27,10 @@ export default class JWPlayerTracker {
   * @param {Object} params
   */
   constructor(params = {}) {
+    /** @type {Object} */
     this.trackingParams = params;
-    this.skipCtpAudioUpdate = false;
+    /** @type {boolean} */
+    this.isCtpAudioUpdateEnabled = true;
   }
 
   /**
@@ -61,38 +63,50 @@ export default class JWPlayerTracker {
       this.updateCreativeData(currentAd);
     });
 
+    /**
+     *
+     * @param {AdSlot | null} slot
+     */
+    function updateCtpAudio(slot) {
+      if (slot && slot.getTargeting()) {
+        const targeting = slot.getTargeting();
+        this.trackingParams.withCtp = targeting.ctp === 'yes';
+        this.trackingParams.withAudio = targeting.audio === 'yes';
+        this.isCtpAudioUpdateEnabled = false;
+      } else {
+        this.trackingParams.withAudio = !player.getMute();
+        this.trackingParams.withCtp = !player.getConfig().autostart;
+      }
+    }
+
+    this.trackingParams.withCtp = !player.getConfig().autostart;
+    this.trackingParams.withAudio = !player.getConfig().mute;
+
     Object.keys(trackingEventsMap).forEach((playerEvent) => {
       player.on(playerEvent, (event) => {
         let errorCode;
 
-        if (['adRequest', 'adError', 'ready', 'videoStart'].indexOf(playerEvent) !== -1) {
-          if (this.skipCtpAudioUpdate) {
-            this.skipCtpAudioUpdate = false;
-          } else {
-            if (this.trackingParams.withCtp) {
-              this.trackingParams.withCtp = !player.getConfig().autostart;
-            }
+        if ([
+          'adRequest', 'adError', 'ready', 'videoStart',
+        ].indexOf(playerEvent) !== -1 && this.isCtpAudioUpdateEnabled) {
+          const slot = slotService.get(this.trackingParams.slotName);
+          updateCtpAudio(slot);
+        }
 
-            this.trackingParams.withAudio = !player.getMute();
-          }
-
-          if (playerEvent === 'adRequest' || playerEvent === 'adError') {
-            this.skipCtpAudioUpdate = true;
-
-            const slot = slotService.get(this.trackingParams.slotName);
-
-            if (slot && slot.getTargeting()) {
-              this.trackingParams.withCtp = slot.getTargeting().ctp === 'yes';
-              this.trackingParams.withAudio = slot.getTargeting().audio === 'yes';
-            }
-          }
-
-          if (playerEvent === 'adError') {
-            errorCode = event && event.code;
-          }
+        if (playerEvent === 'adError') {
+          errorCode = event && event.code;
         }
 
         this.track(trackingEventsMap[playerEvent], errorCode);
+
+
+        // Disable updating ctp and audio on video completed event
+        // It is a failsafe for the case where updating
+        // has not been disabled by calling updateCtpAudio with VAST params
+        if (playerEvent === 'complete') {
+          this.isCtpAudioUpdateEnabled = false;
+          this.trackingParams.withCtp = false;
+        }
       });
     });
   }
