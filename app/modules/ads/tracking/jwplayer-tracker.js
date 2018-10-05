@@ -41,10 +41,9 @@ export default class JWPlayerTracker {
    * @param {AdSlot | null} slot
    */
   updateCtpAudio(player, slot) {
-    if (slot && slot.getTargeting()) {
-      const targeting = slot.getTargeting();
-      this.trackingParams.withCtp = targeting.ctp === 'yes';
-      this.trackingParams.withAudio = targeting.audio === 'yes';
+    if (slot && slot.targeting.ctp && slot.targeting.audio) {
+      this.trackingParams.withCtp = slot.targeting.ctp === 'yes';
+      this.trackingParams.withAudio = slot.targeting.audio === 'yes';
       this.isCtpAudioUpdateEnabled = false;
     } else {
       this.trackingParams.withAudio = !player.getMute();
