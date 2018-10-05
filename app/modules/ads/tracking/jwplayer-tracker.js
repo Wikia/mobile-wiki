@@ -33,6 +33,25 @@ export default class JWPlayerTracker {
     this.isCtpAudioUpdateEnabled = true;
   }
 
+
+  /**
+   * Update withCtp and withAudio based on player and slot
+   *
+   * @param {Object} player
+   * @param {AdSlot | null} slot
+   */
+  updateCtpAudio(player, slot) {
+    if (slot && slot.getTargeting()) {
+      const targeting = slot.getTargeting();
+      this.trackingParams.withCtp = targeting.ctp === 'yes';
+      this.trackingParams.withAudio = targeting.audio === 'yes';
+      this.isCtpAudioUpdateEnabled = false;
+    } else {
+      this.trackingParams.withAudio = !player.getMute();
+      this.trackingParams.withCtp = !player.getConfig().autostart;
+    }
+  }
+
   /**
   * Register event listeners on player
   * @param {Object} player
@@ -63,22 +82,6 @@ export default class JWPlayerTracker {
       this.updateCreativeData(currentAd);
     });
 
-    /**
-     *
-     * @param {AdSlot | null} slot
-     */
-    function updateCtpAudio(slot) {
-      if (slot && slot.getTargeting()) {
-        const targeting = slot.getTargeting();
-        this.trackingParams.withCtp = targeting.ctp === 'yes';
-        this.trackingParams.withAudio = targeting.audio === 'yes';
-        this.isCtpAudioUpdateEnabled = false;
-      } else {
-        this.trackingParams.withAudio = !player.getMute();
-        this.trackingParams.withCtp = !player.getConfig().autostart;
-      }
-    }
-
     this.trackingParams.withCtp = !player.getConfig().autostart;
     this.trackingParams.withAudio = !player.getConfig().mute;
 
@@ -90,7 +93,7 @@ export default class JWPlayerTracker {
           'adRequest', 'adError', 'ready', 'videoStart',
         ].indexOf(playerEvent) !== -1 && this.isCtpAudioUpdateEnabled) {
           const slot = slotService.get(this.trackingParams.slotName);
-          updateCtpAudio(slot);
+          this.updateCtpAudio(player, slot);
         }
 
         if (playerEvent === 'adError') {
