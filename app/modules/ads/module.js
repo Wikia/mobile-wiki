@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
+import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
 import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
@@ -65,16 +66,19 @@ class Ads {
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
+    const { universalAdPackage } = window.Wikia.adProducts;
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    this.instantGlobals = instantGlobals;
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
+    this.instantGlobals = instantGlobals;
+    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
+    events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
+    events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
     this.callExternals();
 
@@ -204,6 +208,7 @@ class Ads {
 
     if (this.showAds) {
       btfBlockerService.finishFirstCall();
+      fanTakeoverResolver.resolve();
     }
   }
 
@@ -296,6 +301,16 @@ class Ads {
 
   waitForReady() {
     return new Promise(resolve => this.onReady(resolve));
+  }
+
+  waitForUapResponse(uapCallback, noUapCallback) {
+    fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+      if (isFanTakeover) {
+        uapCallback();
+      } else {
+        noUapCallback();
+      }
+    });
   }
 
   onMenuOpen() {
