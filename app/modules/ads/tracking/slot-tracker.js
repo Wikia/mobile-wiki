@@ -80,6 +80,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
+    btl: context.get(`services.billTheLizard.parameters.cheshirecatSlotResponses.${slotName}`) || '',
     opt_in: checkOptIn(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
@@ -112,11 +113,13 @@ export default {
     const status = adSlot.getStatus();
 
     if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
-      track({
-        eventName: 'adengadinfo',
-        trackingMethod: 'internal',
-        params: prepareData(adSlot, data),
-      });
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
     } else if (status === 'manual') {
       adSlot.trackOnStatusChanged = true;
     }
@@ -132,11 +135,13 @@ export default {
     const status = adSlot.getStatus();
 
     if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
-      track({
-        eventName: 'adengadinfo',
-        trackingMethod: 'internal',
-        params: prepareData(adSlot, data),
-      });
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
       delete adSlot.trackOnStatusChanged;
     }
   },

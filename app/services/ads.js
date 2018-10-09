@@ -1,7 +1,7 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import getAdsModule from '../modules/ads';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 
 export default Service.extend({
   module: null,
@@ -47,7 +47,11 @@ export default Service.extend({
     this.adSlotComponents[slotName] = adSlotComponent;
   },
 
-  destroyAdSlotComponents() {
+  beforeTransition() {
+    if (this.module && isAdEngine3Loaded()) {
+      this.module.beforeTransition();
+    }
+
     const adSlotComponents = this.adSlotComponents;
 
     Object.keys(adSlotComponents).forEach((slotName) => {

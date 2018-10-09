@@ -238,9 +238,9 @@ export default Route.extend(
         this.notifyPropertyChange('displayTitle');
 
         try {
-          this.ads.destroyAdSlotComponents();
+          this.ads.beforeTransition();
         } catch (e) {
-          logError(this.runtimeConfig.servicesExternalHost, 'destroyAdSlotComponents', e);
+          logError(this.runtimeConfig.servicesExternalHost, 'beforeTransition', e);
         }
 
         this.lightbox.close();

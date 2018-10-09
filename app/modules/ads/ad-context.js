@@ -6,23 +6,36 @@ export default {
     enabled: false,
     timeout: 2000,
     a9: {
+      amazonId: '3115',
+      dealsEnabled: false,
       enabled: false,
       videoEnabled: false,
-      amazonId: '3115',
       slots: {
-        mobile_top_leaderboard: [
-          [320, 50],
-        ],
-        mobile_in_content: [
-          [300, 250],
-          [320, 480],
-        ],
-        bottom_leaderboard: [
-          [320, 50],
-          [300, 250],
-        ],
+        mobile_top_leaderboard: {
+          slotId: 'MOBILE_TOP_LEADERBOARD',
+          sizes: [
+            [320, 50],
+          ],
+        },
+        mobile_in_content: {
+          slotId: 'MOBILE_IN_CONTENT',
+          sizes: [
+            [300, 250],
+            [320, 480],
+          ],
+        },
+        bottom_leaderboard: {
+          slotId: 'BOTTOM_LEADERBOARD',
+          sizes: [
+            [320, 50],
+            [300, 250],
+          ],
+        },
+        featured: {
+          slotId: 'FEATURED',
+          type: 'video',
+        },
       },
-      slotsVideo: ['featured'],
     },
     prebid: {
       enabled: false,
@@ -398,6 +411,9 @@ export default {
       id: 'JTKzTN3f',
     },
   },
+  slotGroups: {
+    VIDEO: ['ABCD', 'FEATURED', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
+  },
   src: 'mobile',
   state: {
     adStack: [],
@@ -412,13 +428,6 @@ export default {
         enabled: false,
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
-      },
-    },
-    porvata: {
-      audio: {
-        exposeToSlot: true,
-        segment: '-audio',
-        key: 'audio',
       },
     },
   },

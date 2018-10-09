@@ -5,7 +5,6 @@ import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
-import { isAdEngine3Loaded } from '../modules/ads';
 
 export default Component.extend(
   RenderComponentMixin,
@@ -21,6 +20,7 @@ export default Component.extend(
     disableManualInsert: false,
     isAboveTheFold: false,
     name: null,
+    adEngine3ClassName: 'gpt-ad',
     pageHasFeaturedVideo: false,
 
     noAds: readOnly('ads.noAds'),
@@ -30,8 +30,7 @@ export default Component.extend(
     }),
 
     shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
-      return !(this.pageHasFeaturedVideo || this.isAboveTheFold)
-    && !isAdEngine3Loaded(); // Don't wait for UAP when AE3 is loaded
+      return !this.pageHasFeaturedVideo && !this.isAboveTheFold;
     }),
 
     didInsertElement() {

@@ -50,7 +50,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,
@@ -83,7 +83,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,
@@ -119,7 +119,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,

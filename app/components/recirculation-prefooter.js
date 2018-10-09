@@ -151,16 +151,17 @@ export default Component.extend(
       }
 
       if (M.getFromHeadDataStore('noExternals')) {
+        this.listRendered.resolve();
         return;
       }
 
-      if (this.displayLiftigniterRecirculation) {
-        M.trackingQueue.push((isOptedIn) => {
-          if (isOptedIn) {
-            this.fetchLiftIgniterData();
-          }
-        });
-      }
+      M.trackingQueue.push((isOptedIn) => {
+        if (isOptedIn && this.displayLiftigniterRecirculation) {
+          this.fetchLiftIgniterData();
+        } else {
+          this.listRendered.resolve();
+        }
+      });
     },
   },
 );

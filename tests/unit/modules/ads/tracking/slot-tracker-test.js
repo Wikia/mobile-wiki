@@ -39,20 +39,20 @@ module('Unit | Module | ads | tracking', (hooks) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(trackModule.track.getCall(0).args[0].params.kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct pos value for multi pos value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(trackModule.track.getCall(0).args[0].params.kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct opt-in value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(trackModule.track.getCall(0).args[0].params.opt_in, 'yes');
+    assert.equal(trackModule.track.getCall(0).args[0].opt_in, 'yes');
   });
 });

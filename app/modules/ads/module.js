@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
+import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
 import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
@@ -63,16 +64,19 @@ class Ads {
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
+    const { universalAdPackage } = window.Wikia.adProducts;
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    this.instantGlobals = instantGlobals;
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
+    this.instantGlobals = instantGlobals;
+    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
+    events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
+    events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
     this.callExternals();
 
@@ -100,7 +104,13 @@ class Ads {
     const { context, slotService } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
+    function getNextIncontentId(predictions) {
+      return `incontent_boxad_${Object.keys(predictions).length + 2}`;
+    }
+
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
+      this.cheshirecatPredictions = {};
+
       context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', () => {
         const config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
         const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
@@ -130,16 +140,21 @@ class Ads {
 
         billTheLizard.projectsHandler.enable('cheshirecat');
         billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-          const slots = Object.keys(context.get('slots'))
-            .filter(slotName => slotName.indexOf('incontent_boxad_') === 0);
+          const slot = getNextIncontentId(this.cheshirecatPredictions);
 
-          if (slots.length > 0) {
-            const slot = slots[slots.length - 1];
+          if (slot) {
             slotService.disable(slot, 'catlapsed');
           }
         });
 
-        billTheLizard.call(['cheshirecat']);
+        billTheLizard.call(['cheshirecat'])
+          .then((predictions) => {
+            const identifier = getNextIncontentId(this.cheshirecatPredictions);
+            const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
+
+            this.cheshirecatPredictions[identifier] = prediction;
+            context.set(`services.billTheLizard.parameters.cheshirecatSlotResponses.${identifier}`, prediction);
+          });
       });
     }
   }
@@ -172,11 +187,12 @@ class Ads {
     }
   }
 
-  finishAtfQueue() {
+  finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
     if (this.showAds) {
-      btfBlockerService.finishAboveTheFold();
+      btfBlockerService.finishFirstCall();
+      fanTakeoverResolver.resolve();
     }
   }
 
@@ -237,15 +253,16 @@ class Ads {
     });
   }
 
+  beforeTransition() {
+    this.events.beforePageChange();
+  }
+
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
-    const defaultOptions = {
-      doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
-    };
 
     if (this.events && this.showAds) {
       context.set('state.adStack', []);
-      this.events.pageChange(Object.assign(defaultOptions, options));
+      this.events.pageChange(options);
       this.engine.runAdQueue();
     }
   }
@@ -262,16 +279,22 @@ class Ads {
     }
   }
 
-  removeSlot(name) {
-    const gptProvider = this.engine.getProvider('gpt');
-
-    if (gptProvider) {
-      gptProvider.destroySlots([name]);
-    }
+  removeSlot() {
+    // TODO: This method is not needed once we remove legacyModule.js
   }
 
   waitForReady() {
     return new Promise(resolve => this.onReady(resolve));
+  }
+
+  waitForUapResponse(uapCallback, noUapCallback) {
+    fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+      if (isFanTakeover) {
+        uapCallback();
+      } else {
+        noUapCallback();
+      }
+    });
   }
 
   onMenuOpen() {
