@@ -412,7 +412,7 @@ export default {
     },
   },
   slotGroups: {
-    VIDEO: ['ABCD', 'FEATURED', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
+    VIDEO: ['ABCD', 'FEATURED', 'OUTSTREAM', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
   },
   src: 'mobile',
   state: {
