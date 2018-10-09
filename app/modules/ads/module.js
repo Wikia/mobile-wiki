@@ -103,26 +103,7 @@ class Ads {
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       this.cheshirecatCalled = false;
-      this.cheshirecatConfig = /*instantGlobals.wgAdDriverBillTheLizardConfig || {};*/ {
-        enabled: true,
-        host: 'https://services.wikia-dev.pl',
-        endpoint: 'bill-the-lizard/predict',
-        projects: {
-          cheshirecat: [
-            {
-              name: 'cheshirecat:0.0.1',
-              countries: ['XX'],
-              on_1: ['catlapseIncontentBoxad'],
-            },
-          ],
-        },
-        parameters: {
-          cheshirecat: {
-            bids: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].join(';'),
-          },
-        },
-        timeout: 2000,
-      };
+      this.cheshirecatConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
       this.cheshirecatPredictions = {};
 
       context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
