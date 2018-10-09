@@ -2,8 +2,8 @@
   title=model.displayTitle
   subtitle=wikiPageHeaderSubtitle
   heroImage=heroImageInHeader
-  isLoaded=model.fullyLoaded
-  spinnerLoading=model.spinnerLoading
+  isLoaded=articleStates.isFullyLoaded
+  spinnerLoading=articleStates.isSpinnerLoading
 }}
 
 {{#if hasFeaturedVideo}}
@@ -35,7 +35,7 @@
     heroImage=heroImage
     media=model.media
     data-test-article-content=true
-    isLoaded=model.fullyLoaded
+    isLoaded=articleStates.isFullyLoaded
   }}
 </section>
 {{yield}}

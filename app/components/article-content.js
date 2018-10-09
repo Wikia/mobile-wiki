@@ -28,6 +28,7 @@ export default Component.extend(
     logger: service(),
     lightbox: service(),
     wikiVariables: service(),
+    articleStates: service(),
 
     tagName: 'article',
     classNames: ['article-content', 'mw-content'],
@@ -42,7 +43,6 @@ export default Component.extend(
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
     isFastBoot: reads('fastboot.isFastBoot'),
-
     /* eslint ember/no-on-calls-in-components:0 */
     articleContentObserver: on('didInsertElement', observer('content', function () {
       // Our hacks don't work in FastBoot, so we just inject raw HTML in the template
@@ -100,24 +100,27 @@ export default Component.extend(
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },
-    didRender() {
-      const articleContent = document.querySelector('.article-wrapper');
-      articleContent.animate([
-        // keyframes
-        { opacity: 0 },
-        { opacity: 0.33 },
-        { opacity: 0.66 },
-        { opacity: 1 },
-      ], {
-        // timing options
-        duration: 500,
-        easing: 'linear',
-      });
+    willRender() {
+      const articleState = this.get('articleStates').isFullyLoaded;
+
+      if (!articleState) {
+        const articleContent = document.querySelector('.article-wrapper');
+        articleContent.animate([
+          // keyframes
+          { opacity: 0 },
+          { opacity: 0.33 },
+          { opacity: 0.66 },
+          { opacity: 1 },
+        ], {
+          // timing options
+          duration: 500,
+          easing: 'linear',
+        });
+      }
     },
 
     willDestroyElement() {
       this._super(...arguments);
-
       this.destroyChildComponents();
     },
 

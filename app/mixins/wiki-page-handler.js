@@ -29,6 +29,21 @@ function getNamespaceNumber(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
+function dataForShoeBox(data, shoebox) {
+  const dataForShoebox = extend({}, data);
+
+  if (dataForShoebox.data && dataForShoebox.data.article) {
+    // Remove article content so it's not duplicated in shoebox and HTML
+    delete dataForShoebox.data.article.content;
+  }
+
+  shoebox.put('wikiPage', dataForShoebox);
+  shoebox.put('trackingData', {
+    articleId: get(dataForShoebox, 'data.details.id'),
+    namespace: get(dataForShoebox, 'data.ns'),
+  });
+}
+
 function getURL(wikiUrls, params) {
   const query = {
     controller: 'MercuryApi',
@@ -68,6 +83,7 @@ export default Mixin.create({
   wikiVariables: service(),
   simpleStore: service(),
   wikiUrls: service(),
+  articleStates: service(),
 
   getPageModel(params) {
     const isFastBoot = this.get('fastboot.isFastBoot');
@@ -97,18 +113,7 @@ export default Mixin.create({
           })
           .then((data) => {
             if (isFastBoot) {
-              const dataForShoebox = extend({}, data);
-
-              if (dataForShoebox.data && dataForShoebox.data.article) {
-                // Remove article content so it's not duplicated in shoebox and HTML
-                delete dataForShoebox.data.article.content;
-              }
-
-              shoebox.put('wikiPage', dataForShoebox);
-              shoebox.put('trackingData', {
-                articleId: get(dataForShoebox, 'data.details.id'),
-                namespace: get(dataForShoebox, 'data.ns'),
-              });
+              dataForShoeBox(data, shoebox);
             }
             return this.getModelForNamespace(data, params, contentNamespaces);
           })
@@ -121,6 +126,9 @@ export default Mixin.create({
             throw error;
           });
       } else {
+        this.get('articleStates').articleLoading();
+        this.get('articleStates').spinnerOn();
+
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
         let namespaceNumber = 0;
@@ -148,9 +156,6 @@ export default Mixin.create({
           },
         }, params, contentNamespaces);
 
-        model.set('fullyLoaded', false);
-        model.set('spinnerLoading', true);
-
         fetch(url)
           .then((response) => {
             if (response.ok) {
@@ -167,23 +172,11 @@ export default Mixin.create({
           })
           .then((data) => {
             if (isFastBoot) {
-              const dataForShoebox = extend({}, data);
-
-              if (dataForShoebox.data && dataForShoebox.data.article) {
-                // Remove article content so it's not duplicated in shoebox and HTML
-                delete dataForShoebox.data.article.content;
-              }
-
-              shoebox.put('wikiPage', dataForShoebox);
-              shoebox.put('trackingData', {
-                articleId: get(dataForShoebox, 'data.details.id'),
-                namespace: get(dataForShoebox, 'data.ns'),
-              });
+              dataForShoeBox(data, shoebox);
             }
             model.setData(data);
-            model.set('fullyLoaded', true);
-            model.set('spinnerLoading', false);
-            // debugger;
+            this.get('articleStates').articleDidLoad();
+            this.get('articleStates').spinnerOff();
           })
           .catch((error) => {
             if (isFastBoot) {

@@ -20,6 +20,7 @@ export default Component.extend(
   {
     currentUser: service(),
     wikiVariables: service(),
+    articleStates: service(),
 
     classNames: ['article-wrapper'],
     classNameBindings: ['hasFeaturedVideo'],
