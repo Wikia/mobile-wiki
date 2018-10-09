@@ -25,7 +25,7 @@ export const getConfig = () => ({
     const { events } = window.Wikia.adEngine;
 
     const onResize = () => {
-      this.adjustPadding(iframe, this.params);
+      this.adjustPadding(iframe, this.slotParams);
     };
     const page = document.querySelector('.application-wrapper');
 

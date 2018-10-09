@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#5f0b2d443aac2430ca9c9d17ae9fd186ac9a9d29",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v18.1.2",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b",
     "@wikia/tracking-opt-in": "1.0.36",
     "body-parser": "1.18.3",
@@ -41,7 +41,7 @@
     "compression": "1.7.3",
     "cors": "2.8.4",
     "deep-extend": "0.6.0",
-    "design-system": "github:Wikia/design-system#15.1.1",
+    "design-system": "github:Wikia/design-system#15.2.0",
     "ember-cli-dependency-lint": "1.0.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
