@@ -2,7 +2,6 @@ import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import EmberObject, { get } from '@ember/object';
 import { getOwner } from '@ember/application';
-// import { Promise, resolve } from 'rsvp';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
@@ -130,9 +129,9 @@ export default Mixin.create({
         this.get('articleStates').spinnerOn();
         this.get('articleStates').hideEmptyLabel();
 
+        let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
-        let namespaceNumber = 0;
 
         if (IfColonExist) {
           const textBeforeColon = new RegExp('^.*(?=(:))');
@@ -192,13 +191,6 @@ export default Mixin.create({
             throw error;
           });
         return model;
-        /*
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(model);
-          }, 300);
-        });
-        */
       }
     }
 
