@@ -411,6 +411,9 @@ export default {
       id: 'JTKzTN3f',
     },
   },
+  slotGroups: {
+    VIDEO: ['ABCD', 'FEATURED', 'OUTSTREAM', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
+  },
   src: 'mobile',
   state: {
     adStack: [],
@@ -425,13 +428,6 @@ export default {
         enabled: false,
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
-      },
-    },
-    porvata: {
-      audio: {
-        exposeToSlot: true,
-        segment: '-audio',
-        key: 'audio',
       },
     },
   },
