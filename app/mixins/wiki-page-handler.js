@@ -153,6 +153,9 @@ export default Mixin.create({
               ns: Number(namespaceNumber),
               type: '',
             },
+            article: {
+              content: '<aside></aside>',
+            },
             nsSpecificContent: '',
           },
         }, params, contentNamespaces);
