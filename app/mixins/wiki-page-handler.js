@@ -128,6 +128,7 @@ export default Mixin.create({
       } else {
         this.get('articleStates').articleLoading();
         this.get('articleStates').spinnerOn();
+        this.get('articleStates').hideEmptyLabel();
 
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
@@ -177,6 +178,7 @@ export default Mixin.create({
             model.setData(data);
             this.get('articleStates').articleDidLoad();
             this.get('articleStates').spinnerOff();
+            this.get('articleStates').showEmptyLabel();
           })
           .catch((error) => {
             if (isFastBoot) {

@@ -71,7 +71,7 @@ export default Component.extend(
           this.handleCollapsibleSections();
 
           window.lazySizes.init();
-        } else if (this.displayEmptyArticleInfo) {
+        } else if (this.displayEmptyArticleInfo && this.get('articleStates').isEmptyLabel === true) {
           this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
         }
 
