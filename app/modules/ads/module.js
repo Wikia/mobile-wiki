@@ -51,9 +51,11 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { krux } = window.Wikia.adServices;
 
+    this.biddersCalled = false;
+
     biddersDelay.resetPromise();
     bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
+      responseListener: biddersDelay.markAsReady.bind(this),
     });
 
     krux.call();
@@ -97,62 +99,95 @@ class Ads {
   }
 
   configureBillTheLizard(instantGlobals) {
-    const { context, slotService } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
+    const { context } = window.Wikia.adEngine;
 
+    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
+      this.cheshirecatCalled = false;
+      this.cheshirecatConfig = /*instantGlobals.wgAdDriverBillTheLizardConfig || {};*/ {
+        enabled: true,
+        host: 'https://services.wikia-dev.pl',
+        endpoint: 'bill-the-lizard/predict',
+        projects: {
+          cheshirecat: [
+            {
+              name: 'cheshirecat:0.0.1',
+              countries: ['XX'],
+              on_1: ['catlapseIncontentBoxad'],
+            },
+          ],
+        },
+        parameters: {
+          cheshirecat: {
+            bids: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].join(';'),
+          },
+        },
+        timeout: 2000,
+      };
+      this.cheshirecatPredictions = {};
+
+      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
+      context.push('listeners.slot', {
+        onRenderEnded: (adSlot) => {
+          if (adSlot.config.slotName === 'incontent_boxad_1' && this.biddersCalled && !this.cheshirecatCalled) {
+            this.callCheshireCat();
+          }
+        },
+      });
+    }
+  }
+
+  callCheshireCat() {
     function getNextIncontentId(predictions) {
       return `incontent_boxad_${Object.keys(predictions).length + 2}`;
     }
 
-    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
-      this.cheshirecatPredictions = {};
+    const { context, slotService } = window.Wikia.adEngine;
+    const { billTheLizard } = window.Wikia.adServices;
 
-      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', () => {
-        const config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
-        const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
+    const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
 
-        context.set('services.billTheLizard.projects', config.projects);
-        context.set('services.billTheLizard.timeout', config.timeout || 0);
-        context.set('services.billTheLizard.parameters.cheshirecat', {
-          bids: [
-            bidderPrices.bidder_1 || 0,
-            bidderPrices.bidder_2 || 0,
-            0,
-            bidderPrices.bidder_4 || 0,
-            0,
-            bidderPrices.bidder_6 || 0,
-            bidderPrices.bidder_7 || 0,
-            0,
-            bidderPrices.bidder_9 || 0,
-            bidderPrices.bidder_10 || 0,
-            bidderPrices.bidder_11 || 0,
-            bidderPrices.bidder_12 || 0,
-            bidderPrices.bidder_13 || 0,
-            bidderPrices.bidder_14 || 0,
-            bidderPrices.bidder_15 || 0,
-            bidderPrices.bidder_16 || 0,
-          ].join(';'),
-        });
+    context.set('services.billTheLizard.projects', this.cheshirecatConfig.projects);
+    context.set('services.billTheLizard.timeout', this.cheshirecatConfig.timeout || 0);
+    context.set('services.billTheLizard.parameters.cheshirecat', {
+      bids: [
+        bidderPrices.bidder_1 || 0,
+        bidderPrices.bidder_2 || 0,
+        0,
+        bidderPrices.bidder_4 || 0,
+        0,
+        bidderPrices.bidder_6 || 0,
+        bidderPrices.bidder_7 || 0,
+        0,
+        bidderPrices.bidder_9 || 0,
+        bidderPrices.bidder_10 || 0,
+        bidderPrices.bidder_11 || 0,
+        bidderPrices.bidder_12 || 0,
+        bidderPrices.bidder_13 || 0,
+        bidderPrices.bidder_14 || 0,
+        bidderPrices.bidder_15 || 0,
+        bidderPrices.bidder_16 || 0,
+      ].join(';'),
+    });
 
-        billTheLizard.projectsHandler.enable('cheshirecat');
-        billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-          const slot = getNextIncontentId(this.cheshirecatPredictions);
+    this.cheshirecatCalled = true;
 
-          if (slot) {
-            slotService.disable(slot, 'catlapsed');
-          }
-        });
+    billTheLizard.projectsHandler.enable('cheshirecat');
+    billTheLizard.executor.register('catlapseIncontentBoxad', () => {
+      const slot = getNextIncontentId(this.cheshirecatPredictions);
 
-        billTheLizard.call(['cheshirecat'])
-          .then((predictions) => {
-            const identifier = getNextIncontentId(this.cheshirecatPredictions);
-            const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
+      if (slot) {
+        slotService.disable(slot, 'catlapsed');
+      }
+    });
 
-            this.cheshirecatPredictions[identifier] = prediction;
-            context.set(`services.billTheLizard.parameters.cheshirecatSlotResponses.${identifier}`, prediction);
-          });
+    billTheLizard.call(['cheshirecat'])
+      .then((predictions) => {
+        const identifier = getNextIncontentId(this.cheshirecatPredictions);
+        const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
+
+        this.cheshirecatPredictions[identifier] = prediction;
+        context.set(`services.billTheLizard.parameters.cheshirecatSlotResponses.${identifier}`, prediction);
       });
-    }
   }
 
   waitForVideoBidders() {

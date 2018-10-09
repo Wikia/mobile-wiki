@@ -36,6 +36,8 @@ export default {
         resolvePromise();
         resolvePromise = null;
       }
+
+      this.biddersCalled = true;
     }
   },
 };
