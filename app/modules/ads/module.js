@@ -52,14 +52,9 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { krux } = window.Wikia.adServices;
 
-    billTheLizard.updateCallStatuses({ bidders: false, cheshirecat: false });
-
     biddersDelay.resetPromise();
     bidders.requestBids({
-      responseListener: () => {
-        biddersDelay.markAsReady();
-        billTheLizard.updateCallStatuses({ bidders: true });
-      },
+      responseListener: biddersDelay.markAsReady,
     });
 
     krux.call();
@@ -84,6 +79,7 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
     events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
+    events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
     this.callExternals();
 
