@@ -51,16 +51,15 @@ export default class JWPlayerTracker {
     }
   }
 
-	/**
-	 * @param {Object} player
-	 * @param {Object} tracker
-	 * @returns {void}
-	 */
-	setVideoId(player) {
-		const playlistItem = player.getPlaylist();
-		const videoId = playlistItem[player.getPlaylistIndex()].mediaid;
-		this.updateVideoId(videoId);
-	}
+  /**
+   * @param {Object} player
+   * @returns {void}
+   */
+  setVideoId(player) {
+    const playlistItem = player.getPlaylist();
+    const videoId = playlistItem[player.getPlaylistIndex()].mediaid;
+    this.updateVideoId(videoId);
+  }
 
   /**
   * Register event listeners on player
@@ -76,7 +75,7 @@ export default class JWPlayerTracker {
     const { slotService, vastParser } = window.Wikia.adEngine;
     // End of imports
 
-	this.setVideoId(player);
+    this.setVideoId(player);
     this.track('init');
 
     player.on('adComplete', () => {
