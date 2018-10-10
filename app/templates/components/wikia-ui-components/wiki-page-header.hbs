@@ -8,7 +8,11 @@
     {{/if}}
   {{/if}}
 </div>
-{{wds-spinner active=spinnerLoading isBlock=true overlay=false}}
+{{#if spinnerLoading}}
+  <div style="height: 200vh">
+    {{wds-spinner active=spinnerLoading isBlock=true overlay=false}}
+  </div>
+{{/if}}
 {{#if heroImage}}
   <figure
     data-file={{heroImage.fileName}}

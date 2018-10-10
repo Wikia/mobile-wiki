@@ -113,7 +113,7 @@ export default Component.extend(
           { opacity: 1 },
         ], {
           // timing options
-          duration: 500,
+          duration: 1000,
           easing: 'linear',
         });
       }
