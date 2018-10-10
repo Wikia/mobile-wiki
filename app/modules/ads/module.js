@@ -64,7 +64,7 @@ class Ads {
   }
 
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    const { context, events } = window.Wikia.adEngine;
+    const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
     const { universalAdPackage } = window.Wikia.adProducts;
 
@@ -77,6 +77,8 @@ class Ads {
     events.on(events.AD_SLOT_CREATED, (slot) => {
       bidders.updateSlotTargeting(slot.getSlotName());
     });
+
+    events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
     events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
