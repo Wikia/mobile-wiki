@@ -171,6 +171,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
       navbarWrapperSelector: '.site-head-wrapper',
       smartBannerSelector: '.fandom-app-smart-banner',
     });
+    context.push('slots.mobile_top_leaderboard.defaultTemplates', 'stickyAd');
   }
 
   context.push('listeners.porvata', PorvataTracker);
