@@ -91,6 +91,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
 
+  context.set('templates.stickyAd.lineItemIds', instantGlobals.wgAdDriverStickySlotsLines || []);
+
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
       action: trackActions.disable,
@@ -153,6 +155,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     BigFancyAdBelow,
     PorvataTemplate,
     Roadblock,
+    StickyAd,
   } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
@@ -162,6 +165,13 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(BigFancyAdBelow, getBfabConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
+
+  if (context.get('templates.stickyAd.lineItemIds').length) {
+    templateService.register(StickyAd, {
+      navbarWrapperSelector: '.site-head-wrapper',
+      smartBannerSelector: '.fandom-app-smart-banner',
+    });
+  }
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
