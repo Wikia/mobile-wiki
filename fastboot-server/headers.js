@@ -23,7 +23,7 @@ module.exports = function (req, res, next) {
     const cspPolicy = 'default-src https: \'self\' data: blob:; '
    + 'script-src https: \'self\' data: \'unsafe-inline\' \'unsafe-eval\' blob:; '
    + 'style-src https: \'self\' \'unsafe-inline\' blob:; ';
-    const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp`;
+    const cspReport = `report-uri https://${config.servicesDomain}/csp-logger/csp/mobile-wiki`;
     res.setHeader('content-security-policy-report-only', cspPolicy + cspReport);
   }
 

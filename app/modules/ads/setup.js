@@ -1,5 +1,6 @@
 import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
+import fanTakeoverResolver from './fan-takeover-resolver';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
@@ -7,6 +8,8 @@ import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
+import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
+import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -34,6 +37,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
   context.set('slots', slots.getContext());
+  if (!adsContext.targeting.hasFeaturedVideo) {
+    context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
+  }
+
   context.set('state.deviceType', utils.client.getDeviceType());
 
   context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
@@ -45,13 +52,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverFVPostrollCountries'));
 
   context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
-  // TODO: context.push('delayModules', featuredVideoDelay);
-  // context.set('options.featuredVideoDelay', isGeoEnabled('wgAdDriverFVDelayCountries'));
-  /* context.set(
-    'options.exposeFeaturedVideoUapKeyValue',
-     isGeoEnabled('wgAdDriverFVAsUapKeyValueCountries'),
-    );
-  */
   context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
   context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
@@ -90,6 +90,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
+
+  context.set('templates.stickyAd.lineItemIds', instantGlobals.wgAdDriverStickySlotsLines || []);
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
@@ -147,16 +149,33 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
 function configure(adsContext, instantGlobals, isOptedIn) {
   const { context, templateService } = window.Wikia.adEngine;
-  const { utils: adProductsUtils, PorvataTemplate, Roadblock } = window.Wikia.adProducts;
+  const {
+    utils: adProductsUtils,
+    BigFancyAdAbove,
+    BigFancyAdBelow,
+    PorvataTemplate,
+    Roadblock,
+    StickyAd,
+  } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
   adProductsUtils.setupNpaContext();
 
+  templateService.register(BigFancyAdAbove, getBfaaConfig());
+  templateService.register(BigFancyAdBelow, getBfabConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
 
+  if (context.get('templates.stickyAd.lineItemIds').length) {
+    templateService.register(StickyAd, {
+      navbarWrapperSelector: '.site-head-wrapper',
+      smartBannerSelector: '.fandom-app-smart-banner',
+    });
+  }
+
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
+  context.push('listeners.slot', fanTakeoverResolver);
   context.push('listeners.slot', ViewabilityTracker);
 }
 
