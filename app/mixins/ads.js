@@ -85,7 +85,8 @@ export default Mixin.create({
     const adsData = this.get('ads.slotNames');
     const globalFooter = document.querySelector('.wds-global-footer');
     const slotsSwitchedWithAE3 = context && context.get('options.swapBottomLeaderboard');
-    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled || slotsSwitchedWithAE3;
+    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled
+      || slotsSwitchedWithAE3;
     const afterArticleSlotName = slotsSwitched
       ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
     const beforeFooterSlotName = slotsSwitched
