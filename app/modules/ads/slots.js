@@ -88,6 +88,7 @@ export default {
         slotShortcut: 'l',
         sizes: [],
         defaultSizes: [[320, 50], [320, 100], [300, 50]],
+        defaultTemplates: [],
         targeting: {
           loc: 'top',
           rv: 1,
