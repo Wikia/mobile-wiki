@@ -27,7 +27,7 @@ export default EmberObject.extend({
       const ownerInjection = getOwner(this).ownerInjection();
 
       return all([
-        WikiVariablesModel.create(ownerInjection).fetch(protocol, host, accessToken),
+        WikiVariablesModel.create(ownerInjection).load(protocol, host, accessToken),
         UserModel.create(ownerInjection).getUserId(accessToken),
       ]).then(([wikiVariables, userId]) => {
         shoebox.put('userId', userId);
@@ -39,7 +39,7 @@ export default EmberObject.extend({
             wikiVariables.id,
             uselangParam || wikiVariables.language.content,
           ),
-          trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetch(
+          trackingDimensions: TrackingDimensionsModel.create(ownerInjection).fetchApi(
             !userId,
             host,
             title,

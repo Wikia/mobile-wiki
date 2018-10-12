@@ -1,17 +1,14 @@
 import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import {
-  getFetchErrorMessage,
-  TrackingDimensionsFetchError,
-} from '../utils/errors';
-import fetch from '../utils/mediawiki-fetch';
+import { TrackingDimensionsFetchError } from '../utils/errors';
 
 export default EmberObject.extend({
   fastboot: service(),
   logger: service(),
   wikiUrls: service(),
+  fetch: service(),
 
-  fetch(isAnon, host, title) {
+  fetchApi(isAnon, host, title) {
     const url = this.wikiUrls.build({
       host,
       path: '/wikia.php',
@@ -24,20 +21,7 @@ export default EmberObject.extend({
       },
     });
 
-    return fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return getFetchErrorMessage(response).then(() => {
-          throw new TrackingDimensionsFetchError({
-            code: response.status,
-          }).withAdditionalData({
-            requestUrl: url,
-            responseUrl: response.url,
-          });
-        });
-      })
+    return this.fetch.fetchFromMediawiki(url, TrackingDimensionsFetchError)
       .catch(error => this.logger.error('getTrackingDimensions error: ', error));
   },
 });

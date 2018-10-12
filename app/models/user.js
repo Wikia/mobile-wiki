@@ -4,11 +4,9 @@ import { all } from 'rsvp';
 import { isArray } from '@ember/array';
 import fetch from 'fetch';
 import config from '../config/environment';
-import mediawikiFetch from '../utils/mediawiki-fetch';
 import extend from '../utils/extend';
 import { getQueryString } from '../utils/url';
 import {
-  getFetchErrorMessage,
   UserLoadDetailsFetchError,
   UserLoadInfoFetchError,
 } from '../utils/errors';
@@ -19,6 +17,7 @@ export default EmberObject.extend({
   wikiUrls: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
+  fetch: service(),
 
   getUserId(accessToken) {
     if (!accessToken) {
@@ -114,22 +113,7 @@ export default EmberObject.extend({
       },
     });
 
-    return mediawikiFetch(url, {
-      internalCache: this.runtimeConfig.internalCache,
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return getFetchErrorMessage(response).then(() => {
-          throw new UserLoadDetailsFetchError({
-            code: response.status,
-          }).withAdditionalData({
-            requestUrl: url,
-            responseUrl: response.url,
-          });
-        });
-      })
+    return this.fetch.fetchFromMediawiki(url, UserLoadDetailsFetchError)
       .then((result) => {
         if (isArray(result.items)) {
           return result.items[0];
@@ -157,24 +141,7 @@ export default EmberObject.extend({
       },
     });
 
-    return mediawikiFetch(url, {
-      headers: {
-        Cookie: `access_token=${accessToken}`,
-      },
-      internalCache: this.runtimeConfig.internalCache,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return getFetchErrorMessage(response).then(() => {
-        throw new UserLoadInfoFetchError({
-          code: response.status,
-        }).withAdditionalData({
-          requestUrl: url,
-          responseUrl: response.url,
-        });
-      });
-    });
+    return this.fetch.fetchFromMediaWikiAuthenticated(url, accessToken, UserLoadInfoFetchError);
   },
 
   /**
