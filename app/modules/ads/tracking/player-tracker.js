@@ -35,14 +35,11 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     ctp: data.withCtp ? 1 : 0,
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
-    user_block_autoplay: window.Cookies.get('featuredVideoAutoplay') === '0' ? 1 : 0,
   };
 
   const featuredVideoAutoplayCookie = window.Cookies.get('featuredVideoAutoplay');
   if (['0', '1'].indexOf(featuredVideoAutoplayCookie) > -1) {
     preparedData.user_block_autoplay = featuredVideoAutoplayCookie === '0' ? 1 : 0;
-  } else {
-    preparedData.user_block_autoplay = -1;
   }
   return preparedData;
 }
