@@ -76,13 +76,17 @@ export default Mixin.create({
   * @returns {void}
   */
   injectAds() {
+    const { context } = window.Wikia.adEngine || {};
+
     const firstSection = this.element.parentNode.querySelector('.article-content > h2');
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.get('ads.slotNames');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled;
+    const slotsSwitchedWithAE3 = context && context.get('options.swapBottomLeaderboard');
+    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled
+      || slotsSwitchedWithAE3;
     const afterArticleSlotName = slotsSwitched
       ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
     const beforeFooterSlotName = slotsSwitched
