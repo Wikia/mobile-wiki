@@ -16,7 +16,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 
   const slot = slotService.get(data.slotName);
 
-  return {
+  const preparedData = {
     pv_number: window.pvNumber,
     country: getCountryCode(),
     skin: context.get('targeting.skin'),
@@ -35,8 +35,13 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     ctp: data.withCtp ? 1 : 0,
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
-    user_block_autoplay: !slot.config.autoplay,
   };
+
+  const featuredVideoAutoplayCookie = window.Cookies.get('featuredVideoAutoplay');
+  if (['0', '1'].indexOf(featuredVideoAutoplayCookie) > -1) {
+    preparedData.user_block_autoplay = featuredVideoAutoplayCookie === '0' ? 1 : 0;
+  }
+  return preparedData;
 }
 
 /**
