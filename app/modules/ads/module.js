@@ -6,7 +6,7 @@ import adBlockDetection from './tracking/adblock-detection';
 import PageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
-import targeting from './targeting';
+import billTheLizard from './bill-the-lizard';
 
 const SLOT_NAME_MAP = {
   MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
@@ -79,10 +79,11 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
     events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
+    events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
     this.callExternals();
 
-    this.configureBillTheLizard(instantGlobals);
+    billTheLizard.configureBillTheLizard(instantGlobals);
 
     this.startAdEngine();
 
@@ -99,65 +100,6 @@ class Ads {
 
     if (PageTracker.isEnabled() && labradorPropValue) {
       PageTracker.trackProp('labrador', labradorPropValue);
-    }
-  }
-
-  configureBillTheLizard(instantGlobals) {
-    const { context, slotService } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
-
-    function getNextIncontentId(predictions) {
-      return `incontent_boxad_${Object.keys(predictions).length + 2}`;
-    }
-
-    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
-      this.cheshirecatPredictions = {};
-
-      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', () => {
-        const config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
-        const bidderPrices = targeting.getBiddersPrices('mobile_in_content');
-
-        context.set('services.billTheLizard.projects', config.projects);
-        context.set('services.billTheLizard.timeout', config.timeout || 0);
-        context.set('services.billTheLizard.parameters.cheshirecat', {
-          bids: [
-            bidderPrices.bidder_1 || 0,
-            bidderPrices.bidder_2 || 0,
-            0,
-            bidderPrices.bidder_4 || 0,
-            0,
-            bidderPrices.bidder_6 || 0,
-            bidderPrices.bidder_7 || 0,
-            0,
-            bidderPrices.bidder_9 || 0,
-            bidderPrices.bidder_10 || 0,
-            bidderPrices.bidder_11 || 0,
-            bidderPrices.bidder_12 || 0,
-            bidderPrices.bidder_13 || 0,
-            bidderPrices.bidder_14 || 0,
-            bidderPrices.bidder_15 || 0,
-            bidderPrices.bidder_16 || 0,
-          ].join(';'),
-        });
-
-        billTheLizard.projectsHandler.enable('cheshirecat');
-        billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-          const slot = getNextIncontentId(this.cheshirecatPredictions);
-
-          if (slot) {
-            slotService.disable(slot, 'catlapsed');
-          }
-        });
-
-        billTheLizard.call(['cheshirecat'])
-          .then((predictions) => {
-            const identifier = getNextIncontentId(this.cheshirecatPredictions);
-            const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
-
-            this.cheshirecatPredictions[identifier] = prediction;
-            context.set(`services.billTheLizard.parameters.cheshirecatSlotResponses.${identifier}`, prediction);
-          });
-      });
     }
   }
 
