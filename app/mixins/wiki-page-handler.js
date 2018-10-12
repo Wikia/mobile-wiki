@@ -136,11 +136,9 @@ export default Mixin.create({
         if (IfColonExist) {
           const textBeforeColon = new RegExp('^.*(?=(:))');
           const categoryFromParams = params.title.match(textBeforeColon)[0];
-          namespaceNumber = getNamespaceNumber(
-            this.wikiVariables.namespaces,
-            categoryFromParams,
-          );
+
           temporaryTitle = temporaryTitle.split(':').pop();
+          namespaceNumber = categoryFromParams === 'User_blog' ? 500 : getNamespaceNumber(this.wikiVariables.namespaces, categoryFromParams);
         }
 
         const model = this.getModelForNamespace({
@@ -150,12 +148,13 @@ export default Mixin.create({
             details: {
               title: temporaryTitle,
               ns: Number(namespaceNumber),
-              type: '',
+              comments: 0,
+              abstract: '',
+              description: '',
             },
             article: {
               content: '<aside></aside>',
             },
-            nsSpecificContent: '',
           },
         }, params, contentNamespaces);
 
