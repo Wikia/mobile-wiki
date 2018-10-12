@@ -105,7 +105,7 @@ export default Mixin.create({
     if (firstSection) {
       this.appendAd(adsData.mobileInContent, 'beforebegin', firstSection);
     }
-console.error(slotsSwitched, afterArticleSlotName,beforeFooterSlotName)
+
     if (articleFooter) {
       this.appendAd(afterArticleSlotName, 'beforebegin', articleFooter);
     }
