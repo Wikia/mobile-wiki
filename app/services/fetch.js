@@ -13,4 +13,16 @@ export default fetch.extend({
 
     this._super(...arguments);
   },
+
+  fetchFromMediaWikiAuthenticated(requestUrl, accessToken, errorClass) {
+    const options = this.getOptionsForInternalCache(requestUrl);
+
+    if (accessToken) {
+      options.headers = {
+        Cookie: `access_token=${accessToken}`,
+      };
+    }
+
+    return this.fetchAndParseResponse(requestUrl, options, errorClass);
+  },
 });

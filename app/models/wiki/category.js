@@ -1,10 +1,11 @@
 import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import BaseModel from './base';
-import fetch from '../../utils/mediawiki-fetch';
+import { CategoryMembersFetchError } from '../../utils/errors';
 
 export default BaseModel.extend({
   wikiUrls: service(),
+  fetch: service(),
 
   host: null,
   hasArticle: false,
@@ -20,7 +21,7 @@ export default BaseModel.extend({
   * @returns {Ember.RSVP.Promise}
   */
   loadPage(page) {
-    return fetch(this.wikiUrls.build({
+    return this.fetch.fetchFromMediawiki(this.wikiUrls.build({
       host: this.host,
       path: '/wikia.php',
       query: {
@@ -30,8 +31,7 @@ export default BaseModel.extend({
         categoryMembersPage: page,
         format: 'json',
       },
-    }))
-      .then(response => response.json())
+    }), CategoryMembersFetchError)
       .then(({ data }) => {
         if (isEmpty(data) || isEmpty(data.membersGrouped)) {
           throw new Error('Unexpected response from server');

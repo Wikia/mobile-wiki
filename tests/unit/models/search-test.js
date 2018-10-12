@@ -98,7 +98,7 @@ module('Unit | Model | search result page', (hooks) => {
   test('test a new query state reset', (assert) => {
     const search = getContext().owner.lookup('model:search');
 
-    search.fetch = sinon.stub();
+    search.fetchResults = sinon.stub();
 
     search.update({
       total: 1,
@@ -199,7 +199,7 @@ module('Unit | Model | search result page', (hooks) => {
       totalBatches: 2,
       query: 'testQuery',
     });
-    const fetchSpy = sinon.spy(search, 'fetch');
+    const fetchSpy = sinon.spy(search, 'fetchResults');
 
     search.loadMore();
 
