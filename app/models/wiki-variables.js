@@ -8,6 +8,7 @@ import {
 
 export default EmberObject.extend({
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   fetch(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
@@ -21,6 +22,7 @@ export default EmberObject.extend({
     });
     const options = {
       headers: {},
+      internalCache: this.runtimeConfig.internalCache,
     };
 
     if (accessToken) {

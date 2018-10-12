@@ -5,6 +5,7 @@ import fetch from '../../utils/mediawiki-fetch';
 
 export default BaseModel.extend({
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   host: null,
   hasArticle: false,
@@ -30,7 +31,9 @@ export default BaseModel.extend({
         categoryMembersPage: page,
         format: 'json',
       },
-    }))
+    }), {
+      internalCache: this.runtimeConfig.internalCache,
+    })
       .then(response => response.json())
       .then(({ data }) => {
         if (isEmpty(data) || isEmpty(data.membersGrouped)) {

@@ -14,6 +14,7 @@ export default Component.extend({
   preserveScroll: service(),
   wikiVariables: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   classNames: ['article-comments', 'mw-content'],
 
@@ -134,7 +135,9 @@ export default Component.extend({
     }
 
     if (page && articleId) {
-      fetch(this.url(articleId, page))
+      fetch(this.url(articleId, page), {
+        internalCache: this.runtimeConfig.internalCache,
+      })
         .then(response => response.json())
         .then((data) => {
           this.setProperties({

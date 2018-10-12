@@ -34,6 +34,7 @@ function getFromCache(browserLang) {
 export default EmberObject.extend(LanguagesMixin, {
   wikiVariables: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   message: null,
   nativeDomain: null,
@@ -59,7 +60,9 @@ export default EmberObject.extend(LanguagesMixin, {
           format: 'json',
           targetLanguage: browserLang,
         },
-      }),
+      }), {
+        internalCache: this.runtimeConfig.internalCache,
+      }
     )
       .then(response => response.json())
       .then((resp) => {

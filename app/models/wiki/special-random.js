@@ -8,6 +8,7 @@ export default BaseModel.extend({
   ns: mediawikiNamespace.SPECIAL,
   wikiUrls: service(),
   wikiVariables: service(),
+  runtimeConfig: service(),
 
   /**
   * @returns {RSVP.Promise}
@@ -24,6 +25,7 @@ export default BaseModel.extend({
       },
     }), {
       cache: 'no-store',
+      internalCache: this.runtimeConfig.internalCache,
     })
       .then(response => response.json())
       .then((data) => {

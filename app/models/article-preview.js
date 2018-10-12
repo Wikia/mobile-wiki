@@ -5,6 +5,7 @@ import fetch from '../utils/mediawiki-fetch';
 export default EmberObject.extend({
   wikiVariables: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   /**
   * prepare POST request body before sending to API
@@ -38,6 +39,7 @@ export default EmberObject.extend({
     return fetch(url, {
       method: 'POST',
       body: formData,
+      internalCache: this.runtimeConfig.internalCache,
     })
       .then(response => response.json())
       .then(({ data }) => {

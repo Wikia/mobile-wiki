@@ -16,6 +16,7 @@ export default EmberObject.extend({
   wikiVariables: service(),
   logger: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
@@ -67,7 +68,9 @@ export default EmberObject.extend({
         query,
         batch: this.batch,
       },
-    }))
+    }), {
+      internalCache: this.runtimeConfig.internalCache,
+    })
       .then((response) => {
         if (!response.ok) {
           this.setProperties({

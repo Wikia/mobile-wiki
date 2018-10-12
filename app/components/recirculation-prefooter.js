@@ -33,6 +33,7 @@ export default Component.extend(
     router: service(),
     wikiVariables: service(),
     wikiUrls: service(),
+    runtimeConfig: service(),
 
     classNames: ['recirculation-prefooter'],
     classNameBindings: ['items:has-items'],
@@ -97,7 +98,9 @@ export default Component.extend(
           controller: 'RecirculationApiController',
           method: 'getPopularWikiArticles',
         },
-      }))
+      }), {
+        internalCache: this.runtimeConfig.internalCache,
+      })
         .then((response) => {
           if (!response.ok) {
             this.logger.error('Can not fetch topArticles', response);

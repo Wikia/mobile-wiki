@@ -63,6 +63,7 @@ export default Mixin.create({
   wikiVariables: service(),
   simpleStore: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   getPageModel(params) {
     const isFastBoot = this.get('fastboot.isFastBoot');
@@ -76,7 +77,9 @@ export default Mixin.create({
 
       const url = getURL(this.wikiUrls, params);
 
-      return fetch(url)
+      return fetch(url, {
+        internalCache: this.runtimeConfig.internalCache,
+      })
         .then((response) => {
           if (response.ok) {
             return response.json();

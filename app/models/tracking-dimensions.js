@@ -10,6 +10,7 @@ export default EmberObject.extend({
   fastboot: service(),
   logger: service(),
   wikiUrls: service(),
+  runtimeConfig: service(),
 
   fetch(isAnon, host, title) {
     const url = this.wikiUrls.build({
@@ -24,7 +25,9 @@ export default EmberObject.extend({
       },
     });
 
-    return fetch(url)
+    return fetch(url, {
+      internalCache: this.runtimeConfig.internalCache,
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
