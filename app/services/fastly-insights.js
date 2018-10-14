@@ -11,9 +11,9 @@ export default Service.extend({
   currentUser: service(),
 
   loadFastlyInsightsScript: function() {
-    if ( /* config.environment === 'production' && */
-          !this.scriptWasLoaded &&
-          !this.currentUser.isAuthenticated) {
+    if (!this.scriptWasLoaded &&
+        config.environment === 'production' &&
+        !this.currentUser.isAuthenticated) {
       window.M.loadScript(SCRIPT_URL, true, () => {
         this.scriptWasLoaded = true;
       });
