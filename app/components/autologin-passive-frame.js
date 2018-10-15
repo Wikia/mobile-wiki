@@ -9,7 +9,7 @@ export default Component.extend({
   fastboot: service(),
   runtimeConfig: service(),
   tagName: '',
-  servicesDomain: oneWay('runtimeConfig.servicesExternalHost'),
+  servicesDomain: oneWay('runtimeConfig.servicesExternalAlternativeHost'),
 
   passiveSyncEnabled: computed(function () {
     if (this.fastboot.isFastBoot) {
