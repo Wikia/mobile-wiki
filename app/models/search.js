@@ -16,7 +16,7 @@ export default EmberObject.extend({
   wikiVariables: service(),
   logger: service(),
   wikiUrls: service(),
-  fetch: service(),
+  fetchService: service('fetch'),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
@@ -64,7 +64,7 @@ export default EmberObject.extend({
         batch: this.batch,
       },
     });
-    const options = this.fetch.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalCache(url);
 
     this.setProperties({
       error: '',

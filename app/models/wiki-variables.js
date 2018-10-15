@@ -7,7 +7,7 @@ import {
 } from '../utils/errors';
 
 export default EmberObject.extend({
-  fetch: service(),
+  fetchService: service('fetch'),
   wikiUrls: service(),
 
   load(protocol, host, accessToken) {
@@ -20,7 +20,7 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
-    const options = this.fetch.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (accessToken) {
       options.headers = {

@@ -8,7 +8,7 @@ export default BaseModel.extend({
   ns: mediawikiNamespace.SPECIAL,
   wikiUrls: service(),
   wikiVariables: service(),
-  fetch: service(),
+  fetchService: service('fetch'),
 
   /**
   * @returns {RSVP.Promise}
@@ -24,7 +24,7 @@ export default BaseModel.extend({
         format: 'json',
       },
     });
-    const options = this.fetch.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalCache(url);
     return fetch(url, Object.assign(options, {
       cache: 'no-store',
     }))

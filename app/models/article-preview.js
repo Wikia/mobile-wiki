@@ -5,7 +5,7 @@ import fetch from 'fetch';
 export default EmberObject.extend({
   wikiVariables: service(),
   wikiUrls: service(),
-  fetch: service(),
+  fetchService: service('fetch'),
 
   /**
   * prepare POST request body before sending to API
@@ -29,7 +29,7 @@ export default EmberObject.extend({
     });
     const FormDataClass = FastBoot.require('form-data');
     const formData = new FormDataClass();
-    const options = this.fetch.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (wikitext) {
       formData.append('wikitext', wikitext);

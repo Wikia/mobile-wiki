@@ -17,7 +17,7 @@ export default EmberObject.extend({
   wikiUrls: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
-  fetch: service(),
+  fetchService: service('fetch'),
 
   getUserId(accessToken) {
     if (!accessToken) {
@@ -113,7 +113,7 @@ export default EmberObject.extend({
       },
     });
 
-    return this.fetch.fetchFromMediawiki(url, UserLoadDetailsFetchError)
+    return this.fetchService.fetchFromMediawiki(url, UserLoadDetailsFetchError)
       .then((result) => {
         if (isArray(result.items)) {
           return result.items[0];
@@ -141,7 +141,8 @@ export default EmberObject.extend({
       },
     });
 
-    return this.fetch.fetchFromMediaWikiAuthenticated(url, accessToken, UserLoadInfoFetchError);
+    return this.fetchService.fetchFromMediaWikiAuthenticated(url, accessToken,
+      UserLoadInfoFetchError);
   },
 
   /**
