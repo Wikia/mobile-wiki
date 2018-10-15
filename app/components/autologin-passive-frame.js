@@ -19,4 +19,14 @@ export default Component.extend({
 
     return system === 'ios' && window.Cookies.get('autologin_done') !== '2' && !this.currentUser.isAuthenticated;
   }),
+
+  didRender() {
+    window.addEventListener('message', this.get('reloadWindow').bind(this), false);
+  },
+
+  reloadWindow(event) {
+    if (event.origin === this.servicesDomain && event.data === 'is_authed') {
+      window.location.reload();
+    }
+  },
 });
