@@ -25,7 +25,8 @@ import extend from '../utils/extend';
  * @returns {string}
  */
 function getNamespaceNumber(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
+  const number = Object.keys(object).find(key => object[key] === value);
+  return Number(number);
 }
 
 function dataForShoeBox(data, shoebox) {
@@ -132,28 +133,26 @@ export default Mixin.create({
         let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
+        const urlFromParams = `wiki/${params.title}`;
+        debugger;
 
         if (IfColonExist) {
           const textBeforeColon = new RegExp('^.*(?=(:))');
           const categoryFromParams = params.title.match(textBeforeColon)[0];
 
           temporaryTitle = temporaryTitle.split(':').pop();
-          namespaceNumber = categoryFromParams === 'User_blog' ? 500 : getNamespaceNumber(this.wikiVariables.namespaces, categoryFromParams);
+          namespaceNumber = getNamespaceNumber(this.wikiVariables.namespaces, categoryFromParams);
+          debugger;
         }
 
         const model = this.getModelForNamespace({
           data: {
-            ns: Number(namespaceNumber),
+            ns: namespaceNumber,
             htmlTitle: temporaryTitle,
             details: {
               title: temporaryTitle,
-              ns: Number(namespaceNumber),
-              comments: 0,
-              abstract: '',
-              description: '',
-            },
-            article: {
-              content: '<aside></aside>',
+              ns: namespaceNumber,
+              url: urlFromParams,
             },
           },
         }, params, contentNamespaces);

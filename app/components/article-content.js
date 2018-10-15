@@ -100,6 +100,7 @@ export default Component.extend(
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },
+
     willRender() {
       const articleState = this.get('articleStates').isFullyLoaded;
 
