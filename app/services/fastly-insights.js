@@ -9,7 +9,7 @@ export default Service.extend({
 
   currentUser: service(),
 
-  loadFastlyInsightsScript: () => {
+  loadFastlyInsightsScript() {
     if (!this.scriptWasLoaded
         && config.environment === 'production'
         && !this.currentUser.isAuthenticated) {
