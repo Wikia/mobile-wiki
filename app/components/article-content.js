@@ -102,20 +102,29 @@ export default Component.extend(
       this.renderedComponents = [];
     },
 
-    willRender() {
-      const articleState = this.get('articleStates').isFullyLoaded;
-
-      if (!articleState) {
+    didRender() {
+      const articleLoaded = this.get('articleStates').isFullyLoaded;
+      const scrollTopDone = this.get('articleStates').scrollTopDone;
+      if (scrollTopDone && !articleLoaded) {
         const articleContent = document.querySelector('.article-wrapper');
+
         articleContent.animate([
           // keyframes
+          { transform: 'translateX(0px)' },
+          { transform: 'translateX(-300px)' },
+        ], {
+          // timing options
+          duration: 200,
+          easing: 'linear',
+        });
+
+        articleContent.animate([
           { opacity: 0 },
           { opacity: 0.33 },
           { opacity: 0.66 },
           { opacity: 1 },
         ], {
-          // timing options
-          duration: 1000,
+          duration: 200,
           easing: 'linear',
         });
       }

@@ -4,6 +4,7 @@ export default Service.extend({
   isFullyLoaded: false,
   isSpinnerLoading: true,
   isEmptyLabel: false,
+  scrollTopDone: false,
 
   resetValues() {
     this.set('isFullyLoaded', false);

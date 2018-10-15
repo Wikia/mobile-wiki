@@ -11,6 +11,7 @@ export default Controller.extend(
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
+    articleStates: service(),
 
     queryParams: ['file',
       {
@@ -62,6 +63,7 @@ export default Controller.extend(
           left: 0,
           behavior: 'smooth',
         });
+        this.articleStates.scrollTopDone = true;
         this.target.send('handleLink', target);
       },
 
