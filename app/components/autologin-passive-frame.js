@@ -10,12 +10,12 @@ export default Component.extend({
   tagName: '',
   servicesDomain: oneWay('runtimeConfig.servicesExternalHost'),
 
-  cookieSyncEnabled: computed(function () {
+  passiveCookieSyncEnabled: computed(function () {
     if (this.fastboot.isFastBoot) {
       // Don't create iframe in fastboot to avoid duplicate service call
       return false;
     }
 
-    return window.Cookies.get('autologin_done') === '1' && this.currentUser.isAuthenticated;
+    return window.Cookies.get('autologin_done') !== '2' && !this.currentUser.isAuthenticated;
   }),
 });
