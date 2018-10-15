@@ -2,6 +2,7 @@ import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
+import { system } from '../utils/browser';
 
 export default Component.extend({
   currentUser: service(),
@@ -10,12 +11,12 @@ export default Component.extend({
   tagName: '',
   servicesDomain: oneWay('runtimeConfig.servicesExternalHost'),
 
-  passiveCookieSyncEnabled: computed(function () {
+  passiveSyncEnabled: computed(function () {
     if (this.fastboot.isFastBoot) {
       // Don't create iframe in fastboot to avoid duplicate service call
       return false;
     }
 
-    return window.Cookies.get('autologin_done') !== '2' && !this.currentUser.isAuthenticated;
+    return system === 'ios' && window.Cookies.get('autologin_done') !== '2' && !this.currentUser.isAuthenticated;
   }),
 });
