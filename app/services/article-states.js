@@ -5,22 +5,15 @@ export default Service.extend({
   isSpinnerLoading: true,
   isEmptyLabel: false,
 
-  articleDidLoad() {
-    this.set('isFullyLoaded', true);
-  },
-  articleLoading() {
+  resetValues() {
     this.set('isFullyLoaded', false);
-  },
-  spinnerOff() {
-    this.set('isSpinnerLoading', false);
-  },
-  spinnerOn() {
     this.set('isSpinnerLoading', true);
-  },
-  showEmptyLabel() {
-    this.set('isEmptyLabel', true);
-  },
-  hideEmptyLabel() {
     this.set('isEmptyLabel', false);
+  },
+
+  afterArticleLoaded() {
+    this.set('isFullyLoaded', true);
+    this.set('isSpinnerLoading', false);
+    this.set('isEmptyLabel', true);
   },
 });

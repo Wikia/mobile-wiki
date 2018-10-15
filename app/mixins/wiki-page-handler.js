@@ -2,6 +2,7 @@ import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import EmberObject, { get } from '@ember/object';
 import { getOwner } from '@ember/application';
+import { Promise, resolve } from 'rsvp';
 import ArticleModel from '../models/wiki/article';
 import BlogModel from '../models/wiki/blog';
 import CategoryModel from '../models/wiki/category';
@@ -42,6 +43,11 @@ function dataForShoeBox(data, shoebox) {
     articleId: get(dataForShoebox, 'data.details.id'),
     namespace: get(dataForShoebox, 'data.ns'),
   });
+}
+
+function errorForShoeBox(error, shoebox) {
+  shoebox.put('wikiPageError', error);
+  this.fastboot.set('response.statusCode', error.code || 503);
 }
 
 function getURL(wikiUrls, params) {
@@ -119,16 +125,13 @@ export default Mixin.create({
           })
           .catch((error) => {
             if (isFastBoot) {
-              shoebox.put('wikiPageError', error);
-              this.fastboot.set('response.statusCode', error.code || 503);
+              errorForShoeBox(error, shoebox);
             }
 
             throw error;
           });
       } else {
-        this.get('articleStates').articleLoading();
-        this.get('articleStates').spinnerOn();
-        this.get('articleStates').hideEmptyLabel();
+        this.get('articleStates').resetValues();
 
         let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
@@ -176,19 +179,20 @@ export default Mixin.create({
               dataForShoeBox(data, shoebox);
             }
             model.setData(data);
-            this.get('articleStates').articleDidLoad();
-            this.get('articleStates').spinnerOff();
-            this.get('articleStates').showEmptyLabel();
+            this.get('articleStates').afterArticleLoaded();
           })
           .catch((error) => {
             if (isFastBoot) {
-              shoebox.put('wikiPageError', error);
-              this.fastboot.set('response.statusCode', error.code || 503);
+              errorForShoeBox(error, shoebox);
             }
 
             throw error;
           });
-        return model;
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(model);
+          }, 300);
+        });
       }
     }
 

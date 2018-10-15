@@ -161,10 +161,7 @@ export default Route.extend(
             }
           });
 
-          if (
-            !fastboot.get('isFastBoot')
-      && !transition.queryParams.noexternals
-          ) {
+          if (!fastboot.get('isFastBoot') && !transition.queryParams.noexternals) {
             getAdsModule().then((adsModule) => {
               if (isAdEngine3Loaded(adsModule)) {
                 model.adsContext.user = model.adsContext.user || {};
