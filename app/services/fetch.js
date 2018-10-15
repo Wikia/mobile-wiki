@@ -14,6 +14,7 @@ export default fetch.extend({
     this._super(...arguments);
   },
 
+  // TODO: Consider moving this to ember-fandom
   fetchFromMediaWikiAuthenticated(requestUrl, accessToken, errorClass) {
     const options = this.getOptionsForInternalCache(requestUrl);
 
