@@ -55,6 +55,7 @@ export const getConfig = () => ({
 
     slots.setupSlotVideoAdUnit(adSlot, params);
     context.set('slots.incontent_boxad_1.repeat', null);
+    context.set('slots.bottom_leaderboard.sizes', []);
     context.set('slots.bottom_leaderboard.defaultSizes', [[2, 2]]);
     wrapper.style.opacity = '0';
     slotTweaker.onReady(adSlot).then((iframe) => {
