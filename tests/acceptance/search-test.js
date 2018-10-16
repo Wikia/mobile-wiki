@@ -3,6 +3,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockAdsService from '../helpers/mock-ads-service';
 import mockFastbootService from '../helpers/mock-fastboot-service';
+import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | search', (hooks) => {
   setupApplicationTest(hooks);
@@ -10,6 +11,7 @@ module('Acceptance | search', (hooks) => {
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
+    mockFastlyInsights(this.owner);
   });
 
   test('visiting search result page with correct query displays search results', async (assert) => {
