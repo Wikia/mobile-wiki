@@ -21,7 +21,7 @@ export default Component.extend({
   }),
 
   didRender() {
-    window.addEventListener('message', this.get('reloadWindow').bind(this), false);
+    window.addEventListener('message', this.reloadWindow.bind(this), false);
   },
 
   reloadWindow(event) {
