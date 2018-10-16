@@ -1,4 +1,4 @@
-import fetch from '../mediawiki-fetch';
+import fetch from 'fetch';
 
 /**
   * @param {Ember.Route} route
