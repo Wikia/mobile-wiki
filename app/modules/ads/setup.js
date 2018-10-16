@@ -6,10 +6,11 @@ import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
-import { getConfig as getPorvataConfig } from './templates/porvata-config';
-import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
+import { getConfig as getPorvataConfig } from './templates/porvata-config';
+import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
+import { getConfig as getStickyAdConfig } from './templates/sticky-ad-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -37,8 +38,16 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
 
   context.set('slots', slots.getContext());
+
   if (!adsContext.targeting.hasFeaturedVideo) {
     context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
+  }
+
+  const stickySlotsLines = instantGlobals.wgAdDriverStickySlotsLines;
+
+  if (stickySlotsLines && stickySlotsLines.length) {
+    context.set('templates.stickyAd.lineItemIds', stickySlotsLines);
+    context.push('slots.mobile_top_leaderboard.defaultTemplates', 'stickyAd');
   }
 
   context.set('state.deviceType', utils.client.getDeviceType());
@@ -56,6 +65,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
   context.set('options.trackingOptIn', isOptedIn);
+
+  context.set('options.swapBottomLeaderboard', isGeoEnabled('wgAdDriverMobileBottomLeaderboardSwapCountries'));
 
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
@@ -90,8 +101,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
-
-  context.set('templates.stickyAd.lineItemIds', instantGlobals.wgAdDriverStickySlotsLines || []);
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
@@ -165,13 +174,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(BigFancyAdBelow, getBfabConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
-
-  if (context.get('templates.stickyAd.lineItemIds').length) {
-    templateService.register(StickyAd, {
-      navbarWrapperSelector: '.site-head-wrapper',
-      smartBannerSelector: '.fandom-app-smart-banner',
-    });
-  }
+  templateService.register(StickyAd, getStickyAdConfig());
 
   context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);

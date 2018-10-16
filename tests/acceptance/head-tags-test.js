@@ -3,6 +3,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
+import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | Head meta tags', (hooks) => {
   setupApplicationTest(hooks);
@@ -10,6 +11,7 @@ module('Acceptance | Head meta tags', (hooks) => {
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
+    mockFastlyInsights(this.owner);
   });
 
   test('check twitter meta tags', async (assert) => {

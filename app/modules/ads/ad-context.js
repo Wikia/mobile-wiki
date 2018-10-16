@@ -21,7 +21,6 @@ export default {
           slotId: 'MOBILE_IN_CONTENT',
           sizes: [
             [300, 250],
-            [320, 480],
           ],
         },
         bottom_leaderboard: {
@@ -184,7 +183,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             siteId: '185055',
           },
@@ -239,7 +237,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             unit: 538735699,
           },
@@ -267,7 +264,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             ids: [
               '/5441/MOBILE_IN_CONTENT_300x250@300x250',
