@@ -1,10 +1,11 @@
 import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import fetch from '../utils/mediawiki-fetch';
+import fetch from 'fetch';
 
 export default EmberObject.extend({
   wikiVariables: service(),
   wikiUrls: service(),
+  fetchService: service('fetch'),
 
   /**
   * prepare POST request body before sending to API
@@ -28,6 +29,7 @@ export default EmberObject.extend({
     });
     const FormDataClass = FastBoot.require('form-data');
     const formData = new FormDataClass();
+    const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (wikitext) {
       formData.append('wikitext', wikitext);
@@ -35,10 +37,10 @@ export default EmberObject.extend({
       formData.append('CKmarkup', CKmarkup);
     }
 
-    return fetch(url, {
+    return fetch(url, Object.assign(options, {
       method: 'POST',
       body: formData,
-    })
+    }))
       .then(response => response.json())
       .then(({ data }) => {
         // Make sure media is in the same format as on article page
