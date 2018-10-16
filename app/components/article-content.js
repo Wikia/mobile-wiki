@@ -101,17 +101,15 @@ export default Component.extend(
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },
-
-    didRender() {
+    didReceiveAttrs() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
-      const scrollTopDone = this.get('articleStates').scrollTopDone;
-      if (scrollTopDone && !articleLoaded) {
+      if (articleLoaded) {
         const articleContent = document.querySelector('.article-wrapper');
 
         articleContent.animate([
           // keyframes
+          { transform: 'translateX(+300px)' },
           { transform: 'translateX(0px)' },
-          { transform: 'translateX(-300px)' },
         ], {
           // timing options
           duration: 200,
@@ -124,6 +122,34 @@ export default Component.extend(
           { opacity: 0.66 },
           { opacity: 1 },
         ], {
+          duration: 200,
+          easing: 'linear',
+        });
+      }
+    },
+
+    didRender() {
+      const articleLoaded = this.get('articleStates').isFullyLoaded;
+      const scrollTopDone = this.get('articleStates').scrollTopDone;
+      if (scrollTopDone && !articleLoaded) {
+        const articleContent = document.querySelector('.article-wrapper');
+
+        articleContent.animate([
+          { opacity: 1 },
+          { opacity: 0.66 },
+          { opacity: 0.33 },
+          { opacity: 0 },
+        ], {
+          duration: 200,
+          easing: 'linear',
+        });
+
+        articleContent.animate([
+          // keyframes
+          { transform: 'translateX(0px)' },
+          { transform: 'translateX(-300px)' },
+        ], {
+          // timing options
           duration: 200,
           easing: 'linear',
         });

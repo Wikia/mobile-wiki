@@ -2,7 +2,7 @@ import Service from '@ember/service';
 
 export default Service.extend({
   isFullyLoaded: false,
-  isSpinnerLoading: true,
+  isSpinnerLoading: false,
   isEmptyLabel: false,
   scrollTopDone: false,
 

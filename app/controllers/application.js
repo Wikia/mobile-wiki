@@ -3,6 +3,15 @@ import { alias, equal, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 
+function scrollItTop(durationInMs) {
+  let i = 0;
+  const int = setInterval(() => {
+    window.scrollTo(0, 0);
+    i += 10;
+    if (i >= durationInMs) clearInterval(int);
+  }, 20);
+}
+
 export default Controller.extend(
   AlertNotificationsMixin,
   {
@@ -33,6 +42,7 @@ export default Controller.extend(
     /**
    * @returns {void}
    */
+
     init() {
       this.setProperties({
         applicationWrapperClassNames: [],
@@ -58,12 +68,14 @@ export default Controller.extend(
     * @returns {void}
     */
       handleLink(target) {
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth',
-        });
-        this.articleStates.scrollTopDone = true;
+        this.articleStates.scrollTopDone = false;
+
+        scrollItTop(200);
+
+        setTimeout(() => {
+          this.articleStates.scrollTopDone = true;
+        }, 100);
+
         this.target.send('handleLink', target);
       },
 

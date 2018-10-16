@@ -137,7 +137,6 @@ export default Mixin.create({
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
         const urlFromParams = `wiki/${params.title}`;
-        debugger;
 
         if (IfColonExist) {
           const textBeforeColon = new RegExp('^.*(?=(:))');
@@ -145,7 +144,6 @@ export default Mixin.create({
 
           temporaryTitle = temporaryTitle.split(':').pop();
           namespaceNumber = getNamespaceNumber(this.wikiVariables.namespaces, categoryFromParams);
-          debugger;
         }
 
         const model = this.getModelForNamespace({
@@ -188,10 +186,11 @@ export default Mixin.create({
 
             throw error;
           });
+
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve(model);
-          }, 300);
+          }, 100);
         });
       }
     }
