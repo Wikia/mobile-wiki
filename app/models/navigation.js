@@ -1,14 +1,11 @@
 import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
-import {
-  getFetchErrorMessage,
-  DesignSystemFetchError,
-} from '../utils/errors';
-import fetch from '../utils/mediawiki-fetch';
+import { DesignSystemFetchError } from '../utils/errors';
 
 export default EmberObject.extend({
   wikiUrls: service(),
   fastboot: service(),
+  fetch: service(),
 
   fetchAll(host, wikiId, language) {
     const url = this.wikiUrls.build({
@@ -24,25 +21,8 @@ export default EmberObject.extend({
       },
     });
 
-    return fetch(url, {
-      headers: {
-        Cookie: `access_token=${this.get('fastboot.request.cookies.access_token')}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return getFetchErrorMessage(response).then(() => {
-          throw new DesignSystemFetchError({
-            code: 503,
-          }).withAdditionalData({
-            responseStatus: response.status,
-            requestUrl: url,
-            responseUrl: response.url,
-          });
-        });
-      })
+    return this.fetch
+      .fetchFromMediaWikiAuthenticated(url, this.get('fastboot.request.cookies.access_token'), DesignSystemFetchError)
       .then(navigationData => (
         {
           globalFooter: navigationData['global-footer'],
