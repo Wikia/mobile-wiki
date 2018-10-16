@@ -37,9 +37,8 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     video_id: data.videoId || '',
   };
 
-  const featuredVideoAutoplayCookie = window.Cookies.get('featuredVideoAutoplay');
-  if (['0', '1'].indexOf(featuredVideoAutoplayCookie) > -1) {
-    preparedData.user_block_autoplay = featuredVideoAutoplayCookie === '0' ? 1 : 0;
+  if ([0, 1].indexOf(data.userBlockAutoplay) > -1) {
+    preparedData.user_block_autoplay = data.userBlockAutoplay;
   }
   return preparedData;
 }
