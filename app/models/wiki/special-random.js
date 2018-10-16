@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
+import fetch from 'fetch';
 import BaseModel from './base';
-import fetch from '../../utils/mediawiki-fetch';
 import { namespace as mediawikiNamespace } from '../../utils/mediawiki-namespace';
 
 export default BaseModel.extend({
@@ -8,12 +8,13 @@ export default BaseModel.extend({
   ns: mediawikiNamespace.SPECIAL,
   wikiUrls: service(),
   wikiVariables: service(),
+  fetchService: service('fetch'),
 
   /**
   * @returns {RSVP.Promise}
   */
   getArticleRandomTitle() {
-    return fetch(this.wikiUrls.build({
+    const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
       path: '/api.php',
       query: {
@@ -22,9 +23,11 @@ export default BaseModel.extend({
         grnnamespace: 0,
         format: 'json',
       },
-    }), {
+    });
+    const options = this.fetchService.getOptionsForInternalCache(url);
+    return fetch(url, Object.assign(options, {
       cache: 'no-store',
-    })
+    }))
       .then(response => response.json())
       .then((data) => {
         if (data.query && data.query.pages) {
