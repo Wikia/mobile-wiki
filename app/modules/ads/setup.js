@@ -147,6 +147,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('custom.isCMPEnabled', isGeoEnabled('wgEnableCMPCountries'));
   }
 
+  const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig;
+
+  if (context.get('options.slotRepeater') && btlConfig && btlConfig.projects && btlConfig.projects.cheshirecat
+    && btlConfig.projects.cheshirecat.some(model => utils.isProperGeo(model.countries))) {
+    context.set('slots.incontent_boxad_1.insertBeforeSelector',
+      `${context.get('slots.incontent_boxad_1.insertBeforeSelector')},.article-body h3`);
+  }
+
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
   // Need to be placed always after all lABrador wgVars checks
