@@ -16,6 +16,6 @@ export default Component.extend({
       return false;
     }
 
-    return window.Cookies.get('autologin_done') === '1' && this.currentUser.isAuthenticated;
+    return window.Cookies.get('autologin_done') !== '1' && window.Cookies.get('autologin_done') !== '2' && this.currentUser.isAuthenticated;
   }),
 });
