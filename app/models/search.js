@@ -2,7 +2,7 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
-import fetch from '../utils/mediawiki-fetch';
+import fetch from 'fetch';
 
 export default EmberObject.extend({
   batch: 1,
@@ -16,6 +16,7 @@ export default EmberObject.extend({
   wikiVariables: service(),
   logger: service(),
   wikiUrls: service(),
+  fetchService: service('fetch'),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
@@ -36,7 +37,7 @@ export default EmberObject.extend({
     });
 
     if (query) {
-      return this.fetch(query);
+      return this.fetchResults(query);
     }
 
     return this;
@@ -46,19 +47,14 @@ export default EmberObject.extend({
     if (this.canLoadMore) {
       this.set('batch', this.batch + 1);
 
-      return this.fetch(this.query);
+      return this.fetchResults(this.query);
     }
 
     return false;
   },
 
-  fetch(query) {
-    this.setProperties({
-      error: '',
-      loading: true,
-    });
-
-    return fetch(this.wikiUrls.build({
+  fetchResults(query) {
+    const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
       path: '/wikia.php',
       query: {
@@ -67,7 +63,15 @@ export default EmberObject.extend({
         query,
         batch: this.batch,
       },
-    }))
+    });
+    const options = this.fetchService.getOptionsForInternalCache(url);
+
+    this.setProperties({
+      error: '',
+      loading: true,
+    });
+
+    return fetch(url, options)
       .then((response) => {
         if (!response.ok) {
           this.setProperties({

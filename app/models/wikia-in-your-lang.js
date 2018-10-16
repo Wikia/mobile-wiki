@@ -3,7 +3,7 @@ import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import localStorageConnector from '@wikia/ember-fandom/utils/local-storage-connector';
 import LanguagesMixin from '../mixins/languages';
-import fetch from '../utils/mediawiki-fetch';
+import { WikiaInYourLangFetchError } from '../utils/errors';
 
 /**
   * @param {string} lang
@@ -34,6 +34,7 @@ function getFromCache(browserLang) {
 export default EmberObject.extend(LanguagesMixin, {
   wikiVariables: service(),
   wikiUrls: service(),
+  fetch: service(),
 
   message: null,
   nativeDomain: null,
@@ -49,19 +50,18 @@ export default EmberObject.extend(LanguagesMixin, {
       return resolve(model);
     }
 
-    return fetch(
-      this.wikiUrls.build({
-        host: this.get('wikiVariables.host'),
-        path: '/wikia.php',
-        query: {
-          controller: 'WikiaInYourLangController',
-          method: 'getNativeWikiaInfo',
-          format: 'json',
-          targetLanguage: browserLang,
-        },
-      }),
-    )
-      .then(response => response.json())
+    const url = this.wikiUrls.build({
+      host: this.get('wikiVariables.host'),
+      path: '/wikia.php',
+      query: {
+        controller: 'WikiaInYourLangController',
+        method: 'getNativeWikiaInfo',
+        format: 'json',
+        targetLanguage: browserLang,
+      },
+    });
+
+    return this.fetch.fetchFromMediawiki(url, WikiaInYourLangFetchError)
       .then((resp) => {
         let out = null;
 

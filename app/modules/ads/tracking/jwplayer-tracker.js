@@ -78,7 +78,7 @@ export default class JWPlayerTracker {
     this.setVideoId(player);
     this.track('init');
 
-    player.on('adComplete', () => {
+    player.on('videoStart', () => {
       this.updateCreativeData();
     });
 
