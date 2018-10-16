@@ -3,9 +3,9 @@ import { computed, get, observer } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import fetch from '../utils/mediawiki-fetch';
 import scrollToTop from '../utils/scroll-to-top';
 import { track, trackActions } from '../utils/track';
+import { ArticleCommentsFetchError } from '../utils/errors';
 
 /**
   * Component that displays article comments
@@ -14,6 +14,7 @@ export default Component.extend({
   preserveScroll: service(),
   wikiVariables: service(),
   wikiUrls: service(),
+  fetch: service(),
 
   classNames: ['article-comments', 'mw-content'],
 
@@ -134,8 +135,7 @@ export default Component.extend({
     }
 
     if (page && articleId) {
-      fetch(this.url(articleId, page))
-        .then(response => response.json())
+      this.fetch.fetchFromMediawiki(this.url(articleId, page), ArticleCommentsFetchError)
         .then((data) => {
           this.setProperties({
             comments: get(data, 'payload.comments'),

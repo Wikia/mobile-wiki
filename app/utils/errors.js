@@ -8,6 +8,16 @@ const errorsMap = {
   default: 'Sorry, we couldn\'t load the page. Please try again.',
 };
 
+const ArticleCommentsFetchError = defineError({
+  name: 'ArticleCommentsFetchError',
+  message: 'Article Comments data couldn\'t be fetched',
+});
+
+const CategoryMembersFetchError = defineError({
+  name: 'CategoryMembersFetchError',
+  message: 'Category Members data couldn\'t be fetched',
+});
+
 const DesignSystemFetchError = defineError({
   name: 'DesignSystemFetchError',
   message: 'Design System data couldn\'t be fetched',
@@ -44,6 +54,16 @@ const TrackingDimensionsFetchError = defineError({
   message: 'Tracking dimensions couldn\'t be fetched',
 });
 
+const TopArticlesFetchError = defineError({
+  name: 'TopArticlesFetchError',
+  message: 'Top Articles couldn\'t be fetched',
+});
+
+const WikiaInYourLangFetchError = defineError({
+  name: 'WikiaInYourLangFetchError',
+  message: 'WikiaInYourLang data couldn\'t be fetched',
+});
+
 const WikiPageFetchError = defineError({
   name: 'WikiPageFetchError',
   message: 'Wiki page couldn\'t be fetched',
@@ -73,6 +93,8 @@ const getProductionErrorMessage = function (errorCode) {
 
 export {
   getFetchErrorMessage,
+  ArticleCommentsFetchError,
+  CategoryMembersFetchError,
   DesignSystemFetchError,
   FetchError,
   FandomPostsError,
@@ -80,6 +102,8 @@ export {
   UserLoadDetailsFetchError,
   UserLoadInfoFetchError,
   TrackingDimensionsFetchError,
+  TopArticlesFetchError,
+  WikiaInYourLangFetchError,
   WikiPageFetchError,
   WikiVariablesFetchError,
   canAttemptRefresh,
