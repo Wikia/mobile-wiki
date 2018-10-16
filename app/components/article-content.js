@@ -101,6 +101,7 @@ export default Component.extend(
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },
+
     didReceiveAttrs() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
       if (articleLoaded) {
@@ -130,7 +131,8 @@ export default Component.extend(
 
     didRender() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
-      const scrollTopDone = this.get('articleStates').scrollTopDone;
+      const scrollTopDone = this.get('articleStates').isScrollTopDone;
+
       if (scrollTopDone && !articleLoaded) {
         const articleContent = document.querySelector('.article-wrapper');
 
@@ -497,7 +499,7 @@ export default Component.extend(
       const citeRefSelector = '#cite_ref-';
 
       if (target.nodeName === 'A'
-    && (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
+      && (target.hash.startsWith(citeNoteSelector) || target.hash.startsWith(citeRefSelector))
       ) {
         event.preventDefault();
         const reference = this.element.querySelector(target.hash.replace(/([.:])/g, '\\$1'));

@@ -68,12 +68,12 @@ export default Controller.extend(
     * @returns {void}
     */
       handleLink(target) {
-        this.articleStates.scrollTopDone = false;
+        this.articleStates.isScrollTopDone = false;
 
         scrollItTop(200);
 
         setTimeout(() => {
-          this.articleStates.scrollTopDone = true;
+          this.articleStates.isScrollTopDone = true;
         }, 100);
 
         this.target.send('handleLink', target);

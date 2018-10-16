@@ -130,7 +130,7 @@ export default Mixin.create({
 
             throw error;
           });
-      } else {
+      } else if (!isInitialPageView) {
         this.get('articleStates').resetValues();
 
         let namespaceNumber = 0;
