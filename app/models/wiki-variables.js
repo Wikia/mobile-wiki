@@ -9,8 +9,10 @@ import {
 export default EmberObject.extend({
   fetchService: service('fetch'),
   wikiUrls: service(),
+  logger: service(),
 
   load(protocol, host, accessToken) {
+    this.logger.warn(`!!!HOST ${host}`, {});
     const url = this.wikiUrls.build({
       host,
       path: '/wikia.php',
@@ -20,6 +22,8 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
+    this.logger.warn(`!!!REQUEST URL ${url}`, {});
+
     const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (accessToken) {
@@ -76,7 +80,7 @@ export default EmberObject.extend({
         ) {
           response.data.basePath = response.data.basePath.replace(/^http:\/\//, 'https://');
         }
-
+        this.logger.warn(`!!!RESPONSE.DATA.HOST ${response.data.host}`, {});
         return response.data;
       })
       .catch((error) => {
