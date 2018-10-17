@@ -35,6 +35,9 @@ export default EmberObject.extend({
     return fetch(url, options)
       .then((response) => {
         if (!response.ok) {
+          this.logger.warn(`!!!status code: ${response.status}`);
+          this.logger.warn('!!!wiki variables response headers', response.headers.entries());
+
           return response.text().then(() => {
             throw new WikiVariablesFetchError({
               code: response.status || 503,
@@ -44,7 +47,6 @@ export default EmberObject.extend({
             });
           });
         }
-
         const contentType = response.headers.get('content-type');
 
         if (contentType && contentType.indexOf('application/json') !== -1) {
