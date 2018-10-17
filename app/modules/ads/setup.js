@@ -144,7 +144,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
     context.set('custom.rubiconInFV',
       isGeoEnabled('wgAdDriverRubiconVideoInFeaturedVideoCountries') && hasFeaturedVideo);
-    context.set('custom.isCMPEnabled', isGeoEnabled('wgEnableCMPCountries'));
+    context.set('custom.isCMPEnabled', true);
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));

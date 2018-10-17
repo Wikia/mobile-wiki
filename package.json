@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
-    "@ember/test-helpers": "0.7.26",
+    "@ember/test-helpers": "0.7.27",
     "broccoli-asset-rev": "3.0.0",
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "3.0.1",
@@ -118,7 +118,7 @@
     "form-data": "2.3.2",
     "i18next": "10.6.0",
     "loader.js": "4.7.0",
-    "mercury-shared": "github:wikia/mercury-shared#40de3acaca023a73e1cd2d02b3b3c4883392daf2",
+    "mercury-shared": "github:wikia/mercury-shared#21de5d1d71c9b53c9f5a5a9ca9d5e22c0afbeec0",
     "proxying-agent": "2.2.4",
     "qunit-dom": "0.8.0",
     "sass": "1.14.1",
