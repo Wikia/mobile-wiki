@@ -115,7 +115,7 @@ export default {
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         repeat: {
           additionalClasses: 'hide',
           index: 1,
@@ -147,7 +147,7 @@ export default {
         avoidConflictWith: '.ad-slot',
         autoplay: true,
         audio: false,
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         disabled: true,
         slotNameSuffix: '',
         group: 'HiVi',
