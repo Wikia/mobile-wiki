@@ -37,7 +37,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     video_id: data.videoId || '',
   };
 
-  if ([0, 1].indexOf(data.userBlockAutoplay) > -1) {
+  if ([-1, 0, 1].indexOf(data.userBlockAutoplay) > -1) {
     preparedData.user_block_autoplay = data.userBlockAutoplay;
   }
   return preparedData;
