@@ -1,5 +1,6 @@
 import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
+import billTheLizard from './bill-the-lizard';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -148,11 +149,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig;
+  const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
 
-  if (context.get('options.slotRepeater') && btlConfig && btlConfig.projects && btlConfig.projects.cheshirecat
-    && btlConfig.projects.cheshirecat.some(model => utils.isProperGeo(model.countries))) {
-    context.set('slots.incontent_boxad_1.insertBeforeSelector',
-      `${context.get('slots.incontent_boxad_1.insertBeforeSelector')},.article-body h3`);
+  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig || {})) {
+    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-body > h3`);
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
