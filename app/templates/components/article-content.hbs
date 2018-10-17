@@ -1,9 +1,10 @@
 {{#if content}}
   {{{content}}}
-{{else}}
-  {{#if spinnerLoading}}
-    <div style="height: 200vh">
-      {{wds-spinner active=spinnerLoading isBlock=true overlay=false}}
-    </div>
-  {{/if}}
 {{/if}}
+{{#unless isLoaded}}
+  <div style="height: 200vh">
+    {{#if spinnerLoading}}
+      {{wds-spinner active=spinnerLoading isBlock=true overlay=false}}
+    {{/if}}
+  </div>
+{{/unless}}

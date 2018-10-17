@@ -104,28 +104,34 @@ export default Component.extend(
 
     didReceiveAttrs() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
+      const animInDone = this.get('articleStates').isAnimInDone;
+
       if (articleLoaded) {
         const articleContent = document.querySelector('.article-wrapper');
+        const articleTitle = document.querySelector('.wiki-page-header__title-wrapper');
 
-        articleContent.animate([
-          // keyframes
-          { transform: 'translateX(+300px)' },
-          { transform: 'translateX(0px)' },
-        ], {
-          // timing options
-          duration: 200,
-          easing: 'linear',
-        });
+        if (!animInDone) {
+          articleTitle.animate([
+            // keyframes
+            { transform: 'translateX(+300px)' },
+            { transform: 'translateX(0px)' },
+          ], {
+            // timing options
+            duration: 200,
+            easing: 'linear',
+          });
+          articleTitle.animate([
+            { opacity: 0 },
+            { opacity: 0.33 },
+            { opacity: 0.66 },
+            { opacity: 1 },
+          ], {
+            duration: 200,
+            easing: 'linear',
+          });
 
-        articleContent.animate([
-          { opacity: 0 },
-          { opacity: 0.33 },
-          { opacity: 0.66 },
-          { opacity: 1 },
-        ], {
-          duration: 200,
-          easing: 'linear',
-        });
+          this.articleStates.set('isAnimInDone', true);
+        }
       }
     },
 

@@ -6,11 +6,14 @@ export default Service.extend({
   isEmptyLabel: false,
   isScrollTopDone: false,
   isAnimOutDone: false,
+  isAnimInDone: false,
 
   resetValues() {
     this.set('isFullyLoaded', false);
-    this.set('isSpinnerLoading', true);
+    this.set('isSpinnerLoading', false);
     this.set('isEmptyLabel', false);
+    this.set('isScrollTopDone', false);
+    this.set('isAnimInDone', false);
   },
 
   afterArticleLoaded() {

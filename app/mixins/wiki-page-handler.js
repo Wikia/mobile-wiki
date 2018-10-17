@@ -131,7 +131,6 @@ export default Mixin.create({
             throw error;
           });
       } else if (!isInitialPageView) {
-        this.get('articleStates').resetValues();
 
         let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
@@ -157,6 +156,10 @@ export default Mixin.create({
             },
           },
         }, params, contentNamespaces);
+
+        setTimeout(() => {
+          this.articleStates.set('isSpinnerLoading', true);
+        }, 1000);
 
         fetch(url)
           .then((response) => {
