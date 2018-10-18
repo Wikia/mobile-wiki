@@ -1,0 +1,15 @@
+.feed-posts-module {
+  background-image: linear-gradient(to top, rgba(#fff, 0), #ffffff);
+  line-height: $wds-line-height-none;
+  margin: 0 -20px 30px;
+  padding: 40px 20px 0;
+  transform: skewY(-5deg);
+
+  > * {
+    transform: skewY(5deg);
+  }
+
+  .embedded-feed__header {
+    padding-bottom: 0;
+  }
+}
