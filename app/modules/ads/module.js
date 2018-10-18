@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+/* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';

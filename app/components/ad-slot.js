@@ -11,7 +11,6 @@ export default Component.extend(
   InViewportMixin,
   {
     ads: service(),
-    logger: service(),
 
     classNames: ['ad-slot-wrapper'],
     classNameBindings: ['nameLowerCase', 'noAds'],
@@ -44,7 +43,6 @@ export default Component.extend(
       }
 
       if (this.noAds) {
-        this.logger.info('Ad disabled for:', name);
         return;
       }
 
@@ -73,7 +71,6 @@ export default Component.extend(
     willDestroyElement() {
       const name = this.name;
 
-      this.logger.info('Will destroy ad:', name);
       this.get('ads.module').removeSlot(name);
     },
 
@@ -85,14 +82,12 @@ export default Component.extend(
       const name = this.name;
 
       if (this.noAds) {
-        this.logger.info('Ad disabled for:', name);
         return;
       }
 
       if (this.shouldWaitForUapResponse) {
         ads.waitForUapResponse(
           () => {
-            this.logger.info('Injected ad on scroll:', name);
             ads.pushSlotToQueue(name);
           },
           () => {},
