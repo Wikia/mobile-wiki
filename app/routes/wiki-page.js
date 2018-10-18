@@ -131,9 +131,10 @@ export default Route.extend(
               && this.get('wikiVariables.enableFeedsAndPosts')
             ) {
               const fpOptions = {
-                communityId: this.get('wikiVariables.id'),
                 communityName: this.get('wikiVariables.siteName'),
-                dbName: this.get('wikiVariables.dbName'),
+                track: () => {
+                  // TODO
+                },
               };
               feedsAndPosts.getModule().then((fpModule) => {
                 feedsAndPosts.loadFeed(fpModule, fpOptions);
