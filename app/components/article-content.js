@@ -123,7 +123,7 @@ export default Component.extend(
             duration: 200,
             easing: 'linear',
           });
-          articleContent.animate([
+          articleContent.animate([ 
             { opacity: 0 },
             { opacity: 0.33 },
             { opacity: 0.66 },
