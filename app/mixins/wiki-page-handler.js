@@ -131,7 +131,6 @@ export default Mixin.create({
             throw error;
           });
       } else if (!isInitialPageView) {
-
         let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
