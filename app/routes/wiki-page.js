@@ -136,8 +136,8 @@ export default Route.extend(
                   // TODO
                 },
               };
-              feedsAndPosts.getModule().then((fpModule) => {
-                feedsAndPosts.loadFeed(fpModule, fpOptions);
+              feedsAndPosts.getModule().then((fandomEmbeddedFeeds) => {
+                feedsAndPosts.loadFeed(fandomEmbeddedFeeds, fpOptions);
               });
             }
           });
