@@ -7,6 +7,7 @@ export default Service.extend({
   isScrollTopDone: false,
   isAnimOutDone: false,
   isAnimInDone: false,
+  animsrunning: false,
 
   resetValues() {
     this.set('isFullyLoaded', false);

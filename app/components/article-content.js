@@ -105,13 +105,16 @@ export default Component.extend(
     didReceiveAttrs() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
       const animInDone = this.get('articleStates').isAnimInDone;
+      const animsRunning = this.get('articleStates').animsrunning;
 
       if (articleLoaded) {
         const articleContent = document.querySelector('.article-wrapper');
         const articleTitle = document.querySelector('.wiki-page-header__title-wrapper');
 
-        if (!animInDone) {
-          articleTitle.animate([
+        if (!animInDone && !animsRunning) {
+          this.articleStates.set('animsrunning', true);
+
+          articleContent.animate([
             // keyframes
             { transform: 'translateX(+300px)' },
             { transform: 'translateX(0px)' },
@@ -120,7 +123,7 @@ export default Component.extend(
             duration: 200,
             easing: 'linear',
           });
-          articleTitle.animate([
+          articleContent.animate([
             { opacity: 0 },
             { opacity: 0.33 },
             { opacity: 0.66 },
@@ -129,7 +132,6 @@ export default Component.extend(
             duration: 200,
             easing: 'linear',
           });
-
           this.articleStates.set('isAnimInDone', true);
         }
       }
