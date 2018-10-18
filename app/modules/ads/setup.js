@@ -148,10 +148,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('custom.isCMPEnabled', true);
   }
 
-  const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig;
+  const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
   const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
 
-  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig || {})) {
+  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
     context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-body > h3`);
   }
 
