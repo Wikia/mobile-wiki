@@ -73,6 +73,7 @@ class Ads {
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
       bidders.updateSlotTargeting(slot.getSlotName());
     });
 

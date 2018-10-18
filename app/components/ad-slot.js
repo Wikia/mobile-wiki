@@ -52,12 +52,10 @@ export default Component.extend(
         ads.waitForUapResponse(
           () => {},
           () => {
-            this.logger.info('Injected ad:', name);
             ads.pushSlotToQueue(name);
           },
         );
       } else {
-        this.logger.info('Injected ad', name);
         ads.pushSlotToQueue(name);
       }
 
