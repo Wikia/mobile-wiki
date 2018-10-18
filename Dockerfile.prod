@@ -19,7 +19,7 @@ RUN addgroup -S mobile-wiki && \
     chmod 755 /app && \
 
 # install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git && \
+    apk add --no-cache --virtual .gyp python make g++ git curl && \
 
 # override github's auth type
     git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
@@ -37,8 +37,6 @@ RUN addgroup -S mobile-wiki && \
 # cleanup
     apk del .gyp python make g++ git && \
     npm cache clean --force
-
-USER docker_user
 
 # copy app
 # Note:
