@@ -25,7 +25,7 @@ export default EmberObject.extend({
     this.logger.warn(`!!!REQUEST URL ${url}`, {});
 
     const options = this.fetchService.getOptionsForInternalCache(url);
-
+    console.log('!!!cache options', options);
     if (accessToken) {
       options.headers = {
         Cookie: `access_token=${accessToken}`,
@@ -36,7 +36,7 @@ export default EmberObject.extend({
       .then((response) => {
         if (!response.ok) {
           this.logger.warn(`!!!status code: ${response.status}`);
-          this.logger.warn('!!!wiki variables response headers', response.headers.entries());
+          console.log('!!!wiki variables response headers', response.headers);
 
           return response.text().then(() => {
             throw new WikiVariablesFetchError({
@@ -48,6 +48,8 @@ export default EmberObject.extend({
           });
         }
         const contentType = response.headers.get('content-type');
+        this.logger.warn(`!!!status code: ${response.status}`);
+        console.log('!!!wiki variables response headers', response.headers);
 
         if (contentType && contentType.indexOf('application/json') !== -1) {
           return response.json();
