@@ -37,11 +37,11 @@ failTests() {
 }
 
 # $1 - directory
-setupNpm() {
+setupDeps() {
   updateGit "Setup" pending "updating node modules"
 
   git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf ssh://git@github.com/
-  npm install --no-save || error=true
+  yarn || error=true
 
   if [[ ! -z $error ]]
   then
@@ -58,7 +58,7 @@ updateGit "Linter" pending pending
 updateGit "Assets size" pending pending
 
 ### Setup - node_modules
-setupNpm
+setupDeps
 
 if [ -z $error ]
 then
@@ -73,7 +73,7 @@ fi
 ### Tests - running
 updateGit "Tests" pending running
 
-COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER npm run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
+COVERAGE=true TEST_PORT=$EXECUTOR_NUMBER yarn run test 2>&1 | tee jenkins/tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/tests.log
 
 if [ -z $error1 ]
@@ -87,7 +87,7 @@ fi
 
 ### Linter - running
 updateGit "Linter" pending running
-npm run linter 2>&1 | tee jenkins/linter.log || { error3=true && failJob=true; }
+yarn run linter 2>&1 | tee jenkins/linter.log || { error3=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
 
 if [ -z $error3 ]
@@ -103,9 +103,9 @@ fi
 assetsSizeLogFile="jenkins/assets-size.log"
 updateGit "Assets size" pending running
 
-npm run build-prod
+yarn run build-prod
 
-assetsSizeError=$(npm run assets-size 2>&1 >$assetsSizeLogFile)
+assetsSizeError=$(yarn run assets-size 2>&1 >$assetsSizeLogFile)
 cat $assetsSizeLogFile
 vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
 
