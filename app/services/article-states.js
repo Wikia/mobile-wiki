@@ -7,13 +7,13 @@ export default Service.extend({
   isScrollTopDone: false,
   isAnimOutDone: false,
   isAnimInDone: false,
-  animsrunning: false,
 
   resetValues() {
     this.set('isFullyLoaded', false);
     this.set('isSpinnerLoading', false);
     this.set('isEmptyLabel', false);
     this.set('isScrollTopDone', false);
+    this.set('isAnimOutDone', false);
     this.set('isAnimInDone', false);
   },
 

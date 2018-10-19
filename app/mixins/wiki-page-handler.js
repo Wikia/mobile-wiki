@@ -151,6 +151,7 @@ export default Mixin.create({
             details: {
               title: temporaryTitle,
               ns: namespaceNumber,
+              url: urlFromParams,
             },
           },
         }, params, contentNamespaces);

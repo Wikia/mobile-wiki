@@ -105,43 +105,40 @@ export default Component.extend(
     didReceiveAttrs() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
       const animInDone = this.get('articleStates').isAnimInDone;
-      const animsRunning = this.get('articleStates').animsrunning;
 
-      if (articleLoaded) {
+      if (articleLoaded && !animInDone) {
         const articleContent = document.querySelector('.article-wrapper');
         const articleTitle = document.querySelector('.wiki-page-header__title-wrapper');
 
-        if (!animInDone && !animsRunning) {
-          this.articleStates.set('animsrunning', true);
+        articleTitle.animate([
+          // keyframes
+          { transform: 'translateX(+300px)' },
+          { transform: 'translateX(0px)' },
+        ], {
+          // timing options
+          duration: 200,
+          easing: 'linear',
+        });
 
-          articleContent.animate([
-            // keyframes
-            { transform: 'translateX(+300px)' },
-            { transform: 'translateX(0px)' },
-          ], {
-            // timing options
-            duration: 200,
-            easing: 'linear',
-          });
-          articleContent.animate([ 
-            { opacity: 0 },
-            { opacity: 0.33 },
-            { opacity: 0.66 },
-            { opacity: 1 },
-          ], {
-            duration: 200,
-            easing: 'linear',
-          });
-          this.articleStates.set('isAnimInDone', true);
-        }
+        articleContent.animate([
+          { opacity: 0 },
+          { opacity: 0.33 },
+          { opacity: 0.66 },
+          { opacity: 1 },
+        ], {
+          duration: 200,
+          easing: 'linear',
+        });
+        this.articleStates.set('isAnimInDone', true);
       }
     },
 
     didRender() {
       const articleLoaded = this.get('articleStates').isFullyLoaded;
       const scrollTopDone = this.get('articleStates').isScrollTopDone;
+      const isAnimOutDone = this.get('articleStates').isAnimOutDone;
 
-      if (scrollTopDone && !articleLoaded) {
+      if (scrollTopDone && !articleLoaded && !isAnimOutDone) {
         const articleContent = document.querySelector('.article-wrapper');
 
         articleContent.animate([
@@ -163,6 +160,8 @@ export default Component.extend(
           duration: 200,
           easing: 'linear',
         });
+
+        this.articleStates.set('isAnimOutDone', true);
       }
     },
 
