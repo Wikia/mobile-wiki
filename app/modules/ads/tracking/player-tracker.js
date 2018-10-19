@@ -16,7 +16,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
 
   const slot = slotService.get(data.slotName);
 
-  return {
+  const preparedData = {
     pv_number: window.pvNumber,
     country: getCountryCode(),
     skin: context.get('targeting.skin'),
@@ -36,6 +36,11 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
   };
+
+  if ([-1, 0, 1].indexOf(data.userBlockAutoplay) > -1) {
+    preparedData.user_block_autoplay = data.userBlockAutoplay;
+  }
+  return preparedData;
 }
 
 /**
