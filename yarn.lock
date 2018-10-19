@@ -727,9 +727,9 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.35.tgz#197dd535c094362a7c95f0b78f07583d6681ed26"
   integrity sha512-h5zvHS8wXHGa+Gcqs9K8vqCgOtqjr0+NqG/DDJmQIX1wpR9HivAfgV8bjcD3mGM4bPfQw5Aneb2Pn8355L83jA==
 
-"@wikia/ad-engine@git+https://github.com/Wikia/ad-engine.git#v19.0.3":
-  version "19.0.3"
-  resolved "git+https://github.com/Wikia/ad-engine.git#0bc595bc5e2f5af6074074860e17b206cc8b8a20"
+"@wikia/ad-engine@git+https://github.com/Wikia/ad-engine.git#v19.0.8":
+  version "19.0.8"
+  resolved "git+https://github.com/Wikia/ad-engine.git#d2f899d4a071e82b02950aefcf38b18a63d32d1e"
   dependencies:
     babel-runtime "6.26.0"
     blockadblock "3.2.1"
@@ -739,9 +739,9 @@
     js-cookie "2.2.0"
     lodash "^4.17.4"
 
-"@wikia/ember-fandom@github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b":
+"@wikia/ember-fandom@github:Wikia/ember-fandom#d29c236173b05a17e747b131026f493a03f9312c":
   version "0.6.0"
-  resolved "git+ssh://git@github.com/Wikia/ember-fandom.git#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b"
+  resolved "git+ssh://git@github.com/Wikia/ember-fandom.git#d29c236173b05a17e747b131026f493a03f9312c"
   dependencies:
     ember-browserify "1.2.2"
     ember-cli-babel "6.14.1"
@@ -749,10 +749,10 @@
     ember-fetch "5.1.2"
     i18next "11.3.3"
 
-"@wikia/tracking-opt-in@1.0.36":
-  version "1.0.36"
-  resolved "https://artifactory.wikia-inc.com:443/artifactory/api/npm/wikia-npm/@wikia/tracking-opt-in/-/tracking-opt-in-1.0.36.tgz#bc0ca03274448294e25fc26669783caa4aaa12ec"
-  integrity sha1-vAygMnREgpTiX8JmaXg8qkqqEuw=
+"@wikia/tracking-opt-in@1.0.39":
+  version "1.0.39"
+  resolved "https://artifactory.wikia-inc.com:443/artifactory/api/npm/wikia-npm/@wikia/tracking-opt-in/-/tracking-opt-in-1.0.39.tgz#9d91467db3b7f9df50881ef7602052fd9997ffcc"
+  integrity sha1-nZFGfbO3+d9QiB73YCBS/ZmX/8w=
 
 "@xg-wang/whatwg-fetch@^3.0.0":
   version "3.0.0"

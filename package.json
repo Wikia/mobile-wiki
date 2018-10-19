@@ -33,9 +33,9 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v19.0.3",
-    "@wikia/ember-fandom": "github:Wikia/ember-fandom#9aa2ce2cc6eefaf6e6ec3770f025c5269296df7b",
-    "@wikia/tracking-opt-in": "1.0.36",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v19.0.8",
+    "@wikia/ember-fandom": "github:Wikia/ember-fandom#d29c236173b05a17e747b131026f493a03f9312c",
+    "@wikia/tracking-opt-in": "1.0.39",
     "body-parser": "1.18.3",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.3",

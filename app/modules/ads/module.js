@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+/* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
@@ -73,6 +74,7 @@ class Ads {
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
       bidders.updateSlotTargeting(slot.getSlotName());
     });
 
