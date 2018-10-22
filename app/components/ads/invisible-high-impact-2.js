@@ -8,11 +8,11 @@ import RenderComponentMixin from '../../mixins/render-component';
 export default Component.extend(RenderComponentMixin, {
   ads: service(),
 
+  name: null,
   noAds: readOnly('ads.noAds'),
   nameLowerCase: computed('name', function () {
     return dasherize(this.name.toLowerCase());
   }),
-  name: null,
 
   didInsertElement() {
     this._super(...arguments);
