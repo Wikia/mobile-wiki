@@ -126,7 +126,7 @@ export default {
             'targeting.rv': '{slotConfig.repeat.index}',
             'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
           },
-          injectBelowConflictingElements: true,
+          insertBelowScrollPosition: true,
         },
         slotShortcut: 'f',
         sizes: [
