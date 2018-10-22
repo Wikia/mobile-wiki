@@ -8,6 +8,9 @@ export default Service.extend({
   isAnimOutDone: false,
   isAnimInDone: false,
 
+  onScrollTop() {},
+  onAnimDone() {},
+
   resetValues() {
     this.set('isFullyLoaded', false);
     this.set('isSpinnerLoading', false);

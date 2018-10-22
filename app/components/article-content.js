@@ -15,6 +15,8 @@ import scrollToTop from '../utils/scroll-to-top';
 import toArray from '../utils/toArray';
 import { track, trackActions } from '../utils/track';
 
+const time = 350;
+
 /**
   * HTMLElement
   * @typedef {Object} HTMLElement
@@ -100,6 +102,38 @@ export default Component.extend(
 
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
+
+      this.articleStates.onScrollTop = () => {
+        const articleLoaded = this.get('articleStates').isFullyLoaded;
+        const isAnimOutDone = this.get('articleStates').isAnimOutDone;
+
+        if (!articleLoaded && !isAnimOutDone) {
+          //todo: support hero image
+          const articleContent = document.querySelector('.article-body');
+          const articleTitle = document.querySelector('.wiki-page-header');
+
+          articleContent.animate([
+            { opacity: 1, transform: 'translateX(0px)' },
+            { opacity: 0, transform: 'translateX(-300px)' },
+          ], {
+            duration: time,
+            easing: 'linear',
+          });
+
+          articleTitle.animate([
+            { opacity: 1, transform: 'translateX(0)' },
+            { opacity: 0, transform: 'translateX(-200px)' },
+          ], {
+            duration: time,
+            easing: 'linear',
+          });
+
+          setTimeout(() => {
+            this.articleStates.set('isAnimOutDone', true);
+            this.articleStates.onAnimDone();
+          }, time);
+        }
+      };
     },
 
     didReceiveAttrs() {
@@ -107,61 +141,28 @@ export default Component.extend(
       const animInDone = this.get('articleStates').isAnimInDone;
 
       if (articleLoaded && !animInDone) {
-        const articleContent = document.querySelector('.article-wrapper');
-        const articleTitle = document.querySelector('.wiki-page-header__title-wrapper');
+        const articleContent = document.querySelector('.article-body');
+        const articleTitle = document.querySelector('.wiki-page-header');
+
+        articleContent.animate([
+          { opacity: 0, transform: 'translateX(300px)' },
+          { opacity: 1, transform: 'translateX(0)' },
+        ], {
+          duration: time,
+          easing: 'linear',
+        });
 
         articleTitle.animate([
           // keyframes
-          { transform: 'translateX(+300px)' },
-          { transform: 'translateX(0px)' },
+          { opacity: 0, transform: 'translateX(300px)' },
+          { opacity: 1, transform: 'translateX(0)' },
         ], {
           // timing options
-          duration: 200,
+          duration: time,
           easing: 'linear',
         });
 
-        articleContent.animate([
-          { opacity: 0 },
-          { opacity: 0.33 },
-          { opacity: 0.66 },
-          { opacity: 1 },
-        ], {
-          duration: 200,
-          easing: 'linear',
-        });
         this.articleStates.set('isAnimInDone', true);
-      }
-    },
-
-    didRender() {
-      const articleLoaded = this.get('articleStates').isFullyLoaded;
-      const scrollTopDone = this.get('articleStates').isScrollTopDone;
-      const isAnimOutDone = this.get('articleStates').isAnimOutDone;
-
-      if (scrollTopDone && !articleLoaded && !isAnimOutDone) {
-        const articleContent = document.querySelector('.article-wrapper');
-
-        articleContent.animate([
-          { opacity: 1 },
-          { opacity: 0.66 },
-          { opacity: 0.33 },
-          { opacity: 0 },
-        ], {
-          duration: 200,
-          easing: 'linear',
-        });
-
-        articleContent.animate([
-          // keyframes
-          { transform: 'translateX(0px)' },
-          { transform: 'translateX(-300px)' },
-        ], {
-          // timing options
-          duration: 200,
-          easing: 'linear',
-        });
-
-        this.articleStates.set('isAnimOutDone', true);
       }
     },
 

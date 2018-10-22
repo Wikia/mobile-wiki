@@ -16,6 +16,7 @@ import {
   CachingInterval, CachingPolicy, disableCache, setResponseCaching,
 } from '../utils/fastboot-caching';
 import { track, trackActions } from '../utils/track';
+import smoothScrollTop from '../utils/smooth-scroll-top';
 
 export default Route.extend(
   Ember.TargetActionSupport,
@@ -32,6 +33,7 @@ export default Route.extend(
     wikiVariables: service(),
     smartBanner: service(),
     router: service(),
+    articleStates: service(),
 
     queryParams: {
       file: {
@@ -312,6 +314,15 @@ export default Route.extend(
           window.location.assign(target.href);
         } else if (info.article) {
           this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
+
+
+          this.get('articleStates').resetValues();
+
+          smoothScrollTop(() => {
+            this.articleStates.set('isScrollTopDone', true);
+            this.articleStates.onScrollTop();
+          });
+
         } else if (info.url) {
           /**
           * If it's a jump link or a link to something in a Wikia domain,

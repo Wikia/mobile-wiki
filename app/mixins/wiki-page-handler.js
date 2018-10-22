@@ -91,7 +91,7 @@ export default Mixin.create({
   wikiUrls: service(),
   articleStates: service(),
 
-  getPageModel(params) {
+  getPageModel(params, prevPageIsMainPage) {
     const isFastBoot = this.get('fastboot.isFastBoot');
     const shoebox = this.get('fastboot.shoebox');
     const contentNamespaces = this.get('wikiVariables.contentNamespaces');
@@ -156,10 +156,6 @@ export default Mixin.create({
           },
         }, params, contentNamespaces);
 
-        setTimeout(() => {
-          this.articleStates.set('isSpinnerLoading', true);
-        }, 1000);
-
         fetch(url)
           .then((response) => {
             if (response.ok) {
@@ -189,10 +185,19 @@ export default Mixin.create({
             throw error;
           });
 
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(model);
-          }, 100);
+        return new Promise((res) => {
+          if (prevPageIsMainPage) {
+            res(model);
+          } else {
+            this.articleStates.onAnimDone = () => {
+              setTimeout(() => {
+                this.articleStates.set('isSpinnerLoading', true);
+              }, 500);
+
+              res(model);
+            };
+          }
+
         });
       }
     }

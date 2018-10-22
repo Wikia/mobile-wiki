@@ -98,7 +98,7 @@ export default Route.extend(
         modelParams.page = Math.max(1, params.page);
       }
 
-      return resolve(this.getPageModel(modelParams));
+      return resolve(this.getPageModel(modelParams, this.get('currentModel.isMainPage')));
     },
 
     /**

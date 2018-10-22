@@ -3,15 +3,6 @@ import { alias, equal, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 
-function scrollItTop(durationInMs) {
-  let i = 0;
-  const int = setInterval(() => {
-    window.scrollTo(0, 0);
-    i += 10;
-    if (i >= durationInMs) clearInterval(int);
-  }, 20);
-}
-
 export default Controller.extend(
   AlertNotificationsMixin,
   {
@@ -20,7 +11,6 @@ export default Controller.extend(
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
-    articleStates: service(),
 
     queryParams: ['file',
       {
@@ -68,14 +58,6 @@ export default Controller.extend(
     * @returns {void}
     */
       handleLink(target) {
-        this.get('articleStates').resetValues();
-
-        scrollItTop(200);
-
-        setTimeout(() => {
-          this.articleStates.set('isScrollTopDone', true);
-        }, 100);
-
         this.target.send('handleLink', target);
       },
 
