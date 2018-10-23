@@ -17,6 +17,7 @@ function getFileSize(path) {
   return stats.size / 1024;
 }
 
+
 Object.keys(assetsSizes).forEach((fileName) => {
   let realFileName = `assets/${fileName}`;
   if(assetMap[realFileName]) {
