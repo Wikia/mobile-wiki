@@ -194,10 +194,6 @@ export default {
       targeting.cid = cid;
     }
 
-    // TODO Implement Krux integration
-    // targeting.u = krux.getUser();
-    // targeting.ksgmnt = krux.getSegments();
-
     Object.keys(legacyParams).forEach((key) => {
       targeting[key] = legacyParams[key];
     });
