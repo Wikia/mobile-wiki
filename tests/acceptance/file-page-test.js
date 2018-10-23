@@ -6,6 +6,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
+import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | file page', (hooks) => {
   setupApplicationTest(hooks);
@@ -15,6 +16,7 @@ module('Acceptance | file page', (hooks) => {
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
+    mockFastlyInsights(this.owner);
     window.Image = sinon.stub();
   });
 

@@ -78,7 +78,7 @@ export default class JWPlayerTracker {
     this.setVideoId(player);
     this.track('init');
 
-    player.on('adComplete', () => {
+    player.on('videoStart', () => {
       this.updateCreativeData();
     });
 
@@ -131,6 +131,13 @@ export default class JWPlayerTracker {
   * @returns {void}
   */
   track(eventName, errorCode = 0) {
+    this.trackingParams.userBlockAutoplay = -1;
+
+    const featuredVideoAutoplayCookie = window.Cookies.get('featuredVideoAutoplay');
+    if (['0', '1'].indexOf(featuredVideoAutoplayCookie) > -1) {
+      this.trackingParams.userBlockAutoplay = featuredVideoAutoplayCookie === '0' ? 1 : 0;
+    }
+
     PlayerTracker.track(this.trackingParams, playerName, eventName, errorCode);
   }
 

@@ -1,5 +1,6 @@
 import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
+import billTheLizard from './bill-the-lizard';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
@@ -144,7 +145,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
     context.set('custom.rubiconInFV',
       isGeoEnabled('wgAdDriverRubiconVideoInFeaturedVideoCountries') && hasFeaturedVideo);
-    context.set('custom.isCMPEnabled', isGeoEnabled('wgEnableCMPCountries'));
+    context.set('custom.isCMPEnabled', true);
+  }
+
+  const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
+  const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
+
+  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
+    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content section h3`);
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));

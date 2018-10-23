@@ -12,11 +12,7 @@ import {
   namespace as MediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-import fetch from '../utils/mediawiki-fetch';
-import {
-  getFetchErrorMessage,
-  WikiPageFetchError,
-} from '../utils/errors';
+import { WikiPageFetchError, getFetchErrorMessage } from '../utils/errors';
 import extend from '../utils/extend';
 
 /**
@@ -90,6 +86,7 @@ export default Mixin.create({
   simpleStore: service(),
   wikiUrls: service(),
   articleStates: service(),
+  fetch: service(),
 
   getPageModel(params, prevPageIsMainPage) {
     const isFastBoot = this.get('fastboot.isFastBoot');
@@ -102,35 +99,8 @@ export default Mixin.create({
       params.noads = this.get('fastboot.request.queryParams.noads');
       params.noexternals = this.get('fastboot.request.queryParams.noexternals');
       const url = getURL(this.wikiUrls, params);
-      if (isFastBoot) {
-        return fetch(url)
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            return getFetchErrorMessage(response).then(() => {
-              throw new WikiPageFetchError({
-                code: response.status || 503,
-              }).withAdditionalData({
-                requestUrl: url,
-                responseUrl: response.url,
-              });
-            });
-          })
-          .then((data) => {
-            if (isFastBoot) {
-              dataForShoeBox(data, shoebox);
-            }
-            return this.getModelForNamespace(data, params, contentNamespaces);
-          })
-          .catch((error) => {
-            if (isFastBoot) {
-              errorForShoeBox(error, shoebox);
-            }
 
-            throw error;
-          });
-      } else if (!isInitialPageView) {
+      if (!isInitialPageView) {
         let namespaceNumber = 0;
         let temporaryTitle = params.title.replace(/_/g, ' ');
         const IfColonExist = /:/.test(temporaryTitle);
@@ -197,9 +167,24 @@ export default Mixin.create({
               res(model);
             };
           }
-
         });
       }
+
+      return this.fetch.fetchFromMediawiki(url, WikiPageFetchError)
+        .then((data) => {
+          if (isFastBoot) {
+            dataForShoeBox(data, shoebox);
+          }
+
+          return this.getModelForNamespace(data, params, contentNamespaces);
+        })
+        .catch((error) => {
+          if (isFastBoot) {
+            errorForShoeBox(error, shoebox);
+          }
+
+          throw error;
+        });
     }
 
     const wikiPageData = shoebox.retrieve('wikiPage');

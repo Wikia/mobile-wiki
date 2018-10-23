@@ -34,6 +34,7 @@ export default Route.extend(
     smartBanner: service(),
     router: service(),
     articleStates: service(),
+    fastlyInsights: service(),
 
     queryParams: {
       file: {
@@ -157,6 +158,8 @@ export default Route.extend(
             this.set('smartBanner.smartBannerVisible', false);
           };
         });
+
+        this.fastlyInsights.loadFastlyInsightsScript();
       }
 
       if (fastboot.get('isFastBoot')) {
