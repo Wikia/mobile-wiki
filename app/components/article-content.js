@@ -112,7 +112,7 @@ export default Component.extend(
           const articleContent = document.querySelector('.article-body');
           const articleTitle = document.querySelector('.wiki-page-header');
 
-          articleContent.animate([
+          const animateContentOut = articleContent.animate([
             { opacity: 1, transform: 'translateX(0px)' },
             { opacity: 0, transform: 'translateX(-300px)' },
           ], {
@@ -120,13 +120,15 @@ export default Component.extend(
             easing: 'linear',
           });
 
-          articleTitle.animate([
-            { opacity: 1, transform: 'translateX(0)' },
-            { opacity: 0, transform: 'translateX(-200px)' },
-          ], {
-            duration: time,
-            easing: 'linear',
-          });
+          animateContentOut.onfinish = () => {
+            articleTitle.animate([
+              { opacity: 1, transform: 'translateX(0)' },
+              { opacity: 0, transform: 'translateX(-200px)' },
+            ], {
+              duration: time,
+              easing: 'linear',
+            });
+          };
 
           setTimeout(() => {
             this.articleStates.set('isAnimOutDone', true);
@@ -144,7 +146,7 @@ export default Component.extend(
         const articleContent = document.querySelector('.article-body');
         const articleTitle = document.querySelector('.wiki-page-header');
 
-        articleContent.animate([
+        const animateContentIn = articleContent.animate([
           { opacity: 0, transform: 'translateX(300px)' },
           { opacity: 1, transform: 'translateX(0)' },
         ], {
@@ -152,17 +154,24 @@ export default Component.extend(
           easing: 'linear',
         });
 
-        articleTitle.animate([
-          // keyframes
-          { opacity: 0, transform: 'translateX(300px)' },
-          { opacity: 1, transform: 'translateX(0)' },
-        ], {
-          // timing options
-          duration: time,
-          easing: 'linear',
-        });
+        if (this.get('articleStates').isTitleAnimatedIn) {
+          animateContentIn.onfinish = () => {
+            articleTitle.animate([
+              // keyframes
+              { opacity: 0, transform: 'translateX(300px)' },
+              { opacity: 1, transform: 'translateX(0)' },
+            ], {
+              // timing options
+              duration: time,
+              easing: 'linear',
+            });
+            this.articleStates.set('isTitileAnimatedIn', true);
+          };
+        }
 
-        this.articleStates.set('isAnimInDone', true);
+        setTimeout(() => {
+          this.articleStates.set('isAnimInDone', true);
+        }, time);
       }
     },
 

@@ -7,6 +7,7 @@ export default Service.extend({
   isScrollTopDone: false,
   isAnimOutDone: false,
   isAnimInDone: false,
+  isTitileAnimatedIn: false,
 
   onScrollTop() {},
   onAnimDone() {},
@@ -18,6 +19,7 @@ export default Service.extend({
     this.set('isScrollTopDone', false);
     this.set('isAnimOutDone', false);
     this.set('isAnimInDone', false);
+    this.set('isTitileAnimatedIn', false);
   },
 
   afterArticleLoaded() {

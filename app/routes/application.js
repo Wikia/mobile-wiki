@@ -315,14 +315,12 @@ export default Route.extend(
         } else if (info.article) {
           this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 
-
           this.get('articleStates').resetValues();
 
           smoothScrollTop(() => {
             this.articleStates.set('isScrollTopDone', true);
             this.articleStates.onScrollTop();
           });
-
         } else if (info.url) {
           /**
           * If it's a jump link or a link to something in a Wikia domain,
