@@ -88,7 +88,7 @@ export default {
         slotShortcut: 'l',
         sizes: [],
         defaultSizes: [[320, 50], [320, 100], [300, 50]],
-        defaultTemplates: ['stickyAd'],
+        defaultTemplates: [],
         targeting: {
           loc: 'top',
           rv: 1,
@@ -115,7 +115,7 @@ export default {
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         repeat: {
           additionalClasses: 'hide',
           index: 1,
@@ -126,7 +126,7 @@ export default {
             'targeting.rv': '{slotConfig.repeat.index}',
             'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
           },
-          injectBelowConflictingElements: true,
+          insertBelowScrollPosition: true,
         },
         slotShortcut: 'f',
         sizes: [
@@ -147,7 +147,7 @@ export default {
         avoidConflictWith: '.ad-slot',
         autoplay: true,
         audio: false,
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         disabled: true,
         slotNameSuffix: '',
         group: 'HiVi',

@@ -13,7 +13,7 @@ import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import extend from '../utils/extend';
 import { normalizeToUnderscore } from '../utils/string';
-import { setTrackContext, trackPageView } from '../utils/track';
+import { setTrackContext, trackPageView, track } from '../utils/track';
 import {
   namespace as mediawikiNamespace,
   isContentNamespace,
@@ -131,12 +131,11 @@ export default Route.extend(
               && this.get('wikiVariables.enableFeedsAndPosts')
             ) {
               const fpOptions = {
-                communityId: this.get('wikiVariables.id'),
                 communityName: this.get('wikiVariables.siteName'),
-                dbName: this.get('wikiVariables.dbName'),
+                track,
               };
-              feedsAndPosts.getModule().then((fpModule) => {
-                feedsAndPosts.loadFeed(fpModule, fpOptions);
+              feedsAndPosts.getModule().then((fandomEmbeddedFeeds) => {
+                feedsAndPosts.loadFeed(fandomEmbeddedFeeds, fpOptions);
               });
             }
           });

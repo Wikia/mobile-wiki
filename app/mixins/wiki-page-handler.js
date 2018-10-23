@@ -11,11 +11,7 @@ import {
   namespace as MediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-import fetch from '../utils/mediawiki-fetch';
-import {
-  getFetchErrorMessage,
-  WikiPageFetchError,
-} from '../utils/errors';
+import { WikiPageFetchError } from '../utils/errors';
 import extend from '../utils/extend';
 
 /**
@@ -63,6 +59,7 @@ export default Mixin.create({
   wikiVariables: service(),
   simpleStore: service(),
   wikiUrls: service(),
+  fetch: service(),
 
   getPageModel(params) {
     const isFastBoot = this.get('fastboot.isFastBoot');
@@ -76,20 +73,7 @@ export default Mixin.create({
 
       const url = getURL(this.wikiUrls, params);
 
-      return fetch(url)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          return getFetchErrorMessage(response).then(() => {
-            throw new WikiPageFetchError({
-              code: response.status || 503,
-            }).withAdditionalData({
-              requestUrl: url,
-              responseUrl: response.url,
-            });
-          });
-        })
+      return this.fetch.fetchFromMediawiki(url, WikiPageFetchError)
         .then((data) => {
           if (isFastBoot) {
             const dataForShoebox = extend({}, data);
