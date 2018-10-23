@@ -4,23 +4,23 @@ let config = null;
 let cheshirecatCalled = false;
 let cheshirecatPredictions = {};
 
-function getNextIncontentId(predictions) {
-  return `incontent_boxad_${Object.keys(predictions).length + 2}`;
+function getNextIncontentId() {
+  return `incontent_boxad_${Object.keys(cheshirecatPredictions).length + 2}`;
 }
 
 function serializeBids(slotName) {
-  const bidderPrices = targeting.getBiddersPrices(slotName);
+  const bidderPrices = targeting.getBiddersPrices(slotName, false);
 
   return {
     bids: [
       bidderPrices.bidder_1 || 0,
       bidderPrices.bidder_2 || 0,
-      0,
+      bidderPrices.bidder_3 || 0,
       bidderPrices.bidder_4 || 0,
-      0,
+      bidderPrices.bidder_5 || 0,
       bidderPrices.bidder_6 || 0,
       bidderPrices.bidder_7 || 0,
-      0,
+      bidderPrices.bidder_8 || 0,
       bidderPrices.bidder_9 || 0,
       bidderPrices.bidder_10 || 0,
       bidderPrices.bidder_11 || 0,
@@ -35,7 +35,7 @@ function serializeBids(slotName) {
 
 export default {
   configureBillTheLizard(instantGlobals) {
-    const { context, slotService } = window.Wikia.adEngine;
+    const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
@@ -46,7 +46,7 @@ export default {
 
       billTheLizard.projectsHandler.enable('cheshirecat');
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-        slotService.disable(getNextIncontentId(cheshirecatPredictions), 'catlapsed');
+        slotService.disable(getNextIncontentId(), 'catlapsed');
       });
 
       context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
@@ -56,6 +56,10 @@ export default {
             this.callCheshireCat();
           }
         },
+      });
+
+      events.on(events.BIDS_REFRESH, () => {
+        cheshirecatCalled = true;
       });
     }
   },
@@ -70,7 +74,7 @@ export default {
 
     billTheLizard.call(['cheshirecat'])
       .then((predictions) => {
-        const identifier = getNextIncontentId(cheshirecatPredictions);
+        const identifier = getNextIncontentId();
         const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
 
         cheshirecatPredictions[identifier] = prediction;
