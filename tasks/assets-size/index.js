@@ -19,8 +19,8 @@ function getFileSize(path) {
 
 Object.keys(assetsSizes).forEach((fileName) => {
   let realFileName = `assets/${fileName}`;
-  if(assetMap[realFileName]) {
-  realFileName = assetMap[realFileName];
+  if (assetMap[realFileName]) {
+    realFileName = assetMap[realFileName];
   }
 
   const fileSize = getFileSize(`dist/mobile-wiki/${realFileName}`);
@@ -30,9 +30,9 @@ Object.keys(assetsSizes).forEach((fileName) => {
   console.log(`Allowed size: ${assetsSizes[fileName]} KB`);
 
   if (fileSize > assetsSizes[fileName]) {
-  console.error('Failure');
-  console.log('Failure. Current file-size is greater than allowed file-size.');
+    console.error('Failure');
+    console.log('Failure. Current file-size is greater than allowed file-size.');
   } else {
-  console.log('Success! Current file-size is less than allowed file-size.');
+    console.log('Success! Current file-size is less than allowed file-size.');
   }
 });
