@@ -18,12 +18,12 @@ export default Component.extend(RenderComponentMixin, {
     this._super(...arguments);
 
     this.get('ads.module').onReady(() => {
-			this.get('ads.module').waitForUapResponse(
-					() => {},
-					() => {
-						this.get('ads.module').pushSlotToQueue(this.name);
-					},
-			);
+      this.get('ads.module').waitForUapResponse(
+        () => {},
+        () => {
+          this.get('ads.module').pushSlotToQueue(this.name);
+        },
+      );
     });
   },
 
