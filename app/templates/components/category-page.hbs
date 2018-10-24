@@ -13,6 +13,7 @@
   {{#if model.hasPagination}}
     {{category-pagination
       firstPageUrl=model.firstPageUrl
+      isPrevPageTheFirstPage=model.isPrevPageTheFirstPage
       lastPageKey=model.lastPageKey
       lastPageUrl=model.lastPageUrl
       loadFrom=(action "loadFrom")

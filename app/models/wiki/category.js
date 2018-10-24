@@ -11,6 +11,7 @@ export default BaseModel.extend({
   firstPageUrl: null,
   host: null,
   hasArticle: false,
+  isPrevPageTheFirstPage: false,
   lastPageKey: null,
   lastPageUrl: null,
   membersGrouped: null,

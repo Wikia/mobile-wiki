@@ -7,7 +7,7 @@
   </a>
 {{/if}}
 {{#if prevPageUrl}}
-  <a {{action loadFrom prevPageKey "prev"}}
+  <a {{action loadFrom (if isPrevPageTheFirstPage null prevPageKey) "prev"}}
     href={{prevPageUrl}}
     class="category-pagination__prev wds-button wds-is-secondary"
   >
