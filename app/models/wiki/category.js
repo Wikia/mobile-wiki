@@ -44,7 +44,7 @@ export default BaseModel.extend({
 
     return this.fetch.fetchFromMediawiki(
       this.wikiUrls.build(urlParams),
-      CategoryMembersFetchError
+      CategoryMembersFetchError,
     ).then(({ data }) => {
       if (isEmpty(data) || isEmpty(data.membersGrouped)) {
         throw new Error('Unexpected response from server');

@@ -1,6 +1,5 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import { track, trackActions } from '../utils/track';
 import scrollToTop from '../utils/scroll-to-top';
