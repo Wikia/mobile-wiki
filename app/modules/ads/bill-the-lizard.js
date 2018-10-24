@@ -55,10 +55,13 @@ export default {
           if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
             this.callCheshireCat();
           }
-          if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
-            incontentsCounter += 1;
-          }
         },
+      });
+
+      events.on(events.AD_SLOT_CREATED, (adSlot) => {
+        if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
+          incontentsCounter += 1;
+        }
       });
 
       events.on(events.BIDS_REFRESH, () => {
