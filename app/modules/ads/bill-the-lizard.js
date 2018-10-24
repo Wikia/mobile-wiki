@@ -2,10 +2,10 @@ import targeting from './targeting';
 
 let config = null;
 let cheshirecatCalled = false;
-let cheshirecatPredictions = {};
+let incontentsCounter = 1;
 
 function getNextIncontentId() {
-  return `incontent_boxad_${Object.keys(cheshirecatPredictions).length + 2}`;
+  return `incontent_boxad_${incontentsCounter}`;
 }
 
 function serializeBids(slotName) {
@@ -52,8 +52,11 @@ export default {
       context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
-          if (adSlot.config.slotName === 'incontent_boxad_1' && !cheshirecatCalled) {
+          if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
             this.callCheshireCat();
+          }
+          if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
+            incontentsCounter += 1;
           }
         },
       });
@@ -69,17 +72,9 @@ export default {
     const { billTheLizard } = window.Wikia.adServices;
 
     context.set('services.billTheLizard.parameters.cheshirecat', serializeBids('mobile_in_content'));
-
     cheshirecatCalled = true;
 
-    billTheLizard.call(['cheshirecat'])
-      .then((predictions) => {
-        const identifier = getNextIncontentId();
-        const prediction = Object.keys(predictions).map(key => `${key}=${predictions[key]}`).join(';');
-
-        cheshirecatPredictions[identifier] = prediction;
-        context.set(`services.billTheLizard.parameters.cheshirecatSlotResponses.${identifier}`, prediction);
-      });
+    billTheLizard.call(['cheshirecat']);
   },
 
   hasAvailableModels(btlConfig, projectName) {
@@ -91,7 +86,12 @@ export default {
   },
 
   reset() {
+    const { billTheLizard } = window.Wikia.adServices;
+
     cheshirecatCalled = false;
-    cheshirecatPredictions = {};
+    incontentsCounter = 1;
+
+    // Reset predictions from previous page views
+    billTheLizard.predictions = {};
   },
 };
