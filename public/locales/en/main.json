@@ -51,9 +51,9 @@
   },
   "category-page": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "load-more": "Load more",
-    "load-previous": "Load previous",
     "no-members": "This category currently contains no pages.",
+    "pagination-first": "First",
+    "pagination-last": "Last",
     "subtitle": "Category Page"
   },
   "edit": {

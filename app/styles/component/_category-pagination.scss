@@ -1,0 +1,23 @@
+.category-pagination {
+  border-top: 1px solid $wds-fandom-color-dark-gray;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 $article-horizontal-padding 40px;
+  padding-top: 20px;
+
+  &__prev {
+    margin-right: auto;
+
+    .wds-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__next {
+    margin-left: auto;
+
+    .wds-icon {
+      transform: rotate(-90deg);
+    }
+  }
+}

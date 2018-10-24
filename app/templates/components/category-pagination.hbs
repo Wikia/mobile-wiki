@@ -1,0 +1,32 @@
+{{#if firstPageUrl}}
+  <a {{action loadFrom null "first"}}
+    href={{firstPageUrl}}
+    class="wds-button wds-is-text"
+  >
+    {{i18n "category-page.pagination-first"}}
+  </a>
+{{/if}}
+{{#if prevPageUrl}}
+  <a {{action loadFrom prevPageKey "prev"}}
+    href={{prevPageUrl}}
+    class="category-pagination__prev wds-button wds-is-secondary"
+  >
+    {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny"}}
+  </a>
+{{/if}}
+{{#if nextPageUrl}}
+  <a {{action loadFrom nextPageKey "next"}}
+    href={{nextPageUrl}}
+    class="category-pagination__next wds-button wds-is-secondary"
+  >
+    {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny"}}
+  </a>
+{{/if}}
+{{#if lastPageUrl}}
+  <a {{action loadFrom lastPageKey "last"}}
+    href={{lastPageUrl}}
+    class="wds-button wds-is-text"
+  >
+    {{i18n "category-page.pagination-last"}}
+  </a>
+{{/if}}
