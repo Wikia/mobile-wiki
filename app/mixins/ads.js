@@ -54,19 +54,22 @@ export default Mixin.create({
     const placeholder = document.createElement('div');
     const wikiContainer = document.getElementById('wikiContainer');
 
+    if (!this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
+      return;
+    }
+
     if (wikiContainer) {
       wikiContainer.insertAdjacentElement('afterend', placeholder);
+      const attributes = this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
 
-      if (this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
-        this.ads.pushAdSlotComponent(
-          adsData.invisibleHighImpact2,
-          this.renderAdComponent({
-            name: 'ads/invisible-high-impact-2',
-            attrs: {},
-            element: placeholder,
-          }),
-        );
-      }
+      this.ads.pushAdSlotComponent(
+        adsData.invisibleHighImpact2,
+        this.renderAdComponent({
+          name: 'ads/invisible-high-impact-2',
+          attrs: attributes,
+          element: placeholder,
+        }),
+      );
 
       this.appendAd(adsData.invisibleHighImpact, 'afterend', wikiContainer);
     }
