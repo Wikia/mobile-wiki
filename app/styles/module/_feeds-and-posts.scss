@@ -1,0 +1,19 @@
+.feed-posts-module {
+  background-image: linear-gradient(to top, rgba(#fff, 0), #fff);
+  line-height: $wds-line-height-none;
+  margin: 0 0 30px;
+  padding: 40px 12px 0;
+  transform: skewY(-5deg);
+
+  .article-content & {
+    margin: 0 -12px 30px;
+  }
+
+  > * {
+    transform: skewY(5deg);
+  }
+
+  .embedded-feed__header {
+    padding-bottom: 0;
+  }
+}

@@ -71,6 +71,8 @@ class Ads {
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
     this.instantGlobals = instantGlobals;
+    this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
+
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
@@ -207,10 +209,13 @@ class Ads {
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
 
-    if (this.events && this.showAds) {
+    if (this.events) {
       context.set('state.adStack', []);
       this.events.pageChange(options);
-      this.engine.runAdQueue();
+
+      if (this.showAds) {
+        this.engine.runAdQueue();
+      }
     }
   }
 

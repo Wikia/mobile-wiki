@@ -25,8 +25,8 @@ function getModule() {
   fpPromise = new Promise((resolve, reject) => {
     const fpScript = document.createElement('script');
     fpScript.onload = () => {
-      if (window.fp) {
-        resolve(window.fp);
+      if (window.fandomEmbeddedFeeds) {
+        resolve(window.fandomEmbeddedFeeds);
       } else {
         reject();
       }

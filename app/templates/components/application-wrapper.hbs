@@ -15,7 +15,10 @@
   </div>
   {{wikia-in-your-lang}}
   {{#if globalFooter}}
-    {{wds-global-footer model=globalFooter}}
+    {{wds-global-footer
+      model=globalFooter
+      track=(action track)
+    }}
     {{global-footer-bottom}}
   {{/if}}
 {{/if}}
