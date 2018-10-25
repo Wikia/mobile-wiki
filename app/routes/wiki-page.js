@@ -128,7 +128,7 @@ export default Route.extend(
             // If it's an article page and the extension is enabled, load the Feeds & Posts module
             if (!fastboot.get('isFastBoot')
               && isContentNamespace(model.ns, this.get('wikiVariables.contentNamespaces'))
-              && this.get('wikiVariables.enableFeedsAndPosts')
+              && this.get('wikiVariables.enableFeedsAndPostsEmbeddedFeed')
             ) {
               const fpOptions = {
                 communityId: this.get('wikiVariables.id'),
