@@ -39,12 +39,8 @@ function getURL(wikiUrls, params) {
     query.noexternals = params.noexternals;
   }
 
-  if (params.page) {
-    query.categoryMembersPage = params.page;
-  }
-
   if (params.from) {
-    query.categoryMembersPage = params.from;
+    query.categoryMembersFrom = params.from;
   }
 
   // this is pseudo-versioning query param for collapsible sections (XW-4393)

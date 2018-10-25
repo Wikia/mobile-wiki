@@ -11,17 +11,11 @@ export default BaseModel.extend({
   firstPageUrl: null,
   host: null,
   hasArticle: false,
-  isPrevPageTheFirstPage: false,
-  lastPageKey: null,
-  lastPageUrl: null,
-  membersGrouped: null,
-  nextPageKey: null,
-  nextPageUrl: null,
-  prevPageKey: null,
-  prevPageUrl: null,
+  members: null,
+  pagination: null,
   trendingArticles: null,
 
-  hasPagination: or('nextPageKey', 'prevPageKey'),
+  hasPagination: or('pagination.nextPageKey', 'pagination.prevPageKey'),
 
   /**
    * @param {number} from
@@ -40,7 +34,7 @@ export default BaseModel.extend({
     };
 
     if (from !== null) {
-      urlParams.query.categoryMembersPage = from;
+      urlParams.query.categoryMembersFrom = from;
     }
 
     return this.fetch.fetchFromMediawiki(

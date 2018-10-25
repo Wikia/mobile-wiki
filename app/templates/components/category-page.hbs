@@ -5,22 +5,13 @@
     overlay=false
   }}
 {{else}}
-  {{#if model.membersGrouped}}
-    {{category-members-grouped
-      membersGrouped=model.membersGrouped
-    }}
-  {{/if}}
+  {{category-members-grouped
+    model=model.members
+  }}
   {{#if model.hasPagination}}
     {{category-pagination
-      firstPageUrl=model.firstPageUrl
-      isPrevPageTheFirstPage=model.isPrevPageTheFirstPage
-      lastPageKey=model.lastPageKey
-      lastPageUrl=model.lastPageUrl
       loadFrom=(action "loadFrom")
-      nextPageKey=model.nextPageKey
-      nextPageUrl=model.nextPageUrl
-      prevPageKey=model.prevPageKey
-      prevPageUrl=model.prevPageUrl
+      model=model.pagination
     }}
   {{/if}}
 {{/if}}

@@ -43,7 +43,9 @@ export default Route.extend(
       from: {
         // See controllers/category#actions.loadFrom
         refreshModel: false,
-        replace: true
+        // Would be better to support back and forward buttons
+        // but I wasn't able to reload the model on history change
+        replace: true,
       },
     },
 
@@ -97,10 +99,6 @@ export default Route.extend(
 
       if (params.from) {
         modelParams.from = params.from;
-      }
-
-      if (params.page) {
-        modelParams.page = Math.max(1, params.page);
       }
 
       return resolve(this.getPageModel(modelParams));
