@@ -1,22 +1,39 @@
 {{#each-in model as |firstLetter members|}}
-  <div>
-    <h3>{{firstLetter}}</h3>
-    <ul
-      onclick={{action "trackClick" "category-page" "open-link"}}
-      class="category-members-grouped__list wds-has-big-items wds-list mw-content"
-    >
-      {{#each members as |category|}}
-        <li
-          class={{if category.isCategory "category-members-grouped__subcategory"}}
-        >
+  <h3 class="category-members-grouped__first-char">{{firstLetter}}</h3>
+  <ul
+    onclick={{action "trackClick" "category-page" "open-link"}}
+    class="category-members-grouped__members-for-char wds-has-big-items wds-list mw-content"
+  >
+    {{#each members as |category|}}
+      <li class="category-members-grouped__member">
+        <div class="category-members-grouped__member-left">
           {{#if category.isCategory}}
             {{svg "wds-icons-pages-small" class="wds-icon wds-icon-small"}}
+          {{else if category.image}}
+            <img
+              class="category-members-grouped__member-thumbnail lazyload"
+              alt={{category.title}}
+              data-src={{category.image}}
+              src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 48 48' fill='%23fff' width='44' height='44'%3e%3cg fill-rule='evenodd'%3e%3cpath d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0 0-1.146 0L3 14.626V4zm19-2H2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z'/%3e%3cpath d='M9 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2'/%3e%3c/g%3e%3c/svg%3e"
+            >
+            <noscript>
+              <img
+                class="category-members-grouped__member-thumbnail"
+                alt={{category.title}}
+                src={{category.image}}
+              >
+            </noscript>
           {{/if}}
-          <a href={{category.url}}>{{category.title}}</a>
-        </li>
-      {{/each}}
-    </ul>
-  </div>
+        </div>
+        <a
+          class="category-members-grouped__member-link"
+          href={{category.url}}
+        >
+          {{category.title}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
 {{else}}
   <div>{{i18n "category-page.no-members"}}</div>
 {{/each-in}}
