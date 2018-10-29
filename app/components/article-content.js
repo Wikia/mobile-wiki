@@ -537,6 +537,6 @@ export default Component.extend(
 
           anchor.setAttribute('href', url);
         }));
-    }
+    },
   },
 );
