@@ -9,7 +9,6 @@ export default BaseModel.extend({
   wikiUrls: service(),
   fetch: service(),
 
-  firstPageUrl: null,
   host: null,
   hasArticle: false,
   members: null,
