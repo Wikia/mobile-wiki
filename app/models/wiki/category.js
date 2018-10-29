@@ -1,3 +1,4 @@
+import EmberObject from '@ember/object';
 import { or } from '@ember/object/computed';
 import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
@@ -41,11 +42,11 @@ export default BaseModel.extend({
       this.wikiUrls.build(urlParams),
       CategoryMembersFetchError,
     ).then(({ data }) => {
-      if (isEmpty(data) || isEmpty(data.membersGrouped)) {
+      if (isEmpty(data) || isEmpty(data.members)) {
         throw new Error('Unexpected response from server');
       }
 
-      this.setProperties(data);
+      this.setProperties(this.sanitizeRawData(data));
     });
   },
 
@@ -57,7 +58,28 @@ export default BaseModel.extend({
     this._super(...arguments);
 
     if (data && data.nsSpecificContent) {
-      this.setProperties(data.nsSpecificContent);
+      this.setProperties(this.sanitizeRawData(data.nsSpecificContent));
     }
+  },
+
+  sanitizeRawData(rawData) {
+    const members = [];
+
+    Object.keys(rawData.members)
+      .forEach((firstChar) => {
+        const group = new EmberObject();
+        group.setProperties({
+          firstChar,
+          members: rawData.members[firstChar],
+          isCollapsed: false,
+        });
+
+        members.push(group);
+      });
+
+    return {
+      members,
+      pagination: rawData.pagination,
+    };
   },
 });

@@ -6,6 +6,10 @@ export default Component.extend(
     classNames: ['category-members-grouped'],
 
     actions: {
+      toggleGroup(group) {
+        group.toggleProperty('isCollapsed');
+      },
+
       /**
        * @param {string} category
        * @param {string} label

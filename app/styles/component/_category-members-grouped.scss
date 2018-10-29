@@ -2,7 +2,9 @@
   padding: 0 6px;
 
   &__first-char {
+    align-items: center;
     border-bottom: solid 1px $wds-color-light-c4;
+    display: flex;
     font-size: $wds-font-size-xl;
     margin: 0;
     padding-bottom: 10px;
@@ -10,12 +12,25 @@
     &:not(:first-child) {
       margin-top: 40px;
     }
+
+    .chevron {
+      color: $wds-color-light-c4;
+      margin-left: auto;
+    }
+
+    &:not(.is-collapsed) .chevron {
+      transform: rotate(180deg);
+    }
   }
 
   &__members-for-char {
     margin: 0;
     padding: 0;
     position: relative;
+
+    .is-collapsed + & {
+      display: none;
+    }
   }
 
   &__member {
