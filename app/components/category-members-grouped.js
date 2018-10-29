@@ -1,8 +1,11 @@
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
   {
+    fastboot: service(),
+
     classNames: ['category-members-grouped'],
 
     actions: {
