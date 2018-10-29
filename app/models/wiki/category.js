@@ -14,6 +14,7 @@ export default BaseModel.extend({
   hasArticle: false,
   members: null,
   pagination: null,
+  totalNumberOfMembers: 0,
   trendingArticles: null,
 
   hasPagination: or('pagination.nextPageKey', 'pagination.prevPageKey'),
@@ -64,6 +65,10 @@ export default BaseModel.extend({
 
   sanitizeRawData(rawData) {
     const members = [];
+    const properties = {
+      members,
+      pagination: rawData.pagination,
+    };
 
     Object.keys(rawData.members)
       .forEach((firstChar) => {
@@ -77,9 +82,15 @@ export default BaseModel.extend({
         members.push(group);
       });
 
-    return {
-      members,
-      pagination: rawData.pagination,
-    };
+    // Two below are only returned from getPage resource
+    if (rawData.totalNumberOfMembers) {
+      properties.totalNumberOfMembers = rawData.totalNumberOfMembers;
+    }
+
+    if (rawData.trendingArticles) {
+      properties.trendingArticles = rawData.trendingArticles;
+    }
+
+    return properties;
   },
 });

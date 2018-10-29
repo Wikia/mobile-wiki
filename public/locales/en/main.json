@@ -54,7 +54,8 @@
     "no-members": "This category currently contains no pages.",
     "pagination-first": "First",
     "pagination-last": "Last",
-    "subtitle": "Category Page"
+    "subtitle": "Category Page",
+    "total-number": "All Items ({totalNumberOfItems})"
   },
   "edit": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.",
