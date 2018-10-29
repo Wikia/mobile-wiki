@@ -1,4 +1,8 @@
 <p class="category-page__total-number">{{i18n 'category-page.total-number' totalNumberOfItems=model.totalNumberOfMembers}}</p>
+{{category-alphabet-shortcuts
+  from=from
+  loadFrom=(action "loadFrom")
+}}
 {{#if isLoading}}
   {{wds-spinner
     active=isLoading

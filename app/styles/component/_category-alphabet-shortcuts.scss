@@ -1,0 +1,23 @@
+.category-alphabet-shortcuts {
+  display: flex;
+  list-style: none;
+  margin: 0 0 40px;
+  overflow-x: scroll;
+
+  &__item {
+    background: $wds-fandom-color-light-gray;
+    color: $wds-fandom-color-link;
+    font-size: $wds-font-size-s;
+    line-height: $wds-font-size-s;
+    padding: 15px 17px;
+
+    &:not(:last-child) {
+      margin-right: 1px;
+    }
+
+    &.is-active {
+      background: $wds-fandom-color-link;
+      color: $wds-fandom-color-light-gray;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import Controller, { inject as controller } from '@ember/controller';
+import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
 
@@ -9,6 +10,8 @@ export default Controller.extend(
     application: controller(),
     wikiPage: controller(),
     preserveScroll: service(),
+
+    from: readOnly('wikiPage.from'),
 
     actions: {
       /**
