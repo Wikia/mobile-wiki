@@ -3,6 +3,8 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
+  // Without it, it looks bad when the last group is collapsed
+  margin-top: 10px;
   padding-top: 20px;
 
   &__prev {
