@@ -20,6 +20,11 @@ module('Unit | Module | ads | tracking', (hooks) => {
         getDfpSlotPrices: () => {},
       },
     };
+    window.Wikia.adServices = {
+      billTheLizard: {
+        serialize: () => '',
+      },
+    };
     sinon.spy(trackModule, 'track');
   });
 
