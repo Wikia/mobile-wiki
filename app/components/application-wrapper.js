@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { bool, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
+import { track } from '../utils/track';
 
 /**
   * HTMLMouseEvent
@@ -47,6 +48,10 @@ export default Component.extend({
 
   bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
+
+  track(data) {
+    track(data);
+  },
 
   /**
   * Necessary because presently, we open external links in new pages, so if we didn't

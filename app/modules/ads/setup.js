@@ -9,6 +9,7 @@ import targeting from './targeting';
 import ViewabilityTracker from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
+import { getConfig as getOutOfPageConfig } from './templates/out-of-page-config';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyAdConfig } from './templates/sticky-ad-config';
@@ -72,6 +73,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
@@ -170,6 +172,8 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     utils: adProductsUtils,
     BigFancyAdAbove,
     BigFancyAdBelow,
+    FloorAdhesion,
+    Interstitial,
     PorvataTemplate,
     Roadblock,
     StickyAd,
@@ -180,6 +184,8 @@ function configure(adsContext, instantGlobals, isOptedIn) {
 
   templateService.register(BigFancyAdAbove, getBfaaConfig());
   templateService.register(BigFancyAdBelow, getBfabConfig());
+  templateService.register(FloorAdhesion, getOutOfPageConfig());
+  templateService.register(Interstitial, getOutOfPageConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyAd, getStickyAdConfig());
