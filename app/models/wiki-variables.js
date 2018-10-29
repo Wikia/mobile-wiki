@@ -9,6 +9,7 @@ import {
 export default EmberObject.extend({
   fetchService: service('fetch'),
   wikiUrls: service(),
+  logger: service(),
 
   load(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
@@ -20,6 +21,9 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
+
+
+    this.logger.error('WikiVariablesModel url', url, host, protocol);
     const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (accessToken) {
