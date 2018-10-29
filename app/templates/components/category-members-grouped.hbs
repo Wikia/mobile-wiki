@@ -1,7 +1,8 @@
 {{#each model as |group|}}
   <h3
     class="category-members-grouped__first-char{{if group.isCollapsed " is-collapsed"}}"
-    role="button" {{action "toggleGroup" group}}
+    role="button"
+    onclick={{action "toggleGroup" group}}
   >
     {{group.firstChar}}
     {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny chevron"}}
