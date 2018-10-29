@@ -47,14 +47,14 @@ function getModule() {
   * @param {Module} module
   * @param {Object} [options]
   */
-function loadFeed(module, options = {}) {
+function loadFeed(module, options = {}, isMainPage = false) {
   const container = document.createElement('div');
   container.setAttribute('class', 'feed-posts-module');
 
   // First try inserting before the first collapsed H2 in the article content
   let insertBeforeNode = document.querySelector('.article-content h2[section]');
   // Then try before the article footer
-  if (!insertBeforeNode) {
+  if (!insertBeforeNode || isMainPage) {
     insertBeforeNode = document.querySelector('.article-footer');
   }
   // If that doesn't exist, do nothing
