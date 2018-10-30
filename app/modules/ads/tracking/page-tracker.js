@@ -23,6 +23,10 @@ export default {
   * @returns {void}
   */
   trackProp(name, value) {
+    if (!this.isEnabled()) {
+      return;
+    }
+
     track({
       eventName: 'adengpageinfo_props',
       trackingMethod: 'internal',
