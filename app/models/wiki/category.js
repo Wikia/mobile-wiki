@@ -4,6 +4,7 @@ import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import BaseModel from './base';
 import { CategoryMembersFetchError } from '../../utils/errors';
+import { normalizeToUnderscore } from '../../utils/string';
 
 export default BaseModel.extend({
   wikiUrls: service(),
@@ -29,7 +30,7 @@ export default BaseModel.extend({
       query: {
         controller: 'MercuryApi',
         method: 'getCategoryMembers',
-        title: this.title,
+        title: normalizeToUnderscore(this.title),
         format: 'json',
       },
     };
