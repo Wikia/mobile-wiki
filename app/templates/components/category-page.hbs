@@ -1,11 +1,11 @@
-<p class="category-page__total-number">
+<h2 class="category-page__total-number">
   {{i18n
     "category-page.total-number"
-    totalNumberOfItems=model.totalNumberOfMembers
+    totalNumberOfItems=@model.totalNumberOfMembers
   }}
-</p>
+</h2>
 {{category-alphabet-shortcuts
-  from=from
+  from=@from
   loadFrom=(action "loadFrom")
 }}
 {{#if isLoading}}
@@ -16,12 +16,12 @@
   }}
 {{else}}
   {{category-members-grouped
-    model=model.members
+    model=@model.members
   }}
   {{#if model.hasPagination}}
     {{category-pagination
       loadFrom=(action "loadFrom")
-      model=model.pagination
+      model=@model.pagination
     }}
   {{/if}}
 {{/if}}
