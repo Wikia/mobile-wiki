@@ -7,10 +7,10 @@
     siteName=siteName
     wikiPageHeaderSubtitle=(i18n "category-page.subtitle")
   }}
-    {{#if model.trendingArticles}}
-      {{trending-articles
-        header=(i18n "app.trending-articles-label")
-        model=model.trendingArticles
+    {{!-- Keep it outside of category-page to make scrolling to top easier --}}
+    {{#if @model.trendingArticles}}
+      {{category-trending-articles
+        model=@model.trendingArticles
       }}
     {{/if}}
     {{category-page

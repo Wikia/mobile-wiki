@@ -1,0 +1,10 @@
+<h2 class="category-trending-articles__header">
+  {{i18n "category-page.trending-pages"}}
+</h2>
+<ul class="category-trending-articles">
+  {{#each @model as |article|}}
+    {{category-trending-articles-item
+      model=article
+    }}
+  {{/each}}
+</ul>
