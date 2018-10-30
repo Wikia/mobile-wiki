@@ -14,7 +14,7 @@ export default BaseModel.extend({
   members: null,
   pagination: null,
   totalNumberOfMembers: 0,
-  trendingArticles: null,
+  trendingPages: null,
 
   hasPagination: or('pagination.nextPageKey', 'pagination.prevPageKey'),
 
@@ -86,8 +86,8 @@ export default BaseModel.extend({
       properties.totalNumberOfMembers = rawData.totalNumberOfMembers;
     }
 
-    if (rawData.trendingArticles) {
-      properties.trendingArticles = rawData.trendingArticles;
+    if (rawData.trendingPages) {
+      properties.trendingPages = rawData.trendingPages;
     }
 
     return properties;

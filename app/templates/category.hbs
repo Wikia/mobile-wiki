@@ -8,9 +8,9 @@
     wikiPageHeaderSubtitle=(i18n "category-page.subtitle")
   }}
     {{!-- Keep it outside of category-page to make scrolling to top easier --}}
-    {{#if @model.trendingArticles}}
-      {{category-trending-articles
-        model=@model.trendingArticles
+    {{#if model.trendingPages}}
+      {{category-trending-pages
+        model=model.trendingPages
       }}
     {{/if}}
     {{category-page

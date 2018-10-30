@@ -4,7 +4,7 @@ import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend(
   {
-    classNames: ['category-trending-articles__item'],
+    classNames: ['category-trending-pages__item'],
     tagName: 'li',
 
     src: computed('model.thumbnail', function () {
