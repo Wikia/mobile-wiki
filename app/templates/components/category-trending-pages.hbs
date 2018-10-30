@@ -1,10 +1,10 @@
 <h2 class="category-trending-pages__header">
   {{i18n "category-page.trending-pages"}}
 </h2>
-<ul class="category-trending-pages__list">
+<div class="category-trending-pages__list mw-content">
   {{#each @model as |page|}}
     {{category-trending-pages-item
       model=page
     }}
   {{/each}}
-</ul>
+</div>

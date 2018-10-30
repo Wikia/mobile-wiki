@@ -1,11 +1,15 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend(
   {
+    attributeBindings: ['href'],
     classNames: ['category-trending-pages__item'],
-    tagName: 'li',
+    tagName: 'a',
+
+    href: readOnly('model.url'),
 
     src: computed('model.thumbnail', function () {
       const options = {
