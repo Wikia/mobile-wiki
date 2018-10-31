@@ -20,6 +20,7 @@ export default EmberObject.extend({
         format: 'json',
       },
     });
+
     const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (accessToken) {

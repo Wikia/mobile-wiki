@@ -1,4 +1,5 @@
 import targeting from './targeting';
+import pageTracker from './tracking/page-tracker';
 
 let config = null;
 let cheshirecatCalled = false;
@@ -66,6 +67,10 @@ export default {
 
       events.on(events.BIDS_REFRESH, () => {
         cheshirecatCalled = true;
+      });
+
+      events.on(events.BILL_THE_LIZARD_REQUEST, (query) => {
+        pageTracker.trackProp('btl_request', query);
       });
     }
   },
