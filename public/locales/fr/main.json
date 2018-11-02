@@ -59,7 +59,12 @@
     "load-more": "Importer plus", 
     "load-previous": "Charger la précédente", 
     "no-members": "Cette catégorie ne contient aucune page à l'heure actuelle.", 
-    "subtitle": "Page de catégorie"
+    "pagination-first": "Première", 
+    "pagination-last": "Dernière", 
+    "shortcut-to-other": "Autre", 
+    "subtitle": "Page de catégorie", 
+    "total-number": "Toutes les pages ({totalNumberOfItems})", 
+    "trending-pages": "Pages tendance"
   }, 
   "edit": {
     "load-error": "Désolé, un problème est survenu. Veuillez réessayer.", 

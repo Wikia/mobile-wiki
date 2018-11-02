@@ -59,7 +59,12 @@
     "load-more": "Загрузить ещё", 
     "load-previous": "Загрузить предыдущие", 
     "no-members": "В настоящее время эта категория пуста.", 
-    "subtitle": "Страница категории"
+    "pagination-first": "Первая", 
+    "pagination-last": "Последняя", 
+    "shortcut-to-other": "Другое", 
+    "subtitle": "Страница категории", 
+    "total-number": "Всего: {totalNumberOfItems}", 
+    "trending-pages": "Популярные страницы"
   }, 
   "edit": {
     "load-error": "К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.", 

@@ -59,7 +59,12 @@
     "load-more": "Carica altro", 
     "load-previous": "Carica precedente", 
     "no-members": "Al momento questa categoria non contiene pagine.", 
-    "subtitle": "Pagina della categoria"
+    "pagination-first": "Inizio", 
+    "pagination-last": "Fine", 
+    "shortcut-to-other": "Altro", 
+    "subtitle": "Pagina della categoria", 
+    "total-number": "Tutti gli elementi ({totalNumberOfItems})", 
+    "trending-pages": "Pagine in tendenza"
   }, 
   "edit": {
     "load-error": "Purtroppo qualcosa è andato storto. Riprova.", 
