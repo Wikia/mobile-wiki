@@ -77,7 +77,11 @@ function getHostnamePrefix() {
 }
 
 function getPageCategories(adsContext) {
-  const categories = adsContext.targeting.pageCategories;
+  if (!adsContext.targeting.mercuryPageCategories) {
+    return undefined;
+  }
+
+  const categories = adsContext.targeting.mercuryPageCategories.map(item => item.title);
   let outCategories;
 
   if (categories && categories.length > 0) {
