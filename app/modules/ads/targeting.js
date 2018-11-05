@@ -77,7 +77,11 @@ function getHostnamePrefix() {
 }
 
 function getPageCategories(adsContext) {
-  const categories = adsContext.targeting.pageCategories;
+  if (!adsContext.targeting.mercuryPageCategories) {
+    return undefined;
+  }
+
+  const categories = adsContext.targeting.mercuryPageCategories.map(item => item.title);
   let outCategories;
 
   if (categories && categories.length > 0) {
@@ -205,13 +209,17 @@ export default {
     return targeting;
   },
 
-  getBiddersPrices(slotName) {
+  getBiddersPrices(slotName, markNotRequestedPrices = true) {
     const { bidders } = window.Wikia.adBidders;
 
     const realSlotPrices = bidders.getDfpSlotPrices(slotName);
     const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
 
     function transformBidderPrice(bidderName) {
+      if (!markNotRequestedPrices) {
+        return currentSlotPrices[bidderName];
+      }
+
       if (realSlotPrices && realSlotPrices[bidderName]) {
         return realSlotPrices[bidderName];
       }
@@ -227,8 +235,10 @@ export default {
       bidder_1: transformBidderPrice('indexExchange'),
       bidder_2: transformBidderPrice('appnexus'),
       bidder_4: transformBidderPrice('rubicon'),
+      bidder_5: transformBidderPrice('wikia'),
       bidder_6: transformBidderPrice('aol'),
       bidder_7: transformBidderPrice('audienceNetwork'),
+      bidder_8: transformBidderPrice('wikiaVideo'),
       bidder_9: transformBidderPrice('openx'),
       bidder_10: transformBidderPrice('appnexusAst'),
       bidder_11: transformBidderPrice('rubicon_display'),
