@@ -4,7 +4,7 @@ import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
-import PageTracker from './tracking/page-tracker';
+import pageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
@@ -103,8 +103,8 @@ class Ads {
     // Track Labrador values to DW
     const labradorPropValue = utils.getSamplingResults().join(';');
 
-    if (PageTracker.isEnabled() && labradorPropValue) {
-      PageTracker.trackProp('labrador', labradorPropValue);
+    if (labradorPropValue) {
+      pageTracker.trackProp('labrador', labradorPropValue);
     }
   }
 
