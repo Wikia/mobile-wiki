@@ -1,7 +1,10 @@
+import EmberObject from '@ember/object';
+import { or } from '@ember/object/computed';
 import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import BaseModel from './base';
 import { CategoryMembersFetchError } from '../../utils/errors';
+import { normalizeToUnderscore } from '../../utils/string';
 
 export default BaseModel.extend({
   wikiUrls: service(),
@@ -9,47 +12,85 @@ export default BaseModel.extend({
 
   host: null,
   hasArticle: false,
-  membersGrouped: null,
-  nextPage: null,
-  pages: null,
-  prevPage: null,
-  trendingArticles: null,
+  members: null,
+  pagination: null,
+  totalNumberOfMembers: 0,
+  trendingPages: null,
 
+  hasPagination: or('pagination.nextPageKey', 'pagination.prevPageKey'),
 
   /**
-  * @param {number} page
-  * @returns {Ember.RSVP.Promise}
-  */
-  loadPage(page) {
-    return this.fetch.fetchFromMediawiki(this.wikiUrls.build({
+   * @param {number} from
+   * @returns {Ember.RSVP.Promise}
+   */
+  loadFrom(from) {
+    const urlParams = {
       host: this.host,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',
         method: 'getCategoryMembers',
-        title: this.title,
-        categoryMembersPage: page,
+        title: normalizeToUnderscore(this.title),
         format: 'json',
       },
-    }), CategoryMembersFetchError)
-      .then(({ data }) => {
-        if (isEmpty(data) || isEmpty(data.membersGrouped)) {
-          throw new Error('Unexpected response from server');
-        }
+    };
 
-        this.setProperties(data);
-      });
+    if (from !== null) {
+      urlParams.query.categoryMembersFrom = from;
+    }
+
+    return this.fetch.fetchFromMediawiki(
+      this.wikiUrls.build(urlParams),
+      CategoryMembersFetchError,
+    ).then(({ data }) => {
+      if (isEmpty(data) || isEmpty(data.members)) {
+        throw new Error('Unexpected response from server');
+      }
+
+      this.setProperties(this.sanitizeRawData(data));
+    });
   },
 
   /**
-  * @param {Object} data
-  * @returns {void}
-  */
+   * @param {Object} data
+   * @returns {void}
+   */
   setData({ data }) {
     this._super(...arguments);
 
     if (data && data.nsSpecificContent) {
-      this.setProperties(data.nsSpecificContent);
+      this.setProperties(this.sanitizeRawData(data.nsSpecificContent));
     }
+  },
+
+  sanitizeRawData(rawData) {
+    const members = [];
+    const properties = {
+      members,
+      pagination: rawData.pagination,
+    };
+
+    Object.keys(rawData.members)
+      .forEach((firstChar) => {
+        const group = new EmberObject();
+        group.setProperties({
+          firstChar,
+          members: rawData.members[firstChar],
+          isCollapsed: false,
+        });
+
+        members.push(group);
+      });
+
+    // Two below are only returned from getPage resource
+    if (rawData.totalNumberOfMembers) {
+      properties.totalNumberOfMembers = rawData.totalNumberOfMembers;
+    }
+
+    if (rawData.trendingPages) {
+      properties.trendingPages = rawData.trendingPages;
+    }
+
+    return properties;
   },
 });

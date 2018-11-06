@@ -59,7 +59,12 @@
     "load-more": "Cargar más", 
     "load-previous": "Cargar anterior", 
     "no-members": "Esta categoría no contiene actualmente ninguna página.", 
-    "subtitle": "Página de categoría"
+    "pagination-first": "Primera", 
+    "pagination-last": "Última", 
+    "shortcut-to-other": "Otro", 
+    "subtitle": "Página de categoría", 
+    "total-number": "Todos los artículos ({totalNumberOfItems})", 
+    "trending-pages": "Páginas en tendencia"
   }, 
   "edit": {
     "load-error": "Lo sentimos, parece que algo salió mal. Por favor inténtalo de nuevo.", 

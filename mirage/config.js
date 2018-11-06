@@ -1,6 +1,8 @@
 import articleFixture from './fixtures/article';
 import articleCommentsFixture from './fixtures/article-comments';
 import blogPostPageFixture from './fixtures/blog-post';
+import categoryMembersFixture from './fixtures/category-members';
+import categoryPageFixture from './fixtures/category-page';
 import filePageFixture from './fixtures/file-page';
 import jwplayerVideoFixture from './fixtures/jwplayer-video';
 import searchSuggestionsFixture from './fixtures/search-suggestion';
@@ -64,7 +66,7 @@ export default function () {
 
   this.get('http://fallout.wikia.com/wikia.php', (schema, request) => {
     const {
-      controller, method, title, query, id,
+      controller, method, title, query, id, categoryMembersFrom,
     } = request.queryParams;
 
     if (controller === 'MercuryApi') {
@@ -82,6 +84,14 @@ export default function () {
 
       if (method === 'getPage' && title === 'Qaga2') {
         return articleFixture;
+      }
+
+      if (method === 'getPage' && title === 'Category:Blog_post_images') {
+        return categoryPageFixture;
+      }
+
+      if (method === 'getCategoryMembers' && title === 'Blog_post_images' && categoryMembersFrom === 'BethblogTofthemonthJuly.jpg') {
+        return categoryMembersFixture;
       }
 
       if (method === 'getSearchSuggestions') {

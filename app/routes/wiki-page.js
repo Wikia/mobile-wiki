@@ -40,9 +40,12 @@ export default Route.extend(
     runtimeConfig: service(),
 
     queryParams: {
-      page: {
-        // See controllers/category#actions.loadPage
+      from: {
+        // See controllers/category#actions.loadFrom
         refreshModel: false,
+        // Would be better to support back and forward buttons
+        // but I wasn't able to reload the model on history change
+        replace: true,
       },
     },
 
@@ -50,9 +53,9 @@ export default Route.extend(
     wikiHandler: null,
 
     /**
-   * @param {EmberStates.Transition} transition
-   * @returns {void}
-   */
+     * @param {EmberStates.Transition} transition
+     * @returns {void}
+     */
     beforeModel(transition) {
       this._super(transition);
 
@@ -82,9 +85,9 @@ export default Route.extend(
     },
 
     /**
-   * @param {*} params
-   * @returns {RSVP.Promise}
-   */
+     * @param {*} params
+     * @returns {RSVP.Promise}
+     */
     model(params, transition) {
       const wikiVariables = this.wikiVariables;
       const host = wikiVariables.get('host');
@@ -94,18 +97,18 @@ export default Route.extend(
         wiki: wikiVariables.get('dbName'),
       };
 
-      if (params.page) {
-        modelParams.page = Math.max(1, params.page);
+      if (params.from) {
+        modelParams.from = params.from;
       }
 
       return resolve(this.getPageModel(modelParams));
     },
 
     /**
-   * @param {Ember.Object} model
-   * @param {EmberStates.Transition} transition
-   * @returns {void}
-   */
+     * @param {Ember.Object} model
+     * @param {EmberStates.Transition} transition
+     * @returns {void}
+     */
     afterModel(model, transition) {
       this._super(...arguments);
 
@@ -162,7 +165,7 @@ export default Route.extend(
 
           if (
             !fastboot.get('isFastBoot')
-      && !transition.queryParams.noexternals
+            && !transition.queryParams.noexternals
           ) {
             getAdsModule().then((adsModule) => {
               if (isAdEngine3Loaded(adsModule)) {
@@ -203,10 +206,10 @@ export default Route.extend(
     },
 
     /**
-   * @param {Ember.Controller} controller
-   * @param {Ember.Model} model
-   * @returns {void}
-   */
+     * @param {Ember.Controller} controller
+     * @param {Ember.Model} model
+     * @returns {void}
+     */
     renderTemplate(controller, model) {
       const handler = this.wikiHandler;
 
@@ -219,18 +222,18 @@ export default Route.extend(
     },
 
     /**
-   *
-   * @param {Ember.Controller} controller
-   * @returns {void}
-   */
+     *
+     * @param {Ember.Controller} controller
+     * @returns {void}
+     */
     resetController(controller) {
       controller.set('preserveScrollPosition', false);
     },
 
     actions: {
       /**
-    * @returns {void}
-    */
+       * @returns {void}
+       */
       willTransition() {
         // notify a property change on soon to be stale model for observers (like
         // the Table of Contents menu) can reset appropriately
@@ -246,8 +249,8 @@ export default Route.extend(
       },
 
       /**
-    * @returns {boolean}
-    */
+       * @returns {boolean}
+       */
       didTransition() {
         if (this.redirectEmptyTarget) {
           this.controllerFor('application').addAlert({
@@ -260,15 +263,17 @@ export default Route.extend(
       },
 
       /**
-    * We can't use the built-in mechanism to render error substates
-    * It bubbles the error to application route and then FastBoot dies
-    * Instead, we transition to substate manually and prevent the bubbling
-    *
-    * @param {EmberError} error
-    * @returns {boolean}
-    */
+       * We can't use the built-in mechanism to render error substates
+       * It bubbles the error to application route and then FastBoot dies
+       * Instead, we transition to substate manually and prevent the bubbling
+       *
+       * @param {EmberError} error
+       * @returns {boolean}
+       */
       error(error) {
-        if (this.get('fastboot.isFastBoot') && (!error.code || error.code !== 404)) {
+        if (this.get('fastboot.isFastBoot') && (
+          !error.code || error.code !== 404
+        )) {
           this.logger.error('Wiki page error', error);
         }
 
@@ -278,18 +283,18 @@ export default Route.extend(
       },
 
       /**
-    * When we load another page for category members, we don't reload the route's model
-    * Because of that, we need to trigger the head tags update manually
-    */
+       * When we load another page for category members, we don't reload the route's model
+       * Because of that, we need to trigger the head tags update manually
+       */
       updateDynamicHeadTags() {
         this.setDynamicHeadTags(this.get('controller.model'));
       },
     },
 
     /**
-   * @param {Ember.Object} model
-   * @returns {Object} handler for current namespace
-   */
+     * @param {Ember.Object} model
+     * @returns {Object} handler for current namespace
+     */
     getHandler(model) {
       const currentNamespace = model.ns;
 
@@ -313,10 +318,10 @@ export default Route.extend(
     },
 
     /**
-   * Custom implementation of HeadTagsMixin::setDynamicHeadTags
-   * @param {Object} model, this is model object from route::afterModel() hook
-   * @returns {void}
-   */
+     * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+     * @param {Object} model, this is model object from route::afterModel() hook
+     * @returns {void}
+     */
     setDynamicHeadTags(model) {
       const handler = this.wikiHandler;
       const pageUrl = model.get('url');
@@ -341,9 +346,9 @@ export default Route.extend(
     },
 
     /**
-   * @param {ArticleModel} model
-   * @returns {void}
-   */
+     * @param {ArticleModel} model
+     * @returns {void}
+     */
     trackPageView(model) {
       const articleType = model.get('articleType');
       const namespace = model.get('ns');
