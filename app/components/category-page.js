@@ -12,6 +12,11 @@ export default Component.extend(
     classNames: ['category-page'],
     isLoading: false,
 
+    didRender() {
+      this._super(...arguments);
+      window.lazySizes.init();
+    },
+
     actions: {
       /**
        * @param {number} from
