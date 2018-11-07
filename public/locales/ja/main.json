@@ -59,7 +59,12 @@
     "load-more": "さらに表示", 
     "load-previous": "前のページ", 
     "no-members": "このカテゴリにはページがありません。", 
-    "subtitle": "カテゴリページ"
+    "pagination-first": "先頭", 
+    "pagination-last": "末尾", 
+    "shortcut-to-other": "その他", 
+    "subtitle": "カテゴリページ", 
+    "total-number": "総ページ数", 
+    "trending-pages": "人気のページ"
   }, 
   "edit": {
     "load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。", 

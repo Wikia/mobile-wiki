@@ -70,6 +70,7 @@ export default Component.extend(
           this.handleWikiaWidgetWrappers();
           this.handleJumpLink();
           this.handleCollapsibleSections();
+          this.handleCategoryPaginationUrls();
 
           window.lazySizes.init();
         } else if (this.displayEmptyArticleInfo) {
@@ -520,6 +521,24 @@ export default Component.extend(
     uncollapseSections() {
       toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
         .forEach(header => this.toogleCollapsibleSection(header));
+    },
+
+    /**
+     * When users create links to category pages with query params,
+     * we block them from being crawlable. Instead of href, we use a data attribute
+     * with encoded URL which needs to be handled in JS. It reloads the page
+     * because routes/application.js don't know how to handle that.
+     * It's ok because users should get rid of old shortcuts anyway
+     * and use the built-ones instead of duplicating them.
+     */
+    handleCategoryPaginationUrls() {
+      toArray(this.element.querySelectorAll('a[data-category-url-encoded]'))
+        .forEach(anchor => anchor.addEventListener('mousedown', (event) => {
+          const target = event.currentTarget;
+          const url = atob(target.getAttribute('data-category-url-encoded'));
+
+          target.setAttribute('href', url);
+        }));
     },
   },
 );

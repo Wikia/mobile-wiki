@@ -59,7 +59,12 @@
     "load-more": "Tải thêm", 
     "load-previous": "Load previous", 
     "no-members": "This category currently contains no pages.", 
-    "subtitle": "Category Page"
+    "pagination-first": "First", 
+    "pagination-last": "Last", 
+    "shortcut-to-other": "Other", 
+    "subtitle": "Category Page", 
+    "total-number": "All Items ({totalNumberOfItems})", 
+    "trending-pages": "Trending Pages"
   }, 
   "edit": {
     "load-error": "Sorry, it looks like something went wrong. Please try again.", 
