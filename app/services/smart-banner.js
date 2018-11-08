@@ -84,12 +84,13 @@ export default Service.extend({
     window.Cookies.set(cookieName, 1, cookieOptions);
   },
 
-  isCookieSet() {
-    return window.Cookies.get(this.customCookieName) === '1' || window.Cookies.get(this.fandomAppCookieName) === '1';
+  isCookieSet(cookieName) {
+    return window.Cookies.get(cookieName) === '1';
   },
 
   /**
    * @param {string} action
+   * @param {string} category
    * @returns {void}
    */
   track(action, category) {

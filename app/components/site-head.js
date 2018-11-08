@@ -54,11 +54,14 @@ export default Component.extend(
    * @returns {void}
    */
     checkForHiding() {
-      const smartBannerService = this.smartBanner;
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)) {
+        this.smartBanner.setVisibility(true);
+        this.smartBanner.track(trackActions.impression, this.smartBanner.fandomAppCookieName);
+      }
 
-      if (!standalone && !smartBannerService.isCookieSet()) {
-        smartBannerService.setVisibility(true);
-        smartBannerService.track(trackActions.impression);
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
+        this.smartBanner.setVisibility(true);
+        this.smartBanner.track(trackActions.impression, this.smartBanner.customCookieName);
       }
     },
 
