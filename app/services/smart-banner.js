@@ -13,7 +13,6 @@ export default Service.extend({
   dayInMiliseconds: 86400000,
   fandomAppCookieName: 'fandom-sb-closed',
   customCookieName: 'custom-sb-closed',
-  trackCategory: 'fandom-app-smart-banner',
 
   dbName: readOnly('wikiVariables.dbName'),
   isUserLangEn: equal('currentUser.language', 'en'),
@@ -90,10 +89,10 @@ export default Service.extend({
    * @param {string} action
    * @returns {void}
    */
-  track(action) {
+  track(action, category) {
     track({
       action,
-      category: this.trackCategory,
+      category,
       label: this.dbName,
     });
   },

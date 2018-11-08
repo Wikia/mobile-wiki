@@ -14,6 +14,7 @@ export default Component.extend(RespondsToScroll, {
   dayInMiliseconds: 86400000,
   // sync with scss variable $fandom-app-smart-banner-height
   fandomAppSmartBannerHeight: 85,
+  trackCategory: 'custom-smart-banner',
 
   closeButtonSelector: '.fandom-app-smart-banner__close',
 
@@ -61,7 +62,7 @@ export default Component.extend(RespondsToScroll, {
     close() {
       this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterClose'));
       this.smartBanner.setVisibility(false);
-      this.smartBanner.track(trackActions.close);
+      this.smartBanner.track(trackActions.close, this.trackCategory);
     },
   },
 
@@ -70,7 +71,7 @@ export default Component.extend(RespondsToScroll, {
       return;
     }
 
-    this.smartBanner.track(trackActions.install);
+    this.smartBanner.track(trackActions.install, this.trackCategory);
     this.smartBanner.setVisibility(false);
     this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterView'));
   },
