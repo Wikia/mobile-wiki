@@ -1,6 +1,8 @@
-import { and, equal, readOnly } from '@ember/object/computed';
-import Service, { inject as service } from '@ember/service';
-import { track } from '../utils/track';
+import {computed} from '@ember/object';
+import {and, equal, readOnly} from '@ember/object/computed';
+import Service, {inject as service} from '@ember/service';
+import {track} from '../utils/track';
+import {system} from '../utils/browser';
 
 export default Service.extend({
   currentUser: service(),
@@ -15,18 +17,53 @@ export default Service.extend({
   dbName: readOnly('wikiVariables.dbName'),
   isUserLangEn: equal('currentUser.language', 'en'),
   shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-  isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
+  isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
+    return this.get('shouldShowFandomAppSmartBanner') &&
+      this.get('smartBannerVisible') &&
+      !this.get('isCustomSmartBannerVisible');
+  }),
+  isCustomSmartBannerVisible: and(
+    'shouldShowFandomAppSmartBanner',
+    'smartBannerVisible',
+    'wikiVariables.smartBannerAdConfiguration.text',
+    'isInCustomSmartBannerCountry',
+    'isSystemTargetedByCustomSmartBanner',
+  ),
+
+  isInCustomSmartBannerCountry: computed('wikiVariables.smartBannerAdConfiguration.countries', function () {
+    const customSmartBannerCountries = this.get('wikiVariables.smartBannerAdConfiguration.countries') || [];
+    let currentCountry;
+
+    try {
+      const cookie = window.Cookies.get('Geo');
+      currentCountry = (JSON.parse(cookie) || {}).country;
+    } catch (e) {
+      return false;
+    }
+
+    if (!currentCountry) {
+      return false;
+    }
+
+    return customSmartBannerCountries.indexOf(currentCountry.toLowerCase()) !== -1;
+  }),
+
+  isSystemTargetedByCustomSmartBanner: computed('wikiVariables.smartBannerAdConfiguration.os', function () {
+    const osList = this.get('wikiVariables.smartBannerAdConfiguration.os');
+
+    return osList.indexOf(system) !== -1;
+  }),
 
   setVisibility(state) {
     this.set('smartBannerVisible', state);
   },
 
   /**
-  * Sets smart banner cookie for given number of days
-  *
-  * @param {number} days
-  * @returns {void}
-  */
+   * Sets smart banner cookie for given number of days
+   *
+   * @param {number} days
+   * @returns {void}
+   */
   setCookie(days) {
     const date = new Date();
     const cookieOptions = {
@@ -44,9 +81,9 @@ export default Service.extend({
   },
 
   /**
-  * @param {string} action
-  * @returns {void}
-  */
+   * @param {string} action
+   * @returns {void}
+   */
   track(action) {
     track({
       action,
