@@ -83,6 +83,7 @@ function prepareData(slot, data) {
     labrador: utils.getSamplingResults().join(';'),
     btl: billTheLizard.serialize() || '',
     opt_in: checkOptIn(),
+    document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
   }, targeting.getBiddersPrices(slotName));
