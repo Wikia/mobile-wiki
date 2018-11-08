@@ -31,8 +31,12 @@ export default Service.extend({
   ),
 
   isInCustomSmartBannerCountry: computed('wikiVariables.smartBannerAdConfiguration.countries', function () {
-    const customSmartBannerCountries = this.get('wikiVariables.smartBannerAdConfiguration.countries') || [];
+    const customSmartBannerCountries = (this.get('wikiVariables.smartBannerAdConfiguration.countries') || []).map(item => item.toLowerCase());
     let currentCountry;
+
+    if (customSmartBannerCountries.indexOf('xx') !== -1) {
+      return true;
+    }
 
     try {
       const cookie = window.Cookies.get('Geo');
