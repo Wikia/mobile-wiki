@@ -11,7 +11,8 @@ export default Service.extend({
 
   smartBannerVisible: false,
   dayInMiliseconds: 86400000,
-  cookieName: 'fandom-sb-closed',
+  fandomAppCookieName: 'fandom-sb-closed',
+  customCookieName: 'custom-sb-closed',
   trackCategory: 'fandom-app-smart-banner',
 
   dbName: readOnly('wikiVariables.dbName'),
@@ -65,10 +66,11 @@ export default Service.extend({
   /**
    * Sets smart banner cookie for given number of days
    *
+   * @param {string} cookieName
    * @param {number} days
    * @returns {void}
    */
-  setCookie(days) {
+  setCookie(cookieName, days) {
     const date = new Date();
     const cookieOptions = {
       expires: date,
@@ -77,11 +79,11 @@ export default Service.extend({
     };
 
     date.setTime(date.getTime() + (days * this.dayInMiliseconds));
-    window.Cookies.set(this.cookieName, 1, cookieOptions);
+    window.Cookies.set(cookieName, 1, cookieOptions);
   },
 
   isCookieSet() {
-    return window.Cookies.get(this.cookieName) === '1';
+    return window.Cookies.get(this.customCookieName) === '1' || window.Cookies.get(this.customCookieName) === '1';
   },
 
   /**

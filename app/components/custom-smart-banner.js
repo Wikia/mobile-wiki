@@ -59,7 +59,7 @@ export default Component.extend(RespondsToScroll, {
    * @returns {void}
    */
     close() {
-      this.smartBanner.setCookie(this.get('options.daysHiddenAfterClose'));
+      this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterClose'));
       this.smartBanner.setVisibility(false);
       this.smartBanner.track(trackActions.close);
     },
@@ -72,7 +72,7 @@ export default Component.extend(RespondsToScroll, {
 
     this.smartBanner.track(trackActions.install);
     this.smartBanner.setVisibility(false);
-    this.smartBanner.setCookie(this.get('options.daysHiddenAfterView'));
+    this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterView'));
   },
 
   scroll() {
