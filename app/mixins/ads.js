@@ -59,12 +59,12 @@ export default Mixin.create({
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
 
       this.ads.pushAdSlotComponent(
-          adsData.invisibleHighImpact2,
-          this.renderAdComponent({
-            name: 'ads/invisible-high-impact-2',
-            attrs: attributes,
-            element: placeholder,
-          }),
+        adsData.invisibleHighImpact2,
+        this.renderAdComponent({
+          name: 'ads/invisible-high-impact-2',
+          attrs: attributes,
+          element: placeholder,
+        }),
       );
     }
 
