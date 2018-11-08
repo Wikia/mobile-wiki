@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import { system } from '../utils/browser';
@@ -17,26 +18,12 @@ export default Component.extend(RespondsToScroll, {
   trackCategory: 'custom-smart-banner',
 
   closeButtonSelector: '.fandom-app-smart-banner__close',
-
-  text: computed('wikiVariables.smartBannerAdConfiguration.text', function () {
-    return this.get('wikiVariables.smartBannerAdConfiguration.text') || null;
-  }),
-
-  linkUrl: computed('wikiVariables.smartBannerAdConfiguration.linkUrl', function () {
-    return this.get('wikiVariables.smartBannerAdConfiguration.linkUrl') || null;
-  }),
-
-  linkText: computed('wikiVariables.smartBannerAdConfiguration.linkText', function () {
-    return this.get('wikiVariables.smartBannerAdConfiguration.linkText') || null;
-  }),
-
-  imageUrl: computed('wikiVariables.smartBannerAdConfiguration.imageUrl', function () {
-    return this.get('wikiVariables.smartBannerAdConfiguration.imageUrl') || null;
-  }),
-
-  title: computed('wikiVariables.smartBannerAdConfiguration.title', function () {
-    return this.get('wikiVariables.smartBannerAdConfiguration.title') || null;
-  }),
+  smartBannerAdConfiguration: oneWay('wikiVariables.smartBannerAdConfiguration'),
+  text: oneWay('smartBannerAdConfiguration.text'),
+  linkUrl: oneWay('smartBannerAdConfiguration.linkUrl'),
+  linkText: oneWay('smartBannerAdConfiguration.linkText'),
+  imageUrl: oneWay('smartBannerAdConfiguration.imageUrl'),
+  title: oneWay('smartBannerAdConfiguration.title'),
 
   storeName: computed(function () {
     return system === 'ios'

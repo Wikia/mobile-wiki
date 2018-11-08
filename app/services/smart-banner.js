@@ -15,23 +15,26 @@ export default Service.extend({
   customCookieName: 'custom-sb-closed',
 
   dbName: readOnly('wikiVariables.dbName'),
+  smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
   isUserLangEn: equal('currentUser.language', 'en'),
   shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
-    return this.get('shouldShowFandomAppSmartBanner')
-      && this.get('smartBannerVisible')
-      && !this.get('isCustomSmartBannerVisible');
+    return this.shouldShowFandomAppSmartBanner
+      && this.smartBannerVisible
+      && !this.isCustomSmartBannerVisible;
   }),
+
   isCustomSmartBannerVisible: and(
     'shouldShowFandomAppSmartBanner',
     'smartBannerVisible',
-    'wikiVariables.smartBannerAdConfiguration.text',
+    'smartBannerAdConfiguration.text',
     'isInCustomSmartBannerCountry',
     'isSystemTargetedByCustomSmartBanner',
   ),
 
-  isInCustomSmartBannerCountry: computed('wikiVariables.smartBannerAdConfiguration.countries', function () {
-    const customSmartBannerCountries = (this.get('wikiVariables.smartBannerAdConfiguration.countries') || []).map(item => item.toLowerCase());
+  isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
+    const customSmartBannerCountries = (this.smartBannerAdConfiguration.countries || [])
+      .map(item => item.toLowerCase());
     let currentCountry;
 
     if (customSmartBannerCountries.indexOf('xx') !== -1) {
@@ -52,8 +55,8 @@ export default Service.extend({
     return customSmartBannerCountries.indexOf(currentCountry.toLowerCase()) !== -1;
   }),
 
-  isSystemTargetedByCustomSmartBanner: computed('wikiVariables.smartBannerAdConfiguration.os', function () {
-    const osList = this.get('wikiVariables.smartBannerAdConfiguration.os');
+  isSystemTargetedByCustomSmartBanner: computed('smartBannerAdConfiguration.os', function () {
+    const osList = this.smartBannerAdConfiguration.os;
 
     return osList.indexOf(system) !== -1;
   }),
@@ -82,7 +85,7 @@ export default Service.extend({
   },
 
   isCookieSet() {
-    return window.Cookies.get(this.customCookieName) === '1' || window.Cookies.get(this.customCookieName) === '1';
+    return window.Cookies.get(this.customCookieName) === '1' || window.Cookies.get(this.fandomAppCookieName) === '1';
   },
 
   /**
