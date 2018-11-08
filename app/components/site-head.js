@@ -23,6 +23,7 @@ export default Component.extend(
     smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
     shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
     isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+    isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
     canShowContentRecommendations: equal('contentLanguage', 'en'),
 
     init() {
