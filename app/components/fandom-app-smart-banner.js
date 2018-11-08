@@ -11,13 +11,13 @@ export default Component.extend(RespondsToScroll, {
   smartBanner: service(),
   wikiVariables: service(),
 
-  classNames: ['fandom-app-smart-banner'],
+  classNames: ['smart-banner'],
   dayInMiliseconds: 86400000,
-  // sync with scss variable $fandom-app-smart-banner-height
+  // sync with scss variable $smart-banner-height
   fandomAppSmartBannerHeight: 85,
-  trackCategory: 'fandom-app-smart-banner',
+  trackCategory: 'smart-banner',
 
-  closeButtonSelector: '.fandom-app-smart-banner__close',
+  closeButtonSelector: '.smart-banner__close',
 
   customText: computed('wikiVariables.fandomAppSmartBannerText', function () {
     return inGroup('SMARTBANNERCOPY', 'CUSTOM') && this.get('wikiVariables.fandomAppSmartBannerText')
@@ -70,9 +70,9 @@ export default Component.extend(RespondsToScroll, {
 
   scroll() {
     if (window.pageYOffset >= this.fandomAppSmartBannerHeight) {
-      document.body.classList.add('fandom-app-smart-banner-passed');
+      document.body.classList.add('smart-banner-passed');
     } else {
-      document.body.classList.remove('fandom-app-smart-banner-passed');
+      document.body.classList.remove('smart-banner-passed');
     }
   },
 });

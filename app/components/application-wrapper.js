@@ -36,8 +36,8 @@ export default Component.extend({
   classNames: ['application-wrapper'],
   classNameBindings: [
     'smartBannerVisible',
-    'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
-    'isCustomSmartBannerVisible:with-fandom-app-smart-banner',
+    'isFandomAppSmartBannerVisible:with-smart-banner',
+    'isCustomSmartBannerVisible:with-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
   ],

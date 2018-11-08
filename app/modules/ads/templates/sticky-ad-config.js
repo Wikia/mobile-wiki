@@ -1,6 +1,6 @@
 export const getConfig = () => ({
   navbarWrapperSelector: '.site-head-wrapper',
-  smartBannerSelector: '.fandom-app-smart-banner',
+  smartBannerSelector: '.smart-banner',
 });
 
 export default {
