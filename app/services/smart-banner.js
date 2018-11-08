@@ -1,8 +1,8 @@
-import {computed} from '@ember/object';
-import {and, equal, readOnly} from '@ember/object/computed';
-import Service, {inject as service} from '@ember/service';
-import {track} from '../utils/track';
-import {system} from '../utils/browser';
+import { computed } from '@ember/object';
+import { and, equal, readOnly } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
+import { track } from '../utils/track';
+import { system } from '../utils/browser';
 
 export default Service.extend({
   currentUser: service(),
@@ -18,9 +18,9 @@ export default Service.extend({
   isUserLangEn: equal('currentUser.language', 'en'),
   shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
-    return this.get('shouldShowFandomAppSmartBanner') &&
-      this.get('smartBannerVisible') &&
-      !this.get('isCustomSmartBannerVisible');
+    return this.get('shouldShowFandomAppSmartBanner')
+      && this.get('smartBannerVisible')
+      && !this.get('isCustomSmartBannerVisible');
   }),
   isCustomSmartBannerVisible: and(
     'shouldShowFandomAppSmartBanner',
