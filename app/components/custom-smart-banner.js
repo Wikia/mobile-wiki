@@ -1,9 +1,7 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import { system } from '../utils/browser';
 import { trackActions } from '../utils/track';
 
 export default Component.extend(RespondsToScroll, {

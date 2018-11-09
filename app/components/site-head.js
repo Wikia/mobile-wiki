@@ -64,7 +64,7 @@ export default Component.extend(
         this.smartBanner.track(trackActions.impression, this.smartBanner.fandomAppCookieName);
       }
 
-      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName) ) {
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
         this.smartBanner.track(trackActions.impression, this.smartBanner.customCookieName);
       }
     },
