@@ -36,7 +36,8 @@ export default Component.extend({
   classNames: ['application-wrapper'],
   classNameBindings: [
     'smartBannerVisible',
-    'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
+    'isFandomAppSmartBannerVisible:with-smart-banner',
+    'isCustomSmartBannerVisible:with-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
   ],
@@ -45,6 +46,7 @@ export default Component.extend({
   smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+  isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
 
   bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
