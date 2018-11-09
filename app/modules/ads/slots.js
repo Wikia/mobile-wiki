@@ -193,6 +193,17 @@ export default {
           rv: 1,
         },
       },
+      invisible_high_impact: {
+        adProduct: 'invisible_high_impact',
+        slotNameSuffix: '',
+        group: 'PX',
+        options: {},
+        defaultSizes: [[1, 1]],
+        targeting: {
+          loc: 'hivi',
+          rv: 1,
+        },
+      },
       invisible_high_impact_2: {
         adProduct: 'invisible_high_impact_2',
         slotNameSuffix: '',
@@ -249,6 +260,7 @@ export default {
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
+    setSlotState('invisible_high_impact', !context.get('custom.hasFeaturedVideo'));
     setSlotState('invisible_high_impact_2', !context.get('custom.hasFeaturedVideo'));
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));

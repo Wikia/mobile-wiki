@@ -35,6 +35,7 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     ctp: data.withCtp ? 1 : 0,
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
+    document_visibility: utils.getDocumentVisibilityStatus(),
   };
 
   if ([-1, 0, 1].indexOf(data.userBlockAutoplay) > -1) {
