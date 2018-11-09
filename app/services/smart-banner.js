@@ -1,6 +1,8 @@
+import { computed } from '@ember/object';
 import { and, equal, readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
+import { system } from '../utils/browser';
 
 export default Service.extend({
   currentUser: service(),
@@ -9,25 +11,68 @@ export default Service.extend({
 
   smartBannerVisible: false,
   dayInMiliseconds: 86400000,
-  cookieName: 'fandom-sb-closed',
-  trackCategory: 'fandom-app-smart-banner',
+  fandomAppCookieName: 'fandom-sb-closed',
+  customCookieName: 'custom-sb-closed',
 
   dbName: readOnly('wikiVariables.dbName'),
+  smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
   isUserLangEn: equal('currentUser.language', 'en'),
   shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-  isFandomAppSmartBannerVisible: and('shouldShowFandomAppSmartBanner', 'smartBannerVisible'),
+  isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
+    return this.shouldShowFandomAppSmartBanner
+      && this.smartBannerVisible
+      && !this.isCustomSmartBannerVisible;
+  }),
+
+  isCustomSmartBannerVisible: and(
+    'shouldShowFandomAppSmartBanner',
+    'smartBannerVisible',
+    'smartBannerAdConfiguration.text',
+    'isInCustomSmartBannerCountry',
+    'isSystemTargetedByCustomSmartBanner',
+  ),
+
+  isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
+    const customSmartBannerCountries = (this.smartBannerAdConfiguration.countries || [])
+      .map(item => item.toLowerCase());
+    let currentCountry;
+
+    if (customSmartBannerCountries.indexOf('xx') !== -1) {
+      return true;
+    }
+
+    try {
+      const cookie = window.Cookies.get('Geo');
+      currentCountry = (JSON.parse(cookie) || {}).country;
+    } catch (e) {
+      return false;
+    }
+
+    if (!currentCountry) {
+      return false;
+    }
+
+    return customSmartBannerCountries.indexOf(currentCountry.toLowerCase()) !== -1;
+  }),
+
+  isSystemTargetedByCustomSmartBanner: computed('smartBannerAdConfiguration.os', function () {
+    const osList = this.smartBannerAdConfiguration.os;
+
+    return osList.indexOf(system) !== -1;
+  }),
 
   setVisibility(state) {
     this.set('smartBannerVisible', state);
   },
 
   /**
-  * Sets smart banner cookie for given number of days
-  *
-  * @param {number} days
-  * @returns {void}
-  */
-  setCookie(days) {
+   * Sets smart banner cookie for given number of days
+   *
+   * @param {string} cookieName
+   * @param {number} days
+   * @returns {void}
+   */
+  setCookie(cookieName, days) {
     const date = new Date();
     const cookieOptions = {
       expires: date,
@@ -36,21 +81,22 @@ export default Service.extend({
     };
 
     date.setTime(date.getTime() + (days * this.dayInMiliseconds));
-    window.Cookies.set(this.cookieName, 1, cookieOptions);
+    window.Cookies.set(cookieName, 1, cookieOptions);
   },
 
-  isCookieSet() {
-    return window.Cookies.get(this.cookieName) === '1';
+  isCookieSet(cookieName) {
+    return window.Cookies.get(cookieName) === '1';
   },
 
   /**
-  * @param {string} action
-  * @returns {void}
-  */
-  track(action) {
+   * @param {string} action
+   * @param {string} category
+   * @returns {void}
+   */
+  track(action, category) {
     track({
       action,
-      category: this.trackCategory,
+      category,
       label: this.dbName,
     });
   },

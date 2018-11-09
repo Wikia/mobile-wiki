@@ -23,6 +23,7 @@ export default Component.extend(
     smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
     shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
     isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+    isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
     canShowContentRecommendations: equal('contentLanguage', 'en'),
 
     init() {
@@ -53,11 +54,18 @@ export default Component.extend(
    * @returns {void}
    */
     checkForHiding() {
-      const smartBannerService = this.smartBanner;
+      if (!standalone
+        && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)
+        && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
+        this.smartBanner.setVisibility(true);
+      }
 
-      if (!standalone && !smartBannerService.isCookieSet()) {
-        smartBannerService.setVisibility(true);
-        smartBannerService.track(trackActions.impression);
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)) {
+        this.smartBanner.track(trackActions.impression, this.smartBanner.fandomAppCookieName);
+      }
+
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
+        this.smartBanner.track(trackActions.impression, this.smartBanner.customCookieName);
       }
     },
 
