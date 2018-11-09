@@ -7,7 +7,6 @@ import { system } from '../utils/browser';
 import { trackActions } from '../utils/track';
 
 export default Component.extend(RespondsToScroll, {
-  i18n: service(),
   smartBanner: service(),
   wikiVariables: service(),
 
@@ -24,12 +23,6 @@ export default Component.extend(RespondsToScroll, {
   linkText: oneWay('smartBannerAdConfiguration.linkText'),
   imageUrl: oneWay('smartBannerAdConfiguration.imageUrl'),
   title: oneWay('smartBannerAdConfiguration.title'),
-
-  storeName: computed(function () {
-    return system === 'ios'
-      ? this.i18n.t('fandom-app-banner.app-store')
-      : this.i18n.t('fandom-app-banner.google-play');
-  }),
 
   init() {
     this._super(...arguments);

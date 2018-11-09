@@ -54,13 +54,17 @@ export default Component.extend(
    * @returns {void}
    */
     checkForHiding() {
-      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)) {
+      if (!standalone
+        && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)
+        && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
         this.smartBanner.setVisibility(true);
+      }
+
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.fandomAppCookieName)) {
         this.smartBanner.track(trackActions.impression, this.smartBanner.fandomAppCookieName);
       }
 
-      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName)) {
-        this.smartBanner.setVisibility(true);
+      if (!standalone && !this.smartBanner.isCookieSet(this.smartBanner.customCookieName) ) {
         this.smartBanner.track(trackActions.impression, this.smartBanner.customCookieName);
       }
     },
