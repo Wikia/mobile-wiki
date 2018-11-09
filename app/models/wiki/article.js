@@ -10,6 +10,7 @@ export default BaseModel.extend({
   isMainPage: false,
   user: null,
   heroImage: null,
+  runescapeCalculatorConfig: null,
 
   /**
   * @param {Object} data
@@ -40,6 +41,10 @@ export default BaseModel.extend({
 
         if (data.article.heroImage) {
           articleProperties.heroImage = data.article.heroImage;
+        }
+
+        if (data.article.runescapeCalculatorConfig) {
+          articleProperties.runescapeCalculatorConfig = data.article.runescapeCalculatorConfig;
         }
       }
 

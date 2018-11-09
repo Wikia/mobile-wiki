@@ -34,6 +34,7 @@ export const namespace = {
   * @returns {boolean}
   */
 export function isContentNamespace(ns, contentNamespaces = []) {
+  contentNamespaces = [...contentNamespaces, ...[116]];
   return ns === namespace.MAIN || Boolean(contentNamespaces.some(
     // custom namespaces can be in a string format
     contentNamespace => parseInt(contentNamespace, 10) === ns,

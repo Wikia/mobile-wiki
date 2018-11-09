@@ -1,0 +1,15 @@
+<table>
+  {{#each config.tParams as |param|}}
+    {{#if param.component}}
+      <tr>
+        {{! TODO it can contain HTML tags, sanitize them and display properly }}
+        <th>{{param.label}}</th>
+        <td>{{component param.component model=param}}</td>
+      </tr>
+    {{/if}}
+  {{/each}}
+</table>
+<button class="wds-button" type="submit">Submit</button>
+{{#if result}}
+  {{{result}}}
+{{/if}}

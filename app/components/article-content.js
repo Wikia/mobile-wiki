@@ -71,6 +71,7 @@ export default Component.extend(
           this.handleJumpLink();
           this.handleCollapsibleSections();
           this.handleCategoryPaginationUrls();
+          this.handleCalculators();
 
           window.lazySizes.init();
         } else if (this.displayEmptyArticleInfo) {
@@ -540,5 +541,19 @@ export default Component.extend(
           target.setAttribute('href', url);
         }));
     },
+
+    handleCalculators() {
+      toArray(this.element.querySelectorAll('.jcConfig')).forEach((element) => {
+        this.renderedComponents.push(
+          this.renderComponent({
+            name: 'runescape-calculator',
+            attrs: {
+              rawConfig: this.runescapeCalculatorConfig,
+            },
+            element,
+          }),
+        );
+      });
+    }
   },
 );
