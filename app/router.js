@@ -23,6 +23,10 @@ Router.map(function () {
 
   this.route('search');
 
+  this.route('language-wikis-index', {
+    path: '/language-wikis',
+  });
+
   this.route('main-page-redirect', {
     path: '/wiki/',
   });
