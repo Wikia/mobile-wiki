@@ -154,7 +154,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
 
   if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
-    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content section h3`);
+    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
