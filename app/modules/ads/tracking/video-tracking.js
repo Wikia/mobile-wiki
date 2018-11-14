@@ -13,9 +13,7 @@ function trackEvent(eventData) {
 export default {
   register: () => {
     const { events } = window.Wikia.adEngine;
-    const { PorvataTracker } = window.Wikia.adProducts;
-
-    const porvataTracker = new PorvataTracker();
+    const { porvataTracker } = window.Wikia.adProducts;
 
     events.on(events.VIDEO_PLAYER_TRACKING_EVENT, trackEvent);
 
