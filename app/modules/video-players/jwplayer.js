@@ -77,7 +77,7 @@ export default class JWPlayer extends BasePlayer {
       audio: !this.params.autoplay,
       autoplay: this.params.autoplay,
       featured: true,
-      videoId: this.params.playlist[0].mediaid
+      videoId: this.params.playlist[0].mediaid,
     });
 
     window.wikiaJWPlayer(

@@ -18,5 +18,5 @@ export default {
     events.on(events.VIDEO_PLAYER_TRACKING_EVENT, trackEvent);
 
     porvataTracker.register();
-  }
-}
+  },
+};
