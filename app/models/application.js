@@ -71,7 +71,7 @@ export default EmberObject.extend({
           });
       });
     }
-    
+
     currentUser.initializeUserData(shoebox.retrieve('userId'));
     return resolve(shoebox.retrieve('applicationData'));
   },

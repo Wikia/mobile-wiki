@@ -6,12 +6,7 @@ export default Mixin.create({
   fastboot: service(),
   wikiVariables: service(),
 
-  /**
-   * @param {Object} model
-   * @param {Ember.Transition} transition
-   * @returns {void}
-   */
-  beforeModel(model, transition) {
+  beforeModel() {
     this._super(...arguments);
 
     if (

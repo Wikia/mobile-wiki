@@ -21,7 +21,7 @@ const Router = EmberRouter.extend(RouterScroll, {
 Router.map(function () {
   this.route('article-preview');
   this.route('closed-wiki', {
-    path: '/__closed_wiki__this_is_never_visible_to_user'
+    path: '/__closed_wiki__this_is_never_visible_to_user',
   });
   this.route('search');
 
