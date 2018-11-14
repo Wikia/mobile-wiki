@@ -8,6 +8,8 @@ import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
+import ClosedWikiHandlerMixin from '../mixins/closed-wiki-handler';
+import EmptyDomainWithLanguageWikisHandlerMixin from '../mixins/empty-domain-with-language-wikis-handler';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
@@ -23,9 +25,11 @@ import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
-  WikiPageHandlerMixin,
+  ClosedWikiHandlerMixin,
+  EmptyDomainWithLanguageWikisHandlerMixin,
   HeadTagsDynamicMixin,
   RouteWithAdsMixin,
+  WikiPageHandlerMixin,
   {
     ads: service(),
     currentUser: service(),
@@ -271,6 +275,11 @@ export default Route.extend(
        * @returns {boolean}
        */
       error(error) {
+        // Calls mixins/closed-wiki-handler
+        if (this._super(...arguments) === true) {
+          return true;
+        }
+
         if (this.get('fastboot.isFastBoot') && (
           !error.code || error.code !== 404
         )) {

@@ -21,11 +21,10 @@ export default Route.extend(
     },
 
     setDynamicHeadTags(model) {
-      const data = {
-        robots: 'noindex,follow'
-      };
-
-      this._super(model, data);
+      this._super(model, {
+        htmlTitle: 'Wiki Index',
+        robots: 'noindex,follow',
+      });
     },
   },
 );

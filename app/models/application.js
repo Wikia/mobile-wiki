@@ -32,39 +32,46 @@ export default EmberObject.extend({
       ]).then(([wikiVariables, userId]) => {
         shoebox.put('userId', userId);
 
-        return hashSettled({
-          currentUser: currentUser.initializeUserData(userId, host),
+        const promises = {
           navigation: NavigationModel.create(ownerInjection).fetchAll(
             host,
             wikiVariables.id,
             uselangParam || wikiVariables.language.content,
           ),
-          trackingDimensions: TrackingDimensionsModel.create(ownerInjection).load(
+        };
+
+        if (!wikiVariables.isClosed && !wikiVariables.isEmptyDomainWithLanguageWikis) {
+          promises.currentUser = currentUser.initializeUserData(userId, host);
+          promises.trackingDimensions = TrackingDimensionsModel.create(ownerInjection).load(
             !userId,
             host,
             title,
-          ),
-        }).then(({ navigation, trackingDimensions }) => {
-          // We only want to fail application if we don't have the navigation data
-          if (navigation.state === 'rejected') {
-            throw navigation.reason;
-          }
+          );
+        }
 
-          const applicationData = {
-            navigation: navigation.value,
-            wikiVariables,
-          };
+        return hashSettled(promises)
+          .then(({ navigation, trackingDimensions }) => {
+            // We only want to fail application if we don't have the navigation data
+            if (navigation.state === 'rejected') {
+              throw navigation.reason;
+            }
 
-          shoebox.put('applicationData', applicationData);
+            const applicationData = {
+              navigation: navigation.value,
+              wikiVariables,
+            };
 
-          if (trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
-            this.simpleStore.set('trackingDimensions', trackingDimensions.value.dimensions);
-          }
+            shoebox.put('applicationData', applicationData);
 
-          return applicationData;
-        });
+            if (trackingDimensions && trackingDimensions.state === 'fulfilled' && trackingDimensions.value.dimensions) {
+              this.simpleStore.set('trackingDimensions', trackingDimensions.value.dimensions);
+            }
+
+            return applicationData;
+          });
       });
     }
+    
     currentUser.initializeUserData(shoebox.retrieve('userId'));
     return resolve(shoebox.retrieve('applicationData'));
   },

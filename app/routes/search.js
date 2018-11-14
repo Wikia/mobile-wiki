@@ -2,13 +2,18 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { scheduleOnce } from '@ember/runloop';
+
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
+import ClosedWikiHandlerMixin from '../mixins/closed-wiki-handler';
+import EmptyDomainWithLanguageWikisHandlerMixin from '../mixins/empty-domain-with-language-wikis-handler';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import SearchModel from '../models/search';
 import { track, trackActions, trackPageView } from '../utils/track';
-import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,
+  ClosedWikiHandlerMixin,
+  EmptyDomainWithLanguageWikisHandlerMixin,
   HeadTagsDynamicMixin,
   {
     initialPageView: service(),
@@ -35,8 +40,8 @@ export default Route.extend(
 
     actions: {
       /**
-    * @returns {boolean}
-    */
+       * @returns {boolean}
+       */
       didTransition() {
         scheduleOnce('afterRender', this, () => {
           trackPageView(this.initialPageView.isInitialPageView());

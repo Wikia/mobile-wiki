@@ -11,7 +11,10 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
-import { WikiVariablesRedirectError } from '../utils/errors';
+import {
+  WikiIsClosedError,
+  WikiVariablesRedirectError,
+} from '../utils/errors';
 import {
   CachingInterval, CachingPolicy, disableCache, setResponseCaching,
 } from '../utils/fastboot-caching';
@@ -254,6 +257,11 @@ export default Route.extend(
         // Don't handle special type of errors.
         // Currently we use them hack Ember and stop executing application
         if (error instanceof DontLogMeError) {
+          return false;
+        }
+
+        if (error instanceof WikiIsClosedError) {
+          this.intermediateTransitionTo('closed-wiki');
           return false;
         }
 
