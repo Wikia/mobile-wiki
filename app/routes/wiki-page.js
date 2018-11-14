@@ -13,6 +13,7 @@ import EmptyDomainWithLanguageWikisHandlerMixin from '../mixins/empty-domain-wit
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
+import { WikiIsClosedError } from '../utils/errors';
 import extend from '../utils/extend';
 import { normalizeToUnderscore } from '../utils/string';
 import { setTrackContext, trackPageView, track } from '../utils/track';
@@ -275,8 +276,8 @@ export default Route.extend(
        * @returns {boolean}
        */
       error(error) {
-        // Calls mixins/closed-wiki-handler
-        if (this._super(...arguments) === true) {
+        // Error handler in application route will take care of it
+        if (error instanceof WikiIsClosedError) {
           return true;
         }
 
