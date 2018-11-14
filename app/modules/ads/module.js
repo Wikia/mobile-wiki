@@ -5,7 +5,7 @@ import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
 import pageTracker from './tracking/page-tracker';
-import videoAds from '../video-players/video-ads';
+import videoTracker from './tracking/video-tracking';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
 
@@ -24,7 +24,9 @@ class Ads {
     this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.jwPlayerMoat = videoAds.jwPlayerMOAT;
+    this.jwPlayerMoat = {
+      loadTrackingPlugin: () => {},
+    };
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
@@ -75,6 +77,7 @@ class Ads {
     this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    videoTracker.register();
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
@@ -146,10 +149,23 @@ class Ads {
     }
   }
 
-  initJWPlayer(player, bidParams, slotTargeting) {
+  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
+  createJWPlayerVideoAds(options) {
+    const { jwplayerAdsFactory } = window.Wikia.adProducts;
+
+    this.jwPlayerMoat = {
+      loadTrackingPlugin: jwplayerAdsFactory.loadMoatPlugin,
+    };
+
     if (this.showAds) {
-      videoAds.init(player, { featured: true }, slotTargeting);
+      return jwplayerAdsFactory.create(options);
     }
+
+    return null;
+  }
+
+  // TODO: Remove this method after AE3 clean up
+  initJWPlayer() {
   }
 
   getInstantGlobals() {

@@ -429,6 +429,7 @@ export default {
       moatTracking: {
         enabled: false,
         partnerCode: 'wikiaimajsint377461931603',
+        jwplayerPluginUrl: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
         sampling: 0,
       },
     },

@@ -628,6 +628,9 @@ class Ads {
     return this.adsContext;
   }
 
+  createJWPlayerVideoAds() {
+  }
+
   initJWPlayer(player, bidParams, slotTargeting) {
     if (this.jwPlayerAds && this.jwPlayerMoat) {
       this.jwPlayerAds(player, bidParams, slotTargeting);
