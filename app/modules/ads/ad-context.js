@@ -253,6 +253,14 @@ export default {
         enabled: false,
         publisherId: '156260',
         slots: {
+          featured: {
+            sizes: [
+              [0, 0],
+            ],
+            ids: [
+              '1636187@0x0',
+            ],
+          },
           mobile_top_leaderboard: {
             sizes: [
               [320, 50],
