@@ -89,7 +89,7 @@ export default Mixin.create({
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pi);
     } else if (pageHeader && !this.featuredVideo) {
       // inject top mobileTopLeaderBoard below article header
-      // only if there is no featured video embedded
+      // but only if there is no featured video embedded
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
     } else {
       this.get('ads.module').finishFirstCall();
