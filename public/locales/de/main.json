@@ -59,7 +59,12 @@
     "load-more": "Mehr anzeigen", 
     "load-previous": "Vorherige anzeigen", 
     "no-members": "Diese Kategorie enthält zur Zeit keine Seiten.", 
-    "subtitle": "Kategorienseite"
+    "pagination-first": "Anfang", 
+    "pagination-last": "Ende", 
+    "shortcut-to-other": "Sonstige", 
+    "subtitle": "Kategorienseite", 
+    "total-number": "Alle Einträge ({totalNumberOfItems})", 
+    "trending-pages": "Beliebte Seiten"
   }, 
   "edit": {
     "load-error": "Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.", 

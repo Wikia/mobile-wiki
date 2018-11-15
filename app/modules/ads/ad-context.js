@@ -354,8 +354,14 @@ export default {
       wikiaVideo: {
         enabled: false,
         slots: {
-          featured: {},
-          incontent_player: {},
+          featured: {
+            videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+          },
+          incontent_player: {
+            videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+          },
         },
       },
     },

@@ -1,49 +1,68 @@
 .category-members-grouped {
-  padding: 1.5rem $article-horizontal-padding;
+  padding: 0 6px;
 
-  h3 {
+  &__first-char {
+    align-items: center;
     border-bottom: solid 1px $wds-color-light-c4;
-    margin-bottom: 0;
-    padding-bottom: .7rem;
+    display: flex;
+    font-size: $wds-font-size-xl;
+    margin: 0;
+    padding-bottom: 10px;
+
+    &:not(:first-child) {
+      margin-top: 40px;
+    }
+
+    .chevron {
+      color: $wds-color-light-c4;
+      margin-left: auto;
+    }
+
+    &:not(.is-collapsed) .chevron {
+      transform: rotate(180deg);
+    }
   }
 
-  ul {
-    margin-left: .4rem;
-  }
-
-  &__list {
+  &__members-for-char {
+    margin: 0;
+    padding: 0;
     position: relative;
-  }
 
-  &__subcategory {
-    margin-left: -23px;
-
-    .wds-icon {
-      vertical-align: middle;
-    }
-  }
-
-  .wds-spinner {
-    display: none;
-    left: auto;
-    position: static;
-    top: auto;
-  }
-
-  &.is-loading {
-    .category-navigation__button {
+    .is-collapsed + & {
       display: none;
-      pointer-events: none;
-    }
-
-    .wds-spinner {
-      display: inline;
     }
   }
-}
 
-.category-navigation {
-  padding-bottom: 1.125rem;
-  position: relative;
-  text-align: center;
+  &__member {
+    align-items: center;
+    display: flex;
+    margin: 0;
+    padding: 9px 0;
+  }
+
+  &__member-left {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    width: 40px;
+
+    &-icon {
+      color: $wds-color-light-c5;
+      // 18px from .wds-icon-small + 2*6px
+      // we want to have the same height as for thumbnail to keep spacing consistent
+      padding: 6px 0;
+    }
+  }
+
+  &__member-thumbnail {
+    border: 1px solid $wds-color-light-c4;
+    box-sizing: border-box;
+    height: 30px;
+    width: 40px;
+  }
+
+  &__member-link {
+    padding-left: 12px;
+    word-break: break-word;
+  }
 }

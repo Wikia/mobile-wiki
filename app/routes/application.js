@@ -174,7 +174,6 @@ export default Route.extend(
           // append mobile-wiki specific key
           surrogateKey = `${surrogateKey} ${surrogateKey}-mobile-wiki`;
           fastboot.get('response.headers').set('Surrogate-Key', surrogateKey);
-          fastboot.get('response.headers').set('X-Surrogate-Key', surrogateKey);
         }
 
         // TODO remove `transition.queryParams.page`when icache supports surrogate keys

@@ -47,6 +47,7 @@ function checkOptIn() {
 function prepareData(slot, data) {
   // Global imports:
   const { context, utils } = window.Wikia.adEngine;
+  const { billTheLizard } = window.Wikia.adServices;
   // End of imports
 
   const slotName = slot.getSlotName();
@@ -80,8 +81,9 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
-    btl: context.get(`services.billTheLizard.parameters.cheshirecatSlotResponses.${slotName}`) || '',
+    btl: billTheLizard.serialize() || '',
     opt_in: checkOptIn(),
+    document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
   }, targeting.getBiddersPrices(slotName));

@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 import trackModule from 'mobile-wiki/utils/track';
 
+
 module('Unit | Module | ads | tracking', (hooks) => {
   hooks.beforeEach(() => {
     window.Wikia.adEngine = {
@@ -12,12 +13,18 @@ module('Unit | Module | ads | tracking', (hooks) => {
       utils: {
         getCountryCode: () => {},
         getSamplingResults: () => [],
+        getDocumentVisibilityStatus: () => 'visible',
       },
     };
     window.Wikia.adBidders = {
       bidders: {
         getCurrentSlotPrices: () => {},
         getDfpSlotPrices: () => {},
+      },
+    };
+    window.Wikia.adServices = {
+      billTheLizard: {
+        serialize: () => '',
       },
     };
     sinon.spy(trackModule, 'track');
@@ -54,5 +61,12 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
     SlotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].opt_in, 'yes');
+  });
+
+  test('tracker sends correct document_visible value', (assert) => {
+    const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
+
+    SlotTracker.onRenderEnded(adSlot, {});
+    assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
   });
 });

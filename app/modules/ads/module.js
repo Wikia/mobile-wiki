@@ -4,7 +4,7 @@ import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
-import PageTracker from './tracking/page-tracker';
+import pageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
@@ -14,6 +14,8 @@ const SLOT_NAME_MAP = {
   MOBILE_IN_CONTENT: 'mobile_in_content',
   MOBILE_PREFOOTER: 'mobile_prefooter',
   BOTTOM_LEADERBOARD: 'bottom_leaderboard',
+  INVISIBLE_HIGH_IMPACT: 'invisible_high_impact',
+  INVISIBLE_HIGH_IMPACT_2: 'invisible_high_impact_2',
 };
 
 class Ads {
@@ -70,6 +72,8 @@ class Ads {
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
     this.instantGlobals = instantGlobals;
+    this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
+
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
@@ -100,8 +104,8 @@ class Ads {
     // Track Labrador values to DW
     const labradorPropValue = utils.getSamplingResults().join(';');
 
-    if (PageTracker.isEnabled() && labradorPropValue) {
-      PageTracker.trackProp('labrador', labradorPropValue);
+    if (labradorPropValue) {
+      pageTracker.trackProp('labrador', labradorPropValue);
     }
   }
 
@@ -206,10 +210,13 @@ class Ads {
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
 
-    if (this.events && this.showAds) {
+    if (this.events) {
       context.set('state.adStack', []);
       this.events.pageChange(options);
-      this.engine.runAdQueue();
+
+      if (this.showAds) {
+        this.engine.runAdQueue();
+      }
     }
   }
 
