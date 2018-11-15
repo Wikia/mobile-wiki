@@ -1,0 +1,31 @@
+.category-trending-pages {
+  padding: 0 $article-horizontal-padding;
+
+  &__header {
+    font-size: $wds-font-size-l;
+    font-weight: $wds-font-weight-medium;
+  }
+
+  &__list {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+  }
+
+  &__item {
+    margin: 0;
+  }
+
+  &__item-thumbnail {
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  &__item-title {
+    color: initial;
+    font-size: $wds-font-size-s;
+    font-weight: $wds-font-weight-medium;
+    word-break: break-word;
+  }
+}

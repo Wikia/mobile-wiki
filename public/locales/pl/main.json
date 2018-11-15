@@ -59,7 +59,12 @@
     "load-more": "Załaduj więcej", 
     "load-previous": "Załaduj poprzednie", 
     "no-members": "Obecnie nie ma stron w tej kategorii.", 
-    "subtitle": "Strona kategorii"
+    "pagination-first": "Początek", 
+    "pagination-last": "Koniec", 
+    "shortcut-to-other": "Inne", 
+    "subtitle": "Strona kategorii", 
+    "total-number": "Wszystkie elementy ({totalNumberOfItems})", 
+    "trending-pages": "Popularne strony"
   }, 
   "edit": {
     "load-error": "Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.", 
@@ -94,7 +99,7 @@
     "user-menu-profile": "Profil"
   }, 
   "recirculation": {
-    "popular-wiki-articles-header": "WIĘCEJ {wikiName}", 
+    "popular-wiki-articles-header": "WIĘCEJ Z {wikiName}", 
     "trending-fandom-articles": "Kanał informacji dla fanów"
   }, 
   "smartbanner": {

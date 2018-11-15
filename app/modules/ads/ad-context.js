@@ -6,23 +6,35 @@ export default {
     enabled: false,
     timeout: 2000,
     a9: {
+      amazonId: '3115',
+      dealsEnabled: false,
       enabled: false,
       videoEnabled: false,
-      amazonId: '3115',
       slots: {
-        mobile_top_leaderboard: [
-          [320, 50],
-        ],
-        mobile_in_content: [
-          [300, 250],
-          [320, 480],
-        ],
-        bottom_leaderboard: [
-          [320, 50],
-          [300, 250],
-        ],
+        mobile_top_leaderboard: {
+          slotId: 'MOBILE_TOP_LEADERBOARD',
+          sizes: [
+            [320, 50],
+          ],
+        },
+        mobile_in_content: {
+          slotId: 'MOBILE_IN_CONTENT',
+          sizes: [
+            [300, 250],
+          ],
+        },
+        bottom_leaderboard: {
+          slotId: 'BOTTOM_LEADERBOARD',
+          sizes: [
+            [320, 50],
+            [300, 250],
+          ],
+        },
+        featured: {
+          slotId: 'FEATURED',
+          type: 'video',
+        },
       },
-      slotsVideo: ['featured'],
     },
     prebid: {
       enabled: false,
@@ -171,7 +183,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             siteId: '185055',
           },
@@ -226,7 +237,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             unit: 538735699,
           },
@@ -254,7 +264,6 @@ export default {
           mobile_in_content: {
             sizes: [
               [300, 250],
-              [320, 480],
             ],
             ids: [
               '/5441/MOBILE_IN_CONTENT_300x250@300x250',
@@ -345,8 +354,14 @@ export default {
       wikiaVideo: {
         enabled: false,
         slots: {
-          featured: {},
-          incontent_player: {},
+          featured: {
+            videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+          },
+          incontent_player: {
+            videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+          },
         },
       },
     },
@@ -379,9 +394,27 @@ export default {
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   },
   targeting: {
+    ae3: '1',
     outstream: 'none',
     skin: 'mercury',
     uap: 'none',
+  },
+  services: {
+    billTheLizard: {
+      enabled: true,
+      host: 'https://services.wikia.com',
+      endpoint: 'bill-the-lizard/predict',
+      projects: {},
+      parameters: {},
+      timeout: 2000,
+    },
+    krux: {
+      enabled: false,
+      id: 'JTKzTN3f',
+    },
+  },
+  slotGroups: {
+    VIDEO: ['ABCD', 'FEATURED', 'OUTSTREAM', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
   },
   src: 'mobile',
   state: {
@@ -397,13 +430,6 @@ export default {
         enabled: false,
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
-      },
-    },
-    porvata: {
-      audio: {
-        exposeToSlot: true,
-        segment: '-audio',
-        key: 'audio',
       },
     },
   },

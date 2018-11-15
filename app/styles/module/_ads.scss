@@ -1,7 +1,7 @@
 @import 'ads-floor';
 @import 'ads-mixin';
 @import 'ads-porvata';
-@import 'node_modules/@wikia/ad-products/dist/ad-products';
+@import 'node_modules/@wikia/ad-engine/src/ad-products/styles/styles';
 
 $closeButtonHeight: 40px;
 
@@ -12,6 +12,7 @@ $closeButtonHeight: 40px;
 }
 
 .ad-slot {
+  margin: 0 0 1.125rem;
   text-align: center;
 
   .provider-container {
@@ -64,6 +65,14 @@ $closeButtonHeight: 40px;
   }
 }
 
+.mobile-top-leaderboard .bfaa-template {
+  position: absolute;
+
+  & > div {
+    margin: 0 auto;
+  }
+}
+
 .bfaa-template .mobile-top-leaderboard {
   left: 0;
   position: absolute;
@@ -107,7 +116,7 @@ $closeButtonHeight: 40px;
   border: 0;
 }
 
-.invisible-high-impact-wrapper {
+.invisible-high-impact-wrapper:not(.out-of-page-template-loaded) {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -203,6 +212,29 @@ $closeButtonHeight: 40px;
       color: #d5d4d4;
       font-size: 17px;
       padding: 20px 10px;
+    }
+  }
+}
+
+.out-of-page-template {
+  margin: 0;
+
+  &.floor-adhesion {
+    padding: 20px 0;
+
+    .button-close {
+      align-items: center;
+      background-color: #000;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: flex;
+      height: $closeButtonHeight;
+      justify-content: center;
+      padding: 5px;
+      position: absolute;
+      right: 0;
+      top: -($closeButtonHeight / 2);
+      width: $closeButtonHeight;
     }
   }
 }

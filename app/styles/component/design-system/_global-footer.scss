@@ -6,8 +6,7 @@
   line-height: normal;
 
   h2 {
-    @extend %wds-font-size-xl;
-
+    font-size: $wds-font-size-xl;
     line-height: normal;
   }
 
@@ -15,4 +14,22 @@
   &__section-header {
     line-height: normal;
   }
+}
+
+.global-footer-bottom__wrapper {
+  background-color: $wds-fandom-color-navy;
+  padding: 0 20px;
+}
+
+.global-footer-bottom__bar {
+  border-top: 1px solid $wds-color-slate-gray;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.global-footer-bottom__link {
+  color: $wds-fandom-color-link;
+  letter-spacing: .3px;
+  min-height: 45px;
+  padding: 14px 18px;
 }

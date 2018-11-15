@@ -1,19 +1,38 @@
-<div class="fandom-app-smart-banner__close" role="button" {{action 'close'}}>
-  {{svg 'wds-icons-cross' class='wds-icon wds-icon-small'}}
+<div class="smart-banner__close" role="button" {{action "close"}}>
+  {{svg "wds-icons-cross" class="wds-icon wds-icon-small"}}
 </div>
-<a href="{{link}}" class="fandom-app-smart-banner__link">
-  <div class="fandom-app-smart-banner__info">
-    <img alt="fandom app icon" class="fandom-app-smart-banner__icon"
-       src="https://services.wikia.com/static-assets/image/28423c7b-dae5-4b5e-bfba-a779f4f57eb0">
-    <div class="fandom-app-smart-banner__meta">
-      <div class="fandom-app-smart-banner__title wds-font-size-base wds-font-weight-bold">FANDOM</div>
+<a href={{link}} class="smart-banner__link">
+  <div class="smart-banner__info">
+    <img
+      alt="fandom app icon"
+      class="smart-banner__icon"
+      src="https://services.wikia.com/static-assets/image/28423c7b-dae5-4b5e-bfba-a779f4f57eb0"
+    >
+    <div class="smart-banner__meta">
+      <div
+        class="smart-banner__title wds-font-size-base wds-font-weight-bold"
+      >
+        FANDOM
+      </div>
       {{#if customText}}
-        <span class="fandom-app-smart-banner__description wds-font-size-s wds-leading-none">{{customText}}</span>
+        <span
+          class="smart-banner__description wds-font-size-s wds-leading-none"
+        >
+          {{customText}}
+        </span>
       {{else}}
-        <span class="fandom-app-smart-banner__description wds-font-size-s wds-leading-none">Get it free at the</span>
-        <span class="fandom-app-smart-banner__store wds-font-size-s wds-leading-none">{{storeName}}</span>
+        <span
+          class="smart-banner__description wds-font-size-s wds-leading-none"
+        >
+          Get it free at the
+        </span>
+        <span class="smart-banner__store wds-font-size-s wds-leading-none">{{storeName}}</span>
       {{/if}}
     </div>
   </div>
-  <div class="fandom-app-smart-banner__install wds-font-size-base wds-font-weight-medium">{{i18n 'smartbanner.install-android'}}</div>
+  <div
+    class="smart-banner__install wds-font-size-base wds-font-weight-medium"
+  >
+    {{i18n "smartbanner.install-android"}}
+  </div>
 </a>

@@ -3,6 +3,7 @@ import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
+import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 const wikiUrlsServiceStub = Service.extend({
   langPath: '/pl',
@@ -13,6 +14,7 @@ module('Acceptance | lang path', (hooks) => {
 
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
+    mockFastlyInsights(this.owner);
     this.owner.register('service:wiki-urls', wikiUrlsServiceStub);
   });
 

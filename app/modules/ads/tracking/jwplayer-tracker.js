@@ -27,8 +27,38 @@ export default class JWPlayerTracker {
   * @param {Object} params
   */
   constructor(params = {}) {
+    /** @type {Object} */
     this.trackingParams = params;
-    this.skipCtpAudioUpdate = false;
+    /** @type {boolean} */
+    this.isCtpAudioUpdateEnabled = true;
+  }
+
+
+  /**
+   * Update withCtp and withAudio based on player and slot
+   *
+   * @param {Object} player
+   * @param {AdSlot | null} slot
+   */
+  updateCtpAudio(player, slot) {
+    if (slot && slot.targeting.ctp !== undefined && slot.targeting.audio !== undefined) {
+      this.trackingParams.withCtp = slot.targeting.ctp === 'yes';
+      this.trackingParams.withAudio = slot.targeting.audio === 'yes';
+      this.isCtpAudioUpdateEnabled = false;
+    } else {
+      this.trackingParams.withAudio = !player.getMute();
+      this.trackingParams.withCtp = !player.getConfig().autostart;
+    }
+  }
+
+  /**
+   * @param {Object} player
+   * @returns {void}
+   */
+  setVideoId(player) {
+    const playlistItem = player.getPlaylist();
+    const videoId = playlistItem[player.getPlaylistIndex()].mediaid;
+    this.updateVideoId(videoId);
   }
 
   /**
@@ -45,9 +75,10 @@ export default class JWPlayerTracker {
     const { slotService, vastParser } = window.Wikia.adEngine;
     // End of imports
 
+    this.setVideoId(player);
     this.track('init');
 
-    player.on('adComplete', () => {
+    player.on('videoStart', () => {
       this.updateCreativeData();
     });
 
@@ -61,38 +92,34 @@ export default class JWPlayerTracker {
       this.updateCreativeData(currentAd);
     });
 
+    this.trackingParams.withCtp = !player.getConfig().autostart;
+    this.trackingParams.withAudio = !player.getConfig().mute;
+
     Object.keys(trackingEventsMap).forEach((playerEvent) => {
       player.on(playerEvent, (event) => {
         let errorCode;
 
-        if (['adRequest', 'adError', 'ready', 'videoStart'].indexOf(playerEvent) !== -1) {
-          if (this.skipCtpAudioUpdate) {
-            this.skipCtpAudioUpdate = false;
-          } else {
-            if (this.trackingParams.withCtp) {
-              this.trackingParams.withCtp = !player.getConfig().autostart;
-            }
+        if ([
+          'adRequest', 'adError', 'ready', 'videoStart',
+        ].indexOf(playerEvent) !== -1 && this.isCtpAudioUpdateEnabled) {
+          const slot = slotService.get(this.trackingParams.slotName);
+          this.updateCtpAudio(player, slot);
+        }
 
-            this.trackingParams.withAudio = !player.getMute();
-          }
-
-          if (playerEvent === 'adRequest' || playerEvent === 'adError') {
-            this.skipCtpAudioUpdate = true;
-
-            const slot = slotService.get(this.trackingParams.slotName);
-
-            if (slot && slot.getTargeting()) {
-              this.trackingParams.withCtp = slot.getTargeting().ctp === 'yes';
-              this.trackingParams.withAudio = slot.getTargeting().audio === 'yes';
-            }
-          }
-
-          if (playerEvent === 'adError') {
-            errorCode = event && event.code;
-          }
+        if (playerEvent === 'adError') {
+          errorCode = event && event.code;
         }
 
         this.track(trackingEventsMap[playerEvent], errorCode);
+
+
+        // Disable updating ctp and audio on video completed event
+        // It is a failsafe for the case where updating
+        // has not been disabled by calling updateCtpAudio with VAST params
+        if (playerEvent === 'complete') {
+          this.isCtpAudioUpdateEnabled = false;
+          this.trackingParams.withCtp = false;
+        }
       });
     });
   }
@@ -104,6 +131,13 @@ export default class JWPlayerTracker {
   * @returns {void}
   */
   track(eventName, errorCode = 0) {
+    this.trackingParams.userBlockAutoplay = -1;
+
+    const featuredVideoAutoplayCookie = window.Cookies.get('featuredVideoAutoplay');
+    if (['0', '1'].indexOf(featuredVideoAutoplayCookie) > -1) {
+      this.trackingParams.userBlockAutoplay = featuredVideoAutoplayCookie === '0' ? 1 : 0;
+    }
+
     PlayerTracker.track(this.trackingParams, playerName, eventName, errorCode);
   }
 

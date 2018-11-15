@@ -65,10 +65,11 @@ function isBottomLeaderboardApplicable() {
 /**
  * Decides if incontent_player slot should be active.
  *
- * @param {object} context
  * @returns {boolean}
  */
-function isIncontentPlayerApplicable(context) {
+function isIncontentPlayerApplicable() {
+  const { context } = window.Wikia.adEngine;
+
   return context.get('custom.pageType') !== 'home'
     && !context.get('custom.hasFeaturedVideo')
     && !context.get('custom.isIncontentPlayerDisabled');
@@ -79,13 +80,15 @@ export default {
     return {
       mobile_top_leaderboard: {
         aboveTheFold: true,
+        firstCall: true,
         adProduct: 'mobile_top_leaderboard',
         slotNameSuffix: '',
         group: 'LB',
         options: {},
         slotShortcut: 'l',
         sizes: [],
-        defaultSizes: [[320, 50], [320, 100], [300, 50]], // Add [2, 2] for UAP
+        defaultSizes: [[320, 50], [320, 100], [300, 50]],
+        defaultTemplates: [],
         targeting: {
           loc: 'top',
           rv: 1,
@@ -112,7 +115,7 @@ export default {
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         repeat: {
           additionalClasses: 'hide',
           index: 1,
@@ -123,7 +126,7 @@ export default {
             'targeting.rv': '{slotConfig.repeat.index}',
             'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
           },
-          injectBelowConflictingElements: true,
+          insertBelowScrollPosition: true,
         },
         slotShortcut: 'f',
         sizes: [
@@ -144,7 +147,7 @@ export default {
         avoidConflictWith: '.ad-slot',
         autoplay: true,
         audio: false,
-        insertBeforeSelector: '.article-body h2',
+        insertBeforeSelector: '.article-content > h2',
         disabled: true,
         slotNameSuffix: '',
         group: 'HiVi',
@@ -183,10 +186,32 @@ export default {
             sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
           },
         ],
-        defaultSizes: [[320, 50], [300, 250], [300, 50]], // Add [2, 2] for UAP
+        defaultSizes: [[320, 50], [300, 250], [300, 50]],
         targeting: {
           loc: 'footer',
           pos: ['bottom_leaderboard', 'mobile_prefooter'],
+          rv: 1,
+        },
+      },
+      invisible_high_impact: {
+        adProduct: 'invisible_high_impact',
+        slotNameSuffix: '',
+        group: 'PX',
+        options: {},
+        defaultSizes: [[1, 1]],
+        targeting: {
+          loc: 'hivi',
+          rv: 1,
+        },
+      },
+      invisible_high_impact_2: {
+        adProduct: 'invisible_high_impact_2',
+        slotNameSuffix: '',
+        group: 'PX',
+        options: {},
+        outOfPage: true,
+        targeting: {
+          loc: 'hivi',
           rv: 1,
         },
       },
@@ -235,8 +260,11 @@ export default {
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
+    setSlotState('invisible_high_impact', !context.get('custom.hasFeaturedVideo'));
+    setSlotState('invisible_high_impact_2', !context.get('custom.hasFeaturedVideo'));
+
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
-    setSlotState('incontent_player', isIncontentPlayerApplicable(context));
+    setSlotState('incontent_player', isIncontentPlayerApplicable());
   },
 
   setupIdentificators() {
@@ -251,5 +279,25 @@ export default {
       const slotParam = slotsDefinition[key].slotShortcut || 'x';
       context.set(`slots.${key}.targeting.wsi`, `m${slotParam}${pageTypeParam}1`);
     });
+  },
+
+  setupSlotVideoAdUnit(adSlot, params) {
+    const { context, utils } = window.Wikia.adEngine;
+    const { getAdProductInfo } = window.Wikia.adProducts;
+
+    if (params.isVideoMegaEnabled) {
+      const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
+      const adUnit = utils.stringBuilder.build(
+        context.get('vast.megaAdUnitId'),
+        {
+          slotConfig: {
+            group: adProductInfo.adGroup,
+            adProduct: adProductInfo.adProduct,
+          },
+        },
+      );
+
+      context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
+    }
   },
 };

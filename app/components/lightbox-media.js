@@ -158,7 +158,7 @@ export default Component.extend({
   },
 
   updateThumbnails() {
-    if (this.get('isGallery')) {
+    if (this.isGallery) {
       const thumbnails = this.model.items.map((item, index) => ({
         url: Thumbnailer.getThumbURL(
           item.url,

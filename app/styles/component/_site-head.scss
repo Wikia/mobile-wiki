@@ -8,20 +8,20 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
     z-index: $z-site-head;
   }
 
-  .featured-video-on-scroll-active:not(.wds-no-scroll):not(.fandom-app-smart-banner-passed) .with-fandom-app-smart-banner & {
+  .featured-video-on-scroll-active:not(.wds-no-scroll):not(.smart-banner-passed) .with-smart-banner & {
     position: relative;
   }
 }
 
 body:not(.wds-no-scroll):not(.featured-video-on-scroll-active) {
-  .with-fandom-app-smart-banner {
+  .with-smart-banner {
     .wds-global-navigation {
       top: 85px;
     }
   }
 }
 
-body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-head-headroom-not-top .wds-community-bar {
+body:not(.featured-video-on-scroll-active) .with-smart-banner .site-head-headroom-not-top .wds-community-bar {
   margin-top: 85px;
 }
 
@@ -52,7 +52,7 @@ body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-h
 }
 
 .site-head-headroom-not-top {
-  .fandom-app-smart-banner {
+  .smart-banner {
     position: fixed;
     top: 0;
 
@@ -62,7 +62,7 @@ body:not(.featured-video-on-scroll-active) .with-fandom-app-smart-banner .site-h
   }
 }
 
-.with-fandom-app-smart-banner {
+.with-smart-banner {
   .site-head-container {
     min-height: 140px;
   }

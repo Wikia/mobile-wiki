@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengplayerinfo';
+import { track } from '../../../utils/track';
 
 /**
   * Prepare data for tracking
@@ -11,13 +11,12 @@ const trackingRouteName = 'special/adengplayerinfo';
 function prepareData(data, playerName, eventName, errorCode = 0) {
   // Global imports:
   const { context, slotService, utils } = window.Wikia.adEngine;
-  const { getCountryCode } = window.Wikia.adProducts.utils;
+  const { getCountryCode } = window.Wikia.adEngine.utils;
   // End of imports
 
   const slot = slotService.get(data.slotName);
 
-  return {
-    pv_unique_id: window.pvUID,
+  const preparedData = {
     pv_number: window.pvNumber,
     country: getCountryCode(),
     skin: context.get('targeting.skin'),
@@ -36,7 +35,13 @@ function prepareData(data, playerName, eventName, errorCode = 0) {
     ctp: data.withCtp ? 1 : 0,
     audio: data.withAudio ? 1 : 0,
     video_id: data.videoId || '',
+    document_visibility: utils.getDocumentVisibilityStatus(),
   };
+
+  if ([-1, 0, 1].indexOf(data.userBlockAutoplay) > -1) {
+    preparedData.user_block_autoplay = data.userBlockAutoplay;
+  }
+  return preparedData;
 }
 
 /**
@@ -66,9 +71,13 @@ export default class PlayerTracker {
     // End of imports
 
     if (context.get('options.tracking.kikimora.player')) {
-      const trackingData = prepareData(data, playerName, eventName, errorCode);
-
-      M.tracker.Internal.track(trackingRouteName, trackingData);
+      track(Object.assign(
+        {
+          eventName: 'adengplayerinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(data, playerName, eventName, errorCode),
+      ));
     }
   }
 }

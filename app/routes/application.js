@@ -23,6 +23,7 @@ export default Route.extend(
   {
     ads: service(),
     currentUser: service(),
+    fandomComMigration: service(),
     fastboot: service(),
     i18n: service(),
     lightbox: service(),
@@ -31,6 +32,7 @@ export default Route.extend(
     wikiVariables: service(),
     smartBanner: service(),
     router: service(),
+    fastlyInsights: service(),
 
     queryParams: {
       file: {
@@ -100,6 +102,18 @@ export default Route.extend(
       ) {
         getAdsModule().then((adsModule) => {
           if (isAdEngine3Loaded()) {
+            const { events } = window.Wikia.adEngine;
+
+            events.registerEvent('HEAD_OFFSET_CHANGE');
+            events.registerEvent('SMART_BANNER_CHANGE');
+
+            events.on(events.HEAD_OFFSET_CHANGE, (offset) => {
+              this.set('ads.siteHeadOffset', offset);
+            });
+            events.on(events.SMART_BANNER_CHANGE, (visibility) => {
+              this.set('smartBanner.smartBannerVisible', visibility);
+            });
+
             return;
           }
 
@@ -142,6 +156,8 @@ export default Route.extend(
             this.set('smartBanner.smartBannerVisible', false);
           };
         });
+
+        this.fastlyInsights.loadFastlyInsightsScript();
       }
 
       if (fastboot.get('isFastBoot')) {
@@ -156,7 +172,6 @@ export default Route.extend(
           // append mobile-wiki specific key
           surrogateKey = `${surrogateKey} ${surrogateKey}-mobile-wiki`;
           fastboot.get('response.headers').set('Surrogate-Key', surrogateKey);
-          fastboot.get('response.headers').set('X-Surrogate-Key', surrogateKey);
         }
 
         // TODO remove `transition.queryParams.page`when icache supports surrogate keys
@@ -173,6 +188,8 @@ export default Route.extend(
           });
         }
       }
+
+      this.fandomComMigration.showNotification();
     },
 
     redirect(model) {

@@ -8,7 +8,7 @@ import Thumbnailer from '../modules/thumbnailer';
 import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
-import fetch from '../utils/mediawiki-fetch';
+import { TopArticlesFetchError } from '../utils/errors';
 
 const recircItemsCount = 10;
 const config = {
@@ -33,6 +33,7 @@ export default Component.extend(
     router: service(),
     wikiVariables: service(),
     wikiUrls: service(),
+    fetch: service(),
 
     classNames: ['recirculation-prefooter'],
     classNameBindings: ['items:has-items'],
@@ -60,7 +61,7 @@ export default Component.extend(
         listRendered: defer(),
       });
 
-      this.get('ads').addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
+      this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
     },
 
     actions: {
@@ -85,27 +86,24 @@ export default Component.extend(
           label: `more-wiki-${index}`,
         });
 
-        this.get('router').transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+        this.router.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
       },
     },
 
     fetchTopArticles() {
-      fetch(this.wikiUrls.build({
+      const url = this.wikiUrls.build({
         host: this.get('wikiVariables.host'),
         path: '/wikia.php',
         query: {
           controller: 'RecirculationApiController',
           method: 'getPopularWikiArticles',
         },
-      }))
-        .then((response) => {
-          if (!response.ok) {
-            this.logger.error('Can not fetch topArticles', response);
-            this.set('topArticles', []);
-
-            return this;
-          }
-          return response.json().then(data => this.set('topArticles', data));
+      });
+      this.fetch.fetchFromMediawiki(url, TopArticlesFetchError)
+        .then(data => this.set('topArticles', data))
+        .catch((error) => {
+          this.logger.error(error.message);
+          this.set('topArticles', []);
         });
     },
 
@@ -133,7 +131,7 @@ export default Component.extend(
                 config.widget,
                 'LI',
               );
-              this.get('listRendered').resolve();
+              this.listRendered.resolve();
             }
           });
         });
@@ -151,16 +149,17 @@ export default Component.extend(
       }
 
       if (M.getFromHeadDataStore('noExternals')) {
+        this.listRendered.resolve();
         return;
       }
 
-      if (this.displayLiftigniterRecirculation) {
-        M.trackingQueue.push((isOptedIn) => {
-          if (isOptedIn) {
-            this.fetchLiftIgniterData();
-          }
-        });
-      }
+      M.trackingQueue.push((isOptedIn) => {
+        if (isOptedIn && this.displayLiftigniterRecirculation) {
+          this.fetchLiftIgniterData();
+        } else {
+          this.listRendered.resolve();
+        }
+      });
     },
   },
 );

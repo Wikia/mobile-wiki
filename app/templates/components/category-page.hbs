@@ -1,0 +1,28 @@
+<h2 class="category-page__total-number">
+  {{i18n
+    "category-page.total-number"
+    totalNumberOfItems=@model.totalNumberOfMembers
+  }}
+</h2>
+{{category-alphabet-shortcuts
+  from=@from
+  loadFrom=(action "loadFrom")
+}}
+{{#if isLoading}}
+  {{wds-spinner
+    active=isLoading
+    isBlock=true
+    overlay=false
+  }}
+{{else}}
+  {{category-members-grouped
+    model=@model.members
+  }}
+  {{#if model.hasPagination}}
+    {{category-pagination
+      loadFrom=(action "loadFrom")
+      model=@model.pagination
+    }}
+  {{/if}}
+{{/if}}
+{{alert-notifications alerts=alertNotifications}}

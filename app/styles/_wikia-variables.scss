@@ -9,8 +9,6 @@ $font-family-with-rubik: 'Rubik', $wds-font-family;
 // z-1
 $z-ads-top-leaderboard: $z-1;
 $z-ads-bottom-leaderboard: $z-1;
-$z-spinner-before: $z-1;
-$z-portable-infobox-collapse: $z-1;
 // z-2
 // z-3
 // z-4
@@ -42,34 +40,15 @@ $article-horizontal-padding: .75rem;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$overlay-background-color: rgba(0, 0, 0, .5);
-$box-shadow-color: rgba(0, 0, 0, .3);
-
 $border-color-light: $wds-color-faint-blue-gray;
 
 $modal-text-color: $wds-color-white;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Vertical variables
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Hub Colors
-$color-hub-comics: #ff5400;
-$color-hub-games: #94d11f;
-$color-hub-books: #ff7f26;
-$color-hub-movies: #09d3bf;
-$color-hub-lifestyle: #ffd000;
-$color-hub-music: #c819ad;
-$color-hub-tv: #00b7e0;
-$verticals: comics games books movies lifestyle music tv;
-$vertical-colors: (
-  $color-hub-comics $color-hub-games $color-hub-books $color-hub-movies $color-hub-lifestyle $color-hub-music $color-hub-tv
-);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Smart banner
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// sync with fandomAppSmartBannerHeight fandom-app-smart-banner component property
-$fandom-app-smart-banner-height: 85px;
+// sync with fandomAppSmartBannerHeight smart-banner component property
+$smart-banner-height: 85px;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Site head

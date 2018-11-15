@@ -1,15 +1,21 @@
 /* eslint-disable class-methods-use-this */
+/* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
+import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
+import pageTracker from './tracking/page-tracker';
 import videoAds from '../video-players/video-ads';
 import biddersDelay from './bidders-delay';
+import billTheLizard from './bill-the-lizard';
 
 const SLOT_NAME_MAP = {
   MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
   MOBILE_IN_CONTENT: 'mobile_in_content',
   MOBILE_PREFOOTER: 'mobile_prefooter',
   BOTTOM_LEADERBOARD: 'bottom_leaderboard',
+  INVISIBLE_HIGH_IMPACT: 'invisible_high_impact',
+  INVISIBLE_HIGH_IMPACT_2: 'invisible_high_impact_2',
 };
 
 class Ads {
@@ -45,21 +51,45 @@ class Ads {
     }
   }
 
-  setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    const { context, events } = window.Wikia.adEngine;
-    const { bidders } = window.Wikia.adProducts;
+  callExternals() {
+    const { bidders } = window.Wikia.adBidders;
+    const { krux } = window.Wikia.adServices;
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    this.instantGlobals = instantGlobals;
+    biddersDelay.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelay.markAsReady,
+    });
+
+    krux.call();
+    this.trackLabrador();
+  }
+
+  setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
+    const { context, events, utils } = window.Wikia.adEngine;
+    const { bidders } = window.Wikia.adBidders;
+    const { universalAdPackage } = window.Wikia.adProducts;
+
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
+    this.instantGlobals = instantGlobals;
+    this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
+
+    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     context.push('delayModules', biddersDelay);
     events.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.PAGE_CHANGE_EVENT, this.callBidders);
-    this.callBidders();
+
+    events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
+    events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
+    events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
+    events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
+    events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
+    this.callExternals();
+
+    billTheLizard.configureBillTheLizard(instantGlobals);
 
     this.startAdEngine();
 
@@ -68,11 +98,35 @@ class Ads {
     this.onReadyCallbacks = [];
   }
 
-  callBidders() {
-    const { bidders } = window.Wikia.adProducts;
+  trackLabrador() {
+    const { utils } = window.Wikia.adEngine;
 
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
+    // Track Labrador values to DW
+    const labradorPropValue = utils.getSamplingResults().join(';');
+
+    if (labradorPropValue) {
+      pageTracker.trackProp('labrador', labradorPropValue);
+    }
+  }
+
+  waitForVideoBidders() {
+    const { context, utils } = window.Wikia.adEngine;
+
+    if (!this.showAds) {
+      return Promise.resolve();
+    }
+
+    const timeout = new Promise((resolve) => {
+      setTimeout(resolve, context.get('options.maxDelayTimeout'));
+    });
+
+    // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
+    // we don't need to pass bidder parameters here because they are set on slot create
+    return Promise.race([
+      biddersDelay.getPromise(),
+      timeout,
+    ]).then(() => {
+      utils.logger('featured-video', 'resolving featured video delay');
     });
   }
 
@@ -83,11 +137,12 @@ class Ads {
     }
   }
 
-  finishAtfQueue() {
+  finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
     if (this.showAds) {
-      btfBlockerService.finishAboveTheFold();
+      btfBlockerService.finishFirstCall();
+      fanTakeoverResolver.resolve();
     }
   }
 
@@ -148,16 +203,20 @@ class Ads {
     });
   }
 
+  beforeTransition() {
+    this.events.beforePageChange();
+  }
+
   onTransition(options) {
     const { context } = window.Wikia.adEngine;
-    const defaultOptions = {
-      doNotDestroyGptSlots: true, // allow mobile-wiki to destroy GPT slots on one's own
-    };
 
-    if (this.events && this.showAds) {
+    if (this.events) {
       context.set('state.adStack', []);
-      this.events.pageChange(Object.assign(defaultOptions, options));
-      this.engine.runAdQueue();
+      this.events.pageChange(options);
+
+      if (this.showAds) {
+        this.engine.runAdQueue();
+      }
     }
   }
 
@@ -173,16 +232,22 @@ class Ads {
     }
   }
 
-  removeSlot(name) {
-    const gptProvider = this.engine.getProvider('gpt');
-
-    if (gptProvider) {
-      gptProvider.destroySlots([name]);
-    }
+  removeSlot() {
+    // TODO: This method is not needed once we remove legacyModule.js
   }
 
   waitForReady() {
     return new Promise(resolve => this.onReady(resolve));
+  }
+
+  waitForUapResponse(uapCallback, noUapCallback) {
+    fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+      if (isFanTakeover) {
+        uapCallback();
+      } else {
+        noUapCallback();
+      }
+    });
   }
 
   onMenuOpen() {

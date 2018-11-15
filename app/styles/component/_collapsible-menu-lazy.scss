@@ -17,9 +17,8 @@
       }
 
       a {
-        @extend %wds-font-weight-normal;
-
         color: $wds-fandom-color-link;
+        font-weight: $wds-font-weight-normal;
       }
     }
   }

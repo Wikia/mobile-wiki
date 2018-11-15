@@ -59,7 +59,12 @@
     "load-more": "crwdns58222:0crwdne58222:0", 
     "load-previous": "crwdns58223:0crwdne58223:0", 
     "no-members": "crwdns58224:0crwdne58224:0", 
-    "subtitle": "crwdns58225:0crwdne58225:0"
+    "pagination-first": "crwdns81318:0crwdne81318:0", 
+    "pagination-last": "crwdns81320:0crwdne81320:0", 
+    "shortcut-to-other": "crwdns81322:0crwdne81322:0", 
+    "subtitle": "crwdns58225:0crwdne58225:0", 
+    "total-number": "crwdns81326:0{totalNumberOfItems}crwdne81326:0", 
+    "trending-pages": "crwdns81398:0crwdne81398:0"
   }, 
   "edit": {
     "load-error": "crwdns58226:0crwdne58226:0", 

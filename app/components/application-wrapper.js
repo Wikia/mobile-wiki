@@ -1,8 +1,8 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { bool, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
+import { track } from '../utils/track';
 
 /**
   * HTMLMouseEvent
@@ -36,8 +36,8 @@ export default Component.extend({
   classNames: ['application-wrapper'],
   classNameBindings: [
     'smartBannerVisible',
-    'verticalClass',
-    'isFandomAppSmartBannerVisible:with-fandom-app-smart-banner',
+    'isFandomAppSmartBannerVisible:with-smart-banner',
+    'isCustomSmartBannerVisible:with-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
   ],
@@ -46,15 +46,14 @@ export default Component.extend({
   smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
+  isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
 
   bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
 
-  verticalClass: computed('wikiVariables', function () {
-    const vertical = this.get('wikiVariables.vertical');
-
-    return `${vertical}-vertical`;
-  }),
+  track(data) {
+    track(data);
+  },
 
   /**
   * Necessary because presently, we open external links in new pages, so if we didn't
@@ -96,10 +95,10 @@ export default Component.extend({
 
     return (
       target.closest('.mw-content')
-   // ignore polldaddy content
-   && !target.closest('.PDS_Poll')
-   // don't need special logic for article references
-   && !isReference
+      // ignore polldaddy content
+      && !target.closest('.PDS_Poll')
+      // don't need special logic for article references
+      && !isReference
     );
   },
 

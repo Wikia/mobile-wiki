@@ -25,8 +25,8 @@ function getModule() {
   fpPromise = new Promise((resolve, reject) => {
     const fpScript = document.createElement('script');
     fpScript.onload = () => {
-      if (window.fp) {
-        resolve(window.fp);
+      if (window.fandomEmbeddedFeeds) {
+        resolve(window.fandomEmbeddedFeeds);
       } else {
         reject();
       }
@@ -45,15 +45,16 @@ function getModule() {
   * Loads the feed onto an article page
   *
   * @param {Module} module
+  * @param {Object} [options]
   */
-function loadFeed(module) {
+function loadFeed(module, options = {}, isMainPage = false) {
   const container = document.createElement('div');
   container.setAttribute('class', 'feed-posts-module');
 
   // First try inserting before the first collapsed H2 in the article content
   let insertBeforeNode = document.querySelector('.article-content h2[section]');
   // Then try before the article footer
-  if (!insertBeforeNode) {
+  if (!insertBeforeNode || isMainPage) {
     insertBeforeNode = document.querySelector('.article-footer');
   }
   // If that doesn't exist, do nothing
@@ -62,7 +63,7 @@ function loadFeed(module) {
   }
 
   insertBeforeNode.parentNode.insertBefore(container, insertBeforeNode);
-  module.default(container);
+  module.default(container, options);
 }
 
 export default {

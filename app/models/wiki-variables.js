@@ -1,30 +1,32 @@
 import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
-import fetch from '../utils/mediawiki-fetch';
+import fetch from 'fetch';
 import {
   WikiVariablesRedirectError,
   WikiVariablesFetchError,
 } from '../utils/errors';
 
 export default EmberObject.extend({
+  fetchService: service('fetch'),
   wikiUrls: service(),
 
-  fetch(protocol, host, accessToken) {
+  load(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
       host,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',
-        method: 'getWikiVariables',
+        method: 'getMobileWikiVariables',
         format: 'json',
       },
     });
-    const options = {
-      headers: {},
-    };
+
+    const options = this.fetchService.getOptionsForInternalCache(url);
 
     if (accessToken) {
-      options.headers.Cookie = `access_token=${accessToken}`;
+      options.headers = {
+        Cookie: `access_token=${accessToken}`,
+      };
     }
 
     return fetch(url, options)
@@ -62,7 +64,7 @@ export default EmberObject.extend({
         });
       }).then((response) => {
         if (!response.data.siteName) {
-          response.data.siteName = 'Fandom powered by Wikia';
+          response.data.siteName = 'FANDOM powered by Wikia';
         }
 
         response.data.host = host;

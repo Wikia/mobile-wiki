@@ -1,7 +1,13 @@
-const trackingRouteName = 'special/adengadinfo';
+import { track } from '../../../utils/track';
+import targeting from '../targeting';
 
+const onRenderEndedStatusToTrack = [
+  'collapse',
+  'success',
+];
 const onChangeStatusToTrack = [
   'blocked',
+  'catlapsed',
   'error',
   'viewport-conflict',
   'sticked',
@@ -40,28 +46,13 @@ function checkOptIn() {
   */
 function prepareData(slot, data) {
   // Global imports:
-  const { context } = window.Wikia.adEngine;
-  const { bidders, utils } = window.Wikia.adProducts;
+  const { context, utils } = window.Wikia.adEngine;
+  const { billTheLizard } = window.Wikia.adServices;
   // End of imports
 
   const slotName = slot.getSlotName();
-  const realSlotPrices = bidders.getDfpSlotPrices(slotName);
-  const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
 
-  function transformBidderPrice(bidderName) {
-    if (realSlotPrices && realSlotPrices[bidderName]) {
-      return realSlotPrices[bidderName];
-    }
-
-    if (currentSlotPrices && currentSlotPrices[bidderName]) {
-      return `${currentSlotPrices[bidderName]}not_used`;
-    }
-
-    return '';
-  }
-
-  return {
-    pv_unique_id: window.pvUID,
+  return Object.assign({
     pv: window.pvNumber,
     browser: data.browser,
     country: utils.getCountryCode(),
@@ -76,20 +67,6 @@ function prepareData(slot, data) {
     ad_status: data.status,
     page_width: data.page_width,
     viewport_height: data.viewport_height,
-    bidder_1: transformBidderPrice('indexExchange'),
-    bidder_2: transformBidderPrice('appnexus'),
-    bidder_4: transformBidderPrice('rubicon'),
-    bidder_6: transformBidderPrice('aol'),
-    bidder_7: transformBidderPrice('audienceNetwork'),
-    bidder_9: transformBidderPrice('openx'),
-    bidder_10: transformBidderPrice('appnexusAst'),
-    bidder_11: transformBidderPrice('rubicon_display'),
-    bidder_12: transformBidderPrice('a9'),
-    bidder_13: transformBidderPrice('onemobile'),
-    bidder_14: transformBidderPrice('pubmatic'),
-    bidder_15: transformBidderPrice('beachfront'),
-    bidder_16: transformBidderPrice('appnexusWebAds'),
-    bidder_17: transformBidderPrice('kargo'),
     kv_skin: context.get('targeting.skin'),
     kv_pos: getPosParameter(slot.getTargeting()),
     kv_wsi: slot.getTargeting().wsi || '',
@@ -104,10 +81,12 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
+    btl: billTheLizard.serialize() || '',
     opt_in: checkOptIn(),
+    document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
     // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
-  };
+  }, targeting.getBiddersPrices(slotName));
 }
 
 /**
@@ -133,7 +112,19 @@ export default {
   * @returns {void}
   */
   onRenderEnded(adSlot, data) {
-    M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    const status = adSlot.getStatus();
+
+    if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
+    } else if (status === 'manual') {
+      adSlot.trackOnStatusChanged = true;
+    }
   },
 
   /**
@@ -145,8 +136,15 @@ export default {
   onStatusChanged(adSlot, data) {
     const status = adSlot.getStatus();
 
-    if (onChangeStatusToTrack.indexOf(status) !== -1) {
-      M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
+      track(Object.assign(
+        {
+          eventName: 'adengadinfo',
+          trackingMethod: 'internal',
+        },
+        prepareData(adSlot, data),
+      ));
+      delete adSlot.trackOnStatusChanged;
     }
   },
 };

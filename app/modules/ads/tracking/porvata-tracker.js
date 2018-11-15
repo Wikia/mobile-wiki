@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengplayerinfo';
+import { track } from '../../../utils/track';
 
 export default {
   /**
@@ -23,18 +23,22 @@ export default {
   onEvent(eventName, playerParams, data) {
     // Global imports:
     const { context, slotService } = window.Wikia.adEngine;
-    const { getCountryCode } = window.Wikia.adProducts.utils;
+    const { getCountryCode } = window.Wikia.adEngine.utils;
     // End of imports
 
     const slot = slotService.get(data.position);
-    const trackingData = Object.assign(data, {
-      pv_unique_id: window.pvUID,
-      pv_number: window.pvNumber,
-      country: getCountryCode(),
-      skin: context.get('targeting.skin'),
-      wsi: slot.getTargeting().wsi || '',
-    });
 
-    M.tracker.Internal.track(trackingRouteName, trackingData);
+    track(Object.assign(
+      {
+        eventName: 'adengplayerinfo',
+        trackingMethod: 'internal',
+      },
+      Object.assign(data, {
+        pv_number: window.pvNumber,
+        country: getCountryCode(),
+        skin: context.get('targeting.skin'),
+        wsi: slot.getTargeting().wsi || '',
+      }),
+    ));
   },
 };

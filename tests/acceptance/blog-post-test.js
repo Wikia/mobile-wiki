@@ -3,6 +3,7 @@ import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService from '../helpers/mock-ads-service';
+import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | Blog post page', (hooks) => {
   setupApplicationTest(hooks);
@@ -10,6 +11,7 @@ module('Acceptance | Blog post page', (hooks) => {
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
+    mockFastlyInsights(this.owner);
   });
 
   test('blog post contains categories', async (assert) => {

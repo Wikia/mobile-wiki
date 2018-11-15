@@ -427,11 +427,13 @@ class Ads {
 
     if (this.isLoaded) {
       this.setupSlotsContext();
+
       if (this.adMercuryListenerModule) {
         this.adMercuryListenerModule.onPageChange(() => {
           this.googleTagModule.updateCorrelator();
         });
       }
+
       if (adsContext) {
         this.adContextModule.setContext(adsContext);
 
@@ -477,7 +479,7 @@ class Ads {
     };
   }
 
-  finishAtfQueue() {
+  finishFirstCall() {
     // Do nothing
   }
 
@@ -631,6 +633,41 @@ class Ads {
       this.jwPlayerAds(player, bidParams, slotTargeting);
       this.jwPlayerMoat.track(player);
     }
+  }
+
+  waitForVideoBidders() {
+    const isA9VideoEnabled = this.a9
+      && this.currentAdsContext
+      && this.currentAdsContext.bidders
+      && this.currentAdsContext.bidders.a9Video;
+
+    if (isA9VideoEnabled) {
+      return new Promise((resolve) => {
+        this.parseBidderParameters(resolve, (params, error) => {
+          /* eslint no-console: 0 */
+          console.error('JWPlayer: Error while receiving bidder parameters:', error);
+          resolve(params);
+        });
+      });
+    }
+
+    return Promise.resolve({});
+  }
+
+  parseBidderParameters(onSuccess, onError) {
+    const a9 = this.a9;
+    const responseTimeout = 2000;
+
+    if (!a9 || !a9.waitForResponseCallbacks) {
+      console.warn('a9 disabled');
+      onError({}, 'A9 bidder not found');
+    }
+
+    a9.waitForResponseCallbacks(
+      () => onSuccess(a9.getSlotParams('FEATURED')),
+      () => onError({}, 'Connection timed out'),
+      responseTimeout,
+    );
   }
 }
 

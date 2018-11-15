@@ -22,7 +22,7 @@ export default Component.extend(
     }),
 
     buttonLabel: computed('collapsed', function () {
-      return this.get('collapsed') ? this.i18n.t('app.more') : this.i18n.t('app.less');
+      return this.collapsed ? this.i18n.t('app.more') : this.i18n.t('app.less');
     }),
 
     /**

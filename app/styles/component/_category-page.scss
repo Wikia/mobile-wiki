@@ -1,0 +1,11 @@
+.category-page {
+  margin-bottom: 1.5rem;
+  padding: 0 $article-horizontal-padding;
+
+  &__total-number {
+    font-size: $wds-font-size-l;
+    font-weight: $wds-font-weight-medium;
+    margin-bottom: 22px;
+    margin-top: 40px;
+  }
+}

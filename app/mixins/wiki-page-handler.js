@@ -11,11 +11,7 @@ import {
   namespace as MediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-import fetch from '../utils/mediawiki-fetch';
-import {
-  getFetchErrorMessage,
-  WikiPageFetchError,
-} from '../utils/errors';
+import { WikiPageFetchError } from '../utils/errors';
 import extend from '../utils/extend';
 
 /**
@@ -43,22 +39,13 @@ function getURL(wikiUrls, params) {
     query.noexternals = params.noexternals;
   }
 
-  if (params.page) {
-    query.categoryMembersPage = params.page;
+  if (params.from) {
+    query.categoryMembersFrom = params.from;
   }
 
   // this is pseudo-versioning query param for collapsible sections (XW-4393)
   // should be removed after all App caches are invalidated
   query.collapsibleSections = 1;
-
-  // TODO: clean me after new premium look and feel is released and icache expired
-  query.premiumLayout = true;
-
-  // TODO: clean me after new mobile bottom of a page is released and icache expired
-  query.premiumBottom = true;
-
-  // TODO: clean me after new galleries are released and icache expired
-  query.premiumGalleries = true;
 
   return wikiUrls.build({
     host: params.host,
@@ -72,6 +59,7 @@ export default Mixin.create({
   wikiVariables: service(),
   simpleStore: service(),
   wikiUrls: service(),
+  fetch: service(),
 
   getPageModel(params) {
     const isFastBoot = this.get('fastboot.isFastBoot');
@@ -85,20 +73,7 @@ export default Mixin.create({
 
       const url = getURL(this.wikiUrls, params);
 
-      return fetch(url)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          return getFetchErrorMessage(response).then(() => {
-            throw new WikiPageFetchError({
-              code: response.status || 503,
-            }).withAdditionalData({
-              requestUrl: url,
-              responseUrl: response.url,
-            });
-          });
-        })
+      return this.fetch.fetchFromMediawiki(url, WikiPageFetchError)
         .then((data) => {
           if (isFastBoot) {
             const dataForShoebox = extend({}, data);

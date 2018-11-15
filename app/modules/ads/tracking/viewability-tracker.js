@@ -1,4 +1,4 @@
-const trackingRouteName = 'special/adengviewability';
+import { track } from '../../../utils/track';
 
 /**
   * Prepare data for render ended tracking
@@ -8,7 +8,6 @@ const trackingRouteName = 'special/adengviewability';
   */
 function prepareData(slot, data) {
   return {
-    pv_unique_id: window.pvUID,
     wsi: slot.getTargeting().wsi || '',
     line_item_id: data.line_item_id,
     creative_id: data.creative_id,
@@ -40,6 +39,12 @@ export default {
   * @returns {void}
   */
   onImpressionViewable(adSlot, data) {
-    M.tracker.Internal.track(trackingRouteName, prepareData(adSlot, data));
+    track(Object.assign(
+      {
+        eventName: 'adengviewability',
+        trackingMethod: 'internal',
+      },
+      prepareData(adSlot, data),
+    ));
   },
 };

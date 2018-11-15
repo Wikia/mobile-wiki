@@ -59,7 +59,12 @@
     "load-more": "載入更多", 
     "load-previous": "載入前一個", 
     "no-members": "這一分類中目前沒有任何頁面。", 
-    "subtitle": "分類頁面"
+    "pagination-first": "最前", 
+    "pagination-last": "最後", 
+    "shortcut-to-other": "其他", 
+    "subtitle": "分類頁面", 
+    "total-number": "所有項目 ({totalNumberOfItems})", 
+    "trending-pages": "熱門頁面"
   }, 
   "edit": {
     "load-error": "發生錯誤。抱歉，請再試一次。", 

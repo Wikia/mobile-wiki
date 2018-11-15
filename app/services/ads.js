@@ -1,7 +1,7 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import getAdsModule from '../modules/ads';
+import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 
 export default Service.extend({
   module: null,
@@ -11,8 +11,11 @@ export default Service.extend({
   siteHeadOffset: 0,
   slotNames: null,
   noAdsQueryParam: null,
+  disableAdsInMobileApp: null,
   noAds: computed('noAdsQueryParam', function () {
-    return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1 || this.get('currentUser.isAuthenticated');
+    return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1
+      || ['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1
+      || this.get('currentUser.isAuthenticated');
   }),
   adSlotComponents: null,
   waits: null,
@@ -44,7 +47,11 @@ export default Service.extend({
     this.adSlotComponents[slotName] = adSlotComponent;
   },
 
-  destroyAdSlotComponents() {
+  beforeTransition() {
+    if (this.module && isAdEngine3Loaded()) {
+      this.module.beforeTransition();
+    }
+
     const adSlotComponents = this.adSlotComponents;
 
     Object.keys(adSlotComponents).forEach((slotName) => {

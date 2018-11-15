@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import Service from '@ember/service';
 import { dasherize } from '@ember/string';
-import { find, findAll, render } from '@ember/test-helpers';
+import { find, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
@@ -50,7 +50,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,
@@ -65,7 +65,7 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
+    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 });
     assert.equal(
       find(mobileTopLeaderboardSelector).previousSibling,
       find('.portable-infobox-wrapper'),
@@ -83,7 +83,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,
@@ -98,7 +98,7 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.equal(findAll(mobileTopLeaderboardSelector).length, 1);
+    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 });
     assert.equal(
       find(mobileTopLeaderboardSelector).previousSibling,
       find('.wiki-page-header'),
@@ -119,7 +119,7 @@ module('Integration | Component | article content', (hooks) => {
     this.setProperties({
       adsContext: {
         opts: {
-          areMobileStickyAndSwapEnabled: false,
+          isMobileBottomLeaderboardSwapEnabled: false,
         },
       },
       content,
@@ -134,7 +134,7 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.equal(findAll(mobileTopLeaderboardSelector).length, 1, 'top leaderboard is inserted only once');
+    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 }, 'top leaderboard is inserted only once');
     assert.equal(
       find(mobileTopLeaderboardSelector).previousSibling,
       find('.portable-infobox-wrapper'),

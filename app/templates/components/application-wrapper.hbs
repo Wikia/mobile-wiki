@@ -15,9 +15,15 @@
   </div>
   {{wikia-in-your-lang}}
   {{#if globalFooter}}
-    {{global-footer/global-footer model=globalFooter}}
+    {{wds-global-footer
+      model=globalFooter
+      track=(action track)
+    }}
+    {{global-footer-bottom}}
   {{/if}}
 {{/if}}
 {{lightbox-wrapper}}
 {{alert-notifications alerts=alertNotifications}}
+{{autologin-frame}}
+{{autologin-passive-frame}}
 {{wds-spinner active=isLoading}}

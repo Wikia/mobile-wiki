@@ -3,6 +3,11 @@
     isVisible=smartBannerVisible
   }}
 {{/if}}
+{{#if isCustomSmartBannerVisible}}
+  {{custom-smart-banner
+    isVisible=smartBannerVisible
+  }}
+{{/if}}
 <div class="site-head-wrapper">
   {{wds-global-navigation
     model=globalNavigation
@@ -13,4 +18,9 @@
     goToSearchResults=(action goToSearchResults)
   }}
 </div>
-{{wds-community-bar model=communityHeader track=(action track) onLinkClicked=(action onLinkClicked)}}
+{{wds-banner-notifications}}
+{{wds-community-bar
+  model=communityHeader
+  track=(action track)
+  onLinkClicked=(action onLinkClicked)
+}}

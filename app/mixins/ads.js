@@ -9,6 +9,7 @@ export default Mixin.create({
   init() {
     this._super(...arguments);
     this.renderAdComponent = getRenderComponentFor(this);
+    this.waitingSlots = {};
   },
 
   /**
@@ -19,11 +20,12 @@ export default Mixin.create({
   * @returns {void}
   */
   appendAd(adSlotName, place, element, waitKey = '') {
-    if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
-      return;
-    }
+    // Save waiting slots so queue can be cleared on transition
+    this.waitingSlots[adSlotName] = () => {
+      if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
+        return;
+      }
 
-    this.get('ads').getWaits(waitKey).then(() => {
       const placeholder = document.createElement('div');
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -36,8 +38,15 @@ export default Mixin.create({
         attrs: attributes,
         element: placeholder,
       }));
+    };
+
+    this.ads.getWaits(waitKey).then(() => {
+      if (this.waitingSlots[adSlotName]) {
+        this.waitingSlots[adSlotName]();
+        delete this.waitingSlots[adSlotName];
+      }
+      this.ads.clearWaits(adSlotName);
     });
-    this.get('ads').clearWaits(adSlotName);
   },
 
   appendHighImpactAd() {
@@ -45,20 +54,21 @@ export default Mixin.create({
     const placeholder = document.createElement('div');
     const wikiContainer = document.getElementById('wikiContainer');
 
-    if (wikiContainer) {
+    if (wikiContainer && this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
       wikiContainer.insertAdjacentElement('afterend', placeholder);
+      const attributes = this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
 
-      if (this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
-        this.ads.pushAdSlotComponent(
-          adsData.invisibleHighImpact2,
-          this.renderAdComponent({
-            name: 'ads/invisible-high-impact-2',
-            attrs: {},
-            element: placeholder,
-          }),
-        );
-      }
+      this.ads.pushAdSlotComponent(
+        adsData.invisibleHighImpact2,
+        this.renderAdComponent({
+          name: 'ads/invisible-high-impact-2',
+          attrs: attributes,
+          element: placeholder,
+        }),
+      );
+    }
 
+    if (wikiContainer) {
       this.appendAd(adsData.invisibleHighImpact, 'afterend', wikiContainer);
     }
   },
@@ -67,13 +77,17 @@ export default Mixin.create({
   * @returns {void}
   */
   injectAds() {
+    const { context } = window.Wikia.adEngine || {};
+
     const firstSection = this.element.parentNode.querySelector('.article-content > h2');
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.get('ads.slotNames');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
+    const slotsSwitchedWithAE3 = context && context.get('options.swapBottomLeaderboard');
+    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled
+      || slotsSwitchedWithAE3;
     const afterArticleSlotName = slotsSwitched
       ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
     const beforeFooterSlotName = slotsSwitched
@@ -87,7 +101,7 @@ export default Mixin.create({
       // only if there is no featured video embedded
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
     } else {
-      this.get('ads.module').finishAtfQueue();
+      this.get('ads.module').finishFirstCall();
     }
 
     if (firstSection) {
@@ -118,7 +132,7 @@ export default Mixin.create({
     const curatedContent = this.element.querySelector('.curated-content');
     const trendingArticles = this.element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const slotsSwitched = this.adsContext.opts.areMobileStickyAndSwapEnabled;
+    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled;
     const afterArticleSlotName = slotsSwitched
       ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
     const beforeFooterSlotName = slotsSwitched
@@ -149,6 +163,7 @@ export default Mixin.create({
     adsContext.user = {
       isAuthenticated: this.get('currentUser.isAuthenticated'),
     };
+    this.waitingSlots = {};
     this.get('ads.module').afterTransition(adsContext);
   },
 });

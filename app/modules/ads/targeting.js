@@ -77,7 +77,11 @@ function getHostnamePrefix() {
 }
 
 function getPageCategories(adsContext) {
-  const categories = adsContext.targeting.pageCategories;
+  if (!adsContext.targeting.mercuryPageCategories) {
+    return undefined;
+  }
+
+  const categories = adsContext.targeting.mercuryPageCategories.map(item => item.title);
   let outCategories;
 
   if (categories && categories.length > 0) {
@@ -181,7 +185,7 @@ export default {
       wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
-      geo: window.Wikia.adProducts.utils.getCountryCode() || 'none',
+      geo: window.Wikia.adEngine.utils.getCountryCode() || 'none',
     };
 
     if (window.pvNumber) {
@@ -194,10 +198,6 @@ export default {
       targeting.cid = cid;
     }
 
-    // TODO Implement Krux integration
-    // targeting.u = krux.getUser();
-    // targeting.ksgmnt = krux.getSegments();
-
     Object.keys(legacyParams).forEach((key) => {
       targeting[key] = legacyParams[key];
     });
@@ -207,5 +207,47 @@ export default {
     }
 
     return targeting;
+  },
+
+  getBiddersPrices(slotName, markNotRequestedPrices = true) {
+    const { bidders } = window.Wikia.adBidders;
+
+    const realSlotPrices = bidders.getDfpSlotPrices(slotName);
+    const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
+
+    function transformBidderPrice(bidderName) {
+      if (!markNotRequestedPrices) {
+        return currentSlotPrices[bidderName];
+      }
+
+      if (realSlotPrices && realSlotPrices[bidderName]) {
+        return realSlotPrices[bidderName];
+      }
+
+      if (currentSlotPrices && currentSlotPrices[bidderName]) {
+        return `${currentSlotPrices[bidderName]}not_used`;
+      }
+
+      return '';
+    }
+
+    return {
+      bidder_1: transformBidderPrice('indexExchange'),
+      bidder_2: transformBidderPrice('appnexus'),
+      bidder_4: transformBidderPrice('rubicon'),
+      bidder_5: transformBidderPrice('wikia'),
+      bidder_6: transformBidderPrice('aol'),
+      bidder_7: transformBidderPrice('audienceNetwork'),
+      bidder_8: transformBidderPrice('wikiaVideo'),
+      bidder_9: transformBidderPrice('openx'),
+      bidder_10: transformBidderPrice('appnexusAst'),
+      bidder_11: transformBidderPrice('rubicon_display'),
+      bidder_12: transformBidderPrice('a9'),
+      bidder_13: transformBidderPrice('onemobile'),
+      bidder_14: transformBidderPrice('pubmatic'),
+      bidder_15: transformBidderPrice('beachfront'),
+      bidder_16: transformBidderPrice('appnexusWebAds'),
+      bidder_17: transformBidderPrice('kargo'),
+    };
   },
 };

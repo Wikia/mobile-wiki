@@ -1,6 +1,8 @@
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import SlotTracker from 'mobile-wiki/modules/ads/tracking/slot-tracker';
+import trackModule from 'mobile-wiki/utils/track';
+
 
 module('Unit | Module | ads | tracking', (hooks) => {
   hooks.beforeEach(() => {
@@ -8,22 +10,28 @@ module('Unit | Module | ads | tracking', (hooks) => {
       context: {
         get: () => true,
       },
+      utils: {
+        getCountryCode: () => {},
+        getSamplingResults: () => [],
+        getDocumentVisibilityStatus: () => 'visible',
+      },
     };
-    window.Wikia.adProducts = {
+    window.Wikia.adBidders = {
       bidders: {
         getCurrentSlotPrices: () => {},
         getDfpSlotPrices: () => {},
       },
-      utils: {
-        getCountryCode: () => {},
-        getSamplingResults: () => [],
+    };
+    window.Wikia.adServices = {
+      billTheLizard: {
+        serialize: () => '',
       },
     };
-    sinon.spy(M.tracker.Internal, 'track');
+    sinon.spy(trackModule, 'track');
   });
 
   hooks.afterEach(() => {
-    M.tracker.Internal.track.restore();
+    trackModule.track.restore();
   });
 
   function getSlot(targeting) {
@@ -38,20 +46,27 @@ module('Unit | Module | ads | tracking', (hooks) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct pos value for multi pos value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].kv_pos, 'bottom_leaderboard');
+    assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct opt-in value', (assert) => {
     const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
 
     SlotTracker.onRenderEnded(adSlot, {});
-    assert.equal(M.tracker.Internal.track.getCall(0).args[1].opt_in, 'yes');
+    assert.equal(trackModule.track.getCall(0).args[0].opt_in, 'yes');
+  });
+
+  test('tracker sends correct document_visible value', (assert) => {
+    const adSlot = getSlot({ pos: 'BOTTOM_LEADERBOARD' });
+
+    SlotTracker.onRenderEnded(adSlot, {});
+    assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
   });
 });
