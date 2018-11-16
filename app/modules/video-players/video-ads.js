@@ -132,11 +132,19 @@ function init(player, options, slotTargeting) {
   if (context.get('options.video.moatTracking.enabledForArticleVideos')) {
     player.on('adImpression', (event) => {
       if (window.moatjw) {
-        window.moatjw.add({
+        const payload = {
           adImpressionEvent: event,
           partnerCode: moatTrackingPartnerCode,
           player,
-        });
+        };
+        if (context.get('options.video.moatTracking.rv_s1_enabled')) {
+          const rv = calculateRV(depth);
+          payload.ids = {
+            zMoatRV: rv <= 10 ? rv.toString() : '10+',
+            zMoatS1: context.get('targeting.s1'),
+          };
+        }
+        window.moatjw.add(payload);
       }
     });
   }
