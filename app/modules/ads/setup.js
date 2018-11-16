@@ -104,6 +104,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.pageType', adsContext.targeting.pageType || null);
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
+  context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({

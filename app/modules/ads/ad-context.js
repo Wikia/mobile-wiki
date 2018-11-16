@@ -379,6 +379,7 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
     rubiconDfp: true,
+    pubmaticDfp: false,
   },
   events: {
     pushOnScroll: {
