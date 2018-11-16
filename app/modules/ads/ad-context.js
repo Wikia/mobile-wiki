@@ -408,6 +408,10 @@ export default {
       parameters: {},
       timeout: 2000,
     },
+    geoEdge: {
+      enabled: false,
+      id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
+    },
     krux: {
       enabled: false,
       id: 'JTKzTN3f',
