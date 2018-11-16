@@ -55,13 +55,14 @@ class Ads {
 
   callExternals() {
     const { bidders } = window.Wikia.adBidders;
-    const { krux } = window.Wikia.adServices;
+    const { geoEdge, krux } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
 
+    geoEdge.call();
     krux.call();
     this.trackLabrador();
   }
