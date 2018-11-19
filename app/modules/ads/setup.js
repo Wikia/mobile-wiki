@@ -75,6 +75,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
   context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
+  context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
 
@@ -154,7 +155,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
 
   if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
-    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content section h3`);
+    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
