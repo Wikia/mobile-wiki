@@ -6,10 +6,12 @@ const onRenderEndedStatusToTrack = [
   'success',
 ];
 const onChangeStatusToTrack = [
+  'success',
   'blocked',
   'catlapsed',
   'error',
   'viewport-conflict',
+  'sticky-ready',
   'sticked',
   'unsticked',
 ];
