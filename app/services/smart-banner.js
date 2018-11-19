@@ -1,8 +1,14 @@
 import { computed } from '@ember/object';
-import { and, equal, readOnly } from '@ember/object/computed';
+import {
+  and,
+  equal,
+  readOnly,
+  or,
+} from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
+import getAdsModule from '../modules/ads';
 
 export default Service.extend({
   currentUser: service(),
@@ -13,16 +19,24 @@ export default Service.extend({
   dayInMiliseconds: 86400000,
   fandomAppCookieName: 'fandom-sb-closed',
   customCookieName: 'custom-sb-closed',
+  willUapNotAppearForAnon: false,
+  willUapNotAppear: or('currentUser.isAuthenticated', 'willUapNotAppearForAnon'),
 
   dbName: readOnly('wikiVariables.dbName'),
   smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
   isUserLangEn: equal('currentUser.language', 'en'),
   shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
-  isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
-    return this.shouldShowFandomAppSmartBanner
-      && this.smartBannerVisible
-      && !this.isCustomSmartBannerVisible;
-  }),
+  isFandomAppSmartBannerVisible: computed(
+    'shouldShowFandomAppSmartBanner',
+    'smartBannerVisible',
+    'willUapNotAppear',
+    function () {
+      return this.shouldShowFandomAppSmartBanner
+        && this.smartBannerVisible
+        && !this.isCustomSmartBannerVisible
+        && this.willUapNotAppear;
+    },
+  ),
 
   isCustomSmartBannerVisible: and(
     'shouldShowFandomAppSmartBanner',
@@ -30,7 +44,20 @@ export default Service.extend({
     'smartBannerAdConfiguration.text',
     'isInCustomSmartBannerCountry',
     'isSystemTargetedByCustomSmartBanner',
+    'willUapNotAppear',
   ),
+
+  init() {
+    this._super(...arguments);
+
+    getAdsModule()
+    // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
+    // and then being replaced by UAP
+      .then(adsModule => adsModule.waitForUapResponse(() => {
+      }, () => {
+        this.set('willUapNotAppearForAnon', true);
+      }));
+  },
 
   isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
     const customSmartBannerCountries = (this.smartBannerAdConfiguration.countries || [])
