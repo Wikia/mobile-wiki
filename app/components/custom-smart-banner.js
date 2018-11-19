@@ -1,13 +1,10 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import { inGroup } from '../modules/abtest';
-import { system } from '../utils/browser';
 import { trackActions } from '../utils/track';
 
 export default Component.extend(RespondsToScroll, {
-  i18n: service(),
   smartBanner: service(),
   wikiVariables: service(),
 
@@ -15,26 +12,15 @@ export default Component.extend(RespondsToScroll, {
   dayInMiliseconds: 86400000,
   // sync with scss variable $smart-banner-height
   fandomAppSmartBannerHeight: 85,
-  trackCategory: 'smart-banner',
+  trackCategory: 'custom-smart-banner',
 
   closeButtonSelector: '.smart-banner__close',
-
-  customText: computed('wikiVariables.fandomAppSmartBannerText', function () {
-    return inGroup('SMARTBANNERCOPY', 'CUSTOM') && this.get('wikiVariables.fandomAppSmartBannerText')
-      ? this.get('wikiVariables.fandomAppSmartBannerText')
-      : null;
-  }),
-
-  link: computed(() => (system === 'ios'
-    ? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
-    : 'https://play.google.com/store/apps/details'
-   + '?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner')),
-
-  storeName: computed(function () {
-    return system === 'ios'
-      ? this.i18n.t('fandom-app-banner.app-store')
-      : this.i18n.t('fandom-app-banner.google-play');
-  }),
+  smartBannerAdConfiguration: oneWay('wikiVariables.smartBannerAdConfiguration'),
+  text: oneWay('smartBannerAdConfiguration.text'),
+  linkUrl: oneWay('smartBannerAdConfiguration.linkUrl'),
+  linkText: oneWay('smartBannerAdConfiguration.linkText'),
+  imageUrl: oneWay('smartBannerAdConfiguration.imageUrl'),
+  title: oneWay('smartBannerAdConfiguration.title'),
 
   init() {
     this._super(...arguments);
@@ -52,7 +38,7 @@ export default Component.extend(RespondsToScroll, {
    * @returns {void}
    */
     close() {
-      this.smartBanner.setCookie(this.get('smartBanner.fandomAppCookieName'), this.get('options.daysHiddenAfterClose'));
+      this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterClose'));
       this.smartBanner.setVisibility(false);
       this.smartBanner.track(trackActions.close, this.trackCategory);
     },
@@ -65,7 +51,7 @@ export default Component.extend(RespondsToScroll, {
 
     this.smartBanner.track(trackActions.install, this.trackCategory);
     this.smartBanner.setVisibility(false);
-    this.smartBanner.setCookie(this.get('smartBanner.fandomAppCookieName'), this.get('options.daysHiddenAfterView'));
+    this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterView'));
   },
 
   scroll() {

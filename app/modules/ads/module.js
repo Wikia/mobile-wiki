@@ -14,6 +14,7 @@ const SLOT_NAME_MAP = {
   MOBILE_IN_CONTENT: 'mobile_in_content',
   MOBILE_PREFOOTER: 'mobile_prefooter',
   BOTTOM_LEADERBOARD: 'bottom_leaderboard',
+  INVISIBLE_HIGH_IMPACT: 'invisible_high_impact',
   INVISIBLE_HIGH_IMPACT_2: 'invisible_high_impact_2',
 };
 
@@ -52,13 +53,14 @@ class Ads {
 
   callExternals() {
     const { bidders } = window.Wikia.adBidders;
-    const { krux } = window.Wikia.adServices;
+    const { geoEdge, krux } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
 
+    geoEdge.call();
     krux.call();
     this.trackLabrador();
   }

@@ -54,11 +54,7 @@ export default Mixin.create({
     const placeholder = document.createElement('div');
     const wikiContainer = document.getElementById('wikiContainer');
 
-    if (!this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
-      return;
-    }
-
-    if (wikiContainer) {
+    if (wikiContainer && this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
       wikiContainer.insertAdjacentElement('afterend', placeholder);
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
 
@@ -70,7 +66,9 @@ export default Mixin.create({
           element: placeholder,
         }),
       );
+    }
 
+    if (wikiContainer) {
       this.appendAd(adsData.invisibleHighImpact, 'afterend', wikiContainer);
     }
   },
@@ -79,28 +77,19 @@ export default Mixin.create({
   * @returns {void}
   */
   injectAds() {
-    const { context } = window.Wikia.adEngine || {};
-
     const firstSection = this.element.parentNode.querySelector('.article-content > h2');
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.get('ads.slotNames');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const slotsSwitchedWithAE3 = context && context.get('options.swapBottomLeaderboard');
-    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled
-      || slotsSwitchedWithAE3;
-    const afterArticleSlotName = slotsSwitched
-      ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
-    const beforeFooterSlotName = slotsSwitched
-      ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
     if (pi) {
       // inject top mobileTopLeaderBoard below infobox
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pi);
     } else if (pageHeader && !this.featuredVideo) {
       // inject top mobileTopLeaderBoard below article header
-      // only if there is no featured video embedded
+      // but only if there is no featured video embedded
       this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
     } else {
       this.get('ads.module').finishFirstCall();
@@ -111,11 +100,11 @@ export default Mixin.create({
     }
 
     if (articleFooter) {
-      this.appendAd(afterArticleSlotName, 'beforebegin', articleFooter);
+      this.appendAd(adsData.bottomLeaderBoard, 'beforebegin', articleFooter);
     }
 
     if (globalFooter) {
-      this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
+      this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
     }
 
     this.appendHighImpactAd();
@@ -134,11 +123,6 @@ export default Mixin.create({
     const curatedContent = this.element.querySelector('.curated-content');
     const trendingArticles = this.element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const slotsSwitched = this.adsContext.opts.isMobileBottomLeaderboardSwapEnabled;
-    const afterArticleSlotName = slotsSwitched
-      ? adsData.bottomLeaderBoard : adsData.mobilePreFooter;
-    const beforeFooterSlotName = slotsSwitched
-      ? adsData.mobilePreFooter : adsData.bottomLeaderBoard;
 
     this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
 
@@ -147,11 +131,11 @@ export default Mixin.create({
     }
 
     if (trendingArticles) {
-      this.appendAd(afterArticleSlotName, 'afterend', trendingArticles);
+      this.appendAd(adsData.bottomLeaderBoard, 'afterend', trendingArticles);
     }
 
     if (globalFooter) {
-      this.appendAd(beforeFooterSlotName, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
+      this.appendAd(adsData.mobilePreFooter, 'beforebegin', globalFooter, 'RECIRCULATION_PREFOOTER');
     }
 
     this.appendHighImpactAd();

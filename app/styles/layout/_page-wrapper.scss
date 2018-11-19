@@ -1,5 +1,5 @@
 .page-wrapper {
-  &.with-fandom-app-smart-banner {
+  &.with-smart-banner {
     //smart banner height + site head height
     margin-top: 140px;
   }
@@ -20,7 +20,7 @@
 }
 
 .bfaa-template {
-  .with-fandom-app-smart-banner {
+  .with-smart-banner {
     .page-wrapper {
       margin-top: 0;
     }
