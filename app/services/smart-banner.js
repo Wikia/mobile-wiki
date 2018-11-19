@@ -1,5 +1,10 @@
 import { computed } from '@ember/object';
-import { and, equal, readOnly, or } from '@ember/object/computed';
+import {
+  and,
+  equal,
+  readOnly,
+  or,
+} from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
