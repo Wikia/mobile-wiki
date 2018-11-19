@@ -8,11 +8,11 @@ import BlogHandler from '../utils/wiki-handlers/blog';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
-import ClosedWikiHandlerMixin from '../mixins/closed-wiki-handler';
-import EmptyDomainWithLanguageWikisHandlerMixin from '../mixins/empty-domain-with-language-wikis-handler';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
+import closedWikiHandler from '../utils/closed-wiki-handler';
+import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
 import { WikiIsClosedError } from '../utils/errors';
 import extend from '../utils/extend';
 import { normalizeToUnderscore } from '../utils/string';
@@ -26,8 +26,6 @@ import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
-  ClosedWikiHandlerMixin,
-  EmptyDomainWithLanguageWikisHandlerMixin,
   HeadTagsDynamicMixin,
   RouteWithAdsMixin,
   WikiPageHandlerMixin,
@@ -63,6 +61,9 @@ export default Route.extend(
      */
     beforeModel(transition) {
       this._super(transition);
+
+      closedWikiHandler(this.wikiVariables);
+      emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
 
       if (!transition.data.title) {
         transition.data.title = decodeURIComponent(transition.params['wiki-page'].title);

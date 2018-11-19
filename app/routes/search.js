@@ -4,16 +4,14 @@ import { getOwner } from '@ember/application';
 import { scheduleOnce } from '@ember/runloop';
 
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
-import ClosedWikiHandlerMixin from '../mixins/closed-wiki-handler';
-import EmptyDomainWithLanguageWikisHandlerMixin from '../mixins/empty-domain-with-language-wikis-handler';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import SearchModel from '../models/search';
+import closedWikiHandler from '../utils/closed-wiki-handler';
+import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
 import { track, trackActions, trackPageView } from '../utils/track';
 
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,
-  ClosedWikiHandlerMixin,
-  EmptyDomainWithLanguageWikisHandlerMixin,
   HeadTagsDynamicMixin,
   {
     initialPageView: service(),
@@ -30,6 +28,12 @@ export default Route.extend(
     init() {
       this._super(...arguments);
       this.applicationWrapperClassNames = ['search-result-page'];
+    },
+
+    beforeModel() {
+      this._super(...arguments);
+      emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
+      closedWikiHandler(this.wikiVariables);
     },
 
     model(params) {
