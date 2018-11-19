@@ -3,6 +3,7 @@ import { and, equal, readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
+import getAdsModule from '../modules/ads';
 
 export default Service.extend({
   currentUser: service(),
@@ -13,6 +14,7 @@ export default Service.extend({
   dayInMiliseconds: 86400000,
   fandomAppCookieName: 'fandom-sb-closed',
   customCookieName: 'custom-sb-closed',
+  willUapNotAppear: false,
 
   dbName: readOnly('wikiVariables.dbName'),
   smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
@@ -21,7 +23,8 @@ export default Service.extend({
   isFandomAppSmartBannerVisible: computed('shouldShowFandomAppSmartBanner', 'smartBannerVisible', function () {
     return this.shouldShowFandomAppSmartBanner
       && this.smartBannerVisible
-      && !this.isCustomSmartBannerVisible;
+      && !this.isCustomSmartBannerVisible
+      && this.willUapNotAppear;
   }),
 
   isCustomSmartBannerVisible: and(
@@ -30,7 +33,17 @@ export default Service.extend({
     'smartBannerAdConfiguration.text',
     'isInCustomSmartBannerCountry',
     'isSystemTargetedByCustomSmartBanner',
+    'willUapNotAppear',
   ),
+
+  init() {
+    getAdsModule()
+    // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
+    // and then being replaced by UAP
+      .then(adsModule => adsModule.waitForUapResponse(() => {}, () => {
+        this.set('willUapNotAppear', true);
+      }));
+  },
 
   isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
     const customSmartBannerCountries = (this.smartBannerAdConfiguration.countries || [])
