@@ -9,6 +9,7 @@ export default Route.extend(
     wikiVariables: service(),
 
     beforeModel() {
+      // Product requirement - on open wikis the /language-wikis path should redirect to the main page
       if (!this.wikiVariables.languageWikis) {
         this.fastboot.set('response.statusCode', 301);
         this.get('fastboot.response.headers').set(
