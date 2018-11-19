@@ -3,6 +3,7 @@ import slotTracker from '../ads/tracking/slot-tracker';
 
 const moatTrackingPartnerCode = 'wikiajwint101173217941';
 const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
+const logGroup = 'video-ads';
 
 /**
   * Calculate depth
@@ -101,6 +102,7 @@ function init(player, options, slotTargeting) {
     slotService,
     vastDebugger,
     vastParser,
+    utils,
   } = window.Wikia.adEngine;
 
   const slotName = options.featured ? 'featured' : 'video';
@@ -137,7 +139,8 @@ function init(player, options, slotTargeting) {
           partnerCode: moatTrackingPartnerCode,
           player,
         };
-        if (context.get('options.video.moatTracking.rv_s1_enabled')) {
+        if (context.get('options.video.moatTracking.additonalParamsEnabled')) {
+          utils.logger(logGroup, 'Passing additional params to Moat FV tracking');
           const rv = calculateRV(depth);
           payload.ids = {
             zMoatRV: rv <= 10 ? rv.toString() : '10+',
@@ -256,11 +259,7 @@ function init(player, options, slotTargeting) {
   tracker.register(player);
 }
 
-const jwPlayerMOAT = {
-  loadTrackingPlugin: () => window.M.loadScript(moatJwplayerPluginUrl, true),
-};
-
 export default {
   init,
-  jwPlayerMOAT,
+  loadMoatTrackingPlugin: () => window.M.loadScript(moatJwplayerPluginUrl, true),
 };
