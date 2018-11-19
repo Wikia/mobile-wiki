@@ -32,8 +32,8 @@ export default Route.extend(
 
     beforeModel() {
       this._super(...arguments);
-      emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
       closedWikiHandler(this.wikiVariables);
+      emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
     },
 
     model(params) {
