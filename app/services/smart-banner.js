@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import { and, equal, readOnly } from '@ember/object/computed';
+import { and, equal, readOnly, or } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
@@ -14,7 +14,8 @@ export default Service.extend({
   dayInMiliseconds: 86400000,
   fandomAppCookieName: 'fandom-sb-closed',
   customCookieName: 'custom-sb-closed',
-  willUapNotAppear: false,
+  willUapNotAppearForAnon: false,
+  willUapNotAppear: or('currentUser.isAuthenticated', 'willUapNotAppearForAnon'),
 
   dbName: readOnly('wikiVariables.dbName'),
   smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
@@ -43,7 +44,7 @@ export default Service.extend({
     // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
     // and then being replaced by UAP
       .then(adsModule => adsModule.waitForUapResponse(() => {}, () => {
-        this.set('willUapNotAppear', true);
+        this.set('willUapNotAppearForAnon', true);
       }));
   },
 
