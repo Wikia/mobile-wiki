@@ -1,13 +1,13 @@
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 import {
   and,
   equal,
   readOnly,
   or,
 } from '@ember/object/computed';
-import Service, {inject as service} from '@ember/service';
-import {track} from '../utils/track';
-import {system} from '../utils/browser';
+import Service, { inject as service } from '@ember/service';
+import { track } from '../utils/track';
+import { system } from '../utils/browser';
 import getAdsModule from '../modules/ads';
 
 export default Service.extend({
@@ -35,7 +35,8 @@ export default Service.extend({
         && this.smartBannerVisible
         && !this.isCustomSmartBannerVisible
         && this.willUapNotAppear;
-    }),
+    },
+  ),
 
   isCustomSmartBannerVisible: and(
     'shouldShowFandomAppSmartBanner',
