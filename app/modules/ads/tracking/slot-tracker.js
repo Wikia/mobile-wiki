@@ -6,14 +6,10 @@ const onRenderEndedStatusToTrack = [
   'success',
 ];
 const onChangeStatusToTrack = [
-  'success',
   'blocked',
   'catlapsed',
   'error',
   'viewport-conflict',
-  'sticky-ready',
-  'sticked',
-  'unsticked',
 ];
 
 function getPosParameter({ pos = '' }) {
@@ -105,6 +101,22 @@ export default {
     // End of imports
 
     return context.get('options.tracking.kikimora.slot');
+  },
+
+  /**
+   * Track custom slot event to data warehouse
+   * @param {Object} adSlot
+   * @param {Object} data
+   * @returns {void}
+   */
+  onCustomEvent(adSlot, data) {
+    track(Object.assign(
+      {
+        eventName: 'adengadinfo',
+        trackingMethod: 'internal',
+      },
+      prepareData(adSlot, data),
+    ));
   },
 
   /**
