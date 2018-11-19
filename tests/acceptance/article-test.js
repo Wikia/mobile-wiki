@@ -17,11 +17,7 @@ module('Acceptance | Article page', (hooks) => {
     mockFastlyInsights(this.owner);
 
     sinon.stub(adsModule, 'default').returns({
-      then: cb => cb(getAdsModuleMock({
-        opts: {
-          isMobileBottomLeaderboardSwapEnabled: true,
-        },
-      })),
+      then: cb => cb(getAdsModuleMock({})),
     });
   });
 
