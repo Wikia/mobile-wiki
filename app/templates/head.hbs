@@ -102,6 +102,14 @@
   <link rel="prev" href={{model.prev}}>
 {{/if}}
 
+{{#each-in model.hreflangLinks as |language url|}}
+  <link
+    rel="alternate"
+    hreflang={{language}}
+    href={{url}}
+  >
+{{/each-in}}
+
 {{! Open Graph start }}
 {{#if model.type}}
   <meta property="og:type" content={{model.type}}>
