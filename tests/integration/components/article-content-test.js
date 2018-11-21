@@ -48,11 +48,7 @@ module('Integration | Component | article content', (hooks) => {
     const setupAdsContextSpy = sinon.spy();
 
     this.setProperties({
-      adsContext: {
-        opts: {
-          isMobileBottomLeaderboardSwapEnabled: false,
-        },
-      },
+      adsContext: {},
       content,
       setupAdsContext: setupAdsContextSpy,
     });
@@ -81,11 +77,7 @@ module('Integration | Component | article content', (hooks) => {
     const setupAdsContextSpy = sinon.spy();
 
     this.setProperties({
-      adsContext: {
-        opts: {
-          isMobileBottomLeaderboardSwapEnabled: false,
-        },
-      },
+      adsContext: {},
       content,
       setupAdsContext: setupAdsContextSpy,
     });
@@ -117,11 +109,7 @@ module('Integration | Component | article content', (hooks) => {
     const setupAdsContextSpy = sinon.spy();
 
     this.setProperties({
-      adsContext: {
-        opts: {
-          isMobileBottomLeaderboardSwapEnabled: false,
-        },
-      },
+      adsContext: {},
       content,
       setupAdsContext: setupAdsContextSpy,
     });
