@@ -80,6 +80,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
   context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
+  context.set(
+    'options.video.moatTracking.additonalParamsEnabled',
+    isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
+  );
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 

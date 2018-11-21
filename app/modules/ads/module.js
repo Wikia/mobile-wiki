@@ -24,7 +24,6 @@ class Ads {
     this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.jwPlayerMoat = videoAds.jwPlayerMOAT;
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
