@@ -119,7 +119,7 @@ export default {
         repeat: {
           additionalClasses: 'hide',
           index: 1,
-          limit: null,
+          limit: 20,
           slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
           updateProperties: {
             adProduct: '{slotConfig.slotName}',
