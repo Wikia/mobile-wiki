@@ -5,6 +5,7 @@ import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 import { inGroup } from '../abtest';
+import videoAds from './video-ads';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -129,7 +130,7 @@ export default class JWPlayer extends BasePlayer {
     );
 
     // TODO: load JWPlayer MOAT plugin directly from jwplayerAdsFactory after AE3 clean up
-    adsModule.jwPlayerMoat.loadTrackingPlugin();
+    adsModule.loadJwplayerMoatTracking();
   }
 
   /**

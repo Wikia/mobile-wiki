@@ -79,6 +79,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
   context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
+  context.set(
+    'options.video.moatTracking.additonalParamsEnabled',
+    isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
+  );
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
@@ -149,10 +153,15 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
-  const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
+  const insertBeforePaths = [
+    'slots.incontent_boxad_1.insertBeforeSelector',
+    'slots.incontent_player.insertBeforeSelector',
+  ];
 
   if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
-    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+    insertBeforePaths.forEach((insertBeforePath) => {
+      context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+    });
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));

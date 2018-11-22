@@ -24,9 +24,6 @@ class Ads {
     this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.jwPlayerMoat = {
-      loadTrackingPlugin: () => {},
-    };
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
@@ -154,15 +151,18 @@ class Ads {
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
-    this.jwPlayerMoat = {
-      loadTrackingPlugin: jwplayerAdsFactory.loadMoatPlugin,
-    };
-
     if (this.showAds) {
       return jwplayerAdsFactory.create(options);
     }
 
     return null;
+  }
+
+  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
+  loadJwplayerMoatTracking() {
+    const { jwplayerAdsFactory } = window.Wikia.adProducts;
+
+    jwplayerAdsFactory.loadMoatPlugin();
   }
 
   // TODO: Remove this method after AE3 clean up

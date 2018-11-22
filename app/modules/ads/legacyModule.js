@@ -7,6 +7,8 @@ import config from '../../config/environment';
 // legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
+const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
+
 /**
   * @typedef {Object} SlotsContext
   * @property {Function} isApplicable
@@ -131,7 +133,6 @@ class Ads {
         'ext.wikia.adEngine.video.vastUrlBuilder',
         'ext.wikia.adEngine.wad.babDetection',
         window.require.optional('wikia.articleVideo.featuredVideo.ads'),
-        window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
         'wikia.krux',
       ], (
         adEngineBridge,
@@ -146,7 +147,6 @@ class Ads {
         vastUrlBuilder,
         babDetectionModule,
         jwPlayerAds,
-        jwPlayerMoat,
         krux,
       ) => {
         this.adEngineBridge = adEngineBridge;
@@ -163,7 +163,6 @@ class Ads {
         this.adLogicPageParams = adLogicPageParams;
         this.a9 = a9;
         this.jwPlayerAds = jwPlayerAds;
-        this.jwPlayerMoat = jwPlayerMoat;
 
         this.addDetectionListeners();
         this.reloadWhenReady();
@@ -631,10 +630,13 @@ class Ads {
   createJWPlayerVideoAds() {
   }
 
+  loadJwplayerMoatTracking() {
+    window.M.loadScript(moatJwplayerPluginUrl, true);
+  }
+
   initJWPlayer(player, bidParams, slotTargeting) {
-    if (this.jwPlayerAds && this.jwPlayerMoat) {
-      this.jwPlayerAds(player, bidParams, slotTargeting);
-      this.jwPlayerMoat.track(player);
+    if (this.jwPlayerAds) {
+      this.jwPlayerAds.init(player, bidParams, slotTargeting);
     }
   }
 
