@@ -69,6 +69,8 @@ module.exports = function (environment) {
         /.*\.fandom\.com/,
         /^localhost:\d+$/,
       ],
+      // Replace default 307
+      redirectCode: 301
     },
   };
 
