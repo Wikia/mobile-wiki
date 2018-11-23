@@ -5,7 +5,6 @@ import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 import { inGroup } from '../abtest';
-import videoAds from './video-ads';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
