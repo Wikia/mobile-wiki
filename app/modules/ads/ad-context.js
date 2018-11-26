@@ -411,6 +411,9 @@ export default {
     geoEdge: {
       enabled: false,
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
+      advs: {
+        124353852: true, // OpenX
+      },
     },
     krux: {
       enabled: false,
