@@ -2,7 +2,6 @@ import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
 import billTheLizard from './bill-the-lizard';
 import fanTakeoverResolver from './fan-takeover-resolver';
-import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
@@ -76,6 +75,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
+  context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
@@ -198,7 +198,6 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyAd, getStickyAdConfig());
 
-  context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
   context.push('listeners.slot', fanTakeoverResolver);
   context.push('listeners.slot', ViewabilityTracker);
