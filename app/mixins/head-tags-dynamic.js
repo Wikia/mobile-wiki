@@ -64,6 +64,10 @@ export default Mixin.create({
       headData.pageImage = model.details.thumbnail;
     }
 
+    if (model.hreflangLinks) {
+      headData.hreflangLinks = model.hreflangLinks;
+    }
+
     headData.twitterTitle = truncate(headData.htmlTitle, 70);
     headData.twitterDescription = truncate(data.description || headData.htmlTitle, 200);
 
