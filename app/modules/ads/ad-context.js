@@ -416,6 +416,10 @@ export default {
       enabled: false,
       id: 'JTKzTN3f',
     },
+    moatYi: {
+      enabled: false,
+      partnerCode: 'wikiaprebidheader490634422386',
+    },
   },
   slotGroups: {
     VIDEO: ['ABCD', 'FEATURED', 'OUTSTREAM', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
