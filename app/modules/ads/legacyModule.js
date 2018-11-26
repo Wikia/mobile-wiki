@@ -131,7 +131,6 @@ class Ads {
         'ext.wikia.adEngine.video.vastUrlBuilder',
         'ext.wikia.adEngine.wad.babDetection',
         window.require.optional('wikia.articleVideo.featuredVideo.ads'),
-        window.require.optional('wikia.articleVideo.featuredVideo.moatTracking'),
         'wikia.krux',
       ], (
         adEngineBridge,
@@ -146,7 +145,6 @@ class Ads {
         vastUrlBuilder,
         babDetectionModule,
         jwPlayerAds,
-        jwPlayerMoat,
         krux,
       ) => {
         this.adEngineBridge = adEngineBridge;
@@ -163,7 +161,6 @@ class Ads {
         this.adLogicPageParams = adLogicPageParams;
         this.a9 = a9;
         this.jwPlayerAds = jwPlayerAds;
-        this.jwPlayerMoat = jwPlayerMoat;
 
         this.addDetectionListeners();
         this.reloadWhenReady();
@@ -629,9 +626,8 @@ class Ads {
   }
 
   initJWPlayer(player, bidParams, slotTargeting) {
-    if (this.jwPlayerAds && this.jwPlayerMoat) {
-      this.jwPlayerAds(player, bidParams, slotTargeting);
-      this.jwPlayerMoat.track(player);
+    if (this.jwPlayerAds) {
+      this.jwPlayerAds.init(player, bidParams, slotTargeting);
     }
   }
 

@@ -24,7 +24,6 @@ class Ads {
     this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.jwPlayerMoat = videoAds.jwPlayerMOAT;
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
@@ -53,7 +52,7 @@ class Ads {
 
   callExternals() {
     const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux } = window.Wikia.adServices;
+    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
@@ -62,6 +61,7 @@ class Ads {
 
     geoEdge.call();
     krux.call();
+    moatYi.call();
     this.trackLabrador();
   }
 
@@ -88,6 +88,9 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
+    events.on(events.MOAT_YI_READY, (data) => {
+      pageTracker.trackProp('moat_yi', data);
+    });
     this.callExternals();
 
     billTheLizard.configureBillTheLizard(instantGlobals);
