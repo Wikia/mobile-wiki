@@ -5,7 +5,6 @@ import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 import { inGroup } from '../abtest';
-import videoAds from './video-ads';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -14,14 +13,19 @@ export default class JWPlayer extends BasePlayer {
     super(provider, params);
     this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
     this.videoTags = params.videoTags || '';
+    this.videoAds = null;
 
     params.onCreate = (bidParams, player) => {
       M.trackingQueue.push(() => {
-        getAdsModule()
-          .then((adsModule) => {
-            originalOnCreate(player);
-            adsModule.initJWPlayer(player, bidParams, this.getSlotTargeting());
-          });
+        if (this.videoAds) {
+          this.videoAds.register(player, this.getSlotTargeting());
+        } else {
+          getAdsModule()
+            .then((adsModule) => {
+              originalOnCreate(player);
+              adsModule.initJWPlayer(player, bidParams, this.getSlotTargeting());
+            });
+        }
       });
     };
 
@@ -68,6 +72,13 @@ export default class JWPlayer extends BasePlayer {
     // Check whether autoplay is disabled by AdEng experiment
     // It's handled here because we need to have properly configured adContext
     this.params.autoplay = !isForcedClickToPlay && this.params.autoplay;
+
+    this.videoAds = adsModule.createJWPlayerVideoAds({
+      audio: !this.params.autoplay,
+      autoplay: this.params.autoplay,
+      featured: true,
+      videoId: this.params.playlist[0].mediaid,
+    });
 
     window.wikiaJWPlayer(
       containerId,
@@ -117,7 +128,8 @@ export default class JWPlayer extends BasePlayer {
       this.params.onCreate.bind(this, bidParams),
     );
 
-    videoAds.loadMoatTrackingPlugin();
+    // TODO: load JWPlayer MOAT plugin directly from jwplayerAdsFactory after AE3 clean up
+    adsModule.loadJwplayerMoatTracking();
   }
 
   /**
