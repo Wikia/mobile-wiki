@@ -33,6 +33,7 @@ export default {
       prop_name: name,
       prop_value: value,
       timestamp: (new Date()).getTime(),
+      tzOffset: (new Date().getTimezoneOffset()),
     });
   },
 };
