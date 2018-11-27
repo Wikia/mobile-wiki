@@ -64,6 +64,11 @@ const WikiaInYourLangFetchError = defineError({
   message: 'WikiaInYourLang data couldn\'t be fetched',
 });
 
+const WikiIsClosedError = defineError({
+  name: 'WikiIsClosedError',
+  message: 'The current wiki is closed',
+});
+
 const WikiPageFetchError = defineError({
   name: 'WikiPageFetchError',
   message: 'Wiki page couldn\'t be fetched',
@@ -104,6 +109,7 @@ export {
   TrackingDimensionsFetchError,
   TopArticlesFetchError,
   WikiaInYourLangFetchError,
+  WikiIsClosedError,
   WikiPageFetchError,
   WikiVariablesFetchError,
   canAttemptRefresh,

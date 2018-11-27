@@ -20,8 +20,14 @@ const Router = EmberRouter.extend(RouterScroll, {
 /* eslint array-callback-return: 0 */
 Router.map(function () {
   this.route('article-preview');
-
+  this.route('closed-wiki', {
+    path: '/__closed_wiki__this_is_never_visible_to_user',
+  });
   this.route('search');
+
+  this.route('language-wikis-index', {
+    path: '/language-wikis',
+  });
 
   this.route('main-page-redirect', {
     path: '/wiki/',

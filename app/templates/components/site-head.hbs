@@ -19,8 +19,11 @@
   }}
 </div>
 {{wds-banner-notifications}}
-{{wds-community-bar
-  model=communityHeader
-  track=(action track)
-  onLinkClicked=(action onLinkClicked)
-}}
+{{! It's not available on language wikis index }}
+{{#if communityHeader}}
+  {{wds-community-bar
+    model=communityHeader
+    track=(action track)
+    onLinkClicked=(action onLinkClicked)
+  }}
+{{/if}}
