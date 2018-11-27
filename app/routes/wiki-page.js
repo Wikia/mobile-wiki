@@ -76,6 +76,10 @@ export default Route.extend(
         // is put into location header. If it's not encoded and contains utf characters, then
         // "TypeError: The header content contains invalid characters" is thrown
         this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+
+        if (this.fastboot.isFastBoot) {
+          this.fastboot.set('response.statusCode', 301);
+        }
       }
 
       // if title is empty, we want to redirect to main page
