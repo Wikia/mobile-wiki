@@ -73,7 +73,7 @@ export default {
             case BillTheLizard.ON_TIME: {
               const prediction = billTheLizard.getPrediction('cheshirecat', callId);
               const result = prediction ? prediction.result : undefined;
-              slotStatus = `billTheLizard.ON_TIME;res=${result};${callId}`;
+              slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
               break;
             }
             default:
