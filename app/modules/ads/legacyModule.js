@@ -7,6 +7,8 @@ import config from '../../config/environment';
 // legacy module will be removed when Ad Engine 3 will be realeased sitewide
 import { track } from '../../utils/track';
 
+const moatJwplayerPluginUrl = 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js';
+
 /**
   * @typedef {Object} SlotsContext
   * @property {Function} isApplicable
@@ -623,6 +625,13 @@ class Ads {
   */
   getContext() {
     return this.adsContext;
+  }
+
+  createJWPlayerVideoAds() {
+  }
+
+  loadJwplayerMoatTracking() {
+    window.M.loadScript(moatJwplayerPluginUrl, true);
   }
 
   initJWPlayer(player, bidParams, slotTargeting) {

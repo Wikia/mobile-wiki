@@ -411,6 +411,9 @@ export default {
     geoEdge: {
       enabled: false,
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
+      advs: {
+        124353852: true, // OpenX
+      },
     },
     krux: {
       enabled: false,
@@ -435,7 +438,9 @@ export default {
     },
     video: {
       moatTracking: {
+        articleVideosPartnerCode: 'wikiajwint101173217941',
         enabled: false,
+        jwplayerPluginUrl: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
       },
