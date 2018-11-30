@@ -56,6 +56,7 @@ function prepareData(slot, data) {
     country: utils.getCountryCode(),
     time_bucket: data.time_bucket,
     timestamp: data.timestamp,
+    tz_offset: (new Date()).getTimezoneOffset(),
     device: context.get('state.deviceType'),
     ad_load_time: data.timestamp - window.performance.timing.connectStart,
     product_lineitem_id: data.line_item_id || '',

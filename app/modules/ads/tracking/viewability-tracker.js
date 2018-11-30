@@ -13,6 +13,7 @@ function prepareData(slot, data) {
     creative_id: data.creative_id,
     rv: slot.getTargeting().rv || 1,
     timestamp: data.timestamp,
+    tz_offset: (new Date()).getTimezoneOffset(),
   };
 }
 
