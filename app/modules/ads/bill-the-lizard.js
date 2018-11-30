@@ -12,26 +12,24 @@ function getNextIncontentId() {
 function serializeBids(slotName) {
   const bidderPrices = targeting.getBiddersPrices(slotName, false);
 
-  return {
-    bids: [
-      bidderPrices.bidder_1 || 0,
-      bidderPrices.bidder_2 || 0,
-      bidderPrices.bidder_3 || 0,
-      bidderPrices.bidder_4 || 0,
-      bidderPrices.bidder_5 || 0,
-      bidderPrices.bidder_6 || 0,
-      bidderPrices.bidder_7 || 0,
-      bidderPrices.bidder_8 || 0,
-      bidderPrices.bidder_9 || 0,
-      bidderPrices.bidder_10 || 0,
-      bidderPrices.bidder_11 || 0,
-      bidderPrices.bidder_12 || 0,
-      bidderPrices.bidder_13 || 0,
-      bidderPrices.bidder_14 || 0,
-      bidderPrices.bidder_15 || 0,
-      bidderPrices.bidder_16 || 0,
-    ].join(';'),
-  };
+  return [
+    bidderPrices.bidder_1 || 0,
+    bidderPrices.bidder_2 || 0,
+    bidderPrices.bidder_3 || 0,
+    bidderPrices.bidder_4 || 0,
+    bidderPrices.bidder_5 || 0,
+    bidderPrices.bidder_6 || 0,
+    bidderPrices.bidder_7 || 0,
+    bidderPrices.bidder_8 || 0,
+    bidderPrices.bidder_9 || 0,
+    bidderPrices.bidder_10 || 0,
+    bidderPrices.bidder_11 || 0,
+    bidderPrices.bidder_12 || 0,
+    bidderPrices.bidder_13 || 0,
+    bidderPrices.bidder_14 || 0,
+    bidderPrices.bidder_15 || 0,
+    bidderPrices.bidder_16 || 0,
+  ].join(',');
 }
 
 export default {
@@ -79,7 +77,9 @@ export default {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
-    context.set('services.billTheLizard.parameters.cheshirecat', serializeBids('mobile_in_content'));
+    context.set('services.billTheLizard.parameters.cheshirecat', {
+      bids: serializeBids('mobile_in_content'),
+    });
     cheshirecatCalled = true;
 
     billTheLizard.call(['cheshirecat']);
