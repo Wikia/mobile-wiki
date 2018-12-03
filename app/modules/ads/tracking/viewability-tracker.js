@@ -7,13 +7,14 @@ import { track } from '../../../utils/track';
   * @returns {Object}
   */
 function prepareData(slot, data) {
+  const now = new Date();
   return {
     wsi: slot.getTargeting().wsi || '',
     line_item_id: data.line_item_id,
     creative_id: data.creative_id,
     rv: slot.getTargeting().rv || 1,
     timestamp: data.timestamp,
-    tz_offset: (new Date()).getTimezoneOffset(),
+    tz_offset: now.getTimezoneOffset(),
   };
 }
 

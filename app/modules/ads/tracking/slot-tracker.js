@@ -48,6 +48,7 @@ function prepareData(slot, data) {
   const { billTheLizard } = window.Wikia.adServices;
   // End of imports
 
+  const now = new Date();
   const slotName = slot.getSlotName();
 
   return Object.assign({
@@ -56,7 +57,7 @@ function prepareData(slot, data) {
     country: utils.getCountryCode(),
     time_bucket: data.time_bucket,
     timestamp: data.timestamp,
-    tz_offset: (new Date()).getTimezoneOffset(),
+    tz_offset: now.getTimezoneOffset(),
     device: context.get('state.deviceType'),
     ad_load_time: data.timestamp - window.performance.timing.connectStart,
     product_lineitem_id: data.line_item_id || '',

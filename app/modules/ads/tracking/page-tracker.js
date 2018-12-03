@@ -27,13 +27,14 @@ export default {
       return;
     }
 
+    const now = new Date();
     track({
       eventName: 'adengpageinfo_props',
       trackingMethod: 'internal',
       prop_name: name,
       prop_value: value,
-      timestamp: (new Date()).getTime(),
-      tz_offset: (new Date()).getTimezoneOffset(),
+      timestamp: now.getTime(),
+      tz_offset: now.getTimezoneOffset(),
     });
   },
 };
