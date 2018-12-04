@@ -35,7 +35,7 @@ function serializeBids(slotName) {
 export default {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
+    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -52,13 +52,32 @@ export default {
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
           if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
-            this.callCheshireCat();
+            this.callCheshireCat('incontent_boxad_1');
           }
         },
       });
 
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
+          let slotStatus;
+          const callId = `incontent_boxad_${incontentsCounter - 1}`;
+          const btlStatus = billTheLizard.getResponseStatus(callId);
+          switch (btlStatus) {
+            case BillTheLizard.TOO_LATE:
+            case BillTheLizard.TIMEOUT:
+            case BillTheLizard.FAILURE:
+              slotStatus = btlStatus;
+              break;
+            case BillTheLizard.ON_TIME: {
+              const prediction = billTheLizard.getPrediction('cheshirecat', callId);
+              const result = prediction ? prediction.result : undefined;
+              slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
+              break;
+            }
+            default:
+              slotStatus = BillTheLizard.NOT_USED;
+          }
+          adSlot.btlStatus = slotStatus;
           incontentsCounter += 1;
         }
       });
@@ -67,13 +86,33 @@ export default {
         cheshirecatCalled = true;
       });
 
-      events.on(events.BILL_THE_LIZARD_REQUEST, (query) => {
-        pageTracker.trackProp('btl_request', query);
+      events.on(events.BILL_THE_LIZARD_REQUEST, (event) => {
+        const { query, callId } = event;
+        let propName = 'btl_request';
+        if (callId) {
+          propName = `${propName}_${callId}`;
+        }
+
+        pageTracker.trackProp(propName, query);
+      });
+
+      events.on(events.BILL_THE_LIZARD_RESPONSE, (event) => {
+        const { response, callId } = event;
+        let propName = 'btl_response';
+        if (callId) {
+          propName = `${propName}_${callId}`;
+        }
+        pageTracker.trackProp(propName, response);
       });
     }
   },
 
-  callCheshireCat() {
+  /**
+   * Call BTL for Cheshire Cat predictions
+   *
+   * @param {number|string} callId
+   */
+  callCheshireCat(callId) {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
@@ -82,7 +121,7 @@ export default {
     });
     cheshirecatCalled = true;
 
-    billTheLizard.call(['cheshirecat']);
+    billTheLizard.call(['cheshirecat'], callId);
   },
 
   hasAvailableModels(btlConfig, projectName) {
