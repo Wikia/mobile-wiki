@@ -45,7 +45,6 @@ function checkOptIn() {
 function prepareData(slot, data) {
   // Global imports:
   const { context, utils } = window.Wikia.adEngine;
-  const { billTheLizard } = window.Wikia.adServices;
   // End of imports
 
   const now = new Date();
@@ -81,7 +80,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
-    btl: billTheLizard.serialize() || '',
+    btl: slot.btlStatus,
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
