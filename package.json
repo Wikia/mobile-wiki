@@ -27,7 +27,6 @@
     "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
     "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json",
-    "assets-size": "node tasks/assets-size/index.js"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
@@ -73,6 +72,7 @@
     "ember-cli-app-version": "3.2.0",
     "ember-cli-autoprefixer": "0.8.1",
     "ember-cli-babel": "6.17.2",
+    "ember-cli-bundlesize": "0.0.2",
     "ember-cli-code-coverage": "0.4.2",
     "ember-cli-dependency-checker": "3.0.0",
     "ember-cli-deprecation-workflow": "1.0.0",
