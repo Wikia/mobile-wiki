@@ -1,8 +1,8 @@
-{{wds-spinner
-  active=model.loading
-  radius=38
-  strokeWidth=3
-}}
+<Spinner
+  @active={{this.model.loading}}
+  @radius={{38}}
+  @strokeWidth={{3}}
+/>
 <div class="search-results">
   {{#if model.totalItems}}
     <div class="search-results__total wds-font-size-s wds-leading-tight">

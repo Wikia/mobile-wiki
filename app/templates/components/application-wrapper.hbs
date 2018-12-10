@@ -15,10 +15,10 @@
   </div>
   {{wikia-in-your-lang}}
   {{#if globalFooter}}
-    {{wds-global-footer
-      model=globalFooter
-      track=(action track)
-    }}
+    <GlobalFooter
+      @model={{this.globalFooter}}
+      @track={{action this.track}}
+    />
     {{global-footer-bottom}}
   {{/if}}
 {{/if}}
@@ -26,4 +26,4 @@
 {{alert-notifications alerts=alertNotifications}}
 {{autologin-frame}}
 {{autologin-passive-frame}}
-{{wds-spinner active=isLoading}}
+<Spinner active={{this.isLoading}} />

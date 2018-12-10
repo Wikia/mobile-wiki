@@ -16,10 +16,10 @@
   }}
 {{else}}
   {{#if isLoading}}
-    {{wds-spinner
-      active=true
-      radius=32
-      strokeWidth=2
-    }}
+    <Spinner
+      @active={{true}}
+      @radius={{32}}
+      @strokeWidth={{2}}
+    />
   {{/if}}
 {{/each}}
