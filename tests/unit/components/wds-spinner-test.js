@@ -7,7 +7,7 @@ module('Unit | Component | loading spinner', (hooks) => {
 
   test('should be hidden by default', function (assert) {
     run(() => {
-      const componentMock = this.owner.factoryFor('component:wds-spinner').create();
+      const componentMock = this.owner.factoryFor('component:spinner').create();
 
       assert.equal(componentMock.get('isVisible'), false);
     });
@@ -15,7 +15,7 @@ module('Unit | Component | loading spinner', (hooks) => {
 
   test('should be visible if loading param is truthy', function (assert) {
     run(() => {
-      const componentMock = this.owner.factoryFor('component:wds-spinner').create();
+      const componentMock = this.owner.factoryFor('component:spinner').create();
 
       componentMock.set('active', true);
       assert.equal(componentMock.get('isVisible'), true);
@@ -24,7 +24,7 @@ module('Unit | Component | loading spinner', (hooks) => {
 
   test('should be hidden if loading param is falsy', function (assert) {
     run(() => {
-      const componentMock = this.owner.factoryFor('component:wds-spinner').create();
+      const componentMock = this.owner.factoryFor('component:spinner').create();
 
       componentMock.set('active', false);
       assert.equal(componentMock.get('isVisible'), false);

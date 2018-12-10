@@ -28,12 +28,12 @@
 </div>
 {{#if model.canLoadMore}}
   <div class="search-results__load-more-wrapper">
-    {{#wds-button
-      click=(action "onLoadMore" "search-load-more")
+    <Button
+      @click={{action "onLoadMore" "search-load-more"}}
       data-tracking-label="search-load-more"
-      secondary=true
-    }}
+      @secondary={{true}}
+    >
       {{i18n "main.load-more-results" ns="search"}}
-    {{/wds-button}}
+    </Button>
   </div>
 {{/if}}

@@ -19,13 +19,13 @@
   {{{comment.text}}}
   {{#if comment.comments}}
     {{#unless isExpanded}}
-      {{#wds-button
-        text=true
-        click=(action "toggleExpand")
+      <Button
+        @text={{true}}
+        @click={{action "toggleExpand"}}
         class="show-reply-btn"
-      }}
+      >
         {{i18n "article.replies-label" count=comment.comments.length}}
-      {{/wds-button}}
+      </Button>>
     {{/unless}}
 
     <ul class={{if isExpanded "expanded"}}>
