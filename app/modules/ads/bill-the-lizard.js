@@ -69,7 +69,7 @@ export default {
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
           let slotStatus;
-          const callId = `incontent_boxad_${incontentsCounter - 1}`;
+          const callId = `incontent_boxad_${incontentsCounter}`;
           const btlStatus = billTheLizard.getResponseStatus(callId);
           switch (btlStatus) {
             case BillTheLizard.TOO_LATE:
