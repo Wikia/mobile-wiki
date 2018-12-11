@@ -36,6 +36,7 @@ export default {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+    let refreshedSlotNumber;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -48,7 +49,15 @@ export default {
         slotService.disable(getNextIncontentId(), 'catlapsed');
       });
 
-      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
+      context.set(
+        'bidders.prebid.bidsRefreshing.bidsBackHandler',
+        () => {
+          if (refreshedSlotNumber && refreshedSlotNumber > 1) {
+            this.callCheshireCat(`incontent_boxad_${refreshedSlotNumber}`);
+          }
+        },
+      );
+
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
           if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
@@ -60,7 +69,7 @@ export default {
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
           let slotStatus;
-          const callId = `incontent_boxad_${incontentsCounter - 1}`;
+          const callId = `incontent_boxad_${incontentsCounter}`;
           const btlStatus = billTheLizard.getResponseStatus(callId);
           switch (btlStatus) {
             case BillTheLizard.TOO_LATE:
@@ -84,6 +93,7 @@ export default {
 
       events.on(events.BIDS_REFRESH, () => {
         cheshirecatCalled = true;
+        refreshedSlotNumber = incontentsCounter;
       });
 
       events.on(events.BILL_THE_LIZARD_REQUEST, (event) => {
