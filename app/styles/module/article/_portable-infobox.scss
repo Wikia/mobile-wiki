@@ -85,6 +85,32 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
 //////////// General classes and rules used across infobox ////////////
 
+.pi-section-toggles {
+  @extend .wds-tabs;
+}
+
+.pi-section-toggle {
+  @extend .wds-tabs__tab;
+
+  &.pi-active-section {
+    @extend .wds-is-current;
+  }
+}
+
+.pi-section-contents {
+  @extend .wds-tabs__content !optional;
+}
+
+.pi-section-content {
+  @extend .wds-tabs__tab-content !optional;
+
+  display: none;
+
+  &.pi-active-section {
+    display: block;
+  }
+}
+
 // reset inherited margins and paddings
 .pi-title,
 .pi-data-label,
