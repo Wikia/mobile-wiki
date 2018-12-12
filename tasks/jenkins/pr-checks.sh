@@ -41,7 +41,7 @@ setupNpm() {
   updateGit "Setup" pending "updating node modules"
 
   git config --global url."https://$GITHUB_TOKEN@github.com/".insteadOf ssh://git@github.com/
-  npm install --no-save || error=true
+  npm ci || error=true
 
   if [[ ! -z $error ]]
   then
@@ -103,9 +103,7 @@ fi
 assetsSizeLogFile="jenkins/assets-size.log"
 updateGit "Assets size" pending running
 
-npm run build-prod
-
-assetsSizeError=$(npm run assets-size 2>&1 >$assetsSizeLogFile)
+assetsSizeError=$(ember bundlesize:test 2>&1 >$assetsSizeLogFile)
 cat $assetsSizeLogFile
 vim -e -s -c ':set bomb' -c ':wq' $assetsSizeLogFile
 
