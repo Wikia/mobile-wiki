@@ -29,9 +29,9 @@
 {{#if model.canLoadMore}}
   <div class="search-results__load-more-wrapper">
     <Button
-      @click={{action "onLoadMore" "search-load-more"}}
-      data-tracking-label="search-load-more"
+      @onClick={{action "onLoadMore" "search-load-more"}}
       @secondary={{true}}
+      data-tracking-label="search-load-more"
     >
       {{i18n "main.load-more-results" ns="search"}}
     </Button>

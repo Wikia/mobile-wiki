@@ -15,7 +15,7 @@
     <div class="comments__navigation">
       <Button
         class="page-button prev-page-button"
-        @click={{action "prevPage"}}
+        @onClick={{action "prevPage"}}
         @disabled={{this.prevButtonDisabled}}
         @secondary={{true}}
         @square={{true}}
@@ -25,7 +25,7 @@
 
       <Button
         class="page-button next-page-button"
-        @click={{action "nextPage"}}
+        @onClick={{action "nextPage"}}
         @disabled={{this.nextButtonDisabled}}
         @secondary={{true}}
         @square={{true}}
