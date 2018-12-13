@@ -425,6 +425,10 @@ export default {
       enabled: false,
       partnerCode: 'wikiaprebidheader490634422386',
     },
+    nielsen: {
+      enabled: true,
+      appId: '',
+    },
   },
   slotGroups: {
     VIDEO: ['ABCD', 'FEATURED', 'OUTSTREAM', 'UAP_BFAA', 'UAP_BFAB', 'VIDEO'],
