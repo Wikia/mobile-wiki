@@ -12,31 +12,33 @@ pipeline {
         sh 'npm ci'
       }
     }
-    stage('lint') {
-      options {
-        timeout(time: 2, unit: 'MINUTES')
+    parallel {
+      stage('lint') {
+        options {
+          timeout(time: 2, unit: 'MINUTES')
+        }
+        steps {
+          sh 'npm run linter'
+        }
       }
-      steps {
-        sh 'npm run linter'
+      stage('bundle size') {
+        options {
+          timeout(time: 2, unit: 'MINUTES')
+        }
+        steps {
+          sh 'ember bundlesize:test'
+        }
       }
-    }
-    stage('bundle size') {
-      options {
-        timeout(time: 2, unit: 'MINUTES')
-      }
-      steps {
-        sh 'ember bundlesize:test'
-      }
-    }
-    stage('Build and Test') {
-      environment {
-        COVERAGE = true
-      }
-      options {
-        timeout(time: 5, unit: 'MINUTES')
-      }
-      steps {
-        sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
+      stage('Build and Test') {
+        environment {
+          COVERAGE = true
+        }
+        options {
+          timeout(time: 5, unit: 'MINUTES')
+        }
+        steps {
+          sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
+        }
       }
     }
   }
