@@ -399,7 +399,7 @@ export default {
       partnerCode: 'wikiaprebidheader490634422386',
     },
     nielsen: {
-      enabled: true,
+      enabled: false,
       appId: '',
     },
   },
