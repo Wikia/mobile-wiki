@@ -1,12 +1,12 @@
-{{#if users.length}}
+{{#if this.users.length}}
   <div
     class="title wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize"
   >
     {{i18n "article.top-contributors-label"}}
   </div>
-  {{wds-avatar-stack
-    avatars=avatars
-    maxStackSize=5
-    hideOverflow=true
-  }}
+  <AvatarStack
+    @avatars={{this.avatars}}
+    @maxStackSize={{5}}
+    @hideOverflow={{true}}
+  />
 {{/if}}

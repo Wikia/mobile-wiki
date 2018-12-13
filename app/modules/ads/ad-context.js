@@ -112,33 +112,6 @@ export default {
           },
         },
       },
-      appnexusWebads: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            placementId: '13104396',
-            sizes: [
-              [320, 50],
-            ],
-          },
-          mobile_in_content: {
-            placementId: '13104397',
-            sizes: [
-              [300, 250],
-              [320, 100],
-              [320, 50],
-            ],
-          },
-          bottom_leaderboard: {
-            placementId: '13104398',
-            sizes: [
-              [300, 250],
-              [320, 100],
-              [320, 50],
-            ],
-          },
-        },
-      },
       audienceNetwork: {
         enabled: false,
         slots: {

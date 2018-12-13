@@ -1,6 +1,9 @@
 <div class="post-header">
   <div class="user-avatar">
-    {{wds-avatar src=post.createdBy.avatarUrl alt=post.createdBy.name}}
+    <Avatar
+      @src={{this.post.createdBy.avatarUrl}}
+      @alt={{this.post.createdBy.name}}
+    />
     <a
       class="avatar-username wds-font-size-s"
       href={{post.createdBy.profileUrl}}
