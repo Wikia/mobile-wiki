@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('npm ci') {
       options {
-        timeout(time: 2, unit: 'MINUTES')
+        timeout(time: 5, unit: 'MINUTES')
       }
       steps {
         sh 'npm ci'
@@ -16,7 +16,7 @@ pipeline {
       parallel {
         stage('lint') {
           options {
-            timeout(time: 2, unit: 'MINUTES')
+            timeout(time: 5, unit: 'MINUTES')
           }
           steps {
             sh 'npm run linter'
@@ -24,7 +24,7 @@ pipeline {
         }
         stage('bundle size') {
           options {
-            timeout(time: 2, unit: 'MINUTES')
+            timeout(time: 10, unit: 'MINUTES')
           }
           steps {
             sh 'ember bundlesize:test'
@@ -35,7 +35,7 @@ pipeline {
             COVERAGE = true
           }
           options {
-            timeout(time: 5, unit: 'MINUTES')
+            timeout(time: 10, unit: 'MINUTES')
           }
           steps {
             sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
