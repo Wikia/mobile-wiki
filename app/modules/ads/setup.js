@@ -124,6 +124,12 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     'bidders.a9.bidsRefreshing.enabled',
     isGeoEnabled('wgAdDriverA9BidRefreshingCountries') && context.get('options.slotRepeater'),
   );
+  if (isGeoEnabled('wgAdDriverA9IncontentBoxadCountries')) {
+    context.set('bidders.a9.slots.mobile_in_content', {
+      slotId: 'MOBILE_IN_CONTENT',
+      sizes: [[300, 250]],
+    });
+  }
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     context.set('bidders.prebid.enabled', true);

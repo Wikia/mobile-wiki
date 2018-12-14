@@ -7,10 +7,6 @@ export default {
     timeout: 2000,
     a9: {
       amazonId: '3115',
-      bidsRefreshing: {
-        enabled: false,
-        slots: ['mobile_in_content'],
-      },
       dealsEnabled: false,
       enabled: false,
       videoEnabled: false,
@@ -19,12 +15,6 @@ export default {
           slotId: 'MOBILE_TOP_LEADERBOARD',
           sizes: [
             [320, 50],
-          ],
-        },
-        mobile_in_content: {
-          slotId: 'MOBILE_IN_CONTENT',
-          sizes: [
-            [300, 250],
           ],
         },
         bottom_leaderboard: {
