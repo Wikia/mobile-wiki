@@ -427,7 +427,7 @@ export default {
     },
     nielsen: {
       enabled: false,
-      appId: '',
+      appId: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
     },
   },
   slotGroups: {
