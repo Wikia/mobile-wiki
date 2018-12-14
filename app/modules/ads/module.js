@@ -53,7 +53,12 @@ class Ads {
   callExternals() {
     const { context } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux, moatYi, nielsen } = window.Wikia.adServices;
+    const {
+      geoEdge,
+      krux,
+      moatYi,
+      nielsen
+    } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
