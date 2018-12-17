@@ -86,11 +86,50 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 //////////// General classes and rules used across infobox ////////////
 
 .pi-section-navigation {
+  $overflow-color: rgba($wds-color-black, 0.25);
+
   @extend .wds-tabs;
+
+  margin: 0 6px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  position: relative;
+
+  // this is responsible for "scrolling shadow"
+  background-image: radial-gradient(farthest-side at 0 50%, $overflow-color, transparent), radial-gradient(farthest-side at 100% 50%, $overflow-color, transparent);
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 9px 100%;
+
+  &:after,
+  &:before {
+    align-self: stretch;
+    content: '';
+    background-color: $infobox-background;
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .pi-section-tab {
   @extend .wds-tabs__tab;
+
+  border-bottom: 1px solid $wds-color-light-c3;
+  margin: 0 !important;
+  padding: 10px;
+
+  &:first-of-type {
+    background: linear-gradient(to right, $infobox-background 0%, transparent 50%);
+  }
+
+  &:last-of-type {
+    background: linear-gradient(to left, $infobox-background 0%, transparent 50%);
+  }
 
   &.pi-section-active {
     @extend .wds-is-current;
