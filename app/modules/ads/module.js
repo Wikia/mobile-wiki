@@ -57,7 +57,7 @@ class Ads {
       geoEdge,
       krux,
       moatYi,
-      nielsen
+      nielsen,
     } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
