@@ -85,9 +85,43 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
 //////////// General classes and rules used across infobox ////////////
 
-.pi-section-navigation {
-  $overflow-color: rgba($wds-color-black, 0.25);
+.pi-panel-scroll-wrapper {
+  $overflow-color: $wds-color-white;
 
+  position: relative;
+
+  &:after,
+  &:before {
+    content: '';
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.3s;
+    width: 40px;
+    z-index: 1;
+  }
+
+  &:before {
+    background-image: linear-gradient(to right, $overflow-color, transparent);
+    left: 0;
+  }
+
+  &.pi-panel-scroll-left:before {
+    opacity: 1;
+  }
+
+  &:after {
+    background-image: linear-gradient(to left, $overflow-color, transparent);
+    right: 0;
+  }
+
+  &.pi-panel-scroll-right:after {
+    opacity: 1;
+  }
+}
+
+.pi-section-navigation {
   @extend .wds-tabs;
 
   margin: 0 6px;
@@ -95,19 +129,11 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   overflow-y: hidden;
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
-  position: relative;
-
-  // this is responsible for "scrolling shadow"
-  background-image: radial-gradient(farthest-side at 0 50%, $overflow-color, transparent), radial-gradient(farthest-side at 100% 50%, $overflow-color, transparent);
-  background-position: 0 0, 100% 0;
-  background-repeat: no-repeat;
-  background-size: 9px 100%;
 
   &:after,
   &:before {
     align-self: stretch;
     content: '';
-    background-color: $infobox-background;
     width: 100%;
   }
 
@@ -122,14 +148,6 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   border-bottom: 1px solid $wds-color-light-c3;
   margin: 0 !important;
   padding: 10px;
-
-  &:first-of-type {
-    background: linear-gradient(to right, $infobox-background 0%, transparent 50%);
-  }
-
-  &:last-of-type {
-    background: linear-gradient(to left, $infobox-background 0%, transparent 50%);
-  }
 
   &.pi-section-active {
     @extend .wds-is-current;
