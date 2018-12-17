@@ -150,7 +150,8 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   padding: 10px;
 
   &.pi-section-active {
-    @extend .wds-is-current;
+    // keep in sync with .wds-is-current
+    @include wds-box-underline($wds-color-link);
   }
 }
 

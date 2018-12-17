@@ -455,31 +455,31 @@ export default Component.extend(
     },
 
     handleScrollableTabs() {
-      const panels = this.element.querySelectorAll('.pi-panel');
-
-      toArray(panels)
+      toArray(this.element.querySelectorAll('.pi-panel'))
         .forEach((panel) => {
           const scrollWrapper = panel.querySelector('.pi-panel-scroll-wrapper');
           const nav = panel.querySelector('.pi-section-navigation');
 
-          nav.addEventListener('scroll', () => {
-            const compensation = 20;
-            const didScrollToRight = nav.scrollWidth - nav.scrollLeft - compensation <= nav.clientWidth;
-            const didScrollToLeft = nav.scrollLeft < compensation;
-
-            if (didScrollToLeft) {
-              scrollWrapper.classList.remove('pi-panel-scroll-left');
-            } else {
-              scrollWrapper.classList.add('pi-panel-scroll-left');
-            }
-
-            if (didScrollToRight) {
-              scrollWrapper.classList.remove('pi-panel-scroll-right');
-            } else {
-              scrollWrapper.classList.add('pi-panel-scroll-right');
-            }
-          });
+          nav.addEventListener('scroll', () => this.tabScrollHandler(scrollWrapper, nav));
         });
+    },
+
+    tabScrollHandler(scrollWrapper, scrollEl) {
+      const compensation = 20;
+      const didScrollToRight = scrollEl.scrollWidth - scrollEl.scrollLeft - compensation <= scrollEl.clientWidth;
+      const didScrollToLeft = scrollEl.scrollLeft < compensation;
+
+      if (didScrollToLeft) {
+        scrollWrapper.classList.remove('pi-panel-scroll-left');
+      } else {
+        scrollWrapper.classList.add('pi-panel-scroll-left');
+      }
+
+      if (didScrollToRight) {
+        scrollWrapper.classList.remove('pi-panel-scroll-right');
+      } else {
+        scrollWrapper.classList.add('pi-panel-scroll-right');
+      }
     },
 
     /**
