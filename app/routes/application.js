@@ -1,7 +1,6 @@
 import { getOwner } from '@ember/application';
-import { get, getWithDefault } from '@ember/object';
+import { getWithDefault } from '@ember/object';
 import Route from '@ember/routing/route';
-import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
