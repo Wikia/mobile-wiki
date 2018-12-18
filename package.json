@@ -66,7 +66,6 @@
     "broccoli-funnel": "2.0.1",
     "broccoli-merge-trees": "3.0.2",
     "broccoli-stew": "2.0.1",
-    "design-system-i18n": "github:wikia/design-system-i18n#2.0.2",
     "ember-browserify": "1.2.2",
     "ember-cli": "3.4.3",
     "ember-cli-app-version": "3.2.0",
