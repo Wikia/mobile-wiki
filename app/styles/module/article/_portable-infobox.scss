@@ -152,8 +152,13 @@ $overflow-color: $wds-color-white;
 
   &.pi-section-active {
     // keep in sync with .wds-is-current
-    @include wds-box-underline($wds-color-link);
+    @include wds-box-underline($wds-fandom-color-link);
   }
+}
+
+.pi-section-label {
+  color: $wds-fandom-color-link;
+  height: auto;
 }
 
 .pi-section-content {
