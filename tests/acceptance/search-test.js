@@ -1,4 +1,6 @@
-import { visit } from '@ember/test-helpers';
+import {
+  visit, click, fillIn, triggerKeyEvent, currentURL,
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockAdsService from '../helpers/mock-ads-service';
@@ -12,6 +14,20 @@ module('Acceptance | search', (hooks) => {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
+  });
+
+  test('submitting search form with Enter key shows search results', async (assert) => {
+    await visit('/');
+
+    const searchToggle = '.wds-global-navigation__search-toggle-icon';
+    const searchInput = '.wds-global-navigation__search-input';
+    const testQuery = 'test query';
+
+    await click(searchToggle);
+    await fillIn(searchInput, testQuery);
+    await triggerKeyEvent(searchInput, 'keydown', 'Enter');
+
+    assert.equal(currentURL(), '/search?query=test%20query');
   });
 
   test('visiting search result page with correct query displays search results', async (assert) => {
