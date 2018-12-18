@@ -151,12 +151,12 @@ export default Component.extend(
       if (newActiveToggle) {
         const panel = event.target.closest('.pi-panel');
         const newRef = newActiveToggle.getAttribute('data-ref');
-        const oldActiveToggle = panel.querySelector('.pi-section-tab.pi-section-active');
-        const oldActiveContent = panel.querySelector('.pi-section-content.pi-section-active');
+        const currentActiveToggle = panel.querySelector('.pi-section-tab.pi-section-active');
+        const currentActiveContent = panel.querySelector('.pi-section-content.pi-section-active');
         const newActiveContent = panel.querySelector(`.pi-section-content[data-ref="${newRef}"]`);
 
-        oldActiveToggle.classList.remove('pi-section-active');
-        oldActiveContent.classList.remove('pi-section-active');
+        currentActiveToggle.classList.remove('pi-section-active');
+        currentActiveContent.classList.remove('pi-section-active');
 
         newActiveToggle.classList.add('pi-section-active');
         newActiveContent.classList.add('pi-section-active');
