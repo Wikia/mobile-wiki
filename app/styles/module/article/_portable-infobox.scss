@@ -90,33 +90,33 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
   position: relative;
 
-  &:after,
-  &:before {
+  &::after,
+  &::before {
     content: '';
     height: 100%;
     opacity: 0;
     position: absolute;
     top: 0;
-    transition: opacity 0.3s;
+    transition: opacity .3s;
     width: 40px;
     z-index: 1;
   }
 
-  &:before {
+  &::before {
     background-image: linear-gradient(to right, $overflow-color, transparent);
     left: 0;
   }
 
-  &.pi-panel-scroll-left:before {
+  &.pi-panel-scroll-left::before {
     opacity: 1;
   }
 
-  &:after {
+  &::after {
     background-image: linear-gradient(to left, $overflow-color, transparent);
     right: 0;
   }
 
-  &.pi-panel-scroll-right:after {
+  &.pi-panel-scroll-right::after {
     opacity: 1;
   }
 }
@@ -125,13 +125,13 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   @extend .wds-tabs;
 
   margin: 0 6px;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
   overflow-x: scroll;
   overflow-y: hidden;
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
 
-  &:after,
-  &:before {
+  &::after,
+  &::before {
     align-self: stretch;
     content: '';
     width: 100%;

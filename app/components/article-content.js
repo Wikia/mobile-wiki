@@ -466,7 +466,8 @@ export default Component.extend(
 
     tabScrollHandler(scrollWrapper, scrollEl) {
       const compensation = 20;
-      const didScrollToRight = scrollEl.scrollWidth - scrollEl.scrollLeft - compensation <= scrollEl.clientWidth;
+      const computedScroll = scrollEl.scrollWidth - scrollEl.scrollLeft - compensation;
+      const didScrollToRight = computedScroll <= scrollEl.clientWidth;
       const didScrollToLeft = scrollEl.scrollLeft < compensation;
 
       if (didScrollToLeft) {
