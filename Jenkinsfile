@@ -62,8 +62,10 @@ pipeline {
         onlyStable: false,
         zoomCoverageChart: false
     }
-    cleanup{
-        deleteDir()
+    cleanup {
+        dir('node_modules') {
+          deleteDir()
+      }
     }
   }
 }
