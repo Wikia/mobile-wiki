@@ -85,10 +85,8 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
 //////////// General classes and rules used across infobox ////////////
 
-.pi-section-navigation {
+.pi-section-navigation.wds-tabs {
   $overflow-color: rgba($wds-color-black, 0.25);
-
-  @extend .wds-tabs;
 
   margin: 0 6px;
   overflow-x: scroll;
@@ -116,9 +114,7 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   }
 }
 
-.pi-section-tab {
-  @extend .wds-tabs__tab;
-
+.pi-section-tab.wds-tabs__tab {
   border-bottom: 1px solid $wds-color-light-c3;
   margin: 0 !important;
   padding: 10px;
@@ -137,8 +133,6 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 }
 
 .pi-section-content {
-  @extend .wds-tabs__tab-content !optional;
-
   display: none;
 
   &.pi-section-active {
