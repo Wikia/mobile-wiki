@@ -1,6 +1,9 @@
 pipeline {
   agent {
-    label 'qa-executors'
+    label {
+            label 'qa-executors'
+            customWorkspace "var/lib/jenkins/workspace/mobile-wiki-pr-checks_2_EXECUTOR${env.EXECUTOR_NUMBER}"
+        }
   }
 
   stages {
@@ -58,6 +61,9 @@ pipeline {
         methodCoverageTargets: '80, 0, 0',
         onlyStable: false,
         zoomCoverageChart: false
+    }
+    cleanup{
+        deleteDir()
     }
   }
 }
