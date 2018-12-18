@@ -9,6 +9,8 @@ $tabular-layout-padding: 12px;
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
+$overflow-color: $wds-color-white;
+
 .portable-infobox-wrapper {
   margin-bottom: 2rem;
   position: relative;
@@ -85,27 +87,42 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
 //////////// General classes and rules used across infobox ////////////
 
-.pi-section-navigation.wds-tabs {
-  $overflow-color: rgba($wds-color-black, 0.25);
-
-  margin: 0 6px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
+.pi-panel-scroll-wrapper {
   position: relative;
 
-  // this is responsible for "scrolling shadow"
-  background-image: radial-gradient(farthest-side at 0 50%, $overflow-color, transparent), radial-gradient(farthest-side at 100% 50%, $overflow-color, transparent);
-  background-position: 0 0, 100% 0;
-  background-repeat: no-repeat;
-  background-size: 9px 100%;
+  &::after,
+  &::before {
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: opacity .3s;
+    width: 40px;
+    z-index: 1;
+  }
 
-  &:after,
-  &:before {
+  &::before {
+    background-image: linear-gradient(to right, $overflow-color, transparent);
+    left: 0;
+  }
+
+  &::after {
+    background-image: linear-gradient(to left, $overflow-color, transparent);
+    right: 0;
+  }
+}
+
+.pi-section-navigation.wds-tabs {
+  margin: 0 6px;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  &::after,
+  &::before {
     align-self: stretch;
     content: '';
-    background-color: $infobox-background;
     width: 100%;
   }
 
@@ -119,16 +136,23 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   margin: 0 !important;
   padding: 10px;
 
+  &:first-of-type,
+  &:last-of-type {
+    position: relative;
+    z-index: 2;
+  }
+
   &:first-of-type {
-    background: linear-gradient(to right, $infobox-background 0%, transparent 50%);
+    background-image: linear-gradient(to right, $overflow-color, transparent);
   }
 
   &:last-of-type {
-    background: linear-gradient(to left, $infobox-background 0%, transparent 50%);
+    background-image: linear-gradient(to left, $overflow-color, transparent);
   }
 
   &.pi-section-active {
-    @extend .wds-is-current;
+    // keep in sync with .wds-is-current
+    @include wds-box-underline($wds-color-link);
   }
 }
 
