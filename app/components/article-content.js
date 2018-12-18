@@ -61,7 +61,6 @@ export default Component.extend(
 
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
-          this.handleScrollableTabs();
 
           this.renderDataComponents(this.element);
 
@@ -451,35 +450,6 @@ export default Component.extend(
               }
             });
           });
-      }
-    },
-
-    handleScrollableTabs() {
-      toArray(this.element.querySelectorAll('.pi-panel'))
-        .forEach((panel) => {
-          const scrollWrapper = panel.querySelector('.pi-panel-scroll-wrapper');
-          const nav = panel.querySelector('.pi-section-navigation');
-
-          nav.addEventListener('scroll', () => this.tabScrollHandler(scrollWrapper, nav));
-        });
-    },
-
-    tabScrollHandler(scrollWrapper, scrollEl) {
-      const compensation = 20;
-      const computedScroll = scrollEl.scrollWidth - scrollEl.scrollLeft - compensation;
-      const didScrollToRight = computedScroll <= scrollEl.clientWidth;
-      const didScrollToLeft = scrollEl.scrollLeft < compensation;
-
-      if (didScrollToLeft) {
-        scrollWrapper.classList.remove('pi-panel-scroll-left');
-      } else {
-        scrollWrapper.classList.add('pi-panel-scroll-left');
-      }
-
-      if (didScrollToRight) {
-        scrollWrapper.classList.remove('pi-panel-scroll-right');
-      } else {
-        scrollWrapper.classList.add('pi-panel-scroll-right');
       }
     },
 

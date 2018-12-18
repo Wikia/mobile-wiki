@@ -9,6 +9,8 @@ $tabular-layout-padding: 12px;
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
+$overflow-color: $wds-color-white;
+
 .portable-infobox-wrapper {
   margin-bottom: 2rem;
   position: relative;
@@ -86,15 +88,12 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 //////////// General classes and rules used across infobox ////////////
 
 .pi-panel-scroll-wrapper {
-  $overflow-color: $wds-color-white;
-
   position: relative;
 
   &::after,
   &::before {
     content: '';
     height: 100%;
-    opacity: 0;
     position: absolute;
     top: 0;
     transition: opacity .3s;
@@ -107,17 +106,9 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
     left: 0;
   }
 
-  &.pi-panel-scroll-left::before {
-    opacity: 1;
-  }
-
   &::after {
     background-image: linear-gradient(to left, $overflow-color, transparent);
     right: 0;
-  }
-
-  &.pi-panel-scroll-right::after {
-    opacity: 1;
   }
 }
 
@@ -148,6 +139,20 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
   border-bottom: 1px solid $wds-color-light-c3;
   margin: 0 !important;
   padding: 10px;
+
+  &:first-of-type,
+  &:last-of-type {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:first-of-type {
+    background-image: linear-gradient(to right, $overflow-color, transparent);
+  }
+
+  &:last-of-type {
+    background-image: linear-gradient(to left, $overflow-color, transparent);
+  }
 
   &.pi-section-active {
     // keep in sync with .wds-is-current
