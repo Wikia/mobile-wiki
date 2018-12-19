@@ -65,7 +65,6 @@ export default Component.extend(
           this.renderDataComponents(this.element);
 
           this.loadIcons();
-          this.handleTables();
           this.replaceWikiaWidgetsWithComponents();
           this.handleWikiaWidgetWrappers();
           this.handleJumpLink();
@@ -473,21 +472,6 @@ export default Component.extend(
           scrollToTop(reference);
         }
       }
-    },
-
-    /**
-   * @returns {void}
-   */
-    handleTables() {
-      const tables = this.element.querySelectorAll('table');
-
-      toArray(tables)
-        .filter(table => !table.matches('table table, [class*=infobox], .dirbox, .pi-horizontal-group'))
-        .forEach((element) => {
-          const originalHTML = element.outerHTML;
-
-          element.outerHTML = `<div class="article-table-wrapper"/>${originalHTML}</div>`;
-        });
     },
 
     handleCollapsibleSectionHeaderClick(event) {

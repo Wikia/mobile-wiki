@@ -11,6 +11,7 @@ table[class*='infobox'] {
 
   th {
     text-align: left;
+    width: 50%;
   }
 
   tr:not(:first-of-type) {
@@ -35,6 +36,7 @@ table[class*='infobox'] {
   td {
     padding: 5px;
     vertical-align: top;
+    width: 50%;
 
     &[colspan='2'] {
       padding: 0;
