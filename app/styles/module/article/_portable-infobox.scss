@@ -9,6 +9,8 @@ $tabular-layout-padding: 12px;
 $infobox-border-radius: 4px;
 $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 
+$overflow-color: $wds-color-white;
+
 .portable-infobox-wrapper {
   margin-bottom: 2rem;
   position: relative;
@@ -84,6 +86,89 @@ $infobox-box-shadow: 0 6px 10px 0 rgba($wds-color-black, .1);
 }
 
 //////////// General classes and rules used across infobox ////////////
+
+.pi-panel-scroll-wrapper {
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: opacity .3s;
+    width: 40px;
+    z-index: 1;
+  }
+
+  &::before {
+    background-image: linear-gradient(to right, $overflow-color, rgba(255, 255, 255, 0));
+    left: 0;
+  }
+
+  &::after {
+    background-image: linear-gradient(to left, $overflow-color, rgba(255, 255, 255, 0));
+    right: 0;
+  }
+}
+
+.pi-section-navigation.wds-tabs {
+  margin: 0 6px;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  &::after,
+  &::before {
+    align-self: stretch;
+    content: '';
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.pi-section-tab.wds-tabs__tab {
+  border-bottom: 1px solid $wds-color-light-c3;
+  cursor: pointer;
+  margin: 3px 0 !important;
+  padding: 10px;
+
+  &:first-of-type,
+  &:last-of-type {
+    position: relative;
+    z-index: 2;
+  }
+
+  &:first-of-type {
+    background-image: linear-gradient(to right, $overflow-color, rgba(255, 255, 255, 0));
+  }
+
+  &:last-of-type {
+    background-image: linear-gradient(to left, $overflow-color, rgba(255, 255, 255, 0));
+  }
+
+  &.pi-section-active {
+    // keep in sync with .wds-is-current
+    @include wds-box-underline($wds-fandom-color-link);
+  }
+}
+
+.pi-section-label {
+  color: $wds-fandom-color-link !important;
+  height: auto;
+}
+
+.pi-section-content {
+  display: none;
+
+  &.pi-section-active {
+    display: block;
+  }
+}
 
 // reset inherited margins and paddings
 .pi-title,
