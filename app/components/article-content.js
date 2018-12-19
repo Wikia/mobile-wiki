@@ -160,7 +160,11 @@ export default Component.extend(
 
         newActiveToggle.classList.add('pi-section-active');
         newActiveContent.classList.add('pi-section-active');
+
+        return false;
       }
+
+      return true;
     },
 
     handleImageClick(event) {
