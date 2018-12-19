@@ -3,7 +3,7 @@
   class="show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if isCollapsed "collapsed"}}"
 >
   <span>{{i18n "article.comments-label" count=commentsCount}}</span>
-  {{wds-icon name="menu-control-tiny" size="tiny" class="chevron"}}
+  <Icon @name="menu-control-tiny" @size="tiny" class="chevron" />
 </div>
 {{#if showComments}}
   {{#if commentsCount}}
@@ -13,35 +13,37 @@
       {{/each}}
     </ul>
     <div class="comments__navigation">
-      {{#wds-button
+      <Button
         class="page-button prev-page-button"
-        click=(action "prevPage")
-        disabled=prevButtonDisabled
-        secondary=true
-        square=true
-      }}
-        {{wds-icon name="menu-control-tiny" size="tiny"}}
-      {{/wds-button}}
+        @onClick={{action "prevPage"}}
+        @disabled={{this.prevButtonDisabled}}
+        @secondary={{true}}
+        @square={{true}}
+      >
+        <Icon @name="menu-control-tiny" @size="tiny" />
+      </Button>
 
-      {{#wds-button
+      <Button
         class="page-button next-page-button"
-        click=(action "nextPage")
-        disabled=nextButtonDisabled
-        secondary=true
-        square=true
-      }}
-        {{wds-icon name="menu-control-tiny" size="tiny"}}
-      {{/wds-button}}
+        @onClick={{action "nextPage"}}
+        @disabled={{this.nextButtonDisabled}}
+        @secondary={{true}}
+        @square={{true}}
+      >
+        <Icon @name="menu-control-tiny" @size="tiny" />
+      </Button>
     </div>
   {{else}}
     <div class="comments__no-comments wds-font-size-s">
-      {{wds-icon name="reply" class="comments__reply-icon"}}
+      <Icon @name="reply" class="comments__reply-icon" />
       <div>{{i18n "article-comments.no-comments"}}</div>
     </div>
   {{/if}}
 
   <div class="comments__add-comment">
-    {{#wds-button href="?useskin=oasis#WikiaArticleComments"}}{{i18n "article-comments.add-comment"}}{{/wds-button}}
+    <Button @href="?useskin=oasis#WikiaArticleComments">
+      {{i18n "article-comments.add-comment"}}
+    </Button>
 
     <div
       class="comments__message wds-font-size-xs wds-font-style-italic wds-leading-tight"

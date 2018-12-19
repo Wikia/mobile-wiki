@@ -51,17 +51,30 @@ class Ads {
   }
 
   callExternals() {
+    const { context } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
+    const {
+      geoEdge,
+      krux,
+      moatYi,
+      nielsen,
+    } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
 
+    const targeting = context.get('targeting');
+
     geoEdge.call();
     krux.call();
     moatYi.call();
+    nielsen.call({
+      type: 'static',
+      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
+      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
+    });
     this.trackLabrador();
   }
 
