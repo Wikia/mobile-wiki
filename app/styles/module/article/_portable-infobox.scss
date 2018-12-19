@@ -102,12 +102,12 @@ $overflow-color: $wds-color-white;
   }
 
   &::before {
-    background-image: linear-gradient(to right, $overflow-color, transparent);
+    background-image: linear-gradient(to right, $overflow-color, rgba(255, 255, 255, 0));
     left: 0;
   }
 
   &::after {
-    background-image: linear-gradient(to left, $overflow-color, transparent);
+    background-image: linear-gradient(to left, $overflow-color, rgba(255, 255, 255, 0));
     right: 0;
   }
 }
@@ -133,7 +133,7 @@ $overflow-color: $wds-color-white;
 
 .pi-section-tab.wds-tabs__tab {
   border-bottom: 1px solid $wds-color-light-c3;
-  margin: 0 !important;
+  margin: 3px 0 !important;
   padding: 10px;
 
   &:first-of-type,
@@ -143,11 +143,11 @@ $overflow-color: $wds-color-white;
   }
 
   &:first-of-type {
-    background-image: linear-gradient(to right, $overflow-color, transparent);
+    background-image: linear-gradient(to right, $overflow-color, rgba(255, 255, 255, 0));
   }
 
   &:last-of-type {
-    background-image: linear-gradient(to left, $overflow-color, transparent);
+    background-image: linear-gradient(to left, $overflow-color, rgba(255, 255, 255, 0));
   }
 
   &.pi-section-active {
