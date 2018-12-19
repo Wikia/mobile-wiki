@@ -1,8 +1,8 @@
-{{wds-spinner
-  active=model.loading
-  radius=38
-  strokeWidth=3
-}}
+<Spinner
+  @active={{this.model.loading}}
+  @radius={{38}}
+  @strokeWidth={{3}}
+/>
 <div class="search-results">
   {{#if model.totalItems}}
     <div class="search-results__total wds-font-size-s wds-leading-tight">
@@ -28,12 +28,12 @@
 </div>
 {{#if model.canLoadMore}}
   <div class="search-results__load-more-wrapper">
-    {{#wds-button
-      click=(action "onLoadMore" "search-load-more")
+    <Button
+      @onClick={{action "onLoadMore" "search-load-more"}}
+      @secondary={{true}}
       data-tracking-label="search-load-more"
-      secondary=true
-    }}
+    >
       {{i18n "main.load-more-results" ns="search"}}
-    {{/wds-button}}
+    </Button>
   </div>
 {{/if}}

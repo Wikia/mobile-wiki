@@ -387,6 +387,7 @@ export default {
       config: {
         advs: {
           124353852: true, // OpenX
+          115916532: true, // AppNexus
         },
       },
     },
@@ -397,6 +398,10 @@ export default {
     moatYi: {
       enabled: false,
       partnerCode: 'wikiaprebidheader490634422386',
+    },
+    nielsen: {
+      enabled: false,
+      appId: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
     },
   },
   slotGroups: {
