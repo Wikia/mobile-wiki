@@ -387,6 +387,7 @@ export default {
       config: {
         advs: {
           124353852: true, // OpenX
+          115916532: true, // AppNexus
         },
       },
     },
