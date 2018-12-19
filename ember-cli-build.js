@@ -121,7 +121,7 @@ module.exports = function (defaults) {
   });
 
   // Assets which are lazy loaded
-  const designSystemI18n = new Funnel('node_modules/design-system-i18n/i18n', {
+  const designSystemI18n = new Funnel('node_modules/design-system/i18n', {
     destDir: 'locales',
   });
 
