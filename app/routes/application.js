@@ -1,7 +1,6 @@
 import { getOwner } from '@ember/application';
-import { get, getWithDefault } from '@ember/object';
+import { getWithDefault } from '@ember/object';
 import Route from '@ember/routing/route';
-import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
@@ -206,23 +205,6 @@ export default Route.extend(
           isLoggedIn: this.get('currentUser.isAuthenticated'),
           contentLanguage: this.get('wikiVariables.language.content'),
         }]);
-      }
-    },
-
-    setupController(controller, model) {
-      controller.set('model', model);
-
-      if (!this.get('fastboot.isFastBoot')) {
-        // Prevent scrolling to the top of the page after Ember is loaded
-        // See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
-        const routerScroll = this.get('_router.service');
-        routerScroll.set('key', get(window, 'history.state.uuid'));
-        routerScroll.update();
-
-        run.scheduleOnce('afterRender', () => {
-          const scrollPosition = routerScroll.get('position');
-          window.scrollTo(scrollPosition.x, scrollPosition.y);
-        });
       }
     },
 
