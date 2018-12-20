@@ -130,6 +130,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
       slotId: 'MOBILE_IN_CONTENT',
       sizes: [[300, 250]],
     });
+    context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
   }
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {

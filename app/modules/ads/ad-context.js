@@ -7,6 +7,10 @@ export default {
     timeout: 2000,
     a9: {
       amazonId: '3115',
+      bidsRefreshing: {
+        enabled: false,
+        slots: [],
+      },
       dealsEnabled: false,
       enabled: false,
       videoEnabled: false,
