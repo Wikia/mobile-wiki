@@ -35,8 +35,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('src', 'test');
   }
 
-  const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
-  isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
+  isGeoEnabled('wgAdDriverLABradorTestCountries');
 
   context.set('slots', slots.getContext());
 
@@ -76,7 +75,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
   context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
-  context.set('services.nielsen.enabled', isGeoEnabled('wgAdDriverNielsenCountries'));
+  // ToDo: remove debug-sandbox code
+  context.set('services.nielsen.enabled', true || isGeoEnabled('wgAdDriverNielsenCountries'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
