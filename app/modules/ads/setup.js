@@ -121,6 +121,17 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
   context.set('bidders.a9.dealsEnabled', isGeoEnabled('wgAdDriverA9DealsCountries'));
   context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries') && hasFeaturedVideo);
+  context.set(
+    'bidders.a9.bidsRefreshing.enabled',
+    isGeoEnabled('wgAdDriverA9BidRefreshingCountries') && context.get('options.slotRepeater'),
+  );
+  if (isGeoEnabled('wgAdDriverA9IncontentBoxadCountries')) {
+    context.set('bidders.a9.slots.mobile_in_content', {
+      slotId: 'MOBILE_IN_CONTENT',
+      sizes: [[300, 250]],
+    });
+    context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
+  }
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     context.set('bidders.prebid.enabled', true);
