@@ -149,6 +149,6 @@ export default {
     incontentsCounter = 1;
 
     // Reset predictions from previous page views
-    billTheLizard.predictions = [];
+    billTheLizard.reset();
   },
 };
