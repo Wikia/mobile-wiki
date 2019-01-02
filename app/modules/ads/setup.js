@@ -75,8 +75,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
   context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
-  // ToDo: remove debug-sandbox code
-  context.set('services.nielsen.enabled', true || isGeoEnabled('wgAdDriverNielsenCountries'));
+  context.set('services.nielsen.enabled', isGeoEnabled('wgAdDriverNielsenCountries'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
