@@ -51,25 +51,25 @@ class Ads {
   }
 
   callExternals() {
-    const { context } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
-    const {
-      geoEdge,
-      krux,
-      moatYi,
-      nielsen,
-    } = window.Wikia.adServices;
+    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
 
-    const targeting = context.get('targeting');
-
     geoEdge.call();
     krux.call();
     moatYi.call();
+  }
+
+  callLateExternals() {
+    const { context } = window.Wikia.adEngine;
+    const { nielsen } = window.Wikia.adServices;
+
+    const targeting = context.get('targeting');
+
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
@@ -92,24 +92,28 @@ class Ads {
     videoTracker.register();
 
     context.push('delayModules', biddersDelay);
-    events.on(events.AD_SLOT_CREATED, (slot) => {
-      console.info(`Created ad slot ${slot.getSlotName()}`);
-      bidders.updateSlotTargeting(slot.getSlotName());
-    });
 
+    events.on(events.PAGE_CHANGE_EVENT, utils.resetSamplingCache);
     events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
     events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
-    events.on(events.MOAT_YI_READY, (data) => {
-      pageTracker.trackProp('moat_yi', data);
-    });
-    this.callExternals();
 
     billTheLizard.configureBillTheLizard(instantGlobals);
 
+    this.callExternals();
     this.startAdEngine();
+    this.callLateExternals();
+
+    events.on(events.PAGE_RENDER_EVENT, this.callLateExternals.bind(this));
+    events.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
+      bidders.updateSlotTargeting(slot.getSlotName());
+    });
+    events.on(events.MOAT_YI_READY, (data) => {
+      pageTracker.trackProp('moat_yi', data);
+    });
 
     this.isLoaded = true;
     this.onReadyCallbacks.forEach(callback => callback());

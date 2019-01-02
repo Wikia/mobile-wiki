@@ -35,8 +35,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('src', 'test');
   }
 
-  const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
-  isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
+  isGeoEnabled('wgAdDriverLABradorTestCountries');
 
   context.set('slots', slots.getContext());
 
