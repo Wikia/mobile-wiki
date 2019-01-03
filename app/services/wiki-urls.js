@@ -1,6 +1,5 @@
 import wikiUrls from '@wikia/ember-fandom/services/wiki-urls';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
 
 export default wikiUrls.extend({
   wikiVariables: service(),
