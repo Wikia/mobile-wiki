@@ -20,6 +20,7 @@ export default EmberObject.extend({
   articleFromMarkup(title, wikitext, CKmarkup) {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',

@@ -10,6 +10,7 @@ export default EmberObject.extend({
   fetchAll(host, wikiId, language) {
     const url = this.wikiUrls.build({
       host,
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'DesignSystemApi',
