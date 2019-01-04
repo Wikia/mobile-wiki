@@ -48,8 +48,8 @@ export default Mixin.create({
       amphtml: data.amphtml,
     };
 
-    if (config.environment === 'production'){
-      headData['robots'] = data.robots || this.get('wikiVariables.specialRobotPolicy') || 'index,follow';
+    if (config.environment === 'production') {
+      headData.robots = data.robots || this.get('wikiVariables.specialRobotPolicy') || 'index,follow';
     }
 
     if (data.htmlTitle) {
