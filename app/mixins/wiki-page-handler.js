@@ -49,6 +49,7 @@ function getURL(wikiUrls, params) {
 
   return wikiUrls.build({
     host: params.host,
+    forceNoSSLOnServerSide: true,
     path: '/wikia.php',
     query,
   });
