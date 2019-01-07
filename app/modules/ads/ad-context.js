@@ -384,8 +384,9 @@ export default {
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
       config: {
         advs: {
-          124353852: true, // OpenX
           115916532: true, // AppNexus
+          124353852: true, // OpenX
+          4475752210: true, // Pubmatic
         },
       },
     },

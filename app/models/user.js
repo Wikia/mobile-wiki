@@ -104,6 +104,7 @@ export default EmberObject.extend({
   loadDetails(host, userId, avatarSize) {
     const url = this.wikiUrls.build({
       host,
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'UserApi',
@@ -131,6 +132,7 @@ export default EmberObject.extend({
   loadUserInfo(host, accessToken, userId) {
     const url = this.wikiUrls.build({
       host,
+      forceNoSSLOnServerSide: true,
       path: '/api.php',
       query: {
         action: 'query',
