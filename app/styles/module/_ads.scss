@@ -239,6 +239,15 @@ $closeButtonHeight: 40px;
   }
 }
 
+.gpt-ad.bfaa-template.sticky-iab {
+  padding: 22px 0 4px;
+
+  & .advertisement-label {
+    color: #5f7a7b;
+    position: static;
+  }
+}
+
 //show the loading spinner on top of ad in interstitial
 .stop-scrolling {
   overflow: hidden;
