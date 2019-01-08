@@ -224,6 +224,14 @@ export default {
         enabled: false,
         publisherId: '156260',
         slots: {
+          featured: {
+            sizes: [
+              [0, 0],
+            ],
+            ids: [
+              '1636187@0x0',
+            ],
+          },
           mobile_top_leaderboard: {
             sizes: [
               [320, 50],
@@ -342,6 +350,7 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
     rubiconDfp: true,
+    pubmaticDfp: false,
   },
   events: {
     pushOnScroll: {
