@@ -224,6 +224,14 @@ export default {
         enabled: false,
         publisherId: '156260',
         slots: {
+          featured: {
+            sizes: [
+              [0, 0],
+            ],
+            ids: [
+              '1636187@0x0',
+            ],
+          },
           mobile_top_leaderboard: {
             sizes: [
               [320, 50],
@@ -342,6 +350,7 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
     rubiconDfp: true,
+    pubmaticDfp: false,
   },
   events: {
     pushOnScroll: {
@@ -384,8 +393,9 @@ export default {
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
       config: {
         advs: {
-          124353852: true, // OpenX
           115916532: true, // AppNexus
+          124353852: true, // OpenX
+          4475752210: true, // Pubmatic
         },
       },
     },

@@ -27,6 +27,7 @@ function afterModel(route, model) {
 function sendLyricsPageView({ model, host, wikiUrls }) {
   fetch(wikiUrls.build({
     host,
+    forceNoSSLOnServerSide: true,
     path: '/wikia.php',
     query: {
       controller: 'LyricFind',

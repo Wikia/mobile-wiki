@@ -64,6 +64,7 @@ export default Route.extend(
     setDynamicHeadTags(model) {
       const data = {
         htmlTitle: this.i18n.t('main.search-input-label', { ns: 'search' }),
+        robots: 'noindex,follow',
       };
 
       this._super(model, data);

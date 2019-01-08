@@ -11,6 +11,7 @@ export default EmberObject.extend({
   load(isAnon, host, title) {
     const url = this.wikiUrls.build({
       host,
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',

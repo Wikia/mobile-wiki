@@ -93,6 +93,7 @@ export default Component.extend(
     fetchTopArticles() {
       const url = this.wikiUrls.build({
         host: this.get('wikiVariables.host'),
+        forceNoSSLOnServerSide: true,
         path: '/wikia.php',
         query: {
           controller: 'RecirculationApiController',

@@ -1,6 +1,7 @@
 import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import truncate from '../utils/truncate';
+import config from '../config/environment';
 
 export default Mixin.create({
   headData: service(),
@@ -46,6 +47,10 @@ export default Mixin.create({
       appleItunesApp: '',
       amphtml: data.amphtml,
     };
+
+    if (config.environment === 'production') {
+      headData.robots = data.robots || this.get('wikiVariables.specialRobotPolicy') || 'index,follow';
+    }
 
     if (data.htmlTitle) {
       headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;

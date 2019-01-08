@@ -13,6 +13,7 @@ export default EmberObject.extend({
   load(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
       host,
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',

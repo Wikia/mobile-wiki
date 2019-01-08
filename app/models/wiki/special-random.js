@@ -16,6 +16,7 @@ export default BaseModel.extend({
   getArticleRandomTitle() {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
       path: '/api.php',
       query: {
         action: 'query',
