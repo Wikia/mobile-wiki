@@ -7,6 +7,10 @@ export default {
     timeout: 2000,
     a9: {
       amazonId: '3115',
+      bidsRefreshing: {
+        enabled: false,
+        slots: [],
+      },
       dealsEnabled: false,
       enabled: false,
       videoEnabled: false,
@@ -15,12 +19,6 @@ export default {
           slotId: 'MOBILE_TOP_LEADERBOARD',
           sizes: [
             [320, 50],
-          ],
-        },
-        mobile_in_content: {
-          slotId: 'MOBILE_IN_CONTENT',
-          sizes: [
-            [300, 250],
           ],
         },
         bottom_leaderboard: {
@@ -109,33 +107,6 @@ export default {
           },
           incontent_player: {
             placementId: '11543173',
-          },
-        },
-      },
-      appnexusWebads: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            placementId: '13104396',
-            sizes: [
-              [320, 50],
-            ],
-          },
-          mobile_in_content: {
-            placementId: '13104397',
-            sizes: [
-              [300, 250],
-              [320, 100],
-              [320, 50],
-            ],
-          },
-          bottom_leaderboard: {
-            placementId: '13104398',
-            sizes: [
-              [300, 250],
-              [320, 100],
-              [320, 50],
-            ],
           },
         },
       },
@@ -417,9 +388,28 @@ export default {
       parameters: {},
       timeout: 2000,
     },
+    geoEdge: {
+      enabled: false,
+      id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
+      config: {
+        advs: {
+          115916532: true, // AppNexus
+          124353852: true, // OpenX
+          4475752210: true, // Pubmatic
+        },
+      },
+    },
     krux: {
       enabled: false,
       id: 'JTKzTN3f',
+    },
+    moatYi: {
+      enabled: false,
+      partnerCode: 'wikiaprebidheader490634422386',
+    },
+    nielsen: {
+      enabled: false,
+      appId: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
     },
   },
   slotGroups: {
@@ -436,7 +426,9 @@ export default {
     },
     video: {
       moatTracking: {
+        articleVideosPartnerCode: 'wikiajwint101173217941',
         enabled: false,
+        jwplayerPluginUrl: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
       },

@@ -135,11 +135,36 @@ export default Component.extend(
         });
       }
 
-      if (!this.handleImageClick(event) || !this.handleGalleryViewMore(event)) {
+      if (!this.handleInfoboxClick(event)
+        || !this.handleImageClick(event)
+        || !this.handleGalleryViewMore(event)
+      ) {
         return false;
       }
 
       return undefined;
+    },
+
+    handleInfoboxClick(event) {
+      const newActiveToggle = event.target.closest('.pi-section-tab');
+
+      if (newActiveToggle) {
+        const panel = event.target.closest('.pi-panel');
+        const newRef = newActiveToggle.getAttribute('data-ref');
+        const currentActiveToggle = panel.querySelector('.pi-section-tab.pi-section-active');
+        const currentActiveContent = panel.querySelector('.pi-section-content.pi-section-active');
+        const newActiveContent = panel.querySelector(`.pi-section-content[data-ref="${newRef}"]`);
+
+        currentActiveToggle.classList.remove('pi-section-active');
+        currentActiveContent.classList.remove('pi-section-active');
+
+        newActiveToggle.classList.add('pi-section-active');
+        newActiveContent.classList.add('pi-section-active');
+
+        return false;
+      }
+
+      return true;
     },
 
     handleImageClick(event) {

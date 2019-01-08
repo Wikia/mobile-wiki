@@ -11,6 +11,9 @@ import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
+import closedWikiHandler from '../utils/closed-wiki-handler';
+import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
+import { WikiIsClosedError } from '../utils/errors';
 import extend from '../utils/extend';
 import { normalizeToUnderscore } from '../utils/string';
 import { setTrackContext, trackPageView, track } from '../utils/track';
@@ -23,9 +26,9 @@ import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
-  WikiPageHandlerMixin,
   HeadTagsDynamicMixin,
   RouteWithAdsMixin,
+  WikiPageHandlerMixin,
   {
     ads: service(),
     currentUser: service(),
@@ -59,6 +62,9 @@ export default Route.extend(
     beforeModel(transition) {
       this._super(transition);
 
+      closedWikiHandler(this.wikiVariables);
+      emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
+
       if (!transition.data.title) {
         transition.data.title = decodeURIComponent(transition.params['wiki-page'].title);
       }
@@ -76,6 +82,10 @@ export default Route.extend(
         // is put into location header. If it's not encoded and contains utf characters, then
         // "TypeError: The header content contains invalid characters" is thrown
         this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+
+        if (this.fastboot.isFastBoot) {
+          this.fastboot.set('response.statusCode', 301);
+        }
       }
 
       // if title is empty, we want to redirect to main page
@@ -271,6 +281,11 @@ export default Route.extend(
        * @returns {boolean}
        */
       error(error) {
+        // Error handler in application route will take care of it
+        if (error instanceof WikiIsClosedError) {
+          return true;
+        }
+
         if (this.get('fastboot.isFastBoot') && (
           !error.code || error.code !== 404
         )) {

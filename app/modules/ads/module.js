@@ -5,7 +5,7 @@ import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
 import pageTracker from './tracking/page-tracker';
-import videoAds from '../video-players/video-ads';
+import videoTracker from './tracking/video-tracking';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
 
@@ -24,7 +24,6 @@ class Ads {
     this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.jwPlayerMoat = videoAds.jwPlayerMOAT;
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
@@ -53,14 +52,29 @@ class Ads {
 
   callExternals() {
     const { bidders } = window.Wikia.adBidders;
-    const { krux } = window.Wikia.adServices;
+    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
 
     biddersDelay.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelay.markAsReady,
     });
 
+    geoEdge.call();
     krux.call();
+    moatYi.call();
+  }
+
+  callLateExternals() {
+    const { context } = window.Wikia.adEngine;
+    const { nielsen } = window.Wikia.adServices;
+
+    const targeting = context.get('targeting');
+
+    nielsen.call({
+      type: 'static',
+      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
+      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
+    });
     this.trackLabrador();
   }
 
@@ -75,23 +89,31 @@ class Ads {
     this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    videoTracker.register();
 
     context.push('delayModules', biddersDelay);
-    events.on(events.AD_SLOT_CREATED, (slot) => {
-      console.info(`Created ad slot ${slot.getSlotName()}`);
-      bidders.updateSlotTargeting(slot.getSlotName());
-    });
 
+    events.on(events.PAGE_CHANGE_EVENT, utils.resetSamplingCache);
     events.on(events.PAGE_CHANGE_EVENT, utils.readSessionId);
     events.on(events.PAGE_CHANGE_EVENT, universalAdPackage.reset);
     events.on(events.PAGE_CHANGE_EVENT, fanTakeoverResolver.reset);
     events.on(events.PAGE_CHANGE_EVENT, billTheLizard.reset);
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
-    this.callExternals();
 
     billTheLizard.configureBillTheLizard(instantGlobals);
 
+    this.callExternals();
     this.startAdEngine();
+    this.callLateExternals();
+
+    events.on(events.PAGE_RENDER_EVENT, this.callLateExternals.bind(this));
+    events.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
+      bidders.updateSlotTargeting(slot.getSlotName());
+    });
+    events.on(events.MOAT_YI_READY, (data) => {
+      pageTracker.trackProp('moat_yi', data);
+    });
 
     this.isLoaded = true;
     this.onReadyCallbacks.forEach(callback => callback());
@@ -146,10 +168,26 @@ class Ads {
     }
   }
 
-  initJWPlayer(player, bidParams, slotTargeting) {
+  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
+  createJWPlayerVideoAds(options) {
+    const { jwplayerAdsFactory } = window.Wikia.adProducts;
+
     if (this.showAds) {
-      videoAds.init(player, { featured: true }, slotTargeting);
+      return jwplayerAdsFactory.create(options);
     }
+
+    return null;
+  }
+
+  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
+  loadJwplayerMoatTracking() {
+    const { jwplayerAdsFactory } = window.Wikia.adProducts;
+
+    jwplayerAdsFactory.loadMoatPlugin();
+  }
+
+  // TODO: Remove this method after AE3 clean up
+  initJWPlayer() {
   }
 
   getInstantGlobals() {

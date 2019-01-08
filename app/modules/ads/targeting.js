@@ -246,7 +246,6 @@ export default {
       bidder_13: transformBidderPrice('onemobile'),
       bidder_14: transformBidderPrice('pubmatic'),
       bidder_15: transformBidderPrice('beachfront'),
-      bidder_16: transformBidderPrice('appnexusWebAds'),
       bidder_17: transformBidderPrice('kargo'),
     };
   },

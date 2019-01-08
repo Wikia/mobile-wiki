@@ -12,32 +12,31 @@ function getNextIncontentId() {
 function serializeBids(slotName) {
   const bidderPrices = targeting.getBiddersPrices(slotName, false);
 
-  return {
-    bids: [
-      bidderPrices.bidder_1 || 0,
-      bidderPrices.bidder_2 || 0,
-      bidderPrices.bidder_3 || 0,
-      bidderPrices.bidder_4 || 0,
-      bidderPrices.bidder_5 || 0,
-      bidderPrices.bidder_6 || 0,
-      bidderPrices.bidder_7 || 0,
-      bidderPrices.bidder_8 || 0,
-      bidderPrices.bidder_9 || 0,
-      bidderPrices.bidder_10 || 0,
-      bidderPrices.bidder_11 || 0,
-      bidderPrices.bidder_12 || 0,
-      bidderPrices.bidder_13 || 0,
-      bidderPrices.bidder_14 || 0,
-      bidderPrices.bidder_15 || 0,
-      bidderPrices.bidder_16 || 0,
-    ].join(';'),
-  };
+  return [
+    bidderPrices.bidder_1 || 0,
+    bidderPrices.bidder_2 || 0,
+    bidderPrices.bidder_3 || 0,
+    bidderPrices.bidder_4 || 0,
+    bidderPrices.bidder_5 || 0,
+    bidderPrices.bidder_6 || 0,
+    bidderPrices.bidder_7 || 0,
+    bidderPrices.bidder_8 || 0,
+    bidderPrices.bidder_9 || 0,
+    bidderPrices.bidder_10 || 0,
+    bidderPrices.bidder_11 || 0,
+    bidderPrices.bidder_12 || 0,
+    bidderPrices.bidder_13 || 0,
+    bidderPrices.bidder_14 || 0,
+    bidderPrices.bidder_15 || 0,
+    bidderPrices.bidder_16 || 0,
+  ].join(',');
 }
 
 export default {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
+    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+    let refreshedSlotNumber;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -50,39 +49,89 @@ export default {
         slotService.disable(getNextIncontentId(), 'catlapsed');
       });
 
-      context.set('bidders.prebid.bidsRefreshing.bidsBackHandler', this.callCheshireCat.bind(this));
+      context.set(
+        'bidders.prebid.bidsRefreshing.bidsBackHandler',
+        () => {
+          if (refreshedSlotNumber && refreshedSlotNumber > 1) {
+            this.callCheshireCat(`incontent_boxad_${refreshedSlotNumber}`);
+          }
+        },
+      );
+
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
           if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
-            this.callCheshireCat();
+            this.callCheshireCat('incontent_boxad_1');
           }
         },
       });
 
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
+          let slotStatus;
+          const callId = `incontent_boxad_${incontentsCounter}`;
+          const btlStatus = billTheLizard.getResponseStatus(callId);
+          switch (btlStatus) {
+            case BillTheLizard.TOO_LATE:
+            case BillTheLizard.TIMEOUT:
+            case BillTheLizard.FAILURE:
+              slotStatus = btlStatus;
+              break;
+            case BillTheLizard.ON_TIME: {
+              const prediction = billTheLizard.getPrediction('cheshirecat', callId);
+              const result = prediction ? prediction.result : undefined;
+              slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
+              break;
+            }
+            default:
+              slotStatus = BillTheLizard.NOT_USED;
+          }
+          adSlot.btlStatus = slotStatus;
           incontentsCounter += 1;
         }
       });
 
       events.on(events.BIDS_REFRESH, () => {
         cheshirecatCalled = true;
+        refreshedSlotNumber = incontentsCounter;
       });
 
-      events.on(events.BILL_THE_LIZARD_REQUEST, (query) => {
-        pageTracker.trackProp('btl_request', query);
+      events.on(events.BILL_THE_LIZARD_REQUEST, (event) => {
+        const { query, callId } = event;
+        let propName = 'btl_request';
+        if (callId) {
+          propName = `${propName}_${callId}`;
+        }
+
+        pageTracker.trackProp(propName, query);
+      });
+
+      events.on(events.BILL_THE_LIZARD_RESPONSE, (event) => {
+        const { response, callId } = event;
+        let propName = 'btl_response';
+        if (callId) {
+          propName = `${propName}_${callId}`;
+        }
+        pageTracker.trackProp(propName, response);
       });
     }
   },
 
-  callCheshireCat() {
+  /**
+   * Call BTL for Cheshire Cat predictions
+   *
+   * @param {number|string} callId
+   */
+  callCheshireCat(callId) {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
-    context.set('services.billTheLizard.parameters.cheshirecat', serializeBids('mobile_in_content'));
+    context.set('services.billTheLizard.parameters.cheshirecat', {
+      bids: serializeBids('mobile_in_content'),
+    });
     cheshirecatCalled = true;
 
-    billTheLizard.call(['cheshirecat']);
+    billTheLizard.call(['cheshirecat'], callId);
   },
 
   hasAvailableModels(btlConfig, projectName) {
@@ -100,6 +149,6 @@ export default {
     incontentsCounter = 1;
 
     // Reset predictions from previous page views
-    billTheLizard.predictions = {};
+    billTheLizard.reset();
   },
 };

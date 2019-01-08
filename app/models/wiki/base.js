@@ -21,6 +21,7 @@ export default EmberObject.extend({
   categories: null,
   description: '',
   displayTitle: null,
+  hreflangLinks: null,
   htmlTitle: '',
   id: null,
   ns: null,
@@ -81,6 +82,10 @@ export default EmberObject.extend({
         if (pageProperties.adsContext.targeting) {
           pageProperties.adsContext.targeting.mercuryPageCategories = pageProperties.categories;
         }
+      }
+
+      if (data.hreflangLinks) {
+        pageProperties.hreflangLinks = data.hreflangLinks;
       }
 
       // Display title is used in header

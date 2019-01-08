@@ -9,18 +9,21 @@
   }}
 {{/if}}
 <div class="site-head-wrapper">
-  {{wds-global-navigation
-    model=globalNavigation
-    sitename=communityHeader.sitename
-    canShowContentRecommendations=canShowContentRecommendations
-    track=(action track)
-    onSearchSuggestionChosen=(action onSearchSuggestionChosen)
-    goToSearchResults=(action goToSearchResults)
-  }}
+  <GlobalNavigation
+    @model={{this.globalNavigation}}
+    @sitename={{this.communityHeader.sitename}}
+    @canShowContentRecommendations={{this.canShowContentRecommendations}}
+    @track={{action this.track}}
+    @onSearchSuggestionChosen={{action this.onSearchSuggestionChosen}}
+    @goToSearchResults={{action this.goToSearchResults}}
+  />
 </div>
-{{wds-banner-notifications}}
-{{wds-community-bar
-  model=communityHeader
-  track=(action track)
-  onLinkClicked=(action onLinkClicked)
-}}
+<BannerNotifications />
+{{! It's not available on language wikis index }}
+{{#if communityHeader}}
+  <CommunityBar
+    @model={{this.communityHeader}}
+    @track={{action this.track}}
+    @onLinkClicked={{action this.onLinkClicked}}
+  />
+{{/if}}

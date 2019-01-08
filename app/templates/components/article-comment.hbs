@@ -1,5 +1,5 @@
 <div class="metadata">
-  {{wds-avatar src=user.avatar alt=userName}}
+  <Avatar @src={{this.user.avatar}} @alt={{this.userName}} />
   <span class="username wds-font-size-xs wds-font-weight-medium">
     {{#if user.url}}
       <a href={{user.url}}>{{userName}}</a>
@@ -19,13 +19,13 @@
   {{{comment.text}}}
   {{#if comment.comments}}
     {{#unless isExpanded}}
-      {{#wds-button
-        text=true
-        click=(action "toggleExpand")
+      <Button
+        @text={{true}}
+        @onClick={{action "toggleExpand"}}
         class="show-reply-btn"
-      }}
+      >
         {{i18n "article.replies-label" count=comment.comments.length}}
-      {{/wds-button}}
+      </Button>>
     {{/unless}}
 
     <ul class={{if isExpanded "expanded"}}>

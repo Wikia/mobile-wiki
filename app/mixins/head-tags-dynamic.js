@@ -1,6 +1,7 @@
 import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import truncate from '../utils/truncate';
+import config from '../config/environment';
 
 export default Mixin.create({
   headData: service(),
@@ -47,6 +48,10 @@ export default Mixin.create({
       amphtml: data.amphtml,
     };
 
+    if (config.environment === 'production') {
+      headData.robots = data.robots || this.get('wikiVariables.specialRobotPolicy') || 'index,follow';
+    }
+
     if (data.htmlTitle) {
       headData.htmlTitle = data.htmlTitle + htmlTitleSettings.separator + wikiHtmlTitle;
       headData.keywords += `,${data.htmlTitle}`;
@@ -62,6 +67,10 @@ export default Mixin.create({
 
     if (model.details && model.details.thumbnail) {
       headData.pageImage = model.details.thumbnail;
+    }
+
+    if (model.hreflangLinks) {
+      headData.hreflangLinks = model.hreflangLinks;
     }
 
     headData.twitterTitle = truncate(headData.htmlTitle, 70);

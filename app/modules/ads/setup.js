@@ -2,7 +2,6 @@ import { track, trackActions } from '../../utils/track';
 import basicContext from './ad-context';
 import billTheLizard from './bill-the-lizard';
 import fanTakeoverResolver from './fan-takeover-resolver';
-import PorvataTracker from './tracking/porvata-tracker';
 import slots from './slots';
 import SlotTracker from './tracking/slot-tracker';
 import targeting from './targeting';
@@ -36,8 +35,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     context.set('src', 'test');
   }
 
-  const labradorCountriesVariable = 'wgAdDriverLABradorTestCountries';
-  isGeoEnabled(instantGlobals[labradorCountriesVariable], labradorCountriesVariable);
+  isGeoEnabled('wgAdDriverLABradorTestCountries');
 
   context.set('slots', slots.getContext());
 
@@ -67,20 +65,25 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
   context.set('options.trackingOptIn', isOptedIn);
-
-  context.set('options.swapBottomLeaderboard', isGeoEnabled('wgAdDriverMobileBottomLeaderboardSwapCountries'));
-
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
+
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
   context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
+  context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
+  context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
+  context.set('services.nielsen.enabled', isGeoEnabled('wgAdDriverNielsenCountries'));
 
   const isMoatTrackingEnabledForVideo = isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
     && utils.sampler.sample('moat_video_tracking', instantGlobals.wgAdDriverMoatTrackingForFeaturedVideoAdSampling);
   context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
+  context.set(
+    'options.video.moatTracking.additonalParamsEnabled',
+    isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
+  );
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
@@ -118,12 +121,22 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
   context.set('bidders.a9.dealsEnabled', isGeoEnabled('wgAdDriverA9DealsCountries'));
   context.set('bidders.a9.videoEnabled', isGeoEnabled('wgAdDriverA9VideoBidderCountries') && hasFeaturedVideo);
+  context.set(
+    'bidders.a9.bidsRefreshing.enabled',
+    isGeoEnabled('wgAdDriverA9BidRefreshingCountries') && context.get('options.slotRepeater'),
+  );
+  if (isGeoEnabled('wgAdDriverA9IncontentBoxadCountries')) {
+    context.set('bidders.a9.slots.mobile_in_content', {
+      slotId: 'MOBILE_IN_CONTENT',
+      sizes: [[300, 250]],
+    });
+    context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
+  }
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     context.set('bidders.prebid.enabled', true);
     context.set('bidders.prebid.aol.enabled', isGeoEnabled('wgAdDriverAolBidderCountries'));
     context.set('bidders.prebid.appnexus.enabled', isGeoEnabled('wgAdDriverAppNexusBidderCountries'));
-    context.set('bidders.prebid.appnexusWebads.enabled', isGeoEnabled('wgAdDriverAppNexusWebAdsBidderCountries'));
     context.set('bidders.prebid.audienceNetwork.enabled', isGeoEnabled('wgAdDriverAudienceNetworkBidderCountries'));
     context.set('bidders.prebid.indexExchange.enabled', isGeoEnabled('wgAdDriverIndexExchangeBidderCountries'));
     context.set('bidders.prebid.kargo.enabled', isGeoEnabled('wgAdDriverKargoBidderCountries'));
@@ -152,10 +165,15 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   }
 
   const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
-  const insertBeforePath = 'slots.incontent_boxad_1.insertBeforeSelector';
+  const insertBeforePaths = [
+    'slots.incontent_boxad_1.insertBeforeSelector',
+    'slots.incontent_player.insertBeforeSelector',
+  ];
 
   if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
-    context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content section h3`);
+    insertBeforePaths.forEach((insertBeforePath) => {
+      context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+    });
   }
 
   context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
@@ -191,7 +209,6 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyAd, getStickyAdConfig());
 
-  context.push('listeners.porvata', PorvataTracker);
   context.push('listeners.slot', SlotTracker);
   context.push('listeners.slot', fanTakeoverResolver);
   context.push('listeners.slot', ViewabilityTracker);

@@ -47,6 +47,9 @@
   {{! kargo}}
   <link rel="preconnect" href="//krk.kargo.com">
   <link rel="dns-prefetch" href="//krk.kargo.com">
+  {{! moat}}
+  <link rel="preconnect" href="//mb.moatads.com" crossorigin>
+  <link rel="dns-prefetch" href="//mb.moatads.com">
 
   {{#if model.gaUrl}}
     <link rel="dns-prefetch" href={{model.gaUrl}}>
@@ -101,6 +104,14 @@
 {{#if model.prev}}
   <link rel="prev" href={{model.prev}}>
 {{/if}}
+
+{{#each-in model.hreflangLinks as |language url|}}
+  <link
+    rel="alternate"
+    hreflang={{language}}
+    href={{url}}
+  >
+{{/each-in}}
 
 {{! Open Graph start }}
 {{#if model.type}}

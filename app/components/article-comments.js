@@ -150,6 +150,7 @@ export default Component.extend({
   url(articleId, page = 0) {
     return this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
         controller: 'MercuryApi',

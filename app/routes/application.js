@@ -1,7 +1,6 @@
 import { getOwner } from '@ember/application';
-import { get, getWithDefault } from '@ember/object';
+import { getWithDefault } from '@ember/object';
 import Route from '@ember/routing/route';
-import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import applicationRedirect from '@wikia/ember-fandom/utils/application-redirect';
 import { DontLogMeError } from '@wikia/ember-fandom/utils/errors';
@@ -11,7 +10,10 @@ import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
 import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
-import { WikiVariablesRedirectError } from '../utils/errors';
+import {
+  WikiIsClosedError,
+  WikiVariablesRedirectError,
+} from '../utils/errors';
 import {
   CachingInterval, CachingPolicy, disableCache, setResponseCaching,
 } from '../utils/fastboot-caching';
@@ -206,23 +208,6 @@ export default Route.extend(
       }
     },
 
-    setupController(controller, model) {
-      controller.set('model', model);
-
-      if (!this.get('fastboot.isFastBoot')) {
-        // Prevent scrolling to the top of the page after Ember is loaded
-        // See https://github.com/dollarshaveclub/ember-router-scroll/issues/55#issuecomment-313824423
-        const routerScroll = this.get('_router.service');
-        routerScroll.set('key', get(window, 'history.state.uuid'));
-        routerScroll.update();
-
-        run.scheduleOnce('afterRender', () => {
-          const scrollPosition = routerScroll.get('position');
-          window.scrollTo(scrollPosition.x, scrollPosition.y);
-        });
-      }
-    },
-
     actions: {
       loading(transition) {
         if (this.controller) {
@@ -254,6 +239,11 @@ export default Route.extend(
         // Don't handle special type of errors.
         // Currently we use them hack Ember and stop executing application
         if (error instanceof DontLogMeError) {
+          return false;
+        }
+
+        if (error instanceof WikiIsClosedError) {
+          this.intermediateTransitionTo('closed-wiki');
           return false;
         }
 

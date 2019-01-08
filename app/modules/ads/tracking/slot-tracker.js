@@ -10,8 +10,6 @@ const onChangeStatusToTrack = [
   'catlapsed',
   'error',
   'viewport-conflict',
-  'sticked',
-  'unsticked',
 ];
 
 function getPosParameter({ pos = '' }) {
@@ -47,9 +45,9 @@ function checkOptIn() {
 function prepareData(slot, data) {
   // Global imports:
   const { context, utils } = window.Wikia.adEngine;
-  const { billTheLizard } = window.Wikia.adServices;
   // End of imports
 
+  const now = new Date();
   const slotName = slot.getSlotName();
 
   return Object.assign({
@@ -58,6 +56,7 @@ function prepareData(slot, data) {
     country: utils.getCountryCode(),
     time_bucket: data.time_bucket,
     timestamp: data.timestamp,
+    tz_offset: now.getTimezoneOffset(),
     device: context.get('state.deviceType'),
     ad_load_time: data.timestamp - window.performance.timing.connectStart,
     product_lineitem_id: data.line_item_id || '',
@@ -81,7 +80,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
-    btl: billTheLizard.serialize() || '',
+    btl: slot.btlStatus,
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
@@ -103,6 +102,22 @@ export default {
     // End of imports
 
     return context.get('options.tracking.kikimora.slot');
+  },
+
+  /**
+   * Track custom slot event to data warehouse
+   * @param {Object} adSlot
+   * @param {Object} data
+   * @returns {void}
+   */
+  onCustomEvent(adSlot, data) {
+    track(Object.assign(
+      {
+        eventName: 'adengadinfo',
+        trackingMethod: 'internal',
+      },
+      prepareData(adSlot, data),
+    ));
   },
 
   /**
