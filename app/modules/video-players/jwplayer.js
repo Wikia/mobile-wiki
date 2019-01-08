@@ -18,6 +18,7 @@ export default class JWPlayer extends BasePlayer {
     params.onCreate = (bidParams, player) => {
       M.trackingQueue.push(() => {
         if (this.videoAds) {
+          originalOnCreate(player);
           this.videoAds.register(player, this.getSlotTargeting());
         } else {
           getAdsModule()
