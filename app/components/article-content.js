@@ -329,7 +329,7 @@ export default Component.extend(
    * @returns {void}
    */
     replaceInfoboxesWithInfoboxComponents() {
-      toArray(this.element.querySelectorAll('.portable-infobox')).forEach((element) => {
+      toArray(this.element.querySelectorAll('.portable-infobox')).forEach((element, index) => {
         this.renderedComponents.push(
           this.renderComponent({
             name: 'portable-infobox',
@@ -337,6 +337,7 @@ export default Component.extend(
               infoboxHTML: element.innerHTML,
               height: element.offsetHeight,
               pageTitle: this.displayTitle,
+              index,
             },
             element,
           }),

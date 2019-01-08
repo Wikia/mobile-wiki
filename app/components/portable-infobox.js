@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { equal } from '@ember/object/computed';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import offset from '@wikia/ember-fandom/utils/offset';
@@ -16,6 +17,8 @@ export default Component.extend(
     height: null,
     infoboxHTML: '',
     collapsed: false,
+
+    isFirst: equal('index', 0),
 
     button: computed('expandButtonClass', function () {
       return this.element.querySelector(`.${this.expandButtonClass}`);

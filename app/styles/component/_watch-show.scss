@@ -1,0 +1,10 @@
+.watch-show {
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+
+  .wds-button {
+    @include button-theming($wds-color-black, $wds-color-white);
+  }
+}
