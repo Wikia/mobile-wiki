@@ -100,7 +100,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   setupPageLevelTargeting(adsContext);
 
   if (adsContext.targeting.wikiIsTop1000) {
-    context.set('custom.wikiIdentifier', context.get('targeting.s1'));
+    context.set('custom.wikiIdentifier', '_top1k_wiki');
   }
   context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
