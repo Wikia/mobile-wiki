@@ -9,6 +9,7 @@ import {
 export default EmberObject.extend({
   fetchService: service('fetch'),
   wikiUrls: service(),
+  logger: service(),
 
   load(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
@@ -29,6 +30,8 @@ export default EmberObject.extend({
         Cookie: `access_token=${accessToken}`,
       };
     }
+
+    this.logger.error('WikiVariables Fetch', url, options);
 
     return fetch(url, options)
       .then((response) => {
