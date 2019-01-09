@@ -4,29 +4,15 @@ import Component from '@ember/component';
 import { reads, equal, and } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
-import Thumbnailer from '../modules/thumbnailer';
-import { normalizeThumbWidth } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
-import { TopArticlesFetchError } from '../utils/errors';
+import { TopArticlesFetchError, TrendingFandomArticlesFetchError } from '../utils/errors';
 
 const recircItemsCount = 10;
-const config = {
-  // we load twice as many items as we want to display
-  // because we need to filter out those without thumbnail
-  max: recircItemsCount * 2,
-  widget: 'wikia-impactfooter',
-  source: 'fandom',
-  opts: {
-    resultType: 'cross-domain',
-    domainType: 'fandom.wikia.com',
-  },
-};
 
 export default Component.extend(
   InViewportMixin,
   {
-    wdsLiftigniter: service(),
     i18n: service(),
     logger: service(),
     ads: service(),
@@ -40,7 +26,7 @@ export default Component.extend(
 
     listRendered: null,
     isContLangEn: equal('wikiVariables.language.content', 'en'),
-    displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
+    displayTrendingFandomArticles: and('isContLangEn', 'applicationWrapperVisible'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
@@ -108,33 +94,30 @@ export default Component.extend(
         });
     },
 
-    fetchLiftIgniterData() {
-      const liftigniter = this.wdsLiftigniter;
+    fetchTrendingFandomArticles() {
+      const url = this.wikiUrls.build({
+        host: this.get('wikiVariables.host'),
+        forceNoSSLOnServerSide: true,
+        path: '/wikia.php',
+        query: {
+          controller: 'RecirculationApiController',
+          method: 'getTrendingFandomArticles',
+          limit: recircItemsCount
+        },
+      });
 
-      liftigniter
-        .getData(config)
-        .then((data) => {
-          this.set('items', data.items.filter(item => item.thumbnail)
-            .slice(0, recircItemsCount)
-            .map((item) => {
-              item.thumbnail = Thumbnailer.getThumbURL(item.thumbnail, {
-                mode: Thumbnailer.mode.scaleToWidth,
-                width: normalizeThumbWidth(window.innerWidth),
-              });
+      this.fetch.fetchFromMediawiki(url, TrendingFandomArticlesFetchError)
+        .then(items => {
+          items.forEach(item => item.site_name = 'Fandom');
+          this.set('items', items);
 
-              return item;
-            }));
-
-          run.scheduleOnce('afterRender', () => {
-            if (!this.isDestroyed) {
-              liftigniter.setupTracking(
-                this.element.querySelectorAll('.recirculation-prefooter__item'),
-                config.widget,
-                'LI',
-              );
-              this.listRendered.resolve();
-            }
-          });
+          if (!this.isDestroyed) {
+            this.listRendered.resolve();
+          }
+        })
+        .catch((error) => {
+          this.logger.error(error.message);
+          this.set('topArticles', []);
         });
 
       track({
@@ -154,13 +137,11 @@ export default Component.extend(
         return;
       }
 
-      M.trackingQueue.push((isOptedIn) => {
-        if (isOptedIn && this.displayLiftigniterRecirculation) {
-          this.fetchLiftIgniterData();
-        } else {
-          this.listRendered.resolve();
-        }
-      });
+      if (this.displayTrendingFandomArticles) {
+        this.fetchTrendingFandomArticles();
+      } else {
+        this.listRendered.resolve();
+      }
     },
   },
 );
