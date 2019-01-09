@@ -74,7 +74,7 @@ export default Component.extend(
       track(data);
     },
 
-    onSearchToggleClicked() {
+    onModalOpen() {
       getAdsModule()
         .then(adsModule => {
           adsModule.onMenuOpen();
