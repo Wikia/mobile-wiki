@@ -102,13 +102,16 @@ export default Component.extend(
         query: {
           controller: 'RecirculationApiController',
           method: 'getTrendingFandomArticles',
-          limit: recircItemsCount
+          limit: recircItemsCount,
         },
       });
 
       this.fetch.fetchFromMediawiki(url, TrendingFandomArticlesFetchError)
-        .then(items => {
-          items.forEach(item => item.site_name = 'Fandom');
+        .then((items) => {
+          items.forEach((item) => {
+            item.site_name = 'Fandom'
+          });
+
           this.set('items', items);
 
           if (!this.isDestroyed) {
