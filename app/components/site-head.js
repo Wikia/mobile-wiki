@@ -76,7 +76,7 @@ export default Component.extend(
 
     onModalOpen() {
       getAdsModule()
-        .then(adsModule => {
+        .then((adsModule) => {
           adsModule.onMenuOpen();
         });
     },
