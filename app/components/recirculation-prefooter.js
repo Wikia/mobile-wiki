@@ -26,7 +26,6 @@ export default Component.extend(
 
     listRendered: null,
     isContLangEn: equal('wikiVariables.language.content', 'en'),
-    displayTrendingFandomArticles: and('isContLangEn', 'applicationWrapperVisible'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
@@ -83,36 +82,14 @@ export default Component.extend(
         path: '/wikia.php',
         query: {
           controller: 'RecirculationApiController',
-          method: 'getPopularWikiArticles',
+          method: 'getPopularPages',
+          limit: 3 + recircItemsCount,
         },
       });
       this.fetch.fetchFromMediawiki(url, TopArticlesFetchError)
-        .then(data => this.set('topArticles', data))
-        .catch((error) => {
-          this.logger.error(error.message);
-          this.set('topArticles', []);
-        });
-    },
-
-    fetchTrendingFandomArticles() {
-      const url = this.wikiUrls.build({
-        host: this.get('wikiVariables.host'),
-        forceNoSSLOnServerSide: true,
-        path: '/wikia.php',
-        query: {
-          controller: 'RecirculationApiController',
-          method: 'getTrendingFandomArticles',
-          limit: recircItemsCount,
-        },
-      });
-
-      this.fetch.fetchFromMediawiki(url, TrendingFandomArticlesFetchError)
-        .then((items) => {
-          items.forEach((item) => {
-            item.site_name = 'Fandom'
-          });
-
-          this.set('items', items);
+        .then(data => {
+          this.set('topArticles', data.slice(0, 3))
+          this.set('items', data.slice(3))
 
           if (!this.isDestroyed) {
             this.listRendered.resolve();
@@ -122,28 +99,11 @@ export default Component.extend(
           this.logger.error(error.message);
           this.set('topArticles', []);
         });
-
-      track({
-        action: trackActions.impression,
-        category: 'recirculation',
-        label: 'footer',
-      });
     },
 
     didEnterViewport() {
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
-      }
-
-      if (M.getFromHeadDataStore('noExternals')) {
-        this.listRendered.resolve();
-        return;
-      }
-
-      if (this.displayTrendingFandomArticles) {
-        this.fetchTrendingFandomArticles();
-      } else {
-        this.listRendered.resolve();
       }
     },
   },
