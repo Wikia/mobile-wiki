@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
+import waitForAdEngine from './index';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import adBlockDetection from './tracking/adblock-detection';
@@ -272,7 +273,10 @@ class Ads {
   }
 
   waitForReady() {
-    return new Promise(resolve => this.onReady(resolve));
+    return Promise.all([
+      waitForAdEngine(),
+      new Promise(resolve => this.onReady(resolve)),
+    ]);
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {

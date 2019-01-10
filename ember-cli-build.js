@@ -129,7 +129,6 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  // TODO: Remove me after "some" time
   const adEngine3Assets = new Funnel('node_modules/@wikia/ad-engine/dist', {
     include: ['global-bundle.js'],
     destDir: 'assets/wikia-ae3',
@@ -161,9 +160,6 @@ module.exports = function (defaults) {
     using: [{ transformation: 'fastbootShim' }],
   });
   app.import('node_modules/lazysizes/lazysizes.js', {
-    using: [{ transformation: 'fastbootShim' }],
-  });
-  app.import('node_modules/@wikia/ad-engine/dist/global-bundle.js', {
     using: [{ transformation: 'fastbootShim' }],
   });
 
