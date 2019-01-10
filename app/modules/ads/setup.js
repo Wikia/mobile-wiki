@@ -40,14 +40,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('slots', slots.getContext());
 
   if (!adsContext.targeting.hasFeaturedVideo) {
-    context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
+    context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
   }
 
   const stickySlotsLines = instantGlobals.wgAdDriverStickySlotsLines;
 
   if (stickySlotsLines && stickySlotsLines.length) {
     context.set('templates.stickyAd.lineItemIds', stickySlotsLines);
-    context.push('slots.mobile_top_leaderboard.defaultTemplates', 'stickyAd');
+    context.push('slots.top_leaderboard.defaultTemplates', 'stickyAd');
   }
 
   context.set('state.deviceType', utils.client.getDeviceType());
@@ -66,10 +66,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
   context.set('options.trackingOptIn', isOptedIn);
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
-
-  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
   context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
@@ -90,6 +86,11 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
     context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
   }
+
+  context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));

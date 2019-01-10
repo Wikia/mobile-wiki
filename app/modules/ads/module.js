@@ -10,7 +10,7 @@ import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
 
 const SLOT_NAME_MAP = {
-  MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
+  TOP_LEADERBOARD: 'top_leaderboard',
   MOBILE_IN_CONTENT: 'mobile_in_content',
   MOBILE_PREFOOTER: 'mobile_prefooter',
   BOTTOM_LEADERBOARD: 'bottom_leaderboard',
