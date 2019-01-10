@@ -109,8 +109,8 @@ class Ads {
     });
 
     this.isLoaded = true;
-    this.onReadyCallbacks.forEach(callback => callback());
-    this.onReadyCallbacks = [];
+    utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
+    this.onReadyCallbacks.start();
   }
 
   trackLabrador() {
@@ -180,11 +180,7 @@ class Ads {
   }
 
   onReady(callback) {
-    if (this.isLoaded) {
-      callback();
-    } else {
-      this.onReadyCallbacks.push(callback);
-    }
+    this.onReadyCallbacks.push(callback);
   }
 
   getAdSlotComponentAttributes(slotName) {
