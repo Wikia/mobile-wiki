@@ -2,7 +2,6 @@
   var adEngineQueue = [];
 
   function onAdsLoaded() {
-
     if (!window.Wikia || !window.Wikia.adEngine) {
       return;
     }
@@ -11,7 +10,6 @@
       cb();
     });
     adEngineQueue.start();
-
   }
 
   window.getInstantGlobals(function (instantGlobals) {
