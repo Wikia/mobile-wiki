@@ -32,7 +32,6 @@
       class="recirculation-prefooter__item"
       style={{concat-background post.thumbnail}}
     >
-      {{! This "a" tag is required by liftigniter"s js lib in order to properly set tracking for elements }}
       <a {{action "postClick" post index preventDefault=true}}
         href={{post.url}}
         class="recirculation-prefooter__item-anchor"
