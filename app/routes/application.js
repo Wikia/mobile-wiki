@@ -105,6 +105,10 @@ export default Route.extend(
         waitForAdEngine().then(() => {
           const { events } = window.Wikia.adEngine;
 
+          if (!events) {
+            return;
+          }
+
           events.registerEvent('HEAD_OFFSET_CHANGE');
           events.registerEvent('SMART_BANNER_CHANGE');
 

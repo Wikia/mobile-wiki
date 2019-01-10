@@ -31,7 +31,12 @@
   window.Wikia = {
   adEngine: {
    context: {
-    get: () => undefined
+    get: () => undefined,
+    push: () => undefined
+   },
+   events: {
+    registerEvent: () => {},
+    on: () => {},
    }
   },
   adProducts: {
@@ -56,6 +61,7 @@
   trackPageView: function () {}
   };
   window.getInstantGlobal = function() {};
+  window.getInstantGlobals = function() {};
   window.waitForAds = function() {};
   window.liftigniter = function() {};
 </script>

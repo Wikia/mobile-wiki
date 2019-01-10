@@ -180,7 +180,11 @@ class Ads {
   }
 
   onReady(callback) {
-    this.onReadyCallbacks.push(callback);
+    if (this.isLoaded) {
+      callback();
+    } else {
+      this.onReadyCallbacks.push(callback);
+    }
   }
 
   getAdSlotComponentAttributes(slotName) {
