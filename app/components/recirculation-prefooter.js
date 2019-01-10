@@ -6,7 +6,7 @@ import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
-import { TopArticlesFetchError, TrendingFandomArticlesFetchError } from '../utils/errors';
+import { TopArticlesFetchError } from '../utils/errors';
 
 const recircItemsCount = 10;
 
@@ -25,7 +25,6 @@ export default Component.extend(
     classNameBindings: ['items:has-items'],
 
     listRendered: null,
-    isContLangEn: equal('wikiVariables.language.content', 'en'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
 
     wikiName: reads('wikiVariables.siteName'),
@@ -86,10 +85,11 @@ export default Component.extend(
           limit: 3 + recircItemsCount,
         },
       });
+
       this.fetch.fetchFromMediawiki(url, TopArticlesFetchError)
-        .then(data => {
-          this.set('topArticles', data.slice(0, 3))
-          this.set('items', data.slice(3))
+        .then((data) => {
+          this.set('topArticles', data.slice(0, 3));
+          this.set('items', data.slice(3));
 
           if (!this.isDestroyed) {
             this.listRendered.resolve();

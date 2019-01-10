@@ -59,11 +59,6 @@ const TopArticlesFetchError = defineError({
   message: 'Top Articles couldn\'t be fetched',
 });
 
-const TrendingFandomArticlesFetchError = defineError({
-  name: 'TrendingFandomArticlesFetchError',
-  message: 'Trending Fandom Articles couldn\'t be fetched',
-});
-
 const WikiaInYourLangFetchError = defineError({
   name: 'WikiaInYourLangFetchError',
   message: 'WikiaInYourLang data couldn\'t be fetched',
@@ -113,7 +108,6 @@ export {
   UserLoadInfoFetchError,
   TrackingDimensionsFetchError,
   TopArticlesFetchError,
-  TrendingFandomArticlesFetchError,
   WikiaInYourLangFetchError,
   WikiIsClosedError,
   WikiPageFetchError,
