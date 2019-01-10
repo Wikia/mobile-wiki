@@ -568,6 +568,9 @@ export default Component.extend(
         }));
     },
 
+    /**
+     * Injects watch show button (IW-1470) just after the first infobox
+     */
     handleWatchShow() {
       const pi = this.element.querySelector('.portable-infobox');
 
