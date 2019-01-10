@@ -8,6 +8,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
+import waitForAdEngine from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
   WikiIsClosedError,
@@ -101,7 +102,7 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-        if (window.Wikia) {
+        waitForAdEngine().then(() => {
           const { events } = window.Wikia.adEngine;
 
           events.registerEvent('HEAD_OFFSET_CHANGE');
@@ -113,7 +114,7 @@ export default Route.extend(
           events.on(events.SMART_BANNER_CHANGE, (visibility) => {
             this.set('smartBanner.smartBannerVisible', visibility);
           });
-        }
+        });
 
         this.fastlyInsights.loadFastlyInsightsScript();
       }
