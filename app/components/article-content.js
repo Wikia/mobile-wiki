@@ -59,6 +59,7 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
+          this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
 
@@ -565,6 +566,24 @@ export default Component.extend(
 
           target.setAttribute('href', url);
         }));
+    },
+
+    handleWatchShow() {
+      const pi = this.element.querySelector('.portable-infobox');
+
+      if (pi) {
+        const placeholder = document.createElement('div');
+        const wrapper = document.createElement('div');
+
+        wrapper.appendChild(placeholder);
+        pi.insertAdjacentElement('afterend', wrapper);
+
+        this.renderedComponents.push(this.renderComponent({
+          name: 'watch-show',
+          attrs: {},
+          element: placeholder,
+        }));
+      }
     },
   },
 );

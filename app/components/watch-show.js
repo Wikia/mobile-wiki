@@ -14,7 +14,7 @@ export default Component.extend(
     url: oneWay('wikiVariables.watchShowURL'),
 
     isVisible: computed('url', function () {
-      return this.url && this.geo.country === 'US';
+      return this.url && this.geo.country === 'PL';
     }),
 
     didInsertElement() {
