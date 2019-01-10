@@ -1,8 +1,20 @@
 {{#if isVisible}}
   <div class="watch-show">
-    <a class="wds-button" onclick={{this.trackClick}} href={{url}} target="_blank">Watch now</a>
+    <a
+      class="wds-button"
+      onclick={{this.trackClick}}
+      href={{url}}
+      target="_blank"
+      rel="noopener"
+    >
+      Watch now
+    </a>
     {{! todo fix the hulu asset url }}
-    <img src="/extensions/wikia/WatchShow/images/hulu.png" height="53" width="100"
-         alt="Available on Hulu">
+    <img
+      src="/extensions/wikia/WatchShow/images/hulu.png"
+      height="53"
+      width="100"
+      alt="Available on Hulu"
+    >
   </div>
 {{/if}}
