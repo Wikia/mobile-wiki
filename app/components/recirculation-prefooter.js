@@ -1,7 +1,7 @@
 import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { reads, equal, and } from '@ember/object/computed';
+import { reads, and } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { track, trackActions } from '../utils/track';
