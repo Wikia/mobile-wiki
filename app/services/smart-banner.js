@@ -52,8 +52,7 @@ export default Service.extend({
 
     // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
     // and then being replaced by UAP
-    Ads.getInstance().waitForUapResponse(() => {
-    }, () => {
+    Ads.getInstance().waitForUapResponse(() => {}, () => {
       this.set('willUapNotAppearForAnon', true);
     });
   },

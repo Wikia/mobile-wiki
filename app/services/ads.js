@@ -45,14 +45,10 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    if (!this.get('fastboot.isFastBoot')) {
-      this.module.beforeTransition();
-    }
+    this.module.beforeTransition();
 
-    const adSlotComponents = this.adSlotComponents;
-
-    Object.keys(adSlotComponents).forEach((slotName) => {
-      adSlotComponents[slotName].destroy();
+    Object.keys(this.adSlotComponents).forEach((slotName) => {
+      this.adSlotComponents[slotName].destroy();
     });
 
     this.set('adSlotComponents', {});
