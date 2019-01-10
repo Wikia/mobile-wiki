@@ -3,10 +3,10 @@ import { run } from '@ember/runloop';
 import sinon from 'sinon';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import LegacyAdsModule from 'mobile-wiki/modules/ads/legacyModule';
+import Ads from 'mobile-wiki/modules/ads/module';
 
 const adsStub = Service.extend({
-  module: LegacyAdsModule.getInstance(),
+  module: Ads.getInstance(),
 });
 
 module('Unit | Component | ad slot', (hooks) => {
@@ -87,7 +87,7 @@ module('Unit | Component | ad slot', (hooks) => {
     ];
 
     testCases.forEach((testCase) => {
-      const ads = new LegacyAdsModule();
+      const ads = new Ads();
       const spyUap = sinon.spy();
       const spyNoUap = sinon.spy();
 
