@@ -21,7 +21,6 @@ import {
   namespace as mediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
@@ -177,14 +176,10 @@ export default Route.extend(
             !fastboot.get('isFastBoot')
             && !transition.queryParams.noexternals
           ) {
-            getAdsModule().then((adsModule) => {
-              if (isAdEngine3Loaded(adsModule)) {
-                model.adsContext.user = model.adsContext.user || {};
-                model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+            model.adsContext.user = model.adsContext.user || {};
+            model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 
-                adsModule.init(model.adsContext);
-              }
-            });
+            this.get('ads.module').init(model.adsContext);
           }
 
           this.set('wikiHandler', handler);

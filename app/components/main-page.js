@@ -3,11 +3,11 @@ import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
 import AdsMixin from '../mixins/ads';
-import getAdsModule from '../modules/ads';
 
 export default Component.extend(
   AdsMixin,
   {
+    ads: service(),
     currentUser: service(),
     wikiVariables: service(),
 
@@ -25,13 +25,11 @@ export default Component.extend(
       this._super(...arguments);
 
       run.scheduleOnce('afterRender', this, () => {
-        getAdsModule().then((adsModule) => {
-          this.setupAdsContext(this.adsContext);
-          adsModule.onReady(() => {
-            if (!this.isDestroyed) {
-              this.injectMainPageAds();
-            }
-          });
+        this.setupAdsContext(this.adsContext);
+        this.get('ads.module').onReady(() => {
+          if (!this.isDestroyed) {
+            this.injectMainPageAds();
+          }
         });
       });
     },

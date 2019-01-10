@@ -21,7 +21,6 @@ const SLOT_NAME_MAP = {
 class Ads {
   constructor() {
     this.engine = null;
-    this.events = null;
     this.instantGlobals = null;
     this.isLoaded = false;
     this.onReadyCallbacks = [];
@@ -83,8 +82,7 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { universalAdPackage } = window.Wikia.adProducts;
 
-    this.events = events;
-    this.events.registerEvent('MENU_OPEN_EVENT');
+    events.registerEvent('MENU_OPEN_EVENT');
     this.instantGlobals = instantGlobals;
     this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
 
@@ -142,8 +140,6 @@ class Ads {
       setTimeout(resolve, context.get('options.maxDelayTimeout'));
     });
 
-    // TODO: remove logic related to passing bids in JWPlayer classes once we remove legacyModule.js
-    // we don't need to pass bidder parameters here because they are set on slot create
     return Promise.race([
       biddersDelay.getPromise(),
       timeout,
@@ -168,7 +164,6 @@ class Ads {
     }
   }
 
-  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
@@ -179,15 +174,10 @@ class Ads {
     return null;
   }
 
-  // TODO: Remove this method and call jwplayerAdsFactory directly after AE3 clean up
   loadJwplayerMoatTracking() {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
     jwplayerAdsFactory.loadMoatPlugin();
-  }
-
-  // TODO: Remove this method after AE3 clean up
-  initJWPlayer() {
   }
 
   getInstantGlobals() {
@@ -242,36 +232,43 @@ class Ads {
   }
 
   beforeTransition() {
-    this.events.beforePageChange();
+    if (!this.isLoaded) {
+      return;
+    }
+
+    const { events } = window.Wikia.adEngine;
+
+    events.beforePageChange();
   }
 
   onTransition(options) {
-    const { context } = window.Wikia.adEngine;
+    if (!this.isLoaded) {
+      return;
+    }
+    const { context, events } = window.Wikia.adEngine;
 
-    if (this.events) {
-      context.set('state.adStack', []);
-      this.events.pageChange(options);
+    context.set('state.adStack', []);
+    events.pageChange(options);
 
-      if (this.showAds) {
-        this.engine.runAdQueue();
-      }
+    if (this.showAds) {
+      this.engine.runAdQueue();
     }
   }
 
   afterTransition(mediaWikiAdsContext, instantGlobals) {
+    if (!this.isLoaded) {
+      return;
+    }
+
+    const { events } = window.Wikia.adEngine;
+
     this.instantGlobals = instantGlobals || this.instantGlobals;
     adBlockDetection.track();
 
-    if (this.events) {
-      this.events.pageRender({
-        adContext: mediaWikiAdsContext,
-        instantGlobals: this.instantGlobals,
-      });
-    }
-  }
-
-  removeSlot() {
-    // TODO: This method is not needed once we remove legacyModule.js
+    events.pageRender({
+      adContext: mediaWikiAdsContext,
+      instantGlobals: this.instantGlobals,
+    });
   }
 
   waitForReady() {
@@ -289,7 +286,12 @@ class Ads {
   }
 
   onMenuOpen() {
-    this.events.emit(this.events.MENU_OPEN_EVENT);
+    if (!this.isLoaded) {
+      return;
+    }
+    const { events } = window.Wikia.adEngine;
+
+    events.emit(events.MENU_OPEN_EVENT);
   }
 }
 

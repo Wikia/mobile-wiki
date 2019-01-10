@@ -1,10 +1,10 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
+import Ads from '../modules/ads/module';
 
 export default Service.extend({
-  module: null,
+  module: Ads.getInstance(),
   fastboot: service(),
   wikiVariables: service(),
   currentUser: service(),
@@ -36,10 +36,7 @@ export default Service.extend({
     });
 
     if (!this.get('fastboot.isFastBoot')) {
-      getAdsModule().then((adsModule) => {
-        this.module = adsModule;
-        this.module.showAds = !this.noAds;
-      });
+      this.module.showAds = !this.noAds;
     }
   },
 
@@ -48,7 +45,7 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    if (this.module && isAdEngine3Loaded()) {
+    if (!this.get('fastboot.isFastBoot')) {
       this.module.beforeTransition();
     }
 

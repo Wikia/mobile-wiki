@@ -8,7 +8,6 @@ import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
   WikiIsClosedError,
@@ -102,62 +101,19 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-        getAdsModule().then((adsModule) => {
-          if (isAdEngine3Loaded()) {
-            const { events } = window.Wikia.adEngine;
+        if (window.Wikia) {
+          const { events } = window.Wikia.adEngine;
 
-            events.registerEvent('HEAD_OFFSET_CHANGE');
-            events.registerEvent('SMART_BANNER_CHANGE');
+          events.registerEvent('HEAD_OFFSET_CHANGE');
+          events.registerEvent('SMART_BANNER_CHANGE');
 
-            events.on(events.HEAD_OFFSET_CHANGE, (offset) => {
-              this.set('ads.siteHeadOffset', offset);
-            });
-            events.on(events.SMART_BANNER_CHANGE, (visibility) => {
-              this.set('smartBanner.smartBannerVisible', visibility);
-            });
-
-            return;
-          }
-
-          adsModule.init();
-
-          /*
-          * This global function is being used by our AdEngine code
-          * to provide prestitial/interstitial ads
-          * It works in similar way on Oasis: we call ads server (DFP)
-          * to check if there is targeted ad unit
-          * for a user.
-          * If there is and it's in a form of prestitial/interstitial
-          * the ad server calls our exposed JS function to
-          * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-          * Created lightbox might be empty in case of lack of ads,
-          * so we want to create lightbox with argument
-          * lightboxVisible=false and then decide if we want to show it.
-          */
-          adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
-            if (!closeButtonDelay) {
-              closeButtonDelay = 0;
-            }
-
-            if (lightboxVisible) {
-              this.lightbox.open('ads', { contents }, closeButtonDelay);
-            } else {
-              this.lightbox.createHidden('ads', { contents }, closeButtonDelay);
-            }
-          };
-
-          adsModule.showLightbox = () => {
-            this.lightbox.show();
-          };
-
-          adsModule.setSiteHeadOffset = (offset) => {
+          events.on(events.HEAD_OFFSET_CHANGE, (offset) => {
             this.set('ads.siteHeadOffset', offset);
-          };
-
-          adsModule.hideSmartBanner = () => {
-            this.set('smartBanner.smartBannerVisible', false);
-          };
-        });
+          });
+          events.on(events.SMART_BANNER_CHANGE, (visibility) => {
+            this.set('smartBanner.smartBannerVisible', visibility);
+          });
+        }
 
         this.fastlyInsights.loadFastlyInsightsScript();
       }
@@ -219,9 +175,7 @@ export default Route.extend(
       },
 
       didTransition() {
-        if (this.get('ads.module')) {
-          this.get('ads.module').onTransition();
-        }
+        this.get('ads.module').onTransition();
 
         // Clear notification alerts for the new route
         this.controller.clearNotifications();
