@@ -24,6 +24,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(
   AdsMixin,
   {
+    ads: service(),
     fastboot: service(),
     i18n: service(),
     logger: service(),
@@ -78,13 +79,13 @@ export default Component.extend(
         }
 
         if (!this.isPreview && this.adsContext) {
-          waitForAdEngine().then((adsModule) => {
+          waitForAdEngine().then(() => {
             this.setupAdsContext(this.adsContext);
-            adsModule.onReady(() => {
+            this.get('ads.module').onReady(() => {
               if (!this.isDestroyed) {
                 this.injectAds();
 
-                if (!adsModule.isArticleSectionCollapsed()) {
+                if (!this.get('ads.module').isArticleSectionCollapsed()) {
                   this.uncollapseSections();
                 }
               }

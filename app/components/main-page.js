@@ -8,6 +8,7 @@ import waitForAdEngine from '../modules/ads';
 export default Component.extend(
   AdsMixin,
   {
+    ads: service(),
     currentUser: service(),
     wikiVariables: service(),
 
@@ -25,9 +26,9 @@ export default Component.extend(
       this._super(...arguments);
 
       run.scheduleOnce('afterRender', this, () => {
-        waitForAdEngine().then((adsModule) => {
+        waitForAdEngine().then(() => {
           this.setupAdsContext(this.adsContext);
-          adsModule.onReady(() => {
+          this.get('ads.module').onReady(() => {
             if (!this.isDestroyed) {
               this.injectMainPageAds();
             }

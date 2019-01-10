@@ -21,6 +21,7 @@ import {
   namespace as mediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
+import Ads from '../modules/ads/module';
 import waitForAdEngine from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
@@ -177,11 +178,11 @@ export default Route.extend(
             !fastboot.get('isFastBoot')
             && !transition.queryParams.noexternals
           ) {
-            waitForAdEngine().then((adsModule) => {
+            waitForAdEngine().then(() => {
               model.adsContext.user = model.adsContext.user || {};
               model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 
-              adsModule.init(model.adsContext);
+              Ads.getInstance().init(model.adsContext);
             });
           }
 
