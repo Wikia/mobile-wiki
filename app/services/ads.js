@@ -26,12 +26,12 @@ export default Service.extend({
       adSlotComponents: {},
       waits: {},
       slotNames: {
-        bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
-        invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
-        invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-        mobileInContent: 'MOBILE_IN_CONTENT',
-        mobilePreFooter: 'MOBILE_PREFOOTER',
-        mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
+        bottomLeaderBoard: 'bottom_leaderboard',
+        invisibleHighImpact: 'invisible_high_impact',
+        invisibleHighImpact2: 'invisible_high_impact_2',
+        mobileInContent: 'mobile_in_content',
+        mobilePreFooter: 'mobile_prefooter',
+        mobileTopLeaderBoard: 'mobile_top_leaderboard',
       },
     });
 

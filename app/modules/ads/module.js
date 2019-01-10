@@ -10,15 +10,6 @@ import videoTracker from './tracking/video-tracking';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
 
-const SLOT_NAME_MAP = {
-  MOBILE_TOP_LEADERBOARD: 'mobile_top_leaderboard',
-  MOBILE_IN_CONTENT: 'mobile_in_content',
-  MOBILE_PREFOOTER: 'mobile_prefooter',
-  BOTTOM_LEADERBOARD: 'bottom_leaderboard',
-  INVISIBLE_HIGH_IMPACT: 'invisible_high_impact',
-  INVISIBLE_HIGH_IMPACT_2: 'invisible_high_impact_2',
-};
-
 class Ads {
   constructor() {
     this.engine = null;
@@ -32,6 +23,7 @@ class Ads {
     if (Ads.instance === null) {
       Ads.instance = new Ads();
     }
+
     return Ads.instance;
   }
 
@@ -40,14 +32,16 @@ class Ads {
   }
 
   init(mediaWikiAdsContext = {}) {
-    if (!this.isLoaded) {
-      this.getInstantGlobals()
-        .then((instantGlobals) => {
-          M.trackingQueue.push(
-            isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
-          );
-        });
+    if (this.isLoaded) {
+      return;
     }
+
+    this.getInstantGlobals()
+      .then((instantGlobals) => {
+        M.trackingQueue.push(
+          isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
+        );
+      });
   }
 
   callExternals() {
@@ -193,14 +187,10 @@ class Ads {
     }
   }
 
-  isSlotApplicable(slotName) {
-    return !!SLOT_NAME_MAP[slotName];
-  }
-
   getAdSlotComponentAttributes(slotName) {
     const { context } = window.Wikia.adEngine;
 
-    let name = SLOT_NAME_MAP[slotName] || slotName;
+    let name = slotName;
 
     if (context.get('options.slotRepeater') && name === 'mobile_in_content') {
       name = 'incontent_boxad_1';
@@ -225,10 +215,8 @@ class Ads {
   pushSlotToQueue(name) {
     const { context } = window.Wikia.adEngine;
 
-    const slotId = SLOT_NAME_MAP[name] || name;
-
     context.push('state.adStack', {
-      id: slotId,
+      id: name,
     });
   }
 
@@ -272,6 +260,15 @@ class Ads {
     });
   }
 
+  onMenuOpen() {
+    if (!this.isLoaded) {
+      return;
+    }
+    const { events } = window.Wikia.adEngine;
+
+    events.emit(events.MENU_OPEN_EVENT);
+  }
+
   waitForReady() {
     return Promise.all([
       waitForAdEngine(),
@@ -287,15 +284,6 @@ class Ads {
         noUapCallback();
       }
     });
-  }
-
-  onMenuOpen() {
-    if (!this.isLoaded) {
-      return;
-    }
-    const { events } = window.Wikia.adEngine;
-
-    events.emit(events.MENU_OPEN_EVENT);
   }
 }
 
