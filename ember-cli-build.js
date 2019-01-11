@@ -50,18 +50,6 @@ module.exports = function (defaults) {
       map: false,
       remove: false,
     },
-    derequire: {
-      patterns: [
-        {
-          from: 'define',
-          to: 'mefine',
-        },
-        {
-          from: 'require',
-          to: 'mequire',
-        },
-      ],
-    },
     fingerprint: {
       exclude: ['app.css'],
       extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
