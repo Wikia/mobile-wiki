@@ -393,9 +393,12 @@ export default {
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
       config: {
         advs: {
+          120259452: true, // AOL
           115916532: true, // AppNexus
+          115786212: true, // Index Exchange
           124353852: true, // OpenX
           4475752210: true, // Pubmatic
+          48029772: true, // Rubicon
         },
       },
     },
