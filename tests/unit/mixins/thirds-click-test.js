@@ -19,7 +19,7 @@ module('Unit | Mixin | thirds click', () => {
     mixin.leftClickHandler = sinon.stub();
     mixin.rightClickHandler = sinon.stub();
     mixin.centerClickHandler = sinon.stub();
-    mixin.viewportWidth = 480;
+    mixin.set('viewportWidth', 480);
 
     mixin.callClickHandler(clickEventLeft);
     assert.ok(mixin.leftClickHandler.calledOnce, 'left click handler is called');
