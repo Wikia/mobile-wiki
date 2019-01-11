@@ -10,6 +10,8 @@ export function getAdsModuleMock(adsContext) {
     reload() {},
     afterTransition() {},
     removeSlot() {},
+    registerActions() {},
+    waitForAdEngine() {},
     waitForUapResponse() {},
     onMenuOpen() {},
     getAdSlotComponentAttributes: name => (
@@ -25,9 +27,11 @@ export function getAdsModuleMock(adsContext) {
       cb();
     },
   };
+
   if (adsContext) {
     context = Object.assign({}, context, { adsContext });
   }
+
   return context;
 }
 
