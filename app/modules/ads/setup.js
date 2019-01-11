@@ -87,9 +87,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
-  if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-    context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
-  }
+  context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));
