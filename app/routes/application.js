@@ -8,7 +8,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
-import waitForAdEngine from '../modules/ads';
+import Ads from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
   WikiIsClosedError,
@@ -102,17 +102,14 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-        waitForAdEngine().then(() => {
-          const { events } = window.Wikia.adEngine;
-
-          events.registerEvent('HEAD_OFFSET_CHANGE');
-          events.registerEvent('SMART_BANNER_CHANGE');
-
-          events.on(events.HEAD_OFFSET_CHANGE, (offset) => {
-            this.set('ads.siteHeadOffset', offset);
-          });
-          events.on(events.SMART_BANNER_CHANGE, (visibility) => {
-            this.set('smartBanner.smartBannerVisible', visibility);
+        Ads.waitForAdEngine().then((ads) => {
+          ads.registerActions({
+            onHeadOffsetChange: (offset) => {
+              this.set('ads.siteHeadOffset', offset);
+            },
+            onSmartBannerChange: (visibility) => {
+              this.set('smartBanner.smartBannerVisible', visibility);
+            },
           });
         });
 

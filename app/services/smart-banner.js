@@ -8,7 +8,7 @@ import {
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
-import Ads from '../modules/ads/module';
+import Ads from '../modules/ads';
 
 export default Service.extend({
   currentUser: service(),

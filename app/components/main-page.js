@@ -2,8 +2,8 @@ import { inject as service } from '@ember/service';
 import { reads, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
+import Ads from '../modules/ads';
 import AdsMixin from '../mixins/ads';
-import waitForAdEngine from '../modules/ads';
 
 export default Component.extend(
   AdsMixin,
@@ -26,9 +26,9 @@ export default Component.extend(
       this._super(...arguments);
 
       run.scheduleOnce('afterRender', this, () => {
-        waitForAdEngine().then(() => {
+        Ads.waitForAdEngine().then((ads) => {
           this.setupAdsContext(this.adsContext);
-          this.get('ads.module').onReady(() => {
+          ads.onReady(() => {
             if (!this.isDestroyed) {
               this.injectMainPageAds();
             }

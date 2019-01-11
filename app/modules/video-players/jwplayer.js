@@ -1,4 +1,4 @@
-import Ads from '../ads/module';
+import Ads from '../ads';
 import BasePlayer from './base';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
@@ -45,13 +45,14 @@ export default class JWPlayer extends BasePlayer {
   * @returns {void}
   */
   createPlayer() {
-    Ads.getInstance()
-      .waitForReady()
-      .then(() => Ads.getInstance().waitForVideoBidders())
-      .then(() => this.initializePlayer());
+    const ads = Ads.getInstance();
+
+    ads.waitForReady()
+      .then(() => ads.waitForVideoBidders())
+      .then(() => this.initializePlayer(ads));
   }
 
-  initializePlayer() {
+  initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
 
@@ -59,7 +60,7 @@ export default class JWPlayer extends BasePlayer {
       return;
     }
 
-    this.videoAds = Ads.getInstance().createJWPlayerVideoAds({
+    this.videoAds = ads.createJWPlayerVideoAds({
       audio: !this.params.autoplay,
       autoplay: this.params.autoplay,
       featured: true,
@@ -114,7 +115,7 @@ export default class JWPlayer extends BasePlayer {
       this.params.onCreate.bind(this),
     );
 
-    Ads.getInstance().loadJwplayerMoatTracking();
+    ads.loadJwplayerMoatTracking();
   }
 
   /**

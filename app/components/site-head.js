@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
-import getAdsModule from '../modules/ads';
+import Ads from '../modules/ads';
 
 export default Component.extend(
   HeadroomMixin,
@@ -75,9 +75,9 @@ export default Component.extend(
     },
 
     onModalOpen() {
-      getAdsModule()
-        .then((adsModule) => {
-          adsModule.onMenuOpen();
+      Ads.waitForAdEngine()
+        .then((ads) => {
+          ads.onMenuOpen();
         });
     },
 

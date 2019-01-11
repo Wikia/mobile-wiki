@@ -5,8 +5,8 @@ import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
+import Ads from '../modules/ads';
 import AdsMixin from '../mixins/ads';
-import waitForAdEngine from '../modules/ads';
 import {
   getRenderComponentFor,
   queryPlaceholders,
@@ -79,13 +79,13 @@ export default Component.extend(
         }
 
         if (!this.isPreview && this.adsContext) {
-          waitForAdEngine().then(() => {
+          Ads.waitForAdEngine().then((ads) => {
             this.setupAdsContext(this.adsContext);
-            this.get('ads.module').onReady(() => {
+            ads.onReady(() => {
               if (!this.isDestroyed) {
                 this.injectAds();
 
-                if (!this.get('ads.module').isArticleSectionCollapsed()) {
+                if (!ads.isArticleSectionCollapsed()) {
                   this.uncollapseSections();
                 }
               }
