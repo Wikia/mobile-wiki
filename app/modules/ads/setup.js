@@ -11,7 +11,7 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getOutOfPageConfig } from './templates/out-of-page-config';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
-import { getConfig as getStickyAdConfig } from './templates/sticky-ad-config';
+import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -46,8 +46,8 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   const stickySlotsLines = instantGlobals.wgAdDriverStickySlotsLines;
 
   if (stickySlotsLines && stickySlotsLines.length) {
-    context.set('templates.stickyAd.lineItemIds', stickySlotsLines);
-    context.push('slots.top_leaderboard.defaultTemplates', 'stickyAd');
+    context.set('templates.stickyTLB.lineItemIds', stickySlotsLines);
+    context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
   }
 
   context.set('state.deviceType', utils.client.getDeviceType());
@@ -196,7 +196,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     Interstitial,
     PorvataTemplate,
     Roadblock,
-    StickyAd,
+    StickyTLB,
   } = window.Wikia.adProducts;
 
   setupAdContext(adsContext, instantGlobals, isOptedIn);
@@ -208,7 +208,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Interstitial, getOutOfPageConfig());
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
-  templateService.register(StickyAd, getStickyAdConfig());
+  templateService.register(StickyTLB, getStickyTLBConfig());
 
   context.push('listeners.slot', SlotTracker);
   context.push('listeners.slot', fanTakeoverResolver);
