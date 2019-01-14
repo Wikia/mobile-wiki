@@ -81,6 +81,30 @@ export default Component.extend(
 
         this.router.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
       },
+
+      sponsoredContentClick(sponsoredItem) {
+        track({
+          action: trackActions.click,
+          category: trackingCategory,
+          label: 'footer',
+        });
+
+        track({
+          action: trackActions.click,
+          category: trackingCategory,
+          label: 'sponsored-item',
+        });
+
+        track({
+          action: trackActions.select,
+          category: trackingCategory,
+          label: sponsoredItem.url,
+        });
+
+        run.later(() => {
+          window.location.assign(sponsoredItem.url);
+        }, 200);
+      },
     },
 
     fetchTopArticles() {
