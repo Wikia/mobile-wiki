@@ -35,7 +35,9 @@ export default Service.extend({
   },
 
   getApplicableContent(sponsoredContent) {
-    return sponsoredContent.filter(el => !el.geos.length || el.geos.indexOf(this.geo.country) !== -1);
+    return sponsoredContent.filter(
+      el => !el.geos.length || el.geos.indexOf(this.geo.country) !== -1
+    );
   },
 
   getWeightsSum(applicableContent) {
