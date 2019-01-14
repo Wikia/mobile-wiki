@@ -82,6 +82,7 @@ class Ads {
     const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
     const { universalAdPackage } = window.Wikia.adProducts;
+    const { confiant } = window.Wikia.adServices;
 
     this.events = events;
     this.events.registerEvent('MENU_OPEN_EVENT');
@@ -101,6 +102,7 @@ class Ads {
     events.on(events.PAGE_CHANGE_EVENT, this.callExternals.bind(this));
 
     billTheLizard.configureBillTheLizard(instantGlobals);
+    confiant.call();
 
     this.callExternals();
     this.startAdEngine();
