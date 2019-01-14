@@ -2,7 +2,6 @@ import Service from '@ember/service';
 import { oneWay } from '@ember/object/computed';
 
 export default Service.extend({
-
   country: oneWay('data.country'),
 
   init() {
@@ -16,5 +15,4 @@ export default Service.extend({
       this.set('data', {});
     }
   },
-
 });

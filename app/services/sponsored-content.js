@@ -23,9 +23,9 @@ export default Service.extend({
     }
   },
 
-  getSponsoredItem(sponsoredContent = []) {
+  getSponsoredItem(sponsoredContent) {
     const randomNumber = Math.random();
-    const applicableContent = this.getApplicableContent(sponsoredContent);
+    const applicableContent = this.getApplicableContent(sponsoredContent || []);
     const sumOfWeights = this.getWeightsSum(applicableContent);
     const ranges = this.getMaxRanges(applicableContent, sumOfWeights);
     const applicableRanges = ranges.filter(el => el >= randomNumber);
