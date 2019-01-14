@@ -1,6 +1,6 @@
 export default {
   adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-  megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+  megaAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
     enabled: false,
@@ -370,7 +370,7 @@ export default {
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-    megaAdUnitId: '/{custom.dfpId}/wka1a.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+    megaAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   },
   targeting: {
@@ -393,9 +393,12 @@ export default {
       id: 'f45edc1b-ebdd-44bc-8157-a6fa6b829943',
       config: {
         advs: {
+          120259452: true, // AOL
           115916532: true, // AppNexus
+          115786212: true, // Index Exchange
           124353852: true, // OpenX
           4475752210: true, // Pubmatic
+          48029772: true, // Rubicon
         },
       },
     },
