@@ -51,7 +51,7 @@ export const getConfig = () => ({
     this.slotParams = params;
     this.navbarElement = document.querySelector('.site-head-container .site-head, .wds-global-navigation');
 
-    const wrapper = document.querySelector('.mobile-top-leaderboard');
+    const wrapper = document.querySelector('.top-leaderboard');
 
     slots.setupSlotVideoAdUnit(adSlot, params);
     context.set('slots.incontent_boxad_1.repeat', null);

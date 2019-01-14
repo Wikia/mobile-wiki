@@ -85,12 +85,12 @@ export default Mixin.create({
     const globalFooter = document.querySelector('.wds-global-footer');
 
     if (pi) {
-      // inject top mobileTopLeaderBoard below infobox
-      this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pi);
+      // inject top topLeaderBoard below infobox
+      this.appendAd(adsData.topLeaderBoard, 'afterend', pi);
     } else if (pageHeader && !this.featuredVideo) {
-      // inject top mobileTopLeaderBoard below article header
+      // inject top topLeaderBoard below article header
       // but only if there is no featured video embedded
-      this.appendAd(adsData.mobileTopLeaderBoard, 'afterend', pageHeader);
+      this.appendAd(adsData.topLeaderBoard, 'afterend', pageHeader);
     } else {
       this.get('ads.module').finishFirstCall();
     }
@@ -124,7 +124,7 @@ export default Mixin.create({
     const trendingArticles = this.element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
 
-    this.appendAd(adsData.mobileTopLeaderBoard, 'beforebegin', this.element);
+    this.appendAd(adsData.topLeaderBoard, 'beforebegin', this.element);
 
     if (curatedContent) {
       this.appendAd(adsData.mobileInContent, 'afterend', curatedContent);

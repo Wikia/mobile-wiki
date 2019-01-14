@@ -76,7 +76,7 @@ class Ads {
       },
     };
     this.adSlotsConfig = {
-      MOBILE_TOP_LEADERBOARD: {
+      TOP_LEADERBOARD: {
         // ATF slot is pushed immediately (without any delay/in single request with other slots)
         isAboveTheFold: true,
       },
@@ -397,7 +397,7 @@ class Ads {
 
     const isInContentApplicable = this.isInContentApplicable();
 
-    this.slotsContext.setStatus('MOBILE_TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
+    this.slotsContext.setStatus('TOP_LEADERBOARD', this.isTopLeaderboardApplicable());
     this.slotsContext.setStatus('MOBILE_IN_CONTENT', isInContentApplicable);
     this.slotsContext.setStatus('MOBILE_PREFOOTER', this.isPrefooterApplicable(isInContentApplicable));
     this.slotsContext.setStatus('BOTTOM_LEADERBOARD', this.isBottomLeaderboardApplicable());

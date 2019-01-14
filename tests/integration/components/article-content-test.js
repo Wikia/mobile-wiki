@@ -36,7 +36,7 @@ module('Integration | Component | article content', (hooks) => {
     adsModuleStub.restore();
   });
 
-  const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
+  const topLeaderboardSelector = '.top-leaderboard';
 
   test('ad is injected below portable infobox with no page header', async function (assert) {
     const content = '<p>some content</p>'
@@ -61,9 +61,9 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 });
+    assert.dom(topLeaderboardSelector).exists({ count: 1 });
     assert.equal(
-      find(mobileTopLeaderboardSelector).previousSibling,
+      find(topLeaderboardSelector).previousSibling,
       find('.portable-infobox-wrapper'),
       'previous element is an infobox',
     );
@@ -90,9 +90,9 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 });
+    assert.dom(topLeaderboardSelector).exists({ count: 1 });
     assert.equal(
-      find(mobileTopLeaderboardSelector).previousSibling,
+      find(topLeaderboardSelector).previousSibling,
       find('.wiki-page-header'),
       'previous element is site header',
     );
@@ -122,9 +122,9 @@ module('Integration | Component | article content', (hooks) => {
         adsContext=adsContext
       }}{{/article-content}}`);
 
-    assert.dom(mobileTopLeaderboardSelector).exists({ count: 1 }, 'top leaderboard is inserted only once');
+    assert.dom(topLeaderboardSelector).exists({ count: 1 }, 'top leaderboard is inserted only once');
     assert.equal(
-      find(mobileTopLeaderboardSelector).previousSibling,
+      find(topLeaderboardSelector).previousSibling,
       find('.portable-infobox-wrapper'),
       'previous element is an infobox',
     );
