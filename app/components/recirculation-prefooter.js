@@ -34,6 +34,7 @@ export default Component.extend(
     wikiVariables: service(),
     wikiUrls: service(),
     fetch: service(),
+    sponsoredContent: service(),
 
     classNames: ['recirculation-prefooter'],
     classNameBindings: ['items:has-items'],
@@ -42,7 +43,8 @@ export default Component.extend(
     isContLangEn: equal('wikiVariables.language.content', 'en'),
     displayLiftigniterRecirculation: and('isContLangEn', 'applicationWrapperVisible'),
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
-
+    displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredContent.items.length'),
+    sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
     init() {
@@ -147,6 +149,7 @@ export default Component.extend(
     didEnterViewport() {
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
+        this.sponsoredContent.fetchData();
       }
 
       if (M.getFromHeadDataStore('noExternals')) {
