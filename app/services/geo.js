@@ -1,18 +1,4 @@
-import Service from '@ember/service';
-import { oneWay } from '@ember/object/computed';
+import geo from '@wikia/ember-fandom/services/geo';
 
-export default Service.extend({
-  country: oneWay('data.country'),
-
-  init() {
-    this._super(...arguments);
-
-    try {
-      const cookie = window.Cookies.get('Geo');
-
-      this.set('data', JSON.parse(cookie) || {});
-    } catch (e) {
-      this.set('data', {});
-    }
-  },
-});
+// we have to extend it that way because Ember does not automatically use the one from addon
+export default geo.extend();
