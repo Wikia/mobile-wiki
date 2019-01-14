@@ -13,6 +13,10 @@
     margin-bottom: 12px;
     position: relative;
 
+    &.is-sponsored {
+      background-size: cover;
+    }
+
     &-anchor {
       color: $wds-color-white;
       display: flex;

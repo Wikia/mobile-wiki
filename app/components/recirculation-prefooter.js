@@ -20,13 +20,15 @@ export default Component.extend(
     wikiVariables: service(),
     wikiUrls: service(),
     fetch: service(),
+    sponsoredContent: service(),
 
     classNames: ['recirculation-prefooter'],
     classNameBindings: ['items:has-items'],
 
     listRendered: null,
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
-
+    displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredContent.items.length'),
+    sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
     init() {
@@ -104,6 +106,7 @@ export default Component.extend(
     didEnterViewport() {
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
+        this.sponsoredContent.fetchData();
       }
     },
   },
