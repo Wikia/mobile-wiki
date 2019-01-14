@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 export default Service.extend({
   fetch: service(),
   logger: service(),
+  geo: service(),
 
   items: null,
   item: computed('items', function () {
@@ -34,14 +35,7 @@ export default Service.extend({
   },
 
   getApplicableContent(sponsoredContent) {
-    // todo move to geo service
-    let cookie;
-    try {
-      cookie = JSON.parse(window.Cookies.get('Geo'));
-    } catch (e) {
-      cookie = {};
-    }
-    return sponsoredContent.filter(el => !el.geos.length || el.geos.indexOf(cookie.country) !== -1);
+    return sponsoredContent.filter(el => !el.geos.length || el.geos.indexOf(this.geo.country) !== -1);
   },
 
   getWeightsSum(applicableContent) {
