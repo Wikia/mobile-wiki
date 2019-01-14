@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
+import getAdsModule from '../modules/ads';
 
 export default Component.extend(
   HeadroomMixin,
@@ -71,6 +72,13 @@ export default Component.extend(
 
     track(data) {
       track(data);
+    },
+
+    onModalOpen() {
+      getAdsModule()
+        .then((adsModule) => {
+          adsModule.onMenuOpen();
+        });
     },
 
     onSearchSuggestionChosen({ uri }) {
