@@ -83,9 +83,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
-  if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-    context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
-  }
+  context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
@@ -101,7 +99,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   setupPageLevelTargeting(adsContext);
 
   if (adsContext.targeting.wikiIsTop1000) {
-    context.set('custom.wikiIdentifier', context.get('targeting.s1'));
+    context.set('custom.wikiIdentifier', '_top1k_wiki');
   }
   context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
