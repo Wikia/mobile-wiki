@@ -1,24 +1,3 @@
-{{#if displaySponsoredContent}}
-  <ul class="recirculation-prefooter__list">
-    <li
-      class="recirculation-prefooter__item is-sponsored"
-      style={{concat-background sponsoredItem.thumbnailUrl}}
-    >
-      <a href={{sponsoredItem.url}} class="recirculation-prefooter__item-anchor">
-        <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">
-          {{sponsoredItem.title}}
-        </p>
-        {{#if sponsoredItem.attribution}}
-          <p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">
-            {{sponsoredItem.attributionLabel}} {{sponsoredItem.attribution}}
-          </p>
-        {{/if}}
-      </a>
-    </li>
-  </ul>
-{{/if}}
-
-
 {{#if displayTopArticles}}
   <div class="recirculation-prefooter__wiki-articles">
     <header
@@ -45,6 +24,26 @@
       {{/each}}
     </ul>
   </div>
+{{/if}}
+
+{{#if displaySponsoredContent}}
+  <ul class="recirculation-prefooter__list">
+    <li
+      class="recirculation-prefooter__item is-sponsored"
+      style={{concat-background sponsoredItem.thumbnailUrl}}
+    >
+      <a href={{sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" sponsoredItem preventDefault=false}}>
+        <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">
+          {{sponsoredItem.title}}
+        </p>
+        {{#if sponsoredItem.attribution}}
+          <p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">
+            {{sponsoredItem.attributionLabel}} {{sponsoredItem.attribution}}
+          </p>
+        {{/if}}
+      </a>
+    </li>
+  </ul>
 {{/if}}
 
 <ul class="recirculation-prefooter__list">
