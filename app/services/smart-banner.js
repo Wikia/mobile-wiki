@@ -14,6 +14,7 @@ export default Service.extend({
   currentUser: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
+  geo: service(),
 
   smartBannerVisible: false,
   dayInMiliseconds: 86400000,
@@ -62,17 +63,10 @@ export default Service.extend({
   isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
     const customSmartBannerCountries = (this.smartBannerAdConfiguration.countries || [])
       .map(item => item.toLowerCase());
-    let currentCountry;
+    const currentCountry = this.geo.country;
 
     if (customSmartBannerCountries.indexOf('xx') !== -1) {
       return true;
-    }
-
-    try {
-      const cookie = window.Cookies.get('Geo');
-      currentCountry = (JSON.parse(cookie) || {}).country;
-    } catch (e) {
-      return false;
     }
 
     if (!currentCountry) {
