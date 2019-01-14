@@ -82,10 +82,9 @@ export default {
                 'cheshirecat',
               );
 
-              if (prevPrediction === undefined) {
-                slotStatus = btlStatus;
-              } else {
-                slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
+              slotStatus = btlStatus;
+              if (prevPrediction !== undefined) {
+                slotStatus += `;res=${prevPrediction.result};${callId}`;
               }
               break;
             }
