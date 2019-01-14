@@ -61,7 +61,7 @@ module.exports = {
      as ios10 supports param destructuring
     */
     "prefer-destructuring": 0,
-    
+
     "ember/avoid-leaking-state-in-ember-objects": [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
       'gestures',
@@ -69,7 +69,11 @@ module.exports = {
     "ember/no-jquery": 2,
     "ember/order-in-components": 2,
     "ember/order-in-controllers": 2,
-    "ember/order-in-routes": 2
+    "ember/order-in-routes": 2,
+    "no-plusplus": [
+      2,
+      { "allowForLoopAfterthoughts": true },
+    ],
   },
   overrides: [
     // node files
