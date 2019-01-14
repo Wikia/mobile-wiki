@@ -9,6 +9,7 @@ import { normalizeToUnderscore } from '../utils/string';
 import { TopArticlesFetchError } from '../utils/errors';
 
 const recircItemsCount = 10;
+const trackingCategory = 'recirculation';
 
 export default Component.extend(
   InViewportMixin,
@@ -52,12 +53,18 @@ export default Component.extend(
 
     actions: {
       postClick(post, index) {
-        const labelParts = ['footer', `slot-${index + 1}`, post.source];
+        const labels = ['footer', `footer-slot-${index + 1}`];
+
+        labels.forEach(label => track({
+          action: trackActions.click,
+          category: trackingCategory,
+          label,
+        }));
 
         track({
-          action: trackActions.click,
-          category: 'recirculation',
-          label: labelParts.join('='),
+          action: trackActions.select,
+          category: trackingCategory,
+          label: post.url,
         });
 
         run.later(() => {
@@ -68,7 +75,7 @@ export default Component.extend(
       articleClick(title, index) {
         track({
           action: trackActions.click,
-          category: 'recirculation',
+          category: trackingCategory,
           label: `more-wiki-${index}`,
         });
 
@@ -107,6 +114,11 @@ export default Component.extend(
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
         this.sponsoredContent.fetchData();
+        track({
+          action: trackActions.impression,
+          category: trackingCategory,
+          label: 'footer',
+        });
       }
     },
   },
