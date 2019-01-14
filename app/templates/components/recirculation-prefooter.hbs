@@ -32,7 +32,7 @@
       class="recirculation-prefooter__item is-sponsored"
       style={{concat-background sponsoredItem.thumbnailUrl}}
     >
-      <a href={{sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" sponsoredItem preventDefault=true}}>
+      <a href={{sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" sponsoredItem preventDefault=false}}>
         <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">
           {{sponsoredItem.title}}
         </p>

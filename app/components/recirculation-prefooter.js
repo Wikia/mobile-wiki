@@ -100,10 +100,6 @@ export default Component.extend(
           category: trackingCategory,
           label: sponsoredItem.url,
         });
-
-        run.later(() => {
-          window.location.assign(sponsoredItem.url);
-        }, 200);
       },
     },
 
