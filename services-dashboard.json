@@ -1,0 +1,21 @@
+[
+  {
+    "name": "mobile-wiki",
+    "owner": {
+      "team": "i-wing",
+      "slack": "#iwing",
+      "e-mail": "iwing@wikia-inc.com"
+    },
+    "contributors": [
+    ],
+    "dashboards": [
+      "https://metrics.wikia-inc.com/d/000000192/mobilewiki-k8s?refresh=1m&orgId=1",
+      "https://metrics.wikia-inc.com/d/000000167/traefik-apdex?refresh=10s"
+    ],
+    "documentation": [
+      "https://github.com/Wikia/mobile-wiki/blob/dev/README.md"
+    ],
+    "other-links": [],
+    "rabbit-queues": []
+  }
+]
