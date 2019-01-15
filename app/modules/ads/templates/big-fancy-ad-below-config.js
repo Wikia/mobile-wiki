@@ -21,7 +21,7 @@ export const getConfig = () => ({
   defaultStateAllowed: true,
   fullscreenAllowed: true,
   stickinessAllowed: false,
-  bfaaSlotName: 'mobile_top_leaderboard',
+  bfaaSlotName: 'top_leaderboard',
   unstickInstantlyBelowPosition: getUnstickThreshold(),
   topThreshold: getNavbarHeight(),
   onInit(adSlot, params) {
