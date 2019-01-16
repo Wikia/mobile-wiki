@@ -8,7 +8,7 @@ import {
 import Service, { inject as service } from '@ember/service';
 import { track } from '../utils/track';
 import { system } from '../utils/browser';
-import getAdsModule from '../modules/ads';
+import Ads from '../modules/ads';
 
 export default Service.extend({
   currentUser: service(),
@@ -51,13 +51,11 @@ export default Service.extend({
   init() {
     this._super(...arguments);
 
-    getAdsModule()
     // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
     // and then being replaced by UAP
-      .then(adsModule => adsModule.waitForUapResponse(() => {
-      }, () => {
-        this.set('willUapNotAppearForAnon', true);
-      }));
+    Ads.getInstance().waitForUapResponse(() => {}, () => {
+      this.set('willUapNotAppearForAnon', true);
+    });
   },
 
   isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {

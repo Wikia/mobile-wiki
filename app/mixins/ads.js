@@ -22,10 +22,6 @@ export default Mixin.create({
   appendAd(adSlotName, place, element, waitKey = '') {
     // Save waiting slots so queue can be cleared on transition
     this.waitingSlots[adSlotName] = () => {
-      if (!this.get('ads.module').isSlotApplicable(adSlotName)) {
-        return;
-      }
-
       const placeholder = document.createElement('div');
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
 
@@ -54,7 +50,7 @@ export default Mixin.create({
     const placeholder = document.createElement('div');
     const wikiContainer = document.getElementById('wikiContainer');
 
-    if (wikiContainer && this.get('ads.module').isSlotApplicable(adsData.invisibleHighImpact2)) {
+    if (wikiContainer) {
       wikiContainer.insertAdjacentElement('afterend', placeholder);
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
 

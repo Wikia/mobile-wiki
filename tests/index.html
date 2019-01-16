@@ -31,7 +31,12 @@
   window.Wikia = {
   adEngine: {
    context: {
-    get: () => undefined
+    get: () => undefined,
+    push: () => undefined
+   },
+   events: {
+    registerEvent: () => {},
+    on: () => {},
    }
   },
   adProducts: {
@@ -56,21 +61,13 @@
   trackPageView: function () {}
   };
   window.getInstantGlobal = function() {};
+  window.getInstantGlobals = function() {};
   window.waitForAds = function() {};
   window.liftigniter = function() {};
 </script>
 
 <script src="/testem.js" integrity=""></script>
 <script src="{{rootURL}}assets/vendor.js"></script>
-<script>
-  /**
-  * This is required as tests do use define/require
-  * so to simplify build step both are available in tests files
-  * import/export though is a recommended way to consume dependencies
-  */
-  window.mefine = window.define;
-  window.mequire = window.require;
-</script>
 <script src="{{rootURL}}assets/test-support.js"></script>
 <script src="{{rootURL}}assets/mobile-wiki.js"></script>
 <script src="{{rootURL}}assets/tests.js"></script>

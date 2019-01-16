@@ -6,9 +6,9 @@ import config from './config/environment';
 // to save kb we removed ember-cli-shims but in some places we still 'import Ember from 'ember'
 // to support it we re-exeport global Ember below
 // This can be removed when ember-cli-shims is officially sunset
-/* global mefine */
+/* global define */
 /* eslint prefer-arrow-callback:0 */
-mefine('ember', function () {
+define('ember', function () {
   return Ember;
 });
 

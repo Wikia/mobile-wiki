@@ -6,7 +6,7 @@ import { find, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
-import * as adsModule from 'mobile-wiki/modules/ads';
+import Ads from 'mobile-wiki/modules/ads';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import mockAdsService, { getAdsModuleMock } from '../../helpers/mock-ads-service';
@@ -26,7 +26,7 @@ module('Integration | Component | article content', (hooks) => {
   let adsModuleStub;
 
   hooks.beforeEach(function () {
-    adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: cb => cb(getAdsModuleMock()) });
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({ then: cb => cb(getAdsModuleMock()) });
     this.owner.register('component:ad-slot', adSlotComponentStub);
     this.owner.register('service:i18n', i18nService);
     mockAdsService(this.owner);
