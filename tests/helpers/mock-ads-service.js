@@ -47,7 +47,7 @@ export default function (owner) {
         invisibleHighImpact2: 'invisible_high_impact_2',
         mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
-        mobileTopLeaderBoard: 'mobile_top_leaderboard',
+        topLeaderBoard: 'top_leaderboard',
       };
     },
     destroyAdSlotComponents() {},

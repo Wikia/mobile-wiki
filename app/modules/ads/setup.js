@@ -40,14 +40,14 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('slots', slots.getContext());
 
   if (!adsContext.targeting.hasFeaturedVideo) {
-    context.push('slots.mobile_top_leaderboard.defaultSizes', [2, 2]);
+    context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
   }
 
   const stickySlotsLines = instantGlobals.wgAdDriverStickySlotsLines;
 
   if (stickySlotsLines && stickySlotsLines.length) {
     context.set('templates.stickyTLB.lineItemIds', stickySlotsLines);
-    context.push('slots.mobile_top_leaderboard.defaultTemplates', 'stickyTLB');
+    context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
   }
 
   context.set('state.deviceType', utils.client.getDeviceType());
@@ -67,10 +67,6 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('options.trackingOptIn', isOptedIn);
   context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
-  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
-
   context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
   context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
     && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
@@ -87,9 +83,12 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
-  if (isGeoEnabled('wgAdDriverBottomLeaderBoardMegaCountries')) {
-    context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
-  }
+  context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
+
+  context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
+  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
   context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));
@@ -100,7 +99,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   setupPageLevelTargeting(adsContext);
 
   if (adsContext.targeting.wikiIsTop1000) {
-    context.set('custom.wikiIdentifier', context.get('targeting.s1'));
+    context.set('custom.wikiIdentifier', '_top1k_wiki');
   }
   context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
