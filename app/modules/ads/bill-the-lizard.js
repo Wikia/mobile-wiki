@@ -29,6 +29,7 @@ function serializeBids(slotName) {
     bidderPrices.bidder_14 || 0,
     bidderPrices.bidder_15 || 0,
     bidderPrices.bidder_16 || 0,
+    bidderPrices.bidder_17 || 0,
   ].join(',');
 }
 
