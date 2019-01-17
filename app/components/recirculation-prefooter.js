@@ -28,7 +28,7 @@ export default Component.extend(
 
     listRendered: null,
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
-    displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredContent.items.length'),
+    displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredItem'),
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
