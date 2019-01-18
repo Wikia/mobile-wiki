@@ -37,7 +37,6 @@ export default Route.extend(
     initialPageView: service(),
     logger: service(),
     wikiVariables: service(),
-    wdsLiftigniter: service(),
     lightbox: service(),
     wikiUrls: service(),
     runtimeConfig: service(),
@@ -154,14 +153,6 @@ export default Route.extend(
           });
 
           transition.then(() => {
-            if (!this.get('fastboot.isFastBoot') && !transition.queryParams.noexternals) {
-              M.trackingQueue.push((isOptedIn) => {
-                if (isOptedIn) {
-                  this.wdsLiftigniter.initLiftigniter(model.adsContext);
-                }
-              });
-            }
-
             if (typeof handler.afterTransition === 'function') {
               handler.afterTransition({
                 model,
