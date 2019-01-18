@@ -2,6 +2,7 @@ import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { reads, and } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { track, trackActions } from '../utils/track';
@@ -31,6 +32,14 @@ export default Component.extend(
     displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredItem'),
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
+
+    sponsoredItemThumbnail: computed('sponsoredItem.thumbnailUrl', function () {
+      return window.Vignette ? window.Vignette.getThumbURL(this.sponsoredItem.thumbnailUrl, {
+        mode: window.Vignette.mode.zoomCrop,
+        height: 386,
+        width: 386,
+      }) : this.sponsoredItem.thumbnail;
+    }),
 
     init() {
       this._super(...arguments);
