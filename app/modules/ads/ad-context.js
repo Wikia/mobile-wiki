@@ -177,6 +177,15 @@ export default {
           },
         },
       },
+      lkqd: {
+        enabled: false,
+        slots: {
+          FEATURED: {
+            placementId: '523',
+            siteId: '890798',
+          },
+        },
+      },
       onemobile: {
         enabled: false,
         siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
