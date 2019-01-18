@@ -5,8 +5,8 @@ import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
+import Ads from '../modules/ads';
 import AdsMixin from '../mixins/ads';
-import getAdsModule from '../modules/ads';
 import {
   getRenderComponentFor,
   queryPlaceholders,
@@ -24,6 +24,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(
   AdsMixin,
   {
+    ads: service(),
     fastboot: service(),
     i18n: service(),
     logger: service(),
@@ -79,13 +80,13 @@ export default Component.extend(
         }
 
         if (!this.isPreview && this.adsContext) {
-          getAdsModule().then((adsModule) => {
+          Ads.waitForAdEngine().then((ads) => {
             this.setupAdsContext(this.adsContext);
-            adsModule.onReady(() => {
+            ads.onReady(() => {
               if (!this.isDestroyed) {
                 this.injectAds();
 
-                if (!this.get('ads.module').isArticleSectionCollapsed()) {
+                if (!ads.isArticleSectionCollapsed()) {
                   this.uncollapseSections();
                 }
               }

@@ -1,6 +1,5 @@
-import getAdsModule from '../ads';
+import Ads from '../ads';
 import BasePlayer from './base';
-import JWPlayerVideoAds from './jwplayer-video-ads';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
@@ -15,17 +14,11 @@ export default class JWPlayer extends BasePlayer {
     this.videoTags = params.videoTags || '';
     this.videoAds = null;
 
-    params.onCreate = (bidParams, player) => {
+    params.onCreate = (player) => {
       M.trackingQueue.push(() => {
         if (this.videoAds) {
           originalOnCreate(player);
           this.videoAds.register(player, this.getSlotTargeting());
-        } else {
-          getAdsModule()
-            .then((adsModule) => {
-              originalOnCreate(player);
-              adsModule.initJWPlayer(player, bidParams, this.getSlotTargeting());
-            });
         }
       });
     };
@@ -52,29 +45,22 @@ export default class JWPlayer extends BasePlayer {
   * @returns {void}
   */
   createPlayer() {
-    getAdsModule().then((adsModule) => {
-      adsModule
-        .waitForReady()
-        .then(() => (new JWPlayerVideoAds(this.params)).getConfig())
-        .then(bidParams => this.initializePlayer(adsModule, bidParams));
-    });
+    const ads = Ads.getInstance();
+
+    ads.waitForReady()
+      .then(() => ads.waitForVideoBidders())
+      .then(() => this.initializePlayer(ads));
   }
 
-  initializePlayer(adsModule, bidParams) {
+  initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
-    const isForcedClickToPlay = adsModule && adsModule.adContextModule
-      ? adsModule.adContextModule.get('rabbits.ctpMobile') : false;
 
     if (!document.getElementById(containerId)) {
       return;
     }
 
-    // Check whether autoplay is disabled by AdEng experiment
-    // It's handled here because we need to have properly configured adContext
-    this.params.autoplay = !isForcedClickToPlay && this.params.autoplay;
-
-    this.videoAds = adsModule.createJWPlayerVideoAds({
+    this.videoAds = ads.createJWPlayerVideoAds({
       audio: !this.params.autoplay,
       autoplay: this.params.autoplay,
       featured: true,
@@ -103,7 +89,7 @@ export default class JWPlayer extends BasePlayer {
           comscore: config.environment === 'production',
         },
         settings: {
-          showAutoplayToggle: !isForcedClickToPlay && !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
+          showAutoplayToggle: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
           showCaptions: true,
         },
         sharing: true,
@@ -126,11 +112,10 @@ export default class JWPlayer extends BasePlayer {
         },
         lang: this.params.lang,
       },
-      this.params.onCreate.bind(this, bidParams),
+      this.params.onCreate.bind(this),
     );
 
-    // TODO: load JWPlayer MOAT plugin directly from jwplayerAdsFactory after AE3 clean up
-    adsModule.loadJwplayerMoatTracking();
+    ads.loadJwplayerMoatTracking();
   }
 
   /**

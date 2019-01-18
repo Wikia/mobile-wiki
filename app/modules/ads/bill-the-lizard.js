@@ -29,6 +29,7 @@ function serializeBids(slotName) {
     bidderPrices.bidder_14 || 0,
     bidderPrices.bidder_15 || 0,
     bidderPrices.bidder_16 || 0,
+    bidderPrices.bidder_17 || 0,
   ].join(',');
 }
 
@@ -71,20 +72,42 @@ export default {
           let slotStatus;
           const callId = `incontent_boxad_${incontentsCounter}`;
           const btlStatus = billTheLizard.getResponseStatus(callId);
+
           switch (btlStatus) {
             case BillTheLizard.TOO_LATE:
             case BillTheLizard.TIMEOUT:
-            case BillTheLizard.FAILURE:
+            case BillTheLizard.FAILURE: {
+              const prevPrediction = billTheLizard.getPreviousPrediction(
+                incontentsCounter,
+                counter => `incontent_boxad_${counter}`,
+                'cheshirecat',
+              );
+
               slotStatus = btlStatus;
+              if (prevPrediction !== undefined) {
+                slotStatus += `;res=${prevPrediction.result};${callId}`;
+              }
               break;
+            }
             case BillTheLizard.ON_TIME: {
               const prediction = billTheLizard.getPrediction('cheshirecat', callId);
               const result = prediction ? prediction.result : undefined;
               slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
               break;
             }
-            default:
-              slotStatus = BillTheLizard.NOT_USED;
+            default: {
+              const prevPrediction = billTheLizard.getPreviousPrediction(
+                incontentsCounter,
+                counter => `incontent_boxad_${counter}`,
+                'cheshirecat',
+              );
+
+              if (prevPrediction === undefined) {
+                slotStatus = BillTheLizard.NOT_USED;
+              } else {
+                slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
+              }
+            }
           }
           adSlot.btlStatus = slotStatus;
           incontentsCounter += 1;

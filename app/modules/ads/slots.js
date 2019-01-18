@@ -78,11 +78,12 @@ function isIncontentPlayerApplicable() {
 export default {
   getContext() {
     return {
-      mobile_top_leaderboard: {
+      top_leaderboard: {
         aboveTheFold: true,
         firstCall: true,
-        adProduct: 'mobile_top_leaderboard',
+        adProduct: 'top_leaderboard',
         slotNameSuffix: '',
+        bidderAlias: 'mobile_top_leaderboard',
         group: 'LB',
         options: {},
         slotShortcut: 'l',
@@ -91,6 +92,7 @@ export default {
         defaultTemplates: [],
         targeting: {
           loc: 'top',
+          pos: ['top_leaderboard', 'mobile_top_leaderboard'],
           rv: 1,
         },
       },
@@ -254,7 +256,7 @@ export default {
 
     const incontentState = isInContentApplicable();
 
-    setSlotState('mobile_top_leaderboard', isTopLeaderboardApplicable());
+    setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     setSlotState('mobile_in_content', incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
@@ -288,7 +290,7 @@ export default {
     if (params.isVideoMegaEnabled) {
       const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
       const adUnit = utils.stringBuilder.build(
-        context.get('vast.megaAdUnitId'),
+        context.get(`slots.${adSlot.getSlotName()}.videoAdUnit`) || context.get('vast.megaAdUnitId'),
         {
           slotConfig: {
             group: adProductInfo.adGroup,

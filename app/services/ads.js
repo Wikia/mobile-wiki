@@ -1,10 +1,10 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import getAdsModule, { isAdEngine3Loaded } from '../modules/ads';
+import Ads from '../modules/ads';
 
 export default Service.extend({
-  module: null,
+  module: Ads.getInstance(),
   fastboot: service(),
   wikiVariables: service(),
   currentUser: service(),
@@ -26,20 +26,17 @@ export default Service.extend({
       adSlotComponents: {},
       waits: {},
       slotNames: {
-        bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
-        invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
-        invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-        mobileInContent: 'MOBILE_IN_CONTENT',
-        mobilePreFooter: 'MOBILE_PREFOOTER',
-        mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
+        bottomLeaderBoard: 'bottom_leaderboard',
+        invisibleHighImpact: 'invisible_high_impact',
+        invisibleHighImpact2: 'invisible_high_impact_2',
+        mobileInContent: 'mobile_in_content',
+        mobilePreFooter: 'mobile_prefooter',
+        topLeaderBoard: 'top_leaderboard',
       },
     });
 
     if (!this.get('fastboot.isFastBoot')) {
-      getAdsModule().then((adsModule) => {
-        this.module = adsModule;
-        this.module.showAds = !this.noAds;
-      });
+      this.module.showAds = !this.noAds;
     }
   },
 
@@ -48,14 +45,10 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    if (this.module && isAdEngine3Loaded()) {
-      this.module.beforeTransition();
-    }
+    this.module.beforeTransition();
 
-    const adSlotComponents = this.adSlotComponents;
-
-    Object.keys(adSlotComponents).forEach((slotName) => {
-      adSlotComponents[slotName].destroy();
+    Object.keys(this.adSlotComponents).forEach((slotName) => {
+      this.adSlotComponents[slotName].destroy();
     });
 
     this.set('adSlotComponents', {});

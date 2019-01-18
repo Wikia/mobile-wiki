@@ -5,7 +5,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
-import * as adsModule from 'mobile-wiki/modules/ads';
+import Ads from 'mobile-wiki/modules/ads';
 import { getAdsModuleMock } from '../../helpers/mock-ads-service';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -18,7 +18,7 @@ module('Unit | Component | main page', (hooks) => {
   let adsModuleStub;
 
   hooks.beforeEach(function () {
-    adsModuleStub = sinon.stub(adsModule, 'default').returns({ then: cb => cb(getAdsModuleMock()) });
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({ then: cb => cb(getAdsModuleMock()) });
     setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
     trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
     this.owner.register('component:ad-slot', adSlotComponentStub);

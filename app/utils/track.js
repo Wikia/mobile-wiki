@@ -1,6 +1,4 @@
 /* eslint import/no-cycle: 0 */
-// legacy module will be removed when Ad Engine 3 will be realeased sitewide
-import LegacyAds from '../modules/ads/legacyModule';
 import { getGroup } from '../modules/abtest';
 
 /**
@@ -196,10 +194,6 @@ export function trackPageView(isInitialPageView, uaDimensions) {
     M.trackingQueue.push(() => {
       M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
     });
-  }
-
-  if (enableTracking) {
-    LegacyAds.getInstance().trackKruxPageView();
   }
 }
 
