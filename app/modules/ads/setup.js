@@ -83,6 +83,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
+  let megaAdUnitId = context.get('megaAdUnitId');
+  megaAdUnitId = megaAdUnitId.replace('{serverPrefix}', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
+  context.set('megaAdUnitId', megaAdUnitId);
+
   context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
