@@ -53,9 +53,9 @@
       style={{concat-background post.thumbnail}}
     >
       {{#unless post.thumbnail}}
-          <div class="recirculation-prefooter__placeholder">
-            {{svg "wds-company-logo-fandom-heart"}}
-          </div>
+        <div class="recirculation-prefooter__placeholder">
+          {{svg "wds-company-logo-fandom-heart"}}
+        </div>
       {{/unless}}
       <a {{action "postClick" post index preventDefault=true}}
         href={{post.url}}
