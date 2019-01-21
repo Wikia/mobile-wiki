@@ -83,6 +83,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
+  let megaAdUnitId = context.get('megaAdUnitId');
+  megaAdUnitId = megaAdUnitId.replace('{serverPrefix}', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
+  context.set('megaAdUnitId', megaAdUnitId);
+
   context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
 
   context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
@@ -90,16 +94,17 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
   context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
 
-  context.set('slots.mobile_in_content.videoAdUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_boxad_1.videoAdUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_player.videoAdUnit', context.get('megaAdUnitId'));
-  context.set('slots.video.videoAdUnit', context.get('megaAdUnitId'));
-  context.set('slots.featured.videoAdUnit', context.get('megaAdUnitId'));
+  context.set('slots.mobile_in_content.videoAdUnit', context.get('vast.megaAdUnitId'));
+  context.set('slots.incontent_boxad_1.videoAdUnit', context.get('vast.megaAdUnitId'));
+  context.set('slots.incontent_player.videoAdUnit', context.get('vast.megaDBNameAdUnitId'));
+  context.set('slots.video.videoAdUnit', context.get('vast.megaAdUnitId'));
+  context.set('slots.featured.videoAdUnit', context.get('vast.megaDBNameAdUnitId'));
 
   setupPageLevelTargeting(adsContext);
 
   if (adsContext.targeting.wikiIsTop1000) {
     context.set('custom.wikiIdentifier', '_top1k_wiki');
+    context.set('custom.wikiDBNameIdentifier', context.get('targeting.s1'));
   }
   context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
   context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);

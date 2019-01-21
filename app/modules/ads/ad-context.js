@@ -1,6 +1,6 @@
 export default {
   adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-  megaAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+  megaAdUnitId: '/{custom.dfpId}/{serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
     enabled: false,
@@ -348,6 +348,7 @@ export default {
   custom: {
     dfpId: '5441',
     wikiIdentifier: '_not_a_top1k_wiki',
+    wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
     rubiconDfp: true,
     pubmaticDfp: false,
@@ -372,6 +373,8 @@ export default {
     adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
     megaAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
+    megaDBNameAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+      + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiDBNameIdentifier}-{targeting.s0}',
   },
   targeting: {
     ae3: '1',

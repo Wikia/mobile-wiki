@@ -13,12 +13,34 @@
     margin-bottom: 12px;
     position: relative;
 
+    &.is-sponsored {
+      background-size: cover;
+    }
+
     &-anchor {
       color: $wds-color-white;
       display: flex;
       flex-direction: column;
       height: 100%;
       justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__placeholder {
+    align-items: center;
+    background-color: $wds-fandom-color-navy;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    svg {
+      height: 25%;
     }
   }
 
