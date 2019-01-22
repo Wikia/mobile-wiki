@@ -98,6 +98,7 @@ class Ads {
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
+    const { confiant } = window.Wikia.adServices;
 
     events.registerEvent('MENU_OPEN_EVENT');
 
@@ -118,6 +119,7 @@ class Ads {
     });
 
     billTheLizard.configureBillTheLizard(instantGlobals);
+    confiant.call();
 
     this.callExternals();
     this.startAdEngine();
