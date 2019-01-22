@@ -1,6 +1,5 @@
 export default {
-  adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-  megaAdUnitId: '/{custom.dfpId}/{serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+  adUnitId: '/{custom.dfpId}/{serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
     enabled: false,
@@ -370,10 +369,9 @@ export default {
   },
   slots: {},
   vast: {
-    adUnitId: '/{custom.dfpId}/wka.{targeting.s0}/{custom.wikiIdentifier}//{targeting.s2}/{src}/{slotConfig.slotName}',
-    megaAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+    adUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
-    megaDBNameAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+    dbNameAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
       + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiDBNameIdentifier}-{targeting.s0}',
   },
   targeting: {
