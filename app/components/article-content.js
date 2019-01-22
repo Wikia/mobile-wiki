@@ -573,14 +573,14 @@ export default Component.extend(
      * Injects watch show button (IW-1470) just after the first infobox
      */
     handleWatchShow() {
-      const pi = this.element.querySelector('.portable-infobox');
+      const infobox = this.element.querySelector('.portable-infobox,.infobox');
 
-      if (pi) {
+      if (infobox) {
         const placeholder = document.createElement('div');
         const wrapper = document.createElement('div');
 
         wrapper.appendChild(placeholder);
-        pi.insertAdjacentElement('afterend', wrapper);
+        infobox.insertAdjacentElement('afterend', wrapper);
 
         this.renderedComponents.push(this.renderComponent({
           name: 'watch-show',
