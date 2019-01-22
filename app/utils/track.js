@@ -1,6 +1,4 @@
 /* eslint import/no-cycle: 0 */
-// legacy module will be removed when Ad Engine 3 will be realeased sitewide
-import LegacyAds from '../modules/ads/legacyModule';
 import { getGroup } from '../modules/abtest';
 
 /**
@@ -75,6 +73,8 @@ const trackActions = {
   playVideo: 'play-video',
   // Removal
   remove: 'remove',
+  // selecting item
+  select: 'select',
   // Sharing view email, social network, etc
   share: 'share',
   // Form submit, usually a post method
@@ -194,10 +194,6 @@ export function trackPageView(isInitialPageView, uaDimensions) {
     M.trackingQueue.push(() => {
       M.tracker.UniversalAnalytics.trackPageView(uaDimensions);
     });
-  }
-
-  if (enableTracking) {
-    LegacyAds.getInstance().trackKruxPageView();
   }
 }
 

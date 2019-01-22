@@ -2,7 +2,7 @@ import { visit, click } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
-import * as adsModule from 'mobile-wiki/modules/ads';
+import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockAdsService, { getAdsModuleMock } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
@@ -11,18 +11,20 @@ import mockFastlyInsights from '../helpers/mock-fastly-insights';
 module('Acceptance | Article page', (hooks) => {
   setupApplicationTest(hooks);
 
+  let adsModuleStub;
+
   hooks.beforeEach(function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
 
-    sinon.stub(adsModule, 'default').returns({
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
       then: cb => cb(getAdsModuleMock({})),
     });
   });
 
   hooks.afterEach(() => {
-    adsModule.default.restore();
+    adsModuleStub.restore();
   });
 
 

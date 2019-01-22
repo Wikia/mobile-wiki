@@ -50,18 +50,6 @@ module.exports = function (defaults) {
       map: false,
       remove: false,
     },
-    derequire: {
-      patterns: [
-        {
-          from: 'define',
-          to: 'mefine',
-        },
-        {
-          from: 'require',
-          to: 'mequire',
-        },
-      ],
-    },
     fingerprint: {
       exclude: ['app.css'],
       extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
@@ -73,7 +61,6 @@ module.exports = function (defaults) {
       'fastboot-inline-scripts-tracking': 'node_modules/mercury-shared/dist/tracking.js',
       'fastboot-inline-scripts-load-svg': 'node_modules/mercury-shared/dist/load-svg.js',
       'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
-      'tracking-liftigniter': 'node_modules/design-system/vendor/inline-scripts/tracking-liftigniter.js',
       'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,

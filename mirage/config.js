@@ -111,4 +111,5 @@ export default function () {
   });
 
   this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);
+  this.get('/wiki-recommendations/**', () => []);
 }

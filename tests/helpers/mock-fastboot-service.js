@@ -564,6 +564,9 @@ export default function (owner) {
               },
             },
             'services-domain': 'https://services.wikia.com/',
+            'content-recommendations': {
+              url: '/wiki-recommendations/sponsored-articles',
+            },
           },
           communityHeader: {
             sitename: {

@@ -10,9 +10,10 @@ export function getAdsModuleMock(adsContext) {
     reload() {},
     afterTransition() {},
     removeSlot() {},
+    registerActions() {},
+    waitForAdEngine() {},
     waitForUapResponse() {},
     onMenuOpen() {},
-    isSlotApplicable: () => true,
     getAdSlotComponentAttributes: name => (
       {
         name,
@@ -26,9 +27,11 @@ export function getAdsModuleMock(adsContext) {
       cb();
     },
   };
+
   if (adsContext) {
     context = Object.assign({}, context, { adsContext });
   }
+
   return context;
 }
 
@@ -39,12 +42,12 @@ export default function (owner) {
 
       this.module = getAdsModuleMock();
       this.slotNames = {
-        bottomLeaderBoard: 'BOTTOM_LEADERBOARD',
-        invisibleHighImpact: 'INVISIBLE_HIGH_IMPACT',
-        invisibleHighImpact2: 'INVISIBLE_HIGH_IMPACT_2',
-        mobileInContent: 'MOBILE_IN_CONTENT',
-        mobilePreFooter: 'MOBILE_PREFOOTER',
-        topLeaderBoard: 'TOP_LEADERBOARD',
+        bottomLeaderBoard: 'bottom_leaderboard',
+        invisibleHighImpact: 'invisible_high_impact',
+        invisibleHighImpact2: 'invisible_high_impact_2',
+        mobileInContent: 'mobile_in_content',
+        mobilePreFooter: 'mobile_prefooter',
+        topLeaderBoard: 'top_leaderboard',
       };
     },
     destroyAdSlotComponents() {},

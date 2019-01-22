@@ -3,18 +3,25 @@ import { run } from '@ember/runloop';
 import sinon from 'sinon';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import LegacyAdsModule from 'mobile-wiki/modules/ads/legacyModule';
+import Ads from 'mobile-wiki/modules/ads';
+import fanTakoverResolver from 'mobile-wiki/modules/ads/fan-takeover-resolver';
 
 const adsStub = Service.extend({
-  module: LegacyAdsModule.getInstance(),
+  module: Ads.getInstance(),
 });
 
 module('Unit | Component | ad slot', (hooks) => {
   setupTest(hooks);
+  let isUapLoaded = false;
 
   hooks.beforeEach(function () {
     this.owner.register('service:ads', adsStub);
     this.ads = this.owner.lookup('service:ads');
+    window.Wikia.adProducts = {
+      universalAdPackage: {
+        isFanTakeoverLoaded: () => isUapLoaded,
+      },
+    };
   });
 
   test('Name lower case', function (assert) {
@@ -57,28 +64,28 @@ module('Unit | Component | ad slot', (hooks) => {
   test('test UAP listeners', (assert) => {
     const testCases = [
       {
-        eventName: 'wikia.uap',
+        isUapLoaded: true,
         callTwice: false,
         uapCallbackCount: 1,
         noUapCallbackCount: 0,
         message: 'uap callback called once',
       },
       {
-        eventName: 'wikia.not_uap',
+        isUapLoaded: false,
         callTwice: false,
         uapCallbackCount: 0,
         noUapCallbackCount: 1,
         message: 'no uap callback called once',
       },
       {
-        eventName: 'wikia.uap',
+        isUapLoaded: true,
         callTwice: true,
         uapCallbackCount: 2,
         noUapCallbackCount: 0,
         message: 'uap callback called twice',
       },
       {
-        eventName: 'wikia.not_uap',
+        isUapLoaded: false,
         callTwice: true,
         uapCallbackCount: 0,
         noUapCallbackCount: 2,
@@ -87,19 +94,23 @@ module('Unit | Component | ad slot', (hooks) => {
     ];
 
     testCases.forEach((testCase) => {
-      const ads = new LegacyAdsModule();
+      const ads = new Ads();
       const spyUap = sinon.spy();
       const spyNoUap = sinon.spy();
 
+      fanTakoverResolver.reset();
       ads.waitForUapResponse(spyUap, spyNoUap);
-      window.dispatchEvent(new Event(testCase.eventName));
+      isUapLoaded = testCase.isUapLoaded;
+      fanTakoverResolver.onRenderEnded();
 
       if (testCase.callTwice) {
         ads.waitForUapResponse(spyUap, spyNoUap);
       }
 
-      assert.equal(testCase.uapCallbackCount, spyUap.callCount, testCase.message);
-      assert.equal(testCase.noUapCallbackCount, spyNoUap.callCount, testCase.message);
+      setTimeout(() => {
+        assert.equal(spyUap.callCount, testCase.uapCallbackCount, testCase.message);
+        assert.equal(spyNoUap.callCount, testCase.noUapCallbackCount, testCase.message);
+      }, 0);
     });
   });
 

@@ -290,7 +290,7 @@ export default {
     if (params.isVideoMegaEnabled) {
       const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
       const adUnit = utils.stringBuilder.build(
-        context.get('vast.megaAdUnitId'),
+        context.get(`slots.${adSlot.getSlotName()}.videoAdUnit`) || context.get('vast.megaAdUnitId'),
         {
           slotConfig: {
             group: adProductInfo.adGroup,
