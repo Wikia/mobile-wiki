@@ -22,10 +22,11 @@ function isTopLeaderboardApplicable() {
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   const isHome = context.get('custom.pageType') === 'home';
+  const isSearch = context.get('custom.pageType') === 'search';
   const hasPageHeader = !!document.querySelector('.wiki-page-header');
   const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
-  return isHome || hasPortableInfobox || ((hasPageHeader > 0) && (!hasFeaturedVideo));
+  return isSearch || isHome || hasPortableInfobox || ((hasPageHeader > 0) && (!hasFeaturedVideo));
 }
 
 function isInContentApplicable() {

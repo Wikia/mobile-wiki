@@ -36,11 +36,39 @@ export default EmberObject.extend({
       items: A([]),
     });
 
+    const fetchAdsContextPromise = this.fetchAdsContext();
+
     if (query) {
-      return this.fetchResults(query);
+      const fetchResultsPromise = this.fetchResults(query);
+      // return fetchResultsPromise;
+      return Promise.all([fetchResultsPromise, fetchAdsContextPromise])
+        .then(() => this);
     }
 
-    return this;
+    return fetchAdsContextPromise;
+  },
+
+  fetchAdsContext() {
+    const url = this.wikiUrls.build({
+      host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
+      path: '/wikia.php',
+      query: {
+        controller: 'MercuryApi',
+        method: 'getSearchPageAdsContext',
+      },
+    });
+    const options = this.fetchService.getOptionsForInternalCache(url);
+
+    return fetch(url, options)
+      .then(response => response.json()
+        .then((data) => {
+          this.setProperties({
+            adsContext: data.adsContext,
+          });
+
+          return this;
+        }));
   },
 
   loadMore() {
