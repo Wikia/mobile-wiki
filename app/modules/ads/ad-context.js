@@ -369,9 +369,9 @@ export default {
   },
   slots: {},
   vast: {
-    adUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+    adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
    + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
-    dbNameAdUnitId: '/{custom.dfpId}/wka1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
+    dbNameAdUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
       + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiDBNameIdentifier}-{targeting.s0}',
   },
   targeting: {
