@@ -83,9 +83,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
-  let adUnitId = context.get('adUnitId');
-  adUnitId = adUnitId.replace('{serverPrefix}', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
-  context.set('adUnitId', adUnitId);
+  context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
   context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
   context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
