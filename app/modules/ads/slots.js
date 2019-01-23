@@ -287,19 +287,17 @@ export default {
     const { context, utils } = window.Wikia.adEngine;
     const { getAdProductInfo } = window.Wikia.adProducts;
 
-    if (params.isVideoMegaEnabled) {
-      const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
-      const adUnit = utils.stringBuilder.build(
-        context.get(`slots.${adSlot.getSlotName()}.videoAdUnit`) || context.get('vast.megaAdUnitId'),
-        {
-          slotConfig: {
-            group: adProductInfo.adGroup,
-            adProduct: adProductInfo.adProduct,
-          },
+    const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
+    const adUnit = utils.stringBuilder.build(
+      context.get(`slots.${adSlot.getSlotName()}.videoAdUnit`) || context.get('vast.adUnitId'),
+      {
+        slotConfig: {
+          group: adProductInfo.adGroup,
+          adProduct: adProductInfo.adProduct,
         },
-      );
+      },
+    );
 
-      context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
-    }
+    context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
   },
 };

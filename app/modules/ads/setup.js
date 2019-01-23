@@ -84,22 +84,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
-  let megaAdUnitId = context.get('megaAdUnitId');
-  megaAdUnitId = megaAdUnitId.replace('{serverPrefix}', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
-  context.set('megaAdUnitId', megaAdUnitId);
+  context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
-  context.set('slots.bottom_leaderboard.adUnit', context.get('megaAdUnitId'));
-
-  context.set('slots.top_leaderboard.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_boxad_1.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.incontent_player.adUnit', context.get('megaAdUnitId'));
-  context.set('slots.invisible_high_impact_2.adUnit', context.get('megaAdUnitId'));
-
-  context.set('slots.mobile_in_content.videoAdUnit', context.get('vast.megaAdUnitId'));
-  context.set('slots.incontent_boxad_1.videoAdUnit', context.get('vast.megaAdUnitId'));
-  context.set('slots.incontent_player.videoAdUnit', context.get('vast.megaDBNameAdUnitId'));
-  context.set('slots.video.videoAdUnit', context.get('vast.megaAdUnitId'));
-  context.set('slots.featured.videoAdUnit', context.get('vast.megaDBNameAdUnitId'));
+  context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
+  context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
   setupPageLevelTargeting(adsContext);
 
