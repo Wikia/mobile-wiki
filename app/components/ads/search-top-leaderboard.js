@@ -10,21 +10,22 @@ export default Component.extend(AdsMixin, {
 
     this.adsContextModel = AdsContextModel.create(getOwner(this).ownerInjection());
     this.adsContextPromise = this.adsContextModel.fetch();
+    this.adEnginePromise = Ads.waitForAdEngine();
   },
 
   didInsertElement() {
     this._super(...arguments);
 
-    this.adsContextPromise.then(adsContext => this.renderAds(adsContext));
+    this.renderAds();
   },
 
   willDestroyElement() {
     this._super(...arguments);
   },
 
-  renderAds(adsContext) {
-    Ads.waitForAdEngine()
-      .then((ads) => {
+  renderAds() {
+    Promise.all([this.adEnginePromise, this.adsContextPromise])
+      .then(([ads, adsContext]) => {
         adsContext.user = adsContext.user || {};
         adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 
