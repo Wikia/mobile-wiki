@@ -1,3 +1,5 @@
+import { track } from '../../../utils/track';
+
 const googleAnalyticsSettings = {
   name: 'babdetector',
   dimension: 6,
@@ -13,16 +15,20 @@ function trackBlocking(isAdBlockDetected) {
   detectionCompleted = true;
 
   M.tracker.UniversalAnalytics.setDimension(googleAnalyticsSettings.dimension, value);
-  M.tracker.UniversalAnalytics.track(`ads-${googleAnalyticsSettings.name}-detection`, 'impression', value, 0, true);
+  track({
+    action: 'impression',
+    category: `ads-${googleAnalyticsSettings.name}-detection`,
+    label: value
+  });
 }
 
-function track() {
+function run() {
   // Global imports:
-  const { utils } = window.Wikia.adEngine;
+  const { checkBlocking } = window.Wikia.adEngine.utils.client;
   // End of imports
 
   if (!detectionCompleted) {
-    utils.client.checkBlocking(
+    checkBlocking(
       () => trackBlocking(true),
       () => trackBlocking(false),
     );
@@ -32,5 +38,5 @@ function track() {
 }
 
 export default {
-  track,
+  run,
 };

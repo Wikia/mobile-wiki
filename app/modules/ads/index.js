@@ -92,7 +92,7 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    adBlockDetection.track();
+    adBlockDetection.run();
     this.trackLabrador();
   }
 
