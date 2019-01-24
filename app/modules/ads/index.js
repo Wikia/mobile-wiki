@@ -92,6 +92,7 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
+    adBlockDetection.track();
     this.trackLabrador();
   }
 
@@ -256,8 +257,6 @@ class Ads {
     const { events } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals || this.instantGlobals;
-
-    adBlockDetection.track();
 
     events.pageRender({
       adContext: mediaWikiAdsContext,
