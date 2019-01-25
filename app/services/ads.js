@@ -8,6 +8,8 @@ export default Service.extend({
   fastboot: service(),
   wikiVariables: service(),
   currentUser: service(),
+  wikiUrls: service(),
+  fetchService: service('fetch'),
   siteHeadOffset: 0,
   slotNames: null,
   noAdsQueryParam: null,
@@ -65,5 +67,22 @@ export default Service.extend({
 
   clearWaits(key) {
     this.waits[key] = [];
+  },
+
+  fetchSearchAdsContext() {
+    const url = this.wikiUrls.build({
+      host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
+      path: '/wikia.php',
+      query: {
+        controller: 'MercuryApi',
+        method: 'getSearchPageAdsContext',
+      },
+    });
+    const options = this.fetchService.getOptionsForInternalCache(url);
+
+    return fetch(url, options)
+      .then(response => response.json()
+        .then(data => data.adsContext));
   },
 });
