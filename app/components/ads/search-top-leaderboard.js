@@ -2,13 +2,13 @@ import Component from '@ember/component';
 import { getOwner } from '@ember/application';
 import Ads from '../../modules/ads';
 import AdsMixin from '../../mixins/ads';
-import AdsContextModel from '../../models/ads/ads-context';
+import SerachAdsContextModel from '../../models/ads/search-ads-context';
 
 export default Component.extend(AdsMixin, {
   init() {
     this._super(...arguments);
 
-    this.adsContextModel = AdsContextModel.create(getOwner(this).ownerInjection());
+    this.adsContextModel = SerachAdsContextModel.create(getOwner(this).ownerInjection());
     this.adsContextPromise = this.adsContextModel.fetch();
     this.adEnginePromise = Ads.waitForAdEngine();
   },
