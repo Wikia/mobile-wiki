@@ -57,5 +57,6 @@ export default function (owner) {
       return Promise.resolve();
     },
     clearWaits() {},
+    fetchSearchAdsContext() {},
   }));
 }
