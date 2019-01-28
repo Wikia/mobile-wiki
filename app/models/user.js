@@ -137,7 +137,7 @@ export default EmberObject.extend({
       query: {
         action: 'query',
         meta: 'userinfo',
-        uiprop: 'rights|options|blockinfo',
+        uiprop: 'rights',
         format: 'json',
         ids: userId,
       },
