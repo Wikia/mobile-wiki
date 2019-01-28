@@ -7,7 +7,9 @@ export default BaseModel.extend({
   heroImage: null,
   fileUsageList: null,
   fileUsageListSeeMoreUrl: null,
+  redirectTo: false,
   wikiUrls: service(),
+  currentUser: service(),
 
   /**
   * @param {Object} data
@@ -28,6 +30,10 @@ export default BaseModel.extend({
         fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
         fileThumbnail: media,
       };
+      if(!this.get('currentUser.isAuthenticated')){
+	      pageProperties.ns = 'redirect';
+	      pageProperties.redirectTo =  pageProperties.fileThumbnail.href;
+      }
     }
 
     this.setProperties(pageProperties);
