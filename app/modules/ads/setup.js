@@ -101,6 +101,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
   context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
+  context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
