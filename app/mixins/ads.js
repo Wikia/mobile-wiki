@@ -113,10 +113,19 @@ export default Mixin.create({
   /**
    * @returns {void}
    */
-  injectSearchPageAds(element) {
+  injectSearchPageTLB(element) {
     const adsData = this.get('ads.slotNames');
 
     this.appendAd(adsData.topLeaderBoard, 'afterend', element);
+  },
+
+  /**
+  * @returns {void}
+  */
+  injectSearchPageNative(element) {
+    const adsData = this.get('ads.slotNames');
+
+    this.appendAd(adsData.incontentNative, 'afterend', element);
   },
 
   /**

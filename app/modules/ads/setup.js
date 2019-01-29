@@ -102,6 +102,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
   context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
   context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
+  context.set(
+    'custom.isIncontentNativeEnabled',
+    isGeoEnabled('wgAdDriverMobileWikiAE3NativeSearchCountries'),
+  );
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
@@ -186,6 +190,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     BigFancyAdAbove,
     BigFancyAdBelow,
     FloorAdhesion,
+    IncontentNative,
     Interstitial,
     PorvataTemplate,
     Roadblock,
@@ -202,6 +207,7 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyTLB, getStickyTLBConfig());
+  templateService.register(IncontentNative);
 
   context.push('listeners.slot', SlotTracker);
   context.push('listeners.slot', fanTakeoverResolver);

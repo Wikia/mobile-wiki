@@ -34,6 +34,7 @@ export default Service.extend({
         mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
+        incontentNative: 'incontent_native',
       },
     });
 
