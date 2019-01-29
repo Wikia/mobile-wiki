@@ -80,6 +80,19 @@ function isIncontentPlayerApplicable() {
     && !context.get('custom.isIncontentPlayerDisabled');
 }
 
+/**
+ * Decides if incontent_native slot should be active.
+ *
+ * @returns {boolean}
+ */
+function isIncontentNativeApplicable() {
+  const { context } = window.Wikia.adEngine;
+  const isIncontentNativeEnabled = context.get('custom.isIncontentNativeEnabled');
+  const isSearch = context.get('custom.pageType') === 'search';
+
+  return (isSearch && isIncontentNativeEnabled);
+}
+
 export default {
   getContext() {
     return {
@@ -245,6 +258,27 @@ export default {
         },
         trackingKey: 'video',
       },
+      incontent_native: {
+        aboveTheFold: true,
+        firstCall: false,
+        defaultSizes: ['fluid'],
+        adProduct: 'incontent_native',
+        slotNameSuffix: '',
+        nonUapSlot: true,
+        group: 'NATIVE',
+        slotShortcut: 'n',
+        lowerSlotName: 'incontent_native',
+        sizes: [
+          {
+            viewportSize: [768, 0],
+            sizes: ['fluid'],
+          },
+        ],
+        targeting: {
+          uap: 'none',
+        },
+        trackingKey: 'incontent_native',
+      },
     };
   },
 
@@ -273,6 +307,7 @@ export default {
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
     setSlotState('incontent_player', isIncontentPlayerApplicable());
+    setSlotState('incontent_native', isIncontentNativeApplicable());
   },
 
   setupIdentificators() {

@@ -32,7 +32,7 @@ export default Component.extend(AdsMixin, {
         ads.init(adsContext);
         ads.onReady(() => {
           this.setupAdsContext(adsContext);
-          this.injectSearchPageTLB(this.element);
+          this.injectSearchPageNative(this.element);
         });
       });
   },
