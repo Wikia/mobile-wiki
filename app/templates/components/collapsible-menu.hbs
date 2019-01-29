@@ -3,7 +3,7 @@
   class="{{if isCollapsed "collapsed"}} title wds-font-size-s wds-font-weight-medium"
 >
   <span>{{i18n tLabel count=tCount}}</span>
-  {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny chevron"}}
+  <Icon @name="menu-control" @size="tiny" class="chevron" />
 </div>
 {{#if ordered}}
   <ol>

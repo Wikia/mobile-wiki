@@ -5,7 +5,7 @@
     onclick={{action "toggleGroup" group}}
   >
     {{group.firstChar}}
-    {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny chevron"}}
+    <Icon @name="menu-control" @size="tiny" class="chevron" />
   </h3>
   <ul
     onclick={{action "trackClick" "category-page" "open-link"}}
@@ -15,7 +15,7 @@
       <li class="category-members-grouped__member">
         <div class="category-members-grouped__member-left">
           {{#if member.isCategory}}
-            {{svg "wds-icons-pages-small" class="wds-icon wds-icon-small"}}
+            <Icon @name="pages" @size="small" />
           {{else if member.image}}
             <img
               class="category-members-grouped__member-thumbnail lazyload"

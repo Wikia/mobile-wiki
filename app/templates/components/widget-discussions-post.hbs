@@ -63,11 +63,11 @@
   </span>
   <span class="post-counters">
     <span class="upvote-count">
-      {{svg "wds-icons-upvote-tiny" class="wds-icon wds-icon-tiny upvote"}}
+      <Icon @name="upvote" @size="tiny" class="upvote" />
       {{post.upvoteCount}}
     </span>
     <span class="reply-count">
-      {{svg "wds-icons-reply-tiny" class="wds-icon wds-icon-tiny replies"}}
+      <Icon @name="comment" @size="tiny" class="replies" />
       {{post.repliesCount}}
     </span>
   </span>
@@ -77,12 +77,12 @@
     class="upvote-area upvote wds-font-size-xs {{if post.userData.hasUpvoted "has-upvoted"}}"
     role="button" {{action upvote post}}
   >
-    {{svg "wds-icons-upvote-small" class="wds-icon wds-icon-small upvote"}}
+    <Icon @name="upvote" @size="small" class="upvote" />
     {{i18n "widget-discussions.post-actions-upvote-label"}}
   </li>
   <li class="replies replies-area wds-font-size-xs wds-font-weight-medium">
     <a href="/d/p/{{post.threadId}}">
-      {{svg "wds-icons-reply-small" class="wds-icon wds-icon-small replies"}}
+      <Icon @name="comment" @size="small" class="replies" />
       {{i18n "widget-discussions.post-actions-reply-label"}}
     </a>
   </li>
