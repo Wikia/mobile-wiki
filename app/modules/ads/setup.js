@@ -191,7 +191,6 @@ function configure(adsContext, instantGlobals, isOptedIn) {
     BigFancyAdAbove,
     BigFancyAdBelow,
     FloorAdhesion,
-    IncontentNative,
     Interstitial,
     PorvataTemplate,
     Roadblock,
@@ -208,7 +207,6 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(PorvataTemplate, getPorvataConfig());
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyTLB, getStickyTLBConfig());
-  templateService.register(IncontentNative);
 
   context.push('listeners.slot', SlotTracker);
   context.push('listeners.slot', fanTakeoverResolver);

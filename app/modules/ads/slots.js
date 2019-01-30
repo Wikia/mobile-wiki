@@ -90,7 +90,7 @@ function isIncontentNativeApplicable() {
   const isIncontentNativeEnabled = context.get('custom.isIncontentNativeEnabled');
   const isSearch = context.get('custom.pageType') === 'search';
 
-  return (isSearch && isIncontentNativeEnabled);
+  return isSearch && isIncontentNativeEnabled;
 }
 
 export default {
@@ -259,7 +259,6 @@ export default {
         trackingKey: 'video',
       },
       incontent_native: {
-        aboveTheFold: true,
         firstCall: false,
         defaultSizes: ['fluid'],
         adProduct: 'incontent_native',
@@ -268,12 +267,7 @@ export default {
         group: 'NATIVE',
         slotShortcut: 'n',
         lowerSlotName: 'incontent_native',
-        sizes: [
-          {
-            viewportSize: [768, 0],
-            sizes: ['fluid'],
-          },
-        ],
+        sizes: [],
         targeting: {
           uap: 'none',
         },

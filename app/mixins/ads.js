@@ -113,7 +113,7 @@ export default Mixin.create({
   /**
    * @returns {void}
    */
-  injectSearchPageTLB(element) {
+  injectSearchPageTopLeaderboard(element) {
     const adsData = this.get('ads.slotNames');
 
     this.appendAd(adsData.topLeaderBoard, 'afterend', element);
