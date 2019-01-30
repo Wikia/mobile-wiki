@@ -37,7 +37,7 @@ export default BaseModel.extend({
         if(pageProperties.fileUsageList.length > 0){
           redir = this.get('wikiVariables.articlePath') + pageProperties.fileUsageList[0].prefixedTitle;
         }
-	    pageProperties.ns = 'redirect';
+        pageProperties.ns = 'redirect';
         pageProperties.redirectTo =  redir;
       }
     }
