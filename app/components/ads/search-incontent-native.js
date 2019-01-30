@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import Ads from '../../modules/ads';
 import AdsMixin from '../../mixins/ads';
 
 export default Component.extend(AdsMixin, {
@@ -9,8 +8,7 @@ export default Component.extend(AdsMixin, {
   init() {
     this._super(...arguments);
 
-    this.adsContextPromise = this.ads.fetchSearchAdsContext();
-    this.adEnginePromise = Ads.waitForAdEngine();
+    this.searchAdsPromise = this.ads.waitForSearchAds();
   },
 
   didInsertElement() {
@@ -24,16 +22,10 @@ export default Component.extend(AdsMixin, {
   },
 
   renderAds() {
-    Promise.all([this.adEnginePromise, this.adsContextPromise])
-      .then(([ads, adsContext]) => {
-        adsContext.user = adsContext.user || {};
-        adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-
-        ads.init(adsContext);
-        ads.onReady(() => {
-          this.setupAdsContext(adsContext);
-          this.injectSearchPageNative(this.element);
-        });
+    this.searchAdsPromise
+      .then((adsContext) => {
+        this.setupAdsContext(adsContext);
+        this.injectSearchPageNative(this.element);
       });
   },
 });
