@@ -9,6 +9,7 @@ export default BaseModel.extend({
   fileUsageListSeeMoreUrl: null,
   redirectTo: false,
   wikiUrls: service(),
+  wikiVariables: service(),
   currentUser: service(),
 
   /**
@@ -31,8 +32,13 @@ export default BaseModel.extend({
         fileThumbnail: media,
       };
       if(!this.get('currentUser.isAuthenticated')){
-	      pageProperties.ns = 'redirect';
-	      pageProperties.redirectTo =  pageProperties.fileThumbnail.href;
+        var redir = this.get('wikiVariables.articlePath') + this.get('wikiVariables.mainPageTitle');
+
+        if(pageProperties.fileUsageList.length > 0){
+          redir = this.get('wikiVariables.articlePath') + pageProperties.fileUsageList[0].prefixedTitle;
+        }
+	    pageProperties.ns = 'redirect';
+        pageProperties.redirectTo =  redir;
       }
     }
 
