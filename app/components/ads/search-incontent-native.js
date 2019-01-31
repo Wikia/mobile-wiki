@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import AdsMixin from '../../mixins/ads';
 
 export default Component.extend(AdsMixin, {
-  ads: service(),
+  ads: service('ads/ads'),
 
   init() {
     this._super(...arguments);

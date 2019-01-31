@@ -23,7 +23,7 @@ export default Route.extend(
   Ember.TargetActionSupport,
   HeadTagsStaticMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     currentUser: service(),
     fandomComMigration: service(),
     fastboot: service(),

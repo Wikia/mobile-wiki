@@ -3,7 +3,7 @@ import Mixin from '@ember/object/mixin';
 import { getRenderComponentFor } from '../utils/render-component';
 
 export default Mixin.create({
-  ads: service(),
+  ads: service('ads/ads'),
   currentUser: service(),
 
   init() {

@@ -24,7 +24,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(
   AdsMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     fastboot: service(),
     i18n: service(),
     logger: service(),

@@ -1,7 +1,7 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import Ads from '../modules/ads';
+import Ads from '../../modules/ads';
 
 export default Service.extend({
   module: Ads.getInstance(),

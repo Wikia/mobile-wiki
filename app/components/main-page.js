@@ -8,7 +8,7 @@ import AdsMixin from '../mixins/ads';
 export default Component.extend(
   AdsMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     currentUser: service(),
     wikiVariables: service(),
 
