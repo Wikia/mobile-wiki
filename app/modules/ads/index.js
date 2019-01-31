@@ -3,7 +3,7 @@
 import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
-import adBlockDetection from './tracking/adblock-detection';
+import { adblockDetector } from './tracking/adblock-detector';
 import pageTracker from './tracking/page-tracker';
 import videoTracker from './tracking/video-tracking';
 import biddersDelay from './bidders-delay';
@@ -272,7 +272,7 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    adBlockDetection.run();
+    adblockDetector.run();
     this.trackLabrador();
   }
 
