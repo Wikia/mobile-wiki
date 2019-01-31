@@ -179,7 +179,7 @@ export default {
       lkqd: {
         enabled: false,
         slots: {
-          FEATURED: {
+          featured: {
             placementId: '523',
             siteId: '892127',
           },
