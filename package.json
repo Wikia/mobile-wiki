@@ -26,6 +26,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
+    "test:watch": "ember t -s",
     "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
   },
   "engines": {
@@ -40,7 +41,7 @@
     "compression": "1.7.3",
     "cors": "2.8.5",
     "deep-extend": "0.6.0",
-    "design-system": "github:wikia/design-system#16.3",
+    "design-system": "github:wikia/design-system#18.0.0",
     "ember-cli-dependency-lint": "1.1.3",
     "ember-hammer": "github:wikia/ember-hammer#6fdd246fd6fe70594be59186e3b3f6068ed91fd6",
     "ember-maybe-import-regenerator-for-testing": "1.0.0",
@@ -50,7 +51,7 @@
     "fastboot-app-server": "1.1.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.0",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.6.2",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.6.4",
     "lazysizes": "4.1.4",
     "method-override": "3.0.0",
     "on-headers": "1.0.1",

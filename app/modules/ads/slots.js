@@ -22,10 +22,15 @@ function isTopLeaderboardApplicable() {
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   const isHome = context.get('custom.pageType') === 'home';
+  const isSearch = context.get('custom.pageType') === 'search';
+  const isSearchPageTlbEnabled = context.get('custom.isSearchPageTlbEnabled');
   const hasPageHeader = !!document.querySelector('.wiki-page-header');
   const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
-  return isHome || hasPortableInfobox || ((hasPageHeader > 0) && (!hasFeaturedVideo));
+  return (isSearch && isSearchPageTlbEnabled)
+    || isHome
+    || hasPortableInfobox
+    || ((hasPageHeader > 0) && (!hasFeaturedVideo));
 }
 
 function isInContentApplicable() {
@@ -38,7 +43,7 @@ function isInContentApplicable() {
   const firstSection = document.querySelector('.article-content > h2');
   const firstSectionTop = (
     firstSection
-  && offset(firstSection).top
+    && offset(firstSection).top
   ) || 0;
 
   return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
@@ -287,19 +292,17 @@ export default {
     const { context, utils } = window.Wikia.adEngine;
     const { getAdProductInfo } = window.Wikia.adProducts;
 
-    if (params.isVideoMegaEnabled) {
-      const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
-      const adUnit = utils.stringBuilder.build(
-        context.get('vast.megaAdUnitId'),
-        {
-          slotConfig: {
-            group: adProductInfo.adGroup,
-            adProduct: adProductInfo.adProduct,
-          },
+    const adProductInfo = getAdProductInfo(adSlot.getSlotName(), params.type, params.adProduct);
+    const adUnit = utils.stringBuilder.build(
+      context.get(`slots.${adSlot.getSlotName()}.videoAdUnit`) || context.get('vast.adUnitId'),
+      {
+        slotConfig: {
+          group: adProductInfo.adGroup,
+          adProduct: adProductInfo.adProduct,
         },
-      );
+      },
+    );
 
-      context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
-    }
+    context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
   },
 };

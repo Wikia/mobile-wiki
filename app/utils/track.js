@@ -73,6 +73,8 @@ const trackActions = {
   playVideo: 'play-video',
   // Removal
   remove: 'remove',
+  // selecting item
+  select: 'select',
   // Sharing view email, social network, etc
   share: 'share',
   // Form submit, usually a post method

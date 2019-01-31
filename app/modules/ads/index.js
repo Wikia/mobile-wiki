@@ -92,12 +92,14 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
+    adBlockDetection.run();
     this.trackLabrador();
   }
 
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
+    const { confiant } = window.Wikia.adServices;
 
     events.registerEvent('MENU_OPEN_EVENT');
 
@@ -118,6 +120,7 @@ class Ads {
     });
 
     billTheLizard.configureBillTheLizard(instantGlobals);
+    confiant.call();
 
     this.callExternals();
     this.startAdEngine();
@@ -254,8 +257,6 @@ class Ads {
     const { events } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals || this.instantGlobals;
-
-    adBlockDetection.track();
 
     events.pageRender({
       adContext: mediaWikiAdsContext,
