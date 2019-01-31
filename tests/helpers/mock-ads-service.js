@@ -66,10 +66,10 @@ export default function (owner) {
     },
     addWaitFor() {
     },
-    getWaits() {
+    getWaitsOf() {
       return Promise.resolve();
     },
-    clearWaits() {
+    clearWaitsOf() {
     },
     waitForSearchAds() {
       return Promise.resolve({

@@ -63,11 +63,11 @@ export default Service.extend({
     this.waits[key].push(promise);
   },
 
-  getWaits(key) {
+  getWaitsOf(key) {
     return Promise.all(this.waits[key] || []);
   },
 
-  clearWaits(key) {
+  clearWaitsOf(key) {
     this.waits[key] = [];
   },
 

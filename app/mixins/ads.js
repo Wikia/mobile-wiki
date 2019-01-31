@@ -37,12 +37,12 @@ export default Mixin.create({
       }));
     };
 
-    this.ads.getWaits(waitKey).then(() => {
+    this.ads.getWaitsOf(waitKey).then(() => {
       if (this.waitingSlots[adSlotName]) {
         this.waitingSlots[adSlotName]();
         delete this.waitingSlots[adSlotName];
       }
-      this.ads.clearWaits(adSlotName);
+      this.ads.clearWaitsOf(adSlotName);
     });
   },
 
