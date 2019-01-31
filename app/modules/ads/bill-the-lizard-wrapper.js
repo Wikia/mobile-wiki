@@ -1,4 +1,4 @@
-import targeting from './targeting';
+import { targeting } from './targeting';
 import { pageTracker } from './tracking/page-tracker';
 
 let config = null;
@@ -33,7 +33,7 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
-export default {
+export const billTheLizardWrapper = {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
@@ -175,3 +175,5 @@ export default {
     billTheLizard.reset();
   },
 };
+
+export default billTheLizardWrapper;

@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import Ads from 'mobile-wiki/modules/ads';
-import fanTakoverResolver from 'mobile-wiki/modules/ads/fan-takeover-resolver';
+import { fanTakeoverResolver } from 'mobile-wiki/modules/ads/fan-takeover-resolver';
 
 const adsStub = Service.extend({
   module: Ads.getInstance(),
@@ -98,10 +98,10 @@ module('Unit | Component | ad slot', (hooks) => {
       const spyUap = sinon.spy();
       const spyNoUap = sinon.spy();
 
-      fanTakoverResolver.reset();
+      fanTakeoverResolver.reset();
       ads.waitForUapResponse(spyUap, spyNoUap);
       isUapLoaded = testCase.isUapLoaded;
-      fanTakoverResolver.onRenderEnded();
+      fanTakeoverResolver.onRenderEnded();
 
       if (testCase.callTwice) {
         ads.waitForUapResponse(spyUap, spyNoUap);

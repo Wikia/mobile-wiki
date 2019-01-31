@@ -1,5 +1,5 @@
 import { track } from '../../../utils/track';
-import targeting from '../targeting';
+import { targeting } from '../targeting';
 
 const onRenderEndedStatusToTrack = [
   'collapse',

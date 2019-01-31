@@ -1,4 +1,4 @@
-import slots from '../slots';
+import { slots } from '../slots';
 
 export const getConfig = () => ({
   adSlot: null,

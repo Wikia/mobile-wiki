@@ -1,4 +1,4 @@
-export default {
+export const defaultAdContext = {
   adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
@@ -445,3 +445,5 @@ export default {
     },
   },
 };
+
+export default defaultAdContext;
