@@ -126,6 +126,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
   }
+  context.set('templates.stickyTLB.enabled', !hasFeaturedVideo);
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     context.set('bidders.prebid.enabled', true);
