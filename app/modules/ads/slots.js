@@ -93,7 +93,7 @@ function isIncontentNativeApplicable() {
   return isSearch && isIncontentNativeEnabled;
 }
 
-export default {
+export const slots = {
   getContext() {
     return {
       top_leaderboard: {
@@ -336,3 +336,5 @@ export default {
     context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
   },
 };
+
+export default slots;

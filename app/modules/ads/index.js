@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
-import adsSetup from './setup';
-import fanTakeoverResolver from './fan-takeover-resolver';
+import { adsSetup } from './setup';
+import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
 import { videoTracker } from './tracking/video-tracker';
-import biddersDelay from './bidders-delay';
-import billTheLizard from './bill-the-lizard';
+import { biddersDelayer } from './bidders-delayer';
+import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 
 let adsPromise = null;
 
@@ -85,7 +85,7 @@ class Ads {
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
     videoTracker.register();
 
-    context.push('delayModules', biddersDelay);
+    context.push('delayModules', biddersDelayer);
 
     events.on(events.AD_SLOT_CREATED, (slot) => {
       console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -95,7 +95,7 @@ class Ads {
       pageTracker.trackProp('moat_yi', data);
     });
 
-    billTheLizard.configureBillTheLizard(instantGlobals);
+    billTheLizardWrapper.configureBillTheLizard(instantGlobals);
     confiant.call();
 
     this.callExternals();
@@ -204,7 +204,7 @@ class Ads {
     utils.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
-    billTheLizard.reset();
+    billTheLizardWrapper.reset();
     this.callExternals();
 
     events.beforePageChange();
@@ -217,9 +217,9 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { geoEdge, krux, moatYi } = window.Wikia.adServices;
 
-    biddersDelay.resetPromise();
+    biddersDelayer.resetPromise();
     bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
+      responseListener: biddersDelayer.markAsReady,
     });
 
     geoEdge.call();
@@ -326,7 +326,7 @@ class Ads {
     });
 
     return Promise.race([
-      biddersDelay.getPromise(),
+      biddersDelayer.getPromise(),
       timeout,
     ]).then(() => {
       utils.logger('featured-video', 'resolving featured video delay');

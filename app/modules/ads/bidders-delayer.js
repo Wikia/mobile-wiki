@@ -3,7 +3,7 @@ const logGroup = 'bidders-delay';
 let delayPromise = null;
 let resolvePromise;
 
-export default {
+export const biddersDelayer = {
   isEnabled() {
     const { context } = window.Wikia.adEngine;
 
@@ -39,3 +39,5 @@ export default {
     }
   },
 };
+
+export default biddersDelayer;

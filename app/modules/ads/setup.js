@@ -1,10 +1,10 @@
 import { track, trackActions } from '../../utils/track';
-import basicContext from './ad-context';
-import billTheLizard from './bill-the-lizard';
-import fanTakeoverResolver from './fan-takeover-resolver';
-import slots from './slots';
+import { defaultAdContext } from './ad-context';
+import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+import { fanTakeoverResolver } from './fan-takeover-resolver';
+import { slots } from './slots';
 import { slotTracker } from './tracking/slot-tracker';
-import targeting from './targeting';
+import { targeting } from './targeting';
 import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
@@ -29,7 +29,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     return utils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
   }
 
-  context.extend(basicContext);
+  context.extend(defaultAdContext);
 
   if (adsContext.opts.isAdTestWiki) {
     context.set('src', 'test');
@@ -169,7 +169,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     'slots.incontent_player.insertBeforeSelector',
   ];
 
-  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
+  if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
     insertBeforePaths.forEach((insertBeforePath) => {
       context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
     });
@@ -232,7 +232,9 @@ function init() {
   return engine;
 }
 
-export default {
+export const adsSetup = {
   configure,
   init,
 };
+
+export default adsSetup;
