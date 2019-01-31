@@ -19,6 +19,7 @@
       items=model.items
       trackingCategory="search-page"
       trackingLabel="search-result"
+      itemClick=(action "onResultClick")
     }}
   {{else if notFoundError}}
     {{#wikia-ui-components/error-info}}
