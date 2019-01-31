@@ -4,8 +4,8 @@ import { Promise } from 'rsvp';
 import adsSetup from './setup';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
-import pageTracker from './tracking/page-tracker';
-import videoTracker from './tracking/video-tracking';
+import { pageTracker } from './tracking/page-tracker';
+import { videoTracker } from './tracking/video-tracker';
 import biddersDelay from './bidders-delay';
 import billTheLizard from './bill-the-lizard';
 

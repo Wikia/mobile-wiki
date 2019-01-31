@@ -3,9 +3,9 @@ import basicContext from './ad-context';
 import billTheLizard from './bill-the-lizard';
 import fanTakeoverResolver from './fan-takeover-resolver';
 import slots from './slots';
-import SlotTracker from './tracking/slot-tracker';
+import { slotTracker } from './tracking/slot-tracker';
 import targeting from './targeting';
-import ViewabilityTracker from './tracking/viewability-tracker';
+import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
 import { getConfig as getOutOfPageConfig } from './templates/out-of-page-config';
@@ -207,9 +207,9 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyTLB, getStickyTLBConfig());
 
-  context.push('listeners.slot', SlotTracker);
+  context.push('listeners.slot', slotTracker);
   context.push('listeners.slot', fanTakeoverResolver);
-  context.push('listeners.slot', ViewabilityTracker);
+  context.push('listeners.slot', viewabilityTracker);
 }
 
 function init() {
