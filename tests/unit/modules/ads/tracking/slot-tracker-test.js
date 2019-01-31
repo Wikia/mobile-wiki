@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import sinon from 'sinon';
-import SlotTracker, { onRenderEndedStatusToTrack } from 'mobile-wiki/modules/ads/tracking/slot-tracker';
+import { slotTracker, onRenderEndedStatusToTrack } from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 import trackModule from 'mobile-wiki/utils/track';
 
 
@@ -46,28 +46,28 @@ module('Unit | Module | ads | tracking', (hooks) => {
   test('tracker send correct pos value', (assert) => {
     const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD' } });
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct pos value for multi pos value', (assert) => {
     const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD,TEST_EXTRA_POS' } });
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].kv_pos, 'bottom_leaderboard');
   });
 
   test('tracker send correct opt-in value', (assert) => {
     const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD' } });
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].opt_in, 'yes');
   });
 
   test('tracker sends correct document_visible value', (assert) => {
     const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD' } });
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
   });
 
@@ -81,7 +81,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
     assert.equal(onRenderEndedStatusToTrack.indexOf(status), -1);
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.called, false);
   });
 
@@ -97,7 +97,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
     assert.equal(onRenderEndedStatusToTrack.indexOf(status), -1);
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
   });
 });

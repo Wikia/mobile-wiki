@@ -92,7 +92,7 @@ function prepareData(slot, data) {
 /**
   * Wrapper for player data warehouse tracking
   */
-export default {
+export const slotTracker = {
   /**
   * Checks whether tracker is enabled via instant global
   * @returns {boolean}
@@ -165,3 +165,5 @@ export default {
     }
   },
 };
+
+export default slotTracker;

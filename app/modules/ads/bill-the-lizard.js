@@ -1,5 +1,5 @@
 import targeting from './targeting';
-import pageTracker from './tracking/page-tracker';
+import { pageTracker } from './tracking/page-tracker';
 
 let config = null;
 let cheshirecatCalled = false;
