@@ -46,7 +46,7 @@ export function getAdsModuleMock(adsContext) {
 }
 
 export default function (owner) {
-  owner.register('service:ads', Service.extend({
+  owner.register('service:ads/ads', Service.extend({
     init() {
       this._super(...arguments);
 

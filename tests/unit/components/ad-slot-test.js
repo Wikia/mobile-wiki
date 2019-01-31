@@ -15,8 +15,8 @@ module('Unit | Component | ad slot', (hooks) => {
   let isUapLoaded = false;
 
   hooks.beforeEach(function () {
-    this.owner.register('service:ads', adsStub);
-    this.ads = this.owner.lookup('service:ads');
+    this.owner.register('service:ads/ads', adsStub);
+    this.ads = this.owner.lookup('service:ads/ads');
     window.Wikia.adProducts = {
       universalAdPackage: {
         isFanTakeoverLoaded: () => isUapLoaded,

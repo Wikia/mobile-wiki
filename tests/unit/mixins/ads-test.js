@@ -27,8 +27,8 @@ module('Unit | Mixin | ads', (hooks) => {
   });
 
   hooks.beforeEach(function () {
-    this.owner.register('service:ads', adsStub);
-    this.ads = this.owner.lookup('service:ads');
+    this.owner.register('service:ads/ads', adsStub);
+    this.ads = this.owner.lookup('service:ads/ads');
   });
 
   test('setup ads context', function (assert) {
