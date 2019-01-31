@@ -28,14 +28,6 @@ class Ads {
     return Ads.instance;
   }
 
-  static loadGoogleTag() {
-    window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
-  }
-
-  static getInstantGlobals() {
-    return new Promise(resolve => window.getInstantGlobals(resolve));
-  }
-
   static waitForAdEngine() {
     if (adsPromise) {
       return adsPromise;
@@ -59,7 +51,7 @@ class Ads {
       return;
     }
 
-    Ads.getInstantGlobals()
+    this.getInstantGlobals()
       .then((instantGlobals) => {
         M.trackingQueue.push(
           isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
@@ -67,35 +59,19 @@ class Ads {
       });
   }
 
-  callExternals() {
-    const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
-
-    biddersDelay.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
-    });
-
-    geoEdge.call();
-    krux.call();
-    moatYi.call();
+  /**
+   * @private
+   */
+  getInstantGlobals() {
+    return new Promise(resolve => window.getInstantGlobals(resolve));
   }
 
-  callLateExternals() {
-    const { context } = window.Wikia.adEngine;
-    const { nielsen } = window.Wikia.adServices;
-
-    const targeting = context.get('targeting');
-
-    nielsen.call({
-      type: 'static',
-      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
-      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
-    });
-    adBlockDetection.run();
-    this.trackLabrador();
-  }
-
+  /**
+   * @private
+   * @param mediaWikiAdsContext
+   * @param instantGlobals
+   * @param isOptedIn
+   */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
@@ -131,22 +107,21 @@ class Ads {
     this.onReadyCallbacks.start();
   }
 
-  trackLabrador() {
-    const { utils } = window.Wikia.adEngine;
-
-    // Track Labrador values to DW
-    const labradorPropValue = utils.getSamplingResults().join(';');
-
-    if (labradorPropValue) {
-      pageTracker.trackProp('labrador', labradorPropValue);
-    }
-  }
-
+  /**
+   * @private
+   */
   startAdEngine() {
     if (this.showAds) {
       this.engine = adsSetup.init();
-      Ads.loadGoogleTag();
+      this.loadGoogleTag();
     }
+  }
+
+  /**
+   * @private
+   */
+  loadGoogleTag() {
+    window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
   }
 
   finishFirstCall() {
@@ -235,6 +210,23 @@ class Ads {
     events.beforePageChange();
   }
 
+  /**
+   * @private
+   */
+  callExternals() {
+    const { bidders } = window.Wikia.adBidders;
+    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
+
+    biddersDelay.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelay.markAsReady,
+    });
+
+    geoEdge.call();
+    krux.call();
+    moatYi.call();
+  }
+
   onTransition(options) {
     if (!this.isLoaded) {
       return;
@@ -264,6 +256,38 @@ class Ads {
     });
 
     this.callLateExternals();
+  }
+
+  /**
+   * @private
+   */
+  callLateExternals() {
+    const { context } = window.Wikia.adEngine;
+    const { nielsen } = window.Wikia.adServices;
+
+    const targeting = context.get('targeting');
+
+    nielsen.call({
+      type: 'static',
+      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
+      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
+    });
+    adBlockDetection.run();
+    this.trackLabrador();
+  }
+
+  /**
+   * @private
+   */
+  trackLabrador() {
+    const { utils } = window.Wikia.adEngine;
+
+    // Track Labrador values to DW
+    const labradorPropValue = utils.getSamplingResults().join(';');
+
+    if (labradorPropValue) {
+      pageTracker.trackProp('labrador', labradorPropValue);
+    }
   }
 
   onMenuOpen() {
