@@ -96,12 +96,14 @@ export default EmberObject.extend({
 
   update(state) {
     this.setProperties({
-      items: this.items.concat(state.items.map(item => (
-        {
-          title: item.title,
-          snippet: htmlSafe(item.snippet),
-          prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
-        }
+      items: this.items.concat(state.items.map((item, index) => (
+          {
+            id: item.id,
+            position: index,
+            title: item.title,
+            snippet: htmlSafe(item.snippet),
+            prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
+          }
       ))),
       loading: false,
       totalItems: state.total,
