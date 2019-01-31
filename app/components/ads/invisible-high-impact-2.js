@@ -6,7 +6,7 @@ import { computed } from '@ember/object';
 import RenderComponentMixin from '../../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
-  ads: service(),
+  ads: service('ads/ads'),
 
   name: null,
   noAds: readOnly('ads.noAds'),

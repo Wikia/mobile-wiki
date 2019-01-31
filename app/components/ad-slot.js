@@ -10,7 +10,7 @@ export default Component.extend(
   RenderComponentMixin,
   InViewportMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
 
     classNames: ['ad-slot-wrapper'],
     classNameBindings: ['nameLowerCase', 'noAds'],
