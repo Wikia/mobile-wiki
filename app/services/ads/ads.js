@@ -17,7 +17,7 @@ export default Service.extend({
   noAds: computed('noAdsQueryParam', 'disableAdsInMobileApp', function () {
     return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1
       || ['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1
-      || this.get('currentUser.isAuthenticated');
+      || this.currentUser.isAuthenticated;
   }),
   adSlotComponents: null,
   waits: null,
@@ -39,7 +39,7 @@ export default Service.extend({
       },
     });
 
-    if (!this.get('fastboot.isFastBoot')) {
+    if (!this.fastboot.isFastBoot) {
       this.module.showAds = !this.noAds;
     }
   },
@@ -55,7 +55,7 @@ export default Service.extend({
       this.adSlotComponents[slotName].destroy();
     });
 
-    this.set('adSlotComponents', {});
+    this.adSlotComponents = {};
   },
 
   addWaitFor(key, promise) {
@@ -83,7 +83,7 @@ export default Service.extend({
       Promise.all([adEnginePromise, adsContextPromise])
         .then(([ads, adsContext]) => {
           adsContext.user = adsContext.user || {};
-          adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+          adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
 
           ads.init(adsContext);
           ads.onReady(() => {
@@ -101,7 +101,7 @@ export default Service.extend({
    */
   fetchSearchAdsContext() {
     const url = this.wikiUrls.build({
-      host: this.get('wikiVariables.host'),
+      host: this.wikiVariables.host,
       forceNoSSLOnServerSide: true,
       path: '/wikia.php',
       query: {
