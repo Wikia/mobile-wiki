@@ -5,6 +5,7 @@ import AdsMixin from '../../mixins/ads';
 
 export default Component.extend(AdsMixin, {
   ads: service(),
+  fastboot: service(),
 
   init() {
     this._super(...arguments);
@@ -16,7 +17,9 @@ export default Component.extend(AdsMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    this.renderAds();
+    if (!this.get('fastboot.isFastBoot')) {
+      this.renderAds();
+    }
   },
 
   willDestroyElement() {
@@ -29,7 +32,7 @@ export default Component.extend(AdsMixin, {
         adsContext.user = adsContext.user || {};
         adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 
-        ads.init(adsContext);
+        ads.init(adsContext, true);
         ads.onReady(() => {
           this.setupAdsContext(adsContext);
           this.injectSearchPageAds(this.element);

@@ -16,6 +16,7 @@ class Ads {
     this.engine = null;
     this.instantGlobals = null;
     this.isLoaded = false;
+    this.skipTransitionEvents = false;
     this.onReadyCallbacks = [];
     this.showAds = true;
   }
@@ -54,10 +55,12 @@ class Ads {
     return adsPromise;
   }
 
-  init(mediaWikiAdsContext = {}) {
+  init(mediaWikiAdsContext = {}, skipTransitionEvents = false) {
     if (this.isLoaded) {
       return;
     }
+
+    this.skipTransitionEvents = skipTransitionEvents;
 
     Ads.getInstantGlobals()
       .then((instantGlobals) => {
@@ -218,7 +221,7 @@ class Ads {
   }
 
   beforeTransition() {
-    if (!this.isLoaded) {
+    if (!this.isLoaded || this.skipTransitionEvents) {
       return;
     }
 
@@ -236,7 +239,7 @@ class Ads {
   }
 
   onTransition(options) {
-    if (!this.isLoaded) {
+    if (!this.isLoaded || this.skipTransitionEvents) {
       return;
     }
     const { context, events } = window.Wikia.adEngine;
@@ -251,6 +254,11 @@ class Ads {
 
   afterTransition(mediaWikiAdsContext, instantGlobals) {
     if (!this.isLoaded) {
+      return;
+    }
+
+    if (this.skipTransitionEvents) {
+      this.skipTransitionEvents = false;
       return;
     }
 

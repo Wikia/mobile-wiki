@@ -14,7 +14,6 @@ export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   HeadTagsDynamicMixin,
   {
-    initialPageView: service(),
     i18n: service(),
 
     queryParams: {
@@ -48,7 +47,7 @@ export default Route.extend(
        */
       didTransition() {
         scheduleOnce('afterRender', this, () => {
-          trackPageView(this.initialPageView.isInitialPageView());
+          trackPageView(false);
 
           track({
             action: trackActions.impression,
