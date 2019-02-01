@@ -9,6 +9,7 @@ export const onChangeStatusToTrack = [
   'blocked',
   'catlapsed',
   'error',
+  'hivi-collapse',
   'viewport-conflict',
 ];
 
