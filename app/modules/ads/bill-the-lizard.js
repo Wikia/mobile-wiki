@@ -33,10 +33,56 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
+function getBtlSlotStatus(btlStatus, callId) {
+  const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+  let slotStatus;
+
+  switch (btlStatus) {
+    case BillTheLizard.TOO_LATE:
+    case BillTheLizard.TIMEOUT:
+    case BillTheLizard.FAILURE: {
+      const prevPrediction = billTheLizard.getPreviousPrediction(
+        incontentsCounter,
+        counter => `incontent_boxad_${counter}`,
+        'cheshirecat',
+      );
+
+      slotStatus = btlStatus;
+      if (prevPrediction !== undefined) {
+        slotStatus += `;res=${prevPrediction.result};${callId}`;
+      }
+      break;
+    }
+    case BillTheLizard.ON_TIME: {
+      const prediction = billTheLizard.getPrediction('cheshirecat', callId);
+      const result = prediction ? prediction.result : undefined;
+      slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
+      break;
+    }
+    default: {
+      const prevPrediction = billTheLizard.getPreviousPrediction(
+        incontentsCounter,
+        counter => `incontent_boxad_${counter}`,
+        'cheshirecat',
+      );
+
+      if (prevPrediction === undefined && incontentsCounter === 2) {
+        slotStatus = 'nAndy to haxor';
+      } else if (prevPrediction === undefined) {
+        slotStatus = BillTheLizard.NOT_USED;
+      } else {
+        slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
+      }
+    }
+  }
+
+  return slotStatus;
+}
+
 export default {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+    const { billTheLizard } = window.Wikia.adServices;
     let refreshedSlotNumber;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
@@ -69,47 +115,10 @@ export default {
 
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
-          let slotStatus;
           const callId = `incontent_boxad_${incontentsCounter}`;
           const btlStatus = billTheLizard.getResponseStatus(callId);
 
-          switch (btlStatus) {
-            case BillTheLizard.TOO_LATE:
-            case BillTheLizard.TIMEOUT:
-            case BillTheLizard.FAILURE: {
-              const prevPrediction = billTheLizard.getPreviousPrediction(
-                incontentsCounter,
-                counter => `incontent_boxad_${counter}`,
-                'cheshirecat',
-              );
-
-              slotStatus = btlStatus;
-              if (prevPrediction !== undefined) {
-                slotStatus += `;res=${prevPrediction.result};${callId}`;
-              }
-              break;
-            }
-            case BillTheLizard.ON_TIME: {
-              const prediction = billTheLizard.getPrediction('cheshirecat', callId);
-              const result = prediction ? prediction.result : undefined;
-              slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
-              break;
-            }
-            default: {
-              const prevPrediction = billTheLizard.getPreviousPrediction(
-                incontentsCounter,
-                counter => `incontent_boxad_${counter}`,
-                'cheshirecat',
-              );
-
-              if (prevPrediction === undefined) {
-                slotStatus = BillTheLizard.NOT_USED;
-              } else {
-                slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
-              }
-            }
-          }
-          adSlot.btlStatus = slotStatus;
+          adSlot.btlStatus = getBtlSlotStatus(btlStatus, callId);
           incontentsCounter += 1;
         }
       });
@@ -156,6 +165,8 @@ export default {
 
     billTheLizard.call(['cheshirecat'], callId);
   },
+
+  getBtlSlotStatus,
 
   hasAvailableModels(btlConfig, projectName) {
     const { utils } = window.Wikia.adEngine;
