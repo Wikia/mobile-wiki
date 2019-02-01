@@ -1,5 +1,5 @@
-import { Promise as EmberPromise } from 'rsvp';
 import Component from '@ember/component';
+import Service from '@ember/service';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -10,8 +10,14 @@ import { getAdsModuleMock } from '../../helpers/mock-ads-service';
 
 const trackModule = require('mobile-wiki/utils/track');
 const adSlotComponentStub = Component.extend({});
+const adSlotBuilderStub = Service.extend({
+  initialize() {},
+  injectMainPageAds: sinon.spy(),
+  setupAdsContext: sinon.spy(),
+});
 let setTrackContextStub;
 let trackPageViewStub;
+
 
 module('Unit | Component | main page', (hooks) => {
   setupTest(hooks);
@@ -22,6 +28,7 @@ module('Unit | Component | main page', (hooks) => {
     setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
     trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
     this.owner.register('component:ad-slot', adSlotComponentStub);
+    this.owner.register('service:ads/ad-slot-builder', adSlotBuilderStub);
   });
 
   hooks.afterEach(() => {
@@ -34,16 +41,8 @@ module('Unit | Component | main page', (hooks) => {
     const adsContext = {
       valid: true,
     };
-    const injectMainPageAdsSpy = sinon.spy();
-    const setupAdsContextSpy = sinon.spy();
     const component = this.owner.factoryFor('component:main-page').create({
       adsContext,
-      curatedContent: {},
-      currentUser: {
-        userModel: new EmberPromise(() => {}),
-      },
-      injectMainPageAds: injectMainPageAdsSpy,
-      setupAdsContext: setupAdsContextSpy,
     });
 
     component.get('ads.module').isLoaded = true;
@@ -51,8 +50,8 @@ module('Unit | Component | main page', (hooks) => {
       component.didInsertElement();
     });
 
-    assert.ok(setupAdsContextSpy.calledOnce, 'setupAdsContextSpy called');
-    assert.ok(setupAdsContextSpy.calledWith(adsContext), 'setupAdsContextSpy called with ads context');
-    assert.ok(injectMainPageAdsSpy.calledOnce, 'injectMainPageAds called');
+    assert.ok(component.adSlotBuilder.setupAdsContext.calledOnce, 'setupAdsContextSpy called');
+    assert.ok(component.adSlotBuilder.setupAdsContext.calledWith(adsContext), 'setupAdsContextSpy called with ads context');
+    assert.ok(component.adSlotBuilder.injectMainPageAds.calledOnce, 'injectMainPageAds called');
   });
 });

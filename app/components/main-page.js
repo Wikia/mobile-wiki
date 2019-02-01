@@ -1,16 +1,13 @@
 import { inject as service } from '@ember/service';
-import { reads, and } from '@ember/object/computed';
+import { and, reads } from '@ember/object/computed';
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
 import Ads from '../modules/ads';
-import AdsMixin from '../mixins/ads';
 
 export default Component.extend(
-  AdsMixin,
   {
+    adSlotBuilder: service('ads/ad-slot-builder'),
     ads: service('ads/ads'),
-    currentUser: service(),
-    wikiVariables: service(),
 
     classNames: ['main-page-modules', 'main-page-body'],
     tagName: 'section',
@@ -18,6 +15,12 @@ export default Component.extend(
     title: reads('wikiVariables.siteName'),
 
     curatedContentToolButtonVisible: and('currentUser.rights.curatedcontent'),
+
+    init() {
+      this._super(...arguments);
+
+      this.adSlotBuilder.setupComponent(this);
+    },
 
     /**
    * @returns {void}
@@ -27,10 +30,10 @@ export default Component.extend(
 
       run.scheduleOnce('afterRender', this, () => {
         Ads.waitForAdEngine().then((ads) => {
-          this.setupAdsContext(this.adsContext);
+          this.adSlotBuilder.setupAdsContext(this.adsContext);
           ads.onReady(() => {
             if (!this.isDestroyed) {
-              this.injectMainPageAds();
+              this.adSlotBuilder.injectMainPageAds();
             }
           });
         });
