@@ -6,7 +6,6 @@ import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
 import Ads from '../modules/ads';
-import AdsMixin from '../mixins/ads';
 import {
   getRenderComponentFor,
   queryPlaceholders,
@@ -22,8 +21,8 @@ import { track, trackActions } from '../utils/track';
 */
 
 export default Component.extend(
-  AdsMixin,
   {
+    adSlotBuilder: service('ads/ad-slot-builder'),
     ads: service('ads/ads'),
     fastboot: service(),
     i18n: service(),
@@ -81,10 +80,10 @@ export default Component.extend(
 
         if (!this.isPreview && this.adsContext) {
           Ads.waitForAdEngine().then((ads) => {
-            this.setupAdsContext(this.adsContext);
+            this.adSlotBuilder.setupAdsContext(this.adsContext);
             ads.onReady(() => {
-              if (!this.isDestroyed) {
-                this.injectAds();
+              if (!this.isDestaroyed) {
+                this.adSlotBuilder.injectAds();
 
                 if (!ads.isArticleSectionCollapsed()) {
                   this.uncollapseSections();
@@ -101,6 +100,7 @@ export default Component.extend(
     init() {
       this._super(...arguments);
 
+      this.adSlotBuilder.setupComponent(this);
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },

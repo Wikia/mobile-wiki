@@ -1,13 +1,14 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import AdsMixin from '../../mixins/ads';
 
-export default Component.extend(AdsMixin, {
+export default Component.extend({
   ads: service('ads/ads'),
+  adSlotBuilder: service('ads/ad-slot-builder'),
 
   init() {
     this._super(...arguments);
 
+    this.adSlotBuilder.setupComponent(this);
     this.searchAdsPromise = this.ads.waitForSearchAds();
   },
 
@@ -24,8 +25,8 @@ export default Component.extend(AdsMixin, {
   renderAds() {
     this.searchAdsPromise
       .then((adsContext) => {
-        this.setupAdsContext(adsContext);
-        this.injectSearchPageTopLeaderboard(this.element);
+        this.adSlotBuilder.setupAdsContext(adsContext);
+        this.adSlotBuilder.injectSearchPageTopLeaderboard();
       });
   },
 });
