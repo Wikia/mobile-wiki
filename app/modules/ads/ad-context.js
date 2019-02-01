@@ -407,6 +407,9 @@ export default {
           4475752210: true, // Pubmatic
           48029772: true, // Rubicon
         },
+        pubIds: {
+          'ca-pub-7983542246824243': true, // AdX
+        },
       },
     },
     krux: {
