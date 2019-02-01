@@ -22,10 +22,15 @@ function isTopLeaderboardApplicable() {
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
   const isHome = context.get('custom.pageType') === 'home';
+  const isSearch = context.get('custom.pageType') === 'search';
+  const isSearchPageTlbEnabled = context.get('custom.isSearchPageTlbEnabled');
   const hasPageHeader = !!document.querySelector('.wiki-page-header');
   const hasPortableInfobox = !!document.querySelector('.portable-infobox');
 
-  return isHome || hasPortableInfobox || ((hasPageHeader > 0) && (!hasFeaturedVideo));
+  return (isSearch && isSearchPageTlbEnabled)
+    || isHome
+    || hasPortableInfobox
+    || ((hasPageHeader > 0) && (!hasFeaturedVideo));
 }
 
 function isInContentApplicable() {
@@ -38,7 +43,7 @@ function isInContentApplicable() {
   const firstSection = document.querySelector('.article-content > h2');
   const firstSectionTop = (
     firstSection
-  && offset(firstSection).top
+    && offset(firstSection).top
   ) || 0;
 
   return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
@@ -227,6 +232,7 @@ export default {
           uap: 'none',
         },
         trackingKey: 'featured-video',
+        trackEachStatus: true,
       },
       video: {
         adProduct: 'video',

@@ -1,11 +1,11 @@
 import { track } from '../../../utils/track';
 import targeting from '../targeting';
 
-const onRenderEndedStatusToTrack = [
+export const onRenderEndedStatusToTrack = [
   'collapse',
   'success',
 ];
-const onChangeStatusToTrack = [
+export const onChangeStatusToTrack = [
   'blocked',
   'catlapsed',
   'error',
@@ -129,7 +129,7 @@ export default {
   onRenderEnded(adSlot, data) {
     const status = adSlot.getStatus();
 
-    if (onRenderEndedStatusToTrack.indexOf(status) !== -1) {
+    if (onRenderEndedStatusToTrack.indexOf(status) !== -1 || adSlot.getConfigProperty('trackEachStatus')) {
       track(Object.assign(
         {
           eventName: 'adengadinfo',
@@ -150,8 +150,9 @@ export default {
   */
   onStatusChanged(adSlot, data) {
     const status = adSlot.getStatus();
+    const shouldSlotBeTracked = adSlot.getConfigProperty('trackEachStatus') || adSlot.trackOnStatusChanged;
 
-    if (onChangeStatusToTrack.indexOf(status) !== -1 || adSlot.trackOnStatusChanged) {
+    if (onChangeStatusToTrack.indexOf(status) !== -1 || shouldSlotBeTracked) {
       track(Object.assign(
         {
           eventName: 'adengadinfo',

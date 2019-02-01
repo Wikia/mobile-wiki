@@ -101,6 +101,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
   context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
   context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
+  context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
@@ -125,6 +126,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
   }
+  context.set('templates.stickyTLB.enabled', !hasFeaturedVideo);
 
   if (isGeoEnabled('wgAdDriverPrebidBidderCountries')) {
     context.set('bidders.prebid.enabled', true);

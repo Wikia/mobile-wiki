@@ -13,6 +13,7 @@ export default Mixin.create({
   },
 
   /**
+  * @private
   * @param {string} adSlotName
   * @param {string} place
   * @param {Element} element
@@ -45,6 +46,9 @@ export default Mixin.create({
     });
   },
 
+  /**
+   * @private
+   */
   appendHighImpactAd() {
     const adsData = this.get('ads.slotNames');
     const placeholder = document.createElement('div');
@@ -104,6 +108,15 @@ export default Mixin.create({
     }
 
     this.appendHighImpactAd();
+  },
+
+  /**
+   * @returns {void}
+   */
+  injectSearchPageAds(element) {
+    const adsData = this.get('ads.slotNames');
+
+    this.appendAd(adsData.topLeaderBoard, 'afterend', element);
   },
 
   /**
