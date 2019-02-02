@@ -7,41 +7,40 @@ export default Service.extend({
   currentUser: service(),
   wikiUrls: service(),
   fetchService: service('fetch'),
-  searchAdsPromise: null,
+  adsContextPromise: null,
 
   init() {
     this._super(...arguments);
+
+    this.setAdsContextPromise();
   },
 
-  waitForSearchAds() {
-    if (this.searchAdsPromise) {
-      return this.searchAdsPromise;
-    }
+  /**
+   * @returns {Promise}
+   */
+  getAdsContextPromise() {
+    return this.adsContextPromise;
+  },
 
-    const adsContextPromise = this.fetchSearchAdsContext();
-    const adEnginePromise = Ads.waitForAdEngine();
+  /**
+   * @private
+   */
+  setAdsContextPromise() {
+    this.adsContextPromise = Promise.all([Ads.waitForAdEngine(), this.fetchAdsContextPromise()])
+      .then(([ads, adsContext]) => {
+        adsContext.user = adsContext.user || {};
+        adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
+        ads.init(adsContext);
 
-    this.searchAdsPromise = new Promise((resolve) => {
-      Promise.all([adEnginePromise, adsContextPromise])
-        .then(([ads, adsContext]) => {
-          adsContext.user = adsContext.user || {};
-          adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
-
-          ads.init(adsContext);
-          ads.onReady(() => {
-            resolve(adsContext);
-          });
-        });
-    });
-
-    return this.searchAdsPromise;
+        return adsContext;
+      });
   },
 
   /**
    * @private
    * @returns {Promise<T | never>}
    */
-  fetchSearchAdsContext() {
+  fetchAdsContextPromise() {
     const url = this.wikiUrls.build({
       host: this.wikiVariables.host,
       forceNoSSLOnServerSide: true,

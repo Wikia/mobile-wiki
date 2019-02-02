@@ -1,14 +1,12 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import Ads from '../../modules/ads';
 
 export default Component.extend({
-  adsContextService: service('ads/search-page-ads-context'),
   adSlotBuilder: service('ads/ad-slot-builder'),
 
   init() {
     this._super(...arguments);
-
-    this.searchAdsPromise = this.adsContextService.waitForSearchAds();
   },
 
   didInsertElement() {
@@ -22,10 +20,10 @@ export default Component.extend({
   },
 
   renderAds() {
-    this.searchAdsPromise
-      .then((adsContext) => {
-        this.adSlotBuilder.setupAdsContext(adsContext);
+    Ads.waitForAdEngine().then((ads) => {
+      ads.onReady(() => {
         this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
       });
+    });
   },
 });
