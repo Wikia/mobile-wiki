@@ -16,6 +16,8 @@ export default Route.extend(
   {
     initialPageView: service(),
     i18n: service(),
+    adsContextService: service('ads/search-page-ads-context'),
+    adSlotBuilder: service('ads/ad-slot-builder'),
 
     queryParams: {
       query: {
@@ -27,13 +29,16 @@ export default Route.extend(
 
     init() {
       this._super(...arguments);
-      this.applicationWrapperClassNames = ['search-result-page'];
     },
 
     beforeModel() {
       this._super(...arguments);
       closedWikiHandler(this.wikiVariables);
       emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
+      this.applicationWrapperClassNames = ['search-result-page'];
+      this.adsContextService.getAdsContextPromise().then((adsContext) => {
+        this.adSlotBuilder.setupAdsContext(adsContext);
+      });
     },
 
     model(params) {

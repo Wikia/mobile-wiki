@@ -18,7 +18,6 @@ export default Service.extend({
     adsContext.user = {
       isAuthenticated: this.currentUser.isAuthenticated,
     };
-    console.log('setup ads context');
     this.waitingSlots = {};
     this.get('ads.module')
       .afterTransition(adsContext);

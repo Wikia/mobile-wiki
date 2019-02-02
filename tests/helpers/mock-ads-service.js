@@ -71,34 +71,5 @@ export default function (owner) {
     },
     clearWaitsOf() {
     },
-    waitForSearchAds() {
-      return Promise.resolve({
-        opts: {
-          adsInContent: 1,
-          delayBtf: true,
-          enableAdsInMaps: true,
-          pageType: 'search',
-          showAds: true,
-          isAdTestWiki: true,
-        },
-        targeting: {
-          enableKruxTargeting: true,
-          enablePageCategories: true,
-          esrbRating: 'teen',
-          mappedVerticalName: 'life',
-          pageName: 'Special:Search',
-          pageType: 'search',
-          skin: 'mercury',
-          wikiDbName: 'project43',
-          wikiId: '1265146',
-          wikiIsTop1000: true,
-          wikiLanguage: 'en',
-          wikiVertical: 'lifestyle',
-        },
-        providers: [],
-        slots: { invisibleHighImpact: true },
-        forcedProvider: null,
-      });
-    },
   }));
 }
