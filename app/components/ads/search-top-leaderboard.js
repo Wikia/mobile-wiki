@@ -2,13 +2,13 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  ads: service('ads/ads'),
+  adsContextService: service('ads/search-page-ads-context'),
   adSlotBuilder: service('ads/ad-slot-builder'),
 
   init() {
     this._super(...arguments);
 
-    this.searchAdsPromise = this.ads.waitForSearchAds();
+    this.searchAdsPromise = this.adsContextService.waitForSearchAds();
   },
 
   didInsertElement() {
