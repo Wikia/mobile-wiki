@@ -1,4 +1,3 @@
-import { assert } from '@ember/debug';
 import Service, { inject as service } from '@ember/service';
 import { getRenderComponentFor } from '../../utils/render-component';
 
@@ -12,15 +11,6 @@ export default Service.extend({
   },
 
   /**
-   * Needs to be called before using this instance.
-   * @param component - Ember Component. Parent for ad slots.
-   */
-  setupComponent(component) {
-    this.component = component;
-    this.renderAdComponent = getRenderComponentFor(component);
-  },
-
-  /**
    * @param {*} adsContext
    * @returns {void}
    */
@@ -28,6 +18,7 @@ export default Service.extend({
     adsContext.user = {
       isAuthenticated: this.currentUser.isAuthenticated,
     };
+    console.log('setup ads context');
     this.waitingSlots = {};
     this.get('ads.module')
       .afterTransition(adsContext);
@@ -36,8 +27,8 @@ export default Service.extend({
   /**
    * @returns {void}
    */
-  injectAds() {
-    this.ensureComponentExists();
+  injectAds(component) {
+    this.setupComponent(component);
 
     const element = this.component.element;
     const firstSection = element.parentNode.querySelector('.article-content > h2');
@@ -77,8 +68,8 @@ export default Service.extend({
   /**
    * @returns {void}
    */
-  injectSearchPageTopLeaderboard() {
-    this.ensureComponentExists();
+  injectSearchPageTopLeaderboard(component) {
+    this.setupComponent(component);
 
     const element = this.component.element;
     const adsData = this.ads.slotNames;
@@ -89,8 +80,8 @@ export default Service.extend({
   /**
    * @returns {void}
    */
-  injectSearchPageNative() {
-    this.ensureComponentExists();
+  injectSearchPageNative(component) {
+    this.setupComponent(component);
 
     const element = this.component.element;
     const adsData = this.ads.slotNames;
@@ -106,8 +97,8 @@ export default Service.extend({
    *
    * @returns {void}
    */
-  injectMainPageAds() {
-    this.ensureComponentExists();
+  injectMainPageAds(component) {
+    this.setupComponent(component);
 
     const element = this.component.element;
     const adsData = this.ads.slotNames;
@@ -198,8 +189,10 @@ export default Service.extend({
 
   /**
    * @private
+   * @param component - Ember Component. Parent for ad slots.
    */
-  ensureComponentExists() {
-    assert('Attempting to call method before calling setupComponent.', this.component);
+  setupComponent(component) {
+    this.component = component;
+    this.renderAdComponent = getRenderComponentFor(component);
   },
 });

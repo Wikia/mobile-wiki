@@ -8,7 +8,6 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    this.adSlotBuilder.setupComponent(this);
     this.searchAdsPromise = this.ads.waitForSearchAds();
   },
 
@@ -26,7 +25,7 @@ export default Component.extend({
     this.searchAdsPromise
       .then((adsContext) => {
         this.adSlotBuilder.setupAdsContext(adsContext);
-        this.adSlotBuilder.injectSearchPageTopLeaderboard();
+        this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
       });
   },
 });
