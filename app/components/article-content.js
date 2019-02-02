@@ -83,7 +83,7 @@ export default Component.extend(
             this.adSlotBuilder.setupAdsContext(this.adsContext);
             ads.onReady(() => {
               if (!this.isDestaroyed) {
-                this.adSlotBuilder.injectAds();
+                this.adSlotBuilder.injectAds(this);
 
                 if (!ads.isArticleSectionCollapsed()) {
                   this.uncollapseSections();
@@ -100,7 +100,6 @@ export default Component.extend(
     init() {
       this._super(...arguments);
 
-      this.adSlotBuilder.setupComponent(this);
       this.renderComponent = getRenderComponentFor(this);
       this.renderedComponents = [];
     },

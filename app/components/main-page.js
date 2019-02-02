@@ -18,8 +18,6 @@ export default Component.extend(
 
     init() {
       this._super(...arguments);
-
-      this.adSlotBuilder.setupComponent(this);
     },
 
     /**
@@ -33,7 +31,7 @@ export default Component.extend(
           this.adSlotBuilder.setupAdsContext(this.adsContext);
           ads.onReady(() => {
             if (!this.isDestroyed) {
-              this.adSlotBuilder.injectMainPageAds();
+              this.adSlotBuilder.injectMainPageAds(this);
             }
           });
         });
