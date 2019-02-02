@@ -6,10 +6,7 @@ import Ads from '../../modules/ads';
 export default Service.extend({
   module: Ads.getInstance(),
   fastboot: service(),
-  wikiVariables: service(),
   currentUser: service(),
-  wikiUrls: service(),
-  fetchService: service('fetch'),
   siteHeadOffset: 0,
   slotNames: null,
   noAdsQueryParam: null,
@@ -21,7 +18,6 @@ export default Service.extend({
   }),
   adSlotComponents: null,
   waits: null,
-  searchAdsPromise: null,
 
   init() {
     this._super(...arguments);
