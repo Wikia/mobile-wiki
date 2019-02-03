@@ -66,8 +66,8 @@ function getBtlSlotStatus(btlStatus, callId) {
         'cheshirecat',
       );
 
-      if (prevPrediction === undefined && incontentsCounter === 2) {
-        slotStatus = 'nAndy to haxor';
+      if (prevPrediction === undefined && callId === 'incontent_boxad_2') {
+        slotStatus = `${BillTheLizard.REUSED};res=0;${callId}`;
       } else if (prevPrediction === undefined) {
         slotStatus = BillTheLizard.NOT_USED;
       } else {

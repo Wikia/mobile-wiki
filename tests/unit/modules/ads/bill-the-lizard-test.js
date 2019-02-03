@@ -35,4 +35,16 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       window.Wikia.adServices.BillTheLizard.FAILURE,
     );
   });
+
+  test('2nd IC is marked as reused when 1st IC did not use the bid', (assert) => {
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      'not_used',
+    );
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
+      'reused;res=0;incontent_boxad_2',
+    );
+  });
 });
