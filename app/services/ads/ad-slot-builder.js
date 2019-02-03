@@ -18,7 +18,6 @@ export default Service.extend({
     adsContext.user = {
       isAuthenticated: this.currentUser.isAuthenticated,
     };
-    this.waitingSlots = {};
     this.get('ads.module')
       .afterTransition(adsContext);
   },
@@ -193,5 +192,6 @@ export default Service.extend({
   setupComponent(component) {
     this.component = component;
     this.renderAdComponent = getRenderComponentFor(component);
+    this.waitingSlots = {};
   },
 });
