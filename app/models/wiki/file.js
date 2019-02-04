@@ -31,7 +31,7 @@ export default BaseModel.extend({
         fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
         fileThumbnail: media,
       };
-      if(!this.get('currentUser.isAuthenticated')){
+      if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
         var redir = this.get('wikiVariables.articlePath') + this.get('wikiVariables.mainPageTitle');
 
         if(pageProperties.fileUsageList.length > 0){
