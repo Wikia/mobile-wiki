@@ -1,6 +1,8 @@
 import targeting from './targeting';
 import pageTracker from './tracking/page-tracker';
 
+const bidPosKeyVal = 'mobile_in_content';
+
 let config = null;
 let cheshirecatCalled = false;
 let incontentsCounter = 1;
@@ -36,6 +38,7 @@ function serializeBids(slotName) {
 function getBtlSlotStatus(btlStatus, callId) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
+  let bids = [];
 
   switch (btlStatus) {
     case BillTheLizard.TOO_LATE:
@@ -66,11 +69,18 @@ function getBtlSlotStatus(btlStatus, callId) {
         'cheshirecat',
       );
 
-      if (prevPrediction === undefined && callId === 'incontent_boxad_2') {
-        slotStatus = `${BillTheLizard.REUSED};res=0;${callId}`;
+      if (window.pbjs && window.pbjs.getBidResponsesForAdUnitCode) {
+        bids = window.pbjs.getBidResponsesForAdUnitCode(bidPosKeyVal).bids || [];
+      }
+
+      if (prevPrediction === undefined && bids[0]) {
+      // there is no prediction for incontent_boxad_1 but there may be bids to reuse
+        slotStatus = `${BillTheLizard.REUSED};res=1;${callId}`;
       } else if (prevPrediction === undefined) {
+      // there is no prediction for incontent_boxad_1 and may be no bids to reuse
         slotStatus = BillTheLizard.NOT_USED;
       } else {
+      // there is a prediction for each other slot than incontent_boxad_1
         slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
       }
     }
@@ -159,7 +169,7 @@ export default {
     const { billTheLizard } = window.Wikia.adServices;
 
     context.set('services.billTheLizard.parameters.cheshirecat', {
-      bids: serializeBids('mobile_in_content'),
+      bids: serializeBids(bidPosKeyVal),
     });
     cheshirecatCalled = true;
 
