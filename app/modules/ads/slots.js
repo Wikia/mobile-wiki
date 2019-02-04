@@ -232,6 +232,7 @@ export default {
           uap: 'none',
         },
         trackingKey: 'featured-video',
+        trackEachStatus: true,
       },
       video: {
         adProduct: 'video',
