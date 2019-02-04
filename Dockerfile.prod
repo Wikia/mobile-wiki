@@ -24,12 +24,6 @@ RUN addgroup -S mobile-wiki && \
 # override github's auth type
     git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
-# related to upgrading ember to 3.0
-    npm cache clean --force && \
-    rm -rf node_modules/ && \
-    rm package-lock.json && \
-# todo remove later | https://wikia-inc.atlassian.net/browse/XW-4817
-
 # install all dependencies
     npm set progress=false && \
     npm run setup && \
