@@ -20,6 +20,7 @@
       trackingCategory="search-page"
       trackingLabel="search-result"
       itemClick=(action "onResultClick")
+      onImpression=(action "onResultsImpression")
     }}
   {{else if notFoundError}}
     {{#wikia-ui-components/error-info}}
