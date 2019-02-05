@@ -31,6 +31,10 @@ export default Controller.extend({
   },
 
   trackItemClick(result) {
+    if (this.fastboot.isFastBoot) {
+      return;
+    }
+
     const payload = {
       searchPhrase: this.inputPhrase,
       clicked: {
@@ -47,10 +51,14 @@ export default Controller.extend({
       pvUniqueId: window.pvUID,
     };
 
-    M.trackingQueue.push(() => window.trackSearchClicked(payload));
+    M.trackingQueue.push(() => window.searchTracking.trackSearchClicked(payload));
   },
 
   trackResultsImpression() {
+    if (this.fastboot.isFastBoot) {
+      return;
+    }
+
     const payload = {
       searchPhrase: this.inputPhrase,
       filters: {},
@@ -69,6 +77,6 @@ export default Controller.extend({
       pvUniqueId: window.pvUID,
     };
 
-    M.trackingQueue.push(() => window.trackSearchImpression(payload));
+    M.trackingQueue.push(() => window.searchTracking.trackSearchImpression(payload));
   },
 });
