@@ -30,7 +30,6 @@ export default Controller.extend({
     },
   },
 
-  // TODO: GDPR compliance
   trackItemClick(result) {
     const payload = {
       searchPhrase: this.inputPhrase,
@@ -48,23 +47,21 @@ export default Controller.extend({
       pvUniqueId: window.pvUID,
     };
 
-    console.log(payload);
-    window.trackSearchClicked(payload);
+    M.trackingQueue.push(() => window.trackSearchClicked(payload));
   },
 
-  // TODO: GDPR compliance
   trackResultsImpression() {
     const payload = {
       searchPhrase: this.inputPhrase,
       filters: {},
-      results: this.model.items.map((item, index) => ({
+      results: this.model.items.map((item, index) => ({ // TODO: all of them or single batch only?
         id: item.id,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
       })),
       page: this.model.batch,
-      limit: this.model.items.length,
+      limit: this.model.items.length, // TODO: total count or single batch count?
       sortOrder: 'default',
       app: 'mobile-wiki',
       siteId: this.wikiVariables.id,
@@ -72,7 +69,6 @@ export default Controller.extend({
       pvUniqueId: window.pvUID,
     };
 
-    console.log(payload);
-    window.trackSearchImpression(payload);
+    M.trackingQueue.push(() => window.trackSearchImpression(payload));
   },
 });
