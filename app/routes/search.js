@@ -2,6 +2,7 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { scheduleOnce } from '@ember/runloop';
+import { v4 as uuid } from 'ember-uuid';
 
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
@@ -48,6 +49,8 @@ export default Route.extend(
        */
       didTransition() {
         scheduleOnce('afterRender', this, () => {
+          const controller = this.controllerFor('search');
+
           trackPageView(this.initialPageView.isInitialPageView());
 
           track({
@@ -55,8 +58,10 @@ export default Route.extend(
             category: 'app',
             label: 'search',
           });
-        });
 
+          controller.searchId = uuid();
+          controller.trackResultsImpression();
+        });
         return true;
       },
     },

@@ -1,7 +1,6 @@
 import { inject as service } from '@ember/service';
 import { equal, alias } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
-import { v4 as uuid } from 'ember-uuid';
 import { track, trackActions } from '../utils/track';
 
 export default Controller.extend({
@@ -9,7 +8,7 @@ export default Controller.extend({
   fastboot: service(),
   wikiVariables: service(),
 
-  searchId: '',
+  searchId: null,
   // TODO: to be removed as we'll be supporting more errors on search page,
   // see: https://wikia-inc.atlassian.net/browse/DAT-4324
   notFoundError: equal('model.error', 'search-error-not-found'),
@@ -29,13 +28,9 @@ export default Controller.extend({
     onResultClick(result) {
       this.trackItemClick(result);
     },
-
-    onResultsImpression() {
-      this.searchId = uuid();
-      this.trackResultsImpression();
-    },
   },
 
+  // TODO: GDPR compliance
   trackItemClick(result) {
     const payload = {
       searchPhrase: this.inputPhrase,
@@ -50,13 +45,14 @@ export default Controller.extend({
       app: 'mobile-wiki',
       siteId: this.wikiVariables.id,
       searchId: this.searchId,
-      pvUniqueId: '', // TODO: generate unique pageview id
+      pvUniqueId: window.pvUID,
     };
 
     console.log(payload);
     window.trackSearchClicked(payload);
   },
 
+  // TODO: GDPR compliance
   trackResultsImpression() {
     const payload = {
       searchPhrase: this.inputPhrase,
@@ -64,7 +60,7 @@ export default Controller.extend({
       results: this.model.items.map((item, index) => ({
         id: item.id,
         title: item.title,
-        position: index + 1, // // +1 since we need to start with 1 instead of 0
+        position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
       })),
       page: this.model.batch,
@@ -73,7 +69,7 @@ export default Controller.extend({
       app: 'mobile-wiki',
       siteId: this.wikiVariables.id,
       searchId: this.searchId,
-      pvUniqueId: '', // TODO: generate unique pageview id
+      pvUniqueId: window.pvUID,
     };
 
     console.log(payload);
