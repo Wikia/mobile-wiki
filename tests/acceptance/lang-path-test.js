@@ -5,6 +5,7 @@ import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockAdsService from '../helpers/mock-ads-service';
+import mockSearchTracking from '../helpers/mock-search-tracking';
 
 const wikiUrlsServiceStub = Service.extend({
   langPath: '/pl',
@@ -17,6 +18,7 @@ module('Acceptance | lang path', (hooks) => {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
+    mockSearchTracking();
     this.owner.register('service:wiki-urls', wikiUrlsServiceStub);
   });
 

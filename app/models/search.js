@@ -95,10 +95,12 @@ export default EmberObject.extend({
   },
 
   update(state) {
+    const currentSize = this.items ? this.items.length : 0;
+
     this.setProperties({
       items: this.items.concat(state.items.map((item, index) => ({
         id: item.id,
-        position: index,
+        position: currentSize + index,
         title: item.title,
         snippet: htmlSafe(item.snippet),
         prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
