@@ -82,7 +82,7 @@
     "ember-cli-htmlbars-inline-precompile": "2.1.0",
     "ember-cli-inject-live-reload": "2.0.1",
     "ember-cli-inline-content": "0.4.1",
-    "ember-cli-mirage": "0.4.10",
+    "ember-cli-mirage": "0.4.14",
     "ember-cli-qunit": "4.3.2",
     "ember-cli-sass": "8.0.1",
     "ember-cli-sri": "2.1.1",
