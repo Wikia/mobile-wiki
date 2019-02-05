@@ -120,7 +120,7 @@
     "sass": "1.17.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
-    "tslint": "5.12.0",
+    "tslint": "5.12.1",
     "typescript": "3.2.2"
   },
   "ember-addon": {
