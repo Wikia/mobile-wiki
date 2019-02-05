@@ -1,4 +1,5 @@
 import { module, test } from 'qunit';
+import sinon from 'sinon';
 import BillTheLizard from 'mobile-wiki/modules/ads/bill-the-lizard';
 
 
@@ -37,6 +38,12 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('2nd IC is marked as reused when 1st IC did not use the bid', (assert) => {
+    sinon.stub(BillTheLizard, 'getBids')
+      .onFirstCall()
+      .returns([])
+      .onSecondCall()
+      .returns(['bid']);
+
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
       'not_used',
@@ -44,7 +51,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
-      'reused;res=0;incontent_boxad_2',
+      'reused;res=1;incontent_boxad_2',
     );
   });
 });

@@ -35,10 +35,17 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
+function getBids() {
+  if (window.pbjs && window.pbjs.getBidResponsesForAdUnitCode) {
+    return window.pbjs.getBidResponsesForAdUnitCode(bidPosKeyVal).bids;
+  }
+
+  return [];
+}
+
 function getBtlSlotStatus(btlStatus, callId) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
-  let bids = [];
 
   switch (btlStatus) {
     case BillTheLizard.TOO_LATE:
@@ -68,10 +75,7 @@ function getBtlSlotStatus(btlStatus, callId) {
         counter => `incontent_boxad_${counter}`,
         'cheshirecat',
       );
-
-      if (window.pbjs && window.pbjs.getBidResponsesForAdUnitCode) {
-        bids = window.pbjs.getBidResponsesForAdUnitCode(bidPosKeyVal).bids || [];
-      }
+      const bids = exports.getBids();
 
       if (prevPrediction === undefined && bids[0]) {
       // there is no prediction for incontent_boxad_1 but there may be bids to reuse
@@ -89,7 +93,7 @@ function getBtlSlotStatus(btlStatus, callId) {
   return slotStatus;
 }
 
-export default {
+export default exports = {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
@@ -128,7 +132,7 @@ export default {
           const callId = `incontent_boxad_${incontentsCounter}`;
           const btlStatus = billTheLizard.getResponseStatus(callId);
 
-          adSlot.btlStatus = getBtlSlotStatus(btlStatus, callId);
+          adSlot.btlStatus = exports.getBtlSlotStatus(btlStatus, callId);
           incontentsCounter += 1;
         }
       });
@@ -176,6 +180,7 @@ export default {
     billTheLizard.call(['cheshirecat'], callId);
   },
 
+  getBids,
   getBtlSlotStatus,
 
   hasAvailableModels(btlConfig, projectName) {
