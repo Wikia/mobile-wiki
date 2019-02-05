@@ -80,9 +80,9 @@ export default Component.extend(
 
         if (!this.isPreview && this.adsContext) {
           Ads.waitForAdEngine().then((ads) => {
-            this.adSlotBuilder.setupAdsContext(this.adsContext);
+            this.ads.setupAdsContext(this.adsContext);
             ads.onReady(() => {
-              if (!this.isDestaroyed) {
+              if (!this.isDestroyed) {
                 this.adSlotBuilder.injectAds(this);
 
                 if (!ads.isArticleSectionCollapsed()) {

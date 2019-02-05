@@ -11,18 +11,6 @@ export default Service.extend({
   },
 
   /**
-   * @param {*} adsContext
-   * @returns {void}
-   */
-  setupAdsContext(adsContext) {
-    adsContext.user = {
-      isAuthenticated: this.currentUser.isAuthenticated,
-    };
-    this.get('ads.module')
-      .afterTransition(adsContext);
-  },
-
-  /**
    * @returns {void}
    */
   injectAds(component) {

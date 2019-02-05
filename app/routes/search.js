@@ -17,7 +17,7 @@ export default Route.extend(
     initialPageView: service(),
     i18n: service(),
     adsContextService: service('ads/search-page-ads-context'),
-    adSlotBuilder: service('ads/ad-slot-builder'),
+    ads: service('ads/ads'),
 
     queryParams: {
       query: {
@@ -37,7 +37,7 @@ export default Route.extend(
       emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
       this.applicationWrapperClassNames = ['search-result-page'];
       this.adsContextService.getAdsContextPromise().then((adsContext) => {
-        this.adSlotBuilder.setupAdsContext(adsContext);
+        this.ads.setupAdsContext(adsContext);
       });
     },
 

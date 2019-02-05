@@ -28,7 +28,7 @@ export default Component.extend(
 
       run.scheduleOnce('afterRender', this, () => {
         Ads.waitForAdEngine().then((ads) => {
-          this.adSlotBuilder.setupAdsContext(this.adsContext);
+          this.ads.setupAdsContext(this.adsContext);
           ads.onReady(() => {
             if (!this.isDestroyed) {
               this.adSlotBuilder.injectMainPageAds(this);

@@ -1,5 +1,6 @@
 import { Promise } from 'rsvp';
 import Service, { inject as service } from '@ember/service';
+import fetch from 'fetch';
 import Ads from '../../modules/ads';
 
 export default Service.extend({

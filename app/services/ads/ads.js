@@ -66,4 +66,12 @@ export default Service.extend({
   clearWaitsOf(key) {
     this.waits[key] = [];
   },
+
+  setupAdsContext(adsContext) {
+    adsContext.user = {
+      isAuthenticated: this.currentUser.isAuthenticated,
+    };
+
+    this.get('module').afterTransition(adsContext);
+  },
 });
