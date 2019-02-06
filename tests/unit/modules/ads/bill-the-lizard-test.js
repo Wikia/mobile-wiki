@@ -4,8 +4,6 @@ import BillTheLizard from 'mobile-wiki/modules/ads/bill-the-lizard';
 
 
 module('Unit | Module | ads | bill-the-lizard', (hooks) => {
-  function noop() {}
-
   const getBidsStub = sinon.stub(BillTheLizard, 'getBids');
 
   hooks.beforeEach(() => {
@@ -50,7 +48,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .onFirstCall()
       .returns(undefined)
       .onSecondCall()
-      .returns({ result: 1 });
+      .returns({ result: 0 });
 
     getBidsStub
       .onFirstCall()
@@ -65,7 +63,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
-      'reused;res=1;incontent_boxad_2',
+      'reused;res=0;incontent_boxad_2',
     );
   });
 
@@ -74,12 +72,12 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .onFirstCall()
       .returns(undefined)
       .onSecondCall()
-      .returns({ result: 1 })
+      .returns({ result: 0 })
       .onThirdCall()
-      .returns({ result: 1 });
+      .returns({ result: 0 });
 
     window.Wikia.adServices.billTheLizard.getPrediction
-      .returns({ result: 1 });
+      .returns({ result: 0 });
 
     getBidsStub
       .returns(['bid']);
@@ -91,12 +89,64 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
-      'reused;res=1;incontent_boxad_2',
+      'reused;res=0;incontent_boxad_2',
     );
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.ON_TIME, 'incontent_boxad_3'),
-      'on_time;res=1;incontent_boxad_3',
+      'on_time;res=0;incontent_boxad_3',
+    );
+  });
+
+  test('failure for IC2 without prediction for IC1', (assert) => {
+    window.Wikia.adServices.billTheLizard.getPreviousPrediction
+      .returns(undefined);
+
+    window.Wikia.adServices.billTheLizard.getPrediction
+      .returns(undefined);
+
+    getBidsStub
+      .returns(['bid']);
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      'not_used',
+    );
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'incontent_boxad_2'),
+      'failure',
+    );
+  });
+
+  test('failure for IC3 with prediction for IC2', (assert) => {
+    window.Wikia.adServices.billTheLizard.getPreviousPrediction
+      .onFirstCall()
+      .returns(undefined)
+      .onSecondCall()
+      .returns({ result: 0 })
+      .onThirdCall()
+      .returns({ result: 0 });
+
+    window.Wikia.adServices.billTheLizard.getPrediction
+      .returns(undefined);
+
+    getBidsStub
+      .returns(['bid']);
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      'not_used',
+    );
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
+      'reused;res=0;incontent_boxad_2',
+    );
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'incontent_boxad_3'),
+      'failure;res=0;incontent_boxad_3',
     );
   });
 });
