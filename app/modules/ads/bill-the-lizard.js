@@ -36,14 +36,6 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
-function getBids() {
-  if (window.pbjs && window.pbjs.getBidResponsesForAdUnitCode) {
-    return window.pbjs.getBidResponsesForAdUnitCode(bidPosKeyVal).bids;
-  }
-
-  return [];
-}
-
 function getBtlSlotStatus(btlStatus, callId) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
@@ -76,12 +68,10 @@ function getBtlSlotStatus(btlStatus, callId) {
         counter => `incontent_boxad_${counter}`,
         'cheshirecat',
       );
-      const bids = exports.getBids();
 
-      if (prevPrediction === undefined) {
-      // there is no prediction for incontent_boxad_1 and may be no bids to reuse
+      if (callId === 'incontent_boxad_1') {
         slotStatus = BillTheLizard.NOT_USED;
-      } else if (prevPrediction === undefined && bids[0]) {
+      } else if (prevPrediction === undefined) {
       // there is no prediction for incontent_boxad_1 but there may be bids to reuse
         slotStatus = `${BillTheLizard.REUSED};res=1;${callId}`;
       } else {
@@ -181,7 +171,6 @@ export default exports = {
     billTheLizard.call(['cheshirecat'], callId);
   },
 
-  getBids,
   getBtlSlotStatus,
 
   hasAvailableModels(btlConfig, projectName) {

@@ -4,8 +4,6 @@ import BillTheLizard from 'mobile-wiki/modules/ads/bill-the-lizard';
 
 
 module('Unit | Module | ads | bill-the-lizard', (hooks) => {
-  const getBidsStub = sinon.stub(BillTheLizard, 'getBids');
-
   hooks.beforeEach(() => {
     window.Wikia.adServices = {
       billTheLizard: {
@@ -23,19 +21,17 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     };
   });
 
-  test('default slot status', (assert) => {
+  test('default incontent_boxad_1 slot status', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
-    getBidsStub.returns(['bid']);
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'bar_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
       window.Wikia.adServices.BillTheLizard.NOT_USED,
     );
   });
 
   test('default failure slot status', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
-    getBidsStub.returns(['bid']);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'bar_boxad_1'),
@@ -49,12 +45,6 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .returns(undefined)
       .onSecondCall()
       .returns({ result: 0 });
-
-    getBidsStub
-      .onFirstCall()
-      .returns([])
-      .onSecondCall()
-      .returns(['bid']);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
@@ -79,9 +69,6 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     window.Wikia.adServices.billTheLizard.getPrediction
       .returns({ result: 0 });
 
-    getBidsStub
-      .returns(['bid']);
-
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
       'not_used',
@@ -105,9 +92,6 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     window.Wikia.adServices.billTheLizard.getPrediction
       .returns(undefined);
 
-    getBidsStub
-      .returns(['bid']);
-
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
       'not_used',
@@ -130,9 +114,6 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
 
     window.Wikia.adServices.billTheLizard.getPrediction
       .returns(undefined);
-
-    getBidsStub
-      .returns(['bid']);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
