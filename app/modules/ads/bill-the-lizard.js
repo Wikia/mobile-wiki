@@ -126,7 +126,11 @@ export default {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
           const callId = `incontent_boxad_${incontentsCounter}`;
 
-          adSlot.btlStatus = getBtlSlotStatus(billTheLizard.getResponseStatus(callId), callId, defaultStatus);
+          adSlot.btlStatus = getBtlSlotStatus(
+            billTheLizard.getResponseStatus(callId),
+            callId,
+            defaultStatus,
+          );
           incontentsCounter += 1;
         }
       });
