@@ -32,11 +32,7 @@ export default BaseModel.extend({
         fileThumbnail: media,
       };
       if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
-        var redir = this.get('wikiVariables.articlePath') + this.get('wikiVariables.mainPageTitle');
-
-        if(pageProperties.fileUsageList.length > 0){
-          redir = this.get('wikiVariables.articlePath') + pageProperties.fileUsageList[0].prefixedTitle;
-        }
+        var redir = this.get(data, 'nsSpecificContent.anonRedir')
         pageProperties.ns = 'redirect';
         pageProperties.redirectTo =  redir;
       }
