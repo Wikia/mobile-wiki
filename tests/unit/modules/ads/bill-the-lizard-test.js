@@ -21,12 +21,29 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     };
   });
 
-  test('default incontent_boxad_1 slot status', (assert) => {
+  test('default slot status with not_used as default', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'bar_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       window.Wikia.adServices.BillTheLizard.NOT_USED,
+    );
+  });
+
+  test('default slot status reused as default', (assert) => {
+    window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'bar_boxad_1',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
+      'reused;res=0;bar_boxad_1',
     );
   });
 
@@ -34,7 +51,11 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'bar_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.FAILURE,
+        'bar_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       window.Wikia.adServices.BillTheLizard.FAILURE,
     );
   });
@@ -47,12 +68,20 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .returns({ result: 0 });
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'incontent_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       'not_used',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.REUSED,
+        'incontent_boxad_2',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'reused;res=0;incontent_boxad_2',
     );
   });
@@ -70,17 +99,29 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .returns({ result: 0 });
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'incontent_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       'not_used',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.REUSED,
+        'incontent_boxad_2',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'reused;res=0;incontent_boxad_2',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.ON_TIME, 'incontent_boxad_3'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.ON_TIME,
+        'incontent_boxad_3',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'on_time;res=0;incontent_boxad_3',
     );
   });
@@ -93,12 +134,20 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .returns(undefined);
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'incontent_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       'not_used',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'incontent_boxad_2'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.FAILURE,
+        'incontent_boxad_2',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'failure',
     );
   });
@@ -116,17 +165,29 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
       .returns(undefined);
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.NOT_USED, 'incontent_boxad_1'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+        'incontent_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
+      ),
       'not_used',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.REUSED,
+        'incontent_boxad_2',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'reused;res=0;incontent_boxad_2',
     );
 
     assert.equal(
-      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.FAILURE, 'incontent_boxad_3'),
+      BillTheLizard.getBtlSlotStatus(
+        window.Wikia.adServices.BillTheLizard.FAILURE,
+        'incontent_boxad_3',
+        window.Wikia.adServices.BillTheLizard.REUSED,
+      ),
       'failure;res=0;incontent_boxad_3',
     );
   });

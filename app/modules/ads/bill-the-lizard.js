@@ -36,7 +36,7 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
-function getBtlSlotStatus(btlStatus, callId) {
+function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
 
@@ -63,17 +63,20 @@ function getBtlSlotStatus(btlStatus, callId) {
       break;
     }
     default: {
+      if (defaultStatus === BillTheLizard.NOT_USED) {
+      // we don't use a slot until we got response from Bill
+        return BillTheLizard.NOT_USED;
+      }
+
       const prevPrediction = billTheLizard.getPreviousPrediction(
         incontentsCounter,
         counter => `incontent_boxad_${counter}`,
         'cheshirecat',
       );
 
-      if (callId === 'incontent_boxad_1') {
-        slotStatus = BillTheLizard.NOT_USED;
-      } else if (prevPrediction === undefined) {
+      if (prevPrediction === undefined) {
       // there is no prediction for incontent_boxad_1 but there may be bids to reuse
-        slotStatus = `${BillTheLizard.REUSED};res=1;${callId}`;
+        slotStatus = `${BillTheLizard.REUSED};res=0;${callId}`;
       } else {
       // there is a prediction for each other slot than incontent_boxad_1
         slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
@@ -84,11 +87,12 @@ function getBtlSlotStatus(btlStatus, callId) {
   return slotStatus;
 }
 
-export default exports = {
+export default {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
+    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
     let refreshedSlotNumber;
+    let defaultStatus = BillTheLizard.NOT_USED;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -121,9 +125,8 @@ export default exports = {
       events.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
           const callId = `incontent_boxad_${incontentsCounter}`;
-          const btlStatus = billTheLizard.getResponseStatus(callId);
 
-          adSlot.btlStatus = exports.getBtlSlotStatus(btlStatus, callId);
+          adSlot.btlStatus = getBtlSlotStatus(billTheLizard.getResponseStatus(callId), callId, defaultStatus);
           incontentsCounter += 1;
         }
       });
@@ -148,6 +151,7 @@ export default exports = {
         let propName = 'btl_response';
         if (callId) {
           propName = `${propName}_${callId}`;
+          defaultStatus = BillTheLizard.REUSED;
         }
         pageTracker.trackProp(propName, response);
       });
