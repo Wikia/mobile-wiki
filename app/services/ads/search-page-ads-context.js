@@ -13,8 +13,8 @@ export default Service.extend({
    * @private
    */
   getAdsContext() {
-    return Promise.all([Ads.waitForAdEngine(), this.fetchAdsContextPromise()])
-      .then(([ads, adsContext]) => {
+    return Promise.all([this.fetchAdsContextPromise(), Ads.waitForAdEngine()])
+      .then(([adsContext]) => {
         adsContext.user = adsContext.user || {};
         adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
 

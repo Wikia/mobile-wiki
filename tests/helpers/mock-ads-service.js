@@ -71,5 +71,7 @@ export default function (owner) {
     },
     clearWaitsOf() {
     },
+    setupAdsContext() {
+    },
   }));
 }

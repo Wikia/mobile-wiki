@@ -36,7 +36,6 @@ export const getConfig = () => ({
   onBeforeUnstickBfaaCallback() {
     const { CSS_TIMING_EASE_IN_CUBIC, SLIDE_OUT_TIME } = window.Wikia.adProducts.universalAdPackage;
 
-
     Object.assign(this.navbarElement.style, {
       transition: `top ${SLIDE_OUT_TIME}ms ${CSS_TIMING_EASE_IN_CUBIC}`,
       top: '0',

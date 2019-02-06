@@ -7,7 +7,7 @@ export default function (owner) {
       this._super(...arguments);
     },
 
-    getAdsContextPromise() {
+    getAdsContext() {
       return Promise.resolve({
         opts: {
           adsInContent: 1,
