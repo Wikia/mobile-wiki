@@ -67,7 +67,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
   test('tracker sends correct document_visible value', (assert) => {
     const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD' } });
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
   });
 
@@ -81,7 +81,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
     assert.equal(onRenderEndedStatusToTrack.indexOf(status), -1);
 
-    SlotTracker.onRenderEnded(adSlot, {});
+    slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.called, false);
   });
 
