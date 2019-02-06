@@ -19,6 +19,7 @@ export default BaseModel.extend({
   setData({ data }) {
     this._super(...arguments);
     let pageProperties;
+    let redir = '';
 
     if (data) {
       const media = get(data, 'nsSpecificContent.media');
@@ -32,7 +33,7 @@ export default BaseModel.extend({
         fileThumbnail: media,
       };
       if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
-        var redir = this.get(data, 'nsSpecificContent.anonRedir')
+        redir = this.get(data, 'nsSpecificContent.anonRedir');
         pageProperties.ns = 'redirect';
         pageProperties.redirectTo =  redir;
       }
