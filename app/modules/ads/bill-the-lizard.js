@@ -78,12 +78,12 @@ function getBtlSlotStatus(btlStatus, callId) {
       );
       const bids = exports.getBids();
 
-      if (prevPrediction === undefined && bids[0]) {
-      // there is no prediction for incontent_boxad_1 but there may be bids to reuse
-        slotStatus = `${BillTheLizard.REUSED};res=1;${callId}`;
-      } else if (prevPrediction === undefined) {
+      if (prevPrediction === undefined) {
       // there is no prediction for incontent_boxad_1 and may be no bids to reuse
         slotStatus = BillTheLizard.NOT_USED;
+      } else if (prevPrediction === undefined && bids[0]) {
+      // there is no prediction for incontent_boxad_1 but there may be bids to reuse
+        slotStatus = `${BillTheLizard.REUSED};res=1;${callId}`;
       } else {
       // there is a prediction for each other slot than incontent_boxad_1
         slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
