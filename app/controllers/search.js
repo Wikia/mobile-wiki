@@ -59,17 +59,20 @@ export default Controller.extend({
       return;
     }
 
+    const batchSize = 25;
+    const batchBegin = (this.model.batch - 1) * batchSize;
+    const batchEnd = batchBegin + batchSize;
     const payload = {
       searchPhrase: this.inputPhrase,
       filters: {}, // there is no way in mobile-wiki to set any filter
-      results: this.model.items.map((item, index) => ({ // TODO: all of them or single batch only?
+      results: this.model.items.slice(batchBegin, batchEnd).map((item, index) => ({
         id: item.id,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
       })),
       page: this.model.batch,
-      limit: this.model.items.length, // TODO: total count or single batch count?
+      limit: batchSize,
       sortOrder: 'default',
       app: 'mobile-wiki',
       siteId: this.wikiVariables.id,
