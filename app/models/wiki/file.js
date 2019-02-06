@@ -35,7 +35,7 @@ export default BaseModel.extend({
       if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
         redir = this.get(data, 'nsSpecificContent.anonRedir');
         pageProperties.ns = 'redirect';
-        pageProperties.redirectTo =  redir;
+        pageProperties.redirectTo = redir;
       }
     }
 
