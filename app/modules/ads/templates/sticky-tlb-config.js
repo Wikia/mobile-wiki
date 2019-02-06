@@ -16,7 +16,7 @@ export const getConfig = () => ({
   },
 
   onInit(adSlot, params) {
-    const { events, slotTweaker } = window.Wikia.adEngine;
+    const { events, slotService, slotTweaker } = window.Wikia.adEngine;
 
     this.adSlot = adSlot;
     this.slotParams = params;
@@ -31,6 +31,8 @@ export const getConfig = () => ({
     });
 
     events.emit(events.SMART_BANNER_CHANGE, false);
+
+    slotService.disable('incontent_player', 'hivi-collapse');
   },
 
   onBeforeUnstickBfaaCallback() {

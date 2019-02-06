@@ -245,6 +245,7 @@ export const slots = {
           uap: 'none',
         },
         trackingKey: 'featured-video',
+        trackEachStatus: true,
       },
       video: {
         adProduct: 'video',
