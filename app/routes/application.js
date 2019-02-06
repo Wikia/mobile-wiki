@@ -105,6 +105,7 @@ export default Route.extend(
         Ads.waitForAdEngine().then((ads) => {
           ads.registerActions({
             onHeadOffsetChange: (offset) => {
+              console.warn('set sitehead offset', offset);
               this.set('ads.siteHeadOffset', offset);
             },
             onSmartBannerChange: (visibility) => {

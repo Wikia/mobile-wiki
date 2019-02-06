@@ -9,19 +9,21 @@ export const getConfig = () => ({
     const page = document.querySelector('.application-wrapper');
 
     page.classList.add('bfaa-template');
+    console.error('STICKY ON READY');
 
     events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
+    events.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
+      console.error('REMOVE STICKY');
       page.classList.remove('bfaa-template');
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
-      events.emit(events.HEAD_OFFSET_CHANGE, 0);
+      events.emit(events.HEAD_OFFSET_CHANGE, '0');
     });
   },
 
   onInit(adSlot, params) {
     const { events, slotTweaker } = window.Wikia.adEngine;
-
+console.error('INIT STICKY TLB');
     this.adSlot = adSlot;
     this.slotParams = params;
     this.navbarElement = document.querySelector('.site-head-container .site-head, .wds-global-navigation');

@@ -68,15 +68,9 @@ export default Component.extend(
       });
     },
 
-    willDestroyElement() {
-      const name = this.name;
-
-      this.get('ads.module').removeSlot(name);
-    },
-
     /**
-   * @returns {void}
-   */
+     * @returns {void}
+     */
     didEnterViewport() {
       const ads = this.get('ads.module');
       const name = this.name;

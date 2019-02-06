@@ -4,34 +4,19 @@ import fetch from 'fetch';
 import Ads from '../../modules/ads';
 
 export default Service.extend({
-  wikiVariables: service(),
   currentUser: service(),
-  wikiUrls: service(),
   fetchService: service('fetch'),
-  adsContextPromise: null,
-
-  init() {
-    this._super(...arguments);
-
-    this.setAdsContextPromise();
-  },
-
-  /**
-   * @returns {Promise}
-   */
-  getAdsContextPromise() {
-    return this.adsContextPromise;
-  },
+  wikiUrls: service(),
+  wikiVariables: service(),
 
   /**
    * @private
    */
-  setAdsContextPromise() {
-    this.adsContextPromise = Promise.all([Ads.waitForAdEngine(), this.fetchAdsContextPromise()])
+  getAdsContext() {
+    return Promise.all([Ads.waitForAdEngine(), this.fetchAdsContextPromise()])
       .then(([ads, adsContext]) => {
         adsContext.user = adsContext.user || {};
         adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
-        ads.init(adsContext);
 
         return adsContext;
       });

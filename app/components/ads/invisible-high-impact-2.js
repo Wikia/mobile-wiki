@@ -26,12 +26,4 @@ export default Component.extend(RenderComponentMixin, {
       );
     });
   },
-
-  willDestroyElement() {
-    this._super(...arguments);
-
-    this.get('ads.module').onReady(() => {
-      this.get('ads.module').removeSlot(this.name);
-    });
-  },
 });

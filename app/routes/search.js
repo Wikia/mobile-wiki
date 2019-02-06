@@ -14,10 +14,12 @@ export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   HeadTagsDynamicMixin,
   {
-    initialPageView: service(),
-    i18n: service(),
-    adsContextService: service('ads/search-page-ads-context'),
     ads: service('ads/ads'),
+    adsContextService: service('ads/search-page-ads-context'),
+    i18n: service(),
+    initialPageView: service(),
+    fastboot: service(),
+    runtimeConfig: service(),
 
     queryParams: {
       query: {
@@ -36,9 +38,6 @@ export default Route.extend(
       closedWikiHandler(this.wikiVariables);
       emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
       this.applicationWrapperClassNames = ['search-result-page'];
-      this.adsContextService.getAdsContextPromise().then((adsContext) => {
-        this.ads.setupAdsContext(adsContext);
-      });
     },
 
     model(params) {
@@ -48,6 +47,13 @@ export default Route.extend(
     },
 
     actions: {
+      /**
+       * @returns {void}
+       */
+      willTransition() {
+        this.ads.beforeTransition();
+      },
+
       /**
        * @returns {boolean}
        */
@@ -61,6 +67,18 @@ export default Route.extend(
             label: 'search',
           });
         });
+
+        if (!this.get('fastboot.isFastBoot')) {
+          this.adsContextService.getAdsContext()
+            .then((adsContext) => {
+              if (this.get('ads.module.isLoaded')) {
+                this.get('ads').setupAdsContext(adsContext);
+              } else {
+                this.get('ads.module').init(adsContext);
+              }
+            });
+        }
+
 
         return true;
       },

@@ -9,6 +9,8 @@ import { videoTracker } from './tracking/video-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 
+const logGroup = 'mobile-wiki-ads-module';
+
 let adsPromise = null;
 
 class Ads {
@@ -208,6 +210,40 @@ class Ads {
     this.callExternals();
 
     events.beforePageChange();
+    utils.logger(logGroup, 'before transition');
+  }
+
+  onTransition(options) {
+    if (!this.isLoaded) {
+      return;
+    }
+    const { context, events, utils } = window.Wikia.adEngine;
+
+    context.set('state.adStack', []);
+    events.pageChange(options);
+    utils.logger(logGroup, 'on transition');
+  }
+
+  afterTransition(mediaWikiAdsContext, instantGlobals) {
+    if (!this.isLoaded) {
+      return;
+    }
+
+    const { events, utils } = window.Wikia.adEngine;
+
+    this.instantGlobals = instantGlobals || this.instantGlobals;
+
+    events.pageRender({
+      adContext: mediaWikiAdsContext,
+      instantGlobals: this.instantGlobals,
+    });
+
+    this.callLateExternals();
+
+    if (this.showAds) {
+      this.engine.runAdQueue();
+    }
+    utils.logger(logGroup, 'after transition');
   }
 
   /**
@@ -225,37 +261,6 @@ class Ads {
     geoEdge.call();
     krux.call();
     moatYi.call();
-  }
-
-  onTransition(options) {
-    if (!this.isLoaded) {
-      return;
-    }
-    const { context, events } = window.Wikia.adEngine;
-
-    context.set('state.adStack', []);
-    events.pageChange(options);
-
-    if (this.showAds) {
-      this.engine.runAdQueue();
-    }
-  }
-
-  afterTransition(mediaWikiAdsContext, instantGlobals) {
-    if (!this.isLoaded) {
-      return;
-    }
-
-    const { events } = window.Wikia.adEngine;
-
-    this.instantGlobals = instantGlobals || this.instantGlobals;
-
-    events.pageRender({
-      adContext: mediaWikiAdsContext,
-      instantGlobals: this.instantGlobals,
-    });
-
-    this.callLateExternals();
   }
 
   /**

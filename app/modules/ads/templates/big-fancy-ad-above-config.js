@@ -29,19 +29,10 @@ export const getConfig = () => ({
     };
     const page = document.querySelector('.application-wrapper');
 
-    page.classList.add('bfaa-template');
     this.adjustPadding(iframe, this.slotParams);
     window.addEventListener('resize', onResize);
 
     events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
-      page.classList.remove('bfaa-template');
-      document.body.classList.remove('vuap-loaded');
-      document.body.classList.remove('has-bfaa');
-      document.body.style.paddingTop = '';
-      events.emit(events.HEAD_OFFSET_CHANGE, 0);
-      window.removeEventListener('resize', onResize);
-    });
   },
 
   onInit(adSlot, params) {
