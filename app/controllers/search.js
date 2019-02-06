@@ -61,7 +61,7 @@ export default Controller.extend({
 
     const payload = {
       searchPhrase: this.inputPhrase,
-      filters: {},
+      filters: {}, // there is no way in mobile-wiki to set any filter
       results: this.model.items.map((item, index) => ({ // TODO: all of them or single batch only?
         id: item.id,
         title: item.title,
