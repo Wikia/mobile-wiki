@@ -11,7 +11,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   hooks.beforeEach(() => {
     window.Wikia.adServices = {
       billTheLizard: {
-        getPrediction: noop,
+        getPrediction: sinon.stub(),
         getPreviousPrediction: sinon.stub(),
       },
       BillTheLizard: {
@@ -69,11 +69,16 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     );
   });
 
-  test('2nd IC is marked as reused when 1st IC did not have prediction and did not use bid', (assert) => {
+  test('standard cheshire cat flow: IC1 never used, IC2 reused, IC3 on_time since prediction = 1', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction
       .onFirstCall()
       .returns(undefined)
       .onSecondCall()
+      .returns({ result: 1 })
+      .onThirdCall()
+      .returns({ result: 1 });
+
+    window.Wikia.adServices.billTheLizard.getPrediction
       .returns({ result: 1 });
 
     getBidsStub
@@ -87,6 +92,11 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     assert.equal(
       BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.REUSED, 'incontent_boxad_2'),
       'reused;res=1;incontent_boxad_2',
+    );
+
+    assert.equal(
+      BillTheLizard.getBtlSlotStatus(window.Wikia.adServices.BillTheLizard.ON_TIME, 'incontent_boxad_3'),
+      'on_time;res=1;incontent_boxad_3',
     );
   });
 });
