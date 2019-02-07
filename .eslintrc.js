@@ -70,6 +70,7 @@ module.exports = {
     "ember/order-in-components": 2,
     "ember/order-in-controllers": 2,
     "ember/order-in-routes": 2,
+    "ember/no-side-effects": 1,
     "no-plusplus": [
       2,
       { "allowForLoopAfterthoughts": true },
