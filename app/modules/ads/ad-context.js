@@ -176,6 +176,15 @@ export default {
           },
         },
       },
+      lkqd: {
+        enabled: false,
+        slots: {
+          featured: {
+            placementId: '523',
+            siteId: '892127',
+          },
+        },
+      },
       onemobile: {
         enabled: false,
         siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
@@ -349,6 +358,7 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
+    lkqdDfp: false,
     rubiconDfp: true,
     pubmaticDfp: false,
   },
@@ -406,6 +416,9 @@ export default {
           124353852: true, // OpenX
           4475752210: true, // Pubmatic
           48029772: true, // Rubicon
+        },
+        pubIds: {
+          'ca-pub-7983542246824243': true, // AdX
         },
       },
     },
