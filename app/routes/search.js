@@ -72,13 +72,12 @@ export default Route.extend(
           this.adsContextService.getAdsContext()
             .then((adsContext) => {
               if (this.get('ads.module.isLoaded')) {
-                this.get('ads').setupAdsContext(adsContext);
+                this.ads.setupAdsContext(adsContext);
               } else {
-                this.get('ads.module').init(adsContext);
+                this.ads.module.init(adsContext);
               }
             });
         }
-
 
         return true;
       },

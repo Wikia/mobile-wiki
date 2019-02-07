@@ -9,17 +9,23 @@ export default Service.extend({
   wikiUrls: service(),
   wikiVariables: service(),
 
+  adsContextPromise: null,
+
   /**
    * @private
    */
   getAdsContext() {
-    return Promise.all([this.fetchAdsContextPromise(), Ads.waitForAdEngine()])
-      .then(([adsContext]) => {
-        adsContext.user = adsContext.user || {};
-        adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
+    if (this.adsContextPromise === null) {
+      this.adsContextPromise = Promise.all([this.fetchAdsContextPromise(), Ads.waitForAdEngine()])
+        .then(([adsContext]) => {
+          adsContext.user = adsContext.user || {};
+          adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
 
-        return adsContext;
-      });
+          return adsContext;
+        });
+    }
+
+    return this.adsContextPromise;
   },
 
   /**
