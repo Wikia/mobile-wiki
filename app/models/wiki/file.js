@@ -32,8 +32,9 @@ export default BaseModel.extend({
         fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
         fileThumbnail: media,
       };
-      if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
-        redir = this.get(data, 'nsSpecificContent.anonRedir');
+
+      if (!this.get('currentUser.isAuthenticated') ) {
+        redir = get(data, 'nsSpecificContent.anonRedir');
         pageProperties.ns = 'redirect';
         pageProperties.redirectTo = redir;
       }
