@@ -358,6 +358,8 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
+    beachfrontDfp: true,
+    lkqdDfp: false,
     rubiconDfp: true,
     pubmaticDfp: false,
   },
