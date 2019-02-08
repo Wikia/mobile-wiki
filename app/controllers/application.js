@@ -7,7 +7,7 @@ export default Controller.extend(
   AlertNotificationsMixin,
   {
     wikiPage: controller(),
-    ads: service(),
+    ads: service('ads/ads'),
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),

@@ -6,7 +6,7 @@ import { computed } from '@ember/object';
 import RenderComponentMixin from '../../mixins/render-component';
 
 export default Component.extend(RenderComponentMixin, {
-  ads: service(),
+  ads: service('ads/ads'),
 
   name: null,
   noAds: readOnly('ads.noAds'),
@@ -24,14 +24,6 @@ export default Component.extend(RenderComponentMixin, {
           this.get('ads.module').pushSlotToQueue(this.name);
         },
       );
-    });
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-
-    this.get('ads.module').onReady(() => {
-      this.get('ads.module').removeSlot(this.name);
     });
   },
 });

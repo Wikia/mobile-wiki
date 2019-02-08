@@ -29,22 +29,41 @@
   window.trackQuantcastPageView = function () {};
   window.trackComscorePageView = function () {};
   window.Wikia = {
-  adEngine: {
-   context: {
-    get: () => undefined,
-    push: () => undefined
-   },
-   events: {
-    registerEvent: () => {},
-    on: () => {},
-   }
-  },
-  adProducts: {
-   utils: {
-    getSamplingResults: () => [],
-    getCountryCode: () => false
-   }
-  }
+    adEngine: {
+      context: {
+        get: (key) => {
+          if (key === 'targeting') {
+            return {
+              s0v: 'foo',
+            };
+          }
+        },
+        push: () => undefined
+      },
+      events: {
+        pageRender: () => {},
+        registerEvent: () => {},
+        on: () => {},
+      },
+      utils: {
+        client: {
+          checkBlocking: () => {},
+        },
+        getSamplingResults: () => [],
+        logger: () => {},
+      },
+    },
+    adProducts: {
+      utils: {
+        getSamplingResults: () => [],
+        getCountryCode: () => false
+      }
+    },
+    adServices: {
+     nielsen: {
+        call: () => {}
+      }
+    }
   };
   window.M.tracker = {};
   window.M.trackingQueue = {

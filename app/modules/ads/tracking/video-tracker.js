@@ -10,7 +10,7 @@ function trackEvent(eventData) {
   ));
 }
 
-export default {
+export const videoTracker = {
   register: () => {
     const { events } = window.Wikia.adEngine;
     const { porvataTracker } = window.Wikia.adProducts;
@@ -20,3 +20,5 @@ export default {
     porvataTracker.register();
   },
 };
+
+export default videoTracker;

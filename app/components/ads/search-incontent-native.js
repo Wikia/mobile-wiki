@@ -22,7 +22,7 @@ export default Component.extend({
   renderAds() {
     Ads.waitForAdEngine().then((ads) => {
       ads.onReady(() => {
-        this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
+        this.adSlotBuilder.injectSearchPageNative(this);
       });
     });
   },

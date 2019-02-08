@@ -1,7 +1,8 @@
 $error-info-side-padding: 18px;
 $error-info-text-bubble-padding: 24px 50px;
 $error-info-text-bubble-border-radius: 8px;
-$error-info-text-bubble-margin-vertical: 60px;
+$error-info-text-bubble-margin-top: 45px;
+$error-info-text-bubble-margin-bottom: 60px;
 
 .error-info {
   padding: 0 $error-info-side-padding;
@@ -10,7 +11,7 @@ $error-info-text-bubble-margin-vertical: 60px;
 .error-info__text-bubble {
   background-color: $wds-color-white;
   border-radius: $error-info-text-bubble-border-radius;
-  margin: $error-info-text-bubble-margin-vertical auto;
+  margin: $error-info-text-bubble-margin-top auto $error-info-text-bubble-margin-bottom;
   padding: $error-info-text-bubble-padding;
   text-align: center;
 }

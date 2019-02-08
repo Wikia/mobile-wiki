@@ -1,11 +1,11 @@
 import { track, trackActions } from '../../utils/track';
-import basicContext from './ad-context';
-import billTheLizard from './bill-the-lizard';
-import fanTakeoverResolver from './fan-takeover-resolver';
-import slots from './slots';
-import SlotTracker from './tracking/slot-tracker';
-import targeting from './targeting';
-import ViewabilityTracker from './tracking/viewability-tracker';
+import { defaultAdContext } from './ad-context';
+import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+import { fanTakeoverResolver } from './fan-takeover-resolver';
+import { slots } from './slots';
+import { slotTracker } from './tracking/slot-tracker';
+import { targeting } from './targeting';
+import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
 import { getConfig as getOutOfPageConfig } from './templates/out-of-page-config';
@@ -29,7 +29,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     return utils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
   }
 
-  context.extend(basicContext);
+  context.extend(defaultAdContext);
 
   if (adsContext.opts.isAdTestWiki) {
     context.set('src', 'test');
@@ -104,6 +104,10 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
   context.set('custom.lkqdDfp', isGeoEnabled('wgAdDriverLkqdBidderCountries'));
   context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
   context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
+  context.set(
+    'custom.isIncontentNativeEnabled',
+    isGeoEnabled('wgAdDriverMobileWikiAE3NativeSearchCountries'),
+  );
 
   if (context.get('custom.isIncontentPlayerDisabled')) {
     track({
@@ -169,7 +173,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     'slots.incontent_player.insertBeforeSelector',
   ];
 
-  if (context.get('options.slotRepeater') && billTheLizard.hasAvailableModels(btlConfig, 'cheshirecat')) {
+  if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
     insertBeforePaths.forEach((insertBeforePath) => {
       context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
     });
@@ -208,9 +212,9 @@ function configure(adsContext, instantGlobals, isOptedIn) {
   templateService.register(Roadblock, getRoadblockConfig());
   templateService.register(StickyTLB, getStickyTLBConfig());
 
-  context.push('listeners.slot', SlotTracker);
+  context.push('listeners.slot', slotTracker);
   context.push('listeners.slot', fanTakeoverResolver);
-  context.push('listeners.slot', ViewabilityTracker);
+  context.push('listeners.slot', viewabilityTracker);
 }
 
 function init() {
@@ -232,7 +236,9 @@ function init() {
   return engine;
 }
 
-export default {
+export const adsSetup = {
   configure,
   init,
 };
+
+export default adsSetup;

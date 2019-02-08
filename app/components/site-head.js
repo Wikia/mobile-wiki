@@ -10,7 +10,7 @@ import Ads from '../modules/ads';
 export default Component.extend(
   HeadroomMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     smartBanner: service(),
     router: service(),
 
