@@ -83,8 +83,10 @@ export default Component.extend(
     },
 
     getSearchTrackingBasePayload(suggestions, suggestionsSearchId) {
+      const suggestionsArray = suggestions.toArray();
+
       return {
-        enteredPhrase: suggestions.query,
+        enteredPhrase: suggestions[0].query,
         suggestions: suggestions.map(suggestion => ({
           type: 'article',
           value: suggestion.title,
