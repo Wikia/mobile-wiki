@@ -4,7 +4,7 @@ import {
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import mockAdsService from '../helpers/mock-ads-service';
+import { mockAdsService } from '../helpers/mock-ads-service';
 
 module('Acceptance | category page', (hooks) => {
   setupApplicationTest(hooks);
