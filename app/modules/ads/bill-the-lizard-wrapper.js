@@ -1,5 +1,5 @@
-import targeting from './targeting';
-import pageTracker from './tracking/page-tracker';
+import { targeting } from './targeting';
+import { pageTracker } from './tracking/page-tracker';
 
 const bidPosKeyVal = 'mobile_in_content';
 
@@ -64,7 +64,7 @@ function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
     }
     default: {
       if (defaultStatus === BillTheLizard.NOT_USED) {
-      // we don't use a slot until we got response from Bill
+        // we don't use a slot until we got response from Bill
         return BillTheLizard.NOT_USED;
       }
 
@@ -75,10 +75,10 @@ function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
       );
 
       if (prevPrediction === undefined) {
-      // there is no prediction for incontent_boxad_1 but there may be bids to reuse
+        // there is no prediction for incontent_boxad_1 but there may be bids to reuse
         slotStatus = `${BillTheLizard.REUSED};res=0;${callId}`;
       } else {
-      // there is a prediction for each other slot than incontent_boxad_1
+        // there is a prediction for each other slot than incontent_boxad_1
         slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
       }
     }
@@ -87,7 +87,7 @@ function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
   return slotStatus;
 }
 
-export default {
+export const billTheLizardWrapper = {
   configureBillTheLizard(instantGlobals) {
     const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
@@ -199,3 +199,5 @@ export default {
     billTheLizard.reset();
   },
 };
+
+export default billTheLizardWrapper;

@@ -26,7 +26,7 @@ import { track } from '../utils/track';
 */
 
 export default Component.extend({
-  ads: service(),
+  ads: service('ads/ads'),
   currentUser: service(),
   smartBanner: service(),
   lightbox: service(),

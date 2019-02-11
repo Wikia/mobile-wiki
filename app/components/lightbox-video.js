@@ -11,7 +11,7 @@ import VideoLoader from '../modules/video-loader';
 export default Component.extend(
   RespondsToResize,
   {
-    ads: service(),
+    ads: service('ads/ads'),
 
     classNames: ['lightbox-video', 'lightbox-content-inner'],
     classNameBindings: ['provider'],

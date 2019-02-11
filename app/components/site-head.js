@@ -10,7 +10,7 @@ import Ads from '../modules/ads';
 export default Component.extend(
   HeadroomMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     smartBanner: service(),
     router: service(),
     wikiVariables: service(),
@@ -83,8 +83,6 @@ export default Component.extend(
     },
 
     getSearchTrackingBasePayload(suggestions, suggestionsSearchId) {
-      const suggestionsArray = suggestions.toArray();
-
       return {
         enteredPhrase: suggestions[0].query,
         suggestions: suggestions.map(suggestion => ({
@@ -102,7 +100,7 @@ export default Component.extend(
     trackSearchSuggestionClick(clickedSuggestion, displayedSuggestions, suggestionSearchId) {
       const payload = Object.assign(
         this.getSearchTrackingBasePayload(displayedSuggestions, suggestionSearchId),
-        { positionOfClickedItem: displayedSuggestions.indexOf(clickedSuggestion) + 1, }
+        { positionOfClickedItem: displayedSuggestions.indexOf(clickedSuggestion) + 1 },
       );
 
       M.trackingQueue.push(() => window.searchTracking.trackSuggestClicked(payload));

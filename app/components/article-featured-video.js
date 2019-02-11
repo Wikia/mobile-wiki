@@ -15,7 +15,7 @@ import { transparentImageBase64 } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
-  ads: service(),
+  ads: service('ads/ads'),
   logger: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
