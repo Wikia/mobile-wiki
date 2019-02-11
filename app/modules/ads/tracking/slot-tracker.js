@@ -37,6 +37,10 @@ function checkOptIn() {
   return '';
 }
 
+function getCurrentScrollY() {
+  return window.scrollY || window.pageYOffset;
+}
+
 /**
   * Prepare data for render ended tracking
   * @param {Object} slot
@@ -85,7 +89,10 @@ function prepareData(slot, data) {
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),
     // Missing:
-    // bidder_won, bidder_won_price, page_layout, rabbit, scroll_y, product_chosen
+    // page_layout, rabbit, product_chosen
+    bidder_won: slot.winningPbBidderDetails ? slot.winningPbBidderDetails.name : '',
+    bidder_won_price: slot.winningPbBidderDetails ? slot.winningPbBidderDetails.price : '',
+    scroll_y: getCurrentScrollY(),
   }, targeting.getBiddersPrices(slotName));
 }
 
