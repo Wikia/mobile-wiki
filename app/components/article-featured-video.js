@@ -96,6 +96,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
       if (this.player) {
         this.player.setMute(true);
+        this.player.pause();
       }
       document.body.classList.remove(this.bodyOnScrollActiveClass);
 
