@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # usage ./yaml-descriptor <env> <image-name> [<dc>]
-# - env: prod | preview | sandbox-* | stable | verify
+# - env: prod | preview | sandbox-* | verify
 # - dc: sjc | res
 
 ENV=$1
