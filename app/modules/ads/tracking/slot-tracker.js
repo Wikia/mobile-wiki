@@ -1,5 +1,5 @@
 import { track } from '../../../utils/track';
-import targeting from '../targeting';
+import { targeting } from '../targeting';
 
 export const onRenderEndedStatusToTrack = [
   'collapse',
@@ -99,7 +99,7 @@ function prepareData(slot, data) {
 /**
   * Wrapper for player data warehouse tracking
   */
-export default {
+export const slotTracker = {
   /**
   * Checks whether tracker is enabled via instant global
   * @returns {boolean}
@@ -172,3 +172,5 @@ export default {
     }
   },
 };
+
+export default slotTracker;

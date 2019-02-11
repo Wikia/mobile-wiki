@@ -1,15 +1,12 @@
 import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import Ads from '../modules/ads';
+import Ads from '../../modules/ads';
 
 export default Service.extend({
   module: Ads.getInstance(),
   fastboot: service(),
-  wikiVariables: service(),
   currentUser: service(),
-  wikiUrls: service(),
-  fetchService: service('fetch'),
   siteHeadOffset: 0,
   slotNames: null,
   noAdsQueryParam: null,
@@ -17,7 +14,7 @@ export default Service.extend({
   noAds: computed('noAdsQueryParam', 'disableAdsInMobileApp', function () {
     return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1
       || ['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1
-      || this.get('currentUser.isAuthenticated');
+      || this.currentUser.isAuthenticated;
   }),
   adSlotComponents: null,
   waits: null,
@@ -34,10 +31,11 @@ export default Service.extend({
         mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
+        incontentNative: 'incontent_native',
       },
     });
 
-    if (!this.get('fastboot.isFastBoot')) {
+    if (!this.fastboot.isFastBoot) {
       this.module.showAds = !this.noAds;
     }
   },
@@ -53,7 +51,7 @@ export default Service.extend({
       this.adSlotComponents[slotName].destroy();
     });
 
-    this.set('adSlotComponents', {});
+    this.adSlotComponents = {};
   },
 
   addWaitFor(key, promise) {
@@ -61,28 +59,19 @@ export default Service.extend({
     this.waits[key].push(promise);
   },
 
-  getWaits(key) {
+  getWaitsOf(key) {
     return Promise.all(this.waits[key] || []);
   },
 
-  clearWaits(key) {
+  clearWaitsOf(key) {
     this.waits[key] = [];
   },
 
-  fetchSearchAdsContext() {
-    const url = this.wikiUrls.build({
-      host: this.get('wikiVariables.host'),
-      forceNoSSLOnServerSide: true,
-      path: '/wikia.php',
-      query: {
-        controller: 'MercuryApi',
-        method: 'getSearchPageAdsContext',
-      },
-    });
-    const options = this.fetchService.getOptionsForInternalCache(url);
+  setupAdsContext(adsContext) {
+    adsContext.user = {
+      isAuthenticated: this.currentUser.isAuthenticated,
+    };
 
-    return fetch(url, options)
-      .then(response => response.json()
-        .then(data => data.adsContext));
+    this.get('module').afterTransition(adsContext);
   },
 });

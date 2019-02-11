@@ -1,4 +1,4 @@
-export default {
+export const defaultAdContext = {
   adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
@@ -358,6 +358,8 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
+    beachfrontDfp: true,
+    lkqdDfp: false,
     rubiconDfp: true,
     pubmaticDfp: false,
   },
@@ -457,3 +459,5 @@ export default {
     },
   },
 };
+
+export default defaultAdContext;

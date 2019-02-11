@@ -5,7 +5,7 @@ module('Unit | Service | ads', (hooks) => {
   setupTest(hooks);
 
   test('noAds is set correctly base on passed Query Parameter and logged in user', function (assert) {
-    const service = this.owner.lookup('service:ads');
+    const service = this.owner.lookup('service:ads/ads');
     const testCases = [{
       noAdsQueryParam: 'false',
       expected: true,

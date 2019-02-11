@@ -1,13 +1,15 @@
 /* eslint-disable class-methods-use-this */
 /* eslint no-console: 0 */
 import { Promise } from 'rsvp';
-import adsSetup from './setup';
-import fanTakeoverResolver from './fan-takeover-resolver';
-import adBlockDetection from './tracking/adblock-detection';
-import pageTracker from './tracking/page-tracker';
-import videoTracker from './tracking/video-tracking';
-import biddersDelay from './bidders-delay';
-import billTheLizard from './bill-the-lizard';
+import { adsSetup } from './setup';
+import { fanTakeoverResolver } from './fan-takeover-resolver';
+import { adblockDetector } from './tracking/adblock-detector';
+import { pageTracker } from './tracking/page-tracker';
+import { videoTracker } from './tracking/video-tracker';
+import { biddersDelayer } from './bidders-delayer';
+import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+
+const logGroup = 'mobile-wiki-ads-module';
 
 let adsPromise = null;
 
@@ -26,14 +28,6 @@ class Ads {
     }
 
     return Ads.instance;
-  }
-
-  static loadGoogleTag() {
-    window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
-  }
-
-  static getInstantGlobals() {
-    return new Promise(resolve => window.getInstantGlobals(resolve));
   }
 
   static waitForAdEngine() {
@@ -59,7 +53,7 @@ class Ads {
       return;
     }
 
-    Ads.getInstantGlobals()
+    this.getInstantGlobals()
       .then((instantGlobals) => {
         M.trackingQueue.push(
           isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
@@ -67,35 +61,19 @@ class Ads {
       });
   }
 
-  callExternals() {
-    const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
-
-    biddersDelay.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelay.markAsReady,
-    });
-
-    geoEdge.call();
-    krux.call();
-    moatYi.call();
+  /**
+   * @private
+   */
+  getInstantGlobals() {
+    return new Promise(resolve => window.getInstantGlobals(resolve));
   }
 
-  callLateExternals() {
-    const { context } = window.Wikia.adEngine;
-    const { nielsen } = window.Wikia.adServices;
-
-    const targeting = context.get('targeting');
-
-    nielsen.call({
-      type: 'static',
-      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
-      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
-    });
-    adBlockDetection.run();
-    this.trackLabrador();
-  }
-
+  /**
+   * @private
+   * @param mediaWikiAdsContext
+   * @param instantGlobals
+   * @param isOptedIn
+   */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { context, events, utils } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
@@ -109,7 +87,7 @@ class Ads {
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
     videoTracker.register();
 
-    context.push('delayModules', biddersDelay);
+    context.push('delayModules', biddersDelayer);
 
     events.on(events.AD_SLOT_CREATED, (slot) => {
       console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -119,7 +97,7 @@ class Ads {
       pageTracker.trackProp('moat_yi', data);
     });
 
-    billTheLizard.configureBillTheLizard(instantGlobals);
+    billTheLizardWrapper.configureBillTheLizard(instantGlobals);
     confiant.call();
 
     this.callExternals();
@@ -131,22 +109,21 @@ class Ads {
     this.onReadyCallbacks.start();
   }
 
-  trackLabrador() {
-    const { utils } = window.Wikia.adEngine;
-
-    // Track Labrador values to DW
-    const labradorPropValue = utils.getSamplingResults().join(';');
-
-    if (labradorPropValue) {
-      pageTracker.trackProp('labrador', labradorPropValue);
-    }
-  }
-
+  /**
+   * @private
+   */
   startAdEngine() {
     if (this.showAds) {
       this.engine = adsSetup.init();
-      Ads.loadGoogleTag();
+      this.loadGoogleTag();
     }
+  }
+
+  /**
+   * @private
+   */
+  loadGoogleTag() {
+    window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
   }
 
   finishFirstCall() {
@@ -229,24 +206,22 @@ class Ads {
     utils.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
-    billTheLizard.reset();
+    billTheLizardWrapper.reset();
     this.callExternals();
 
     events.beforePageChange();
+    utils.logger(logGroup, 'before transition');
   }
 
   onTransition(options) {
     if (!this.isLoaded) {
       return;
     }
-    const { context, events } = window.Wikia.adEngine;
+    const { context, events, utils } = window.Wikia.adEngine;
 
     context.set('state.adStack', []);
     events.pageChange(options);
-
-    if (this.showAds) {
-      this.engine.runAdQueue();
-    }
+    utils.logger(logGroup, 'on transition');
   }
 
   afterTransition(mediaWikiAdsContext, instantGlobals) {
@@ -254,7 +229,7 @@ class Ads {
       return;
     }
 
-    const { events } = window.Wikia.adEngine;
+    const { events, utils } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals || this.instantGlobals;
 
@@ -264,6 +239,60 @@ class Ads {
     });
 
     this.callLateExternals();
+
+    if (this.showAds) {
+      this.engine.runAdQueue();
+    }
+    utils.logger(logGroup, 'after transition');
+  }
+
+  /**
+   * @private
+   */
+  callExternals() {
+    const { bidders } = window.Wikia.adBidders;
+    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
+
+    biddersDelayer.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelayer.markAsReady,
+    });
+
+    geoEdge.call();
+    krux.call();
+    moatYi.call();
+  }
+
+  /**
+   * @private
+   */
+  callLateExternals() {
+    const { context } = window.Wikia.adEngine;
+    const { nielsen } = window.Wikia.adServices;
+
+    const targeting = context.get('targeting');
+
+    nielsen.call({
+      type: 'static',
+      assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
+      section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
+    });
+    adblockDetector.run();
+    this.trackLabrador();
+  }
+
+  /**
+   * @private
+   */
+  trackLabrador() {
+    const { utils } = window.Wikia.adEngine;
+
+    // Track Labrador values to DW
+    const labradorPropValue = utils.getSamplingResults().join(';');
+
+    if (labradorPropValue) {
+      pageTracker.trackProp('labrador', labradorPropValue);
+    }
   }
 
   onMenuOpen() {
@@ -302,7 +331,7 @@ class Ads {
     });
 
     return Promise.race([
-      biddersDelay.getPromise(),
+      biddersDelayer.getPromise(),
       timeout,
     ]).then(() => {
       utils.logger('featured-video', 'resolving featured video delay');

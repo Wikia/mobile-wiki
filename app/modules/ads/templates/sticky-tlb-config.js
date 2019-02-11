@@ -6,16 +6,12 @@ export const getConfig = () => ({
   onReady() {
     const { events } = window.Wikia.adEngine;
 
-    const page = document.querySelector('.application-wrapper');
-
-    page.classList.add('bfaa-template');
-
     events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
-      page.classList.remove('bfaa-template');
+    events.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
       events.emit(events.HEAD_OFFSET_CHANGE, 0);
+      this.navbarElement.style.top = '';
     });
   },
 
@@ -41,7 +37,6 @@ export const getConfig = () => ({
 
   onBeforeUnstickBfaaCallback() {
     const { CSS_TIMING_EASE_IN_CUBIC, SLIDE_OUT_TIME } = window.Wikia.adProducts.universalAdPackage;
-
 
     Object.assign(this.navbarElement.style, {
       transition: `top ${SLIDE_OUT_TIME}ms ${CSS_TIMING_EASE_IN_CUBIC}`,

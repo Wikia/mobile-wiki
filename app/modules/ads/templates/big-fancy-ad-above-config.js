@@ -1,4 +1,4 @@
-import slots from '../slots';
+import { slots } from '../slots';
 
 export const getConfig = () => ({
   adSlot: null,
@@ -27,15 +27,12 @@ export const getConfig = () => ({
     const onResize = () => {
       this.adjustPadding(iframe, this.slotParams);
     };
-    const page = document.querySelector('.application-wrapper');
 
-    page.classList.add('bfaa-template');
     this.adjustPadding(iframe, this.slotParams);
     window.addEventListener('resize', onResize);
 
     events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
-      page.classList.remove('bfaa-template');
+    events.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
       document.body.classList.remove('vuap-loaded');
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
