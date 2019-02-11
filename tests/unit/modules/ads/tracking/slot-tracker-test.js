@@ -39,6 +39,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
       getSlotName: () => 'BOTTOM_LEADERBOARD',
       getStatus: () => status || 'success',
       getTargeting: () => targeting,
+      targeting,
       getConfigProperty: prop => config[prop],
     };
   }
