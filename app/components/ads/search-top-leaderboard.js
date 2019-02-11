@@ -19,6 +19,9 @@ export default Component.extend({
     this._super(...arguments);
   },
 
+  /**
+   * @private
+   */
   renderAds() {
     Ads.waitForAdEngine().then((ads) => {
       ads.onReady(() => {
