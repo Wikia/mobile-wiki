@@ -162,6 +162,16 @@ function getZone(adsContext) {
   };
 }
 
+function fillInWithNulls(object) {
+  Object.keys(object).forEach((key) => {
+    if (typeof object[key] === 'undefined') {
+      object[key] = null;
+    }
+  });
+
+  return object;
+}
+
 export const targeting = {
   getPageLevelTargeting(adsContext = {}) {
     adsContext.targeting = adsContext.targeting || {};
@@ -206,7 +216,7 @@ export const targeting = {
       pageLevelTargeting.top = '1k';
     }
 
-    return pageLevelTargeting;
+    return fillInWithNulls(pageLevelTargeting);
   },
 
   getBiddersPrices(slotName, markNotRequestedPrices = true) {
