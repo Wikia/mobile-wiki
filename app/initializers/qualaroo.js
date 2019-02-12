@@ -21,7 +21,7 @@ export default {
                 const stuffElement = qualarooElement.querySelector('.qual_ol_stuff');
                 const closeElement = qualarooElement.querySelector('.qual_x_close');
                 const fandomLogo = createSVG('wds-company-logo-fandom', 'fandom-logo');
-                const close = createSVG('wds-icons-cross-tiny', 'fandom-close-icon');
+                const close = createSVG('wds-icons-close-tiny', 'fandom-close-icon');
                 closeElement.appendChild(close);
                 stuffElement.insertBefore(fandomLogo, stuffElement.firstChild);
               }]);
