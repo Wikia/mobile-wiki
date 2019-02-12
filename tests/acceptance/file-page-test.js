@@ -5,7 +5,7 @@ import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import mockAdsService from '../helpers/mock-ads-service';
+import { mockAdsService } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | file page', (hooks) => {

@@ -9,7 +9,7 @@ import RenderComponentMixin from 'mobile-wiki/mixins/render-component';
 import Ads from 'mobile-wiki/modules/ads';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
-import mockAdsService, { getAdsModuleMock } from '../../helpers/mock-ads-service';
+import { getAdsModuleMock, mockAdsService } from '../../helpers/mock-ads-service';
 
 const adSlotComponentStub = Component.extend(RenderComponentMixin, {
   classNameBindings: ['nameLowerCase'],

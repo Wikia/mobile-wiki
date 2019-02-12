@@ -1,19 +1,15 @@
 import Component from '@ember/component';
-import Service from '@ember/service';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
 import Ads from 'mobile-wiki/modules/ads';
-import mockAdsService, { getAdsModuleMock } from '../../helpers/mock-ads-service';
+import { getAdsModuleMock, mockAdsService } from '../../helpers/mock-ads-service';
+import { mockAdSlotBuilder } from '../../helpers/mock-ad-slot-builder';
 
 const trackModule = require('mobile-wiki/utils/track');
 const adSlotComponentStub = Component.extend({});
-const adSlotBuilderStub = Service.extend({
-  initialize() {},
-  injectMainPageAds: sinon.spy(),
-});
 let setTrackContextStub;
 let trackPageViewStub;
 
@@ -27,7 +23,7 @@ module('Unit | Component | main page', (hooks) => {
     setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
     trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
     this.owner.register('component:ad-slot', adSlotComponentStub);
-    this.owner.register('service:ads/ad-slot-builder', adSlotBuilderStub);
+    mockAdSlotBuilder(this.owner);
     mockAdsService(this.owner);
   });
 

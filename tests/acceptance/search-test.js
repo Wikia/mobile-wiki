@@ -3,7 +3,7 @@ import {
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import mockAdsService from '../helpers/mock-ads-service';
+import { mockAdsService } from '../helpers/mock-ads-service';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
