@@ -57,11 +57,17 @@ $closeButtonHeight: 40px;
   }
 
   &.slot-responsive {
-    width: 100%;
-
     iframe {
       @include absolute-fill();
     }
+  }
+}
+
+.article-content .ad-slot {
+  margin: 0 -1.5rem 1.125rem;
+
+  &.slot-responsive {
+    margin: 0 0 1.125rem;
   }
 }
 
