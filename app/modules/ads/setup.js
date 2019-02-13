@@ -186,6 +186,7 @@ function setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
 
   slots.setupIdentificators();
   slots.setupStates();
+  slots.setupSizesAvailability();
 }
 
 function configure(adsContext, instantGlobals, isOptedIn) {
