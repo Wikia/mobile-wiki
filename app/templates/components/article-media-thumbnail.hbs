@@ -17,7 +17,9 @@
     {{/if}}
   </a>
 {{else}}
-  <a href={{model.href}}>{{svg "wds-icons-download" class="wds-icon"}}</a>
+  <a href={{model.href}}>
+    <Icon @name="download" />
+  </a>
 {{/if}}
 
 {{! Allow custom captions }}

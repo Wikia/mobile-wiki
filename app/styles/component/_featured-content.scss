@@ -18,12 +18,12 @@
     z-index: $z-1;
 
     &.left {
-      left: 0;
+      left: 6px;
       transform: rotate(90deg);
     }
 
     &.right {
-      right: 0;
+      right: 6px;
       transform: rotate(-90deg);
     }
   }

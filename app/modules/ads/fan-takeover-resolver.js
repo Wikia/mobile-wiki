@@ -10,7 +10,7 @@ function reset() {
 
 reset();
 
-export default {
+export const fanTakeoverResolver = {
   isEnabled() {
     return true;
   },
@@ -38,3 +38,5 @@ export default {
     }
   },
 };
+
+export default fanTakeoverResolver;

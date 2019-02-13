@@ -4,7 +4,9 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
-import mockAdsService from '../helpers/mock-ads-service';
+import { mockAdsService } from '../helpers/mock-ads-service';
+import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
+
 
 const wikiUrlsServiceStub = Service.extend({
   langPath: '/pl',
@@ -17,6 +19,7 @@ module('Acceptance | lang path', (hooks) => {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
+    mockSearchPageAdsContext(this.owner);
     this.owner.register('service:wiki-urls', wikiUrlsServiceStub);
   });
 

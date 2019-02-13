@@ -1,16 +1,12 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import Ads from '../../modules/ads';
-import AdsMixin from '../../mixins/ads';
 
-export default Component.extend(AdsMixin, {
-  ads: service(),
+export default Component.extend({
+  adSlotBuilder: service('ads/ad-slot-builder'),
 
   init() {
     this._super(...arguments);
-
-    this.adsContextPromise = this.ads.fetchSearchAdsContext();
-    this.adEnginePromise = Ads.waitForAdEngine();
   },
 
   didInsertElement() {
@@ -23,17 +19,14 @@ export default Component.extend(AdsMixin, {
     this._super(...arguments);
   },
 
+  /**
+   * @private
+   */
   renderAds() {
-    Promise.all([this.adEnginePromise, this.adsContextPromise])
-      .then(([ads, adsContext]) => {
-        adsContext.user = adsContext.user || {};
-        adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-
-        ads.init(adsContext);
-        ads.onReady(() => {
-          this.setupAdsContext(adsContext);
-          this.injectSearchPageAds(this.element);
-        });
+    Ads.waitForAdEngine().then((ads) => {
+      ads.onReady(() => {
+        this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
       });
+    });
   },
 });

@@ -11,7 +11,7 @@
     href={{@model.prevPageUrl}}
     class="category-pagination__prev wds-button wds-is-secondary"
   >
-    {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny"}}
+    <Icon @name="menu-control" @size="tiny" />
   </a>
 {{/if}}
 {{#if @model.nextPageUrl}}
@@ -19,7 +19,7 @@
     href={{@model.nextPageUrl}}
     class="category-pagination__next wds-button wds-is-secondary"
   >
-    {{svg "wds-icons-menu-control-tiny" class="wds-icon wds-icon-tiny"}}
+    <Icon @name="menu-control" @size="tiny" />
   </a>
 {{/if}}
 {{#if @model.lastPageUrl}}
