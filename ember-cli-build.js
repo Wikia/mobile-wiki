@@ -149,6 +149,9 @@ module.exports = function (defaults) {
   app.import('node_modules/lazysizes/lazysizes.js', {
     using: [{ transformation: 'fastbootShim' }],
   });
+  app.import('node_modules/@wikia/search-tracking/dist/search-tracking.js', {
+    using: [{ transformation: 'fastbootShim' }],
+  });
 
   return app.toTree([
     designSystemI18n,

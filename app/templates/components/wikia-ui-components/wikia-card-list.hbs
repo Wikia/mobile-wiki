@@ -1,6 +1,6 @@
 <ul class="wikia-card-list">
   {{#each @items as |item|}}
-    <li class="wikia-card">
+    <li class="wikia-card" {{action "onItemClick" item}}>
       {{#link-to
         "wiki-page"
         item.prefixedTitle
