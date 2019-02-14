@@ -6,6 +6,9 @@ import { track, trackActions } from '../utils/track';
 export default Controller.extend({
   application: controller(),
   fastboot: service(),
+  wikiVariables: service(),
+
+  searchId: null,
   // TODO: to be removed as we'll be supporting more errors on search page,
   // see: https://wikia-inc.atlassian.net/browse/DAT-4324
   notFoundError: equal('model.error', 'search-error-not-found'),
@@ -19,7 +22,64 @@ export default Controller.extend({
         label: trackLabel,
       });
 
-      this.model.loadMore();
+      this.model.loadMore().then(() => this.trackResultsImpression());
     },
+
+    onResultClick(result) {
+      this.trackItemClick(result);
+    },
+  },
+
+  trackItemClick(result) {
+    if (this.fastboot.isFastBoot) {
+      return;
+    }
+
+    const payload = {
+      searchPhrase: this.inputPhrase,
+      clicked: {
+        type: 'article', // currently the only displayed type in the search
+        id: result.id,
+        title: result.title,
+        position: result.position + 1, // +1 since we need to start with 1 instead of 0
+        thumbnail: false, // we do not show thumbnails on SRP right now
+      },
+      target: 'redirect',
+      app: 'mw-mobile',
+      siteId: this.wikiVariables.id,
+      searchId: this.searchId,
+      pvUniqueId: window.pvUID,
+    };
+
+    M.trackingQueue.push(() => window.searchTracking.trackSearchClicked(payload));
+  },
+
+  trackResultsImpression() {
+    if (this.fastboot.isFastBoot) {
+      return;
+    }
+
+    const batchSize = 25;
+    const batchBegin = (this.model.batch - 1) * batchSize;
+    const batchEnd = batchBegin + batchSize;
+    const payload = {
+      searchPhrase: this.inputPhrase,
+      filters: {}, // there is no way in mobile-wiki to set any filter
+      results: this.model.items.slice(batchBegin, batchEnd).map((item, index) => ({
+        id: item.id,
+        title: item.title,
+        position: index + 1, // +1 since we need to start with 1 instead of 0
+        thumbnail: false, // we do not show thumbnails on SRP right now
+      })),
+      page: this.model.batch,
+      limit: batchSize,
+      sortOrder: 'default',
+      app: 'mw-mobile',
+      siteId: this.wikiVariables.id,
+      searchId: this.searchId,
+      pvUniqueId: window.pvUID,
+    };
+
+    M.trackingQueue.push(() => window.searchTracking.trackSearchImpression(payload));
   },
 });
