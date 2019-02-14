@@ -42,6 +42,9 @@ export default Route.extend(
 
     model(params) {
       if (this.get('fastboot.isFastBoot')) {
+        // First pageview is tracked from outside of Ember and it will only be tracked
+        // if the trackingData for the page is set in shoebox (nulls are default values as search
+        // page does not have an ID or a namespace in mobile-wiki)
         this.get('fastboot.shoebox').put('trackingData', {
           articleId: null,
           namespace: null,
