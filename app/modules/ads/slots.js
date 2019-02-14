@@ -131,13 +131,13 @@ export const slots = {
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
         repeat: {
-          additionalClasses: 'hide',
           index: 1,
           limit: 20,
           slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
@@ -169,6 +169,7 @@ export const slots = {
         audio: false,
         insertBeforeSelector: '.article-content > h2',
         disabled: true,
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         group: 'HiVi',
         slotShortcut: 'i',
