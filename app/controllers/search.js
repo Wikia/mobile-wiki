@@ -45,7 +45,7 @@ export default Controller.extend({
         thumbnail: false, // we do not show thumbnails on SRP right now
       },
       target: 'redirect',
-      app: 'mobile-wiki',
+      app: 'mw-mobile',
       siteId: this.wikiVariables.id,
       searchId: this.searchId,
       pvUniqueId: window.pvUID,
@@ -74,7 +74,7 @@ export default Controller.extend({
       page: this.model.batch,
       limit: batchSize,
       sortOrder: 'default',
-      app: 'mobile-wiki',
+      app: 'mw-mobile',
       siteId: this.wikiVariables.id,
       searchId: this.searchId,
       pvUniqueId: window.pvUID,

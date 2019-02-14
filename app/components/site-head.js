@@ -90,7 +90,7 @@ export default Component.extend(
           value: suggestion.title,
           id: suggestion.articleId,
         })),
-        app: 'mobile-wiki',
+        app: 'mw-mobile',
         siteId: this.wikiVariables.id,
         suggestionId: suggestionsSearchId,
         pvUniqueId: window.pvUID,
