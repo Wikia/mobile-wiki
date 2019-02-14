@@ -4,8 +4,8 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
-import mockAdsService from '../helpers/mock-ads-service';
 import mockSearchTracking from '../helpers/mock-search-tracking';
+import { mockAdsService } from '../helpers/mock-ads-service';
 import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
 
 const wikiUrlsServiceStub = Service.extend({

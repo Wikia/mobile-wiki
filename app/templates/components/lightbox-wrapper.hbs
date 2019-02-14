@@ -4,11 +4,7 @@
       {{#if closeButtonHidden}}
         {{lightboxCloseButtonDelay}}
       {{else}}
-        {{svg
-          "wds-icons-cross"
-          role="img"
-          class="wds-icon wds-icon-small lightbox-close-button"
-        }}
+        <Icon @name="close" @size="small" role="img" class="lightbox-close-button" />
       {{/if}}
     </div>
     <div class="lightbox-header-title">{{header}}</div>
@@ -37,7 +33,11 @@
         {{footer}}
       </div>
       {{#if footerLink}}
-        <div class="lightbox-footer-link"><a href={{footerLink}}>{{svg "wds-icons-link" class="wds-icon wds-icon-small"}}</a></div>
+        <div class="lightbox-footer-link">
+          <a href={{footerLink}}>
+            <Icon @name="link" @size="small" />
+          </a>
+        </div>
       {{/if}}
     </div>
     {{#if displayFilmstrip}}

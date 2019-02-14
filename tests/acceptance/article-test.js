@@ -4,7 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
 import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import mockAdsService, { getAdsModuleMock } from '../helpers/mock-ads-service';
+import { getAdsModuleMock, mockAdsService } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 
