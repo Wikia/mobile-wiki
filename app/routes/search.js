@@ -41,6 +41,13 @@ export default Route.extend(
     },
 
     model(params) {
+      if (this.get('fastboot.isFastBoot')) {
+        this.get('fastboot.shoebox').put('trackingData', {
+          articleId: null,
+          namespace: null,
+        });
+      }
+
       return SearchModel
         .create(getOwner(this).ownerInjection())
         .search(params.query);
