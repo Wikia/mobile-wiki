@@ -341,7 +341,7 @@ export const slots = {
   setupSizesAvailability() {
     const { context } = window.Wikia.adEngine;
 
-    if (window.innerHeight > 627) {
+    if (window.innerHeight >= 627) {
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
   },
