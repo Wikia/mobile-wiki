@@ -131,13 +131,13 @@ export const slots = {
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
         repeat: {
-          additionalClasses: 'hide',
           index: 1,
           limit: 20,
           slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
@@ -160,6 +160,7 @@ export const slots = {
           loc: 'middle',
           pos: ['incontent_boxad', 'mobile_in_content'],
           rv: 1,
+          xna: 1,
         },
       },
       incontent_player: {
@@ -169,6 +170,7 @@ export const slots = {
         audio: false,
         insertBeforeSelector: '.article-content > h2',
         disabled: true,
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         group: 'HiVi',
         slotShortcut: 'i',
@@ -334,6 +336,14 @@ export const slots = {
     );
 
     context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
+  },
+
+  setupSizesAvailability() {
+    const { context } = window.Wikia.adEngine;
+
+    if (window.innerHeight >= 627) {
+      context.set('slots.incontent_boxad_1.targeting.xna', '0');
+    }
   },
 };
 
