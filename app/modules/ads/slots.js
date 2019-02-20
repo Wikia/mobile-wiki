@@ -160,6 +160,7 @@ export const slots = {
           loc: 'middle',
           pos: ['incontent_boxad', 'mobile_in_content'],
           rv: 1,
+          xna: 1,
         },
       },
       incontent_player: {
@@ -335,6 +336,14 @@ export const slots = {
     );
 
     context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
+  },
+
+  setupSizesAvailability() {
+    const { context } = window.Wikia.adEngine;
+
+    if (window.innerHeight >= 627) {
+      context.set('slots.incontent_boxad_1.targeting.xna', '0');
+    }
   },
 };
 
