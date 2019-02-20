@@ -80,7 +80,7 @@ export const adsSetup = {
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       const originalSrc = context.get('src');
-      context.set('src', `${originalSrc},${adsContext.targeting.testSrc}`);
+      context.set('src', [originalSrc, adsContext.targeting.testSrc] );
     } else if (adsContext.opts.isAdTestWiki) {
       context.set('src', 'test');
     }
