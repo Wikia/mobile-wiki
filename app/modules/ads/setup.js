@@ -79,8 +79,9 @@ export const adsSetup = {
     context.extend(defaultAdContext);
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
+      // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
       const originalSrc = context.get('src');
-      context.set('src', [originalSrc, adsContext.targeting.testSrc] );
+      context.set('src', [originalSrc, adsContext.targeting.testSrc]);
     } else if (adsContext.opts.isAdTestWiki) {
       context.set('src', 'test');
     }
