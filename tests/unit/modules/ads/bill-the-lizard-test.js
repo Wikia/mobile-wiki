@@ -34,16 +34,16 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     );
   });
 
-  test('default slot status reused as default', (assert) => {
+  test('IC1 didn\'t come but we want IC2 answer', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(
-        window.Wikia.adServices.BillTheLizard.NOT_USED,
-        'bar_boxad_1',
         window.Wikia.adServices.BillTheLizard.REUSED,
+        'bar_boxad_1',
+        window.Wikia.adServices.BillTheLizard.NOT_USED,
       ),
-      'reused;res=0;bar_boxad_1',
+      'not_used',
     );
   });
 
@@ -60,40 +60,9 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     );
   });
 
-  test('2nd IC is marked as reused when 1st IC did not have prediction and there was no bids', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction
-      .onFirstCall()
-      .returns(undefined)
-      .onSecondCall()
-      .returns({ result: 0 });
-
-    assert.equal(
-      BillTheLizard.getBtlSlotStatus(
-        window.Wikia.adServices.BillTheLizard.NOT_USED,
-        'incontent_boxad_1',
-        window.Wikia.adServices.BillTheLizard.NOT_USED,
-      ),
-      'not_used',
-    );
-
-    assert.equal(
-      BillTheLizard.getBtlSlotStatus(
-        window.Wikia.adServices.BillTheLizard.REUSED,
-        'incontent_boxad_2',
-        window.Wikia.adServices.BillTheLizard.REUSED,
-      ),
-      'reused;res=0;incontent_boxad_2',
-    );
-  });
-
   test('standard cheshire cat flow: IC1 never used, IC2 reused, IC3 on_time since prediction = 1', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction
-      .onFirstCall()
-      .returns(undefined)
-      .onSecondCall()
-      .returns({ result: 0 })
-      .onThirdCall()
-      .returns({ result: 0 });
+      .returns({ result: 0, callId: 'incontent_boxad_1' });
 
     window.Wikia.adServices.billTheLizard.getPrediction
       .returns({ result: 0 });
@@ -113,7 +82,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
         'incontent_boxad_2',
         window.Wikia.adServices.BillTheLizard.REUSED,
       ),
-      'reused;res=0;incontent_boxad_2',
+      'reused;res=0;incontent_boxad_1',
     );
 
     assert.equal(
@@ -152,14 +121,9 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     );
   });
 
-  test('failure for IC3 with prediction for IC2', (assert) => {
+  test('failure for IC3 with prediction for IC1', (assert) => {
     window.Wikia.adServices.billTheLizard.getPreviousPrediction
-      .onFirstCall()
-      .returns(undefined)
-      .onSecondCall()
-      .returns({ result: 0 })
-      .onThirdCall()
-      .returns({ result: 0 });
+      .returns({ result: 0, callId: 'incontent_boxad_1' });
 
     window.Wikia.adServices.billTheLizard.getPrediction
       .returns(undefined);
@@ -179,7 +143,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
         'incontent_boxad_2',
         window.Wikia.adServices.BillTheLizard.REUSED,
       ),
-      'reused;res=0;incontent_boxad_2',
+      'reused;res=0;incontent_boxad_1',
     );
 
     assert.equal(
@@ -188,7 +152,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
         'incontent_boxad_3',
         window.Wikia.adServices.BillTheLizard.REUSED,
       ),
-      'failure;res=0;incontent_boxad_3',
+      'failure;res=0;incontent_boxad_1',
     );
   });
 });

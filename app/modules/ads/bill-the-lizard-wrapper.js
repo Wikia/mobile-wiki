@@ -54,7 +54,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 
       slotStatus = btlStatus;
       if (prevPrediction !== undefined) {
-        slotStatus += `;res=${prevPrediction.result};${callId}`;
+        slotStatus += `;res=${prevPrediction.result};${prevPrediction.callId}`;
       }
       break;
     }
@@ -77,12 +77,11 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
       );
 
       if (prevPrediction === undefined) {
-        // there is no prediction for incontent_boxad_1 but there may be bids to reuse
-        slotStatus = `${BillTheLizard.REUSED};res=0;${callId}`;
-      } else {
-        // there is a prediction for each other slot than incontent_boxad_1
-        slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
+        // probably impossible but set in debugging purposes
+        return 'weird_cat';
       }
+
+      slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${prevPrediction.callId}`;
     }
   }
 
