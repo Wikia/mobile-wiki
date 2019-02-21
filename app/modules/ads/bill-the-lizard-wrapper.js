@@ -2,10 +2,12 @@ import { targeting } from './targeting';
 import { pageTracker } from './tracking/page-tracker';
 
 const bidPosKeyVal = 'mobile_in_content';
+const NOT_USED_STATUS = 'not_used';
 
 let config = null;
 let cheshirecatCalled = false;
 let incontentsCounter = 1;
+let defaultStatus = NOT_USED_STATUS;
 
 function getNextIncontentId() {
   return `incontent_boxad_${incontentsCounter}`;
@@ -36,7 +38,7 @@ function serializeBids(slotName) {
   ].join(',');
 }
 
-function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
+function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
 
@@ -63,9 +65,9 @@ function getBtlSlotStatus(btlStatus, callId, defaultStatus) {
       break;
     }
     default: {
-      if (defaultStatus === BillTheLizard.NOT_USED) {
+      if (fallbackStatus === NOT_USED_STATUS) {
         // we don't use a slot until we got response from Bill
-        return BillTheLizard.NOT_USED;
+        return NOT_USED_STATUS;
       }
 
       const prevPrediction = billTheLizard.getPreviousPrediction(
@@ -92,7 +94,7 @@ export const billTheLizardWrapper = {
     const { context, events, slotService } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
     let refreshedSlotNumber;
-    let defaultStatus = BillTheLizard.NOT_USED;
+    defaultStatus = NOT_USED_STATUS;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -194,6 +196,7 @@ export const billTheLizardWrapper = {
 
     cheshirecatCalled = false;
     incontentsCounter = 1;
+    defaultStatus = NOT_USED_STATUS;
 
     // Reset predictions from previous page views
     billTheLizard.reset();
