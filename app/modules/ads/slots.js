@@ -6,6 +6,10 @@ const PAGE_TYPES = {
   article: 'a',
   home: 'h',
 };
+const BIG_VIEWPORT_SIZE = {
+  height: 627,
+  width: 375,
+};
 
 function setSlotState(slotName, state) {
   const { slotService } = window.Wikia.adEngine;
@@ -151,7 +155,7 @@ export const slots = {
         slotShortcut: 'f',
         sizes: [
           {
-            viewportSize: [375, 627],
+            viewportSize: [BIG_VIEWPORT_SIZE.width, BIG_VIEWPORT_SIZE.height],
             sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
           },
         ],
@@ -341,7 +345,10 @@ export const slots = {
   setupSizesAvailability() {
     const { context } = window.Wikia.adEngine;
 
-    if (window.innerHeight >= 627) {
+    if (
+      window.innerHeight >= BIG_VIEWPORT_SIZE.height
+      && window.innerWidth >= BIG_VIEWPORT_SIZE.width
+    ) {
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
   },
