@@ -86,7 +86,7 @@ export const adsSetup = {
 
     context.set('slots', slots.getContext());
 
-    if (!adsContext.targeting.hasFeaturedVideo) {
+    if (!adsContext.targeting.hasFeaturedVideo && adsContext.targeting.pageType !== 'search') {
       context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
     }
 
