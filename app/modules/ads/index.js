@@ -8,6 +8,7 @@ import { pageTracker } from './tracking/page-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+import { appEvents } from './events';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -75,11 +76,11 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    const { context, events, utils } = window.Wikia.adEngine;
+    const {
+      context, events, eventService, utils,
+    } = window.Wikia.adEngine;
     const { bidders } = window.Wikia.adBidders;
-    const { confiant } = window.Wikia.adServices;
-
-    events.registerEvent('MENU_OPEN_EVENT');
+    const { confiant, moatYiEvents } = window.Wikia.adServices;
 
     this.instantGlobals = instantGlobals;
     this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
@@ -89,11 +90,11 @@ class Ads {
 
     context.push('delayModules', biddersDelayer);
 
-    events.on(events.AD_SLOT_CREATED, (slot) => {
+    eventService.on(events.AD_SLOT_CREATED, (slot) => {
       console.info(`Created ad slot ${slot.getSlotName()}`);
       bidders.updateSlotTargeting(slot.getSlotName());
     });
-    events.on(events.MOAT_YI_READY, (data) => {
+    eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
       pageTracker.trackProp('moat_yi', data);
     });
 
@@ -185,13 +186,10 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
-    const { events } = window.Wikia.adEngine;
+    const { eventService } = window.Wikia.adEngine;
 
-    events.registerEvent('HEAD_OFFSET_CHANGE');
-    events.registerEvent('SMART_BANNER_CHANGE');
-
-    events.on(events.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
-    events.on(events.SMART_BANNER_CHANGE, onSmartBannerChange);
+    eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
+    eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
   }
 
   beforeTransition() {
@@ -199,7 +197,7 @@ class Ads {
       return;
     }
 
-    const { events, utils } = window.Wikia.adEngine;
+    const { events, eventService, utils } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
     utils.resetSamplingCache();
@@ -209,7 +207,8 @@ class Ads {
     billTheLizardWrapper.reset();
     this.callExternals();
 
-    events.beforePageChange();
+    eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
+
     utils.logger(logGroup, 'before transition');
   }
 
@@ -217,10 +216,12 @@ class Ads {
     if (!this.isLoaded) {
       return;
     }
-    const { context, events, utils } = window.Wikia.adEngine;
+    const {
+      context, events, eventService, utils,
+    } = window.Wikia.adEngine;
 
     context.set('state.adStack', []);
-    events.pageChange(options);
+    eventService.emit(events.PAGE_CHANGE_EVENT, options);
     utils.logger(logGroup, 'on transition');
   }
 
@@ -229,11 +230,11 @@ class Ads {
       return;
     }
 
-    const { events, utils } = window.Wikia.adEngine;
+    const { events, eventService, utils } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals || this.instantGlobals;
 
-    events.pageRender({
+    eventService.emit(events.PAGE_RENDER_EVENT, {
       adContext: mediaWikiAdsContext,
       instantGlobals: this.instantGlobals,
     });
@@ -299,9 +300,9 @@ class Ads {
     if (!this.isLoaded) {
       return;
     }
-    const { events } = window.Wikia.adEngine;
+    const { eventService } = window.Wikia.adEngine;
 
-    events.emit(events.MENU_OPEN_EVENT);
+    eventService.emit(appEvents.MENU_OPEN_EVENT);
   }
 
   onReady(callback) {

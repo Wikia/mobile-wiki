@@ -52,15 +52,17 @@ export const adsSetup = {
     context.push('listeners.slot', viewabilityTracker);
   },
   init() {
-    const { AdEngine, context, events } = window.Wikia.adEngine;
+    const {
+      AdEngine, context, events, eventService,
+    } = window.Wikia.adEngine;
 
     const engine = new AdEngine();
 
-    events.on(
+    eventService.on(
       events.PAGE_RENDER_EVENT,
       ({ adContext, instantGlobals }) => this.setupAdContext(adContext, instantGlobals),
     );
-    events.on(events.AD_SLOT_CREATED, (slot) => {
+    eventService.on(events.AD_SLOT_CREATED, (slot) => {
       context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
       context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
     });
