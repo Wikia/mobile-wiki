@@ -56,7 +56,7 @@
     "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.6.4",
     "lazysizes": "4.1.5",
     "method-override": "3.0.0",
-    "on-headers": "1.0.1",
+    "on-headers": "1.0.2",
     "scriptjs": "2.5.9",
     "snyk": "1.134.2",
     "vignette": "github:wikia/vignette-js#2.7.1",
