@@ -8,6 +8,7 @@ import { pageTracker } from './tracking/page-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+import { isTopLeaderboardApplicable } from './slots';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -115,6 +116,10 @@ class Ads {
   startAdEngine() {
     if (this.showAds) {
       this.engine = adsSetup.init();
+      if (!isTopLeaderboardApplicable()) {
+        // TODO: Add check tlbSlot.isFirstCall === true
+        this.finishFirstCall();
+      }
       this.loadGoogleTag();
     }
   }

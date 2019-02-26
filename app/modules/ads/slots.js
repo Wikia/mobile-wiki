@@ -21,7 +21,7 @@ function setSlotState(slotName, state) {
   }
 }
 
-function isTopLeaderboardApplicable() {
+export function isTopLeaderboardApplicable() {
   const { context } = window.Wikia.adEngine;
 
   const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
