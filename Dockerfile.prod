@@ -26,6 +26,9 @@ RUN addgroup -S mobile-wiki && \
 
 # install all dependencies
     npm --version && \
+    # we are running npm install as root so we need to set unsafe-perm
+    # in order to execute all npm postinstall scripts properly
+    npm config set unsafe-perm true && \
     npm set progress=false && \
     npm run setup && \
 
