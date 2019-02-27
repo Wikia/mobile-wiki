@@ -27,10 +27,12 @@ RUN addgroup -S mobile-wiki && \
 # install all dependencies
     npm set progress=false && \
     npm run setup && \
+    ls -la node_modules/@wikia/ad-engine && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    npm cache clean --force
+    npm cache clean --force && \
+    ls -la node_modules/@wikia/ad-engine
 
 USER docker_user
 
