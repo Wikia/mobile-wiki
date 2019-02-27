@@ -25,7 +25,7 @@ RUN addgroup -S mobile-wiki && \
     git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install all dependencies
-    npm install -g npm@6.1.0 && \
+    npm install -g npm@6.8.0 && \
     npm --version && \
     npm set progress=false && \
     npm run setup && \
