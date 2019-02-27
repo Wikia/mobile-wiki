@@ -10,6 +10,7 @@ pipeline {
       }
       steps {
         sh 'npm set unsafe-perm=true && npm ci'
+        sh 'ls -la ./node_modules/@wikia/ad-engine'
       }
     }
     stage('Run Tests') {
