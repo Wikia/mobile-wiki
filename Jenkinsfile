@@ -9,8 +9,7 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh 'npm set unsafe-perm=true && npm ci'
-        sh 'ls -la ./node_modules/@wikia/ad-engine'
+        sh 'npm ci --verbose'
       }
     }
     stage('Run Tests') {
