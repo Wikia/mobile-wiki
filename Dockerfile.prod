@@ -25,16 +25,13 @@ RUN addgroup -S mobile-wiki && \
     git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install all dependencies
+    npm install -g npm@6.1.0 && \
     npm set progress=false && \
     npm run setup && \
-    ls -la node_modules/@wikia/ad-engine && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    npm cache clean --force && \
-    node --version && \
-    npm --version && \
-    ls -la node_modules/@wikia/ad-engine
+    npm cache clean --force
 
 USER docker_user
 
