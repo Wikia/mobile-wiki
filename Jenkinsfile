@@ -9,7 +9,7 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh 'npm ci'
+        sh 'npm set unsafe-perm=true && npm ci'
       }
     }
     stage('Run Tests') {
