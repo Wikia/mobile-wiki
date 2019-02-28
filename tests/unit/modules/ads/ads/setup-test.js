@@ -3,13 +3,13 @@ import { module, test } from 'qunit';
 
 import { adsSetup } from 'mobile-wiki/modules/ads/setup';
 
-import { Events } from '../events';
+import { events, EventService } from '../eventService';
 
 module('Unit | Module | ads | setup', (hooks) => {
-  let events;
+  let eventService;
 
   hooks.beforeEach(() => {
-    events = new Events();
+    eventService = new EventService();
 
     window.Wikia.adEngine = {
       AdEngine() {
@@ -17,6 +17,7 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       context: {},
       events,
+      eventService,
     };
 
     const fake = sinon.fake.returns({});
@@ -33,7 +34,10 @@ module('Unit | Module | ads | setup', (hooks) => {
     const adContext = { a: 'a' };
     const instantGlobals = { b: 'b' };
 
-    window.Wikia.adEngine.events.emit(events.PAGE_RENDER_EVENT, { adContext, instantGlobals });
+    window.Wikia.adEngine.eventService.emit(
+      events.PAGE_RENDER_EVENT,
+      { adContext, instantGlobals },
+    );
 
     assert.equal(adsSetup.setupAdContext.callCount, 1);
 
