@@ -86,6 +86,13 @@ class Ads {
     this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+
+    if (context.get('options.disableAdStack')) {
+      pageTracker.trackProp('adengine', 'off');
+      this.trackLabrador();
+      return;
+    }
+
     videoTracker.register();
 
     context.push('delayModules', biddersDelayer);

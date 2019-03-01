@@ -105,6 +105,8 @@ export const adsSetup = {
 
     context.set('state.deviceType', utils.client.getDeviceType());
 
+    context.set('options.disableAdStack', isGeoEnabled('wgAdDriverDisableAdStackCountries'));
+
     context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantGlobals.wgAdDriverPorvataMoatTrackingSampling);
 
