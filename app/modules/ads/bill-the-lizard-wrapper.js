@@ -90,8 +90,10 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 
 export const billTheLizardWrapper = {
   configureBillTheLizard(instantGlobals) {
-    const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+    const {
+      context, events, eventService, slotService,
+    } = window.Wikia.adEngine;
+    const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let refreshedSlotNumber;
     defaultStatus = NOT_USED_STATUS;
 
@@ -123,7 +125,7 @@ export const billTheLizardWrapper = {
         },
       });
 
-      events.on(events.AD_SLOT_CREATED, (adSlot) => {
+      eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
           const callId = `incontent_boxad_${incontentsCounter}`;
 
@@ -136,12 +138,12 @@ export const billTheLizardWrapper = {
         }
       });
 
-      events.on(events.BIDS_REFRESH, () => {
+      eventService.on(events.BIDS_REFRESH, () => {
         cheshirecatCalled = true;
         refreshedSlotNumber = incontentsCounter;
       });
 
-      events.on(events.BILL_THE_LIZARD_REQUEST, (event) => {
+      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
         const { query, callId } = event;
         let propName = 'btl_request';
         if (callId) {
@@ -151,7 +153,7 @@ export const billTheLizardWrapper = {
         pageTracker.trackProp(propName, query);
       });
 
-      events.on(events.BILL_THE_LIZARD_RESPONSE, (event) => {
+      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
         const { response, callId } = event;
         let propName = 'btl_response';
         if (callId) {

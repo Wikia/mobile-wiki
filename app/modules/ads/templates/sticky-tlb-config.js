@@ -1,22 +1,24 @@
+import { appEvents } from '../events';
+
 export const getConfig = () => ({
   adSlot: null,
   slotParams: null,
   updateNavbarOnScroll: null,
 
   onReady() {
-    const { events } = window.Wikia.adEngine;
+    const { events, eventService } = window.Wikia.adEngine;
 
-    events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
+    eventService.on(appEvents.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
+    eventService.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
-      events.emit(events.HEAD_OFFSET_CHANGE, 0);
+      eventService.emit(appEvents.HEAD_OFFSET_CHANGE, 0);
       this.navbarElement.style.top = '';
     });
   },
 
   onInit(adSlot, params) {
-    const { events, slotService, slotTweaker } = window.Wikia.adEngine;
+    const { eventService, slotService, slotTweaker } = window.Wikia.adEngine;
 
     this.adSlot = adSlot;
     this.slotParams = params;
@@ -30,7 +32,7 @@ export const getConfig = () => ({
       this.onReady();
     });
 
-    events.emit(events.SMART_BANNER_CHANGE, false);
+    eventService.emit(appEvents.SMART_BANNER_CHANGE, false);
 
     slotService.disable('incontent_player', 'hivi-collapse');
   },
@@ -52,9 +54,12 @@ export const getConfig = () => ({
   },
 
   moveNavbar(offset) {
-    const { events } = window.Wikia.adEngine;
+    const { eventService } = window.Wikia.adEngine;
 
-    events.emit(events.HEAD_OFFSET_CHANGE, offset || this.adSlot.getElement().clientHeight);
+    eventService.emit(
+      appEvents.HEAD_OFFSET_CHANGE,
+      offset || this.adSlot.getElement().clientHeight,
+    );
     this.navbarElement.style.top = offset ? `${offset}px` : '';
   },
 });
