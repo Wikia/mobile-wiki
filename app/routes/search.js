@@ -2,6 +2,7 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { scheduleOnce } from '@ember/runloop';
+import { v4 as uuid } from 'ember-uuid';
 
 import ApplicationWrapperClassNamesMixin from '../mixins/application-wrapper-class-names';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
@@ -14,8 +15,12 @@ export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   HeadTagsDynamicMixin,
   {
-    initialPageView: service(),
+    ads: service('ads/ads'),
+    adsContextService: service('ads/search-page-ads-context'),
     i18n: service(),
+    initialPageView: service(),
+    fastboot: service(),
+    runtimeConfig: service(),
 
     queryParams: {
       query: {
@@ -27,16 +32,26 @@ export default Route.extend(
 
     init() {
       this._super(...arguments);
-      this.applicationWrapperClassNames = ['search-result-page'];
     },
 
     beforeModel() {
       this._super(...arguments);
       closedWikiHandler(this.wikiVariables);
       emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
+      this.applicationWrapperClassNames = ['search-result-page'];
     },
 
     model(params) {
+      if (this.get('fastboot.isFastBoot')) {
+        // First pageview is tracked from outside of Ember and it will only be tracked
+        // if the trackingData for the page is set in shoebox (nulls are default values as search
+        // page does not have an ID or a namespace in mobile-wiki)
+        this.get('fastboot.shoebox').put('trackingData', {
+          articleId: null,
+          namespace: null,
+        });
+      }
+
       return SearchModel
         .create(getOwner(this).ownerInjection())
         .search(params.query);
@@ -44,10 +59,19 @@ export default Route.extend(
 
     actions: {
       /**
+       * @returns {void}
+       */
+      willTransition() {
+        this.ads.beforeTransition();
+      },
+
+      /**
        * @returns {boolean}
        */
       didTransition() {
         scheduleOnce('afterRender', this, () => {
+          const controller = this.controllerFor('search');
+
           trackPageView(this.initialPageView.isInitialPageView());
 
           track({
@@ -55,7 +79,21 @@ export default Route.extend(
             category: 'app',
             label: 'search',
           });
+
+          controller.searchId = uuid();
+          controller.trackResultsImpression();
         });
+
+        if (!this.get('fastboot.isFastBoot')) {
+          this.adsContextService.getAdsContext()
+            .then((adsContext) => {
+              if (this.get('ads.module.isLoaded')) {
+                this.ads.setupAdsContext(adsContext);
+              } else {
+                this.ads.module.init(adsContext);
+              }
+            });
+        }
 
         return true;
       },

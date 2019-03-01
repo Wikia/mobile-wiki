@@ -1,9 +1,13 @@
-import targeting from './targeting';
-import pageTracker from './tracking/page-tracker';
+import { targeting } from './targeting';
+import { pageTracker } from './tracking/page-tracker';
+
+const bidPosKeyVal = 'mobile_in_content';
+const NOT_USED_STATUS = 'not_used';
 
 let config = null;
 let cheshirecatCalled = false;
 let incontentsCounter = 1;
+let defaultStatus = NOT_USED_STATUS;
 
 function getNextIncontentId() {
   return `incontent_boxad_${incontentsCounter}`;
@@ -30,14 +34,68 @@ function serializeBids(slotName) {
     bidderPrices.bidder_15 || 0,
     bidderPrices.bidder_16 || 0,
     bidderPrices.bidder_17 || 0,
+    bidderPrices.bidder_18 || 0,
   ].join(',');
 }
 
-export default {
+function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
+  const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+  let slotStatus;
+
+  switch (btlStatus) {
+    case BillTheLizard.TOO_LATE:
+    case BillTheLizard.TIMEOUT:
+    case BillTheLizard.FAILURE: {
+      const prevPrediction = billTheLizard.getPreviousPrediction(
+        incontentsCounter,
+        counter => `incontent_boxad_${counter}`,
+        'cheshirecat',
+      );
+
+      slotStatus = btlStatus;
+      if (prevPrediction !== undefined) {
+        slotStatus += `;res=${prevPrediction.result};${prevPrediction.callId}`;
+      }
+      break;
+    }
+    case BillTheLizard.ON_TIME: {
+      const prediction = billTheLizard.getPrediction('cheshirecat', callId);
+      const result = prediction ? prediction.result : undefined;
+      slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
+      break;
+    }
+    default: {
+      if (fallbackStatus === NOT_USED_STATUS) {
+        // we don't use a slot until we got response from Bill
+        return NOT_USED_STATUS;
+      }
+
+      const prevPrediction = billTheLizard.getPreviousPrediction(
+        incontentsCounter,
+        counter => `incontent_boxad_${counter}`,
+        'cheshirecat',
+      );
+
+      if (prevPrediction === undefined) {
+        // probably impossible but set in debugging purposes
+        return 'weird_cat';
+      }
+
+      slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${prevPrediction.callId}`;
+    }
+  }
+
+  return slotStatus;
+}
+
+export const billTheLizardWrapper = {
   configureBillTheLizard(instantGlobals) {
-    const { context, events, slotService } = window.Wikia.adEngine;
-    const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+    const {
+      context, events, eventService, slotService,
+    } = window.Wikia.adEngine;
+    const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let refreshedSlotNumber;
+    defaultStatus = NOT_USED_STATUS;
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -67,59 +125,25 @@ export default {
         },
       });
 
-      events.on(events.AD_SLOT_CREATED, (adSlot) => {
+      eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
         if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
-          let slotStatus;
           const callId = `incontent_boxad_${incontentsCounter}`;
-          const btlStatus = billTheLizard.getResponseStatus(callId);
 
-          switch (btlStatus) {
-            case BillTheLizard.TOO_LATE:
-            case BillTheLizard.TIMEOUT:
-            case BillTheLizard.FAILURE: {
-              const prevPrediction = billTheLizard.getPreviousPrediction(
-                incontentsCounter,
-                counter => `incontent_boxad_${counter}`,
-                'cheshirecat',
-              );
-
-              slotStatus = btlStatus;
-              if (prevPrediction !== undefined) {
-                slotStatus += `;res=${prevPrediction.result};${callId}`;
-              }
-              break;
-            }
-            case BillTheLizard.ON_TIME: {
-              const prediction = billTheLizard.getPrediction('cheshirecat', callId);
-              const result = prediction ? prediction.result : undefined;
-              slotStatus = `${BillTheLizard.ON_TIME};res=${result};${callId}`;
-              break;
-            }
-            default: {
-              const prevPrediction = billTheLizard.getPreviousPrediction(
-                incontentsCounter,
-                counter => `incontent_boxad_${counter}`,
-                'cheshirecat',
-              );
-
-              if (prevPrediction === undefined) {
-                slotStatus = BillTheLizard.NOT_USED;
-              } else {
-                slotStatus = `${BillTheLizard.REUSED};res=${prevPrediction.result};${callId}`;
-              }
-            }
-          }
-          adSlot.btlStatus = slotStatus;
+          adSlot.btlStatus = getBtlSlotStatus(
+            billTheLizard.getResponseStatus(callId),
+            callId,
+            defaultStatus,
+          );
           incontentsCounter += 1;
         }
       });
 
-      events.on(events.BIDS_REFRESH, () => {
+      eventService.on(events.BIDS_REFRESH, () => {
         cheshirecatCalled = true;
         refreshedSlotNumber = incontentsCounter;
       });
 
-      events.on(events.BILL_THE_LIZARD_REQUEST, (event) => {
+      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
         const { query, callId } = event;
         let propName = 'btl_request';
         if (callId) {
@@ -129,11 +153,12 @@ export default {
         pageTracker.trackProp(propName, query);
       });
 
-      events.on(events.BILL_THE_LIZARD_RESPONSE, (event) => {
+      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
         const { response, callId } = event;
         let propName = 'btl_response';
         if (callId) {
           propName = `${propName}_${callId}`;
+          defaultStatus = BillTheLizard.REUSED;
         }
         pageTracker.trackProp(propName, response);
       });
@@ -150,12 +175,14 @@ export default {
     const { billTheLizard } = window.Wikia.adServices;
 
     context.set('services.billTheLizard.parameters.cheshirecat', {
-      bids: serializeBids('mobile_in_content'),
+      bids: serializeBids(bidPosKeyVal),
     });
     cheshirecatCalled = true;
 
     billTheLizard.call(['cheshirecat'], callId);
   },
+
+  getBtlSlotStatus,
 
   hasAvailableModels(btlConfig, projectName) {
     const { utils } = window.Wikia.adEngine;
@@ -170,8 +197,11 @@ export default {
 
     cheshirecatCalled = false;
     incontentsCounter = 1;
+    defaultStatus = NOT_USED_STATUS;
 
     // Reset predictions from previous page views
     billTheLizard.reset();
   },
 };
+
+export default billTheLizardWrapper;

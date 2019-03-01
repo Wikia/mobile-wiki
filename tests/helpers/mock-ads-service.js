@@ -3,17 +3,27 @@ import Service from '@ember/service';
 
 export function getAdsModuleMock(adsContext) {
   let context = {
-    init() {},
-    pushSlotToQueue() {},
+    init() {
+    },
+    pushSlotToQueue() {
+    },
     onReady: cb => cb(),
-    onTransition() {},
-    reload() {},
-    afterTransition() {},
-    removeSlot() {},
-    registerActions() {},
-    waitForAdEngine() {},
-    waitForUapResponse() {},
-    onMenuOpen() {},
+    onTransition() {
+    },
+    reload() {
+    },
+    afterTransition() {
+    },
+    removeSlot() {
+    },
+    registerActions() {
+    },
+    waitForAdEngine() {
+    },
+    waitForUapResponse() {
+    },
+    onMenuOpen() {
+    },
     getAdSlotComponentAttributes: name => (
       {
         name,
@@ -35,8 +45,8 @@ export function getAdsModuleMock(adsContext) {
   return context;
 }
 
-export default function (owner) {
-  owner.register('service:ads', Service.extend({
+export function mockAdsService(owner) {
+  owner.register('service:ads/ads', Service.extend({
     init() {
       this._super(...arguments);
 
@@ -50,13 +60,20 @@ export default function (owner) {
         topLeaderBoard: 'top_leaderboard',
       };
     },
-    destroyAdSlotComponents() {},
-    pushAdSlotComponent() {},
-    addWaitFor() {},
-    getWaits() {
+    destroyAdSlotComponents() {
+    },
+    pushAdSlotComponent() {
+    },
+    addWaitFor() {
+    },
+    getWaitsOf() {
       return Promise.resolve();
     },
-    clearWaits() {},
-    fetchSearchAdsContext() {},
+    clearWaitsOf() {
+    },
+    setupAdsContext() {
+    },
   }));
 }
+
+export default mockAdsService;

@@ -1,4 +1,4 @@
-import slots from '../slots';
+import { slots } from '../slots';
 
 function getNavbarHeight() {
   const navbar = document.querySelector('.site-head-wrapper');

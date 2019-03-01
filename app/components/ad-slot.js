@@ -10,7 +10,7 @@ export default Component.extend(
   RenderComponentMixin,
   InViewportMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
 
     classNames: ['ad-slot-wrapper'],
     classNameBindings: ['nameLowerCase', 'noAds'],
@@ -68,15 +68,9 @@ export default Component.extend(
       });
     },
 
-    willDestroyElement() {
-      const name = this.name;
-
-      this.get('ads.module').removeSlot(name);
-    },
-
     /**
-   * @returns {void}
-   */
+     * @returns {void}
+     */
     didEnterViewport() {
       const ads = this.get('ads.module');
       const name = this.name;

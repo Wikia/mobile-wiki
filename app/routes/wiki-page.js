@@ -30,7 +30,7 @@ export default Route.extend(
   RouteWithAdsMixin,
   WikiPageHandlerMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     currentUser: service(),
     fastboot: service(),
     i18n: service(),

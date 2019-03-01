@@ -6,6 +6,10 @@ const PAGE_TYPES = {
   article: 'a',
   home: 'h',
 };
+const BIG_VIEWPORT_SIZE = {
+  height: 627,
+  width: 375,
+};
 
 function setSlotState(slotName, state) {
   const { slotService } = window.Wikia.adEngine;
@@ -80,7 +84,20 @@ function isIncontentPlayerApplicable() {
     && !context.get('custom.isIncontentPlayerDisabled');
 }
 
-export default {
+/**
+ * Decides if incontent_native slot should be active.
+ *
+ * @returns {boolean}
+ */
+function isIncontentNativeApplicable() {
+  const { context } = window.Wikia.adEngine;
+  const isIncontentNativeEnabled = context.get('custom.isIncontentNativeEnabled');
+  const isSearch = context.get('custom.pageType') === 'search';
+
+  return isSearch && isIncontentNativeEnabled;
+}
+
+export const slots = {
   getContext() {
     return {
       top_leaderboard: {
@@ -118,13 +135,13 @@ export default {
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
         repeat: {
-          additionalClasses: 'hide',
           index: 1,
           limit: 20,
           slotNamePattern: 'incontent_boxad_{slotConfig.repeat.index}',
@@ -138,7 +155,7 @@ export default {
         slotShortcut: 'f',
         sizes: [
           {
-            viewportSize: [375, 627],
+            viewportSize: [BIG_VIEWPORT_SIZE.width, BIG_VIEWPORT_SIZE.height],
             sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
           },
         ],
@@ -147,6 +164,7 @@ export default {
           loc: 'middle',
           pos: ['incontent_boxad', 'mobile_in_content'],
           rv: 1,
+          xna: 1,
         },
       },
       incontent_player: {
@@ -156,6 +174,7 @@ export default {
         audio: false,
         insertBeforeSelector: '.article-content > h2',
         disabled: true,
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         group: 'HiVi',
         slotShortcut: 'i',
@@ -245,6 +264,21 @@ export default {
         },
         trackingKey: 'video',
       },
+      incontent_native: {
+        firstCall: false,
+        defaultSizes: ['fluid'],
+        adProduct: 'incontent_native',
+        slotNameSuffix: '',
+        nonUapSlot: true,
+        group: 'NATIVE',
+        slotShortcut: 'n',
+        lowerSlotName: 'incontent_native',
+        sizes: [],
+        targeting: {
+          uap: 'none',
+        },
+        trackingKey: 'incontent_native',
+      },
     };
   },
 
@@ -273,6 +307,7 @@ export default {
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
     setSlotState('incontent_player', isIncontentPlayerApplicable());
+    setSlotState('incontent_native', isIncontentNativeApplicable());
   },
 
   setupIdentificators() {
@@ -306,4 +341,17 @@ export default {
 
     context.set(`slots.${adSlot.getSlotName()}.videoAdUnit`, adUnit);
   },
+
+  setupSizesAvailability() {
+    const { context } = window.Wikia.adEngine;
+
+    if (
+      window.innerHeight >= BIG_VIEWPORT_SIZE.height
+      && window.innerWidth >= BIG_VIEWPORT_SIZE.width
+    ) {
+      context.set('slots.incontent_boxad_1.targeting.xna', '0');
+    }
+  },
 };
+
+export default slots;

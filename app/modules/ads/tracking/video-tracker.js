@@ -10,13 +10,15 @@ function trackEvent(eventData) {
   ));
 }
 
-export default {
+export const videoTracker = {
   register: () => {
-    const { events } = window.Wikia.adEngine;
-    const { porvataTracker } = window.Wikia.adProducts;
+    const { eventService } = window.Wikia.adEngine;
+    const { porvataTracker, playerEvents } = window.Wikia.adProducts;
 
-    events.on(events.VIDEO_PLAYER_TRACKING_EVENT, trackEvent);
+    eventService.on(playerEvents.VIDEO_PLAYER_TRACKING_EVENT, trackEvent);
 
     porvataTracker.register();
   },
 };
+
+export default videoTracker;

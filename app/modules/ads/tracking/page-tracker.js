@@ -3,7 +3,7 @@ import { track } from '../../../utils/track';
 /**
   * Wrapper for page info warehouse tracking
   */
-export default {
+export const pageTracker = {
   /**
    * Checks whether tracker is enabled via instant global
    * @returns {boolean}
@@ -38,3 +38,5 @@ export default {
     });
   },
 };
+
+export default pageTracker;

@@ -22,16 +22,19 @@ module('Unit | Model | search result page', (hooks) => {
           batches: 1,
           items: [
             {
+              id: 123,
               title: 'test',
               snippet: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test',
             },
             {
+              id: 124,
               title: 'test sub dir',
               snippet: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test/1',
             },
             {
+              id: 125,
               title: 'test not canonical',
               snippet: '<div>html</div>test',
               url: 'http://test.wikia.com/test_2',
@@ -40,19 +43,25 @@ module('Unit | Model | search result page', (hooks) => {
         },
         expected: [
           {
+            id: 123,
             prefixedTitle: 'Test',
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test',
+            position: 0,
           },
           {
+            id: 124,
             prefixedTitle: 'Test/1',
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test sub dir',
+            position: 1,
           },
           {
+            id: 125,
             prefixedTitle: 'test_2',
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test not canonical',
+            position: 2,
           },
         ],
       },
@@ -134,6 +143,7 @@ module('Unit | Model | search result page', (hooks) => {
       batches: 1,
       items: [
         {
+          id: 123,
           title: '1',
           snippet: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
@@ -145,6 +155,8 @@ module('Unit | Model | search result page', (hooks) => {
         prefixedTitle: 'Test',
         snippet: htmlSafe('<div>html</div>test'),
         title: '1',
+        position: 0,
+        id: 123,
       },
     ]);
 
@@ -153,11 +165,13 @@ module('Unit | Model | search result page', (hooks) => {
       batches: 2,
       items: [
         {
+          id: 124,
           title: '2',
           snippet: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
         },
         {
+          id: 125,
           title: '3',
           snippet: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
@@ -166,19 +180,25 @@ module('Unit | Model | search result page', (hooks) => {
     });
     assert.deepEqual(search.items, [
       {
+        id: 123,
         prefixedTitle: 'Test',
         snippet: htmlSafe('<div>html</div>test'),
         title: '1',
+        position: 0,
       },
       {
+        id: 124,
         prefixedTitle: 'Test/1',
         snippet: htmlSafe('<div>html</div>test'),
         title: '2',
+        position: 1,
       },
       {
+        id: 125,
         prefixedTitle: 'Test_2',
         snippet: htmlSafe('<div>html</div>test'),
         title: '3',
+        position: 2,
       },
     ]);
   });

@@ -1,4 +1,5 @@
-import slots from '../slots';
+import { slots } from '../slots';
+import { appEvents } from '../events';
 
 export const getConfig = () => ({
   adSlot: null,
@@ -12,40 +13,37 @@ export const getConfig = () => ({
   ],
 
   adjustPadding(iframe, { aspectRatio }) {
-    const { events } = window.Wikia.adEngine;
+    const { eventService } = window.Wikia.adEngine;
 
     const viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const creativeHeight = iframe.contentWindow.document.body.offsetHeight;
     const height = aspectRatio ? viewPortWidth / aspectRatio : creativeHeight;
 
-    events.emit(events.HEAD_OFFSET_CHANGE, height);
+    eventService.emit(appEvents.HEAD_OFFSET_CHANGE, height);
   },
 
   onReady(iframe) {
-    const { events } = window.Wikia.adEngine;
+    const { events, eventService } = window.Wikia.adEngine;
 
     const onResize = () => {
       this.adjustPadding(iframe, this.slotParams);
     };
-    const page = document.querySelector('.application-wrapper');
 
-    page.classList.add('bfaa-template');
     this.adjustPadding(iframe, this.slotParams);
     window.addEventListener('resize', onResize);
 
-    events.on(events.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
-    events.on(events.PAGE_CHANGE_EVENT, () => {
-      page.classList.remove('bfaa-template');
+    eventService.on(appEvents.MENU_OPEN_EVENT, () => this.adSlot.emit('unstickImmediately'));
+    eventService.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
       document.body.classList.remove('vuap-loaded');
       document.body.classList.remove('has-bfaa');
       document.body.style.paddingTop = '';
-      events.emit(events.HEAD_OFFSET_CHANGE, 0);
+      eventService.emit(appEvents.HEAD_OFFSET_CHANGE, 0);
       window.removeEventListener('resize', onResize);
     });
   },
 
   onInit(adSlot, params) {
-    const { context, events, slotTweaker } = window.Wikia.adEngine;
+    const { context, eventService, slotTweaker } = window.Wikia.adEngine;
 
     this.adSlot = adSlot;
     this.slotParams = params;
@@ -63,7 +61,7 @@ export const getConfig = () => ({
       this.onReady(iframe);
     });
 
-    events.emit(events.SMART_BANNER_CHANGE, false);
+    eventService.emit(appEvents.SMART_BANNER_CHANGE, false);
   },
 
   onBeforeUnstickBfaaCallback() {
@@ -84,9 +82,12 @@ export const getConfig = () => ({
   },
 
   moveNavbar(offset) {
-    const { events } = window.Wikia.adEngine;
+    const { eventService } = window.Wikia.adEngine;
 
-    events.emit(events.HEAD_OFFSET_CHANGE, offset || this.adSlot.getElement().clientHeight);
+    eventService.emit(
+      appEvents.HEAD_OFFSET_CHANGE,
+      offset || this.adSlot.getElement().clientHeight,
+    );
     this.navbarElement.style.top = offset ? `${offset}px` : '';
   },
 });

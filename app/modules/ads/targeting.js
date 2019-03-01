@@ -162,14 +162,24 @@ function getZone(adsContext) {
   };
 }
 
-export default {
+function fillInWithNulls(object) {
+  Object.keys(object).forEach((key) => {
+    if (typeof object[key] === 'undefined') {
+      object[key] = null;
+    }
+  });
+
+  return object;
+}
+
+export const targeting = {
   getPageLevelTargeting(adsContext = {}) {
     adsContext.targeting = adsContext.targeting || {};
 
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
 
-    const targeting = {
+    const pageLevelTargeting = {
       s0: zone.site,
       s0v: adsContext.targeting.wikiVertical,
       s0c: adsContext.targeting.newWikiCategories,
@@ -189,24 +199,24 @@ export default {
     };
 
     if (window.pvNumber) {
-      targeting.pv = window.pvNumber.toString();
+      pageLevelTargeting.pv = window.pvNumber.toString();
     }
 
     const cid = window.Wikia.adEngine.utils.queryString.get('cid');
 
     if (cid !== undefined) {
-      targeting.cid = cid;
+      pageLevelTargeting.cid = cid;
     }
 
     Object.keys(legacyParams).forEach((key) => {
-      targeting[key] = legacyParams[key];
+      pageLevelTargeting[key] = legacyParams[key];
     });
 
     if (adsContext.targeting.wikiIsTop1000) {
-      targeting.top = '1k';
+      pageLevelTargeting.top = '1k';
     }
 
-    return targeting;
+    return fillInWithNulls(pageLevelTargeting);
   },
 
   getBiddersPrices(slotName, markNotRequestedPrices = true) {
@@ -247,6 +257,9 @@ export default {
       bidder_14: transformBidderPrice('pubmatic'),
       bidder_15: transformBidderPrice('beachfront'),
       bidder_17: transformBidderPrice('kargo'),
+      bidder_18: transformBidderPrice('lkqd'),
     };
   },
 };
+
+export default targeting;

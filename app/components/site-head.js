@@ -10,9 +10,10 @@ import Ads from '../modules/ads';
 export default Component.extend(
   HeadroomMixin,
   {
-    ads: service(),
+    ads: service('ads/ads'),
     smartBanner: service(),
     router: service(),
+    wikiVariables: service(),
 
     classNames: ['site-head-container'],
     classNameBindings: ['themeBar', 'partnerSlot:has-partner-slot'],
@@ -81,9 +82,47 @@ export default Component.extend(
         });
     },
 
-    onSearchSuggestionChosen({ uri }) {
+    getSearchTrackingBasePayload(suggestions, suggestionsSearchId) {
+      return {
+        enteredPhrase: suggestions[0].query,
+        suggestions: suggestions.map(suggestion => ({
+          type: 'article',
+          value: suggestion.title,
+          id: suggestion.articleId,
+        })),
+        app: 'mw-mobile',
+        siteId: this.wikiVariables.id,
+        suggestionId: suggestionsSearchId,
+        pvUniqueId: window.pvUID,
+      };
+    },
+
+    trackSearchSuggestionClick(clickedSuggestion, displayedSuggestions, suggestionSearchId) {
+      const payload = Object.assign(
+        this.getSearchTrackingBasePayload(displayedSuggestions, suggestionSearchId),
+        { positionOfClickedItem: displayedSuggestions.indexOf(clickedSuggestion) + 1 },
+      );
+
+      M.trackingQueue.push(() => window.searchTracking.trackSuggestClicked(payload));
+    },
+
+    trackSearchSuggestionsImpression(suggestions, suggestionsSearchId) {
+      const payload = this.getSearchTrackingBasePayload(suggestions, suggestionsSearchId);
+
+      M.trackingQueue.push(() => window.searchTracking.trackSuggestImpression(payload));
+    },
+
+    onSearchSuggestionChosen(clickedSuggestion, displayedSuggestions, suggestionsSearchId) {
+      const { uri } = clickedSuggestion;
+
+      this.trackSearchSuggestionClick(clickedSuggestion, displayedSuggestions, suggestionsSearchId);
       this.router.transitionTo('wiki-page', uri);
     },
+
+    onSearchSuggestionsImpression(suggestions, suggestionsSearchId) {
+      this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
+    },
+
 
     goToSearchResults(value) {
       this.router.transitionTo('search', {

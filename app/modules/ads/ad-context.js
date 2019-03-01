@@ -1,4 +1,4 @@
-export default {
+export const defaultAdContext = {
   adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
   bidders: {
@@ -136,7 +136,7 @@ export default {
         enabled: false,
         debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
         slots: {
-          mobile_in_content: {
+          incontent_player: {
             appId: 'f377a8b1-c5c0-4108-f932-0102a81ff43d',
           },
         },
@@ -173,6 +173,15 @@ export default {
               [300, 250],
             ],
             placementId: '_cGWUgEUv0T',
+          },
+        },
+      },
+      lkqd: {
+        enabled: false,
+        slots: {
+          featured: {
+            placementId: '523',
+            siteId: '892127',
           },
         },
       },
@@ -349,6 +358,8 @@ export default {
     wikiIdentifier: '_not_a_top1k_wiki',
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
+    beachfrontDfp: true,
+    lkqdDfp: false,
     rubiconDfp: true,
     pubmaticDfp: false,
   },
@@ -448,3 +459,5 @@ export default {
     },
   },
 };
+
+export default defaultAdContext;
