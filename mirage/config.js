@@ -14,6 +14,7 @@ import testAFixture from './fixtures/test-page';
 export default function () {
   this.passthrough('https://localhost/**');
 
+  this.passthrough('https://cdn.jwplayer.com/v2/media/**');
   this.passthrough('https://services.wikia-dev.pl/**');
   this.passthrough('https://services.wikia-dev.us/**');
   this.passthrough('https://services.wikia.com/**');

@@ -133,8 +133,6 @@ export const adsSetup = {
       isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
     );
 
-    context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
-
     context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
     context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
