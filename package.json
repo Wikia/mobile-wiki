@@ -108,7 +108,7 @@
     "ember-source": "3.4.1",
     "ember-test-selectors": "2.0.0",
     "ember-window-mock": "0.5.4",
-    "eslint": "5.13.0",
+    "eslint": "5.15.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-ember": "5.4.0",
     "eslint-plugin-import": "2.16.0",
