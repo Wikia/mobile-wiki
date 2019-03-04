@@ -88,9 +88,7 @@ class Ads {
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
 
     if (context.get('options.disableAdStack')) {
-      pageTracker.trackProp('adengine', 'off');
-      this.trackLabrador();
-      return;
+      this.showAds = false;
     }
 
     videoTracker.register();
