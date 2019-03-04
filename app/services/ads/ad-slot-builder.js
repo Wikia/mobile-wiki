@@ -4,6 +4,7 @@ import { getRenderComponentFor } from '../../utils/render-component';
 export default Service.extend({
   ads: service('ads/ads'),
   currentUser: service(),
+  pageHasFeaturedVideo: false,
 
   init() {
     this._super(...arguments);
@@ -23,11 +24,12 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
+    this.pageHasFeaturedVideo = !!component.featuredVideo;
 
     if (pi) {
       // inject top topLeaderBoard below infobox
       this.appendAd(adsData.topLeaderBoard, 'afterend', pi);
-    } else if (pageHeader && !this.featuredVideo) {
+    } else if (pageHeader && !this.pageHasFeaturedVideo) {
       // inject top topLeaderBoard below article header
       // but only if there is no featured video embedded
       this.appendAd(adsData.topLeaderBoard, 'afterend', pageHeader);
@@ -149,12 +151,10 @@ export default Service.extend({
     // Save waiting slots so queue can be cleared on transition
     this.waitingSlots[adSlotName] = () => {
       const placeholder = document.createElement('div');
-      const attributes = this.get('ads.module')
-        .getAdSlotComponentAttributes(adSlotName);
+      const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
+      attributes.pageHasFeaturedVideo = this.pageHasFeaturedVideo;
 
       element.insertAdjacentElement(place, placeholder);
-
-      attributes.pageHasFeaturedVideo = this.featuredVideo;
 
       this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({
         name: 'ad-slot',
