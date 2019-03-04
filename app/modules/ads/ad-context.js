@@ -323,10 +323,10 @@ export const defaultAdContext = {
         slots: {
           mobile_top_leaderboard: {
             sizes: [
-              [2, 2]
-            ]
-          }
-        }
+              [2, 2],
+            ],
+          },
+        },
       },
       wikia: {
         enabled: false,
