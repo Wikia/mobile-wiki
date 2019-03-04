@@ -85,9 +85,7 @@ export default Component.extend(
               if (!this.isDestroyed) {
                 this.adSlotBuilder.injectAds(this);
 
-                if (!ads.isArticleSectionCollapsed()) {
-                  this.uncollapseSections();
-                }
+                this.uncollapseSections();
               }
             });
           });

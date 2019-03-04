@@ -171,12 +171,6 @@ class Ads {
     };
   }
 
-  isArticleSectionCollapsed() {
-    const { context } = window.Wikia.adEngine;
-
-    return context.get('options.mobileSectionsCollapse');
-  }
-
   pushSlotToQueue(name) {
     const { context } = window.Wikia.adEngine;
 
