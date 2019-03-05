@@ -1,4 +1,3 @@
-const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
 const PAGE_TYPES = {
   article: 'a',
@@ -133,7 +132,6 @@ export const slots = {
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
-        minDistanceFromTop: MIN_ZEROTH_SECTION_LENGTH,
         repeat: {
           index: 1,
           limit: 20,

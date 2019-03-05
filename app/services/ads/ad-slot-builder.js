@@ -1,5 +1,8 @@
+import offset from '@wikia/ember-fandom/utils/offset';
 import Service, { inject as service } from '@ember/service';
 import { getRenderComponentFor } from '../../utils/render-component';
+
+const MIN_ZEROTH_SECTION_LENGTH = 700;
 
 export default Service.extend({
   ads: service('ads/ads'),
@@ -18,7 +21,9 @@ export default Service.extend({
     this.setupComponent(component);
 
     const element = this.component.element;
-    const firstSection = element.parentNode.querySelector('.article-content > h2');
+    const firstSection = Array.prototype.slice
+      .call(element.parentNode.querySelectorAll('.article-content > h2'))
+      .find(el => (offset(el).top || 0) > MIN_ZEROTH_SECTION_LENGTH);
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
     const pageHeader = document.querySelector('.wiki-page-header');
