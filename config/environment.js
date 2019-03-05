@@ -23,7 +23,7 @@ module.exports = function (environment) {
         appId: '112328095453510',
       },
       heliosTimeout: 3000,
-      baseDomainRegex: '((wikia|fandom)\\.com|(wikia|fandom)-dev\\.(com|us|pl))',
+      baseDomainRegex: '((wikia|fandom)\\.(com|org)|(wikia|fandom)-dev\\.(com|us|pl))',
       tracking: {
         ua: {
           accounts: {
@@ -65,7 +65,7 @@ module.exports = function (environment) {
       hostWhitelist: [
         /mobile-wiki-.*\.(dev|prod)\.(poz-dev|poz|sjc-dev|sjc|res)\.k8s\.wikia\.net/,
         /.*\.(wikia-dev|fandom-dev)\.(pl|us)/,
-        /.*\.wikia\.com/,
+        /.*\.wikia\.(com|org)/,
         /.*\.fandom\.com/,
         /^localhost:\d+$/,
       ],
