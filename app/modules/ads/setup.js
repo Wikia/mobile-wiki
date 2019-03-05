@@ -226,7 +226,14 @@ export const adsSetup = {
 
     if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
       insertBeforePaths.forEach((insertBeforePath) => {
-        context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+        context.set(
+          insertBeforePath,
+          [
+            context.get(insertBeforePath),
+            '.article-content > section > h3:not(:first-child)',
+            '.article-content > section > p + h4',
+          ].join(','),
+        );
       });
     }
 
