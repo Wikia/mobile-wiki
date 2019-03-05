@@ -71,6 +71,14 @@ $closeButtonHeight: 40px;
   &.slot-responsive {
     margin: 0 0 1.125rem;
   }
+
+  &.incontent-boxad {
+    margin: 2.25rem 0;
+
+    &:not(.a9-ad) {
+      margin: 2.25rem -1.5rem 2.25rem;
+    }
+  }
 }
 
 .top-leaderboard .bfaa-template,
