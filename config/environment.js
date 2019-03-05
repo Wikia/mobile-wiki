@@ -23,7 +23,7 @@ module.exports = function (environment) {
         appId: '112328095453510',
       },
       heliosTimeout: 3000,
-      baseDomainRegex: '((wikia|fandom)\\.(com|org)|(wikia|fandom)-dev\\.(com|us|pl))',
+      baseDomainRegex: '((wikia|fandom)\\.com|wikia\\.org|(wikia|fandom)-dev\\.(com|us|pl))',
       tracking: {
         ua: {
           accounts: {
