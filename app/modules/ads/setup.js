@@ -1,6 +1,5 @@
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
-import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import { slotTracker } from './tracking/slot-tracker';
@@ -218,13 +217,15 @@ export const adsSetup = {
       context.set('custom.isCMPEnabled', true);
     }
 
-    const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
+    if (
+      context.get('options.slotRepeater')
+      && isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')
+    ) {
       insertBeforePaths.forEach((insertBeforePath) => {
         context.set(
           insertBeforePath,
