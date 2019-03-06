@@ -7,7 +7,10 @@ export default BaseModel.extend({
   heroImage: null,
   fileUsageList: null,
   fileUsageListSeeMoreUrl: null,
+  redirectTo: false,
   wikiUrls: service(),
+  wikiVariables: service(),
+  currentUser: service(),
 
   /**
   * @param {Object} data
@@ -16,6 +19,7 @@ export default BaseModel.extend({
   setData({ data }) {
     this._super(...arguments);
     let pageProperties;
+    let redir = '';
 
     if (data) {
       const media = get(data, 'nsSpecificContent.media');
@@ -28,6 +32,11 @@ export default BaseModel.extend({
         fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
         fileThumbnail: media,
       };
+      if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {
+        redir = get(data, 'nsSpecificContent.anonRedir');
+        pageProperties.ns = 'redirect';
+        pageProperties.redirectTo = redir;
+      }
     }
 
     this.setProperties(pageProperties);

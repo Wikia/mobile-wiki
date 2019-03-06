@@ -13,7 +13,7 @@ module('Acceptance | Article page', (hooks) => {
 
   let adsModuleStub;
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(async function () {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
@@ -21,6 +21,9 @@ module('Acceptance | Article page', (hooks) => {
     adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
       then: cb => cb(getAdsModuleMock({})),
     });
+
+    await visit('/');
+    await visit('/wiki/Qaga2');
   });
 
   hooks.afterEach(() => {
@@ -28,16 +31,18 @@ module('Acceptance | Article page', (hooks) => {
   });
 
 
-  test('visiting Article Page', async (assert) => {
-    await visit('/');
-    await visit('/wiki/Qaga2');
-
+  test('should have correct title', async (assert) => {
     assert.dom('.wiki-page-header__title').exists();
     assert.dom('.wiki-page-header__title').hasText('Qaga2');
-    assert.dom('.section-header-label').exists();
-    assert.dom('#Test_1').doesNotHaveClass('open-section');
+  });
 
-    await click('.section-header-label');
+  test('should start with uncollapsed sections', async (assert) => {
+    assert.dom('.section-header-label').exists();
     assert.dom('#Test_1').hasClass('open-section');
+  });
+
+  test('should collapse section when clicked on section header', async (assert) => {
+    await click('.section-header-label');
+    assert.dom('#Test_1').doesNotHaveClass('open-section');
   });
 });

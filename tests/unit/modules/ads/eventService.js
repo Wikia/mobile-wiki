@@ -1,9 +1,11 @@
-export class Events {
+export const events = {
+  PAGE_RENDER_EVENT: Symbol('page_render'),
+  AD_SLOT_CREATED: Symbol('AD_SLOT_CREATED'),
+};
+
+export class EventService {
   constructor() {
     this.events = {};
-
-    this.PAGE_RENDER_EVENT = 'page_render';
-    this.AD_SLOT_CREATED = 'ad_slot_created';
   }
 
   on(eventName, eventCb) {
@@ -18,5 +20,3 @@ export class Events {
     this.events[eventName].forEach(cb => cb(...options));
   }
 }
-
-export default new Events();

@@ -9,6 +9,7 @@ export default function (owner) {
           dbName: 'fallout',
           defaultSkin: 'oasis',
           enableOnSiteNotifications: true,
+          enableFilePageRedirectsForAnons: false,
           favicon: 'https://vignette.wikia-dev.pl//images/6/64/Favicon.ico/revision/latest?cb=20120126213838',
           id: 3035,
           language: { content: 'en', contentDir: 'ltr' },

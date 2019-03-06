@@ -32,7 +32,6 @@ export function getAdsModuleMock(adsContext) {
         isAboveTheFold: false,
       }
     ),
-    isArticleSectionCollapsed: () => true,
     waitForReady(cb) {
       cb();
     },

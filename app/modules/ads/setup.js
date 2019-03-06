@@ -1,6 +1,5 @@
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
-import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import { slotTracker } from './tracking/slot-tracker';
@@ -52,15 +51,17 @@ export const adsSetup = {
     context.push('listeners.slot', viewabilityTracker);
   },
   init() {
-    const { AdEngine, context, events } = window.Wikia.adEngine;
+    const {
+      AdEngine, context, events, eventService,
+    } = window.Wikia.adEngine;
 
     const engine = new AdEngine();
 
-    events.on(
+    eventService.on(
       events.PAGE_RENDER_EVENT,
       ({ adContext, instantGlobals }) => this.setupAdContext(adContext, instantGlobals),
     );
-    events.on(events.AD_SLOT_CREATED, (slot) => {
+    eventService.on(events.AD_SLOT_CREATED, (slot) => {
       context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
       context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
     });
@@ -132,8 +133,6 @@ export const adsSetup = {
       'options.video.moatTracking.additonalParamsEnabled',
       isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
     );
-
-    context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
     context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
@@ -218,15 +217,24 @@ export const adsSetup = {
       context.set('custom.isCMPEnabled', true);
     }
 
-    const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
+    if (
+      context.get('options.slotRepeater')
+      && isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')
+    ) {
       insertBeforePaths.forEach((insertBeforePath) => {
-        context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+        context.set(
+          insertBeforePath,
+          [
+            context.get(insertBeforePath),
+            '.article-content > section > h3:not(:first-child)',
+            '.article-content > section > p + h4',
+          ].join(','),
+        );
       });
     }
 
