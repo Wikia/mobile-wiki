@@ -89,6 +89,7 @@ class Ads {
 
     if (context.get('options.disableAdStack')) {
       this.showAds = false;
+      pageTracker.trackProp('adengine', 'off');
     }
 
     videoTracker.register();
