@@ -63,6 +63,17 @@ $closeButtonHeight: 40px;
   }
 }
 
+.article-content .ad-slot-wrapper .ad-slot,
+.article-content p + .ad-slot {
+  &.incontent-boxad {
+    margin: 3rem 0;
+
+    &:not(.a9-ad) {
+      margin: 3rem -1.5rem;
+    }
+  }
+}
+
 .article-content .ad-slot {
   &:not(.a9-ad) {
     margin: 0 -1.5rem 1.125rem;
@@ -73,10 +84,10 @@ $closeButtonHeight: 40px;
   }
 
   &.incontent-boxad {
-    margin: 3rem 0;
+    margin: 0.75rem 0;
 
     &:not(.a9-ad) {
-      margin: 3rem -1.5rem;
+      margin: 0.75rem -1.5rem 3rem;
     }
   }
 }
