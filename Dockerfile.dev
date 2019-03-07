@@ -20,6 +20,9 @@ RUN addgroup -S mobile-wiki && \
     apk add --no-cache --virtual .gyp python make g++ git && \
 
 # install npm globals
+    # we are running npm install as root so we need to set unsafe-perm
+    # in order to execute all npm postinstall scripts properly
+    npm set unsafe-perm=true && \
     npm set progress=false && \
     npm install -g ember-cli && \
 
