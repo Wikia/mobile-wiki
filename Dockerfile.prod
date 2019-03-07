@@ -25,6 +25,9 @@ RUN addgroup -S mobile-wiki && \
     git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install all dependencies
+    # we are running npm install as root so we need to set unsafe-perm
+    # in order to execute all npm postinstall scripts properly
+    npm set unsafe-perm=true && \
     npm set progress=false && \
     npm run setup && \
 

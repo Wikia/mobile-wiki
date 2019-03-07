@@ -9,7 +9,7 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh 'npm ci'
+        sh 'npm install'
       }
     }
     stage('Run Tests') {
