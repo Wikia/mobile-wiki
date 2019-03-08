@@ -104,7 +104,7 @@ class Ads {
       pageTracker.trackProp('moat_yi', data);
     });
 
-    billTheLizardWrapper.configureBillTheLizard(mediaWikiAdsContext, instantGlobals);
+    billTheLizardWrapper.configureBillTheLizard(instantGlobals);
     confiant.call();
 
     this.callExternals();

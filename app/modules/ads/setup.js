@@ -106,6 +106,8 @@ export const adsSetup = {
 
     context.set('options.disableAdStack', isGeoEnabled('wgAdDriverDisableAdStackCountries'));
 
+    context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
+
     context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantGlobals.wgAdDriverPorvataMoatTrackingSampling);
 
