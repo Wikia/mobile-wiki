@@ -89,7 +89,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 }
 
 export const billTheLizardWrapper = {
-  configureBillTheLizard(instantGlobals) {
+  configureBillTheLizard(adsContext, instantGlobals) {
     const {
       context, events, eventService, slotService,
     } = window.Wikia.adEngine;
@@ -103,7 +103,10 @@ export const billTheLizardWrapper = {
       context.set('services.billTheLizard.projects', config.projects);
       context.set('services.billTheLizard.timeout', config.timeout || 0);
 
-      billTheLizard.projectsHandler.enable('cheshirecat');
+      if (adsContext.opts.enableCheshireCat === true) {
+        billTheLizard.projectsHandler.enable('cheshirecat');
+      }
+
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
         slotService.disable(getNextIncontentId(), 'catlapsed');
       });
