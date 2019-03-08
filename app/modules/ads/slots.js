@@ -1,6 +1,3 @@
-import offset from '@wikia/ember-fandom/utils/offset';
-
-const MIN_ZEROTH_SECTION_LENGTH = 700;
 const MIN_NUMBER_OF_SECTIONS = 4;
 const PAGE_TYPES = {
   article: 'a',
@@ -44,13 +41,7 @@ function isInContentApplicable() {
     return !!document.querySelector('.curated-content');
   }
 
-  const firstSection = document.querySelector('.article-content > h2');
-  const firstSectionTop = (
-    firstSection
-    && offset(firstSection).top
-  ) || 0;
-
-  return firstSectionTop > MIN_ZEROTH_SECTION_LENGTH;
+  return true;
 }
 
 function isPrefooterApplicable(inContentApplicable) {
@@ -135,7 +126,7 @@ export const slots = {
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
-        defaultClasses: ['hide'],
+        defaultClasses: ['hide', 'incontent-boxad'],
         slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
         group: 'HiVi',

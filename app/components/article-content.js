@@ -83,11 +83,9 @@ export default Component.extend(
             this.ads.setupAdsContext(this.adsContext);
             ads.onReady(() => {
               if (!this.isDestroyed) {
+                // Uncollapse sections first so that we can insert ads in correct places
+                this.uncollapseSections();
                 this.adSlotBuilder.injectAds(this);
-
-                if (!ads.isArticleSectionCollapsed()) {
-                  this.uncollapseSections();
-                }
               }
             });
           });

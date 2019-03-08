@@ -1,6 +1,5 @@
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
-import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import { slotTracker } from './tracking/slot-tracker';
@@ -105,6 +104,8 @@ export const adsSetup = {
 
     context.set('state.deviceType', utils.client.getDeviceType());
 
+    context.set('options.disableAdStack', isGeoEnabled('wgAdDriverDisableAdStackCountries'));
+
     context.set('options.video.moatTracking.enabled', isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantGlobals.wgAdDriverPorvataMoatTrackingSampling);
 
@@ -134,8 +135,6 @@ export const adsSetup = {
       'options.video.moatTracking.additonalParamsEnabled',
       isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
     );
-
-    context.set('options.mobileSectionsCollapse', !!adsContext.opts.mobileSectionsCollapse);
 
     context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
@@ -221,15 +220,24 @@ export const adsSetup = {
       context.set('custom.isCMPEnabled', true);
     }
 
-    const btlConfig = instantGlobals.wgAdDriverBillTheLizardConfig || {};
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (context.get('options.slotRepeater') && billTheLizardWrapper.hasAvailableModels(btlConfig, 'cheshirecat')) {
+    if (
+      context.get('options.slotRepeater')
+      && isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')
+    ) {
       insertBeforePaths.forEach((insertBeforePath) => {
-        context.set(insertBeforePath, `${context.get(insertBeforePath)},.article-content > section > h3`);
+        context.set(
+          insertBeforePath,
+          [
+            context.get(insertBeforePath),
+            '.article-content > section > h3:not(:first-child)',
+            '.article-content > section > p + h4',
+          ].join(','),
+        );
       });
     }
 

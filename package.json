@@ -58,7 +58,7 @@
     "method-override": "3.0.0",
     "on-headers": "1.0.2",
     "scriptjs": "2.5.9",
-    "snyk": "1.135.1",
+    "snyk": "1.136.0",
     "vignette": "github:wikia/vignette-js#2.7.1",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
@@ -108,7 +108,7 @@
     "ember-source": "3.4.1",
     "ember-test-selectors": "2.0.0",
     "ember-window-mock": "0.5.4",
-    "eslint": "5.13.0",
+    "eslint": "5.15.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-ember": "5.4.0",
     "eslint-plugin-import": "2.16.0",
@@ -122,7 +122,7 @@
     "sass": "1.17.2",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
-    "tslint": "5.13.0",
+    "tslint": "5.13.1",
     "typescript": "3.3.3333"
   },
   "ember-addon": {
