@@ -214,7 +214,7 @@ export const adsSetup = {
 
       context.set('bidders.prebid.bidsRefreshing.enabled', context.get('options.slotRepeater'));
       context.set('custom.rubiconInFV',
-        isGeoEnabled('wgAdDriverRubiconVideoInFeaturedVideoCountries') && hasFeaturedVideo);
+        isGeoEnabled('wgAdDriverRubiconPrebidCountries') && hasFeaturedVideo);
       context.set('custom.isCMPEnabled', true);
     }
 
