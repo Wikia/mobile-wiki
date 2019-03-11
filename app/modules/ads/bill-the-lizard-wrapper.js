@@ -109,6 +109,8 @@ export const billTheLizardWrapper = {
         slotService.disable(getNextIncontentId(), 'catlapsed');
 
         utils.logger(logGroup, `catlapsing ${getNextIncontentId()}`);
+        // eslint-disable-next-line no-console
+        console.log(`catlapsing ${getNextIncontentId()}`);
       });
 
       context.set(
