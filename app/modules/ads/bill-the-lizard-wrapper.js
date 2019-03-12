@@ -3,6 +3,7 @@ import { pageTracker } from './tracking/page-tracker';
 
 const bidPosKeyVal = 'mobile_in_content';
 const NOT_USED_STATUS = 'not_used';
+const logGroup = 'bill-the-lizard-wrapper';
 
 let config = null;
 let cheshirecatCalled = false;
@@ -91,7 +92,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 export const billTheLizardWrapper = {
   configureBillTheLizard(instantGlobals) {
     const {
-      context, events, eventService, slotService,
+      context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let refreshedSlotNumber;
@@ -106,6 +107,8 @@ export const billTheLizardWrapper = {
       billTheLizard.projectsHandler.enable('cheshirecat');
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
         slotService.disable(getNextIncontentId(), 'catlapsed');
+
+        utils.logger(logGroup, `catlapsing ${getNextIncontentId()}`);
       });
 
       context.set(

@@ -6,10 +6,10 @@ pipeline {
   stages {
     stage('npm ci') {
       options {
-        timeout(time: 5, unit: 'MINUTES')
+        timeout(time: 10, unit: 'MINUTES')
       }
       steps {
-        sh 'npm ci'
+        sh 'npm install'
       }
     }
     stage('Run Tests') {

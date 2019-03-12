@@ -36,7 +36,10 @@ body:not(.featured-video-on-scroll-active) .with-smart-banner .site-head-headroo
 .has-partner-slot {
   .site-head-wrapper,
   .wds-global-navigation {
-    height: $site-head-with-partner-slot-height;
+    // @see IW-1694
+    @media #{$wds-breakpoint-s-only} {
+      height: $site-head-with-partner-slot-height;
+    }
   }
 }
 

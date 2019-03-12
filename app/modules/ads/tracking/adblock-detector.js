@@ -12,11 +12,11 @@ class AdBlockDetector {
 
   run() {
     // Global imports:
-    const { checkBlocking } = window.Wikia.adEngine.utils.client;
+    const { client } = window.Wikia.adEngine.utils;
     // End of imports
 
     if (!this.detectionCompleted) {
-      checkBlocking(
+      client.checkBlocking(
         () => this.trackBlocking(true),
         () => this.trackBlocking(false),
       );
