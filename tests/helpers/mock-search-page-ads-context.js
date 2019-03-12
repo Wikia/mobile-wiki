@@ -13,6 +13,7 @@ export default function (owner) {
           adsInContent: 1,
           delayBtf: true,
           enableAdsInMaps: true,
+          enableCheshireCat: false,
           pageType: 'search',
           showAds: true,
           isAdTestWiki: true,
