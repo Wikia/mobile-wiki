@@ -104,7 +104,12 @@ export const billTheLizardWrapper = {
       context.set('services.billTheLizard.projects', config.projects);
       context.set('services.billTheLizard.timeout', config.timeout || 0);
 
-      billTheLizard.projectsHandler.enable('cheshirecat');
+      const enableCheshireCat = context.get('options.billTheLizard.cheshireCat');
+
+      if (enableCheshireCat === true) {
+        billTheLizard.projectsHandler.enable('cheshirecat');
+      }
+
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
         slotService.disable(getNextIncontentId(), 'catlapsed');
 
