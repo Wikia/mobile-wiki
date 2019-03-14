@@ -183,6 +183,10 @@ export const defaultAdContext = {
             placementId: '523',
             siteId: '892127',
           },
+          incontent_player: {
+            placementId: '523',
+            siteId: '892129',
+          },
         },
       },
       onemobile: {
@@ -238,6 +242,14 @@ export const defaultAdContext = {
             ],
             ids: [
               '1636187@0x0',
+            ],
+          },
+          incontent_player: {
+            sizes: [
+              [0, 0],
+            ],
+            ids: [
+              '1636188@0x0',
             ],
           },
           mobile_top_leaderboard: {
