@@ -16,40 +16,40 @@ $outstream-button-sound-off: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D
 $vpaid-z-index: 10;
 $controls-z-index: 11;
 
-.ad-slot {
+.ad-slot.porvata3 {
   .video-overlay {
     @include absolute-fill();
-  }
 
-  .video-display-wrapper {
-    position: relative;
+    .video-display-wrapper {
+      position: relative;
 
-    video,
-    &.vpaid-enabled > div {
-      @include absolute-fill();
-    }
+      video,
+      &.vpaid-enabled > div {
+        @include absolute-fill();
+      }
 
-    &.vpaid-enabled {
-      .video-player > div {
-        pointer-events: none;
+      &.vpaid-enabled {
+        .video-player > div {
+          pointer-events: none;
 
-        video {
-          pointer-events: auto;
+          video {
+            pointer-events: auto;
+          }
+        }
+
+        & > div {
+          left: 50%;
+          transform: translate(-50%, 0);
         }
       }
 
-      & > div {
+      .video-player {
+        background: #000;
         left: 50%;
+        margin: 0 auto;
+        pointer-events: auto;
         transform: translate(-50%, 0);
       }
-    }
-
-    .video-player {
-      background: #000;
-      left: 50%;
-      margin: 0 auto;
-      pointer-events: auto;
-      transform: translate(-50%, 0);
     }
   }
 }
