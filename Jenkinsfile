@@ -9,6 +9,7 @@ pipeline {
         timeout(time: 15, unit: 'MINUTES')
       }
       steps {
+        sh 'npm set progress=false'
         sh 'npm install'
       }
     }
