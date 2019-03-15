@@ -91,6 +91,3 @@ node('docker-daemon') {
         }
     }
 }
-
-
-
