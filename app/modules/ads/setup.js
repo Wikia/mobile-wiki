@@ -221,6 +221,14 @@ export const adsSetup = {
       context.set('custom.rubiconInFV',
         isGeoEnabled('wgAdDriverRubiconPrebidCountries') && hasFeaturedVideo);
       context.set('custom.isCMPEnabled', true);
+
+      if (!isGeoEnabled('wgAdDriverLkqdOutstreamCountries')) {
+        context.remove('bidders.prebid.lkqd.slots.incontent_player');
+      }
+
+      if (!isGeoEnabled('wgAdDriverPubMaticOutstreamCountries')) {
+        context.remove('bidders.prebid.pubmatic.slots.incontent_player');
+      }
     }
 
     const insertBeforePaths = [

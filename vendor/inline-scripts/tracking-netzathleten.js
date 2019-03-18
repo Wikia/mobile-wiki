@@ -10,10 +10,16 @@
 
         script.id = 'Wikia_container';
         script.src = config.url;
-        script.addEventListener('load', function () {
-          window.naMediaAd.setValue('homesite',
-            Boolean(M.getFromHeadDataStore('isMainPage')));
-        });
+        script.addEventListener(
+          'load',
+          function () {
+            if (window.naMediaAd) {
+              window.naMediaAd.setValue('homesite', Boolean(M.getFromHeadDataStore('isMainPage')));
+            } else {
+              console.warn('window.naMediaAd has not been loaded.');
+            }
+          },
+        );
         document.head.appendChild(script);
       }
 

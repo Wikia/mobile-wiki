@@ -138,10 +138,6 @@ export default Service.extend({
         }),
       );
     }
-
-    if (wikiContainer) {
-      this.appendAd(adsData.invisibleHighImpact, 'afterend', wikiContainer);
-    }
   },
 
   /**

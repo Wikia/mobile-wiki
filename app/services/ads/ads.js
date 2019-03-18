@@ -26,7 +26,6 @@ export default Service.extend({
       waits: {},
       slotNames: {
         bottomLeaderBoard: 'bottom_leaderboard',
-        invisibleHighImpact: 'invisible_high_impact',
         invisibleHighImpact2: 'invisible_high_impact_2',
         mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
