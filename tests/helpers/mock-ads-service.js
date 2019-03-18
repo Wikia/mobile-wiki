@@ -52,7 +52,6 @@ export function mockAdsService(owner) {
       this.module = getAdsModuleMock();
       this.slotNames = {
         bottomLeaderBoard: 'bottom_leaderboard',
-        invisibleHighImpact: 'invisible_high_impact',
         invisibleHighImpact2: 'invisible_high_impact_2',
         mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
