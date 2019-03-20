@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-/* eslint no-console: 0 */
 import { Promise } from 'rsvp';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
@@ -267,7 +266,12 @@ class Ads {
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
     const { context } = window.Wikia.adEngine;
-    const { geoEdge, krux, moatYi, nielsen } = window.Wikia.adServices;
+    const {
+      geoEdge,
+      krux,
+      moatYi,
+      nielsen,
+    } = window.Wikia.adServices;
 
     const targeting = context.get('targeting');
 

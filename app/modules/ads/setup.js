@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
 import { biddersDelayer } from './bidders-delayer';
@@ -30,7 +31,12 @@ export const adsSetup = {
    */
   configure(adsContext, instantGlobals, isOptedIn) {
     const { bidders } = window.Wikia.adBidders;
-    const { context, events, eventService, templateService } = window.Wikia.adEngine;
+    const {
+      context,
+      events,
+      eventService,
+      templateService,
+    } = window.Wikia.adEngine;
     const {
       utils: adProductsUtils,
       BigFancyAdAbove,
@@ -57,8 +63,8 @@ export const adsSetup = {
     context.push('listeners.slot', fanTakeoverResolver);
     context.push('listeners.slot', viewabilityTracker);
 
-    eventService.on(events.PAGE_RENDER_EVENT, ({ adContext, instantGlobals }) => {
-      this.setupAdContext(adContext, instantGlobals, isOptedIn)
+    eventService.on(events.PAGE_RENDER_EVENT, (eventData) => {
+      this.setupAdContext(eventData.adContext, eventData.instantGlobals, isOptedIn);
     });
     eventService.on(events.AD_SLOT_CREATED, (slot) => {
       console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -93,8 +99,8 @@ export const adsSetup = {
 
     isGeoEnabled('wgAdDriverLABradorTestCountries');
 
-    const isAdStackEnabled = !isGeoEnabled('wgAdDriverDisableAdStackCountries') &&
-      adsContext.opts.pageType !== 'no_ads';
+    const isAdStackEnabled = !isGeoEnabled('wgAdDriverDisableAdStackCountries')
+      && adsContext.opts.pageType !== 'no_ads';
 
     context.set('slots', slots.getContext());
 
