@@ -48,10 +48,6 @@ class Ads {
   }
 
   init(mediaWikiAdsContext = {}) {
-    if (this.isLoaded) {
-      return;
-    }
-
     this.getInstantGlobals()
       .then((instantGlobals) => {
         M.trackingQueue.push(
@@ -84,6 +80,10 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
+    if (this.isLoaded) {
+      return;
+    }
+
     const { utils } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals;
