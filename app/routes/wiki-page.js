@@ -120,12 +120,12 @@ export default Route.extend(
      */
     afterModel(model, transition) {
       this._super(...arguments);
-
       if (model) {
         const fastboot = this.fastboot;
         const wikiUrls = this.wikiUrls;
         const handler = this.getHandler(model);
         let redirectTo = model.get('redirectTo');
+        let surrogateKeys = model.get('surrogateKeys');
 
         if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
@@ -180,6 +180,7 @@ export default Route.extend(
 
           handler.afterModel(this, ...arguments);
         } else {
+
           if (!redirectTo) {
             redirectTo = wikiUrls.build({
               host: this.get('wikiVariables.host'),
@@ -190,6 +191,12 @@ export default Route.extend(
                 { useskin: 'oasis' },
               ),
             });
+          } else {
+            if(surrogateKeys){
+              surrogateKeys.forEach( function(key) {
+                fastboot.get('response.headers').append('Surrogate-Key', key);
+              } );
+            }
           }
 
           if (fastboot.get('isFastBoot')) {
