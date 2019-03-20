@@ -299,7 +299,7 @@ export const defaultAdContext = {
           },
         },
       },
-      rubiconDisplay: {
+      rubicon_display: {
         enabled: false,
         accountId: 7450,
         slots: {
