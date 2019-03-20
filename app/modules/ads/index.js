@@ -5,7 +5,6 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
-import { videoTracker } from './tracking/video-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
@@ -16,11 +15,11 @@ let adsPromise = null;
 
 class Ads {
   constructor() {
+    this.enabled = true;
     this.engine = null;
     this.instantGlobals = null;
     this.isLoaded = false;
     this.onReadyCallbacks = [];
-    this.showAds = true;
   }
 
   static getInstance() {
@@ -62,6 +61,16 @@ class Ads {
       });
   }
 
+  isAdStackEnabled() {
+    const { context } = window.Wikia.adEngine;
+
+    if (context.get('state.disableAdStack')) {
+      return false;
+    }
+
+    return this.enabled;
+  }
+
   /**
    * @private
    */
@@ -76,40 +85,12 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    const {
-      context, events, eventService, utils,
-    } = window.Wikia.adEngine;
-    const { bidders } = window.Wikia.adBidders;
-    const { confiant, moatYiEvents } = window.Wikia.adServices;
+    const { utils } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals;
-    this.showAds = this.showAds && mediaWikiAdsContext.opts.pageType !== 'no_ads';
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-
-    if (context.get('options.disableAdStack')) {
-      this.showAds = false;
-      pageTracker.trackProp('adengine', 'off');
-    }
-
-    videoTracker.register();
-
-    context.push('delayModules', biddersDelayer);
-
-    eventService.on(events.AD_SLOT_CREATED, (slot) => {
-      console.info(`Created ad slot ${slot.getSlotName()}`);
-      bidders.updateSlotTargeting(slot.getSlotName());
-    });
-    eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
-      pageTracker.trackProp('moat_yi', data);
-    });
-
-    billTheLizardWrapper.configureBillTheLizard(instantGlobals);
-    confiant.call();
-
-    this.callExternals();
-    this.startAdEngine();
-    this.callLateExternals();
+    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    this.triggerAfterPageRenderServices();
 
     this.isLoaded = true;
     utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
@@ -120,9 +101,20 @@ class Ads {
    * @private
    */
   startAdEngine() {
-    if (this.showAds) {
-      this.engine = adsSetup.init();
+    const { AdEngine } = window.Wikia.adEngine;
+
+    if (!this.isAdStackEnabled()) {
+      fanTakeoverResolver.resolve();
+      return;
+    }
+
+    if (!this.engine) {
+      this.engine = new AdEngine();
+      this.engine.init();
+
       this.loadGoogleTag();
+    } else {
+      this.engine.runAdQueue();
     }
   }
 
@@ -136,16 +128,14 @@ class Ads {
   finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
-    if (this.showAds) {
-      btfBlockerService.finishFirstCall();
-      fanTakeoverResolver.resolve();
-    }
+    btfBlockerService.finishFirstCall();
+    fanTakeoverResolver.resolve();
   }
 
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
-    if (this.showAds) {
+    if (this.isAdStackEnabled()) {
       return jwplayerAdsFactory.create(options);
     }
 
@@ -198,14 +188,8 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { universalAdPackage } = window.Wikia.adProducts;
 
-    utils.resetSamplingCache();
-    utils.readSessionId();
-    universalAdPackage.reset();
-    fanTakeoverResolver.reset();
-    billTheLizardWrapper.reset();
-    this.callExternals();
+    this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
 
@@ -239,60 +223,90 @@ class Ads {
       instantGlobals: this.instantGlobals,
     });
 
-    this.callLateExternals();
+    this.triggerAfterPageRenderServices();
 
-    if (this.showAds) {
-      this.engine.runAdQueue();
-    }
     utils.logger(logGroup, 'after transition');
   }
 
   /**
    * @private
+   * This trigger is executed once, at the very beginning
    */
-  callExternals() {
+  triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
+    const { eventService } = window.Wikia.adEngine;
+    const { confiant, moatYiEvents } = window.Wikia.adServices;
+
+    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    confiant.call();
+
+    eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
+      pageTracker.trackProp('moat_yi', data);
+    });
+  }
+
+  /**
+   * @private
+   * This trigger is executed before ember start the transition
+   */
+  triggerBeforePageChangeServices() {
+    const { utils } = window.Wikia.adEngine;
+    const { universalAdPackage } = window.Wikia.adProducts;
+
+    utils.resetSamplingCache();
+    utils.readSessionId();
+    universalAdPackage.reset();
+    fanTakeoverResolver.reset();
+    billTheLizardWrapper.reset();
+  }
+
+  /**
+   * @private
+   * This trigger is executed after the new page is rendered
+   * Context service is fully configured at this moment
+   */
+  triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
-    const { geoEdge, krux, moatYi } = window.Wikia.adServices;
+    const { context } = window.Wikia.adEngine;
+    const { geoEdge, krux, moatYi, nielsen } = window.Wikia.adServices;
+
+    const targeting = context.get('targeting');
 
     biddersDelayer.resetPromise();
     bidders.requestBids({
       responseListener: biddersDelayer.markAsReady,
     });
 
+    this.startAdEngine();
+
     geoEdge.call();
     krux.call();
     moatYi.call();
-  }
-
-  /**
-   * @private
-   */
-  callLateExternals() {
-    const { context } = window.Wikia.adEngine;
-    const { nielsen } = window.Wikia.adServices;
-
-    const targeting = context.get('targeting');
-
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
     adblockDetector.run();
-    this.trackLabrador();
+    this.triggerPageTracking();
   }
 
   /**
    * @private
    */
-  trackLabrador() {
-    const { utils } = window.Wikia.adEngine;
+  triggerPageTracking() {
+    const { context, utils } = window.Wikia.adEngine;
 
     // Track Labrador values to DW
     const labradorPropValue = utils.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
+      utils.logger(logGroup, 'labrador props', labradorPropValue);
+    }
+
+    if (context.get('state.disableAdStack')) {
+      pageTracker.trackProp('adengine', 'off');
+      utils.logger(logGroup, 'ad stack is disabled');
     }
   }
 
@@ -323,7 +337,7 @@ class Ads {
   waitForVideoBidders() {
     const { context, utils } = window.Wikia.adEngine;
 
-    if (!this.showAds) {
+    if (!this.isAdStackEnabled()) {
       return Promise.resolve();
     }
 

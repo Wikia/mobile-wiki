@@ -8,16 +8,6 @@ const BIG_VIEWPORT_SIZE = {
   width: 375,
 };
 
-function setSlotState(slotName, state) {
-  const { slotService } = window.Wikia.adEngine;
-
-  if (state) {
-    slotService.enable(slotName);
-  } else {
-    slotService.disable(slotName);
-  }
-}
-
 function isTopLeaderboardApplicable() {
   const { context } = window.Wikia.adEngine;
 
@@ -271,10 +261,16 @@ export const slots = {
     slot.setConfigProperty('targeting.ctp', clickToPlaySuffix ? 'yes' : 'no');
   },
 
-  setupStates() {
-    const { context } = window.Wikia.adEngine;
-
+  setupStates(isAdStackEnabled) {
+    const { context, slotService } = window.Wikia.adEngine;
     const incontentState = isInContentApplicable();
+    const setSlotState = (slotName, state) => {
+      if (isAdStackEnabled && state) {
+        slotService.enable(slotName);
+      } else {
+        slotService.disable(slotName);
+      }
+    };
 
     setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     setSlotState('mobile_in_content', incontentState);
