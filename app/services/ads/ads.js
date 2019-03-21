@@ -35,7 +35,7 @@ export default Service.extend({
     });
 
     if (!this.fastboot.isFastBoot) {
-      this.module.showAds = !this.noAds;
+      this.module.enabled = !this.noAds;
     }
   },
 

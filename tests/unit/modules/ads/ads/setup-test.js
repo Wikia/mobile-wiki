@@ -15,9 +15,27 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdEngine() {
         this.init = () => {};
       },
-      context: {},
+      context: {
+        get: () => {},
+        push: () => {},
+      },
       events,
       eventService,
+      templateService: {
+        register: () => {},
+      },
+    };
+    window.Wikia.adBidders = {};
+    window.Wikia.adProducts = {
+      utils: {
+        setupNpaContext: () => {},
+      },
+      playerEvents: {
+        VIDEO_PLAYER_TRACKING_EVENT: Symbol('VIDEO_PLAYER_TRACKING_EVENT'),
+      },
+      porvataTracker: {
+        register: () => {},
+      },
     };
 
     const fake = sinon.fake.returns({});
@@ -29,7 +47,7 @@ module('Unit | Module | ads | setup', (hooks) => {
   });
 
   test('setupAdContext is called when page render event happens', (assert) => {
-    adsSetup.init();
+    adsSetup.configure();
 
     const adContext = { a: 'a' };
     const instantGlobals = { b: 'b' };
@@ -39,9 +57,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       { adContext, instantGlobals },
     );
 
-    assert.equal(adsSetup.setupAdContext.callCount, 1);
+    assert.equal(adsSetup.setupAdContext.callCount, 2);
 
-    assert.deepEqual(adsSetup.setupAdContext.getCall(0).args[0], adContext);
-    assert.deepEqual(adsSetup.setupAdContext.getCall(0).args[1], instantGlobals);
+    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[0], adContext);
+    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[1], instantGlobals);
   });
 });
