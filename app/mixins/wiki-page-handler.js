@@ -72,7 +72,8 @@ export default Mixin.create({
       params.noexternals = this.get('fastboot.request.queryParams.noexternals');
 
       const url = getURL(this.wikiUrls, params);
-
+      console.log(url);
+      console.log(this.fetch.getOptionsForInternalCache(url));
       return this.fetch.fetchFromMediawiki(url, WikiPageFetchError)
         .then((data) => {
           if (isFastBoot) {
