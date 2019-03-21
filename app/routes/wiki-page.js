@@ -186,7 +186,6 @@ export default Route.extend(
 
           handler.afterModel(this, ...arguments);
         } else {
-
           if (!redirectTo) {
             redirectTo = wikiUrls.build({
               host: this.get('wikiVariables.host'),
