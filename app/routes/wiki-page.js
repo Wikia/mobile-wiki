@@ -130,7 +130,12 @@ export default Route.extend(
         if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
-
+        if (fastboot.get('isFastBoot')) {
+          if(surrogateKeys){
+            surrogateKeys.forEach( function(key) {
+            fastboot.get('response.headers').append('Surrogate-Key', key);
+           } );
+         }
         if (handler) {
           scheduleOnce('afterRender', () => {
             // Tracking has to happen after transition is done.
@@ -191,12 +196,6 @@ export default Route.extend(
                 { useskin: 'oasis' },
               ),
             });
-          } else {
-            if(surrogateKeys){
-              surrogateKeys.forEach( function(key) {
-                fastboot.get('response.headers').append('Surrogate-Key', key);
-              } );
-            }
           }
 
           if (fastboot.get('isFastBoot')) {
