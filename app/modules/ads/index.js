@@ -127,8 +127,10 @@ class Ads {
   finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
-    btfBlockerService.finishFirstCall();
-    fanTakeoverResolver.resolve();
+    if (this.isAdStackEnabled()) {
+      btfBlockerService.finishFirstCall();
+      fanTakeoverResolver.resolve();
+    }
   }
 
   createJWPlayerVideoAds(options) {
