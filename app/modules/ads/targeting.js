@@ -162,6 +162,14 @@ function getZone(adsContext) {
   };
 }
 
+function getLikhoParams() {
+  let likhoStorage = JSON.parse(localStorage.getItem('likho')) || [];
+
+  likhoStorage = likhoStorage.filter(item => item.expirationTime > Date.now());
+  localStorage.setItem('likho', JSON.stringify(likhoStorage));
+  return likhoStorage.map(item => item.likhoType);
+}
+
 function fillInWithNulls(object) {
   Object.keys(object).forEach((key) => {
     if (typeof object[key] === 'undefined') {
@@ -196,6 +204,7 @@ export const targeting = {
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.getCountryCode() || 'none',
+      likho: getLikhoParams(),
     };
 
     if (window.pvNumber) {
