@@ -131,11 +131,12 @@ export default Route.extend(
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
         if (fastboot.get('isFastBoot')) {
-          if(surrogateKeys){
-            surrogateKeys.forEach( function(key) {
-            fastboot.get('response.headers').append('Surrogate-Key', key);
-           } );
-         }
+            if (surrogateKeys) {
+                 surrogateKeys.forEach(function (key) {
+                    fastboot.get('response.headers').append('Surrogate-Key', key);
+                 });
+            }
+        }
         if (handler) {
           scheduleOnce('afterRender', () => {
             // Tracking has to happen after transition is done.
