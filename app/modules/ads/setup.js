@@ -242,11 +242,17 @@ export const adsSetup = {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
       }
 
-      const unbiddedSlotName = hasFeaturedVideo ? 'incontent_player' : 'featured';
-      const videoBidders = ['appnexusAst', 'beachfront', 'lkqd', 'pubmatic', 'rubicon'];
+      const notBiddedSlotName = hasFeaturedVideo ? 'incontent_player' : 'featured';
+      const videoBidders = [];
+
+      Object.keys(context.get('bidders.prebid')).forEach((bidder) => {
+        if (context.get(`bidders.prebid.${bidder}.videoBidder`)) {
+          videoBidders.push(bidder);
+        }
+      });
 
       videoBidders.forEach((bidder) => {
-        context.remove(`bidders.prebid.${bidder}.slots.${unbiddedSlotName}`);
+        context.remove(`bidders.prebid.${bidder}.slots.${notBiddedSlotName}`);
       });
     }
 

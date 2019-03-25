@@ -12,6 +12,7 @@ export const defaultAdContext = {
       },
       dealsEnabled: false,
       enabled: false,
+      videoBidder: true,
       videoEnabled: false,
       slots: {
         mobile_top_leaderboard: {
@@ -99,6 +100,7 @@ export const defaultAdContext = {
       },
       appnexusAst: {
         enabled: false,
+        videoBidder: true,
         debugPlacementId: '5768085',
         slots: {
           featured: {
@@ -134,6 +136,7 @@ export const defaultAdContext = {
       },
       beachfront: {
         enabled: false,
+        videoBidder: true,
         debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
         slots: {
           incontent_player: {
@@ -178,6 +181,7 @@ export const defaultAdContext = {
       },
       lkqd: {
         enabled: false,
+        videoBidder: true,
         slots: {
           featured: {
             placementId: '523',
@@ -234,6 +238,7 @@ export const defaultAdContext = {
       },
       pubmatic: {
         enabled: false,
+        videoBidder: true,
         publisherId: '156260',
         slots: {
           featured: {
@@ -283,6 +288,7 @@ export const defaultAdContext = {
       },
       rubicon: {
         enabled: false,
+        videoBidder: true,
         accountId: 7450,
         slots: {
           featured: {
@@ -362,6 +368,7 @@ export const defaultAdContext = {
       },
       wikiaVideo: {
         enabled: false,
+        videoBidder: true,
         slots: {
           featured: {
             videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
