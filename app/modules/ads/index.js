@@ -300,19 +300,46 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
-    const { context, utils } = window.Wikia.adEngine;
+    this.trackLabradorToDW();
+    this.trackDisableAdStackToDW();
+    this.trackLikhoToDW();
+  }
 
-    // Track Labrador values to DW
+  /**
+   * @private
+   */
+  trackLabradorToDW() {
+    const { utils } = window.Wikia.adEngine;
     const labradorPropValue = utils.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
     }
+  }
+
+  /**
+   * @private
+   */
+  trackDisableAdStackToDW() {
+    const { context, utils } = window.Wikia.adEngine;
 
     if (context.get('state.disableAdStack')) {
       pageTracker.trackProp('adengine', 'off');
       utils.logger(logGroup, 'ad stack is disabled');
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackLikhoToDW() {
+    const { context, utils } = window.Wikia.adEngine;
+    const likhoPropValue = context.get('tracking.likho');
+
+    if (likhoPropValue) {
+      pageTracker.trackProp('likho', likhoPropValue);
+      utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
 
