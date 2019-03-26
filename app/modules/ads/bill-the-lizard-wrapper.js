@@ -1,6 +1,7 @@
 import { targeting } from './targeting';
 import { pageTracker } from './tracking/page-tracker';
 
+const AD_SLOT_CATLAPSED_STATUS = 'catlapsed';
 const bidPosKeyVal = 'mobile_in_content';
 const NOT_USED_STATUS = 'not_used';
 const logGroup = 'bill-the-lizard-wrapper';
@@ -111,11 +112,14 @@ export const billTheLizardWrapper = {
       }
 
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-        slotService.disable(getNextIncontentId(), 'catlapsed');
+        const slotNameToCatlapse = getNextIncontentId();
 
-        utils.logger(logGroup, `catlapsing ${getNextIncontentId()}`);
-        // eslint-disable-next-line no-console
-        console.log(`catlapsing ${getNextIncontentId()}`);
+        slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
+          utils.logger(logGroup, `catlapsing ${slotNameToCatlapse}`);
+          // eslint-disable-next-line no-console
+          console.log(`catlapsing ${slotNameToCatlapse}`);
+        });
+        slotService.disable(getNextIncontentId(), AD_SLOT_CATLAPSED_STATUS);
       });
 
       context.set(
