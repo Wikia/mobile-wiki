@@ -87,7 +87,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
-    likho,
+    likho: likho.join(';'),
     btl: slot.btlStatus,
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),

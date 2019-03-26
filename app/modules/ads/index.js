@@ -335,10 +335,10 @@ class Ads {
    */
   trackLikhoToDW() {
     const { context, utils } = window.Wikia.adEngine;
-    const likhoPropValue = context.get('tracking.likho');
+    const likhoPropValue = context.get('targeting.likho') || [];
 
-    if (likhoPropValue) {
-      pageTracker.trackProp('likho', likhoPropValue);
+    if (likhoPropValue.length) {
+      pageTracker.trackProp('likho', likhoPropValue.join(';'));
       utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
