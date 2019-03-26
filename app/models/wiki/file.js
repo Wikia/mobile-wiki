@@ -30,6 +30,7 @@ export default BaseModel.extend({
         fileUsageList: get(data, 'nsSpecificContent.fileUsageList')
           .map(item => this.prepareFileUsageItem(item)),
         fileUsageListSeeMoreUrl: get(data, 'nsSpecificContent.fileUsageListSeeMoreUrl'),
+        surrogateKeys: get(data, 'surrogateKeys'),
         fileThumbnail: media,
       };
       if (!this.get('currentUser.isAuthenticated') && this.get('wikiVariables.enableFilePageRedirectsForAnons')) {

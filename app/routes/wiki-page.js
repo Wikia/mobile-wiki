@@ -120,17 +120,23 @@ export default Route.extend(
      */
     afterModel(model, transition) {
       this._super(...arguments);
-
       if (model) {
         const fastboot = this.fastboot;
         const wikiUrls = this.wikiUrls;
         const handler = this.getHandler(model);
         let redirectTo = model.get('redirectTo');
+        let surrogateKeys = model.get('surrogateKeys');
 
         if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
-
+        if (fastboot.get('isFastBoot')) {
+            if (surrogateKeys) {
+                 surrogateKeys.forEach(function (key) {
+                    fastboot.get('response.headers').append('Surrogate-Key', key);
+                 });
+            }
+        }
         if (handler) {
           scheduleOnce('afterRender', () => {
             // Tracking has to happen after transition is done.
