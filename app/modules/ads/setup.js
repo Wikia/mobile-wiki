@@ -1,8 +1,12 @@
+/* eslint no-console: 0 */
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
+import { biddersDelayer } from './bidders-delayer';
+import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import { slotTracker } from './tracking/slot-tracker';
+import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
 import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
@@ -22,8 +26,17 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 }
 
 export const adsSetup = {
+  /**
+   * Configures all ads services
+   */
   configure(adsContext, instantGlobals, isOptedIn) {
-    const { context, templateService } = window.Wikia.adEngine;
+    const { bidders } = window.Wikia.adBidders;
+    const {
+      context,
+      events,
+      eventService,
+      templateService,
+    } = window.Wikia.adEngine;
     const {
       utils: adProductsUtils,
       BigFancyAdAbove,
@@ -49,27 +62,24 @@ export const adsSetup = {
     context.push('listeners.slot', slotTracker);
     context.push('listeners.slot', fanTakeoverResolver);
     context.push('listeners.slot', viewabilityTracker);
-  },
-  init() {
-    const {
-      AdEngine, context, events, eventService,
-    } = window.Wikia.adEngine;
 
-    const engine = new AdEngine();
-
-    eventService.on(
-      events.PAGE_RENDER_EVENT,
-      ({ adContext, instantGlobals }) => this.setupAdContext(adContext, instantGlobals),
-    );
+    eventService.on(events.PAGE_RENDER_EVENT, (eventData) => {
+      this.setupAdContext(eventData.adContext, eventData.instantGlobals, isOptedIn);
+    });
     eventService.on(events.AD_SLOT_CREATED, (slot) => {
+      console.info(`Created ad slot ${slot.getSlotName()}`);
+
+      bidders.updateSlotTargeting(slot.getSlotName());
+
       context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
       context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
     });
 
-    engine.init();
-
-    return engine;
+    videoTracker.register();
+    context.push('delayModules', biddersDelayer);
+    billTheLizardWrapper.configureBillTheLizard(instantGlobals);
   },
+
   setupAdContext(adsContext, instantGlobals, isOptedIn = false) {
     const { context, utils } = window.Wikia.adEngine;
 
@@ -89,6 +99,9 @@ export const adsSetup = {
 
     isGeoEnabled('wgAdDriverLABradorTestCountries');
 
+    const isAdStackEnabled = !isGeoEnabled('wgAdDriverDisableAdStackCountries')
+      && adsContext.opts.pageType !== 'no_ads';
+
     context.set('slots', slots.getContext());
 
     if (!adsContext.targeting.hasFeaturedVideo && adsContext.targeting.pageType !== 'search') {
@@ -102,9 +115,8 @@ export const adsSetup = {
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
 
+    context.set('state.disableAdStack', !isAdStackEnabled);
     context.set('state.deviceType', utils.client.getDeviceType());
-
-    context.set('options.disableAdStack', isGeoEnabled('wgAdDriverDisableAdStackCountries'));
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
 
@@ -258,7 +270,7 @@ export const adsSetup = {
     context.set('targeting.labrador', utils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals));
 
     slots.setupIdentificators();
-    slots.setupStates();
+    slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
   },
 };
