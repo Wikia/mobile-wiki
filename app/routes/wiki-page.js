@@ -125,17 +125,17 @@ export default Route.extend(
         const wikiUrls = this.wikiUrls;
         const handler = this.getHandler(model);
         let redirectTo = model.get('redirectTo');
-        let surrogateKeys = model.get('surrogateKeys');
+        const surrogateKeys = model.get('surrogateKeys');
 
         if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
         if (fastboot.get('isFastBoot')) {
-            if (surrogateKeys) {
-                 surrogateKeys.forEach(function (key) {
-                    fastboot.get('response.headers').append('Surrogate-Key', key);
-                 });
-            }
+          if (surrogateKeys) {
+            surrogateKeys.forEach((key) => {
+              fastboot.get('response.headers').append('Surrogate-Key', key);
+            });
+          }
         }
         if (handler) {
           scheduleOnce('afterRender', () => {
