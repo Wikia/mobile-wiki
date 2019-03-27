@@ -253,8 +253,8 @@ class Ads {
     const { utils } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
-    utils.resetSamplingCache();
-    utils.readSessionId();
+    utils.geoService.resetSamplingCache();
+    utils.geoService.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
@@ -303,7 +303,7 @@ class Ads {
     const { context, utils } = window.Wikia.adEngine;
 
     // Track Labrador values to DW
-    const labradorPropValue = utils.getSamplingResults().join(';');
+    const labradorPropValue = utils.geoService.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);

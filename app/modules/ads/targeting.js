@@ -203,7 +203,7 @@ export const targeting = {
       wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
-      geo: window.Wikia.adEngine.utils.getCountryCode() || 'none',
+      geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
       likho: getLikhoParams(),
     };
 

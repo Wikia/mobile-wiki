@@ -49,14 +49,18 @@
         client: {
           checkBlocking: () => {},
         },
-        getSamplingResults: () => [],
+        geoService: {
+          getSamplingResults: () => [],
+        },
         logger: () => {},
       },
     },
     adProducts: {
       utils: {
-        getSamplingResults: () => [],
-        getCountryCode: () => false
+        geoService: {
+          getSamplingResults: () => [],
+          getCountryCode: () => false
+        }
       }
     },
     adServices: {

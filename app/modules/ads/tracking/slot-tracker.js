@@ -58,7 +58,7 @@ function prepareData(slot, data) {
   return Object.assign({
     pv: window.pvNumber,
     browser: data.browser,
-    country: utils.getCountryCode(),
+    country: utils.geoService.getCountryCode(),
     time_bucket: data.time_bucket,
     timestamp: data.timestamp,
     tz_offset: now.getTimezoneOffset(),
@@ -85,7 +85,7 @@ function prepareData(slot, data) {
     kv_esrb: context.get('targeting.esrb'),
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
-    labrador: utils.getSamplingResults().join(';'),
+    labrador: utils.geoService.getSamplingResults().join(';'),
     btl: slot.btlStatus,
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),
