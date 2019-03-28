@@ -179,7 +179,7 @@ export const targeting = {
     const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
-    const likho = likhoService.refresh().map(item => item.likhoType);
+    const likho = likhoService.refresh();
 
     const pageLevelTargeting = {
       s0: zone.site,
