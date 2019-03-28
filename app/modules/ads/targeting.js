@@ -162,15 +162,6 @@ function getZone(adsContext) {
   };
 }
 
-function getLikhoParams() {
-  let likhoStorage = JSON.parse(localStorage.getItem('likho')) || [];
-
-  likhoStorage = likhoStorage.filter(item => item.expirationTime > Date.now());
-  localStorage.setItem('likho', JSON.stringify(likhoStorage));
-
-  return likhoStorage.map(item => item.likhoType);
-}
-
 function fillInWithNulls(object) {
   Object.keys(object).forEach((key) => {
     if (typeof object[key] === 'undefined') {
@@ -185,8 +176,10 @@ export const targeting = {
   getPageLevelTargeting(adsContext = {}) {
     adsContext.targeting = adsContext.targeting || {};
 
+    const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
+    const likho = likhoService.refresh().map(item => item.likhoType);
 
     const pageLevelTargeting = {
       s0: zone.site,
@@ -205,7 +198,7 @@ export const targeting = {
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.getCountryCode() || 'none',
-      likho: getLikhoParams(),
+      likho,
     };
 
     if (window.pvNumber) {
