@@ -10,8 +10,10 @@ module('Unit | Module | ads | tracking', (hooks) => {
         get: () => [],
       },
       utils: {
-        getCountryCode: () => {},
-        getSamplingResults: () => [],
+        geoService: {
+          getCountryCode: () => {},
+          getSamplingResults: () => [],
+        },
         getDocumentVisibilityStatus: () => 'visible',
       },
     };
