@@ -3,12 +3,11 @@ import sinon from 'sinon';
 import { slotTracker, onRenderEndedStatusToTrack } from 'mobile-wiki/modules/ads/tracking/slot-tracker';
 import trackModule from 'mobile-wiki/utils/track';
 
-
 module('Unit | Module | ads | tracking', (hooks) => {
   hooks.beforeEach(() => {
     window.Wikia.adEngine = {
       context: {
-        get: () => true,
+        get: () => [],
       },
       utils: {
         geoService: {
