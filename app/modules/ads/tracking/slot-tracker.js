@@ -54,6 +54,7 @@ function prepareData(slot, data) {
 
   const now = new Date();
   const slotName = slot.getSlotName();
+  const likho = context.get('targeting.likho');
 
   return Object.assign({
     pv: window.pvNumber,
@@ -86,6 +87,7 @@ function prepareData(slot, data) {
     kv_ref: context.get('targeting.ref'),
     kv_top: context.get('targeting.top'),
     labrador: utils.getSamplingResults().join(';'),
+    likho: likho.join(';'),
     btl: slot.btlStatus,
     opt_in: checkOptIn(),
     document_visibility: utils.getDocumentVisibilityStatus(),
