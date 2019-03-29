@@ -179,7 +179,8 @@ export const targeting = {
     const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
-    // TODO: Once fastboot is available, replace checking existence of window.localStorage with checking fastboot
+    // TODO: Once fastboot is available, replace checking existence of window.localStorage
+    // with checking fastboot
     const likho = window.localStorage ? likhoService.refresh() : [];
 
     const pageLevelTargeting = {
