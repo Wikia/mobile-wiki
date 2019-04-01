@@ -84,7 +84,7 @@ export const adsSetup = {
     const { context, utils } = window.Wikia.adEngine;
 
     function isGeoEnabled(instantGlobalKey) {
-      return utils.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
+      return utils.geoService.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
     }
 
     context.extend(defaultAdContext);
@@ -150,7 +150,7 @@ export const adsSetup = {
       isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
     );
 
-    context.set('custom.serverPrefix', utils.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
+    context.set('custom.serverPrefix', utils.geoService.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
     context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
@@ -267,7 +267,7 @@ export const adsSetup = {
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', utils.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals));
+    context.set('targeting.labrador', utils.geoService.mapSamplingResults(instantGlobals.wgAdDriverLABradorDfpKeyvals));
 
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);

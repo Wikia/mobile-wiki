@@ -124,8 +124,8 @@ export default Route.extend(
         const fastboot = this.fastboot;
         const wikiUrls = this.wikiUrls;
         const handler = this.getHandler(model);
-        let redirectTo = model.get('redirectTo');
         const surrogateKeys = model.get('surrogateKeys');
+        let redirectTo = model.get('redirectTo');
 
         if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));

@@ -253,8 +253,8 @@ class Ads {
     const { utils } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
-    utils.resetSamplingCache();
-    utils.readSessionId();
+    utils.geoService.resetSamplingCache();
+    utils.geoService.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
@@ -300,19 +300,46 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
-    const { context, utils } = window.Wikia.adEngine;
+    this.trackLabradorToDW();
+    this.trackDisableAdStackToDW();
+    this.trackLikhoToDW();
+  }
 
-    // Track Labrador values to DW
-    const labradorPropValue = utils.getSamplingResults().join(';');
+  /**
+   * @private
+   */
+  trackLabradorToDW() {
+    const { utils } = window.Wikia.adEngine;
+    const labradorPropValue = utils.geoService.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
     }
+  }
+
+  /**
+   * @private
+   */
+  trackDisableAdStackToDW() {
+    const { context, utils } = window.Wikia.adEngine;
 
     if (context.get('state.disableAdStack')) {
       pageTracker.trackProp('adengine', 'off');
       utils.logger(logGroup, 'ad stack is disabled');
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackLikhoToDW() {
+    const { context, utils } = window.Wikia.adEngine;
+    const likhoPropValue = context.get('targeting.likho') || [];
+
+    if (likhoPropValue.length) {
+      pageTracker.trackProp('likho', likhoPropValue.join(';'));
+      utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
 

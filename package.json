@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v26.3.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v27.0.0",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#b668c0755eddcb3a1ee69f62cd9be2bc649f574f",
     "@wikia/search-tracking": "github:Wikia/search-tracking#1.1.1",
     "@wikia/tracking-opt-in": "1.0.41",
@@ -58,7 +58,7 @@
     "method-override": "3.0.0",
     "on-headers": "1.0.2",
     "scriptjs": "2.5.9",
-    "snyk": "1.143.0",
+    "snyk": "1.143.5",
     "vignette": "github:wikia/vignette-js#2.8.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
@@ -108,7 +108,7 @@
     "ember-source": "3.4.1",
     "ember-test-selectors": "2.1.0",
     "ember-window-mock": "0.5.4",
-    "eslint": "5.15.3",
+    "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-ember": "5.4.0",
     "eslint-plugin-import": "2.16.0",
@@ -123,7 +123,7 @@
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
     "tslint": "5.14.0",
-    "typescript": "3.3.4000"
+    "typescript": "3.4.1"
   },
   "ember-addon": {
     "paths": [
