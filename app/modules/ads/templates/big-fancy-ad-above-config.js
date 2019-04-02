@@ -11,6 +11,9 @@ export const getConfig = () => ({
     'mobile_prefooter',
     'bottom_leaderboard',
   ],
+  slotsToDisable: [
+    'incontent_player',
+  ],
 
   adjustPadding(iframe, { aspectRatio }) {
     const { eventService } = window.Wikia.adEngine;
