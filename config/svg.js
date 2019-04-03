@@ -6,6 +6,7 @@ const designSystemAssetsPath = 'node_modules/design-system/dist/svg/';
 const designSystemInlineSVGs = [
   'wds-company-logo-fandom-white',
   'wds-company-logo-fandom-heart',
+  'wds-company-logo-wikia-org',
   'wds-icons-avatar',
   'wds-icons-image',
   'wds-icons-magnifying-glass',
