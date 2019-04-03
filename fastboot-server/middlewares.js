@@ -6,6 +6,7 @@ const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
+const hd = require('./heapdump');
 
 function levelFn(status) {
   if (status >= 500) {
@@ -43,6 +44,7 @@ module.exports = {
     app.use('/mobile-wiki', cors(), staticAssets);
     app.use('/mobile-wiki-assets', cors(), staticAssets);
     app.use('/heartbeat', heartbeat);
+    app.use('/heapdump', hd);
   },
 
   after(app) {
