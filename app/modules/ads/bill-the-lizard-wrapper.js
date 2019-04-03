@@ -203,7 +203,7 @@ export const billTheLizardWrapper = {
     const projects = btlConfig.projects || config.projects;
 
     return projects && projects[projectName]
-      && projects[projectName].some(model => utils.isProperGeo(model.countries));
+      && projects[projectName].some(model => utils.geoService.isProperGeo(model.countries));
   },
 
   reset() {

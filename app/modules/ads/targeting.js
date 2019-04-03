@@ -179,7 +179,9 @@ export const targeting = {
     const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
-    const likho = likhoService.refresh();
+    // TODO: Once fastboot is available, replace checking existence of window.localStorage
+    // with checking fastboot
+    const likho = window.localStorage ? likhoService.refresh() : [];
 
     const pageLevelTargeting = {
       s0: zone.site,
@@ -197,7 +199,7 @@ export const targeting = {
       wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
-      geo: window.Wikia.adEngine.utils.getCountryCode() || 'none',
+      geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
       likho,
     };
 
