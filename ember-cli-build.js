@@ -45,6 +45,9 @@ module.exports = function (defaults) {
     'ember-fetch': {
       preferNative: true,
     },
+    minifyJS: {
+      enabled: false,
+    },
     autoprefixer: {
       cascade: false,
       map: false,
