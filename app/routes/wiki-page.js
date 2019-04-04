@@ -22,6 +22,7 @@ import {
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
 import Ads from '../modules/ads';
+import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
@@ -242,12 +243,12 @@ export default Route.extend(
         // notify a property change on soon to be stale model for observers (like
         // the Table of Contents menu) can reset appropriately
         this.notifyPropertyChange('displayTitle');
-        //
-        // try {
-        //   this.ads.beforeTransition();
-        // } catch (e) {
-        //   logError(this.runtimeConfig.servicesExternalHost, 'beforeTransition', e);
-        // }
+
+        try {
+          this.ads.beforeTransition();
+        } catch (e) {
+          logError(this.runtimeConfig.servicesExternalHost, 'beforeTransition', e);
+        }
 
         this.lightbox.close();
       },

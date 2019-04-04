@@ -62,7 +62,7 @@ export default Route.extend(
        * @returns {void}
        */
       willTransition() {
-        // this.ads.beforeTransition();
+        this.ads.beforeTransition();
       },
 
       /**
