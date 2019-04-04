@@ -1,6 +1,5 @@
 // TODO after full rollout change path to REPO ROOT
 const FastBootAppServer = require('fastboot-app-server');
-// const memwatch = require('memwatch-next');
 const config = require('../../config/fastboot-server');
 const middlewares = require('../middlewares');
 
@@ -14,15 +13,5 @@ const server = new FastBootAppServer({
   gzip: true,
   workerCount: 1,
 });
-
-// memwatch.on('leak', (info) => {
-//   info.appname = 'mobile-wiki';
-//   console.log(info);
-// });
-//
-// memwatch.on('stats', (stats) => {
-//   stats.appname = 'mobile-wiki';
-//   console.log(stats);
-// });
 
 server.start();
