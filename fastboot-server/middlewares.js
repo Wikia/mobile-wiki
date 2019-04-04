@@ -1,12 +1,23 @@
 const compression = require('compression');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const promBundle = require('express-prom-bundle');
 const cors = require('cors');
 const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
 const hd = require('./heapdump');
+
+const metricsMiddleware = promBundle({
+  includePath: true,
+  promClient: {
+    collectDefaultMetrics: {
+      timeout: 10000,
+    },
+  },
+  buckets: [0.003, 0.03, 0.1, 0.3, 1.2, 10],
+});
 
 function levelFn(status) {
   if (status >= 500) {
@@ -34,6 +45,7 @@ module.exports = {
    * Fastboot doesn't support POST requests so we rewrite them on express to GET
    * Additionally we have to enable POST body parser for this route to get data that was posted
    */
+    app.use(metricsMiddleware);
     app.use(
       /^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/,
       bodyParser.urlencoded({ extended: true, limit: '10mb' }),

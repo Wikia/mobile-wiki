@@ -62,7 +62,9 @@
     "scriptjs": "2.5.9",
     "snyk": "1.145.0",
     "vignette": "github:wikia/vignette-js#2.8.0",
-    "visit-source": "github:Wikia/visit-source#0.1.1"
+    "visit-source": "github:Wikia/visit-source#0.1.1",
+    "express-prom-bundle": "^5.0.2",
+    "prom-client": "^11.2.1"
   },
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
