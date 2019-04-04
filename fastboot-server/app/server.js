@@ -12,6 +12,7 @@ const server = new FastBootAppServer({
   afterMiddleware: middlewares.after,
   distPath: config.distPath,
   gzip: true,
+  workerCount: 1,
 });
 
 // memwatch.on('leak', (info) => {
