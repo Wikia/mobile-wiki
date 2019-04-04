@@ -57,7 +57,7 @@ export default Component.extend(
         listRendered: defer(),
       });
 
-      this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
+      // this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
     },
 
     actions: {
