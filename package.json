@@ -17,7 +17,7 @@
     "crowdin": "bash ./tasks/download-translations.sh",
     "dev": "node --inspect node_modules/ember-cli/bin/ember serve",
     "fastboot-debug": "ember build && bash ./fastboot-debug.sh",
-    "fastboot-server": "node --inspect fastboot-server/app/server.js",
+    "fastboot-server": "node --inspect=0.0.0.0:9229 fastboot-server/app/server.js",
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
     "stylelint": "stylelint 'app/styles/**/*.scss'",
