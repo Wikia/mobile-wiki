@@ -9,7 +9,6 @@ import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import FileHandler from '../utils/wiki-handlers/file';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
-import RouteWithAdsMixin from '../mixins/route-with-ads';
 import WikiPageHandlerMixin from '../mixins/wiki-page-handler';
 import closedWikiHandler from '../utils/closed-wiki-handler';
 import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
@@ -21,16 +20,13 @@ import {
   namespace as mediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-import Ads from '../modules/ads';
-import { logError } from '../modules/event-logger';
+
 import feedsAndPosts from '../modules/feeds-and-posts';
 
 export default Route.extend(
   HeadTagsDynamicMixin,
-  RouteWithAdsMixin,
   WikiPageHandlerMixin,
   {
-    ads: service('ads/ads'),
     currentUser: service(),
     fastboot: service(),
     i18n: service(),
@@ -170,18 +166,6 @@ export default Route.extend(
             }
           });
 
-          if (
-            !fastboot.get('isFastBoot')
-            && !transition.queryParams.noexternals
-          ) {
-            Ads.waitForAdEngine().then((ads) => {
-              model.adsContext.user = model.adsContext.user || {};
-              model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-
-              ads.init(model.adsContext);
-            });
-          }
-
           this.set('wikiHandler', handler);
 
           handler.afterModel(this, ...arguments);
@@ -243,12 +227,6 @@ export default Route.extend(
         // notify a property change on soon to be stale model for observers (like
         // the Table of Contents menu) can reset appropriately
         this.notifyPropertyChange('displayTitle');
-
-        try {
-          this.ads.beforeTransition();
-        } catch (e) {
-          logError(this.runtimeConfig.servicesExternalHost, 'beforeTransition', e);
-        }
 
         this.lightbox.close();
       },
@@ -364,11 +342,6 @@ export default Route.extend(
       const namespace = model.get('ns');
       const uaDimensions = {};
 
-      // update UA dimensions
-      if (model.adsContext) {
-        uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-        uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
-      }
       if (articleType) {
         uaDimensions[19] = articleType;
       }

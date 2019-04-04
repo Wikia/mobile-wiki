@@ -1,4 +1,3 @@
-import Ads from '../ads';
 import BasePlayer from './base';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
@@ -17,10 +16,6 @@ export default class JWPlayer extends BasePlayer {
     params.onCreate = (player) => {
       M.trackingQueue.push(() => {
         originalOnCreate(player);
-
-        if (this.videoAds) {
-          this.videoAds.register(player, this.getSlotTargeting());
-        }
       });
     };
 
@@ -46,11 +41,7 @@ export default class JWPlayer extends BasePlayer {
   * @returns {void}
   */
   createPlayer() {
-    const ads = Ads.getInstance();
-
-    ads.waitForReady()
-      .then(() => ads.waitForVideoBidders())
-      .then(() => this.initializePlayer(ads));
+    this.initializePlayer(null);
   }
 
   initializePlayer(ads) {
@@ -60,13 +51,6 @@ export default class JWPlayer extends BasePlayer {
     if (!document.getElementById(containerId)) {
       return;
     }
-
-    this.videoAds = ads.createJWPlayerVideoAds({
-      audio: !this.params.autoplay,
-      autoplay: this.params.autoplay,
-      featured: true,
-      videoId: this.params.playlist[0].mediaid,
-    });
 
     window.wikiaJWPlayer(
       containerId,
@@ -115,8 +99,6 @@ export default class JWPlayer extends BasePlayer {
       },
       this.params.onCreate.bind(this),
     );
-
-    ads.loadJwplayerMoatTracking();
   }
 
   /**

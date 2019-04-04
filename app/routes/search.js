@@ -15,8 +15,6 @@ export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   HeadTagsDynamicMixin,
   {
-    ads: service('ads/ads'),
-    adsContextService: service('ads/search-page-ads-context'),
     i18n: service(),
     initialPageView: service(),
     fastboot: service(),
@@ -58,12 +56,6 @@ export default Route.extend(
     },
 
     actions: {
-      /**
-       * @returns {void}
-       */
-      willTransition() {
-        this.ads.beforeTransition();
-      },
 
       /**
        * @returns {boolean}
@@ -83,17 +75,6 @@ export default Route.extend(
           controller.searchId = uuid();
           controller.trackResultsImpression();
         });
-
-        if (!this.get('fastboot.isFastBoot')) {
-          this.adsContextService.getAdsContext()
-            .then((adsContext) => {
-              if (this.get('ads.module.isLoaded')) {
-                this.ads.setupAdsContext(adsContext);
-              } else {
-                this.ads.module.init(adsContext);
-              }
-            });
-        }
 
         return true;
       },

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { bool, readOnly } from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
 import { track } from '../utils/track';
@@ -26,7 +26,6 @@ import { track } from '../utils/track';
 */
 
 export default Component.extend({
-  ads: service('ads/ads'),
   currentUser: service(),
   smartBanner: service(),
   lightbox: service(),
@@ -38,7 +37,6 @@ export default Component.extend({
     'smartBannerVisible',
     'isFandomAppSmartBannerVisible:with-smart-banner',
     'isCustomSmartBannerVisible:with-smart-banner',
-    'bfaaTemplate',
     'fullPage:is-full-page',
   ],
   scrollLocation: null,
@@ -48,7 +46,6 @@ export default Component.extend({
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
   isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
 
-  bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
 
   track(data) {

@@ -5,7 +5,6 @@ import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
-import Ads from '../modules/ads';
 import {
   getRenderComponentFor,
   queryPlaceholders,
@@ -22,8 +21,6 @@ import { track, trackActions } from '../utils/track';
 
 export default Component.extend(
   {
-    adSlotBuilder: service('ads/ad-slot-builder'),
-    ads: service('ads/ads'),
     fastboot: service(),
     i18n: service(),
     logger: service(),
@@ -76,19 +73,6 @@ export default Component.extend(
           window.lazySizes.init();
         } else if (this.displayEmptyArticleInfo) {
           this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
-        }
-
-        if (!this.isPreview && this.adsContext) {
-          Ads.waitForAdEngine().then((ads) => {
-            this.ads.setupAdsContext(this.adsContext);
-            ads.onReady(() => {
-              if (!this.isDestroyed) {
-                // Uncollapse sections first so that we can insert ads in correct places
-                this.uncollapseSections();
-                this.adSlotBuilder.injectAds(this);
-              }
-            });
-          });
         }
 
         this.openLightboxIfNeeded();

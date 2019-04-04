@@ -1,4 +1,3 @@
-{{ads/search-top-leaderboard}}
 <Spinner
   @active={{this.model.loading}}
   @radius={{38}}
@@ -14,7 +13,6 @@
         query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
      }}}
     </div>
-    {{ads/search-incontent-native}}
     {{wikia-ui-components/wikia-card-list
       items=model.items
       trackingCategory="search-page"
@@ -22,7 +20,6 @@
       itemClick=(action "onResultClick")
     }}
   {{else if notFoundError}}
-    {{ads/search-incontent-native}}
     {{#wikia-ui-components/error-info}}
       {{wikia-search-error-not-found
         erroneousQuery=model.erroneousQuery
