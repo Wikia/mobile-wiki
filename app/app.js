@@ -18,6 +18,10 @@ const App = Application.extend({
   Resolver,
 });
 
+App.initializer({
+  name: 'mobile-wiki',
+});
+
 loadInitializers(App, config.modulePrefix);
 
 export default App;
