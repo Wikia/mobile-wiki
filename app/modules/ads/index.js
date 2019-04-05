@@ -18,7 +18,7 @@ class Ads {
     this.engine = null;
     this.instantGlobals = null;
     this.isLoaded = false;
-    this.isFastboot = typeof window.waitForAds !== 'function';
+    this.isFastboot = typeof FastBoot === 'undefined';
     this.onReadyCallbacks = [];
   }
 
