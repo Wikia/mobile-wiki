@@ -1,0 +1,7 @@
+export const appEvents = {
+  MENU_OPEN_EVENT: 'MENU_OPEN_EVENT',
+  HEAD_OFFSET_CHANGE: 'HEAD_OFFSET_CHANGE',
+  SMART_BANNER_CHANGE: 'SMART_BANNER_CHANGE',
+};
+
+export default appEvents;

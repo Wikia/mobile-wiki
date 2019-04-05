@@ -68,6 +68,7 @@ module.exports = function (defaults) {
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
       lazysizes: `${inlineScriptsPath}lazysizes.js`,
+      'load-ads': `${inlineScriptsPath}load-ads.js`,
       'rubik-font': `${inlineScriptsPath}rubik-font.js`,
     },
     outputPaths: {
@@ -118,6 +119,11 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
+  const adEngine3Assets = new Funnel('node_modules/@wikia/ad-engine/dist', {
+    include: ['global-bundle.js'],
+    destDir: 'assets/wikia-ae3',
+  });
+
   const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
     // String `/assets/tracking-` is blocked by EasyPrivacy list
     destDir: 'assets/wikia-opt-in.min.js',
@@ -154,6 +160,7 @@ module.exports = function (defaults) {
     designSystemI18n,
     svgStore,
     jwPlayerAssets,
+    adEngine3Assets,
     trackingOptIn,
   ]);
 };

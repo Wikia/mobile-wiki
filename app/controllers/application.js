@@ -7,11 +7,15 @@ export default Controller.extend(
   AlertNotificationsMixin,
   {
     wikiPage: controller(),
+    ads: service('ads/ads'),
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
 
     queryParams: ['file',
+      {
+        noAds: 'noads',
+      },
       {
         mobileApp: 'mobile-app',
       },
@@ -42,7 +46,8 @@ export default Controller.extend(
     file: alias('lightbox.file'),
     fullPage: oneWay('mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
-    mobileApp: false,
+    noAds: alias('ads.noAdsQueryParam'),
+    mobileApp: alias('ads.disableAdsInMobileApp'),
 
     actions: {
       /**

@@ -17,6 +17,7 @@ export default Component.extend(
   {
     i18n: service(),
     logger: service(),
+    ads: service('ads/ads'),
     router: service(),
     wikiVariables: service(),
     wikiUrls: service(),
@@ -55,6 +56,8 @@ export default Component.extend(
         intersectionThreshold: 0,
         listRendered: defer(),
       });
+
+      this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
     },
 
     actions: {

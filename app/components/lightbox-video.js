@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 import RespondsToResize from 'ember-responds-to/mixins/responds-to-resize';
 import VideoLoader from '../modules/video-loader';
 
@@ -10,6 +11,7 @@ import VideoLoader from '../modules/video-loader';
 export default Component.extend(
   RespondsToResize,
   {
+    ads: service('ads/ads'),
 
     classNames: ['lightbox-video', 'lightbox-content-inner'],
     classNameBindings: ['provider'],
@@ -27,8 +29,8 @@ export default Component.extend(
     /**
       * @returns VideoLoader
     */
-    videoLoader: computed('model.embed', function () {
-      return new VideoLoader(this.get('model.embed'),true);
+    videoLoader: computed('model.embed', 'ads.noAds', function () {
+      return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
     }),
 
     /**

@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import { trackActions } from '../utils/track';
@@ -14,11 +15,12 @@ export default Component.extend(RespondsToScroll, {
   trackCategory: 'custom-smart-banner',
 
   closeButtonSelector: '.smart-banner__close',
-  text: '',
-  linkUrl: '',
-  linkText: '',
-  imageUrl: '',
-  title: '',
+  smartBannerAdConfiguration: oneWay('wikiVariables.smartBannerAdConfiguration'),
+  text: oneWay('smartBannerAdConfiguration.text'),
+  linkUrl: oneWay('smartBannerAdConfiguration.linkUrl'),
+  linkText: oneWay('smartBannerAdConfiguration.linkText'),
+  imageUrl: oneWay('smartBannerAdConfiguration.imageUrl'),
+  title: oneWay('smartBannerAdConfiguration.title'),
 
   init() {
     this._super(...arguments);

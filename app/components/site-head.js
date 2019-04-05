@@ -5,10 +5,12 @@ import { inject as service } from '@ember/service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
+import Ads from '../modules/ads';
 
 export default Component.extend(
   HeadroomMixin,
   {
+    ads: service('ads/ads'),
     smartBanner: service(),
     router: service(),
     wikiVariables: service(),
@@ -74,7 +76,10 @@ export default Component.extend(
     },
 
     onModalOpen() {
-      console.log('');
+      Ads.waitForAdEngine()
+        .then((ads) => {
+          ads.onMenuOpen();
+        });
     },
 
     getSearchTrackingBasePayload(suggestions, suggestionsSearchId) {

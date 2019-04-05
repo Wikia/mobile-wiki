@@ -8,6 +8,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
+import Ads from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
   WikiIsClosedError,
@@ -22,6 +23,7 @@ export default Route.extend(
   Ember.TargetActionSupport,
   HeadTagsStaticMixin,
   {
+    ads: service('ads/ads'),
     currentUser: service(),
     fandomComMigration: service(),
     wikiaOrgMigration: service(),
@@ -97,6 +99,24 @@ export default Route.extend(
 
       this.i18n.initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
 
+      if (
+        !fastboot.get('isFastBoot')
+        && !transition.queryParams.noexternals
+      ) {
+        Ads.waitForAdEngine().then((ads) => {
+          ads.registerActions({
+            onHeadOffsetChange: (offset) => {
+              this.set('ads.siteHeadOffset', offset);
+            },
+            onSmartBannerChange: (visibility) => {
+              this.set('smartBanner.smartBannerVisible', visibility);
+            },
+          });
+        });
+
+        this.fastlyInsights.loadFastlyInsightsScript();
+      }
+
       if (fastboot.get('isFastBoot')) {
         // https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
         // https://www.fastly.com/blog/best-practices-for-using-the-vary-header
@@ -155,6 +175,8 @@ export default Route.extend(
       },
 
       didTransition() {
+        this.get('ads.module').onTransition();
+
         // Clear notification alerts for the new route
         this.controller.clearNotifications();
 
