@@ -18,6 +18,7 @@ class Ads {
     this.engine = null;
     this.instantGlobals = null;
     this.isLoaded = false;
+    this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
   }
 
@@ -387,6 +388,11 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
+    if (this.isFastboot) {
+      noUapCallback();
+      return;
+    }
+
     fanTakeoverResolver.getPromise().then((isFanTakeover) => {
       if (isFanTakeover) {
         uapCallback();
