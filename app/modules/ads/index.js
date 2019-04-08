@@ -268,7 +268,7 @@ class Ads {
    */
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
-    const { context } = window.Wikia.adEngine;
+    const { context, slotService } = window.Wikia.adEngine;
     const {
       geoEdge,
       krux,
@@ -284,6 +284,10 @@ class Ads {
     });
 
     this.startAdEngine();
+
+    if (!slotService.getState('top_leaderboard')) {
+      this.finishFirstCall();
+    }
 
     geoEdge.call();
     krux.call();
