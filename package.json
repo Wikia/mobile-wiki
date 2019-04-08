@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v27.0.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v27.0.3",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#b668c0755eddcb3a1ee69f62cd9be2bc649f574f",
     "@wikia/search-tracking": "github:Wikia/search-tracking#1.1.1",
     "@wikia/tracking-opt-in": "1.0.41",
@@ -58,7 +58,7 @@
     "method-override": "3.0.0",
     "on-headers": "1.0.2",
     "scriptjs": "2.5.9",
-    "snyk": "1.143.5",
+    "snyk": "1.147.2",
     "vignette": "github:wikia/vignette-js#2.8.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
@@ -119,10 +119,10 @@
     "mercury-shared": "github:wikia/mercury-shared#21de5d1d71c9b53c9f5a5a9ca9d5e22c0afbeec0",
     "proxying-agent": "2.2.4",
     "qunit-dom": "0.8.0",
-    "sass": "1.17.3",
+    "sass": "1.17.4",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
-    "tslint": "5.14.0",
+    "tslint": "5.15.0",
     "typescript": "3.4.1"
   },
   "ember-addon": {
