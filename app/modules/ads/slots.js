@@ -253,10 +253,10 @@ export const slots = {
   },
 
   collapseTopLeaderboard() {
-    const { context, slotService } = window.Wikia.adEngine;
+    const { AdSlot, context, slotService } = window.Wikia.adEngine;
 
     context.set('slots.top_leaderboard.trackEachStatus', true);
-    slotService.disable('top_leaderboard', status);
+    slotService.disable('top_leaderboard', AdSlot.STATUS_COLLAPSE);
   },
 
   setupSlotParameters(slot) {
