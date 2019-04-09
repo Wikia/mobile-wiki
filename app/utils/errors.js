@@ -59,6 +59,11 @@ const TopArticlesFetchError = defineError({
   message: 'Top Articles couldn\'t be fetched',
 });
 
+const RecommendedDataFetchError = defineError({
+  name: 'RecommendedDataFetchError',
+  message: 'Recommended data couldn\'t be fetched',
+});
+
 const WikiaInYourLangFetchError = defineError({
   name: 'WikiaInYourLangFetchError',
   message: 'WikiaInYourLang data couldn\'t be fetched',
@@ -108,6 +113,7 @@ export {
   UserLoadInfoFetchError,
   TrackingDimensionsFetchError,
   TopArticlesFetchError,
+  RecommendedDataFetchError,
   WikiaInYourLangFetchError,
   WikiIsClosedError,
   WikiPageFetchError,
