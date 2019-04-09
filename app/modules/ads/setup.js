@@ -115,6 +115,7 @@ export const adsSetup = {
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
 
+    context.set('state.disableTopLeaderboard', isGeoEnabled('wgAdDriverCollapseTopLeaderboardMobileWikiCountries'));
     context.set('state.disableAdStack', !isAdStackEnabled);
     context.set('state.deviceType', utils.client.getDeviceType());
 
