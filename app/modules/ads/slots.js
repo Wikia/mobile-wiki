@@ -252,6 +252,13 @@ export const slots = {
     };
   },
 
+  collapseTopLeaderboard() {
+    const { AdSlot, context, slotService } = window.Wikia.adEngine;
+
+    context.set('slots.top_leaderboard.trackEachStatus', true);
+    slotService.disable('top_leaderboard', AdSlot.STATUS_COLLAPSE);
+  },
+
   setupSlotParameters(slot) {
     const audioSuffix = slot.config.audio === true ? '-audio' : '';
     const clickToPlaySuffix = slot.config.autoplay === true || slot.config.videoDepth > 1 ? '' : '-ctp';
@@ -272,7 +279,11 @@ export const slots = {
       }
     };
 
-    setSlotState('top_leaderboard', isTopLeaderboardApplicable());
+    if (context.get('state.disableTopLeaderboard')) {
+      this.collapseTopLeaderboard();
+    } else {
+      setSlotState('top_leaderboard', isTopLeaderboardApplicable());
+    }
     setSlotState('mobile_in_content', incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));

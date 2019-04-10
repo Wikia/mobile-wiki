@@ -38,9 +38,6 @@ export default Service.extend({
       // inject top topLeaderBoard below article header
       // but only if there is no featured video embedded
       this.appendAd(adsData.topLeaderBoard, 'afterend', pageHeader);
-    } else {
-      this.get('ads.module')
-        .finishFirstCall();
     }
 
     if (firstSection) {
