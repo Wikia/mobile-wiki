@@ -522,6 +522,11 @@ export default Component.extend(
     },
 
     toogleCollapsibleSection(header) {
+      // Temporary fix for caching issues, it can be removed after all caches expire
+      if (!header.hasAttribute('aria-controls')) {
+        return;
+      }
+
       const section = header.nextElementSibling;
       let visible = 'false';
 
