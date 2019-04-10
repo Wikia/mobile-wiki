@@ -50,6 +50,7 @@ export default Component.extend({
 
   bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
+  isWikiaOrg: readOnly('globalFooter.is-wikia-org'),
 
   track(data) {
     track(data);

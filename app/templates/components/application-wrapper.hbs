@@ -19,7 +19,9 @@
       @model={{this.globalFooter}}
       @track={{action this.track}}
     />
-    {{global-footer-bottom}}
+    {{global-footer-bottom
+      isWikiaOrg=isWikiaOrg
+    }}
   {{/if}}
 {{/if}}
 {{lightbox-wrapper}}

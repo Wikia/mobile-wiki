@@ -19,6 +19,19 @@
 .global-footer-bottom__wrapper {
   background-color: $wds-fandom-color-navy;
   padding: 0 20px;
+
+  &--wikia-org {
+    background-color: $wds-color-white;
+    border-top: 1px solid $wds-color-blue-gray;
+
+    .global-footer-bottom__bar {
+      border-top: none;
+    }
+
+    .global-footer-bottom__link {
+      color: $wds-color-black;
+    }
+  }
 }
 
 .global-footer-bottom__bar {
