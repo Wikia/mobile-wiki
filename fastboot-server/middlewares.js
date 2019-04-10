@@ -6,6 +6,7 @@ const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
+const prometheus = require('./prometheus');
 
 function levelFn(status) {
   if (status >= 500) {
@@ -28,6 +29,7 @@ module.exports = {
 
     app.use(headers);
 
+    app.use(prometheus);
     /**
    * Special handling for article-preview route.
    * Fastboot doesn't support POST requests so we rewrite them on express to GET
