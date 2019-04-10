@@ -9,7 +9,7 @@ import { inGroup } from '../modules/abtest';
 import { logError } from '../modules/event-logger';
 import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
-import blackList from '../utils/recirculationBlacklist';
+import recirculationBlacklist from '../utils/recirculationBlacklist';
 import { TopArticlesFetchError, RecommendedDataFetchError } from '../utils/errors';
 
 const recircItemsCount = 10;
@@ -41,7 +41,7 @@ export default Component.extend(
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
-    shouldUseExperimentalService: computed(() => inGroup('RECOMMENDED_ARTICLES', 'EXPERIMENTAL')),
+    shouldUseExperimentalRecommendationService: computed(() => inGroup('RECOMMENDED_ARTICLES', 'EXPERIMENTAL')),
     sponsoredItemThumbnail: computed('sponsoredItem.thumbnailUrl', function () {
       return window.Vignette ? window.Vignette.getThumbURL(this.sponsoredItem.thumbnailUrl, {
         mode: window.Vignette.mode.zoomCrop,
@@ -68,16 +68,16 @@ export default Component.extend(
 
       this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
 
-      blackList.clear();
+      recirculationBlacklist.clear();
     },
 
     actions: {
       postClick(post, index) {
         const labels = ['footer', `footer-slot-${index + 1}`];
-        let additionalData;
+        let additionalRecommendationData;
 
-        if (this.shouldUseExperimentalService) {
-          additionalData = {
+        if (this.shouldUseExperimentalRecommendationService) {
+          additionalRecommendationData = {
             recommendation_request_id: this.requestId,
             item_id: post.id,
             item_type: 'wiki_article',
@@ -88,13 +88,13 @@ export default Component.extend(
           action: trackActions.click,
           category: trackingCategory,
           label,
-        }, additionalData)));
+        }, additionalRecommendationData)));
 
         track(Object.assign({
           action: trackActions.select,
           category: trackingCategory,
           label: post.url,
-        }, additionalData));
+        }, additionalRecommendationData));
 
         run.later(() => {
           window.location.assign(post.url);
@@ -148,7 +148,7 @@ export default Component.extend(
         .then((data) => {
           this.set('topArticles', data.slice(0, 3));
 
-          if (this.shouldUseExperimentalService) {
+          if (this.shouldUseExperimentalRecommendationService) {
             this.set('fallbackItems', data.slice(3));
           } else {
             this.set('items', data.slice(3));
@@ -170,10 +170,10 @@ export default Component.extend(
 
       this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError)
         .then((response) => {
-          let filteredItems = this.filterRecommendedData(response);
+          let filteredItems = this.getNonBlacklistedRecommendedData(response);
 
           if (filteredItems < recircItemsCount) {
-            blackList.remove(5);
+            recirculationBlacklist.remove(5);
 
             logError(
               this.runtimeConfig.servicesExternalHost,
@@ -184,10 +184,16 @@ export default Component.extend(
               },
             );
 
-            filteredItems = this.filterRecommendedData(response);
+            filteredItems = this.getNonBlacklistedRecommendedData(response);
           }
 
-          this.set('items', filteredItems.map(this.mapRecommendedData));
+          this.set('items', filteredItems.map((item) => ({
+            id: item.item_id,
+            site_name: item.wiki_title,
+            url: item.url,
+            thumbnail: item.thumbnail_url,
+            title: item.article_title || item.wiki_title,
+          })));
 
           if (!this.isDestroyed) {
             this.listRendered.resolve();
@@ -200,18 +206,8 @@ export default Component.extend(
         });
     },
 
-    mapRecommendedData(item) {
-      return {
-        id: item.item_id,
-        site_name: item.wiki_title,
-        url: item.url,
-        thumbnail: item.thumbnail_url,
-        title: item.article_title || item.wiki_title,
-      };
-    },
-
-    filterRecommendedData(data) {
-      const blacklistedItems = blackList.get();
+    getNonBlacklistedRecommendedData(data) {
+      const blacklistedItems = recirculationBlacklist.get();
 
       return data.article_recommendation
         .filter(el => blacklistedItems.indexOf(el.item_id) === -1)
@@ -222,7 +218,7 @@ export default Component.extend(
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
 
-        if (this.shouldUseExperimentalService) {
+        if (this.shouldUseExperimentalRecommendationService) {
           this.fetchRecommendedData();
         }
 
