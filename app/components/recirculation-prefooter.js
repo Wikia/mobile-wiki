@@ -41,7 +41,7 @@ export default Component.extend(
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
-    shouldUseExperimentalRecommendationService: computed(() => inGroup('RECOMMENDED_ARTICLES', 'EXPERIMENTAL')),
+    shouldUseExperimentalRecommendationService: computed(() => inGroup('RECOMMENDATION_SERVICE', 'EXPERIMENTAL')),
     sponsoredItemThumbnail: computed('sponsoredItem.thumbnailUrl', function () {
       return window.Vignette ? window.Vignette.getThumbURL(this.sponsoredItem.thumbnailUrl, {
         mode: window.Vignette.mode.zoomCrop,
