@@ -191,8 +191,12 @@ export default Component.extend(
             id: item.item_id,
             site_name: item.wiki_title,
             url: item.url,
-            thumbnail: item.thumbnail_url,
             title: item.article_title || item.wiki_title,
+            thumbnail: window.Vignette.getThumbURL(item.thumbnail_url, {
+              mode: window.Vignette.mode.zoomCrop,
+              height: 386,
+              width: 386,
+            }),
           })));
 
           if (!this.isDestroyed) {
