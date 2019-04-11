@@ -1,0 +1,12 @@
+FROM node:8.9.1-alpine
+
+RUN apk add --no-cache --virtual .gyp python make g++ git && \
+    npm set unsafe-perm=true && \
+    npm set progress=false && \
+    npm install -g ember-cli && \
+    git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+# 7001 is for debugging
+EXPOSE 7001
+
+WORKDIR /usr/wikia/mobile-wiki
