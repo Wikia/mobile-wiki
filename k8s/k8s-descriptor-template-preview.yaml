@@ -103,3 +103,23 @@ spec:
       - backend:
           serviceName: mobile-wiki-preview
           servicePort: main
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mobile-wiki-preview
+  labels:
+    app: mobile-wiki-preview
+  namespace: prod
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: mobile-wiki-preview
+  namespaceSelector:
+    matchNames:
+      - prod
+  endpoints:
+    - port: main
+      path: /metrics
+      interval: 10s
