@@ -269,12 +269,7 @@ class Ads {
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
     const { context, slotService } = window.Wikia.adEngine;
-    const {
-      geoEdge,
-      krux,
-      moatYi,
-      nielsen,
-    } = window.Wikia.adServices;
+    const { krux, moatYi, nielsen } = window.Wikia.adServices;
 
     const targeting = context.get('targeting');
 
@@ -289,7 +284,6 @@ class Ads {
       this.finishFirstCall();
     }
 
-    geoEdge.call();
     krux.call();
     moatYi.call();
     nielsen.call({
