@@ -137,7 +137,6 @@ export const adsSetup = {
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
-    context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
     context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
