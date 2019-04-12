@@ -53,7 +53,6 @@ export function mockAdsService(owner) {
       this.slotNames = {
         bottomLeaderBoard: 'bottom_leaderboard',
         invisibleHighImpact2: 'invisible_high_impact_2',
-        mobileInContent: 'mobile_in_content',
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
       };
