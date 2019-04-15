@@ -96,7 +96,6 @@ export default Component.extend(
       } else {
         ads.pushSlotToQueue(this.name);
       }
-
-    }
+    },
   },
 );
