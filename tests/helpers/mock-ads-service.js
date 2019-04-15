@@ -55,6 +55,7 @@ export function mockAdsService(owner) {
         invisibleHighImpact2: 'invisible_high_impact_2',
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
+        incontentBoxad: 'incontent_boxad',
       };
     },
     destroyAdSlotComponents() {
