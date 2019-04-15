@@ -36,9 +36,6 @@ export default Component.extend(
     didInsertElement() {
       this._super(...arguments);
 
-      const ads = this.get('ads.module');
-      const name = this.name;
-
       if (this.disableManualInsert) {
         return;
       }
@@ -57,24 +54,7 @@ export default Component.extend(
         intersectionThreshold: 0,
       });
 
-      if (this.insertOnViewportEnter) {
-        return;
-      }
-
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {
-            this.set('insertOnViewportEnter', true);
-          },
-          () => {
-            ads.pushSlotToQueue(name);
-          },
-        );
-
-        return;
-      }
-
-      ads.pushSlotToQueue(name);
+      this.pushSlotToQueue();
     },
 
     /**
@@ -90,7 +70,33 @@ export default Component.extend(
 
       if (this.insertOnViewportEnter) {
         ads.pushSlotToQueue(name);
+      } else if (this.shouldWaitForUapResponse) {
+        ads.waitForUapResponse(
+          () => ads.pushSlotToQueue(this.name),
+          () => {},
+        );
       }
     },
+
+    /**
+     * @private
+     */
+    pushSlotToQueue() {
+      const ads = this.get('ads.module');
+
+      if (this.insertOnViewportEnter) {
+        return;
+      }
+
+      if (this.shouldWaitForUapResponse) {
+        ads.waitForUapResponse(
+          () => {},
+          () => ads.pushSlotToQueue(this.name),
+        );
+      } else {
+        ads.pushSlotToQueue(this.name);
+      }
+
+    }
   },
 );
