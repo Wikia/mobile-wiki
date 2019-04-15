@@ -263,6 +263,10 @@ export const adsSetup = {
       });
     }
 
+    if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
+      context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
+    }
+
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
     // Need to be placed always after all lABrador wgVars checks

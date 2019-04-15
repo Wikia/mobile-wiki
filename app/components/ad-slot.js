@@ -17,6 +17,7 @@ export default Component.extend(
     // This component is created dynamically, and this won't work without it
     layoutName: 'components/ad-slot',
     disableManualInsert: false,
+    insertOnViewportEnter: false,
     isAboveTheFold: false,
     name: null,
     adEngine3ClassName: 'gpt-ad',
@@ -46,17 +47,6 @@ export default Component.extend(
         return;
       }
 
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {},
-          () => {
-            ads.pushSlotToQueue(name);
-          },
-        );
-      } else {
-        ads.pushSlotToQueue(name);
-      }
-
       setProperties(this, {
         viewportTolerance: {
           top: 200,
@@ -66,6 +56,25 @@ export default Component.extend(
         },
         intersectionThreshold: 0,
       });
+
+      if (this.insertOnViewportEnter) {
+        return;
+      }
+
+      if (this.shouldWaitForUapResponse) {
+        ads.waitForUapResponse(
+          () => {
+            this.set('insertOnViewportEnter', true);
+          },
+          () => {
+            ads.pushSlotToQueue(name);
+          },
+        );
+
+        return;
+      }
+
+      ads.pushSlotToQueue(name);
     },
 
     /**
@@ -79,13 +88,8 @@ export default Component.extend(
         return;
       }
 
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {
-            ads.pushSlotToQueue(name);
-          },
-          () => {},
-        );
+      if (this.insertOnViewportEnter) {
+        ads.pushSlotToQueue(name);
       }
     },
   },
