@@ -7,7 +7,6 @@ export const getConfig = () => ({
   navbarElement: null,
   slotsToEnable: [
     'incontent_boxad_1',
-    'mobile_in_content',
     'mobile_prefooter',
     'bottom_leaderboard',
   ],
