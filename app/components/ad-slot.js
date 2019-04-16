@@ -17,6 +17,7 @@ export default Component.extend(
     // This component is created dynamically, and this won't work without it
     layoutName: 'components/ad-slot',
     disableManualInsert: false,
+    insertOnViewportEnter: false,
     isAboveTheFold: false,
     name: null,
     adEngine3ClassName: 'gpt-ad',
@@ -35,26 +36,12 @@ export default Component.extend(
     didInsertElement() {
       this._super(...arguments);
 
-      const ads = this.get('ads.module');
-      const name = this.name;
-
       if (this.disableManualInsert) {
         return;
       }
 
       if (this.noAds) {
         return;
-      }
-
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {},
-          () => {
-            ads.pushSlotToQueue(name);
-          },
-        );
-      } else {
-        ads.pushSlotToQueue(name);
       }
 
       setProperties(this, {
@@ -66,6 +53,8 @@ export default Component.extend(
         },
         intersectionThreshold: 0,
       });
+
+      this.pushSlotToQueue();
     },
 
     /**
@@ -79,13 +68,33 @@ export default Component.extend(
         return;
       }
 
-      if (this.shouldWaitForUapResponse) {
+      if (this.insertOnViewportEnter) {
+        ads.pushSlotToQueue(name);
+      } else if (this.shouldWaitForUapResponse) {
         ads.waitForUapResponse(
-          () => {
-            ads.pushSlotToQueue(name);
-          },
+          () => ads.pushSlotToQueue(this.name),
           () => {},
         );
+      }
+    },
+
+    /**
+     * @private
+     */
+    pushSlotToQueue() {
+      const ads = this.get('ads.module');
+
+      if (this.insertOnViewportEnter) {
+        return;
+      }
+
+      if (this.shouldWaitForUapResponse) {
+        ads.waitForUapResponse(
+          () => {},
+          () => ads.pushSlotToQueue(this.name),
+        );
+      } else {
+        ads.pushSlotToQueue(this.name);
       }
     },
   },

@@ -163,6 +163,7 @@ class Ads {
 
     return {
       disableManualInsert: slotDefinition.disableManualInsert,
+      insertOnViewportEnter: slotDefinition.insertOnViewportEnter,
       isAboveTheFold: slotDefinition.aboveTheFold,
       name,
       hiddenClassName: 'hide',
