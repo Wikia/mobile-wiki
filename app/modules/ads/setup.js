@@ -134,6 +134,7 @@ export const adsSetup = {
     context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.trackingOptIn', isOptedIn);
+    // Switch for repeating incontent boxad ads
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
