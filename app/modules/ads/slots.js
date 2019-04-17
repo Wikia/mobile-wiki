@@ -99,20 +99,7 @@ export const slots = {
           rv: 1,
         },
       },
-      mobile_in_content: {
-        adProduct: 'mobile_in_content',
-        slotNameSuffix: '',
-        group: 'HiVi',
-        options: {},
-        slotShortcut: 'i',
-        sizes: [],
-        defaultSizes: [[320, 50], [300, 250], [300, 50], [320, 480]],
-        targeting: {
-          loc: 'middle',
-          pos: ['mobile_in_content'],
-          rv: 1,
-        },
-      },
+      // as this slot can be repeated many, it uses bidderAlias mobile_in_content
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
@@ -129,7 +116,7 @@ export const slots = {
           updateProperties: {
             adProduct: '{slotConfig.slotName}',
             'targeting.rv': '{slotConfig.repeat.index}',
-            'targeting.pos': ['incontent_boxad', 'mobile_in_content'],
+            'targeting.pos': ['incontent_boxad'],
           },
           insertBelowScrollPosition: true,
         },
@@ -143,7 +130,7 @@ export const slots = {
         defaultSizes: [[320, 50], [300, 250], [300, 50]],
         targeting: {
           loc: 'middle',
-          pos: ['incontent_boxad', 'mobile_in_content'],
+          pos: ['incontent_boxad'],
           rv: 1,
           xna: 1,
         },
@@ -284,7 +271,6 @@ export const slots = {
     } else {
       setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     }
-    setSlotState('mobile_in_content', incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());

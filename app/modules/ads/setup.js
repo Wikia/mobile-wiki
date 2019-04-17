@@ -134,10 +134,10 @@ export const adsSetup = {
     context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.trackingOptIn', isOptedIn);
+    // Switch for repeating incontent boxad ads
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
-    context.set('services.geoEdge.enabled', isGeoEnabled('wgAdDriverGeoEdgeCountries'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
     context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
@@ -262,6 +262,10 @@ export const adsSetup = {
           ].join(','),
         );
       });
+    }
+
+    if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
+      context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
     }
 
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
