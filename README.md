@@ -95,6 +95,14 @@ Mobile-wiki can be run inside Docker using docker-compse. This is easy as runnin
 
 ` docker-compose up`
 
+#### Initial setup
+
+Create .env file with the name of the devbox (this is needed to properly set @hostname field in the logs)
+	```bash
+	echo HOST_HOSTNAME=$(hostname) > .env
+	```
+This will properly set the hostname in the logs emmited by mobile-wiki.
+
 #### (Re)building the docker image
 Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you will need a Github token which will be used
 to fetch packages from private repo. To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
