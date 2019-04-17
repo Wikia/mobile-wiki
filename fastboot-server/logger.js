@@ -1,5 +1,6 @@
 const BunyanPrettyStream = require('bunyan-prettystream');
 const expressBunyanLogger = require('express-bunyan-logger');
+const bunyanTcp = require('bunyan-tcp');
 const config = require('../config/fastboot-server');
 
 /**
@@ -42,21 +43,26 @@ function createConsoleStream(minLogLevel) {
 /**
   * Creates the console log settings
   *
-  * @param {string} minLogLevel
-  * @param {string} logFile
+  * @param {object} config
   * @returns {BunyanLoggerStream}
   */
- function createDebugFileLog(logFile, minLogLevel = 'debug') {
-  return {
-    level: minLogLevel,
-    path: logFile,
-  };
+ function createTcpStream(config) {
+   const tcpStream = bunyanTcp.createBunyanStream({
+     server: config.host,
+     port: config.port,
+   })
+
+   return {
+     type: 'raw',
+     level: config.minLogLevel,
+     stream: tcpStream,
+   };
 }
 
 const availableTargets = {
   default: createDefaultLogStream,
   console: createConsoleStream,
-  debugFile: createDebugFileLog,
+  tcpStream: createTcpStream,
 };
 
 const serializers = {
