@@ -1,7 +1,7 @@
 const promBundle = require('express-prom-bundle');
 const url = require('url');
 
-module.exports = promBundle({
+module.exports = promBundle.clusterMetrics({
   includePath: true,
   normalizePath(req) {
     const path = url.parse(req.originalUrl || req.url).pathname;
@@ -24,6 +24,10 @@ module.exports = promBundle({
 
     if (path.match(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/)) {
       return '/article-preview';
+    }
+
+    if (path.match(/^\/metrics/)) {
+      return '/metrics';
     }
 
     return 'misc';
