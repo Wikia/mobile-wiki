@@ -101,4 +101,3 @@ If you're in the #iris-tech channel, you can also make use of `sandbot` which is
 ### [How to update translations](https://github.com/Wikia/mobile-wiki/blob/dev/crowdin/README.md)
 
 ### [Troubleshooting](https://github.com/Wikia/mobile-wiki/blob/dev/TROUBLESHOOTING.md)
-
