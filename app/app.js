@@ -30,4 +30,4 @@ App.initializer({
 loadInitializers(App, config.modulePrefix);
 
 export default App;
-// dummy comment sasdaa
+// dummy comment sasdaaaa
