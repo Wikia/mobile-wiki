@@ -43,18 +43,18 @@ function createConsoleStream(minLogLevel) {
 /**
   * Creates the console log settings
   *
-  * @param {object} config
+  * @param {object} logConfig
   * @returns {BunyanLoggerStream}
   */
-function createTcpStream(config) {
+function createTcpStream(logConfig) {
   const tcpStream = bunyanTcp.createBunyanStream({
-    server: config.host,
-    port: config.port,
-  })
+    server: logConfig.host,
+    port: logConfig.port,
+  });
 
   return {
     type: 'raw',
-    level: config.minLogLevel,
+    level: logConfig.minLogLevel,
     stream: tcpStream,
   };
 }

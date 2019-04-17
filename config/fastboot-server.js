@@ -18,7 +18,7 @@ module.exports = (function () {
           port: process.env.MOBILE_WIKI_LOG_TCP_PORT,
           host: process.env.MOBILE_WIKI_LOG_TCP_HOST,
           minLogLevel: 'debug',
-        }
+        },
       };
     } else {
       config.loggers = {
