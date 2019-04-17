@@ -90,6 +90,19 @@ If you're in the #iris-tech channel, you can also make use of `sandbot` which is
 - `sandbot taking <name of sandbox>` to reserve one
 - `sandbot releasing <name-of sandbox>` to release one
 
+### Devboxes
+Mobile-wiki can be run inside Docker using docker-compse. This is easy as running:
+
+` docker-compose up`
+
+#### (Re)building the docker image
+Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you will need a Github token which will be used
+to fetch packages from private repo. To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
+or use one you have generated earlier. Then you need to use run:
+
+`docker build -f Dockerfile.dev --build-arg=GITHUB_TOKEN=$GITHUB_TOKEN -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
+
+
 ## See also
 
 ### [CHANGELOG](https://github.com/Wikia/mobile-wiki/releases)
