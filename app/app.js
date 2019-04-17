@@ -30,3 +30,4 @@ App.initializer({
 loadInitializers(App, config.modulePrefix);
 
 export default App;
+// some test comment
