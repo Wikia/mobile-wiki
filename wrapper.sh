@@ -11,7 +11,7 @@ git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://gi
 USER_ID=${LOCAL_USER_ID:-9001}
 
 echo "Starting with UID : $USER_ID"
-useradd --shell /bin/bash -u $USER_ID -o -c "" -m user
-export HOME=/home/user
+adduser -h /app -s /bin/bash -D -u $USER_ID docker_user
+export HOME=/app
 
-exec /usr/local/bin/gosu user "$@"
+exec gosu docker_user "$@"
