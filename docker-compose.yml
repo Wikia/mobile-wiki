@@ -13,6 +13,7 @@ services:
       - INTERNAL_CACHE_HOST=dev.icache.service.$WIKIA_DATACENTER.consul
       - MOBILE_WIKI_LOG_TCP_PORT=9999
       - MOBILE_WIKI_LOG_TCP_HOST=logger
+      - LOCAL_USER_ID=$LOCAL_USER_ID
     depends_on:
       - logger
     command: "npm run dev"
