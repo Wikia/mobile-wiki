@@ -5,13 +5,9 @@ WORKDIR /app
 # mount app source
 VOLUME ["/app"]
 
-# create group and user
-RUN addgroup -S mobile-wiki && \
-    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
-    chmod 755 /app
-
 # install missing stuff
-RUN apk add --no-cache --virtual .gyp python make g++ git bash && \
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing \
+    python make g++ git bash curl gosu && \
 
 # install npm globals
     # we are running npm install as root so we need to set unsafe-perm
@@ -22,8 +18,6 @@ RUN apk add --no-cache --virtual .gyp python make g++ git bash && \
 
 # 7001 is for debugging
 EXPOSE 7001
-
-USER docker_user
 
 ENTRYPOINT ["/app/wrapper.sh"]
 CMD ["npm", "run", "dev"]
