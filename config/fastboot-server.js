@@ -12,7 +12,7 @@ module.exports = (function () {
 
   if (process.env.WIKIA_ENVIRONMENT === 'dev') {
     const devDomain = (process.env.WIKIA_DATACENTER === 'poz') ? 'pl' : 'us';
-    if (process.env.MOBILE_WIKI_LOG_TCP_PORT) {
+    if (process.env.MOBILE_WIKI_LOG_TCP_PORT || process.env.MOBILE_WIKI_LOG_TCP_HOST) {
       config.loggers = {
         tcpStream: {
           port: process.env.MOBILE_WIKI_LOG_TCP_PORT,
