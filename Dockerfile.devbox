@@ -1,12 +1,29 @@
 FROM node:8.9.1-alpine
 
-RUN apk add --no-cache --virtual .gyp python make g++ git && \
+WORKDIR /app
+
+# mount app source
+VOLUME ["/app"]
+
+# create group and user
+RUN addgroup -S mobile-wiki && \
+    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
+    chmod 755 /app
+
+# install missing stuff
+RUN apk add --no-cache --virtual .gyp python make g++ git bash && \
+
+# install npm globals
+    # we are running npm install as root so we need to set unsafe-perm
+    # in order to execute all npm postinstall scripts properly
     npm set unsafe-perm=true && \
     npm set progress=false && \
-    npm install -g ember-cli && \
-    git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+    npm install -g ember-cli
 
 # 7001 is for debugging
 EXPOSE 7001
 
-WORKDIR /usr/wikia/mobile-wiki
+USER docker_user
+
+ENTRYPOINT ["/app/wrapper.sh"]
+CMD ["npm", "run", "dev"]

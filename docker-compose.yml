@@ -5,8 +5,7 @@ services:
     ports:
       - "7001:7001"
     volumes:
-      - ./:/usr/wikia/mobile-wiki
-      - ./tmp/logs:/var/logs/mobile-wiki
+      - ./:/app
     environment:
       - WIKIA_DATACENTER=$WIKIA_DATACENTER
       - WIKIA_ENVIRONMENT=$WIKIA_ENVIRONMENT
@@ -21,7 +20,6 @@ services:
     image: artifactory.wikia-inc.com/platform/fluentd_elastic:latest
     volumes:
       - ./fluent.conf:/fluentd/etc/config:ro
-      - ./tmp/logs:/var/logs/mobile-wiki
     command: "fluentd -c /fluentd/etc/config -v"
     environment:
       - HOST_HOSTNAME=$HOST_HOSTNAME
