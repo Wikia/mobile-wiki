@@ -98,17 +98,30 @@ Mobile-wiki can be run inside Docker using docker-compse. This is easy as runnin
 #### Initial setup
 
 Create .env file with the name of the devbox (this is needed to properly set @hostname field in the logs)
+and local user id (to match user id inside container with the one on your dev-box for proper permissions)
 	```bash
 	echo HOST_HOSTNAME=$(hostname) > .env
+  echo LOCAL_USER_ID=$(id -u $USER) >> .env
 	```
 This will properly set the hostname in the logs emmited by mobile-wiki.
+Now you need to fetch all dependencies (this can take quite a some time for the first time):
+
+```bash
+docker run --rm -v `pwd`:/app -e GITHUB_TOKEN=$GITHUB_TOKEN -e LOCAL_USER_ID=`id -u $USER`  artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
+```
 
 #### (Re)building the docker image
 Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you will need a Github token which will be used
 to fetch packages from private repo. To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
 or use one you have generated earlier. Then you need to use run:
 
-`docker build -f Dockerfile.dev --build-arg=GITHUB_TOKEN=$GITHUB_TOKEN -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
+`docker build -f Dockerfile.dev -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
+
+#### Running the images
+
+```bash
+docker-compose up
+```
 
 
 ## See also
