@@ -103,25 +103,29 @@ and local user id (to match user id inside container with the one on your dev-bo
   echo HOST_HOSTNAME=$(hostname) > .env
   echo LOCAL_USER_ID=$(id -u $USER) >> .env
 	```
+
 This will properly set the hostname in the logs emmited by mobile-wiki.
+
+You will need a Github token which will be used to fetch packages from private repo.
+To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
+or use one you have generated earlier. I recommend to store it somewhere safe and just save it per your
+ssh session:
+
+```bash
+export GITHUB_TOKEB=<YOUR_TOKEN_HERE>
+```
+
 Now you need to fetch all dependencies (this can take quite a some time for the first time):
+
 
 ```bash
 docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER`  artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
 ```
 
 #### (Re)building the docker image
-Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you will need a Github token which will be used
-to fetch packages from private repo. To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
-or use one you have generated earlier. Then you need to use run:
+Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you need to run:
 
 `docker build -f Dockerfile.dev -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
-
-#### Running the images
-
-```bash
-docker-compose up
-```
 
 
 ## See also
