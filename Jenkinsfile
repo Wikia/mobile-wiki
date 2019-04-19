@@ -1,6 +1,10 @@
 pipeline {
   agent {
-    label 'qa-executors'
+    node {
+        label 'qa-executors'
+        customWorkspace "/var/lib/jenkins/workspace/mobile-wiki-pr-checks-2-${BRANCH_NAME}"
+
+    }
   }
 
   stages {
