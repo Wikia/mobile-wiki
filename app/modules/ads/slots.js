@@ -31,7 +31,7 @@ function isInContentApplicable() {
     return !!document.querySelector('.curated-content');
   }
 
-  return true;
+  return context.get('custom.pageType') !== 'search';
 }
 
 function isPrefooterApplicable(inContentApplicable) {
@@ -49,7 +49,9 @@ function isPrefooterApplicable(inContentApplicable) {
 }
 
 function isBottomLeaderboardApplicable() {
-  return !!document.querySelector('.wds-global-footer');
+  const { context } = window.Wikia.adEngine;
+
+  return !!document.querySelector('.wds-global-footer') && context.get('custom.pageType') !== 'search';
 }
 
 /**
