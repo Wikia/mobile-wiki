@@ -60,6 +60,7 @@ module.exports = function (defaults) {
       'fastboot-inline-scripts': 'node_modules/mercury-shared/dist/head.js',
       'fastboot-inline-scripts-tracking': 'node_modules/mercury-shared/dist/tracking.js',
       'fastboot-inline-scripts-load-svg': 'node_modules/mercury-shared/dist/load-svg.js',
+      'tracking-samba': `${inlineScriptsPath}tracking-samba.js`,
       'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
       'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
