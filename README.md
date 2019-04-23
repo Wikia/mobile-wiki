@@ -97,14 +97,12 @@ Mobile-wiki can be run inside Docker using docker-compse. This is easy as runnin
 
 #### Initial setup
 
-Create .env file with the name of the devbox (this is needed to properly set @hostname field in the logs)
-and local user id (to match user id inside container with the one on your dev-box for proper permissions)
-	```bash
-  echo HOST_HOSTNAME=$(hostname) > .env
-  echo LOCAL_USER_ID=$(id -u $USER) >> .env
-	```
+Create .env file with the name of the devbox with local user id
+(to match user id inside container with the one on your dev-box for proper permissions)
 
-This will properly set the hostname in the logs emmited by mobile-wiki.
+	```bash
+  echo LOCAL_USER_ID=$(id -u $USER) > .env
+	```
 
 You will need a Github token which will be used to fetch packages from private repo.
 To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
