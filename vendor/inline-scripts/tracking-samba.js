@@ -4,7 +4,6 @@
   if (vertical.toLowerCase() === 'tv') {
     M.trackingQueue.push(function(optIn) {
       if (optIn) {
-        console.log('track samba');
         var t = window.SambaTV = window.SambaTV || [];
         if (!t.track) {
           if (t.invoked) {
