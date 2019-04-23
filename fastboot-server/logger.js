@@ -39,24 +39,9 @@ function createConsoleStream(minLogLevel) {
   };
 }
 
-/**
-  * Creates the console log settings
-  *
-  * @param {string} minLogLevel
-  * @param {string} logFile
-  * @returns {BunyanLoggerStream}
-  */
-function createDebugFileLog(logFile, minLogLevel = 'debug') {
-  return {
-    level: minLogLevel,
-    path: logFile,
-  };
-}
-
 const availableTargets = {
   default: createDefaultLogStream,
   console: createConsoleStream,
-  debugFile: createDebugFileLog,
 };
 
 const serializers = {
