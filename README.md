@@ -91,37 +91,38 @@ If you're in the #iris-tech channel, you can also make use of `sandbot` which is
 - `sandbot releasing <name-of sandbox>` to release one
 
 ### Devboxes
-Mobile-wiki can be run inside Docker using docker-compse. This is easy as running:
+Mobile-wiki can be run inside Docker using docker-compose. This is as easy as running:
 
-` docker-compose up`
+`docker-compose up`
 
 #### Initial setup
 
 Create .env file with the name of the devbox with local user id
-(to match user id inside container with the one on your dev-box for proper permissions)
+(to match the user id inside the container with the one on your dev-box for
+proper file permissions):
 
 	```bash
   echo LOCAL_USER_ID=$(id -u $USER) > .env
 	```
 
-You will need a Github token which will be used to fetch packages from private repo.
-To get a token go to [your Github settings](https://github.com/settings/tokens) and generate new token
-or use one you have generated earlier. I recommend to store it somewhere safe and just save it per your
+You will need a Github token which will be used to fetch packages from private repos.
+To get a token go to [your Github settings](https://github.com/settings/tokens) and generate a new token
+or use one you have generated earlier. I recommend storing it somewhere safe and just save it per your
 ssh session:
 
 ```bash
 export GITHUB_TOKEB=<YOUR_TOKEN_HERE>
 ```
 
-Now you need to fetch all dependencies (this can take quite a some time for the first time):
+Now you need to fetch all dependencies (this can take quite some time for the first time):
 
 
 ```bash
-docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER`  artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
+docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER` artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
 ```
 
 #### (Re)building the docker image
-Whenever you add new dependency you should rebuild your mobile-wiki container. To do that you need to run:
+Whenever you add a new global dependency you should rebuild your mobile-wiki container. To do that you need to run:
 
 `docker build -f Dockerfile.dev -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
 
