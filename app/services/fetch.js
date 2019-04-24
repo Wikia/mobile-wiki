@@ -16,12 +16,10 @@ export default fetch.extend({
 
   // TODO: Consider moving this to ember-fandom
   fetchFromMediaWikiAuthenticated(requestUrl, accessToken, errorClass) {
-    const options = this.getOptionsForInternalCache(requestUrl);
+    const options = this.getOptionsForInternalCache(requestUrl) || {};
 
     if (accessToken) {
-      options.headers = {
-        Cookie: `access_token=${accessToken}`,
-      };
+      options.headers.Cookie = `access_token=${accessToken}`;
     }
 
     return this.fetchAndParseResponse(requestUrl, options, errorClass);

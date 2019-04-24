@@ -69,7 +69,7 @@ spec:
           - name: WIKIA_DATACENTER
             value: ${dc}
           - name: INTERNAL_CACHE_HOST
-            value: prod.icache.service.${dc}.consul
+            value: ${env}.wikia.com
         resources:
           requests:
             cpu: 0.4
