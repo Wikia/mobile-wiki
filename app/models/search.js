@@ -2,7 +2,6 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
-import fetch from 'fetch';
 
 export default EmberObject.extend({
   batch: 1,

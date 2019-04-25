@@ -1,6 +1,5 @@
 import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
-import fetch from 'fetch';
 
 export default EmberObject.extend({
   wikiVariables: service(),

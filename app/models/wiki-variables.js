@@ -1,6 +1,5 @@
 import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
 import {
   WikiVariablesRedirectError,
   WikiVariablesFetchError,

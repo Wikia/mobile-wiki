@@ -1,5 +1,4 @@
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
 import BaseModel from './base';
 import { namespace as mediawikiNamespace } from '../../utils/mediawiki-namespace';
 
