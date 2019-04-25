@@ -42,7 +42,7 @@ export default Service.extend({
         method: 'getSearchPageAdsContext',
       },
     });
-    const options = this.fetchService.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalRequest(url);
     const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     return fetch(reqUrl, options)

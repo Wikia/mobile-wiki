@@ -6,7 +6,7 @@ export default fetch.extend({
 
   init() {
     this.config = {
-      internalCache: this.runtimeConfig.internalCache,
+      mwInternalHost: this.runtimeConfig.mwInternalHost,
       servicesExternalHost: this.runtimeConfig.servicesExternalHost,
       servicesInternalHost: this.runtimeConfig.servicesInternalHost,
     };
@@ -16,7 +16,7 @@ export default fetch.extend({
 
   // TODO: Consider moving this to ember-fandom
   fetchFromMediaWikiAuthenticated(requestUrl, accessToken, errorClass) {
-    const options = this.getOptionsForInternalCache(requestUrl) || {};
+    const options = this.getOptionsForInternalRequest(requestUrl) || {};
     const internalRequestUrl = this.getUrlForInternalRequest(requestUrl);
 
     if (accessToken) {

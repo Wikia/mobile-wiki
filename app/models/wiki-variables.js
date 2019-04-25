@@ -22,7 +22,7 @@ export default EmberObject.extend({
       },
     });
 
-    const options = this.fetchService.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalRequest(url);
     const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     if (accessToken) {

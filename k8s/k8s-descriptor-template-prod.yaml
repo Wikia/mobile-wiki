@@ -65,8 +65,8 @@ spec:
             value: prod
           - name: WIKIA_DATACENTER
             value: ${dc}
-          - name: INTERNAL_CACHE_HOST
-            value: prod.icache.service.${dc}.consul
+          - name: MW_INTERNAL_HOST
+            value: mediawiki-prod
         resources:
           requests:
             cpu: 0.4

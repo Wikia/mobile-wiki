@@ -68,7 +68,7 @@ spec:
             value: prod
           - name: WIKIA_DATACENTER
             value: ${dc}
-          - name: INTERNAL_CACHE_HOST
+          - name: MW_INTERNAL_HOST
             value: mediawiki-${env}
         resources:
           requests:

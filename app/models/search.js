@@ -65,7 +65,7 @@ export default EmberObject.extend({
         batch: this.batch,
       },
     });
-    const options = this.fetchService.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalRequest(url);
     const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     this.setProperties({

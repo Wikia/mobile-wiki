@@ -68,8 +68,8 @@ spec:
             value: prod
           - name: WIKIA_DATACENTER
             value: sjc
-          - name: INTERNAL_CACHE_HOST
-            value: prod.icache.service.sjc.consul
+          - name: MW_INTERNAL_HOST
+            value: mediawiki-preview
         resources:
           requests:
             cpu: 0.4

@@ -25,7 +25,7 @@ export default BaseModel.extend({
         format: 'json',
       },
     });
-    const options = this.fetchService.getOptionsForInternalCache(url);
+    const options = this.fetchService.getOptionsForInternalRequest(url);
     const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     return fetch(reqUrl, Object.assign(options, {
