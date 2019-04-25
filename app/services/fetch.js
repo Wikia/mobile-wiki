@@ -20,13 +20,7 @@ export default fetch.extend({
     const internalRequestUrl = this.getUrlForInternalRequest(requestUrl);
 
     if (accessToken) {
-      if (options.headers) {
-        options.headers.Cookie = `access_token=${accessToken}`;
-      } else {
-        options.headers = {
-          Cookie: `access_token=${accessToken}`,
-        };
-      }
+      options.headers = Object.assign(options.headers || {}, { Cookie: `access_token=${accessToken}` });
     }
 
     return this.fetchAndParseResponse(internalRequestUrl, options, errorClass);

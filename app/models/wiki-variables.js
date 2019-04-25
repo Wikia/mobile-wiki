@@ -26,9 +26,7 @@ export default EmberObject.extend({
     const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     if (accessToken) {
-      options.headers = {
-        Cookie: `access_token=${accessToken}`,
-      };
+      options.headers = Object.assign(options.headers || {}, { Cookie: `access_token=${accessToken}` });
     }
 
     return fetch(reqUrl, options)
