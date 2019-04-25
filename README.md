@@ -111,7 +111,7 @@ or use one you have generated earlier. I recommend storing it somewhere safe and
 ssh session:
 
 ```bash
-export GITHUB_TOKEB=<YOUR_TOKEN_HERE>
+export GITHUB_TOKEN=<YOUR_TOKEN_HERE>
 ```
 
 Now you need to fetch all dependencies (this can take quite some time for the first time):
