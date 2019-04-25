@@ -43,8 +43,9 @@ export default Service.extend({
       },
     });
     const options = this.fetchService.getOptionsForInternalCache(url);
+    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
-    return fetch(url, options)
+    return fetch(reqUrl, options)
       .then(response => response.json()
         .then(data => data.adsContext));
   },

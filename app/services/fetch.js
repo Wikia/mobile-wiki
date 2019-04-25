@@ -17,11 +17,18 @@ export default fetch.extend({
   // TODO: Consider moving this to ember-fandom
   fetchFromMediaWikiAuthenticated(requestUrl, accessToken, errorClass) {
     const options = this.getOptionsForInternalCache(requestUrl) || {};
+    const internalRequestUrl = this.getUrlForInternalRequest(requestUrl);
 
     if (accessToken) {
-      options.headers.Cookie = `access_token=${accessToken}`;
+      if (options.headers) {
+        options.headers.Cookie = `access_token=${accessToken}`;
+      } else {
+        options.headers = {
+          Cookie: `access_token=${accessToken}`,
+        };
+      }
     }
 
-    return this.fetchAndParseResponse(requestUrl, options, errorClass);
+    return this.fetchAndParseResponse(internalRequestUrl, options, errorClass);
   },
 });

@@ -23,6 +23,7 @@ export default EmberObject.extend({
     });
 
     const options = this.fetchService.getOptionsForInternalCache(url);
+    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     if (accessToken) {
       options.headers = {
@@ -30,7 +31,7 @@ export default EmberObject.extend({
       };
     }
 
-    return fetch(url, options)
+    return fetch(reqUrl, options)
       .then((response) => {
         if (!response.ok) {
           return response.text().then(() => {

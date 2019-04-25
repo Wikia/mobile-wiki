@@ -31,6 +31,7 @@ export default EmberObject.extend({
     const FormDataClass = FastBoot.require('form-data');
     const formData = new FormDataClass();
     const options = this.fetchService.getOptionsForInternalCache(url);
+    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     if (wikitext) {
       formData.append('wikitext', wikitext);
@@ -38,7 +39,7 @@ export default EmberObject.extend({
       formData.append('CKmarkup', CKmarkup);
     }
 
-    return fetch(url, Object.assign(options, {
+    return fetch(reqUrl, Object.assign(options, {
       method: 'POST',
       body: formData,
     }))

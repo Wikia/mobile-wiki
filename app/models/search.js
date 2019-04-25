@@ -66,13 +66,14 @@ export default EmberObject.extend({
       },
     });
     const options = this.fetchService.getOptionsForInternalCache(url);
+    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     this.setProperties({
       error: '',
       loading: true,
     });
 
-    return fetch(url, options)
+    return fetch(reqUrl, options)
       .then((response) => {
         if (!response.ok) {
           this.setProperties({

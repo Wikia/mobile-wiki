@@ -26,7 +26,9 @@ export default BaseModel.extend({
       },
     });
     const options = this.fetchService.getOptionsForInternalCache(url);
-    return fetch(url, Object.assign(options, {
+    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
+
+    return fetch(reqUrl, Object.assign(options, {
       cache: 'no-store',
     }))
       .then(response => response.json())
