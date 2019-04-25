@@ -62,7 +62,7 @@ export default EmberObject.extend(LanguagesMixin, {
       },
     });
 
-    return this.fetch.fetchFromMediawiki(url, WikiaInYourLangFetchError)
+    return this.fetch.fetchFromMediawikiAndParse(url, WikiaInYourLangFetchError)
       .then((resp) => {
         let out = null;
 

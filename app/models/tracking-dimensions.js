@@ -22,7 +22,7 @@ export default EmberObject.extend({
       },
     });
 
-    return this.fetch.fetchFromMediawiki(url, TrackingDimensionsFetchError)
+    return this.fetch.fetchFromMediawikiAndParse(url, TrackingDimensionsFetchError)
       .catch(error => this.logger.error('getTrackingDimensions error: ', error));
   },
 });

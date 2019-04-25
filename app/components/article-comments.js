@@ -135,7 +135,7 @@ export default Component.extend({
     }
 
     if (page && articleId) {
-      this.fetch.fetchFromMediawiki(this.url(articleId, page), ArticleCommentsFetchError)
+      this.fetch.fetchFromMediawikiAndParse(this.url(articleId, page), ArticleCommentsFetchError)
         .then((data) => {
           this.setProperties({
             comments: get(data, 'payload.comments'),

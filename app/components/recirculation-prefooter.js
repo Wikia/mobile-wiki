@@ -144,7 +144,7 @@ export default Component.extend(
         },
       });
 
-      this.fetch.fetchFromMediawiki(url, TopArticlesFetchError)
+      this.fetch.fetchFromMediawikiAndParse(url, TopArticlesFetchError)
         .then((data) => {
           this.set('topArticles', data.slice(0, 3));
 

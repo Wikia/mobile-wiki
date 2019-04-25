@@ -42,10 +42,8 @@ export default Service.extend({
         method: 'getSearchPageAdsContext',
       },
     });
-    const options = this.fetchService.getOptionsForInternalRequest(url);
-    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
-    return fetch(reqUrl, options)
+    return this.fetchService.fetchFromMediawiki(url, {})
       .then(response => response.json()
         .then(data => data.adsContext));
   },

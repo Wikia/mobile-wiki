@@ -114,7 +114,7 @@ export default EmberObject.extend({
       },
     });
 
-    return this.fetchService.fetchFromMediawiki(url, UserLoadDetailsFetchError)
+    return this.fetchService.fetchFromMediawikiAndParse(url, UserLoadDetailsFetchError)
       .then((result) => {
         if (isArray(result.items)) {
           return result.items[0];

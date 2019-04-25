@@ -30,8 +30,6 @@ export default EmberObject.extend({
     });
     const FormDataClass = FastBoot.require('form-data');
     const formData = new FormDataClass();
-    const options = this.fetchService.getOptionsForInternalRequest(url);
-    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     if (wikitext) {
       formData.append('wikitext', wikitext);
@@ -39,10 +37,10 @@ export default EmberObject.extend({
       formData.append('CKmarkup', CKmarkup);
     }
 
-    return fetch(reqUrl, Object.assign(options, {
+    return this.fetchService.fetchFromMediawiki(url, {
       method: 'POST',
       body: formData,
-    }))
+    })
       .then(response => response.json())
       .then(({ data }) => {
         // Make sure media is in the same format as on article page

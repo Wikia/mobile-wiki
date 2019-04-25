@@ -70,7 +70,7 @@ export default Mixin.create({
 
       const url = getURL(this.wikiUrls, params);
 
-      return this.fetch.fetchFromMediawiki(url, WikiPageFetchError)
+      return this.fetch.fetchFromMediawikiAndParse(url, WikiPageFetchError)
         .then((data) => {
           if (isFastBoot) {
             const dataForShoebox = extend({}, data);

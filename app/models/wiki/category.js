@@ -39,7 +39,7 @@ export default BaseModel.extend({
       urlParams.query.categoryMembersFrom = from;
     }
 
-    return this.fetch.fetchFromMediawiki(
+    return this.fetch.fetchFromMediawikiAndParse(
       this.wikiUrls.build(urlParams),
       CategoryMembersFetchError,
     ).then(({ data }) => {

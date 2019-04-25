@@ -22,14 +22,13 @@ export default EmberObject.extend({
       },
     });
 
-    const options = this.fetchService.getOptionsForInternalRequest(url);
-    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
+    const options = {};
 
     if (accessToken) {
-      options.headers = Object.assign(options.headers || {}, { Cookie: `access_token=${accessToken}` });
+      options.headers = { Cookie: `access_token=${accessToken}` };
     }
 
-    return fetch(reqUrl, options)
+    return this.fetchService.fetchFromMediawiki(url, options)
       .then((response) => {
         if (!response.ok) {
           return response.text().then(() => {

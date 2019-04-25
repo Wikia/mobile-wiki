@@ -65,15 +65,13 @@ export default EmberObject.extend({
         batch: this.batch,
       },
     });
-    const options = this.fetchService.getOptionsForInternalRequest(url);
-    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
     this.setProperties({
       error: '',
       loading: true,
     });
 
-    return fetch(reqUrl, options)
+    return this.fetchService.fetchFromMediawiki(url, {})
       .then((response) => {
         if (!response.ok) {
           this.setProperties({

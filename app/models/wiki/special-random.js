@@ -25,12 +25,8 @@ export default BaseModel.extend({
         format: 'json',
       },
     });
-    const options = this.fetchService.getOptionsForInternalRequest(url);
-    const reqUrl = this.fetchService.getUrlForInternalRequest(url);
 
-    return fetch(reqUrl, Object.assign(options, {
-      cache: 'no-store',
-    }))
+    return this.fetchService.fetchFromMediawiki(url, { cache: 'no-store' })
       .then(response => response.json())
       .then((data) => {
         if (data.query && data.query.pages) {
