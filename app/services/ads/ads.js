@@ -31,6 +31,7 @@ export default Service.extend({
         topLeaderBoard: 'top_leaderboard',
         incontentNative: 'incontent_native',
         incontentBoxad: 'incontent_boxad_1',
+        floorAdhesion: 'floor_adhesion',
       },
     });
 

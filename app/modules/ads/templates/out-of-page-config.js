@@ -1,16 +1,18 @@
-const invisibleHighImpactWrapperId = 'InvisibleHighImpactWrapper';
+const invisibleHighImpactWrapperCls = 'invisible-high-impact-wrapper';
 
 export const getConfig = () => (
   {
     onInit: () => {
       const { events, eventService } = window.Wikia.adEngine;
-      const wrapper = document.getElementById(invisibleHighImpactWrapperId);
+      const wrappers = document.getElementsByClassName(invisibleHighImpactWrapperCls);
 
-      wrapper.classList.add('out-of-page-template-loaded');
-      wrapper.classList.remove('hidden');
+      wrappers.forEach((wrapper) => {
+        wrapper.classList.add('out-of-page-template-loaded');
+        wrapper.classList.remove('hidden');
 
-      eventService.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
-        wrapper.classList.add('hidden');
+        eventService.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
+          wrapper.classList.add('hidden');
+        });
       });
     },
   }

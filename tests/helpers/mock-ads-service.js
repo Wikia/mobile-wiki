@@ -56,6 +56,7 @@ export function mockAdsService(owner) {
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
         incontentBoxad: 'incontent_boxad',
+        floorAdhesion: 'floor_adhesion',
       };
     },
     destroyAdSlotComponents() {

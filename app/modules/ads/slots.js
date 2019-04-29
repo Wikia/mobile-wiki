@@ -80,6 +80,32 @@ function isIncontentNativeApplicable() {
   return isSearch && isIncontentNativeEnabled;
 }
 
+/**
+ * Decides if floor_adhesion slot should be active.
+ *
+ * It is disabled if page has FV.
+ *
+ * @returns {boolean}
+ */
+function isFloorAdhesionApplicable() {
+  const { context } = window.Wikia.adEngine;
+
+  return !context.get('custom.hasFeaturedVideo') && !context.get('slots.floor_adhesion.disabled');
+}
+
+/**
+ * Decides if invisible_high_impact_2 slot should be active.
+ *
+ * It is disabled if page has FV or floor_adhesion is enabled.
+ *
+ * @returns {boolean}
+ */
+function isInvisibleHighImpact2Applicable() {
+  const { context } = window.Wikia.adEngine;
+
+  return !context.get('custom.hasFeaturedVideo') && context.get('slots.floor_adhesion.disabled');
+}
+
 export const slots = {
   getContext() {
     return {
@@ -169,6 +195,20 @@ export const slots = {
           loc: 'footer',
           rv: 1,
         },
+      },
+      floor_adhesion: {
+        adProduct: 'floor_adhesion',
+        disabled: true,
+        slotNameSuffix: '',
+        group: 'PF',
+        options: {},
+        outOfPage: false,
+        targeting: {
+          loc: 'footer',
+          rv: 1,
+        },
+        defaultTemplates: ['floorAdhesion'],
+        defaultSizes: [[320, 50], [320, 100], [300, 50]],
       },
       bottom_leaderboard: {
         adProduct: 'bottom_leaderboard',
@@ -277,7 +317,9 @@ export const slots = {
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
-    setSlotState('invisible_high_impact_2', !context.get('custom.hasFeaturedVideo'));
+    console.log('**' + isFloorAdhesionApplicable());
+    setSlotState('floor_adhesion', isFloorAdhesionApplicable());
+    setSlotState('invisible_high_impact_2', isInvisibleHighImpact2Applicable());
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
     setSlotState('incontent_player', isIncontentPlayerApplicable());
