@@ -1,0 +1,15 @@
+version: '2'
+services:
+  web:
+    image: artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest
+    ports:
+      - "7001:7001"
+    volumes:
+      - ./:/app
+    environment:
+      - WIKIA_DATACENTER=$WIKIA_DATACENTER
+      - WIKIA_ENVIRONMENT=$WIKIA_ENVIRONMENT
+      - WIKIA_DEV_DOMAIN=$WIKIA_DEV_DOMAIN
+      - INTERNAL_CACHE_HOST=dev.icache.service.$WIKIA_DATACENTER.consul
+      - LOCAL_USER_ID=$LOCAL_USER_ID
+    command: "npm run dev"
