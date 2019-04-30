@@ -102,7 +102,7 @@ Create .env file with the name of the devbox with local user id
 proper file permissions):
 
 	```bash
-  echo LOCAL_USER_ID=$(id -u $USER) > .env
+  	echo LOCAL_USER_ID=$(id -u $USER) > .env
 	```
 
 You will need a Github token which will be used to fetch packages from private repos.
