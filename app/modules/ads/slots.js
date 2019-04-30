@@ -317,7 +317,6 @@ export const slots = {
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
-    console.log('**' + isFloorAdhesionApplicable());
     setSlotState('floor_adhesion', isFloorAdhesionApplicable());
     setSlotState('invisible_high_impact_2', isInvisibleHighImpact2Applicable());
 
