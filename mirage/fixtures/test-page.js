@@ -63,9 +63,7 @@ export default {
         ],
         hasPortableInfobox: true,
       },
-      providers: {
-        audienceNetwork: true,
-      },
+      providers: {},
       slots: {
         invisibleHighImpact: true,
       },
