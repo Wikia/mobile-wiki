@@ -1,8 +1,9 @@
 export const getConfig = () => ({
   slotsToEnable: [
-    'incontent_boxad_1',
+    'top_boxad',
   ],
   slotsToDisable: [
+    'incontent_boxad_1',
     'incontent_player',
   ],
 });

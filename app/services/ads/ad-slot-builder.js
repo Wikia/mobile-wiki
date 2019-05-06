@@ -41,7 +41,7 @@ export default Service.extend({
     }
 
     if (firstSection) {
-      this.appendAd(adsData.incontentBoxad, 'beforebegin', firstSection);
+      this.appendAd(adsData.topBoxad, 'beforebegin', firstSection);
     }
 
     if (articleFooter) {
@@ -99,7 +99,7 @@ export default Service.extend({
     this.appendAd(adsData.topLeaderBoard, 'beforebegin', element);
 
     if (curatedContent) {
-      this.appendAd(adsData.incontentBoxad, 'afterend', curatedContent);
+      this.appendAd(adsData.topBoxad, 'afterend', curatedContent);
     }
 
     if (trendingArticles) {

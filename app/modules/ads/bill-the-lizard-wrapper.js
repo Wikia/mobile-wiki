@@ -8,11 +8,15 @@ const logGroup = 'bill-the-lizard-wrapper';
 
 let config = null;
 let cheshirecatCalled = false;
-let incontentsCounter = 1;
+let incontentsCounter = 0;
 let defaultStatus = NOT_USED_STATUS;
 
-function getNextIncontentId() {
-  return `incontent_boxad_${incontentsCounter}`;
+function getCallId(counter = null) {
+  if ((counter || incontentsCounter) === 0) {
+    return 'top_boxad';
+  }
+
+  return `incontent_boxad_${counter || incontentsCounter}`;
 }
 
 function serializeBids(slotName) {
@@ -50,7 +54,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
     case BillTheLizard.FAILURE: {
       const prevPrediction = billTheLizard.getPreviousPrediction(
         incontentsCounter,
-        counter => `incontent_boxad_${counter}`,
+        getCallId,
         'cheshirecat',
       );
 
@@ -74,7 +78,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 
       const prevPrediction = billTheLizard.getPreviousPrediction(
         incontentsCounter,
-        counter => `incontent_boxad_${counter}`,
+        getCallId,
         'cheshirecat',
       );
 
@@ -112,36 +116,38 @@ export const billTheLizardWrapper = {
       }
 
       billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-        const slotNameToCatlapse = getNextIncontentId();
+        const slotNameToCatlapse = getCallId();
 
         slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
           utils.logger(logGroup, `catlapsing ${slotNameToCatlapse}`);
           // eslint-disable-next-line no-console
           console.log(`catlapsing ${slotNameToCatlapse}`);
         });
-        slotService.disable(getNextIncontentId(), AD_SLOT_CATLAPSED_STATUS);
+        slotService.disable(getCallId(), AD_SLOT_CATLAPSED_STATUS);
       });
 
       context.set(
         'bidders.prebid.bidsRefreshing.bidsBackHandler',
         () => {
-          if (refreshedSlotNumber && refreshedSlotNumber > 1) {
-            this.callCheshireCat(`incontent_boxad_${refreshedSlotNumber}`);
+          if (refreshedSlotNumber && refreshedSlotNumber > 0) {
+            const callId = getCallId(refreshedSlotNumber);
+
+            this.callCheshireCat(callId);
           }
         },
       );
 
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
-          if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
-            this.callCheshireCat('incontent_boxad_1');
+          if (adSlot.getSlotName() === 'top_boxad' && !cheshirecatCalled) {
+            this.callCheshireCat('top_boxad');
           }
         },
       });
 
       eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
-        if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
-          const callId = `incontent_boxad_${incontentsCounter}`;
+        if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0 || adSlot.getSlotName() === 'top_boxad') {
+          const callId = getCallId();
 
           adSlot.btlStatus = getBtlSlotStatus(
             billTheLizard.getResponseStatus(callId),
@@ -197,14 +203,6 @@ export const billTheLizardWrapper = {
   },
 
   getBtlSlotStatus,
-
-  hasAvailableModels(btlConfig, projectName) {
-    const { utils } = window.Wikia.adEngine;
-    const projects = btlConfig.projects || config.projects;
-
-    return projects && projects[projectName]
-      && projects[projectName].some(model => utils.geoService.isProperGeo(model.countries));
-  },
 
   reset() {
     const { billTheLizard } = window.Wikia.adServices;

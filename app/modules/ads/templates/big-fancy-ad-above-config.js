@@ -6,11 +6,12 @@ export const getConfig = () => ({
   slotParams: null,
   navbarElement: null,
   slotsToEnable: [
-    'incontent_boxad_1',
+    'top_boxad',
     'mobile_prefooter',
     'bottom_leaderboard',
   ],
   slotsToDisable: [
+    'incontent_boxad_1',
     'incontent_player',
   ],
 
