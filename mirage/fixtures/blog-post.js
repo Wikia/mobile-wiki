@@ -54,9 +54,7 @@ export default {
           'life',
         ],
       },
-      providers: {
-        audienceNetwork: true,
-      },
+      providers: {},
       slots: {
         invisibleHighImpact: true,
       },
