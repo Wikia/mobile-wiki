@@ -4,7 +4,7 @@ export const getConfig = () => (
   {
     onInit: () => {
       const { events, eventService } = window.Wikia.adEngine;
-      const wrappers = document.getElementsByClassName(invisibleHighImpactWrapperCls);
+      const wrappers = [...document.getElementsByClassName(invisibleHighImpactWrapperCls)];
 
       wrappers.forEach((wrapper) => {
         wrapper.classList.add('out-of-page-template-loaded');
