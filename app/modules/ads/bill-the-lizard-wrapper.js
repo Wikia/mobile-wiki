@@ -8,11 +8,15 @@ const logGroup = 'bill-the-lizard-wrapper';
 
 let config = null;
 let cheshirecatCalled = false;
-let incontentsCounter = 0;
+// TODO: Remove initialValueOfIncontentsCounter and use 0 everywhere once we fully switch to top_boxad
+let initialValueOfIncontentsCounter = 1;
+let incontentsCounter = initialValueOfIncontentsCounter;
 let defaultStatus = NOT_USED_STATUS;
 
 function getCallId(counter = null) {
-  if ((counter || incontentsCounter) === 0) {
+  const { context } = window.Wikia.adEngine;
+
+  if (context.get('options.useTopBoxad') && (counter || incontentsCounter) === 0) {
     return 'top_boxad';
   }
 
@@ -52,11 +56,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
     case BillTheLizard.TOO_LATE:
     case BillTheLizard.TIMEOUT:
     case BillTheLizard.FAILURE: {
-      const prevPrediction = billTheLizard.getPreviousPrediction(
-        incontentsCounter,
-        getCallId,
-        'cheshirecat',
-      );
+      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
 
       slotStatus = btlStatus;
       if (prevPrediction !== undefined) {
@@ -76,11 +76,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
         return NOT_USED_STATUS;
       }
 
-      const prevPrediction = billTheLizard.getPreviousPrediction(
-        incontentsCounter,
-        getCallId,
-        'cheshirecat',
-      );
+      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
 
       if (prevPrediction === undefined) {
         // probably impossible but set in debugging purposes
@@ -101,7 +97,15 @@ export const billTheLizardWrapper = {
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let refreshedSlotNumber;
+    let baseSlotName = 'incontent_boxad_1';
     defaultStatus = NOT_USED_STATUS;
+
+    // TODO clean up once we fully switch to top_boxad
+    if (context.get('options.useTopBoxad')) {
+      baseSlotName = 'top_boxad';
+      initialValueOfIncontentsCounter = 0;
+      incontentsCounter = initialValueOfIncontentsCounter;
+    }
 
     if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
       config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
@@ -129,7 +133,7 @@ export const billTheLizardWrapper = {
       context.set(
         'bidders.prebid.bidsRefreshing.bidsBackHandler',
         () => {
-          if (refreshedSlotNumber && refreshedSlotNumber > 0) {
+          if (refreshedSlotNumber && refreshedSlotNumber > initialValueOfIncontentsCounter) {
             const callId = getCallId(refreshedSlotNumber);
 
             this.callCheshireCat(callId);
@@ -139,14 +143,14 @@ export const billTheLizardWrapper = {
 
       context.push('listeners.slot', {
         onRenderEnded: (adSlot) => {
-          if (adSlot.getSlotName() === 'top_boxad' && !cheshirecatCalled) {
-            this.callCheshireCat('top_boxad');
+          if (adSlot.getSlotName() === baseSlotName && !cheshirecatCalled) {
+            this.callCheshireCat(baseSlotName);
           }
         },
       });
 
       eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
-        if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0 || adSlot.getSlotName() === 'top_boxad') {
+        if (adSlot.getConfigProperty('cheshireCatSlot')) {
           const callId = getCallId();
 
           adSlot.btlStatus = getBtlSlotStatus(
@@ -208,7 +212,7 @@ export const billTheLizardWrapper = {
     const { billTheLizard } = window.Wikia.adServices;
 
     cheshirecatCalled = false;
-    incontentsCounter = 1;
+    incontentsCounter = initialValueOfIncontentsCounter;
     defaultStatus = NOT_USED_STATUS;
 
     // Reset predictions from previous page views

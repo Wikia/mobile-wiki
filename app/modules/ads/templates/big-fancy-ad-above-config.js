@@ -1,17 +1,17 @@
 import { slots } from '../slots';
 import { appEvents } from '../events';
 
-export const getConfig = () => ({
+export const getConfig = (useTopBoxad) => ({
   adSlot: null,
   slotParams: null,
   navbarElement: null,
   slotsToEnable: [
-    'top_boxad',
+    useTopBoxad ? 'top_boxad' : 'incontent_boxad_1',
     'mobile_prefooter',
     'bottom_leaderboard',
   ],
   slotsToDisable: [
-    'incontent_boxad_1',
+    useTopBoxad ? 'incontent_boxad_1' : 'top_boxad',
     'incontent_player',
   ],
 

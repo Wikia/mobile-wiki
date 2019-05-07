@@ -51,12 +51,14 @@ export const adsSetup = {
     this.setupAdContext(adsContext, instantGlobals, isOptedIn);
     adProductsUtils.setupNpaContext();
 
-    templateService.register(BigFancyAdAbove, getBfaaConfig());
+    const useTopBoxad = context.get('options.useTopBoxad');
+
+    templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
     templateService.register(BigFancyAdBelow, getBfabConfig());
     templateService.register(FloorAdhesion, getOutOfPageConfig());
     templateService.register(Interstitial, getOutOfPageConfig());
     templateService.register(PorvataTemplate, getPorvataConfig());
-    templateService.register(Roadblock, getRoadblockConfig());
+    templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
     templateService.register(StickyTLB, getStickyTLBConfig());
 
     context.push('listeners.slot', slotTracker);
@@ -128,6 +130,7 @@ export const adsSetup = {
     context.set('options.video.adsOnNextVideoFrequency', instantGlobals.wgAdDriverPlayAdsOnNextFVFrequency);
     context.set('options.video.isMidrollEnabled', isGeoEnabled('wgAdDriverFVMidrollCountries'));
     context.set('options.video.isPostrollEnabled', isGeoEnabled('wgAdDriverFVPostrollCountries'));
+    context.set('options.useTopBoxad', isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
 
     context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
     context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
@@ -262,6 +265,14 @@ export const adsSetup = {
           ].join(','),
         );
       });
+    }
+
+    if (context.get('option.useTopBoxad')) {
+      context.remove('events.pushAfterRendered.incontent_boxad_1');
+      context.set('events.pushAfterRendered.top_boxad', [
+        'incontent_boxad_1',
+        'incontent_player',
+      ]);
     }
 
     if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {

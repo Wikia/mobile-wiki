@@ -1,9 +1,9 @@
-export const getConfig = () => ({
+export const getConfig = (useTopBoxad) => ({
   slotsToEnable: [
-    'top_boxad',
+    useTopBoxad ? 'top_boxad' : 'incontent_boxad_1',
   ],
   slotsToDisable: [
-    'incontent_boxad_1',
+    useTopBoxad ? 'incontent_boxad_1' : 'top_boxad',
     'incontent_player',
   ],
 });

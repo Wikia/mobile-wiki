@@ -104,8 +104,9 @@ export const slots = {
       top_boxad: {
         adProduct: 'top_boxad',
         avoidConflictWith: '.ad-slot',
-        slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
+        cheshireCatSlot: true,
+        slotNameSuffix: '',
         group: 'MR',
         options: {},
         slotShortcut: 'm',
@@ -127,9 +128,10 @@ export const slots = {
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
+        bidderAlias: 'mobile_in_content',
+        cheshireCatSlot: true,
         defaultClasses: ['hide', 'incontent-boxad', 'ad-slot'],
         slotNameSuffix: '',
-        bidderAlias: 'mobile_in_content',
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
@@ -295,7 +297,7 @@ export const slots = {
     } else {
       setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     }
-    setSlotState('top_boxad', incontentState);
+    setSlotState('top_boxad', context.get('options.useTopBoxad') && incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
