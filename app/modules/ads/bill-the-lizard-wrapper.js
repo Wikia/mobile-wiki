@@ -8,7 +8,8 @@ const logGroup = 'bill-the-lizard-wrapper';
 
 let config = null;
 let cheshirecatCalled = false;
-// TODO: Remove initialValueOfIncontentsCounter and use 0 everywhere once we fully switch to top_boxad
+// TODO: Remove initialValueOfIncontentsCounter and
+//  use 0 everywhere once we fully switch to top_boxad
 let initialValueOfIncontentsCounter = 1;
 let incontentsCounter = initialValueOfIncontentsCounter;
 let defaultStatus = NOT_USED_STATUS;

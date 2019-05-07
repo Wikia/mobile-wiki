@@ -1,7 +1,7 @@
 import { slots } from '../slots';
 import { appEvents } from '../events';
 
-export const getConfig = (useTopBoxad) => ({
+export const getConfig = useTopBoxad => ({
   adSlot: null,
   slotParams: null,
   navbarElement: null,
