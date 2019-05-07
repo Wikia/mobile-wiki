@@ -4,6 +4,7 @@ export const getConfig = () => ({
   ],
   slotsToDisable: [
     'incontent_player',
+    'floor_adhesion',
   ],
 });
 

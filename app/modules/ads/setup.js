@@ -156,6 +156,8 @@ export const adsSetup = {
     context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
+    context.set('slots.floor_adhesion.disabled', !isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
