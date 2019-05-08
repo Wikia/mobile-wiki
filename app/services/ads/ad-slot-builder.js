@@ -120,20 +120,28 @@ export default Service.extend({
    */
   appendHighImpactAd() {
     const adsData = this.ads.slotNames;
-    const placeholder = document.createElement('div');
+    const placeholderIHI2 = document.createElement('div');
+    const placeholderFloorAdhesion = document.createElement('div');
     const wikiContainer = document.getElementById('wikiContainer');
 
     if (wikiContainer) {
-      wikiContainer.insertAdjacentElement('afterend', placeholder);
-      const attributes = this.get('ads.module')
-        .getAdSlotComponentAttributes(adsData.invisibleHighImpact2);
+      wikiContainer.insertAdjacentElement('afterend', placeholderIHI2);
+      wikiContainer.insertAdjacentElement('afterend', placeholderFloorAdhesion);
 
       this.ads.pushAdSlotComponent(
         adsData.invisibleHighImpact2,
         this.renderAdComponent({
           name: 'ads/invisible-high-impact-2',
-          attrs: attributes,
-          element: placeholder,
+          attrs: this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2),
+          element: placeholderIHI2,
+        }),
+      );
+      this.ads.pushAdSlotComponent(
+        adsData.floorAdhesion,
+        this.renderAdComponent({
+          name: 'ads/invisible-high-impact-2',
+          attrs: this.get('ads.module').getAdSlotComponentAttributes(adsData.floorAdhesion),
+          element: placeholderFloorAdhesion,
         }),
       );
     }
