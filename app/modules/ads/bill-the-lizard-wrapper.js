@@ -99,84 +99,90 @@ export const billTheLizardWrapper = {
     let refreshedSlotNumber;
     defaultStatus = NOT_USED_STATUS;
 
-    if (context.get('bidders.prebid.bidsRefreshing.enabled')) {
-      config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
+    if (!context.get('bidders.prebid.bidsRefreshing.enabled')) {
+      return;
+    }
 
-      context.set('services.billTheLizard.projects', config.projects);
-      context.set('services.billTheLizard.timeout', config.timeout || 0);
+    config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
 
-      const enableCheshireCat = context.get('options.billTheLizard.cheshireCat');
+    if (!this.hasAvailableModels(config, 'cheshirecat')) {
+      return;
+    }
 
-      if (enableCheshireCat === true) {
-        billTheLizard.projectsHandler.enable('cheshirecat');
+    context.set('services.billTheLizard.projects', config.projects);
+    context.set('services.billTheLizard.timeout', config.timeout || 0);
+
+    const enableCheshireCat = context.get('options.billTheLizard.cheshireCat');
+
+    if (enableCheshireCat === true) {
+      billTheLizard.projectsHandler.enable('cheshirecat');
+    }
+
+    billTheLizard.executor.register('catlapseIncontentBoxad', () => {
+      const slotNameToCatlapse = getNextIncontentId();
+
+      slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
+        utils.logger(logGroup, `catlapsing ${slotNameToCatlapse}`);
+        // eslint-disable-next-line no-console
+        console.log(`catlapsing ${slotNameToCatlapse}`);
+      });
+      slotService.disable(getNextIncontentId(), AD_SLOT_CATLAPSED_STATUS);
+    });
+
+    context.set(
+      'bidders.prebid.bidsRefreshing.bidsBackHandler',
+      () => {
+        if (refreshedSlotNumber && refreshedSlotNumber > 1) {
+          this.callCheshireCat(`incontent_boxad_${refreshedSlotNumber}`);
+        }
+      },
+    );
+
+    context.push('listeners.slot', {
+      onRenderEnded: (adSlot) => {
+        if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
+          this.callCheshireCat('incontent_boxad_1');
+        }
+      },
+    });
+
+    eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
+      if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
+        const callId = `incontent_boxad_${incontentsCounter}`;
+
+        adSlot.btlStatus = getBtlSlotStatus(
+          billTheLizard.getResponseStatus(callId),
+          callId,
+          defaultStatus,
+        );
+        incontentsCounter += 1;
+      }
+    });
+
+    eventService.on(events.BIDS_REFRESH, () => {
+      cheshirecatCalled = true;
+      refreshedSlotNumber = incontentsCounter;
+    });
+
+    eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
+      const { query, callId } = event;
+      let propName = 'btl_request';
+      if (callId) {
+        propName = `${propName}_${callId}`;
       }
 
-      billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-        const slotNameToCatlapse = getNextIncontentId();
+      pageTracker.trackProp(propName, query);
+    });
 
-        slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
-          utils.logger(logGroup, `catlapsing ${slotNameToCatlapse}`);
-          // eslint-disable-next-line no-console
-          console.log(`catlapsing ${slotNameToCatlapse}`);
-        });
-        slotService.disable(getNextIncontentId(), AD_SLOT_CATLAPSED_STATUS);
-      });
-
-      context.set(
-        'bidders.prebid.bidsRefreshing.bidsBackHandler',
-        () => {
-          if (refreshedSlotNumber && refreshedSlotNumber > 1) {
-            this.callCheshireCat(`incontent_boxad_${refreshedSlotNumber}`);
-          }
-        },
-      );
-
-      context.push('listeners.slot', {
-        onRenderEnded: (adSlot) => {
-          if (adSlot.getSlotName() === 'incontent_boxad_1' && !cheshirecatCalled) {
-            this.callCheshireCat('incontent_boxad_1');
-          }
-        },
-      });
-
-      eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
-        if (adSlot.getSlotName().indexOf('incontent_boxad_') === 0) {
-          const callId = `incontent_boxad_${incontentsCounter}`;
-
-          adSlot.btlStatus = getBtlSlotStatus(
-            billTheLizard.getResponseStatus(callId),
-            callId,
-            defaultStatus,
-          );
-          incontentsCounter += 1;
-        }
-      });
-
-      eventService.on(events.BIDS_REFRESH, () => {
-        cheshirecatCalled = true;
-        refreshedSlotNumber = incontentsCounter;
-      });
-
-      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
-        const { query, callId } = event;
-        let propName = 'btl_request';
-        if (callId) {
-          propName = `${propName}_${callId}`;
-        }
-
-        pageTracker.trackProp(propName, query);
-      });
-
-      eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
-        const { response, callId } = event;
-        let propName = 'btl_response';
-        if (callId) {
-          propName = `${propName}_${callId}`;
-          defaultStatus = BillTheLizard.REUSED;
-        }
-        pageTracker.trackProp(propName, response);
-      });
-    }
+    eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
+      const { response, callId } = event;
+      let propName = 'btl_response';
+      if (callId) {
+        propName = `${propName}_${callId}`;
+        defaultStatus = BillTheLizard.REUSED;
+      }
+      pageTracker.trackProp(propName, response);
+    });
   },
 
   /**
@@ -203,7 +209,9 @@ export const billTheLizardWrapper = {
     const projects = btlConfig.projects || config.projects;
 
     return projects && projects[projectName]
-      && projects[projectName].some(model => utils.geoService.isProperGeo(model.countries));
+      && projects[projectName].some(
+        model => utils.geoService.isProperGeo(model.countries, model.name),
+      );
   },
 
   reset() {
