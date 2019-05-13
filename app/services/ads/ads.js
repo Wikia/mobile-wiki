@@ -32,6 +32,7 @@ export default Service.extend({
         incontentNative: 'incontent_native',
         topBoxad: 'top_boxad',
         incontentBoxad: 'incontent_boxad_1',
+        floorAdhesion: 'floor_adhesion',
       },
     });
 

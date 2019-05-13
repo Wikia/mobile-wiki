@@ -13,6 +13,7 @@ export const getConfig = useTopBoxad => ({
   slotsToDisable: [
     useTopBoxad ? 'incontent_boxad_1' : 'top_boxad',
     'incontent_player',
+    'floor_adhesion',
   ],
 
   adjustPadding(iframe, { aspectRatio }) {
