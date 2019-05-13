@@ -208,7 +208,7 @@ export const slots = {
           rv: 1,
         },
         defaultTemplates: ['floorAdhesion', 'hideOnViewability'],
-        defaultSizes: [[320, 50], [320, 100], [300, 50]],
+        defaultSizes: [[300, 50], [320, 50], [320, 100]],
       },
       bottom_leaderboard: {
         adProduct: 'bottom_leaderboard',

@@ -55,7 +55,7 @@ export const adsSetup = {
     templateService.register(BigFancyAdAbove, getBfaaConfig());
     templateService.register(BigFancyAdBelow, getBfabConfig());
     templateService.register(FloorAdhesion, getOutOfPageConfig());
-    templateService.register(HideOnViewability, {});
+    templateService.register(HideOnViewability);
     templateService.register(Interstitial, getOutOfPageConfig());
     templateService.register(PorvataTemplate, getPorvataConfig());
     templateService.register(Roadblock, getRoadblockConfig());
