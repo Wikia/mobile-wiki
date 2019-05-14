@@ -21,7 +21,7 @@ class Ads {
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
 
-    this._readyResolve = () => Ads.instance;
+    this._readyResolve = null;
     // A Promise which resolves when module is fully-loaded and returns instance of Ads module
     this.ready = new Promise((resolve) => {
       this._readyResolve = resolve;
