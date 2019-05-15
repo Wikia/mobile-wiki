@@ -13,7 +13,7 @@ spec:
     targetPort: 8001
   - protocol: TCP
     name: metrics
-    port: 9999
+    port: 8002
     targetPort: 9999
   selector:
     app: mobile-wiki-${env}
@@ -81,8 +81,8 @@ spec:
           limits:
             memory: 3Gi
         ports:
-        - containerPort: 8001
         - containerPort: 9999
+        - containerPort: 8001
         command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
         volumeMounts:
         - name: secrets-dir
