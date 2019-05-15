@@ -15,6 +15,8 @@ const server = new FastBootAppServer({
   gzip: true,
 });
 
+server.start();
+
 // since we run in cluster mode, express-prom-bundle needs to be used in specific way, see
 // https://github.com/jochen-schweizer/express-prom-bundle#using-with-cluster
 if (cluster.isMaster) {
@@ -23,5 +25,3 @@ if (cluster.isMaster) {
   metricsApp.use('/metrics', prometheus);
   metricsApp.listen(9999);
 }
-
-server.start();
