@@ -21,10 +21,11 @@ class Ads {
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
 
-    this._readyResolve = null;
+    /** @private */
+    this.readyResolve = null;
     // A Promise which resolves when module is fully-loaded and returns instance of Ads module
     this.ready = new Promise((resolve) => {
-      this._readyResolve = resolve;
+      this.readyResolve = resolve;
     });
   }
 
@@ -101,7 +102,7 @@ class Ads {
     this.isLoaded = true;
     utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
     this.onReadyCallbacks.start();
-    this._readyResolve(Ads.getInstance());
+    this.readyResolve(Ads.getInstance());
   }
 
   /**
