@@ -238,7 +238,7 @@ export const slots = {
             viewportSize: [0, 0],
             sizes: [[300, 50], [320, 50], [320, 100]],
           }, {
-            // 720px for the ad and 40px width of the close button
+            // 720px for the ad + 40px width of the close button
             viewportSize: [760, 0],
             sizes: [[300, 50], [320, 50], [320, 100], [720, 90]],
           },
