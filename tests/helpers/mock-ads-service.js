@@ -32,6 +32,8 @@ export function getAdsModuleMock(adsContext) {
         isAboveTheFold: false,
       }
     ),
+    isTopBoxadEnabled() {
+    },
     waitForReady(cb) {
       cb();
     },
