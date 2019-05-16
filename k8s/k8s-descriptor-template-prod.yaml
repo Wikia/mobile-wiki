@@ -12,8 +12,8 @@ spec:
     port: 80
     targetPort: 8001
   - protocol: TCP
-    name: metrics
-    port: 8002
+    name: admin
+    port: 8003
     targetPort: 8007
   selector:
     app: mobile-wiki-prod
@@ -122,6 +122,6 @@ spec:
     matchNames:
       - prod
   endpoints:
-    - port: metrics
+    - port: admin
       path: /metrics
       interval: 10s
