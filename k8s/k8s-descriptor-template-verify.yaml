@@ -13,8 +13,8 @@ spec:
     targetPort: 8001
   - protocol: TCP
     name: metrics
-    port: 9999
-    targetPort: 9999
+    port: 8002
+    targetPort: 8007
   selector:
     app: mobile-wiki-verify
   type: ClusterIP
@@ -82,7 +82,7 @@ spec:
             memory: 3Gi
         ports:
         - containerPort: 8001
-        - containerPort: 9999
+        - containerPort: 8007
         command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
         volumeMounts:
         - name: secrets-dir

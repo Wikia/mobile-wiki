@@ -51,8 +51,8 @@ RUN npm run linter && \
 # npm run tests && \
     npm run build-prod
 
-# 8001 is for prod, 9999 is for metrics
-EXPOSE 8001 9999
+# 8001 is for prod, 8007 is for metrics
+EXPOSE 8001 8007
 
 # run fastboot-server when 'docker run' will be called
 ENTRYPOINT ["npm", "run", "fastboot-server"]

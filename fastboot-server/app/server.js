@@ -23,5 +23,5 @@ if (cluster.isMaster) {
   const metricsApp = express();
 
   metricsApp.use('/metrics', prometheus);
-  metricsApp.listen(9999);
+  metricsApp.listen(8007);
 }

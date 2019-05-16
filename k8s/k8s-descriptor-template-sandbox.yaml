@@ -14,7 +14,7 @@ spec:
   - protocol: TCP
     name: metrics
     port: 8002
-    targetPort: 9999
+    targetPort: 8007
   selector:
     app: mobile-wiki-${env}
   type: ClusterIP
@@ -81,7 +81,7 @@ spec:
           limits:
             memory: 3Gi
         ports:
-        - containerPort: 9999
+        - containerPort: 8007
         - containerPort: 8001
         command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
         volumeMounts:
