@@ -20,6 +20,13 @@ class Ads {
     this.isLoaded = false;
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
+
+    /** @private */
+    this.readyResolve = null;
+    // A Promise which resolves when module is fully-loaded and returns instance of Ads module
+    this.ready = new Promise((resolve) => {
+      this.readyResolve = resolve;
+    });
   }
 
   static getInstance() {
@@ -95,6 +102,7 @@ class Ads {
     this.isLoaded = true;
     utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
     this.onReadyCallbacks.start();
+    this.readyResolve(Ads.getInstance());
   }
 
   /**
@@ -175,11 +183,12 @@ class Ads {
   }
 
   pushSlotToQueue(name) {
-    const { context } = window.Wikia.adEngine;
+    const { context, utils } = window.Wikia.adEngine;
 
     context.push('state.adStack', {
       id: name,
     });
+    utils.logger(logGroup, `Push slot ${name} to adStack.`);
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
@@ -356,6 +365,11 @@ class Ads {
     eventService.emit(appEvents.MENU_OPEN_EVENT);
   }
 
+  /**
+   * Trigger callback when Ads module loads
+   *
+   * @param callback to trigger
+   */
   onReady(callback) {
     if (this.isLoaded) {
       callback();
@@ -391,16 +405,23 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
-    if (this.isFastboot) {
-      noUapCallback();
-      return;
-    }
-
-    fanTakeoverResolver.getPromise().then((isFanTakeover) => {
-      if (isFanTakeover) {
-        uapCallback();
+    return new Promise((resolve) => {
+      if (this.isFastboot) {
+        if (noUapCallback && typeof noUapCallback === 'function') {
+          noUapCallback();
+        }
+        resolve(false);
       } else {
-        noUapCallback();
+        fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+          if (isFanTakeover) {
+            if (uapCallback && typeof uapCallback === 'function') {
+              uapCallback();
+            }
+          } else if (noUapCallback && typeof noUapCallback === 'function') {
+            noUapCallback();
+          }
+          resolve(!!isFanTakeover);
+        });
       }
     });
   }
