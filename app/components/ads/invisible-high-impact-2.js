@@ -17,13 +17,22 @@ export default Component.extend(RenderComponentMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    this.get('ads.module').onReady(() => {
-      this.get('ads.module').waitForUapResponse(
-        () => {},
-        () => {
-          this.get('ads.module').pushSlotToQueue(this.name);
-        },
-      );
-    });
+    this.get('ads.module').ready
+      .then((adsModule) => {
+        adsModule.waitForUapResponse()
+          .then((isUapLoaded) => {
+            if (this.disableManualInsert) {
+              const { context, scrollListener, utils } = window.Wikia.adEngine;
+
+              scrollListener.addSlot(
+                context.get('state.adStack'),
+                this.name,
+                { distanceFromTop: utils.getViewportHeight() },
+              );
+            } else if (!isUapLoaded) {
+              adsModule.pushSlotToQueue(this.name);
+            }
+          });
+      });
   },
 });

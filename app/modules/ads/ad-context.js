@@ -109,29 +109,6 @@ export const defaultAdContext = {
           },
         },
       },
-      audienceNetwork: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            sizes: [
-              [320, 50],
-            ],
-            placementId: '963689110376230_1245837502161388',
-          },
-          mobile_in_content: {
-            sizes: [
-              [300, 250],
-            ],
-            placementId: '963689110376230_1245838625494609',
-          },
-          bottom_leaderboard: {
-            sizes: [
-              [300, 250],
-            ],
-            placementId: '963689110376230_1245839585494513',
-          },
-        },
-      },
       beachfront: {
         enabled: false,
         debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
