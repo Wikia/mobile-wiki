@@ -2,11 +2,11 @@ const compression = require('compression');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const promBundle = require('express-prom-bundle');
 const logger = require('./logger');
 const headers = require('./headers');
 const heartbeat = require('./heartbeat');
 const staticAssets = require('./static-assets');
+const prometheus = require('./prometheus');
 
 function levelFn(status) {
   if (status >= 500) {
@@ -31,10 +31,7 @@ module.exports = {
 
     // since we run in cluster mode, express-prom-bundle needs to be used in specific way, see
     // https://github.com/jochen-schweizer/express-prom-bundle#using-with-cluster
-    app.use(promBundle({
-      autoregister: false, // disable /metrics for single workers
-      includeMethod: true,
-    }));
+    app.use(prometheus);
 
     /**
    * Special handling for article-preview route.

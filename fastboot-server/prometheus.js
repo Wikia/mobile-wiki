@@ -1,7 +1,8 @@
 const promBundle = require('express-prom-bundle');
 const url = require('url');
 
-module.exports = promBundle.clusterMetrics({
+module.exports = promBundle({
+  autoregister: false,
   includePath: true,
   normalizePath(req) {
     const path = url.parse(req.originalUrl || req.url).pathname;

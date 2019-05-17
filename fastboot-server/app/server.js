@@ -1,10 +1,10 @@
 const cluster = require('cluster');
 const express = require('express');
+const promBundle = require('express-prom-bundle');
 // TODO after full rollout change path to REPO ROOT
 const FastBootAppServer = require('fastboot-app-server');
 const config = require('../../config/fastboot-server');
 const middlewares = require('../middlewares');
-const prometheus = require('../prometheus');
 
 process.env.PORT = config.port;
 
@@ -22,6 +22,6 @@ server.start();
 if (cluster.isMaster) {
   const metricsApp = express();
 
-  metricsApp.use('/metrics', prometheus);
+  metricsApp.use('/metrics', promBundle.clusterMetrics());
   metricsApp.listen(8007);
 }
