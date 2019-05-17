@@ -31,7 +31,7 @@ module.exports = {
 
     // since we run in cluster mode, express-prom-bundle needs to be used in specific way, see
     // https://github.com/jochen-schweizer/express-prom-bundle#using-with-cluster
-    app.use(prometheus);
+    app.use(prometheus.worker);
 
     /**
    * Special handling for article-preview route.
