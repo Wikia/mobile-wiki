@@ -250,9 +250,10 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { eventService } = window.Wikia.adEngine;
-    const { confiant, moatYiEvents } = window.Wikia.adServices;
+    const { browsi, confiant, moatYiEvents } = window.Wikia.adServices;
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    browsi.call();
     confiant.call();
 
     eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {

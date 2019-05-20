@@ -142,6 +142,7 @@ export const adsSetup = {
     context.set('options.useTopBoxad', isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
+    context.set('services.browsi.enabled', isGeoEnabled('wgAdDriverBrowsiCountries'));
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
