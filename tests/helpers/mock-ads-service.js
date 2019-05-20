@@ -20,8 +20,7 @@ export function getAdsModuleMock(adsContext) {
     },
     waitForAdEngine() {
     },
-    waitForUapResponse() {
-    },
+    waitForUapResponse: () => Promise.resolve(true),
     onMenuOpen() {
     },
     getAdSlotComponentAttributes: name => (
@@ -42,6 +41,8 @@ export function getAdsModuleMock(adsContext) {
   if (adsContext) {
     context = Object.assign({}, context, { adsContext });
   }
+
+  context.ready = Promise.resolve(context);
 
   return context;
 }
