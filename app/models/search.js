@@ -18,6 +18,9 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   fetchService: service('fetch'),
+  fastboot: service(),
+
+  shouldUseUnifiedSearch: computed(() => inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH')),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
@@ -55,45 +58,53 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
-    const url = this.wikiUrls.build({
-      host: this.get('wikiVariables.host'),
-      forceNoSSLOnServerSide: true,
-      path: '/wikia.php',
-      query: {
-        controller: 'SearchApi',
-        method: 'getList',
-        query,
-        useUnifiedSearch: inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH'),
-        batch: this.batch,
-      },
-    });
-    const options = this.fetchService.getOptionsForInternalCache(url);
-
-    this.setProperties({
-      error: '',
-      loading: true,
-    });
-
-    return fetch(url, options)
-      .then((response) => {
-        if (!response.ok) {
-          this.setProperties({
-            error: 'search-error-general',
-            erroneousQuery: query,
-            loading: false,
-          });
-
-          if (response.status === 404) {
-            this.set('error', 'search-error-not-found');
-          } else {
-            this.logger.error('Search request error', response);
-          }
-
-          return this;
-        }
-        // update state on success
-        return response.json().then(data => this.update(data));
+    return new Promise((cb) => {
+      if (this.fastboot.isFastBoot) {
+        cb();
+      } else {
+        window.onABTestLoaded(cb);
+      }
+    }).then(() => {
+      const url = this.wikiUrls.build({
+        host: this.get('wikiVariables.host'),
+        forceNoSSLOnServerSide: true,
+        path: '/wikia.php',
+        query: {
+          controller: 'SearchApi',
+          method: 'getList',
+          query,
+          useUnifiedSearch: this.get('shouldUseUnifiedSearch'),
+          batch: this.batch,
+        },
       });
+      const options = this.fetchService.getOptionsForInternalCache(url);
+
+      this.setProperties({
+        error: '',
+        loading: true,
+      });
+
+      return fetch(url, options)
+        .then((response) => {
+          if (!response.ok) {
+            this.setProperties({
+              error: 'search-error-general',
+              erroneousQuery: query,
+              loading: false,
+            });
+
+            if (response.status === 404) {
+              this.set('error', 'search-error-not-found');
+            } else {
+              this.logger.error('Search request error', response);
+            }
+
+            return this;
+          }
+          // update state on success
+          return response.json().then(data => this.update(data));
+        });
+    });
   },
 
   update(state) {
