@@ -223,6 +223,7 @@ export const slots = {
       floor_adhesion: {
         adProduct: 'floor_adhesion',
         disabled: true,
+        forceSafeFrame: true,
         slotNameSuffix: '',
         group: 'PF',
         options: {},
