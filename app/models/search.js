@@ -58,11 +58,11 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
-    return new Promise(x => {
+    return new Promise(cb => {
       if (this.fastboot.isFastBoot) {
-        x();
+        cb();
       } else {
-        window.onABTestLoaded(x);
+        window.onABTestLoaded(cb);
       }
     }).then(() => {
       const url = this.wikiUrls.build({
