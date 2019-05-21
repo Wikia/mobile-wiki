@@ -58,7 +58,7 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
-    return new Promise(cb => {
+    return new Promise((cb) => {
       if (this.fastboot.isFastBoot) {
         cb();
       } else {
