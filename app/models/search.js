@@ -38,23 +38,27 @@ export default EmberObject.extend({
     });
 
     if (query) {
-      return this.fetchResults(query);
+      return this.fetchResults(query, this.useUnifiedSearch());
     }
 
     return this;
+  },
+
+  useUnifiedSearch() {
+    return inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH');
   },
 
   loadMore() {
     if (this.canLoadMore) {
       this.set('batch', this.batch + 1);
 
-      return this.fetchResults(this.query);
+      return this.fetchResults(this.query, this.useUnifiedSearch());
     }
 
     return false;
   },
 
-  fetchResults(query) {
+  fetchResults(query, useUnifiedSearch) {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
       forceNoSSLOnServerSide: true,
@@ -63,7 +67,7 @@ export default EmberObject.extend({
         controller: 'SearchApi',
         method: 'getList',
         query,
-        useUnifiedSearch: inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH'),
+        useUnifiedSearch: useUnifiedSearch,
         batch: this.batch,
       },
     });
