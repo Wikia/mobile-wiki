@@ -18,6 +18,7 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   fetchService: service('fetch'),
+  fastboot: service(),
 
   shouldUseUnifiedSearch: computed(() => inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH')),
 
@@ -58,7 +59,11 @@ export default EmberObject.extend({
 
   fetchResults(query) {
     return new Promise(x => {
-      window.onABTestLoaded(x);
+      if (this.fastboot.isFastBoot) {
+        x();
+      } else {
+        window.onABTestLoaded(x);
+      }
     }).then(() => {
       const url = this.wikiUrls.build({
         host: this.get('wikiVariables.host'),
