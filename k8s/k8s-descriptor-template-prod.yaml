@@ -11,6 +11,10 @@ spec:
     name: main
     port: 80
     targetPort: 8001
+  - protocol: TCP
+    name: admin
+    port: 8003
+    targetPort: 8007
   selector:
     app: mobile-wiki-prod
   type: ClusterIP
@@ -75,6 +79,7 @@ spec:
             memory: 3Gi
         ports:
         - containerPort: 8001
+        - containerPort: 8007
         command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
         volumeMounts:
         - name: secrets-dir
@@ -117,6 +122,6 @@ spec:
     matchNames:
       - prod
   endpoints:
-    - port: main
+    - port: admin
       path: /metrics
       interval: 10s
