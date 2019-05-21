@@ -67,7 +67,7 @@ export default EmberObject.extend({
         controller: 'SearchApi',
         method: 'getList',
         query,
-        useUnifiedSearch: useUnifiedSearch,
+        useUnifiedSearch,
         batch: this.batch,
       },
     });
