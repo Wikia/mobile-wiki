@@ -19,6 +19,8 @@ export default EmberObject.extend({
   wikiUrls: service(),
   fetchService: service('fetch'),
 
+  shouldUseUnifiedSearch: computed(() => inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH')),
+
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
   }),
@@ -38,27 +40,23 @@ export default EmberObject.extend({
     });
 
     if (query) {
-      return this.fetchResults(query, this.useUnifiedSearch());
+      return this.fetchResults(query);
     }
 
     return this;
-  },
-
-  useUnifiedSearch() {
-    return inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH');
   },
 
   loadMore() {
     if (this.canLoadMore) {
       this.set('batch', this.batch + 1);
 
-      return this.fetchResults(this.query, this.useUnifiedSearch());
+      return this.fetchResults(this.query);
     }
 
     return false;
   },
 
-  fetchResults(query, useUnifiedSearch) {
+  fetchResults(query) {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
       forceNoSSLOnServerSide: true,
@@ -67,7 +65,7 @@ export default EmberObject.extend({
         controller: 'SearchApi',
         method: 'getList',
         query,
-        useUnifiedSearch,
+        useUnifiedSearch: this.get('shouldUseUnifiedSearch'),
         batch: this.batch,
       },
     });
