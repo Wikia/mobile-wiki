@@ -1,9 +1,9 @@
-import {inject as service} from '@ember/service';
-import {A} from '@ember/array';
-import EmberObject, {computed} from '@ember/object';
-import {htmlSafe} from '@ember/string';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
+import EmberObject, { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import fetch from 'fetch';
-import {inGroup} from '../modules/abtest';
+import { inGroup } from '../modules/abtest';
 
 export default EmberObject.extend({
   batch: 1,
