@@ -3,6 +3,7 @@ import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import fetch from 'fetch';
+import { inGroup } from '../modules/abtest';
 
 export default EmberObject.extend({
   batch: 1,
@@ -62,6 +63,7 @@ export default EmberObject.extend({
         controller: 'SearchApi',
         method: 'getList',
         query,
+        useUnifiedSearch: inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH'),
         batch: this.batch,
       },
     });
