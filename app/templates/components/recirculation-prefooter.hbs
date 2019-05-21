@@ -44,6 +44,12 @@
       </a>
     </li>
   </ul>
+  {{#if item.pixelContent}}
+    {{tracking-pixel
+      pixelContent=item.pixelContent
+      pixelType=item.pixelType
+    }}
+  {{/if}}
 {{/if}}
 
 <ul class="recirculation-prefooter__list">
