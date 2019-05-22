@@ -127,13 +127,37 @@ export const slots = {
           rv: 1,
         },
       },
+      top_boxad: {
+        adProduct: 'top_boxad',
+        avoidConflictWith: '.ad-slot',
+        bidderAlias: 'mobile_in_content',
+        cheshireCatSlot: true,
+        slotNameSuffix: '',
+        group: 'MR',
+        options: {},
+        slotShortcut: 'm',
+        sizes: [
+          {
+            viewportSize: [BIG_VIEWPORT_SIZE.width, BIG_VIEWPORT_SIZE.height],
+            sizes: [[300, 50], [320, 50], [300, 250], [300, 600]],
+          },
+        ],
+        defaultSizes: [[320, 50], [300, 250], [300, 50]],
+        targeting: {
+          loc: 'top',
+          pos: ['top_boxad'],
+          rv: 1,
+          xna: 1,
+        },
+      },
       // as this slot can be repeated many, it uses bidderAlias mobile_in_content
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
-        defaultClasses: ['hide', 'incontent-boxad'],
-        slotNameSuffix: '',
         bidderAlias: 'mobile_in_content',
+        cheshireCatSlot: true,
+        defaultClasses: ['hide', 'incontent-boxad', 'ad-slot'],
+        slotNameSuffix: '',
         group: 'HiVi',
         options: {},
         insertBeforeSelector: '.article-content > h2',
@@ -165,7 +189,7 @@ export const slots = {
       },
       incontent_player: {
         adProduct: 'incontent_player',
-        avoidConflictWith: '.ad-slot',
+        avoidConflictWith: '.ad-slot,#incontent_boxad_1',
         autoplay: true,
         audio: false,
         insertBeforeSelector: '.article-content > h2',
@@ -207,8 +231,18 @@ export const slots = {
           loc: 'footer',
           rv: 1,
         },
-        defaultTemplates: ['floorAdhesion'],
-        defaultSizes: [[320, 50], [320, 100], [300, 50]],
+        defaultTemplates: ['floorAdhesion', 'hideOnViewability'],
+        defaultSizes: [[300, 50], [320, 50], [320, 100]],
+        sizes: [
+          {
+            viewportSize: [0, 0],
+            sizes: [[300, 50], [320, 50], [320, 100]],
+          }, {
+            // 720px for the ad + 40px width of the close button
+            viewportSize: [760, 0],
+            sizes: [[300, 50], [320, 50], [320, 100], [720, 90]],
+          },
+        ],
       },
       bottom_leaderboard: {
         adProduct: 'bottom_leaderboard',
@@ -313,6 +347,7 @@ export const slots = {
     } else {
       setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     }
+    setSlotState('top_boxad', context.get('options.useTopBoxad') && incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
@@ -364,6 +399,7 @@ export const slots = {
       window.innerHeight >= BIG_VIEWPORT_SIZE.height
       && window.innerWidth >= BIG_VIEWPORT_SIZE.width
     ) {
+      context.set('slots.top_boxad.targeting.xna', '0');
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
   },

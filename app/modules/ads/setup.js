@@ -42,6 +42,7 @@ export const adsSetup = {
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
+      HideOnViewability,
       Interstitial,
       PorvataTemplate,
       Roadblock,
@@ -51,12 +52,15 @@ export const adsSetup = {
     this.setupAdContext(adsContext, instantGlobals, isOptedIn);
     adProductsUtils.setupNpaContext();
 
-    templateService.register(BigFancyAdAbove, getBfaaConfig());
+    const useTopBoxad = context.get('options.useTopBoxad');
+
+    templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
     templateService.register(BigFancyAdBelow, getBfabConfig());
     templateService.register(FloorAdhesion, getOutOfPageConfig());
+    templateService.register(HideOnViewability);
     templateService.register(Interstitial, getOutOfPageConfig());
     templateService.register(PorvataTemplate, getPorvataConfig());
-    templateService.register(Roadblock, getRoadblockConfig());
+    templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
     templateService.register(StickyTLB, getStickyTLBConfig());
 
     context.push('listeners.slot', slotTracker);
@@ -135,8 +139,10 @@ export const adsSetup = {
     context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
+    context.set('options.useTopBoxad', isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
+    context.set('services.browsi.enabled', isGeoEnabled('wgAdDriverBrowsiCountries'));
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
@@ -263,6 +269,14 @@ export const adsSetup = {
           ].join(','),
         );
       });
+    }
+
+    if (context.get('options.useTopBoxad')) {
+      context.remove('events.pushAfterRendered.incontent_boxad_1');
+      context.set('events.pushAfterRendered.top_boxad', [
+        'incontent_boxad_1',
+        'incontent_player',
+      ]);
     }
 
     if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
