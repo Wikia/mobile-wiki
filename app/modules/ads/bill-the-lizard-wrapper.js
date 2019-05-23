@@ -232,6 +232,9 @@ export const billTheLizardWrapper = {
     incontentsCounter = initialValueOfIncontentsCounter;
     defaultStatus = NOT_USED_STATUS;
 
+    // Recheck available models for Labrador decisions
+    this.hasAvailableModels(config, 'cheshirecat');
+
     // Reset predictions from previous page views
     billTheLizard.reset();
   },
