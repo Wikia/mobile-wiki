@@ -13,6 +13,7 @@ let cheshirecatCalled = false;
 let initialValueOfIncontentsCounter = 1;
 let incontentsCounter = initialValueOfIncontentsCounter;
 let defaultStatus = NOT_USED_STATUS;
+let refreshedSlotNumber = null;
 
 function getCallId(counter = null) {
   const { context } = window.Wikia.adEngine;
@@ -97,7 +98,6 @@ export const billTheLizardWrapper = {
       context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
-    let refreshedSlotNumber;
     let baseSlotName = 'incontent_boxad_1';
     defaultStatus = NOT_USED_STATUS;
 
@@ -231,6 +231,7 @@ export const billTheLizardWrapper = {
     cheshirecatCalled = false;
     incontentsCounter = initialValueOfIncontentsCounter;
     defaultStatus = NOT_USED_STATUS;
+    refreshedSlotNumber = null;
 
     // Reset predictions from previous page views
     billTheLizard.reset();
