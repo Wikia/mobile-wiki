@@ -42,6 +42,7 @@ module('Unit | Module | ads | tracking', (hooks) => {
       getTargeting: () => targeting,
       targeting,
       getConfigProperty: prop => config[prop],
+      getTopOffset: () => 50,
     };
   }
 
@@ -71,6 +72,13 @@ module('Unit | Module | ads | tracking', (hooks) => {
 
     slotTracker.onRenderEnded(adSlot, {});
     assert.equal(trackModule.track.getCall(0).args[0].document_visibility, 'visible');
+  });
+
+  test('tracker sends correct page_layout value', (assert) => {
+    const adSlot = getSlot({ targeting: { pos: 'BOTTOM_LEADERBOARD' } });
+
+    slotTracker.onRenderEnded(adSlot, {});
+    assert.equal(trackModule.track.getCall(0).args[0].page_layout, 'pos_top=50');
   });
 
   test('onRenderEnded does not call track if adSlot does not have config property trackEachStatus and is not in onRenderEndedStatusToTrack', (assert) => {
