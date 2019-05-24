@@ -58,6 +58,7 @@
   window.onABTestLoaded = function (callback) {
     if (window.Wikia && window.Wikia.AbTest) {
       callback();
+
     } else {
       callbacksQueue.push(callback);
       waitForAsyncScripts();
