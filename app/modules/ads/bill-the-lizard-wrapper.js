@@ -219,8 +219,8 @@ export const billTheLizardWrapper = {
     const { utils } = window.Wikia.adEngine;
     const projects = btlConfig.projects || config.projects;
 
-    return projects && projects[projectName] &&
-      projects[projectName].some(
+    return projects && projects[projectName]
+      && projects[projectName].some(
         model => utils.geoService.isProperGeo(model.countries, model.name),
       );
   },
