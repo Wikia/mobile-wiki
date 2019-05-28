@@ -8,6 +8,10 @@ import { getContext } from '@ember/test-helpers';
 module('Unit | Model | search result page', (hooks) => {
   setupTest(hooks);
 
+  window.onABTestLoaded = (callback) => {
+    callback();
+  };
+
   test('empty array set on zero state', (assert) => {
     const search = SearchModel.create();
 
