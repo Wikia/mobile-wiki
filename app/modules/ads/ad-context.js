@@ -115,6 +115,20 @@ export const defaultAdContext = {
           },
         },
       },
+      gumgum: {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+              [720, 90],
+            ],
+            inScreen: 'vbzbl1nw',
+          },
+        },
+      },
       indexExchange: {
         enabled: false,
         slots: {
