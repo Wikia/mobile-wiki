@@ -23,6 +23,7 @@ export default Service.extend({
   willUapNotAppearForAnon: false,
   willUapNotAppear: or('currentUser.isAuthenticated', 'willUapNotAppearForAnon'),
 
+  wikiId: readOnly('wikiVariables.id'),
   dbName: readOnly('wikiVariables.dbName'),
   smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
   isUserLangEn: equal('currentUser.language', 'en'),
@@ -35,7 +36,12 @@ export default Service.extend({
       return this.shouldShowFandomAppSmartBanner
         && this.smartBannerVisible
         && !this.isCustomSmartBannerVisible
-        && this.willUapNotAppear;
+        && this.willUapNotAppear
+        // temporary hide smart banner for some communities
+        && [
+          534, 673, 91319, 1031035, 835, 376, 881799, 8646,
+          4728, 200383, 10960, 7683, 2632, 1639458, 46732, 1049743,
+        ].indexOf(this.wikiId) === -1;
     },
   ),
 
