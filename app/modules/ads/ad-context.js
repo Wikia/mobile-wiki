@@ -123,7 +123,7 @@ export const defaultAdContext = {
               [300, 50],
               [320, 50],
               [320, 100],
-              [720, 90],
+              [728, 90],
             ],
             inScreen: 'vbzbl1nw',
           },
