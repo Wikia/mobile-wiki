@@ -66,7 +66,7 @@ export default Mixin.create({
     const isInitialPageView = this.initialPageView.isInitialPageView();
     const options = {
       headers: {
-        'X-Trace-Id': this.tracing.getTraceId(isInitialPageView),
+        'X-Trace-Id': this.tracing.getTraceId(),
       },
     };
 

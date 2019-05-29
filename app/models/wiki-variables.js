@@ -28,7 +28,7 @@ export default EmberObject.extend({
     if (accessToken) {
       options.headers = {
         Cookie: `access_token=${accessToken}`,
-        'X-Trace-Id': this.tracing.getTraceId(true),
+        'X-Trace-Id': this.tracing.getTraceId(),
       };
     }
 

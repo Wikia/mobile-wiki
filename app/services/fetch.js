@@ -19,7 +19,7 @@ export default fetch.extend({
     const options = this.getOptionsForInternalCache(requestUrl);
 
     options.headers = {
-      'X-Trace-Id': this.tracing.getTraceId(true),
+      'X-Trace-Id': this.tracing.getTraceId(),
     };
 
     if (accessToken) {

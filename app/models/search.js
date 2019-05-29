@@ -19,7 +19,6 @@ export default EmberObject.extend({
   wikiUrls: service(),
   fetchService: service('fetch'),
   fastboot: service(),
-  initialPageView: service(),
   tracing: service(),
 
   shouldUseUnifiedSearch: computed(() => inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH')),
@@ -81,7 +80,7 @@ export default EmberObject.extend({
       });
       const options = this.fetchService.getOptionsForInternalCache(url, {
         headers: {
-          'X-Trace-Id': this.tracing.getTraceId(this.initialPageView.isInitialPageView()),
+          'X-Trace-Id': this.tracing.getTraceId(),
         },
       });
 
