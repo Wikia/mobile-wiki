@@ -25,7 +25,7 @@ export default EmberObject.extend({
 
     return this.fetch.fetchFromMediawiki(url, TrackingDimensionsFetchError, {
       headers: {
-        'X-Trace-Id': this.tracing.getTraceId(isInitialPageView),
+        'X-Trace-Id': this.tracing.getTraceId(),
       },
     })
       .catch(error => this.logger.error('getTrackingDimensions error: ', error));

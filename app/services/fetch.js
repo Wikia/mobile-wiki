@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default fetch.extend({
   runtimeConfig: service(),
+  tracing: service(),
 
   init() {
     this.config = {
