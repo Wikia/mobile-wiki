@@ -51,7 +51,7 @@ export default Component.extend({
 
   asyncScriptsPath: computed(function () {
     const langPath = this.get('wikiUrls.langPath');
-    const path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest&only=scripts';
+    const path = '/load.php?modules=wikia.ext.instantGlobals,instantGlobalsOverride,abtesttracker,abtesting,abtest&only=scripts';
 
     return langPath ? `${langPath}${path}` : path;
   }),
