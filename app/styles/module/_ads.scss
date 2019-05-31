@@ -147,23 +147,14 @@ $closeButtonHeight: 40px;
 
 .out-of-page-template {
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
 
   &.floor-adhesion {
     padding: 20px 0 0 0;
 
     .button-close {
-      align-items: center;
-      background-color: #000;
       border: 2px solid white;
       border-radius: 50%;
-      display: flex;
       height: $closeButtonHeight;
-      justify-content: center;
-      padding: 5px;
-      position: absolute;
-      right: 0;
       top: -($closeButtonHeight / 2);
       width: $closeButtonHeight;
     }
