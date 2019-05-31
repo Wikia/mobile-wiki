@@ -1,12 +1,3 @@
 {{#unless noAds}}
-  <div class="invisible-high-impact-wrapper hidden">
-    <div class="background"></div>
-    <div class="top-bar">
-      <a class="close">
-        <Icon @name="close" @size="tiny" role="img" />
-      </a>
-      <div class="label">{{i18n "app.advertisement-label"}}</div>
-    </div>
-    <div id={{name}} class="ad-slot {{nameLowerCase}}"></div>
-  </div>
+<div id={{name}} class="ad-slot {{nameLowerCase}}"></div>
 {{/unless}}
