@@ -15,17 +15,20 @@ export const defaultAdContext = {
       videoEnabled: false,
       slots: {
         mobile_top_leaderboard: {
+          slotId: 'MOBILE_TOP_LEADERBOARD',
           sizes: [
             [320, 50],
           ],
         },
         bottom_leaderboard: {
+          slotId: 'BOTTOM_LEADERBOARD',
           sizes: [
             [320, 50],
             [300, 250],
           ],
         },
         featured: {
+          slotId: 'FEATURED',
           type: 'video',
         },
       },
