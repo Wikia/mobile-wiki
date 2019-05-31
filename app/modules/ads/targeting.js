@@ -261,6 +261,7 @@ export const targeting = {
       bidder_15: transformBidderPrice('beachfront'),
       bidder_17: transformBidderPrice('kargo'),
       bidder_18: transformBidderPrice('lkqd'),
+      bidder_19: transformBidderPrice('gumgum'),
     };
   },
 };
