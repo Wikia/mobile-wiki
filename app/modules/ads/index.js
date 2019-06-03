@@ -317,6 +317,7 @@ class Ads {
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
+    this.trackConnectionDownlinkToDW();
   }
 
   /**
@@ -354,6 +355,21 @@ class Ads {
     if (likhoPropValue.length) {
       pageTracker.trackProp('likho', likhoPropValue.join(';'));
       utils.logger(logGroup, 'likho props', likhoPropValue);
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackConnectionDownlinkToDW() {
+    const { utils } = window.Wikia.adEngine;
+    const connection = navigator.connection
+      || navigator.mozConnection
+      || navigator.webkitConnection;
+
+    if (connection) {
+      pageTracker.trackProp('downlink', connection.downlink);
+      utils.logger(logGroup, 'connection downlink', connection.downlink);
     }
   }
 
