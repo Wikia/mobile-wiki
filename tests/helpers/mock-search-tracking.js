@@ -5,4 +5,10 @@ export default function mockSearchTracking() {
     trackSuggestImpression: () => {},
     trackSuggestClicked: () => {},
   };
+
+  window.pageviewTime = {
+    setupPageTime: () => {},
+    initPageview: () => {},
+    finishPageview: () => {},
+  };
 }
