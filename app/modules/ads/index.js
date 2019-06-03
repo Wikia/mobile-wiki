@@ -317,7 +317,7 @@ class Ads {
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
-    this.trackConnectionDownlinkToDW();
+    this.trackConnectionToDW();
   }
 
   /**
@@ -361,15 +361,29 @@ class Ads {
   /**
    * @private
    */
-  trackConnectionDownlinkToDW() {
+  trackConnectionToDW() {
     const { utils } = window.Wikia.adEngine;
     const connection = navigator.connection
       || navigator.mozConnection
       || navigator.webkitConnection;
 
     if (connection) {
-      pageTracker.trackProp('downlink', connection.downlink);
-      utils.logger(logGroup, 'connection downlink', connection.downlink);
+      const data = [];
+      if (connection.downlink) {
+        data.push(`downlink=${connection.downlink.toFixed(1)}`);
+      }
+      if (connection.effectiveType) {
+        data.push(`effectiveType=${connection.effectiveType}`);
+      }
+      if (connection.rtt) {
+        data.push(`rtt=${connection.rtt.toFixed(0)}`);
+      }
+      if (typeof connection.saveData === 'boolean') {
+        data.push(`saveData=${+connection.saveData}`);
+      }
+
+      pageTracker.trackProp('connection', data.join(';'));
+      utils.logger(logGroup, 'connection', data);
     }
   }
 
