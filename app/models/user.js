@@ -18,6 +18,7 @@ export default EmberObject.extend({
   wikiVariables: service(),
   runtimeConfig: service(),
   fetchService: service('fetch'),
+  tracing: service(),
 
   getUserId(accessToken) {
     if (!accessToken) {
@@ -29,7 +30,10 @@ export default EmberObject.extend({
     });
 
     return fetch(`${this.runtimeConfig.heliosInternalUrl}${queryString}`, {
-      headers: { 'X-Wikia-Internal-Request': config.appName },
+      headers: {
+        'X-Wikia-Internal-Request': config.appName,
+        'X-Trace-Id': this.tracing.getTraceId(true),
+      },
       timeout: config.APP.heliosTimeout,
     }).then((response) => {
       if (response.ok) {
