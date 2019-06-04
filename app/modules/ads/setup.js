@@ -273,10 +273,8 @@ export const adsSetup = {
     }
 
     if (context.get('options.useTopBoxad')) {
-      context.remove('events.pushAfterRendered.incontent_boxad_1');
-      context.set('events.pushAfterRendered.top_boxad', [
+      context.set('events.pushAfterCreated.top_boxad', [
         'incontent_boxad_1',
-        'incontent_player',
       ]);
     }
 
