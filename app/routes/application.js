@@ -54,11 +54,22 @@ export default Route.extend(
     },
     noexternals: null,
 
+    init() {
+      this._super(...arguments);
+      if (!this.fastboot.get('isFastBoot')) {
+        window.pageviewTime.setupPageTime();
+      }
+    },
+
     beforeModel(transition) {
       this._super(transition);
 
       if (transition.targetName === 'wiki-page') {
         transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
+      }
+
+      if (!this.fastboot.get('isFastBoot')) {
+        window.pageviewTime.finishPageview();
       }
     },
 
@@ -166,6 +177,9 @@ export default Route.extend(
 
     actions: {
       loading(transition) {
+        if (!this.fastboot.get('isFastBoot')) {
+          window.pageviewTime.finishPageview();
+        }
         if (this.controller) {
           this.controller.set('isLoading', true);
           transition.promise.finally(() => {
@@ -183,6 +197,10 @@ export default Route.extend(
         // sets number of page views for Qualaroo
         if (window._kiq) {
           window._kiq.push(['set', { page_views: this.get('router._routerMicrolib.currentSequence') }]);
+        }
+
+        if (!this.fastboot.get('isFastBoot')) {
+          window.pageviewTime.initPageview();
         }
       },
 

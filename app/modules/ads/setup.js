@@ -201,6 +201,7 @@ export const adsSetup = {
     );
     if (isGeoEnabled('wgAdDriverA9IncontentBoxadCountries')) {
       context.set('bidders.a9.slots.mobile_in_content', {
+        slotId: 'MOBILE_IN_CONTENT',
         sizes: [[300, 250]],
       });
       context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
@@ -212,6 +213,7 @@ export const adsSetup = {
       context.set('bidders.prebid.aol.enabled', isGeoEnabled('wgAdDriverAolBidderCountries'));
       context.set('bidders.prebid.appnexus.enabled', isGeoEnabled('wgAdDriverAppNexusBidderCountries'));
       context.set('bidders.prebid.beachfront.enabled', isGeoEnabled('wgAdDriverBeachfrontBidderCountries'));
+      context.set('bidders.prebid.gumgum.enabled', isGeoEnabled('wgAdDriverGumGumBidderCountries'));
       context.set('bidders.prebid.indexExchange.enabled', isGeoEnabled('wgAdDriverIndexExchangeBidderCountries'));
       context.set('bidders.prebid.kargo.enabled', isGeoEnabled('wgAdDriverKargoBidderCountries'));
       context.set('bidders.prebid.lkqd.enabled', isGeoEnabled('wgAdDriverLkqdBidderCountries'));

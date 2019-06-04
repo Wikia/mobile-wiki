@@ -15,17 +15,20 @@ export const defaultAdContext = {
       videoEnabled: false,
       slots: {
         mobile_top_leaderboard: {
+          slotId: 'MOBILE_TOP_LEADERBOARD',
           sizes: [
             [320, 50],
           ],
         },
         bottom_leaderboard: {
+          slotId: 'BOTTOM_LEADERBOARD',
           sizes: [
             [320, 50],
             [300, 250],
           ],
         },
         featured: {
+          slotId: 'FEATURED',
           type: 'video',
         },
       },
@@ -112,6 +115,20 @@ export const defaultAdContext = {
         slots: {
           incontent_player: {
             appId: 'f377a8b1-c5c0-4108-f932-0102a81ff43d',
+          },
+        },
+      },
+      gumgum: {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+              [728, 90],
+            ],
+            inScreen: 'vbzbl1nw',
           },
         },
       },

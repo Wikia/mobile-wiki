@@ -9,6 +9,7 @@ import {
 export default EmberObject.extend({
   fetchService: service('fetch'),
   wikiUrls: service(),
+  tracing: service(),
 
   load(protocol, host, accessToken) {
     const url = this.wikiUrls.build({
@@ -27,6 +28,7 @@ export default EmberObject.extend({
     if (accessToken) {
       options.headers = {
         Cookie: `access_token=${accessToken}`,
+        'X-Trace-Id': this.tracing.getTraceId(),
       };
     }
 
