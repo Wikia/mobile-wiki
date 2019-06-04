@@ -22,10 +22,9 @@ export default Component.extend(RenderComponentMixin, {
         adsModule.waitForUapResponse()
           .then((isUapLoaded) => {
             if (this.disableManualInsert) {
-              const { context, scrollListener, utils } = window.Wikia.adEngine;
+              const { scrollListener, utils } = window.Wikia.adEngine;
 
               scrollListener.addSlot(
-                context.get('state.adStack'),
                 this.name,
                 { distanceFromTop: utils.getViewportHeight() },
               );
