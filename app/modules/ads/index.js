@@ -313,7 +313,7 @@ class Ads {
    */
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { context, slotService } = window.Wikia.adEngine;
 
     if (this.isAdStackEnabled()) {
       biddersDelayer.resetPromise();
@@ -325,6 +325,9 @@ class Ads {
       if (!slotService.getState('top_leaderboard')) {
         this.finishFirstCall();
       }
+    } else if (context.get('services.browsi.enabled')) {
+      // Browsi needs googletag loaded
+      this.loadGoogleTag();
     }
 
     this.callExternalTrackingServices();
