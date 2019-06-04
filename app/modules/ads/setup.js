@@ -11,7 +11,6 @@ import { targeting } from './targeting';
 import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
-import { getConfig as getOutOfPageConfig } from './templates/out-of-page-config';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
@@ -56,9 +55,9 @@ export const adsSetup = {
 
     templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
     templateService.register(BigFancyAdBelow, getBfabConfig());
-    templateService.register(FloorAdhesion, getOutOfPageConfig());
+    templateService.register(FloorAdhesion);
     templateService.register(HideOnViewability);
-    templateService.register(Interstitial, getOutOfPageConfig());
+    templateService.register(Interstitial);
     templateService.register(PorvataTemplate, getPorvataConfig());
     templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
     templateService.register(StickyTLB, getStickyTLBConfig());
