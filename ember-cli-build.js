@@ -42,6 +42,9 @@ EmberApp.prototype.addonTreesFor = function (type) {
 module.exports = function (defaults) {
   const inlineScriptsPath = 'vendor/inline-scripts/';
   const app = new EmberApp(defaults, {
+    babel: {
+      plugins: [require.resolve('ember-auto-import/babel-plugin')],
+    },
     'ember-fetch': {
       preferNative: true,
     },
