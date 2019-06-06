@@ -42,20 +42,25 @@ class Ads {
       return adsPromise;
     }
 
-    import('@wikia/ad-engine').then(module => {
+    adsPromise = import('@wikia/ad-engine').then(module => {
       console.log('Dynamic Import - Success', module);
-      return module;
-    }).catch((err) => console.log('Dynamic Import - Error', err));
-
-    adsPromise = new Promise((resolve, reject) => {
-      if (typeof window.waitForAds === 'function') {
-        window.waitForAds(() => {
-          resolve(Ads.getInstance());
-        });
-      } else {
-        reject();
-      }
+      window.Wikia = window.Wikia || {};
+      window.Wikia.adEngine = module;
+      window.Wikia.adProducts = module;
+      window.Wikia.adServices = module;
+      window.Wikia.adBidders = module;
+      return Ads.getInstance();
     });
+
+    // adsPromise = new Promise((resolve, reject) => {
+    //   if (typeof window.waitForAds === 'function') {
+    //     window.waitForAds(() => {
+    //       resolve(Ads.getInstance());
+    //     });
+    //   } else {
+    //     reject();
+    //   }
+    // });
 
     return adsPromise;
   }

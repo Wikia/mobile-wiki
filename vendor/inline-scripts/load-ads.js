@@ -20,9 +20,9 @@
       return;
     }
 
-    var adsJsUrl = '/mobile-wiki-assets/assets/wikia-ae3/global-bundle.js';
+    var prebidJsUrl = '/mobile-wiki-assets/assets/wikia-ae3/prebid.min.js';
 
-    window.M.loadScript(adsJsUrl, true, onAdsLoaded);
+    window.M.loadScript(prebidJsUrl, true, onAdsLoaded);
   });
 
   window.waitForAds = function (callback) {

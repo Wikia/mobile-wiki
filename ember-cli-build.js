@@ -132,8 +132,8 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  const adEngine3Assets = new Funnel('node_modules/@wikia/ad-engine/dist', {
-    include: ['global-bundle.js'],
+  const prebidAssets = new Funnel('node_modules/@wikia/ad-engine/lib', {
+    include: ['prebid.min.js'],
     destDir: 'assets/wikia-ae3',
   });
 
@@ -173,7 +173,7 @@ module.exports = function (defaults) {
     designSystemI18n,
     svgStore,
     jwPlayerAssets,
-    adEngine3Assets,
+    prebidAssets,
     trackingOptIn,
   ]);
 };
