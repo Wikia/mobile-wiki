@@ -151,6 +151,8 @@ export default Route.extend(
               const fpOptions = {
                 communityName: this.get('wikiVariables.siteName'),
                 track,
+                communityId: this.get('wikiVariables.id'),
+                language: this.get('wikiVariables.language.content'),
               };
               feedsAndPosts.getModule().then((fandomEmbeddedFeeds) => {
                 feedsAndPosts.loadFeed(fandomEmbeddedFeeds, fpOptions, model.isMainPage);
