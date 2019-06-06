@@ -42,6 +42,11 @@ class Ads {
       return adsPromise;
     }
 
+    import('@wikia/ad-engine').then(module => {
+      console.log('Dynamic Import - Success', module);
+      return module;
+    }).catch((err) => console.log('Dynamic Import - Error', err));
+
     adsPromise = new Promise((resolve, reject) => {
       if (typeof window.waitForAds === 'function') {
         window.waitForAds(() => {

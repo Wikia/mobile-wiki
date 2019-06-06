@@ -5,6 +5,8 @@ const Funnel = require('broccoli-funnel');
 const stew = require('broccoli-stew');
 const SVGStore = require('broccoli-svgstore');
 const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
+const { getAdEngineLoader } = require('@wikia/ad-engine/configs/webpack-app.config');
+
 
 /**
   * We override Ember's private method to remove files from the final build
@@ -44,6 +46,16 @@ module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     babel: {
       plugins: [require.resolve('ember-auto-import/babel-plugin')],
+    },
+    autoImport: {
+      publicAssetURL: '/mobile-wiki-assets/assets',
+      webpack: {
+        module: {
+          rules: [
+            getAdEngineLoader(),
+          ],
+        },
+      },
     },
     'ember-fetch': {
       preferNative: true,
