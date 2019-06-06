@@ -76,7 +76,7 @@ class Ads {
    */
   static getShouldStartAdEngine() {
     return new Promise((resolve) => {
-      window.getInstantGlobals(function (instantGlobals) {
+      window.getInstantGlobals((instantGlobals) => {
         const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
         const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
 
