@@ -1,11 +1,11 @@
 'use strict';
 
+const { getAdEngineLoader } = require('@wikia/ad-engine/configs/webpack-app.config');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const stew = require('broccoli-stew');
 const SVGStore = require('broccoli-svgstore');
 const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
-const { getAdEngineLoader } = require('@wikia/ad-engine/configs/webpack-app.config');
 
 
 /**

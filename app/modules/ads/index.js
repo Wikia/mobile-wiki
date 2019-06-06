@@ -42,27 +42,47 @@ class Ads {
       return adsPromise;
     }
 
-    adsPromise = import('@wikia/ad-engine').then(module => {
-      console.log('Dynamic Import - Success', module);
+    if (window.isNotFastboot !== true) {
+      return new Promise((resolve, reject) => reject());
+    }
+
+    adsPromise = new Promise((resolve) => {
+      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
+        if (shouldLoad === true) {
+          resolve(Ads.getInstance());
+        }
+      });
+    });
+
+    return adsPromise;
+  }
+
+  /**
+   * @private
+   */
+  static loadAdEngine() {
+    return import('@wikia/ad-engine').then((module) => {
       window.Wikia = window.Wikia || {};
       window.Wikia.adEngine = module;
       window.Wikia.adProducts = module;
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
-      return Ads.getInstance();
+      return module;
     });
+  }
 
-    // adsPromise = new Promise((resolve, reject) => {
-    //   if (typeof window.waitForAds === 'function') {
-    //     window.waitForAds(() => {
-    //       resolve(Ads.getInstance());
-    //     });
-    //   } else {
-    //     reject();
-    //   }
-    // });
+  /**
+   * @private
+   */
+  static getShouldStartAdEngine() {
+    return new Promise((resolve) => {
+      window.getInstantGlobals(function (instantGlobals) {
+        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
 
-    return adsPromise;
+        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
+      });
+    });
   }
 
   init(mediaWikiAdsContext = {}) {
