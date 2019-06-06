@@ -37,7 +37,7 @@ export const adsSetup = {
       templateService,
     } = window.Wikia.adEngine;
     const {
-      utils: adProductsUtils,
+      setupNpaContext,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -49,7 +49,7 @@ export const adsSetup = {
     } = window.Wikia.adProducts;
 
     this.setupAdContext(adsContext, instantGlobals, isOptedIn);
-    adProductsUtils.setupNpaContext();
+    setupNpaContext();
 
     const useTopBoxad = context.get('options.useTopBoxad');
 

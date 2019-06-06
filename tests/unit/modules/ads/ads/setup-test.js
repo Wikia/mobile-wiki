@@ -27,9 +27,7 @@ module('Unit | Module | ads | setup', (hooks) => {
     };
     window.Wikia.adBidders = {};
     window.Wikia.adProducts = {
-      utils: {
-        setupNpaContext: () => {},
-      },
+      setupNpaContext: () => {},
       playerEvents: {
         VIDEO_PLAYER_TRACKING_EVENT: Symbol('VIDEO_PLAYER_TRACKING_EVENT'),
       },
